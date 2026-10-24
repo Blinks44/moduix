@@ -5,15 +5,7 @@ description: Навигационная панель для прямых ссы�
 ---
 
 import * as NavigationMenuDocs from '@/components/examples/navigation-menu/css-properties';
-import NavigationMenuBasic from '@/components/examples/navigation-menu/basic.tsx';
-import NavigationMenuControlledValue from '@/components/examples/navigation-menu/controlled-value.tsx';
 import NavigationMenuViewport from '@/components/examples/navigation-menu/viewport.tsx';
-import navigationMenuSolidBasic from '../../../snippets/navigation-menu/solid/basic.tsx?raw';
-import navigationMenuSolidControlledValue from '../../../snippets/navigation-menu/solid/controlled-value.tsx?raw';
-import navigationMenuSolidViewport from '../../../snippets/navigation-menu/solid/viewport.tsx?raw';
-import navigationMenuVueBasic from '../../../snippets/navigation-menu/vue/basic.vue?raw';
-import navigationMenuVueControlledValue from '../../../snippets/navigation-menu/vue/controlled-value.vue?raw';
-import navigationMenuVueViewport from '../../../snippets/navigation-menu/vue/viewport.vue?raw';
 
 ## Справочник API
 
@@ -41,46 +33,7 @@ import navigationMenuVueViewport from '../../../snippets/navigation-menu/vue/vie
 `NavigationMenuContent` в один элемент. `NavigationMenuLink` используйте для прямых переходов из
 верхнего уровня и для ссылок внутри панели.
 
-<ExampleFrame variant="component">
-  <NavigationMenuBasic />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/navigation-menu/basic.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={navigationMenuSolidBasic} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={navigationMenuVueBasic} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/navigation-menu/navigation-menu-basic.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="navigation-menu/basic" />
 
 ## Установка через shadcn
 
@@ -182,46 +135,7 @@ NavigationMenuContext
 Управляйте открытым значением через состояние React, сигналы Solid или ref во Vue, если активная
 панель должна менять соседнюю часть интерфейса. Под примером показано значение текущего открытого элемента.
 
-<ExampleFrame variant="component">
-  <NavigationMenuControlledValue />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/navigation-menu/controlled-value.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={navigationMenuSolidControlledValue} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={navigationMenuVueControlledValue} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/navigation-menu/navigation-menu-controlled-value.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="navigation-menu/controlled-value" />
 
 ### Общая область Viewport
 
@@ -229,46 +143,7 @@ NavigationMenuContext
 области. В примере одна панель содержит две колонки, а у разных панелей разная ширина, поэтому при
 переключении триггеров заметно анимируются ширина и высота `NavigationMenuViewport`.
 
-<ExampleFrame variant="component">
-  <NavigationMenuViewport />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/navigation-menu/viewport.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={navigationMenuSolidViewport} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={navigationMenuVueViewport} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/navigation-menu/navigation-menu-viewport.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="navigation-menu/viewport" />
 
 ## Стилизация
 

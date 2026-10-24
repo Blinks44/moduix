@@ -4,42 +4,7 @@ component: field
 description: Accessible form field context for React, Solid, and Vue with CSS Modules and Tailwind package options.
 ---
 
-import FieldBasic from '@/components/examples/field/basic.tsx';
-import FieldCheckbox from '@/components/examples/field/checkbox.tsx';
-import FieldControlledInvalid from '@/components/examples/field/controlled-invalid.tsx';
-import FieldDisabled from '@/components/examples/field/disabled.tsx';
-import FieldInvalid from '@/components/examples/field/invalid.tsx';
-import FieldItemTarget from '@/components/examples/field/item-target.tsx';
-import FieldNativeSelect from '@/components/examples/field/native-select.tsx';
-import FieldRadioGroup from '@/components/examples/field/radiogroup.tsx';
-import FieldReadOnly from '@/components/examples/field/read-only.tsx';
 import FieldRootProvider from '@/components/examples/field/root-provider.tsx';
-import FieldSelectDemo from '@/components/examples/field/select.tsx';
-import FieldTextareaDemo from '@/components/examples/field/textarea.tsx';
-import fieldSolidBasic from '../../../snippets/field/solid/basic.tsx?raw';
-import fieldSolidCheckbox from '../../../snippets/field/solid/checkbox.tsx?raw';
-import fieldSolidControlledInvalid from '../../../snippets/field/solid/controlled-invalid.tsx?raw';
-import fieldSolidDisabled from '../../../snippets/field/solid/disabled.tsx?raw';
-import fieldSolidInvalid from '../../../snippets/field/solid/invalid.tsx?raw';
-import fieldSolidItemTarget from '../../../snippets/field/solid/item-target.tsx?raw';
-import fieldSolidNativeSelect from '../../../snippets/field/solid/native-select.tsx?raw';
-import fieldSolidRadioGroup from '../../../snippets/field/solid/radiogroup.tsx?raw';
-import fieldSolidReadOnly from '../../../snippets/field/solid/read-only.tsx?raw';
-import fieldSolidRootProvider from '../../../snippets/field/solid/root-provider.tsx?raw';
-import fieldSolidSelect from '../../../snippets/field/solid/select.tsx?raw';
-import fieldSolidTextarea from '../../../snippets/field/solid/textarea.tsx?raw';
-import fieldVueBasic from '../../../snippets/field/vue/basic.vue?raw';
-import fieldVueCheckbox from '../../../snippets/field/vue/checkbox.vue?raw';
-import fieldVueControlledInvalid from '../../../snippets/field/vue/controlled-invalid.vue?raw';
-import fieldVueDisabled from '../../../snippets/field/vue/disabled.vue?raw';
-import fieldVueInvalid from '../../../snippets/field/vue/invalid.vue?raw';
-import fieldVueItemTarget from '../../../snippets/field/vue/item-target.vue?raw';
-import fieldVueNativeSelect from '../../../snippets/field/vue/native-select.vue?raw';
-import fieldVueRadioGroup from '../../../snippets/field/vue/radiogroup.vue?raw';
-import fieldVueReadOnly from '../../../snippets/field/vue/read-only.vue?raw';
-import fieldVueRootProvider from '../../../snippets/field/vue/root-provider.vue?raw';
-import fieldVueSelect from '../../../snippets/field/vue/select.vue?raw';
-import fieldVueTextarea from '../../../snippets/field/vue/textarea.vue?raw';
 
 ## API Reference
 
@@ -60,46 +25,7 @@ Use `Field` when one form control needs an accessible label, helper text, an err
 Use `Field` as the wrapper for one form control. Put `FieldLabel` before the control, then add
 `FieldHelperText` or `FieldErrorText` when the user needs more information.
 
-<ExampleFrame variant="component">
-  <FieldBasic />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/field/basic.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={fieldSolidBasic} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={fieldVueBasic} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/field/field-basic.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="field/basic" />
 
 ## Install with shadcn
 
@@ -187,226 +113,40 @@ uncontrolled defaults on these controls; use `v-model` until that upstream behav
 Use `Field` around a checkbox when it needs field-level helper or error text. Pass the checkbox's own
 state and form props to `Checkbox`.
 
-<ExampleFrame variant="component">
-  <FieldCheckbox />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/field/checkbox.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={fieldSolidCheckbox} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={fieldVueCheckbox} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/field/field-checkbox.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="field/checkbox" />
 
 ### Controlled invalid state
 
 Derive `invalid` from local state when validation should update as the user types. The error text
 appears only while the field is invalid.
 
-<ExampleFrame variant="component">
-  <FieldControlledInvalid />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/field/controlled-invalid.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={fieldSolidControlledInvalid} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={fieldVueControlledInvalid} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/field/field-controlled-invalid.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="field/controlled-invalid" />
 
 ### Disabled
 
 Set `disabled` on the root to pass the disabled state to the supported Ark field parts.
 
-<ExampleFrame variant="component">
-  <FieldDisabled />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/field/disabled.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={fieldSolidDisabled} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={fieldVueDisabled} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/field/field-disabled.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="field/disabled" />
 
 ### Invalid
 
 Set `invalid` on the root when application state or a form library controls validation. Pass it to a
 compound child root as well when that component owns its invalid state.
 
-<ExampleFrame variant="component">
-  <FieldInvalid />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/field/invalid.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={fieldSolidInvalid} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={fieldVueInvalid} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/field/field-invalid.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="field/invalid" />
 
 ### Item target
 
 Use `FieldItem` with the root `target` prop when one label should target a control inside a group.
 
-<ExampleFrame variant="component">
-  <FieldItemTarget />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/field/item-target.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={fieldSolidItemTarget} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={fieldVueItemTarget} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/field/field-item-target.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="field/item-target" />
 
 ### Native Select
 
 Use `NativeSelect` for a browser-native select. `Field` connects it to the field label, state, and
 description.
 
-<ExampleFrame variant="component">
-  <FieldNativeSelect />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/field/native-select.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={fieldSolidNativeSelect} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={fieldVueNativeSelect} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/field/field-native-select.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="field/native-select" />
 
 ### RadioGroup
 
@@ -414,113 +154,20 @@ Use `Field` with `RadioGroup` when one field-level label, helper text, or error 
 the whole set of choices rather than individual radio items. Pass the group's own state props to
 `RadioGroup`.
 
-<ExampleFrame variant="component">
-  <FieldRadioGroup />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/field/radiogroup.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={fieldSolidRadioGroup} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={fieldVueRadioGroup} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/field/field-radiogroup.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="field/radiogroup" />
 
 ### Read Only
 
 Set `readOnly` on the root when users can copy the control's value but cannot edit it.
 
-<ExampleFrame variant="component">
-  <FieldReadOnly />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/field/read-only.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={fieldSolidReadOnly} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={fieldVueReadOnly} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/field/field-read-only.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="field/read-only" />
 
 ### Root Provider
 
 Use `useField` with `FieldRootProvider` when the field state must be created outside the rendered
 tree.
 
-<ExampleFrame variant="component">
-  <FieldRootProvider />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/field/root-provider.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={fieldSolidRootProvider} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={fieldVueRootProvider} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/field/field-root-provider.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="field/root-provider" />
 
 ### Select
 
@@ -528,76 +175,14 @@ Use the composed `Select` when a native select is not enough and you need a cust
 selection UI. Because `Select` owns its state, pass `required`, `invalid`, `disabled`, or `readOnly`
 to `Select` when needed.
 
-<ExampleFrame variant="component">
-  <FieldSelectDemo />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/field/select.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={fieldSolidSelect} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={fieldVueSelect} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/field/field-select.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="field/select" />
 
 ### Textarea
 
 Use `Textarea` for multi-line input while keeping the field's label, description, and state
 connections.
 
-<ExampleFrame variant="component">
-  <FieldTextareaDemo />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/field/textarea.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={fieldSolidTextarea} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={fieldVueTextarea} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/field/field-textarea.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="field/textarea" />
 
 ## Styling
 

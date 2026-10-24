@@ -5,18 +5,6 @@ description: A styled native `<select>` for simple option lists in React, Solid,
 ---
 
 import * as NativeSelectDocs from '@/components/examples/native-select/css-properties';
-import NativeSelectBasic from '@/components/examples/native-select/basic.tsx';
-import NativeSelectControlled from '@/components/examples/native-select/controlled.tsx';
-import NativeSelectField from '@/components/examples/native-select/field-integration.tsx';
-import NativeSelectMultiple from '@/components/examples/native-select/multiple-selection.tsx';
-import nativeSelectSolidBasic from '../../../snippets/native-select/solid/basic.tsx?raw';
-import nativeSelectSolidControlled from '../../../snippets/native-select/solid/controlled.tsx?raw';
-import nativeSelectSolidField from '../../../snippets/native-select/solid/field-integration.tsx?raw';
-import nativeSelectSolidMultiple from '../../../snippets/native-select/solid/multiple-selection.tsx?raw';
-import nativeSelectVueBasic from '../../../snippets/native-select/vue/basic.vue?raw';
-import nativeSelectVueControlled from '../../../snippets/native-select/vue/controlled.vue?raw';
-import nativeSelectVueField from '../../../snippets/native-select/vue/field-integration.vue?raw';
-import nativeSelectVueMultiple from '../../../snippets/native-select/vue/multiple-selection.vue?raw';
 
 ## API Reference
 
@@ -38,41 +26,7 @@ of the popup.
 Add native `option` or `optgroup` elements as children and pass the same props you would pass to an
 HTML `<select>`.
 
-<ExampleFrame variant="component">
-  <NativeSelectBasic />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/native-select/basic.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={nativeSelectSolidBasic} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={nativeSelectVueBasic} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="native-select/basic" />
 
 ## Install with shadcn
 
@@ -150,128 +104,21 @@ hidden. `asChild` can replace the rendered select, but the child must remain one
 Use `value` and `onChange` when the application owns the current value. Read the new value from the
 native event and pass it back through `value`.
 
-<ExampleFrame variant="component">
-  <NativeSelectControlled />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/native-select/controlled.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={nativeSelectSolidControlled} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={nativeSelectVueControlled} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="native-select/controlled" />
 
 ### Field
 
 Use `Field` when the select needs a visible label, helper text, error message, or shared field
 state. Field connects that content to the native control.
 
-<ExampleFrame variant="component">
-  <NativeSelectField />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/native-select/field-integration.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={nativeSelectSolidField} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={nativeSelectVueField} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/native-select/native-select-field-integration.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="native-select/field-integration" />
 
 ### Multiple
 
 Pass the native `multiple` and `size` props to render a multi-select list. The browser manages the
 selected options and their keyboard interaction.
 
-<ExampleFrame variant="component">
-  <NativeSelectMultiple />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/native-select/multiple-selection.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={nativeSelectSolidMultiple} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={nativeSelectVueMultiple} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="native-select/multiple-selection" />
 
 ## Styling
 

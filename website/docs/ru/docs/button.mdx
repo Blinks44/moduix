@@ -5,30 +5,6 @@ description: Стилизованный односоставный элемен�
 ---
 
 import * as ButtonDocs from '@/components/examples/button/css-properties';
-import ButtonAsChildLink from '@/components/examples/button/as-child-link.tsx';
-import ButtonBasic from '@/components/examples/button/basic.tsx';
-import ButtonDisabled from '@/components/examples/button/disabled.tsx';
-import ButtonIcons from '@/components/examples/button/icons.tsx';
-import ButtonPendingState from '@/components/examples/button/pending-state.tsx';
-import ButtonRef from '@/components/examples/button/ref.tsx';
-import ButtonSizes from '@/components/examples/button/sizes.tsx';
-import ButtonVariants from '@/components/examples/button/variants.tsx';
-import buttonSolidAsChildLink from '../../../snippets/button/solid/as-child-link.tsx?raw';
-import buttonSolidBasic from '../../../snippets/button/solid/basic.tsx?raw';
-import buttonSolidDisabled from '../../../snippets/button/solid/disabled.tsx?raw';
-import buttonSolidIcons from '../../../snippets/button/solid/icons.tsx?raw';
-import buttonSolidPendingState from '../../../snippets/button/solid/pending-state.tsx?raw';
-import buttonSolidRef from '../../../snippets/button/solid/ref.tsx?raw';
-import buttonSolidSizes from '../../../snippets/button/solid/sizes.tsx?raw';
-import buttonSolidVariants from '../../../snippets/button/solid/variants.tsx?raw';
-import buttonVueAsChildLink from '../../../snippets/button/vue/as-child-link.vue?raw';
-import buttonVueBasic from '../../../snippets/button/vue/basic.vue?raw';
-import buttonVueDisabled from '../../../snippets/button/vue/disabled.vue?raw';
-import buttonVueIcons from '../../../snippets/button/vue/icons.vue?raw';
-import buttonVuePendingState from '../../../snippets/button/vue/pending-state.vue?raw';
-import buttonVueRef from '../../../snippets/button/vue/ref.vue?raw';
-import buttonVueSizes from '../../../snippets/button/vue/sizes.vue?raw';
-import buttonVueVariants from '../../../snippets/button/vue/variants.vue?raw';
 
 ## Справочник API
 
@@ -43,41 +19,7 @@ import buttonVueVariants from '../../../snippets/button/vue/variants.vue?raw';
 
 Для большинства действий используйте `<Button>...</Button>`.
 
-<ExampleFrame variant="component">
-  <ButtonBasic />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/button/basic.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={buttonSolidBasic} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={buttonVueBasic} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="button/basic" />
 
 ## Установка через shadcn
 
@@ -148,132 +90,20 @@ Button
 
 Используйте `disabled` для нативных кнопок и элементов, переданных через `asChild`.
 
-<ExampleFrame variant="component">
-  <ButtonDisabled />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/button/disabled.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={buttonSolidDisabled} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={buttonVueDisabled} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/button/button-disabled.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="button/disabled" />
 
 ### Иконки
 
 Иконки могут стоять до или после текста. Их порядок в JSX и значение `gap` у корневого элемента Button
 определяют расположение элементов.
 
-<ExampleFrame variant="component">
-  <ButtonIcons />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/button/icons.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={buttonSolidIcons} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={buttonVueIcons} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/button/button-icons.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="button/icons" />
 
 ### Ссылка с `asChild`
 
 Используйте `asChild` для навигации, чтобы элемент `<a>` сохранил семантику ссылки и получил стили кнопки.
 
-<ExampleFrame variant="component">
-  <ButtonAsChildLink />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/button/as-child-link.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={buttonSolidAsChildLink} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={buttonVueAsChildLink} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="button/as-child-link" />
 
 ### Состояние загрузки
 
@@ -281,41 +111,7 @@ Button
 жизненный цикл под контролем приложения. На элементах, переданных через `asChild`, этот проп также
 блокирует активацию по клику.
 
-<ExampleFrame variant="component">
-  <ButtonPendingState />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/button/pending-state.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={buttonSolidPendingState} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={buttonVuePendingState} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="button/pending-state" />
 
 ### Ref
 
@@ -323,136 +119,19 @@ Button
 фокус или измерить его. В Vue template ref указывает на экземпляр компонента; используйте `$el`, чтобы получить
 корневой элемент (с `asChild` это семантический дочерний элемент).
 
-<ExampleFrame variant="component">
-  <ButtonRef />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/button/ref.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={buttonSolidRef} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={buttonVueRef} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/button/button-ref.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="button/ref" />
 
 ### Размеры
 
 Для текстовых кнопок и кнопок только со значком используется один и тот же API корневого элемента.
 
-<ExampleFrame variant="component">
-  <ButtonSizes />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/button/sizes.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={buttonSolidSizes} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={buttonVueSizes} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/button/button-sizes.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="button/sizes" />
 
 ### Варианты
 
 Используйте варианты, чтобы показать приоритет и назначение действия.
 
-<ExampleFrame variant="component">
-  <ButtonVariants />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/button/variants.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={buttonSolidVariants} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={buttonVueVariants} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/button/button-variants.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="button/variants" />
 
 ## Стилизация
 

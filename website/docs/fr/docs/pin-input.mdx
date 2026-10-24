@@ -5,36 +5,7 @@ description: Un champ segmenté pour saisir des codes PIN et des codes de vérif
 ---
 
 import * as PinInputDocs from '@/components/examples/pin-input/css-properties';
-import PinInputBasic from '@/components/examples/pin-input/basic.tsx';
-import PinInputBlurOnComplete from '@/components/examples/pin-input/blur-on-complete.tsx';
-import PinInputChangeEvents from '@/components/examples/pin-input/change-events.tsx';
-import PinInputField from '@/components/examples/pin-input/field.tsx';
-import PinInputGroupedLayout from '@/components/examples/pin-input/grouped-layout.tsx';
-import PinInputMasking from '@/components/examples/pin-input/masking.tsx';
-import PinInputOtpMode from '@/components/examples/pin-input/otp-mode.tsx';
-import PinInputPlaceholder from '@/components/examples/pin-input/placeholder.tsx';
 import PinInputRootProvider from '@/components/examples/pin-input/root-provider.tsx';
-import PinInputSizes from '@/components/examples/pin-input/sizes.tsx';
-import pinInputSolidBasic from '../../../snippets/pin-input/solid/basic.tsx?raw';
-import pinInputSolidBlurOnComplete from '../../../snippets/pin-input/solid/blur-on-complete.tsx?raw';
-import pinInputSolidChangeEvents from '../../../snippets/pin-input/solid/change-events.tsx?raw';
-import pinInputSolidField from '../../../snippets/pin-input/solid/field.tsx?raw';
-import pinInputSolidGroupedLayout from '../../../snippets/pin-input/solid/grouped-layout.tsx?raw';
-import pinInputSolidMasking from '../../../snippets/pin-input/solid/masking.tsx?raw';
-import pinInputSolidOtpMode from '../../../snippets/pin-input/solid/otp-mode.tsx?raw';
-import pinInputSolidPlaceholder from '../../../snippets/pin-input/solid/placeholder.tsx?raw';
-import pinInputSolidRootProvider from '../../../snippets/pin-input/solid/root-provider.tsx?raw';
-import pinInputSolidSizes from '../../../snippets/pin-input/solid/sizes.tsx?raw';
-import pinInputVueBasic from '../../../snippets/pin-input/vue/basic.vue?raw';
-import pinInputVueBlurOnComplete from '../../../snippets/pin-input/vue/blur-on-complete.vue?raw';
-import pinInputVueChangeEvents from '../../../snippets/pin-input/vue/change-events.vue?raw';
-import pinInputVueField from '../../../snippets/pin-input/vue/field.vue?raw';
-import pinInputVueGroupedLayout from '../../../snippets/pin-input/vue/grouped-layout.vue?raw';
-import pinInputVueMasking from '../../../snippets/pin-input/vue/masking.vue?raw';
-import pinInputVueOtpMode from '../../../snippets/pin-input/vue/otp-mode.vue?raw';
-import pinInputVuePlaceholder from '../../../snippets/pin-input/vue/placeholder.vue?raw';
-import pinInputVueRootProvider from '../../../snippets/pin-input/vue/root-provider.vue?raw';
-import pinInputVueSizes from '../../../snippets/pin-input/vue/sizes.vue?raw';
 
 ## Référence de l’API
 
@@ -54,41 +25,7 @@ Utilisez `PinInput` comme racine et définissez explicitement `count`. Ajoutez `
 au groupe, placez `PinInputInputs` dans `PinInputControl` et composez `PinInputHiddenInput` lorsque la valeur doit participer au comportement
 d’un formulaire natif.
 
-<ExampleFrame variant="component">
-  <PinInputBasic />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/pin-input/basic.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={pinInputSolidBasic} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={pinInputVueBasic} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="pin-input/basic" />
 
 ## Installation avec shadcn
 
@@ -179,350 +116,60 @@ du séparateur.
 
 Définissez `blurOnComplete` lorsque le focus doit quitter le dernier champ une fois toutes les cases remplies.
 
-<ExampleFrame variant="component">
-  <PinInputBlurOnComplete />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/pin-input/blur-on-complete.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={pinInputSolidBlurOnComplete} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={pinInputVueBlurOnComplete} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="pin-input/blur-on-complete" />
 
 ### Événements de changement
 
 Conservez le tableau de valeurs dans l’état et lisez `details.value` ou `details.valueAsString` dans les callbacks Ark.
 
-<ExampleFrame variant="component">
-  <PinInputChangeEvents />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/pin-input/change-events.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={pinInputSolidChangeEvents} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={pinInputVueChangeEvents} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/pin-input/pin-input-change-events.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="pin-input/change-events" />
 
 ### Field
 
 Placez `PinInput` dans `Field` lorsque le libellé, le texte d’aide, le message d’erreur et l’état du champ doivent
 être associés aux cases visibles par les mécanismes d’accessibilité des formulaires d’Ark.
 
-<ExampleFrame variant="component">
-  <PinInputField />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/pin-input/field.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={pinInputSolidField} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={pinInputVueField} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/pin-input/pin-input-field.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="pin-input/field" />
 
 ### Disposition groupée
 
 Utilisez des parties `PinInputInput` indexées explicites et `PinInputSeparator` lorsqu’un séparateur doit diviser le code en groupes.
 Gardez des index continus dans toute la composition.
 
-<ExampleFrame variant="component">
-  <PinInputGroupedLayout />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/pin-input/grouped-layout.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={pinInputSolidGroupedLayout} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={pinInputVueGroupedLayout} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="pin-input/grouped-layout" />
 
 ### Masquage
 
 Définissez `mask` lorsque le code saisi est sensible et ne doit pas être affiché en clair.
 
-<ExampleFrame variant="component">
-  <PinInputMasking />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/pin-input/masking.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={pinInputSolidMasking} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={pinInputVueMasking} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="pin-input/masking" />
 
 ### Mode OTP
 
 Définissez `otp` pour ajouter `autocomplete="one-time-code"` aux champs visibles et activer les suggestions de
 codes à usage unique sur les navigateurs mobiles compatibles.
 
-<ExampleFrame variant="component">
-  <PinInputOtpMode />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/pin-input/otp-mode.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={pinInputSolidOtpMode} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={pinInputVueOtpMode} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="pin-input/otp-mode" />
 
 ### Placeholder
 
 Passez `placeholder` pour afficher un caractère dans chaque case vide. Par défaut, moduix laisse le placeholder vide.
 
-<ExampleFrame variant="component">
-  <PinInputPlaceholder />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/pin-input/placeholder.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={pinInputSolidPlaceholder} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={pinInputVuePlaceholder} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="pin-input/placeholder" />
 
 ### Root Provider
 
 Utilisez `usePinInput` avec `PinInputRootProvider` lorsque l’état et les méthodes impératives doivent être gérés en dehors
 de l’arbre rendu. Cet exemple remplace `PinInputInputs` par des parties `PinInputInput` indexées explicites.
 
-<ExampleFrame variant="component">
-  <PinInputRootProvider />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/pin-input/root-provider.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={pinInputSolidRootProvider} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={pinInputVueRootProvider} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/pin-input/pin-input-root-provider.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="pin-input/root-provider" />
 
 ### Tailles
 
 Utilisez la prop `size` sur la racine pour aligner la taille des cases sur la hauteur des contrôles `Input`
 et `Button`. La valeur par défaut est `md` ; le texte des cases suit la taille.
 
-<ExampleFrame variant="component">
-  <PinInputSizes />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/pin-input/sizes.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={pinInputSolidSizes} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={pinInputVueSizes} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/pin-input/pin-input-sizes.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="pin-input/sizes" />
 
 ## Styles
 

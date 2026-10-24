@@ -5,18 +5,6 @@ description: Стилизованный нативный `<select>` для пр�
 ---
 
 import * as NativeSelectDocs from '@/components/examples/native-select/css-properties';
-import NativeSelectBasic from '@/components/examples/native-select/basic.tsx';
-import NativeSelectControlled from '@/components/examples/native-select/controlled.tsx';
-import NativeSelectField from '@/components/examples/native-select/field-integration.tsx';
-import NativeSelectMultiple from '@/components/examples/native-select/multiple-selection.tsx';
-import nativeSelectSolidBasic from '../../../snippets/native-select/solid/basic.tsx?raw';
-import nativeSelectSolidControlled from '../../../snippets/native-select/solid/controlled.tsx?raw';
-import nativeSelectSolidField from '../../../snippets/native-select/solid/field-integration.tsx?raw';
-import nativeSelectSolidMultiple from '../../../snippets/native-select/solid/multiple-selection.tsx?raw';
-import nativeSelectVueBasic from '../../../snippets/native-select/vue/basic.vue?raw';
-import nativeSelectVueControlled from '../../../snippets/native-select/vue/controlled.vue?raw';
-import nativeSelectVueField from '../../../snippets/native-select/vue/field-integration.vue?raw';
-import nativeSelectVueMultiple from '../../../snippets/native-select/vue/multiple-selection.vue?raw';
 
 ## Справочник API
 
@@ -37,41 +25,7 @@ import nativeSelectVueMultiple from '../../../snippets/native-select/vue/multipl
 Добавьте дочерние элементы `option` или `optgroup` и передайте те же свойства, что и обычному HTML-элементу
 `<select>`.
 
-<ExampleFrame variant="component">
-  <NativeSelectBasic />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/native-select/basic.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={nativeSelectSolidBasic} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={nativeSelectVueBasic} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="native-select/basic" />
 
 ## Установка через shadcn
 
@@ -148,128 +102,21 @@ Vue не имеет эффекта. Используйте `value` вместе 
 Используйте `value` и `onChange`, когда приложение управляет текущим значением. Прочитайте новое значение
 из нативного события и передайте его обратно через `value`.
 
-<ExampleFrame variant="component">
-  <NativeSelectControlled />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/native-select/controlled.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={nativeSelectSolidControlled} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={nativeSelectVueControlled} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="native-select/controlled" />
 
 ### Поле формы
 
 Используйте `Field`, когда select нужны видимая метка, поясняющий текст, сообщение об ошибке или общее
 состояние поля. `Field` связывает этот контент с нативным элементом.
 
-<ExampleFrame variant="component">
-  <NativeSelectField />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/native-select/field-integration.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={nativeSelectSolidField} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={nativeSelectVueField} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/native-select/native-select-field-integration.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="native-select/field-integration" />
 
 ### Множественный выбор
 
 Передайте нативные свойства `multiple` и `size`, чтобы получить список для множественного выбора. Браузер
 сам управляет выбранными опциями и взаимодействием с клавиатурой.
 
-<ExampleFrame variant="component">
-  <NativeSelectMultiple />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/native-select/multiple-selection.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={nativeSelectSolidMultiple} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={nativeSelectVueMultiple} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="native-select/multiple-selection" />
 
 ## Стилизация
 

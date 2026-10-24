@@ -5,15 +5,7 @@ description: A composable navigation bar for direct links and disclosure panels,
 ---
 
 import * as NavigationMenuDocs from '@/components/examples/navigation-menu/css-properties';
-import NavigationMenuBasic from '@/components/examples/navigation-menu/basic.tsx';
-import NavigationMenuControlledValue from '@/components/examples/navigation-menu/controlled-value.tsx';
 import NavigationMenuViewport from '@/components/examples/navigation-menu/viewport.tsx';
-import navigationMenuSolidBasic from '../../../snippets/navigation-menu/solid/basic.tsx?raw';
-import navigationMenuSolidControlledValue from '../../../snippets/navigation-menu/solid/controlled-value.tsx?raw';
-import navigationMenuSolidViewport from '../../../snippets/navigation-menu/solid/viewport.tsx?raw';
-import navigationMenuVueBasic from '../../../snippets/navigation-menu/vue/basic.vue?raw';
-import navigationMenuVueControlledValue from '../../../snippets/navigation-menu/vue/controlled-value.vue?raw';
-import navigationMenuVueViewport from '../../../snippets/navigation-menu/vue/viewport.vue?raw';
 
 ## API Reference
 
@@ -41,46 +33,7 @@ Use `NavigationMenu` with `NavigationMenuList` and `NavigationMenuItem`. Give ev
 the same item. Use `NavigationMenuLink` for direct top-level destinations and for links inside a
 panel.
 
-<ExampleFrame variant="component">
-  <NavigationMenuBasic />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/navigation-menu/basic.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={navigationMenuSolidBasic} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={navigationMenuVueBasic} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/navigation-menu/navigation-menu-basic.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="navigation-menu/basic" />
 
 ## Install with shadcn
 
@@ -181,46 +134,7 @@ triggers only when the child remains one interactive, focusable element.
 Control the open value from React state, Solid signals, or a Vue ref when the active panel also needs
 to drive nearby application UI. The output below shows the value of the currently open item.
 
-<ExampleFrame variant="component">
-  <NavigationMenuControlledValue />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/navigation-menu/controlled-value.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={navigationMenuSolidControlledValue} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={navigationMenuVueControlledValue} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/navigation-menu/navigation-menu-controlled-value.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="navigation-menu/controlled-value" />
 
 ### Shared viewport
 
@@ -228,46 +142,7 @@ Use a shared `NavigationMenuViewport` when panels have different sizes but shoul
 example uses a two-column panel and panels with different widths, so switching triggers visibly
 animates the viewport's measured width and height.
 
-<ExampleFrame variant="component">
-  <NavigationMenuViewport />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/navigation-menu/viewport.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={navigationMenuSolidViewport} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={navigationMenuVueViewport} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/navigation-menu/navigation-menu-viewport.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="navigation-menu/viewport" />
 
 ## Styling
 

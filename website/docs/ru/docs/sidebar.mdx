@@ -5,30 +5,6 @@ description: Изменяемая по ширине и сворачиваема�
 ---
 
 import { sidebarOverrideCssProperties } from '@/components/examples/sidebar/css-properties';
-import SidebarBasic from '@/components/examples/sidebar/basic.tsx';
-import SidebarCustomScrollArea from '@/components/examples/sidebar/custom-scroll-area.tsx';
-import SidebarCustomSizes from '@/components/examples/sidebar/custom-sizes.tsx';
-import SidebarNestedNavigation from '@/components/examples/sidebar/nested-navigation.tsx';
-import SidebarNestedNavigationAndAccountMenu from '@/components/examples/sidebar/nested-navigation-and-account-menu.tsx';
-import SidebarPersistedLayout from '@/components/examples/sidebar/persisted-layout.tsx';
-import SidebarRightSidebar from '@/components/examples/sidebar/right-sidebar.tsx';
-import SidebarWorkspaceSelect from '@/components/examples/sidebar/workspace-select.tsx';
-import sidebarSolidBasic from '../../../snippets/sidebar/solid/basic.tsx?raw';
-import sidebarSolidCustomScrollArea from '../../../snippets/sidebar/solid/custom-scroll-area.tsx?raw';
-import sidebarSolidCustomSizes from '../../../snippets/sidebar/solid/custom-sizes.tsx?raw';
-import sidebarSolidNestedNavigation from '../../../snippets/sidebar/solid/nested-navigation.tsx?raw';
-import sidebarSolidNestedNavigationAndAccountMenu from '../../../snippets/sidebar/solid/nested-navigation-and-account-menu.tsx?raw';
-import sidebarSolidPersistedLayout from '../../../snippets/sidebar/solid/persisted-layout.tsx?raw';
-import sidebarSolidRightSidebar from '../../../snippets/sidebar/solid/right-sidebar.tsx?raw';
-import sidebarSolidWorkspaceSelect from '../../../snippets/sidebar/solid/workspace-select.tsx?raw';
-import sidebarVueBasic from '../../../snippets/sidebar/vue/basic.vue?raw';
-import sidebarVueCustomScrollArea from '../../../snippets/sidebar/vue/custom-scroll-area.vue?raw';
-import sidebarVueCustomSizes from '../../../snippets/sidebar/vue/custom-sizes.vue?raw';
-import sidebarVueNestedNavigation from '../../../snippets/sidebar/vue/nested-navigation.vue?raw';
-import sidebarVueNestedNavigationAndAccountMenu from '../../../snippets/sidebar/vue/nested-navigation-and-account-menu.vue?raw';
-import sidebarVuePersistedLayout from '../../../snippets/sidebar/vue/persisted-layout.vue?raw';
-import sidebarVueRightSidebar from '../../../snippets/sidebar/vue/right-sidebar.vue?raw';
-import sidebarVueWorkspaceSelect from '../../../snippets/sidebar/vue/workspace-select.vue?raw';
 
 ## Справочник API
 
@@ -54,42 +30,7 @@ import sidebarVueWorkspaceSelect from '../../../snippets/sidebar/vue/workspace-s
 панелью. Оборачивайте кнопки навигации только с иконками в `SidebarTooltip`, чтобы подписи
 оставались доступны после сворачивания.
 
-<ExampleFrame variant="component">
-  <SidebarBasic />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/sidebar/basic.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={sidebarSolidBasic} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={sidebarVueBasic} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/sidebar/sidebar-basic.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="sidebar/basic" />
 
 ## Установка через shadcn
 
@@ -208,38 +149,7 @@ Sidebar
 Используйте `SidebarExpandedContent` для обычных вложенных ссылок, а `SidebarCollapsedContent` - для тех же
 ссылок во всплывающем меню. Обе ветки остаются композицией приложения.
 
-<ExampleFrame variant="component">
-  <SidebarNestedNavigation />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/sidebar/nested-navigation.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={sidebarSolidNestedNavigation} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={sidebarVueNestedNavigation} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/sidebar/sidebar-nested-navigation.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="sidebar/nested-navigation" />
 
 ### Собственная область прокрутки
 
@@ -247,76 +157,14 @@ Sidebar
 нужны стилизованный скроллбар или затухание у края, и оставьте его viewport единственным контейнером
 прокрутки.
 
-<ExampleFrame variant="component">
-  <SidebarCustomScrollArea />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/sidebar/custom-scroll-area.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={sidebarSolidCustomScrollArea} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={sidebarVueCustomScrollArea} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/sidebar/sidebar-custom-scroll-area.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="sidebar/custom-scroll-area" />
 
 ### Сохраняемый макет для десктопа
 
 Храните ширину десктопной панели в состоянии приложения или в storage. Управляйте `size` во время
 изменения размера и сохраняйте итоговое значение из `onResizeEnd(details)`.
 
-<ExampleFrame variant="component">
-  <SidebarPersistedLayout />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/sidebar/persisted-layout.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={sidebarSolidPersistedLayout} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={sidebarVuePersistedLayout} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/sidebar/sidebar-persisted-layout.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="sidebar/persisted-layout" />
 
 ### Полная оболочка приложения
 
@@ -324,76 +172,14 @@ Sidebar
 аккаунта в одной оболочке приложения. Каждая вложенная примитива сохраняет собственное состояние и
 управление фокусом.
 
-<ExampleFrame variant="component">
-  <SidebarNestedNavigationAndAccountMenu />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/sidebar/nested-navigation-and-account-menu.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={sidebarSolidNestedNavigationAndAccountMenu} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={sidebarVueNestedNavigationAndAccountMenu} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/sidebar/sidebar-nested-navigation-and-account-menu.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="sidebar/nested-navigation-and-account-menu" />
 
 ### Боковая панель справа
 
 Передайте `side="right"` и расположите `SidebarInset`, `SidebarTrigger`, `SidebarResizeTrigger` и `SidebarPanel` в таком
 порядке. Sidebar автоматически настроит панели, id триггеров, положение и направление шеврона.
 
-<ExampleFrame variant="component">
-  <SidebarRightSidebar />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/sidebar/right-sidebar.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={sidebarSolidRightSidebar} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={sidebarVueRightSidebar} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/sidebar/sidebar-right-sidebar.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="sidebar/right-sidebar" />
 
 ### Выбор рабочего пространства
 
@@ -401,76 +187,14 @@ Sidebar
 значение в `SidebarLabel`, оставьте `SelectIndicator` прямым потомком триггера и отметьте
 компактный визуальный якорь атрибутом `data-sidebar-icon`.
 
-<ExampleFrame variant="component">
-  <SidebarWorkspaceSelect />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/sidebar/workspace-select.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={sidebarSolidWorkspaceSelect} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={sidebarVueWorkspaceSelect} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/sidebar/sidebar-workspace-select.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="sidebar/workspace-select" />
 
 ### Расширенная настройка
 
 Задайте начальный размер явно и добавьте другие примитивы в оболочку, если стандартной начальной
 ширины недостаточно.
 
-<ExampleFrame variant="component">
-  <SidebarCustomSizes />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/sidebar/custom-sizes.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={sidebarSolidCustomSizes} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={sidebarVueCustomSizes} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/sidebar/sidebar-custom-sizes.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="sidebar/custom-sizes" />
 
 ## Стилизация
 

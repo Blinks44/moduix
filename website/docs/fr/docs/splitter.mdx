@@ -6,30 +6,7 @@ description: Créez des mises en page redimensionnables et accessibles en React,
 
 import { CssPropertiesSection } from '@/components/mdx/Components';
 import { splitterOverrideCssProperties } from '@/components/examples/splitter/css-properties';
-import SplitterBasic from '@/components/examples/splitter/basic.tsx';
-import SplitterCollapsiblePanels from '@/components/examples/splitter/collapsible-panels.tsx';
-import SplitterControlled from '@/components/examples/splitter/controlled.tsx';
-import SplitterDynamicCollapsible from '@/components/examples/splitter/dynamic-collapsible.tsx';
-import SplitterMultiplePanels from '@/components/examples/splitter/multiple-panels.tsx';
-import SplitterNested from '@/components/examples/splitter/nested.tsx';
 import SplitterRootProvider from '@/components/examples/splitter/root-provider.tsx';
-import SplitterVertical from '@/components/examples/splitter/vertical.tsx';
-import splitterSolidBasic from '../../../snippets/splitter/solid/basic.tsx?raw';
-import splitterSolidCollapsiblePanels from '../../../snippets/splitter/solid/collapsible-panels.tsx?raw';
-import splitterSolidControlled from '../../../snippets/splitter/solid/controlled.tsx?raw';
-import splitterSolidDynamicCollapsible from '../../../snippets/splitter/solid/dynamic-collapsible.tsx?raw';
-import splitterSolidMultiplePanels from '../../../snippets/splitter/solid/multiple-panels.tsx?raw';
-import splitterSolidNested from '../../../snippets/splitter/solid/nested.tsx?raw';
-import splitterSolidRootProvider from '../../../snippets/splitter/solid/root-provider.tsx?raw';
-import splitterSolidVertical from '../../../snippets/splitter/solid/vertical.tsx?raw';
-import splitterVueBasic from '../../../snippets/splitter/vue/basic.vue?raw';
-import splitterVueCollapsiblePanels from '../../../snippets/splitter/vue/collapsible-panels.vue?raw';
-import splitterVueControlled from '../../../snippets/splitter/vue/controlled.vue?raw';
-import splitterVueDynamicCollapsible from '../../../snippets/splitter/vue/dynamic-collapsible.vue?raw';
-import splitterVueMultiplePanels from '../../../snippets/splitter/vue/multiple-panels.vue?raw';
-import splitterVueNested from '../../../snippets/splitter/vue/nested.vue?raw';
-import splitterVueRootProvider from '../../../snippets/splitter/vue/root-provider.vue?raw';
-import splitterVueVertical from '../../../snippets/splitter/vue/vertical.vue?raw';
 
 ## Référence de l'API
 
@@ -43,46 +20,7 @@ Construisez un splitter avec `Splitter`, `SplitterPanel` et `SplitterResizeTrigg
 `SplitterPanel` rendu doit utiliser l'un de ces identifiants. Si vous n'ajoutez pas de contenu à la
 poignée, moduix génère automatiquement l'indicateur de redimensionnement.
 
-<ExampleFrame variant="component">
-  <SplitterBasic />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/splitter/basic.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={splitterSolidBasic} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={splitterVueBasic} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/splitter/splitter-basic.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="splitter/basic" />
 
 ## Installation avec shadcn
 
@@ -169,92 +107,14 @@ Définissez `collapsible: true` et choisissez `collapsedSize` pour transformer u
 jusqu'à la taille réduite. Si `minSize` est supérieur, le splitter alterne entre la taille minimale
 déployée et le bandeau réduit.
 
-<ExampleFrame variant="component">
-  <SplitterCollapsiblePanels />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/splitter/collapsible-panels.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={splitterSolidCollapsiblePanels} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={splitterVueCollapsiblePanels} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/splitter/splitter-collapsible-panels.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="splitter/collapsible-panels" />
 
 ### État contrôlé
 
 Conservez les tailles des panneaux dans l'état de l'application et mettez-le à jour avec `details.size`
 dans `onResize`.
 
-<ExampleFrame variant="component">
-  <SplitterControlled />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/splitter/controlled.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={splitterSolidControlled} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={splitterVueControlled} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/splitter/splitter-controlled.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="splitter/controlled" />
 
 ### Plusieurs panneaux
 
@@ -262,138 +122,21 @@ Ajoutez un autre `SplitterPanel` et une `SplitterResizeTrigger` adjacente pour c
 Chaque panneau doit avoir une entrée correspondante dans `panels`, et chaque identifiant de poignée doit
 relier ses deux voisins.
 
-<ExampleFrame variant="component">
-  <SplitterMultiplePanels />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/splitter/multiple-panels.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={splitterSolidMultiplePanels} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={splitterVueMultiplePanels} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/splitter/splitter-multiple-panels.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="splitter/multiple-panels" />
 
 ### Splitters imbriqués
 
 Transmettez le même registre aux splitters imbriqués pour déplacer plusieurs poignées ensemble aux
 intersections des poignées horizontales et verticales.
 
-<ExampleFrame variant="component">
-  <SplitterNested />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/splitter/nested.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={splitterSolidNested} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={splitterVueNested} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/splitter/splitter-nested.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="splitter/nested" />
 
 ### Réduction adaptative
 
 Utilisez `collapsePanel()` et `expandPanel()` lorsqu'une barre latérale doit réagir à la largeur
 disponible mesurée par l'application.
 
-<ExampleFrame variant="component">
-  <SplitterDynamicCollapsible />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/splitter/dynamic-collapsible.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={splitterSolidDynamicCollapsible} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={splitterVueDynamicCollapsible} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/splitter/splitter-dynamic-collapsible.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="splitter/dynamic-collapsible" />
 
 ### SplitterRootProvider
 
@@ -401,92 +144,14 @@ Utilisez `useSplitter()` avec `SplitterRootProvider` lorsque l'état ou les cont
 trouver en dehors des parties rendues du splitter. L'API renvoyée fournit notamment `getSizes()`,
 `setSizes()`, `resizePanel()`, `collapsePanel()`, `expandPanel()` et `resetSizes()`.
 
-<ExampleFrame variant="component">
-  <SplitterRootProvider />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/splitter/root-provider.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={splitterSolidRootProvider} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={splitterVueRootProvider} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/splitter/splitter-root-provider.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="splitter/root-provider" />
 
 ### Orientation verticale
 
 Définissez `orientation="vertical"` et donnez une hauteur stable à la racine afin que les panneaux
 empilés disposent de l'espace nécessaire pour être redimensionnés.
 
-<ExampleFrame variant="component">
-  <SplitterVertical />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/splitter/vertical.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={splitterSolidVertical} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={splitterVueVertical} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/splitter/splitter-vertical.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="splitter/vertical" />
 
 ## Accessibilité
 

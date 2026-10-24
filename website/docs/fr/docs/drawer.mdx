@@ -5,51 +5,8 @@ description: Un panneau accessible qui glisse depuis le bord de l'écran pour la
 ---
 
 import * as DrawerDocs from '@/components/examples/drawer/css-properties';
-import DrawerAdvancedCustomization from '@/components/examples/drawer/advanced-customization.tsx';
-import DrawerBasic from '@/components/examples/drawer/basic.tsx';
-import DrawerControlled from '@/components/examples/drawer/controlled.tsx';
-import DrawerDragControls from '@/components/examples/drawer/drag-controls.tsx';
-import DrawerFloatingGrabber from '@/components/examples/drawer/floating-grabber.tsx';
 import DrawerIndentBackground from '@/components/examples/drawer/indent-background.tsx';
-import DrawerIsland from '@/components/examples/drawer/island.tsx';
-import DrawerMultipleTriggers from '@/components/examples/drawer/multiple-triggers.tsx';
-import DrawerNested from '@/components/examples/drawer/nested.tsx';
-import DrawerNonModal from '@/components/examples/drawer/non-modal.tsx';
 import DrawerRootProvider from '@/components/examples/drawer/root-provider.tsx';
-import DrawerScrollable from '@/components/examples/drawer/scrollable.tsx';
-import DrawerSizes from '@/components/examples/drawer/sizes.tsx';
-import DrawerSnapPoints from '@/components/examples/drawer/snap-points.tsx';
-import DrawerSwipeDirection from '@/components/examples/drawer/swipe-direction.tsx';
-import drawerSolidAdvancedCustomization from '../../../snippets/drawer/solid/advanced-customization.tsx?raw';
-import drawerSolidBasic from '../../../snippets/drawer/solid/basic.tsx?raw';
-import drawerSolidControlled from '../../../snippets/drawer/solid/controlled.tsx?raw';
-import drawerSolidDragControls from '../../../snippets/drawer/solid/drag-controls.tsx?raw';
-import drawerSolidFloatingGrabber from '../../../snippets/drawer/solid/floating-grabber.tsx?raw';
-import drawerSolidIndentBackground from '../../../snippets/drawer/solid/indent-background.tsx?raw';
-import drawerSolidIsland from '../../../snippets/drawer/solid/island.tsx?raw';
-import drawerSolidMultipleTriggers from '../../../snippets/drawer/solid/multiple-triggers.tsx?raw';
-import drawerSolidNested from '../../../snippets/drawer/solid/nested.tsx?raw';
-import drawerSolidNonModal from '../../../snippets/drawer/solid/non-modal.tsx?raw';
-import drawerSolidRootProvider from '../../../snippets/drawer/solid/root-provider.tsx?raw';
-import drawerSolidScrollable from '../../../snippets/drawer/solid/scrollable.tsx?raw';
-import drawerSolidSizes from '../../../snippets/drawer/solid/sizes.tsx?raw';
-import drawerSolidSnapPoints from '../../../snippets/drawer/solid/snap-points.tsx?raw';
-import drawerSolidSwipeDirection from '../../../snippets/drawer/solid/swipe-direction.tsx?raw';
-import drawerVueAdvancedCustomization from '../../../snippets/drawer/vue/advanced-customization.vue?raw';
-import drawerVueBasic from '../../../snippets/drawer/vue/basic.vue?raw';
-import drawerVueControlled from '../../../snippets/drawer/vue/controlled.vue?raw';
-import drawerVueDragControls from '../../../snippets/drawer/vue/drag-controls.vue?raw';
-import drawerVueFloatingGrabber from '../../../snippets/drawer/vue/floating-grabber.vue?raw';
-import drawerVueIndentBackground from '../../../snippets/drawer/vue/indent-background.vue?raw';
-import drawerVueIsland from '../../../snippets/drawer/vue/island.vue?raw';
-import drawerVueMultipleTriggers from '../../../snippets/drawer/vue/multiple-triggers.vue?raw';
-import drawerVueNested from '../../../snippets/drawer/vue/nested.vue?raw';
-import drawerVueNonModal from '../../../snippets/drawer/vue/non-modal.vue?raw';
-import drawerVueRootProvider from '../../../snippets/drawer/vue/root-provider.vue?raw';
-import drawerVueScrollable from '../../../snippets/drawer/vue/scrollable.vue?raw';
-import drawerVueSizes from '../../../snippets/drawer/vue/sizes.vue?raw';
-import drawerVueSnapPoints from '../../../snippets/drawer/vue/snap-points.vue?raw';
-import drawerVueSwipeDirection from '../../../snippets/drawer/vue/swipe-direction.vue?raw';
 
 ## Référence de l’API
 
@@ -69,46 +26,7 @@ Composez le panneau avec les parties structurelles d'Ark. Cet exemple s'ouvre su
 compact, puis peut être déplacé jusqu'à sa hauteur maximale. `DrawerContent` est la surface
 interactive, `DrawerPositioner` la positionne et `DrawerBackdrop` fournit le calque modal.
 
-<ExampleFrame variant="component">
-  <DrawerBasic />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/drawer/basic.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={drawerSolidBasic} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={drawerVueBasic} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/drawer/drawer-basic.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="drawer/basic" />
 
 ## Installation avec shadcn
 
@@ -213,222 +131,42 @@ détails, comme `details.open`, `details.snapPoint` et `details.value`.
 
 Lisez `details.open` dans le callback Ark. Le callback reçoit un objet de détails, pas directement un booléen.
 
-<ExampleFrame variant="component">
-  <DrawerControlled />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/drawer/controlled.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={drawerSolidControlled} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={drawerVueControlled} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/drawer/drawer-controlled.module.css"
-```
-</div>
-</ExampleCode>
+<Example name="drawer/controlled" />
 
 ### Contrôles du déplacement
 
 Ajoutez `data-no-drag` aux zones interactives qui ne doivent pas lancer un déplacement. Définissez
 `draggable={false}` sur `DrawerContent` si le panneau doit se déplacer uniquement depuis la poignée.
 
-<ExampleFrame variant="component">
-  <DrawerDragControls />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/drawer/drag-controls.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={drawerSolidDragControls} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={drawerVueDragControls} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/drawer/drawer-drag-controls.module.css"
-```
-</div>
-</ExampleCode>
+<Example name="drawer/drag-controls" />
 
 ### Poignée flottante
 
 Placez `DrawerGrabber` au-dessus de la surface lorsque la poignée doit apparaître comme un contrôle
 distinct. Le style de cet exemple laisse un espace de 10px entre la poignée et le bord du panneau.
 
-<ExampleFrame variant="component">
-  <DrawerFloatingGrabber />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/drawer/floating-grabber.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={drawerSolidFloatingGrabber} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={drawerVueFloatingGrabber} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/drawer/drawer-floating-grabber.module.css"
-```
-</div>
-</ExampleCode>
+<Example name="drawer/floating-grabber" />
 
 ### Arrière-plan décalé
 
 `DrawerStack` utilise l'état de la pile et la progression du balayage d'Ark pour déplacer
 `DrawerIndentBackground` et `DrawerIndent` ensemble.
 
-<ExampleFrame variant="component">
-  <DrawerIndentBackground />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/drawer/indent-background.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={drawerSolidIndentBackground} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={drawerVueIndentBackground} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/drawer/drawer-indent-background.module.css"
-```
-</div>
-</ExampleCode>
+<Example name="drawer/indent-background" />
 
 ### Îlot
 
 Définissez `variant="island"` sur `DrawerContent` lorsqu'un panneau compact doit rester à
 l'intérieur de la fenêtre avec un retrait, plutôt que de dépasser visuellement du bord d'ouverture.
 
-<ExampleFrame variant="component">
-  <DrawerIsland />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/drawer/island.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={drawerSolidIsland} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={drawerVueIsland} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/drawer/drawer-island.module.css"
-```
-</div>
-</ExampleCode>
+<Example name="drawer/island" />
 
 ### Plusieurs triggers
 
 Donnez un `value` à chaque trigger pour réutiliser un seul panneau pour une liste. Le callback
 indique quel trigger est actif.
 
-<ExampleFrame variant="component">
-  <DrawerMultipleTriggers />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/drawer/multiple-triggers.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={drawerSolidMultipleTriggers} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={drawerVueMultipleTriggers} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/drawer/drawer-multiple-triggers.module.css"
-```
-</div>
-</ExampleCode>
+<Example name="drawer/multiple-triggers" />
 
 ### Panneaux imbriqués
 
@@ -436,148 +174,28 @@ Utilisez des instances Ark `useDrawer` et des arborescences moduix `DrawerRootPr
 pour les panneaux imbriqués. Chaque panneau conserve ainsi son propre état d'ouverture et son cycle
 de vie du focus.
 
-<ExampleFrame variant="component">
-  <DrawerNested />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/drawer/nested.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={drawerSolidNested} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={drawerVueNested} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/drawer/drawer-nested.module.css"
-```
-</div>
-</ExampleCode>
+<Example name="drawer/nested" />
 
 ### Non modal
 
 Définissez `modal={false}` lorsque la page doit rester interactive pendant l'ouverture du panneau.
 Cet exemple garde le déplacement sur la poignée et confie le contenu long à `ScrollArea`.
 
-<ExampleFrame variant="component">
-  <DrawerNonModal />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/drawer/non-modal.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={drawerSolidNonModal} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={drawerVueNonModal} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/drawer/drawer-non-modal.module.css"
-```
-</div>
-</ExampleCode>
+<Example name="drawer/non-modal" />
 
 ### Root Provider
 
 Utilisez l'export moduix `useDrawer` lorsque des boutons situés en dehors de l'arborescence du panneau
 doivent l'ouvrir ou modifier ses points d'ancrage.
 
-<ExampleFrame variant="component">
-  <DrawerRootProvider />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/drawer/root-provider.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={drawerSolidRootProvider} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={drawerVueRootProvider} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/drawer/drawer-root-provider.module.css"
-```
-</div>
-</ExampleCode>
+<Example name="drawer/root-provider" />
 
 ### Contenu défilant
 
 Placez le contenu long dans `DrawerBody`. Utilisez `ScrollArea` lorsque le panneau doit disposer
 d'une zone de défilement dédiée tandis que la poignée et l'en-tête restent fixes.
 
-<ExampleFrame variant="component">
-  <DrawerScrollable />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/drawer/scrollable.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={drawerSolidScrollable} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={drawerVueScrollable} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/drawer/drawer-scrollable.module.css"
-```
-</div>
-</ExampleCode>
+<Example name="drawer/scrollable" />
 
 ### Tailles
 
@@ -586,148 +204,28 @@ largeur d'un drawer `start` ou `end` : 18rem, 22rem, 28rem ou 36rem. Sur un écr
 laisse toujours un espace du côté opposé. Les drawers du haut et du bas prennent toute la largeur,
 et leur hauteur vient des points d'ancrage.
 
-<ExampleFrame variant="component">
-  <DrawerSizes />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/drawer/sizes.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={drawerSolidSizes} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={drawerVueSizes} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/drawer/drawer-sizes.module.css"
-```
-</div>
-</ExampleCode>
+<Example name="drawer/sizes" />
 
 ### Points d'ancrage
 
 Définissez des positions intermédiaires sur la racine et choisissez la position initiale avec
 `defaultSnapPoint`.
 
-<ExampleFrame variant="component">
-  <DrawerSnapPoints />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/drawer/snap-points.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={drawerSolidSnapPoints} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={drawerVueSnapPoints} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/drawer/drawer-snap-points.module.css"
-```
-</div>
-</ExampleCode>
+<Example name="drawer/snap-points" />
 
 ### Direction du balayage
 
 Utilisez les valeurs logiques `start` et `end` pour les panneaux latéraux afin que le même code
 fonctionne en LTR et en RTL. Utilisez `up` pour un panneau supérieur et `down` pour un panneau inférieur.
 
-<ExampleFrame variant="component">
-  <DrawerSwipeDirection />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/drawer/swipe-direction.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={drawerSolidSwipeDirection} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={drawerVueSwipeDirection} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/drawer/drawer-swipe-direction.module.css"
-```
-</div>
-</ExampleCode>
+<Example name="drawer/swipe-direction" />
 
 ### Personnalisation avancée
 
 Omettez les aides facultatives `DrawerHeader`, `DrawerBody`, `DrawerFooter` et `DrawerCloseIcon` lorsqu'une mise en page
 personnalisée a besoin de toute l'anatomie bas niveau de Drawer.
 
-<ExampleFrame variant="component">
-  <DrawerAdvancedCustomization />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/drawer/advanced-customization.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={drawerSolidAdvancedCustomization} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={drawerVueAdvancedCustomization} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/drawer/drawer-advanced-customization.module.css"
-```
-</div>
-</ExampleCode>
+<Example name="drawer/advanced-customization" />
 
 ## Styles
 

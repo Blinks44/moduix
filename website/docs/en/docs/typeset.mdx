@@ -5,24 +5,6 @@ description: Style semantic HTML, rendered Markdown, and streaming content with 
 ---
 
 import * as TypesetDocs from '@/components/examples/typeset/css-properties';
-import TypesetBasic from '@/components/examples/typeset/basic.tsx';
-import TypesetExcludedSubtree from '@/components/examples/typeset/excluded-subtree.tsx';
-import TypesetMarkdownExtensions from '@/components/examples/typeset/markdown-extensions.tsx';
-import TypesetReadingRhythm from '@/components/examples/typeset/reading-rhythm.tsx';
-import TypesetScrollableTable from '@/components/examples/typeset/scrollable-table.tsx';
-import TypesetStreamingContent from '@/components/examples/typeset/streaming-content.tsx';
-import typesetSolidBasic from '../../../snippets/typeset/solid/basic.tsx?raw';
-import typesetSolidExcludedSubtree from '../../../snippets/typeset/solid/excluded-subtree.tsx?raw';
-import typesetSolidMarkdownExtensions from '../../../snippets/typeset/solid/markdown-extensions.tsx?raw';
-import typesetSolidReadingRhythm from '../../../snippets/typeset/solid/reading-rhythm.tsx?raw';
-import typesetSolidScrollableTable from '../../../snippets/typeset/solid/scrollable-table.tsx?raw';
-import typesetSolidStreamingContent from '../../../snippets/typeset/solid/streaming-content.tsx?raw';
-import typesetVueBasic from '../../../snippets/typeset/vue/basic.vue?raw';
-import typesetVueExcludedSubtree from '../../../snippets/typeset/vue/excluded-subtree.vue?raw';
-import typesetVueMarkdownExtensions from '../../../snippets/typeset/vue/markdown-extensions.vue?raw';
-import typesetVueReadingRhythm from '../../../snippets/typeset/vue/reading-rhythm.vue?raw';
-import typesetVueScrollableTable from '../../../snippets/typeset/vue/scrollable-table.vue?raw';
-import typesetVueStreamingContent from '../../../snippets/typeset/vue/streaming-content.vue?raw';
 
 ## API Reference
 
@@ -48,40 +30,7 @@ Wrap HTML that your renderer has already produced in `<Typeset>`. Use `asChild` 
 container needs to be semantic, such as an `article` or `section`. Keep lists as native `<ul>` and
 `<ol>` elements: Typeset provides their markers and spacing without utility classes.
 
-<ExampleFrame variant="component">
-  <TypesetBasic />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/typeset/basic.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={typesetSolidBasic} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={typesetVueBasic} />
-
-    </Tab>
-  </Tabs>
-</div>
-</ExampleCode>
+<Example name="typeset/basic" />
 
 ## Install with shadcn
 
@@ -151,220 +100,35 @@ Exclude a nested subtree when it has its own visual treatment, such as an embedd
 Both `.not-typeset` and `data-not-typeset` exclude the marked element and everything inside it,
 including a nested `Typeset` root.
 
-<ExampleFrame variant="component">
-  <TypesetExcludedSubtree />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/typeset/excluded-subtree.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={typesetSolidExcludedSubtree} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={typesetVueExcludedSubtree} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/typeset/typeset-excluded-subtree.module.css"
-```
-</div>
-</ExampleCode>
+<Example name="typeset/excluded-subtree" />
 
 ### Markdown extensions
 
 Task lists, expandable `details` blocks, definition lists, and GFM footnotes use the same tokens and
 block spacing as the core HTML elements.
 
-<ExampleFrame variant="component">
-  <TypesetMarkdownExtensions />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/typeset/markdown-extensions.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={typesetSolidMarkdownExtensions} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={typesetVueMarkdownExtensions} />
-
-    </Tab>
-  </Tabs>
-</div>
-</ExampleCode>
+<Example name="typeset/markdown-extensions" />
 
 ### Reading rhythm
 
 Set CSS variables when a section needs a roomier or denser reading rhythm without adding component
 props.
 
-<ExampleFrame variant="component">
-  <TypesetReadingRhythm />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/typeset/reading-rhythm.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={typesetSolidReadingRhythm} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={typesetVueReadingRhythm} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/typeset/typeset-reading-rhythm.module.css"
-```
-</div>
-</ExampleCode>
+<Example name="typeset/reading-rhythm" />
 
 ### Scrollable table
 
 Wrap a table produced by your renderer in `TypesetScroll` when it should remain wide and scroll in a
 narrow container. Give the scroller an accessible name that identifies the table it contains.
 
-<ExampleFrame variant="component">
-  <TypesetScrollableTable />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/typeset/scrollable-table.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={typesetSolidScrollableTable} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={typesetVueScrollableTable} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/typeset/typeset-scrollable-table.module.css"
-```
-</div>
-</ExampleCode>
+<Example name="typeset/scrollable-table" />
 
 ### Streaming content
 
 Use a tighter rhythm for chat-like streams. Each new block contributes its own spacing, so existing
 content stays in place as the stream grows.
 
-<ExampleFrame variant="component">
-  <TypesetStreamingContent />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/typeset/streaming-content.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={typesetSolidStreamingContent} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={typesetVueStreamingContent} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/typeset/typeset-streaming-content.module.css"
-```
-</div>
-</ExampleCode>
+<Example name="typeset/streaming-content" />
 
 ## Styling
 

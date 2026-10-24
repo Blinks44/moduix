@@ -5,36 +5,7 @@ description: Компонент для ввода коротких PIN-кодо�
 ---
 
 import * as PinInputDocs from '@/components/examples/pin-input/css-properties';
-import PinInputBasic from '@/components/examples/pin-input/basic.tsx';
-import PinInputBlurOnComplete from '@/components/examples/pin-input/blur-on-complete.tsx';
-import PinInputChangeEvents from '@/components/examples/pin-input/change-events.tsx';
-import PinInputField from '@/components/examples/pin-input/field.tsx';
-import PinInputGroupedLayout from '@/components/examples/pin-input/grouped-layout.tsx';
-import PinInputMasking from '@/components/examples/pin-input/masking.tsx';
-import PinInputOtpMode from '@/components/examples/pin-input/otp-mode.tsx';
-import PinInputPlaceholder from '@/components/examples/pin-input/placeholder.tsx';
 import PinInputRootProvider from '@/components/examples/pin-input/root-provider.tsx';
-import PinInputSizes from '@/components/examples/pin-input/sizes.tsx';
-import pinInputSolidBasic from '../../../snippets/pin-input/solid/basic.tsx?raw';
-import pinInputSolidBlurOnComplete from '../../../snippets/pin-input/solid/blur-on-complete.tsx?raw';
-import pinInputSolidChangeEvents from '../../../snippets/pin-input/solid/change-events.tsx?raw';
-import pinInputSolidField from '../../../snippets/pin-input/solid/field.tsx?raw';
-import pinInputSolidGroupedLayout from '../../../snippets/pin-input/solid/grouped-layout.tsx?raw';
-import pinInputSolidMasking from '../../../snippets/pin-input/solid/masking.tsx?raw';
-import pinInputSolidOtpMode from '../../../snippets/pin-input/solid/otp-mode.tsx?raw';
-import pinInputSolidPlaceholder from '../../../snippets/pin-input/solid/placeholder.tsx?raw';
-import pinInputSolidRootProvider from '../../../snippets/pin-input/solid/root-provider.tsx?raw';
-import pinInputSolidSizes from '../../../snippets/pin-input/solid/sizes.tsx?raw';
-import pinInputVueBasic from '../../../snippets/pin-input/vue/basic.vue?raw';
-import pinInputVueBlurOnComplete from '../../../snippets/pin-input/vue/blur-on-complete.vue?raw';
-import pinInputVueChangeEvents from '../../../snippets/pin-input/vue/change-events.vue?raw';
-import pinInputVueField from '../../../snippets/pin-input/vue/field.vue?raw';
-import pinInputVueGroupedLayout from '../../../snippets/pin-input/vue/grouped-layout.vue?raw';
-import pinInputVueMasking from '../../../snippets/pin-input/vue/masking.vue?raw';
-import pinInputVueOtpMode from '../../../snippets/pin-input/vue/otp-mode.vue?raw';
-import pinInputVuePlaceholder from '../../../snippets/pin-input/vue/placeholder.vue?raw';
-import pinInputVueRootProvider from '../../../snippets/pin-input/vue/root-provider.vue?raw';
-import pinInputVueSizes from '../../../snippets/pin-input/vue/sizes.vue?raw';
 
 ## Справочник API
 
@@ -54,41 +25,7 @@ import pinInputVueSizes from '../../../snippets/pin-input/vue/sizes.vue?raw';
 поместите `PinInputInputs` внутрь `PinInputControl` и явно добавьте `PinInputHiddenInput`, если значение должно участвовать в работе
 нативной формы.
 
-<ExampleFrame variant="component">
-  <PinInputBasic />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/pin-input/basic.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={pinInputSolidBasic} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={pinInputVueBasic} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="pin-input/basic" />
 
 ## Установка через shadcn
 
@@ -179,351 +116,61 @@ Ark управляет переводом фокуса, распределени
 
 Укажите `blurOnComplete`, если после заполнения всех ячеек фокус должен покинуть последнее поле.
 
-<ExampleFrame variant="component">
-  <PinInputBlurOnComplete />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/pin-input/blur-on-complete.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={pinInputSolidBlurOnComplete} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={pinInputVueBlurOnComplete} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="pin-input/blur-on-complete" />
 
 ### События изменения
 
 Храните массив значений в состоянии и читайте `details.value` или `details.valueAsString` из колбэков Ark.
 
-<ExampleFrame variant="component">
-  <PinInputChangeEvents />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/pin-input/change-events.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={pinInputSolidChangeEvents} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={pinInputVueChangeEvents} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/pin-input/pin-input-change-events.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="pin-input/change-events" />
 
 ### Field
 
 Поместите `PinInput` внутрь `Field`, если подпись, вспомогательный текст, сообщение об ошибке и состояние поля
 должны быть связаны с видимыми ячейками механизмами доступности Ark для форм.
 
-<ExampleFrame variant="component">
-  <PinInputField />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/pin-input/field.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={pinInputSolidField} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={pinInputVueField} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/pin-input/pin-input-field.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="pin-input/field" />
 
 ### Сгруппированная раскладка
 
 Используйте явные части `PinInputInput` с `PinInputSeparator`, если разделитель должен разделить код на группы. Индексы должны
 идти непрерывно во всей композиции.
 
-<ExampleFrame variant="component">
-  <PinInputGroupedLayout />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/pin-input/grouped-layout.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={pinInputSolidGroupedLayout} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={pinInputVueGroupedLayout} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="pin-input/grouped-layout" />
 
 ### Маскирование
 
 Включите `mask`, если введённый код нельзя показывать открыто.
 
-<ExampleFrame variant="component">
-  <PinInputMasking />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/pin-input/masking.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={pinInputSolidMasking} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={pinInputVueMasking} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="pin-input/masking" />
 
 ### Режим OTP
 
 Включите `otp`, чтобы добавить видимым полям `autocomplete="one-time-code"` и включить подсказки одноразовых
 кодов в поддерживаемых мобильных браузерах.
 
-<ExampleFrame variant="component">
-  <PinInputOtpMode />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/pin-input/otp-mode.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={pinInputSolidOtpMode} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={pinInputVueOtpMode} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="pin-input/otp-mode" />
 
 ### Символ-заполнитель
 
 Передайте `placeholder`, чтобы показывать символ в каждой пустой ячейке. По умолчанию moduix оставляет заполнитель
 пустым.
 
-<ExampleFrame variant="component">
-  <PinInputPlaceholder />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/pin-input/placeholder.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={pinInputSolidPlaceholder} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={pinInputVuePlaceholder} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="pin-input/placeholder" />
 
 ### Root Provider
 
 Используйте `usePinInput` с `PinInputRootProvider`, когда состоянием и императивными методами нужно управлять за пределами
 дерева компонентов. В этом примере `PinInputInputs` заменён явными частями `PinInputInput` с индексами.
 
-<ExampleFrame variant="component">
-  <PinInputRootProvider />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/pin-input/root-provider.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={pinInputSolidRootProvider} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={pinInputVueRootProvider} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/pin-input/pin-input-root-provider.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="pin-input/root-provider" />
 
 ### Размеры
 
 Проп `size` на корне подгоняет размер ячеек под высоту контролов `Input` и `Button`. По умолчанию `md`;
 текст в ячейках масштабируется вместе с ним.
 
-<ExampleFrame variant="component">
-  <PinInputSizes />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/pin-input/sizes.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={pinInputSolidSizes} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={pinInputVueSizes} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/pin-input/pin-input-sizes.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="pin-input/sizes" />
 
 ## Стилизация
 

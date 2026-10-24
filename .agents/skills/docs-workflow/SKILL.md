@@ -77,7 +77,9 @@ framework-selection guidance.
 ## Runnable previews
 
 - Keep runnable component-page examples in `website/src/components/examples/<component>/<name>.tsx`.
-- Render an imported example with `ExampleFrame` when the page also shows its source; use Rspress's
+- Render a standard component example with `<Example name="<component>/<name>" />`; see the
+  [component-page contract](references/component-pages.md). Use explicit `ExampleFrame` markup only for
+  nonstandard examples; use Rspress's
   `tsx preview file="../../../src/components/examples/<component>/<name>.tsx"` directive for a
   direct preview.
 - Mark source-only `tsx` or `jsx` fences that load code from a file with `pure` before `file=`, as

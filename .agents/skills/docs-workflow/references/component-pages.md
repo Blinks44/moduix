@@ -9,8 +9,13 @@ site-wide framework and styling support matrix or explain which runtime powers a
 Call out availability only when a component has a real exception, such as a missing adapter or styling track.
 Show only installation choices that actually ship; an incomplete adapter or styling track must stay visibly unavailable.
 Keep non-React source display-only when it cannot run in the React-based documentation application.
-Import one shared source file with `?raw`, render it with `CodeBlockRuntime`, and reuse it across
-locales instead of adding another runtime to the documentation bundle.
+Render each standard example with `<Example name="<component>/<name>" />` at the top level of the page.
+`website/plugins/example-loader.js` expands it at build time into the React preview, the React, Solid,
+and Vue source tabs, and the CSS files the React example imports. It requires
+`src/components/examples/<component>/<name>.tsx`, `snippets/<component>/solid/<name>.tsx`, and
+`snippets/<component>/vue/<name>.vue`. Pass `width="sm"` or `clientOnly` through to `ExampleFrame`.
+Write the explicit `ExampleFrame` and `ExampleCode` markup only when an example needs a `PreviewFrame`,
+extra source files, or a missing framework.
 
 ## Section order
 

@@ -5,57 +5,8 @@ description: A trigger-based menu for actions, links, selectable options, nested
 ---
 
 import * as MenuDocs from '@/components/examples/menu/css-properties';
-import MenuAdvancedCustomization from '@/components/examples/menu/advanced-customization.tsx';
-import MenuBasic from '@/components/examples/menu/basic.tsx';
-import MenuCheckboxItems from '@/components/examples/menu/checkbox-items.tsx';
-import MenuContext from '@/components/examples/menu/context-menu.tsx';
-import MenuControlled from '@/components/examples/menu/controlled.tsx';
-import MenuGrouping from '@/components/examples/menu/grouping.tsx';
-import MenuIndicatorPlacement from '@/components/examples/menu/indicator-placement.tsx';
 import MenuItemContext from '@/components/examples/menu/item-context.tsx';
-import MenuLazyMountedContext from '@/components/examples/menu/lazy-mounted-context-menu.tsx';
-import MenuLinks from '@/components/examples/menu/links.tsx';
-import MenuInDialog from '@/components/examples/menu/menu-in-dialog.tsx';
-import MenuMultipleTriggers from '@/components/examples/menu/multiple-triggers.tsx';
-import MenuNested from '@/components/examples/menu/nested.tsx';
-import MenuRadioItems from '@/components/examples/menu/radio-items.tsx';
 import MenuRootProvider from '@/components/examples/menu/root-provider.tsx';
-import MenuSelectEvent from '@/components/examples/menu/select-event.tsx';
-import MenuWithArrow from '@/components/examples/menu/with-arrow.tsx';
-import menuSolidAdvancedCustomization from '../../../snippets/menu/solid/advanced-customization.tsx?raw';
-import menuSolidBasic from '../../../snippets/menu/solid/basic.tsx?raw';
-import menuSolidCheckboxItems from '../../../snippets/menu/solid/checkbox-items.tsx?raw';
-import menuSolidContext from '../../../snippets/menu/solid/context-menu.tsx?raw';
-import menuSolidControlled from '../../../snippets/menu/solid/controlled.tsx?raw';
-import menuSolidGrouping from '../../../snippets/menu/solid/grouping.tsx?raw';
-import menuSolidIndicatorPlacement from '../../../snippets/menu/solid/indicator-placement.tsx?raw';
-import menuSolidItemContext from '../../../snippets/menu/solid/item-context.tsx?raw';
-import menuSolidLazyMountedContext from '../../../snippets/menu/solid/lazy-mounted-context-menu.tsx?raw';
-import menuSolidLinks from '../../../snippets/menu/solid/links.tsx?raw';
-import menuSolidInDialog from '../../../snippets/menu/solid/menu-in-dialog.tsx?raw';
-import menuSolidMultipleTriggers from '../../../snippets/menu/solid/multiple-triggers.tsx?raw';
-import menuSolidNested from '../../../snippets/menu/solid/nested.tsx?raw';
-import menuSolidRadioItems from '../../../snippets/menu/solid/radio-items.tsx?raw';
-import menuSolidRootProvider from '../../../snippets/menu/solid/root-provider.tsx?raw';
-import menuSolidSelectEvent from '../../../snippets/menu/solid/select-event.tsx?raw';
-import menuSolidWithArrow from '../../../snippets/menu/solid/with-arrow.tsx?raw';
-import menuVueAdvancedCustomization from '../../../snippets/menu/vue/advanced-customization.vue?raw';
-import menuVueBasic from '../../../snippets/menu/vue/basic.vue?raw';
-import menuVueCheckboxItems from '../../../snippets/menu/vue/checkbox-items.vue?raw';
-import menuVueContext from '../../../snippets/menu/vue/context-menu.vue?raw';
-import menuVueControlled from '../../../snippets/menu/vue/controlled.vue?raw';
-import menuVueGrouping from '../../../snippets/menu/vue/grouping.vue?raw';
-import menuVueIndicatorPlacement from '../../../snippets/menu/vue/indicator-placement.vue?raw';
-import menuVueItemContext from '../../../snippets/menu/vue/item-context.vue?raw';
-import menuVueLazyMountedContext from '../../../snippets/menu/vue/lazy-mounted-context-menu.vue?raw';
-import menuVueLinks from '../../../snippets/menu/vue/links.vue?raw';
-import menuVueInDialog from '../../../snippets/menu/vue/menu-in-dialog.vue?raw';
-import menuVueMultipleTriggers from '../../../snippets/menu/vue/multiple-triggers.vue?raw';
-import menuVueNested from '../../../snippets/menu/vue/nested.vue?raw';
-import menuVueRadioItems from '../../../snippets/menu/vue/radio-items.vue?raw';
-import menuVueRootProvider from '../../../snippets/menu/vue/root-provider.vue?raw';
-import menuVueSelectEvent from '../../../snippets/menu/vue/select-event.vue?raw';
-import menuVueWithArrow from '../../../snippets/menu/vue/with-arrow.vue?raw';
 
 ## API Reference
 
@@ -77,42 +28,7 @@ Use `Menu` as the root and give every `MenuItem` a stable `value`. Keep `MenuPos
 Do not set a custom `id` on `MenuItem`: Ark identifies items by `value`, and an extra `id` breaks
 its item lookup, typeahead, and focus management.
 
-<ExampleFrame variant="component">
-  <MenuBasic />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/menu/basic.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={menuSolidBasic} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={menuVueBasic} />
-
-    </Tab>
-  </Tabs>
-
-</div>
-
-</ExampleCode>
+<Example name="menu/basic" />
 
 ## Install with shadcn
 
@@ -228,271 +144,55 @@ A nested menu is another `Menu` root inside the parent content, paired with its 
 Use checkbox items for independent boolean options. Set `closeOnSelect={false}` when users should
 change several options before closing the menu.
 
-<ExampleFrame variant="component">
-  <MenuCheckboxItems />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/menu/checkbox-items.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={menuSolidCheckboxItems} />
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={menuVueCheckboxItems} />
-
-    </Tab>
-  </Tabs>
-
-</div>
-
-</ExampleCode>
+<Example name="menu/checkbox-items" />
 
 ### Context Menu
 
 Use `MenuContextTrigger` when actions should appear after a right-click. On touch and pen input, a
 long press opens the menu as well.
 
-<ExampleFrame variant="component">
-  <MenuContext />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/menu/context-menu.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={menuSolidContext} />
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={menuVueContext} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/menu/menu-context-menu.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="menu/context-menu" />
 
 ### Controlled
 
 Control `open` with framework state when another control needs to open or close the menu.
 
-<ExampleFrame variant="component">
-  <MenuControlled />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/menu/controlled.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={menuSolidControlled} />
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={menuVueControlled} />
-
-    </Tab>
-  </Tabs>
-
-</div>
-
-</ExampleCode>
+<Example name="menu/controlled" />
 
 ### Grouping
 
 Use `MenuItemGroup` and `MenuItemGroupLabel` to organize related items, and `MenuSeparator` to
 separate groups.
 
-<ExampleFrame variant="component">
-  <MenuGrouping />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/menu/grouping.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={menuSolidGrouping} />
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={menuVueGrouping} />
-
-    </Tab>
-  </Tabs>
-
-</div>
-
-</ExampleCode>
+<Example name="menu/grouping" />
 
 ### Indicator Placement
 
 Set `indicator="start"`, `"end"`, or `"none"` on checkbox and radio items to choose the indicator
 position.
 
-<ExampleFrame variant="component">
-  <MenuIndicatorPlacement />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/menu/indicator-placement.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={menuSolidIndicatorPlacement} />
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={menuVueIndicatorPlacement} />
-
-    </Tab>
-  </Tabs>
-
-</div>
-
-</ExampleCode>
+<Example name="menu/indicator-placement" />
 
 ### Item Context
 
 Use `MenuItemContext` when the content of an item needs to react to its state, such as whether it is
 highlighted.
 
-<ExampleFrame variant="component">
-  <MenuItemContext />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/menu/item-context.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={menuSolidItemContext} />
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={menuVueItemContext} />
-
-    </Tab>
-  </Tabs>
-
-</div>
-
-</ExampleCode>
+<Example name="menu/item-context" />
 
 ### Lazy Mounted Context Menu
 
 By default, context-menu content mounts on first open and unmounts after the exit animation. Set
 `unmountOnExit={false}` when the subtree must remain mounted after the menu closes.
 
-<ExampleFrame variant="component">
-  <MenuLazyMountedContext />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/menu/lazy-mounted-context-menu.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={menuSolidLazyMountedContext} />
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={menuVueLazyMountedContext} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/menu/menu-lazy-mounted-context-menu.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="menu/lazy-mounted-context-menu" />
 
 ### Links
 
 Use `MenuItem asChild` and make the anchor the item itself. This lets the link receive the menu
 item's ARIA attributes, keyboard behavior, and focus handling.
 
-<ExampleFrame variant="component">
-  <MenuLinks />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/menu/links.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={menuSolidLinks} />
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={menuVueLinks} />
-
-    </Tab>
-  </Tabs>
-
-</div>
-
-</ExampleCode>
+<Example name="menu/links" />
 
 ### Menu in Dialog
 
@@ -500,277 +200,55 @@ Set `portalled={false}` to keep the popup inside a dialog or scroll container. W
 scroll, use fixed positioning with `hideWhenDetached` so the menu is hidden after it leaves the
 visible area.
 
-<ExampleFrame variant="component">
-  <MenuInDialog />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/menu/menu-in-dialog.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={menuSolidInDialog} />
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={menuVueInDialog} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/menu/menu-menu-in-dialog.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="menu/menu-in-dialog" />
 
 ### Multiple Triggers
 
 Share one menu across several triggers by giving each `MenuTrigger` a distinct `value`. The menu
 repositions itself relative to the trigger that opened it.
 
-<ExampleFrame variant="component">
-  <MenuMultipleTriggers />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/menu/multiple-triggers.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={menuSolidMultipleTriggers} />
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={menuVueMultipleTriggers} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/menu/menu-multiple-triggers.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="menu/multiple-triggers" />
 
 ### Nested
 
 Render a child `Menu` inside the parent content and open it with `MenuTriggerItem`.
 
-<ExampleFrame variant="component">
-  <MenuNested />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/menu/nested.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={menuSolidNested} />
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={menuVueNested} />
-
-    </Tab>
-  </Tabs>
-
-</div>
-
-</ExampleCode>
+<Example name="menu/nested" />
 
 ### Radio Items
 
 Use `MenuRadioItemGroup` when users must choose one value from a set of options. Set
 `closeOnSelect={false}` if the menu should stay open while they change the selection.
 
-<ExampleFrame variant="component">
-  <MenuRadioItems />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/menu/radio-items.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={menuSolidRadioItems} />
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={menuVueRadioItems} />
-
-    </Tab>
-  </Tabs>
-
-</div>
-
-</ExampleCode>
+<Example name="menu/radio-items" />
 
 ### Root Provider
 
 Use `useMenu` and `MenuRootProvider` when code outside the rendered tree needs to read or update
 the menu state.
 
-<ExampleFrame variant="component">
-  <MenuRootProvider />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/menu/root-provider.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={menuSolidRootProvider} />
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={menuVueRootProvider} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/menu/menu-root-provider.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="menu/root-provider" />
 
 ### Select Event
 
 Use `onSelect(details)` on the root when one handler should respond to every item selection. Read the
 selected item's `value` from `details.value`.
 
-<ExampleFrame variant="component">
-  <MenuSelectEvent />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/menu/select-event.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={menuSolidSelectEvent} />
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={menuVueSelectEvent} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/menu/menu-select-event.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="menu/select-event" />
 
 ### With Arrow
 
 Add `MenuArrow` and `MenuArrowTip` directly inside `MenuContent` when the popup needs a visual
 connection to its trigger.
 
-<ExampleFrame variant="component">
-  <MenuWithArrow />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/menu/with-arrow.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={menuSolidWithArrow} />
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={menuVueWithArrow} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="menu/with-arrow" />
 
 ### Advanced Customization
 
 Use the helper components for common item layouts, then compose the Ark parts directly when an item
 or link needs a custom structure.
 
-<ExampleFrame variant="component">
-  <MenuAdvancedCustomization />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/menu/advanced-customization.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={menuSolidAdvancedCustomization} />
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={menuVueAdvancedCustomization} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="menu/advanced-customization" />
 
 ## Styling
 

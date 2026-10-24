@@ -98,6 +98,15 @@ export default defineConfig({
     html: {
       template: fileURLToPath(new URL('./index.html', import.meta.url)),
     },
+    tools: {
+      rspack: (_, { addRules }) => {
+        addRules({
+          test: /\.mdx$/,
+          enforce: 'pre',
+          loader: fileURLToPath(new URL('./plugins/example-loader.js', import.meta.url)),
+        });
+      },
+    },
   },
   plugins: [pluginPreview(), pluginSitemap()],
   themeConfig: {

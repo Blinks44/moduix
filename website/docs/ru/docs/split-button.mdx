@@ -4,35 +4,8 @@ component: split-button
 description: Группа с основной кнопкой и меню связанных действий на базе частей moduix Button и Menu.
 ---
 
-import SplitButtonBasic from '@/components/examples/split-button/basic.tsx';
-import SplitButtonControlledMenuState from '@/components/examples/split-button/controlled-menu-state.tsx';
-import SplitButtonDisabledAction from '@/components/examples/split-button/disabled-action.tsx';
-import SplitButtonLinkAction from '@/components/examples/split-button/link-action.tsx';
-import SplitButtonMenuComposition from '@/components/examples/split-button/menu-composition.tsx';
-import SplitButtonPositioning from '@/components/examples/split-button/positioning.tsx';
-import SplitButtonSizes from '@/components/examples/split-button/sizes.tsx';
-import SplitButtonVariants from '@/components/examples/split-button/variants.tsx';
-import SplitButtonWithIcons from '@/components/examples/split-button/with-icons.tsx';
 import * as SplitButtonDocs from '@/components/examples/split-button/css-properties';
-import splitButtonSolidBasic from '../../../snippets/split-button/solid/basic.tsx?raw';
-import splitButtonSolidControlledMenuState from '../../../snippets/split-button/solid/controlled-menu-state.tsx?raw';
-import splitButtonSolidDisabledAction from '../../../snippets/split-button/solid/disabled-action.tsx?raw';
-import splitButtonSolidLinkAction from '../../../snippets/split-button/solid/link-action.tsx?raw';
-import splitButtonSolidMenuComposition from '../../../snippets/split-button/solid/menu-composition.tsx?raw';
-import splitButtonSolidPositioning from '../../../snippets/split-button/solid/positioning.tsx?raw';
-import splitButtonSolidSizes from '../../../snippets/split-button/solid/sizes.tsx?raw';
-import splitButtonSolidVariants from '../../../snippets/split-button/solid/variants.tsx?raw';
-import splitButtonSolidWithIcons from '../../../snippets/split-button/solid/with-icons.tsx?raw';
 
-import splitButtonVueBasic from '../../../snippets/split-button/vue/basic.vue?raw';
-import splitButtonVueControlledMenuState from '../../../snippets/split-button/vue/controlled-menu-state.vue?raw';
-import splitButtonVueDisabledAction from '../../../snippets/split-button/vue/disabled-action.vue?raw';
-import splitButtonVueLinkAction from '../../../snippets/split-button/vue/link-action.vue?raw';
-import splitButtonVueMenuComposition from '../../../snippets/split-button/vue/menu-composition.vue?raw';
-import splitButtonVuePositioning from '../../../snippets/split-button/vue/positioning.vue?raw';
-import splitButtonVueSizes from '../../../snippets/split-button/vue/sizes.vue?raw';
-import splitButtonVueVariants from '../../../snippets/split-button/vue/variants.vue?raw';
-import splitButtonVueWithIcons from '../../../snippets/split-button/vue/with-icons.vue?raw';
 
 ## Справочник API
 
@@ -52,46 +25,7 @@ import splitButtonVueWithIcons from '../../../snippets/split-button/vue/with-ico
 `SplitButtonAction`, `SplitButtonTrigger`, `SplitButtonPositioner` и `SplitButtonContent`.
 Основное действие использует тот же контракт `onClick`, что и `Button`.
 
-<ExampleFrame variant="component">
-  <SplitButtonBasic />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/split-button/basic.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={splitButtonSolidBasic} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={splitButtonVueBasic} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/split-button/split-button-basic.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="split-button/basic" />
 
 ## Установка через shadcn
 
@@ -177,333 +111,51 @@ SplitButton
 Используйте тот же контракт управляемого состояния, что и у Ark Menu, если состоянием открытия нужно управлять
 из внешнего компонента.
 
-<ExampleFrame variant="component">
-  <SplitButtonControlledMenuState />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/split-button/controlled-menu-state.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={splitButtonSolidControlledMenuState} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={splitButtonVueControlledMenuState} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="split-button/controlled-menu-state" />
 
 ### Отключённое основное действие
 
 Отключите основное действие, но оставьте меню доступным, если в нём есть полезная альтернатива.
 
-<ExampleFrame variant="component">
-  <SplitButtonDisabledAction />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/split-button/disabled-action.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={splitButtonSolidDisabledAction} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={splitButtonVueDisabledAction} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="split-button/disabled-action" />
 
 ### Действие-ссылка
 
 Используйте `asChild` на `SplitButtonAction`, если основное действие должно быть ссылкой.
 
-<ExampleFrame variant="component">
-  <SplitButtonLinkAction />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/split-button/link-action.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={splitButtonSolidLinkAction} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={splitButtonVueLinkAction} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="split-button/link-action" />
 
 ### Позиционирование
 
 Настройте положение всплывающего меню с помощью корневого свойства Ark `positioning`, сохранив явную структуру
 его частей.
 
-<ExampleFrame variant="component">
-  <SplitButtonPositioning />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/split-button/positioning.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={splitButtonSolidPositioning} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={splitButtonVuePositioning} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="split-button/positioning" />
 
 ### Размеры
 
 Используйте корневой `size`, когда обе кнопки должны масштабироваться одновременно.
 
-<ExampleFrame variant="component">
-  <SplitButtonSizes />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/split-button/sizes.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={splitButtonSolidSizes} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={splitButtonVueSizes} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/split-button/split-button-sizes.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="split-button/sizes" />
 
 ### Варианты
 
 Используйте корневой `variant`, когда обе кнопки должны иметь одинаковое оформление.
 
-<ExampleFrame variant="component">
-  <SplitButtonVariants />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/split-button/variants.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={splitButtonSolidVariants} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={splitButtonVueVariants} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/split-button/split-button-variants.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="split-button/variants" />
 
 ### С иконками
 
 Добавьте иконку к основному действию, если она помогает понять его назначение, но не заменяет текстовую подпись.
 
-<ExampleFrame variant="component">
-  <SplitButtonWithIcons />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/split-button/with-icons.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={splitButtonSolidWithIcons} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={splitButtonVueWithIcons} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="split-button/with-icons" />
 
 ### Расширенная настройка
 
 Используйте `MenuItemGroup`, `MenuItemGroupLabel`, `MenuItem` и `MenuSeparator` внутри `SplitButtonContent`, если дополнительным действиям нужны группы,
 разделители или сгруппированные пункты.
 
-<ExampleFrame variant="component">
-  <SplitButtonMenuComposition />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/split-button/menu-composition.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={splitButtonSolidMenuComposition} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={splitButtonVueMenuComposition} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="split-button/menu-composition" />
 
 ## Стилизация
 

@@ -5,60 +5,8 @@ description: Компонент флажка для отдельных вари�
 ---
 
 import * as CheckboxDocs from '@/components/examples/checkbox/css-properties';
-import CheckboxBasic from '@/components/examples/checkbox/basic.tsx';
-import CheckboxControlled from '@/components/examples/checkbox/controlled.tsx';
-import CheckboxControlledGroup from '@/components/examples/checkbox/controlled-group.tsx';
-import CheckboxCustomIndicator from '@/components/examples/checkbox/custom-indicator.tsx';
-import CheckboxDefaultChecked from '@/components/examples/checkbox/default-checked.tsx';
-import CheckboxDisabled from '@/components/examples/checkbox/disabled.tsx';
 import CheckboxGroup from '@/components/examples/checkbox/group.tsx';
-import CheckboxGroupWithFieldset from '@/components/examples/checkbox/group-with-fieldset.tsx';
-import CheckboxGroupWithForm from '@/components/examples/checkbox/group-with-form.tsx';
-import CheckboxIndeterminate from '@/components/examples/checkbox/indeterminate.tsx';
-import CheckboxInvalidGroup from '@/components/examples/checkbox/invalid-group.tsx';
-import CheckboxMaxSelected from '@/components/examples/checkbox/max-selected.tsx';
-import CheckboxReadOnly from '@/components/examples/checkbox/read-only.tsx';
 import CheckboxRootProvider from '@/components/examples/checkbox/root-provider.tsx';
-import CheckboxSelectAll from '@/components/examples/checkbox/select-all.tsx';
-import CheckboxSizes from '@/components/examples/checkbox/sizes.tsx';
-import CheckboxWithField from '@/components/examples/checkbox/with-field.tsx';
-import CheckboxWithForm from '@/components/examples/checkbox/with-form.tsx';
-import checkboxSolidBasic from '../../../snippets/checkbox/solid/basic.tsx?raw';
-import checkboxSolidControlled from '../../../snippets/checkbox/solid/controlled.tsx?raw';
-import checkboxSolidControlledGroup from '../../../snippets/checkbox/solid/controlled-group.tsx?raw';
-import checkboxSolidCustomIndicator from '../../../snippets/checkbox/solid/custom-indicator.tsx?raw';
-import checkboxSolidDefaultChecked from '../../../snippets/checkbox/solid/default-checked.tsx?raw';
-import checkboxSolidDisabled from '../../../snippets/checkbox/solid/disabled.tsx?raw';
-import checkboxSolidGroup from '../../../snippets/checkbox/solid/group.tsx?raw';
-import checkboxSolidGroupWithFieldset from '../../../snippets/checkbox/solid/group-with-fieldset.tsx?raw';
-import checkboxSolidGroupWithForm from '../../../snippets/checkbox/solid/group-with-form.tsx?raw';
-import checkboxSolidIndeterminate from '../../../snippets/checkbox/solid/indeterminate.tsx?raw';
-import checkboxSolidInvalidGroup from '../../../snippets/checkbox/solid/invalid-group.tsx?raw';
-import checkboxSolidMaxSelected from '../../../snippets/checkbox/solid/max-selected.tsx?raw';
-import checkboxSolidReadOnly from '../../../snippets/checkbox/solid/read-only.tsx?raw';
-import checkboxSolidRootProvider from '../../../snippets/checkbox/solid/root-provider.tsx?raw';
-import checkboxSolidSelectAll from '../../../snippets/checkbox/solid/select-all.tsx?raw';
-import checkboxSolidSizes from '../../../snippets/checkbox/solid/sizes.tsx?raw';
-import checkboxSolidWithField from '../../../snippets/checkbox/solid/with-field.tsx?raw';
-import checkboxSolidWithForm from '../../../snippets/checkbox/solid/with-form.tsx?raw';
-import checkboxVueBasic from '../../../snippets/checkbox/vue/basic.vue?raw';
-import checkboxVueControlled from '../../../snippets/checkbox/vue/controlled.vue?raw';
-import checkboxVueControlledGroup from '../../../snippets/checkbox/vue/controlled-group.vue?raw';
-import checkboxVueCustomIndicator from '../../../snippets/checkbox/vue/custom-indicator.vue?raw';
-import checkboxVueDefaultChecked from '../../../snippets/checkbox/vue/default-checked.vue?raw';
-import checkboxVueDisabled from '../../../snippets/checkbox/vue/disabled.vue?raw';
-import checkboxVueGroup from '../../../snippets/checkbox/vue/group.vue?raw';
-import checkboxVueGroupWithFieldset from '../../../snippets/checkbox/vue/group-with-fieldset.vue?raw';
-import checkboxVueGroupWithForm from '../../../snippets/checkbox/vue/group-with-form.vue?raw';
-import checkboxVueIndeterminate from '../../../snippets/checkbox/vue/indeterminate.vue?raw';
-import checkboxVueInvalidGroup from '../../../snippets/checkbox/vue/invalid-group.vue?raw';
-import checkboxVueMaxSelected from '../../../snippets/checkbox/vue/max-selected.vue?raw';
-import checkboxVueReadOnly from '../../../snippets/checkbox/vue/read-only.vue?raw';
-import checkboxVueRootProvider from '../../../snippets/checkbox/vue/root-provider.vue?raw';
-import checkboxVueSelectAll from '../../../snippets/checkbox/vue/select-all.vue?raw';
-import checkboxVueSizes from '../../../snippets/checkbox/vue/sizes.vue?raw';
-import checkboxVueWithField from '../../../snippets/checkbox/vue/with-field.vue?raw';
-import checkboxVueWithForm from '../../../snippets/checkbox/vue/with-form.vue?raw';
 
 ## Справочник API
 
@@ -77,40 +25,7 @@ import checkboxVueWithForm from '../../../snippets/checkbox/vue/with-form.vue?ra
 иконки выбранного и неопределённого состояния от moduix. Добавьте `CheckboxLabel` для видимой
 подписи и `CheckboxHiddenInput` для нативного взаимодействия и работы с формой.
 
-<ExampleFrame variant="component">
-  <CheckboxBasic />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/checkbox/basic.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={checkboxSolidBasic} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={checkboxVueBasic} />
-
-    </Tab>
-  </Tabs>
-</div>
-</ExampleCode>
+<Example name="checkbox/basic" />
 
 ## Установка через shadcn
 
@@ -201,570 +116,110 @@ CheckboxGroup
 
 Используйте управляемый флажок, если его значение хранится в другой части интерфейса.
 
-<ExampleFrame variant="component">
-  <CheckboxControlled />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/checkbox/controlled.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={checkboxSolidControlled} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={checkboxVueControlled} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/checkbox/checkbox-controlled.module.css"
-```
-</div>
-</ExampleCode>
+<Example name="checkbox/controlled" />
 
 ### Управляемая группа
 
 Используйте управляемую группу, если выбранные варианты влияют на фильтры, сводки или действия.
 
-<ExampleFrame variant="component">
-  <CheckboxControlledGroup />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/checkbox/controlled-group.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={checkboxSolidControlledGroup} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={checkboxVueControlledGroup} />
-
-    </Tab>
-  </Tabs>
-</div>
-</ExampleCode>
+<Example name="checkbox/controlled-group" />
 
 ### Пользовательский индикатор
 
 Замените встроенную галочку собственной иконкой, сохранив поведение Checkbox и доступность Ark.
 
-<ExampleFrame variant="component">
-  <CheckboxCustomIndicator />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/checkbox/custom-indicator.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={checkboxSolidCustomIndicator} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={checkboxVueCustomIndicator} />
-
-    </Tab>
-  </Tabs>
-</div>
-</ExampleCode>
+<Example name="checkbox/custom-indicator" />
 
 ### Выбрано по умолчанию
 
 Используйте `defaultChecked`, если нужно задать начальное значение, а дальше флажок может сам
 управлять своим состоянием.
 
-<ExampleFrame variant="component">
-  <CheckboxDefaultChecked />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/checkbox/default-checked.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={checkboxSolidDefaultChecked} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={checkboxVueDefaultChecked} />
-
-    </Tab>
-  </Tabs>
-</div>
-</ExampleCode>
+<Example name="checkbox/default-checked" />
 
 ### Отключённый вариант
 
 Используйте `disabled`, когда вариант недоступен и не должен реагировать на взаимодействие.
 
-<ExampleFrame variant="component">
-  <CheckboxDisabled />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/checkbox/disabled.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={checkboxSolidDisabled} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={checkboxVueDisabled} />
-
-    </Tab>
-  </Tabs>
-</div>
-</ExampleCode>
+<Example name="checkbox/disabled" />
 
 ### Группа
 
 Используйте `CheckboxGroup`, когда несколько флажков используют общий массив выбранных значений.
 
-<ExampleFrame variant="component">
-  <CheckboxGroup />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/checkbox/group.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={checkboxSolidGroup} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={checkboxVueGroup} />
-
-    </Tab>
-  </Tabs>
-</div>
-</ExampleCode>
+<Example name="checkbox/group" />
 
 ### Группа с Fieldset
 
 Используйте `Fieldset`, когда группа представляет одно поле формы и ей нужна общая легенда.
 
-<ExampleFrame variant="component">
-  <CheckboxGroupWithFieldset />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/checkbox/group-with-fieldset.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={checkboxSolidGroupWithFieldset} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={checkboxVueGroupWithFieldset} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/checkbox/checkbox-group-with-fieldset.module.css"
-```
-</div>
-</ExampleCode>
+<Example name="checkbox/group-with-fieldset" />
 
 ### Группа в форме
 
 Поместите `CheckboxGroup` внутрь формы, если нужно получить все выбранные значения в `FormData`.
 Прочитайте их с помощью `FormData.getAll(name)`.
 
-<ExampleFrame variant="component">
-  <CheckboxGroupWithForm />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/checkbox/group-with-form.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={checkboxSolidGroupWithForm} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={checkboxVueGroupWithForm} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/checkbox/checkbox-group-with-form.module.css"
-```
-</div>
-</ExampleCode>
+<Example name="checkbox/group-with-form" />
 
 ### Неопределённое состояние
 
 Используйте `checked="indeterminate"`, когда флажок обозначает частичный выбор. Это часто нужно
 для управления «Выбрать все».
 
-<ExampleFrame variant="component">
-  <CheckboxIndeterminate />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/checkbox/indeterminate.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={checkboxSolidIndeterminate} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={checkboxVueIndeterminate} />
-
-    </Tab>
-  </Tabs>
-</div>
-</ExampleCode>
+<Example name="checkbox/indeterminate" />
 
 ### Некорректная группа
 
 Задайте `invalid` на группе, если проверка относится ко всему выбору.
 
-<ExampleFrame variant="component">
-  <CheckboxInvalidGroup />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/checkbox/invalid-group.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={checkboxSolidInvalidGroup} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={checkboxVueInvalidGroup} />
-
-    </Tab>
-  </Tabs>
-</div>
-</ExampleCode>
+<Example name="checkbox/invalid-group" />
 
 ### Ограничение выбора
 
 Используйте `maxSelectedValues`, чтобы ограничить количество одновременно выбранных вариантов.
 
-<ExampleFrame variant="component">
-  <CheckboxMaxSelected />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/checkbox/max-selected.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={checkboxSolidMaxSelected} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={checkboxVueMaxSelected} />
-
-    </Tab>
-  </Tabs>
-</div>
-</ExampleCode>
+<Example name="checkbox/max-selected" />
 
 ### Только для чтения
 
 Используйте `readOnly`, чтобы показать значение без возможности его изменить.
 
-<ExampleFrame variant="component">
-  <CheckboxReadOnly />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/checkbox/read-only.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={checkboxSolidReadOnly} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={checkboxVueReadOnly} />
-
-    </Tab>
-  </Tabs>
-</div>
-</ExampleCode>
+<Example name="checkbox/read-only" />
 
 ### Root Provider
 
 Используйте `CheckboxRootProvider`, когда состояние флажка нужно хранить вне дерева компонентов.
 Импортируйте `useCheckbox` из пакета выбранного фреймворка.
 
-<ExampleFrame variant="component">
-  <CheckboxRootProvider />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/checkbox/root-provider.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={checkboxSolidRootProvider} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={checkboxVueRootProvider} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/checkbox/checkbox-root-provider.module.css"
-```
-</div>
-</ExampleCode>
+<Example name="checkbox/root-provider" />
 
 ### Выбрать все
 
 Объедините родительский флажок с управляемой группой, если один элемент должен выбирать или
 снимать выбор со всех вариантов.
 
-<ExampleFrame variant="component">
-  <CheckboxSelectAll />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/checkbox/select-all.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={checkboxSolidSelectAll} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={checkboxVueSelectAll} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/checkbox/checkbox-select-all.module.css"
-```
-</div>
-</ExampleCode>
+<Example name="checkbox/select-all" />
 
 ### Размеры
 
 Используйте `size`, чтобы согласовать плотность флажка с окружающей формой или экраном настроек.
 
-<ExampleFrame variant="component">
-  <CheckboxSizes />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/checkbox/sizes.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={checkboxSolidSizes} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={checkboxVueSizes} />
-
-    </Tab>
-  </Tabs>
-</div>
-</ExampleCode>
+<Example name="checkbox/sizes" />
 
 ### С Field
 
 Используйте `Field`, когда флажку нужны вспомогательный текст, сообщения проверки или общее
 состояние поля.
 
-<ExampleFrame variant="component">
-  <CheckboxWithField />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/checkbox/with-field.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={checkboxSolidWithField} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={checkboxVueWithField} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/checkbox/checkbox-with-field.module.css"
-```
-</div>
-</ExampleCode>
+<Example name="checkbox/with-field" />
 
 ### С формой
 
 Передайте `name` и `value` в `Checkbox` и отрисуйте `CheckboxHiddenInput`, чтобы включить
 флажок в `FormData`.
 
-<ExampleFrame variant="component">
-  <CheckboxWithForm />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/checkbox/with-form.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={checkboxSolidWithForm} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={checkboxVueWithForm} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/checkbox/checkbox-with-form.module.css"
-```
-</div>
-</ExampleCode>
+<Example name="checkbox/with-form" />
 
 ## Стилизация
 

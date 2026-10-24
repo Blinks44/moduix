@@ -5,24 +5,6 @@ description: Inline messages for status updates, validation results, and system 
 ---
 
 import * as AlertDocs from '@/components/examples/alert/css-properties';
-import AlertBasic from '@/components/examples/alert/basic.tsx';
-import AlertCustomComposition from '@/components/examples/alert/custom-composition.tsx';
-import AlertCustomHeading from '@/components/examples/alert/custom-heading.tsx';
-import AlertError from '@/components/examples/alert/error.tsx';
-import AlertStatuses from '@/components/examples/alert/statuses.tsx';
-import AlertWithIcon from '@/components/examples/alert/with-icon.tsx';
-import alertSolidBasic from '../../../snippets/alert/solid/basic.tsx?raw';
-import alertSolidCustomComposition from '../../../snippets/alert/solid/custom-composition.tsx?raw';
-import alertSolidCustomHeading from '../../../snippets/alert/solid/custom-heading.tsx?raw';
-import alertSolidError from '../../../snippets/alert/solid/error.tsx?raw';
-import alertSolidStatuses from '../../../snippets/alert/solid/statuses.tsx?raw';
-import alertSolidWithIcon from '../../../snippets/alert/solid/with-icon.tsx?raw';
-import alertVueBasic from '../../../snippets/alert/vue/basic.vue?raw';
-import alertVueCustomComposition from '../../../snippets/alert/vue/custom-composition.vue?raw';
-import alertVueCustomHeading from '../../../snippets/alert/vue/custom-heading.vue?raw';
-import alertVueError from '../../../snippets/alert/vue/error.vue?raw';
-import alertVueStatuses from '../../../snippets/alert/vue/statuses.vue?raw';
-import alertVueWithIcon from '../../../snippets/alert/vue/with-icon.vue?raw';
 
 ## API Reference
 
@@ -55,41 +37,7 @@ flow.
 For a standard inline message, place `AlertTitle` and `AlertDescription` inside `AlertContent`.
 Add `AlertIndicator` when an icon helps people scan the message.
 
-<ExampleFrame variant="component">
-  <AlertBasic />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/alert/basic.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={alertSolidBasic} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={alertVueBasic} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="alert/basic" />
 
 ## Install with shadcn
 
@@ -169,215 +117,35 @@ uses the `as-child` attribute with a single child element.
 
 Use `asChild` on `AlertTitle` when the alert title needs to participate in the page's heading hierarchy.
 
-<ExampleFrame variant="component">
-  <AlertCustomHeading />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/alert/custom-heading.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={alertSolidCustomHeading} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={alertVueCustomHeading} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="alert/custom-heading" />
 
 ### Error
 
 Set `status="error"` for stronger visual emphasis. Add `role="alert"` only when the message needs an
 assertive announcement.
 
-<ExampleFrame variant="component">
-  <AlertError />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/alert/error.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={alertSolidError} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={alertVueError} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="alert/error" />
 
 ### Statuses
 
 Use the four statuses to distinguish informational, successful, warning, and error messages. Add
 `AlertIndicator` with the icon of your choice when the visual cue is useful.
 
-<ExampleFrame variant="component">
-  <AlertStatuses />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/alert/statuses.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={alertSolidStatuses} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={alertVueStatuses} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/alert/alert-statuses.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="alert/statuses" />
 
 ### With Icon
 
 Place a moduix icon or custom SVG inside `AlertIndicator`. A size class on the icon overrides the
 default icon size.
 
-<ExampleFrame variant="component">
-  <AlertWithIcon />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/alert/with-icon.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={alertSolidWithIcon} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={alertVueWithIcon} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="alert/with-icon" />
 
 ### Advanced Customization
 
 Use `AlertContent` and `AlertActions` when the message needs recovery or follow-up controls. Keep
 dismissal state in the component that renders the alert when a local alert should be hidden.
 
-<ExampleFrame variant="component">
-  <AlertCustomComposition />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/alert/custom-composition.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={alertSolidCustomComposition} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={alertVueCustomComposition} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/alert/alert-custom-composition.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="alert/custom-composition" />
 
 ## Styling
 

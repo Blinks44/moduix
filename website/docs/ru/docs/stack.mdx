@@ -4,30 +4,6 @@ component: stack
 description: Небольшой flex-компонент для вертикальной и горизонтальной раскладки в React, Solid и Vue.
 ---
 
-import StackBasic from '@/components/examples/stack/basic.tsx';
-import StackFill from '@/components/examples/stack/growing-child-stack.tsx';
-import StackLoadingLayout from '@/components/examples/stack/loading-layout.tsx';
-import StackResponsiveDirection from '@/components/examples/stack/responsive-direction.tsx';
-import StackRowLayout from '@/components/examples/stack/row-layout.tsx';
-import StackSemanticElement from '@/components/examples/stack/semantic-element.tsx';
-import StackSeparator from '@/components/examples/stack/separator.tsx';
-import StackWrappedItems from '@/components/examples/stack/wrapped-items.tsx';
-import stackSolidBasic from '../../../snippets/stack/solid/basic.tsx?raw';
-import stackSolidFill from '../../../snippets/stack/solid/growing-child-stack.tsx?raw';
-import stackSolidLoadingLayout from '../../../snippets/stack/solid/loading-layout.tsx?raw';
-import stackSolidResponsiveDirection from '../../../snippets/stack/solid/responsive-direction.tsx?raw';
-import stackSolidRowLayout from '../../../snippets/stack/solid/row-layout.tsx?raw';
-import stackSolidSemanticElement from '../../../snippets/stack/solid/semantic-element.tsx?raw';
-import stackSolidSeparator from '../../../snippets/stack/solid/separator.tsx?raw';
-import stackSolidWrappedItems from '../../../snippets/stack/solid/wrapped-items.tsx?raw';
-import stackVueBasic from '../../../snippets/stack/vue/basic.vue?raw';
-import stackVueFill from '../../../snippets/stack/vue/growing-child-stack.vue?raw';
-import stackVueLoadingLayout from '../../../snippets/stack/vue/loading-layout.vue?raw';
-import stackVueResponsiveDirection from '../../../snippets/stack/vue/responsive-direction.vue?raw';
-import stackVueRowLayout from '../../../snippets/stack/vue/row-layout.vue?raw';
-import stackVueSemanticElement from '../../../snippets/stack/vue/semantic-element.vue?raw';
-import stackVueSeparator from '../../../snippets/stack/vue/separator.vue?raw';
-import stackVueWrappedItems from '../../../snippets/stack/vue/wrapped-items.vue?raw';
 
 ## Справочник API
 
@@ -44,41 +20,7 @@ import stackVueWrappedItems from '../../../snippets/stack/vue/wrapped-items.vue?
 Используйте `Stack`, когда достаточно одного flex-контейнера и нужно настроить направление, промежуток и
 выравнивание.
 
-<ExampleFrame variant="component">
-  <StackBasic />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/stack/basic.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={stackSolidBasic} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={stackVueBasic} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="stack/basic" />
 
 ## Установка через shadcn
 
@@ -145,81 +87,13 @@ Stack
 
 Используйте `fill`, когда вложенный `Stack` должен занять оставшееся место в flex-строке.
 
-<ExampleFrame variant="component">
-  <StackFill />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/stack/growing-child-stack.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={stackSolidFill} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={stackVueFill} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="stack/growing-child-stack" />
 
 ### Раскладка состояния загрузки
 
 Объедините `Stack` и `Skeleton`, если для состояния загрузки нужны только flex-разметка и отступы.
 
-<ExampleFrame variant="component">
-  <StackLoadingLayout />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/stack/loading-layout.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={stackSolidLoadingLayout} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={stackVueLoadingLayout} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="stack/loading-layout" />
 
 ### Адаптивное направление
 
@@ -227,202 +101,32 @@ Stack
 Значение `desktop` начинает действовать с `640px`. Адаптивные значения работают по принципу mobile-first: без `mobile`
 используется `column`, а без `desktop` сохраняется мобильное направление.
 
-<ExampleFrame variant="component">
-  <StackResponsiveDirection />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/stack/responsive-direction.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={stackSolidResponsiveDirection} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={stackVueResponsiveDirection} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="stack/responsive-direction" />
 
 ### Горизонтальная раскладка
 
 Используйте `direction="row"` и свойства выравнивания, чтобы расположить содержимое в одну строку.
 
-<ExampleFrame variant="component">
-  <StackRowLayout />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/stack/row-layout.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={stackSolidRowLayout} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={stackVueRowLayout} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="stack/row-layout" />
 
 ### Семантический элемент
 
 Используйте `asChild` от Ark, когда корневая обёртка раскладки должна также описывать структуру документа.
 
-<ExampleFrame variant="component">
-  <StackSemanticElement />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/stack/semantic-element.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={stackSolidSemanticElement} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={stackVueSemanticElement} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="stack/semantic-element" />
 
 ### Разделитель
 
 Добавляйте `Separator` напрямую, когда горизонтальному или вертикальному `Stack` нужен повторяющийся визуальный
 разделитель между дочерними элементами. `gap` применяется к каждому дочернему элементу, включая разделители.
 
-<ExampleFrame variant="component">
-  <StackSeparator />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/stack/separator.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={stackSolidSeparator} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={stackVueSeparator} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="stack/separator" />
 
 ### Перенос элементов
 
 Используйте `wrap="wrap"`, когда элементы должны переходить на следующую строку.
 
-<ExampleFrame variant="component">
-  <StackWrappedItems />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/stack/wrapped-items.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={stackSolidWrappedItems} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={stackVueWrappedItems} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="stack/wrapped-items" />
 
 ## Стилизация
 

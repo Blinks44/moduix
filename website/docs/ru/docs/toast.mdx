@@ -5,36 +5,6 @@ description: Временные уведомления о действиях, и
 ---
 
 import * as ToastDocs from '@/components/examples/toast/css-properties';
-import ToastAction from '@/components/examples/toast/action.tsx';
-import ToastBasic from '@/components/examples/toast/basic.tsx';
-import ToastCustomComposition from '@/components/examples/toast/custom-composition.tsx';
-import ToastDuration from '@/components/examples/toast/duration.tsx';
-import ToastMaximumVisible from '@/components/examples/toast/max-toasts.tsx';
-import ToastNonOverlapping from '@/components/examples/toast/always-expanded.tsx';
-import ToastPlacement from '@/components/examples/toast/placement.tsx';
-import ToastPromise from '@/components/examples/toast/promise-toast.tsx';
-import ToastTypes from '@/components/examples/toast/types.tsx';
-import ToastUpdate from '@/components/examples/toast/update.tsx';
-import toastSolidAction from '../../../snippets/toast/solid/action.tsx?raw';
-import toastSolidBasic from '../../../snippets/toast/solid/basic.tsx?raw';
-import toastSolidCustomComposition from '../../../snippets/toast/solid/custom-composition.tsx?raw';
-import toastSolidDuration from '../../../snippets/toast/solid/duration.tsx?raw';
-import toastSolidMaximumVisible from '../../../snippets/toast/solid/max-toasts.tsx?raw';
-import toastSolidNonOverlapping from '../../../snippets/toast/solid/always-expanded.tsx?raw';
-import toastSolidPlacement from '../../../snippets/toast/solid/placement.tsx?raw';
-import toastSolidPromise from '../../../snippets/toast/solid/promise-toast.tsx?raw';
-import toastSolidTypes from '../../../snippets/toast/solid/types.tsx?raw';
-import toastSolidUpdate from '../../../snippets/toast/solid/update.tsx?raw';
-import toastVueAction from '../../../snippets/toast/vue/action.vue?raw';
-import toastVueBasic from '../../../snippets/toast/vue/basic.vue?raw';
-import toastVueCustomComposition from '../../../snippets/toast/vue/custom-composition.vue?raw';
-import toastVueDuration from '../../../snippets/toast/vue/duration.vue?raw';
-import toastVueMaximumVisible from '../../../snippets/toast/vue/max-toasts.vue?raw';
-import toastVueNonOverlapping from '../../../snippets/toast/vue/always-expanded.vue?raw';
-import toastVuePlacement from '../../../snippets/toast/vue/placement.vue?raw';
-import toastVuePromise from '../../../snippets/toast/vue/promise-toast.vue?raw';
-import toastVueTypes from '../../../snippets/toast/vue/types.vue?raw';
-import toastVueUpdate from '../../../snippets/toast/vue/update.vue?raw';
 
 ## Справочник API
 
@@ -50,46 +20,7 @@ Moduix экспортирует `Toast`, `ToastToaster`, `createToaster` и `use
 Один раз создайте toaster через `createToaster()`, добавляйте уведомления его методами и выведите
 их с помощью `ToastToaster`.
 
-<ExampleFrame variant="component">
-  <ToastBasic />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/toast/basic.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={toastSolidBasic} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={toastVueBasic} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/toast/toast-basic.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="toast/basic" />
 
 ## Установка через shadcn
 
@@ -179,190 +110,35 @@ computed ref. Для `asChild` у кнопок действия и закрыт�
 
 Добавьте `action: { label, onClick }`, если уведомление должно предложить одно прямое действие.
 
-<ExampleFrame variant="component">
-  <ToastAction />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/toast/action.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={toastSolidAction} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={toastVueAction} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/toast/toast-action.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="toast/action" />
 
 ### Длительность
 
 Задайте `duration` в миллисекундах, если уведомление должно исчезнуть раньше, оставаться дольше или
 ждать ручного закрытия. Для последнего варианта используйте `Infinity`.
 
-<ExampleFrame variant="component">
-  <ToastDuration />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/toast/duration.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={toastSolidDuration} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={toastVueDuration} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/toast/toast-duration.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="toast/duration" />
 
 ### Максимум видимых
 
 Установите `max` на toaster, если всплески уведомлений должны вставать в очередь, а не заполнять
 экран.
 
-<ExampleFrame variant="component">
-  <ToastMaximumVisible />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/toast/max-toasts.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={toastSolidMaximumVisible} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={toastVueMaximumVisible} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/toast/toast-max-toasts.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="toast/max-toasts" />
 
 ### Стек без перекрытия
 
 Задайте `overlap: false`, если каждое уведомление должно оставаться полностью видимым. Это настройка
 toaster, а не отдельный режим компонента.
 
-<ExampleFrame variant="component">
-  <ToastNonOverlapping />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/toast/always-expanded.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={toastSolidNonOverlapping} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={toastVueNonOverlapping} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/toast/toast-always-expanded.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="toast/always-expanded" />
 
 ### Размещение
 
 Выберите один из шести вариантов Ark, если группа уведомлений должна появляться у определённого
 края окна.
 
-<ExampleFrame variant="component">
-  <ToastPlacement />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/toast/placement.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={toastSolidPlacement} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={toastVuePlacement} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/toast/toast-placement.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="toast/placement" />
 
 ### Promise
 
@@ -370,152 +146,28 @@ toaster, а не отдельный режим компонента.
 успеха или ошибки после завершения асинхронной операции. Пока у уведомления тип `loading`, стандартная
 разметка показывает декоративный `Spinner` перед заголовком.
 
-<ExampleFrame variant="component">
-  <ToastPromise />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/toast/promise-toast.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={toastSolidPromise} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={toastVuePromise} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/toast/toast-promise-toast.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="toast/promise-toast" />
 
 ### Типы
 
 Используйте типизированные методы toaster для вариантов, зависящих от статуса. Moduix оформляет
 `info`, `success`, `warning` и `error` через `data-type`.
 
-<ExampleFrame variant="component">
-  <ToastTypes />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/toast/types.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={toastSolidTypes} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={toastVueTypes} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/toast/toast-types.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="toast/types" />
 
 ### Обновление
 
 Сохраните идентификатор, который возвращает создание уведомления, и передайте его в
 `toaster.update()`, если существующее уведомление нужно изменить на месте.
 
-<ExampleFrame variant="component">
-  <ToastUpdate />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/toast/update.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={toastSolidUpdate} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={toastVueUpdate} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/toast/toast-update.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="toast/update" />
 
 ### Расширенная настройка
 
 Используйте render prop, чтобы заменить стандартную разметку `ToastToaster`, добавить иконку, изменить
 иконку закрытия и применить CSS-переменные компонента.
 
-<ExampleFrame variant="component">
-  <ToastCustomComposition />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/toast/custom-composition.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={toastSolidCustomComposition} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={toastVueCustomComposition} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/toast/toast-custom-composition.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="toast/custom-composition" />
 
 ## Стилизация
 

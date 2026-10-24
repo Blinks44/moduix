@@ -5,21 +5,6 @@ description: Une palette de commandes dans une boîte de dialogue, avec recherch
 ---
 
 import * as CommandPaletteDocs from '@/components/examples/command-palette/css-properties';
-import CommandPaletteBasic from '@/components/examples/command-palette/basic.tsx';
-import AdvancedCommandPalette from '@/components/examples/command-palette/advanced-customization.tsx';
-import ControlledCommandPalette from '@/components/examples/command-palette/controlled-open-state.tsx';
-import CommandPaletteShortcutDemo from '@/components/examples/command-palette/enable-the-global-shortcut.tsx';
-import CommandPaletteActionsDemo from '@/components/examples/command-palette/item-actions.tsx';
-import commandPaletteSolidBasic from '../../../snippets/command-palette/solid/basic.tsx?raw';
-import commandPaletteSolidAdvanced from '../../../snippets/command-palette/solid/advanced-customization.tsx?raw';
-import commandPaletteSolidControlled from '../../../snippets/command-palette/solid/controlled-open-state.tsx?raw';
-import commandPaletteSolidShortcut from '../../../snippets/command-palette/solid/enable-the-global-shortcut.tsx?raw';
-import commandPaletteSolidActions from '../../../snippets/command-palette/solid/item-actions.tsx?raw';
-import commandPaletteVueBasic from '../../../snippets/command-palette/vue/basic.vue?raw';
-import commandPaletteVueAdvanced from '../../../snippets/command-palette/vue/advanced-customization.vue?raw';
-import commandPaletteVueControlled from '../../../snippets/command-palette/vue/controlled-open-state.vue?raw';
-import commandPaletteVueShortcut from '../../../snippets/command-palette/vue/enable-the-global-shortcut.vue?raw';
-import commandPaletteVueActions from '../../../snippets/command-palette/vue/item-actions.vue?raw';
 
 ## Référence de l'API
 
@@ -37,42 +22,7 @@ le conteneur de positionnement et le contenu. Placez `CommandPaletteCombobox` à
 transmettez-lui une collection et affichez les commandes filtrées dans `CommandPaletteList`. `CommandPaletteSearch`
 ajoute une icône de recherche, le champ de saisie et un bouton d'effacement, visible dès qu'une requête est saisie.
 
-<ExampleFrame variant="component">
-  <CommandPaletteBasic />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/command-palette/basic.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={commandPaletteSolidBasic} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={commandPaletteVueBasic} />
-
-    </Tab>
-  </Tabs>
-
-</div>
-
-</ExampleCode>
+<Example name="command-palette/basic" />
 
 ## Installation avec shadcn
 
@@ -193,134 +143,21 @@ du package du framework correspondant lorsque l'état du dialogue doit être cr�
 Utilisez la prop contrôlée `open` lorsque le reste de l'interface doit également décider si la palette est visible.
 L'exemple réinitialise le filtre externe de la collection à la fermeture de la palette.
 
-<ExampleFrame variant="component">
-  <ControlledCommandPalette />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/command-palette/controlled-open-state.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={commandPaletteSolidControlled} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={commandPaletteVueControlled} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/command-palette/command-palette-controlled-open-state.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="command-palette/controlled-open-state" />
 
 ### Activation du raccourci global
 
 Définissez `shortcut="alt+k"` sur `CommandPalette` ou `CommandPaletteRootProvider` pour enregistrer un raccourci global qui ouvre et ferme la palette. C'est le seul
 aperçu de la page qui enregistre `Alt+K`.
 
-<ExampleFrame variant="component">
-  <CommandPaletteShortcutDemo />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/command-palette/enable-the-global-shortcut.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={commandPaletteSolidShortcut} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={commandPaletteVueShortcut} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/command-palette/command-palette-enable-the-global-shortcut.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="command-palette/enable-the-global-shortcut" />
 
 ### Actions des éléments
 
 Gérez `onSelect(details)` pour exécuter une commande. Avec la valeur par défaut de `closeOnSelect`, la palette se
 ferme après l'exécution de l'action sélectionnée.
 
-<ExampleFrame variant="component">
-  <CommandPaletteActionsDemo />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/command-palette/item-actions.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={commandPaletteSolidActions} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={commandPaletteVueActions} />
-
-    </Tab>
-  </Tabs>
-
-</div>
-
-</ExampleCode>
+<Example name="command-palette/item-actions" />
 
 ### Personnalisation avancée
 
@@ -328,46 +165,7 @@ Rendez les parties explicites du dialogue et de la recherche lorsque la palette 
 de recherche personnalisés. L'exemple conserve le comportement d'Ark Dialog et d'Ark Combobox, tout en remplaçant
 les composants utilitaires `CommandPalettePanel` et `CommandPaletteSearch` par une composition explicite.
 
-<ExampleFrame variant="component">
-  <AdvancedCommandPalette />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/command-palette/advanced-customization.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={commandPaletteSolidAdvanced} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={commandPaletteVueAdvanced} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/command-palette/command-palette-advanced-customization.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="command-palette/advanced-customization" />
 
 ## Styles
 

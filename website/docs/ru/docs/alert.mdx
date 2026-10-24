@@ -5,24 +5,6 @@ description: Встроенные сообщения о статусе, резу
 ---
 
 import * as AlertDocs from '@/components/examples/alert/css-properties';
-import AlertBasic from '@/components/examples/alert/basic.tsx';
-import AlertCustomComposition from '@/components/examples/alert/custom-composition.tsx';
-import AlertCustomHeading from '@/components/examples/alert/custom-heading.tsx';
-import AlertError from '@/components/examples/alert/error.tsx';
-import AlertStatuses from '@/components/examples/alert/statuses.tsx';
-import AlertWithIcon from '@/components/examples/alert/with-icon.tsx';
-import alertSolidBasic from '../../../snippets/alert/solid/basic.tsx?raw';
-import alertSolidCustomComposition from '../../../snippets/alert/solid/custom-composition.tsx?raw';
-import alertSolidCustomHeading from '../../../snippets/alert/solid/custom-heading.tsx?raw';
-import alertSolidError from '../../../snippets/alert/solid/error.tsx?raw';
-import alertSolidStatuses from '../../../snippets/alert/solid/statuses.tsx?raw';
-import alertSolidWithIcon from '../../../snippets/alert/solid/with-icon.tsx?raw';
-import alertVueBasic from '../../../snippets/alert/vue/basic.vue?raw';
-import alertVueCustomComposition from '../../../snippets/alert/vue/custom-composition.vue?raw';
-import alertVueCustomHeading from '../../../snippets/alert/vue/custom-heading.vue?raw';
-import alertVueError from '../../../snippets/alert/vue/error.vue?raw';
-import alertVueStatuses from '../../../snippets/alert/vue/statuses.vue?raw';
-import alertVueWithIcon from '../../../snippets/alert/vue/with-icon.vue?raw';
 
 ## Справочник API
 
@@ -55,41 +37,7 @@ import alertVueWithIcon from '../../../snippets/alert/vue/with-icon.vue?raw';
 Для обычного встроенного сообщения поместите `AlertTitle` и `AlertDescription` внутрь
 `AlertContent`. Добавьте `AlertIndicator`, если значок помогает быстрее понять тип сообщения.
 
-<ExampleFrame variant="component">
-  <AlertBasic />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/alert/basic.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={alertSolidBasic} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={alertVueBasic} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="alert/basic" />
 
 ## Установка через shadcn
 
@@ -172,82 +120,14 @@ Alert
 Используйте `asChild` в `AlertTitle`, если заголовок сообщения должен занять определённый уровень
 в иерархии заголовков страницы.
 
-<ExampleFrame variant="component">
-  <AlertCustomHeading />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/alert/custom-heading.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={alertSolidCustomHeading} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={alertVueCustomHeading} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="alert/custom-heading" />
 
 ### Ошибка
 
 Задайте `status="error"`, чтобы визуально выделить сообщение сильнее. Добавляйте `role="alert"`, только
 если сообщение нужно объявить немедленно.
 
-<ExampleFrame variant="component">
-  <AlertError />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/alert/error.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={alertSolidError} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={alertVueError} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="alert/error" />
 
 ### Статусы
 
@@ -255,87 +135,14 @@ Alert
 предупреждения и ошибки. Добавьте `AlertIndicator` с подходящей иконкой, если визуальный ориентир
 помогает быстрее понять сообщение.
 
-<ExampleFrame variant="component">
-  <AlertStatuses />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/alert/statuses.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={alertSolidStatuses} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={alertVueStatuses} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/alert/alert-statuses.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="alert/statuses" />
 
 ### С иконкой
 
 Поместите иконку moduix или собственную SVG-иконку внутрь `AlertIndicator`. Класс размера на самой
 иконке переопределяет размер по умолчанию.
 
-<ExampleFrame variant="component">
-  <AlertWithIcon />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/alert/with-icon.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={alertSolidWithIcon} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={alertVueWithIcon} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="alert/with-icon" />
 
 ### Расширенная настройка
 
@@ -343,46 +150,7 @@ Alert
 проблемы и дальнейших действий. Если локальное сообщение нужно скрывать, храните состояние его видимости
 в компоненте, который выводит `Alert`.
 
-<ExampleFrame variant="component">
-  <AlertCustomComposition />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/alert/custom-composition.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={alertSolidCustomComposition} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={alertVueCustomComposition} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/alert/alert-custom-composition.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="alert/custom-composition" />
 
 ## Стилизация
 

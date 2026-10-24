@@ -5,18 +5,6 @@ description: Кнопка только со значком для закрыти
 ---
 
 import * as CloseButtonDocs from '@/components/examples/close-button/css-properties';
-import CloseButtonAsChild from '@/components/examples/close-button/as-child.tsx';
-import CloseButtonBasic from '@/components/examples/close-button/basic.tsx';
-import CloseButtonCustomChildren from '@/components/examples/close-button/custom-children.tsx';
-import CloseButtonDisabled from '@/components/examples/close-button/disabled-state.tsx';
-import closeButtonSolidAsChild from '../../../snippets/close-button/solid/as-child.tsx?raw';
-import closeButtonSolidBasic from '../../../snippets/close-button/solid/basic.tsx?raw';
-import closeButtonSolidCustomChildren from '../../../snippets/close-button/solid/custom-children.tsx?raw';
-import closeButtonSolidDisabled from '../../../snippets/close-button/solid/disabled-state.tsx?raw';
-import closeButtonVueAsChild from '../../../snippets/close-button/vue/as-child.vue?raw';
-import closeButtonVueBasic from '../../../snippets/close-button/vue/basic.vue?raw';
-import closeButtonVueCustomChildren from '../../../snippets/close-button/vue/custom-children.vue?raw';
-import closeButtonVueDisabled from '../../../snippets/close-button/vue/disabled-state.vue?raw';
 
 ## Справочник API
 
@@ -33,46 +21,7 @@ import closeButtonVueDisabled from '../../../snippets/close-button/vue/disabled-
 рендерит семантическую кнопку, задаёт доступное имя по умолчанию и показывает иконку `CloseIcon`, но не управляет
 состоянием закрываемого элемента.
 
-<ExampleFrame variant="component">
-  <CloseButtonBasic />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/close-button/basic.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={closeButtonSolidBasic} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={closeButtonVueBasic} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/close-button/close-button-basic.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="close-button/basic" />
 
 ## Установка через shadcn
 
@@ -144,128 +93,21 @@ CloseButton
 Если имя кнопки задаётся отдельной подписью, сделайте пользовательскую иконку декоративной с помощью
 `aria-hidden="true"`.
 
-<ExampleFrame variant="component">
-  <CloseButtonCustomChildren />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/close-button/custom-children.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={closeButtonSolidCustomChildren} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={closeButtonVueCustomChildren} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="close-button/custom-children" />
 
 ### Отключённое состояние
 
 Используйте нативное `disabled`, если кнопка не должна получать фокус. Применяйте `aria-disabled="true"`, если
 кнопка должна оставаться доступной для фокуса, но не должна активироваться.
 
-<ExampleFrame variant="component">
-  <CloseButtonDisabled />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/close-button/disabled-state.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={closeButtonSolidDisabled} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={closeButtonVueDisabled} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/close-button/close-button-disabled-state.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="close-button/disabled-state" />
 
 ### Использование `asChild`
 
 Используйте `asChild`, если существующая семантическая кнопка должна остаться итоговым DOM-элементом и получить стили
 и `data-*`-атрибуты `CloseButton`. Поместите иконку в дочерний элемент и явно укажите его тип.
 
-<ExampleFrame variant="component">
-  <CloseButtonAsChild />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/close-button/as-child.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={closeButtonSolidAsChild} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={closeButtonVueAsChild} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="close-button/as-child" />
 
 ## Стилизация
 

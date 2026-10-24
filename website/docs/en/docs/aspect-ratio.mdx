@@ -4,22 +4,7 @@ component: aspect-ratio
 description: Keeps media and embedded content inside a responsive frame with a fixed aspect ratio.
 ---
 
-import AspectRatioAdvancedCustomization from '@/components/examples/aspect-ratio/advanced-customization.tsx';
-import AspectRatioBasic from '@/components/examples/aspect-ratio/basic.tsx';
-import AspectRatioCardGrid from '@/components/examples/aspect-ratio/card-grid.tsx';
-import AspectRatioEmbeddedContent from '@/components/examples/aspect-ratio/embedded-content.tsx';
-import AspectRatioMigration from '@/components/examples/aspect-ratio/migrating-from-shadcn.tsx';
-import aspectRatioSolidAdvancedCustomization from '../../../snippets/aspect-ratio/solid/advanced-customization.tsx?raw';
-import aspectRatioSolidBasic from '../../../snippets/aspect-ratio/solid/basic.tsx?raw';
-import aspectRatioSolidCardGrid from '../../../snippets/aspect-ratio/solid/card-grid.tsx?raw';
-import aspectRatioSolidEmbeddedContent from '../../../snippets/aspect-ratio/solid/embedded-content.tsx?raw';
-import aspectRatioSolidMigration from '../../../snippets/aspect-ratio/solid/migrating-from-shadcn.tsx?raw';
-import aspectRatioVueAdvancedCustomization from '../../../snippets/aspect-ratio/vue/advanced-customization.vue?raw';
-import aspectRatioVueBasic from '../../../snippets/aspect-ratio/vue/basic.vue?raw';
-import aspectRatioVueEmbeddedContent from '../../../snippets/aspect-ratio/vue/embedded-content.vue?raw';
-import aspectRatioVueMigration from '../../../snippets/aspect-ratio/vue/migrating-from-shadcn.vue?raw';
 
-import aspectRatioVueCardGrid from '../../../snippets/aspect-ratio/vue/card-grid.vue?raw';
 
 ## API Reference
 
@@ -44,46 +29,7 @@ ratio to `ratio`. It defaults to `1`; a missing or invalid value (zero, negative
 full height, and `object-fit` to an image. Put clipping and border radius on the root when the composition needs
 them.
 
-<ExampleFrame variant="component">
-  <AspectRatioBasic />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/aspect-ratio/basic.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={aspectRatioSolidBasic} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={aspectRatioVueBasic} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/aspect-ratio/aspect-ratio-basic.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="aspect-ratio/basic" />
 
 ## Install with shadcn
 
@@ -151,183 +97,27 @@ In Solid, assign a ref to the element created inside the `asChild` render functi
 Use the same aspect ratio for card media to keep repeated cards aligned, even when the source images have
 different dimensions.
 
-<ExampleFrame variant="component">
-  <AspectRatioCardGrid />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/aspect-ratio/card-grid.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={aspectRatioSolidCardGrid} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={aspectRatioVueCardGrid} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/aspect-ratio/aspect-ratio-card-grid.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="aspect-ratio/card-grid" />
 
 ### Embedded content
 
 Wrap a video or another embed in `AspectRatio` to keep the frame stable while external content loads.
 
-<ExampleFrame variant="component">
-  <AspectRatioEmbeddedContent />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/aspect-ratio/embedded-content.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={aspectRatioSolidEmbeddedContent} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={aspectRatioVueEmbeddedContent} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/aspect-ratio/aspect-ratio-embedded-content.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="aspect-ratio/embedded-content" />
 
 ### Migrating from shadcn
 
 If you are migrating from shadcn, put width, clipping, and radius classes on `AspectRatio`, and size the media
 inside it explicitly. The same root setup also works with Next.js `Image` using `fill`.
 
-<ExampleFrame variant="component">
-  <AspectRatioMigration />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/aspect-ratio/migrating-from-shadcn.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={aspectRatioSolidMigration} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={aspectRatioVueMigration} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/aspect-ratio/aspect-ratio-migrating-from-shadcn.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="aspect-ratio/migrating-from-shadcn" />
 
 ### Advanced customization
 
 Use `asChild` when another semantic element, such as `figure`, should be the rendered root. Ark merges the
 component props into its only child element.
 
-<ExampleFrame variant="component">
-  <AspectRatioAdvancedCustomization />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/aspect-ratio/advanced-customization.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={aspectRatioSolidAdvancedCustomization} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={aspectRatioVueAdvancedCustomization} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/aspect-ratio/aspect-ratio-advanced-customization.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="aspect-ratio/advanced-customization" />
 
 ## Styling
 

@@ -5,33 +5,7 @@ description: Build accessible accordions in React, Solid, or Vue with package an
 ---
 
 import * as AccordionDocs from '@/components/examples/accordion/css-properties';
-import AccordionBasic from '@/components/examples/accordion/basic.tsx';
-import AccordionCollapsible from '@/components/examples/accordion/collapsible.tsx';
-import AccordionControlled from '@/components/examples/accordion/controlled.tsx';
-import AccordionDisabledItem from '@/components/examples/accordion/disabled-item.tsx';
-import AccordionHorizontal from '@/components/examples/accordion/horizontal.tsx';
-import AccordionLazyMount from '@/components/examples/accordion/lazy-mount.tsx';
-import AccordionMultiple from '@/components/examples/accordion/multiple.tsx';
 import AccordionRootProvider from '@/components/examples/accordion/root-provider.tsx';
-import AccordionWithSlider from '@/components/examples/accordion/with-slider.tsx';
-import accordionSolidBasic from '../../../snippets/accordion/solid/basic.tsx?raw';
-import accordionSolidCollapsible from '../../../snippets/accordion/solid/collapsible.tsx?raw';
-import accordionSolidControlled from '../../../snippets/accordion/solid/controlled.tsx?raw';
-import accordionSolidDisabledItem from '../../../snippets/accordion/solid/disabled-item.tsx?raw';
-import accordionSolidHorizontal from '../../../snippets/accordion/solid/horizontal.tsx?raw';
-import accordionSolidLazyMount from '../../../snippets/accordion/solid/lazy-mount.tsx?raw';
-import accordionSolidMultiple from '../../../snippets/accordion/solid/multiple.tsx?raw';
-import accordionSolidRootProvider from '../../../snippets/accordion/solid/root-provider.tsx?raw';
-import accordionSolidWithSlider from '../../../snippets/accordion/solid/with-slider.tsx?raw';
-import accordionVueBasic from '../../../snippets/accordion/vue/basic.vue?raw';
-import accordionVueCollapsible from '../../../snippets/accordion/vue/collapsible.vue?raw';
-import accordionVueControlled from '../../../snippets/accordion/vue/controlled.vue?raw';
-import accordionVueDisabledItem from '../../../snippets/accordion/vue/disabled-item.vue?raw';
-import accordionVueHorizontal from '../../../snippets/accordion/vue/horizontal.vue?raw';
-import accordionVueLazyMount from '../../../snippets/accordion/vue/lazy-mount.vue?raw';
-import accordionVueMultiple from '../../../snippets/accordion/vue/multiple.vue?raw';
-import accordionVueRootProvider from '../../../snippets/accordion/vue/root-provider.vue?raw';
-import accordionVueWithSlider from '../../../snippets/accordion/vue/with-slider.vue?raw';
 
 ## API Reference
 
@@ -54,46 +28,7 @@ React, Solid, and Vue use the same flat value names. Import `Accordion` as the r
 additional part directly, such as `AccordionItem` and `AccordionItemTrigger`. The same names work
 with npm packages and shadcn registry source.
 
-<ExampleFrame variant="component">
-  <AccordionBasic />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/accordion/basic.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={accordionSolidBasic} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={accordionVueBasic} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/accordion/accordion-basic.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="accordion/basic" />
 
 ## Install with shadcn
 
@@ -176,183 +111,27 @@ accessor; Vue exposes the reactive store directly to the template.
 
 Set `collapsible` when the open item should be able to close without opening another item.
 
-<ExampleFrame variant="component">
-  <AccordionCollapsible />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/accordion/collapsible.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={accordionSolidCollapsible} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={accordionVueCollapsible} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/accordion/accordion-collapsible.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="accordion/collapsible" />
 
 ### Controlled
 
 Manage `value` with `useState` in React, `createSignal` in Solid, or `ref` and `v-model` in Vue when
 open items need to stay in sync with routing, filters, or surrounding UI.
 
-<ExampleFrame variant="component">
-  <AccordionControlled />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/accordion/controlled.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={accordionSolidControlled} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={accordionVueControlled} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/accordion/accordion-controlled.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="accordion/controlled" />
 
 ### Disabled Item
 
 Set `disabled` on an item when it should remain visible in the list but unavailable for interaction.
 
-<ExampleFrame variant="component">
-  <AccordionDisabledItem />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/accordion/disabled-item.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={accordionSolidDisabledItem} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={accordionVueDisabledItem} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/accordion/accordion-disabled-item.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="accordion/disabled-item" />
 
 ### Horizontal
 
 Set `orientation="horizontal"` to lay out the accordion in a row and use horizontal keyboard
 navigation.
 
-<ExampleFrame variant="component">
-  <AccordionHorizontal />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/accordion/horizontal.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={accordionSolidHorizontal} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={accordionVueHorizontal} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/accordion/accordion-horizontal.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="accordion/horizontal" />
 
 ### Lazy Mount
 
@@ -360,91 +139,13 @@ Combine `lazyMount` and `unmountOnExit` when hidden panel content is expensive t
 be removed from the DOM after it closes. In React 19, use `hideMode="activity"` instead when the
 content should stay mounted while its effects pause when hidden.
 
-<ExampleFrame variant="component">
-  <AccordionLazyMount />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/accordion/lazy-mount.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={accordionSolidLazyMount} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={accordionVueLazyMount} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/accordion/accordion-lazy-mount.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="accordion/lazy-mount" />
 
 ### Multiple
 
 Set `multiple` when several sections should stay open at the same time.
 
-<ExampleFrame variant="component">
-  <AccordionMultiple />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/accordion/multiple.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={accordionSolidMultiple} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={accordionVueMultiple} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/accordion/accordion-multiple.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="accordion/multiple" />
 
 ### Root Provider
 
@@ -452,92 +153,14 @@ Use `useAccordion()` from the matching framework package with `AccordionRootProv
 state store must be created outside the rendered accordion tree. Do not render `Accordion` for the
 same store.
 
-<ExampleFrame variant="component">
-  <AccordionRootProvider />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/accordion/root-provider.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={accordionSolidRootProvider} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={accordionVueRootProvider} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/accordion/accordion-root-provider.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="accordion/root-provider" />
 
 ### Advanced Customization
 
 Accordion content can contain another Ark-based composite widget, such as `Slider`. Keep each
 primitive's part tree explicit so the right component owns keyboard handling and hidden form inputs.
 
-<ExampleFrame variant="component">
-  <AccordionWithSlider />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/accordion/with-slider.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={accordionSolidWithSlider} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={accordionVueWithSlider} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/accordion/accordion-with-slider.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="accordion/with-slider" />
 
 ## Styling
 

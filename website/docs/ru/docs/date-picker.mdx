@@ -4,64 +4,8 @@ component: date-picker
 description: Компонент выбора даты на базе Ark UI с календарём во всплывающем окне или на странице, выбором диапазона и нескольких дат.
 ---
 
-import DatePickerAdvancedCustomization from '@/components/examples/date-picker/advanced-customization.tsx';
-import DatePickerBasic from '@/components/examples/date-picker/basic.tsx';
-import DatePickerControlled from '@/components/examples/date-picker/controlled.tsx';
-import DatePickerDefaultView from '@/components/examples/date-picker/default-view-and-fixed-weeks.tsx';
-import DatePickerFieldState from '@/components/examples/date-picker/field-state.tsx';
-import DatePickerForm from '@/components/examples/date-picker/form.tsx';
-import DatePickerInline from '@/components/examples/date-picker/inline-and-week-numbers.tsx';
-import DatePickerLocale from '@/components/examples/date-picker/locale-and-format.tsx';
-import DatePickerMinMax from '@/components/examples/date-picker/min-max-and-unavailable.tsx';
-import DatePickerMonthPicker from '@/components/examples/date-picker/month-picker.tsx';
-import DatePickerMonthYearSelect from '@/components/examples/date-picker/month-year-select.tsx';
-import DatePickerMultiple from '@/components/examples/date-picker/multiple.tsx';
-import DatePickerMultipleMonths from '@/components/examples/date-picker/multiple-months.tsx';
-import DatePickerPresets from '@/components/examples/date-picker/presets.tsx';
-import DatePickerRange from '@/components/examples/date-picker/range.tsx';
 import DatePickerRootProvider from '@/components/examples/date-picker/root-provider.tsx';
-import DatePickerSelectToday from '@/components/examples/date-picker/select-today.tsx';
-import DatePickerWithTime from '@/components/examples/date-picker/with-time.tsx';
-import DatePickerYearPicker from '@/components/examples/date-picker/year-picker.tsx';
 import * as DatePickerDocs from '@/components/examples/date-picker/css-properties';
-import datePickerSolidAdvancedCustomization from '../../../snippets/date-picker/solid/advanced-customization.tsx?raw';
-import datePickerSolidBasic from '../../../snippets/date-picker/solid/basic.tsx?raw';
-import datePickerSolidControlled from '../../../snippets/date-picker/solid/controlled.tsx?raw';
-import datePickerSolidDefaultView from '../../../snippets/date-picker/solid/default-view-and-fixed-weeks.tsx?raw';
-import datePickerSolidFieldState from '../../../snippets/date-picker/solid/field-state.tsx?raw';
-import datePickerSolidForm from '../../../snippets/date-picker/solid/form.tsx?raw';
-import datePickerSolidInline from '../../../snippets/date-picker/solid/inline-and-week-numbers.tsx?raw';
-import datePickerSolidLocale from '../../../snippets/date-picker/solid/locale-and-format.tsx?raw';
-import datePickerSolidMinMax from '../../../snippets/date-picker/solid/min-max-and-unavailable.tsx?raw';
-import datePickerSolidMonthPicker from '../../../snippets/date-picker/solid/month-picker.tsx?raw';
-import datePickerSolidMonthYearSelect from '../../../snippets/date-picker/solid/month-year-select.tsx?raw';
-import datePickerSolidMultiple from '../../../snippets/date-picker/solid/multiple.tsx?raw';
-import datePickerSolidMultipleMonths from '../../../snippets/date-picker/solid/multiple-months.tsx?raw';
-import datePickerSolidPresets from '../../../snippets/date-picker/solid/presets.tsx?raw';
-import datePickerSolidRange from '../../../snippets/date-picker/solid/range.tsx?raw';
-import datePickerSolidRootProvider from '../../../snippets/date-picker/solid/root-provider.tsx?raw';
-import datePickerSolidSelectToday from '../../../snippets/date-picker/solid/select-today.tsx?raw';
-import datePickerSolidWithTime from '../../../snippets/date-picker/solid/with-time.tsx?raw';
-import datePickerSolidYearPicker from '../../../snippets/date-picker/solid/year-picker.tsx?raw';
-import datePickerVueAdvancedCustomization from '../../../snippets/date-picker/vue/advanced-customization.vue?raw';
-import datePickerVueBasic from '../../../snippets/date-picker/vue/basic.vue?raw';
-import datePickerVueControlled from '../../../snippets/date-picker/vue/controlled.vue?raw';
-import datePickerVueDefaultView from '../../../snippets/date-picker/vue/default-view-and-fixed-weeks.vue?raw';
-import datePickerVueFieldState from '../../../snippets/date-picker/vue/field-state.vue?raw';
-import datePickerVueForm from '../../../snippets/date-picker/vue/form.vue?raw';
-import datePickerVueInline from '../../../snippets/date-picker/vue/inline-and-week-numbers.vue?raw';
-import datePickerVueLocale from '../../../snippets/date-picker/vue/locale-and-format.vue?raw';
-import datePickerVueMinMax from '../../../snippets/date-picker/vue/min-max-and-unavailable.vue?raw';
-import datePickerVueMonthPicker from '../../../snippets/date-picker/vue/month-picker.vue?raw';
-import datePickerVueMonthYearSelect from '../../../snippets/date-picker/vue/month-year-select.vue?raw';
-import datePickerVueMultiple from '../../../snippets/date-picker/vue/multiple.vue?raw';
-import datePickerVueMultipleMonths from '../../../snippets/date-picker/vue/multiple-months.vue?raw';
-import datePickerVuePresets from '../../../snippets/date-picker/vue/presets.vue?raw';
-import datePickerVueRange from '../../../snippets/date-picker/vue/range.vue?raw';
-import datePickerVueRootProvider from '../../../snippets/date-picker/vue/root-provider.vue?raw';
-import datePickerVueSelectToday from '../../../snippets/date-picker/vue/select-today.vue?raw';
-import datePickerVueWithTime from '../../../snippets/date-picker/vue/with-time.vue?raw';
-import datePickerVueYearPicker from '../../../snippets/date-picker/vue/year-picker.vue?raw';
 
 ## Справочник API
 
@@ -80,40 +24,7 @@ import datePickerVueYearPicker from '../../../snippets/date-picker/vue/year-pick
 Каждая таблица выводит свой заголовок, поэтому переключатель представления работает сразу. Когда
 календарь должен быть всплывающим, явно добавьте `DatePickerPositioner` и `DatePickerContent`.
 
-<ExampleFrame variant="component">
-  <DatePickerBasic />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/date-picker/basic.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={datePickerSolidBasic} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={datePickerVueBasic} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="date-picker/basic" />
 
 ## Установка через shadcn
 
@@ -243,147 +154,28 @@ DatePickerRootProvider
 Управляйте выбранным `DateValue[]`, обновляя его через `details.value`. В Vue для управляемого
 значения используйте `v-model`.
 
-<ExampleFrame variant="component">
-  <DatePickerControlled />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/date-picker/controlled.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={datePickerSolidControlled} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={datePickerVueControlled} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/date-picker/date-picker-controlled.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="date-picker/controlled" />
 
 ### Представление по умолчанию и фиксированное число недель
 
 Используйте `defaultView`, чтобы открыть другое представление. Добавьте `fixedWeeks`, чтобы высота
 представления дней оставалась постоянной в шесть строк при переходе между месяцами.
 
-<ExampleFrame variant="component">
-  <DatePickerDefaultView />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/date-picker/default-view-and-fixed-weeks.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={datePickerSolidDefaultView} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={datePickerVueDefaultView} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="date-picker/default-view-and-fixed-weeks" />
 
 ### Состояние поля
 
 `DatePicker` получает состояние поля из Ark. Если компонент не вложен в `Field`, задайте на корне
 `invalid`, `disabled`, `readOnly` и `required`.
 
-<ExampleFrame variant="component">
-  <DatePickerFieldState />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/date-picker/field-state.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={datePickerSolidFieldState} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={datePickerVueFieldState} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/date-picker/date-picker-field-state.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="date-picker/field-state" />
 
 ### Форма
 
 Передайте `name`, чтобы включить выбранную дату в отправку нативной формы. `DatePickerField`
 добавляет локализованный шаблон ввода и подписи действий, если их не переопределить.
 
-<ExampleFrame variant="component">
-  <DatePickerForm />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/date-picker/form.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={datePickerSolidForm} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={datePickerVueForm} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/date-picker/date-picker-form.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="date-picker/form" />
 
 ### Встроенный календарь и номера недель
 
@@ -391,103 +183,20 @@ DatePickerRootProvider
 `DatePickerContent` напрямую, без `DatePickerPositioner`. Номера недель включаются свойством
 `showWeekNumbers` на корне: `DatePickerDayTable` читает его и добавляет столбец.
 
-<ExampleFrame variant="component">
-  <DatePickerInline />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/date-picker/inline-and-week-numbers.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={datePickerSolidInline} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={datePickerVueInline} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/date-picker/date-picker-inline-and-week-numbers.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="date-picker/inline-and-week-numbers" />
 
 ### Локаль и формат
 
 Параметры `locale`, `startOfWeek`, `format` и `parse` передаются в Ark.
 
-<ExampleFrame variant="component">
-  <DatePickerLocale />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/date-picker/locale-and-format.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={datePickerSolidLocale} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={datePickerVueLocale} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="date-picker/locale-and-format" />
 
 ### Минимальная, максимальная и недоступные даты
 
 Используйте `min`, `max` и `isDateUnavailable` для правил валидации, которые должны влиять и на
 ввод, и на ячейки календаря.
 
-<ExampleFrame variant="component">
-  <DatePickerMinMax />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/date-picker/min-max-and-unavailable.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={datePickerSolidMinMax} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={datePickerVueMinMax} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="date-picker/min-max-and-unavailable" />
 
 ### Выбор месяца и года
 
@@ -495,71 +204,14 @@ DatePickerRootProvider
 активной датой. Используйте `DatePickerContext` только для другой собственной компоновки
 заголовка или календаря.
 
-<ExampleFrame variant="component">
-  <DatePickerMonthYearSelect />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/date-picker/month-year-select.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={datePickerSolidMonthYearSelect} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={datePickerVueMonthYearSelect} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/date-picker/date-picker-month-year-select.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="date-picker/month-year-select" />
 
 ### Выбор месяца
 
 Задайте `defaultView="month"` и `minView="month"`, чтобы пользователь выбирал только месяц.
 Используйте `format` и `parse`, если ввод должен принимать строку с месяцем и годом.
 
-<ExampleFrame variant="component">
-  <DatePickerMonthPicker />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/date-picker/month-picker.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={datePickerSolidMonthPicker} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={datePickerVueMonthPicker} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="date-picker/month-picker" />
 
 ### Несколько дат
 
@@ -567,261 +219,49 @@ DatePickerRootProvider
 `maxSelectedDates`. Выводите выбранные даты через `DatePickerContext` и вызывайте
 `datePicker.setValue()` при удалении даты.
 
-<ExampleFrame variant="component">
-  <DatePickerMultiple />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/date-picker/multiple.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={datePickerSolidMultiple} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={datePickerVueMultiple} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/date-picker/date-picker-multiple.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="date-picker/multiple" />
 
 ### Несколько месяцев
 
 Задайте `numOfMonths`, когда пользователю нужно видеть несколько месяцев при выборе дат. Выведите
 по `DatePickerDayTable` на каждый месяц и передайте второй таблице `offset={1}`.
 
-<ExampleFrame variant="component">
-  <DatePickerMultipleMonths />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/date-picker/multiple-months.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={datePickerSolidMultipleMonths} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={datePickerVueMultipleMonths} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/date-picker/date-picker-multiple-months.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="date-picker/multiple-months" />
 
 ### Предустановки
 
 `DatePickerPresetTrigger` принимает имена готовых диапазонов, например `last7Days`, или собственный
 `DateValue[]`. Используйте режим диапазона и два индексированных ввода, чтобы показать обе даты.
 
-<ExampleFrame variant="component">
-  <DatePickerPresets />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/date-picker/presets.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={datePickerSolidPresets} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={datePickerVuePresets} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/date-picker/date-picker-presets.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="date-picker/presets" />
 
 ### Диапазон
 
 Используйте `selectionMode="range"` с двумя значениями. Ark управляет наведением, началом и концом
 диапазона, а также форматированием ввода. Для диапазона нужны два индексированных ввода.
 
-<ExampleFrame variant="component">
-  <DatePickerRange />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/date-picker/range.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={datePickerSolidRange} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={datePickerVueRange} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="date-picker/range" />
 
 ### Root Provider
 
 Используйте `useDatePicker()` из пакета выбранного фреймворка вместе с `DatePickerRootProvider`,
 когда состояние календаря нужно разделить с элементами вне дерева корня.
 
-<ExampleFrame variant="component">
-  <DatePickerRootProvider />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/date-picker/root-provider.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={datePickerSolidRootProvider} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={datePickerVueRootProvider} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/date-picker/date-picker-root-provider.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="date-picker/root-provider" />
 
 ### Выбрать сегодня
 
 Используйте `DatePickerContext`, когда соседнему элементу нужно вызвать вспомогательный метод,
 например `selectToday()`.
 
-<ExampleFrame variant="component">
-  <DatePickerSelectToday />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/date-picker/select-today.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={datePickerSolidSelectToday} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={datePickerVueSelectToday} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/date-picker/date-picker-select-today.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="date-picker/select-today" />
 
 ### Дата и время
 
 Храните время в выбранном значении через объекты `CalendarDateTime`. Объедините календарь с
 `DateInput`, настроенным на ввод минут, чтобы оба элемента редактировали одно значение.
 
-<ExampleFrame variant="component">
-  <DatePickerWithTime />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/date-picker/with-time.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={datePickerSolidWithTime} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={datePickerVueWithTime} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/date-picker/date-picker-with-time.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="date-picker/with-time" />
 
 ### Выбор года
 
@@ -829,33 +269,7 @@ DatePickerRootProvider
 только год. Используйте `DatePickerRangeText` в заголовке, поскольку у представления года нет более высокого
 уровня для переключения.
 
-<ExampleFrame variant="component">
-  <DatePickerYearPicker />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/date-picker/year-picker.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={datePickerSolidYearPicker} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={datePickerVueYearPicker} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="date-picker/year-picker" />
 
 ### Расширенная настройка
 
@@ -864,33 +278,7 @@ DatePickerRootProvider
 представления собраны из низкоуровневых частей вместо `DatePickerField` и готовых таблиц, при этом
 сохраняются состояние Ark и стилизованные части компонента.
 
-<ExampleFrame variant="component">
-  <DatePickerAdvancedCustomization />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/date-picker/advanced-customization.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={datePickerSolidAdvancedCustomization} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={datePickerVueAdvancedCustomization} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="date-picker/advanced-customization" />
 
 ## Стилизация
 

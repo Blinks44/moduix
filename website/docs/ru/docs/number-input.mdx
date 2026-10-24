@@ -5,48 +5,9 @@ description: Поле для ввода чисел на базе Ark UI с кн�
 ---
 
 import * as NumberInputDocs from '@/components/examples/number-input/css-properties';
-import NumberInputBasic from '@/components/examples/number-input/basic.tsx';
-import NumberInputControlled from '@/components/examples/number-input/controlled.tsx';
-import NumberInputDisabledAndReadOnly from '@/components/examples/number-input/disabled-and-read-only.tsx';
 import NumberInputField from '@/components/examples/number-input/field.tsx';
-import NumberInputFormatting from '@/components/examples/number-input/formatting.tsx';
-import NumberInputMinAndMax from '@/components/examples/number-input/min-and-max.tsx';
-import NumberInputMouseWheel from '@/components/examples/number-input/mouse-wheel.tsx';
-import NumberInputFormSubmission from '@/components/examples/number-input/form-submission.tsx';
-import NumberInputPrecision from '@/components/examples/number-input/precision.tsx';
 import NumberInputRootProvider from '@/components/examples/number-input/root-provider.tsx';
-import NumberInputScrubbing from '@/components/examples/number-input/scrubbing.tsx';
-import NumberInputSizes from '@/components/examples/number-input/sizes.tsx';
 import NumberInputValueText from '@/components/examples/number-input/value-text.tsx';
-import NumberInputCustomIcons from '@/components/examples/number-input/custom-icons.tsx';
-import numberInputSolidBasic from '../../../snippets/number-input/solid/basic.tsx?raw';
-import numberInputSolidControlled from '../../../snippets/number-input/solid/controlled.tsx?raw';
-import numberInputSolidDisabledAndReadOnly from '../../../snippets/number-input/solid/disabled-and-read-only.tsx?raw';
-import numberInputSolidField from '../../../snippets/number-input/solid/field.tsx?raw';
-import numberInputSolidFormatting from '../../../snippets/number-input/solid/formatting.tsx?raw';
-import numberInputSolidMinAndMax from '../../../snippets/number-input/solid/min-and-max.tsx?raw';
-import numberInputSolidMouseWheel from '../../../snippets/number-input/solid/mouse-wheel.tsx?raw';
-import numberInputSolidFormSubmission from '../../../snippets/number-input/solid/form-submission.tsx?raw';
-import numberInputSolidPrecision from '../../../snippets/number-input/solid/precision.tsx?raw';
-import numberInputSolidRootProvider from '../../../snippets/number-input/solid/root-provider.tsx?raw';
-import numberInputSolidScrubbing from '../../../snippets/number-input/solid/scrubbing.tsx?raw';
-import numberInputSolidSizes from '../../../snippets/number-input/solid/sizes.tsx?raw';
-import numberInputSolidValueText from '../../../snippets/number-input/solid/value-text.tsx?raw';
-import numberInputSolidCustomIcons from '../../../snippets/number-input/solid/custom-icons.tsx?raw';
-import numberInputVueBasic from '../../../snippets/number-input/vue/basic.vue?raw';
-import numberInputVueControlled from '../../../snippets/number-input/vue/controlled.vue?raw';
-import numberInputVueDisabledAndReadOnly from '../../../snippets/number-input/vue/disabled-and-read-only.vue?raw';
-import numberInputVueField from '../../../snippets/number-input/vue/field.vue?raw';
-import numberInputVueFormatting from '../../../snippets/number-input/vue/formatting.vue?raw';
-import numberInputVueMinAndMax from '../../../snippets/number-input/vue/min-and-max.vue?raw';
-import numberInputVueMouseWheel from '../../../snippets/number-input/vue/mouse-wheel.vue?raw';
-import numberInputVueFormSubmission from '../../../snippets/number-input/vue/form-submission.vue?raw';
-import numberInputVuePrecision from '../../../snippets/number-input/vue/precision.vue?raw';
-import numberInputVueRootProvider from '../../../snippets/number-input/vue/root-provider.vue?raw';
-import numberInputVueScrubbing from '../../../snippets/number-input/vue/scrubbing.vue?raw';
-import numberInputVueSizes from '../../../snippets/number-input/vue/sizes.vue?raw';
-import numberInputVueValueText from '../../../snippets/number-input/vue/value-text.vue?raw';
-import numberInputVueCustomIcons from '../../../snippets/number-input/vue/custom-icons.vue?raw';
 
 ## Справочник API
 
@@ -68,41 +29,7 @@ import numberInputVueCustomIcons from '../../../snippets/number-input/vue/custom
 Используйте `NumberInput` как корневой компонент, а `NumberInputField` для стандартного поля с кнопками увеличения
 и уменьшения значения. Задайте полю доступное имя с помощью `NumberInputLabel`, `aria-label` или `aria-labelledby`.
 
-<ExampleFrame variant="component">
-  <NumberInputBasic />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/number-input/basic.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={numberInputSolidBasic} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={numberInputVueBasic} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="number-input/basic" />
 
 ## Установка через shadcn
 
@@ -190,146 +117,27 @@ NumberInputRootProvider
 
 Храните управляемое состояние в виде строки и используйте `details.value` в `onValueChange`.
 
-<ExampleFrame variant="component">
-  <NumberInputControlled />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/number-input/controlled.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={numberInputSolidControlled} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={numberInputVueControlled} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/number-input/number-input-controlled.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="number-input/controlled" />
 
 ### Отключённое состояние и только для чтения
 
 Используйте `disabled`, чтобы запретить любое взаимодействие. Используйте `readOnly`, если значение должно оставаться
 доступным для выбора, но не должно редактироваться.
 
-<ExampleFrame variant="component">
-  <NumberInputDisabledAndReadOnly />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/number-input/disabled-and-read-only.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={numberInputSolidDisabledAndReadOnly} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={numberInputVueDisabledAndReadOnly} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/number-input/number-input-disabled-and-read-only.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="number-input/disabled-and-read-only" />
 
 ### Field
 
 Используйте `Field`, если состояние формы, вспомогательный и текст ошибки, а также метаданные доступности должны быть
 общими для поля.
 
-<ExampleFrame variant="component">
-  <NumberInputField />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/number-input/field.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={numberInputSolidField} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={numberInputVueField} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/number-input/number-input-field.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="number-input/field" />
 
 ### Форматирование
 
 Передайте `formatOptions`, чтобы форматировать отображаемое значение с помощью `Intl.NumberFormat`.
 
-<ExampleFrame variant="component">
-  <NumberInputFormatting />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/number-input/formatting.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={numberInputSolidFormatting} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={numberInputVueFormatting} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="number-input/formatting" />
 
 ### Минимум и максимум
 
@@ -337,65 +145,13 @@ NumberInputRootProvider
 умолчанию значение ограничивается при потере фокуса. Установите `clampValueOnBlur={false}`, если введённое значение
 за пределами диапазона должно оставаться видимым после потери фокуса.
 
-<ExampleFrame variant="component">
-  <NumberInputMinAndMax />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/number-input/min-and-max.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={numberInputSolidMinAndMax} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={numberInputVueMinAndMax} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="number-input/min-and-max" />
 
 ### Колесо мыши
 
 Включайте `allowMouseWheel`, если изменение значения колёсиком мыши подходит вашему сценарию.
 
-<ExampleFrame variant="component">
-  <NumberInputMouseWheel />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/number-input/mouse-wheel.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={numberInputSolidMouseWheel} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={numberInputVueMouseWheel} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="number-input/mouse-wheel" />
 
 ### Нативная отправка формы
 
@@ -403,252 +159,45 @@ NumberInputRootProvider
 отправляет отображаемое строковое значение. Используйте `NumberInputContext` для второго скрытого поля только если
 форме нужно числовое представление значения.
 
-<ExampleFrame variant="component">
-  <NumberInputFormSubmission />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/number-input/form-submission.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={numberInputSolidFormSubmission} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={numberInputVueFormSubmission} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/number-input/number-input-form-submission.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="number-input/form-submission" />
 
 ### Точность
 
 Используйте `formatOptions` с `Intl.NumberFormatOptions`, если для отображаемого значения нужно фиксированное число
 знаков после запятой.
 
-<ExampleFrame variant="component">
-  <NumberInputPrecision />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/number-input/precision.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={numberInputSolidPrecision} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={numberInputVuePrecision} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="number-input/precision" />
 
 ### Root Provider
 
 Используйте `useNumberInput()` с `NumberInputRootProvider`, если состояние нужно создать вне дерева отображаемых частей.
 
-<ExampleFrame variant="component">
-  <NumberInputRootProvider />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/number-input/root-provider.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={numberInputSolidRootProvider} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={numberInputVueRootProvider} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/number-input/number-input-root-provider.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="number-input/root-provider" />
 
 ### Изменение перетаскиванием
 
 Перетаскивайте `NumberInputScrubber` влево или вправо, чтобы изменить значение.
 
-<ExampleFrame variant="component">
-  <NumberInputScrubbing />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/number-input/scrubbing.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={numberInputSolidScrubbing} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={numberInputVueScrubbing} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/number-input/number-input-scrubbing.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="number-input/scrubbing" />
 
 ### Размеры
 
 Проп `size` на корне задаёт высоту и размер текста, как у `Input`. По умолчанию `md`.
 
-<ExampleFrame variant="component">
-  <NumberInputSizes />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/number-input/sizes.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={numberInputSolidSizes} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={numberInputVueSizes} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/number-input/number-input-sizes.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="number-input/sizes" />
 
 ### Текст значения
 
 Используйте `NumberInputValueText`, если форматированное значение нужно показывать не только в редактируемом поле.
 
-<ExampleFrame variant="component">
-  <NumberInputValueText />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/number-input/value-text.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={numberInputSolidValueText} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={numberInputVueValueText} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="number-input/value-text" />
 
 ### Расширенная настройка
 
 Соберите низкоуровневые части вместо `NumberInputField`, если нужно изменить значки кнопок или стили поля. Передайте
 `translations`, если собственное содержимое кнопок требует локализованных подписей для вспомогательных технологий.
 
-<ExampleFrame variant="component">
-  <NumberInputCustomIcons />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/number-input/custom-icons.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={numberInputSolidCustomIcons} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={numberInputVueCustomIcons} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/number-input/number-input-advanced-customization.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="number-input/custom-icons" />
 
 ## Стилизация
 

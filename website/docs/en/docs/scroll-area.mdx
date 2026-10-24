@@ -5,27 +5,7 @@ description: Build scroll containers with styled scrollbars in React, Solid, or 
 ---
 
 import * as ScrollAreaDocs from '@/components/examples/scroll-area/css-properties';
-import ScrollAreaAlwaysVisible from '@/components/examples/scroll-area/always-visible.tsx';
-import ScrollAreaBasic from '@/components/examples/scroll-area/basic.tsx';
-import ScrollAreaBothDirections from '@/components/examples/scroll-area/both-directions.tsx';
-import ScrollAreaFade from '@/components/examples/scroll-area/fade.tsx';
-import ScrollAreaHorizontal from '@/components/examples/scroll-area/horizontal.tsx';
-import ScrollAreaNested from '@/components/examples/scroll-area/nested.tsx';
 import ScrollAreaRootProvider from '@/components/examples/scroll-area/root-provider.tsx';
-import scrollAreaSolidAlwaysVisible from '../../../snippets/scroll-area/solid/always-visible.tsx?raw';
-import scrollAreaSolidBasic from '../../../snippets/scroll-area/solid/basic.tsx?raw';
-import scrollAreaSolidBothDirections from '../../../snippets/scroll-area/solid/both-directions.tsx?raw';
-import scrollAreaSolidFade from '../../../snippets/scroll-area/solid/fade.tsx?raw';
-import scrollAreaSolidHorizontal from '../../../snippets/scroll-area/solid/horizontal.tsx?raw';
-import scrollAreaSolidNested from '../../../snippets/scroll-area/solid/nested.tsx?raw';
-import scrollAreaSolidRootProvider from '../../../snippets/scroll-area/solid/root-provider.tsx?raw';
-import scrollAreaVueAlwaysVisible from '../../../snippets/scroll-area/vue/always-visible.vue?raw';
-import scrollAreaVueBasic from '../../../snippets/scroll-area/vue/basic.vue?raw';
-import scrollAreaVueBothDirections from '../../../snippets/scroll-area/vue/both-directions.vue?raw';
-import scrollAreaVueFade from '../../../snippets/scroll-area/vue/fade.vue?raw';
-import scrollAreaVueHorizontal from '../../../snippets/scroll-area/vue/horizontal.vue?raw';
-import scrollAreaVueNested from '../../../snippets/scroll-area/vue/nested.vue?raw';
-import scrollAreaVueRootProvider from '../../../snippets/scroll-area/vue/root-provider.vue?raw';
 
 ## API Reference
 
@@ -39,46 +19,7 @@ Use `ScrollArea` as the root. Put `ScrollAreaViewport` around `ScrollAreaContent
 each scroll axis, and add `ScrollAreaCorner` when both axes can overflow. Give the root a bounded height or
 block size so the content has room to scroll.
 
-<ExampleFrame variant="component">
-  <ScrollAreaBasic />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/scroll-area/basic.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={scrollAreaSolidBasic} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={scrollAreaVueBasic} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/scroll-area/scroll-area-basic.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="scroll-area/basic" />
 
 ## Install with shadcn
 
@@ -160,273 +101,39 @@ returned by `useScrollArea()`.
 
 Set `variant="always"` when an overflowing scrollbar should remain visible and interactive at rest.
 
-<ExampleFrame variant="component">
-  <ScrollAreaAlwaysVisible />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/scroll-area/always-visible.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={scrollAreaSolidAlwaysVisible} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={scrollAreaVueAlwaysVisible} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/scroll-area/scroll-area-always-visible.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="scroll-area/always-visible" />
 
 ### Both Directions
 
 Render vertical and horizontal scrollbars when content can overflow on both axes.
 
-<ExampleFrame variant="component">
-  <ScrollAreaBothDirections />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/scroll-area/both-directions.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={scrollAreaSolidBothDirections} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={scrollAreaVueBothDirections} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/scroll-area/scroll-area-both-directions.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="scroll-area/both-directions" />
 
 ### Fade
 
 Set `fade` to hint that long vertical content continues above and below the current viewport.
 
-<ExampleFrame variant="component">
-  <ScrollAreaFade />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/scroll-area/fade.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={scrollAreaSolidFade} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={scrollAreaVueFade} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/scroll-area/scroll-area-fade.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="scroll-area/fade" />
 
 ### Horizontal
 
 Use a horizontal scrollbar when the content is intentionally wider than the frame.
 
-<ExampleFrame variant="component">
-  <ScrollAreaHorizontal />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/scroll-area/horizontal.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={scrollAreaSolidHorizontal} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={scrollAreaVueHorizontal} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/scroll-area/scroll-area-horizontal.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="scroll-area/horizontal" />
 
 ### Nested
 
 Keep a complete root, viewport, content, and scrollbar tree for every nested scroll area so Ark can
 measure each area independently.
 
-<ExampleFrame variant="component">
-  <ScrollAreaNested />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/scroll-area/nested.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={scrollAreaSolidNested} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={scrollAreaVueNested} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/scroll-area/scroll-area-nested.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="scroll-area/nested" />
 
 ### Root Provider
 
 Use `useScrollArea()` with `ScrollAreaRootProvider` when external controls need access
 to the scrolling API.
 
-<ExampleFrame variant="component">
-  <ScrollAreaRootProvider />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/scroll-area/root-provider.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={scrollAreaSolidRootProvider} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={scrollAreaVueRootProvider} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/scroll-area/scroll-area-root-provider.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="scroll-area/root-provider" />
 
 ## Styling
 

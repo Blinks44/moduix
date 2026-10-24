@@ -5,30 +5,6 @@ description: A circular progress indicator for determinate or indeterminate task
 ---
 
 import * as ProgressCircularDocs from '@/components/examples/progress-circular/css-properties';
-import ProgressCircularBasic from '@/components/examples/progress-circular/basic.tsx';
-import CirclePartsProgressCircular from '@/components/examples/progress-circular/circle-parts.tsx';
-import ControlledProgressCircular from '@/components/examples/progress-circular/controlled.tsx';
-import IndeterminateProgressCircular from '@/components/examples/progress-circular/indeterminate.tsx';
-import MinMaxProgressCircular from '@/components/examples/progress-circular/min-max.tsx';
-import RootProviderProgressCircular from '@/components/examples/progress-circular/root-provider.tsx';
-import StateViewsProgressCircular from '@/components/examples/progress-circular/state-views.tsx';
-import ValueTextProgressCircular from '@/components/examples/progress-circular/value-text.tsx';
-import progressCircularSolidBasic from '../../../snippets/progress-circular/solid/basic.tsx?raw';
-import progressCircularSolidCircleParts from '../../../snippets/progress-circular/solid/circle-parts.tsx?raw';
-import progressCircularSolidControlled from '../../../snippets/progress-circular/solid/controlled.tsx?raw';
-import progressCircularSolidIndeterminate from '../../../snippets/progress-circular/solid/indeterminate.tsx?raw';
-import progressCircularSolidMinMax from '../../../snippets/progress-circular/solid/min-max.tsx?raw';
-import progressCircularSolidRootProvider from '../../../snippets/progress-circular/solid/root-provider.tsx?raw';
-import progressCircularSolidStateViews from '../../../snippets/progress-circular/solid/state-views.tsx?raw';
-import progressCircularSolidValueText from '../../../snippets/progress-circular/solid/value-text.tsx?raw';
-import progressCircularVueBasic from '../../../snippets/progress-circular/vue/basic.vue?raw';
-import progressCircularVueCircleParts from '../../../snippets/progress-circular/vue/circle-parts.vue?raw';
-import progressCircularVueControlled from '../../../snippets/progress-circular/vue/controlled.vue?raw';
-import progressCircularVueIndeterminate from '../../../snippets/progress-circular/vue/indeterminate.vue?raw';
-import progressCircularVueMinMax from '../../../snippets/progress-circular/vue/min-max.vue?raw';
-import progressCircularVueRootProvider from '../../../snippets/progress-circular/vue/root-provider.vue?raw';
-import progressCircularVueStateViews from '../../../snippets/progress-circular/vue/state-views.vue?raw';
-import progressCircularVueValueText from '../../../snippets/progress-circular/vue/value-text.vue?raw';
 
 ## API Reference
 
@@ -47,46 +23,7 @@ Use `ProgressCircularRing` to render the standard circle with its track and rang
 so the value appears in the center. Give `ProgressCircularRing` an `aria-label` that names the task and matches the
 visible label.
 
-<ExampleFrame variant="component">
-  <ProgressCircularBasic />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/progress-circular/basic.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={progressCircularSolidBasic} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={progressCircularVueBasic} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/progress-circular/component-basic.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="progress-circular/basic" />
 
 ## Install with shadcn
 
@@ -175,137 +112,20 @@ rendering another root for the same store.
 Keep `value` in application state when progress needs to stay synchronized with another control or
 an external task.
 
-<ExampleFrame variant="component">
-  <ControlledProgressCircular />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/progress-circular/controlled.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={progressCircularSolidControlled} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={progressCircularVueControlled} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/progress-circular/component-controlled.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="progress-circular/controlled" />
 
 ### Indeterminate
 
 Set `defaultValue={null}` or `value={null}` when the task is running but its progress cannot be
 measured yet.
 
-<ExampleFrame variant="component">
-  <IndeterminateProgressCircular />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/progress-circular/indeterminate.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={progressCircularSolidIndeterminate} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={progressCircularVueIndeterminate} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/progress-circular/component-indeterminate.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="progress-circular/indeterminate" />
 
 ### Min and max
 
 Use `min` and `max` to map values to a range other than the default `0` to `100`.
 
-<ExampleFrame variant="component">
-  <MinMaxProgressCircular />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/progress-circular/min-max.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={progressCircularSolidMinMax} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={progressCircularVueMinMax} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/progress-circular/component-min-max.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="progress-circular/min-max" />
 
 ### Value text
 
@@ -313,41 +133,7 @@ Use `ProgressCircularContext` with `translations.value(details)` when visible va
 Render `progress.valueAsString` as the `ProgressCircularValueText` child so the visible text matches the accessible
 value string.
 
-<ExampleFrame variant="component">
-  <ValueTextProgressCircular />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/progress-circular/value-text.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={progressCircularSolidValueText} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={progressCircularVueValueText} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="progress-circular/value-text" />
 
 ### Advanced customization
 
@@ -355,137 +141,20 @@ value string.
 directly when the SVG tree or state ownership needs to be customized. Only direct composition can
 give `ProgressCircularCircleTrack` and `ProgressCircularCircleRange` their own classes, as in this example.
 
-<ExampleFrame variant="component">
-  <CirclePartsProgressCircular />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/progress-circular/circle-parts.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={progressCircularSolidCircleParts} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={progressCircularVueCircleParts} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/progress-circular/component-circle-parts.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="progress-circular/circle-parts" />
 
 ### Root Provider
 
 Create the store with `useProgress()` and pass it to `ProgressCircularRootProvider` when another
 component needs to read or update progress outside the rendered tree.
 
-<ExampleFrame variant="component">
-  <RootProviderProgressCircular />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/progress-circular/root-provider.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={progressCircularSolidRootProvider} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={progressCircularVueRootProvider} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/progress-circular/component-root-provider.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="progress-circular/root-provider" />
 
 ### State views
 
 Use `ProgressCircularView` when supporting text or UI should change with the Ark progress state.
 
-<ExampleFrame variant="component">
-  <StateViewsProgressCircular />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/progress-circular/state-views.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={progressCircularSolidStateViews} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={progressCircularVueStateViews} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/progress-circular/component-state-views.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="progress-circular/state-views" />
 
 ## Styling
 

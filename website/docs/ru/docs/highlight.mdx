@@ -5,24 +5,6 @@ component: highlight
 ---
 
 import * as HighlightDocs from '@/components/examples/highlight/css-properties';
-import HighlightBasic from '@/components/examples/highlight/basic.tsx';
-import HighlightDynamicQuery from '@/components/examples/highlight/dynamic-query.tsx';
-import HighlightExactMatch from '@/components/examples/highlight/exact-match.tsx';
-import HighlightIgnoreCase from '@/components/examples/highlight/ignore-case.tsx';
-import HighlightMatchAll from '@/components/examples/highlight/match-all.tsx';
-import HighlightMultipleQueries from '@/components/examples/highlight/multiple-queries.tsx';
-import highlightSolidBasic from '../../../snippets/highlight/solid/basic.tsx?raw';
-import highlightSolidDynamicQuery from '../../../snippets/highlight/solid/dynamic-query.tsx?raw';
-import highlightSolidExactMatch from '../../../snippets/highlight/solid/exact-match.tsx?raw';
-import highlightSolidIgnoreCase from '../../../snippets/highlight/solid/ignore-case.tsx?raw';
-import highlightSolidMatchAll from '../../../snippets/highlight/solid/match-all.tsx?raw';
-import highlightSolidMultipleQueries from '../../../snippets/highlight/solid/multiple-queries.tsx?raw';
-import highlightVueBasic from '../../../snippets/highlight/vue/basic.vue?raw';
-import highlightVueDynamicQuery from '../../../snippets/highlight/vue/dynamic-query.vue?raw';
-import highlightVueExactMatch from '../../../snippets/highlight/vue/exact-match.vue?raw';
-import highlightVueIgnoreCase from '../../../snippets/highlight/vue/ignore-case.vue?raw';
-import highlightVueMatchAll from '../../../snippets/highlight/vue/match-all.vue?raw';
-import highlightVueMultipleQueries from '../../../snippets/highlight/vue/multiple-queries.vue?raw';
 
 ## Справочник API
 
@@ -42,40 +24,7 @@ import highlightVueMultipleQueries from '../../../snippets/highlight/vue/multipl
 Передайте полный исходный текст в `text`, а искомый термин в `query`. Разместите `Highlight` внутри
 текстового компонента или HTML-элемента, который отвечает за внешнюю разметку и семантику.
 
-<ExampleFrame variant="component">
-  <HighlightBasic />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/highlight/basic.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={highlightSolidBasic} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={highlightVueBasic} />
-
-    </Tab>
-  </Tabs>
-</div>
-</ExampleCode>
+<Example name="highlight/basic" />
 
 ## Установка через shadcn
 
@@ -144,45 +93,7 @@ Highlight
 Управляйте `query` состоянием React, Solid или Vue, чтобы выделять текущий термин во время поиска или
 фильтрации видимого текста.
 
-<ExampleFrame variant="component">
-  <HighlightDynamicQuery />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/highlight/dynamic-query.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={highlightSolidDynamicQuery} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={highlightVueDynamicQuery} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/highlight/highlight-dynamic-query.module.css"
-```
-</div>
-</ExampleCode>
+<Example name="highlight/dynamic-query" />
 
 ### Точное совпадение
 
@@ -191,168 +102,26 @@ Highlight
 границы слов JavaScript: для латинского текста они работают надёжно, но не распознают кириллицу и
 некоторые другие системы письма как целые слова.
 
-<ExampleFrame variant="component">
-  <HighlightExactMatch />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/highlight/exact-match.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={highlightSolidExactMatch} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={highlightVueExactMatch} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/highlight/highlight-exact-match.module.css"
-```
-</div>
-</ExampleCode>
+<Example name="highlight/exact-match" />
 
 ### Игнорирование регистра
 
 Включите `ignoreCase`, если регистр букв в исходном тексте не должен влиять на результат поиска.
 
-<ExampleFrame variant="component">
-  <HighlightIgnoreCase />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/highlight/ignore-case.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={highlightSolidIgnoreCase} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={highlightVueIgnoreCase} />
-
-    </Tab>
-  </Tabs>
-</div>
-</ExampleCode>
+<Example name="highlight/ignore-case" />
 
 ### Все совпадения
 
 Включите `matchAll`, если нужно выделить каждое вхождение, а не только первое.
 
-<ExampleFrame variant="component">
-  <HighlightMatchAll />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/highlight/match-all.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={highlightSolidMatchAll} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={highlightVueMatchAll} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/highlight/highlight-match-all.module.css"
-```
-</div>
-</ExampleCode>
+<Example name="highlight/match-all" />
 
 ### Несколько запросов
 
 Передайте массив строк, если нужно выделить несколько терминов в одном тексте. Для массива
 `matchAll` по умолчанию равен `true`; значение `matchAll={false}` приводит к ошибке.
 
-<ExampleFrame variant="component">
-  <HighlightMultipleQueries />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/highlight/multiple-queries.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={highlightSolidMultipleQueries} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={highlightVueMultipleQueries} />
-
-    </Tab>
-  </Tabs>
-</div>
-</ExampleCode>
+<Example name="highlight/multiple-queries" />
 
 ## Стилизация
 

@@ -5,18 +5,6 @@ description: "Images responsives avec détection automatique des CDN. Unpic gén
 ---
 
 import * as ImageDocs from '@/components/examples/image/css-properties';
-import ImageArtDirection from '@/components/examples/image/art-direction.tsx';
-import ImageBasic from '@/components/examples/image/basic.tsx';
-import ImageFixed from '@/components/examples/image/fixed.tsx';
-import ImageFullWidth from '@/components/examples/image/full-width.tsx';
-import imageSolidArtDirection from '../../../snippets/image/solid/art-direction.tsx?raw';
-import imageSolidBasic from '../../../snippets/image/solid/basic.tsx?raw';
-import imageSolidFixed from '../../../snippets/image/solid/fixed.tsx?raw';
-import imageSolidFullWidth from '../../../snippets/image/solid/full-width.tsx?raw';
-import imageVueArtDirection from '../../../snippets/image/vue/art-direction.vue?raw';
-import imageVueBasic from '../../../snippets/image/vue/basic.vue?raw';
-import imageVueFixed from '../../../snippets/image/vue/fixed.vue?raw';
-import imageVueFullWidth from '../../../snippets/image/vue/full-width.vue?raw';
 
 ## Référence de l’API
 
@@ -38,41 +26,7 @@ locaux et les URL sans CDN pris en charge. Utilisez `priority` pour l’image pr
 au chargement de la page : cette prop définit `loading="eager"` et `fetchpriority="high"` sans
 fixer `decoding`. Les attributs natifs définis explicitement remplacent ces valeurs par défaut.
 
-<ExampleFrame variant="component">
-  <ImageBasic />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/image/basic.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={imageSolidBasic} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={imageVueBasic} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="image/basic" />
 
 ## Installation avec shadcn
 
@@ -145,46 +99,7 @@ au format portrait sur les petits écrans. La première source destinée aux gra
 AVIF. La suivante sert de solution de remplacement aux navigateurs qui ne prennent pas l’AVIF en charge.
 `ImageSource` doit rester dans un élément natif `<picture>`.
 
-<ExampleFrame variant="component">
-  <ImageArtDirection />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/image/art-direction.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={imageSolidArtDirection} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={imageVueArtDirection} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/image/image-art-direction.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="image/art-direction" />
 
 ### Taille fixe
 
@@ -192,82 +107,14 @@ Utilisez `layout="fixed"` lorsque l’image doit conserver des dimensions exacte
 Vérifiez que son conteneur parent dispose de suffisamment d’espace : une image fixe ne se réduit pas
 pour tenir dans un conteneur plus étroit.
 
-<ExampleFrame variant="component">
-  <ImageFixed />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/image/fixed.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={imageSolidFixed} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={imageVueFixed} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="image/fixed" />
 
 ### Pleine largeur
 
 Utilisez `layout="fullWidth"` pour une image principale ou une section média qui doit occuper toute
 la largeur de son conteneur. Indiquez `height` si la hauteur du cadrage doit rester fixe.
 
-<ExampleFrame variant="component">
-  <ImageFullWidth />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/image/full-width.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={imageSolidFullWidth} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={imageVueFullWidth} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="image/full-width" />
 
 ## Styles
 

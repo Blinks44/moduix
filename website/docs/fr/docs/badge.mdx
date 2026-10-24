@@ -5,31 +5,7 @@ description: Un badge compact pour afficher de brèves informations comme un sta
 ---
 
 import * as BadgeDocs from '@/components/examples/badge/css-properties';
-import BadgeBasic from '@/components/examples/badge/basic.tsx';
-import BadgeCustomStyling from '@/components/examples/badge/custom-styling.tsx';
-import BadgeLink from '@/components/examples/badge/link.tsx';
-import BadgeLongLabels from '@/components/examples/badge/long-labels.tsx';
-import BadgeSizes from '@/components/examples/badge/sizes.tsx';
-import BadgeVariants from '@/components/examples/badge/variants.tsx';
-import BadgeWithDot from '@/components/examples/badge/with-dot.tsx';
-import BadgeWithIcon from '@/components/examples/badge/with-icon.tsx';
 
-import badgeSolidBasic from '../../../snippets/badge/solid/basic.tsx?raw';
-import badgeSolidCustomStyling from '../../../snippets/badge/solid/custom-styling.tsx?raw';
-import badgeSolidLink from '../../../snippets/badge/solid/link.tsx?raw';
-import badgeSolidLongLabels from '../../../snippets/badge/solid/long-labels.tsx?raw';
-import badgeSolidSizes from '../../../snippets/badge/solid/sizes.tsx?raw';
-import badgeSolidVariants from '../../../snippets/badge/solid/variants.tsx?raw';
-import badgeSolidWithDot from '../../../snippets/badge/solid/with-dot.tsx?raw';
-import badgeSolidWithIcon from '../../../snippets/badge/solid/with-icon.tsx?raw';
-import badgeVueBasic from '../../../snippets/badge/vue/basic.vue?raw';
-import badgeVueCustomStyling from '../../../snippets/badge/vue/custom-styling.vue?raw';
-import badgeVueLink from '../../../snippets/badge/vue/link.vue?raw';
-import badgeVueLongLabels from '../../../snippets/badge/vue/long-labels.vue?raw';
-import badgeVueSizes from '../../../snippets/badge/vue/sizes.vue?raw';
-import badgeVueVariants from '../../../snippets/badge/vue/variants.vue?raw';
-import badgeVueWithDot from '../../../snippets/badge/vue/with-dot.vue?raw';
-import badgeVueWithIcon from '../../../snippets/badge/vue/with-icon.vue?raw';
 
 ## Référence de l’API
 
@@ -54,41 +30,7 @@ choisir un style intégré, `size` pour choisir `sm`, `md` ou `lg`, et ajoutez `
 a besoin d’un indicateur visuel.
 
 
-<ExampleFrame variant="component">
-  <BadgeBasic />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/badge/basic.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={badgeSolidBasic} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={badgeVueBasic} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="badge/basic" />
 
 ## Installation avec shadcn
 
@@ -156,314 +98,46 @@ En Vue, placez exactement un enfant dans le slot par défaut avec `as-child` ; l
 Lorsqu’une variante intégrée est proche du résultat souhaité mais nécessite encore un léger ajustement, utilisez une classe
 ou définissez des variables CSS directement sur le badge.
 
-<ExampleFrame variant="component">
-  <BadgeCustomStyling />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/badge/custom-styling.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={badgeSolidCustomStyling} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={badgeVueCustomStyling} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/badge/badge-custom-styling.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="badge/custom-styling" />
 
 ### Lien
 
 Utilisez `variant="link"` avec `asChild` lorsque le badge doit devenir un lien dans une ligne de métadonnées. L’élément
 enfant reste un véritable lien et conserve sa sémantique native.
 
-<ExampleFrame variant="component">
-  <BadgeLink />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/badge/link.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={badgeSolidLink} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={badgeVueLink} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="badge/link" />
 
 ### Libellés longs
 
 Placez un libellé long dans `BadgeLabel` pour le tronquer dans un badge de largeur contrainte. Ajoutez `title` pour
 rendre le libellé complet visible au survol. Dans les interfaces tactiles, choisissez un libellé adapté à l’espace disponible.
 
-<ExampleFrame variant="component">
-  <BadgeLongLabels />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/badge/long-labels.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={badgeSolidLongLabels} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={badgeVueLongLabels} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/badge/badge-long-labels.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="badge/long-labels" />
 
 ### Tailles
 
 Définissez `size` sur `sm`, `md` ou `lg`. La valeur par défaut est `md`.
 
-<ExampleFrame variant="component">
-  <BadgeSizes />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/badge/sizes.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={badgeSolidSizes} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={badgeVueSizes} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/badge/badge-sizes.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="badge/sizes" />
 
 ### Variantes
 
 Utilisez les variantes intégrées pour les styles courants.
 
-<ExampleFrame variant="component">
-  <BadgeVariants />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/badge/variants.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={badgeSolidVariants} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={badgeVueVariants} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/badge/badge-variants.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="badge/variants" />
 
 ### Avec un point
 
 Ajoutez `BadgeDot` lorsque le libellé a besoin d’un indicateur d’état qui reste visuellement associé. Le texte visible doit
 porter le sens du statut, car le point est décoratif.
 
-<ExampleFrame variant="component">
-  <BadgeWithDot />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/badge/with-dot.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={badgeSolidWithDot} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={badgeVueWithDot} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/badge/badge-with-dot.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="badge/with-dot" />
 
 ### Avec une icône
 
 Placez une icône SVG enfant directe à côté du libellé lorsque les métadonnées ont besoin d’un repère visuel supplémentaire.
 
-<ExampleFrame variant="component">
-  <BadgeWithIcon />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/badge/with-icon.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={badgeSolidWithIcon} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={badgeVueWithIcon} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/badge/badge-with-icon.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="badge/with-icon" />
 
 ## Styles
 

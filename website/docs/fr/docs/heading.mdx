@@ -4,24 +4,6 @@ component: heading
 description: Composant sémantique pour les titres, basé sur la fabrique Ark et les tokens typographiques de moduix pour React, Solid et Vue.
 ---
 
-import HeadingBasic from '@/components/examples/heading/basic.tsx';
-import HeadingLevels from '@/components/examples/heading/heading-levels.tsx';
-import SemanticLevelAndVisualSize from '@/components/examples/heading/semantic-level-and-visual-size.tsx';
-import HeadingVisualSizes from '@/components/examples/heading/visual-sizes.tsx';
-import HeadingWeights from '@/components/examples/heading/weights.tsx';
-import CustomHostHeading from '@/components/examples/heading/custom-host.tsx';
-import headingSolidBasic from '../../../snippets/heading/solid/basic.tsx?raw';
-import headingSolidLevels from '../../../snippets/heading/solid/heading-levels.tsx?raw';
-import headingSolidSemanticLevelAndVisualSize from '../../../snippets/heading/solid/semantic-level-and-visual-size.tsx?raw';
-import headingSolidVisualSizes from '../../../snippets/heading/solid/visual-sizes.tsx?raw';
-import headingSolidWeights from '../../../snippets/heading/solid/weights.tsx?raw';
-import headingSolidCustomHost from '../../../snippets/heading/solid/custom-host.tsx?raw';
-import headingVueBasic from '../../../snippets/heading/vue/basic.vue?raw';
-import headingVueLevels from '../../../snippets/heading/vue/heading-levels.vue?raw';
-import headingVueSemanticLevelAndVisualSize from '../../../snippets/heading/vue/semantic-level-and-visual-size.vue?raw';
-import headingVueVisualSizes from '../../../snippets/heading/vue/visual-sizes.vue?raw';
-import headingVueWeights from '../../../snippets/heading/vue/weights.vue?raw';
-import headingVueCustomHost from '../../../snippets/heading/vue/custom-host.vue?raw';
 
 ## Référence de l’API
 
@@ -37,41 +19,7 @@ Par défaut, `Heading` rend un `h1`. Utilisez-le pour les titres du document et 
 en fonction de sa place dans la structure du document. Définissez `size` séparément lorsque l’importance
 visuelle doit différer du niveau sémantique.
 
-<ExampleFrame variant="component">
-  <HeadingBasic />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/heading/basic.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={headingSolidBasic} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={headingVueBasic} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="heading/basic" />
 
 ## Installation avec shadcn
 
@@ -139,162 +87,26 @@ porter le nœud DOM rendu.
 Utilisez `as` pour choisir un niveau de `h2` à `h6`. Lorsque `size` n’est pas défini, la taille visuelle
 suit `as`.
 
-<ExampleFrame variant="component">
-  <HeadingLevels />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/heading/heading-levels.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={headingSolidLevels} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={headingVueLevels} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="heading/heading-levels" />
 
 ### Niveau sémantique et taille visuelle
 
 Séparez la hiérarchie du document de l’importance visuelle. Utilisez `as` pour le niveau sémantique et
 `size` pour la taille visuelle.
 
-<ExampleFrame variant="component">
-  <SemanticLevelAndVisualSize />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/heading/semantic-level-and-visual-size.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={headingSolidSemanticLevelAndVisualSize} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={headingVueSemanticLevelAndVisualSize} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="heading/semantic-level-and-visual-size" />
 
 ### Tailles visuelles
 
 Utilisez `size` lorsque plusieurs titres partagent le même niveau sémantique mais doivent avoir une importance visuelle différente.
 
-<ExampleFrame variant="component">
-  <HeadingVisualSizes />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/heading/visual-sizes.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={headingSolidVisualSizes} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={headingVueVisualSizes} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="heading/visual-sizes" />
 
 ### Graisse
 
 Utilisez `weight` pour choisir l’une des graisses typographiques intégrées.
 
-<ExampleFrame variant="component">
-  <HeadingWeights />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/heading/weights.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={headingSolidWeights} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={headingVueWeights} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="heading/weights" />
 
 ### Personnalisation avancée
 
@@ -302,41 +114,7 @@ Utilisez `asChild` lorsqu’un autre élément sémantique de titre doit porter 
 courants avec `h1` à `h6`, utilisez plutôt `as`. La taille par défaut suit `as` et non l’élément enfant :
 définissez donc `size` selon l’enfant.
 
-<ExampleFrame variant="component">
-  <CustomHostHeading />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/heading/custom-host.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={headingSolidCustomHost} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={headingVueCustomHost} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="heading/custom-host" />
 
 ## Styles
 

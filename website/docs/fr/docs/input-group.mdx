@@ -5,33 +5,8 @@ description: Créez des champs de saisie avec préfixes, suffixes et actions en 
 ---
 
 import * as InputGroupDocs from '@/components/examples/input-group/css-properties';
-import InputGroupAsChild from '@/components/examples/input-group/as-child.tsx';
 import InputGroupClearTrigger from '@/components/examples/input-group/clear-trigger.tsx';
-import inputGroupSolidClearTrigger from '../../../snippets/input-group/solid/clear-trigger.tsx?raw';
-import inputGroupVueClearTrigger from '../../../snippets/input-group/vue/clear-trigger.vue?raw';
-import InputGroupBasic from '@/components/examples/input-group/basic.tsx';
-import InputGroupDisabled from '@/components/examples/input-group/disabled.tsx';
-import InputGroupFieldState from '@/components/examples/input-group/field-state.tsx';
-import InputGroupPrefixAndSuffix from '@/components/examples/input-group/prefix-and-suffix.tsx';
-import InputGroupSizes from '@/components/examples/input-group/sizes.tsx';
-import InputGroupWithAction from '@/components/examples/input-group/with-action.tsx';
-import inputGroupSolidAsChild from '../../../snippets/input-group/solid/as-child.tsx?raw';
-import inputGroupSolidBasic from '../../../snippets/input-group/solid/basic.tsx?raw';
-import inputGroupSolidDisabled from '../../../snippets/input-group/solid/disabled.tsx?raw';
-import inputGroupSolidFieldState from '../../../snippets/input-group/solid/field-state.tsx?raw';
-import inputGroupSolidPrefixAndSuffix from '../../../snippets/input-group/solid/prefix-and-suffix.tsx?raw';
-import inputGroupSolidSizes from '../../../snippets/input-group/solid/sizes.tsx?raw';
-import inputGroupSolidWithAction from '../../../snippets/input-group/solid/with-action.tsx?raw';
-import inputGroupVueAsChild from '../../../snippets/input-group/vue/as-child.vue?raw';
-import inputGroupVueBasic from '../../../snippets/input-group/vue/basic.vue?raw';
-import inputGroupVueDisabled from '../../../snippets/input-group/vue/disabled.vue?raw';
-import inputGroupVueFieldState from '../../../snippets/input-group/vue/field-state.vue?raw';
-import inputGroupVuePrefixAndSuffix from '../../../snippets/input-group/vue/prefix-and-suffix.vue?raw';
-import inputGroupVueSizes from '../../../snippets/input-group/vue/sizes.vue?raw';
-import inputGroupVueWithAction from '../../../snippets/input-group/vue/with-action.vue?raw';
 import InputGroupTextarea from '@/components/examples/input-group/textarea.tsx';
-import inputGroupSolidTextarea from '../../../snippets/input-group/solid/textarea.tsx?raw';
-import inputGroupVueTextarea from '../../../snippets/input-group/vue/textarea.vue?raw';
 
 ## Référence de l’API
 
@@ -55,46 +30,7 @@ suit les recommandations d’Ark pour la [composition](https://ark-ui.com/docs/g
 Utilisez `InputGroup` comme racine et composez un seul `InputGroupInput` avec les parties
 `InputGroupAddon`, `InputGroupText` ou `InputGroupButton` nécessaires.
 
-<ExampleFrame variant="component">
-  <InputGroupBasic />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/input-group/basic.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={inputGroupSolidBasic} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={inputGroupVueBasic} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/input-group/input-group-basic.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="input-group/basic" />
 
 ## Installation avec shadcn
 
@@ -180,229 +116,34 @@ s’étire sur toute la hauteur du groupe et sert aux actions placées à côté
 Placez `disabled` sur le champ natif. Désactivez aussi les boutons associés s’ils doivent être
 indisponibles.
 
-<ExampleFrame variant="component">
-  <InputGroupDisabled />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/input-group/disabled.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={inputGroupSolidDisabled} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={inputGroupVueDisabled} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/input-group/input-group-disabled.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="input-group/disabled" />
 
 ### État du champ
 
 Définissez `invalid` sur `Field` lorsque la validation échoue. Ark transmet l’état et les attributs
 ARIA nécessaires à `InputGroupInput`, puis le groupe reflète cet état.
 
-<ExampleFrame variant="component">
-  <InputGroupFieldState />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/input-group/field-state.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={inputGroupSolidFieldState} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={inputGroupVueFieldState} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/input-group/input-group-field-state.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="input-group/field-state" />
 
 ### Préfixe et suffixe
 
 Utilisez `InputGroupAddon` pour un préfixe ou un suffixe avec fond et `InputGroupText` pour un texte intégré sans fond.
 
-<ExampleFrame variant="component">
-  <InputGroupPrefixAndSuffix />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/input-group/prefix-and-suffix.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={inputGroupSolidPrefixAndSuffix} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={inputGroupVuePrefixAndSuffix} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/input-group/input-group-prefix-and-suffix.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="input-group/prefix-and-suffix" />
 
 ### Tailles
 
 Définissez `size` une seule fois sur la racine pour que le champ, l’addon, le texte et le bouton
 restent alignés.
 
-<ExampleFrame variant="component">
-  <InputGroupSizes />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/input-group/sizes.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={inputGroupSolidSizes} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={inputGroupVueSizes} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/input-group/input-group-sizes.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="input-group/sizes" />
 
 ### Avec une action
 
 Utilisez `InputGroupButton` pour une action liée à la valeur du champ. Dans cet exemple, le champ
 est contrôlé et `Send` ne devient disponible qu’après la saisie d’une valeur.
 
-<ExampleFrame variant="component">
-  <InputGroupWithAction />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/input-group/with-action.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={inputGroupSolidWithAction} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={inputGroupVueWithAction} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/input-group/input-group-with-action.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="input-group/with-action" />
 
 ### Zone de texte
 
@@ -411,46 +152,7 @@ Il affiche le `Textarea` de moduix sans sa bordure, hérite de la taille du grou
 locale est fournie, et conserve l’état Ark Field et `autoresize`. Ajoutez une barre d’actions avec
 `InputGroupAddon align="block"` et un `Button` classique.
 
-<ExampleFrame variant="component">
-  <InputGroupTextarea />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/input-group/textarea.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={inputGroupSolidTextarea} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={inputGroupVueTextarea} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/input-group/input-group-textarea.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="input-group/textarea" />
 
 ### Bouton d’effacement
 
@@ -462,41 +164,7 @@ automatiques. Désactivez le bouton pour un champ désactivé ou en lecture seul
 un `aria-label` dans la langue souhaitée ou `aria-labelledby` ; le contenu enfant remplace l’icône.
 La petite zone de survol reprend le style des boutons d’effacement de Select et Combobox.
 
-<ExampleFrame variant="component">
-  <InputGroupClearTrigger />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[
-    { label: 'React', value: 'react' },
-    { label: 'Solid', value: 'solid' },
-    { label: 'Vue', value: 'vue' },
-  ]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/input-group/clear-trigger.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={inputGroupSolidClearTrigger} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={inputGroupVueClearTrigger} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/input-group/input-group-clear-trigger.module.css"
-```
-</div>
-</ExampleCode>
+<Example name="input-group/clear-trigger" />
 
 ### Personnalisation avancée
 
@@ -504,46 +172,7 @@ Utilisez `asChild` lorsque la racine doit rendre un conteneur personnalisé à l
 défaut. Le groupe conserve ses styles et son contexte de taille, tandis que l’enfant doit rester un
 conteneur de mise en page sémantique.
 
-<ExampleFrame variant="component">
-  <InputGroupAsChild />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/input-group/as-child.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={inputGroupSolidAsChild} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={inputGroupVueAsChild} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/input-group/input-group-as-child.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="input-group/as-child" />
 
 ## Styles
 

@@ -4,21 +4,6 @@ component: tour
 description: Build guided product walkthroughs with Ark UI tour state, accessible overlay parts, and ready-made actions.
 ---
 
-import TourAdvancedCustomization from '@/components/examples/tour/advanced-customization.tsx';
-import TourBasic from '@/components/examples/tour/basic.tsx';
-import TourEvents from '@/components/examples/tour/events.tsx';
-import TourWaitForInput from '@/components/examples/tour/wait-for-input.tsx';
-import TourWithArrow from '@/components/examples/tour/with-arrow.tsx';
-import tourSolidAdvancedCustomization from '../../../snippets/tour/solid/advanced-customization.tsx?raw';
-import tourSolidBasic from '../../../snippets/tour/solid/basic.tsx?raw';
-import tourSolidEvents from '../../../snippets/tour/solid/events.tsx?raw';
-import tourSolidWaitForInput from '../../../snippets/tour/solid/wait-for-input.tsx?raw';
-import tourSolidWithArrow from '../../../snippets/tour/solid/with-arrow.tsx?raw';
-import tourVueAdvancedCustomization from '../../../snippets/tour/vue/advanced-customization.vue?raw';
-import tourVueBasic from '../../../snippets/tour/vue/basic.vue?raw';
-import tourVueEvents from '../../../snippets/tour/vue/events.vue?raw';
-import tourVueWaitForInput from '../../../snippets/tour/vue/wait-for-input.vue?raw';
-import tourVueWithArrow from '../../../snippets/tour/vue/with-arrow.vue?raw';
 
 ## API Reference
 
@@ -31,46 +16,7 @@ Create tour state with `useTour`, define its steps, and pass the returned object
 dialog, moves to a tooltip anchored to a page control, and finishes with a floating step. Keep the parts explicit so
 you can adjust the composition when needed. `TourBody` keeps long copy scrollable inside the panel.
 
-<ExampleFrame variant="component">
-  <TourBasic />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/tour/basic.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={tourSolidBasic} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={tourVueBasic} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/tour/tour-basic.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="tour/basic" />
 
 ## Install with shadcn
 
@@ -162,46 +108,7 @@ other root events but does not emit them from a tour object created outside the 
 Use the detail objects from Ark callbacks to update surrounding UI or record analytics. Start the tour, choose Next,
 then Done. The status output shows the latest step or final status event.
 
-<ExampleFrame variant="component">
-  <TourEvents />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/tour/events.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={tourSolidEvents} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={tourVueEvents} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/tour/tour-events.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="tour/events" />
 
 ### Wait for input
 
@@ -209,92 +116,14 @@ Call `tour.next()` from an input handler after the value reaches two characters.
 asynchronous condition, `waitForElement`, `waitForElementValue`, `waitForEvent`, and `waitForPromise` are also
 exported from `@moduix/react/tour`, `@moduix/solid/tour`, and `@moduix/vue/tour`.
 
-<ExampleFrame variant="component">
-  <TourWaitForInput />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/tour/wait-for-input.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={tourSolidWaitForInput} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={tourVueWaitForInput} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/tour/tour-wait-for-input.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="tour/wait-for-input" />
 
 ### With Arrow
 
 Add `TourArrow` to a tooltip step when it needs a visual connection to its target, and enable the step's `arrow`
 option so Ark can position it.
 
-<ExampleFrame variant="component">
-  <TourWithArrow />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/tour/with-arrow.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={tourSolidWithArrow} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={tourVueWithArrow} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/tour/tour-with-arrow.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="tour/with-arrow" />
 
 ### Advanced customization
 
@@ -303,46 +132,7 @@ Continue, Back, and Skip tour. Each `TourActionTrigger` still receives the origi
 dismissal, and disabled state continue to work. The example also skips the `TourCloseIcon` and `TourBody`
 helpers and places the title, description, and progress text directly in `TourContent`.
 
-<ExampleFrame variant="component">
-  <TourAdvancedCustomization />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/tour/advanced-customization.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={tourSolidAdvancedCustomization} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={tourVueAdvancedCustomization} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/tour/tour-advanced-customization.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="tour/advanced-customization" />
 
 ## Styling
 

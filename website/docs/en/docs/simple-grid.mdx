@@ -4,15 +4,6 @@ component: simple-grid
 description: Build responsive equal-column grids in React, Solid, or Vue with package and shadcn installation options.
 ---
 
-import SimpleGridBasic from '@/components/examples/simple-grid/basic.tsx';
-import SimpleGridFixedColumns from '@/components/examples/simple-grid/fixed-columns.tsx';
-import SimpleGridMediaGallery from '@/components/examples/simple-grid/media-gallery.tsx';
-import simpleGridSolidBasic from '../../../snippets/simple-grid/solid/basic.tsx?raw';
-import simpleGridSolidFixedColumns from '../../../snippets/simple-grid/solid/fixed-columns.tsx?raw';
-import simpleGridSolidMediaGallery from '../../../snippets/simple-grid/solid/media-gallery.tsx?raw';
-import simpleGridVueBasic from '../../../snippets/simple-grid/vue/basic.vue?raw';
-import simpleGridVueFixedColumns from '../../../snippets/simple-grid/vue/fixed-columns.vue?raw';
-import simpleGridVueMediaGallery from '../../../snippets/simple-grid/vue/media-gallery.vue?raw';
 
 ## API Reference
 
@@ -33,46 +24,7 @@ contain any valid CSS length.
 The number of columns changes with the root width, and the children remain direct grid items. If a
 child contains unbreakable content, add `min-width: 0` or an appropriate overflow rule to that child.
 
-<ExampleFrame variant="component">
-  <SimpleGridBasic />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/simple-grid/basic.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={simpleGridSolidBasic} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={simpleGridVueBasic} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/simple-grid/simple-grid-basic.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="simple-grid/basic" />
 
 ## Install with shadcn
 
@@ -143,92 +95,14 @@ your own class, including responsive templates in media queries.
 
 Use `columns` when the number of equal columns should stay fixed, such as in a compact metrics grid.
 
-<ExampleFrame variant="component">
-  <SimpleGridFixedColumns />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/simple-grid/fixed-columns.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={simpleGridSolidFixedColumns} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={simpleGridVueFixedColumns} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/simple-grid/simple-grid-fixed-columns.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="simple-grid/fixed-columns" />
 
 ### Media Gallery
 
 Use `asChild` when the grid itself should carry list semantics. This example renders the root as a
 `ul` and keeps each image in a direct `li` child.
 
-<ExampleFrame variant="component">
-  <SimpleGridMediaGallery />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/simple-grid/media-gallery.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={simpleGridSolidMediaGallery} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={simpleGridVueMediaGallery} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/simple-grid/simple-grid-media-gallery.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="simple-grid/media-gallery" />
 
 ## Styling
 

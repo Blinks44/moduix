@@ -5,18 +5,6 @@ description: Компонент для экранов без результат�
 ---
 
 import * as EmptyDocs from '@/components/examples/empty/css-properties';
-import EmptyAdvancedCustomization from '@/components/examples/empty/advanced-customization.tsx';
-import EmptyBasic from '@/components/examples/empty/basic.tsx';
-import EmptyWithoutActions from '@/components/examples/empty/without-actions.tsx';
-import EmptyWithoutIcon from '@/components/examples/empty/without-icon.tsx';
-import emptySolidAdvancedCustomization from '../../../snippets/empty/solid/advanced-customization.tsx?raw';
-import emptySolidBasic from '../../../snippets/empty/solid/basic.tsx?raw';
-import emptySolidWithoutActions from '../../../snippets/empty/solid/without-actions.tsx?raw';
-import emptySolidWithoutIcon from '../../../snippets/empty/solid/without-icon.tsx?raw';
-import emptyVueAdvancedCustomization from '../../../snippets/empty/vue/advanced-customization.vue?raw';
-import emptyVueBasic from '../../../snippets/empty/vue/basic.vue?raw';
-import emptyVueWithoutActions from '../../../snippets/empty/vue/without-actions.vue?raw';
-import emptyVueWithoutIcon from '../../../snippets/empty/vue/without-icon.vue?raw';
 
 ## Справочник API
 
@@ -35,46 +23,7 @@ Ark по [композиции](https://ark-ui.com/react/docs/guides/composition
 Начните с `<Empty />` и добавьте нужные части компонента. Добавляйте `EmptyIcon` и `EmptyActions`
 только если к пустому состоянию нужна визуальная подсказка или понятное действие.
 
-<ExampleFrame variant="component">
-  <EmptyBasic />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/empty/basic.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={emptySolidBasic} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={emptyVueBasic} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/empty/empty-basic.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="empty/basic" />
 
 ## Установка через shadcn
 
@@ -152,91 +101,13 @@ Empty
 
 Не добавляйте `EmptyActions`, если состояние носит информационный характер и не требует немедленного действия.
 
-<ExampleFrame variant="component">
-  <EmptyWithoutActions />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/empty/without-actions.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={emptySolidWithoutActions} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={emptyVueWithoutActions} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/empty/empty-without-actions.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="empty/without-actions" />
 
 ### Без иконки
 
 Иконка необязательна, поэтому состояние только с текстом остаётся компактным.
 
-<ExampleFrame variant="component">
-  <EmptyWithoutIcon />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/empty/without-icon.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={emptySolidWithoutIcon} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={emptyVueWithoutIcon} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/empty/empty-without-icon.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="empty/without-icon" />
 
 ### Расширенная настройка
 
@@ -245,46 +116,7 @@ Empty
 `EmptyTitle`. Компонент рендерит `EmptyDescription` как `div`, поэтому в нём можно размещать абзацы,
 ссылки и другую блочную разметку.
 
-<ExampleFrame variant="component">
-  <EmptyAdvancedCustomization />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/empty/advanced-customization.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={emptySolidAdvancedCustomization} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={emptyVueAdvancedCustomization} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/empty/empty-advanced-customization.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="empty/advanced-customization" />
 
 ## Стилизация
 

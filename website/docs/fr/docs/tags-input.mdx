@@ -5,50 +5,9 @@ description: Une liste modifiable de tags texte avec validation, envoi de formul
 ---
 
 import * as TagsInputDocs from '@/components/examples/tags-input/css-properties';
-import TagsInputAdvancedCustomization from '@/components/examples/tags-input/advanced-customization.tsx';
-import TagsInputAllowDuplicates from '@/components/examples/tags-input/allow-duplicates.tsx';
-import TagsInputBasic from '@/components/examples/tags-input/basic.tsx';
-import TagsInputControlled from '@/components/examples/tags-input/controlled.tsx';
-import TagsInputControlledInputValue from '@/components/examples/tags-input/controlled-input-value.tsx';
-import TagsInputDelimiterAndPaste from '@/components/examples/tags-input/delimiter-and-paste.tsx';
-import TagsInputDisableEditing from '@/components/examples/tags-input/disable-editing.tsx';
-import TagsInputDisabledAndReadOnly from '@/components/examples/tags-input/disabled-and-read-only.tsx';
-import TagsInputField from '@/components/examples/tags-input/field.tsx';
-import TagsInputForm from '@/components/examples/tags-input/form.tsx';
-import TagsInputMaxWithOverflow from '@/components/examples/tags-input/max-with-overflow.tsx';
 import TagsInputRootProvider from '@/components/examples/tags-input/root-provider.tsx';
-import TagsInputSanitizeAndBlur from '@/components/examples/tags-input/sanitize-and-blur.tsx';
-import TagsInputValidationAndMax from '@/components/examples/tags-input/validation-and-max.tsx';
 import TagsInputWithCombobox from '@/components/examples/tags-input/with-combobox.tsx';
-import tagsInputSolidAdvancedCustomization from '../../../snippets/tags-input/solid/advanced-customization.tsx?raw';
-import tagsInputSolidAllowDuplicates from '../../../snippets/tags-input/solid/allow-duplicates.tsx?raw';
-import tagsInputSolidBasic from '../../../snippets/tags-input/solid/basic.tsx?raw';
-import tagsInputSolidControlled from '../../../snippets/tags-input/solid/controlled.tsx?raw';
-import tagsInputSolidControlledInputValue from '../../../snippets/tags-input/solid/controlled-input-value.tsx?raw';
-import tagsInputSolidDelimiterAndPaste from '../../../snippets/tags-input/solid/delimiter-and-paste.tsx?raw';
-import tagsInputSolidDisableEditing from '../../../snippets/tags-input/solid/disable-editing.tsx?raw';
-import tagsInputSolidDisabledAndReadOnly from '../../../snippets/tags-input/solid/disabled-and-read-only.tsx?raw';
-import tagsInputSolidField from '../../../snippets/tags-input/solid/field.tsx?raw';
-import tagsInputSolidForm from '../../../snippets/tags-input/solid/form.tsx?raw';
-import tagsInputSolidMaxWithOverflow from '../../../snippets/tags-input/solid/max-with-overflow.tsx?raw';
-import tagsInputSolidRootProvider from '../../../snippets/tags-input/solid/root-provider.tsx?raw';
-import tagsInputSolidSanitizeAndBlur from '../../../snippets/tags-input/solid/sanitize-and-blur.tsx?raw';
-import tagsInputSolidValidationAndMax from '../../../snippets/tags-input/solid/validation-and-max.tsx?raw';
 import tagsInputSolidWithCombobox from '../../../snippets/combobox/solid/with-tags-input.tsx?raw';
-import tagsInputVueAdvancedCustomization from '../../../snippets/tags-input/vue/advanced-customization.vue?raw';
-import tagsInputVueAllowDuplicates from '../../../snippets/tags-input/vue/allow-duplicates.vue?raw';
-import tagsInputVueBasic from '../../../snippets/tags-input/vue/basic.vue?raw';
-import tagsInputVueControlled from '../../../snippets/tags-input/vue/controlled.vue?raw';
-import tagsInputVueControlledInputValue from '../../../snippets/tags-input/vue/controlled-input-value.vue?raw';
-import tagsInputVueDelimiterAndPaste from '../../../snippets/tags-input/vue/delimiter-and-paste.vue?raw';
-import tagsInputVueDisableEditing from '../../../snippets/tags-input/vue/disable-editing.vue?raw';
-import tagsInputVueDisabledAndReadOnly from '../../../snippets/tags-input/vue/disabled-and-read-only.vue?raw';
-import tagsInputVueField from '../../../snippets/tags-input/vue/field.vue?raw';
-import tagsInputVueForm from '../../../snippets/tags-input/vue/form.vue?raw';
-import tagsInputVueMaxWithOverflow from '../../../snippets/tags-input/vue/max-with-overflow.vue?raw';
-import tagsInputVueRootProvider from '../../../snippets/tags-input/vue/root-provider.vue?raw';
-import tagsInputVueSanitizeAndBlur from '../../../snippets/tags-input/vue/sanitize-and-blur.vue?raw';
-import tagsInputVueValidationAndMax from '../../../snippets/tags-input/vue/validation-and-max.vue?raw';
 import tagsInputVueWithCombobox from '../../../snippets/combobox/vue/with-tags-input.vue?raw';
 
 ## Référence de l’API
@@ -71,42 +30,7 @@ Commencez par `TagsInput`, `TagsInputLabel`, `TagsInputControl`, `TagsInputItems
 `TagsInputInput` et `TagsInputClearTrigger`. Ajoutez explicitement `TagsInputHiddenInput` lorsque
 les tags doivent être envoyés avec un formulaire.
 
-<ExampleFrame variant="component">
-  <TagsInputBasic />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/tags-input/basic.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={tagsInputSolidBasic} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={tagsInputVueBasic} />
-
-    </Tab>
-  </Tabs>
-
-</div>
-
-</ExampleCode>
+<Example name="tags-input/basic" />
 
 ## Installation avec shadcn
 
@@ -205,295 +129,77 @@ puis composez les champs avec `asChild`.
 
 Activez `allowDuplicates` lorsqu’une même chaîne peut apparaître plusieurs fois.
 
-<ExampleFrame variant="component">
-  <TagsInputAllowDuplicates />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/tags-input/allow-duplicates.tsx"
-```
-
-    </Tab>
-    <Tab value="solid"><CodeBlockRuntime lang="tsx" code={tagsInputSolidAllowDuplicates} /></Tab>
-    <Tab value="vue"><CodeBlockRuntime lang="vue" code={tagsInputVueAllowDuplicates} /></Tab>
-  </Tabs>
-
-</div>
-</ExampleCode>
+<Example name="tags-input/allow-duplicates" />
 
 ### Valeur contrôlée
 
 Conservez le tableau de tags dans l’état du composant lorsqu’une autre partie de l’écran en dépend ou
 qu’une réinitialisation programmatique est nécessaire.
 
-<ExampleFrame variant="component">
-  <TagsInputControlled />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/tags-input/controlled.tsx"
-```
-
-    </Tab>
-    <Tab value="solid"><CodeBlockRuntime lang="tsx" code={tagsInputSolidControlled} /></Tab>
-    <Tab value="vue"><CodeBlockRuntime lang="vue" code={tagsInputVueControlled} /></Tab>
-  </Tabs>
-
-</div>
-</ExampleCode>
+<Example name="tags-input/controlled" />
 
 ### Valeur de saisie contrôlée
 
 Contrôlez `inputValue` séparément lorsqu’un autre contrôle doit préremplir ou effacer le champ de
 saisie.
 
-<ExampleFrame variant="component">
-  <TagsInputControlledInputValue />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/tags-input/controlled-input-value.tsx"
-```
-
-    </Tab>
-    <Tab value="solid"><CodeBlockRuntime lang="tsx" code={tagsInputSolidControlledInputValue} /></Tab>
-    <Tab value="vue"><CodeBlockRuntime lang="vue" code={tagsInputVueControlledInputValue} /></Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/tags-input/tags-input-controlled-input-value.module.css"
-```
-</div>
-</ExampleCode>
+<Example name="tags-input/controlled-input-value" />
 
 ### Séparateur et collage
 
 Utilisez `delimiter` avec `addOnPaste` lorsque le texte collé doit créer plusieurs tags. Cet exemple
 accepte la virgule, le point-virgule et l’espace comme séparateurs.
 
-<ExampleFrame variant="component">
-  <TagsInputDelimiterAndPaste />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/tags-input/delimiter-and-paste.tsx"
-```
-
-    </Tab>
-    <Tab value="solid"><CodeBlockRuntime lang="tsx" code={tagsInputSolidDelimiterAndPaste} /></Tab>
-    <Tab value="vue"><CodeBlockRuntime lang="vue" code={tagsInputVueDelimiterAndPaste} /></Tab>
-  </Tabs>
-
-</div>
-</ExampleCode>
+<Example name="tags-input/delimiter-and-paste" />
 
 ### Désactiver la modification
 
 Définissez `editable={false}` lorsque les tags existants doivent rester supprimables, sans être
 modifiables sur place.
 
-<ExampleFrame variant="component">
-  <TagsInputDisableEditing />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/tags-input/disable-editing.tsx"
-```
-
-    </Tab>
-    <Tab value="solid"><CodeBlockRuntime lang="tsx" code={tagsInputSolidDisableEditing} /></Tab>
-    <Tab value="vue"><CodeBlockRuntime lang="vue" code={tagsInputVueDisableEditing} /></Tab>
-  </Tabs>
-
-</div>
-</ExampleCode>
+<Example name="tags-input/disable-editing" />
 
 ### Désactivé et en lecture seule
 
 Utilisez `disabled` pour un contrôle non interactif. Utilisez `readOnly` lorsque les tags doivent
 rester visibles, sans pouvoir être ajoutés, supprimés ou modifiés.
 
-<ExampleFrame variant="component">
-  <TagsInputDisabledAndReadOnly />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/tags-input/disabled-and-read-only.tsx"
-```
-
-    </Tab>
-    <Tab value="solid"><CodeBlockRuntime lang="tsx" code={tagsInputSolidDisabledAndReadOnly} /></Tab>
-    <Tab value="vue"><CodeBlockRuntime lang="vue" code={tagsInputVueDisabledAndReadOnly} /></Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/tags-input/tags-input-disabled-and-read-only.module.css"
-```
-</div>
-</ExampleCode>
+<Example name="tags-input/disabled-and-read-only" />
 
 ### Field
 
 Placez `TagsInput` dans `Field` lorsque le libellé, le texte d’aide, l’état invalide et le message
 d’erreur doivent partager le câblage d’accessibilité des formulaires d’Ark.
 
-<ExampleFrame variant="component">
-  <TagsInputField />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/tags-input/field.tsx"
-```
-
-    </Tab>
-    <Tab value="solid"><CodeBlockRuntime lang="tsx" code={tagsInputSolidField} /></Tab>
-    <Tab value="vue"><CodeBlockRuntime lang="vue" code={tagsInputVueField} /></Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/tags-input/tags-input-field.module.css"
-```
-</div>
-</ExampleCode>
+<Example name="tags-input/field" />
 
 ### Formulaire
 
 Transmettez `name` à la racine et ajoutez `TagsInputHiddenInput` pour inclure la liste de tags dans
 `FormData`.
 
-<ExampleFrame variant="component">
-  <TagsInputForm />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/tags-input/form.tsx"
-```
-
-    </Tab>
-    <Tab value="solid"><CodeBlockRuntime lang="tsx" code={tagsInputSolidForm} /></Tab>
-    <Tab value="vue"><CodeBlockRuntime lang="vue" code={tagsInputVueForm} /></Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/tags-input/tags-input-form.module.css"
-```
-</div>
-</ExampleCode>
+<Example name="tags-input/form" />
 
 ### Dépassement du nombre maximal
 
 Utilisez `allowOverflow` avec `max` lorsque l’utilisateur peut dépasser temporairement la limite, mais
 que le contrôle doit signaler un état invalide.
 
-<ExampleFrame variant="component">
-  <TagsInputMaxWithOverflow />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/tags-input/max-with-overflow.tsx"
-```
-
-    </Tab>
-    <Tab value="solid"><CodeBlockRuntime lang="tsx" code={tagsInputSolidMaxWithOverflow} /></Tab>
-    <Tab value="vue"><CodeBlockRuntime lang="vue" code={tagsInputVueMaxWithOverflow} /></Tab>
-  </Tabs>
-
-</div>
-</ExampleCode>
+<Example name="tags-input/max-with-overflow" />
 
 ### TagsInputRootProvider
 
 Utilisez `useTagsInput` avec `TagsInputRootProvider` lorsque l’état et les méthodes impératives doivent être
 utilisés en dehors de l’arbre rendu du champ.
 
-<ExampleFrame variant="component">
-  <TagsInputRootProvider />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/tags-input/root-provider.tsx"
-```
-
-    </Tab>
-    <Tab value="solid"><CodeBlockRuntime lang="tsx" code={tagsInputSolidRootProvider} /></Tab>
-    <Tab value="vue"><CodeBlockRuntime lang="vue" code={tagsInputVueRootProvider} /></Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/tags-input/tags-input-root-provider.module.css"
-```
-</div>
-</ExampleCode>
+<Example name="tags-input/root-provider" />
 
 ### Normalisation et perte du focus
 
 Utilisez `sanitizeValue` pour normaliser les tags saisis et `blurBehavior="add"` pour ajouter la
 valeur courante lorsque le focus quitte le contrôle.
 
-<ExampleFrame variant="component">
-  <TagsInputSanitizeAndBlur />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/tags-input/sanitize-and-blur.tsx"
-```
-
-    </Tab>
-    <Tab value="solid"><CodeBlockRuntime lang="tsx" code={tagsInputSolidSanitizeAndBlur} /></Tab>
-    <Tab value="vue"><CodeBlockRuntime lang="vue" code={tagsInputVueSanitizeAndBlur} /></Tab>
-  </Tabs>
-
-</div>
-</ExampleCode>
+<Example name="tags-input/sanitize-and-blur" />
 
 ### Validation et nombre maximal
 
@@ -501,29 +207,7 @@ Utilisez `validate`, `max` et `onValueInvalid` pour rejeter les valeurs invalide
 pourquoi un ajout a été refusé. Ajoutez `maxLength` lorsque le champ ne doit plus accepter les valeurs
 trop longues avant l’exécution de la validation.
 
-<ExampleFrame variant="component">
-  <TagsInputValidationAndMax />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/tags-input/validation-and-max.tsx"
-```
-
-    </Tab>
-    <Tab value="solid"><CodeBlockRuntime lang="tsx" code={tagsInputSolidValidationAndMax} /></Tab>
-    <Tab value="vue"><CodeBlockRuntime lang="vue" code={tagsInputVueValidationAndMax} /></Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/tags-input/tags-input-validation-and-max.module.css"
-```
-</div>
-</ExampleCode>
+<Example name="tags-input/validation-and-max" />
 
 ### Avec Combobox
 
@@ -561,25 +245,7 @@ N’utilisez pas `TagsInputItems` lorsque chaque tag nécessite un contenu ou de
 les valeurs de la racine à l’arbre complet des parties et gardez `TagsInputItemInput` dans chaque élément si
 l’édition sur place doit rester possible.
 
-<ExampleFrame variant="component">
-  <TagsInputAdvancedCustomization />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/tags-input/advanced-customization.tsx"
-```
-
-    </Tab>
-    <Tab value="solid"><CodeBlockRuntime lang="tsx" code={tagsInputSolidAdvancedCustomization} /></Tab>
-    <Tab value="vue"><CodeBlockRuntime lang="vue" code={tagsInputVueAdvancedCustomization} /></Tab>
-  </Tabs>
-
-</div>
-</ExampleCode>
+<Example name="tags-input/advanced-customization" />
 
 ## Styles
 

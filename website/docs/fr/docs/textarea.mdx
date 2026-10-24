@@ -5,27 +5,6 @@ description: Zone de texte native multiligne, compatible avec Field et stylée p
 ---
 
 import * as TextareaDocs from '@/components/examples/textarea/css-properties';
-import TextareaAutoResize from '@/components/examples/textarea/auto-resize.tsx';
-import TextareaBasic from '@/components/examples/textarea/basic.tsx';
-import TextareaControlled from '@/components/examples/textarea/controlled.tsx';
-import TextareaDisabledAndReadonly from '@/components/examples/textarea/disabled-and-readonly.tsx';
-import TextareaFieldValidation from '@/components/examples/textarea/field-validation.tsx';
-import TextareaNativeAttributes from '@/components/examples/textarea/native-attributes.tsx';
-import TextareaSizes from '@/components/examples/textarea/sizes.tsx';
-import textareaSolidAutoResize from '../../../snippets/textarea/solid/auto-resize.tsx?raw';
-import textareaSolidBasic from '../../../snippets/textarea/solid/basic.tsx?raw';
-import textareaSolidControlled from '../../../snippets/textarea/solid/controlled.tsx?raw';
-import textareaSolidDisabledAndReadonly from '../../../snippets/textarea/solid/disabled-and-readonly.tsx?raw';
-import textareaSolidFieldValidation from '../../../snippets/textarea/solid/field-validation.tsx?raw';
-import textareaSolidNativeAttributes from '../../../snippets/textarea/solid/native-attributes.tsx?raw';
-import textareaSolidSizes from '../../../snippets/textarea/solid/sizes.tsx?raw';
-import textareaVueAutoResize from '../../../snippets/textarea/vue/auto-resize.vue?raw';
-import textareaVueBasic from '../../../snippets/textarea/vue/basic.vue?raw';
-import textareaVueControlled from '../../../snippets/textarea/vue/controlled.vue?raw';
-import textareaVueDisabledAndReadonly from '../../../snippets/textarea/vue/disabled-and-readonly.vue?raw';
-import textareaVueFieldValidation from '../../../snippets/textarea/vue/field-validation.vue?raw';
-import textareaVueNativeAttributes from '../../../snippets/textarea/vue/native-attributes.vue?raw';
-import textareaVueSizes from '../../../snippets/textarea/vue/sizes.vue?raw';
 
 ## Référence de l’API
 
@@ -51,50 +30,7 @@ Placez `Textarea` dans `Field` lorsqu’il faut fournir au champ un libellé acc
 complémentaire. C’est la configuration recommandée pour les commentaires, notes, descriptions de
 tâches et contenus similaires.
 
-<ExampleFrame variant="component">
-  <TextareaBasic />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/textarea/basic.tsx"
-
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={textareaSolidBasic} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={textareaVueBasic} />
-
-    </Tab>
-
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/textarea/textarea-basic.module.css"
-
-```
-
-</div>
-
-</ExampleCode>
+<Example name="textarea/basic" />
 
 ## Installation avec shadcn
 
@@ -173,50 +109,7 @@ capable de recevoir les propriétés fusionnées et la ref.
 Définissez `autoresize` lorsque la zone de texte doit grandir au fil de la saisie. Ark désactive le
 redimensionnement manuel lorsque cette option est active.
 
-<ExampleFrame variant="component">
-  <TextareaAutoResize />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/textarea/auto-resize.tsx"
-
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={textareaSolidAutoResize} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={textareaVueAutoResize} />
-
-    </Tab>
-
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/textarea/textarea-auto-resize.module.css"
-
-```
-
-</div>
-
-</ExampleCode>
+<Example name="textarea/auto-resize" />
 
 ### Tailles
 
@@ -224,199 +117,27 @@ La propriété `size` définit les espacements et la typographie. L’espacement
 de police correspondent à `Input` de même taille, ce qui aligne les champs empilés. La hauteur vient
 de l’attribut natif `rows` et suit donc la taille de police.
 
-<ExampleFrame variant="component">
-  <TextareaSizes />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/textarea/sizes.tsx"
-
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={textareaSolidSizes} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={textareaVueSizes} />
-
-    </Tab>
-
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/textarea/textarea-sizes.module.css"
-
-```
-
-</div>
-
-</ExampleCode>
+<Example name="textarea/sizes" />
 
 ### Valeur contrôlée
 
 Utilisez `value` et le gestionnaire natif `onChange` lorsque l’état de l’application doit piloter le contenu.
 
-<ExampleFrame variant="component">
-  <TextareaControlled />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/textarea/controlled.tsx"
-
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={textareaSolidControlled} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={textareaVueControlled} />
-
-    </Tab>
-
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/textarea/textarea-controlled.module.css"
-
-```
-
-</div>
-
-</ExampleCode>
+<Example name="textarea/controlled" />
 
 ### Désactivé et en lecture seule
 
 Utilisez `disabled` lorsque l’utilisateur ne doit pas interagir avec le contrôle. Utilisez `readOnly`
 lorsqu’il peut lire et sélectionner la valeur, mais pas la modifier.
 
-<ExampleFrame variant="component">
-  <TextareaDisabledAndReadonly />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/textarea/disabled-and-readonly.tsx"
-
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={textareaSolidDisabledAndReadonly} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={textareaVueDisabledAndReadonly} />
-
-    </Tab>
-
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/textarea/textarea-disabled-and-readonly.module.css"
-
-```
-
-</div>
-
-</ExampleCode>
+<Example name="textarea/disabled-and-readonly" />
 
 ### Validation du champ
 
 Définissez `invalid` sur `Field`. Ark ajoute `aria-invalid` et `data-invalid` à la zone de texte et
 la relie à son message d’erreur.
 
-<ExampleFrame variant="component">
-  <TextareaFieldValidation />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/textarea/field-validation.tsx"
-
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={textareaSolidFieldValidation} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={textareaVueFieldValidation} />
-
-    </Tab>
-
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/textarea/textarea-field-validation.module.css"
-
-```
-
-</div>
-
-</ExampleCode>
+<Example name="textarea/field-validation" />
 
 ### Attributs natifs et soumission du formulaire
 
@@ -424,50 +145,7 @@ Utilisez les propriétés natives de `textarea`, comme `rows`, `maxLength` et `s
 comportement du navigateur. Cet exemple soumet également le formulaire et lit la valeur actuelle via
 `FormData`.
 
-<ExampleFrame variant="component">
-  <TextareaNativeAttributes />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/textarea/native-attributes.tsx"
-
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={textareaSolidNativeAttributes} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={textareaVueNativeAttributes} />
-
-    </Tab>
-
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/textarea/textarea-native-attributes.module.css"
-
-```
-
-</div>
-
-</ExampleCode>
+<Example name="textarea/native-attributes" />
 
 ## Styles
 

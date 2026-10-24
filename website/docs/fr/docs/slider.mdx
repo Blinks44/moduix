@@ -5,70 +5,13 @@ description: Un slider accessible pour React, Solid ou Vue permettant de sélect
 ---
 
 import * as SliderDocs from '@/components/examples/slider/css-properties';
-import SliderAdvancedCustomization from '@/components/examples/slider/advanced-customization.tsx';
-import SliderBasic from '@/components/examples/slider/basic.tsx';
-import SliderCenterOrigin from '@/components/examples/slider/center-origin.tsx';
-import SliderChangeEvents from '@/components/examples/slider/change-events.tsx';
 import SliderContext from '@/components/examples/slider/context.tsx';
-import SliderControlled from '@/components/examples/slider/controlled.tsx';
-import SliderDisabled from '@/components/examples/slider/disabled.tsx';
 import SliderDraggingIndicator from '@/components/examples/slider/dragging-indicator.tsx';
-import SliderForm from '@/components/examples/slider/form.tsx';
-import SliderInvalid from '@/components/examples/slider/invalid.tsx';
-import SliderMarks from '@/components/examples/slider/marks.tsx';
-import SliderMinAndMax from '@/components/examples/slider/min-and-max.tsx';
 import SliderRange from '@/components/examples/slider/range.tsx';
-import SliderReadOnly from '@/components/examples/slider/read-only.tsx';
 import SliderRootProvider from '@/components/examples/slider/root-provider.tsx';
-import SliderStep from '@/components/examples/slider/step.tsx';
-import SliderThumbAlignment from '@/components/examples/slider/thumb-alignment.tsx';
-import SliderThumbCollision from '@/components/examples/slider/thumb-collision.tsx';
-import SliderThumbOverlap from '@/components/examples/slider/thumb-overlap.tsx';
-import SliderVertical from '@/components/examples/slider/vertical.tsx';
-import SliderVerticalWithMarks from '@/components/examples/slider/vertical-with-marks.tsx';
-import sliderSolidBasic from '../../../snippets/slider/solid/basic.tsx?raw';
-import sliderSolidCenterOrigin from '../../../snippets/slider/solid/center-origin.tsx?raw';
-import sliderSolidChangeEvents from '../../../snippets/slider/solid/change-events.tsx?raw';
 import sliderSolidContext from '../../../snippets/slider/solid/context.tsx?raw';
-import sliderSolidControlled from '../../../snippets/slider/solid/controlled.tsx?raw';
-import sliderSolidDisabled from '../../../snippets/slider/solid/disabled.tsx?raw';
-import sliderSolidForm from '../../../snippets/slider/solid/form.tsx?raw';
-import sliderSolidDraggingIndicator from '../../../snippets/slider/solid/dragging-indicator.tsx?raw';
-import sliderSolidInvalid from '../../../snippets/slider/solid/invalid.tsx?raw';
-import sliderSolidMarks from '../../../snippets/slider/solid/marks.tsx?raw';
-import sliderSolidMinAndMax from '../../../snippets/slider/solid/min-and-max.tsx?raw';
-import sliderSolidRange from '../../../snippets/slider/solid/range.tsx?raw';
-import sliderSolidReadOnly from '../../../snippets/slider/solid/read-only.tsx?raw';
-import sliderSolidRootProvider from '../../../snippets/slider/solid/root-provider.tsx?raw';
-import sliderSolidStep from '../../../snippets/slider/solid/step.tsx?raw';
-import sliderSolidThumbAlignment from '../../../snippets/slider/solid/thumb-alignment.tsx?raw';
-import sliderSolidThumbCollision from '../../../snippets/slider/solid/thumb-collision.tsx?raw';
-import sliderSolidThumbOverlap from '../../../snippets/slider/solid/thumb-overlap.tsx?raw';
-import sliderSolidVertical from '../../../snippets/slider/solid/vertical.tsx?raw';
-import sliderSolidVerticalWithMarks from '../../../snippets/slider/solid/vertical-with-marks.tsx?raw';
-import sliderSolidAdvancedCustomization from '../../../snippets/slider/solid/advanced-customization.tsx?raw';
-import sliderVueBasic from '../../../snippets/slider/vue/basic.vue?raw';
-import sliderVueCenterOrigin from '../../../snippets/slider/vue/center-origin.vue?raw';
-import sliderVueChangeEvents from '../../../snippets/slider/vue/change-events.vue?raw';
 import sliderVueContext from '../../../snippets/slider/vue/context.vue?raw';
 import sliderVueContextPart from '../../../snippets/slider/vue/SliderStatus.vue?raw';
-import sliderVueControlled from '../../../snippets/slider/vue/controlled.vue?raw';
-import sliderVueDisabled from '../../../snippets/slider/vue/disabled.vue?raw';
-import sliderVueDraggingIndicator from '../../../snippets/slider/vue/dragging-indicator.vue?raw';
-import sliderVueForm from '../../../snippets/slider/vue/form.vue?raw';
-import sliderVueInvalid from '../../../snippets/slider/vue/invalid.vue?raw';
-import sliderVueMarks from '../../../snippets/slider/vue/marks.vue?raw';
-import sliderVueMinAndMax from '../../../snippets/slider/vue/min-and-max.vue?raw';
-import sliderVueRange from '../../../snippets/slider/vue/range.vue?raw';
-import sliderVueReadOnly from '../../../snippets/slider/vue/read-only.vue?raw';
-import sliderVueRootProvider from '../../../snippets/slider/vue/root-provider.vue?raw';
-import sliderVueStep from '../../../snippets/slider/vue/step.vue?raw';
-import sliderVueThumbAlignment from '../../../snippets/slider/vue/thumb-alignment.vue?raw';
-import sliderVueThumbCollision from '../../../snippets/slider/vue/thumb-collision.vue?raw';
-import sliderVueThumbOverlap from '../../../snippets/slider/vue/thumb-overlap.vue?raw';
-import sliderVueVertical from '../../../snippets/slider/vue/vertical.vue?raw';
-import sliderVueVerticalWithMarks from '../../../snippets/slider/vue/vertical-with-marks.vue?raw';
-import sliderVueAdvancedCustomization from '../../../snippets/slider/vue/advanced-customization.vue?raw';
 
 ## Référence de l’API
 
@@ -88,41 +31,7 @@ Utilisez `Slider` lorsque l’utilisateur doit ajuster une valeur numérique dan
 `SliderThumbs` crée une poignée avec un champ natif par valeur. Pour personnaliser le contenu,
 composez chaque `SliderThumb` explicitement et placez `SliderHiddenInput` à l’intérieur.
 
-<ExampleFrame variant="component" width="sm">
-  <SliderBasic />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/slider/basic.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={sliderSolidBasic} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={sliderVueBasic} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="slider/basic" width="sm" />
 
 ## Installation avec shadcn
 
@@ -213,41 +122,7 @@ retourné, et Vue expose directement le store réactif dans le template.
 
 Définissez `origin="center"` lorsque la valeur représente un décalage positif ou négatif, par exemple un équilibre autour de zéro.
 
-<ExampleFrame variant="component" width="sm">
-  <SliderCenterOrigin />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/slider/center-origin.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={sliderSolidCenterOrigin} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={sliderVueCenterOrigin} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="slider/center-origin" width="sm" />
 
 ### Événements de modification
 
@@ -255,46 +130,7 @@ Utilisez `onValueChange` (ou l’événement Vue `value-change`) pour mettre à 
 l’interaction et `onValueChangeEnd` (ou `value-change-end`) lorsque le glissement ou l’interaction
 au clavier est terminé.
 
-<ExampleFrame variant="component" width="sm">
-  <SliderChangeEvents />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/slider/change-events.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={sliderSolidChangeEvents} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={sliderVueChangeEvents} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/slider/slider-change-events.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="slider/change-events" width="sm" />
 
 ### Contexte
 
@@ -344,710 +180,112 @@ Utilisez `useSliderContext` de moduix dans un composant enfant lorsque celui-ci 
 Contrôlez le slider depuis l’état du framework en conservant le tableau fourni par `details.value` ;
 dans Vue, liez `v-model` à une ref pour le même contrat contrôlé.
 
-<ExampleFrame variant="component" width="sm">
-  <SliderControlled />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/slider/controlled.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={sliderSolidControlled} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={sliderVueControlled} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="slider/controlled" width="sm" />
 
 ### Désactivé
 
 Utilisez `disabled` pour garder la valeur visible tout en désactivant les interactions.
 
-<ExampleFrame variant="component" width="sm">
-  <SliderDisabled />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/slider/disabled.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={sliderSolidDisabled} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={sliderVueDisabled} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="slider/disabled" width="sm" />
 
 ### Indicateur de glissement
 
 Placez `SliderDraggingIndicator` dans une poignée pour afficher sa valeur active pendant le glissement.
 
-<ExampleFrame variant="component" width="sm">
-  <SliderDraggingIndicator />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/slider/dragging-indicator.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={sliderSolidDraggingIndicator} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={sliderVueDraggingIndicator} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="slider/dragging-indicator" width="sm" />
 
 
 ### Formulaire
 
 Définissez `name` et placez `SliderHiddenInput` dans chaque poignée explicite pour envoyer la valeur actuelle.
 
-<ExampleFrame variant="component" width="sm">
-  <SliderForm />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/slider/form.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={sliderSolidForm} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={sliderVueForm} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/slider/slider-form.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="slider/form" width="sm" />
 
 ### Valeur non valide
 
 Utilisez `invalid` lorsque la valeur sélectionnée ne passe pas la validation. La piste, la plage et la poignée exposent
 l’état invalide tout en restant interactives.
 
-<ExampleFrame variant="component" width="sm">
-  <SliderInvalid />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/slider/invalid.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={sliderSolidInvalid} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={sliderVueInvalid} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="slider/invalid" width="sm" />
 
 ### Repères
 
 Utilisez `SliderMarkerGroup` et `SliderMarker` pour afficher des repères. Les repères Ark exposent
 `data-state="under-value | at-value | over-value"`, que vous pouvez utiliser pour les styles.
 
-<ExampleFrame variant="component" width="sm">
-  <SliderMarks />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/slider/marks.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={sliderSolidMarks} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={sliderVueMarks} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="slider/marks" width="sm" />
 
 ### Minimum et maximum
 
 Utilisez `min` et `max` lorsque l’intervalle du slider ne commence pas à `0` ou ne se termine pas à `100`.
 
-<ExampleFrame variant="component" width="sm">
-  <SliderMinAndMax />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/slider/min-and-max.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={sliderSolidMinAndMax} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={sliderVueMinAndMax} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="slider/min-and-max" width="sm" />
 
 ### Plage
 
 Transmettez un tableau contenant une valeur par poignée. `SliderThumbs` génère les poignées correspondantes et leurs
 champs natifs.
 
-<ExampleFrame variant="component" width="sm">
-  <SliderRange />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/slider/range.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={sliderSolidRange} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={sliderVueRange} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="slider/range" width="sm" />
 
 ### Lecture seule
 
 Utilisez `readOnly` lorsque la valeur doit rester visible et pouvoir recevoir le focus sans être modifiée. moduix utilise le
 curseur système par défaut dans cet état afin que le slider ne paraisse pas interactif.
 
-<ExampleFrame variant="component" width="sm">
-  <SliderReadOnly />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/slider/read-only.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={sliderSolidReadOnly} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={sliderVueReadOnly} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="slider/read-only" width="sm" />
 
 ### Root Provider
 
 Utilisez `useSlider` de moduix avec `SliderRootProvider` lorsque l’état doit être créé en dehors de l’arbre qui affiche
 les parties du slider. Placez ces parties dans `SliderRootProvider` et n’utilisez pas une seconde racine pour le même état.
 
-<ExampleFrame variant="component" width="sm">
-  <SliderRootProvider />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/slider/root-provider.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={sliderSolidRootProvider} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={sliderVueRootProvider} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/slider/slider-root-provider.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="slider/root-provider" width="sm" />
 
 ### Incrément
 
 Utilisez `step` pour des incréments fractionnaires ou plus fins.
 
-<ExampleFrame variant="component" width="sm">
-  <SliderStep />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/slider/step.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={sliderSolidStep} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={sliderVueStep} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="slider/step" width="sm" />
 
 ### Alignement de la poignée
 
 Utilisez `thumbAlignment="center"` lorsque la poignée doit dépasser des extrémités de la piste.
 
-<ExampleFrame variant="component" width="sm">
-  <SliderThumbAlignment />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/slider/thumb-alignment.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={sliderSolidThumbAlignment} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={sliderVueThumbAlignment} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="slider/thumb-alignment" width="sm" />
 
 ### Collision des poignées
 
 Utilisez `thumbCollisionBehavior` pour définir ce qui se passe lorsque les poignées d’une plage se rencontrent. `none`
 (par défaut) empêche une poignée de dépasser l’autre, `push` déplace l’autre poignée et `swap` échange leur position.
 
-<ExampleFrame variant="component" width="sm">
-  <SliderThumbCollision />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/slider/thumb-collision.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={sliderSolidThumbCollision} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={sliderVueThumbCollision} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="slider/thumb-collision" width="sm" />
 
 ### Chevauchement des poignées
 
 Utilisez `minStepsBetweenThumbs` pour imposer un écart minimal entre les poignées d’une plage. L’écart est calculé ainsi :
 `minStepsBetweenThumbs * step`.
 
-<ExampleFrame variant="component" width="sm">
-  <SliderThumbOverlap />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/slider/thumb-overlap.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={sliderSolidThumbOverlap} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={sliderVueThumbOverlap} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="slider/thumb-overlap" width="sm" />
 
 ### Orientation verticale
 
 Définissez `orientation="vertical"` et donnez une hauteur explicite à la racine.
 
-<ExampleFrame variant="component">
-  <SliderVertical />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/slider/vertical.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={sliderSolidVertical} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={sliderVueVertical} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/slider/slider-vertical.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="slider/vertical" />
 
 ### Orientation verticale avec repères
 
 En orientation verticale, les repères restent alignés sur la piste et exposent les mêmes attributs d’état.
 
-<ExampleFrame variant="component">
-  <SliderVerticalWithMarks />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/slider/vertical-with-marks.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={sliderSolidVerticalWithMarks} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={sliderVueVerticalWithMarks} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/slider/slider-vertical-with-marks.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="slider/vertical-with-marks" />
 
 ### Personnalisation avancée
 
 Utilisez des `SliderThumb` explicites plutôt que `SliderThumbs` lorsque chaque poignée nécessite des enfants
 personnalisés, un nom accessible ou un ordre particulier.
 
-<ExampleFrame variant="component" width="sm">
-  <SliderAdvancedCustomization />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/slider/advanced-customization.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={sliderSolidAdvancedCustomization} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={sliderVueAdvancedCustomization} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="slider/advanced-customization" width="sm" />
 
 ## Styles
 

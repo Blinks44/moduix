@@ -4,30 +4,6 @@ component: text
 description: Компонент для оформления обычного и встроенного текста, смысловых акцентов и усечённых превью.
 ---
 
-import TextAlignment from '@/components/examples/text/alignment.tsx';
-import TextBasic from '@/components/examples/text/basic.tsx';
-import TextCustomComposition from '@/components/examples/text/custom-composition.tsx';
-import TextSemantics from '@/components/examples/text/semantics.tsx';
-import TextSize from '@/components/examples/text/size.tsx';
-import TextTone from '@/components/examples/text/tone.tsx';
-import TextTruncation from '@/components/examples/text/truncation.tsx';
-import TextWeight from '@/components/examples/text/weight.tsx';
-import textSolidAlignment from '../../../snippets/text/solid/alignment.tsx?raw';
-import textSolidBasic from '../../../snippets/text/solid/basic.tsx?raw';
-import textSolidCustomComposition from '../../../snippets/text/solid/custom-composition.tsx?raw';
-import textSolidSemantics from '../../../snippets/text/solid/semantics.tsx?raw';
-import textSolidSize from '../../../snippets/text/solid/size.tsx?raw';
-import textSolidTone from '../../../snippets/text/solid/tone.tsx?raw';
-import textSolidTruncation from '../../../snippets/text/solid/truncation.tsx?raw';
-import textSolidWeight from '../../../snippets/text/solid/weight.tsx?raw';
-import textVueAlignment from '../../../snippets/text/vue/alignment.vue?raw';
-import textVueBasic from '../../../snippets/text/vue/basic.vue?raw';
-import textVueCustomComposition from '../../../snippets/text/vue/custom-composition.vue?raw';
-import textVueSemantics from '../../../snippets/text/vue/semantics.vue?raw';
-import textVueSize from '../../../snippets/text/vue/size.vue?raw';
-import textVueTone from '../../../snippets/text/vue/tone.vue?raw';
-import textVueTruncation from '../../../snippets/text/vue/truncation.vue?raw';
-import textVueWeight from '../../../snippets/text/vue/weight.vue?raw';
 
 ## Справочник API
 
@@ -51,46 +27,7 @@ import textVueWeight from '../../../snippets/text/vue/weight.vue?raw';
 Для абзаца используйте корневой элемент `p`, выбранный по умолчанию. Передавайте `as`, когда нужен другой
 семантический HTML-элемент, но оформление `Text` должно сохраниться.
 
-<ExampleFrame variant="component">
-  <TextBasic />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/text/basic.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={textSolidBasic} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={textVueBasic} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/text/text-basic.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="text/basic" />
 
 ## Установка через shadcn
 
@@ -155,181 +92,25 @@ Text
 
 Используйте `align`, когда выравнивание относится к тексту, а не к окружающему контейнеру.
 
-<ExampleFrame variant="component">
-  <TextAlignment />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/text/alignment.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={textSolidAlignment} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={textVueAlignment} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/text/text-alignment.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="text/alignment" />
 
 ### Семантика
 
 Используйте `as`, чтобы выбрать семантический HTML-элемент и сохранить типографические стили `Text`.
 
-<ExampleFrame variant="component">
-  <TextSemantics />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/text/semantics.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={textSolidSemantics} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={textVueSemantics} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/text/text-semantics.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="text/semantics" />
 
 ### Размер
 
 Используйте `size`, чтобы изменить визуальную иерархию, не переходя на другой типографический компонент.
 
-<ExampleFrame variant="component">
-  <TextSize />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/text/size.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={textSolidSize} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={textVueSize} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/text/text-size.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="text/size" />
 
 ### Тон
 
 Используйте `tone`, чтобы показать роль текста без локальных классов цвета.
 
-<ExampleFrame variant="component">
-  <TextTone />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/text/tone.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={textSolidTone} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={textVueTone} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/text/text-tone.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="text/tone" />
 
 ### Усечение
 
@@ -337,132 +118,20 @@ Text
 Если заданы оба свойства, действует `lineClamp` - оно переопределяет однострочное усечение. Логику раскрытия
 полного текста добавляйте отдельно, в окружающем интерфейсе.
 
-<ExampleFrame variant="component">
-  <TextTruncation />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/text/truncation.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={textSolidTruncation} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={textVueTruncation} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/text/text-truncation.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="text/truncation" />
 
 ### Насыщенность
 
 Используйте `weight`, когда акцент должен остаться в пределах того же семантического элемента.
 
-<ExampleFrame variant="component">
-  <TextWeight />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/text/weight.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={textSolidWeight} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={textVueWeight} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/text/text-weight.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="text/weight" />
 
 ### Расширенная настройка
 
 Используйте `asChild`, когда корнем должен стать существующий пользовательский элемент, а не одно из поддерживаемых
 встроенных значений `as`. Дочерний элемент должен быть единственным и принимать передаваемые свойства и `ref`.
 
-<ExampleFrame variant="component">
-  <TextCustomComposition />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/text/custom-composition.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={textSolidCustomComposition} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={textVueCustomComposition} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="text/custom-composition" />
 
 ## Стилизация
 

@@ -5,27 +5,8 @@ description: Guide users through a multi-step process with accessible Ark UI sta
 ---
 
 import * as StepsDocs from '@/components/examples/steps/css-properties';
-import StepsBasic from '@/components/examples/steps/basic.tsx';
-import StepsControlled from '@/components/examples/steps/controlled.tsx';
-import StepsValidation from '@/components/examples/steps/validation.tsx';
 import StepsProgress from '@/components/examples/steps/progress.tsx';
 import StepsRootProvider from '@/components/examples/steps/root-provider.tsx';
-import StepsVertical from '@/components/examples/steps/vertical.tsx';
-import StepsCustomComposition from '@/components/examples/steps/custom-composition.tsx';
-import stepsSolidBasic from '../../../snippets/steps/solid/basic.tsx?raw';
-import stepsSolidControlled from '../../../snippets/steps/solid/controlled.tsx?raw';
-import stepsSolidValidation from '../../../snippets/steps/solid/validation.tsx?raw';
-import stepsSolidProgress from '../../../snippets/steps/solid/progress.tsx?raw';
-import stepsSolidRootProvider from '../../../snippets/steps/solid/root-provider.tsx?raw';
-import stepsSolidVertical from '../../../snippets/steps/solid/vertical.tsx?raw';
-import stepsSolidCustomComposition from '../../../snippets/steps/solid/custom-composition.tsx?raw';
-import stepsVueBasic from '../../../snippets/steps/vue/basic.vue?raw';
-import stepsVueControlled from '../../../snippets/steps/vue/controlled.vue?raw';
-import stepsVueValidation from '../../../snippets/steps/vue/validation.vue?raw';
-import stepsVueProgress from '../../../snippets/steps/vue/progress.vue?raw';
-import stepsVueRootProvider from '../../../snippets/steps/vue/root-provider.vue?raw';
-import stepsVueVertical from '../../../snippets/steps/vue/vertical.vue?raw';
-import stepsVueCustomComposition from '../../../snippets/steps/vue/custom-composition.vue?raw';
 
 ## API Reference
 
@@ -46,46 +27,7 @@ React, Solid, and Vue use the same flat value names. In Vue, bind controlled sta
 `v-model:step` and pass a `useSteps()` store to `StepsRootProvider` when it is created outside the
 rendered part tree.
 
-<ExampleFrame variant="component">
-  <StepsBasic />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/steps/basic.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={stepsSolidBasic} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={stepsVueBasic} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/steps/steps-basic.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="steps/basic" />
 
 ## Install with shadcn
 
@@ -180,92 +122,14 @@ completed step; pass children to control the marker.
 Control `step` from framework state when the active step must stay synchronized with routing,
 validation, or another part of the interface.
 
-<ExampleFrame variant="component">
-  <StepsControlled />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/steps/controlled.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={stepsSolidControlled} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={stepsVueControlled} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/steps/steps-controlled.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="steps/controlled" />
 
 ### Validation
 
 Use `linear`, `isStepValid`, and `onStepInvalid` to prevent navigation until the current step
 passes your validation rule.
 
-<ExampleFrame variant="component">
-  <StepsValidation />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/steps/validation.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={stepsSolidValidation} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={stepsVueValidation} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/steps/steps-validation.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="steps/validation" />
 
 ### Progress
 
@@ -273,184 +137,28 @@ Add `StepsProgress` when the flow should show a visual progress track alongside 
 Ark renders it as `role="progressbar"` with the current percentage; give it an `aria-label` that
 names the flow.
 
-<ExampleFrame variant="component">
-  <StepsProgress />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/steps/progress.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={stepsSolidProgress} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={stepsVueProgress} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/steps/steps-progress.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="steps/progress" />
 
 ### RootProvider
 
 Create the state with `useSteps()` outside the rendered part tree, then pass it to
 `StepsRootProvider` when external controls need to work with the same state.
 
-<ExampleFrame variant="component">
-  <StepsRootProvider />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/steps/root-provider.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={stepsSolidRootProvider} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={stepsVueRootProvider} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/steps/steps-root-provider.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="steps/root-provider" />
 
 ### Vertical
 
 Set `orientation="vertical"` when the step list should sit beside the active content panel on
 wide layouts and stack above it on narrow screens.
 
-<ExampleFrame variant="component">
-  <StepsVertical />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/steps/vertical.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={stepsSolidVertical} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={stepsVueVertical} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/steps/steps-vertical.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="steps/vertical" />
 
 ### Advanced Customization
 
 Use `asChild` when a trigger must render as an anchor or router link instead of the default button.
 Keep one semantic child so it receives Ark's ARIA, keyboard, and focus behavior.
 
-<ExampleFrame variant="component">
-  <StepsCustomComposition />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/steps/custom-composition.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={stepsSolidCustomComposition} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={stepsVueCustomComposition} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/steps/steps-custom-composition.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="steps/custom-composition" />
 
 ## Styling
 

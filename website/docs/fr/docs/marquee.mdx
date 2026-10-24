@@ -5,36 +5,6 @@ description: Un composant basé sur Ark UI pour faire défiler en continu des lo
 ---
 
 import * as MarqueeDocs from '@/components/examples/marquee/css-properties';
-import MarqueeAutoFill from '@/components/examples/marquee/auto-fill.tsx';
-import MarqueeBasic from '@/components/examples/marquee/basic.tsx';
-import MarqueeEdges from '@/components/examples/marquee/edges.tsx';
-import MarqueeFiniteLoops from '@/components/examples/marquee/finite-loops.tsx';
-import MarqueePauseOnInteraction from '@/components/examples/marquee/pause-on-interaction.tsx';
-import MarqueeProgrammaticControl from '@/components/examples/marquee/programmatic-control.tsx';
-import MarqueeReverse from '@/components/examples/marquee/reverse.tsx';
-import MarqueeRtl from '@/components/examples/marquee/rtl.tsx';
-import MarqueeSpeed from '@/components/examples/marquee/speed.tsx';
-import MarqueeVertical from '@/components/examples/marquee/vertical.tsx';
-import marqueeSolidAutoFill from '../../../snippets/marquee/solid/auto-fill.tsx?raw';
-import marqueeSolidBasic from '../../../snippets/marquee/solid/basic.tsx?raw';
-import marqueeSolidEdges from '../../../snippets/marquee/solid/edges.tsx?raw';
-import marqueeSolidFiniteLoops from '../../../snippets/marquee/solid/finite-loops.tsx?raw';
-import marqueeSolidPauseOnInteraction from '../../../snippets/marquee/solid/pause-on-interaction.tsx?raw';
-import marqueeSolidProgrammaticControl from '../../../snippets/marquee/solid/programmatic-control.tsx?raw';
-import marqueeSolidReverse from '../../../snippets/marquee/solid/reverse.tsx?raw';
-import marqueeSolidRtl from '../../../snippets/marquee/solid/rtl.tsx?raw';
-import marqueeSolidSpeed from '../../../snippets/marquee/solid/speed.tsx?raw';
-import marqueeSolidVertical from '../../../snippets/marquee/solid/vertical.tsx?raw';
-import marqueeVueAutoFill from '../../../snippets/marquee/vue/auto-fill.vue?raw';
-import marqueeVueBasic from '../../../snippets/marquee/vue/basic.vue?raw';
-import marqueeVueEdges from '../../../snippets/marquee/vue/edges.vue?raw';
-import marqueeVueFiniteLoops from '../../../snippets/marquee/vue/finite-loops.vue?raw';
-import marqueeVuePauseOnInteraction from '../../../snippets/marquee/vue/pause-on-interaction.vue?raw';
-import marqueeVueProgrammaticControl from '../../../snippets/marquee/vue/programmatic-control.vue?raw';
-import marqueeVueReverse from '../../../snippets/marquee/vue/reverse.vue?raw';
-import marqueeVueRtl from '../../../snippets/marquee/vue/rtl.vue?raw';
-import marqueeVueSpeed from '../../../snippets/marquee/vue/speed.vue?raw';
-import marqueeVueVertical from '../../../snippets/marquee/vue/vertical.vue?raw';
 
 ## Référence de l’API
 
@@ -48,46 +18,7 @@ l’intérieur. Si le contenu défilant transmet une information, ajoutez un lib
 `translations.root`. `Marquee` fournit le comportement et les styles d’animation nécessaires, mais ne définit ni le style
 des éléments ni celui du cadre. Dans l’exemple, le style des éléments et la largeur de la racine sont définis séparément.
 
-<ExampleFrame variant="component">
-  <MarqueeBasic />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/marquee/basic.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={marqueeSolidBasic} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={marqueeVueBasic} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/marquee/marquee-basic.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="marquee/basic" />
 
 ## Installation avec shadcn
 
@@ -168,138 +99,21 @@ le même état. Les commandes placées dans l’arbre peuvent lire l’API coura
 Utilisez `autoFill` lorsque le contenu ne suffit pas à remplir la zone d’affichage. `spacing` définit l’espace entre
 les copies du contenu.
 
-<ExampleFrame variant="component">
-  <MarqueeAutoFill />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/marquee/auto-fill.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={marqueeSolidAutoFill} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={marqueeVueAutoFill} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/marquee/marquee-auto-fill.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="marquee/auto-fill" />
 
 ### Fondu sur les bords
 
 Ajoutez `MarqueeEdge` sur les côtés où le contenu doit se fondre dans l’arrière-plan de la page. Cette partie est
 décorative et n’intercepte pas les événements de pointeur.
 
-<ExampleFrame variant="component">
-  <MarqueeEdges />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/marquee/edges.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={marqueeSolidEdges} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={marqueeVueEdges} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/marquee/marquee-edges.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="marquee/edges" />
 
 ### Boucles limitées
 
 Définissez `loopCount` pour limiter le nombre de boucles. `onLoopComplete` est appelé après chaque boucle et
 `onComplete` après la dernière.
 
-<ExampleFrame variant="component">
-  <MarqueeFiniteLoops />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/marquee/finite-loops.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={marqueeSolidFiniteLoops} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={marqueeVueFiniteLoops} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/marquee/marquee-finite-loops.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="marquee/finite-loops" />
 
 ### Pause lors des interactions
 
@@ -311,229 +125,34 @@ l’animation elle-même peut être gênante. Considérez le contenu comme non e
 offrez un moyen de le mettre en pause (`pauseOnInteraction` ou des contrôles pause/reprise explicites) et ne placez
 jamais d’informations critiques uniquement dans un marquee.
 
-<ExampleFrame variant="component">
-  <MarqueePauseOnInteraction />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/marquee/pause-on-interaction.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={marqueeSolidPauseOnInteraction} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={marqueeVuePauseOnInteraction} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/marquee/marquee-pause-on-interaction.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="marquee/pause-on-interaction" />
 
 ### Root Provider
 
 Utilisez `useMarquee()` de moduix avec `MarqueeRootProvider` lorsque des commandes externes doivent mettre le
 défilement en pause, le reprendre ou le relancer.
 
-<ExampleFrame variant="component">
-  <MarqueeProgrammaticControl />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/marquee/programmatic-control.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={marqueeSolidProgrammaticControl} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={marqueeVueProgrammaticControl} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/marquee/marquee-programmatic-control.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="marquee/programmatic-control" />
 
 ### Sens inverse
 
 Utilisez `reverse` lorsque le contenu doit se déplacer dans le sens opposé à celui indiqué par `side`, sans modifier
 l’orientation.
 
-<ExampleFrame variant="component">
-  <MarqueeReverse />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/marquee/reverse.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={marqueeSolidReverse} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={marqueeVueReverse} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/marquee/marquee-reverse.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="marquee/reverse" />
 
 ### De droite à gauche
 
 Placez le composant dans un `LocaleProvider` configuré avec une locale RTL. Les côtés logiques `start` et `end`
 suivent alors la direction du texte.
 
-<ExampleFrame variant="component">
-  <MarqueeRtl />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/marquee/rtl.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={marqueeSolidRtl} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={marqueeVueRtl} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/marquee/marquee-rtl.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="marquee/rtl" />
 
 ### Vitesse
 
 Réglez le mouvement avec `speed`, exprimé en pixels par seconde. Une vitesse plus faible facilite la lecture.
 
-<ExampleFrame variant="component">
-  <MarqueeSpeed />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/marquee/speed.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={marqueeSolidSpeed} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={marqueeVueSpeed} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/marquee/marquee-speed.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="marquee/speed" />
 
 ### Orientation verticale
 
@@ -541,46 +160,7 @@ Définissez `side="top"` ou `side="bottom"` pour faire défiler le contenu verti
 verticale mesure `15rem` de haut, ce qui donne à la zone d’affichage une hauteur stable ; définissez `height` avec une
 classe pour la modifier.
 
-<ExampleFrame variant="component">
-  <MarqueeVertical />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/marquee/vertical.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={marqueeSolidVertical} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={marqueeVueVertical} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/marquee/marquee-vertical.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="marquee/vertical" />
 
 ## Styles
 

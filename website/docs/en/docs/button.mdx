@@ -5,30 +5,6 @@ description: A styled single-part action control for React, Solid, and Vue, with
 ---
 
 import * as ButtonDocs from '@/components/examples/button/css-properties';
-import ButtonAsChildLink from '@/components/examples/button/as-child-link.tsx';
-import ButtonBasic from '@/components/examples/button/basic.tsx';
-import ButtonDisabled from '@/components/examples/button/disabled.tsx';
-import ButtonIcons from '@/components/examples/button/icons.tsx';
-import ButtonPendingState from '@/components/examples/button/pending-state.tsx';
-import ButtonRef from '@/components/examples/button/ref.tsx';
-import ButtonSizes from '@/components/examples/button/sizes.tsx';
-import ButtonVariants from '@/components/examples/button/variants.tsx';
-import buttonSolidAsChildLink from '../../../snippets/button/solid/as-child-link.tsx?raw';
-import buttonSolidBasic from '../../../snippets/button/solid/basic.tsx?raw';
-import buttonSolidDisabled from '../../../snippets/button/solid/disabled.tsx?raw';
-import buttonSolidIcons from '../../../snippets/button/solid/icons.tsx?raw';
-import buttonSolidPendingState from '../../../snippets/button/solid/pending-state.tsx?raw';
-import buttonSolidRef from '../../../snippets/button/solid/ref.tsx?raw';
-import buttonSolidSizes from '../../../snippets/button/solid/sizes.tsx?raw';
-import buttonSolidVariants from '../../../snippets/button/solid/variants.tsx?raw';
-import buttonVueAsChildLink from '../../../snippets/button/vue/as-child-link.vue?raw';
-import buttonVueBasic from '../../../snippets/button/vue/basic.vue?raw';
-import buttonVueDisabled from '../../../snippets/button/vue/disabled.vue?raw';
-import buttonVueIcons from '../../../snippets/button/vue/icons.vue?raw';
-import buttonVuePendingState from '../../../snippets/button/vue/pending-state.vue?raw';
-import buttonVueRef from '../../../snippets/button/vue/ref.vue?raw';
-import buttonVueSizes from '../../../snippets/button/vue/sizes.vue?raw';
-import buttonVueVariants from '../../../snippets/button/vue/variants.vue?raw';
 
 ## API Reference
 
@@ -41,41 +17,7 @@ Ark UI does not provide a dedicated `button` primitive. moduix builds this compo
 
 For most actions, use `<Button>...</Button>`.
 
-<ExampleFrame variant="component">
-  <ButtonBasic />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/button/basic.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={buttonSolidBasic} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={buttonVueBasic} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="button/basic" />
 
 ## Install with shadcn
 
@@ -145,172 +87,26 @@ application owns the spinner, label, and async lifecycle. Native roots default t
 
 Use `disabled` with native buttons and elements used with `asChild`.
 
-<ExampleFrame variant="component">
-  <ButtonDisabled />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/button/disabled.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={buttonSolidDisabled} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={buttonVueDisabled} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/button/button-disabled.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="button/disabled" />
 
 ### Icons
 
 Icons can appear before or after the label. Their order in JSX and the Button root's gap determine the layout.
 
-<ExampleFrame variant="component">
-  <ButtonIcons />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/button/icons.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={buttonSolidIcons} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={buttonVueIcons} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/button/button-icons.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="button/icons" />
 
 ### Link with `asChild`
 
 Use `asChild` for navigation so the anchor keeps its link semantics while using button styles.
 
-<ExampleFrame variant="component">
-  <ButtonAsChildLink />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/button/as-child-link.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={buttonSolidAsChildLink} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={buttonVueAsChildLink} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="button/as-child-link" />
 
 ### Loading State
 
 Use `loading` to expose the busy state while keeping the label, spinner, and async lifecycle explicit in your
 application code. It also prevents click activation on elements used with `asChild`.
 
-<ExampleFrame variant="component">
-  <ButtonPendingState />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/button/pending-state.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={buttonSolidPendingState} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={buttonVuePendingState} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="button/pending-state" />
 
 ### Ref
 
@@ -319,136 +115,19 @@ assign a ref to the element created inside the `asChild` render function, becaus
 forwarded through that composition path. In Vue, a template ref points to the component instance; use `$el` for the
 rendered root, which is the semantic child when using `asChild`.
 
-<ExampleFrame variant="component">
-  <ButtonRef />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/button/ref.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={buttonSolidRef} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={buttonVueRef} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/button/button-ref.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="button/ref" />
 
 ### Sizes
 
 Text and icon-only buttons use the same root API.
 
-<ExampleFrame variant="component">
-  <ButtonSizes />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/button/sizes.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={buttonSolidSizes} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={buttonVueSizes} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/button/button-sizes.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="button/sizes" />
 
 ### Variants
 
 Use variants to communicate an action's priority and intent.
 
-<ExampleFrame variant="component">
-  <ButtonVariants />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/button/variants.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={buttonSolidVariants} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={buttonVueVariants} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/button/button-variants.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="button/variants" />
 
 ## Styling
 

@@ -7,7 +7,6 @@ description: Accessible tree controls for folders, files, and other nested data,
 import * as TreeViewDocs from '@/components/examples/tree-view/css-properties';
 import AsyncTreeView from '@/components/examples/tree-view/async-loading.tsx';
 import CheckboxTreeView from '@/components/examples/tree-view/checkboxes.tsx';
-import ControlledSelectionTreeView from '@/components/examples/tree-view/controlled-selection.tsx';
 import FileIconsTreeView from '@/components/examples/tree-view/file-icons.tsx';
 import LinkedTreeView from '@/components/examples/tree-view/links.tsx';
 import RootProviderTreeView from '@/components/examples/tree-view/root-provider.tsx';
@@ -15,7 +14,6 @@ import TreeViewBasic from '@/components/examples/tree-view/basic.tsx';
 import treeViewSolidAsyncLoading from '../../../snippets/tree-view/solid/async-loading.tsx?raw';
 import treeViewSolidBasic from '../../../snippets/tree-view/solid/basic.tsx?raw';
 import treeViewSolidCheckboxes from '../../../snippets/tree-view/solid/checkboxes.tsx?raw';
-import treeViewSolidControlledSelection from '../../../snippets/tree-view/solid/controlled-selection.tsx?raw';
 import treeViewSolidFileIcons from '../../../snippets/tree-view/solid/file-icons.tsx?raw';
 import treeViewSolidLinks from '../../../snippets/tree-view/solid/links.tsx?raw';
 import treeViewSolidRootProvider from '../../../snippets/tree-view/solid/root-provider.tsx?raw';
@@ -25,7 +23,6 @@ import treeViewVueBasic from '../../../snippets/tree-view/vue/basic.vue?raw';
 import treeViewVueBasicNode from '../../../snippets/tree-view/vue/BasicTreeNode.vue?raw';
 import treeViewVueCheckboxes from '../../../snippets/tree-view/vue/checkboxes.vue?raw';
 import treeViewVueCheckboxesNode from '../../../snippets/tree-view/vue/CheckboxesTreeNode.vue?raw';
-import treeViewVueControlledSelection from '../../../snippets/tree-view/vue/controlled-selection.vue?raw';
 import treeViewVueFileIcons from '../../../snippets/tree-view/vue/file-icons.vue?raw';
 import treeViewVueFileIconsNode from '../../../snippets/tree-view/vue/FileIconsTreeNode.vue?raw';
 import treeViewVueLinks from '../../../snippets/tree-view/vue/links.vue?raw';
@@ -349,46 +346,7 @@ separate so it remains the only expand and collapse affordance.
 Set `selectionMode="multiple"`. Use Ctrl or ⌘ to add or remove individual items, and Shift to
 extend a selection range. The example keeps the selected values in application state.
 
-<ExampleFrame variant="component">
-  <ControlledSelectionTreeView />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/tree-view/controlled-selection.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={treeViewSolidControlledSelection} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={treeViewVueControlledSelection} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/tree-view/tree-view-controlled-selection.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="tree-view/controlled-selection" />
 
 ### Root provider
 

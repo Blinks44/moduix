@@ -4,27 +4,7 @@ component: fieldset
 description: Объединяйте связанные элементы формы под одним заголовком, сохраняя нативную семантику fieldset и общее состояние группы. Поясняющий текст и сообщения об ошибках связаны с группой и доступны вспомогательным технологиям.
 ---
 
-import FieldsetBasic from '@/components/examples/fieldset/basic.tsx';
-import FieldsetCheckbox from '@/components/examples/fieldset/checkbox.tsx';
-import FieldsetDisabled from '@/components/examples/fieldset/disabled.tsx';
-import FieldsetField from '@/components/examples/fieldset/field.tsx';
-import FieldsetInputWithSelect from '@/components/examples/fieldset/input-with-select.tsx';
-import FieldsetInvalid from '@/components/examples/fieldset/invalid.tsx';
 import FieldsetRootProvider from '@/components/examples/fieldset/root-provider.tsx';
-import fieldsetSolidBasic from '../../../snippets/fieldset/solid/basic.tsx?raw';
-import fieldsetSolidCheckbox from '../../../snippets/fieldset/solid/checkbox.tsx?raw';
-import fieldsetSolidDisabled from '../../../snippets/fieldset/solid/disabled.tsx?raw';
-import fieldsetSolidField from '../../../snippets/fieldset/solid/field.tsx?raw';
-import fieldsetSolidInputWithSelect from '../../../snippets/fieldset/solid/input-with-select.tsx?raw';
-import fieldsetSolidInvalid from '../../../snippets/fieldset/solid/invalid.tsx?raw';
-import fieldsetSolidRootProvider from '../../../snippets/fieldset/solid/root-provider.tsx?raw';
-import fieldsetVueBasic from '../../../snippets/fieldset/vue/basic.vue?raw';
-import fieldsetVueCheckbox from '../../../snippets/fieldset/vue/checkbox.vue?raw';
-import fieldsetVueDisabled from '../../../snippets/fieldset/vue/disabled.vue?raw';
-import fieldsetVueField from '../../../snippets/fieldset/vue/field.vue?raw';
-import fieldsetVueInputWithSelect from '../../../snippets/fieldset/vue/input-with-select.vue?raw';
-import fieldsetVueInvalid from '../../../snippets/fieldset/vue/invalid.vue?raw';
-import fieldsetVueRootProvider from '../../../snippets/fieldset/vue/root-provider.vue?raw';
 
 ## Справочник API
 
@@ -45,46 +25,7 @@ import fieldsetVueRootProvider from '../../../snippets/fieldset/vue/root-provide
 Создайте группу из `Fieldset`, `FieldsetLegend`, связанных элементов управления и, если нужно, поясняющего текста или
 сообщения об ошибке. `Fieldset` является корневым компонентом группы.
 
-<ExampleFrame variant="component">
-  <FieldsetBasic />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/fieldset/basic.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={fieldsetSolidBasic} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={fieldsetVueBasic} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/fieldset/fieldset-basic.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="fieldset/basic" />
 
 ## Установка через shadcn
 
@@ -162,183 +103,27 @@ Fieldset | FieldsetRootProvider
 Используйте заголовок fieldset, чтобы задать общее имя группе связанных флажков. Добавляйте
 `CheckboxHiddenInput` в каждый флажок, которому нужны нативный фокус, отправка и сброс формы.
 
-<ExampleFrame variant="component">
-  <FieldsetCheckbox />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/fieldset/checkbox.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={fieldsetSolidCheckbox} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={fieldsetVueCheckbox} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/fieldset/fieldset-checkbox.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="fieldset/checkbox" />
 
 ### Отключённое состояние
 
 Установите `disabled` у корневого компонента. Браузер отключит нативные элементы управления, а совместимые с Ark компоненты
 получат это состояние из контекста `fieldset`.
 
-<ExampleFrame variant="component">
-  <FieldsetDisabled />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/fieldset/disabled.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={fieldsetSolidDisabled} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={fieldsetVueDisabled} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/fieldset/fieldset-disabled.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="fieldset/disabled" />
 
 ### Field
 
 Используйте вложенные компоненты `Field`, если для каждого элемента управления нужно отдельно задать метку, поясняющий текст
 или сообщение об ошибке в дополнение к общему заголовку группы.
 
-<ExampleFrame variant="component">
-  <FieldsetField />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/fieldset/field.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={fieldsetSolidField} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={fieldsetVueField} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/fieldset/fieldset-field.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="fieldset/field" />
 
 ### Input с Select
 
 Объедините `Select` с кодом страны и `Input` для номера телефона под одним заголовком, если вместе они составляют один номер.
 
-<ExampleFrame variant="component">
-  <FieldsetInputWithSelect />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/fieldset/input-with-select.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={fieldsetSolidInputWithSelect} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={fieldsetVueInputWithSelect} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/fieldset/fieldset-input-with-select.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="fieldset/input-with-select" />
 
 ### Недопустимое состояние
 
@@ -346,92 +131,14 @@ Fieldset | FieldsetRootProvider
 `invalid` также у вложенных компонентов `Field`, если отдельным элементам управления нужны собственные невалидные стили и
 ARIA-состояние.
 
-<ExampleFrame variant="component">
-  <FieldsetInvalid />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/fieldset/invalid.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={fieldsetSolidInvalid} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={fieldsetVueInvalid} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/fieldset/fieldset-invalid.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="fieldset/invalid" />
 
 ### Расширенная настройка
 
 Создайте состояние fieldset вне JSX-дерева с помощью `useFieldset` и передайте его в `FieldsetRootProvider`, если им должны
 пользоваться соседние элементы управления или повторно используемые компоненты.
 
-<ExampleFrame variant="component">
-  <FieldsetRootProvider />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/fieldset/root-provider.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={fieldsetSolidRootProvider} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={fieldsetVueRootProvider} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/fieldset/fieldset-root-provider.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="fieldset/root-provider" />
 
 ## Стилизация
 

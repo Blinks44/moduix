@@ -5,44 +5,8 @@ description: "Créez des cartes flexibles avec React, Solid ou Vue, en installan
 ---
 
 import * as CardDocs from '@/components/examples/card/css-properties';
-import CardAdvancedCustomization from '@/components/examples/card/advanced-customization.tsx';
-import CardBasic from '@/components/examples/card/basic.tsx';
-import CardHeaderAction from '@/components/examples/card/header-action.tsx';
-import CardHorizontal from '@/components/examples/card/horizontal.tsx';
-import CardOverlayLink from '@/components/examples/card/overlay-link.tsx';
-import CardAsLink from '@/components/examples/card/root-as-link.tsx';
-import CardSizes from '@/components/examples/card/sizes.tsx';
-import CardVariants from '@/components/examples/card/variants.tsx';
-import CardWithAvatar from '@/components/examples/card/with-avatar.tsx';
-import CardWithBackground from '@/components/examples/card/with-background.tsx';
-import CardWithImage from '@/components/examples/card/with-image.tsx';
-import CardWithinForm from '@/components/examples/card/within-form.tsx';
 
-import cardSolidAdvancedCustomization from '../../../snippets/card/solid/advanced-customization.tsx?raw';
-import cardSolidBasic from '../../../snippets/card/solid/basic.tsx?raw';
-import cardSolidHeaderAction from '../../../snippets/card/solid/header-action.tsx?raw';
-import cardSolidHorizontal from '../../../snippets/card/solid/horizontal.tsx?raw';
-import cardSolidOverlayLink from '../../../snippets/card/solid/overlay-link.tsx?raw';
-import cardSolidRootAsLink from '../../../snippets/card/solid/root-as-link.tsx?raw';
-import cardSolidSizes from '../../../snippets/card/solid/sizes.tsx?raw';
-import cardSolidVariants from '../../../snippets/card/solid/variants.tsx?raw';
-import cardSolidWithAvatar from '../../../snippets/card/solid/with-avatar.tsx?raw';
-import cardSolidWithBackground from '../../../snippets/card/solid/with-background.tsx?raw';
-import cardSolidWithImage from '../../../snippets/card/solid/with-image.tsx?raw';
-import cardSolidWithinForm from '../../../snippets/card/solid/within-form.tsx?raw';
 
-import cardVueAdvancedCustomization from '../../../snippets/card/vue/advanced-customization.vue?raw';
-import cardVueBasic from '../../../snippets/card/vue/basic.vue?raw';
-import cardVueHeaderAction from '../../../snippets/card/vue/header-action.vue?raw';
-import cardVueHorizontal from '../../../snippets/card/vue/horizontal.vue?raw';
-import cardVueOverlayLink from '../../../snippets/card/vue/overlay-link.vue?raw';
-import cardVueRootAsLink from '../../../snippets/card/vue/root-as-link.vue?raw';
-import cardVueSizes from '../../../snippets/card/vue/sizes.vue?raw';
-import cardVueVariants from '../../../snippets/card/vue/variants.vue?raw';
-import cardVueWithAvatar from '../../../snippets/card/vue/with-avatar.vue?raw';
-import cardVueWithBackground from '../../../snippets/card/vue/with-background.vue?raw';
-import cardVueWithImage from '../../../snippets/card/vue/with-image.vue?raw';
-import cardVueWithinForm from '../../../snippets/card/vue/within-form.vue?raw';
 
 ## Référence de l’API
 
@@ -56,46 +20,7 @@ Utilisez `Card` comme racine et ajoutez uniquement les parties nécessaires. Imp
 supplémentaire directement, comme `CardHeader` et `CardTitle`. Les mêmes noms fonctionnent avec les
 paquets npm et la source du registre shadcn.
 
-<ExampleFrame variant="component">
-  <CardBasic />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/card/basic.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={cardSolidBasic} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={cardVueBasic} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/card/card-basic.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="card/basic" />
 
 ## Installation avec shadcn
 
@@ -172,500 +97,71 @@ Lorsqu’une carte est entièrement un lien et ne contient aucun contrôle imbri
 
 Utilisez `CardAction` pour placer un statut compact ou un contrôle à la fin de l’en-tête.
 
-<ExampleFrame variant="component">
-  <CardHeaderAction />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/card/header-action.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={cardSolidHeaderAction} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={cardVueHeaderAction} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/card/card-header-action.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="card/header-action" />
 
 ### Disposition horizontale
 
 Créez une carte horizontale avec le CSS de mise en page de votre application. Card n’a pas de prop dédiée pour cette
 mise en page.
 
-<ExampleFrame variant="component">
-  <CardHorizontal />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/card/horizontal.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={cardSolidHorizontal} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={cardVueHorizontal} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/card/card-horizontal.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="card/horizontal" />
 
 ### Lien à zone cliquable étendue
 
 Utilisez `CardLink` lorsque la carte doit proposer une navigation et des actions distinctes.
 
-<ExampleFrame variant="component">
-  <CardOverlayLink />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/card/overlay-link.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={cardSolidOverlayLink} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={cardVueOverlayLink} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/card/card-overlay-link.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="card/overlay-link" />
 
 ### Élément racine sous forme de lien
 
 Utilisez `asChild` lorsque toute la carte doit être un seul lien et ne contient aucun contrôle imbriqué.
 
-<ExampleFrame variant="component">
-  <CardAsLink />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/card/root-as-link.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={cardSolidRootAsLink} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={cardVueRootAsLink} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/card/card-root-as-link.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="card/root-as-link" />
 
 ### Tailles
 
 Choisissez `sm`, `md` ou `lg` pour modifier l’espacement intérieur de la carte et la taille du titre.
 
-<ExampleFrame variant="component">
-  <CardSizes />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/card/sizes.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={cardSolidSizes} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={cardVueSizes} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/card/card-sizes.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="card/sizes" />
 
 ### Variantes
 
 Utilisez les variantes pour exprimer la hiérarchie visuelle des surfaces.
 
-<ExampleFrame variant="component">
-  <CardVariants />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/card/variants.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={cardSolidVariants} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={cardVueVariants} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/card/card-variants.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="card/variants" />
 
 ### Avec un avatar
 
 Placez un avatar ou un autre élément de profil dans l’en-tête lorsque la carte représente une personne ou une autre entité.
 
-<ExampleFrame variant="component">
-  <CardWithAvatar />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/card/with-avatar.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={cardSolidWithAvatar} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={cardVueWithAvatar} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/card/card-with-avatar.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="card/with-avatar" />
 
 ### Avec une image de fond
 
 Utilisez `CardBackground` pour un média décoratif placé derrière le contenu de la carte. Ajoutez le calque et les
 styles de contraste du texte dans votre application.
 
-<ExampleFrame variant="component">
-  <CardWithBackground />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/card/with-background.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={cardSolidWithBackground} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={cardVueWithBackground} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/card/card-with-background.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="card/with-background" />
 
 ### Avec une image
 
 Utilisez `CardMedia` pour un média placé en tête qui doit occuper toute la largeur de la carte avec un arrondi
 uniforme des angles supérieurs.
 
-<ExampleFrame variant="component">
-  <CardWithImage />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/card/with-image.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={cardSolidWithImage} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={cardVueWithImage} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/card/card-with-image.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="card/with-image" />
 
 ### Dans un formulaire
 
 Faites de la racine un formulaire lorsque la carte regroupe des champs et des actions associés.
 
-<ExampleFrame variant="component">
-  <CardWithinForm />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/card/within-form.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={cardSolidWithinForm} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={cardVueWithinForm} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/card/card-within-form.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="card/within-form" />
 
 ### Personnalisation avancée
 
 Laissez `CardMedia` de côté si vous devez contrôler entièrement la présentation du média et styliser la carte
 avec des points d’extension bas niveau.
 
-<ExampleFrame variant="component">
-  <CardAdvancedCustomization />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/card/advanced-customization.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={cardSolidAdvancedCustomization} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={cardVueAdvancedCustomization} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/card/card-advanced-customization.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="card/advanced-customization" />
 
 ## Styles
 

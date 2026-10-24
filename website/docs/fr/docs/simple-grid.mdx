@@ -4,15 +4,6 @@ component: simple-grid
 description: Créez des grilles adaptatives à colonnes égales en React, Solid ou Vue avec une installation par paquet ou shadcn.
 ---
 
-import SimpleGridBasic from '@/components/examples/simple-grid/basic.tsx';
-import SimpleGridFixedColumns from '@/components/examples/simple-grid/fixed-columns.tsx';
-import SimpleGridMediaGallery from '@/components/examples/simple-grid/media-gallery.tsx';
-import simpleGridSolidBasic from '../../../snippets/simple-grid/solid/basic.tsx?raw';
-import simpleGridSolidFixedColumns from '../../../snippets/simple-grid/solid/fixed-columns.tsx?raw';
-import simpleGridSolidMediaGallery from '../../../snippets/simple-grid/solid/media-gallery.tsx?raw';
-import simpleGridVueBasic from '../../../snippets/simple-grid/vue/basic.vue?raw';
-import simpleGridVueFixedColumns from '../../../snippets/simple-grid/vue/fixed-columns.vue?raw';
-import simpleGridVueMediaGallery from '../../../snippets/simple-grid/vue/media-gallery.vue?raw';
 
 ## Référence de l’API
 
@@ -35,46 +26,7 @@ Le nombre de colonnes s’ajuste à la largeur de l’élément racine, et les e
 directs de la grille. Si un enfant contient du contenu qui ne peut pas être coupé, ajoutez
 `min-width: 0` ou une règle de débordement adaptée sur cet enfant.
 
-<ExampleFrame variant="component">
-  <SimpleGridBasic />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/simple-grid/basic.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={simpleGridSolidBasic} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={simpleGridVueBasic} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/simple-grid/simple-grid-basic.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="simple-grid/basic" />
 
 ## Installation avec shadcn
 
@@ -148,92 +100,14 @@ modèle dans votre propre classe, y compris un modèle adaptatif dans des media 
 Utilisez `columns` lorsque le nombre de colonnes égales doit rester fixe, par exemple pour une grille
 compacte de métriques.
 
-<ExampleFrame variant="component">
-  <SimpleGridFixedColumns />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/simple-grid/fixed-columns.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={simpleGridSolidFixedColumns} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={simpleGridVueFixedColumns} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/simple-grid/simple-grid-fixed-columns.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="simple-grid/fixed-columns" />
 
 ### Galerie de médias
 
 Utilisez `asChild` lorsque la grille elle-même doit porter la sémantique d’une liste. Dans cet exemple,
 la racine devient un `ul` et chaque image reste dans un élément `li` direct.
 
-<ExampleFrame variant="component">
-  <SimpleGridMediaGallery />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/simple-grid/media-gallery.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={simpleGridSolidMediaGallery} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={simpleGridVueMediaGallery} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/simple-grid/simple-grid-media-gallery.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="simple-grid/media-gallery" />
 
 ## Styles
 

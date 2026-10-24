@@ -5,27 +5,8 @@ description: Помогает пользователю пройти многош
 ---
 
 import * as StepsDocs from '@/components/examples/steps/css-properties';
-import StepsBasic from '@/components/examples/steps/basic.tsx';
-import StepsControlled from '@/components/examples/steps/controlled.tsx';
-import StepsValidation from '@/components/examples/steps/validation.tsx';
 import StepsProgress from '@/components/examples/steps/progress.tsx';
 import StepsRootProvider from '@/components/examples/steps/root-provider.tsx';
-import StepsVertical from '@/components/examples/steps/vertical.tsx';
-import StepsCustomComposition from '@/components/examples/steps/custom-composition.tsx';
-import stepsSolidBasic from '../../../snippets/steps/solid/basic.tsx?raw';
-import stepsSolidControlled from '../../../snippets/steps/solid/controlled.tsx?raw';
-import stepsSolidValidation from '../../../snippets/steps/solid/validation.tsx?raw';
-import stepsSolidProgress from '../../../snippets/steps/solid/progress.tsx?raw';
-import stepsSolidRootProvider from '../../../snippets/steps/solid/root-provider.tsx?raw';
-import stepsSolidVertical from '../../../snippets/steps/solid/vertical.tsx?raw';
-import stepsSolidCustomComposition from '../../../snippets/steps/solid/custom-composition.tsx?raw';
-import stepsVueBasic from '../../../snippets/steps/vue/basic.vue?raw';
-import stepsVueControlled from '../../../snippets/steps/vue/controlled.vue?raw';
-import stepsVueValidation from '../../../snippets/steps/vue/validation.vue?raw';
-import stepsVueProgress from '../../../snippets/steps/vue/progress.vue?raw';
-import stepsVueRootProvider from '../../../snippets/steps/vue/root-provider.vue?raw';
-import stepsVueVertical from '../../../snippets/steps/vue/vertical.vue?raw';
-import stepsVueCustomComposition from '../../../snippets/steps/vue/custom-composition.vue?raw';
 
 ## Справочник API
 
@@ -46,46 +27,7 @@ React, Solid и Vue используют одинаковые плоские и�
 состояние через `v-model:step`, а хранилище `useSteps()` передавайте в `StepsRootProvider`, если
 оно создаётся вне дерева отрисованных частей.
 
-<ExampleFrame variant="component">
-  <StepsBasic />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/steps/basic.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={stepsSolidBasic} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={stepsVueBasic} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/steps/steps-basic.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="steps/basic" />
 
 ## Установка через shadcn
 
@@ -180,230 +122,35 @@ StepsRootProvider
 Управляйте `step` через состояние фреймворка, если активный шаг должен быть синхронизирован с
 маршрутизацией, валидацией или другой частью интерфейса.
 
-<ExampleFrame variant="component">
-  <StepsControlled />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/steps/controlled.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={stepsSolidControlled} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={stepsVueControlled} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/steps/steps-controlled.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="steps/controlled" />
 
 ### Валидация
 
 Используйте `linear`, `isStepValid` и `onStepInvalid`, чтобы запретить переход, пока текущий шаг
 не пройдёт ваше правило валидации.
 
-<ExampleFrame variant="component">
-  <StepsValidation />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/steps/validation.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={stepsSolidValidation} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={stepsVueValidation} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/steps/steps-validation.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="steps/validation" />
 
 ### Прогресс
 
 Добавьте `StepsProgress`, если нужно показать полосу прогресса рядом со списком шагов. Ark
 рендерит её как `role="progressbar"` с текущим процентом; задайте `aria-label` с названием процесса.
 
-<ExampleFrame variant="component">
-  <StepsProgress />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/steps/progress.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={stepsSolidProgress} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={stepsVueProgress} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/steps/steps-progress.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="steps/progress" />
 
 ### RootProvider
 
 Создайте состояние через `useSteps()` вне дерева отрисованных частей и передайте его в
 `StepsRootProvider`, если внешние контролы должны работать с тем же состоянием.
 
-<ExampleFrame variant="component">
-  <StepsRootProvider />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/steps/root-provider.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={stepsSolidRootProvider} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={stepsVueRootProvider} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/steps/steps-root-provider.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="steps/root-provider" />
 
 ### Вертикальная ориентация
 
 Установите `orientation="vertical"`, если на широком экране список шагов должен находиться рядом
 с активной панелью, а на узком экране переходить над ней.
 
-<ExampleFrame variant="component">
-  <StepsVertical />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/steps/vertical.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={stepsSolidVertical} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={stepsVueVertical} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/steps/steps-vertical.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="steps/vertical" />
 
 ### Расширенная настройка
 
@@ -411,46 +158,7 @@ StepsRootProvider
 обычной кнопки. Оставьте один семантический дочерний элемент, чтобы Ark мог передать ему ARIA,
 клавиатурное управление и фокус.
 
-<ExampleFrame variant="component">
-  <StepsCustomComposition />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/steps/custom-composition.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={stepsSolidCustomComposition} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={stepsVueCustomComposition} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/steps/steps-custom-composition.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="steps/custom-composition" />
 
 ## Стилизация
 

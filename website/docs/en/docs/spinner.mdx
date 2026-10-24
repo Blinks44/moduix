@@ -4,25 +4,7 @@ component: spinner
 description: A compact loading indicator with status semantics, size control, and optional custom indicator content.
 ---
 
-import SpinnerAsChild from '@/components/examples/spinner/as-child.tsx';
-import SpinnerBasic from '@/components/examples/spinner/basic.tsx';
-import SpinnerButton from '@/components/examples/spinner/button.tsx';
-import SpinnerCustomIndicator from '@/components/examples/spinner/custom-indicator.tsx';
-import SpinnerInlineLoadingText from '@/components/examples/spinner/inline-loading-text.tsx';
-import SpinnerSizes from '@/components/examples/spinner/sizes.tsx';
 import * as SpinnerDocs from '@/components/examples/spinner/css-properties';
-import spinnerSolidAsChild from '../../../snippets/spinner/solid/as-child.tsx?raw';
-import spinnerSolidBasic from '../../../snippets/spinner/solid/basic.tsx?raw';
-import spinnerSolidButton from '../../../snippets/spinner/solid/button.tsx?raw';
-import spinnerSolidCustomIndicator from '../../../snippets/spinner/solid/custom-indicator.tsx?raw';
-import spinnerSolidInlineLoadingText from '../../../snippets/spinner/solid/inline-loading-text.tsx?raw';
-import spinnerSolidSizes from '../../../snippets/spinner/solid/sizes.tsx?raw';
-import spinnerVueAsChild from '../../../snippets/spinner/vue/as-child.vue?raw';
-import spinnerVueBasic from '../../../snippets/spinner/vue/basic.vue?raw';
-import spinnerVueButton from '../../../snippets/spinner/vue/button.vue?raw';
-import spinnerVueCustomIndicator from '../../../snippets/spinner/vue/custom-indicator.vue?raw';
-import spinnerVueInlineLoadingText from '../../../snippets/spinner/vue/inline-loading-text.vue?raw';
-import spinnerVueSizes from '../../../snippets/spinner/vue/sizes.vue?raw';
 
 ## API Reference
 
@@ -46,41 +28,7 @@ Set `decorative` when visible text already describes the loading state: the root
 `aria-hidden="true"` and no `role` or fallback label.
 
 
-<ExampleFrame variant="component">
-  <SpinnerBasic />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/spinner/basic.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={spinnerSolidBasic} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={spinnerVueBasic} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="spinner/basic" />
 
 ## Install with shadcn
 
@@ -156,225 +104,33 @@ provide the visual indicator markup.
 Pass custom `children` when the default ring should be replaced but the size and status behavior
 should stay the same.
 
-<ExampleFrame variant="component">
-  <SpinnerCustomIndicator />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/spinner/custom-indicator.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={spinnerSolidCustomIndicator} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={spinnerVueCustomIndicator} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="spinner/custom-indicator" />
 
 ### In a Button
 
 Keep the spinner decorative when the button text already describes the action. The example puts
 `aria-busy` on the button and shows the current state below it for demonstration purposes.
 
-<ExampleFrame variant="component">
-  <SpinnerButton />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/spinner/button.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={spinnerSolidButton} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={spinnerVueButton} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/spinner/spinner-button.module.css"
-```
-
-</div>
-
-</ExampleCode>
+<Example name="spinner/button" />
 
 ### Inline Loading Text
 
 Use `decorative` when visible text next to the spinner already explains what is happening.
 
-<ExampleFrame variant="component">
-  <SpinnerInlineLoadingText />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/spinner/inline-loading-text.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={spinnerSolidInlineLoadingText} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={spinnerVueInlineLoadingText} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/spinner/spinner-inline-loading-text.module.css"
-```
-
-</div>
-
-</ExampleCode>
+<Example name="spinner/inline-loading-text" />
 
 ### Sizes
 
 Use smaller sizes inside compact controls and larger sizes for standalone loading states.
 
-<ExampleFrame variant="component">
-  <SpinnerSizes />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/spinner/sizes.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={spinnerSolidSizes} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={spinnerVueSizes} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/spinner/spinner-sizes.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="spinner/sizes" />
 
 ### Custom Root
 
 Use `asChild` when another component must own the root element. The child receives Spinner's root
 attributes and class name, and must render the visual indicator itself.
 
-<ExampleFrame variant="component">
-  <SpinnerAsChild />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/spinner/as-child.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={spinnerSolidAsChild} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={spinnerVueAsChild} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/spinner/spinner-as-child.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="spinner/as-child" />
 
 ## Styling
 

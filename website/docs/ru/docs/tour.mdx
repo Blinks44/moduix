@@ -4,21 +4,6 @@ component: tour
 description: Компонент для пошагового знакомства с продуктом на основе состояния Tour из Ark UI, с доступным оверлеем и готовыми действиями.
 ---
 
-import TourAdvancedCustomization from '@/components/examples/tour/advanced-customization.tsx';
-import TourBasic from '@/components/examples/tour/basic.tsx';
-import TourEvents from '@/components/examples/tour/events.tsx';
-import TourWaitForInput from '@/components/examples/tour/wait-for-input.tsx';
-import TourWithArrow from '@/components/examples/tour/with-arrow.tsx';
-import tourSolidAdvancedCustomization from '../../../snippets/tour/solid/advanced-customization.tsx?raw';
-import tourSolidBasic from '../../../snippets/tour/solid/basic.tsx?raw';
-import tourSolidEvents from '../../../snippets/tour/solid/events.tsx?raw';
-import tourSolidWaitForInput from '../../../snippets/tour/solid/wait-for-input.tsx?raw';
-import tourSolidWithArrow from '../../../snippets/tour/solid/with-arrow.tsx?raw';
-import tourVueAdvancedCustomization from '../../../snippets/tour/vue/advanced-customization.vue?raw';
-import tourVueBasic from '../../../snippets/tour/vue/basic.vue?raw';
-import tourVueEvents from '../../../snippets/tour/vue/events.vue?raw';
-import tourVueWaitForInput from '../../../snippets/tour/vue/wait-for-input.vue?raw';
-import tourVueWithArrow from '../../../snippets/tour/vue/with-arrow.vue?raw';
 
 ## Справочник API
 
@@ -31,46 +16,7 @@ import tourVueWithArrow from '../../../snippets/tour/vue/with-arrow.vue?raw';
 открывается диалог, затем подсказка у элемента интерфейса, а в конце появляется плавающий шаг. Оставляйте части
 композиции явными, чтобы при необходимости изменить их. `TourBody` прокручивает длинный текст внутри панели.
 
-<ExampleFrame variant="component">
-  <TourBasic />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/tour/basic.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={tourSolidBasic} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={tourVueBasic} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/tour/tour-basic.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="tour/basic" />
 
 ## Установка через shadcn
 
@@ -162,46 +108,7 @@ Tour
 Используйте объекты `details` из колбэков Ark, чтобы обновить другой элемент интерфейса или отправить данные в
 аналитику. Запустите тур, нажмите Next, затем Done. В выводе отображается последнее событие смены шага или статуса.
 
-<ExampleFrame variant="component">
-  <TourEvents />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/tour/events.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={tourSolidEvents} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={tourVueEvents} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/tour/tour-events.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="tour/events" />
 
 ### Ожидание ввода
 
@@ -209,92 +116,14 @@ Tour
 условия, из `@moduix/react/tour`, `@moduix/solid/tour` и `@moduix/vue/tour` также экспортируются `waitForElement`,
 `waitForElementValue`, `waitForEvent` и `waitForPromise`.
 
-<ExampleFrame variant="component">
-  <TourWaitForInput />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/tour/wait-for-input.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={tourSolidWaitForInput} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={tourVueWaitForInput} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/tour/tour-wait-for-input.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="tour/wait-for-input" />
 
 ### Со стрелкой
 
 Добавьте `TourArrow` в шаг с подсказкой, если он должен визуально указывать на целевой элемент. Включите у шага
 опцию `arrow`, и Ark сам расположит стрелку.
 
-<ExampleFrame variant="component">
-  <TourWithArrow />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/tour/with-arrow.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={tourSolidWithArrow} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={tourVueWithArrow} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/tour/tour-with-arrow.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="tour/with-arrow" />
 
 ### Расширенная настройка
 
@@ -303,46 +132,7 @@ Tour
 действия Ark, поэтому навигация, закрытие и отключённое состояние продолжают работать. Пример также обходится без помощников `TourCloseIcon` и `TourBody`:
 заголовок, описание и прогресс лежат прямо в `TourContent`.
 
-<ExampleFrame variant="component">
-  <TourAdvancedCustomization />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/tour/advanced-customization.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={tourSolidAdvancedCustomization} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={tourVueAdvancedCustomization} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/tour/tour-advanced-customization.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="tour/advanced-customization" />
 
 ## Стилизация
 

@@ -5,33 +5,7 @@ description: Un bouton à deux états pour les actions compactes comme les favor
 ---
 
 import * as ToggleDocs from '@/components/examples/toggle/css-properties';
-import ToggleAdvancedCustomization from '@/components/examples/toggle/advanced-customization.tsx';
-import ToggleAsChild from '@/components/examples/toggle/aschild.tsx';
-import ToggleBasic from '@/components/examples/toggle/basic.tsx';
-import ToggleControlled from '@/components/examples/toggle/controlled.tsx';
-import ToggleDisabled from '@/components/examples/toggle/disabled.tsx';
-import ToggleIcons from '@/components/examples/toggle/icons.tsx';
 import ToggleIndicator from '@/components/examples/toggle/indicator.tsx';
-import ToggleSizes from '@/components/examples/toggle/sizes.tsx';
-import ToggleVariants from '@/components/examples/toggle/variants.tsx';
-import toggleSolidAdvancedCustomization from '../../../snippets/toggle/solid/advanced-customization.tsx?raw';
-import toggleSolidAsChild from '../../../snippets/toggle/solid/aschild.tsx?raw';
-import toggleSolidBasic from '../../../snippets/toggle/solid/basic.tsx?raw';
-import toggleSolidControlled from '../../../snippets/toggle/solid/controlled.tsx?raw';
-import toggleSolidDisabled from '../../../snippets/toggle/solid/disabled.tsx?raw';
-import toggleSolidIcons from '../../../snippets/toggle/solid/icons.tsx?raw';
-import toggleSolidIndicator from '../../../snippets/toggle/solid/indicator.tsx?raw';
-import toggleSolidSizes from '../../../snippets/toggle/solid/sizes.tsx?raw';
-import toggleSolidVariants from '../../../snippets/toggle/solid/variants.tsx?raw';
-import toggleVueAdvancedCustomization from '../../../snippets/toggle/vue/advanced-customization.vue?raw';
-import toggleVueAsChild from '../../../snippets/toggle/vue/aschild.vue?raw';
-import toggleVueBasic from '../../../snippets/toggle/vue/basic.vue?raw';
-import toggleVueControlled from '../../../snippets/toggle/vue/controlled.vue?raw';
-import toggleVueDisabled from '../../../snippets/toggle/vue/disabled.vue?raw';
-import toggleVueIcons from '../../../snippets/toggle/vue/icons.vue?raw';
-import toggleVueIndicator from '../../../snippets/toggle/vue/indicator.vue?raw';
-import toggleVueSizes from '../../../snippets/toggle/vue/sizes.vue?raw';
-import toggleVueVariants from '../../../snippets/toggle/vue/variants.vue?raw';
 
 ## Référence de l’API
 
@@ -54,40 +28,7 @@ Utilisez `Toggle` lorsque le contrôle doit se comporter comme un bouton et indi
 
 Utilisez `Toggle` dans le cas courant et conservez le comportement d’Ark lié à l’état activé.
 
-<ExampleFrame variant="component">
-  <ToggleBasic />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/toggle/basic.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={toggleSolidBasic} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={toggleVueBasic} />
-
-    </Tab>
-  </Tabs>
-</div>
-</ExampleCode>
+<Example name="toggle/basic" />
 
 ## Installation avec shadcn
 
@@ -161,341 +102,52 @@ avec `v-model:pressed`.
 Utilisez `asChild` lorsqu’un autre bouton doit porter le comportement du toggle. Gardez un seul enfant compatible
 avec un bouton afin qu’Ark puisse lui transmettre les propriétés d’interaction et l’état d’accessibilité.
 
-<ExampleFrame variant="component">
-  <ToggleAsChild />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/toggle/aschild.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={toggleSolidAsChild} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={toggleVueAsChild} />
-
-    </Tab>
-  </Tabs>
-</div>
-</ExampleCode>
+<Example name="toggle/aschild" />
 
 ### État contrôlé
 
 Contrôlez `pressed` lorsque le toggle fait partie de l’état de l’application, de l’analytique ou d’une autre interaction.
 
-<ExampleFrame variant="component">
-  <ToggleControlled />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/toggle/controlled.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={toggleSolidControlled} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={toggleVueControlled} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/toggle/toggle-controlled.module.css"
-```
-</div>
-</ExampleCode>
+<Example name="toggle/controlled" />
 
 ### État désactivé
 
 Utilisez `disabled` pour bloquer les interactions tout en conservant l’état activé actuel.
 
-<ExampleFrame variant="component">
-  <ToggleDisabled />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/toggle/disabled.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={toggleSolidDisabled} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={toggleVueDisabled} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/toggle/toggle-disabled.module.css"
-```
-</div>
-</ExampleCode>
+<Example name="toggle/disabled" />
 
 ### Icônes
 
 Passez les icônes comme des enfants ordinaires. Les toggles avec une icône seule doivent avoir un nom accessible,
 par exemple avec `aria-label`.
 
-<ExampleFrame variant="component">
-  <ToggleIcons />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/toggle/icons.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={toggleSolidIcons} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={toggleVueIcons} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/toggle/toggle-icons.module.css"
-```
-</div>
-</ExampleCode>
+<Example name="toggle/icons" />
 
 ### Indicateur
 
 Utilisez `ToggleIndicator` lorsque le contenu intégré doit différer selon que le toggle est activé ou non.
 
-<ExampleFrame variant="component">
-  <ToggleIndicator />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/toggle/indicator.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={toggleSolidIndicator} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={toggleVueIndicator} />
-
-    </Tab>
-  </Tabs>
-</div>
-</ExampleCode>
+<Example name="toggle/indicator" />
 
 ### Tailles
 
 Utilisez les tailles de texte pour les toggles avec libellé et les tailles réservées aux boutons avec icône seule
 lorsque l’espace est limité.
 
-<ExampleFrame variant="component">
-  <ToggleSizes />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/toggle/sizes.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={toggleSolidSizes} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={toggleVueSizes} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/toggle/toggle-sizes.module.css"
-```
-</div>
-</ExampleCode>
+<Example name="toggle/sizes" />
 
 ### Variantes
 
 Définissez `variant` sur `default`, `outline` ou `ghost` pour l’adapter à la surface environnante.
 
-<ExampleFrame variant="component">
-  <ToggleVariants />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/toggle/variants.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={toggleSolidVariants} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={toggleVueVariants} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/toggle/toggle-variants.module.css"
-```
-</div>
-</ExampleCode>
+<Example name="toggle/variants" />
 
 ### Personnalisation avancée
 
 Utilisez le hook de contexte ou le slot avec paramètres lorsqu’un descendant personnalisé doit connaître l’état activé, sans modifier le contenu
 du bouton avec `ToggleIndicator`.
 
-<ExampleFrame variant="component">
-  <ToggleAdvancedCustomization />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/toggle/advanced-customization.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={toggleSolidAdvancedCustomization} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={toggleVueAdvancedCustomization} />
-
-    </Tab>
-  </Tabs>
-</div>
-</ExampleCode>
+<Example name="toggle/advanced-customization" />
 
 ## Styles
 

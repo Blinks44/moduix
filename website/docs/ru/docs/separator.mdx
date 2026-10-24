@@ -5,24 +5,6 @@ description: Доступные горизонтальные и вертикал
 ---
 
 import * as SeparatorDocs from '@/components/examples/separator/css-properties';
-import SeparatorBasic from '@/components/examples/separator/basic.tsx';
-import SeparatorDecorative from '@/components/examples/separator/decorative.tsx';
-import SeparatorSizes from '@/components/examples/separator/sizes.tsx';
-import SeparatorVariants from '@/components/examples/separator/variants.tsx';
-import SeparatorVertical from '@/components/examples/separator/vertical.tsx';
-import SeparatorAsChild from '@/components/examples/separator/as-child.tsx';
-import separatorSolidBasic from '../../../snippets/separator/solid/basic.tsx?raw';
-import separatorSolidDecorative from '../../../snippets/separator/solid/decorative.tsx?raw';
-import separatorSolidSizes from '../../../snippets/separator/solid/sizes.tsx?raw';
-import separatorSolidVariants from '../../../snippets/separator/solid/variants.tsx?raw';
-import separatorSolidVertical from '../../../snippets/separator/solid/vertical.tsx?raw';
-import separatorSolidAsChild from '../../../snippets/separator/solid/as-child.tsx?raw';
-import separatorVueBasic from '../../../snippets/separator/vue/basic.vue?raw';
-import separatorVueDecorative from '../../../snippets/separator/vue/decorative.vue?raw';
-import separatorVueSizes from '../../../snippets/separator/vue/sizes.vue?raw';
-import separatorVueVariants from '../../../snippets/separator/vue/variants.vue?raw';
-import separatorVueVertical from '../../../snippets/separator/vue/vertical.vue?raw';
-import separatorVueAsChild from '../../../snippets/separator/vue/as-child.vue?raw';
 
 ## Справочник API
 
@@ -40,46 +22,7 @@ Chakra UI по компоненту Separator](https://chakra-ui.com/docs/compon
 Используйте `Separator`, чтобы визуально обозначить границу между связанными разделами. По умолчанию
 используются `orientation="horizontal"`, `variant="solid"` и `size="sm"`.
 
-<ExampleFrame variant="component">
-  <SeparatorBasic />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/separator/basic.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={separatorSolidBasic} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={separatorVueBasic} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/separator/separator-basic.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="separator/basic" />
 
 ## Установка через shadcn
 
@@ -147,228 +90,33 @@ Separator
 Используйте `role="presentation"` для линии, которая нужна только для оформления и не сообщает
 вспомогательным технологиям о структуре.
 
-<ExampleFrame variant="component">
-  <SeparatorDecorative />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/separator/decorative.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={separatorSolidDecorative} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={separatorVueDecorative} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/separator/separator-decorative.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="separator/decorative" />
 
 ### Размеры
 
 Используйте `size`, чтобы выбрать толщину разделителя, а при необходимости переопределите её
 CSS-свойствами.
 
-<ExampleFrame variant="component">
-  <SeparatorSizes />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/separator/sizes.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={separatorSolidSizes} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={separatorVueSizes} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/separator/separator-sizes.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="separator/sizes" />
 
 ### Варианты
 
 Используйте `variant`, чтобы выбрать сплошную, пунктирную или точечную линию.
 
-<ExampleFrame variant="component">
-  <SeparatorVariants />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/separator/variants.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={separatorSolidVariants} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={separatorVueVariants} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/separator/separator-variants.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="separator/variants" />
 
 ### Вертикальный
 
 Используйте `orientation="vertical"` для групп элементов в строке, например навигационных ссылок.
 
-<ExampleFrame variant="component">
-  <SeparatorVertical />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/separator/vertical.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={separatorSolidVertical} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={separatorVueVertical} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/separator/separator-vertical.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="separator/vertical" />
 
 ### Расширенная настройка
 
 Используйте `asChild`, если конкретный элемент должен получить роль разделителя, хуки стилизации и
 переданный `ref`. В остальных случаях используйте `<Separator />` напрямую.
 
-<ExampleFrame variant="component">
-  <SeparatorAsChild />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/separator/as-child.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={separatorSolidAsChild} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={separatorVueAsChild} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/separator/separator-as-child.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="separator/as-child" />
 
 ## Стилизация
 

@@ -5,27 +5,6 @@ description: Заполнитель для текста, карточек, ме�
 ---
 
 import * as SkeletonDocs from '@/components/examples/skeleton/css-properties';
-import SkeletonBasic from '@/components/examples/skeleton/basic.tsx';
-import SkeletonCard from '@/components/examples/skeleton/card.tsx';
-import SkeletonCustomHost from '@/components/examples/skeleton/custom-host.tsx';
-import SkeletonLoadedContent from '@/components/examples/skeleton/loaded-content.tsx';
-import SkeletonMediaObject from '@/components/examples/skeleton/media-object.tsx';
-import SkeletonResponsiveLayout from '@/components/examples/skeleton/responsive-layout.tsx';
-import SkeletonVariants from '@/components/examples/skeleton/variants.tsx';
-import skeletonSolidBasic from '../../../snippets/skeleton/solid/basic.tsx?raw';
-import skeletonSolidCard from '../../../snippets/skeleton/solid/card.tsx?raw';
-import skeletonSolidCustomHost from '../../../snippets/skeleton/solid/custom-host.tsx?raw';
-import skeletonSolidLoadedContent from '../../../snippets/skeleton/solid/loaded-content.tsx?raw';
-import skeletonSolidMediaObject from '../../../snippets/skeleton/solid/media-object.tsx?raw';
-import skeletonSolidResponsiveLayout from '../../../snippets/skeleton/solid/responsive-layout.tsx?raw';
-import skeletonSolidVariants from '../../../snippets/skeleton/solid/variants.tsx?raw';
-import skeletonVueBasic from '../../../snippets/skeleton/vue/basic.vue?raw';
-import skeletonVueCard from '../../../snippets/skeleton/vue/card.vue?raw';
-import skeletonVueCustomHost from '../../../snippets/skeleton/vue/custom-host.vue?raw';
-import skeletonVueLoadedContent from '../../../snippets/skeleton/vue/loaded-content.vue?raw';
-import skeletonVueMediaObject from '../../../snippets/skeleton/vue/media-object.vue?raw';
-import skeletonVueResponsiveLayout from '../../../snippets/skeleton/vue/responsive-layout.vue?raw';
-import skeletonVueVariants from '../../../snippets/skeleton/vue/variants.vue?raw';
 
 ## Справочник API
 
@@ -41,46 +20,7 @@ import skeletonVueVariants from '../../../snippets/skeleton/vue/variants.vue?raw
 за отступы и адаптивную компоновку. Инструкции по установке пакетов, настройке реестра и выбору способа
 стилизации находятся в разделе [Быстрый старт](/docs/quick-start).
 
-<ExampleFrame variant="component">
-  <SkeletonBasic />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/skeleton/basic.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={skeletonSolidBasic} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={skeletonVueBasic} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/skeleton/skeleton-basic.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="skeleton/basic" />
 
 ## Установка через shadcn
 
@@ -150,271 +90,37 @@ Skeleton
 
 Используйте крупный блок и более короткие строки текста, чтобы сохранить компоновку карточки во время загрузки.
 
-<ExampleFrame variant="component">
-  <SkeletonCard />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/skeleton/card.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={skeletonSolidCard} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={skeletonVueCard} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/skeleton/skeleton-card.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="skeleton/card" />
 
 ### Загруженное содержимое
 
 Используйте `loading`, чтобы сохранить один и тот же корневой элемент при замене заполнителя реальным содержимым.
 
-<ExampleFrame variant="component">
-  <SkeletonLoadedContent />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/skeleton/loaded-content.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={skeletonSolidLoadedContent} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={skeletonVueLoadedContent} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/skeleton/skeleton-loaded-content.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="skeleton/loaded-content" />
 
 ### Медиаобъект
 
 Используйте `boxSize` с полным скруглением для заполнителя аватара, а строки текста разместите рядом.
 
-<ExampleFrame variant="component">
-  <SkeletonMediaObject />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/skeleton/media-object.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={skeletonSolidMediaObject} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={skeletonVueMediaObject} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/skeleton/skeleton-media-object.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="skeleton/media-object" />
 
 ### Адаптивная раскладка
 
 Оставьте логику адаптивной компоновки в обёртке, а каждый `Skeleton` используйте как отдельный визуальный блок.
 
-<ExampleFrame variant="component">
-  <SkeletonResponsiveLayout />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/skeleton/responsive-layout.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={skeletonSolidResponsiveLayout} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={skeletonVueResponsiveLayout} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/skeleton/skeleton-responsive-layout.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="skeleton/responsive-layout" />
 
 ### Варианты
 
 Используйте `variant`, чтобы выбрать пульсирующее или статичное отображение заполнителя.
 
-<ExampleFrame variant="component">
-  <SkeletonVariants />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/skeleton/variants.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={skeletonSolidVariants} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={skeletonVueVariants} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/skeleton/skeleton-variants.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="skeleton/variants" />
 
 ### Расширенная настройка
 
 Используйте `asChild`, когда корневым элементом должен стать семантический `section`, а не стандартный `div`.
 
-<ExampleFrame variant="component">
-  <SkeletonCustomHost />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/skeleton/custom-host.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={skeletonSolidCustomHost} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={skeletonVueCustomHost} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/skeleton/skeleton-custom-host.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="skeleton/custom-host" />
 
 ## Стилизация
 

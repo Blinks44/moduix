@@ -5,34 +5,8 @@ description: Une représentation compacte d’un utilisateur ou d’une entité.
 ---
 
 import * as AvatarDocs from '@/components/examples/avatar/css-properties';
-import AvatarBasic from '@/components/examples/avatar/basic.tsx';
-import AvatarCustomComposition from '@/components/examples/avatar/custom-composition.tsx';
-import AvatarCustomFallback from '@/components/examples/avatar/custom-fallback.tsx';
-import AvatarCustomImage from '@/components/examples/avatar/custom-image.tsx';
-import AvatarEvents from '@/components/examples/avatar/events.tsx';
-import AvatarGroupExample from '@/components/examples/avatar/group.tsx';
 import AvatarRootProvider from '@/components/examples/avatar/root-provider.tsx';
-import AvatarSizesAndFallbackOnly from '@/components/examples/avatar/sizes-and-fallback-only.tsx';
-import AvatarStatusIndicator from '@/components/examples/avatar/status.tsx';
 
-import avatarSolidBasic from '../../../snippets/avatar/solid/basic.tsx?raw';
-import avatarSolidCustomComposition from '../../../snippets/avatar/solid/custom-composition.tsx?raw';
-import avatarSolidCustomFallback from '../../../snippets/avatar/solid/custom-fallback.tsx?raw';
-import avatarSolidCustomImage from '../../../snippets/avatar/solid/custom-image.tsx?raw';
-import avatarSolidEvents from '../../../snippets/avatar/solid/events.tsx?raw';
-import avatarSolidGroup from '../../../snippets/avatar/solid/group.tsx?raw';
-import avatarSolidRootProvider from '../../../snippets/avatar/solid/root-provider.tsx?raw';
-import avatarSolidSizesAndFallbackOnly from '../../../snippets/avatar/solid/sizes-and-fallback-only.tsx?raw';
-import avatarSolidStatus from '../../../snippets/avatar/solid/status.tsx?raw';
-import avatarVueBasic from '../../../snippets/avatar/vue/basic.vue?raw';
-import avatarVueCustomComposition from '../../../snippets/avatar/vue/custom-composition.vue?raw';
-import avatarVueCustomFallback from '../../../snippets/avatar/vue/custom-fallback.vue?raw';
-import avatarVueCustomImage from '../../../snippets/avatar/vue/custom-image.vue?raw';
-import avatarVueEvents from '../../../snippets/avatar/vue/events.vue?raw';
-import avatarVueGroup from '../../../snippets/avatar/vue/group.vue?raw';
-import avatarVueRootProvider from '../../../snippets/avatar/vue/root-provider.vue?raw';
-import avatarVueSizesAndFallbackOnly from '../../../snippets/avatar/vue/sizes-and-fallback-only.vue?raw';
-import avatarVueStatus from '../../../snippets/avatar/vue/status.vue?raw';
 
 ## Référence de l’API
 
@@ -48,41 +22,7 @@ React, Solid et Vue partagent les mêmes noms de valeurs à plat. Importez `Avat
 partie supplémentaire directement, par exemple `AvatarImage` et `AvatarFallback`. Ces mêmes noms
 fonctionnent avec les paquets npm et les sources du registre shadcn.
 
-<ExampleFrame variant="component">
-  <AvatarBasic />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/avatar/basic.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={avatarSolidBasic} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={avatarVueBasic} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="avatar/basic" />
 
 ## Installation avec shadcn
 
@@ -154,46 +94,7 @@ Gardez `AvatarFallback` et `AvatarImage` sous la même racine afin qu’Ark UI p
 Le contenu de remplacement peut être une icône ou un autre élément compact qui représente l’utilisateur. Ajoutez
 un nom accessible si ce contenu apporte une information absente du texte voisin.
 
-<ExampleFrame variant="component">
-  <AvatarCustomFallback />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/avatar/custom-fallback.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={avatarSolidCustomFallback} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={avatarVueCustomFallback} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/avatar/avatar-custom-fallback.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="avatar/custom-fallback" />
 
 ### Image personnalisée
 
@@ -201,137 +102,20 @@ Utilisez `useAvatarContext()` depuis moduix avec React ou Solid lorsqu’un comp
 moteur de rendu personnalisé doit s’intégrer au cycle de chargement géré par Ark. En Vue, le slot de
 `AvatarContext` fournit l’état de l’image.
 
-<ExampleFrame variant="component">
-  <AvatarCustomImage />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/avatar/custom-image.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={avatarSolidCustomImage} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={avatarVueCustomImage} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/avatar/avatar-custom-image.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="avatar/custom-image" />
 
 ### Événements
 
 Utilisez `onStatusChange(details)` lorsque l’interface voisine doit réagir au résultat du chargement de l’image.
 
-<ExampleFrame variant="component">
-  <AvatarEvents />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/avatar/events.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={avatarSolidEvents} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={avatarVueEvents} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/avatar/avatar-events.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="avatar/events" />
 
 ### Utiliser `RootProvider`
 
 Créez l’état avec `useAvatar` depuis moduix lorsque des contrôles situés en dehors de l’avatar doivent
 interagir avec lui. Transmettez-le à `AvatarRootProvider` à la place de `Avatar`.
 
-<ExampleFrame variant="component">
-  <AvatarRootProvider />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/avatar/root-provider.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={avatarSolidRootProvider} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={avatarVueRootProvider} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/avatar/avatar-root-provider.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="avatar/root-provider" />
 
 ### Tailles et avatar sans image
 
@@ -339,46 +123,7 @@ La propriété `size` de moduix permet de choisir l’une des tailles courantes 
 l’autre composant racine. Un avatar avec uniquement un contenu de remplacement convient lorsqu’aucune source
 d’image n’est disponible.
 
-<ExampleFrame variant="component">
-  <AvatarSizesAndFallbackOnly />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/avatar/sizes-and-fallback-only.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={avatarSolidSizesAndFallbackOnly} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={avatarVueSizesAndFallbackOnly} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/avatar/avatar-sizes-and-fallback-only.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="avatar/sizes-and-fallback-only" />
 
 ### Groupe
 
@@ -386,41 +131,7 @@ Placez les avatars dans `AvatarGroup` pour les empiler avec un chevauchement. Ch
 premier passe sous son voisin, et chaque racine d’avatar reçoit un anneau de la couleur du fond de
 page. Rendez vous-même l’avatar `+N` lorsque la liste est tronquée.
 
-<ExampleFrame variant="component">
-  <AvatarGroupExample />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/avatar/group.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={avatarSolidGroup} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={avatarVueGroup} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="avatar/group" />
 
 ### Indicateur de statut
 
@@ -428,46 +139,7 @@ La racine de l’avatar ne rogne pas ses enfants : un élément positionné en a
 signaler une présence ou un badge. Donnez-lui un nom accessible si le statut n’est pas indiqué dans le
 texte voisin.
 
-<ExampleFrame variant="component">
-  <AvatarStatusIndicator />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/avatar/status.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={avatarSolidStatus} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={avatarVueStatus} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/avatar/avatar-status.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="avatar/status" />
 
 ### Personnalisation avancée
 
@@ -475,46 +147,7 @@ Utilisez `asChild` lorsque l’avatar est lui-même un élément interactif, par
 n’ajoute alors pas son nœud DOM racine par défaut, tout en conservant l’état Ark, le comportement du contenu
 de remplacement et la composition explicite des parties.
 
-<ExampleFrame variant="component">
-  <AvatarCustomComposition />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/avatar/custom-composition.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={avatarSolidCustomComposition} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={avatarVueCustomComposition} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/avatar/avatar-custom-composition.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="avatar/custom-composition" />
 
 ## Styles
 

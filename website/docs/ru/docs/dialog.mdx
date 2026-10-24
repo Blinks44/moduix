@@ -5,48 +5,7 @@ description: Модальное окно для сосредоточенных �
 ---
 
 import * as DialogDocs from '@/components/examples/dialog/css-properties';
-import DialogAdvancedCustomization from '@/components/examples/dialog/advanced-customization.tsx';
-import DialogAlertDialog from '@/components/examples/dialog/alert-dialog.tsx';
-import DialogBasic from '@/components/examples/dialog/basic.tsx';
-import DialogConfirmation from '@/components/examples/dialog/confirmation.tsx';
-import DialogControlled from '@/components/examples/dialog/controlled.tsx';
-import DialogInsideScroll from '@/components/examples/dialog/inside-scroll.tsx';
-import DialogMountingAndFocusLifecycle from '@/components/examples/dialog/mounting-and-focus-lifecycle.tsx';
-import DialogMultipleTriggers from '@/components/examples/dialog/multiple-triggers.tsx';
-import DialogNested from '@/components/examples/dialog/nested.tsx';
-import DialogNonModal from '@/components/examples/dialog/non-modal.tsx';
-import DialogOpenFromMenu from '@/components/examples/dialog/open-from-menu.tsx';
-import DialogOutsideScroll from '@/components/examples/dialog/outside-scroll.tsx';
 import DialogRootProvider from '@/components/examples/dialog/root-provider-and-ark-context-hooks.tsx';
-import DialogSizes from '@/components/examples/dialog/sizes.tsx';
-import dialogSolidAdvancedCustomization from '../../../snippets/dialog/solid/advanced-customization.tsx?raw';
-import dialogSolidAlertDialog from '../../../snippets/dialog/solid/alert-dialog.tsx?raw';
-import dialogSolidBasic from '../../../snippets/dialog/solid/basic.tsx?raw';
-import dialogSolidConfirmation from '../../../snippets/dialog/solid/confirmation.tsx?raw';
-import dialogSolidControlled from '../../../snippets/dialog/solid/controlled.tsx?raw';
-import dialogSolidInsideScroll from '../../../snippets/dialog/solid/inside-scroll.tsx?raw';
-import dialogSolidMountingAndFocusLifecycle from '../../../snippets/dialog/solid/mounting-and-focus-lifecycle.tsx?raw';
-import dialogSolidMultipleTriggers from '../../../snippets/dialog/solid/multiple-triggers.tsx?raw';
-import dialogSolidNested from '../../../snippets/dialog/solid/nested.tsx?raw';
-import dialogSolidNonModal from '../../../snippets/dialog/solid/non-modal.tsx?raw';
-import dialogSolidOpenFromMenu from '../../../snippets/dialog/solid/open-from-menu.tsx?raw';
-import dialogSolidOutsideScroll from '../../../snippets/dialog/solid/outside-scroll.tsx?raw';
-import dialogSolidRootProvider from '../../../snippets/dialog/solid/root-provider-and-ark-context-hooks.tsx?raw';
-import dialogSolidSizes from '../../../snippets/dialog/solid/sizes.tsx?raw';
-import dialogVueAdvancedCustomization from '../../../snippets/dialog/vue/advanced-customization.vue?raw';
-import dialogVueAlertDialog from '../../../snippets/dialog/vue/alert-dialog.vue?raw';
-import dialogVueBasic from '../../../snippets/dialog/vue/basic.vue?raw';
-import dialogVueConfirmation from '../../../snippets/dialog/vue/confirmation.vue?raw';
-import dialogVueControlled from '../../../snippets/dialog/vue/controlled.vue?raw';
-import dialogVueInsideScroll from '../../../snippets/dialog/vue/inside-scroll.vue?raw';
-import dialogVueMountingAndFocusLifecycle from '../../../snippets/dialog/vue/mounting-and-focus-lifecycle.vue?raw';
-import dialogVueMultipleTriggers from '../../../snippets/dialog/vue/multiple-triggers.vue?raw';
-import dialogVueNested from '../../../snippets/dialog/vue/nested.vue?raw';
-import dialogVueNonModal from '../../../snippets/dialog/vue/non-modal.vue?raw';
-import dialogVueOpenFromMenu from '../../../snippets/dialog/vue/open-from-menu.vue?raw';
-import dialogVueOutsideScroll from '../../../snippets/dialog/vue/outside-scroll.vue?raw';
-import dialogVueRootProvider from '../../../snippets/dialog/vue/root-provider-and-ark-context-hooks.vue?raw';
-import dialogVueSizes from '../../../snippets/dialog/vue/sizes.vue?raw';
 
 ## Справочник API
 
@@ -65,41 +24,7 @@ import dialogVueSizes from '../../../snippets/dialog/vue/sizes.vue?raw';
 `DialogBackdrop` отвечает за модальный фон, `DialogPositioner` размещает диалог, а
 `DialogContent` содержит его поверхность.
 
-<ExampleFrame variant="component">
-  <DialogBasic />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-      ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/dialog/basic.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={dialogSolidBasic} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={dialogVueBasic} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="dialog/basic" />
 
 ## Установка через shadcn
 
@@ -201,123 +126,21 @@ DialogContext
 Используйте `role="alertdialog"` для решений с серьёзными последствиями. Добавьте понятное действие
 отмены и отдельное действие для подтверждения.
 
-<ExampleFrame variant="component">
-  <DialogAlertDialog />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-      ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/dialog/alert-dialog.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={dialogSolidAlertDialog} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={dialogVueAlertDialog} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="dialog/alert-dialog" />
 
 ### Подтверждение
 
 Если в форме есть несохранённые изменения, перехватите запрос на закрытие родительского диалога и
 спросите пользователя, нужно ли их отменить.
 
-<ExampleFrame variant="component">
-  <DialogConfirmation />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-      ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/dialog/confirmation.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={dialogSolidConfirmation} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={dialogVueConfirmation} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="dialog/confirmation" />
 
 ### Управляемое состояние
 
 Храните `open` в состоянии React, сигнале Solid или ref Vue и читайте `details.open` из
 `onOpenChange` (либо используйте `v-model:open`), чтобы синхронизировать диалог с остальным приложением.
 
-<ExampleFrame variant="component">
-  <DialogControlled />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-      ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/dialog/controlled.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={dialogSolidControlled} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={dialogVueControlled} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="dialog/controlled" />
 
 ### Прокрутка содержимого
 
@@ -325,46 +148,7 @@ DialogContext
 видимыми. Задайте `scrollBehavior="inside"` у `DialogContent`: диалог ограничится высотой экрана,
 а прокручиваться будет `DialogBody`.
 
-<ExampleFrame variant="component">
-  <DialogInsideScroll />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-      ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/dialog/inside-scroll.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={dialogSolidInsideScroll} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={dialogVueInsideScroll} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/dialog/dialog-inside-scroll.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="dialog/inside-scroll" />
 
 ### Жизненный цикл монтирования и фокуса
 
@@ -372,209 +156,34 @@ DialogContext
 `initialFocusEl` и `finalFocusEl`, если при открытии или закрытии фокус должен переходить на
 определённые элементы.
 
-<ExampleFrame variant="component">
-  <DialogMountingAndFocusLifecycle />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-      ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/dialog/mounting-and-focus-lifecycle.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={dialogSolidMountingAndFocusLifecycle} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={dialogVueMountingAndFocusLifecycle} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="dialog/mounting-and-focus-lifecycle" />
 
 ### Несколько триггеров
 
 Свяжите один диалог с несколькими триггерами: задайте каждому `value` и обработайте
 `onTriggerValueChange(details)`.
 
-<ExampleFrame variant="component">
-  <DialogMultipleTriggers />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-      ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/dialog/multiple-triggers.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={dialogSolidMultipleTriggers} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={dialogVueMultipleTriggers} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="dialog/multiple-triggers" />
 
 ### Вложенные диалоги
 
 Используйте отдельные хранилища `useDialog()` для вложенных диалогов. Ark UI управляет слоями, а
 moduix использует это состояние, чтобы отодвинуть родительский диалог, пока открыт вложенный.
 
-<ExampleFrame variant="component">
-  <DialogNested />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-      ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/dialog/nested.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={dialogSolidNested} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={dialogVueNested} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/dialog/dialog-nested.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="dialog/nested" />
 
 ### Немодальный диалог
 
 Укажите `modal={false}` и не добавляйте backdrop, если пользователь должен взаимодействовать со
 страницей за пределами диалога.
 
-<ExampleFrame variant="component">
-  <DialogNonModal />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-      ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/dialog/non-modal.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={dialogSolidNonModal} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={dialogVueNonModal} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="dialog/non-modal" />
 
 ### Открытие из меню
 
 Управляйте `open` из пункта меню, если контекстное действие должно открыть диалог подтверждения.
 
-<ExampleFrame variant="component">
-  <DialogOpenFromMenu />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-      ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/dialog/open-from-menu.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={dialogSolidOpenFromMenu} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={dialogVueOpenFromMenu} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="dialog/open-from-menu" />
 
 ### Прокрутка позиционера
 
@@ -582,46 +191,7 @@ moduix использует это состояние, чтобы отодвин
 естественную высоту. Это `scrollBehavior` по умолчанию; `placement="top"` начинает диалог от верхнего
 края экрана.
 
-<ExampleFrame variant="component">
-  <DialogOutsideScroll />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-      ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/dialog/outside-scroll.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={dialogSolidOutsideScroll} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={dialogVueOutsideScroll} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/dialog/dialog-outside-scroll.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="dialog/outside-scroll" />
 
 ### Root Provider
 
@@ -629,41 +199,7 @@ moduix использует это состояние, чтобы отодвин
 Подключите его с помощью `DialogRootProvider`, а затем читайте через `DialogContext` или
 `useDialogContext()` в переиспользуемых компонентах.
 
-<ExampleFrame variant="component">
-  <DialogRootProvider />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-      ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/dialog/root-provider-and-ark-context-hooks.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={dialogSolidRootProvider} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={dialogVueRootProvider} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="dialog/root-provider-and-ark-context-hooks" />
 
 ### Размеры
 
@@ -671,92 +207,14 @@ moduix использует это состояние, чтобы отодвин
 и `placement="bottom"` смещают окно от центра, а `scrollBehavior="inside"` ограничивает диалог высотой
 экрана и прокручивает `DialogBody` вместо позиционера.
 
-<ExampleFrame variant="component">
-  <DialogSizes />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/dialog/sizes.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={dialogSolidSizes} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={dialogVueSizes} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/dialog/dialog-sizes.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="dialog/sizes" />
 
 ### Расширенная настройка
 
 Пропустите `DialogHeader`, `DialogBody`, `DialogFooter` и `DialogCloseIcon`, если пользовательская
 разметка требует прямого управления каждой частью диалога Ark.
 
-<ExampleFrame variant="component">
-  <DialogAdvancedCustomization />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-      ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/dialog/advanced-customization.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={dialogSolidAdvancedCustomization} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={dialogVueAdvancedCustomization} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/dialog/dialog-advanced-customization.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="dialog/advanced-customization" />
 
 ## Стилизация
 

@@ -4,19 +4,8 @@ component: swap
 description: Анимируйте переход между двумя визуальными состояниями с готовыми пресетами moduix на базе Ark UI.
 ---
 
-import SwapAnimationPresets from '@/components/examples/swap/animation-presets.tsx';
-import SwapBasic from '@/components/examples/swap/basic.tsx';
 import * as SwapDocs from '@/components/examples/swap/css-properties';
-import SwapCustomAnimation from '@/components/examples/swap/custom-animation.tsx';
 import SwapRootProvider from '@/components/examples/swap/root-provider.tsx';
-import swapSolidAnimationPresets from '../../../snippets/swap/solid/animation-presets.tsx?raw';
-import swapSolidBasic from '../../../snippets/swap/solid/basic.tsx?raw';
-import swapSolidCustomAnimation from '../../../snippets/swap/solid/custom-animation.tsx?raw';
-import swapSolidRootProvider from '../../../snippets/swap/solid/root-provider.tsx?raw';
-import swapVueAnimationPresets from '../../../snippets/swap/vue/animation-presets.vue?raw';
-import swapVueBasic from '../../../snippets/swap/vue/basic.vue?raw';
-import swapVueCustomAnimation from '../../../snippets/swap/vue/custom-animation.vue?raw';
-import swapVueRootProvider from '../../../snippets/swap/vue/root-provider.vue?raw';
 
 ## Справочник API
 
@@ -29,41 +18,7 @@ import swapVueRootProvider from '../../../snippets/swap/vue/root-provider.vue?ra
 например когда иконка меняется после действия. Передайте текущее логическое значение в `swap`: при
 `false` отображается индикатор `off`, а при `true` индикатор `on`.
 
-<ExampleFrame variant="component">
-  <SwapBasic />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/swap/basic.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={swapSolidBasic} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={swapVueBasic} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="swap/basic" />
 
 ## Установка через shadcn
 
@@ -139,46 +94,7 @@ SwapRootProvider
 Выберите встроенный рецепт и активируйте кнопку, чтобы увидеть переход. Текущее значение и кнопки
 выбора рецепта отображаются под демонстрацией.
 
-<ExampleFrame variant="component">
-  <SwapAnimationPresets />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/swap/animation-presets.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={swapSolidAnimationPresets} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={swapVueAnimationPresets} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/swap/swap-animation-presets.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="swap/animation-presets" />
 
 ### Пользовательская анимация
 
@@ -187,46 +103,7 @@ SwapRootProvider
 должен описывать анимации появления и выхода и предусматривать вариант для пользователей, включивших
 уменьшение анимации.
 
-<ExampleFrame variant="component">
-  <SwapCustomAnimation />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/swap/custom-animation.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={swapSolidCustomAnimation} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={swapVueCustomAnimation} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/swap/swap-custom-animation.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="swap/custom-animation" />
 
 ### Root Provider
 
@@ -234,46 +111,7 @@ SwapRootProvider
 через свойство `value`. В этом примере используется `asChild`, поэтому семантическая кнопка становится
 отрисованным корнем `Swap`.
 
-<ExampleFrame variant="component">
-  <SwapRootProvider />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/swap/root-provider.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={swapSolidRootProvider} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={swapVueRootProvider} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/swap/swap-root-provider.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="swap/root-provider" />
 
 ## Стилизация
 

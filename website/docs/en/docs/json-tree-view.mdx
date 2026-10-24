@@ -4,12 +4,6 @@ component: json-tree-view
 description: Inspect JSON and JavaScript values in an accessible, expandable tree with JsonTreeView from moduix.
 ---
 
-import JsonTreeViewBasicDemo from '@/components/examples/json-tree-view/basic.tsx';
-import JsonTreeViewCompactPreviewsDemo from '@/components/examples/json-tree-view/compact-previews.tsx';
-import jsonTreeViewSolidBasic from '../../../snippets/json-tree-view/solid/basic.tsx?raw';
-import jsonTreeViewSolidCompactPreviews from '../../../snippets/json-tree-view/solid/compact-previews.tsx?raw';
-import jsonTreeViewVueBasic from '../../../snippets/json-tree-view/vue/basic.vue?raw';
-import jsonTreeViewVueCompactPreviews from '../../../snippets/json-tree-view/vue/compact-previews.vue?raw';
 
 ## API Reference
 
@@ -32,41 +26,7 @@ The framework adapters keep the same flat public names; the Vue example uses nat
 The example starts with two levels expanded. Use `defaultExpandedDepth` to choose how much of a response or
 configuration should be visible on the first render.
 
-<ExampleFrame variant="component">
-  <JsonTreeViewBasicDemo />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/json-tree-view/basic.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={jsonTreeViewSolidBasic} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={jsonTreeViewVueBasic} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="json-tree-view/basic" />
 
 ## Install with shadcn
 
@@ -137,41 +97,7 @@ the store to `JsonTreeViewRootProvider`, then render `JsonTreeViewTree` inside i
 Use `maxPreviewItems` to limit object and array previews, and `collapseStringsAfterLength` to shorten long strings.
 Users can expand a node to inspect its complete value.
 
-<ExampleFrame variant="component">
-  <JsonTreeViewCompactPreviewsDemo />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/json-tree-view/compact-previews.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={jsonTreeViewSolidCompactPreviews} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={jsonTreeViewVueCompactPreviews} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="json-tree-view/compact-previews" />
 
 ## Styling
 

@@ -5,33 +5,6 @@ description: A star rating control built on the Ark UI rating-group primitive fo
 ---
 
 import * as RatingGroupDocs from '@/components/examples/rating-group/css-properties';
-import RatingGroupBasic from '@/components/examples/rating-group/basic.tsx';
-import RatingGroupControlled from '@/components/examples/rating-group/controlled.tsx';
-import RatingGroupCustomIcon from '@/components/examples/rating-group/custom-icon.tsx';
-import RatingGroupDisabledAndReadonly from '@/components/examples/rating-group/disabled-and-readonly.tsx';
-import RatingGroupField from '@/components/examples/rating-group/field.tsx';
-import RatingGroupForms from '@/components/examples/rating-group/forms.tsx';
-import RatingGroupHalfRating from '@/components/examples/rating-group/half-rating.tsx';
-import RatingGroupSizes from '@/components/examples/rating-group/sizes.tsx';
-import RatingGroupAdvancedCustomization from '@/components/examples/rating-group/advanced-customization.tsx';
-import ratingGroupSolidAdvancedCustomization from '../../../snippets/rating-group/solid/advanced-customization.tsx?raw';
-import ratingGroupSolidBasic from '../../../snippets/rating-group/solid/basic.tsx?raw';
-import ratingGroupSolidControlled from '../../../snippets/rating-group/solid/controlled.tsx?raw';
-import ratingGroupSolidCustomIcon from '../../../snippets/rating-group/solid/custom-icon.tsx?raw';
-import ratingGroupSolidDisabledAndReadonly from '../../../snippets/rating-group/solid/disabled-and-readonly.tsx?raw';
-import ratingGroupSolidField from '../../../snippets/rating-group/solid/field.tsx?raw';
-import ratingGroupSolidForms from '../../../snippets/rating-group/solid/forms.tsx?raw';
-import ratingGroupSolidHalfRating from '../../../snippets/rating-group/solid/half-rating.tsx?raw';
-import ratingGroupSolidSizes from '../../../snippets/rating-group/solid/sizes.tsx?raw';
-import ratingGroupVueAdvancedCustomization from '../../../snippets/rating-group/vue/advanced-customization.vue?raw';
-import ratingGroupVueBasic from '../../../snippets/rating-group/vue/basic.vue?raw';
-import ratingGroupVueControlled from '../../../snippets/rating-group/vue/controlled.vue?raw';
-import ratingGroupVueCustomIcon from '../../../snippets/rating-group/vue/custom-icon.vue?raw';
-import ratingGroupVueDisabledAndReadonly from '../../../snippets/rating-group/vue/disabled-and-readonly.vue?raw';
-import ratingGroupVueField from '../../../snippets/rating-group/vue/field.vue?raw';
-import ratingGroupVueForms from '../../../snippets/rating-group/vue/forms.vue?raw';
-import ratingGroupVueHalfRating from '../../../snippets/rating-group/vue/half-rating.vue?raw';
-import ratingGroupVueSizes from '../../../snippets/rating-group/vue/sizes.vue?raw';
 
 ## API Reference
 
@@ -48,37 +21,7 @@ Use `RatingGroup` as the root and add `RatingGroupLabel`, `RatingGroupControl`, 
 `RatingGroupItems` for the standard star rating. Render `RatingGroupHiddenInput` explicitly when
 the value should participate in native form submission.
 
-<ExampleFrame variant="component">
-  <RatingGroupBasic />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/rating-group/basic.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={ratingGroupSolidBasic} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={ratingGroupVueBasic} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="rating-group/basic" />
 
 ## Install with shadcn
 
@@ -167,42 +110,7 @@ returned accessor, and Vue exposes the reactive store directly to the template.
 Manage `value` with `useState` in React, `createSignal` in Solid, or `ref` and `v-model` in Vue when
 the score depends on other state, drives nearby UI, or must be reset by a parent.
 
-<ExampleFrame variant="component">
-  <RatingGroupControlled />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/rating-group/controlled.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={ratingGroupSolidControlled} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={ratingGroupVueControlled} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/rating-group/component-controlled.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="rating-group/controlled" />
 
 ### Custom Icon
 
@@ -210,84 +118,14 @@ Pass a custom `RatingGroupItemIndicator` as the child of `RatingGroupItems` when
 use the same icon. The indicator still receives Ark-driven `data-highlighted` and `data-half`
 attributes for styling.
 
-<ExampleFrame variant="component">
-  <RatingGroupCustomIcon />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/rating-group/custom-icon.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={ratingGroupSolidCustomIcon} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={ratingGroupVueCustomIcon} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/rating-group/component-custom-icon.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="rating-group/custom-icon" />
 
 ### Disabled and Readonly
 
 Use `disabled` to remove interaction. Use `readOnly` to keep the score visible while preventing
 changes.
 
-<ExampleFrame variant="component">
-  <RatingGroupDisabledAndReadonly />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/rating-group/disabled-and-readonly.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={ratingGroupSolidDisabledAndReadonly} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={ratingGroupVueDisabledAndReadonly} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/rating-group/component-disabled-and-readonly.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="rating-group/disabled-and-readonly" />
 
 ### Field
 
@@ -295,162 +133,27 @@ Wrap the rating group in `Field` when helper or validation text should be associ
 `RatingGroupHiddenInput`. Ark inherits `disabled`, `readOnly`, and `required` from the field;
 validation state remains owned by `Field` and application code.
 
-<ExampleFrame variant="component">
-  <RatingGroupField />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/rating-group/field.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={ratingGroupSolidField} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={ratingGroupVueField} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/rating-group/component-field.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="rating-group/field" />
 
 ### Forms
 
 Pass `name` and render `RatingGroupHiddenInput` when the selected score should be included in
 `FormData`.
 
-<ExampleFrame variant="component">
-  <RatingGroupForms />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/rating-group/forms.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={ratingGroupSolidForms} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={ratingGroupVueForms} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/rating-group/component-forms.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="rating-group/forms" />
 
 ### Half Rating
 
 Set `allowHalf` to enable half-step selection and rendering.
 
-<ExampleFrame variant="component">
-  <RatingGroupHalfRating />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/rating-group/half-rating.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={ratingGroupSolidHalfRating} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={ratingGroupVueHalfRating} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="rating-group/half-rating" />
 
 ### Sizes
 
 Use the moduix `size` prop when the rating needs to keep the same Ark behavior at a different visual
 density.
 
-<ExampleFrame variant="component">
-  <RatingGroupSizes />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/rating-group/sizes.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={ratingGroupSolidSizes} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={ratingGroupVueSizes} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/rating-group/component-sizes.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="rating-group/sizes" />
 
 ### Advanced Customization
 
@@ -458,42 +161,7 @@ Use `RatingGroupRootProvider` with `useRatingGroup()` when the rating state must
 the rendered rating tree. Use `RatingGroupContext` when `RatingGroupItems` is not enough and you
 need to render each item yourself.
 
-<ExampleFrame variant="component">
-  <RatingGroupAdvancedCustomization />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/rating-group/advanced-customization.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={ratingGroupSolidAdvancedCustomization} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={ratingGroupVueAdvancedCustomization} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/rating-group/component-advanced-customization.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="rating-group/advanced-customization" />
 
 ## Styling
 

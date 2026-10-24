@@ -5,25 +5,7 @@ description: Navigation sémantique en fil d’Ariane pour React, Solid et Vue, 
 ---
 
 import * as BreadcrumbsDocs from '@/components/examples/breadcrumbs/css-properties';
-import BreadcrumbsAdvancedCustomization from '@/components/examples/breadcrumbs/advanced-customization.tsx';
-import BreadcrumbsBasic from '@/components/examples/breadcrumbs/basic.tsx';
-import BreadcrumbsCollapsedPath from '@/components/examples/breadcrumbs/collapsed-path.tsx';
-import BreadcrumbsCustomSeparator from '@/components/examples/breadcrumbs/custom-separator.tsx';
-import BreadcrumbsFrameworkLink from '@/components/examples/breadcrumbs/framework-link.tsx';
-import BreadcrumbsLongCurrentLabel from '@/components/examples/breadcrumbs/long-current-label.tsx';
 
-import breadcrumbsSolidAdvancedCustomization from '../../../snippets/breadcrumbs/solid/advanced-customization.tsx?raw';
-import breadcrumbsSolidBasic from '../../../snippets/breadcrumbs/solid/basic.tsx?raw';
-import breadcrumbsSolidCollapsedPath from '../../../snippets/breadcrumbs/solid/collapsed-path.tsx?raw';
-import breadcrumbsSolidCustomSeparator from '../../../snippets/breadcrumbs/solid/custom-separator.tsx?raw';
-import breadcrumbsSolidFrameworkLink from '../../../snippets/breadcrumbs/solid/framework-link.tsx?raw';
-import breadcrumbsSolidLongCurrentLabel from '../../../snippets/breadcrumbs/solid/long-current-label.tsx?raw';
-import breadcrumbsVueAdvancedCustomization from '../../../snippets/breadcrumbs/vue/advanced-customization.vue?raw';
-import breadcrumbsVueBasic from '../../../snippets/breadcrumbs/vue/basic.vue?raw';
-import breadcrumbsVueCollapsedPath from '../../../snippets/breadcrumbs/vue/collapsed-path.vue?raw';
-import breadcrumbsVueCustomSeparator from '../../../snippets/breadcrumbs/vue/custom-separator.vue?raw';
-import breadcrumbsVueFrameworkLink from '../../../snippets/breadcrumbs/vue/framework-link.vue?raw';
-import breadcrumbsVueLongCurrentLabel from '../../../snippets/breadcrumbs/vue/long-current-label.vue?raw';
 
 ## Référence de l’API
 
@@ -44,41 +26,7 @@ partie additionnelle directement, comme `BreadcrumbsPath` et `BreadcrumbsLink`. 
 paquets npm et la source du registre shadcn.
 
 
-<ExampleFrame variant="component">
-  <BreadcrumbsBasic />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/breadcrumbs/basic.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={breadcrumbsSolidBasic} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={breadcrumbsVueBasic} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="breadcrumbs/basic" />
 
 ## Installation avec shadcn
 
@@ -157,133 +105,20 @@ Utilisez les parties explicites de Breadcrumbs avec `Menu` lorsque des segments 
 révélés à la demande. Le déclencheur et le contenu du menu gèrent l’interaction ; cet exemple utilise donc les parties
 explicites plutôt que `BreadcrumbsPath`.
 
-<ExampleFrame variant="component">
-  <BreadcrumbsCollapsedPath />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/breadcrumbs/collapsed-path.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={breadcrumbsSolidCollapsedPath} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={breadcrumbsVueCollapsedPath} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/breadcrumbs/breadcrumbs-collapsed-path.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="breadcrumbs/collapsed-path" />
 
 ### Séparateur personnalisé
 
 Avec `BreadcrumbsPath`, remplacez le chevron par défaut par une icône ou un symbole lorsque le même séparateur doit apparaître
 dans tous les intervalles visibles.
 
-<ExampleFrame variant="component">
-  <BreadcrumbsCustomSeparator />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/breadcrumbs/custom-separator.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={breadcrumbsSolidCustomSeparator} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={breadcrumbsVueCustomSeparator} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/breadcrumbs/breadcrumbs-custom-separator.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="breadcrumbs/custom-separator" />
 
 ### Lien du routeur
 
 Utilisez `asChild` d’Ark pour intégrer un lien fourni par le routeur du framework utilisé par l’application.
 
-<ExampleFrame variant="component">
-  <BreadcrumbsFrameworkLink />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/breadcrumbs/framework-link.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={breadcrumbsSolidFrameworkLink} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={breadcrumbsVueFrameworkLink} />
-
-    </Tab>
-  </Tabs>
-
-</div>
-
-</ExampleCode>
+<Example name="breadcrumbs/framework-link" />
 
 ### Libellé long de la page actuelle
 
@@ -291,92 +126,14 @@ Passez un nœud via la prop `page` lorsque la page actuelle nécessite des attri
 `title`. Les éléments parents peuvent eux aussi rétrécir ; les longs libellés intermédiaires
 risquent donc moins de faire déborder le fil d’Ariane.
 
-<ExampleFrame variant="component">
-  <BreadcrumbsLongCurrentLabel />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/breadcrumbs/long-current-label.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={breadcrumbsSolidLongCurrentLabel} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={breadcrumbsVueLongCurrentLabel} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/breadcrumbs/breadcrumbs-long-current-label.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="breadcrumbs/long-current-label" />
 
 ### Personnalisation avancée
 
 Utilisez les parties explicites plutôt que `BreadcrumbsPath` lorsqu’un même fil combine des liens fournis par le routeur du
 framework, un séparateur personnalisé et un libellé de page actuelle enrichi par du balisage.
 
-<ExampleFrame variant="component">
-  <BreadcrumbsAdvancedCustomization />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/breadcrumbs/advanced-customization.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={breadcrumbsSolidAdvancedCustomization} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={breadcrumbsVueAdvancedCustomization} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/breadcrumbs/breadcrumbs-advanced-customization.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="breadcrumbs/advanced-customization" />
 
 ## Styles
 

@@ -5,30 +5,7 @@ description: Un composant qui permet de capturer une signature manuscrite au poi
 ---
 
 import * as SignaturePadDocs from '@/components/examples/signature-pad/css-properties';
-import SignaturePadBasic from '@/components/examples/signature-pad/basic.tsx';
-import SignaturePadControlled from '@/components/examples/signature-pad/controlled.tsx';
-import SignaturePadDrawing from '@/components/examples/signature-pad/drawing.tsx';
-import SignaturePadField from '@/components/examples/signature-pad/field.tsx';
-import SignaturePadFormSerialization from '@/components/examples/signature-pad/form-serialization.tsx';
-import SignaturePadImagePreview from '@/components/examples/signature-pad/image-preview.tsx';
 import SignaturePadRootProvider from '@/components/examples/signature-pad/root-provider.tsx';
-import SignaturePadAdvancedCustomization from '@/components/examples/signature-pad/advanced-customization.tsx';
-import signaturePadSolidBasic from '../../../snippets/signature-pad/solid/basic.tsx?raw';
-import signaturePadSolidControlled from '../../../snippets/signature-pad/solid/controlled.tsx?raw';
-import signaturePadSolidDrawing from '../../../snippets/signature-pad/solid/drawing.tsx?raw';
-import signaturePadSolidField from '../../../snippets/signature-pad/solid/field.tsx?raw';
-import signaturePadSolidFormSerialization from '../../../snippets/signature-pad/solid/form-serialization.tsx?raw';
-import signaturePadSolidImagePreview from '../../../snippets/signature-pad/solid/image-preview.tsx?raw';
-import signaturePadSolidRootProvider from '../../../snippets/signature-pad/solid/root-provider.tsx?raw';
-import signaturePadSolidAdvancedCustomization from '../../../snippets/signature-pad/solid/advanced-customization.tsx?raw';
-import signaturePadVueBasic from '../../../snippets/signature-pad/vue/basic.vue?raw';
-import signaturePadVueControlled from '../../../snippets/signature-pad/vue/controlled.vue?raw';
-import signaturePadVueDrawing from '../../../snippets/signature-pad/vue/drawing.vue?raw';
-import signaturePadVueField from '../../../snippets/signature-pad/vue/field.vue?raw';
-import signaturePadVueFormSerialization from '../../../snippets/signature-pad/vue/form-serialization.vue?raw';
-import signaturePadVueImagePreview from '../../../snippets/signature-pad/vue/image-preview.vue?raw';
-import signaturePadVueRootProvider from '../../../snippets/signature-pad/vue/root-provider.vue?raw';
-import signaturePadVueAdvancedCustomization from '../../../snippets/signature-pad/vue/advanced-customization.vue?raw';
 
 ## Référence de l’API
 
@@ -42,41 +19,7 @@ standard avec les parties Ark `SignaturePadControl`, `SignaturePadSegment`, `Sig
 et `SignaturePadGuide`, ainsi que l’icône
 d’effacement par défaut de moduix.
 
-<ExampleFrame variant="component">
-  <SignaturePadBasic />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/signature-pad/basic.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={signaturePadSolidBasic} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={signaturePadVueBasic} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="signature-pad/basic" />
 
 ## Installation avec shadcn
 
@@ -175,46 +118,7 @@ le `clear()` programmatique reste disponible.
 Utilisez `paths` en mode contrôlé pour conserver la signature dans l’état de l’application et la
 coordonner avec des contrôles de réinitialisation ou une logique d’enregistrement automatique.
 
-<ExampleFrame variant="component">
-  <SignaturePadControlled />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/signature-pad/controlled.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={signaturePadSolidControlled} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={signaturePadVueControlled} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/signature-pad/signature-pad-controlled.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="signature-pad/controlled" />
 
 ### Dessin
 
@@ -223,178 +127,27 @@ doivent différer des valeurs par défaut. La valeur par défaut à l’exécuti
 `{ size: 2, simulatePressure: false }` (la page de documentation d’Ark montre
 `simulatePressure: true`), la simulation de pression est donc à activer explicitement.
 
-<ExampleFrame variant="component">
-  <SignaturePadDrawing />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/signature-pad/drawing.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={signaturePadSolidDrawing} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={signaturePadVueDrawing} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="signature-pad/drawing" />
 
 ### Champ de formulaire
 
 Utilisez `Field` autour de `SignaturePad` lorsque le texte d’aide, le message d’erreur, l’état
 obligatoire ou le message de validation concernent un même contrôle de formulaire.
 
-<ExampleFrame variant="component">
-  <SignaturePadField />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/signature-pad/field.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={signaturePadSolidField} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={signaturePadVueField} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/signature-pad/signature-pad-field.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="signature-pad/field" />
 
 ### Sérialisation du formulaire
 
 Sérialisez dans le consommateur la valeur transmise à `SignaturePadHiddenInput` lorsque le serveur
 attend un autre format. Cet exemple envoie un tableau JSON.
 
-<ExampleFrame variant="component">
-  <SignaturePadFormSerialization />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/signature-pad/form-serialization.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={signaturePadSolidFormSerialization} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={signaturePadVueFormSerialization} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/signature-pad/signature-pad-form-serialization.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="signature-pad/form-serialization" />
 
 ### Aperçu de l’image
 
 Utilisez `onDrawEnd` pour exporter la signature et l’afficher avant son enregistrement.
 
-<ExampleFrame variant="component">
-  <SignaturePadImagePreview />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/signature-pad/image-preview.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={signaturePadSolidImagePreview} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={signaturePadVueImagePreview} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/signature-pad/signature-pad-image-preview.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="signature-pad/image-preview" />
 
 ### Root Provider
 
@@ -402,87 +155,14 @@ Créez l’état avec `useSignaturePad()` et transmettez-le à `SignaturePadRoot
 situés en dehors de l’arborescence rendue doivent accéder directement à `paths`, `clear()` ou
 `getDataUrl()`.
 
-<ExampleFrame variant="component">
-  <SignaturePadRootProvider />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/signature-pad/root-provider.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={signaturePadSolidRootProvider} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={signaturePadVueRootProvider} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/signature-pad/signature-pad-root-provider.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="signature-pad/root-provider" />
 
 ### Personnalisation avancée
 
 Utilisez les parties explicites à la place de `SignaturePadCanvas` lorsque vous devez contrôler l’arborescence
 des parties de dessin ou fournir votre propre bouton d’effacement.
 
-<ExampleFrame variant="component">
-  <SignaturePadAdvancedCustomization />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/signature-pad/advanced-customization.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={signaturePadSolidAdvancedCustomization} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={signaturePadVueAdvancedCustomization} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="signature-pad/advanced-customization" />
 
 ## Styles
 

@@ -4,19 +4,8 @@ component: swap
 description: Animate the transition between two visual states with moduix presets built on Ark UI.
 ---
 
-import SwapAnimationPresets from '@/components/examples/swap/animation-presets.tsx';
-import SwapBasic from '@/components/examples/swap/basic.tsx';
 import * as SwapDocs from '@/components/examples/swap/css-properties';
-import SwapCustomAnimation from '@/components/examples/swap/custom-animation.tsx';
 import SwapRootProvider from '@/components/examples/swap/root-provider.tsx';
-import swapSolidAnimationPresets from '../../../snippets/swap/solid/animation-presets.tsx?raw';
-import swapSolidBasic from '../../../snippets/swap/solid/basic.tsx?raw';
-import swapSolidCustomAnimation from '../../../snippets/swap/solid/custom-animation.tsx?raw';
-import swapSolidRootProvider from '../../../snippets/swap/solid/root-provider.tsx?raw';
-import swapVueAnimationPresets from '../../../snippets/swap/vue/animation-presets.vue?raw';
-import swapVueBasic from '../../../snippets/swap/vue/basic.vue?raw';
-import swapVueCustomAnimation from '../../../snippets/swap/vue/custom-animation.vue?raw';
-import swapVueRootProvider from '../../../snippets/swap/vue/root-provider.vue?raw';
 
 ## API Reference
 
@@ -29,41 +18,7 @@ Use `Swap` when one piece of UI needs to switch between two visual states, such 
 changes after an action. Pass the current boolean to `swap`: `false` shows the `off` indicator and
 `true` shows the `on` indicator.
 
-<ExampleFrame variant="component">
-  <SwapBasic />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/swap/basic.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={swapSolidBasic} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={swapVueBasic} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="swap/basic" />
 
 ## Install with shadcn
 
@@ -139,46 +94,7 @@ or pass a custom name and define its CSS with the root's `data-animation` and th
 Choose a built-in recipe, then activate the button to see the selected transition. The current value
 and recipe controls are shown below the demo.
 
-<ExampleFrame variant="component">
-  <SwapAnimationPresets />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/swap/animation-presets.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={swapSolidAnimationPresets} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={swapVueAnimationPresets} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/swap/swap-animation-presets.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="swap/animation-presets" />
 
 ### Custom animation
 
@@ -186,46 +102,7 @@ Pass a custom `animation` name and target the root's `data-animation` together w
 Ark `data-state`. The `bounce` recipe below is plain CSS. A custom recipe must define both enter and
 exit animations and include a reduced-motion fallback.
 
-<ExampleFrame variant="component">
-  <SwapCustomAnimation />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/swap/custom-animation.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={swapSolidCustomAnimation} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={swapVueCustomAnimation} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/swap/swap-custom-animation.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="swap/custom-animation" />
 
 ### Root Provider
 
@@ -233,46 +110,7 @@ Create the Swap state separately with `useSwap()`, then pass it to `SwapRootProv
 the `value` prop. This example also uses `asChild`, so the semantic button becomes the rendered Swap
 root.
 
-<ExampleFrame variant="component">
-  <SwapRootProvider />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/swap/root-provider.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={swapSolidRootProvider} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={swapVueRootProvider} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/swap/swap-root-provider.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="swap/root-provider" />
 
 ## Styling
 
