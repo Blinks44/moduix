@@ -23,9 +23,9 @@ Temporary: delete this skill when the component review round is finished.
 
 ## Output
 
-One file: `audits/<slug>.md` (the directory is gitignored). Overwrite a previous report for the same
+One file: `.local/<slug>.md` (the directory is gitignored). Overwrite a previous report for the same
 slug. In the chat, return only the verdict and the top 3–5 findings with a link to the file.
-If earlier reports exist in `audits/`, read one before starting to match the depth and tone, and
+If earlier reports exist in `.local/`, read one before starting to match the depth and tone, and
 reuse its "Library-wide" section instead of rediscovering the same issues.
 
 ## Procedure
