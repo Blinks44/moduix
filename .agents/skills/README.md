@@ -44,6 +44,11 @@ Skills are intentionally narrow and composable:
 - `rspress-custom-theme`: the Rspress visual shell, theme variables, slots, wrappers, and ejection.
 - `rspress-description-generator`: description frontmatter and search/AI metadata.
 - `rspress-localization`: locale structure, translated MDX, runtime text, parity, and localization review.
+- `sketch-design-to-code`: implement UI from a Sketch document through the Sketch MCP server (vendored from `sketch-hq/agents`).
+- `sketch-design-from-reference`: build or refine a Sketch design from a URL, screenshot, or code (vendored from `sketch-hq/agents`).
+
+Claude Code discovers skills only in `.claude/skills/`, so each skill there is a symlink to its
+folder in `.agents/skills/`. Add the symlink when adding a skill.
 
 ## Source Of Truth
 
