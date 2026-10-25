@@ -44,8 +44,9 @@ Read [references/discovery.md](references/discovery.md), then:
 
 ## Use package-managed components
 
-1. Use the project's package manager and the install command from the current Quick start. Do not
-   reinstall the framework runtime in an initialized application.
+1. Use the project's package manager and the install command from the current Quick start. Install
+   the matching Ark UI package with it (`@ark-ui/react`, `@ark-ui/solid`, or `@ark-ui/vue`); it is a
+   peer dependency. Do not reinstall the framework runtime in an initialized application.
 2. Import components from package subpaths such as `@moduix/react/accordion` or
    `@moduix/solid-tailwind/accordion`.
 3. For CSS Modules, import the matching package's `style.css` once. Component imports carry their
@@ -90,6 +91,9 @@ files and preserve local changes. Never use `--overwrite` without explicit user 
 
 ## Build and review
 
+- Use flat component names: the family name is the root and every part carries the family prefix,
+  as in `Accordion`, `AccordionItem`, `AccordionItemTrigger`, and `useAccordion`. Do not write
+  Ark's `Accordion.Root` / `Accordion.Item` syntax; moduix does not export namespace objects.
 - Preserve the documented Ark-shaped part tree, callback detail objects, context hooks, form
   behavior, and accessibility contract.
 - Use native framework patterns. Do not transliterate one adapter's composition into another

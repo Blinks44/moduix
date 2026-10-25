@@ -31,9 +31,8 @@ Use this skill for JS/TS Solid work in this repo.
   only behind the appropriate lifecycle or an existing client-safe helper.
 - Keep helpers and icons Solid-local and import runtime code and types only from the Solid package,
   Solid libraries, or framework-neutral foundation modules.
-- Export the root under the family name, every other part with the family prefix, and hooks as
-  top-level functions. Do not create compound objects, static part properties, namespace exports,
-  `.Root` aliases, or duplicate `<Family>Root` values.
+- Export values through the flat public API defined in `AGENTS.md`. Do not create compound objects
+  or static part properties.
 - Keep component-local `index.ts` files as re-export-only barrels.
 
 ## Ark Solid Rules

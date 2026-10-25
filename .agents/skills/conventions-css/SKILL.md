@@ -48,7 +48,8 @@ Use this skill for CSS, CSS Modules, and styling work in this repo.
   explicit arbitrary properties such as `[border-width:var(--runtime-width)]` when shorthand could
   compile to a different property.
 - For material styling changes, verify empty decorative parts and `asChild` replacement hosts in a
-  browser. A class token in the DOM does not prove visible size, paint, radius, or animation.
+  playground story. A class token in the DOM does not prove visible size, paint, radius, or
+  animation; this is a manual or story-comparison check, not a reason to add a style unit test.
 
 ## CSS Variable References
 

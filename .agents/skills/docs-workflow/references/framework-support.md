@@ -43,7 +43,8 @@ Use neutral prose for shared behavior and show variants only where commands, imp
 runtime behavior differ.
 
 - Use Rspress `Tabs` with the same `groupId="framework"` for framework-specific code and commands on one
-  page. Do not add a custom global framework store or header switcher.
+  page. The framework and styling selects in the example toolbar of the docs redesign read and write
+  that same synchronized `groupId` state; do not add a second store or a header switcher.
 - Use `PackageManagerTabs` for every package, dependency, executable, registry CLI, or skill installation command. Keep it inside the selected framework tab when the command differs by framework; it owns only package-manager syntax.
 - Introduce styling choice separately. Do not imply npm means CSS Modules or shadcn means Tailwind.
 - Keep shared anatomy, accessibility, tokens, themes, and ownership guidance outside runtime tabs.

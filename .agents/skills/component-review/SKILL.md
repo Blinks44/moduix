@@ -25,8 +25,8 @@ Temporary: delete this skill when the component review round is finished.
 
 One file: `audits/<slug>.md` (the directory is gitignored). Overwrite a previous report for the same
 slug. In the chat, return only the verdict and the top 3–5 findings with a link to the file.
-Finished reports from earlier rounds live in `audits/`; read one before starting to match the depth
-and tone, and reuse its "Library-wide" section instead of rediscovering the same issues.
+If earlier reports exist in `audits/`, read one before starting to match the depth and tone, and
+reuse its "Library-wide" section instead of rediscovering the same issues.
 
 ## Procedure
 

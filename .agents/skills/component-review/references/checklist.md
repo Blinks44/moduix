@@ -1,7 +1,7 @@
 # Component Review Checklist
 
 Each item names what to check and how. Examples come from the Accordion and Dialog reviews
-(2026-10-13, reports in `audits/`); they show the kind of issue to look for, not a list to copy.
+(2026-10-13); they show the kind of issue to look for, not a list to copy.
 
 ## Parity across frameworks
 

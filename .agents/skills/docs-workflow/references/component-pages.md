@@ -19,20 +19,33 @@ extra source files, or a missing framework.
 
 ## Section order
 
-1. `API Reference`
-2. `Choosing the right component` - only for close alternatives
-3. `Basic`
-4. `Install with shadcn` - when applicable
-5. `Anatomy`
+The docs redesign (`Moduix.sketch`, Button page) defines the target order below. A page switches
+to it as a whole once the shared page header and Installation components exist in `website`;
+until then keep the legacy order (`API Reference`, `Choosing the right component`,
+`Basic`, `Install with shadcn`, `Anatomy`, `Composition`, `Examples`, `Styling`). Never mix the two
+orders on one page.
+
+Page header, rendered from frontmatter rather than MDX headings: title, description, links to
+Source, npm, the upstream Ark page (or the precise Ark guide when no primitive exists), Report
+issue, and the Rspress `llmsUI` Copy page menu.
+
+1. Basic preview - `<Example name="<component>/basic" />` right under the header, without a heading
+2. `Installation` - a Package tab (install command with the Ark peer and the subpath import) and a
+   shadcn CLI tab (registry commands for the variants that ship); link to Quick Start for stylesheets
+3. `Usage` - one short snippet with the main props, followed by the prop chips
+4. `Choosing the right component` - only for close alternatives
+5. `Examples`
 6. `Composition` - only when the component has a meaningful choice not already clear from Basic or examples
-7. `Examples`
-8. `Styling` - when the public styling contract is meaningful
+7. `Styling` - `CSS variables` table, then a `Styling hooks` table
+8. `Anatomy` - ASCII tree plus a `Part | Role` table
+9. `Keyboard` - a `Key | Action` table when the component has keyboard interaction
+10. `API reference` - the props table
 
 `Basic` is the recommended happy path and must not be repeated without a clear structural reason. Every example heading has a short lead-in. Order feature examples alphabetically; put `Advanced Customization` last when it intentionally bypasses convenience composition.
 
 ## Section intent
 
-- **API Reference:** a compact upstream reference. Link the dedicated Ark page when it exists. Otherwise state that no dedicated Ark primitive exists and link the precise guide or factory model; link Chakra only when it materially informs the contract.
+- **Upstream link (header; `API Reference` section in the legacy order):** a compact upstream reference. Link the dedicated Ark page when it exists. Otherwise state that no dedicated Ark primitive exists and link the precise guide or factory model; link Chakra only when it materially informs the contract.
 - **Basic:** render one shared preview, then show native source for every shipped or explicitly staged framework in
   `groupId="framework"` tabs. Keep shared example CSS outside the framework tabs. The framework tabs
   make runtime support visible without prose about the implementation of the documentation preview.

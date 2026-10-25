@@ -58,19 +58,13 @@ or Tailwind setup from Quick Start unless a framework requires a different value
 
 ## Component pages
 
-Read [the component-page contract](component-pages.md) for the full structure. Its canonical order is:
+Read [the component-page contract](component-pages.md) for the section order. It records both the
+legacy order used by current pages and the target order from the docs redesign, with the condition
+for switching a page.
 
-1. `API Reference`
-2. `Choosing the right component`, only when close alternatives exist
-3. `Basic`
-4. `Install with shadcn`, when applicable
-5. `Anatomy`
-6. `Composition`, only for a meaningful choice
-7. `Examples`
-8. `Styling`, when the public styling contract is meaningful
-
-Accordion is the current structural reference. It is not the source of truth for public value
-naming, which is flat, or for which frameworks and styling variants ship.
+Accordion is the structural reference for the legacy order; the Button frame in `Moduix.sketch` is
+the reference for the target order. Neither is the source of truth for public value naming, which
+is flat, or for which frameworks and styling variants ship.
 
 ## Utility pages
 

@@ -6,13 +6,8 @@ The library is Ark-backed and actively developed. Skills should preserve current
 documented target public contract, keep package/docs/registry output aligned, and remove stale
 instructions when behavior changes.
 
-The target public value API is flat in every framework and styling track. Export the root as the
-family name, other parts with the family prefix, and hooks as top-level functions. For example:
-`Accordion`, `AccordionItem`, `AccordionItemTrigger`, `AccordionRootProvider`, `AccordionContext`,
-and `useAccordion`. Skills must not introduce compound `Component.Part` APIs, namespace objects,
-`Object.assign` assembly, or duplicate `ComponentRoot` aliases.
-
-React, Solid, and Vue implement the flat public API. Flat names are the existing repository contract.
+The flat public value API is defined once in `AGENTS.md`. Skills follow it and do not restate it;
+they must not introduce compound `Component.Part` APIs, namespace objects, or `ComponentRoot` aliases.
 
 Skills are intentionally narrow and composable:
 
@@ -36,6 +31,7 @@ Skills are intentionally narrow and composable:
 - `conventions-vue`: Vue and TypeScript implementation conventions.
 - `conventions-tests`: repository test scope, environment selection, and readable fixtures.
 - `component-contract-docs`: maintainers' markdown beside a component source file.
+- `component-review`: temporary review of one component across every adapter, with an optional fix mode.
 - `research-upstream-libraries`: current Ark UI, Chakra UI, and shadcn research.
 - `rstest-best-practices`: Rstest configuration and test design.
 - `rslib-best-practices`: Rslib configuration, outputs, and build troubleshooting.
@@ -49,6 +45,11 @@ Skills are intentionally narrow and composable:
 
 Claude Code discovers skills only in `.claude/skills/`, so each skill there is a symlink to its
 folder in `.agents/skills/`. Add the symlink when adding a skill.
+
+The `rslib-*`, `rspress-*` and `rstest-*` skills come from `rstackjs/agent-skills` (pinned in
+`skills-lock.json`) and carry moduix notes added locally; the `sketch-*` skills come from
+`sketch-hq/agents`. Updating any of them from upstream overwrites local edits: diff the result and
+re-apply the moduix notes.
 
 ## Source Of Truth
 

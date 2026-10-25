@@ -39,6 +39,9 @@ or component-index pages, read [the framework-support contract](references/frame
 - Render every reader-facing package installation, dependency update, executable package, registry CLI, or skill installation command with Rspress `PackageManagerTabs`. Pass a manager-neutral command such as `install <package>` and set `dlx` for temporary executables. Do not hardcode npm, pnpm, Yarn, Bun, or Deno commands in MDX unless manager-specific behavior is the subject of the page.
 - Prefer a small local helper to repeated visible ceremony, but never a page builder, hidden DSL, or abstraction that hides the documented composition.
 - Keep demo-only styling in the docs app or example CSS module, separate from library styling.
+- A component page `description` is one task-first sentence of 50 to 90 characters ("Trigger an
+  action or follow a link…"), not a list of frameworks or packages. The same text feeds the
+  components index cards, search, and meta tags. Other pages follow `rspress-description-generator`.
 - When changing reader-facing prose in a locale page, load `rspress-localization` and complete its
   target-language review before finishing. A literal but awkward translation is not complete
   documentation.
@@ -93,6 +96,9 @@ Read [preview rules](references/previews.md) whenever adding or changing a previ
 
 ## Sidebar icons
 
+The docs redesign renders the sidebar without icons and without counts; remove the `tag` fields when
+the sidebar is migrated to the redesign order. Until then:
+
 - Treat each `tag` in `website/docs/<locale>/docs/_meta.json` as a semantic icon for its sidebar entry.
 - Reuse an existing mapping from `website/theme/components/Tag/index.tsx` only when it accurately represents the page. Do not use an unrelated icon merely to avoid changing the shared set.
 - If the set has no suitable icon, add the appropriate named Lucide icon to the shared `Tag` mapping, then use the new tag consistently in every locale.
@@ -106,10 +112,11 @@ Read [preview rules](references/previews.md) whenever adding or changing a previ
 - Keep styling hooks limited to meaningful `className`/`class`, `data-slot`, and state attributes
   that consumers can target. Explain that Tailwind variants use native utility and consumer-class
   overrides, and keep CSS Modules variable guidance on the CSS Modules path.
-- Keep the full package and hosted-registry setup in `quick-start.mdx`; do not repeat a generic
-  `Install as a package` section on every component page because it duplicates Quick Start and adds
-  no component-specific information. Component pages show only the relevant shadcn registry commands
-  for package variants that actually ship that component. Treat each
+- Keep the full package and hosted-registry setup, including stylesheets, in `quick-start.mdx`.
+  Component pages show a compact Installation block with two tabs: Package (the install command and
+  the component's subpath import) and shadcn CLI (registry commands only for the package variants
+  that actually ship that component). Do not repeat stylesheet or registry configuration there;
+  link to Quick Start instead. Treat each
   `packages/<variant>/registry.json` as its source manifest. Shared
   styles and presets come from `packages/foundation/registry.json` through `/r/foundation` URL
   dependencies; the reset applies only to CSS Modules variants because Tailwind uses Preflight.

@@ -52,6 +52,9 @@ Use project skills from [`.agents/skills/`](.agents/skills/README.md). Apply onl
   Rspress configuration, navigation, build, deployment, or debugging, `rspress-localization` for any localization
   work, and `rspress-custom-theme` for theme
   or layout changes.
+- **Docs site visuals:** the `Moduix.sketch` design file is the source of truth for the site's look,
+  layout, and page structure. Use `sketch-design-to-code` when implementing from it and
+  `sketch-design-from-reference` when changing the design; both need the Sketch MCP server.
 - **Tests:** `conventions-tests` and `rstest-best-practices`.
 - **Rslib configuration or library build issues:** `rslib-best-practices`.
 - **Changesets:** `changeset-workflow`, only when the user explicitly requests one.
