@@ -28,8 +28,8 @@ Use this skill for CSS, CSS Modules, and styling work in this repo.
 - In CSS Modules, use design tokens and public CSS variables instead of hardcoded one-off values when a token already exists.
 - Keep component CSS and demo CSS separate. Library styling belongs in its package; demo-only layout belongs in stories or docs examples.
 - When a component exists in several variants, preserve the same visual and state contract. Keep
-  CSS Modules equivalent across framework adapters, and translate that result into native Tailwind
-  utilities for every shipped Tailwind counterpart.
+  CSS Modules byte-identical across framework adapters (`pnpm run check:css-modules` enforces it in
+  CI), and translate that result into native Tailwind utilities for every shipped Tailwind counterpart.
 - Do not import CSS Modules across packages or add them to a Tailwind component.
 
 ## Style ownership and cross-track parity

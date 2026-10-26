@@ -35,6 +35,9 @@ jobs:
       - name: Check lint
         run: pnpm run lint:check
 
+      - name: Check CSS Modules parity
+        run: pnpm run check:css-modules
+
   test:
     name: Test
     runs-on: ubuntu-latest
