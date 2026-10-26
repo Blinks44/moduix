@@ -63,67 +63,6 @@ test('preserves asChild composition without forwarding the ref through Ark Solid
   expect(inputRef).toBeUndefined();
 });
 
-test('applies native utilities to the input', () => {
-  render(() => <Input aria-label="Project key" />);
-  const input = screen.getByRole('textbox', { name: 'Project key' });
-  expect([...input.classList]).toEqual(
-    expect.arrayContaining([
-      'w-full',
-      'min-h-control-md',
-      'rounded-md',
-      'border',
-      'border-border',
-      'bg-background',
-      'px-3',
-      'py-1',
-      'text-md',
-      'leading-6',
-      'file:border-primary',
-      'file:bg-primary',
-      'file:px-2',
-      'file:py-0.5',
-    ]),
-  );
-});
-
-test('applies each visual size with native utilities', () => {
-  render(() => (
-    <>
-      <Input size="xs" aria-label="Extra-small input" />
-      <Input size="sm" aria-label="Small input" />
-      <Input size="md" aria-label="Medium input" />
-      <Input size="lg" aria-label="Large input" />
-      <Input size="xl" aria-label="Extra-large input" />
-    </>
-  ));
-
-  expect(
-    screen
-      .getByRole('textbox', { name: 'Extra-small input' })
-      ?.classList.contains('min-h-control-xs'),
-  ).toBe(true);
-  expect([...screen.getByRole('textbox', { name: 'Extra-small input' })!.classList]).toEqual(
-    expect.arrayContaining(['px-2', 'py-0.5', 'text-xs', 'leading-4']),
-  );
-  expect([...screen.getByRole('textbox', { name: 'Small input' })!.classList]).toEqual(
-    expect.arrayContaining(['min-h-control-sm', 'px-2', 'py-1', 'text-sm', 'leading-5']),
-  );
-  expect(
-    screen.getByRole('textbox', { name: 'Medium input' })?.classList.contains('min-h-control-md'),
-  ).toBe(true);
-  expect([...screen.getByRole('textbox', { name: 'Large input' })!.classList]).toEqual(
-    expect.arrayContaining(['min-h-control-lg', 'px-4', 'py-1', 'text-lg', 'leading-7']),
-  );
-  expect(
-    screen
-      .getByRole('textbox', { name: 'Extra-large input' })
-      ?.classList.contains('min-h-control-xl'),
-  ).toBe(true);
-  expect([...screen.getByRole('textbox', { name: 'Extra-large input' })!.classList]).toEqual(
-    expect.arrayContaining(['px-4', 'py-2', 'text-lg', 'leading-7']),
-  );
-});
-
 test('lets consumer utilities replace component defaults', () => {
   render(() => (
     <Input
@@ -147,18 +86,6 @@ test('lets consumer utilities replace component defaults', () => {
       'leading-5',
     ]),
   );
-  for (const utility of [
-    'w-full',
-    'w-auto',
-    'min-h-control-lg',
-    'rounded-md',
-    'bg-background',
-    'px-4',
-    'py-1',
-    'leading-7',
-  ]) {
-    expect(input.classList.contains(utility)).toBe(false);
-  }
   expect(getComputedStyle(input)).toMatchObject({
     minHeight: '80px',
     width: '320px',

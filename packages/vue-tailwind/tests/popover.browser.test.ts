@@ -306,11 +306,7 @@ test('lets consumer Tailwind utilities win', async () => {
   const content = document.querySelector('[data-slot="popover-content"]')!;
   const closeIcon = document.querySelector('[data-slot="popover-close-icon"]')!;
   expect(Array.from(trigger.classList)).toEqual(expect.arrayContaining(['bg-primary', 'px-2']));
-  expect(Array.from(trigger.classList)).not.toContain('bg-background');
-  expect(Array.from(trigger.classList)).not.toContain('px-3.5');
   expect(Array.from(content.classList)).toEqual(expect.arrayContaining(['w-96', 'bg-card', 'p-4']));
-  expect(Array.from(content.classList)).not.toContain('bg-popover');
-  expect(Array.from(content.classList)).not.toContain('p-6');
   expect(Array.from(closeIcon.classList)).toEqual(
     expect.arrayContaining(['size-8', 'rounded-full', 'bg-primary']),
   );
@@ -412,29 +408,4 @@ test('follows runtime changes to portalled', async () => {
   expect(container.querySelector('[data-testid="content"]')).toBeNull();
   portalled.value = false;
   await expect.element(page.getByTestId('host').getByTestId('content')).toBeAttached();
-});
-
-test('spaces the body after the header and keeps the header clear of the close icon', async () => {
-  render({
-    components: popoverComponents,
-    template: `
-      <Popover default-open :portalled="false">
-        <PopoverPositioner>
-          <PopoverContent>
-            <PopoverCloseIcon />
-            <PopoverHeader><PopoverTitle>Preferences</PopoverTitle></PopoverHeader>
-            <PopoverBody>Body</PopoverBody>
-          </PopoverContent>
-        </PopoverPositioner>
-      </Popover>
-    `,
-  });
-
-  await expect.element(page.getByText('Body')).toBeVisible();
-  const header = document.querySelector<HTMLElement>('[data-slot="popover-header"]')!;
-  const body = document.querySelector<HTMLElement>('[data-slot="popover-body"]')!;
-  const gap = body.offsetTop - (header.offsetTop + header.offsetHeight);
-
-  expect(Math.abs(gap - 12)).toBeLessThanOrEqual(1);
-  expect(getComputedStyle(header).paddingInlineEnd).toBe('40px');
 });

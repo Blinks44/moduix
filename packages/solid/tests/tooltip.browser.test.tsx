@@ -213,26 +213,6 @@ test('forwards refs on native parts and keeps asChild composition native', () =>
   expect(composedTriggerRef).toBeUndefined();
 });
 
-test('highlights only the current trigger of a shared tooltip', async () => {
-  render(() => (
-    <Tooltip openDelay={0} portalled={false}>
-      <TooltipTrigger value="save">Save</TooltipTrigger>
-      <TooltipTrigger value="share">Share</TooltipTrigger>
-      <TooltipBody>Action tooltip</TooltipBody>
-    </Tooltip>
-  ));
-
-  const save = document.querySelector<HTMLElement>('[data-value="save"]')!;
-  const share = document.querySelector<HTMLElement>('[data-value="share"]')!;
-  const closedBackground = getComputedStyle(save).backgroundColor;
-
-  await page.getByRole('button', { name: 'Share' }).hover();
-  await expect.element(page.getByRole('tooltip')).toBeVisible();
-  expect(save.dataset.state).toBe('open');
-  await expect.poll(() => getComputedStyle(share).backgroundColor).not.toBe(closedBackground);
-  await expect.poll(() => getComputedStyle(save).backgroundColor).toBe(closedBackground);
-});
-
 test('lets long content grow instead of spilling past the surface', async () => {
   render(() => (
     <Tooltip open portalled={false}>

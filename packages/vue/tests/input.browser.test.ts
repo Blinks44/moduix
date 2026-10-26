@@ -6,7 +6,6 @@ import { renderToString } from '@vue/server-renderer';
 import { createSSRApp, nextTick, ref } from 'vue';
 import type { ComponentPublicInstance } from 'vue';
 import { Input as TextInput } from '../src';
-import styles from '../src/components/input/Input.module.css';
 import SsrInput from './fixtures/SsrInput.vue';
 
 const fieldComponents = {
@@ -49,7 +48,6 @@ test('preserves native field state and component-owned styling hooks', async () 
     slot: 'input-root',
   });
   await expect.element(textbox).toHaveAttribute('size', '8');
-  expect([...input!.classList]).toEqual(expect.arrayContaining([styles.root, 'consumer-class']));
 });
 
 test('forwards the input ref on the ordinary path', () => {

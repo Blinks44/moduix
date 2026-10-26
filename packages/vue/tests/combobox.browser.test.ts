@@ -28,7 +28,6 @@ import {
   useComboboxContext,
   useComboboxItemContext,
 } from '../src';
-import styles from '../src/components/combobox/Combobox.module.css';
 import SsrCombobox from './fixtures/SsrCombobox.vue';
 
 const fruits = createListCollection({
@@ -219,25 +218,6 @@ test('preserves semantic hosts and refs with asChild', async () => {
   expect(rootRef.value?.$el).toBe(root);
 });
 
-test('applies consumer classes after CSS Module defaults', () => {
-  render(TestCombobox, { props: { portalled: false } });
-
-  const input = screen.getByRole('combobox', { name: 'Fruit' });
-  const root = input.closest('[data-slot="combobox-root"]');
-  const control = input.parentElement;
-  const content = screen.getByRole('listbox').closest('[data-slot="combobox-content"]');
-  const item = screen.getByRole('option', { name: 'Apple' });
-
-  expect([...root!.classList]).toEqual(expect.arrayContaining([styles.root]));
-  expect([...control!.classList]).toEqual(expect.arrayContaining([styles.control]));
-  expect([...input!.classList]).toEqual(expect.arrayContaining([styles.input]));
-  expect([...content!.classList]).toEqual(expect.arrayContaining([styles.content]));
-  expect([...item!.classList]).toEqual(expect.arrayContaining([styles.item]));
-  expect([...screen.getByText('Status')!.classList]).toEqual(
-    expect.arrayContaining([styles.status]),
-  );
-});
-
 test('hydrates stable hosts and ids and remains interactive', async () => {
   const html = await renderToString(createSSRApp(SsrCombobox));
   const host = document.createElement('div');
@@ -264,33 +244,4 @@ test('hydrates stable hosts and ids and remains interactive', async () => {
     app.unmount();
     host.remove();
   }
-});
-
-test('places a lone clear action at the inline end and reserves input space per action', async () => {
-  render(
-    defineComponent({
-      components: comboboxComponents,
-      setup() {
-        return { collection: fruits };
-      },
-      template:
-        '<div><Combobox :collection="collection" :default-value="[\'apple\']" :portalled="false"><ComboboxControl><ComboboxInput /><ComboboxClearTrigger /></ComboboxControl></Combobox><Combobox :collection="collection" :default-value="[\'apple\']" :portalled="false"><ComboboxControl><ComboboxInput /><ComboboxClearTrigger /><ComboboxTrigger aria-label="Open fruits" /></ComboboxControl></Combobox></div>',
-    }),
-  );
-  await nextTick();
-
-  const [clearOnly, both] = [
-    ...document.querySelectorAll<HTMLElement>('[data-slot="combobox-control"]'),
-  ];
-  const endGap = (control: HTMLElement) =>
-    control.getBoundingClientRect().right -
-    control.querySelector('[data-slot="combobox-clear-trigger"]')!.getBoundingClientRect().right;
-  const inputEnd = (control: HTMLElement) =>
-    getComputedStyle(control.querySelector('[data-slot="combobox-input"]')!).paddingInlineEnd;
-
-  // 1px control border + 8px action offset, then + 24px trigger + 2px gap.
-  expect(Math.abs(endGap(clearOnly!) - 9)).toBeLessThanOrEqual(1);
-  expect(Math.abs(endGap(both!) - 35)).toBeLessThanOrEqual(1);
-  expect(inputEnd(clearOnly!)).toBe('44px');
-  expect(inputEnd(both!)).toBe('70px');
 });

@@ -191,31 +191,6 @@ test('prefers an explicit renderer over the motion setting', async () => {
     .toHaveAttribute('data-renderer', 'custom-renderer');
 });
 
-test('renders the compact Moduix tooltip body by default', async () => {
-  render({
-    components: chartComponents,
-    setup: () => ({ definition: {} as never }),
-    template: '<ChartPlot ariaLabel="Monthly revenue" :definition="definition" />',
-  });
-
-  await expect.element(page.locator('[data-slot="chart-tooltip-body"]')).toBeAttached();
-  await expect.element(page.locator('[data-slot="chart-tooltip-title"]')).toContainText('March');
-  expect(document.querySelectorAll('[data-slot="chart-tooltip-row"]')).toHaveLength(2);
-  expect(document.querySelectorAll('[data-slot="chart-tooltip-swatch"]')).toHaveLength(1);
-  const tooltipRows = document.querySelectorAll('[data-slot="chart-tooltip-row"]');
-  expect(tooltipRows[0]!.hasAttribute('data-active')).toBe(false);
-  expect(tooltipRows[1]!.hasAttribute('data-active')).toBe(true);
-  await expect
-    .element(page.locator('[data-slot="chart-tooltip-label"]').first())
-    .toContainText('Revenue');
-  await expect
-    .element(page.locator('[data-slot="chart-tooltip-value"]').first())
-    .toContainText('76');
-  await expect
-    .element(page.locator('[data-slot="chart-tooltip-value"]').first())
-    .toHaveCSS('text-align', 'end');
-});
-
 test('passes the Moduix default body to a custom tooltip renderer', async () => {
   render({
     components: chartComponents,

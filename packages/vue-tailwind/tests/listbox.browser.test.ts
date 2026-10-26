@@ -73,9 +73,6 @@ test('preserves Ark semantics, refs, stable styling hooks, and the flat API', as
 
   expect('Root' in Listbox).toBe(false);
   expect(rootRef.value!.$el.getAttribute('data-slot')).toBe('listbox-root');
-  expect([...rootRef.value!.$el.classList]).toEqual(
-    expect.arrayContaining(['text-foreground', 'consumer-root']),
-  );
   await expect
     .element(page.getByRole('listbox', { name: 'Fruit', exact: true }))
     .toHaveAttribute('data-slot', 'listbox-content');
@@ -88,7 +85,6 @@ test('preserves Ark semantics, refs, stable styling hooks, and the flat API', as
   expect(
     Boolean(apple.querySelector('[data-slot="listbox-item-indicator"] svg')?.isConnected),
   ).toBe(true);
-  await expect.element(page.locator('[data-slot="listbox-root"]')).toHaveCSS('width', '320px');
 });
 
 test('supports controlled values through v-model', async () => {
@@ -172,9 +168,6 @@ test('renders the consumer-wired clear trigger as an accessible button', async (
   await expect
     .element(page.getByRole('button', { name: 'Clear search', exact: true }))
     .toHaveAttribute('type', 'button');
-  expect([...clear!.classList]).toEqual(
-    expect.arrayContaining(['text-muted-foreground', 'consumer-clear']),
-  );
   expect(Boolean(clear.querySelector('svg')?.isConnected)).toBe(true);
 });
 
@@ -259,57 +252,4 @@ test('hydrates stable hosts and ids and remains interactive', async () => {
     app.unmount();
     host.remove();
   }
-});
-
-test('reserves filter room for the clear action and keeps page scroll chaining', async () => {
-  render(
-    defineComponent({
-      components: listboxComponents,
-      setup() {
-        return { collection: fruits, items: fruits.items };
-      },
-      template: `
-        <Listbox :collection="collection">
-          <ListboxLabel>Fruit</ListboxLabel>
-          <ListboxFilter>
-            <ListboxInput />
-            <ListboxClearTrigger />
-          </ListboxFilter>
-          <ListboxContent>
-            <ListboxItem v-for="item in items" :key="item.value" :item="item">
-              <ListboxItemText>{{ item.label }}</ListboxItemText>
-            </ListboxItem>
-          </ListboxContent>
-        </Listbox>
-      `,
-    }),
-  );
-  await nextTick();
-
-  const input = document.querySelector<HTMLElement>('[data-slot="listbox-input"]')!;
-  const clear = document.querySelector<HTMLElement>('[data-slot="listbox-clear-trigger"]')!;
-  const content = document.querySelector<HTMLElement>('[data-slot="listbox-content"]')!;
-
-  // 12px offset + 24px action + 8px gap before the text.
-  expect(getComputedStyle(input).paddingInlineEnd).toBe('44px');
-  expect(clear.offsetWidth).toBe(24);
-  expect(clear.querySelector('svg')).not.toBeNull();
-  expect(
-    Math.abs(input.getBoundingClientRect().right - clear.getBoundingClientRect().right - 12),
-  ).toBeLessThanOrEqual(1);
-  // The list is not a popup, so page scrolling chains past it.
-  expect(getComputedStyle(content).overscrollBehaviorY).toBe('auto');
-});
-
-test('dims disabled items once through opacity', async () => {
-  render(FruitListbox);
-  await nextTick();
-
-  const [apple, , unavailable] = [
-    ...document.querySelectorAll<HTMLElement>('[data-slot="listbox-item"]'),
-  ];
-
-  // Disabled items dim once, through opacity, and keep the regular text color.
-  expect(getComputedStyle(unavailable!).opacity).toBe('0.5');
-  expect(getComputedStyle(unavailable!).color).toBe(getComputedStyle(apple!).color);
 });

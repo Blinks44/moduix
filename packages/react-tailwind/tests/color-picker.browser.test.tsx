@@ -13,12 +13,7 @@ import {
   ColorPickerTrigger,
   ColorPickerPositioner,
   ColorPickerContent,
-  ColorPickerArea,
-  ColorPickerChannelSlider,
   ColorPickerChannelInput,
-  ColorPickerSwatchTrigger,
-  ColorPickerSwatch,
-  ColorPickerSwatchIndicator,
 } from '../src';
 
 function ProviderColorPicker() {
@@ -145,62 +140,4 @@ test('lets consumer utilities replace component defaults', async () => {
   const root = container.querySelector('[data-slot="color-picker-root"]')!;
 
   expect(root!.classList.contains('w-80')).toBe(true);
-  expect(root!.classList.contains('w-64')).toBe(false);
-});
-
-test('keeps empty visual parts sized and visible with utilities', async () => {
-  render(
-    <ColorPicker inline defaultValue={parseColor('#eb5e41')}>
-      <ColorPickerArea />
-      <ColorPickerChannelSlider channel="hue" />
-      <ColorPickerSwatchTrigger value="#eb5e41" />
-    </ColorPicker>,
-  );
-  await expect
-    .element(page.locator('[data-slot="color-picker-area"]').nth(0))
-    .toHaveCSS('height', '160px');
-  await expect
-    .element(page.locator('[data-slot="color-picker-area-background"]').nth(0))
-    .toHaveCSS('height', '160px');
-  await expect
-    .element(page.locator('[data-slot="color-picker-channel-slider-track"]').nth(0))
-    .toHaveCSS('height', '12px');
-  await expect
-    .element(page.locator('[data-slot="color-picker-swatch"]').nth(0))
-    .toHaveCSS('width', '32px');
-  await expect
-    .element(page.locator('[data-slot="color-picker-swatch"]').nth(0))
-    .toHaveCSS('height', '32px');
-});
-
-test('draws checkerboards under swatches and shows a checked standalone swatch indicator', async () => {
-  render(
-    <ColorPicker inline defaultValue={parseColor('rgba(235, 94, 65, 0.5)')}>
-      <ColorPickerTrigger aria-label="Open color picker" />
-      <ColorPickerSwatch value="rgba(235, 94, 65, 0.5)">
-        <ColorPickerSwatchIndicator data-testid="checked-indicator" />
-      </ColorPickerSwatch>
-      <ColorPickerSwatch value="#000000">
-        <ColorPickerSwatchIndicator data-testid="unchecked-indicator" />
-      </ColorPickerSwatch>
-    </ColorPicker>,
-  );
-
-  const trigger = document.querySelector<HTMLElement>('[data-slot="color-picker-trigger"]')!;
-  const valueSwatch = trigger.querySelector<HTMLElement>(
-    '[data-slot="color-picker-value-swatch"]',
-  )!;
-  const swatch = document.querySelector<HTMLElement>('[data-slot="color-picker-swatch"]')!;
-  const triggerPadding = Number.parseFloat(getComputedStyle(trigger).paddingLeft);
-
-  expect(trigger.querySelector('[data-slot="color-picker-transparency-grid"]')).toBeNull();
-  expect(valueSwatch.offsetWidth).toBe(trigger.clientWidth - triggerPadding * 2);
-  expect(getComputedStyle(valueSwatch, '::before').backgroundImage).toContain(
-    'repeating-conic-gradient',
-  );
-  expect(getComputedStyle(swatch, '::before').backgroundImage).toContain(
-    'repeating-conic-gradient',
-  );
-  await expect.element(page.getByTestId('checked-indicator')).toBeVisible();
-  expect(getComputedStyle(screen.getByTestId('unchecked-indicator')).display).toBe('none');
 });

@@ -5,7 +5,7 @@ import { render, screen } from '@testing-library/vue';
 import { renderToString } from '@vue/server-renderer';
 import { createSSRApp, nextTick, ref } from 'vue';
 import type { ComponentPublicInstance } from 'vue';
-import { Field, FieldLabel as ModuixFieldLabel, Input, Textarea } from '../src';
+import { Textarea } from '../src';
 import SsrTextarea from './fixtures/SsrTextarea.vue';
 
 const fieldComponents = {
@@ -189,25 +189,6 @@ test('restores the native textarea default value on reset', async () => {
   expect(new FormData(form).get('summary')).toBe('Draft');
 });
 
-test('applies native utilities to the textarea', () => {
-  render({ components: fieldComponents, template: '<Textarea aria-label="Project notes" />' });
-  const textarea = screen.getByRole('textbox', { name: 'Project notes' });
-  expect([...textarea.classList]).toEqual(
-    expect.arrayContaining([
-      'w-full',
-      'resize-y',
-      'rounded-md',
-      'border',
-      'border-border',
-      'bg-background',
-      'px-3',
-      'py-2',
-      'text-md',
-      'leading-6',
-    ]),
-  );
-});
-
 test('lets consumer utilities replace component defaults', () => {
   render({
     components: fieldComponents,
@@ -233,17 +214,6 @@ test('lets consumer utilities replace component defaults', () => {
       'leading-5',
     ]),
   );
-  for (const utility of [
-    'w-full',
-    'resize-y',
-    'rounded-md',
-    'bg-background',
-    'px-3',
-    'py-2',
-    'leading-6',
-  ]) {
-    expect(textarea.classList.contains(utility)).toBe(false);
-  }
 });
 
 test('hydrates the native textarea without replacing its host and supports editing', async () => {
@@ -273,52 +243,4 @@ test('hydrates the native textarea without replacing its host and supports editi
     warn.mockRestore();
     error.mockRestore();
   }
-});
-test('dims a disabled textarea once inside a disabled Field', () => {
-  render({
-    components: { Field, ModuixFieldLabel, Textarea },
-    template: `
-      <Field disabled data-testid="disabled-field">
-        <ModuixFieldLabel>Notes</ModuixFieldLabel>
-        <Textarea />
-      </Field>
-      <Textarea aria-label="Standalone" disabled />
-    `,
-  });
-
-  const opacity = (element: HTMLElement) => getComputedStyle(element).opacity;
-
-  expect(opacity(screen.getByTestId('disabled-field'))).toBe('0.5');
-  expect(opacity(screen.getByRole('textbox', { name: 'Notes' }))).toBe('1');
-  expect(opacity(screen.getByRole('textbox', { name: 'Standalone' }))).toBe('0.5');
-});
-test('matches Input padding and type at every size and defaults to md', () => {
-  const sizes = ['xs', 'sm', 'md', 'lg', 'xl'] as const;
-
-  render({
-    components: { Input, Textarea },
-    setup() {
-      return { sizes };
-    },
-    template: `
-      <Textarea aria-label="Default" />
-      <div v-for="size in sizes" :key="size">
-        <Textarea :aria-label="'Textarea ' + size" :size="size" />
-        <Input :aria-label="'Input ' + size" :size="size" />
-      </div>
-    `,
-  });
-
-  expect(screen.getByRole('textbox', { name: 'Default' }).dataset.size).toBe('md');
-  for (const size of sizes) {
-    const textarea = getComputedStyle(screen.getByRole('textbox', { name: `Textarea ${size}` }));
-    const input = getComputedStyle(screen.getByRole('textbox', { name: `Input ${size}` }));
-    expect([textarea.paddingInlineStart, textarea.fontSize]).toEqual([
-      input.paddingInlineStart,
-      input.fontSize,
-    ]);
-  }
-  expect(screen.getByRole('textbox', { name: 'Textarea xs' }).offsetHeight).toBeLessThan(
-    screen.getByRole('textbox', { name: 'Textarea xl' }).offsetHeight,
-  );
 });

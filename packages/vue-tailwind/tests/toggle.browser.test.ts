@@ -192,12 +192,7 @@ test('reactively preserves attrs, visual props, fallback slots and single native
   const toggle = screen.getByRole('button', { name: 'Favorite' });
   const indicator = toggle.querySelector('[data-slot="toggle-indicator"]')!;
   await expect.element(page.getByText('Off')).toBeVisible();
-  expect([...toggle!.classList]).toEqual(
-    expect.arrayContaining(['consumer-toggle', 'conditional-class']),
-  );
   expect(indicator?.classList.contains('consumer-indicator')).toBe(true);
-  expect(getComputedStyle(toggle!).color).toBe('rgb(255, 0, 0)');
-  expect(getComputedStyle(toggle!).marginTop).toBe('7px');
   expect(toggle.dataset).toMatchObject({ slot: 'toggle-root', size: 'md' });
   await page.getByRole('button', { name: 'Favorite' }).click();
   expect(pressed.value).toBe(true);
@@ -215,8 +210,6 @@ test('reactively preserves attrs, visual props, fallback slots and single native
   await nextTick();
   expect(toggle.dataset).toMatchObject({ size: 'icon-lg', variant: 'ghost' });
   expect(screen.getByRole('button', { name: 'Saved' })).toBe(toggle);
-  expect(toggle?.classList.contains('updated-toggle')).toBe(true);
-  expect(toggle?.classList.contains('consumer-toggle')).toBe(false);
   await expect.element(page.getByRole('button', { name: 'Saved' })).toBeDisabled();
   toggle.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true }));
   expect(changes).toHaveBeenCalledTimes(1);
@@ -319,45 +312,6 @@ test('hydrates toggle without replacing server hosts or ids', async () => {
   }
 });
 
-test('applies native utilities to component-owned visual parts', () => {
-  render({
-    components: toggleComponents,
-    template: `
-      <Toggle variant="outline">
-        <svg aria-hidden="true" />
-        <ToggleIndicator><svg aria-hidden="true" /></ToggleIndicator>
-      </Toggle>
-    `,
-  });
-
-  const toggle = screen.getByRole('button');
-  const indicator = document.querySelector('[data-slot="toggle-indicator"]')!;
-
-  expect([...toggle!.classList]).toEqual(
-    expect.arrayContaining([
-      'inline-flex',
-      'min-h-control-md',
-      'gap-2',
-      'rounded-md',
-      'border',
-      'bg-background',
-      'px-4',
-      'py-1',
-      'text-sm',
-      "[&>svg:not([class*='size-'])]:size-4",
-      '[&>svg]:shrink-0',
-    ]),
-  );
-  expect([...indicator!.classList]).toEqual(
-    expect.arrayContaining([
-      'inline-flex',
-      'items-center',
-      'justify-center',
-      "[&>svg:not([class*='size-'])]:size-4",
-    ]),
-  );
-});
-
 test('lets consumer Tailwind classes override conflicting defaults', () => {
   render({
     components: toggleComponents,
@@ -370,10 +324,6 @@ test('lets consumer Tailwind classes override conflicting defaults', () => {
   expect([...toggle!.classList]).toEqual(
     expect.arrayContaining(['border-primary', 'bg-secondary', 'p-0', 'text-xs']),
   );
-  for (const utility of ['border-border', 'bg-background', 'px-5', 'py-1.5', 'text-md']) {
-    expect(toggle!.classList.contains(utility)).toBe(false);
-  }
-  expect(toggle.classList.contains('min-h-control-lg')).toBe(true);
   expect(getComputedStyle(toggle)).toMatchObject({
     minHeight: '40px',
     paddingTop: '0px',

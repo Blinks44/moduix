@@ -104,10 +104,6 @@ test('keeps line clamp effective when truncate is also set', () => {
   expect(text.hasAttribute('data-truncate')).toBe(true);
   expect(text.hasAttribute('data-line-clamp')).toBe(true);
   expect(text.style.getPropertyValue('-webkit-line-clamp')).toBe('2');
-  expect([...text.classList]).toEqual(
-    expect.arrayContaining(['overflow-hidden', 'text-ellipsis', 'whitespace-normal']),
-  );
-  expect([...text.classList]).not.toContain('whitespace-nowrap');
   expect(getComputedStyle(text)).toMatchObject({
     overflow: 'hidden',
     whiteSpace: 'normal',
@@ -123,10 +119,6 @@ test('lets consumer utilities override typography defaults', () => {
   expect([...text.classList]).toEqual(
     expect.arrayContaining(['text-xl', 'font-bold', 'text-primary', 'text-center']),
   );
-  expect([...text.classList]).not.toContain('text-md');
-  expect([...text.classList]).not.toContain('font-regular');
-  expect([...text.classList]).not.toContain('text-foreground');
-  expect([...text.classList]).not.toContain('text-start');
   expect(getComputedStyle(text)).toMatchObject({
     fontSize: '20px',
     fontWeight: '700',

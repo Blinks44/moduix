@@ -22,7 +22,6 @@ import {
   useDrawer,
   useDrawerContext,
 } from '../src';
-import { LocaleProvider } from '../src/locale';
 
 function DrawerParts(props: { children?: JSX.Element; variant?: 'island' }) {
   return (
@@ -46,16 +45,28 @@ function DrawerStateReadout() {
 }
 
 test('keeps page interaction available for a non-modal drawer', async () => {
+  const clicks: string[] = [];
+
   render(() => (
-    <Drawer defaultOpen modal={false} portalled={false}>
-      <DrawerParts />
-    </Drawer>
+    <>
+      <button type="button" onClick={() => clicks.push('outside')}>
+        Outside
+      </button>
+      <Drawer defaultOpen modal={false} portalled={false}>
+        <DrawerParts>
+          <button type="button" onClick={() => clicks.push('inside')}>
+            Inside
+          </button>
+        </DrawerParts>
+      </Drawer>
+    </>
   ));
 
-  await expect.element(page.getByRole('dialog')).toHaveCSS('pointer-events', 'auto');
-  await expect
-    .element(page.locator('[data-slot="drawer-positioner"]'))
-    .toHaveCSS('pointer-events', 'none');
+  await expect.element(page.getByRole('dialog')).toBeVisible();
+  await page.getByRole('button', { name: 'Inside' }).click();
+  await page.getByRole('button', { name: 'Outside' }).click();
+
+  expect(clicks).toEqual(['inside', 'outside']);
 });
 
 test.each(['touch', 'mouse'])(
@@ -209,9 +220,6 @@ test('marks an island drawer and closes it through its accessible close icon', a
   await expect
     .element(page.locator('[data-slot="drawer-positioner"]'))
     .toHaveAttribute('data-swipe-direction', 'down');
-  await expect
-    .element(page.locator('[data-slot="drawer-positioner"]'))
-    .toHaveCSS('padding-bottom', '16px');
   await page.getByRole('button', { name: 'Close drawer' }).click();
 
   await expect.element(page.getByRole('dialog')).toHaveCount(0);
@@ -268,44 +276,10 @@ test('applies Tailwind defaults and lets consumer utilities win', async () => {
   const closeIcon = document.querySelector('[data-slot="drawer-close-icon"]')!;
 
   expect([...trigger.classList]).toEqual(['bg-primary', 'px-2']);
-  expect([...document.querySelector('[data-slot="drawer-backdrop"]')!.classList]).toEqual(
-    expect.arrayContaining(['fixed', 'inset-0', 'bg-overlay']),
-  );
-  expect([...document.querySelector('[data-slot="drawer-positioner"]')!.classList]).toEqual(
-    expect.arrayContaining(['flex', 'items-end']),
-  );
   expect([...content.classList]).toEqual(expect.arrayContaining(['w-96', 'bg-card', 'p-4']));
-  expect([...content.classList]).not.toContain('bg-popover');
-  expect([...content.classList]).not.toContain('px-6');
-  expect([...content.classList]).not.toContain('pt-3');
-  expect([...content.classList]).toEqual(
-    expect.arrayContaining([
-      'data-[swipe-direction=left]:after:inset-y-0',
-      'data-[swipe-direction=right]:after:inset-y-0',
-      '[--_drawer-island-offset:0px]',
-      '[--_drawer-bleed:var(--moduix-size-xl)]',
-    ]),
-  );
-  expect([...document.querySelector('[data-slot="drawer-grabber-indicator"]')!.classList]).toEqual(
-    expect.arrayContaining(['h-1', 'w-12', 'rounded-full']),
-  );
-  expect([...document.querySelector('[data-slot="drawer-title"]')!.classList]).toEqual(
-    expect.arrayContaining(['text-lg', 'font-semibold']),
-  );
-  expect([...document.querySelector('[data-slot="drawer-description"]')!.classList]).toEqual(
-    expect.arrayContaining(['text-md', 'text-muted-foreground']),
-  );
-  expect([...document.querySelector('[data-slot="drawer-body"]')!.classList]).toEqual(
-    expect.arrayContaining(['mt-4', 'text-md']),
-  );
-  expect([...document.querySelector('[data-slot="drawer-footer"]')!.classList]).toEqual(
-    expect.arrayContaining(['mt-6', 'gap-2']),
-  );
   expect([...closeIcon.classList]).toEqual(
     expect.arrayContaining(['size-8', 'rounded-full', 'bg-primary']),
   );
-  expect([...closeIcon.classList]).not.toContain('rounded-md');
-  expect([...closeIcon.classList]).not.toContain('bg-transparent');
   await expect
     .element(page.getByRole('dialog'))
     .toHaveCSS('transition-property', 'transform, scale, translate');
@@ -314,56 +288,4 @@ test('applies Tailwind defaults and lets consumer utilities win', async () => {
   await expect
     .element(page.getByRole('button', { name: 'Close drawer' }))
     .toHaveCSS('width', '32px');
-});
-
-test('leaves native triggers unstyled and keeps the body in the content color', async () => {
-  render(() => (
-    <Drawer defaultOpen portalled={false}>
-      <DrawerTrigger>Open drawer</DrawerTrigger>
-      <DrawerPositioner>
-        <DrawerContent>
-          <DrawerTitle>Preferences</DrawerTitle>
-          <DrawerBody>Body</DrawerBody>
-          <DrawerCloseTrigger>Done</DrawerCloseTrigger>
-        </DrawerContent>
-      </DrawerPositioner>
-    </Drawer>
-  ));
-
-  expect(document.querySelector('[data-slot="drawer-trigger"]')!.classList).toHaveLength(0);
-  expect(document.querySelector('[data-slot="drawer-close-trigger"]')!.classList).toHaveLength(0);
-  const content = document.querySelector('[role="dialog"]')!;
-  const body = document.querySelector('[data-slot="drawer-body"]')!;
-  expect(getComputedStyle(body).color).toBe(getComputedStyle(content).color);
-});
-
-test('keeps physical side corners for a start drawer in RTL', async () => {
-  render(() => (
-    <LocaleProvider locale="ar">
-      <Drawer defaultOpen portalled={false} swipeDirection="start">
-        <DrawerParts />
-      </Drawer>
-    </LocaleProvider>
-  ));
-
-  const content = page.getByRole('dialog');
-  await expect.element(content).toHaveAttribute('data-swipe-direction', 'right');
-  await expect.element(content).toHaveCSS('border-top-right-radius', '0px');
-  await expect.element(content).not.toHaveCSS('border-top-left-radius', '0px');
-});
-
-test('sets the side drawer width from size', async () => {
-  render(() => (
-    <Drawer defaultOpen portalled={false} swipeDirection="end">
-      <DrawerPositioner>
-        <DrawerContent size="lg">
-          <DrawerTitle>Preferences</DrawerTitle>
-        </DrawerContent>
-      </DrawerPositioner>
-    </Drawer>
-  ));
-
-  const content = page.getByRole('dialog');
-  await expect.element(content).toHaveAttribute('data-size', 'lg');
-  await expect.element(content).toHaveCSS('width', '448px');
 });

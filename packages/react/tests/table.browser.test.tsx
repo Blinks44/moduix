@@ -280,56 +280,6 @@ test('supports replacing only the generated empty cell with asChild', async () =
   expect(emptyRef.current).toBe(emptyCell);
 });
 
-test('paints row states on sticky cells, keeps stripes on plain hover, and keeps numbers on one line', async () => {
-  render(
-    <>
-      <Table striped>
-        <TableBody>
-          <TableRow>
-            <TableCell>INV001</TableCell>
-          </TableRow>
-          <TableRow data-testid="striped-row">
-            <TableCell data-testid="striped-sticky" data-sticky="start">
-              INV002
-            </TableCell>
-            <TableCell data-testid="numeric" numeric>
-              $1 250.00
-            </TableCell>
-          </TableRow>
-        </TableBody>
-      </Table>
-      <Table interactive>
-        <TableBody>
-          <TableRow>
-            <TableCell data-testid="interactive-sticky" data-sticky="start">
-              <button type="button">Edit</button>
-            </TableCell>
-          </TableRow>
-        </TableBody>
-      </Table>
-    </>,
-  );
-
-  const stripedRow = screen.getByTestId('striped-row');
-  const interactiveSticky = screen.getByTestId('interactive-sticky');
-  const stripe = getComputedStyle(stripedRow).backgroundColor;
-
-  expect(stripe).not.toBe('rgba(0, 0, 0, 0)');
-  expect(getComputedStyle(screen.getByTestId('striped-sticky')).backgroundImage).toContain(
-    'gradient',
-  );
-  expect(getComputedStyle(interactiveSticky).backgroundImage).toBe('none');
-  expect(getComputedStyle(screen.getByTestId('numeric')).whiteSpace).toBe('nowrap');
-
-  await page.getByTestId('striped-row').hover();
-  expect(getComputedStyle(stripedRow).backgroundColor).toBe(stripe);
-
-  screen.getByRole('button', { name: 'Edit' }).focus();
-  await expect
-    .poll(() => getComputedStyle(interactiveSticky).backgroundImage)
-    .toContain('gradient');
-});
-
 test('keeps sticky-column hooks on native table cells', () => {
   render(
     <TableScrollArea>

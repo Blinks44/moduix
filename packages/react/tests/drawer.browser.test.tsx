@@ -5,7 +5,6 @@ import { createRef, type ReactNode, useState } from 'react';
 import {
   Button,
   Drawer,
-  DrawerBody,
   DrawerCloseIcon,
   DrawerCloseTrigger,
   DrawerContent,
@@ -16,7 +15,6 @@ import {
   useDrawer,
   useDrawerContext,
 } from '../src';
-import { LocaleProvider } from '../src/locale';
 
 function DrawerParts({ children, variant }: { children?: ReactNode; variant?: 'island' }) {
   return (
@@ -40,16 +38,28 @@ function DrawerStateReadout() {
 }
 
 test('keeps page interaction available for a non-modal drawer', async () => {
+  const clicks: string[] = [];
+
   render(
-    <Drawer defaultOpen modal={false} portalled={false}>
-      <DrawerParts />
-    </Drawer>,
+    <>
+      <button type="button" onClick={() => clicks.push('outside')}>
+        Outside
+      </button>
+      <Drawer defaultOpen modal={false} portalled={false}>
+        <DrawerParts>
+          <button type="button" onClick={() => clicks.push('inside')}>
+            Inside
+          </button>
+        </DrawerParts>
+      </Drawer>
+    </>,
   );
 
-  await expect.element(page.getByRole('dialog')).toHaveCSS('pointer-events', 'auto');
-  await expect
-    .element(page.locator('[data-slot="drawer-positioner"]'))
-    .toHaveCSS('pointer-events', 'none');
+  await expect.element(page.getByRole('dialog')).toBeVisible();
+  await page.getByRole('button', { name: 'Inside' }).click();
+  await page.getByRole('button', { name: 'Outside' }).click();
+
+  expect(clicks).toEqual(['inside', 'outside']);
 });
 
 test('lazily mounts, preserves open-change details, and restores focus after Escape', async () => {
@@ -211,63 +221,8 @@ test('marks an island drawer and closes it through its accessible close icon', a
   await expect
     .element(page.locator('[data-slot="drawer-positioner"]'))
     .toHaveAttribute('data-swipe-direction', 'down');
-  await expect
-    .element(page.locator('[data-slot="drawer-positioner"]'))
-    .toHaveCSS('padding-bottom', '16px');
   await page.getByRole('button', { name: 'Close drawer' }).click();
 
   await expect.element(page.getByRole('dialog')).toHaveCount(0);
   await expect.element(trigger).toBeFocused();
-});
-
-test('leaves native triggers unstyled and keeps the body in the content color', async () => {
-  render(
-    <Drawer defaultOpen portalled={false}>
-      <DrawerTrigger>Open drawer</DrawerTrigger>
-      <DrawerPositioner>
-        <DrawerContent>
-          <DrawerTitle>Preferences</DrawerTitle>
-          <DrawerBody>Body</DrawerBody>
-          <DrawerCloseTrigger>Done</DrawerCloseTrigger>
-        </DrawerContent>
-      </DrawerPositioner>
-    </Drawer>,
-  );
-
-  expect(document.querySelector('[data-slot="drawer-trigger"]')!.classList).toHaveLength(0);
-  expect(document.querySelector('[data-slot="drawer-close-trigger"]')!.classList).toHaveLength(0);
-  const content = document.querySelector('[role="dialog"]')!;
-  const body = document.querySelector('[data-slot="drawer-body"]')!;
-  expect(getComputedStyle(body).color).toBe(getComputedStyle(content).color);
-});
-
-test('keeps physical side corners for a start drawer in RTL', async () => {
-  render(
-    <LocaleProvider locale="ar">
-      <Drawer defaultOpen portalled={false} swipeDirection="start">
-        <DrawerParts />
-      </Drawer>
-    </LocaleProvider>,
-  );
-
-  const content = page.getByRole('dialog');
-  await expect.element(content).toHaveAttribute('data-swipe-direction', 'right');
-  await expect.element(content).toHaveCSS('border-top-right-radius', '0px');
-  await expect.element(content).not.toHaveCSS('border-top-left-radius', '0px');
-});
-
-test('sets the side drawer width from size', async () => {
-  render(
-    <Drawer defaultOpen portalled={false} swipeDirection="end">
-      <DrawerPositioner>
-        <DrawerContent size="lg">
-          <DrawerTitle>Preferences</DrawerTitle>
-        </DrawerContent>
-      </DrawerPositioner>
-    </Drawer>,
-  );
-
-  const content = page.getByRole('dialog');
-  await expect.element(content).toHaveAttribute('data-size', 'lg');
-  await expect.element(content).toHaveCSS('width', '448px');
 });

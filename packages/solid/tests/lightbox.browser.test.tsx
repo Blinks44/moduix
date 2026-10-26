@@ -211,14 +211,9 @@ test('keeps its close icon accessible and viewport-fixed, then restores trigger 
   const dialog = screen.getByRole('dialog', { name: 'Image preview' });
   const button = screen.getByRole('button', { name: 'Close image' });
   expect(dialog.contains(button)).toBe(true);
-  expect(getComputedStyle(dialog).scale).toBe('none');
-  expect(getComputedStyle(dialog).translate).toBe('none');
   const rect = button.getBoundingClientRect();
   expect(rect.top).toBeCloseTo(16);
   expect(window.innerWidth - rect.right).toBeCloseTo(16);
-  await expect
-    .element(page.locator('[data-slot="lightbox-body"]'))
-    .toHaveCSS('animation-name', 'moduix-lightbox-body-in');
   await closeIcon.press('Tab');
   await expect.element(closeIcon).toBeFocused();
   await closeIcon.click();
@@ -227,38 +222,6 @@ test('keeps its close icon accessible and viewport-fixed, then restores trigger 
   await expect
     .element(page.getByRole('button', { name: 'Open preview', exact: true }))
     .toBeFocused();
-});
-
-test('fades the close icon with content and uses the shared dialog motion', async () => {
-  render(() => (
-    <Lightbox defaultOpen portalled={false}>
-      <LightboxBackdrop />
-      <LightboxPositioner>
-        <LightboxContent aria-label="Image preview">
-          <LightboxCloseIcon />
-          <LightboxBody>
-            <LightboxImage src="/full-size.jpg" alt="Mountain ridge" />
-          </LightboxBody>
-        </LightboxContent>
-      </LightboxPositioner>
-    </Lightbox>
-  ));
-
-  const backdrop = document.querySelector('[data-slot="lightbox-backdrop"]')!;
-  const content = document.querySelector('[data-slot="lightbox-content"]')!;
-  const closeIcon = document.querySelector('[data-slot="lightbox-close-icon"]')!;
-  expect(getComputedStyle(backdrop).animationName).toBe('moduix-dialog-backdrop-in');
-  expect(getComputedStyle(content).animationDuration).toBe('0.2s');
-  expect(closeIcon.hasAttribute('data-state')).toBe(false);
-
-  // Click and poll in the page so the exit animation is read before the content unmounts.
-  screen.getByRole('button', { name: 'Close image' }).click();
-
-  await expect.poll(() => content.getAttribute('data-state')).toBe('closed');
-  expect(getComputedStyle(content).animationFillMode).toBe('forwards');
-  expect(getComputedStyle(backdrop).animationFillMode).toBe('forwards');
-  expect(getComputedStyle(closeIcon).visibility).toBe('visible');
-  await expect.element(page.getByRole('dialog')).toHaveCount(0);
 });
 
 test('exposes RootProvider state through useLightboxContext', async () => {

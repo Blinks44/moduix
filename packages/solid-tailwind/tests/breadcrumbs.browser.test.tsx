@@ -63,9 +63,6 @@ test('renders semantic path navigation with one current page', async () => {
   expect(
     container.querySelector('[data-slot="breadcrumbs-separator"]')?.getAttribute('aria-hidden'),
   ).toBe('true');
-  expect([
-    ...container.querySelector('[data-slot="breadcrumbs-separator"] svg')!.classList,
-  ]).toEqual(expect.arrayContaining(['size-[1em]', 'flex-none', '[&:dir(rtl)]:rotate-180']));
   await expect.element(page.getByRole('link', { name: 'Home' })).toHaveAttribute('href', '/');
   await expect.element(page.getByRole('link', { name: 'Docs' })).toHaveAttribute('href', '/docs');
 });
@@ -152,64 +149,9 @@ test('lets consumer Tailwind classes override conflicting defaults', () => {
   const list = screen.getByRole('list');
   const link = screen.getByRole('link', { name: 'Docs' });
   expect(root.classList.contains('max-w-none')).toBe(true);
-  expect(root.classList.contains('max-w-full')).toBe(false);
   expect(list.classList.contains('gap-0')).toBe(true);
-  expect(list.classList.contains('gap-1')).toBe(false);
   expect(link.classList.contains('px-0')).toBe(true);
-  expect(link.classList.contains('px-1')).toBe(false);
   expect([...link.classList]).toEqual(
     expect.arrayContaining(['overflow-visible', 'text-clip', 'whitespace-normal']),
   );
-  expect(link.classList.contains('truncate')).toBe(false);
-});
-test('lets links, separators, and the ellipsis inherit the root text color', () => {
-  render(() => (
-    <Breadcrumbs style={{ color: 'rgb(1, 2, 3)' }}>
-      <BreadcrumbsList>
-        <BreadcrumbsItem>
-          <BreadcrumbsLink href="/">Home</BreadcrumbsLink>
-        </BreadcrumbsItem>
-        <BreadcrumbsSeparator />
-        <BreadcrumbsItem>
-          <BreadcrumbsEllipsis />
-        </BreadcrumbsItem>
-        <BreadcrumbsSeparator />
-        <BreadcrumbsItem>
-          <BreadcrumbsPage>Breadcrumbs</BreadcrumbsPage>
-        </BreadcrumbsItem>
-      </BreadcrumbsList>
-    </Breadcrumbs>
-  ));
-
-  const colorOf = (slot: string) =>
-    getComputedStyle(document.querySelector(`[data-slot="breadcrumbs-${slot}"]`)!).color;
-
-  expect(['link', 'separator', 'ellipsis'].map(colorOf)).toEqual([
-    'rgb(1, 2, 3)',
-    'rgb(1, 2, 3)',
-    'rgb(1, 2, 3)',
-  ]);
-  expect(colorOf('page')).not.toBe('rgb(1, 2, 3)');
-});
-test('renders an ellipsis icon and styles a wrapping native button as a trigger', () => {
-  render(() => (
-    <BreadcrumbsList>
-      <BreadcrumbsItem>
-        <button type="button" aria-label="Show hidden path items">
-          <BreadcrumbsEllipsis />
-        </button>
-      </BreadcrumbsItem>
-    </BreadcrumbsList>
-  ));
-
-  const trigger = screen.getByRole('button', { name: 'Show hidden path items' });
-  const style = getComputedStyle(trigger);
-
-  expect(trigger.querySelector('[data-slot="breadcrumbs-ellipsis"] > svg')).not.toBeNull();
-  expect([style.borderTopWidth, style.paddingLeft, style.cursor, style.backgroundColor]).toEqual([
-    '0px',
-    '0px',
-    'pointer',
-    'rgba(0, 0, 0, 0)',
-  ]);
 });

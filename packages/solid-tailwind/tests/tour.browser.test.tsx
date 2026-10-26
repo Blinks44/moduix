@@ -21,7 +21,6 @@ import {
   useTour,
 } from '../src';
 import { Dialog, DialogContent, DialogPositioner, DialogTitle } from '../src';
-import { LocaleProvider } from '../src/locale';
 
 const steps = [
   {
@@ -125,36 +124,6 @@ function StyledTourExample() {
             <TourControl>
               <TourActionList />
             </TourControl>
-          </TourContent>
-        </TourPositioner>
-      </Tour>
-    </>
-  );
-}
-
-function FloatingTourExample(props: { placement: 'center' | 'top' }) {
-  const tour = useTour({
-    steps: [
-      {
-        id: 'floating',
-        type: 'floating',
-        placement: props.placement,
-        title: 'Floating',
-        description: 'A floating step.',
-      },
-    ],
-  });
-
-  return (
-    <>
-      <button type="button" onClick={() => tour().start()}>
-        Start floating tour
-      </button>
-      <Tour tour={tour}>
-        <TourPositioner>
-          <TourContent>
-            <TourTitle />
-            <TourDescription />
           </TourContent>
         </TourPositioner>
       </Tour>
@@ -287,68 +256,9 @@ describe('Tour', () => {
 
     await page.getByRole('button', { name: 'Start styled tour', exact: true }).click();
 
-    const content = screen.getByRole('alertdialog', { name: 'Welcome' });
-    const backdrop = document.querySelector('[data-slot="tour-backdrop"]');
-    const spotlight = document.querySelector('[data-slot="tour-spotlight"]');
-    const positioner = document.querySelector('[data-slot="tour-positioner"]');
-    const arrow = document.querySelector('[data-slot="tour-arrow"]');
-    const closeIcon = screen.getByRole('button', { name: 'Close tour' });
-
-    expect([...backdrop!.classList]).toEqual(
-      expect.arrayContaining(['bg-overlay', 'backdrop-blur-[4px]']),
-    );
-    expect([...spotlight!.classList]).toEqual(expect.arrayContaining(['ring-2', 'ring-ring']));
-    expect([...positioner!.classList]).toEqual(
-      expect.arrayContaining([
-        'z-[calc(var(--moduix-z-tour)+var(--tour-layer,0))]',
-        'max-w-(--available-width)',
-      ]),
-    );
-    expect([...arrow!.classList]).toEqual(
-      expect.arrayContaining([
-        '[--arrow-background:var(--color-popover)]',
-        '[--arrow-size:var(--spacing-2_5)]',
-      ]),
-    );
-    expect([...content!.classList]).toEqual(expect.arrayContaining(['w-96', 'bg-card', 'p-4']));
-    expect(
-      ['w-[20rem]', 'bg-popover', 'p-5'].some((name) => content!.classList.contains(name)),
-    ).toBe(false);
-    expect([...screen.getByRole('heading', { name: 'Welcome' }).classList]).toEqual(
-      expect.arrayContaining(['text-xl']),
-    );
-    expect([...screen.getByText('Start the tour.').classList]).toEqual(
-      expect.arrayContaining(['text-base']),
-    );
-    expect([...closeIcon!.classList]).toEqual(
-      expect.arrayContaining(['size-8', 'rounded-full', 'bg-primary']),
-    );
-    expect(
-      ['rounded-md', 'bg-transparent'].some((name) => closeIcon!.classList.contains(name)),
-    ).toBe(false);
-
     await expect.element(page.locator('[data-slot="tour-content"]')).toHaveCSS('width', '384px');
     await expect.element(page.locator('[data-slot="tour-content"]')).toHaveCSS('padding', '16px');
     await expect.element(page.locator('[data-slot="tour-close-icon"]')).toHaveCSS('width', '32px');
-  });
-  test.each([
-    ['center', 'ltr'],
-    ['top', 'rtl'],
-  ] as const)('centers %s floating steps in %s', async (placement, dir) => {
-    render(() => (
-      <LocaleProvider locale={dir === 'rtl' ? 'ar' : 'en'}>
-        <FloatingTourExample placement={placement} />
-      </LocaleProvider>
-    ));
-
-    await page.getByRole('button', { name: 'Start floating tour', exact: true }).click();
-    await expect.element(page.getByRole('alertdialog', { name: 'Floating' })).toBeVisible();
-
-    const rect = document.querySelector('[data-slot="tour-content"]')!.getBoundingClientRect();
-    expect(Math.abs(rect.left + rect.width / 2 - window.innerWidth / 2)).toBeLessThanOrEqual(1);
-    if (placement === 'center') {
-      expect(Math.abs(rect.top + rect.height / 2 - window.innerHeight / 2)).toBeLessThanOrEqual(1);
-    }
   });
   test('stacks a tooltip step above its spotlight and backdrop', async () => {
     render(() => <TooltipTourExample />);

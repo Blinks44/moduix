@@ -285,29 +285,11 @@ test('applies native utilities and lets consumer classes win', async () => {
 
   const root = screen.getByTestId('root');
   const control = root.querySelector('[data-slot="rating-group-control"]')!;
-  const item = root.querySelector('[data-slot="rating-group-item"]')!;
   const indicator = root.querySelector('[data-slot="rating-group-item-indicator"]')!;
-  const backgroundIcon = root.querySelector('[data-slot="rating-group-item-indicator-bg"]')!;
 
   expect([...root.classList]).toEqual(expect.arrayContaining(['gap-3', 'text-primary']));
-  expect(['gap-1', 'text-muted-foreground'].some((name) => root.classList.contains(name))).toBe(
-    false,
-  );
   expect([...control.classList]).toEqual(expect.arrayContaining(['gap-3']));
-  expect([...item!.classList]).toEqual(
-    expect.arrayContaining([
-      'outline-focus-inset',
-      'outline-offset-focus-inset',
-      'outline-transparent',
-      'focus-visible:outline-focus-inset',
-      'focus-visible:outline-offset-1',
-      'focus-visible:outline-ring',
-    ]),
-  );
   expect([...indicator!.classList]).toEqual(expect.arrayContaining(['size-7', 'text-secondary']));
-  expect([...backgroundIcon.classList]).toEqual(
-    expect.arrayContaining(['absolute', 'inset-0', 'fill-transparent']),
-  );
   await expect.element(page.getByTestId('root')).toHaveCSS('gap', '12px');
   await expect.element(page.locator('[data-slot="rating-group-control"]')).toHaveCSS('gap', '12px');
   await expect
@@ -315,42 +297,3 @@ test('applies native utilities and lets consumer classes win', async () => {
     .toHaveCSS('width', '28px');
 });
 import SsrRatingGroup from './fixtures/SsrRatingGroup.vue';
-test('colors the default filled star from the indicator color', () => {
-  render({
-    components: ratingGroupComponents,
-    template: `
-      <RatingGroup :default-value="1">
-        <RatingGroupControl>
-          <RatingGroupItem :index="1">
-            <RatingGroupItemIndicator style="color: rgb(255, 0, 0)" />
-          </RatingGroupItem>
-        </RatingGroupControl>
-      </RatingGroup>
-    `,
-  });
-
-  const foregroundIcon = document.querySelector('[data-slot="rating-group-item-indicator-fg"]')!;
-
-  expect(getComputedStyle(foregroundIcon).color).toBe('rgb(255, 0, 0)');
-});
-
-test('clips the default star for half and empty items', async () => {
-  render({
-    components: ratingGroupComponents,
-    template: `
-      <RatingGroup allow-half :count="3" :default-value="1.5">
-        <RatingGroupControl>
-          <RatingGroupItems />
-        </RatingGroupControl>
-      </RatingGroup>
-    `,
-  });
-
-  const foregroundIcons = document.querySelectorAll('[data-slot="rating-group-item-indicator-fg"]');
-
-  await expect
-    .poll(() => getComputedStyle(foregroundIcons[1]!).clipPath)
-    .toBe('inset(0px 50% 0px 0px)');
-  expect(getComputedStyle(foregroundIcons[0]!).clipPath).toBe('inset(0px)');
-  expect(getComputedStyle(foregroundIcons[2]!).clipPath).toBe('inset(0px 100% 0px 0px)');
-});

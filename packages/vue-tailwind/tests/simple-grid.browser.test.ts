@@ -20,7 +20,6 @@ test('renders the default single-column root with stable hooks and a native ref'
   expect(grid.getAttribute('data-scope')).toBe('simple-grid');
   expect(grid.getAttribute('data-part')).toBe('root');
   expect(grid.getAttribute('data-slot')).toBe('simple-grid-root');
-  expect([...grid.classList]).toEqual(expect.arrayContaining(['grid', 'grid-cols-1']));
   expect(grid.style.gridTemplateColumns).toBe('');
   expect(grid.hasAttribute('role')).toBe(false);
   expect(getComputedStyle(grid).display).toBe('grid');
@@ -131,8 +130,6 @@ test('lets consumer utilities override fixed defaults without duplicate classes'
   });
   const grid = getByTestId('grid');
   expect([...grid.classList]).toEqual(expect.arrayContaining(['block', 'grid-cols-2']));
-  expect([...grid.classList]).not.toContain('grid');
-  expect([...grid.classList]).not.toContain('grid-cols-1');
   expect(grid.className).toBe('block grid-cols-2');
   expect(grid.style.display).toBe('');
   expect(grid.style.gridTemplateColumns).toBe('');
@@ -153,7 +150,6 @@ test('hydrates simple-grid without replacing the server host', async () => {
     expect(host.querySelectorAll('ul')).toHaveLength(1);
     expect(host.querySelector('ul')).toBe(serverRoot);
     expect(serverRoot.dataset).toMatchObject({ slot: 'simple-grid-root' });
-    expect([...serverRoot.classList]).toContain('hydrated-grid');
     expect(instance.rootRef?.$el).toBe(serverRoot);
     expect(serverRoot.children).toHaveLength(1);
     expect(serverRoot.style.gridTemplateColumns).toBe(

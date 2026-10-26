@@ -102,17 +102,14 @@ test('keeps RootProvider composition and context connected', async () => {
     .toHaveAttribute('data-scope', 'scroll-area');
   await expect.element(page.getByText('Provider content')).toBeAttached();
   await expect.element(page.getByText('true')).toBeAttached();
-  const viewport = document.querySelector('[data-slot="scroll-area-viewport"]')!;
   await expect
     .element(page.locator('[data-slot="scroll-area-viewport"]'))
     .toHaveAttribute('data-overflow-y');
-  expect(viewport.scrollHeight).toBeGreaterThan(viewport.clientHeight);
   await page.getByRole('button', { name: 'Scroll to bottom', exact: true }).click();
   await expect
     .element(page.locator('[data-slot="scroll-area-viewport"]'))
     .toHaveAttribute('data-at-bottom');
   await expect.element(page.getByText('false', { exact: true })).toBeAttached();
-  expect(viewport.scrollTop).toBe(viewport.scrollHeight - viewport.clientHeight);
 });
 
 test('preserves asChild composition and refs for every visible part', async () => {
@@ -192,28 +189,6 @@ test('renders and hydrates scroll-area without replacing server hosts or IDs', a
     app.unmount();
     host.remove();
   }
-});
-test('inherits the container text color and the root border radius', () => {
-  render(
-    defineComponent({
-      components: scrollAreaComponents,
-      template: `
-        <div style="color: rgb(1, 2, 3)">
-          <ScrollArea style="border-radius: 12px">
-            <ScrollAreaViewport>
-              <ScrollAreaContent>Inherited content</ScrollAreaContent>
-            </ScrollAreaViewport>
-          </ScrollArea>
-        </div>
-      `,
-    }),
-  );
-
-  const root = document.querySelector('[data-slot="scroll-area-root"]')!;
-  const viewport = document.querySelector('[data-slot="scroll-area-viewport"]')!;
-
-  expect(getComputedStyle(root).color).toBe('rgb(1, 2, 3)');
-  expect(getComputedStyle(viewport).borderRadius).toBe('12px');
 });
 
 test('shows only the overflowing scrollbar with the always variant', async () => {

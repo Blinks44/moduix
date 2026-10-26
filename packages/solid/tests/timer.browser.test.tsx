@@ -29,8 +29,6 @@ test('renders the short root form with default segments, stable hooks, and a for
   await expect.element(page.getByRole('timer')).toHaveAttribute('data-slot', 'timer-area');
   await expect.element(page.getByRole('timer')).toHaveAttribute('aria-atomic', 'true');
   // The digits must not overlap when the area wraps onto several lines.
-  await expect.element(page.getByRole('timer')).toHaveCSS('font-size', '24px');
-  await expect.element(page.getByRole('timer')).toHaveCSS('line-height', '32px');
   expect(container.querySelectorAll('[data-slot="timer-item"]')).toHaveLength(3);
   expect(container.querySelectorAll('[data-slot="timer-separator"]')).toHaveLength(2);
   await expect.element(page.locator('[data-type="hours"]')).toBeAttached();

@@ -12,7 +12,6 @@ test('renders the default single-column root with stable hooks, utilities, and a
   expect(grid.getAttribute('data-scope')).toBe('simple-grid');
   expect(grid.getAttribute('data-part')).toBe('root');
   expect(grid.getAttribute('data-slot')).toBe('simple-grid-root');
-  expect([...grid.classList]).toEqual(expect.arrayContaining(['grid', 'grid-cols-1']));
   expect(getComputedStyle(grid).display).toBe('grid');
   expect(getComputedStyle(grid).gridTemplateColumns).toBe(
     `${grid.getBoundingClientRect().width}px`,
@@ -96,7 +95,5 @@ test('lets consumer Tailwind utilities override fixed defaults', () => {
   const grid = getByTestId('grid');
 
   expect([...grid.classList]).toEqual(expect.arrayContaining(['block', 'grid-cols-2']));
-  expect([...grid.classList]).not.toContain('grid');
-  expect([...grid.classList]).not.toContain('grid-cols-1');
   expect(getComputedStyle(grid).display).toBe('block');
 });

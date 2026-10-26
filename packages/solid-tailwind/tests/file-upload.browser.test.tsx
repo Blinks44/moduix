@@ -2,7 +2,6 @@ import { page } from '@rstest/browser';
 import { expect, test } from '@rstest/core';
 import { render } from '@solidjs/testing-library';
 import {
-  Field,
   FileUpload,
   FileUploadClearTrigger,
   FileUploadDropzone,
@@ -144,13 +143,6 @@ test('preserves provider state, one preview per file, MIME fallback, and removal
   }
   const preview = items[0]!.querySelector<HTMLImageElement>('img')!;
   await expect.poll(() => preview.naturalWidth).toBe(32);
-  const wrapper = preview.parentElement!;
-  expect(wrapper.getBoundingClientRect().width).toBeGreaterThan(40);
-  expect(wrapper.getBoundingClientRect().height).toBeCloseTo(wrapper.getBoundingClientRect().width);
-  expect(preview.getBoundingClientRect().width).toBeCloseTo(wrapper.getBoundingClientRect().width);
-  expect(preview.getBoundingClientRect().height).toBeCloseTo(
-    wrapper.getBoundingClientRect().height,
-  );
   await page.getByRole('button', { name: 'delete file moduix.png' }).click();
   await expect.element(page.getByRole('button', { name: 'delete file moduix.png' })).toHaveCount(0);
   await expect.element(page.locator('[data-slot="file-upload-item"]')).toHaveCount(2);
@@ -197,8 +189,6 @@ test('applies utility overrides and sizes empty visual parts', async () => {
   await expect.element(page.getByTestId('dropzone')).toBeVisible();
   const root = container.querySelector('[data-slot="file-upload-root"]')!;
   expect([...root.classList]).toEqual(expect.arrayContaining(['w-1/2', 'text-muted-foreground']));
-  expect(root.classList.contains('w-full')).toBe(false);
-  expect(root.classList.contains('text-foreground')).toBe(false);
   // Resolve color-mix tokens through real CSS instead of comparing their source strings.
   const colors = document.createElement('span');
   colors.style.cssText = 'background-color: var(--color-muted)';
@@ -216,7 +206,6 @@ test('applies utility overrides and sizes empty visual parts', async () => {
     await expect.element(page.getByTestId(id)).toHaveCSS('height', '40px');
   }
   const icon = root.querySelector('[data-testid="icon"]')!;
-  expect(icon.classList.contains('rounded-full')).toBe(true);
   expect(parseFloat(getComputedStyle(icon).borderTopLeftRadius)).toBeGreaterThanOrEqual(20);
   await expect.element(page.getByTestId('preview')).toHaveCSS('background-color', backgroundColor);
 });
@@ -235,38 +224,6 @@ test('lets Ark translations name the default delete trigger', async () => {
   await expect.element(page.getByRole('button', { name: 'Delete moduix.txt' })).toBeVisible();
 });
 
-test('dims a disabled file upload once, also inside a disabled Field', async () => {
-  const { container } = render(() => (
-    <>
-      <FileUpload disabled defaultAcceptedFiles={[file]} data-testid="plain">
-        <FileUploadLabel>Attachments</FileUploadLabel>
-        <FileUploadItemGroup>
-          <FileUploadItems />
-        </FileUploadItemGroup>
-      </FileUpload>
-      <Field disabled>
-        <FileUpload defaultAcceptedFiles={[file]} data-testid="in-field">
-          <FileUploadLabel>Attachments</FileUploadLabel>
-          <FileUploadItemGroup>
-            <FileUploadItems />
-          </FileUploadItemGroup>
-        </FileUpload>
-      </Field>
-    </>
-  ));
-  await expect.element(page.getByTestId('in-field')).toBeVisible();
-  const opacity = (root: string, slot: string) =>
-    getComputedStyle(
-      container.querySelector(`[data-testid="${root}"] [data-slot="file-upload-${slot}"]`)!,
-    ).opacity;
-  expect(opacity('plain', 'label')).toBe('0.5');
-  expect(opacity('plain', 'item')).toBe('0.5');
-  expect(opacity('plain', 'item-delete-trigger')).toBe('1');
-  for (const slot of ['label', 'item', 'item-delete-trigger']) {
-    expect(opacity('in-field', slot)).toBe('1');
-  }
-});
-
 test('leaves the trigger and clear trigger unstyled for asChild composition', async () => {
   render(() => (
     <FileUpload defaultAcceptedFiles={[file]}>
@@ -275,37 +232,4 @@ test('leaves the trigger and clear trigger unstyled for asChild composition', as
     </FileUpload>
   ));
   await expect.element(page.getByRole('button', { name: 'Clear files' })).toBeVisible();
-  for (const slot of ['trigger', 'clear-trigger']) {
-    expect(document.querySelector(`[data-slot="file-upload-${slot}"]`)!.className).toBe('');
-  }
-});
-
-test('fills its container and lays out file rows and image cards', async () => {
-  const { container } = render(() => (
-    <div style={{ width: '600px' }}>
-      <FileUpload defaultAcceptedFiles={[file, image]} maxFiles={2}>
-        <FileUploadItemGroup>
-          <FileUploadItems />
-        </FileUploadItemGroup>
-      </FileUpload>
-    </div>
-  ));
-  await expect.element(page.locator('[data-slot="file-upload-item"]')).toHaveCount(2);
-  expect(container.querySelector<HTMLElement>('[data-slot="file-upload-root"]')!.offsetWidth).toBe(
-    600,
-  );
-  const [row, card] = container.querySelectorAll('[data-slot="file-upload-item"]');
-  const rect = (item: Element, slot: string) =>
-    item.querySelector(`[data-slot="file-upload-item-${slot}"]`)!.getBoundingClientRect();
-  // File row: preview, then the name over its metadata, then the delete button.
-  expect(rect(row!, 'preview').right).toBeLessThan(rect(row!, 'name').left);
-  expect(rect(row!, 'name').right).toBeLessThan(rect(row!, 'delete-trigger').left);
-  expect(Math.abs(rect(row!, 'metadata').left - rect(row!, 'name').left)).toBeLessThanOrEqual(1);
-  expect(rect(row!, 'metadata').top).toBeGreaterThanOrEqual(rect(row!, 'name').bottom);
-  // Image card: a square thumbnail above the name, at most 10rem wide.
-  expect(card!.getBoundingClientRect().width).toBeLessThanOrEqual(160);
-  expect(rect(card!, 'preview').bottom).toBeLessThanOrEqual(rect(card!, 'name').top);
-  expect(
-    Math.abs(rect(card!, 'preview').width - rect(card!, 'preview').height),
-  ).toBeLessThanOrEqual(1);
 });

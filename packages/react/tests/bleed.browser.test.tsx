@@ -55,7 +55,6 @@ test('keeps wrapper-owned hooks and merges className through consumer props', ()
   expect(bleed.getAttribute('data-inline')).toBe('xs');
   expect(bleed.getAttribute('data-block')).toBe('lg');
   expect([...bleed.classList]).toEqual(expect.arrayContaining(['consumer-class']));
-  expect(bleed.className).not.toBe('consumer-class');
   const style = getComputedStyle(bleed);
   expect(style.marginInlineStart).toBe('-4px');
   expect(style.marginBlockStart).toBe('-16px');

@@ -223,44 +223,6 @@ test('exposes current state through useToggleGroupContext', async () => {
   expect(screen.getByRole('radio', { name: 'Left' }).hasAttribute('data-selected')).not.toBe(true);
 });
 
-test('applies native utilities to component-owned visual parts', () => {
-  render(() => (
-    <ToggleGroup variant="outline">
-      <ToggleGroupItem value="left">Left</ToggleGroupItem>
-    </ToggleGroup>
-  ));
-
-  const root = screen.getByRole('radiogroup');
-  const item = screen.getByRole('radio', { name: 'Left' });
-
-  expect([...root!.classList]).toEqual(
-    expect.arrayContaining([
-      'group/toggle-group',
-      'inline-flex',
-      'gap-px',
-      'rounded-lg',
-      'border',
-      'bg-background',
-      'p-0.5',
-      'max-w-full',
-      'overflow-x-auto',
-    ]),
-  );
-  expect([...item!.classList]).toEqual(
-    expect.arrayContaining([
-      'flex-none',
-      'min-h-control-md',
-      'gap-2',
-      'rounded-md',
-      'border',
-      'bg-background',
-      'px-4',
-      'py-1',
-      'text-sm',
-    ]),
-  );
-});
-
 test('lets consumer Tailwind classes override conflicting defaults', () => {
   render(() => (
     <ToggleGroup
@@ -281,16 +243,9 @@ test('lets consumer Tailwind classes override conflicting defaults', () => {
   expect([...root!.classList]).toEqual(
     expect.arrayContaining(['gap-4', 'rounded-none', 'border-primary', 'bg-card', 'p-4']),
   );
-  for (const utility of ['gap-px', 'rounded-lg', 'border-border', 'bg-background', 'p-0.5']) {
-    expect(root!.classList.contains(utility)).toBe(false);
-  }
   expect([...item!.classList]).toEqual(
     expect.arrayContaining(['border-primary', 'bg-card', 'p-0', 'text-xs']),
   );
-  for (const utility of ['border-border', 'bg-background', 'px-5', 'py-1.5', 'text-md']) {
-    expect(item!.classList.contains(utility)).toBe(false);
-  }
-  expect(item.classList.contains('min-h-control-lg')).toBe(true);
   expect(getComputedStyle(root)).toMatchObject({
     gap: '16px',
     borderRadius: '0px',

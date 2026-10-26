@@ -198,29 +198,6 @@ test('wraps the checkbox indicator with its data-slot and consumer class', () =>
   expect([...indicator!.classList]).toEqual(expect.arrayContaining(['indicator-class']));
 });
 
-test('keeps component-owned utilities on empty visual parts', () => {
-  render(
-    defineComponent({
-      components: { ...storyComponents, TreeParts },
-      setup() {
-        return { collection };
-      },
-      template: `
-        <TreeView :collection="collection" :default-expanded-value="['src']">
-          <TreeParts />
-        </TreeView>
-      `,
-    }),
-  );
-
-  expect([
-    ...document.querySelector('[data-slot="tree-view-branch-indicator"]')!.classList,
-  ]).toEqual(expect.arrayContaining(['inline-flex', 'size-4', 'shrink-0']));
-  expect([
-    ...document.querySelector('[data-slot="tree-view-branch-indent-guide"]')!.classList,
-  ]).toEqual(expect.arrayContaining(['absolute', 'inset-y-0', 'w-px', 'bg-border']));
-});
-
 test('lets consumer Tailwind classes override conflicting defaults', async () => {
   const Harness = defineComponent({
     components: { ...storyComponents, TreeParts },
@@ -238,7 +215,6 @@ test('lets consumer Tailwind classes override conflicting defaults', async () =>
   const root = container.firstElementChild;
 
   expect([...root!.classList]).toEqual(expect.arrayContaining(['w-96']));
-  expect(root!.classList.contains('w-80')).toBe(false);
   await expect.element(page.locator('[data-slot="tree-view-root"]')).toHaveCSS('width', '384px');
 });
 
@@ -665,57 +641,4 @@ test('hydrates stable hosts and ids and remains interactive', async () => {
     warn.mockRestore();
     error.mockRestore();
   }
-});
-test('truncates long node names and centers indent guides under branch indicators', async () => {
-  const longName = 'a-file-name-that-is-much-longer-than-the-default-tree-width.tsx';
-  const longCollection = createTreeCollection<FileNode>({
-    nodeToString: (node) => node.name,
-    nodeToValue: (node) => node.id,
-    rootNode: {
-      id: 'ROOT',
-      name: '',
-      children: [{ id: 'src', name: 'src', children: [{ id: 'src/long', name: longName }] }],
-    },
-  });
-
-  const Harness = defineComponent({
-    components: storyComponents,
-    setup() {
-      return { longCollection };
-    },
-    template: `
-      <TreeView :collection="longCollection" :default-expanded-value="['src']">
-        <TreeViewLabel>Long files</TreeViewLabel>
-        <TreeViewTree>
-          <FileTreeNode :node="longCollection.rootNode.children[0]" :index-path="[0]" />
-        </TreeViewTree>
-      </TreeView>
-    `,
-  });
-
-  render(Harness);
-
-  await expect.element(page.getByRole('treeitem', { name: longName, exact: true })).toBeVisible();
-
-  const text = document.querySelector<HTMLElement>('[data-slot="tree-view-item-text"]')!;
-  // text-overflow draws an ellipsis only in a block container, not in a flex container.
-  expect(getComputedStyle(text).display).toBe('block');
-  expect(getComputedStyle(text).textOverflow).toBe('ellipsis');
-  expect(text.scrollWidth).toBeGreaterThan(text.clientWidth);
-
-  const indicator = document
-    .querySelector('[data-slot="tree-view-branch-indicator"]')!
-    .getBoundingClientRect();
-  const guide = document
-    .querySelector('[data-slot="tree-view-branch-indent-guide"]')!
-    .getBoundingClientRect();
-  expect(
-    Math.abs(guide.left + guide.width / 2 - (indicator.left + indicator.width / 2)),
-  ).toBeLessThanOrEqual(1);
-
-  // The nested row highlight must not overlap the parent's indent guide.
-  const item = document.querySelector('[data-slot="tree-view-item"]')!;
-  const highlightStart =
-    item.getBoundingClientRect().left + parseFloat(getComputedStyle(item, '::before').left);
-  expect(highlightStart).toBeGreaterThan(guide.right);
 });

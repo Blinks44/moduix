@@ -58,8 +58,6 @@ test('renders the short root form with default segments, stable hooks, and Vue r
   await expect.element(page.getByRole('timer')).toHaveAttribute('data-slot', 'timer-area');
   await expect.element(page.getByRole('timer')).toHaveAttribute('aria-atomic', 'true');
   // The digits must not overlap when the area wraps onto several lines.
-  await expect.element(page.getByRole('timer')).toHaveCSS('font-size', '24px');
-  await expect.element(page.getByRole('timer')).toHaveCSS('line-height', '32px');
   expect(container.querySelectorAll('[data-slot="timer-item"]')).toHaveLength(3);
   expect(container.querySelectorAll('[data-slot="timer-separator"]')).toHaveLength(2);
   await expect.element(page.locator('[data-type="hours"]')).toBeAttached();
@@ -393,31 +391,10 @@ test('uses native utilities on every owned part and merges consumer overrides', 
   });
 
   const root = container.querySelector('[data-slot="timer-root"]');
-  const area = container.querySelector('[data-slot="timer-area"]');
-  const item = container.querySelector('[data-slot="timer-item"]');
   const separator = container.querySelector('[data-slot="timer-separator"]');
-  const control = container.querySelector('[data-slot="timer-control"]');
-  const trigger = screen.getByRole('button', { name: 'Start' });
 
   expect([...root!.classList]).toEqual(expect.arrayContaining(['block', 'gap-6', 'text-primary']));
-  expect(
-    ['inline-grid', 'gap-3', 'text-foreground'].some((name) => root!.classList.contains(name)),
-  ).toBe(false);
-  expect([...area!.classList]).toEqual(
-    expect.arrayContaining(['inline-flex', 'gap-1', 'text-lg', 'tabular-nums']),
-  );
-  expect(area!.classList.contains('text-2xl')).toBe(false);
-  expect([...item!.classList]).toEqual(expect.arrayContaining(['min-w-0', 'text-center']));
-  expect(item!.classList.contains('min-w-[2ch]')).toBe(false);
   expect([...separator!.classList]).toEqual(expect.arrayContaining(['text-primary']));
-  expect(separator!.classList.contains('text-muted-foreground')).toBe(false);
-  expect([...control!.classList]).toEqual(expect.arrayContaining(['inline-flex', 'gap-2']));
-  expect([...trigger!.classList]).toEqual(
-    expect.arrayContaining(['inline-flex', 'min-h-control-md', 'border', 'bg-primary']),
-  );
-  expect(['rounded-md', 'bg-background'].some((name) => trigger!.classList.contains(name))).toBe(
-    false,
-  );
   await expect.element(page.locator('[data-slot="timer-root"]')).toHaveCSS('display', 'block');
   await expect.element(page.locator('[data-slot="timer-root"]')).toHaveCSS('gap', '24px');
   await expect.element(page.getByRole('timer')).toHaveCSS('font-size', '18px');

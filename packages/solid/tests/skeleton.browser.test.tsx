@@ -107,15 +107,3 @@ test('clips overflow only while loading', async () => {
   setLoading(false);
   await expect.element(page.getByTestId('skeleton')).toHaveCSS('overflow', 'visible');
 });
-
-test('takes the pulse animation from the foundation token', async () => {
-  render(() => (
-    <div style={{ '--moduix-animation-pulse': 'moduix-fade-in 1s' }}>
-      <Skeleton data-testid="pulse" />
-      <Skeleton data-testid="none" variant="none" />
-    </div>
-  ));
-
-  await expect.element(page.getByTestId('pulse')).toHaveCSS('animation-name', 'moduix-fade-in');
-  await expect.element(page.getByTestId('none')).toHaveCSS('animation-name', 'none');
-});

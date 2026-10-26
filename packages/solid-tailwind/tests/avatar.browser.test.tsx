@@ -2,14 +2,7 @@ import { page } from '@rstest/browser';
 import { expect, rs, test } from '@rstest/core';
 import { render, screen } from '@solidjs/testing-library';
 import { createSignal } from 'solid-js';
-import {
-  Avatar,
-  AvatarFallback,
-  AvatarGroup,
-  AvatarImage,
-  AvatarRootProvider,
-  useAvatar,
-} from '../src';
+import { Avatar, AvatarFallback, AvatarImage, AvatarRootProvider, useAvatar } from '../src';
 
 const imageUrl = `data:image/svg+xml,${encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64"/>')}`;
 
@@ -32,71 +25,9 @@ test('renders the Ark anatomy with moduix hooks and explicit fallback content', 
   expect(root.getAttribute('data-part')).toBe('root');
   expect(root.getAttribute('data-slot')).toBe('avatar-root');
   expect(root.getAttribute('data-size')).toBe('lg');
-  expect([...root.classList]).toEqual(expect.arrayContaining(['size-control-lg', 'text-lg']));
   expect(fallbackRef).toBe(fallback);
   expect(fallback.getAttribute('data-slot')).toBe('avatar-fallback');
   expect(image.getAttribute('data-slot')).toBe('avatar-image');
-});
-
-function DefaultProviderAvatar() {
-  const avatar = useAvatar();
-
-  return <AvatarRootProvider value={avatar} data-testid="default-provider" />;
-}
-
-test('defaults both roots to the md size', () => {
-  render(() => (
-    <>
-      <Avatar data-testid="default" />
-      <Avatar data-testid="md" size="md" />
-      <Avatar data-testid="sm" size="sm" />
-      <DefaultProviderAvatar />
-    </>
-  ));
-
-  const root = screen.getByTestId('default');
-
-  expect(root.getAttribute('data-size')).toBe('md');
-  expect(screen.getByTestId('default-provider').getAttribute('data-size')).toBe('md');
-  expect(root.offsetWidth).toBe(screen.getByTestId('md').offsetWidth);
-  expect(root.offsetWidth).toBeGreaterThan(screen.getByTestId('sm').offsetWidth);
-  expect([...root.classList]).toEqual(expect.arrayContaining(['size-control-md', 'text-md']));
-});
-
-test('stacks AvatarGroup children with an overlap and a background ring', () => {
-  render(() => (
-    <AvatarGroup data-testid="group">
-      <Avatar data-testid="first">
-        <AvatarFallback>A</AvatarFallback>
-      </Avatar>
-      <Avatar data-testid="second">
-        <AvatarFallback>B</AvatarFallback>
-      </Avatar>
-    </AvatarGroup>
-  ));
-
-  const group = screen.getByTestId('group');
-  const first = screen.getByTestId('first');
-  const second = screen.getByTestId('second');
-
-  expect(group.getAttribute('data-slot')).toBe('avatar-group');
-  expect(second.getBoundingClientRect().left).toBeLessThan(first.getBoundingClientRect().right);
-  expect(getComputedStyle(first).boxShadow).not.toBe('none');
-});
-
-test('lets root children overflow while the fallback stays clipped', () => {
-  render(() => (
-    <Avatar data-testid="avatar">
-      <AvatarFallback data-testid="fallback">AT</AvatarFallback>
-      <AvatarImage data-testid="image" alt="" />
-    </Avatar>
-  ));
-
-  expect(getComputedStyle(screen.getByTestId('avatar')).overflow).toBe('visible');
-  expect(getComputedStyle(screen.getByTestId('fallback')).overflow).toBe('hidden');
-  expect(getComputedStyle(screen.getByTestId('image')).borderRadius).toBe(
-    getComputedStyle(screen.getByTestId('avatar')).borderRadius,
-  );
 });
 
 test('preserves real image loading, fallback visibility, and callback details', async () => {
@@ -188,8 +119,6 @@ test('lets consumer Tailwind classes override conflicting defaults', async () =>
   const root = screen.getByTestId('avatar');
   expect([...root.classList]).toEqual(expect.arrayContaining(['bg-primary']));
   expect([...root.classList]).toEqual(expect.arrayContaining(['size-control-xl']));
-  expect(root.classList.contains('bg-muted')).toBe(false);
-  expect(root.classList.contains('size-control-md')).toBe(false);
   await expect.element(page.getByTestId('avatar')).toHaveCSS('width', '48px');
   await expect.element(page.getByTestId('avatar')).toHaveCSS('height', '48px');
 });

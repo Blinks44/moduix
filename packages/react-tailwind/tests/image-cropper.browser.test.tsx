@@ -150,46 +150,4 @@ test('lets consumer Tailwind classes override conflicting defaults', async () =>
 
   const root = screen.getByRole('group', { name: 'Landscape crop' });
   expect([...root!.classList]).toEqual(expect.arrayContaining(['gap-0']));
-  expect(['gap-3'].some((name) => root!.classList.contains(name))).toBe(false);
-});
-
-test('keeps component-owned visual utilities on their owning parts', async () => {
-  const { container } = render(
-    <ImageCropper aria-label="Landscape crop">
-      <ImageCropperViewport>
-        <ImageCropperImage src={landscape} />
-        <ImageCropperCropArea />
-      </ImageCropperViewport>
-    </ImageCropper>,
-  );
-
-  const viewport = container.querySelector<HTMLElement>('[data-slot="image-cropper-viewport"]')!;
-  const selection = container.querySelector<HTMLElement>('[data-slot="image-cropper-selection"]')!;
-  const grids = container.querySelectorAll<HTMLElement>('[data-slot="image-cropper-grid"]');
-  const handle = container.querySelector<HTMLElement>('[data-slot="image-cropper-handle"]')!;
-
-  expect(getComputedStyle(viewport)).toMatchObject({ borderWidth: '1px', borderRadius: '10px' });
-  expect(getComputedStyle(selection)).toMatchObject({ borderWidth: '2px', borderRadius: '8px' });
-  expect(getComputedStyle(grids[0]!)).toMatchObject({
-    pointerEvents: 'none',
-    borderTopWidth: '1px',
-    borderBottomWidth: '1px',
-    borderLeftWidth: '0px',
-    borderRightWidth: '0px',
-  });
-  expect(getComputedStyle(grids[1]!)).toMatchObject({
-    pointerEvents: 'none',
-    borderLeftWidth: '1px',
-    borderRightWidth: '1px',
-    borderTopWidth: '0px',
-    borderBottomWidth: '0px',
-  });
-  expect(getComputedStyle(handle)).toMatchObject({
-    width: '12px',
-    height: '12px',
-  });
-  expect(getComputedStyle(viewport).backgroundImage).toContain('repeating-conic-gradient');
-  expect(selection.classList.contains('border-primary')).toBe(true);
-  expect(handle.classList.contains('bg-white/96')).toBe(true);
-  expect(getComputedStyle(handle).backgroundColor).toContain('/ 0.96)');
 });

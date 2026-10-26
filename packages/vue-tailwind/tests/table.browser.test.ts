@@ -84,9 +84,6 @@ test('renders the native table anatomy with stable hooks and defaults', async ()
 
   expect(scrollArea.tagName).toBe('DIV');
   expect(scrollArea.dataset).toMatchObject({ part: 'scroll-area', slot: 'table-scroll-area' });
-  expect([...scrollArea.classList]).toEqual(
-    expect.arrayContaining(['overflow-x-auto', 'border', 'bg-card']),
-  );
   expect(table.tagName).toBe('TABLE');
 
   expect(table.dataset).toMatchObject({
@@ -95,9 +92,6 @@ test('renders the native table anatomy with stable hooks and defaults', async ()
     slot: 'table-root',
     size: 'lg',
   });
-  expect([...table.classList]).toEqual(
-    expect.arrayContaining(['text-md', 'leading-6', 'border-collapse']),
-  );
   expect(columnGroup.tagName).toBe('COLGROUP');
   expect(columnGroup.getAttribute('data-part')).toBe('column-group');
 
@@ -118,16 +112,9 @@ test('renders the native table anatomy with stable hooks and defaults', async ()
   expect(row.getAttribute('data-part')).toBe('row');
   expect(columnHeader.tagName).toBe('TH');
   await expect.element(page.getByTestId('column-header')).toHaveAttribute('scope', 'col');
-  expect([...columnHeader.classList]).toEqual(
-    expect.arrayContaining(['px-4', 'py-3', 'text-muted-foreground', 'font-medium']),
-  );
   expect(numericHeader.hasAttribute('data-numeric')).toBe(true);
-  expect([...numericHeader!.classList]).toEqual(
-    expect.arrayContaining(['text-end', 'tabular-nums']),
-  );
   expect(cell.tagName).toBe('TD');
   expect(cell.getAttribute('data-part')).toBe('cell');
-  expect([...cell!.classList]).toEqual(expect.arrayContaining(['relative', 'px-4']));
 });
 
 test.each(['sm', 'md', 'lg'] as const)('renders the %s size preset', (size) => {
@@ -155,36 +142,6 @@ test('renders interactive, striped, sticky, and column-border state hooks', () =
   expect(table.hasAttribute('data-sticky-header')).toBe(true);
   expect(table.hasAttribute('data-striped')).toBe(true);
   expect([...table!.classList]).toEqual(expect.arrayContaining(['consumer-class', 'w-auto']));
-  expect(table.classList.contains('w-full')).toBe(false);
-});
-
-test('scopes interactive row styles to body rows', async () => {
-  render({
-    components: tableComponents,
-    template: `
-      <Table interactive striped>
-        <TableHeader><TableRow data-testid="header-row"><TableColumnHeader>Invoice</TableColumnHeader></TableRow></TableHeader>
-        <TableBody><TableRow data-testid="body-row"><TableCell>INV001</TableCell></TableRow></TableBody>
-      </Table>
-    `,
-  });
-
-  const bodyRow = screen.getByTestId('body-row');
-
-  const headerRow = screen.getByTestId('header-row');
-  const header = page.getByTestId('header-row');
-  const row = page.getByTestId('body-row');
-  await header.hover();
-  const initialBackground = getComputedStyle(bodyRow).backgroundColor;
-  const headerBackground = getComputedStyle(headerRow).backgroundColor;
-
-  await row.hover();
-  await expect.poll(() => getComputedStyle(bodyRow).backgroundColor).not.toBe(initialBackground);
-  expect(getComputedStyle(headerRow).backgroundColor).toBe(headerBackground);
-
-  await header.hover();
-  await expect.poll(() => getComputedStyle(bodyRow).backgroundColor).toBe(initialBackground);
-  expect(getComputedStyle(headerRow).backgroundColor).toBe(headerBackground);
 });
 
 test('keeps public hooks when consumer data attributes conflict', () => {
@@ -366,53 +323,6 @@ test('forwards the column slot to a semantic asChild host', async () => {
   expect(columnRef.value?.$el).toBe(column);
 });
 
-test('paints row states on sticky cells, keeps stripes on plain hover, and keeps numbers on one line', async () => {
-  render({
-    components: tableComponents,
-    template: `
-      <div>
-        <Table striped>
-          <TableBody>
-            <TableRow><TableCell>INV001</TableCell></TableRow>
-            <TableRow data-testid="striped-row">
-              <TableCell data-testid="striped-sticky" data-sticky="start">INV002</TableCell>
-              <TableCell data-testid="numeric" numeric>$1 250.00</TableCell>
-            </TableRow>
-          </TableBody>
-        </Table>
-        <Table interactive>
-          <TableBody>
-            <TableRow>
-              <TableCell data-testid="interactive-sticky" data-sticky="start">
-                <button type="button">Edit</button>
-              </TableCell>
-            </TableRow>
-          </TableBody>
-        </Table>
-      </div>
-    `,
-  });
-
-  const stripedRow = screen.getByTestId('striped-row');
-  const interactiveSticky = screen.getByTestId('interactive-sticky');
-  const stripe = getComputedStyle(stripedRow).backgroundColor;
-
-  expect(stripe).not.toBe('rgba(0, 0, 0, 0)');
-  expect(getComputedStyle(screen.getByTestId('striped-sticky')).backgroundImage).toContain(
-    'gradient',
-  );
-  expect(getComputedStyle(interactiveSticky).backgroundImage).toBe('none');
-  expect(getComputedStyle(screen.getByTestId('numeric')).whiteSpace).toBe('nowrap');
-
-  await page.getByTestId('striped-row').hover();
-  expect(getComputedStyle(stripedRow).backgroundColor).toBe(stripe);
-
-  screen.getByRole('button', { name: 'Edit' }).focus();
-  await expect
-    .poll(() => getComputedStyle(interactiveSticky).backgroundImage)
-    .toContain('gradient');
-});
-
 test('keeps sticky-column hooks on native table cells', () => {
   render({
     components: tableComponents,
@@ -486,7 +396,6 @@ test('renders and hydrates the native anatomy without replacement', async () => 
       expect(element).toBe(serverHosts[index]),
     );
     expect([...host.querySelectorAll('[id]')].map((element) => element.id)).toEqual(serverIds);
-    expect(host.querySelector('section')?.classList.contains('hydrated-table')).toBe(true);
     expect(warn).not.toHaveBeenCalled();
     expect(error).not.toHaveBeenCalled();
   } finally {

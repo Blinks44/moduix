@@ -137,7 +137,7 @@ test('forwards mark attrs and native listeners to every matched segment', async 
 
   expect(marks).toHaveLength(2);
   for (const [index, mark] of marks.entries()) {
-    expect([...mark.classList]).toEqual(expect.arrayContaining(['custom-highlight']));
+    expect(mark.classList.contains('custom-highlight')).toBe(true);
     expect(mark.getAttribute('title')).toBe('Matched query');
     expect(getComputedStyle(mark).color).toBe('rgb(255, 0, 0)');
     await page.getByTestId('highlight').nth(index).click();

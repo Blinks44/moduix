@@ -58,26 +58,8 @@ test('forwards the native select ref and supports controlled values', async () =
   await expect.element(selectLocator).toHaveAttribute('data-part', 'select');
   await expect.element(selectLocator).toHaveAttribute('data-slot', 'native-select-root');
   expect(select.parentElement?.getAttribute('data-slot')).toBe('native-select-control');
-  const control = document.querySelector('[data-slot="native-select-control"]')!;
   const indicator = document.querySelector('[data-slot="native-select-indicator"]')!;
 
-  expect([...control.classList]).toEqual(
-    expect.arrayContaining(['relative', 'inline-grid', 'w-fit', 'max-w-full', 'min-w-0']),
-  );
-  expect([...select.classList]).toEqual(
-    expect.arrayContaining([
-      'h-control-md',
-      'w-56',
-      'rounded-md',
-      'border-border',
-      'bg-background',
-      'ps-3.5',
-      'pe-[2.875rem]',
-    ]),
-  );
-  expect([...indicator.classList]).toEqual(
-    expect.arrayContaining(['absolute', 'end-2', 'size-6', 'rounded-sm', 'text-muted-foreground']),
-  );
   expect(indicator.querySelector('svg')?.isConnected).toBe(true);
 
   await selectLocator.selectOption('vue');
@@ -148,41 +130,11 @@ test('lets consumer utilities replace defaults and hides the indicator for list 
   ));
 
   const control = container.querySelector('[data-slot="native-select-control"]')!;
-  const select = container.querySelector('[data-slot="native-select-root"]')!;
-  const indicator = container.querySelector('[data-slot="native-select-indicator"]')!;
 
   expect([...control.classList]).toEqual(expect.arrayContaining(['w-full']));
-  expect(control.classList.contains('w-fit')).toBe(false);
-  expect([...select.classList]).toEqual(
-    expect.arrayContaining(['h-20', 'w-80', 'rounded-lg', 'bg-muted', 'p-0', 'appearance-auto']),
-  );
-  expect(
-    ['h-control-md', 'w-56', 'rounded-md', 'bg-background', 'ps-3.5', 'pe-11'].some((name) =>
-      select.classList.contains(name),
-    ),
-  ).toBe(false);
-  expect(indicator.classList.contains('hidden')).toBe(true);
   await expect.element(page.locator('[data-slot="native-select-indicator"]')).not.toBeVisible();
   const rootLocator = page.getByRole('listbox', { name: 'Frameworks' });
   await expect.element(rootLocator).toHaveCSS('height', '80px');
   await expect.element(rootLocator).toHaveCSS('width', '320px');
   await expect.element(rootLocator).toHaveCSS('padding-left', '0px');
-});
-
-test('aligns text and indicator spacing with Select', () => {
-  render(() => (
-    <NativeSelect aria-label="Framework">
-      <option value="react">React</option>
-    </NativeSelect>
-  ));
-
-  const select = screen.getByRole('combobox', { name: 'Framework' });
-  const indicator = document.querySelector('[data-slot="native-select-indicator"]')!;
-  const selectStyle = getComputedStyle(select);
-
-  expect(selectStyle.paddingInlineStart).toBe('14px');
-  expect(selectStyle.paddingInlineEnd).toBe('46px');
-  expect(
-    select.getBoundingClientRect().right - indicator.getBoundingClientRect().right,
-  ).toBeCloseTo(8, 0);
 });

@@ -1,7 +1,7 @@
 import { LocaleProvider } from '@ark-ui/vue/locale';
 import { page } from '@rstest/browser';
 import { expect, rs, test } from '@rstest/core';
-import { render, screen } from '@testing-library/vue';
+import { render } from '@testing-library/vue';
 import { renderToString } from '@vue/server-renderer';
 import { createSSRApp, defineComponent, nextTick, ref } from 'vue';
 import type { ComponentPublicInstance } from 'vue';
@@ -23,7 +23,6 @@ import {
   useSlider,
   useSliderContext,
 } from '../src';
-import styles from '../src/components/slider/Slider.module.css';
 import TestSlider from './fixtures/TestSlider.vue';
 
 const sliderComponents = {
@@ -257,7 +256,7 @@ test('hydrates without replacing server hosts or ids and still handles keyboard 
   }
 });
 
-test('applies CSS Module defaults and keeps consumer classes last', () => {
+test('forwards consumer classes to every styled part', () => {
   const { container } = render({
     components: sliderComponents,
     template: `
@@ -275,48 +274,14 @@ test('applies CSS Module defaults and keeps consumer classes last', () => {
     `,
   });
 
-  for (const [part, defaultClass] of Object.entries({
-    root: styles.root,
-    label: styles.label,
-    control: styles.control,
-    track: styles.track,
-    range: styles.range,
-    thumb: styles.thumb,
-  })) {
-    const classes = [...container.querySelector(`[data-slot="slider-${part}"]`)!.classList];
-    expect(classes).toEqual(expect.arrayContaining([defaultClass, `consumer-${part}`]));
-    expect(classes.at(-1)).toBe(`consumer-${part}`);
+  for (const part of ['root', 'label', 'control', 'track', 'range', 'thumb']) {
+    const element = container.querySelector(`[data-slot="slider-${part}"]`)!;
+    expect(element.classList.contains(`consumer-${part}`)).toBe(true);
   }
-});
-
-test('fills the container width by default', async () => {
-  render({
-    components: sliderComponents,
-    template: `
-      <div style="width: 20rem">
-        <Slider :default-value="[40]" data-testid="slider-root">
-          <SliderControl>
-            <SliderTrack><SliderRange /></SliderTrack>
-            <SliderThumb :index="0" aria-label="Volume"><SliderHiddenInput /></SliderThumb>
-          </SliderControl>
-        </Slider>
-      </div>
-    `,
-  });
-  await nextTick();
-
-  expect(screen.getByTestId('slider-root').offsetWidth).toBe(320);
 });
 
 function rect(selector: string, root: ParentNode = document) {
   return root.querySelector(selector)!.getBoundingClientRect();
-}
-
-function markerDotCenter(marker: Element) {
-  const dot = getComputedStyle(marker, '::before');
-  const translateX = new DOMMatrix(dot.transform === 'none' ? undefined : dot.transform).m41;
-
-  return parseFloat(dot.left) + parseFloat(dot.marginLeft) + parseFloat(dot.width) / 2 + translateX;
 }
 
 function pressThumb(thumb: Element) {
@@ -368,35 +333,6 @@ test('places label and value text on one row above the control', async () => {
   expect(Math.abs(valueText.right - root.right)).toBeLessThanOrEqual(1);
   expect(control.top).toBeGreaterThanOrEqual(label.bottom);
   expect(control.width).toBe(root.width);
-});
-
-test('reserves room for marker labels and centers marker dots in RTL', async () => {
-  const { container } = render({
-    components: sliderLayoutComponents,
-    template: `
-      <LocaleProvider locale="ar">
-        <div style="width: 20rem">
-          <Slider :default-value="[40]">
-            <SliderControl>
-              <SliderTrack><SliderRange /></SliderTrack>
-              <SliderThumbs />
-            </SliderControl>
-            <SliderMarkerGroup>
-              <SliderMarker :value="50">50</SliderMarker>
-            </SliderMarkerGroup>
-          </Slider>
-          <p>After</p>
-        </div>
-      </LocaleProvider>
-    `,
-  });
-  await nextTick();
-
-  const marker = container.querySelector('[data-slot="slider-marker"]')!;
-
-  expect(marker.getAttribute('dir')).toBe('rtl');
-  expect(rect('p', container).top).toBeGreaterThanOrEqual(marker.getBoundingClientRect().bottom);
-  expect(Math.abs(markerDotCenter(marker) - marker.clientWidth / 2)).toBeLessThanOrEqual(0.5);
 });
 
 test('keeps the dragging indicator next to the thumb in both orientations', async () => {

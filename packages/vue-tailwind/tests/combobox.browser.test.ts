@@ -166,7 +166,6 @@ test('preserves semantic hosts with asChild and consumer utility classes', async
   );
   expect([...input.parentElement!.classList]).toEqual(expect.arrayContaining(['consumer-control']));
   expect([...input!.classList]).toEqual(expect.arrayContaining(['consumer-input']));
-  expect([...input!.classList]).toEqual(expect.arrayContaining(['h-control-md']));
   await expect.element(page.locator('[data-slot="combobox-root"]')).toHaveCSS('width', '320px');
   await expect.element(page.locator('[data-slot="combobox-input"]')).toHaveCSS('height', '36px');
 });
@@ -197,33 +196,4 @@ test('hydrates stable hosts and ids and remains interactive', async () => {
     app.unmount();
     host.remove();
   }
-});
-
-test('places a lone clear action at the inline end and reserves input space per action', async () => {
-  render(
-    defineComponent({
-      components: comboboxComponents,
-      setup() {
-        return { collection: fruits };
-      },
-      template:
-        '<div><Combobox :collection="collection" :default-value="[\'apple\']" :portalled="false"><ComboboxControl><ComboboxInput /><ComboboxClearTrigger /></ComboboxControl></Combobox><Combobox :collection="collection" :default-value="[\'apple\']" :portalled="false"><ComboboxControl><ComboboxInput /><ComboboxClearTrigger /><ComboboxTrigger aria-label="Open fruits" /></ComboboxControl></Combobox></div>',
-    }),
-  );
-  await nextTick();
-
-  const [clearOnly, both] = [
-    ...document.querySelectorAll<HTMLElement>('[data-slot="combobox-control"]'),
-  ];
-  const endGap = (control: HTMLElement) =>
-    control.getBoundingClientRect().right -
-    control.querySelector('[data-slot="combobox-clear-trigger"]')!.getBoundingClientRect().right;
-  const inputEnd = (control: HTMLElement) =>
-    getComputedStyle(control.querySelector('[data-slot="combobox-input"]')!).paddingInlineEnd;
-
-  // 1px control border + 8px action offset, then + 24px trigger + 2px gap.
-  expect(Math.abs(endGap(clearOnly!) - 9)).toBeLessThanOrEqual(1);
-  expect(Math.abs(endGap(both!) - 35)).toBeLessThanOrEqual(1);
-  expect(inputEnd(clearOnly!)).toBe('44px');
-  expect(inputEnd(both!)).toBe('70px');
 });

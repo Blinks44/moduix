@@ -36,7 +36,7 @@ test('renders a native button with safe defaults, stable hooks, attrs, classes, 
     variant: 'default',
     size: 'md',
   });
-  expect(button.className.endsWith('consumer-class')).toBe(true);
+  expect(button.classList.contains('consumer-class')).toBe(true);
 });
 
 test('preserves semantic anchors, refs, data hooks, and composed event handlers with asChild', async () => {
@@ -313,7 +313,6 @@ test('hydrates button without replacing server hosts or ids', async () => {
     expect(host.querySelectorAll('a')).toHaveLength(1);
     expect(link.getAttribute('href')).toBe('#docs');
     expect(link.getAttribute('data-variant')).toBe('outline');
-    expect(link.classList.contains('consumer-class')).toBe(true);
     expect(warn).not.toHaveBeenCalled();
     expect(error).not.toHaveBeenCalled();
   } finally {

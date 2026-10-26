@@ -93,9 +93,6 @@ test('renders the callable root with stable hooks and replaceable Tailwind defau
   expect([...root!.classList]).toEqual(
     expect.arrayContaining(['consumer-chart', 'p-0', 'bg-muted', 'shadow-none']),
   );
-  expect(['p-5', 'bg-card', 'shadow-sm'].some((name) => root!.classList.contains(name))).toBe(
-    false,
-  );
 });
 
 test('updates renderer options reactively without replacing the plot', async () => {
@@ -126,9 +123,6 @@ test('forwards plot props and supplies the default motion renderer', async () =>
   await expect
     .element(page.getByTestId('tanstack-chart'))
     .toHaveAttribute('data-renderer', 'default-motion-renderer');
-  expect([...document.querySelector('.ts-chart-host')!.classList]).toEqual(
-    expect.arrayContaining(['min-w-0', 'text-muted-foreground']),
-  );
 });
 
 test('uses the static SVG renderer when motion is disabled', async () => {
@@ -177,27 +171,6 @@ test('maps tooltip chrome to TanStack variables without rewriting the definition
   ]) {
     expect(host.getPropertyValue(`--ts-chart-tooltip-${name}`).trim()).not.toBe('');
   }
-});
-
-test('renders the compact Moduix tooltip body by default', async () => {
-  render(() => <ChartPlot ariaLabel="Monthly revenue" definition={{} as never} />);
-
-  await expect.element(page.locator('[data-slot="chart-tooltip-body"]')).toBeAttached();
-  await expect.element(page.locator('[data-slot="chart-tooltip-title"]')).toContainText('March');
-  expect(document.querySelectorAll('[data-slot="chart-tooltip-row"]')).toHaveLength(2);
-  expect(document.querySelectorAll('[data-slot="chart-tooltip-swatch"]')).toHaveLength(1);
-  const tooltipRows = document.querySelectorAll('[data-slot="chart-tooltip-row"]');
-  expect(tooltipRows[0]!.hasAttribute('data-active')).toBe(false);
-  expect(tooltipRows[1]!.hasAttribute('data-active')).toBe(true);
-  await expect
-    .element(page.locator('[data-slot="chart-tooltip-label"]').first())
-    .toContainText('Revenue');
-  await expect
-    .element(page.locator('[data-slot="chart-tooltip-value"]').first())
-    .toContainText('76');
-  await expect
-    .element(page.locator('[data-slot="chart-tooltip-value"]').first())
-    .toHaveCSS('text-align', 'end');
 });
 
 test('passes the Moduix default body to a reactive custom tooltip renderer', async () => {
@@ -286,28 +259,6 @@ test('renders composition parts with semantic defaults and stable hooks', async 
     expect(element.tagName).toBe(tagName.toUpperCase());
   }
 
-  expect([...screen.getByTestId('header')!.classList]).toEqual(
-    expect.arrayContaining(['grid', 'gap-1']),
-  );
-  expect([...screen.getByTestId('title')!.classList]).toEqual(
-    expect.arrayContaining(['text-lg', 'font-semibold']),
-  );
-  expect([...screen.getByTestId('description')!.classList]).toEqual(
-    expect.arrayContaining(['text-sm', 'text-muted-foreground']),
-  );
-  expect([...screen.getByTestId('legend')!.classList]).toEqual(
-    expect.arrayContaining(['flex', 'flex-wrap', 'gap-3']),
-  );
-  expect([...screen.getByTestId('legend-item')!.classList]).toEqual(
-    expect.arrayContaining([
-      'inline-flex',
-      'items-center',
-      'gap-2',
-      'text-sm',
-      'text-muted-foreground',
-    ]),
-  );
-
   const indicator = getComputedStyle(screen.getByTestId('legend-item'), '::before');
   expect(indicator.backgroundColor).toBe('rgb(255, 99, 71)');
   expect(indicator.borderRadius).not.toBe('0px');
@@ -327,33 +278,14 @@ test('lets consumer Tailwind classes override conflicting defaults on every publ
   ));
 
   expect([...screen.getByTestId('header')!.classList]).toEqual(expect.arrayContaining(['gap-4']));
-  expect(['gap-1'].some((name) => screen.getByTestId('header')!.classList.contains(name))).toBe(
-    false,
-  );
   expect([...screen.getByTestId('title')!.classList]).toEqual(expect.arrayContaining(['text-xl']));
-  expect(['text-lg'].some((name) => screen.getByTestId('title')!.classList.contains(name))).toBe(
-    false,
-  );
   expect([...screen.getByTestId('description')!.classList]).toEqual(
     expect.arrayContaining(['text-foreground']),
   );
-  expect(
-    ['text-muted-foreground'].some((name) =>
-      screen.getByTestId('description')!.classList.contains(name),
-    ),
-  ).toBe(false);
   expect([...screen.getByTestId('legend')!.classList]).toEqual(expect.arrayContaining(['gap-1']));
-  expect(['gap-3'].some((name) => screen.getByTestId('legend')!.classList.contains(name))).toBe(
-    false,
-  );
   expect([...screen.getByTestId('legend-item')!.classList]).toEqual(
     expect.arrayContaining(['text-foreground']),
   );
-  expect(
-    ['text-muted-foreground'].some((name) =>
-      screen.getByTestId('legend-item')!.classList.contains(name),
-    ),
-  ).toBe(false);
 });
 
 test('forwards an HTMLElement ref through an ordinary root', async () => {

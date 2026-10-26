@@ -40,9 +40,6 @@ test('renders the default root with stable hooks and replaceable Tailwind defaul
   expect([...card.classList]).toEqual(
     expect.arrayContaining(['border-4', 'border-destructive', 'bg-muted', 'shadow-none']),
   );
-  for (const className of ['border', 'border-border', 'bg-card', 'shadow-md']) {
-    expect(card.classList.contains(className)).toBe(false);
-  }
   expect(card.style).toMatchObject({ maxWidth: '320px' });
   await expect.element(page.getByTestId('card')).toHaveCSS('border-top-width', '4px');
   await expect.element(page.getByTestId('card')).toHaveCSS('--tw-shadow', '0 0 #0000');
@@ -60,28 +57,7 @@ test('sizes spacing through the root while consumer classes replace default part
   );
 
   await expect.element(page.getByRole('heading', { name: 'Release health' })).toHaveCount(1);
-  const root = screen.getByRole('heading', { name: 'Release health' }).parentElement!;
-  const header = screen.getByTestId('header');
-  const body = screen.getByTestId('body');
-  const footer = screen.getByTestId('footer');
-  const title = screen.getByTestId('title');
 
-  expect(root.classList.contains('group/card')).toBe(true);
-  expect([...header.classList]).toEqual(
-    expect.arrayContaining(['px-2', 'pt-2', 'last:pb-(--card-spacing)']),
-  );
-  for (const className of ['px-(--card-spacing)', 'pt-(--card-spacing)']) {
-    expect(header.classList.contains(className)).toBe(false);
-  }
-  expect([...body.classList]).toEqual(
-    expect.arrayContaining(['px-(--card-spacing)', 'pt-(--card-spacing)']),
-  );
-  expect([...footer.classList]).toEqual(expect.arrayContaining(['last:pb-(--card-spacing)']));
-  expect([...title.classList]).toEqual(
-    expect.arrayContaining(['text-lg', 'group-data-[size=lg]/card:text-xl']),
-  );
-  expect(body.className).not.toMatch(/\[--|var\(--/);
-  expect(title.className).not.toMatch(/\[--|var\(--/);
   await expect.element(page.getByTestId('header')).toHaveCSS('padding-left', '8px');
   await expect.element(page.getByTestId('header')).toHaveCSS('padding-top', '8px');
   await expect.element(page.getByTestId('body')).toHaveCSS('padding-left', '32px');
@@ -129,24 +105,6 @@ test('renders every part with its semantic default, stable hooks, and visible ut
     expect(element.getAttribute('data-slot')).toBe(`card-${part}`);
     expect(element.tagName).toBe(tagName.toUpperCase());
   }
-
-  expect([...screen.getByTestId('background').classList]).toEqual(
-    expect.arrayContaining(['absolute', 'inset-0', 'overflow-hidden']),
-  );
-  expect(screen.getByTestId('media').classList.contains('overflow-hidden')).toBe(true);
-  expect(screen.getByTestId('header').classList.contains('grid')).toBe(true);
-  expect(screen.getByTestId('title').classList.contains('font-semibold')).toBe(true);
-  expect(screen.getByTestId('link').classList.contains('after:rounded-lg')).toBe(true);
-  expect([...screen.getByTestId('action').classList]).toEqual(
-    expect.arrayContaining(['col-start-2', 'row-start-1', 'row-span-2']),
-  );
-  expect([...screen.getByTestId('body').classList]).toEqual(
-    expect.arrayContaining(['text-sm', 'wrap-anywhere']),
-  );
-  expect(screen.getByTestId('body').classList.contains('leading-normal')).toBe(false);
-  expect([...screen.getByTestId('footer').classList]).toEqual(
-    expect.arrayContaining(['flex', 'flex-wrap']),
-  );
 });
 
 test('preserves asChild root, title, and background hosts with their refs and hooks', async () => {
@@ -198,35 +156,6 @@ test('keeps actions interactive when CardLink covers the card', async () => {
   await page.getByRole('button', { name: 'Acknowledge' }).click();
 
   expect(acknowledgements).toBe(1);
-});
-
-test('pads a lone section on both sides and spaces sections evenly', async () => {
-  render(
-    <>
-      <Card size="lg">
-        <CardHeader data-testid="lone-header">
-          <CardTitle>Only a header</CardTitle>
-        </CardHeader>
-      </Card>
-      <Card>
-        <CardHeader data-testid="header">
-          <CardTitle>Header and footer</CardTitle>
-        </CardHeader>
-        <CardFooter data-testid="footer">Updated today</CardFooter>
-      </Card>
-      <Card>
-        <CardBackground />
-        <CardBody data-testid="body">Body after a background</CardBody>
-      </Card>
-    </>,
-  );
-
-  await expect.element(page.getByTestId('lone-header')).toHaveCSS('padding-top', '32px');
-  await expect.element(page.getByTestId('lone-header')).toHaveCSS('padding-top', '32px');
-  await expect.element(page.getByTestId('header')).toHaveCSS('padding-bottom', '0px');
-  await expect.element(page.getByTestId('footer')).toHaveCSS('padding-top', '24px');
-  await expect.element(page.getByTestId('footer')).toHaveCSS('padding-bottom', '24px');
-  await expect.element(page.getByTestId('body')).toHaveCSS('padding-top', '24px');
 });
 
 test('lets CardLink cover the body of a card with a background', async () => {

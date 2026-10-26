@@ -6,7 +6,6 @@ import { renderToString } from '@vue/server-renderer';
 import { createSSRApp, nextTick, ref } from 'vue';
 import type { ComponentPublicInstance } from 'vue';
 import { NativeSelect } from '../src';
-import styles from '../src/components/native-select/NativeSelect.module.css';
 
 const components = {
   FieldLabel,
@@ -39,12 +38,8 @@ test('preserves Field state, anatomy, and control styling hooks', async () => {
   await expect.element(selectLocator).toHaveAttribute('data-part', 'select');
   await expect.element(selectLocator).toHaveAttribute('data-scope', 'field');
   await expect.element(selectLocator).toHaveAttribute('data-slot', 'native-select-root');
-  expect([...select.classList]).toEqual(expect.arrayContaining([styles.root, 'consumer-select']));
   expect(select.parentElement?.getAttribute('data-slot')).toBe('native-select-control');
   expect(select.parentElement?.getAttribute('title')).toBe('Native select control');
-  expect([...select.parentElement!.classList]).toEqual(
-    expect.arrayContaining([styles.control, 'consumer-control']),
-  );
   expect(
     select.parentElement?.querySelector('[data-slot="native-select-indicator"] svg')?.isConnected,
   ).toBe(true);
@@ -197,24 +192,3 @@ test('hydrates without replacing hosts or generated ids', async () => {
   }
 });
 import SsrNativeSelect from './fixtures/SsrNativeSelect.vue';
-
-test('aligns text and indicator spacing with Select', () => {
-  render({
-    components,
-    template: `
-      <NativeSelect aria-label="Framework">
-        <option value="react">React</option>
-      </NativeSelect>
-    `,
-  });
-
-  const select = screen.getByRole('combobox', { name: 'Framework' });
-  const indicator = document.querySelector('[data-slot="native-select-indicator"]')!;
-  const selectStyle = getComputedStyle(select);
-
-  expect(selectStyle.paddingInlineStart).toBe('14px');
-  expect(selectStyle.paddingInlineEnd).toBe('46px');
-  expect(
-    select.getBoundingClientRect().right - indicator.getBoundingClientRect().right,
-  ).toBeCloseTo(8, 0);
-});

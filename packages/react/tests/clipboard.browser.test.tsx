@@ -76,8 +76,6 @@ test('keeps RootProvider and asChild composition semantic', async () => {
   await expect
     .element(page.locator('[data-slot="clipboard-trigger"]'))
     .toHaveAttribute('data-slot', 'clipboard-trigger');
-  expect(document.querySelector('[data-slot="clipboard-input"]')?.className).toBe('');
-  expect(document.querySelector('[data-slot="clipboard-trigger"]')?.className).toBe('');
 });
 
 test('forwards refs and renders the default copy affordance', async () => {

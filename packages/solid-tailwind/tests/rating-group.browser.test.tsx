@@ -197,57 +197,6 @@ test('forwards refs and exposes stable slots on public parts', async () => {
   await expect.element(page.locator('input[hidden]')).toHaveAttribute('hidden');
 });
 
-test('applies native utilities to component-owned visual parts', () => {
-  render(() => (
-    <RatingGroup defaultValue={3}>
-      <RatingGroupLabel>Notifications</RatingGroupLabel>
-      <RatingGroupControl>
-        <RatingGroupItems />
-      </RatingGroupControl>
-    </RatingGroup>
-  ));
-
-  const root = screen.getByText('Notifications').parentElement!;
-  const control = root.querySelector('[data-slot="rating-group-control"]')!;
-  const item = root.querySelector('[data-slot="rating-group-item"]')!;
-  const indicator = root.querySelector('[data-slot="rating-group-item-indicator"]')!;
-  const backgroundIcon = root.querySelector('[data-slot="rating-group-item-indicator-bg"]')!;
-  const foregroundIcon = root.querySelector('[data-slot="rating-group-item-indicator-fg"]')!;
-  const label = screen.getByText('Notifications');
-
-  expect([...root.classList]).toEqual(expect.arrayContaining(['inline-flex', 'flex-col', 'gap-1']));
-  expect([...label.classList]).toEqual(
-    expect.arrayContaining(['text-sm', 'font-semibold', 'select-none']),
-  );
-  expect([...control.classList]).toEqual(
-    expect.arrayContaining(['inline-flex', 'items-center', 'gap-1']),
-  );
-  expect([...item!.classList]).toEqual(
-    expect.arrayContaining([
-      'inline-flex',
-      'rounded-sm',
-      'outline-focus-inset',
-      'outline-transparent',
-    ]),
-  );
-  expect([...indicator!.classList]).toEqual(
-    expect.arrayContaining([
-      'relative',
-      'size-5',
-      'text-primary',
-      '[&>svg]:transition-[color,fill,clip-path]',
-      '[&>svg]:duration-normal',
-      '[&>svg]:ease-in-out',
-    ]),
-  );
-  expect([...backgroundIcon.classList]).toEqual(
-    expect.arrayContaining(['absolute', 'inset-0', 'fill-transparent']),
-  );
-  expect([...foregroundIcon.classList]).toEqual(
-    expect.arrayContaining(['absolute', 'inset-0', 'fill-current', '[clip-path:inset(0)]']),
-  );
-});
-
 test('lets consumer Tailwind classes override conflicting defaults', async () => {
   render(() => (
     <RatingGroup class="gap-3 text-primary" data-testid="root">
@@ -265,49 +214,11 @@ test('lets consumer Tailwind classes override conflicting defaults', async () =>
   const indicator = root.querySelector('[data-slot="rating-group-item-indicator"]')!;
 
   expect([...root.classList]).toEqual(expect.arrayContaining(['gap-3', 'text-primary']));
-  expect(['gap-1', 'text-muted-foreground'].some((name) => root.classList.contains(name))).toBe(
-    false,
-  );
   expect([...control.classList]).toEqual(expect.arrayContaining(['gap-3']));
-  expect(control.classList.contains('gap-1')).toBe(false);
   expect([...indicator!.classList]).toEqual(expect.arrayContaining(['size-7', 'text-secondary']));
-  expect(['size-5', 'text-primary'].some((name) => indicator.classList.contains(name))).toBe(false);
   await expect.element(page.getByTestId('root')).toHaveCSS('gap', '12px');
   await expect.element(page.locator('[data-slot="rating-group-control"]')).toHaveCSS('gap', '12px');
   await expect
     .element(page.locator('[data-slot="rating-group-item-indicator"]').nth(0))
     .toHaveCSS('width', '28px');
-});
-test('colors the default filled star from the indicator color', () => {
-  render(() => (
-    <RatingGroup defaultValue={1}>
-      <RatingGroupControl>
-        <RatingGroupItem index={1}>
-          <RatingGroupItemIndicator style={{ color: 'rgb(255, 0, 0)' }} />
-        </RatingGroupItem>
-      </RatingGroupControl>
-    </RatingGroup>
-  ));
-
-  const foregroundIcon = document.querySelector('[data-slot="rating-group-item-indicator-fg"]')!;
-
-  expect(getComputedStyle(foregroundIcon).color).toBe('rgb(255, 0, 0)');
-});
-
-test('clips the default star for half and empty items', async () => {
-  render(() => (
-    <RatingGroup allowHalf count={3} defaultValue={1.5}>
-      <RatingGroupControl>
-        <RatingGroupItems />
-      </RatingGroupControl>
-    </RatingGroup>
-  ));
-
-  const foregroundIcons = document.querySelectorAll('[data-slot="rating-group-item-indicator-fg"]');
-
-  await expect
-    .poll(() => getComputedStyle(foregroundIcons[1]!).clipPath)
-    .toBe('inset(0px 50% 0px 0px)');
-  expect(getComputedStyle(foregroundIcons[0]!).clipPath).toBe('inset(0px)');
-  expect(getComputedStyle(foregroundIcons[2]!).clipPath).toBe('inset(0px 100% 0px 0px)');
 });

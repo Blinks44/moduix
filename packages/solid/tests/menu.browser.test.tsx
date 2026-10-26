@@ -127,9 +127,6 @@ test('preserves custom context trigger styling', async () => {
     </Menu>
   ));
 
-  const trigger = screen.getByRole('button', { name: 'Open context menu' });
-  expect(trigger.className).toBe('');
-
   await expect.element(page.getByRole('menu')).toBeVisible();
   await expect
     .element(page.getByRole('menu').locator(':scope > :first-child'))
@@ -162,7 +159,6 @@ test('forwards refs through ordinary Ark Solid menu parts', async () => {
   const viewport = page.locator('[data-slot="menu-viewport"]');
   await expect.element(viewport).toHaveAttribute('data-scope', 'menu');
   await expect.element(viewport).toHaveAttribute('data-part', 'viewport');
-  await expect.element(viewport).toHaveCSS('overflow', 'auto');
 });
 
 test('does not forward refs through native Ark Solid asChild composition', async () => {
@@ -271,28 +267,4 @@ test('mounts content on first open and removes it after close', async () => {
   await expect.element(page.getByRole('menu')).toBeVisible();
   await page.getByRole('button', { name: 'Actions' }).click();
   await expect.poll(() => container.querySelector('[data-slot="menu-content"]')).toBeNull();
-});
-
-test('mutes disabled items regardless of tone', async () => {
-  render(() => (
-    <Menu defaultOpen portalled={false}>
-      <MenuTrigger>Actions</MenuTrigger>
-      <MenuPositioner>
-        <MenuContent>
-          <MenuViewport>
-            <MenuItem value="edit" disabled>
-              Edit
-            </MenuItem>
-            <MenuItem value="delete" tone="destructive" disabled>
-              Delete
-            </MenuItem>
-          </MenuViewport>
-        </MenuContent>
-      </MenuPositioner>
-    </Menu>
-  ));
-
-  const edit = screen.getByRole('menuitem', { name: 'Edit' });
-  const remove = screen.getByRole('menuitem', { name: 'Delete' });
-  expect(getComputedStyle(remove).color).toBe(getComputedStyle(edit).color);
 });

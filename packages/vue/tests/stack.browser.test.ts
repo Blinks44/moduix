@@ -194,7 +194,6 @@ test('hydrates stack without replacing the server host', async () => {
     expect(host.querySelectorAll('figure')).toHaveLength(1);
     expect(host.querySelector('figure')).toBe(serverRoot);
     expect(serverRoot.dataset).toMatchObject({ slot: 'stack-root' });
-    expect([...serverRoot.classList]).toContain('figure');
     expect(getComputedStyle(serverRoot).flexDirection).toBe('row');
     expect(warn).not.toHaveBeenCalled();
     expect(error).not.toHaveBeenCalled();

@@ -156,10 +156,7 @@ test('merges consumer utility classes last on the root and parts', async () => {
   const root = body.parentElement!;
 
   expect(root.classList.contains('rounded-none')).toBe(true);
-  expect(root.className).not.toContain('rounded-lg');
   expect([...body.classList]).toEqual(expect.arrayContaining(['px-2', 'pt-3', 'text-foreground']));
-  expect(body.className).not.toContain('px-(--card-spacing)');
-  expect(body.className).not.toContain('pt-(--card-spacing)');
   await expect.element(page.getByText('Customized body')).toHaveCSS('padding-left', '8px');
   await expect.element(page.getByText('Customized body')).toHaveCSS('padding-top', '12px');
   expect(getComputedStyle(root).borderRadius).toBe('0px');
@@ -256,7 +253,6 @@ test('hydrates card without replacing the server host', async () => {
     expect(host.querySelectorAll('a')).toHaveLength(1);
     expect(host.querySelector('a')).toBe(serverRoot);
     expect(serverRoot.dataset).toMatchObject({ size: 'lg', variant: 'subtle', slot: 'card-root' });
-    expect([...serverRoot.classList]).toContain('consumer-card');
     expect(warn).not.toHaveBeenCalled();
     expect(error).not.toHaveBeenCalled();
   } finally {
@@ -265,34 +261,6 @@ test('hydrates card without replacing the server host', async () => {
     warn.mockRestore();
     error.mockRestore();
   }
-});
-
-test('pads a lone section on both sides and spaces sections evenly', async () => {
-  render({
-    components: cardComponents,
-    template: `
-      <div>
-        <Card size="lg">
-          <CardHeader data-testid="lone-header"><CardTitle>Only a header</CardTitle></CardHeader>
-        </Card>
-        <Card>
-          <CardHeader data-testid="header"><CardTitle>Header and footer</CardTitle></CardHeader>
-          <CardFooter data-testid="footer">Updated today</CardFooter>
-        </Card>
-        <Card>
-          <CardBackground />
-          <CardBody data-testid="body">Body after a background</CardBody>
-        </Card>
-      </div>
-    `,
-  });
-
-  await expect.element(page.getByTestId('lone-header')).toHaveCSS('padding-top', '32px');
-  await expect.element(page.getByTestId('lone-header')).toHaveCSS('padding-bottom', '32px');
-  await expect.element(page.getByTestId('header')).toHaveCSS('padding-bottom', '0px');
-  await expect.element(page.getByTestId('footer')).toHaveCSS('padding-top', '24px');
-  await expect.element(page.getByTestId('footer')).toHaveCSS('padding-bottom', '24px');
-  await expect.element(page.getByTestId('body')).toHaveCSS('padding-top', '24px');
 });
 
 test('lets CardLink cover the body of a card with a background', async () => {

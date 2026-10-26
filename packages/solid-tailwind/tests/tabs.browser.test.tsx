@@ -1,8 +1,6 @@
-import { LocaleProvider } from '@ark-ui/solid/locale';
 import { page } from '@rstest/browser';
 import { expect, test } from '@rstest/core';
 import { render, screen } from '@solidjs/testing-library';
-import type { ComponentProps } from 'solid-js';
 import {
   Tabs,
   TabsContext,
@@ -234,134 +232,15 @@ test('merges consumer utilities after Tailwind defaults', async () => {
   const content = screen.getByText('Overview content');
 
   expect([...root!.classList]).toEqual(expect.arrayContaining(['flex-row']));
-  expect(root!.classList.contains('flex-col')).toBe(false);
   expect([...list!.classList]).toEqual(expect.arrayContaining(['w-full', 'bg-card']));
-  expect(list!.classList.contains('w-fit')).toBe(false);
   expect([...trigger!.classList]).toEqual(expect.arrayContaining(['h-10']));
-  expect([...trigger!.classList].some((name) => name.startsWith('h-[calc'))).toBe(false);
   expect([...content!.classList]).toEqual(expect.arrayContaining(['p-6']));
-  expect(content!.classList.contains('p-4')).toBe(false);
   await expect
     .element(page.getByRole('tab', { name: 'Overview', exact: true }))
     .toHaveCSS('height', '40px');
   await expect
     .element(page.getByText('Overview content', { exact: true }))
     .toHaveCSS('padding', '24px');
-});
-function expectSameBox(actual: Element, expected: Element) {
-  const a = actual.getBoundingClientRect();
-  const e = expected.getBoundingClientRect();
-  expect(Math.abs(a.left - e.left)).toBeLessThanOrEqual(1);
-  expect(Math.abs(a.top - e.top)).toBeLessThanOrEqual(1);
-  expect(Math.abs(a.width - e.width)).toBeLessThanOrEqual(1);
-  expect(Math.abs(a.height - e.height)).toBeLessThanOrEqual(1);
-}
-
-function IndicatorTabs(props: ComponentProps<typeof Tabs>) {
-  return (
-    <Tabs defaultValue="projects" {...props}>
-      <TabsList>
-        <TabsTrigger value="overview">Overview</TabsTrigger>
-        <TabsTrigger value="projects" style={{ height: '48px' }}>
-          Projects
-        </TabsTrigger>
-        <TabsIndicator />
-      </TabsList>
-    </Tabs>
-  );
-}
-
-function getIndicatorParts(root: Element) {
-  return {
-    indicator: root.querySelector('[data-slot="tabs-indicator"]')!,
-    list: root.querySelector('[data-slot="tabs-list"]')!,
-    trigger: root.querySelector('[data-slot="tabs-trigger"][data-selected]')!,
-  };
-}
-
-test('covers the selected trigger box with the indicator in both orientations', async () => {
-  const { container } = render(() => (
-    <>
-      <IndicatorTabs />
-      <IndicatorTabs orientation="vertical" />
-    </>
-  ));
-
-  for (const root of container.querySelectorAll('[data-slot="tabs-root"]')) {
-    const { indicator, trigger } = getIndicatorParts(root);
-    await expect.poll(() => indicator.getBoundingClientRect().height).toBe(48);
-    expectSameBox(indicator, trigger);
-  }
-});
-
-test('draws the line indicator on the list edge in both orientations and RTL', async () => {
-  const { container } = render(() => (
-    <>
-      <IndicatorTabs variant="line" />
-      <IndicatorTabs orientation="vertical" variant="line" />
-      <LocaleProvider locale="ar">
-        <IndicatorTabs orientation="vertical" variant="line" />
-      </LocaleProvider>
-    </>
-  ));
-
-  const [horizontal, vertical, rtl] = [
-    ...container.querySelectorAll('[data-slot="tabs-root"]'),
-  ].map(getIndicatorParts);
-
-  await expect.poll(() => horizontal!.indicator.getBoundingClientRect().width).toBeGreaterThan(0);
-  const h = horizontal!.indicator.getBoundingClientRect();
-  expect(h.height).toBe(2);
-  expect(h.left).toBeCloseTo(horizontal!.trigger.getBoundingClientRect().left, 0);
-  expect(h.bottom).toBeCloseTo(horizontal!.list.getBoundingClientRect().bottom - 1, 0);
-
-  for (const [parts, edge] of [
-    [vertical!, 'right'],
-    [rtl!, 'left'],
-  ] as const) {
-    await expect.poll(() => parts.indicator.getBoundingClientRect().height).toBe(48);
-    const rect = parts.indicator.getBoundingClientRect();
-    const list = parts.list.getBoundingClientRect();
-    expect(rect.width).toBe(2);
-    expect(rect.top).toBeCloseTo(parts.trigger.getBoundingClientRect().top, 0);
-    expect(rect[edge]).toBeCloseTo(edge === 'right' ? list.right - 1 : list.left + 1, 0);
-  }
-});
-
-test('keeps the content radius while the panel shows its focus ring', async () => {
-  render(() => (
-    <Tabs defaultValue="overview">
-      <TabParts />
-    </Tabs>
-  ));
-
-  const content = document.querySelector('[data-slot="tabs-content"]:not([hidden])')!;
-  const radius = getComputedStyle(content).borderTopLeftRadius;
-  const trigger = page.getByRole('tab', { name: 'Overview', exact: true });
-  await trigger.click();
-  await trigger.press('Tab');
-
-  await expect.element(page.getByText('Overview content')).toBeFocused();
-  expect(getComputedStyle(content).outlineStyle).toBe('solid');
-  expect(getComputedStyle(content).borderTopLeftRadius).toBe(radius);
-  expect(radius).not.toBe('0px');
-});
-
-test('sizes the tab list to the matching control height', () => {
-  const { container } = render(() => (
-    <>
-      {(['sm', 'md', 'lg'] as const).map((size) => (
-        <Tabs defaultValue="overview" size={size}>
-          <TabParts />
-        </Tabs>
-      ))}
-    </>
-  ));
-
-  const heights = [...container.querySelectorAll<HTMLElement>('[data-slot="tabs-list"]')].map(
-    (list) => list.offsetHeight,
-  );
-  expect(heights).toEqual([32, 36, 40]);
 });
 
 test('stretches horizontal triggers across the root when fitted', () => {

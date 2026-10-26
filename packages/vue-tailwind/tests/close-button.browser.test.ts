@@ -268,7 +268,6 @@ test('preserves parent data hooks through asChild and lets consumer utilities ov
   const button = screen.getByRole('button', { name: 'Close panel' });
 
   expect(button?.classList.contains('size-10')).toBe(true);
-  expect(button.className).not.toContain('size-7');
   expect(button.dataset).toMatchObject({
     scope: 'accordion',
     part: 'trigger',

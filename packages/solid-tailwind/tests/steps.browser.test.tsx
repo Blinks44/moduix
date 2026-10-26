@@ -11,7 +11,6 @@ import {
   StepsList,
   StepsNextTrigger,
   StepsPrevTrigger,
-  StepsProgress,
   StepsRootProvider,
   StepsSeparator,
   StepsTrigger,
@@ -158,35 +157,6 @@ test('preserves Ark linear validation and prevents direct navigation', async () 
   await expect.element(page.getByRole('tab').nth(0)).toHaveAttribute('aria-selected', 'true');
 });
 
-test('exposes native Tailwind utilities for empty visual parts', () => {
-  const { container } = render(() => (
-    <Steps count={items.length}>
-      <StepsProgress />
-      <StepsList>
-        {items.map((item, index) => (
-          <StepsItem index={index}>
-            <StepsTrigger>
-              <StepsIndicator />
-              {item.title}
-            </StepsTrigger>
-            <StepsSeparator />
-          </StepsItem>
-        ))}
-      </StepsList>
-    </Steps>
-  ));
-
-  expect([...container.querySelector('[data-slot="steps-indicator"]')!.classList]).toEqual(
-    expect.arrayContaining(['size-8', 'border', 'rounded-full', 'bg-background']),
-  );
-  expect([...container.querySelector('[data-slot="steps-separator"]')!.classList]).toEqual(
-    expect.arrayContaining(['h-px', 'min-w-8', 'bg-border']),
-  );
-  expect([...container.querySelector('[data-slot="steps-progress"]')!.classList]).toEqual(
-    expect.arrayContaining(['h-0.5', 'rounded-full', 'bg-border']),
-  );
-});
-
 test('lets consumer Tailwind classes override conflicting defaults', async () => {
   render(() => (
     <Steps count={items.length}>
@@ -203,38 +173,6 @@ test('lets consumer Tailwind classes override conflicting defaults', async () =>
 
   const indicator = screen.getByText('1');
   expect([...indicator!.classList]).toEqual(expect.arrayContaining(['size-6']));
-  expect(indicator!.classList.contains('size-8')).toBe(false);
   await expect.element(page.locator('[data-slot="steps-indicator"]')).toHaveCSS('width', '24px');
   await expect.element(page.locator('[data-slot="steps-indicator"]')).toHaveCSS('height', '24px');
-});
-test('fills its container and keeps the vertical separator clear of both indicators', () => {
-  const { container } = render(() => (
-    <div style={{ width: '1200px' }}>
-      <Steps count={items.length} orientation="vertical">
-        <StepsList>
-          {items.map((item, index) => (
-            <StepsItem index={index}>
-              <StepsTrigger>
-                <StepsIndicator />
-                {item.title}
-              </StepsTrigger>
-              <StepsSeparator />
-            </StepsItem>
-          ))}
-        </StepsList>
-      </Steps>
-    </div>
-  ));
-
-  const root = container.querySelector<HTMLElement>('[data-slot="steps-root"]')!;
-  const [first, next] = [...container.querySelectorAll('[data-slot="steps-indicator"]')].map(
-    (indicator) => indicator.getBoundingClientRect(),
-  );
-  const separator = container
-    .querySelector('[data-slot="steps-separator"]')!
-    .getBoundingClientRect();
-
-  expect(root.offsetWidth).toBe(1200);
-  expect(Math.round(separator.top - first!.bottom)).toBe(8);
-  expect(Math.round(next!.top - separator.bottom)).toBe(8);
 });

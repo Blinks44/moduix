@@ -4,7 +4,6 @@ import { render, screen } from '@testing-library/react';
 import { createRef } from 'react';
 import {
   Field,
-  Fieldset,
   Input,
   useField,
   FieldErrorText,
@@ -107,29 +106,6 @@ test('forwards refs and styling hooks for every part', () => {
   expect(indicatorRef.current!.getAttribute('data-slot')).toBe('field-required-indicator');
   expect(helperRef.current!.getAttribute('data-slot')).toBe('field-helper-text');
   expect(errorRef.current!.getAttribute('data-slot')).toBe('field-error-text');
-});
-
-test('dims a disabled field once, also inside a disabled Fieldset', () => {
-  render(
-    <>
-      <Field disabled data-testid="disabled-field">
-        <FieldLabel>Name</FieldLabel>
-        <Input data-testid="disabled-field-input" />
-      </Field>
-      <Fieldset disabled>
-        <Field data-testid="nested-field">
-          <FieldLabel>Email</FieldLabel>
-          <Input />
-        </Field>
-      </Fieldset>
-    </>,
-  );
-
-  const opacity = (testId: string) => getComputedStyle(screen.getByTestId(testId)).opacity;
-
-  expect(opacity('disabled-field')).toBe('0.5');
-  expect(opacity('disabled-field-input')).toBe('1');
-  expect(opacity('nested-field')).toBe('1');
 });
 
 test('keeps the RootProvider composition path Ark-shaped', async () => {

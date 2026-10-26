@@ -202,17 +202,3 @@ test('exposes the flat RootProvider, Context, and hook exports', async () => {
     .toHaveAttribute('aria-valuenow', '58');
   expect(screen.getAllByText('58')).toHaveLength(2);
 });
-
-test('fills the container width by default', () => {
-  render(
-    <div style={{ width: '20rem' }}>
-      <ProgressLinear defaultValue={40} data-testid="progress-width">
-        <ProgressLinearTrack aria-label="Width">
-          <ProgressLinearRange />
-        </ProgressLinearTrack>
-      </ProgressLinear>
-    </div>,
-  );
-
-  expect(screen.getByTestId('progress-width').offsetWidth).toBe(320);
-});

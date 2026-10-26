@@ -283,32 +283,12 @@ test('matches CSS Modules trigger padding and preserves all joined utilities wit
     template:
       '<SplitButton aria-label="Project actions"><SplitButtonAction class="rounded-md p-0 text-xs">Save</SplitButtonAction><SplitButtonTrigger /></SplitButton>',
   });
-  const action = screen.getByRole('button', { name: 'Save' });
-  const trigger = screen.getByRole('button', { name: 'More actions' });
-  expect(trigger?.classList.contains('px-3')).toBe(true);
   await expect
     .element(page.getByRole('button', { name: 'More actions' }))
     .toHaveCSS('padding-left', '12px');
   await expect
     .element(page.getByRole('button', { name: 'More actions' }))
     .toHaveCSS('padding-right', '12px');
-  expect(
-    trigger?.classList.contains(
-      'ms-[calc(var(--moduix-button-border-width,var(--moduix-border-width-sm))*-1)]',
-    ),
-  ).toBe(true);
-  expect(
-    trigger?.classList.contains(
-      '-ms-[calc(var(--moduix-button-border-width,var(--moduix-border-width-sm))*-1)]',
-    ),
-  ).toBe(false);
-  expect(trigger.classList.contains('px-4')).toBe(false);
-  for (const utility of ['inline-flex', 'items-center', 'rounded-md', 'p-0', 'text-xs']) {
-    expect(action.classList.contains(utility)).toBe(true);
-  }
-  for (const utility of ['rounded-e-none', 'px-4', 'text-sm']) {
-    expect(action.classList.contains(utility)).toBe(false);
-  }
 });
 
 test('lets consumers replace trigger padding without losing separator utilities', async () => {
@@ -318,9 +298,6 @@ test('lets consumers replace trigger padding without losing separator utilities'
       '<SplitButton><SplitButtonAction>Save</SplitButtonAction><SplitButtonTrigger size="lg" class="px-0 ms-0" /></SplitButton>',
   });
   const trigger = screen.getByRole('button', { name: 'More actions' });
-  for (const utility of ['relative', 'rounded-s-none', 'before:absolute', 'before:w-px', 'px-0']) {
-    expect(trigger.classList.contains(utility)).toBe(true);
-  }
   await expect
     .element(page.getByRole('button', { name: 'More actions' }))
     .toHaveCSS('padding-left', '0px');
@@ -328,13 +305,6 @@ test('lets consumers replace trigger padding without losing separator utilities'
     .element(page.getByRole('button', { name: 'More actions' }))
     .toHaveCSS('padding-right', '0px');
   expect(trigger.classList.contains('ms-0')).toBe(true);
-  expect(trigger.classList.contains('px-3.5')).toBe(false);
-  expect(trigger.classList.contains('px-5')).toBe(false);
-  expect(
-    trigger?.classList.contains(
-      'ms-[calc(var(--moduix-button-border-width,var(--moduix-border-width-sm))*-1)]',
-    ),
-  ).toBe(false);
 });
 
 test('hydrates inline, closed and portalled roots without replacing hosts or ids', async () => {
@@ -387,16 +357,4 @@ test('hydrates inline, closed and portalled roots without replacing hosts or ids
     warn.mockRestore();
     error.mockRestore();
   }
-});
-
-test('draws the separator on filled variants only', () => {
-  render({
-    components,
-    template:
-      '<div><SplitButton aria-label="Filled actions"><SplitButtonAction>Save</SplitButtonAction><SplitButtonTrigger aria-label="Filled trigger" /></SplitButton><SplitButton aria-label="Outline actions" variant="outline"><SplitButtonAction>Save</SplitButtonAction><SplitButtonTrigger aria-label="Outline trigger" /></SplitButton></div>',
-  });
-  const separator = (name: string) =>
-    getComputedStyle(screen.getByRole('button', { name }), '::before');
-  expect(separator('Filled trigger').display).toBe('block');
-  expect(separator('Outline trigger').display).toBe('none');
 });

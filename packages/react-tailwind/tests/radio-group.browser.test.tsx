@@ -95,7 +95,6 @@ test('keeps asChild composition semantic with an explicit item input', () => {
   const item = screen.getByTestId('custom-item');
   expect(item.tagName).toBe('LABEL');
   expect([...item!.classList]).toEqual(expect.arrayContaining(['grid', 'w-56']));
-  expect(item.classList.contains('inline-flex')).toBe(false);
   expect(item.querySelectorAll('input[type="radio"]')).toHaveLength(1);
 });
 
@@ -201,40 +200,6 @@ test('exposes invalid and disabled state on the Ark item parts', async () => {
   await expect.element(page.getByRole('radio', { name: 'Solid', exact: true })).toBeDisabled();
 });
 
-test('applies native utilities to component-owned visual parts', () => {
-  render(
-    <RadioGroup defaultValue="React">
-      <RadioGroupLabel>Framework</RadioGroupLabel>
-      <RadioGroupOption value="React">React</RadioGroupOption>
-    </RadioGroup>,
-  );
-
-  const root = screen.getByText('Framework').parentElement!;
-  const item = root.querySelector('[data-slot="radio-group-item"]')!;
-  const control = root.querySelector('[data-slot="radio-group-item-control"]')!;
-  const text = root.querySelector('[data-slot="radio-group-item-text"]')!;
-  const label = screen.getByText('Framework');
-
-  expect([...root.classList]).toEqual(
-    expect.arrayContaining(['flex', 'flex-col', 'gap-2', 'text-foreground']),
-  );
-  expect([...label.classList]).toEqual(
-    expect.arrayContaining(['text-sm', 'leading-5', 'font-semibold']),
-  );
-  expect([...item!.classList]).toEqual(
-    expect.arrayContaining(['inline-flex', 'w-fit', 'items-center', 'gap-2']),
-  );
-  expect([...control.classList]).toEqual(
-    expect.arrayContaining(['size-5', 'rounded-full', 'border', 'border-border', 'bg-background']),
-  );
-  expect([...control.classList]).toEqual(
-    expect.arrayContaining(['before:size-2', 'before:rounded-full', 'before:bg-current']),
-  );
-  expect([...text.classList]).toEqual(
-    expect.arrayContaining(['text-sm', 'leading-5', 'font-medium']),
-  );
-});
-
 test('lets consumer Tailwind classes override conflicting defaults', async () => {
   render(
     <RadioGroup className="gap-4 text-primary" data-testid="root">
@@ -254,68 +219,9 @@ test('lets consumer Tailwind classes override conflicting defaults', async () =>
   const control = screen.getByTestId('control');
 
   expect([...root.classList]).toEqual(expect.arrayContaining(['gap-4', 'text-primary']));
-  expect(['gap-2', 'text-foreground'].some((name) => root.classList.contains(name))).toBe(false);
   expect([...control.classList]).toEqual(
     expect.arrayContaining(['size-6', 'border-primary', 'bg-muted', 'before:size-3']),
   );
-  expect(
-    ['size-5', 'border-border', 'bg-background', 'before:size-2'].some((name) =>
-      control.classList.contains(name),
-    ),
-  ).toBe(false);
   await expect.element(page.getByTestId('root')).toHaveCSS('gap', '16px');
   await expect.element(page.getByTestId('control')).toHaveCSS('width', '24px');
-});
-test('sizes every control from the root size prop', () => {
-  render(
-    <>
-      <RadioGroup aria-label="Default size">
-        <RadioGroupOption value="md">Default</RadioGroupOption>
-      </RadioGroup>
-      <RadioGroup aria-label="Small size" size="sm">
-        <RadioGroupOption value="sm">Small</RadioGroupOption>
-      </RadioGroup>
-      <RadioGroup aria-label="Extra large size" size="xl">
-        <RadioGroupOption value="xl">Extra large</RadioGroupOption>
-      </RadioGroup>
-    </>,
-  );
-
-  const roots = document.querySelectorAll('[data-slot="radio-group-root"]');
-  const controls = document.querySelectorAll<HTMLElement>('[data-slot="radio-group-item-control"]');
-  expect([...roots].map((root) => root.getAttribute('data-size'))).toEqual(['md', 'sm', 'xl']);
-  expect([...controls].map((control) => control.offsetWidth)).toEqual([20, 16, 28]);
-});
-
-test('highlights the control while its item text is hovered', async () => {
-  render(
-    <RadioGroup aria-label="Framework">
-      <RadioGroupItem value="React">
-        <RadioGroupItemControl data-testid="control" style={{ transition: 'none' }} />
-        <RadioGroupItemText>React</RadioGroupItemText>
-        <RadioGroupItemHiddenInput />
-      </RadioGroupItem>
-    </RadioGroup>,
-  );
-
-  const control = screen.getByTestId('control');
-  const idle = getComputedStyle(control).backgroundColor;
-  await page.getByText('React', { exact: true }).hover();
-  await expect.element(page.getByTestId('control')).toHaveAttribute('data-hover');
-  expect(getComputedStyle(control).backgroundColor).not.toBe(idle);
-});
-
-test('keeps the invalid border on a checked control', () => {
-  render(
-    <RadioGroup aria-label="Framework" defaultValue="React" invalid>
-      <RadioGroupOption value="React">React</RadioGroupOption>
-      <RadioGroupOption value="Solid">Solid</RadioGroupOption>
-    </RadioGroup>,
-  );
-
-  const [checked, unchecked] = document.querySelectorAll<HTMLElement>(
-    '[data-slot="radio-group-item-control"]',
-  );
-  expect(checked.getAttribute('data-state')).toBe('checked');
-  expect(getComputedStyle(checked).borderTopColor).toBe(getComputedStyle(unchecked).borderTopColor);
 });

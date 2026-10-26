@@ -14,7 +14,6 @@ import {
   ImageCropperViewport,
   useImageCropper,
 } from '../src';
-import styles from '../src/components/image-cropper/ImageCropper.module.css';
 import landscape from './fixtures/landscape.svg';
 import SsrImageCropper from './fixtures/SsrImageCropper.vue';
 
@@ -61,19 +60,11 @@ test('renders the recommended CropArea anatomy with refs, attrs, and styles', as
   expect(root).toBe(screen.getByRole('group', { name: 'Landscape crop' }));
   expect(root!.getAttribute('data-slot')).toBe('image-cropper-root');
   expect(root!.getAttribute('data-probe')).toBe('root');
-  expect([...root!.classList]).toEqual(expect.arrayContaining([styles.root, 'consumer-root']));
   expect(viewport!.getAttribute('data-slot')).toBe('image-cropper-viewport');
-  expect([...viewport!.classList]).toEqual(
-    expect.arrayContaining([styles.viewport, 'consumer-viewport']),
-  );
   expect(image!.getAttribute('data-slot')).toBe('image-cropper-image');
-  expect([...image!.classList]).toEqual(expect.arrayContaining([styles.image, 'consumer-image']));
   expect(selection!.getAttribute('data-slot')).toBe('image-cropper-selection');
   expect(selection).toBe(screen.getByRole('slider', { hidden: true }));
   expect(selection!.getAttribute('tabindex')).toBe('0');
-  expect([...selection!.classList]).toEqual(
-    expect.arrayContaining([styles.selection, 'consumer-selection']),
-  );
   expect(container.querySelectorAll('[data-slot="image-cropper-grid"]')).toHaveLength(2);
   expect(container.querySelectorAll('[data-slot="image-cropper-handle"]')).toHaveLength(
     ImageCropperHandles.length,

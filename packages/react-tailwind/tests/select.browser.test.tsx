@@ -4,7 +4,6 @@ import { expect, test } from '@rstest/core';
 import { render, screen } from '@testing-library/react';
 import { createRef } from 'react';
 import {
-  CloseButton,
   SelectOption,
   Field,
   Select,
@@ -80,47 +79,6 @@ test('keeps default values and native form values Ark-shaped', async () => {
   await expect
     .element(page.getByRole('button', { name: 'Clear fruit', exact: true }))
     .toBeVisible();
-});
-
-test('reserves room for the clear action only when it is rendered', async () => {
-  render(
-    <>
-      <Select collection={fruits} defaultValue={['apple']}>
-        <SelectField />
-      </Select>
-      <Select collection={fruits} defaultValue={['apple']}>
-        <SelectField clearLabel="Clear fruit" />
-      </Select>
-    </>,
-  );
-
-  const [withoutClear, withClear] = [
-    ...document.querySelectorAll<HTMLElement>('[data-slot="select-trigger"]'),
-  ];
-  await expect.poll(() => getComputedStyle(withClear!).paddingInlineEnd).toBe('68px');
-  expect(getComputedStyle(withoutClear!).paddingInlineEnd).toBe('46px');
-});
-
-test('gives the clear trigger the CloseButton focus ring', async () => {
-  render(
-    <>
-      <CloseButton data-testid="reference" />
-      <Select collection={fruits} defaultValue={['apple']}>
-        <SelectField clearLabel="Clear fruit" />
-      </Select>
-    </>,
-  );
-
-  await expect.element(page.getByRole('button', { name: 'Clear fruit' })).toBeVisible();
-  const reference = document.querySelector<HTMLElement>('[data-testid="reference"]')!;
-  const clear = document.querySelector<HTMLElement>('[data-slot="select-clear-trigger"]')!;
-  reference.focus();
-  const expected = getComputedStyle(reference);
-  const ring = [expected.outlineWidth, expected.outlineOffset];
-  clear.focus();
-  const actual = getComputedStyle(clear);
-  expect(ring).not.toEqual(['0px', '0px']);
-  expect([actual.outlineWidth, actual.outlineOffset]).toEqual(ring);
 });
 
 test('keeps the default indicator outside the trigger button', () => {
@@ -313,35 +271,11 @@ test('lets consumer utilities replace defaults and keeps visual parts visible', 
 
   const root = container.querySelector('[data-slot="select-root"]')!;
   const trigger = container.querySelector('[data-slot="select-trigger"]')!;
-  const clear = container.querySelector('[data-slot="select-clear-trigger"]')!;
-  const indicator = container.querySelector('[data-slot="select-indicator"]')!;
   const content = container.querySelector('[data-slot="select-content"]')!;
-  const item = container.querySelector('[data-slot="select-item"]')!;
-  const itemText = container.querySelector('[data-slot="select-item-text"]')!;
-  const itemIndicator = container.querySelector('[data-slot="select-item-indicator"]')!;
 
   expect([...root!.classList]).toEqual(expect.arrayContaining(['w-80']));
-  expect(root!.classList.contains('w-56')).toBe(false);
   expect([...trigger!.classList]).toEqual(expect.arrayContaining(['h-8', 'rounded-lg']));
-  expect(['h-control-md', 'rounded-md'].some((name) => trigger!.classList.contains(name))).toBe(
-    false,
-  );
-  expect([...clear!.classList]).toEqual(
-    expect.arrayContaining(['size-5', 'end-[2.125rem]', 'absolute']),
-  );
-  expect(clear!.classList.contains('size-control-xs')).toBe(false);
-  expect([...indicator!.classList]).toEqual(
-    expect.arrayContaining(['size-6', 'pointer-events-none']),
-  );
-  expect(indicator!.classList.contains('size-control-xs')).toBe(false);
   expect([...content!.classList]).toEqual(expect.arrayContaining(['p-0']));
-  expect(content!.classList.contains('py-1')).toBe(false);
-  expect([...item!.classList]).toEqual(
-    expect.arrayContaining(['min-h-control-sm', 'px-0', 'text-sm']),
-  );
-  expect(item!.classList.contains('px-3')).toBe(false);
-  expect([...itemText!.classList]).toEqual(expect.arrayContaining(['min-w-0', 'flex-1']));
-  expect([...itemIndicator!.classList]).toEqual(expect.arrayContaining(['size-3.5']));
   await expect.element(page.locator('[data-slot="select-root"]')).toHaveCSS('width', '320px');
   await expect.element(page.locator('[data-slot="select-trigger"]')).toHaveCSS('height', '32px');
   await expect

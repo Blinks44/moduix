@@ -74,8 +74,6 @@ test('keeps RootProvider and asChild composition semantic', async () => {
   await expect
     .element(page.locator('[data-slot="clipboard-trigger"]'))
     .toHaveAttribute('data-slot', 'clipboard-trigger');
-  expect(document.querySelector('[data-slot="clipboard-input"]')?.className).toBe('');
-  expect(document.querySelector('[data-slot="clipboard-trigger"]')?.className).toBe('');
 });
 
 test('does not forward refs through native Ark Solid asChild composition', () => {
@@ -193,39 +191,6 @@ test('clears copied state after the configured timeout', async () => {
   await expect.element(copyTrigger).not.toHaveAttribute('data-copied');
 });
 
-test('applies native utilities to the component-owned parts', () => {
-  const { container } = render(() => (
-    <Clipboard>
-      <ClipboardLabel>Copy link</ClipboardLabel>
-      <ClipboardControl>
-        <ClipboardInput />
-        <ClipboardTrigger>
-          <ClipboardIndicator />
-        </ClipboardTrigger>
-      </ClipboardControl>
-    </Clipboard>
-  ));
-
-  expect([...container.querySelector('[data-slot="clipboard-root"]')!.classList]).toEqual(
-    expect.arrayContaining(['flex', 'w-full', 'flex-col', 'gap-1.5', 'text-foreground']),
-  );
-  expect([...container.querySelector('[data-slot="clipboard-label"]')!.classList]).toEqual(
-    expect.arrayContaining(['text-sm', 'font-medium']),
-  );
-  expect([...container.querySelector('[data-slot="clipboard-control"]')!.classList]).toEqual(
-    expect.arrayContaining(['flex', 'w-full', 'items-center', 'gap-2']),
-  );
-  expect([...container.querySelector('[data-slot="clipboard-input"]')!.classList]).toEqual(
-    expect.arrayContaining(['min-h-control-md', 'w-full', 'rounded-md', 'border-border']),
-  );
-  expect([...container.querySelector('[data-slot="clipboard-trigger"]')!.classList]).toEqual(
-    expect.arrayContaining(['inline-flex', 'min-h-control-md', 'rounded-md', 'bg-background']),
-  );
-  expect([...container.querySelector('[data-slot="clipboard-indicator"]')!.classList]).toEqual(
-    expect.arrayContaining(['inline-flex', 'items-center', 'justify-center']),
-  );
-});
-
 test('lets consumer Tailwind classes override conflicting defaults', () => {
   const { container } = render(() => (
     <Clipboard class="gap-4 text-primary">
@@ -242,17 +207,11 @@ test('lets consumer Tailwind classes override conflicting defaults', () => {
   const trigger = container.querySelector('[data-slot="clipboard-trigger"]');
 
   expect([...root!.classList]).toEqual(expect.arrayContaining(['gap-4', 'text-primary']));
-  expect(['gap-1.5', 'text-foreground'].some((name) => root?.classList.contains(name))).toBe(false);
   expect([...control!.classList]).toEqual(expect.arrayContaining(['gap-5']));
-  expect(control?.classList.contains('gap-2')).toBe(false);
   expect([...input!.classList]).toEqual(expect.arrayContaining(['bg-muted', 'px-0']));
-  expect(['bg-background', 'px-3.5'].some((name) => input?.classList.contains(name))).toBe(false);
   expect([...trigger!.classList]).toEqual(
     expect.arrayContaining(['rounded-lg', 'bg-muted', 'px-2']),
   );
-  expect(
-    ['rounded-md', 'bg-background', 'px-4'].some((name) => trigger?.classList.contains(name)),
-  ).toBe(false);
   expect(getComputedStyle(root!).gap).toBe('16px');
   expect(getComputedStyle(input!).paddingLeft).toBe('0px');
   expect(getComputedStyle(trigger!).paddingLeft).toBe('8px');

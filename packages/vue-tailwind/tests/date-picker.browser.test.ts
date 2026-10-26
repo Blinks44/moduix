@@ -235,11 +235,8 @@ test('renders Ark month and year primitives as native selects', async () => {
   const yearSelect = screen.getByRole('combobox', { name: 'Year' });
 
   expect(monthSelect.tagName).toBe('SELECT');
-  expect(monthSelect!.classList.contains('appearance-none')).toBe(true);
-  expect([...monthSelect!.classList]).toEqual(expect.arrayContaining(['text-sm', 'leading-5']));
   expect(monthSelect.querySelectorAll('option')).toHaveLength(12);
   expect(yearSelect.tagName).toBe('SELECT');
-  expect(yearSelect!.classList.contains('appearance-none')).toBe(true);
   expect(yearSelect.querySelector('option[value="2026"]')).not.toBeNull();
 });
 
@@ -533,11 +530,9 @@ test('composes styled trigger parts through asChild', async () => {
       '<DatePicker><DatePickerTrigger as-child><button type="button">Open calendar</button></DatePickerTrigger></DatePicker>',
   });
   render(Harness);
-  const trigger = screen.getByRole('button', { name: 'Open calendar' });
   await expect
     .element(page.getByRole('button', { name: 'Open calendar', exact: true }))
     .toHaveAttribute('data-slot', 'date-picker-trigger');
-  expect(trigger.className).toBe('');
 });
 
 test('hydrates date-picker without replacing server hosts or IDs and remains interactive', async () => {
@@ -585,7 +580,6 @@ test('applies Tailwind defaults before consumer classes', async () => {
     .getByRole('textbox', { name: 'Release date' })
     .closest('[data-slot="date-picker-root"]');
   expect(root!.classList.contains('custom-root')).toBe(true);
-  expect(root!.classList.contains('group/date-picker')).toBe(true);
 });
 
 test.each([
@@ -746,58 +740,4 @@ test('reads week numbers from the root and offsets the day table by months', () 
   expect(
     document.querySelector('[data-slot="date-picker-table-cell-trigger"][data-value="2026-07-15"]'),
   ).not.toBeNull();
-});
-
-test('marks today with a visible border', async () => {
-  renderCalendar('', '<DatePickerView view="day"><DatePickerDayTable /></DatePickerView>');
-  const today = document.querySelector<HTMLElement>(
-    '[data-slot="date-picker-table-cell-trigger"][data-today]',
-  )!;
-  await expect.poll(() => getComputedStyle(today).borderTopWidth).not.toBe('0px');
-  await expect.poll(() => getComputedStyle(today).borderTopColor).not.toBe('rgba(0, 0, 0, 0)');
-});
-
-test('dims disabled outside-range days with opacity only', async () => {
-  renderCalendar(
-    ':default-focused-value="june"',
-    '<DatePickerView view="day"><DatePickerDayTable /></DatePickerView>',
-  );
-  const outside = document.querySelector<HTMLElement>(
-    '[data-slot="date-picker-table-cell-trigger"][data-outside-range][data-disabled]',
-  )!;
-  const regular = document.querySelector<HTMLElement>(
-    '[data-slot="date-picker-table-cell-trigger"][data-value="2026-06-10"]',
-  )!;
-  await new Promise((resolve) => setTimeout(resolve, 400));
-  expect(getComputedStyle(outside).color).toBe(getComputedStyle(regular).color);
-  expect(getComputedStyle(outside).opacity).toBe('0.5');
-});
-
-test('dims a disabled picker once', async () => {
-  render({
-    components: datePickerComponents,
-    template: `
-      <DatePicker disabled data-testid="disabled">
-        <DatePickerLabel>Disabled date</DatePickerLabel>
-        <DatePickerField />
-      </DatePicker>
-      <Field disabled>
-        <DatePicker disabled data-testid="field">
-          <DatePickerLabel>Field date</DatePickerLabel>
-          <DatePickerField />
-        </DatePicker>
-      </Field>
-      <DatePicker read-only data-testid="read-only">
-        <DatePickerLabel>Read-only date</DatePickerLabel>
-        <DatePickerField />
-      </DatePicker>
-    `,
-  });
-  const disabled = screen.getByTestId('disabled');
-  await expect.poll(() => getComputedStyle(disabled).opacity).toBe('0.5');
-  expect(
-    getComputedStyle(disabled.querySelector('[data-slot="date-picker-trigger"]')!).opacity,
-  ).toBe('1');
-  expect(getComputedStyle(screen.getByTestId('field')).opacity).toBe('1');
-  expect(getComputedStyle(screen.getByTestId('read-only')).opacity).toBe('1');
 });

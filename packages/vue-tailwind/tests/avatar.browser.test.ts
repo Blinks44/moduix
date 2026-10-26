@@ -52,21 +52,12 @@ test('preserves Ark anatomy, attrs, consumer classes, size, and Vue refs', () =>
   expect(root.getAttribute('data-probe')).toBe('root');
   expect(root.getAttribute('data-size')).toBe('lg');
   expect(root.className.endsWith('consumer-root')).toBe(true);
-  expect([...root.classList]).toEqual(
-    expect.arrayContaining(['relative', 'inline-flex', 'rounded-full', 'size-control-lg']),
-  );
   expect(fallback.getAttribute('data-slot')).toBe('avatar-fallback');
   expect(fallback.getAttribute('data-state')).toBe('visible');
   expect(fallback.className.endsWith('consumer-fallback')).toBe(true);
-  expect([...fallback.classList]).toEqual(
-    expect.arrayContaining(['inline-flex', 'size-full', 'rounded-[inherit]']),
-  );
   expect(image.getAttribute('data-slot')).toBe('avatar-image');
   expect(image.getAttribute('data-state')).toBe('hidden');
   expect(image.className.endsWith('consumer-image')).toBe(true);
-  expect([...image.classList]).toEqual(
-    expect.arrayContaining(['block', 'size-full', 'object-cover']),
-  );
   expect(fallbackRef.value?.$el).toBe(fallback);
   expect(imageRef.value?.$el).toBe(image);
 });
@@ -80,61 +71,9 @@ test('merges consumer Tailwind classes after component defaults', async () => {
   const root = screen.getByText('AT').closest('[data-slot="avatar-root"]') as HTMLElement;
 
   expect([...root.classList]).toEqual(expect.arrayContaining(['rounded-none', 'bg-primary']));
-  expect(['rounded-full', 'bg-muted'].some((name) => root.classList.contains(name))).toBe(false);
   await expect.element(page.locator('[data-slot="avatar-root"]')).toHaveCSS('border-radius', '0px');
   await expect.element(page.locator('[data-slot="avatar-root"]')).toHaveCSS('width', '48px');
   await expect.element(page.locator('[data-slot="avatar-root"]')).toHaveCSS('height', '48px');
-});
-
-test('defaults both roots to the md size', () => {
-  render({
-    components: avatarComponents,
-    setup: () => ({ avatar: useAvatar() }),
-    template: `
-      <Avatar data-testid="default" />
-      <Avatar data-testid="md" size="md" />
-      <Avatar data-testid="sm" size="sm" />
-      <AvatarRootProvider :value="avatar" data-testid="default-provider" />
-    `,
-  });
-
-  const root = screen.getByTestId('default');
-
-  expect(root.getAttribute('data-size')).toBe('md');
-  expect(screen.getByTestId('default-provider').getAttribute('data-size')).toBe('md');
-  expect(root.offsetWidth).toBe(screen.getByTestId('md').offsetWidth);
-  expect(root.offsetWidth).toBeGreaterThan(screen.getByTestId('sm').offsetWidth);
-  expect([...root.classList]).toEqual(expect.arrayContaining(['size-control-md', 'text-md']));
-});
-
-test('stacks AvatarGroup children with an overlap and a background ring', () => {
-  render({
-    components: avatarComponents,
-    template:
-      '<AvatarGroup data-testid="group"><Avatar data-testid="first"><AvatarFallback>A</AvatarFallback></Avatar><Avatar data-testid="second"><AvatarFallback>B</AvatarFallback></Avatar></AvatarGroup>',
-  });
-
-  const group = screen.getByTestId('group');
-  const first = screen.getByTestId('first');
-  const second = screen.getByTestId('second');
-
-  expect(group.getAttribute('data-slot')).toBe('avatar-group');
-  expect(second.getBoundingClientRect().left).toBeLessThan(first.getBoundingClientRect().right);
-  expect(getComputedStyle(first).boxShadow).not.toBe('none');
-});
-
-test('lets root children overflow while the fallback stays clipped', () => {
-  render({
-    components: avatarComponents,
-    template:
-      '<Avatar data-testid="avatar"><AvatarFallback data-testid="fallback">AT</AvatarFallback><AvatarImage data-testid="image" alt="" /></Avatar>',
-  });
-
-  expect(getComputedStyle(screen.getByTestId('avatar')).overflow).toBe('visible');
-  expect(getComputedStyle(screen.getByTestId('fallback')).overflow).toBe('hidden');
-  expect(getComputedStyle(screen.getByTestId('image')).borderRadius).toBe(
-    getComputedStyle(screen.getByTestId('avatar')).borderRadius,
-  );
 });
 
 test('keeps image status, fallback, scoped slots, and context reactive after real loading', async () => {

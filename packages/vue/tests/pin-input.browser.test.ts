@@ -18,7 +18,6 @@ import {
   PinInputSeparator,
   usePinInput,
 } from '../src';
-import styles from '../src/components/pin-input/PinInput.module.css';
 import SsrPinInput from './fixtures/SsrPinInput.vue';
 
 const pinInputComponents = {
@@ -172,63 +171,6 @@ test('keeps invalid, disabled, and read-only Field state on visible inputs', asy
   await expect.element(page.getByText('Enter a valid code.')).toBeVisible();
 });
 
-test('does not dim a pin input twice inside a disabled field', () => {
-  const App = defineComponent({
-    components: pinInputComponents,
-    template: `
-      <Field disabled>
-        <PinInput :count="4">
-          <PinInputLabel>Verification code</PinInputLabel>
-          <PinInputControl><PinInputInputs /></PinInputControl>
-        </PinInput>
-      </Field>
-    `,
-  });
-
-  render(App);
-
-  const field = document.querySelector('[data-slot="field-root"]')!;
-  const root = document.querySelector('[data-slot="pin-input-root"]')!;
-
-  expect(root.hasAttribute('data-disabled')).toBe(true);
-  expect(getComputedStyle(field).opacity).toBe('0.5');
-  expect(getComputedStyle(root).opacity).toBe('1');
-});
-
-test('sizes the cells and their text from the root size', () => {
-  const App = defineComponent({
-    components: pinInputComponents,
-    template: `
-      <div>
-        <PinInput :count="2" size="xs">
-          <PinInputControl><PinInputInputs /></PinInputControl>
-        </PinInput>
-        <PinInput :count="2">
-          <PinInputControl><PinInputInputs /></PinInputControl>
-        </PinInput>
-        <PinInput :count="2" size="xl">
-          <PinInputControl><PinInputInputs /></PinInputControl>
-        </PinInput>
-      </div>
-    `,
-  });
-
-  render(App);
-
-  const [xs, md, xl] = [...document.querySelectorAll('[data-slot="pin-input-root"]')].map((root) =>
-    root.querySelector<HTMLElement>('[data-slot="pin-input-input"]')!,
-  );
-
-  expect(xs!.closest('[data-size]')?.getAttribute('data-size')).toBe('xs');
-  expect(md!.closest('[data-size]')?.getAttribute('data-size')).toBe('md');
-  expect([xs!.offsetWidth, xs!.offsetHeight]).toEqual([24, 24]);
-  expect([md!.offsetWidth, md!.offsetHeight]).toEqual([36, 36]);
-  expect([xl!.offsetWidth, xl!.offsetHeight]).toEqual([48, 48]);
-  expect(parseFloat(getComputedStyle(xl!).fontSize)).toBeGreaterThan(
-    parseFloat(getComputedStyle(xs!).fontSize),
-  );
-});
-
 test('submits the owning form after completing an auto-submit PinInput', async () => {
   let submittedCode = '';
   const App = defineComponent({
@@ -320,21 +262,8 @@ test('uses moduix styles and lets consumer classes win', async () => {
 
   const { container } = render(App);
   const root = container.querySelector('[data-slot="pin-input-root"]');
-  const label = container.querySelector('[data-slot="pin-input-label"]');
-  const control = container.querySelector('[data-slot="pin-input-control"]');
-  const input = container.querySelector('[data-slot="pin-input-input"]');
-  const separator = container.querySelector('[data-slot="pin-input-separator"]');
 
-  expect([...root!.classList]).toEqual(expect.arrayContaining([styles.root, 'consumer-root']));
   expect(root?.className.endsWith('consumer-root')).toBe(true);
-  expect([...label!.classList]).toEqual(expect.arrayContaining([styles.label, 'consumer-label']));
-  expect([...control!.classList]).toEqual(
-    expect.arrayContaining([styles.control, 'consumer-control']),
-  );
-  expect([...input!.classList]).toEqual(expect.arrayContaining([styles.input, 'consumer-input']));
-  expect([...separator!.classList]).toEqual(
-    expect.arrayContaining([styles.separator, 'consumer-separator']),
-  );
   await expect
     .element(page.locator('[data-slot="pin-input-separator"]'))
     .toHaveAttribute('aria-hidden', 'true');

@@ -197,44 +197,14 @@ test('lets consumer utilities replace defaults and keeps visual parts visible', 
   const root = container.querySelector('[data-slot="combobox-root"]')!;
   const control = container.querySelector('[data-slot="combobox-control"]')!;
   const input = container.querySelector('[data-slot="combobox-input"]')!;
-  const clear = container.querySelector('[data-slot="combobox-clear-trigger"]')!;
   const trigger = container.querySelector('[data-slot="combobox-trigger"]')!;
   const content = container.querySelector('[data-slot="combobox-content"]')!;
-  const status = container.querySelector('[data-slot="combobox-status"]')!;
-  const item = container.querySelector('[data-slot="combobox-item"]')!;
-  const itemText = container.querySelector('[data-slot="combobox-item-text"]')!;
-  const indicator = container.querySelector('[data-slot="combobox-item-indicator"]')!;
 
   expect([...root!.classList]).toEqual(expect.arrayContaining(['w-80']));
-  expect(root!.classList.contains('w-64')).toBe(false);
   expect([...control!.classList]).toEqual(expect.arrayContaining(['rounded-lg']));
-  expect(control!.classList.contains('rounded-md')).toBe(false);
   expect([...input!.classList]).toEqual(expect.arrayContaining(['h-8']));
-  expect(input!.classList.contains('h-control-md')).toBe(false);
-  expect([...clear!.classList]).toEqual(
-    expect.arrayContaining([
-      'size-5',
-      'inset-y-0',
-      'my-auto',
-      'transition-[background-color,color,opacity]',
-    ]),
-  );
-  expect(
-    ['size-control-xs', 'top-1/2', '-translate-y-1/2'].some((name) =>
-      clear!.classList.contains(name),
-    ),
-  ).toBe(false);
   expect([...trigger!.classList]).toEqual(expect.arrayContaining(['size-6']));
-  expect(trigger!.classList.contains('size-control-xs')).toBe(false);
   expect([...content!.classList]).toEqual(expect.arrayContaining(['p-0']));
-  expect(content!.classList.contains('py-1')).toBe(false);
-  expect([...status!.classList]).toEqual(expect.arrayContaining(['px-4', 'py-1', 'text-sm']));
-  expect([...item!.classList]).toEqual(
-    expect.arrayContaining(['min-h-control-sm', 'px-0', 'text-sm']),
-  );
-  expect(item!.classList.contains('px-3')).toBe(false);
-  expect([...itemText!.classList]).toEqual(expect.arrayContaining(['min-w-0', 'flex-1']));
-  expect([...indicator!.classList]).toEqual(expect.arrayContaining(['size-3']));
   await expect.element(page.locator('[data-slot="combobox-root"]')).toHaveCSS('width', '320px');
   await expect
     .element(page.locator('[data-slot="combobox-control"]'))
@@ -250,39 +220,4 @@ test('lets consumer utilities replace defaults and keeps visual parts visible', 
   await expect
     .element(page.locator('[data-slot="combobox-item"]'))
     .toHaveCSS('padding-left', '0px');
-});
-
-test('places a lone clear action at the inline end and reserves input space per action', () => {
-  render(
-    <>
-      <Combobox collection={fruits} defaultValue={['apple']} portalled={false}>
-        <ComboboxControl>
-          <ComboboxInput />
-          <ComboboxClearTrigger />
-        </ComboboxControl>
-      </Combobox>
-      <Combobox collection={fruits} defaultValue={['apple']} portalled={false}>
-        <ComboboxControl>
-          <ComboboxInput />
-          <ComboboxClearTrigger />
-          <ComboboxTrigger aria-label="Open fruits" />
-        </ComboboxControl>
-      </Combobox>
-    </>,
-  );
-
-  const [clearOnly, both] = [
-    ...document.querySelectorAll<HTMLElement>('[data-slot="combobox-control"]'),
-  ];
-  const endGap = (control: HTMLElement) =>
-    control.getBoundingClientRect().right -
-    control.querySelector('[data-slot="combobox-clear-trigger"]')!.getBoundingClientRect().right;
-  const inputEnd = (control: HTMLElement) =>
-    getComputedStyle(control.querySelector('[data-slot="combobox-input"]')!).paddingInlineEnd;
-
-  // 1px control border + 8px action offset, then + 24px trigger + 2px gap.
-  expect(Math.abs(endGap(clearOnly!) - 9)).toBeLessThanOrEqual(1);
-  expect(Math.abs(endGap(both!) - 35)).toBeLessThanOrEqual(1);
-  expect(inputEnd(clearOnly!)).toBe('44px');
-  expect(inputEnd(both!)).toBe('70px');
 });

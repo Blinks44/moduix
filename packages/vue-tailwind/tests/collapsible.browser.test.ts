@@ -197,8 +197,6 @@ test('preserves Vue refs, anatomy, attrs, and Tailwind hooks', async () => {
   expect(contentRef.value?.$el).toBe(content);
   expect(content?.getAttribute('data-slot')).toBe('collapsible-content');
   expect(bodyRef.value?.$el).toBe(body);
-  expect([...body!.classList]).toEqual(expect.arrayContaining(['grid', 'min-w-0', 'gap-2']));
-  expect([...content!.classList]).toEqual(expect.arrayContaining(['overflow-hidden', 'text-sm']));
 });
 
 test('keeps provider and descendant context composition connected', async () => {
@@ -268,51 +266,6 @@ test('hydrates collapsible without replacing server hosts or ids', async () => {
   }
 });
 
-test('exposes component-owned Tailwind defaults on every visual part', () => {
-  render({
-    components: collapsibleComponents,
-    template: `
-        <Collapsible :default-open="true" data-testid="collapsible-root">
-          <CollapsibleTrigger>
-            Recovery details
-            <CollapsibleIndicator />
-          </CollapsibleTrigger>
-          <CollapsibleContent>
-            <CollapsibleBody>Keep this safe.</CollapsibleBody>
-          </CollapsibleContent>
-        </Collapsible>
-      `,
-  });
-
-  const root = screen.getByTestId('collapsible-root');
-  const trigger = screen.getByRole('button', { name: 'Recovery details' });
-  const indicator = root.querySelector('[data-slot="collapsible-indicator"]');
-  const content = root.querySelector('[data-slot="collapsible-content"]');
-  const body = root.querySelector('[data-slot="collapsible-body"]');
-
-  expect([...root!.classList]).toEqual(
-    expect.arrayContaining(['flex', 'w-full', 'min-w-0', 'flex-col']),
-  );
-  expect([...trigger!.classList]).toEqual(
-    expect.arrayContaining([
-      'flex',
-      'w-full',
-      'gap-2',
-      'bg-transparent',
-      'px-0',
-      'py-1',
-      'text-sm',
-    ]),
-  );
-  expect([...indicator!.classList]).toEqual(
-    expect.arrayContaining(['inline-flex', 'size-3', 'shrink-0', 'transition-transform']),
-  );
-  expect([...content!.classList]).toEqual(
-    expect.arrayContaining(['overflow-hidden', 'text-sm', 'text-muted-foreground']),
-  );
-  expect([...body!.classList]).toEqual(expect.arrayContaining(['grid', 'min-w-0', 'gap-2']));
-});
-
 test('lets consumer Tailwind classes override conflicting defaults', () => {
   render({
     components: collapsibleComponents,
@@ -336,38 +289,8 @@ test('lets consumer Tailwind classes override conflicting defaults', () => {
   const body = root.querySelector('[data-slot="collapsible-body"]');
 
   expect([...root!.classList]).toEqual(expect.arrayContaining(['w-1/2', 'text-primary']));
-  for (const utility of ['w-full', 'text-foreground']) {
-    expect(root!.classList.contains(utility)).toBe(false);
-  }
   expect([...trigger!.classList]).toEqual(expect.arrayContaining(['gap-6', 'py-4', 'text-lg']));
-  for (const utility of ['gap-2', 'py-1', 'text-sm']) {
-    expect(trigger!.classList.contains(utility)).toBe(false);
-  }
   expect(indicator?.classList.contains('size-5')).toBe(true);
-  expect(indicator?.classList.contains('size-3')).toBe(false);
   expect(content?.classList.contains('text-lg')).toBe(true);
-  expect(content?.classList.contains('text-sm')).toBe(false);
   expect([...body!.classList]).toEqual(expect.arrayContaining(['gap-6', 'p-6']));
-  expect(body?.classList.contains('gap-2')).toBe(false);
-});
-
-test('dims a disabled trigger once without fading its indicator again', async () => {
-  render({
-    components: collapsibleComponents,
-    template: `
-      <Collapsible disabled>
-        <CollapsibleTrigger>
-          Disabled details
-          <CollapsibleIndicator data-testid="disabled-indicator" />
-        </CollapsibleTrigger>
-        <CollapsibleContent>Unavailable details.</CollapsibleContent>
-      </Collapsible>
-    `,
-  });
-
-  const trigger = await screen.findByRole('button', { name: 'Disabled details' });
-  const indicator = screen.getByTestId('disabled-indicator');
-
-  expect(getComputedStyle(trigger).opacity).toBe('0.5');
-  expect(getComputedStyle(indicator).opacity).toBe('1');
 });

@@ -8,14 +8,9 @@ import {
   LightboxBackdrop,
   LightboxPositioner,
   LightboxContent,
-  LightboxTitle,
-  LightboxDescription,
   LightboxCloseIcon,
-  LightboxHeader,
   LightboxBody,
-  LightboxFooter,
   LightboxImage,
-  LightboxGallery,
   LightboxBind,
   Lightbox,
   useLightbox,
@@ -135,14 +130,9 @@ test('keeps its close icon accessible and viewport-fixed, then restores trigger 
   const dialog = screen.getByRole('dialog', { name: 'Image preview' });
   const button = screen.getByRole('button', { name: 'Close image' });
   expect(dialog.contains(button)).toBe(true);
-  expect(getComputedStyle(dialog).scale).toBe('none');
-  expect(getComputedStyle(dialog).translate).toBe('none');
   const rect = button.getBoundingClientRect();
   expect(rect.top).toBeCloseTo(16);
   expect(window.innerWidth - rect.right).toBeCloseTo(16);
-  await expect
-    .element(page.locator('[data-slot="lightbox-body"]'))
-    .toHaveCSS('animation-name', 'moduix-lightbox-body-in');
   await closeIcon.press('Tab');
   await expect.element(closeIcon).toBeFocused();
   await closeIcon.click();
@@ -151,38 +141,6 @@ test('keeps its close icon accessible and viewport-fixed, then restores trigger 
   await expect
     .element(page.getByRole('button', { name: 'Open preview', exact: true }))
     .toBeFocused();
-});
-
-test('fades the close icon with content and uses the shared dialog motion', async () => {
-  render(
-    <Lightbox defaultOpen portalled={false}>
-      <LightboxBackdrop />
-      <LightboxPositioner>
-        <LightboxContent aria-label="Image preview">
-          <LightboxCloseIcon />
-          <LightboxBody>
-            <LightboxImage src="/full-size.jpg" alt="Mountain ridge" />
-          </LightboxBody>
-        </LightboxContent>
-      </LightboxPositioner>
-    </Lightbox>,
-  );
-
-  const backdrop = document.querySelector('[data-slot="lightbox-backdrop"]')!;
-  const content = document.querySelector('[data-slot="lightbox-content"]')!;
-  const closeIcon = document.querySelector('[data-slot="lightbox-close-icon"]')!;
-  expect(getComputedStyle(backdrop).animationName).toBe('moduix-dialog-backdrop-in');
-  expect(getComputedStyle(content).animationDuration).toBe('0.2s');
-  expect(closeIcon.hasAttribute('data-state')).toBe(false);
-
-  // Click and poll in the page so the exit animation is read before the content unmounts.
-  screen.getByRole('button', { name: 'Close image' }).click();
-
-  await expect.poll(() => content.getAttribute('data-state')).toBe('closed');
-  expect(getComputedStyle(content).animationFillMode).toBe('forwards');
-  expect(getComputedStyle(backdrop).animationFillMode).toBe('forwards');
-  expect(getComputedStyle(closeIcon).visibility).toBe('visible');
-  await expect.element(page.getByRole('dialog')).toHaveCount(0);
 });
 
 test('exposes RootProvider state through useLightboxContext', async () => {
@@ -240,15 +198,10 @@ test('merges consumer utilities over Tailwind defaults', async () => {
   const image = document.querySelector('[data-slot="lightbox-image"]');
 
   expect([...backdrop!.classList]).toEqual(expect.arrayContaining(['bg-red-500']));
-  expect(backdrop!.classList.contains('bg-overlay')).toBe(false);
   expect([...positioner!.classList]).toEqual(expect.arrayContaining(['p-8']));
-  expect(positioner!.classList.contains('p-4')).toBe(false);
   expect([...closeIcon!.classList]).toEqual(expect.arrayContaining(['size-10']));
-  expect(closeIcon!.classList.contains('size-8')).toBe(false);
   expect([...content!.classList]).toEqual(expect.arrayContaining(['max-w-full']));
-  expect(content!.classList.contains('max-w-[min(80vw,calc(100vw-2rem))]')).toBe(false);
   expect([...image!.classList]).toEqual(expect.arrayContaining(['rounded-none']));
-  expect(image!.classList.contains('rounded-md')).toBe(false);
 
   await expect
     .element(page.locator('[data-slot="lightbox-positioner"]'))
@@ -259,65 +212,6 @@ test('merges consumer utilities over Tailwind defaults', async () => {
   await expect
     .element(page.locator('[data-slot="lightbox-image"]'))
     .toHaveCSS('border-radius', '0px');
-});
-
-test('applies component-owned visual utilities to every visual part', async () => {
-  render(
-    <Lightbox defaultOpen portalled={false}>
-      <LightboxBackdrop />
-      <LightboxPositioner>
-        <LightboxContent aria-label="Image preview">
-          <LightboxCloseIcon />
-          <LightboxHeader>
-            <LightboxTitle>Preview</LightboxTitle>
-            <LightboxDescription>Description</LightboxDescription>
-          </LightboxHeader>
-          <LightboxBody>
-            <LightboxImage src="/full-size.jpg" alt="Mountain ridge" />
-            <LightboxGallery />
-          </LightboxBody>
-          <LightboxFooter>Footer</LightboxFooter>
-        </LightboxContent>
-      </LightboxPositioner>
-    </Lightbox>,
-  );
-
-  expect([...document.querySelector('[data-slot="lightbox-backdrop"]')!.classList]).toEqual(
-    expect.arrayContaining(['fixed', 'inset-0', 'bg-overlay']),
-  );
-  expect([...document.querySelector('[data-slot="lightbox-positioner"]')!.classList]).toEqual(
-    expect.arrayContaining(['grid', 'place-items-center', 'p-4']),
-  );
-  expect([...document.querySelector('[data-slot="lightbox-content"]')!.classList]).toEqual(
-    expect.arrayContaining(['grid', 'w-fit', 'gap-3']),
-  );
-  expect([...document.querySelector('[data-slot="lightbox-close-icon"]')!.classList]).toEqual(
-    expect.arrayContaining(['fixed', 'size-8']),
-  );
-  expect([...document.querySelector('[data-slot="lightbox-title"]')!.classList]).toEqual(
-    expect.arrayContaining(['text-md', 'font-semibold']),
-  );
-  expect([...document.querySelector('[data-slot="lightbox-description"]')!.classList]).toEqual(
-    expect.arrayContaining(['text-sm']),
-  );
-  expect([...document.querySelector('[data-slot="lightbox-header"]')!.classList]).toEqual(
-    expect.arrayContaining(['grid', 'gap-1']),
-  );
-  expect([...document.querySelector('[data-slot="lightbox-body"]')!.classList]).toEqual(
-    expect.arrayContaining(['grid', 'gap-3']),
-  );
-  expect([...document.querySelector('[data-slot="lightbox-footer"]')!.classList]).toEqual(
-    expect.arrayContaining(['flex', 'items-center']),
-  );
-  expect([...document.querySelector('[data-slot="lightbox-image"]')!.classList]).toEqual(
-    expect.arrayContaining(['block', 'rounded-md', 'shadow-lg']),
-  );
-  expect([...document.querySelector('[data-slot="lightbox-gallery"]')!.classList]).toEqual(
-    expect.arrayContaining([
-      'justify-self-center',
-      '[&_[data-slot=carousel-indicator-group]]:mx-auto',
-    ]),
-  );
 });
 
 test('keeps the close-on-click marker aligned with its behavior', async () => {

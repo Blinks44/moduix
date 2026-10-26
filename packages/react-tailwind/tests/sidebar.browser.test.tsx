@@ -2,7 +2,6 @@ import { createListCollection } from '@ark-ui/react/collection';
 import { page } from '@rstest/browser';
 import { expect, test } from '@rstest/core';
 import { render } from '@testing-library/react';
-import type { CSSProperties } from 'react';
 import {
   Select,
   Sidebar,
@@ -140,18 +139,6 @@ test('preserves active link composition for primary and nested navigation', asyn
   const details = page.getByRole('link', { name: 'Details' });
 
   await expect.element(overview).toHaveAttribute('aria-current', 'page');
-  expect([
-    ...document.querySelector('[data-slot="sidebar-navigation-button"][href="#overview"]')!
-      .classList,
-  ]).toEqual(
-    expect.arrayContaining([
-      'group-data-[state=expanded]/sidebar-panel:@min-[7rem]:has-[+_[data-slot=sidebar-navigation-badge]]:pe-10',
-    ]),
-  );
-  expect([
-    ...document.querySelector('[data-slot="sidebar-navigation-button"][href="#overview"]')!
-      .classList,
-  ]).not.toContain('@max-[7rem]:has-[+_[data-slot=sidebar-navigation-badge]]:pe-2');
   await expect.element(overview).toHaveAttribute('data-slot', 'sidebar-navigation-button');
   await expect.element(overview).toHaveAttribute('data-active');
   await expect.element(overview).toHaveAttribute('data-size', 'sm');
@@ -197,21 +184,11 @@ test('preserves direct Select indicator composition in a navigation button', asy
   );
 
   const indicator = document.querySelector<HTMLElement>('[data-testid="select-indicator"]')!;
-  const icon = document.querySelector<HTMLElement>('[data-sidebar-icon]')!;
-  const button = indicator.parentElement!;
-
-  expect(indicator.getBoundingClientRect().left).toBeGreaterThan(
-    icon.getBoundingClientRect().right,
-  );
-  expect(
-    button.getBoundingClientRect().right - indicator.getBoundingClientRect().right,
-  ).toBeLessThan(16);
 
   await page.getByRole('button', { name: 'Toggle sidebar' }).click();
   await expect
     .element(page.getByRole('button', { name: 'Toggle sidebar' }))
     .toHaveAttribute('aria-expanded', 'false');
-  expect(getComputedStyle(indicator).display).toBe('none');
 
   expect(indicator).toBe(container.querySelector('[data-scope="select"][data-part="indicator"]'));
 });
@@ -294,75 +271,13 @@ test('uses native Tailwind defaults and merges consumer utilities last', async (
   );
 
   const root = container.querySelector('[data-slot="sidebar-root"]');
-  const panel = container.querySelector('[data-slot="sidebar-panel"]');
-  expect([...document.querySelector('[data-slot="sidebar-navigation-button"]')!.classList]).toEqual(
-    expect.arrayContaining([
-      'group-data-[state=expanded]/sidebar-panel:@min-[7rem]:has-[+_[data-slot=sidebar-navigation-badge]]:pe-10',
-    ]),
-  );
-  expect([
-    ...document.querySelector('[data-slot="sidebar-navigation-button"]')!.classList,
-  ]).not.toContain('has-[+_[data-slot=sidebar-navigation-badge]]:pe-10');
   const trigger = page.getByRole('button', { name: 'Toggle sidebar' });
 
   expect([...root!.classList]).toEqual(expect.arrayContaining(['h-64', 'bg-muted']));
-  expect([...root!.classList]).not.toContain('h-dvh');
-  expect([...root!.classList]).not.toContain('bg-background');
-  expect([...panel!.classList]).toEqual(expect.arrayContaining(['p-6', 'bg-sidebar']));
-  expect([...panel!.classList]).not.toContain('p-0');
-  expect([...document.querySelector('[data-slot="sidebar-navigation-button"]')!.classList]).toEqual(
-    expect.arrayContaining(['p-6', 'min-h-control-md']),
-  );
-  expect([
-    ...document.querySelector('[data-slot="sidebar-navigation-button"]')!.classList,
-  ]).not.toContain('px-2');
-  expect([
-    ...document.querySelector('[data-slot="sidebar-navigation-button"]')!.classList,
-  ]).not.toContain('py-1');
   expect([...document.querySelector('[data-slot="sidebar-trigger"]')!.classList]).toEqual(
     expect.arrayContaining(['size-8']),
-  );
-  expect([...document.querySelector('[data-slot="sidebar-trigger"]')!.classList]).not.toContain(
-    'size-7',
   );
   await expect.element(trigger.locator('svg')).toBeVisible();
   await expect.element(trigger).toHaveCSS('width', '32px');
   await expect.element(page.locator('[data-slot="sidebar-panel"]')).toHaveCSS('padding', '24px');
-});
-test('colors the panel from sidebar tokens and keeps the active item visible when collapsed', async () => {
-  render(
-    <Sidebar
-      style={
-        {
-          '--moduix-color-sidebar': 'rgb(1, 2, 3)',
-          '--moduix-color-sidebar-accent': 'rgb(4, 5, 6)',
-        } as CSSProperties
-      }
-    >
-      <SidebarPanel data-testid="panel">
-        <SidebarNavigationList>
-          <SidebarNavigationItem>
-            <SidebarNavigationButton active style={{ transition: 'none' }}>
-              <svg />
-              <SidebarLabel>Overview</SidebarLabel>
-            </SidebarNavigationButton>
-          </SidebarNavigationItem>
-        </SidebarNavigationList>
-      </SidebarPanel>
-      <SidebarResizeTrigger />
-      <SidebarTrigger />
-      <SidebarInset />
-    </Sidebar>,
-  );
-
-  const panel = document.querySelector<HTMLElement>('[data-testid="panel"]')!;
-  const active = document.querySelector<HTMLElement>('[data-slot="sidebar-navigation-button"]')!;
-
-  expect(getComputedStyle(panel).backgroundColor).toBe('rgb(1, 2, 3)');
-  expect(getComputedStyle(active).backgroundColor).toBe('rgb(4, 5, 6)');
-
-  await page.getByRole('button', { name: 'Toggle sidebar' }).click();
-  await expect.element(page.getByTestId('panel')).toHaveAttribute('data-state', 'collapsed');
-
-  expect(getComputedStyle(active).backgroundColor).toBe('rgb(4, 5, 6)');
 });

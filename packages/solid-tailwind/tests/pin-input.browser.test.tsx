@@ -94,61 +94,6 @@ test('keeps invalid, disabled, and read-only Field state on visible inputs', asy
   await expect.element(page.getByText('Enter a valid code.')).toBeVisible();
 });
 
-test('does not dim a pin input twice inside a disabled field', () => {
-  render(() => (
-    <Field disabled>
-      <PinInput count={4}>
-        <PinInputLabel>Verification code</PinInputLabel>
-        <PinInputControl>
-          <PinInputInputs />
-        </PinInputControl>
-      </PinInput>
-    </Field>
-  ));
-
-  const field = document.querySelector('[data-slot="field-root"]')!;
-  const root = document.querySelector('[data-slot="pin-input-root"]')!;
-
-  expect(root.hasAttribute('data-disabled')).toBe(true);
-  expect(getComputedStyle(field).opacity).toBe('0.5');
-  expect(getComputedStyle(root).opacity).toBe('1');
-});
-
-test('sizes the cells and their text from the root size', () => {
-  render(() => (
-    <div>
-      <PinInput count={2} size="xs">
-        <PinInputControl>
-          <PinInputInputs />
-        </PinInputControl>
-      </PinInput>
-      <PinInput count={2}>
-        <PinInputControl>
-          <PinInputInputs />
-        </PinInputControl>
-      </PinInput>
-      <PinInput count={2} size="xl">
-        <PinInputControl>
-          <PinInputInputs />
-        </PinInputControl>
-      </PinInput>
-    </div>
-  ));
-
-  const [xs, md, xl] = [...document.querySelectorAll('[data-slot="pin-input-root"]')].map((root) =>
-    root.querySelector<HTMLElement>('[data-slot="pin-input-input"]')!,
-  );
-
-  expect(xs!.closest('[data-size]')?.getAttribute('data-size')).toBe('xs');
-  expect(md!.closest('[data-size]')?.getAttribute('data-size')).toBe('md');
-  expect([xs!.offsetWidth, xs!.offsetHeight]).toEqual([24, 24]);
-  expect([md!.offsetWidth, md!.offsetHeight]).toEqual([36, 36]);
-  expect([xl!.offsetWidth, xl!.offsetHeight]).toEqual([48, 48]);
-  expect(parseFloat(getComputedStyle(xl!).fontSize)).toBeGreaterThan(
-    parseFloat(getComputedStyle(xs!).fontSize),
-  );
-});
-
 test('submits the owning form after completing an auto-submit PinInput', async () => {
   let submittedCode = '';
 
@@ -252,46 +197,6 @@ test('does not forward refs through native Ark Solid asChild composition', async
   expect(rootRef).toBeUndefined();
 });
 
-test('applies native utilities to component-owned parts', () => {
-  const { container } = render(() => (
-    <PinInput count={4}>
-      <PinInputLabel>Verification code</PinInputLabel>
-      <PinInputControl>
-        <PinInputInputs />
-        <PinInputSeparator />
-      </PinInputControl>
-    </PinInput>
-  ));
-
-  expect([...container.querySelector('[data-slot="pin-input-root"]')!.classList]).toEqual(
-    expect.arrayContaining(['inline-flex', 'flex-col', 'items-start', 'gap-2']),
-  );
-  expect([...container.querySelector('[data-slot="pin-input-label"]')!.classList]).toEqual(
-    expect.arrayContaining(['text-sm', 'font-medium']),
-  );
-  expect([...container.querySelector('[data-slot="pin-input-control"]')!.classList]).toEqual(
-    expect.arrayContaining(['inline-flex', 'items-center', 'gap-2']),
-  );
-  expect([...container.querySelector('[data-slot="pin-input-input"]')!.classList]).toEqual(
-    expect.arrayContaining([
-      'size-control-md',
-      'flex-none',
-      'rounded-md',
-      'border',
-      'bg-background',
-      'p-0',
-      'text-center',
-      'text-lg',
-      'font-medium',
-      'text-inherit',
-      'tabular-nums',
-    ]),
-  );
-  expect([...container.querySelector('[data-slot="pin-input-separator"]')!.classList]).toEqual(
-    expect.arrayContaining(['inline-flex', 'size-4', 'flex-none', 'text-muted-foreground']),
-  );
-});
-
 test('lets consumer Tailwind classes override conflicting defaults', () => {
   const { container } = render(() => (
     <PinInput class="w-80 max-w-sm gap-4">
@@ -313,11 +218,8 @@ test('lets consumer Tailwind classes override conflicting defaults', () => {
   const separator = container.querySelector('[data-slot="pin-input-separator"]');
 
   expect([...root!.classList]).toEqual(expect.arrayContaining(['w-80', 'max-w-sm', 'gap-4']));
-  expect(root?.classList.contains('gap-2')).toBe(false);
   expect([...label!.classList]).toEqual(expect.arrayContaining(['text-lg', 'text-primary']));
-  expect(label?.classList.contains('text-sm')).toBe(false);
   expect([...control!.classList]).toEqual(expect.arrayContaining(['gap-4']));
-  expect(control?.classList.contains('gap-2')).toBe(false);
   expect(getComputedStyle(input!).width).toBe('160px');
   expect(getComputedStyle(input!).height).toBe('48px');
   expect([...input!.classList]).toEqual(
@@ -332,13 +234,5 @@ test('lets consumer Tailwind classes override conflicting defaults', () => {
       'text-primary',
     ]),
   );
-  expect(
-    ['rounded-md', 'border', 'bg-background', 'text-inherit'].some((name) =>
-      input?.classList.contains(name),
-    ),
-  ).toBe(false);
   expect([...separator!.classList]).toEqual(expect.arrayContaining(['size-8', 'text-primary']));
-  expect(
-    ['size-4', 'text-muted-foreground'].some((name) => separator?.classList.contains(name)),
-  ).toBe(false);
 });

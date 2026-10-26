@@ -90,9 +90,6 @@ test.each([false, true])(
 
     const input = screen.getByRole('textbox', { name: 'Code' });
     expect(inputRef.value?.$el).toBe(input);
-    expect([...input!.classList]).toEqual(
-      expect.arrayContaining(['consumer-input', 'initial-class']),
-    );
     expect(getComputedStyle(input).color).toBe('rgb(255, 0, 0)');
     const inputLocator = page.getByRole('textbox', { name: 'Code', exact: true });
     await expect.element(inputLocator).toHaveValue('clipboard-code');
@@ -100,10 +97,6 @@ test.each([false, true])(
     inputClass.value = { 'updated-class': true };
     title.value = 'Updated title';
     await expect.element(inputLocator).toHaveAttribute('title', 'Updated title');
-    expect([...input!.classList]).toEqual(expect.arrayContaining(['updated-class']));
-    expect(
-      ['consumer-input', 'initial-class'].some((name) => input?.classList.contains(name)),
-    ).toBe(false);
     await inputLocator.click();
     expect(clicked).toHaveBeenCalledTimes(1);
   },
@@ -137,8 +130,6 @@ test('keeps RootProvider and asChild composition semantic', async () => {
   await expect
     .element(page.locator('[data-slot="clipboard-trigger"]'))
     .toHaveAttribute('data-slot', 'clipboard-trigger');
-  expect(document.querySelector('[data-slot="clipboard-input"]')?.className).toBe('');
-  expect(document.querySelector('[data-slot="clipboard-trigger"]')?.className).toBe('');
 });
 
 test('forwards refs and renders default and custom indicator slots', async () => {

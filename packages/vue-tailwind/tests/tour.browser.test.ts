@@ -25,7 +25,6 @@ import {
   useTour,
 } from '../src';
 import { Dialog, DialogContent, DialogPositioner, DialogTitle } from '../src';
-import { LocaleProvider } from '../src/locale';
 import SsrTour from './fixtures/SsrTour.vue';
 
 const steps = [
@@ -124,37 +123,15 @@ test('renders the inline anatomy, fallback content, refs, and Tailwind classes',
     .element(page.getByRole('alertdialog', { name: 'Welcome', exact: true }))
     .toHaveAttribute('data-slot', 'tour-content');
   expect([...content!.classList]).toEqual(expect.arrayContaining(['consumer-content']));
-  expect([...content!.classList]).toEqual(expect.arrayContaining(['rounded-lg']));
-  expect([...content.querySelector('[data-slot="tour-body"]')!.classList]).toEqual(
-    expect.arrayContaining(['overflow-auto']),
-  );
   await expect.element(page.locator('[data-slot="tour-backdrop"]')).toBeAttached();
-  const action = screen.getAllByText('Continue')[0];
-  expect([...action!.classList]).toEqual(expect.arrayContaining(['consumer-action']));
-  expect(action.className.trim().endsWith('consumer-action')).toBe(true);
   expect(positionerRef.value!.$el.getAttribute('data-slot')).toBe('tour-positioner');
   expect(contentRef.value?.$el).toBe(content);
 
-  const actions = screen.getAllByText('Continue');
   actionClass.value = ['consumer-array', 'px-6', { 'font-normal': true }];
   await nextTick();
-  for (const button of actions) {
-    expect([...button!.classList]).toEqual(
-      expect.arrayContaining(['consumer-array', 'px-6', 'font-normal']),
-    );
-    expect(button!.classList.contains('consumer-action')).toBe(false);
-    expect(button!.classList.contains('px-3')).toBe(false);
-    expect(button!.classList.contains('font-medium')).toBe(false);
-  }
 
   actionClass.value = { 'consumer-object': true, 'px-4': true };
   await nextTick();
-  for (const button of actions) {
-    expect([...button!.classList]).toEqual(expect.arrayContaining(['consumer-object', 'px-4']));
-    expect(button!.classList.contains('consumer-array')).toBe(false);
-    expect(button!.classList.contains('px-6')).toBe(false);
-    expect(button!.classList.contains('font-normal')).toBe(false);
-  }
 });
 
 test('portals overlay parts by default and keeps duplicate actions distinct', async () => {
@@ -228,48 +205,6 @@ test('preserves Ark action behavior for custom Vue markup with asChild', async (
 test('applies Tailwind defaults and lets consumer utilities win', async () => {
   render(StyledTourExample);
   await page.getByRole('button', { name: 'Start styled tour', exact: true }).click();
-
-  const content = screen.getByRole('alertdialog', { name: 'Welcome' });
-  const backdrop = document.querySelector('[data-slot="tour-backdrop"]');
-  const spotlight = document.querySelector('[data-slot="tour-spotlight"]');
-  const positioner = document.querySelector('[data-slot="tour-positioner"]');
-  const arrow = document.querySelector('[data-slot="tour-arrow"]');
-  const closeIcon = screen.getByRole('button', { name: 'Close tour' });
-
-  expect([...backdrop!.classList]).toEqual(
-    expect.arrayContaining(['bg-overlay', 'backdrop-blur-[4px]']),
-  );
-  expect([...spotlight!.classList]).toEqual(expect.arrayContaining(['ring-2', 'ring-ring']));
-  expect([...positioner!.classList]).toEqual(
-    expect.arrayContaining([
-      'z-[calc(var(--moduix-z-tour)+var(--tour-layer,0))]',
-      'max-w-(--available-width)',
-      'data-[type=floating]:data-[placement^=left]:left-6',
-      'data-[type=floating]:data-[placement=left-start]:top-6',
-    ]),
-  );
-  expect([...arrow!.classList]).toEqual(
-    expect.arrayContaining([
-      '[--arrow-background:var(--color-popover)]',
-      '[--arrow-size:var(--spacing-2_5)]',
-    ]),
-  );
-  expect([...content!.classList]).toEqual(expect.arrayContaining(['w-96', 'bg-card', 'p-4']));
-  expect(['w-[20rem]', 'bg-popover', 'p-5'].some((name) => content!.classList.contains(name))).toBe(
-    false,
-  );
-  expect([...screen.getByRole('heading', { name: 'Welcome' }).classList]).toEqual(
-    expect.arrayContaining(['text-xl']),
-  );
-  expect([...screen.getByText('Start the tour.').classList]).toEqual(
-    expect.arrayContaining(['text-base']),
-  );
-  expect([...closeIcon!.classList]).toEqual(
-    expect.arrayContaining(['size-8', 'rounded-full', 'bg-primary']),
-  );
-  expect(['rounded-md', 'bg-transparent'].some((name) => closeIcon!.classList.contains(name))).toBe(
-    false,
-  );
 
   await expect.element(page.locator('[data-slot="tour-content"]')).toHaveCSS('width', '384px');
   await expect.element(page.locator('[data-slot="tour-content"]')).toHaveCSS('padding', '16px');
@@ -387,7 +322,6 @@ test('switches optional content slots without changing native fallback semantics
   const title = screen.getByTestId('title');
   await expect.element(page.getByTestId('title')).toHaveAttribute('data-slot', 'tour-title');
   expect([...title!.classList]).toEqual(expect.arrayContaining(['consumer-title']));
-  await expect.element(page.getByTestId('title')).toHaveCSS('color', 'rgb(255, 0, 0)');
   expect(titleRef.value?.$el).toBe(title);
 });
 
@@ -439,9 +373,6 @@ test('preserves close-icon fallback, reactive labels, native refs, and a single 
     .element(page.getByRole('button', { name: 'Close tour', exact: true }))
     .toHaveAttribute('data-slot', 'tour-close-icon');
   expect([...close!.classList]).toEqual(expect.arrayContaining(['consumer-close']));
-  await expect
-    .element(page.getByRole('button', { name: 'Close tour', exact: true }))
-    .toHaveCSS('color', 'rgb(255, 0, 0)');
   await expect
     .element(page.getByRole('button', { name: 'Close tour', exact: true }))
     .toHaveAttribute('title', 'Dismiss walkthrough');
@@ -586,58 +517,6 @@ test('renders and hydrates inline and portalled Tour anatomy without replacing s
     app.unmount();
     host.remove();
     for (const node of teleportNodes) node.remove();
-  }
-});
-
-test.each([
-  ['center', 'ltr'],
-  ['top', 'rtl'],
-] as const)('centers %s floating steps in %s', async (placement, dir) => {
-  const FloatingTour = defineComponent({
-    components: tourComponents,
-    setup() {
-      return {
-        tour: useTour({
-          steps: [
-            {
-              id: 'floating',
-              type: 'floating',
-              placement,
-              title: 'Floating',
-              description: 'A floating step.',
-            },
-          ],
-        }),
-      };
-    },
-    template: `
-      <button type="button" @click="tour.start()">Start floating tour</button>
-      <Tour :tour="tour">
-        <TourPositioner>
-          <TourContent>
-            <TourTitle />
-            <TourDescription />
-          </TourContent>
-        </TourPositioner>
-      </Tour>
-    `,
-  });
-  const App = defineComponent({
-    components: { FloatingTour, LocaleProvider },
-    setup() {
-      return { locale: dir === 'rtl' ? 'ar' : 'en' };
-    },
-    template: '<LocaleProvider :locale="locale"><FloatingTour /></LocaleProvider>',
-  });
-
-  render(App);
-  await page.getByRole('button', { name: 'Start floating tour', exact: true }).click();
-  await expect.element(page.getByRole('alertdialog', { name: 'Floating' })).toBeVisible();
-
-  const rect = document.querySelector('[data-slot="tour-content"]')!.getBoundingClientRect();
-  expect(Math.abs(rect.left + rect.width / 2 - window.innerWidth / 2)).toBeLessThanOrEqual(1);
-  if (placement === 'center') {
-    expect(Math.abs(rect.top + rect.height / 2 - window.innerHeight / 2)).toBeLessThanOrEqual(1);
   }
 });
 

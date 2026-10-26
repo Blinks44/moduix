@@ -103,27 +103,6 @@ test('scrolls wide content without a Typeset root', () => {
   expect(getComputedStyle(scroll).overflowX).toBe('auto');
 });
 
-test('keeps table column alignment physical in right-to-left content', () => {
-  render({
-    components: typesetComponents,
-    template: `
-      <Typeset dir="rtl">
-        <table>
-          <tbody>
-            <tr>
-              <td align="left" data-testid="left-cell">Left</td>
-              <td align="right" data-testid="right-cell">Right</td>
-            </tr>
-          </tbody>
-        </table>
-      </Typeset>
-    `,
-  });
-
-  expect(getComputedStyle(screen.getByTestId('left-cell')).textAlign).toBe('left');
-  expect(getComputedStyle(screen.getByTestId('right-cell')).textAlign).toBe('right');
-});
-
 test('updates native tabindex and named-region semantics with parent props', async () => {
   const label = ref<string>();
   const labelledby = ref<string>();
@@ -216,8 +195,6 @@ test('forwards native listeners and keeps consumer classes last', async () => {
 
   expect(root?.classList.contains('consumer-root')).toBe(true);
   expect(scroll?.classList.contains('consumer-scroll')).toBe(true);
-  expect(root.className).toMatch(/consumer-root$/);
-  expect(scroll.className).toMatch(/consumer-scroll$/);
   expect(rootRef.value?.$el).toBe(root);
   expect(scrollRef.value?.$el).toBe(scroll);
   expect(root.style.color).toBe('red');

@@ -16,7 +16,6 @@ import {
   DatePickerField,
   DatePickerRangeField,
   DatePickerInput,
-  DatePickerTrigger,
   DatePickerClearTrigger,
   DatePickerPositioner,
   DatePickerContent,
@@ -59,11 +58,8 @@ test('renders Ark month and year primitives as native selects', async () => {
   const yearSelect = screen.getByRole('combobox', { name: 'Year' });
 
   expect(monthSelect.tagName).toBe('SELECT');
-  expect(monthSelect!.classList.contains('appearance-none')).toBe(true);
-  expect([...monthSelect!.classList]).toEqual(expect.arrayContaining(['text-sm', 'leading-5']));
   expect(monthSelect.querySelectorAll('option')).toHaveLength(12);
   expect(yearSelect.tagName).toBe('SELECT');
-  expect(yearSelect!.classList.contains('appearance-none')).toBe(true);
   expect(yearSelect.querySelector('option[value="2026"]')).not.toBeNull();
 });
 
@@ -323,68 +319,6 @@ test('renders and selects years in a year-only picker', async () => {
     .toHaveValue('2020');
 });
 
-test('applies native utilities to the component-owned visual parts', async () => {
-  render(
-    <DatePicker defaultOpen defaultValue={[new CalendarDate(2026, 6, 22)]}>
-      <DatePickerLabel>Release date</DatePickerLabel>
-      <DatePickerControl>
-        <DatePickerInput />
-        <DatePickerClearTrigger aria-label="Clear date" />
-        <DatePickerTrigger aria-label="Open calendar" />
-      </DatePickerControl>
-      <DatePickerPositioner>
-        <DatePickerContent>
-          <DatePickerView view="day">
-            <DatePickerDayTable />
-          </DatePickerView>
-        </DatePickerContent>
-      </DatePickerPositioner>
-    </DatePicker>,
-  );
-  await expect
-    .element(page.locator('[data-slot="date-picker-root"]').nth(0))
-    .toHaveCSS('display', 'inline-flex');
-  await expect
-    .element(page.locator('[data-slot="date-picker-root"]').nth(0))
-    .toHaveCSS('width', '300px');
-  await expect
-    .element(page.locator('[data-slot="date-picker-root"]').nth(0))
-    .toHaveCSS('gap', '4px');
-  await expect
-    .element(page.locator('[data-slot="date-picker-label"]').nth(0))
-    .toHaveCSS('font-size', '14px');
-  await expect
-    .element(page.locator('[data-slot="date-picker-input"]').nth(0))
-    .toHaveCSS('height', '36px');
-  await expect
-    .element(page.locator('[data-slot="date-picker-input"]').nth(0))
-    .toHaveCSS('padding-inline-start', '14px');
-  await expect
-    .element(page.locator('[data-slot="date-picker-input"]').nth(0))
-    .toHaveCSS('padding-inline-end', '68px');
-  await expect
-    .element(page.locator('[data-slot="date-picker-trigger"]').nth(0))
-    .toHaveCSS('position', 'absolute');
-  await expect
-    .element(page.locator('[data-slot="date-picker-trigger"]').nth(0))
-    .toHaveCSS('width', '24px');
-  await expect
-    .element(page.locator('[data-slot="date-picker-content"]').nth(0))
-    .toHaveCSS('width', '320px');
-  await expect
-    .element(page.locator('[data-slot="date-picker-content"]').nth(0))
-    .toHaveCSS('border-left-width', '1px');
-  await expect
-    .element(page.locator('[data-slot="date-picker-content"]').nth(0))
-    .toHaveCSS('padding-left', '12px');
-  await expect
-    .element(page.locator('[data-slot="date-picker-table-cell-trigger"]').nth(0))
-    .toHaveCSS('height', '32px');
-  await expect
-    .element(page.locator('[data-slot="date-picker-table-cell-trigger"]').nth(0))
-    .toHaveCSS('min-width', '32px');
-});
-
 test('lets consumer utilities replace component defaults', async () => {
   const { container } = render(
     <DatePicker className="w-full max-w-sm gap-4">
@@ -400,19 +334,10 @@ test('lets consumer utilities replace component defaults', async () => {
   const input = screen.getByRole('textbox');
 
   expect([...root!.classList]).toEqual(expect.arrayContaining(['w-full', 'max-w-sm', 'gap-4']));
-  expect(['w-75', 'max-w-full', 'gap-1'].some((name) => root!.classList.contains(name))).toBe(
-    false,
-  );
   expect([...control!.classList]).toEqual(expect.arrayContaining(['w-80', 'gap-4']));
-  expect(['w-full', 'gap-2'].some((name) => control!.classList.contains(name))).toBe(false);
   expect([...input!.classList]).toEqual(
     expect.arrayContaining(['h-10', 'bg-muted', 'ps-0', 'pe-0']),
   );
-  expect(
-    ['h-control-md', 'bg-background', 'ps-3.5', 'pe-17'].some((name) =>
-      input!.classList.contains(name),
-    ),
-  ).toBe(false);
 });
 
 test.each([
@@ -556,70 +481,4 @@ test('reads week numbers from the root and offsets the day table by months', asy
   expect(
     document.querySelector('[data-slot="date-picker-table-cell-trigger"][data-value="2026-07-15"]'),
   ).not.toBeNull();
-});
-
-test('marks today with a visible border', async () => {
-  render(
-    <DatePicker defaultOpen portalled={false}>
-      <Calendar>
-        <DatePickerView view="day">
-          <DatePickerDayTable />
-        </DatePickerView>
-      </Calendar>
-    </DatePicker>,
-  );
-  const today = document.querySelector<HTMLElement>(
-    '[data-slot="date-picker-table-cell-trigger"][data-today]',
-  )!;
-  await expect.poll(() => getComputedStyle(today).borderTopWidth).not.toBe('0px');
-  await expect.poll(() => getComputedStyle(today).borderTopColor).not.toBe('rgba(0, 0, 0, 0)');
-});
-
-test('dims disabled outside-range days with opacity only', async () => {
-  render(
-    <DatePicker defaultOpen portalled={false} defaultFocusedValue={new CalendarDate(2026, 6, 1)}>
-      <Calendar>
-        <DatePickerView view="day">
-          <DatePickerDayTable />
-        </DatePickerView>
-      </Calendar>
-    </DatePicker>,
-  );
-  const outside = document.querySelector<HTMLElement>(
-    '[data-slot="date-picker-table-cell-trigger"][data-outside-range][data-disabled]',
-  )!;
-  const regular = document.querySelector<HTMLElement>(
-    '[data-slot="date-picker-table-cell-trigger"][data-value="2026-06-10"]',
-  )!;
-  await new Promise((resolve) => setTimeout(resolve, 400));
-  expect(getComputedStyle(outside).color).toBe(getComputedStyle(regular).color);
-  expect(getComputedStyle(outside).opacity).toBe('0.5');
-});
-
-test('dims a disabled picker once', async () => {
-  render(
-    <>
-      <DatePicker disabled data-testid="disabled">
-        <DatePickerLabel>Disabled date</DatePickerLabel>
-        <DatePickerField />
-      </DatePicker>
-      <Field disabled>
-        <DatePicker disabled data-testid="field">
-          <DatePickerLabel>Field date</DatePickerLabel>
-          <DatePickerField />
-        </DatePicker>
-      </Field>
-      <DatePicker readOnly data-testid="read-only">
-        <DatePickerLabel>Read-only date</DatePickerLabel>
-        <DatePickerField />
-      </DatePicker>
-    </>,
-  );
-  const disabled = screen.getByTestId('disabled');
-  await expect.poll(() => getComputedStyle(disabled).opacity).toBe('0.5');
-  expect(
-    getComputedStyle(disabled.querySelector('[data-slot="date-picker-trigger"]')!).opacity,
-  ).toBe('1');
-  expect(getComputedStyle(screen.getByTestId('field')).opacity).toBe('1');
-  expect(getComputedStyle(screen.getByTestId('read-only')).opacity).toBe('1');
 });

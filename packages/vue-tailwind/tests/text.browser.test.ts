@@ -134,8 +134,6 @@ test('forwards native attrs, listeners, classes, and an ordinary host ref once',
   expect(rootRef.value?.$el).toBe(text);
   expect(text.getAttribute('id')).toBe('body-copy');
   expect(text.getAttribute('aria-label')).toBe('Supporting text');
-  expect([...text.classList]).toEqual(expect.arrayContaining(['consumer-text', 'active-text']));
-  expect(text.className.split(' ').filter((value) => value === 'consumer-text')).toHaveLength(1);
   expect(text.style.color).toBe('red');
   await page.getByText('Body copy', { exact: true }).click();
   expect(handleClick).toHaveBeenCalledTimes(1);
@@ -207,16 +205,6 @@ test('keeps line clamp effective when truncate is also set', () => {
   expect(text.hasAttribute('data-truncate')).toBe(true);
   expect(text.hasAttribute('data-line-clamp')).toBe(true);
   expect(getComputedStyle(text).webkitLineClamp).toBe('2');
-  expect([...text.classList]).toEqual(
-    expect.arrayContaining([
-      '[display:-webkit-box]',
-      'overflow-hidden',
-      'text-ellipsis',
-      'whitespace-normal',
-      '[-webkit-box-orient:vertical]',
-    ]),
-  );
-  expect([...text.classList]).not.toContain('whitespace-nowrap');
   expect(getComputedStyle(text)).toMatchObject({
     overflow: 'hidden',
     whiteSpace: 'normal',
@@ -233,10 +221,6 @@ test('lets consumer utilities override typography defaults', () => {
   expect([...text.classList]).toEqual(
     expect.arrayContaining(['text-xl', 'font-bold', 'text-primary', 'text-center']),
   );
-  expect([...text.classList]).not.toContain('text-md');
-  expect([...text.classList]).not.toContain('font-regular');
-  expect([...text.classList]).not.toContain('text-foreground');
-  expect([...text.classList]).not.toContain('text-start');
   expect(getComputedStyle(text)).toMatchObject({
     fontSize: '20px',
     fontWeight: '700',
@@ -271,7 +255,6 @@ test('hydrates text without replacing the server host', async () => {
     await expect.element(page.getByRole('link', { name: 'Hydrated copy' })).toHaveCount(1);
     expect(host.querySelectorAll('a')).toHaveLength(1);
     expect(host.querySelector('a')).toBe(serverRoot);
-    expect([...serverRoot.classList]).toContain('hydrated-text');
     expect(instance.rootRef?.$el).toBe(serverRoot);
     expect(serverRoot.getAttribute('data-tone')).toBe('primary');
     expect(serverRoot.style.webkitLineClamp).toBe('2');

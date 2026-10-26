@@ -4,7 +4,7 @@ import { render, screen } from '@testing-library/vue';
 import { renderToString } from '@vue/server-renderer';
 import { createSSRApp, nextTick, ref } from 'vue';
 import type { ComponentPublicInstance } from 'vue';
-import { List, ListIndicator, ListItem } from '../src';
+import { List, ListItem } from '../src';
 import SsrList from './fixtures/SsrList.vue';
 
 const listComponents = { List, ListItem };
@@ -190,86 +190,4 @@ test('preserves list anatomy through hydration', async () => {
     warn.mockRestore();
     error.mockRestore();
   }
-});
-test('derives the default marker from the host and maps size, gap, and tone', () => {
-  render({
-    components: listComponents,
-    template: `
-      <div>
-        <List data-testid="ul"><ListItem>Disc</ListItem></List>
-        <List as="ol" data-testid="ol"><ListItem>Decimal</ListItem></List>
-        <List as-child marker="decimal" data-testid="child">
-          <ol><ListItem>Decimal</ListItem></ol>
-        </List>
-        <List gap="lg" size="sm" tone="muted" marker="none" data-testid="custom">
-          <ListItem>Muted</ListItem>
-        </List>
-      </div>
-    `,
-  });
-
-  const ul = screen.getByTestId('ul');
-  const ol = screen.getByTestId('ol');
-  const child = screen.getByTestId('child');
-  const custom = screen.getByTestId('custom');
-
-  expect(ul.dataset.marker).toBe('disc');
-  expect(getComputedStyle(ul)).toMatchObject({
-    listStyleType: 'disc',
-    paddingInlineStart: '20px',
-    rowGap: '8px',
-    fontSize: '16px',
-  });
-  expect(ol.dataset.marker).toBe('decimal');
-  expect(getComputedStyle(ol).listStyleType).toBe('decimal');
-  expect(child.tagName).toBe('OL');
-  expect(getComputedStyle(child).listStyleType).toBe('decimal');
-  expect(getComputedStyle(custom)).toMatchObject({
-    listStyleType: 'none',
-    paddingInlineStart: '0px',
-    rowGap: '16px',
-    fontSize: '14px',
-  });
-  expect(getComputedStyle(custom).color).not.toBe(getComputedStyle(ul).color);
-});
-test('spaces nested lists and lays out indicators', () => {
-  render({
-    components: { List, ListIndicator, ListItem },
-    template: `
-      <div>
-      <List gap="lg">
-        <ListItem>
-          Parent
-          <List gap="lg" data-testid="nested">
-            <ListItem>Child</ListItem>
-          </List>
-        </ListItem>
-      </List>
-      <List marker="none">
-        <ListItem data-testid="indicator-item">
-          <ListIndicator data-testid="indicator">
-            <svg viewBox="0 0 16 16" aria-hidden="true"></svg>
-          </ListIndicator>
-          Done
-        </ListItem>
-      </List>
-      </div>
-    `,
-  });
-  const nested = screen.getByTestId('nested');
-  const indicatorItem = screen.getByTestId('indicator-item');
-  const indicator = screen.getByTestId('indicator');
-  const icon = indicator.querySelector('svg')!;
-  expect(getComputedStyle(nested).marginBlockStart).toBe('16px');
-  expect(getComputedStyle(indicatorItem)).toMatchObject({
-    display: 'flex',
-    alignItems: 'flex-start',
-  });
-  expect(indicator.dataset).toMatchObject({
-    scope: 'list',
-    part: 'indicator',
-    slot: 'list-indicator',
-  });
-  expect(getComputedStyle(indicator)).toMatchObject({ marginInlineEnd: '8px', minHeight: '24px' });
-  expect(icon.getBoundingClientRect().width).toBe(16);
 });

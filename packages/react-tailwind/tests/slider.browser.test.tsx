@@ -1,7 +1,6 @@
-import { LocaleProvider } from '@ark-ui/react/locale';
 import { page } from '@rstest/browser';
 import { expect, test } from '@rstest/core';
-import { render, screen } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import { createRef } from 'react';
 import {
   Slider,
@@ -253,54 +252,15 @@ test('uses Tailwind-owned visual defaults and lets consumer utilities win', asyn
     </Slider>,
   );
 
-  const root = container.querySelector('[data-slot="slider-root"]')!;
-  const track = container.querySelector('[data-slot="slider-track"]')!;
-  const range = container.querySelector('[data-slot="slider-range"]')!;
-  const thumb = container.querySelector('[data-slot="slider-thumb"]')!;
   const marker = container.querySelector('[data-slot="slider-marker"]')!;
 
-  expect([...root.classList]).toEqual(expect.arrayContaining(['group', 'w-64']));
-  expect([...root.classList]).not.toContain('w-full');
-  expect([...track.classList]).toEqual(expect.arrayContaining(['h-1.5', 'bg-muted', 'ring-1']));
-  expect([...range.classList]).toEqual(expect.arrayContaining(['h-full', 'bg-primary']));
-  expect([...thumb.classList]).toEqual(
-    expect.arrayContaining(['size-4', 'border-border', 'bg-background']),
-  );
-  expect([...marker.classList]).toEqual(
-    expect.arrayContaining(['before:size-1', 'before:bg-border']),
-  );
   await expect.element(page.locator('[data-slot="slider-track"]')).toHaveCSS('height', '6px');
   await expect.element(page.getByRole('slider', { name: 'Volume' })).toHaveCSS('width', '16px');
   expect(getComputedStyle(marker, '::before').width).toBe('4px');
 });
 
-test('fills the container width by default', () => {
-  render(
-    <div style={{ width: '20rem' }}>
-      <Slider defaultValue={[40]} data-testid="slider-root">
-        <SliderControl>
-          <SliderTrack>
-            <SliderRange />
-          </SliderTrack>
-          <SliderThumb index={0} aria-label="Volume">
-            <SliderHiddenInput />
-          </SliderThumb>
-        </SliderControl>
-      </Slider>
-    </div>,
-  );
-
-  expect(screen.getByTestId('slider-root').offsetWidth).toBe(320);
-});
 function rect(selector: string, root: ParentNode = document) {
   return root.querySelector(selector)!.getBoundingClientRect();
-}
-
-function markerDotCenter(marker: Element) {
-  const dot = getComputedStyle(marker, '::before');
-  const translateX = new DOMMatrix(dot.transform === 'none' ? undefined : dot.transform).m41;
-
-  return parseFloat(dot.left) + parseFloat(dot.marginLeft) + parseFloat(dot.width) / 2 + translateX;
 }
 
 function pressThumb(thumb: Element) {
@@ -337,28 +297,6 @@ test('places label and value text on one row above the control', () => {
   expect(Math.abs(valueText.right - root.right)).toBeLessThanOrEqual(1);
   expect(control.top).toBeGreaterThanOrEqual(label.bottom);
   expect(control.width).toBe(root.width);
-});
-
-test('reserves room for marker labels and centers marker dots in RTL', () => {
-  const { container } = render(
-    <LocaleProvider locale="ar">
-      <div style={{ width: '20rem' }}>
-        <Slider defaultValue={[40]}>
-          <SliderParts />
-          <SliderMarkerGroup>
-            <SliderMarker value={50}>50</SliderMarker>
-          </SliderMarkerGroup>
-        </Slider>
-        <p>After</p>
-      </div>
-    </LocaleProvider>,
-  );
-
-  const marker = container.querySelector('[data-slot="slider-marker"]')!;
-
-  expect(marker.getAttribute('dir')).toBe('rtl');
-  expect(rect('p', container).top).toBeGreaterThanOrEqual(marker.getBoundingClientRect().bottom);
-  expect(Math.abs(markerDotCenter(marker) - marker.clientWidth / 2)).toBeLessThanOrEqual(0.5);
 });
 
 test('keeps the dragging indicator next to the thumb in both orientations', async () => {

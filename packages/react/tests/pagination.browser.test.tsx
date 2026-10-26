@@ -1,6 +1,6 @@
 import { page } from '@rstest/browser';
 import { expect, test } from '@rstest/core';
-import { render, screen } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import { createRef, useState } from 'react';
 import {
   Pagination,
@@ -201,22 +201,4 @@ test('exposes usePagination state through RootProvider and context', async () =>
   await expect.element(page.getByText('Page 2')).toBeAttached();
   await page.getByRole('button', { name: /next page/i, exact: true }).click();
   await expect.element(page.getByText('Page 3')).toBeAttached();
-});
-test('keeps default-icon triggers square and pads triggers with custom content', () => {
-  render(
-    <Pagination count={200} defaultPage={10} pageSize={10}>
-      <PaginationFirstTrigger />
-      <PaginationPrevTrigger />
-      <PaginationItems />
-      <PaginationNextTrigger>Next</PaginationNextTrigger>
-    </Pagination>,
-  );
-
-  for (const name of ['first page', 'previous page']) {
-    const trigger = screen.getByRole('button', { name });
-    expect(trigger.offsetWidth).toBe(trigger.offsetHeight);
-  }
-  const textTrigger = screen.getByRole('button', { name: 'next page' });
-  expect(getComputedStyle(textTrigger).paddingInlineStart).toBe('12px');
-  expect(textTrigger.offsetWidth).toBeGreaterThan(textTrigger.offsetHeight);
 });

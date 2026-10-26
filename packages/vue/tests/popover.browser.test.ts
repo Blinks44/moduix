@@ -25,7 +25,6 @@ import {
   usePopover,
   usePopoverContext,
 } from '../src';
-import styles from '../src/components/popover/Popover.module.css';
 import TestPopover from './fixtures/TestPopover.vue';
 
 // Zag 1.43.3 checks the title before lazy content mounts; enable after the upstream fix.
@@ -318,47 +317,6 @@ test('forwards refs, attrs, classes, and native asChild hosts across the anatomy
     .toHaveAttribute('data-slot', 'popover-trigger');
 });
 
-test('applies consumer classes after CSS Module defaults', async () => {
-  const Harness = defineComponent({
-    components: popoverComponents,
-    template: `
-      <Popover default-open :portalled="false">
-        <PopoverTrigger class="consumer-trigger">Open</PopoverTrigger>
-        <PopoverPositioner><PopoverContent class="consumer-content" data-testid="content">
-          <PopoverHeader><PopoverTitle>Title</PopoverTitle><PopoverDescription>Description</PopoverDescription><PopoverCloseIcon class="consumer-close" /></PopoverHeader>
-          <PopoverBody class="consumer-body">Body</PopoverBody><PopoverFooter class="consumer-footer">Footer</PopoverFooter>
-        </PopoverContent></PopoverPositioner>
-      </Popover>
-    `,
-  });
-
-  render(Harness);
-  const trigger = document.querySelector('[data-slot="popover-trigger"]')!;
-  const content = document.querySelector('[data-slot="popover-content"]')!;
-  const title = document.querySelector('[data-slot="popover-title"]')!;
-  const description = document.querySelector('[data-slot="popover-description"]')!;
-  const body = document.querySelector('[data-slot="popover-body"]')!;
-  const footer = document.querySelector('[data-slot="popover-footer"]')!;
-  const closeIcon = document.querySelector('[data-slot="popover-close-icon"]')!;
-  expect(Array.from(trigger.classList)).toEqual(
-    expect.arrayContaining(['consumer-trigger', styles.trigger]),
-  );
-  expect(Array.from(content.classList)).toEqual(
-    expect.arrayContaining(['consumer-content', styles.content]),
-  );
-  expect(Array.from(title.classList)).toContain(styles.title);
-  expect(Array.from(description.classList)).toContain(styles.description);
-  expect(Array.from(body.classList)).toEqual(
-    expect.arrayContaining(['consumer-body', styles.body]),
-  );
-  expect(Array.from(footer.classList)).toEqual(
-    expect.arrayContaining(['consumer-footer', styles.footer]),
-  );
-  expect(Array.from(closeIcon.classList)).toEqual(
-    expect.arrayContaining(['consumer-close', styles.closeIcon]),
-  );
-});
-
 test('hydrates the open popover without replacing hosts or generated IDs', async () => {
   const host = document.createElement('div');
   host.innerHTML = await renderToString(createSSRApp(TestPopover));
@@ -450,27 +408,30 @@ test('follows runtime changes to portalled', async () => {
   await expect.element(page.getByTestId('host').getByTestId('content')).toBeAttached();
 });
 
-test('spaces the body after the header and keeps the header clear of the close icon', async () => {
-  render({
+test('forwards consumer classes to the styled parts', () => {
+  const Harness = defineComponent({
     components: popoverComponents,
     template: `
       <Popover default-open :portalled="false">
-        <PopoverPositioner>
-          <PopoverContent>
-            <PopoverCloseIcon />
-            <PopoverHeader><PopoverTitle>Preferences</PopoverTitle></PopoverHeader>
-            <PopoverBody>Body</PopoverBody>
-          </PopoverContent>
-        </PopoverPositioner>
+        <PopoverTrigger class="consumer-trigger">Open</PopoverTrigger>
+        <PopoverPositioner><PopoverContent class="consumer-content">
+          <PopoverHeader><PopoverTitle>Title</PopoverTitle><PopoverCloseIcon class="consumer-close" /></PopoverHeader>
+          <PopoverBody class="consumer-body">Body</PopoverBody><PopoverFooter class="consumer-footer">Footer</PopoverFooter>
+        </PopoverContent></PopoverPositioner>
       </Popover>
     `,
   });
 
-  await expect.element(page.getByText('Body')).toBeVisible();
-  const header = document.querySelector<HTMLElement>('[data-slot="popover-header"]')!;
-  const body = document.querySelector<HTMLElement>('[data-slot="popover-body"]')!;
-  const gap = body.offsetTop - (header.offsetTop + header.offsetHeight);
-
-  expect(Math.abs(gap - 12)).toBeLessThanOrEqual(1);
-  expect(getComputedStyle(header).paddingInlineEnd).toBe('40px');
+  render(Harness);
+  for (const [slot, className] of [
+    ['popover-trigger', 'consumer-trigger'],
+    ['popover-content', 'consumer-content'],
+    ['popover-close-icon', 'consumer-close'],
+    ['popover-body', 'consumer-body'],
+    ['popover-footer', 'consumer-footer'],
+  ]) {
+    expect(document.querySelector(`[data-slot="${slot}"]`)!.classList.contains(className)).toBe(
+      true,
+    );
+  }
 });

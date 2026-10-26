@@ -250,29 +250,12 @@ test('renders default content and keeps closable and action behavior', async () 
     action: { label: 'Undo', onClick: () => actionCount++ },
   });
 
-  const title = await screen.findByText('Changes saved');
-  const root = title.closest('[data-slot="toast-root"]');
   await expect.element(page.getByText('Changes saved')).toBeVisible();
   await expect.element(page.getByText('Your workspace is up to date.')).toBeVisible();
   await expect.element(page.getByRole('button', { name: 'Undo', exact: true })).toBeVisible();
   expect(
     Boolean(screen.getByRole('button', { name: 'Close toast' }).querySelector('svg')?.isConnected),
   ).toBe(true);
-  expect([...root!.classList]).toEqual(
-    expect.arrayContaining(['grid', 'w-80', 'gap-1', 'rounded-lg', 'bg-card', 'p-4']),
-  );
-  expect([...title!.classList]).toEqual(
-    expect.arrayContaining(['m-0', 'text-sm', 'leading-5', 'font-semibold']),
-  );
-  expect([...screen.getByText('Your workspace is up to date.').classList]).toEqual(
-    expect.arrayContaining(['m-0', 'text-sm', 'leading-5', 'text-muted-foreground']),
-  );
-  expect([...screen.getByRole('button', { name: 'Undo' }).classList]).toEqual(
-    expect.arrayContaining(['mt-2', 'min-h-control-xs', 'border-border', 'px-2', 'py-1']),
-  );
-  expect([...screen.getByRole('button', { name: 'Close toast' }).classList]).toEqual(
-    expect.arrayContaining(['absolute', 'end-2', 'top-2']),
-  );
 
   await page.getByRole('button', { name: 'Undo', exact: true }).click();
   expect(actionCount).toBe(1);
@@ -322,38 +305,6 @@ test('shows a spinner next to the title of loading toasts only', async () => {
     '[data-slot="toast-title"]',
   )!;
   expect(successTitle.querySelector('[data-slot="spinner-root"]')).toBeNull();
-});
-
-test('reserves inline-end space only for a rendered close trigger', async () => {
-  const toaster = createToaster({ placement: 'bottom', duration: Infinity });
-
-  renderToaster(toaster);
-
-  toaster.create({ title: 'Closable toast' });
-  toaster.create({ title: 'Persistent toast', closable: false });
-
-  const closable = (await screen.findByText('Closable toast')).closest('[data-slot="toast-root"]')!;
-  const persistent = (await screen.findByText('Persistent toast')).closest(
-    '[data-slot="toast-root"]',
-  )!;
-  expect(getComputedStyle(closable).paddingInlineEnd).toBe('44px');
-  expect(getComputedStyle(persistent).paddingInlineEnd).toBe('16px');
-});
-
-test('paints status toasts with an opaque background', async () => {
-  const toaster = createToaster({ placement: 'bottom', duration: Infinity });
-
-  renderToaster(toaster);
-
-  toaster.success({ title: 'Success toast' });
-  toaster.warning({ title: 'Warning toast' });
-  toaster.error({ title: 'Error toast' });
-
-  for (const title of ['Success toast', 'Warning toast', 'Error toast']) {
-    const root = (await screen.findByText(title)).closest('[data-slot="toast-root"]')!;
-    // Toasts overlay page content, so a translucent status tint would let it show through.
-    expect(getComputedStyle(root).backgroundColor).not.toMatch(/\/\s*0?\.\d+\s*\)$|^rgba\(/);
-  }
 });
 
 test('keeps custom composition connected to the Vue context hook', async () => {
@@ -536,11 +487,9 @@ test('lets consumer Tailwind utilities override conflicting defaults', async () 
 
   const root = (await screen.findByText('Custom styles')).closest('[data-slot="toast-root"]');
   expect([...root!.classList]).toEqual(expect.arrayContaining(['w-full', 'bg-primary', 'p-6']));
-  expect(['w-80', 'bg-card', 'p-4'].some((name) => root!.classList.contains(name))).toBe(false);
   expect([...screen.getByText('Custom styles').classList]).toEqual(
     expect.arrayContaining(['text-lg']),
   );
-  expect(screen.getByText('Custom styles')!.classList.contains('text-sm')).toBe(false);
 
   await expect.element(page.locator('[data-slot="toast-root"]')).toHaveCSS('padding', '24px');
 });

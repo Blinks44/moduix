@@ -36,7 +36,6 @@ test('preserves Ark semantics, Vue refs, anatomy, attrs, and moduix hooks', () =
   expect(root.getAttribute('data-animation')).toBe('scale');
   expect(root.getAttribute('data-swap')).toBe('off');
   expect(root.getAttribute('data-probe')).toBe('root');
-  expect(getComputedStyle(root).display).toBe('inline-grid');
   expect(offRef.value?.$el).toBe(off);
   expect(onRef.value?.$el).toBe(on);
   expect(off.getAttribute('data-scope')).toBe('swap');
@@ -212,16 +211,6 @@ test('applies owning Tailwind utilities and lets consumer classes override them'
       </Swap>
     `,
   });
-  const root = screen.getByTestId('swap');
-  const indicator = screen.getByTestId('indicator');
-  expect([...root.classList]).toEqual(
-    expect.arrayContaining(['group/swap', 'align-middle', 'place-items-start']),
-  );
-  expect(root.classList.contains('place-items-center')).toBe(false);
-  expect([...indicator.classList]).toEqual(
-    expect.arrayContaining(['items-start', 'justify-center']),
-  );
-  expect(indicator.classList.contains('items-center')).toBe(false);
   await expect.element(page.getByTestId('swap')).toHaveCSS('place-items', 'start');
   await expect.element(page.getByTestId('indicator')).toHaveCSS('align-items', 'flex-start');
 });

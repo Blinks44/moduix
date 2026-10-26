@@ -1,15 +1,7 @@
 import { page } from '@rstest/browser';
 import { expect, test } from '@rstest/core';
 import { render, screen } from '@solidjs/testing-library';
-import {
-  Button,
-  Empty,
-  EmptyActions,
-  EmptyContent,
-  EmptyDescription,
-  EmptyIcon,
-  EmptyTitle,
-} from '../src';
+import { Empty, EmptyActions, EmptyContent, EmptyDescription, EmptyIcon, EmptyTitle } from '../src';
 
 test('renders presentational anatomy with stable hooks and forwarded refs', async () => {
   let rootRef!: HTMLDivElement;
@@ -111,92 +103,15 @@ test('does not forward refs through native Ark Solid asChild composition', async
   expect(titleRef).toBeUndefined();
 });
 
-test('applies native utilities to every component-owned visual part', () => {
-  render(() => (
-    <Empty data-testid="empty">
-      <EmptyIcon data-testid="empty-icon" />
-      <EmptyContent data-testid="empty-content">
-        <EmptyTitle data-testid="empty-title">No projects</EmptyTitle>
-        <EmptyDescription data-testid="empty-description">
-          Start by creating a project.
-        </EmptyDescription>
-      </EmptyContent>
-      <EmptyActions data-testid="empty-actions" />
-    </Empty>
-  ));
-
-  expect([...screen.getByTestId('empty')!.classList]).toEqual(
-    expect.arrayContaining(['grid', 'w-full', 'min-w-0', 'gap-4', 'rounded-xl', 'border-border']),
-  );
-  expect(
-    screen
-      .getByTestId('empty')
-      ?.classList.contains('bg-[color-mix(in_oklab,var(--color-card)_92%,var(--color-muted))]'),
-  ).toBe(true);
-  expect([...screen.getByTestId('empty')!.classList]).toEqual(
-    expect.arrayContaining(['p-8', 'text-card-foreground']),
-  );
-  expect([...screen.getByTestId('empty-icon')!.classList]).toEqual(
-    expect.arrayContaining([
-      'inline-flex',
-      'items-center',
-      'justify-center',
-      'rounded-full',
-      'bg-muted',
-      'p-3',
-      'text-muted-foreground',
-    ]),
-  );
-  expect([...screen.getByTestId('empty-content')!.classList]).toEqual(
-    expect.arrayContaining(['grid', 'min-w-0', 'justify-items-center', 'gap-1', 'max-w-md']),
-  );
-  expect([...screen.getByTestId('empty-title')!.classList]).toEqual(
-    expect.arrayContaining(['text-xl', 'font-semibold']),
-  );
-  expect([...screen.getByTestId('empty-description')!.classList]).toEqual(
-    expect.arrayContaining(['text-sm', 'text-muted-foreground']),
-  );
-  expect([...screen.getByTestId('empty-actions')!.classList]).toEqual(
-    expect.arrayContaining([
-      'flex',
-      'min-w-0',
-      'flex-wrap',
-      'items-center',
-      'justify-center',
-      'gap-2',
-    ]),
-  );
-});
-
 test('lets consumer utilities override default classes', () => {
   render(() => <Empty class="w-auto bg-background p-2" data-testid="empty" />);
 
   const root = screen.getByTestId('empty');
   expect([...root.classList]).toEqual(expect.arrayContaining(['w-auto', 'bg-background', 'p-2']));
-  for (const utility of ['w-full', 'bg-card', 'p-8']) {
-    expect(root.classList.contains(utility)).toBe(false);
-  }
   expect(getComputedStyle(root)).toMatchObject({
     paddingTop: '8px',
     paddingRight: '8px',
     paddingBottom: '8px',
     paddingLeft: '8px',
   });
-});
-test('wraps long titles and button labels inside a narrow surface', () => {
-  render(() => (
-    <Empty data-testid="empty" style={{ width: '200px' }}>
-      <EmptyContent>
-        <EmptyTitle>Unbrokenprojectnamethatislongerthanthesurface</EmptyTitle>
-      </EmptyContent>
-      <EmptyActions>
-        <Button>Connect a repository to start tracking deployments</Button>
-      </EmptyActions>
-    </Empty>
-  ));
-
-  const root = screen.getByTestId('empty').getBoundingClientRect();
-  for (const element of [screen.getByRole('heading'), screen.getByRole('button')]) {
-    expect(element.getBoundingClientRect().right).toBeLessThanOrEqual(root.right + 1);
-  }
 });

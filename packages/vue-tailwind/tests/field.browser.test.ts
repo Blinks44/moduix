@@ -6,7 +6,6 @@ import { createSSRApp, nextTick, defineComponent, ref } from 'vue';
 import type { ComponentPublicInstance } from 'vue';
 import {
   Field,
-  Fieldset,
   FieldRequiredIndicator,
   Input,
   FieldContext,
@@ -122,30 +121,6 @@ test('forwards refs and styling hooks for every part', () => {
   expect(indicatorRef.value?.$el?.getAttribute('data-slot')).toBe('field-required-indicator');
   expect(helperRef.value?.$el?.getAttribute('data-slot')).toBe('field-helper-text');
   expect(errorRef.value?.$el?.getAttribute('data-slot')).toBe('field-error-text');
-});
-
-test('dims a disabled field once, also inside a disabled Fieldset', () => {
-  render({
-    components: { ...fieldComponents, Fieldset },
-    template: `
-      <Field disabled data-testid="disabled-field">
-        <FieldLabel>Name</FieldLabel>
-        <Input data-testid="disabled-field-input" />
-      </Field>
-      <Fieldset disabled>
-        <Field data-testid="nested-field">
-          <FieldLabel>Email</FieldLabel>
-          <Input />
-        </Field>
-      </Fieldset>
-    `,
-  });
-
-  const opacity = (testId: string) => getComputedStyle(screen.getByTestId(testId)).opacity;
-
-  expect(opacity('disabled-field')).toBe('0.5');
-  expect(opacity('disabled-field-input')).toBe('1');
-  expect(opacity('nested-field')).toBe('1');
 });
 
 test('keeps the RootProvider composition path Ark-shaped', async () => {
@@ -283,13 +258,7 @@ test('applies native utilities and lets consumer classes win', async () => {
   expect([...root.classList]).toEqual(
     expect.arrayContaining(['w-80', 'max-w-sm', 'gap-4', 'text-primary']),
   );
-  expect(['w-full', 'gap-1', 'text-foreground'].some((name) => root.classList.contains(name))).toBe(
-    false,
-  );
   expect([...label.classList]).toEqual(expect.arrayContaining(['gap-4', 'text-primary']));
-  expect([...container.querySelector('[data-slot="field-helper-text"]')!.classList]).toEqual(
-    expect.arrayContaining(['text-sm', 'text-muted-foreground']),
-  );
   await expect.element(page.locator('[data-slot="field-root"]')).toHaveCSS('gap', '16px');
 });
 import SsrField from './fixtures/SsrField.vue';

@@ -31,17 +31,6 @@ test('renders matched text as styled marks without a wrapper', () => {
   expect(mark.getAttribute('data-part')).toBe('root');
   expect(mark.getAttribute('data-slot')).toBe('highlight-root');
   expect(mark.getAttribute('title')).toBe('Matched query');
-  expect([...screen.getByTestId('highlight')!.classList]).toEqual(
-    expect.arrayContaining([
-      'px-1',
-      'py-px',
-      'rounded-xs',
-      'bg-[color-mix(in_oklab,var(--color-warning)_40%,var(--color-accent))]',
-      'font-medium',
-      'text-foreground',
-      'box-decoration-clone',
-    ]),
-  );
 });
 
 test('keeps unmatched text plain and renders no mark', () => {
@@ -117,16 +106,6 @@ test('lets consumer utilities replace conflicting defaults', async () => {
       'text-primary',
     ]),
   );
-  expect(
-    [
-      'px-1',
-      'py-px',
-      'rounded-xs',
-      'bg-[color-mix(in_oklab,var(--color-warning)_40%,var(--color-accent))]',
-      'font-medium',
-      'text-foreground',
-    ].some((name) => mark.classList.contains(name)),
-  ).toBe(false);
   await expect.element(page.getByTestId('highlight')).toHaveCSS('padding', '8px 16px');
   await expect.element(page.getByTestId('highlight')).toHaveCSS('border-radius', '0px');
   await expect.element(page.getByTestId('highlight')).toHaveCSS('font-weight', '700');

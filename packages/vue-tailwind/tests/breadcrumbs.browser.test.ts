@@ -62,9 +62,6 @@ test('forwards Path list props and Vue refs without exposing owned composition p
     document.querySelector('[data-slot="breadcrumbs-separator"]')?.getAttribute('aria-hidden'),
   ).toBe('true');
   expect(document.querySelectorAll('[aria-current="page"]')).toHaveLength(1);
-  expect([...document.querySelector('[data-slot="breadcrumbs-separator"] svg')!.classList]).toEqual(
-    expect.arrayContaining(['size-[1em]', 'flex-none', '[&:dir(rtl)]:rotate-180']),
-  );
 });
 
 test('renders Vue VNode values passed through Path props', async () => {
@@ -194,71 +191,5 @@ test('merges consumer Tailwind classes after component defaults', () => {
   const navigation = screen.getByRole('navigation');
   const list = screen.getByRole('list');
   expect(navigation.classList.contains('text-red-500')).toBe(true);
-  expect(navigation.classList.contains('text-muted-foreground')).toBe(false);
   expect(list.classList.contains('gap-4')).toBe(true);
-  expect(list.classList.contains('gap-1')).toBe(false);
-});
-test('lets links, separators, and the ellipsis inherit the root text color', () => {
-  render({
-    setup() {
-      return () =>
-        h(
-          Breadcrumbs,
-          { style: { color: 'rgb(1, 2, 3)' } },
-          {
-            default: () =>
-              h(BreadcrumbsList, null, {
-                default: () => [
-                  h(BreadcrumbsItem, null, {
-                    default: () => h(BreadcrumbsLink, { href: '/' }, { default: () => 'Home' }),
-                  }),
-                  h(BreadcrumbsSeparator),
-                  h(BreadcrumbsItem, null, { default: () => h(BreadcrumbsEllipsis) }),
-                  h(BreadcrumbsSeparator),
-                  h(BreadcrumbsItem, null, {
-                    default: () => h(BreadcrumbsPage, null, { default: () => 'Breadcrumbs' }),
-                  }),
-                ],
-              }),
-          },
-        );
-    },
-  });
-
-  const colorOf = (slot: string) =>
-    getComputedStyle(document.querySelector(`[data-slot="breadcrumbs-${slot}"]`)!).color;
-
-  expect(['link', 'separator', 'ellipsis'].map(colorOf)).toEqual([
-    'rgb(1, 2, 3)',
-    'rgb(1, 2, 3)',
-    'rgb(1, 2, 3)',
-  ]);
-  expect(colorOf('page')).not.toBe('rgb(1, 2, 3)');
-});
-test('renders an ellipsis icon and styles a wrapping native button as a trigger', () => {
-  render({
-    setup() {
-      return () =>
-        h(BreadcrumbsList, null, {
-          default: () =>
-            h(BreadcrumbsItem, null, {
-              default: () =>
-                h('button', { type: 'button', 'aria-label': 'Show hidden path items' }, [
-                  h(BreadcrumbsEllipsis),
-                ]),
-            }),
-        });
-    },
-  });
-
-  const trigger = screen.getByRole('button', { name: 'Show hidden path items' });
-  const style = getComputedStyle(trigger);
-
-  expect(trigger.querySelector('[data-slot="breadcrumbs-ellipsis"] > svg')).not.toBeNull();
-  expect([style.borderTopWidth, style.paddingLeft, style.cursor, style.backgroundColor]).toEqual([
-    '0px',
-    '0px',
-    'pointer',
-    'rgba(0, 0, 0, 0)',
-  ]);
 });

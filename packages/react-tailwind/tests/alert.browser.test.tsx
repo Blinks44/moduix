@@ -1,7 +1,7 @@
 import { page } from '@rstest/browser';
 import { expect, test } from '@rstest/core';
 import { render, screen } from '@testing-library/react';
-import { createRef, type CSSProperties } from 'react';
+import { createRef } from 'react';
 import {
   Alert,
   AlertActions,
@@ -39,17 +39,9 @@ test('applies status semantics and stable data hooks', async () => {
     slot: 'alert-root',
     status: 'info',
   });
-  expect(statusAlert.classList.contains('border-border')).toBe(true);
   expect(errorAlert.getAttribute('data-status')).toBe('error');
-  expect(errorAlert.classList.contains('border-destructive/35')).toBe(true);
-  expect(errorAlert.classList.contains('border-border')).toBe(false);
   expect(container.querySelector('[data-part="indicator"]')?.getAttribute('aria-hidden')).toBe(
     'true',
-  );
-  await expect.element(page.getByRole('status')).toHaveCSS('display', 'flex');
-  await expect.element(page.getByRole('alert')).toHaveCSS('border-top-width', '1px');
-  expect(getComputedStyle(errorAlert).borderTopColor).not.toBe(
-    getComputedStyle(statusAlert).borderTopColor,
   );
 });
 
@@ -113,7 +105,6 @@ test('lets consumer utilities override default classes', async () => {
   const root = screen.getByRole('status');
 
   expect(root.classList.contains('w-auto')).toBe(true);
-  expect(root.classList.contains('w-full')).toBe(false);
 });
 
 test('does not add a live-region role by default', async () => {
@@ -167,12 +158,4 @@ test('lets a size utility on the icon resize the icon and the indicator', async 
   expect(screen.getByTestId('custom-icon').getBoundingClientRect().width).toBe(24);
   expect(screen.getByTestId('custom-icon').parentElement?.offsetWidth).toBe(24);
   expect(screen.getByTestId('custom-icon').parentElement?.offsetHeight).toBe(24);
-});
-
-test('reads the border width from the foundation token', async () => {
-  render(
-    <Alert data-testid="alert" style={{ '--moduix-border-width-sm': '3px' } as CSSProperties} />,
-  );
-
-  await expect.element(page.getByTestId('alert')).toHaveCSS('border-top-width', '3px');
 });

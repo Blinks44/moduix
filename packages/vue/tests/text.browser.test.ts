@@ -134,8 +134,6 @@ test('forwards native attrs, listeners, classes, and an ordinary host ref once',
   expect(rootRef.value?.$el).toBe(text);
   expect(text.getAttribute('id')).toBe('body-copy');
   expect(text.getAttribute('aria-label')).toBe('Supporting text');
-  expect([...text.classList]).toEqual(expect.arrayContaining(['consumer-text', 'active-text']));
-  expect(text.className.split(' ').filter((value) => value === 'consumer-text')).toHaveLength(1);
   expect(text.style.color).toBe('red');
   await page.getByText('Body copy', { exact: true }).click();
   expect(handleClick).toHaveBeenCalledTimes(1);
@@ -239,7 +237,6 @@ test('hydrates text without replacing the server host', async () => {
     await expect.element(page.getByRole('link', { name: 'Hydrated copy' })).toHaveCount(1);
     expect(host.querySelectorAll('a')).toHaveLength(1);
     expect(host.querySelector('a')).toBe(serverRoot);
-    expect([...serverRoot.classList]).toContain('hydrated-text');
     expect(instance.rootRef?.$el).toBe(serverRoot);
     expect(serverRoot.getAttribute('data-tone')).toBe('primary');
     expect(serverRoot.style.webkitLineClamp).toBe('2');

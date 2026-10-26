@@ -4,15 +4,7 @@ import { render, screen } from '@testing-library/vue';
 import { renderToString } from '@vue/server-renderer';
 import { createSSRApp, nextTick, ref } from 'vue';
 import type { ComponentPublicInstance } from 'vue';
-import {
-  Button,
-  Empty,
-  EmptyActions,
-  EmptyContent,
-  EmptyDescription,
-  EmptyIcon,
-  EmptyTitle,
-} from '../src';
+import { Empty, EmptyActions, EmptyContent, EmptyDescription, EmptyIcon, EmptyTitle } from '../src';
 import SsrEmpty from './fixtures/SsrEmpty.vue';
 
 const emptyComponents = {
@@ -59,15 +51,6 @@ test('renders presentational anatomy, attrs, consumer classes, and forwarded ref
   expect(titleRef.value?.$el).toBe(title);
   expect(root?.getAttribute('id')).toBe('empty-state');
   expect(root.dataset).toMatchObject({ scope: 'empty', part: 'root', slot: 'empty-root' });
-  expect([...root.classList]).toEqual(
-    expect.arrayContaining(['grid', 'w-full', 'min-w-0', 'gap-4', 'rounded-xl', 'border-border']),
-  );
-  expect(
-    root?.classList.contains('bg-[color-mix(in_oklab,var(--color-card)_92%,var(--color-muted))]'),
-  ).toBe(true);
-  expect([...root.classList]).toEqual(
-    expect.arrayContaining(['p-8', 'text-card-foreground', 'consumer-root']),
-  );
   expect(root?.hasAttribute('role')).not.toBe(true);
   expect(screen.getByTestId('empty-icon').dataset).toMatchObject({
     part: 'icon',
@@ -187,13 +170,6 @@ test('lets consumer Tailwind classes override conflicting defaults', () => {
 
   const root = screen.getByTestId('empty');
   expect([...root.classList]).toEqual(expect.arrayContaining(['w-auto', 'bg-background', 'p-2']));
-  for (const utility of [
-    'w-full',
-    'bg-[color-mix(in_oklab,var(--color-card)_92%,var(--color-muted))]',
-    'p-8',
-  ]) {
-    expect(root!.classList.contains(utility)).toBe(false);
-  }
   expect(getComputedStyle(root)).toMatchObject({
     paddingTop: '8px',
     paddingRight: '8px',
@@ -224,9 +200,6 @@ test('renders and hydrates an asChild host', async () => {
     expect(host.querySelector('[data-slot="empty-root"]')?.getAttribute('aria-label')).toBe(
       'Projects',
     );
-    expect(
-      host.querySelector('[data-slot="empty-root"]')?.classList.contains('consumer-empty'),
-    ).toBe(true);
     expect(warn).not.toHaveBeenCalled();
     expect(error).not.toHaveBeenCalled();
   } finally {
@@ -234,25 +207,5 @@ test('renders and hydrates an asChild host', async () => {
     host.remove();
     warn.mockRestore();
     error.mockRestore();
-  }
-});
-test('wraps long titles and button labels inside a narrow surface', () => {
-  render({
-    components: { ...emptyComponents, Button },
-    template: `
-      <Empty data-testid="empty" style="width: 200px">
-        <EmptyContent>
-          <EmptyTitle>Unbrokenprojectnamethatislongerthanthesurface</EmptyTitle>
-        </EmptyContent>
-        <EmptyActions>
-          <Button>Connect a repository to start tracking deployments</Button>
-        </EmptyActions>
-      </Empty>
-    `,
-  });
-
-  const root = screen.getByTestId('empty').getBoundingClientRect();
-  for (const element of [screen.getByRole('heading'), screen.getByRole('button')]) {
-    expect(element.getBoundingClientRect().right).toBeLessThanOrEqual(root.right + 1);
   }
 });

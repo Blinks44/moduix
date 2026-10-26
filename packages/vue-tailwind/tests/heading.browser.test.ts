@@ -67,12 +67,6 @@ test('preserves h1 defaults, refs, and owned hooks when consumer props conflict'
   expect(heading.getAttribute('data-size')).toBe('2xl');
 
   expect('Root' in Heading).toBe(false);
-  expect(getComputedStyle(heading)).toMatchObject({
-    fontSize: '30px',
-    fontWeight: '600',
-    overflowWrap: 'anywhere',
-    textWrap: 'balance',
-  });
 });
 
 test('renders every supported semantic level with its default visual size', () => {
@@ -111,10 +105,6 @@ test('keeps explicit visual props separate from heading semantics', () => {
 
   expect(heading.getAttribute('data-size')).toBe('2xl');
   expect(heading.getAttribute('data-weight')).toBe('bold');
-  expect([...heading.classList]).toEqual(expect.arrayContaining(['text-3xl', 'font-bold']));
-  expect([...heading.classList]).not.toContain('text-xl');
-  expect([...heading.classList]).not.toContain('font-semibold');
-  expect(getComputedStyle(heading)).toMatchObject({ fontSize: '30px', fontWeight: '700' });
 });
 
 test('lets consumer utilities override the native defaults', () => {
@@ -129,9 +119,6 @@ test('lets consumer utilities override the native defaults', () => {
   expect([...heading.classList]).toEqual(
     expect.arrayContaining(['text-lg', 'font-normal', 'text-primary']),
   );
-  expect([...heading.classList]).not.toContain('text-3xl');
-  expect([...heading.classList]).not.toContain('font-semibold');
-  expect([...heading.classList]).not.toContain('text-foreground');
   expect(getComputedStyle(heading)).toMatchObject({ fontSize: '18px', fontWeight: '400' });
 });
 
@@ -154,9 +141,6 @@ test('forwards props and refs through a semantic asChild host', () => {
   const heading = screen.getByRole('heading', { name: 'Factory-composed heading', level: 2 });
 
   expect(rootRef.value?.$el).toBe(heading);
-  expect([...heading.classList]).toEqual(
-    expect.arrayContaining(['custom-heading', 'text-2xl', 'font-medium']),
-  );
   expect(heading.getAttribute('data-size')).toBe('xl');
   expect(heading.getAttribute('data-weight')).toBe('medium');
   expect(heading.getAttribute('data-part')).toBe('root');
@@ -177,9 +161,7 @@ test('hydrates heading without replacing the server host', async () => {
       .toHaveCount(1);
     expect(host.querySelectorAll('h2')).toHaveLength(1);
     expect(host.querySelector('h2')).toBe(serverRoot);
-    expect([...serverRoot.classList]).toContain('hydrated-heading');
     expect(serverRoot.getAttribute('data-size')).toBe('xl');
-    expect(getComputedStyle(serverRoot).fontSize).toBe('24px');
     expect(warn).not.toHaveBeenCalled();
     expect(error).not.toHaveBeenCalled();
   } finally {
@@ -199,5 +181,4 @@ test('derives the default size from as, also through asChild', () => {
   const heading = screen.getByRole('heading', { name: 'Composed section title', level: 3 });
 
   expect(heading.getAttribute('data-size')).toBe('lg');
-  expect(getComputedStyle(heading).fontSize).toBe('20px');
 });

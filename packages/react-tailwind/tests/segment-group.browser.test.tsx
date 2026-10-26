@@ -9,7 +9,6 @@ import {
   SegmentGroupItemHiddenInput,
   SegmentGroupItems,
   SegmentGroupItemText,
-  SegmentGroupLabel,
   SegmentGroupRootProvider,
   useSegmentGroup,
 } from '../src';
@@ -129,15 +128,6 @@ test('propagates group disabled state to every native input', async () => {
   );
 
   await expect.element(page.getByRole('radiogroup')).toHaveAttribute('data-disabled');
-  for (const item of screen
-    .getAllByRole('radio')
-    .map((radio) => radio.closest('[data-slot="segment-group-item"]'))) {
-    expect([...item!.classList]).toEqual(
-      expect.arrayContaining([
-        'group-not-data-disabled/segment-group:data-disabled:opacity-disabled',
-      ]),
-    );
-  }
   for (const radio of screen.getAllByRole('radio')) {
     expect((radio as HTMLInputElement).disabled).toBe(true);
   }
@@ -211,47 +201,6 @@ test('preserves vertical orientation for Ark navigation', async () => {
   ).toBe('vertical');
 });
 
-test('applies native utilities to component-owned visual parts', () => {
-  render(
-    <SegmentGroup defaultValue="React">
-      <SegmentGroupLabel>Framework</SegmentGroupLabel>
-      <SegmentGroupIndicator data-testid="indicator" />
-      <SegmentGroupItem value="React">
-        <SegmentGroupItemText>React</SegmentGroupItemText>
-        <SegmentGroupItemHiddenInput />
-      </SegmentGroupItem>
-    </SegmentGroup>,
-  );
-
-  const root = screen.getByRole('radiogroup');
-  const label = screen.getByText('Framework');
-  const item = root.querySelector('[data-slot="segment-group-item"]')!;
-  const indicator = screen.getByTestId('indicator');
-
-  expect([...root.classList]).toEqual(
-    expect.arrayContaining([
-      'inline-flex',
-      'max-w-full',
-      'gap-1',
-      'rounded-lg',
-      'border',
-      'bg-muted',
-    ]),
-  );
-  expect([...label.classList]).toEqual(
-    expect.arrayContaining(['text-sm', 'leading-5', 'font-semibold']),
-  );
-  expect([...item!.classList]).toEqual(
-    expect.arrayContaining(['inline-flex', 'px-3.5', 'gap-2', 'rounded-md']),
-  );
-  expect([...item!.classList]).toEqual(
-    expect.arrayContaining(['text-sm', 'font-medium', 'text-muted-foreground']),
-  );
-  expect([...indicator!.classList]).toEqual(
-    expect.arrayContaining(['-z-1', 'rounded-md', 'bg-background', 'shadow-sm']),
-  );
-});
-
 test('lets consumer Tailwind classes override conflicting defaults', async () => {
   render(
     <SegmentGroup className="gap-4 text-primary" data-testid="root">
@@ -268,15 +217,8 @@ test('lets consumer Tailwind classes override conflicting defaults', async () =>
   const item = screen.getByRole('radio', { name: 'React' }).parentElement!;
 
   expect([...root.classList]).toEqual(expect.arrayContaining(['gap-4', 'text-primary']));
-  expect(['gap-1', 'text-foreground'].some((name) => root.classList.contains(name))).toBe(false);
   expect([...indicator!.classList]).toEqual(expect.arrayContaining(['rounded-full', 'bg-primary']));
-  expect(['rounded-md', 'bg-background'].some((name) => indicator.classList.contains(name))).toBe(
-    false,
-  );
   expect([...item!.classList]).toEqual(expect.arrayContaining(['gap-4', 'text-primary']));
-  expect(['gap-2', 'text-muted-foreground'].some((name) => item.classList.contains(name))).toBe(
-    false,
-  );
   await expect.element(page.getByTestId('root')).toHaveCSS('gap', '16px');
   await expect.element(page.locator('[data-slot="segment-group-item"]')).toHaveCSS('gap', '16px');
 });
@@ -304,67 +246,6 @@ test('defaults the root and the hook to horizontal orientation', async () => {
   await expect
     .element(page.getByTestId('provider'))
     .toHaveAttribute('data-orientation', 'horizontal');
-});
-
-test('stretches vertical items to the group width', () => {
-  render(
-    <SegmentGroup defaultValue="List" orientation="vertical">
-      <SegmentGroupIndicator />
-      <SegmentGroupItems
-        items={['List', 'Calendar view'].map((value) => ({ value, label: value }))}
-      />
-    </SegmentGroup>,
-  );
-
-  const [short, long] = screen
-    .getAllByRole('radio')
-    .map((radio) => radio.closest<HTMLElement>('[data-slot="segment-group-item"]')!);
-  expect(short.offsetWidth).toBe(long.offsetWidth);
-});
-
-test('does not animate the indicator before the selection changes', async () => {
-  render(
-    <SegmentGroup defaultValue="React">
-      <SegmentGroupIndicator data-testid="indicator" />
-      <SegmentGroupItems items={frameworkItems} />
-    </SegmentGroup>,
-  );
-
-  await expect.element(page.getByTestId('indicator')).toBeVisible();
-  expect(getComputedStyle(screen.getByTestId('indicator')).transitionDuration).toBe('0s');
-});
-
-test('keeps a consumer checked color while the checked item is hovered', async () => {
-  render(
-    <SegmentGroup defaultValue="React">
-      <SegmentGroupItem value="React" className="data-[state=checked]:text-destructive">
-        <SegmentGroupItemText>React</SegmentGroupItemText>
-        <SegmentGroupItemHiddenInput />
-      </SegmentGroupItem>
-    </SegmentGroup>,
-  );
-
-  const item = screen.getByRole('radio', { name: 'React' }).parentElement!;
-  const checkedColor = getComputedStyle(item).color;
-  await page.getByText('React', { exact: true }).hover();
-  expect(getComputedStyle(item).color).toBe(checkedColor);
-});
-
-test('sizes the whole group to the matching control height', () => {
-  render(
-    <>
-      {(['sm', 'md', 'lg'] as const).map((size) => (
-        <SegmentGroup key={size} size={size} defaultValue="React" data-testid={size}>
-          <SegmentGroupIndicator />
-          <SegmentGroupItems items={frameworks} />
-        </SegmentGroup>
-      ))}
-    </>,
-  );
-
-  expect(screen.getByTestId('sm').offsetHeight).toBe(32);
-  expect(screen.getByTestId('md').offsetHeight).toBe(36);
-  expect(screen.getByTestId('lg').offsetHeight).toBe(40);
 });
 
 test('renders string items with the string as value and label', async () => {

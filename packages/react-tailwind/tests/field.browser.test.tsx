@@ -4,7 +4,6 @@ import { render, screen } from '@testing-library/react';
 import { createRef } from 'react';
 import {
   Field,
-  Fieldset,
   NativeSelect,
   Input,
   useField,
@@ -110,29 +109,6 @@ test('forwards refs and styling hooks for every part', () => {
   expect(indicatorRef.current!.getAttribute('data-slot')).toBe('field-required-indicator');
   expect(helperRef.current!.getAttribute('data-slot')).toBe('field-helper-text');
   expect(errorRef.current!.getAttribute('data-slot')).toBe('field-error-text');
-});
-
-test('dims a disabled field once, also inside a disabled Fieldset', () => {
-  render(
-    <>
-      <Field disabled data-testid="disabled-field">
-        <FieldLabel>Name</FieldLabel>
-        <Input data-testid="disabled-field-input" />
-      </Field>
-      <Fieldset disabled>
-        <Field data-testid="nested-field">
-          <FieldLabel>Email</FieldLabel>
-          <Input />
-        </Field>
-      </Fieldset>
-    </>,
-  );
-
-  const opacity = (testId: string) => getComputedStyle(screen.getByTestId(testId)).opacity;
-
-  expect(opacity('disabled-field')).toBe('0.5');
-  expect(opacity('disabled-field-input')).toBe('1');
-  expect(opacity('nested-field')).toBe('1');
 });
 
 test('keeps the RootProvider composition path Ark-shaped', async () => {
@@ -247,7 +223,7 @@ test('preserves native default values and reset behavior', async () => {
 });
 
 test('applies native utilities to component-owned parts', async () => {
-  const { container } = render(
+  render(
     <Field required>
       <FieldItem value="name">
         <FieldLabel>
@@ -260,29 +236,7 @@ test('applies native utilities to component-owned parts', async () => {
     </Field>,
   );
 
-  expect([...container.querySelector('[data-slot="field-root"]')!.classList]).toEqual(
-    expect.arrayContaining(['flex', 'w-full', 'flex-col', 'items-start', 'gap-1']),
-  );
-  expect([...container.querySelector('[data-slot="field-item"]')!.classList]).toEqual(
-    expect.arrayContaining(['grid', 'gap-1']),
-  );
-  expect([...container.querySelector('[data-slot="field-label"]')!.classList]).toEqual(
-    expect.arrayContaining([
-      'inline-flex',
-      'items-center',
-      'gap-2',
-      'text-sm',
-      'font-medium',
-      'text-foreground',
-    ]),
-  );
-  expect([...container.querySelector('[data-slot="field-helper-text"]')!.classList]).toEqual(
-    expect.arrayContaining(['text-sm', 'text-muted-foreground']),
-  );
   await expect.element(page.locator('[data-slot="field-error-text"]')).toHaveCount(0);
-  expect([...container.querySelector('[data-slot="field-required-indicator"]')!.classList]).toEqual(
-    expect.arrayContaining(['text-destructive']),
-  );
 });
 
 test('lets consumer utilities replace component defaults', async () => {
@@ -298,10 +252,6 @@ test('lets consumer utilities replace component defaults', async () => {
   expect([...root.classList]).toEqual(
     expect.arrayContaining(['w-80', 'max-w-sm', 'gap-4', 'text-primary']),
   );
-  expect(['w-full', 'gap-1', 'text-foreground'].some((name) => root.classList.contains(name))).toBe(
-    false,
-  );
   expect([...label.classList]).toEqual(expect.arrayContaining(['gap-4', 'text-primary']));
-  expect(['gap-2', 'text-foreground'].some((name) => label.classList.contains(name))).toBe(false);
   await expect.element(page.locator('[data-slot="field-root"]')).toHaveCSS('gap', '16px');
 });

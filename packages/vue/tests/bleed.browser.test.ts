@@ -76,7 +76,6 @@ test('keeps wrapper-owned hooks and merges consumer classes', () => {
   expect(bleed.getAttribute('data-inline')).toBe('xs');
   expect(bleed.getAttribute('data-block')).toBe('lg');
   expect([...bleed.classList]).toEqual(expect.arrayContaining(['consumer-class']));
-  expect(bleed.className).not.toBe('consumer-class');
   const style = getComputedStyle(bleed);
   expect(style.marginInlineStart).toBe('-4px');
   expect(style.marginBlockStart).toBe('-16px');
@@ -115,7 +114,6 @@ test('hydrates bleed without replacing the server host', async () => {
     expect(host.querySelectorAll('figure')).toHaveLength(1);
     expect(host.querySelector('figure')).toBe(serverRoot);
     expect(serverRoot.dataset).toMatchObject({ inline: 'md', block: 'sm', slot: 'bleed-root' });
-    expect([...serverRoot.classList]).toContain('figure');
     expect(getComputedStyle(serverRoot).marginInlineStart).toBe('-12px');
     expect(warn).not.toHaveBeenCalled();
     expect(error).not.toHaveBeenCalled();

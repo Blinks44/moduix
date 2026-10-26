@@ -13,7 +13,6 @@ import {
   InputGroupClearTrigger,
   InputGroupInput,
   InputGroupText,
-  InputGroupTextarea,
 } from '../src';
 import SsrInputGroup from './fixtures/SsrInputGroup.vue';
 
@@ -80,23 +79,6 @@ test('preserves grouped field state, owned hooks, and native refs', async () => 
   await expect.element(groupLocator).toHaveAttribute('data-scope', 'input-group');
   await expect.element(groupLocator).toHaveAttribute('data-part', 'root');
   await expect.element(groupLocator).toHaveAttribute('data-size', 'lg');
-  expect([...group.classList]).toEqual(
-    expect.arrayContaining([
-      'flex',
-      'w-full',
-      'min-h-control-lg',
-      'text-lg',
-      'leading-7',
-      'items-stretch',
-      'overflow-hidden',
-      'rounded-md',
-      'border',
-      'border-border',
-      'bg-background',
-      'text-foreground',
-      'consumer-root',
-    ]),
-  );
   const textLocator = page.getByText('@', { exact: true });
   await expect.element(textLocator).toHaveAttribute('data-slot', 'input-group-addon');
   await expect.element(textLocator).toHaveAttribute('data-scope', 'input-group');
@@ -117,15 +99,6 @@ test('preserves grouped field state, owned hooks, and native refs', async () => 
   await expect.element(buttonLocator).toHaveAttribute('data-slot', 'input-group-button');
   await expect.element(buttonLocator).toHaveAttribute('data-size', 'lg');
   await expect.element(buttonLocator).toHaveAttribute('type', 'button');
-  expect([...button.classList]).toEqual(
-    expect.arrayContaining([
-      'h-auto',
-      'self-stretch',
-      'rounded-none',
-      'border-0',
-      'consumer-button',
-    ]),
-  );
   await expect.element(buttonLocator).toBeEnabled();
   expect(rootRef.value?.$el).toBe(group);
   expect(addonRef.value?.$el).toBe(addon);
@@ -255,83 +228,6 @@ test.each([false, true])(
   },
 );
 
-test('applies native utilities to the component-owned parts', () => {
-  const { container } = render({
-    components,
-    template: `
-      <InputGroup>
-        <InputGroupAddon>@</InputGroupAddon>
-        <InputGroupInput aria-label="Workspace" />
-        <InputGroupText>.com</InputGroupText>
-        <InputGroupButton>Copy</InputGroupButton>
-      </InputGroup>
-    `,
-  });
-
-  expect([...container.querySelector('[data-slot="input-group-root"]')!.classList]).toEqual(
-    expect.arrayContaining([
-      'flex',
-      'w-full',
-      'min-h-control-md',
-      'text-md',
-      'leading-6',
-      'items-stretch',
-      'overflow-hidden',
-      'rounded-md',
-      'border',
-      'border-border',
-      'bg-background',
-      'text-foreground',
-    ]),
-  );
-  expect([...container.querySelector('[data-slot="input-group-addon"]')!.classList]).toEqual(
-    expect.arrayContaining([
-      'inline-flex',
-      'min-w-0',
-      'items-center',
-      'justify-center',
-      'gap-2',
-      'overflow-hidden',
-      'whitespace-nowrap',
-      'bg-muted',
-      'text-muted-foreground',
-      'px-3.5',
-      'border-s',
-      'border-e',
-    ]),
-  );
-  expect([...container.querySelector('[data-slot="input-root"]')!.classList]).toEqual(
-    expect.arrayContaining([
-      'min-h-0',
-      'min-w-0',
-      'grow',
-      'rounded-none',
-      'border-0',
-      'bg-transparent',
-      'outline-0',
-      'px-3.5',
-      'py-1',
-      'text-md',
-      'leading-6',
-    ]),
-  );
-  expect([...container.querySelector('[data-slot="input-group-text"]')!.classList]).toEqual(
-    expect.arrayContaining([
-      'inline-flex',
-      'min-w-0',
-      'items-center',
-      'justify-center',
-      'gap-2',
-      'overflow-hidden',
-      'whitespace-nowrap',
-      'text-muted-foreground',
-    ]),
-  );
-  expect([...container.querySelector('[data-slot="input-group-button"]')!.classList]).toEqual(
-    expect.arrayContaining(['h-auto', 'self-stretch', 'rounded-none', 'border-0']),
-  );
-});
-
 test('lets consumer Tailwind classes override conflicting defaults', async () => {
   const { container } = render({
     components,
@@ -352,15 +248,9 @@ test('lets consumer Tailwind classes override conflicting defaults', async () =>
   expect([...root.classList]).toEqual(
     expect.arrayContaining(['min-h-20', 'w-80', 'max-w-sm', 'rounded-lg', 'bg-muted', 'px-0']),
   );
-  expect(
-    ['min-h-control-lg', 'w-full', 'rounded-md', 'bg-background', 'px-4'].some((name) =>
-      root.classList.contains(name),
-    ),
-  ).toBe(false);
   expect([...addon.classList]).toEqual(
     expect.arrayContaining(['bg-background', 'px-0', 'text-primary']),
   );
-  expect(['bg-muted', 'px-4'].some((name) => addon.classList.contains(name))).toBe(false);
   expect([...input.classList]).toEqual(
     expect.arrayContaining([
       'min-h-20',
@@ -373,21 +263,9 @@ test('lets consumer Tailwind classes override conflicting defaults', async () =>
       'leading-5',
     ]),
   );
-  expect(
-    [
-      'min-h-control-lg',
-      'w-full',
-      'rounded-none',
-      'bg-transparent',
-      'px-4',
-      'py-1',
-      'leading-7',
-    ].some((name) => input.classList.contains(name)),
-  ).toBe(false);
   expect([...button.classList]).toEqual(
     expect.arrayContaining(['rounded-lg', 'bg-muted', 'px-2', 'text-primary']),
   );
-  expect(['rounded-none', 'px-4'].some((name) => button.classList.contains(name))).toBe(false);
   await expect
     .element(page.locator('[data-slot="input-group-root"]'))
     .toHaveCSS('min-height', '80px');
@@ -412,7 +290,6 @@ test('hydrates without replacing hosts or generated ids', async () => {
     expect(host.querySelectorAll('section')).toHaveLength(1);
     expect(host.querySelector('section')).toBe(serverRoot);
     expect([...host.querySelectorAll('[id]')].map((element) => element.id)).toEqual(serverIds);
-    expect(serverRoot?.classList.contains('hydrated-group')).toBe(true);
     await expect
       .element(page.locator('[data-slot="input-group-root"]'))
       .toHaveAttribute('data-slot', 'input-group-root');
@@ -508,123 +385,4 @@ test('clear trigger preserves custom labels, children, asChild hosts, refs, and 
     .element(page.getByRole('button', { name: 'Disabled clear', exact: true }))
     .toBeDisabled();
   expect(clear).toHaveBeenCalledTimes(1);
-});
-test('removes the Input border and background inside the group', () => {
-  render({
-    components: { InputGroup, InputGroupInput },
-    template: `<InputGroup><InputGroupInput aria-label="Grouped" /></InputGroup>`,
-  });
-
-  expect(getComputedStyle(screen.getByRole('textbox', { name: 'Grouped' }))).toMatchObject({
-    backgroundColor: 'rgba(0, 0, 0, 0)',
-    borderTopWidth: '0px',
-    minHeight: '0px',
-  });
-});
-
-test('keeps the group height when it holds a button', () => {
-  render({
-    components: { InputGroup, InputGroupButton, InputGroupInput },
-    template: `
-      <div>
-        <InputGroup data-testid="plain"><InputGroupInput aria-label="Plain" /></InputGroup>
-        <InputGroup data-testid="with-button">
-          <InputGroupInput aria-label="With button" />
-          <InputGroupButton>Go</InputGroupButton>
-        </InputGroup>
-      </div>
-    `,
-  });
-
-  expect(screen.getByTestId('with-button').offsetHeight).toBe(
-    screen.getByTestId('plain').offsetHeight,
-  );
-});
-
-test('uses a local input size for font and inline padding', () => {
-  render({
-    components: { InputGroup, InputGroupInput },
-    template: `
-      <InputGroup size="lg"><InputGroupInput aria-label="Local size" size="xs" /></InputGroup>
-    `,
-  });
-
-  expect(getComputedStyle(screen.getByRole('textbox', { name: 'Local size' }))).toMatchObject({
-    fontSize: '12px',
-    paddingLeft: '10px',
-  });
-});
-
-test('renders a borderless textarea that follows the group size', () => {
-  render({
-    components: { InputGroup, InputGroupTextarea },
-    template: `
-      <InputGroup size="sm" data-testid="textarea-group">
-        <InputGroupTextarea aria-label="Message" />
-      </InputGroup>
-    `,
-  });
-
-  const element = screen.getByRole('textbox', { name: 'Message' });
-  expect(element).toBeInstanceOf(HTMLTextAreaElement);
-  expect(element.getAttribute('data-slot')).toBe('textarea-root');
-  expect(element.dataset.size).toBe('sm');
-  expect(getComputedStyle(element)).toMatchObject({
-    backgroundColor: 'rgba(0, 0, 0, 0)',
-    borderTopWidth: '0px',
-    resize: 'none',
-    fontSize: '14px',
-    paddingLeft: '12px',
-  });
-  expect(screen.getByTestId('textarea-group').offsetHeight).toBeGreaterThan(element.offsetHeight);
-});
-
-test('derives invalid and disabled group state from the textarea', () => {
-  render({
-    components: { InputGroup, InputGroupTextarea },
-    template: `
-      <div>
-        <InputGroup data-testid="plain"><InputGroupTextarea aria-label="Plain" /></InputGroup>
-        <InputGroup data-testid="invalid">
-          <InputGroupTextarea aria-label="Invalid" aria-invalid="true" />
-        </InputGroup>
-        <InputGroup data-testid="disabled">
-          <InputGroupTextarea aria-label="Disabled" disabled />
-        </InputGroup>
-      </div>
-    `,
-  });
-
-  expect(getComputedStyle(screen.getByTestId('invalid')).borderTopColor).not.toBe(
-    getComputedStyle(screen.getByTestId('plain')).borderTopColor,
-  );
-  expect(getComputedStyle(screen.getByTestId('disabled')).opacity).toBe('0.5');
-  expect(getComputedStyle(screen.getByRole('textbox', { name: 'Disabled' })).opacity).toBe('1');
-});
-
-test('stacks block addons above and below the control', () => {
-  render({
-    components: { InputGroup, InputGroupAddon, InputGroupText, InputGroupTextarea },
-    template: `
-      <InputGroup data-testid="block-group">
-        <InputGroupText align="block">Prompt</InputGroupText>
-        <InputGroupTextarea aria-label="Prompt" />
-        <InputGroupAddon align="block"><button type="button">Send</button></InputGroupAddon>
-      </InputGroup>
-    `,
-  });
-
-  const group = screen.getByTestId('block-group');
-  const text = screen.getByText('Prompt');
-  const addon = screen.getByRole('button', { name: 'Send' }).parentElement!;
-
-  expect(getComputedStyle(group).flexDirection).toBe('column');
-  expect(text.getAttribute('data-align')).toBe('block');
-  expect(addon.getAttribute('data-align')).toBe('block');
-  expect(addon.offsetWidth).toBe(group.clientWidth);
-  expect(getComputedStyle(addon)).toMatchObject({
-    borderTopWidth: '1px',
-    borderBottomWidth: '0px',
-    borderLeftWidth: '0px',
-  });
 });

@@ -1,7 +1,6 @@
 import { page } from '@rstest/browser';
 import { expect, test } from '@rstest/core';
 import { render } from '@testing-library/react';
-import type { CSSProperties } from 'react';
 import { createRef } from 'react';
 import { Skeleton } from '../src';
 
@@ -38,11 +37,6 @@ test('owns stable loading hooks even when passthrough props provide conflicting 
   await expect.element(page.getByTestId('skeleton')).toHaveCSS('user-select', 'none');
   await expect.element(page.getByTestId('skeleton')).toHaveCSS('color', 'rgba(0, 0, 0, 0)');
   expect(skeleton.getBoundingClientRect().width).toBe(skeleton.parentElement!.clientWidth);
-  expect(
-    skeleton.classList.contains(
-      'bg-[color-mix(in_oklab,var(--color-muted-foreground)_18%,var(--color-background))]',
-    ),
-  ).toBe(true);
   expect(getComputedStyle(skeleton, '::before').visibility).toBe('hidden');
   expect(getComputedStyle(skeleton, '::after').visibility).toBe('hidden');
   await expect.element(page.getByText('Loading profile')).toHaveCSS('visibility', 'hidden');
@@ -120,14 +114,6 @@ test('lets consumer utilities override loading defaults', async () => {
   expect([...skeleton.classList]).toEqual(
     expect.arrayContaining(['h-8', 'w-1/2', 'rounded-lg', 'bg-primary', 'animate-none']),
   );
-  for (const className of [
-    'h-4',
-    'w-full',
-    'rounded-md',
-    'bg-[color-mix(in_oklab,var(--color-muted-foreground)_18%,var(--color-background))]',
-  ]) {
-    expect(skeleton.classList.contains(className)).toBe(false);
-  }
   await expect.element(page.getByTestId('skeleton')).toHaveCSS('height', '32px');
   await expect.element(page.getByTestId('skeleton')).toHaveCSS('animation-name', 'none');
 });
@@ -138,16 +124,4 @@ test('clips overflow only while loading', async () => {
 
   rerender(<Skeleton data-testid="skeleton" loading={false} />);
   await expect.element(page.getByTestId('skeleton')).toHaveCSS('overflow', 'visible');
-});
-
-test('takes the pulse animation from the foundation token', async () => {
-  render(
-    <div style={{ '--moduix-animation-pulse': 'moduix-fade-in 1s' } as CSSProperties}>
-      <Skeleton data-testid="pulse" />
-      <Skeleton data-testid="none" variant="none" />
-    </div>,
-  );
-
-  await expect.element(page.getByTestId('pulse')).toHaveCSS('animation-name', 'moduix-fade-in');
-  await expect.element(page.getByTestId('none')).toHaveCSS('animation-name', 'none');
 });

@@ -66,8 +66,6 @@ test('lets consumer Tailwind classes override conflicting defaults', () => {
   const frame = getByTestId('frame');
 
   expect([...frame.classList]).toEqual(expect.arrayContaining(['static', 'w-1/2']));
-  expect([...frame.classList]).not.toContain('relative');
-  expect([...frame.classList]).not.toContain('w-full');
   expect(getComputedStyle(frame).position).toBe('static');
   expect(frame.getBoundingClientRect().width).toBeCloseTo(frame.parentElement!.clientWidth / 2);
   expect(frame.getBoundingClientRect().height).toBeCloseTo(

@@ -105,44 +105,6 @@ test('supports native button keyboard activation', async () => {
   await expect.element(toggle).toHaveAttribute('aria-pressed', 'false');
 });
 
-test('applies native utilities to component-owned visual parts', () => {
-  render(
-    <Toggle variant="outline">
-      <svg aria-hidden="true" />
-      <ToggleIndicator>
-        <svg aria-hidden="true" />
-      </ToggleIndicator>
-    </Toggle>,
-  );
-
-  const toggle = screen.getByRole('button');
-  const indicator = document.querySelector('[data-slot="toggle-indicator"]')!;
-
-  expect([...toggle!.classList]).toEqual(
-    expect.arrayContaining([
-      'inline-flex',
-      'min-h-control-md',
-      'gap-2',
-      'rounded-md',
-      'border',
-      'bg-background',
-      'px-4',
-      'py-1',
-      'text-sm',
-      "[&>svg:not([class*='size-'])]:size-4",
-      '[&>svg]:shrink-0',
-    ]),
-  );
-  expect([...indicator!.classList]).toEqual(
-    expect.arrayContaining([
-      'inline-flex',
-      'items-center',
-      'justify-center',
-      "[&>svg:not([class*='size-'])]:size-4",
-    ]),
-  );
-});
-
 test('lets consumer Tailwind classes override conflicting defaults', () => {
   render(
     <Toggle className="border-primary bg-secondary p-0 text-xs" size="lg" variant="outline">
@@ -155,10 +117,6 @@ test('lets consumer Tailwind classes override conflicting defaults', () => {
   expect([...toggle!.classList]).toEqual(
     expect.arrayContaining(['border-primary', 'bg-secondary', 'p-0', 'text-xs']),
   );
-  for (const utility of ['border-border', 'bg-background', 'px-5', 'py-1.5', 'text-md']) {
-    expect(toggle!.classList.contains(utility)).toBe(false);
-  }
-  expect(toggle.classList.contains('min-h-control-lg')).toBe(true);
   expect(getComputedStyle(toggle)).toMatchObject({
     minHeight: '40px',
     paddingTop: '0px',

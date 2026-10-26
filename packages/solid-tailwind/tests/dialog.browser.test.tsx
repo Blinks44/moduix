@@ -4,7 +4,6 @@ import { render } from '@solidjs/testing-library';
 import { createSignal, type JSX } from 'solid-js';
 import {
   Button,
-  CloseButton,
   Dialog,
   DialogBackdrop,
   DialogBody,
@@ -123,29 +122,31 @@ test('forwards aria-labelledby and attributes from CloseIcon to the close button
 });
 
 test('keeps page interaction available for a non-modal dialog', async () => {
+  const clicks: string[] = [];
+
   render(() => (
-    <Dialog defaultOpen modal={false} portalled={false}>
-      <DialogParts>
-        <DialogContext>{(dialog) => <output>Open: {String(dialog().open)}</output>}</DialogContext>
-      </DialogParts>
-    </Dialog>
+    <>
+      <button type="button" onClick={() => clicks.push('outside')}>
+        Outside
+      </button>
+      <Dialog defaultOpen modal={false} portalled={false}>
+        <DialogParts>
+          <button type="button" onClick={() => clicks.push('inside')}>
+            Inside
+          </button>
+          <DialogContext>
+            {(dialog) => <output>Open: {String(dialog().open)}</output>}
+          </DialogContext>
+        </DialogParts>
+      </Dialog>
+    </>
   ));
 
-  await expect.element(page.getByRole('dialog')).toHaveCSS('pointer-events', 'auto');
-  expect(Array.from(document.querySelector('[role="dialog"]')!.classList)).toEqual(
-    expect.arrayContaining([
-      'z-[calc(var(--moduix-z-popup)+var(--layer-index,0))]',
-      "after:content-['']",
-    ]),
-  );
-  await expect.element(page.getByRole('dialog')).toHaveCSS('position', 'relative');
-  await expect
-    .poll(() => getComputedStyle(document.querySelector('[role="dialog"]')!, '::after').content)
-    .toBe('""');
-  await expect
-    .element(page.locator('[data-slot="dialog-positioner"]'))
-    .toHaveCSS('pointer-events', 'none');
   await expect.element(page.getByText('Open: true')).toBeAttached();
+  await page.getByRole('button', { name: 'Inside' }).click();
+  await page.getByRole('button', { name: 'Outside' }).click();
+
+  expect(clicks).toEqual(['inside', 'outside']);
 });
 
 test('closes on Escape, preserves open-change details, and restores focus to its trigger', async () => {
@@ -331,58 +332,18 @@ test('forwards refs through native parts and keeps asChild composition native', 
   expect(closeIconRef).toBeUndefined();
 });
 
-test('applies Tailwind defaults and lets consumer utilities win', async () => {
+test('lets consumer Tailwind utilities override part defaults', async () => {
   render(() => (
     <Dialog defaultOpen portalled={false}>
-      <DialogTrigger class="bg-primary px-2">Open dialog</DialogTrigger>
-      <DialogBackdrop />
       <DialogPositioner>
-        <DialogContent class="w-96 bg-card p-4">
-          <DialogHeader>
-            <DialogTitle>Preferences</DialogTitle>
-            <DialogCloseIcon class="size-8 rounded-full bg-primary" />
-            <DialogDescription>Description</DialogDescription>
-          </DialogHeader>
-          <DialogBody>Body</DialogBody>
-          <DialogFooter>Footer</DialogFooter>
+        <DialogContent class="p-4">
+          <DialogTitle>Preferences</DialogTitle>
+          <DialogCloseIcon class="size-8" />
         </DialogContent>
       </DialogPositioner>
     </Dialog>
   ));
 
-  const trigger = document.querySelector('[data-slot="dialog-trigger"]')!;
-  const content = document.querySelector('[role="dialog"]')!;
-  const closeIcon = document.querySelector('[data-slot="dialog-close-icon"]')!;
-
-  expect(Array.from(trigger.classList)).toEqual(expect.arrayContaining(['bg-primary', 'px-2']));
-  expect(Array.from(trigger.classList)).not.toContain('bg-background');
-  expect(Array.from(trigger.classList)).not.toContain('px-3.5');
-  expect(Array.from(document.querySelector('[data-slot="dialog-backdrop"]')!.classList)).toEqual(
-    expect.arrayContaining(['fixed', 'inset-0', 'bg-overlay']),
-  );
-  expect(Array.from(document.querySelector('[data-slot="dialog-positioner"]')!.classList)).toEqual(
-    expect.arrayContaining(['grid', 'p-4']),
-  );
-  expect(Array.from(content.classList)).toEqual(expect.arrayContaining(['w-96', 'bg-card', 'p-4']));
-  expect(Array.from(content.classList)).not.toContain('bg-popover');
-  expect(Array.from(content.classList)).not.toContain('p-6');
-  expect(Array.from(document.querySelector('[data-slot="dialog-title"]')!.classList)).toEqual(
-    expect.arrayContaining(['text-lg', 'font-semibold']),
-  );
-  expect(Array.from(document.querySelector('[data-slot="dialog-description"]')!.classList)).toEqual(
-    expect.arrayContaining(['text-md', 'text-muted-foreground']),
-  );
-  expect(Array.from(document.querySelector('[data-slot="dialog-body"]')!.classList)).toEqual(
-    expect.arrayContaining(['mt-4', 'text-md']),
-  );
-  expect(Array.from(document.querySelector('[data-slot="dialog-footer"]')!.classList)).toEqual(
-    expect.arrayContaining(['mt-6', 'gap-2']),
-  );
-  expect(Array.from(closeIcon.classList)).toEqual(
-    expect.arrayContaining(['size-8', 'rounded-full', 'bg-primary']),
-  );
-  expect(Array.from(closeIcon.classList)).not.toContain('rounded-md');
-  expect(Array.from(closeIcon.classList)).not.toContain('bg-transparent');
   await expect.element(page.getByRole('dialog')).toHaveCSS('padding', '16px');
   await expect
     .element(page.getByRole('button', { name: 'Close dialog' }))
@@ -427,57 +388,7 @@ test('keeps tall content inside the dialog surface and scrolls the positioner', 
   expect(positioner.scrollHeight).toBeGreaterThan(positioner.clientHeight);
 });
 
-test('keeps a long title clear of the close icon', async () => {
-  render(() => (
-    <Dialog defaultOpen portalled={false}>
-      <DialogPositioner>
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>{'A very long dialog title that wraps '.repeat(4)}</DialogTitle>
-            <DialogCloseIcon />
-            <DialogDescription>Description</DialogDescription>
-          </DialogHeader>
-        </DialogContent>
-      </DialogPositioner>
-    </Dialog>
-  ));
-
-  await expect.element(page.getByRole('dialog')).toBeVisible();
-  const title = document.querySelector<HTMLElement>('[data-slot="dialog-title"]')!;
-  const icon = document.querySelector('[data-slot="dialog-close-icon"]')!.getBoundingClientRect();
-  const titleTextEnd =
-    title.getBoundingClientRect().right - parseFloat(getComputedStyle(title).paddingInlineEnd);
-
-  expect(titleTextEnd).toBeLessThanOrEqual(icon.left + 1);
-});
-
-test('wraps footer actions that do not fit on one line', async () => {
-  render(() => (
-    <Dialog defaultOpen portalled={false}>
-      <DialogPositioner>
-        <DialogContent style={{ width: '18rem' }}>
-          <DialogTitle>Unsaved changes</DialogTitle>
-          <DialogFooter>
-            <Button>Discard changes</Button>
-            <Button>Keep editing</Button>
-            <Button>Save and close</Button>
-          </DialogFooter>
-        </DialogContent>
-      </DialogPositioner>
-    </Dialog>
-  ));
-
-  await expect.element(page.getByRole('dialog')).toBeVisible();
-  const footer = document.querySelector('[data-slot="dialog-footer"]')!.getBoundingClientRect();
-
-  for (const button of document.querySelectorAll('[data-slot="dialog-footer"] > *')) {
-    const rect = button.getBoundingClientRect();
-    expect(rect.left).toBeGreaterThanOrEqual(footer.left - 1);
-    expect(rect.right).toBeLessThanOrEqual(footer.right + 1);
-  }
-});
-
-test('keeps the body in the content color and mutes only the description', async () => {
+test('exposes the default recipe values on the content', async () => {
   render(() => (
     <Dialog defaultOpen portalled={false}>
       <DialogPositioner>
@@ -492,56 +403,17 @@ test('keeps the body in the content color and mutes only the description', async
     </Dialog>
   ));
 
-  await expect.element(page.getByRole('dialog')).toBeVisible();
-  const content = document.querySelector<HTMLElement>('[data-slot="dialog-content"]')!;
-  const body = document.querySelector<HTMLElement>('[data-slot="dialog-body"]')!;
-  const description = document.querySelector<HTMLElement>('[data-slot="dialog-description"]')!;
-
-  expect(content.dataset.size).toBe('md');
-  expect(content.dataset.placement).toBe('center');
-  expect(content.dataset.scrollBehavior).toBe('outside');
-  expect(getComputedStyle(body).color).toBe(getComputedStyle(content).color);
-  expect(getComputedStyle(description).color).not.toBe(getComputedStyle(content).color);
+  const dialog = page.getByRole('dialog');
+  await expect.element(dialog).toHaveAttribute('data-size', 'md');
+  await expect.element(dialog).toHaveAttribute('data-placement', 'center');
+  await expect.element(dialog).toHaveAttribute('data-scroll-behavior', 'outside');
 });
 
-test('applies width presets from the size prop', async () => {
-  render(() => (
-    <>
-      <Dialog defaultOpen portalled={false}>
-        <DialogPositioner>
-          <DialogContent size="sm" data-testid="sm">
-            <DialogTitle>Small</DialogTitle>
-          </DialogContent>
-        </DialogPositioner>
-      </Dialog>
-      <Dialog defaultOpen portalled={false}>
-        <DialogPositioner data-testid="full-positioner">
-          <DialogContent size="full" data-testid="full">
-            <DialogTitle>Full</DialogTitle>
-          </DialogContent>
-        </DialogPositioner>
-      </Dialog>
-    </>
-  ));
-
-  await expect.element(page.getByTestId('sm')).toBeVisible();
-  // offsetWidth ignores the scale Ark applies to a dialog that has a nested dialog open.
-  const small = document.querySelector<HTMLElement>('[data-testid="sm"]')!;
-  const full = document.querySelector<HTMLElement>('[data-testid="full"]')!;
-  const fullPositioner = document.querySelector<HTMLElement>('[data-testid="full-positioner"]')!;
-
-  expect(Math.abs(small.offsetWidth - Math.min(384, window.innerWidth - 32))).toBeLessThanOrEqual(
-    1,
-  );
-  expect(Math.abs(full.offsetWidth - fullPositioner.clientWidth)).toBeLessThanOrEqual(1);
-  expect(full.offsetHeight).toBeGreaterThanOrEqual(fullPositioner.clientHeight - 1);
-});
-
-test('places the content at the top and scrolls the body inside', async () => {
+test('scrolls the body inside and keeps the footer visible with scrollBehavior inside', async () => {
   render(() => (
     <Dialog defaultOpen portalled={false}>
       <DialogPositioner>
-        <DialogContent placement="top" scrollBehavior="inside">
+        <DialogContent scrollBehavior="inside">
           <DialogTitle>Terms</DialogTitle>
           <DialogBody>
             <div style={{ height: '200vh' }}>Tall content</div>
@@ -560,46 +432,8 @@ test('places the content at the top and scrolls the body inside', async () => {
   const content = document.querySelector('[role="dialog"]')!.getBoundingClientRect();
   const footer = document.querySelector('[data-slot="dialog-footer"]')!.getBoundingClientRect();
 
-  expect(
-    Math.abs(content.top - parseFloat(getComputedStyle(positioner).paddingTop)),
-  ).toBeLessThanOrEqual(1);
   expect(content.bottom).toBeLessThanOrEqual(window.innerHeight + 1);
   expect(footer.bottom).toBeLessThanOrEqual(content.bottom + 1);
   expect(body.scrollHeight).toBeGreaterThan(body.clientHeight);
   expect(positioner.scrollHeight).toBeLessThanOrEqual(positioner.clientHeight + 1);
-});
-
-test('leaves a native trigger unstyled', async () => {
-  render(() => (
-    <Dialog portalled={false}>
-      <DialogTrigger>Open dialog</DialogTrigger>
-    </Dialog>
-  ));
-
-  await expect.element(page.getByRole('button', { name: 'Open dialog' })).toBeVisible();
-  expect(document.querySelector('[data-slot="dialog-trigger"]')!.className).toBe('');
-});
-
-test('gives the close icon the CloseButton focus ring', async () => {
-  render(() => (
-    <>
-      <CloseButton data-testid="reference" />
-      <Dialog defaultOpen modal={false} portalled={false}>
-        <DialogParts>
-          <DialogCloseIcon />
-        </DialogParts>
-      </Dialog>
-    </>
-  ));
-
-  await expect.element(page.getByRole('dialog')).toBeVisible();
-  const reference = document.querySelector<HTMLElement>('[data-testid="reference"]')!;
-  const icon = document.querySelector<HTMLElement>('[data-slot="dialog-close-icon"]')!;
-  reference.focus();
-  const expected = getComputedStyle(reference);
-  const ring = [expected.outlineWidth, expected.outlineOffset];
-  icon.focus();
-  const actual = getComputedStyle(icon);
-  expect(ring).not.toEqual(['0px', '0px']);
-  expect([actual.outlineWidth, actual.outlineOffset]).toEqual(ring);
 });

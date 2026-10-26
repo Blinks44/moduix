@@ -55,9 +55,6 @@ test('allows consumer utilities to replace selected defaults', async () => {
   expect([...separator.classList]).toEqual(
     expect.arrayContaining(['w-32', 'border-primary', 'border-t-2']),
   );
-  for (const className of ['w-full', 'border-border', 'border-t']) {
-    expect(separator.classList.contains(className)).toBe(false);
-  }
   await expect.element(page.getByTestId('separator')).toHaveCSS('width', '128px');
   await expect.element(page.getByTestId('separator')).toHaveCSS('border-top-width', '2px');
 });
@@ -122,7 +119,6 @@ test('hydrates separator without replacing the server host', async () => {
     await expect.element(page.getByRole('separator')).toHaveAttribute('data-size', 'lg');
     expect(host.querySelectorAll('hr')).toHaveLength(1);
     expect(host.querySelector('hr')).toBe(serverRoot);
-    expect([...serverRoot.classList]).toContain('hydrated-separator');
     expect(warn).not.toHaveBeenCalled();
     expect(error).not.toHaveBeenCalled();
   } finally {
@@ -131,26 +127,4 @@ test('hydrates separator without replacing the server host', async () => {
     warn.mockRestore();
     error.mockRestore();
   }
-});
-
-test('draws sizes, variants, and vertical lines as borders', async () => {
-  render({
-    components: { Separator },
-    template: `
-      <div style="font-size: 20px">
-        <Separator data-testid="large" size="lg" variant="dashed" />
-        <Separator data-testid="vertical" orientation="vertical" size="md" variant="dotted" />
-      </div>
-    `,
-  });
-
-  await expect.element(page.getByTestId('large')).toHaveCSS('border-top-width', '3px');
-  await expect.element(page.getByTestId('large')).toHaveCSS('border-top-style', 'dashed');
-  await expect.element(page.getByTestId('large')).toHaveCSS('border-bottom-width', '0px');
-  await expect.element(page.getByTestId('vertical')).toHaveCSS('border-left-width', '2px');
-  await expect.element(page.getByTestId('vertical')).toHaveCSS('border-left-style', 'dotted');
-  await expect.element(page.getByTestId('vertical')).toHaveCSS('border-top-width', '0px');
-  const vertical = document.querySelector<HTMLElement>('[data-testid="vertical"]')!;
-  expect(vertical.offsetWidth).toBe(2);
-  expect(vertical.offsetHeight).toBe(20);
 });

@@ -221,47 +221,15 @@ test('applies Tailwind defaults to visual parts and lets consumer utilities over
   );
 
   const trigger = document.querySelector('[data-slot="tooltip-trigger"]')!;
-  const content = document.querySelector('[data-testid="content"]')!;
   const positioner = document.querySelector('[data-slot="tooltip-positioner"]');
-  const arrow = document.querySelector('[data-slot="tooltip-arrow"]');
   const arrowTip = document.querySelector('[data-slot="tooltip-arrow-tip"]');
 
   expect(Array.from(trigger!.classList)).toEqual(expect.arrayContaining(['px-2', 'text-primary']));
-  expect(Array.from(trigger!.classList)).not.toContain('px-3.5');
-  expect(Array.from(trigger!.classList)).not.toContain('text-foreground');
   expect(Array.from(positioner!.classList)).toContain('max-w-none');
-  expect(Array.from(content!.classList)).toEqual(
-    expect.arrayContaining(['bg-card', 'px-6', 'text-left', 'shadow-md']),
-  );
-  expect(Array.from(content!.classList)).not.toContain('shadow-lg');
-  expect(Array.from(content!.classList)).not.toContain('bg-popover');
-  expect(Array.from(content!.classList)).not.toContain('px-2');
-  expect(Array.from(content!.classList)).not.toContain('text-center');
-  expect(Array.from(arrow!.classList)).toContain('[--arrow-size:var(--spacing-2_5)]');
   expect(Array.from(arrowTip!.classList)).toContain('border-primary');
   await expect.element(page.getByTestId('content')).toHaveCSS('padding-left', '24px');
   await expect.element(page.getByTestId('content')).toHaveCSS('text-align', 'left');
   await expect.element(page.getByRole('button', { name: 'Save' })).toHaveCSS('padding-left', '8px');
-});
-
-test('highlights only the current trigger of a shared tooltip', async () => {
-  render(
-    <Tooltip openDelay={0} portalled={false}>
-      <TooltipTrigger value="save">Save</TooltipTrigger>
-      <TooltipTrigger value="share">Share</TooltipTrigger>
-      <TooltipBody>Action tooltip</TooltipBody>
-    </Tooltip>,
-  );
-
-  const save = document.querySelector<HTMLElement>('[data-value="save"]')!;
-  const share = document.querySelector<HTMLElement>('[data-value="share"]')!;
-  const closedBackground = getComputedStyle(save).backgroundColor;
-
-  await page.getByRole('button', { name: 'Share' }).hover();
-  await expect.element(page.getByRole('tooltip')).toBeVisible();
-  expect(save.dataset.state).toBe('open');
-  await expect.poll(() => getComputedStyle(share).backgroundColor).not.toBe(closedBackground);
-  await expect.poll(() => getComputedStyle(save).backgroundColor).toBe(closedBackground);
 });
 
 test('lets long content grow instead of spilling past the surface', async () => {

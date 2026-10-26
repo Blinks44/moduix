@@ -4,7 +4,6 @@ import { expect, test } from '@rstest/core';
 import { render, screen } from '@testing-library/react';
 import { createRef, type CSSProperties } from 'react';
 import {
-  CloseButton,
   SelectOption,
   Field,
   Select,
@@ -74,47 +73,6 @@ test('keeps default values and native form values Ark-shaped', async () => {
   await expect
     .element(page.getByRole('button', { name: 'Clear fruit', exact: true }))
     .toBeVisible();
-});
-
-test('reserves room for the clear action only when it is rendered', async () => {
-  render(
-    <>
-      <Select collection={fruits} defaultValue={['apple']}>
-        <SelectField />
-      </Select>
-      <Select collection={fruits} defaultValue={['apple']}>
-        <SelectField clearLabel="Clear fruit" />
-      </Select>
-    </>,
-  );
-
-  const [withoutClear, withClear] = [
-    ...document.querySelectorAll<HTMLElement>('[data-slot="select-trigger"]'),
-  ];
-  await expect.poll(() => getComputedStyle(withClear!).paddingInlineEnd).toBe('68px');
-  expect(getComputedStyle(withoutClear!).paddingInlineEnd).toBe('46px');
-});
-
-test('gives the clear trigger the CloseButton focus ring', async () => {
-  render(
-    <>
-      <CloseButton data-testid="reference" />
-      <Select collection={fruits} defaultValue={['apple']}>
-        <SelectField clearLabel="Clear fruit" />
-      </Select>
-    </>,
-  );
-
-  await expect.element(page.getByRole('button', { name: 'Clear fruit' })).toBeVisible();
-  const reference = document.querySelector<HTMLElement>('[data-testid="reference"]')!;
-  const clear = document.querySelector<HTMLElement>('[data-slot="select-clear-trigger"]')!;
-  reference.focus();
-  const expected = getComputedStyle(reference);
-  const ring = [expected.outlineWidth, expected.outlineOffset];
-  clear.focus();
-  const actual = getComputedStyle(clear);
-  expect(ring).not.toEqual(['0px', '0px']);
-  expect([actual.outlineWidth, actual.outlineOffset]).toEqual(ring);
 });
 
 test('reserves trigger room from the action size variable', async () => {

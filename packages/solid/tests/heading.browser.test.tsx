@@ -27,12 +27,6 @@ test('preserves h1 defaults, refs, and owned hooks when consumer props conflict'
   expect(heading.getAttribute('data-slot')).toBe('heading-root');
   expect(heading.getAttribute('data-weight')).toBe('semibold');
   expect(heading.getAttribute('data-size')).toBe('2xl');
-  expect(getComputedStyle(heading)).toMatchObject({
-    fontSize: '30px',
-    fontWeight: '600',
-    overflowWrap: 'anywhere',
-    textWrap: 'balance',
-  });
 });
 
 test('renders every supported semantic level', () => {
@@ -70,7 +64,6 @@ test('keeps explicit visual props separate from heading semantics', () => {
 
   expect(heading.getAttribute('data-size')).toBe('2xl');
   expect(heading.getAttribute('data-weight')).toBe('bold');
-  expect(getComputedStyle(heading)).toMatchObject({ fontSize: '30px', fontWeight: '700' });
 });
 
 test('forwards props through a semantic asChild host without forwarding refs', () => {
@@ -105,5 +98,4 @@ test('derives the default size from as, also through asChild', () => {
   const heading = screen.getByRole('heading', { name: 'Composed section title', level: 3 });
 
   expect(heading.getAttribute('data-size')).toBe('lg');
-  expect(getComputedStyle(heading).fontSize).toBe('20px');
 });

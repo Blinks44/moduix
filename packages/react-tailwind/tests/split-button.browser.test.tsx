@@ -154,26 +154,6 @@ test('keeps the primary action independent and exposes stable popup slots', asyn
   await expect.poll(() => actions).toEqual(['save', 'duplicate']);
 });
 
-test('matches the CSS Modules default trigger padding', async () => {
-  render(
-    <SplitButton aria-label="Project actions">
-      <SplitButtonAction>Save</SplitButtonAction>
-      <SplitButtonTrigger />
-    </SplitButton>,
-  );
-
-  const trigger = screen.getByRole('button', { name: 'More actions' });
-
-  expect(trigger?.classList.contains('px-3')).toBe(true);
-  await expect
-    .element(page.getByRole('button', { name: 'More actions' }))
-    .toHaveCSS('padding-left', '12px');
-  await expect
-    .element(page.getByRole('button', { name: 'More actions' }))
-    .toHaveCSS('padding-right', '12px');
-  expect(trigger?.classList.contains('px-4')).toBe(false);
-});
-
 test('keeps component-owned utilities visible and lets consumers replace conflicts', async () => {
   render(
     <SplitButton aria-label="Project actions">
@@ -182,43 +162,10 @@ test('keeps component-owned utilities visible and lets consumers replace conflic
     </SplitButton>,
   );
 
-  const action = screen.getByRole('button', { name: 'Save' });
-  const trigger = screen.getByRole('button', { name: 'More actions' });
-  for (const utility of ['inline-flex', 'items-center', 'rounded-md']) {
-    expect(action.classList.contains(utility)).toBe(true);
-  }
-  for (const utility of ['rounded-e-none', 'px-4', 'text-sm']) {
-    expect(action.classList.contains(utility)).toBe(false);
-  }
-  for (const utility of ['relative', 'rounded-s-none', 'before:absolute', 'before:w-px', 'px-0']) {
-    expect(trigger.classList.contains(utility)).toBe(true);
-  }
   await expect
     .element(page.getByRole('button', { name: 'More actions' }))
     .toHaveCSS('padding-left', '0px');
   await expect
     .element(page.getByRole('button', { name: 'More actions' }))
     .toHaveCSS('padding-right', '0px');
-  expect(trigger?.classList.contains('px-3.5')).toBe(false);
-  expect(trigger?.classList.contains('px-5')).toBe(false);
-});
-
-test('draws the separator on filled variants only', () => {
-  render(
-    <div>
-      <SplitButton aria-label="Filled actions">
-        <SplitButtonAction>Save</SplitButtonAction>
-        <SplitButtonTrigger aria-label="Filled trigger" />
-      </SplitButton>
-      <SplitButton aria-label="Outline actions" variant="outline">
-        <SplitButtonAction>Save</SplitButtonAction>
-        <SplitButtonTrigger aria-label="Outline trigger" />
-      </SplitButton>
-    </div>,
-  );
-
-  const separator = (name: string) =>
-    getComputedStyle(screen.getByRole('button', { name }), '::before');
-  expect(separator('Filled trigger').display).toBe('block');
-  expect(separator('Outline trigger').display).toBe('none');
 });

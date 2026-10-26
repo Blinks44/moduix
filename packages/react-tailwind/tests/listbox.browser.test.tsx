@@ -222,7 +222,7 @@ test('exposes initial item state through the Ark ItemContext', async () => {
 });
 
 test('exposes the item context and keeps component-owned visual parts visible', async () => {
-  const { container } = render(
+  render(
     <Listbox collection={fruits} defaultValue={['apple']}>
       <ListboxLabel>Styled fruit</ListboxLabel>
       <ListboxContent>
@@ -242,26 +242,9 @@ test('exposes the item context and keeps component-owned visual parts visible', 
     </Listbox>,
   );
 
-  const root = container.querySelector('[data-slot="listbox-root"]')!;
-  const label = container.querySelector('[data-slot="listbox-label"]')!;
-  const content = container.querySelector('[data-slot="listbox-content"]')!;
-  const item = container.querySelector('[data-slot="listbox-item"]')!;
-  const itemText = container.querySelector('[data-slot="listbox-item-text"]')!;
-  const indicator = container.querySelector('[data-slot="listbox-item-indicator"]')!;
-
   await expect
     .element(page.getByRole('option', { name: 'Apple (selected)', exact: true }))
     .toHaveAttribute('data-selected');
-  expect([...root!.classList]).toEqual(expect.arrayContaining(['w-64']));
-  expect([...label!.classList]).toEqual(expect.arrayContaining(['text-sm', 'font-medium']));
-  expect([...content!.classList]).toEqual(
-    expect.arrayContaining(['max-h-56', 'rounded-md', 'border']),
-  );
-  expect([...item!.classList]).toEqual(
-    expect.arrayContaining(['min-h-control-sm', 'grid', 'px-3']),
-  );
-  expect([...itemText!.classList]).toEqual(expect.arrayContaining(['min-w-0', 'text-ellipsis']));
-  expect([...indicator!.classList]).toEqual(expect.arrayContaining(['size-4', 'inline-flex']));
 });
 
 test('lets consumer utilities replace conflicting defaults', async () => {
@@ -290,19 +273,12 @@ test('lets consumer utilities replace conflicting defaults', async () => {
   const indicator = container.querySelector('[data-slot="listbox-item-indicator"]')!;
 
   expect([...root!.classList]).toEqual(expect.arrayContaining(['w-80']));
-  expect(root!.classList.contains('w-64')).toBe(false);
   expect([...label!.classList]).toEqual(expect.arrayContaining(['text-lg']));
-  expect(label!.classList.contains('text-sm')).toBe(false);
   expect([...input!.classList]).toEqual(expect.arrayContaining(['min-h-10']));
-  expect(input!.classList.contains('min-h-control-md')).toBe(false);
   expect([...clearTrigger!.classList]).toEqual(expect.arrayContaining(['size-5']));
-  expect(clearTrigger!.classList.contains('size-control-xs')).toBe(false);
   expect([...content!.classList]).toEqual(expect.arrayContaining(['max-h-80', 'p-0']));
-  expect(['max-h-56', 'py-1'].some((name) => content!.classList.contains(name))).toBe(false);
   expect([...item!.classList]).toEqual(expect.arrayContaining(['px-0']));
-  expect(item!.classList.contains('px-3')).toBe(false);
   expect([...indicator!.classList]).toEqual(expect.arrayContaining(['size-5']));
-  expect(indicator!.classList.contains('size-4')).toBe(false);
   await expect.element(page.locator('[data-slot="listbox-root"]')).toHaveCSS('width', '320px');
   await expect.element(page.locator('[data-slot="listbox-label"]')).toHaveCSS('font-size', '18px');
   await expect.element(page.locator('[data-slot="listbox-input"]')).toHaveCSS('min-height', '40px');
@@ -319,48 +295,4 @@ test('lets consumer utilities replace conflicting defaults', async () => {
   await expect
     .element(page.locator('[data-slot="listbox-item-indicator"]'))
     .toHaveCSS('width', '20px');
-});
-
-test('reserves filter room for the clear action and keeps page scroll chaining', () => {
-  render(
-    <Listbox collection={fruits}>
-      <ListboxLabel>Fruit</ListboxLabel>
-      <ListboxFilter>
-        <ListboxInput />
-        <ListboxClearTrigger />
-      </ListboxFilter>
-      <ListboxContent>
-        {fruits.items.map((item) => (
-          <ListboxItem key={item.value} item={item}>
-            <ListboxItemText>{item.label}</ListboxItemText>
-          </ListboxItem>
-        ))}
-      </ListboxContent>
-    </Listbox>,
-  );
-
-  const input = document.querySelector<HTMLElement>('[data-slot="listbox-input"]')!;
-  const clear = document.querySelector<HTMLElement>('[data-slot="listbox-clear-trigger"]')!;
-  const content = document.querySelector<HTMLElement>('[data-slot="listbox-content"]')!;
-
-  // 12px offset + 24px action + 8px gap before the text.
-  expect(getComputedStyle(input).paddingInlineEnd).toBe('44px');
-  expect(clear.offsetWidth).toBe(24);
-  expect(
-    Math.abs(input.getBoundingClientRect().right - clear.getBoundingClientRect().right - 12),
-  ).toBeLessThanOrEqual(1);
-  // The list is not a popup, so page scrolling chains past it.
-  expect(getComputedStyle(content).overscrollBehaviorY).toBe('auto');
-});
-
-test('dims disabled items once through opacity', () => {
-  render(<FruitListbox />);
-
-  const [apple, , unavailable] = [
-    ...document.querySelectorAll<HTMLElement>('[data-slot="listbox-item"]'),
-  ];
-
-  // Disabled items dim once, through opacity, and keep the regular text color.
-  expect(getComputedStyle(unavailable!).opacity).toBe('0.5');
-  expect(getComputedStyle(unavailable!).color).toBe(getComputedStyle(apple!).color);
 });

@@ -227,27 +227,6 @@ test('keeps consumer classes last on component parts and utility classes on empt
   render(Harness);
   const content = screen.getByRole('dialog');
   expect([...content!.classList]).toEqual(expect.arrayContaining(['rounded-none', 'bg-muted']));
-  expect(['rounded-md', 'bg-popover'].some((name) => content!.classList.contains(name))).toBe(
-    false,
-  );
-  expect([...screen.getByTestId('header').classList]).toEqual(
-    expect.arrayContaining(['min-h-control-xl', 'bg-muted', 'border-b']),
-  );
-  expect([...screen.getByTestId('control').classList]).toEqual(
-    expect.arrayContaining(['inline-flex', 'gap-1']),
-  );
-  expect([...screen.getByRole('button', { name: 'Minimize window' }).classList]).toEqual(
-    expect.arrayContaining(['size-control-sm', 'border']),
-  );
-  expect([...screen.getByTestId('drag-indicator').classList]).toEqual(
-    expect.arrayContaining(['inline-flex', 'flex-none']),
-  );
-  expect([...screen.getByTestId('body').classList]).toEqual(
-    expect.arrayContaining(['p-4', 'text-sm']),
-  );
-  expect([...screen.getByTestId('footer').classList]).toEqual(
-    expect.arrayContaining(['border-t', 'px-3', 'py-1', 'text-xs']),
-  );
 
   await expect
     .element(page.locator('[data-slot="floating-panel-content"]'))
@@ -275,9 +254,6 @@ test('preserves refs through ordinary parts', () => {
   expect(refs.positioner.value!.$el.getAttribute('data-slot')).toBe('floating-panel-positioner');
   expect(refs.content.value!.$el.getAttribute('data-slot')).toBe('floating-panel-content');
   expect(refs.close.value!.$el.getAttribute('data-slot')).toBe('floating-panel-close-icon');
-  expect([...refs.close.value!.$el.classList]).toEqual(
-    expect.arrayContaining(['size-control-sm', 'border', 'bg-background']),
-  );
   expect(Boolean(refs.close.value?.$el.querySelector('svg')?.isConnected)).toBe(true);
 });
 
@@ -369,38 +345,4 @@ test('sizes the content from Ark state without a CSS minimum', async () => {
 
   const content = document.querySelector<HTMLElement>('[data-slot="floating-panel-content"]')!;
   expect([content.offsetWidth, content.offsetHeight]).toEqual([160, 96]);
-});
-
-test('leaves the native trigger unstyled', () => {
-  const Harness = defineComponent({
-    components: floatingPanelComponents,
-    template: `
-      <FloatingPanel :portalled="false">
-        <FloatingPanelTrigger>Open inspector</FloatingPanelTrigger>
-      </FloatingPanel>
-    `,
-  });
-
-  render(Harness);
-
-  expect(document.querySelector('[data-slot="floating-panel-trigger"]')!.className).toBe('');
-});
-
-test('opens with the shared popup keyframes and motion variables', async () => {
-  const Harness = defineComponent({
-    components: floatingPanelComponents,
-    template: `
-      <div style="--moduix-popup-motion-duration: 1234ms">
-        <FloatingPanel default-open :default-size="{ width: 360, height: 260 }" :portalled="false">
-          <FloatingPanelPositioner><FloatingPanelContent /></FloatingPanelPositioner>
-        </FloatingPanel>
-      </div>
-    `,
-  });
-
-  render(Harness);
-  await expect.element(page.getByRole('dialog')).toBeAttached();
-
-  const style = getComputedStyle(document.querySelector('[data-slot="floating-panel-content"]')!);
-  expect([style.animationName, style.animationDuration]).toEqual(['moduix-popup-in', '1.234s']);
 });

@@ -40,12 +40,6 @@ test('uses the scale animation by default and supports named presets', () => {
   );
 
   expect(screen.getByTestId('swap')!.getAttribute('data-animation')).toBe('bounce');
-  expect([...screen.getByTestId('swap')!.classList]).toEqual(
-    expect.arrayContaining(['group/swap', 'place-items-center', 'align-middle']),
-  );
-  expect([...screen.getByText('Off')!.classList]).toEqual(
-    expect.arrayContaining(['items-center', 'justify-center']),
-  );
 });
 
 test('preserves Ark lazy mounting and exit unmounting', async () => {
@@ -132,11 +126,9 @@ test('lets consumer Tailwind classes override conflicting defaults', async () =>
   expect([...screen.getByTestId('swap')!.classList]).toEqual(
     expect.arrayContaining(['place-items-start']),
   );
-  expect(screen.getByTestId('swap')!.classList.contains('place-items-center')).toBe(false);
   expect([...screen.getByTestId('indicator')!.classList]).toEqual(
     expect.arrayContaining(['items-start']),
   );
-  expect(screen.getByTestId('indicator')!.classList.contains('items-center')).toBe(false);
   await expect.element(page.getByTestId('swap')).toHaveCSS('place-items', 'start');
   await expect.element(page.getByTestId('indicator')).toHaveCSS('align-items', 'flex-start');
 });

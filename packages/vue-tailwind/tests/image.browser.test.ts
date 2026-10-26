@@ -44,7 +44,6 @@ test('preserves native refs, attrs, generated sources, and invariant moduix hook
   const source = container.querySelector('source')!;
 
   expect(imageRef.value?.$el).toBe(image);
-  expect([...image.classList]).toEqual(expect.arrayContaining(['rounded-md']));
   expect(image.getAttribute('data-slot')).toBe('image-root');
   expect(image.getAttribute('sizes')).toBe('(min-width: 800px) 800px, 100vw');
   expect(image.hasAttribute('srcset')).toBe(true);
@@ -133,7 +132,6 @@ test('preserves consumer classes and styles', async () => {
   expect([...image.classList]).toEqual(expect.arrayContaining(['consumer-image']));
   await expect.element(page.getByAltText('Mountain landscape')).toHaveCSS('object-fit', 'contain');
   expect([...image.classList]).toEqual(expect.arrayContaining(['rounded-none']));
-  expect(image.classList.contains('rounded-md')).toBe(false);
   await expect.element(page.getByAltText('Mountain landscape')).toHaveCSS('border-radius', '0px');
 });
 

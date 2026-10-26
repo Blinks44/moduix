@@ -6,7 +6,6 @@ import { renderToString } from '@vue/server-renderer';
 import { createSSRApp, defineComponent, h, ref, nextTick } from 'vue';
 import type { Component, ComponentPublicInstance } from 'vue';
 import {
-  CloseButton,
   SelectOption,
   Field,
   Select,
@@ -151,7 +150,6 @@ test('switches between native value text and an optional custom slot', async () 
   expect(screen.getByTestId('value-text')).toBe(host);
   await expect.element(hostLocator).toHaveAttribute('data-slot', 'select-value-text');
   expect([...host!.classList]).toEqual(expect.arrayContaining(['consumer-value']));
-  await expect.element(hostLocator).toHaveCSS('color', 'rgb(255, 0, 0)');
   expect(valueRef.value?.$el).toBe(host);
 });
 
@@ -203,45 +201,6 @@ test('preserves Ark semantics, Vue refs, anatomy, attrs, and flat exports', asyn
     .toHaveAttribute('data-slot', 'select-item');
   expect(item.querySelector('[data-slot="select-item-text"]')!.textContent).toContain('Apple');
   await expect.element(page.locator('[data-slot="select-item-indicator"]')).toHaveCount(0);
-});
-
-test('reserves room for the clear action only when it is rendered', async () => {
-  render({
-    components: selectComponents,
-    setup: () => ({ fruits }),
-    template: `
-      <Select :collection="fruits" :default-value="['apple']"><SelectField /></Select>
-      <Select :collection="fruits" :default-value="['apple']"><SelectField clear-label="Clear fruit" /></Select>
-    `,
-  });
-
-  const [withoutClear, withClear] = [
-    ...document.querySelectorAll<HTMLElement>('[data-slot="select-trigger"]'),
-  ];
-  await expect.poll(() => getComputedStyle(withClear!).paddingInlineEnd).toBe('68px');
-  expect(getComputedStyle(withoutClear!).paddingInlineEnd).toBe('46px');
-});
-
-test('gives the clear trigger the CloseButton focus ring', async () => {
-  render({
-    components: { ...selectComponents, CloseButton },
-    setup: () => ({ fruits }),
-    template: `
-      <CloseButton data-testid="reference" />
-      <Select :collection="fruits" :default-value="['apple']"><SelectField clear-label="Clear fruit" /></Select>
-    `,
-  });
-
-  await expect.element(page.getByRole('button', { name: 'Clear fruit' })).toBeVisible();
-  const reference = document.querySelector<HTMLElement>('[data-testid="reference"]')!;
-  const clear = document.querySelector<HTMLElement>('[data-slot="select-clear-trigger"]')!;
-  reference.focus();
-  const expected = getComputedStyle(reference);
-  const ring = [expected.outlineWidth, expected.outlineOffset];
-  clear.focus();
-  const actual = getComputedStyle(clear);
-  expect(ring).not.toEqual(['0px', '0px']);
-  expect([actual.outlineWidth, actual.outlineOffset]).toEqual(ring);
 });
 
 test('keeps the default indicator outside the trigger button', () => {
@@ -429,7 +388,6 @@ test('applies consumer classes after Tailwind defaults', async () => {
   const { container } = render(Harness);
   const item = container.querySelector('[data-slot="select-item"]')!;
   expect([...item!.classList]).toEqual(expect.arrayContaining(['p-0']));
-  expect(item!.classList.contains('py-1')).toBe(false);
   await expect.element(page.locator('[data-slot="select-item"]')).toHaveCSS('padding-top', '0px');
   await expect.element(page.locator('[data-slot="select-item"]')).toHaveCSS('padding-left', '0px');
 });

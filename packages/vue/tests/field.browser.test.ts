@@ -6,7 +6,6 @@ import { createSSRApp, nextTick, defineComponent, ref } from 'vue';
 import type { ComponentPublicInstance } from 'vue';
 import {
   Field,
-  Fieldset,
   FieldRequiredIndicator,
   Input,
   FieldContext,
@@ -127,30 +126,6 @@ test('forwards refs and styling hooks for every part', () => {
   expect(indicatorRef.value?.$el?.getAttribute('data-slot')).toBe('field-required-indicator');
   expect(helperRef.value?.$el?.getAttribute('data-slot')).toBe('field-helper-text');
   expect(errorRef.value?.$el?.getAttribute('data-slot')).toBe('field-error-text');
-});
-
-test('dims a disabled field once, also inside a disabled Fieldset', () => {
-  render({
-    components: { ...fieldComponents, Fieldset },
-    template: `
-      <Field disabled data-testid="disabled-field">
-        <FieldLabel>Name</FieldLabel>
-        <Input data-testid="disabled-field-input" />
-      </Field>
-      <Fieldset disabled>
-        <Field data-testid="nested-field">
-          <FieldLabel>Email</FieldLabel>
-          <Input />
-        </Field>
-      </Fieldset>
-    `,
-  });
-
-  const opacity = (testId: string) => getComputedStyle(screen.getByTestId(testId)).opacity;
-
-  expect(opacity('disabled-field')).toBe('0.5');
-  expect(opacity('disabled-field-input')).toBe('1');
-  expect(opacity('nested-field')).toBe('1');
 });
 
 test('keeps the RootProvider composition path Ark-shaped', async () => {

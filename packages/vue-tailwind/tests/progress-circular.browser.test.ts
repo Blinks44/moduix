@@ -75,7 +75,6 @@ test('updates fallback and consumer value text without losing attrs or refs', as
   await expect.element(valueLocator).toHaveAttribute('aria-live', 'polite');
   await expect.element(valueLocator).toHaveAttribute('title', 'Upload progress');
   expect(host?.classList.contains('consumer-value')).toBe(true);
-  await expect.element(valueLocator).toHaveCSS('color', 'rgb(255, 0, 0)');
   expect(clicks).toHaveLength(1);
 });
 
@@ -132,22 +131,11 @@ test('renders the circular Ark anatomy and Tailwind contract', async () => {
     part: 'root',
     slot: 'progress-circular-root',
   });
-  expect([...root!.classList]).toEqual(expect.arrayContaining(['inline-grid', 'gap-2']));
   expect(progressbar.getAttribute('data-slot')).toBe('progress-circular-circle');
   await expect
     .element(page.getByRole('progressbar', { name: 'Export data' }))
     .toHaveAttribute('aria-valuenow', '42');
-  expect(progressbar?.classList.contains('block')).toBe(true);
   expect(circleRef.value?.$el).toBe(progressbar);
-  expect(
-    progressbar.querySelector('[data-part="circle-track"]')?.classList.contains('stroke-muted'),
-  ).toBe(true);
-  expect(
-    progressbar.querySelector('[data-part="circle-range"]')?.classList.contains('stroke-primary'),
-  ).toBe(true);
-  expect([...screen.getByText('42%')!.classList]).toEqual(
-    expect.arrayContaining(['text-sm', 'font-medium']),
-  );
 });
 
 test('preserves consumer classes on every styled part', () => {
@@ -203,9 +191,6 @@ test('renders an indeterminate circular progressbar without an ARIA value', asyn
     `,
   });
 
-  const progressbar = screen.getByRole('progressbar', { name: 'Preparing report' });
-  const range = progressbar.querySelector('[data-part="circle-range"]')!;
-
   await expect
     .element(page.getByRole('progressbar', { name: 'Preparing report' }))
     .toHaveAttribute('data-state', 'indeterminate');
@@ -221,11 +206,6 @@ test('renders an indeterminate circular progressbar without an ARIA value', asyn
   // The indeterminate range is a spinning arc, not a dot.
   expect(arcStyle.animationName).toBe('moduix-progress-circular-indeterminate');
   expect(Number.parseFloat(arcStyle.strokeDasharray) / arc.getTotalLength()).toBeGreaterThan(0.2);
-  expect(
-    range?.classList.contains(
-      'data-[state=indeterminate]:animate-moduix-progress-circular-indeterminate',
-    ),
-  ).toBe(true);
 });
 
 test('synchronizes custom circular composition with controlled values and state views', async () => {

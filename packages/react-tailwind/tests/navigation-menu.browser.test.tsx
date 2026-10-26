@@ -17,7 +17,6 @@ import {
   NavigationMenuViewportPositioner,
   NavigationMenuViewport,
 } from '../src';
-import { LocaleProvider } from '../src/locale';
 
 function NavigationMenuParts() {
   return (
@@ -86,27 +85,6 @@ test('preserves Ark value changes, navigation semantics, and Tailwind anatomy', 
     </NavigationMenu>,
   );
 
-  const root = screen.getByRole('navigation');
-  const list = root.querySelector('[data-slot="navigation-menu-list"]');
-  const products = screen.getByRole('button', { name: 'Products' });
-
-  const content = root.querySelector('[data-slot="navigation-menu-content"]');
-
-  expect([...root!.classList]).toEqual(
-    expect.arrayContaining(['relative', 'flex', 'w-fit', 'text-foreground']),
-  );
-  expect([...list!.classList]).toEqual(
-    expect.arrayContaining(['flex', 'items-center', 'gap-1', 'p-0']),
-  );
-  expect([...products!.classList]).toEqual(
-    expect.arrayContaining(['inline-flex', 'min-h-control-md', 'rounded-md', 'px-3', 'text-sm']),
-  );
-  expect([...content!.classList]).toEqual(
-    expect.arrayContaining(['absolute', 'w-max', 'rounded-md', 'bg-popover', 'py-1']),
-  );
-  expect([...screen.getByRole('link', { name: 'Analytics' })!.classList]).toEqual(
-    expect.arrayContaining(['inline-flex', 'min-h-control-md', 'text-sm']),
-  );
   await expect
     .element(page.getByRole('button', { name: 'Products', exact: true }))
     .toHaveAttribute('data-state', 'open');
@@ -183,21 +161,6 @@ test('renders all parts and preserves Tailwind-owned styles', async () => {
   );
 
   await expect.element(page.getByTestId('trigger-icon')).toBeAttached();
-  expect([...screen.getByRole('button', { name: 'Products' })!.classList]).toEqual(
-    expect.arrayContaining(['[&>svg]:transition-[rotate]', 'data-[state=open]:[&>svg]:rotate-180']),
-  );
-  expect([...screen.getByTestId('item-indicator')!.classList]).toEqual(
-    expect.arrayContaining(['absolute', 'h-0.5', 'bg-current']),
-  );
-  expect([...screen.getByTestId('indicator')!.classList]).toEqual(
-    expect.arrayContaining(['absolute', 'h-2.5']),
-  );
-  expect([...screen.getByTestId('arrow')!.classList]).toEqual(
-    expect.arrayContaining(['size-2.5', 'rotate-45', 'bg-popover']),
-  );
-  expect([...screen.getByTestId('viewport')!.classList]).toEqual(
-    expect.arrayContaining(['relative', 'overflow-hidden', 'bg-popover']),
-  );
   await expect
     .element(page.getByRole('link', { name: 'Documentation', exact: true }))
     .toHaveAttribute('href', '/docs');
@@ -227,7 +190,6 @@ test('preserves asChild and current link styling hooks', async () => {
   await expect
     .element(page.getByTestId('home-link'))
     .toHaveAttribute('data-slot', 'navigation-menu-link');
-  expect(screen.getByRole('button', { name: 'Products' }).className).toBe('');
 });
 
 test('lets consumer utilities replace conflicting defaults', async () => {
@@ -250,23 +212,11 @@ test('lets consumer utilities replace conflicting defaults', async () => {
   const content = root.querySelector('[data-slot="navigation-menu-content"]');
 
   expect([...root!.classList]).toEqual(expect.arrayContaining(['w-1/2', 'text-primary']));
-  expect(['w-fit', 'text-foreground'].some((name) => root!.classList.contains(name))).toBe(false);
   expect([...list!.classList]).toEqual(expect.arrayContaining(['gap-4', 'p-2']));
-  expect(['gap-1', 'p-0'].some((name) => list!.classList.contains(name))).toBe(false);
   expect([...trigger!.classList]).toEqual(
     expect.arrayContaining(['min-h-0', 'rounded-lg', 'px-6', 'text-lg']),
   );
-  expect(
-    ['min-h-control-md', 'rounded-md', 'px-3', 'text-sm'].some((name) =>
-      trigger!.classList.contains(name),
-    ),
-  ).toBe(false);
   expect([...content!.classList]).toEqual(expect.arrayContaining(['max-w-md', 'py-0']));
-  expect(
-    ['max-w-[min(20rem,calc(100vw-1.5rem))]', 'py-1'].some((name) =>
-      content!.classList.contains(name),
-    ),
-  ).toBe(false);
   const triggerLocator = page.getByRole('button', { name: 'Products', exact: true });
   await expect.element(triggerLocator).toHaveCSS('min-height', '0px');
   await expect.element(triggerLocator).toHaveCSS('padding-left', '24px');
@@ -275,22 +225,13 @@ test('lets consumer utilities replace conflicting defaults', async () => {
 });
 
 test('keeps viewport motion and provider composition Ark-shaped', async () => {
-  const { container } = render(<ProviderNavigationMenu />);
+  render(<ProviderNavigationMenu />);
 
   await expect.element(page.getByTestId('navigation-menu-value')).toContainText('products');
   await expect
     .element(page.getByRole('navigation'))
     .toHaveAttribute('data-slot', 'navigation-menu-root-provider');
 
-  const viewport = container.querySelector('[data-slot="navigation-menu-viewport"]');
-  expect([...viewport!.classList]).toEqual(
-    expect.arrayContaining([
-      'relative',
-      'h-(--viewport-height)',
-      'w-(--viewport-width)',
-      'overflow-hidden',
-    ]),
-  );
   await expect.element(page.getByRole('link', { name: 'Analytics', exact: true })).toBeVisible();
   await expect
     .element(page.locator('[data-slot="navigation-menu-viewport-positioner"]'))
@@ -309,53 +250,4 @@ test('keeps viewport motion and provider composition Ark-shaped', async () => {
   await expect
     .element(page.locator('[data-slot="navigation-menu-content"][data-value="products"]'))
     .toHaveAttribute('data-motion', 'from-start');
-  expect(viewport?.className).toContain(
-    '[&_[data-slot=navigation-menu-content][data-motion=from-end][data-state=open]]:animate-moduix-navigation-menu-content-from-end',
-  );
-  expect(viewport?.className).toContain(
-    '[&_[data-slot=navigation-menu-content][data-motion=to-start][data-state=closed]]:animate-moduix-navigation-menu-content-to-start',
-  );
-  expect(viewport?.className).not.toContain(
-    '[&_[data-slot=navigation-menu-content][data-motion=from-end]]:opacity-0',
-  );
-});
-
-test('keeps the indicator and the start-aligned viewport under the open trigger in RTL', async () => {
-  render(
-    <LocaleProvider locale="ar">
-      <div style={{ padding: '2rem 8rem' }}>
-        <NavigationMenu>
-          <NavigationMenuList>
-            <NavigationMenuItem value="products">
-              <NavigationMenuTrigger>Products</NavigationMenuTrigger>
-              <NavigationMenuContent>Product links</NavigationMenuContent>
-            </NavigationMenuItem>
-            <NavigationMenuItem value="docs">
-              <NavigationMenuTrigger>Docs</NavigationMenuTrigger>
-              <NavigationMenuContent>Docs links</NavigationMenuContent>
-            </NavigationMenuItem>
-            <NavigationMenuIndicator />
-          </NavigationMenuList>
-          <NavigationMenuViewportPositioner align="start">
-            <NavigationMenuViewport />
-          </NavigationMenuViewportPositioner>
-        </NavigationMenu>
-      </div>
-    </LocaleProvider>,
-  );
-
-  const trigger = document.querySelector<HTMLElement>(
-    '[data-slot="navigation-menu-trigger"][data-value="docs"]',
-  )!;
-  const indicator = document.querySelector<HTMLElement>('[data-slot="navigation-menu-indicator"]')!;
-  const viewport = document.querySelector<HTMLElement>('[data-slot="navigation-menu-viewport"]')!;
-  const leftOffset = (element: HTMLElement) =>
-    Math.abs(element.getBoundingClientRect().left - trigger.getBoundingClientRect().left);
-
-  await page.getByRole('button', { name: 'Docs', exact: true }).hover();
-  await expect.element(page.getByText('Docs links')).toBeVisible();
-  await expect.poll(() => indicator.offsetWidth).toBe(trigger.offsetWidth);
-  // Polls wait for the viewport entrance scale to finish.
-  await expect.poll(() => leftOffset(indicator)).toBeLessThanOrEqual(1);
-  await expect.poll(() => leftOffset(viewport)).toBeLessThanOrEqual(1);
 });

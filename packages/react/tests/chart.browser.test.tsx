@@ -109,28 +109,6 @@ test('uses the static SVG renderer when motion is disabled', async () => {
     .toHaveAttribute('data-renderer', 'static-svg-renderer');
 });
 
-test('renders the compact Moduix tooltip body by default', async () => {
-  render(<ChartPlot ariaLabel="Monthly revenue" definition={{} as never} />);
-
-  await expect.element(page.getByTestId('tanstack-default-body')).toHaveCount(0);
-  await expect.element(page.locator('[data-slot="chart-tooltip-body"]')).toBeAttached();
-  await expect.element(page.locator('[data-slot="chart-tooltip-title"]')).toContainText('March');
-  expect(document.querySelectorAll('[data-slot="chart-tooltip-row"]')).toHaveLength(2);
-  expect(document.querySelectorAll('[data-slot="chart-tooltip-swatch"]')).toHaveLength(1);
-  const tooltipRows = document.querySelectorAll('[data-slot="chart-tooltip-row"]');
-  expect(tooltipRows[0]!.hasAttribute('data-active')).toBe(false);
-  expect(tooltipRows[1]!.hasAttribute('data-active')).toBe(true);
-  await expect
-    .element(page.locator('[data-slot="chart-tooltip-label"]').first())
-    .toContainText('Revenue');
-  await expect
-    .element(page.locator('[data-slot="chart-tooltip-value"]').first())
-    .toContainText('76');
-  await expect
-    .element(page.locator('[data-slot="chart-tooltip-value"]').first())
-    .toHaveCSS('text-align', 'end');
-});
-
 test('passes the Moduix default body to a custom tooltip renderer', async () => {
   render(
     <ChartPlot

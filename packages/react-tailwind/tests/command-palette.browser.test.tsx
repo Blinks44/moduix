@@ -204,18 +204,10 @@ test('lets consumer utilities replace conflicting defaults and keeps visual part
   const content = container.querySelector('[data-slot="command-palette-content"]')!;
   const list = container.querySelector('[data-slot="command-palette-list"]')!;
   const item = container.querySelector('[data-slot="command-palette-item"]')!;
-  const icon = container.querySelector('[data-slot="command-palette-item-icon"]')!;
-  const footer = container.querySelector('[data-slot="command-palette-footer"]')!;
 
   expect([...content.classList]).toEqual(expect.arrayContaining(['max-h-96']));
-  expect(content!.classList.contains('max-h-[min(34rem,calc(100dvh-5rem))]')).toBe(false);
   expect([...list.classList]).toEqual(expect.arrayContaining(['p-0']));
   expect([...item.classList]).toEqual(expect.arrayContaining(['rounded-none', 'px-0']));
-  expect(['rounded-md', 'px-3'].some((name) => item.classList.contains(name))).toBe(false);
-  expect([...icon.classList]).toEqual(
-    expect.arrayContaining(['size-8', 'border-border', 'bg-muted']),
-  );
-  expect([...footer.classList]).toEqual(expect.arrayContaining(['border-t', 'px-4', 'py-2']));
 
   await expect
     .element(page.locator('[data-slot="command-palette-content"]'))

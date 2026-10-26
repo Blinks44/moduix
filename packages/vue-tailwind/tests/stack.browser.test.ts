@@ -35,16 +35,6 @@ test.each([false, true])(
     ] as const) {
       direction.value = value;
       await nextTick();
-      const classes = {
-        row: 'flex-row',
-        'row-reverse': 'flex-row-reverse',
-        column: 'flex-col',
-        'column-reverse': 'flex-col-reverse',
-      };
-      expect([...stack.classList]).toEqual(expect.arrayContaining([classes[mobile]]));
-      expect(stack.className.split(' ').filter((name) => name.startsWith('sm:flex-'))).toEqual(
-        desktop ? ['sm:' + classes[desktop]] : [],
-      );
       expect(getComputedStyle(stack).flexDirection).toBe(
         isDesktop() ? (desktop ?? mobile) : mobile,
       );
@@ -55,13 +45,13 @@ test.each([false, true])(
     fill.value = true;
     await nextTick();
     expect(stack.style.gap).toBe('0px');
-    expect([...stack.classList]).toEqual(expect.arrayContaining(['flex-1']));
+    expect(getComputedStyle(stack).flexGrow).toBe('1');
     gap.value = '1rem';
     fill.value = false;
     style.value = ['color:red', { gap: '2rem' }];
     await nextTick();
     expect(stack.style).toMatchObject({ color: 'red', gap: '2rem' });
-    expect([...stack.classList]).not.toContain('flex-1');
+    expect(getComputedStyle(stack).flexGrow).toBe('0');
     style.value = undefined;
     await nextTick();
     expect(stack.style.gap).toBe('1rem');
@@ -70,7 +60,6 @@ test.each([false, true])(
     fill.value = undefined;
     await nextTick();
     expect(stack.style.gap).toBe('');
-    expect([...stack.classList]).not.toContain('flex-1');
   },
 );
 
@@ -86,7 +75,6 @@ test('renders a flex root with stable styling hooks and default utilities', () =
   expect(stack.getAttribute('data-scope')).toBe('stack');
   expect(stack.getAttribute('data-part')).toBe('root');
   expect(stack.getAttribute('data-slot')).toBe('stack-root');
-  expect([...stack.classList]).toEqual(expect.arrayContaining(['flex', 'flex-col']));
   expect(getComputedStyle(stack).display).toBe('flex');
   expect(getComputedStyle(stack).flexDirection).toBe('column');
 });
@@ -109,9 +97,6 @@ test('writes flex props and reverse directions as native utilities and root styl
 
   const stack = screen.getByTestId('stack');
 
-  expect([...stack.classList]).toEqual(
-    expect.arrayContaining(['flex', 'flex-col-reverse', 'sm:flex-row-reverse', 'flex-1']),
-  );
   expect(stack.style).toMatchObject({
     alignItems: 'center',
     flexWrap: 'wrap',
@@ -165,7 +150,6 @@ test('leaves optional layout styles unset and lets style override layout props',
   const overridden = screen.getByTestId('overridden');
 
   expect(defaults.style.gap).toBe('');
-  expect([...overridden.classList]).toEqual(expect.arrayContaining(['flex-row', 'flex-1']));
   expect(overridden.style).toMatchObject({ flexWrap: 'nowrap', gap: '2rem' });
 });
 
@@ -177,8 +161,6 @@ test('lets consumer Tailwind utilities override fixed defaults', () => {
   const stack = screen.getByTestId('stack');
 
   expect([...stack.classList]).toEqual(expect.arrayContaining(['flex-none', 'flex-col']));
-  expect([...stack.classList]).not.toContain('flex-1');
-  expect([...stack.classList]).not.toContain('flex-row');
   expect(getComputedStyle(stack).flex).toBe('0 0 auto');
   expect(getComputedStyle(stack).flexDirection).toBe('column');
 });
@@ -222,7 +204,6 @@ test('hydrates stack without replacing the server host', async () => {
     expect(host.querySelectorAll('figure')).toHaveLength(1);
     expect(host.querySelector('figure')).toBe(serverRoot);
     expect(serverRoot.dataset).toMatchObject({ slot: 'stack-root' });
-    expect([...serverRoot.classList]).toContain('figure');
     expect(getComputedStyle(serverRoot).flexDirection).toBe('row');
     expect(warn).not.toHaveBeenCalled();
     expect(error).not.toHaveBeenCalled();

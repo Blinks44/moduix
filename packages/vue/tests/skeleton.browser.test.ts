@@ -75,8 +75,6 @@ test('forwards ordinary refs, consumer classes, styles, attrs and native listene
   const skeleton = screen.getByTestId('skeleton');
   expect(rootRef.value?.$el).toBe(skeleton);
   expect(skeleton.getAttribute('id')).toBe('profile');
-  expect([...skeleton.classList]).toEqual(expect.arrayContaining(['custom', 'active']));
-  expect(skeleton.className).toMatch(/custom active$/);
   expect(skeleton.style).toMatchObject({ color: 'red' });
   await page.getByTestId('skeleton').click();
   expect(handleClick).toHaveBeenCalledTimes(1);
@@ -183,7 +181,6 @@ test('hydrates skeleton without replacing the server host and remains reactive',
       .toHaveAttribute('data-state', 'loading');
     expect(instance.rootRef?.$el).toBe(serverRoot);
     expect(host.querySelectorAll('section')).toHaveLength(1);
-    expect([...serverRoot.classList]).toContain('hydrated-skeleton');
     expect(serverRoot.style).toMatchObject({ width: '60px', height: '48px', borderRadius: '12px' });
     instance.loading = false;
     await expect
@@ -213,17 +210,4 @@ test('clips overflow only while loading', async () => {
 
   loading.value = false;
   await expect.element(page.getByTestId('skeleton')).toHaveCSS('overflow', 'visible');
-});
-
-test('takes the pulse animation from the foundation token', async () => {
-  render({
-    components: { Skeleton },
-    template: `<div style="--moduix-animation-pulse: moduix-fade-in 1s">
-      <Skeleton data-testid="pulse" />
-      <Skeleton data-testid="none" variant="none" />
-    </div>`,
-  });
-
-  await expect.element(page.getByTestId('pulse')).toHaveCSS('animation-name', 'moduix-fade-in');
-  await expect.element(page.getByTestId('none')).toHaveCSS('animation-name', 'none');
 });

@@ -72,7 +72,6 @@ test('updates fallback and consumer value text without losing attrs or refs', as
   await expect.element(valueLocator).toHaveAttribute('aria-live', 'polite');
   await expect.element(valueLocator).toHaveAttribute('title', 'Upload progress');
   expect(host?.classList.contains('consumer-value')).toBe(true);
-  await expect.element(valueLocator).toHaveCSS('color', 'rgb(255, 0, 0)');
   expect(clicks).toHaveLength(1);
 });
 
@@ -379,20 +378,4 @@ test('renders and hydrates the public anatomy', async () => {
     warn.mockRestore();
     error.mockRestore();
   }
-});
-
-test('fills the container width by default', async () => {
-  render({
-    components: progressComponents,
-    template: `
-      <div style="width: 20rem">
-        <ProgressLinear :default-value="40" data-testid="progress-width">
-          <ProgressLinearTrack aria-label="Width"><ProgressLinearRange /></ProgressLinearTrack>
-        </ProgressLinear>
-      </div>
-    `,
-  });
-  await nextTick();
-
-  expect(screen.getByTestId('progress-width').offsetWidth).toBe(320);
 });

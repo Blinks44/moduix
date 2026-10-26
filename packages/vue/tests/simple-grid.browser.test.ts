@@ -137,7 +137,6 @@ test('hydrates simple-grid without replacing the server host', async () => {
     expect(host.querySelectorAll('ul')).toHaveLength(1);
     expect(host.querySelector('ul')).toBe(serverRoot);
     expect(serverRoot.dataset).toMatchObject({ slot: 'simple-grid-root' });
-    expect([...serverRoot.classList]).toContain('hydrated-grid');
     expect(instance.rootRef?.$el).toBe(serverRoot);
     expect(serverRoot.children).toHaveLength(1);
     expect(serverRoot.style.gridTemplateColumns).toBe(

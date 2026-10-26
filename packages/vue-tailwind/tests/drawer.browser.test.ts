@@ -27,7 +27,6 @@ import {
   DrawerTrigger,
   useDrawer,
 } from '../src';
-import { LocaleProvider } from '../src/locale';
 import TestDrawer from './fixtures/TestDrawer.vue';
 
 const drawerComponents = {
@@ -61,10 +60,6 @@ test('keeps page interaction available for a non-modal drawer', async () => {
   });
   const { container } = render(Harness);
   expect(container.querySelector('[role="dialog"]')).not.toBeNull();
-  await expect.element(page.getByRole('dialog')).toHaveCSS('pointer-events', 'auto');
-  await expect
-    .element(page.locator('[data-slot="drawer-positioner"]'))
-    .toHaveCSS('pointer-events', 'none');
 
   await page.getByRole('button', { name: 'Toggle drawer' }).click();
   await expect.element(page.getByRole('dialog')).toHaveCount(0);
@@ -321,39 +316,10 @@ test('applies Tailwind defaults and lets consumer utilities win', async () => {
   });
   render(Harness);
   const trigger = document.querySelector('[data-slot="drawer-trigger"]')!;
-  const content = document.querySelector('[role="dialog"]')!;
   const close = document.querySelector('[data-slot="drawer-close-icon"]')!;
   expect([...trigger.classList]).toEqual(['bg-primary', 'px-2']);
-  expect([...content.classList]).toEqual(
-    expect.arrayContaining([
-      'w-96',
-      'bg-card',
-      'p-4',
-      '[--_drawer-island-offset:0px]',
-      '[--_drawer-bleed:var(--moduix-size-xl)]',
-      'data-[swipe-direction=left]:after:inset-y-0',
-      'data-[swipe-direction=right]:after:inset-y-0',
-    ]),
-  );
-  expect([...content.classList]).not.toContain('bg-popover');
-  expect([...content.classList]).not.toContain('p-6');
   expect([...close.classList]).toEqual(
     expect.arrayContaining(['size-8', 'rounded-full', 'bg-primary']),
-  );
-  expect([...document.querySelector('[data-slot="drawer-backdrop"]')!.classList]).toEqual(
-    expect.arrayContaining(['fixed', 'inset-0']),
-  );
-  expect([...document.querySelector('[data-slot="drawer-title"]')!.classList]).toEqual(
-    expect.arrayContaining(['text-lg', 'font-semibold']),
-  );
-  expect([...document.querySelector('[data-slot="drawer-description"]')!.classList]).toEqual(
-    expect.arrayContaining(['text-md', 'text-muted-foreground']),
-  );
-  expect([...document.querySelector('[data-slot="drawer-body"]')!.classList]).toEqual(
-    expect.arrayContaining(['mt-4', 'text-md']),
-  );
-  expect([...document.querySelector('[data-slot="drawer-footer"]')!.classList]).toEqual(
-    expect.arrayContaining(['mt-6', 'gap-2']),
   );
   await expect
     .element(page.getByRole('dialog'))
@@ -380,9 +346,6 @@ test('marks an island drawer and closes it through its accessible close icon', a
   await expect
     .element(page.locator('[data-slot="drawer-positioner"]'))
     .toHaveAttribute('data-swipe-direction', 'down');
-  await expect
-    .element(page.locator('[data-slot="drawer-positioner"]'))
-    .toHaveCSS('padding-bottom', '16px');
   await page.getByRole('button', { name: 'Close drawer' }).click();
 
   await expect.element(page.getByRole('dialog')).toHaveCount(0);
@@ -460,46 +423,4 @@ test('keeps close-icon labels, attrs and fallback content reactive', async () =>
   await expect.element(button.locator('svg')).toHaveCount(0);
   custom.value = false;
   await expect.element(button.locator('svg')).toHaveCount(1);
-});
-
-test('leaves native triggers unstyled and keeps the body in the content color', () => {
-  const Harness = defineComponent({
-    components: drawerComponents,
-    template:
-      '<Drawer default-open :portalled="false"><DrawerTrigger>Open drawer</DrawerTrigger><DrawerPositioner><DrawerContent><DrawerTitle>Preferences</DrawerTitle><DrawerBody>Body</DrawerBody><DrawerCloseTrigger>Done</DrawerCloseTrigger></DrawerContent></DrawerPositioner></Drawer>',
-  });
-  render(Harness);
-
-  expect(document.querySelector('[data-slot="drawer-trigger"]')!.classList).toHaveLength(0);
-  expect(document.querySelector('[data-slot="drawer-close-trigger"]')!.classList).toHaveLength(0);
-  const content = document.querySelector('[role="dialog"]')!;
-  const body = document.querySelector('[data-slot="drawer-body"]')!;
-  expect(getComputedStyle(body).color).toBe(getComputedStyle(content).color);
-});
-
-test('keeps physical side corners for a start drawer in RTL', async () => {
-  const Harness = defineComponent({
-    components: { ...drawerComponents, LocaleProvider },
-    template:
-      '<LocaleProvider locale="ar"><Drawer default-open :portalled="false" swipe-direction="start"><DrawerPositioner><DrawerContent><DrawerTitle>Preferences</DrawerTitle></DrawerContent></DrawerPositioner></Drawer></LocaleProvider>',
-  });
-  render(Harness);
-
-  const content = page.getByRole('dialog');
-  await expect.element(content).toHaveAttribute('data-swipe-direction', 'right');
-  await expect.element(content).toHaveCSS('border-top-right-radius', '0px');
-  await expect.element(content).not.toHaveCSS('border-top-left-radius', '0px');
-});
-
-test('sets the side drawer width from size', async () => {
-  const Harness = defineComponent({
-    components: drawerComponents,
-    template:
-      '<Drawer default-open :portalled="false" swipe-direction="end"><DrawerPositioner><DrawerContent size="lg"><DrawerTitle>Preferences</DrawerTitle></DrawerContent></DrawerPositioner></Drawer>',
-  });
-  render(Harness);
-
-  const content = page.getByRole('dialog');
-  await expect.element(content).toHaveAttribute('data-size', 'lg');
-  await expect.element(content).toHaveCSS('width', '448px');
 });

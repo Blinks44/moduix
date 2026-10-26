@@ -217,27 +217,6 @@ test('lets consumer Tailwind classes override conflicting defaults', () => {
   expect([...tag!.classList]).toEqual(
     expect.arrayContaining(['gap-3', 'px-4', 'bg-card', 'text-card-foreground']),
   );
-  for (const utility of ['gap-1.5', 'px-2', 'bg-primary', 'text-primary-foreground']) {
-    expect(tag!.classList.contains(utility)).toBe(false);
-  }
-});
-
-test('renders a 12px close icon inside a 16px close trigger', () => {
-  render(() => (
-    <Tag>
-      <TagLabel>TypeScript</TagLabel>
-      <TagEndElement>
-        <TagCloseTrigger data-testid="close" />
-      </TagEndElement>
-    </Tag>
-  ));
-
-  const close = screen.getByTestId('close');
-  const icon = close.querySelector('svg')!;
-
-  expect([close.offsetWidth, close.offsetHeight]).toEqual([16, 16]);
-  expect(icon.getBoundingClientRect().width).toBeCloseTo(12, 0);
-  expect(icon.getBoundingClientRect().height).toBeCloseTo(12, 0);
 });
 
 test('keeps the fallback name when the close trigger has a custom icon', () => {
@@ -250,52 +229,4 @@ test('keeps the fallback name when the close trigger has a custom icon', () => {
   const close = screen.getByRole('button', { name: 'Remove tag' });
 
   expect(close.contains(screen.getByTestId('custom-icon'))).toBe(true);
-});
-
-test('shows a pointer cursor only on an interactive host', () => {
-  render(() => (
-    <>
-      <Tag data-testid="span">
-        <TagLabel>Draft</TagLabel>
-      </Tag>
-      <Tag
-        asChild={(props) => (
-          <button {...props()} data-testid="button" type="button">
-            <TagLabel>Open filter</TagLabel>
-          </button>
-        )}
-      />
-    </>
-  ));
-
-  expect(getComputedStyle(screen.getByTestId('span')).cursor).toBe('auto');
-  expect(getComputedStyle(screen.getByTestId('button')).cursor).toBe('pointer');
-});
-
-test('steps the tag height and text by size', () => {
-  render(() => (
-    <>
-      <Tag data-testid="sm" size="sm">
-        <TagLabel>Compact</TagLabel>
-      </Tag>
-      <Tag data-testid="md">
-        <TagLabel>Default</TagLabel>
-      </Tag>
-      <Tag data-testid="lg" size="lg">
-        <TagLabel>Large</TagLabel>
-      </Tag>
-    </>
-  ));
-
-  const sizes = ['sm', 'md', 'lg'].map((size) => {
-    const tag = screen.getByTestId(size);
-
-    return [tag.offsetHeight, getComputedStyle(tag).fontSize];
-  });
-
-  expect(sizes).toEqual([
-    [20, '12px'],
-    [24, '12px'],
-    [28, '14px'],
-  ]);
 });

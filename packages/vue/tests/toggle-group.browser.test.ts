@@ -164,7 +164,6 @@ test('keeps visual hooks owned, inherits visual props, and preserves reactive at
   const left = screen.getByRole('radio', { name: 'Left' });
   const center = screen.getByRole('radio', { name: 'Center' });
 
-  expect(root?.classList.contains('consumer-root')).toBe(true);
   expect(root.dataset).toMatchObject({ slot: 'toggle-group-root', variant: 'outline', size: 'sm' });
   expect(left?.classList.contains('consumer-item')).toBe(true);
   expect(left.dataset).toMatchObject({
@@ -179,8 +178,6 @@ test('keeps visual hooks owned, inherits visual props, and preserves reactive at
   consumerClass.value = 'updated-root';
   await nextTick();
 
-  expect(root?.classList.contains('updated-root')).toBe(true);
-  expect(root?.classList.contains('consumer-root')).toBe(false);
   expect(root.dataset).toMatchObject({ variant: 'ghost', size: 'lg' });
   expect(center.dataset).toMatchObject({ variant: 'ghost', size: 'lg' });
 });

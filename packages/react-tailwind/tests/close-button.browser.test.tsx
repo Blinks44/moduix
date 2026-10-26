@@ -10,22 +10,10 @@ test('renders an accessible native button with safe defaults and a forwarded ref
   render(<CloseButton ref={ref} data-testid="close-button" />);
 
   const button = screen.getByTestId('close-button');
-  const icon = button.querySelector('svg');
 
   expect(ref.current).toBe(button);
   await expect.element(page.getByTestId('close-button')).toHaveAttribute('type', 'button');
   expect(screen.getByRole('button', { name: 'Close' })).toBe(button);
-  expect(getComputedStyle(icon!)).toMatchObject({ width: '16px', height: '16px', flexShrink: '0' });
-  expect([...button!.classList]).toEqual(
-    expect.arrayContaining(['size-7', 'rounded-sm', 'bg-transparent', 'text-muted-foreground']),
-  );
-  for (const utility of [
-    'transition-[background-color,color,opacity,translate,scale]',
-    'motion-safe:[&:active:not([data-disabled])]:translate-y-px',
-    'motion-safe:[&:active:not([data-disabled])]:scale-[0.985]',
-  ]) {
-    expect(button!.classList.contains(utility)).toBe(false);
-  }
   expect(button.dataset).toMatchObject({
     scope: 'close-button',
     part: 'root',
@@ -60,9 +48,6 @@ test('keeps disabled asChild hosts semantic and prevents their activation', asyn
   await expect.element(close).not.toHaveAttribute('disabled');
   await expect.element(close).toHaveAttribute('aria-disabled', 'true');
   await expect.element(close).toHaveAttribute('data-disabled');
-  expect([...button!.classList]).toEqual(
-    expect.arrayContaining(['data-disabled:pointer-events-none', 'data-disabled:opacity-disabled']),
-  );
   expect(button.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true }))).toBe(
     false,
   );
@@ -152,7 +137,4 @@ test('lets consumer Tailwind classes override conflicting defaults', () => {
   expect([...button!.classList]).toEqual(
     expect.arrayContaining(['size-10', 'rounded-full', 'bg-primary', 'text-primary-foreground']),
   );
-  for (const utility of ['size-7', 'rounded-sm', 'bg-transparent', 'text-muted-foreground']) {
-    expect(button!.classList.contains(utility)).toBe(false);
-  }
 });

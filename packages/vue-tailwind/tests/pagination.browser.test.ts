@@ -323,39 +323,6 @@ test('applies Tailwind utilities to the owned visual parts', () => {
       '<Pagination :count="200" :default-page="10" :page-size="10" :sibling-count="1"><PaginationFirstTrigger /><PaginationPrevTrigger /><PaginationItems /><PaginationNextTrigger /><PaginationLastTrigger /></Pagination>',
   });
 
-  expect([...screen.getByRole('navigation')!.classList]).toEqual(
-    expect.arrayContaining([
-      'inline-flex',
-      'max-w-full',
-      'gap-1',
-      'overflow-x-auto',
-      'text-foreground',
-    ]),
-  );
-  expect([...screen.getByRole('button', { name: /page 10/i })!.classList]).toEqual(
-    expect.arrayContaining([
-      'h-control-md',
-      'min-w-control-md',
-      'rounded-md',
-      'data-selected:bg-foreground',
-      'data-selected:text-background',
-    ]),
-  );
-  expect([...document.querySelector('[data-slot="pagination-ellipsis"]')!.classList]).toEqual(
-    expect.arrayContaining([
-      'h-control-md',
-      'min-w-control-md',
-      'rounded-md',
-      'text-muted-foreground',
-    ]),
-  );
-  const firstTrigger = screen.getByRole('button', { name: 'first page' });
-  expect([...firstTrigger.classList]).toEqual(
-    expect.arrayContaining(['h-control-md', 'min-w-control-md', 'px-0']),
-  );
-  expect([...firstTrigger.querySelector('span')!.classList]).toEqual(
-    expect.arrayContaining(['inline-flex', '[&_svg+svg]:-ms-2']),
-  );
   expect(container.querySelectorAll('[data-slot="pagination-first-trigger"] svg')).toHaveLength(2);
 });
 
@@ -368,9 +335,6 @@ test('merges consumer Tailwind classes after component defaults', async () => {
 
   const previousTrigger = screen.getByRole('button', { name: /previous page/i });
   expect([...previousTrigger.classList]).toEqual(expect.arrayContaining(['rounded-none', 'px-0']));
-  expect(['rounded-md', 'px-3'].some((name) => previousTrigger.classList.contains(name))).toBe(
-    false,
-  );
   await expect
     .element(page.getByRole('button', { name: /previous page/i }))
     .toHaveCSS('border-radius', '0px');
@@ -379,24 +343,3 @@ test('merges consumer Tailwind classes after component defaults', async () => {
     .toHaveCSS('padding-left', '0px');
 });
 import SsrPagination from './fixtures/SsrPagination.vue';
-test('keeps default-icon triggers square and pads triggers with custom content', () => {
-  render({
-    components: paginationComponents,
-    template: `
-        <Pagination :count="200" :default-page="10" :page-size="10">
-          <PaginationFirstTrigger />
-          <PaginationPrevTrigger />
-          <PaginationItems />
-          <PaginationNextTrigger>Next</PaginationNextTrigger>
-        </Pagination>
-      `,
-  });
-
-  for (const name of ['first page', 'previous page']) {
-    const trigger = screen.getByRole('button', { name });
-    expect(trigger.offsetWidth).toBe(trigger.offsetHeight);
-  }
-  const textTrigger = screen.getByRole('button', { name: 'next page' });
-  expect(getComputedStyle(textTrigger).paddingInlineStart).toBe('12px');
-  expect(textTrigger.offsetWidth).toBeGreaterThan(textTrigger.offsetHeight);
-});

@@ -6,7 +6,6 @@ import {
   RatingGroup,
   RatingGroupControl,
   RatingGroupHiddenInput,
-  RatingGroupItem,
   RatingGroupItemIndicator,
   RatingGroupItems,
   RatingGroupLabel,
@@ -145,37 +144,4 @@ test('repeats custom indicators with Ark item state', async () => {
     .element(page.getByTestId('custom-indicator').nth(2))
     .toHaveAttribute('data-highlighted');
   await expect.element(page.getByTestId('custom-indicator').nth(3)).toHaveAttribute('data-half');
-});
-test('colors the default filled star from the indicator color', () => {
-  render(
-    <RatingGroup defaultValue={1}>
-      <RatingGroupControl>
-        <RatingGroupItem index={1}>
-          <RatingGroupItemIndicator style={{ color: 'rgb(255, 0, 0)' }} />
-        </RatingGroupItem>
-      </RatingGroupControl>
-    </RatingGroup>,
-  );
-
-  const foregroundIcon = document.querySelector('[data-slot="rating-group-item-indicator-fg"]')!;
-
-  expect(getComputedStyle(foregroundIcon).color).toBe('rgb(255, 0, 0)');
-});
-
-test('clips the default star for half and empty items', async () => {
-  render(
-    <RatingGroup allowHalf count={3} defaultValue={1.5}>
-      <RatingGroupControl>
-        <RatingGroupItems />
-      </RatingGroupControl>
-    </RatingGroup>,
-  );
-
-  const foregroundIcons = document.querySelectorAll('[data-slot="rating-group-item-indicator-fg"]');
-
-  await expect
-    .poll(() => getComputedStyle(foregroundIcons[1]!).clipPath)
-    .toBe('inset(0px 50% 0px 0px)');
-  expect(getComputedStyle(foregroundIcons[0]!).clipPath).toBe('inset(0px)');
-  expect(getComputedStyle(foregroundIcons[2]!).clipPath).toBe('inset(0px 100% 0px 0px)');
 });

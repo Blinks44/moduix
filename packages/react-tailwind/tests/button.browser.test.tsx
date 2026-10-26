@@ -18,16 +18,6 @@ test('renders a native button with safe defaults, stable hooks, and a forwarded 
   expect(ref.current).toBe(button);
   await expect.element(page.getByTestId('button')).toHaveAttribute('type', 'button');
   expect(button.dataset).toMatchObject({ scope: 'button', part: 'root', slot: 'button-root' });
-  expect([...button!.classList]).toEqual(
-    expect.arrayContaining([
-      'transition-[background-color,border-color,color,opacity,transform,translate]',
-      'duration-fast',
-      "motion-safe:[&[data-slot='button-root']:not([data-variant='link']):not([aria-haspopup]):active]:translate-y-px",
-    ]),
-  );
-  expect(
-    button?.classList.contains("motion-safe:[&:not([data-variant='link']):active]:translate-y-px"),
-  ).toBe(false);
   expect(button.dataset).toMatchObject({ variant: 'default', size: 'md' });
 });
 
@@ -134,44 +124,29 @@ test('applies explicit recipe values to the root', () => {
   expect(button.dataset).toMatchObject({ size: 'icon-lg', variant: 'destructive-outline' });
 });
 
-test('exposes root utilities without overriding an explicit icon size', () => {
+test('sizes unsized icons and keeps an explicit icon size', () => {
   render(
     <Button>
-      <svg className="size-6" data-testid="icon" />
+      <svg data-testid="default-icon" />
+      <svg className="size-6" data-testid="sized-icon" />
       Save changes
     </Button>,
   );
 
-  const button = screen.getByRole('button', { name: 'Save changes' });
-
-  expect([...button!.classList]).toEqual(
-    expect.arrayContaining([
-      'inline-flex',
-      'items-center',
-      'gap-2',
-      'rounded-md',
-      "[&>svg:not([class*='size-'])]:size-4",
-      '[&>svg]:shrink-0',
-    ]),
-  );
-  expect(screen.getByTestId('icon')?.classList.contains('size-6')).toBe(true);
+  expect(screen.getByTestId('default-icon').getBoundingClientRect().width).toBe(16);
+  expect(screen.getByTestId('sized-icon').getBoundingClientRect().width).toBe(24);
 });
 
 test('lets consumer Tailwind classes override conflicting defaults', () => {
   render(
-    <Button className="bg-secondary p-0 text-xs" size="lg">
+    <Button className="p-0" size="lg">
       Save changes
     </Button>,
   );
 
-  const button = screen.getByRole('button', { name: 'Save changes' });
-
-  expect([...button!.classList]).toEqual(
-    expect.arrayContaining(['bg-secondary', 'p-0', 'text-xs']),
+  expect(getComputedStyle(screen.getByRole('button', { name: 'Save changes' })).padding).toBe(
+    '0px',
   );
-  for (const utility of ['bg-primary', 'px-5', 'py-1.5', 'text-lg']) {
-    expect(button!.classList.contains(utility)).toBe(false);
-  }
 });
 
 test('reads the token duration and lets a consumer duration replace it', () => {
@@ -183,7 +158,5 @@ test('reads the token duration and lets a consumer duration replace it', () => {
 
   const button = screen.getByTestId('button');
 
-  expect(button.classList.contains('duration-500')).toBe(true);
-  expect(button.classList.contains('duration-fast')).toBe(false);
   expect(getComputedStyle(button).transitionDuration.split(', ')[0]).toBe('0.5s');
 });

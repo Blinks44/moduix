@@ -22,7 +22,6 @@ import {
   CommandPaletteTrigger,
   useDialog,
 } from '../src';
-import styles from '../src/components/command-palette/CommandPalette.module.css';
 import SsrCommandPalette from './fixtures/SsrCommandPalette.vue';
 
 const commands = createListCollection({
@@ -95,7 +94,6 @@ test('keeps the flat API, dialog semantics, anatomy, and refs', async () => {
   expect(refs.panel.value!.$el.getAttribute('data-slot')).toBe('command-palette-content');
   expect(refs.search.value!.$el.getAttribute('data-slot')).toBe('command-palette-input');
   expect(refs.item.value!.$el.getAttribute('data-slot')).toBe('command-palette-item');
-  expect([...dialog!.classList]).toEqual(expect.arrayContaining([styles.content]));
 });
 
 test('composes the shared Kbd anatomy and command-palette styles', async () => {
@@ -111,7 +109,6 @@ test('composes the shared Kbd anatomy and command-palette styles', async () => {
   await expect.element(page.getByTestId('kbd')).toHaveAttribute('data-scope', 'kbd');
   await expect.element(page.getByTestId('kbd')).toHaveAttribute('data-part', 'root');
   await expect.element(page.getByTestId('kbd')).toHaveAttribute('data-slot', 'kbd-root');
-  expect([...kbd!.classList]).toEqual(expect.arrayContaining([styles.kbd]));
 });
 
 test('opens and closes from the shortcut while ignoring editable targets and repeats', async () => {

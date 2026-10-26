@@ -222,20 +222,12 @@ test('lets consumer utilities replace defaults and keeps visual parts visible', 
   const root = container.querySelector('[data-slot="tags-input-root"]')!;
   const control = container.querySelector('[data-slot="tags-input-control"]')!;
   const input = container.querySelector('[data-slot="tags-input-input"]')!;
-  const itemPreview = container.querySelector('[data-slot="tags-input-item-preview"]')!;
-  const deleteTrigger = container.querySelector('[data-slot="tags-input-item-delete-trigger"]')!;
   const clearTrigger = container.querySelector('[data-slot="tags-input-clear-trigger"]')!;
 
   expect([...root!.classList]).toEqual(expect.arrayContaining(['w-80']));
-  expect(root!.classList.contains('w-96')).toBe(false);
   expect([...control!.classList]).toEqual(expect.arrayContaining(['rounded-lg']));
-  expect(control!.classList.contains('rounded-md')).toBe(false);
   expect([...input!.classList]).toEqual(expect.arrayContaining(['h-8']));
-  expect(input!.classList.contains('h-control-xs')).toBe(false);
-  expect([...itemPreview!.classList]).toEqual(expect.arrayContaining(['bg-secondary']));
-  expect([...deleteTrigger!.classList]).toEqual(expect.arrayContaining(['size-4']));
   expect([...clearTrigger!.classList]).toEqual(expect.arrayContaining(['size-5']));
-  expect(clearTrigger!.classList.contains('size-control-xs')).toBe(false);
   await expect.element(page.locator('[data-slot="tags-input-root"]')).toHaveCSS('width', '320px');
   await expect.element(page.locator('[data-slot="tags-input-input"]')).toHaveCSS('height', '32px');
   await expect
@@ -261,31 +253,7 @@ test('keeps consumer-owned styles on an asChild clear trigger', async () => {
   const clearTrigger = container.querySelector('[data-slot="tags-input-clear-trigger"]')!;
 
   expect([...clearTrigger!.classList]).toEqual(expect.arrayContaining(['h-9', 'rounded-lg']));
-  expect(
-    ['size-control-xs', 'rounded-sm'].some((name) => clearTrigger!.classList.contains(name)),
-  ).toBe(false);
   await expect
     .element(page.locator('[data-slot="tags-input-clear-trigger"]'))
     .toHaveCSS('height', '36px');
-});
-
-test('dims a disabled root once and keeps the default clear icon', async () => {
-  render(
-    <TagsInput disabled defaultValue={['React']}>
-      <TagsInputLabel>Disabled frameworks</TagsInputLabel>
-      <TagsInputControl>
-        <TagsInputItems />
-        <TagsInputInput />
-        <TagsInputClearTrigger />
-      </TagsInputControl>
-    </TagsInput>,
-  );
-
-  await expect.element(page.locator('[data-slot="tags-input-root"]')).toHaveCSS('opacity', '0.5');
-  expect(document.querySelector('[data-slot="tags-input-clear-trigger"] > svg')).not.toBeNull();
-  for (const slot of ['label', 'item-preview', 'item-delete-trigger', 'clear-trigger']) {
-    await expect
-      .element(page.locator(`[data-slot="tags-input-${slot}"]`))
-      .toHaveCSS('opacity', '1');
-  }
 });

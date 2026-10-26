@@ -30,19 +30,8 @@ test('renders a native button with safe defaults, stable hooks, attrs, classes, 
   await expect.element(buttonLocator).not.toHaveAttribute('aria-busy');
   await expect.element(buttonLocator).not.toHaveAttribute('aria-disabled');
   expect(button.dataset).toMatchObject({ scope: 'button', part: 'root', slot: 'button-root' });
-  expect([...button!.classList]).toEqual(
-    expect.arrayContaining([
-      'transition-[background-color,border-color,color,opacity,transform,translate]',
-      'duration-fast',
-      "motion-safe:[&[data-slot='button-root']:not([data-variant='link']):not([aria-haspopup]):active]:translate-y-px",
-    ]),
-  );
-  expect(
-    button?.classList.contains("motion-safe:[&:not([data-variant='link']):active]:translate-y-px"),
-  ).toBe(false);
   expect(button.dataset).toMatchObject({ variant: 'default', size: 'md' });
-  expect(button?.classList.contains('px-8')).toBe(true);
-  expect(button.className).not.toContain('px-4');
+  expect(getComputedStyle(button).paddingInline).toBe('32px');
 });
 
 test('preserves semantic anchors, refs, data hooks, and composed event handlers with asChild', async () => {
@@ -319,7 +308,6 @@ test('hydrates button without replacing server hosts or ids', async () => {
     expect(host.querySelectorAll('a')).toHaveLength(1);
     expect(link.getAttribute('href')).toBe('#docs');
     expect(link.getAttribute('data-variant')).toBe('outline');
-    expect(link.classList.contains('px-8')).toBe(true);
     expect(warn).not.toHaveBeenCalled();
     expect(error).not.toHaveBeenCalled();
   } finally {
@@ -339,6 +327,5 @@ test('reads the token duration and lets a consumer duration replace it', () => {
   const button = screen.getByTestId('button');
 
   expect(button.classList.contains('duration-500')).toBe(true);
-  expect(button.classList.contains('duration-fast')).toBe(false);
   expect(getComputedStyle(button).transitionDuration.split(', ')[0]).toBe('0.5s');
 });

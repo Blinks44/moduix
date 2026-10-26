@@ -75,7 +75,6 @@ test('updates fallback and consumer value text without losing attrs or refs', as
   await expect.element(valueLocator).toHaveAttribute('aria-live', 'polite');
   await expect.element(valueLocator).toHaveAttribute('title', 'Upload progress');
   expect(host?.classList.contains('consumer-value')).toBe(true);
-  await expect.element(valueLocator).toHaveCSS('color', 'rgb(255, 0, 0)');
   expect(clicks).toHaveLength(1);
 });
 

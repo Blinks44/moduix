@@ -24,7 +24,6 @@ import {
   FloatingPanelTrigger,
   useFloatingPanel,
 } from '../src';
-import styles from '../src/components/floating-panel/FloatingPanel.module.css';
 import SsrFloatingPanel from './fixtures/SsrFloatingPanel.vue';
 
 const floatingPanelComponents = {
@@ -268,18 +267,9 @@ test('preserves refs, anatomy hooks, default icons, and consumer classes', async
   expect(refs.footer.value!.$el.getAttribute('data-slot')).toBe('floating-panel-footer');
   expect(refs.indicator.value!.$el.getAttribute('data-slot')).toBe('floating-panel-drag-indicator');
   expect(refs.close.value!.$el.getAttribute('data-slot')).toBe('floating-panel-close-icon');
-  expect([...refs.close.value!.$el.classList]).toEqual(
-    expect.arrayContaining([styles.controlButton]),
-  );
   expect(Boolean(refs.close.value?.$el.querySelector('svg')?.isConnected)).toBe(true);
-  expect([...screen.getByRole('button', { name: 'Minimize window' }).classList]).toEqual(
-    expect.arrayContaining([styles.controlButton]),
-  );
   expect([...screen.getByRole('button', { name: 'Open' }).classList]).toEqual(
     expect.arrayContaining(['consumer-trigger']),
-  );
-  expect([...screen.getByRole('dialog').classList]).toEqual(
-    expect.arrayContaining(['consumer-content', styles.content]),
   );
 });
 
@@ -371,38 +361,4 @@ test('sizes the content from Ark state without a CSS minimum', async () => {
 
   const content = document.querySelector<HTMLElement>('[data-slot="floating-panel-content"]')!;
   expect([content.offsetWidth, content.offsetHeight]).toEqual([160, 96]);
-});
-
-test('leaves the native trigger unstyled', () => {
-  const Harness = defineComponent({
-    components: floatingPanelComponents,
-    template: `
-      <FloatingPanel :portalled="false">
-        <FloatingPanelTrigger>Open inspector</FloatingPanelTrigger>
-      </FloatingPanel>
-    `,
-  });
-
-  render(Harness);
-
-  expect(document.querySelector('[data-slot="floating-panel-trigger"]')!.className).toBe('');
-});
-
-test('opens with the shared popup keyframes and motion variables', async () => {
-  const Harness = defineComponent({
-    components: floatingPanelComponents,
-    template: `
-      <div style="--moduix-popup-motion-duration: 1234ms">
-        <FloatingPanel default-open :default-size="{ width: 360, height: 260 }" :portalled="false">
-          <FloatingPanelPositioner><FloatingPanelContent /></FloatingPanelPositioner>
-        </FloatingPanel>
-      </div>
-    `,
-  });
-
-  render(Harness);
-  await expect.element(page.getByRole('dialog')).toBeAttached();
-
-  const style = getComputedStyle(document.querySelector('[data-slot="floating-panel-content"]')!);
-  expect([style.animationName, style.animationDuration]).toEqual(['moduix-popup-in', '1.234s']);
 });

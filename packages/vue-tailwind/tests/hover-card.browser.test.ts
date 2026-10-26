@@ -237,16 +237,10 @@ test('forwards refs, attrs, consumer classes, and semantic asChild hosts', async
   expect(Array.from(trigger.classList)).toEqual(
     expect.arrayContaining(['gap-2', 'text-destructive']),
   );
-  expect(Array.from(trigger.classList)).not.toContain('text-primary');
   expect(Array.from(content.classList)).toEqual(expect.arrayContaining(['bg-card', 'p-4']));
-  expect(Array.from(content.classList)).not.toContain('bg-popover');
-  expect(Array.from(content.classList)).not.toContain('p-2');
   expect(Array.from(positionerRef.value?.$el.classList)).toContain('max-w-none');
   expect(Array.from(arrowRef.value?.$el.classList)).toContain('[--arrow-size:1rem]');
   expect(Array.from(arrowTipRef.value?.$el.classList)).toContain('border-primary');
-  expect(Array.from(bodyRef.value?.$el.classList)).toEqual(
-    expect.arrayContaining(['min-h-0', 'overflow-hidden']),
-  );
   await expect.element(page.getByRole('button', { name: 'Profile' })).toHaveCSS('gap', '8px');
   await expect.element(page.getByTestId('content')).toHaveCSS('padding', '16px');
 });

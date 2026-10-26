@@ -43,21 +43,6 @@ test.each([
   expect(parseFloat(style.maxWidth)).toBeCloseTo(1152 + padding * 2);
 });
 
-test('derives gutters from spacing tokens', () => {
-  render({
-    components: { Container },
-    template: `
-      <div style="--moduix-spacing-4: 10px; --moduix-spacing-8: 10px">
-        <Container data-testid="container" />
-      </div>
-    `,
-  });
-  const style = getComputedStyle(screen.getByTestId('container'));
-
-  expect(style.paddingInlineStart).toBe('10px');
-  expect(parseFloat(style.maxWidth)).toBeCloseTo(1152 + 20);
-});
-
 test('preserves default layout, refs, and owned hooks when consumer props conflict', () => {
   const rootRef = ref<ComponentPublicInstance>();
   render({
@@ -85,9 +70,6 @@ test('preserves default layout, refs, and owned hooks when consumer props confli
   expect(container.getAttribute('data-gutter')).toBe('md');
   expect([...container.classList]).toEqual(expect.arrayContaining(['consumer-class']));
   expect(rootRef.value?.$el).toBe(container);
-  expect([...container.classList]).toEqual(
-    expect.arrayContaining(['w-full', 'min-w-0', 'mx-auto']),
-  );
   expect('Root' in Container).toBe(false);
   const style = getComputedStyle(container);
   expect(style.display).toBe('block');
@@ -103,9 +85,6 @@ test('lets consumer Tailwind utilities override conflicting defaults', () => {
   const container = screen.getByTestId('container');
 
   expect([...container.classList]).toEqual(expect.arrayContaining(['w-1/2', 'max-w-sm', 'px-2']));
-  expect([...container.classList]).not.toContain('w-full');
-  expect(container.className).not.toContain('max-w-[calc');
-  expect(container.className).not.toContain('px-[clamp');
   const style = getComputedStyle(container);
   expect(style.maxWidth).toBe('384px');
   expect(style.paddingInlineStart).toBe('8px');
@@ -155,7 +134,6 @@ test('hydrates container without replacing the server host', async () => {
     expect(host.querySelectorAll('main')).toHaveLength(1);
     expect(host.querySelector('main')).toBe(serverRoot);
     expect(serverRoot.dataset).toMatchObject({ size: 'md', gutter: 'lg', slot: 'container-root' });
-    expect([...serverRoot.classList]).toContain('semantic-root');
     expect(getComputedStyle(serverRoot).display).toBe('block');
     expect(warn).not.toHaveBeenCalled();
     expect(error).not.toHaveBeenCalled();

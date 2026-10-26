@@ -260,17 +260,14 @@ test('provides accessible search and consumer utilities override Tailwind defaul
   const list = screen.getByRole('listbox');
   const item = screen.getByRole('option', { name: /Open settings/ });
   expect([...content!.classList]).toEqual(expect.arrayContaining(['max-h-96']));
-  expect(content!.classList.contains('max-h-[min(34rem,calc(100dvh-5rem))]')).toBe(false);
   expect([...list!.classList]).toEqual(expect.arrayContaining(['p-0']));
   expect([...item!.classList]).toEqual(expect.arrayContaining(['rounded-none', 'px-0']));
-  expect(['rounded-md', 'px-3'].some((name) => item!.classList.contains(name))).toBe(false);
   await expect.element(page.getByText('⌘K')).toBeAttached();
   await expect.element(page.getByText('Enter')).toBeAttached();
   const kbd = screen.getByTestId('command-kbd');
   expect(kbd.tagName).toBe('KBD');
   await expect.element(page.getByTestId('command-kbd')).toHaveAttribute('data-scope', 'kbd');
   await expect.element(page.getByTestId('command-kbd')).toHaveAttribute('data-part', 'root');
-  expect([...kbd!.classList]).toEqual(expect.arrayContaining(['min-h-5', 'min-w-5', 'px-1']));
 
   await expect
     .element(page.locator('[data-slot="command-palette-content"]'))
