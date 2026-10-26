@@ -50,6 +50,9 @@ follow the matching native convention skill. `component-workflow` owns adapter p
 - Tailwind browser projects use the official Rsbuild Tailwind plugin and a CSS entry scanning their
   own components/tests, so the override contracts above can be checked on real CSS. Do not add
   tests that compile utilities and compare class or CSS strings.
+- Node SSR coverage lives in one `tests/ssr.test.*` per package: it loads every component without
+  browser globals and renders open overlays (React, Solid) or every Vue fixture. Do not add
+  per-component SSR files; add a focused Node test only for a server-specific regression.
 - For Vue SSR/hydration, reuse a small compiled SFC fixture. Node SSR must run without browser globals;
   browser hydration must preserve hosts/IDs and still support interaction. HTML rendered inside the
   browser is not a server-to-browser E2E pipeline. Always unmount/remove manually mounted hosts.
