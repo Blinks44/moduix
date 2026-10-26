@@ -121,6 +121,10 @@ jobs:
       - name: Check public package contracts
         run: pnpm run check:packages
 
+      # Preview builds on pkg.pr.new; pnpm pack resolves catalog: versions.
+      - name: Publish preview packages
+        run: pnpm exec pkg-pr-new publish --pnpm --packageManager=pnpm './packages/*'
+
   storybook:
     name: Storybook smoke
     runs-on: ubuntu-latest
