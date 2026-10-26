@@ -39,3 +39,4 @@ pnpm-debug.log*
 !.vscode/extensions.json
 .idea/
 .local/
+.stories-diff/
