@@ -11,6 +11,7 @@ import {
   CheckboxRootProvider,
   useCheckbox,
 } from '@/components/checkbox';
+import { Fieldset, FieldsetLegend } from '@/components/fieldset';
 
 const meta = {
   title: 'Components/Checkbox',
@@ -101,7 +102,7 @@ const CheckboxItem = defineComponent({
   `,
 });
 
-const storyComponents = { ...checkboxComponents, CheckboxItem };
+const storyComponents = { ...checkboxComponents, CheckboxItem, Fieldset, FieldsetLegend };
 
 function renderStory(template: string, setup?: () => Record<string, unknown>) {
   return () =>
@@ -287,16 +288,16 @@ export const GroupControlled: Story = {
 export const GroupWithFieldset: Story = {
   render: renderStory(
     `
-    <fieldset :class="wrapperClass">
-      <legend :class="groupHeadingClass">Frameworks</legend>
+    <Fieldset>
+      <FieldsetLegend>Frameworks</FieldsetLegend>
       <CheckboxGroup :default-value="['react']" name="frameworks">
         <CheckboxItem v-for="option in frameworkOptions" :key="option.value" :value="option.value">
           {{ option.label }}
         </CheckboxItem>
       </CheckboxGroup>
-    </fieldset>
+    </Fieldset>
   `,
-    () => ({ frameworkOptions, groupHeadingClass, wrapperClass }),
+    () => ({ frameworkOptions }),
   ),
 };
 
@@ -380,7 +381,7 @@ export const InvalidGroup: Story = {
           {{ option.label }}
         </CheckboxItem>
       </CheckboxGroup>
-      <span :class="hintClass">Use invalid on the group when selection is required.</span>
+      <span :class="hintClass">Use \`invalid\` on the group when selection is required.</span>
     </div>
   `,
     () => ({ groupHeadingClass, hintClass, notificationOptions, wrapperClass }),
@@ -413,6 +414,7 @@ export const CustomStyling: Story = {
       customGroupClass,
       customLabelClass,
       customRootClass,
+      groupHeadingClass,
       notificationOptions,
       wrapperClass,
     }),

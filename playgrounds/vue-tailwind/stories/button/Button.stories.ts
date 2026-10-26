@@ -74,14 +74,17 @@ export const Sizes: Story = {
 };
 
 export const Disabled: Story = {
-  render: renderStory(`
+  render: renderStory(
+    `
     <div :class="rowClassName">
       <Button disabled>Disabled</Button>
       <Button as-child disabled variant="outline">
         <a href="#button">Disabled link</a>
       </Button>
     </div>
-  `),
+  `,
+    () => ({ rowClassName }),
+  ),
 };
 
 export const WithIcons: Story = {

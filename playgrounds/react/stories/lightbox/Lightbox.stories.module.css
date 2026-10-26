@@ -70,18 +70,22 @@
   }
 
   .customBackdrop {
-    --moduix-lightbox-backdrop-bg: rgb(15 23 42 / 0.72);
+    background-color: rgb(15 23 42 / 0.7);
   }
 
   .customContent {
     --moduix-lightbox-content-max-width: 72vw;
     --moduix-lightbox-content-max-height: 72dvh;
-    --moduix-lightbox-media-radius: var(--moduix-radius-lg);
   }
 
   .customCloseIcon {
-    --moduix-lightbox-close-icon-bg: var(--moduix-color-muted);
-    --moduix-lightbox-close-icon-bg-hover: var(--moduix-color-accent);
-    --moduix-lightbox-close-icon-radius: var(--moduix-radius-md);
+    border-radius: var(--moduix-radius-md);
+    background-color: var(--moduix-color-muted);
+
+    @media (hover: hover) {
+      &:hover {
+        background-color: var(--moduix-color-accent);
+      }
+    }
   }
 }

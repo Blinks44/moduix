@@ -11,6 +11,7 @@ import {
   CheckboxRootProvider,
   useCheckbox,
 } from '@/components/checkbox/Checkbox';
+import { Fieldset, FieldsetLegend } from '@/components/fieldset';
 import styles from './Checkbox.stories.module.css';
 
 const meta = {
@@ -241,14 +242,14 @@ export const GroupControlled: Story = {
 
 export const GroupWithFieldset: Story = {
   render: () => (
-    <fieldset class={styles.wrapper}>
-      <legend class={styles.groupHeading}>Frameworks</legend>
+    <Fieldset>
+      <FieldsetLegend>Frameworks</FieldsetLegend>
       <CheckboxGroup defaultValue={['react']} name="frameworks">
         {frameworkOptions.map((option) => (
           <CheckboxItem value={option.value}>{option.label}</CheckboxItem>
         ))}
       </CheckboxGroup>
-    </fieldset>
+    </Fieldset>
   ),
 };
 
