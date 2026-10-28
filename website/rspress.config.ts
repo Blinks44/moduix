@@ -43,6 +43,9 @@ export default defineConfig({
   locales,
   icon: '/favicon/favicon.svg',
   llms: true,
+  search: {
+    searchHooks: fileURLToPath(new URL('./theme/search-hooks.ts', import.meta.url)),
+  },
   mediumZoom: false,
   route: {
     cleanUrls: true,
