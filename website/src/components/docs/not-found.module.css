@@ -8,6 +8,12 @@
   text-align: center;
 }
 
+/* An unknown /docs/ address matches the Components activeMatch; the 404 frame has no active item. */
+:global(body):has(.root) :global(.rp-nav-menu__item--active .rp-nav-menu__item__container) {
+  color: var(--rp-c-text-2);
+  font-weight: 400;
+}
+
 .code {
   margin: 0;
   color: var(--rp-c-text-3);

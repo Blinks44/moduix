@@ -24,8 +24,8 @@ import {
   Tabs,
 } from '@rspress/core/theme-original';
 import { clsx } from 'clsx';
-import { Clock } from 'lucide-react';
-import { useEffect, type ComponentProps } from 'react';
+import { Clock, Menu, Moon, PanelLeft, Sun, X } from 'lucide-react';
+import { useEffect, type ComponentProps, type SVGProps } from 'react';
 import './index.css';
 import {
   BlockLinks,
@@ -55,6 +55,29 @@ import { Tag } from './components/Tag';
 import { moduixShikiTheme } from './shiki-theme';
 
 export * from '@rspress/core/theme-original';
+
+// Lucide icons from the Moduix.sketch Icon/* symbols. Native components import icons from
+// `@rspress/core/theme`, so these named exports replace the built-in ones.
+export { PanelLeft as IconMenu };
+
+// SwitchAppearance passes fill="currentColor" for its filled icons; Lucide icons are outlines.
+export function IconSun(props: SVGProps<SVGSVGElement>) {
+  return <Sun {...props} fill="none" />;
+}
+
+export function IconMoon(props: SVGProps<SVGSVGElement>) {
+  return <Moon {...props} fill="none" />;
+}
+
+// The hamburger keeps one icon for both states; CSS shows the close icon while the nav screen is open.
+export function IconSmallMenu(props: SVGProps<SVGSVGElement>) {
+  return (
+    <span className="moduix-hamburger-icon">
+      <Menu {...props} data-state="closed" />
+      <X {...props} data-state="open" />
+    </span>
+  );
+}
 
 function DocDescription() {
   const { frontmatter } = useFrontmatter();

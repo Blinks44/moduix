@@ -486,6 +486,11 @@ body {
 
   .rp-suggest-item__icon {
     color: var(--rp-c-text-3);
+
+    svg {
+      width: 16px;
+      height: 16px;
+    }
   }
 
   .rp-suggest-item__header,
@@ -730,6 +735,13 @@ body .rp-doc {
   text-transform: none;
 }
 
+/* The outline has no reading progress ring; Edit this page lives in the page footer. */
+.rp-outline__title .rp-progress-circle,
+.rp-outline__divider,
+.rp-outline__bottom {
+  display: none;
+}
+
 .rp-toc-item {
   margin-top: 8px;
 }
@@ -875,6 +887,26 @@ body .rp-doc {
   line-height: 20px;
 }
 
+/* Code/Header symbol: Lucide file-code icon before a 12px muted file name. */
+.rp-codeblock__title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding-inline: 14px;
+  color: var(--rp-c-text-2);
+  font-size: 12px;
+
+  &::before {
+    content: '';
+    flex: none;
+    inline-size: 16px;
+    block-size: 16px;
+    background: currentColor;
+    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z'/%3E%3Cpath d='M14 2v4a2 2 0 0 0 2 2h4'/%3E%3Cpath d='m10 13-2 2 2 2'/%3E%3Cpath d='m14 17 2-2-2-2'/%3E%3C/svg%3E")
+      center / contain no-repeat;
+  }
+}
+
 /* Mobile · Nav menu open: 16px gutters, active item as a bordered card like the sidebar. */
 .rp-nav-screen {
   padding: 24px 16px;
@@ -920,6 +952,42 @@ body .rp-doc {
   border: 0;
 }
 
+/* Mobile · Nav menu open: the hamburger turns into a bordered close button. */
+.moduix-hamburger-icon {
+  display: inline-flex;
+
+  svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  [data-state='open'],
+  .rp-nav-hamburger--active & [data-state='closed'] {
+    display: none;
+  }
+
+  .rp-nav-hamburger--active & [data-state='open'] {
+    display: block;
+  }
+}
+
+@media (width <= 768px) {
+  .rp-nav-hamburger__sm {
+    display: inline-flex;
+    width: 36px;
+    height: 36px;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    padding: 0;
+  }
+
+  .rp-nav-hamburger--active {
+    border-color: var(--rp-c-divider);
+  }
+}
+
 /* Mobile · Sidebar open: min(320px, viewport − 32px) over a dimmed page. */
 @media (width <= 768px) {
   :root {
@@ -948,6 +1016,12 @@ body .rp-doc {
     .rp-llms-container {
       margin-left: 0;
     }
+  }
+
+  /* Doc bar: Lucide panel-left at the 16px icon size. */
+  .rp-sidebar-menu__left svg {
+    width: 16px;
+    height: 16px;
   }
 
   /* Doc bar: "On this page" is a muted label without the reading progress ring. */

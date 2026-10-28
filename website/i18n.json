@@ -284,41 +284,6 @@
     "ru": "По умолчанию",
     "fr": "Par défaut"
   },
-  "themePresetPreviewLabel": {
-    "en": "Theme preset preview",
-    "ru": "Предпросмотр пресетов тем",
-    "fr": "Aperçu des préréglages de thème"
-  },
-  "themePresetListLabel": {
-    "en": "Theme presets",
-    "ru": "Пресеты тем",
-    "fr": "Préréglages de thème"
-  },
-  "themePresetCalmDescription": {
-    "en": "The default moduix theme with neutral colors and standard spacing.",
-    "ru": "Базовая тема moduix с нейтральными цветами и стандартными отступами.",
-    "fr": "Le thème moduix par défaut, avec des couleurs neutres et un espacement standard."
-  },
-  "themePresetDenseDescription": {
-    "en": "Compact spacing and blue accents for admin interfaces and data tables.",
-    "ru": "Компактные отступы и синие акценты для панелей управления и таблиц данных.",
-    "fr": "Un espacement compact et des accents bleus pour les interfaces d’administration et les tableaux de données."
-  },
-  "themePresetSoftDescription": {
-    "en": "Rounded corners and violet accents.",
-    "ru": "Закруглённые углы и фиолетовые акценты.",
-    "fr": "Des coins arrondis et des accents violets."
-  },
-  "themePresetContrastDescription": {
-    "en": "Stronger borders and higher contrast.",
-    "ru": "Более чёткие границы и повышенный контраст.",
-    "fr": "Des bordures plus marquées et un contraste renforcé."
-  },
-  "themePreviewColorModeLabel": {
-    "en": "Preview color mode",
-    "ru": "Цветовая схема предпросмотра",
-    "fr": "Mode de couleur de l’aperçu"
-  },
   "themePreviewLight": {
     "en": "Light",
     "ru": "Светлая",
@@ -329,95 +294,30 @@
     "ru": "Тёмная",
     "fr": "Sombre"
   },
-  "themePreviewLabel": {
-    "en": "moduix preset",
-    "ru": "Пресет moduix",
-    "fr": "Préréglage moduix"
+  "themePresetsLabel": {
+    "en": "Theme presets",
+    "ru": "Пресеты тем",
+    "fr": "Préréglages de thème"
   },
-  "themePreviewControls": {
-    "en": "Controls",
-    "ru": "Элементы",
-    "fr": "Contrôles"
+  "themePresetsWorkspace": {
+    "en": "Workspace",
+    "ru": "Рабочее пространство",
+    "fr": "Espace de travail"
   },
-  "themePreviewPopupRows": {
-    "en": "Popup rows",
-    "ru": "Строки списка",
-    "fr": "Lignes de popup"
+  "themePresetsEmailUpdates": {
+    "en": "Email updates",
+    "ru": "Письма об обновлениях",
+    "fr": "Mises à jour par e-mail"
   },
-  "themePreviewReleaseWorkspace": {
-    "en": "Release workspace",
-    "ru": "Рабочая область выпуска",
-    "fr": "Espace de publication"
+  "themePresetsCancel": {
+    "en": "Cancel",
+    "ru": "Отмена",
+    "fr": "Annuler"
   },
-  "themePreviewOneVisualDecision": {
-    "en": "One visual decision, applied across the system.",
-    "ru": "Одно визуальное решение для всей системы.",
-    "fr": "Un choix visuel appliqué à tout le système."
-  },
-  "themePreviewReady": {
-    "en": "Ready",
-    "ru": "Готово",
-    "fr": "Prêt"
-  },
-  "themePreviewProjectName": {
-    "en": "Project name",
-    "ru": "Название проекта",
-    "fr": "Nom du projet"
-  },
-  "themePreviewSpringRelease": {
-    "en": "Spring release",
-    "ru": "Весенний релиз",
-    "fr": "Version de printemps"
-  },
-  "themePreviewStage": {
-    "en": "Stage",
-    "ru": "Этап",
-    "fr": "Étape"
-  },
-  "themePreviewSelectStage": {
-    "en": "Select a stage",
-    "ru": "Выберите этап",
-    "fr": "Sélectionner une étape"
-  },
-  "themePreviewWorkflow": {
-    "en": "Workflow",
-    "ru": "Процесс",
-    "fr": "Processus"
-  },
-  "themePreviewPlanning": {
-    "en": "Planning",
-    "ru": "Планирование",
-    "fr": "Planification"
-  },
-  "themePreviewInReview": {
-    "en": "In review",
-    "ru": "На проверке",
-    "fr": "En vérification"
-  },
-  "themePreviewReadyToShip": {
-    "en": "Ready to ship",
-    "ru": "Готово к выпуску",
-    "fr": "Prêt à publier"
-  },
-  "themePreviewTaskCount": {
-    "en": "12 tasks",
-    "ru": "12 задач",
-    "fr": "12 tâches"
-  },
-  "themePreviewReviewerCount": {
-    "en": "4 reviewers",
-    "ru": "4 проверяющих",
-    "fr": "4 relecteurs"
-  },
-  "themePreviewCreateWorkspace": {
-    "en": "Create workspace",
-    "ru": "Создать рабочую область",
-    "fr": "Créer l’espace de travail"
-  },
-  "themePreviewPreview": {
-    "en": "Preview",
-    "ru": "Предпросмотр",
-    "fr": "Aperçu"
+  "themePresetsSave": {
+    "en": "Save",
+    "ru": "Сохранить",
+    "fr": "Enregistrer"
   },
   "tokensOverviewTokenArchitecture": {
     "en": "Token architecture",

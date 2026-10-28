@@ -1,191 +1,46 @@
-import { createListCollection } from '@ark-ui/react/collection';
-import { Badge } from '@moduix/react/badge';
 import { Button } from '@moduix/react/button';
-import {
-  Card,
-  CardAction,
-  CardBody,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from '@moduix/react/card';
+import { Field, FieldLabel } from '@moduix/react/field';
 import { Input } from '@moduix/react/input';
-import {
-  Select,
-  SelectLabel,
-  SelectControl,
-  SelectTrigger,
-  SelectValueText,
-  SelectIndicator,
-  SelectPositioner,
-  SelectContent,
-  SelectItemGroup,
-  SelectItemGroupLabel,
-  SelectOption,
-} from '@moduix/react/select';
+import { Switch, SwitchControl, SwitchHiddenInput, SwitchLabel } from '@moduix/react/switch';
 import { useI18n } from '@rspress/core/runtime';
-import { useState } from 'react';
-import { usePreset } from './nav-menus';
 import styles from './theme-presets.module.css';
 
 const presets = [
-  {
-    value: 'calm',
-    title: 'Calm',
-    descriptionKey: 'themePresetCalmDescription',
-    controlSize: '36px',
-    popupSize: '32px',
-  },
-  {
-    value: 'dense',
-    title: 'Dense',
-    descriptionKey: 'themePresetDenseDescription',
-    controlSize: '34px',
-    popupSize: '30px',
-  },
-  {
-    value: 'soft',
-    title: 'Soft',
-    descriptionKey: 'themePresetSoftDescription',
-    controlSize: '40px',
-    popupSize: '34px',
-  },
-  {
-    value: 'contrast',
-    title: 'Contrast',
-    descriptionKey: 'themePresetContrastDescription',
-    controlSize: '36px',
-    popupSize: '32px',
-  },
-] as const;
-
-const stages = [
-  { value: 'planning', labelKey: 'themePreviewPlanning' },
-  { value: 'review', labelKey: 'themePreviewInReview' },
-  { value: 'ready', labelKey: 'themePreviewReadyToShip' },
+  { value: 'calm', title: 'Calm', metrics: '36 / 32px' },
+  { value: 'dense', title: 'Dense', metrics: '34 / 30px' },
+  { value: 'soft', title: 'Soft', metrics: '40 / 34px' },
+  { value: 'contrast', title: 'Contrast', metrics: '36 / 32px' },
 ] as const;
 
 function ThemePresets() {
   const t = useI18n<typeof import('i18n')>();
-  const [{ value: preset }, setPreset] = usePreset();
-  const [mode, setMode] = useState('light');
-  const activePreset = presets.find((item) => item.value === preset) ?? presets[0];
-  const stageCollection = createListCollection({
-    items: stages.map((item) => ({ value: item.value, label: t(item.labelKey) })),
-  });
 
   return (
-    <section className={styles.root} aria-label={t('themePresetPreviewLabel')}>
-      <div className={styles.controls}>
-        <div className={styles.presetList} aria-label={t('themePresetListLabel')}>
-          {presets.map((item) => (
-            <button
-              key={item.value}
-              type="button"
-              className={styles.presetButton}
-              data-active={item.value === preset || undefined}
-              aria-pressed={item.value === preset}
-              onClick={() => setPreset(item.value)}
-            >
-              <span>{item.title}</span>
-              <small>{t(item.descriptionKey)}</small>
-            </button>
-          ))}
-        </div>
-
-        <div className={styles.modeList} aria-label={t('themePreviewColorModeLabel')}>
-          <button
-            type="button"
-            data-active={mode === 'light' || undefined}
-            aria-pressed={mode === 'light'}
-            onClick={() => setMode('light')}
-          >
-            {t('themePreviewLight')}
-          </button>
-          <button
-            type="button"
-            data-active={mode === 'dark' || undefined}
-            aria-pressed={mode === 'dark'}
-            onClick={() => setMode('dark')}
-          >
-            {t('themePreviewDark')}
-          </button>
-        </div>
-      </div>
-
-      <div
-        className={styles.preview}
-        data-moduix-color-scheme={mode}
-        data-moduix-theme={preset === 'calm' ? undefined : preset}
-      >
-        <div className={styles.previewHeader}>
-          <div>
-            <span>{t('themePreviewLabel')}</span>
-            <strong>{activePreset.title}</strong>
+    <section className={styles.root} aria-label={t('themePresetsLabel')}>
+      {presets.map((item) => (
+        <div key={item.value} className={styles.card} data-moduix-theme={item.value}>
+          <div className={styles.header}>
+            <strong>{item.title}</strong>
+            {item.value === 'calm' ? <span>{t('cssDefault')}</span> : null}
+            <code>{item.metrics}</code>
           </div>
-          <div className={styles.previewMeta}>
-            <span>
-              {t('themePreviewControls')} <strong>{activePreset.controlSize}</strong>
-            </span>
-            <span>
-              {t('themePreviewPopupRows')} <strong>{activePreset.popupSize}</strong>
-            </span>
-            <Badge variant="secondary">
-              {t(mode === 'light' ? 'themePreviewLight' : 'themePreviewDark')}
-            </Badge>
+          <div className={styles.stage}>
+            <Field>
+              <FieldLabel>{t('themePresetsWorkspace')}</FieldLabel>
+              <Input defaultValue="Acme Inc." />
+            </Field>
+            <Switch defaultChecked>
+              <SwitchControl />
+              <SwitchLabel>{t('themePresetsEmailUpdates')}</SwitchLabel>
+              <SwitchHiddenInput />
+            </Switch>
+            <div className={styles.actions}>
+              <Button variant="outline">{t('themePresetsCancel')}</Button>
+              <Button>{t('themePresetsSave')}</Button>
+            </div>
           </div>
         </div>
-
-        <div className={styles.previewCanvas}>
-          <Card className={styles.previewCard}>
-            <CardHeader>
-              <div>
-                <CardTitle>{t('themePreviewReleaseWorkspace')}</CardTitle>
-                <CardDescription>{t('themePreviewOneVisualDecision')}</CardDescription>
-              </div>
-              <CardAction>
-                <Badge>{t('themePreviewReady')}</Badge>
-              </CardAction>
-            </CardHeader>
-            <CardBody className={styles.previewBody}>
-              <label className={styles.field}>
-                {t('themePreviewProjectName')}
-                <Input defaultValue={t('themePreviewSpringRelease')} />
-              </label>
-              <Select collection={stageCollection} defaultValue={['review']} portalled={false}>
-                <SelectLabel>{t('themePreviewStage')}</SelectLabel>
-                <SelectControl>
-                  <SelectTrigger>
-                    <SelectValueText placeholder={t('themePreviewSelectStage')} />
-                  </SelectTrigger>
-                  <SelectIndicator />
-                </SelectControl>
-                <SelectPositioner>
-                  <SelectContent>
-                    <SelectItemGroup>
-                      <SelectItemGroupLabel>{t('themePreviewWorkflow')}</SelectItemGroupLabel>
-                      {stageCollection.items.map((item) => (
-                        <SelectOption key={item.value} item={item}>
-                          {item.label}
-                        </SelectOption>
-                      ))}
-                    </SelectItemGroup>
-                  </SelectContent>
-                </SelectPositioner>
-              </Select>
-              <div className={styles.stats}>
-                <span>{t('themePreviewTaskCount')}</span>
-                <span>{t('themePreviewReviewerCount')}</span>
-              </div>
-            </CardBody>
-            <CardFooter>
-              <Button>{t('themePreviewCreateWorkspace')}</Button>
-              <Button variant="outline">{t('themePreviewPreview')}</Button>
-            </CardFooter>
-          </Card>
-        </div>
-      </div>
+      ))}
     </section>
   );
 }
