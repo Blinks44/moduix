@@ -42,7 +42,7 @@ const handleCrop = async () => {
       </ImageCropperViewport>
     </ImageCropperRootProvider>
     <output>{{ status }}</output>
-    <img v-if="preview" :src="preview" alt="Cropped image preview" width="128" height="128" />
+    <img v-if="preview" :src="preview" alt="Cropped preview" width="128" height="128" />
     <Button type="button" @click="handleCrop">Create crop preview</Button>
   </div>
 </template>
