@@ -2,16 +2,20 @@
 title: Toggle
 component: toggle
 description: Кнопка с двумя состояниями для компактных действий, например добавления в избранное, сохранения, форматирования и действий на панели инструментов.
+ark: https://ark-ui.com/docs/components/toggle
 ---
 
 import * as ToggleDocs from '@/components/examples/toggle/css-properties';
 
-## Справочник API
+<Example name="toggle/basic" />
 
-`Toggle` оборачивает примитив Toggle из Ark UI и добавляет визуальные свойства moduix для вариантов и размеров.
-Импортируйте его из `@moduix/react/toggle`, `@moduix/solid/toggle` или `@moduix/vue/toggle`.
+## Установка
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/toggle" />
+<ComponentInstall />
+
+## Использование
+
+Используйте `Toggle` в обычном случае, сохраняя поведение Ark для состояния нажатия.
 
 ## Выбор подходящего компонента
 
@@ -21,78 +25,6 @@ import * as ToggleDocs from '@/components/examples/toggle/css-properties';
 - Выберите **`Switch`** для настроек, которые включаются и выключаются и выглядят как отдельные пункты списка настроек.
 - Выберите **`Checkbox`** для выбора значений в списке или форме с последующей отправкой.
 - Выберите **`ToggleGroup`**, когда несколькими кнопками нужно управлять как единым набором вариантов.
-
-## Базовый пример
-
-
-Используйте `Toggle` в обычном случае, сохраняя поведение Ark для состояния нажатия.
-
-<Example name="toggle/basic" />
-
-## Установка через shadcn
-
-Полную настройку пакета, реестра и стилей см. в разделе [Быстрый старт](/docs/quick-start).
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/toggle' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/toggle' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/toggle' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/toggle' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/toggle' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/toggle' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Анатомия
-
-```text
-Toggle
-└─ ToggleIndicator (необязательно)
-
-ToggleContext (читает состояние, но не создаёт часть DOM)
-```
-
-| Часть | Назначение |
-| ----- | ---------- |
-| `Toggle` | Корневая часть, которая управляет состоянием нажатия, фокусом, отключением и композицией через `asChild`. |
-| `ToggleIndicator` | Необязательная часть, которая показывает содержимое в нажатом состоянии и `fallback`, когда кнопка не нажата. |
-| `ToggleContext` | Читает состояние ближайшего `Toggle` для пользовательских потомков, но не создаёт часть DOM. |
-
-## Композиция
-
-Используйте `defaultPressed` для неконтролируемого состояния или передавайте `pressed` вместе с
-`onPressedChange`, если значение хранится в состоянии приложения. Используйте `ToggleIndicator`, когда содержимое
-кнопки меняется вместе с состоянием нажатия. Для пользовательских потомков, которым нужно это состояние,
-используйте `ToggleContext` или `useToggleContext()` из соответствующего
-пакета. Используйте `asChild`, если другая кнопка должна стать носителем поведения `Toggle`. В Solid `asChild` принимает
-функцию рендера. В React передавайте один дочерний элемент, совместимый с кнопкой, а в Vue помещайте
-такой элемент в слот по умолчанию.
-В Vue используйте `v-model:pressed` для управляемого значения, именованный слот `fallback` с `ToggleIndicator` и слот
-`ToggleContext`, если пользовательскому потомку нужно текущее состояние. Событие `@pressed-change`
-передаёт новое булево значение, если вы хотите обработать изменение без привязки через `v-model:pressed`.
 
 ## Примеры
 
@@ -147,6 +79,37 @@ ToggleContext (читает состояние, но не создаёт час�
 
 <Example name="toggle/advanced-customization" />
 
+## Композиция
+
+`Toggle` оборачивает примитив Toggle из Ark UI и добавляет визуальные свойства moduix для вариантов и размеров.
+Импортируйте его из `@moduix/react/toggle`, `@moduix/solid/toggle` или `@moduix/vue/toggle`.
+
+Используйте `defaultPressed` для неконтролируемого состояния или передавайте `pressed` вместе с
+`onPressedChange`, если значение хранится в состоянии приложения. Используйте `ToggleIndicator`, когда содержимое
+кнопки меняется вместе с состоянием нажатия. Для пользовательских потомков, которым нужно это состояние,
+используйте `ToggleContext` или `useToggleContext()` из соответствующего
+пакета. Используйте `asChild`, если другая кнопка должна стать носителем поведения `Toggle`. В Solid `asChild` принимает
+функцию рендера. В React передавайте один дочерний элемент, совместимый с кнопкой, а в Vue помещайте
+такой элемент в слот по умолчанию.
+В Vue используйте `v-model:pressed` для управляемого значения, именованный слот `fallback` с `ToggleIndicator` и слот
+`ToggleContext`, если пользовательскому потомку нужно текущее состояние. Событие `@pressed-change`
+передаёт новое булево значение, если вы хотите обработать изменение без привязки через `v-model:pressed`.
+
+## Анатомия
+
+```text
+Toggle
+└─ ToggleIndicator (необязательно)
+
+ToggleContext (читает состояние, но не создаёт часть DOM)
+```
+
+| Часть | Назначение |
+| ----- | ---------- |
+| `Toggle` | Корневая часть, которая управляет состоянием нажатия, фокусом, отключением и композицией через `asChild`. |
+| `ToggleIndicator` | Необязательная часть, которая показывает содержимое в нажатом состоянии и `fallback`, когда кнопка не нажата. |
+| `ToggleContext` | Читает состояние ближайшего `Toggle` для пользовательских потомков, но не создаёт часть DOM. |
+
 ## Стилизация
 
 Используйте `className` в React или `class` в Solid и Vue на экспортируемых частях. В пакетах с CSS Modules задавайте
@@ -154,7 +117,7 @@ ToggleContext (читает состояние, но не создаёт час�
 изменить один вариант, или на контейнере, например `ToggleGroup`. Размеры, отступы, скругление и типографика берутся из
 токенов foundation; меняйте их классом. Пакеты Tailwind вместо этого используют нативные утилиты и классы потребителя.
 
-### CSS-свойства
+### CSS-переменные
 
 <CssPropertiesSection properties={ToggleDocs.toggleOverrideCssProperties} />
 

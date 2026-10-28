@@ -2,6 +2,7 @@
 title: Tabs
 component: tabs
 description: Basculez entre des panneaux liés avec une navigation clavier accessible, un état contrôlé, un montage différé, des liens et une orientation verticale.
+ark: https://ark-ui.com/docs/components/tabs
 ---
 
 import * as TabsDocs from '@/components/examples/tabs/css-properties';
@@ -43,26 +44,6 @@ import tabsVueRootProvider from '../../../snippets/tabs/vue/root-provider.vue?ra
 import tabsVueSizes from '../../../snippets/tabs/vue/sizes.vue?raw';
 import tabsVueVertical from '../../../snippets/tabs/vue/vertical.vue?raw';
 
-## Référence de l’API
-
-<PrimitiveReference href="https://ark-ui.com/docs/components/tabs" />
-
-## Choisir le bon composant
-
-Utilisez `Tabs` pour basculer entre des vues liées dans une même zone de la page. La sélection d’un
-onglet affiche le panneau correspondant et masque les autres panneaux.
-
-- Choisissez **`Tabs`** lorsque chaque onglet doit afficher un panneau associé.
-- Choisissez **`Accordion`** lorsque les sections doivent rester empilées et s’ouvrir indépendamment.
-- Choisissez **`ToggleGroup`** lorsque le contrôle modifie un état ou un mode sans gérer le contenu d’un panneau.
-
-## Exemple de base
-
-
-Commencez avec `Tabs` et donnez la même valeur `value` à chaque paire `TabsTrigger` et
-`TabsContent`. Rendez `TabsIndicator` explicitement lorsque l’onglet sélectionné doit avoir un
-marqueur visuel.
-
 <ExampleFrame variant="component">
   <div className={tabsPreviewStyles.root}>
     <TabsBasic />
@@ -101,84 +82,24 @@ marqueur visuel.
 
 </ExampleCode>
 
-## Installation avec shadcn
+## Installation
 
-Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration complète du paquet, du registre et des styles.
+<ComponentInstall />
 
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
+## Utilisation
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/tabs' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/tabs' },
-  ]}
-/>
+Commencez avec `Tabs` et donnez la même valeur `value` à chaque paire `TabsTrigger` et
+`TabsContent`. Rendez `TabsIndicator` explicitement lorsque l’onglet sélectionné doit avoir un
+marqueur visuel.
 
-  </Tab>
-  <Tab label="Solid" value="solid">
+## Choisir le bon composant
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/tabs' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/tabs' },
-  ]}
-/>
+Utilisez `Tabs` pour basculer entre des vues liées dans une même zone de la page. La sélection d’un
+onglet affiche le panneau correspondant et masque les autres panneaux.
 
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/tabs' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/tabs' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Anatomie
-
-```text
-Tabs
-├─ TabsList
-│  ├─ TabsTrigger[value]
-│  ├─ TabsTrigger[value]
-│  └─ TabsIndicator
-└─ TabsContent[value]
-
-TabsRootProvider
-└─ mêmes parties reliées à un store useTabs()
-
-TabsContext
-└─ render prop / scoped slot
-```
-
-| Partie                | Rôle                                                               |
-| --------------------- | ------------------------------------------------------------------ |
-| `Tabs`                | Racine qui gère la valeur sélectionnée, le focus, l’orientation et le mode. |
-| `TabsRootProvider`   | Relie les parties à l’état créé avec `useTabs()` de moduix.        |
-| `TabsContext`        | Expose l’état courant des onglets via une render prop ou un scoped slot en Vue. |
-| `TabsList`           | Regroupe les déclencheurs et gère les déplacements du focus.       |
-| `TabsTrigger`        | Bouton d’onglet interactif, ou hôte `asChild`, avec une valeur obligatoire. |
-| `TabsIndicator`      | Indicateur facultatif de l’onglet sélectionné.                     |
-| `TabsContent`        | Panneau associé au déclencheur qui possède la même valeur.        |
-
-## Composition
-
-Utilisez `defaultValue` pour un composant non contrôlé. Lorsqu’une autre partie de l’application
-gère la sélection, transmettez `value` et `onValueChange(details)`, puis lisez la valeur choisie
-dans `details.value`.
-
-En Vue, utilisez `v-model` pour contrôler la sélection et `@value-change` pour recevoir le même
-objet de détails. `TabsContext` expose cet état dans son scoped slot par défaut.
-
-Utilisez `TabsRootProvider` avec `useTabs()` lorsque l’état doit être créé en dehors de l’arbre
-rendu ou partagé avec une interface voisine. Transmettez le store à `TabsRootProvider` et ne rendez pas
-une autre racine `Tabs` pour ce même état. Utilisez `asChild` sur `TabsTrigger` pour un lien ou un
-composant de routeur, et rendez `TabsIndicator` explicitement, car `TabsList` ne l’ajoute pas
-automatiquement.
+- Choisissez **`Tabs`** lorsque chaque onglet doit afficher un panneau associé.
+- Choisissez **`Accordion`** lorsque les sections doivent rester empilées et s’ouvrir indépendamment.
+- Choisissez **`ToggleGroup`** lorsque le contrôle modifie un état ou un mode sans gérer le contenu d’un panneau.
 
 ## Exemples
 
@@ -667,6 +588,48 @@ ou lorsque l’interface voisine doit lire la valeur sélectionnée.
 
 </ExampleCode>
 
+## Composition
+
+Utilisez `defaultValue` pour un composant non contrôlé. Lorsqu’une autre partie de l’application
+gère la sélection, transmettez `value` et `onValueChange(details)`, puis lisez la valeur choisie
+dans `details.value`.
+
+En Vue, utilisez `v-model` pour contrôler la sélection et `@value-change` pour recevoir le même
+objet de détails. `TabsContext` expose cet état dans son scoped slot par défaut.
+
+Utilisez `TabsRootProvider` avec `useTabs()` lorsque l’état doit être créé en dehors de l’arbre
+rendu ou partagé avec une interface voisine. Transmettez le store à `TabsRootProvider` et ne rendez pas
+une autre racine `Tabs` pour ce même état. Utilisez `asChild` sur `TabsTrigger` pour un lien ou un
+composant de routeur, et rendez `TabsIndicator` explicitement, car `TabsList` ne l’ajoute pas
+automatiquement.
+
+## Anatomie
+
+```text
+Tabs
+├─ TabsList
+│  ├─ TabsTrigger[value]
+│  ├─ TabsTrigger[value]
+│  └─ TabsIndicator
+└─ TabsContent[value]
+
+TabsRootProvider
+└─ mêmes parties reliées à un store useTabs()
+
+TabsContext
+└─ render prop / scoped slot
+```
+
+| Partie                | Rôle                                                               |
+| --------------------- | ------------------------------------------------------------------ |
+| `Tabs`                | Racine qui gère la valeur sélectionnée, le focus, l’orientation et le mode. |
+| `TabsRootProvider`   | Relie les parties à l’état créé avec `useTabs()` de moduix.        |
+| `TabsContext`        | Expose l’état courant des onglets via une render prop ou un scoped slot en Vue. |
+| `TabsList`           | Regroupe les déclencheurs et gère les déplacements du focus.       |
+| `TabsTrigger`        | Bouton d’onglet interactif, ou hôte `asChild`, avec une valeur obligatoire. |
+| `TabsIndicator`      | Indicateur facultatif de l’onglet sélectionné.                     |
+| `TabsContent`        | Panneau associé au déclencheur qui possède la même valeur.        |
+
 ## Styles
 
 Utilisez `className` en React ou `class` en Solid et Vue sur les parties exportées pour les styles de
@@ -675,7 +638,7 @@ structure. Pour les styles liés à l’état, préférez les attributs de donn�
 Les variantes Tailwind utilisent les utilitaires natifs et les classes du consommateur ; les
 variables ci-dessous personnalisent les variantes CSS Modules.
 
-### Propriétés CSS
+### Variables CSS
 
 <CssPropertiesSection properties={TabsDocs.tabsOverrideCssProperties} />
 

@@ -2,6 +2,7 @@
 title: Lightbox
 component: lightbox
 description: Créez une visionneuse d’images modale avec navigation de galerie et état contrôlé en React, Solid ou Vue.
+ark: https://ark-ui.com/docs/components/dialog
 ---
 
 import * as LightboxDocs from '@/components/examples/lightbox/css-properties';
@@ -10,14 +11,17 @@ import lightboxSolidRootProviderAndContext from '../../../snippets/lightbox/soli
 import lightboxVueRootProviderAndContext from '../../../snippets/lightbox/vue/root-provider-and-context.vue?raw';
 import lightboxVueRootProviderAndContextPart from '../../../snippets/lightbox/vue/LightboxStatus.vue?raw';
 
-## Référence de l’API
+<Example name="lightbox/basic" />
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/dialog" />
+## Installation
 
-Ark UI ne propose pas de primitive `lightbox` dédiée. moduix construit ce composant à partir de
-`Dialog`, en suivant les recommandations d’Ark pour la
-[composition](https://ark-ui.com/docs/guides/composition), le [style](https://ark-ui.com/docs/guides/styling)
-et les [refs](https://ark-ui.com/docs/guides/ref). `Dialog` définit donc le comportement du composant.
+<ComponentInstall />
+
+## Utilisation
+
+Composez explicitement la structure de dialogue Ark UI avec `Lightbox`, `LightboxTrigger`,
+`LightboxBackdrop`, `LightboxPositioner` et `LightboxContent`. Avec `asChild`, fournissez un
+seul élément sémantique comme déclencheur.
 
 ## Choisir le bon composant
 
@@ -26,111 +30,6 @@ Utilisez `Lightbox` lorsque vous voulez principalement afficher des images ou d�
 - Choisissez **`Lightbox`** pour agrandir des images, afficher une galerie de produits ou consulter d’autres médias.
 - Choisissez **`Dialog`** pour une interface applicative générale, par exemple des formulaires, des actions ou du contenu mixte.
 - Placez **`Carousel` dans `LightboxGallery`** si l’aperçu nécessite des diapositives ou des flèches de navigation.
-
-## Exemple de base
-
-Composez explicitement la structure de dialogue Ark UI avec `Lightbox`, `LightboxTrigger`,
-`LightboxBackdrop`, `LightboxPositioner` et `LightboxContent`. Avec `asChild`, fournissez un
-seul élément sémantique comme déclencheur.
-
-<Example name="lightbox/basic" />
-
-## Installation avec shadcn
-
-Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration complète du paquet, du registre et des styles.
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/lightbox' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/lightbox' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/lightbox' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/lightbox' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/lightbox' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/lightbox' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Anatomie
-
-```text
-Lightbox
-├─ LightboxTrigger
-├─ LightboxBind
-└─ Sous-arbre de la fenêtre modale (rendu automatiquement dans un portail)
-   ├─ LightboxBackdrop
-   └─ LightboxPositioner
-      ├─ LightboxCloseTrigger ou LightboxCloseIcon
-      └─ LightboxContent
-         ├─ LightboxHeader (facultatif)
-         │  ├─ LightboxTitle
-         │  └─ LightboxDescription
-         ├─ LightboxBody
-         │  └─ LightboxImage
-         └─ LightboxFooter (facultatif)
-
-LightboxRootProvider
-└─ le même arbre de composants, relié à useLightbox()
-```
-
-| Partie | Rôle |
-| ---------------------------- | ------------------------------------------------------------------------------------ |
-| `Lightbox` | Racine du Dialog Ark qui gère l’état d’ouverture, le focus, la fermeture et l’accessibilité. |
-| `LightboxRootProvider` | Fournisseur de l’état créé avec `useLightbox()`. |
-| `LightboxTrigger` | Déclencheur Ark. Utilisez `asChild` pour transmettre un bouton ou un lien sémantique personnalisé. |
-| `LightboxBackdrop` | Arrière-plan modal avec `data-state` et les variables de calque d’Ark. |
-| `LightboxPositioner` | Conteneur fixe qui centre le contenu de la fenêtre modale. |
-| `LightboxContent` | Nœud qui contient le contenu du dialogue Ark. |
-| `LightboxTitle` | Titre accessible facultatif. |
-| `LightboxDescription` | Description accessible facultative. |
-| `LightboxCloseTrigger` | Déclencheur de fermeture Ark de bas niveau. |
-| `LightboxCloseIcon` | Raccourci moduix qui combine `CloseButton` avec le déclencheur de fermeture Ark. |
-| `LightboxHeader` / `LightboxBody` | Conteneurs facultatifs pour organiser le texte et les médias. |
-| `LightboxFooter` | Conteneur facultatif pour les actions ou l’état sous le média. |
-| `LightboxImage` | Image native stylisée qui transmet sa ref à l’`HTMLImageElement`. |
-| `LightboxGallery` | Zone qui définit la mise en page et le style d’un `Carousel` composé. |
-| `LightboxBind` | Partie sans rendu qui relie un balisage externe à la racine. |
-
-## Composition
-
-`Lightbox` gère l’état du dialogue, tandis que `LightboxBackdrop`, `LightboxPositioner` et
-`LightboxContent` restent explicites. Les parties de la fenêtre sont rendues dans un portail par
-défaut. Utilisez `portalled={false}` pour les laisser en place ou `portalRef` pour cibler un
-conteneur. Placez `LightboxCloseIcon` dans `LightboxContent`, mais hors de `LightboxBody`, pour qu’il
-reste accessible aux lecteurs d’écran et inclus dans la zone de focus du dialogue. Content apparaît
-et disparaît en fondu ; Body change d’échelle et de position, tandis que le bouton reste ancré à la
-fenêtre. Sans Body, le contenu est animé uniquement en fondu.
-Avec `asChild`, fournissez un seul élément sémantique. En Solid, `asChild` est une fonction de rendu qui
-reçoit les props de cet élément ; en Vue, utilisez le booléen `as-child` et placez l’élément dans le slot.
-
-Pour les galeries, gardez l’image sélectionnée et la page de `Carousel` dans l’état de l’application.
-Passez la clé de l’image à `LightboxTrigger value` et mettez cet état à jour depuis
-`onTriggerValueChange(details)` ou le callback de page de `Carousel`. Utilisez `LightboxRootProvider` avec
-`useLightbox()` lorsque l’état ou le bouton d’ouverture se trouve en dehors de la racine, puis lisez
-l’état enfant avec `useLightboxContext()`. `LightboxBind` ne rend rien et sélectionne seulement une image dans
-un balisage externe, la fenêtre doit donc toujours composer explicitement ses parties. `LightboxImage closeOnClick`
-est le raccourci qui ferme la fenêtre après un clic sur l’image.
 
 ## Exemples
 
@@ -248,9 +147,74 @@ et des remplacements de tokens. `LightboxBackdrop`, `LightboxPositioner` et `Lig
 
 <Example name="lightbox/advanced-customization" />
 
+## Composition
+
+Ark UI ne propose pas de primitive `lightbox` dédiée. moduix construit ce composant à partir de
+`Dialog`, en suivant les recommandations d’Ark pour la
+[composition](https://ark-ui.com/docs/guides/composition), le [style](https://ark-ui.com/docs/guides/styling)
+et les [refs](https://ark-ui.com/docs/guides/ref). `Dialog` définit donc le comportement du composant.
+
+`Lightbox` gère l’état du dialogue, tandis que `LightboxBackdrop`, `LightboxPositioner` et
+`LightboxContent` restent explicites. Les parties de la fenêtre sont rendues dans un portail par
+défaut. Utilisez `portalled={false}` pour les laisser en place ou `portalRef` pour cibler un
+conteneur. Placez `LightboxCloseIcon` dans `LightboxContent`, mais hors de `LightboxBody`, pour qu’il
+reste accessible aux lecteurs d’écran et inclus dans la zone de focus du dialogue. Content apparaît
+et disparaît en fondu ; Body change d’échelle et de position, tandis que le bouton reste ancré à la
+fenêtre. Sans Body, le contenu est animé uniquement en fondu.
+Avec `asChild`, fournissez un seul élément sémantique. En Solid, `asChild` est une fonction de rendu qui
+reçoit les props de cet élément ; en Vue, utilisez le booléen `as-child` et placez l’élément dans le slot.
+
+Pour les galeries, gardez l’image sélectionnée et la page de `Carousel` dans l’état de l’application.
+Passez la clé de l’image à `LightboxTrigger value` et mettez cet état à jour depuis
+`onTriggerValueChange(details)` ou le callback de page de `Carousel`. Utilisez `LightboxRootProvider` avec
+`useLightbox()` lorsque l’état ou le bouton d’ouverture se trouve en dehors de la racine, puis lisez
+l’état enfant avec `useLightboxContext()`. `LightboxBind` ne rend rien et sélectionne seulement une image dans
+un balisage externe, la fenêtre doit donc toujours composer explicitement ses parties. `LightboxImage closeOnClick`
+est le raccourci qui ferme la fenêtre après un clic sur l’image.
+
+## Anatomie
+
+```text
+Lightbox
+├─ LightboxTrigger
+├─ LightboxBind
+└─ Sous-arbre de la fenêtre modale (rendu automatiquement dans un portail)
+   ├─ LightboxBackdrop
+   └─ LightboxPositioner
+      ├─ LightboxCloseTrigger ou LightboxCloseIcon
+      └─ LightboxContent
+         ├─ LightboxHeader (facultatif)
+         │  ├─ LightboxTitle
+         │  └─ LightboxDescription
+         ├─ LightboxBody
+         │  └─ LightboxImage
+         └─ LightboxFooter (facultatif)
+
+LightboxRootProvider
+└─ le même arbre de composants, relié à useLightbox()
+```
+
+| Partie | Rôle |
+| ---------------------------- | ------------------------------------------------------------------------------------ |
+| `Lightbox` | Racine du Dialog Ark qui gère l’état d’ouverture, le focus, la fermeture et l’accessibilité. |
+| `LightboxRootProvider` | Fournisseur de l’état créé avec `useLightbox()`. |
+| `LightboxTrigger` | Déclencheur Ark. Utilisez `asChild` pour transmettre un bouton ou un lien sémantique personnalisé. |
+| `LightboxBackdrop` | Arrière-plan modal avec `data-state` et les variables de calque d’Ark. |
+| `LightboxPositioner` | Conteneur fixe qui centre le contenu de la fenêtre modale. |
+| `LightboxContent` | Nœud qui contient le contenu du dialogue Ark. |
+| `LightboxTitle` | Titre accessible facultatif. |
+| `LightboxDescription` | Description accessible facultative. |
+| `LightboxCloseTrigger` | Déclencheur de fermeture Ark de bas niveau. |
+| `LightboxCloseIcon` | Raccourci moduix qui combine `CloseButton` avec le déclencheur de fermeture Ark. |
+| `LightboxHeader` / `LightboxBody` | Conteneurs facultatifs pour organiser le texte et les médias. |
+| `LightboxFooter` | Conteneur facultatif pour les actions ou l’état sous le média. |
+| `LightboxImage` | Image native stylisée qui transmet sa ref à l’`HTMLImageElement`. |
+| `LightboxGallery` | Zone qui définit la mise en page et le style d’un `Carousel` composé. |
+| `LightboxBind` | Partie sans rendu qui relie un balisage externe à la racine. |
+
 ## Styles
 
-### Propriétés CSS
+### Variables CSS
 
 <CssPropertiesSection properties={LightboxDocs.lightboxOverrideCssProperties} />
 

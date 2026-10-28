@@ -2,127 +2,28 @@
 title: Combobox
 component: combobox
 description: Поле для поиска и выбора одного или нескольких значений из коллекции Ark UI в React, Solid и Vue.
+ark: https://ark-ui.com/docs/components/combobox
 ---
 
 import * as ComboboxDocs from '@/components/examples/combobox/css-properties';
 
-## Справочник API
+<Example name="combobox/basic" />
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/combobox" />
+## Установка
 
-## Выбор подходящего компонента
+<ComponentInstall />
 
-Используйте `Combobox`, когда пользователю нужно выбрать значение из известного списка и найти подходящий вариант с помощью ввода.
-Если список фиксирован и редактируемое поле не требуется, используйте `Select`.
-
-## Базовый пример
-
+## Использование
 
 Создайте коллекцию Ark с помощью `useListCollection` и передайте её в `Combobox`. Структуру списка задайте явно.
 Для обычных вариантов используйте `ComboboxOption`, а если нужна нестандартная разметка, используйте `ComboboxItem`.
 Колбэк `onInputValueChange` получает объект `details` от Ark.
 Примеры для Vue используют нативные SFC с `script setup`, refs, слотами и `v-model`, когда это предусмотрено контрактом компонента.
 
-<Example name="combobox/basic" />
+## Выбор подходящего компонента
 
-## Установка через shadcn
-
-Полную настройку пакета, реестра и стилей см. в разделе [Быстрый старт](/docs/quick-start).
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/combobox' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/combobox' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/combobox' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/combobox' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/combobox' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/combobox' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Анатомия
-
-```text
-Combobox[collection]
-├─ ComboboxLabel
-├─ ComboboxControl
-│  ├─ ComboboxInput
-│  ├─ ComboboxClearTrigger
-│  └─ ComboboxTrigger
-└─ Поддерево всплывающего списка (автоматически помещается в портал)
- └─ ComboboxPositioner
-    └─ ComboboxContent
-       ├─ ComboboxEmpty
-       ├─ ComboboxStatus
-       ├─ ComboboxList
-       │  ├─ ComboboxOption[item]
-       │  └─ ComboboxItem[item]
-       │     ├─ ComboboxItemText
-       │     └─ ComboboxItemIndicator
-       └─ ComboboxItemGroup
-          ├─ ComboboxItemGroupLabel
-          └─ ComboboxItem
-```
-
-| Часть                        | Назначение                                                         |
-| ---------------------------- | ------------------------------------------------------------------ |
-| `Combobox` | Управляет состоянием Combobox, фильтрацией, подсветкой и выбранными значениями. |
-| `ComboboxControl`           | Обёртка для поля ввода и кнопок действий.                          |
-| `ComboboxInput`             | Поле, в котором пользователь ищет и выбирает вариант.              |
-| `ComboboxTrigger`           | Открывает и закрывает список вариантов.                            |
-| `ComboboxClearTrigger`      | Очищает выбранное значение и/или текст в поле.                     |
-| `ComboboxPositioner`        | Позиционирует всплывающий список.                                  |
-| `ComboboxContent`           | Контейнер содержимого списка.                                      |
-| `ComboboxStatus`            | Стилизованный контейнер для сообщений приложения о загрузке, ошибке или подсказке. |
-| `ComboboxList`              | Обёртка списка вариантов.                                          |
-| `ComboboxOption`            | Готовая строка для простого варианта, с текстом и индикатором.     |
-| `ComboboxItem`              | Выбираемая строка списка.                                          |
-| `ComboboxItemText`          | Слот текста элемента.                                               |
-| `ComboboxItemIndicator`     | Слот индикатора выбранного состояния.                              |
-| `ComboboxContext`           | Доступ к состоянию Combobox без добавления элементов в DOM.        |
-| `ComboboxItemContext`       | Доступ к состоянию текущего элемента без добавления элементов в DOM. |
-
-`ComboboxRootProvider` использует ту же стилизацию корневого компонента для состояния, созданного через `useCombobox` из moduix.
-Состояние Combobox внутри дерева можно получить через `ComboboxContext` или `useComboboxContext`, а состояние элемента - через
-`ComboboxItemContext` или `useComboboxItemContext`.
-
-## Композиция
-
-Для статических элементов используйте `createListCollection`, а для фильтрации и обновления коллекции
-используйте `useListCollection`. Для объектов задайте `itemToString` и `itemToValue`.
-
-`Combobox` автоматически помещает `ComboboxPositioner` в портал, но `ComboboxPositioner` и `ComboboxContent` остаются
-явными частями композиции. Укажите `portalled={false}`, чтобы оставить список в текущем дереве, или передайте
-`portalRef` для конкретного контейнера. Для простых строк используйте `ComboboxOption`, а для сложных строк
-с `asChild` используйте `ComboboxItem`.
-
-Храните `value` в состоянии приложения, если оно нужно другим частям интерфейса. Когда состояние создаётся
-за пределами дерева, передайте `useCombobox` в `ComboboxRootProvider`. В режиме множественного выбора теги
-и другое представление значений принадлежат приложению; если они должны находиться в одном поле, используйте
-композицию с `TagsInput`. `ComboboxStatus` также отвечает только за сообщения приложения и не управляет
-состоянием загрузки или ошибки.
+Используйте `Combobox`, когда пользователю нужно выбрать значение из известного списка и найти подходящий вариант с помощью ввода.
+Если список фиксирован и редактируемое поле не требуется, используйте `Select`.
 
 ## Примеры
 
@@ -219,13 +120,75 @@ Combobox[collection]
 
 <Example name="combobox/advanced-customization" />
 
+## Композиция
+
+Для статических элементов используйте `createListCollection`, а для фильтрации и обновления коллекции
+используйте `useListCollection`. Для объектов задайте `itemToString` и `itemToValue`.
+
+`Combobox` автоматически помещает `ComboboxPositioner` в портал, но `ComboboxPositioner` и `ComboboxContent` остаются
+явными частями композиции. Укажите `portalled={false}`, чтобы оставить список в текущем дереве, или передайте
+`portalRef` для конкретного контейнера. Для простых строк используйте `ComboboxOption`, а для сложных строк
+с `asChild` используйте `ComboboxItem`.
+
+Храните `value` в состоянии приложения, если оно нужно другим частям интерфейса. Когда состояние создаётся
+за пределами дерева, передайте `useCombobox` в `ComboboxRootProvider`. В режиме множественного выбора теги
+и другое представление значений принадлежат приложению; если они должны находиться в одном поле, используйте
+композицию с `TagsInput`. `ComboboxStatus` также отвечает только за сообщения приложения и не управляет
+состоянием загрузки или ошибки.
+
+## Анатомия
+
+```text
+Combobox[collection]
+├─ ComboboxLabel
+├─ ComboboxControl
+│  ├─ ComboboxInput
+│  ├─ ComboboxClearTrigger
+│  └─ ComboboxTrigger
+└─ Поддерево всплывающего списка (автоматически помещается в портал)
+ └─ ComboboxPositioner
+    └─ ComboboxContent
+       ├─ ComboboxEmpty
+       ├─ ComboboxStatus
+       ├─ ComboboxList
+       │  ├─ ComboboxOption[item]
+       │  └─ ComboboxItem[item]
+       │     ├─ ComboboxItemText
+       │     └─ ComboboxItemIndicator
+       └─ ComboboxItemGroup
+          ├─ ComboboxItemGroupLabel
+          └─ ComboboxItem
+```
+
+| Часть                        | Назначение                                                         |
+| ---------------------------- | ------------------------------------------------------------------ |
+| `Combobox` | Управляет состоянием Combobox, фильтрацией, подсветкой и выбранными значениями. |
+| `ComboboxControl`           | Обёртка для поля ввода и кнопок действий.                          |
+| `ComboboxInput`             | Поле, в котором пользователь ищет и выбирает вариант.              |
+| `ComboboxTrigger`           | Открывает и закрывает список вариантов.                            |
+| `ComboboxClearTrigger`      | Очищает выбранное значение и/или текст в поле.                     |
+| `ComboboxPositioner`        | Позиционирует всплывающий список.                                  |
+| `ComboboxContent`           | Контейнер содержимого списка.                                      |
+| `ComboboxStatus`            | Стилизованный контейнер для сообщений приложения о загрузке, ошибке или подсказке. |
+| `ComboboxList`              | Обёртка списка вариантов.                                          |
+| `ComboboxOption`            | Готовая строка для простого варианта, с текстом и индикатором.     |
+| `ComboboxItem`              | Выбираемая строка списка.                                          |
+| `ComboboxItemText`          | Слот текста элемента.                                               |
+| `ComboboxItemIndicator`     | Слот индикатора выбранного состояния.                              |
+| `ComboboxContext`           | Доступ к состоянию Combobox без добавления элементов в DOM.        |
+| `ComboboxItemContext`       | Доступ к состоянию текущего элемента без добавления элементов в DOM. |
+
+`ComboboxRootProvider` использует ту же стилизацию корневого компонента для состояния, созданного через `useCombobox` из moduix.
+Состояние Combobox внутри дерева можно получить через `ComboboxContext` или `useComboboxContext`, а состояние элемента - через
+`ComboboxItemContext` или `useComboboxItemContext`.
+
 ## Стилизация
 
 Используйте `className` в React и `class` в Solid и Vue для структурных стилей экспортируемых частей.
 Варианты Tailwind используют обычные utility-классы и классы приложения, а CSS-переменные ниже настраивают
 варианты CSS Modules. Атрибуты состояния и `data-slot` общие для обоих вариантов стилизации.
 
-### CSS-свойства
+### CSS-переменные
 
 <CssPropertiesSection properties={ComboboxDocs.comboboxOverrideCssProperties} />
 

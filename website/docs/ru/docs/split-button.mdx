@@ -1,108 +1,41 @@
 ---
 title: Split Button
 component: split-button
-description: Группа с основной кнопкой и меню связанных действий на базе частей moduix Button и Menu.
+description: Основное действие и меню связанных действий в одной кнопке.
+ark: https://ark-ui.com/docs/guides/composition#the-ark-factory
 ---
 
 import * as SplitButtonDocs from '@/components/examples/split-button/css-properties';
 
+<Example name="split-button/basic" />
 
-## Справочник API
+## Установка
 
-В Ark UI нет отдельного примитива split button. moduix собирает этот компонент с помощью
-[фабрики Ark](https://ark-ui.com/docs/guides/composition#the-ark-factory) и сохраняет поведение
-[Ark Menu](https://ark-ui.com/docs/components/menu).
+<ComponentInstall />
 
-## Как выбрать компонент
+## Использование
 
-Используйте `SplitButton`, когда одно действие должно быть доступно сразу, а связанные альтернативы можно
-поместить в меню. Для одного действия подойдёт `Button`. Если все действия равнозначны, используйте `Menu`.
+<UsageCode
+  react={'<SplitButton variant="outline" size="sm" aria-label="Save actions">\n  <SplitButtonAction onClick={save}>Save</SplitButtonAction>\n  <SplitButtonTrigger />\n  <SplitButtonPositioner>\n    <SplitButtonContent>\n      <MenuItem value="draft">Save as draft</MenuItem>\n    </SplitButtonContent>\n  </SplitButtonPositioner>\n</SplitButton>'}
+  vue={'<SplitButton variant="outline" size="sm" aria-label="Save actions">\n  <SplitButtonAction @click="save">Save</SplitButtonAction>\n  <SplitButtonTrigger />\n  <SplitButtonPositioner>\n    <SplitButtonContent>\n      <MenuItem value="draft">Save as draft</MenuItem>\n    </SplitButtonContent>\n  </SplitButtonPositioner>\n</SplitButton>'}
+/>
 
-## Базовый пример
-
+<PropChips
+  items={[
+    ['variant', 'default · outline · secondary · destructive · destructive-outline · ghost'],
+    ['size', 'xs · sm · md · lg · xl'],
+    ['aria-label', 'Называет группу действий.'],
+  ]}
+/>
 
 Используйте `<SplitButton>` как корневой компонент и оставляйте структуру меню явной:
 `SplitButtonAction`, `SplitButtonTrigger`, `SplitButtonPositioner` и `SplitButtonContent`.
 Основное действие использует тот же контракт `onClick`, что и `Button`.
 
-<Example name="split-button/basic" />
+## Как выбрать компонент
 
-## Установка через shadcn
-
-Полную настройку пакета, реестра и стилей см. в разделе [Быстрый старт](/docs/quick-start).
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/split-button' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/split-button' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/split-button' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/split-button' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/split-button' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/split-button' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Анатомия
-
-```text
-SplitButton
-├─ SplitButtonAction
-├─ SplitButtonTrigger
-└─ Ветка всплывающего меню (по умолчанию в портале)
-   └─ SplitButtonPositioner
-      └─ SplitButtonContent
-         ├─ MenuItem
-         ├─ MenuSeparator
-         └─ другие общие части Menu
-```
-
-| Часть                             | Назначение                                                               |
-| -------------------------------- | ------------------------------------------------------------------------ |
-| `SplitButton`                    | Корень, управляющий состоянием меню и семантической группой двух кнопок. |
-| `SplitButtonAction`             | Основное действие `Button`.                                             |
-| `SplitButtonTrigger`            | Триггер Ark Menu в виде кнопки moduix; по умолчанию показывает шеврон.  |
-| `SplitButtonPositioner`         | Размещает всплывающее меню Ark.                                          |
-| `SplitButtonContent`            | Поверхность содержимого Ark Menu для общих частей `MenuItem` и `MenuItemGroup`.              |
-
-## Композиция
-
-`SplitButton` объединяет основное действие `SplitButtonAction` и `SplitButtonTrigger`. Оставляйте дерево всплывающего меню явным:
-`SplitButtonPositioner` → `SplitButtonContent`, а общие части `MenuItem` и `MenuItemGroup` размещайте внутри `SplitButtonContent`. Позиционер автоматически
-рендерится в портале; используйте `portalled={false}` или `portalRef`, только если меню должно находиться
-в другом контейнере. Корневые `size` и `variant` задают значения по умолчанию для обеих кнопок. Корень
-рендерит семантический `role="group"`; задайте `aria-label` или `aria-labelledby`, если окружающий
-контекст ещё не идентифицирует группу.
-
-По умолчанию состоянием меню управляет сам компонент. Передайте `open` и `onOpenChange(details)`, если состояние
-должно принадлежать другой части приложения. Для расширенного доступа к состоянию используйте общий API `Menu`,
-а не добавляйте отдельную обёртку состояния для split button. Используйте `SplitButtonAction asChild` для ссылки; собственное
-содержимое триггера передавайте через `children`, чтобы триггер меню Ark и кнопка moduix оставались одним элементом.
-
-В Vue используйте `@click` для основного действия, `@open-change` или `v-model:open` для состояния меню и стандартный слот для содержимого триггера.
-
-`SplitButtonPositioner` оборачивает портал, поэтому `$el` его ссылки на компонент Vue указывает на узел-якорь портала. Сам позиционируемый элемент имеет атрибут `data-slot="split-button-positioner"`.
+Используйте `SplitButton`, когда одно действие должно быть доступно сразу, а связанные альтернативы можно
+поместить в меню. Для одного действия подойдёт `Button`. Если все действия равнозначны, используйте `Menu`.
 
 ## Примеры
 
@@ -157,6 +90,46 @@ SplitButton
 
 <Example name="split-button/menu-composition" />
 
+## Композиция
+
+`SplitButton` объединяет основное действие `SplitButtonAction` и `SplitButtonTrigger`. Оставляйте дерево всплывающего меню явным:
+`SplitButtonPositioner` → `SplitButtonContent`, а общие части `MenuItem` и `MenuItemGroup` размещайте внутри `SplitButtonContent`. Позиционер автоматически
+рендерится в портале; используйте `portalled={false}` или `portalRef`, только если меню должно находиться
+в другом контейнере. Корневые `size` и `variant` задают значения по умолчанию для обеих кнопок. Корень
+рендерит семантический `role="group"`; задайте `aria-label` или `aria-labelledby`, если окружающий
+контекст ещё не идентифицирует группу.
+
+По умолчанию состоянием меню управляет сам компонент. Передайте `open` и `onOpenChange(details)`, если состояние
+должно принадлежать другой части приложения. Для расширенного доступа к состоянию используйте общий API `Menu`,
+а не добавляйте отдельную обёртку состояния для split button. Используйте `SplitButtonAction asChild` для ссылки; собственное
+содержимое триггера передавайте через `children`, чтобы триггер меню Ark и кнопка moduix оставались одним элементом.
+
+В Vue используйте `@click` для основного действия, `@open-change` или `v-model:open` для состояния меню и стандартный слот для содержимого триггера.
+
+`SplitButtonPositioner` оборачивает портал, поэтому `$el` его ссылки на компонент Vue указывает на узел-якорь портала. Сам позиционируемый элемент имеет атрибут `data-slot="split-button-positioner"`.
+
+## Анатомия
+
+```text
+SplitButton
+├─ SplitButtonAction
+├─ SplitButtonTrigger
+└─ Ветка всплывающего меню (по умолчанию в портале)
+   └─ SplitButtonPositioner
+      └─ SplitButtonContent
+         ├─ MenuItem
+         ├─ MenuSeparator
+         └─ другие общие части Menu
+```
+
+| Часть                             | Назначение                                                               |
+| -------------------------------- | ------------------------------------------------------------------------ |
+| `SplitButton`                    | Корень, управляющий состоянием меню и семантической группой двух кнопок. |
+| `SplitButtonAction`             | Основное действие `Button`.                                             |
+| `SplitButtonTrigger`            | Триггер Ark Menu в виде кнопки moduix; по умолчанию показывает шеврон.  |
+| `SplitButtonPositioner`         | Размещает всплывающее меню Ark.                                          |
+| `SplitButtonContent`            | Поверхность содержимого Ark Menu для общих частей `MenuItem` и `MenuItemGroup`.              |
+
 ## Стилизация
 
 Для структурных стилей передавайте экспортируемым частям `className` в React или `class` в Solid и Vue. Варианты на
@@ -167,11 +140,11 @@ Tailwind настраиваются обычными утилитами и по�
 разделитель в `::before` триггера, у outline-вариантов его роль играет общая рамка. Цвет разделителя задаёт
 `--moduix-split-button-separator-color`, а внутренние отступы триггера меняются классом на `SplitButtonTrigger`.
 
-### CSS-свойства
+### CSS-переменные
 
 <CssPropertiesSection properties={SplitButtonDocs.splitButtonCssProperties} />
 
-### Селекторы для стилизации
+### Хуки стилизации
 
 - `data-scope="split-button"` и `data-part="root"` задают семантическую группу.
 - `data-slot="split-button-root"` выбирает обёртку группы.
@@ -182,3 +155,21 @@ Tailwind настраиваются обычными утилитами и по�
 - `SplitButtonTrigger` получает атрибуты состояния Ark Menu, включая `aria-expanded`, `aria-controls` и `data-state`.
 - `SplitButtonContent` получает атрибуты Ark Menu, включая `data-state`, `data-side`, `data-placement`,
   `data-nested` и `data-has-nested`.
+
+## Клавиатура
+
+| Клавиша | Действие |
+| --- | --- |
+| `Tab` / `Shift+Tab` | Перемещает фокус между действием и кнопкой меню. |
+| `Enter` / `Space` | Запускает действие или открывает меню с кнопки меню. |
+| `ArrowDown` / `ArrowUp` | Открывает меню с кнопки меню и перемещает между пунктами. |
+| `Escape` | Закрывает меню и возвращает фокус на кнопку меню. |
+
+## Справочник API
+
+| Проп | Тип | По умолчанию |
+| --- | --- | --- |
+| `variant` | `SplitButtonVariant` | `'default'` |
+| `size` | `SplitButtonSize` | `'md'` |
+| `aria-label` | `string` | — |
+| `open` / `onOpenChange` | `MenuRootProps` | — |

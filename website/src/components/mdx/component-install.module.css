@@ -1,0 +1,65 @@
+/* Content · Install & Usage of the Button page in Moduix.sketch. */
+/* Package / shadcn CLI: underlined tabs on the page background, not a code box. */
+.tabs {
+  margin-block: 0.75rem 1.5rem;
+  border: 0;
+  border-radius: 0;
+  background: none;
+  contain: none;
+
+  > :global(.rp-tabs__label) {
+    gap: 16px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid var(--rp-c-divider);
+    padding: 0;
+    background: none;
+
+    > :global(.rp-tabs__label__item) {
+      margin-bottom: -1px;
+      border-bottom: 2px solid transparent;
+      padding: 12px 4px;
+      font-size: 14px;
+    }
+
+    > :global(.rp-tabs__label__item--selected) {
+      border-bottom-color: var(--rp-c-text-0);
+      font-weight: 500;
+    }
+  }
+
+  > :global(.rp-tabs__content),
+  > :global(.rp-tabs__content) > :global(.rp-tabs__content__item) {
+    padding: 0;
+    background: none;
+  }
+}
+
+.package {
+  :global(.rp-codeblock) {
+    margin: 0;
+  }
+
+  > :global(.rp-codeblock),
+  > :global(.rp-tabs) + :global(.rp-codeblock) {
+    margin-top: -1px;
+    border-start-start-radius: 0;
+    border-start-end-radius: 0;
+  }
+
+  > :global(.rp-tabs) {
+    margin: 0;
+    border-end-start-radius: 0;
+    border-end-end-radius: 0;
+  }
+
+  > :global(.rp-codeblock) :global(.rp-code-button-group) {
+    display: none;
+  }
+}
+
+.note {
+  margin: 0.75rem 0 0;
+  color: var(--rp-c-text-2);
+  font-size: 13px;
+  line-height: 18px;
+}

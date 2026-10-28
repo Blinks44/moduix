@@ -2,100 +2,24 @@
 title: Splitter
 component: splitter
 description: Créez des mises en page redimensionnables et accessibles en React, Solid ou Vue avec des options d'installation par package et shadcn.
+ark: https://ark-ui.com/docs/components/splitter
 ---
 
 import { CssPropertiesSection } from '@/components/mdx/Components';
 import { splitterOverrideCssProperties } from '@/components/examples/splitter/css-properties';
 
-## Référence de l'API
+<Example name="splitter/basic" />
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/splitter" />
+## Installation
 
-## Exemple de base
+<ComponentInstall />
 
+## Utilisation
 
 Construisez un splitter avec `Splitter`, `SplitterPanel` et `SplitterResizeTrigger`. La prop
 `panels` contient les identifiants des panneaux et leurs contraintes de taille. Chaque
 `SplitterPanel` rendu doit utiliser l'un de ces identifiants. Si vous n'ajoutez pas de contenu à la
 poignée, moduix génère automatiquement l'indicateur de redimensionnement.
-
-<Example name="splitter/basic" />
-
-## Installation avec shadcn
-
-Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration complète du paquet, du registre et des styles.
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/splitter' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/splitter' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/splitter' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/splitter' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/splitter' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/splitter' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Anatomie
-
-```text
-Splitter
-├─ SplitterPanel[id]
-├─ SplitterResizeTrigger[id="panel-a:panel-b"]
-│  └─ SplitterResizeTriggerIndicator (par défaut, personnalisable)
-└─ SplitterPanel[id]
-
-SplitterRootProvider
-└─ même arborescence de panneaux reliée à un état useSplitter()
-```
-
-| Partie                              | Rôle                                                                          |
-| ----------------------------------- | ----------------------------------------------------------------------------- |
-| `Splitter`                    | Gère les panneaux, leurs tailles, l'orientation, les rappels et l'état.      |
-| `SplitterPanel`                    | Région redimensionnable dont l'`id` correspond à une entrée de `panels`.      |
-| `SplitterResizeTrigger`            | Bouton accessible qui redimensionne les deux panneaux adjacents.             |
-| `SplitterResizeTriggerIndicator`   | Poignée visuelle par défaut. Un contenu personnalisé la remplace.             |
-| `SplitterRootProvider`             | Affiche les mêmes parties avec l'état créé par `useSplitter()`.              |
-
-## Composition
-
-Utilisez `size` avec `onResize(details)` lorsque l'application doit gérer les tailles actuelles des
-panneaux. Utilisez `SplitterRootProvider` avec `useSplitter()` lorsque l'état ou ses contrôles
-doivent vivre en dehors de l'arborescence rendue, et choisissez une seule racine par état. Pour des
-splitters imbriqués qui doivent se redimensionner ensemble aux intersections des poignées, créez un
-seul `createSplitterRegistry()` et transmettez-le à chaque racine. Les valeurs numériques de
-`defaultSize`, `size` et `minSize` sont des pourcentages dont la somme doit faire 100, et Ark accepte
-aussi des longueurs CSS pour ces tailles.
-
-Utilisez `asChild` avec un seul enfant interactif qui conserve la sémantique d'un bouton, la gestion du
-focus et les interactions au clavier ; cela remplace l'indicateur de redimensionnement par défaut. En
-Solid, `useSplitter()` renvoie un accessor : transmettez-le à `value` et lisez l'API avec `splitter()`.
-
-En Vue, utilisez `v-model:size` pour le contrat de taille contrôlée par Ark. `useSplitter()` renvoie
-un état réactif qui se transmet directement à `SplitterRootProvider` ; appelez ses méthodes dans le
-template sans créer un second conteneur d'état.
 
 ## Exemples
 
@@ -152,16 +76,44 @@ empilés disposent de l'espace nécessaire pour être redimensionnés.
 
 <Example name="splitter/vertical" />
 
-## Accessibilité
+## Composition
 
-`SplitterResizeTrigger` génère un bouton `type="button"`, qui n'envoie donc jamais le formulaire englobant, et prend en charge le redimensionnement à la souris et au clavier,
-conformément au modèle WAI-ARIA Window Splitter. Donnez à chaque poignée un nom accessible, par exemple
-avec `aria-label="Resize panels"`, lorsque l'indicateur visuel n'a pas de libellé. Avec `asChild`,
-l'élément hôte personnalisé doit conserver la sémantique d'un bouton, le focus et les interactions au
-clavier.
+Utilisez `size` avec `onResize(details)` lorsque l'application doit gérer les tailles actuelles des
+panneaux. Utilisez `SplitterRootProvider` avec `useSplitter()` lorsque l'état ou ses contrôles
+doivent vivre en dehors de l'arborescence rendue, et choisissez une seule racine par état. Pour des
+splitters imbriqués qui doivent se redimensionner ensemble aux intersections des poignées, créez un
+seul `createSplitterRegistry()` et transmettez-le à chaque racine. Les valeurs numériques de
+`defaultSize`, `size` et `minSize` sont des pourcentages dont la somme doit faire 100, et Ark accepte
+aussi des longueurs CSS pour ces tailles.
 
-Ark expose l'état avec des attributs tels que `data-orientation`, `data-dragging`, `data-focus` et
-`data-disabled`. Utilisez-les pour styliser les états d'interaction.
+Utilisez `asChild` avec un seul enfant interactif qui conserve la sémantique d'un bouton, la gestion du
+focus et les interactions au clavier ; cela remplace l'indicateur de redimensionnement par défaut. En
+Solid, `useSplitter()` renvoie un accessor : transmettez-le à `value` et lisez l'API avec `splitter()`.
+
+En Vue, utilisez `v-model:size` pour le contrat de taille contrôlée par Ark. `useSplitter()` renvoie
+un état réactif qui se transmet directement à `SplitterRootProvider` ; appelez ses méthodes dans le
+template sans créer un second conteneur d'état.
+
+## Anatomie
+
+```text
+Splitter
+├─ SplitterPanel[id]
+├─ SplitterResizeTrigger[id="panel-a:panel-b"]
+│  └─ SplitterResizeTriggerIndicator (par défaut, personnalisable)
+└─ SplitterPanel[id]
+
+SplitterRootProvider
+└─ même arborescence de panneaux reliée à un état useSplitter()
+```
+
+| Partie                              | Rôle                                                                          |
+| ----------------------------------- | ----------------------------------------------------------------------------- |
+| `Splitter`                    | Gère les panneaux, leurs tailles, l'orientation, les rappels et l'état.      |
+| `SplitterPanel`                    | Région redimensionnable dont l'`id` correspond à une entrée de `panels`.      |
+| `SplitterResizeTrigger`            | Bouton accessible qui redimensionne les deux panneaux adjacents.             |
+| `SplitterResizeTriggerIndicator`   | Poignée visuelle par défaut. Un contenu personnalisé la remplace.             |
+| `SplitterRootProvider`             | Affiche les mêmes parties avec l'état créé par `useSplitter()`.              |
 
 ## Styles
 
@@ -179,7 +131,7 @@ la ligne. Au survol et pendant le glissement, la ligne et la bordure de l'indica
 l'ombre de l'indicateur s'accentue. La ligne et la zone de clic sont des pseudo-éléments : les
 variantes CSS Modules les exposent avec les variables ci-dessous.
 
-### Propriétés CSS
+### Variables CSS
 
 <CssPropertiesSection properties={splitterOverrideCssProperties} />
 
@@ -191,3 +143,14 @@ valeurs `data-slot` suivantes : `splitter-root`, `splitter-root-provider`, `spli
 
 Les attributs utiles selon les parties sont notamment `data-id` et `data-index` sur les panneaux, ainsi
 que `data-orientation`, `data-dragging`, `data-focus` et `data-disabled` sur les éléments concernés.
+
+## Accessibilité
+
+`SplitterResizeTrigger` génère un bouton `type="button"`, qui n'envoie donc jamais le formulaire englobant, et prend en charge le redimensionnement à la souris et au clavier,
+conformément au modèle WAI-ARIA Window Splitter. Donnez à chaque poignée un nom accessible, par exemple
+avec `aria-label="Resize panels"`, lorsque l'indicateur visuel n'a pas de libellé. Avec `asChild`,
+l'élément hôte personnalisé doit conserver la sémantique d'un bouton, le focus et les interactions au
+clavier.
+
+Ark expose l'état avec des attributs tels que `data-orientation`, `data-dragging`, `data-focus` et
+`data-disabled`. Utilisez-les pour styliser les états d'interaction.

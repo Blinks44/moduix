@@ -2,6 +2,7 @@
 title: Tabs
 component: tabs
 description: Переключение между связанными панелями с доступной клавиатурной навигацией, управляемым состоянием, ленивым монтированием, ссылками и вертикальной ориентацией.
+ark: https://ark-ui.com/docs/components/tabs
 ---
 
 import * as TabsDocs from '@/components/examples/tabs/css-properties';
@@ -43,25 +44,6 @@ import tabsVueRootProvider from '../../../snippets/tabs/vue/root-provider.vue?ra
 import tabsVueSizes from '../../../snippets/tabs/vue/sizes.vue?raw';
 import tabsVueVertical from '../../../snippets/tabs/vue/vertical.vue?raw';
 
-## Справочник API
-
-<PrimitiveReference href="https://ark-ui.com/docs/components/tabs" />
-
-## Какой компонент выбрать
-
-Используйте `Tabs`, чтобы переключаться между связанными представлениями в одной области страницы.
-При выборе вкладки открывается соответствующая панель, а остальные панели скрываются.
-
-- Выбирайте **`Tabs`**, когда каждая вкладка должна открывать одну связанную с ней панель.
-- Выбирайте **`Accordion`**, когда разделы должны оставаться расположенными друг под другом и открываться независимо.
-- Выбирайте **`ToggleGroup`**, когда элемент управления меняет состояние или режим, но не владеет содержимым панели.
-
-## Базовый пример
-
-
-Начните с `Tabs` и задайте одинаковое значение `value` для каждой пары `TabsTrigger` и
-`TabsContent`. Добавьте `TabsIndicator`, если выбранную вкладку нужно отметить визуально.
-
 <ExampleFrame variant="component">
   <div className={tabsPreviewStyles.root}>
     <TabsBasic />
@@ -100,84 +82,23 @@ import tabsVueVertical from '../../../snippets/tabs/vue/vertical.vue?raw';
 
 </ExampleCode>
 
-## Установка через shadcn
+## Установка
 
-Полную настройку пакета, реестра и стилей см. в разделе [Быстрый старт](/docs/quick-start).
+<ComponentInstall />
 
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
+## Использование
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/tabs' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/tabs' },
-  ]}
-/>
+Начните с `Tabs` и задайте одинаковое значение `value` для каждой пары `TabsTrigger` и
+`TabsContent`. Добавьте `TabsIndicator`, если выбранную вкладку нужно отметить визуально.
 
-  </Tab>
-  <Tab label="Solid" value="solid">
+## Какой компонент выбрать
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/tabs' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/tabs' },
-  ]}
-/>
+Используйте `Tabs`, чтобы переключаться между связанными представлениями в одной области страницы.
+При выборе вкладки открывается соответствующая панель, а остальные панели скрываются.
 
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/tabs' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/tabs' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Анатомия
-
-```text
-Tabs
-├─ TabsList
-│  ├─ TabsTrigger[value]
-│  ├─ TabsTrigger[value]
-│  └─ TabsIndicator
-└─ TabsContent[value]
-
-TabsRootProvider
-└─ те же части, подключённые к состоянию из useTabs()
-
-TabsContext
-└─ render prop / scoped slot
-```
-
-| Часть                 | Назначение                                                         |
-| --------------------- | ------------------------------------------------------------------ |
-| `Tabs`                | Корневая часть, управляющая выбранным значением, фокусом, ориентацией и режимом. |
-| `TabsRootProvider`   | Подключает части к состоянию, созданному с помощью `useTabs()` в moduix. |
-| `TabsContext`        | Передаёт текущее состояние вкладок через render prop или scoped slot в Vue. |
-| `TabsList`           | Группирует триггеры и управляет перемещением фокуса между ними.   |
-| `TabsTrigger`        | Интерактивная кнопка вкладки или хост `asChild` с обязательным `value`. |
-| `TabsIndicator`      | Необязательный индикатор выбранной вкладки.                       |
-| `TabsContent`        | Панель содержимого, связанная с триггером с таким же `value`.     |
-
-## Композиция
-
-Используйте `defaultValue` для неконтролируемого компонента. Если выбором управляет другая часть
-приложения, передайте `value` и `onValueChange(details)`, а выбранное значение прочитайте из
-`details.value`.
-
-В Vue используйте `v-model` для управляемого выбора и `@value-change` для получения того же объекта
-с данными события. `TabsContext` передаёт состояние через scoped slot по умолчанию.
-
-Используйте `TabsRootProvider` вместе с `useTabs()`, если состояние нужно создать вне дерева
-компонента или разделить с соседним интерфейсом. Передайте хранилище в `TabsRootProvider` и не
-создавайте для него ещё один корень `Tabs`. Для ссылки или компонента роутера используйте
-`asChild` на `TabsTrigger`, а `TabsIndicator` добавляйте явно: `TabsList` не создаёт его
-автоматически.
+- Выбирайте **`Tabs`**, когда каждая вкладка должна открывать одну связанную с ней панель.
+- Выбирайте **`Accordion`**, когда разделы должны оставаться расположенными друг под другом и открываться независимо.
+- Выбирайте **`ToggleGroup`**, когда элемент управления меняет состояние или режим, но не владеет содержимым панели.
 
 ## Примеры
 
@@ -664,6 +585,48 @@ TabsContext
 
 </ExampleCode>
 
+## Композиция
+
+Используйте `defaultValue` для неконтролируемого компонента. Если выбором управляет другая часть
+приложения, передайте `value` и `onValueChange(details)`, а выбранное значение прочитайте из
+`details.value`.
+
+В Vue используйте `v-model` для управляемого выбора и `@value-change` для получения того же объекта
+с данными события. `TabsContext` передаёт состояние через scoped slot по умолчанию.
+
+Используйте `TabsRootProvider` вместе с `useTabs()`, если состояние нужно создать вне дерева
+компонента или разделить с соседним интерфейсом. Передайте хранилище в `TabsRootProvider` и не
+создавайте для него ещё один корень `Tabs`. Для ссылки или компонента роутера используйте
+`asChild` на `TabsTrigger`, а `TabsIndicator` добавляйте явно: `TabsList` не создаёт его
+автоматически.
+
+## Анатомия
+
+```text
+Tabs
+├─ TabsList
+│  ├─ TabsTrigger[value]
+│  ├─ TabsTrigger[value]
+│  └─ TabsIndicator
+└─ TabsContent[value]
+
+TabsRootProvider
+└─ те же части, подключённые к состоянию из useTabs()
+
+TabsContext
+└─ render prop / scoped slot
+```
+
+| Часть                 | Назначение                                                         |
+| --------------------- | ------------------------------------------------------------------ |
+| `Tabs`                | Корневая часть, управляющая выбранным значением, фокусом, ориентацией и режимом. |
+| `TabsRootProvider`   | Подключает части к состоянию, созданному с помощью `useTabs()` в moduix. |
+| `TabsContext`        | Передаёт текущее состояние вкладок через render prop или scoped slot в Vue. |
+| `TabsList`           | Группирует триггеры и управляет перемещением фокуса между ними.   |
+| `TabsTrigger`        | Интерактивная кнопка вкладки или хост `asChild` с обязательным `value`. |
+| `TabsIndicator`      | Необязательный индикатор выбранной вкладки.                       |
+| `TabsContent`        | Панель содержимого, связанная с триггером с таким же `value`.     |
+
 ## Стилизация
 
 Используйте `className` в React или `class` в Solid и Vue на экспортируемых частях для структурных
@@ -671,7 +634,7 @@ TabsContext
 `data-disabled` и `data-orientation`, вместе с селекторами moduix `data-slot`. Варианты на Tailwind
 используют нативные утилиты и классы потребителя, а переменные ниже настраивают варианты с CSS Modules.
 
-### CSS-свойства
+### CSS-переменные
 
 <CssPropertiesSection properties={TabsDocs.tabsOverrideCssProperties} />
 

@@ -2,13 +2,23 @@
 title: Angle Slider
 component: angle-slider
 description: A circular control for selecting an angle between 0 and 360 degrees in React, Solid, or Vue.
+ark: https://ark-ui.com/docs/components/angle-slider
 ---
 
 import * as AngleSliderDocs from '@/components/examples/angle-slider/css-properties';
 
-## API Reference
+<Example name="angle-slider/basic" />
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/angle-slider" />
+## Installation
+
+<ComponentInstall />
+
+## Usage
+
+Start with `AngleSliderDial`, which combines the circular track, the centered value, and the thumb. The track
+fills from the top as the angle grows. `AngleSlider` accepts one angle
+from 0 to 360 degrees. Add a visible `AngleSliderLabel` when possible. If the dial has no visible label, add
+`aria-label` to the root.
 
 ## Choosing the right component
 
@@ -17,98 +27,6 @@ Use `AngleSlider` when users need to set a direction or rotation on a circular d
 - Choose **`AngleSlider`** for rotation, heading, spotlight direction, and other angular values.
 - Choose **`Slider`** when the value is easier to understand on a linear scale.
 - Choose **`NumberInput`** when entering an exact degree value matters more than direct manipulation.
-
-## Basic
-
-
-Start with `AngleSliderDial`, which combines the circular track, the centered value, and the thumb. The track
-fills from the top as the angle grows. `AngleSlider` accepts one angle
-from 0 to 360 degrees. Add a visible `AngleSliderLabel` when possible. If the dial has no visible label, add
-`aria-label` to the root.
-
-<Example name="angle-slider/basic" />
-
-## Install with shadcn
-
-See [Quick Start](/docs/quick-start) for full package setup, registry configuration, and styling guidance.
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/angle-slider' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/angle-slider' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/angle-slider' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/angle-slider' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/angle-slider' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/angle-slider' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Anatomy
-
-```text
-AngleSlider
-├─ AngleSliderLabel
-├─ AngleSliderDial
-│  ├─ AngleSliderMarks (optional)
-│  │  └─ AngleSliderMarker[value]
-│  ├─ AngleSliderValueText
-│  └─ AngleSliderThumb
-└─ AngleSliderHiddenInput (explicit)
-
-AngleSliderRootProvider
-└─ same part tree connected to a useAngleSlider() store
-```
-
-| Part                               | Role                                                                  |
-| ---------------------------------- | --------------------------------------------------------------------- |
-| `AngleSlider` | Styled root that owns controlled or uncontrolled slider state.        |
-| `AngleSliderRootProvider`         | Connects the parts to state created with `useAngleSlider()`.          |
-| `AngleSliderLabel`                | Associates a visible label with the slider.                           |
-| `AngleSliderControl`              | Provides the circular pointer interaction area.                       |
-| `AngleSliderDial`                 | Convenience composition of `Control`, the centered `ValueText`, and `Thumb`. |
-| `AngleSliderThumb`                | Focusable circular handle that rides the track at the current angle.  |
-| `AngleSliderMarkerGroup`          | Contains optional reference markers.                                  |
-| `AngleSliderMarker`               | Places a numeric marker around the dial.                               |
-| `AngleSliderMarks`                | Convenience composition that creates markers from a `values` array.    |
-| `AngleSliderValueText`             | Displays the current value in degrees; `AngleSliderDial` centers it in the dial. |
-| `AngleSliderHiddenInput`           | Native form control; compose it explicitly when submitting the value. |
-
-## Composition
-
-Use `defaultValue` for an uncontrolled slider and `value` with `onValueChange(details)` when
-another part of the application owns the angle. Use `AngleSliderRootProvider` with
-`useAngleSlider()` from the matching framework package only when the store must be created outside
-the rendered slider tree; do not render the root and `AngleSliderRootProvider` for the same
-state instance. In
-Solid, read the provider store through its accessor, for example `angleSlider().value`.
-
-`AngleSliderDial` and `AngleSliderMarks` are convenience compositions. Use `AngleSliderControl` with
-`AngleSliderThumb`, or `AngleSliderMarkerGroup` with `AngleSliderMarker`, when you need custom
-children, a different order, or per-marker props.
-Compose `AngleSliderHiddenInput` explicitly for native forms. Set `name` on the root for a form in the same
-tree, or set `form` on `AngleSliderHiddenInput` when the form is elsewhere.
 
 ## Examples
 
@@ -174,6 +92,51 @@ custom marker composition or extra children inside the control.
 
 <Example name="angle-slider/advanced-customization" />
 
+## Composition
+
+Use `defaultValue` for an uncontrolled slider and `value` with `onValueChange(details)` when
+another part of the application owns the angle. Use `AngleSliderRootProvider` with
+`useAngleSlider()` from the matching framework package only when the store must be created outside
+the rendered slider tree; do not render the root and `AngleSliderRootProvider` for the same
+state instance. In
+Solid, read the provider store through its accessor, for example `angleSlider().value`.
+
+`AngleSliderDial` and `AngleSliderMarks` are convenience compositions. Use `AngleSliderControl` with
+`AngleSliderThumb`, or `AngleSliderMarkerGroup` with `AngleSliderMarker`, when you need custom
+children, a different order, or per-marker props.
+Compose `AngleSliderHiddenInput` explicitly for native forms. Set `name` on the root for a form in the same
+tree, or set `form` on `AngleSliderHiddenInput` when the form is elsewhere.
+
+## Anatomy
+
+```text
+AngleSlider
+├─ AngleSliderLabel
+├─ AngleSliderDial
+│  ├─ AngleSliderMarks (optional)
+│  │  └─ AngleSliderMarker[value]
+│  ├─ AngleSliderValueText
+│  └─ AngleSliderThumb
+└─ AngleSliderHiddenInput (explicit)
+
+AngleSliderRootProvider
+└─ same part tree connected to a useAngleSlider() store
+```
+
+| Part                               | Role                                                                  |
+| ---------------------------------- | --------------------------------------------------------------------- |
+| `AngleSlider` | Styled root that owns controlled or uncontrolled slider state.        |
+| `AngleSliderRootProvider`         | Connects the parts to state created with `useAngleSlider()`.          |
+| `AngleSliderLabel`                | Associates a visible label with the slider.                           |
+| `AngleSliderControl`              | Provides the circular pointer interaction area.                       |
+| `AngleSliderDial`                 | Convenience composition of `Control`, the centered `ValueText`, and `Thumb`. |
+| `AngleSliderThumb`                | Focusable circular handle that rides the track at the current angle.  |
+| `AngleSliderMarkerGroup`          | Contains optional reference markers.                                  |
+| `AngleSliderMarker`               | Places a numeric marker around the dial.                               |
+| `AngleSliderMarks`                | Convenience composition that creates markers from a `values` array.    |
+| `AngleSliderValueText`             | Displays the current value in degrees; `AngleSliderDial` centers it in the dial. |
+| `AngleSliderHiddenInput`           | Native form control; compose it explicitly when submitting the value. |
+
 ## Styling
 
 Use `className` in React or `class` in Solid and Vue on exported parts for structural styles. For state-based
@@ -182,7 +145,7 @@ styles, prefer Ark data attributes such as `data-state`, `data-disabled`, `data-
 and consumer classes; the component variables below customize the CSS Modules variants. Ark runtime
 variables and the listed data hooks remain available in both styling tracks.
 
-### CSS Properties
+### CSS variables
 
 <CssPropertiesSection properties={AngleSliderDocs.angleSliderCssProperties} />
 

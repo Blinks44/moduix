@@ -2,21 +2,18 @@
 title: Accordion
 component: accordion
 description: Créez des accordéons accessibles avec React, Solid ou Vue, installés par paquet ou avec la CLI shadcn.
+ark: https://ark-ui.com/docs/components/accordion
 ---
 
 import * as AccordionDocs from '@/components/examples/accordion/css-properties';
 
-## Référence de l’API
+<Example name="accordion/basic" />
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/accordion" />
+## Installation
 
-## Choisir le bon composant
+<ComponentInstall />
 
-Utilisez `Accordion` lorsque plusieurs sections liées doivent partager la même navigation au clavier
-et le même état. Pour une seule section indépendante, préférez `Collapsible`.
-
-## Exemple de base
-
+## Utilisation
 
 Utilisez `Accordion` comme racine et attribuez un identifiant `value` stable à chaque élément.
 Placez le libellé interactif dans le déclencheur, le panneau dans la partie de contenu, puis son
@@ -24,86 +21,10 @@ contenu interne dans le corps de l'élément. L'indicateur est facultatif et aff
 un chevron qui pivote à l'ouverture. Placez chaque déclencheur dans un titre (`h3` dans les
 exemples) pour que les lecteurs d'écran puissent passer d'une section à l'autre.
 
-React, Solid et Vue utilisent les mêmes noms plats. Importez `Accordion` comme racine et chaque
-partie supplémentaire directement, par exemple `AccordionItem` et `AccordionItemTrigger`. Les mêmes
-noms fonctionnent avec les paquets npm et les sources du registre shadcn.
+## Choisir le bon composant
 
-<Example name="accordion/basic" />
-
-## Installation avec shadcn
-
-Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration complète du paquet, du registre et des styles.
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/accordion' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/accordion' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/accordion' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/accordion' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/accordion' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/accordion' },
-  ]}
-/>
-
-  </Tab>
-  </Tabs>
-
-## Anatomie
-
-```text
-Accordion
-└─ AccordionItem[value]
- ├─ h3 (titre recommandé)
- │  └─ AccordionItemTrigger
- │     ├─ label
- │     └─ AccordionItemIndicator (facultatif)
- └─ AccordionItemContent
-    └─ AccordionItemBody
-       └─ content
-
-AccordionRootProvider
-└─ même arbre d'éléments relié à l'état fourni par useAccordion()
-```
-
-| Partie                   | Rôle                                                                                         |
-| ------------------------ | -------------------------------------------------------------------------------------------- |
-| `Accordion`              | Racine qui gère l'état de l'accordéon et la navigation au clavier.                            |
-| `AccordionRootProvider`  | Fournit aux parties l'état créé avec `useAccordion()`.                                        |
-| `AccordionItem`          | Élément repliable avec une valeur `value` obligatoire et stable.                             |
-| `AccordionItemTrigger`   | Bouton qui ouvre ou ferme l'élément.                                                          |
-| `AccordionItemIndicator` | Indicateur facultatif. Affiche un chevron sans contenu enfant.                    |
-| `AccordionItemContent`   | Panneau repliable qui utilise l'animation fondée sur les mesures de taille d'Ark.             |
-| `AccordionItemBody`      | Conteneur interne moduix qui fournit l'espacement par défaut du panneau.                      |
-
-## Composition
-
-Utilisez `defaultValue` pour un accordéon non contrôlé. Utilisez `value` avec
-`onValueChange(details)` lorsqu'une autre partie de l'application gère l'état. Ces deux propriétés
-attendent un tableau `string[]`, même lorsqu'un seul élément peut être ouvert.
-
-Utilisez `AccordionRootProvider` avec `useAccordion()` du paquet correspondant au framework lorsque
-l’état doit être créé en dehors de l’arbre rendu. Ne rendez pas `Accordion` pour le même état. React
-expose le store comme un objet, Solid donne accès à son état réactif au moyen de la fonction
-retournée, et Vue expose directement le store réactif au template.
+Utilisez `Accordion` lorsque plusieurs sections liées doivent partager la même navigation au clavier
+et le même état. Pour une seule section indépendante, préférez `Collapsible`.
 
 ## Exemples
 
@@ -164,6 +85,44 @@ et les champs de formulaire masqués.
 
 <Example name="accordion/with-slider" />
 
+## Composition
+
+Utilisez `defaultValue` pour un accordéon non contrôlé. Utilisez `value` avec
+`onValueChange(details)` lorsqu'une autre partie de l'application gère l'état. Ces deux propriétés
+attendent un tableau `string[]`, même lorsqu'un seul élément peut être ouvert.
+
+Utilisez `AccordionRootProvider` avec `useAccordion()` du paquet correspondant au framework lorsque
+l’état doit être créé en dehors de l’arbre rendu. Ne rendez pas `Accordion` pour le même état. React
+expose le store comme un objet, Solid donne accès à son état réactif au moyen de la fonction
+retournée, et Vue expose directement le store réactif au template.
+
+## Anatomie
+
+```text
+Accordion
+└─ AccordionItem[value]
+ ├─ h3 (titre recommandé)
+ │  └─ AccordionItemTrigger
+ │     ├─ label
+ │     └─ AccordionItemIndicator (facultatif)
+ └─ AccordionItemContent
+    └─ AccordionItemBody
+       └─ content
+
+AccordionRootProvider
+└─ même arbre d'éléments relié à l'état fourni par useAccordion()
+```
+
+| Partie                   | Rôle                                                                                         |
+| ------------------------ | -------------------------------------------------------------------------------------------- |
+| `Accordion`              | Racine qui gère l'état de l'accordéon et la navigation au clavier.                            |
+| `AccordionRootProvider`  | Fournit aux parties l'état créé avec `useAccordion()`.                                        |
+| `AccordionItem`          | Élément repliable avec une valeur `value` obligatoire et stable.                             |
+| `AccordionItemTrigger`   | Bouton qui ouvre ou ferme l'élément.                                                          |
+| `AccordionItemIndicator` | Indicateur facultatif. Affiche un chevron sans contenu enfant.                    |
+| `AccordionItemContent`   | Panneau repliable qui utilise l'animation fondée sur les mesures de taille d'Ark.             |
+| `AccordionItemBody`      | Conteneur interne moduix qui fournit l'espacement par défaut du panneau.                      |
+
 ## Styles
 
 Utilisez `className` en React ou `class` en Solid et Vue sur les parties exportées pour appliquer les styles
@@ -176,7 +135,7 @@ données, les sélecteurs `data-slot` et les variables d’exécution Ark sont c
 Placez l’espacement du panneau sur `AccordionItemBody` plutôt que sur `AccordionItemContent` afin
 qu’Ark puisse mesurer et animer correctement le panneau.
 
-### Propriétés CSS
+### Variables CSS
 
 <CssPropertiesSection properties={AccordionDocs.accordionOverrideCssProperties} />
 

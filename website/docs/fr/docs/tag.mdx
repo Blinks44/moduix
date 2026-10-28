@@ -2,16 +2,22 @@
 title: Tag
 component: tag
 description: Un token compact pour les valeurs sélectionnées, les filtres, les affectations et les autres valeurs courtes de l’interface, avec des icônes et une action de suppression facultatives.
+ark: https://ark-ui.com/docs/guides/composition#the-ark-factory
 ---
 
 import * as TagDocs from '@/components/examples/tag/css-properties';
 
-## Référence de l’API
+<Example name="tag/basic" />
 
-Ark UI ne fournit pas de primitive `tag` dédiée. moduix construit ce composant avec la
-[fabrique Ark officielle](https://ark-ui.com/docs/guides/composition#the-ark-factory) et suit les recommandations Ark pour la
-[composition](https://ark-ui.com/docs/guides/composition), le [style](https://ark-ui.com/docs/guides/styling) et les
-[références DOM](https://ark-ui.com/docs/guides/ref).
+## Installation
+
+<ComponentInstall />
+
+## Utilisation
+
+Commencez par
+un `Tag` racine et `TagLabel`. Ajoutez les autres parties uniquement si le token a besoin d’une
+icône, d’un contenu complémentaire ou d’une action de suppression intégrée.
 
 ## Choisir le bon composant
 
@@ -20,85 +26,6 @@ peut nécessiter une action locale, comme la suppression.
 
 - Choisissez **`Badge`** pour les métadonnées courtes comme un statut, une catégorie, une version ou un nombre.
 - Choisissez **`Tag`** pour les valeurs sélectionnées, les filtres, les affectations ou les libellés qui font partie de l’état courant de l’interface.
-
-## Exemple de base
-
-Commencez par
-un `Tag` racine et `TagLabel`. Ajoutez les autres parties uniquement si le token a besoin d’une
-icône, d’un contenu complémentaire ou d’une action de suppression intégrée.
-
-<Example name="tag/basic" />
-
-## Installation avec shadcn
-
-Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration complète du paquet, du registre et des styles.
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/tag' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/tag' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/tag' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/tag' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/tag' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/tag' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Anatomie
-
-Utilisez `Tag` comme élément racine.
-
-```text
-Tag
-├─ TagStartElement (facultatif)
-├─ TagLabel
-└─ TagEndElement (facultatif)
-   └─ TagCloseTrigger (facultatif)
-```
-
-| Partie             | Rôle                                                                                     |
-| ------------------ | ---------------------------------------------------------------------------------------- |
-| `Tag`              | Élément racine. Applique la mise en page du token, la bordure, la taille, la variante et la composition `asChild`. |
-| `TagLabel`        | Conteneur de la valeur visible et limite de troncature.                                 |
-| `TagStartElement` | Zone facultative à gauche pour une icône, un avatar ou un indicateur d’état.              |
-| `TagEndElement`   | Zone facultative à droite pour une icône ou une action.                                  |
-| `TagCloseTrigger` | Bouton facultatif pour supprimer le token.                                               |
-
-## Composition
-
-`Tag` est uniquement visuel et ne gère pas les valeurs sélectionnées ou supprimées. Conservez la
-collection dans le composant parent, mettez-la à jour depuis `TagCloseTrigger` et placez ce trigger
-dans `TagEndElement`.
-
-Utilisez `asChild` uniquement lorsque la racine ou le trigger de suppression doit remplacer son
-élément hôte par défaut. L’enfant unique devient l’hôte DOM et doit fournir la sémantique attendue.
-En particulier, `TagCloseTrigger asChild` nécessite un contrôle de fermeture explicite.
-
-`TagCloseTrigger` reçoit le nom `Remove tag` sauf si `aria-label` ou `aria-labelledby` est fourni,
-y compris avec des enfants personnalisés ou `asChild`. Quand plusieurs tags sont affichés, passez un
-nom qui inclut la valeur, par exemple `aria-label="Remove TypeScript tag"`.
 
 ## Exemples
 
@@ -145,6 +72,40 @@ l’enfant unique devient l’hôte sémantique et interactif et doit fournir le
 bouton ou d’un lien. Un hôte `button` ou `a` reçoit un curseur pointeur.
 
 <Example name="tag/render-as-button" />
+
+## Composition
+
+`Tag` est uniquement visuel et ne gère pas les valeurs sélectionnées ou supprimées. Conservez la
+collection dans le composant parent, mettez-la à jour depuis `TagCloseTrigger` et placez ce trigger
+dans `TagEndElement`.
+
+Utilisez `asChild` uniquement lorsque la racine ou le trigger de suppression doit remplacer son
+élément hôte par défaut. L’enfant unique devient l’hôte DOM et doit fournir la sémantique attendue.
+En particulier, `TagCloseTrigger asChild` nécessite un contrôle de fermeture explicite.
+
+`TagCloseTrigger` reçoit le nom `Remove tag` sauf si `aria-label` ou `aria-labelledby` est fourni,
+y compris avec des enfants personnalisés ou `asChild`. Quand plusieurs tags sont affichés, passez un
+nom qui inclut la valeur, par exemple `aria-label="Remove TypeScript tag"`.
+
+## Anatomie
+
+Utilisez `Tag` comme élément racine.
+
+```text
+Tag
+├─ TagStartElement (facultatif)
+├─ TagLabel
+└─ TagEndElement (facultatif)
+   └─ TagCloseTrigger (facultatif)
+```
+
+| Partie             | Rôle                                                                                     |
+| ------------------ | ---------------------------------------------------------------------------------------- |
+| `Tag`              | Élément racine. Applique la mise en page du token, la bordure, la taille, la variante et la composition `asChild`. |
+| `TagLabel`        | Conteneur de la valeur visible et limite de troncature.                                 |
+| `TagStartElement` | Zone facultative à gauche pour une icône, un avatar ou un indicateur d’état.              |
+| `TagEndElement`   | Zone facultative à droite pour une icône ou une action.                                  |
+| `TagCloseTrigger` | Bouton facultatif pour supprimer le token.                                               |
 
 ## Styles
 

@@ -2,15 +2,19 @@
 title: Text
 component: text
 description: Un composant typographique pour le texte courant ou en ligne, l’emphase sémantique et les aperçus tronqués.
+ark: https://ark-ui.com/docs/guides/composition#the-ark-factory
 ---
 
+<Example name="text/basic" />
 
-## Référence de l’API
+## Installation
 
-Ark UI ne propose pas de composant `Text` dédié. moduix propose ce composant typographique, construit avec la
-[fabrique Ark](https://ark-ui.com/docs/guides/composition#the-ark-factory) officielle, et suit les recommandations
-d’Ark concernant la [composition](https://ark-ui.com/docs/guides/composition), les
-[styles](https://ark-ui.com/docs/guides/styling) et les [refs](https://ark-ui.com/docs/guides/ref).
+<ComponentInstall />
+
+## Utilisation
+
+Utilisez l’élément `p` par défaut pour un paragraphe. Passez `as` lorsque le contenu doit utiliser une autre balise HTML
+sémantique tout en conservant le style typographique de `Text`.
 
 ## Choisir le bon composant
 
@@ -20,71 +24,6 @@ suivre l’échelle typographique de moduix.
 - Choisissez **`Heading`** pour la structure du document et la hiérarchie des titres.
 - Choisissez **`Text`** lorsque le contenu doit conserver la sémantique d’un paragraphe ou d’un texte en ligne tout en utilisant les styles du texte courant.
 - Utilisez du CSS local lorsque le besoin concerne la mise en page du texte enrichi, l’espacement ou le dépliage d’un texte tronqué.
-
-## Exemple de base
-
-
-Utilisez l’élément `p` par défaut pour un paragraphe. Passez `as` lorsque le contenu doit utiliser une autre balise HTML
-sémantique tout en conservant le style typographique de `Text`.
-
-<Example name="text/basic" />
-
-## Installation avec shadcn
-
-Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration complète du paquet, du registre et des styles.
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/text' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/text' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/text' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/text' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/text' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/text' },
-  ]}
-/>
-
-  </Tab>
-  </Tabs>
-
-## Anatomie
-
-`Text` rend un seul élément racine avec la fabrique Ark via l’export racine plat.
-
-```text
-Text
-└─ texte ou contenu en ligne
-```
-
-| Partie                | Rôle                                                                  |
-| --------------------- | --------------------------------------------------------------------- |
-| `Text`              | Racine typographique avec sémantique HTML et attributs `data-*` stables. |
-
-## Composition
-
-`Text` se limite à un élément racine et ne possède ni état ni sous-parties. Utilisez `<Text>` pour l’élément racine,
-`as` pour une balise sémantique prise en charge et `asChild` seulement lorsqu’un élément
-existant doit recevoir les propriétés et la `ref` du texte. La troncature ne fait que limiter l’affichage ; l’état et le
-contrôle du dépliage restent dans l’interface environnante.
 
 ## Exemples
 
@@ -132,6 +71,26 @@ Utilisez `asChild` lorsque la racine doit être un élément personnalisé exist
 charge par `as`. L’enfant doit être un élément unique capable d’accepter les propriétés transmises et la `ref`.
 
 <Example name="text/custom-composition" />
+
+## Composition
+
+`Text` se limite à un élément racine et ne possède ni état ni sous-parties. Utilisez `<Text>` pour l’élément racine,
+`as` pour une balise sémantique prise en charge et `asChild` seulement lorsqu’un élément
+existant doit recevoir les propriétés et la `ref` du texte. La troncature ne fait que limiter l’affichage ; l’état et le
+contrôle du dépliage restent dans l’interface environnante.
+
+## Anatomie
+
+`Text` rend un seul élément racine avec la fabrique Ark via l’export racine plat.
+
+```text
+Text
+└─ texte ou contenu en ligne
+```
+
+| Partie                | Rôle                                                                  |
+| --------------------- | --------------------------------------------------------------------- |
+| `Text`              | Racine typographique avec sémantique HTML et attributs `data-*` stables. |
 
 ## Styles
 

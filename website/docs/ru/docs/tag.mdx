@@ -2,16 +2,22 @@
 title: Tag
 component: tag
 description: Компактная метка для выбранных значений, фильтров, назначений и других коротких значений интерфейса с необязательными значками и действием удаления.
+ark: https://ark-ui.com/docs/guides/composition#the-ark-factory
 ---
 
 import * as TagDocs from '@/components/examples/tag/css-properties';
 
-## Справочник API
+<Example name="tag/basic" />
 
-В Ark UI нет отдельного примитива `tag`. moduix собирает этот компонент с помощью официальной
-[фабрики Ark](https://ark-ui.com/docs/guides/composition#the-ark-factory) и следует рекомендациям Ark по
-[композиции](https://ark-ui.com/docs/guides/composition), [стилизации](https://ark-ui.com/docs/guides/styling) и
-[ссылкам на DOM-элементы](https://ark-ui.com/docs/guides/ref).
+## Установка
+
+<ComponentInstall />
+
+## Использование
+
+Начните с корневого `Tag`
+и `TagLabel`. Добавляйте остальные части, только если метке нужны значок, дополнительное
+содержимое или встроенное действие удаления.
 
 ## Выбор подходящего компонента
 
@@ -20,85 +26,6 @@ import * as TagDocs from '@/components/examples/tag/css-properties';
 
 - Выбирайте **`Badge`** для коротких метаданных: статуса, категории, версии или количества.
 - Выбирайте **`Tag`** для выбранных значений, фильтров, назначений или меток, которые являются частью текущего состояния интерфейса.
-
-## Базовый пример
-
-Начните с корневого `Tag`
-и `TagLabel`. Добавляйте остальные части, только если метке нужны значок, дополнительное
-содержимое или встроенное действие удаления.
-
-<Example name="tag/basic" />
-
-## Установка через shadcn
-
-Полную настройку пакета, реестра и стилей см. в разделе [Быстрый старт](/docs/quick-start).
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/tag' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/tag' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/tag' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/tag' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/tag' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/tag' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Анатомия
-
-Используйте `Tag` как корневой элемент.
-
-```text
-Tag
-├─ TagStartElement (необязательно)
-├─ TagLabel
-└─ TagEndElement (необязательно)
-   └─ TagCloseTrigger (необязательно)
-```
-
-| Часть              | Роль                                                                                     |
-| ------------------ | ---------------------------------------------------------------------------------------- |
-| `Tag`              | Корневой элемент. Задаёт разметку метки, границу, размер, вариант и композицию через `asChild`. |
-| `TagLabel`        | Обёртка видимого значения и граница обрезки.                                             |
-| `TagStartElement` | Необязательная область слева для значка, аватара или индикатора состояния.                |
-| `TagEndElement`   | Необязательная область справа для значка или действия.                                   |
-| `TagCloseTrigger` | Необязательная кнопка для удаления метки.                                                |
-
-## Композиция
-
-`Tag` отвечает только за отображение и не хранит выбранные или удалённые значения. Храните список
-в родительском компоненте, изменяйте его из `TagCloseTrigger` и размещайте этот триггер внутри
-`TagEndElement`.
-
-Используйте `asChild`, только когда корневой элемент или триггер удаления должен заменить элемент
-по умолчанию. Единственный дочерний элемент становится DOM-узлом и должен задавать нужную
-семантику. В частности, `TagCloseTrigger asChild` требует явного элемента управления закрытием.
-
-`TagCloseTrigger` получает имя `Remove tag`, если не передан `aria-label` или `aria-labelledby`,
-в том числе со своими дочерними элементами и с `asChild`. Когда на экране несколько меток,
-передайте имя со значением, например `aria-label="Remove TypeScript tag"`.
 
 ## Примеры
 
@@ -145,6 +72,40 @@ Tag
 поведение, ожидаемое от кнопки или ссылки. Узел `button` или `a` получает курсор-указатель.
 
 <Example name="tag/render-as-button" />
+
+## Композиция
+
+`Tag` отвечает только за отображение и не хранит выбранные или удалённые значения. Храните список
+в родительском компоненте, изменяйте его из `TagCloseTrigger` и размещайте этот триггер внутри
+`TagEndElement`.
+
+Используйте `asChild`, только когда корневой элемент или триггер удаления должен заменить элемент
+по умолчанию. Единственный дочерний элемент становится DOM-узлом и должен задавать нужную
+семантику. В частности, `TagCloseTrigger asChild` требует явного элемента управления закрытием.
+
+`TagCloseTrigger` получает имя `Remove tag`, если не передан `aria-label` или `aria-labelledby`,
+в том числе со своими дочерними элементами и с `asChild`. Когда на экране несколько меток,
+передайте имя со значением, например `aria-label="Remove TypeScript tag"`.
+
+## Анатомия
+
+Используйте `Tag` как корневой элемент.
+
+```text
+Tag
+├─ TagStartElement (необязательно)
+├─ TagLabel
+└─ TagEndElement (необязательно)
+   └─ TagCloseTrigger (необязательно)
+```
+
+| Часть              | Роль                                                                                     |
+| ------------------ | ---------------------------------------------------------------------------------------- |
+| `Tag`              | Корневой элемент. Задаёт разметку метки, границу, размер, вариант и композицию через `asChild`. |
+| `TagLabel`        | Обёртка видимого значения и граница обрезки.                                             |
+| `TagStartElement` | Необязательная область слева для значка, аватара или индикатора состояния.                |
+| `TagEndElement`   | Необязательная область справа для значка или действия.                                   |
+| `TagCloseTrigger` | Необязательная кнопка для удаления метки.                                                |
 
 ## Стилизация
 

@@ -1,11 +1,13 @@
 {
   "languagesText": {
-    "fr": "Langues",
-    "ru": "Языки"
+    "en": "Language",
+    "fr": "Langue",
+    "ru": "Язык"
   },
   "themeText": {
-    "fr": "Thème",
-    "ru": "Тема"
+    "en": "Appearance",
+    "fr": "Apparence",
+    "ru": "Оформление"
   },
   "versionsText": {
     "fr": "Versions",
@@ -24,16 +26,18 @@
     "ru": "автор"
   },
   "prevPageText": {
-    "fr": "Page précédente",
-    "ru": "Предыдущая страница"
+    "en": "Previous",
+    "ru": "Назад",
+    "fr": "Précédent"
   },
   "sourceCodeText": {
     "fr": "Code source",
     "ru": "Исходный код"
   },
   "searchPlaceholderText": {
-    "fr": "Rechercher",
-    "ru": "Поиск"
+    "en": "Search docs…",
+    "fr": "Rechercher…",
+    "ru": "Поиск по документации…"
   },
   "searchPanelCancelText": {
     "fr": "Annuler",
@@ -109,11 +113,6 @@
     "en": "Blocks",
     "ru": "Блоки",
     "fr": "Blocs"
-  },
-  "navGitHub": {
-    "en": "GitHub",
-    "ru": "GitHub",
-    "fr": "GitHub"
   },
   "homeReleaseBadge": {
     "en": "New: Vue and installable blocks",
@@ -450,6 +449,136 @@
     "ru": "Документация Ark UI",
     "fr": "Référence de l’API Ark UI"
   },
+  "categoryForms": {
+    "en": "Forms",
+    "ru": "Формы",
+    "fr": "Formulaires"
+  },
+  "categoryLayout": {
+    "en": "Layout",
+    "ru": "Макет",
+    "fr": "Mise en page"
+  },
+  "categoryNavigation": {
+    "en": "Navigation",
+    "ru": "Навигация",
+    "fr": "Navigation"
+  },
+  "categoryOverlays": {
+    "en": "Overlays",
+    "ru": "Оверлеи",
+    "fr": "Superpositions"
+  },
+  "categoryFeedback": {
+    "en": "Feedback",
+    "ru": "Обратная связь",
+    "fr": "Retours"
+  },
+  "categoryDisplay": {
+    "en": "Display",
+    "ru": "Отображение",
+    "fr": "Affichage"
+  },
+  "categoryActions": {
+    "en": "Actions",
+    "ru": "Действия",
+    "fr": "Actions"
+  },
+  "componentSource": {
+    "en": "Source",
+    "ru": "Исходники",
+    "fr": "Source"
+  },
+  "componentReportIssue": {
+    "en": "Report issue",
+    "ru": "Сообщить о проблеме",
+    "fr": "Signaler un problème"
+  },
+  "installPackage": {
+    "en": "Package",
+    "ru": "Пакет",
+    "fr": "Paquet"
+  },
+  "installSubpathNote": {
+    "en": "Import components from subpaths such as {subpath}.",
+    "ru": "Импортируйте компоненты из подпутей, например {subpath}.",
+    "fr": "Importez les composants depuis des sous-chemins, par exemple {subpath}."
+  },
+  "installRegistryNote": {
+    "en": "The CLI copies the component source and its styles into your project.",
+    "ru": "CLI копирует исходники компонента и его стили в ваш проект.",
+    "fr": "La CLI copie le code source du composant et ses styles dans votre projet."
+  },
+  "installQuickStartNote": {
+    "en": "See {link} for the stylesheet imports and registry setup.",
+    "ru": "Подключение стилей и настройка registry описаны в разделе {link}.",
+    "fr": "Les imports de feuilles de style et la configuration du registry sont décrits dans {link}."
+  },
+  "installQuickStartLabel": {
+    "en": "Quick start",
+    "ru": "Быстрый старт",
+    "fr": "Démarrage rapide"
+  },
+  "notFoundTitle": {
+    "en": "This page is not here",
+    "ru": "Такой страницы нет",
+    "fr": "Cette page n’existe pas"
+  },
+  "notFoundDescription": {
+    "en": "It may have moved when the docs were reorganized. Try search, or start from one of these.",
+    "ru": "Возможно, она переехала, когда мы перестраивали документацию. Воспользуйтесь поиском или начните отсюда.",
+    "fr": "Elle a peut-être été déplacée lors de la réorganisation de la documentation. Utilisez la recherche ou partez de l’une de ces pages."
+  },
+  "notFoundQuickStart": {
+    "en": "Quick start",
+    "ru": "Быстрый старт",
+    "fr": "Démarrage rapide"
+  },
+  "notFoundHome": {
+    "en": "Home",
+    "ru": "Главная",
+    "fr": "Accueil"
+  },
+  "examplePreview": {
+    "en": "Preview",
+    "ru": "Превью",
+    "fr": "Aperçu"
+  },
+  "exampleCode": {
+    "en": "Code",
+    "ru": "Код",
+    "fr": "Code"
+  },
+  "exampleFramework": {
+    "en": "Framework",
+    "ru": "Фреймворк",
+    "fr": "Framework"
+  },
+  "exampleStyling": {
+    "en": "Styling",
+    "ru": "Стили",
+    "fr": "Styles"
+  },
+  "exampleReload": {
+    "en": "Reload preview",
+    "ru": "Перезапустить превью",
+    "fr": "Relancer l’aperçu"
+  },
+  "exampleCopy": {
+    "en": "Copy code",
+    "ru": "Скопировать код",
+    "fr": "Copier le code"
+  },
+  "exampleCopied": {
+    "en": "Copied",
+    "ru": "Скопировано",
+    "fr": "Copié"
+  },
+  "exampleRenderer": {
+    "en": "Preview runs React · CSS Modules",
+    "ru": "Превью работает на React · CSS Modules",
+    "fr": "L’aperçu utilise React · CSS Modules"
+  },
   "showCode": {
     "en": "Show code",
     "ru": "Показать код",
@@ -464,26 +593,6 @@
     "en": "Open",
     "ru": "Открыть",
     "fr": "Ouvrir"
-  },
-  "blockInstallDescription": {
-    "en": "Run one command to add the block source, styles, and required components to your project. Choose the framework and component styling track:",
-    "ru": "Одна команда добавит в проект исходники блока, стили и нужные компоненты. Выберите фреймворк и вариант стилизации компонентов:",
-    "fr": "Une seule commande ajoute le code du bloc, ses styles et les composants nécessaires à votre projet. Choisissez le framework et les styles des composants :"
-  },
-  "blockInstallStyles": {
-    "en": "Both tracks use the same CSS Module for the block layout. Tailwind selects utility-based UI components; it does not convert the block layout into utilities.",
-    "ru": "В обоих вариантах раскладка блока использует общий CSS Module. Вариант Tailwind устанавливает UI-компоненты на utility-классах, но не переводит в них стили самого блока.",
-    "fr": "Les deux variantes utilisent le même CSS Module pour la mise en page du bloc. La variante Tailwind installe des composants UI utilisant les classes utilitaires, sans convertir les styles du bloc."
-  },
-  "blockInstallSetup": {
-    "en": "Complete Quick Start registry setup first. Files are installed under your configured components directory in blocks/<name>. Import the block into your screen; routes and API calls stay in your application.",
-    "ru": "Сначала настройте registry по руководству Quick Start. Файлы появятся в настроенной папке компонентов, в blocks/<name>. Импортируйте блок на свою страницу; маршруты и обращения к API остаются в вашем приложении.",
-    "fr": "Configurez d’abord le registre en suivant le guide de démarrage. Les fichiers sont ajoutés dans blocks/<name>, sous votre dossier de composants configuré. Importez le bloc dans votre page ; les routes et les appels API restent dans votre application."
-  },
-  "blockQuickStart": {
-    "en": "Registry setup",
-    "ru": "Настройка registry",
-    "fr": "Configurer le registre"
   },
   "cssProperty": {
     "en": "Property",
@@ -1145,116 +1254,6 @@
     "ru": "Семантические токены задают общие цвета и размеры. Токены семейства применяются к связанным элементам управления. В CSS Modules также есть переменные для отдельных компонентов.",
     "fr": "Les tokens sémantiques définissent les couleurs et les dimensions communes. Les tokens de famille s’appliquent aux contrôles associés. CSS Modules fournit aussi des variables propres à chaque composant."
   },
-  "chartHeroDate": {
-    "en": "August 20, 2026",
-    "ru": "20 августа 2026 г.",
-    "fr": "20 août 2026"
-  },
-  "changelogNewComponent": {
-    "en": "New component",
-    "ru": "Новый компонент",
-    "fr": "Nouveau composant"
-  },
-  "changelogDocumentationUpdate": {
-    "en": "Documentation update",
-    "ru": "Обновление документации",
-    "fr": "Mise à jour de la documentation"
-  },
-  "changelogMajorRelease": {
-    "en": "Major release",
-    "ru": "Мажорный релиз",
-    "fr": "Version majeure"
-  },
-  "changelogNewFramework": {
-    "en": "New framework",
-    "ru": "Новый фреймворк",
-    "fr": "Nouveau framework"
-  },
-  "changelogNewStylingTrack": {
-    "en": "Tailwind support",
-    "ru": "Поддержка Tailwind",
-    "fr": "Prise en charge de Tailwind"
-  },
-  "solidReleaseHeroDate": {
-    "en": "September 13, 2026",
-    "ru": "13 сентября 2026 г.",
-    "fr": "13 septembre 2026"
-  },
-  "solidReleaseHeroSummary": {
-    "en": "The full moduix catalog is now available for Solid, with CSS Modules and Tailwind packages.",
-    "ru": "Полный каталог moduix теперь доступен для Solid в пакетах CSS Modules и Tailwind.",
-    "fr": "Le catalogue complet de moduix est désormais disponible pour Solid, avec des paquets CSS Modules et Tailwind."
-  },
-  "tailwindReleaseHeroDate": {
-    "en": "September 20, 2026",
-    "ru": "20 сентября 2026 г.",
-    "fr": "20 septembre 2026"
-  },
-  "tailwindReleaseHeroSummary": {
-    "en": "The full moduix catalog is now available with Tailwind CSS for React, Solid, and Vue.",
-    "ru": "Полный каталог moduix теперь доступен с Tailwind CSS для React, Solid и Vue.",
-    "fr": "Le catalogue complet de moduix est désormais disponible avec Tailwind CSS pour React, Solid et Vue."
-  },
-  "chartHeroSummary": {
-    "en": "A figure wrapper for TanStack Charts with accessible defaults from moduix.",
-    "ru": "Оболочка figure для TanStack Charts с настройками доступности от moduix.",
-    "fr": "Une balise figure pour TanStack Charts, avec les réglages d'accessibilité de moduix."
-  },
-  "navigationMenuHeroDate": {
-    "en": "August 25, 2026",
-    "ru": "25 августа 2026 г.",
-    "fr": "25 août 2026"
-  },
-  "navigationMenuHeroSummary": {
-    "en": "A menu for direct links, grouped links, and animated panels.",
-    "ru": "Меню для прямых ссылок, групп ссылок и анимируемых панелей.",
-    "fr": "Un menu pour les liens directs, les groupes de liens et les panneaux animés."
-  },
-  "tableOfContentsHeroDate": {
-    "en": "August 27, 2026",
-    "ru": "27 августа 2026 г.",
-    "fr": "27 août 2026"
-  },
-  "tableOfContentsHeroSummary": {
-    "en": "A table of contents that follows the section currently in view.",
-    "ru": "Оглавление, которое следует за разделом в области просмотра.",
-    "fr": "Un sommaire qui suit la section actuellement visible."
-  },
-  "localizationHeroDate": {
-    "en": "August 10, 2026",
-    "ru": "10 августа 2026 г.",
-    "fr": "10 août 2026"
-  },
-  "localizationHeroLanguages": {
-    "en": "Russian, French",
-    "ru": "Русский, Французский",
-    "fr": "Russe, Français"
-  },
-  "localizationHeroTitle": {
-    "en": "Three languages",
-    "ru": "Три языка",
-    "fr": "Trois langues"
-  },
-  "localizationHeroSummary": {
-    "en": "The documentation is now available in English, Russian, and French.",
-    "ru": "Документация теперь доступна на английском, русском и французском.",
-    "fr": "La documentation est maintenant disponible en anglais, en français et en russe."
-  },
-  "v2MigrationHeroDate": {
-    "en": "July 19, 2026",
-    "ru": "19 июля 2026 г.",
-    "fr": "19 juillet 2026"
-  },
-  "v2MigrationHeroTitle": {
-    "en": "Ark UI support",
-    "ru": "Поддержка Ark UI",
-    "fr": "Prise en charge d'Ark UI"
-  },
-  "v2MigrationHeroSummary": {
-    "en": "Ark UI now handles state and accessibility for components that use its primitives.",
-    "ru": "Ark UI теперь отвечает за состояние и доступность компонентов с соответствующими примитивами.",
-    "fr": "Ark UI gère désormais l'état et l'accessibilité des composants qui utilisent ses primitives."
-  },
   "tokensOverviewSemanticVariables": {
     "en": "Components read semantic variables while themes override the raw palette.",
     "ru": "Компоненты используют семантические переменные, а темы переопределяют исходную палитру.",
@@ -1361,9 +1360,9 @@
     "fr": "Vue est disponible"
   },
   "copyMarkdownText": {
-    "en": "Copy Markdown",
-    "ru": "Скопировать Markdown",
-    "fr": "Copier le Markdown"
+    "en": "Copy page",
+    "ru": "Скопировать страницу",
+    "fr": "Copier la page"
   },
   "copyMarkdownLinkText": {
     "en": "Copy Markdown link",
@@ -1371,9 +1370,9 @@
     "fr": "Copier le lien Markdown"
   },
   "outlineTitle": {
-    "en": "ON THIS PAGE",
-    "ru": "ОГЛАВЛЕНИЕ",
-    "fr": "SUR CETTE PAGE"
+    "en": "On this page",
+    "ru": "На этой странице",
+    "fr": "Sur cette page"
   },
   "editLinkText": {
     "en": "Edit this page",
@@ -1381,19 +1380,14 @@
     "fr": "Modifier cette page"
   },
   "lastUpdatedText": {
-    "en": "Last Updated",
-    "ru": "Последнее обновление",
-    "fr": "Dernière mise à jour"
+    "en": "Last updated",
+    "ru": "Обновлено",
+    "fr": "Mis à jour le"
   },
   "nextPageText": {
-    "en": "Next page",
-    "ru": "Следующая страница",
-    "fr": "Page suivante"
-  },
-  "vueReleaseHeroSummary": {
-    "en": "Native Vue components, CSS Modules and Tailwind, with SFC examples, form integrations, and installable blocks.",
-    "ru": "Нативные Vue-компоненты, CSS Modules и Tailwind, SFC-примеры, интеграции форм и устанавливаемые блоки.",
-    "fr": "Composants Vue natifs, CSS Modules et Tailwind, exemples SFC, intégrations de formulaires et blocs à installer."
+    "en": "Next",
+    "ru": "Далее",
+    "fr": "Suivant"
   },
   "seoHomeTitle": {
     "en": "moduix - Accessible UI components for React, Solid, and Vue",
@@ -1404,5 +1398,40 @@
     "en": "{name} component for React, Solid, and Vue | moduix",
     "ru": "{name}: компонент для React, Solid и Vue | moduix",
     "fr": "Composant {name} pour React, Solid et Vue | moduix"
+  },
+  "presetMenuLabel": {
+    "en": "Theme preset",
+    "ru": "Пресет темы",
+    "fr": "Préréglage de thème"
+  },
+  "presetMenuCalmHint": {
+    "en": "Default · neutral",
+    "ru": "По умолчанию, нейтральный",
+    "fr": "Par défaut, neutre"
+  },
+  "presetMenuDenseHint": {
+    "en": "Compact, for admin and tables",
+    "ru": "Компактный, для админок и таблиц",
+    "fr": "Compact, pour l’admin et les tableaux"
+  },
+  "presetMenuSoftHint": {
+    "en": "Larger and rounder",
+    "ru": "Крупнее и круглее",
+    "fr": "Plus grand et plus arrondi"
+  },
+  "presetMenuContrastHint": {
+    "en": "Strong borders and focus",
+    "ru": "Чёткие границы и фокус",
+    "fr": "Bordures et focus marqués"
+  },
+  "presetMenuCustomize": {
+    "en": "Customize or create a theme",
+    "ru": "Настроить или создать тему",
+    "fr": "Personnaliser ou créer un thème"
+  },
+  "blockInstallNote": {
+    "en": "Adds {components} for the framework and styling picked in the preview, plus the block stylesheet.",
+    "ru": "Добавляет {components} для фреймворка и стилей, выбранных в превью, а также стили блока.",
+    "fr": "Ajoute {components} pour le framework et les styles choisis dans l’aperçu, ainsi que la feuille de style du bloc."
   }
 }

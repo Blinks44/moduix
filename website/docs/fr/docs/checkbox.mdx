@@ -2,110 +2,28 @@
 title: Checkbox
 component: checkbox
 description: Un composant de case à cocher pour les options individuelles et les groupes à sélection multiple.
+ark: https://ark-ui.com/docs/components/checkbox
 ---
 
 import * as CheckboxDocs from '@/components/examples/checkbox/css-properties';
 
-## Référence de l’API
+<Example name="checkbox/basic" />
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/checkbox" />
+## Installation
+
+<ComponentInstall />
+
+## Utilisation
+
+Composez une case à cocher avec les parties Ark. Laissez `CheckboxControl` vide pour utiliser les
+icônes intégrées de moduix pour les états coché et indéterminé. Ajoutez `CheckboxLabel` pour le
+libellé visible et `CheckboxHiddenInput` pour l’interaction et le formulaire natifs.
 
 ## Choisir le bon composant
 
 Utilisez `Checkbox` lorsque l’utilisateur peut sélectionner une ou plusieurs options indépendantes
 dans un formulaire, un panneau de réglages ou une liste de filtres. Utilisez `RadioGroup` lorsqu’un
 seul choix est possible, et `Switch` lorsqu’un réglage doit s’appliquer immédiatement.
-
-## Exemple de base
-
-
-Composez une case à cocher avec les parties Ark. Laissez `CheckboxControl` vide pour utiliser les
-icônes intégrées de moduix pour les états coché et indéterminé. Ajoutez `CheckboxLabel` pour le
-libellé visible et `CheckboxHiddenInput` pour l’interaction et le formulaire natifs.
-
-<Example name="checkbox/basic" />
-
-## Installation avec shadcn
-
-Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration complète du paquet, du registre et des styles.
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/checkbox' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/checkbox' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/checkbox' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/checkbox' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/checkbox' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/checkbox' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Anatomie
-
-```text
-Checkbox
-├─ CheckboxControl
-│  ├─ CheckboxIndicator
-│  └─ CheckboxIndicator[indeterminate] (facultatif)
-├─ CheckboxLabel
-└─ CheckboxHiddenInput (explicite)
-
-CheckboxRootProvider
-└─ même arbre de parties relié à l’état fourni par useCheckbox()
-
-CheckboxGroup
-└─ Checkbox[value]
-   ├─ CheckboxControl
-   ├─ CheckboxLabel
-   └─ CheckboxHiddenInput
-```
-
-| Partie                        | Rôle                                                                                       |
-| ----------------------------- | ------------------------------------------------------------------------------------------ |
-| `Checkbox`                    | Gère l’état d’une case à cocher et rend le `label` qui l’enveloppe.                        |
-| `CheckboxHiddenInput`         | Champ natif d’Ark ; ajoutez-le explicitement dans la racine.                               |
-| `CheckboxRootProvider`        | Relie les parties à un état Ark créé en dehors de l’arbre rendu.                           |
-| `CheckboxControl`             | Partie visible ; vide, elle affiche les icônes d’état intégrées.                           |
-| `CheckboxIndicator`           | Emplacement facultatif pour une icône personnalisée. Passez `indeterminate` pour cet état. |
-| `CheckboxLabel`               | Libellé visible de la case à cocher.                                                       |
-| `CheckboxGroup`               | Gère les valeurs sélectionnées de plusieurs cases à cocher.                                |
-
-## Composition
-
-`CheckboxHiddenInput` est le champ natif d’Ark. Ajoutez-le explicitement dans `Checkbox` ou
-`CheckboxRootProvider`, même en dehors d’un formulaire : il assure le focus natif, les interactions
-au clavier, l’accessibilité et la participation au formulaire. Pour une case seule, définissez
-`name` et `value` sur la racine ; pour un groupe, définissez `name` sur `CheckboxGroup` et `value`
-sur chaque `Checkbox`.
-
-`CheckboxGroup` gère un tableau de valeurs sélectionnées, et chaque enfant est un `Checkbox`
-avec son propre `value`. Laissez `CheckboxControl` vide pour utiliser les icônes intégrées de
-moduix. Ajoutez `CheckboxIndicator` dans `CheckboxControl` uniquement pour une icône personnalisée.
-
-Lorsque l’état doit être créé en dehors de l’arbre rendu, créez-le avec `useCheckbox()` et transmettez
-le store à `CheckboxRootProvider`. Ne rendez pas `Checkbox` ou `CheckboxRootProvider` pour ce même store.
 
 ## Exemples
 
@@ -221,6 +139,51 @@ case à cocher dans `FormData`.
 
 <Example name="checkbox/with-form" />
 
+## Composition
+
+`CheckboxHiddenInput` est le champ natif d’Ark. Ajoutez-le explicitement dans `Checkbox` ou
+`CheckboxRootProvider`, même en dehors d’un formulaire : il assure le focus natif, les interactions
+au clavier, l’accessibilité et la participation au formulaire. Pour une case seule, définissez
+`name` et `value` sur la racine ; pour un groupe, définissez `name` sur `CheckboxGroup` et `value`
+sur chaque `Checkbox`.
+
+`CheckboxGroup` gère un tableau de valeurs sélectionnées, et chaque enfant est un `Checkbox`
+avec son propre `value`. Laissez `CheckboxControl` vide pour utiliser les icônes intégrées de
+moduix. Ajoutez `CheckboxIndicator` dans `CheckboxControl` uniquement pour une icône personnalisée.
+
+Lorsque l’état doit être créé en dehors de l’arbre rendu, créez-le avec `useCheckbox()` et transmettez
+le store à `CheckboxRootProvider`. Ne rendez pas `Checkbox` ou `CheckboxRootProvider` pour ce même store.
+
+## Anatomie
+
+```text
+Checkbox
+├─ CheckboxControl
+│  ├─ CheckboxIndicator
+│  └─ CheckboxIndicator[indeterminate] (facultatif)
+├─ CheckboxLabel
+└─ CheckboxHiddenInput (explicite)
+
+CheckboxRootProvider
+└─ même arbre de parties relié à l’état fourni par useCheckbox()
+
+CheckboxGroup
+└─ Checkbox[value]
+   ├─ CheckboxControl
+   ├─ CheckboxLabel
+   └─ CheckboxHiddenInput
+```
+
+| Partie                        | Rôle                                                                                       |
+| ----------------------------- | ------------------------------------------------------------------------------------------ |
+| `Checkbox`                    | Gère l’état d’une case à cocher et rend le `label` qui l’enveloppe.                        |
+| `CheckboxHiddenInput`         | Champ natif d’Ark ; ajoutez-le explicitement dans la racine.                               |
+| `CheckboxRootProvider`        | Relie les parties à un état Ark créé en dehors de l’arbre rendu.                           |
+| `CheckboxControl`             | Partie visible ; vide, elle affiche les icônes d’état intégrées.                           |
+| `CheckboxIndicator`           | Emplacement facultatif pour une icône personnalisée. Passez `indeterminate` pour cet état. |
+| `CheckboxLabel`               | Libellé visible de la case à cocher.                                                       |
+| `CheckboxGroup`               | Gère les valeurs sélectionnées de plusieurs cases à cocher.                                |
+
 ## Styles
 
 Utilisez `className` dans React ou `class` dans Solid et Vue sur les parties exportées pour les styles
@@ -230,7 +193,7 @@ utilisent les utilitaires natifs et les classes du consommateur ; les variables 
 les variantes CSS Modules. Les attributs de données et les hooks `data-slot` sont communs aux deux
 approches de style.
 
-### Propriétés CSS
+### Variables CSS
 
 <CssPropertiesSection properties={CheckboxDocs.checkboxOverrideCssProperties} />
 

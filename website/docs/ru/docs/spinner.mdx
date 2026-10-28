@@ -2,18 +2,18 @@
 title: Spinner
 component: spinner
 description: Компактный индикатор загрузки, который сообщает ассистивным технологиям о состоянии загрузки и поддерживает несколько размеров и собственное содержимое.
+ark: https://ark-ui.com/docs/guides/composition
 ---
 
 import * as SpinnerDocs from '@/components/examples/spinner/css-properties';
 
-## Справочник API
+<Example name="spinner/basic" />
 
-В Ark UI нет отдельного компонента Spinner. moduix строит `Spinner` с помощью фабрики `ark.span` из Ark UI
-и предоставляет небольшой API вокруг одного корневого элемента. Компонент следует рекомендациям Ark по
-[композиции](https://ark-ui.com/docs/guides/composition), [стилизации](https://ark-ui.com/docs/guides/styling) и
-[передаче ref](https://ark-ui.com/docs/guides/ref).
+## Установка
 
-## Базовый пример
+<ComponentInstall />
+
+## Использование
 
 Используйте `Spinner` для кратковременных состояний загрузки в кнопках, строках статуса и небольших блоках,
 где контент ещё не появился. По умолчанию компонент сообщает ассистивным технологиям о загрузке: у корневого
@@ -26,77 +26,6 @@ import * as SpinnerDocs from '@/components/examples/spinner/css-properties';
 
 Задайте `decorative`, когда видимый текст уже описывает загрузку: корень получает `aria-hidden="true"`, без
 `role` и запасного имени.
-
-
-<Example name="spinner/basic" />
-
-## Установка через shadcn
-
-Полную настройку пакета, реестра и стилей см. в разделе [Быстрый старт](/docs/quick-start).
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/spinner' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/spinner' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/spinner' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/spinner' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/spinner' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/spinner' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Анатомия
-
-У `Spinner` есть только один публичный корневой элемент. В обычном режиме moduix сам добавляет внутреннюю
-обёртку индикатора и стандартное кольцо. Это DOM-узлы и точки привязки для CSS, а не отдельно экспортируемые компоненты.
-Собственное содержимое через `children` заменяет кольцо, а `asChild` заменяет корневой элемент и оставляет
-разметку индикатора на дочернем элементе.
-
-```text
-Spinner
-└─ root[data-scope="spinner"][data-part="root"][data-slot="spinner-root"][data-size]
-   └─ indicator[data-scope="spinner"][data-part="indicator"][data-slot="spinner-indicator"]
-      └─ ring[data-scope="spinner"][data-part="ring"][data-slot="spinner-ring"] (только по умолчанию)
-```
-
-| Часть               | Назначение                                                                                  |
-| ------------------- | ------------------------------------------------------------------------------------------- |
-| `Spinner`                   | Публичный корневой элемент. Принимает `size`, `decorative`, `asChild`, `children` и нативные свойства `span`. |
-| indicator                   | Внутренняя вращающаяся обёртка, которая отвечает за размер и анимацию индикатора.               |
-| ring                        | Внутреннее стандартное кольцо. Не создаётся, если передано собственное `children`.             |
-
-## Композиция
-
-`Spinner` только отображает состояние загрузки, которым владеет приложение: компонент не запускает,
-не останавливает и не изменяет представленную операцию. Отрисовывайте его на основе состояния, где
-уже хранится информация об этой операции.
-
-Передайте собственное `children`, чтобы заменить стандартное кольцо и сохранить обычный корень,
-размер и вращающуюся обёртку индикатора. Используйте `asChild`, только если другой компонент должен
-владеть корневым элементом: в этом режиме встроенные индикатор и кольцо не создаются, поэтому ровно
-один неинтерактивный дочерний элемент должен содержать разметку визуального индикатора.
 
 ## Примеры
 
@@ -133,6 +62,42 @@ Spinner
 
 <Example name="spinner/as-child" />
 
+## Композиция
+
+В Ark UI нет отдельного компонента Spinner. moduix строит `Spinner` с помощью фабрики `ark.span` из Ark UI
+и предоставляет небольшой API вокруг одного корневого элемента. Компонент следует рекомендациям Ark по
+[композиции](https://ark-ui.com/docs/guides/composition), [стилизации](https://ark-ui.com/docs/guides/styling) и
+[передаче ref](https://ark-ui.com/docs/guides/ref).
+
+`Spinner` только отображает состояние загрузки, которым владеет приложение: компонент не запускает,
+не останавливает и не изменяет представленную операцию. Отрисовывайте его на основе состояния, где
+уже хранится информация об этой операции.
+
+Передайте собственное `children`, чтобы заменить стандартное кольцо и сохранить обычный корень,
+размер и вращающуюся обёртку индикатора. Используйте `asChild`, только если другой компонент должен
+владеть корневым элементом: в этом режиме встроенные индикатор и кольцо не создаются, поэтому ровно
+один неинтерактивный дочерний элемент должен содержать разметку визуального индикатора.
+
+## Анатомия
+
+У `Spinner` есть только один публичный корневой элемент. В обычном режиме moduix сам добавляет внутреннюю
+обёртку индикатора и стандартное кольцо. Это DOM-узлы и точки привязки для CSS, а не отдельно экспортируемые компоненты.
+Собственное содержимое через `children` заменяет кольцо, а `asChild` заменяет корневой элемент и оставляет
+разметку индикатора на дочернем элементе.
+
+```text
+Spinner
+└─ root[data-scope="spinner"][data-part="root"][data-slot="spinner-root"][data-size]
+   └─ indicator[data-scope="spinner"][data-part="indicator"][data-slot="spinner-indicator"]
+      └─ ring[data-scope="spinner"][data-part="ring"][data-slot="spinner-ring"] (только по умолчанию)
+```
+
+| Часть               | Назначение                                                                                  |
+| ------------------- | ------------------------------------------------------------------------------------------- |
+| `Spinner`                   | Публичный корневой элемент. Принимает `size`, `decorative`, `asChild`, `children` и нативные свойства `span`. |
+| indicator                   | Внутренняя вращающаяся обёртка, которая отвечает за размер и анимацию индикатора.               |
+| ring                        | Внутреннее стандартное кольцо. Не создаётся, если передано собственное `children`.             |
+
 ## Стилизация
 
 Стилизуйте `Spinner` с помощью `className` в React, `class` в Solid и Vue, селекторов Ark `data-scope` / `data-part`,
@@ -140,7 +105,7 @@ Spinner
 Эти переменные доступны в пакетах CSS Modules; пакеты Tailwind используют классы-утилиты и пользовательские классы,
 а не дублируют слой переменных CSS Modules.
 
-### CSS-свойства
+### CSS-переменные
 
 <CssPropertiesSection properties={SpinnerDocs.spinnerOverrideCssProperties} />
 

@@ -2,21 +2,16 @@
 title: Hover Card
 component: hover-card
 description: Компонент Hover Card на базе Ark UI для дополнительных предпросмотров, открывающихся при наведении или получении фокуса.
+ark: https://ark-ui.com/docs/components/hover-card
 ---
 
+<Example name="hover-card/basic" />
 
-## Справочник API
+## Установка
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/hover-card" />
+<ComponentInstall />
 
-## Выбор подходящего компонента
-
-Используйте `Tooltip` для коротких неинтерактивных подсказок. Выбирайте `Popover`, если во
-всплывающем окне нужны более подробные сведения или действия. Используйте `HoverCard`, когда
-триггер должен показывать дополнительный предпросмотр, например профиля или статьи.
-
-## Базовый пример
-
+## Использование
 
 Соберите карточку из явных частей Ark. `HoverCardTrigger` открывает карточку, а
 `HoverCardPositioner` и `HoverCardContent` задают её всплывающее содержимое. В базовой
@@ -24,90 +19,11 @@ description: Компонент Hover Card на базе Ark UI для допо�
 превысить доступную высоту: оно будет прокручиваться, а `HoverCardContent` останется
 необрезанным для дополнительной стрелки.
 
-<Example name="hover-card/basic" />
+## Выбор подходящего компонента
 
-## Установка через shadcn
-
-Полную настройку пакета, реестра и стилей см. в разделе [Быстрый старт](/docs/quick-start).
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/hover-card' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/hover-card' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/hover-card' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/hover-card' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/hover-card' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/hover-card' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Анатомия
-
-```text
-HoverCard
-├─ HoverCardTrigger
-└─ Всплывающий слой (автоматически выводится через портал)
-   └─ HoverCardPositioner
-      └─ HoverCardContent
-         ├─ HoverCardArrow
-         │  └─ HoverCardArrowTip
-         └─ HoverCardBody
-            └─ содержимое
-
-HoverCardRootProvider
-└─ то же дерево частей, связанное с состоянием moduix useHoverCard()
-```
-
-| Часть                          | Назначение                                                                    |
-| ------------------------------ | ----------------------------------------------------------------------------- |
-| `HoverCard`                 | Управляет состоянием, жизненным циклом, задержками, позиционированием, идентификаторами и взаимодействием за пределами карточки. |
-| `HoverCardRootProvider`       | Подключает части к состоянию, созданному через `useHoverCard()`.              |
-| `HoverCardContext`            | Передаёт потомкам текущее состояние через render prop.                       |
-| `HoverCardTrigger`            | Интерактивный элемент, открывающий карточку при наведении или фокусе. Используйте `asChild`, чтобы передать роль триггера ссылке или другому семантическому элементу. |
-| `HoverCardPositioner`         | Позиционирует всплывающий слой и предоставляет CSS-переменные Ark.           |
-| `HoverCardContent`            | Видимая область карточки, которая закрывается при взаимодействии за её пределами. |
-| `HoverCardArrow`              | Необязательная обёртка позиционируемой стрелки, по умолчанию выводящая `HoverCardArrowTip`. |
-| `HoverCardArrowTip`           | Наконечник стрелки, оформляемый с помощью переменных Ark.                     |
-| `HoverCardBody`               | Необязательная прокручиваемая область содержимого для ограниченных предпросмотров. |
-
-`HoverCard` - единственное публичное имя корневого компонента. Используйте его вместе с частями
-с префиксом семейства в коде приложения.
-
-## Композиция
-
-`HoverCard` управляет состоянием и по умолчанию выводит `HoverCardPositioner` через портал.
-Передайте `portalled={false}` внутри другого слоя или укажите `portalRef` для собственного
-контейнера. Используйте `HoverCardRootProvider` с `useHoverCard()`, если состояние должно жить
-за пределами дерева карточки: React читает его как объект, Solid через accessor, а Vue напрямую
-предоставляет реактивное состояние шаблону.
-
-Оставляйте `HoverCardArrow` внутри `HoverCardContent`, а длинный предпросмотр помещайте в
-`HoverCardBody`: `Content` сохраняет видимость стрелки, а `Body` становится областью прокрутки.
-Используйте `asChild` с одним фокусируемым потомком, если триггером должна быть ссылка или другой
-семантический элемент. Если несколько триггеров используют одно содержимое, задайте каждому
-`value` и обновляйте внешнее содержимое через `onTriggerValueChange(details)`.
+Используйте `Tooltip` для коротких неинтерактивных подсказок. Выбирайте `Popover`, если во
+всплывающем окне нужны более подробные сведения или действия. Используйте `HoverCard`, когда
+триггер должен показывать дополнительный предпросмотр, например профиля или статьи.
 
 ## Примеры
 
@@ -175,6 +91,52 @@ HoverCardRootProvider
 
 <Example name="hover-card/with-arrow" />
 
+## Композиция
+
+`HoverCard` управляет состоянием и по умолчанию выводит `HoverCardPositioner` через портал.
+Передайте `portalled={false}` внутри другого слоя или укажите `portalRef` для собственного
+контейнера. Используйте `HoverCardRootProvider` с `useHoverCard()`, если состояние должно жить
+за пределами дерева карточки: React читает его как объект, Solid через accessor, а Vue напрямую
+предоставляет реактивное состояние шаблону.
+
+Оставляйте `HoverCardArrow` внутри `HoverCardContent`, а длинный предпросмотр помещайте в
+`HoverCardBody`: `Content` сохраняет видимость стрелки, а `Body` становится областью прокрутки.
+Используйте `asChild` с одним фокусируемым потомком, если триггером должна быть ссылка или другой
+семантический элемент. Если несколько триггеров используют одно содержимое, задайте каждому
+`value` и обновляйте внешнее содержимое через `onTriggerValueChange(details)`.
+
+## Анатомия
+
+```text
+HoverCard
+├─ HoverCardTrigger
+└─ Всплывающий слой (автоматически выводится через портал)
+   └─ HoverCardPositioner
+      └─ HoverCardContent
+         ├─ HoverCardArrow
+         │  └─ HoverCardArrowTip
+         └─ HoverCardBody
+            └─ содержимое
+
+HoverCardRootProvider
+└─ то же дерево частей, связанное с состоянием moduix useHoverCard()
+```
+
+| Часть                          | Назначение                                                                    |
+| ------------------------------ | ----------------------------------------------------------------------------- |
+| `HoverCard`                 | Управляет состоянием, жизненным циклом, задержками, позиционированием, идентификаторами и взаимодействием за пределами карточки. |
+| `HoverCardRootProvider`       | Подключает части к состоянию, созданному через `useHoverCard()`.              |
+| `HoverCardContext`            | Передаёт потомкам текущее состояние через render prop.                       |
+| `HoverCardTrigger`            | Интерактивный элемент, открывающий карточку при наведении или фокусе. Используйте `asChild`, чтобы передать роль триггера ссылке или другому семантическому элементу. |
+| `HoverCardPositioner`         | Позиционирует всплывающий слой и предоставляет CSS-переменные Ark.           |
+| `HoverCardContent`            | Видимая область карточки, которая закрывается при взаимодействии за её пределами. |
+| `HoverCardArrow`              | Необязательная обёртка позиционируемой стрелки, по умолчанию выводящая `HoverCardArrowTip`. |
+| `HoverCardArrowTip`           | Наконечник стрелки, оформляемый с помощью переменных Ark.                     |
+| `HoverCardBody`               | Необязательная прокручиваемая область содержимого для ограниченных предпросмотров. |
+
+`HoverCard` - единственное публичное имя корневого компонента. Используйте его вместе с частями
+с префиксом семейства в коде приложения.
+
 ## Стилизация
 
 `HoverCardTrigger` без `asChild` выглядит как встроенная ссылка основного цвета; подчёркивание
@@ -187,7 +149,7 @@ HoverCardRootProvider
 foundation и не имеют переменных компонента: класс на части переопределяет стили компонента из слоя.
 Атрибуты состояния и хуки `data-slot` общие для обоих вариантов стилизации.
 
-### Точки для стилизации
+### Хуки стилизации
 
 Moduix добавляет атрибуты `data-slot="hover-card-*"` к триггеру, позиционеру, содержимому, стрелке,
 наконечнику стрелки и области содержимого. `HoverCard` и `HoverCardRootProvider` только

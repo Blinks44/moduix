@@ -2,26 +2,21 @@
 title: Alert
 component: alert
 description: Встроенные сообщения о статусе, результатах проверки и системной обратной связи.
+ark: https://ark-ui.com/docs/guides/composition#the-ark-factory
 ---
 
 import * as AlertDocs from '@/components/examples/alert/css-properties';
 
-## Справочник API
+<Example name="alert/basic" />
 
-В Ark UI нет отдельного примитива `alert`. moduix собирает `Alert` с помощью официальной
-[фабрики Ark](https://ark-ui.com/docs/guides/composition#the-ark-factory), следуя рекомендациям Ark по
-[композиции](https://ark-ui.com/docs/guides/composition), [стилизации](https://ark-ui.com/docs/guides/styling) и
-[работе с ref](https://ark-ui.com/docs/guides/ref).
+## Установка
 
-Импортируйте `Alert` из `@moduix/react/alert`, `@moduix/solid/alert` или `@moduix/vue/alert`.
-Корневой компонент называется `Alert`. Остальные публичные части: `AlertIndicator`, `AlertContent`,
-`AlertTitle`, `AlertDescription` и `AlertActions`.
+<ComponentInstall />
 
-Каждая часть принимает стандартные свойства своего HTML-элемента, включая `className`/`class` и
-`asChild`, а переданный ref указывает на отрисованный элемент. По умолчанию `status` равен `info` и
-влияет только на визуальное оформление. Добавьте `role="status"` или `role="alert"`, если сообщение,
-которое добавляется или обновляется динамически, должно стать live-областью. `AlertIndicator` скрыт
-от вспомогательных технологий, поэтому основной смысл сообщения должен быть в заголовке или описании.
+## Использование
+
+Для обычного встроенного сообщения поместите `AlertTitle` и `AlertDescription` внутрь
+`AlertContent`. Добавьте `AlertIndicator`, если значок помогает быстрее понять тип сообщения.
 
 ## Выбор подходящего компонента
 
@@ -30,88 +25,6 @@ import * as AlertDocs from '@/components/examples/alert/css-properties';
 
 - Используйте **`Alert`** для встроенных обновлений статуса, результатов проверки и системной обратной связи в формах, панелях или содержимом страницы.
 - Используйте **`Toast`** для временных уведомлений, которые отображаются поверх страницы, не занимают место в потоке документа и закрываются автоматически.
-
-## Базовый пример
-
-
-Для обычного встроенного сообщения поместите `AlertTitle` и `AlertDescription` внутрь
-`AlertContent`. Добавьте `AlertIndicator`, если значок помогает быстрее понять тип сообщения.
-
-<Example name="alert/basic" />
-
-## Установка через shadcn
-
-Полную настройку пакета, реестра и стилей см. в разделе [Быстрый старт](/docs/quick-start).
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/alert' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/alert' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/alert' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/alert' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/alert' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/alert' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Анатомия
-
-Поместите содержимое сообщения в `AlertContent`. `AlertIndicator` необязателен и располагается
-рядом с этим содержимым, когда помогает быстрее понять тип сообщения.
-
-```text
-Alert
-├─ AlertIndicator (optional)
-└─ AlertContent
-   ├─ AlertTitle
-   ├─ AlertDescription
-   ├─ AlertActions (optional)
-   └─ Extra custom blocks
-```
-
-| Часть              | Назначение                                                               | `data-part`   |
-| ------------------ | ------------------------------------------------------------------------ | ------------- |
-| `Alert`            | Корневой элемент. Применяет стили статуса.                                 | `root`        |
-| `AlertIndicator`   | Необязательный визуальный ориентир. Вложенные SVG-иконки получают единый размер. | `indicator`   |
-| `AlertContent`     | Обязательная колонка для содержимого сообщения и действий.                | `content`     |
-| `AlertTitle`       | Заголовок сообщения. По умолчанию рендерится как `p`.                     | `title`       |
-| `AlertDescription` | Дополнительный текст сообщения.                                           | `description` |
-| `AlertActions`     | Необязательная строка действий с переносом внутри `Content`.              | `actions`     |
-
-## Композиция
-
-`Alert` отвечает только за отображение: компонент, который его рендерит, владеет состоянием видимости
-и закрытия. `Alert` не управляет фокусом и поведением клавиатуры для кнопок и ссылок, которые вы в него
-помещаете. `AlertContent` обязателен: он содержит заголовок, описание, элементы управления и другое
-содержимое сообщения. Для стандартной строки действий с переносом поместите элементы управления в
-`AlertActions`.
-
-Если заголовку нужен другой семантический элемент, используйте `AlertTitle asChild` и передайте ровно
-один семантически подходящий дочерний элемент. В Solid для `asChild` используется функция рендера - она
-показана в примере «Другой уровень заголовка». Во Vue используется атрибут `as-child` с одним дочерним
-элементом.
 
 ## Примеры
 
@@ -152,6 +65,53 @@ Alert
 
 <Example name="alert/custom-composition" />
 
+## Композиция
+
+Импортируйте `Alert` из `@moduix/react/alert`, `@moduix/solid/alert` или `@moduix/vue/alert`.
+Корневой компонент называется `Alert`. Остальные публичные части: `AlertIndicator`, `AlertContent`,
+`AlertTitle`, `AlertDescription` и `AlertActions`.
+
+Каждая часть принимает стандартные свойства своего HTML-элемента, включая `className`/`class` и
+`asChild`, а переданный ref указывает на отрисованный элемент. По умолчанию `status` равен `info` и
+влияет только на визуальное оформление. Добавьте `role="status"` или `role="alert"`, если сообщение,
+которое добавляется или обновляется динамически, должно стать live-областью. `AlertIndicator` скрыт
+от вспомогательных технологий, поэтому основной смысл сообщения должен быть в заголовке или описании.
+
+`Alert` отвечает только за отображение: компонент, который его рендерит, владеет состоянием видимости
+и закрытия. `Alert` не управляет фокусом и поведением клавиатуры для кнопок и ссылок, которые вы в него
+помещаете. `AlertContent` обязателен: он содержит заголовок, описание, элементы управления и другое
+содержимое сообщения. Для стандартной строки действий с переносом поместите элементы управления в
+`AlertActions`.
+
+Если заголовку нужен другой семантический элемент, используйте `AlertTitle asChild` и передайте ровно
+один семантически подходящий дочерний элемент. В Solid для `asChild` используется функция рендера - она
+показана в примере «Другой уровень заголовка». Во Vue используется атрибут `as-child` с одним дочерним
+элементом.
+
+## Анатомия
+
+Поместите содержимое сообщения в `AlertContent`. `AlertIndicator` необязателен и располагается
+рядом с этим содержимым, когда помогает быстрее понять тип сообщения.
+
+```text
+Alert
+├─ AlertIndicator (optional)
+└─ AlertContent
+   ├─ AlertTitle
+   ├─ AlertDescription
+   ├─ AlertActions (optional)
+   └─ Extra custom blocks
+```
+
+| Часть              | Назначение                                                               | `data-part`   |
+| ------------------ | ------------------------------------------------------------------------ | ------------- |
+| `Alert`            | Корневой элемент. Применяет стили статуса.                                 | `root`        |
+| `AlertIndicator`   | Необязательный визуальный ориентир. Вложенные SVG-иконки получают единый размер. | `indicator`   |
+| `AlertContent`     | Обязательная колонка для содержимого сообщения и действий.                | `content`     |
+| `AlertTitle`       | Заголовок сообщения. По умолчанию рендерится как `p`.                     | `title`       |
+| `AlertDescription` | Дополнительный текст сообщения.                                           | `description` |
+| `AlertActions`     | Необязательная строка действий с переносом внутри `Content`.              | `actions`     |
+
 ## Стилизация
 
 Используйте `className` или `class` на корневой части и её частях для локальных стилей. Варианты на
@@ -172,11 +132,11 @@ Tailwind настраиваются обычными утилитами и по�
 | `warning` | `--moduix-color-warning`     | `oklch(0.795 0.184 86.047)`  |
 | `error`   | `--moduix-color-destructive` | деструктивный цвет темы      |
 
-### Свойства CSS
+### CSS-переменные
 
 <CssPropertiesSection properties={AlertDocs.alertCssProperties} />
 
-### Селекторы для стилизации
+### Хуки стилизации
 
 - Стабильные селекторы `data-slot`: `alert-root`, `alert-indicator`, `alert-content`, `alert-title`, `alert-description` и `alert-actions`
 - Селекторы в стиле Ark: `data-scope="alert"` с `data-part="root"`, `indicator`, `content`, `title`, `description` или `actions`

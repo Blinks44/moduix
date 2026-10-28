@@ -1,84 +1,33 @@
 ---
 title: Button
 component: button
-description: Un bouton stylisé pour React, Solid et Vue, avec des variantes CSS Modules et Tailwind.
+description: Déclenchez une action ou ouvrez un lien avec un bouton accessible.
+ark: https://ark-ui.com/docs/guides/composition
 ---
 
 import * as ButtonDocs from '@/components/examples/button/css-properties';
 
-
-## Référence de l’API
-
-Ark UI ne fournit pas de primitive `button` dédiée. moduix construit ce composant à partir de l’outil officiel
-[Ark factory](https://ark-ui.com/docs/guides/composition#the-ark-factory) et suit les recommandations d’Ark pour la
-[composition](https://ark-ui.com/docs/guides/composition), le [style](https://ark-ui.com/docs/guides/styling) et la
-[gestion des refs](https://ark-ui.com/docs/guides/ref).
-
-
-Les mêmes exports sont disponibles depuis `@moduix/solid/button` pour Solid et `@moduix/vue/button` pour Vue.
-## Exemple de base
-
-Pour la plupart des actions, utilisez `<Button>...</Button>`.
-
-
 <Example name="button/basic" />
 
-## Installation avec shadcn
+## Installation
 
-Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration complète du paquet, du registre et des styles.
+<ComponentInstall />
 
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
+## Utilisation
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/button' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/button' },
+<UsageCode
+  react={'<Button variant="outline" size="sm" loading={saving}>\n  Save changes\n</Button>'}
+  vue={'<Button variant="outline" size="sm" :loading="saving">\n  Save changes\n</Button>'}
+/>
+
+<PropChips
+  items={[
+    ['variant', 'default · outline · secondary · destructive · destructive-outline · ghost · link'],
+    ['size', 'xs · sm · md · lg · xl · icon-sm · icon-md · icon-lg'],
+    ['loading', 'Définit aria-busy et bloque l’activation ; ajoutez votre propre Spinner.'],
   ]}
 />
 
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/button' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/button' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/button' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/button' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Anatomie
-
-`Button` ne comporte qu’une seule partie.
-
-```text
-Button
-└─ root[data-scope="button"][data-part="root"][data-slot="button-root"]
-   └─ children
-```
-
-| Partie   | Rôle                                             |
-| -------- | ------------------------------------------------ |
-| `Button` | Élément interactif racine avec les styles moduix. |
-
-## Composition
-
-`Button` est une racine à partie unique. Utilisez `asChild` lorsqu’un autre élément sémantique doit porter le nœud DOM rendu : React reçoit exactement un enfant, Solid utilise une fonction de rendu avec `asChild` et Vue fournit l’élément sémantique comme contenu du slot par défaut. Lorsqu’une partie Ark compose Button, le parent reste propriétaire de `data-scope` et `data-part` ; Button conserve ses classes de recette et son `data-slot` stable.
-
-La propriété `loading` ne gère que l’état occupé et désactivé (`data-loading`, `aria-busy` et `data-disabled`) ; l’application reste responsable de l’indicateur de chargement, du libellé et du cycle asynchrone. Les racines natives utilisent `type="button"` par défaut, mais les cibles `asChild` ne reçoivent pas cette valeur par défaut.
 ## Exemples
 
 ### État désactivé
@@ -110,7 +59,7 @@ l’activation au clic.
 
 ### Ref
 
-La ref transmise pointe vers l’élément racine rendu ; vous pouvez l’utiliser pour lui donner le focus par programmation ou le mesurer. Dans Vue, une ref de template pointe vers l’instance du composant ; utilisez `$el` pour accéder à la racine rendue, qui est l’élément sémantique enfant avec `asChild`.
+La ref transmise pointe vers l’élément racine rendu ; vous pouvez l’utiliser pour lui donner le focus par programmation ou le mesurer. Dans Solid, attribuez la ref à l’élément créé dans la fonction de rendu `asChild` : une ref placée sur `Button` n’est pas transmise dans ce cas. Dans Vue, une ref de template pointe vers l’instance du composant ; utilisez `$el` pour accéder à la racine rendue, qui est l’élément sémantique enfant avec `asChild`.
 
 <Example name="button/ref" />
 
@@ -126,6 +75,32 @@ Utilisez les variantes pour exprimer la priorité et l’intention de l’action
 
 <Example name="button/variants" />
 
+## Composition
+
+`Button` est une racine à partie unique construite avec la [fabrique Ark](https://ark-ui.com/docs/guides/composition#the-ark-factory).
+Utilisez `asChild` lorsqu’un autre élément sémantique doit porter le nœud DOM rendu : React reçoit exactement un
+enfant, Solid utilise une fonction de rendu avec `asChild` et Vue fournit l’élément sémantique comme contenu du
+slot par défaut. Lorsqu’une partie Ark compose Button, le parent reste propriétaire de `data-scope` et
+`data-part` ; Button conserve ses classes de recette et son `data-slot` stable.
+
+La propriété `loading` ne gère que l’état occupé et désactivé ; l’application reste responsable de l’indicateur
+de chargement, du libellé et du cycle asynchrone. Les racines natives utilisent `type="button"` par défaut, mais
+les cibles `asChild` ne reçoivent pas cette valeur par défaut.
+
+## Anatomie
+
+`Button` comporte une seule partie.
+
+```text
+Button
+└─ root[data-scope="button"][data-part="root"][data-slot="button-root"]
+   └─ children
+```
+
+| Partie   | Rôle                                                        |
+| -------- | ----------------------------------------------------------- |
+| `Button` | Unique élément racine interactif avec les styles moduix.    |
+
 ## Styles
 
 Commencez par une variante et une taille intégrées. Pour un ajustement ponctuel, définissez les variables
@@ -134,22 +109,45 @@ variante dans toute l’application, définissez les mêmes variables sur
 `[data-slot='button-root'][data-variant='<variant>']`. Ces variables CSS concernent les paquets CSS Modules ;
 les paquets Tailwind utilisent des utilitaires natifs et vos propres classes.
 
-Utilisez `className` en React et `class` en Solid ou Vue sur la racine pour appliquer des classes personnalisées.
-
-### Propriétés CSS
+### Variables CSS
 
 <CssPropertiesSection properties={ButtonDocs.buttonCssProperties} />
 
 ### Points d’accroche CSS
 
-- `data-slot="button-root"` est le sélecteur moduix stable.
-- Les éléments racine utilisés seuls adoptent par défaut `data-scope="button"` et `data-part="root"`. Un
-  parent Ark qui compose Button peut les remplacer par ses propres valeurs d’anatomie.
-- `data-variant` et `data-size` indiquent la variante et la taille visuelles actives.
-- `data-disabled` est présent pour les propriétés natives `disabled`, `aria-disabled="true"` et `loading`.
-- `data-loading` est présent lorsque `loading={true}`.
-- `[data-disabled]` contrôle les styles de l’état désactivé pour `disabled`, `aria-disabled="true"` et `loading`.
-- Un Button utilisé seul se décale de 1px vers le bas à l’appui. Les variantes `link`, les déclencheurs avec
-  `aria-haspopup`, les éléments composés dont le `data-slot` est différent et la préférence de réduction des
-  animations désactivent ce déplacement. InputGroupButton et SplitButton restent immobiles ; les effets de
-  survol, de focus et d’opacité sont conservés.
+Utilisez `className` en React et `class` en Solid ou Vue sur la racine. Ces attributs sont communs aux deux
+approches de style.
+
+| Attribut                  | Présent lorsque                                                              |
+| ------------------------- | ---------------------------------------------------------------------------- |
+| `data-slot="button-root"` | Toujours. Le sélecteur moduix stable.                                        |
+| `data-scope`, `data-part` | `button` et `root` sur une racine seule ; un parent Ark les remplace.        |
+| `data-variant`            | Toujours. Reflète la propriété `variant`.                                    |
+| `data-size`               | Toujours. Reflète la propriété `size`.                                       |
+| `data-loading`            | `loading` vaut `true`.                                                       |
+| `data-disabled`           | `disabled`, `aria-disabled="true"` ou `loading`.                             |
+
+Un Button utilisé seul se décale de 1px vers le bas à l’appui. Les variantes `link`, les déclencheurs avec
+`aria-haspopup`, les éléments composés dont le `data-slot` est différent et la préférence de réduction des
+animations désactivent ce déplacement.
+
+## Clavier
+
+Les boutons natifs conservent le comportement clavier du navigateur. Donnez un nom accessible aux boutons
+composés uniquement d’une icône.
+
+| Touche              | Action                                                    |
+| ------------------- | --------------------------------------------------------- |
+| `Tab` / `Shift+Tab` | Déplace le focus entre les contrôles actifs.              |
+| `Enter` / `Space`   | Active le bouton qui a le focus.                          |
+| Lien avec `asChild` | Suit le comportement clavier de l’élément rendu.          |
+
+## Référence de l’API
+
+| Propriété  | Type            | Par défaut  |
+| ---------- | --------------- | ----------- |
+| `variant`  | `ButtonVariant` | `'default'` |
+| `size`     | `ButtonSize`    | `'md'`      |
+| `loading`  | `boolean`       | `false`     |
+| `asChild`  | `boolean`       | `false`     |
+| `disabled` | `boolean`       | `false`     |

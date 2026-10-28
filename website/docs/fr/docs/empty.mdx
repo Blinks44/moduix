@@ -2,98 +2,21 @@
 title: Empty
 component: empty
 description: Composant pour les écrans sans résultats, sans données ou affichés lors de la première utilisation.
+ark: https://ark-ui.com/docs/guides/composition#the-ark-factory
 ---
 
 import * as EmptyDocs from '@/components/examples/empty/css-properties';
 
-## Référence de l’API
+<Example name="empty/basic" />
 
-Ark UI ne propose pas de primitive dédiée aux états vides. `moduix` construit `Empty` avec la
-[fabrique Ark](https://ark-ui.com/react/docs/guides/composition#the-ark-factory) officielle et suit
-les recommandations d’Ark pour la [composition](https://ark-ui.com/react/docs/guides/composition),
-les [styles](https://ark-ui.com/react/docs/guides/styling) et les
-[références](https://ark-ui.com/react/docs/guides/ref). Sa composition s’inspire également du composant
-[Empty State de Chakra UI](https://chakra-ui.com/docs/components/empty-state). Contrairement à Chakra UI,
-`moduix` expose `EmptyIcon` et `EmptyActions` comme des parties placées directement sous la racine,
-au même niveau que `EmptyContent`. Vous pouvez ainsi les placer dans l’ordre adapté à votre écran.
+## Installation
 
-## Exemple de base
+<ComponentInstall />
 
+## Utilisation
 
 Commencez par `<Empty />` et ajoutez les parties du composant dont vous avez besoin. Ajoutez
 `EmptyIcon` et `EmptyActions` uniquement si l’état vide a besoin d’un repère visuel ou d’une action claire.
-
-<Example name="empty/basic" />
-
-## Installation avec shadcn
-
-Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration complète du paquet, du registre et des styles.
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/empty' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/empty' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/empty' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/empty' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/empty' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/empty' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Anatomie
-
-```text
-Empty
-├─ EmptyIcon (facultatif)
-├─ EmptyContent
-│  ├─ EmptyTitle
-│  └─ EmptyDescription
-└─ EmptyActions (facultatif)
-```
-
-| Partie                 | Rôle                                                                                                   |
-| ---------------------- | ------------------------------------------------------------------------------------------------------ |
-| `Empty`               | Conteneur racine pour les espacements, la bordure, l’arrière-plan et l’alignement.                    |
-| `EmptyIcon`           | Conteneur facultatif pour une icône ou un autre petit élément visuel.                                 |
-| `EmptyContent`        | Regroupe le titre et la description avec des espacements plus compacts.                               |
-| `EmptyTitle`          | Titre principal de l’état vide.                                                                       |
-| `EmptyDescription`    | Contenu complémentaire sous le titre. Il peut contenir des paragraphes, des liens ou d’autres éléments de type bloc. |
-| `EmptyActions`        | Ligne facultative d’actions qui revient à la ligne si nécessaire.                                      |
-
-## Composition
-
-Composez `Empty` à partir de ses parties placées directement sous la racine. `EmptyContent`
-regroupe le titre et la description, tandis que `EmptyIcon` et `EmptyActions` sont des parties
-facultatives au même niveau. Vous pouvez les omettre ou les réorganiser selon l’écran. `Empty` est
-uniquement présentatif et ne gère ni l’état de l’application ni le comportement `aria-live`.
-
-Utilisez `asChild` sur `Empty` ou `EmptyTitle` lorsque la section qui l’accueille nécessite un
-conteneur sémantique ou un autre niveau de titre. Passez un seul enfant à une partie `asChild` pour
-qu’elle puisse lui transmettre ses propriétés et sa référence. En Vue, la référence du composant
-expose l’élément rendu via `$el`. Ajoutez la région, le rôle, la gestion du focus ou le comportement
-`aria-live` nécessaires dans l’interface environnante.
 
 ## Exemples
 
@@ -118,6 +41,41 @@ et d’autres éléments de type bloc.
 
 <Example name="empty/advanced-customization" />
 
+## Composition
+
+`EmptyIcon` et `EmptyActions` sont des parties facultatives au même niveau que `EmptyContent` : vous pouvez les disposer dans l’ordre dont votre écran a besoin.
+
+Composez `Empty` à partir de ses parties placées directement sous la racine. `EmptyContent`
+regroupe le titre et la description, tandis que `EmptyIcon` et `EmptyActions` sont des parties
+facultatives au même niveau. Vous pouvez les omettre ou les réorganiser selon l’écran. `Empty` est
+uniquement présentatif et ne gère ni l’état de l’application ni le comportement `aria-live`.
+
+Utilisez `asChild` sur `Empty` ou `EmptyTitle` lorsque la section qui l’accueille nécessite un
+conteneur sémantique ou un autre niveau de titre. Passez un seul enfant à une partie `asChild` pour
+qu’elle puisse lui transmettre ses propriétés et sa référence. En Vue, la référence du composant
+expose l’élément rendu via `$el`. Ajoutez la région, le rôle, la gestion du focus ou le comportement
+`aria-live` nécessaires dans l’interface environnante.
+
+## Anatomie
+
+```text
+Empty
+├─ EmptyIcon (facultatif)
+├─ EmptyContent
+│  ├─ EmptyTitle
+│  └─ EmptyDescription
+└─ EmptyActions (facultatif)
+```
+
+| Partie                 | Rôle                                                                                                   |
+| ---------------------- | ------------------------------------------------------------------------------------------------------ |
+| `Empty`               | Conteneur racine pour les espacements, la bordure, l’arrière-plan et l’alignement.                    |
+| `EmptyIcon`           | Conteneur facultatif pour une icône ou un autre petit élément visuel.                                 |
+| `EmptyContent`        | Regroupe le titre et la description avec des espacements plus compacts.                               |
+| `EmptyTitle`          | Titre principal de l’état vide.                                                                       |
+| `EmptyDescription`    | Contenu complémentaire sous le titre. Il peut contenir des paragraphes, des liens ou d’autres éléments de type bloc. |
+| `EmptyActions`        | Ligne facultative d’actions qui revient à la ligne si nécessaire.                                      |
+
 ## Styles
 
 Personnalisez l’apparence de `Empty` avec `className` en React ou `class` en Solid et Vue, les
@@ -126,7 +84,7 @@ stables. Les paquets CSS Modules exposent les variables `--moduix-empty-*` ci-de
 racine, afin qu’un thème puisse ajuster tous les états vides à la fois. Stylisez les autres parties avec
 une classe : elle l’emporte sur les styles en couche du composant.
 
-### Propriétés CSS
+### Variables CSS
 
 <CssPropertiesSection properties={EmptyDocs.emptyOverrideCssProperties} />
 

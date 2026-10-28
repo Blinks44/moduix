@@ -2,96 +2,19 @@
 title: Bleed
 component: bleed
 description: Layout primitive that lets selected content extend beyond a constrained container.
+ark: https://ark-ui.com/docs/guides/composition#the-ark-factory
 ---
-
-
-## API Reference
-
-Ark UI does not include a dedicated `bleed` primitive. moduix builds `Bleed` with the official
-[Ark factory](https://ark-ui.com/docs/guides/composition#the-ark-factory) and follows Ark's guidance on
-[composition](https://ark-ui.com/docs/guides/composition), [styling](https://ark-ui.com/docs/guides/styling), and
-[refs](https://ark-ui.com/docs/guides/ref).
-
-Use [Container](/docs/container) to keep the main content at a readable width. Put `Bleed` inside it when
-only a media block, background, divider, or banner should extend beyond the container.
-
-Import `Bleed` from the matching runtime and styling package: `@moduix/react/bleed`,
-`@moduix/solid/bleed`, or `@moduix/vue/bleed` for CSS Modules, and the corresponding
-`@moduix/react-tailwind/bleed`, `@moduix/solid-tailwind/bleed`, or `@moduix/vue-tailwind/bleed`
-subpath for Tailwind.
-
-## Basic
-
-
-The default `inline="full"` makes media, banners, and section decorations reach the viewport edges while
-remaining in the normal document flow.
 
 <Example name="bleed/basic" />
 
-## Install with shadcn
+## Installation
 
-See [Quick Start](/docs/quick-start) for full package setup, registry configuration, and styling guidance.
+<ComponentInstall />
 
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
+## Usage
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/bleed' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/bleed' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/bleed' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/bleed' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/bleed' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/bleed' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Anatomy
-
-`Bleed` renders one root element that follows Ark's conventions. It uses negative margins on the inline
-and/or block axis, without adding an inner wrapper.
-
-```text
-Bleed
-└─ root[data-scope="bleed"][data-part="root"][data-slot="bleed-root"]
-   └─ children
-```
-
-| Part                   | Role                                                                   |
-| ---------------------- | ---------------------------------------------------------------------- |
-| `Bleed`                | Root component for extending content along the inline and block axes. |
-
-## Composition
-
-`Bleed` is presentational and owns no state. It has one root part, so there are no child parts to coordinate.
-The defaults are `inline="full"`, `block="none"`, and `asChild={false}`.
-When `asChild` should give the rendered root to one semantic element, provide exactly one child that accepts DOM
-props and a ref in React, or use the Solid render-function form. React refs target the rendered root or child;
-the Solid form does not forward the component ref through the custom host.
-In Vue, Ark's factory renders one semantic child for `asChild`; read a component ref's rendered host through `$el`.
-
-Combine `inline` and `block` when a surface should extend through padding on both logical axes. `inline="full"`
-is viewport-relative: it assumes the constrained parent is centered in the viewport. Inside a nested or off-center
-shell, use a fixed amount that matches the shell padding, or set your own margins as shown in Custom Styling.
+The default `inline="full"` makes media, banners, and section decorations reach the viewport edges while
+remaining in the normal document flow.
 
 ## Examples
 
@@ -121,6 +44,42 @@ Use `asChild` when the content should use a more specific semantic element. In t
 element becomes the `Bleed` root.
 
 <Example name="bleed/semantic-element" />
+
+## Composition
+
+Use [Container](/docs/container) to keep the main content at a readable width. Put `Bleed` inside it when
+only a media block, background, divider, or banner should extend beyond the container.
+
+Import `Bleed` from the matching runtime and styling package: `@moduix/react/bleed`,
+`@moduix/solid/bleed`, or `@moduix/vue/bleed` for CSS Modules, and the corresponding
+`@moduix/react-tailwind/bleed`, `@moduix/solid-tailwind/bleed`, or `@moduix/vue-tailwind/bleed`
+subpath for Tailwind.
+
+`Bleed` is presentational and owns no state. It has one root part, so there are no child parts to coordinate.
+The defaults are `inline="full"`, `block="none"`, and `asChild={false}`.
+When `asChild` should give the rendered root to one semantic element, provide exactly one child that accepts DOM
+props and a ref in React, or use the Solid render-function form. React refs target the rendered root or child;
+the Solid form does not forward the component ref through the custom host.
+In Vue, Ark's factory renders one semantic child for `asChild`; read a component ref's rendered host through `$el`.
+
+Combine `inline` and `block` when a surface should extend through padding on both logical axes. `inline="full"`
+is viewport-relative: it assumes the constrained parent is centered in the viewport. Inside a nested or off-center
+shell, use a fixed amount that matches the shell padding, or set your own margins as shown in Custom Styling.
+
+## Anatomy
+
+`Bleed` renders one root element that follows Ark's conventions. It uses negative margins on the inline
+and/or block axis, without adding an inner wrapper.
+
+```text
+Bleed
+└─ root[data-scope="bleed"][data-part="root"][data-slot="bleed-root"]
+   └─ children
+```
+
+| Part                   | Role                                                                   |
+| ---------------------- | ---------------------------------------------------------------------- |
+| `Bleed`                | Root component for extending content along the inline and block axes. |
 
 ## Styling
 

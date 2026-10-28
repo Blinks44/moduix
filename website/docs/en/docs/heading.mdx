@@ -2,82 +2,20 @@
 title: Heading
 component: heading
 description: A semantic heading component with Ark factory composition and moduix typography tokens for React, Solid, and Vue.
+ark: https://ark-ui.com/docs/guides/composition#the-ark-factory
 ---
 
+<Example name="heading/basic" />
 
-## API Reference
+## Installation
 
-Ark UI does not provide a dedicated heading primitive. moduix implements `Heading` with the official
-[Ark factory](https://ark-ui.com/docs/guides/composition#the-ark-factory) and follows Ark guidance for
-[composition](https://ark-ui.com/docs/guides/composition), [styling](https://ark-ui.com/docs/guides/styling), and
-[ref forwarding](https://ark-ui.com/docs/guides/ref).
+<ComponentInstall />
 
-## Basic
-
+## Usage
 
 `Heading` renders an `h1` by default. Use it for document headings and choose the `as` value that
 matches the heading's place in the document outline. Set `size` separately when the visual emphasis
 should differ from the semantic level.
-
-<Example name="heading/basic" />
-
-## Install with shadcn
-
-See [Quick Start](/docs/quick-start) for full package setup, registry configuration, and styling guidance.
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/heading' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/heading' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/heading' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/heading' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/heading' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/heading' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Anatomy
-
-`Heading` renders one native heading element.
-
-```text
-Heading
-└─ text or inline content
-```
-
-| Part                       | Role                                                    |
-| -------------------------- | ------------------------------------------------------- |
-| `Heading` | Native semantic heading with moduix typography styling. |
-
-## Composition
-
-`Heading` is a root-only, stateless component, so it does not need a provider or coordinated parts.
-Use `<Heading>`, pass `as` for the semantic `h1` through `h6` level, and set `size` independently
-when visual emphasis should differ. Without an explicit `size`,
-`as` selects the scale from `2xl` for `h1` through `xs` for `h6`; `weight` defaults to
-`semibold`. Use `asChild` only when a custom semantic heading host must own the rendered DOM node.
 
 ## Examples
 
@@ -114,12 +52,32 @@ Use `asChild` when another semantic heading element must own the rendered DOM no
 
 <Example name="heading/custom-host" />
 
+## Composition
+
+`Heading` is a root-only, stateless component, so it does not need a provider or coordinated parts.
+Use `<Heading>`, pass `as` for the semantic `h1` through `h6` level, and set `size` independently
+when visual emphasis should differ. Without an explicit `size`,
+`as` selects the scale from `2xl` for `h1` through `xs` for `h6`; `weight` defaults to
+`semibold`. Use `asChild` only when a custom semantic heading host must own the rendered DOM node.
+
+## Anatomy
+
+`Heading` renders one native heading element.
+
+```text
+Heading
+└─ text or inline content
+```
+
+| Part                       | Role                                                    |
+| -------------------------- | ------------------------------------------------------- |
+| `Heading` | Native semantic heading with moduix typography styling. |
+
 ## Styling
 
 Use `className` in React or `class` in Solid and Vue on `Heading`. Tailwind variants use native
 utilities and consumer classes. CSS Modules variants build on foundation typography tokens and have no
 component variables: a class on the root overrides the layered component styles.
-
 
 ### Styling hooks
 

@@ -2,107 +2,26 @@
 title: Rating Group
 component: rating-group
 description: Компонент для выбора оценки в виде набора звёзд на основе примитива rating-group из Ark UI для React, Solid и Vue.
+ark: https://ark-ui.com/docs/components/rating-group
 ---
 
 import * as RatingGroupDocs from '@/components/examples/rating-group/css-properties';
 
-## Справочник API
+<Example name="rating-group/basic" />
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/rating-group" />
+## Установка
 
-## Выбор подходящего компонента
+<ComponentInstall />
 
-Используйте `RatingGroup`, когда пользователю нужно выбрать числовую оценку в ряду звёзд или других повторяющихся значков.
-
-## Базовый пример
-
+## Использование
 
 Используйте `RatingGroup` как корневой компонент и добавьте `RatingGroupLabel`,
 `RatingGroupControl` и `RatingGroupItems` для стандартного рейтинга со звёздами. Если значение
 должно отправляться нативной формой, явно добавьте `RatingGroupHiddenInput`.
 
-<Example name="rating-group/basic" />
+## Выбор подходящего компонента
 
-## Установка через shadcn
-
-Полную настройку пакета, реестра и стилей см. в разделе [Быстрый старт](/docs/quick-start).
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/rating-group' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/rating-group' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/rating-group' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/rating-group' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/rating-group' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/rating-group' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Анатомия
-
-```text
-RatingGroup
-├─ RatingGroupLabel
-└─ RatingGroupControl
-   ├─ RatingGroupItems
-   │  └─ RatingGroupItem[index]
-   │     └─ RatingGroupItemIndicator
-   ├─ RatingGroupContext
-   │  └─ RatingGroupItem[index]
-   │     └─ RatingGroupItemIndicator
-   └─ RatingGroupHiddenInput (явно)
-
-RatingGroupRootProvider
-└─ то же дерево частей, подключённое к состоянию moduix из useRatingGroup()
-```
-
-| Часть                               | Назначение                                                        |
-| ---------------------------------- | ----------------------------------------------------------------- |
-| `RatingGroup`                    | Хранит состояние оценки, управляет клавиатурной навигацией, фокусом и интеграцией с формами. |
-| `RatingGroupHiddenInput`          | Нативное поле Ark, которое нужно добавить явно.                  |
-| `RatingGroupRootProvider`          | Подключает части к состоянию, созданному с помощью `useRatingGroup()`. |
-| `RatingGroupContext`               | Даёт доступ к текущему состоянию корня через render prop.        |
-| `RatingGroupItemContext`           | Даёт доступ к текущему состоянию элемента через render prop.     |
-| `RatingGroupLabel`                 | Доступная подпись группы рейтинга.                                |
-| `RatingGroupControl`               | Объединяет интерактивные элементы рейтинга.                       |
-| `RatingGroupItems`                 | Создаёт элемент для каждого значения и добавляет звезду по умолчанию. |
-| `RatingGroupItem`                  | Один выбираемый элемент рейтинга, которому нужен числовой `index`. |
-| `RatingGroupItemIndicator`         | Стандартный визуальный индикатор moduix для элемента.             |
-
-## Композиция
-
-Используйте `RatingGroupItems` для стандартного дерева элементов, создаваемого автоматически. Чтобы
-заменить повторяющийся значок, передайте свой `RatingGroupItemIndicator` дочерним элементом. После
-`Items` компонент не добавляет `RatingGroupHiddenInput` автоматически, поэтому разместите его явно
-внутри корневого компонента или `RatingGroupRootProvider`; задайте `name` на корне, если значение
-должно отправляться нативной формой.
-
-Для собственного дерева элементов используйте `RatingGroupContext` вместе с `RatingGroupItem`.
-Если хранилище нужно создать вне дерева, используйте `RatingGroupRootProvider` и
-`useRatingGroup()`. В React состояние доступно как объект. В Solid вызывайте возвращаемую функцию, а в Vue читайте
-реактивное состояние непосредственно в шаблоне.
+Используйте `RatingGroup`, когда пользователю нужно выбрать числовую оценку в ряду звёзд или других повторяющихся значков.
 
 ## Примеры
 
@@ -165,6 +84,50 @@ RatingGroupRootProvider
 
 <Example name="rating-group/advanced-customization" />
 
+## Композиция
+
+Используйте `RatingGroupItems` для стандартного дерева элементов, создаваемого автоматически. Чтобы
+заменить повторяющийся значок, передайте свой `RatingGroupItemIndicator` дочерним элементом. После
+`Items` компонент не добавляет `RatingGroupHiddenInput` автоматически, поэтому разместите его явно
+внутри корневого компонента или `RatingGroupRootProvider`; задайте `name` на корне, если значение
+должно отправляться нативной формой.
+
+Для собственного дерева элементов используйте `RatingGroupContext` вместе с `RatingGroupItem`.
+Если хранилище нужно создать вне дерева, используйте `RatingGroupRootProvider` и
+`useRatingGroup()`. В React состояние доступно как объект. В Solid вызывайте возвращаемую функцию, а в Vue читайте
+реактивное состояние непосредственно в шаблоне.
+
+## Анатомия
+
+```text
+RatingGroup
+├─ RatingGroupLabel
+└─ RatingGroupControl
+   ├─ RatingGroupItems
+   │  └─ RatingGroupItem[index]
+   │     └─ RatingGroupItemIndicator
+   ├─ RatingGroupContext
+   │  └─ RatingGroupItem[index]
+   │     └─ RatingGroupItemIndicator
+   └─ RatingGroupHiddenInput (явно)
+
+RatingGroupRootProvider
+└─ то же дерево частей, подключённое к состоянию moduix из useRatingGroup()
+```
+
+| Часть                               | Назначение                                                        |
+| ---------------------------------- | ----------------------------------------------------------------- |
+| `RatingGroup`                    | Хранит состояние оценки, управляет клавиатурной навигацией, фокусом и интеграцией с формами. |
+| `RatingGroupHiddenInput`          | Нативное поле Ark, которое нужно добавить явно.                  |
+| `RatingGroupRootProvider`          | Подключает части к состоянию, созданному с помощью `useRatingGroup()`. |
+| `RatingGroupContext`               | Даёт доступ к текущему состоянию корня через render prop.        |
+| `RatingGroupItemContext`           | Даёт доступ к текущему состоянию элемента через render prop.     |
+| `RatingGroupLabel`                 | Доступная подпись группы рейтинга.                                |
+| `RatingGroupControl`               | Объединяет интерактивные элементы рейтинга.                       |
+| `RatingGroupItems`                 | Создаёт элемент для каждого значения и добавляет звезду по умолчанию. |
+| `RatingGroupItem`                  | Один выбираемый элемент рейтинга, которому нужен числовой `index`. |
+| `RatingGroupItemIndicator`         | Стандартный визуальный индикатор moduix для элемента.             |
+
 ## Стилизация
 
 Используйте `className` в React или `class` в Solid и Vue на экспортируемых частях для структурных
@@ -173,7 +136,7 @@ RatingGroupRootProvider
 Варианты Tailwind используют нативные utility-классы и классы потребителя, а варианты CSS Modules
 также предоставляют зарегистрированные переменные `--moduix-rating-group-*`.
 
-### CSS-свойства
+### CSS-переменные
 
 <CssPropertiesSection properties={RatingGroupDocs.ratingGroupOverrideCssProperties} />
 

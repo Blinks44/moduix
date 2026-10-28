@@ -5,7 +5,7 @@ import {
   CollapsibleTrigger,
 } from '@moduix/react/collapsible';
 import { useI18n } from '@rspress/core/runtime';
-import { Link, PackageManagerTabs, Tab, Tabs } from '@rspress/core/theme';
+import { Link, PackageManagerTabs } from '@rspress/core/theme';
 import { ArrowUpRight, Code2, Layers3 } from 'lucide-react';
 import type { ComponentProps, ReactNode } from 'react';
 import { useLocalizedPath } from '@/utils/localized-path';
@@ -37,42 +37,6 @@ function PrimitiveReference({ href }: { href: string }) {
         <ArrowUpRight aria-hidden="true" />
       </a>
     </aside>
-  );
-}
-
-function BlockInstall({ name }: { name: string }) {
-  const t = useI18n<typeof import('i18n')>();
-  const quickStartPath = useLocalizedPath('/docs/quick-start');
-
-  return (
-    <div className={styles.install}>
-      <p>{t('blockInstallDescription')}</p>
-      <Tabs groupId="framework">
-        {(['react', 'solid', 'vue'] as const).map((framework) => (
-          <Tab
-            label={framework === 'react' ? 'React' : framework === 'solid' ? 'Solid' : 'Vue'}
-            value={framework}
-            key={framework}
-          >
-            <ShadcnInstallOptions
-              options={[
-                {
-                  label: 'CSS Modules',
-                  command: `shadcn@latest add @moduix-${framework}/${name}`,
-                },
-                {
-                  label: 'Tailwind CSS',
-                  command: `shadcn@latest add @moduix-${framework}-tailwind/${name}`,
-                },
-              ]}
-            />
-          </Tab>
-        ))}
-      </Tabs>
-      <p>{t('blockInstallStyles')}</p>
-      <p>{t('blockInstallSetup')}</p>
-      <Link href={quickStartPath}>{t('blockQuickStart')}</Link>
-    </div>
   );
 }
 
@@ -264,7 +228,6 @@ export {
   PreviewFrame,
   PreviewMeta,
   PrimitiveReference,
-  BlockInstall,
   ShadcnInstallOptions,
   StyleTrackCard,
   StyleTrackCards,

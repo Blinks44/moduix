@@ -6,7 +6,11 @@ description: Build accessible, responsive charts with TanStack Charts and moduix
 
 import * as ChartDocs from '@/components/examples/chart/css-properties';
 
-## API Reference
+<Example name="chart/basic" />
+
+## Installation
+
+<ComponentInstall />
 
 Chart does not map to an Ark UI primitive. moduix adds a semantic `figure`, title, description,
 legend, and compact tooltip body around the [TanStack Charts chart
@@ -17,85 +21,10 @@ around them.
 `@tanstack/charts` is an optional peer dependency of moduix. The React, Solid, and Vue packages
 expose the same chart definition API; the Solid and Vue packages use TanStack's renderer adapter.
 
-## Basic
-
+## Usage
 
 Create a TanStack definition and pass it to `ChartPlot`. Add a visible title, description, and
 legend around the plot, then provide a concise `ariaLabel` for assistive technology.
-
-<Example name="chart/basic" />
-
-## Install with shadcn
-
-See [Quick Start](/docs/quick-start) for full package setup, registry configuration, and styling guidance.
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/chart' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/chart' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/chart' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/chart' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/chart' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/chart' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Anatomy
-
-```text
-Chart
-├─ ChartHeader (optional figcaption)
-│  ├─ ChartTitle
-│  └─ ChartDescription
-├─ ChartPlot
-│  └─ TanStack chart surface (SVG by default)
-└─ ChartLegend (optional)
-   └─ ChartLegendItem
-```
-
-| Part | Role |
-| --- | --- |
-| `Chart` | Composed `figure` root. Accepts native props, `asChild`, and an `HTMLElement` ref (`$el` of the component ref in Vue). |
-| `ChartPlot` | TanStack Charts host. Requires `definition` and `ariaLabel`; uses the moduix motion preset by default and accepts `motion={false}`. |
-| `ChartHeader` | `figcaption` layout for the title and description. |
-| `ChartTitle` | Chart heading; renders `h3` by default. |
-| `ChartDescription` | Supporting visible context. |
-| `ChartLegend` | Semantic list of visible series. |
-| `ChartLegendItem` | Legend item with an optional indicator `color`. |
-
-## Composition
-
-`Chart` is a presentational shell. TanStack's `definition` owns marks, scales, interactions, and
-callbacks, so keep it at module scope or memoize the complete definition when it depends on props
-or state. Compose `ChartHeader`, `ChartPlot`, and `ChartLegend` under the root; `ChartPlot`
-continues to own rendering, focus, and tooltip state through TanStack.
-
-Use `renderTooltipBody` only when you need to wrap or extend the native tooltip: render the supplied
-`defaultBody` and add interactive controls only while `pinned` is true. `Chart` and
-`ChartHeader` support `asChild` when the semantic wrapper or layout needs to be owned by your
-application.
 
 ## Examples
 
@@ -183,6 +112,41 @@ to a pinned tooltip.
 
 <Example name="chart/advanced-customization" />
 
+## Composition
+
+`Chart` is a presentational shell. TanStack's `definition` owns marks, scales, interactions, and
+callbacks, so keep it at module scope or memoize the complete definition when it depends on props
+or state. Compose `ChartHeader`, `ChartPlot`, and `ChartLegend` under the root; `ChartPlot`
+continues to own rendering, focus, and tooltip state through TanStack.
+
+Use `renderTooltipBody` only when you need to wrap or extend the native tooltip: render the supplied
+`defaultBody` and add interactive controls only while `pinned` is true. `Chart` and
+`ChartHeader` support `asChild` when the semantic wrapper or layout needs to be owned by your
+application.
+
+## Anatomy
+
+```text
+Chart
+├─ ChartHeader (optional figcaption)
+│  ├─ ChartTitle
+│  └─ ChartDescription
+├─ ChartPlot
+│  └─ TanStack chart surface (SVG by default)
+└─ ChartLegend (optional)
+   └─ ChartLegendItem
+```
+
+| Part | Role |
+| --- | --- |
+| `Chart` | Composed `figure` root. Accepts native props, `asChild`, and an `HTMLElement` ref (`$el` of the component ref in Vue). |
+| `ChartPlot` | TanStack Charts host. Requires `definition` and `ariaLabel`; uses the moduix motion preset by default and accepts `motion={false}`. |
+| `ChartHeader` | `figcaption` layout for the title and description. |
+| `ChartTitle` | Chart heading; renders `h3` by default. |
+| `ChartDescription` | Supporting visible context. |
+| `ChartLegend` | Semantic list of visible series. |
+| `ChartLegendItem` | Legend item with an optional indicator `color`. |
+
 ## Styling
 
 Style the figure with `Chart` and the TanStack host with `ChartPlot`. The CSS properties below
@@ -204,7 +168,7 @@ React or `class` in Solid and Vue):
 }
 ```
 
-### CSS Properties
+### CSS variables
 
 <CssPropertiesSection properties={ChartDocs.chartCssProperties} />
 

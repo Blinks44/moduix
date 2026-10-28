@@ -2,18 +2,8 @@
 title: Image Cropper
 component: image-cropper
 description: Composant permettant de recadrer et de transformer des images, avec prise en charge du zoom, de la rotation et du rapport d’aspect.
+ark: https://ark-ui.com/docs/components/image-cropper
 ---
-
-## Référence de l’API
-
-<PrimitiveReference href="https://ark-ui.com/docs/components/image-cropper" />
-
-## Exemple de base
-
-Utilisez `ImageCropper` avec `ImageCropperViewport`, `ImageCropperImage` et
-`ImageCropperCropArea`. Passez l’URL de l’image à `ImageCropperImage`.
-`ImageCropperCropArea` ajoute la zone de sélection, les lignes de la grille et les poignées de
-redimensionnement.
 
 <Example name="image-cropper/basic" />
 
@@ -21,79 +11,16 @@ Si vous appelez `getCroppedImage()` pour une image provenant d’une autre origi
 l’image doit autoriser CORS et `ImageCropperImage` doit recevoir `crossOrigin="anonymous"`. Les
 exemples utilisent cette configuration pour l’image Unsplash.
 
-## Installation avec shadcn
+## Installation
 
-Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration complète du paquet, du registre et des styles.
+<ComponentInstall />
 
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
+## Utilisation
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/image-cropper' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/image-cropper' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/image-cropper' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/image-cropper' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/image-cropper' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/image-cropper' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Anatomie
-
-```tsx
-<ImageCropper>
-  <ImageCropperViewport>
-    <ImageCropperImage />
-    <ImageCropperCropArea />
-  </ImageCropperViewport>
-</ImageCropper>
-```
-
-| Partie                                | Rôle                                                                                           |
-| ------------------------------------- | ---------------------------------------------------------------------------------------------- |
-| `ImageCropper`                     | Composant racine qui gère l’état du recadrage et des transformations, les attributs ARIA et les variables CSS mises à jour pendant l’utilisation. |
-| `ImageCropperRootProvider`          | Racine liée à une instance `useImageCropper` créée en dehors de l’arbre de composants.          |
-| `ImageCropperViewport`              | Zone d’affichage qui masque ce qui dépasse et permet de déplacer l’image.                      |
-| `ImageCropperImage`                 | Élément d’image auquel Ark applique les transformations.                                       |
-| `ImageCropperSelection`             | Zone de recadrage focalisable et cible des interactions au clavier. Avec `fixedCropArea`, elle reste focalisable et les flèches déplacent l’image. |
-| `ImageCropperGrid`                  | Ligne de guidage horizontale ou verticale, non interactive. `axis` est obligatoire.            |
-| `ImageCropperHandle`                | Poignée de redimensionnement pour une position de `ImageCropperHandles`. `position` est obligatoire. |
-| `ImageCropperCropArea`              | Zone prête à l’emploi avec les deux grilles et toutes les poignées. Elle n’accepte ni `children` ni `asChild`. |
-
-## Composition
-
-Utilisez `ImageCropperCropArea` pour la zone de recadrage standard. Elle crée les deux grilles et
-toutes les poignées de redimensionnement, et n’accepte donc ni `children` ni `asChild`. Utilisez
-`className`, `gridClassName` et `handleClassName` pour styliser la sélection et ses parties générées.
-
-Utilisez `ImageCropperContext` pour les contrôles placés dans la racine. Créez `useImageCropper()`
-et transmettez-le à `ImageCropperRootProvider` lorsqu’une barre d’outils, un aperçu ou la logique
-d’un formulaire doit accéder à l’instance en dehors de l’arbre de composants. Pour une même instance
-d’état, rendez `ImageCropper` ou `ImageCropperRootProvider`, jamais les deux.
-
-Utilisez `zoom`, `rotation` ou `flip` en mode contrôlé avec le rappel correspondant lorsque l’état est
-géré ailleurs dans l’application. Ark transmet la nouvelle valeur dans l’objet `details`.
-`fixedCropArea` fixe la sélection et fait de la zone d’affichage la surface de déplacement de l’image.
+Utilisez `ImageCropper` avec `ImageCropperViewport`, `ImageCropperImage` et
+`ImageCropperCropArea`. Passez l’URL de l’image à `ImageCropperImage`.
+`ImageCropperCropArea` ajoute la zone de sélection, les lignes de la grille et les poignées de
+redimensionnement.
 
 ## Exemples
 
@@ -176,6 +103,43 @@ Remplacez `ImageCropperCropArea` par les parties explicites `ImageCropperSelecti
 enfants personnalisés. `ImageCropperGrid` requiert `axis` et `ImageCropperHandle` requiert `position`.
 
 <Example name="image-cropper/advanced-customization" />
+
+## Composition
+
+Utilisez `ImageCropperCropArea` pour la zone de recadrage standard. Elle crée les deux grilles et
+toutes les poignées de redimensionnement, et n’accepte donc ni `children` ni `asChild`. Utilisez
+`className`, `gridClassName` et `handleClassName` pour styliser la sélection et ses parties générées.
+
+Utilisez `ImageCropperContext` pour les contrôles placés dans la racine. Créez `useImageCropper()`
+et transmettez-le à `ImageCropperRootProvider` lorsqu’une barre d’outils, un aperçu ou la logique
+d’un formulaire doit accéder à l’instance en dehors de l’arbre de composants. Pour une même instance
+d’état, rendez `ImageCropper` ou `ImageCropperRootProvider`, jamais les deux.
+
+Utilisez `zoom`, `rotation` ou `flip` en mode contrôlé avec le rappel correspondant lorsque l’état est
+géré ailleurs dans l’application. Ark transmet la nouvelle valeur dans l’objet `details`.
+`fixedCropArea` fixe la sélection et fait de la zone d’affichage la surface de déplacement de l’image.
+
+## Anatomie
+
+```tsx
+<ImageCropper>
+  <ImageCropperViewport>
+    <ImageCropperImage />
+    <ImageCropperCropArea />
+  </ImageCropperViewport>
+</ImageCropper>
+```
+
+| Partie                                | Rôle                                                                                           |
+| ------------------------------------- | ---------------------------------------------------------------------------------------------- |
+| `ImageCropper`                     | Composant racine qui gère l’état du recadrage et des transformations, les attributs ARIA et les variables CSS mises à jour pendant l’utilisation. |
+| `ImageCropperRootProvider`          | Racine liée à une instance `useImageCropper` créée en dehors de l’arbre de composants.          |
+| `ImageCropperViewport`              | Zone d’affichage qui masque ce qui dépasse et permet de déplacer l’image.                      |
+| `ImageCropperImage`                 | Élément d’image auquel Ark applique les transformations.                                       |
+| `ImageCropperSelection`             | Zone de recadrage focalisable et cible des interactions au clavier. Avec `fixedCropArea`, elle reste focalisable et les flèches déplacent l’image. |
+| `ImageCropperGrid`                  | Ligne de guidage horizontale ou verticale, non interactive. `axis` est obligatoire.            |
+| `ImageCropperHandle`                | Poignée de redimensionnement pour une position de `ImageCropperHandles`. `position` est obligatoire. |
+| `ImageCropperCropArea`              | Zone prête à l’emploi avec les deux grilles et toutes les poignées. Elle n’accepte ni `children` ni `asChild`. |
 
 ## Styles
 

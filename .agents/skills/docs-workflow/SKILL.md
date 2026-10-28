@@ -94,15 +94,19 @@ framework-selection guidance.
 
 Read [preview rules](references/previews.md) whenever adding or changing a preview frame, preview metadata, virtual-file import, or a nontrivial snippet.
 
-## Sidebar icons
+## Sidebar and top nav
 
-The docs redesign renders the sidebar without icons and without counts; remove the `tag` fields when
-the sidebar is migrated to the redesign order. Until then:
+`website/docs/<locale>/docs/_meta.json` follows the redesign order: Get started, Theming, Components,
+Guides, Ark UI, AI. Entries have no `tag` icons and no counts.
 
-- Treat each `tag` in `website/docs/<locale>/docs/_meta.json` as a semantic icon for its sidebar entry.
-- Reuse an existing mapping from `website/theme/components/Tag/index.tsx` only when it accurately represents the page. Do not use an unrelated icon merely to avoid changing the shared set.
-- If the set has no suitable icon, add the appropriate named Lucide icon to the shared `Tag` mapping, then use the new tag consistently in every locale.
-- Keep tags in parity between locales. Repeated icons are appropriate for truly equivalent concepts, such as individual components, but review accidental repeats when editing a sidebar.
+- Components lists All components, then one collapsible `custom-link` group per category in
+  `website/src/components/docs/component-gallery.tsx`, in the same order. Each component belongs to
+  exactly one category; add a new component to the gallery and to its sidebar group together.
+- Links inside `custom-link` groups are absolute and locale-neutral (`/docs/button` in every
+  locale): Rspress drops the route prefix of nested relative links but adds the locale prefix itself.
+- Keep the three locales structurally identical; only labels differ.
+- `website/docs/<locale>/_nav.json` lists every non-component page under `/docs/` in the Docs and
+  Components `activeMatch` patterns. Add a new guide page's slug to both patterns in every locale.
 
 ## CSS variables and registry docs
 

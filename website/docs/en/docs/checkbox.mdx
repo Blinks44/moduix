@@ -2,109 +2,28 @@
 title: Checkbox
 component: checkbox
 description: A composable checkbox for individual options and multi-select groups.
+ark: https://ark-ui.com/docs/components/checkbox
 ---
 
 import * as CheckboxDocs from '@/components/examples/checkbox/css-properties';
 
-## API Reference
+<Example name="checkbox/basic" />
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/checkbox" />
+## Installation
+
+<ComponentInstall />
+
+## Usage
+
+Compose a checkbox from Ark's parts. Leave `CheckboxControl` empty to use moduix's built-in checked
+and indeterminate icons. Add `CheckboxLabel` for the visible text and `CheckboxHiddenInput` for
+native interaction and form behavior.
 
 ## Choosing the right component
 
 Use `Checkbox` when people need to select one or more independent options in a form, settings panel,
 or filter list. Use `RadioGroup` when only one option can be selected. Use `Switch` when a setting
 should take effect immediately.
-
-## Basic
-
-
-Compose a checkbox from Ark's parts. Leave `CheckboxControl` empty to use moduix's built-in checked
-and indeterminate icons. Add `CheckboxLabel` for the visible text and `CheckboxHiddenInput` for
-native interaction and form behavior.
-
-<Example name="checkbox/basic" />
-
-## Install with shadcn
-
-See [Quick Start](/docs/quick-start) for full package setup, registry configuration, and styling guidance.
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/checkbox' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/checkbox' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/checkbox' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/checkbox' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/checkbox' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/checkbox' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Anatomy
-
-```text
-Checkbox
-├─ CheckboxControl
-│  ├─ CheckboxIndicator
-│  └─ CheckboxIndicator[indeterminate] (optional)
-├─ CheckboxLabel
-└─ CheckboxHiddenInput (explicit)
-
-CheckboxRootProvider
-└─ same part tree connected to useCheckbox()
-
-CheckboxGroup
-└─ Checkbox[value]
-   ├─ CheckboxControl
-   ├─ CheckboxLabel
-   └─ CheckboxHiddenInput
-```
-
-| Part                         | Role                                                                                  |
-| ---------------------------- | ------------------------------------------------------------------------------------- |
-| `Checkbox`                   | Holds the state for one checkbox and renders its wrapping label.                      |
-| `CheckboxHiddenInput`        | Native Ark form control; compose it explicitly inside the root.                       |
-| `CheckboxRootProvider`       | Connects the parts to Ark state created outside the rendered tree.                    |
-| `CheckboxControl`            | The visible checkbox; empty, it renders the built-in state icons.                     |
-| `CheckboxIndicator`          | Optional slot for a custom icon. Pass `indeterminate` for that state.                 |
-| `CheckboxLabel`              | The visible label for the checkbox.                                                   |
-| `CheckboxGroup`              | Manages the selected values for several checkboxes.                                   |
-
-## Composition
-
-`CheckboxHiddenInput` is Ark's native input. Render it explicitly inside `Checkbox` or
-`CheckboxRootProvider`, even outside a form: it owns native focus, keyboard interaction,
-accessibility, and form participation. Put `name` and `value` on the root for a standalone field;
-for a group, put `name` on `CheckboxGroup` and `value` on each `Checkbox`.
-
-`CheckboxGroup` owns an array of selected values, and each child is a `Checkbox` with its own
-`value`. Leave `CheckboxControl` empty for moduix's built-in icons. Add `CheckboxIndicator` inside
-`CheckboxControl` only for a custom indicator.
-
-When state must be created outside the rendered tree, create it with `useCheckbox()` and pass the
-store to `CheckboxRootProvider`. Do not render `Checkbox` or `CheckboxRootProvider` for the same store.
 
 ## Examples
 
@@ -217,6 +136,50 @@ Pass `name` and `value` to `Checkbox` and render `CheckboxHiddenInput` to includ
 
 <Example name="checkbox/with-form" />
 
+## Composition
+
+`CheckboxHiddenInput` is Ark's native input. Render it explicitly inside `Checkbox` or
+`CheckboxRootProvider`, even outside a form: it owns native focus, keyboard interaction,
+accessibility, and form participation. Put `name` and `value` on the root for a standalone field;
+for a group, put `name` on `CheckboxGroup` and `value` on each `Checkbox`.
+
+`CheckboxGroup` owns an array of selected values, and each child is a `Checkbox` with its own
+`value`. Leave `CheckboxControl` empty for moduix's built-in icons. Add `CheckboxIndicator` inside
+`CheckboxControl` only for a custom indicator.
+
+When state must be created outside the rendered tree, create it with `useCheckbox()` and pass the
+store to `CheckboxRootProvider`. Do not render `Checkbox` or `CheckboxRootProvider` for the same store.
+
+## Anatomy
+
+```text
+Checkbox
+├─ CheckboxControl
+│  ├─ CheckboxIndicator
+│  └─ CheckboxIndicator[indeterminate] (optional)
+├─ CheckboxLabel
+└─ CheckboxHiddenInput (explicit)
+
+CheckboxRootProvider
+└─ same part tree connected to useCheckbox()
+
+CheckboxGroup
+└─ Checkbox[value]
+   ├─ CheckboxControl
+   ├─ CheckboxLabel
+   └─ CheckboxHiddenInput
+```
+
+| Part                         | Role                                                                                  |
+| ---------------------------- | ------------------------------------------------------------------------------------- |
+| `Checkbox`                   | Holds the state for one checkbox and renders its wrapping label.                      |
+| `CheckboxHiddenInput`        | Native Ark form control; compose it explicitly inside the root.                       |
+| `CheckboxRootProvider`       | Connects the parts to Ark state created outside the rendered tree.                    |
+| `CheckboxControl`            | The visible checkbox; empty, it renders the built-in state icons.                     |
+| `CheckboxIndicator`          | Optional slot for a custom icon. Pass `indeterminate` for that state.                 |
+| `CheckboxLabel`              | The visible label for the checkbox.                                                   |
+| `CheckboxGroup`              | Manages the selected values for several checkboxes.                                   |
+
 ## Styling
 
 Use `className` in React or `class` in Solid and Vue on exported parts for structural styles. For state-based
@@ -225,7 +188,7 @@ together with moduix `data-slot` selectors. Tailwind variants use native utiliti
 classes; the variables below customize the CSS Modules variants. Data attributes and `data-slot`
 hooks are shared by both styling tracks.
 
-### CSS Properties
+### CSS variables
 
 <CssPropertiesSection properties={CheckboxDocs.checkboxOverrideCssProperties} />
 

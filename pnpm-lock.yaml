@@ -1096,6 +1096,12 @@ importers:
       '@ark-ui/react':
         specifier: 'catalog:'
         version: 5.39.3(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
+      '@fontsource-variable/jetbrains-mono':
+        specifier: ^5.3.0
+        version: 5.3.0
+      '@fontsource-variable/noto-sans':
+        specifier: ^5.3.0
+        version: 5.3.0
       '@formisch/react':
         specifier: ^1.1.0
         version: 1.1.0(react-dom@19.3.1(react@19.3.1))(react@19.3.1)(typescript@6.0.3)(valibot@1.5.0(typescript@6.0.3))
@@ -1825,6 +1831,12 @@ packages:
 
   '@floating-ui/utils@0.2.12':
     resolution: {integrity: sha512-HpCo8tmWzLVad5s2d19EhAz5zqrrQ6s69qd6moPMQvkOuSwDT1YgRfWSVuc4ennqrgv3OHppiOGMQ7oC13yIww==}
+
+  '@fontsource-variable/jetbrains-mono@5.3.0':
+    resolution: {integrity: sha512-F32xpS2NsGYoQi2ADSkKTgpJj7ozajsGgDJ8woTnqjmIB+dxDIqImjl4pXZVEExu8UFZ2ndhmX18EBS/hdz3Lw==}
+
+  '@fontsource-variable/noto-sans@5.3.0':
+    resolution: {integrity: sha512-e3ZuxzY9AL2psXPZlhwhnYrHUHv6PMoyK9MQ7croF0CUgURLqu9EMjW7q2FgVLwij1tjLsIHQrnwQ8aUcg4BiA==}
 
   '@formisch/react@1.1.0':
     resolution: {integrity: sha512-/LSuYN1m28pownbofeQQIOHw8zPR/jpyR15e5nn+hkRwlHnm5jf9YG8C5iNZru998/KmxTYFLVG3F1XZPvTL8A==}
@@ -9049,6 +9061,10 @@ snapshots:
       '@floating-ui/utils': 0.2.12
 
   '@floating-ui/utils@0.2.12': {}
+
+  '@fontsource-variable/jetbrains-mono@5.3.0': {}
+
+  '@fontsource-variable/noto-sans@5.3.0': {}
 
   '@formisch/react@1.1.0(react-dom@19.3.1(react@19.3.1))(react@19.3.1)(typescript@6.0.3)(valibot@1.5.0(typescript@6.0.3))':
     dependencies:

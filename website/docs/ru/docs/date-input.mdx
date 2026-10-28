@@ -2,13 +2,21 @@
 title: Date Input
 component: date-input
 description: Доступное сегментированное поле для ввода дат в React, Solid и Vue с CSS Modules или Tailwind, поддержкой локали и нативных форм.
+ark: https://ark-ui.com/docs/components/date-input
 ---
 
 import * as DateInputDocs from '@/components/examples/date-input/css-properties';
 
-## Справочник API
+<Example name="date-input/basic" />
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/date-input" />
+## Установка
+
+<ComponentInstall />
+
+## Использование
+
+`DateInput` отображает сегменты даты с учётом локали, которые можно редактировать с клавиатуры. Поместите
+`DateInputSegments` внутрь `DateInputControl` для стандартной композиции.
 
 ## Выбор подходящего компонента
 
@@ -16,97 +24,6 @@ import * as DateInputDocs from '@/components/examples/date-input/css-properties'
 - Выберите **`DateInput`**, когда пользователям нужно вводить дату с клавиатуры по отдельным сегментам.
 - Выберите **`DatePicker`**, когда нужен встроенный или всплывающий календарь. `DateInput` рассчитан
   на ввод с клавиатуры и не содержит календаря.
-
-## Базовый пример
-
-`DateInput` отображает сегменты даты с учётом локали, которые можно редактировать с клавиатуры. Поместите
-`DateInputSegments` внутрь `DateInputControl` для стандартной композиции.
-
-<Example name="date-input/basic" />
-
-## Установка через shadcn
-
-Полную настройку пакета, реестра и стилей см. в разделе [Быстрый старт](/docs/quick-start).
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/date-input' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/date-input' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/date-input' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/date-input' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/date-input' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/date-input' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Анатомия
-
-```text
-DateInput
-├─ DateInputLabel
-├─ DateInputControl
-│  ├─ DateInputSegments
-│  └─ DateInputSeparator (необязательно, для диапазонов)
-└─ DateInputHiddenInput[index] (явно, по одному на отправляемую дату)
-
-Расширенная настройка:
-
-DateInputSegmentGroup
-└─ DateInputSegmentContext
-   └─ DateInputSegment
-
-DateInputRootProvider
-└─ то же дерево частей, подключённое к состоянию из useDateInput()
-```
-
-| Часть | Назначение |
-| ---- | ---- |
-| `DateInput` | Отвечает за значения дат, форматирование с учётом локали, фокус сегментов и валидацию. |
-| `DateInputHiddenInput` | Нативное поле Ark, которое для отправки формы нужно добавить явно. |
-| `DateInputRootProvider` | Подключает части к состоянию из `useDateInput()`. |
-| `DateInputLabel` | Подпись поля даты, доступная вспомогательным технологиям. |
-| `DateInputControl` | Визуальная рамка вокруг одной или нескольких групп сегментов. |
-| `DateInputSegmentGroup` | Объединяет сегменты для одного индекса даты. |
-| `DateInputSegment` | Редактируемый или фиксированный сегмент, предоставляемый Ark UI. |
-| `DateInputSegments` | Отображает одну группу сегментов с учётом локали для обычного сценария. |
-| `DateInputSeparator` | Текстовый разделитель между группами диапазона. |
-| `DateInputContext` | Даёт доступ к текущему состоянию поля без собственной разметки. |
-| `DateInputSegmentContext` | Помогает отображать сегменты с учётом локали. |
-
-## Композиция
-
-Для обычного поля используйте `DateInput` с `DateInputControl` и `DateInputSegments`. Оставьте состояние
-неконтролируемым через `defaultValue`, управляйте им через `value` и `onValueChange(details)` или создайте
-его с помощью `useDateInput()` и подключите части через `DateInputRootProvider`. В Vue для управляемого
-значения используйте `v-model`. Значения имеют форму
-`DateInputDateValue[]` из `@internationalized/date`, а не строк.
-
-`DateInputHiddenInput` нужно добавлять явно: корневой компонент не создаёт нативные поля. Добавьте по одному
-скрытому полю на каждую отправляемую дату, а для диапазона используйте соответствующие значения `index`.
-Используйте `DateInputSegmentGroup`, `DateInputSegmentContext` и `DateInputSegment` только тогда, когда
-стандартного отображения `DateInputSegments` недостаточно.
 
 ## Примеры
 
@@ -190,6 +107,53 @@ DateInputRootProvider
 
 <Example name="date-input/advanced-customization" />
 
+## Композиция
+
+Для обычного поля используйте `DateInput` с `DateInputControl` и `DateInputSegments`. Оставьте состояние
+неконтролируемым через `defaultValue`, управляйте им через `value` и `onValueChange(details)` или создайте
+его с помощью `useDateInput()` и подключите части через `DateInputRootProvider`. В Vue для управляемого
+значения используйте `v-model`. Значения имеют форму
+`DateInputDateValue[]` из `@internationalized/date`, а не строк.
+
+`DateInputHiddenInput` нужно добавлять явно: корневой компонент не создаёт нативные поля. Добавьте по одному
+скрытому полю на каждую отправляемую дату, а для диапазона используйте соответствующие значения `index`.
+Используйте `DateInputSegmentGroup`, `DateInputSegmentContext` и `DateInputSegment` только тогда, когда
+стандартного отображения `DateInputSegments` недостаточно.
+
+## Анатомия
+
+```text
+DateInput
+├─ DateInputLabel
+├─ DateInputControl
+│  ├─ DateInputSegments
+│  └─ DateInputSeparator (необязательно, для диапазонов)
+└─ DateInputHiddenInput[index] (явно, по одному на отправляемую дату)
+
+Расширенная настройка:
+
+DateInputSegmentGroup
+└─ DateInputSegmentContext
+   └─ DateInputSegment
+
+DateInputRootProvider
+└─ то же дерево частей, подключённое к состоянию из useDateInput()
+```
+
+| Часть | Назначение |
+| ---- | ---- |
+| `DateInput` | Отвечает за значения дат, форматирование с учётом локали, фокус сегментов и валидацию. |
+| `DateInputHiddenInput` | Нативное поле Ark, которое для отправки формы нужно добавить явно. |
+| `DateInputRootProvider` | Подключает части к состоянию из `useDateInput()`. |
+| `DateInputLabel` | Подпись поля даты, доступная вспомогательным технологиям. |
+| `DateInputControl` | Визуальная рамка вокруг одной или нескольких групп сегментов. |
+| `DateInputSegmentGroup` | Объединяет сегменты для одного индекса даты. |
+| `DateInputSegment` | Редактируемый или фиксированный сегмент, предоставляемый Ark UI. |
+| `DateInputSegments` | Отображает одну группу сегментов с учётом локали для обычного сценария. |
+| `DateInputSeparator` | Текстовый разделитель между группами диапазона. |
+| `DateInputContext` | Даёт доступ к текущему состоянию поля без собственной разметки. |
+| `DateInputSegmentContext` | Помогает отображать сегменты с учётом локали. |
+
 ## Стилизация
 
 В React используйте `className`, а в Solid и Vue `class` на экспортируемых частях для структурных стилей. Варианты
@@ -199,7 +163,7 @@ Tailwind используют обычные utility-классы и класс�
 Корень подстраивается под содержимое, а контрол заполняет корень. Чтобы растянуть поле в форме, задайте
 `--moduix-date-input-width: 100%` в CSS Modules или добавьте корню `w-full` в Tailwind.
 
-### CSS-свойства
+### CSS-переменные
 
 <CssPropertiesSection properties={DateInputDocs.dateInputOverrideCssProperties} />
 

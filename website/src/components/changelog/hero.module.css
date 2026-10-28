@@ -1,156 +1,56 @@
-.hero {
-  --hero-accent: #2563eb;
+/* Changelog entries from the "Docs · Guide · What's new" frame in Moduix.sketch: a version badge and
+   date, the heading, a neutral illustration card, and a divider between entries. */
+.newsItem {
+  --hero-accent: var(--rp-c-brand);
   --hero-accent-soft: color-mix(in oklab, var(--hero-accent) 12%, transparent);
-  position: relative;
-  display: grid;
-  gap: clamp(2.5rem, 7vw, 4.5rem);
-  min-height: 24rem;
-  margin: 0 0 1.5rem;
-  padding: clamp(1.5rem, 5vw, 3rem);
-  overflow: hidden;
-  border: 1px solid color-mix(in oklab, var(--rp-c-divider-light) 76%, var(--hero-accent));
-  border-radius: 1.25rem;
-  background:
-    radial-gradient(circle at 82% 55%, var(--hero-accent-soft), transparent 36%),
-    linear-gradient(
-      to right,
-      color-mix(in oklab, var(--rp-c-text-1) 5%, transparent) 1px,
-      transparent 1px
-    ),
-    linear-gradient(
-      to bottom,
-      color-mix(in oklab, var(--rp-c-text-1) 5%, transparent) 1px,
-      transparent 1px
-    ),
-    var(--rp-c-bg-soft);
-  background-size:
-    auto,
-    3.5rem 3.5rem,
-    3.5rem 3.5rem,
-    auto;
-  color: var(--rp-c-text-1);
-  isolation: isolate;
+
+  & + & {
+    margin-top: 3rem;
+    border-top: 1px solid var(--rp-c-divider);
+    padding-top: 2.5rem;
+  }
+
+  h2 {
+    margin-top: 0.75rem !important;
+    border-top: 0;
+    padding-top: 0;
+  }
 }
 
-.hero::after {
-  position: absolute;
-  right: -5rem;
-  bottom: -7rem;
-  width: 17rem;
-  height: 17rem;
-  border: 1px solid color-mix(in oklab, var(--hero-accent) 18%, transparent);
-  border-radius: 50%;
-  content: '';
-}
-
-.blue {
-  --hero-accent: #2563eb;
-}
-
-.cyan {
-  --hero-accent: #0891b2;
-}
-
-.violet {
-  --hero-accent: #7c3aed;
-}
-
-.orange {
-  --hero-accent: #ea580c;
-}
-
-.green {
-  --hero-accent: #059669;
-}
-
-.meta,
-.layout {
-  position: relative;
-  z-index: 1;
-}
-
-.meta {
+.entryMeta {
   display: flex;
   align-items: center;
+  gap: 12px;
 }
 
-.meta {
-  justify-content: space-between;
-  gap: 1rem;
-}
-
-.category {
-  padding: 0.35rem 0.6rem;
-  border: 1px solid color-mix(in oklab, var(--hero-accent) 24%, transparent);
+.version {
   border-radius: 999px;
-  background: var(--hero-accent-soft);
-  color: color-mix(in oklab, var(--hero-accent) 82%, var(--rp-c-text-1));
-  font-size: 0.67rem;
-  font-weight: 750;
-  letter-spacing: 0.1em;
-  line-height: 1;
-  text-transform: uppercase;
+  padding: 2px 10px;
+  background: var(--rp-c-text-0);
+  color: var(--rp-c-bg);
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 16px;
 }
 
 .date {
-  color: var(--rp-c-text-2);
-  font-size: 0.72rem;
-  font-weight: 650;
-  letter-spacing: 0.04em;
+  color: var(--rp-c-text-3);
+  font-family: var(--rp-font-family-mono);
+  font-size: 12px;
 }
 
-.date {
-  text-align: right;
-}
-
-.layout {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(15rem, 1fr);
-  align-items: center;
-  gap: clamp(1.5rem, 4vw, 3rem);
-}
-
-.copy {
-  min-width: 0;
-}
-
-.title,
-.summary {
-  margin: 0;
-}
-
-.title {
-  max-width: 10ch;
-  font-size: clamp(2.3rem, 5vw, 3.35rem);
-  font-weight: 750;
-  letter-spacing: -0.065em;
-  line-height: 0.98;
-  overflow-wrap: normal;
-  word-break: normal;
-}
-
-.summary {
-  max-width: 30rem;
-  margin-top: 1.25rem;
-  color: var(--rp-c-text-2);
-  font-size: clamp(0.92rem, 2vw, 1.05rem);
-  line-height: 1.6;
-}
-
-.visual {
+.hero {
   position: relative;
   display: grid;
-  min-height: 13.5rem;
+  min-height: 232px;
   place-items: center;
-}
-
-.visual::before {
-  position: absolute;
-  inset: 9% 3%;
-  border-radius: 50%;
-  background: color-mix(in oklab, var(--hero-accent) 14%, transparent);
-  filter: blur(2.6rem);
-  content: '';
+  margin-block: 1.5rem;
+  overflow: hidden;
+  border: 1px solid var(--rp-c-divider);
+  border-radius: 14px;
+  padding: 2rem;
+  background: var(--rp-c-bg-soft);
+  color: var(--rp-c-text-1);
 }
 
 .previewSurface {
@@ -644,43 +544,7 @@
   white-space: nowrap;
 }
 
-.newsItem {
-  margin-bottom: clamp(3rem, 8vw, 5rem);
-}
-
-@media (max-width: 44rem) {
-  .hero {
-    min-height: 0;
-    gap: 2.75rem;
-  }
-
-  .layout {
-    grid-template-columns: 1fr;
-    gap: 2.5rem;
-  }
-
-  .title {
-    max-width: 13ch;
-  }
-
-  .visual {
-    min-height: 12rem;
-  }
-}
-
 @media (max-width: 26rem) {
-  .meta {
-    align-items: flex-start;
-  }
-
-  .date {
-    max-width: 8rem;
-  }
-
-  .title {
-    font-size: 2.35rem;
-  }
-
   .tocPreview {
     gap: 1.1rem;
     padding: 1.35rem;

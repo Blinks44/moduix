@@ -2,95 +2,23 @@
 title: Typeset
 component: typeset
 description: Настраивайте ритм чтения для семантического HTML, отрендеренного Markdown и потокового контента.
+ark: https://ark-ui.com/docs/guides/composition#the-ark-factory
 ---
 
 import * as TypesetDocs from '@/components/examples/typeset/css-properties';
 
-## Справочник API
+<Example name="typeset/basic" />
 
-`Typeset` задаёт единый ритм чтения семантическому HTML внутри своего контейнера. Он не разбирает и
-не рендерит Markdown, не фильтрует небезопасный контент и не задаёт ширину текста. Всё это остаётся
-за приложением.
+## Установка
 
-`Typeset` и `TypesetScroll` построены с помощью
-[фабрики Ark](https://ark-ui.com/docs/guides/composition#the-ark-factory), поэтому поддерживают
-нативные свойства `div`, ref и композицию через `asChild`.
+<ComponentInstall />
 
-В Vue используйте нативный атрибут `tabindex`, чтобы изменить порядок фокуса области прокрутки.
-Отрендеренный элемент доступен через `$el` в ref компонента.
-
-CSS-first контракт Typeset следует подходу из [документации shadcn/typeset](https://ui.shadcn.com/docs/typeset).
-Как и там, ритм чтения задают три переменные, а рендеринг контента и его ширина остаются
-ответственностью приложения. moduix добавляет нативные компоненты для React, Solid и Vue,
-а также `TypesetScroll`.
-
-## Базовый пример
+## Использование
 
 Оберните в `<Typeset>` HTML, который уже подготовил ваш рендерер. Используйте `asChild`, только
 когда внешний контейнер должен быть семантическим элементом, например `article` или `section`.
 Оставьте списки обычными `<ul>` и `<ol>`: Typeset сам задаст их маркеры и интервалы без utility-
 классов.
-
-<Example name="typeset/basic" />
-
-## Установка через shadcn
-
-Полную настройку пакета, реестра и стилей см. в разделе [Быстрый старт](/docs/quick-start).
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/typeset' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/typeset' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/typeset' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/typeset' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/typeset' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/typeset' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Анатомия
-
-```text
-Typeset
-└─ TypesetScroll (необязательно)
-```
-
-| Часть | Назначение |
-| --- | --- |
-| `Typeset` | Корневой контейнер, который стилизует семантические дочерние элементы. |
-| `TypesetScroll` | Фокусируемая область с горизонтальной прокруткой для широкого отрендеренного блока. |
-
-## Композиция
-
-`Typeset` не владеет состоянием, не разбирает и не фильтрует контент и не задаёт его размер.
-Помещайте отрендеренные семантические элементы внутрь корня, используйте `asChild`, когда корень
-должен быть `article` или `section`, и добавляйте `TypesetScroll` вокруг широкого блока, который
-лучше прокручивать, чем сжимать. Держите `TypesetScroll` внутри границы `Typeset`:
-интервалы потока и расширение таблиц для обёрнутого блока задают правила элементов Typeset. Если вложенный фрагмент принадлежит приложению и должен иметь свой
-стиль, добавьте к нему `.not-typeset` или `data-not-typeset`. Пользовательская область прокрутки
-должна иметь доступное имя, а `TypesetScroll` по умолчанию доступен для фокуса с клавиатуры.
 
 ## Примеры
 
@@ -131,9 +59,43 @@ Typeset
 
 <Example name="typeset/streaming-content" />
 
+## Композиция
+
+`Typeset` задаёт единый ритм чтения семантическому HTML внутри своего контейнера. Он не разбирает и
+не рендерит Markdown, не фильтрует небезопасный контент и не задаёт ширину текста. Всё это остаётся
+за приложением.
+
+В Vue используйте нативный атрибут `tabindex`, чтобы изменить порядок фокуса области прокрутки.
+Отрендеренный элемент доступен через `$el` в ref компонента.
+
+CSS-first контракт Typeset следует подходу из [документации shadcn/typeset](https://ui.shadcn.com/docs/typeset).
+Как и там, ритм чтения задают три переменные, а рендеринг контента и его ширина остаются
+ответственностью приложения. moduix добавляет нативные компоненты для React, Solid и Vue,
+а также `TypesetScroll`.
+
+`Typeset` не владеет состоянием, не разбирает и не фильтрует контент и не задаёт его размер.
+Помещайте отрендеренные семантические элементы внутрь корня, используйте `asChild`, когда корень
+должен быть `article` или `section`, и добавляйте `TypesetScroll` вокруг широкого блока, который
+лучше прокручивать, чем сжимать. Держите `TypesetScroll` внутри границы `Typeset`:
+интервалы потока и расширение таблиц для обёрнутого блока задают правила элементов Typeset. Если вложенный фрагмент принадлежит приложению и должен иметь свой
+стиль, добавьте к нему `.not-typeset` или `data-not-typeset`. Пользовательская область прокрутки
+должна иметь доступное имя, а `TypesetScroll` по умолчанию доступен для фокуса с клавиатуры.
+
+## Анатомия
+
+```text
+Typeset
+└─ TypesetScroll (необязательно)
+```
+
+| Часть | Назначение |
+| --- | --- |
+| `Typeset` | Корневой контейнер, который стилизует семантические дочерние элементы. |
+| `TypesetScroll` | Фокусируемая область с горизонтальной прокруткой для широкого отрендеренного блока. |
+
 ## Стилизация
 
-### CSS-свойства
+### CSS-переменные
 
 <CssPropertiesSection properties={TypesetDocs.typesetOverrideCssProperties} />
 

@@ -2,98 +2,24 @@
 title: Scroll Area
 component: scroll-area
 description: Создавайте контейнеры прокрутки со стилизованными полосами прокрутки в React, Solid и Vue с установкой пакетом или через shadcn.
+ark: https://ark-ui.com/docs/components/scroll-area
 ---
 
 import * as ScrollAreaDocs from '@/components/examples/scroll-area/css-properties';
 
-## Справочник API
+<Example name="scroll-area/basic" />
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/scroll-area" />
+## Установка
 
-## Базовый пример
+<ComponentInstall />
 
+## Использование
 
 Используйте `ScrollArea` как корневой элемент. Разместите `ScrollAreaViewport` вокруг
 `ScrollAreaContent`, добавьте по одному `ScrollAreaScrollbar` и `ScrollAreaThumb` для каждой оси
 прокрутки, а при переполнении по обеим осям добавьте
 `ScrollAreaCorner`. Задайте корневому элементу ограниченную высоту или размер по блочной оси, чтобы
 содержимое можно было прокручивать.
-
-<Example name="scroll-area/basic" />
-
-## Установка через shadcn
-
-Полную настройку пакета, реестра и стилей см. в разделе [Быстрый старт](/docs/quick-start).
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/scroll-area' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/scroll-area' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/scroll-area' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/scroll-area' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/scroll-area' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/scroll-area' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Анатомия
-
-```text
-ScrollArea
-├─ ScrollAreaViewport
-│  └─ ScrollAreaContent
-│     └─ children
-├─ ScrollAreaScrollbar
-│  └─ ScrollAreaThumb
-└─ ScrollAreaCorner
-
-ScrollAreaRootProvider
-└─ то же дерево, подключённое к состоянию useScrollArea()
-```
-
-| Часть                             | Назначение                                                       |
-| -------------------------------- | ---------------------------------------------------------------- |
-| `ScrollArea`                     | Управляет состоянием прокрутки и позиционированием.              |
-| `ScrollAreaRootProvider`        | Подключает части к состоянию из `useScrollArea()`.               |
-| `ScrollAreaViewport`            | Нативный контейнер прокрутки и элемент, принимающий фокус.      |
-| `ScrollAreaContent`             | Внутренняя оболочка содержимого, которую измеряет Ark UI.       |
-| `ScrollAreaScrollbar`           | Стилизованная полоса прокрутки для одной оси.                   |
-| `ScrollAreaThumb`               | Перетаскиваемый бегунок внутри полосы прокрутки.                 |
-| `ScrollAreaCorner`              | Заполняет область пересечения при переполнении по обеим осям.  |
-
-## Композиция
-
-Для каждой оси прокрутки нужна отдельная `ScrollAreaScrollbar` с `ScrollAreaThumb`. По умолчанию
-полоса вертикальная, для горизонтальной установите `orientation="horizontal"`. Размещайте
-`ScrollAreaViewport` вокруг `ScrollAreaContent`, а для вложенных областей сохраняйте полное
-независимое дерево.
-
-Используйте `ScrollAreaRootProvider` вместе с `useScrollArea()`, если внешним элементам
-управления нужен API прокрутки. Передайте возвращённое состояние в `ScrollAreaRootProvider` и не
-используйте `ScrollArea` и `ScrollAreaRootProvider` для одного состояния. В Solid читайте состояние и вызывайте
-его методы через аксессор, возвращённый `useScrollArea()`.
 
 ## Примеры
 
@@ -138,6 +64,43 @@ Ark мог измерять их независимо.
 
 <Example name="scroll-area/root-provider" />
 
+## Композиция
+
+Для каждой оси прокрутки нужна отдельная `ScrollAreaScrollbar` с `ScrollAreaThumb`. По умолчанию
+полоса вертикальная, для горизонтальной установите `orientation="horizontal"`. Размещайте
+`ScrollAreaViewport` вокруг `ScrollAreaContent`, а для вложенных областей сохраняйте полное
+независимое дерево.
+
+Используйте `ScrollAreaRootProvider` вместе с `useScrollArea()`, если внешним элементам
+управления нужен API прокрутки. Передайте возвращённое состояние в `ScrollAreaRootProvider` и не
+используйте `ScrollArea` и `ScrollAreaRootProvider` для одного состояния. В Solid читайте состояние и вызывайте
+его методы через аксессор, возвращённый `useScrollArea()`.
+
+## Анатомия
+
+```text
+ScrollArea
+├─ ScrollAreaViewport
+│  └─ ScrollAreaContent
+│     └─ children
+├─ ScrollAreaScrollbar
+│  └─ ScrollAreaThumb
+└─ ScrollAreaCorner
+
+ScrollAreaRootProvider
+└─ то же дерево, подключённое к состоянию useScrollArea()
+```
+
+| Часть                             | Назначение                                                       |
+| -------------------------------- | ---------------------------------------------------------------- |
+| `ScrollArea`                     | Управляет состоянием прокрутки и позиционированием.              |
+| `ScrollAreaRootProvider`        | Подключает части к состоянию из `useScrollArea()`.               |
+| `ScrollAreaViewport`            | Нативный контейнер прокрутки и элемент, принимающий фокус.      |
+| `ScrollAreaContent`             | Внутренняя оболочка содержимого, которую измеряет Ark UI.       |
+| `ScrollAreaScrollbar`           | Стилизованная полоса прокрутки для одной оси.                   |
+| `ScrollAreaThumb`               | Перетаскиваемый бегунок внутри полосы прокрутки.                 |
+| `ScrollAreaCorner`              | Заполняет область пересечения при переполнении по обеим осям.  |
+
 ## Стилизация
 
 Таблица CSS-переменных относится к пакетам с CSS Modules. В пакетах Tailwind используйте нативные
@@ -145,7 +108,7 @@ Ark мог измерять их независимо.
 меняют толщину полосы, цвет ползунка и глубину затухания. Viewport наследует `border-radius` корня,
 поэтому скруглённый корень скругляет и обрезанный контент, и кольцо фокуса.
 
-### CSS-свойства
+### CSS-переменные
 
 <CssPropertiesSection properties={ScrollAreaDocs.scrollAreaOverrideCssProperties} />
 

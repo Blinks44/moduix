@@ -2,16 +2,21 @@
 title: Input Group
 component: input-group
 description: Build inputs with prefixes, suffixes, and inline actions in React, Solid, or Vue with package and shadcn installation options.
+ark: https://ark-ui.com/docs/guides/composition
 ---
 
 import * as InputGroupDocs from '@/components/examples/input-group/css-properties';
 
-## API Reference
+<Example name="input-group/basic" />
 
-`InputGroup` is a moduix composition, not an Ark UI primitive. It combines Ark factory elements
-with the Ark-backed moduix `Input` and `Button` components. The composition follows Ark's guidance
-on [composition](https://ark-ui.com/docs/guides/composition), [styling](https://ark-ui.com/docs/guides/styling),
-and [refs](https://ark-ui.com/docs/guides/ref).
+## Installation
+
+<ComponentInstall />
+
+## Usage
+
+Use `InputGroup` as the root and compose exactly one `InputGroupInput` with any needed `InputGroupAddon`,
+`InputGroupText`, or `InputGroupButton` parts.
 
 ## Choosing the right component
 
@@ -21,91 +26,6 @@ and [refs](https://ark-ui.com/docs/guides/ref).
 - Use **`NumberInput`** when you need numeric behavior and step controls.
 - Use **`Textarea`** for multi-line content.
 - Use **`Editable`** when text should appear as a value first and switch into edit mode on demand.
-
-## Basic
-
-
-Use `InputGroup` as the root and compose exactly one `InputGroupInput` with any needed `InputGroupAddon`,
-`InputGroupText`, or `InputGroupButton` parts.
-
-<Example name="input-group/basic" />
-
-## Install with shadcn
-
-See [Quick Start](/docs/quick-start) for full package setup, registry configuration, and styling guidance.
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/input-group' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/input-group' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/input-group' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/input-group' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/input-group' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/input-group' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Anatomy
-
-```text
-InputGroup
-├─ InputGroupAddon (optional)
-├─ InputGroupInput or InputGroupTextarea
-├─ InputGroupText (optional)
-├─ InputGroupButton (optional)
-└─ InputGroupClearTrigger (optional)
-```
-
-| Part                             | Role                                                        |
-| -------------------------------- | ----------------------------------------------------------- |
-| `InputGroup`                    | Passive layout wrapper with shared styling and size context. |
-| `InputGroupInput`               | Native `<input>` that owns the form value and field state.  |
-| `InputGroupTextarea`            | Native `<textarea>` for multi-line values; use it instead of `InputGroupInput`. |
-| `InputGroupAddon`               | Filled prefix or suffix.                                   |
-| `InputGroupText`                | Inline text without a fill.                                |
-| `InputGroupButton`              | Action button associated with the input.                   |
-| `InputGroupClearTrigger` | Clear action with a default close icon; clearing is handled by the application. |
-
-## Composition
-
-Keep exactly one `InputGroupInput` in each group. The nested input owns the value, form behavior,
-validation state, and input ref, so controlled or uncontrolled props belong there, while labels and
-validation messages belong on `Field`. The root `size` is inherited by `InputGroupInput` and
-`InputGroupButton`; grouped buttons default to `type="button"` and do not inherit `disabled` from
-`Field`. In React, use `onChange`; in Solid, use `onInput`; in Vue, use `v-model` for a controlled
-input.
-
-Use `InputGroupAddon` and `InputGroupText` for non-interactive inline content and `InputGroupButton` for actions. The root,
-`InputGroupAddon`, and `InputGroupText` support `asChild` with one semantic child that accepts the merged props and ref.
-Use `Editable` when the value should switch between read and edit modes.
-
-Set `align="block"` on `InputGroupAddon` or `InputGroupText` to place it as a full-width row
-above or below the control instead of beside it; its position follows the DOM order. A group with
-a block addon holds one control and only block addons, so put inline content inside the block
-addon. Use a regular `Button` there: `InputGroupButton` stretches to the full group height and is
-meant for actions beside the control.
 
 ## Examples
 
@@ -168,6 +88,51 @@ keeps its styling and size context, and the child must remain a semantic layout 
 
 <Example name="input-group/as-child" />
 
+## Composition
+
+`InputGroup` is a moduix composition, not an Ark UI primitive. It combines Ark factory elements
+with the Ark-backed moduix `Input` and `Button` components. The composition follows Ark's guidance
+on [composition](https://ark-ui.com/docs/guides/composition), [styling](https://ark-ui.com/docs/guides/styling),
+and [refs](https://ark-ui.com/docs/guides/ref).
+
+Keep exactly one `InputGroupInput` in each group. The nested input owns the value, form behavior,
+validation state, and input ref, so controlled or uncontrolled props belong there, while labels and
+validation messages belong on `Field`. The root `size` is inherited by `InputGroupInput` and
+`InputGroupButton`; grouped buttons default to `type="button"` and do not inherit `disabled` from
+`Field`. In React, use `onChange`; in Solid, use `onInput`; in Vue, use `v-model` for a controlled
+input.
+
+Use `InputGroupAddon` and `InputGroupText` for non-interactive inline content and `InputGroupButton` for actions. The root,
+`InputGroupAddon`, and `InputGroupText` support `asChild` with one semantic child that accepts the merged props and ref.
+Use `Editable` when the value should switch between read and edit modes.
+
+Set `align="block"` on `InputGroupAddon` or `InputGroupText` to place it as a full-width row
+above or below the control instead of beside it; its position follows the DOM order. A group with
+a block addon holds one control and only block addons, so put inline content inside the block
+addon. Use a regular `Button` there: `InputGroupButton` stretches to the full group height and is
+meant for actions beside the control.
+
+## Anatomy
+
+```text
+InputGroup
+├─ InputGroupAddon (optional)
+├─ InputGroupInput or InputGroupTextarea
+├─ InputGroupText (optional)
+├─ InputGroupButton (optional)
+└─ InputGroupClearTrigger (optional)
+```
+
+| Part                             | Role                                                        |
+| -------------------------------- | ----------------------------------------------------------- |
+| `InputGroup`                    | Passive layout wrapper with shared styling and size context. |
+| `InputGroupInput`               | Native `<input>` that owns the form value and field state.  |
+| `InputGroupTextarea`            | Native `<textarea>` for multi-line values; use it instead of `InputGroupInput`. |
+| `InputGroupAddon`               | Filled prefix or suffix.                                   |
+| `InputGroupText`                | Inline text without a fill.                                |
+| `InputGroupButton`              | Action button associated with the input.                   |
+| `InputGroupClearTrigger` | Clear action with a default close icon; clearing is handled by the application. |
+
 ## Styling
 
 Use `className` in React, `class` in Solid, or `class` in Vue on exported parts for structural styles. For state-based
@@ -177,7 +142,7 @@ classes. CSS Modules variants build on foundation tokens and expose only the thr
 override colors, padding, and typography with a plain class on the part, which wins over the layered
 component styles. Data attributes and `data-slot` hooks are shared by both styling tracks.
 
-### CSS Properties
+### CSS variables
 
 <CssPropertiesSection properties={InputGroupDocs.inputGroupOverrideCssProperties} />
 

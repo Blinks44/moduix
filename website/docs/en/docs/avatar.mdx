@@ -2,99 +2,21 @@
 title: Avatar
 component: avatar
 description: A compact representation of a user or entity with Ark UI-managed image loading and fallback behavior.
+ark: https://ark-ui.com/docs/components/avatar
 ---
 
 import * as AvatarDocs from '@/components/examples/avatar/css-properties';
 
-## API Reference
+<Example name="avatar/basic" />
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/avatar" />
+## Installation
 
-## Basic
+<ComponentInstall />
 
+## Usage
 
 Use `Avatar`, `AvatarFallback`, and `AvatarImage` together. Keep `AvatarFallback` in the tree so
 Ark UI can switch between the fallback and the image as the loading state changes.
-
-React, Solid, and Vue use the same flat value names. Import `Avatar` as the root and import each
-additional part directly, such as `AvatarImage` and `AvatarFallback`. The same names work with npm
-packages and shadcn registry source.
-
-<Example name="avatar/basic" />
-
-## Install with shadcn
-
-See [Quick Start](/docs/quick-start) for full package setup, registry configuration, and styling guidance.
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/avatar' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/avatar' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/avatar' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/avatar' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/avatar' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/avatar' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Anatomy
-
-```text
-Avatar
-├─ AvatarFallback
-└─ AvatarImage
-
-AvatarRootProvider
-└─ same parts connected to a useAvatar() store
-
-AvatarGroup
-└─ Avatar, Avatar, ...
-```
-
-| Part                | Role                                                               |
-| ------------------- | ------------------------------------------------------------------ |
-| `Avatar`            | Creates and owns the Ark UI avatar state.                          |
-| `AvatarRootProvider` | Renders an avatar from Ark UI state created outside the component. |
-| `AvatarFallback`    | Shows consumer-provided content until the image loads.             |
-| `AvatarImage`       | Shows the image after it loads successfully.                       |
-| `AvatarGroup`       | Stacks avatars with an overlap and a background-colored ring.      |
-
-## Composition
-
-Keep `AvatarFallback` and `AvatarImage` under the same root so Ark can switch their visibility.
-When another part of the application owns the state, create it with `useAvatar()` from the matching
-framework package and pass it directly to `AvatarRootProvider`; do not render another root for the
-same store. React receives the store as an object, while Solid receives a reactive accessor. In Vue,
-pass the return value from `useAvatar()` directly to `AvatarRootProvider`. For custom image
-renderers, React and Solid can use `useAvatarContext()` and preserve the hidden and visible states
-from `getImageProps()`. In Vue, use the `AvatarContext` scoped slot to read the same state. Use
-`asChild` with one semantic child when another element must own the root DOM node.
-
-In Solid, assign a ref to the element created inside the `asChild` render function. A ref on `Avatar`
-itself is not forwarded through that composition path. Vue refs point to the component instance; use
-`$el` to access its rendered host.
 
 ## Examples
 
@@ -155,6 +77,43 @@ node while keeping Ark state, fallback behavior, and part composition explicit.
 
 <Example name="avatar/custom-composition" />
 
+## Composition
+
+Keep `AvatarFallback` and `AvatarImage` under the same root so Ark can switch their visibility.
+When another part of the application owns the state, create it with `useAvatar()` from the matching
+framework package and pass it directly to `AvatarRootProvider`; do not render another root for the
+same store. React receives the store as an object, while Solid receives a reactive accessor. In Vue,
+pass the return value from `useAvatar()` directly to `AvatarRootProvider`. For custom image
+renderers, React and Solid can use `useAvatarContext()` and preserve the hidden and visible states
+from `getImageProps()`. In Vue, use the `AvatarContext` scoped slot to read the same state. Use
+`asChild` with one semantic child when another element must own the root DOM node.
+
+In Solid, assign a ref to the element created inside the `asChild` render function. A ref on `Avatar`
+itself is not forwarded through that composition path. Vue refs point to the component instance; use
+`$el` to access its rendered host.
+
+## Anatomy
+
+```text
+Avatar
+├─ AvatarFallback
+└─ AvatarImage
+
+AvatarRootProvider
+└─ same parts connected to a useAvatar() store
+
+AvatarGroup
+└─ Avatar, Avatar, ...
+```
+
+| Part                | Role                                                               |
+| ------------------- | ------------------------------------------------------------------ |
+| `Avatar`            | Creates and owns the Ark UI avatar state.                          |
+| `AvatarRootProvider` | Renders an avatar from Ark UI state created outside the component. |
+| `AvatarFallback`    | Shows consumer-provided content until the image loads.             |
+| `AvatarImage`       | Shows the image after it loads successfully.                       |
+| `AvatarGroup`       | Stacks avatars with an overlap and a background-colored ring.      |
+
 ## Styling
 
 Use `className` in React or `class` in Solid and Vue on exported parts for structural styles. Tailwind
@@ -162,7 +121,7 @@ variants use native utility classes and consumer classes; the CSS Variables refe
 to CSS Modules variants. For state-based styles, prefer Ark data attributes together with moduix
 `data-slot` selectors.
 
-### CSS Properties
+### CSS variables
 
 <CssPropertiesSection properties={AvatarDocs.avatarCssProperties} />
 

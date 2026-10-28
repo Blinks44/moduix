@@ -2,90 +2,19 @@
 title: Bleed
 component: bleed
 description: Composant de mise en page qui permet à certains contenus de dépasser les limites d’un conteneur.
+ark: https://ark-ui.com/docs/guides/composition#the-ark-factory
 ---
-
-
-
-## Référence de l’API
-
-Ark UI ne fournit pas de primitive `bleed` dédiée. Dans moduix, `Bleed` repose sur la
-[fabrique Ark](https://ark-ui.com/docs/guides/composition#the-ark-factory) et suit les recommandations d’Ark pour la
-[composition](https://ark-ui.com/docs/guides/composition), les [styles](https://ark-ui.com/docs/guides/styling) et les
-[références](https://ark-ui.com/docs/guides/ref).
-
-Utilisez [Container](/docs/container) pour conserver une colonne de contenu agréable à lire. Placez `Bleed` à
-l’intérieur lorsque seul un bloc média, un arrière-plan, un séparateur ou une bannière doit dépasser les limites du
-conteneur.
-
-
-Importez `Bleed` depuis le sous-chemin qui correspond au framework et au style choisi. Pour CSS Modules, utilisez
-`@moduix/react/bleed`, `@moduix/solid/bleed` ou `@moduix/vue/bleed`. Pour Tailwind, utilisez
-`@moduix/react-tailwind/bleed`, `@moduix/solid-tailwind/bleed` ou `@moduix/vue-tailwind/bleed`.
-## Exemple de base
-
-La valeur par défaut `inline="full"` permet à un bloc média, une bannière ou un élément décoratif de section
-d’atteindre les bords de la fenêtre tout en restant dans le flux normal du document.
-
 
 <Example name="bleed/basic" />
 
-## Installation avec shadcn
+## Installation
 
-Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration complète du paquet, du registre et des styles.
+<ComponentInstall />
 
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
+## Utilisation
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/bleed' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/bleed' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/bleed' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/bleed' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/bleed' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/bleed' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Anatomie
-
-`Bleed` rend un seul élément racine conforme aux conventions d’Ark. Il applique des marges négatives sur l’axe en
-ligne et/ou l’axe de bloc, sans ajouter d’enveloppe interne.
-
-```text
-Bleed
-└─ root[data-scope="bleed"][data-part="root"][data-slot="bleed-root"]
-   └─ children
-```
-
-| Partie | Rôle                                                                                 |
-| ------ | ------------------------------------------------------------------------------------ |
-| `Bleed` | Composant racine qui permet au contenu de dépasser sur les axes en ligne et de bloc. |
-
-## Composition
-
-`Bleed` est un composant de présentation sans état. Il ne possède qu’une partie racine ; il n’y a donc aucune partie enfant à coordonner. Les valeurs par défaut sont `inline="full"`, `block="none"` et `asChild={false}`. Lorsque `asChild` doit confier la racine rendue à un élément sémantique, fournissez exactement un enfant capable de recevoir les propriétés DOM et une ref en React, ou utilisez la fonction de rendu Solid. Les refs React ciblent la racine ou l’enfant rendu ; la forme Solid ne transmet pas la ref du composant à l’hôte personnalisé. Dans Vue, `asChild` transmet la racine à un unique enfant sémantique via la fabrique Ark. La ref du composant donne accès à l’élément rendu avec `$el`.
-
-Combinez `inline` et `block` lorsqu’une surface doit dépasser les marges internes sur les deux axes logiques. `inline="full"` est relatif à la fenêtre d’affichage et suppose que le parent contraint est centré dans la fenêtre. Dans une enveloppe imbriquée ou décentrée, utilisez une valeur fixe égale à son espacement intérieur, ou définissez vos propres marges comme dans Styles personnalisés.
+La valeur par défaut `inline="full"` permet à un bloc média, une bannière ou un élément décoratif de section
+d’atteindre les bords de la fenêtre tout en restant dans le flux normal du document.
 
 ## Exemples
 
@@ -116,6 +45,35 @@ Utilisez `asChild` lorsque le contenu doit utiliser un élément sémantique plu
 `figure` devient la racine de `Bleed`.
 
 <Example name="bleed/semantic-element" />
+
+## Composition
+
+Utilisez [Container](/docs/container) pour conserver une colonne de contenu agréable à lire. Placez `Bleed` à
+l’intérieur lorsque seul un bloc média, un arrière-plan, un séparateur ou une bannière doit dépasser les limites du
+conteneur.
+
+Importez `Bleed` depuis le sous-chemin qui correspond au framework et au style choisi. Pour CSS Modules, utilisez
+`@moduix/react/bleed`, `@moduix/solid/bleed` ou `@moduix/vue/bleed`. Pour Tailwind, utilisez
+`@moduix/react-tailwind/bleed`, `@moduix/solid-tailwind/bleed` ou `@moduix/vue-tailwind/bleed`.
+
+`Bleed` est un composant de présentation sans état. Il ne possède qu’une partie racine ; il n’y a donc aucune partie enfant à coordonner. Les valeurs par défaut sont `inline="full"`, `block="none"` et `asChild={false}`. Lorsque `asChild` doit confier la racine rendue à un élément sémantique, fournissez exactement un enfant capable de recevoir les propriétés DOM et une ref en React, ou utilisez la fonction de rendu Solid. Les refs React ciblent la racine ou l’enfant rendu ; la forme Solid ne transmet pas la ref du composant à l’hôte personnalisé. Dans Vue, `asChild` transmet la racine à un unique enfant sémantique via la fabrique Ark. La ref du composant donne accès à l’élément rendu avec `$el`.
+
+Combinez `inline` et `block` lorsqu’une surface doit dépasser les marges internes sur les deux axes logiques. `inline="full"` est relatif à la fenêtre d’affichage et suppose que le parent contraint est centré dans la fenêtre. Dans une enveloppe imbriquée ou décentrée, utilisez une valeur fixe égale à son espacement intérieur, ou définissez vos propres marges comme dans Styles personnalisés.
+
+## Anatomie
+
+`Bleed` rend un seul élément racine conforme aux conventions d’Ark. Il applique des marges négatives sur l’axe en
+ligne et/ou l’axe de bloc, sans ajouter d’enveloppe interne.
+
+```text
+Bleed
+└─ root[data-scope="bleed"][data-part="root"][data-slot="bleed-root"]
+   └─ children
+```
+
+| Partie | Rôle                                                                                 |
+| ------ | ------------------------------------------------------------------------------------ |
+| `Bleed` | Composant racine qui permet au contenu de dépasser sur les axes en ligne et de bloc. |
 
 ## Styles
 

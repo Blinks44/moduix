@@ -2,14 +2,24 @@
 title: Segment Group
 component: segment-group
 description: Un contrôle segmenté compact basé sur Ark UI pour choisir une valeur parmi un petit ensemble visible.
+ark: https://ark-ui.com/docs/components/segment-group
 ---
 
 import * as SegmentGroupDocs from '@/components/examples/segment-group/css-properties';
 import { CssPropertiesSection } from '@/components/mdx/Components';
 
-## Référence de l’API
+<Example name="segment-group/basic" />
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/segment-group" />
+## Installation
+
+<ComponentInstall />
+
+## Utilisation
+
+Utilisez `SegmentGroup` comme racine, placez `SegmentGroupIndicator` avant les éléments et utilisez
+`SegmentGroupItems` lorsque chaque segment n'a besoin que d'un libellé textuel. `SegmentGroupItems` crée pour chaque
+entrée les parties item et text, ainsi qu'un champ de formulaire natif. Passez des chaînes lorsque la valeur et le
+libellé sont identiques, ou des objets `{ value, label, disabled }`.
 
 ## Choisir le bon composant
 
@@ -20,97 +30,6 @@ même temps.
 - Choisissez **`ToggleGroup`** lorsque les éléments se comportent comme des boutons de barre d’outils et que plusieurs valeurs peuvent être actives.
 - Choisissez **`RadioGroup`** lorsque le contrôle doit conserver l’apparence familière des boutons radio.
 - Choisissez **`SegmentGroup`** lorsque l’interaction ressemble à celle d’un groupe de boutons radio, mais que l’interface doit rester compacte et segmentée.
-
-## Exemple de base
-
-
-Utilisez `SegmentGroup` comme racine, placez `SegmentGroupIndicator` avant les éléments et utilisez
-`SegmentGroupItems` lorsque chaque segment n'a besoin que d'un libellé textuel. `SegmentGroupItems` crée pour chaque
-entrée les parties item et text, ainsi qu'un champ de formulaire natif. Passez des chaînes lorsque la valeur et le
-libellé sont identiques, ou des objets `{ value, label, disabled }`.
-
-<Example name="segment-group/basic" />
-
-## Installation avec shadcn
-
-Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration complète du paquet, du registre et des styles.
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/segment-group' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/segment-group' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/segment-group' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/segment-group' },
-  ]}
-/>
-
-  </Tab>
-
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/segment-group' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/segment-group' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Anatomie
-
-```text
-SegmentGroup
-├─ SegmentGroupLabel (facultatif)
-├─ SegmentGroupIndicator
-└─ SegmentGroupItem[value]
-   ├─ SegmentGroupItemText
-   └─ champ de formulaire natif
-
-SegmentGroupRootProvider
-└─ même arborescence d’éléments reliée à un store moduix useSegmentGroup()
-
-SegmentGroupContext / SegmentGroupItemContext
-└─ accès avancé à l’état Ark via render prop
-```
-
-| Partie                                | Rôle                                                                  |
-| ------------------------------------- | --------------------------------------------------------------------- |
-| `SegmentGroup`  | Gère la valeur sélectionnée, la navigation au clavier et les formulaires. |
-| `SegmentGroupItemHiddenInput` | Champ natif d’Ark ; composition explicite décrite ci-dessous. |
-| `SegmentGroupRootProvider`            | Relie les parties à l’état créé avec `useSegmentGroup()` de moduix.   |
-| `SegmentGroupContext`                 | Donne un accès avancé à l’état racine via render prop.                |
-| `SegmentGroupItemContext`             | Donne un accès avancé à l’état de l’élément courant via render prop.  |
-| `SegmentGroupLabel`                   | Libellé accessible facultatif du groupe.                              |
-| `SegmentGroupIndicator`               | Positionne la mise en évidence de l’élément actif avec les variables CSS d’Ark. |
-| `SegmentGroupItems`                   | Méthode recommandée pour afficher des segments textuels standard.     |
-| `SegmentGroupItem`                    | Segment sélectionnable ; rend un `label` par défaut.                  |
-| `SegmentGroupItemText`                | Libellé visible du segment.                                           |
-
-## Composition
-
-Pour la composition courante, utilisez `SegmentGroup` avec `SegmentGroupIndicator` avant
-`SegmentGroupItems`. `SegmentGroupItems` inclut `SegmentGroupItemText` et
-exactement un `SegmentGroupItemHiddenInput` pour chaque élément. Si vous rendez `SegmentGroupItem`
-directement, composez ces parties vous-même et conservez exactement un
-`SegmentGroupItemHiddenInput` dans chaque élément. L'enfant direct de
-`asChild` doit rester un seul `label` sémantique.
-
-Utilisez `SegmentGroupRootProvider` avec `useSegmentGroup()` lorsque l'état doit être créé en dehors
-de l'arbre rendu ou contrôlé par une autre partie de l'application. React et Vue exposent le store comme un
-objet, tandis que Solid lit son état réactif à travers la fonction d'accès renvoyée.
 
 ## Exemples
 
@@ -186,6 +105,49 @@ personnalisée du libellé doit posséder le nœud DOM de l’élément.
 
 <Example name="segment-group/aschild" />
 
+## Composition
+
+Pour la composition courante, utilisez `SegmentGroup` avec `SegmentGroupIndicator` avant
+`SegmentGroupItems`. `SegmentGroupItems` inclut `SegmentGroupItemText` et
+exactement un `SegmentGroupItemHiddenInput` pour chaque élément. Si vous rendez `SegmentGroupItem`
+directement, composez ces parties vous-même et conservez exactement un
+`SegmentGroupItemHiddenInput` dans chaque élément. L'enfant direct de
+`asChild` doit rester un seul `label` sémantique.
+
+Utilisez `SegmentGroupRootProvider` avec `useSegmentGroup()` lorsque l'état doit être créé en dehors
+de l'arbre rendu ou contrôlé par une autre partie de l'application. React et Vue exposent le store comme un
+objet, tandis que Solid lit son état réactif à travers la fonction d'accès renvoyée.
+
+## Anatomie
+
+```text
+SegmentGroup
+├─ SegmentGroupLabel (facultatif)
+├─ SegmentGroupIndicator
+└─ SegmentGroupItem[value]
+   ├─ SegmentGroupItemText
+   └─ champ de formulaire natif
+
+SegmentGroupRootProvider
+└─ même arborescence d’éléments reliée à un store moduix useSegmentGroup()
+
+SegmentGroupContext / SegmentGroupItemContext
+└─ accès avancé à l’état Ark via render prop
+```
+
+| Partie                                | Rôle                                                                  |
+| ------------------------------------- | --------------------------------------------------------------------- |
+| `SegmentGroup`  | Gère la valeur sélectionnée, la navigation au clavier et les formulaires. |
+| `SegmentGroupItemHiddenInput` | Champ natif d’Ark ; composition explicite décrite ci-dessous. |
+| `SegmentGroupRootProvider`            | Relie les parties à l’état créé avec `useSegmentGroup()` de moduix.   |
+| `SegmentGroupContext`                 | Donne un accès avancé à l’état racine via render prop.                |
+| `SegmentGroupItemContext`             | Donne un accès avancé à l’état de l’élément courant via render prop.  |
+| `SegmentGroupLabel`                   | Libellé accessible facultatif du groupe.                              |
+| `SegmentGroupIndicator`               | Positionne la mise en évidence de l’élément actif avec les variables CSS d’Ark. |
+| `SegmentGroupItems`                   | Méthode recommandée pour afficher des segments textuels standard.     |
+| `SegmentGroupItem`                    | Segment sélectionnable ; rend un `label` par défaut.                  |
+| `SegmentGroupItemText`                | Libellé visible du segment.                                           |
+
 ## Styles
 
 Dans React, utilisez `className` et, dans Solid/Vue, `class` sur les parties exportées pour les styles
@@ -195,7 +157,7 @@ Tailwind utilisent des utilitaires natifs et les classes du consommateur ; les v
 personnalisent les variantes CSS Modules. Les attributs d'état et les hooks data-slot sont partagés
 par les deux modes de style.
 
-### Propriétés CSS
+### Variables CSS
 
 <CssPropertiesSection properties={SegmentGroupDocs.segmentGroupOverrideCssProperties} />
 

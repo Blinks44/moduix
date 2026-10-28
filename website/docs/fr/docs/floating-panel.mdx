@@ -2,21 +2,16 @@
 title: Floating Panel
 component: floating-panel
 description: Une fenêtre non modale Ark UI que l'utilisateur peut déplacer, redimensionner, réduire et agrandir.
+ark: https://ark-ui.com/docs/components/floating-panel
 ---
 
-## Référence API
+<Example name="floating-panel/basic" />
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/floating-panel" />
+## Installation
 
-## Choisir le bon composant
+<ComponentInstall />
 
-Utilisez `FloatingPanel` pour un espace de travail flottant et non modal, par exemple un inspecteur,
-un panneau de propriétés ou une fenêtre utilitaire. Utilisez `Popover` pour un contenu compact ancré
-à un déclencheur, `Dialog` pour les tâches modales et `Drawer` pour un panneau fixé au bord de la
-fenêtre avec des gestes ou des points d'ancrage.
-
-## Exemple de base
-
+## Utilisation
 
 Conservez les parties Ark UI explicites. `FloatingPanelPositioner` applique la position et la taille
 calculées par Ark, tandis que `FloatingPanelContent` représente la surface visible de la fenêtre.
@@ -25,99 +20,12 @@ L'en-tête sert de poignée de déplacement et `FloatingPanelResizeTriggerGroup`
 React, Solid et Vue utilisent les mêmes noms de composants plats. En Vue, composez les parties avec
 des slots et utilisez `v-model` lorsque l'ouverture, la position ou la taille sont contrôlées.
 
-<Example name="floating-panel/basic" />
+## Choisir le bon composant
 
-## Installation avec shadcn
-
-Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration complète du paquet, du registre et des styles.
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/floating-panel' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/floating-panel' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/floating-panel' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/floating-panel' },
-  ]}
-/>
-
-  </Tab>
-
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/floating-panel' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/floating-panel' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-```text
-FloatingPanel
-├─ FloatingPanelTrigger
-└─ Sous-arbre de l'overlay (placé automatiquement dans un portail)
-   └─ FloatingPanelPositioner
-      └─ FloatingPanelContent
-         ├─ FloatingPanelDragTrigger
-         │  └─ FloatingPanelHeader
-         │     ├─ FloatingPanelTitle
-         │     │  └─ FloatingPanelDragIndicator (facultatif)
-         │     └─ FloatingPanelControl
-         │        ├─ FloatingPanelStageTrigger
-         │        └─ FloatingPanelCloseTrigger / FloatingPanelCloseIcon
-         ├─ FloatingPanelBody
-         ├─ FloatingPanelFooter
-         └─ FloatingPanelResizeTrigger / FloatingPanelResizeTriggerGroup
-```
-
-| Partie                                      | Rôle                                                                    |
-| ------------------------------------------- | ----------------------------------------------------------------------- |
-| `FloatingPanel`                            | Gère l'ouverture, la position, la taille, le déplacement, le redimensionnement et le mode de la fenêtre. |
-| `FloatingPanelTrigger`                     | Ouvre la fenêtre ou inverse son état.                                   |
-| `FloatingPanelPositioner`                  | Applique les valeurs de position, de taille, de transformation et de z-index calculées par Ark. |
-| `FloatingPanelContent`                     | Surface visible de la fenêtre flottante.                               |
-| `FloatingPanelDragTrigger`                 | Définit la zone déplaçable, généralement l'en-tête.                     |
-| `FloatingPanelHeader`                      | Partie d'en-tête Ark et conteneur de la poignée de déplacement.          |
-| `FloatingPanelTitle`                       | Définit le nom accessible de la fenêtre.                                |
-| `FloatingPanelControl`                     | Regroupe les commandes de mode et de fermeture.                         |
-| `FloatingPanelStageTrigger`                | Passe entre les modes `default`, `minimized` et `maximized`.             |
-| `FloatingPanelCloseTrigger` / `FloatingPanelCloseIcon` | Ferme la fenêtre.                                             |
-| `FloatingPanelBody`                        | Zone principale du contenu, avec défilement.                            |
-| `FloatingPanelFooter`                      | Zone facultative pour les actions ou le statut.                         |
-| `FloatingPanelResizeTrigger`               | Poignée de redimensionnement pour un axe Ark.                           |
-| `FloatingPanelResizeTriggerGroup`          | Affiche toutes les poignées ou seulement celles qui sont sélectionnées.  |
-| `FloatingPanelRootProvider`                | Relie les parties à l'état créé avec `useFloatingPanel()`. |
-
-`FloatingPanelDragIndicator`, `FloatingPanelCloseIcon`, `FloatingPanelFooter` et
-`FloatingPanelResizeTriggerGroup` sont des utilitaires moduix. Ils complètent les parties
-structurelles d'Ark UI sans les remplacer.
-
-## Composition
-
-Utilisez `FloatingPanel` pour l'état local. Gardez `FloatingPanelPositioner` et `FloatingPanelContent` explicites, entourez
-l'en-tête avec `FloatingPanelDragTrigger` et ajoutez `FloatingPanelTitle` pour un nom accessible. `FloatingPanelPositioner` est placé dans
-un portail par défaut. Définissez `portalled={false}` ou transmettez `portalRef` lorsque le panneau
-doit se trouver dans un autre conteneur.
-
-Si l'état doit être créé en dehors de l'arbre du panneau, créez-le avec
-`useFloatingPanel()` et transmettez-le à `FloatingPanelRootProvider`. N'utilisez pas `FloatingPanel`
-et `FloatingPanelRootProvider` pour la même instance d'état. `position` et `size` se contrôlent séparément. Utilisez
-`FloatingPanelResizeTriggerGroup axes` ou des parties `FloatingPanelResizeTrigger` individuelles uniquement lorsque l'ensemble
-de poignées par défaut ne convient pas. Avec `asChild`, transmettez un seul enfant sémantique. Vue
-utilise le slot enfant, tandis que Solid utilise la forme avec fonction de rendu de cette propriété.
+Utilisez `FloatingPanel` pour un espace de travail flottant et non modal, par exemple un inspecteur,
+un panneau de propriétés ou une fenêtre utilitaire. Utilisez `Popover` pour un contenu compact ancré
+à un déclencheur, `Dialog` pour les tâches modales et `Drawer` pour un panneau fixé au bord de la
+fenêtre avec des gestes ou des points d'ancrage.
 
 ## Exemples
 
@@ -188,6 +96,62 @@ Utilisez des parties `FloatingPanelResizeTrigger` distinctes lorsque chaque axe 
 son propre emplacement ou style.
 
 <Example name="floating-panel/advanced-customization" />
+
+## Composition
+
+Utilisez `FloatingPanel` pour l'état local. Gardez `FloatingPanelPositioner` et `FloatingPanelContent` explicites, entourez
+l'en-tête avec `FloatingPanelDragTrigger` et ajoutez `FloatingPanelTitle` pour un nom accessible. `FloatingPanelPositioner` est placé dans
+un portail par défaut. Définissez `portalled={false}` ou transmettez `portalRef` lorsque le panneau
+doit se trouver dans un autre conteneur.
+
+Si l'état doit être créé en dehors de l'arbre du panneau, créez-le avec
+`useFloatingPanel()` et transmettez-le à `FloatingPanelRootProvider`. N'utilisez pas `FloatingPanel`
+et `FloatingPanelRootProvider` pour la même instance d'état. `position` et `size` se contrôlent séparément. Utilisez
+`FloatingPanelResizeTriggerGroup axes` ou des parties `FloatingPanelResizeTrigger` individuelles uniquement lorsque l'ensemble
+de poignées par défaut ne convient pas. Avec `asChild`, transmettez un seul enfant sémantique. Vue
+utilise le slot enfant, tandis que Solid utilise la forme avec fonction de rendu de cette propriété.
+
+## Anatomie
+
+```text
+FloatingPanel
+├─ FloatingPanelTrigger
+└─ Sous-arbre de l'overlay (placé automatiquement dans un portail)
+   └─ FloatingPanelPositioner
+      └─ FloatingPanelContent
+         ├─ FloatingPanelDragTrigger
+         │  └─ FloatingPanelHeader
+         │     ├─ FloatingPanelTitle
+         │     │  └─ FloatingPanelDragIndicator (facultatif)
+         │     └─ FloatingPanelControl
+         │        ├─ FloatingPanelStageTrigger
+         │        └─ FloatingPanelCloseTrigger / FloatingPanelCloseIcon
+         ├─ FloatingPanelBody
+         ├─ FloatingPanelFooter
+         └─ FloatingPanelResizeTrigger / FloatingPanelResizeTriggerGroup
+```
+
+| Partie                                      | Rôle                                                                    |
+| ------------------------------------------- | ----------------------------------------------------------------------- |
+| `FloatingPanel`                            | Gère l'ouverture, la position, la taille, le déplacement, le redimensionnement et le mode de la fenêtre. |
+| `FloatingPanelTrigger`                     | Ouvre la fenêtre ou inverse son état.                                   |
+| `FloatingPanelPositioner`                  | Applique les valeurs de position, de taille, de transformation et de z-index calculées par Ark. |
+| `FloatingPanelContent`                     | Surface visible de la fenêtre flottante.                               |
+| `FloatingPanelDragTrigger`                 | Définit la zone déplaçable, généralement l'en-tête.                     |
+| `FloatingPanelHeader`                      | Partie d'en-tête Ark et conteneur de la poignée de déplacement.          |
+| `FloatingPanelTitle`                       | Définit le nom accessible de la fenêtre.                                |
+| `FloatingPanelControl`                     | Regroupe les commandes de mode et de fermeture.                         |
+| `FloatingPanelStageTrigger`                | Passe entre les modes `default`, `minimized` et `maximized`.             |
+| `FloatingPanelCloseTrigger` / `FloatingPanelCloseIcon` | Ferme la fenêtre.                                             |
+| `FloatingPanelBody`                        | Zone principale du contenu, avec défilement.                            |
+| `FloatingPanelFooter`                      | Zone facultative pour les actions ou le statut.                         |
+| `FloatingPanelResizeTrigger`               | Poignée de redimensionnement pour un axe Ark.                           |
+| `FloatingPanelResizeTriggerGroup`          | Affiche toutes les poignées ou seulement celles qui sont sélectionnées.  |
+| `FloatingPanelRootProvider`                | Relie les parties à l'état créé avec `useFloatingPanel()`. |
+
+`FloatingPanelDragIndicator`, `FloatingPanelCloseIcon`, `FloatingPanelFooter` et
+`FloatingPanelResizeTriggerGroup` sont des utilitaires moduix. Ils complètent les parties
+structurelles d'Ark UI sans les remplacer.
 
 ## Styles
 

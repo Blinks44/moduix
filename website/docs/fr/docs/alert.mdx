@@ -2,26 +2,22 @@
 title: Alert
 component: alert
 description: Messages intégrés à la page pour les mises à jour de statut, la validation et les messages système.
+ark: https://ark-ui.com/docs/guides/composition
 ---
 
 import * as AlertDocs from '@/components/examples/alert/css-properties';
 
+<Example name="alert/basic" />
 
-## Référence de l’API
+## Installation
 
-Ark UI ne fournit pas de primitive `alert` dédiée. moduix construit `Alert` avec la fabrique officielle
-d’Ark, en suivant les recommandations d’Ark en matière de [composition](https://ark-ui.com/docs/guides/composition), de
-[styles](https://ark-ui.com/docs/guides/styling) et de [gestion des refs](https://ark-ui.com/docs/guides/ref).
+<ComponentInstall />
 
-Importez `Alert` depuis `@moduix/react/alert`, `@moduix/solid/alert` ou `@moduix/vue/alert`. `Alert` est la partie racine, et les autres parties
-publiques sont `AlertIndicator`, `AlertContent`, `AlertTitle`,
-`AlertDescription` et `AlertActions`.
+## Utilisation
 
-Chaque partie accepte les propriétés usuelles de l’élément qu’elle rend, notamment `className`/`class` et
-`asChild`, et transmet la ref à l’élément rendu. `status` vaut `info` par défaut et ne contrôle que le
-style visuel. Ajoutez `role="status"` ou `role="alert"` lorsqu’un message ajouté ou mis à jour
-dynamiquement doit constituer une région live. `AlertIndicator` est masqué aux technologies
-d’assistance : l’essentiel du message doit donc figurer dans le titre ou la description.
+Pour un message intégré courant, utilisez la forme courte `<Alert>` avec `AlertTitle` et
+`AlertDescription`. Ajoutez `AlertIndicator` lorsqu’une icône aide à comprendre plus rapidement le
+type de message.
 
 ## Choisir le bon composant
 
@@ -31,84 +27,9 @@ flux normal du document.
 - Utilisez **`Alert`** pour les mises à jour de statut, les résultats de validation et les messages système dans les formulaires, les panneaux ou le contenu de la page.
 - Utilisez **`Toast`** pour les notifications temporaires qui s’affichent au-dessus de la page, n’occupent pas de place dans le flux du document et se ferment automatiquement.
 
-
 Les mêmes exports sont disponibles depuis `@moduix/solid/alert` pour Solid et depuis
 `@moduix/vue/alert` pour Vue.
-## Exemple de base
 
-Pour un message intégré courant, utilisez la forme courte `<Alert>` avec `AlertTitle` et
-`AlertDescription`. Ajoutez `AlertIndicator` lorsqu’une icône aide à comprendre plus rapidement le
-type de message.
-
-
-<Example name="alert/basic" />
-
-## Installation avec shadcn
-
-Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration complète du paquet, du registre et des styles.
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/alert' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/alert' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/alert' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/alert' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/alert' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/alert' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Anatomie
-
-Placez le contenu du message dans `AlertContent`. `AlertIndicator` est facultatif et se place à
-côté de ce contenu lorsqu’il aide à identifier le message.
-
-```text
-Alert
-├─ AlertIndicator (optional)
-└─ AlertContent
-   ├─ AlertTitle
-   ├─ AlertDescription
-   ├─ AlertActions (optional)
-   └─ Extra custom blocks
-```
-
-| Partie             | Rôle                                                                  | `data-part`   |
-| ------------------ | --------------------------------------------------------------------- | ------------- |
-| `Alert`            | Élément racine. Applique les styles du statut.                         | `root`        |
-| `AlertIndicator`   | Repère visuel facultatif. Les icônes SVG qu’il contient ont une taille cohérente. | `indicator`   |
-| `AlertContent`     | Conteneur en colonne obligatoire pour le contenu et les actions.   | `content`     |
-| `AlertTitle`       | Titre de l’alerte. Rend un `p` par défaut.                              | `title`       |
-| `AlertDescription` | Texte complémentaire du message.                                       | `description` |
-| `AlertActions`     | Ligne d’actions facultative avec retour à la ligne dans `Content`.     | `actions`     |
-
-## Composition
-
-`Alert` est un composant de présentation : le composant qui l’affiche gère sa visibilité et sa fermeture. Il ne prend pas en charge le focus ni le clavier des boutons et des liens qu’il contient. `AlertContent` est obligatoire et regroupe le titre, la description, les contrôles et le reste du contenu. Placez les contrôles dans `AlertActions` lorsqu’ils doivent bénéficier de la mise en ligne avec retour à la ligne.
-
-Si le titre doit utiliser un autre élément sémantique, utilisez `AlertTitle asChild` avec un seul enfant sémantique. En Solid, `asChild` utilise la forme avec fonction de rendu d’Ark UI, comme dans l’exemple « Titre personnalisé ». En Vue, on utilise l’attribut `as-child` avec un seul élément enfant.
 ## Exemples
 
 ### Titre personnalisé
@@ -147,6 +68,50 @@ l’alerte si vous devez pouvoir la masquer localement.
 
 <Example name="alert/custom-composition" />
 
+## Composition
+
+Ark UI ne fournit pas de primitive `alert` dédiée. moduix construit `Alert` avec la fabrique officielle
+d’Ark, en suivant les recommandations d’Ark en matière de [composition](https://ark-ui.com/docs/guides/composition), de
+[styles](https://ark-ui.com/docs/guides/styling) et de [gestion des refs](https://ark-ui.com/docs/guides/ref).
+
+Importez `Alert` depuis `@moduix/react/alert`, `@moduix/solid/alert` ou `@moduix/vue/alert`. `Alert` est la partie racine, et les autres parties
+publiques sont `AlertIndicator`, `AlertContent`, `AlertTitle`,
+`AlertDescription` et `AlertActions`.
+
+Chaque partie accepte les propriétés usuelles de l’élément qu’elle rend, notamment `className`/`class` et
+`asChild`, et transmet la ref à l’élément rendu. `status` vaut `info` par défaut et ne contrôle que le
+style visuel. Ajoutez `role="status"` ou `role="alert"` lorsqu’un message ajouté ou mis à jour
+dynamiquement doit constituer une région live. `AlertIndicator` est masqué aux technologies
+d’assistance : l’essentiel du message doit donc figurer dans le titre ou la description.
+
+`Alert` est un composant de présentation : le composant qui l’affiche gère sa visibilité et sa fermeture. Il ne prend pas en charge le focus ni le clavier des boutons et des liens qu’il contient. `AlertContent` est obligatoire et regroupe le titre, la description, les contrôles et le reste du contenu. Placez les contrôles dans `AlertActions` lorsqu’ils doivent bénéficier de la mise en ligne avec retour à la ligne.
+
+Si le titre doit utiliser un autre élément sémantique, utilisez `AlertTitle asChild` avec un seul enfant sémantique. En Solid, `asChild` utilise la forme avec fonction de rendu d’Ark UI, comme dans l’exemple « Titre personnalisé ». En Vue, on utilise l’attribut `as-child` avec un seul élément enfant.
+
+## Anatomie
+
+Placez le contenu du message dans `AlertContent`. `AlertIndicator` est facultatif et se place à
+côté de ce contenu lorsqu’il aide à identifier le message.
+
+```text
+Alert
+├─ AlertIndicator (optional)
+└─ AlertContent
+   ├─ AlertTitle
+   ├─ AlertDescription
+   ├─ AlertActions (optional)
+   └─ Extra custom blocks
+```
+
+| Partie             | Rôle                                                                  | `data-part`   |
+| ------------------ | --------------------------------------------------------------------- | ------------- |
+| `Alert`            | Élément racine. Applique les styles du statut.                         | `root`        |
+| `AlertIndicator`   | Repère visuel facultatif. Les icônes SVG qu’il contient ont une taille cohérente. | `indicator`   |
+| `AlertContent`     | Conteneur en colonne obligatoire pour le contenu et les actions.   | `content`     |
+| `AlertTitle`       | Titre de l’alerte. Rend un `p` par défaut.                              | `title`       |
+| `AlertDescription` | Texte complémentaire du message.                                       | `description` |
+| `AlertActions`     | Ligne d’actions facultative avec retour à la ligne dans `Content`.     | `actions`     |
+
 ## Styles
 
 Utilisez `className` en React ou `class` en Solid et Vue sur la racine et ses différentes parties pour
@@ -169,7 +134,7 @@ Les statuts intégrés utilisent également les tokens de palette partagée :
 | `warning` | `--moduix-color-warning`     | `oklch(0.795 0.184 86.047)`  |
 | `error`   | `--moduix-color-destructive` | couleur destructive du thème |
 
-### Propriétés CSS
+### Variables CSS
 
 <CssPropertiesSection properties={AlertDocs.alertCssProperties} />
 

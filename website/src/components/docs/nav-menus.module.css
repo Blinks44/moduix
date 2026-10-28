@@ -1,0 +1,272 @@
+/* Header menus from the "Content & menus" board and Mobile · Nav menu open in Moduix.sketch. */
+.desktop {
+  display: flex;
+
+  :global(.rp-nav-screen) & {
+    display: none;
+  }
+}
+
+.screen {
+  display: none;
+
+  :global(.rp-nav-screen) & {
+    display: block;
+  }
+}
+
+.trigger {
+  display: inline-flex;
+  height: 36px;
+  align-items: center;
+  gap: 6px;
+  border: 0;
+  border-radius: 8px;
+  padding: 0 10px;
+  background: transparent;
+  color: var(--rp-c-text-0);
+  font: inherit;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+
+  svg {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+  }
+
+  &:hover,
+  &[data-state='open'] {
+    background: var(--rp-c-bg-mute);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--rp-c-brand);
+    outline-offset: 2px;
+  }
+}
+
+.chevron {
+  color: var(--rp-c-text-3);
+  transition: transform 0.15s;
+
+  .trigger[data-state='open'] & {
+    transform: rotate(180deg);
+  }
+}
+
+.content {
+  min-width: 200px;
+  border: 1px solid var(--rp-c-divider);
+  border-radius: 12px;
+  padding: 6px;
+  background: var(--rp-c-bg);
+  box-shadow: 0 8px 20px -2px rgb(9 9 11 / 12%);
+  color: var(--rp-c-text-1);
+  font-family: var(--rp-font-family-base);
+  outline: none;
+  z-index: var(--rp-z-index-nav);
+
+  &[data-state='open'] {
+    animation: menu-in 0.12s ease-out;
+  }
+}
+
+@keyframes menu-in {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+}
+
+.presetItem,
+.languageItem,
+.footerLink {
+  display: flex;
+  align-items: center;
+  border-radius: 8px;
+  color: inherit;
+  text-decoration: none;
+  cursor: pointer;
+  outline: none;
+
+  &[data-highlighted] {
+    background: var(--rp-c-bg-mute);
+  }
+}
+
+.presetItem {
+  width: 276px;
+  min-height: 52px;
+  gap: 12px;
+  padding: 0 10px;
+}
+
+.swatch {
+  width: 28px;
+  height: 28px;
+  flex-shrink: 0;
+  box-sizing: border-box;
+  border-radius: 8px;
+  background: #18181b;
+
+  &[data-preset='dense'] {
+    border-radius: 5px;
+    background: #005bb5;
+  }
+
+  &[data-preset='soft'] {
+    border-radius: 11px;
+    background: #884bc0;
+  }
+
+  &[data-preset='contrast'] {
+    border: 2px solid #09090b;
+    border-radius: 4px;
+    background: #0050c3;
+  }
+
+  :global(.dark) & {
+    background: #fafafa;
+
+    &[data-preset='dense'] {
+      background: #76b4ff;
+    }
+
+    &[data-preset='soft'] {
+      background: #cba1fa;
+    }
+
+    &[data-preset='contrast'] {
+      border-color: #fafafa;
+      background: #76b4ff;
+    }
+  }
+}
+
+.presetText {
+  display: flex;
+  min-width: 0;
+  flex: 1;
+  flex-direction: column;
+}
+
+.presetName {
+  color: var(--rp-c-text-0);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 19px;
+}
+
+.presetHint {
+  color: var(--rp-c-text-3);
+  font-size: 12px;
+  line-height: 16px;
+}
+
+.check {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  color: var(--rp-c-brand);
+
+  svg {
+    width: 16px;
+    height: 16px;
+  }
+}
+
+.separator {
+  margin: 6px -6px;
+  border: 0;
+  border-top: 1px solid var(--rp-c-divider);
+}
+
+.footerLink {
+  height: 32px;
+  justify-content: space-between;
+  padding: 0 10px;
+  color: var(--rp-c-text-2);
+  font-size: 13px;
+  font-weight: 500;
+
+  svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  &[data-highlighted] {
+    color: var(--rp-c-text-0);
+  }
+}
+
+.languageItem {
+  height: 36px;
+  gap: 8px;
+  padding: 0 10px 0 30px;
+  font-size: 14px;
+
+  &[data-current] {
+    padding-inline-start: 6px;
+  }
+}
+
+.languageName {
+  flex: 1;
+  color: var(--rp-c-text-0);
+}
+
+.languageCode {
+  color: var(--rp-c-text-4);
+  font-family: var(--rp-font-family-mono);
+  font-size: 11px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-block: 12px 4px;
+}
+
+.gridLabel {
+  grid-column: 1 / -1;
+  padding-inline: 12px;
+  color: var(--rp-c-text-3);
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.gridItem {
+  display: flex;
+  height: 48px;
+  align-items: center;
+  gap: 10px;
+  border: 1px solid var(--rp-c-divider);
+  border-radius: 10px;
+  padding: 0 13px;
+  background: var(--rp-c-bg);
+  color: var(--rp-c-text-0);
+  font: inherit;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+
+  .swatch {
+    width: 20px;
+    height: 20px;
+    border-radius: 5px;
+  }
+
+  &[aria-pressed='true'] {
+    border-color: var(--rp-c-text-0);
+    box-shadow: inset 0 0 0 0.5px var(--rp-c-text-0);
+    background: var(--rp-c-bg-soft);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--rp-c-brand);
+    outline-offset: 2px;
+  }
+}

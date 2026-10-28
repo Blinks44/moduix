@@ -2,107 +2,21 @@
 title: Toast
 component: toast
 description: Временные уведомления о действиях, изменениях статуса и событиях в интерфейсе.
+ark: https://ark-ui.com/docs/components/toast
 ---
 
 import * as ToastDocs from '@/components/examples/toast/css-properties';
 
-## Справочник API
+<Example name="toast/basic" />
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/toast" />
+## Установка
 
-Moduix экспортирует `Toast`, `ToastToaster`, `createToaster` и `useToastContext` из
-`@moduix/react/toast`, `@moduix/solid/toast` и `@moduix/vue/toast`. Полный API хранилища и его
-частей приведён в справочнике Ark.
+<ComponentInstall />
 
-## Базовый пример
-
+## Использование
 
 Один раз создайте toaster через `createToaster()`, добавляйте уведомления его методами и выведите
 их с помощью `ToastToaster`.
-
-<Example name="toast/basic" />
-
-## Установка через shadcn
-
-Полную настройку пакета, реестра и стилей см. в разделе [Быстрый старт](/docs/quick-start).
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/toast' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/toast' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/toast' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/toast' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/toast' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/toast' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Анатомия
-
-```text
-createToaster()
-└─ ToastToaster (portalled to document.body by default)
-   └─ Toast
-      ├─ ToastTitle
-      ├─ ToastDescription
-      ├─ ToastActionTrigger
-      └─ ToastCloseTrigger
-```
-
-| Часть                          | Назначение                                                                            |
-| ------------------------------ | ------------------------------------------------------------------------------------- |
-| `Toast`               | Корень видимого уведомления.                                      |
-| `ToastToaster`        | Выводит хранилище toaster и управляет группой уведомлений.       |
-| `ToastTitle`          | Заголовок. Если дочерние элементы не переданы, использует `title` текущего уведомления. |
-| `ToastDescription`    | Описание. Если дочерние элементы не переданы, использует `description` текущего уведомления. |
-| `ToastActionTrigger`  | Кнопка действия, связанная с `toast.action.onClick`.             |
-| `ToastCloseTrigger`   | Кнопка закрытия. По умолчанию использует `CloseButton`.          |
-| `ToastContext`        | Контекстная часть для собственной композиции и прямого доступа к состоянию уведомления. |
-
-## Композиция
-
-Создайте toaster один раз и передайте тот же экземпляр в `ToastToaster`. В Vue создавайте его внутри
-`<script setup>`, чтобы у каждого экземпляра компонента было своё хранилище; общее для приложения
-хранилище можно вынести в отдельный модуль. При серверном рендеринге создавайте отдельное хранилище
-для каждого запроса. Хранилище управляет размещением, стеком, очередью, таймерами и фокусом.
-По умолчанию `ToastToaster`
-выводит группу через портал в `document.body`; используйте `portalled={false}` или `portalRef`,
-если группа должна находиться в другом контейнере. Отдельная обёртка `Portal` не нужна.
-
-Для обычного уведомления используйте стандартный рендерер `ToastToaster`: он выводит заголовок, описание,
-действие и кнопку закрытия. Для другой разметки или собственных элементов управления передайте
-render prop в React/Solid или основной scoped slot в Vue, оставьте `Toast` внешним элементом и
-соберите внутри его части. Слот Vue получает параметры уведомления; `useToastContext()` возвращает
-computed ref. Для `asChild` у кнопок действия и закрытия используйте семантический элемент-кнопку,
-а `useToastContext()`
-подключайте, когда собственному элементу нужен прямой доступ к текущему уведомлению.
-
-В `@ark-ui/vue@5.39.3` свойство `asChild` у `Toast` переносит атрибуты корня на внутренний
-вспомогательный элемент, а `ToastToaster` игнорирует `asChild`. Используйте их стандартные элементы
-до исправления этих вариантов композиции в upstream. Композиция с `asChild` у заголовка,
-описания, кнопки действия и кнопки закрытия поддерживается.
 
 ## Примеры
 
@@ -168,6 +82,55 @@ toaster, а не отдельный режим компонента.
 иконку закрытия и применить CSS-переменные компонента.
 
 <Example name="toast/custom-composition" />
+
+## Композиция
+
+Moduix экспортирует `Toast`, `ToastToaster`, `createToaster` и `useToastContext` из
+`@moduix/react/toast`, `@moduix/solid/toast` и `@moduix/vue/toast`. Полный API хранилища и его
+частей приведён в справочнике Ark.
+
+Создайте toaster один раз и передайте тот же экземпляр в `ToastToaster`. В Vue создавайте его внутри
+`<script setup>`, чтобы у каждого экземпляра компонента было своё хранилище; общее для приложения
+хранилище можно вынести в отдельный модуль. При серверном рендеринге создавайте отдельное хранилище
+для каждого запроса. Хранилище управляет размещением, стеком, очередью, таймерами и фокусом.
+По умолчанию `ToastToaster`
+выводит группу через портал в `document.body`; используйте `portalled={false}` или `portalRef`,
+если группа должна находиться в другом контейнере. Отдельная обёртка `Portal` не нужна.
+
+Для обычного уведомления используйте стандартный рендерер `ToastToaster`: он выводит заголовок, описание,
+действие и кнопку закрытия. Для другой разметки или собственных элементов управления передайте
+render prop в React/Solid или основной scoped slot в Vue, оставьте `Toast` внешним элементом и
+соберите внутри его части. Слот Vue получает параметры уведомления; `useToastContext()` возвращает
+computed ref. Для `asChild` у кнопок действия и закрытия используйте семантический элемент-кнопку,
+а `useToastContext()`
+подключайте, когда собственному элементу нужен прямой доступ к текущему уведомлению.
+
+В `@ark-ui/vue@5.39.3` свойство `asChild` у `Toast` переносит атрибуты корня на внутренний
+вспомогательный элемент, а `ToastToaster` игнорирует `asChild`. Используйте их стандартные элементы
+до исправления этих вариантов композиции в upstream. Композиция с `asChild` у заголовка,
+описания, кнопки действия и кнопки закрытия поддерживается.
+
+## Анатомия
+
+```text
+createToaster()
+└─ ToastToaster (portalled to document.body by default)
+   └─ Toast
+      ├─ ToastTitle
+      ├─ ToastDescription
+      ├─ ToastActionTrigger
+      └─ ToastCloseTrigger
+```
+
+| Часть                          | Назначение                                                                            |
+| ------------------------------ | ------------------------------------------------------------------------------------- |
+| `Toast`               | Корень видимого уведомления.                                      |
+| `ToastToaster`        | Выводит хранилище toaster и управляет группой уведомлений.       |
+| `ToastTitle`          | Заголовок. Если дочерние элементы не переданы, использует `title` текущего уведомления. |
+| `ToastDescription`    | Описание. Если дочерние элементы не переданы, использует `description` текущего уведомления. |
+| `ToastActionTrigger`  | Кнопка действия, связанная с `toast.action.onClick`.             |
+| `ToastCloseTrigger`   | Кнопка закрытия. По умолчанию использует `CloseButton`.          |
+| `ToastContext`        | Контекстная часть для собственной композиции и прямого доступа к состоянию уведомления. |
 
 ## Стилизация
 

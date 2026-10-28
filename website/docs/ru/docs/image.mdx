@@ -2,17 +2,18 @@
 title: Image
 component: image
 description: "Адаптивные изображения с автоматическим определением CDN. Unpic генерирует атрибуты srcset и sizes."
+ark: https://ark-ui.com/docs/guides/composition
 ---
 
 import * as ImageDocs from '@/components/examples/image/css-properties';
 
-## Справочник API
+<Example name="image/basic" />
 
-Компонент `Image` в moduix представляет собой лёгкую обёртку над нативным `<img>` и API [Unpic](https://unpic.pics/img/).
-В Ark UI нет отдельного примитива для изображений. Поэтому `Image` использует нативную композицию `<img>` и `<picture>`
-вместо части Ark UI. Подробнее о модели нативных элементов рассказывает [руководство Ark по композиции](https://ark-ui.com/docs/guides/composition).
+## Установка
 
-## Базовый пример
+<ComponentInstall />
+
+## Использование
 
 Пример на этой странице
 выпущенного адаптера с тем же публичным контрактом.
@@ -27,70 +28,6 @@ import * as ImageDocs from '@/components/examples/image/css-properties';
 локальные файлы и URL без поддерживаемого CDN. Для главного изображения на первом экране
 укажите `priority`: он задаёт `loading="eager"` и `fetchpriority="high"`, не устанавливая
 `decoding`. Явно заданные нативные атрибуты имеют преимущество перед этими значениями.
-
-<Example name="image/basic" />
-
-## Установка через shadcn
-
-Полную настройку пакета, реестра и стилей см. в разделе [Быстрый старт](/docs/quick-start).
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/image' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/image' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/image' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/image' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/image' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/image' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Анатомия
-
-```text
-Image
-└─ img
-
-picture (native)
-├─ ImageSource
-└─ Image
-```
-
-| Часть                  | Роль                                                                   |
-| ---------------------- | ---------------------------------------------------------------------- |
-| `Image`                | Адаптивный нативный элемент `<img>`; Unpic генерирует `srcset`, `sizes` и стили. |
-| `ImageSource`          | Адаптивный `<source>` для нативного элемента `<picture>`.                       |
-
-## Композиция
-
-`Image` является корневым компонентом и может использоваться напрямую. Используйте `ImageSource`
-только внутри нативного `<picture>` и оставляйте `Image` последним, чтобы он оставался запасным
-изображением, если браузер не выбрал источник. Для выбора формата поставьте источник с `type`
-перед эквивалентным источником без `type`: браузер выберет первый поддерживаемый формат.
-`ImageSource` генерирует `srcset` только для поддерживаемого CDN или провайдера `fallback`; для локальных
-файлов используйте нативный `<source srcset>`.
 
 ## Примеры
 
@@ -118,6 +55,35 @@ picture (native)
 
 <Example name="image/full-width" />
 
+## Композиция
+
+Компонент `Image` в moduix представляет собой лёгкую обёртку над нативным `<img>` и API [Unpic](https://unpic.pics/img/).
+В Ark UI нет отдельного примитива для изображений. Поэтому `Image` использует нативную композицию `<img>` и `<picture>`
+вместо части Ark UI. Подробнее о модели нативных элементов рассказывает [руководство Ark по композиции](https://ark-ui.com/docs/guides/composition).
+
+`Image` является корневым компонентом и может использоваться напрямую. Используйте `ImageSource`
+только внутри нативного `<picture>` и оставляйте `Image` последним, чтобы он оставался запасным
+изображением, если браузер не выбрал источник. Для выбора формата поставьте источник с `type`
+перед эквивалентным источником без `type`: браузер выберет первый поддерживаемый формат.
+`ImageSource` генерирует `srcset` только для поддерживаемого CDN или провайдера `fallback`; для локальных
+файлов используйте нативный `<source srcset>`.
+
+## Анатомия
+
+```text
+Image
+└─ img
+
+picture (native)
+├─ ImageSource
+└─ Image
+```
+
+| Часть                  | Роль                                                                   |
+| ---------------------- | ---------------------------------------------------------------------- |
+| `Image`                | Адаптивный нативный элемент `<img>`; Unpic генерирует `srcset`, `sizes` и стили. |
+| `ImageSource`          | Адаптивный `<source>` для нативного элемента `<picture>`.                       |
+
 ## Стилизация
 
 Используйте `className` в React или `class` в Solid и Vue на `Image` и `ImageSource` для локальной
@@ -125,7 +91,7 @@ picture (native)
 `--moduix-image-radius` настраивает варианты с CSS Modules, а хуки `data-slot` общие для обоих
 вариантов стилизации.
 
-### CSS-свойства
+### CSS-переменные
 
 <CssPropertiesSection properties={ImageDocs.imageCssProperties} />
 

@@ -2,123 +2,26 @@
 title: Select
 component: select
 description: Composition Select basée sur Ark UI pour choisir une ou plusieurs valeurs dans une liste contextuelle.
+ark: https://ark-ui.com/docs/components/select
 ---
 
 import * as SelectDocs from '@/components/examples/select/css-properties';
 
-## Référence de l’API
+<Example name="select/basic" />
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/select" />
+## Installation
+
+<ComponentInstall />
+
+## Utilisation
+
+Passez une collection à `Select`, utilisez `SelectField` pour le contrôle visible standard et gardez la structure de la fenêtre contextuelle explicite. `clearLabel` ajoute une action d’effacement accessible. Ajoutez explicitement `SelectHiddenSelect` lorsque la soumission, le remplissage automatique, la validation et la réinitialisation natives sont nécessaires.
 
 ## Choisir le bon composant
 
 Utilisez `Select` lorsque l’utilisateur choisit une valeur dans une collection fixe et ne saisit pas
 de texte dans le déclencheur. Préférez `Combobox` lorsqu’une saisie permet de rechercher ou de
 créer une valeur.
-
-## Exemple de base
-
-Passez une collection à `Select`, utilisez `SelectField` pour le contrôle visible standard et gardez la structure de la fenêtre contextuelle explicite. `clearLabel` ajoute une action d’effacement accessible. Ajoutez explicitement `SelectHiddenSelect` lorsque la soumission, le remplissage automatique, la validation et la réinitialisation natives sont nécessaires.
-
-<Example name="select/basic" />
-
-## Installation avec shadcn
-
-Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration complète du paquet, du registre et des styles.
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/select' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/select' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-  <ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/select' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/select' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/select' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/select' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Anatomie
-
-```text
-Select
-├─ SelectLabel
-├─ SelectControl / SelectField
-│  ├─ SelectTrigger
-│  │  ├─ SelectValueText
-│  ├─ SelectClearTrigger
-│  └─ SelectIndicator
-├─ Sous-arbre de l’overlay (portail automatique)
-│  └─ SelectPositioner
-│     └─ SelectContent
-│        ├─ SelectList
-│        └─ SelectItemGroup
-│           ├─ SelectItemGroupLabel
-│           ├─ SelectOption[item]
-│           └─ SelectItem[item]
-│              ├─ SelectItemText
-│              │  └─ SelectItemTextContent
-│              │     ├─ SelectItemTextIcon
-│              │     └─ SelectItemTextLabel
-│              └─ SelectItemIndicator
-└─ SelectHiddenSelect (explicite)
-```
-
-| Partie                    | Rôle                                                                                             |
-| ------------------------- | ------------------------------------------------------------------------------------------------ |
-| `Select`                  | État racine, collection, sélection, cycle de vie de la fenêtre contextuelle et données du formulaire. |
-| `SelectHiddenSelect`      | Champ natif d’Ark ; composition explicite décrite ci-dessous.                                  |
-| `SelectRootProvider`      | Affiche l’arborescence Select à partir de l’état renvoyé par `useSelect`.                       |
-| `SelectContext`           | Contexte racine pour lire l’état avancé.                                                        |
-| `SelectItemContext`       | Contexte d’un élément pour lire l’état avancé.                                                  |
-| `SelectLabel`            | Libellé accessible associé au déclencheur et au contrôle de formulaire natif.                   |
-| `SelectControl`          | Enveloppe du champ visible qui reflète les états de focus, d’erreur et d’ouverture.              |
-| `SelectField`            | Composant utilitaire moduix pour le champ, le déclencheur et les actions standard.               |
-| `SelectTrigger`          | Bouton qui ouvre la fenêtre contextuelle et gère la saisie au clavier.                          |
-| `SelectValueText`        | Placeholder ou libellés des éléments sélectionnés.                                               |
-| `SelectClearTrigger`     | Bouton qui efface la valeur actuelle.                                                            |
-| `SelectIndicator`        | Indicateur du déclencheur avec l’icône de flèche moduix par défaut.                              |
-| `SelectPositioner`       | Calque flottant qui expose les variables CSS Ark pour le positionnement.                        |
-| `SelectContent`          | Contenu de la fenêtre contextuelle et conteneur de la listbox.                                   |
-| `SelectList`             | Enveloppe de liste facultative pour la virtualisation et les mises en page personnalisées.      |
-| `SelectItemGroup`        | Enveloppe d’un groupe d’éléments associés de la collection.                                     |
-| `SelectItemGroupLabel`   | Libellé d’un groupe de la collection.                                                            |
-| `SelectItem`             | Ligne sélectionnable. Passez l’élément de collection avec `item`.                               |
-| `SelectOption` | Ligne prête à l’emploi pour les options simples avec texte et indicateur. |
-| `SelectItemText`         | Texte utilisé pour l’affichage et l’accessibilité.                                               |
-| `SelectItemTextContent`  | Composant de mise en page pour du texte d’élément enrichi.                                       |
-| `SelectItemTextIcon`     | Conteneur d’icône pour du texte d’élément enrichi.                                               |
-| `SelectItemTextLabel`    | Conteneur de libellé pour du texte d’élément enrichi.                                            |
-| `SelectItemIndicator`    | Indicateur de sélection avec l’icône de coche moduix par défaut.                                 |
-
-## Composition
-
-`SelectField` est le raccourci pour `SelectControl`, `SelectTrigger`, `SelectValueText` et l’`SelectIndicator` par défaut. Ajoutez `clearLabel` pour une action d’effacement libellée, ou utilisez les parties explicites lorsque la mise en page du déclencheur doit être stylisée indépendamment. Gardez `SelectPositioner`, `SelectContent` et les éléments de la collection dans la même arborescence Select. Utilisez `SelectOption` pour les lignes ordinaires : il affiche `SelectItem` avec `SelectItemText` et `SelectItemIndicator`. Passez `indicator={false}` pour masquer la coche ou une icône pour la remplacer, et utilisez `SelectItem` lorsqu’une ligne a besoin d’une structure personnalisée.
-
-Ajoutez explicitement `SelectHiddenSelect` dans `Select` ou `SelectRootProvider` lorsque la sélection doit participer à la soumission native, à la validation, au remplissage automatique ou à la réinitialisation du formulaire. La racine ne l’affiche pas automatiquement. `Positioner` est rendu dans un portail par défaut ; utilisez `portalled={false}` pour le rendre dans le flux normal ou `portalRef` pour un conteneur personnalisé.
-
-Utilisez `useSelect` avec `SelectRootProvider` lorsque l’état doit être partagé avec des contrôles situés en dehors de l’arborescence Select. Le store renvoyé est un objet en React, un accessor en Solid et une ref en Vue.
 
 ## Exemples
 
@@ -226,11 +129,72 @@ N’utilisez pas `SelectField` ni `SelectOption` lorsque le déclencheur, le tex
 
 <Example name="select/advanced-customization" />
 
+## Composition
+
+`SelectField` est le raccourci pour `SelectControl`, `SelectTrigger`, `SelectValueText` et l’`SelectIndicator` par défaut. Ajoutez `clearLabel` pour une action d’effacement libellée, ou utilisez les parties explicites lorsque la mise en page du déclencheur doit être stylisée indépendamment. Gardez `SelectPositioner`, `SelectContent` et les éléments de la collection dans la même arborescence Select. Utilisez `SelectOption` pour les lignes ordinaires : il affiche `SelectItem` avec `SelectItemText` et `SelectItemIndicator`. Passez `indicator={false}` pour masquer la coche ou une icône pour la remplacer, et utilisez `SelectItem` lorsqu’une ligne a besoin d’une structure personnalisée.
+
+Ajoutez explicitement `SelectHiddenSelect` dans `Select` ou `SelectRootProvider` lorsque la sélection doit participer à la soumission native, à la validation, au remplissage automatique ou à la réinitialisation du formulaire. La racine ne l’affiche pas automatiquement. `Positioner` est rendu dans un portail par défaut ; utilisez `portalled={false}` pour le rendre dans le flux normal ou `portalRef` pour un conteneur personnalisé.
+
+Utilisez `useSelect` avec `SelectRootProvider` lorsque l’état doit être partagé avec des contrôles situés en dehors de l’arborescence Select. Le store renvoyé est un objet en React, un accessor en Solid et une ref en Vue.
+
+## Anatomie
+
+```text
+Select
+├─ SelectLabel
+├─ SelectControl / SelectField
+│  ├─ SelectTrigger
+│  │  ├─ SelectValueText
+│  ├─ SelectClearTrigger
+│  └─ SelectIndicator
+├─ Sous-arbre de l’overlay (portail automatique)
+│  └─ SelectPositioner
+│     └─ SelectContent
+│        ├─ SelectList
+│        └─ SelectItemGroup
+│           ├─ SelectItemGroupLabel
+│           ├─ SelectOption[item]
+│           └─ SelectItem[item]
+│              ├─ SelectItemText
+│              │  └─ SelectItemTextContent
+│              │     ├─ SelectItemTextIcon
+│              │     └─ SelectItemTextLabel
+│              └─ SelectItemIndicator
+└─ SelectHiddenSelect (explicite)
+```
+
+| Partie                    | Rôle                                                                                             |
+| ------------------------- | ------------------------------------------------------------------------------------------------ |
+| `Select`                  | État racine, collection, sélection, cycle de vie de la fenêtre contextuelle et données du formulaire. |
+| `SelectHiddenSelect`      | Champ natif d’Ark ; composition explicite décrite ci-dessous.                                  |
+| `SelectRootProvider`      | Affiche l’arborescence Select à partir de l’état renvoyé par `useSelect`.                       |
+| `SelectContext`           | Contexte racine pour lire l’état avancé.                                                        |
+| `SelectItemContext`       | Contexte d’un élément pour lire l’état avancé.                                                  |
+| `SelectLabel`            | Libellé accessible associé au déclencheur et au contrôle de formulaire natif.                   |
+| `SelectControl`          | Enveloppe du champ visible qui reflète les états de focus, d’erreur et d’ouverture.              |
+| `SelectField`            | Composant utilitaire moduix pour le champ, le déclencheur et les actions standard.               |
+| `SelectTrigger`          | Bouton qui ouvre la fenêtre contextuelle et gère la saisie au clavier.                          |
+| `SelectValueText`        | Placeholder ou libellés des éléments sélectionnés.                                               |
+| `SelectClearTrigger`     | Bouton qui efface la valeur actuelle.                                                            |
+| `SelectIndicator`        | Indicateur du déclencheur avec l’icône de flèche moduix par défaut.                              |
+| `SelectPositioner`       | Calque flottant qui expose les variables CSS Ark pour le positionnement.                        |
+| `SelectContent`          | Contenu de la fenêtre contextuelle et conteneur de la listbox.                                   |
+| `SelectList`             | Enveloppe de liste facultative pour la virtualisation et les mises en page personnalisées.      |
+| `SelectItemGroup`        | Enveloppe d’un groupe d’éléments associés de la collection.                                     |
+| `SelectItemGroupLabel`   | Libellé d’un groupe de la collection.                                                            |
+| `SelectItem`             | Ligne sélectionnable. Passez l’élément de collection avec `item`.                               |
+| `SelectOption` | Ligne prête à l’emploi pour les options simples avec texte et indicateur. |
+| `SelectItemText`         | Texte utilisé pour l’affichage et l’accessibilité.                                               |
+| `SelectItemTextContent`  | Composant de mise en page pour du texte d’élément enrichi.                                       |
+| `SelectItemTextIcon`     | Conteneur d’icône pour du texte d’élément enrichi.                                               |
+| `SelectItemTextLabel`    | Conteneur de libellé pour du texte d’élément enrichi.                                            |
+| `SelectItemIndicator`    | Indicateur de sélection avec l’icône de coche moduix par défaut.                                 |
+
 ## Styles
 
 Stylisez Select avec `className` en React, `class` en Solid et Vue, les hooks stables `data-slot="select-*"` et les attributs Ark. Les variantes Tailwind utilisent des classes utilitaires natives et les classes du consommateur. Les variantes CSS Modules conservent cinq variables de dimensions, listées ci-dessous ; les couleurs, les bordures, l’anneau de focus, l’espacement des options et l’animation proviennent des tokens de foundation et des variables partagées `--moduix-popup-*`, donc remplacez-les avec une classe sur la partie concernée.
 
-### Propriétés CSS
+### Variables CSS
 
 <CssPropertiesSection properties={SelectDocs.selectOverrideCssProperties} />
 

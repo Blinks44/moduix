@@ -2,16 +2,22 @@
 title: Tag
 component: tag
 description: A compact token for selected values, filters, assignments, and other short interface values, with optional icons and a close action.
+ark: https://ark-ui.com/docs/guides/composition#the-ark-factory
 ---
 
 import * as TagDocs from '@/components/examples/tag/css-properties';
 
-## API Reference
+<Example name="tag/basic" />
 
-Ark UI does not ship a dedicated `tag` primitive. moduix builds this component with the official
-[Ark factory](https://ark-ui.com/docs/guides/composition#the-ark-factory) and follows Ark's guidance for
-[composition](https://ark-ui.com/docs/guides/composition), [styling](https://ark-ui.com/docs/guides/styling), and
-[refs](https://ark-ui.com/docs/guides/ref).
+## Installation
+
+<ComponentInstall />
+
+## Usage
+
+Start with a `Tag`
+root and `TagLabel`. Add the other parts only when the token needs an icon, supporting content,
+or an inline close action.
 
 ## Choosing the right component
 
@@ -20,84 +26,6 @@ need a local action, such as removal.
 
 - Choose **`Badge`** for short metadata such as status, category, version, or count.
 - Choose **`Tag`** for selected values, filters, assignments, or labels that are part of the current interface state.
-
-## Basic
-
-Start with a `Tag`
-root and `TagLabel`. Add the other parts only when the token needs an icon, supporting content,
-or an inline close action.
-
-<Example name="tag/basic" />
-
-## Install with shadcn
-
-See [Quick Start](/docs/quick-start) for full package setup, registry configuration, and styling guidance.
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/tag' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/tag' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/tag' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/tag' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/tag' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/tag' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Anatomy
-
-Use `Tag` as the root element.
-
-```text
-Tag
-├─ TagStartElement (optional)
-├─ TagLabel
-└─ TagEndElement (optional)
-   └─ TagCloseTrigger (optional)
-```
-
-| Part               | Role                                                                                     |
-| ------------------ | ---------------------------------------------------------------------------------------- |
-| `Tag`              | Root element. Applies the token layout, border, size, variant, and `asChild` composition. |
-| `TagLabel`        | Visible value wrapper and truncation boundary.                                            |
-| `TagStartElement` | Optional leading area for an icon, avatar, or status indicator.                           |
-| `TagEndElement`   | Optional trailing area for an icon or action.                                              |
-| `TagCloseTrigger` | Optional button for removing the token.                                                   |
-
-## Composition
-
-`Tag` is presentational and does not own selected or removed values. Keep the collection in the
-parent, update it from `TagCloseTrigger`, and place that trigger inside `TagEndElement`.
-
-Use `asChild` only when the root or close trigger must replace its default host element. The single
-child becomes the DOM host and must provide the required semantics. In particular,
-`TagCloseTrigger asChild` needs an explicit close control.
-
-`TagCloseTrigger` is named `Remove tag` unless it receives `aria-label` or `aria-labelledby`,
-including with custom children or `asChild`. When several tags are shown, pass a name that includes
-the value, such as `aria-label="Remove TypeScript tag"`.
 
 ## Examples
 
@@ -144,6 +72,39 @@ host gets a pointer cursor.
 
 <Example name="tag/render-as-button" />
 
+## Composition
+
+`Tag` is presentational and does not own selected or removed values. Keep the collection in the
+parent, update it from `TagCloseTrigger`, and place that trigger inside `TagEndElement`.
+
+Use `asChild` only when the root or close trigger must replace its default host element. The single
+child becomes the DOM host and must provide the required semantics. In particular,
+`TagCloseTrigger asChild` needs an explicit close control.
+
+`TagCloseTrigger` is named `Remove tag` unless it receives `aria-label` or `aria-labelledby`,
+including with custom children or `asChild`. When several tags are shown, pass a name that includes
+the value, such as `aria-label="Remove TypeScript tag"`.
+
+## Anatomy
+
+Use `Tag` as the root element.
+
+```text
+Tag
+├─ TagStartElement (optional)
+├─ TagLabel
+└─ TagEndElement (optional)
+   └─ TagCloseTrigger (optional)
+```
+
+| Part               | Role                                                                                     |
+| ------------------ | ---------------------------------------------------------------------------------------- |
+| `Tag`              | Root element. Applies the token layout, border, size, variant, and `asChild` composition. |
+| `TagLabel`        | Visible value wrapper and truncation boundary.                                            |
+| `TagStartElement` | Optional leading area for an icon, avatar, or status indicator.                           |
+| `TagEndElement`   | Optional trailing area for an icon or action.                                              |
+| `TagCloseTrigger` | Optional button for removing the token.                                                   |
+
 ## Styling
 
 Start with a built-in variant. CSS Modules users can adjust the public variables or override an
@@ -154,7 +115,7 @@ The CSS Modules variables override the background, border, and text color of eve
 spacing, typography, radius, and close trigger geometry use foundation tokens; change them with a
 class on the part.
 
-### CSS Variables
+### CSS variables
 
 <CssPropertiesSection properties={TagDocs.tagCssProperties} />
 

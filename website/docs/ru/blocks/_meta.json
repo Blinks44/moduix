@@ -2,40 +2,37 @@
   {
     "type": "file",
     "name": "index",
-    "label": "Все блоки",
-    "tag": "clipboard-list"
+    "label": "Все блоки"
   },
   {
     "type": "section-header",
     "label": "Приложение"
   },
-  { "type": "file", "name": "app-header", "label": "Шапка", "tag": "panel-top" },
+  { "type": "file", "name": "app-header", "label": "Шапка" },
   {
     "type": "file",
     "name": "sidebar-dashboard",
-    "label": "Сайдбар",
-    "tag": "panel-left"
+    "label": "Сайдбар"
   },
   {
     "type": "section-header",
     "label": "Доступ"
   },
-  { "type": "file", "name": "login-simple", "label": "Вход", "tag": "log-in" },
-  { "type": "file", "name": "sign-up", "label": "Регистрация", "tag": "list-checks" },
-  { "type": "file", "name": "forgot-password", "label": "Забыли пароль", "tag": "key-round" },
-  { "type": "file", "name": "reset-password", "label": "Сброс пароля", "tag": "refresh-cw" },
+  { "type": "file", "name": "login-simple", "label": "Вход" },
+  { "type": "file", "name": "sign-up", "label": "Регистрация" },
+  { "type": "file", "name": "forgot-password", "label": "Забыли пароль" },
+  { "type": "file", "name": "reset-password", "label": "Сброс пароля" },
   {
     "type": "file",
     "name": "verification-code",
-    "label": "Код подтверждения",
-    "tag": "badge-check"
+    "label": "Код подтверждения"
   },
   {
     "type": "section-header",
     "label": "Данные"
   },
-  { "type": "file", "name": "data-table", "label": "Таблица", "tag": "table-properties" },
-  { "type": "file", "name": "file-upload-manager", "label": "Загрузка файлов", "tag": "file-text" },
+  { "type": "file", "name": "data-table", "label": "Таблица" },
+  { "type": "file", "name": "file-upload-manager", "label": "Загрузка файлов" },
   {
     "type": "section-header",
     "label": "Пользователи"
@@ -43,8 +40,7 @@
   {
     "type": "file",
     "name": "expandable-avatar-group",
-    "label": "Раскрывающаяся группа аватаров",
-    "tag": "users-round"
+    "label": "Раскрывающаяся группа аватаров"
   },
   {
     "type": "section-header",
@@ -53,8 +49,7 @@
   {
     "type": "file",
     "name": "autoplay-gallery",
-    "label": "Галерея с автопрокруткой",
-    "tag": "paintbrush"
+    "label": "Галерея с автопрокруткой"
   },
-  { "type": "file", "name": "parallax-card", "label": "Параллакс-карта", "tag": "orbit" }
+  { "type": "file", "name": "parallax-card", "label": "Параллакс-карта" }
 ]

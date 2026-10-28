@@ -2,104 +2,21 @@
 title: Toast
 component: toast
 description: Transient notifications for actions, status changes, and contextual feedback.
+ark: https://ark-ui.com/docs/components/toast
 ---
 
 import * as ToastDocs from '@/components/examples/toast/css-properties';
 
-## API Reference
+<Example name="toast/basic" />
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/toast" />
+## Installation
 
-Moduix exports `Toast`, `ToastToaster`, `createToaster`, and `useToastContext` from
-`@moduix/react/toast`, `@moduix/solid/toast`, and `@moduix/vue/toast`. The Ark reference contains
-the complete store and part API.
+<ComponentInstall />
 
-## Basic
-
+## Usage
 
 Create a toaster once with `createToaster()`, use its methods to add notifications, and render it
 with `ToastToaster`.
-
-<Example name="toast/basic" />
-
-## Install with shadcn
-
-See [Quick Start](/docs/quick-start) for full package setup, registry configuration, and styling guidance.
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/toast' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/toast' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/toast' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/toast' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/toast' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/toast' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Anatomy
-
-```text
-createToaster()
-└─ ToastToaster (portalled to document.body by default)
-   └─ Toast
-      ├─ ToastTitle
-      ├─ ToastDescription
-      ├─ ToastActionTrigger
-      └─ ToastCloseTrigger
-```
-
-| Part                           | Role                                                                                   |
-| ------------------------------ | -------------------------------------------------------------------------------------- |
-| `Toast`               | Root of a visible toast.                                             |
-| `ToastToaster`        | Renders the toaster store and manages the toast group.               |
-| `ToastTitle`          | Title part. Uses the current toast `title` when no children are passed. |
-| `ToastDescription`    | Description part. Uses the current toast `description` when no children are passed. |
-| `ToastActionTrigger`  | Action button connected to `toast.action.onClick`.                   |
-| `ToastCloseTrigger`   | Dismiss button. Uses `CloseButton` by default.                       |
-| `ToastContext`        | Context part for custom composition and direct toast state access.   |
-
-## Composition
-
-Create the toaster once and pass the same store to `ToastToaster`. In Vue, create it inside
-`<script setup>` so each component instance owns its store; an application-wide store can live in a
-separate module. Keep server-rendered stores isolated per request. The store owns placement,
-stacking, queue size, timing, and focus behavior. `ToastToaster`
-portals the group to `document.body` by default; use `portalled={false}` or `portalRef` when it must
-stay in another container. A separate `Portal` wrapper is not needed.
-
-Use the default `ToastToaster` renderer for a title, description, action, and close button. For a different
-layout or custom controls, pass a render prop in React/Solid or a default scoped slot in Vue, keep
-`Toast` as the outer item, and compose its parts inside. The Vue slot receives the toast options;
-`useToastContext()` returns a computed ref. Use a semantic button child with `asChild` on action
-and close triggers, and use `useToastContext()`
-when a custom child needs direct access to the current toast.
-
-With `@ark-ui/vue@5.39.3`, `asChild` on `Toast` applies the root attributes to an internal ghost
-element, and `ToastToaster` ignores `asChild`. Keep their default hosts until upstream fixes these
-composition paths. Title, description, action, and close-trigger `asChild` composition is supported.
 
 ## Examples
 
@@ -165,6 +82,52 @@ and apply component-specific CSS variables.
 
 <Example name="toast/custom-composition" />
 
+## Composition
+
+Moduix exports `Toast`, `ToastToaster`, `createToaster`, and `useToastContext` from
+`@moduix/react/toast`, `@moduix/solid/toast`, and `@moduix/vue/toast`. The Ark reference contains
+the complete store and part API.
+
+Create the toaster once and pass the same store to `ToastToaster`. In Vue, create it inside
+`<script setup>` so each component instance owns its store; an application-wide store can live in a
+separate module. Keep server-rendered stores isolated per request. The store owns placement,
+stacking, queue size, timing, and focus behavior. `ToastToaster`
+portals the group to `document.body` by default; use `portalled={false}` or `portalRef` when it must
+stay in another container. A separate `Portal` wrapper is not needed.
+
+Use the default `ToastToaster` renderer for a title, description, action, and close button. For a different
+layout or custom controls, pass a render prop in React/Solid or a default scoped slot in Vue, keep
+`Toast` as the outer item, and compose its parts inside. The Vue slot receives the toast options;
+`useToastContext()` returns a computed ref. Use a semantic button child with `asChild` on action
+and close triggers, and use `useToastContext()`
+when a custom child needs direct access to the current toast.
+
+With `@ark-ui/vue@5.39.3`, `asChild` on `Toast` applies the root attributes to an internal ghost
+element, and `ToastToaster` ignores `asChild`. Keep their default hosts until upstream fixes these
+composition paths. Title, description, action, and close-trigger `asChild` composition is supported.
+
+## Anatomy
+
+```text
+createToaster()
+└─ ToastToaster (portalled to document.body by default)
+   └─ Toast
+      ├─ ToastTitle
+      ├─ ToastDescription
+      ├─ ToastActionTrigger
+      └─ ToastCloseTrigger
+```
+
+| Part                           | Role                                                                                   |
+| ------------------------------ | -------------------------------------------------------------------------------------- |
+| `Toast`               | Root of a visible toast.                                             |
+| `ToastToaster`        | Renders the toaster store and manages the toast group.               |
+| `ToastTitle`          | Title part. Uses the current toast `title` when no children are passed. |
+| `ToastDescription`    | Description part. Uses the current toast `description` when no children are passed. |
+| `ToastActionTrigger`  | Action button connected to `toast.action.onClick`.                   |
+| `ToastCloseTrigger`   | Dismiss button. Uses `CloseButton` by default.                       |
+| `ToastContext`        | Context part for custom composition and direct toast state access.   |
+
 ## Styling
 
 Style `Toast` with Ark part attributes, `data-slot` hooks, and classes on its parts. The CSS Modules
@@ -172,7 +135,7 @@ variants also read the four variables below; `--moduix-toast-bg`, `--moduix-toas
 `--moduix-toast-color` override every type, so scope them with `[data-type='success']` and similar
 selectors to theme one type. Tailwind variants use native utilities and consumer classes.
 
-### CSS Variables
+### CSS variables
 
 <CssPropertiesSection properties={ToastDocs.toastCssProperties} />
 

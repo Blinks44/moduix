@@ -2,149 +2,29 @@
 title: Date Picker
 component: date-picker
 description: Компонент выбора даты на базе Ark UI с календарём во всплывающем окне или на странице, выбором диапазона и нескольких дат.
+ark: https://ark-ui.com/docs/components/date-picker
 ---
 
 import * as DatePickerDocs from '@/components/examples/date-picker/css-properties';
 
-## Справочник API
+<Example name="date-picker/basic" />
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/date-picker" />
+## Установка
 
-## Выбор подходящего компонента
+<ComponentInstall />
 
-- Выберите **`Input`** для обычного текстового ввода даты, если календарь не нужен.
-- Выберите **`DateInput`**, если пользователям нужно редактировать сегменты даты с клавиатуры.
-- Выберите **`DatePicker`**, если пользователям нужно редактируемое поле даты и всплывающий или встроенный календарь.
-
-## Базовый пример
+## Использование
 
 Используйте `DatePicker` как корневой компонент, `DatePickerField` для стандартного поля и
 `DatePickerDayTable`, `DatePickerMonthTable` и `DatePickerYearTable` для представлений календаря.
 Каждая таблица выводит свой заголовок, поэтому переключатель представления работает сразу. Когда
 календарь должен быть всплывающим, явно добавьте `DatePickerPositioner` и `DatePickerContent`.
 
-<Example name="date-picker/basic" />
+## Выбор подходящего компонента
 
-## Установка через shadcn
-
-Полную настройку пакета, реестра и стилей см. в разделе [Быстрый старт](/docs/quick-start).
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/date-picker' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/date-picker' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/date-picker' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/date-picker' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/date-picker' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/date-picker' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Анатомия
-
-```text
-DatePicker
-├─ DatePickerLabel
-├─ DatePickerControl
-│  ├─ DatePickerInput
-│  ├─ DatePickerClearTrigger
-│  └─ DatePickerTrigger
-├─ DatePickerField / DatePickerRangeField (готовые элементы управления)
-├─ Поддерево всплывающего календаря (корневой компонент автоматически помещает его в портал)
-│  └─ DatePickerPositioner
-│     └─ DatePickerContent
-│        ├─ DatePickerView[view="day" | "month" | "year"]
-│        │  ├─ DatePickerViewControl
-│        │  │  ├─ DatePickerPrevTrigger
-│        │  │  ├─ DatePickerViewTrigger / DatePickerRangeText
-│        │  │  └─ DatePickerNextTrigger
-│        │  ├─ DatePickerDayTable / MonthTable / YearTable (готовые таблицы)
-│        │  └─ DatePickerTable
-│        │     ├─ DatePickerTableHead / TableBody / TableRow
-│        │     ├─ DatePickerTableHeader
-│        │     ├─ DatePickerTableCell
-│        │     ├─ DatePickerTableCellTrigger
-│        │     ├─ DatePickerWeekNumberHeaderCell
-│        │     └─ DatePickerWeekNumberCell
-│        ├─ DatePickerMonthSelect / DatePickerYearSelect
-│        └─ DatePickerPresetTrigger
-├─ DatePickerValueText (необязательный текст с выбранными значениями)
-└─ DatePickerContext
-
-DatePickerRootProvider
-└─ то же дерево частей, подключённое к хранилищу useDatePicker()
-```
-
-| Часть                             | Роль                                                               |
-| --------------------------------- | ------------------------------------------------------------------ |
-| `DatePicker` / `DatePicker`  | Корень, который управляет значением, представлением, открытием, локалью, валидацией и формой. |
-| `DatePickerRootProvider`         | Отображает части, используя состояние из `useDatePicker()`.       |
-| `DatePickerLabel`                | Доступное имя поля даты.                                           |
-| `DatePickerControl`              | Обёртка поля для собственной раскладки ввода.                      |
-| `DatePickerField`                | Готовое поле с вводом, очисткой и открытием календаря.             |
-| `DatePickerRangeField`           | Готовое поле диапазона с индексированными началами и концами.     |
-| `DatePickerInput`                | Редактируемый ввод даты, участвующий в отправке формы.             |
-| `DatePickerTrigger`              | Открывает календарь.                                               |
-| `DatePickerClearTrigger`         | Очищает текущее значение.                                          |
-| `DatePickerPositioner`           | Позиционирует всплывающий календарь.                               |
-| `DatePickerContent`              | Контейнер календаря во всплывающем или встроенном режиме.         |
-| `DatePickerView`                 | Представление дня, месяца или года.                                |
-| `DatePickerViewControl`          | Заголовок с навигацией по календарю.                                |
-| `DatePickerPrevTrigger`          | Переходит к предыдущему месяцу, году или десятилетию.              |
-| `DatePickerNextTrigger`          | Переходит к следующему месяцу, году или десятилетию.               |
-| `DatePickerViewTrigger`          | Переключает представление календаря.                               |
-| `DatePickerRangeText`            | Показывает видимый диапазон дат в заголовке.                        |
-| `DatePickerValueText`            | Показывает выбранные значения.                                     |
-| `DatePickerDayTable`             | Готовая таблица дней с заголовком.                                 |
-| `DatePickerMonthTable`           | Готовая таблица месяцев с заголовком.                              |
-| `DatePickerYearTable`            | Готовая таблица лет с заголовком.                                  |
-| `DatePickerTable*`               | Части для собственной таблицы календаря.                           |
-| `DatePickerWeekNumberHeaderCell` | Заголовок столбца с номерами недель.                               |
-| `DatePickerWeekNumberCell`       | Ячейка с номером недели.                                           |
-| `DatePickerMonthSelect`          | Нативный список месяца, связанный с активной датой.                |
-| `DatePickerYearSelect`           | Нативный список года, связанный с активной датой.                  |
-| `DatePickerPresetTrigger`        | Кнопка готового диапазона.                                         |
-| `DatePickerContext`              | Доступ к состоянию календаря без собственного DOM-элемента.        |
-
-## Композиция
-
-Используйте `DatePickerField` для обычного поля одной даты, `DatePickerRangeField` для диапазона,
-а `DatePickerDayTable`, `DatePickerMonthTable` и `DatePickerYearTable` внутри соответствующих
-представлений. Передайте таблице `showHeader={false}`, если заголовок собран отдельно. Используйте `DatePickerRootProvider` вместе с
-`useDatePicker()`, когда состояние нужно разделить с элементами вне дерева корня.
-
-Для собственной раскладки поля или таблицы календаря напрямую комбинируйте `DatePickerControl`,
-`DatePickerInput`, `DatePickerTrigger`, `DatePickerClearTrigger` и части `DatePickerTable*`.
-Читайте `weekDays`, `weeks` и вспомогательные методы таблицы через `DatePickerContext`. В режиме
-выбора нескольких дат выводите выбранные значения через `DatePickerContext`, потому что один ввод
-не может представить весь список, и вызывайте `setValue()`
-при удалении значения.
-
-Корень автоматически помещает всплывающий календарь в портал. Используйте `portalled={false}` для
-текущего DOM-поддерева, `portalRef` для своего контейнера или `inline`, чтобы оставить `DatePickerContent`
-в обычном потоке документа.
+- Выберите **`Input`** для обычного текстового ввода даты, если календарь не нужен.
+- Выберите **`DateInput`**, если пользователям нужно редактировать сегменты даты с клавиатуры.
+- Выберите **`DatePicker`**, если пользователям нужно редактируемое поле даты и всплывающий или встроенный календарь.
 
 ## Примеры
 
@@ -279,6 +159,90 @@ DatePickerRootProvider
 
 <Example name="date-picker/advanced-customization" />
 
+## Композиция
+
+Используйте `DatePickerField` для обычного поля одной даты, `DatePickerRangeField` для диапазона,
+а `DatePickerDayTable`, `DatePickerMonthTable` и `DatePickerYearTable` внутри соответствующих
+представлений. Передайте таблице `showHeader={false}`, если заголовок собран отдельно. Используйте `DatePickerRootProvider` вместе с
+`useDatePicker()`, когда состояние нужно разделить с элементами вне дерева корня.
+
+Для собственной раскладки поля или таблицы календаря напрямую комбинируйте `DatePickerControl`,
+`DatePickerInput`, `DatePickerTrigger`, `DatePickerClearTrigger` и части `DatePickerTable*`.
+Читайте `weekDays`, `weeks` и вспомогательные методы таблицы через `DatePickerContext`. В режиме
+выбора нескольких дат выводите выбранные значения через `DatePickerContext`, потому что один ввод
+не может представить весь список, и вызывайте `setValue()`
+при удалении значения.
+
+Корень автоматически помещает всплывающий календарь в портал. Используйте `portalled={false}` для
+текущего DOM-поддерева, `portalRef` для своего контейнера или `inline`, чтобы оставить `DatePickerContent`
+в обычном потоке документа.
+
+## Анатомия
+
+```text
+DatePicker
+├─ DatePickerLabel
+├─ DatePickerControl
+│  ├─ DatePickerInput
+│  ├─ DatePickerClearTrigger
+│  └─ DatePickerTrigger
+├─ DatePickerField / DatePickerRangeField (готовые элементы управления)
+├─ Поддерево всплывающего календаря (корневой компонент автоматически помещает его в портал)
+│  └─ DatePickerPositioner
+│     └─ DatePickerContent
+│        ├─ DatePickerView[view="day" | "month" | "year"]
+│        │  ├─ DatePickerViewControl
+│        │  │  ├─ DatePickerPrevTrigger
+│        │  │  ├─ DatePickerViewTrigger / DatePickerRangeText
+│        │  │  └─ DatePickerNextTrigger
+│        │  ├─ DatePickerDayTable / MonthTable / YearTable (готовые таблицы)
+│        │  └─ DatePickerTable
+│        │     ├─ DatePickerTableHead / TableBody / TableRow
+│        │     ├─ DatePickerTableHeader
+│        │     ├─ DatePickerTableCell
+│        │     ├─ DatePickerTableCellTrigger
+│        │     ├─ DatePickerWeekNumberHeaderCell
+│        │     └─ DatePickerWeekNumberCell
+│        ├─ DatePickerMonthSelect / DatePickerYearSelect
+│        └─ DatePickerPresetTrigger
+├─ DatePickerValueText (необязательный текст с выбранными значениями)
+└─ DatePickerContext
+
+DatePickerRootProvider
+└─ то же дерево частей, подключённое к хранилищу useDatePicker()
+```
+
+| Часть                             | Роль                                                               |
+| --------------------------------- | ------------------------------------------------------------------ |
+| `DatePicker` / `DatePicker`  | Корень, который управляет значением, представлением, открытием, локалью, валидацией и формой. |
+| `DatePickerRootProvider`         | Отображает части, используя состояние из `useDatePicker()`.       |
+| `DatePickerLabel`                | Доступное имя поля даты.                                           |
+| `DatePickerControl`              | Обёртка поля для собственной раскладки ввода.                      |
+| `DatePickerField`                | Готовое поле с вводом, очисткой и открытием календаря.             |
+| `DatePickerRangeField`           | Готовое поле диапазона с индексированными началами и концами.     |
+| `DatePickerInput`                | Редактируемый ввод даты, участвующий в отправке формы.             |
+| `DatePickerTrigger`              | Открывает календарь.                                               |
+| `DatePickerClearTrigger`         | Очищает текущее значение.                                          |
+| `DatePickerPositioner`           | Позиционирует всплывающий календарь.                               |
+| `DatePickerContent`              | Контейнер календаря во всплывающем или встроенном режиме.         |
+| `DatePickerView`                 | Представление дня, месяца или года.                                |
+| `DatePickerViewControl`          | Заголовок с навигацией по календарю.                                |
+| `DatePickerPrevTrigger`          | Переходит к предыдущему месяцу, году или десятилетию.              |
+| `DatePickerNextTrigger`          | Переходит к следующему месяцу, году или десятилетию.               |
+| `DatePickerViewTrigger`          | Переключает представление календаря.                               |
+| `DatePickerRangeText`            | Показывает видимый диапазон дат в заголовке.                        |
+| `DatePickerValueText`            | Показывает выбранные значения.                                     |
+| `DatePickerDayTable`             | Готовая таблица дней с заголовком.                                 |
+| `DatePickerMonthTable`           | Готовая таблица месяцев с заголовком.                              |
+| `DatePickerYearTable`            | Готовая таблица лет с заголовком.                                  |
+| `DatePickerTable*`               | Части для собственной таблицы календаря.                           |
+| `DatePickerWeekNumberHeaderCell` | Заголовок столбца с номерами недель.                               |
+| `DatePickerWeekNumberCell`       | Ячейка с номером недели.                                           |
+| `DatePickerMonthSelect`          | Нативный список месяца, связанный с активной датой.                |
+| `DatePickerYearSelect`           | Нативный список года, связанный с активной датой.                  |
+| `DatePickerPresetTrigger`        | Кнопка готового диапазона.                                         |
+| `DatePickerContext`              | Доступ к состоянию календаря без собственного DOM-элемента.        |
+
 ## Стилизация
 
 Используйте `className` в React, `class` в Solid и `class` в Vue на экспортируемых частях для структурных стилей.
@@ -286,7 +250,7 @@ DatePickerRootProvider
 предоставляют переменные ниже. Оба подхода используют атрибуты состояния Ark и хуки `data-slot`
 moduix.
 
-### CSS-свойства
+### CSS-переменные
 
 <CssPropertiesSection properties={DatePickerDocs.datePickerOverrideCssProperties} />
 

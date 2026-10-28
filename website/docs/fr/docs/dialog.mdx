@@ -2,121 +2,28 @@
 title: Dialog
 component: dialog
 description: Fenêtre modale pour les tâches ciblées comme les formulaires, les confirmations et les détails.
+ark: https://ark-ui.com/docs/components/dialog
 ---
 
 import * as DialogDocs from '@/components/examples/dialog/css-properties';
 
-## Référence de l’API
+<Example name="dialog/basic" />
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/dialog" />
+## Installation
+
+<ComponentInstall />
+
+## Utilisation
+
+Utilisez `Dialog` comme racine et composez explicitement ses parties structurelles.
+`DialogBackdrop` est l’arrière-plan modal, `DialogPositioner` positionne le dialogue et
+`DialogContent` contient sa surface.
 
 ## Choisir le bon composant
 
 Utilisez `Dialog` pour les formulaires, les confirmations, les détails et les autres tâches qui
 doivent garder l’utilisateur sur la page courante. Préférez `Drawer` lorsque le panneau doit rester
 attaché au bord de la fenêtre ou pouvoir être déplacé.
-
-## Exemple de base
-
-
-Utilisez `Dialog` comme racine et composez explicitement ses parties structurelles.
-`DialogBackdrop` est l’arrière-plan modal, `DialogPositioner` positionne le dialogue et
-`DialogContent` contient sa surface.
-
-<Example name="dialog/basic" />
-
-## Installation avec shadcn
-
-Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration complète du paquet, du registre et des styles.
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/dialog' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/dialog' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/dialog' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/dialog' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/dialog' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/dialog' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Anatomie
-
-```text
-Dialog
-├─ DialogTrigger
-└─ Contenu superposé (rendu automatiquement dans un portail)
-   ├─ DialogBackdrop (facultatif)
-   └─ DialogPositioner
-      └─ DialogContent
-         ├─ DialogCloseTrigger ou DialogCloseIcon
-         ├─ DialogTitle
-         ├─ DialogDescription
-         ├─ DialogHeader (aide de mise en page moduix)
-         ├─ DialogBody (aide de mise en page moduix)
-         └─ DialogFooter (aide de mise en page moduix)
-
-DialogRootProvider
-└─ même arbre de parties relié à l’état fourni par useDialog() de moduix
-
-DialogContext
-└─ fonction de rendu qui reçoit l’état et les méthodes actuels du dialogue
-```
-
-| Partie                    | Rôle                                                               |
-| ------------------------ | ------------------------------------------------------------------ |
-| `Dialog` / `DialogRootProvider` | Gère l’état d’ouverture, le focus et la fermeture du dialogue.      |
-| `DialogRootProvider`    | Relie les parties à l’état créé avec `useDialog()`.                |
-| `DialogTrigger`         | Ouvre le dialogue.                                                   |
-| `DialogBackdrop`        | Couche d’arrière-plan facultative du dialogue modal.                |
-| `DialogPositioner`      | Positionne le contenu du dialogue.                                  |
-| `DialogContent`         | Contient la surface visible du dialogue.                            |
-| `DialogTitle`           | Donne au dialogue un titre accessible.                              |
-| `DialogDescription`     | Ajoute un texte complémentaire accessible.                          |
-| `DialogCloseTrigger`    | Ferme le dialogue.                                                   |
-| `DialogCloseIcon`       | Aide moduix qui associe un bouton de fermeture au dialogue.          |
-| `DialogHeader`          | Aide de mise en page moduix pour l’en-tête.                         |
-| `DialogBody`            | Aide de mise en page moduix pour le contenu principal.              |
-| `DialogFooter`          | Aide de mise en page moduix pour les actions.                       |
-| `DialogContext`         | Rend les enfants avec l’état et les méthodes actuels du dialogue.   |
-
-Importez `useDialog()` lorsque l’état doit vivre en dehors de l’arbre rendu du dialogue. Lisez-le ou
-mettez-le à jour avec `DialogContext` ou `useDialogContext()` depuis le paquet correspondant.
-
-## Composition
-
-Par défaut, `Dialog` gère son état d’ouverture. Utilisez `open` avec `onOpenChange(details)` lorsque
-cet état appartient à une autre partie de l’application. Si l’état doit être créé en dehors de
-l’arbre du dialogue, créez un seul store avec `useDialog()` et transmettez-le à
-`DialogRootProvider` ; ne rendez pas une autre racine pour ce même store.
-
-La racine place automatiquement `DialogBackdrop` et `DialogPositioner` dans un portail. Définissez
-`portalled={false}` pour les conserver dans l’arbre courant, ou transmettez `portalRef` pour choisir
-un conteneur personnalisé. Gardez l’arbre des parties explicite et utilisez `DialogHeader`,
-`DialogBody` et `DialogFooter` uniquement lorsque leurs aides de mise en page conviennent à la
-composition.
 
 ## Exemples
 
@@ -216,6 +123,62 @@ page personnalisée doit contrôler directement chaque partie du dialogue Ark.
 
 <Example name="dialog/advanced-customization" />
 
+## Composition
+
+Par défaut, `Dialog` gère son état d’ouverture. Utilisez `open` avec `onOpenChange(details)` lorsque
+cet état appartient à une autre partie de l’application. Si l’état doit être créé en dehors de
+l’arbre du dialogue, créez un seul store avec `useDialog()` et transmettez-le à
+`DialogRootProvider` ; ne rendez pas une autre racine pour ce même store.
+
+La racine place automatiquement `DialogBackdrop` et `DialogPositioner` dans un portail. Définissez
+`portalled={false}` pour les conserver dans l’arbre courant, ou transmettez `portalRef` pour choisir
+un conteneur personnalisé. Gardez l’arbre des parties explicite et utilisez `DialogHeader`,
+`DialogBody` et `DialogFooter` uniquement lorsque leurs aides de mise en page conviennent à la
+composition.
+
+## Anatomie
+
+```text
+Dialog
+├─ DialogTrigger
+└─ Contenu superposé (rendu automatiquement dans un portail)
+   ├─ DialogBackdrop (facultatif)
+   └─ DialogPositioner
+      └─ DialogContent
+         ├─ DialogCloseTrigger ou DialogCloseIcon
+         ├─ DialogTitle
+         ├─ DialogDescription
+         ├─ DialogHeader (aide de mise en page moduix)
+         ├─ DialogBody (aide de mise en page moduix)
+         └─ DialogFooter (aide de mise en page moduix)
+
+DialogRootProvider
+└─ même arbre de parties relié à l’état fourni par useDialog() de moduix
+
+DialogContext
+└─ fonction de rendu qui reçoit l’état et les méthodes actuels du dialogue
+```
+
+| Partie                    | Rôle                                                               |
+| ------------------------ | ------------------------------------------------------------------ |
+| `Dialog` / `DialogRootProvider` | Gère l’état d’ouverture, le focus et la fermeture du dialogue.      |
+| `DialogRootProvider`    | Relie les parties à l’état créé avec `useDialog()`.                |
+| `DialogTrigger`         | Ouvre le dialogue.                                                   |
+| `DialogBackdrop`        | Couche d’arrière-plan facultative du dialogue modal.                |
+| `DialogPositioner`      | Positionne le contenu du dialogue.                                  |
+| `DialogContent`         | Contient la surface visible du dialogue.                            |
+| `DialogTitle`           | Donne au dialogue un titre accessible.                              |
+| `DialogDescription`     | Ajoute un texte complémentaire accessible.                          |
+| `DialogCloseTrigger`    | Ferme le dialogue.                                                   |
+| `DialogCloseIcon`       | Aide moduix qui associe un bouton de fermeture au dialogue.          |
+| `DialogHeader`          | Aide de mise en page moduix pour l’en-tête.                         |
+| `DialogBody`            | Aide de mise en page moduix pour le contenu principal.              |
+| `DialogFooter`          | Aide de mise en page moduix pour les actions.                       |
+| `DialogContext`         | Rend les enfants avec l’état et les méthodes actuels du dialogue.   |
+
+Importez `useDialog()` lorsque l’état doit vivre en dehors de l’arbre rendu du dialogue. Lisez-le ou
+mettez-le à jour avec `DialogContext` ou `useDialogContext()` depuis le paquet correspondant.
+
 ## Styles
 
 Utilisez `className` en React ou `class` en Solid et Vue sur les parties exportées pour appliquer les styles
@@ -225,7 +188,7 @@ Tailwind se personnalisent avec des utilitaires et des classes supplémentaires 
 dessous concernent les variantes CSS Modules. Les attributs de données et les sélecteurs `data-slot`
 sont communs aux deux approches.
 
-### Propriétés CSS
+### Variables CSS
 
 <CssPropertiesSection properties={DialogDocs.dialogOverrideCssProperties} />
 

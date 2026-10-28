@@ -2,128 +2,28 @@
 title: Color Picker
 component: color-picker
 description: Un sélecteur de couleurs basé sur Ark UI pour choisir une couleur, modifier ses canaux et sélectionner des couleurs prédéfinies, avec React, Solid ou Vue.
+ark: https://ark-ui.com/docs/components/color-picker
 ---
 
 import * as ColorPickerDocs from '@/components/examples/color-picker/css-properties';
 
-## Référence de l’API
+<Example name="color-picker/basic" />
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/color-picker" />
+## Installation
 
-## Choisir le bon composant
+<ComponentInstall />
 
-Choisissez `ColorPicker` lorsque l’utilisateur doit sélectionner une couleur ou l’ajuster avec précision. Si une valeur
-connue doit simplement être saisie, sans modifier directement la couleur, utilisez `Input`.
-
-## Exemple de base
+## Utilisation
 
 Commencez par un champ compact composé du composant racine, d’un champ pour un canal, de la pastille par défaut du bouton
 d’ouverture et du contenu explicite de la fenêtre contextuelle. Les parties internes peuvent rester sans enfants : le
 composant leur applique alors sa composition intégrée. Ajoutez explicitement `ColorPickerHiddenInput` et un `name` si
 la couleur doit être envoyée avec le formulaire.
 
-<Example name="color-picker/basic" />
+## Choisir le bon composant
 
-## Installation avec shadcn
-
-Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration complète du paquet, du registre et des styles.
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/color-picker' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/color-picker' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/color-picker' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/color-picker' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/color-picker' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/color-picker' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Anatomie
-
-```text
-ColorPicker
-├─ ColorPickerLabel
-├─ ColorPickerControl
-│  ├─ ColorPickerChannelInput[channel]
-│  └─ ColorPickerTrigger
-│     └─ ColorPickerValueSwatch
-├─ Sous-arbre de la fenêtre contextuelle (rendu par défaut via un portail)
-│  └─ ColorPickerPositioner
-│     └─ ColorPickerContent
-│        ├─ ColorPickerArea
-│        │  ├─ ColorPickerAreaBackground
-│        │  └─ ColorPickerAreaThumb
-│        ├─ ColorPickerEyeDropperTrigger
-│        ├─ ColorPickerChannelSlider[channel]
-│        │  ├─ ColorPickerTransparencyGrid
-│        │  ├─ ColorPickerChannelSliderTrack
-│        │  └─ ColorPickerChannelSliderThumb
-│        ├─ ColorPickerSwatchGroup
-│        │  └─ ColorPickerSwatchTrigger[value]
-│        │     └─ ColorPickerSwatch[value]
-│        │        └─ ColorPickerSwatchIndicator
-│        └─ ColorPickerView[format]
-│           └─ ColorPickerChannelInput[channel]
-└─ ColorPickerHiddenInput (explicite)
-```
-
-| Partie | Rôle |
-| --- | --- |
-| `ColorPicker` | Gère la couleur et son format, l’ouverture de la fenêtre contextuelle et la participation au formulaire. |
-| `ColorPickerHiddenInput` | Champ natif d’Ark ; composition explicite décrite ci-dessous. |
-| `ColorPickerLabel` | Libellé accessible des contrôles visibles de la palette. |
-| `ColorPickerControl` | Regroupe les champs visibles et le bouton d’ouverture. |
-| `ColorPickerTrigger` | Bouton qui ouvre la fenêtre contextuelle et affiche par défaut la pastille de la couleur actuelle. |
-| `ColorPickerPositioner` | Calque flottant qui positionne la fenêtre contextuelle et expose les variables CSS de positionnement d’Ark. |
-| `ColorPickerContent` | Contenu de la fenêtre contextuelle basée sur Ark. |
-| `ColorPickerArea` | Zone bidimensionnelle de sélection de la couleur. |
-| `ColorPickerAreaBackground` | Couche d’arrière-plan qui capte la saisie du pointeur pour la zone de couleur. |
-| `ColorPickerEyeDropperTrigger` | Prélève une couleur à l’écran ; rendu uniquement lorsque le navigateur prend en charge l’API EyeDropper. |
-| `ColorPickerChannelSlider` | Contrôle unidimensionnel de la teinte, du canal alpha ou d’un autre canal. |
-| `ColorPickerTransparencyGrid` | Fond en damier qui rend l’alpha visible derrière la piste d’un curseur de canal. Les échantillons dessinent leur propre damier. |
-| `ColorPickerSliders` | Paire intégrée de curseurs pour la teinte et le canal alpha. |
-| `ColorPickerChannelInput` | Champ texte ou numérique pour un canal de couleur donné. |
-| `ColorPickerSwatchTrigger` | Bouton de sélection d’une couleur prédéfinie. |
-| `ColorPickerSwatch` | Surface colorée rendue dans un bouton de pastille ou une pastille de valeur. |
-| `ColorPickerSwatchIndicator` | Marqueur facultatif dans une pastille, par exemple une coche pour le préréglage sélectionné. |
-| `ColorPickerValueSwatch` | Affiche une pastille de la couleur actuelle. |
-| `ColorPickerValueText` | Texte en lecture seule de la valeur formatée. |
-
-`ColorPickerRootProvider`, `parseColor`, `useColorPicker` et `useColorPickerContext` couvrent les scénarios avancés
-habituels de gestion d’état.
-
-## Composition
-
-Utilisez `defaultValue` pour un état local. Lorsque l’application doit contrôler la couleur sélectionnée ou l’ouverture, passez `value` avec `onValueChange(details)` ou `open` avec `onOpenChange(details)`. En Vue, liez le même état nativement avec `v-model`, `v-model:open` et `v-model:format`. Pour créer l’état en dehors de l’arbre rendu, passez le résultat de `useColorPicker()` à `ColorPickerRootProvider`; ne rendez pas `ColorPicker` et `ColorPickerRootProvider` pour le même état.
-
-`ColorPickerPositioner` est rendu dans un portail par défaut. Définissez `portalled={false}` lorsque la palette doit rester dans un autre contexte d’empilement. Pour inclure la couleur dans un formulaire natif, définissez `name` sur la racine et rendez explicitement `ColorPickerHiddenInput`. `ColorPickerArea`, `ColorPickerChannelSlider` et `ColorPickerSwatchTrigger` fournissent leurs parties visuelles par défaut; ne passez des enfants que pour modifier leur structure.
-
-En Solid, affectez un `ref` à l’élément créé dans la fonction de rendu `asChild` : un `ref` sur la
-partie ColorPicker elle-même n’est pas transmis via ce chemin de composition. En Vue, utilisez le
-`ref` de template ordinaire sur une partie et lisez l’élément rendu via `$el`.
+Choisissez `ColorPicker` lorsque l’utilisateur doit sélectionner une couleur ou l’ajuster avec précision. Si une valeur
+connue doit simplement être saisie, sans modifier directement la couleur, utilisez `Input`.
 
 ## Exemples
 
@@ -238,10 +138,74 @@ visuelle est nécessaire.
 
 <Example name="color-picker/advanced-customization" />
 
+## Composition
+
+Utilisez `defaultValue` pour un état local. Lorsque l’application doit contrôler la couleur sélectionnée ou l’ouverture, passez `value` avec `onValueChange(details)` ou `open` avec `onOpenChange(details)`. En Vue, liez le même état nativement avec `v-model`, `v-model:open` et `v-model:format`. Pour créer l’état en dehors de l’arbre rendu, passez le résultat de `useColorPicker()` à `ColorPickerRootProvider`; ne rendez pas `ColorPicker` et `ColorPickerRootProvider` pour le même état.
+
+`ColorPickerPositioner` est rendu dans un portail par défaut. Définissez `portalled={false}` lorsque la palette doit rester dans un autre contexte d’empilement. Pour inclure la couleur dans un formulaire natif, définissez `name` sur la racine et rendez explicitement `ColorPickerHiddenInput`. `ColorPickerArea`, `ColorPickerChannelSlider` et `ColorPickerSwatchTrigger` fournissent leurs parties visuelles par défaut; ne passez des enfants que pour modifier leur structure.
+
+En Solid, affectez un `ref` à l’élément créé dans la fonction de rendu `asChild` : un `ref` sur la
+partie ColorPicker elle-même n’est pas transmis via ce chemin de composition. En Vue, utilisez le
+`ref` de template ordinaire sur une partie et lisez l’élément rendu via `$el`.
+
+## Anatomie
+
+```text
+ColorPicker
+├─ ColorPickerLabel
+├─ ColorPickerControl
+│  ├─ ColorPickerChannelInput[channel]
+│  └─ ColorPickerTrigger
+│     └─ ColorPickerValueSwatch
+├─ Sous-arbre de la fenêtre contextuelle (rendu par défaut via un portail)
+│  └─ ColorPickerPositioner
+│     └─ ColorPickerContent
+│        ├─ ColorPickerArea
+│        │  ├─ ColorPickerAreaBackground
+│        │  └─ ColorPickerAreaThumb
+│        ├─ ColorPickerEyeDropperTrigger
+│        ├─ ColorPickerChannelSlider[channel]
+│        │  ├─ ColorPickerTransparencyGrid
+│        │  ├─ ColorPickerChannelSliderTrack
+│        │  └─ ColorPickerChannelSliderThumb
+│        ├─ ColorPickerSwatchGroup
+│        │  └─ ColorPickerSwatchTrigger[value]
+│        │     └─ ColorPickerSwatch[value]
+│        │        └─ ColorPickerSwatchIndicator
+│        └─ ColorPickerView[format]
+│           └─ ColorPickerChannelInput[channel]
+└─ ColorPickerHiddenInput (explicite)
+```
+
+| Partie | Rôle |
+| --- | --- |
+| `ColorPicker` | Gère la couleur et son format, l’ouverture de la fenêtre contextuelle et la participation au formulaire. |
+| `ColorPickerHiddenInput` | Champ natif d’Ark ; composition explicite décrite ci-dessous. |
+| `ColorPickerLabel` | Libellé accessible des contrôles visibles de la palette. |
+| `ColorPickerControl` | Regroupe les champs visibles et le bouton d’ouverture. |
+| `ColorPickerTrigger` | Bouton qui ouvre la fenêtre contextuelle et affiche par défaut la pastille de la couleur actuelle. |
+| `ColorPickerPositioner` | Calque flottant qui positionne la fenêtre contextuelle et expose les variables CSS de positionnement d’Ark. |
+| `ColorPickerContent` | Contenu de la fenêtre contextuelle basée sur Ark. |
+| `ColorPickerArea` | Zone bidimensionnelle de sélection de la couleur. |
+| `ColorPickerAreaBackground` | Couche d’arrière-plan qui capte la saisie du pointeur pour la zone de couleur. |
+| `ColorPickerEyeDropperTrigger` | Prélève une couleur à l’écran ; rendu uniquement lorsque le navigateur prend en charge l’API EyeDropper. |
+| `ColorPickerChannelSlider` | Contrôle unidimensionnel de la teinte, du canal alpha ou d’un autre canal. |
+| `ColorPickerTransparencyGrid` | Fond en damier qui rend l’alpha visible derrière la piste d’un curseur de canal. Les échantillons dessinent leur propre damier. |
+| `ColorPickerSliders` | Paire intégrée de curseurs pour la teinte et le canal alpha. |
+| `ColorPickerChannelInput` | Champ texte ou numérique pour un canal de couleur donné. |
+| `ColorPickerSwatchTrigger` | Bouton de sélection d’une couleur prédéfinie. |
+| `ColorPickerSwatch` | Surface colorée rendue dans un bouton de pastille ou une pastille de valeur. |
+| `ColorPickerSwatchIndicator` | Marqueur facultatif dans une pastille, par exemple une coche pour le préréglage sélectionné. |
+| `ColorPickerValueSwatch` | Affiche une pastille de la couleur actuelle. |
+| `ColorPickerValueText` | Texte en lecture seule de la valeur formatée. |
+
+`ColorPickerRootProvider`, `parseColor`, `useColorPicker` et `useColorPickerContext` couvrent les scénarios avancés
+habituels de gestion d’état.
+
 ## Styles
 
 Utilisez `className` en React ou `class` en Solid et Vue sur les parties exportées. Les variantes Tailwind utilisent les utilitaires natifs et les classes de votre application; les variantes CSS Modules exposent quelques variables `--moduix-color-picker-*` pour les tailles partagées par plusieurs parties ou par les enfants par défaut; les couleurs, espacements et typographies suivent les tokens de la fondation, modifiez-les avec une classe sur la partie. Les deux versions exposent les hooks stables `data-slot="color-picker-*"` et les attributs Ark `data-scope` / `data-part`.
-### Propriétés CSS
+### Variables CSS
 
 <CssPropertiesSection properties={ColorPickerDocs.colorPickerOverrideCssProperties} />
 

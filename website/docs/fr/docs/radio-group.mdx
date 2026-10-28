@@ -2,117 +2,27 @@
 title: Radio Group
 component: radio-group
 description: Un groupe de boutons radio pour choisir une seule option parmi plusieurs.
+ark: https://ark-ui.com/docs/components/radio-group
 ---
 
 import * as RadioGroupDocs from '@/components/examples/radio-group/css-properties';
 
-## Référence de l’API
+<Example name="radio-group/basic" />
 
-`RadioGroup` suit la primitive radio-group d’Ark UI et ajoute les styles moduix, des attributs
-`data-slot` stables et le composant pratique `RadioGroupOption`. Il est exporté depuis
-`@moduix/react/radio-group`, `@moduix/solid/radio-group` et `@moduix/vue/radio-group`.
+## Installation
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/radio-group" />
+<ComponentInstall />
+
+## Utilisation
+
+Utilisez `RadioGroup` comme racine et donnez une valeur à chaque option. `RadioGroupOption` affiche
+un élément libellé avec son contrôle, son texte et son champ natif.
 
 ## Choisir le bon composant
 
 Utilisez `RadioGroup` lorsqu’une personne doit choisir une seule option parmi plusieurs options
 visibles, par exemple un framework, un forfait ou un type de compte. Utilisez `Checkbox` pour des
 choix indépendants et `Switch` pour un réglage qui s’applique immédiatement.
-
-## Exemple de base
-
-
-Utilisez `RadioGroup` comme racine et donnez une valeur à chaque option. `RadioGroupOption` affiche
-un élément libellé avec son contrôle, son texte et son champ natif.
-
-<Example name="radio-group/basic" />
-
-## Installation avec shadcn
-
-Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration complète du paquet, du registre et des styles.
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/radio-group' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/radio-group' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/radio-group' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/radio-group' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/radio-group' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/radio-group' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Anatomie
-
-```text
-RadioGroup
-├─ RadioGroupLabel
-├─ RadioGroupIndicator (facultatif)
-└─ RadioGroupItem[value]
-   ├─ RadioGroupItemControl
-   ├─ RadioGroupItemText
-   └─ RadioGroupItemHiddenInput (explicite)
-
-RadioGroupRootProvider
-└─ le même arbre de parties connecté à useRadioGroup()
-
-RadioGroupOption
-└─ RadioGroupItem + RadioGroupItemControl + RadioGroupItemText + RadioGroupItemHiddenInput (composition fixe)
-```
-
-| Partie                        | Rôle                                                            |
-| ---------------------------- | --------------------------------------------------------------- |
-| `RadioGroup`       | Gère la valeur, la navigation au clavier, l’orientation et les formulaires. |
-| `RadioGroupRootProvider`    | Relie les parties à l’état créé avec `useRadioGroup()`.         |
-| `RadioGroupLabel`           | Libellé accessible du groupe.                                   |
-| `RadioGroupItem`             | Une option sélectionnable ; rend un `label` par défaut.         |
-| `RadioGroupOption`           | Élément pratique avec contrôle, texte et champ masqué.           |
-| `RadioGroupItemControl`      | Contrôle radio visuel ; sa taille vient de `size` sur la racine. |
-| `RadioGroupItemText`         | Texte visible de l’option.                                      |
-| `RadioGroupItemHiddenInput`  | Champ natif pour la composition explicite de `RadioGroupItem`.             |
-| `RadioGroupIndicator`        | Indicateur facultatif de l’élément actif, mesuré par Ark.        |
-
-## Composition
-
-Utilisez `defaultValue` pour un groupe non contrôlé. Utilisez `value` avec `onValueChange(details)`
-lorsqu’une autre partie de l’application possède la valeur sélectionnée. Lorsque l’état doit être
-créé en dehors de l’arbre rendu, utilisez `RadioGroupRootProvider` avec `useRadioGroup()` depuis le package du
-framework correspondant. Ne rendez pas `RadioGroup` et `RadioGroupRootProvider` pour la même instance
-d’état. React lit le store comme un objet ; Solid lit son état réactif via l’accessor retourné ; Vue expose le store
-réactif directement dans le template.
-
-`RadioGroupOption` inclut `RadioGroupItemHiddenInput` dans sa composition fixe. Avec une composition directe de
-`RadioGroupItem`, ajoutez vous-même `RadioGroupItemHiddenInput`. Utilisez l’arbre explicite lorsque
-les parties imbriquées doivent être placées ou configurées séparément, ou lorsque `asChild` doit
-laisser un autre élément posséder le nœud DOM de l’option. Dans Solid, `asChild` utilise une fonction
-de rendu ; dans Vue, utilisez `as-child`. Dans les deux cas, l’enfant direct doit rester un `label` sémantique.
-
-`Field` fournit un libellé visible, un texte d’aide et un message d’erreur, mais ne transmet pas
-son état à `RadioGroup`. Passez `disabled`, `invalid`, `readOnly` et `required` directement au groupe.
-`Fieldset` transmet ses états Ark `disabled` et `invalid` aux groupes radio imbriqués.
 
 ## Exemples
 
@@ -211,6 +121,59 @@ son propre placement, ses propres props ou son propre style.
 
 <Example name="radio-group/advanced-customization" />
 
+## Composition
+
+`RadioGroup` suit la primitive radio-group d’Ark UI et ajoute les styles moduix, des attributs
+`data-slot` stables et le composant pratique `RadioGroupOption`. Il est exporté depuis
+`@moduix/react/radio-group`, `@moduix/solid/radio-group` et `@moduix/vue/radio-group`.
+
+Utilisez `defaultValue` pour un groupe non contrôlé. Utilisez `value` avec `onValueChange(details)`
+lorsqu’une autre partie de l’application possède la valeur sélectionnée. Lorsque l’état doit être
+créé en dehors de l’arbre rendu, utilisez `RadioGroupRootProvider` avec `useRadioGroup()` depuis le package du
+framework correspondant. Ne rendez pas `RadioGroup` et `RadioGroupRootProvider` pour la même instance
+d’état. React lit le store comme un objet ; Solid lit son état réactif via l’accessor retourné ; Vue expose le store
+réactif directement dans le template.
+
+`RadioGroupOption` inclut `RadioGroupItemHiddenInput` dans sa composition fixe. Avec une composition directe de
+`RadioGroupItem`, ajoutez vous-même `RadioGroupItemHiddenInput`. Utilisez l’arbre explicite lorsque
+les parties imbriquées doivent être placées ou configurées séparément, ou lorsque `asChild` doit
+laisser un autre élément posséder le nœud DOM de l’option. Dans Solid, `asChild` utilise une fonction
+de rendu ; dans Vue, utilisez `as-child`. Dans les deux cas, l’enfant direct doit rester un `label` sémantique.
+
+`Field` fournit un libellé visible, un texte d’aide et un message d’erreur, mais ne transmet pas
+son état à `RadioGroup`. Passez `disabled`, `invalid`, `readOnly` et `required` directement au groupe.
+`Fieldset` transmet ses états Ark `disabled` et `invalid` aux groupes radio imbriqués.
+
+## Anatomie
+
+```text
+RadioGroup
+├─ RadioGroupLabel
+├─ RadioGroupIndicator (facultatif)
+└─ RadioGroupItem[value]
+   ├─ RadioGroupItemControl
+   ├─ RadioGroupItemText
+   └─ RadioGroupItemHiddenInput (explicite)
+
+RadioGroupRootProvider
+└─ le même arbre de parties connecté à useRadioGroup()
+
+RadioGroupOption
+└─ RadioGroupItem + RadioGroupItemControl + RadioGroupItemText + RadioGroupItemHiddenInput (composition fixe)
+```
+
+| Partie                        | Rôle                                                            |
+| ---------------------------- | --------------------------------------------------------------- |
+| `RadioGroup`       | Gère la valeur, la navigation au clavier, l’orientation et les formulaires. |
+| `RadioGroupRootProvider`    | Relie les parties à l’état créé avec `useRadioGroup()`.         |
+| `RadioGroupLabel`           | Libellé accessible du groupe.                                   |
+| `RadioGroupItem`             | Une option sélectionnable ; rend un `label` par défaut.         |
+| `RadioGroupOption`           | Élément pratique avec contrôle, texte et champ masqué.           |
+| `RadioGroupItemControl`      | Contrôle radio visuel ; sa taille vient de `size` sur la racine. |
+| `RadioGroupItemText`         | Texte visible de l’option.                                      |
+| `RadioGroupItemHiddenInput`  | Champ natif pour la composition explicite de `RadioGroupItem`.             |
+| `RadioGroupIndicator`        | Indicateur facultatif de l’élément actif, mesuré par Ark.        |
+
 ## Styles
 
 Utilisez `className` dans React ou `class` dans Solid et Vue sur les parties exportées pour les styles
@@ -220,7 +183,7 @@ Tailwind utilisent les utilitaires natifs et les classes du consommateur ; les v
 personnalisent les variantes CSS Modules. Les attributs de données et les hooks `data-slot` sont
 partagés par les deux approches de style.
 
-### Propriétés CSS
+### Variables CSS
 
 <CssPropertiesSection properties={RadioGroupDocs.radioGroupOverrideCssProperties} />
 

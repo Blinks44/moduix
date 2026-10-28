@@ -2,127 +2,27 @@
 title: Color Picker
 component: color-picker
 description: An Ark UI-based color picker for choosing colors, editing color channels, and selecting swatches in React, Solid, or Vue.
+ark: https://ark-ui.com/docs/components/color-picker
 ---
 
 import * as ColorPickerDocs from '@/components/examples/color-picker/css-properties';
 
-## API Reference
+<Example name="color-picker/basic" />
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/color-picker" />
+## Installation
 
-## Choosing the right component
+<ComponentInstall />
 
-Choose `ColorPicker` when users need to pick or fine-tune a color. Choose `Input` when they only need
-to enter a known value and do not need to manipulate the color directly.
-
-## Basic
+## Usage
 
 Start with a compact field that combines a root, one channel input, the trigger's default swatch,
 explicit popup content, and the picker's default internal parts. Add `ColorPickerHiddenInput`
 explicitly when the color should be submitted with a form.
 
-<Example name="color-picker/basic" />
+## Choosing the right component
 
-## Install with shadcn
-
-See [Quick Start](/docs/quick-start) for full package setup, registry configuration, and styling guidance.
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/color-picker' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/color-picker' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/color-picker' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/color-picker' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/color-picker' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/color-picker' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Anatomy
-
-```text
-ColorPicker
-├─ ColorPickerLabel
-├─ ColorPickerControl
-│  ├─ ColorPickerChannelInput[channel]
-│  └─ ColorPickerTrigger
-│     └─ ColorPickerValueSwatch
-├─ Overlay subtree (automatically portalled)
-│  └─ ColorPickerPositioner
-│     └─ ColorPickerContent
-│        ├─ ColorPickerArea
-│        │  ├─ ColorPickerAreaBackground
-│        │  └─ ColorPickerAreaThumb
-│        ├─ ColorPickerEyeDropperTrigger
-│        ├─ ColorPickerChannelSlider[channel]
-│        │  ├─ ColorPickerTransparencyGrid
-│        │  ├─ ColorPickerChannelSliderTrack
-│        │  └─ ColorPickerChannelSliderThumb
-│        ├─ ColorPickerSwatchGroup
-│        │  └─ ColorPickerSwatchTrigger[value]
-│        │     └─ ColorPickerSwatch[value]
-│        │        └─ ColorPickerSwatchIndicator
-│        └─ ColorPickerView[format]
-│           └─ ColorPickerChannelInput[channel]
-└─ ColorPickerHiddenInput (explicit)
-```
-
-| Part                               | Role                                                                   |
-| ---------------------------------- | ---------------------------------------------------------------------- |
-| `ColorPicker` | Owns color value, format, popup state, and form integration.           |
-| `ColorPickerHiddenInput` | Native Ark form control; compose explicitly as described below. |
-| `ColorPickerLabel` | Accessible label for the visible picker controls. |
-| `ColorPickerControl`              | Groups visible inputs and trigger.                                     |
-| `ColorPickerTrigger`              | Button that opens the popup and renders the current swatch by default. |
-| `ColorPickerPositioner` | Floating layer that positions the popup and exposes Ark positioning CSS variables. |
-| `ColorPickerContent`              | Actual Ark popup content part.                                         |
-| `ColorPickerArea`                 | Two-dimensional color interaction surface.                             |
-| `ColorPickerAreaBackground` | Background layer that captures pointer input for the color area. |
-| `ColorPickerEyeDropperTrigger` | Samples a color from the screen; rendered only where the browser supports the EyeDropper API. |
-| `ColorPickerChannelSlider`        | One-dimensional channel control for hue, alpha, or other channels.     |
-| `ColorPickerTransparencyGrid` | Checkerboard backdrop that makes alpha visible behind a channel slider track. Swatches draw their own checkerboard. |
-| `ColorPickerSliders`              | Styled hue and alpha slider pair.                                      |
-| `ColorPickerChannelInput`         | Text or numeric input for a specific color channel.                    |
-| `ColorPickerSwatchTrigger`        | Selectable preset color button.                                        |
-| `ColorPickerSwatch` | Colored surface rendered inside a swatch trigger or value swatch. |
-| `ColorPickerSwatchIndicator` | Optional marker inside a swatch, such as a check for the selected preset. |
-| `ColorPickerValueSwatch`          | Visual swatch for the current value.                                   |
-| `ColorPickerValueText` | Read-only text of the formatted value. |
-
-`ColorPickerRootProvider`, `parseColor`, `useColorPicker`, and `useColorPickerContext` cover the
-normal advanced state path.
-
-## Composition
-
-Use `defaultValue` for local state. When application state owns the selected color or popup, pass `value` with `onValueChange(details)` or `open` with `onOpenChange(details)`. In Vue, bind the same state with `v-model`, `v-model:open`, and `v-model:format`. For state created outside the rendered tree, pass `useColorPicker()` to `ColorPickerRootProvider`; do not render `ColorPicker` and `ColorPickerRootProvider` for the same store.
-
-`ColorPickerPositioner` is portalled by default. Set `portalled={false}` for an overlay inside another stacking context. To submit the color with a native form, set `name` on the root and render `ColorPickerHiddenInput` explicitly. Parts such as `ColorPickerArea`, `ColorPickerChannelSlider`, and `ColorPickerSwatchTrigger` provide default visual children; pass children only when changing their structure.
-
-In Solid, assign a ref to the element created inside the `asChild` render function. A ref on a
-ColorPicker part itself is not forwarded through that composition path. In Vue, use the ordinary
-template `ref` on a part and read the rendered element through `$el`.
+Choose `ColorPicker` when users need to pick or fine-tune a color. Choose `Input` when they only need
+to enter a known value and do not need to manipulate the color directly.
 
 ## Examples
 
@@ -235,10 +135,74 @@ Use explicit parts and children when the default composition needs a different v
 
 <Example name="color-picker/advanced-customization" />
 
+## Composition
+
+Use `defaultValue` for local state. When application state owns the selected color or popup, pass `value` with `onValueChange(details)` or `open` with `onOpenChange(details)`. In Vue, bind the same state with `v-model`, `v-model:open`, and `v-model:format`. For state created outside the rendered tree, pass `useColorPicker()` to `ColorPickerRootProvider`; do not render `ColorPicker` and `ColorPickerRootProvider` for the same store.
+
+`ColorPickerPositioner` is portalled by default. Set `portalled={false}` for an overlay inside another stacking context. To submit the color with a native form, set `name` on the root and render `ColorPickerHiddenInput` explicitly. Parts such as `ColorPickerArea`, `ColorPickerChannelSlider`, and `ColorPickerSwatchTrigger` provide default visual children; pass children only when changing their structure.
+
+In Solid, assign a ref to the element created inside the `asChild` render function. A ref on a
+ColorPicker part itself is not forwarded through that composition path. In Vue, use the ordinary
+template `ref` on a part and read the rendered element through `$el`.
+
+## Anatomy
+
+```text
+ColorPicker
+├─ ColorPickerLabel
+├─ ColorPickerControl
+│  ├─ ColorPickerChannelInput[channel]
+│  └─ ColorPickerTrigger
+│     └─ ColorPickerValueSwatch
+├─ Overlay subtree (automatically portalled)
+│  └─ ColorPickerPositioner
+│     └─ ColorPickerContent
+│        ├─ ColorPickerArea
+│        │  ├─ ColorPickerAreaBackground
+│        │  └─ ColorPickerAreaThumb
+│        ├─ ColorPickerEyeDropperTrigger
+│        ├─ ColorPickerChannelSlider[channel]
+│        │  ├─ ColorPickerTransparencyGrid
+│        │  ├─ ColorPickerChannelSliderTrack
+│        │  └─ ColorPickerChannelSliderThumb
+│        ├─ ColorPickerSwatchGroup
+│        │  └─ ColorPickerSwatchTrigger[value]
+│        │     └─ ColorPickerSwatch[value]
+│        │        └─ ColorPickerSwatchIndicator
+│        └─ ColorPickerView[format]
+│           └─ ColorPickerChannelInput[channel]
+└─ ColorPickerHiddenInput (explicit)
+```
+
+| Part                               | Role                                                                   |
+| ---------------------------------- | ---------------------------------------------------------------------- |
+| `ColorPicker` | Owns color value, format, popup state, and form integration.           |
+| `ColorPickerHiddenInput` | Native Ark form control; compose explicitly as described below. |
+| `ColorPickerLabel` | Accessible label for the visible picker controls. |
+| `ColorPickerControl`              | Groups visible inputs and trigger.                                     |
+| `ColorPickerTrigger`              | Button that opens the popup and renders the current swatch by default. |
+| `ColorPickerPositioner` | Floating layer that positions the popup and exposes Ark positioning CSS variables. |
+| `ColorPickerContent`              | Actual Ark popup content part.                                         |
+| `ColorPickerArea`                 | Two-dimensional color interaction surface.                             |
+| `ColorPickerAreaBackground` | Background layer that captures pointer input for the color area. |
+| `ColorPickerEyeDropperTrigger` | Samples a color from the screen; rendered only where the browser supports the EyeDropper API. |
+| `ColorPickerChannelSlider`        | One-dimensional channel control for hue, alpha, or other channels.     |
+| `ColorPickerTransparencyGrid` | Checkerboard backdrop that makes alpha visible behind a channel slider track. Swatches draw their own checkerboard. |
+| `ColorPickerSliders`              | Styled hue and alpha slider pair.                                      |
+| `ColorPickerChannelInput`         | Text or numeric input for a specific color channel.                    |
+| `ColorPickerSwatchTrigger`        | Selectable preset color button.                                        |
+| `ColorPickerSwatch` | Colored surface rendered inside a swatch trigger or value swatch. |
+| `ColorPickerSwatchIndicator` | Optional marker inside a swatch, such as a check for the selected preset. |
+| `ColorPickerValueSwatch`          | Visual swatch for the current value.                                   |
+| `ColorPickerValueText` | Read-only text of the formatted value. |
+
+`ColorPickerRootProvider`, `parseColor`, `useColorPicker`, and `useColorPickerContext` cover the
+normal advanced state path.
+
 ## Styling
 
 Use `className` in React or `class` in Solid and Vue on exported parts. Tailwind variants use native utilities and consumer classes; CSS Modules variants expose a short list of `--moduix-color-picker-*` variables for sizes that several parts or default children share; colors, spacing, and typography follow foundation tokens, so change them with a class on the part. Both styling tracks expose stable `data-slot="color-picker-*"` hooks and Ark `data-scope` / `data-part` attributes.
-### CSS Properties
+### CSS variables
 
 <CssPropertiesSection properties={ColorPickerDocs.colorPickerOverrideCssProperties} />
 

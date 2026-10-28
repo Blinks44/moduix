@@ -2,95 +2,23 @@
 title: Card
 component: card
 description: "Créez des cartes flexibles avec React, Solid ou Vue, en installant le package ou via shadcn."
+ark: https://ark-ui.com/docs/guides/composition#the-ark-factory
 ---
 
 import * as CardDocs from '@/components/examples/card/css-properties';
 
+<Example name="card/basic" />
 
+## Installation
 
-## Référence de l’API
+<ComponentInstall />
 
-Ark UI ne fournit pas de primitive Card dédiée. moduix construit Card avec la [fabrique officielle d’Ark](https://ark-ui.com/docs/guides/composition#the-ark-factory) et suit les recommandations d’Ark pour la [composition](https://ark-ui.com/docs/guides/composition), le [style](https://ark-ui.com/docs/guides/styling) et les [refs](https://ark-ui.com/docs/guides/ref).
-
-
-Les mêmes exports sont disponibles depuis `@moduix/solid/card` pour Solid.
-## Exemple de base
+## Utilisation
 
 Utilisez `Card` comme racine et ajoutez uniquement les parties nécessaires. Importez chaque partie
 supplémentaire directement, comme `CardHeader` et `CardTitle`. Les mêmes noms fonctionnent avec les
 paquets npm et la source du registre shadcn.
 
-<Example name="card/basic" />
-
-## Installation avec shadcn
-
-Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration complète du paquet, du registre et des styles.
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/card' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/card' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/card' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/card' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/card' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/card' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Anatomie
-
-```text
-Card
-├─ CardBackground (aide moduix facultative)
-├─ CardMedia (aide moduix facultative)
-├─ CardHeader
-│  ├─ CardTitle
-│  ├─ CardDescription
-│  └─ CardAction (aide moduix facultative)
-├─ CardBody
-└─ CardFooter (facultatif)
-```
-
-| Partie               | Rôle                                                                                          |
-| -------------------- | --------------------------------------------------------------------------------------------- |
-| `Card` | Conteneur racine avec les props `size`, `variant` et `asChild`.                               |
-| `CardBackground`    | Couche de fond facultative couvrant toute la carte pour un média décoratif.                  |
-| `CardMedia`         | Conteneur facultatif pour un média bord à bord, avec un arrondi uniforme des angles supérieurs. |
-| `CardHeader`        | Mise en page de l’en-tête pour le titre, la description et une éventuelle action à droite.    |
-| `CardBody`          | Zone principale du contenu.                                                                  |
-| `CardFooter`        | Ligne inférieure pour les actions ou les métadonnées. Elle passe à la ligne si nécessaire.   |
-| `CardTitle`         | Titre rendu en `h3` par défaut. Utilisez `asChild` pour choisir un autre niveau.              |
-| `CardDescription`   | Texte complémentaire sous le titre.                                                          |
-| `CardAction`        | Emplacement réservé à une action dans l’en-tête.                                             |
-| `CardLink`          | Lien dont la zone cliquable s’étend à toute la carte sans bloquer les autres contrôles.      |
-
-## Composition
-
-Card ne gère aucun état, fonction de rappel, contexte, comportement clavier ni champ masqué. Utilisez ses parties simples pour le contenu de présentation. Utilisez `asChild` lorsqu’un élément sémantique doit porter la racine ou une autre partie ; il doit rendre exactement un enfant capable de recevoir les propriétés fusionnées. En Solid, `asChild` utilise une fonction de rendu telle que `asChild={(props) => <a {...props()} />}`.
-
-Lorsqu’une carte est entièrement un lien et ne contient aucun contrôle imbriqué, composez la racine avec `asChild`. Si la carte contient aussi des boutons ou d’autres actions, gardez `CardLink` dans `CardTitle` et placez ces contrôles dans `CardAction` ; la zone cliquable étendue du lien ne gênera ainsi pas les autres éléments interactifs. Utilisez `CardMedia` pour un média informatif placé en tête et `CardBackground` pour un média décoratif derrière le contenu. Donnez un `alt` vide aux images d’arrière-plan et gérez dans l’application les éventuelles superpositions ou styles assurant le contraste du texte.
 ## Exemples
 
 ### Action dans l’en-tête
@@ -163,9 +91,44 @@ avec des points d’extension bas niveau.
 
 <Example name="card/advanced-customization" />
 
+## Composition
+
+Les mêmes exports sont disponibles depuis `@moduix/solid/card` pour Solid.
+
+Card ne gère aucun état, fonction de rappel, contexte, comportement clavier ni champ masqué. Utilisez ses parties simples pour le contenu de présentation. Utilisez `asChild` lorsqu’un élément sémantique doit porter la racine ou une autre partie ; il doit rendre exactement un enfant capable de recevoir les propriétés fusionnées. En Solid, `asChild` utilise une fonction de rendu telle que `asChild={(props) => <a {...props()} />}`.
+
+Lorsqu’une carte est entièrement un lien et ne contient aucun contrôle imbriqué, composez la racine avec `asChild`. Si la carte contient aussi des boutons ou d’autres actions, gardez `CardLink` dans `CardTitle` et placez ces contrôles dans `CardAction` ; la zone cliquable étendue du lien ne gênera ainsi pas les autres éléments interactifs. Utilisez `CardMedia` pour un média informatif placé en tête et `CardBackground` pour un média décoratif derrière le contenu. Donnez un `alt` vide aux images d’arrière-plan et gérez dans l’application les éventuelles superpositions ou styles assurant le contraste du texte.
+
+## Anatomie
+
+```text
+Card
+├─ CardBackground (aide moduix facultative)
+├─ CardMedia (aide moduix facultative)
+├─ CardHeader
+│  ├─ CardTitle
+│  ├─ CardDescription
+│  └─ CardAction (aide moduix facultative)
+├─ CardBody
+└─ CardFooter (facultatif)
+```
+
+| Partie               | Rôle                                                                                          |
+| -------------------- | --------------------------------------------------------------------------------------------- |
+| `Card` | Conteneur racine avec les props `size`, `variant` et `asChild`.                               |
+| `CardBackground`    | Couche de fond facultative couvrant toute la carte pour un média décoratif.                  |
+| `CardMedia`         | Conteneur facultatif pour un média bord à bord, avec un arrondi uniforme des angles supérieurs. |
+| `CardHeader`        | Mise en page de l’en-tête pour le titre, la description et une éventuelle action à droite.    |
+| `CardBody`          | Zone principale du contenu.                                                                  |
+| `CardFooter`        | Ligne inférieure pour les actions ou les métadonnées. Elle passe à la ligne si nécessaire.   |
+| `CardTitle`         | Titre rendu en `h3` par défaut. Utilisez `asChild` pour choisir un autre niveau.              |
+| `CardDescription`   | Texte complémentaire sous le titre.                                                          |
+| `CardAction`        | Emplacement réservé à une action dans l’en-tête.                                             |
+| `CardLink`          | Lien dont la zone cliquable s’étend à toute la carte sans bloquer les autres contrôles.      |
+
 ## Styles
 
-### Propriétés CSS
+### Variables CSS
 
 <CssPropertiesSection properties={CardDocs.cardOverrideCssProperties} />
 

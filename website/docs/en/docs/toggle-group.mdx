@@ -2,6 +2,7 @@
 title: Toggle Group
 component: toggle-group
 description: A keyboard-navigable group of toggle buttons for single or multiple selection in React, Solid, and Vue.
+ark: https://ark-ui.com/docs/components/toggle-group
 ---
 
 import * as ToggleGroupDocs from '@/components/examples/toggle-group/css-properties';
@@ -11,15 +12,16 @@ import toggleGroupSolidContext from '../../../snippets/toggle-group/solid/contex
 import toggleGroupVueContext from '../../../snippets/toggle-group/vue/context.vue?raw';
 import toggleGroupVueContextPart from '../../../snippets/toggle-group/vue/AlignmentItem.vue?raw';
 
-## API Reference
+<Example name="toggle-group/basic" />
 
-`ToggleGroup` wraps Ark UI's Toggle Group primitive and adds moduix visual props for variants and
-sizes. Import it from the matching framework package: `@moduix/react/toggle-group`,
-`@moduix/solid/toggle-group`, `@moduix/react-tailwind/toggle-group`, or
-`@moduix/solid-tailwind/toggle-group`. Vue packages are `@moduix/vue/toggle-group` and
-`@moduix/vue-tailwind/toggle-group`.
+## Installation
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/toggle-group" />
+<ComponentInstall />
+
+## Usage
+
+Use `ToggleGroup` as the root and add one `ToggleGroupItem` for each choice. Give the group an
+accessible name with `aria-label` or `aria-labelledby`.
 
 ## Choosing the right component
 
@@ -30,85 +32,6 @@ can allow one selected value or several selected values.
 - Choose **`Toggle`** for one standalone two-state action.
 - Choose **`Tabs`** when selecting an item should also show its associated panel.
 - Choose **`RadioGroup`** when the choices are form options and need native form integration.
-
-## Basic
-
-
-Use `ToggleGroup` as the root and add one `ToggleGroupItem` for each choice. Give the group an
-accessible name with `aria-label` or `aria-labelledby`.
-
-<Example name="toggle-group/basic" />
-
-## Install with shadcn
-
-See [Quick Start](/docs/quick-start) for full package setup, registry configuration, and styling guidance.
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/toggle-group' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/toggle-group' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/toggle-group' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/toggle-group' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/toggle-group' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/toggle-group' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Anatomy
-
-```text
-ToggleGroup
-├─ ToggleGroupContext (optional)
-└─ ToggleGroupItem[value]
-
-ToggleGroupRootProvider
-└─ ToggleGroupItem[value]
-```
-
-| Part                    | Role                                                                                 |
-| ----------------------- | ------------------------------------------------------------------------------------ |
-| `ToggleGroup`           | Root part that owns selected values, focus movement, orientation, and disabled state. |
-| `ToggleGroupItem`       | Interactive item with a required `value` and Ark selection state.                    |
-| `ToggleGroupRootProvider` | Connects the item tree to state created with `useToggleGroup()`.                    |
-| `ToggleGroupContext`    | Exposes the current group state through a render prop or Vue scoped slot.             |
-
-## Composition
-
-Use `defaultValue` for an uncontrolled group, or pass `value` with `onValueChange(details)` when
-another part of the application owns the selection in React and Solid. In Vue, use `v-model` and
-listen to `@value-change` for Ark details; inside script, read the store through `.value`. Selected
-values are `string[]` in single and
-multiple-selection modes. Use `ToggleGroupRootProvider` with `useToggleGroup()` from the matching
-framework package when state must be created outside the rendered tree. React reads the store as an
-object, Solid reads its reactive state through the returned accessor, and Vue exposes the reactive
-store directly to the template.
-
-Use `ToggleGroupContext` or `useToggleGroupContext()` when a custom item needs the current group
-state. With `asChild`, React receives one button-like child, Solid receives a render function
-that returns the element hosting the Ark behavior, and Vue receives one element child. Do not render `ToggleGroup` and
-`ToggleGroupRootProvider` for the same state instance.
 
 ## Examples
 
@@ -206,6 +129,46 @@ outside the rendered group tree.
 
 <Example name="toggle-group/root-provider" />
 
+## Composition
+
+`ToggleGroup` wraps Ark UI's Toggle Group primitive and adds moduix visual props for variants and
+sizes. Import it from the matching framework package: `@moduix/react/toggle-group`,
+`@moduix/solid/toggle-group`, `@moduix/react-tailwind/toggle-group`, or
+`@moduix/solid-tailwind/toggle-group`. Vue packages are `@moduix/vue/toggle-group` and
+`@moduix/vue-tailwind/toggle-group`.
+
+Use `defaultValue` for an uncontrolled group, or pass `value` with `onValueChange(details)` when
+another part of the application owns the selection in React and Solid. In Vue, use `v-model` and
+listen to `@value-change` for Ark details; inside script, read the store through `.value`. Selected
+values are `string[]` in single and
+multiple-selection modes. Use `ToggleGroupRootProvider` with `useToggleGroup()` from the matching
+framework package when state must be created outside the rendered tree. React reads the store as an
+object, Solid reads its reactive state through the returned accessor, and Vue exposes the reactive
+store directly to the template.
+
+Use `ToggleGroupContext` or `useToggleGroupContext()` when a custom item needs the current group
+state. With `asChild`, React receives one button-like child, Solid receives a render function
+that returns the element hosting the Ark behavior, and Vue receives one element child. Do not render `ToggleGroup` and
+`ToggleGroupRootProvider` for the same state instance.
+
+## Anatomy
+
+```text
+ToggleGroup
+├─ ToggleGroupContext (optional)
+└─ ToggleGroupItem[value]
+
+ToggleGroupRootProvider
+└─ ToggleGroupItem[value]
+```
+
+| Part                    | Role                                                                                 |
+| ----------------------- | ------------------------------------------------------------------------------------ |
+| `ToggleGroup`           | Root part that owns selected values, focus movement, orientation, and disabled state. |
+| `ToggleGroupItem`       | Interactive item with a required `value` and Ark selection state.                    |
+| `ToggleGroupRootProvider` | Connects the item tree to state created with `useToggleGroup()`.                    |
+| `ToggleGroupContext`    | Exposes the current group state through a render prop or Vue scoped slot.             |
+
 ## Styling
 
 Use `className` in React or `class` in Solid and Vue on exported parts for structural styles. Tailwind
@@ -213,12 +176,12 @@ variants use native utilities and consumer classes; CSS Modules variants expose 
 `--moduix-toggle-group-*` tokens. Items inherit `variant` and `size` from the root, and can override
 either prop when one item needs different treatment.
 
-### CSS Properties
+### CSS variables
 
 <CssPropertiesSection properties={ToggleGroupDocs.toggleGroupOverrideCssProperties} />
 
 The table covers group-level properties. Each `ToggleGroupItem` also supports the [Toggle CSS
-properties](/docs/toggle#css-properties) for its colors and interaction states. Set a
+properties](/docs/toggle#css-variables) for its colors and interaction states. Set a
 `--moduix-toggle-*` property on the root to theme every item, or on an item to override one control.
 
 ### Styling hooks

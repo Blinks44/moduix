@@ -2,13 +2,23 @@
 title: Menu
 component: menu
 description: Un menu ouvert par un déclencheur pour les actions, les liens, les options sélectionnables, les commandes imbriquées et les menus contextuels.
+ark: https://ark-ui.com/docs/components/menu
 ---
 
 import * as MenuDocs from '@/components/examples/menu/css-properties';
 
-## Référence de l’API
+<Example name="menu/basic" />
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/menu" />
+## Installation
+
+<ComponentInstall />
+
+## Utilisation
+
+Utilisez la composition standard pour un menu ouvert par un bouton, un déclencheur personnalisé ou un déclencheur contextuel. Le composant racine gère la navigation au clavier, la recherche par saisie, le focus et la fermeture. Attribuez une valeur `value` stable à chaque élément afin de préserver la sélection et la recherche par saisie lorsque la liste change.
+
+Ne définissez pas d’`id` personnalisé sur `MenuItem` : Ark identifie les éléments par `value`, et un `id`
+supplémentaire casse la recherche d’éléments, la navigation par saisie et la gestion du focus.
 
 ## Choisir le bon composant
 
@@ -16,110 +26,6 @@ Utilisez `Menu` pour des actions contextuelles dans une fenêtre contextuelle te
 commandes, des liens ou un menu contextuel. Utilisez `NavigationMenu` pour une navigation de site ou
 de produit persistante, et `Dialog` pour les flux qui exigent toute l’attention de l’utilisateur.
 
-## Exemple de base
-
-Utilisez la composition standard pour un menu ouvert par un bouton, un déclencheur personnalisé ou un déclencheur contextuel. Le composant racine gère la navigation au clavier, la recherche par saisie, le focus et la fermeture. Attribuez une valeur `value` stable à chaque élément afin de préserver la sélection et la recherche par saisie lorsque la liste change.
-
-Ne définissez pas d’`id` personnalisé sur `MenuItem` : Ark identifie les éléments par `value`, et un `id`
-supplémentaire casse la recherche d’éléments, la navigation par saisie et la gestion du focus.
-
-
-<Example name="menu/basic" />
-
-## Installation avec shadcn
-
-Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration complète du paquet, du registre et des styles.
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/menu' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/menu' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/menu' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/menu' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/menu' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/menu' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Anatomie
-
-```text
-Menu
-├─ MenuTrigger
-│  └─ MenuIndicator
-├─ MenuContextTrigger
-└─ Sous-arbre du calque (placé automatiquement dans un portail)
-   └─ MenuPositioner
-      └─ MenuContent
-         ├─ MenuArrow
-         │  └─ MenuArrowTip
-         └─ MenuViewport
-            ├─ MenuItem
-            │  ├─ MenuItemText
-            │  │  ├─ MenuItemTextIcon
-            │  │  └─ MenuItemTextLabel
-            │  └─ MenuItemShortcut
-            ├─ MenuCheckboxItem
-            │  └─ MenuItemIndicator
-            ├─ MenuRadioItemGroup
-            │  └─ MenuRadioItem
-            ├─ MenuItemGroup
-            │  └─ MenuItemGroupLabel
-            ├─ MenuSeparator
-            └─ Menu
-               └─ MenuTriggerItem
-                  └─ MenuTriggerItemIcon
-```
-
-| Partie | Rôle |
-| --- | --- |
-| `Menu` | Composant racine qui gère l’ouverture, le positionnement, la recherche par saisie, le focus et la fermeture. |
-| `MenuRootProvider` | Relie le menu à une instance d’état créée avec `useMenu`. |
-| `MenuTrigger` | Bouton qui ouvre le menu. Il n’a pas de styles propres ; utilisez `asChild` avec `Button` ou un autre élément sémantique. |
-| `MenuIndicator` | Indicateur du déclencheur qui reflète son état, généralement affiché comme un chevron. |
-| `MenuContextTrigger` | Zone sans styles qui ouvre le menu par clic droit ou appui prolongé. |
-| `MenuPositioner` | Positionne le calque flottant du menu. |
-| `MenuContent` | Surface de la fenêtre contextuelle avec le rôle `menu` et sa collection d’éléments. |
-| `MenuViewport` | Conteneur de défilement explicite autour de la collection d’éléments. |
-| `MenuArrow` / `MenuArrowTip` | Flèche facultative qui relie visuellement la fenêtre contextuelle à son déclencheur. |
-| `MenuItem` | Élément de commande standard. |
-| `MenuCheckboxItem` | Élément doté d’un état booléen indépendant. |
-| `MenuRadioItemGroup` / `MenuRadioItem` | Groupe et éléments permettant de choisir une seule valeur. |
-| `MenuItemIndicator` | Indicateur de sélection des éléments avec case à cocher et des options radio. |
-| `MenuItemText` et composants utilitaires de texte | Composants utilitaires pour composer le texte d’un élément avec une icône et un libellé. |
-| `MenuItemShortcut` | Conteneur pour un raccourci clavier ou une autre indication placée à droite. |
-| `MenuItemGroup` / `MenuItemGroupLabel` | Groupe et libellé pour des éléments associés. |
-| `MenuSeparator` | Séparateur entre des groupes d’éléments. |
-| `MenuTriggerItem` / `MenuTriggerItemIcon` | Élément et icône pour ouvrir un menu imbriqué. |
-| `MenuItemContext` | Fournit l’état de l’élément à son contenu. |
-
-## Composition
-
-Utilisez `defaultOpen` pour un menu non contrôlé. Lorsque l’ouverture ou l’élément mis en surbrillance est géré par une autre partie de l’application, passez `open` ou `highlightedValue` avec la fonction de rappel correspondante. Utilisez `useMenu()` avec `MenuRootProvider` lorsque le store doit être créé en dehors de l’arbre rendu ; ne rendez pas une seconde racine `Menu` pour le même store.
-
-`MenuPositioner`, `MenuContent` et `MenuViewport` sont des parties distinctes, mais le positionneur est automatiquement rendu dans un portail. Définissez `portalled={false}` dans une boîte de dialogue ou un conteneur défilant, et utilisez `positioning={{ strategy: 'fixed', hideWhenDetached: true }}` lorsque ce conteneur peut défiler. Utilisez `asChild` avec exactement un enfant sémantique lorsqu’un déclencheur, un élément ou l’hôte du contenu doit porter le nœud DOM. En Solid, assignez la ref à l’élément créé dans la fonction de rendu `asChild`, car une ref posée sur une partie `Menu` elle-même n’est pas transmise par ce chemin de composition. Dans `MenuContent`, entourez les éléments défilants avec `MenuViewport`. Conservez l’éventuel `MenuArrow` comme enfant direct de `MenuContent`, à côté du viewport, afin qu’il ne soit pas rogné pendant le défilement. Un menu imbriqué est une autre racine `Menu` dans le contenu parent, avec ses propres parties `TriggerItem`, `Positioner` et `Content`.
 ## Exemples
 
 ### Options avec case à cocher
@@ -218,6 +124,64 @@ Utilisez les composants utilitaires pour les mises en page courantes, puis compo
 
 <Example name="menu/advanced-customization" />
 
+## Composition
+
+Utilisez `defaultOpen` pour un menu non contrôlé. Lorsque l’ouverture ou l’élément mis en surbrillance est géré par une autre partie de l’application, passez `open` ou `highlightedValue` avec la fonction de rappel correspondante. Utilisez `useMenu()` avec `MenuRootProvider` lorsque le store doit être créé en dehors de l’arbre rendu ; ne rendez pas une seconde racine `Menu` pour le même store.
+
+`MenuPositioner`, `MenuContent` et `MenuViewport` sont des parties distinctes, mais le positionneur est automatiquement rendu dans un portail. Définissez `portalled={false}` dans une boîte de dialogue ou un conteneur défilant, et utilisez `positioning={{ strategy: 'fixed', hideWhenDetached: true }}` lorsque ce conteneur peut défiler. Utilisez `asChild` avec exactement un enfant sémantique lorsqu’un déclencheur, un élément ou l’hôte du contenu doit porter le nœud DOM. En Solid, assignez la ref à l’élément créé dans la fonction de rendu `asChild`, car une ref posée sur une partie `Menu` elle-même n’est pas transmise par ce chemin de composition. Dans `MenuContent`, entourez les éléments défilants avec `MenuViewport`. Conservez l’éventuel `MenuArrow` comme enfant direct de `MenuContent`, à côté du viewport, afin qu’il ne soit pas rogné pendant le défilement. Un menu imbriqué est une autre racine `Menu` dans le contenu parent, avec ses propres parties `TriggerItem`, `Positioner` et `Content`.
+
+## Anatomie
+
+```text
+Menu
+├─ MenuTrigger
+│  └─ MenuIndicator
+├─ MenuContextTrigger
+└─ Sous-arbre du calque (placé automatiquement dans un portail)
+   └─ MenuPositioner
+      └─ MenuContent
+         ├─ MenuArrow
+         │  └─ MenuArrowTip
+         └─ MenuViewport
+            ├─ MenuItem
+            │  ├─ MenuItemText
+            │  │  ├─ MenuItemTextIcon
+            │  │  └─ MenuItemTextLabel
+            │  └─ MenuItemShortcut
+            ├─ MenuCheckboxItem
+            │  └─ MenuItemIndicator
+            ├─ MenuRadioItemGroup
+            │  └─ MenuRadioItem
+            ├─ MenuItemGroup
+            │  └─ MenuItemGroupLabel
+            ├─ MenuSeparator
+            └─ Menu
+               └─ MenuTriggerItem
+                  └─ MenuTriggerItemIcon
+```
+
+| Partie | Rôle |
+| --- | --- |
+| `Menu` | Composant racine qui gère l’ouverture, le positionnement, la recherche par saisie, le focus et la fermeture. |
+| `MenuRootProvider` | Relie le menu à une instance d’état créée avec `useMenu`. |
+| `MenuTrigger` | Bouton qui ouvre le menu. Il n’a pas de styles propres ; utilisez `asChild` avec `Button` ou un autre élément sémantique. |
+| `MenuIndicator` | Indicateur du déclencheur qui reflète son état, généralement affiché comme un chevron. |
+| `MenuContextTrigger` | Zone sans styles qui ouvre le menu par clic droit ou appui prolongé. |
+| `MenuPositioner` | Positionne le calque flottant du menu. |
+| `MenuContent` | Surface de la fenêtre contextuelle avec le rôle `menu` et sa collection d’éléments. |
+| `MenuViewport` | Conteneur de défilement explicite autour de la collection d’éléments. |
+| `MenuArrow` / `MenuArrowTip` | Flèche facultative qui relie visuellement la fenêtre contextuelle à son déclencheur. |
+| `MenuItem` | Élément de commande standard. |
+| `MenuCheckboxItem` | Élément doté d’un état booléen indépendant. |
+| `MenuRadioItemGroup` / `MenuRadioItem` | Groupe et éléments permettant de choisir une seule valeur. |
+| `MenuItemIndicator` | Indicateur de sélection des éléments avec case à cocher et des options radio. |
+| `MenuItemText` et composants utilitaires de texte | Composants utilitaires pour composer le texte d’un élément avec une icône et un libellé. |
+| `MenuItemShortcut` | Conteneur pour un raccourci clavier ou une autre indication placée à droite. |
+| `MenuItemGroup` / `MenuItemGroupLabel` | Groupe et libellé pour des éléments associés. |
+| `MenuSeparator` | Séparateur entre des groupes d’éléments. |
+| `MenuTriggerItem` / `MenuTriggerItemIcon` | Élément et icône pour ouvrir un menu imbriqué. |
+| `MenuItemContext` | Fournit l’état de l’élément à son contenu. |
+
 ## Styles
 
 Stylisez Menu avec `className` dans React ou `class` dans Solid et Vue sur les parties exportées.
@@ -230,7 +194,7 @@ séparateurs, la marge de la liste et l’animation du popup suivent aussi les v
 déclencheur avec `asChild` et `Button`, et stylisez vous-même la zone du menu contextuel. Les
 attributs de données et les sélecteurs `data-slot` sont communs aux deux modes de style.
 
-### Propriétés CSS
+### Variables CSS
 
 <CssPropertiesSection properties={MenuDocs.menuOverrideCssProperties} />
 

@@ -2,15 +2,21 @@
 title: Native Select
 component: native-select
 description: Стилизованный нативный `<select>` для простых списков опций в React, Solid и Vue, где выбором управляет браузер.
+ark: https://ark-ui.com/docs/components/field
 ---
 
 import * as NativeSelectDocs from '@/components/examples/native-select/css-properties';
 
-## Справочник API
+<Example name="native-select/basic" />
 
-`NativeSelect` это стилизованная обёртка над [`FieldSelect` из Ark UI](https://ark-ui.com/docs/components/field).
-Компонент выводит настоящий HTML-элемент `<select>`, поэтому браузер по-прежнему отвечает за отображение
-опций, управление с клавиатуры, отправку формы, автозаполнение, проверку и сброс.
+## Установка
+
+<ComponentInstall />
+
+## Использование
+
+Добавьте дочерние элементы `option` или `optgroup` и передайте те же свойства, что и обычному HTML-элементу
+`<select>`.
 
 ## Выбор подходящего компонента
 
@@ -18,82 +24,6 @@ import * as NativeSelectDocs from '@/components/examples/native-select/css-prope
 автозаполнение, сброс формы, управление с клавиатуры и системное меню выбора на мобильных устройствах.
 Выбирайте [`Select`](/docs/select), если нужно настраиваемое всплывающее меню, API коллекций, расширенное
 содержимое опций, очистка или программное управление меню.
-
-## Базовый пример
-
-
-Добавьте дочерние элементы `option` или `optgroup` и передайте те же свойства, что и обычному HTML-элементу
-`<select>`.
-
-<Example name="native-select/basic" />
-
-## Установка через shadcn
-
-Полную настройку пакета, реестра и стилей см. в разделе [Быстрый старт](/docs/quick-start).
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/native-select' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/native-select' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/native-select' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/native-select' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/native-select' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/native-select' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Анатомия
-
-`NativeSelect` выводит настоящий `<select>` внутри внешнего контейнера `<span>`. В закрытом одиночном списке
-добавляется декоративная иконка `ChevronDownIcon`; при `multiple` и `size > 1`, когда браузер показывает
-список, иконка скрывается.
-
-```text
-NativeSelect
-└─ span[data-scope="native-select"][data-part="control"][data-slot="native-select-control"]
-   ├─ select[data-scope="field"][data-part="select"][data-slot="native-select-root"]
-   │  ├─ option
-   │  └─ optgroup
-   └─ span[data-scope="native-select"][data-part="indicator"][data-slot="native-select-indicator"]
-      └─ ChevronDownIcon
-```
-
-| Часть | Назначение |
-| ----- | ---------- |
-| `NativeSelect` | Публичный корневой компонент. Выводит нативный `<select>` и декоративный индикатор. |
-
-## Композиция
-
-В React неуправляемый select строится на нативной проп `defaultValue`. В Solid и Vue передавайте нативный атрибут
-`selected` тому `<option>`, который должен быть выбран изначально: проп `defaultValue` у `NativeSelect` в Solid и
-Vue не имеет эффекта. Используйте `value` вместе с `onChange` в React и Solid или `v-model` в Vue, когда текущее
-значение хранится в состоянии приложения. Оборачивайте `NativeSelect` в `Field`, если метка, поясняющий текст,
-проверка или состояние `disabled` должны быть общими для поля и элемента управления. Части `Field` связывают этот
-контент с нативным select, а выбор опций по-прежнему остаётся под управлением браузера. При `multiple` или
-`size > 1` браузер управляет взаимодействием со списком, поэтому декоративный индикатор скрывается. `asChild` может
-заменить выводимый select, но дочерним элементом должен оставаться один семантический HTML-элемент `<select>`.
 
 ## Примеры
 
@@ -118,6 +48,41 @@ Vue не имеет эффекта. Используйте `value` вместе 
 
 <Example name="native-select/multiple-selection" />
 
+## Композиция
+
+`NativeSelect` это стилизованная обёртка над [`FieldSelect` из Ark UI](https://ark-ui.com/docs/components/field).
+Компонент выводит настоящий HTML-элемент `<select>`, поэтому браузер по-прежнему отвечает за отображение
+опций, управление с клавиатуры, отправку формы, автозаполнение, проверку и сброс.
+
+В React неуправляемый select строится на нативной проп `defaultValue`. В Solid и Vue передавайте нативный атрибут
+`selected` тому `<option>`, который должен быть выбран изначально: проп `defaultValue` у `NativeSelect` в Solid и
+Vue не имеет эффекта. Используйте `value` вместе с `onChange` в React и Solid или `v-model` в Vue, когда текущее
+значение хранится в состоянии приложения. Оборачивайте `NativeSelect` в `Field`, если метка, поясняющий текст,
+проверка или состояние `disabled` должны быть общими для поля и элемента управления. Части `Field` связывают этот
+контент с нативным select, а выбор опций по-прежнему остаётся под управлением браузера. При `multiple` или
+`size > 1` браузер управляет взаимодействием со списком, поэтому декоративный индикатор скрывается. `asChild` может
+заменить выводимый select, но дочерним элементом должен оставаться один семантический HTML-элемент `<select>`.
+
+## Анатомия
+
+`NativeSelect` выводит настоящий `<select>` внутри внешнего контейнера `<span>`. В закрытом одиночном списке
+добавляется декоративная иконка `ChevronDownIcon`; при `multiple` и `size > 1`, когда браузер показывает
+список, иконка скрывается.
+
+```text
+NativeSelect
+└─ span[data-scope="native-select"][data-part="control"][data-slot="native-select-control"]
+   ├─ select[data-scope="field"][data-part="select"][data-slot="native-select-root"]
+   │  ├─ option
+   │  └─ optgroup
+   └─ span[data-scope="native-select"][data-part="indicator"][data-slot="native-select-indicator"]
+      └─ ChevronDownIcon
+```
+
+| Часть | Назначение |
+| ----- | ---------- |
+| `NativeSelect` | Публичный корневой компонент. Выводит нативный `<select>` и декоративный индикатор. |
+
 ## Стилизация
 
 `NativeSelect` читает те же переменные ширины, высоты, радиуса и размера индикатора, что и варианты `Select` с
@@ -125,7 +90,7 @@ CSS Modules, поэтому размеры обоих селектов меня�
 токенов foundation; переопределяйте их классом. Варианты Tailwind используют нативные utility-классы и классы,
 которые передаёт потребитель.
 
-### CSS-свойства
+### CSS-переменные
 
 Следующие переменные доступны в вариантах с CSS Modules. Отступы по умолчанию и геометрия индикатора опираются
 на общую шкалу с шагом 4 px.

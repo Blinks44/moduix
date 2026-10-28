@@ -2,6 +2,7 @@
 title: Listbox
 component: listbox
 description: Видимый список для выбора одного или нескольких элементов с необязательной фильтрацией и расширенным выделением.
+ark: https://ark-ui.com/docs/components/listbox
 ---
 
 import * as ListboxDocs from '@/components/examples/listbox/css-properties';
@@ -10,18 +11,13 @@ import listboxSolidSelectAll from '../../../snippets/listbox/solid/select-all.ts
 import listboxVueSelectAll from '../../../snippets/listbox/vue/select-all.vue?raw';
 import listboxVueSelectAllPart from '../../../snippets/listbox/vue/SelectAllMeta.vue?raw';
 
-## Справочник API
+<Example name="listbox/basic" />
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/listbox" />
+## Установка
 
-## Какой компонент выбрать
+<ComponentInstall />
 
-Используйте `Listbox`, когда варианты должны оставаться видимыми и пользователь выбирает элементы
-из коллекции. Используйте `Select`, когда варианты должны открываться во всплывающем списке.
-Используйте `Combobox`, когда пользователю нужен всплывающий список с полем для поиска или ввода
-значения.
-
-## Базовый пример
+## Использование
 
 Интерактивный
 
@@ -29,105 +25,12 @@ import listboxVueSelectAllPart from '../../../snippets/listbox/vue/SelectAllMeta
 `ListboxItem` через `item`. Добавьте `ListboxItemIndicator`, если строки должны показывать
 выбранное состояние.
 
-<Example name="listbox/basic" />
+## Какой компонент выбрать
 
-## Установка через shadcn
-
-Полную настройку пакета, реестра и стилей см. в разделе [Быстрый старт](/docs/quick-start).
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/listbox' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/listbox' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/listbox' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/listbox' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/listbox' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/listbox' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Анатомия
-
-```text
-Listbox
-├─ ListboxLabel
-├─ ListboxFilter
-│  ├─ ListboxInput
-│  └─ ListboxClearTrigger
-├─ ListboxContent
-│  ├─ ListboxEmpty
-│  ├─ ListboxItemGroup
-│  │  ├─ ListboxItemGroupLabel
-│  │  └─ ListboxItem[item]
-│  │     ├─ ListboxItemText
-│  │     └─ ListboxItemIndicator
-│  └─ ListboxItem[item]
-│     ├─ ListboxItemText
-│     │  └─ ListboxItemTextContent (необязательно)
-│     │     ├─ ListboxItemTextIcon (необязательно)
-│     │     └─ ListboxItemTextLabel (необязательно)
-│     └─ ListboxItemIndicator
-└─ ListboxValueText
-
-ListboxRootProvider
-└─ то же дерево элементов, подключённое к состоянию из useListbox()
-```
-
-| Часть                      | Назначение                                                                                   |
-| -------------------------- | -------------------------------------------------------------------------------------------- |
-| `Listbox` | Управляет коллекцией, выбранными значениями, подсвеченным элементом и режимом выбора.        |
-| `ListboxRootProvider`     | Отрисовывает дерево listbox из состояния, возвращённого `useListbox`.                        |
-| `ListboxLabel`            | Подпись, задающая listbox доступное имя.                                                      |
-| `ListboxFilter`           | Визуальная обёртка для поля фильтра с иконкой поиска по умолчанию. Размещайте перед `ListboxContent`. |
-| `ListboxInput`            | Поле фильтра, обычно размещаемое внутри `ListboxFilter`.                                            |
-| `ListboxClearTrigger`     | Кнопка сброса запроса фильтра с иконкой закрытия по умолчанию.                               |
-| `ListboxContent`          | Фокусируемый контейнер listbox, управляющий навигацией с клавиатуры.                          |
-| `ListboxEmpty`            | Содержимое, отображаемое, когда после фильтрации не осталось элементов.                       |
-| `ListboxItemGroup`        | Обёртка для связанных элементов коллекции.                                                   |
-| `ListboxItemGroupLabel`   | Подпись группы элементов коллекции.                                                          |
-| `ListboxItem`             | Выбираемый элемент. Передайте его элемент коллекции через `item`.                            |
-| `ListboxItemText`         | Текст для отображения и доступности.                                                         |
-| `ListboxItemTextContent`  | Необязательная обёртка для размещения иконки и текста внутри `ListboxItemText`.                     |
-| `ListboxItemTextIcon`     | Необязательная обёртка для иконки внутри `ListboxItemTextContent`.                                 |
-| `ListboxItemTextLabel`    | Обёртка текста внутри `ListboxItemTextContent`, которая позволяет обрезать длинные подписи без нарушения разметки. |
-| `ListboxItemIndicator`    | Индикатор выбора с иконкой галочки moduix по умолчанию.                                      |
-| `ListboxValueText`        | Сводка выбранных значений.                                                                   |
-
-## Композиция
-
-Используйте `defaultValue` для неконтролируемого выбора. Если выбранными значениями управляет другая
-часть приложения, передайте `value` и обновляйте его из `onValueChange(details.value)`. Для
-фильтрации задайте `typeahead={false}`, храните запрос в состоянии приложения и вызывайте функцию
-`filter`, возвращённую `useListCollection`, из обработчика поля. `ListboxFilter` отвечает только за объединённый внешний
-вид поля поиска, поэтому обработчик очистки должен сбрасывать и запрос, и фильтр коллекции.
-
-Используйте `useListbox` из пакета выбранного фреймворка вместе с `ListboxRootProvider`, если
-хранилище нужно создать вне отрисовываемого дерева. Передайте полученное хранилище в `ListboxRootProvider`
-и не добавляйте для него второй `Listbox`. `ListboxInput` можно отрисовать напрямую,
-если фильтру нужен отдельный контейнер, а `ListboxValueText` можно разместить после `ListboxContent`,
-чтобы показывать сводку выбранных значений.
+Используйте `Listbox`, когда варианты должны оставаться видимыми и пользователь выбирает элементы
+из коллекции. Используйте `Select`, когда варианты должны открываться во всплывающем списке.
+Используйте `Combobox`, когда пользователю нужен всплывающий список с полем для поиска или ввода
+значения.
 
 ## Примеры
 
@@ -239,6 +142,67 @@ listbox.
 
 <Example name="listbox/value-text" />
 
+## Композиция
+
+Используйте `defaultValue` для неконтролируемого выбора. Если выбранными значениями управляет другая
+часть приложения, передайте `value` и обновляйте его из `onValueChange(details.value)`. Для
+фильтрации задайте `typeahead={false}`, храните запрос в состоянии приложения и вызывайте функцию
+`filter`, возвращённую `useListCollection`, из обработчика поля. `ListboxFilter` отвечает только за объединённый внешний
+вид поля поиска, поэтому обработчик очистки должен сбрасывать и запрос, и фильтр коллекции.
+
+Используйте `useListbox` из пакета выбранного фреймворка вместе с `ListboxRootProvider`, если
+хранилище нужно создать вне отрисовываемого дерева. Передайте полученное хранилище в `ListboxRootProvider`
+и не добавляйте для него второй `Listbox`. `ListboxInput` можно отрисовать напрямую,
+если фильтру нужен отдельный контейнер, а `ListboxValueText` можно разместить после `ListboxContent`,
+чтобы показывать сводку выбранных значений.
+
+## Анатомия
+
+```text
+Listbox
+├─ ListboxLabel
+├─ ListboxFilter
+│  ├─ ListboxInput
+│  └─ ListboxClearTrigger
+├─ ListboxContent
+│  ├─ ListboxEmpty
+│  ├─ ListboxItemGroup
+│  │  ├─ ListboxItemGroupLabel
+│  │  └─ ListboxItem[item]
+│  │     ├─ ListboxItemText
+│  │     └─ ListboxItemIndicator
+│  └─ ListboxItem[item]
+│     ├─ ListboxItemText
+│     │  └─ ListboxItemTextContent (необязательно)
+│     │     ├─ ListboxItemTextIcon (необязательно)
+│     │     └─ ListboxItemTextLabel (необязательно)
+│     └─ ListboxItemIndicator
+└─ ListboxValueText
+
+ListboxRootProvider
+└─ то же дерево элементов, подключённое к состоянию из useListbox()
+```
+
+| Часть                      | Назначение                                                                                   |
+| -------------------------- | -------------------------------------------------------------------------------------------- |
+| `Listbox` | Управляет коллекцией, выбранными значениями, подсвеченным элементом и режимом выбора.        |
+| `ListboxRootProvider`     | Отрисовывает дерево listbox из состояния, возвращённого `useListbox`.                        |
+| `ListboxLabel`            | Подпись, задающая listbox доступное имя.                                                      |
+| `ListboxFilter`           | Визуальная обёртка для поля фильтра с иконкой поиска по умолчанию. Размещайте перед `ListboxContent`. |
+| `ListboxInput`            | Поле фильтра, обычно размещаемое внутри `ListboxFilter`.                                            |
+| `ListboxClearTrigger`     | Кнопка сброса запроса фильтра с иконкой закрытия по умолчанию.                               |
+| `ListboxContent`          | Фокусируемый контейнер listbox, управляющий навигацией с клавиатуры.                          |
+| `ListboxEmpty`            | Содержимое, отображаемое, когда после фильтрации не осталось элементов.                       |
+| `ListboxItemGroup`        | Обёртка для связанных элементов коллекции.                                                   |
+| `ListboxItemGroupLabel`   | Подпись группы элементов коллекции.                                                          |
+| `ListboxItem`             | Выбираемый элемент. Передайте его элемент коллекции через `item`.                            |
+| `ListboxItemText`         | Текст для отображения и доступности.                                                         |
+| `ListboxItemTextContent`  | Необязательная обёртка для размещения иконки и текста внутри `ListboxItemText`.                     |
+| `ListboxItemTextIcon`     | Необязательная обёртка для иконки внутри `ListboxItemTextContent`.                                 |
+| `ListboxItemTextLabel`    | Обёртка текста внутри `ListboxItemTextContent`, которая позволяет обрезать длинные подписи без нарушения разметки. |
+| `ListboxItemIndicator`    | Индикатор выбора с иконкой галочки moduix по умолчанию.                                      |
+| `ListboxValueText`        | Сводка выбранных значений.                                                                   |
+
 ## Стилизация
 
 Стилизуйте Listbox через `className` в React или `class` в Solid и Vue на экспортируемых частях.
@@ -248,7 +212,7 @@ listbox.
 отступы списка также следуют общим переменным `--moduix-popup-item-*`, `--moduix-popup-group-label-*` и
 `--moduix-popup-list-padding-y`.
 
-### CSS-свойства
+### CSS-переменные
 
 <CssPropertiesSection properties={ListboxDocs.listboxOverrideCssProperties} />
 

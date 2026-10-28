@@ -19,27 +19,29 @@ extra source files, or a missing framework.
 
 ## Section order
 
-The docs redesign (`Moduix.sketch`, Button page) defines the target order below. A page switches
-to it as a whole once the shared page header and Installation components exist in `website`;
-until then keep the legacy order (`API Reference`, `Choosing the right component`,
-`Basic`, `Install with shadcn`, `Anatomy`, `Composition`, `Examples`, `Styling`). Never mix the two
-orders on one page.
+The docs redesign (`Moduix.sketch`, Button page) defines the target order below. `button.mdx` is
+the reference page in every locale. Pages not yet migrated keep the legacy order (`API Reference`,
+`Choosing the right component`, `Basic`, `Install with shadcn`, `Anatomy`, `Composition`,
+`Examples`, `Styling`). Never mix the two orders on one page.
 
-Page header, rendered from frontmatter rather than MDX headings: title, description, links to
-Source, npm, the upstream Ark page (or the precise Ark guide when no primitive exists), Report
-issue, and the Rspress `llmsUI` Copy page menu.
+Page header, rendered by the theme from frontmatter rather than MDX headings: breadcrumb with the
+gallery category, title, description, links to Source and npm for the selected framework and
+styling, the upstream Ark page from the `ark` frontmatter field (the dedicated component page, or
+the precise Ark guide when no primitive exists), Report issue, and the Copy page menu.
 
 1. Basic preview - `<Example name="<component>/basic" />` right under the header, without a heading
-2. `Installation` - a Package tab (install command with the Ark peer and the subpath import) and a
-   shadcn CLI tab (registry commands for the variants that ship); link to Quick Start for stylesheets
-3. `Usage` - one short snippet with the main props, followed by the prop chips
+2. `Installation` - `<ComponentInstall />`; it builds the Package and shadcn CLI tabs from
+   frontmatter and the selected framework and styling
+3. `Usage` - `<UsageCode react={...} vue={...} />` (add `solid` only when it differs from React)
+   with the main props, followed by `<PropChips items={[...]} />`
 4. `Choosing the right component` - only for close alternatives
 5. `Examples`
 6. `Composition` - only when the component has a meaningful choice not already clear from Basic or examples
-7. `Styling` - `CSS variables` table, then a `Styling hooks` table
-8. `Anatomy` - ASCII tree plus a `Part | Role` table
+7. `Anatomy` - ASCII tree plus a `Part | Role` table; it comes before Styling because the styling
+   hooks refer to these parts
+8. `Styling` - `CSS variables` table, then a `Styling hooks` table (`Attribute | Present when`)
 9. `Keyboard` - a `Key | Action` table when the component has keyboard interaction
-10. `API reference` - the props table
+10. `API reference` - a `Prop | Type | Default` table
 
 `Basic` is the recommended happy path and must not be repeated without a clear structural reason. Every example heading has a short lead-in. Order feature examples alphabetically; put `Advanced Customization` last when it intentionally bypasses convenience composition.
 

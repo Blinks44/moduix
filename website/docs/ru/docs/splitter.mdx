@@ -2,101 +2,24 @@
 title: Splitter
 component: splitter
 description: Доступная раскладка с изменяемыми панелями для React, Solid и Vue с вариантами установки через пакет и shadcn.
+ark: https://ark-ui.com/docs/components/splitter
 ---
 
 import { CssPropertiesSection } from '@/components/mdx/Components';
 import { splitterOverrideCssProperties } from '@/components/examples/splitter/css-properties';
 
-## Справочник API
+<Example name="splitter/basic" />
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/splitter" />
+## Установка
 
-## Базовый пример
+<ComponentInstall />
 
+## Использование
 
 Соберите Splitter из `Splitter`, `SplitterPanel` и `SplitterResizeTrigger`. Свойство `panels`
 содержит идентификаторы панелей и ограничения их размеров. У каждой отрисованной `SplitterPanel`
 должен быть один из этих идентификаторов. Если не передавать триггеру дочерние элементы, moduix
 добавит индикатор изменения размера автоматически.
-
-<Example name="splitter/basic" />
-
-## Установка через shadcn
-
-Полную настройку пакета, реестра и стилей см. в разделе [Быстрый старт](/docs/quick-start).
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/splitter' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/splitter' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/splitter' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/splitter' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/splitter' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/splitter' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Анатомия
-
-```text
-Splitter
-├─ SplitterPanel[id]
-├─ SplitterResizeTrigger[id="panel-a:panel-b"]
-│  └─ SplitterResizeTriggerIndicator (по умолчанию, настраивается)
-└─ SplitterPanel[id]
-
-SplitterRootProvider
-└─ то же дерево панелей, подключённое к состоянию useSplitter()
-```
-
-| Часть                              | Назначение                                                                     |
-| ---------------------------------- | ------------------------------------------------------------------------------ |
-| `Splitter`                    | Управляет панелями, их размерами, ориентацией, колбэками и состоянием.          |
-| `SplitterPanel`                   | Область с изменяемым размером. Её `id` должен совпадать с записью в `panels`.  |
-| `SplitterResizeTrigger`           | Доступная кнопка для изменения размера двух соседних панелей.                  |
-| `SplitterResizeTriggerIndicator`  | Стандартная визуальная ручка. Дочерние элементы триггера заменяют её.           |
-| `SplitterRootProvider`            | Отображает те же части, используя состояние из `useSplitter()`.                |
-
-## Композиция
-
-Используйте `size` вместе с `onResize(details)`, если приложение владеет текущими размерами панелей.
-Выбирайте `SplitterRootProvider` с `useSplitter()`, если состояние или элементы управления должны
-находиться за пределами дерева панелей, и используйте только один корень для каждого состояния. Для
-вложенных Splitter, которые должны изменять размер одновременно на пересечениях ручек, создайте один
-`createSplitterRegistry()` и передайте его каждому корню. Числовые значения `defaultSize`, `size` и
-`minSize` - это проценты, которые в сумме должны давать 100, а Ark также принимает для этих размеров
-значения длин CSS.
-
-Используйте `asChild` только с одним интерактивным дочерним элементом, который сохраняет семантику
-кнопки, работу фокуса и управление с клавиатуры. В этом режиме стандартный индикатор не добавляется.
-В Solid `useSplitter()` возвращает accessor: передавайте его в `value`, а API читайте через
-`splitter()`.
-
-В Vue используйте `v-model:size` для управляемого Ark состояния размеров. `useSplitter()` возвращает
-реактивное состояние, которое можно напрямую передать в `SplitterRootProvider`; вызывайте его методы
-в шаблоне и не создавайте второй контейнер состояния.
 
 ## Примеры
 
@@ -152,16 +75,45 @@ SplitterRootProvider
 
 <Example name="splitter/vertical" />
 
-## Доступность
+## Композиция
 
-`SplitterResizeTrigger` создаёт кнопку с `type="button"`, поэтому она не отправляет окружающую форму, и поддерживает изменение размера указателем и клавиатурой в соответствии
-с паттерном WAI-ARIA Window Splitter. Задайте каждой ручке доступное имя, например через
-`aria-label="Resize panels"`, если на визуальной ручке нет текстовой подписи. При использовании
-`asChild` пользовательский элемент должен сохранять семантику кнопки, работу фокуса и управление с
-клавиатуры.
+Используйте `size` вместе с `onResize(details)`, если приложение владеет текущими размерами панелей.
+Выбирайте `SplitterRootProvider` с `useSplitter()`, если состояние или элементы управления должны
+находиться за пределами дерева панелей, и используйте только один корень для каждого состояния. Для
+вложенных Splitter, которые должны изменять размер одновременно на пересечениях ручек, создайте один
+`createSplitterRegistry()` и передайте его каждому корню. Числовые значения `defaultSize`, `size` и
+`minSize` - это проценты, которые в сумме должны давать 100, а Ark также принимает для этих размеров
+значения длин CSS.
 
-Ark сообщает о состоянии через атрибуты `data-orientation`, `data-dragging`, `data-focus` и
-`data-disabled`. Используйте их для стилизации состояний взаимодействия.
+Используйте `asChild` только с одним интерактивным дочерним элементом, который сохраняет семантику
+кнопки, работу фокуса и управление с клавиатуры. В этом режиме стандартный индикатор не добавляется.
+В Solid `useSplitter()` возвращает accessor: передавайте его в `value`, а API читайте через
+`splitter()`.
+
+В Vue используйте `v-model:size` для управляемого Ark состояния размеров. `useSplitter()` возвращает
+реактивное состояние, которое можно напрямую передать в `SplitterRootProvider`; вызывайте его методы
+в шаблоне и не создавайте второй контейнер состояния.
+
+## Анатомия
+
+```text
+Splitter
+├─ SplitterPanel[id]
+├─ SplitterResizeTrigger[id="panel-a:panel-b"]
+│  └─ SplitterResizeTriggerIndicator (по умолчанию, настраивается)
+└─ SplitterPanel[id]
+
+SplitterRootProvider
+└─ то же дерево панелей, подключённое к состоянию useSplitter()
+```
+
+| Часть                              | Назначение                                                                     |
+| ---------------------------------- | ------------------------------------------------------------------------------ |
+| `Splitter`                    | Управляет панелями, их размерами, ориентацией, колбэками и состоянием.          |
+| `SplitterPanel`                   | Область с изменяемым размером. Её `id` должен совпадать с записью в `panels`.  |
+| `SplitterResizeTrigger`           | Доступная кнопка для изменения размера двух соседних панелей.                  |
+| `SplitterResizeTriggerIndicator`  | Стандартная визуальная ручка. Дочерние элементы триггера заменяют её.           |
+| `SplitterRootProvider`            | Отображает те же части, используя состояние из `useSplitter()`.                |
 
 ## Стилизация
 
@@ -179,7 +131,7 @@ Ark ставит каждой панели inline `overflow: hidden`, чтобы
 индикатора усиливается. Линия и область нажатия нарисованы псевдоэлементами, поэтому в вариантах
 с CSS Modules для них есть переменные ниже.
 
-### CSS-свойства
+### CSS-переменные
 
 <CssPropertiesSection properties={splitterOverrideCssProperties} />
 
@@ -191,3 +143,14 @@ Ark записывает `data-scope="splitter"` и `data-part` в отрисо�
 
 Полезные атрибуты отдельных частей включают `data-id` и `data-index` у панелей, а также
 `data-orientation`, `data-dragging`, `data-focus` и `data-disabled` у соответствующих элементов.
+
+## Доступность
+
+`SplitterResizeTrigger` создаёт кнопку с `type="button"`, поэтому она не отправляет окружающую форму, и поддерживает изменение размера указателем и клавиатурой в соответствии
+с паттерном WAI-ARIA Window Splitter. Задайте каждой ручке доступное имя, например через
+`aria-label="Resize panels"`, если на визуальной ручке нет текстовой подписи. При использовании
+`asChild` пользовательский элемент должен сохранять семантику кнопки, работу фокуса и управление с
+клавиатуры.
+
+Ark сообщает о состоянии через атрибуты `data-orientation`, `data-dragging`, `data-focus` и
+`data-disabled`. Используйте их для стилизации состояний взаимодействия.

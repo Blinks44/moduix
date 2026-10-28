@@ -1,6 +1,7 @@
 ---
 title: Sign up
 description: A ready-to-copy account registration form built with moduix components.
+block: sign-up
 ---
 
 import { SignUp } from '@/components/blocks/sign-up/sign-up';
@@ -9,62 +10,25 @@ import signUpVue from '../../../snippets/blocks/vue/sign-up.vue?raw';
 import signUpRouteReact from '../../../snippets/blocks/react/sign-up-route.tsx?raw';
 import signUpRouteSolid from '../../../snippets/blocks/solid/sign-up-route.tsx?raw';
 import signUpRouteVue from '../../../snippets/blocks/vue/sign-up-route.vue?raw';
+import signUpReact from '../../../src/components/blocks/sign-up/sign-up.tsx?raw';
+import signUpCss from '../../../src/components/blocks/sign-up/sign-up-form.module.css?raw';
 
 # Sign up
+
+<ExamplePanel
+  clientOnly
+  sources={{ react: signUpReact, solid: signUpSolid, vue: signUpVue }}
+  files={[{ name: 'sign-up-form.module.css', code: signUpCss }]}
+>
+  <PreviewFrame maxWidth="sm">
+    <SignUp onSubmit={(event) => event.preventDefault()} />
+  </PreviewFrame>
+</ExamplePanel>
 
 Use this block as a starting point for an account registration screen. It combines `Card`, `Field`,
 `Input`, `Checkbox`, and `Button`, and relies on the browser to validate required fields, email format,
 and terms acceptance. The block does not connect to an authentication service or compare the two
 password fields, so add that logic in your `onSubmit` handler.
-
-The preview runs React. The source tabs contain React, Solid, and Vue implementations with a shared stylesheet.
-
-
-
-<ExampleFrame variant="block" clientOnly>
-  <PreviewFrame maxWidth="sm">
-  <SignUp onSubmit={(event) => event.preventDefault()} />
-  </PreviewFrame>
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/blocks/sign-up/sign-up.tsx"
-
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={signUpSolid} />
-
-    </Tab>
-  <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={signUpVue} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/blocks/sign-up/sign-up-form.module.css"
-
-```
-</div>
-
-</ExampleCode>
 
 ## Install
 
@@ -76,30 +40,10 @@ Import `SignUp` from the installed block. The
 browser checks the native constraints before calling `onSubmit`. Use the handler to compare the two
 passwords and send the form data to your registration endpoint.
 
-<Tabs
-  groupId="framework"
-  values={[
-    { label: 'React', value: 'react' },
-    { label: 'Solid', value: 'solid' },
-    { label: 'Vue', value: 'vue' },
-  ]}
->
-  <Tab value="react">
-
-<CodeBlockRuntime lang="tsx" code={signUpRouteReact} />
-
-  </Tab>
-  <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={signUpRouteSolid} />
-
-  </Tab>
-  <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={signUpRouteVue} />
-
-  </Tab>
-</Tabs>
+<FrameworkCode
+  name="sign-up-route"
+  sources={{ react: signUpRouteReact, solid: signUpRouteSolid, vue: signUpRouteVue }}
+/>
 
 The fields are named `name`, `email`, `password`, `confirm-password`, and `terms`, so these are the
 keys available in `FormData`. Replace `/api/sign-up` and the import path with values from your

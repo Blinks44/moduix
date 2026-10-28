@@ -2,15 +2,18 @@
 title: Steps
 component: steps
 description: Guidez les utilisateurs dans un processus en plusieurs étapes avec un état et une navigation accessibles grâce à Ark UI.
+ark: https://ark-ui.com/docs/components/steps
 ---
 
 import * as StepsDocs from '@/components/examples/steps/css-properties';
 
-## Référence de l’API
+<Example name="steps/basic" />
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/steps" />
+## Installation
 
-## Exemple de base
+<ComponentInstall />
+
+## Utilisation
 
 Utilisez `Steps` avec `count`, une `StepsList` contenant un `StepsItem` par étape, les panneaux
 `StepsContent` correspondants et les boutons intégrés pour avancer ou reculer. Les index des étapes
@@ -23,95 +26,6 @@ doit être créé en dehors de l’arbre des parties rendues.
 React, Solid et Vue utilisent les mêmes noms de valeurs plats. En Vue, liez l’état contrôlé avec
 `v-model:step` et transmettez un store `useSteps()` à `StepsRootProvider` lorsqu’il est créé en
 dehors de l’arbre rendu.
-
-<Example name="steps/basic" />
-
-## Installation avec shadcn
-
-Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration complète du paquet, du registre et des styles.
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/steps' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/steps' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/steps' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/steps' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/steps' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/steps' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Anatomie
-
-```text
-Steps
-├─ StepsProgress (optional)
-├─ StepsList
-│  └─ StepsItem[index]
-│     ├─ StepsTrigger
-│     │  └─ StepsIndicator
-│     └─ StepsSeparator
-├─ StepsContent[index]
-├─ StepsCompletedContent
-├─ StepsPrevTrigger
-└─ StepsNextTrigger
-
-StepsRootProvider
-└─ same part tree connected to a useSteps() store
-```
-
-| Partie                            | Rôle                                                                                |
-| --------------------------------- | ----------------------------------------------------------------------------------- |
-| `Steps`                            | Machine d’état racine pour les étapes, l’orientation, la navigation, la validation et les identifiants. |
-| `StepsRootProvider`               | Relie les parties à l’état créé avec `useSteps()`.                                  |
-| `StepsProgress`                   | Barre de progression visuelle facultative, pilotée par la variable Ark `--percent`. |
-| `StepsList`                       | Liste d’onglets contenant les déclencheurs des étapes.                              |
-| `StepsItem`                       | Étape avec un `index` obligatoire commençant à zéro.                                |
-| `StepsTrigger`                    | Déclencheur d’onglet ; prend en charge `asChild` pour les éléments sémantiques.     |
-| `StepsIndicator`                  | Marqueur d’étape avec un nombre ou une icône de validation par défaut.               |
-| `StepsSeparator`                  | Connecteur décoratif entre les étapes.                                              |
-| `StepsContent`                    | Panneau de contenu d’une étape, associé à son `index`.                              |
-| `StepsCompletedContent`           | Panneau affiché lorsque la valeur de l’étape courante vaut `count`.                 |
-| `StepsPrevTrigger` / `StepsNextTrigger` | Boutons reliés aux actions Ark précédente et suivante.                       |
-
-## Composition
-
-Utilisez `Steps` comme propriétaire de l’état. Chaque `StepsItem` et le
-`StepsContent` correspondant doivent partager le même `index` commençant à zéro ; `count` définit
-le nombre total d’étapes et sa valeur représente la fin du parcours. Utilisez `StepsRootProvider`
-uniquement avec un store créé par `useSteps()` lorsque l’état doit être créé en dehors de
-l’arbre des parties. Ne rendez pas la racine et le provider pour un même store.
-
-Pour lire l’état de plus bas niveau, utilisez `useStepsContext` et `useStepsItemContext`, ou les
-valeurs de contexte plates `StepsContext` et `StepsItemContext`.
-
-`StepsTrigger`, `StepsPrevTrigger` et `StepsNextTrigger` acceptent `asChild`. Passez un seul
-enfant sémantique lorsqu’un contrôle doit être rendu comme une ancre, un lien de routeur ou un bouton
-de votre système de design. Sans enfant, `StepsIndicator` affiche le numéro de l’étape ou l’icône
-de validation partagée lorsque l’étape est terminée ; fournissez un contenu pour personnaliser le
-marqueur.
 
 ## Exemples
 
@@ -158,6 +72,56 @@ que comme un bouton par défaut. Gardez un seul enfant sémantique afin qu’il 
 ARIA, le clavier et le focus gérés par Ark.
 
 <Example name="steps/custom-composition" />
+
+## Composition
+
+Utilisez `Steps` comme propriétaire de l’état. Chaque `StepsItem` et le
+`StepsContent` correspondant doivent partager le même `index` commençant à zéro ; `count` définit
+le nombre total d’étapes et sa valeur représente la fin du parcours. Utilisez `StepsRootProvider`
+uniquement avec un store créé par `useSteps()` lorsque l’état doit être créé en dehors de
+l’arbre des parties. Ne rendez pas la racine et le provider pour un même store.
+
+Pour lire l’état de plus bas niveau, utilisez `useStepsContext` et `useStepsItemContext`, ou les
+valeurs de contexte plates `StepsContext` et `StepsItemContext`.
+
+`StepsTrigger`, `StepsPrevTrigger` et `StepsNextTrigger` acceptent `asChild`. Passez un seul
+enfant sémantique lorsqu’un contrôle doit être rendu comme une ancre, un lien de routeur ou un bouton
+de votre système de design. Sans enfant, `StepsIndicator` affiche le numéro de l’étape ou l’icône
+de validation partagée lorsque l’étape est terminée ; fournissez un contenu pour personnaliser le
+marqueur.
+
+## Anatomie
+
+```text
+Steps
+├─ StepsProgress (optional)
+├─ StepsList
+│  └─ StepsItem[index]
+│     ├─ StepsTrigger
+│     │  └─ StepsIndicator
+│     └─ StepsSeparator
+├─ StepsContent[index]
+├─ StepsCompletedContent
+├─ StepsPrevTrigger
+└─ StepsNextTrigger
+
+StepsRootProvider
+└─ same part tree connected to a useSteps() store
+```
+
+| Partie                            | Rôle                                                                                |
+| --------------------------------- | ----------------------------------------------------------------------------------- |
+| `Steps`                            | Machine d’état racine pour les étapes, l’orientation, la navigation, la validation et les identifiants. |
+| `StepsRootProvider`               | Relie les parties à l’état créé avec `useSteps()`.                                  |
+| `StepsProgress`                   | Barre de progression visuelle facultative, pilotée par la variable Ark `--percent`. |
+| `StepsList`                       | Liste d’onglets contenant les déclencheurs des étapes.                              |
+| `StepsItem`                       | Étape avec un `index` obligatoire commençant à zéro.                                |
+| `StepsTrigger`                    | Déclencheur d’onglet ; prend en charge `asChild` pour les éléments sémantiques.     |
+| `StepsIndicator`                  | Marqueur d’étape avec un nombre ou une icône de validation par défaut.               |
+| `StepsSeparator`                  | Connecteur décoratif entre les étapes.                                              |
+| `StepsContent`                    | Panneau de contenu d’une étape, associé à son `index`.                              |
+| `StepsCompletedContent`           | Panneau affiché lorsque la valeur de l’étape courante vaut `count`.                 |
+| `StepsPrevTrigger` / `StepsNextTrigger` | Boutons reliés aux actions Ark précédente et suivante.                       |
 
 ## Styles
 

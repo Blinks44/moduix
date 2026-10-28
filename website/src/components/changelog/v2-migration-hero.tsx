@@ -1,4 +1,3 @@
-import { useI18n } from '@rspress/core/runtime';
 import { ArrowRight } from 'lucide-react';
 import { ChangelogHero } from './hero';
 import styles from './hero.module.css';
@@ -21,18 +20,8 @@ const ArkUiLogo = () => (
 );
 
 export function V2MigrationHero() {
-  const t = useI18n<typeof import('i18n')>();
-
   return (
-    <ChangelogHero
-      id="v200--july-19-2026"
-      category={t('changelogMajorRelease')}
-      date={t('v2MigrationHeroDate')}
-      dateTime="2026-07-19"
-      title={t('v2MigrationHeroTitle')}
-      summary={t('v2MigrationHeroSummary')}
-      tone="orange"
-    >
+    <ChangelogHero>
       <div className={styles.migrationPreview}>
         <div className={styles.migrationLogo}>
           <BaseUiLogo />

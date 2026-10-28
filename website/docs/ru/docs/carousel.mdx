@@ -2,112 +2,22 @@
 title: Carousel
 component: carousel
 description: Карусель с постраничной навигацией на базе Ark UI. Поддерживает автопрокрутку, внешнее управление состоянием и слайды разной ширины.
+ark: https://ark-ui.com/docs/components/carousel
 ---
 
 import * as CarouselDocs from '@/components/examples/carousel/css-properties';
 
-## Справочник API
+<Example name="carousel/basic" />
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/carousel" />
+## Установка
 
-## Базовый пример
+<ComponentInstall />
+
+## Использование
 
 Начните с `Carousel` в качестве корневого компонента. Добавьте `CarouselItemGroup` для ленты слайдов,
 поместите кнопки перехода в `CarouselControl`, а стандартный пейджер выведите с помощью
 `CarouselIndicators` и `CarouselProgressText`.
-
-
-<Example name="carousel/basic" />
-
-## Установка через shadcn
-
-Полную настройку пакета, реестра и стилей см. в разделе [Быстрый старт](/docs/quick-start).
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/carousel' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/carousel' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/carousel' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/carousel' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/carousel' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/carousel' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Анатомия
-
-```text
-Carousel
-├─ CarouselItemGroup
-│  └─ CarouselItem[index]
-├─ CarouselControl
-│  ├─ CarouselPrevTrigger
-│  └─ CarouselNextTrigger
-├─ CarouselIndicatorGroup
-│  └─ CarouselIndicator[index]
-└─ CarouselProgressText
-
-CarouselRootProvider
-└─ та же структура частей, подключённая к хранилищу useCarousel()
-```
-
-| Элемент                   | Назначение                                                        |
-| ------------------------- | ----------------------------------------------------------------- |
-| `Carousel`                | Управляет состоянием, навигацией и коллекцией слайдов.            |
-| `CarouselRootProvider`    | Подключает части к состоянию, созданному через `useCarousel()`.   |
-| `CarouselControl`           | Контейнер для кнопок навигации и других элементов управления.    |
-| `CarouselItemGroup`         | Лента слайдов, содержащая части `CarouselItem`.                 |
-| `CarouselItem`              | Отдельный слайд со стабильным `index`.                            |
-| `CarouselPrevTrigger`       | Кнопка перехода на предыдущую страницу.                          |
-| `CarouselNextTrigger`       | Кнопка перехода на следующую страницу.                           |
-| `CarouselIndicators`        | Компонент moduix для стандартных точек страниц.                  |
-| `CarouselIndicatorGroup`    | Контейнер для пользовательских индикаторов страниц.              |
-| `CarouselIndicator`         | Кнопка перехода на страницу с указанным индексом.                |
-| `CarouselProgressText`      | Текст с номером текущей страницы и общим числом страниц.          |
-
-## Композиция
-
-`Carousel` хранит состояние внутри корневого компонента. Используйте `defaultPage` для
-неконтролируемой карусели, а `page` вместе с `onPageChange(details)`, если текущей страницей управляет
-маршрутизация, фильтры или другая часть приложения. Свойство `slideCount` обязательно и должно
-соответствовать отрисованным элементам при изменении коллекции.
-
-Используйте `CarouselRootProvider` вместе с `useCarousel()`, если хранилище нужно создать вне дерева
-компонентов или разделить между границами композиции. Передайте это хранилище в `CarouselRootProvider` и не
-отрисовывайте второй корневой `Carousel` для того же состояния.
-
-`CarouselIndicators` читает `pageSnapPoints` из контекста и создаёт стандартные индикаторы. Для
-пользовательского содержимого индикаторов разместите `CarouselIndicatorGroup` и `CarouselIndicator`
-внутри `CarouselContext`; используйте `pageSnapPoints` из API контекста, если число индикаторов должно
-соответствовать рассчитанным страницам.
-
-В Solid назначайте ref на элемент, созданный внутри рендер-функции `asChild`. Ref на самой части
-Carousel не пробрасывается через этот путь композиции.
-
-Во Vue template-ref на части указывает на её отрисованный хост через `$el`, включая замещающий
-хост, созданный при использовании `asChild`.
 
 ## Примеры
 
@@ -221,6 +131,59 @@ Carousel не пробрасывается через этот путь комп
 
 <Example name="carousel/advanced-customization" />
 
+## Композиция
+
+`Carousel` хранит состояние внутри корневого компонента. Используйте `defaultPage` для
+неконтролируемой карусели, а `page` вместе с `onPageChange(details)`, если текущей страницей управляет
+маршрутизация, фильтры или другая часть приложения. Свойство `slideCount` обязательно и должно
+соответствовать отрисованным элементам при изменении коллекции.
+
+Используйте `CarouselRootProvider` вместе с `useCarousel()`, если хранилище нужно создать вне дерева
+компонентов или разделить между границами композиции. Передайте это хранилище в `CarouselRootProvider` и не
+отрисовывайте второй корневой `Carousel` для того же состояния.
+
+`CarouselIndicators` читает `pageSnapPoints` из контекста и создаёт стандартные индикаторы. Для
+пользовательского содержимого индикаторов разместите `CarouselIndicatorGroup` и `CarouselIndicator`
+внутри `CarouselContext`; используйте `pageSnapPoints` из API контекста, если число индикаторов должно
+соответствовать рассчитанным страницам.
+
+В Solid назначайте ref на элемент, созданный внутри рендер-функции `asChild`. Ref на самой части
+Carousel не пробрасывается через этот путь композиции.
+
+Во Vue template-ref на части указывает на её отрисованный хост через `$el`, включая замещающий
+хост, созданный при использовании `asChild`.
+
+## Анатомия
+
+```text
+Carousel
+├─ CarouselItemGroup
+│  └─ CarouselItem[index]
+├─ CarouselControl
+│  ├─ CarouselPrevTrigger
+│  └─ CarouselNextTrigger
+├─ CarouselIndicatorGroup
+│  └─ CarouselIndicator[index]
+└─ CarouselProgressText
+
+CarouselRootProvider
+└─ та же структура частей, подключённая к хранилищу useCarousel()
+```
+
+| Элемент                   | Назначение                                                        |
+| ------------------------- | ----------------------------------------------------------------- |
+| `Carousel`                | Управляет состоянием, навигацией и коллекцией слайдов.            |
+| `CarouselRootProvider`    | Подключает части к состоянию, созданному через `useCarousel()`.   |
+| `CarouselControl`           | Контейнер для кнопок навигации и других элементов управления.    |
+| `CarouselItemGroup`         | Лента слайдов, содержащая части `CarouselItem`.                 |
+| `CarouselItem`              | Отдельный слайд со стабильным `index`.                            |
+| `CarouselPrevTrigger`       | Кнопка перехода на предыдущую страницу.                          |
+| `CarouselNextTrigger`       | Кнопка перехода на следующую страницу.                           |
+| `CarouselIndicators`        | Компонент moduix для стандартных точек страниц.                  |
+| `CarouselIndicatorGroup`    | Контейнер для пользовательских индикаторов страниц.              |
+| `CarouselIndicator`         | Кнопка перехода на страницу с указанным индексом.                |
+| `CarouselProgressText`      | Текст с номером текущей страницы и общим числом страниц.          |
+
 ## Стилизация
 
 Используйте `className` в React или `class` в Solid и Vue на экспортируемых частях для структурных
@@ -229,7 +192,7 @@ Carousel не пробрасывается через этот путь комп
 utility-классы и переопределения через классы потребителя; приведённый ниже справочник CSS-свойств
 относится к пакетам CSS Modules.
 
-### CSS-свойства
+### CSS-переменные
 
 <CssPropertiesSection properties={CarouselDocs.carouselOverrideCssProperties} />
 

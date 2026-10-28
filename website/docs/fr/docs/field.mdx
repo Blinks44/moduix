@@ -2,11 +2,20 @@
 title: Field
 component: field
 description: Contexte de champ accessible pour React, Solid et Vue, avec des paquets CSS Modules et Tailwind.
+ark: https://ark-ui.com/docs/components/field
 ---
 
-## Référence de l’API
+<Example name="field/basic" />
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/field" />
+## Installation
+
+<ComponentInstall />
+
+## Utilisation
+
+Utilisez `Field` comme conteneur d’un contrôle de formulaire. Placez `FieldLabel` avant le contrôle,
+puis ajoutez `FieldHelperText` ou `FieldErrorText` lorsque l’utilisateur a besoin d’informations
+supplémentaires.
 
 ## Choisir le bon composant
 
@@ -16,95 +25,6 @@ d’un message d’erreur ou d’un état partagé `disabled`, `invalid`, `requi
 - Choisissez **`Field`** pour un contrôle et son libellé ou ses textes descriptifs.
 - Choisissez **`Fieldset`** lorsque plusieurs contrôles associés doivent partager une même légende.
 - Utilisez le contrôle seul lorsque les relations ARIA au niveau du champ et l’état partagé ne sont pas nécessaires.
-
-## Exemple de base
-
-
-Utilisez `Field` comme conteneur d’un contrôle de formulaire. Placez `FieldLabel` avant le contrôle,
-puis ajoutez `FieldHelperText` ou `FieldErrorText` lorsque l’utilisateur a besoin d’informations
-supplémentaires.
-
-<Example name="field/basic" />
-
-## Installation avec shadcn
-
-Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration complète du paquet, du registre et des styles.
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/field' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/field' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/field' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/field' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/field' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/field' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Anatomie
-
-L’API publique `Field` utilise des valeurs plates préfixées par le nom de la famille. `Field` ne rend
-pas son propre contrôle : placez-y un `Input`, un `Textarea`, un `NativeSelect` ou un autre contrôle de
-formulaire moduix, qui lit le contexte du champ.
-
-```text
-Field
-├─ FieldLabel
-├─ Input | Textarea | NativeSelect | another form control
-├─ FieldHelperText
-├─ FieldErrorText
-└─ FieldRequiredIndicator
-
-FieldRootProvider
-└─ même arbre de parties relié à l’état fourni par useField()
-```
-
-| Partie                    | Rôle                                                                                           |
-| ------------------------ | ---------------------------------------------------------------------------------------------- |
-| `Field`                  | Contexte racine. Il rend par défaut un `<div role="group">`.                                 |
-| `FieldRootProvider`     | Racine utilisant un état `useField()` créé en dehors de l’arbre de rendu.                      |
-| `FieldContext`          | Permet de lire l’état courant du champ sans ajouter d’élément au DOM.                          |
-| `FieldLabel`            | Libellé accessible associé au contrôle courant.                                                |
-| `FieldHelperText`       | Texte d’aide associé au contrôle via `aria-describedby`.                                       |
-| `FieldErrorText`        | Message d’erreur rendu lorsque la racine est dans l’état `invalid`.                           |
-| `FieldRequiredIndicator` | Marqueur visuel d’un champ obligatoire. Utilisez `fallback` pour remplacer le marqueur par défaut. |
-| `FieldItem`             | Contexte imbriqué pour un contrôle groupé identifié par `value` ; sa ref pointe vers le wrapper local. |
-
-## Composition
-
-Utilisez la racine pour associer un contrôle à `FieldLabel`, `FieldHelperText`, `FieldErrorText` et
-`FieldRequiredIndicator`. Les contrôles composés comme `Checkbox`, `RadioGroup` et `Select` gèrent leur
-propre état : transmettez `required`, `invalid`, `disabled` ou `readOnly` à leur racine lorsqu’ils en
-sont responsables. Pour plusieurs contrôles natifs, entourez chacun d’un `FieldItem value` et définissez
-`target` sur la racine. Utilisez `FieldRootProvider` avec `useField()` lorsque l’état est créé en dehors
-de l’arbre rendu ; les contrôles personnalisés peuvent lire l’état via `FieldContext` ou `useFieldContext`.
-
-Dans Vue, initialisez les contrôles natifs avec `v-model` et réinitialisez les refs liées dans le
-gestionnaire de réinitialisation du formulaire. Dans Vue, `Input` et `NativeSelect` ne proposent pas la prop
-`defaultValue` de React. Ark efface actuellement les valeurs initiales natives de ces contrôles sans
-modèle ; utilisez `v-model` en attendant la correction.
 
 ## Exemples
 
@@ -182,6 +102,49 @@ Utilisez `Textarea` pour une saisie multiligne tout en conservant les liens du c
 sa description et son état.
 
 <Example name="field/textarea" />
+
+## Composition
+
+Utilisez la racine pour associer un contrôle à `FieldLabel`, `FieldHelperText`, `FieldErrorText` et
+`FieldRequiredIndicator`. Les contrôles composés comme `Checkbox`, `RadioGroup` et `Select` gèrent leur
+propre état : transmettez `required`, `invalid`, `disabled` ou `readOnly` à leur racine lorsqu’ils en
+sont responsables. Pour plusieurs contrôles natifs, entourez chacun d’un `FieldItem value` et définissez
+`target` sur la racine. Utilisez `FieldRootProvider` avec `useField()` lorsque l’état est créé en dehors
+de l’arbre rendu ; les contrôles personnalisés peuvent lire l’état via `FieldContext` ou `useFieldContext`.
+
+Dans Vue, initialisez les contrôles natifs avec `v-model` et réinitialisez les refs liées dans le
+gestionnaire de réinitialisation du formulaire. Dans Vue, `Input` et `NativeSelect` ne proposent pas la prop
+`defaultValue` de React. Ark efface actuellement les valeurs initiales natives de ces contrôles sans
+modèle ; utilisez `v-model` en attendant la correction.
+
+## Anatomie
+
+L’API publique `Field` utilise des valeurs plates préfixées par le nom de la famille. `Field` ne rend
+pas son propre contrôle : placez-y un `Input`, un `Textarea`, un `NativeSelect` ou un autre contrôle de
+formulaire moduix, qui lit le contexte du champ.
+
+```text
+Field
+├─ FieldLabel
+├─ Input | Textarea | NativeSelect | another form control
+├─ FieldHelperText
+├─ FieldErrorText
+└─ FieldRequiredIndicator
+
+FieldRootProvider
+└─ même arbre de parties relié à l’état fourni par useField()
+```
+
+| Partie                    | Rôle                                                                                           |
+| ------------------------ | ---------------------------------------------------------------------------------------------- |
+| `Field`                  | Contexte racine. Il rend par défaut un `<div role="group">`.                                 |
+| `FieldRootProvider`     | Racine utilisant un état `useField()` créé en dehors de l’arbre de rendu.                      |
+| `FieldContext`          | Permet de lire l’état courant du champ sans ajouter d’élément au DOM.                          |
+| `FieldLabel`            | Libellé accessible associé au contrôle courant.                                                |
+| `FieldHelperText`       | Texte d’aide associé au contrôle via `aria-describedby`.                                       |
+| `FieldErrorText`        | Message d’erreur rendu lorsque la racine est dans l’état `invalid`.                           |
+| `FieldRequiredIndicator` | Marqueur visuel d’un champ obligatoire. Utilisez `fallback` pour remplacer le marqueur par défaut. |
+| `FieldItem`             | Contexte imbriqué pour un contrôle groupé identifié par `value` ; sa ref pointe vers le wrapper local. |
 
 ## Styles
 

@@ -2,97 +2,23 @@
 title: Scroll Area
 component: scroll-area
 description: Build scroll containers with styled scrollbars in React, Solid, or Vue with package and shadcn installation options.
+ark: https://ark-ui.com/docs/components/scroll-area
 ---
 
 import * as ScrollAreaDocs from '@/components/examples/scroll-area/css-properties';
 
-## API Reference
+<Example name="scroll-area/basic" />
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/scroll-area" />
+## Installation
 
-## Basic
+<ComponentInstall />
 
+## Usage
 
 Use `ScrollArea` as the root. Put `ScrollAreaViewport` around `ScrollAreaContent`, add one
 `ScrollAreaScrollbar` and `ScrollAreaThumb` for
 each scroll axis, and add `ScrollAreaCorner` when both axes can overflow. Give the root a bounded height or
 block size so the content has room to scroll.
-
-<Example name="scroll-area/basic" />
-
-## Install with shadcn
-
-See [Quick Start](/docs/quick-start) for full package setup, registry configuration, and styling guidance.
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/scroll-area' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/scroll-area' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/scroll-area' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/scroll-area' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/scroll-area' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/scroll-area' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Anatomy
-
-```text
-ScrollArea
-├─ ScrollAreaViewport
-│  └─ ScrollAreaContent
-│     └─ children
-├─ ScrollAreaScrollbar
-│  └─ ScrollAreaThumb
-└─ ScrollAreaCorner
-
-ScrollAreaRootProvider
-└─ same tree connected to a useScrollArea() store
-```
-
-| Part                             | Role                                                               |
-| -------------------------------- | ------------------------------------------------------------------ |
-| `ScrollArea`                     | Root part that owns scroll state and positioning.                  |
-| `ScrollAreaRootProvider`        | Connects the parts to state created with `useScrollArea()`.        |
-| `ScrollAreaViewport`            | Native scroll container and focus target.                          |
-| `ScrollAreaContent`             | Inner content wrapper measured by Ark UI.                          |
-| `ScrollAreaScrollbar`           | Styled scrollbar track for one axis.                              |
-| `ScrollAreaThumb`               | Draggable thumb inside a scrollbar.                                |
-| `ScrollAreaCorner`              | Fills the intersection when both axes overflow.                   |
-
-## Composition
-
-Each scroll axis needs its own `ScrollAreaScrollbar` with a `ScrollAreaThumb`. The vertical
-scrollbar is the default; set `orientation="horizontal"` for a horizontal axis. Keep
-`ScrollAreaViewport` around `ScrollAreaContent`, and keep a complete independent tree for nested
-scroll areas.
-
-Use `ScrollAreaRootProvider` with `useScrollArea()` when controls outside the root need
-the scrolling API. Pass the returned store to `ScrollAreaRootProvider`, and do not render `ScrollArea`
-and `ScrollAreaRootProvider` for the same store. In Solid, read and call the store through the accessor
-returned by `useScrollArea()`.
 
 ## Examples
 
@@ -134,6 +60,43 @@ to the scrolling API.
 
 <Example name="scroll-area/root-provider" />
 
+## Composition
+
+Each scroll axis needs its own `ScrollAreaScrollbar` with a `ScrollAreaThumb`. The vertical
+scrollbar is the default; set `orientation="horizontal"` for a horizontal axis. Keep
+`ScrollAreaViewport` around `ScrollAreaContent`, and keep a complete independent tree for nested
+scroll areas.
+
+Use `ScrollAreaRootProvider` with `useScrollArea()` when controls outside the root need
+the scrolling API. Pass the returned store to `ScrollAreaRootProvider`, and do not render `ScrollArea`
+and `ScrollAreaRootProvider` for the same store. In Solid, read and call the store through the accessor
+returned by `useScrollArea()`.
+
+## Anatomy
+
+```text
+ScrollArea
+├─ ScrollAreaViewport
+│  └─ ScrollAreaContent
+│     └─ children
+├─ ScrollAreaScrollbar
+│  └─ ScrollAreaThumb
+└─ ScrollAreaCorner
+
+ScrollAreaRootProvider
+└─ same tree connected to a useScrollArea() store
+```
+
+| Part                             | Role                                                               |
+| -------------------------------- | ------------------------------------------------------------------ |
+| `ScrollArea`                     | Root part that owns scroll state and positioning.                  |
+| `ScrollAreaRootProvider`        | Connects the parts to state created with `useScrollArea()`.        |
+| `ScrollAreaViewport`            | Native scroll container and focus target.                          |
+| `ScrollAreaContent`             | Inner content wrapper measured by Ark UI.                          |
+| `ScrollAreaScrollbar`           | Styled scrollbar track for one axis.                              |
+| `ScrollAreaThumb`               | Draggable thumb inside a scrollbar.                                |
+| `ScrollAreaCorner`              | Fills the intersection when both axes overflow.                   |
+
 ## Styling
 
 The CSS variable table applies to the CSS Modules packages. Tailwind packages use their native
@@ -141,7 +104,7 @@ utilities and consumer `className` or `class` overrides. Set the CSS variables o
 the scrollbar thickness, the thumb color, or the fade depth. The viewport inherits the root
 `border-radius`, so a rounded root also rounds the clipped content and the focus ring.
 
-### CSS Properties
+### CSS variables
 
 <CssPropertiesSection properties={ScrollAreaDocs.scrollAreaOverrideCssProperties} />
 

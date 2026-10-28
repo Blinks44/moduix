@@ -2,21 +2,18 @@
 title: Menu
 component: menu
 description: Меню, которое открывается по триггеру и подходит для действий, ссылок, выбора вариантов, вложенных команд и контекстных меню.
+ark: https://ark-ui.com/docs/components/menu
 ---
 
 import * as MenuDocs from '@/components/examples/menu/css-properties';
 
-## Справочник API
+<Example name="menu/basic" />
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/menu" />
+## Установка
 
-## Выбор подходящего компонента
+<ComponentInstall />
 
-Используйте `Menu` для контекстных действий во временном всплывающем меню: команд, ссылок или
-контекстного меню. Для постоянной навигации по сайту или продукту используйте `NavigationMenu`,
-а `Dialog` - для сценариев, требующих полного внимания пользователя.
-
-## Базовый пример
+## Использование
 
 Используйте `Menu` как корневой компонент и задайте каждому `MenuItem` стабильное значение
 `value`. Оставляйте `MenuPositioner` и `MenuContent` явными, а внутрь содержимого добавляйте
@@ -26,114 +23,11 @@ import * as MenuDocs from '@/components/examples/menu/css-properties';
 Не задавайте собственный `id` для `MenuItem`: Ark идентифицирует пункты по `value`, а лишний
 `id` ломает поиск пунктов, навигацию вводом и управление фокусом.
 
-<Example name="menu/basic" />
+## Выбор подходящего компонента
 
-## Установка через shadcn
-
-Полную настройку пакета, реестра и стилей см. в разделе [Быстрый старт](/docs/quick-start).
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/menu' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/menu' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/menu' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/menu' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/menu' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/menu' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Анатомия
-
-```text
-Menu
-├─ MenuTrigger
-│  └─ MenuIndicator
-├─ MenuContextTrigger
-└─ Ветка всплывающего слоя (автоматически переносится в портал)
-   └─ MenuPositioner
-      └─ MenuContent
-         ├─ MenuArrow
-         │  └─ MenuArrowTip
-         └─ MenuViewport
-            ├─ MenuItem
-            │  ├─ MenuItemText
-            │  │  ├─ MenuItemTextIcon
-            │  │  └─ MenuItemTextLabel
-            │  └─ MenuItemShortcut
-            ├─ MenuCheckboxItem
-            │  └─ MenuItemIndicator
-            ├─ MenuRadioItemGroup
-            │  └─ MenuRadioItem
-            ├─ MenuItemGroup
-            │  └─ MenuItemGroupLabel
-            ├─ MenuSeparator
-            └─ Menu
-               └─ MenuTriggerItem
-                  └─ MenuTriggerItemIcon
-```
-
-| Часть | Назначение |
-| --- | --- |
-| `Menu` | Корневой компонент, который управляет открытием, позиционированием, поиском по начальным символам, фокусом и закрытием меню. |
-| `MenuRootProvider` | Подключает меню к экземпляру состояния, созданному с помощью `useMenu`. |
-| `MenuTrigger` | Кнопка, открывающая меню. Своих стилей у неё нет; используйте `asChild` с `Button` или другим семантическим элементом. |
-| `MenuIndicator` | Индикатор состояния триггера, обычно шеврон. |
-| `MenuContextTrigger` | Область без стилей, которая открывает меню по правому клику или долгому нажатию. |
-| `MenuPositioner` | Позиционирует плавающий слой меню. |
-| `MenuContent` | Всплывающая область с ролью `menu` и коллекцией пунктов. |
-| `MenuViewport` | Явный прокручиваемый контейнер вокруг коллекции пунктов. |
-| `MenuArrow` / `MenuArrowTip` | Необязательная стрелка, визуально связывающая всплывающее меню с триггером. |
-| `MenuItem` | Обычный пункт, выполняющий команду. |
-| `MenuCheckboxItem` | Пункт с независимым логическим состоянием. |
-| `MenuRadioItemGroup` / `MenuRadioItem` | Группа и пункты для выбора одного значения. |
-| `MenuItemIndicator` | Индикатор выбора для пунктов с флажками и вариантами с единственным выбором. |
-| `MenuItemText` и помощники для текста | Компоненты для текста пункта, иконки и подписи. |
-| `MenuItemShortcut` | Обёртка для сочетания клавиш или другой подсказки справа. |
-| `MenuItemGroup` / `MenuItemGroupLabel` | Группа и подпись для связанных пунктов. |
-| `MenuSeparator` | Разделитель между группами пунктов. |
-| `MenuTriggerItem` / `MenuTriggerItemIcon` | Пункт и иконка для открытия вложенного меню. |
-| `MenuItemContext` | Передаёт состояние пункта его содержимому. |
-
-## Композиция
-
-Используйте `defaultOpen` для неуправляемого меню. Если другая часть приложения владеет состоянием
-открытия или подсветки, передайте `open` или `highlightedValue` вместе с соответствующим обработчиком
-изменения. Используйте `useMenu()` с `MenuRootProvider`, если хранилище состояния нужно создать
-за пределами дерева компонентов; не добавляйте второй корневой `Menu` для того же хранилища.
-
-`MenuPositioner`, `MenuContent` и `MenuViewport` являются разными частями, но позиционер автоматически помещается
-в портал. Установите `portalled={false}` внутри диалога или прокручиваемого контейнера и добавьте
-`positioning={{ strategy: 'fixed', hideWhenDetached: true }}`, если этот контейнер может прокручиваться.
-Используйте `asChild` ровно с одним семантическим потомком, если триггер, пункт или контейнер
-содержимого должны владеть DOM-узлом. В Solid назначайте ref элементу, созданному внутри
-render-функции `asChild`: ref на самой части `Menu` через этот путь композиции не передаётся.
-Внутри `MenuContent` оберните прокручиваемые пункты в
-`MenuViewport`. Необязательный `MenuArrow` оставьте непосредственным потомком `MenuContent`, рядом
-с viewport, чтобы стрелка не обрезалась при прокрутке. Вложенное меню - это ещё один корневой `Menu` внутри
-родительского содержимого с собственными `TriggerItem`, `Positioner` и `Content`.
+Используйте `Menu` для контекстных действий во временном всплывающем меню: команд, ссылок или
+контекстного меню. Для постоянной навигации по сайту или продукту используйте `NavigationMenu`,
+а `Dialog` - для сценариев, требующих полного внимания пользователя.
 
 ## Примеры
 
@@ -251,6 +145,76 @@ ARIA-атрибуты, клавиатурное поведение и обраб
 
 <Example name="menu/advanced-customization" />
 
+## Композиция
+
+Используйте `defaultOpen` для неуправляемого меню. Если другая часть приложения владеет состоянием
+открытия или подсветки, передайте `open` или `highlightedValue` вместе с соответствующим обработчиком
+изменения. Используйте `useMenu()` с `MenuRootProvider`, если хранилище состояния нужно создать
+за пределами дерева компонентов; не добавляйте второй корневой `Menu` для того же хранилища.
+
+`MenuPositioner`, `MenuContent` и `MenuViewport` являются разными частями, но позиционер автоматически помещается
+в портал. Установите `portalled={false}` внутри диалога или прокручиваемого контейнера и добавьте
+`positioning={{ strategy: 'fixed', hideWhenDetached: true }}`, если этот контейнер может прокручиваться.
+Используйте `asChild` ровно с одним семантическим потомком, если триггер, пункт или контейнер
+содержимого должны владеть DOM-узлом. В Solid назначайте ref элементу, созданному внутри
+render-функции `asChild`: ref на самой части `Menu` через этот путь композиции не передаётся.
+Внутри `MenuContent` оберните прокручиваемые пункты в
+`MenuViewport`. Необязательный `MenuArrow` оставьте непосредственным потомком `MenuContent`, рядом
+с viewport, чтобы стрелка не обрезалась при прокрутке. Вложенное меню - это ещё один корневой `Menu` внутри
+родительского содержимого с собственными `TriggerItem`, `Positioner` и `Content`.
+
+## Анатомия
+
+```text
+Menu
+├─ MenuTrigger
+│  └─ MenuIndicator
+├─ MenuContextTrigger
+└─ Ветка всплывающего слоя (автоматически переносится в портал)
+   └─ MenuPositioner
+      └─ MenuContent
+         ├─ MenuArrow
+         │  └─ MenuArrowTip
+         └─ MenuViewport
+            ├─ MenuItem
+            │  ├─ MenuItemText
+            │  │  ├─ MenuItemTextIcon
+            │  │  └─ MenuItemTextLabel
+            │  └─ MenuItemShortcut
+            ├─ MenuCheckboxItem
+            │  └─ MenuItemIndicator
+            ├─ MenuRadioItemGroup
+            │  └─ MenuRadioItem
+            ├─ MenuItemGroup
+            │  └─ MenuItemGroupLabel
+            ├─ MenuSeparator
+            └─ Menu
+               └─ MenuTriggerItem
+                  └─ MenuTriggerItemIcon
+```
+
+| Часть | Назначение |
+| --- | --- |
+| `Menu` | Корневой компонент, который управляет открытием, позиционированием, поиском по начальным символам, фокусом и закрытием меню. |
+| `MenuRootProvider` | Подключает меню к экземпляру состояния, созданному с помощью `useMenu`. |
+| `MenuTrigger` | Кнопка, открывающая меню. Своих стилей у неё нет; используйте `asChild` с `Button` или другим семантическим элементом. |
+| `MenuIndicator` | Индикатор состояния триггера, обычно шеврон. |
+| `MenuContextTrigger` | Область без стилей, которая открывает меню по правому клику или долгому нажатию. |
+| `MenuPositioner` | Позиционирует плавающий слой меню. |
+| `MenuContent` | Всплывающая область с ролью `menu` и коллекцией пунктов. |
+| `MenuViewport` | Явный прокручиваемый контейнер вокруг коллекции пунктов. |
+| `MenuArrow` / `MenuArrowTip` | Необязательная стрелка, визуально связывающая всплывающее меню с триггером. |
+| `MenuItem` | Обычный пункт, выполняющий команду. |
+| `MenuCheckboxItem` | Пункт с независимым логическим состоянием. |
+| `MenuRadioItemGroup` / `MenuRadioItem` | Группа и пункты для выбора одного значения. |
+| `MenuItemIndicator` | Индикатор выбора для пунктов с флажками и вариантами с единственным выбором. |
+| `MenuItemText` и помощники для текста | Компоненты для текста пункта, иконки и подписи. |
+| `MenuItemShortcut` | Обёртка для сочетания клавиш или другой подсказки справа. |
+| `MenuItemGroup` / `MenuItemGroupLabel` | Группа и подпись для связанных пунктов. |
+| `MenuSeparator` | Разделитель между группами пунктов. |
+| `MenuTriggerItem` / `MenuTriggerItemIcon` | Пункт и иконка для открытия вложенного меню. |
+| `MenuItemContext` | Передаёт состояние пункта его содержимому. |
+
 ## Стилизация
 
 Стилизуйте Menu через `className` в React или `class` в Solid и Vue на экспортируемых частях.
@@ -262,7 +226,7 @@ ARIA-атрибуты, клавиатурное поведение и обраб
 область контекстного меню оформляйте сами. Атрибуты состояния и хуки `data-slot` общие для обоих
 вариантов стилизации.
 
-### CSS-свойства
+### CSS-переменные
 
 <CssPropertiesSection properties={MenuDocs.menuOverrideCssProperties} />
 

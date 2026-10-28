@@ -2,14 +2,16 @@
 title: Timer
 component: timer
 description: Компонент для отсчёта прошедшего или оставшегося времени с явными элементами управления в React, Solid и Vue.
+ark: https://ark-ui.com/docs/components/timer
 ---
 
-## Справочник API
+<Example name="timer/basic" />
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/timer" />
+## Установка
 
-## Базовый пример
+<ComponentInstall />
 
+## Использование
 
 `TimerSegments` проще всего использовать для классического отображения времени с разделителями `:`. По умолчанию
 компонент показывает часы, минуты и секунды. Передайте `types`, чтобы выбрать другой набор единиц. Если нужны
@@ -19,88 +21,6 @@ description: Компонент для отсчёта прошедшего ил�
 `TimerSegments` поддерживает все свойства `TimerArea`, кроме `children` и `asChild`, и пробрасывает ref области.
 Компонент сам создаёт элементы и разделители, поэтому для замены корневого элемента или собственных дочерних
 элементов используйте `TimerArea`.
-
-<Example name="timer/basic" />
-
-## Установка через shadcn
-
-Полную настройку пакета, реестра и стилей см. в разделе [Быстрый старт](/docs/quick-start).
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/timer' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/timer' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/timer' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/timer' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/timer' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/timer' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Анатомия
-
-```text
-Timer
-├─ TimerArea
-│  ├─ TimerItem
-│  └─ TimerSeparator
-└─ TimerControl
-   └─ TimerActionTrigger
-
-TimerRootProvider
-└─ то же дерево, подключённое к состоянию из `useTimer()`
-
-TimerSegments
-└─ TimerArea со стандартными элементами TimerItem и TimerSeparator
-```
-
-| Элемент                 | Назначение                                                               |
-| ----------------------- | ------------------------------------------------------------------------ |
-| `Timer`  | Управляет состоянием таймера Ark, его ID, интервалом и обратными вызовами. |
-| `TimerRootProvider`    | Подключает элементы к состоянию, созданному с помощью `useTimer()`.      |
-| `TimerSegments`        | Собирает стандартные единицы времени и разделители.                      |
-| `TimerArea`            | Группирует отображаемые значения времени.                                |
-| `TimerItem`            | Отображает одну отформатированную единицу времени, например `hours`, `minutes` или `seconds`. |
-| `TimerSeparator`       | Отображает разделитель между единицами времени.                          |
-| `TimerControl`         | Группирует триггеры действий.                                             |
-| `TimerActionTrigger`   | Запускает действие `start`, `pause`, `resume`, `reset` или `restart`.    |
-
-## Композиция
-
-`Timer` управляет состоянием таймера. `TimerSegments` сам создаёт части `TimerArea`,
-`TimerItem` и `TimerSeparator`, поэтому для подписей единиц, собственных разделителей или отдельной разметки
-используйте полную композицию с `TimerArea`.
-
-Используйте `TimerRootProvider` с `useTimer()`, когда состояние нужно создать отдельно от отображаемого дерева.
-`TimerContext` и `useTimerContext()` подходят, если другим элементам интерфейса нужны состояние или методы таймера.
-В Solid состояние и контекст читаются через реактивные функции, поэтому обращайтесь к ним как к `timer()` и
-`api()`. В Vue refs автоматически разворачиваются в шаблонах, а в коде `<script>` используются через `.value`.
-
-В установленной версии Ark UI `TimerItem` заменяет дочернее содержимое отформатированным значением до обработки
-`asChild`, поэтому переданный элемент теряется в Vue и React. До исправления в Ark используйте стандартный
-элемент `TimerItem`; примеры выше используют этот рабочий вариант композиции.
 
 ## Примеры
 
@@ -135,6 +55,49 @@ TimerSegments
 композиции. Это также подход для подписей единиц и другой пользовательской композиции элементов.
 
 <Example name="timer/root-provider" />
+
+## Композиция
+
+`Timer` управляет состоянием таймера. `TimerSegments` сам создаёт части `TimerArea`,
+`TimerItem` и `TimerSeparator`, поэтому для подписей единиц, собственных разделителей или отдельной разметки
+используйте полную композицию с `TimerArea`.
+
+Используйте `TimerRootProvider` с `useTimer()`, когда состояние нужно создать отдельно от отображаемого дерева.
+`TimerContext` и `useTimerContext()` подходят, если другим элементам интерфейса нужны состояние или методы таймера.
+В Solid состояние и контекст читаются через реактивные функции, поэтому обращайтесь к ним как к `timer()` и
+`api()`. В Vue refs автоматически разворачиваются в шаблонах, а в коде `<script>` используются через `.value`.
+
+В установленной версии Ark UI `TimerItem` заменяет дочернее содержимое отформатированным значением до обработки
+`asChild`, поэтому переданный элемент теряется в Vue и React. До исправления в Ark используйте стандартный
+элемент `TimerItem`; примеры выше используют этот рабочий вариант композиции.
+
+## Анатомия
+
+```text
+Timer
+├─ TimerArea
+│  ├─ TimerItem
+│  └─ TimerSeparator
+└─ TimerControl
+   └─ TimerActionTrigger
+
+TimerRootProvider
+└─ то же дерево, подключённое к состоянию из `useTimer()`
+
+TimerSegments
+└─ TimerArea со стандартными элементами TimerItem и TimerSeparator
+```
+
+| Элемент                 | Назначение                                                               |
+| ----------------------- | ------------------------------------------------------------------------ |
+| `Timer`  | Управляет состоянием таймера Ark, его ID, интервалом и обратными вызовами. |
+| `TimerRootProvider`    | Подключает элементы к состоянию, созданному с помощью `useTimer()`.      |
+| `TimerSegments`        | Собирает стандартные единицы времени и разделители.                      |
+| `TimerArea`            | Группирует отображаемые значения времени.                                |
+| `TimerItem`            | Отображает одну отформатированную единицу времени, например `hours`, `minutes` или `seconds`. |
+| `TimerSeparator`       | Отображает разделитель между единицами времени.                          |
+| `TimerControl`         | Группирует триггеры действий.                                             |
+| `TimerActionTrigger`   | Запускает действие `start`, `pause`, `resume`, `reset` или `restart`.    |
 
 ## Стилизация
 

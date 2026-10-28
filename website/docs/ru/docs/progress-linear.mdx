@@ -2,101 +2,28 @@
 title: Progress Linear
 component: progress-linear
 description: Линейный индикатор прогресса для задач, ход выполнения которых известен или неизвестен.
+ark: https://ark-ui.com/docs/components/progress-linear
 ---
 
 import * as ProgressLinearDocs from '@/components/examples/progress-linear/css-properties';
 
-## Справочник API
+<Example name="progress-linear/basic" width="sm" />
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/progress-linear" />
+## Установка
+
+<ComponentInstall />
+
+## Использование
+
+Соберите индикатор из явных частей `ProgressLinearLabel`, `ProgressLinearValueText`, `ProgressLinearTrack` и `ProgressLinearRange`. Задайте для `ProgressLinearTrack`
+доступное имя, которое описывает задачу.
+React, Solid и Vue используют одинаковые плоские имена частей; во Vue применяются нативные `class`, слоты и `v-model`, когда они нужны.
 
 ## Выбор подходящего компонента
 
 Используйте `ProgressLinear`, когда пользователю нужно видеть ход выполнения на линейной полосе.
 Для компактного индикатора в карточке, на панели инструментов или в другом ограниченном пространстве
 подойдёт `ProgressCircular`.
-
-## Базовый пример
-
-
-Соберите индикатор из явных частей `ProgressLinearLabel`, `ProgressLinearValueText`, `ProgressLinearTrack` и `ProgressLinearRange`. Задайте для `ProgressLinearTrack`
-доступное имя, которое описывает задачу.
-React, Solid и Vue используют одинаковые плоские имена частей; во Vue применяются нативные `class`, слоты и `v-model`, когда они нужны.
-
-<Example name="progress-linear/basic" width="sm" />
-
-## Установка через shadcn
-
-Полную настройку пакета, реестра и стилей см. в разделе [Быстрый старт](/docs/quick-start).
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/progress-linear' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/progress-linear' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/progress-linear' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/progress-linear' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/progress-linear' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/progress-linear' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Анатомия
-
-```text
-ProgressLinear
-├─ ProgressLinearLabel
-├─ ProgressLinearValueText
-├─ ProgressLinearTrack
-│  └─ ProgressLinearRange
-└─ ProgressLinearView
-
-ProgressLinearRootProvider
-└─ та же структура частей, подключённая к useProgress()
-```
-
-| Часть                                      | Назначение                                                                    |
-| ------------------------------------------ | ----------------------------------------------------------------------------- |
-| `ProgressLinear`   | Хранит состояние прогресса и передаёт Ark форматирование, идентификаторы и другие свойства. |
-| `ProgressLinearRootProvider`              | Подключает части к хранилищу, которое возвращает `useProgress()`. |
-| `ProgressLinearContext`                   | Передаёт текущее состояние прогресса функции, переданной как дочерний элемент. |
-| `ProgressLinearLabel`                     | Видимая подпись задачи. Она автоматически не становится доступным именем `ProgressLinearTrack`. |
-| `ProgressLinearValueText`                 | Показывает отформатированный процент и сообщает об изменениях. Через `ProgressLinearContext` можно вывести свой текст. |
-| `ProgressLinearTrack`                     | Основа полосы прогресса. Ark добавляет ей роль и ARIA-атрибуты значения.       |
-| `ProgressLinearRange`                     | Заполненная часть, отражающая текущий прогресс.                               |
-| `ProgressLinearView`                      | Показывает содержимое, только когда его `state` совпадает с текущим состоянием прогресса. |
-
-## Композиция
-
-Используйте `defaultValue` для неуправляемого прогресса. В управляемом режиме передайте `value` и
-`onValueChange(details)`, если приложение хранит текущее значение. Используйте `defaultValue={null}`
-или `value={null}`, когда прогресс неизвестен. Если состояние создано через
-`useProgress()`, отрисовывайте части внутри `ProgressLinearRootProvider`, а не внутри
-`ProgressLinear`. Используйте `ProgressLinearView` для содержимого,
-зависящего от состояния, а `ProgressLinearContext` для собственного текста, которому нужно текущее
-состояние.
-Во Vue для того же управляемого значения используйте `v-model`.
 
 ## Примеры
 
@@ -156,6 +83,42 @@ ProgressLinearRootProvider
 
 <Example name="progress-linear/root-provider" width="sm" />
 
+## Композиция
+
+Используйте `defaultValue` для неуправляемого прогресса. В управляемом режиме передайте `value` и
+`onValueChange(details)`, если приложение хранит текущее значение. Используйте `defaultValue={null}`
+или `value={null}`, когда прогресс неизвестен. Если состояние создано через
+`useProgress()`, отрисовывайте части внутри `ProgressLinearRootProvider`, а не внутри
+`ProgressLinear`. Используйте `ProgressLinearView` для содержимого,
+зависящего от состояния, а `ProgressLinearContext` для собственного текста, которому нужно текущее
+состояние.
+Во Vue для того же управляемого значения используйте `v-model`.
+
+## Анатомия
+
+```text
+ProgressLinear
+├─ ProgressLinearLabel
+├─ ProgressLinearValueText
+├─ ProgressLinearTrack
+│  └─ ProgressLinearRange
+└─ ProgressLinearView
+
+ProgressLinearRootProvider
+└─ та же структура частей, подключённая к useProgress()
+```
+
+| Часть                                      | Назначение                                                                    |
+| ------------------------------------------ | ----------------------------------------------------------------------------- |
+| `ProgressLinear`   | Хранит состояние прогресса и передаёт Ark форматирование, идентификаторы и другие свойства. |
+| `ProgressLinearRootProvider`              | Подключает части к хранилищу, которое возвращает `useProgress()`. |
+| `ProgressLinearContext`                   | Передаёт текущее состояние прогресса функции, переданной как дочерний элемент. |
+| `ProgressLinearLabel`                     | Видимая подпись задачи. Она автоматически не становится доступным именем `ProgressLinearTrack`. |
+| `ProgressLinearValueText`                 | Показывает отформатированный процент и сообщает об изменениях. Через `ProgressLinearContext` можно вывести свой текст. |
+| `ProgressLinearTrack`                     | Основа полосы прогресса. Ark добавляет ей роль и ARIA-атрибуты значения.       |
+| `ProgressLinearRange`                     | Заполненная часть, отражающая текущий прогресс.                               |
+| `ProgressLinearView`                      | Показывает содержимое, только когда его `state` совпадает с текущим состоянием прогресса. |
+
 ## Стилизация
 
 Используйте `className` в React или `class` в Solid и Vue на экспортируемых частях для структурной
@@ -170,7 +133,7 @@ moduix. Варианты Tailwind используют нативные утил
 прогресс проводит диапазон шириной 35% от начального края к конечному (в RTL справа налево); при
 предпочтении уменьшенного движения диапазон стоит у начального края.
 
-### CSS-свойства
+### CSS-переменные
 
 <CssPropertiesSection properties={ProgressLinearDocs.progressLinearCssProperties} />
 

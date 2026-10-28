@@ -1,64 +1,17 @@
 [
   {
     "type": "section-header",
-    "label": "Обзор"
-  },
-  {
-    "type": "file",
-    "name": "index",
-    "label": "Введение",
-    "tag": "book-open"
-  },
-  {
-    "type": "file",
-    "name": "changelog",
-    "label": "Что нового",
-    "tag": "scroll-text"
-  },
-  {
-    "type": "file",
-    "name": "components",
-    "label": "Компоненты",
-    "tag": "component"
-  },
-  {
-    "type": "file",
-    "name": "migrate-from-shadcn",
-    "label": "Миграция с shadcn",
-    "tag": "arrow-right-left"
-  },
-  {
-    "type": "file",
-    "name": "comparison",
-    "label": "Сравнение",
-    "tag": "list-checks"
-  },
-  {
-    "type": "file",
-    "name": "themes",
-    "label": "Темы",
-    "tag": "palette"
-  },
-  {
-    "type": "file",
-    "name": "tokens",
-    "label": "Токены",
-    "tag": "swatch-book"
-  },
-  {
-    "type": "file",
-    "name": "styling",
-    "tag": "paintbrush"
-  },
-  {
-    "type": "section-header",
     "label": "Начало работы"
   },
   {
     "type": "file",
+    "name": "index",
+    "label": "Введение"
+  },
+  {
+    "type": "file",
     "name": "quick-start",
-    "label": "Быстрый старт",
-    "tag": "rocket"
+    "label": "Быстрый старт"
   },
   {
     "type": "dir",
@@ -68,339 +21,581 @@
     "collapsed": true
   },
   {
+    "type": "file",
+    "name": "migrate-from-shadcn",
+    "label": "Миграция с shadcn"
+  },
+  {
+    "type": "file",
+    "name": "comparison",
+    "label": "Сравнение"
+  },
+  {
+    "type": "file",
+    "name": "changelog",
+    "label": "Журнал изменений"
+  },
+  {
+    "type": "section-header",
+    "label": "Оформление"
+  },
+  {
+    "type": "file",
+    "name": "themes",
+    "label": "Темы"
+  },
+  {
+    "type": "file",
+    "name": "tokens",
+    "label": "Токены"
+  },
+  {
+    "type": "file",
+    "name": "styling"
+  },
+  {
+    "type": "file",
+    "name": "dark-mode"
+  },
+  {
     "type": "section-header",
     "label": "Компоненты"
   },
   {
     "type": "file",
-    "name": "accordion",
-    "tag": "component"
+    "name": "components",
+    "label": "Все компоненты"
+  },
+  {
+    "type": "custom-link",
+    "label": "Действия",
+    "collapsible": true,
+    "collapsed": true,
+    "items": [
+      {
+        "label": "Button",
+        "link": "/docs/button"
+      },
+      {
+        "label": "Clipboard",
+        "link": "/docs/clipboard"
+      },
+      {
+        "label": "Close Button",
+        "link": "/docs/close-button"
+      },
+      {
+        "label": "Split Button",
+        "link": "/docs/split-button"
+      },
+      {
+        "label": "Swap",
+        "link": "/docs/swap"
+      }
+    ]
+  },
+  {
+    "type": "custom-link",
+    "label": "Отображение",
+    "collapsible": true,
+    "collapsed": true,
+    "items": [
+      {
+        "label": "Avatar",
+        "link": "/docs/avatar"
+      },
+      {
+        "label": "Badge",
+        "link": "/docs/badge"
+      },
+      {
+        "label": "Card",
+        "link": "/docs/card"
+      },
+      {
+        "label": "Carousel",
+        "link": "/docs/carousel"
+      },
+      {
+        "label": "Chart",
+        "link": "/docs/chart"
+      },
+      {
+        "label": "Heading",
+        "link": "/docs/heading"
+      },
+      {
+        "label": "Highlight",
+        "link": "/docs/highlight"
+      },
+      {
+        "label": "Image",
+        "link": "/docs/image"
+      },
+      {
+        "label": "Image Cropper",
+        "link": "/docs/image-cropper"
+      },
+      {
+        "label": "JSON Tree View",
+        "link": "/docs/json-tree-view"
+      },
+      {
+        "label": "Kbd",
+        "link": "/docs/kbd"
+      },
+      {
+        "label": "List",
+        "link": "/docs/list"
+      },
+      {
+        "label": "Marquee",
+        "link": "/docs/marquee"
+      },
+      {
+        "label": "QR Code",
+        "link": "/docs/qr-code"
+      },
+      {
+        "label": "Table",
+        "link": "/docs/table"
+      },
+      {
+        "label": "Tag",
+        "link": "/docs/tag"
+      },
+      {
+        "label": "Text",
+        "link": "/docs/text"
+      },
+      {
+        "label": "Timer",
+        "link": "/docs/timer"
+      },
+      {
+        "label": "Typeset",
+        "link": "/docs/typeset"
+      }
+    ]
+  },
+  {
+    "type": "custom-link",
+    "label": "Обратная связь",
+    "collapsible": true,
+    "collapsed": true,
+    "items": [
+      {
+        "label": "Alert",
+        "link": "/docs/alert"
+      },
+      {
+        "label": "Empty",
+        "link": "/docs/empty"
+      },
+      {
+        "label": "Progress Circular",
+        "link": "/docs/progress-circular"
+      },
+      {
+        "label": "Progress Linear",
+        "link": "/docs/progress-linear"
+      },
+      {
+        "label": "Skeleton",
+        "link": "/docs/skeleton"
+      },
+      {
+        "label": "Spinner",
+        "link": "/docs/spinner"
+      },
+      {
+        "label": "Toast",
+        "link": "/docs/toast"
+      }
+    ]
+  },
+  {
+    "type": "custom-link",
+    "label": "Формы",
+    "collapsible": true,
+    "collapsed": true,
+    "items": [
+      {
+        "label": "Angle Slider",
+        "link": "/docs/angle-slider"
+      },
+      {
+        "label": "Checkbox",
+        "link": "/docs/checkbox"
+      },
+      {
+        "label": "Color Picker",
+        "link": "/docs/color-picker"
+      },
+      {
+        "label": "Combobox",
+        "link": "/docs/combobox"
+      },
+      {
+        "label": "Date Input",
+        "link": "/docs/date-input"
+      },
+      {
+        "label": "Date Picker",
+        "link": "/docs/date-picker"
+      },
+      {
+        "label": "Editable",
+        "link": "/docs/editable"
+      },
+      {
+        "label": "Field",
+        "link": "/docs/field"
+      },
+      {
+        "label": "Fieldset",
+        "link": "/docs/fieldset"
+      },
+      {
+        "label": "File Upload",
+        "link": "/docs/file-upload"
+      },
+      {
+        "label": "Input",
+        "link": "/docs/input"
+      },
+      {
+        "label": "Input Group",
+        "link": "/docs/input-group"
+      },
+      {
+        "label": "Listbox",
+        "link": "/docs/listbox"
+      },
+      {
+        "label": "Native Select",
+        "link": "/docs/native-select"
+      },
+      {
+        "label": "Number Input",
+        "link": "/docs/number-input"
+      },
+      {
+        "label": "Password Input",
+        "link": "/docs/password-input"
+      },
+      {
+        "label": "Pin Input",
+        "link": "/docs/pin-input"
+      },
+      {
+        "label": "Radio Group",
+        "link": "/docs/radio-group"
+      },
+      {
+        "label": "Rating Group",
+        "link": "/docs/rating-group"
+      },
+      {
+        "label": "Segment Group",
+        "link": "/docs/segment-group"
+      },
+      {
+        "label": "Select",
+        "link": "/docs/select"
+      },
+      {
+        "label": "Signature Pad",
+        "link": "/docs/signature-pad"
+      },
+      {
+        "label": "Slider",
+        "link": "/docs/slider"
+      },
+      {
+        "label": "Switch",
+        "link": "/docs/switch"
+      },
+      {
+        "label": "Tags Input",
+        "link": "/docs/tags-input"
+      },
+      {
+        "label": "Textarea",
+        "link": "/docs/textarea"
+      },
+      {
+        "label": "Toggle",
+        "link": "/docs/toggle"
+      },
+      {
+        "label": "Toggle Group",
+        "link": "/docs/toggle-group"
+      }
+    ]
+  },
+  {
+    "type": "custom-link",
+    "label": "Макет",
+    "collapsible": true,
+    "collapsed": true,
+    "items": [
+      {
+        "label": "Accordion",
+        "link": "/docs/accordion"
+      },
+      {
+        "label": "Aspect Ratio",
+        "link": "/docs/aspect-ratio"
+      },
+      {
+        "label": "Bleed",
+        "link": "/docs/bleed"
+      },
+      {
+        "label": "Collapsible",
+        "link": "/docs/collapsible"
+      },
+      {
+        "label": "Container",
+        "link": "/docs/container"
+      },
+      {
+        "label": "Scroll Area",
+        "link": "/docs/scroll-area"
+      },
+      {
+        "label": "Separator",
+        "link": "/docs/separator"
+      },
+      {
+        "label": "Sidebar",
+        "link": "/docs/sidebar"
+      },
+      {
+        "label": "Simple Grid",
+        "link": "/docs/simple-grid"
+      },
+      {
+        "label": "Splitter",
+        "link": "/docs/splitter"
+      },
+      {
+        "label": "Stack",
+        "link": "/docs/stack"
+      },
+      {
+        "label": "Tree View",
+        "link": "/docs/tree-view"
+      }
+    ]
+  },
+  {
+    "type": "custom-link",
+    "label": "Навигация",
+    "collapsible": true,
+    "collapsed": true,
+    "items": [
+      {
+        "label": "Breadcrumbs",
+        "link": "/docs/breadcrumbs"
+      },
+      {
+        "label": "Menu",
+        "link": "/docs/menu"
+      },
+      {
+        "label": "Navigation Menu",
+        "link": "/docs/navigation-menu"
+      },
+      {
+        "label": "Pagination",
+        "link": "/docs/pagination"
+      },
+      {
+        "label": "Steps",
+        "link": "/docs/steps"
+      },
+      {
+        "label": "Table of Contents",
+        "link": "/docs/table-of-contents"
+      },
+      {
+        "label": "Tabs",
+        "link": "/docs/tabs"
+      }
+    ]
+  },
+  {
+    "type": "custom-link",
+    "label": "Оверлеи",
+    "collapsible": true,
+    "collapsed": true,
+    "items": [
+      {
+        "label": "Command Palette",
+        "link": "/docs/command-palette"
+      },
+      {
+        "label": "Dialog",
+        "link": "/docs/dialog"
+      },
+      {
+        "label": "Drawer",
+        "link": "/docs/drawer"
+      },
+      {
+        "label": "Floating Panel",
+        "link": "/docs/floating-panel"
+      },
+      {
+        "label": "Hover Card",
+        "link": "/docs/hover-card"
+      },
+      {
+        "label": "Lightbox",
+        "link": "/docs/lightbox"
+      },
+      {
+        "label": "Popover",
+        "link": "/docs/popover"
+      },
+      {
+        "label": "Tooltip",
+        "link": "/docs/tooltip"
+      },
+      {
+        "label": "Tour",
+        "link": "/docs/tour"
+      }
+    ]
+  },
+  {
+    "type": "section-header",
+    "label": "Руководства"
+  },
+  {
+    "type": "custom-link",
+    "label": "Формы",
+    "link": "/docs/forms",
+    "collapsible": true,
+    "collapsed": true,
+    "items": [
+      {
+        "label": "Formisch",
+        "link": "/docs/formisch"
+      },
+      {
+        "label": "React Hook Form",
+        "link": "/docs/react-hook-form"
+      },
+      {
+        "label": "TanStack Form",
+        "link": "/docs/tanstack-form"
+      }
+    ]
   },
   {
     "type": "file",
-    "name": "alert",
-    "tag": "component"
+    "name": "animations"
   },
   {
     "type": "file",
-    "name": "angle-slider",
-    "label": "Angle Slider",
-    "tag": "component"
+    "name": "composition-patterns"
   },
   {
     "type": "file",
-    "name": "aspect-ratio",
-    "tag": "component"
+    "name": "rtl"
   },
   {
     "type": "file",
-    "name": "avatar",
-    "label": "Avatar",
-    "tag": "component"
+    "name": "updating"
   },
   {
-    "type": "file",
-    "name": "badge",
-    "label": "Badge",
-    "tag": "component"
+    "type": "section-header",
+    "label": "Ark UI"
   },
   {
-    "type": "file",
-    "name": "bleed",
-    "tag": "component"
+    "type": "custom-link",
+    "label": "Коллекции",
+    "link": "/docs/collections",
+    "collapsible": true,
+    "collapsed": true,
+    "items": [
+      {
+        "label": "Async List",
+        "link": "/docs/async-list"
+      },
+      {
+        "label": "List Collection",
+        "link": "/docs/list-collection"
+      },
+      {
+        "label": "List Selection",
+        "link": "/docs/list-selection"
+      },
+      {
+        "label": "Tree Collection",
+        "link": "/docs/tree-collection"
+      }
+    ]
   },
   {
-    "type": "file",
-    "name": "breadcrumbs",
-    "tag": "component"
-  },
-  {
-    "type": "file",
-    "name": "button",
-    "tag": "component"
-  },
-  {
-    "type": "file",
-    "name": "card",
-    "tag": "component"
-  },
-  {
-    "type": "file",
-    "name": "carousel",
-    "tag": "component"
-  },
-  {
-    "type": "file",
-    "name": "chart",
-    "tag": "component"
-  },
-  {
-    "type": "file",
-    "name": "checkbox",
-    "tag": "component"
-  },
-  {
-    "type": "file",
-    "name": "clipboard",
-    "tag": "component"
-  },
-  {
-    "type": "file",
-    "name": "close-button",
-    "tag": "component"
-  },
-  {
-    "type": "file",
-    "name": "collapsible",
-    "tag": "component"
-  },
-  {
-    "type": "file",
-    "name": "color-picker",
-    "tag": "component"
-  },
-  {
-    "type": "file",
-    "name": "combobox",
-    "tag": "component"
-  },
-  {
-    "type": "file",
-    "name": "command-palette",
-    "tag": "component"
-  },
-  {
-    "type": "file",
-    "name": "container",
-    "tag": "component"
-  },
-  { "type": "file", "name": "date-input", "label": "Date Input", "tag": "component" },
-  { "type": "file", "name": "date-picker", "tag": "component" },
-  { "type": "file", "name": "dialog", "tag": "component" },
-  { "type": "file", "name": "drawer", "tag": "component" },
-  { "type": "file", "name": "editable", "label": "Editable", "tag": "component" },
-  { "type": "file", "name": "empty", "tag": "component" },
-  { "type": "file", "name": "field", "tag": "component" },
-  { "type": "file", "name": "fieldset", "tag": "component" },
-  { "type": "file", "name": "file-upload", "tag": "component" },
-  { "type": "file", "name": "floating-panel", "tag": "component" },
-  { "type": "file", "name": "heading", "tag": "component" },
-  { "type": "file", "name": "hover-card", "tag": "component" },
-  { "type": "file", "name": "image", "tag": "component" },
-  { "type": "file", "name": "image-cropper", "tag": "component" },
-  { "type": "file", "name": "input", "tag": "component" },
-  { "type": "file", "name": "input-group", "tag": "component" },
-  { "type": "file", "name": "kbd", "tag": "component" },
-  { "type": "file", "name": "lightbox", "tag": "component" },
-  { "type": "file", "name": "list", "tag": "component" },
-  { "type": "file", "name": "listbox", "tag": "component" },
-  { "type": "file", "name": "marquee", "tag": "component" },
-  { "type": "file", "name": "menu", "tag": "component" },
-  { "type": "file", "name": "navigation-menu", "tag": "component" },
-  {
-    "type": "file",
-    "name": "native-select",
-    "tag": "component"
-  },
-  {
-    "type": "file",
-    "name": "number-input",
-    "tag": "component"
-  },
-  {
-    "type": "file",
-    "name": "pagination",
-    "tag": "component"
-  },
-  {
-    "type": "file",
-    "name": "password-input",
-    "tag": "component"
-  },
-  {
-    "type": "file",
-    "name": "pin-input",
-    "tag": "component"
-  },
-  {
-    "type": "file",
-    "name": "popover",
-    "tag": "component"
-  },
-  {
-    "type": "file",
-    "name": "progress-circular",
-    "tag": "component"
-  },
-  {
-    "type": "file",
-    "name": "progress-linear",
-    "tag": "component"
-  },
-  {
-    "type": "file",
-    "name": "qr-code",
-    "tag": "component"
-  },
-  {
-    "type": "file",
-    "name": "radio-group",
-    "tag": "component"
-  },
-  {
-    "type": "file",
-    "name": "rating-group",
-    "tag": "component"
-  },
-  {
-    "type": "file",
-    "name": "scroll-area",
-    "tag": "component"
-  },
-  {
-    "type": "file",
-    "name": "segment-group",
-    "tag": "component"
-  },
-  {
-    "type": "file",
-    "name": "select",
-    "tag": "component"
-  },
-  {
-    "type": "file",
-    "name": "separator",
-    "tag": "component"
-  },
-  {
-    "type": "file",
-    "name": "sidebar",
-    "tag": "component"
-  },
-  {
-    "type": "file",
-    "name": "signature-pad",
-    "tag": "component"
-  },
-  {
-    "type": "file",
-    "name": "simple-grid",
-    "tag": "component"
-  },
-  {
-    "type": "file",
-    "name": "skeleton",
-    "tag": "component"
-  },
-  {
-    "type": "file",
-    "name": "slider",
-    "tag": "component"
-  },
-  {
-    "type": "file",
-    "name": "spinner",
-    "tag": "component"
-  },
-  {
-    "type": "file",
-    "name": "split-button",
-    "tag": "component"
-  },
-  {
-    "type": "file",
-    "name": "splitter",
-    "tag": "component"
-  },
-  {
-    "type": "file",
-    "name": "stack",
-    "tag": "component"
-  },
-  {
-    "type": "file",
-    "name": "steps",
-    "tag": "component"
-  },
-  {
-    "type": "file",
-    "name": "switch",
-    "tag": "component"
-  },
-  {
-    "type": "file",
-    "name": "table",
-    "tag": "component"
-  },
-  {
-    "type": "file",
-    "name": "table-of-contents",
-    "tag": "component"
-  },
-  {
-    "type": "file",
-    "name": "tabs",
-    "tag": "component"
-  },
-  {
-    "type": "file",
-    "name": "tag",
-    "tag": "component"
-  },
-  {
-    "type": "file",
-    "name": "tags-input",
-    "tag": "component"
-  },
-  {
-    "type": "file",
-    "name": "text",
-    "tag": "component"
-  },
-  {
-    "type": "file",
-    "name": "textarea",
-    "tag": "component"
-  },
-  {
-    "type": "file",
-    "name": "timer",
-    "tag": "component"
-  },
-  {
-    "type": "file",
-    "name": "toast",
-    "tag": "component"
-  },
-  {
-    "type": "file",
-    "name": "toggle",
-    "tag": "component"
-  },
-  {
-    "type": "file",
-    "name": "toggle-group",
-    "tag": "component"
-  },
-  {
-    "type": "file",
-    "name": "tooltip",
-    "tag": "component"
-  },
-  {
-    "type": "file",
-    "name": "tour",
-    "tag": "component"
-  },
-  {
-    "type": "file",
-    "name": "tree-view",
-    "tag": "component"
-  },
-  {
-    "type": "file",
-    "name": "typeset",
-    "tag": "component"
+    "type": "custom-link",
+    "label": "Утилиты",
+    "link": "/docs/utilities",
+    "collapsible": true,
+    "collapsed": true,
+    "items": [
+      {
+        "label": "Client Only",
+        "link": "/docs/client-only"
+      },
+      {
+        "label": "Download Trigger",
+        "link": "/docs/download-trigger"
+      },
+      {
+        "label": "Environment",
+        "link": "/docs/environment"
+      },
+      {
+        "label": "Focus Trap",
+        "link": "/docs/focus-trap"
+      },
+      {
+        "label": "Format Byte",
+        "link": "/docs/format-byte"
+      },
+      {
+        "label": "Format Number",
+        "link": "/docs/format-number"
+      },
+      {
+        "label": "Format Relative Time",
+        "link": "/docs/format-relative-time"
+      },
+      {
+        "label": "Format Time",
+        "link": "/docs/format-time"
+      },
+      {
+        "label": "Frame",
+        "link": "/docs/frame"
+      },
+      {
+        "label": "Hotkeys",
+        "link": "/docs/hotkeys"
+      },
+      {
+        "label": "Locale",
+        "link": "/docs/locale"
+      },
+      {
+        "label": "Presence",
+        "link": "/docs/presence"
+      }
+    ]
   },
   {
     "type": "section-header",
@@ -409,201 +604,16 @@
   {
     "type": "file",
     "name": "ai",
-    "label": "Руководство по AI",
-    "tag": "bot"
+    "label": "Руководство по AI"
   },
   {
     "type": "custom-link",
     "label": "llms.txt",
-    "link": "https://moduix.dev/llms.txt",
-    "tag": "file-text"
+    "link": "https://moduix.dev/llms.txt"
   },
   {
     "type": "custom-link",
     "label": "llms-full.txt",
-    "link": "https://moduix.dev/llms-full.txt",
-    "tag": "file-text"
-  },
-  {
-    "type": "section-header",
-    "label": "Ark Коллекции"
-  },
-  {
-    "type": "file",
-    "name": "collections",
-    "label": "Коллекции",
-    "tag": "database"
-  },
-  {
-    "type": "file",
-    "name": "async-list",
-    "tag": "loader-circle"
-  },
-  {
-    "type": "file",
-    "name": "list-collection",
-    "tag": "list"
-  },
-  {
-    "type": "file",
-    "name": "list-selection",
-    "tag": "list-checks"
-  },
-  {
-    "type": "file",
-    "name": "tree-collection",
-    "tag": "git-branch"
-  },
-  {
-    "type": "section-header",
-    "label": "Ark Утилиты"
-  },
-  {
-    "type": "file",
-    "name": "utilities",
-    "label": "Утилиты",
-    "tag": "wrench"
-  },
-  {
-    "type": "file",
-    "name": "client-only",
-    "label": "Client Only",
-    "tag": "monitor"
-  },
-  {
-    "type": "file",
-    "name": "download-trigger",
-    "label": "Download Trigger",
-    "tag": "download"
-  },
-  {
-    "type": "file",
-    "name": "environment",
-    "label": "Environment",
-    "tag": "panels-top-left"
-  },
-  {
-    "type": "file",
-    "name": "focus-trap",
-    "label": "Focus Trap",
-    "tag": "lock-keyhole"
-  },
-  {
-    "type": "file",
-    "name": "format-byte",
-    "label": "Format Byte",
-    "tag": "hard-drive"
-  },
-  {
-    "type": "file",
-    "name": "format-number",
-    "label": "Format Number",
-    "tag": "calculator"
-  },
-  {
-    "type": "file",
-    "name": "format-time",
-    "label": "Format Time",
-    "tag": "clock"
-  },
-  {
-    "type": "file",
-    "name": "format-relative-time",
-    "label": "Format Relative Time",
-    "tag": "history"
-  },
-  {
-    "type": "file",
-    "name": "frame",
-    "label": "Frame",
-    "tag": "frame"
-  },
-  {
-    "type": "file",
-    "name": "highlight",
-    "tag": "sparkles"
-  },
-  {
-    "type": "file",
-    "name": "hotkeys",
-    "label": "Hotkeys",
-    "tag": "keyboard"
-  },
-  {
-    "type": "file",
-    "name": "json-tree-view",
-    "label": "JSON Tree View",
-    "tag": "braces"
-  },
-  {
-    "type": "file",
-    "name": "locale",
-    "label": "Locale",
-    "tag": "languages"
-  },
-  {
-    "type": "file",
-    "name": "presence",
-    "label": "Presence",
-    "tag": "eye"
-  },
-  {
-    "type": "file",
-    "name": "swap",
-    "tag": "arrow-left-right"
-  },
-  {
-    "type": "section-header",
-    "label": "Формы"
-  },
-  {
-    "type": "file",
-    "name": "forms",
-    "label": "Формы",
-    "tag": "clipboard-list"
-  },
-  {
-    "type": "file",
-    "name": "formisch",
-    "tag": "braces"
-  },
-  {
-    "type": "file",
-    "name": "react-hook-form",
-    "tag": "braces"
-  },
-  {
-    "type": "file",
-    "name": "tanstack-form",
-    "tag": "braces"
-  },
-  {
-    "type": "section-header",
-    "label": "Руководства"
-  },
-  {
-    "type": "file",
-    "name": "animations",
-    "tag": "orbit"
-  },
-  {
-    "type": "file",
-    "name": "composition-patterns",
-    "tag": "workflow"
-  },
-  {
-    "type": "file",
-    "name": "dark-mode",
-    "tag": "moon"
-  },
-  {
-    "type": "file",
-    "name": "rtl",
-    "tag": "languages"
-  },
-  {
-    "type": "file",
-    "name": "updating",
-    "tag": "refresh-cw"
+    "link": "https://moduix.dev/llms-full.txt"
   }
 ]

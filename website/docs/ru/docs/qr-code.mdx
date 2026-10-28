@@ -2,6 +2,7 @@
 title: QR Code
 component: qr-code
 description: Компонент QR-кода на базе Ark UI, который выводит SVG, поддерживает наложение содержимого и скачивание изображения.
+ark: https://ark-ui.com/docs/components/qr-code
 ---
 
 import RootProviderQrCode from '@/components/examples/qr-code/root-provider.tsx';
@@ -9,89 +10,17 @@ import * as QrCodeDocs from '@/components/examples/qr-code/css-properties';
 import qrCodeSolidRootProvider from '../../../snippets/qr-code/solid/root-provider.tsx?raw';
 import qrCodeVueRootProvider from '../../../snippets/qr-code/vue/root-provider.vue?raw';
 
-## Справочник API
+<Example name="qr-code/basic" />
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/qr-code" />
+## Установка
 
-## Базовый пример
+<ComponentInstall />
 
+## Использование
 
 Используйте `QrCode` в обычном сценарии. Передайте содержимое для кодирования через `defaultValue`,
 затем явно отрисуйте `QrCodeFrame` и `QrCodePattern`, чтобы показать созданный SVG. Если QR-код
 передаёт информацию, задайте для `QrCodeFrame` доступное имя.
-
-<Example name="qr-code/basic" />
-
-## Установка через shadcn
-
-Полную настройку пакета, реестра и стилей см. в разделе [Быстрый старт](/docs/quick-start).
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/qr-code' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/qr-code' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/qr-code' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/qr-code' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/qr-code' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/qr-code' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Анатомия
-
-```text
-QrCode
-├─ QrCodeFrame
-│  └─ QrCodePattern
-├─ QrCodeOverlay
-└─ QrCodeDownloadTrigger
-
-QrCodeRootProvider
-└─ то же дерево частей, подключённое к хранилищу useQrCode()
-```
-
-| Part                     | Назначение                                                            |
-| ------------------------ | --------------------------------------------------------------------- |
-| `QrCode`                | Хранит кодируемое значение и параметры генерации, предоставляет состояние QR-кода. |
-| `QrCodeRootProvider`    | Подключает части к состоянию, созданному через `useQrCode()`.          |
-| `QrCodeFrame`           | SVG-элемент, содержащий созданный QR-код.                              |
-| `QrCodePattern`         | SVG-путь, который рисует модули QR-кода.                               |
-| `QrCodeOverlay`         | Содержимое, отображаемое по центру QR-кода.                            |
-| `QrCodeDownloadTrigger` | Кнопка для скачивания текущего QR-кода как изображения.                |
-
-## Композиция
-
-Используйте `defaultValue` для неконтролируемого QR-кода. Если значение хранится в состоянии
-приложения, передайте `value` и `onValueChange(details)`, а новое значение читайте из
-`details.value`. Создайте состояние через `useQrCode()` из соответствующего фреймворку пакета и
-передайте его в `QrCodeRootProvider`, если состояние должно использоваться за пределами дерева
-QR-кода. Не создавайте для одного хранилища одновременно `QrCode` и `QrCodeRootProvider`.
-
-Используйте `QrCodeContext` или `useQrCodeContext()`, когда потомку нужен текущий API QR-кода.
-Добавляйте `QrCodeOverlay` только при достаточном уровне коррекции ошибок для закрытой области и
-проверяйте итоговый код сканерами, которыми пользуются ваши пользователи.
 
 ## Примеры
 
@@ -185,6 +114,40 @@ QR-кода. Не создавайте для одного хранилища о
 
 </ExampleCode>
 
+## Композиция
+
+Используйте `defaultValue` для неконтролируемого QR-кода. Если значение хранится в состоянии
+приложения, передайте `value` и `onValueChange(details)`, а новое значение читайте из
+`details.value`. Создайте состояние через `useQrCode()` из соответствующего фреймворку пакета и
+передайте его в `QrCodeRootProvider`, если состояние должно использоваться за пределами дерева
+QR-кода. Не создавайте для одного хранилища одновременно `QrCode` и `QrCodeRootProvider`.
+
+Используйте `QrCodeContext` или `useQrCodeContext()`, когда потомку нужен текущий API QR-кода.
+Добавляйте `QrCodeOverlay` только при достаточном уровне коррекции ошибок для закрытой области и
+проверяйте итоговый код сканерами, которыми пользуются ваши пользователи.
+
+## Анатомия
+
+```text
+QrCode
+├─ QrCodeFrame
+│  └─ QrCodePattern
+├─ QrCodeOverlay
+└─ QrCodeDownloadTrigger
+
+QrCodeRootProvider
+└─ то же дерево частей, подключённое к хранилищу useQrCode()
+```
+
+| Part                     | Назначение                                                            |
+| ------------------------ | --------------------------------------------------------------------- |
+| `QrCode`                | Хранит кодируемое значение и параметры генерации, предоставляет состояние QR-кода. |
+| `QrCodeRootProvider`    | Подключает части к состоянию, созданному через `useQrCode()`.          |
+| `QrCodeFrame`           | SVG-элемент, содержащий созданный QR-код.                              |
+| `QrCodePattern`         | SVG-путь, который рисует модули QR-кода.                               |
+| `QrCodeOverlay`         | Содержимое, отображаемое по центру QR-кода.                            |
+| `QrCodeDownloadTrigger` | Кнопка для скачивания текущего QR-кода как изображения.                |
+
 ## Стилизация
 
 Используйте `className` в React или `class` в Solid и Vue на экспортируемых частях для структурных
@@ -195,11 +158,11 @@ QR-кода. Не создавайте для одного хранилища о
 Панель CSS Variables содержит полный набор публичных переменных. Ark также задаёт на корневом
 элементе во время работы `--qrcode-pixel-size`, `--qrcode-width` и `--qrcode-height`.
 
-### CSS-свойства
+### CSS-переменные
 
 <CssPropertiesSection properties={QrCodeDocs.qrCodeOverrideCssProperties} />
 
-### Атрибуты для стилизации
+### Хуки стилизации
 
 - Стабильные селекторы `data-slot`: `qr-code-root`, `qr-code-root-provider`, `qr-code-frame`,
   `qr-code-pattern`, `qr-code-overlay` и `qr-code-download-trigger`.

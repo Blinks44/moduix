@@ -2,106 +2,21 @@
 title: Tour
 component: tour
 description: Créez des parcours guidés pour faire découvrir votre produit avec l’état Tour d’Ark UI, une couche superposée accessible et des actions prêtes à l’emploi.
+ark: https://ark-ui.com/docs/components/tour
 ---
 
+<Example name="tour/basic" />
 
-## Référence de l’API
+## Installation
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/tour" />
+<ComponentInstall />
 
-## Exemple de base
-
+## Utilisation
 
 Créez l’état du tour avec `useTour`, définissez les étapes, puis transmettez l’objet renvoyé à `Tour`. L’exemple
 commence par une boîte de dialogue, passe à une infobulle ancrée à un contrôle de la page, puis se termine par une
 étape flottante. Gardez les parties explicites pour pouvoir adapter la composition si nécessaire. `TourBody` permet à
 un texte long de défiler dans le panneau.
-
-<Example name="tour/basic" />
-
-## Installation avec shadcn
-
-Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration complète du paquet, du registre et des styles.
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/tour' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/tour' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/tour' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/tour' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/tour' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/tour' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Anatomie
-
-```text
-Tour
-└─ Éléments superposés (rendus dans un portail par défaut)
-   ├─ TourBackdrop
-   ├─ TourSpotlight
-   └─ TourPositioner
-      └─ TourContent
-         ├─ TourArrow
-         ├─ TourCloseIcon / TourCloseTrigger
-         ├─ TourBody
-         │  ├─ TourTitle
-         │  ├─ TourDescription
-         │  └─ TourProgressText
-         └─ TourControl
-            ├─ TourActionList
-            └─ TourActions
-               └─ TourActionTrigger[action]
-```
-
-| Partie | Rôle |
-| --- | --- |
-| `Tour` | Composant racine associé à l’objet renvoyé par `useTour`. |
-| `TourBackdrop` / `TourSpotlight` | Voile d’arrière-plan facultatif et mise en évidence de la cible active. |
-| `TourPositioner` / `TourContent` | Positionnent et affichent la boîte de dialogue `alertdialog` d’Ark. |
-| `TourArrow` | Affiche par défaut `TourArrowTip` de moduix pour les étapes de type infobulle. |
-| `TourCloseIcon` / `TourCloseTrigger` | Contrôle de fermeture accessible par défaut ou balisage personnalisé. |
-| `TourBody` | Conteneur moduix défilant pour le titre, la description et le texte de progression. |
-| `TourControl` / `TourActionList` | Rangée d’actions recommandée et actions de l’étape en cours. |
-| `TourActions` / `TourActionTrigger` | Interface d’actions personnalisée qui conserve chaque objet d’action Ark. |
-
-## Composition
-
-Créez l’état avec `useTour` et transmettez-le à `Tour`. En Solid, la valeur renvoyée est un accessor : appelez donc
-`tour()` pour utiliser des méthodes comme `start()` et `next()`. Avec Vue, la valeur renvoyée est une référence (`ref`) : sa valeur est
-directement accessible dans les templates, tandis que le script appelle les méthodes via `tour.value`. Gardez les parties structurelles explicites et
-incluez `TourTitle` et `TourDescription` pour donner un nom et une description accessibles à `alertdialog`. `TourBackdrop`,
-`TourSpotlight` et `TourPositioner` sont rendus dans un portail par défaut ; utilisez `portalled={false}` ou `portalRef` seulement
-si la couche doit rester dans le balisage ou rejoindre un conteneur précis. Utilisez `TourActionList` pour les actions
-déclarées dans `steps`, ou remplacez-le par `TourActions` et `TourActionTrigger asChild` lorsque chaque action demande son
-propre balisage. `lazyMount` et `unmountOnExit` valent `true` par défaut ; transmettez des callbacks à `useTour` si une
-autre partie de l’interface ou votre outil d’analyse doit réagir aux changements d’étape ou de statut.
-Avec Vue, configurez les callbacks d’état, comme `onStepChange` et `onStatusChange`, dans `useTour` ;
-l’événement `@exit-complete` sur `Tour` signale la fin de l’animation de sortie. Ark Vue déclare actuellement
-d’autres événements sur la racine, mais ne les émet pas pour un objet d’état créé en dehors de celle-ci.
 
 ## Exemples
 
@@ -136,6 +51,53 @@ Ark d’origine : la navigation, la fermeture et l’état désactivé restent d
 le titre, la description et la progression sont placés directement dans `TourContent`.
 
 <Example name="tour/advanced-customization" />
+
+## Composition
+
+Créez l’état avec `useTour` et transmettez-le à `Tour`. En Solid, la valeur renvoyée est un accessor : appelez donc
+`tour()` pour utiliser des méthodes comme `start()` et `next()`. Avec Vue, la valeur renvoyée est une référence (`ref`) : sa valeur est
+directement accessible dans les templates, tandis que le script appelle les méthodes via `tour.value`. Gardez les parties structurelles explicites et
+incluez `TourTitle` et `TourDescription` pour donner un nom et une description accessibles à `alertdialog`. `TourBackdrop`,
+`TourSpotlight` et `TourPositioner` sont rendus dans un portail par défaut ; utilisez `portalled={false}` ou `portalRef` seulement
+si la couche doit rester dans le balisage ou rejoindre un conteneur précis. Utilisez `TourActionList` pour les actions
+déclarées dans `steps`, ou remplacez-le par `TourActions` et `TourActionTrigger asChild` lorsque chaque action demande son
+propre balisage. `lazyMount` et `unmountOnExit` valent `true` par défaut ; transmettez des callbacks à `useTour` si une
+autre partie de l’interface ou votre outil d’analyse doit réagir aux changements d’étape ou de statut.
+Avec Vue, configurez les callbacks d’état, comme `onStepChange` et `onStatusChange`, dans `useTour` ;
+l’événement `@exit-complete` sur `Tour` signale la fin de l’animation de sortie. Ark Vue déclare actuellement
+d’autres événements sur la racine, mais ne les émet pas pour un objet d’état créé en dehors de celle-ci.
+
+## Anatomie
+
+```text
+Tour
+└─ Éléments superposés (rendus dans un portail par défaut)
+   ├─ TourBackdrop
+   ├─ TourSpotlight
+   └─ TourPositioner
+      └─ TourContent
+         ├─ TourArrow
+         ├─ TourCloseIcon / TourCloseTrigger
+         ├─ TourBody
+         │  ├─ TourTitle
+         │  ├─ TourDescription
+         │  └─ TourProgressText
+         └─ TourControl
+            ├─ TourActionList
+            └─ TourActions
+               └─ TourActionTrigger[action]
+```
+
+| Partie | Rôle |
+| --- | --- |
+| `Tour` | Composant racine associé à l’objet renvoyé par `useTour`. |
+| `TourBackdrop` / `TourSpotlight` | Voile d’arrière-plan facultatif et mise en évidence de la cible active. |
+| `TourPositioner` / `TourContent` | Positionnent et affichent la boîte de dialogue `alertdialog` d’Ark. |
+| `TourArrow` | Affiche par défaut `TourArrowTip` de moduix pour les étapes de type infobulle. |
+| `TourCloseIcon` / `TourCloseTrigger` | Contrôle de fermeture accessible par défaut ou balisage personnalisé. |
+| `TourBody` | Conteneur moduix défilant pour le titre, la description et le texte de progression. |
+| `TourControl` / `TourActionList` | Rangée d’actions recommandée et actions de l’étape en cours. |
+| `TourActions` / `TourActionTrigger` | Interface d’actions personnalisée qui conserve chaque objet d’action Ark. |
 
 ## Styles
 

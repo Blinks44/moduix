@@ -2,25 +2,18 @@
 title: Navigation Menu
 component: navigation-menu
 description: Навигационная панель для прямых ссылок и раскрывающихся панелей с возможностью использовать общую область `NavigationMenuViewport` для анимированных переходов.
+ark: https://ark-ui.com/docs/components/navigation-menu
 ---
 
 import * as NavigationMenuDocs from '@/components/examples/navigation-menu/css-properties';
 
-## Справочник API
+<Example name="navigation-menu/basic" />
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/navigation-menu" />
+## Установка
 
-## Какой компонент выбрать
+<ComponentInstall />
 
-Используйте `NavigationMenu` для основной навигации по сайту или продукту, если некоторые пункты
-верхнего уровня открывают группы связанных страниц.
-
-- Выбирайте **`NavigationMenu`**, если пункт верхнего уровня может показать группу связанных ссылок.
-- Выбирайте **`Menu`** для контекстных действий, а не для навигации.
-- Выбирайте **`Tabs`**, если каждый выбранный элемент переключает содержимое в одной области текущей страницы.
-
-## Базовый пример
-
+## Использование
 
 Импортируйте компонент из подпути подходящего пакета: `@moduix/react/navigation-menu`,
 `@moduix/solid/navigation-menu`, `@moduix/vue/navigation-menu`,
@@ -32,44 +25,49 @@ import * as NavigationMenuDocs from '@/components/examples/navigation-menu/css-p
 `NavigationMenuContent` в один элемент. `NavigationMenuLink` используйте для прямых переходов из
 верхнего уровня и для ссылок внутри панели.
 
-<Example name="navigation-menu/basic" />
+## Какой компонент выбрать
 
-## Установка через shadcn
+Используйте `NavigationMenu` для основной навигации по сайту или продукту, если некоторые пункты
+верхнего уровня открывают группы связанных страниц.
 
-Полную настройку пакета, реестра и стилей см. в разделе [Быстрый старт](/docs/quick-start).
+- Выбирайте **`NavigationMenu`**, если пункт верхнего уровня может показать группу связанных ссылок.
+- Выбирайте **`Menu`** для контекстных действий, а не для навигации.
+- Выбирайте **`Tabs`**, если каждый выбранный элемент переключает содержимое в одной области текущей страницы.
 
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
+## Примеры
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/navigation-menu' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/navigation-menu' },
-  ]}
-/>
+### Управляемое значение
 
-  </Tab>
-  <Tab label="Solid" value="solid">
+Управляйте открытым значением через состояние React, сигналы Solid или ref во Vue, если активная
+панель должна менять соседнюю часть интерфейса. Под примером показано значение текущего открытого элемента.
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/navigation-menu' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/navigation-menu' },
-  ]}
-/>
+<Example name="navigation-menu/controlled-value" />
 
-  </Tab>
-  <Tab label="Vue" value="vue">
+### Общая область Viewport
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/navigation-menu' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/navigation-menu' },
-  ]}
-/>
+Используйте общую область `NavigationMenuViewport`, если панели имеют разный размер, но должны анимироваться в одной
+области. В примере одна панель содержит две колонки, а у разных панелей разная ширина, поэтому при
+переключении триггеров заметно анимируются ширина и высота `NavigationMenuViewport`.
 
-  </Tab>
-</Tabs>
+<Example name="navigation-menu/viewport" />
+
+## Композиция
+
+Используйте `defaultValue` для неконтролируемого меню. Если открытым элементом управляет другая часть
+приложения, передайте `value` и `onValueChange(details)`; `details.value` содержит значение открытого
+элемента или пустую строку, если все панели закрыты. Если хранилище должно жить вне отрисовываемого
+дерева, создайте его через `useNavigationMenu()` и передайте в `NavigationMenuRootProvider`; не
+создавайте для него ещё один корневой компонент. В React хранилище представлено объектом, в Solid
+реактивное состояние читается через возвращаемую функцию доступа, а в Vue используются ref и привязки
+шаблона. Для управляемого значения во Vue используйте `v-model:value`. Если вложенному компоненту
+нужно текущее состояние, используйте `NavigationMenuContext` с render-функцией вместо хранилища.
+
+Без общей области `NavigationMenuViewport` компонент `NavigationMenuContent` отображается рядом со
+своим элементом. Добавьте `NavigationMenuViewportPositioner` и `NavigationMenuViewport`, если несколько
+панелей должны открываться в одной анимированной области; свойство `align` позиционера
+(`"start" | "center" | "end"`, по умолчанию `"center"`) выравнивает область относительно позиции
+активного элемента. Используйте `asChild` для ссылок маршрутизатора или собственных триггеров только
+тогда, когда дочерний элемент остаётся одним интерактивным элементом, способным получать фокус.
 
 ## Анатомия
 
@@ -109,41 +107,6 @@ NavigationMenuContext
 | `NavigationMenuViewportPositioner` | Размещает общую область `NavigationMenuViewport`. |
 | `NavigationMenuViewport` | Общая анимированная область для открытого содержимого. |
 
-## Композиция
-
-Используйте `defaultValue` для неконтролируемого меню. Если открытым элементом управляет другая часть
-приложения, передайте `value` и `onValueChange(details)`; `details.value` содержит значение открытого
-элемента или пустую строку, если все панели закрыты. Если хранилище должно жить вне отрисовываемого
-дерева, создайте его через `useNavigationMenu()` и передайте в `NavigationMenuRootProvider`; не
-создавайте для него ещё один корневой компонент. В React хранилище представлено объектом, в Solid
-реактивное состояние читается через возвращаемую функцию доступа, а в Vue используются ref и привязки
-шаблона. Для управляемого значения во Vue используйте `v-model:value`. Если вложенному компоненту
-нужно текущее состояние, используйте `NavigationMenuContext` с render-функцией вместо хранилища.
-
-Без общей области `NavigationMenuViewport` компонент `NavigationMenuContent` отображается рядом со
-своим элементом. Добавьте `NavigationMenuViewportPositioner` и `NavigationMenuViewport`, если несколько
-панелей должны открываться в одной анимированной области; свойство `align` позиционера
-(`"start" | "center" | "end"`, по умолчанию `"center"`) выравнивает область относительно позиции
-активного элемента. Используйте `asChild` для ссылок маршрутизатора или собственных триггеров только
-тогда, когда дочерний элемент остаётся одним интерактивным элементом, способным получать фокус.
-
-## Примеры
-
-### Управляемое значение
-
-Управляйте открытым значением через состояние React, сигналы Solid или ref во Vue, если активная
-панель должна менять соседнюю часть интерфейса. Под примером показано значение текущего открытого элемента.
-
-<Example name="navigation-menu/controlled-value" />
-
-### Общая область Viewport
-
-Используйте общую область `NavigationMenuViewport`, если панели имеют разный размер, но должны анимироваться в одной
-области. В примере одна панель содержит две колонки, а у разных панелей разная ширина, поэтому при
-переключении триггеров заметно анимируются ширина и высота `NavigationMenuViewport`.
-
-<Example name="navigation-menu/viewport" />
-
 ## Стилизация
 
 Используйте `className` в React, `class` в Solid или `class` во Vue на экспортируемых частях для структурных стилей. Для
@@ -154,7 +117,7 @@ foundation и выносят в CSS-переменные только огран
 переопределяйте классом на части. Анимация панели и viewport следует общим переменным
 `--moduix-popup-motion-*`. Атрибуты данных и хуки `data-slot` общие для обоих вариантов стилизации.
 
-### CSS-свойства
+### CSS-переменные
 
 <CssPropertiesSection properties={NavigationMenuDocs.navigationMenuOverrideCssProperties} />
 

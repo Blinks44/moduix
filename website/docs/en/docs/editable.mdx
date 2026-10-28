@@ -2,13 +2,23 @@
 title: Editable
 component: editable
 description: Build accessible inline editors in React, Solid, and Vue with package and shadcn installation options.
+ark: https://ark-ui.com/docs/components/editable
 ---
 
 import * as EditableDocs from '@/components/examples/editable/css-properties';
 
-## API Reference
+<Example name="editable/basic" />
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/editable" />
+## Installation
+
+<ComponentInstall />
+
+## Usage
+
+Use `Editable` as the root and compose it from `EditableLabel`, `EditableArea`, `EditableInput`,
+and `EditablePreview`. Add `EditableControls` for the standard edit, submit, and cancel flow.
+moduix adds styles, `data-slot` hooks, and default trigger icons. By default, users enter edit mode
+with a double-click, which helps prevent accidental changes.
 
 ## Choosing the right component
 
@@ -16,93 +26,6 @@ import * as EditableDocs from '@/components/examples/editable/css-properties';
 - Choose **`Editable`** when the value is usually read-only and editing should be an explicit action.
 - Wrap **`Editable`** in **`Field`** when helper text, error text, or shared form state should appear
   outside the component.
-
-## Basic
-
-
-Use `Editable` as the root and compose it from `EditableLabel`, `EditableArea`, `EditableInput`,
-and `EditablePreview`. Add `EditableControls` for the standard edit, submit, and cancel flow.
-moduix adds styles, `data-slot` hooks, and default trigger icons. By default, users enter edit mode
-with a double-click, which helps prevent accidental changes.
-
-<Example name="editable/basic" />
-
-## Install with shadcn
-
-See [Quick Start](/docs/quick-start) for full package setup, registry configuration, and styling guidance.
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/editable' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/editable' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/editable' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/editable' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/editable' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/editable' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Anatomy
-
-```text
-Editable
-├─ EditableLabel
-├─ EditableArea
-│  ├─ EditableInput
-│  └─ EditablePreview
-├─ EditableControl or EditableControls
-│  ├─ EditableEditTrigger
-│  ├─ EditableSubmitTrigger
-│  └─ EditableCancelTrigger
-
-EditableRootProvider
-└─ same part tree connected to Ark `useEditable()` state
-```
-
-| Part                         | Role                                                   |
-| ---------------------------- | ------------------------------------------------------ |
-| `Editable`                 | Component state, callbacks, form props, and accessibility wiring. |
-| `EditableRootProvider`      | Root connected to a `useEditable()` instance.          |
-| `EditableLabel`             | Visible label for the input and preview.               |
-| `EditableArea`              | Shared container for the input and preview.            |
-| `EditableInput`             | Text input shown while editing.                        |
-| `EditablePreview`           | Read-only value or placeholder shown outside edit mode. |
-| `EditableControl`           | Optional container for edit, submit, and cancel buttons. |
-| `EditableControls`          | Convenience wrapper for the standard trigger flow.   |
-| `EditableEditTrigger`       | Button that enters edit mode.                          |
-| `EditableSubmitTrigger`     | Button that commits the current value.                 |
-| `EditableCancelTrigger`     | Button that reverts the current value.                 |
-
-## Composition
-
-Keep `EditableInput` and `EditablePreview` as siblings inside `EditableArea`, then place
-`EditableControls` after the area for the standard edit, submit, and cancel flow. Use
-`EditableRootProvider` instead of `Editable` when state created by `useEditable()` must be
-shared with controls outside the rendered tree. Use `EditableContext` or `useEditableContext()` for
-custom content that depends on the current edit state. In Solid, the store exposed by `useEditable()`
-and context is an accessor, so read state as `editable().editing`.
 
 ## Examples
 
@@ -165,6 +88,46 @@ accessible names in line with the visible text.
 
 <Example name="editable/advanced-customization" />
 
+## Composition
+
+Keep `EditableInput` and `EditablePreview` as siblings inside `EditableArea`, then place
+`EditableControls` after the area for the standard edit, submit, and cancel flow. Use
+`EditableRootProvider` instead of `Editable` when state created by `useEditable()` must be
+shared with controls outside the rendered tree. Use `EditableContext` or `useEditableContext()` for
+custom content that depends on the current edit state. In Solid, the store exposed by `useEditable()`
+and context is an accessor, so read state as `editable().editing`.
+
+## Anatomy
+
+```text
+Editable
+├─ EditableLabel
+├─ EditableArea
+│  ├─ EditableInput
+│  └─ EditablePreview
+├─ EditableControl or EditableControls
+│  ├─ EditableEditTrigger
+│  ├─ EditableSubmitTrigger
+│  └─ EditableCancelTrigger
+
+EditableRootProvider
+└─ same part tree connected to Ark `useEditable()` state
+```
+
+| Part                         | Role                                                   |
+| ---------------------------- | ------------------------------------------------------ |
+| `Editable`                 | Component state, callbacks, form props, and accessibility wiring. |
+| `EditableRootProvider`      | Root connected to a `useEditable()` instance.          |
+| `EditableLabel`             | Visible label for the input and preview.               |
+| `EditableArea`              | Shared container for the input and preview.            |
+| `EditableInput`             | Text input shown while editing.                        |
+| `EditablePreview`           | Read-only value or placeholder shown outside edit mode. |
+| `EditableControl`           | Optional container for edit, submit, and cancel buttons. |
+| `EditableControls`          | Convenience wrapper for the standard trigger flow.   |
+| `EditableEditTrigger`       | Button that enters edit mode.                          |
+| `EditableSubmitTrigger`     | Button that commits the current value.                 |
+| `EditableCancelTrigger`     | Button that reverts the current value.                 |
+
 ## Styling
 
 Use `className` in React or `class` in Solid and Vue on exported parts for structural styles. Tailwind
@@ -176,7 +139,7 @@ The root fills the width of its container, so switching between preview and inpu
 layout. With `autoResize`, the root follows the text width instead. To limit the width, set
 `max-width` on the root with a class.
 
-### CSS Properties
+### CSS variables
 
 <CssPropertiesSection properties={EditableDocs.editableOverrideCssProperties} />
 

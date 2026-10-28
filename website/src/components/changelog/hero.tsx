@@ -1,51 +1,40 @@
+import { useLang } from '@rspress/core/runtime';
 import type { ReactNode } from 'react';
 import styles from './hero.module.css';
 
-type ChangelogHeroTone = 'blue' | 'cyan' | 'green' | 'orange' | 'violet';
-
-export function ChangelogHero({
-  id,
-  category,
-  date,
-  dateTime,
-  title,
-  summary,
-  tone,
-  children,
-}: {
-  id?: string;
-  category: string;
-  date?: string;
-  dateTime?: string;
-  title: string;
-  summary: string;
-  tone: ChangelogHeroTone;
-  children: ReactNode;
-}) {
+// Illustration under an entry heading: a neutral card around the visual.
+export function ChangelogHero({ children }: { children: ReactNode }) {
   return (
-    <section className={`${styles.hero} ${styles[tone]}`} id={id} aria-label={title}>
-      <div className={styles.meta}>
-        <span className={styles.category}>{category}</span>
-        {date && (
-          <time className={styles.date} dateTime={dateTime}>
-            {date}
-          </time>
-        )}
-      </div>
-
-      <div className={styles.layout}>
-        <div className={styles.copy}>
-          <p className={styles.title}>{title}</p>
-          <p className={styles.summary}>{summary}</p>
-        </div>
-        <div className={styles.visual} aria-hidden="true">
-          {children}
-        </div>
-      </div>
-    </section>
+    <div className={styles.hero} aria-hidden="true">
+      {children}
+    </div>
   );
 }
 
-export function ChangelogNewsItem({ children }: { children: ReactNode }) {
-  return <div className={styles.newsItem}>{children}</div>;
+// One Changelog entry: version badge and date, then the MDX heading, illustration, and notes.
+export function ChangelogNewsItem({
+  version,
+  dateTime,
+  children,
+}: {
+  version: string;
+  dateTime: string;
+  children: ReactNode;
+}) {
+  const lang = useLang();
+  const date = new Intl.DateTimeFormat(lang, { dateStyle: 'long', timeZone: 'UTC' }).format(
+    new Date(dateTime),
+  );
+
+  return (
+    <article className={styles.newsItem}>
+      <div className={styles.entryMeta}>
+        <span className={styles.version}>{version}</span>
+        <time className={styles.date} dateTime={dateTime}>
+          {date}
+        </time>
+      </div>
+      {children}
+    </article>
+  );
 }

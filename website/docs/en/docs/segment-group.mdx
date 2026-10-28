@@ -2,14 +2,24 @@
 title: Segment Group
 component: segment-group
 description: A compact segmented control based on Ark UI for choosing one value from a small visible set.
+ark: https://ark-ui.com/docs/components/segment-group
 ---
 
 import * as SegmentGroupDocs from '@/components/examples/segment-group/css-properties';
 import { CssPropertiesSection } from '@/components/mdx/Components';
 
-## API Reference
+<Example name="segment-group/basic" />
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/segment-group" />
+## Installation
+
+<ComponentInstall />
+
+## Usage
+
+Use `SegmentGroup` as the root, place `SegmentGroupIndicator` before the items, and use
+`SegmentGroupItems` when every segment only needs a text label. `SegmentGroupItems` creates the item,
+text, and one native form input for every entry. Pass strings when the value and the label are
+the same, or `{ value, label, disabled }` objects.
 
 ## Choosing the right component
 
@@ -19,93 +29,6 @@ Use `SegmentGroup` when users choose one value from a small set that is visible 
 - Choose **`ToggleGroup`** when the items act like toolbar buttons and may have multiple active values.
 - Choose **`RadioGroup`** when the control should keep the familiar visual appearance of radio buttons.
 - Choose **`SegmentGroup`** when the interaction is radio-like but the UI should use a compact segmented control.
-
-## Basic
-
-
-Use `SegmentGroup` as the root, place `SegmentGroupIndicator` before the items, and use
-`SegmentGroupItems` when every segment only needs a text label. `SegmentGroupItems` creates the item,
-text, and one native form input for every entry. Pass strings when the value and the label are
-the same, or `{ value, label, disabled }` objects.
-
-<Example name="segment-group/basic" />
-
-## Install with shadcn
-
-See [Quick Start](/docs/quick-start) for full package setup, registry configuration, and styling guidance.
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/segment-group' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/segment-group' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/segment-group' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/segment-group' },
-  ]}
-/>
-
-  </Tab>
-
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/segment-group' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/segment-group' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Anatomy
-
-```text
-SegmentGroup
-├─ SegmentGroupLabel (optional)
-├─ SegmentGroupIndicator
-└─ SegmentGroupItem[value]
-   ├─ SegmentGroupItemText
-   └─ the native form input
-
-SegmentGroupRootProvider
-└─ the same item tree connected to a useSegmentGroup() store
-```
-
-| Part | Role |
-| ---- | ---- |
-| `SegmentGroup` | Root part that owns the selected value, keyboard navigation, and form integration. |
-| `SegmentGroupRootProvider` | Connects the parts to state created with `useSegmentGroup()`. |
-| `SegmentGroupContext` | Render-prop access to the root state for advanced composition. |
-| `SegmentGroupItemContext` | Render-prop access to the item state for advanced composition. |
-| `SegmentGroupItem` | One selectable segment with a required `value`. |
-| `SegmentGroupItemHiddenInput` | Native Ark form control for an explicit item composition. |
-| `SegmentGroupItemText` | Visible text for a segment. |
-| `SegmentGroupItems` | Renderer for standard text segments with the native input included. |
-| `SegmentGroupIndicator` | Positions the active-item highlight using Ark CSS variables. |
-| `SegmentGroupLabel` | Optional accessible label for the group. |
-
-## Composition
-
-Use `SegmentGroup` with `SegmentGroupIndicator` before `SegmentGroupItems` for the usual
-composition. `SegmentGroupItems` includes `SegmentGroupItemText` and
-exactly one `SegmentGroupItemHiddenInput` for every item. When rendering `SegmentGroupItem` directly,
-compose those parts yourself and keep exactly one `SegmentGroupItemHiddenInput` inside each item. The direct child of
-`asChild` must remain one semantic `label`.
-
-Use `SegmentGroupRootProvider` with `useSegmentGroup()` when the state must be created outside
-the rendered tree or controlled by another part of the application. React and Vue read the store as
-an object, while Solid reads its reactive state through the returned accessor.
 
 ## Examples
 
@@ -180,6 +103,45 @@ own the item's DOM node.
 
 <Example name="segment-group/aschild" />
 
+## Composition
+
+Use `SegmentGroup` with `SegmentGroupIndicator` before `SegmentGroupItems` for the usual
+composition. `SegmentGroupItems` includes `SegmentGroupItemText` and
+exactly one `SegmentGroupItemHiddenInput` for every item. When rendering `SegmentGroupItem` directly,
+compose those parts yourself and keep exactly one `SegmentGroupItemHiddenInput` inside each item. The direct child of
+`asChild` must remain one semantic `label`.
+
+Use `SegmentGroupRootProvider` with `useSegmentGroup()` when the state must be created outside
+the rendered tree or controlled by another part of the application. React and Vue read the store as
+an object, while Solid reads its reactive state through the returned accessor.
+
+## Anatomy
+
+```text
+SegmentGroup
+├─ SegmentGroupLabel (optional)
+├─ SegmentGroupIndicator
+└─ SegmentGroupItem[value]
+   ├─ SegmentGroupItemText
+   └─ the native form input
+
+SegmentGroupRootProvider
+└─ the same item tree connected to a useSegmentGroup() store
+```
+
+| Part | Role |
+| ---- | ---- |
+| `SegmentGroup` | Root part that owns the selected value, keyboard navigation, and form integration. |
+| `SegmentGroupRootProvider` | Connects the parts to state created with `useSegmentGroup()`. |
+| `SegmentGroupContext` | Render-prop access to the root state for advanced composition. |
+| `SegmentGroupItemContext` | Render-prop access to the item state for advanced composition. |
+| `SegmentGroupItem` | One selectable segment with a required `value`. |
+| `SegmentGroupItemHiddenInput` | Native Ark form control for an explicit item composition. |
+| `SegmentGroupItemText` | Visible text for a segment. |
+| `SegmentGroupItems` | Renderer for standard text segments with the native input included. |
+| `SegmentGroupIndicator` | Positions the active-item highlight using Ark CSS variables. |
+| `SegmentGroupLabel` | Optional accessible label for the group. |
+
 ## Styling
 
 Use `className` in React or `class` in Solid/Vue on exported parts for structural styles. For state-based
@@ -188,7 +150,7 @@ together with moduix `data-slot` selectors. Tailwind variants use native utiliti
 classes; the component variables below customize the CSS Modules variants. Data attributes and
 `data-slot` hooks are shared by both styling tracks.
 
-### CSS Properties
+### CSS variables
 
 <CssPropertiesSection properties={SegmentGroupDocs.segmentGroupOverrideCssProperties} />
 

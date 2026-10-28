@@ -2,13 +2,22 @@
 title: Drawer
 component: drawer
 description: Доступная панель от края экрана для навигации, форм, нижних панелей, точек привязки и сценариев со свайпами в React, Solid и Vue.
+ark: https://ark-ui.com/docs/components/drawer
 ---
 
 import * as DrawerDocs from '@/components/examples/drawer/css-properties';
 
-## Справочник API
+<Example name="drawer/basic" />
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/drawer" />
+## Установка
+
+<ComponentInstall />
+
+## Использование
+
+Соберите панель из структурных частей Ark. В этом примере она открывается на компактной точке
+привязки, а затем её можно перетащить на полную высоту. `DrawerContent` отвечает за интерактивную
+поверхность, `DrawerPositioner` размещает её, а `DrawerBackdrop` добавляет модальный фон.
 
 ## Как выбрать компонент
 
@@ -16,112 +25,6 @@ import * as DrawerDocs from '@/components/examples/drawer/css-properties';
 форм, мобильных нижних панелей и сценариев, где панель нужно перетаскивать или переводить между
 точками привязки. Выбирайте `Dialog`, если поверхность должна оставаться по центру и её не нужно
 перетаскивать.
-
-## Базовый пример
-
-
-Соберите панель из структурных частей Ark. В этом примере она открывается на компактной точке
-привязки, а затем её можно перетащить на полную высоту. `DrawerContent` отвечает за интерактивную
-поверхность, `DrawerPositioner` размещает её, а `DrawerBackdrop` добавляет модальный фон.
-
-<Example name="drawer/basic" />
-
-## Установка через shadcn
-
-Полную настройку пакета, реестра и стилей см. в разделе [Быстрый старт](/docs/quick-start).
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/drawer' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/drawer' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/drawer' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/drawer' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/drawer' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/drawer' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Анатомия
-
-```text
-Drawer
-├─ DrawerTrigger
-├─ DrawerSwipeArea (необязательно)
-├─ DrawerBackdrop
-└─ DrawerPositioner
-   └─ DrawerContent
-      ├─ DrawerGrabber
-      │  └─ DrawerGrabberIndicator
-      ├─ DrawerHeader (необязательный помощник для компоновки)
-      │  ├─ DrawerTitle
-      │  ├─ DrawerDescription
-      │  └─ DrawerCloseIcon (необязательный помощник)
-      ├─ DrawerBody (необязательный помощник для компоновки)
-      └─ DrawerFooter (необязательный помощник для компоновки)
-
-DrawerRootProvider
-└─ то же дерево частей, подключённое к хранилищу useDrawer()
-```
-
-| Часть | Назначение |
-| --- | --- |
-| `Drawer` | Корневая часть, которая хранит состояние открытия, точки привязки и поведение свайпа. |
-| `DrawerRootProvider` | Подключает части к состоянию, созданному через `useDrawer()`. |
-| `DrawerTrigger` | Открывает панель. |
-| `DrawerSwipeArea` | Необязательная область у края экрана, открывающая панель свайпом. |
-| `DrawerBackdrop` | Модальный фон. |
-| `DrawerPositioner` | Размещает содержимое панели. |
-| `DrawerContent` | Интерактивная поверхность панели. |
-| `DrawerGrabber` | Контейнер ручки для перетаскивания. |
-| `DrawerGrabberIndicator` | Визуальный индикатор внутри ручки. |
-| `DrawerTitle` | Доступное имя панели. |
-| `DrawerDescription` | Доступное описание панели. |
-| `DrawerCloseTrigger` | Закрывает панель. |
-| `DrawerCloseIcon` | Кнопка закрытия moduix, собранная из `DrawerCloseTrigger`. |
-| `DrawerStack` | Координирует вложенные панели и поверхности с отступом. |
-| `DrawerIndent` | Поверхность, которая отодвигается при открытии панели из стека. |
-| `DrawerIndentBackground` | Фон за поверхностью с отступом. |
-| `DrawerHeader`, `DrawerBody`, `DrawerFooter` | Необязательные помощники для компоновки без собственного состояния. |
-
-## Композиция
-
-По умолчанию `Drawer` хранит состояние сам и рендерит `DrawerBackdrop` и `DrawerPositioner` через портал.
-Оставляйте эти структурные части явными. Укажите `portalled={false}`, чтобы отрисовать их внутри
-текущего дерева, или передайте `portalRef` для собственного контейнера.
-
-Если состояние нужно создать за пределами дерева панели, создайте одно хранилище через `useDrawer()`
-и передайте его в один `DrawerRootProvider`. Не используйте для этого же хранилища `Drawer`.
-Для вложенных панелей создавайте отдельные хранилища и деревья `DrawerRootProvider`, чтобы
-каждая панель сохраняла собственное состояние открытия и фокуса.
-
-Поместите поверхности, которые должны двигаться вместе, в `DrawerStack`, а затем объедините
-`DrawerIndentBackground` и `DrawerIndent`. Для собственного элемента триггера или закрытия
-используйте `asChild`: в React передаётся один доступный для фокуса дочерний элемент, в Solid
-рендер-функция должна передать ему `props()`, а во Vue используется атрибут `as-child` с одним
-дочерним элементом. Обработчики Ark получают объект деталей, например
-`details.open`, `details.snapPoint` и `details.value`.
 
 ## Примеры
 
@@ -225,6 +128,66 @@ DrawerRootProvider
 
 <Example name="drawer/advanced-customization" />
 
+## Композиция
+
+По умолчанию `Drawer` хранит состояние сам и рендерит `DrawerBackdrop` и `DrawerPositioner` через портал.
+Оставляйте эти структурные части явными. Укажите `portalled={false}`, чтобы отрисовать их внутри
+текущего дерева, или передайте `portalRef` для собственного контейнера.
+
+Если состояние нужно создать за пределами дерева панели, создайте одно хранилище через `useDrawer()`
+и передайте его в один `DrawerRootProvider`. Не используйте для этого же хранилища `Drawer`.
+Для вложенных панелей создавайте отдельные хранилища и деревья `DrawerRootProvider`, чтобы
+каждая панель сохраняла собственное состояние открытия и фокуса.
+
+Поместите поверхности, которые должны двигаться вместе, в `DrawerStack`, а затем объедините
+`DrawerIndentBackground` и `DrawerIndent`. Для собственного элемента триггера или закрытия
+используйте `asChild`: в React передаётся один доступный для фокуса дочерний элемент, в Solid
+рендер-функция должна передать ему `props()`, а во Vue используется атрибут `as-child` с одним
+дочерним элементом. Обработчики Ark получают объект деталей, например
+`details.open`, `details.snapPoint` и `details.value`.
+
+## Анатомия
+
+```text
+Drawer
+├─ DrawerTrigger
+├─ DrawerSwipeArea (необязательно)
+├─ DrawerBackdrop
+└─ DrawerPositioner
+   └─ DrawerContent
+      ├─ DrawerGrabber
+      │  └─ DrawerGrabberIndicator
+      ├─ DrawerHeader (необязательный помощник для компоновки)
+      │  ├─ DrawerTitle
+      │  ├─ DrawerDescription
+      │  └─ DrawerCloseIcon (необязательный помощник)
+      ├─ DrawerBody (необязательный помощник для компоновки)
+      └─ DrawerFooter (необязательный помощник для компоновки)
+
+DrawerRootProvider
+└─ то же дерево частей, подключённое к хранилищу useDrawer()
+```
+
+| Часть | Назначение |
+| --- | --- |
+| `Drawer` | Корневая часть, которая хранит состояние открытия, точки привязки и поведение свайпа. |
+| `DrawerRootProvider` | Подключает части к состоянию, созданному через `useDrawer()`. |
+| `DrawerTrigger` | Открывает панель. |
+| `DrawerSwipeArea` | Необязательная область у края экрана, открывающая панель свайпом. |
+| `DrawerBackdrop` | Модальный фон. |
+| `DrawerPositioner` | Размещает содержимое панели. |
+| `DrawerContent` | Интерактивная поверхность панели. |
+| `DrawerGrabber` | Контейнер ручки для перетаскивания. |
+| `DrawerGrabberIndicator` | Визуальный индикатор внутри ручки. |
+| `DrawerTitle` | Доступное имя панели. |
+| `DrawerDescription` | Доступное описание панели. |
+| `DrawerCloseTrigger` | Закрывает панель. |
+| `DrawerCloseIcon` | Кнопка закрытия moduix, собранная из `DrawerCloseTrigger`. |
+| `DrawerStack` | Координирует вложенные панели и поверхности с отступом. |
+| `DrawerIndent` | Поверхность, которая отодвигается при открытии панели из стека. |
+| `DrawerIndentBackground` | Фон за поверхностью с отступом. |
+| `DrawerHeader`, `DrawerBody`, `DrawerFooter` | Необязательные помощники для компоновки без собственного состояния. |
+
 ## Стилизация
 
 Используйте `className` в React или `class` в Solid и Vue на экспортируемых частях для структурных
@@ -233,7 +196,7 @@ DrawerRootProvider
 используют нативные utility-классы и классы потребителя, а приведённые ниже переменные настраивают
 варианты CSS Modules. Атрибуты данных и хуки `data-slot` общие для обоих вариантов стилизации.
 
-### CSS-свойства
+### CSS-переменные
 
 <CssPropertiesSection properties={DrawerDocs.drawerOverrideCssProperties} />
 

@@ -2,23 +2,18 @@
 title: Editable
 component: editable
 description: Modifiez du texte directement avec React, Solid ou Vue, avec une installation par paquet ou via la CLI shadcn.
+ark: https://ark-ui.com/docs/components/editable
 ---
 
 import * as EditableDocs from '@/components/examples/editable/css-properties';
 
-## Référence de l’API
+<Example name="editable/basic" />
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/editable" />
+## Installation
 
-## Choisir le bon composant
+<ComponentInstall />
 
-- Choisissez **`Input`** ou **`Textarea`** lorsque la valeur doit toujours être disponible pour la modification.
-- Choisissez **`Editable`** lorsque la valeur est généralement en lecture seule et que la modification doit être une action explicite.
-- Utilisez **`Editable`** dans **`Field`** lorsque le texte d’aide, le message d’erreur ou l’état partagé du formulaire doivent s’afficher
-  en dehors du composant.
-
-## Exemple de base
-
+## Utilisation
 
 Utilisez `Editable` comme racine, puis composez-le avec `EditableLabel`, `EditableArea`,
 `EditableInput` et `EditablePreview`. Ajoutez `EditableControls` pour le parcours standard de
@@ -26,85 +21,12 @@ modification, de validation et d’annulation. moduix ajoute les styles, les att
 les icônes par défaut des boutons de commande. Par défaut, un double-clic active le mode de
 modification, ce qui limite les changements accidentels.
 
-<Example name="editable/basic" />
+## Choisir le bon composant
 
-## Installation avec shadcn
-
-Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration complète du paquet, du registre et des styles.
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/editable' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/editable' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/editable' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/editable' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/editable' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/editable' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Anatomie
-
-```text
-Editable
-├─ EditableLabel
-├─ EditableArea
-│  ├─ EditableInput
-│  └─ EditablePreview
-├─ EditableControl ou EditableControls
-│  ├─ EditableEditTrigger
-│  ├─ EditableSubmitTrigger
-│  └─ EditableCancelTrigger
-
-EditableRootProvider
-└─ même arbre de parties relié à l’état Ark fourni par `useEditable()`
-```
-
-| Partie                       | Rôle                                                   |
-| --------------------------- | ------------------------------------------------------ |
-| `Editable`                 | Racine qui gère l’état, les callbacks, les propriétés du formulaire et l’accessibilité. |
-| `EditableRootProvider`      | Racine reliée à une instance de `useEditable()`.       |
-| `EditableLabel`             | Libellé visible du champ et de la valeur affichée.     |
-| `EditableArea`              | Conteneur commun du champ de saisie et de l’aperçu.    |
-| `EditableInput`             | Champ de saisie affiché pendant la modification.      |
-| `EditablePreview`           | Valeur ou espace réservé affiché hors modification.    |
-| `EditableControl`           | Conteneur facultatif des boutons de modification, validation et annulation. |
-| `EditableControls`          | Groupe pratique pour le parcours standard.            |
-| `EditableEditTrigger`       | Bouton qui active le mode de modification.            |
-| `EditableSubmitTrigger`     | Bouton qui valide la valeur actuelle.                  |
-| `EditableCancelTrigger`     | Bouton qui annule les modifications en cours.          |
-
-## Composition
-
-Gardez `EditableInput` et `EditablePreview` comme éléments frères dans `EditableArea`, puis placez
-`EditableControls` après cette zone pour utiliser le parcours standard de modification, validation et
-annulation. Utilisez `EditableRootProvider` à la place de `Editable` lorsque l’état créé par
-`useEditable()` doit être partagé avec des commandes situées en dehors de l’arbre rendu. Utilisez
-`EditableContext` ou `useEditableContext()` pour un contenu personnalisé qui dépend du mode actuel.
-Dans Solid, l’état exposé par `useEditable()` et le contexte est accessible via un accesseur : il se
-lit avec `editable().editing`.
+- Choisissez **`Input`** ou **`Textarea`** lorsque la valeur doit toujours être disponible pour la modification.
+- Choisissez **`Editable`** lorsque la valeur est généralement en lecture seule et que la modification doit être une action explicite.
+- Utilisez **`Editable`** dans **`Field`** lorsque le texte d’aide, le message d’erreur ou l’état partagé du formulaire doivent s’afficher
+  en dehors du composant.
 
 ## Exemples
 
@@ -169,6 +91,47 @@ styles ; `translations` aligne les noms accessibles sur le texte visible.
 
 <Example name="editable/advanced-customization" />
 
+## Composition
+
+Gardez `EditableInput` et `EditablePreview` comme éléments frères dans `EditableArea`, puis placez
+`EditableControls` après cette zone pour utiliser le parcours standard de modification, validation et
+annulation. Utilisez `EditableRootProvider` à la place de `Editable` lorsque l’état créé par
+`useEditable()` doit être partagé avec des commandes situées en dehors de l’arbre rendu. Utilisez
+`EditableContext` ou `useEditableContext()` pour un contenu personnalisé qui dépend du mode actuel.
+Dans Solid, l’état exposé par `useEditable()` et le contexte est accessible via un accesseur : il se
+lit avec `editable().editing`.
+
+## Anatomie
+
+```text
+Editable
+├─ EditableLabel
+├─ EditableArea
+│  ├─ EditableInput
+│  └─ EditablePreview
+├─ EditableControl ou EditableControls
+│  ├─ EditableEditTrigger
+│  ├─ EditableSubmitTrigger
+│  └─ EditableCancelTrigger
+
+EditableRootProvider
+└─ même arbre de parties relié à l’état Ark fourni par `useEditable()`
+```
+
+| Partie                       | Rôle                                                   |
+| --------------------------- | ------------------------------------------------------ |
+| `Editable`                 | Racine qui gère l’état, les callbacks, les propriétés du formulaire et l’accessibilité. |
+| `EditableRootProvider`      | Racine reliée à une instance de `useEditable()`.       |
+| `EditableLabel`             | Libellé visible du champ et de la valeur affichée.     |
+| `EditableArea`              | Conteneur commun du champ de saisie et de l’aperçu.    |
+| `EditableInput`             | Champ de saisie affiché pendant la modification.      |
+| `EditablePreview`           | Valeur ou espace réservé affiché hors modification.    |
+| `EditableControl`           | Conteneur facultatif des boutons de modification, validation et annulation. |
+| `EditableControls`          | Groupe pratique pour le parcours standard.            |
+| `EditableEditTrigger`       | Bouton qui active le mode de modification.            |
+| `EditableSubmitTrigger`     | Bouton qui valide la valeur actuelle.                  |
+| `EditableCancelTrigger`     | Bouton qui annule les modifications en cours.          |
+
 ## Styles
 
 Utilisez `className` en React ou `class` en Solid et Vue sur les parties exportées pour les styles
@@ -181,7 +144,7 @@ La racine occupe la largeur de son conteneur, si bien que le passage entre l’a
 décale pas la mise en page. Avec `autoResize`, la racine suit la largeur du texte. Pour limiter la
 largeur, appliquez `max-width` à la racine avec une classe.
 
-### Propriétés CSS
+### Variables CSS
 
 <CssPropertiesSection properties={EditableDocs.editableOverrideCssProperties} />
 

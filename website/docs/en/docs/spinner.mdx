@@ -2,18 +2,18 @@
 title: Spinner
 component: spinner
 description: A compact loading indicator with status semantics, size control, and optional custom indicator content.
+ark: https://ark-ui.com/docs/guides/composition
 ---
 
 import * as SpinnerDocs from '@/components/examples/spinner/css-properties';
 
-## API Reference
+<Example name="spinner/basic" />
 
-Ark UI does not provide a dedicated Spinner component. moduix builds `Spinner` with Ark UI's
-`ark.span` factory and exposes a small API around one root element. The component follows Ark's
-[composition](https://ark-ui.com/docs/guides/composition), [styling](https://ark-ui.com/docs/guides/styling), and
-[ref](https://ark-ui.com/docs/guides/ref) guidance.
+## Installation
 
-## Basic
+<ComponentInstall />
+
+## Usage
 
 Use `Spinner` for short-lived loading states in buttons, inline status rows, and compact empty
 states. By default, it exposes the loading status to assistive technology with `role="status"` and
@@ -26,76 +26,6 @@ Under `prefers-reduced-motion: reduce`, the spinner stops rotating because the f
 
 Set `decorative` when visible text already describes the loading state: the root then gets
 `aria-hidden="true"` and no `role` or fallback label.
-
-
-<Example name="spinner/basic" />
-
-## Install with shadcn
-
-See [Quick Start](/docs/quick-start) for full package setup, registry configuration, and styling guidance.
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/spinner' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/spinner' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/spinner' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/spinner' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/spinner' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/spinner' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Anatomy
-
-`Spinner` exposes one public root. In the default composition, moduix adds an internal indicator
-wrapper and a default ring. These are DOM nodes and styling hooks, not separately exported components.
-Custom `children` replace the ring, while `asChild` replaces the root and leaves the indicator
-markup to the child.
-
-```text
-Spinner
-└─ root[data-scope="spinner"][data-part="root"][data-slot="spinner-root"][data-size]
-   └─ indicator[data-scope="spinner"][data-part="indicator"][data-slot="spinner-indicator"]
-      └─ ring[data-scope="spinner"][data-part="ring"][data-slot="spinner-ring"] (default only)
-```
-
-| Part                       | Role                                                                                  |
-| -------------------------- | ------------------------------------------------------------------------------------- |
-| `Spinner`                   | Public root. Accepts `size`, `decorative`, `asChild`, `children`, and native `span` props. |
-| indicator                  | Internal rotating wrapper that owns the indicator's size and animation.                     |
-| ring                       | Internal default ring. It is omitted when custom `children` are provided.                    |
-
-## Composition
-
-`Spinner` represents an app-owned loading state; it does not start, stop, or otherwise manage the
-operation being represented. Render it from the state that already owns that operation.
-
-Pass custom `children` to replace the default ring while keeping the standard root, sizing, and
-rotating indicator wrapper. Use `asChild` only when another component must own the root element: the
-built-in indicator and ring are not rendered in that mode, so exactly one non-interactive child must
-provide the visual indicator markup.
 
 ## Examples
 
@@ -132,6 +62,41 @@ attributes and class name, and must render the visual indicator itself.
 
 <Example name="spinner/as-child" />
 
+## Composition
+
+Ark UI does not provide a dedicated Spinner component. moduix builds `Spinner` with Ark UI's
+`ark.span` factory and exposes a small API around one root element. The component follows Ark's
+[composition](https://ark-ui.com/docs/guides/composition), [styling](https://ark-ui.com/docs/guides/styling), and
+[ref](https://ark-ui.com/docs/guides/ref) guidance.
+
+`Spinner` represents an app-owned loading state; it does not start, stop, or otherwise manage the
+operation being represented. Render it from the state that already owns that operation.
+
+Pass custom `children` to replace the default ring while keeping the standard root, sizing, and
+rotating indicator wrapper. Use `asChild` only when another component must own the root element: the
+built-in indicator and ring are not rendered in that mode, so exactly one non-interactive child must
+provide the visual indicator markup.
+
+## Anatomy
+
+`Spinner` exposes one public root. In the default composition, moduix adds an internal indicator
+wrapper and a default ring. These are DOM nodes and styling hooks, not separately exported components.
+Custom `children` replace the ring, while `asChild` replaces the root and leaves the indicator
+markup to the child.
+
+```text
+Spinner
+└─ root[data-scope="spinner"][data-part="root"][data-slot="spinner-root"][data-size]
+   └─ indicator[data-scope="spinner"][data-part="indicator"][data-slot="spinner-indicator"]
+      └─ ring[data-scope="spinner"][data-part="ring"][data-slot="spinner-ring"] (default only)
+```
+
+| Part                       | Role                                                                                  |
+| -------------------------- | ------------------------------------------------------------------------------------- |
+| `Spinner`                   | Public root. Accepts `size`, `decorative`, `asChild`, `children`, and native `span` props. |
+| indicator                  | Internal rotating wrapper that owns the indicator's size and animation.                     |
+| ring                       | Internal default ring. It is omitted when custom `children` are provided.                    |
+
 ## Styling
 
 Style `Spinner` with `className` in React, `class` in Solid and Vue, Ark `data-scope` / `data-part`
@@ -139,7 +104,7 @@ selectors, stable `data-slot` hooks, `data-size`, and the public `--moduix-spinn
 documented by the CSS API. The CSS Modules packages expose those variables; Tailwind packages use
 utility classes and consumer class overrides instead of mirroring the CSS Modules variable layer.
 
-### CSS Properties
+### CSS variables
 
 <CssPropertiesSection properties={SpinnerDocs.spinnerOverrideCssProperties} />
 

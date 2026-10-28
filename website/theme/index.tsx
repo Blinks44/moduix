@@ -11,8 +11,6 @@ import {
   useSite,
 } from '@rspress/core/runtime';
 import {
-  IconFile,
-  IconGithub,
   CodeBlockRuntime as OriginalCodeBlockRuntime,
   FallbackHeading as OriginalFallbackHeading,
   Layout as OriginalLayout,
@@ -20,17 +18,25 @@ import {
   LlmsContainer,
   LlmsCopyButton,
   LlmsViewOptions,
-  type LlmsViewOptionsItem,
   PackageManagerTabs,
   type RootProps,
-  SvgWrapper,
   Tab,
   Tabs,
-  useMdUrl,
 } from '@rspress/core/theme-original';
 import { clsx } from 'clsx';
+import { Clock } from 'lucide-react';
 import { useEffect, type ComponentProps } from 'react';
 import './index.css';
+import {
+  BlockLinks,
+  ComponentBreadcrumb,
+  ComponentLinks,
+  PageBreadcrumb,
+} from '@/components/docs/component-header';
+import { NavMenus } from '@/components/docs/nav-menus';
+import { NotFound } from '@/components/docs/not-found';
+import { BlockInstall } from '@/components/mdx/block-install';
+import { ComponentInstall } from '@/components/mdx/component-install';
 import {
   Card,
   Cards,
@@ -39,12 +45,14 @@ import {
   ExampleFrame,
   PreviewFrame,
   PrimitiveReference,
-  BlockInstall,
   ShadcnInstallOptions,
   StyleTrackCard,
   StyleTrackCards,
 } from '@/components/mdx/Components';
+import { ExamplePanel, FrameworkCode } from '@/components/mdx/example-panel';
+import { PropChips, UsageCode } from '@/components/mdx/usage';
 import { Tag } from './components/Tag';
+import { moduixShikiTheme } from './shiki-theme';
 
 export * from '@rspress/core/theme-original';
 
@@ -56,8 +64,19 @@ function DocDescription() {
   return description ? <p className="moduix-doc-description">{description}</p> : null;
 }
 
-function CodeBlockRuntime(props: ComponentProps<typeof OriginalCodeBlockRuntime>) {
-  return <OriginalCodeBlockRuntime height={520} {...props} />;
+// Exported so every `CodeBlockRuntime` from `@rspress/core/theme` uses the build-time Shiki theme.
+// Rspress omits `theme` from the option type but spreads `shikiOptions` after its default.
+export function CodeBlockRuntime({
+  shikiOptions,
+  ...props
+}: ComponentProps<typeof OriginalCodeBlockRuntime>) {
+  return (
+    <OriginalCodeBlockRuntime
+      height={520}
+      {...props}
+      shikiOptions={{ ...shikiOptions, theme: moduixShikiTheme } as typeof shikiOptions}
+    />
+  );
 }
 
 function SocialMetadata() {
@@ -98,44 +117,33 @@ function SocialMetadata() {
 }
 
 function DocActions() {
-  const t = useI18n<typeof import('i18n')>();
   const { frontmatter } = useFrontmatter();
-  const { pathname: markdownPath } = useMdUrl();
+  const component =
+    typeof frontmatter.component === 'string' ? frontmatter.component.trim() : undefined;
+  const block = typeof frontmatter.block === 'string' ? frontmatter.block.trim() : undefined;
+
+  if (import.meta.env.SSG_MD) return null;
+
+  return (
+    <div className="moduix-doc-actions">
+      {component ? <ComponentLinks component={component} /> : null}
+      {block ? <BlockLinks block={block} /> : null}
+      <LlmsContainer>
+        <LlmsCopyButton />
+        <LlmsViewOptions />
+      </LlmsContainer>
+    </div>
+  );
+}
+
+function DocBreadcrumb() {
+  const { frontmatter } = useFrontmatter();
   const component =
     typeof frontmatter.component === 'string' ? frontmatter.component.trim() : undefined;
 
   if (import.meta.env.SSG_MD) return null;
 
-  const viewOptions: LlmsViewOptionsItem[] = component
-    ? [
-        ...[
-          ['react', 'React · CSS Modules'],
-          ['react-tailwind', 'React · Tailwind'],
-          ['solid', 'Solid · CSS Modules'],
-          ['solid-tailwind', 'Solid · Tailwind'],
-          ['vue', 'Vue · CSS Modules'],
-          ['vue-tailwind', 'Vue · Tailwind'],
-        ].map(([packageName, title]) => ({
-          title,
-          href: `https://github.com/blinks44/moduix/tree/main/packages/${packageName}/src/components/${component}`,
-          icon: <SvgWrapper icon={IconGithub} />,
-        })),
-        {
-          title: t('docViewAsMarkdown'),
-          href: markdownPath,
-          icon: <SvgWrapper icon={IconFile} />,
-        },
-        'chatgpt',
-        'claude',
-      ]
-    : [];
-
-  return (
-    <LlmsContainer>
-      <LlmsCopyButton />
-      {viewOptions.length > 0 ? <LlmsViewOptions options={viewOptions} /> : null}
-    </LlmsContainer>
-  );
+  return component ? <ComponentBreadcrumb /> : <PageBreadcrumb />;
 }
 
 function DocTitle({ className, children, ...props }: ComponentProps<'h1'>) {
@@ -143,6 +151,7 @@ function DocTitle({ className, children, ...props }: ComponentProps<'h1'>) {
 
   return (
     <>
+      <DocBreadcrumb />
       <h1 className={clsx('rp-toc-include', 'moduix-doc-title', className)} {...props}>
         {children} <Tag tag={frontmatter.tag} />
       </h1>
@@ -157,10 +166,35 @@ export function FallbackHeading(props: ComponentProps<typeof OriginalFallbackHea
 
   return (
     <>
+      <DocBreadcrumb />
       <OriginalFallbackHeading {...props} />
       <DocDescription />
       <DocActions />
     </>
+  );
+}
+
+// Footer date from `plugins/last-updated-date.js`, as a long localized date.
+export function LastUpdated() {
+  const t = useI18n<typeof import('i18n')>();
+  const lang = useLang();
+  const { page } = usePage();
+  const date = (page as { lastUpdatedDate?: string }).lastUpdatedDate;
+
+  if (!date) return null;
+
+  return (
+    <div className="rp-last-updated">
+      <Clock aria-hidden="true" />
+      <p>
+        {t('lastUpdatedText')}{' '}
+        <time dateTime={date}>
+          {new Intl.DateTimeFormat(lang, { dateStyle: 'long', timeZone: 'UTC' }).format(
+            new Date(date),
+          )}
+        </time>
+      </p>
+    </div>
   );
 }
 
@@ -184,8 +218,7 @@ function ModuixNavTitle() {
       <Link href={href} className="rp-nav__title__link">
         <svg
           className="moduix-nav-logo"
-          role="img"
-          aria-label="moduix"
+          aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 32 32"
           fill="none"
@@ -198,6 +231,7 @@ function ModuixNavTitle() {
           <rect x="22.4" y="12.3" width="8.2" height="8.2" rx="1.1" fill="currentColor" />
           <rect x="22.4" y="22.4" width="8.2" height="8.2" rx="1.1" fill="currentColor" />
         </svg>
+        <span className="moduix-nav-wordmark">moduix</span>
       </Link>
     </div>
   );
@@ -207,18 +241,23 @@ const mdxComponents = {
   Card,
   Cards,
   CodeBlockRuntime,
+  ComponentInstall,
   CssPropertiesSection,
   ExampleCode,
   ExampleFrame,
+  ExamplePanel,
+  FrameworkCode,
   PreviewFrame,
   PackageManagerTabs,
   PrimitiveReference,
+  PropChips,
   BlockInstall,
   ShadcnInstallOptions,
   StyleTrackCard,
   StyleTrackCards,
   Tab,
   Tabs,
+  UsageCode,
 };
 
 export function Root({ children }: RootProps) {
@@ -230,7 +269,12 @@ export function Layout() {
     <>
       <SocialMetadata />
       <SynchronizeModuixColorScheme />
-      <OriginalLayout components={{ h1: DocTitle }} navTitle={<ModuixNavTitle />} />
+      <OriginalLayout
+        components={{ h1: DocTitle }}
+        navTitle={<ModuixNavTitle />}
+        afterRightNavItems={<NavMenus />}
+        NotFoundLayout={NotFound}
+      />
       <div id="__rspress_modal_container" />
     </>
   );

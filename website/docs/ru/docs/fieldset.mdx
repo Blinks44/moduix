@@ -2,19 +2,16 @@
 title: Fieldset
 component: fieldset
 description: Объединяйте связанные элементы формы под одним заголовком, сохраняя нативную семантику fieldset и общее состояние группы. Поясняющий текст и сообщения об ошибках связаны с группой и доступны вспомогательным технологиям.
+ark: https://ark-ui.com/docs/components/fieldset
 ---
 
-## Справочник API
+<Example name="fieldset/basic" />
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/fieldset" />
+## Установка
 
-## Выбор подходящего компонента
+<ComponentInstall />
 
-Используйте `Fieldset`, когда несколько связанных элементов управления нужно объединить в одну группу с общим
-заголовком, например для контактных данных или настроек уведомлений. `Field` подходит, когда у одного элемента
-управления должны быть собственные метка, поясняющий текст и сообщение об ошибке.
-
-## Базовый пример
+## Использование
 
 Импортируйте `Fieldset` из `@moduix/react/fieldset`, `@moduix/solid/fieldset` или `@moduix/vue/fieldset` для CSS Modules,
 а для Tailwind CSS используйте `@moduix/react-tailwind/fieldset`, `@moduix/solid-tailwind/fieldset` или
@@ -23,76 +20,11 @@ description: Объединяйте связанные элементы форм
 Создайте группу из `Fieldset`, `FieldsetLegend`, связанных элементов управления и, если нужно, поясняющего текста или
 сообщения об ошибке. `Fieldset` является корневым компонентом группы.
 
-<Example name="fieldset/basic" />
+## Выбор подходящего компонента
 
-## Установка через shadcn
-
-Полную настройку пакета, реестра и стилей см. в разделе [Быстрый старт](/docs/quick-start).
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/fieldset' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/fieldset' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/fieldset' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/fieldset' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/fieldset' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/fieldset' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Анатомия
-
-```text
-Fieldset | FieldsetRootProvider
-├─ FieldsetLegend
-├─ grouped controls
-├─ FieldsetHelperText (optional)
-└─ FieldsetErrorText (optional)
-```
-
-| Часть                        | Назначение                                                                                         |
-| ---------------------------- | -------------------------------------------------------------------------------------------------- |
-| `Fieldset`                   | Создаёт состояние и добавляет в DOM нативный элемент `fieldset`.                                  |
-| `FieldsetRootProvider`       | Добавляет в DOM нативный `fieldset` с состоянием, созданным через `useFieldset`.                   |
-| `FieldsetContext`            | Даёт дочерним компонентам доступ к состоянию группы и не добавляет отдельный элемент в DOM.       |
-| `FieldsetLegend`             | Нативный `legend`, задающий доступное имя группы.                                                  |
-| `FieldsetHelperText`         | Поясняющий текст, связанный с корнем через `aria-describedby`.                                     |
-| `FieldsetErrorText`          | Сообщение об ошибке, объявляемое через `aria-live="polite"`; выводится только когда `invalid` равно `true`. |
-
-## Композиция
-
-Оставьте внутри корневого компонента один видимый `FieldsetLegend`, а связанные элементы управления и их части `Field`
-разместите в той же композиции. Установите `invalid` у корня для общей ошибки и у вложенных `Field`, если отдельным
-элементам управления нужно собственное состояние валидации. Отключённый fieldset передаёт состояние нативным элементам
-управления и совместимым с Ark дочерним компонентам.
-
-Используйте `useFieldset` из соответствующего пакета (`@moduix/react` или `@moduix/solid`) вместе с
-`FieldsetRootProvider`, если состояние нужно создать вне дерева или разделить с соседними элементами управления.
-Для чтения состояния в дочернем компоненте используйте `FieldsetContext` или `useFieldsetContext()`. Не размещайте
-`Fieldset` вместе с `FieldsetRootProvider` для одного хранилища. Чтобы заменить HTML-элемент части, используйте
-`asChild` с одним семантическим дочерним элементом.
+Используйте `Fieldset`, когда несколько связанных элементов управления нужно объединить в одну группу с общим
+заголовком, например для контактных данных или настроек уведомлений. `Field` подходит, когда у одного элемента
+управления должны быть собственные метка, поясняющий текст и сообщение об ошибке.
 
 ## Примеры
 
@@ -137,6 +69,38 @@ ARIA-состояние.
 пользоваться соседние элементы управления или повторно используемые компоненты.
 
 <Example name="fieldset/root-provider" />
+
+## Композиция
+
+Оставьте внутри корневого компонента один видимый `FieldsetLegend`, а связанные элементы управления и их части `Field`
+разместите в той же композиции. Установите `invalid` у корня для общей ошибки и у вложенных `Field`, если отдельным
+элементам управления нужно собственное состояние валидации. Отключённый fieldset передаёт состояние нативным элементам
+управления и совместимым с Ark дочерним компонентам.
+
+Используйте `useFieldset` из соответствующего пакета (`@moduix/react` или `@moduix/solid`) вместе с
+`FieldsetRootProvider`, если состояние нужно создать вне дерева или разделить с соседними элементами управления.
+Для чтения состояния в дочернем компоненте используйте `FieldsetContext` или `useFieldsetContext()`. Не размещайте
+`Fieldset` вместе с `FieldsetRootProvider` для одного хранилища. Чтобы заменить HTML-элемент части, используйте
+`asChild` с одним семантическим дочерним элементом.
+
+## Анатомия
+
+```text
+Fieldset | FieldsetRootProvider
+├─ FieldsetLegend
+├─ grouped controls
+├─ FieldsetHelperText (optional)
+└─ FieldsetErrorText (optional)
+```
+
+| Часть                        | Назначение                                                                                         |
+| ---------------------------- | -------------------------------------------------------------------------------------------------- |
+| `Fieldset`                   | Создаёт состояние и добавляет в DOM нативный элемент `fieldset`.                                  |
+| `FieldsetRootProvider`       | Добавляет в DOM нативный `fieldset` с состоянием, созданным через `useFieldset`.                   |
+| `FieldsetContext`            | Даёт дочерним компонентам доступ к состоянию группы и не добавляет отдельный элемент в DOM.       |
+| `FieldsetLegend`             | Нативный `legend`, задающий доступное имя группы.                                                  |
+| `FieldsetHelperText`         | Поясняющий текст, связанный с корнем через `aria-describedby`.                                     |
+| `FieldsetErrorText`          | Сообщение об ошибке, объявляемое через `aria-live="polite"`; выводится только когда `invalid` равно `true`. |
 
 ## Стилизация
 

@@ -1,0 +1,205 @@
+/* Light/Example/Toolbar and the Preview group of the Button page in Moduix.sketch. */
+.panel {
+  margin-block: 1rem 2rem;
+  overflow: hidden;
+  border: 1px solid var(--rp-c-divider);
+  border-radius: 14px;
+  background: var(--moduix-doc-preview-bg);
+  container-type: inline-size;
+}
+
+.toolbar {
+  display: flex;
+  min-height: 48px;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  border-bottom: 1px solid var(--rp-c-divider);
+  padding-inline: 16px 8px;
+  background: var(--rp-c-bg-soft);
+}
+
+.tabs {
+  display: flex;
+  align-self: stretch;
+  gap: 16px;
+}
+
+.tab {
+  min-height: 48px;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  padding: 2px 4px 0;
+  background: none;
+  color: var(--rp-c-text-3);
+  font: inherit;
+  font-size: 14px;
+  cursor: pointer;
+
+  &:hover {
+    color: var(--rp-c-text-1);
+  }
+
+  &[aria-selected='true'] {
+    border-bottom-color: var(--rp-c-text-0);
+    color: var(--rp-c-text-0);
+    font-weight: 500;
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--rp-c-brand);
+    outline-offset: -2px;
+  }
+}
+
+.controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding-block: 8px;
+}
+
+.select {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+
+  select {
+    height: 32px;
+    appearance: none;
+    border: 1px solid var(--moduix-doc-border-strong);
+    border-radius: 8px;
+    padding: 0 36px 0 12px;
+    background: var(--rp-c-bg);
+    color: var(--rp-c-text-1);
+    font: inherit;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+
+    &:hover {
+      background: var(--rp-c-bg-mute);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--rp-c-brand);
+      outline-offset: 2px;
+    }
+  }
+
+  &[data-dot] select {
+    padding-inline-start: 26px;
+  }
+
+  &[data-dot]::before {
+    position: absolute;
+    inset-inline-start: 12px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--moduix-doc-framework-color);
+    content: '';
+    pointer-events: none;
+  }
+
+  > svg {
+    position: absolute;
+    inset-inline-end: 10px;
+    width: 16px;
+    height: 16px;
+    color: var(--rp-c-text-3);
+    pointer-events: none;
+  }
+}
+
+.select[data-dot='react'] {
+  --moduix-doc-framework-color: #38bdf8;
+}
+
+.select[data-dot='solid'] {
+  --moduix-doc-framework-color: #4f7fd0;
+}
+
+.select[data-dot='vue'] {
+  --moduix-doc-framework-color: #34c38f;
+}
+
+.iconButton {
+  display: grid;
+  width: 32px;
+  height: 32px;
+  place-items: center;
+  border: 1px solid var(--moduix-doc-border-strong);
+  border-radius: 8px;
+  background: var(--rp-c-bg);
+  color: var(--rp-c-text-1);
+  cursor: pointer;
+
+  &:hover {
+    background: var(--rp-c-bg-mute);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--rp-c-brand);
+    outline-offset: 2px;
+  }
+
+  svg {
+    width: 16px;
+    height: 16px;
+  }
+}
+
+.stage {
+  position: relative;
+  background-image: radial-gradient(var(--rp-c-divider) 1px, transparent 1px);
+  background-position: 10px 10px;
+  background-size: 20px 20px;
+
+  > div {
+    min-height: 250px;
+    margin: 0;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+  }
+}
+
+.renderer {
+  position: absolute;
+  inset-block-end: 8px;
+  inset-inline-start: 12px;
+  color: var(--rp-c-text-3);
+  font-size: 12px;
+}
+
+.code {
+  max-height: 520px;
+  overflow: auto;
+
+  :global(.rp-codeblock) {
+    margin: 0;
+    border: 0;
+    border-radius: 0;
+  }
+
+  :global(.rp-codeblock) + :global(.rp-codeblock) {
+    border-top: 1px solid var(--rp-c-divider);
+  }
+
+  :global(.rp-code-button-group) {
+    display: none;
+  }
+}
+
+@container (width < 600px) {
+  .toolbar {
+    padding-inline-end: 16px;
+  }
+
+  .controls {
+    width: 100%;
+    border-top: 1px solid var(--rp-c-divider);
+  }
+}

@@ -2,20 +2,16 @@
 title: JSON Tree View
 component: json-tree-view
 description: Inspect JSON and JavaScript values in an accessible, expandable tree with JsonTreeView from moduix.
+ark: https://ark-ui.com/docs/utilities/json-tree-view
 ---
 
+<Example name="json-tree-view/basic" />
 
-## API Reference
+## Installation
 
-<PrimitiveReference href="https://ark-ui.com/docs/utilities/json-tree-view" />
+<ComponentInstall />
 
-## Choosing the right component
-
-Use `JsonTreeView` when you already have a JavaScript value and need to inspect it without writing a recursive
-renderer. Choose `TreeView` when you own the node model and need custom labels, icons, links, renaming, or branch
-content.
-
-## Basic
+## Usage
 
 Pass any JSON-like JavaScript value through `data`, then render `<JsonTreeViewTree />` inside the component.
 `JsonTreeView` generates the object, array, and value nodes for you. moduix styles the rows, indentation, focus
@@ -26,44 +22,28 @@ The framework adapters keep the same flat public names; the Vue example uses nat
 The example starts with two levels expanded. Use `defaultExpandedDepth` to choose how much of a response or
 configuration should be visible on the first render.
 
-<Example name="json-tree-view/basic" />
+## Choosing the right component
 
-## Install with shadcn
+Use `JsonTreeView` when you already have a JavaScript value and need to inspect it without writing a recursive
+renderer. Choose `TreeView` when you own the node model and need custom labels, icons, links, renaming, or branch
+content.
 
-See [Quick Start](/docs/quick-start) for full package setup, registry configuration, and styling guidance.
+## Examples
 
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
+### Compact previews
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/json-tree-view' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/json-tree-view' },
-  ]}
-/>
+Use `maxPreviewItems` to limit object and array previews, and `collapseStringsAfterLength` to shorten long strings.
+Users can expand a node to inspect its complete value.
 
-  </Tab>
-  <Tab label="Solid" value="solid">
+<Example name="json-tree-view/compact-previews" />
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/json-tree-view' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/json-tree-view' },
-  ]}
-/>
+## Composition
 
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/json-tree-view' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/json-tree-view' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
+Keep `JsonTreeViewTree` as the child of `JsonTreeView` or `JsonTreeViewRootProvider`; it renders the generated JSON nodes.
+When controls outside the tree own its state, create `useJsonTreeView` from the matching framework package and pass
+the store to `JsonTreeViewRootProvider`, then render `JsonTreeViewTree` inside it. Use controlled `expandedValue`,
+`selectedValue`, `checkedValue`, or `focusedValue` only when that state belongs to the application. Do not render
+`JsonTreeView` and `JsonTreeViewRootProvider` for the same store.
 
 ## Anatomy
 
@@ -81,23 +61,6 @@ JsonTreeViewRootProvider
 | `JsonTreeView` | Owns the data, generated tree collection, and Ark tree state. |
 | `JsonTreeViewRootProvider` | Connects the parts to a `useJsonTreeView` state instance created outside the tree. |
 | `JsonTreeViewTree` | Renders the generated object, array, and value nodes. |
-
-## Composition
-
-Keep `JsonTreeViewTree` as the child of `JsonTreeView` or `JsonTreeViewRootProvider`; it renders the generated JSON nodes.
-When controls outside the tree own its state, create `useJsonTreeView` from the matching framework package and pass
-the store to `JsonTreeViewRootProvider`, then render `JsonTreeViewTree` inside it. Use controlled `expandedValue`,
-`selectedValue`, `checkedValue`, or `focusedValue` only when that state belongs to the application. Do not render
-`JsonTreeView` and `JsonTreeViewRootProvider` for the same store.
-
-## Examples
-
-### Compact previews
-
-Use `maxPreviewItems` to limit object and array previews, and `collapseStringsAfterLength` to shorten long strings.
-Users can expand a node to inspect its complete value.
-
-<Example name="json-tree-view/compact-previews" />
 
 ## Styling
 

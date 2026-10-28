@@ -1,0 +1,94 @@
+/* 404 frame in Moduix.sketch. */
+.root {
+  display: flex;
+  min-height: calc(100vh - var(--rp-nav-height));
+  flex-direction: column;
+  align-items: center;
+  padding: 192px 16px 96px;
+  text-align: center;
+}
+
+.code {
+  margin: 0;
+  color: var(--rp-c-text-3);
+  font-family: var(--rp-font-family-mono);
+  font-size: 13px;
+}
+
+.title {
+  margin: 12px 0 0;
+  color: var(--rp-c-text-0);
+  font-size: 40px;
+  font-weight: 600;
+  line-height: 46px;
+  letter-spacing: -1px;
+}
+
+.description {
+  max-width: 44rem;
+  margin: 14px 0 0;
+  color: var(--rp-c-text-2);
+  font-size: 16px;
+  line-height: 25px;
+}
+
+.search {
+  width: min(400px, 100%);
+  margin-top: 32px;
+
+  :global(.rp-search-button) {
+    display: flex;
+    width: 100%;
+  }
+
+  :global(.rp-search-button--mobile) {
+    display: none;
+  }
+}
+
+.links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 26px;
+
+  a {
+    display: inline-flex;
+    height: 36px;
+    align-items: center;
+    gap: 8px;
+    border: 1px solid var(--moduix-doc-border-strong);
+    border-radius: 8px;
+    padding: 0 13px 0 11px;
+    color: var(--rp-c-text-0);
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
+
+    &:hover {
+      background: var(--rp-c-bg-mute);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--rp-c-brand);
+      outline-offset: 2px;
+    }
+  }
+
+  svg {
+    width: 16px;
+    height: 16px;
+  }
+}
+
+@media (width <= 768px) {
+  .root {
+    padding-top: 96px;
+  }
+
+  .title {
+    font-size: 32px;
+    line-height: 38px;
+  }
+}

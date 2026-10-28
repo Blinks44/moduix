@@ -2,62 +2,79 @@
 title: Table of Contents
 component: toc
 description: Synchronisez un sommaire accessible avec la section consultée.
+ark: https://ark-ui.com/docs/components/toc
 ---
 
-## Référence de l’API
+<Example name="table-of-contents/basic" />
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/toc" />
+## Installation
 
-## Exemple de base
+<ComponentInstall />
+
+## Utilisation
 
 `Toc` est le composant racine de l’API plate. Passez-lui un tableau `items` contenant les titres à
 suivre. Chaque élément doit avoir une `value` correspondant à l’attribut `id` d’un titre et un
 `depth` correspondant à son niveau sémantique, par exemple `2` pour `<h2>`. Utilisez le même objet
 pour rendre `TocItem`, puis construisez le fragment de `TocLink` à partir de sa `value`.
 
-
 Sur une page classique, omettez `scrollEl` et le composant observe la fenêtre. L’aperçu ci-dessous
 utilise sa propre zone de défilement. Passez cet élément à `scrollEl` pour que le suivi et la
 navigation par lien restent dans l’aperçu.
 
-<Example name="table-of-contents/basic" />
+## Exemples
 
-## Installation avec shadcn
+### Root Provider
 
-Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration complète du paquet, du registre et des styles.
+Utilisez `useToc()` lorsqu’un autre contrôle doit lire les titres actifs ou faire défiler la zone de
+lecture.
 
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
+<Example name="table-of-contents/root-provider" />
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/toc' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/toc' },
-  ]}
-/>
+### Rail
 
-  </Tab>
-  <Tab label="Solid" value="solid">
+Placez `TocRail` dans chaque lien pour tracer un connecteur SVG entre les niveaux de titres voisins.
+Transmettez les profondeurs courante, précédente et suivante depuis le même tableau `items` ordonné.
+Le rail du lien actif reprend la couleur de l’indicateur. N’ajoutez pas `TocIndicator` dans cette
+même liste.
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/toc' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/toc' },
-  ]}
-/>
+<Example name="table-of-contents/rail" />
 
-  </Tab>
-  <Tab label="Vue" value="vue">
+### Avec une navigation repliable
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/toc' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/toc' },
-  ]}
-/>
+Placez la liste de navigation dans `Collapsible` lorsque le lecteur doit pouvoir masquer le sommaire
+complet. `TocContext` fournit le titre de l’élément actif au bouton et à l’anneau de progression,
+tandis que les liens ciblent toujours la même zone de lecture.
 
-  </Tab>
-</Tabs>
+<Example name="table-of-contents/with-collapsible" />
+
+## Composition
+
+Passez un élément pour chaque titre suivi. `item.value`, l’attribut `id` du titre et le fragment de
+`TocLink` doivent être identiques, tandis que `depth` doit correspondre au niveau sémantique du
+titre. Omettez `scrollEl` lorsque la fenêtre gère le défilement ; passez la zone de lecture lorsqu’elle
+possède son propre conteneur défilant.
+
+Contrairement à Ark UI, `autoScroll` vaut `false` par défaut, à la fois pour `Toc` et pour
+`useToc()`. Passez `autoScroll` pour l’activer uniquement lorsque la révélation automatique de
+l’élément de navigation actif ne peut pas faire défiler un conteneur ancêtre.
+
+Utilisez `TocRootProvider` avec `useToc()` uniquement lorsque des contrôles extérieurs à l’arbre
+ont besoin du même état de suivi, par exemple `activeIds` ou `scrollTo`. React expose le store comme
+un objet ; Solid donne accès à son état réactif au moyen de la fonction retournée, tandis que Vue
+expose directement cet état réactif au modèle. Utilisez `TocContext` si une composition environnante,
+comme `Collapsible`, a besoin des éléments actifs.
+Pour les liens d’un routeur, utilisez `TocLink asChild` avec un seul enfant `<a>` sémantique ; en
+Solid, transmettez cet enfant avec la fonction de rendu attendue par `asChild`. Choisissez
+`TocIndicator` pour marquer la plage active ou `TocRail` pour montrer la hiérarchie de chaque
+lien ; ne rendez pas les deux dans la même liste.
+
+:::warning Limites des bibliothèques sous-jacentes
+Avec Ark UI Vue 5.39.3 et Zag 1.45.0, une modification de `activeIds` contrôlé renvoie les ID
+demandés dans `activeChange`. `TocNav` réutilise encore l’ID de la racine lorsque les deux parties
+sont rendues, ce qui crée des ID dupliqués. Cette limite est suivie dans
+[Ark #4187](https://github.com/chakra-ui/ark/issues/4187).
+:::
 
 ## Anatomie
 
@@ -88,60 +105,6 @@ TocRootProvider
 | `TocIndicator`     | Repère discret qui suit la plage active dans la liste.                  |
 | `TocRootProvider`  | Relie les parties à un état de suivi créé en dehors de l’arbre.          |
 | `TocRail`          | Branche SVG facultative qui relie les niveaux de titres voisins.         |
-
-## Composition
-
-Passez un élément pour chaque titre suivi. `item.value`, l’attribut `id` du titre et le fragment de
-`TocLink` doivent être identiques, tandis que `depth` doit correspondre au niveau sémantique du
-titre. Omettez `scrollEl` lorsque la fenêtre gère le défilement ; passez la zone de lecture lorsqu’elle
-possède son propre conteneur défilant.
-
-Contrairement à Ark UI, `autoScroll` vaut `false` par défaut, à la fois pour `Toc` et pour
-`useToc()`. Passez `autoScroll` pour l’activer uniquement lorsque la révélation automatique de
-l’élément de navigation actif ne peut pas faire défiler un conteneur ancêtre.
-
-Utilisez `TocRootProvider` avec `useToc()` uniquement lorsque des contrôles extérieurs à l’arbre
-ont besoin du même état de suivi, par exemple `activeIds` ou `scrollTo`. React expose le store comme
-un objet ; Solid donne accès à son état réactif au moyen de la fonction retournée, tandis que Vue
-expose directement cet état réactif au modèle. Utilisez `TocContext` si une composition environnante,
-comme `Collapsible`, a besoin des éléments actifs.
-Pour les liens d’un routeur, utilisez `TocLink asChild` avec un seul enfant `<a>` sémantique ; en
-Solid, transmettez cet enfant avec la fonction de rendu attendue par `asChild`. Choisissez
-`TocIndicator` pour marquer la plage active ou `TocRail` pour montrer la hiérarchie de chaque
-lien ; ne rendez pas les deux dans la même liste.
-
-:::warning Limites des bibliothèques sous-jacentes
-Avec Ark UI Vue 5.39.3 et Zag 1.45.0, une modification de `activeIds` contrôlé renvoie les ID
-demandés dans `activeChange`. `TocNav` réutilise encore l’ID de la racine lorsque les deux parties
-sont rendues, ce qui crée des ID dupliqués. Cette limite est suivie dans
-[Ark #4187](https://github.com/chakra-ui/ark/issues/4187).
-:::
-
-## Exemples
-
-### Root Provider
-
-Utilisez `useToc()` lorsqu’un autre contrôle doit lire les titres actifs ou faire défiler la zone de
-lecture.
-
-<Example name="table-of-contents/root-provider" />
-
-### Rail
-
-Placez `TocRail` dans chaque lien pour tracer un connecteur SVG entre les niveaux de titres voisins.
-Transmettez les profondeurs courante, précédente et suivante depuis le même tableau `items` ordonné.
-Le rail du lien actif reprend la couleur de l’indicateur. N’ajoutez pas `TocIndicator` dans cette
-même liste.
-
-<Example name="table-of-contents/rail" />
-
-### Avec une navigation repliable
-
-Placez la liste de navigation dans `Collapsible` lorsque le lecteur doit pouvoir masquer le sommaire
-complet. `TocContext` fournit le titre de l’élément actif au bouton et à l’anneau de progression,
-tandis que les liens ciblent toujours la même zone de lecture.
-
-<Example name="table-of-contents/with-collapsible" />
 
 ## Styles
 

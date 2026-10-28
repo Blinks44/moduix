@@ -2,13 +2,22 @@
 title: Pin Input
 component: pin-input
 description: Un champ segmenté pour saisir des codes PIN et des codes de vérification courts, avec gestion automatique du focus et prise en charge des codes OTP.
+ark: https://ark-ui.com/docs/components/pin-input
 ---
 
 import * as PinInputDocs from '@/components/examples/pin-input/css-properties';
 
-## Référence de l’API
+<Example name="pin-input/basic" />
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/pin-input" />
+## Installation
+
+<ComponentInstall />
+
+## Utilisation
+
+Utilisez `PinInput` comme racine et définissez explicitement `count`. Ajoutez `PinInputLabel` pour donner un nom accessible
+au groupe, placez `PinInputInputs` dans `PinInputControl` et composez `PinInputHiddenInput` lorsque la valeur doit participer au comportement
+d’un formulaire natif.
 
 ## Choisir le bon composant
 
@@ -17,97 +26,6 @@ Utilisez `PinInput` lorsqu’un code court de longueur fixe doit être saisi car
 - Choisissez **`PinInput`** pour les codes à usage unique, les codes PIN, les codes de récupération et les codes d’invitation.
 - Choisissez **`Input`** lorsqu’un seul champ de texte suffit.
 - Choisissez **`PasswordInput`** lorsque la valeur est une chaîne secrète unique avec un bouton d’affichage.
-
-## Exemple de base
-
-Utilisez `PinInput` comme racine et définissez explicitement `count`. Ajoutez `PinInputLabel` pour donner un nom accessible
-au groupe, placez `PinInputInputs` dans `PinInputControl` et composez `PinInputHiddenInput` lorsque la valeur doit participer au comportement
-d’un formulaire natif.
-
-<Example name="pin-input/basic" />
-
-## Installation avec shadcn
-
-Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration complète du paquet, du registre et des styles.
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/pin-input' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/pin-input' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/pin-input' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/pin-input' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/pin-input' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/pin-input' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Anatomie
-
-```text
-PinInput
-├─ PinInputLabel
-├─ PinInputControl
-│  ├─ PinInputInput[index=0]
-│  ├─ PinInputInput[index=1]
-│  └─ PinInputInput[index=2]
-└─ PinInputHiddenInput (explicite)
-
-PinInputRootProvider
-└─ même arbre de parties relié à un store usePinInput()
-```
-
-| Partie | Rôle |
-| --- | --- |
-| `PinInput` | Gère le nombre de cases, l’état de la valeur, la validation et les options du formulaire. |
-| `PinInputHiddenInput` | Contrôle de formulaire natif Ark à composer explicitement. |
-| `PinInputRootProvider` | Relie les parties à l’état créé avec `usePinInput()`. |
-| `PinInputContext` | Expose l’état de la racine aux descendants via une render prop. |
-| `PinInputLabel` | Donne un libellé au groupe de saisie du code PIN ou de vérification. |
-| `PinInputControl` | Conteneur des cases visibles indexées. |
-| `PinInputInput` | Une case visible pour un caractère. Utilisez un `index` commençant à zéro. |
-| `PinInputInputs` | Génère une partie `PinInputInput` indexée pour chaque élément du contexte Ark. |
-| `PinInputSeparator` | Aide décorative de moduix pour les groupes, et non une partie du primitif Ark. |
-| `usePinInput` | Crée l’état à utiliser avec `PinInputRootProvider`. |
-| `usePinInputContext` | Lit l’état courant de Pin Input dans l’arbre du composant. |
-
-## Composition
-
-Composez explicitement `PinInputHiddenInput` dans `PinInput` ou `PinInputRootProvider` lorsque la valeur doit
-être envoyée par un formulaire natif et être réinitialisée avec lui. Définissez `name` sur la racine et utilisez
-`form` lorsque le formulaire se trouve en dehors de l’arbre du composant.
-
-`PinInputInputs` génère une case indexée pour chaque élément du contexte Ark. Utilisez des parties `PinInputInput` explicites
-avec des index continus commençant à zéro, ainsi que `PinInputSeparator` lorsque le code doit être divisé en groupes. Les
-valeurs sont des tableaux de chaînes. Utilisez `PinInputRootProvider` avec `usePinInput` lorsque l’état ou les méthodes
-impératives doivent être gérés en dehors de l’arbre rendu ; React reçoit un objet store, Solid reçoit un accessor
-réactif, et Vue expose directement le store réactif au template.
-
-Ark gère le transfert du focus, la répartition du texte collé, la saisie au clavier et le remplissage automatique
-des codes à usage unique ; ajoutez `PinInputLabel` pour donner un nom accessible au groupe. `PinInputSeparator`
-est décoratif et rend `aria-hidden` ; placez tout texte porteur de sens en dehors
-du séparateur.
 
 ## Exemples
 
@@ -170,9 +88,55 @@ et `Button`. La valeur par défaut est `md` ; le texte des cases suit la taille.
 
 <Example name="pin-input/sizes" />
 
+## Composition
+
+Composez explicitement `PinInputHiddenInput` dans `PinInput` ou `PinInputRootProvider` lorsque la valeur doit
+être envoyée par un formulaire natif et être réinitialisée avec lui. Définissez `name` sur la racine et utilisez
+`form` lorsque le formulaire se trouve en dehors de l’arbre du composant.
+
+`PinInputInputs` génère une case indexée pour chaque élément du contexte Ark. Utilisez des parties `PinInputInput` explicites
+avec des index continus commençant à zéro, ainsi que `PinInputSeparator` lorsque le code doit être divisé en groupes. Les
+valeurs sont des tableaux de chaînes. Utilisez `PinInputRootProvider` avec `usePinInput` lorsque l’état ou les méthodes
+impératives doivent être gérés en dehors de l’arbre rendu ; React reçoit un objet store, Solid reçoit un accessor
+réactif, et Vue expose directement le store réactif au template.
+
+Ark gère le transfert du focus, la répartition du texte collé, la saisie au clavier et le remplissage automatique
+des codes à usage unique ; ajoutez `PinInputLabel` pour donner un nom accessible au groupe. `PinInputSeparator`
+est décoratif et rend `aria-hidden` ; placez tout texte porteur de sens en dehors
+du séparateur.
+
+## Anatomie
+
+```text
+PinInput
+├─ PinInputLabel
+├─ PinInputControl
+│  ├─ PinInputInput[index=0]
+│  ├─ PinInputInput[index=1]
+│  └─ PinInputInput[index=2]
+└─ PinInputHiddenInput (explicite)
+
+PinInputRootProvider
+└─ même arbre de parties relié à un store usePinInput()
+```
+
+| Partie | Rôle |
+| --- | --- |
+| `PinInput` | Gère le nombre de cases, l’état de la valeur, la validation et les options du formulaire. |
+| `PinInputHiddenInput` | Contrôle de formulaire natif Ark à composer explicitement. |
+| `PinInputRootProvider` | Relie les parties à l’état créé avec `usePinInput()`. |
+| `PinInputContext` | Expose l’état de la racine aux descendants via une render prop. |
+| `PinInputLabel` | Donne un libellé au groupe de saisie du code PIN ou de vérification. |
+| `PinInputControl` | Conteneur des cases visibles indexées. |
+| `PinInputInput` | Une case visible pour un caractère. Utilisez un `index` commençant à zéro. |
+| `PinInputInputs` | Génère une partie `PinInputInput` indexée pour chaque élément du contexte Ark. |
+| `PinInputSeparator` | Aide décorative de moduix pour les groupes, et non une partie du primitif Ark. |
+| `usePinInput` | Crée l’état à utiliser avec `PinInputRootProvider`. |
+| `usePinInputContext` | Lit l’état courant de Pin Input dans l’arbre du composant. |
+
 ## Styles
 
-### Propriétés CSS
+### Variables CSS
 
 <CssPropertiesSection properties={PinInputDocs.pinInputOverrideCssProperties} />
 

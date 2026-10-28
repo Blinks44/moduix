@@ -2,13 +2,22 @@
 title: Drawer
 component: drawer
 description: Un panneau accessible qui glisse depuis le bord de l'écran pour la navigation, les formulaires, les panneaux bas, les points d'ancrage et les interactions par balayage dans React, Solid et Vue.
+ark: https://ark-ui.com/docs/components/drawer
 ---
 
 import * as DrawerDocs from '@/components/examples/drawer/css-properties';
 
-## Référence de l’API
+<Example name="drawer/basic" />
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/drawer" />
+## Installation
+
+<ComponentInstall />
+
+## Utilisation
+
+Composez le panneau avec les parties structurelles d'Ark. Cet exemple s'ouvre sur un point d'ancrage
+compact, puis peut être déplacé jusqu'à sa hauteur maximale. `DrawerContent` est la surface
+interactive, `DrawerPositioner` la positionne et `DrawerBackdrop` fournit le calque modal.
 
 ## Choisir le bon composant
 
@@ -16,112 +25,6 @@ Utilisez `Drawer` pour un panneau qui glisse depuis le bord de la fenêtre. Il c
 navigation, aux formulaires, aux panneaux bas mobiles et aux scénarios où l'utilisateur doit faire
 glisser le panneau ou passer d'un point d'ancrage à un autre. Choisissez `Dialog` pour une surface
 centrée qui n'a pas besoin d'être déplacée.
-
-## Exemple de base
-
-
-Composez le panneau avec les parties structurelles d'Ark. Cet exemple s'ouvre sur un point d'ancrage
-compact, puis peut être déplacé jusqu'à sa hauteur maximale. `DrawerContent` est la surface
-interactive, `DrawerPositioner` la positionne et `DrawerBackdrop` fournit le calque modal.
-
-<Example name="drawer/basic" />
-
-## Installation avec shadcn
-
-Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration complète du paquet, du registre et des styles.
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/drawer' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/drawer' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/drawer' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/drawer' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/drawer' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/drawer' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Anatomie
-
-```text
-Drawer
-├─ DrawerTrigger
-├─ DrawerSwipeArea (facultatif)
-├─ DrawerBackdrop
-└─ DrawerPositioner
-   └─ DrawerContent
-      ├─ DrawerGrabber
-      │  └─ DrawerGrabberIndicator
-      ├─ DrawerHeader (aide de mise en page facultative)
-      │  ├─ DrawerTitle
-      │  ├─ DrawerDescription
-      │  └─ DrawerCloseIcon (aide facultative)
-      ├─ DrawerBody (aide de mise en page facultative)
-      └─ DrawerFooter (aide de mise en page facultative)
-
-DrawerRootProvider
-└─ même arborescence de parties connectée à un store useDrawer()
-```
-
-| Partie | Rôle |
-| --- | --- |
-| `Drawer` | Partie racine qui gère l'état d'ouverture, les points d'ancrage et le balayage. |
-| `DrawerRootProvider` | Connecte les parties à l'état créé avec `useDrawer()`. |
-| `DrawerTrigger` | Ouvre le panneau. |
-| `DrawerSwipeArea` | Zone facultative au bord de l'écran qui ouvre le panneau par balayage. |
-| `DrawerBackdrop` | Calque modal. |
-| `DrawerPositioner` | Positionne le contenu du panneau. |
-| `DrawerContent` | Surface interactive du panneau. |
-| `DrawerGrabber` | Conteneur de la poignée de déplacement. |
-| `DrawerGrabberIndicator` | Indicateur visuel dans la poignée. |
-| `DrawerTitle` | Nom accessible du panneau. |
-| `DrawerDescription` | Description accessible du panneau. |
-| `DrawerCloseTrigger` | Ferme le panneau. |
-| `DrawerCloseIcon` | Contrôle de fermeture moduix composé avec `DrawerCloseTrigger`. |
-| `DrawerStack` | Coordonne les panneaux imbriqués et les surfaces décalées. |
-| `DrawerIndent` | Surface qui recule lorsqu'un panneau empilé s'ouvre. |
-| `DrawerIndentBackground` | Arrière-plan derrière une surface décalée. |
-| `DrawerHeader`, `DrawerBody`, `DrawerFooter` | Aides de mise en page facultatives sans état propre. |
-
-## Composition
-
-Par défaut, `Drawer` gère son état et rend `DrawerBackdrop` et `DrawerPositioner` dans un portail. Gardez ces
-parties structurelles explicites. Définissez `portalled={false}` pour les rendre dans l'arborescence
-actuelle, ou transmettez `portalRef` pour utiliser un conteneur personnalisé.
-
-Lorsque l'état doit être créé en dehors de l'arborescence du panneau, créez un store avec
-`useDrawer()` et transmettez-le à un seul `DrawerRootProvider`. Ne rendez pas `Drawer` pour ce même
-store. Les panneaux imbriqués utilisent des stores et des arborescences
-`DrawerRootProvider` distincts afin de conserver leur propre état d'ouverture et de focus.
-
-Regroupez dans `DrawerStack` les surfaces qui doivent se déplacer ensemble, puis associez
-`DrawerIndentBackground` et `DrawerIndent`. Utilisez `asChild` pour un hôte personnalisé du trigger
-ou de la fermeture : React reçoit un seul enfant pouvant recevoir le focus, Solid utilise
-une fonction de rendu qui diffuse `props()` sur l'enfant, et Vue utilise l'attribut `as-child`
-avec un seul élément enfant. Les callbacks Ark reçoivent des objets de
-détails, comme `details.open`, `details.snapPoint` et `details.value`.
 
 ## Exemples
 
@@ -225,6 +128,66 @@ personnalisée a besoin de toute l'anatomie bas niveau de Drawer.
 
 <Example name="drawer/advanced-customization" />
 
+## Composition
+
+Par défaut, `Drawer` gère son état et rend `DrawerBackdrop` et `DrawerPositioner` dans un portail. Gardez ces
+parties structurelles explicites. Définissez `portalled={false}` pour les rendre dans l'arborescence
+actuelle, ou transmettez `portalRef` pour utiliser un conteneur personnalisé.
+
+Lorsque l'état doit être créé en dehors de l'arborescence du panneau, créez un store avec
+`useDrawer()` et transmettez-le à un seul `DrawerRootProvider`. Ne rendez pas `Drawer` pour ce même
+store. Les panneaux imbriqués utilisent des stores et des arborescences
+`DrawerRootProvider` distincts afin de conserver leur propre état d'ouverture et de focus.
+
+Regroupez dans `DrawerStack` les surfaces qui doivent se déplacer ensemble, puis associez
+`DrawerIndentBackground` et `DrawerIndent`. Utilisez `asChild` pour un hôte personnalisé du trigger
+ou de la fermeture : React reçoit un seul enfant pouvant recevoir le focus, Solid utilise
+une fonction de rendu qui diffuse `props()` sur l'enfant, et Vue utilise l'attribut `as-child`
+avec un seul élément enfant. Les callbacks Ark reçoivent des objets de
+détails, comme `details.open`, `details.snapPoint` et `details.value`.
+
+## Anatomie
+
+```text
+Drawer
+├─ DrawerTrigger
+├─ DrawerSwipeArea (facultatif)
+├─ DrawerBackdrop
+└─ DrawerPositioner
+   └─ DrawerContent
+      ├─ DrawerGrabber
+      │  └─ DrawerGrabberIndicator
+      ├─ DrawerHeader (aide de mise en page facultative)
+      │  ├─ DrawerTitle
+      │  ├─ DrawerDescription
+      │  └─ DrawerCloseIcon (aide facultative)
+      ├─ DrawerBody (aide de mise en page facultative)
+      └─ DrawerFooter (aide de mise en page facultative)
+
+DrawerRootProvider
+└─ même arborescence de parties connectée à un store useDrawer()
+```
+
+| Partie | Rôle |
+| --- | --- |
+| `Drawer` | Partie racine qui gère l'état d'ouverture, les points d'ancrage et le balayage. |
+| `DrawerRootProvider` | Connecte les parties à l'état créé avec `useDrawer()`. |
+| `DrawerTrigger` | Ouvre le panneau. |
+| `DrawerSwipeArea` | Zone facultative au bord de l'écran qui ouvre le panneau par balayage. |
+| `DrawerBackdrop` | Calque modal. |
+| `DrawerPositioner` | Positionne le contenu du panneau. |
+| `DrawerContent` | Surface interactive du panneau. |
+| `DrawerGrabber` | Conteneur de la poignée de déplacement. |
+| `DrawerGrabberIndicator` | Indicateur visuel dans la poignée. |
+| `DrawerTitle` | Nom accessible du panneau. |
+| `DrawerDescription` | Description accessible du panneau. |
+| `DrawerCloseTrigger` | Ferme le panneau. |
+| `DrawerCloseIcon` | Contrôle de fermeture moduix composé avec `DrawerCloseTrigger`. |
+| `DrawerStack` | Coordonne les panneaux imbriqués et les surfaces décalées. |
+| `DrawerIndent` | Surface qui recule lorsqu'un panneau empilé s'ouvre. |
+| `DrawerIndentBackground` | Arrière-plan derrière une surface décalée. |
+| `DrawerHeader`, `DrawerBody`, `DrawerFooter` | Aides de mise en page facultatives sans état propre. |
+
 ## Styles
 
 Utilisez `className` dans React ou `class` dans Solid et Vue sur les parties exportées pour les styles
@@ -234,7 +197,7 @@ Les variantes Tailwind utilisent des utilitaires natifs et les classes du consom
 variables ci-dessous personnalisent les variantes CSS Modules. Les attributs de données et les hooks
 `data-slot` sont communs aux deux modes de style.
 
-### Propriétés CSS
+### Variables CSS
 
 <CssPropertiesSection properties={DrawerDocs.drawerOverrideCssProperties} />
 

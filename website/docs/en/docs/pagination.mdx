@@ -2,105 +2,21 @@
 title: Pagination
 component: pagination
 description: Accessible page navigation for lists, tables, search results, and other paginated content.
+ark: https://ark-ui.com/docs/components/pagination
 ---
 
 import * as PaginationDocs from '@/components/examples/pagination/css-properties';
 
-## API Reference
+<Example name="pagination/basic" />
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/pagination" />
+## Installation
 
-## Basic
+<ComponentInstall />
 
+## Usage
 
 Use `Pagination` as the root component. `PaginationItems` renders the page buttons and ellipses for
 the current page range.
-
-<Example name="pagination/basic" />
-
-## Install with shadcn
-
-See [Quick Start](/docs/quick-start) for full package setup, registry configuration, and styling guidance.
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/pagination' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/pagination' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/pagination' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/pagination' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/pagination' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/pagination' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Anatomy
-
-```text
-Pagination
-├─ PaginationFirstTrigger (optional)
-├─ PaginationPrevTrigger
-├─ PaginationItems (recommended)
-├─ PaginationContext (advanced render-prop access)
-│  ├─ PaginationItem
-│  └─ PaginationEllipsis
-├─ PaginationNextTrigger
-└─ PaginationLastTrigger (optional)
-
-PaginationRootProvider
-└─ same trigger, item, ellipsis, and context tree connected to usePagination()
-```
-
-| Part                              | Role                                                               |
-| --------------------------------- | ------------------------------------------------------------------ |
-| `Pagination`                      | Navigation root that manages the current page and page size.       |
-| `PaginationRootProvider`         | Connects parts to state created by `usePagination()`.   |
-| `PaginationItems`                | Renders the computed page items and ellipses.                      |
-| `PaginationContext`              | Exposes root state and navigation helpers through an Ark render prop. |
-| `usePagination`        | Creates pagination state outside the rendered tree.                |
-| `usePaginationContext` | Reads pagination state from a descendant.                          |
-| `PaginationItem`                 | Interactive page control. Pass a page object as its props.        |
-| `PaginationEllipsis`             | Decorative marker for a collapsed page range, hidden from assistive technology. Requires `index`. |
-| `PaginationPrevTrigger`          | Moves to the previous page and disables itself on the first page.  |
-| `PaginationNextTrigger`          | Moves to the next page and disables itself on the last page.      |
-| `PaginationFirstTrigger`         | Moves to the first page and disables itself when already there.    |
-| `PaginationLastTrigger`          | Moves to the last page and disables itself when already there.     |
-
-## Composition
-
-Use `defaultPage` and `defaultPageSize` for internal state, or pass `page`, `pageSize`, and the
-matching change callbacks when another part of the application owns it. Set `count` to the total
-number of data items, not the number of pages, and pair it with a page-size prop so Ark can calculate
-`totalPages`.
-
-Use `PaginationItems` for the standard page list. Use `PaginationContext` when page items or
-nearby controls need custom rendering. If state must be created outside the rendered tree, create it
-with `usePagination()` and pass it to `PaginationRootProvider`. For URL navigation, set
-`type="link"`, provide `getPageUrl(details)`, and render semantic anchors with `asChild`.
-
-In Vue, use `v-model:page` and `v-model:page-size` for controlled state. The `pageChange` and
-`pageSizeChange` events are exposed as `@page-change` and `@page-size-change`.
 
 ## Examples
 
@@ -173,6 +89,53 @@ accessibility behavior.
 
 <Example name="pagination/advanced-customization" />
 
+## Composition
+
+Use `defaultPage` and `defaultPageSize` for internal state, or pass `page`, `pageSize`, and the
+matching change callbacks when another part of the application owns it. Set `count` to the total
+number of data items, not the number of pages, and pair it with a page-size prop so Ark can calculate
+`totalPages`.
+
+Use `PaginationItems` for the standard page list. Use `PaginationContext` when page items or
+nearby controls need custom rendering. If state must be created outside the rendered tree, create it
+with `usePagination()` and pass it to `PaginationRootProvider`. For URL navigation, set
+`type="link"`, provide `getPageUrl(details)`, and render semantic anchors with `asChild`.
+
+In Vue, use `v-model:page` and `v-model:page-size` for controlled state. The `pageChange` and
+`pageSizeChange` events are exposed as `@page-change` and `@page-size-change`.
+
+## Anatomy
+
+```text
+Pagination
+├─ PaginationFirstTrigger (optional)
+├─ PaginationPrevTrigger
+├─ PaginationItems (recommended)
+├─ PaginationContext (advanced render-prop access)
+│  ├─ PaginationItem
+│  └─ PaginationEllipsis
+├─ PaginationNextTrigger
+└─ PaginationLastTrigger (optional)
+
+PaginationRootProvider
+└─ same trigger, item, ellipsis, and context tree connected to usePagination()
+```
+
+| Part                              | Role                                                               |
+| --------------------------------- | ------------------------------------------------------------------ |
+| `Pagination`                      | Navigation root that manages the current page and page size.       |
+| `PaginationRootProvider`         | Connects parts to state created by `usePagination()`.   |
+| `PaginationItems`                | Renders the computed page items and ellipses.                      |
+| `PaginationContext`              | Exposes root state and navigation helpers through an Ark render prop. |
+| `usePagination`        | Creates pagination state outside the rendered tree.                |
+| `usePaginationContext` | Reads pagination state from a descendant.                          |
+| `PaginationItem`                 | Interactive page control. Pass a page object as its props.        |
+| `PaginationEllipsis`             | Decorative marker for a collapsed page range, hidden from assistive technology. Requires `index`. |
+| `PaginationPrevTrigger`          | Moves to the previous page and disables itself on the first page.  |
+| `PaginationNextTrigger`          | Moves to the next page and disables itself on the last page.      |
+| `PaginationFirstTrigger`         | Moves to the first page and disables itself when already there.    |
+| `PaginationLastTrigger`          | Moves to the last page and disables itself when already there.     |
+
 ## Styling
 
 moduix keeps Ark's state attributes and adds stable `data-slot` hooks for local styling. Page items
@@ -184,7 +147,7 @@ React or `class` in Solid and Vue on the part; target `[data-selected]` on `Pagi
 current page. The CSS variable below sets the shared size of items, ellipses, and triggers in the CSS
 Modules variants.
 
-### CSS Properties
+### CSS variables
 
 <CssPropertiesSection properties={PaginationDocs.paginationOverrideCssProperties} />
 

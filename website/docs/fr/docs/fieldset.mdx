@@ -2,20 +2,16 @@
 title: Fieldset
 component: fieldset
 description: Regroupez des contrôles de formulaire associés sous une même légende tout en conservant la sémantique native de fieldset et un état partagé. Les textes d’aide et d’erreur sont reliés au groupe pour rester accessibles aux technologies d’assistance.
+ark: https://ark-ui.com/docs/components/fieldset
 ---
 
-## Référence de l’API
+<Example name="fieldset/basic" />
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/fieldset" />
+## Installation
 
-## Choisir le bon composant
+<ComponentInstall />
 
-Utilisez `Fieldset` lorsque plusieurs contrôles associés doivent former un groupe avec une légende commune, par exemple
-pour des coordonnées ou des préférences de notification. Utilisez `Field` lorsqu’un seul contrôle a besoin de son propre
-libellé, texte d’aide et message de validation.
-
-## Exemple de base
-
+## Utilisation
 
 Importez `Fieldset` depuis `@moduix/react/fieldset`, `@moduix/solid/fieldset` ou `@moduix/vue/fieldset` pour CSS Modules,
 et depuis `@moduix/react-tailwind/fieldset`, `@moduix/solid-tailwind/fieldset` ou
@@ -24,75 +20,11 @@ et depuis `@moduix/react-tailwind/fieldset`, `@moduix/solid-tailwind/fieldset` o
 Créez un groupe avec `Fieldset`, `FieldsetLegend`, les contrôles associés et, si nécessaire, un texte d’aide ou un message
 d’erreur. `Fieldset` est le composant racine du groupe.
 
-<Example name="fieldset/basic" />
+## Choisir le bon composant
 
-## Installation avec shadcn
-
-Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration complète du paquet, du registre et des styles.
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/fieldset' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/fieldset' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/fieldset' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/fieldset' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/fieldset' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/fieldset' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Anatomie
-
-```text
-Fieldset | FieldsetRootProvider
-├─ FieldsetLegend
-├─ grouped controls
-├─ FieldsetHelperText (optional)
-└─ FieldsetErrorText (optional)
-```
-
-| Partie                        | Rôle                                                                                              |
-| ----------------------------- | ------------------------------------------------------------------------------------------------- |
-| `Fieldset`                    | Crée l’état et rend un élément `fieldset` natif.                                                  |
-| `FieldsetRootProvider`        | Rend un `fieldset` natif avec l’état créé par `useFieldset`.                                      |
-| `FieldsetContext`             | Expose l’état courant du groupe aux descendants sans rendre d’élément DOM supplémentaire.       |
-| `FieldsetLegend`              | Élément `legend` natif qui fournit le nom accessible du groupe.                                   |
-| `FieldsetHelperText`          | Description associée à la racine via `aria-describedby`.                                         |
-| `FieldsetErrorText`           | Message de validation annoncé via `aria-live="polite"` et rendu uniquement quand `invalid` vaut `true`. |
-
-## Composition
-
-Gardez une seule `FieldsetLegend` visible dans la racine, puis placez les contrôles associés et leurs parties `Field` dans
-la même composition. Définissez `invalid` sur la racine pour une erreur de groupe et sur les composants `Field` imbriqués
-lorsque des contrôles individuels ont besoin de leur propre état de validation. Un fieldset désactivé transmet son état aux
-contrôles natifs et aux descendants compatibles avec Ark.
-
-Utilisez `useFieldset` du package correspondant (`@moduix/react` ou `@moduix/solid`) avec `FieldsetRootProvider` lorsque
-l’état doit être créé en dehors de l’arbre rendu ou partagé avec des contrôles voisins. Utilisez `FieldsetContext` ou
-`useFieldsetContext()` pour lire cet état dans un descendant, et ne rendez pas `Fieldset` avec `FieldsetRootProvider`
-pour la même instance. Utilisez `asChild` avec un seul enfant sémantique pour remplacer l’élément rendu par une partie.
+Utilisez `Fieldset` lorsque plusieurs contrôles associés doivent former un groupe avec une légende commune, par exemple
+pour des coordonnées ou des préférences de notification. Utilisez `Field` lorsqu’un seul contrôle a besoin de son propre
+libellé, texte d’aide et message de validation.
 
 ## Exemples
 
@@ -138,6 +70,37 @@ Utilisez `useFieldset` avec `FieldsetRootProvider` pour créer l’état du fiel
 des contrôles voisins ou des descendants réutilisables.
 
 <Example name="fieldset/root-provider" />
+
+## Composition
+
+Gardez une seule `FieldsetLegend` visible dans la racine, puis placez les contrôles associés et leurs parties `Field` dans
+la même composition. Définissez `invalid` sur la racine pour une erreur de groupe et sur les composants `Field` imbriqués
+lorsque des contrôles individuels ont besoin de leur propre état de validation. Un fieldset désactivé transmet son état aux
+contrôles natifs et aux descendants compatibles avec Ark.
+
+Utilisez `useFieldset` du package correspondant (`@moduix/react` ou `@moduix/solid`) avec `FieldsetRootProvider` lorsque
+l’état doit être créé en dehors de l’arbre rendu ou partagé avec des contrôles voisins. Utilisez `FieldsetContext` ou
+`useFieldsetContext()` pour lire cet état dans un descendant, et ne rendez pas `Fieldset` avec `FieldsetRootProvider`
+pour la même instance. Utilisez `asChild` avec un seul enfant sémantique pour remplacer l’élément rendu par une partie.
+
+## Anatomie
+
+```text
+Fieldset | FieldsetRootProvider
+├─ FieldsetLegend
+├─ grouped controls
+├─ FieldsetHelperText (optional)
+└─ FieldsetErrorText (optional)
+```
+
+| Partie                        | Rôle                                                                                              |
+| ----------------------------- | ------------------------------------------------------------------------------------------------- |
+| `Fieldset`                    | Crée l’état et rend un élément `fieldset` natif.                                                  |
+| `FieldsetRootProvider`        | Rend un `fieldset` natif avec l’état créé par `useFieldset`.                                      |
+| `FieldsetContext`             | Expose l’état courant du groupe aux descendants sans rendre d’élément DOM supplémentaire.       |
+| `FieldsetLegend`              | Élément `legend` natif qui fournit le nom accessible du groupe.                                   |
+| `FieldsetHelperText`          | Description associée à la racine via `aria-describedby`.                                         |
+| `FieldsetErrorText`           | Message de validation annoncé via `aria-live="polite"` et rendu uniquement quand `invalid` vaut `true`. |
 
 ## Styles
 

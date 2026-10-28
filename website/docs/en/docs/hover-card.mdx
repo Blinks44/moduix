@@ -2,12 +2,21 @@
 title: Hover Card
 component: hover-card
 description: An Ark UI hover card for supplementary previews opened when its trigger is hovered or focused.
+ark: https://ark-ui.com/docs/components/hover-card
 ---
 
+<Example name="hover-card/basic" />
 
-## API Reference
+## Installation
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/hover-card" />
+<ComponentInstall />
+
+## Usage
+
+Compose the card from explicit Ark parts. `HoverCardTrigger` opens the card, while
+`HoverCardPositioner` and `HoverCardContent` define its floating content. The basic composition
+does not include an arrow. Put long content in `HoverCardBody` so it can scroll within the
+available height while `HoverCardContent` stays overflow-visible for an optional arrow.
 
 ## Choosing the right component
 
@@ -15,97 +24,6 @@ Use `Tooltip` for short, non-interactive hints. Use `Popover` when the popup con
 content or actions. Use `HoverCard` when you need a supplementary preview tied to a trigger, such as
 a profile or article summary. Keep essential information and its accessible alternative outside the
 hover card.
-
-## Basic
-
-
-Compose the card from explicit Ark parts. `HoverCardTrigger` opens the card, while
-`HoverCardPositioner` and `HoverCardContent` define its floating content. The basic composition
-does not include an arrow. Put long content in `HoverCardBody` so it can scroll within the
-available height while `HoverCardContent` stays overflow-visible for an optional arrow.
-
-<Example name="hover-card/basic" />
-
-## Install with shadcn
-
-See [Quick Start](/docs/quick-start) for full package setup, registry configuration, and styling guidance.
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/hover-card' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/hover-card' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/hover-card' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/hover-card' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/hover-card' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/hover-card' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Anatomy
-
-```text
-HoverCard
-├─ HoverCardTrigger
-└─ Overlay subtree (automatically rendered in a portal)
-   └─ HoverCardPositioner
-      └─ HoverCardContent
-         ├─ HoverCardArrow
-         │  └─ HoverCardArrowTip
-         └─ HoverCardBody
-            └─ content
-
-HoverCardRootProvider
-└─ same part tree connected to a moduix useHoverCard() store
-```
-
-| Part                           | Role                                                                  |
-| ------------------------------ | --------------------------------------------------------------------- |
-| `HoverCard`                    | Owns state, lifecycle, delays, positioning, ids, and outside interaction. |
-| `HoverCardRootProvider`        | Connects the parts to state created with `useHoverCard()`.            |
-| `HoverCardContext`             | Exposes current state through a render prop for descendants.         |
-| `HoverCardTrigger`             | Interactive element that opens the card on hover or focus. Use `asChild` for a link or another semantic element. |
-| `HoverCardPositioner`          | Positions the floating layer and exposes Ark positioning variables.  |
-| `HoverCardContent`             | Visible card surface that closes on outside interaction.              |
-| `HoverCardArrow`               | Optional positioned arrow wrapper that renders `HoverCardArrowTip` by default. |
-| `HoverCardArrowTip`             | Arrow tip element styled through Ark arrow variables.                 |
-| `HoverCardBody`                | Optional scrollable content region for constrained previews.          |
-
-`HoverCard` is the only public root value. Use it with the family-prefixed parts in application code.
-
-## Composition
-
-`HoverCard` owns the state and portals `HoverCardPositioner` by default. Set `portalled={false}`
-inside another overlay, or pass `portalRef` for a custom container. Use `HoverCardRootProvider`
-with `useHoverCard()` when state belongs outside the card tree; React reads the store as an object,
-while Solid reads it through its accessor, and Vue exposes the reactive store directly to the template.
-
-Keep `HoverCardArrow` inside `HoverCardContent` and wrap long previews in `HoverCardBody`:
-`Content` stays overflow-visible for the arrow, while `Body` provides the scroll region. Use
-`asChild` with one focusable child when the trigger should be a link or another semantic element.
-For several triggers sharing one content area, give each trigger a `value` and update external
-content from `onTriggerValueChange(details)`.
 
 ## Examples
 
@@ -169,6 +87,50 @@ trigger. The wrapper renders `HoverCardArrowTip` by default; keep the preview in
 `HoverCardBody` so the arrow remains part of the bordered surface while the preview can scroll.
 
 <Example name="hover-card/with-arrow" />
+
+## Composition
+
+`HoverCard` owns the state and portals `HoverCardPositioner` by default. Set `portalled={false}`
+inside another overlay, or pass `portalRef` for a custom container. Use `HoverCardRootProvider`
+with `useHoverCard()` when state belongs outside the card tree; React reads the store as an object,
+while Solid reads it through its accessor, and Vue exposes the reactive store directly to the template.
+
+Keep `HoverCardArrow` inside `HoverCardContent` and wrap long previews in `HoverCardBody`:
+`Content` stays overflow-visible for the arrow, while `Body` provides the scroll region. Use
+`asChild` with one focusable child when the trigger should be a link or another semantic element.
+For several triggers sharing one content area, give each trigger a `value` and update external
+content from `onTriggerValueChange(details)`.
+
+## Anatomy
+
+```text
+HoverCard
+├─ HoverCardTrigger
+└─ Overlay subtree (automatically rendered in a portal)
+   └─ HoverCardPositioner
+      └─ HoverCardContent
+         ├─ HoverCardArrow
+         │  └─ HoverCardArrowTip
+         └─ HoverCardBody
+            └─ content
+
+HoverCardRootProvider
+└─ same part tree connected to a moduix useHoverCard() store
+```
+
+| Part                           | Role                                                                  |
+| ------------------------------ | --------------------------------------------------------------------- |
+| `HoverCard`                    | Owns state, lifecycle, delays, positioning, ids, and outside interaction. |
+| `HoverCardRootProvider`        | Connects the parts to state created with `useHoverCard()`.            |
+| `HoverCardContext`             | Exposes current state through a render prop for descendants.         |
+| `HoverCardTrigger`             | Interactive element that opens the card on hover or focus. Use `asChild` for a link or another semantic element. |
+| `HoverCardPositioner`          | Positions the floating layer and exposes Ark positioning variables.  |
+| `HoverCardContent`             | Visible card surface that closes on outside interaction.              |
+| `HoverCardArrow`               | Optional positioned arrow wrapper that renders `HoverCardArrowTip` by default. |
+| `HoverCardArrowTip`             | Arrow tip element styled through Ark arrow variables.                 |
+| `HoverCardBody`                | Optional scrollable content region for constrained previews.          |
+
+`HoverCard` is the only public root value. Use it with the family-prefixed parts in application code.
 
 ## Styling
 

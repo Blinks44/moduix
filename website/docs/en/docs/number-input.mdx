@@ -2,20 +2,18 @@
 title: Number Input
 component: number-input
 description: A numeric input built on Ark UI with increment and decrement controls, formatting, validation, and optional drag-to-change interaction.
+ark: https://ark-ui.com/docs/components/number-input
 ---
 
 import * as NumberInputDocs from '@/components/examples/number-input/css-properties';
 
-## API Reference
+<Example name="number-input/basic" />
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/number-input" />
+## Installation
 
-## Choosing the right component
+<ComponentInstall />
 
-Use `NumberInput` when users enter numeric values that need stepping, clamping, and formatting. Use
-`Input` for free text, and `Slider` when choosing a point in a visual range is the goal.
-
-## Basic
+## Usage
 
 Import it from `@moduix/react/number-input`, `@moduix/solid/number-input`, or
 `@moduix/vue/number-input` for CSS Modules. For Tailwind CSS, use the matching
@@ -26,88 +24,10 @@ Use `NumberInput` as the root and `NumberInputField` for the standard input with
 decrement controls. Give the input an accessible name with `NumberInputLabel`, `aria-label`, or
 `aria-labelledby`.
 
-<Example name="number-input/basic" />
+## Choosing the right component
 
-## Install with shadcn
-
-See [Quick Start](/docs/quick-start) for full package setup, registry configuration, and styling guidance.
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/number-input' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/number-input' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/number-input' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/number-input' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/number-input' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/number-input' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Anatomy
-
-```text
-NumberInput
-├─ NumberInputLabel
-├─ NumberInputScrubber (optional)
-├─ NumberInputField (recommended shortcut)
-│  └─ renders NumberInputControl
-│     ├─ NumberInputDecrementTrigger
-│     ├─ NumberInputInput
-│     └─ NumberInputIncrementTrigger
-└─ NumberInputValueText (optional)
-
-NumberInputRootProvider
-└─ same part tree connected to state created by `useNumberInput()`
-```
-
-| Part | Role |
-| --- | --- |
-| `NumberInput` | Owns number input state, parsing, formatting, and keyboard behavior. |
-| `NumberInputRootProvider` | Connects parts to state created with `useNumberInput()`. |
-| `NumberInputContext` | Exposes formatted and numeric values plus imperative state methods. |
-| `NumberInputLabel` | Accessible label for the managed input. |
-| `NumberInputScrubber` | Optional drag target that changes the value as the pointer moves. |
-| `NumberInputControl` | Groups the input and increment and decrement triggers. |
-| `NumberInputField` | Convenience part that renders the standard control and trigger group. |
-| `NumberInputDecrementTrigger` | Button that decreases the current value. It renders the moduix minus icon by default. |
-| `NumberInputInput` | Editable numeric text input managed by Ark UI. |
-| `NumberInputIncrementTrigger` | Button that increases the current value. It renders the moduix plus icon by default. |
-| `NumberInputValueText` | Read-only text element for the formatted value. |
-
-## Composition
-
-Use `NumberInputField` for the standard three-part control. Keep `value` and `defaultValue` as
-strings, and read `details.value` from `onValueChange` when the input is controlled. When state must
-be created outside the rendered part tree, call `useNumberInput()` and pass the matching store to
-`NumberInputRootProvider`; do not render `NumberInput` or `NumberInputRootProvider` for the same store.
-React reads store properties directly, Solid reads them through the returned accessor, and Vue exposes the reactive store directly to the template.
-
-Use `NumberInputControl` with individual parts when the trigger order, icons, or input styling must
-differ. Add `NumberInputScrubber` alongside the field for drag-to-change behavior. Use
-`NumberInputContext` only when another part, such as a hidden form control, needs the formatted value
-or `valueAsNumber`.
+Use `NumberInput` when users enter numeric values that need stepping, clamping, and formatting. Use
+`Input` for free text, and `Slider` when choosing a point in a visual range is the goal.
 
 ## Examples
 
@@ -198,13 +118,57 @@ must be customized. Pass `translations` when custom trigger content needs locali
 
 <Example name="number-input/custom-icons" />
 
+## Composition
+
+Use `NumberInputField` for the standard three-part control. Keep `value` and `defaultValue` as
+strings, and read `details.value` from `onValueChange` when the input is controlled. When state must
+be created outside the rendered part tree, call `useNumberInput()` and pass the matching store to
+`NumberInputRootProvider`; do not render `NumberInput` or `NumberInputRootProvider` for the same store.
+React reads store properties directly, Solid reads them through the returned accessor, and Vue exposes the reactive store directly to the template.
+
+Use `NumberInputControl` with individual parts when the trigger order, icons, or input styling must
+differ. Add `NumberInputScrubber` alongside the field for drag-to-change behavior. Use
+`NumberInputContext` only when another part, such as a hidden form control, needs the formatted value
+or `valueAsNumber`.
+
+## Anatomy
+
+```text
+NumberInput
+├─ NumberInputLabel
+├─ NumberInputScrubber (optional)
+├─ NumberInputField (recommended shortcut)
+│  └─ renders NumberInputControl
+│     ├─ NumberInputDecrementTrigger
+│     ├─ NumberInputInput
+│     └─ NumberInputIncrementTrigger
+└─ NumberInputValueText (optional)
+
+NumberInputRootProvider
+└─ same part tree connected to state created by `useNumberInput()`
+```
+
+| Part | Role |
+| --- | --- |
+| `NumberInput` | Owns number input state, parsing, formatting, and keyboard behavior. |
+| `NumberInputRootProvider` | Connects parts to state created with `useNumberInput()`. |
+| `NumberInputContext` | Exposes formatted and numeric values plus imperative state methods. |
+| `NumberInputLabel` | Accessible label for the managed input. |
+| `NumberInputScrubber` | Optional drag target that changes the value as the pointer moves. |
+| `NumberInputControl` | Groups the input and increment and decrement triggers. |
+| `NumberInputField` | Convenience part that renders the standard control and trigger group. |
+| `NumberInputDecrementTrigger` | Button that decreases the current value. It renders the moduix minus icon by default. |
+| `NumberInputInput` | Editable numeric text input managed by Ark UI. |
+| `NumberInputIncrementTrigger` | Button that increases the current value. It renders the moduix plus icon by default. |
+| `NumberInputValueText` | Read-only text element for the formatted value. |
+
 ## Styling
 
 Use `className` in React or `class` in Solid and Vue on exported parts for structural styles. Tailwind variants
 use native utilities and consumer classes; the CSS variables below customize the CSS Modules variants.
 Data attributes and `data-slot` hooks are shared by both styling tracks.
 
-### CSS Properties
+### CSS variables
 
 <CssPropertiesSection properties={NumberInputDocs.numberInputOverrideCssProperties} />
 

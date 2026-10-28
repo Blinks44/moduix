@@ -2,122 +2,25 @@
 title: Select
 component: select
 description: Ark UI select composition for choosing one or more values from a popup list.
+ark: https://ark-ui.com/docs/components/select
 ---
 
 import * as SelectDocs from '@/components/examples/select/css-properties';
 
-## API Reference
+<Example name="select/basic" />
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/select" />
+## Installation
+
+<ComponentInstall />
+
+## Usage
+
+Pass a collection to `Select`, use `SelectField` for the standard visible control, and keep the popup structure explicit. `clearLabel` adds an accessible clear action. Add `SelectHiddenSelect` explicitly when native submission, autofill, validation, and reset are needed.
 
 ## Choosing the right component
 
 Use `Select` when users choose from a fixed collection and the trigger stays read-only. Use
 `Combobox` when typing helps find or create a value.
-
-## Basic
-
-Pass a collection to `Select`, use `SelectField` for the standard visible control, and keep the popup structure explicit. `clearLabel` adds an accessible clear action. Add `SelectHiddenSelect` explicitly when native submission, autofill, validation, and reset are needed.
-
-<Example name="select/basic" />
-
-## Install with shadcn
-
-See [Quick Start](/docs/quick-start) for full package setup, registry configuration, and styling guidance.
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/select' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/select' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-  <ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/select' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/select' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/select' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/select' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Anatomy
-
-```text
-Select
-├─ SelectLabel
-├─ SelectControl / SelectField
-│  ├─ SelectTrigger
-│  │  ├─ SelectValueText
-│  ├─ SelectClearTrigger
-│  └─ SelectIndicator
-├─ Overlay subtree (automatically portalled)
-│  └─ SelectPositioner
-│     └─ SelectContent
-│        ├─ SelectList
-│        └─ SelectItemGroup
-│           ├─ SelectItemGroupLabel
-│           ├─ SelectOption[item]
-│           └─ SelectItem[item]
-│              ├─ SelectItemText
-│              │  └─ SelectItemTextContent
-│              │     ├─ SelectItemTextIcon
-│              │     └─ SelectItemTextLabel
-│              └─ SelectItemIndicator
-└─ SelectHiddenSelect (explicit)
-```
-
-| Part                     | Role                                                                   |
-| ------------------------ | ---------------------------------------------------------------------- |
-| `Select`                  | Root state, collection, selection, popup lifecycle, and form data.     |
-| `SelectHiddenSelect`      | Native Ark form control; compose explicitly as described below.       |
-| `SelectRootProvider`      | Renders a select tree from state returned by `useSelect`.              |
-| `SelectContext`           | Root context for advanced state reads.                                 |
-| `SelectItemContext`       | Item context for advanced state reads.                                 |
-| `SelectLabel`           | Accessible label inherited by the trigger and native form control.     |
-| `SelectControl`         | Visual field wrapper that receives focus, invalid, and open state.     |
-| `SelectField`           | moduix helper that renders the standard control, trigger, and actions. |
-| `SelectTrigger`         | Button that opens the popup and owns keyboard entry.                   |
-| `SelectValueText`       | Placeholder or selected item labels.                                   |
-| `SelectClearTrigger`    | Button that clears the current value.                                  |
-| `SelectIndicator`       | Trigger indicator with the moduix default chevron icon.                |
-| `SelectPositioner`      | Floating layer that exposes Ark positioning CSS variables.             |
-| `SelectContent`         | Popup surface and listbox container.                                   |
-| `SelectList`            | Optional list wrapper for virtualized or custom list layouts.          |
-| `SelectItemGroup`       | Group wrapper for related collection items.                            |
-| `SelectItemGroupLabel`  | Label for a collection group.                                          |
-| `SelectItem`            | Selectable row. Pass the collection item through `item`.               |
-| `SelectOption` | Convenience row for simple options with text and an indicator. |
-| `SelectItemText`        | Text used for display and accessibility.                               |
-| `SelectItemTextContent` | Layout helper for rich item text.                                     |
-| `SelectItemTextIcon`    | Icon wrapper for rich item text.                                      |
-| `SelectItemTextLabel`   | Label wrapper for rich item text.                                    |
-| `SelectItemIndicator`   | Selected-state indicator with the moduix default check icon.           |
-
-## Composition
-
-`SelectField` is the shortcut for `SelectControl`, `SelectTrigger`, `SelectValueText`, and the default `SelectIndicator`. Add `clearLabel` for a labelled clear action, or use the explicit parts when the trigger layout needs independent styling. Keep `SelectPositioner`, `SelectContent`, and the collection items in the same Select tree. Use `SelectOption` for ordinary rows: it renders `SelectItem` with `SelectItemText` and `SelectItemIndicator`. Pass `indicator={false}` to hide the check or an icon to replace it, and use `SelectItem` when a row needs custom structure.
-
-Add `SelectHiddenSelect` explicitly inside `Select` or `SelectRootProvider` when the selection must participate in native form submission, validation, autofill, or reset. The root does not render it automatically. `Positioner` is portalled automatically; set `portalled={false}` for inline rendering or use `portalRef` for a custom container.
-
-Use `useSelect` with `SelectRootProvider` when state must be shared with controls outside the Select tree. The returned store is an object in React, an accessor in Solid, and a ref in Vue.
 
 ## Examples
 
@@ -221,11 +124,72 @@ styling.
 
 <Example name="select/advanced-customization" />
 
+## Composition
+
+`SelectField` is the shortcut for `SelectControl`, `SelectTrigger`, `SelectValueText`, and the default `SelectIndicator`. Add `clearLabel` for a labelled clear action, or use the explicit parts when the trigger layout needs independent styling. Keep `SelectPositioner`, `SelectContent`, and the collection items in the same Select tree. Use `SelectOption` for ordinary rows: it renders `SelectItem` with `SelectItemText` and `SelectItemIndicator`. Pass `indicator={false}` to hide the check or an icon to replace it, and use `SelectItem` when a row needs custom structure.
+
+Add `SelectHiddenSelect` explicitly inside `Select` or `SelectRootProvider` when the selection must participate in native form submission, validation, autofill, or reset. The root does not render it automatically. `Positioner` is portalled automatically; set `portalled={false}` for inline rendering or use `portalRef` for a custom container.
+
+Use `useSelect` with `SelectRootProvider` when state must be shared with controls outside the Select tree. The returned store is an object in React, an accessor in Solid, and a ref in Vue.
+
+## Anatomy
+
+```text
+Select
+├─ SelectLabel
+├─ SelectControl / SelectField
+│  ├─ SelectTrigger
+│  │  ├─ SelectValueText
+│  ├─ SelectClearTrigger
+│  └─ SelectIndicator
+├─ Overlay subtree (automatically portalled)
+│  └─ SelectPositioner
+│     └─ SelectContent
+│        ├─ SelectList
+│        └─ SelectItemGroup
+│           ├─ SelectItemGroupLabel
+│           ├─ SelectOption[item]
+│           └─ SelectItem[item]
+│              ├─ SelectItemText
+│              │  └─ SelectItemTextContent
+│              │     ├─ SelectItemTextIcon
+│              │     └─ SelectItemTextLabel
+│              └─ SelectItemIndicator
+└─ SelectHiddenSelect (explicit)
+```
+
+| Part                     | Role                                                                   |
+| ------------------------ | ---------------------------------------------------------------------- |
+| `Select`                  | Root state, collection, selection, popup lifecycle, and form data.     |
+| `SelectHiddenSelect`      | Native Ark form control; compose explicitly as described below.       |
+| `SelectRootProvider`      | Renders a select tree from state returned by `useSelect`.              |
+| `SelectContext`           | Root context for advanced state reads.                                 |
+| `SelectItemContext`       | Item context for advanced state reads.                                 |
+| `SelectLabel`           | Accessible label inherited by the trigger and native form control.     |
+| `SelectControl`         | Visual field wrapper that receives focus, invalid, and open state.     |
+| `SelectField`           | moduix helper that renders the standard control, trigger, and actions. |
+| `SelectTrigger`         | Button that opens the popup and owns keyboard entry.                   |
+| `SelectValueText`       | Placeholder or selected item labels.                                   |
+| `SelectClearTrigger`    | Button that clears the current value.                                  |
+| `SelectIndicator`       | Trigger indicator with the moduix default chevron icon.                |
+| `SelectPositioner`      | Floating layer that exposes Ark positioning CSS variables.             |
+| `SelectContent`         | Popup surface and listbox container.                                   |
+| `SelectList`            | Optional list wrapper for virtualized or custom list layouts.          |
+| `SelectItemGroup`       | Group wrapper for related collection items.                            |
+| `SelectItemGroupLabel`  | Label for a collection group.                                          |
+| `SelectItem`            | Selectable row. Pass the collection item through `item`.               |
+| `SelectOption` | Convenience row for simple options with text and an indicator. |
+| `SelectItemText`        | Text used for display and accessibility.                               |
+| `SelectItemTextContent` | Layout helper for rich item text.                                     |
+| `SelectItemTextIcon`    | Icon wrapper for rich item text.                                      |
+| `SelectItemTextLabel`   | Label wrapper for rich item text.                                    |
+| `SelectItemIndicator`   | Selected-state indicator with the moduix default check icon.           |
+
 ## Styling
 
 Style Select with `className` in React, `class` in Solid and Vue, stable `data-slot="select-*"` hooks, and Ark attributes. Tailwind variants use native utility classes and consumer classes. CSS Modules variants keep five size variables, listed below; colors, borders, focus rings, item spacing, and motion come from foundation tokens and the shared `--moduix-popup-*` variables, so override them with a class on the part.
 
-### CSS Properties
+### CSS variables
 
 <CssPropertiesSection properties={SelectDocs.selectOverrideCssProperties} />
 

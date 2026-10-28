@@ -2,125 +2,28 @@
 title: Combobox
 component: combobox
 description: Un champ pour rechercher et sélectionner une ou plusieurs valeurs dans une collection Ark UI avec React, Solid ou Vue.
+ark: https://ark-ui.com/docs/components/combobox
 ---
 
 import * as ComboboxDocs from '@/components/examples/combobox/css-properties';
 
-## Référence de l’API
+<Example name="combobox/basic" />
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/combobox" />
+## Installation
 
-## Choisir le bon composant
+<ComponentInstall />
 
-Utilisez `Combobox` lorsque l’utilisateur doit choisir une valeur dans une liste connue et peut saisir du texte pour filtrer les options.
-Utilisez `Select` lorsque la liste est prédéfinie et qu’un champ modifiable n’est pas nécessaire.
-
-## Exemple de base
-
+## Utilisation
 
 Créez une collection Ark avec `useListCollection`, puis transmettez-la à `Combobox`. Déclarez explicitement la structure
 de la liste. Utilisez `ComboboxOption` pour les options simples et `ComboboxItem` lorsqu’une ligne nécessite une mise en page personnalisée.
 La fonction `onInputValueChange` reçoit un objet `details` fourni par Ark.
 Les exemples Vue utilisent des SFC natifs avec `script setup`, des refs, des slots et `v-model` lorsque le contrat du composant expose un modèle Vue.
 
-<Example name="combobox/basic" />
+## Choisir le bon composant
 
-## Installation avec shadcn
-
-Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration complète du paquet, du registre et des styles.
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/combobox' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/combobox' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/combobox' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/combobox' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/combobox' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/combobox' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Anatomie
-
-```text
-Combobox[collection]
-├─ ComboboxLabel
-├─ ComboboxControl
-│  ├─ ComboboxInput
-│  ├─ ComboboxClearTrigger
-│  └─ ComboboxTrigger
-└─ Sous-arbre du menu déroulant (placé automatiquement dans un portail)
- └─ ComboboxPositioner
-    └─ ComboboxContent
-       ├─ ComboboxEmpty
-       ├─ ComboboxStatus
-       ├─ ComboboxList
-       │  ├─ ComboboxOption[item]
-       │  └─ ComboboxItem[item]
-       │     ├─ ComboboxItemText
-       │     └─ ComboboxItemIndicator
-       └─ ComboboxItemGroup
-          ├─ ComboboxItemGroupLabel
-          └─ ComboboxItem
-```
-
-| Partie | Rôle |
-| --- | --- |
-| `Combobox` | Gère l’état du composant, le filtrage, la mise en évidence et les valeurs sélectionnées. |
-| `ComboboxControl` | Conteneur du champ de saisie et des boutons d’action. |
-| `ComboboxInput` | Champ de texte utilisé pour rechercher et sélectionner une option. |
-| `ComboboxTrigger` | Ouvre et ferme la liste d’options. |
-| `ComboboxClearTrigger` | Efface la valeur sélectionnée et/ou le texte du champ. |
-| `ComboboxPositioner` | Positionne la liste flottante. |
-| `ComboboxContent` | Conteneur du contenu de la liste. |
-| `ComboboxStatus` | Conteneur stylisé pour les messages de chargement, d’erreur ou d’aide de l’application. |
-| `ComboboxList` | Conteneur de la liste des options. |
-| `ComboboxOption` | Ligne prête à l’emploi pour une option simple, avec texte et indicateur. |
-| `ComboboxItem` | Option sélectionnable de la liste. |
-| `ComboboxItemText` | Slot du texte de l’élément. |
-| `ComboboxItemIndicator` | Slot de l’indicateur de sélection. |
-| `ComboboxContext` | Accès à l’état actuel du composant sans ajouter d’éléments au DOM. |
-| `ComboboxItemContext` | Accès à l’état de l’élément courant sans ajouter d’éléments au DOM. |
-
-`ComboboxRootProvider` conserve le style du composant racine et l’applique à un état créé avec `useCombobox` de moduix.
-Accédez à l’état du composant `Combobox` dans l’arbre avec `ComboboxContext` ou `useComboboxContext`. Pour l’état d’un élément,
-utilisez `ComboboxItemContext` ou `useComboboxItemContext`.
-
-## Composition
-
-Utilisez `createListCollection` pour les éléments statiques et `useListCollection` lorsque le filtrage ou d’autres mises à jour
-modifient la collection. Pour les objets, définissez `itemToString` et `itemToValue`.
-
-`Combobox` place automatiquement `ComboboxPositioner` dans un portail, mais `ComboboxPositioner` et `ComboboxContent` restent des parties explicites
-de la composition. Définissez `portalled={false}` pour garder la liste dans l’arbre courant, ou transmettez `portalRef` pour
-un conteneur précis. Utilisez `ComboboxOption` pour les lignes simples et `ComboboxItem` avec `asChild` pour les lignes personnalisées.
-
-Conservez `value` dans l’état de l’application lorsqu’il doit être utilisé par d’autres éléments de l’interface. Si l’état est créé
-en dehors de l’arbre rendu, transmettez `useCombobox` à `ComboboxRootProvider`. En sélection multiple, les tags et toute autre
-représentation des valeurs appartiennent à l’application ; composez avec `TagsInput` pour les placer dans le même champ.
-`ComboboxStatus` est également un conteneur de messages géré par l’application et ne contrôle pas les états de chargement ou d’erreur.
+Utilisez `Combobox` lorsque l’utilisateur doit choisir une valeur dans une liste connue et peut saisir du texte pour filtrer les options.
+Utilisez `Select` lorsque la liste est prédéfinie et qu’un champ modifiable n’est pas nécessaire.
 
 ## Exemples
 
@@ -217,13 +120,73 @@ Cet exemple affiche chaque résultat comme un lien avec `ComboboxItem asChild`.
 
 <Example name="combobox/advanced-customization" />
 
+## Composition
+
+Utilisez `createListCollection` pour les éléments statiques et `useListCollection` lorsque le filtrage ou d’autres mises à jour
+modifient la collection. Pour les objets, définissez `itemToString` et `itemToValue`.
+
+`Combobox` place automatiquement `ComboboxPositioner` dans un portail, mais `ComboboxPositioner` et `ComboboxContent` restent des parties explicites
+de la composition. Définissez `portalled={false}` pour garder la liste dans l’arbre courant, ou transmettez `portalRef` pour
+un conteneur précis. Utilisez `ComboboxOption` pour les lignes simples et `ComboboxItem` avec `asChild` pour les lignes personnalisées.
+
+Conservez `value` dans l’état de l’application lorsqu’il doit être utilisé par d’autres éléments de l’interface. Si l’état est créé
+en dehors de l’arbre rendu, transmettez `useCombobox` à `ComboboxRootProvider`. En sélection multiple, les tags et toute autre
+représentation des valeurs appartiennent à l’application ; composez avec `TagsInput` pour les placer dans le même champ.
+`ComboboxStatus` est également un conteneur de messages géré par l’application et ne contrôle pas les états de chargement ou d’erreur.
+
+## Anatomie
+
+```text
+Combobox[collection]
+├─ ComboboxLabel
+├─ ComboboxControl
+│  ├─ ComboboxInput
+│  ├─ ComboboxClearTrigger
+│  └─ ComboboxTrigger
+└─ Sous-arbre du menu déroulant (placé automatiquement dans un portail)
+ └─ ComboboxPositioner
+    └─ ComboboxContent
+       ├─ ComboboxEmpty
+       ├─ ComboboxStatus
+       ├─ ComboboxList
+       │  ├─ ComboboxOption[item]
+       │  └─ ComboboxItem[item]
+       │     ├─ ComboboxItemText
+       │     └─ ComboboxItemIndicator
+       └─ ComboboxItemGroup
+          ├─ ComboboxItemGroupLabel
+          └─ ComboboxItem
+```
+
+| Partie | Rôle |
+| --- | --- |
+| `Combobox` | Gère l’état du composant, le filtrage, la mise en évidence et les valeurs sélectionnées. |
+| `ComboboxControl` | Conteneur du champ de saisie et des boutons d’action. |
+| `ComboboxInput` | Champ de texte utilisé pour rechercher et sélectionner une option. |
+| `ComboboxTrigger` | Ouvre et ferme la liste d’options. |
+| `ComboboxClearTrigger` | Efface la valeur sélectionnée et/ou le texte du champ. |
+| `ComboboxPositioner` | Positionne la liste flottante. |
+| `ComboboxContent` | Conteneur du contenu de la liste. |
+| `ComboboxStatus` | Conteneur stylisé pour les messages de chargement, d’erreur ou d’aide de l’application. |
+| `ComboboxList` | Conteneur de la liste des options. |
+| `ComboboxOption` | Ligne prête à l’emploi pour une option simple, avec texte et indicateur. |
+| `ComboboxItem` | Option sélectionnable de la liste. |
+| `ComboboxItemText` | Slot du texte de l’élément. |
+| `ComboboxItemIndicator` | Slot de l’indicateur de sélection. |
+| `ComboboxContext` | Accès à l’état actuel du composant sans ajouter d’éléments au DOM. |
+| `ComboboxItemContext` | Accès à l’état de l’élément courant sans ajouter d’éléments au DOM. |
+
+`ComboboxRootProvider` conserve le style du composant racine et l’applique à un état créé avec `useCombobox` de moduix.
+Accédez à l’état du composant `Combobox` dans l’arbre avec `ComboboxContext` ou `useComboboxContext`. Pour l’état d’un élément,
+utilisez `ComboboxItemContext` ou `useComboboxItemContext`.
+
 ## Styles
 
 Utilisez `className` avec React ou `class` avec Solid et Vue sur les parties exportées pour les styles structurels.
 Les variantes Tailwind utilisent les utilitaires natifs et les classes de l’application ; les variables CSS ci-dessous
 personnalisent les variantes CSS Modules. Les attributs d’état et les hooks `data-slot` sont communs aux deux modes de style.
 
-### Propriétés CSS
+### Variables CSS
 
 <CssPropertiesSection properties={ComboboxDocs.comboboxOverrideCssProperties} />
 

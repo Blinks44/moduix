@@ -2,17 +2,8 @@
 title: Image Cropper
 component: image-cropper
 description: Компонент для кадрирования и преобразования изображений с поддержкой масштабирования, поворота и соотношения сторон.
+ark: https://ark-ui.com/docs/components/image-cropper
 ---
-
-## Справочник API
-
-<PrimitiveReference href="https://ark-ui.com/docs/components/image-cropper" />
-
-## Базовый пример
-
-Используйте `ImageCropper` вместе с `ImageCropperViewport`, `ImageCropperImage` и
-`ImageCropperCropArea`. Передайте URL изображения в `ImageCropperImage`. Компонент
-`ImageCropperCropArea` сам добавит область кадрирования, линии сетки и маркеры изменения размера.
 
 <Example name="image-cropper/basic" />
 
@@ -20,80 +11,15 @@ description: Компонент для кадрирования и преобр�
 разрешать CORS, а в `ImageCropperImage` нужно передать `crossOrigin="anonymous"`. В примерах это
 уже настроено для изображения с Unsplash.
 
-## Установка через shadcn
+## Установка
 
-Полную настройку пакета, реестра и стилей см. в разделе [Быстрый старт](/docs/quick-start).
+<ComponentInstall />
 
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
+## Использование
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/image-cropper' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/image-cropper' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/image-cropper' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/image-cropper' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/image-cropper' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/image-cropper' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Анатомия
-
-```tsx
-<ImageCropper>
-  <ImageCropperViewport>
-    <ImageCropperImage />
-    <ImageCropperCropArea />
-  </ImageCropperViewport>
-</ImageCropper>
-```
-
-| Часть                                | Назначение                                                                                  |
-| ------------------------------------ | ------------------------------------------------------------------------------------------- |
-| `ImageCropper`                    | Корневой компонент, который управляет состоянием кадрирования и преобразований, ARIA-атрибутами и CSS-переменными, обновляемыми во время работы. |
-| `ImageCropperRootProvider`          | Корневой компонент, связанный с экземпляром `useImageCropper`, созданным вне дерева компонентов. |
-| `ImageCropperViewport`              | Область просмотра, в которой можно панорамировать изображение; всё за её границами скрывается. |
-| `ImageCropperImage`                 | Элемент изображения, к которому Ark применяет преобразования.                              |
-| `ImageCropperSelection`             | Фокусируемая область кадрирования и цель для управления с клавиатуры. При `fixedCropArea` она остаётся в фокусе, а стрелки сдвигают изображение. |
-| `ImageCropperGrid`                  | Неинтерактивная горизонтальная или вертикальная линия сетки. Требуется `axis`.              |
-| `ImageCropperHandle`                | Маркер изменения размера для позиции из `ImageCropperHandles`. Требуется `position`.       |
-| `ImageCropperCropArea`              | Готовая область кадрирования с обеими сетками и всеми маркерами изменения размера. Не принимает `children` и `asChild`. |
-
-## Композиция
-
-Используйте `ImageCropperCropArea` для стандартной области кадрирования. Она сама создаёт две сетки
-и все маркеры изменения размера, поэтому не принимает `children` и `asChild`. Для стилизации
-области и созданных частей используйте `className`, `gridClassName` и `handleClassName`.
-
-Для элементов управления внутри корневого компонента используйте `ImageCropperContext`. Создайте
-`useImageCropper()` и передайте его в `ImageCropperRootProvider`, если панели инструментов,
-предварительному просмотру или логике формы нужен экземпляр кадрирования за пределами дерева
-компонентов. Для одного экземпляра состояния выбирайте либо `ImageCropper`, либо
-`ImageCropperRootProvider`. Примеры Vue используют нативные SFC с теми же частями, событиями и управляемым состоянием.
-
-Используйте управляемые `zoom`, `rotation` или `flip` с соответствующим обратным вызовом, если
-состоянием владеет другая часть приложения. Ark передаёт новое значение в объекте `details`.
-`fixedCropArea` фиксирует область, а область просмотра становится поверхностью для панорамирования.
+Используйте `ImageCropper` вместе с `ImageCropperViewport`, `ImageCropperImage` и
+`ImageCropperCropArea`. Передайте URL изображения в `ImageCropperImage`. Компонент
+`ImageCropperCropArea` сам добавит область кадрирования, линии сетки и маркеры изменения размера.
 
 ## Примеры
 
@@ -175,6 +101,44 @@ description: Компонент для кадрирования и преобр�
 
 <Example name="image-cropper/advanced-customization" />
 
+## Композиция
+
+Используйте `ImageCropperCropArea` для стандартной области кадрирования. Она сама создаёт две сетки
+и все маркеры изменения размера, поэтому не принимает `children` и `asChild`. Для стилизации
+области и созданных частей используйте `className`, `gridClassName` и `handleClassName`.
+
+Для элементов управления внутри корневого компонента используйте `ImageCropperContext`. Создайте
+`useImageCropper()` и передайте его в `ImageCropperRootProvider`, если панели инструментов,
+предварительному просмотру или логике формы нужен экземпляр кадрирования за пределами дерева
+компонентов. Для одного экземпляра состояния выбирайте либо `ImageCropper`, либо
+`ImageCropperRootProvider`. Примеры Vue используют нативные SFC с теми же частями, событиями и управляемым состоянием.
+
+Используйте управляемые `zoom`, `rotation` или `flip` с соответствующим обратным вызовом, если
+состоянием владеет другая часть приложения. Ark передаёт новое значение в объекте `details`.
+`fixedCropArea` фиксирует область, а область просмотра становится поверхностью для панорамирования.
+
+## Анатомия
+
+```tsx
+<ImageCropper>
+  <ImageCropperViewport>
+    <ImageCropperImage />
+    <ImageCropperCropArea />
+  </ImageCropperViewport>
+</ImageCropper>
+```
+
+| Часть                                | Назначение                                                                                  |
+| ------------------------------------ | ------------------------------------------------------------------------------------------- |
+| `ImageCropper`                    | Корневой компонент, который управляет состоянием кадрирования и преобразований, ARIA-атрибутами и CSS-переменными, обновляемыми во время работы. |
+| `ImageCropperRootProvider`          | Корневой компонент, связанный с экземпляром `useImageCropper`, созданным вне дерева компонентов. |
+| `ImageCropperViewport`              | Область просмотра, в которой можно панорамировать изображение; всё за её границами скрывается. |
+| `ImageCropperImage`                 | Элемент изображения, к которому Ark применяет преобразования.                              |
+| `ImageCropperSelection`             | Фокусируемая область кадрирования и цель для управления с клавиатуры. При `fixedCropArea` она остаётся в фокусе, а стрелки сдвигают изображение. |
+| `ImageCropperGrid`                  | Неинтерактивная горизонтальная или вертикальная линия сетки. Требуется `axis`.              |
+| `ImageCropperHandle`                | Маркер изменения размера для позиции из `ImageCropperHandles`. Требуется `position`.       |
+| `ImageCropperCropArea`              | Готовая область кадрирования с обеими сетками и всеми маркерами изменения размера. Не принимает `children` и `asChild`. |
+
 ## Стилизация
 
 Корень шириной 32rem и сжимается вместе с контейнером. Область просмотра сохраняет пропорции 8:5 и
@@ -188,7 +152,7 @@ foundation и не имеют переменных компонента: кла�
 например другие `aspect-ratio` или `height` области просмотра. Data-атрибуты и значения `data-slot`
 общие для обоих способов стилизации.
 
-### Селекторы для стилизации
+### Хуки стилизации
 
 Для локальной стилизации используйте стабильные значения `data-slot`: `image-cropper-root`,
 `image-cropper-root-provider`, `image-cropper-viewport`, `image-cropper-image`,

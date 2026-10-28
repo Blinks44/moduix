@@ -2,95 +2,24 @@
 title: Marquee
 component: marquee
 description: Компонент на базе Ark UI для непрерывной прокрутки логотипов, объявлений и другого повторяющегося содержимого.
+ark: https://ark-ui.com/docs/components/marquee
 ---
 
 import * as MarqueeDocs from '@/components/examples/marquee/css-properties';
 
-## Справочник API
+<Example name="marquee/basic" />
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/marquee" />
+## Установка
 
-## Базовый пример
+<ComponentInstall />
 
+## Использование
 
 Используйте короткую форму `Marquee` и явно соберите внутри неё `MarqueeViewport`, `MarqueeContent` и `MarqueeItem`. Если движущееся
 содержимое передаёт пользователю информацию, задайте метку через `aria-label` или `translations.root`. Компонент
 `Marquee` отвечает за поведение и необходимые стили анимации, но не оформляет отдельные элементы и не добавляет
 рамку. В примере отдельно заданы стили элементов и ограничение ширины корневого элемента.
 
-<Example name="marquee/basic" />
-
-## Установка через shadcn
-
-Полную настройку пакета, реестра и стилей см. в разделе [Быстрый старт](/docs/quick-start).
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/marquee' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/marquee' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/marquee' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/marquee' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/marquee' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/marquee' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Анатомия
-
-```text
-Marquee
-├─ MarqueeEdge (необязательно)
-├─ MarqueeViewport
-│  └─ MarqueeContent
-│     └─ MarqueeItem
-└─ MarqueeEdge (необязательно)
-
-MarqueeRootProvider
-└─ то же дерево частей, подключённое к состоянию, созданному useMarquee() из moduix
-```
-
-| Часть                       | Назначение                                                                  |
-| -------------------------- | --------------------------------------------------------------------------- |
-| `Marquee` | Состояние компонента, метки, идентификаторы, ориентация, состояние паузы и CSS-переменные. |
-| `MarqueeRootProvider`     | Выводит дерево компонента на основе состояния, возвращённого `useMarquee()`.              |
-| `MarqueeViewport`         | Область просмотра, которая скрывает содержимое за своими границами.                      |
-| `MarqueeContent`          | Обёртка анимированного содержимого. При необходимости Ark клонирует её.                  |
-| `MarqueeItem`             | Отдельный элемент внутри содержимого.                                                     |
-| `MarqueeEdge`             | Необязательный градиент, создающий эффект затухания у края. Передайте `side`, чтобы выбрать край. |
-| `MarqueeContext`          | Доступ к контексту родительского компонента `Marquee` для расширенных сценариев.          |
-
-## Композиция
-
-Используйте `Marquee` с явными частями `MarqueeViewport`, `MarqueeContent` и `MarqueeItem`. Добавляйте `MarqueeEdge` внутрь того же
-корня, если содержимое должно плавно исчезать на фоне страницы; для каждой границы нужно указать `side`.
-
-Используйте `defaultPaused` для начального состояния без внешнего управления. Если воспроизведением управляет другая
-часть приложения, передавайте `paused` и `onPauseChange(details)`. Для внешних элементов управления создайте состояние
-через `useMarquee()` и передайте его в `MarqueeRootProvider`; не используйте `Marquee` и `MarqueeRootProvider` для одного
-состояния. Элементы управления внутри дерева могут получить текущий API через `MarqueeContext` или
-`useMarqueeContext()`.
 ## Примеры
 
 ### Автозаполнение
@@ -161,6 +90,41 @@ MarqueeRootProvider
 
 <Example name="marquee/vertical" />
 
+## Композиция
+
+Используйте `Marquee` с явными частями `MarqueeViewport`, `MarqueeContent` и `MarqueeItem`. Добавляйте `MarqueeEdge` внутрь того же
+корня, если содержимое должно плавно исчезать на фоне страницы; для каждой границы нужно указать `side`.
+
+Используйте `defaultPaused` для начального состояния без внешнего управления. Если воспроизведением управляет другая
+часть приложения, передавайте `paused` и `onPauseChange(details)`. Для внешних элементов управления создайте состояние
+через `useMarquee()` и передайте его в `MarqueeRootProvider`; не используйте `Marquee` и `MarqueeRootProvider` для одного
+состояния. Элементы управления внутри дерева могут получить текущий API через `MarqueeContext` или
+`useMarqueeContext()`.
+
+## Анатомия
+
+```text
+Marquee
+├─ MarqueeEdge (необязательно)
+├─ MarqueeViewport
+│  └─ MarqueeContent
+│     └─ MarqueeItem
+└─ MarqueeEdge (необязательно)
+
+MarqueeRootProvider
+└─ то же дерево частей, подключённое к состоянию, созданному useMarquee() из moduix
+```
+
+| Часть                       | Назначение                                                                  |
+| -------------------------- | --------------------------------------------------------------------------- |
+| `Marquee` | Состояние компонента, метки, идентификаторы, ориентация, состояние паузы и CSS-переменные. |
+| `MarqueeRootProvider`     | Выводит дерево компонента на основе состояния, возвращённого `useMarquee()`.              |
+| `MarqueeViewport`         | Область просмотра, которая скрывает содержимое за своими границами.                      |
+| `MarqueeContent`          | Обёртка анимированного содержимого. При необходимости Ark клонирует её.                  |
+| `MarqueeItem`             | Отдельный элемент внутри содержимого.                                                     |
+| `MarqueeEdge`             | Необязательный градиент, создающий эффект затухания у края. Передайте `side`, чтобы выбрать край. |
+| `MarqueeContext`          | Доступ к контексту родительского компонента `Marquee` для расширенных сценариев.          |
+
 ## Стилизация
 
 В `Marquee` уже есть ключевые кадры, необходимые для анимации содержимого. Используйте атрибуты состояния Ark для
@@ -174,7 +138,7 @@ MarqueeRootProvider
 По умолчанию `Marquee` прозрачен, наследует цвет текста и не добавляет границу, фон, внутренние отступы или скругление. Если нужен
 контейнер с фоном или границей, задайте его оформление в CSS приложения.
 
-### CSS-свойства
+### CSS-переменные
 
 <CssPropertiesSection properties={MarqueeDocs.marqueeCssProperties} />
 

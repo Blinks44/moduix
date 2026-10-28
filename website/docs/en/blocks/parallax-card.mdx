@@ -1,13 +1,26 @@
 ---
 title: Parallax card
 description: A copy-ready moduix Card block with a decorative background image and a subtle 3D tilt effect.
+block: parallax-card
 ---
 
 import { ParallaxCard } from '@/components/blocks/parallax-card';
 import parallaxCardSolid from '../../../snippets/blocks/solid/parallax-card.tsx?raw';
 import parallaxCardVue from '../../../snippets/blocks/vue/parallax-card.vue?raw';
+import parallaxCardReact from '../../../src/components/blocks/parallax-card.tsx?raw';
+import parallaxCardCss from '../../../src/components/blocks/parallax-card.module.css?raw';
 
 # Parallax card
+
+<ExamplePanel
+  clientOnly
+  sources={{ react: parallaxCardReact, solid: parallaxCardSolid, vue: parallaxCardVue }}
+  files={[{ name: 'parallax-card.module.css', code: parallaxCardCss }]}
+>
+  <PreviewFrame maxWidth="sm">
+    <ParallaxCard />
+  </PreviewFrame>
+</ExamplePanel>
 
 This block combines `CardBackground` with a small pointer handler and CSS transforms to create a
 card with a full-bleed image and a subtle 3D tilt. It is a copy-ready application composition, not a
@@ -17,55 +30,6 @@ card with a full-bleed image and a subtle 3D tilt. It is a copy-ready applicatio
 defined in the example CSS, so you can adjust them for the image you choose. The tilt effect is enabled
 only when the device has a fine pointer that supports hover. The card stays still when that pointer is
 unavailable or the user prefers reduced motion.
-
-The preview runs React. The source tabs contain React, Solid, and Vue implementations with a shared stylesheet.
-
-
-
-<ExampleFrame variant="block" clientOnly>
-  <PreviewFrame maxWidth="sm">
-  <ParallaxCard />
-  </PreviewFrame>
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/blocks/parallax-card.tsx"
-
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={parallaxCardSolid} />
-
-    </Tab>
-  <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={parallaxCardVue} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/blocks/parallax-card.module.css"
-
-```
-</div>
-
-</ExampleCode>
 
 ## Install
 

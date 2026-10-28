@@ -2,111 +2,22 @@
 title: Signature Pad
 component: signature-pad
 description: A signature pad for capturing handwritten input from a pointer or touch device.
+ark: https://ark-ui.com/docs/components/signature-pad
 ---
 
 import * as SignaturePadDocs from '@/components/examples/signature-pad/css-properties';
 
-## API Reference
+<Example name="signature-pad/basic" />
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/signature-pad" />
+## Installation
 
-## Basic
+<ComponentInstall />
 
+## Usage
 
 For most use cases, start with `SignaturePadCanvas`. It provides the standard drawing surface with
 Ark's `SignaturePadControl`, `SignaturePadSegment`, `SignaturePadClearTrigger`, and
 `SignaturePadGuide` parts, plus moduix's default clear icon.
-
-<Example name="signature-pad/basic" />
-
-## Install with shadcn
-
-See [Quick Start](/docs/quick-start) for full package setup, registry configuration, and styling guidance.
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/signature-pad' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/signature-pad' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/signature-pad' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/signature-pad' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/signature-pad' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/signature-pad' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Anatomy
-
-```text
-SignaturePad
-├─ SignaturePadLabel
-├─ SignaturePadCanvas (moduix ready-made composition)
-│  └─ SignaturePadControl
-│     ├─ SignaturePadSegment
-│     ├─ SignaturePadClearTrigger
-│     └─ SignaturePadGuide
-└─ SignaturePadHiddenInput value={serializedPaths} (explicit)
-
-SignaturePadRootProvider
-└─ same part tree connected to useSignaturePad()
-```
-
-| Part                                 | Role                                                                    |
-| ------------------------------------ | ----------------------------------------------------------------------- |
-| `SignaturePad`             | Owns paths, drawing options, form name, ids, and callbacks.              |
-| `SignaturePadHiddenInput`  | Native Ark form control that you compose explicitly.                    |
-| `SignaturePadRootProvider` | Renders the same part tree from state created with `useSignaturePad()`. |
-| `SignaturePadLabel`        | Associates the visible label with the drawing area and hidden input.    |
-| `SignaturePadCanvas`       | Ready-made drawing surface that renders the standard parts and forwards `SignaturePadControl` props. |
-| `SignaturePadControl`      | Focusable pointer and touch drawing area.                               |
-| `SignaturePadSegment`      | SVG layer for saved strokes and the current in-progress stroke.         |
-| `SignaturePadClearTrigger` | Native button that clears paths.                                        |
-| `SignaturePadGuide`        | Non-interactive baseline inside the drawing area.                       |
-
-## Composition
-
-Use `SignaturePadLabel` and `SignaturePadCanvas` for the standard composition. `SignaturePadCanvas`
-uses a fixed child tree, so switch to `SignaturePadControl`, `SignaturePadSegment`,
-`SignaturePadClearTrigger`, and `SignaturePadGuide` when the drawing structure or clear control
-needs to change.
-
-`SignaturePadHiddenInput` is not rendered automatically. Add it explicitly and pass a serialized
-value, usually read from `SignaturePadContext` or `useSignaturePadContext()`, when the signature
-must be submitted by a native form.
-
-Use `defaultPaths` for local uncontrolled state. Use `paths` with `onDraw(details)` when the
-application owns the signature data. Use `SignaturePadRootProvider` with `useSignaturePad()` when
-state must be created outside the rendered tree or external controls need `paths`, `clear()`, or
-`getDataUrl()`. In Vue, control the paths with `v-model:paths` and listen to
-`@draw` or `@draw-end` for drawing details.
-
-With Ark Vue 5.39.3, `drawEnd.paths` can contain the previous value in controlled mode.
-`v-model:paths` receives the committed paths.
-
-Unlike Ark, moduix hides `SignaturePadClearTrigger` when `readOnly` comes from the root, a
-surrounding `Field`, or `useSignaturePad()`, preventing an irreversible clear while programmatic
-`clear()` stays available.
 
 ## Examples
 
@@ -159,9 +70,61 @@ provide a custom clear trigger.
 
 <Example name="signature-pad/advanced-customization" />
 
+## Composition
+
+Use `SignaturePadLabel` and `SignaturePadCanvas` for the standard composition. `SignaturePadCanvas`
+uses a fixed child tree, so switch to `SignaturePadControl`, `SignaturePadSegment`,
+`SignaturePadClearTrigger`, and `SignaturePadGuide` when the drawing structure or clear control
+needs to change.
+
+`SignaturePadHiddenInput` is not rendered automatically. Add it explicitly and pass a serialized
+value, usually read from `SignaturePadContext` or `useSignaturePadContext()`, when the signature
+must be submitted by a native form.
+
+Use `defaultPaths` for local uncontrolled state. Use `paths` with `onDraw(details)` when the
+application owns the signature data. Use `SignaturePadRootProvider` with `useSignaturePad()` when
+state must be created outside the rendered tree or external controls need `paths`, `clear()`, or
+`getDataUrl()`. In Vue, control the paths with `v-model:paths` and listen to
+`@draw` or `@draw-end` for drawing details.
+
+With Ark Vue 5.39.3, `drawEnd.paths` can contain the previous value in controlled mode.
+`v-model:paths` receives the committed paths.
+
+Unlike Ark, moduix hides `SignaturePadClearTrigger` when `readOnly` comes from the root, a
+surrounding `Field`, or `useSignaturePad()`, preventing an irreversible clear while programmatic
+`clear()` stays available.
+
+## Anatomy
+
+```text
+SignaturePad
+├─ SignaturePadLabel
+├─ SignaturePadCanvas (moduix ready-made composition)
+│  └─ SignaturePadControl
+│     ├─ SignaturePadSegment
+│     ├─ SignaturePadClearTrigger
+│     └─ SignaturePadGuide
+└─ SignaturePadHiddenInput value={serializedPaths} (explicit)
+
+SignaturePadRootProvider
+└─ same part tree connected to useSignaturePad()
+```
+
+| Part                                 | Role                                                                    |
+| ------------------------------------ | ----------------------------------------------------------------------- |
+| `SignaturePad`             | Owns paths, drawing options, form name, ids, and callbacks.              |
+| `SignaturePadHiddenInput`  | Native Ark form control that you compose explicitly.                    |
+| `SignaturePadRootProvider` | Renders the same part tree from state created with `useSignaturePad()`. |
+| `SignaturePadLabel`        | Associates the visible label with the drawing area and hidden input.    |
+| `SignaturePadCanvas`       | Ready-made drawing surface that renders the standard parts and forwards `SignaturePadControl` props. |
+| `SignaturePadControl`      | Focusable pointer and touch drawing area.                               |
+| `SignaturePadSegment`      | SVG layer for saved strokes and the current in-progress stroke.         |
+| `SignaturePadClearTrigger` | Native button that clears paths.                                        |
+| `SignaturePadGuide`        | Non-interactive baseline inside the drawing area.                       |
+
 ## Styling
 
-### CSS Properties
+### CSS variables
 
 <CssPropertiesSection properties={SignaturePadDocs.signaturePadCssProperties} />
 

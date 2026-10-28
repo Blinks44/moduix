@@ -2,107 +2,27 @@
 title: Collapsible
 component: collapsible
 description: Un composant accessible pour déplier ou replier une seule zone de contenu avec React, Solid ou Vue.
+ark: https://ark-ui.com/docs/components/collapsible
 ---
 
 import * as CollapsibleDocs from '@/components/examples/collapsible/css-properties';
 
-## Référence de l’API
+<Example name="collapsible/basic" />
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/collapsible" />
+## Installation
 
-## Choisir le bon composant
+<ComponentInstall />
 
-Utilisez `Collapsible` pour une seule section indépendante. Préférez `Accordion` lorsque plusieurs
-sections liées doivent partager la navigation au clavier ou un état coordonné.
-
-## Exemple de base
-
+## Utilisation
 
 Utilisez `Collapsible` avec `CollapsibleTrigger`, `CollapsibleContent` et, si besoin, `CollapsibleIndicator` pour déplier ou replier une
 seule zone de contenu. Placez le contenu dans `CollapsibleBody` lorsque vous avez besoin du conteneur
 interne recommandé pour les espacements et la mise en page.
 
-<Example name="collapsible/basic" />
+## Choisir le bon composant
 
-## Installation avec shadcn
-
-Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration complète du paquet, du registre et des styles.
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/collapsible' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/collapsible' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/collapsible' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/collapsible' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/collapsible' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/collapsible' },
-  ]}
-/>
-
-  </Tab>
-  </Tabs>
-
-## Anatomie
-
-```text
-Collapsible
-├─ CollapsibleTrigger
-│  ├─ libellé
-│  └─ CollapsibleIndicator (facultatif)
-└─ CollapsibleContent
-   └─ CollapsibleBody
-       └─ contenu
-
-CollapsibleRootProvider
-└─ même arbre de parties relié à un store useCollapsible()
-```
-
-| Partie                    | Rôle                                                                    |
-| ------------------------- | ----------------------------------------------------------------------- |
-| `Collapsible`             | Gère l’état d’une seule section repliable.                              |
-| `CollapsibleRootProvider` | Relie les parties à l’état créé avec `useCollapsible`.                  |
-| `CollapsibleTrigger`      | Bouton accessible qui déplie ou replie le contenu.                       |
-| `CollapsibleIndicator`    | Indicateur facultatif qui affiche par défaut un chevron moduix.         |
-| `CollapsibleContent`      | Zone animée dont Ark mesure les dimensions.                             |
-| `CollapsibleBody`         | Conteneur interne pour les espacements et la mise en page du contenu.    |
-
-## Composition
-
-`Collapsible` conserve son état dans la racine. Utilisez `defaultOpen` pour une zone non contrôlée, ou
-`open` avec `onOpenChange(details)` lorsqu’une autre partie de l’application gère l’état. En Vue,
-utilisez `v-model:open` pour ce même contrat contrôlé. Le callback conserve l’objet `details` d’Ark :
-l’état contrôlé se lit donc avec `details.open`.
-
-Utilisez `CollapsibleRootProvider` avec `useCollapsible()` du paquet correspondant au framework lorsque
-le store doit être créé en dehors de l’arbre rendu ou partagé entre plusieurs limites de composition.
-Transmettez ce store à `CollapsibleRootProvider` et ne rendez pas une seconde racine `Collapsible` pour le même état.
-
-Placez les espacements et les styles de surface sur `CollapsibleBody`, et non sur
-`CollapsibleContent`, afin qu’Ark puisse mesurer correctement la partie animée. `CollapsibleIndicator`
-est facultatif et affiche par défaut le chevron moduix.
-
-Utilisez `asChild` uniquement lorsqu’un élément sémantique appartenant à l’application doit recevoir le
-comportement du déclencheur ; il doit rester un bouton accessible au clavier. Avec Solid, transmettez une
-fonction de rendu, par exemple `asChild={(props) => <button {...props()} />}`.
+Utilisez `Collapsible` pour une seule section indépendante. Préférez `Accordion` lorsque plusieurs
+sections liées doivent partager la navigation au clavier ou un état coordonné.
 
 ## Exemples
 
@@ -174,6 +94,49 @@ les attributs d’état sont conservés.
 
 <Example name="collapsible/custom-composition" />
 
+## Composition
+
+`Collapsible` conserve son état dans la racine. Utilisez `defaultOpen` pour une zone non contrôlée, ou
+`open` avec `onOpenChange(details)` lorsqu’une autre partie de l’application gère l’état. En Vue,
+utilisez `v-model:open` pour ce même contrat contrôlé. Le callback conserve l’objet `details` d’Ark :
+l’état contrôlé se lit donc avec `details.open`.
+
+Utilisez `CollapsibleRootProvider` avec `useCollapsible()` du paquet correspondant au framework lorsque
+le store doit être créé en dehors de l’arbre rendu ou partagé entre plusieurs limites de composition.
+Transmettez ce store à `CollapsibleRootProvider` et ne rendez pas une seconde racine `Collapsible` pour le même état.
+
+Placez les espacements et les styles de surface sur `CollapsibleBody`, et non sur
+`CollapsibleContent`, afin qu’Ark puisse mesurer correctement la partie animée. `CollapsibleIndicator`
+est facultatif et affiche par défaut le chevron moduix.
+
+Utilisez `asChild` uniquement lorsqu’un élément sémantique appartenant à l’application doit recevoir le
+comportement du déclencheur ; il doit rester un bouton accessible au clavier. Avec Solid, transmettez une
+fonction de rendu, par exemple `asChild={(props) => <button {...props()} />}`.
+
+## Anatomie
+
+```text
+Collapsible
+├─ CollapsibleTrigger
+│  ├─ libellé
+│  └─ CollapsibleIndicator (facultatif)
+└─ CollapsibleContent
+   └─ CollapsibleBody
+       └─ contenu
+
+CollapsibleRootProvider
+└─ même arbre de parties relié à un store useCollapsible()
+```
+
+| Partie                    | Rôle                                                                    |
+| ------------------------- | ----------------------------------------------------------------------- |
+| `Collapsible`             | Gère l’état d’une seule section repliable.                              |
+| `CollapsibleRootProvider` | Relie les parties à l’état créé avec `useCollapsible`.                  |
+| `CollapsibleTrigger`      | Bouton accessible qui déplie ou replie le contenu.                       |
+| `CollapsibleIndicator`    | Indicateur facultatif qui affiche par défaut un chevron moduix.         |
+| `CollapsibleContent`      | Zone animée dont Ark mesure les dimensions.                             |
+| `CollapsibleBody`         | Conteneur interne pour les espacements et la mise en page du contenu.    |
+
 ## Styles
 
 Utilisez `className` avec React ou `class` avec Solid et Vue sur les parties exportées pour les styles
@@ -186,7 +149,7 @@ communs aux deux modes de style.
 Placez les espacements sur `CollapsibleBody`, et non sur `CollapsibleContent`, afin qu’Ark puisse
 mesurer et animer correctement le contenu.
 
-### Propriétés CSS
+### Variables CSS
 
 <CssPropertiesSection properties={CollapsibleDocs.collapsibleOverrideCssProperties} />
 

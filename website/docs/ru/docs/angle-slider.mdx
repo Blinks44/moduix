@@ -2,13 +2,23 @@
 title: Angle Slider
 component: angle-slider
 description: Круговой элемент управления для выбора угла от 0 до 360 градусов в React, Solid или Vue.
+ark: https://ark-ui.com/docs/components/angle-slider
 ---
 
 import * as AngleSliderDocs from '@/components/examples/angle-slider/css-properties';
 
-## Справочник API
+<Example name="angle-slider/basic" />
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/angle-slider" />
+## Установка
+
+<ComponentInstall />
+
+## Использование
+
+Начните с `AngleSliderDial`: он объединяет круговой трек, центрированное значение и бегунок. Трек заполняется
+сверхи по мере роста угла. `AngleSlider` принимает
+один угол от 0 до 360 градусов. По возможности добавляйте видимую `AngleSliderLabel`. Если у диска нет
+видимой подписи, добавьте `aria-label` в корневой компонент.
 
 ## Выбор подходящего компонента
 
@@ -18,98 +28,6 @@ import * as AngleSliderDocs from '@/components/examples/angle-slider/css-propert
 - Выбирайте **`AngleSlider`** для поворота, направления, ориентации прожектора и других угловых значений.
 - Выбирайте **`Slider`**, если значение удобнее задавать на линейной шкале.
 - Выбирайте **`NumberInput`**, если точный ввод градусов важнее прямого взаимодействия с диском.
-
-## Базовый пример
-
-
-Начните с `AngleSliderDial`: он объединяет круговой трек, центрированное значение и бегунок. Трек заполняется
-сверхи по мере роста угла. `AngleSlider` принимает
-один угол от 0 до 360 градусов. По возможности добавляйте видимую `AngleSliderLabel`. Если у диска нет
-видимой подписи, добавьте `aria-label` в корневой компонент.
-
-<Example name="angle-slider/basic" />
-
-## Установка через shadcn
-
-Полную настройку пакета, реестра и стилей см. в разделе [Быстрый старт](/docs/quick-start).
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/angle-slider' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/angle-slider' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/angle-slider' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/angle-slider' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/angle-slider' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/angle-slider' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Анатомия
-
-```text
-AngleSlider
-├─ AngleSliderLabel
-├─ AngleSliderDial
-│  ├─ AngleSliderMarks (необязательно)
-│  │  └─ AngleSliderMarker[value]
-│  ├─ AngleSliderValueText
-│  └─ AngleSliderThumb
-└─ AngleSliderHiddenInput (явно)
-
-AngleSliderRootProvider
-└─ same part tree connected to a useAngleSlider() store
-```
-
-| Часть                              | Назначение                                                            |
-| ---------------------------------- | --------------------------------------------------------------------- |
-| `AngleSlider` | Стилизованный корневой компонент, который хранит состояние слайдера.  |
-| `AngleSliderRootProvider`         | Подключает части к состоянию, созданному через `useAngleSlider()`.    |
-| `AngleSliderLabel`                | Связывает видимую подпись со слайдером.                               |
-| `AngleSliderControl`              | Задаёт круглую область для взаимодействия указателем.                 |
-| `AngleSliderDial`                 | Удобная композиция из `Control`, центрированной `ValueText` и `Thumb`. |
-| `AngleSliderThumb`                | Фокусируемый круглый бегунок, движущийся по треку в соответствии с текущим углом. |
-| `AngleSliderMarkerGroup`          | Содержит необязательные опорные маркеры.                              |
-| `AngleSliderMarker`               | Размещает числовой маркер вокруг диска.                               |
-| `AngleSliderMarks`                | Создаёт маркеры по массиву `values`.                                  |
-| `AngleSliderValueText`             | Показывает текущее значение в градусах; `AngleSliderDial` центрирует его в диске. |
-| `AngleSliderHiddenInput`           | Нативное поле формы; добавляйте его явно для отправки значения.       |
-
-## Композиция
-
-Используйте `defaultValue` для неконтролируемого слайдера, а `value` вместе с
-`onValueChange(details)` - когда состоянием угла управляет другая часть приложения. Используйте
-`AngleSliderRootProvider` с `useAngleSlider()` из соответствующего пакета только тогда, когда
-store нужно создать вне дерева слайдера; не рендерите корневой компонент и `AngleSliderRootProvider`
-для одного состояния.
-В Solid состояние store читается через функцию-аксессор, например `angleSlider().value`.
-
-`AngleSliderDial` и `AngleSliderMarks` - удобные составные компоненты. Используйте `AngleSliderControl` с `AngleSliderThumb` или
-`AngleSliderMarkerGroup` с `AngleSliderMarker`, если нужны собственные дочерние элементы, другой порядок частей или
-индивидуальные свойства маркеров. Для нативной формы явно добавляйте `AngleSliderHiddenInput`. Укажите `name`
-в корневом компоненте для формы в том же дереве или `form` в `AngleSliderHiddenInput`, если форма находится
-отдельно.
 
 ## Примеры
 
@@ -178,6 +96,51 @@ Reset показывает встроенный в Ark сброс формы. У
 
 <Example name="angle-slider/advanced-customization" />
 
+## Композиция
+
+Используйте `defaultValue` для неконтролируемого слайдера, а `value` вместе с
+`onValueChange(details)` - когда состоянием угла управляет другая часть приложения. Используйте
+`AngleSliderRootProvider` с `useAngleSlider()` из соответствующего пакета только тогда, когда
+store нужно создать вне дерева слайдера; не рендерите корневой компонент и `AngleSliderRootProvider`
+для одного состояния.
+В Solid состояние store читается через функцию-аксессор, например `angleSlider().value`.
+
+`AngleSliderDial` и `AngleSliderMarks` - удобные составные компоненты. Используйте `AngleSliderControl` с `AngleSliderThumb` или
+`AngleSliderMarkerGroup` с `AngleSliderMarker`, если нужны собственные дочерние элементы, другой порядок частей или
+индивидуальные свойства маркеров. Для нативной формы явно добавляйте `AngleSliderHiddenInput`. Укажите `name`
+в корневом компоненте для формы в том же дереве или `form` в `AngleSliderHiddenInput`, если форма находится
+отдельно.
+
+## Анатомия
+
+```text
+AngleSlider
+├─ AngleSliderLabel
+├─ AngleSliderDial
+│  ├─ AngleSliderMarks (необязательно)
+│  │  └─ AngleSliderMarker[value]
+│  ├─ AngleSliderValueText
+│  └─ AngleSliderThumb
+└─ AngleSliderHiddenInput (явно)
+
+AngleSliderRootProvider
+└─ same part tree connected to a useAngleSlider() store
+```
+
+| Часть                              | Назначение                                                            |
+| ---------------------------------- | --------------------------------------------------------------------- |
+| `AngleSlider` | Стилизованный корневой компонент, который хранит состояние слайдера.  |
+| `AngleSliderRootProvider`         | Подключает части к состоянию, созданному через `useAngleSlider()`.    |
+| `AngleSliderLabel`                | Связывает видимую подпись со слайдером.                               |
+| `AngleSliderControl`              | Задаёт круглую область для взаимодействия указателем.                 |
+| `AngleSliderDial`                 | Удобная композиция из `Control`, центрированной `ValueText` и `Thumb`. |
+| `AngleSliderThumb`                | Фокусируемый круглый бегунок, движущийся по треку в соответствии с текущим углом. |
+| `AngleSliderMarkerGroup`          | Содержит необязательные опорные маркеры.                              |
+| `AngleSliderMarker`               | Размещает числовой маркер вокруг диска.                               |
+| `AngleSliderMarks`                | Создаёт маркеры по массиву `values`.                                  |
+| `AngleSliderValueText`             | Показывает текущее значение в градусах; `AngleSliderDial` центрирует его в диске. |
+| `AngleSliderHiddenInput`           | Нативное поле формы; добавляйте его явно для отправки значения.       |
+
 ## Стилизация
 
 Используйте `className` в React и `class` в Solid или Vue для структурных стилей экспортируемых частей.
@@ -187,7 +150,7 @@ Reset показывает встроенный в Ark сброс формы. У
 к вариантам с CSS Modules. Вычисляемые во время работы переменные Ark и указанные хуки доступны в
 обоих подходах.
 
-### CSS-свойства
+### CSS-переменные
 
 <CssPropertiesSection properties={AngleSliderDocs.angleSliderCssProperties} />
 

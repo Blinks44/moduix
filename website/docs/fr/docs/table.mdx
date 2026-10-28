@@ -2,122 +2,23 @@
 title: Table
 component: table
 description: Un composant de tableau natif avec un conteneur de défilement facultatif, des colonnes numériques, des légendes et un état vide pour React, Solid et Vue.
+ark: https://ark-ui.com/docs/guides/composition#the-ark-factory
 ---
 
 import * as TableDocs from '@/components/examples/table/css-properties';
 
-## Référence de l’API
+<Example name="table/basic" />
 
-Ark UI ne fournit pas de primitive dédiée aux tableaux. moduix construit `Table` avec la
-[fabrique Ark](https://ark-ui.com/docs/guides/composition#the-ark-factory) officielle et suit les recommandations
-d’Ark concernant la [composition](https://ark-ui.com/docs/guides/composition), les
-[styles](https://ark-ui.com/docs/guides/styling) et les [refs](https://ark-ui.com/docs/guides/ref).
+## Installation
 
-Chaque partie rend par défaut l’élément HTML natif correspondant, accepte ses propriétés, `className`
-en React ou `class` en Solid et Vue, transmet sa ref et prend en charge `asChild`. Avec `asChild`, fournissez
-un seul élément sémantique. `TableEmpty` fait exception à cette composition habituelle : `asChild` y
-remplace uniquement la cellule `td` générée.
+<ComponentInstall />
 
-## Exemple de base
+## Utilisation
 
 Si le tableau risque de dépasser la largeur de son conteneur, enveloppez-le dans `TableScrollArea`. Composez
 ensuite `Table` avec `TableHeader`, `TableBody`, `TableRow` et les parties correspondantes pour les en-têtes et
 les cellules. Cette approche convient aux factures, aux synthèses et aux jeux de données en lecture seule des
 interfaces d’administration.
-
-<Example name="table/basic" />
-
-## Installation avec shadcn
-
-Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration complète du paquet, du registre et des styles.
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/table' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/table' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/table' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/table' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/table' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/table' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Anatomie
-
-La composition recommandée reste proche du balisage natif des tableaux :
-
-```text
-TableScrollArea (optional)
-└─ Table
-   ├─ TableColumnGroup (optional)
-   │  └─ TableColumn
-   ├─ TableCaption (optional)
-   ├─ TableHeader
-   │  └─ TableRow
-   │     └─ TableColumnHeader
-   ├─ TableBody
-   │  ├─ TableRow
-   │  │  └─ TableCell
-   │  └─ TableEmpty (optional)
-   └─ TableFooter (optional)
-```
-
-| Partie                  | Rôle                                                                            |
-| ----------------------- | ------------------------------------------------------------------------------- |
-| `Table`            | Racine native `table`. Gère la typographie, les séparateurs et les attributs d’état. |
-| `TableScrollArea`      | Conteneur facultatif avec bordure et défilement horizontal.                    |
-| `TableColumnGroup`     | Élément natif `colgroup` pour définir la largeur des colonnes.                 |
-| `TableColumn`          | Élément natif `col`. Utilisez l’attribut natif `width`.                        |
-| `TableCaption`         | Légende facultative au-dessus ou au-dessous du tableau via `side`.             |
-| `TableHeader`          | Élément natif `thead` pour les en-têtes de colonne.                             |
-| `TableBody`            | Élément natif `tbody` pour les lignes de données.                               |
-| `TableFooter`          | Élément natif `tfoot` pour les lignes de synthèse.                              |
-| `TableRow`             | Élément natif `tr` avec des séparateurs.                                        |
-| `TableColumnHeader`    | Élément natif `th`. Accepte `numeric`.                                          |
-| `TableCell`            | Élément natif `td`. Accepte `numeric`.                                          |
-| `TableEmpty`           | Ligne et cellule d’état vide pratiques dans `TableBody`.                      |
-
-## Composition
-
-Utilisez `TableScrollArea` lorsque le tableau a besoin d’un conteneur bordé avec défilement horizontal.
-Ne l’utilisez pas si la mise en page parente gère déjà le défilement, les espacements, la bordure ou
-la surface ; placez alors les parties natives du tableau dans votre propre conteneur.
-
-`TableEmpty` crée une ligne vide complète dans `TableBody`, son `colSpan` obligatoire doit donc
-correspondre au nombre actuel de colonnes. Son `asChild` remplace uniquement le `td` généré ; composez
-directement `TableRow` et `TableCell` lorsque la ligne elle-même doit être personnalisée. `Table`
-gère uniquement la présentation : le tri, le filtrage, la sélection, la pagination, la virtualisation
-et les actions de ligne appartiennent à une composition de niveau supérieur, comme [Data Table](/blocks/data-table).
-
-### Accessibilité
-
-`Table` utilise des éléments de tableau natifs : utilisez donc les attributs HTML habituels pour exprimer les
-relations entre les en-têtes et les cellules. Ajoutez `scope="col"` aux en-têtes de colonne, utilisez
-`TableCaption` pour un nom ou une description accessible courte, et utilisez `id` / `headers` lorsqu’un tableau
-complexe nécessite des associations explicites. `Table` n’ajoute ni navigation au clavier, ni sélection, ni gestion
-particulière du focus.
 
 ## Exemples
 
@@ -200,6 +101,66 @@ surface ou le défilement. La composition native du tableau reste explicite et v
 conteneur.
 
 <Example name="table/custom-composition" />
+
+## Composition
+
+Chaque partie rend par défaut l’élément HTML natif correspondant, accepte ses propriétés, `className`
+en React ou `class` en Solid et Vue, transmet sa ref et prend en charge `asChild`. Avec `asChild`, fournissez
+un seul élément sémantique. `TableEmpty` fait exception à cette composition habituelle : `asChild` y
+remplace uniquement la cellule `td` générée.
+
+Utilisez `TableScrollArea` lorsque le tableau a besoin d’un conteneur bordé avec défilement horizontal.
+Ne l’utilisez pas si la mise en page parente gère déjà le défilement, les espacements, la bordure ou
+la surface ; placez alors les parties natives du tableau dans votre propre conteneur.
+
+`TableEmpty` crée une ligne vide complète dans `TableBody`, son `colSpan` obligatoire doit donc
+correspondre au nombre actuel de colonnes. Son `asChild` remplace uniquement le `td` généré ; composez
+directement `TableRow` et `TableCell` lorsque la ligne elle-même doit être personnalisée. `Table`
+gère uniquement la présentation : le tri, le filtrage, la sélection, la pagination, la virtualisation
+et les actions de ligne appartiennent à une composition de niveau supérieur, comme [Data Table](/blocks/data-table).
+
+### Accessibilité
+
+`Table` utilise des éléments de tableau natifs : utilisez donc les attributs HTML habituels pour exprimer les
+relations entre les en-têtes et les cellules. Ajoutez `scope="col"` aux en-têtes de colonne, utilisez
+`TableCaption` pour un nom ou une description accessible courte, et utilisez `id` / `headers` lorsqu’un tableau
+complexe nécessite des associations explicites. `Table` n’ajoute ni navigation au clavier, ni sélection, ni gestion
+particulière du focus.
+
+## Anatomie
+
+La composition recommandée reste proche du balisage natif des tableaux :
+
+```text
+TableScrollArea (optional)
+└─ Table
+   ├─ TableColumnGroup (optional)
+   │  └─ TableColumn
+   ├─ TableCaption (optional)
+   ├─ TableHeader
+   │  └─ TableRow
+   │     └─ TableColumnHeader
+   ├─ TableBody
+   │  ├─ TableRow
+   │  │  └─ TableCell
+   │  └─ TableEmpty (optional)
+   └─ TableFooter (optional)
+```
+
+| Partie                  | Rôle                                                                            |
+| ----------------------- | ------------------------------------------------------------------------------- |
+| `Table`            | Racine native `table`. Gère la typographie, les séparateurs et les attributs d’état. |
+| `TableScrollArea`      | Conteneur facultatif avec bordure et défilement horizontal.                    |
+| `TableColumnGroup`     | Élément natif `colgroup` pour définir la largeur des colonnes.                 |
+| `TableColumn`          | Élément natif `col`. Utilisez l’attribut natif `width`.                        |
+| `TableCaption`         | Légende facultative au-dessus ou au-dessous du tableau via `side`.             |
+| `TableHeader`          | Élément natif `thead` pour les en-têtes de colonne.                             |
+| `TableBody`            | Élément natif `tbody` pour les lignes de données.                               |
+| `TableFooter`          | Élément natif `tfoot` pour les lignes de synthèse.                              |
+| `TableRow`             | Élément natif `tr` avec des séparateurs.                                        |
+| `TableColumnHeader`    | Élément natif `th`. Accepte `numeric`.                                          |
+| `TableCell`            | Élément natif `td`. Accepte `numeric`.                                          |
+| `TableEmpty`           | Ligne et cellule d’état vide pratiques dans `TableBody`.                      |
 
 ## Styles
 

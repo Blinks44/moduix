@@ -2,16 +2,20 @@
 title: Toggle
 component: toggle
 description: A two-state button for compact actions such as favorites, formatting controls, and toolbar actions.
+ark: https://ark-ui.com/docs/components/toggle
 ---
 
 import * as ToggleDocs from '@/components/examples/toggle/css-properties';
 
-## API Reference
+<Example name="toggle/basic" />
 
-`Toggle` wraps Ark UI's Toggle primitive and adds moduix visual props for variants and sizes.
-Import it from `@moduix/react/toggle`, `@moduix/solid/toggle`, or `@moduix/vue/toggle`.
+## Installation
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/toggle" />
+<ComponentInstall />
+
+## Usage
+
+Use `Toggle` for the common case. It preserves Ark's pressed-state behavior.
 
 ## Choosing the right component
 
@@ -21,77 +25,6 @@ Use `Toggle` when the control should behave like a button and expose whether it 
 - Choose **`Switch`** for settings presented as on/off preference rows.
 - Choose **`Checkbox`** for selections that are submitted with a list or form.
 - Choose **`ToggleGroup`** when several toggles should share one selection model.
-
-## Basic
-
-
-Use `Toggle` for the common case. It preserves Ark's pressed-state behavior.
-
-<Example name="toggle/basic" />
-
-## Install with shadcn
-
-See [Quick Start](/docs/quick-start) for full package setup, registry configuration, and styling guidance.
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/toggle' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/toggle' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/toggle' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/toggle' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/toggle' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/toggle' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Anatomy
-
-```text
-Toggle
-└─ ToggleIndicator (optional)
-
-ToggleContext (state reader, not a DOM part)
-```
-
-| Part | Role |
-| ---- | ---- |
-| `Toggle` | Root part that owns pressed state, focus, disabled state, and `asChild` composition. |
-| `ToggleIndicator` | Optional part that renders pressed content and its `fallback` when the toggle is off. |
-| `ToggleContext` | Reads the nearest toggle state for custom descendants; it does not render a DOM part. |
-
-## Composition
-
-Use `defaultPressed` for an uncontrolled toggle, or pass `pressed` with `onPressedChange` when
-application state owns the value. Use `ToggleIndicator` when
-the button content changes with its pressed state. For custom descendants that need the state, use
-`ToggleContext` or `useToggleContext()` from the matching package. Use `asChild` when another button
-should host the toggle behavior. In Solid, `asChild` takes a render function; in React, it takes one
-button-like child; in Vue, it uses one button-like child in the default slot. In Vue, use
-`v-model:pressed` for the controlled value, the named `fallback` slot with `ToggleIndicator`, and the
-`ToggleContext` slot when a custom descendant needs the current state. Listen to `@pressed-change`
-when you need the emitted Boolean value without binding it with `v-model:pressed`.
 
 ## Examples
 
@@ -145,6 +78,36 @@ button content with `ToggleIndicator`.
 
 <Example name="toggle/advanced-customization" />
 
+## Composition
+
+`Toggle` wraps Ark UI's Toggle primitive and adds moduix visual props for variants and sizes.
+Import it from `@moduix/react/toggle`, `@moduix/solid/toggle`, or `@moduix/vue/toggle`.
+
+Use `defaultPressed` for an uncontrolled toggle, or pass `pressed` with `onPressedChange` when
+application state owns the value. Use `ToggleIndicator` when
+the button content changes with its pressed state. For custom descendants that need the state, use
+`ToggleContext` or `useToggleContext()` from the matching package. Use `asChild` when another button
+should host the toggle behavior. In Solid, `asChild` takes a render function; in React, it takes one
+button-like child; in Vue, it uses one button-like child in the default slot. In Vue, use
+`v-model:pressed` for the controlled value, the named `fallback` slot with `ToggleIndicator`, and the
+`ToggleContext` slot when a custom descendant needs the current state. Listen to `@pressed-change`
+when you need the emitted Boolean value without binding it with `v-model:pressed`.
+
+## Anatomy
+
+```text
+Toggle
+└─ ToggleIndicator (optional)
+
+ToggleContext (state reader, not a DOM part)
+```
+
+| Part | Role |
+| ---- | ---- |
+| `Toggle` | Root part that owns pressed state, focus, disabled state, and `asChild` composition. |
+| `ToggleIndicator` | Optional part that renders pressed content and its `fallback` when the toggle is off. |
+| `ToggleContext` | Reads the nearest toggle state for custom descendants; it does not render a DOM part. |
+
 ## Styling
 
 Use `className` in React or `class` in Solid and Vue on exported parts. In the CSS Modules packages, set the
@@ -152,7 +115,7 @@ Use `className` in React or `class` in Solid and Vue on exported parts. In the C
 variant, or on a container such as `ToggleGroup`. Size, spacing, radius, and typography come from foundation tokens;
 change them with a class. Tailwind packages use native utilities and consumer classes instead.
 
-### CSS Properties
+### CSS variables
 
 <CssPropertiesSection properties={ToggleDocs.toggleOverrideCssProperties} />
 

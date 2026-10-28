@@ -2,20 +2,16 @@
 title: Simple Grid
 component: simple-grid
 description: Build responsive equal-column grids in React, Solid, or Vue with package and shadcn installation options.
+ark: https://ark-ui.com/docs/guides/composition
 ---
 
+<Example name="simple-grid/basic" />
 
-## API Reference
+## Installation
 
-`SimpleGrid` is not an Ark UI primitive. moduix provides it as a small layout wrapper built with
-Ark's factory. It follows Ark's guidance for [composition](https://ark-ui.com/docs/guides/composition),
-[styling](https://ark-ui.com/docs/guides/styling), and [refs](https://ark-ui.com/docs/guides/ref).
-Its `columns` and `minChildWidth` props borrow the layout model from Chakra UI
-[SimpleGrid](https://chakra-ui.com/docs/components/simple-grid), but moduix does not include Chakra's
-responsive style props.
+<ComponentInstall />
 
-## Basic
-
+## Usage
 
 Use `minChildWidth` when the number of equal columns should follow the available width. The component
 uses CSS Grid `auto-fit` and `minmax()`; numeric values are treated as pixels, while strings can
@@ -23,71 +19,6 @@ contain any valid CSS length.
 
 The number of columns changes with the root width, and the children remain direct grid items. If a
 child contains unbreakable content, add `min-width: 0` or an appropriate overflow rule to that child.
-
-<Example name="simple-grid/basic" />
-
-## Install with shadcn
-
-See [Quick Start](/docs/quick-start) for full package setup, registry configuration, and styling guidance.
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/simple-grid' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/simple-grid' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/simple-grid' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/simple-grid' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/simple-grid' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/simple-grid' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Anatomy
-
-`SimpleGrid` renders one CSS Grid root and does not add wrappers around its children.
-
-```text
-SimpleGrid
-└─ root[data-scope="simple-grid"][data-part="root"][data-slot="simple-grid-root"]
-   └─ children
-```
-
-| Part         | Role                                                   |
-| ------------ | ------------------------------------------------------ |
-| `SimpleGrid` | Root wrapper that creates equal-width CSS Grid columns. |
-
-## Composition
-
-Use `<SimpleGrid>` as the root. Choose either `minChildWidth` for an intrinsic column count or
-`columns` for a fixed count. If both are provided, `minChildWidth` takes priority.
-
-Use `asChild` when the grid root should be a semantic element such as `ul`, `section`, or `nav`.
-It requires exactly one element child, which becomes the rendered root. In React, pass `asChild` as
-a boolean; in Vue, use `as-child` with a single default-slot element; in Solid, use its render-function
-form to return that element. For named grid areas,
-unequal tracks, or items that span tracks, omit both layout props and define the grid template in
-your own class, including responsive templates in media queries.
 
 ## Examples
 
@@ -103,6 +34,39 @@ Use `asChild` when the grid itself should carry list semantics. This example ren
 `ul` and keeps each image in a direct `li` child.
 
 <Example name="simple-grid/media-gallery" />
+
+## Composition
+
+`SimpleGrid` is not an Ark UI primitive. moduix provides it as a small layout wrapper built with
+Ark's factory. It follows Ark's guidance for [composition](https://ark-ui.com/docs/guides/composition),
+[styling](https://ark-ui.com/docs/guides/styling), and [refs](https://ark-ui.com/docs/guides/ref).
+Its `columns` and `minChildWidth` props borrow the layout model from Chakra UI
+[SimpleGrid](https://chakra-ui.com/docs/components/simple-grid), but moduix does not include Chakra's
+responsive style props.
+
+Use `<SimpleGrid>` as the root. Choose either `minChildWidth` for an intrinsic column count or
+`columns` for a fixed count. If both are provided, `minChildWidth` takes priority.
+
+Use `asChild` when the grid root should be a semantic element such as `ul`, `section`, or `nav`.
+It requires exactly one element child, which becomes the rendered root. In React, pass `asChild` as
+a boolean; in Vue, use `as-child` with a single default-slot element; in Solid, use its render-function
+form to return that element. For named grid areas,
+unequal tracks, or items that span tracks, omit both layout props and define the grid template in
+your own class, including responsive templates in media queries.
+
+## Anatomy
+
+`SimpleGrid` renders one CSS Grid root and does not add wrappers around its children.
+
+```text
+SimpleGrid
+└─ root[data-scope="simple-grid"][data-part="root"][data-slot="simple-grid-root"]
+   └─ children
+```
+
+| Part         | Role                                                   |
+| ------------ | ------------------------------------------------------ |
+| `SimpleGrid` | Root wrapper that creates equal-width CSS Grid columns. |
 
 ## Styling
 

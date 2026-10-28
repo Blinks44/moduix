@@ -2,6 +2,7 @@
 title: Tooltip
 component: tooltip
 description: A short, supplementary label that appears when its trigger is hovered or focused.
+ark: https://ark-ui.com/docs/components/tooltip
 ---
 
 import TooltipContext from '@/components/examples/tooltip/context.tsx';
@@ -9,9 +10,18 @@ import tooltipSolidContext from '../../../snippets/tooltip/solid/context.tsx?raw
 import tooltipVueContext from '../../../snippets/tooltip/vue/context.vue?raw';
 import tooltipVueContextPart from '../../../snippets/tooltip/vue/TooltipStateContent.vue?raw';
 
-## API Reference
+<Example name="tooltip/basic" />
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/tooltip" />
+## Installation
+
+<ComponentInstall />
+
+## Usage
+
+Use `TooltipTrigger` for the element that opens the tooltip and `TooltipBody` for its content.
+`TooltipBody` combines `TooltipPositioner` and `TooltipContent`. Give the trigger an accessible
+name of its own. Tooltip content is supplemental and does not replace visible text or an
+`aria-label`.
 
 ## Choosing the right component
 
@@ -20,109 +30,6 @@ Use `Tooltip` for short, non-essential information that appears on hover or focu
 - Choose **`Tooltip`** for brief labels and contextual hints without interaction.
 - Choose **`Popover`** when the popup needs richer content, actions, or form controls.
 - Choose **`HoverCard`** when the popup should show a supplementary preview tied to its trigger.
-
-## Basic
-
-
-Use `TooltipTrigger` for the element that opens the tooltip and `TooltipBody` for its content.
-`TooltipBody` combines `TooltipPositioner` and `TooltipContent`. Give the trigger an accessible
-name of its own. Tooltip content is supplemental and does not replace visible text or an
-`aria-label`.
-
-<Example name="tooltip/basic" />
-
-## Install with shadcn
-
-See [Quick Start](/docs/quick-start) for full package setup, registry configuration, and styling guidance.
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/tooltip' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/tooltip' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/tooltip' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/tooltip' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/tooltip' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/tooltip' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Anatomy
-
-```text
-Tooltip
-├─ TooltipTrigger
-└─ Overlay subtree (automatically rendered in a portal)
-   └─ TooltipPositioner
-      └─ TooltipContent
-         └─ content
-```
-
-Add `TooltipArrow` as the first child of the content when the popup should point to its trigger.
-`TooltipArrow` renders `TooltipArrowTip` by default.
-
-```text
-Tooltip
-├─ TooltipTrigger
-└─ Overlay subtree (automatically rendered in a portal)
-   └─ TooltipPositioner
-      └─ TooltipContent
-         ├─ TooltipArrow
-         │  └─ TooltipArrowTip
-         └─ content
-```
-
-| Part | Role |
-| --- | --- |
-| `Tooltip` | Owns tooltip state, opening and closing, delays, positioning, and lifecycle. |
-| `TooltipRootProvider` | Renders a tooltip from a `useTooltip()` state object created outside the tree. |
-| `TooltipContext` | Exposes current tooltip state through a render prop or a Vue scoped slot for custom descendants. |
-| `TooltipBody` | Convenience wrapper that renders `TooltipPositioner` and `TooltipContent` together. |
-| `TooltipTrigger` | Interactive element that opens the tooltip on hover or focus. |
-| `TooltipDisabledTrigger` | Focusable wrapper for one disabled native control that still needs an explanation. |
-| `TooltipPositioner` | Positions the content and exposes Ark positioning variables. |
-| `TooltipContent` | Visible tooltip surface. |
-| `TooltipArrow` | Optional positioned arrow wrapper that renders `TooltipArrowTip` by default. |
-| `TooltipArrowTip` | Arrow tip element. |
-
-## Composition
-
-Use `TooltipBody` for the standard `Trigger` plus content composition. It combines
-`TooltipPositioner` and `TooltipContent`; use those parts explicitly when they need independent
-styling or structure. The root owns state, so use `defaultOpen` for an uncontrolled tooltip or
-`open` with `onOpenChange(details)` when another part of the application owns it. Use
-`TooltipRootProvider` with `useTooltip()` when the store is created outside the rendered tree, and
-use `TooltipContext` or `useTooltipContext()` when a descendant needs that state. `asChild` requires
-one focusable child; Solid uses a render function. `TooltipDisabledTrigger` is for one disabled
-native control. Portalling is enabled by default, so set `portalled={false}` or pass `portalRef`
-only when the tooltip must stay within a specific DOM boundary. In Vue, use `v-model:open` for
-controlled state and Vue event names such as `@open-change`.
-
-Content mounts on first open and unmounts after its exit animation by default. Set
-`unmountOnExit` to `false` to retain it after the first open; set `lazyMount` to `false` as well
-for eager rendering. In Vue, bind these options as `:unmount-on-exit="false"` and
-`:lazy-mount="false"`.
 
 ## Examples
 
@@ -229,6 +136,62 @@ Use the explicit `TooltipPositioner` and `TooltipContent` parts when they need i
 composition or styling.
 
 <Example name="tooltip/advanced-customization" />
+
+## Composition
+
+Use `TooltipBody` for the standard `Trigger` plus content composition. It combines
+`TooltipPositioner` and `TooltipContent`; use those parts explicitly when they need independent
+styling or structure. The root owns state, so use `defaultOpen` for an uncontrolled tooltip or
+`open` with `onOpenChange(details)` when another part of the application owns it. Use
+`TooltipRootProvider` with `useTooltip()` when the store is created outside the rendered tree, and
+use `TooltipContext` or `useTooltipContext()` when a descendant needs that state. `asChild` requires
+one focusable child; Solid uses a render function. `TooltipDisabledTrigger` is for one disabled
+native control. Portalling is enabled by default, so set `portalled={false}` or pass `portalRef`
+only when the tooltip must stay within a specific DOM boundary. In Vue, use `v-model:open` for
+controlled state and Vue event names such as `@open-change`.
+
+Content mounts on first open and unmounts after its exit animation by default. Set
+`unmountOnExit` to `false` to retain it after the first open; set `lazyMount` to `false` as well
+for eager rendering. In Vue, bind these options as `:unmount-on-exit="false"` and
+`:lazy-mount="false"`.
+
+## Anatomy
+
+```text
+Tooltip
+├─ TooltipTrigger
+└─ Overlay subtree (automatically rendered in a portal)
+   └─ TooltipPositioner
+      └─ TooltipContent
+         └─ content
+```
+
+Add `TooltipArrow` as the first child of the content when the popup should point to its trigger.
+`TooltipArrow` renders `TooltipArrowTip` by default.
+
+```text
+Tooltip
+├─ TooltipTrigger
+└─ Overlay subtree (automatically rendered in a portal)
+   └─ TooltipPositioner
+      └─ TooltipContent
+         ├─ TooltipArrow
+         │  └─ TooltipArrowTip
+         └─ content
+```
+
+| Part | Role |
+| --- | --- |
+| `Tooltip` | Owns tooltip state, opening and closing, delays, positioning, and lifecycle. |
+| `TooltipRootProvider` | Renders a tooltip from a `useTooltip()` state object created outside the tree. |
+| `TooltipContext` | Exposes current tooltip state through a render prop or a Vue scoped slot for custom descendants. |
+| `TooltipBody` | Convenience wrapper that renders `TooltipPositioner` and `TooltipContent` together. |
+| `TooltipTrigger` | Interactive element that opens the tooltip on hover or focus. |
+| `TooltipDisabledTrigger` | Focusable wrapper for one disabled native control that still needs an explanation. |
+| `TooltipPositioner` | Positions the content and exposes Ark positioning variables. |
+| `TooltipContent` | Visible tooltip surface. |
+| `TooltipArrow` | Optional positioned arrow wrapper that renders `TooltipArrowTip` by default. |
+| `TooltipArrowTip` | Arrow tip element. |
 
 ## Styling
 

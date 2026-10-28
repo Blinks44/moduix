@@ -2,106 +2,26 @@
 title: Rating Group
 component: rating-group
 description: Contrôle de notation par étoiles fondé sur le primitif rating-group d’Ark UI pour React, Solid et Vue.
+ark: https://ark-ui.com/docs/components/rating-group
 ---
 
 import * as RatingGroupDocs from '@/components/examples/rating-group/css-properties';
 
-## Référence de l’API
+<Example name="rating-group/basic" />
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/rating-group" />
+## Installation
 
-## Choisir le bon composant
+<ComponentInstall />
 
-Utilisez `RatingGroup` lorsque l’utilisateur doit choisir une note numérique parmi une série d’étoiles ou d’icônes répétées.
-
-## Exemple de base
-
+## Utilisation
 
 Utilisez `RatingGroup` comme racine et ajoutez `RatingGroupLabel`, `RatingGroupControl` et
 `RatingGroupItems` pour une notation standard par étoiles. Rendez `RatingGroupHiddenInput`
 explicitement lorsque la valeur doit participer à l’envoi d’un formulaire natif.
 
-<Example name="rating-group/basic" />
+## Choisir le bon composant
 
-## Installation avec shadcn
-
-Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration complète du paquet, du registre et des styles.
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/rating-group' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/rating-group' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/rating-group' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/rating-group' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/rating-group' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/rating-group' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Anatomie
-
-```text
-RatingGroup
-├─ RatingGroupLabel
-└─ RatingGroupControl
-   ├─ RatingGroupItems
-   │  └─ RatingGroupItem[index]
-   │     └─ RatingGroupItemIndicator
-   ├─ RatingGroupContext
-   │  └─ RatingGroupItem[index]
-   │     └─ RatingGroupItemIndicator
-   └─ RatingGroupHiddenInput (explicite)
-
-RatingGroupRootProvider
-└─ même arbre de parties relié à un état moduix créé avec useRatingGroup()
-```
-
-| Partie                               | Rôle                                                                |
-| ------------------------------------ | ------------------------------------------------------------------- |
-| `RatingGroup`                    | Gère l’état de la note, la navigation au clavier, le focus et les formulaires. |
-| `RatingGroupHiddenInput`             | Champ natif d’Ark à composer explicitement.                         |
-| `RatingGroupRootProvider`            | Relie les parties à l’état créé avec `useRatingGroup()`.             |
-| `RatingGroupContext`                 | Donne accès à l’état racine actuel via une render prop.              |
-| `RatingGroupItemContext`             | Donne accès à l’état actuel de l’élément via une render prop.        |
-| `RatingGroupLabel`                   | Libellé accessible du groupe de notation.                            |
-| `RatingGroupControl`                 | Regroupe les éléments interactifs de notation.                       |
-| `RatingGroupItems`                   | Crée un élément pour chaque valeur et fournit l’étoile par défaut.   |
-| `RatingGroupItem`                    | Élément sélectionnable qui nécessite un `index` numérique.           |
-| `RatingGroupItemIndicator`           | Visuel étoilé moduix par défaut pour un élément.                     |
-
-## Composition
-
-Utilisez `RatingGroupItems` pour l’arbre standard généré. Pour remplacer le visuel répété, passez un
-`RatingGroupItemIndicator` personnalisé comme enfant. `RatingGroupHiddenInput` est indépendant de
-`Items`, ajoutez-le donc explicitement dans la racine ou `RatingGroupRootProvider` ; définissez
-`name` sur la racine lorsque la valeur doit être envoyée par un formulaire natif.
-
-Pour un arbre d’éléments personnalisé, utilisez `RatingGroupContext` avec `RatingGroupItem`.
-Utilisez `RatingGroupRootProvider` avec `useRatingGroup()` lorsque l’état doit être créé en dehors
-de l’arbre rendu. React lit le store comme un objet, Solid lit son état réactif via la fonction
-retournée, et Vue expose directement le store réactif dans le template.
+Utilisez `RatingGroup` lorsque l’utilisateur doit choisir une note numérique parmi une série d’étoiles ou d’icônes répétées.
 
 ## Exemples
 
@@ -163,6 +83,49 @@ vous devez rendre chaque élément vous-même.
 
 <Example name="rating-group/advanced-customization" />
 
+## Composition
+
+Utilisez `RatingGroupItems` pour l’arbre standard généré. Pour remplacer le visuel répété, passez un
+`RatingGroupItemIndicator` personnalisé comme enfant. `RatingGroupHiddenInput` est indépendant de
+`Items`, ajoutez-le donc explicitement dans la racine ou `RatingGroupRootProvider` ; définissez
+`name` sur la racine lorsque la valeur doit être envoyée par un formulaire natif.
+
+Pour un arbre d’éléments personnalisé, utilisez `RatingGroupContext` avec `RatingGroupItem`.
+Utilisez `RatingGroupRootProvider` avec `useRatingGroup()` lorsque l’état doit être créé en dehors
+de l’arbre rendu. React lit le store comme un objet, Solid lit son état réactif via la fonction
+retournée, et Vue expose directement le store réactif dans le template.
+
+## Anatomie
+
+```text
+RatingGroup
+├─ RatingGroupLabel
+└─ RatingGroupControl
+   ├─ RatingGroupItems
+   │  └─ RatingGroupItem[index]
+   │     └─ RatingGroupItemIndicator
+   ├─ RatingGroupContext
+   │  └─ RatingGroupItem[index]
+   │     └─ RatingGroupItemIndicator
+   └─ RatingGroupHiddenInput (explicite)
+
+RatingGroupRootProvider
+└─ même arbre de parties relié à un état moduix créé avec useRatingGroup()
+```
+
+| Partie                               | Rôle                                                                |
+| ------------------------------------ | ------------------------------------------------------------------- |
+| `RatingGroup`                    | Gère l’état de la note, la navigation au clavier, le focus et les formulaires. |
+| `RatingGroupHiddenInput`             | Champ natif d’Ark à composer explicitement.                         |
+| `RatingGroupRootProvider`            | Relie les parties à l’état créé avec `useRatingGroup()`.             |
+| `RatingGroupContext`                 | Donne accès à l’état racine actuel via une render prop.              |
+| `RatingGroupItemContext`             | Donne accès à l’état actuel de l’élément via une render prop.        |
+| `RatingGroupLabel`                   | Libellé accessible du groupe de notation.                            |
+| `RatingGroupControl`                 | Regroupe les éléments interactifs de notation.                       |
+| `RatingGroupItems`                   | Crée un élément pour chaque valeur et fournit l’étoile par défaut.   |
+| `RatingGroupItem`                    | Élément sélectionnable qui nécessite un `index` numérique.           |
+| `RatingGroupItemIndicator`           | Visuel étoilé moduix par défaut pour un élément.                     |
+
 ## Styles
 
 Utilisez `className` en React ou `class` en Solid et Vue sur les parties exportées pour les styles
@@ -172,7 +135,7 @@ structurels. Ark expose aussi les attributs `data-scope="rating-group"` et `data
 consommateur ; les variantes CSS Modules exposent aussi les variables enregistrées
 `--moduix-rating-group-*`.
 
-### Propriétés CSS
+### Variables CSS
 
 <CssPropertiesSection properties={RatingGroupDocs.ratingGroupOverrideCssProperties} />
 

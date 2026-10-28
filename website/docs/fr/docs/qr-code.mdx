@@ -2,6 +2,7 @@
 title: QR Code
 component: qr-code
 description: Un composant de code QR fondé sur Ark UI qui produit un SVG, prend en charge les superpositions et permet de télécharger le code comme image.
+ark: https://ark-ui.com/docs/components/qr-code
 ---
 
 import RootProviderQrCode from '@/components/examples/qr-code/root-provider.tsx';
@@ -9,89 +10,17 @@ import * as QrCodeDocs from '@/components/examples/qr-code/css-properties';
 import qrCodeSolidRootProvider from '../../../snippets/qr-code/solid/root-provider.tsx?raw';
 import qrCodeVueRootProvider from '../../../snippets/qr-code/vue/root-provider.vue?raw';
 
-## Référence de l’API
+<Example name="qr-code/basic" />
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/qr-code" />
+## Installation
 
-## Exemple de base
+<ComponentInstall />
 
+## Utilisation
 
 Utilisez `QrCode` dans le cas courant. Passez le contenu à encoder dans `defaultValue`, puis affichez
 explicitement `QrCodeFrame` et `QrCodePattern` pour rendre le SVG généré. Donnez un nom accessible
 à `QrCodeFrame` lorsque le code QR transmet une information.
-
-<Example name="qr-code/basic" />
-
-## Installation avec shadcn
-
-Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration complète du paquet, du registre et des styles.
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/qr-code' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/qr-code' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/qr-code' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/qr-code' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/qr-code' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/qr-code' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Anatomie
-
-```text
-QrCode
-├─ QrCodeFrame
-│  └─ QrCodePattern
-├─ QrCodeOverlay
-└─ QrCodeDownloadTrigger
-
-QrCodeRootProvider
-└─ même arbre de parties connecté à un store useQrCode()
-```
-
-| Part                     | Rôle                                                                  |
-| ------------------------ | --------------------------------------------------------------------- |
-| `QrCode`                | Possède la valeur encodée et les options de génération, et fournit l’état du code QR. |
-| `QrCodeRootProvider`    | Connecte les parties à l’état créé avec `useQrCode()`.                |
-| `QrCodeFrame`           | Élément SVG qui contient le code QR généré.                            |
-| `QrCodePattern`         | Chemin SVG qui dessine les modules du code QR.                         |
-| `QrCodeOverlay`         | Contenu affiché au centre du code QR.                                  |
-| `QrCodeDownloadTrigger` | Bouton qui télécharge le code QR actuel comme image.                   |
-
-## Composition
-
-Utilisez `defaultValue` pour un code QR non contrôlé. Lorsque l’état de l’application possède la
-valeur, utilisez `value` avec `onValueChange(details)` et lisez la nouvelle valeur dans
-`details.value`. Créez l’état avec `useQrCode()` depuis le package du framework correspondant, puis
-transmettez-le à `QrCodeRootProvider` lorsqu’il doit être partagé en dehors de l’arbre QR. Ne
-restituez pas `QrCode` et `QrCodeRootProvider` pour le même store.
-
-Utilisez `QrCodeContext` ou `useQrCodeContext()` lorsqu’un descendant a besoin de l’API QR actuelle.
-Ajoutez `QrCodeOverlay` uniquement avec un niveau de correction suffisant pour la zone couverte,
-puis testez le code final avec les scanners utilisés par vos utilisateurs.
 
 ## Exemples
 
@@ -185,6 +114,40 @@ dehors de l’arbre QR, puis transmettez cet état à `QrCodeRootProvider`.
 
 </ExampleCode>
 
+## Composition
+
+Utilisez `defaultValue` pour un code QR non contrôlé. Lorsque l’état de l’application possède la
+valeur, utilisez `value` avec `onValueChange(details)` et lisez la nouvelle valeur dans
+`details.value`. Créez l’état avec `useQrCode()` depuis le package du framework correspondant, puis
+transmettez-le à `QrCodeRootProvider` lorsqu’il doit être partagé en dehors de l’arbre QR. Ne
+restituez pas `QrCode` et `QrCodeRootProvider` pour le même store.
+
+Utilisez `QrCodeContext` ou `useQrCodeContext()` lorsqu’un descendant a besoin de l’API QR actuelle.
+Ajoutez `QrCodeOverlay` uniquement avec un niveau de correction suffisant pour la zone couverte,
+puis testez le code final avec les scanners utilisés par vos utilisateurs.
+
+## Anatomie
+
+```text
+QrCode
+├─ QrCodeFrame
+│  └─ QrCodePattern
+├─ QrCodeOverlay
+└─ QrCodeDownloadTrigger
+
+QrCodeRootProvider
+└─ même arbre de parties connecté à un store useQrCode()
+```
+
+| Part                     | Rôle                                                                  |
+| ------------------------ | --------------------------------------------------------------------- |
+| `QrCode`                | Possède la valeur encodée et les options de génération, et fournit l’état du code QR. |
+| `QrCodeRootProvider`    | Connecte les parties à l’état créé avec `useQrCode()`.                |
+| `QrCodeFrame`           | Élément SVG qui contient le code QR généré.                            |
+| `QrCodePattern`         | Chemin SVG qui dessine les modules du code QR.                         |
+| `QrCodeOverlay`         | Contenu affiché au centre du code QR.                                  |
+| `QrCodeDownloadTrigger` | Bouton qui télécharge le code QR actuel comme image.                   |
+
 ## Styles
 
 Utilisez `className` en React ou `class` en Solid et Vue sur les parties exportées pour les styles
@@ -195,7 +158,7 @@ hooks `data-slot` sont partagés par les deux pistes de style.
 Le panneau CSS Variables répertorie l’ensemble des variables publiques. Ark définit également au
 runtime `--qrcode-pixel-size`, `--qrcode-width` et `--qrcode-height` sur la racine.
 
-### Propriétés CSS
+### Variables CSS
 
 <CssPropertiesSection properties={QrCodeDocs.qrCodeOverrideCssProperties} />
 

@@ -1,71 +1,29 @@
 ---
 title: Sign in
 description: A sign-in form with email, password, and remember-me fields, built with moduix components.
+block: login-simple
 ---
 
 import { LoginSimple } from '@/components/blocks/login-simple/login-simple';
+import loginSimpleReact from '../../../src/components/blocks/login-simple/login-simple.tsx?raw';
 import loginSimpleSolid from '../../../snippets/blocks/solid/login-simple.tsx?raw';
 import loginSimpleVue from '../../../snippets/blocks/vue/login-simple.vue?raw';
+import loginSimpleCss from '../../../src/components/blocks/login-simple/login-simple-form.module.css?raw';
 import loginRouteReact from '../../../snippets/blocks/react/login-route.tsx?raw';
 import loginRouteSolid from '../../../snippets/blocks/solid/login-route.tsx?raw';
 import loginRouteVue from '../../../snippets/blocks/vue/login-route.vue?raw';
 
 # Sign in
 
-This block gives you a compact sign-in form with native browser validation, email and password
-autocomplete, and links for account recovery and registration. It uses moduix `Card`, `Field`,
-`Input`, `Checkbox`, and `Button` components. The block does not authenticate users or manage request
-state. Connect those pieces to your application through `onSubmit`.
-
-The preview runs React. The source tabs contain React, Solid, and Vue implementations with a shared stylesheet.
-
-The preview prevents the default form submission, so it never calls an authentication endpoint. The
-copied block forwards `onSubmit` to the native form and leaves authentication to your application.
-
-<ExampleFrame variant="block" clientOnly>
+<ExamplePanel
+  clientOnly
+  sources={{ react: loginSimpleReact, solid: loginSimpleSolid, vue: loginSimpleVue }}
+  files={[{ name: 'login-simple-form.module.css', code: loginSimpleCss }]}
+>
   <PreviewFrame maxWidth="sm">
-  <LoginSimple onSubmit={(event) => event.preventDefault()} />
+    <LoginSimple onSubmit={(event) => event.preventDefault()} />
   </PreviewFrame>
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/blocks/login-simple/login-simple.tsx"
-
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={loginSimpleSolid} />
-
-    </Tab>
-  <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={loginSimpleVue} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/blocks/login-simple/login-simple-form.module.css"
-
-```
-</div>
-
-</ExampleCode>
+</ExamplePanel>
 
 ## Install
 
@@ -73,46 +31,25 @@ copied block forwards `onSubmit` to the native form and leaves authentication to
 
 ## Connect it to authentication
 
-`LoginSimple` passes `onSubmit` to its native `<form>`. The handler receives the regular form event,
-so call `event.preventDefault()`, read `new FormData(event.currentTarget)`, and send it to your API.
-The form fields are named `email`, `password`, and `remember`; `remember` is included only when the
-checkbox is checked.
+`LoginSimple` passes `onSubmit` to its native `<form>`. Read the fields with `FormData` and send
+them to your API. The fields are named `email`, `password`, and `remember`; `remember` is sent only
+when the box is checked.
 
-<Tabs
-  groupId="framework"
-  values={[
-    { label: 'React', value: 'react' },
-    { label: 'Solid', value: 'solid' },
-    { label: 'Vue', value: 'vue' },
-  ]}
->
-  <Tab value="react">
+<FrameworkCode
+  name="sign-in-route"
+  sources={{ react: loginRouteReact, solid: loginRouteSolid, vue: loginRouteVue }}
+/>
 
-<CodeBlockRuntime lang="tsx" code={loginRouteReact} />
-
-  </Tab>
-  <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={loginRouteSolid} />
-
-  </Tab>
-  <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={loginRouteVue} />
-
-  </Tab>
-</Tabs>
-
-Replace `/api/sign-in` and `/dashboard` with your application routes. In the copied block, also
-replace the `/forgot-password` and `/sign-up` links.
+Replace `/api/sign-in` and `/dashboard` with your routes, and the `/forgot-password` and `/sign-up`
+links in the copied block.
 
 ## Production checklist
 
-| Situation | What to do |
-| --------- | ---------- |
-| Request pending | Disable the submit button and prevent duplicate submissions while the request is in flight. |
-| Invalid credentials | Show one form-level message without revealing which credential was incorrect. |
-| Network error | Keep the entered email and offer a retry. Clear the password only when your security policy requires it. |
-| Successful sign-in | Redirect to a safe route or replace the current history entry, according to your application flow. |
+The block renders the form only. Handle these states in your route:
 
-If your application accepts a `returnTo` or redirect URL, validate it on the server before navigating.
+| Situation | What to do |
+| --- | --- |
+| Request pending | Disable submit and block duplicate requests while it runs. |
+| Invalid credentials | Show one form message without saying which field was wrong. |
+| Network error | Keep the entered email and offer a retry. |
+| Signed in | Redirect to a validated route or replace the history entry. |

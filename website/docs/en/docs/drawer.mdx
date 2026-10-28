@@ -2,123 +2,28 @@
 title: Drawer
 component: drawer
 description: An accessible edge panel for navigation, forms, bottom sheets, snap points, and swipe-driven workflows in React, Solid, and Vue.
+ark: https://ark-ui.com/docs/components/drawer
 ---
 
 import * as DrawerDocs from '@/components/examples/drawer/css-properties';
 
-## API Reference
+<Example name="drawer/basic" />
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/drawer" />
+## Installation
+
+<ComponentInstall />
+
+## Usage
+
+Compose the drawer from Ark's structural parts. This example opens at a compact snap point, then lets
+the user drag it to full height. `DrawerContent` is the interactive surface, `DrawerPositioner`
+places it, and `DrawerBackdrop` provides the modal layer.
 
 ## Choosing the right component
 
 Use `Drawer` for a panel that slides in from the edge of the viewport. It works well for navigation,
 forms, mobile bottom sheets, and workflows where users need to drag the panel or move between snap
 points. Choose `Dialog` for a centered surface that does not need to be dragged.
-
-## Basic
-
-
-Compose the drawer from Ark's structural parts. This example opens at a compact snap point, then lets
-the user drag it to full height. `DrawerContent` is the interactive surface, `DrawerPositioner`
-places it, and `DrawerBackdrop` provides the modal layer.
-
-<Example name="drawer/basic" />
-
-## Install with shadcn
-
-See [Quick Start](/docs/quick-start) for full package setup, registry configuration, and styling guidance.
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/drawer' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/drawer' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/drawer' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/drawer' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/drawer' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/drawer' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Anatomy
-
-```text
-Drawer
-├─ DrawerTrigger
-├─ DrawerSwipeArea (optional)
-├─ DrawerBackdrop
-└─ DrawerPositioner
-   └─ DrawerContent
-      ├─ DrawerGrabber
-      │  └─ DrawerGrabberIndicator
-      ├─ DrawerHeader (optional layout helper)
-      │  ├─ DrawerTitle
-      │  ├─ DrawerDescription
-      │  └─ DrawerCloseIcon (optional helper)
-      ├─ DrawerBody (optional layout helper)
-      └─ DrawerFooter (optional layout helper)
-
-DrawerRootProvider
-└─ same part tree connected to a useDrawer() store
-```
-
-| Part | Role |
-| --- | --- |
-| `Drawer` | Root part that owns open state, snap points, and swipe behavior. |
-| `DrawerRootProvider` | Connects the parts to state created with `useDrawer()`. |
-| `DrawerTrigger` | Opens the drawer. |
-| `DrawerSwipeArea` | Optional edge region that opens the drawer on swipe. |
-| `DrawerBackdrop` | Modal backdrop layer. |
-| `DrawerPositioner` | Positions the drawer content. |
-| `DrawerContent` | Interactive surface of the drawer. |
-| `DrawerGrabber` | Container for the drag handle. |
-| `DrawerGrabberIndicator` | Visual indicator inside the drag handle. |
-| `DrawerTitle` | Accessible title for the drawer. |
-| `DrawerDescription` | Accessible description for the drawer. |
-| `DrawerCloseTrigger` | Closes the drawer. |
-| `DrawerCloseIcon` | Moduix close control composed from `DrawerCloseTrigger`. |
-| `DrawerStack` | Coordinates nested drawers and indented surfaces. |
-| `DrawerIndent` | Surface that moves back when a stacked drawer opens. |
-| `DrawerIndentBackground` | Background behind an indented surface. |
-| `DrawerHeader`, `DrawerBody`, `DrawerFooter` | Optional layout helpers with no state of their own. |
-
-## Composition
-
-`Drawer` owns its state by default and renders `DrawerBackdrop` and `DrawerPositioner` through a portal. Keep
-those structural parts explicit. Set `portalled={false}` to render them inline, or pass `portalRef`
-to use a custom container.
-
-When state must be created outside the drawer tree, create one store with `useDrawer()` and pass it to
-one `DrawerRootProvider`. Do not render `Drawer` for that same store. Nested drawers
-use separate stores and separate `DrawerRootProvider` trees so each drawer keeps its own focus and open state.
-
-Wrap surfaces that should move together in `DrawerStack`, then pair `DrawerIndentBackground` with
-`DrawerIndent`. Use `asChild` for a custom trigger or close host: React receives one focusable child,
-Solid uses a render function that spreads `props()` onto the child, and Vue uses the `as-child`
-attribute with a single child element. Ark callbacks receive detail
-objects, such as `details.open`, `details.snapPoint`, and `details.value`.
 
 ## Examples
 
@@ -219,6 +124,64 @@ full low-level Drawer anatomy.
 
 <Example name="drawer/advanced-customization" />
 
+## Composition
+
+`Drawer` owns its state by default and renders `DrawerBackdrop` and `DrawerPositioner` through a portal. Keep
+those structural parts explicit. Set `portalled={false}` to render them inline, or pass `portalRef`
+to use a custom container.
+
+When state must be created outside the drawer tree, create one store with `useDrawer()` and pass it to
+one `DrawerRootProvider`. Do not render `Drawer` for that same store. Nested drawers
+use separate stores and separate `DrawerRootProvider` trees so each drawer keeps its own focus and open state.
+
+Wrap surfaces that should move together in `DrawerStack`, then pair `DrawerIndentBackground` with
+`DrawerIndent`. Use `asChild` for a custom trigger or close host: React receives one focusable child,
+Solid uses a render function that spreads `props()` onto the child, and Vue uses the `as-child`
+attribute with a single child element. Ark callbacks receive detail
+objects, such as `details.open`, `details.snapPoint`, and `details.value`.
+
+## Anatomy
+
+```text
+Drawer
+├─ DrawerTrigger
+├─ DrawerSwipeArea (optional)
+├─ DrawerBackdrop
+└─ DrawerPositioner
+   └─ DrawerContent
+      ├─ DrawerGrabber
+      │  └─ DrawerGrabberIndicator
+      ├─ DrawerHeader (optional layout helper)
+      │  ├─ DrawerTitle
+      │  ├─ DrawerDescription
+      │  └─ DrawerCloseIcon (optional helper)
+      ├─ DrawerBody (optional layout helper)
+      └─ DrawerFooter (optional layout helper)
+
+DrawerRootProvider
+└─ same part tree connected to a useDrawer() store
+```
+
+| Part | Role |
+| --- | --- |
+| `Drawer` | Root part that owns open state, snap points, and swipe behavior. |
+| `DrawerRootProvider` | Connects the parts to state created with `useDrawer()`. |
+| `DrawerTrigger` | Opens the drawer. |
+| `DrawerSwipeArea` | Optional edge region that opens the drawer on swipe. |
+| `DrawerBackdrop` | Modal backdrop layer. |
+| `DrawerPositioner` | Positions the drawer content. |
+| `DrawerContent` | Interactive surface of the drawer. |
+| `DrawerGrabber` | Container for the drag handle. |
+| `DrawerGrabberIndicator` | Visual indicator inside the drag handle. |
+| `DrawerTitle` | Accessible title for the drawer. |
+| `DrawerDescription` | Accessible description for the drawer. |
+| `DrawerCloseTrigger` | Closes the drawer. |
+| `DrawerCloseIcon` | Moduix close control composed from `DrawerCloseTrigger`. |
+| `DrawerStack` | Coordinates nested drawers and indented surfaces. |
+| `DrawerIndent` | Surface that moves back when a stacked drawer opens. |
+| `DrawerIndentBackground` | Background behind an indented surface. |
+| `DrawerHeader`, `DrawerBody`, `DrawerFooter` | Optional layout helpers with no state of their own. |
+
 ## Styling
 
 Use `className` in React or `class` in Solid and Vue on exported parts for structural styles. For state-based
@@ -227,7 +190,7 @@ together with moduix `data-slot` selectors. Tailwind variants use native utiliti
 classes; the component variables below customize the CSS Modules variants. Data attributes and
 `data-slot` hooks are shared by both styling tracks.
 
-### CSS Properties
+### CSS variables
 
 <CssPropertiesSection properties={DrawerDocs.drawerOverrideCssProperties} />
 

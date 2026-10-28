@@ -2,84 +2,21 @@
 title: Stack
 component: stack
 description: Небольшой flex-компонент для вертикальной и горизонтальной раскладки в React, Solid и Vue.
+ark: https://ark-ui.com/docs/guides/composition#the-ark-factory
 ---
 
+<Example name="stack/basic" />
 
-## Справочник API
+## Установка
 
-В Ark UI нет отдельного примитива `Stack`. В moduix этот компонент реализован на основе официальной
-[фабрики Ark](https://ark-ui.com/docs/guides/composition#the-ark-factory) и следует рекомендациям Ark по
-[композиции](https://ark-ui.com/docs/guides/composition), [стилизации](https://ark-ui.com/docs/guides/styling) и
-[работе с ref](https://ark-ui.com/docs/guides/ref). Названия свойств раскладки взяты из документации
-[Stack](https://chakra-ui.com/docs/components/stack) в Chakra UI.
+<ComponentInstall />
 
-## Базовый пример
+## Использование
 
 Интерактивное
 
 Используйте `Stack`, когда достаточно одного flex-контейнера и нужно настроить направление, промежуток и
 выравнивание.
-
-<Example name="stack/basic" />
-
-## Установка через shadcn
-
-Полную настройку пакета, реестра и стилей см. в разделе [Быстрый старт](/docs/quick-start).
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/stack' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/stack' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/stack' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/stack' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/stack' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/stack' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Анатомия
-
-`Stack` отрисовывает один корневой flex-контейнер по модели фабрики Ark. Компонент управляет направлением,
-промежутком, выравниванием, переносом элементов и простым адаптивным переключением направления. Остальные правила
-раскладки задавайте в локальном CSS.
-
-```text
-Stack
-└─ root[data-scope="stack"][data-part="root"][data-slot="stack-root"]
-   └─ children
-```
-
-| Часть                  | Назначение                                                               |
-| ---------------------- | ------------------------------------------------------------------------ |
-| `Stack`                | Корневая flex-обёртка для направления, промежутка, выравнивания и расстояния между дочерними элементами. |
-
-## Композиция
-
-`Stack` не владеет управляемым состоянием и предоставляет один корневой элемент. Для обычного вывода `div` используйте
-`<Stack>`. Свойство `fill` влияет на `Stack` как на flex-элемент, а не на его дочерние элементы. Добавляйте `Separator`
-напрямую, если нужен разделитель, и используйте `asChild`, когда корневой элемент должен иметь семантический тег.
 
 ## Примеры
 
@@ -127,6 +64,28 @@ Stack
 Используйте `wrap="wrap"`, когда элементы должны переходить на следующую строку.
 
 <Example name="stack/wrapped-items" />
+
+## Композиция
+
+`Stack` не владеет управляемым состоянием и предоставляет один корневой элемент. Для обычного вывода `div` используйте
+`<Stack>`. Свойство `fill` влияет на `Stack` как на flex-элемент, а не на его дочерние элементы. Добавляйте `Separator`
+напрямую, если нужен разделитель, и используйте `asChild`, когда корневой элемент должен иметь семантический тег.
+
+## Анатомия
+
+`Stack` отрисовывает один корневой flex-контейнер по модели фабрики Ark. Компонент управляет направлением,
+промежутком, выравниванием, переносом элементов и простым адаптивным переключением направления. Остальные правила
+раскладки задавайте в локальном CSS.
+
+```text
+Stack
+└─ root[data-scope="stack"][data-part="root"][data-slot="stack-root"]
+   └─ children
+```
+
+| Часть                  | Назначение                                                               |
+| ---------------------- | ------------------------------------------------------------------------ |
+| `Stack`                | Корневая flex-обёртка для направления, промежутка, выравнивания и расстояния между дочерними элементами. |
 
 ## Стилизация
 

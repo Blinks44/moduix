@@ -2,16 +2,21 @@
 title: Textarea
 component: textarea
 description: Нативное многострочное поле ввода с поддержкой Field и стилями moduix.
+ark: https://ark-ui.com/docs/components/field
 ---
 
 import * as TextareaDocs from '@/components/examples/textarea/css-properties';
 
-## Справочник API
+<Example name="textarea/basic" />
 
-В Ark UI нет отдельного примитива `Textarea`. В moduix этот компонент построен на
-[`FieldTextarea` из Ark UI](https://ark-ui.com/docs/components/field): он сохраняет нативный API
-`textarea`, поддерживает `autoresize` и `asChild`, передаёт ref на нативный элемент и наследует
-состояние `Field`.
+## Установка
+
+<ComponentInstall />
+
+## Использование
+
+Поместите `Textarea` внутрь `Field`, если полю нужны доступная метка или поясняющий текст. Это
+рекомендуемый вариант для комментариев, заметок, описаний задач и похожих полей.
 
 ## Выбор подходящего компонента
 
@@ -23,83 +28,6 @@ import * as TextareaDocs from '@/components/examples/textarea/css-properties';
 - Выбирайте **`Editable`**, если текст сначала отображается, а редактирование включается отдельно.
 - Выбирайте **`Field` + `Textarea`**, если вы хотите декларативно задать метку, пояснение,
   обязательность или валидацию.
-
-## Базовое использование
-
-Поместите `Textarea` внутрь `Field`, если полю нужны доступная метка или поясняющий текст. Это
-рекомендуемый вариант для комментариев, заметок, описаний задач и похожих полей.
-
-<Example name="textarea/basic" />
-
-## Установка через shadcn
-
-Полную настройку пакета, реестра и стилей см. в разделе [Быстрый старт](/docs/quick-start).
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/textarea' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/textarea' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/textarea' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/textarea' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/textarea' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/textarea' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Анатомия
-
-В публичной структуре есть только одна часть:
-
-```text
-Field (optional wrapper)
-└─ Textarea
-```
-
-| Часть      | Назначение                                                  |
-| ---------- | ----------------------------------------------------------- |
-| `Textarea` | Нативный `textarea` со стилями moduix и состоянием `Field`. |
-
-`Textarea` не экспортирует дополнительные оболочки, составные подкомпоненты, провайдеры и
-контекстные хуки, скрытые поля, подпись или счётчик символов.
-
-## Композиция
-
-Для неуправляемого поля используйте `defaultValue`. Если состояние хранится в приложении,
-используйте `value` и нативный `onChange` в React и Solid или `v-model` во Vue, передавая значение
-через примитив состояния выбранного фреймворка.
-
-Во Vue привязывайте нативное DOM-свойство как `:defaultValue="initialValue"`, а не `default-value`.
-При использовании `v-model` сбрасывайте связанное состояние в обработчике сброса формы: нативный сброс не вызывает событие ввода.
-
-Оборачивайте `Textarea` в `Field`, `FieldLabel`, `FieldHelperText` и `FieldErrorText`, когда
-нужны метка, пояснение или валидация. Если `Textarea` находится вне `Field`, задайте ему доступное
-имя через нативный `<label>` или `aria-label`.
-
-Включайте `autoresize`, только если поле должно расти вместе с содержимым. В этом режиме Ark
-отключает ручное изменение размера. При использовании `asChild` передавайте один семантический
-элемент textarea, который принимает объединённые свойства и ref.
 
 ## Примеры
 
@@ -145,6 +73,44 @@ Ark отключает ручное изменение размера.
 
 <Example name="textarea/native-attributes" />
 
+## Композиция
+
+В Ark UI нет отдельного примитива `Textarea`. В moduix этот компонент построен на
+[`FieldTextarea` из Ark UI](https://ark-ui.com/docs/components/field): он сохраняет нативный API
+`textarea`, поддерживает `autoresize` и `asChild`, передаёт ref на нативный элемент и наследует
+состояние `Field`.
+
+Для неуправляемого поля используйте `defaultValue`. Если состояние хранится в приложении,
+используйте `value` и нативный `onChange` в React и Solid или `v-model` во Vue, передавая значение
+через примитив состояния выбранного фреймворка.
+
+Во Vue привязывайте нативное DOM-свойство как `:defaultValue="initialValue"`, а не `default-value`.
+При использовании `v-model` сбрасывайте связанное состояние в обработчике сброса формы: нативный сброс не вызывает событие ввода.
+
+Оборачивайте `Textarea` в `Field`, `FieldLabel`, `FieldHelperText` и `FieldErrorText`, когда
+нужны метка, пояснение или валидация. Если `Textarea` находится вне `Field`, задайте ему доступное
+имя через нативный `<label>` или `aria-label`.
+
+Включайте `autoresize`, только если поле должно расти вместе с содержимым. В этом режиме Ark
+отключает ручное изменение размера. При использовании `asChild` передавайте один семантический
+элемент textarea, который принимает объединённые свойства и ref.
+
+## Анатомия
+
+В публичной структуре есть только одна часть:
+
+```text
+Field (optional wrapper)
+└─ Textarea
+```
+
+| Часть      | Назначение                                                  |
+| ---------- | ----------------------------------------------------------- |
+| `Textarea` | Нативный `textarea` со стилями moduix и состоянием `Field`. |
+
+`Textarea` не экспортирует дополнительные оболочки, составные подкомпоненты, провайдеры и
+контекстные хуки, скрытые поля, подпись или счётчик символов.
+
 ## Стилизация
 
 Внутри отключённого moduix `Field`, `FieldRootProvider` или `Fieldset` прозрачность применяется один
@@ -155,7 +121,7 @@ Tailwind используют нативные utility-классы и клас�
 токенах foundation и поддерживают только две переменные ниже; цвета, отступы, типографику, высоту и `resize`
 переопределяйте обычным классом, он сильнее стилей компонента в слое.
 
-### CSS-свойства
+### CSS-переменные
 
 <CssPropertiesSection properties={TextareaDocs.textareaCssProperties} />
 

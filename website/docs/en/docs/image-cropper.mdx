@@ -2,17 +2,8 @@
 title: Image Cropper
 component: image-cropper
 description: A component for cropping and transforming images with zoom, rotation, and aspect-ratio controls.
+ark: https://ark-ui.com/docs/components/image-cropper
 ---
-
-## API Reference
-
-<PrimitiveReference href="https://ark-ui.com/docs/components/image-cropper" />
-
-## Basic
-
-Use `ImageCropper` with `ImageCropperViewport`, `ImageCropperImage`, and `ImageCropperCropArea`.
-Pass the image URL to `ImageCropperImage`. `ImageCropperCropArea` adds the selection, grid lines,
-and resize handles for you.
 
 <Example name="image-cropper/basic" />
 
@@ -20,79 +11,15 @@ If you call `getCroppedImage()` for an image from another origin, the image serv
 and `ImageCropperImage` must receive `crossOrigin="anonymous"`. The examples use this setup for
 the Unsplash image.
 
-## Install with shadcn
+## Installation
 
-See [Quick Start](/docs/quick-start) for full package setup, registry configuration, and styling guidance.
+<ComponentInstall />
 
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
+## Usage
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/image-cropper' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/image-cropper' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/image-cropper' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/image-cropper' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/image-cropper' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/image-cropper' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Anatomy
-
-```tsx
-<ImageCropper>
-  <ImageCropperViewport>
-    <ImageCropperImage />
-    <ImageCropperCropArea />
-  </ImageCropperViewport>
-</ImageCropper>
-```
-
-| Part                                 | Role                                                                                 |
-| ------------------------------------ | ------------------------------------------------------------------------------------ |
-| `ImageCropper`                    | Root component that owns crop and transform state, ARIA attributes, and runtime CSS variables. |
-| `ImageCropperRootProvider`          | Root connected to a `useImageCropper` instance created outside the component tree.   |
-| `ImageCropperViewport`              | Viewport that clips overflow and provides the surface for panning the image.         |
-| `ImageCropperImage`                 | Image element that Ark transforms as the user edits the crop.                        |
-| `ImageCropperSelection`             | Focusable crop area and keyboard target. With `fixedCropArea` it stays focusable and arrow keys pan the image. |
-| `ImageCropperGrid`                  | Non-interactive horizontal or vertical crop guide. Requires `axis`.                  |
-| `ImageCropperHandle`                | Resize handle for a position from `ImageCropperHandles`. Requires `position`.       |
-| `ImageCropperCropArea`              | Ready-made selection with both grids and every resize handle. It does not accept `children` or `asChild`. |
-
-## Composition
-
-Use `ImageCropperCropArea` for the standard selection. It owns the two grids and all resize handles,
-so do not pass `children` or `asChild`. Use `className`, `gridClassName`, and `handleClassName` to
-style the selection and its generated parts.
-
-Use `ImageCropperContext` for controls inside the root. Create `useImageCropper()` and pass it to
-`ImageCropperRootProvider` when a toolbar, preview, or form logic needs the cropper instance outside
-the component tree. For one state instance, render either `ImageCropper` or
-`ImageCropperRootProvider`.
-
-Use controlled `zoom`, `rotation`, or `flip` with the matching change callback when another part of
-the application owns that state. Ark passes the updated value in the callback's `details` object. The Vue examples use native SFC syntax with the same parts, events, and controlled state.
-`fixedCropArea` keeps the selection fixed and makes the viewport the panning surface.
+Use `ImageCropper` with `ImageCropperViewport`, `ImageCropperImage`, and `ImageCropperCropArea`.
+Pass the image URL to `ImageCropperImage`. `ImageCropperCropArea` adds the selection, grid lines,
+and resize handles for you.
 
 ## Examples
 
@@ -172,6 +99,43 @@ Replace `ImageCropperCropArea` with the explicit `ImageCropperSelection`, `Image
 `ImageCropperGrid` requires an `axis`, and `ImageCropperHandle` requires a `position`.
 
 <Example name="image-cropper/advanced-customization" />
+
+## Composition
+
+Use `ImageCropperCropArea` for the standard selection. It owns the two grids and all resize handles,
+so do not pass `children` or `asChild`. Use `className`, `gridClassName`, and `handleClassName` to
+style the selection and its generated parts.
+
+Use `ImageCropperContext` for controls inside the root. Create `useImageCropper()` and pass it to
+`ImageCropperRootProvider` when a toolbar, preview, or form logic needs the cropper instance outside
+the component tree. For one state instance, render either `ImageCropper` or
+`ImageCropperRootProvider`.
+
+Use controlled `zoom`, `rotation`, or `flip` with the matching change callback when another part of
+the application owns that state. Ark passes the updated value in the callback's `details` object. The Vue examples use native SFC syntax with the same parts, events, and controlled state.
+`fixedCropArea` keeps the selection fixed and makes the viewport the panning surface.
+
+## Anatomy
+
+```tsx
+<ImageCropper>
+  <ImageCropperViewport>
+    <ImageCropperImage />
+    <ImageCropperCropArea />
+  </ImageCropperViewport>
+</ImageCropper>
+```
+
+| Part                                 | Role                                                                                 |
+| ------------------------------------ | ------------------------------------------------------------------------------------ |
+| `ImageCropper`                    | Root component that owns crop and transform state, ARIA attributes, and runtime CSS variables. |
+| `ImageCropperRootProvider`          | Root connected to a `useImageCropper` instance created outside the component tree.   |
+| `ImageCropperViewport`              | Viewport that clips overflow and provides the surface for panning the image.         |
+| `ImageCropperImage`                 | Image element that Ark transforms as the user edits the crop.                        |
+| `ImageCropperSelection`             | Focusable crop area and keyboard target. With `fixedCropArea` it stays focusable and arrow keys pan the image. |
+| `ImageCropperGrid`                  | Non-interactive horizontal or vertical crop guide. Requires `axis`.                  |
+| `ImageCropperHandle`                | Resize handle for a position from `ImageCropperHandles`. Requires `position`.       |
+| `ImageCropperCropArea`              | Ready-made selection with both grids and every resize handle. It does not accept `children` or `asChild`. |
 
 ## Styling
 

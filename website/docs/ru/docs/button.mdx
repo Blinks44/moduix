@@ -1,88 +1,32 @@
 ---
 title: Button
 component: button
-description: Стилизованный односоставный элемент управления действиями для React, Solid и Vue с вариантами на CSS Modules и Tailwind.
+description: Запускайте действие или открывайте ссылку с помощью доступной кнопки.
+ark: https://ark-ui.com/docs/guides/composition
 ---
 
 import * as ButtonDocs from '@/components/examples/button/css-properties';
 
-## Справочник API
-
-В Ark UI нет отдельного примитива `button`. moduix создаёт этот компонент с помощью официального
-[Ark factory](https://ark-ui.com/docs/guides/composition#the-ark-factory) и следует рекомендациям Ark по
-[композиции](https://ark-ui.com/docs/guides/composition), [стилизации](https://ark-ui.com/docs/guides/styling) и
-[работе с ref](https://ark-ui.com/docs/guides/ref).
-
-## Базовый пример
-
-Интерактивный пример на этой странице
-
-Для большинства действий используйте `<Button>...</Button>`.
-
 <Example name="button/basic" />
 
-## Установка через shadcn
+## Установка
 
-Полную настройку пакета, реестра и стилей см. в разделе [Быстрый старт](/docs/quick-start).
+<ComponentInstall />
 
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
+## Использование
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/button' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/button' },
-  ]}
+<UsageCode
+  react={'<Button variant="outline" size="sm" loading={saving}>\n  Save changes\n</Button>'}
+  vue={'<Button variant="outline" size="sm" :loading="saving">\n  Save changes\n</Button>'}
 />
 
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/button' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/button' },
+<PropChips
+  items={[
+    ['variant', 'default · outline · secondary · destructive · destructive-outline · ghost · link'],
+    ['size', 'xs · sm · md · lg · xl · icon-sm · icon-md · icon-lg'],
+    ['loading', 'Задаёт aria-busy и блокирует нажатие; индикатор Spinner добавьте сами.'],
   ]}
 />
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/button' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/button' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Анатомия
-
-`Button` состоит из одной части.
-
-```text
-Button
-└─ root[data-scope="button"][data-part="root"][data-slot="button-root"]
-   └─ children
-```
-
-| Часть    | Назначение                                              |
-| -------- | ------------------------------------------------------- |
-| `Button` | Единый интерактивный корневой элемент со стилями moduix. |
-
-## Композиция
-
-`Button` - односоставной корневой элемент. Используйте `asChild`, если итоговым DOM-узлом должен владеть
-другой семантический элемент: в React передаётся ровно один дочерний элемент, в Solid используется render-функция
-`asChild`, а Vue передаёт семантический элемент как содержимое слота по умолчанию. Если Button компонует часть Ark,
-родитель сохраняет `data-scope` и `data-part`, а Button - свои классы рецепта и стабильный `data-slot`.
-
-Свойство `loading` отвечает только за состояние занятости и отключения (`data-loading`, `aria-busy` и
-`data-disabled`); индикатор, текст и асинхронный жизненный цикл остаются под контролем приложения. Для
-нативного корневого элемента по умолчанию используется `type="button"`, но при `asChild` это значение не
-добавляется.
 
 ## Примеры
 
@@ -116,7 +60,8 @@ Button
 ### Ref
 
 Переданный ref указывает на отрисованный корневой элемент. Это позволяет программно установить на нём
-фокус или измерить его. В Vue template ref указывает на экземпляр компонента; используйте `$el`, чтобы получить
+фокус или измерить его. В Solid назначайте ref элементу, который создаётся внутри render-функции `asChild`:
+ref на самом `Button` в этом случае не передаётся. В Vue template ref указывает на экземпляр компонента; используйте `$el`, чтобы получить
 корневой элемент (с `asChild` это семантический дочерний элемент).
 
 <Example name="button/ref" />
@@ -133,30 +78,77 @@ Button
 
 <Example name="button/variants" />
 
+## Композиция
+
+`Button` - односоставной корневой элемент на основе [Ark factory](https://ark-ui.com/docs/guides/composition#the-ark-factory).
+Используйте `asChild`, если итоговым DOM-узлом должен владеть другой семантический элемент: в React передаётся
+ровно один дочерний элемент, в Solid используется render-функция `asChild`, а Vue передаёт семантический элемент
+как содержимое слота по умолчанию. Если Button компонует часть Ark, родитель сохраняет `data-scope` и `data-part`,
+а Button - свои классы рецепта и стабильный `data-slot`.
+
+Свойство `loading` отвечает только за состояние занятости и отключения; индикатор, текст и асинхронный жизненный
+цикл остаются под контролем приложения. Для нативного корневого элемента по умолчанию используется
+`type="button"`, но при `asChild` это значение не добавляется.
+
+## Анатомия
+
+У `Button` одна часть.
+
+```text
+Button
+└─ root[data-scope="button"][data-part="root"][data-slot="button-root"]
+   └─ children
+```
+
+| Часть    | Роль                                                       |
+| -------- | ---------------------------------------------------------- |
+| `Button` | Единственный интерактивный корневой элемент со стилями moduix. |
+
 ## Стилизация
 
 Начните с готового варианта и размера. Для разовой настройки задайте публичные переменные
 `--moduix-button-*` на кнопке через класс или встроенный стиль. Чтобы настроить один вариант во всём
-приложении, задайте те же переменные на `[data-slot='button-root'][data-variant='<variant>']`. Таблица
-CSS-переменных относится к пакетам с CSS Modules; в пакетах Tailwind используются обычные утилитарные классы
+приложении, задайте те же переменные на `[data-slot='button-root'][data-variant='<variant>']`. Эти
+CSS-переменные относятся к пакетам с CSS Modules; в пакетах Tailwind используются обычные утилитарные классы
 и классы приложения.
 
-Для пользовательских стилей передавайте корневому элементу `className` в React или `class` в Solid и Vue.
-Атрибуты состояния и хуки `data-slot` общие для обоих подходов.
-
-### CSS-свойства
+### CSS-переменные
 
 <CssPropertiesSection properties={ButtonDocs.buttonCssProperties} />
 
 ### Хуки стилизации
 
-- `data-slot="button-root"` - стабильный селектор moduix.
-- У самостоятельного корневого элемента по умолчанию используются `data-scope="button"` и `data-part="root"`.
-  Родитель Ark, который компонует Button, может заменить их значениями своей анатомии.
-- `data-variant` и `data-size` показывают активные вариант и размер.
-- `data-disabled` присутствует для нативных `disabled`, `aria-disabled="true"` и `loading`.
-- `data-loading` присутствует, когда `loading={true}`.
-- `[data-disabled]` управляет стилями отключённого состояния для нативных `disabled`, `aria-disabled="true"` и `loading`.
-- Самостоятельный Button при нажатии смещается вниз на 1px. Для варианта `link`, триггеров с `aria-haspopup`,
-  составных элементов с другим `data-slot` и при предпочтении уменьшенного движения смещение отключено.
-  InputGroupButton и SplitButton остаются неподвижными; подсветка, индикация фокуса и изменение прозрачности сохраняются.
+Для пользовательских стилей передавайте корневому элементу `className` в React или `class` в Solid и Vue.
+Эти атрибуты общие для обоих подходов к стилям.
+
+| Атрибут                   | Когда присутствует                                                                  |
+| ------------------------- | ----------------------------------------------------------------------------------- |
+| `data-slot="button-root"` | Всегда. Стабильный селектор moduix.                                                 |
+| `data-scope`, `data-part` | `button` и `root` у самостоятельного элемента; родитель Ark заменяет их своими.     |
+| `data-variant`            | Всегда. Отражает проп `variant`.                                                    |
+| `data-size`               | Всегда. Отражает проп `size`.                                                       |
+| `data-loading`            | `loading` равен `true`.                                                             |
+| `data-disabled`           | `disabled`, `aria-disabled="true"` или `loading`.                                   |
+
+Самостоятельный Button при нажатии смещается вниз на 1px. Для варианта `link`, триггеров с `aria-haspopup`,
+составных элементов с другим `data-slot` и при предпочтении уменьшенного движения смещение отключено.
+
+## Клавиатура
+
+Нативные кнопки сохраняют стандартное поведение браузера. У кнопок только со значком должно быть доступное имя.
+
+| Клавиша             | Действие                                                    |
+| ------------------- | ----------------------------------------------------------- |
+| `Tab` / `Shift+Tab` | Перемещает фокус между доступными элементами.               |
+| `Enter` / `Space`   | Активирует кнопку в фокусе.                                 |
+| Ссылка с `asChild`  | Ведёт себя с клавиатуры как отрисованный элемент.           |
+
+## Справочник API
+
+| Проп       | Тип             | По умолчанию |
+| ---------- | --------------- | ------------ |
+| `variant`  | `ButtonVariant` | `'default'`  |
+| `size`     | `ButtonSize`    | `'md'`       |
+| `loading`  | `boolean`       | `false`      |
+| `asChild`  | `boolean`       | `false`      |
+| `disabled` | `boolean`       | `false`      |

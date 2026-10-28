@@ -2,83 +2,20 @@
 title: Heading
 component: heading
 description: Composant sémantique pour les titres, basé sur la fabrique Ark et les tokens typographiques de moduix pour React, Solid et Vue.
+ark: https://ark-ui.com/docs/guides/composition#the-ark-factory
 ---
 
+<Example name="heading/basic" />
 
-## Référence de l’API
+## Installation
 
-Ark UI ne propose pas de primitive dédiée aux titres. moduix implémente `Heading` avec la
-[fabrique Ark](https://ark-ui.com/docs/guides/composition#the-ark-factory) officielle et suit les recommandations
-d’Ark pour la [composition](https://ark-ui.com/docs/guides/composition), la [mise en forme](https://ark-ui.com/docs/guides/styling)
-et le [transfert de ref](https://ark-ui.com/docs/guides/ref).
+<ComponentInstall />
 
-## Exemple de base
-
+## Utilisation
 
 Par défaut, `Heading` rend un `h1`. Utilisez-le pour les titres du document et choisissez la valeur de `as`
 en fonction de sa place dans la structure du document. Définissez `size` séparément lorsque l’importance
 visuelle doit différer du niveau sémantique.
-
-<Example name="heading/basic" />
-
-## Installation avec shadcn
-
-Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration complète du paquet, du registre et des styles.
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/heading' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/heading' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/heading' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/heading' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/heading' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/heading' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Anatomie
-
-`Heading` rend un seul élément de titre natif.
-
-```text
-Heading
-└─ texte ou contenu en ligne
-```
-
-| Partie                     | Rôle                                                               |
-| -------------------------- | ------------------------------------------------------------------ |
-| `Heading` | Titre sémantique natif avec la mise en forme typographique de moduix. |
-
-## Composition
-
-`Heading` est un composant sans état limité à sa racine : il n’a donc besoin ni de provider ni de parties
-coordonnées. Utilisez `<Heading>`, transmettez `as` pour choisir le niveau sémantique de `h1` à `h6`,
-et définissez `size` séparément si l’importance visuelle doit différer.
-Sans `size` explicite, `as` choisit l’échelle de `2xl` pour `h1` à `xs` pour `h6`, et `weight`
-vaut `semibold` par défaut. Utilisez `asChild` uniquement lorsqu’un autre élément sémantique de titre doit
-porter le nœud DOM rendu.
 
 ## Exemples
 
@@ -116,13 +53,34 @@ définissez donc `size` selon l’enfant.
 
 <Example name="heading/custom-host" />
 
+## Composition
+
+`Heading` est un composant sans état limité à sa racine : il n’a donc besoin ni de provider ni de parties
+coordonnées. Utilisez `<Heading>`, transmettez `as` pour choisir le niveau sémantique de `h1` à `h6`,
+et définissez `size` séparément si l’importance visuelle doit différer.
+Sans `size` explicite, `as` choisit l’échelle de `2xl` pour `h1` à `xs` pour `h6`, et `weight`
+vaut `semibold` par défaut. Utilisez `asChild` uniquement lorsqu’un autre élément sémantique de titre doit
+porter le nœud DOM rendu.
+
+## Anatomie
+
+`Heading` rend un seul élément de titre natif.
+
+```text
+Heading
+└─ texte ou contenu en ligne
+```
+
+| Partie                     | Rôle                                                               |
+| -------------------------- | ------------------------------------------------------------------ |
+| `Heading` | Titre sémantique natif avec la mise en forme typographique de moduix. |
+
 ## Styles
 
 Utilisez `className` en React ou `class` en Solid et Vue sur `Heading`. Les variantes Tailwind utilisent
 des utilitaires natifs et les classes de l’application. Les variantes CSS Modules reposent sur les jetons
 typographiques de foundation et n’ont pas de variables de composant : une classe sur la racine remplace les
 styles du composant déclarés dans leur couche.
-
 
 ### Points d’accroche CSS
 

@@ -2,13 +2,21 @@
 title: Switch
 component: switch
 description: A composable Ark UI switch for React, Solid, or Vue that turns an immediate boolean setting on or off.
+ark: https://ark-ui.com/docs/components/switch
 ---
 
 import * as SwitchDocs from '@/components/examples/switch/css-properties';
 
-## API Reference
+<Example name="switch/basic" />
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/switch" />
+## Installation
+
+<ComponentInstall />
+
+## Usage
+
+A basic switch has a root, a visual control, a label, and an explicit `SwitchHiddenInput` for native
+interaction and form behavior. The control receives a default thumb when it has no children.
 
 ## Choosing the right component
 
@@ -19,91 +27,6 @@ boolean value.
 - Choose **`Checkbox`** when the control represents a selection that users submit as part of a form,
   rather than an immediate setting change.
 - Choose **`RadioGroup`** when users must choose one option from several mutually exclusive values.
-
-## Basic
-
-
-A basic switch has a root, a visual control, a label, and an explicit `SwitchHiddenInput` for native
-interaction and form behavior. The control receives a default thumb when it has no children.
-
-<Example name="switch/basic" />
-
-## Install with shadcn
-
-See [Quick Start](/docs/quick-start) for full package setup, registry configuration, and styling guidance.
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/switch' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/switch' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/switch' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/switch' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/switch' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/switch' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Anatomy
-
-```text
-Switch
-├─ SwitchControl
-│  └─ SwitchThumb
-├─ SwitchLabel
-└─ SwitchHiddenInput (explicit)
-```
-
-| Part                          | Role                                                                 |
-| ----------------------------- | -------------------------------------------------------------------- |
-| `Switch`                 | Root `label` element. Owns switch state, ids, form props, and `size`. |
-| `SwitchHiddenInput`           | Native Ark form control; compose explicitly as described below.      |
-| `SwitchRootProvider`          | Root `label` driven by state created with `useSwitch()`.             |
-| `SwitchControl`               | Visual track and focus-ring target. Adds `SwitchThumb` by default.  |
-| `SwitchThumb`                 | Movable thumb for the default visuals or custom thumb content.       |
-| `SwitchLabel`                 | Ark-connected label text.                                            |
-
-`Switch` is the root component. `SwitchContext`, `useSwitchContext`, and `useSwitch` are exported
-from `@moduix/react` alongside the component. The Vue exports are available from
-`@moduix/vue` and `@moduix/vue/switch`.
-The matching Solid exports are available from `@moduix/solid` and `@moduix/solid/switch`.
-
-## Composition
-
-Render `SwitchHiddenInput` explicitly inside `Switch` or `SwitchRootProvider`, including when the
-switch is not in a form. It provides the native input that Ark uses for focus, keyboard interaction,
-accessibility, and form submission.
-
-When `SwitchControl` has no children, it adds the default `SwitchThumb`. Add `SwitchThumb`
-explicitly only when it needs custom content or styling.
-
-Use `SwitchContext` or `useSwitchContext` when nearby UI needs to read the switch state. Use
-`useSwitch` with `SwitchRootProvider` when the state must be created outside the rendered switch
-tree. Do not render `Switch` and `SwitchRootProvider` for the same state instance.
-
-With `asChild`, provide one semantic element compatible with `label` so Ark can keep the switch
-accessible.
 
 ## Examples
 
@@ -163,6 +86,46 @@ Add `SwitchThumb` explicitly when the thumb needs custom content or styling.
 
 <Example name="switch/advanced-customization" />
 
+## Composition
+
+Render `SwitchHiddenInput` explicitly inside `Switch` or `SwitchRootProvider`, including when the
+switch is not in a form. It provides the native input that Ark uses for focus, keyboard interaction,
+accessibility, and form submission.
+
+When `SwitchControl` has no children, it adds the default `SwitchThumb`. Add `SwitchThumb`
+explicitly only when it needs custom content or styling.
+
+Use `SwitchContext` or `useSwitchContext` when nearby UI needs to read the switch state. Use
+`useSwitch` with `SwitchRootProvider` when the state must be created outside the rendered switch
+tree. Do not render `Switch` and `SwitchRootProvider` for the same state instance.
+
+With `asChild`, provide one semantic element compatible with `label` so Ark can keep the switch
+accessible.
+
+## Anatomy
+
+```text
+Switch
+├─ SwitchControl
+│  └─ SwitchThumb
+├─ SwitchLabel
+└─ SwitchHiddenInput (explicit)
+```
+
+| Part                          | Role                                                                 |
+| ----------------------------- | -------------------------------------------------------------------- |
+| `Switch`                 | Root `label` element. Owns switch state, ids, form props, and `size`. |
+| `SwitchHiddenInput`           | Native Ark form control; compose explicitly as described below.      |
+| `SwitchRootProvider`          | Root `label` driven by state created with `useSwitch()`.             |
+| `SwitchControl`               | Visual track and focus-ring target. Adds `SwitchThumb` by default.  |
+| `SwitchThumb`                 | Movable thumb for the default visuals or custom thumb content.       |
+| `SwitchLabel`                 | Ark-connected label text.                                            |
+
+`Switch` is the root component. `SwitchContext`, `useSwitchContext`, and `useSwitch` are exported
+from `@moduix/react` alongside the component. The Vue exports are available from
+`@moduix/vue` and `@moduix/vue/switch`.
+The matching Solid exports are available from `@moduix/solid` and `@moduix/solid/switch`.
+
 ## Styling
 
 Style `Switch` with `className` in React or `class` in Solid and Vue, public `data-slot` hooks, Ark state
@@ -175,7 +138,7 @@ The thumb is sized and placed from the control box, so a `width` or `height` ove
 flush with both ends. Right-to-left direction comes from Ark: with an RTL [`LocaleProvider`](/docs/rtl),
 Ark writes `dir` on every part and the checked thumb moves to the inline end.
 
-### CSS Properties
+### CSS variables
 
 <CssPropertiesSection properties={SwitchDocs.switchOverrideCssProperties} />
 

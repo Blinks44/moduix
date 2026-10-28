@@ -1,13 +1,26 @@
 ---
 title: Expandable avatar group
 description: A compact avatar group that expands on hover or keyboard focus and identifies each person with a tooltip.
+block: expandable-avatar-group
 ---
 
 import { ExpandableAvatarGroup } from '@/components/blocks/expandable-avatar-group';
 import expandableAvatarGroupSolid from '../../../snippets/blocks/solid/expandable-avatar-group.tsx?raw';
 import expandableAvatarGroupVue from '../../../snippets/blocks/vue/expandable-avatar-group.vue?raw';
+import expandableAvatarGroupReact from '../../../src/components/blocks/expandable-avatar-group.tsx?raw';
+import expandableAvatarGroupCss from '../../../src/components/blocks/expandable-avatar-group.module.css?raw';
 
 # Expandable avatar group
+
+<ExamplePanel
+  clientOnly
+  sources={{ react: expandableAvatarGroupReact, solid: expandableAvatarGroupSolid, vue: expandableAvatarGroupVue }}
+  files={[{ name: 'expandable-avatar-group.module.css', code: expandableAvatarGroupCss }]}
+>
+  <PreviewFrame maxWidth="sm">
+    <ExpandableAvatarGroup />
+  </PreviewFrame>
+</ExamplePanel>
 
 Use this block for a small team roster when space is limited but people still need to be easy to
 identify. Hover or focus an avatar to spread the group and show that person's name and role.
@@ -15,55 +28,6 @@ identify. Hover or focus an avatar to spread the group and show that person's na
 This is a copy-ready composition, not an `ExpandableAvatarGroup` component exported by
 moduix. It combines `Avatar` and `Tooltip`. Install the block with its dependencies,
 then replace the sample members with data from your application.
-
-The preview runs React. The source tabs contain React, Solid, and Vue implementations with a shared stylesheet.
-
-
-
-<ExampleFrame variant="block" clientOnly>
-  <PreviewFrame maxWidth="sm">
-  <ExpandableAvatarGroup />
-  </PreviewFrame>
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/blocks/expandable-avatar-group.tsx"
-
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={expandableAvatarGroupSolid} />
-
-    </Tab>
-  <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={expandableAvatarGroupVue} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/blocks/expandable-avatar-group.module.css"
-
-```
-</div>
-
-</ExampleCode>
 
 ## Install
 

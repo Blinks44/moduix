@@ -2,21 +2,16 @@
 title: Simple Grid
 component: simple-grid
 description: Créez des grilles adaptatives à colonnes égales en React, Solid ou Vue avec une installation par paquet ou shadcn.
+ark: https://ark-ui.com/docs/guides/composition
 ---
 
+<Example name="simple-grid/basic" />
 
-## Référence de l’API
+## Installation
 
-`SimpleGrid` n’est pas une primitive d’Ark UI. moduix fournit un composant de mise en page compact,
-construit avec la fabrique Ark. Il suit les recommandations d’Ark pour la
-[composition](https://ark-ui.com/docs/guides/composition), les
-[styles](https://ark-ui.com/docs/guides/styling) et les [références](https://ark-ui.com/docs/guides/ref).
-Ses propriétés `columns` et `minChildWidth` reprennent le modèle de mise en page de
-[SimpleGrid](https://chakra-ui.com/docs/components/simple-grid) de Chakra UI, sans reprendre les
-propriétés de style adaptatif de Chakra.
+<ComponentInstall />
 
-## Exemple de base
-
+## Utilisation
 
 Utilisez `minChildWidth` lorsque le nombre de colonnes égales doit suivre la largeur disponible. Le
 composant s’appuie sur `auto-fit` et `minmax()` de CSS Grid ; les valeurs numériques sont interprétées
@@ -25,73 +20,6 @@ en pixels, tandis que les chaînes peuvent contenir n’importe quelle longueur 
 Le nombre de colonnes s’ajuste à la largeur de l’élément racine, et les enfants restent des éléments
 directs de la grille. Si un enfant contient du contenu qui ne peut pas être coupé, ajoutez
 `min-width: 0` ou une règle de débordement adaptée sur cet enfant.
-
-<Example name="simple-grid/basic" />
-
-## Installation avec shadcn
-
-Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration complète du paquet, du registre et des styles.
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/simple-grid' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/simple-grid' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/simple-grid' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/simple-grid' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/simple-grid' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/simple-grid' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Anatomie
-
-`SimpleGrid` rend un seul élément racine CSS Grid et n’ajoute aucune enveloppe autour de ses enfants.
-
-```text
-SimpleGrid
-└─ root[data-scope="simple-grid"][data-part="root"][data-slot="simple-grid-root"]
-   └─ children
-```
-
-| Partie       | Rôle                                                     |
-| ------------ | -------------------------------------------------------- |
-| `SimpleGrid` | Élément racine qui crée des colonnes CSS Grid de même largeur. |
-
-## Composition
-
-Utilisez `<SimpleGrid>` comme racine. Choisissez `minChildWidth` pour un nombre de colonnes
-intrinsèque ou `columns` pour un nombre fixe. Si les deux propriétés sont définies, `minChildWidth`
-est prioritaire.
-
-Utilisez `asChild` lorsque la racine de la grille doit être un élément sémantique comme `ul`, `section`
-ou `nav`. Cette option attend exactement un élément enfant, qui devient la racine rendue. En React,
-transmettez `asChild` comme booléen ; en Vue, utilisez `as-child` avec un seul élément dans le slot
-par défaut ; en Solid, utilisez sa forme fonctionnelle pour renvoyer cet élément.
-Pour des zones de grille nommées, des pistes de tailles différentes ou des éléments qui
-s’étendent sur plusieurs pistes, ne transmettez aucune propriété de mise en page et définissez le
-modèle dans votre propre classe, y compris un modèle adaptatif dans des media queries.
 
 ## Exemples
 
@@ -108,6 +36,42 @@ Utilisez `asChild` lorsque la grille elle-même doit porter la sémantique d’u
 la racine devient un `ul` et chaque image reste dans un élément `li` direct.
 
 <Example name="simple-grid/media-gallery" />
+
+## Composition
+
+`SimpleGrid` n’est pas une primitive d’Ark UI. moduix fournit un composant de mise en page compact,
+construit avec la fabrique Ark. Il suit les recommandations d’Ark pour la
+[composition](https://ark-ui.com/docs/guides/composition), les
+[styles](https://ark-ui.com/docs/guides/styling) et les [références](https://ark-ui.com/docs/guides/ref).
+Ses propriétés `columns` et `minChildWidth` reprennent le modèle de mise en page de
+[SimpleGrid](https://chakra-ui.com/docs/components/simple-grid) de Chakra UI, sans reprendre les
+propriétés de style adaptatif de Chakra.
+
+Utilisez `<SimpleGrid>` comme racine. Choisissez `minChildWidth` pour un nombre de colonnes
+intrinsèque ou `columns` pour un nombre fixe. Si les deux propriétés sont définies, `minChildWidth`
+est prioritaire.
+
+Utilisez `asChild` lorsque la racine de la grille doit être un élément sémantique comme `ul`, `section`
+ou `nav`. Cette option attend exactement un élément enfant, qui devient la racine rendue. En React,
+transmettez `asChild` comme booléen ; en Vue, utilisez `as-child` avec un seul élément dans le slot
+par défaut ; en Solid, utilisez sa forme fonctionnelle pour renvoyer cet élément.
+Pour des zones de grille nommées, des pistes de tailles différentes ou des éléments qui
+s’étendent sur plusieurs pistes, ne transmettez aucune propriété de mise en page et définissez le
+modèle dans votre propre classe, y compris un modèle adaptatif dans des media queries.
+
+## Anatomie
+
+`SimpleGrid` rend un seul élément racine CSS Grid et n’ajoute aucune enveloppe autour de ses enfants.
+
+```text
+SimpleGrid
+└─ root[data-scope="simple-grid"][data-part="root"][data-slot="simple-grid-root"]
+   └─ children
+```
+
+| Partie       | Rôle                                                     |
+| ------------ | -------------------------------------------------------- |
+| `SimpleGrid` | Élément racine qui crée des colonnes CSS Grid de même largeur. |
 
 ## Styles
 

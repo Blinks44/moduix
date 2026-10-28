@@ -2,14 +2,26 @@
 title: Segment Group
 component: segment-group
 description: Компактный сегментированный элемент управления на базе Ark UI для выбора одного значения из небольшого набора.
+ark: https://ark-ui.com/docs/components/segment-group
 ---
 
 import * as SegmentGroupDocs from '@/components/examples/segment-group/css-properties';
 import { CssPropertiesSection } from '@/components/mdx/Components';
 
-## Справочник API
+<Example name="segment-group/basic" />
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/segment-group" />
+## Установка
+
+<ComponentInstall />
+
+## Использование
+
+Интерактивные
+
+Используйте `SegmentGroup` как корневой компонент, разместите `SegmentGroupIndicator` перед
+элементами и выберите `SegmentGroupItems`, если каждому сегменту нужна только текстовая подпись.
+`SegmentGroupItems` создаёт для каждого элемента части item и text, а также одно нативное поле формы. Передайте строки, если значение и подпись
+совпадают, или объекты `{ value, label, disabled }`.
 
 ## Как выбрать подходящий компонент
 
@@ -20,98 +32,6 @@ import { CssPropertiesSection } from '@/components/mdx/Components';
 - Выбирайте **`ToggleGroup`**, когда элементы работают как кнопки панели инструментов и одновременно могут быть активны несколько значений.
 - Выбирайте **`RadioGroup`**, когда элемент управления должен выглядеть как обычная группа радиокнопок.
 - Выбирайте **`SegmentGroup`**, когда по поведению компонент похож на радиогруппу, но интерфейсу нужен компактный сегментированный вид.
-
-## Базовый пример
-
-Интерактивные
-
-Используйте `SegmentGroup` как корневой компонент, разместите `SegmentGroupIndicator` перед
-элементами и выберите `SegmentGroupItems`, если каждому сегменту нужна только текстовая подпись.
-`SegmentGroupItems` создаёт для каждого элемента части item и text, а также одно нативное поле формы. Передайте строки, если значение и подпись
-совпадают, или объекты `{ value, label, disabled }`.
-
-<Example name="segment-group/basic" />
-
-## Установка через shadcn
-
-Полную настройку пакета, реестра и стилей см. в разделе [Быстрый старт](/docs/quick-start).
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/segment-group' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/segment-group' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/segment-group' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/segment-group' },
-  ]}
-/>
-
-  </Tab>
-
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/segment-group' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/segment-group' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Анатомия
-
-```text
-SegmentGroup
-├─ SegmentGroupLabel (необязательно)
-├─ SegmentGroupIndicator
-└─ SegmentGroupItem[value]
-   ├─ SegmentGroupItemText
-   └─ нативное поле формы
-
-SegmentGroupRootProvider
-└─ то же дерево элементов, подключённое к хранилищу moduix useSegmentGroup()
-
-SegmentGroupContext / SegmentGroupItemContext
-└─ расширенный доступ к состоянию Ark через render prop
-```
-
-| Часть                                 | Назначение                                                               |
-| ------------------------------------ | ------------------------------------------------------------------------ |
-| `SegmentGroup` | Управляет выбранным значением, навигацией с клавиатуры и формами.        |
-| `SegmentGroupItemHiddenInput` | Нативное поле Ark; правила явной композиции описаны ниже. |
-| `SegmentGroupRootProvider`          | Подключает части к состоянию, созданному хуком `useSegmentGroup()` из moduix. |
-| `SegmentGroupContext`               | Даёт расширенный доступ к состоянию корневого элемента через render prop. |
-| `SegmentGroupItemContext`           | Даёт расширенный доступ к состоянию текущего элемента через render prop. |
-| `SegmentGroupLabel`                 | Необязательная доступная подпись группы.                                 |
-| `SegmentGroupIndicator`             | Размещает выделение активного элемента с помощью CSS-переменных Ark.     |
-| `SegmentGroupItems`                 | Рекомендуемый способ отрисовать стандартные текстовые сегменты.         |
-| `SegmentGroupItem`                  | Один выбираемый сегмент; по умолчанию создаёт элемент `label`.           |
-| `SegmentGroupItemText`              | Видимая подпись сегмента.                                                  |
-
-## Композиция
-
-Для обычной композиции используйте `SegmentGroup` с `SegmentGroupIndicator` перед
-`SegmentGroupItems`. `SegmentGroupItems` добавляет к каждому элементу `SegmentGroupItemText`
-и ровно одно `SegmentGroupItemHiddenInput`. Если вы собираете
-`SegmentGroupItem` напрямую, добавьте эти части самостоятельно и оставьте внутри каждого элемента
-ровно одно `SegmentGroupItemHiddenInput`. Прямой дочерний элемент
-`asChild` должен оставаться одним семантическим `label`.
-
-Используйте `SegmentGroupRootProvider` вместе с `useSegmentGroup()`, если состояние нужно создать
-вне дерева компонента или передать управление другой части приложения. React и Vue читают хранилище как
-объект, а Solid получает реактивное состояние через возвращаемую функцию доступа.
 
 ## Примеры
 
@@ -187,6 +107,49 @@ SegmentGroupContext / SegmentGroupItemContext
 
 <Example name="segment-group/aschild" />
 
+## Композиция
+
+Для обычной композиции используйте `SegmentGroup` с `SegmentGroupIndicator` перед
+`SegmentGroupItems`. `SegmentGroupItems` добавляет к каждому элементу `SegmentGroupItemText`
+и ровно одно `SegmentGroupItemHiddenInput`. Если вы собираете
+`SegmentGroupItem` напрямую, добавьте эти части самостоятельно и оставьте внутри каждого элемента
+ровно одно `SegmentGroupItemHiddenInput`. Прямой дочерний элемент
+`asChild` должен оставаться одним семантическим `label`.
+
+Используйте `SegmentGroupRootProvider` вместе с `useSegmentGroup()`, если состояние нужно создать
+вне дерева компонента или передать управление другой части приложения. React и Vue читают хранилище как
+объект, а Solid получает реактивное состояние через возвращаемую функцию доступа.
+
+## Анатомия
+
+```text
+SegmentGroup
+├─ SegmentGroupLabel (необязательно)
+├─ SegmentGroupIndicator
+└─ SegmentGroupItem[value]
+   ├─ SegmentGroupItemText
+   └─ нативное поле формы
+
+SegmentGroupRootProvider
+└─ то же дерево элементов, подключённое к хранилищу moduix useSegmentGroup()
+
+SegmentGroupContext / SegmentGroupItemContext
+└─ расширенный доступ к состоянию Ark через render prop
+```
+
+| Часть                                 | Назначение                                                               |
+| ------------------------------------ | ------------------------------------------------------------------------ |
+| `SegmentGroup` | Управляет выбранным значением, навигацией с клавиатуры и формами.        |
+| `SegmentGroupItemHiddenInput` | Нативное поле Ark; правила явной композиции описаны ниже. |
+| `SegmentGroupRootProvider`          | Подключает части к состоянию, созданному хуком `useSegmentGroup()` из moduix. |
+| `SegmentGroupContext`               | Даёт расширенный доступ к состоянию корневого элемента через render prop. |
+| `SegmentGroupItemContext`           | Даёт расширенный доступ к состоянию текущего элемента через render prop. |
+| `SegmentGroupLabel`                 | Необязательная доступная подпись группы.                                 |
+| `SegmentGroupIndicator`             | Размещает выделение активного элемента с помощью CSS-переменных Ark.     |
+| `SegmentGroupItems`                 | Рекомендуемый способ отрисовать стандартные текстовые сегменты.         |
+| `SegmentGroupItem`                  | Один выбираемый сегмент; по умолчанию создаёт элемент `label`.           |
+| `SegmentGroupItemText`              | Видимая подпись сегмента.                                                  |
+
 ## Стилизация
 
 В React используйте `className`, а в Solid/Vue `class` на экспортируемых частях для структурных
@@ -195,7 +158,7 @@ SegmentGroupContext / SegmentGroupItemContext
 utility-классы и классы потребителя, а переменные ниже настраивают варианты CSS Modules. Атрибуты
 состояния и хуки data-slot общие для обоих способов стилизации.
 
-### CSS-свойства
+### CSS-переменные
 
 <CssPropertiesSection properties={SegmentGroupDocs.segmentGroupOverrideCssProperties} />
 

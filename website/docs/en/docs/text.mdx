@@ -2,15 +2,19 @@
 title: Text
 component: text
 description: A typography component for body text, inline content, semantic emphasis, and truncated previews.
+ark: https://ark-ui.com/docs/guides/composition#the-ark-factory
 ---
 
+<Example name="text/basic" />
 
-## API Reference
+## Installation
 
-Ark UI does not provide a dedicated `Text` component. moduix provides this typography component
-with the official [Ark factory](https://ark-ui.com/docs/guides/composition#the-ark-factory) and follows Ark's
-[composition](https://ark-ui.com/docs/guides/composition), [styling](https://ark-ui.com/docs/guides/styling), and
-[ref](https://ark-ui.com/docs/guides/ref) guidance.
+<ComponentInstall />
+
+## Usage
+
+Use the default `p` root for a paragraph. Pass `as` when the content needs a different semantic HTML
+element but should keep `Text`'s typography styles.
 
 ## Choosing the right component
 
@@ -20,71 +24,6 @@ on moduix's typography scale.
 - Choose **`Heading`** for document structure and heading hierarchy.
 - Choose **`Text`** when content should keep paragraph or inline semantics while using body-text styles.
 - Use local CSS when the concern is rich text layout, spacing, or disclosure around clamped text.
-
-## Basic
-
-
-Use the default `p` root for a paragraph. Pass `as` when the content needs a different semantic HTML
-element but should keep `Text`'s typography styles.
-
-<Example name="text/basic" />
-
-## Install with shadcn
-
-See [Quick Start](/docs/quick-start) for full package setup, registry configuration, and styling guidance.
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/text' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/text' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/text' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/text' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/text' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/text' },
-  ]}
-/>
-
-  </Tab>
-  </Tabs>
-
-## Anatomy
-
-`Text` renders a single root element using Ark's factory through the flat root export.
-
-```text
-Text
-└─ text or inline content
-```
-
-| Part                 | Role                                                             |
-| -------------------- | ---------------------------------------------------------------- |
-| `Text`              | Typography root with semantic HTML and stable data attributes. |
-
-## Composition
-
-`Text` is root-only and owns no state or child parts. Use `<Text>` for the root,
-`as` for a supported semantic element, and `asChild` only when one existing element should receive
-the text props and ref. Truncation only constrains rendering, so disclosure state and its control stay
-in the surrounding UI.
 
 ## Examples
 
@@ -132,6 +71,26 @@ Use `asChild` when the root should be an existing custom element instead of one 
 intrinsic `as` values. The child must be a single element that accepts the forwarded props and ref.
 
 <Example name="text/custom-composition" />
+
+## Composition
+
+`Text` is root-only and owns no state or child parts. Use `<Text>` for the root,
+`as` for a supported semantic element, and `asChild` only when one existing element should receive
+the text props and ref. Truncation only constrains rendering, so disclosure state and its control stay
+in the surrounding UI.
+
+## Anatomy
+
+`Text` renders a single root element using Ark's factory through the flat root export.
+
+```text
+Text
+└─ text or inline content
+```
+
+| Part                 | Role                                                             |
+| -------------------- | ---------------------------------------------------------------- |
+| `Text`              | Typography root with semantic HTML and stable data attributes. |
 
 ## Styling
 

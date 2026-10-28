@@ -2,16 +2,18 @@
 title: Steps
 component: steps
 description: Guide users through a multi-step process with accessible Ark UI state and navigation.
+ark: https://ark-ui.com/docs/components/steps
 ---
 
 import * as StepsDocs from '@/components/examples/steps/css-properties';
 
-## API Reference
+<Example name="steps/basic" />
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/steps" />
+## Installation
 
-## Basic
+<ComponentInstall />
 
+## Usage
 
 Use `Steps` with `count`, a `StepsList` containing one `StepsItem` for each step, matching
 `StepsContent` panels, and the built-in previous and next triggers. Step indexes start at zero.
@@ -24,94 +26,6 @@ be created outside the rendered part tree.
 React, Solid, and Vue use the same flat value names. In Vue, bind controlled state with
 `v-model:step` and pass a `useSteps()` store to `StepsRootProvider` when it is created outside the
 rendered part tree.
-
-<Example name="steps/basic" />
-
-## Install with shadcn
-
-See [Quick Start](/docs/quick-start) for full package setup, registry configuration, and styling guidance.
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/steps' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/steps' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/steps' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/steps' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/steps' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/steps' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Anatomy
-
-```text
-Steps
-├─ StepsProgress (optional)
-├─ StepsList
-│  └─ StepsItem[index]
-│     ├─ StepsTrigger
-│     │  └─ StepsIndicator
-│     └─ StepsSeparator
-├─ StepsContent[index]
-├─ StepsCompletedContent
-├─ StepsPrevTrigger
-└─ StepsNextTrigger
-
-StepsRootProvider
-└─ same part tree connected to a useSteps() store
-```
-
-| Part                              | Role                                                                              |
-| --------------------------------- | --------------------------------------------------------------------------------- |
-| `Steps`                    | Root state machine for step state, orientation, navigation, validation, and IDs. |
-| `StepsRootProvider`         | Connects the parts to state created with `useSteps()`.                            |
-| `StepsProgress`             | Optional visual progress track driven by Ark's `--percent` root variable.         |
-| `StepsList`                 | Tablist containing the step triggers.                                             |
-| `StepsItem`                 | Step item with a required zero-based `index`.                                      |
-| `StepsTrigger`              | Tab trigger for a step; supports `asChild` for custom semantic elements.          |
-| `StepsIndicator`            | Visual step marker with a number or check icon by default.                        |
-| `StepsSeparator`            | Decorative connector between step items.                                          |
-| `StepsContent`              | Content panel for one step, matched by `index`.                                    |
-| `StepsCompletedContent`     | Panel shown when the current step value equals `count`.                           |
-| `StepsPrevTrigger` / `StepsNextTrigger` | Buttons wired to Ark's previous and next actions.                    |
-
-## Composition
-
-Use `Steps` as the state owner. Give every `StepsItem` and matching
-`StepsContent` the same zero-based `index`; `count` is the total number of steps and its value
-represents completion. Use `StepsRootProvider` only with a store from `useSteps()` when
-state needs to be created outside the part tree. Do not render the root and provider for the same
-store.
-
-For lower-level state reads, use `useStepsContext` and `useStepsItemContext`, or the flat context
-values `StepsContext` and `StepsItemContext`.
-
-`StepsTrigger`, `StepsPrevTrigger`, and `StepsNextTrigger` accept `asChild`. Pass one semantic
-child when a control should render as an anchor, router link, or design-system button. When
-`StepsIndicator` has no children, it renders the step number or the shared check icon for a
-completed step; pass children to control the marker.
 
 ## Examples
 
@@ -157,6 +71,55 @@ Use `asChild` when a trigger must render as an anchor or router link instead of 
 Keep one semantic child so it receives Ark's ARIA, keyboard, and focus behavior.
 
 <Example name="steps/custom-composition" />
+
+## Composition
+
+Use `Steps` as the state owner. Give every `StepsItem` and matching
+`StepsContent` the same zero-based `index`; `count` is the total number of steps and its value
+represents completion. Use `StepsRootProvider` only with a store from `useSteps()` when
+state needs to be created outside the part tree. Do not render the root and provider for the same
+store.
+
+For lower-level state reads, use `useStepsContext` and `useStepsItemContext`, or the flat context
+values `StepsContext` and `StepsItemContext`.
+
+`StepsTrigger`, `StepsPrevTrigger`, and `StepsNextTrigger` accept `asChild`. Pass one semantic
+child when a control should render as an anchor, router link, or design-system button. When
+`StepsIndicator` has no children, it renders the step number or the shared check icon for a
+completed step; pass children to control the marker.
+
+## Anatomy
+
+```text
+Steps
+├─ StepsProgress (optional)
+├─ StepsList
+│  └─ StepsItem[index]
+│     ├─ StepsTrigger
+│     │  └─ StepsIndicator
+│     └─ StepsSeparator
+├─ StepsContent[index]
+├─ StepsCompletedContent
+├─ StepsPrevTrigger
+└─ StepsNextTrigger
+
+StepsRootProvider
+└─ same part tree connected to a useSteps() store
+```
+
+| Part                              | Role                                                                              |
+| --------------------------------- | --------------------------------------------------------------------------------- |
+| `Steps`                    | Root state machine for step state, orientation, navigation, validation, and IDs. |
+| `StepsRootProvider`         | Connects the parts to state created with `useSteps()`.                            |
+| `StepsProgress`             | Optional visual progress track driven by Ark's `--percent` root variable.         |
+| `StepsList`                 | Tablist containing the step triggers.                                             |
+| `StepsItem`                 | Step item with a required zero-based `index`.                                      |
+| `StepsTrigger`              | Tab trigger for a step; supports `asChild` for custom semantic elements.          |
+| `StepsIndicator`            | Visual step marker with a number or check icon by default.                        |
+| `StepsSeparator`            | Decorative connector between step items.                                          |
+| `StepsContent`              | Content panel for one step, matched by `index`.                                    |
+| `StepsCompletedContent`     | Panel shown when the current step value equals `count`.                           |
+| `StepsPrevTrigger` / `StepsNextTrigger` | Buttons wired to Ark's previous and next actions.                    |
 
 ## Styling
 

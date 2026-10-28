@@ -2,19 +2,18 @@
 title: Container
 component: container
 description: Адаптивный примитив разметки для читабельной ширины содержимого и гибких горизонтальных отступов.
+ark: https://ark-ui.com/docs/guides/composition#the-ark-factory
 ---
 
 import * as ContainerDocs from '@/components/examples/container/css-properties';
 
-## Справочник API
+<Example name="container/basic" />
 
-В Ark UI нет отдельного примитива `container`. В moduix `Container` создан с помощью официальной
-[фабрики Ark](https://ark-ui.com/docs/guides/composition#the-ark-factory), поэтому для него действуют рекомендации Ark по
-[композиции](https://ark-ui.com/docs/guides/composition), [стилизации](https://ark-ui.com/docs/guides/styling) и
-[передаче ref](https://ark-ui.com/docs/guides/ref).
+## Установка
 
-## Базовый пример
+<ComponentInstall />
 
+## Использование
 
 Импортируйте `Container` из подходящего пакета: `@moduix/react/container`, `@moduix/solid/container` или
 `@moduix/vue/container` для CSS Modules, а для Tailwind CSS используйте `@moduix/react-tailwind/container`,
@@ -22,70 +21,6 @@ import * as ContainerDocs from '@/components/examples/container/css-properties';
 
 Используйте `Container` для центрированной колонки с читабельной шириной. Компонент добавляет адаптивные
 горизонтальные отступы, а вертикальные интервалы остаются задачей внешней разметки.
-
-<Example name="container/basic" />
-
-## Установка через shadcn
-
-Полную настройку пакета, реестра и стилей см. в разделе [Быстрый старт](/docs/quick-start).
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/container' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/container' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/container' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/container' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/container' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/container' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Анатомия
-
-`Container` выводит один корневой элемент и не добавляет дополнительных обёрток.
-
-```text
-Container
-└─ дочерние элементы
-```
-
-| Часть       | Назначение                                               |
-| ----------- | -------------------------------------------------------- |
-| `Container` | Корневой элемент разметки. Центрирует содержимое и задаёт его ширину и горизонтальные отступы. |
-
-## Композиция
-
-`Container` не управляет состоянием и не содержит дочерних частей, которые нужно согласовывать. Используйте его как
-корень и размещайте содержимое страницы или секции непосредственно внутри.
-
-Используйте `asChild`, когда семантический элемент должен стать отрисованным корнем. Передавайте ровно один дочерний
-элемент: React и Vue делают его корнем `Container`, а в Solid используется форма с render-функцией
-`asChild={(props) => <main {...props()} />}`. В Solid ref нужно назначать элементу внутри render-функции, потому что
-ref на самом `Container` через `asChild` не передаётся; в Vue отрендерированный элемент доступен через `$el` у ref
-компонента. Размещайте `Bleed` внутри `Container`, если только один дочерний блок должен выйти за пределы ограниченной
-текстовой колонки.
 
 ## Примеры
 
@@ -113,6 +48,31 @@ ref на самом `Container` через `asChild` не передаётся; 
 
 <Example name="container/with-bleed" />
 
+## Композиция
+
+`Container` не управляет состоянием и не содержит дочерних частей, которые нужно согласовывать. Используйте его как
+корень и размещайте содержимое страницы или секции непосредственно внутри.
+
+Используйте `asChild`, когда семантический элемент должен стать отрисованным корнем. Передавайте ровно один дочерний
+элемент: React и Vue делают его корнем `Container`, а в Solid используется форма с render-функцией
+`asChild={(props) => <main {...props()} />}`. В Solid ref нужно назначать элементу внутри render-функции, потому что
+ref на самом `Container` через `asChild` не передаётся; в Vue отрендерированный элемент доступен через `$el` у ref
+компонента. Размещайте `Bleed` внутри `Container`, если только один дочерний блок должен выйти за пределы ограниченной
+текстовой колонки.
+
+## Анатомия
+
+`Container` выводит один корневой элемент и не добавляет дополнительных обёрток.
+
+```text
+Container
+└─ дочерние элементы
+```
+
+| Часть       | Назначение                                               |
+| ----------- | -------------------------------------------------------- |
+| `Container` | Корневой элемент разметки. Центрирует содержимое и задаёт его ширину и горизонтальные отступы. |
+
 ## Стилизация
 
 Для пакетов CSS Modules переопределяйте CSS-переменные на корневом элементе, если оболочке страницы нужны другие
@@ -120,7 +80,7 @@ ref на самом `Container` через `asChild` не передаётся; 
 Для локальных стилей блока, например фона, границ или внутренних отступов, используйте `className` в React, `class` в
 Solid и `class` в Vue.
 
-### CSS-свойства
+### CSS-переменные
 
 <CssPropertiesSection properties={ContainerDocs.containerOverrideCssProperties} />
 

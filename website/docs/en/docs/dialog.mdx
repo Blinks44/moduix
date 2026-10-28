@@ -2,119 +2,27 @@
 title: Dialog
 component: dialog
 description: A modal window for focused tasks such as forms, confirmations, and details.
+ark: https://ark-ui.com/docs/components/dialog
 ---
 
 import * as DialogDocs from '@/components/examples/dialog/css-properties';
 
-## API Reference
+<Example name="dialog/basic" />
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/dialog" />
+## Installation
+
+<ComponentInstall />
+
+## Usage
+
+Use `Dialog` as the root and compose its structural parts explicitly. `DialogBackdrop` is the
+modal background, `DialogPositioner` places the dialog, and `DialogContent` contains its surface.
 
 ## Choosing the right component
 
 Use `Dialog` for forms, confirmations, details, and other tasks that should keep the user on the
 current page. Use `Drawer` when the panel should stay attached to the edge of the viewport or
 support dragging.
-
-## Basic
-
-
-Use `Dialog` as the root and compose its structural parts explicitly. `DialogBackdrop` is the
-modal background, `DialogPositioner` places the dialog, and `DialogContent` contains its surface.
-
-<Example name="dialog/basic" />
-
-## Install with shadcn
-
-See [Quick Start](/docs/quick-start) for full package setup, registry configuration, and styling guidance.
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/dialog' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/dialog' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/dialog' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/dialog' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/dialog' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/dialog' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Anatomy
-
-```text
-Dialog
-├─ DialogTrigger
-└─ Overlay content (automatically portalled)
-   ├─ DialogBackdrop (optional)
-   └─ DialogPositioner
-      └─ DialogContent
-         ├─ DialogCloseTrigger or DialogCloseIcon
-         ├─ DialogTitle
-         ├─ DialogDescription
-         ├─ DialogHeader (moduix layout helper)
-         ├─ DialogBody (moduix layout helper)
-         └─ DialogFooter (moduix layout helper)
-
-DialogRootProvider
-└─ the same part tree connected to state from moduix useDialog()
-
-DialogContext
-└─ a render function with the current dialog state and methods
-```
-
-| Part                     | Role                                                                |
-| ------------------------ | ------------------------------------------------------------------- |
-| `Dialog` / `DialogRootProvider` | Owns open state, focus management, and dismissal behavior.          |
-| `DialogRootProvider`    | Connects parts to state created with `useDialog()`.                 |
-| `DialogTrigger`         | Opens the dialog.                                                    |
-| `DialogBackdrop`        | Optional background layer for a modal dialog.                       |
-| `DialogPositioner`      | Positions the dialog content.                                        |
-| `DialogContent`         | Contains the visible dialog surface.                                 |
-| `DialogTitle`           | Gives the dialog an accessible title.                                |
-| `DialogDescription`     | Provides supporting accessible text.                                 |
-| `DialogCloseTrigger`    | Closes the dialog.                                                   |
-| `DialogCloseIcon`       | Moduix close-button helper that also closes the dialog.              |
-| `DialogHeader`          | Moduix layout helper for the header.                                 |
-| `DialogBody`            | Moduix layout helper for the main content.                           |
-| `DialogFooter`          | Moduix layout helper for actions.                                    |
-| `DialogContext`         | Renders children with current state and dialog methods.              |
-
-Import `useDialog()` when the dialog state needs to live outside the rendered dialog tree. Read or
-update that state with `DialogContext` or `useDialogContext()` from the matching package.
-
-## Composition
-
-Dialog owns its open state by default. Use `open` with `onOpenChange(details)` when another part of
-the application owns that state. When state must live outside the dialog tree, create one
-`useDialog()` store and pass it to `DialogRootProvider`; do not render another root for the same
-store.
-
-The root automatically portals `DialogBackdrop` and `DialogPositioner`. Set `portalled={false}`
-to keep them in the current tree, or pass `portalRef` to use a custom container. Keep the part tree
-explicit, and use `DialogHeader`, `DialogBody`, and `DialogFooter` only when their layout
-helpers fit the composition.
 
 ## Examples
 
@@ -211,6 +119,61 @@ direct control over every Ark dialog part.
 
 <Example name="dialog/advanced-customization" />
 
+## Composition
+
+Dialog owns its open state by default. Use `open` with `onOpenChange(details)` when another part of
+the application owns that state. When state must live outside the dialog tree, create one
+`useDialog()` store and pass it to `DialogRootProvider`; do not render another root for the same
+store.
+
+The root automatically portals `DialogBackdrop` and `DialogPositioner`. Set `portalled={false}`
+to keep them in the current tree, or pass `portalRef` to use a custom container. Keep the part tree
+explicit, and use `DialogHeader`, `DialogBody`, and `DialogFooter` only when their layout
+helpers fit the composition.
+
+## Anatomy
+
+```text
+Dialog
+├─ DialogTrigger
+└─ Overlay content (automatically portalled)
+   ├─ DialogBackdrop (optional)
+   └─ DialogPositioner
+      └─ DialogContent
+         ├─ DialogCloseTrigger or DialogCloseIcon
+         ├─ DialogTitle
+         ├─ DialogDescription
+         ├─ DialogHeader (moduix layout helper)
+         ├─ DialogBody (moduix layout helper)
+         └─ DialogFooter (moduix layout helper)
+
+DialogRootProvider
+└─ the same part tree connected to state from moduix useDialog()
+
+DialogContext
+└─ a render function with the current dialog state and methods
+```
+
+| Part                     | Role                                                                |
+| ------------------------ | ------------------------------------------------------------------- |
+| `Dialog` / `DialogRootProvider` | Owns open state, focus management, and dismissal behavior.          |
+| `DialogRootProvider`    | Connects parts to state created with `useDialog()`.                 |
+| `DialogTrigger`         | Opens the dialog.                                                    |
+| `DialogBackdrop`        | Optional background layer for a modal dialog.                       |
+| `DialogPositioner`      | Positions the dialog content.                                        |
+| `DialogContent`         | Contains the visible dialog surface.                                 |
+| `DialogTitle`           | Gives the dialog an accessible title.                                |
+| `DialogDescription`     | Provides supporting accessible text.                                 |
+| `DialogCloseTrigger`    | Closes the dialog.                                                   |
+| `DialogCloseIcon`       | Moduix close-button helper that also closes the dialog.              |
+| `DialogHeader`          | Moduix layout helper for the header.                                 |
+| `DialogBody`            | Moduix layout helper for the main content.                           |
+| `DialogFooter`          | Moduix layout helper for actions.                                    |
+| `DialogContext`         | Renders children with current state and dialog methods.              |
+
+Import `useDialog()` when the dialog state needs to live outside the rendered dialog tree. Read or
+update that state with `DialogContext` or `useDialogContext()` from the matching package.
+
 ## Styling
 
 Use `className` in React or `class` in Solid and Vue on exported parts for structural styles. For
@@ -219,7 +182,7 @@ state-based styles, prefer Ark data attributes such as `data-state` and `data-ha
 variables below customize the CSS Modules variants. Data attributes and `data-slot` hooks are shared
 by both styling tracks.
 
-### CSS Properties
+### CSS variables
 
 <CssPropertiesSection properties={DialogDocs.dialogOverrideCssProperties} />
 

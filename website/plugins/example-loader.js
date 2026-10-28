@@ -1,8 +1,8 @@
 import { existsSync, readFileSync } from 'node:fs';
 import path from 'node:path';
 
-// Expands `<Example name="button/basic" />` in MDX into the preview frame and the React, Solid,
-// Vue, and CSS sources. It runs as a loader, not a remark plugin, because Rspress skips custom
+// Expands `<Example name="button/basic" />` in MDX into an `ExamplePanel` with the live React
+// preview and the raw React, Solid, Vue, and CSS sources. It runs as a loader, not a remark plugin, because Rspress skips custom
 // remark plugins when it renders the Markdown pages used by llms.txt.
 
 const websiteRoot = path.dirname(path.dirname(new URL(import.meta.url).pathname));
@@ -40,50 +40,17 @@ export default function exampleLoader(source) {
 
     const identifier = `Example${toIdentifier(name)}`;
     imports.add(`import ${identifier} from '@/components/examples/${dir}/${base}.tsx';`);
+    imports.add(`import ${identifier}React from '${relative(reactFile)}?raw';`);
     imports.add(`import ${identifier}Solid from '${relative(solidFile)}?raw';`);
     imports.add(`import ${identifier}Vue from '${relative(vueFile)}?raw';`);
+    const files = cssImports(reactFile).map((file, index) => {
+      imports.add(`import ${identifier}Css${index} from '${relative(file)}?raw';`);
+      return `{ name: '${path.basename(file)}', code: ${identifier}Css${index} }`;
+    });
 
-    const styles = cssImports(reactFile).map(
-      (file) => `\`\`\`css title="${path.basename(file)}" file="${relative(file)}"\n\`\`\``,
-    );
-
-    return `<ExampleFrame variant="component"${attributes}>
+    return `<ExamplePanel${attributes} sources={{ react: ${identifier}React, solid: ${identifier}Solid, vue: ${identifier}Vue }} files={[${files.join(', ')}]}>
   <${identifier} />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-\`\`\`tsx pure file="${relative(reactFile)}"
-\`\`\`
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={${identifier}Solid} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={${identifier}Vue} />
-
-    </Tab>
-  </Tabs>
-
-${styles.join('\n\n')}
-</div>
-
-</ExampleCode>`;
+</ExamplePanel>`;
   });
 
   const frontmatter = content.match(/^---\n[\s\S]*?\n---\n/)?.[0] ?? '';

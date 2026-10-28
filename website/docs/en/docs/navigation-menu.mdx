@@ -2,25 +2,18 @@
 title: Navigation Menu
 component: navigation-menu
 description: A composable navigation bar for direct links and disclosure panels, with an optional shared NavigationMenuViewport for animated transitions.
+ark: https://ark-ui.com/docs/components/navigation-menu
 ---
 
 import * as NavigationMenuDocs from '@/components/examples/navigation-menu/css-properties';
 
-## API Reference
+<Example name="navigation-menu/basic" />
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/navigation-menu" />
+## Installation
 
-## Choosing the right component
+<ComponentInstall />
 
-Use `NavigationMenu` for primary site or product navigation when some top-level items open groups of
-related destinations.
-
-- Choose **`NavigationMenu`** when a top-level item can reveal a group of related links.
-- Choose **`Menu`** for contextual actions rather than navigation.
-- Choose **`Tabs`** when each selected control switches the content shown in one area of the current page.
-
-## Basic
-
+## Usage
 
 Import it from the matching package subpath: `@moduix/react/navigation-menu`,
 `@moduix/solid/navigation-menu`, `@moduix/vue/navigation-menu`,
@@ -32,44 +25,48 @@ Use `NavigationMenu` with `NavigationMenuList` and `NavigationMenuItem`. Give ev
 the same item. Use `NavigationMenuLink` for direct top-level destinations and for links inside a
 panel.
 
-<Example name="navigation-menu/basic" />
+## Choosing the right component
 
-## Install with shadcn
+Use `NavigationMenu` for primary site or product navigation when some top-level items open groups of
+related destinations.
 
-See [Quick Start](/docs/quick-start) for full package setup, registry configuration, and styling guidance.
+- Choose **`NavigationMenu`** when a top-level item can reveal a group of related links.
+- Choose **`Menu`** for contextual actions rather than navigation.
+- Choose **`Tabs`** when each selected control switches the content shown in one area of the current page.
 
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
+## Examples
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/navigation-menu' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/navigation-menu' },
-  ]}
-/>
+### Controlled Value
 
-  </Tab>
-  <Tab label="Solid" value="solid">
+Control the open value from React state, Solid signals, or a Vue ref when the active panel also needs
+to drive nearby application UI. The output below shows the value of the currently open item.
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/navigation-menu' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/navigation-menu' },
-  ]}
-/>
+<Example name="navigation-menu/controlled-value" />
 
-  </Tab>
-  <Tab label="Vue" value="vue">
+### Shared viewport
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/navigation-menu' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/navigation-menu' },
-  ]}
-/>
+Use a shared `NavigationMenuViewport` when panels have different sizes but should animate inside one surface. This
+example uses a two-column panel and panels with different widths, so switching triggers visibly
+animates the viewport's measured width and height.
 
-  </Tab>
-</Tabs>
+<Example name="navigation-menu/viewport" />
+
+## Composition
+
+Use `defaultValue` for an uncontrolled menu. When another part of the application owns the open
+item, pass `value` with `onValueChange(details)` or use Vue's `v-model:value`; `details.value` is the
+open item's value or an empty string when all panels are closed. Create the store with
+`useNavigationMenu()` and pass it to `NavigationMenuRootProvider` when it must live outside the
+rendered tree; do not render another root for that store. React reads the store as an object; Solid
+reads its reactive state through the returned accessor; Vue exposes the reactive store through refs
+and template bindings. Use `NavigationMenuContext` when a descendant needs the current state through
+a render prop instead of a store.
+
+Without a shared viewport, `NavigationMenuContent` renders beside its item. Add
+`NavigationMenuViewportPositioner` and `NavigationMenuViewport` when several panels should share one
+animated surface; the positioner's `align` prop (`"start" | "center" | "end"`, default `"center"`)
+aligns the viewport against the value positioner. Use `asChild` for router links or custom
+triggers only when the child remains one interactive, focusable element.
 
 ## Anatomy
 
@@ -109,40 +106,6 @@ NavigationMenuContext
 | `NavigationMenuViewportPositioner` | Positions a shared `NavigationMenuViewport`. |
 | `NavigationMenuViewport` | Shared animated surface for the currently open content. |
 
-## Composition
-
-Use `defaultValue` for an uncontrolled menu. When another part of the application owns the open
-item, pass `value` with `onValueChange(details)` or use Vue's `v-model:value`; `details.value` is the
-open item's value or an empty string when all panels are closed. Create the store with
-`useNavigationMenu()` and pass it to `NavigationMenuRootProvider` when it must live outside the
-rendered tree; do not render another root for that store. React reads the store as an object; Solid
-reads its reactive state through the returned accessor; Vue exposes the reactive store through refs
-and template bindings. Use `NavigationMenuContext` when a descendant needs the current state through
-a render prop instead of a store.
-
-Without a shared viewport, `NavigationMenuContent` renders beside its item. Add
-`NavigationMenuViewportPositioner` and `NavigationMenuViewport` when several panels should share one
-animated surface; the positioner's `align` prop (`"start" | "center" | "end"`, default `"center"`)
-aligns the viewport against the value positioner. Use `asChild` for router links or custom
-triggers only when the child remains one interactive, focusable element.
-
-## Examples
-
-### Controlled Value
-
-Control the open value from React state, Solid signals, or a Vue ref when the active panel also needs
-to drive nearby application UI. The output below shows the value of the currently open item.
-
-<Example name="navigation-menu/controlled-value" />
-
-### Shared viewport
-
-Use a shared `NavigationMenuViewport` when panels have different sizes but should animate inside one surface. This
-example uses a two-column panel and panels with different widths, so switching triggers visibly
-animates the viewport's measured width and height.
-
-<Example name="navigation-menu/viewport" />
-
 ## Styling
 
 Use `className` in React, `class` in Solid, or `class` in Vue on exported parts for structural styles. For state-based
@@ -153,7 +116,7 @@ only the panel and viewport size limits as CSS variables; override other styles 
 part. Panel and viewport motion follow the shared `--moduix-popup-motion-*` variables. Data
 attributes and `data-slot` hooks are shared by both styling tracks.
 
-### CSS Properties
+### CSS variables
 
 <CssPropertiesSection properties={NavigationMenuDocs.navigationMenuOverrideCssProperties} />
 

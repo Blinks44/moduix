@@ -2,107 +2,28 @@
 title: Accordion
 component: accordion
 description: Build accessible accordions in React, Solid, or Vue with package and shadcn installation options.
+ark: https://ark-ui.com/docs/components/accordion
 ---
 
 import * as AccordionDocs from '@/components/examples/accordion/css-properties';
 
-## API Reference
+<Example name="accordion/basic" />
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/accordion" />
+## Installation
 
-## Choosing the right component
+<ComponentInstall />
 
-Use `Accordion` when several related sections should share keyboard navigation and state. Use
-`Collapsible` when you need one independent disclosure.
-
-## Basic
-
+## Usage
 
 Use `Accordion` as the root and give every item a stable `value`. Put the interactive label in the
 item trigger, the panel in the item content, and the panel's inner content in the item body. The
 item indicator is optional and defaults to a chevron that turns when the item opens. Wrap each
 trigger in a heading (`h3` in the examples) so screen reader users can jump between sections.
 
-React, Solid, and Vue use the same flat value names. Import `Accordion` as the root and import each
-additional part directly, such as `AccordionItem` and `AccordionItemTrigger`. The same names work
-with npm packages and shadcn registry source.
+## Choosing the right component
 
-<Example name="accordion/basic" />
-
-## Install with shadcn
-
-See [Quick Start](/docs/quick-start) for full package setup, registry configuration, and styling guidance.
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/accordion' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/accordion' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/accordion' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/accordion' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/accordion' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/accordion' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Anatomy
-
-```text
-Accordion
-└─ AccordionItem[value]
- ├─ h3 (recommended heading)
- │  └─ AccordionItemTrigger
- │     ├─ label
- │     └─ AccordionItemIndicator (optional)
- └─ AccordionItemContent
-    └─ AccordionItemBody
-       └─ content
-
-AccordionRootProvider
-└─ same item tree connected to a useAccordion() store
-```
-
-| Part                     | Role                                                                                      |
-| ------------------------ | ----------------------------------------------------------------------------------------- |
-| `Accordion`              | Root part that owns accordion state and keyboard navigation.                              |
-| `AccordionRootProvider`  | Connects the parts to state created with `useAccordion()`.                                |
-| `AccordionItem`          | A collapsible item with a required, stable `value`.                                       |
-| `AccordionItemTrigger`   | The button that opens or closes the item.                                                 |
-| `AccordionItemIndicator` | Optional state indicator. Defaults to a chevron when no children are provided. |
-| `AccordionItemContent`   | The collapsible panel, with Ark's size-animation behavior.                                |
-| `AccordionItemBody`      | The moduix inner wrapper that provides default panel spacing.                             |
-
-## Composition
-
-Use `defaultValue` for an uncontrolled accordion. Use `value` with `onValueChange(details)` when
-another part of the application owns the state. Both props use `string[]`, even when only one item
-can be open.
-
-Use `AccordionRootProvider` with `useAccordion()` from the matching framework package when the
-accordion state must be created outside the rendered tree. Do not render `Accordion` for the same
-store. React reads the store as an object; Solid reads its reactive state through the returned
-accessor; Vue exposes the reactive store directly to the template.
+Use `Accordion` when several related sections should share keyboard navigation and state. Use
+`Collapsible` when you need one independent disclosure.
 
 ## Examples
 
@@ -161,6 +82,44 @@ primitive's part tree explicit so the right component owns keyboard handling and
 
 <Example name="accordion/with-slider" />
 
+## Composition
+
+Use `defaultValue` for an uncontrolled accordion. Use `value` with `onValueChange(details)` when
+another part of the application owns the state. Both props use `string[]`, even when only one item
+can be open.
+
+Use `AccordionRootProvider` with `useAccordion()` from the matching framework package when the
+accordion state must be created outside the rendered tree. Do not render `Accordion` for the same
+store. React reads the store as an object; Solid reads its reactive state through the returned
+accessor; Vue exposes the reactive store directly to the template.
+
+## Anatomy
+
+```text
+Accordion
+└─ AccordionItem[value]
+ ├─ h3 (recommended heading)
+ │  └─ AccordionItemTrigger
+ │     ├─ label
+ │     └─ AccordionItemIndicator (optional)
+ └─ AccordionItemContent
+    └─ AccordionItemBody
+       └─ content
+
+AccordionRootProvider
+└─ same item tree connected to a useAccordion() store
+```
+
+| Part                     | Role                                                                                      |
+| ------------------------ | ----------------------------------------------------------------------------------------- |
+| `Accordion`              | Root part that owns accordion state and keyboard navigation.                              |
+| `AccordionRootProvider`  | Connects the parts to state created with `useAccordion()`.                                |
+| `AccordionItem`          | A collapsible item with a required, stable `value`.                                       |
+| `AccordionItemTrigger`   | The button that opens or closes the item.                                                 |
+| `AccordionItemIndicator` | Optional state indicator. Defaults to a chevron when no children are provided. |
+| `AccordionItemContent`   | The collapsible panel, with Ark's size-animation behavior.                                |
+| `AccordionItemBody`      | The moduix inner wrapper that provides default panel spacing.                             |
+
 ## Styling
 
 Use `className` in React or `class` in Solid and Vue on exported parts for structural styles. For
@@ -172,7 +131,7 @@ Data attributes and `data-slot` hooks are shared by both styling tracks.
 Put panel spacing on `AccordionItemBody` rather than on `AccordionItemContent` so Ark can measure
 and animate the panel correctly.
 
-### CSS Properties
+### CSS variables
 
 <CssPropertiesSection properties={AccordionDocs.accordionOverrideCssProperties} />
 

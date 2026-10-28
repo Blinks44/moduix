@@ -1,90 +1,36 @@
 ---
 title: Swap
 component: swap
-description: Анимируйте переход между двумя визуальными состояниями с готовыми пресетами moduix на базе Ark UI.
+description: Анимированная смена двух значков или подписей при смене состояния.
+ark: https://ark-ui.com/docs/utilities/swap
 ---
 
 import * as SwapDocs from '@/components/examples/swap/css-properties';
 
-## Справочник API
+<Example name="swap/basic" />
 
-<PrimitiveReference href="https://ark-ui.com/docs/utilities/swap" />
+## Установка
 
-## Базовый пример
+<ComponentInstall />
 
+## Использование
+
+<UsageCode
+  react={'<Swap swap={copied} animation="rotate">\n  <SwapIndicator type="off">\n    <CopyIcon />\n  </SwapIndicator>\n  <SwapIndicator type="on">\n    <CheckIcon />\n  </SwapIndicator>\n</Swap>'}
+  vue={'<Swap :swap="copied" animation="rotate">\n  <SwapIndicator type="off">\n    <CopyIcon />\n  </SwapIndicator>\n  <SwapIndicator type="on">\n    <CheckIcon />\n  </SwapIndicator>\n</Swap>'}
+/>
+
+<PropChips
+  items={[
+    ['swap', 'При true показывает индикатор on.'],
+    ['animation', 'fade · scale · rotate · flip'],
+    ['type', 'on · off'],
+  ]}
+/>
 
 Используйте `Swap`, когда элемент интерфейса должен переключаться между двумя визуальными состояниями,
 например когда иконка меняется после действия. Передайте текущее логическое значение в `swap`: при
 `false` отображается индикатор `off`, а при `true` индикатор `on`.
-
-<Example name="swap/basic" />
-
-## Установка через shadcn
-
-Полную настройку пакета, реестра и стилей см. в разделе [Быстрый старт](/docs/quick-start).
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/swap' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/swap' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/swap' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/swap' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/swap' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/swap' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Анатомия
-
-```text
-Swap
-├─ SwapIndicator type="off"
-└─ SwapIndicator type="on"
-
-SwapRootProvider
-└─ то же дерево индикаторов, подключённое к состоянию из useSwap()
-```
-
-| Часть                | Назначение                                                        |
-| -------------------- | ----------------------------------------------------------------- |
-| `Swap` | Передаёт состояние `swap` и размещает оба визуальных состояния.  |
-| `SwapRootProvider`  | Подключает части к состоянию, созданному через `useSwap()`. |
-| `SwapIndicator`     | Отрисовывает состояние `on` или `off`, выбранное свойством `type`. |
-
-## Композиция
-
-`Swap` отвечает только за визуальное представление. Состояние, взаимодействие, фокус и доступное имя
-оставьте у окружающего семантического элемента. Для индикаторов, содержащих только иконки, добавьте
-`aria-hidden="true"`. Размещайте оба индикатора непосредственными дочерними элементами, чтобы они
-использовали одну ячейку сетки, а встроенные рецепты оставались в пределах этого экземпляра `Swap`.
-
-По умолчанию `Swap` использует анимацию `scale`. Передайте в `animation` `fade`, `scale`, `rotate` или
-`flip`, либо задайте пользовательское имя и опишите CSS через `data-animation` корня и атрибуты
-`data-state` индикаторов от Ark. Если состояние нужно создать вне дерева, передайте результат
-`useSwap()` в `SwapRootProvider` и не создавайте для этого состояния ещё один корень. При
-использовании `asChild` передавайте ровно один семантический дочерний элемент.
 
 ## Примеры
 
@@ -112,6 +58,36 @@ SwapRootProvider
 
 <Example name="swap/root-provider" />
 
+## Композиция
+
+`Swap` отвечает только за визуальное представление. Состояние, взаимодействие, фокус и доступное имя
+оставьте у окружающего семантического элемента. Для индикаторов, содержащих только иконки, добавьте
+`aria-hidden="true"`. Размещайте оба индикатора непосредственными дочерними элементами, чтобы они
+использовали одну ячейку сетки, а встроенные рецепты оставались в пределах этого экземпляра `Swap`.
+
+По умолчанию `Swap` использует анимацию `scale`. Передайте в `animation` `fade`, `scale`, `rotate` или
+`flip`, либо задайте пользовательское имя и опишите CSS через `data-animation` корня и атрибуты
+`data-state` индикаторов от Ark. Если состояние нужно создать вне дерева, передайте результат
+`useSwap()` в `SwapRootProvider` и не создавайте для этого состояния ещё один корень. При
+использовании `asChild` передавайте ровно один семантический дочерний элемент.
+
+## Анатомия
+
+```text
+Swap
+├─ SwapIndicator type="off"
+└─ SwapIndicator type="on"
+
+SwapRootProvider
+└─ то же дерево индикаторов, подключённое к состоянию из useSwap()
+```
+
+| Часть                | Назначение                                                        |
+| -------------------- | ----------------------------------------------------------------- |
+| `Swap` | Передаёт состояние `swap` и размещает оба визуальных состояния.  |
+| `SwapRootProvider`  | Подключает части к состоянию, созданному через `useSwap()`. |
+| `SwapIndicator`     | Отрисовывает состояние `on` или `off`, выбранное свойством `type`. |
+
 ## Стилизация
 
 В вариантах с CSS Modules длительность встроенных рецептов задаёт `--moduix-swap-transition`. Варианты
@@ -129,7 +105,7 @@ Ark закрепляет раскладку inline-стилями: корень 
 его переопределить, повторите тот же задокументированный вариант (например,
 `data-[animation=flip]:[perspective:32rem]`).
 
-### CSS-свойства
+### CSS-переменные
 
 <CssPropertiesSection properties={SwapDocs.swapOverrideCssProperties} />
 
@@ -145,3 +121,13 @@ Ark закрепляет раскладку inline-стилями: корень 
 - Ark добавляет `data-scope="swap"` и `data-part="root" | "indicator"`.
 - Ark добавляет индикаторам `data-state="open" | "closed"`. moduix использует эти атрибуты во
   встроенных и пользовательских рецептах анимации.
+
+## Справочник API
+
+`Swap` не обрабатывает ввод: клавиатура и клики остаются за окружающим элементом управления.
+
+| Проп | Тип | По умолчанию |
+| --- | --- | --- |
+| `swap` | `boolean` | `false` |
+| `animation` | `SwapAnimation` | `'scale'` |
+| `type` (SwapIndicator) | `'on'` / `'off'` | — |

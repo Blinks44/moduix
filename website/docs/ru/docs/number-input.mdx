@@ -2,21 +2,18 @@
 title: Number Input
 component: number-input
 description: Поле для ввода чисел на базе Ark UI с кнопками изменения значения, форматированием, валидацией и необязательным перетаскиванием.
+ark: https://ark-ui.com/docs/components/number-input
 ---
 
 import * as NumberInputDocs from '@/components/examples/number-input/css-properties';
 
-## Справочник API
+<Example name="number-input/basic" />
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/number-input" />
+## Установка
 
-## Выбор подходящего компонента
+<ComponentInstall />
 
-Используйте `NumberInput`, когда пользователи вводят числовые значения, требующие пошагового изменения,
-ограничения диапазона и форматирования. Для произвольного текста используйте `Input`, а для выбора точки
-на визуальном диапазоне - `Slider`.
-
-## Базовый пример
+## Использование
 
 Для CSS Modules импортируйте компонент из `@moduix/react/number-input`,
 `@moduix/solid/number-input` или `@moduix/vue/number-input`. Для Tailwind CSS используйте соответствующие пути
@@ -26,87 +23,11 @@ import * as NumberInputDocs from '@/components/examples/number-input/css-propert
 Используйте `NumberInput` как корневой компонент, а `NumberInputField` для стандартного поля с кнопками увеличения
 и уменьшения значения. Задайте полю доступное имя с помощью `NumberInputLabel`, `aria-label` или `aria-labelledby`.
 
-<Example name="number-input/basic" />
+## Выбор подходящего компонента
 
-## Установка через shadcn
-
-Полную настройку пакета, реестра и стилей см. в разделе [Быстрый старт](/docs/quick-start).
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/number-input' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/number-input' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/number-input' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/number-input' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/number-input' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/number-input' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Анатомия
-
-```text
-NumberInput
-├─ NumberInputLabel
-├─ NumberInputScrubber (необязательно)
-├─ NumberInputField (рекомендуемая короткая форма)
-│  └─ отображает NumberInputControl
-│     ├─ NumberInputDecrementTrigger
-│     ├─ NumberInputInput
-│     └─ NumberInputIncrementTrigger
-└─ NumberInputValueText (необязательно)
-
-NumberInputRootProvider
-└─ то же дерево частей, подключённое к состоянию, созданному с помощью `useNumberInput()`
-```
-
-| Часть | Назначение |
-| --- | --- |
-| `NumberInput` | Управляет состоянием числового поля, разбором введённого значения, форматированием и поведением клавиатуры. |
-| `NumberInputRootProvider` | Подключает части к состоянию, созданному с помощью `useNumberInput()`. |
-| `NumberInputContext` | Предоставляет форматированное и числовое представление значения, а также императивные методы работы с состоянием. |
-| `NumberInputLabel` | Доступная подпись управляемого поля. |
-| `NumberInputScrubber` | Необязательная зона перетаскивания, которая изменяет значение при движении указателя. |
-| `NumberInputControl` | Объединяет поле ввода и кнопки увеличения и уменьшения значения. |
-| `NumberInputField` | Удобная часть, которая отображает стандартный контрол и группу кнопок. |
-| `NumberInputDecrementTrigger` | Кнопка уменьшения текущего значения. Если дочерний элемент не задан, отображает значок минуса moduix. |
-| `NumberInputInput` | Редактируемое текстовое поле для числа под управлением Ark UI. |
-| `NumberInputIncrementTrigger` | Кнопка увеличения текущего значения. Если дочерний элемент не задан, отображает значок плюса moduix. |
-| `NumberInputValueText` | Текстовый элемент только для чтения с форматированным значением. |
-
-## Композиция
-
-Используйте `NumberInputField` для стандартного контрола из трёх частей. Храните `value` и `defaultValue` в виде строк,
-а в управляемом поле передавайте в состояние `details.value` из `onValueChange`. Если состояние нужно создать вне
-дерева отображаемых частей, вызовите `useNumberInput()` и передайте соответствующее хранилище в
-`NumberInputRootProvider`. Не отображайте `NumberInput` или `NumberInputRootProvider` для того же хранилища. В React свойства состояния читаются напрямую. В Solid вызывайте возвращаемую функцию доступа, а в Vue читайте реактивное состояние непосредственно в шаблоне.
-
-Используйте `NumberInputControl` с отдельными частями, если нужно изменить порядок кнопок, значки или стили поля.
-Добавляйте `NumberInputScrubber` рядом с полем для изменения значения перетаскиванием. Используйте
-`NumberInputContext` только когда другой элемент, например скрытое поле формы, должен получить форматированное или
-числовое значение `valueAsNumber`.
+Используйте `NumberInput`, когда пользователи вводят числовые значения, требующие пошагового изменения,
+ограничения диапазона и форматирования. Для произвольного текста используйте `Input`, а для выбора точки
+на визуальном диапазоне - `Slider`.
 
 ## Примеры
 
@@ -196,13 +117,56 @@ NumberInputRootProvider
 
 <Example name="number-input/custom-icons" />
 
+## Композиция
+
+Используйте `NumberInputField` для стандартного контрола из трёх частей. Храните `value` и `defaultValue` в виде строк,
+а в управляемом поле передавайте в состояние `details.value` из `onValueChange`. Если состояние нужно создать вне
+дерева отображаемых частей, вызовите `useNumberInput()` и передайте соответствующее хранилище в
+`NumberInputRootProvider`. Не отображайте `NumberInput` или `NumberInputRootProvider` для того же хранилища. В React свойства состояния читаются напрямую. В Solid вызывайте возвращаемую функцию доступа, а в Vue читайте реактивное состояние непосредственно в шаблоне.
+
+Используйте `NumberInputControl` с отдельными частями, если нужно изменить порядок кнопок, значки или стили поля.
+Добавляйте `NumberInputScrubber` рядом с полем для изменения значения перетаскиванием. Используйте
+`NumberInputContext` только когда другой элемент, например скрытое поле формы, должен получить форматированное или
+числовое значение `valueAsNumber`.
+
+## Анатомия
+
+```text
+NumberInput
+├─ NumberInputLabel
+├─ NumberInputScrubber (необязательно)
+├─ NumberInputField (рекомендуемая короткая форма)
+│  └─ отображает NumberInputControl
+│     ├─ NumberInputDecrementTrigger
+│     ├─ NumberInputInput
+│     └─ NumberInputIncrementTrigger
+└─ NumberInputValueText (необязательно)
+
+NumberInputRootProvider
+└─ то же дерево частей, подключённое к состоянию, созданному с помощью `useNumberInput()`
+```
+
+| Часть | Назначение |
+| --- | --- |
+| `NumberInput` | Управляет состоянием числового поля, разбором введённого значения, форматированием и поведением клавиатуры. |
+| `NumberInputRootProvider` | Подключает части к состоянию, созданному с помощью `useNumberInput()`. |
+| `NumberInputContext` | Предоставляет форматированное и числовое представление значения, а также императивные методы работы с состоянием. |
+| `NumberInputLabel` | Доступная подпись управляемого поля. |
+| `NumberInputScrubber` | Необязательная зона перетаскивания, которая изменяет значение при движении указателя. |
+| `NumberInputControl` | Объединяет поле ввода и кнопки увеличения и уменьшения значения. |
+| `NumberInputField` | Удобная часть, которая отображает стандартный контрол и группу кнопок. |
+| `NumberInputDecrementTrigger` | Кнопка уменьшения текущего значения. Если дочерний элемент не задан, отображает значок минуса moduix. |
+| `NumberInputInput` | Редактируемое текстовое поле для числа под управлением Ark UI. |
+| `NumberInputIncrementTrigger` | Кнопка увеличения текущего значения. Если дочерний элемент не задан, отображает значок плюса moduix. |
+| `NumberInputValueText` | Текстовый элемент только для чтения с форматированным значением. |
+
 ## Стилизация
 
 Используйте `className` в React или `class` в Solid и Vue для структурных стилей экспортируемых частей. Варианты Tailwind
 используют нативные utility-классы и классы потребителя, а CSS-переменные ниже настраивают варианты CSS Modules.
 Атрибуты данных и хуки `data-slot` общие для обоих вариантов стилизации.
 
-### CSS-свойства
+### CSS-переменные
 
 <CssPropertiesSection properties={NumberInputDocs.numberInputOverrideCssProperties} />
 

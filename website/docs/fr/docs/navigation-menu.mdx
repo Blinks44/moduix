@@ -2,25 +2,18 @@
 title: Navigation Menu
 component: navigation-menu
 description: Barre de navigation pour les liens directs et les panneaux dépliables, avec la possibilité d’utiliser une zone `NavigationMenuViewport` partagée pour les transitions animées.
+ark: https://ark-ui.com/docs/components/navigation-menu
 ---
 
 import * as NavigationMenuDocs from '@/components/examples/navigation-menu/css-properties';
 
-## Référence de l’API
+<Example name="navigation-menu/basic" />
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/navigation-menu" />
+## Installation
 
-## Choisir le bon composant
+<ComponentInstall />
 
-Utilisez `NavigationMenu` pour la navigation principale d’un site ou d’un produit lorsque certains
-éléments de premier niveau ouvrent des groupes de destinations associées.
-
-- Choisissez **`NavigationMenu`** lorsqu’un élément de premier niveau peut afficher un groupe de liens associés.
-- Choisissez **`Menu`** pour les actions contextuelles plutôt que pour la navigation.
-- Choisissez **`Tabs`** lorsque chaque contrôle sélectionné change le contenu affiché dans une zone de la page courante.
-
-## Exemple de base
-
+## Utilisation
 
 Importez-le depuis le sous-chemin du package adapté : `@moduix/react/navigation-menu`,
 `@moduix/solid/navigation-menu`, `@moduix/vue/navigation-menu`,
@@ -32,44 +25,52 @@ Utilisez `NavigationMenu` avec `NavigationMenuList` et `NavigationMenuItem`. Att
 `NavigationMenuContent` dans le même élément. Utilisez `NavigationMenuLink` pour les destinations
 directes du premier niveau et pour les liens à l’intérieur d’un panneau.
 
-<Example name="navigation-menu/basic" />
+## Choisir le bon composant
 
-## Installation avec shadcn
+Utilisez `NavigationMenu` pour la navigation principale d’un site ou d’un produit lorsque certains
+éléments de premier niveau ouvrent des groupes de destinations associées.
 
-Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration complète du paquet, du registre et des styles.
+- Choisissez **`NavigationMenu`** lorsqu’un élément de premier niveau peut afficher un groupe de liens associés.
+- Choisissez **`Menu`** pour les actions contextuelles plutôt que pour la navigation.
+- Choisissez **`Tabs`** lorsque chaque contrôle sélectionné change le contenu affiché dans une zone de la page courante.
 
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
+## Exemples
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/navigation-menu' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/navigation-menu' },
-  ]}
-/>
+### Valeur contrôlée
 
-  </Tab>
-  <Tab label="Solid" value="solid">
+Contrôlez la valeur ouverte avec un état React, un signal Solid ou une ref Vue lorsque le panneau actif
+doit également piloter une partie voisine de l’interface. La sortie sous l’exemple affiche la valeur de
+l’élément ouvert.
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/navigation-menu' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/navigation-menu' },
-  ]}
-/>
+<Example name="navigation-menu/controlled-value" />
 
-  </Tab>
-  <Tab label="Vue" value="vue">
+### Viewport partagé
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/navigation-menu' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/navigation-menu' },
-  ]}
-/>
+Utilisez une zone `NavigationMenuViewport` partagée lorsque les panneaux ont des tailles différentes, mais doivent
+s’animer dans une même surface. Cet exemple utilise un panneau à deux colonnes et des panneaux de
+largeurs différentes, afin de rendre visibles les animations de largeur et de hauteur de `NavigationMenuViewport`
+lors du passage d’un déclencheur à l’autre.
 
-  </Tab>
-</Tabs>
+<Example name="navigation-menu/viewport" />
+
+## Composition
+
+Utilisez `defaultValue` pour un menu non contrôlé. Lorsqu’une autre partie de l’application gère
+l’élément ouvert, transmettez `value` avec `onValueChange(details)` ; `details.value` contient la valeur
+de l’élément ouvert ou une chaîne vide lorsque tous les panneaux sont fermés. Créez le store avec
+`useNavigationMenu()` et transmettez-le à `NavigationMenuRootProvider` lorsqu’il doit vivre en dehors de
+l’arbre rendu ; ne rendez pas une autre racine pour ce même store. React lit le store comme un objet,
+tandis que Solid lit son état réactif via la fonction retournée, et Vue expose son état réactif via des
+refs et des liaisons de template. Dans Vue, utilisez `v-model:value` pour contrôler la valeur. Utilisez
+`NavigationMenuContext` lorsqu’un descendant a besoin de l’état courant via une fonction de rendu plutôt
+que via le store.
+
+Sans zone `NavigationMenuViewport` partagée, `NavigationMenuContent` s’affiche à côté de son élément.
+Ajoutez `NavigationMenuViewportPositioner` et `NavigationMenuViewport` lorsque plusieurs panneaux doivent
+partager une même surface animée ; la prop `align` du positioner (`"start" | "center" | "end"`,
+`"center"` par défaut) aligne la zone par rapport au positionneur de la valeur. Utilisez `asChild`
+pour les liens de routeur ou les déclencheurs personnalisés uniquement si l’enfant reste un seul élément
+interactif pouvant recevoir le focus.
 
 ## Anatomie
 
@@ -109,44 +110,6 @@ NavigationMenuContext
 | `NavigationMenuViewportPositioner` | Positionne une zone `NavigationMenuViewport` partagée. |
 | `NavigationMenuViewport` | Zone animée partagée pour le contenu actuellement ouvert. |
 
-## Composition
-
-Utilisez `defaultValue` pour un menu non contrôlé. Lorsqu’une autre partie de l’application gère
-l’élément ouvert, transmettez `value` avec `onValueChange(details)` ; `details.value` contient la valeur
-de l’élément ouvert ou une chaîne vide lorsque tous les panneaux sont fermés. Créez le store avec
-`useNavigationMenu()` et transmettez-le à `NavigationMenuRootProvider` lorsqu’il doit vivre en dehors de
-l’arbre rendu ; ne rendez pas une autre racine pour ce même store. React lit le store comme un objet,
-tandis que Solid lit son état réactif via la fonction retournée, et Vue expose son état réactif via des
-refs et des liaisons de template. Dans Vue, utilisez `v-model:value` pour contrôler la valeur. Utilisez
-`NavigationMenuContext` lorsqu’un descendant a besoin de l’état courant via une fonction de rendu plutôt
-que via le store.
-
-Sans zone `NavigationMenuViewport` partagée, `NavigationMenuContent` s’affiche à côté de son élément.
-Ajoutez `NavigationMenuViewportPositioner` et `NavigationMenuViewport` lorsque plusieurs panneaux doivent
-partager une même surface animée ; la prop `align` du positioner (`"start" | "center" | "end"`,
-`"center"` par défaut) aligne la zone par rapport au positionneur de la valeur. Utilisez `asChild`
-pour les liens de routeur ou les déclencheurs personnalisés uniquement si l’enfant reste un seul élément
-interactif pouvant recevoir le focus.
-
-## Exemples
-
-### Valeur contrôlée
-
-Contrôlez la valeur ouverte avec un état React, un signal Solid ou une ref Vue lorsque le panneau actif
-doit également piloter une partie voisine de l’interface. La sortie sous l’exemple affiche la valeur de
-l’élément ouvert.
-
-<Example name="navigation-menu/controlled-value" />
-
-### Viewport partagé
-
-Utilisez une zone `NavigationMenuViewport` partagée lorsque les panneaux ont des tailles différentes, mais doivent
-s’animer dans une même surface. Cet exemple utilise un panneau à deux colonnes et des panneaux de
-largeurs différentes, afin de rendre visibles les animations de largeur et de hauteur de `NavigationMenuViewport`
-lors du passage d’un déclencheur à l’autre.
-
-<Example name="navigation-menu/viewport" />
-
 ## Styles
 
 Utilisez `className` dans React, `class` dans Solid ou `class` dans Vue sur les parties exportées pour les styles
@@ -158,7 +121,7 @@ que les limites de taille du panneau et du viewport ; remplacez le reste avec un
 L’animation du panneau et du viewport suit les variables partagées `--moduix-popup-motion-*`. Les attributs de données et les points d’accroche `data-slot` sont communs
 aux deux modes de style.
 
-### Propriétés CSS
+### Variables CSS
 
 <CssPropertiesSection properties={NavigationMenuDocs.navigationMenuOverrideCssProperties} />
 

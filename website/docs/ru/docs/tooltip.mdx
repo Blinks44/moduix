@@ -2,6 +2,7 @@
 title: Tooltip
 component: tooltip
 description: Короткая дополнительная подсказка, которая появляется при наведении или когда триггер получает фокус.
+ark: https://ark-ui.com/docs/components/tooltip
 ---
 
 import TooltipContext from '@/components/examples/tooltip/context.tsx';
@@ -9,9 +10,18 @@ import tooltipSolidContext from '../../../snippets/tooltip/solid/context.tsx?raw
 import tooltipVueContext from '../../../snippets/tooltip/vue/context.vue?raw';
 import tooltipVueContextPart from '../../../snippets/tooltip/vue/TooltipStateContent.vue?raw';
 
-## Справочник API
+<Example name="tooltip/basic" />
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/tooltip" />
+## Установка
+
+<ComponentInstall />
+
+## Использование
+
+Используйте `TooltipTrigger` для элемента, который открывает подсказку, а `TooltipBody` для её
+содержимого. `TooltipBody` объединяет `TooltipPositioner` и `TooltipContent`. У триггера должно
+быть собственное доступное имя. Содержимое подсказки дополняет интерфейс и не заменяет видимый
+текст или `aria-label`.
 
 ## Выбор подходящего компонента
 
@@ -21,111 +31,6 @@ import tooltipVueContextPart from '../../../snippets/tooltip/vue/TooltipStateCon
 - Выбирайте **`Tooltip`** для коротких подписей и некликабельных контекстных подсказок.
 - Выбирайте **`Popover`**, если во всплывающем элементе нужны подробное содержимое, действия или элементы формы.
 - Выбирайте **`HoverCard`**, если нужно показать дополнительный предпросмотр, связанный с триггером.
-
-## Базовый пример
-
-
-Используйте `TooltipTrigger` для элемента, который открывает подсказку, а `TooltipBody` для её
-содержимого. `TooltipBody` объединяет `TooltipPositioner` и `TooltipContent`. У триггера должно
-быть собственное доступное имя. Содержимое подсказки дополняет интерфейс и не заменяет видимый
-текст или `aria-label`.
-
-<Example name="tooltip/basic" />
-
-## Установка через shadcn
-
-Полную настройку пакета, реестра и стилей см. в разделе [Быстрый старт](/docs/quick-start).
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/tooltip' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/tooltip' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/tooltip' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/tooltip' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/tooltip' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/tooltip' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Анатомия
-
-```text
-Tooltip
-├─ TooltipTrigger
-└─ Поддерево всплывающего содержимого (автоматически выводится через портал)
-   └─ TooltipPositioner
-      └─ TooltipContent
-         └─ содержимое
-```
-
-Добавьте `TooltipArrow` первым потомком содержимого, если всплывающий элемент должен указывать на
-триггер. `TooltipArrow` по умолчанию выводит `TooltipArrowTip`.
-
-```text
-Tooltip
-├─ TooltipTrigger
-└─ Поддерево всплывающего содержимого (автоматически выводится через портал)
-   └─ TooltipPositioner
-      └─ TooltipContent
-         ├─ TooltipArrow
-         │  └─ TooltipArrowTip
-         └─ содержимое
-```
-
-| Часть | Назначение |
-| --- | --- |
-| `Tooltip` | Управляет состоянием подсказки, открытием и закрытием, задержками, позиционированием и жизненным циклом. |
-| `TooltipRootProvider` | Отображает подсказку из объекта состояния `useTooltip()`, созданного за пределами дерева. |
-| `TooltipContext` | Передаёт текущее состояние пользовательским потомкам через функцию рендеринга или слот с параметрами в Vue. |
-| `TooltipBody` | Удобная обёртка, которая одновременно выводит `TooltipPositioner` и `TooltipContent`. |
-| `TooltipTrigger` | Интерактивный элемент, открывающий подсказку при наведении или фокусе. |
-| `TooltipDisabledTrigger` | Доступная для фокуса обёртка для одного отключённого нативного элемента управления, которому нужно пояснение. |
-| `TooltipPositioner` | Позиционирует содержимое и предоставляет переменные позиционирования Ark. |
-| `TooltipContent` | Видимая поверхность подсказки. |
-| `TooltipArrow` | Необязательная позиционируемая обёртка стрелки, по умолчанию выводящая `TooltipArrowTip`. |
-| `TooltipArrowTip` | Видимый наконечник стрелки. |
-
-## Композиция
-
-Для стандартной композиции `Trigger` и содержимого используйте `TooltipBody`: он объединяет
-`TooltipPositioner` и `TooltipContent`. Используйте эти части явно, если им нужны независимые
-стили или структура. Корневой компонент владеет состоянием: `defaultOpen` подходит для
-неконтролируемой подсказки, а `open` вместе с `onOpenChange(details)` используется, когда состояние
-хранится в другой части приложения. Используйте `TooltipRootProvider` с `useTooltip()`, если
-хранилище создаётся за пределами дерева, а `TooltipContext` или `useTooltipContext()`, если
-состояние нужно потомку. `asChild` принимает один доступный для фокуса элемент, а в Solid
-используется функция рендеринга. `TooltipDisabledTrigger` предназначен для одного отключённого
-нативного элемента. Портал включён по умолчанию, поэтому задавайте `portalled={false}` или
-передавайте `portalRef` только при необходимости ограничить подсказку конкретной DOM-областью.
-В Vue используйте `v-model:open` для контролируемого состояния и kebab-case-события, например
-`@open-change`.
-
-По умолчанию содержимое монтируется при первом открытии и удаляется после анимации закрытия.
-Задайте `unmountOnExit` значение `false`, чтобы сохранить его после первого открытия;
-для монтирования сразу задайте также `lazyMount` значение `false`. В Vue эти параметры
-передаются как `:unmount-on-exit="false"` и `:lazy-mount="false"`.
 
 ## Примеры
 
@@ -234,6 +139,64 @@ Tooltip
 
 <Example name="tooltip/advanced-customization" />
 
+## Композиция
+
+Для стандартной композиции `Trigger` и содержимого используйте `TooltipBody`: он объединяет
+`TooltipPositioner` и `TooltipContent`. Используйте эти части явно, если им нужны независимые
+стили или структура. Корневой компонент владеет состоянием: `defaultOpen` подходит для
+неконтролируемой подсказки, а `open` вместе с `onOpenChange(details)` используется, когда состояние
+хранится в другой части приложения. Используйте `TooltipRootProvider` с `useTooltip()`, если
+хранилище создаётся за пределами дерева, а `TooltipContext` или `useTooltipContext()`, если
+состояние нужно потомку. `asChild` принимает один доступный для фокуса элемент, а в Solid
+используется функция рендеринга. `TooltipDisabledTrigger` предназначен для одного отключённого
+нативного элемента. Портал включён по умолчанию, поэтому задавайте `portalled={false}` или
+передавайте `portalRef` только при необходимости ограничить подсказку конкретной DOM-областью.
+В Vue используйте `v-model:open` для контролируемого состояния и kebab-case-события, например
+`@open-change`.
+
+По умолчанию содержимое монтируется при первом открытии и удаляется после анимации закрытия.
+Задайте `unmountOnExit` значение `false`, чтобы сохранить его после первого открытия;
+для монтирования сразу задайте также `lazyMount` значение `false`. В Vue эти параметры
+передаются как `:unmount-on-exit="false"` и `:lazy-mount="false"`.
+
+## Анатомия
+
+```text
+Tooltip
+├─ TooltipTrigger
+└─ Поддерево всплывающего содержимого (автоматически выводится через портал)
+   └─ TooltipPositioner
+      └─ TooltipContent
+         └─ содержимое
+```
+
+Добавьте `TooltipArrow` первым потомком содержимого, если всплывающий элемент должен указывать на
+триггер. `TooltipArrow` по умолчанию выводит `TooltipArrowTip`.
+
+```text
+Tooltip
+├─ TooltipTrigger
+└─ Поддерево всплывающего содержимого (автоматически выводится через портал)
+   └─ TooltipPositioner
+      └─ TooltipContent
+         ├─ TooltipArrow
+         │  └─ TooltipArrowTip
+         └─ содержимое
+```
+
+| Часть | Назначение |
+| --- | --- |
+| `Tooltip` | Управляет состоянием подсказки, открытием и закрытием, задержками, позиционированием и жизненным циклом. |
+| `TooltipRootProvider` | Отображает подсказку из объекта состояния `useTooltip()`, созданного за пределами дерева. |
+| `TooltipContext` | Передаёт текущее состояние пользовательским потомкам через функцию рендеринга или слот с параметрами в Vue. |
+| `TooltipBody` | Удобная обёртка, которая одновременно выводит `TooltipPositioner` и `TooltipContent`. |
+| `TooltipTrigger` | Интерактивный элемент, открывающий подсказку при наведении или фокусе. |
+| `TooltipDisabledTrigger` | Доступная для фокуса обёртка для одного отключённого нативного элемента управления, которому нужно пояснение. |
+| `TooltipPositioner` | Позиционирует содержимое и предоставляет переменные позиционирования Ark. |
+| `TooltipContent` | Видимая поверхность подсказки. |
+| `TooltipArrow` | Необязательная позиционируемая обёртка стрелки, по умолчанию выводящая `TooltipArrowTip`. |
+| `TooltipArrowTip` | Видимый наконечник стрелки. |
+
 ## Стилизация
 
 `TooltipTrigger` без `asChild` выглядит как кнопка с обводкой; если несколько триггеров со значением
@@ -248,7 +211,7 @@ Tooltip
 foundation и не имеют переменных компонента: класс на части переопределяет стили компонента из слоя.
 Атрибуты состояния и хуки `data-slot` общие для обоих вариантов стилизации.
 
-### Точки для стилизации
+### Хуки стилизации
 
 - `TooltipBody` не создаёт DOM-узел. При явной композиции стилизуйте отдельно
   `TooltipPositioner` и `TooltipContent`.

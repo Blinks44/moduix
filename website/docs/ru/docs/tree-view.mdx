@@ -2,6 +2,7 @@
 title: Tree View
 component: tree-view
 description: Доступное дерево на базе Ark UI для папок, файлов и любых вложенных данных.
+ark: https://ark-ui.com/docs/components/tree-view
 ---
 
 import * as TreeViewDocs from '@/components/examples/tree-view/css-properties';
@@ -29,19 +30,6 @@ import treeViewVueLinks from '../../../snippets/tree-view/vue/links.vue?raw';
 import treeViewVueLinksNode from '../../../snippets/tree-view/vue/LinksTreeNode.vue?raw';
 import treeViewVueRootProvider from '../../../snippets/tree-view/vue/root-provider.vue?raw';
 import treeViewVueRootProviderNode from '../../../snippets/tree-view/vue/RootProviderTreeNode.vue?raw';
-
-## Справочник API
-
-<PrimitiveReference href="https://ark-ui.com/docs/components/tree-view" />
-
-## Базовый пример
-
-
-Создайте коллекцию данных с помощью `createTreeCollection`, затем передайте её в `TreeView`.
-`TreeViewNode` передаёт в рекурсивный рендерер текущие `node`, `indexPath` и `state`, поэтому можно
-вывести ветку или конечный узел, сохранив явную структуру частей.
-
-React, Solid и Vue используют одинаковые плоские имена TreeView; вкладки ниже сохраняют нативную композицию каждого фреймворка.
 
 <ExampleFrame variant="component">
   <TreeViewBasic />
@@ -81,88 +69,17 @@ React, Solid и Vue используют одинаковые плоские и�
 
 </ExampleCode>
 
-## Установка через shadcn
+## Установка
 
-Полную настройку пакета, реестра и стилей см. в разделе [Быстрый старт](/docs/quick-start).
+<ComponentInstall />
 
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
+## Использование
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/tree-view' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/tree-view' },
-  ]}
-/>
+Создайте коллекцию данных с помощью `createTreeCollection`, затем передайте её в `TreeView`.
+`TreeViewNode` передаёт в рекурсивный рендерер текущие `node`, `indexPath` и `state`, поэтому можно
+вывести ветку или конечный узел, сохранив явную структуру частей.
 
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/tree-view' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/tree-view' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/tree-view' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/tree-view' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Анатомия
-
-```text
-TreeView
-├─ TreeViewLabel
-└─ TreeViewTree
-   └─ TreeViewNode или TreeViewNodeProvider
-      ├─ TreeViewBranch
-      │  ├─ TreeViewBranchControl
-      │  │  ├─ TreeViewBranchIndicator
-      │  │  └─ TreeViewBranchText
-      │  ├─ TreeViewBranchTrigger (опционально, отдельный триггер)
-      │  └─ TreeViewBranchContent
-      │     ├─ TreeViewBranchIndentGuide
-      │     └─ вложенные узлы
-      └─ TreeViewItem
-         └─ TreeViewItemText
-```
-
-| Часть                            | Назначение                                                            |
-| -------------------------------- | --------------------------------------------------------------------- |
-| `TreeView`                  | Хранит коллекцию и управляет раскрытием, выбором, фокусом, флажками и переименованием. |
-| `TreeViewRootProvider`          | Связывает части дерева с экземпляром, созданным через `useTreeView`. |
-| `TreeViewLabel`                 | Задаёт доступное имя дерева.                                         |
-| `TreeViewTree`                  | Создаёт контейнер дерева с ARIA-разметкой.                           |
-| `TreeViewNode`                  | Упрощённый провайдер с `{ node, indexPath, state }`.                 |
-| `TreeViewNodeProvider`          | Низкоуровневая граница контекста Ark для нестандартной композиции.   |
-| `TreeViewBranch*`               | Раскрываемый узел, его элемент управления, индикатор, текст и содержимое. |
-| `TreeViewItem*`                 | Конечный узел и необязательный индикатор выбранного состояния.       |
-| `TreeViewNodeCheckbox*`         | Флажок и индикатор отмеченного или частично отмеченного состояния.   |
-| `TreeViewNodeRenameInput`       | Поле ввода, которое появляется при переименовании узла.              |
-
-## Композиция
-
-Для рекурсивного рендера используйте `TreeViewNode`. Он передаёт `node`, `indexPath` и текущее
-состояние узла, а вы выбираете части `TreeViewBranch` или `TreeViewItem`. Если вашему рекурсивному компоненту нужен
-прямой доступ к контексту узла, используйте `TreeViewNodeProvider`. Когда состояние дерева должно быть доступно внешним элементам управления, создайте его через
-`useTreeView` и передайте в `TreeViewRootProvider`; не создавайте второй root для того же хранилища.
-Если у ветки есть отдельный `TreeViewBranchTrigger`, задайте `role="none"` для `TreeViewBranchControl`.
-
-В Vue `TreeViewNode` передаёт данные для рендера через слот по умолчанию с параметрами.
-Управляйте значениями через `v-model:expanded-value`, `v-model:selected-value`,
-`v-model:checked-value` и `v-model:focused-value`; события вроде `@selection-change` сохраняют
-объекты с подробностями Ark. Если коллекция может заменяться, храните её в `shallowRef`, чтобы
-Vue сохранял экземпляр класса.
+React, Solid и Vue используют одинаковые плоские имена TreeView; вкладки ниже сохраняют нативную композицию каждого фреймворка.
 
 ## Примеры
 
@@ -401,6 +318,52 @@ Vue сохранял экземпляр класса.
 
 </ExampleCode>
 
+## Композиция
+
+Для рекурсивного рендера используйте `TreeViewNode`. Он передаёт `node`, `indexPath` и текущее
+состояние узла, а вы выбираете части `TreeViewBranch` или `TreeViewItem`. Если вашему рекурсивному компоненту нужен
+прямой доступ к контексту узла, используйте `TreeViewNodeProvider`. Когда состояние дерева должно быть доступно внешним элементам управления, создайте его через
+`useTreeView` и передайте в `TreeViewRootProvider`; не создавайте второй root для того же хранилища.
+Если у ветки есть отдельный `TreeViewBranchTrigger`, задайте `role="none"` для `TreeViewBranchControl`.
+
+В Vue `TreeViewNode` передаёт данные для рендера через слот по умолчанию с параметрами.
+Управляйте значениями через `v-model:expanded-value`, `v-model:selected-value`,
+`v-model:checked-value` и `v-model:focused-value`; события вроде `@selection-change` сохраняют
+объекты с подробностями Ark. Если коллекция может заменяться, храните её в `shallowRef`, чтобы
+Vue сохранял экземпляр класса.
+
+## Анатомия
+
+```text
+TreeView
+├─ TreeViewLabel
+└─ TreeViewTree
+   └─ TreeViewNode или TreeViewNodeProvider
+      ├─ TreeViewBranch
+      │  ├─ TreeViewBranchControl
+      │  │  ├─ TreeViewBranchIndicator
+      │  │  └─ TreeViewBranchText
+      │  ├─ TreeViewBranchTrigger (опционально, отдельный триггер)
+      │  └─ TreeViewBranchContent
+      │     ├─ TreeViewBranchIndentGuide
+      │     └─ вложенные узлы
+      └─ TreeViewItem
+         └─ TreeViewItemText
+```
+
+| Часть                            | Назначение                                                            |
+| -------------------------------- | --------------------------------------------------------------------- |
+| `TreeView`                  | Хранит коллекцию и управляет раскрытием, выбором, фокусом, флажками и переименованием. |
+| `TreeViewRootProvider`          | Связывает части дерева с экземпляром, созданным через `useTreeView`. |
+| `TreeViewLabel`                 | Задаёт доступное имя дерева.                                         |
+| `TreeViewTree`                  | Создаёт контейнер дерева с ARIA-разметкой.                           |
+| `TreeViewNode`                  | Упрощённый провайдер с `{ node, indexPath, state }`.                 |
+| `TreeViewNodeProvider`          | Низкоуровневая граница контекста Ark для нестандартной композиции.   |
+| `TreeViewBranch*`               | Раскрываемый узел, его элемент управления, индикатор, текст и содержимое. |
+| `TreeViewItem*`                 | Конечный узел и необязательный индикатор выбранного состояния.       |
+| `TreeViewNodeCheckbox*`         | Флажок и индикатор отмеченного или частично отмеченного состояния.   |
+| `TreeViewNodeRenameInput`       | Поле ввода, которое появляется при переименовании узла.              |
+
 ## Стилизация
 
 Используйте `className` в React, `class` в Solid или `class` в Vue на любой экспортируемой части для структурной
@@ -414,11 +377,11 @@ Vue сохранял экземпляр класса.
 цвета, отступы и типографику из токенов foundation и выносят в CSS-переменные только ширину корня и шаг
 отступа вложенности; остальное переопределяйте классом на части.
 
-### CSS-свойства
+### CSS-переменные
 
 <CssPropertiesSection properties={TreeViewDocs.treeViewOverrideCssProperties} />
 
-### Точки для стилизации
+### Хуки стилизации
 
 - `data-slot="tree-view-root"`, `tree-view-root-provider`, `tree-view-label`, `tree-view-tree`,
   `tree-view-branch`, `tree-view-branch-control`, `tree-view-branch-trigger`,

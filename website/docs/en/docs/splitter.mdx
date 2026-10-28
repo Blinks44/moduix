@@ -2,98 +2,23 @@
 title: Splitter
 component: splitter
 description: Build accessible resizable layouts in React, Solid, or Vue with package and shadcn installation options.
+ark: https://ark-ui.com/docs/components/splitter
 ---
 
 import { CssPropertiesSection } from '@/components/mdx/Components';
 import { splitterOverrideCssProperties } from '@/components/examples/splitter/css-properties';
 
-## API Reference
+<Example name="splitter/basic" />
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/splitter" />
+## Installation
 
-## Basic
+<ComponentInstall />
 
+## Usage
 
 Build a splitter from `Splitter`, `SplitterPanel`, and `SplitterResizeTrigger`. The `panels` prop
 lists the panel ids and their size constraints. Each rendered `SplitterPanel` must use one of those
 ids. When you omit the trigger's children, moduix renders a resize indicator for you.
-
-<Example name="splitter/basic" />
-
-## Install with shadcn
-
-See [Quick Start](/docs/quick-start) for full package setup, registry configuration, and styling guidance.
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/splitter' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/splitter' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/splitter' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/splitter' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/splitter' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/splitter' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Anatomy
-
-```text
-Splitter
-├─ SplitterPanel[id]
-├─ SplitterResizeTrigger[id="panel-a:panel-b"]
-│  └─ SplitterResizeTriggerIndicator (default, customizable)
-└─ SplitterPanel[id]
-
-SplitterRootProvider
-└─ same panel tree connected to a useSplitter() store
-```
-
-| Part                              | Role                                                                           |
-| --------------------------------- | ------------------------------------------------------------------------------ |
-| `Splitter`                  | Manages panel definitions, sizes, orientation, callbacks, and splitter state. |
-| `SplitterPanel`                  | Resizable region whose `id` must match an entry in `panels`.                  |
-| `SplitterResizeTrigger`          | Accessible button for resizing the two adjacent panels.                       |
-| `SplitterResizeTriggerIndicator` | Default visual handle. Custom trigger children replace it.                   |
-| `SplitterRootProvider`            | Renders the same parts using state created with `useSplitter()`.              |
-
-## Composition
-
-Use `size` with `onResize(details)` when the application owns the current panel sizes. Use
-`SplitterRootProvider` with `useSplitter()` when the store or its controls must live outside the
-rendered panel tree, and choose one root for each store. For nested splitters that should resize
-together at handle intersections, create one `createSplitterRegistry()` and pass it to every root.
-Numeric `defaultSize`, `size`, and `minSize` values are percentages expected to total 100, and Ark
-also accepts CSS lengths for these sizes.
-
-Use `asChild` only with one interactive child that keeps button semantics, focus behavior, and
-keyboard interaction; it replaces the default resize indicator. In Solid, `useSplitter()` returns an
-accessor, so pass it to `value` and read the API as `splitter()`.
-
-In Vue, use `v-model:size` for the Ark-controlled size contract. `useSplitter()` returns a reactive
-store that can be passed directly to `SplitterRootProvider`; read its methods in the template without
-creating a second state container.
 
 ## Examples
 
@@ -147,15 +72,43 @@ resize.
 
 <Example name="splitter/vertical" />
 
-## Accessibility
+## Composition
 
-`SplitterResizeTrigger` renders a `type="button"` button, so it never submits a surrounding form, and provides pointer and keyboard resizing according to the WAI-ARIA
-Window Splitter pattern. Give each trigger an accessible name, for example with
-`aria-label="Resize panels"`, when its visual handle has no text label. If you use `asChild`, the
-custom host must keep button semantics, focus behavior, and keyboard interaction.
+Use `size` with `onResize(details)` when the application owns the current panel sizes. Use
+`SplitterRootProvider` with `useSplitter()` when the store or its controls must live outside the
+rendered panel tree, and choose one root for each store. For nested splitters that should resize
+together at handle intersections, create one `createSplitterRegistry()` and pass it to every root.
+Numeric `defaultSize`, `size`, and `minSize` values are percentages expected to total 100, and Ark
+also accepts CSS lengths for these sizes.
 
-Ark exposes state through attributes such as `data-orientation`, `data-dragging`, `data-focus`, and
-`data-disabled`. Use these attributes when styling interaction states.
+Use `asChild` only with one interactive child that keeps button semantics, focus behavior, and
+keyboard interaction; it replaces the default resize indicator. In Solid, `useSplitter()` returns an
+accessor, so pass it to `value` and read the API as `splitter()`.
+
+In Vue, use `v-model:size` for the Ark-controlled size contract. `useSplitter()` returns a reactive
+store that can be passed directly to `SplitterRootProvider`; read its methods in the template without
+creating a second state container.
+
+## Anatomy
+
+```text
+Splitter
+├─ SplitterPanel[id]
+├─ SplitterResizeTrigger[id="panel-a:panel-b"]
+│  └─ SplitterResizeTriggerIndicator (default, customizable)
+└─ SplitterPanel[id]
+
+SplitterRootProvider
+└─ same panel tree connected to a useSplitter() store
+```
+
+| Part                              | Role                                                                           |
+| --------------------------------- | ------------------------------------------------------------------------------ |
+| `Splitter`                  | Manages panel definitions, sizes, orientation, callbacks, and splitter state. |
+| `SplitterPanel`                  | Resizable region whose `id` must match an entry in `panels`.                  |
+| `SplitterResizeTrigger`          | Accessible button for resizing the two adjacent panels.                       |
+| `SplitterResizeTriggerIndicator` | Default visual handle. Custom trigger children replace it.                   |
+| `SplitterRootProvider`            | Renders the same parts using state created with `useSplitter()`.              |
 
 ## Styling
 
@@ -172,7 +125,7 @@ line. Hover and dragging darken the line and the indicator border and raise the 
 line and the hit area are pseudo-elements, so the CSS Modules variants expose them as the variables
 below.
 
-### CSS Properties
+### CSS variables
 
 <CssPropertiesSection properties={splitterOverrideCssProperties} />
 
@@ -184,3 +137,13 @@ Ark writes `data-scope="splitter"` and `data-part` to the rendered parts. moduix
 
 Useful part-specific attributes include `data-id` and `data-index` on panels, plus
 `data-orientation`, `data-dragging`, `data-focus`, and `data-disabled` on the relevant parts.
+
+## Accessibility
+
+`SplitterResizeTrigger` renders a `type="button"` button, so it never submits a surrounding form, and provides pointer and keyboard resizing according to the WAI-ARIA
+Window Splitter pattern. Give each trigger an accessible name, for example with
+`aria-label="Resize panels"`, when its visual handle has no text label. If you use `asChild`, the
+custom host must keep button semantics, focus behavior, and keyboard interaction.
+
+Ark exposes state through attributes such as `data-orientation`, `data-dragging`, `data-focus`, and
+`data-disabled`. Use these attributes when styling interaction states.

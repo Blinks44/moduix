@@ -2,107 +2,27 @@
 title: Collapsible
 component: collapsible
 description: An accessible disclosure control for showing and hiding one content region in React, Solid, or Vue.
+ark: https://ark-ui.com/docs/components/collapsible
 ---
 
 import * as CollapsibleDocs from '@/components/examples/collapsible/css-properties';
 
-## API Reference
+<Example name="collapsible/basic" />
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/collapsible" />
+## Installation
 
-## Choosing the right component
+<ComponentInstall />
 
-Use `Collapsible` for one independent disclosure. Use `Accordion` when several related sections
-need shared keyboard navigation or coordinated state.
-
-## Basic
-
+## Usage
 
 Use `Collapsible` with `CollapsibleTrigger`, the optional `CollapsibleIndicator`, and `CollapsibleContent` to show and hide one
 content region. Put the content inside `CollapsibleBody` when you need the recommended inner
 wrapper for spacing and layout.
 
-<Example name="collapsible/basic" />
+## Choosing the right component
 
-## Install with shadcn
-
-See [Quick Start](/docs/quick-start) for full package setup, registry configuration, and styling guidance.
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/collapsible' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/collapsible' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/collapsible' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/collapsible' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/collapsible' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/collapsible' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Anatomy
-
-```text
-Collapsible
-├─ CollapsibleTrigger
-│  ├─ label
-│  └─ CollapsibleIndicator (optional)
-└─ CollapsibleContent
-   └─ CollapsibleBody
-      └─ content
-
-CollapsibleRootProvider
-└─ same part tree connected to a useCollapsible() store
-```
-
-| Part                      | Role                                                               |
-| ------------------------- | ------------------------------------------------------------------ |
-| `Collapsible`             | Owns the open state for one disclosure.                            |
-| `CollapsibleRootProvider` | Connects the parts to state created with `useCollapsible`.         |
-| `CollapsibleTrigger`      | Accessible button that opens or closes the content.                 |
-| `CollapsibleIndicator`    | Optional state indicator that renders a moduix chevron by default. |
-| `CollapsibleContent`      | Animated region whose dimensions Ark measures.                     |
-| `CollapsibleBody`         | Inner wrapper for spacing and content layout.                       |
-
-## Composition
-
-`Collapsible` owns state inside the root. Use `defaultOpen` for an uncontrolled disclosure; use
-`open` with `onOpenChange(details)` when another part of the application owns it. In Vue, use
-`v-model:open` for the same controlled contract. The callback keeps Ark's details object, so
-controlled state reads `details.open`.
-
-Use `CollapsibleRootProvider` with `useCollapsible()` from the matching framework package when the
-store must be created outside the rendered tree or shared across composition boundaries. Pass that
-store to `CollapsibleRootProvider` and do not render a second `Collapsible` root for the same store.
-
-Keep padding and surface styles on `CollapsibleBody`, not `CollapsibleContent`, so Ark can measure
-the animated content part correctly. `CollapsibleIndicator` is optional and defaults to the moduix
-chevron.
-
-Use `asChild` only when a consumer-owned semantic element should receive the trigger behavior; it
-must remain a keyboard-accessible button. In Solid, pass a render function such as
-`asChild={(props) => <button {...props()} />}`.
+Use `Collapsible` for one independent disclosure. Use `Accordion` when several related sections
+need shared keyboard navigation or coordinated state.
 
 ## Examples
 
@@ -172,6 +92,49 @@ Use `asChild` to apply the trigger behavior to a button you own. This skips the 
 
 <Example name="collapsible/custom-composition" />
 
+## Composition
+
+`Collapsible` owns state inside the root. Use `defaultOpen` for an uncontrolled disclosure; use
+`open` with `onOpenChange(details)` when another part of the application owns it. In Vue, use
+`v-model:open` for the same controlled contract. The callback keeps Ark's details object, so
+controlled state reads `details.open`.
+
+Use `CollapsibleRootProvider` with `useCollapsible()` from the matching framework package when the
+store must be created outside the rendered tree or shared across composition boundaries. Pass that
+store to `CollapsibleRootProvider` and do not render a second `Collapsible` root for the same store.
+
+Keep padding and surface styles on `CollapsibleBody`, not `CollapsibleContent`, so Ark can measure
+the animated content part correctly. `CollapsibleIndicator` is optional and defaults to the moduix
+chevron.
+
+Use `asChild` only when a consumer-owned semantic element should receive the trigger behavior; it
+must remain a keyboard-accessible button. In Solid, pass a render function such as
+`asChild={(props) => <button {...props()} />}`.
+
+## Anatomy
+
+```text
+Collapsible
+├─ CollapsibleTrigger
+│  ├─ label
+│  └─ CollapsibleIndicator (optional)
+└─ CollapsibleContent
+   └─ CollapsibleBody
+      └─ content
+
+CollapsibleRootProvider
+└─ same part tree connected to a useCollapsible() store
+```
+
+| Part                      | Role                                                               |
+| ------------------------- | ------------------------------------------------------------------ |
+| `Collapsible`             | Owns the open state for one disclosure.                            |
+| `CollapsibleRootProvider` | Connects the parts to state created with `useCollapsible`.         |
+| `CollapsibleTrigger`      | Accessible button that opens or closes the content.                 |
+| `CollapsibleIndicator`    | Optional state indicator that renders a moduix chevron by default. |
+| `CollapsibleContent`      | Animated region whose dimensions Ark measures.                     |
+| `CollapsibleBody`         | Inner wrapper for spacing and content layout.                       |
+
 ## Styling
 
 Use `className` in React or `class` in Solid and Vue on exported parts for structural styles. For state-based
@@ -183,7 +146,7 @@ by both styling tracks.
 Put spacing on `CollapsibleBody`, not `CollapsibleContent`, so Ark can measure and animate the
 content correctly.
 
-### CSS Properties
+### CSS variables
 
 <CssPropertiesSection properties={CollapsibleDocs.collapsibleOverrideCssProperties} />
 

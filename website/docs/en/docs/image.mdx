@@ -2,18 +2,18 @@
 title: Image
 component: image
 description: Responsive images with automatic CDN detection and Unpic-generated srcset and sizes attributes.
+ark: https://ark-ui.com/docs/guides/composition
 ---
 
 import * as ImageDocs from '@/components/examples/image/css-properties';
 
-## API Reference
+<Example name="image/basic" />
 
-`Image` provides a thin moduix wrapper around the [Unpic image API](https://unpic.pics/img/).
-Ark UI does not provide a dedicated image primitive, so `Image` uses native `<img>` and `<picture>`
-composition instead of an Ark part. See Ark's [Composition guide](https://ark-ui.com/docs/guides/composition)
-for more on its native-element model.
+## Installation
 
-## Basic
+<ComponentInstall />
+
+## Usage
 
 Use `Image` with a URL from a supported image CDN or any regular image URL. For the default
 `layout="constrained"`, provide `width` and `height`. When Unpic recognizes the provider, it
@@ -25,70 +25,6 @@ Images default to `loading="lazy"` and `decoding="async"`, including local files
 without a supported CDN. Set `priority` for the main image in the initial viewport: it defaults
 to `loading="eager"` and `fetchpriority="high"` without setting `decoding`. Explicit native
 attributes override these defaults.
-
-<Example name="image/basic" />
-
-## Install with shadcn
-
-See [Quick Start](/docs/quick-start) for full package setup, registry configuration, and styling guidance.
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/image' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/image' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/image' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/image' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/image' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/image' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Anatomy
-
-```text
-Image
-└─ img
-
-picture (native)
-├─ ImageSource
-└─ Image
-```
-
-| Part                   | Role                                                                       |
-| ---------------------- | -------------------------------------------------------------------------- |
-| `Image`                | Responsive native `<img>` element; Unpic creates `srcset`, `sizes`, and styles. |
-| `ImageSource`          | Responsive `<source>` for a native `<picture>` element.                       |
-
-## Composition
-
-`Image` is the root and can be rendered directly. Use `ImageSource` only as a child of a native
-`<picture>`, and keep `Image` last so it remains the fallback when no source is selected. For
-format selection, place a typed source before an equivalent source without `type`; the browser
-chooses the first format it supports.
-`ImageSource` generates `srcset` only for a supported CDN or a `fallback` provider; for local files,
-use a native `<source srcset>` instead.
 
 ## Examples
 
@@ -114,6 +50,36 @@ Supply `height` when the crop height must remain fixed.
 
 <Example name="image/full-width" />
 
+## Composition
+
+`Image` provides a thin moduix wrapper around the [Unpic image API](https://unpic.pics/img/).
+Ark UI does not provide a dedicated image primitive, so `Image` uses native `<img>` and `<picture>`
+composition instead of an Ark part. See Ark's [Composition guide](https://ark-ui.com/docs/guides/composition)
+for more on its native-element model.
+
+`Image` is the root and can be rendered directly. Use `ImageSource` only as a child of a native
+`<picture>`, and keep `Image` last so it remains the fallback when no source is selected. For
+format selection, place a typed source before an equivalent source without `type`; the browser
+chooses the first format it supports.
+`ImageSource` generates `srcset` only for a supported CDN or a `fallback` provider; for local files,
+use a native `<source srcset>` instead.
+
+## Anatomy
+
+```text
+Image
+└─ img
+
+picture (native)
+├─ ImageSource
+└─ Image
+```
+
+| Part                   | Role                                                                       |
+| ---------------------- | -------------------------------------------------------------------------- |
+| `Image`                | Responsive native `<img>` element; Unpic creates `srcset`, `sizes`, and styles. |
+| `ImageSource`          | Responsive `<source>` for a native `<picture>` element.                       |
+
 ## Styling
 
 Use `className` in React or `class` in Solid and Vue on `Image` for local visual styles. `ImageSource`
@@ -121,7 +87,7 @@ configures `srcset`, `media`, and `type`; style the fallback `Image` rather than
 Tailwind variants use native utilities and consumer classes. The `--moduix-image-radius` variable
 customizes the CSS Modules variants, while `data-slot` hooks are shared by both styling tracks.
 
-### CSS Properties
+### CSS variables
 
 <CssPropertiesSection properties={ImageDocs.imageCssProperties} />
 

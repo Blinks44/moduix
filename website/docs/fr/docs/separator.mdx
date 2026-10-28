@@ -2,82 +2,21 @@
 title: Separator
 component: separator
 description: Créez des séparateurs horizontaux ou verticaux accessibles en React, Solid ou Vue.
+ark: https://ark-ui.com/docs/guides/composition#the-ark-factory
 ---
 
 import * as SeparatorDocs from '@/components/examples/separator/css-properties';
 
-## Référence de l’API
+<Example name="separator/basic" />
 
-Ark UI ne fournit pas de primitive dédiée pour les séparateurs. moduix construit ce composant avec la [fabrique Ark](https://ark-ui.com/docs/guides/composition#the-ark-factory) officielle et suit les recommandations d’Ark en matière de [composition](https://ark-ui.com/docs/guides/composition), de [styles](https://ark-ui.com/docs/guides/styling) et de [ref](https://ark-ui.com/docs/guides/ref).
+## Installation
 
-Ses propriétés `orientation`, `variant` et `size` reprennent le modèle familier du `Separator` de Chakra UI. Consultez la [documentation de Chakra UI relative à Separator](https://chakra-ui.com/docs/components/separator), qui a servi de référence pour cette API.
+<ComponentInstall />
 
-## Exemple de base
-
+## Utilisation
 
 Utilisez `Separator` pour marquer visuellement la limite entre des sections liées. Par défaut, le
 composant utilise `orientation="horizontal"`, `variant="solid"` et `size="sm"`.
-
-<Example name="separator/basic" />
-
-## Installation avec shadcn
-
-Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration complète du paquet, du registre et des styles.
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/separator' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/separator' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/separator' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/separator' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/separator' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/separator' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Anatomie
-
-`Separator` n’expose qu’une seule partie racine.
-
-```text
-Separator
-└─ root[data-scope="separator"][data-part="root"][data-slot="separator-root"]
-```
-
-| Partie      | Rôle                                                                    |
-| ----------- | ----------------------------------------------------------------------- |
-| `Separator` | Élément séparateur racine. Définit l’orientation, l’accessibilité et le style. |
-
-## Composition
-
-`Separator` se limite à une partie racine : il ne gère donc aucun état et ne nécessite pas de
-provider. Pour un séparateur courant, utilisez `<Separator />`. Lorsqu’un autre élément doit porter
-le séparateur, utilisez `asChild` avec
-un seul enfant capable d’accepter les propriétés fusionnées de rôle, ARIA, `data-*`, de classe et de
-ref. En React et Vue, l’élément enfant est transmis directement ; en Solid, utilisez
-`asChild={(props) => <hr {...props()} />}`.
 
 ## Exemples
 
@@ -115,6 +54,30 @@ d’accroche de style et la `ref` transmise. Dans les autres cas, utilisez direc
 
 <Example name="separator/as-child" />
 
+## Composition
+
+Ses propriétés `orientation`, `variant` et `size` reprennent le modèle familier du `Separator` de Chakra UI. Consultez la [documentation de Chakra UI relative à Separator](https://chakra-ui.com/docs/components/separator), qui a servi de référence pour cette API.
+
+`Separator` se limite à une partie racine : il ne gère donc aucun état et ne nécessite pas de
+provider. Pour un séparateur courant, utilisez `<Separator />`. Lorsqu’un autre élément doit porter
+le séparateur, utilisez `asChild` avec
+un seul enfant capable d’accepter les propriétés fusionnées de rôle, ARIA, `data-*`, de classe et de
+ref. En React et Vue, l’élément enfant est transmis directement ; en Solid, utilisez
+`asChild={(props) => <hr {...props()} />}`.
+
+## Anatomie
+
+`Separator` n’expose qu’une seule partie racine.
+
+```text
+Separator
+└─ root[data-scope="separator"][data-part="root"][data-slot="separator-root"]
+```
+
+| Partie      | Rôle                                                                    |
+| ----------- | ----------------------------------------------------------------------- |
+| `Separator` | Élément séparateur racine. Définit l’orientation, l’accessibilité et le style. |
+
 ## Styles
 
 Utilisez `className` en React ou `class` en Solid et Vue sur la racine. Les variantes Tailwind utilisent
@@ -122,7 +85,7 @@ des classes utilitaires natives et les classes du consommateur ; les propriété
 personnalisent les variantes CSS Modules. Les attributs de données et les sélecteurs `data-slot`
 sont communs aux deux modes de style.
 
-### Propriétés CSS
+### Variables CSS
 
 <CssPropertiesSection properties={SeparatorDocs.separatorOverrideCssProperties} />
 

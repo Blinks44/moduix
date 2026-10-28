@@ -2,6 +2,7 @@
 title: Tabs
 component: tabs
 description: Switch between related content panels with accessible keyboard navigation, controlled state, lazy mounting, links, and vertical layouts.
+ark: https://ark-ui.com/docs/components/tabs
 ---
 
 import * as TabsDocs from '@/components/examples/tabs/css-properties';
@@ -43,25 +44,6 @@ import tabsVueRootProvider from '../../../snippets/tabs/vue/root-provider.vue?ra
 import tabsVueSizes from '../../../snippets/tabs/vue/sizes.vue?raw';
 import tabsVueVertical from '../../../snippets/tabs/vue/vertical.vue?raw';
 
-## API Reference
-
-<PrimitiveReference href="https://ark-ui.com/docs/components/tabs" />
-
-## Choosing the right component
-
-Use `Tabs` to switch between related views in one page region. Selecting a tab shows its matching
-content panel and hides the other panels.
-
-- Choose **`Tabs`** when each tab should reveal one associated content panel.
-- Choose **`Accordion`** when sections should stay stacked and open independently.
-- Choose **`ToggleGroup`** when the control changes a state or mode without owning panel content.
-
-## Basic
-
-
-Start with `Tabs` and give each `TabsTrigger` and `TabsContent` the same `value`. Render
-`TabsIndicator` explicitly when you want a visual marker for the selected tab.
-
 <ExampleFrame variant="component">
   <div className={tabsPreviewStyles.root}>
     <TabsBasic />
@@ -100,83 +82,23 @@ Start with `Tabs` and give each `TabsTrigger` and `TabsContent` the same `value`
 
 </ExampleCode>
 
-## Install with shadcn
+## Installation
 
-See [Quick Start](/docs/quick-start) for full package setup, registry configuration, and styling guidance.
+<ComponentInstall />
 
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
+## Usage
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/tabs' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/tabs' },
-  ]}
-/>
+Start with `Tabs` and give each `TabsTrigger` and `TabsContent` the same `value`. Render
+`TabsIndicator` explicitly when you want a visual marker for the selected tab.
 
-  </Tab>
-  <Tab label="Solid" value="solid">
+## Choosing the right component
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/tabs' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/tabs' },
-  ]}
-/>
+Use `Tabs` to switch between related views in one page region. Selecting a tab shows its matching
+content panel and hides the other panels.
 
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/tabs' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/tabs' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Anatomy
-
-```text
-Tabs
-├─ TabsList
-│  ├─ TabsTrigger[value]
-│  ├─ TabsTrigger[value]
-│  └─ TabsIndicator
-└─ TabsContent[value]
-
-TabsRootProvider
-└─ same parts connected to a useTabs() store
-
-TabsContext
-└─ render prop / scoped slot
-```
-
-| Part                  | Role                                                               |
-| --------------------- | ------------------------------------------------------------------ |
-| `Tabs`                | Root that owns the selected value, focus, orientation, and mode.   |
-| `TabsRootProvider`   | Connects the parts to state created with moduix `useTabs()`.       |
-| `TabsContext`        | Exposes the current tab state through a render prop or Vue scoped slot. |
-| `TabsList`           | Groups triggers and manages focus movement between them.          |
-| `TabsTrigger`        | Interactive tab button, or an `asChild` host, with a required value. |
-| `TabsIndicator`      | Optional indicator for the selected tab.                           |
-| `TabsContent`        | Content panel associated with a matching trigger value.            |
-
-## Composition
-
-Use `defaultValue` for an uncontrolled component. When another part of the application owns the
-selection, pass `value` and `onValueChange(details)` and read the selected value from
-`details.value`.
-
-In Vue, use `v-model` for controlled selection and `@value-change` to receive the same details
-object. `TabsContext` exposes that state through its default scoped slot.
-
-Use `TabsRootProvider` with `useTabs()` when the state must be created outside the rendered tree
-or shared with adjacent UI. Pass the store to `TabsRootProvider` and do not render another `Tabs` root
-for the same state. Use `asChild` on `TabsTrigger` for a link or router component, and render
-`TabsIndicator` explicitly because `TabsList` does not add one automatically.
+- Choose **`Tabs`** when each tab should reveal one associated content panel.
+- Choose **`Accordion`** when sections should stay stacked and open independently.
+- Choose **`ToggleGroup`** when the control changes a state or mode without owning panel content.
 
 ## Examples
 
@@ -661,6 +583,47 @@ adjacent UI needs to read the selected value.
 
 </ExampleCode>
 
+## Composition
+
+Use `defaultValue` for an uncontrolled component. When another part of the application owns the
+selection, pass `value` and `onValueChange(details)` and read the selected value from
+`details.value`.
+
+In Vue, use `v-model` for controlled selection and `@value-change` to receive the same details
+object. `TabsContext` exposes that state through its default scoped slot.
+
+Use `TabsRootProvider` with `useTabs()` when the state must be created outside the rendered tree
+or shared with adjacent UI. Pass the store to `TabsRootProvider` and do not render another `Tabs` root
+for the same state. Use `asChild` on `TabsTrigger` for a link or router component, and render
+`TabsIndicator` explicitly because `TabsList` does not add one automatically.
+
+## Anatomy
+
+```text
+Tabs
+├─ TabsList
+│  ├─ TabsTrigger[value]
+│  ├─ TabsTrigger[value]
+│  └─ TabsIndicator
+└─ TabsContent[value]
+
+TabsRootProvider
+└─ same parts connected to a useTabs() store
+
+TabsContext
+└─ render prop / scoped slot
+```
+
+| Part                  | Role                                                               |
+| --------------------- | ------------------------------------------------------------------ |
+| `Tabs`                | Root that owns the selected value, focus, orientation, and mode.   |
+| `TabsRootProvider`   | Connects the parts to state created with moduix `useTabs()`.       |
+| `TabsContext`        | Exposes the current tab state through a render prop or Vue scoped slot. |
+| `TabsList`           | Groups triggers and manages focus movement between them.          |
+| `TabsTrigger`        | Interactive tab button, or an `asChild` host, with a required value. |
+| `TabsIndicator`      | Optional indicator for the selected tab.                           |
+| `TabsContent`        | Content panel associated with a matching trigger value.            |
+
 ## Styling
 
 Use `className` in React or `class` in Solid and Vue on exported parts for structural styles. For state-based
@@ -668,7 +631,7 @@ styles, prefer Ark data attributes such as `data-selected`, `data-disabled`, and
 together with moduix `data-slot` selectors. Tailwind variants use native utilities and consumer
 classes; the variables below customize the CSS Modules variants.
 
-### CSS Properties
+### CSS variables
 
 <CssPropertiesSection properties={TabsDocs.tabsOverrideCssProperties} />
 

@@ -2,98 +2,24 @@
 title: Scroll Area
 component: scroll-area
 description: Créez des conteneurs de défilement avec des barres de défilement stylisées en React, Solid ou Vue avec une installation par package ou via shadcn.
+ark: https://ark-ui.com/docs/components/scroll-area
 ---
 
 import * as ScrollAreaDocs from '@/components/examples/scroll-area/css-properties';
 
-## Référence de l’API
+<Example name="scroll-area/basic" />
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/scroll-area" />
+## Installation
 
-## Exemple de base
+<ComponentInstall />
 
+## Utilisation
 
 Utilisez `ScrollArea` comme racine. Placez `ScrollAreaViewport` autour de `ScrollAreaContent`,
 ajoutez un `ScrollAreaScrollbar` et un `ScrollAreaThumb` pour chaque axe de défilement, puis ajoutez
 `ScrollAreaCorner` lorsque les deux axes peuvent
 déborder. Donnez à la racine une hauteur ou une taille de bloc limitée pour que le contenu puisse
 défiler.
-
-<Example name="scroll-area/basic" />
-
-## Installation avec shadcn
-
-Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration complète du paquet, du registre et des styles.
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/scroll-area' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/scroll-area' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/scroll-area' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/scroll-area' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/scroll-area' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/scroll-area' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Anatomie
-
-```text
-ScrollArea
-├─ ScrollAreaViewport
-│  └─ ScrollAreaContent
-│     └─ children
-├─ ScrollAreaScrollbar
-│  └─ ScrollAreaThumb
-└─ ScrollAreaCorner
-
-ScrollAreaRootProvider
-└─ même arborescence reliée à un store useScrollArea()
-```
-
-| Partie                           | Rôle                                                               |
-| -------------------------------- | ------------------------------------------------------------------ |
-| `ScrollArea`                     | Racine qui gère l’état du défilement et le positionnement.         |
-| `ScrollAreaRootProvider`        | Relie les parties à l’état créé avec `useScrollArea()`.           |
-| `ScrollAreaViewport`            | Conteneur de défilement natif et cible du focus.                   |
-| `ScrollAreaContent`             | Enveloppe interne mesurée par Ark UI.                              |
-| `ScrollAreaScrollbar`           | Piste de défilement stylisée pour un axe.                          |
-| `ScrollAreaThumb`               | Curseur déplaçable dans une piste.                                 |
-| `ScrollAreaCorner`              | Remplit l’intersection lorsque les deux axes débordent.            |
-
-## Composition
-
-Chaque axe de défilement nécessite sa propre `ScrollAreaScrollbar` avec un `ScrollAreaThumb`. La
-barre verticale est utilisée par défaut ; définissez `orientation="horizontal"` pour un axe
-horizontal. Gardez `ScrollAreaViewport` autour de `ScrollAreaContent` et conservez une arborescence complète et
-indépendante pour les zones imbriquées.
-
-Utilisez `ScrollAreaRootProvider` avec `useScrollArea()` lorsque des contrôles externes
-doivent accéder à l’API de défilement. Passez le store renvoyé à `ScrollAreaRootProvider` et ne
-rendez pas `ScrollArea` et `ScrollAreaRootProvider` pour le même store. Dans Solid, lisez et utilisez le store
-via l’accesseur renvoyé par `useScrollArea()`.
 
 ## Exemples
 
@@ -137,6 +63,43 @@ doivent accéder à l’API de défilement.
 
 <Example name="scroll-area/root-provider" />
 
+## Composition
+
+Chaque axe de défilement nécessite sa propre `ScrollAreaScrollbar` avec un `ScrollAreaThumb`. La
+barre verticale est utilisée par défaut ; définissez `orientation="horizontal"` pour un axe
+horizontal. Gardez `ScrollAreaViewport` autour de `ScrollAreaContent` et conservez une arborescence complète et
+indépendante pour les zones imbriquées.
+
+Utilisez `ScrollAreaRootProvider` avec `useScrollArea()` lorsque des contrôles externes
+doivent accéder à l’API de défilement. Passez le store renvoyé à `ScrollAreaRootProvider` et ne
+rendez pas `ScrollArea` et `ScrollAreaRootProvider` pour le même store. Dans Solid, lisez et utilisez le store
+via l’accesseur renvoyé par `useScrollArea()`.
+
+## Anatomie
+
+```text
+ScrollArea
+├─ ScrollAreaViewport
+│  └─ ScrollAreaContent
+│     └─ children
+├─ ScrollAreaScrollbar
+│  └─ ScrollAreaThumb
+└─ ScrollAreaCorner
+
+ScrollAreaRootProvider
+└─ même arborescence reliée à un store useScrollArea()
+```
+
+| Partie                           | Rôle                                                               |
+| -------------------------------- | ------------------------------------------------------------------ |
+| `ScrollArea`                     | Racine qui gère l’état du défilement et le positionnement.         |
+| `ScrollAreaRootProvider`        | Relie les parties à l’état créé avec `useScrollArea()`.           |
+| `ScrollAreaViewport`            | Conteneur de défilement natif et cible du focus.                   |
+| `ScrollAreaContent`             | Enveloppe interne mesurée par Ark UI.                              |
+| `ScrollAreaScrollbar`           | Piste de défilement stylisée pour un axe.                          |
+| `ScrollAreaThumb`               | Curseur déplaçable dans une piste.                                 |
+| `ScrollAreaCorner`              | Remplit l’intersection lorsque les deux axes débordent.            |
+
 ## Styles
 
 Le tableau des variables CSS s’applique aux paquets CSS Modules. Les paquets Tailwind utilisent
@@ -145,7 +108,7 @@ Définissez les variables CSS sur la racine pour modifier l’épaisseur des bar
 ou la profondeur du fondu. Le viewport hérite du `border-radius` de la racine : une racine arrondie
 arrondit aussi le contenu découpé et l’anneau de focus.
 
-### Propriétés CSS
+### Variables CSS
 
 <CssPropertiesSection properties={ScrollAreaDocs.scrollAreaOverrideCssProperties} />
 

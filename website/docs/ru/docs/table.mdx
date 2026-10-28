@@ -2,118 +2,22 @@
 title: Table
 component: table
 description: Нативный компонент таблицы с необязательным контейнером для прокрутки, числовыми столбцами, подписями и состоянием «нет данных» для React, Solid и Vue.
+ark: https://ark-ui.com/docs/guides/composition#the-ark-factory
 ---
 
 import * as TableDocs from '@/components/examples/table/css-properties';
 
-## Справочник API
+<Example name="table/basic" />
 
-В Ark UI нет отдельного примитива для таблиц. moduix собирает `Table` через официальную [фабрику Ark](https://ark-ui.com/docs/guides/composition#the-ark-factory) и следует рекомендациям Ark по [композиции](https://ark-ui.com/docs/guides/composition), [стилизации](https://ark-ui.com/docs/guides/styling) и работе с [ref](https://ark-ui.com/docs/guides/ref).
+## Установка
 
-Каждая часть по умолчанию рендерит соответствующий нативный HTML-элемент, принимает его свойства,
-`className` в React или `class` в Solid и Vue, передаёт `ref` и поддерживает `asChild`. При использовании
-`asChild` передавайте один семантический элемент. У `TableEmpty` есть особенность: это свойство
-заменяет только созданную `td`-ячейку.
+<ComponentInstall />
 
-## Базовый пример
+## Использование
 
 Если таблица может не поместиться по ширине, оберните её в `TableScrollArea`. Затем соберите `Table`
 из `TableHeader`, `TableBody`, `TableRow` и соответствующих частей для заголовков и ячеек. Такой
 вариант подходит для счётов, сводок и таблиц с данными только для чтения в административных интерфейсах.
-
-<Example name="table/basic" />
-
-## Установка через shadcn
-
-Полную настройку пакета, реестра и стилей см. в разделе [Быстрый старт](/docs/quick-start).
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/table' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/table' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/table' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/table' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/table' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/table' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Анатомия
-
-Стандартная композиция остаётся близкой к нативной разметке таблицы:
-
-```text
-TableScrollArea (optional)
-└─ Table
-   ├─ TableColumnGroup (optional)
-   │  └─ TableColumn
-   ├─ TableCaption (optional)
-   ├─ TableHeader
-   │  └─ TableRow
-   │     └─ TableColumnHeader
-   ├─ TableBody
-   │  ├─ TableRow
-   │  │  └─ TableCell
-   │  └─ TableEmpty (optional)
-   └─ TableFooter (optional)
-```
-
-| Часть                  | Назначение                                                                 |
-| ---------------------- | -------------------------------------------------------------------------- |
-| `Table`           | Нативный корневой элемент `table` с типографикой, разделителями и атрибутами состояния. |
-| `TableScrollArea`     | Необязательный контейнер с рамкой и горизонтальной прокруткой.             |
-| `TableColumnGroup`    | Нативный `colgroup` для задания ширины столбцов.                           |
-| `TableColumn`         | Нативный `col`. Ширину задаёт нативный атрибут `width`.                     |
-| `TableCaption`        | Необязательная подпись над или под таблицей; положение задаёт `side`.      |
-| `TableHeader`         | Нативный `thead` для заголовков столбцов.                                  |
-| `TableBody`           | Нативный `tbody` для строк с данными.                                      |
-| `TableFooter`         | Нативный `tfoot` для итоговых строк.                                       |
-| `TableRow`            | Нативный `tr` с разделителями.                                             |
-| `TableColumnHeader`   | Нативный `th` с поддержкой `numeric`.                                      |
-| `TableCell`           | Нативный `td` с поддержкой `numeric`.                                      |
-| `TableEmpty`          | Готовая строка и ячейка для пустого состояния внутри `TableBody`.         |
-
-## Композиция
-
-Используйте `TableScrollArea`, если таблице нужен контейнер с рамкой и горизонтальной прокруткой.
-Не используйте его, если родительская разметка уже отвечает за прокрутку, отступы, границы или
-фон, и разместите нативные части таблицы в своём контейнере.
-
-`TableEmpty` создаёт полную строку пустого состояния внутри `TableBody`, поэтому обязательный
-`colSpan` должен совпадать с текущим числом столбцов. Его `asChild` заменяет только созданную
-`td`-ячейку; если нужно настроить саму строку, соберите напрямую `TableRow` и `TableCell`.
-`Table` отвечает только за представление: сортировка, фильтрация, выбор, пагинация, виртуализация
-и действия над строками относятся к композиции более высокого уровня, например [Data Table](/blocks/data-table).
-
-### Доступность
-
-`Table` использует нативные элементы таблицы, поэтому задавайте стандартные HTML-атрибуты для
-связей между заголовками и ячейками. Добавляйте `scope="col"` к заголовкам столбцов, используйте
-`TableCaption` для краткого доступного названия или описания, а для сложных таблиц связывайте
-заголовки с ячейками через `id` и `headers`. `Table` не добавляет навигацию с клавиатуры, выбор
-строк или управление фокусом.
 
 ## Примеры
 
@@ -195,6 +99,66 @@ TableScrollArea (optional)
 оформление контейнера будет полностью под вашим контролем.
 
 <Example name="table/custom-composition" />
+
+## Композиция
+
+Каждая часть по умолчанию рендерит соответствующий нативный HTML-элемент, принимает его свойства,
+`className` в React или `class` в Solid и Vue, передаёт `ref` и поддерживает `asChild`. При использовании
+`asChild` передавайте один семантический элемент. У `TableEmpty` есть особенность: это свойство
+заменяет только созданную `td`-ячейку.
+
+Используйте `TableScrollArea`, если таблице нужен контейнер с рамкой и горизонтальной прокруткой.
+Не используйте его, если родительская разметка уже отвечает за прокрутку, отступы, границы или
+фон, и разместите нативные части таблицы в своём контейнере.
+
+`TableEmpty` создаёт полную строку пустого состояния внутри `TableBody`, поэтому обязательный
+`colSpan` должен совпадать с текущим числом столбцов. Его `asChild` заменяет только созданную
+`td`-ячейку; если нужно настроить саму строку, соберите напрямую `TableRow` и `TableCell`.
+`Table` отвечает только за представление: сортировка, фильтрация, выбор, пагинация, виртуализация
+и действия над строками относятся к композиции более высокого уровня, например [Data Table](/blocks/data-table).
+
+### Доступность
+
+`Table` использует нативные элементы таблицы, поэтому задавайте стандартные HTML-атрибуты для
+связей между заголовками и ячейками. Добавляйте `scope="col"` к заголовкам столбцов, используйте
+`TableCaption` для краткого доступного названия или описания, а для сложных таблиц связывайте
+заголовки с ячейками через `id` и `headers`. `Table` не добавляет навигацию с клавиатуры, выбор
+строк или управление фокусом.
+
+## Анатомия
+
+Стандартная композиция остаётся близкой к нативной разметке таблицы:
+
+```text
+TableScrollArea (optional)
+└─ Table
+   ├─ TableColumnGroup (optional)
+   │  └─ TableColumn
+   ├─ TableCaption (optional)
+   ├─ TableHeader
+   │  └─ TableRow
+   │     └─ TableColumnHeader
+   ├─ TableBody
+   │  ├─ TableRow
+   │  │  └─ TableCell
+   │  └─ TableEmpty (optional)
+   └─ TableFooter (optional)
+```
+
+| Часть                  | Назначение                                                                 |
+| ---------------------- | -------------------------------------------------------------------------- |
+| `Table`           | Нативный корневой элемент `table` с типографикой, разделителями и атрибутами состояния. |
+| `TableScrollArea`     | Необязательный контейнер с рамкой и горизонтальной прокруткой.             |
+| `TableColumnGroup`    | Нативный `colgroup` для задания ширины столбцов.                           |
+| `TableColumn`         | Нативный `col`. Ширину задаёт нативный атрибут `width`.                     |
+| `TableCaption`        | Необязательная подпись над или под таблицей; положение задаёт `side`.      |
+| `TableHeader`         | Нативный `thead` для заголовков столбцов.                                  |
+| `TableBody`           | Нативный `tbody` для строк с данными.                                      |
+| `TableFooter`         | Нативный `tfoot` для итоговых строк.                                       |
+| `TableRow`            | Нативный `tr` с разделителями.                                             |
+| `TableColumnHeader`   | Нативный `th` с поддержкой `numeric`.                                      |
+| `TableCell`           | Нативный `td` с поддержкой `numeric`.                                      |
+| `TableEmpty`          | Готовая строка и ячейка для пустого состояния внутри `TableBody`.         |
 
 ## Стилизация
 

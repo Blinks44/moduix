@@ -1,4 +1,3 @@
-import { useI18n } from '@rspress/core/runtime';
 import { ChangelogHero } from './hero';
 import styles from './hero.module.css';
 
@@ -9,18 +8,8 @@ const TailwindLogo = () => (
 );
 
 export function TailwindReleaseHero() {
-  const t = useI18n<typeof import('i18n')>();
-
   return (
-    <ChangelogHero
-      id="v120--september-20-2026"
-      category={t('changelogNewStylingTrack')}
-      date={t('tailwindReleaseHeroDate')}
-      dateTime="2026-09-20"
-      title="Tailwind CSS"
-      summary={t('tailwindReleaseHeroSummary')}
-      tone="cyan"
-    >
+    <ChangelogHero>
       <div className={`${styles.previewSurface} ${styles.tailwindPreview}`}>
         <div className={styles.twBrand}>
           <TailwindLogo />

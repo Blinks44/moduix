@@ -2,111 +2,28 @@
 title: Checkbox
 component: checkbox
 description: Компонент флажка для отдельных вариантов и групп с множественным выбором.
+ark: https://ark-ui.com/docs/components/checkbox
 ---
 
 import * as CheckboxDocs from '@/components/examples/checkbox/css-properties';
 
-## Справочник API
+<Example name="checkbox/basic" />
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/checkbox" />
+## Установка
+
+<ComponentInstall />
+
+## Использование
+
+Соберите флажок из частей Ark. Оставьте `CheckboxControl` пустым, чтобы использовать встроенные
+иконки выбранного и неопределённого состояния от moduix. Добавьте `CheckboxLabel` для видимой
+подписи и `CheckboxHiddenInput` для нативного взаимодействия и работы с формой.
 
 ## Выбор подходящего компонента
 
 Используйте `Checkbox`, когда пользователь может выбрать один или несколько независимых вариантов
 в форме, настройках или списке фильтров. Если нужно выбрать только один вариант, используйте
 `RadioGroup`. Если настройка должна применяться сразу, используйте `Switch`.
-
-## Базовый пример
-
-
-Соберите флажок из частей Ark. Оставьте `CheckboxControl` пустым, чтобы использовать встроенные
-иконки выбранного и неопределённого состояния от moduix. Добавьте `CheckboxLabel` для видимой
-подписи и `CheckboxHiddenInput` для нативного взаимодействия и работы с формой.
-
-<Example name="checkbox/basic" />
-
-## Установка через shadcn
-
-Полную настройку пакета, реестра и стилей см. в разделе [Быстрый старт](/docs/quick-start).
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/checkbox' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/checkbox' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/checkbox' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/checkbox' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/checkbox' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/checkbox' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Анатомия
-
-```text
-Checkbox
-├─ CheckboxControl
-│  ├─ CheckboxIndicator
-│  └─ CheckboxIndicator[indeterminate] (необязательно)
-├─ CheckboxLabel
-└─ CheckboxHiddenInput (явно)
-
-CheckboxRootProvider
-└─ то же дерево частей, подключённое к состоянию из useCheckbox()
-
-CheckboxGroup
-└─ Checkbox[value]
-   ├─ CheckboxControl
-   ├─ CheckboxLabel
-   └─ CheckboxHiddenInput
-```
-
-| Часть                        | Назначение                                                                                 |
-| ---------------------------- | ------------------------------------------------------------------------------------------ |
-| `Checkbox`                   | Хранит состояние одного флажка и отрисовывает содержащий его `label`.                      |
-| `CheckboxHiddenInput`        | Нативное поле Ark; добавляйте его явно внутрь корневого компонента.                        |
-| `CheckboxRootProvider`       | Связывает части с состоянием Ark, созданным вне дерева компонентов.                        |
-| `CheckboxControl`            | Видимая часть флажка; если оставить пустой, отображает встроенные иконки состояния.        |
-| `CheckboxIndicator`          | Необязательный слот для собственной иконки. Для этого состояния передайте `indeterminate`. |
-| `CheckboxLabel`              | Видимая подпись флажка.                                                                    |
-| `CheckboxGroup`              | Управляет выбранными значениями нескольких флажков.                                        |
-
-## Композиция
-
-`CheckboxHiddenInput` - нативное поле Ark. Добавляйте его явно внутрь `Checkbox` или
-`CheckboxRootProvider`, даже вне формы: оно отвечает за нативный фокус, работу с клавиатурой,
-доступность и участие в форме. Для отдельного поля задайте `name` и `value` на корневом компоненте;
-для группы задайте `name` на `CheckboxGroup`, а `value` - на каждом `Checkbox`.
-
-`CheckboxGroup` хранит массив выбранных значений, а каждый дочерний элемент является
-`Checkbox` со своим `value`. Оставьте `CheckboxControl` пустым, чтобы использовать встроенные
-иконки moduix. Добавляйте `CheckboxIndicator` внутрь `CheckboxControl` только для собственной
-иконки.
-
-Если состояние нужно создать вне дерева компонентов, создайте его с помощью `useCheckbox()` и
-передайте хранилище в `CheckboxRootProvider`. Не используйте для того же состояния `Checkbox` или
-`CheckboxRootProvider`.
 
 ## Примеры
 
@@ -219,6 +136,52 @@ CheckboxGroup
 
 <Example name="checkbox/with-form" />
 
+## Композиция
+
+`CheckboxHiddenInput` - нативное поле Ark. Добавляйте его явно внутрь `Checkbox` или
+`CheckboxRootProvider`, даже вне формы: оно отвечает за нативный фокус, работу с клавиатурой,
+доступность и участие в форме. Для отдельного поля задайте `name` и `value` на корневом компоненте;
+для группы задайте `name` на `CheckboxGroup`, а `value` - на каждом `Checkbox`.
+
+`CheckboxGroup` хранит массив выбранных значений, а каждый дочерний элемент является
+`Checkbox` со своим `value`. Оставьте `CheckboxControl` пустым, чтобы использовать встроенные
+иконки moduix. Добавляйте `CheckboxIndicator` внутрь `CheckboxControl` только для собственной
+иконки.
+
+Если состояние нужно создать вне дерева компонентов, создайте его с помощью `useCheckbox()` и
+передайте хранилище в `CheckboxRootProvider`. Не используйте для того же состояния `Checkbox` или
+`CheckboxRootProvider`.
+
+## Анатомия
+
+```text
+Checkbox
+├─ CheckboxControl
+│  ├─ CheckboxIndicator
+│  └─ CheckboxIndicator[indeterminate] (необязательно)
+├─ CheckboxLabel
+└─ CheckboxHiddenInput (явно)
+
+CheckboxRootProvider
+└─ то же дерево частей, подключённое к состоянию из useCheckbox()
+
+CheckboxGroup
+└─ Checkbox[value]
+   ├─ CheckboxControl
+   ├─ CheckboxLabel
+   └─ CheckboxHiddenInput
+```
+
+| Часть                        | Назначение                                                                                 |
+| ---------------------------- | ------------------------------------------------------------------------------------------ |
+| `Checkbox`                   | Хранит состояние одного флажка и отрисовывает содержащий его `label`.                      |
+| `CheckboxHiddenInput`        | Нативное поле Ark; добавляйте его явно внутрь корневого компонента.                        |
+| `CheckboxRootProvider`       | Связывает части с состоянием Ark, созданным вне дерева компонентов.                        |
+| `CheckboxControl`            | Видимая часть флажка; если оставить пустой, отображает встроенные иконки состояния.        |
+| `CheckboxIndicator`          | Необязательный слот для собственной иконки. Для этого состояния передайте `indeterminate`. |
+| `CheckboxLabel`              | Видимая подпись флажка.                                                                    |
+| `CheckboxGroup`              | Управляет выбранными значениями нескольких флажков.                                        |
+
 ## Стилизация
 
 Используйте `className` в React или `class` в Solid и Vue на экспортируемых частях для структурных стилей.
@@ -227,7 +190,7 @@ CheckboxGroup
 утилиты и классы потребителя; переменные ниже настраивают варианты с CSS Modules. Атрибуты данных и
 хуки `data-slot` общие для обоих вариантов стилизации.
 
-### CSS-свойства
+### CSS-переменные
 
 <CssPropertiesSection properties={CheckboxDocs.checkboxOverrideCssProperties} />
 

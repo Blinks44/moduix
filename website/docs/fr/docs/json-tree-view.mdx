@@ -2,20 +2,16 @@
 title: JSON Tree View
 component: json-tree-view
 description: Inspectez des valeurs JSON et JavaScript dans une arborescence accessible et dépliable avec JsonTreeView de moduix.
+ark: https://ark-ui.com/docs/utilities/json-tree-view
 ---
 
+<Example name="json-tree-view/basic" />
 
-## Référence de l’API
+## Installation
 
-<PrimitiveReference href="https://ark-ui.com/docs/utilities/json-tree-view" />
+<ComponentInstall />
 
-## Choisir le bon composant
-
-Utilisez `JsonTreeView` lorsque vous disposez déjà d’une valeur JavaScript à inspecter et que vous ne voulez pas
-écrire de rendu récursif. Choisissez `TreeView` lorsque vous contrôlez le modèle des nœuds et devez gérer les
-libellés, les icônes, les liens, le renommage ou le contenu personnalisé des branches.
-
-## Exemple de base
+## Utilisation
 
 Transmettez via `data` n’importe quelle valeur JavaScript de type JSON ou comparable, puis affichez
 `<JsonTreeViewTree />` à l’intérieur du composant. `JsonTreeView` génère automatiquement les nœuds des objets, des
@@ -25,44 +21,28 @@ par défaut.
 L’exemple ouvre d’emblée deux niveaux. Utilisez `defaultExpandedDepth` pour choisir la partie d’une réponse ou d’une
 configuration à afficher au premier rendu.
 
-<Example name="json-tree-view/basic" />
+## Choisir le bon composant
 
-## Installation avec shadcn
+Utilisez `JsonTreeView` lorsque vous disposez déjà d’une valeur JavaScript à inspecter et que vous ne voulez pas
+écrire de rendu récursif. Choisissez `TreeView` lorsque vous contrôlez le modèle des nœuds et devez gérer les
+libellés, les icônes, les liens, le renommage ou le contenu personnalisé des branches.
 
-Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration complète du paquet, du registre et des styles.
+## Exemples
 
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
+### Aperçus compacts
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/json-tree-view' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/json-tree-view' },
-  ]}
-/>
+Utilisez `maxPreviewItems` pour limiter les aperçus d’objets et de tableaux, et `collapseStringsAfterLength` pour
+raccourcir les chaînes longues. L’utilisateur peut ouvrir un nœud pour consulter sa valeur complète.
 
-  </Tab>
-  <Tab label="Solid" value="solid">
+<Example name="json-tree-view/compact-previews" />
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/json-tree-view' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/json-tree-view' },
-  ]}
-/>
+## Composition
 
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/json-tree-view' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/json-tree-view' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
+Gardez `JsonTreeViewTree` comme enfant de `JsonTreeView` ou de `JsonTreeViewRootProvider` : il affiche les nœuds JSON
+générés. Lorsque des contrôles externes gèrent l’état de l’arbre, créez `useJsonTreeView` à partir du package
+correspondant au framework et transmettez son état à `JsonTreeViewRootProvider`, puis affichez `JsonTreeViewTree` à l’intérieur.
+Utilisez `expandedValue`, `selectedValue`, `checkedValue` ou `focusedValue` en mode contrôlé uniquement lorsque
+l’état appartient à l’application. Ne rendez pas `JsonTreeView` et `JsonTreeViewRootProvider` pour le même état.
 
 ## Anatomie
 
@@ -80,23 +60,6 @@ JsonTreeViewRootProvider
 | `JsonTreeView` | Gère les données, la collection générée et l’état de l’arbre Ark. |
 | `JsonTreeViewRootProvider` | Relie les parties à une instance d’état `useJsonTreeView` créée en dehors de l’arbre. |
 | `JsonTreeViewTree` | Affiche les nœuds générés pour les objets, tableaux et valeurs. |
-
-## Composition
-
-Gardez `JsonTreeViewTree` comme enfant de `JsonTreeView` ou de `JsonTreeViewRootProvider` : il affiche les nœuds JSON
-générés. Lorsque des contrôles externes gèrent l’état de l’arbre, créez `useJsonTreeView` à partir du package
-correspondant au framework et transmettez son état à `JsonTreeViewRootProvider`, puis affichez `JsonTreeViewTree` à l’intérieur.
-Utilisez `expandedValue`, `selectedValue`, `checkedValue` ou `focusedValue` en mode contrôlé uniquement lorsque
-l’état appartient à l’application. Ne rendez pas `JsonTreeView` et `JsonTreeViewRootProvider` pour le même état.
-
-## Exemples
-
-### Aperçus compacts
-
-Utilisez `maxPreviewItems` pour limiter les aperçus d’objets et de tableaux, et `collapseStringsAfterLength` pour
-raccourcir les chaînes longues. L’utilisateur peut ouvrir un nœud pour consulter sa valeur complète.
-
-<Example name="json-tree-view/compact-previews" />
 
 ## Styles
 

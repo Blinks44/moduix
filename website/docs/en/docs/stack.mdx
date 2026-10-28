@@ -2,81 +2,18 @@
 title: Stack
 component: stack
 description: A lightweight flex layout primitive for arranging content vertically or horizontally in React, Solid, or Vue.
+ark: https://ark-ui.com/docs/guides/composition#the-ark-factory
 ---
-
-
-## API Reference
-
-Ark UI does not include a dedicated `Stack` primitive. moduix implements this component with Ark's official
-[factory](https://ark-ui.com/docs/guides/composition#the-ark-factory) and follows Ark's guidance for
-[composition](https://ark-ui.com/docs/guides/composition), [styling](https://ark-ui.com/docs/guides/styling), and
-[refs](https://ark-ui.com/docs/guides/ref). Chakra UI's [Stack](https://chakra-ui.com/docs/components/stack)
-documentation informs the layout prop names only.
-
-## Basic
-
-
-Use `Stack` when a single flex container is enough and you only need to control direction, gap, and alignment.
 
 <Example name="stack/basic" />
 
-## Install with shadcn
+## Installation
 
-See [Quick Start](/docs/quick-start) for full package setup, registry configuration, and styling guidance.
+<ComponentInstall />
 
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
+## Usage
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/stack' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/stack' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/stack' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/stack' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/stack' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/stack' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Anatomy
-
-`Stack` renders one flex root that follows Ark's factory model. It controls direction, gap, alignment, wrapping, and
-a simple responsive direction switch. Keep broader layout rules in your local CSS.
-
-```text
-Stack
-└─ root[data-scope="stack"][data-part="root"][data-slot="stack-root"]
-   └─ children
-```
-
-| Part                   | Role                                                                |
-| ---------------------- | ------------------------------------------------------------------- |
-| `Stack`                | Root flex wrapper for direction, gap, alignment, and child spacing. |
-
-## Composition
-
-`Stack` owns no managed state and exposes one root. Use `<Stack>` for regular `div` output. `fill` applies to the
-`Stack` as a flex item, not to its children. Add `Separator` directly as a child when the layout needs a divider,
-and use `asChild` when the root should be a semantic element.
+Use `Stack` when a single flex container is enough and you only need to control direction, gap, and alignment.
 
 ## Examples
 
@@ -124,6 +61,27 @@ applies to every child, including dividers.
 Use `wrap="wrap"` when items should flow onto the next line.
 
 <Example name="stack/wrapped-items" />
+
+## Composition
+
+`Stack` owns no managed state and exposes one root. Use `<Stack>` for regular `div` output. `fill` applies to the
+`Stack` as a flex item, not to its children. Add `Separator` directly as a child when the layout needs a divider,
+and use `asChild` when the root should be a semantic element.
+
+## Anatomy
+
+`Stack` renders one flex root that follows Ark's factory model. It controls direction, gap, alignment, wrapping, and
+a simple responsive direction switch. Keep broader layout rules in your local CSS.
+
+```text
+Stack
+└─ root[data-scope="stack"][data-part="root"][data-slot="stack-root"]
+   └─ children
+```
+
+| Part                   | Role                                                                |
+| ---------------------- | ------------------------------------------------------------------- |
+| `Stack`                | Root flex wrapper for direction, gap, alignment, and child spacing. |
 
 ## Styling
 

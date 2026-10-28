@@ -1,13 +1,24 @@
 ---
 title: Tableau de bord avec navigation latérale
 description: Une structure de tableau de bord prête à copier, avec navigation latérale redimensionnable et repliable, éléments imbriqués et menu d’espace de travail.
+block: sidebar-dashboard
 ---
 
 import { SidebarDashboard } from '@/components/blocks/sidebar-dashboard';
 import sidebarDashboardSolid from '../../../snippets/blocks/solid/sidebar-dashboard.tsx?raw';
 import sidebarDashboardVue from '../../../snippets/blocks/vue/sidebar-dashboard.vue?raw';
+import sidebarDashboardReact from '../../../src/components/blocks/sidebar-dashboard.tsx?raw';
+import sidebarDashboardCss from '../../../src/components/blocks/sidebar-dashboard.module.css?raw';
 
 # Tableau de bord avec navigation latérale
+
+<ExamplePanel
+  clientOnly
+  sources={{ react: sidebarDashboardReact, solid: sidebarDashboardSolid, vue: sidebarDashboardVue }}
+  files={[{ name: 'sidebar-dashboard.module.css', code: sidebarDashboardCss }]}
+>
+  <SidebarDashboard />
+</ExamplePanel>
 
 Utilisez cette composition comme point de départ pour l’interface de bureau de votre application. Elle
 associe `Sidebar`, `Collapsible` et `Menu` pour proposer une navigation redimensionnable, un groupe
@@ -22,53 +33,6 @@ navigation lorsque la barre se réduit à une rangée d’icônes.
 Il s’agit d’une composition prête à copier, et non d’un composant `SidebarDashboard` exporté par
 moduix. Installez le bloc, puis remplacez les liens, libellés et
 données de démonstration.
-
-L’aperçu utilise React. Les onglets présentent le code React, Solid et Vue avec une feuille de style commune.
-
-
-
-<ExampleFrame variant="block" clientOnly>
-  <SidebarDashboard />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/blocks/sidebar-dashboard.tsx"
-
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={sidebarDashboardSolid} />
-
-    </Tab>
-  <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={sidebarDashboardVue} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/blocks/sidebar-dashboard.module.css"
-
-```
-</div>
-
-</ExampleCode>
 
 ## Installation
 

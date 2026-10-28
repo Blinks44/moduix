@@ -2,21 +2,18 @@
 title: Spinner
 component: spinner
 description: Un indicateur de chargement compact avec un statut accessible, plusieurs tailles et un contenu personnalisé facultatif.
+ark: https://ark-ui.com/docs/guides/composition
 ---
 
 import * as SpinnerDocs from '@/components/examples/spinner/css-properties';
 
+<Example name="spinner/basic" />
 
-## Référence de l’API
+## Installation
 
-Ark UI ne propose pas de composant Spinner dédié. moduix construit `Spinner` avec la fabrique `ark.span` d’Ark UI
-et expose une API réduite centrée sur une seule racine. Le composant suit les recommandations d’Ark pour la
-[composition](https://ark-ui.com/docs/guides/composition), le [style](https://ark-ui.com/docs/guides/styling) et le
-[transfert de `ref`](https://ark-ui.com/docs/guides/ref).
+<ComponentInstall />
 
-
-Les mêmes exports sont disponibles depuis `@moduix/solid/spinner` pour Solid et `@moduix/vue/spinner` pour Vue.
-## Exemple de base
+## Utilisation
 
 Utilisez `Spinner` pour les états de chargement de courte durée dans les boutons, les lignes de statut et les petits
 blocs vides. Par défaut, le composant signale le chargement aux technologies d’assistance avec `role="status"` et
@@ -30,71 +27,6 @@ sur son `[data-slot="spinner-indicator"]` dans votre propre classe.
 Définissez `decorative` lorsqu’un texte visible décrit déjà le chargement : la racine reçoit alors
 `aria-hidden="true"`, sans `role` ni libellé de repli.
 
-
-<Example name="spinner/basic" />
-
-## Installation avec shadcn
-
-Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration complète du paquet, du registre et des styles.
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/spinner' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/spinner' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/spinner' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/spinner' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/spinner' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/spinner' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Anatomie
-
-`Spinner` n’expose qu’une racine publique. En mode standard, moduix ajoute une enveloppe interne pour l’indicateur
-et un anneau par défaut. Ce sont des nœuds DOM et des points d’accroche CSS, pas des composants exportés séparément.
-Un contenu personnalisé passé via `children` remplace l’anneau ; `asChild` remplace la racine et laisse l’enfant fournir la structure
-de l’indicateur.
-
-```text
-Spinner
-└─ root[data-scope="spinner"][data-part="root"][data-slot="spinner-root"][data-size]
-   └─ indicator[data-scope="spinner"][data-part="indicator"][data-slot="spinner-indicator"]
-      └─ ring[data-scope="spinner"][data-part="ring"][data-slot="spinner-ring"] (par défaut uniquement)
-```
-
-| Partie              | Rôle                                                                                                        |
-| ------------------- | ----------------------------------------------------------------------------------------------------------- |
-| `Spinner`                   | Racine publique. Accepte `size`, `decorative`, `asChild`, `children` et les propriétés natives de `span`. |
-| indicator                  | Enveloppe interne rotative qui gère la taille et l’animation de l’indicateur.                     |
-| ring                       | Anneau par défaut interne. Il n’est pas rendu lorsqu’un contenu personnalisé est fourni via `children`. |
-
-## Composition
-
-`Spinner` représente un état de chargement géré par l’application ; il ne démarre, n’arrête et ne contrôle pas l’opération représentée. Rendez-le à partir de l’état qui possède déjà cette opération.
-
-Passez des `children` personnalisés pour remplacer l’anneau par défaut tout en conservant la racine standard, le dimensionnement et le conteneur rotatif de l’indicateur. Utilisez `asChild` uniquement lorsqu’un autre composant doit porter l’élément racine : dans ce mode, l’indicateur et l’anneau intégrés ne sont pas rendus ; un seul enfant non interactif doit donc fournir le balisage visuel de l’indicateur.
 ## Exemples
 
 ### Indicateur personnalisé
@@ -130,12 +62,45 @@ de classe de la racine Spinner et doit rendre lui-même l’indicateur visuel.
 
 <Example name="spinner/as-child" />
 
+## Composition
+
+Ark UI ne propose pas de composant Spinner dédié. moduix construit `Spinner` avec la fabrique `ark.span` d’Ark UI
+et expose une API réduite centrée sur une seule racine. Le composant suit les recommandations d’Ark pour la
+[composition](https://ark-ui.com/docs/guides/composition), le [style](https://ark-ui.com/docs/guides/styling) et le
+[transfert de `ref`](https://ark-ui.com/docs/guides/ref).
+
+Les mêmes exports sont disponibles depuis `@moduix/solid/spinner` pour Solid et `@moduix/vue/spinner` pour Vue.
+
+`Spinner` représente un état de chargement géré par l’application ; il ne démarre, n’arrête et ne contrôle pas l’opération représentée. Rendez-le à partir de l’état qui possède déjà cette opération.
+
+Passez des `children` personnalisés pour remplacer l’anneau par défaut tout en conservant la racine standard, le dimensionnement et le conteneur rotatif de l’indicateur. Utilisez `asChild` uniquement lorsqu’un autre composant doit porter l’élément racine : dans ce mode, l’indicateur et l’anneau intégrés ne sont pas rendus ; un seul enfant non interactif doit donc fournir le balisage visuel de l’indicateur.
+
+## Anatomie
+
+`Spinner` n’expose qu’une racine publique. En mode standard, moduix ajoute une enveloppe interne pour l’indicateur
+et un anneau par défaut. Ce sont des nœuds DOM et des points d’accroche CSS, pas des composants exportés séparément.
+Un contenu personnalisé passé via `children` remplace l’anneau ; `asChild` remplace la racine et laisse l’enfant fournir la structure
+de l’indicateur.
+
+```text
+Spinner
+└─ root[data-scope="spinner"][data-part="root"][data-slot="spinner-root"][data-size]
+   └─ indicator[data-scope="spinner"][data-part="indicator"][data-slot="spinner-indicator"]
+      └─ ring[data-scope="spinner"][data-part="ring"][data-slot="spinner-ring"] (par défaut uniquement)
+```
+
+| Partie              | Rôle                                                                                                        |
+| ------------------- | ----------------------------------------------------------------------------------------------------------- |
+| `Spinner`                   | Racine publique. Accepte `size`, `decorative`, `asChild`, `children` et les propriétés natives de `span`. |
+| indicator                  | Enveloppe interne rotative qui gère la taille et l’animation de l’indicateur.                     |
+| ring                       | Anneau par défaut interne. Il n’est pas rendu lorsqu’un contenu personnalisé est fourni via `children`. |
+
 ## Styles
 
 Appliquez des styles à `Spinner` avec `className` en React, `class` en Solid et Vue, les sélecteurs Ark `data-scope` / `data-part`, les points d’accroche
 `data-slot` stables, `data-size` et les variables publiques `--moduix-spinner-*` décrites dans l’API CSS.
 
-### Propriétés CSS
+### Variables CSS
 
 <CssPropertiesSection properties={SpinnerDocs.spinnerOverrideCssProperties} />
 

@@ -2,13 +2,22 @@
 title: Pin Input
 component: pin-input
 description: Компонент для ввода коротких PIN-кодов и кодов подтверждения по отдельным ячейкам, с автоматическим переводом фокуса и поддержкой OTP.
+ark: https://ark-ui.com/docs/components/pin-input
 ---
 
 import * as PinInputDocs from '@/components/examples/pin-input/css-properties';
 
-## Справочник API
+<Example name="pin-input/basic" />
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/pin-input" />
+## Установка
+
+<ComponentInstall />
+
+## Использование
+
+Используйте `PinInput` как корневой компонент и явно задайте `count`. Добавьте `PinInputLabel` для доступного имени,
+поместите `PinInputInputs` внутрь `PinInputControl` и явно добавьте `PinInputHiddenInput`, если значение должно участвовать в работе
+нативной формы.
 
 ## Выбор подходящего компонента
 
@@ -17,97 +26,6 @@ import * as PinInputDocs from '@/components/examples/pin-input/css-properties';
 - Выбирайте **`PinInput`** для одноразовых кодов, PIN-кодов, резервных кодов и кодов приглашений.
 - Выбирайте **`Input`**, когда достаточно одного обычного текстового поля.
 - Выбирайте **`PasswordInput`**, когда значение представляет собой одну секретную строку с переключателем видимости.
-
-## Базовый пример
-
-Используйте `PinInput` как корневой компонент и явно задайте `count`. Добавьте `PinInputLabel` для доступного имени,
-поместите `PinInputInputs` внутрь `PinInputControl` и явно добавьте `PinInputHiddenInput`, если значение должно участвовать в работе
-нативной формы.
-
-<Example name="pin-input/basic" />
-
-## Установка через shadcn
-
-Полную настройку пакета, реестра и стилей см. в разделе [Быстрый старт](/docs/quick-start).
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/pin-input' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/pin-input' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/pin-input' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/pin-input' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/pin-input' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/pin-input' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Анатомия
-
-```text
-PinInput
-├─ PinInputLabel
-├─ PinInputControl
-│  ├─ PinInputInput[index=0]
-│  ├─ PinInputInput[index=1]
-│  └─ PinInputInput[index=2]
-└─ PinInputHiddenInput (явно)
-
-PinInputRootProvider
-└─ то же дерево частей, связанное с состоянием usePinInput()
-```
-
-| Часть | Назначение |
-| --- | --- |
-| `PinInput` | Управляет количеством ячеек, состоянием значения, проверкой и параметрами формы. |
-| `PinInputHiddenInput` | Нативное поле Ark, которое нужно добавлять явно. |
-| `PinInputRootProvider` | Подключает части к состоянию, созданному через `usePinInput()`. |
-| `PinInputContext` | Передаёт текущее состояние корневого компонента потомкам через render prop. |
-| `PinInputLabel` | Задаёт подпись для группы PIN-кода или кода подтверждения. |
-| `PinInputControl` | Контейнер видимых ячеек с индексами. |
-| `PinInputInput` | Одна видимая ячейка для символа. Передайте индекс, начиная с нуля. |
-| `PinInputInputs` | Создаёт по одному `PinInputInput` с индексом для каждой ячейки контекста Ark. |
-| `PinInputSeparator` | Декоративный вспомогательный компонент moduix для группировки, а не часть примитива Ark. |
-| `usePinInput` | Создаёт состояние для `PinInputRootProvider`. |
-| `usePinInputContext` | Читает текущее состояние Pin Input внутри дерева компонента. |
-
-## Композиция
-
-Явно добавьте `PinInputHiddenInput` внутрь `PinInput` или `PinInputRootProvider`, если значение должно
-отправляться с нативной формой и сбрасываться вместе с ней. Задайте корню `name`, а `form` используйте, если
-форма находится вне дерева компонента.
-
-`PinInputInputs` создаёт по одной индексированной ячейке для каждого элемента контекста Ark. Используйте явные
-части `PinInputInput` с непрерывными индексами от нуля и `PinInputSeparator`, если код нужно разделить на группы. Значения
-представлены массивом строк. Используйте `PinInputRootProvider` с `usePinInput`, когда состоянием или императивными
-методами нужно управлять за пределами дерева компонентов. В React передаётся объект состояния. В Solid вызывайте реактивную функцию доступа, а в Vue читайте
-состояние непосредственно в шаблоне.
-
-Ark управляет переводом фокуса, распределением вставленного текста, редактированием с клавиатуры и
-автозаполнением одноразовых кодов; добавьте `PinInputLabel`, чтобы у группы было доступное имя.
-`PinInputSeparator` по умолчанию декоративный и получает `aria-hidden`, поэтому
-содержательный текст размещайте вне него.
 
 ## Примеры
 
@@ -171,9 +89,55 @@ Ark управляет переводом фокуса, распределени
 
 <Example name="pin-input/sizes" />
 
+## Композиция
+
+Явно добавьте `PinInputHiddenInput` внутрь `PinInput` или `PinInputRootProvider`, если значение должно
+отправляться с нативной формой и сбрасываться вместе с ней. Задайте корню `name`, а `form` используйте, если
+форма находится вне дерева компонента.
+
+`PinInputInputs` создаёт по одной индексированной ячейке для каждого элемента контекста Ark. Используйте явные
+части `PinInputInput` с непрерывными индексами от нуля и `PinInputSeparator`, если код нужно разделить на группы. Значения
+представлены массивом строк. Используйте `PinInputRootProvider` с `usePinInput`, когда состоянием или императивными
+методами нужно управлять за пределами дерева компонентов. В React передаётся объект состояния. В Solid вызывайте реактивную функцию доступа, а в Vue читайте
+состояние непосредственно в шаблоне.
+
+Ark управляет переводом фокуса, распределением вставленного текста, редактированием с клавиатуры и
+автозаполнением одноразовых кодов; добавьте `PinInputLabel`, чтобы у группы было доступное имя.
+`PinInputSeparator` по умолчанию декоративный и получает `aria-hidden`, поэтому
+содержательный текст размещайте вне него.
+
+## Анатомия
+
+```text
+PinInput
+├─ PinInputLabel
+├─ PinInputControl
+│  ├─ PinInputInput[index=0]
+│  ├─ PinInputInput[index=1]
+│  └─ PinInputInput[index=2]
+└─ PinInputHiddenInput (явно)
+
+PinInputRootProvider
+└─ то же дерево частей, связанное с состоянием usePinInput()
+```
+
+| Часть | Назначение |
+| --- | --- |
+| `PinInput` | Управляет количеством ячеек, состоянием значения, проверкой и параметрами формы. |
+| `PinInputHiddenInput` | Нативное поле Ark, которое нужно добавлять явно. |
+| `PinInputRootProvider` | Подключает части к состоянию, созданному через `usePinInput()`. |
+| `PinInputContext` | Передаёт текущее состояние корневого компонента потомкам через render prop. |
+| `PinInputLabel` | Задаёт подпись для группы PIN-кода или кода подтверждения. |
+| `PinInputControl` | Контейнер видимых ячеек с индексами. |
+| `PinInputInput` | Одна видимая ячейка для символа. Передайте индекс, начиная с нуля. |
+| `PinInputInputs` | Создаёт по одному `PinInputInput` с индексом для каждой ячейки контекста Ark. |
+| `PinInputSeparator` | Декоративный вспомогательный компонент moduix для группировки, а не часть примитива Ark. |
+| `usePinInput` | Создаёт состояние для `PinInputRootProvider`. |
+| `usePinInputContext` | Читает текущее состояние Pin Input внутри дерева компонента. |
+
 ## Стилизация
 
-### CSS-свойства
+### CSS-переменные
 
 <CssPropertiesSection properties={PinInputDocs.pinInputOverrideCssProperties} />
 

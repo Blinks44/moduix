@@ -2,21 +2,18 @@
 title: Number Input
 component: number-input
 description: Champ de saisie numérique basé sur Ark UI, avec boutons d’incrémentation et de décrémentation, formatage, validation et glissement facultatif.
+ark: https://ark-ui.com/docs/components/number-input
 ---
 
 import * as NumberInputDocs from '@/components/examples/number-input/css-properties';
 
-## Référence de l’API
+<Example name="number-input/basic" />
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/number-input" />
+## Installation
 
-## Choisir le bon composant
+<ComponentInstall />
 
-Utilisez `NumberInput` lorsque l’utilisateur saisit des valeurs numériques qui doivent pouvoir être
-incrémentées, bornées et formatées. Utilisez `Input` pour du texte libre, et `Slider` lorsque
-l’objectif est de choisir un point dans une plage visuelle.
-
-## Exemple de base
+## Utilisation
 
 Importez-le depuis `@moduix/react/number-input`, `@moduix/solid/number-input` ou
 `@moduix/vue/number-input` pour CSS Modules. Pour Tailwind CSS, utilisez le chemin correspondant
@@ -26,87 +23,11 @@ Importez-le depuis `@moduix/react/number-input`, `@moduix/solid/number-input` ou
 Utilisez `NumberInput` comme racine et `NumberInputField` pour le champ standard avec ses boutons d’incrémentation et
 de décrémentation. Donnez au champ un nom accessible avec `NumberInputLabel`, `aria-label` ou `aria-labelledby`.
 
-<Example name="number-input/basic" />
+## Choisir le bon composant
 
-## Installation avec shadcn
-
-Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration complète du paquet, du registre et des styles.
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/number-input' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/number-input' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/number-input' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/number-input' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/number-input' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/number-input' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Anatomie
-
-```text
-NumberInput
-├─ NumberInputLabel
-├─ NumberInputScrubber (facultatif)
-├─ NumberInputField (raccourci recommandé)
-│  └─ affiche NumberInputControl
-│     ├─ NumberInputDecrementTrigger
-│     ├─ NumberInputInput
-│     └─ NumberInputIncrementTrigger
-└─ NumberInputValueText (facultatif)
-
-NumberInputRootProvider
-└─ même arborescence reliée à l’état créé avec `useNumberInput()`
-```
-
-| Partie | Rôle |
-| --- | --- |
-| `NumberInput` | Gère l’état du champ numérique, l’interprétation de la saisie, le formatage et le comportement au clavier. |
-| `NumberInputRootProvider` | Relie les parties à l’état créé avec `useNumberInput()`. |
-| `NumberInputContext` | Expose les valeurs formatée et numérique, ainsi que les méthodes impératives de gestion de l’état. |
-| `NumberInputLabel` | Libellé accessible associé au champ géré. |
-| `NumberInputScrubber` | Zone de glissement facultative qui modifie la valeur selon le déplacement du pointeur. |
-| `NumberInputControl` | Regroupe le champ et les boutons d’incrémentation et de décrémentation. |
-| `NumberInputField` | Partie pratique qui affiche le contrôle standard et le groupe de boutons. |
-| `NumberInputDecrementTrigger` | Bouton qui diminue la valeur actuelle. Il affiche par défaut l’icône moins de moduix. |
-| `NumberInputInput` | Champ de texte numérique modifiable géré par Ark UI. |
-| `NumberInputIncrementTrigger` | Bouton qui augmente la valeur actuelle. Il affiche par défaut l’icône plus de moduix. |
-| `NumberInputValueText` | Texte en lecture seule qui affiche la valeur formatée. |
-
-## Composition
-
-Utilisez `NumberInputField` pour le contrôle standard en trois parties. Conservez `value` et `defaultValue` sous forme
-de chaînes et utilisez `details.value` de `onValueChange` lorsque le champ est contrôlé. Lorsque l’état doit être créé
-en dehors de l’arbre des parties rendues, appelez `useNumberInput()` et transmettez le store correspondant à
-`NumberInputRootProvider`. Ne rendez pas `NumberInput` ou `NumberInputRootProvider` pour ce même store. React lit directement les propriétés du store, Solid les lit via l’accesseur renvoyé, et Vue expose directement le store réactif au template.
-
-Utilisez `NumberInputControl` avec les parties individuelles lorsque l’ordre des boutons, les icônes ou le style du
-champ doit changer. Ajoutez `NumberInputScrubber` à côté du champ pour permettre la modification par glissement.
-Utilisez `NumberInputContext` uniquement lorsqu’un autre élément, par exemple un champ masqué de formulaire, a besoin
-de la valeur formatée ou de `valueAsNumber`.
+Utilisez `NumberInput` lorsque l’utilisateur saisit des valeurs numériques qui doivent pouvoir être
+incrémentées, bornées et formatées. Utilisez `Input` pour du texte libre, et `Slider` lorsque
+l’objectif est de choisir un point dans une plage visuelle.
 
 ## Exemples
 
@@ -198,13 +119,56 @@ nécessite des libellés localisés pour les technologies d’assistance.
 
 <Example name="number-input/custom-icons" />
 
+## Composition
+
+Utilisez `NumberInputField` pour le contrôle standard en trois parties. Conservez `value` et `defaultValue` sous forme
+de chaînes et utilisez `details.value` de `onValueChange` lorsque le champ est contrôlé. Lorsque l’état doit être créé
+en dehors de l’arbre des parties rendues, appelez `useNumberInput()` et transmettez le store correspondant à
+`NumberInputRootProvider`. Ne rendez pas `NumberInput` ou `NumberInputRootProvider` pour ce même store. React lit directement les propriétés du store, Solid les lit via l’accesseur renvoyé, et Vue expose directement le store réactif au template.
+
+Utilisez `NumberInputControl` avec les parties individuelles lorsque l’ordre des boutons, les icônes ou le style du
+champ doit changer. Ajoutez `NumberInputScrubber` à côté du champ pour permettre la modification par glissement.
+Utilisez `NumberInputContext` uniquement lorsqu’un autre élément, par exemple un champ masqué de formulaire, a besoin
+de la valeur formatée ou de `valueAsNumber`.
+
+## Anatomie
+
+```text
+NumberInput
+├─ NumberInputLabel
+├─ NumberInputScrubber (facultatif)
+├─ NumberInputField (raccourci recommandé)
+│  └─ affiche NumberInputControl
+│     ├─ NumberInputDecrementTrigger
+│     ├─ NumberInputInput
+│     └─ NumberInputIncrementTrigger
+└─ NumberInputValueText (facultatif)
+
+NumberInputRootProvider
+└─ même arborescence reliée à l’état créé avec `useNumberInput()`
+```
+
+| Partie | Rôle |
+| --- | --- |
+| `NumberInput` | Gère l’état du champ numérique, l’interprétation de la saisie, le formatage et le comportement au clavier. |
+| `NumberInputRootProvider` | Relie les parties à l’état créé avec `useNumberInput()`. |
+| `NumberInputContext` | Expose les valeurs formatée et numérique, ainsi que les méthodes impératives de gestion de l’état. |
+| `NumberInputLabel` | Libellé accessible associé au champ géré. |
+| `NumberInputScrubber` | Zone de glissement facultative qui modifie la valeur selon le déplacement du pointeur. |
+| `NumberInputControl` | Regroupe le champ et les boutons d’incrémentation et de décrémentation. |
+| `NumberInputField` | Partie pratique qui affiche le contrôle standard et le groupe de boutons. |
+| `NumberInputDecrementTrigger` | Bouton qui diminue la valeur actuelle. Il affiche par défaut l’icône moins de moduix. |
+| `NumberInputInput` | Champ de texte numérique modifiable géré par Ark UI. |
+| `NumberInputIncrementTrigger` | Bouton qui augmente la valeur actuelle. Il affiche par défaut l’icône plus de moduix. |
+| `NumberInputValueText` | Texte en lecture seule qui affiche la valeur formatée. |
+
 ## Styles
 
 Utilisez `className` dans React ou `class` dans Solid et Vue pour les styles structurels des parties exportées. Les variantes
 Tailwind utilisent des utilitaires natifs et les classes du consommateur ; les variables CSS ci-dessous personnalisent
 les variantes CSS Modules. Les attributs de données et les hooks `data-slot` sont partagés par les deux modes de style.
 
-### Propriétés CSS
+### Variables CSS
 
 <CssPropertiesSection properties={NumberInputDocs.numberInputOverrideCssProperties} />
 

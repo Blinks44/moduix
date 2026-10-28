@@ -154,19 +154,26 @@ Animations is the reference for a system styling guide, Composition Patterns for
 
 Blocks are application-owned compositions installed through the shadcn registry. They demonstrate a complete product pattern, but they are not new components exported by moduix.
 
-Use this structure:
+Use this structure (Sign in is the reference, after the "Docs · Block · Sign in" frame):
 
-1. state the product outcome, when the block fits, and the boundary between the installed composition and application-owned logic;
-2. show one complete live preview before the source;
-3. provide native source for every shipped framework that supports the block in `groupId="framework"` tabs, followed by shared styles outside those tabs;
-4. provide complete block installation through `BlockInstall`; its manifest includes the source, stylesheet, UI registry dependencies, and any additional packages;
-5. explain the smallest integration step for routes, data, authentication, uploads, or other product logic owned by the application;
-6. finish with only the customization, responsive, accessibility, motion, and production-state guidance that is specific to the block.
+1. frontmatter `block: <name>` adds the "Blocks / <section>" breadcrumb from the sidebar and the
+   Source and Report issue links; the description states the product outcome, so the page has no
+   separate intro;
+2. one `ExamplePanel` with the live preview, the native source of every supported framework in
+   `sources`, and the shared stylesheet in `files`;
+3. `## Install` with `BlockInstall`: one shadcn command for the framework and styling chosen in the
+   panel, and the UI components it adds, read from `website/registry.json`;
+4. the smallest integration step for routes, data, authentication, uploads, or other product logic
+   owned by the application, with its route source in `FrameworkCode` (titled, follows the panel
+   selects, no framework tabs);
+5. only the customization, responsive, accessibility, motion, and production-state guidance that is
+   specific to the block, as short tables or lists.
 
-Label the documentation runtime honestly: `ExampleFrame` currently renders the React source, while the source tabs contain native implementations for the other supported shipped frameworks. Keep one framework-neutral stylesheet when the visual contract is shared. Do not place styles, fixtures, or conceptual prose inside framework tabs.
-
-Use `ExampleFrame variant="block"` for the preview. A block may use the full documentation canvas when its layout, spatial relationships, or responsive shell are part of the lesson. Wrap narrow flows such as authentication forms in `<PreviewFrame maxWidth="sm">`; keep that width consistent across locales.
+The panel renders the React source and labels other selections honestly. Keep one framework-neutral
+stylesheet when the visual contract is shared. A block may use the full documentation canvas when its
+layout, spatial relationships, or responsive shell are part of the lesson. Wrap narrow flows such as
+authentication forms in `<PreviewFrame maxWidth="sm">`; keep that width consistent across locales.
 
 Keep framework availability truthful. When an essential third-party dependency supports only one shipped framework, state the limitation near the beginning, show only the real implementation, and point other frameworks to the closest shipped or framework-neutral path. Do not create fictional parity by transliterating framework-specific hooks or types.
 
-Blocks is the overview reference. App Header and Sign in are the current references for a full-width application composition and a narrow product flow. Data Table is the reference for a multi-framework third-party integration with framework-specific packages and runtime APIs.
+Blocks is the overview reference. Sign in is the reference for the block page structure and a narrow product flow, App Header for a full-width application composition. Data Table is the reference for a multi-framework third-party integration with framework-specific packages and runtime APIs.

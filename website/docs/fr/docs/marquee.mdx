@@ -2,95 +2,23 @@
 title: Marquee
 component: marquee
 description: Un composant basé sur Ark UI pour faire défiler en continu des logos, des annonces ou d’autres contenus répétés.
+ark: https://ark-ui.com/docs/components/marquee
 ---
 
 import * as MarqueeDocs from '@/components/examples/marquee/css-properties';
 
-## Référence de l’API
+<Example name="marquee/basic" />
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/marquee" />
+## Installation
 
-## Exemple de base
+<ComponentInstall />
 
+## Utilisation
 
 Utilisez la forme courte `Marquee` comme racine, puis composez explicitement `MarqueeViewport`, `MarqueeContent` et `MarqueeItem` à
 l’intérieur. Si le contenu défilant transmet une information, ajoutez un libellé avec `aria-label` ou
 `translations.root`. `Marquee` fournit le comportement et les styles d’animation nécessaires, mais ne définit ni le style
 des éléments ni celui du cadre. Dans l’exemple, le style des éléments et la largeur de la racine sont définis séparément.
-
-<Example name="marquee/basic" />
-
-## Installation avec shadcn
-
-Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration complète du paquet, du registre et des styles.
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/marquee' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/marquee' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/marquee' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/marquee' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/marquee' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/marquee' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Anatomie
-
-```text
-Marquee
-├─ MarqueeEdge (facultatif)
-├─ MarqueeViewport
-│  └─ MarqueeContent
-│     └─ MarqueeItem
-└─ MarqueeEdge (facultatif)
-
-MarqueeRootProvider
-└─ même arbre de parties, relié à l’état créé par useMarquee() de moduix
-```
-
-| Partie                       | Rôle                                                                                              |
-| ---------------------------- | ------------------------------------------------------------------------------------------------- |
-| `Marquee`   | État du composant, libellés, identifiants, orientation, état de pause et variables CSS.            |
-| `MarqueeRootProvider`       | Rend l’arbre du composant à partir de l’état renvoyé par `useMarquee()`.                           |
-| `MarqueeViewport`           | Zone d’affichage qui masque ce qui dépasse du contenu défilant.                                   |
-| `MarqueeContent`            | Conteneur du contenu animé. Ark le duplique si nécessaire.                                         |
-| `MarqueeItem`               | Élément individuel du contenu.                                                                    |
-| `MarqueeEdge`               | Dégradé facultatif qui fait disparaître le contenu au bord. `side` en choisit le côté.           |
-| `MarqueeContext`            | Accès avancé au contexte du composant `Marquee` qui l’englobe.                                   |
-
-## Composition
-
-Utilisez `Marquee` avec les parties explicites `MarqueeViewport`, `MarqueeContent` et `MarqueeItem`. Ajoutez `MarqueeEdge` dans la même
-racine lorsque le contenu doit se fondre dans l’arrière-plan de la page ; chaque bordure doit recevoir un `side`.
-
-Utilisez `defaultPaused` pour définir l’état initial sans contrôle externe. Si une autre partie de l’application gère
-la lecture, utilisez `paused` avec `onPauseChange(details)`. Pour des commandes situées en dehors de l’arbre, créez
-l’état avec `useMarquee()` et transmettez-le à `MarqueeRootProvider` ; ne rendez pas `Marquee` et `MarqueeRootProvider` pour
-le même état. Les commandes placées dans l’arbre peuvent lire l’API courante avec `MarqueeContext` ou
-`useMarqueeContext()`.
 
 ## Exemples
 
@@ -162,6 +90,41 @@ classe pour la modifier.
 
 <Example name="marquee/vertical" />
 
+## Composition
+
+Utilisez `Marquee` avec les parties explicites `MarqueeViewport`, `MarqueeContent` et `MarqueeItem`. Ajoutez `MarqueeEdge` dans la même
+racine lorsque le contenu doit se fondre dans l’arrière-plan de la page ; chaque bordure doit recevoir un `side`.
+
+Utilisez `defaultPaused` pour définir l’état initial sans contrôle externe. Si une autre partie de l’application gère
+la lecture, utilisez `paused` avec `onPauseChange(details)`. Pour des commandes situées en dehors de l’arbre, créez
+l’état avec `useMarquee()` et transmettez-le à `MarqueeRootProvider` ; ne rendez pas `Marquee` et `MarqueeRootProvider` pour
+le même état. Les commandes placées dans l’arbre peuvent lire l’API courante avec `MarqueeContext` ou
+`useMarqueeContext()`.
+
+## Anatomie
+
+```text
+Marquee
+├─ MarqueeEdge (facultatif)
+├─ MarqueeViewport
+│  └─ MarqueeContent
+│     └─ MarqueeItem
+└─ MarqueeEdge (facultatif)
+
+MarqueeRootProvider
+└─ même arbre de parties, relié à l’état créé par useMarquee() de moduix
+```
+
+| Partie                       | Rôle                                                                                              |
+| ---------------------------- | ------------------------------------------------------------------------------------------------- |
+| `Marquee`   | État du composant, libellés, identifiants, orientation, état de pause et variables CSS.            |
+| `MarqueeRootProvider`       | Rend l’arbre du composant à partir de l’état renvoyé par `useMarquee()`.                           |
+| `MarqueeViewport`           | Zone d’affichage qui masque ce qui dépasse du contenu défilant.                                   |
+| `MarqueeContent`            | Conteneur du contenu animé. Ark le duplique si nécessaire.                                         |
+| `MarqueeItem`               | Élément individuel du contenu.                                                                    |
+| `MarqueeEdge`               | Dégradé facultatif qui fait disparaître le contenu au bord. `side` en choisit le côté.           |
+| `MarqueeContext`            | Accès avancé au contexte du composant `Marquee` qui l’englobe.                                   |
+
 ## Styles
 
 Marquee inclut les images clés nécessaires à l’animation du contenu. Utilisez les attributs d’état Ark pour les styles
@@ -175,7 +138,7 @@ liés au comportement et choisissez le modèle de personnalisation de votre vari
 `Marquee` est transparent par défaut, hérite de la couleur du texte et n’ajoute ni bordure, ni arrière-plan, ni marge intérieure, ni arrondi. Si vous
 avez besoin d’un conteneur avec un fond ou une bordure, définissez-le dans le CSS de votre application.
 
-### Propriétés CSS
+### Variables CSS
 
 <CssPropertiesSection properties={MarqueeDocs.marqueeCssProperties} />
 

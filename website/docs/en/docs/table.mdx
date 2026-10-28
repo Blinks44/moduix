@@ -2,120 +2,22 @@
 title: Table
 component: table
 description: A native table component with an optional scroll container, numeric columns, captions, and empty-state support for React, Solid, and Vue.
+ark: https://ark-ui.com/docs/guides/composition#the-ark-factory
 ---
 
 import * as TableDocs from '@/components/examples/table/css-properties';
 
-## API Reference
+<Example name="table/basic" />
 
-Ark UI does not provide a dedicated table primitive. moduix builds `Table` with the official
-[Ark factory](https://ark-ui.com/docs/guides/composition#the-ark-factory), follows Ark's
-[composition](https://ark-ui.com/docs/guides/composition), [styling](https://ark-ui.com/docs/guides/styling), and
-[ref](https://ark-ui.com/docs/guides/ref) guidance.
+## Installation
 
-Each part renders its corresponding native HTML element by default, accepts native element props and
-`className` in React or `class` in Solid and Vue, forwards its ref, and supports Ark's `asChild`. When using
-`asChild`, pass one semantic element as the child. `TableEmpty` is the exception to the usual
-one-element composition: its `asChild` replaces only the generated `td`.
+<ComponentInstall />
 
-## Basic
+## Usage
 
 If the table may be wider than its container, wrap it in `TableScrollArea`. Then compose `Table`
 with `TableHeader`, `TableBody`, `TableRow`, and the matching header and cell parts. This is the
 recommended setup for invoices, summaries, and admin-style read-only datasets.
-
-<Example name="table/basic" />
-
-## Install with shadcn
-
-See [Quick Start](/docs/quick-start) for full package setup, registry configuration, and styling guidance.
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/table' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/table' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/table' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/table' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/table' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/table' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Anatomy
-
-The normal consumer path stays close to native table markup:
-
-```text
-TableScrollArea (optional)
-└─ Table
-   ├─ TableColumnGroup (optional)
-   │  └─ TableColumn
-   ├─ TableCaption (optional)
-   ├─ TableHeader
-   │  └─ TableRow
-   │     └─ TableColumnHeader
-   ├─ TableBody
-   │  ├─ TableRow
-   │  │  └─ TableCell
-   │  └─ TableEmpty (optional)
-   └─ TableFooter (optional)
-```
-
-| Part                   | Role                                                                       |
-| ---------------------- | -------------------------------------------------------------------------- |
-| `Table`           | Native `table` root. Owns typography, dividers, and state attributes.      |
-| `TableScrollArea`     | Optional bordered container with horizontal overflow for the table.       |
-| `TableColumnGroup`    | Native `colgroup` wrapper for column width distribution.                   |
-| `TableColumn`         | Native `col` wrapper. Use the native `width` attribute.                    |
-| `TableCaption`        | Optional table caption above or below the table via `side`.                |
-| `TableHeader`         | Native `thead` wrapper for column headers.                                 |
-| `TableBody`           | Native `tbody` wrapper for body rows.                                      |
-| `TableFooter`         | Native `tfoot` wrapper for summary rows.                                   |
-| `TableRow`            | Native `tr` wrapper with divider behavior.                                 |
-| `TableColumnHeader`   | Native `th` wrapper. Supports `numeric`.                                   |
-| `TableCell`           | Native `td` wrapper. Supports `numeric`.                                   |
-| `TableEmpty`          | Convenience empty-state row and cell inside `TableBody`.                 |
-
-## Composition
-
-Use `TableScrollArea` when the table needs a bordered horizontal-scroll shell. Skip it when the
-parent layout already owns scrolling, padding, borders, or surface styling, and keep the native
-table parts inside your own wrapper.
-
-`TableEmpty` owns a full empty row inside `TableBody`, so its required `colSpan` must match the
-current body column count. Its `asChild` replaces only the generated `td`; compose `TableRow` and
-`TableCell` directly when the row itself needs customization. `Table` owns presentation only:
-sorting, filtering, selection, pagination, virtualization, and row action state belong to a
-higher-level table composition such as [Data Table](/blocks/data-table).
-
-### Accessibility
-
-`Table` uses native table elements, so use standard HTML table attributes for the relationships in
-your data. Add `scope="col"` to column headers, use `TableCaption` for a short accessible name or
-description, and use `id` / `headers` when a complex table needs explicit header associations.
-`Table` does not add keyboard navigation, selection behavior, or focus management.
 
 ## Examples
 
@@ -198,6 +100,65 @@ layout full control of the shell.
 
 <Example name="table/custom-composition" />
 
+## Composition
+
+Each part renders its corresponding native HTML element by default, accepts native element props and
+`className` in React or `class` in Solid and Vue, forwards its ref, and supports Ark's `asChild`. When using
+`asChild`, pass one semantic element as the child. `TableEmpty` is the exception to the usual
+one-element composition: its `asChild` replaces only the generated `td`.
+
+Use `TableScrollArea` when the table needs a bordered horizontal-scroll shell. Skip it when the
+parent layout already owns scrolling, padding, borders, or surface styling, and keep the native
+table parts inside your own wrapper.
+
+`TableEmpty` owns a full empty row inside `TableBody`, so its required `colSpan` must match the
+current body column count. Its `asChild` replaces only the generated `td`; compose `TableRow` and
+`TableCell` directly when the row itself needs customization. `Table` owns presentation only:
+sorting, filtering, selection, pagination, virtualization, and row action state belong to a
+higher-level table composition such as [Data Table](/blocks/data-table).
+
+### Accessibility
+
+`Table` uses native table elements, so use standard HTML table attributes for the relationships in
+your data. Add `scope="col"` to column headers, use `TableCaption` for a short accessible name or
+description, and use `id` / `headers` when a complex table needs explicit header associations.
+`Table` does not add keyboard navigation, selection behavior, or focus management.
+
+## Anatomy
+
+The normal consumer path stays close to native table markup:
+
+```text
+TableScrollArea (optional)
+└─ Table
+   ├─ TableColumnGroup (optional)
+   │  └─ TableColumn
+   ├─ TableCaption (optional)
+   ├─ TableHeader
+   │  └─ TableRow
+   │     └─ TableColumnHeader
+   ├─ TableBody
+   │  ├─ TableRow
+   │  │  └─ TableCell
+   │  └─ TableEmpty (optional)
+   └─ TableFooter (optional)
+```
+
+| Part                   | Role                                                                       |
+| ---------------------- | -------------------------------------------------------------------------- |
+| `Table`           | Native `table` root. Owns typography, dividers, and state attributes.      |
+| `TableScrollArea`     | Optional bordered container with horizontal overflow for the table.       |
+| `TableColumnGroup`    | Native `colgroup` wrapper for column width distribution.                   |
+| `TableColumn`         | Native `col` wrapper. Use the native `width` attribute.                    |
+| `TableCaption`        | Optional table caption above or below the table via `side`.                |
+| `TableHeader`         | Native `thead` wrapper for column headers.                                 |
+| `TableBody`           | Native `tbody` wrapper for body rows.                                      |
+| `TableFooter`         | Native `tfoot` wrapper for summary rows.                                   |
+| `TableRow`            | Native `tr` wrapper with divider behavior.                                 |
+| `TableColumnHeader`   | Native `th` wrapper. Supports `numeric`.                                   |
+| `TableCell`           | Native `td` wrapper. Supports `numeric`.                                   |
+| `TableEmpty`          | Convenience empty-state row and cell inside `TableBody`.                 |
+
 ## Styling
 
 Style `Table` through `className` in React or `class` in Solid and Vue, the public `data-slot`, `data-scope`,
@@ -205,7 +166,7 @@ and `data-part` hooks, the `data-side` and `data-numeric` attributes, and the `-
 CSS variables shown below. Tailwind variants use native utility classes and consumer classes; the
 variables below apply to CSS Modules variants.
 
-### CSS Variables
+### CSS variables
 
 <CssPropertiesSection properties={TableDocs.tableOverrideCssProperties} />
 

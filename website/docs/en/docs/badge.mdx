@@ -2,16 +2,22 @@
 title: Badge
 component: badge
 description: A compact label for brief metadata such as status, category, version, or count.
+ark: https://ark-ui.com/docs/guides/composition#the-ark-factory
 ---
 
 import * as BadgeDocs from '@/components/examples/badge/css-properties';
 
-## API Reference
+<Example name="badge/basic" />
 
-Ark UI does not provide a dedicated `Badge` primitive. moduix builds `Badge` with the official
-[Ark factory](https://ark-ui.com/docs/guides/composition#the-ark-factory) and follows Ark's guidance for
-[composition](https://ark-ui.com/docs/guides/composition), [styling](https://ark-ui.com/docs/guides/styling), and
-[refs](https://ark-ui.com/docs/guides/ref).
+## Installation
+
+<ComponentInstall />
+
+## Usage
+
+Start with a plain `<Badge>`. The component renders a presentational `span` by default. Set `variant`
+to choose `default`, `secondary`, `destructive`, `outline`, `ghost`, or `link`, set `size` to `sm`,
+`md`, or `lg`, and add `BadgeDot` only when the status benefits from a visual indicator.
 
 ## Choosing the right component
 
@@ -22,81 +28,6 @@ for a control that lets the user select or edit a value.
 - Choose **`Tag`** for selected values, filters, assignments, or labels that are part of the current interface state.
 
 The Vue exports are available from `@moduix/vue/badge` for CSS Modules and `@moduix/vue-tailwind/badge` for Tailwind CSS.
-
-## Basic
-
-
-Start with a plain `<Badge>`. The component renders a presentational `span` by default. Set `variant`
-to choose `default`, `secondary`, `destructive`, `outline`, `ghost`, or `link`, set `size` to `sm`,
-`md`, or `lg`, and add `BadgeDot` only when the status benefits from a visual indicator.
-
-<Example name="badge/basic" />
-
-## Install with shadcn
-
-See [Quick Start](/docs/quick-start) for full package setup, registry configuration, and styling guidance.
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/badge' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/badge' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/badge' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/badge' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/badge' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/badge' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Anatomy
-
-`Badge` is the root component. It keeps the public API small and exposes only the parts you can see.
-
-```text
-Badge
-├─ BadgeLabel (optional; use explicitly for truncation)
-├─ BadgeDot (optional)
-└─ svg icon (optional)
-```
-
-| Part         | Role                                                                                 |
-| ------------ | ------------------------------------------------------------------------------------ |
-| `Badge`      | Root part. Applies the variant, border, and spacing.                                |
-| `BadgeLabel` | Explicit text part. Keeps a composed label truncatable.                              |
-| `BadgeDot`   | Optional decorative part. Renders a circular marker that inherits the text color.    |
-
-## Composition
-
-`Badge` is presentational and owns no state. Direct text remains unchanged; use `BadgeLabel`
-explicitly when a constrained label must truncate or when combining text with `BadgeDot` or an
-icon. For a semantic link or button, use `asChild` with exactly one child in React. In Solid, pass
-a render function to `asChild`; the rendered child keeps its native semantics.
-
-In Solid, assign a ref to the element created inside the `asChild` render function. A ref on `Badge`
-itself is not forwarded through that composition path.
-
-In Vue, place exactly one child in the default slot when using `as-child`; the child keeps its native semantics.
 
 ## Examples
 
@@ -147,6 +78,35 @@ Place a direct child SVG icon next to the label when the metadata needs another 
 
 <Example name="badge/with-icon" />
 
+## Composition
+
+`Badge` is presentational and owns no state. Direct text remains unchanged; use `BadgeLabel`
+explicitly when a constrained label must truncate or when combining text with `BadgeDot` or an
+icon. For a semantic link or button, use `asChild` with exactly one child in React. In Solid, pass
+a render function to `asChild`; the rendered child keeps its native semantics.
+
+In Solid, assign a ref to the element created inside the `asChild` render function. A ref on `Badge`
+itself is not forwarded through that composition path.
+
+In Vue, place exactly one child in the default slot when using `as-child`; the child keeps its native semantics.
+
+## Anatomy
+
+`Badge` is the root component. It keeps the public API small and exposes only the parts you can see.
+
+```text
+Badge
+├─ BadgeLabel (optional; use explicitly for truncation)
+├─ BadgeDot (optional)
+└─ svg icon (optional)
+```
+
+| Part         | Role                                                                                 |
+| ------------ | ------------------------------------------------------------------------------------ |
+| `Badge`      | Root part. Applies the variant, border, and spacing.                                |
+| `BadgeLabel` | Explicit text part. Keeps a composed label truncatable.                              |
+| `BadgeDot`   | Optional decorative part. Renders a circular marker that inherits the text color.    |
+
 ## Styling
 
 Start with a built-in variant and size. The CSS Modules variables override the background, border,
@@ -158,7 +118,7 @@ CSS Modules packages; Tailwind packages use native utilities and consumer classe
 Use `className` in React or `class` in Solid and Vue on exported parts. The stable `data-slot` hooks and
 Ark data attributes are shared by all styling tracks.
 
-### CSS Properties
+### CSS variables
 
 <CssPropertiesSection properties={BadgeDocs.badgeCssProperties} />
 

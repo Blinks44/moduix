@@ -2,23 +2,18 @@
 title: Editable
 component: editable
 description: Доступное редактирование текста в React, Solid и Vue с установкой из пакета или через shadcn CLI.
+ark: https://ark-ui.com/docs/components/editable
 ---
 
 import * as EditableDocs from '@/components/examples/editable/css-properties';
 
-## Справочник API
+<Example name="editable/basic" />
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/editable" />
+## Установка
 
-## Какой компонент выбрать
+<ComponentInstall />
 
-- Выбирайте **`Input`** или **`Textarea`**, если значение всегда должно быть доступно для редактирования.
-- Выбирайте **`Editable`**, если значение обычно доступно только для чтения, а редактирование должно быть явным действием.
-- Оберните **`Editable`** в **`Field`**, если вспомогательный текст, сообщение об ошибке или общее состояние формы должны отображаться
-  за пределами компонента.
-
-## Базовый пример
-
+## Использование
 
 Используйте `Editable` как корневой компонент и составьте его из `EditableLabel`, `EditableArea`,
 `EditableInput` и `EditablePreview`. Добавьте `EditableControls` для стандартного сценария
@@ -26,84 +21,12 @@ import * as EditableDocs from '@/components/examples/editable/css-properties';
 для кнопок управления. По умолчанию режим редактирования включается двойным щелчком, что помогает
 избежать случайных изменений.
 
-<Example name="editable/basic" />
+## Какой компонент выбрать
 
-## Установка через shadcn
-
-Полную настройку пакета, реестра и стилей см. в разделе [Быстрый старт](/docs/quick-start).
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/editable' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/editable' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/editable' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/editable' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/editable' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/editable' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Анатомия
-
-```text
-Editable
-├─ EditableLabel
-├─ EditableArea
-│  ├─ EditableInput
-│  └─ EditablePreview
-├─ EditableControl или EditableControls
-│  ├─ EditableEditTrigger
-│  ├─ EditableSubmitTrigger
-│  └─ EditableCancelTrigger
-
-EditableRootProvider
-└─ то же дерево частей, подключённое к состоянию Ark из `useEditable()`
-```
-
-| Часть                        | Назначение                                             |
-| ---------------------------- | ------------------------------------------------------ |
-| `Editable`                 | Состояние компонента, callbacks, свойства формы и доступность. |
-| `EditableRootProvider`      | Корневая часть, подключённая к экземпляру `useEditable()`. |
-| `EditableLabel`             | Видимая подпись поля и отображаемого значения.         |
-| `EditableArea`              | Общий контейнер для поля ввода и отображаемого значения. |
-| `EditableInput`             | Текстовое поле в режиме редактирования.               |
-| `EditablePreview`           | Значение или плейсхолдер вне режима редактирования.    |
-| `EditableControl`           | Необязательный контейнер кнопок редактирования, сохранения и отмены. |
-| `EditableControls`           | Удобная обёртка стандартного сценария управления.     |
-| `EditableEditTrigger`       | Кнопка перехода в режим редактирования.               |
-| `EditableSubmitTrigger`     | Кнопка сохранения текущего значения.                   |
-| `EditableCancelTrigger`     | Кнопка отмены текущих изменений.                       |
-
-## Композиция
-
-Размещайте `EditableInput` и `EditablePreview` рядом внутри `EditableArea`, а `EditableControls`
-добавляйте после области для стандартного сценария редактирования, сохранения и отмены. Используйте
-`EditableRootProvider` вместо `Editable`, если состояние из `useEditable()` должны разделять
-элементы управления за пределами дерева. Для своего содержимого, зависящего от режима редактирования,
-используйте `EditableContext` или `useEditableContext()`. В Solid состояние из `useEditable()` и
-контекста представлено реактивной функцией, поэтому его можно читать как `editable().editing`.
+- Выбирайте **`Input`** или **`Textarea`**, если значение всегда должно быть доступно для редактирования.
+- Выбирайте **`Editable`**, если значение обычно доступно только для чтения, а редактирование должно быть явным действием.
+- Оберните **`Editable`** в **`Field`**, если вспомогательный текст, сообщение об ошибке или общее состояние формы должны отображаться
+  за пределами компонента.
 
 ## Примеры
 
@@ -168,6 +91,46 @@ EditableRootProvider
 
 <Example name="editable/advanced-customization" />
 
+## Композиция
+
+Размещайте `EditableInput` и `EditablePreview` рядом внутри `EditableArea`, а `EditableControls`
+добавляйте после области для стандартного сценария редактирования, сохранения и отмены. Используйте
+`EditableRootProvider` вместо `Editable`, если состояние из `useEditable()` должны разделять
+элементы управления за пределами дерева. Для своего содержимого, зависящего от режима редактирования,
+используйте `EditableContext` или `useEditableContext()`. В Solid состояние из `useEditable()` и
+контекста представлено реактивной функцией, поэтому его можно читать как `editable().editing`.
+
+## Анатомия
+
+```text
+Editable
+├─ EditableLabel
+├─ EditableArea
+│  ├─ EditableInput
+│  └─ EditablePreview
+├─ EditableControl или EditableControls
+│  ├─ EditableEditTrigger
+│  ├─ EditableSubmitTrigger
+│  └─ EditableCancelTrigger
+
+EditableRootProvider
+└─ то же дерево частей, подключённое к состоянию Ark из `useEditable()`
+```
+
+| Часть                        | Назначение                                             |
+| ---------------------------- | ------------------------------------------------------ |
+| `Editable`                 | Состояние компонента, callbacks, свойства формы и доступность. |
+| `EditableRootProvider`      | Корневая часть, подключённая к экземпляру `useEditable()`. |
+| `EditableLabel`             | Видимая подпись поля и отображаемого значения.         |
+| `EditableArea`              | Общий контейнер для поля ввода и отображаемого значения. |
+| `EditableInput`             | Текстовое поле в режиме редактирования.               |
+| `EditablePreview`           | Значение или плейсхолдер вне режима редактирования.    |
+| `EditableControl`           | Необязательный контейнер кнопок редактирования, сохранения и отмены. |
+| `EditableControls`           | Удобная обёртка стандартного сценария управления.     |
+| `EditableEditTrigger`       | Кнопка перехода в режим редактирования.               |
+| `EditableSubmitTrigger`     | Кнопка сохранения текущего значения.                   |
+| `EditableCancelTrigger`     | Кнопка отмены текущих изменений.                       |
+
 ## Стилизация
 
 Для структурных стилей передавайте `className` в React или `class` в Solid и Vue на экспортируемые
@@ -179,7 +142,7 @@ EditableRootProvider
 разметку. С `autoResize` корень подстраивается под ширину текста. Чтобы ограничить ширину, задайте
 `max-width` корню через класс.
 
-### CSS-свойства
+### CSS-переменные
 
 <CssPropertiesSection properties={EditableDocs.editableOverrideCssProperties} />
 

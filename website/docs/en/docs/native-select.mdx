@@ -2,16 +2,21 @@
 title: Native Select
 component: native-select
 description: A styled native `<select>` for simple option lists in React, Solid, or Vue, with browser-owned selection behavior.
+ark: https://ark-ui.com/docs/components/field
 ---
 
 import * as NativeSelectDocs from '@/components/examples/native-select/css-properties';
 
-## API Reference
+<Example name="native-select/basic" />
 
-`NativeSelect` is a styled wrapper around Ark UI's
-[`FieldSelect`](https://ark-ui.com/docs/components/field). It renders a real HTML `<select>`, so the
-browser remains responsible for option rendering, keyboard interaction, form submission, autofill,
-validation, and reset.
+## Installation
+
+<ComponentInstall />
+
+## Usage
+
+Add native `option` or `optgroup` elements as children and pass the same props you would pass to an
+HTML `<select>`.
 
 ## Choosing the right component
 
@@ -19,83 +24,6 @@ Use `NativeSelect` for simple option lists when you want native browser behavior
 form reset, keyboard interaction, and the platform picker on mobile. Choose [`Select`](/docs/select)
 when you need a custom popup, collection APIs, rich option content, clearing, or programmatic control
 of the popup.
-
-## Basic
-
-
-Add native `option` or `optgroup` elements as children and pass the same props you would pass to an
-HTML `<select>`.
-
-<Example name="native-select/basic" />
-
-## Install with shadcn
-
-See [Quick Start](/docs/quick-start) for full package setup, registry configuration, and styling guidance.
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/native-select' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/native-select' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/native-select' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/native-select' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/native-select' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/native-select' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Anatomy
-
-`NativeSelect` renders the real `<select>` inside an outer wrapper `<span>`. Collapsed single-select
-controls also get a decorative `ChevronDownIcon`; the indicator is hidden for `multiple` and
-`size > 1`, when the browser displays a list.
-
-```text
-NativeSelect
-└─ span[data-scope="native-select"][data-part="control"][data-slot="native-select-control"]
-   ├─ select[data-scope="field"][data-part="select"][data-slot="native-select-root"]
-   │  ├─ option
-   │  └─ optgroup
-   └─ span[data-scope="native-select"][data-part="indicator"][data-slot="native-select-indicator"]
-      └─ ChevronDownIcon
-```
-
-| Part | Role |
-| ---- | ---- |
-| `NativeSelect` | Public root component. Renders the native `<select>` and decorative indicator. |
-
-## Composition
-
-React builds an uncontrolled select with the native `defaultValue` prop. In Solid and Vue, pass the
-native `selected` attribute to the `<option>` that should be initially selected: a `defaultValue` prop
-on the Solid or Vue `NativeSelect` has no effect. Use `value` with `onChange` in React and Solid, or
-`v-model` in Vue, when application state owns the current value. Wrap `NativeSelect` in `Field` when
-the label, supporting text, validation, or disabled state should be shared with the control. The
-`Field` parts connect that content to the native select while the browser still owns option selection.
-With `multiple` or `size > 1`, the browser owns the list interaction and the decorative indicator is
-hidden. `asChild` can replace the rendered select, but the child must remain one semantic HTML
-`<select>`.
 
 ## Examples
 
@@ -120,6 +48,43 @@ selected options and their keyboard interaction.
 
 <Example name="native-select/multiple-selection" />
 
+## Composition
+
+`NativeSelect` is a styled wrapper around Ark UI's
+[`FieldSelect`](https://ark-ui.com/docs/components/field). It renders a real HTML `<select>`, so the
+browser remains responsible for option rendering, keyboard interaction, form submission, autofill,
+validation, and reset.
+
+React builds an uncontrolled select with the native `defaultValue` prop. In Solid and Vue, pass the
+native `selected` attribute to the `<option>` that should be initially selected: a `defaultValue` prop
+on the Solid or Vue `NativeSelect` has no effect. Use `value` with `onChange` in React and Solid, or
+`v-model` in Vue, when application state owns the current value. Wrap `NativeSelect` in `Field` when
+the label, supporting text, validation, or disabled state should be shared with the control. The
+`Field` parts connect that content to the native select while the browser still owns option selection.
+With `multiple` or `size > 1`, the browser owns the list interaction and the decorative indicator is
+hidden. `asChild` can replace the rendered select, but the child must remain one semantic HTML
+`<select>`.
+
+## Anatomy
+
+`NativeSelect` renders the real `<select>` inside an outer wrapper `<span>`. Collapsed single-select
+controls also get a decorative `ChevronDownIcon`; the indicator is hidden for `multiple` and
+`size > 1`, when the browser displays a list.
+
+```text
+NativeSelect
+└─ span[data-scope="native-select"][data-part="control"][data-slot="native-select-control"]
+   ├─ select[data-scope="field"][data-part="select"][data-slot="native-select-root"]
+   │  ├─ option
+   │  └─ optgroup
+   └─ span[data-scope="native-select"][data-part="indicator"][data-slot="native-select-indicator"]
+      └─ ChevronDownIcon
+```
+
+| Part | Role |
+| ---- | ---- |
+| `NativeSelect` | Public root component. Renders the native `<select>` and decorative indicator. |
+
 ## Styling
 
 `NativeSelect` reads the same width, height, radius, and indicator size variables as the CSS Modules
@@ -127,7 +92,7 @@ variants of `Select`, so both selects can be resized together. Colors, borders, 
 motion come from foundation tokens; override them with a class. Tailwind variants use native utility
 classes and consumer class overrides.
 
-### CSS Properties
+### CSS variables
 
 The following variables are available in the CSS Modules variants. Default padding and indicator
 geometry use the shared 4px spacing scale.

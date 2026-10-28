@@ -2,13 +2,21 @@
 title: Date Input
 component: date-input
 description: Créez des champs de date segmentés et accessibles avec React, Solid ou Vue, en CSS Modules ou Tailwind, avec prise en charge de la locale et des formulaires natifs.
+ark: https://ark-ui.com/docs/components/date-input
 ---
 
 import * as DateInputDocs from '@/components/examples/date-input/css-properties';
 
-## Référence de l’API
+<Example name="date-input/basic" />
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/date-input" />
+## Installation
+
+<ComponentInstall />
+
+## Utilisation
+
+`DateInput` affiche des segments de date adaptés à la locale, modifiables au clavier. Placez
+`DateInputSegments` dans `DateInputControl` pour la composition standard.
 
 ## Choisir le bon composant
 
@@ -16,97 +24,6 @@ import * as DateInputDocs from '@/components/examples/date-input/css-properties'
 - Choisissez **`DateInput`** lorsque les utilisateurs doivent saisir une date segment par segment au clavier.
 - Choisissez **`DatePicker`** lorsqu’un calendrier intégré ou contextuel est nécessaire. `DateInput` est conçu
   pour la saisie au clavier et n’inclut pas de calendrier.
-
-## Exemple de base
-
-`DateInput` affiche des segments de date adaptés à la locale, modifiables au clavier. Placez
-`DateInputSegments` dans `DateInputControl` pour la composition standard.
-
-<Example name="date-input/basic" />
-
-## Installation avec shadcn
-
-Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration complète du paquet, du registre et des styles.
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/date-input' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/date-input' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/date-input' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/date-input' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/date-input' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/date-input' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Anatomie
-
-```text
-DateInput
-├─ DateInputLabel
-├─ DateInputControl
-│  ├─ DateInputSegments
-│  └─ DateInputSeparator (facultatif, pour les plages)
-└─ DateInputHiddenInput[index] (explicite, un par date envoyée)
-
-Personnalisation avancée :
-
-DateInputSegmentGroup
-└─ DateInputSegmentContext
-   └─ DateInputSegment
-
-DateInputRootProvider
-└─ même arborescence reliée à un store useDateInput()
-```
-
-| Partie | Rôle |
-| ---- | ---- |
-| `DateInput` | Gère les valeurs, le formatage selon la locale, le focus des segments et la validation. |
-| `DateInputHiddenInput` | Contrôle de formulaire natif Ark à composer explicitement pour l’envoi. |
-| `DateInputRootProvider` | Relie les parties à l’état créé avec `useDateInput()`. |
-| `DateInputLabel` | Libellé accessible du champ de date. |
-| `DateInputControl` | Cadre visuel autour d’un ou plusieurs groupes de segments. |
-| `DateInputSegmentGroup` | Regroupe les segments d’un index de date. |
-| `DateInputSegment` | Segment modifiable ou littéral fourni par Ark UI. |
-| `DateInputSegments` | Affiche un groupe de segments adapté à la locale pour le cas courant. |
-| `DateInputSeparator` | Texte de présentation entre les groupes d’une plage. |
-| `DateInputContext` | Accès sans rendu à l’état courant du champ. |
-| `DateInputSegmentContext` | Aide au rendu des segments selon la locale. |
-
-## Composition
-
-Pour un champ standard, utilisez `DateInput` avec `DateInputControl` et `DateInputSegments`. Laissez l’état
-non contrôlé avec `defaultValue`, contrôlez-le avec `value` et `onValueChange(details)`, ou créez-le avec
-`useDateInput()` puis reliez les parties via `DateInputRootProvider`. En Vue, utilisez `v-model` pour
-la valeur contrôlée. Les valeurs utilisent la forme
-`DateInputDateValue[]` de `@internationalized/date`, et non des chaînes.
-
-`DateInputHiddenInput` est explicite, car la racine n’ajoute pas de champs natifs. Ajoutez un champ masqué pour
-chaque date envoyée et utilisez les mêmes valeurs `index` pour une plage. Utilisez
-`DateInputSegmentGroup`, `DateInputSegmentContext` et `DateInputSegment` uniquement lorsque le rendu par défaut
-de `DateInputSegments` ne suffit pas.
 
 ## Exemples
 
@@ -191,6 +108,53 @@ Utilisez la composition complète des segments lorsque le rendu doit varier selo
 
 <Example name="date-input/advanced-customization" />
 
+## Composition
+
+Pour un champ standard, utilisez `DateInput` avec `DateInputControl` et `DateInputSegments`. Laissez l’état
+non contrôlé avec `defaultValue`, contrôlez-le avec `value` et `onValueChange(details)`, ou créez-le avec
+`useDateInput()` puis reliez les parties via `DateInputRootProvider`. En Vue, utilisez `v-model` pour
+la valeur contrôlée. Les valeurs utilisent la forme
+`DateInputDateValue[]` de `@internationalized/date`, et non des chaînes.
+
+`DateInputHiddenInput` est explicite, car la racine n’ajoute pas de champs natifs. Ajoutez un champ masqué pour
+chaque date envoyée et utilisez les mêmes valeurs `index` pour une plage. Utilisez
+`DateInputSegmentGroup`, `DateInputSegmentContext` et `DateInputSegment` uniquement lorsque le rendu par défaut
+de `DateInputSegments` ne suffit pas.
+
+## Anatomie
+
+```text
+DateInput
+├─ DateInputLabel
+├─ DateInputControl
+│  ├─ DateInputSegments
+│  └─ DateInputSeparator (facultatif, pour les plages)
+└─ DateInputHiddenInput[index] (explicite, un par date envoyée)
+
+Personnalisation avancée :
+
+DateInputSegmentGroup
+└─ DateInputSegmentContext
+   └─ DateInputSegment
+
+DateInputRootProvider
+└─ même arborescence reliée à un store useDateInput()
+```
+
+| Partie | Rôle |
+| ---- | ---- |
+| `DateInput` | Gère les valeurs, le formatage selon la locale, le focus des segments et la validation. |
+| `DateInputHiddenInput` | Contrôle de formulaire natif Ark à composer explicitement pour l’envoi. |
+| `DateInputRootProvider` | Relie les parties à l’état créé avec `useDateInput()`. |
+| `DateInputLabel` | Libellé accessible du champ de date. |
+| `DateInputControl` | Cadre visuel autour d’un ou plusieurs groupes de segments. |
+| `DateInputSegmentGroup` | Regroupe les segments d’un index de date. |
+| `DateInputSegment` | Segment modifiable ou littéral fourni par Ark UI. |
+| `DateInputSegments` | Affiche un groupe de segments adapté à la locale pour le cas courant. |
+| `DateInputSeparator` | Texte de présentation entre les groupes d’une plage. |
+| `DateInputContext` | Accès sans rendu à l’état courant du champ. |
+| `DateInputSegmentContext` | Aide au rendu des segments selon la locale. |
+
 ## Styles
 
 Utilisez `className` en React ou `class` en Solid et Vue sur les parties exportées pour les styles structurels. Les
@@ -201,7 +165,7 @@ communs aux deux modes de style.
 La racine s’adapte à son contenu et le contrôle la remplit. Pour étirer le champ dans un formulaire,
 définissez `--moduix-date-input-width: 100%` en CSS Modules ou ajoutez `w-full` à la racine en Tailwind.
 
-### Propriétés CSS
+### Variables CSS
 
 <CssPropertiesSection properties={DateInputDocs.dateInputOverrideCssProperties} />
 

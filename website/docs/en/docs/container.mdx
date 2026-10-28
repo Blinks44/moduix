@@ -2,19 +2,18 @@
 title: Container
 component: container
 description: A responsive layout primitive for readable content widths and fluid horizontal padding.
+ark: https://ark-ui.com/docs/guides/composition#the-ark-factory
 ---
 
 import * as ContainerDocs from '@/components/examples/container/css-properties';
 
-## API Reference
+<Example name="container/basic" />
 
-Ark UI does not provide a dedicated `container` primitive. moduix implements `Container` with Ark's official
-[factory](https://ark-ui.com/docs/guides/composition#the-ark-factory), so it follows Ark's guidance for
-[composition](https://ark-ui.com/docs/guides/composition), [styling](https://ark-ui.com/docs/guides/styling), and
-[ref forwarding](https://ark-ui.com/docs/guides/ref).
+## Installation
 
-## Basic
+<ComponentInstall />
 
+## Usage
 
 Import `Container` from the matching package: `@moduix/react/container`, `@moduix/solid/container`, or
 `@moduix/vue/container` for CSS Modules, and `@moduix/react-tailwind/container`,
@@ -22,70 +21,6 @@ Import `Container` from the matching package: `@moduix/react/container`, `@modui
 
 Use `Container` for a centered content column with a readable width. It adds responsive horizontal gutters and leaves
 vertical spacing to the surrounding layout.
-
-<Example name="container/basic" />
-
-## Install with shadcn
-
-See [Quick Start](/docs/quick-start) for full package setup, registry configuration, and styling guidance.
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/container' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/container' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/container' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/container' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/container' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/container' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Anatomy
-
-`Container` renders one root element and does not add an extra wrapper.
-
-```text
-Container
-└─ children
-```
-
-| Part        | Role                                                     |
-| ----------- | -------------------------------------------------------- |
-| `Container` | Root layout element. Centers content and controls its width and horizontal padding. |
-
-## Composition
-
-`Container` has no managed state and no child parts to coordinate. Use it as the root and place the page or section
-content directly inside it.
-
-Use `asChild` when a semantic element should own the rendered root. Pass exactly one child: React and Vue render that
-child as the Container root, while Solid uses the render-function form
-`asChild={(props) => <main {...props()} />}`. In Solid, assign a ref to the element created inside that render
-function, because a ref on `Container` itself is not forwarded through `asChild`; in Vue, read the rendered element
-from the component ref's `$el`. Use `Bleed` inside `Container` when only one child needs to extend beyond the
-constrained text column.
 
 ## Examples
 
@@ -113,6 +48,31 @@ Keep the text column constrained and let only the wider child extend beyond it.
 
 <Example name="container/with-bleed" />
 
+## Composition
+
+`Container` has no managed state and no child parts to coordinate. Use it as the root and place the page or section
+content directly inside it.
+
+Use `asChild` when a semantic element should own the rendered root. Pass exactly one child: React and Vue render that
+child as the Container root, while Solid uses the render-function form
+`asChild={(props) => <main {...props()} />}`. In Solid, assign a ref to the element created inside that render
+function, because a ref on `Container` itself is not forwarded through `asChild`; in Vue, read the rendered element
+from the component ref's `$el`. Use `Bleed` inside `Container` when only one child needs to extend beyond the
+constrained text column.
+
+## Anatomy
+
+`Container` renders one root element and does not add an extra wrapper.
+
+```text
+Container
+└─ children
+```
+
+| Part        | Role                                                     |
+| ----------- | -------------------------------------------------------- |
+| `Container` | Root layout element. Centers content and controls its width and horizontal padding. |
+
 ## Styling
 
 For CSS Modules packages, override the CSS variables on the root when a page shell needs different width or gutter
@@ -120,7 +80,7 @@ values. Tailwind packages use utility classes and consumer class overrides inste
 `className` in React, `class` in Solid, or `class` in Vue for local block styles such as padding, borders, or
 backgrounds.
 
-### CSS Properties
+### CSS variables
 
 <CssPropertiesSection properties={ContainerDocs.containerOverrideCssProperties} />
 

@@ -2,18 +2,23 @@
 title: Sidebar
 component: sidebar
 description: Изменяемая по ширине и сворачиваемая навигация приложения на базе Ark UI Splitter.
+ark: https://ark-ui.com/docs/components/splitter
 ---
 
 import { sidebarOverrideCssProperties } from '@/components/examples/sidebar/css-properties';
 
-## Справочник API
+<Example name="sidebar/basic" />
 
-`Sidebar` - компонент moduix для компоновки навигации приложения. Он объединяет навигационные
-части с [Ark UI Splitter](https://ark-ui.com/docs/components/splitter), который отвечает за
-изменение размера, сворачивание, работу с клавиатурой и доступность. Состояние и колбэки
-соответствуют контракту `Splitter`.
+## Установка
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/splitter" />
+<ComponentInstall />
+
+## Использование
+
+Соберите панель навигации, ручку изменения размера и основную область содержимого как прямых
+потомков корня. Стандартных id и ограничений достаточно для обычного макета с левой боковой
+панелью. Оборачивайте кнопки навигации только с иконками в `SidebarTooltip`, чтобы подписи
+оставались доступны после сворачивания.
 
 ## Выбор подходящего компонента
 
@@ -21,126 +26,6 @@ import { sidebarOverrideCssProperties } from '@/components/examples/sidebar/css-
   располагаться рядом с основным содержимым.
 - Выбирайте **`Splitter`**, если нужны обычные изменяемые по размеру панели, а не панель навигации
   и основная область содержимого.
-
-## Базовый пример
-
-
-Соберите панель навигации, ручку изменения размера и основную область содержимого как прямых
-потомков корня. Стандартных id и ограничений достаточно для обычного макета с левой боковой
-панелью. Оборачивайте кнопки навигации только с иконками в `SidebarTooltip`, чтобы подписи
-оставались доступны после сворачивания.
-
-<Example name="sidebar/basic" />
-
-## Установка через shadcn
-
-Полную настройку пакета, реестра и стилей см. в разделе [Быстрый старт](/docs/quick-start).
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/sidebar' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/sidebar' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/sidebar' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/sidebar' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/sidebar' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/sidebar' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Анатомия
-
-```text
-Sidebar
-├─ SidebarPanel[id="sidebar"]
-│  ├─ SidebarHeader
-│  │  ├─ SidebarLabel
-│  │  └─ SidebarInput
-│  ├─ SidebarContent
-│  │  └─ SidebarGroup
-│  │     ├─ SidebarGroupHeader
-│  │     │  ├─ SidebarGroupLabel
-│  │     │  └─ SidebarGroupAction
-│  │     └─ SidebarNavigationList
-│  │        └─ SidebarNavigationItem
-│  │           ├─ SidebarNavigationButton
-│  │           ├─ SidebarNavigationBadge (необязательно)
-│  │           ├─ SidebarExpandedContent
-│  │           ├─ SidebarCollapsedContent
-│  │           └─ SidebarNavigationSubList
-│  │              └─ SidebarNavigationSubItem
-│  │                 ├─ SidebarNavigationSubButton
-│  │                 └─ SidebarNavigationBadge (необязательно)
-│  └─ SidebarFooter
-│     └─ SidebarSeparator
-├─ SidebarResizeTrigger
-├─ SidebarTrigger
-└─ SidebarInset[id="content"]
-```
-
-| Часть | Назначение |
-| --- | --- |
-| `Sidebar` | Корень Ark Splitter с настройками для двух панелей. |
-| `SidebarPanel` | Сворачиваемая панель навигации с id `"sidebar"` по умолчанию. |
-| `SidebarInset` | Основная область содержимого с id `"content"` по умолчанию. |
-| `SidebarResizeTrigger` | Доступная линия-ручка для изменения размера мышью и клавиатурой; по умолчанию она рендерит общий `SplitterResizeTriggerIndicator`, а собственные children заменяют его. |
-| `SidebarTrigger` | Управление сворачиванием и разворачиванием панели. |
-| `SidebarHeader` | Непрокручиваемая верхняя область. |
-| `SidebarContent` | Прокручиваемая центральная область. |
-| `SidebarFooter` | Непрокручиваемая нижняя область. |
-| `SidebarGroup` | Семантическая секция навигации. |
-| `SidebarNavigationButton` | Кнопка или ссылка через `asChild` с состояниями active и size. |
-| `SidebarNavigationBadge` | Необязательный счётчик рядом с обычной кнопкой навигации или вложенной кнопкой. |
-| `SidebarExpandedContent` | Содержимое при развернутой панели. |
-| `SidebarCollapsedContent` | Содержимое при свернутой панели. |
-| `SidebarTooltip` | Подпись для свернутого режима с учетом стороны панели. |
-| `SidebarNavigationSubList` | Вложенный список навигации. |
-
-## Композиция
-
-`Sidebar` владеет состоянием раскладки Splitter, а вложенные `Collapsible`, всплывающие `Menu` и
-`SidebarTooltip` управляют каждый своим состоянием. Оставляйте `SidebarPanel`, `SidebarResizeTrigger`, `SidebarTrigger`
-и `SidebarInset` прямыми потомками и располагайте их визуально: для левой панели сначала `SidebarPanel`, для
-правой сначала `SidebarInset`. `SidebarExpandedContent` и `SidebarCollapsedContent` только переключают видимые ветки,
-поэтому через них удобно сочетать обычные ссылки `Collapsible` и свернутое меню `Menu`, не перенося
-состояние в Sidebar. Для сохранения ширины управляйте `size`, обновляйте его в `onResize(details)`
-и сохраняйте итоговое значение в `onResizeEnd(details)`. В Solid `asChild` использует render-функцию,
-получающую объединенные props.
-В Vue используйте `as-child` с одним элементом в слоте по умолчанию и шаблонную ссылку для доступа к экземпляру компонента.
-Для управления размерами используйте `v-model:size` или обработчик `@resize`; сохраняйте итоговое значение в `@resize-end`.
-Помещайте `SidebarNavigationBadge` после обычного `SidebarNavigationButton` или `SidebarNavigationSubButton`. Компонент
-оставляет справа место для счётчика и скрывается вместе с остальными иконками в компактном режиме.
-
-`useSidebar()` из соответствующего пакета фреймворка возвращает состояние боковой панели в виде `collapsed`,
-`side` и `state`, а также колбэк `toggleSidebar()`. В Solid это аксессоры, которые читаются как
-`collapsed()` и т. д. Хук читает контекст Splitter, созданный `Sidebar`, поэтому
-используйте его только внутри дерева Sidebar.
-В Vue значения состояния хранятся в ref: в скрипте читайте `collapsed.value`, `side.value` и
-`state.value`; в шаблоне Vue разворачивает их автоматически.
-
-В Ark Vue 5.39.3 / Zag 1.45.0 первое сворачивание в управляемом режиме может обновить `size`
-без события `@collapse`. Модель и `useSidebar().collapsed` при этом отражают новое состояние.
 
 ## Примеры
 
@@ -196,6 +81,84 @@ Sidebar
 
 <Example name="sidebar/custom-sizes" />
 
+## Композиция
+
+`Sidebar` - компонент moduix для компоновки навигации приложения. Он объединяет навигационные
+части с [Ark UI Splitter](https://ark-ui.com/docs/components/splitter), который отвечает за
+изменение размера, сворачивание, работу с клавиатурой и доступность. Состояние и колбэки
+соответствуют контракту `Splitter`.
+
+`Sidebar` владеет состоянием раскладки Splitter, а вложенные `Collapsible`, всплывающие `Menu` и
+`SidebarTooltip` управляют каждый своим состоянием. Оставляйте `SidebarPanel`, `SidebarResizeTrigger`, `SidebarTrigger`
+и `SidebarInset` прямыми потомками и располагайте их визуально: для левой панели сначала `SidebarPanel`, для
+правой сначала `SidebarInset`. `SidebarExpandedContent` и `SidebarCollapsedContent` только переключают видимые ветки,
+поэтому через них удобно сочетать обычные ссылки `Collapsible` и свернутое меню `Menu`, не перенося
+состояние в Sidebar. Для сохранения ширины управляйте `size`, обновляйте его в `onResize(details)`
+и сохраняйте итоговое значение в `onResizeEnd(details)`. В Solid `asChild` использует render-функцию,
+получающую объединенные props.
+В Vue используйте `as-child` с одним элементом в слоте по умолчанию и шаблонную ссылку для доступа к экземпляру компонента.
+Для управления размерами используйте `v-model:size` или обработчик `@resize`; сохраняйте итоговое значение в `@resize-end`.
+Помещайте `SidebarNavigationBadge` после обычного `SidebarNavigationButton` или `SidebarNavigationSubButton`. Компонент
+оставляет справа место для счётчика и скрывается вместе с остальными иконками в компактном режиме.
+
+`useSidebar()` из соответствующего пакета фреймворка возвращает состояние боковой панели в виде `collapsed`,
+`side` и `state`, а также колбэк `toggleSidebar()`. В Solid это аксессоры, которые читаются как
+`collapsed()` и т. д. Хук читает контекст Splitter, созданный `Sidebar`, поэтому
+используйте его только внутри дерева Sidebar.
+В Vue значения состояния хранятся в ref: в скрипте читайте `collapsed.value`, `side.value` и
+`state.value`; в шаблоне Vue разворачивает их автоматически.
+
+В Ark Vue 5.39.3 / Zag 1.45.0 первое сворачивание в управляемом режиме может обновить `size`
+без события `@collapse`. Модель и `useSidebar().collapsed` при этом отражают новое состояние.
+
+## Анатомия
+
+```text
+Sidebar
+├─ SidebarPanel[id="sidebar"]
+│  ├─ SidebarHeader
+│  │  ├─ SidebarLabel
+│  │  └─ SidebarInput
+│  ├─ SidebarContent
+│  │  └─ SidebarGroup
+│  │     ├─ SidebarGroupHeader
+│  │     │  ├─ SidebarGroupLabel
+│  │     │  └─ SidebarGroupAction
+│  │     └─ SidebarNavigationList
+│  │        └─ SidebarNavigationItem
+│  │           ├─ SidebarNavigationButton
+│  │           ├─ SidebarNavigationBadge (необязательно)
+│  │           ├─ SidebarExpandedContent
+│  │           ├─ SidebarCollapsedContent
+│  │           └─ SidebarNavigationSubList
+│  │              └─ SidebarNavigationSubItem
+│  │                 ├─ SidebarNavigationSubButton
+│  │                 └─ SidebarNavigationBadge (необязательно)
+│  └─ SidebarFooter
+│     └─ SidebarSeparator
+├─ SidebarResizeTrigger
+├─ SidebarTrigger
+└─ SidebarInset[id="content"]
+```
+
+| Часть | Назначение |
+| --- | --- |
+| `Sidebar` | Корень Ark Splitter с настройками для двух панелей. |
+| `SidebarPanel` | Сворачиваемая панель навигации с id `"sidebar"` по умолчанию. |
+| `SidebarInset` | Основная область содержимого с id `"content"` по умолчанию. |
+| `SidebarResizeTrigger` | Доступная линия-ручка для изменения размера мышью и клавиатурой; по умолчанию она рендерит общий `SplitterResizeTriggerIndicator`, а собственные children заменяют его. |
+| `SidebarTrigger` | Управление сворачиванием и разворачиванием панели. |
+| `SidebarHeader` | Непрокручиваемая верхняя область. |
+| `SidebarContent` | Прокручиваемая центральная область. |
+| `SidebarFooter` | Непрокручиваемая нижняя область. |
+| `SidebarGroup` | Семантическая секция навигации. |
+| `SidebarNavigationButton` | Кнопка или ссылка через `asChild` с состояниями active и size. |
+| `SidebarNavigationBadge` | Необязательный счётчик рядом с обычной кнопкой навигации или вложенной кнопкой. |
+| `SidebarExpandedContent` | Содержимое при развернутой панели. |
+| `SidebarCollapsedContent` | Содержимое при свернутой панели. |
+| `SidebarTooltip` | Подпись для свернутого режима с учетом стороны панели. |
+| `SidebarNavigationSubList` | Вложенный список навигации. |
+
 ## Стилизация
 
 Каждая семантическая часть принимает `className` в React и `class` в Solid и Vue и предоставляет стабильный
@@ -219,7 +182,7 @@ Sidebar
 Оборачивайте текст навигации в `SidebarLabel`, в том числе внутри `SidebarNavigationSubButton`, чтобы
 длинные подписи обрезались и скрывались в свернутом режиме.
 
-### CSS-свойства
+### CSS-переменные
 
 <CssPropertiesSection properties={sidebarOverrideCssProperties} />
 

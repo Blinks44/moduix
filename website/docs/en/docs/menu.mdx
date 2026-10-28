@@ -2,22 +2,18 @@
 title: Menu
 component: menu
 description: A trigger-based menu for actions, links, selectable options, nested commands, and context menus.
+ark: https://ark-ui.com/docs/components/menu
 ---
 
 import * as MenuDocs from '@/components/examples/menu/css-properties';
 
-## API Reference
+<Example name="menu/basic" />
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/menu" />
+## Installation
 
-## Choosing the right component
+<ComponentInstall />
 
-Use `Menu` for contextual actions in a transient popup, such as commands, links, or a context
-menu. Use `NavigationMenu` for persistent site or product navigation, and `Dialog` for workflows
-that need the user's full attention.
-
-## Basic
-
+## Usage
 
 Use `Menu` as the root and give every `MenuItem` a stable `value`. Keep `MenuPositioner` and
 `MenuContent` explicit, then place items, groups, separators, or nested menus inside the content.
@@ -26,114 +22,11 @@ Use `Menu` as the root and give every `MenuItem` a stable `value`. Keep `MenuPos
 Do not set a custom `id` on `MenuItem`: Ark identifies items by `value`, and an extra `id` breaks
 its item lookup, typeahead, and focus management.
 
-<Example name="menu/basic" />
+## Choosing the right component
 
-## Install with shadcn
-
-See [Quick Start](/docs/quick-start) for full package setup, registry configuration, and styling guidance.
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/menu' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/menu' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/menu' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/menu' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/menu' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/menu' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Anatomy
-
-```text
-Menu
-├─ MenuTrigger
-│  └─ MenuIndicator
-├─ MenuContextTrigger
-└─ Overlay subtree (automatically portalled)
-   └─ MenuPositioner
-      └─ MenuContent
-         ├─ MenuArrow
-         │  └─ MenuArrowTip
-         └─ MenuViewport
-            ├─ MenuItem
-            │  ├─ MenuItemText
-            │  │  ├─ MenuItemTextIcon
-            │  │  └─ MenuItemTextLabel
-            │  └─ MenuItemShortcut
-            ├─ MenuCheckboxItem
-            │  └─ MenuItemIndicator
-            ├─ MenuRadioItemGroup
-            │  └─ MenuRadioItem
-            ├─ MenuItemGroup
-            │  └─ MenuItemGroupLabel
-            ├─ MenuSeparator
-            └─ Menu
-               └─ MenuTriggerItem
-                  └─ MenuTriggerItemIcon
-```
-
-| Part | Role |
-| --- | --- |
-| `Menu` | Root that manages open state, positioning, typeahead, focus, and dismissal. |
-| `MenuRootProvider` | Connects a menu to a state instance created with `useMenu`. |
-| `MenuTrigger` | Button that opens the menu. It has no styles of its own; use `asChild` with `Button` or another semantic element. |
-| `MenuIndicator` | State-aware trigger indicator, usually rendered as a chevron. |
-| `MenuContextTrigger` | Unstyled area that opens the menu on right-click and long press. |
-| `MenuPositioner` | Positions the floating menu layer. |
-| `MenuContent` | Popup surface with the menu role and its item collection. |
-| `MenuViewport` | Explicit scroll container around the item collection. |
-| `MenuArrow` / `MenuArrowTip` | Optional visual anchor for the popup. |
-| `MenuItem` | Standard command item. |
-| `MenuCheckboxItem` | Item with an independent boolean state. |
-| `MenuRadioItemGroup` / `MenuRadioItem` | Group and items for choosing one value. |
-| `MenuItemIndicator` | Selection indicator for checkbox and radio items. |
-| `MenuItemText` and text helpers | Helpers for composing item text with icons and labels. |
-| `MenuItemShortcut` | Wrapper for a keyboard shortcut or other trailing hint. |
-| `MenuItemGroup` / `MenuItemGroupLabel` | Group and label for related items. |
-| `MenuSeparator` | Divider between groups of items. |
-| `MenuTriggerItem` / `MenuTriggerItemIcon` | Item and icon for opening a nested menu. |
-| `MenuItemContext` | Provides item state to content rendered inside an item. |
-
-## Composition
-
-Use `defaultOpen` for an uncontrolled menu. When another part of the application owns the open or
-highlighted state, pass `open` or `highlightedValue` with the matching change handler. Use
-`useMenu()` with `MenuRootProvider` when the state store must be created outside the rendered tree;
-do not render a second `Menu` root for the same store.
-
-`MenuPositioner`, `MenuContent`, and `MenuViewport` are separate parts, but the positioner is portalled automatically.
-Set `portalled={false}` inside a dialog or scroll container and use
-`positioning={{ strategy: 'fixed', hideWhenDetached: true }}` when that container can scroll. Use
-`asChild` with exactly one semantic child when a trigger, item, or content host must own the DOM node.
-In Solid, assign a ref to the element created inside the `asChild` render function, because a ref on
-a `Menu` part itself is not forwarded through that composition path.
-A `MenuContent` must contain `MenuViewport` around its scrollable items. Keep an optional
-`MenuArrow` directly under `MenuContent`, next to the viewport, so it is not clipped while items scroll.
-A nested menu is another `Menu` root inside the parent content, paired with its own `TriggerItem`,
-`Positioner`, and `Content`.
+Use `Menu` for contextual actions in a transient popup, such as commands, links, or a context
+menu. Use `NavigationMenu` for persistent site or product navigation, and `Dialog` for workflows
+that need the user's full attention.
 
 ## Examples
 
@@ -248,6 +141,76 @@ or link needs a custom structure.
 
 <Example name="menu/advanced-customization" />
 
+## Composition
+
+Use `defaultOpen` for an uncontrolled menu. When another part of the application owns the open or
+highlighted state, pass `open` or `highlightedValue` with the matching change handler. Use
+`useMenu()` with `MenuRootProvider` when the state store must be created outside the rendered tree;
+do not render a second `Menu` root for the same store.
+
+`MenuPositioner`, `MenuContent`, and `MenuViewport` are separate parts, but the positioner is portalled automatically.
+Set `portalled={false}` inside a dialog or scroll container and use
+`positioning={{ strategy: 'fixed', hideWhenDetached: true }}` when that container can scroll. Use
+`asChild` with exactly one semantic child when a trigger, item, or content host must own the DOM node.
+In Solid, assign a ref to the element created inside the `asChild` render function, because a ref on
+a `Menu` part itself is not forwarded through that composition path.
+A `MenuContent` must contain `MenuViewport` around its scrollable items. Keep an optional
+`MenuArrow` directly under `MenuContent`, next to the viewport, so it is not clipped while items scroll.
+A nested menu is another `Menu` root inside the parent content, paired with its own `TriggerItem`,
+`Positioner`, and `Content`.
+
+## Anatomy
+
+```text
+Menu
+├─ MenuTrigger
+│  └─ MenuIndicator
+├─ MenuContextTrigger
+└─ Overlay subtree (automatically portalled)
+   └─ MenuPositioner
+      └─ MenuContent
+         ├─ MenuArrow
+         │  └─ MenuArrowTip
+         └─ MenuViewport
+            ├─ MenuItem
+            │  ├─ MenuItemText
+            │  │  ├─ MenuItemTextIcon
+            │  │  └─ MenuItemTextLabel
+            │  └─ MenuItemShortcut
+            ├─ MenuCheckboxItem
+            │  └─ MenuItemIndicator
+            ├─ MenuRadioItemGroup
+            │  └─ MenuRadioItem
+            ├─ MenuItemGroup
+            │  └─ MenuItemGroupLabel
+            ├─ MenuSeparator
+            └─ Menu
+               └─ MenuTriggerItem
+                  └─ MenuTriggerItemIcon
+```
+
+| Part | Role |
+| --- | --- |
+| `Menu` | Root that manages open state, positioning, typeahead, focus, and dismissal. |
+| `MenuRootProvider` | Connects a menu to a state instance created with `useMenu`. |
+| `MenuTrigger` | Button that opens the menu. It has no styles of its own; use `asChild` with `Button` or another semantic element. |
+| `MenuIndicator` | State-aware trigger indicator, usually rendered as a chevron. |
+| `MenuContextTrigger` | Unstyled area that opens the menu on right-click and long press. |
+| `MenuPositioner` | Positions the floating menu layer. |
+| `MenuContent` | Popup surface with the menu role and its item collection. |
+| `MenuViewport` | Explicit scroll container around the item collection. |
+| `MenuArrow` / `MenuArrowTip` | Optional visual anchor for the popup. |
+| `MenuItem` | Standard command item. |
+| `MenuCheckboxItem` | Item with an independent boolean state. |
+| `MenuRadioItemGroup` / `MenuRadioItem` | Group and items for choosing one value. |
+| `MenuItemIndicator` | Selection indicator for checkbox and radio items. |
+| `MenuItemText` and text helpers | Helpers for composing item text with icons and labels. |
+| `MenuItemShortcut` | Wrapper for a keyboard shortcut or other trailing hint. |
+| `MenuItemGroup` / `MenuItemGroupLabel` | Group and label for related items. |
+| `MenuSeparator` | Divider between groups of items. |
+| `MenuTriggerItem` / `MenuTriggerItemIcon` | Item and icon for opening a nested menu. |
+| `MenuItemContext` | Provides item state to content rendered inside an item. |
+
 ## Styling
 
 Style Menu through `className` in React or `class` in Solid and Vue on exported parts. Tailwind
@@ -259,7 +222,7 @@ variables. `MenuTrigger` and `MenuContextTrigger` are unstyled, so compose the t
 `asChild` and `Button`, or style the context area yourself. Data attributes and `data-slot` hooks
 are shared by both styling tracks.
 
-### CSS Properties
+### CSS variables
 
 <CssPropertiesSection properties={MenuDocs.menuOverrideCssProperties} />
 

@@ -1,6 +1,6 @@
 ---
-title: Nouveautés
-description: Changements notables de moduix.
+title: Journal des modifications
+description: Versions, changements incompatibles et nouveaux composants, du plus récent au plus ancien. Chaque entrée renvoie aux pages modifiées.
 ---
 
 import { LocalizationHero } from '@/components/changelog/localization-hero';
@@ -13,10 +13,13 @@ import { TailwindReleaseHero } from '@/components/changelog/tailwind-release-her
 import { ChangelogNewsItem } from '@/components/changelog/hero';
 import { VueReleaseHero } from '@/components/changelog/vue-release-hero';
 
-# Nouveautés
+# Journal des modifications
 
-<ChangelogNewsItem>
-  <VueReleaseHero />
+<ChangelogNewsItem version="v3.0" dateTime="2026-10-13">
+
+## Vue rejoint React et Solid
+
+<VueReleaseHero />
 
 Vue rejoint React et Solid comme adaptateur natif de moduix. [`@moduix/vue`](/docs/quick-start) et
 `@moduix/vue-tailwind` proposent le catalogue complet avec les mêmes tokens et thèmes.
@@ -63,13 +66,14 @@ Après la [configuration du registre](/docs/quick-start), ajoutez un bloc avec u
 La section d’installation de chaque bloc indique les commandes pour Solid, Vue et Tailwind.
 </ChangelogNewsItem>
 
-<ChangelogNewsItem>
-  <TailwindReleaseHero />
+<ChangelogNewsItem version="Tailwind 1.0" dateTime="2026-09-20">
+
+## Tailwind pour tout le catalogue
+
+<TailwindReleaseHero />
 
 Tailwind est maintenant disponible pour tout le catalogue moduix. [`@moduix/react-tailwind`](/docs/quick-start)
 et `@moduix/solid-tailwind` couvrent les mêmes composants que les paquets CSS Modules.
-
-### Tailwind pour tout le catalogue
 
 L’API publique et le comportement des composants restent identiques. Le choix de Tailwind ne change
 donc pas la manière de les composer.
@@ -79,13 +83,14 @@ Les espaces de noms du registre `@moduix-react-tailwind` et `@moduix-solid-tailw
 feuille de style de base, prête à être personnalisée.
 </ChangelogNewsItem>
 
-<ChangelogNewsItem>
-  <SolidReleaseHero />
+<ChangelogNewsItem version="Solid 1.0" dateTime="2026-09-13">
+
+## Le catalogue complet pour Solid
+
+<SolidReleaseHero />
 
 Le catalogue complet de moduix est maintenant disponible pour Solid. [`@moduix/solid`](/docs/quick-start)
 et `@moduix/solid-tailwind` utilisent les API natives de Solid et les primitives Ark UI.
-
-### Le catalogue complet pour Solid
 
 Les composants Solid utilisent `class` et la composition native de Solid. Leurs contrats publics
 correspondent à ceux des paquets React, tout en respectant le modèle de rendu de Solid.
@@ -94,13 +99,14 @@ CSS Modules et Tailwind sont tous deux disponibles pour Solid. Les deux variante
 tokens, les thèmes et les espaces de noms du registre `@moduix-solid` et `@moduix-solid-tailwind`.
 </ChangelogNewsItem>
 
-<ChangelogNewsItem>
-  <TableOfContentsHero />
+<ChangelogNewsItem version="v2.5" dateTime="2026-08-27">
+
+## Un sommaire pour les pages longues
+
+<TableOfContentsHero />
 
 [Table of Contents](/docs/table-of-contents) suit les titres visibles et indique la section active.
 Indiquez les titres à suivre pour relier chaque entrée au titre correspondant.
-
-### Un sommaire pour les pages longues
 
 Utilisez `TocContent` pour la zone de lecture et `TocNav` pour la liste des titres. L’entrée active
 change au fil du défilement.
@@ -109,13 +115,14 @@ Utilisez `TocIndicator` ou `TocRail` pour montrer la hiérarchie. Ajoutez `TocRo
 des contrôles externes doivent partager l’état du sommaire.
 </ChangelogNewsItem>
 
-<ChangelogNewsItem>
-  <NavigationMenuHero />
+<ChangelogNewsItem version="v2.4" dateTime="2026-08-25">
+
+## Des groupes de liens sans masquer les destinations
+
+<NavigationMenuHero />
 
 [Navigation Menu](/docs/navigation-menu) sépare les destinations directes des groupes de liens
 associés. C’est utile pour la navigation principale d’un site ou d’un produit.
-
-### Des groupes de liens sans masquer les destinations
 
 Utilisez `NavigationMenuLink` pour une destination directe. Pour un groupe de liens, associez
 `NavigationMenuTrigger` à `NavigationMenuContent`.
@@ -124,14 +131,15 @@ Ajoutez `NavigationMenuViewport` lorsque plusieurs panneaux doivent s’animer d
 Ark UI gère le clavier, le focus et l’élément ouvert. `NavigationMenuArrow` est facultatif.
 </ChangelogNewsItem>
 
-<ChangelogNewsItem>
-  <ChartHero />
+<ChangelogNewsItem version="v2.3" dateTime="2026-08-20">
+
+## Une figure cohérente pour les graphiques
+
+<ChartHero />
 
 [Chart](/docs/chart) ajoute une balise `figure` accessible autour de TanStack Charts. Définissez le
 graphique avec TanStack, puis ajoutez l’en-tête, la légende, l’infobulle compacte et les réglages
 d’animation de moduix.
-
-### Une figure cohérente pour les graphiques
 
 TanStack garde la responsabilité des marques, des échelles, des interactions et des fonctions de
 rappel. Composez le graphique avec `ChartHeader`, `ChartPlot` et `ChartLegend` pour obtenir une
@@ -141,26 +149,28 @@ TanStack gère aussi la navigation au clavier et le cycle de vie de l’infobull
 respecte la préférence pour la réduction des mouvements, et `motion={false}` la désactive.
 </ChangelogNewsItem>
 
-<ChangelogNewsItem>
-  <LocalizationHero />
+<ChangelogNewsItem version="Docs" dateTime="2026-08-10">
+
+## Documentation française et russe
+
+<LocalizationHero />
 
 La documentation est maintenant disponible en anglais, en français et en russe. Les pages de
 composants, les exemples et les blocs sont tous traduits.
-
-### Documentation française et russe
 
 La navigation, les métadonnées, les routes adaptées à chaque langue et les exemples copiables restent
 alignés dans les trois langues.
 </ChangelogNewsItem>
 
-<ChangelogNewsItem>
-  <V2MigrationHero />
+<ChangelogNewsItem version="v2.0" dateTime="2026-07-19">
+
+## Ark UI gère le comportement des composants
+
+<V2MigrationHero />
 
 Le système de composants utilise maintenant Ark UI pour l’état, les interactions et l’accessibilité
 lorsqu’une primitive correspondante existe. moduix conserve ses CSS Modules, ses tokens de design et
 ses deux modes d’installation.
-
-### Ark UI gère le comportement des composants
 
 Les composants qui disposent d’une primitive Ark UI l’utilisent pour l’état et les interactions. Ils
 profitent aussi du comportement d’accessibilité fourni par Ark UI.

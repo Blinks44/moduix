@@ -2,106 +2,26 @@
 title: Rating Group
 component: rating-group
 description: A star rating control built on the Ark UI rating-group primitive for React, Solid, and Vue.
+ark: https://ark-ui.com/docs/components/rating-group
 ---
 
 import * as RatingGroupDocs from '@/components/examples/rating-group/css-properties';
 
-## API Reference
+<Example name="rating-group/basic" />
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/rating-group" />
+## Installation
 
-## Choosing the right component
+<ComponentInstall />
 
-Use `RatingGroup` when people need to choose a numeric score from a row of stars or another repeated icon.
-
-## Basic
-
+## Usage
 
 Use `RatingGroup` as the root and add `RatingGroupLabel`, `RatingGroupControl`, and
 `RatingGroupItems` for the standard star rating. Render `RatingGroupHiddenInput` explicitly when
 the value should participate in native form submission.
 
-<Example name="rating-group/basic" />
+## Choosing the right component
 
-## Install with shadcn
-
-See [Quick Start](/docs/quick-start) for full package setup, registry configuration, and styling guidance.
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/rating-group' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/rating-group' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/rating-group' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/rating-group' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/rating-group' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/rating-group' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Anatomy
-
-```text
-RatingGroup
-├─ RatingGroupLabel
-└─ RatingGroupControl
-   ├─ RatingGroupItems
-   │  └─ RatingGroupItem[index]
-   │     └─ RatingGroupItemIndicator
-   ├─ RatingGroupContext
-   │  └─ RatingGroupItem[index]
-   │     └─ RatingGroupItemIndicator
-   └─ RatingGroupHiddenInput (explicit)
-
-RatingGroupRootProvider
-└─ same part tree connected to a moduix useRatingGroup() store
-```
-
-| Part                               | Role                                                               |
-| ---------------------------------- | ------------------------------------------------------------------ |
-| `RatingGroup`                    | Owns rating state, keyboard navigation, focus, and form integration. |
-| `RatingGroupHiddenInput`          | Native Ark form control that must be composed explicitly.          |
-| `RatingGroupRootProvider`          | Connects the parts to state created with `useRatingGroup()`.       |
-| `RatingGroupContext`               | Render-prop access to the current root state.                      |
-| `RatingGroupItemContext`           | Render-prop access to the current item state.                      |
-| `RatingGroupLabel`                 | Accessible label for the rating group.                             |
-| `RatingGroupControl`               | Groups the interactive rating items.                               |
-| `RatingGroupItems`                 | Creates one item for each value and supplies the default star.     |
-| `RatingGroupItem`                  | One selectable rating item; requires a numeric `index`.            |
-| `RatingGroupItemIndicator`         | The default moduix star visual for an item.                        |
-
-## Composition
-
-Use `RatingGroupItems` for the standard generated item tree. To replace the repeated visual, pass a
-custom `RatingGroupItemIndicator` as its child. `RatingGroupHiddenInput` is independent of
-`Items`, so compose it explicitly inside the root or `RatingGroupRootProvider`; set `name` on the
-root when the value should be submitted by a native form.
-
-For a custom item tree, use `RatingGroupContext` with `RatingGroupItem`; use
-`RatingGroupRootProvider` with `useRatingGroup()` when the store must be created outside the
-rendered tree. React reads the store as an object, Solid reads its reactive state through the
-returned accessor, and Vue exposes the reactive store directly to the template.
+Use `RatingGroup` when people need to choose a numeric score from a row of stars or another repeated icon.
 
 ## Examples
 
@@ -163,6 +83,49 @@ need to render each item yourself.
 
 <Example name="rating-group/advanced-customization" />
 
+## Composition
+
+Use `RatingGroupItems` for the standard generated item tree. To replace the repeated visual, pass a
+custom `RatingGroupItemIndicator` as its child. `RatingGroupHiddenInput` is independent of
+`Items`, so compose it explicitly inside the root or `RatingGroupRootProvider`; set `name` on the
+root when the value should be submitted by a native form.
+
+For a custom item tree, use `RatingGroupContext` with `RatingGroupItem`; use
+`RatingGroupRootProvider` with `useRatingGroup()` when the store must be created outside the
+rendered tree. React reads the store as an object, Solid reads its reactive state through the
+returned accessor, and Vue exposes the reactive store directly to the template.
+
+## Anatomy
+
+```text
+RatingGroup
+├─ RatingGroupLabel
+└─ RatingGroupControl
+   ├─ RatingGroupItems
+   │  └─ RatingGroupItem[index]
+   │     └─ RatingGroupItemIndicator
+   ├─ RatingGroupContext
+   │  └─ RatingGroupItem[index]
+   │     └─ RatingGroupItemIndicator
+   └─ RatingGroupHiddenInput (explicit)
+
+RatingGroupRootProvider
+└─ same part tree connected to a moduix useRatingGroup() store
+```
+
+| Part                               | Role                                                               |
+| ---------------------------------- | ------------------------------------------------------------------ |
+| `RatingGroup`                    | Owns rating state, keyboard navigation, focus, and form integration. |
+| `RatingGroupHiddenInput`          | Native Ark form control that must be composed explicitly.          |
+| `RatingGroupRootProvider`          | Connects the parts to state created with `useRatingGroup()`.       |
+| `RatingGroupContext`               | Render-prop access to the current root state.                      |
+| `RatingGroupItemContext`           | Render-prop access to the current item state.                      |
+| `RatingGroupLabel`                 | Accessible label for the rating group.                             |
+| `RatingGroupControl`               | Groups the interactive rating items.                               |
+| `RatingGroupItems`                 | Creates one item for each value and supplies the default star.     |
+| `RatingGroupItem`                  | One selectable rating item; requires a numeric `index`.            |
+| `RatingGroupItemIndicator`         | The default moduix star visual for an item.                        |
+
 ## Styling
 
 Use `className` in React or `class` in Solid and Vue on exported parts for structural styles. Ark also exposes
@@ -171,7 +134,7 @@ Use `className` in React or `class` in Solid and Vue on exported parts for struc
 native utilities and consumer classes; the CSS Modules variants also expose the registered
 `--moduix-rating-group-*` variables.
 
-### CSS Properties
+### CSS variables
 
 <CssPropertiesSection properties={RatingGroupDocs.ratingGroupOverrideCssProperties} />
 

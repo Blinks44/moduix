@@ -6,7 +6,11 @@ description: Créez des graphiques accessibles et adaptatifs avec TanStack Chart
 
 import * as ChartDocs from '@/components/examples/chart/css-properties';
 
-## Référence de l’API
+<Example name="chart/basic" />
+
+## Installation
+
+<ComponentInstall />
 
 Ark UI ne propose pas de primitive dédiée aux graphiques. moduix ajoute une structure sémantique
 `figure`, un titre, une description, une légende et un corps d’info-bulle compact autour de l’[API
@@ -18,87 +22,11 @@ Charts ; moduix fournit la composition accessible qui les entoure.
 exposent la même API de définition des graphiques ; les paquets Solid et Vue utilisent l’adaptateur
 de rendu de TanStack.
 
-## Exemple de base
-
+## Utilisation
 
 Créez une définition TanStack et transmettez-la à `ChartPlot`. Ajoutez autour du graphique un
 titre, une description et une légende visibles, puis définissez un `ariaLabel` concis pour les
 personnes qui utilisent des technologies d’assistance.
-
-<Example name="chart/basic" />
-
-## Installation avec shadcn
-
-Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration complète du paquet, du registre et des styles.
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/chart' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/chart' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/chart' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/chart' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/chart' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/chart' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Anatomie
-
-```text
-Chart
-├─ ChartHeader (figcaption facultatif)
-│  ├─ ChartTitle
-│  └─ ChartDescription
-├─ ChartPlot
-│  └─ zone de rendu TanStack (SVG par défaut)
-└─ ChartLegend (facultatif)
-   └─ ChartLegendItem
-```
-
-| Partie | Rôle |
-| --- | --- |
-| `Chart` | Racine `figure` composée. Accepte les propriétés natives, `asChild` et une ref `HTMLElement` (`$el` de la ref de composant en Vue). |
-| `ChartPlot` | Hôte TanStack Charts. Nécessite `definition` et `ariaLabel`, utilise le préréglage d’animation moduix par défaut et accepte `motion={false}`. |
-| `ChartHeader` | Structure `figcaption` du titre et de la description. |
-| `ChartTitle` | Titre du graphique, rendu dans un `h3` par défaut. |
-| `ChartDescription` | Explication visible qui accompagne le graphique. |
-| `ChartLegend` | Liste sémantique des séries visibles. |
-| `ChartLegendItem` | Élément de légende avec un `color` facultatif pour l’indicateur. |
-
-## Composition
-
-`Chart` est une enveloppe de présentation. La `definition` de TanStack possède les éléments
-graphiques, les échelles, les interactions et les callbacks : gardez-la au niveau du module ou
-mémoïsez-la entièrement lorsqu’elle dépend de props ou d’un état. Composez `ChartHeader`,
-`ChartPlot` et `ChartLegend` sous la racine ; `ChartPlot` continue de confier à TanStack le rendu,
-le focus et l’état de l’info-bulle.
-
-Utilisez `renderTooltipBody` uniquement pour envelopper ou étendre l’info-bulle native : rendez le
-`defaultBody` fourni et n’ajoutez des contrôles interactifs que lorsque `pinned` vaut true. `Chart`
-et `ChartHeader` acceptent `asChild` lorsque l’élément sémantique ou la mise en page doivent être
-contrôlés par l’application.
 
 ## Exemples
 
@@ -190,6 +118,42 @@ des contrôles interactifs que dans une info-bulle épinglée.
 
 <Example name="chart/advanced-customization" />
 
+## Composition
+
+`Chart` est une enveloppe de présentation. La `definition` de TanStack possède les éléments
+graphiques, les échelles, les interactions et les callbacks : gardez-la au niveau du module ou
+mémoïsez-la entièrement lorsqu’elle dépend de props ou d’un état. Composez `ChartHeader`,
+`ChartPlot` et `ChartLegend` sous la racine ; `ChartPlot` continue de confier à TanStack le rendu,
+le focus et l’état de l’info-bulle.
+
+Utilisez `renderTooltipBody` uniquement pour envelopper ou étendre l’info-bulle native : rendez le
+`defaultBody` fourni et n’ajoutez des contrôles interactifs que lorsque `pinned` vaut true. `Chart`
+et `ChartHeader` acceptent `asChild` lorsque l’élément sémantique ou la mise en page doivent être
+contrôlés par l’application.
+
+## Anatomie
+
+```text
+Chart
+├─ ChartHeader (figcaption facultatif)
+│  ├─ ChartTitle
+│  └─ ChartDescription
+├─ ChartPlot
+│  └─ zone de rendu TanStack (SVG par défaut)
+└─ ChartLegend (facultatif)
+   └─ ChartLegendItem
+```
+
+| Partie | Rôle |
+| --- | --- |
+| `Chart` | Racine `figure` composée. Accepte les propriétés natives, `asChild` et une ref `HTMLElement` (`$el` de la ref de composant en Vue). |
+| `ChartPlot` | Hôte TanStack Charts. Nécessite `definition` et `ariaLabel`, utilise le préréglage d’animation moduix par défaut et accepte `motion={false}`. |
+| `ChartHeader` | Structure `figcaption` du titre et de la description. |
+| `ChartTitle` | Titre du graphique, rendu dans un `h3` par défaut. |
+| `ChartDescription` | Explication visible qui accompagne le graphique. |
+| `ChartLegend` | Liste sémantique des séries visibles. |
+| `ChartLegendItem` | Élément de légende avec un `color` facultatif pour l’indicateur. |
+
 ## Styles
 
 Stylisez la figure avec `Chart` et l’hôte TanStack avec `ChartPlot`. Les propriétés CSS ci-dessous
@@ -212,7 +176,7 @@ Pour modifier l’enveloppe de l’info-bulle, remplacez ces variables avec une 
 }
 ```
 
-### Propriétés CSS
+### Variables CSS
 
 <CssPropertiesSection properties={ChartDocs.chartCssProperties} />
 

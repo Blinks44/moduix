@@ -2,129 +2,27 @@
 title: File Upload
 component: file-upload
 description: Компонент Ark UI для выбора файлов, загрузки перетаскиванием, проверки и предварительного просмотра.
+ark: https://ark-ui.com/docs/components/file-upload
 ---
 
-## Справочник API
+<Example name="file-upload/basic" />
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/file-upload" />
+## Установка
 
-`FileUpload` можно импортировать из `@moduix/react/file-upload` и `@moduix/vue/file-upload`. Компонент и хуки `useFileUpload` и
-`useFileUploadContext` также доступны из `@moduix/react`.
+<ComponentInstall />
 
-Тот же компонент доступен из `@moduix/solid/file-upload`, `@moduix/react-tailwind/file-upload`,
-`@moduix/solid-tailwind/file-upload` и `@moduix/vue-tailwind/file-upload`. Все шесть вариантов используют одинаковые части компонента и модель
-состояния. Выберите пакет, который соответствует вашему фреймворку и варианту стилизации.
-
-## Выбор подходящего компонента
-
-Используйте `FileUpload`, когда приложению нужно хранить выбранные файлы в состоянии, показывать
-зону перетаскивания или управлять процессом загрузки. `Input` с `type="file"` достаточно для
-нативного выбора файлов в простой форме.
-
-## Базовый пример
+## Использование
 
 Начните с `FileUpload` как корневого компонента. Добавьте `FileUploadLabel`, а затем оберните `Button` в `FileUploadTrigger asChild` для компактного
 элемента управления или `FileUploadDropzone` для загрузки перетаскиванием. Явно добавьте `FileUploadHiddenInput`, чтобы
 открывать нативное окно выбора. Поместите `FileUploadItems` в `FileUploadItemGroup`, чтобы показывать выбранные файлы. `FileUploadItems` показывает
 миниатюру только для файлов с MIME-типом `image/*`; для остальных используется универсальное превью.
 
-<Example name="file-upload/basic" />
+## Выбор подходящего компонента
 
-## Установка через shadcn
-
-Полную настройку пакета, реестра и стилей см. в разделе [Быстрый старт](/docs/quick-start).
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/file-upload' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/file-upload' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/file-upload' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/file-upload' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/file-upload' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/file-upload' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Анатомия
-
-```text
-FileUpload / FileUploadRootProvider
-├─ FileUploadLabel
-├─ FileUploadDropzone (необязательно)
-│  ├─ FileUploadDropzoneIcon
-│  └─ FileUploadTrigger
-├─ FileUploadTrigger (если Dropzone не используется)
-├─ FileUploadItemGroup[type]
-│  ├─ FileUploadItems
-│  └─ FileUploadContext
-│     └─ FileUploadItem[file]
-│        ├─ FileUploadItemPreview[type]
-│        │  ├─ FileUploadItemPreviewImage
-│        │  └─ FileUploadItemPreviewIcon
-│        ├─ FileUploadItemName
-│        ├─ FileUploadItemMetadata[file]
-│        ├─ FileUploadItemSizeText
-│        └─ FileUploadItemDeleteTrigger
-├─ FileUploadClearTrigger
-└─ FileUploadHiddenInput (явно)
-```
-
-| Часть                            | Назначение                                                               |
-| -------------------------------- | ------------------------------------------------------------------------ |
-| `FileUpload` / `FileUploadRootProvider` | Хранит состояние файлов и отвечает за проверку, перетаскивание, вставку из буфера обмена и интеграцию с формами. |
-| `FileUploadHiddenInput` | Нативное поле Ark; правила явной композиции описаны ниже. |
-| `FileUploadRootProvider`        | Подключает дерево компонента к состоянию, возвращённому хуком `useFileUpload`.                              |
-| `FileUploadLabel`               | Доступная метка для скрытого поля выбора файлов и элементов управления загрузкой.                            |
-| `FileUploadDropzone`            | Область для перетаскивания файлов. Если внутри есть `FileUploadTrigger`, передайте `disableClick`, чтобы не открывать окно выбора дважды. |
-| `FileUploadDropzoneIcon`        | Декоративная иконка загрузки для `FileUploadDropzone`.                                                                |
-| `FileUploadTrigger`             | Кнопка без стилей, открывающая системное окно выбора файлов. Оберните ею `Button` через `asChild`.                                                          |
-| `FileUploadItemGroup`           | Список принятых или отклонённых файлов.                                                                    |
-| `FileUploadItems`               | Готовый вывод списка: карточки изображений и строки для остальных файлов с превью, метаданными и кнопками удаления. |
-| `FileUploadContext`             | Контекст с функцией-рендерером, совместимый с Ark, для собственных строк файлов.                            |
-| `FileUploadItem`                | Строка файла. Передайте текущий объект `file`.                                                              |
-| `FileUploadItemPreview`         | Слот для превью, которое показывается в зависимости от MIME-типа файла.                                    |
-| `FileUploadItemPreviewImage`    | Превью изображения внутри `FileUploadItemPreview`.                                                                   |
-| `FileUploadItemPreviewIcon`     | Универсальная иконка файла для запасного варианта превью в `FileUploadItemPreview`.                                   |
-| `FileUploadItemName`            | Имя файла.                                                                                                  |
-| `FileUploadItemMetadata`        | Тип и локализованный размер файла. Передайте текущий объект `file`.                                         |
-| `FileUploadItemSizeText`        | Локализованный размер файла.                                                                                |
-| `FileUploadItemDeleteTrigger`   | Удаляет один файл. По умолчанию показывает иконку корзины moduix; подпись берётся из Ark `translations.deleteFile`.                                          |
-| `FileUploadClearTrigger`        | Кнопка без стилей, которая очищает принятые файлы; скрыта, пока список пуст. Оберните ею `Button` через `asChild`.                                   |
-
-## Композиция
-
-`FileUpload` по умолчанию хранит состояние выбранных файлов внутри себя. Используйте `defaultAcceptedFiles` для начального
-значения в неуправляемом режиме, а `acceptedFiles` вместе с `onFileChange(details)`, если состояние принадлежит приложению.
-Если состояние или методы нужно создать за пределами дерева загрузки, используйте `useFileUpload()` и `FileUploadRootProvider`.
-
-Явно добавляйте `FileUploadHiddenInput` в `FileUpload` или `FileUploadRootProvider` даже вне формы: через него `FileUploadTrigger` открывает
-нативное окно выбора файлов. Чтобы включить файлы в нативную отправку формы, задайте `name` корневому компоненту. Если
-`FileUploadTrigger` находится внутри `FileUploadDropzone`, передайте `disableClick`, чтобы окно выбора открывалось только один раз.
-
-Для стандартных строк используйте `FileUploadItems` внутри `FileUploadItemGroup`. Для собственной разметки выводите
-`FileUploadContext` и выбирайте одно превью для каждого файла из `acceptedFiles` или `rejectedFiles`.
+Используйте `FileUpload`, когда приложению нужно хранить выбранные файлы в состоянии, показывать
+зону перетаскивания или управлять процессом загрузки. `Input` с `type="file"` достаточно для
+нативного выбора файлов в простой форме.
 
 ## Примеры
 
@@ -234,6 +132,72 @@ FileUpload / FileUploadRootProvider
 файла либо превью изображения, либо запасной вариант.
 
 <Example name="file-upload/advanced-customization" />
+
+## Композиция
+
+`FileUpload` можно импортировать из `@moduix/react/file-upload` и `@moduix/vue/file-upload`. Компонент и хуки `useFileUpload` и
+`useFileUploadContext` также доступны из `@moduix/react`.
+
+Тот же компонент доступен из `@moduix/solid/file-upload`, `@moduix/react-tailwind/file-upload`,
+`@moduix/solid-tailwind/file-upload` и `@moduix/vue-tailwind/file-upload`. Все шесть вариантов используют одинаковые части компонента и модель
+состояния. Выберите пакет, который соответствует вашему фреймворку и варианту стилизации.
+
+`FileUpload` по умолчанию хранит состояние выбранных файлов внутри себя. Используйте `defaultAcceptedFiles` для начального
+значения в неуправляемом режиме, а `acceptedFiles` вместе с `onFileChange(details)`, если состояние принадлежит приложению.
+Если состояние или методы нужно создать за пределами дерева загрузки, используйте `useFileUpload()` и `FileUploadRootProvider`.
+
+Явно добавляйте `FileUploadHiddenInput` в `FileUpload` или `FileUploadRootProvider` даже вне формы: через него `FileUploadTrigger` открывает
+нативное окно выбора файлов. Чтобы включить файлы в нативную отправку формы, задайте `name` корневому компоненту. Если
+`FileUploadTrigger` находится внутри `FileUploadDropzone`, передайте `disableClick`, чтобы окно выбора открывалось только один раз.
+
+Для стандартных строк используйте `FileUploadItems` внутри `FileUploadItemGroup`. Для собственной разметки выводите
+`FileUploadContext` и выбирайте одно превью для каждого файла из `acceptedFiles` или `rejectedFiles`.
+
+## Анатомия
+
+```text
+FileUpload / FileUploadRootProvider
+├─ FileUploadLabel
+├─ FileUploadDropzone (необязательно)
+│  ├─ FileUploadDropzoneIcon
+│  └─ FileUploadTrigger
+├─ FileUploadTrigger (если Dropzone не используется)
+├─ FileUploadItemGroup[type]
+│  ├─ FileUploadItems
+│  └─ FileUploadContext
+│     └─ FileUploadItem[file]
+│        ├─ FileUploadItemPreview[type]
+│        │  ├─ FileUploadItemPreviewImage
+│        │  └─ FileUploadItemPreviewIcon
+│        ├─ FileUploadItemName
+│        ├─ FileUploadItemMetadata[file]
+│        ├─ FileUploadItemSizeText
+│        └─ FileUploadItemDeleteTrigger
+├─ FileUploadClearTrigger
+└─ FileUploadHiddenInput (явно)
+```
+
+| Часть                            | Назначение                                                               |
+| -------------------------------- | ------------------------------------------------------------------------ |
+| `FileUpload` / `FileUploadRootProvider` | Хранит состояние файлов и отвечает за проверку, перетаскивание, вставку из буфера обмена и интеграцию с формами. |
+| `FileUploadHiddenInput` | Нативное поле Ark; правила явной композиции описаны ниже. |
+| `FileUploadRootProvider`        | Подключает дерево компонента к состоянию, возвращённому хуком `useFileUpload`.                              |
+| `FileUploadLabel`               | Доступная метка для скрытого поля выбора файлов и элементов управления загрузкой.                            |
+| `FileUploadDropzone`            | Область для перетаскивания файлов. Если внутри есть `FileUploadTrigger`, передайте `disableClick`, чтобы не открывать окно выбора дважды. |
+| `FileUploadDropzoneIcon`        | Декоративная иконка загрузки для `FileUploadDropzone`.                                                                |
+| `FileUploadTrigger`             | Кнопка без стилей, открывающая системное окно выбора файлов. Оберните ею `Button` через `asChild`.                                                          |
+| `FileUploadItemGroup`           | Список принятых или отклонённых файлов.                                                                    |
+| `FileUploadItems`               | Готовый вывод списка: карточки изображений и строки для остальных файлов с превью, метаданными и кнопками удаления. |
+| `FileUploadContext`             | Контекст с функцией-рендерером, совместимый с Ark, для собственных строк файлов.                            |
+| `FileUploadItem`                | Строка файла. Передайте текущий объект `file`.                                                              |
+| `FileUploadItemPreview`         | Слот для превью, которое показывается в зависимости от MIME-типа файла.                                    |
+| `FileUploadItemPreviewImage`    | Превью изображения внутри `FileUploadItemPreview`.                                                                   |
+| `FileUploadItemPreviewIcon`     | Универсальная иконка файла для запасного варианта превью в `FileUploadItemPreview`.                                   |
+| `FileUploadItemName`            | Имя файла.                                                                                                  |
+| `FileUploadItemMetadata`        | Тип и локализованный размер файла. Передайте текущий объект `file`.                                         |
+| `FileUploadItemSizeText`        | Локализованный размер файла.                                                                                |
+| `FileUploadItemDeleteTrigger`   | Удаляет один файл. По умолчанию показывает иконку корзины moduix; подпись берётся из Ark `translations.deleteFile`.                                          |
+| `FileUploadClearTrigger`        | Кнопка без стилей, которая очищает принятые файлы; скрыта, пока список пуст. Оберните ею `Button` через `asChild`.                                   |
 
 ## Стилизация
 

@@ -2,6 +2,7 @@
 title: Tree View
 component: tree-view
 description: Une arborescence accessible, fondée sur Ark UI, pour les dossiers, les fichiers et toutes les données imbriquées.
+ark: https://ark-ui.com/docs/components/tree-view
 ---
 
 import * as TreeViewDocs from '@/components/examples/tree-view/css-properties';
@@ -29,18 +30,6 @@ import treeViewVueLinks from '../../../snippets/tree-view/vue/links.vue?raw';
 import treeViewVueLinksNode from '../../../snippets/tree-view/vue/LinksTreeNode.vue?raw';
 import treeViewVueRootProvider from '../../../snippets/tree-view/vue/root-provider.vue?raw';
 import treeViewVueRootProviderNode from '../../../snippets/tree-view/vue/RootProviderTreeNode.vue?raw';
-
-## Référence de l’API
-
-<PrimitiveReference href="https://ark-ui.com/docs/components/tree-view" />
-
-## Exemple de base
-
-Créez la collection de données avec `createTreeCollection`, puis transmettez-la à `TreeView`.
-`TreeViewNode` fournit au rendu récursif les valeurs courantes `node`, `indexPath` et `state`, ce qui
-permet d’afficher une branche ou une feuille tout en gardant la structure des parties explicite.
-
-React, Solid et Vue utilisent les mêmes noms plats pour TreeView ; les onglets ci-dessous conservent la composition native de chaque framework.
 
 <ExampleFrame variant="component">
   <TreeViewBasic />
@@ -80,89 +69,17 @@ React, Solid et Vue utilisent les mêmes noms plats pour TreeView ; les onglets 
 
 </ExampleCode>
 
-## Installation avec shadcn
+## Installation
 
-Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration complète du paquet, du registre et des styles.
+<ComponentInstall />
 
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
+## Utilisation
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/tree-view' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/tree-view' },
-  ]}
-/>
+Créez la collection de données avec `createTreeCollection`, puis transmettez-la à `TreeView`.
+`TreeViewNode` fournit au rendu récursif les valeurs courantes `node`, `indexPath` et `state`, ce qui
+permet d’afficher une branche ou une feuille tout en gardant la structure des parties explicite.
 
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/tree-view' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/tree-view' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/tree-view' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/tree-view' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Anatomie
-
-```text
-TreeView
-├─ TreeViewLabel
-└─ TreeViewTree
-   └─ TreeViewNode ou TreeViewNodeProvider
-      ├─ TreeViewBranch
-      │  ├─ TreeViewBranchControl
-      │  │  ├─ TreeViewBranchIndicator
-      │  │  └─ TreeViewBranchText
-      │  ├─ TreeViewBranchTrigger (optionnel, déclencheur dédié)
-      │  └─ TreeViewBranchContent
-      │     ├─ TreeViewBranchIndentGuide
-      │     └─ nœuds imbriqués
-      └─ TreeViewItem
-         └─ TreeViewItemText
-```
-
-| Partie                           | Rôle                                                                  |
-| -------------------------------- | --------------------------------------------------------------------- |
-| `TreeView`                  | Conserve la collection et gère l’ouverture, la sélection, le focus, les cases à cocher et le renommage. |
-| `TreeViewRootProvider`          | Relie les parties de l’arborescence à une instance créée par `useTreeView`. |
-| `TreeViewLabel`                 | Donne un nom accessible à l’arborescence.                            |
-| `TreeViewTree`                  | Crée le conteneur d’arborescence ARIA.                               |
-| `TreeViewNode`                  | Un provider pratique qui expose `{ node, indexPath, state }`.        |
-| `TreeViewNodeProvider`          | La limite de contexte Ark de bas niveau pour une composition personnalisée. |
-| `TreeViewBranch*`               | Un nœud dépliable, son contrôle, son indicateur, son texte et son contenu enfant. |
-| `TreeViewItem*`                 | Une feuille et son indicateur facultatif de sélection.               |
-| `TreeViewNodeCheckbox*`         | La case à cocher et son indicateur coché ou indéterminé.             |
-| `TreeViewNodeRenameInput`       | Le champ affiché pendant le renommage d’un nœud.                     |
-
-## Composition
-
-Utilisez `TreeViewNode` pour le rendu récursif. Il fournit `node`, `indexPath` et l’état courant du
-nœud, tandis que vous choisissez les parties `TreeViewBranch` ou `TreeViewItem`. Si votre composant récursif doit
-accéder directement au contexte du nœud, utilisez `TreeViewNodeProvider` directement. Lorsque des contrôles externes doivent gérer l’état de l’arborescence,
-créez-le avec `useTreeView` et transmettez-le à `TreeViewRootProvider` ; ne rendez pas un second root
-pour la même instance. Si une branche utilise un `TreeViewBranchTrigger` distinct, ajoutez `role="none"` à
-`TreeViewBranchControl`.
-
-En Vue, `TreeViewNode` fournit les données de rendu dans le slot par défaut avec paramètres.
-Contrôlez les valeurs avec `v-model:expanded-value`, `v-model:selected-value`,
-`v-model:checked-value` et `v-model:focused-value` ; les événements comme `@selection-change`
-conservent les objets de détails Ark. Stockez une collection remplaçable dans une `shallowRef`
-pour que Vue préserve son instance de classe.
+React, Solid et Vue utilisent les mêmes noms plats pour TreeView ; les onglets ci-dessous conservent la composition native de chaque framework.
 
 ## Exemples
 
@@ -401,6 +318,53 @@ second `TreeView`. Cet exemple montre aussi la composition bas niveau d’un nœ
 
 </ExampleCode>
 
+## Composition
+
+Utilisez `TreeViewNode` pour le rendu récursif. Il fournit `node`, `indexPath` et l’état courant du
+nœud, tandis que vous choisissez les parties `TreeViewBranch` ou `TreeViewItem`. Si votre composant récursif doit
+accéder directement au contexte du nœud, utilisez `TreeViewNodeProvider` directement. Lorsque des contrôles externes doivent gérer l’état de l’arborescence,
+créez-le avec `useTreeView` et transmettez-le à `TreeViewRootProvider` ; ne rendez pas un second root
+pour la même instance. Si une branche utilise un `TreeViewBranchTrigger` distinct, ajoutez `role="none"` à
+`TreeViewBranchControl`.
+
+En Vue, `TreeViewNode` fournit les données de rendu dans le slot par défaut avec paramètres.
+Contrôlez les valeurs avec `v-model:expanded-value`, `v-model:selected-value`,
+`v-model:checked-value` et `v-model:focused-value` ; les événements comme `@selection-change`
+conservent les objets de détails Ark. Stockez une collection remplaçable dans une `shallowRef`
+pour que Vue préserve son instance de classe.
+
+## Anatomie
+
+```text
+TreeView
+├─ TreeViewLabel
+└─ TreeViewTree
+   └─ TreeViewNode ou TreeViewNodeProvider
+      ├─ TreeViewBranch
+      │  ├─ TreeViewBranchControl
+      │  │  ├─ TreeViewBranchIndicator
+      │  │  └─ TreeViewBranchText
+      │  ├─ TreeViewBranchTrigger (optionnel, déclencheur dédié)
+      │  └─ TreeViewBranchContent
+      │     ├─ TreeViewBranchIndentGuide
+      │     └─ nœuds imbriqués
+      └─ TreeViewItem
+         └─ TreeViewItemText
+```
+
+| Partie                           | Rôle                                                                  |
+| -------------------------------- | --------------------------------------------------------------------- |
+| `TreeView`                  | Conserve la collection et gère l’ouverture, la sélection, le focus, les cases à cocher et le renommage. |
+| `TreeViewRootProvider`          | Relie les parties de l’arborescence à une instance créée par `useTreeView`. |
+| `TreeViewLabel`                 | Donne un nom accessible à l’arborescence.                            |
+| `TreeViewTree`                  | Crée le conteneur d’arborescence ARIA.                               |
+| `TreeViewNode`                  | Un provider pratique qui expose `{ node, indexPath, state }`.        |
+| `TreeViewNodeProvider`          | La limite de contexte Ark de bas niveau pour une composition personnalisée. |
+| `TreeViewBranch*`               | Un nœud dépliable, son contrôle, son indicateur, son texte et son contenu enfant. |
+| `TreeViewItem*`                 | Une feuille et son indicateur facultatif de sélection.               |
+| `TreeViewNodeCheckbox*`         | La case à cocher et son indicateur coché ou indéterminé.             |
+| `TreeViewNodeRenameInput`       | Le champ affiché pendant le renommage d’un nœud.                     |
+
 ## Styles
 
 Utilisez `className` en React, `class` en Solid ou `class` en Vue sur chaque partie exportée pour les styles
@@ -416,7 +380,7 @@ variantes CSS Modules prennent les couleurs, les espacements et la typographie d
 foundation et n'exposent en variables CSS que la largeur de la racine et le pas d'indentation ;
 surchargez le reste avec une classe sur la partie.
 
-### Propriétés CSS
+### Variables CSS
 
 <CssPropertiesSection properties={TreeViewDocs.treeViewOverrideCssProperties} />
 

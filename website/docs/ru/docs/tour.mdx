@@ -2,104 +2,20 @@
 title: Tour
 component: tour
 description: Компонент для пошагового знакомства с продуктом на основе состояния Tour из Ark UI, с доступным оверлеем и готовыми действиями.
+ark: https://ark-ui.com/docs/components/tour
 ---
 
+<Example name="tour/basic" />
 
-## Справочник API
+## Установка
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/tour" />
+<ComponentInstall />
 
-## Базовый пример
-
+## Использование
 
 Создайте состояние тура через `useTour`, опишите шаги и передайте возвращённый объект в `Tour`. В примере сначала
 открывается диалог, затем подсказка у элемента интерфейса, а в конце появляется плавающий шаг. Оставляйте части
 композиции явными, чтобы при необходимости изменить их. `TourBody` прокручивает длинный текст внутри панели.
-
-<Example name="tour/basic" />
-
-## Установка через shadcn
-
-Полную настройку пакета, реестра и стилей см. в разделе [Быстрый старт](/docs/quick-start).
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/tour' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/tour' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/tour' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/tour' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/tour' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/tour' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Анатомия
-
-```text
-Tour
-└─ Поддерево оверлея (по умолчанию выводится в портал)
-   ├─ TourBackdrop
-   ├─ TourSpotlight
-   └─ TourPositioner
-      └─ TourContent
-         ├─ TourArrow
-         ├─ TourCloseIcon / TourCloseTrigger
-         ├─ TourBody
-         │  ├─ TourTitle
-         │  ├─ TourDescription
-         │  └─ TourProgressText
-         └─ TourControl
-            ├─ TourActionList
-            └─ TourActions
-               └─ TourActionTrigger[action]
-```
-
-| Часть | Роль |
-| --- | --- |
-| `Tour` | Корневой компонент, связанный с объектом, который возвращает `useTour`. |
-| `TourBackdrop` / `TourSpotlight` | Необязательный фон и подсветка текущего целевого элемента. |
-| `TourPositioner` / `TourContent` | Позиционируют и отображают элемент `alertdialog` из Ark. |
-| `TourArrow` | По умолчанию выводит `TourArrowTip` из moduix для шагов с подсказкой. |
-| `TourCloseIcon` / `TourCloseTrigger` | Доступное закрытие по умолчанию или собственная кнопка закрытия. |
-| `TourBody` | Прокручиваемая обёртка moduix для заголовка, описания и текста прогресса. |
-| `TourControl` / `TourActionList` | Рекомендуемая строка действий и действия текущего шага. |
-| `TourActions` / `TourActionTrigger` | Позволяют отрисовать свои действия, сохранив объекты действий Ark. |
-
-## Композиция
-
-Создайте состояние через `useTour` и передайте его в `Tour`. В Solid результат является accessor, поэтому для вызова
-методов вроде `start()` и `next()` используйте `tour()`. В Vue результат является ref: в шаблоне он раскрывается
-автоматически, а в коде скрипта методы вызываются через `tour.value`. Оставляйте структурные части явными и добавляйте `TourTitle` и
-`TourDescription`, чтобы у `alertdialog` были доступные имя и описание. `TourBackdrop`, `TourSpotlight` и `TourPositioner` по
-умолчанию выводятся в портал; используйте `portalled={false}` или `portalRef`, только если оверлей должен остаться в
-разметке или попасть в определённый контейнер. Используйте `TourActionList` для действий из `steps`, а для собственной
-разметки заменяйте его на `TourActions` с `TourActionTrigger asChild`. По умолчанию `lazyMount` и `unmountOnExit` равны `true`;
-передавайте колбэки в `useTour`, если внешний интерфейс или аналитика должны реагировать на смену шага или статуса.
-В Vue задавайте колбэки состояния, например `onStepChange` и `onStatusChange`, в `useTour`;
-событие `@exit-complete` на `Tour` сообщает о завершении анимации скрытия. Ark Vue сейчас объявляет
-другие события корня, но не отправляет их для объекта состояния, созданного вне корня.
 
 ## Примеры
 
@@ -133,6 +49,52 @@ Tour
 заголовок, описание и прогресс лежат прямо в `TourContent`.
 
 <Example name="tour/advanced-customization" />
+
+## Композиция
+
+Создайте состояние через `useTour` и передайте его в `Tour`. В Solid результат является accessor, поэтому для вызова
+методов вроде `start()` и `next()` используйте `tour()`. В Vue результат является ref: в шаблоне он раскрывается
+автоматически, а в коде скрипта методы вызываются через `tour.value`. Оставляйте структурные части явными и добавляйте `TourTitle` и
+`TourDescription`, чтобы у `alertdialog` были доступные имя и описание. `TourBackdrop`, `TourSpotlight` и `TourPositioner` по
+умолчанию выводятся в портал; используйте `portalled={false}` или `portalRef`, только если оверлей должен остаться в
+разметке или попасть в определённый контейнер. Используйте `TourActionList` для действий из `steps`, а для собственной
+разметки заменяйте его на `TourActions` с `TourActionTrigger asChild`. По умолчанию `lazyMount` и `unmountOnExit` равны `true`;
+передавайте колбэки в `useTour`, если внешний интерфейс или аналитика должны реагировать на смену шага или статуса.
+В Vue задавайте колбэки состояния, например `onStepChange` и `onStatusChange`, в `useTour`;
+событие `@exit-complete` на `Tour` сообщает о завершении анимации скрытия. Ark Vue сейчас объявляет
+другие события корня, но не отправляет их для объекта состояния, созданного вне корня.
+
+## Анатомия
+
+```text
+Tour
+└─ Поддерево оверлея (по умолчанию выводится в портал)
+   ├─ TourBackdrop
+   ├─ TourSpotlight
+   └─ TourPositioner
+      └─ TourContent
+         ├─ TourArrow
+         ├─ TourCloseIcon / TourCloseTrigger
+         ├─ TourBody
+         │  ├─ TourTitle
+         │  ├─ TourDescription
+         │  └─ TourProgressText
+         └─ TourControl
+            ├─ TourActionList
+            └─ TourActions
+               └─ TourActionTrigger[action]
+```
+
+| Часть | Роль |
+| --- | --- |
+| `Tour` | Корневой компонент, связанный с объектом, который возвращает `useTour`. |
+| `TourBackdrop` / `TourSpotlight` | Необязательный фон и подсветка текущего целевого элемента. |
+| `TourPositioner` / `TourContent` | Позиционируют и отображают элемент `alertdialog` из Ark. |
+| `TourArrow` | По умолчанию выводит `TourArrowTip` из moduix для шагов с подсказкой. |
+| `TourCloseIcon` / `TourCloseTrigger` | Доступное закрытие по умолчанию или собственная кнопка закрытия. |
+| `TourBody` | Прокручиваемая обёртка moduix для заголовка, описания и текста прогресса. |
+| `TourControl` / `TourActionList` | Рекомендуемая строка действий и действия текущего шага. |
+| `TourActions` / `TourActionTrigger` | Позволяют отрисовать свои действия, сохранив объекты действий Ark. |
 
 ## Стилизация
 

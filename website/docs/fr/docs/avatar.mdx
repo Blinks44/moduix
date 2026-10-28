@@ -2,16 +2,18 @@
 title: Avatar
 component: avatar
 description: Une représentation compacte d’un utilisateur ou d’une entité. Ark UI gère le chargement de l’image et l’affichage du contenu de remplacement.
+ark: https://ark-ui.com/docs/components/avatar
 ---
 
 import * as AvatarDocs from '@/components/examples/avatar/css-properties';
 
-## Référence de l’API
+<Example name="avatar/basic" />
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/avatar" />
+## Installation
 
+<ComponentInstall />
 
-## Exemple de base
+## Utilisation
 
 Utilisez `Avatar`, `AvatarFallback` et `AvatarImage` ensemble. Gardez `AvatarFallback` dans l’arbre
 pour qu’Ark UI puisse basculer entre le contenu de remplacement et l’image lorsque l’état de chargement change.
@@ -19,73 +21,6 @@ pour qu’Ark UI puisse basculer entre le contenu de remplacement et l’image l
 React, Solid et Vue partagent les mêmes noms de valeurs à plat. Importez `Avatar` comme racine et chaque
 partie supplémentaire directement, par exemple `AvatarImage` et `AvatarFallback`. Ces mêmes noms
 fonctionnent avec les paquets npm et les sources du registre shadcn.
-
-<Example name="avatar/basic" />
-
-## Installation avec shadcn
-
-Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration complète du paquet, du registre et des styles.
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/avatar' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/avatar' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/avatar' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/avatar' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/avatar' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/avatar' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Anatomie
-
-```text
-Avatar
-├─ AvatarFallback
-└─ AvatarImage
-
-AvatarRootProvider
-└─ les mêmes parties connectées à un store useAvatar()
-
-AvatarGroup
-└─ Avatar, Avatar, ...
-```
-
-| Composant           | Rôle |
-| ------------------- | ----------------------------------------------------------------- |
-| `Avatar`            | Crée l’élément racine et gère l’état de l’avatar Ark UI. |
-| `AvatarRootProvider` | Relie l’avatar à un état Ark UI créé en dehors de son arbre. |
-| `AvatarFallback`    | Affiche le contenu fourni par le consommateur jusqu’au chargement de l’image. |
-| `AvatarImage`       | Affiche l’image après un chargement réussi. |
-| `AvatarGroup`       | Empile les avatars avec un chevauchement et un anneau de la couleur du fond. |
-
-## Composition
-
-Gardez `AvatarFallback` et `AvatarImage` sous la même racine afin qu’Ark UI puisse gérer leur visibilité. Lorsqu’une autre partie de l’application possède l’état, créez-le avec `useAvatar()` du framework concerné et transmettez-le directement à `AvatarRootProvider` ; ne rendez pas une seconde racine pour le même store. React reçoit le store comme un objet, tandis que Solid fournit un accesseur réactif. En Vue, transmettez directement le résultat de `useAvatar()` à `AvatarRootProvider`. React et Solid peuvent utiliser `useAvatarContext()` pour un rendu d’image personnalisé et conserver les états masqué et visible de `getImageProps()`. En Vue, le slot de `AvatarContext` expose le même état. Utilisez `asChild` avec un seul enfant sémantique lorsqu’un autre élément doit porter le nœud DOM racine.
-
-En Solid, attribuez la ref à l’élément créé dans la fonction de rendu `asChild` : une ref posée sur `Avatar` lui-même n’est pas transmise par cette composition. En Vue, les refs pointent vers l’instance du composant ; utilisez `$el` pour accéder à l’élément rendu.
 
 ## Exemples
 
@@ -149,12 +84,40 @@ de remplacement et la composition explicite des parties.
 
 <Example name="avatar/custom-composition" />
 
+## Composition
+
+Gardez `AvatarFallback` et `AvatarImage` sous la même racine afin qu’Ark UI puisse gérer leur visibilité. Lorsqu’une autre partie de l’application possède l’état, créez-le avec `useAvatar()` du framework concerné et transmettez-le directement à `AvatarRootProvider` ; ne rendez pas une seconde racine pour le même store. React reçoit le store comme un objet, tandis que Solid fournit un accesseur réactif. En Vue, transmettez directement le résultat de `useAvatar()` à `AvatarRootProvider`. React et Solid peuvent utiliser `useAvatarContext()` pour un rendu d’image personnalisé et conserver les états masqué et visible de `getImageProps()`. En Vue, le slot de `AvatarContext` expose le même état. Utilisez `asChild` avec un seul enfant sémantique lorsqu’un autre élément doit porter le nœud DOM racine.
+
+En Solid, attribuez la ref à l’élément créé dans la fonction de rendu `asChild` : une ref posée sur `Avatar` lui-même n’est pas transmise par cette composition. En Vue, les refs pointent vers l’instance du composant ; utilisez `$el` pour accéder à l’élément rendu.
+
+## Anatomie
+
+```text
+Avatar
+├─ AvatarFallback
+└─ AvatarImage
+
+AvatarRootProvider
+└─ les mêmes parties connectées à un store useAvatar()
+
+AvatarGroup
+└─ Avatar, Avatar, ...
+```
+
+| Composant           | Rôle |
+| ------------------- | ----------------------------------------------------------------- |
+| `Avatar`            | Crée l’élément racine et gère l’état de l’avatar Ark UI. |
+| `AvatarRootProvider` | Relie l’avatar à un état Ark UI créé en dehors de son arbre. |
+| `AvatarFallback`    | Affiche le contenu fourni par le consommateur jusqu’au chargement de l’image. |
+| `AvatarImage`       | Affiche l’image après un chargement réussi. |
+| `AvatarGroup`       | Empile les avatars avec un chevauchement et un anneau de la couleur du fond. |
+
 ## Styles
 
 Utilisez `className` dans React ou `class` dans Solid et Vue, ainsi que les variables CSS de moduix, pour modifier l’apparence. Utilisez les attributs de
 données fournis par Ark lorsque le style dépend de l’état de l’image.
 
-### Propriétés CSS
+### Variables CSS
 
 <CssPropertiesSection properties={AvatarDocs.avatarCssProperties} />
 

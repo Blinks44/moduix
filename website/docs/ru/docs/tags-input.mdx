@@ -2,6 +2,7 @@
 title: Tags Input
 component: tags-input
 description: Редактируемое поле для списка строковых тегов с проверкой, отправкой формы и необязательными подсказками.
+ark: https://ark-ui.com/docs/components/tags-input
 ---
 
 import * as TagsInputDocs from '@/components/examples/tags-input/css-properties';
@@ -9,9 +10,17 @@ import TagsInputWithCombobox from '@/components/examples/tags-input/with-combobo
 import tagsInputSolidWithCombobox from '../../../snippets/combobox/solid/with-tags-input.tsx?raw';
 import tagsInputVueWithCombobox from '../../../snippets/combobox/vue/with-tags-input.vue?raw';
 
-## Справочник API
+<Example name="tags-input/basic" />
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/tags-input" />
+## Установка
+
+<ComponentInstall />
+
+## Использование
+
+Начните с `TagsInput`, `TagsInputLabel`, `TagsInputControl`, `TagsInputItems`,
+`TagsInputInput` и `TagsInputClearTrigger`. Добавьте `TagsInputHiddenInput`, если теги нужно
+отправлять вместе с формой.
 
 ## Как выбрать компонент
 
@@ -21,105 +30,6 @@ import tagsInputVueWithCombobox from '../../../snippets/combobox/vue/with-tags-i
 - Выбирайте **`TagsInput`** для меток, навыков, фильтров, получателей, тем и других списков строк, которые пользователь вводит сам.
 - Выбирайте **`Tag`**, когда интерфейс только показывает существующий токен и может предложить отдельное действие удаления.
 - Выбирайте **`Combobox`**, когда пользователь выбирает значение из известного списка, а основное взаимодействие связано с фильтрацией.
-
-## Базовый пример
-
-
-Начните с `TagsInput`, `TagsInputLabel`, `TagsInputControl`, `TagsInputItems`,
-`TagsInputInput` и `TagsInputClearTrigger`. Добавьте `TagsInputHiddenInput`, если теги нужно
-отправлять вместе с формой.
-
-<Example name="tags-input/basic" />
-
-## Установка через shadcn
-
-Полную настройку пакета, реестра и стилей см. в разделе [Быстрый старт](/docs/quick-start).
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/tags-input' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/tags-input' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/tags-input' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/tags-input' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/tags-input' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/tags-input' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Анатомия
-
-```text
-TagsInput
-├─ TagsInputLabel
-├─ TagsInputControl
-│  ├─ TagsInputItems
-│  └─ TagsInputItem[index, value]
-│     ├─ TagsInputItemPreview
-│     │  ├─ TagsInputItemText
-│     │  └─ TagsInputItemDeleteTrigger
-│     └─ TagsInputItemInput
-│  ├─ TagsInputInput
-│  └─ TagsInputClearTrigger
-└─ TagsInputHiddenInput (explicit)
-
-TagsInputRootProvider
-└─ same part tree connected to a useTagsInput() store
-```
-
-| Часть | Назначение |
-| --- | --- |
-| `TagsInput` | Корень, который управляет состоянием, значениями тегов, вводом, проверкой и формой. |
-| `TagsInputRootProvider` | Подключает части к состоянию, которое вернул `useTagsInput()`. |
-| `TagsInputLabel` | Доступная подпись поля тегов. |
-| `TagsInputControl` | Видимая область с тегами, полем ввода и кнопкой очистки. |
-| `TagsInputItems` | Стандартно отображает редактируемые теги из текущего состояния. |
-| `TagsInputItem` | Один тег. Передайте `index` и `value` для собственных элементов. |
-| `TagsInputItemContext` | Доступ через render prop к состоянию текущего элемента внутри дерева компонентов. |
-| `TagsInputItemPreview` | Отображает тег вне режима редактирования. |
-| `TagsInputItemText` | Видимый текст тега. |
-| `TagsInputItemDeleteTrigger` | Удаляет один тег и по умолчанию показывает компактный значок закрытия. |
-| `TagsInputItemInput` | Поле для редактирования тега на месте. |
-| `TagsInputInput` | Поле ввода новых тегов. |
-| `TagsInputClearTrigger` | Удаляет все теги и по умолчанию использует оформление общей кнопки закрытия. |
-| `TagsInputHiddenInput` | Явно добавляемое нативное поле для отправки формы. |
-| `TagsInputContext` | Render prop с доступом к состоянию корня внутри дерева компонента. |
-
-## Композиция
-
-Используйте короткую форму `<TagsInput>` для стандартной композиции. Оставьте `TagsInputItems`,
-`TagsInputInput` и `TagsInputClearTrigger` внутри `TagsInputControl`. Добавьте
-`TagsInputHiddenInput` явно и передайте корню `name`, если теги нужно отправлять с формой. Если
-связанная форма находится вне дерева компонента, задайте `form`.
-
-Для собственного содержимого или действий тегов используйте `TagsInputContext` и свяжите его
-значения с `TagsInputItem`, передав `index` и `value`. Оставьте `TagsInputItemInput` внутри каждого
-элемента, если нужно сохранить редактирование на месте. Используйте `TagsInputRootProvider` с
-`useTagsInput()` только тогда, когда состояние или методы вроде `addValue`, `clearValue` и `focus`
-нужны за пределами дерева компонента. В Solid store является accessor: читайте `tagsInput().value`
-и вызывайте `tagsInput().addValue()`. При объединении с `Combobox` используйте общие идентификаторы
-поля и элемента управления и объединяйте поля через `asChild`.
 
 ## Примеры
 
@@ -243,9 +153,62 @@ TagsInputRootProvider
 
 <Example name="tags-input/advanced-customization" />
 
+## Композиция
+
+Используйте короткую форму `<TagsInput>` для стандартной композиции. Оставьте `TagsInputItems`,
+`TagsInputInput` и `TagsInputClearTrigger` внутри `TagsInputControl`. Добавьте
+`TagsInputHiddenInput` явно и передайте корню `name`, если теги нужно отправлять с формой. Если
+связанная форма находится вне дерева компонента, задайте `form`.
+
+Для собственного содержимого или действий тегов используйте `TagsInputContext` и свяжите его
+значения с `TagsInputItem`, передав `index` и `value`. Оставьте `TagsInputItemInput` внутри каждого
+элемента, если нужно сохранить редактирование на месте. Используйте `TagsInputRootProvider` с
+`useTagsInput()` только тогда, когда состояние или методы вроде `addValue`, `clearValue` и `focus`
+нужны за пределами дерева компонента. В Solid store является accessor: читайте `tagsInput().value`
+и вызывайте `tagsInput().addValue()`. При объединении с `Combobox` используйте общие идентификаторы
+поля и элемента управления и объединяйте поля через `asChild`.
+
+## Анатомия
+
+```text
+TagsInput
+├─ TagsInputLabel
+├─ TagsInputControl
+│  ├─ TagsInputItems
+│  └─ TagsInputItem[index, value]
+│     ├─ TagsInputItemPreview
+│     │  ├─ TagsInputItemText
+│     │  └─ TagsInputItemDeleteTrigger
+│     └─ TagsInputItemInput
+│  ├─ TagsInputInput
+│  └─ TagsInputClearTrigger
+└─ TagsInputHiddenInput (explicit)
+
+TagsInputRootProvider
+└─ same part tree connected to a useTagsInput() store
+```
+
+| Часть | Назначение |
+| --- | --- |
+| `TagsInput` | Корень, который управляет состоянием, значениями тегов, вводом, проверкой и формой. |
+| `TagsInputRootProvider` | Подключает части к состоянию, которое вернул `useTagsInput()`. |
+| `TagsInputLabel` | Доступная подпись поля тегов. |
+| `TagsInputControl` | Видимая область с тегами, полем ввода и кнопкой очистки. |
+| `TagsInputItems` | Стандартно отображает редактируемые теги из текущего состояния. |
+| `TagsInputItem` | Один тег. Передайте `index` и `value` для собственных элементов. |
+| `TagsInputItemContext` | Доступ через render prop к состоянию текущего элемента внутри дерева компонентов. |
+| `TagsInputItemPreview` | Отображает тег вне режима редактирования. |
+| `TagsInputItemText` | Видимый текст тега. |
+| `TagsInputItemDeleteTrigger` | Удаляет один тег и по умолчанию показывает компактный значок закрытия. |
+| `TagsInputItemInput` | Поле для редактирования тега на месте. |
+| `TagsInputInput` | Поле ввода новых тегов. |
+| `TagsInputClearTrigger` | Удаляет все теги и по умолчанию использует оформление общей кнопки закрытия. |
+| `TagsInputHiddenInput` | Явно добавляемое нативное поле для отправки формы. |
+| `TagsInputContext` | Render prop с доступом к состоянию корня внутри дерева компонента. |
+
 ## Стилизация
 
-### CSS-свойства
+### CSS-переменные
 
 <CssPropertiesSection properties={TagsInputDocs.tagsInputCssProperties} />
 

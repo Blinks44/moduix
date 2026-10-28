@@ -1,87 +1,36 @@
 ---
 title: Close Button
 component: close-button
-description: An icon-only button for dismissing notifications, cards, overlays, and other UI surfaces.
+description: Dismiss a notification, card, or overlay with an accessible icon button.
+ark: https://ark-ui.com/docs/guides/composition#the-ark-factory
 ---
 
 import * as CloseButtonDocs from '@/components/examples/close-button/css-properties';
 
-## API Reference
+<Example name="close-button/basic" />
 
-Ark UI does not ship a dedicated primitive for close buttons. moduix builds `CloseButton` with the official
-[Ark factory](https://ark-ui.com/docs/guides/composition#the-ark-factory) and follows Ark's guidance for
-[composition](https://ark-ui.com/docs/guides/composition), [styling](https://ark-ui.com/docs/guides/styling), and
-[refs](https://ark-ui.com/docs/guides/ref).
+## Installation
 
-## Basic
+<ComponentInstall />
 
+## Usage
+
+<UsageCode
+  react={'<CloseButton aria-label="Dismiss notification" onClick={dismiss} />'}
+  vue={'<CloseButton aria-label="Dismiss notification" @click="dismiss" />'}
+/>
+
+<PropChips
+  items={[
+    ['aria-label', 'Names what the button closes; defaults to Close.'],
+    ['children', 'Replaces the default close icon.'],
+    ['asChild', 'Renders your own element with the close button styles.'],
+  ]}
+/>
 
 Use `CloseButton` to add a close control to a notification, card, overlay, or another UI surface. Connect its
 `onClick` handler to the state that hides or removes that surface. The component renders a semantic button, provides
 a default accessible name, and shows a `CloseIcon`, but it does not manage the surface's state.
-
-<Example name="close-button/basic" />
-
-## Install with shadcn
-
-See [Quick Start](/docs/quick-start) for full package setup, registry configuration, and styling guidance.
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-  <ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/close-button' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/close-button' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/close-button' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/close-button' },
-  ]}
-  />
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/close-button' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/close-button' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Anatomy
-
-`CloseButton` exposes a single root part following the Ark model.
-
-```text
-CloseButton
-└─ root[data-scope="close-button"][data-part="root"][data-slot="close-button-root"]
-   └─ CloseIcon (default) | custom children
-```
-
-| Part          | Role                                                                     |
-| ------------- | ------------------------------------------------------------------------ |
-| `CloseButton` | Interactive dismiss control based on button semantics and accessibility. |
-
-## Composition
-
-`CloseButton` does not own the state of the surface it dismisses. Connect `onClick` to the state that hides or
-removes that surface. If a Dialog, Drawer, or another overlay already provides a close trigger, use that trigger so
-the parent keeps control of dismissal and focus return.
-
-Use `asChild` when one semantic button from another component must own the DOM node. The child must render the icon;
-set `type="button"` on it when needed, especially inside a form. In Vue, place that button in the default slot. In
-Solid, pass a render function to `asChild` and spread `props()` onto the child.
 
 ## Examples
 
@@ -106,13 +55,37 @@ and data attributes. Put the icon in that child and set its type explicitly.
 
 <Example name="close-button/as-child" />
 
+## Composition
+
+`CloseButton` does not own the state of the surface it dismisses. Connect `onClick` to the state that hides or
+removes that surface. If a Dialog, Drawer, or another overlay already provides a close trigger, use that trigger so
+the parent keeps control of dismissal and focus return.
+
+Use `asChild` when one semantic button from another component must own the DOM node. The child must render the icon;
+set `type="button"` on it when needed, especially inside a form. In Vue, place that button in the default slot. In
+Solid, pass a render function to `asChild` and spread `props()` onto the child.
+
+## Anatomy
+
+`CloseButton` exposes a single root part following the Ark model.
+
+```text
+CloseButton
+└─ root[data-scope="close-button"][data-part="root"][data-slot="close-button-root"]
+   └─ CloseIcon (default) | custom children
+```
+
+| Part          | Role                                                                     |
+| ------------- | ------------------------------------------------------------------------ |
+| `CloseButton` | Interactive dismiss control based on button semantics and accessibility. |
+
 ## Styling
 
 Use `className` in React or `class` in Solid and Vue on the root for structural styles. Tailwind variants use native
 utility classes and consumer class overrides; the variables below apply to the CSS Modules variants. Data attributes
 and `data-slot` hooks are shared by both styling tracks.
 
-### CSS Properties
+### CSS variables
 
 <CssPropertiesSection properties={CloseButtonDocs.closeButtonOverrideCssProperties} />
 
@@ -124,3 +97,19 @@ and `data-slot` hooks are shared by both styling tracks.
 - `data-disabled` exposes the normalized `disabled` and `aria-disabled="true"` styling state.
 - `className`/`class` is merged with the component's default styles on the root.
 - For CSS Modules variants, direct child SVG elements use `--moduix-close-button-icon-size` for their width and height.
+
+## Keyboard
+
+| Key | Action |
+| --- | --- |
+| `Tab` / `Shift+Tab` | Moves focus to and from the button. |
+| `Enter` / `Space` | Activates the focused button. |
+
+## API reference
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `aria-label` | `string` | `'Close'` |
+| `children` | `ReactNode` | `CloseIcon` |
+| `asChild` | `boolean` | `false` |
+| `disabled` | `boolean` | `false` |

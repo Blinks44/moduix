@@ -1,6 +1,7 @@
 ---
 title: Tableau de données
 description: Créez des tableaux triables, filtrables et paginés avec moduix Table et TanStack Table v9.
+block: data-table
 ---
 
 import { DataTable } from '@/components/blocks/data-table';
@@ -12,8 +13,22 @@ import dataTableVue from '../../../snippets/blocks/vue/data-table.vue?raw';
 import dataTableControlsVue from '../../../snippets/blocks/vue/data-table-controls.vue?raw';
 import dataTableBasicSolid from '../../../snippets/blocks/solid/data-table-basic.tsx?raw';
 import dataTableBasicVue from '../../../snippets/blocks/vue/data-table-basic.vue?raw';
+import dataTableCatalogReact from '../../../src/components/blocks/data-table.tsx?raw';
+import dataTableCatalogCss from '../../../src/components/blocks/data-table.module.css?raw';
+import dataTableBasicReact from '../../../src/components/blocks/data-table/basic.tsx?raw';
+import dataTableBasicCss from '../../../src/components/blocks/data-table/payment-table.module.css?raw';
+import dataTableReact from '../../../src/components/blocks/data-table/sorting-filtering-and-pagination.tsx?raw';
+import dataTableCss from '../../../src/components/blocks/data-table/payment-table.module.css?raw';
 
 # Tableau de données
+
+<ExamplePanel
+  clientOnly
+  sources={{ react: dataTableCatalogReact, solid: dataTableCatalogSolid, vue: dataTableVue }}
+  files={[{ name: 'data-table.module.css', code: dataTableCatalogCss }]}
+>
+  <DataTable />
+</ExamplePanel>
 
 `Data Table` est un modèle de composition, et non un composant exporté par moduix. Utilisez les parties
 sémantiques et stylées de `Table` pour le balisage, puis TanStack Table v9 pour gérer l’état et les interactions
@@ -22,7 +37,7 @@ surtout si cet état alimente une route ou une requête serveur. Les colonnes,
 filtres, actions de ligne et contrats côté serveur varient selon le produit : gardez donc cette logique au
 plus près de la fonctionnalité concernée.
 
-La composition complète ci-dessous reprend le tableau interactif de la page d’accueil. Elle montre la recherche,
+La composition ci-dessus reprend le tableau interactif de la page d’accueil. Elle montre la recherche,
 le tri, la visibilité des colonnes, la sélection des lignes, les actions et la pagination. Copiez le code,
 puis remplacez les enregistrements et les actions d’exemple par les données de votre produit.
 
@@ -39,51 +54,6 @@ N’utilisez que les contrôles nécessaires. Retirez la sélection, la visibili
 la pagination si ces fonctions ne sont pas utiles aux utilisateurs.
 
 Les aperçus interactifs utilisent le paquet React. Les onglets de code présentent des implémentations natives de TanStack Table v9 pour React, Solid et Vue.
-
-
-
-<ExampleFrame variant="block" clientOnly>
-  <DataTable />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/blocks/data-table.tsx"
-
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={dataTableCatalogSolid} />
-
-    </Tab>
-  <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={dataTableVue} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/blocks/data-table.module.css"
-
-```
-</div>
-
-</ExampleCode>
 
 ## Installation
 
@@ -125,50 +95,14 @@ cellules visibles dans l’anatomie de tableau moduix.
 L’exemple affiche les colonnes et les cellules visibles : il enregistre donc `columnVisibilityFeature`.
 N’ajoutez les autres fonctionnalités que lorsque le tableau en a besoin.
 
-<ExampleFrame variant="block">
+<ExamplePanel
+  sources={{ react: dataTableBasicReact, solid: dataTableBasicSolid, vue: dataTableBasicVue }}
+  files={[{ name: 'payment-table.module.css', code: dataTableBasicCss }]}
+>
   <PreviewFrame maxWidth="lg">
     <DataTableBasic />
   </PreviewFrame>
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/blocks/data-table/basic.tsx"
-
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={dataTableBasicSolid} />
-
-    </Tab>
-  <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={dataTableBasicVue} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/blocks/data-table/payment-table.module.css"
-
-```
-</div>
-
-</ExampleCode>
+</ExamplePanel>
 
 Conservez les colonnes près du type de données de la fonctionnalité. C’est l’endroit naturel pour le
 formatage, l’alignement numérique, les actions de ligne et les filtres propres au métier.
@@ -199,48 +133,12 @@ Importez les fonctions intégrées de filtrage et de tri utilisées par le table
 `tableFeatures()`. Les fonctions inutilisées restent ainsi en dehors du bundle. La composition enregistre
 `includesString`, `alphanumeric` et `text`, plutôt qu’un registre complet.
 
-<ExampleFrame variant="block">
+<ExamplePanel
+  sources={{ react: dataTableReact, solid: dataTableSolid, vue: dataTableControlsVue }}
+  files={[{ name: 'payment-table.module.css', code: dataTableCss }]}
+>
   <InteractiveDataTable />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/blocks/data-table/sorting-filtering-and-pagination.tsx"
-
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={dataTableSolid} />
-
-    </Tab>
-  <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={dataTableControlsVue} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/blocks/data-table/payment-table.module.css"
-
-```
-</div>
-
-</ExampleCode>
+</ExamplePanel>
 
 Pour un en-tête triable, affichez un vrai bouton dans `TableColumnHeader`. L’exemple utilise des icônes
 Lucide de taille uniforme et définit `aria-sort="none" | "ascending" | "descending"` sur les en-têtes

@@ -2,13 +2,21 @@
 title: Date Input
 component: date-input
 description: Build accessible segmented date inputs in React, Solid, or Vue with CSS Modules or Tailwind, including locale-aware editing and native form submission.
+ark: https://ark-ui.com/docs/components/date-input
 ---
 
 import * as DateInputDocs from '@/components/examples/date-input/css-properties';
 
-## API Reference
+<Example name="date-input/basic" />
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/date-input" />
+## Installation
+
+<ComponentInstall />
+
+## Usage
+
+`DateInput` renders locale-aware date segments that users can edit with the keyboard. Put
+`DateInputSegments` inside `DateInputControl` for the standard composition.
 
 ## Choosing the right component
 
@@ -16,97 +24,6 @@ import * as DateInputDocs from '@/components/examples/date-input/css-properties'
 - Choose **`DateInput`** when users need keyboard-editable date segments.
 - Choose **`DatePicker`** when users need a popup or inline calendar. `DateInput` is keyboard-first and
   does not include a calendar.
-
-## Basic
-
-`DateInput` renders locale-aware date segments that users can edit with the keyboard. Put
-`DateInputSegments` inside `DateInputControl` for the standard composition.
-
-<Example name="date-input/basic" />
-
-## Install with shadcn
-
-See [Quick Start](/docs/quick-start) for full package setup, registry configuration, and styling guidance.
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/date-input' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/date-input' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/date-input' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/date-input' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/date-input' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/date-input' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Anatomy
-
-```text
-DateInput
-├─ DateInputLabel
-├─ DateInputControl
-│  ├─ DateInputSegments
-│  └─ DateInputSeparator (optional, range layouts)
-└─ DateInputHiddenInput[index] (explicit, one per submitted date)
-
-Advanced customization:
-
-DateInputSegmentGroup
-└─ DateInputSegmentContext
-   └─ DateInputSegment
-
-DateInputRootProvider
-└─ same part tree connected to a useDateInput() store
-```
-
-| Part | Role |
-| ---- | ---- |
-| `DateInput` | Owns date values, locale formatting, segment focus, and validation. |
-| `DateInputHiddenInput` | Native Ark form control that must be composed explicitly for submission. |
-| `DateInputRootProvider` | Connects the parts to state created by `useDateInput()`. |
-| `DateInputLabel` | Accessible label for the date input. |
-| `DateInputControl` | Visual frame around one or more segment groups. |
-| `DateInputSegmentGroup` | Groups segments for one date index. |
-| `DateInputSegment` | Editable or literal segment supplied by Ark UI. |
-| `DateInputSegments` | Renders one locale-aware segment group for the common case. |
-| `DateInputSeparator` | Presentational text used between range groups. |
-| `DateInputContext` | Renderless access to the current date input state. |
-| `DateInputSegmentContext` | Render helper for locale-aware segment rendering. |
-
-## Composition
-
-Use `DateInput` with `DateInputControl` and `DateInputSegments` for the standard field. Keep the
-state uncontrolled with `defaultValue`, control it with `value` and `onValueChange(details)`, or
-create it with `useDateInput()` and connect the parts through `DateInputRootProvider`. In Vue, use
-`v-model` for the controlled value. Values use
-the `DateInputDateValue[]` shape from `@internationalized/date`, not strings.
-
-`DateInputHiddenInput` is explicit because the root does not add native inputs. Render one hidden
-input for each submitted date and use matching `index` values for a range. Use
-`DateInputSegmentGroup`, `DateInputSegmentContext`, and `DateInputSegment` only when the default
-`DateInputSegments` rendering is not enough.
 
 ## Examples
 
@@ -189,6 +106,53 @@ Use the full segment composition when rendering needs to vary based on Ark segme
 
 <Example name="date-input/advanced-customization" />
 
+## Composition
+
+Use `DateInput` with `DateInputControl` and `DateInputSegments` for the standard field. Keep the
+state uncontrolled with `defaultValue`, control it with `value` and `onValueChange(details)`, or
+create it with `useDateInput()` and connect the parts through `DateInputRootProvider`. In Vue, use
+`v-model` for the controlled value. Values use
+the `DateInputDateValue[]` shape from `@internationalized/date`, not strings.
+
+`DateInputHiddenInput` is explicit because the root does not add native inputs. Render one hidden
+input for each submitted date and use matching `index` values for a range. Use
+`DateInputSegmentGroup`, `DateInputSegmentContext`, and `DateInputSegment` only when the default
+`DateInputSegments` rendering is not enough.
+
+## Anatomy
+
+```text
+DateInput
+├─ DateInputLabel
+├─ DateInputControl
+│  ├─ DateInputSegments
+│  └─ DateInputSeparator (optional, range layouts)
+└─ DateInputHiddenInput[index] (explicit, one per submitted date)
+
+Advanced customization:
+
+DateInputSegmentGroup
+└─ DateInputSegmentContext
+   └─ DateInputSegment
+
+DateInputRootProvider
+└─ same part tree connected to a useDateInput() store
+```
+
+| Part | Role |
+| ---- | ---- |
+| `DateInput` | Owns date values, locale formatting, segment focus, and validation. |
+| `DateInputHiddenInput` | Native Ark form control that must be composed explicitly for submission. |
+| `DateInputRootProvider` | Connects the parts to state created by `useDateInput()`. |
+| `DateInputLabel` | Accessible label for the date input. |
+| `DateInputControl` | Visual frame around one or more segment groups. |
+| `DateInputSegmentGroup` | Groups segments for one date index. |
+| `DateInputSegment` | Editable or literal segment supplied by Ark UI. |
+| `DateInputSegments` | Renders one locale-aware segment group for the common case. |
+| `DateInputSeparator` | Presentational text used between range groups. |
+| `DateInputContext` | Renderless access to the current date input state. |
+| `DateInputSegmentContext` | Render helper for locale-aware segment rendering. |
+
 ## Styling
 
 Use `className` in React or `class` in Solid and Vue on exported parts for structural styles. Tailwind
@@ -198,7 +162,7 @@ variables below. Data attributes and `data-slot` hooks are shared by both stylin
 The root is sized to its content and the control fills it. To stretch the input in a form, set
 `--moduix-date-input-width: 100%` in CSS Modules or add `w-full` to the root in Tailwind.
 
-### CSS Properties
+### CSS variables
 
 <CssPropertiesSection properties={DateInputDocs.dateInputOverrideCssProperties} />
 

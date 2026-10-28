@@ -2,112 +2,22 @@
 title: Carousel
 component: carousel
 description: A paginated carousel built on Ark UI with autoplay, externally managed state, and variable-width slides.
+ark: https://ark-ui.com/docs/components/carousel
 ---
 
 import * as CarouselDocs from '@/components/examples/carousel/css-properties';
 
-## API Reference
+<Example name="carousel/basic" />
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/carousel" />
+## Installation
 
-## Basic
+<ComponentInstall />
+
+## Usage
 
 Start with `Carousel` as the root. Add `CarouselItemGroup` for the slide track, place previous and
 next buttons in `CarouselControl`, and use `CarouselIndicators` with `CarouselProgressText`
 for the default pager.
-
-
-<Example name="carousel/basic" />
-
-## Install with shadcn
-
-See [Quick Start](/docs/quick-start) for full package setup, registry configuration, and styling guidance.
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/carousel' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/carousel' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/carousel' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/carousel' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/carousel' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/carousel' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Anatomy
-
-```text
-Carousel
-├─ CarouselItemGroup
-│  └─ CarouselItem[index]
-├─ CarouselControl
-│  ├─ CarouselPrevTrigger
-│  └─ CarouselNextTrigger
-├─ CarouselIndicatorGroup
-│  └─ CarouselIndicator[index]
-└─ CarouselProgressText
-
-CarouselRootProvider
-└─ same part tree connected to a useCarousel() store
-```
-
-| Part                     | Role                                                             |
-| ------------------------ | ---------------------------------------------------------------- |
-| `Carousel`               | Owns carousel state, navigation, and the slide collection.       |
-| `CarouselRootProvider`   | Connects the parts to state created with `useCarousel()`.        |
-| `CarouselControl`        | Container for navigation buttons and other controls.             |
-| `CarouselItemGroup`      | Slide track that contains `CarouselItem` parts.                  |
-| `CarouselItem`           | A single slide with a stable `index`.                            |
-| `CarouselPrevTrigger`    | Button that moves to the previous page.                          |
-| `CarouselNextTrigger`    | Button that moves to the next page.                              |
-| `CarouselIndicators`     | moduix convenience component that renders the default page dots. |
-| `CarouselIndicatorGroup` | Container for custom page indicators.                            |
-| `CarouselIndicator`      | Button that moves to the page with the given index.              |
-| `CarouselProgressText`   | Text showing the current page and the total number of pages.     |
-
-## Composition
-
-`Carousel` owns state inside the root. Use `defaultPage` for an uncontrolled carousel; use `page`
-with `onPageChange(details)` when routing, filters, or another part of the application owns the
-current page. `slideCount` is required and must stay in sync with rendered items when the collection
-changes.
-
-Use `CarouselRootProvider` with `useCarousel()` when the store must be created outside the rendered
-tree or shared across composition boundaries. Pass that store to `CarouselRootProvider` and do not
-render a second `Carousel` root for the same store.
-
-`CarouselIndicators` reads `pageSnapPoints` from context and creates the standard indicators. For
-custom indicator content, render `CarouselIndicatorGroup` and `CarouselIndicator` inside
-`CarouselContext`; use the context API's `pageSnapPoints` when the number of indicators must match
-the calculated pages.
-
-In Solid, assign a ref to the element created inside the `asChild` render function. A ref on a
-Carousel part itself is not forwarded through that composition path.
-
-In Vue, a template ref on a part resolves to its rendered host through `$el`, including an `asChild`
-replacement host.
 
 ## Examples
 
@@ -217,6 +127,59 @@ alongside other context-driven controls.
 
 <Example name="carousel/advanced-customization" />
 
+## Composition
+
+`Carousel` owns state inside the root. Use `defaultPage` for an uncontrolled carousel; use `page`
+with `onPageChange(details)` when routing, filters, or another part of the application owns the
+current page. `slideCount` is required and must stay in sync with rendered items when the collection
+changes.
+
+Use `CarouselRootProvider` with `useCarousel()` when the store must be created outside the rendered
+tree or shared across composition boundaries. Pass that store to `CarouselRootProvider` and do not
+render a second `Carousel` root for the same store.
+
+`CarouselIndicators` reads `pageSnapPoints` from context and creates the standard indicators. For
+custom indicator content, render `CarouselIndicatorGroup` and `CarouselIndicator` inside
+`CarouselContext`; use the context API's `pageSnapPoints` when the number of indicators must match
+the calculated pages.
+
+In Solid, assign a ref to the element created inside the `asChild` render function. A ref on a
+Carousel part itself is not forwarded through that composition path.
+
+In Vue, a template ref on a part resolves to its rendered host through `$el`, including an `asChild`
+replacement host.
+
+## Anatomy
+
+```text
+Carousel
+├─ CarouselItemGroup
+│  └─ CarouselItem[index]
+├─ CarouselControl
+│  ├─ CarouselPrevTrigger
+│  └─ CarouselNextTrigger
+├─ CarouselIndicatorGroup
+│  └─ CarouselIndicator[index]
+└─ CarouselProgressText
+
+CarouselRootProvider
+└─ same part tree connected to a useCarousel() store
+```
+
+| Part                     | Role                                                             |
+| ------------------------ | ---------------------------------------------------------------- |
+| `Carousel`               | Owns carousel state, navigation, and the slide collection.       |
+| `CarouselRootProvider`   | Connects the parts to state created with `useCarousel()`.        |
+| `CarouselControl`        | Container for navigation buttons and other controls.             |
+| `CarouselItemGroup`      | Slide track that contains `CarouselItem` parts.                  |
+| `CarouselItem`           | A single slide with a stable `index`.                            |
+| `CarouselPrevTrigger`    | Button that moves to the previous page.                          |
+| `CarouselNextTrigger`    | Button that moves to the next page.                              |
+| `CarouselIndicators`     | moduix convenience component that renders the default page dots. |
+| `CarouselIndicatorGroup` | Container for custom page indicators.                            |
+| `CarouselIndicator`      | Button that moves to the page with the given index.              |
+| `CarouselProgressText`   | Text showing the current page and the total number of pages.     |
+
 ## Styling
 
 Use `className` in React or `class` in Solid and Vue on exported parts for structural styling. For
@@ -225,7 +188,7 @@ state-based styles, prefer Ark data attributes such as `data-orientation`, `data
 together with moduix `data-slot` selectors. Tailwind variants use native utility classes and consumer
 class overrides; the CSS Properties reference below applies to the CSS Modules packages.
 
-### CSS Properties
+### CSS variables
 
 <CssPropertiesSection properties={CarouselDocs.carouselOverrideCssProperties} />
 

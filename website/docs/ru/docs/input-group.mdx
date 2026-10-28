@@ -2,16 +2,23 @@
 title: Input Group
 component: input-group
 description: Создавайте поля ввода с префиксами, суффиксами и действиями внутри поля в React, Solid или Vue с установкой из пакета или через shadcn CLI.
+ark: https://ark-ui.com/docs/guides/composition
 ---
 
 import * as InputGroupDocs from '@/components/examples/input-group/css-properties';
 
-## Справочник API
+<Example name="input-group/basic" />
 
-`InputGroup` является композицией moduix, а не отдельным примитивом Ark UI. Он объединяет элементы
-фабрики Ark с компонентами moduix `Input` и `Button`, построенными на Ark. Композиция
-соответствует рекомендациям Ark по [композиции](https://ark-ui.com/docs/guides/composition),
-[стилизации](https://ark-ui.com/docs/guides/styling) и [работе с ref](https://ark-ui.com/docs/guides/ref).
+## Установка
+
+<ComponentInstall />
+
+## Использование
+
+Интерактивное
+
+Используйте `InputGroup` как корневой компонент и добавляйте к единственному
+`InputGroupInput` только необходимые части `InputGroupAddon`, `InputGroupText` или `InputGroupButton`.
 
 ## Какой компонент выбрать
 
@@ -21,93 +28,6 @@ import * as InputGroupDocs from '@/components/examples/input-group/css-propertie
 - Используйте **`NumberInput`** для числового поля с шагом изменения.
 - Используйте **`Textarea`** для многострочного текста.
 - Используйте **`Editable`**, если текст сначала должен отображаться как значение, а затем переходить в режим редактирования.
-
-## Базовый пример
-
-Интерактивное
-
-Используйте `InputGroup` как корневой компонент и добавляйте к единственному
-`InputGroupInput` только необходимые части `InputGroupAddon`, `InputGroupText` или `InputGroupButton`.
-
-<Example name="input-group/basic" />
-
-## Установка через shadcn
-
-Полную настройку пакета, реестра и стилей см. в разделе [Быстрый старт](/docs/quick-start).
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/input-group' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/input-group' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/input-group' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/input-group' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/input-group' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/input-group' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Анатомия
-
-```text
-InputGroup
-├─ InputGroupAddon (необязательно)
-├─ InputGroupInput или InputGroupTextarea
-├─ InputGroupText (необязательно)
-├─ InputGroupButton (необязательно)
-└─ InputGroupClearTrigger (необязательно)
-```
-
-| Часть                            | Назначение                                                  |
-| -------------------------------- | ----------------------------------------------------------- |
-| `InputGroup`                    | Пассивный контейнер с общей стилизацией и контекстом размера. |
-| `InputGroupInput`               | Нативный `<input>`, который содержит значение формы и состояние поля. |
-| `InputGroupTextarea`            | Нативный `<textarea>` для многострочного значения; используется вместо `InputGroupInput`. |
-| `InputGroupAddon`               | Префикс или суффикс с заливкой.                             |
-| `InputGroupText`                | Встроенный текст без заливки.                               |
-| `InputGroupButton`              | Кнопка действия, связанного с полем.                       |
-| `InputGroupClearTrigger` | Кнопка с крестиком; очисткой значения управляет приложение. |
-
-## Композиция
-
-В каждой группе оставляйте ровно один `InputGroupInput`. Вложенное поле отвечает за значение,
-поведение формы, состояние валидации и `ref`, поэтому управляемые и неуправляемые свойства
-задавайте на нём, а метку и сообщения валидации размещайте в `Field`. Размер корневого элемента
-наследуют `InputGroupInput` и `InputGroupButton`; для кнопок по умолчанию используется
-`type="button"`, но состояние `disabled` от `Field` они не наследуют. В React для управляемого
-поля используйте `onChange`, в Solid - `onInput`, а в Vue - `v-model`.
-
-Используйте `InputGroupAddon` и `InputGroupText` для неинтерактивного содержимого, а `InputGroupButton` - для действий. Корень,
-`InputGroupAddon` и `InputGroupText` поддерживают `asChild` с одним семантическим дочерним элементом, принимающим
-объединённые свойства и `ref`. Используйте `Editable`, если значение должно переключаться между
-режимами просмотра и редактирования.
-
-Задайте `align="block"` у `InputGroupAddon` или `InputGroupText`, чтобы разместить его строкой
-на всю ширину над контролом или под ним, а не сбоку; положение определяется порядком в DOM.
-Группа с block-аддоном содержит один контрол и только block-аддоны, поэтому боковое содержимое
-кладите внутрь block-аддона. Используйте там обычный `Button`: `InputGroupButton` растягивается на
-всю высоту группы и предназначен для действий рядом с контролом.
 
 ## Примеры
 
@@ -172,6 +92,52 @@ ARIA-атрибуты в `InputGroupInput`, а группа отразит со�
 
 <Example name="input-group/as-child" />
 
+## Композиция
+
+`InputGroup` является композицией moduix, а не отдельным примитивом Ark UI. Он объединяет элементы
+фабрики Ark с компонентами moduix `Input` и `Button`, построенными на Ark. Композиция
+соответствует рекомендациям Ark по [композиции](https://ark-ui.com/docs/guides/composition),
+[стилизации](https://ark-ui.com/docs/guides/styling) и [работе с ref](https://ark-ui.com/docs/guides/ref).
+
+В каждой группе оставляйте ровно один `InputGroupInput`. Вложенное поле отвечает за значение,
+поведение формы, состояние валидации и `ref`, поэтому управляемые и неуправляемые свойства
+задавайте на нём, а метку и сообщения валидации размещайте в `Field`. Размер корневого элемента
+наследуют `InputGroupInput` и `InputGroupButton`; для кнопок по умолчанию используется
+`type="button"`, но состояние `disabled` от `Field` они не наследуют. В React для управляемого
+поля используйте `onChange`, в Solid - `onInput`, а в Vue - `v-model`.
+
+Используйте `InputGroupAddon` и `InputGroupText` для неинтерактивного содержимого, а `InputGroupButton` - для действий. Корень,
+`InputGroupAddon` и `InputGroupText` поддерживают `asChild` с одним семантическим дочерним элементом, принимающим
+объединённые свойства и `ref`. Используйте `Editable`, если значение должно переключаться между
+режимами просмотра и редактирования.
+
+Задайте `align="block"` у `InputGroupAddon` или `InputGroupText`, чтобы разместить его строкой
+на всю ширину над контролом или под ним, а не сбоку; положение определяется порядком в DOM.
+Группа с block-аддоном содержит один контрол и только block-аддоны, поэтому боковое содержимое
+кладите внутрь block-аддона. Используйте там обычный `Button`: `InputGroupButton` растягивается на
+всю высоту группы и предназначен для действий рядом с контролом.
+
+## Анатомия
+
+```text
+InputGroup
+├─ InputGroupAddon (необязательно)
+├─ InputGroupInput или InputGroupTextarea
+├─ InputGroupText (необязательно)
+├─ InputGroupButton (необязательно)
+└─ InputGroupClearTrigger (необязательно)
+```
+
+| Часть                            | Назначение                                                  |
+| -------------------------------- | ----------------------------------------------------------- |
+| `InputGroup`                    | Пассивный контейнер с общей стилизацией и контекстом размера. |
+| `InputGroupInput`               | Нативный `<input>`, который содержит значение формы и состояние поля. |
+| `InputGroupTextarea`            | Нативный `<textarea>` для многострочного значения; используется вместо `InputGroupInput`. |
+| `InputGroupAddon`               | Префикс или суффикс с заливкой.                             |
+| `InputGroupText`                | Встроенный текст без заливки.                               |
+| `InputGroupButton`              | Кнопка действия, связанного с полем.                       |
+| `InputGroupClearTrigger` | Кнопка с крестиком; очисткой значения управляет приложение. |
+
 ## Стилизация
 
 Для структурных стилей передавайте экспортируемым частям `className` в React или `class` в Solid и Vue.
@@ -182,7 +148,7 @@ foundation и открывают только три переменные ниж
 классом на части — он сильнее слоёв стилей компонента. Атрибуты данных и селекторы `data-slot`
 общие для обоих подходов.
 
-### CSS-свойства
+### CSS-переменные
 
 <CssPropertiesSection properties={InputGroupDocs.inputGroupOverrideCssProperties} />
 

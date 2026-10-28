@@ -2,16 +2,20 @@
 title: Toggle
 component: toggle
 description: Un bouton à deux états pour les actions compactes comme les favoris, la mise en forme et les barres d’outils.
+ark: https://ark-ui.com/docs/components/toggle
 ---
 
 import * as ToggleDocs from '@/components/examples/toggle/css-properties';
 
-## Référence de l’API
+<Example name="toggle/basic" />
 
-`Toggle` enveloppe le composant primitif Toggle d’Ark UI et ajoute les propriétés visuelles moduix pour les variantes et les tailles.
-Importez-le depuis `@moduix/react/toggle`, `@moduix/solid/toggle` ou `@moduix/vue/toggle`.
+## Installation
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/toggle" />
+<ComponentInstall />
+
+## Utilisation
+
+Utilisez `Toggle` dans le cas courant et conservez le comportement d’Ark lié à l’état activé.
 
 ## Choisir le bon composant
 
@@ -21,78 +25,6 @@ Utilisez `Toggle` lorsque le contrôle doit se comporter comme un bouton et indi
 - Choisissez **`Switch`** pour les réglages qui s’activent ou se désactivent, présentés comme des préférences.
 - Choisissez **`Checkbox`** pour les sélections envoyées avec une liste ou un formulaire.
 - Choisissez **`ToggleGroup`** lorsque plusieurs toggles doivent partager un même modèle de sélection.
-
-## Exemple de base
-
-
-Utilisez `Toggle` dans le cas courant et conservez le comportement d’Ark lié à l’état activé.
-
-<Example name="toggle/basic" />
-
-## Installation avec shadcn
-
-Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration complète du paquet, du registre et des styles.
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/toggle' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/toggle' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/toggle' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/toggle' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/toggle' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/toggle' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Anatomie
-
-```text
-Toggle
-└─ ToggleIndicator (facultatif)
-
-ToggleContext (lecteur d’état, pas une partie du DOM)
-```
-
-| Partie | Rôle |
-| ------ | --- |
-| `Toggle` | Partie racine qui gère l’état activé, le focus, la désactivation et la composition `asChild`. |
-| `ToggleIndicator` | Partie facultative qui affiche le contenu activé et son `fallback` lorsque le toggle est désactivé. |
-| `ToggleContext` | Lit l’état du toggle le plus proche pour les descendants personnalisés ; il ne rend pas de partie du DOM. |
-
-## Composition
-
-Utilisez `defaultPressed` pour un toggle non contrôlé, ou passez `pressed` avec `onPressedChange` lorsque l’état
-appartient à l’application. Utilisez `ToggleIndicator` lorsque
-le contenu du bouton change selon son état. Pour les descendants personnalisés qui doivent lire cet état, utilisez
-`ToggleContext` ou `useToggleContext()` depuis le package correspondant. Utilisez `asChild` lorsqu’un autre bouton
-doit porter le comportement du toggle. Dans Solid, `asChild` reçoit une fonction de rendu ; dans React, il reçoit
-un seul enfant compatible avec un bouton ; dans Vue, il utilise un seul enfant compatible avec un bouton dans le slot
-par défaut. Dans Vue, utilisez `v-model:pressed` pour la valeur contrôlée, le slot nommé `fallback` avec
-`ToggleIndicator` et le slot `ToggleContext` lorsqu’un descendant personnalisé doit lire l’état courant.
-L’événement `@pressed-change` transmet la nouvelle valeur booléenne pour traiter le changement sans liaison
-avec `v-model:pressed`.
 
 ## Exemples
 
@@ -148,6 +80,37 @@ du bouton avec `ToggleIndicator`.
 
 <Example name="toggle/advanced-customization" />
 
+## Composition
+
+`Toggle` enveloppe le composant primitif Toggle d’Ark UI et ajoute les propriétés visuelles moduix pour les variantes et les tailles.
+Importez-le depuis `@moduix/react/toggle`, `@moduix/solid/toggle` ou `@moduix/vue/toggle`.
+
+Utilisez `defaultPressed` pour un toggle non contrôlé, ou passez `pressed` avec `onPressedChange` lorsque l’état
+appartient à l’application. Utilisez `ToggleIndicator` lorsque
+le contenu du bouton change selon son état. Pour les descendants personnalisés qui doivent lire cet état, utilisez
+`ToggleContext` ou `useToggleContext()` depuis le package correspondant. Utilisez `asChild` lorsqu’un autre bouton
+doit porter le comportement du toggle. Dans Solid, `asChild` reçoit une fonction de rendu ; dans React, il reçoit
+un seul enfant compatible avec un bouton ; dans Vue, il utilise un seul enfant compatible avec un bouton dans le slot
+par défaut. Dans Vue, utilisez `v-model:pressed` pour la valeur contrôlée, le slot nommé `fallback` avec
+`ToggleIndicator` et le slot `ToggleContext` lorsqu’un descendant personnalisé doit lire l’état courant.
+L’événement `@pressed-change` transmet la nouvelle valeur booléenne pour traiter le changement sans liaison
+avec `v-model:pressed`.
+
+## Anatomie
+
+```text
+Toggle
+└─ ToggleIndicator (facultatif)
+
+ToggleContext (lecteur d’état, pas une partie du DOM)
+```
+
+| Partie | Rôle |
+| ------ | --- |
+| `Toggle` | Partie racine qui gère l’état activé, le focus, la désactivation et la composition `asChild`. |
+| `ToggleIndicator` | Partie facultative qui affiche le contenu activé et son `fallback` lorsque le toggle est désactivé. |
+| `ToggleContext` | Lit l’état du toggle le plus proche pour les descendants personnalisés ; il ne rend pas de partie du DOM. |
+
 ## Styles
 
 Utilisez `className` dans React ou `class` dans Solid et Vue sur les parties exportées. Dans les paquets CSS Modules,
@@ -156,7 +119,7 @@ définissez les variables de couleur `--moduix-toggle-*` sur un toggle, sur
 `ToggleGroup`. Les tailles, l’espacement, l’arrondi et la typographie viennent des tokens foundation ; modifiez-les avec
 une classe. Les paquets Tailwind utilisent à la place les utilitaires natifs et les classes du consommateur.
 
-### Propriétés CSS
+### Variables CSS
 
 <CssPropertiesSection properties={ToggleDocs.toggleOverrideCssProperties} />
 

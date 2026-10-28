@@ -4,8 +4,49 @@ import { ComponentCardPreview } from './component-card-preview';
 
 const categories = [
   {
-    id: 'form-input',
+    id: 'actions',
+    slugs: ['button', 'clipboard', 'close-button', 'split-button', 'swap'],
+  },
+  {
+    id: 'display',
     slugs: [
+      'avatar',
+      'badge',
+      'card',
+      'carousel',
+      'chart',
+      'heading',
+      'highlight',
+      'image',
+      'image-cropper',
+      'json-tree-view',
+      'kbd',
+      'list',
+      'marquee',
+      'qr-code',
+      'table',
+      'tag',
+      'text',
+      'timer',
+      'typeset',
+    ],
+  },
+  {
+    id: 'feedback',
+    slugs: [
+      'alert',
+      'empty',
+      'progress-circular',
+      'progress-linear',
+      'skeleton',
+      'spinner',
+      'toast',
+    ],
+  },
+  {
+    id: 'forms',
+    slugs: [
+      'angle-slider',
       'checkbox',
       'color-picker',
       'combobox',
@@ -17,6 +58,7 @@ const categories = [
       'file-upload',
       'input',
       'input-group',
+      'listbox',
       'native-select',
       'number-input',
       'password-input',
@@ -35,30 +77,36 @@ const categories = [
     ],
   },
   {
-    id: 'layout-navigation',
+    id: 'layout',
     slugs: [
       'accordion',
       'aspect-ratio',
       'bleed',
-      'breadcrumbs',
-      'composition-patterns',
+      'collapsible',
       'container',
-      'menu',
-      'navigation-menu',
-      'pagination',
       'scroll-area',
       'separator',
       'sidebar',
       'simple-grid',
       'splitter',
       'stack',
-      'steps',
-      'tabs',
       'tree-view',
     ],
   },
   {
-    id: 'overlays-dialogs',
+    id: 'navigation',
+    slugs: [
+      'breadcrumbs',
+      'menu',
+      'navigation-menu',
+      'pagination',
+      'steps',
+      'table-of-contents',
+      'tabs',
+    ],
+  },
+  {
+    id: 'overlays',
     slugs: [
       'command-palette',
       'dialog',
@@ -71,57 +119,24 @@ const categories = [
       'tour',
     ],
   },
-  {
-    id: 'feedback-status',
-    slugs: [
-      'alert',
-      'empty',
-      'progress-circular',
-      'progress-linear',
-      'skeleton',
-      'spinner',
-      'toast',
-    ],
-  },
-  {
-    id: 'display-content',
-    slugs: [
-      'avatar',
-      'badge',
-      'card',
-      'chart',
-      'heading',
-      'image',
-      'image-cropper',
-      'json-tree-view',
-      'kbd',
-      'list',
-      'listbox',
-      'marquee',
-      'qr-code',
-      'table',
-      'tag',
-      'text',
-      'timer',
-      'typeset',
-    ],
-  },
-  {
-    id: 'actions-utilities',
-    slugs: [
-      'angle-slider',
-      'button',
-      'carousel',
-      'clipboard',
-      'close-button',
-      'collapsible',
-      'split-button',
-      'utilities',
-    ],
-  },
 ] as const;
 
 type ComponentCategory = (typeof categories)[number]['id'];
+
+const categoryLabelKeys = {
+  actions: 'categoryActions',
+  display: 'categoryDisplay',
+  feedback: 'categoryFeedback',
+  forms: 'categoryForms',
+  layout: 'categoryLayout',
+  navigation: 'categoryNavigation',
+  overlays: 'categoryOverlays',
+} as const satisfies Record<ComponentCategory, string>;
+
+export function getComponentCategoryLabelKey(slug: string) {
+  const category = categories.find((item) => (item.slugs as readonly string[]).includes(slug));
+  return category ? categoryLabelKeys[category.id] : undefined;
+}
 
 export function ComponentGallery({ category: categoryId }: { category: ComponentCategory }) {
   const lang = useLang();

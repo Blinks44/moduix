@@ -26,10 +26,8 @@ import {
 } from '@moduix/react/select';
 import { useI18n } from '@rspress/core/runtime';
 import { useState } from 'react';
+import { usePreset } from './nav-menus';
 import styles from './theme-presets.module.css';
-import '@moduix/react/presets/contrast.css';
-import '@moduix/react/presets/dense.css';
-import '@moduix/react/presets/soft.css';
 
 const presets = [
   {
@@ -70,7 +68,7 @@ const stages = [
 
 function ThemePresets() {
   const t = useI18n<typeof import('i18n')>();
-  const [preset, setPreset] = useState('calm');
+  const [{ value: preset }, setPreset] = usePreset();
   const [mode, setMode] = useState('light');
   const activePreset = presets.find((item) => item.value === preset) ?? presets[0];
   const stageCollection = createListCollection({

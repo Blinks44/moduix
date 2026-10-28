@@ -2,109 +2,29 @@
 title: Progress Circular
 component: progress-circular
 description: Indicateur circulaire pour suivre une progression déterminée ou indéterminée.
+ark: https://ark-ui.com/docs/components/progress-circular
 ---
 
 import * as ProgressCircularDocs from '@/components/examples/progress-circular/css-properties';
 
-## Référence de l’API
+<Example name="progress-circular/basic" />
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/progress-circular" />
+## Installation
 
-## Choisir le bon composant
+<ComponentInstall />
 
-Utilisez `ProgressCircular` pour afficher une indication compacte de l’avancement dans un texte,
-des cartes, des badges de barre d’outils et de petits tableaux de bord. Choisissez `ProgressLinear`
-lorsque la progression se compare plus facilement sur une barre horizontale.
-
-## Exemple de base
-
+## Utilisation
 
 Utilisez `ProgressCircularRing` pour afficher le cercle SVG standard, sa piste et son arc de
 progression. Ajoutez `ProgressCircularValueText` pour afficher la valeur actuelle. L’exemple place
 ce texte au centre du cercle grâce à un conteneur externe. Donnez à `ProgressCircularRing` un `aria-label` qui
 identifie la tâche et correspond au libellé visible.
 
-<Example name="progress-circular/basic" />
+## Choisir le bon composant
 
-## Installation avec shadcn
-
-Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration complète du paquet, du registre et des styles.
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/progress-circular' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/progress-circular' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/progress-circular' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/progress-circular' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/progress-circular' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/progress-circular' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Anatomie
-
-```text
-ProgressCircular
-├─ ProgressCircularLabel
-├─ ProgressCircularCircle
-│  ├─ ProgressCircularCircleTrack
-│  └─ ProgressCircularCircleRange
-├─ ProgressCircularRing
-│  └─ fixed ProgressCircularCircle, ProgressCircularCircleTrack, and ProgressCircularCircleRange subtree
-├─ ProgressCircularValueText
-└─ ProgressCircularView
-
-ProgressCircularRootProvider
-└─ same part tree connected to useProgress()
-```
-
-| Partie                                        | Rôle                                                                                |
-| --------------------------------------------- | ----------------------------------------------------------------------------------- |
-| `ProgressCircular`  | Gère l’état de progression, le formatage et les identifiants générés.               |
-| `ProgressCircularRootProvider`               | Relie les parties à l’état créé par `useProgress()`.               |
-| `ProgressCircularContext`                    | Expose l’état courant via une fonction de rendu.                                     |
-| `ProgressCircularLabel`                      | Fournit le contexte visible de l’indicateur de progression.                         |
-| `ProgressCircularRing`                       | Partie pratique qui rend le cercle, la piste et l’arc par défaut.                   |
-| `ProgressCircularCircle`                     | Élément SVG auquel Ark ajoute le rôle et les attributs ARIA de valeur.              |
-| `ProgressCircularCircleTrack`                | Cercle d’arrière-plan.                                                              |
-| `ProgressCircularCircleRange`                | Arc au premier plan qui reflète la progression actuelle ou l’état indéterminé.      |
-| `ProgressCircularValueText`                  | Affiche la valeur formatée et annonce les mises à jour.                             |
-| `ProgressCircularView`                       | Rend du contenu pour les états `indeterminate`, `loading` ou `complete`.            |
-
-## Composition
-
-Utilisez `ProgressCircularRing`
-lorsque le cercle standard suffit : il combine `ProgressCircularCircle`, `ProgressCircularCircleTrack` et `ProgressCircularCircleRange`, mais ne
-rend pas et ne centre pas `ProgressCircularValueText`. Gardez la composition du libellé, du cercle et du texte de
-valeur explicite lorsque la valeur doit apparaître au centre.
-
-Utilisez `defaultValue` lorsque le composant possède l’état de progression. Utilisez `value` avec
-`onValueChange(details)` lorsque l’application le possède. Définissez `defaultValue={null}` ou
-`value={null}` pour une progression indéterminée. Lorsque l’état doit être créé en dehors de l’arbre
-rendu, créez-le avec `useProgress()` et passez le store à
-`ProgressCircularRootProvider` au lieu de rendre une autre racine pour le même store.
+Utilisez `ProgressCircular` pour afficher une indication compacte de l’avancement dans un texte,
+des cartes, des badges de barre d’outils et de petits tableaux de bord. Choisissez `ProgressLinear`
+lorsque la progression se compare plus facilement sur une barre horizontale.
 
 ## Exemples
 
@@ -159,6 +79,49 @@ l’état de progression Ark.
 
 <Example name="progress-circular/state-views" />
 
+## Composition
+
+Utilisez `ProgressCircularRing`
+lorsque le cercle standard suffit : il combine `ProgressCircularCircle`, `ProgressCircularCircleTrack` et `ProgressCircularCircleRange`, mais ne
+rend pas et ne centre pas `ProgressCircularValueText`. Gardez la composition du libellé, du cercle et du texte de
+valeur explicite lorsque la valeur doit apparaître au centre.
+
+Utilisez `defaultValue` lorsque le composant possède l’état de progression. Utilisez `value` avec
+`onValueChange(details)` lorsque l’application le possède. Définissez `defaultValue={null}` ou
+`value={null}` pour une progression indéterminée. Lorsque l’état doit être créé en dehors de l’arbre
+rendu, créez-le avec `useProgress()` et passez le store à
+`ProgressCircularRootProvider` au lieu de rendre une autre racine pour le même store.
+
+## Anatomie
+
+```text
+ProgressCircular
+├─ ProgressCircularLabel
+├─ ProgressCircularCircle
+│  ├─ ProgressCircularCircleTrack
+│  └─ ProgressCircularCircleRange
+├─ ProgressCircularRing
+│  └─ fixed ProgressCircularCircle, ProgressCircularCircleTrack, and ProgressCircularCircleRange subtree
+├─ ProgressCircularValueText
+└─ ProgressCircularView
+
+ProgressCircularRootProvider
+└─ same part tree connected to useProgress()
+```
+
+| Partie                                        | Rôle                                                                                |
+| --------------------------------------------- | ----------------------------------------------------------------------------------- |
+| `ProgressCircular`  | Gère l’état de progression, le formatage et les identifiants générés.               |
+| `ProgressCircularRootProvider`               | Relie les parties à l’état créé par `useProgress()`.               |
+| `ProgressCircularContext`                    | Expose l’état courant via une fonction de rendu.                                     |
+| `ProgressCircularLabel`                      | Fournit le contexte visible de l’indicateur de progression.                         |
+| `ProgressCircularRing`                       | Partie pratique qui rend le cercle, la piste et l’arc par défaut.                   |
+| `ProgressCircularCircle`                     | Élément SVG auquel Ark ajoute le rôle et les attributs ARIA de valeur.              |
+| `ProgressCircularCircleTrack`                | Cercle d’arrière-plan.                                                              |
+| `ProgressCircularCircleRange`                | Arc au premier plan qui reflète la progression actuelle ou l’état indéterminé.      |
+| `ProgressCircularValueText`                  | Affiche la valeur formatée et annonce les mises à jour.                             |
+| `ProgressCircularView`                       | Rend du contenu pour les états `indeterminate`, `loading` ou `complete`.            |
+
 ## Styles
 
 Utilisez `className` en React et `class` en Solid et Vue sur les parties exportées pour la structure et
@@ -172,7 +135,7 @@ réduire les animations, l’arc n’effectue aucune transition et reste immobil
 progression indéterminée sa propre couleur, stylisez `ProgressCircularCircleRange` avec
 `[data-state='indeterminate']`.
 
-### Propriétés CSS
+### Variables CSS
 
 <CssPropertiesSection properties={ProgressCircularDocs.progressCircularCssProperties} />
 

@@ -2,22 +2,16 @@
 title: Hover Card
 component: hover-card
 description: Composant Hover Card basé sur Ark UI qui affiche des aperçus complémentaires au survol ou lorsque le déclencheur reçoit le focus.
+ark: https://ark-ui.com/docs/components/hover-card
 ---
 
+<Example name="hover-card/basic" />
 
-## Référence de l’API
+## Installation
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/hover-card" />
+<ComponentInstall />
 
-## Choisir le bon composant
-
-Utilisez `Tooltip` pour les indications courtes et non interactives. Choisissez `Popover` lorsque
-la fenêtre flottante doit contenir davantage d’informations ou des actions. Utilisez `HoverCard`
-si le déclencheur doit afficher un aperçu complémentaire, par exemple celui d’un profil ou d’un
-article.
-
-## Exemple de base
-
+## Utilisation
 
 Composez la carte à partir des parties Ark explicites. `HoverCardTrigger` ouvre la carte, tandis
 que `HoverCardPositioner` et `HoverCardContent` définissent son contenu flottant. La composition
@@ -25,90 +19,12 @@ de base n’inclut pas de flèche. Placez le contenu long dans `HoverCardBody` p
 défiler dans la hauteur disponible, tandis que `HoverCardContent` reste visible pour accueillir
 une flèche facultative.
 
-<Example name="hover-card/basic" />
+## Choisir le bon composant
 
-## Installation avec shadcn
-
-Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration complète du paquet, du registre et des styles.
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/hover-card' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/hover-card' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/hover-card' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/hover-card' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/hover-card' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/hover-card' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Anatomie
-
-```text
-HoverCard
-├─ HoverCardTrigger
-└─ Sous-arbre flottant (rendu automatiquement dans un portail)
-   └─ HoverCardPositioner
-      └─ HoverCardContent
-         ├─ HoverCardArrow
-         │  └─ HoverCardArrowTip
-         └─ HoverCardBody
-            └─ contenu
-
-HoverCardRootProvider
-└─ même arborescence reliée à l’état useHoverCard() de moduix
-```
-
-| Partie                         | Rôle                                                                            |
-| ------------------------------ | ------------------------------------------------------------------------------- |
-| `HoverCard`                  | Gère l’état, le cycle de vie, les délais, le positionnement, les identifiants et les interactions extérieures. |
-| `HoverCardRootProvider`       | Relie les parties à l’état créé avec `useHoverCard()`.                         |
-| `HoverCardContext`            | Expose l’état courant aux descendants via une fonction de rendu.               |
-| `HoverCardTrigger`            | Élément interactif qui ouvre la carte au survol ou au focus. Utilisez `asChild` pour en faire un lien ou un autre élément sémantique. |
-| `HoverCardPositioner`         | Élément de positionnement flottant qui expose les variables CSS de positionnement d’Ark. |
-| `HoverCardContent`            | Surface visible de la carte, qui se ferme lors d’une interaction extérieure.   |
-| `HoverCardArrow`              | Enveloppe facultative de la flèche positionnée, qui rend `HoverCardArrowTip` par défaut. |
-| `HoverCardArrowTip`           | Pointe de la flèche, stylée avec les variables de flèche d’Ark.                |
-| `HoverCardBody`               | Région facultative et défilable pour le contenu des aperçus contraints.         |
-
-`HoverCard` est l’unique valeur publique de la racine. Utilisez-la avec les parties préfixées par
-le nom de la famille dans le code de l’application.
-
-## Composition
-
-`HoverCard` gère l’état et place `HoverCardPositioner` dans un portail par défaut. Définissez
-`portalled={false}` dans une autre fenêtre flottante, ou passez `portalRef` pour choisir un conteneur
-personnalisé. Utilisez `HoverCardRootProvider` avec `useHoverCard()` lorsque l’état doit vivre en
-dehors de l’arborescence de la carte : React lit le store comme un objet, tandis que Solid le lit
-via son accessor, et Vue expose directement l’état réactif dans le template.
-
-Gardez `HoverCardArrow` dans `HoverCardContent` et placez les aperçus longs dans
-`HoverCardBody` : `Content` laisse la flèche visible et `Body` devient la région défilable. Utilisez
-`asChild` avec un seul enfant pouvant recevoir le focus lorsque le déclencheur doit être un lien ou
-un autre élément sémantique. Si plusieurs déclencheurs partagent un même contenu, donnez une
-`value` à chacun et mettez à jour le contenu externe avec `onTriggerValueChange(details)`.
+Utilisez `Tooltip` pour les indications courtes et non interactives. Choisissez `Popover` lorsque
+la fenêtre flottante doit contenir davantage d’informations ou des actions. Utilisez `HoverCard`
+si le déclencheur doit afficher un aperçu complémentaire, par exemple celui d’un profil ou d’un
+article.
 
 ## Exemples
 
@@ -175,6 +91,52 @@ l’aperçu dans `HoverCardBody` afin que la flèche reste intégrée à la surf
 permettant au contenu de défiler.
 
 <Example name="hover-card/with-arrow" />
+
+## Composition
+
+`HoverCard` gère l’état et place `HoverCardPositioner` dans un portail par défaut. Définissez
+`portalled={false}` dans une autre fenêtre flottante, ou passez `portalRef` pour choisir un conteneur
+personnalisé. Utilisez `HoverCardRootProvider` avec `useHoverCard()` lorsque l’état doit vivre en
+dehors de l’arborescence de la carte : React lit le store comme un objet, tandis que Solid le lit
+via son accessor, et Vue expose directement l’état réactif dans le template.
+
+Gardez `HoverCardArrow` dans `HoverCardContent` et placez les aperçus longs dans
+`HoverCardBody` : `Content` laisse la flèche visible et `Body` devient la région défilable. Utilisez
+`asChild` avec un seul enfant pouvant recevoir le focus lorsque le déclencheur doit être un lien ou
+un autre élément sémantique. Si plusieurs déclencheurs partagent un même contenu, donnez une
+`value` à chacun et mettez à jour le contenu externe avec `onTriggerValueChange(details)`.
+
+## Anatomie
+
+```text
+HoverCard
+├─ HoverCardTrigger
+└─ Sous-arbre flottant (rendu automatiquement dans un portail)
+   └─ HoverCardPositioner
+      └─ HoverCardContent
+         ├─ HoverCardArrow
+         │  └─ HoverCardArrowTip
+         └─ HoverCardBody
+            └─ contenu
+
+HoverCardRootProvider
+└─ même arborescence reliée à l’état useHoverCard() de moduix
+```
+
+| Partie                         | Rôle                                                                            |
+| ------------------------------ | ------------------------------------------------------------------------------- |
+| `HoverCard`                  | Gère l’état, le cycle de vie, les délais, le positionnement, les identifiants et les interactions extérieures. |
+| `HoverCardRootProvider`       | Relie les parties à l’état créé avec `useHoverCard()`.                         |
+| `HoverCardContext`            | Expose l’état courant aux descendants via une fonction de rendu.               |
+| `HoverCardTrigger`            | Élément interactif qui ouvre la carte au survol ou au focus. Utilisez `asChild` pour en faire un lien ou un autre élément sémantique. |
+| `HoverCardPositioner`         | Élément de positionnement flottant qui expose les variables CSS de positionnement d’Ark. |
+| `HoverCardContent`            | Surface visible de la carte, qui se ferme lors d’une interaction extérieure.   |
+| `HoverCardArrow`              | Enveloppe facultative de la flèche positionnée, qui rend `HoverCardArrowTip` par défaut. |
+| `HoverCardArrowTip`           | Pointe de la flèche, stylée avec les variables de flèche d’Ark.                |
+| `HoverCardBody`               | Région facultative et défilable pour le contenu des aperçus contraints.         |
+
+`HoverCard` est l’unique valeur publique de la racine. Utilisez-la avec les parties préfixées par
+le nom de la famille dans le code de l’application.
 
 ## Styles
 

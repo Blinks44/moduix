@@ -2,86 +2,21 @@
 title: Separator
 component: separator
 description: Доступные горизонтальные и вертикальные разделители для React, Solid и Vue.
+ark: https://ark-ui.com/docs/guides/composition#the-ark-factory
 ---
 
 import * as SeparatorDocs from '@/components/examples/separator/css-properties';
 
-## Справочник API
+<Example name="separator/basic" />
 
-В Ark UI нет отдельного примитива для разделителей. moduix создаёт этот компонент с помощью официальной
-[фабрики Ark](https://ark-ui.com/docs/guides/composition#the-ark-factory) и следует рекомендациям Ark по
-[композиции](https://ark-ui.com/docs/guides/composition), [стилизации](https://ark-ui.com/docs/guides/styling) и
-[ref](https://ark-ui.com/docs/guides/ref).
+## Установка
 
-Свойства `orientation`, `variant` и `size` соответствуют привычной модели `Separator` из Chakra UI. См. [документацию
-Chakra UI по компоненту Separator](https://chakra-ui.com/docs/components/separator), которая послужила основой для этого API.
+<ComponentInstall />
 
-## Базовый пример
-
+## Использование
 
 Используйте `Separator`, чтобы визуально обозначить границу между связанными разделами. По умолчанию
 используются `orientation="horizontal"`, `variant="solid"` и `size="sm"`.
-
-<Example name="separator/basic" />
-
-## Установка через shadcn
-
-Полную настройку пакета, реестра и стилей см. в разделе [Быстрый старт](/docs/quick-start).
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/separator' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/separator' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/separator' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/separator' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/separator' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/separator' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Анатомия
-
-У `Separator` одна корневая часть.
-
-```text
-Separator
-└─ root[data-scope="separator"][data-part="root"][data-slot="separator-root"]
-```
-
-| Часть       | Назначение                                                                 |
-| ----------- | -------------------------------------------------------------------------- |
-| `Separator` | Корневой элемент-разделитель. Задаёт ориентацию, доступность и визуальный стиль. |
-
-## Композиция
-
-`Separator` состоит только из корневого элемента, поэтому не владеет состоянием и не требует
-провайдера. Для обычного разделителя используйте `<Separator />`. Если разделитель должен
-размещаться на другом элементе, используйте
-`asChild` с одним дочерним элементом, который принимает объединённые свойства `role`, ARIA,
-`data-*`, class и ref. В React и Vue дочерний элемент передаётся напрямую, а в Solid используется форма
-`asChild={(props) => <hr {...props()} />}`.
 
 ## Примеры
 
@@ -118,13 +53,38 @@ CSS-свойствами.
 
 <Example name="separator/as-child" />
 
+## Композиция
+
+Свойства `orientation`, `variant` и `size` соответствуют привычной модели `Separator` из Chakra UI. См. [документацию
+Chakra UI по компоненту Separator](https://chakra-ui.com/docs/components/separator), которая послужила основой для этого API.
+
+`Separator` состоит только из корневого элемента, поэтому не владеет состоянием и не требует
+провайдера. Для обычного разделителя используйте `<Separator />`. Если разделитель должен
+размещаться на другом элементе, используйте
+`asChild` с одним дочерним элементом, который принимает объединённые свойства `role`, ARIA,
+`data-*`, class и ref. В React и Vue дочерний элемент передаётся напрямую, а в Solid используется форма
+`asChild={(props) => <hr {...props()} />}`.
+
+## Анатомия
+
+У `Separator` одна корневая часть.
+
+```text
+Separator
+└─ root[data-scope="separator"][data-part="root"][data-slot="separator-root"]
+```
+
+| Часть       | Назначение                                                                 |
+| ----------- | -------------------------------------------------------------------------- |
+| `Separator` | Корневой элемент-разделитель. Задаёт ориентацию, доступность и визуальный стиль. |
+
 ## Стилизация
 
 Используйте `className` в React или `class` в Solid и Vue для корневого элемента. В вариантах с
 Tailwind применяйте нативные utility-классы и классы потребителя, а CSS-свойства ниже относятся к
 вариантам с CSS Modules. Атрибуты данных и хуки `data-slot` общие для обоих способов стилизации.
 
-### CSS-свойства
+### CSS-переменные
 
 <CssPropertiesSection properties={SeparatorDocs.separatorOverrideCssProperties} />
 

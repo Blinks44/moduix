@@ -1,6 +1,7 @@
 ---
 title: Таблица данных
 description: Создавайте таблицы с сортировкой, фильтрацией и пагинацией с помощью moduix Table и TanStack Table v9.
+block: data-table
 ---
 
 import { DataTable } from '@/components/blocks/data-table';
@@ -12,8 +13,22 @@ import dataTableVue from '../../../snippets/blocks/vue/data-table.vue?raw';
 import dataTableControlsVue from '../../../snippets/blocks/vue/data-table-controls.vue?raw';
 import dataTableBasicSolid from '../../../snippets/blocks/solid/data-table-basic.tsx?raw';
 import dataTableBasicVue from '../../../snippets/blocks/vue/data-table-basic.vue?raw';
+import dataTableCatalogReact from '../../../src/components/blocks/data-table.tsx?raw';
+import dataTableCatalogCss from '../../../src/components/blocks/data-table.module.css?raw';
+import dataTableBasicReact from '../../../src/components/blocks/data-table/basic.tsx?raw';
+import dataTableBasicCss from '../../../src/components/blocks/data-table/payment-table.module.css?raw';
+import dataTableReact from '../../../src/components/blocks/data-table/sorting-filtering-and-pagination.tsx?raw';
+import dataTableCss from '../../../src/components/blocks/data-table/payment-table.module.css?raw';
 
 # Таблица данных
+
+<ExamplePanel
+  clientOnly
+  sources={{ react: dataTableCatalogReact, solid: dataTableCatalogSolid, vue: dataTableVue }}
+  files={[{ name: 'data-table.module.css', code: dataTableCatalogCss }]}
+>
+  <DataTable />
+</ExamplePanel>
 
 `Data Table` - это способ собрать таблицу, а не отдельный компонент, который экспортирует moduix. Используйте
 семантические и стилизованные части `Table` для разметки, а TanStack Table v9 - для управления состоянием и
@@ -22,7 +37,7 @@ import dataTableBasicVue from '../../../snippets/blocks/vue/data-table-basic.vue
 запрос. У разных частей продукта свои столбцы, фильтры, действия со строками и контракты с сервером, поэтому
 держите эту логику рядом с нужной функциональностью.
 
-Полный блок ниже повторяет интерактивную таблицу с главной страницы. В нём показаны поиск, сортировка,
+Блок выше повторяет интерактивную таблицу с главной страницы. В нём показаны поиск, сортировка,
 управление видимостью столбцов, выбор строк, действия и пагинация. Скопируйте код и замените демонстрационные
 записи и действия данными своего продукта.
 
@@ -39,51 +54,6 @@ import dataTableBasicVue from '../../../snippets/blocks/vue/data-table-basic.vue
 столбцов, действия или пагинацию, если пользователю не нужна соответствующая возможность.
 
 Живые превью используют React-пакет. Во вкладках исходников приведены нативные реализации TanStack Table v9 для React, Solid и Vue.
-
-
-
-<ExampleFrame variant="block" clientOnly>
-  <DataTable />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/blocks/data-table.tsx"
-
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={dataTableCatalogSolid} />
-
-    </Tab>
-  <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={dataTableVue} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/blocks/data-table.module.css"
-
-```
-</div>
-
-</ExampleCode>
 
 ## Установка
 
@@ -125,50 +95,14 @@ import dataTableBasicVue from '../../../snippets/blocks/vue/data-table-basic.vue
 В примере используются методы для отображения видимых столбцов и ячеек, поэтому он регистрирует
 `columnVisibilityFeature`. Остальные возможности подключайте только при необходимости.
 
-<ExampleFrame variant="block">
+<ExamplePanel
+  sources={{ react: dataTableBasicReact, solid: dataTableBasicSolid, vue: dataTableBasicVue }}
+  files={[{ name: 'payment-table.module.css', code: dataTableBasicCss }]}
+>
   <PreviewFrame maxWidth="lg">
     <DataTableBasic />
   </PreviewFrame>
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/blocks/data-table/basic.tsx"
-
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={dataTableBasicSolid} />
-
-    </Tab>
-  <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={dataTableBasicVue} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/blocks/data-table/payment-table.module.css"
-
-```
-</div>
-
-</ExampleCode>
+</ExamplePanel>
 
 Храните описания столбцов рядом с типом данных вашей таблицы. Здесь удобно задавать форматирование,
 выравнивание чисел, действия со строками и фильтры для этих данных.
@@ -199,48 +133,12 @@ TanStack.
 `tableFeatures()`. Так неиспользуемые функции не попадут в итоговую сборку. В блоке зарегистрированы `includesString`,
 `alphanumeric` и `text`, а не весь реестр.
 
-<ExampleFrame variant="block">
+<ExamplePanel
+  sources={{ react: dataTableReact, solid: dataTableSolid, vue: dataTableControlsVue }}
+  files={[{ name: 'payment-table.module.css', code: dataTableCss }]}
+>
   <InteractiveDataTable />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/blocks/data-table/sorting-filtering-and-pagination.tsx"
-
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={dataTableSolid} />
-
-    </Tab>
-  <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={dataTableControlsVue} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/blocks/data-table/payment-table.module.css"
-
-```
-</div>
-
-</ExampleCode>
+</ExamplePanel>
 
 Для сортируемого заголовка используйте обычную кнопку внутри `TableColumnHeader`. В примере у значков Lucide
 единый размер, а сортируемые заголовки получают `aria-sort="none" | "ascending" | "descending"`. В столбце

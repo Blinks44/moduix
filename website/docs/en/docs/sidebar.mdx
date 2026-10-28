@@ -2,18 +2,22 @@
 title: Sidebar
 component: sidebar
 description: Resizable and collapsible application navigation built on the Ark UI Splitter.
+ark: https://ark-ui.com/docs/components/splitter
 ---
 
 import { sidebarOverrideCssProperties } from '@/components/examples/sidebar/css-properties';
 
-## API Reference
+<Example name="sidebar/basic" />
 
-`Sidebar` is moduix's layout for application navigation. It combines navigation parts with
-[Ark UI Splitter](https://ark-ui.com/docs/components/splitter), which provides resizing, collapse
-state, keyboard interaction, and accessibility. The exposed state and callbacks follow the Splitter
-contract.
+## Installation
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/splitter" />
+<ComponentInstall />
+
+## Usage
+
+Compose the navigation panel, resize handle, and main content panel as direct children of the root.
+The default ids and constraints cover the usual left-sidebar layout. Wrap icon-only navigation
+buttons in `SidebarTooltip` so their labels remain available after collapse.
 
 ## Choosing the right component
 
@@ -21,124 +25,6 @@ contract.
   sit beside the main content.
 - Choose **`Splitter`** when you need generic resizable panels rather than a navigation panel and a
   main content inset.
-
-## Basic
-
-
-Compose the navigation panel, resize handle, and main content panel as direct children of the root.
-The default ids and constraints cover the usual left-sidebar layout. Wrap icon-only navigation
-buttons in `SidebarTooltip` so their labels remain available after collapse.
-
-<Example name="sidebar/basic" />
-
-## Install with shadcn
-
-See [Quick Start](/docs/quick-start) for full package setup, registry configuration, and styling guidance.
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/sidebar' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/sidebar' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/sidebar' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/sidebar' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/sidebar' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/sidebar' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Anatomy
-
-```text
-Sidebar
-├─ SidebarPanel[id="sidebar"]
-│  ├─ SidebarHeader
-│  │  ├─ SidebarLabel
-│  │  └─ SidebarInput
-│  ├─ SidebarContent
-│  │  └─ SidebarGroup
-│  │     ├─ SidebarGroupHeader
-│  │     │  ├─ SidebarGroupLabel
-│  │     │  └─ SidebarGroupAction
-│  │     └─ SidebarNavigationList
-│  │        └─ SidebarNavigationItem
-│  │           ├─ SidebarNavigationButton
-│  │           ├─ SidebarNavigationBadge (optional)
-│  │           ├─ SidebarExpandedContent
-│  │           ├─ SidebarCollapsedContent
-│  │           └─ SidebarNavigationSubList
-│  │              └─ SidebarNavigationSubItem
-│  │                 ├─ SidebarNavigationSubButton
-│  │                 └─ SidebarNavigationBadge (optional)
-│  └─ SidebarFooter
-│     └─ SidebarSeparator
-├─ SidebarResizeTrigger
-├─ SidebarTrigger
-└─ SidebarInset[id="content"]
-```
-
-| Part | Role |
-| --- | --- |
-| `Sidebar` | Ark Splitter root with defaults for a two-panel sidebar. |
-| `SidebarPanel` | Collapsible navigation panel; its default id is `"sidebar"`. |
-| `SidebarInset` | Main content panel; its default id is `"content"`. |
-| `SidebarResizeTrigger` | Accessible handle line for pointer and keyboard resizing; it renders the shared `SplitterResizeTriggerIndicator` by default, and custom children replace it. |
-| `SidebarTrigger` | Side-aware control for collapsing and expanding the panel. |
-| `SidebarHeader` | Non-scrolling top region. |
-| `SidebarContent` | Scrolling middle region. |
-| `SidebarFooter` | Non-scrolling bottom region. |
-| `SidebarGroup` | Semantic navigation section. |
-| `SidebarNavigationButton` | Button or `asChild` link with active and size states. |
-| `SidebarNavigationBadge` | Optional counter beside a simple navigation button or sub-button. |
-| `SidebarExpandedContent` | Content shown while the panel is expanded. |
-| `SidebarCollapsedContent` | Content shown while the panel is collapsed. |
-| `SidebarTooltip` | Collapsed-only label helper with side-aware placement. |
-| `SidebarNavigationSubList` | Nested navigation list. |
-
-## Composition
-
-`Sidebar` owns the Splitter layout state, while nested `Collapsible`, popup `Menu`, and
-`SidebarTooltip` instances own their own state. Keep `SidebarPanel`, `SidebarResizeTrigger`, `SidebarTrigger`, and
-`SidebarInset` as direct children in visual order: `SidebarPanel` first for a left sidebar, and `SidebarInset` first for
-a right sidebar. `SidebarExpandedContent` and `SidebarCollapsedContent` only switch which composition is visible;
-use them to pair inline `Collapsible` links with a collapsed `Menu` without moving state into
-Sidebar. For a persisted width, control `size`, update it from `onResize(details)`, and save it from
-`onResizeEnd(details)`. In Solid, `asChild` uses a render function that receives the merged props.
-In Vue, use `as-child` with a single element in the default slot and a template ref to access the component instance.
-For controlled sizes, use `v-model:size` or handle `@resize`; persist the final value with `@resize-end`.
-Place `SidebarNavigationBadge` after a simple `SidebarNavigationButton` or `SidebarNavigationSubButton`; it reserves
-trailing space for the counter and hides with the other trailing affordances in the compact rail.
-
-`useSidebar()` from the matching framework package exposes the sidebar state as `collapsed`, `side`,
-and `state`, plus a `toggleSidebar()` callback. In Solid these are accessors read as
-`collapsed()` and friends. It reads the Splitter context created by `Sidebar`, so
-use it only inside the sidebar tree.
-In Vue, the state values are refs: read `collapsed.value`, `side.value`, and `state.value`
-in script; templates unwrap them automatically.
-
-With Ark Vue 5.39.3 / Zag 1.45.0, the first controlled collapse can update `size` without
-emitting `@collapse`. The model and `useSidebar().collapsed` still reflect the new state.
 
 ## Examples
 
@@ -192,6 +78,83 @@ a different starting point.
 
 <Example name="sidebar/custom-sizes" />
 
+## Composition
+
+`Sidebar` is moduix's layout for application navigation. It combines navigation parts with
+[Ark UI Splitter](https://ark-ui.com/docs/components/splitter), which provides resizing, collapse
+state, keyboard interaction, and accessibility. The exposed state and callbacks follow the Splitter
+contract.
+
+`Sidebar` owns the Splitter layout state, while nested `Collapsible`, popup `Menu`, and
+`SidebarTooltip` instances own their own state. Keep `SidebarPanel`, `SidebarResizeTrigger`, `SidebarTrigger`, and
+`SidebarInset` as direct children in visual order: `SidebarPanel` first for a left sidebar, and `SidebarInset` first for
+a right sidebar. `SidebarExpandedContent` and `SidebarCollapsedContent` only switch which composition is visible;
+use them to pair inline `Collapsible` links with a collapsed `Menu` without moving state into
+Sidebar. For a persisted width, control `size`, update it from `onResize(details)`, and save it from
+`onResizeEnd(details)`. In Solid, `asChild` uses a render function that receives the merged props.
+In Vue, use `as-child` with a single element in the default slot and a template ref to access the component instance.
+For controlled sizes, use `v-model:size` or handle `@resize`; persist the final value with `@resize-end`.
+Place `SidebarNavigationBadge` after a simple `SidebarNavigationButton` or `SidebarNavigationSubButton`; it reserves
+trailing space for the counter and hides with the other trailing affordances in the compact rail.
+
+`useSidebar()` from the matching framework package exposes the sidebar state as `collapsed`, `side`,
+and `state`, plus a `toggleSidebar()` callback. In Solid these are accessors read as
+`collapsed()` and friends. It reads the Splitter context created by `Sidebar`, so
+use it only inside the sidebar tree.
+In Vue, the state values are refs: read `collapsed.value`, `side.value`, and `state.value`
+in script; templates unwrap them automatically.
+
+With Ark Vue 5.39.3 / Zag 1.45.0, the first controlled collapse can update `size` without
+emitting `@collapse`. The model and `useSidebar().collapsed` still reflect the new state.
+
+## Anatomy
+
+```text
+Sidebar
+├─ SidebarPanel[id="sidebar"]
+│  ├─ SidebarHeader
+│  │  ├─ SidebarLabel
+│  │  └─ SidebarInput
+│  ├─ SidebarContent
+│  │  └─ SidebarGroup
+│  │     ├─ SidebarGroupHeader
+│  │     │  ├─ SidebarGroupLabel
+│  │     │  └─ SidebarGroupAction
+│  │     └─ SidebarNavigationList
+│  │        └─ SidebarNavigationItem
+│  │           ├─ SidebarNavigationButton
+│  │           ├─ SidebarNavigationBadge (optional)
+│  │           ├─ SidebarExpandedContent
+│  │           ├─ SidebarCollapsedContent
+│  │           └─ SidebarNavigationSubList
+│  │              └─ SidebarNavigationSubItem
+│  │                 ├─ SidebarNavigationSubButton
+│  │                 └─ SidebarNavigationBadge (optional)
+│  └─ SidebarFooter
+│     └─ SidebarSeparator
+├─ SidebarResizeTrigger
+├─ SidebarTrigger
+└─ SidebarInset[id="content"]
+```
+
+| Part | Role |
+| --- | --- |
+| `Sidebar` | Ark Splitter root with defaults for a two-panel sidebar. |
+| `SidebarPanel` | Collapsible navigation panel; its default id is `"sidebar"`. |
+| `SidebarInset` | Main content panel; its default id is `"content"`. |
+| `SidebarResizeTrigger` | Accessible handle line for pointer and keyboard resizing; it renders the shared `SplitterResizeTriggerIndicator` by default, and custom children replace it. |
+| `SidebarTrigger` | Side-aware control for collapsing and expanding the panel. |
+| `SidebarHeader` | Non-scrolling top region. |
+| `SidebarContent` | Scrolling middle region. |
+| `SidebarFooter` | Non-scrolling bottom region. |
+| `SidebarGroup` | Semantic navigation section. |
+| `SidebarNavigationButton` | Button or `asChild` link with active and size states. |
+| `SidebarNavigationBadge` | Optional counter beside a simple navigation button or sub-button. |
+| `SidebarExpandedContent` | Content shown while the panel is expanded. |
+| `SidebarCollapsedContent` | Content shown while the panel is collapsed. |
+| `SidebarTooltip` | Collapsed-only label helper with side-aware placement. |
+| `SidebarNavigationSubList` | Nested navigation list. |
+
 ## Styling
 
 Every semantic part accepts `className` in React and `class` in Solid and Vue and exposes a stable
@@ -215,7 +178,7 @@ spacing, radius, shadow, or item sizes with a class on the part.
 Wrap navigation text in `SidebarLabel`, including inside `SidebarNavigationSubButton`, so long labels
 truncate and leave the collapsed rail.
 
-### CSS Properties
+### CSS variables
 
 <CssPropertiesSection properties={sidebarOverrideCssProperties} />
 

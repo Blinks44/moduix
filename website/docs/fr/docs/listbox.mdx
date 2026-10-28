@@ -2,6 +2,7 @@
 title: Listbox
 component: listbox
 description: Une listbox visible pour sélectionner un ou plusieurs éléments, avec filtrage et sélection étendue facultatifs.
+ark: https://ark-ui.com/docs/components/listbox
 ---
 
 import * as ListboxDocs from '@/components/examples/listbox/css-properties';
@@ -10,9 +11,17 @@ import listboxSolidSelectAll from '../../../snippets/listbox/solid/select-all.ts
 import listboxVueSelectAll from '../../../snippets/listbox/vue/select-all.vue?raw';
 import listboxVueSelectAllPart from '../../../snippets/listbox/vue/SelectAllMeta.vue?raw';
 
-## Référence de l’API
+<Example name="listbox/basic" />
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/listbox" />
+## Installation
+
+<ComponentInstall />
+
+## Utilisation
+
+Passez une `collection`, rendez `ListboxContent` et transmettez chaque élément de la collection à
+`ListboxItem` via `item`. Ajoutez `ListboxItemIndicator` lorsque les lignes doivent afficher leur
+état sélectionné.
 
 ## Choisir le bon composant
 
@@ -20,114 +29,6 @@ Utilisez `Listbox` lorsque les options doivent rester visibles et que l’utilis
 éléments dans une collection. Utilisez `Select` lorsque les options doivent s’ouvrir dans une liste
 contextuelle. Utilisez `Combobox` lorsqu’un champ doit permettre de rechercher ou de saisir une
 valeur dans une liste contextuelle.
-
-## Exemple de base
-
-
-Passez une `collection`, rendez `ListboxContent` et transmettez chaque élément de la collection à
-`ListboxItem` via `item`. Ajoutez `ListboxItemIndicator` lorsque les lignes doivent afficher leur
-état sélectionné.
-
-<Example name="listbox/basic" />
-
-## Installation avec shadcn
-
-Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration complète du paquet, du registre et des styles.
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/listbox' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/listbox' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/listbox' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/listbox' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/listbox' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/listbox' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Anatomie
-
-```text
-Listbox
-├─ ListboxLabel
-├─ ListboxFilter
-│  ├─ ListboxInput
-│  └─ ListboxClearTrigger
-├─ ListboxContent
-│  ├─ ListboxEmpty
-│  ├─ ListboxItemGroup
-│  │  ├─ ListboxItemGroupLabel
-│  │  └─ ListboxItem[item]
-│  │     ├─ ListboxItemText
-│  │     └─ ListboxItemIndicator
-│  └─ ListboxItem[item]
-│     ├─ ListboxItemText
-│     │  └─ ListboxItemTextContent (facultatif)
-│     │     ├─ ListboxItemTextIcon (facultatif)
-│     │     └─ ListboxItemTextLabel (facultatif)
-│     └─ ListboxItemIndicator
-└─ ListboxValueText
-
-ListboxRootProvider
-└─ même arbre d’éléments relié à un store useListbox()
-```
-
-| Partie                     | Rôle                                                                                     |
-| ------------------------- | ---------------------------------------------------------------------------------------- |
-| `Listbox` | Gère la collection, les valeurs sélectionnées, l’élément mis en évidence et le mode de sélection. |
-| `ListboxRootProvider`     | Rend l’arbre de la listbox à partir de l’état renvoyé par `useListbox`.                   |
-| `ListboxLabel`            | Libellé qui fournit un nom accessible à la listbox.                                      |
-| `ListboxFilter`           | Conteneur visuel pour un champ de filtrage avec l’icône de recherche par défaut. Placez-le avant `ListboxContent`. |
-| `ListboxInput`            | Champ de filtrage, généralement placé dans `ListboxFilter`.                                    |
-| `ListboxClearTrigger`     | Bouton qui réinitialise la requête de filtrage, avec l’icône de fermeture par défaut.   |
-| `ListboxContent`          | Conteneur focalisable qui gère la navigation au clavier.                                |
-| `ListboxEmpty`            | Contenu affiché lorsque la collection filtrée ne contient aucun élément.                 |
-| `ListboxItemGroup`        | Conteneur pour des éléments liés de la collection.                                      |
-| `ListboxItemGroupLabel`   | Libellé d’un groupe d’éléments.                                                          |
-| `ListboxItem`             | Élément sélectionnable. Transmettez-lui l’élément de la collection via `item`.           |
-| `ListboxItemText`         | Texte utilisé pour l’affichage et l’accessibilité.                                      |
-| `ListboxItemTextContent`  | Conteneur facultatif pour organiser une icône et du texte dans `ListboxItemText`.               |
-| `ListboxItemTextIcon`     | Conteneur facultatif pour une icône dans `ListboxItemTextContent`.                              |
-| `ListboxItemTextLabel`    | Conteneur du texte dans `ListboxItemTextContent`, qui peut tronquer les libellés longs sans perturber la mise en page. |
-| `ListboxItemIndicator`    | Indicateur de sélection avec l’icône de coche moduix par défaut.                         |
-| `ListboxValueText`        | Résumé des valeurs sélectionnées.                                                        |
-
-## Composition
-
-Utilisez `defaultValue` pour une sélection non contrôlée. Lorsqu’une autre partie de l’application
-gère la sélection, passez `value` et mettez-le à jour avec `onValueChange(details.value)`. Pour le
-filtrage, définissez `typeahead={false}`, conservez la requête dans l’état de l’application et
-appelez la fonction `filter` renvoyée par `useListCollection` depuis le gestionnaire du champ. `ListboxFilter` ne
-fournit que l’apparence regroupée du champ de recherche ; l’action d’effacement doit donc
-réinitialiser la requête et le filtre de la collection.
-
-Utilisez `useListbox` du paquet correspondant au framework avec `ListboxRootProvider` lorsque le
-store doit être créé en dehors de l’arbre rendu. Passez le store obtenu à `ListboxRootProvider` et ne rendez
-ne rendez pas `Listbox` pour ce même store. `ListboxInput` peut être rendu directement si le
-filtre doit avoir son propre conteneur, et `ListboxValueText` peut être placé après `ListboxContent` pour
-afficher un résumé des valeurs sélectionnées.
 
 ## Exemples
 
@@ -242,6 +143,68 @@ la liste.
 
 <Example name="listbox/value-text" />
 
+## Composition
+
+Utilisez `defaultValue` pour une sélection non contrôlée. Lorsqu’une autre partie de l’application
+gère la sélection, passez `value` et mettez-le à jour avec `onValueChange(details.value)`. Pour le
+filtrage, définissez `typeahead={false}`, conservez la requête dans l’état de l’application et
+appelez la fonction `filter` renvoyée par `useListCollection` depuis le gestionnaire du champ. `ListboxFilter` ne
+fournit que l’apparence regroupée du champ de recherche ; l’action d’effacement doit donc
+réinitialiser la requête et le filtre de la collection.
+
+Utilisez `useListbox` du paquet correspondant au framework avec `ListboxRootProvider` lorsque le
+store doit être créé en dehors de l’arbre rendu. Passez le store obtenu à `ListboxRootProvider` et ne rendez
+ne rendez pas `Listbox` pour ce même store. `ListboxInput` peut être rendu directement si le
+filtre doit avoir son propre conteneur, et `ListboxValueText` peut être placé après `ListboxContent` pour
+afficher un résumé des valeurs sélectionnées.
+
+## Anatomie
+
+```text
+Listbox
+├─ ListboxLabel
+├─ ListboxFilter
+│  ├─ ListboxInput
+│  └─ ListboxClearTrigger
+├─ ListboxContent
+│  ├─ ListboxEmpty
+│  ├─ ListboxItemGroup
+│  │  ├─ ListboxItemGroupLabel
+│  │  └─ ListboxItem[item]
+│  │     ├─ ListboxItemText
+│  │     └─ ListboxItemIndicator
+│  └─ ListboxItem[item]
+│     ├─ ListboxItemText
+│     │  └─ ListboxItemTextContent (facultatif)
+│     │     ├─ ListboxItemTextIcon (facultatif)
+│     │     └─ ListboxItemTextLabel (facultatif)
+│     └─ ListboxItemIndicator
+└─ ListboxValueText
+
+ListboxRootProvider
+└─ même arbre d’éléments relié à un store useListbox()
+```
+
+| Partie                     | Rôle                                                                                     |
+| ------------------------- | ---------------------------------------------------------------------------------------- |
+| `Listbox` | Gère la collection, les valeurs sélectionnées, l’élément mis en évidence et le mode de sélection. |
+| `ListboxRootProvider`     | Rend l’arbre de la listbox à partir de l’état renvoyé par `useListbox`.                   |
+| `ListboxLabel`            | Libellé qui fournit un nom accessible à la listbox.                                      |
+| `ListboxFilter`           | Conteneur visuel pour un champ de filtrage avec l’icône de recherche par défaut. Placez-le avant `ListboxContent`. |
+| `ListboxInput`            | Champ de filtrage, généralement placé dans `ListboxFilter`.                                    |
+| `ListboxClearTrigger`     | Bouton qui réinitialise la requête de filtrage, avec l’icône de fermeture par défaut.   |
+| `ListboxContent`          | Conteneur focalisable qui gère la navigation au clavier.                                |
+| `ListboxEmpty`            | Contenu affiché lorsque la collection filtrée ne contient aucun élément.                 |
+| `ListboxItemGroup`        | Conteneur pour des éléments liés de la collection.                                      |
+| `ListboxItemGroupLabel`   | Libellé d’un groupe d’éléments.                                                          |
+| `ListboxItem`             | Élément sélectionnable. Transmettez-lui l’élément de la collection via `item`.           |
+| `ListboxItemText`         | Texte utilisé pour l’affichage et l’accessibilité.                                      |
+| `ListboxItemTextContent`  | Conteneur facultatif pour organiser une icône et du texte dans `ListboxItemText`.               |
+| `ListboxItemTextIcon`     | Conteneur facultatif pour une icône dans `ListboxItemTextContent`.                              |
+| `ListboxItemTextLabel`    | Conteneur du texte dans `ListboxItemTextContent`, qui peut tronquer les libellés longs sans perturber la mise en page. |
+| `ListboxItemIndicator`    | Indicateur de sélection avec l’icône de coche moduix par défaut.                         |
+| `ListboxValueText`        | Résumé des valeurs sélectionnées.                                                        |
+
 ## Styles
 
 Stylisez Listbox avec `className` dans React ou `class` dans Solid et Vue sur les parties exportées. Les
@@ -252,7 +215,7 @@ le reste avec une classe sur la partie. Les éléments, les libellés de groupe 
 suivent aussi les variables partagées `--moduix-popup-item-*`, `--moduix-popup-group-label-*` et
 `--moduix-popup-list-padding-y`.
 
-### Propriétés CSS
+### Variables CSS
 
 <CssPropertiesSection properties={ListboxDocs.listboxOverrideCssProperties} />
 

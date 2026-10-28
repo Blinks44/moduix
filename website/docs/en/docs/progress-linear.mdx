@@ -2,99 +2,27 @@
 title: Progress Linear
 component: progress-linear
 description: A linear progress indicator for tasks with known or unknown progress.
+ark: https://ark-ui.com/docs/components/progress-linear
 ---
 
 import * as ProgressLinearDocs from '@/components/examples/progress-linear/css-properties';
 
-## API Reference
+<Example name="progress-linear/basic" width="sm" />
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/progress-linear" />
+## Installation
 
-## Choosing the right component
+<ComponentInstall />
 
-Use `ProgressLinear` when users need to follow progress along a bar. Use `ProgressCircular` for a
-compact status indicator in a card, toolbar, or other space-constrained surface.
-
-## Basic
-
+## Usage
 
 Compose the progress bar from the explicit `ProgressLinearLabel`, `ProgressLinearValueText`, `ProgressLinearTrack`, and `ProgressLinearRange` parts. Give
 `ProgressLinearTrack` an accessible name that describes the task.
 React, Solid, and Vue expose the same flat part names; Vue uses native `class`, slots, and `v-model` where applicable.
 
-<Example name="progress-linear/basic" width="sm" />
+## Choosing the right component
 
-## Install with shadcn
-
-See [Quick Start](/docs/quick-start) for full package setup, registry configuration, and styling guidance.
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/progress-linear' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/progress-linear' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/progress-linear' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/progress-linear' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/progress-linear' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/progress-linear' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Anatomy
-
-```text
-ProgressLinear
-├─ ProgressLinearLabel
-├─ ProgressLinearValueText
-├─ ProgressLinearTrack
-│  └─ ProgressLinearRange
-└─ ProgressLinearView
-
-ProgressLinearRootProvider
-└─ the same part tree connected to useProgress()
-```
-
-| Part                                     | Role                                                                       |
-| ---------------------------------------- | -------------------------------------------------------------------------- |
-| `ProgressLinear` | Owns progress state and passes formatting, IDs, and other props to Ark.    |
-| `ProgressLinearRootProvider`             | Connects parts to the store returned by `useProgress()`.    |
-| `ProgressLinearContext`                 | Provides the current progress state to a render prop.                     |
-| `ProgressLinearLabel`                   | Visible task label. It is not automatically used as `ProgressLinearTrack`'s accessible name. |
-| `ProgressLinearValueText`                | Displays the formatted percentage and announces changes. Use `ProgressLinearContext` for custom text. |
-| `ProgressLinearTrack`                   | Progressbar surface. Ark adds the role and ARIA value attributes.         |
-| `ProgressLinearRange`                   | Filled portion that reflects the current progress.                        |
-| `ProgressLinearView`                    | Shows content only when its `state` matches the current progress state.   |
-
-## Composition
-
-Use `defaultValue` for uncontrolled progress. Use `value` with `onValueChange(details)` when your
-application owns the current value, and use `defaultValue={null}` or `value={null}` when progress is
-unknown. If state is created with `useProgress()`, render the parts inside
-`ProgressLinearRootProvider` instead of `ProgressLinear`. Use
-`ProgressLinearView` for state-specific content and `ProgressLinearContext` when custom visible text
-needs the current state.
-In Vue, use `v-model` for the same controlled value.
+Use `ProgressLinear` when users need to follow progress along a bar. Use `ProgressCircular` for a
+compact status indicator in a card, toolbar, or other space-constrained surface.
 
 ## Examples
 
@@ -150,6 +78,41 @@ to the rendered parts with `ProgressLinearRootProvider`.
 
 <Example name="progress-linear/root-provider" width="sm" />
 
+## Composition
+
+Use `defaultValue` for uncontrolled progress. Use `value` with `onValueChange(details)` when your
+application owns the current value, and use `defaultValue={null}` or `value={null}` when progress is
+unknown. If state is created with `useProgress()`, render the parts inside
+`ProgressLinearRootProvider` instead of `ProgressLinear`. Use
+`ProgressLinearView` for state-specific content and `ProgressLinearContext` when custom visible text
+needs the current state.
+In Vue, use `v-model` for the same controlled value.
+
+## Anatomy
+
+```text
+ProgressLinear
+├─ ProgressLinearLabel
+├─ ProgressLinearValueText
+├─ ProgressLinearTrack
+│  └─ ProgressLinearRange
+└─ ProgressLinearView
+
+ProgressLinearRootProvider
+└─ the same part tree connected to useProgress()
+```
+
+| Part                                     | Role                                                                       |
+| ---------------------------------------- | -------------------------------------------------------------------------- |
+| `ProgressLinear` | Owns progress state and passes formatting, IDs, and other props to Ark.    |
+| `ProgressLinearRootProvider`             | Connects parts to the store returned by `useProgress()`.    |
+| `ProgressLinearContext`                 | Provides the current progress state to a render prop.                     |
+| `ProgressLinearLabel`                   | Visible task label. It is not automatically used as `ProgressLinearTrack`'s accessible name. |
+| `ProgressLinearValueText`                | Displays the formatted percentage and announces changes. Use `ProgressLinearContext` for custom text. |
+| `ProgressLinearTrack`                   | Progressbar surface. Ark adds the role and ARIA value attributes.         |
+| `ProgressLinearRange`                   | Filled portion that reflects the current progress.                        |
+| `ProgressLinearView`                    | Shows content only when its `state` matches the current progress state.   |
+
 ## Styling
 
 Use `className` in React or `class` in Solid and Vue on exported parts for structural styling. For state-based
@@ -162,11 +125,11 @@ thickness in both orientations. Indeterminate progress sweeps a 35% range from t
 end edge (right to left in RTL); when reduced motion is preferred, the range stays still at the start
 edge.
 
-### CSS Properties
+### CSS variables
 
 <CssPropertiesSection properties={ProgressLinearDocs.progressLinearCssProperties} />
 
-### Styling Hooks
+### Styling hooks
 
 - `data-slot="progress-linear-root"`, `progress-linear-root-provider`, `progress-linear-label`,
   `progress-linear-value-text`, `progress-linear-track`, `progress-linear-range`, and

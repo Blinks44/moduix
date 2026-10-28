@@ -1,64 +1,28 @@
 ---
 title: Galerie à lecture automatique
 description: Une composition de galerie à lecture automatique avec Carousel, texte superposé, navigation par flèches et indicateurs de progression.
+block: autoplay-gallery
 ---
 
 import { AutoplayGallery } from '@/components/blocks/autoplay-gallery';
 import autoplayGallerySolid from '../../../snippets/blocks/solid/autoplay-gallery.tsx?raw';
 import autoplayGalleryVue from '../../../snippets/blocks/vue/autoplay-gallery.vue?raw';
+import autoplayGalleryReact from '../../../src/components/blocks/autoplay-gallery.tsx?raw';
+import autoplayGalleryCss from '../../../src/components/blocks/autoplay-gallery.module.css?raw';
 
 # Galerie à lecture automatique
+
+<ExamplePanel
+  clientOnly
+  sources={{ react: autoplayGalleryReact, solid: autoplayGallerySolid, vue: autoplayGalleryVue }}
+  files={[{ name: 'autoplay-gallery.module.css', code: autoplayGalleryCss }]}
+>
+  <AutoplayGallery />
+</ExamplePanel>
 
 Utilisez cette composition pour du contenu mis en avant qui défile automatiquement tout en restant facile à parcourir.
 Elle associe `Carousel` à des diapositives voisines partiellement visibles, du texte superposé, des flèches de
 navigation et des indicateurs qui se remplissent pendant chaque intervalle de lecture automatique.
-
-L’aperçu utilise React. Les onglets présentent le code React, Solid et Vue avec une feuille de style commune.
-
-
-
-<ExampleFrame variant="block" clientOnly>
-  <AutoplayGallery />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/blocks/autoplay-gallery.tsx"
-
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={autoplayGallerySolid} />
-
-    </Tab>
-  <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={autoplayGalleryVue} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/blocks/autoplay-gallery.module.css"
-
-```
-</div>
-
-</ExampleCode>
 
 ## Installation
 

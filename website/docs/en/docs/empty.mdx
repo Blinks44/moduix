@@ -2,96 +2,21 @@
 title: Empty
 component: empty
 description: A composable empty-state component for no-results, no-data, and first-run screens.
+ark: https://ark-ui.com/docs/guides/composition#the-ark-factory
 ---
 
 import * as EmptyDocs from '@/components/examples/empty/css-properties';
 
-## API Reference
+<Example name="empty/basic" />
 
-Ark UI does not include a dedicated empty-state primitive. `moduix` builds `Empty` with Ark's
-official [factory](https://ark-ui.com/react/docs/guides/composition#the-ark-factory) and follows
-Ark's guidance for [composition](https://ark-ui.com/react/docs/guides/composition),
-[styling](https://ark-ui.com/react/docs/guides/styling), and
-[refs](https://ark-ui.com/react/docs/guides/ref). Its composition also draws on Chakra UI's
-[Empty State](https://chakra-ui.com/docs/components/empty-state). Unlike Chakra UI, `moduix`
-exposes optional `EmptyIcon` and `EmptyActions` as root-level parts alongside `EmptyContent`,
-so you can arrange them in the order your screen needs.
+## Installation
 
-## Basic
+<ComponentInstall />
 
+## Usage
 
 Start with `<Empty />` and add its named parts. Add `EmptyIcon` and `EmptyActions` only when
 the state benefits from a visual cue or a clear next step.
-
-<Example name="empty/basic" />
-
-## Install with shadcn
-
-See [Quick Start](/docs/quick-start) for full package setup, registry configuration, and styling guidance.
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/empty' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/empty' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/empty' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/empty' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/empty' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/empty' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Anatomy
-
-```text
-Empty
-├─ EmptyIcon (optional)
-├─ EmptyContent
-│  ├─ EmptyTitle
-│  └─ EmptyDescription
-└─ EmptyActions (optional)
-```
-
-| Part                   | Role                                                                                          |
-| ---------------------- | --------------------------------------------------------------------------------------------- |
-| `Empty`               | Root container for padding, border, background, and alignment.                                |
-| `EmptyIcon`           | Optional container for an icon or another small visual cue.                                   |
-| `EmptyContent`        | Groups the title and description with tighter spacing.                                        |
-| `EmptyTitle`          | Main heading for the empty state.                                                             |
-| `EmptyDescription`    | Supporting content below the title. It can contain paragraphs, links, or other block content. |
-| `EmptyActions`        | Optional action row that wraps its children when needed.                                      |
-
-## Composition
-
-Compose `Empty` from its root-level parts. `EmptyContent` groups the title and description;
-`EmptyIcon` and `EmptyActions` are optional siblings, so you can omit or reorder them to match
-the screen. `Empty` is presentational and does not own application state or live-region behavior.
-
-Use `asChild` on `Empty` or `EmptyTitle` when the surrounding section needs a semantic container or
-a different heading level. Pass exactly one child to an `asChild` part so it can receive that part's
-props and ref. In Vue, a component ref exposes the rendered host through `$el`. Then add any
-required landmark, role, focus management, or `aria-live` behavior in the surrounding interface.
 
 ## Examples
 
@@ -115,6 +40,39 @@ as `section`. Use it on `EmptyTitle` when the heading needs a different level. B
 
 <Example name="empty/advanced-customization" />
 
+## Composition
+
+`EmptyIcon` and `EmptyActions` are optional root-level parts next to `EmptyContent`, so you can arrange them in the order your screen needs.
+
+Compose `Empty` from its root-level parts. `EmptyContent` groups the title and description;
+`EmptyIcon` and `EmptyActions` are optional siblings, so you can omit or reorder them to match
+the screen. `Empty` is presentational and does not own application state or live-region behavior.
+
+Use `asChild` on `Empty` or `EmptyTitle` when the surrounding section needs a semantic container or
+a different heading level. Pass exactly one child to an `asChild` part so it can receive that part's
+props and ref. In Vue, a component ref exposes the rendered host through `$el`. Then add any
+required landmark, role, focus management, or `aria-live` behavior in the surrounding interface.
+
+## Anatomy
+
+```text
+Empty
+├─ EmptyIcon (optional)
+├─ EmptyContent
+│  ├─ EmptyTitle
+│  └─ EmptyDescription
+└─ EmptyActions (optional)
+```
+
+| Part                   | Role                                                                                          |
+| ---------------------- | --------------------------------------------------------------------------------------------- |
+| `Empty`               | Root container for padding, border, background, and alignment.                                |
+| `EmptyIcon`           | Optional container for an icon or another small visual cue.                                   |
+| `EmptyContent`        | Groups the title and description with tighter spacing.                                        |
+| `EmptyTitle`          | Main heading for the empty state.                                                             |
+| `EmptyDescription`    | Supporting content below the title. It can contain paragraphs, links, or other block content. |
+| `EmptyActions`        | Optional action row that wraps its children when needed.                                      |
+
 ## Styling
 
 Customize `Empty` with `className` in React or `class` in Solid and Vue, Ark `data-scope="empty"` /
@@ -122,7 +80,7 @@ Customize `Empty` with `className` in React or `class` in Solid and Vue, Ark `da
 `--moduix-empty-*` variables below for the root surface, so a theme can retune every empty state at
 once. Style the other parts with a class: it overrides the layered component styles.
 
-### CSS Properties
+### CSS variables
 
 <CssPropertiesSection properties={EmptyDocs.emptyOverrideCssProperties} />
 

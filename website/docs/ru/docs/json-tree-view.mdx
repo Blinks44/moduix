@@ -2,20 +2,16 @@
 title: JSON Tree View
 component: json-tree-view
 description: Просматривайте значения JSON и JavaScript в доступном раскрываемом дереве с JsonTreeView из moduix.
+ark: https://ark-ui.com/docs/utilities/json-tree-view
 ---
 
+<Example name="json-tree-view/basic" />
 
-## Справочник API
+## Установка
 
-<PrimitiveReference href="https://ark-ui.com/docs/utilities/json-tree-view" />
+<ComponentInstall />
 
-## Какой компонент выбрать
-
-Используйте `JsonTreeView`, если у вас уже есть JavaScript-значение и его нужно просмотреть, не реализуя
-рекурсивный рендеринг вручную. Выбирайте `TreeView`, если вы сами управляете моделью узлов и хотите задавать
-подписи, иконки, ссылки, переименование или содержимое ветвей.
-
-## Базовый пример
+## Использование
 
 Адаптеры фреймворков сохраняют одинаковые плоские имена компонентов; в примере Vue используются нативный SFC и
 именованные слоты.
@@ -27,44 +23,30 @@ description: Просматривайте значения JSON и JavaScript в
 В примере сразу раскрыты два уровня. С помощью `defaultExpandedDepth` задайте, какая часть ответа или конфигурации
 должна быть видна при первом отображении.
 
-<Example name="json-tree-view/basic" />
+## Какой компонент выбрать
 
-## Установка через shadcn
+Используйте `JsonTreeView`, если у вас уже есть JavaScript-значение и его нужно просмотреть, не реализуя
+рекурсивный рендеринг вручную. Выбирайте `TreeView`, если вы сами управляете моделью узлов и хотите задавать
+подписи, иконки, ссылки, переименование или содержимое ветвей.
 
-Полную настройку пакета, реестра и стилей см. в разделе [Быстрый старт](/docs/quick-start).
+## Примеры
 
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
+### Компактные превью
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/json-tree-view' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/json-tree-view' },
-  ]}
-/>
+Используйте `maxPreviewItems`, чтобы ограничить превью объектов и массивов. Параметр
+`collapseStringsAfterLength` сокращает длинные строки, пока пользователь не раскроет узел и не посмотрит его
+значение полностью.
 
-  </Tab>
-  <Tab label="Solid" value="solid">
+<Example name="json-tree-view/compact-previews" />
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/json-tree-view' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/json-tree-view' },
-  ]}
-/>
+## Композиция
 
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/json-tree-view' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/json-tree-view' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
+Оставляйте `JsonTreeViewTree` дочерней частью `JsonTreeView` или `JsonTreeViewRootProvider`: она отображает
+сгенерированные узлы JSON. Если состояние дерева принадлежит внешним элементам управления, создайте
+`useJsonTreeView` из соответствующего фреймворк-пакета, передайте состояние в `JsonTreeViewRootProvider` и
+выведите внутри него `JsonTreeViewTree`. Используйте управляемые `expandedValue`, `selectedValue`, `checkedValue` или
+`focusedValue`, только когда состояние должно принадлежать приложению. Не используйте `JsonTreeView` и `JsonTreeViewRootProvider` для
+одного состояния.
 
 ## Анатомия
 
@@ -82,25 +64,6 @@ JsonTreeViewRootProvider
 | `JsonTreeView` | Хранит данные, сгенерированную коллекцию и состояние дерева Ark. |
 | `JsonTreeViewRootProvider` | Подключает к частям состояние `useJsonTreeView`, созданное вне дерева. |
 | `JsonTreeViewTree` | Отображает сгенерированные узлы объектов, массивов и значений. |
-
-## Композиция
-
-Оставляйте `JsonTreeViewTree` дочерней частью `JsonTreeView` или `JsonTreeViewRootProvider`: она отображает
-сгенерированные узлы JSON. Если состояние дерева принадлежит внешним элементам управления, создайте
-`useJsonTreeView` из соответствующего фреймворк-пакета, передайте состояние в `JsonTreeViewRootProvider` и
-выведите внутри него `JsonTreeViewTree`. Используйте управляемые `expandedValue`, `selectedValue`, `checkedValue` или
-`focusedValue`, только когда состояние должно принадлежать приложению. Не используйте `JsonTreeView` и `JsonTreeViewRootProvider` для
-одного состояния.
-
-## Примеры
-
-### Компактные превью
-
-Используйте `maxPreviewItems`, чтобы ограничить превью объектов и массивов. Параметр
-`collapseStringsAfterLength` сокращает длинные строки, пока пользователь не раскроет узел и не посмотрит его
-значение полностью.
-
-<Example name="json-tree-view/compact-previews" />
 
 ## Стилизация
 

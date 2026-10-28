@@ -2,16 +2,22 @@
 title: Badge
 component: badge
 description: Un badge compact pour afficher de brèves informations comme un statut, une catégorie, une version ou un nombre.
+ark: https://ark-ui.com/docs/guides/composition#the-ark-factory
 ---
 
 import * as BadgeDocs from '@/components/examples/badge/css-properties';
 
+<Example name="badge/basic" />
 
-## Référence de l’API
+## Installation
 
-Ark UI ne fournit pas de primitive `Badge` dédiée. moduix construit `Badge` avec la [factory Ark](https://ark-ui.com/docs/guides/composition#the-ark-factory)
-officielle et suit les recommandations d’Ark pour la [composition](https://ark-ui.com/docs/guides/composition), les
-[styles](https://ark-ui.com/docs/guides/styling) et les [références](https://ark-ui.com/docs/guides/ref).
+<ComponentInstall />
+
+## Utilisation
+
+Commencez par un `<Badge>` simple. Par défaut, le composant rend un `span` de présentation. Définissez `variant` pour
+choisir un style intégré, `size` pour choisir `sm`, `md` ou `lg`, et ajoutez `BadgeDot` uniquement lorsqu’un statut
+a besoin d’un indicateur visuel.
 
 ## Choisir le bon composant
 
@@ -21,76 +27,8 @@ pas un contrôle qui permet à l’utilisateur de sélectionner ou de modifier u
 - Choisissez **`Badge`** pour de courtes métadonnées comme un statut, une catégorie, une version ou un nombre.
 - Choisissez **`Tag`** pour des valeurs sélectionnées, des filtres, des affectations ou des libellés qui font partie de l’état actuel de l’interface.
 
-
 Les exports Vue sont disponibles depuis `@moduix/vue/badge` pour CSS Modules et `@moduix/vue-tailwind/badge` pour Tailwind CSS. Les exports Solid restent disponibles depuis `@moduix/solid/badge`.
-## Exemple de base
 
-Commencez par un `<Badge>` simple. Par défaut, le composant rend un `span` de présentation. Définissez `variant` pour
-choisir un style intégré, `size` pour choisir `sm`, `md` ou `lg`, et ajoutez `BadgeDot` uniquement lorsqu’un statut
-a besoin d’un indicateur visuel.
-
-
-<Example name="badge/basic" />
-
-## Installation avec shadcn
-
-Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration complète du paquet, du registre et des styles.
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/badge' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/badge' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/badge' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/badge' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/badge' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/badge' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Anatomie
-
-`Badge` est le composant racine. Son API publique reste volontairement réduite aux parties visibles.
-
-```text
-Badge
-├─ BadgeLabel (facultatif ; à utiliser explicitement pour la troncature)
-├─ BadgeDot (facultatif)
-└─ icône svg (facultative)
-```
-
-| Partie      | Rôle                                                                                  |
-| ----------- | ------------------------------------------------------------------------------------- |
-| `Badge`     | Partie racine. Applique la variante, la bordure et les espacements.                    |
-| `BadgeLabel` | Partie de texte explicite. Permet de tronquer correctement un badge composé.          |
-| `BadgeDot`  | Partie décorative. Affiche un marqueur circulaire qui reprend la couleur du texte.    |
-
-## Composition
-
-`Badge` est un composant de présentation et ne gère aucun état. Le texte direct reste inchangé ; utilisez `BadgeLabel` lorsqu’un libellé contraint doit être tronqué ou lorsqu’il est combiné avec `BadgeDot` ou une icône. Pour un lien ou un bouton sémantique, utilisez `asChild` avec exactement un enfant en React. En Solid, passez une fonction de rendu à `asChild` ; l’enfant rendu conserve ses sémantiques natives.
-
-En Vue, placez exactement un enfant dans le slot par défaut avec `as-child` ; l’enfant conserve ses sémantiques natives.
 ## Exemples
 
 ### Styles personnalisés
@@ -139,6 +77,29 @@ Placez une icône SVG enfant directe à côté du libellé lorsque les métadonn
 
 <Example name="badge/with-icon" />
 
+## Composition
+
+`Badge` est un composant de présentation et ne gère aucun état. Le texte direct reste inchangé ; utilisez `BadgeLabel` lorsqu’un libellé contraint doit être tronqué ou lorsqu’il est combiné avec `BadgeDot` ou une icône. Pour un lien ou un bouton sémantique, utilisez `asChild` avec exactement un enfant en React. En Solid, passez une fonction de rendu à `asChild` ; l’enfant rendu conserve ses sémantiques natives.
+
+En Vue, placez exactement un enfant dans le slot par défaut avec `as-child` ; l’enfant conserve ses sémantiques natives.
+
+## Anatomie
+
+`Badge` est le composant racine. Son API publique reste volontairement réduite aux parties visibles.
+
+```text
+Badge
+├─ BadgeLabel (facultatif ; à utiliser explicitement pour la troncature)
+├─ BadgeDot (facultatif)
+└─ icône svg (facultative)
+```
+
+| Partie      | Rôle                                                                                  |
+| ----------- | ------------------------------------------------------------------------------------- |
+| `Badge`     | Partie racine. Applique la variante, la bordure et les espacements.                    |
+| `BadgeLabel` | Partie de texte explicite. Permet de tronquer correctement un badge composé.          |
+| `BadgeDot`  | Partie décorative. Affiche un marqueur circulaire qui reprend la couleur du texte.    |
+
 ## Styles
 
 Commencez avec une variante et une taille intégrées. Les variables CSS Modules remplacent le fond, la
@@ -149,7 +110,7 @@ foundation ; modifiez-les avec une classe sur la partie.
 
 Ces variables CSS s’appliquent aux packages CSS Modules ; les packages Tailwind utilisent des utilitaires natifs et les classes du consommateur. Utilisez `className` en React ou `class` en Solid et Vue sur les parties exportées. Les hooks `data-slot` et les attributs Ark sont communs aux deux approches de style et aux trois frameworks.
 
-### Propriétés CSS
+### Variables CSS
 
 <CssPropertiesSection properties={BadgeDocs.badgeCssProperties} />
 
