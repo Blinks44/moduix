@@ -90,6 +90,16 @@ export function PageBreadcrumb() {
   const blocksPath = useLocalizedPath('/blocks');
   const section = findSection(sidebar, normalizePath(decodeURIComponent(pathname)));
   const isBlock = pathname.startsWith(`${blocksPath}/`);
+  // Browse blocks sits above the sidebar sections, so it shows the Blocks root as its crumb.
+  const isBlocksIndex = normalizePath(decodeURIComponent(pathname)) === normalizePath(blocksPath);
+
+  if (isBlocksIndex) {
+    return (
+      <nav className={`rp-not-doc ${styles.breadcrumb}`} aria-label="Breadcrumb">
+        <span>{t('navBlocks')}</span>
+      </nav>
+    );
+  }
 
   if (!section) return null;
 

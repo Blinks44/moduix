@@ -650,6 +650,11 @@ body .rp-doc {
     line-height: 1.5625;
   }
 
+  /* Catalog pages: the lead runs the full content width, as in the Components index frame. */
+  .rp-doc-layout__doc--wide & .moduix-doc-description {
+    max-width: none;
+  }
+
   .moduix-doc-actions {
     display: flex;
     flex-wrap: wrap;
