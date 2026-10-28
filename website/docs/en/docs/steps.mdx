@@ -1,7 +1,7 @@
 ---
 title: Steps
 component: steps
-description: Guide users through a multi-step process with accessible Ark UI state and navigation.
+description: Walk users through a multi-step task with progress and validation.
 ark: https://ark-ui.com/docs/components/steps
 ---
 
@@ -14,6 +14,20 @@ import * as StepsDocs from '@/components/examples/steps/css-properties';
 <ComponentInstall />
 
 ## Usage
+
+<UsageCode
+  react={'<Steps count={3} linear onStepComplete={finish}>\n  <StepsList>\n    <StepsItem index={0}>\n      <StepsTrigger>\n        <StepsIndicator />\n        Account\n      </StepsTrigger>\n      <StepsSeparator />\n    </StepsItem>\n    {/* items 1 and 2 */}\n  </StepsList>\n  <StepsContent index={0}>Account details</StepsContent>\n  <StepsCompletedContent>All set.</StepsCompletedContent>\n  <StepsPrevTrigger>Back</StepsPrevTrigger>\n  <StepsNextTrigger>Next</StepsNextTrigger>\n</Steps>'}
+  vue={'<Steps :count="3" linear @step-complete="finish">\n  <StepsList>\n    <StepsItem :index="0">\n      <StepsTrigger>\n        <StepsIndicator />\n        Account\n      </StepsTrigger>\n      <StepsSeparator />\n    </StepsItem>\n    <!-- items 1 and 2 -->\n  </StepsList>\n  <StepsContent :index="0">Account details</StepsContent>\n  <StepsCompletedContent>All set.</StepsCompletedContent>\n  <StepsPrevTrigger>Back</StepsPrevTrigger>\n  <StepsNextTrigger>Next</StepsNextTrigger>\n</Steps>'}
+/>
+
+<PropChips
+  items={[
+    ['count', 'Number of steps; indexes start at 0.'],
+    ['linear', 'Requires finishing each step before the next.'],
+    ['isStepValid', 'Blocks Next while the current step is invalid.'],
+    ['orientation', 'horizontal or vertical layout.'],
+  ]}
+/>
 
 Use `Steps` with `count`, a `StepsList` containing one `StepsItem` for each step, matching
 `StepsContent` panels, and the built-in previous and next triggers. Step indexes start at zero.
@@ -138,10 +152,24 @@ vertical list gap with a class. Change colors, typography, and surfaces with a c
 
 ### Styling hooks
 
+| Part | `data-slot` |
+| --- | --- |
+| `Steps` | `steps-root` |
+| `StepsRootProvider` | `steps-root-provider` |
+| `StepsList` | `steps-list` |
+| `StepsItem` | `steps-item` |
+| `StepsTrigger` | `steps-trigger` |
+| `StepsIndicator` | `steps-indicator` |
+| `StepsSeparator` | `steps-separator` |
+| `StepsContent` | `steps-content` |
+| `StepsCompletedContent` | `steps-completed-content` |
+| `StepsPrevTrigger` | `steps-prev-trigger` |
+| `StepsNextTrigger` | `steps-next-trigger` |
+| `StepsProgress` | `steps-progress` |
+
 The useful public hooks are:
 
 - `className` in React or `class` in Solid and Vue on `Steps`, `StepsRootProvider`, `StepsList`, `StepsItem`, `StepsTrigger`, `StepsIndicator`, `StepsSeparator`, `StepsContent`, `StepsCompletedContent`, `StepsPrevTrigger`, `StepsNextTrigger`, and `StepsProgress`
-- `data-slot="steps-root"`, `steps-root-provider`, `steps-list`, `steps-item`, `steps-trigger`, `steps-indicator`, `steps-separator`, `steps-content`, `steps-completed-content`, `steps-prev-trigger`, `steps-next-trigger`, and `steps-progress`
 - Ark's `data-scope="steps"` and `data-part` values for every primitive part
 - `data-orientation="horizontal" | "vertical"` on the root, list, item, trigger, content, and separator parts
 - `data-current`, `data-complete`, and `data-incomplete` on indicator, separator, and trigger state surfaces
@@ -149,3 +177,25 @@ The useful public hooks are:
 - `data-state="open" | "closed"` on triggers and content panels
 - `data-complete` on `StepsProgress`
 - Ark's `--percent` variable on the root, consumed by `StepsProgress`
+
+## Keyboard
+
+| Key | Action |
+| --- | --- |
+| `Tab` / `Shift+Tab` | Moves between step triggers and the Back and Next buttons. |
+| `Enter` / `Space` | Opens the focused step or runs Back and Next. |
+
+## API reference
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `count` | `number` | — |
+| `step` | `number` | — |
+| `defaultStep` | `number` | `0` |
+| `onStepChange` | `(details: StepChangeDetails) => void` | — |
+| `onStepComplete` | `() => void` | — |
+| `linear` | `boolean` | `false` |
+| `orientation` | `'horizontal' \| 'vertical'` | `'horizontal'` |
+| `isStepValid` | `(index: number) => boolean` | `() => true` |
+| `isStepSkippable` | `(index: number) => boolean` | `() => false` |
+| `onStepInvalid` | `(details: StepInvalidDetails) => void` | — |

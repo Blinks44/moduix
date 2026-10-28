@@ -1,7 +1,7 @@
 ---
 title: Table of Contents
 component: toc
-description: Синхронизируйте доступное оглавление с разделом, который читает пользователь.
+description: Подсвечивает раздел, который читают, в списке «На этой странице».
 ark: https://ark-ui.com/docs/components/toc
 ---
 
@@ -12,6 +12,20 @@ ark: https://ark-ui.com/docs/components/toc
 <ComponentInstall />
 
 ## Использование
+
+<UsageCode
+  react={'<Toc items={items}>\n  <TocNav>\n    <TocTitle>On this page</TocTitle>\n    <TocList>\n      <TocIndicator />\n      {items.map((item) => (\n        <TocItem key={item.value} item={item}>\n          <TocLink href={`#${item.value}`}>{item.label}</TocLink>\n        </TocItem>\n      ))}\n    </TocList>\n  </TocNav>\n</Toc>'}
+  solid={'<Toc items={items}>\n  <TocNav>\n    <TocTitle>On this page</TocTitle>\n    <TocList>\n      <TocIndicator />\n      <For each={items}>\n        {(item) => (\n          <TocItem item={item}>\n            <TocLink href={`#${item.value}`}>{item.label}</TocLink>\n          </TocItem>\n        )}\n      </For>\n    </TocList>\n  </TocNav>\n</Toc>'}
+  vue={'<Toc :items="items">\n  <TocNav>\n    <TocTitle>On this page</TocTitle>\n    <TocList>\n      <TocIndicator />\n      <TocItem v-for="item in items" :key="item.value" :item="item">\n        <TocLink :href="`#${item.value}`">{{ item.label }}</TocLink>\n      </TocItem>\n    </TocList>\n  </TocNav>\n</Toc>'}
+/>
+
+<PropChips
+  items={[
+    ['items', 'Отслеживаемые заголовки: value это id, depth уровень.'],
+    ['scrollEl', 'Контейнер прокрутки; по умолчанию окно страницы.'],
+    ['autoScroll', 'Держит активную ссылку в видимой части списка; по умолчанию выключено.'],
+  ]}
+/>
 
 `Toc` является корневым компонентом плоского API. Передайте в него массив `items` с заголовками,
 которые нужно отслеживать. Для каждого элемента укажите `value`, совпадающее с `id` заголовка, и
@@ -112,9 +126,34 @@ TocRootProvider
 
 ### Хуки стилизации
 
-- `data-slot="toc-root"`, `toc-root-provider`, `toc-content`, `toc-nav`, `toc-title`, `toc-list`,
-  `toc-item`, `toc-link`, `toc-indicator` и `toc-rail`
+| Часть | `data-slot` |
+| --- | --- |
+| `Toc` | `toc-root` |
+| `TocRootProvider` | `toc-root-provider` |
+| `TocContent` | `toc-content` |
+| `TocNav` | `toc-nav` |
+| `TocTitle` | `toc-title` |
+| `TocList` | `toc-list` |
+| `TocItem` | `toc-item` |
+| `TocLink` | `toc-link` |
+| `TocIndicator` | `toc-indicator` |
+| `TocRail` | `toc-rail` |
+
 - Атрибуты Ark `data-scope="toc"` и `data-part` на частях примитива
 - Атрибуты и переменные `TocItem`: `data-value`, `data-depth`, `data-active`, `data-first`,
   `data-last` и `--depth`; `TocLink` получает `data-value`, `data-active` и `aria-current`
 - Переменные времени выполнения Ark `--top`, `--left`, `--width` и `--height` на корневом элементе
+
+## Справочник API
+
+| Проп | Тип | По умолчанию |
+| --- | --- | --- |
+| `items` | `TocItem[]` | — |
+| `scrollEl` | `() => HTMLElement \| null` | — |
+| `rootMargin` | `string` | `'-20px 0px -40% 0px'` |
+| `threshold` | `number \| number[]` | `0` |
+| `autoScroll` | `boolean` | `false` |
+| `scrollBehavior` | `ScrollBehavior` | `'smooth'` |
+| `activeIds` | `string[]` | — |
+| `defaultActiveIds` | `string[]` | — |
+| `onActiveChange` | `(details: ActiveChangeDetails) => void` | — |

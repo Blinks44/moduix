@@ -1,7 +1,7 @@
 ---
 title: Tabs
 component: tabs
-description: Переключение между связанными панелями с доступной клавиатурной навигацией, управляемым состоянием, ленивым монтированием, ссылками и вертикальной ориентацией.
+description: Переключение между связанными панелями в одной области страницы.
 ark: https://ark-ui.com/docs/components/tabs
 ---
 
@@ -87,6 +87,20 @@ import tabsVueVertical from '../../../snippets/tabs/vue/vertical.vue?raw';
 <ComponentInstall />
 
 ## Использование
+
+<UsageCode
+  react={'<Tabs defaultValue="overview" variant="line" size="sm">\n  <TabsList>\n    <TabsTrigger value="overview">Overview</TabsTrigger>\n    <TabsTrigger value="activity">Activity</TabsTrigger>\n    <TabsIndicator />\n  </TabsList>\n  <TabsContent value="overview">Project summary</TabsContent>\n  <TabsContent value="activity">Recent changes</TabsContent>\n</Tabs>'}
+  vue={'<Tabs default-value="overview" variant="line" size="sm">\n  <TabsList>\n    <TabsTrigger value="overview">Overview</TabsTrigger>\n    <TabsTrigger value="activity">Activity</TabsTrigger>\n    <TabsIndicator />\n  </TabsList>\n  <TabsContent value="overview">Project summary</TabsContent>\n  <TabsContent value="activity">Recent changes</TabsContent>\n</Tabs>'}
+/>
+
+<PropChips
+  items={[
+    ['defaultValue', 'Вкладка при первом рендере; для управления используйте value.'],
+    ['variant', 'default рисует сегменты, line подчёркивание.'],
+    ['size', 'sm, md или lg.'],
+    ['fitted', 'Растягивает вкладки на всю ширину списка.'],
+  ]}
+/>
 
 Начните с `Tabs` и задайте одинаковое значение `value` для каждой пары `TabsTrigger` и
 `TabsContent`. Добавьте `TabsIndicator`, если выбранную вкладку нужно отметить визуально.
@@ -640,6 +654,15 @@ TabsContext
 
 ### Хуки стилизации
 
+| Часть | `data-slot` |
+| --- | --- |
+| `Tabs` | `tabs-root` |
+| `TabsRootProvider` | `tabs-root-provider` |
+| `TabsList` | `tabs-list` |
+| `TabsTrigger` | `tabs-trigger` |
+| `TabsIndicator` | `tabs-indicator` |
+| `TabsContent` | `tabs-content` |
+
 Выбирайте часть, которая отвечает за нужный визуальный аспект:
 
 - `Tabs` для ширины, общего расстояния, ориентации и переопределений на уровне варианта
@@ -649,10 +672,32 @@ TabsContext
   `--transition-duration` и `--transition-timing-function`, чтобы изменить движение
 - `TabsContent` для поверхности панели, внутренних отступов и стилей фокуса
 
-Основные публичные хуки: `data-slot="tabs-root"`, `data-slot="tabs-root-provider"`,
-`data-slot="tabs-list"`, `data-slot="tabs-trigger"`, `data-slot="tabs-indicator"` и
-`data-slot="tabs-content"`.
-
 Полезные хуки Ark: `data-scope="tabs"`, `data-part`, `data-orientation`, `data-selected`,
 `data-disabled`, `data-focus`, а также переменные индикатора `--left`, `--top`, `--width`,
 `--height` и `--transition-property`.
+
+## Клавиатура
+
+| Клавиша | Действие |
+| --- | --- |
+| `ArrowLeft` / `ArrowRight` | Переходит к предыдущей или следующей вкладке; ArrowUp и ArrowDown в вертикальном режиме. |
+| `Home` / `End` | Переходит к первой или последней вкладке. |
+| `Enter` / `Space` | Выбирает вкладку в фокусе, если activationMode равен manual. |
+| `Tab` | Переводит фокус из списка вкладок в активную панель. |
+
+## Справочник API
+
+| Проп | Тип | По умолчанию |
+| --- | --- | --- |
+| `value` | `string \| null` | — |
+| `defaultValue` | `string \| null` | — |
+| `onValueChange` | `(details: ValueChangeDetails) => void` | — |
+| `variant` | `'default' \| 'line'` | `'default'` |
+| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` |
+| `fitted` | `boolean` | `false` |
+| `orientation` | `'horizontal' \| 'vertical'` | `'horizontal'` |
+| `activationMode` | `'automatic' \| 'manual'` | `'automatic'` |
+| `loopFocus` | `boolean` | `true` |
+| `deselectable` | `boolean` | `false` |
+| `lazyMount` | `boolean` | `false` |
+| `unmountOnExit` | `boolean` | `false` |

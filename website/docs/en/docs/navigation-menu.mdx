@@ -1,7 +1,7 @@
 ---
 title: Navigation Menu
 component: navigation-menu
-description: A composable navigation bar for direct links and disclosure panels, with an optional shared NavigationMenuViewport for animated transitions.
+description: Build a site header where items link directly or open panels of links.
 ark: https://ark-ui.com/docs/components/navigation-menu
 ---
 
@@ -15,10 +15,18 @@ import * as NavigationMenuDocs from '@/components/examples/navigation-menu/css-p
 
 ## Usage
 
-Import it from the matching package subpath: `@moduix/react/navigation-menu`,
-`@moduix/solid/navigation-menu`, `@moduix/vue/navigation-menu`,
-`@moduix/react-tailwind/navigation-menu`, `@moduix/solid-tailwind/navigation-menu`, or
-`@moduix/vue-tailwind/navigation-menu`.
+<UsageCode
+  react={'<NavigationMenu openDelay={200} closeDelay={300}>\n  <NavigationMenuList>\n    <NavigationMenuItem value="home">\n      <NavigationMenuLink href="/">Home</NavigationMenuLink>\n    </NavigationMenuItem>\n    <NavigationMenuItem value="products">\n      <NavigationMenuTrigger>Products</NavigationMenuTrigger>\n      <NavigationMenuContent>\n        <NavigationMenuLink href="/analytics">Analytics</NavigationMenuLink>\n      </NavigationMenuContent>\n    </NavigationMenuItem>\n  </NavigationMenuList>\n</NavigationMenu>'}
+  vue={'<NavigationMenu :open-delay="200" :close-delay="300">\n  <NavigationMenuList>\n    <NavigationMenuItem value="home">\n      <NavigationMenuLink href="/">Home</NavigationMenuLink>\n    </NavigationMenuItem>\n    <NavigationMenuItem value="products">\n      <NavigationMenuTrigger>Products</NavigationMenuTrigger>\n      <NavigationMenuContent>\n        <NavigationMenuLink href="/analytics">Analytics</NavigationMenuLink>\n      </NavigationMenuContent>\n    </NavigationMenuItem>\n  </NavigationMenuList>\n</NavigationMenu>'}
+/>
+
+<PropChips
+  items={[
+    ['value', 'Unique id of each NavigationMenuItem.'],
+    ['openDelay / closeDelay', 'Hover delays in ms before a panel opens or closes.'],
+    ['disableHoverTrigger', 'Opens panels on click only.'],
+  ]}
+/>
 
 Use `NavigationMenu` with `NavigationMenuList` and `NavigationMenuItem`. Give every item a unique
 `value`. For a group of links, place `NavigationMenuTrigger` and `NavigationMenuContent` inside
@@ -122,6 +130,21 @@ attributes and `data-slot` hooks are shared by both styling tracks.
 
 ### Styling hooks
 
+| Part | `data-slot` |
+| --- | --- |
+| `NavigationMenu` | `navigation-menu-root` |
+| `NavigationMenuRootProvider` | `navigation-menu-root-provider` |
+| `NavigationMenuList` | `navigation-menu-list` |
+| `NavigationMenuItem` | `navigation-menu-item` |
+| `NavigationMenuTrigger` | `navigation-menu-trigger` |
+| `NavigationMenuContent` | `navigation-menu-content` |
+| `NavigationMenuLink` | `navigation-menu-link` |
+| `NavigationMenuIndicator` | `navigation-menu-indicator` |
+| `NavigationMenuItemIndicator` | `navigation-menu-item-indicator` |
+| `NavigationMenuArrow` | `navigation-menu-arrow` |
+| `NavigationMenuViewportPositioner` | `navigation-menu-viewport-positioner` |
+| `NavigationMenuViewport` | `navigation-menu-viewport` |
+
 Target the part that owns the visual concern:
 
 - `NavigationMenu` for root width, text color, and layout position.
@@ -131,15 +154,28 @@ Target the part that owns the visual concern:
 - `NavigationMenuIndicator` and `NavigationMenuItemIndicator` for optional active-state decoration; use `NavigationMenuArrow` with a shared `NavigationMenuViewport`.
 - `NavigationMenuViewportPositioner` and `NavigationMenuViewport` for a shared animated panel surface.
 
-The main public hooks are `data-slot="navigation-menu-root"`,
-`data-slot="navigation-menu-root-provider"`, `data-slot="navigation-menu-list"`,
-`data-slot="navigation-menu-item"`, `data-slot="navigation-menu-trigger"`,
-`data-slot="navigation-menu-content"`, `data-slot="navigation-menu-link"`,
-`data-slot="navigation-menu-indicator"`, `data-slot="navigation-menu-item-indicator"`,
-`data-slot="navigation-menu-arrow"`, `data-slot="navigation-menu-viewport-positioner"`, and
-`data-slot="navigation-menu-viewport"`.
-
 Useful Ark hooks include `data-scope="navigation-menu"`, `data-part`, `data-state`, `data-current`,
 `data-disabled`, `data-orientation`, and `data-motion`. At runtime, Ark writes `--trigger-x`,
 `--trigger-y`, `--trigger-width`, `--trigger-height`, `--viewport-x`, `--viewport-y`,
 `--viewport-width`, and `--viewport-height`.
+
+## Keyboard
+
+| Key | Action |
+| --- | --- |
+| `Tab` / `Shift+Tab` | Moves between top-level triggers and links. |
+| `Enter` / `Space` | Opens or closes the panel of the focused trigger. |
+| `Esc` | Closes the open panel and returns focus to its trigger. |
+
+## API reference
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `value` | `string` | — |
+| `defaultValue` | `string` | — |
+| `onValueChange` | `(details: ValueChangeDetails) => void` | — |
+| `openDelay` | `number` | `200` |
+| `closeDelay` | `number` | `300` |
+| `disableClickTrigger` | `boolean` | `false` |
+| `disableHoverTrigger` | `boolean` | `false` |
+| `disablePointerLeaveClose` | `boolean` | `false` |

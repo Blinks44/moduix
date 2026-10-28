@@ -1,7 +1,7 @@
 ---
 title: Separator
 component: separator
-description: Build accessible horizontal or vertical separators in React, Solid, or Vue.
+description: Draw a line between related sections, horizontal or vertical.
 ark: https://ark-ui.com/docs/guides/composition#the-ark-factory
 ---
 
@@ -14,6 +14,19 @@ import * as SeparatorDocs from '@/components/examples/separator/css-properties';
 <ComponentInstall />
 
 ## Usage
+
+<UsageCode
+  react={'<Separator orientation="vertical" variant="dashed" size="md" />'}
+  vue={'<Separator orientation="vertical" variant="dashed" size="md" />'}
+/>
+
+<PropChips
+  items={[
+    ['orientation', 'horizontal or vertical.'],
+    ['variant', 'solid, dashed, or dotted.'],
+    ['size', 'Line thickness from xs to lg.'],
+  ]}
+/>
 
 Use `Separator` to make the boundary between related sections visible. The defaults are
 `orientation="horizontal"`, `variant="solid"`, and `size="sm"`.
@@ -89,8 +102,21 @@ attributes and `data-slot` hooks are shared by both styling tracks.
 
 ### Styling hooks
 
+| Part | `data-slot` |
+| --- | --- |
+| `Separator` | `separator-root` |
+
 - `data-scope="separator"` and `data-part="root"` identify the Ark-style root part.
-- `data-slot="separator-root"` is the stable moduix selector.
 - `data-orientation="horizontal"` and `data-orientation="vertical"` target axis-specific styles.
 - `data-size="xs|sm|md|lg"` and `data-variant="solid|dashed|dotted"` expose the visual settings.
 - `className` or `class` and `style` are applied directly to the root separator element.
+
+## API reference
+
+Also accepts the native props of its element and `asChild`.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `orientation` | `'horizontal' \| 'vertical'` | `'horizontal'` |
+| `variant` | `'solid' \| 'dashed' \| 'dotted'` | `'solid'` |
+| `size` | `'xs' \| 'sm' \| 'md' \| 'lg'` | `'sm'` |

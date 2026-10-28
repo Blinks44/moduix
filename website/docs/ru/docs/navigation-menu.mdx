@@ -1,7 +1,7 @@
 ---
 title: Navigation Menu
 component: navigation-menu
-description: Навигационная панель для прямых ссылок и раскрывающихся панелей с возможностью использовать общую область `NavigationMenuViewport` для анимированных переходов.
+description: Шапка сайта, где пункты ведут по ссылке или открывают панели ссылок.
 ark: https://ark-ui.com/docs/components/navigation-menu
 ---
 
@@ -15,10 +15,18 @@ import * as NavigationMenuDocs from '@/components/examples/navigation-menu/css-p
 
 ## Использование
 
-Импортируйте компонент из подпути подходящего пакета: `@moduix/react/navigation-menu`,
-`@moduix/solid/navigation-menu`, `@moduix/vue/navigation-menu`,
-`@moduix/react-tailwind/navigation-menu`, `@moduix/solid-tailwind/navigation-menu` или
-`@moduix/vue-tailwind/navigation-menu`.
+<UsageCode
+  react={'<NavigationMenu openDelay={200} closeDelay={300}>\n  <NavigationMenuList>\n    <NavigationMenuItem value="home">\n      <NavigationMenuLink href="/">Home</NavigationMenuLink>\n    </NavigationMenuItem>\n    <NavigationMenuItem value="products">\n      <NavigationMenuTrigger>Products</NavigationMenuTrigger>\n      <NavigationMenuContent>\n        <NavigationMenuLink href="/analytics">Analytics</NavigationMenuLink>\n      </NavigationMenuContent>\n    </NavigationMenuItem>\n  </NavigationMenuList>\n</NavigationMenu>'}
+  vue={'<NavigationMenu :open-delay="200" :close-delay="300">\n  <NavigationMenuList>\n    <NavigationMenuItem value="home">\n      <NavigationMenuLink href="/">Home</NavigationMenuLink>\n    </NavigationMenuItem>\n    <NavigationMenuItem value="products">\n      <NavigationMenuTrigger>Products</NavigationMenuTrigger>\n      <NavigationMenuContent>\n        <NavigationMenuLink href="/analytics">Analytics</NavigationMenuLink>\n      </NavigationMenuContent>\n    </NavigationMenuItem>\n  </NavigationMenuList>\n</NavigationMenu>'}
+/>
+
+<PropChips
+  items={[
+    ['value', 'Уникальный id каждого NavigationMenuItem.'],
+    ['openDelay / closeDelay', 'Задержки наведения в мс перед открытием и закрытием панели.'],
+    ['disableHoverTrigger', 'Панели открываются только по клику.'],
+  ]}
+/>
 
 Используйте `NavigationMenu` вместе с `NavigationMenuList` и `NavigationMenuItem`. У каждого элемента
 должно быть уникальное значение `value`. Для группы ссылок поместите `NavigationMenuTrigger` и
@@ -123,6 +131,21 @@ foundation и выносят в CSS-переменные только огран
 
 ### Хуки стилизации
 
+| Часть | `data-slot` |
+| --- | --- |
+| `NavigationMenu` | `navigation-menu-root` |
+| `NavigationMenuRootProvider` | `navigation-menu-root-provider` |
+| `NavigationMenuList` | `navigation-menu-list` |
+| `NavigationMenuItem` | `navigation-menu-item` |
+| `NavigationMenuTrigger` | `navigation-menu-trigger` |
+| `NavigationMenuContent` | `navigation-menu-content` |
+| `NavigationMenuLink` | `navigation-menu-link` |
+| `NavigationMenuIndicator` | `navigation-menu-indicator` |
+| `NavigationMenuItemIndicator` | `navigation-menu-item-indicator` |
+| `NavigationMenuArrow` | `navigation-menu-arrow` |
+| `NavigationMenuViewportPositioner` | `navigation-menu-viewport-positioner` |
+| `NavigationMenuViewport` | `navigation-menu-viewport` |
+
 Настраивайте ту часть, которая отвечает за нужный визуальный элемент:
 
 - `NavigationMenu` отвечает за ширину корневого элемента, цвет текста и его расположение.
@@ -132,15 +155,28 @@ foundation и выносят в CSS-переменные только огран
 - `NavigationMenuIndicator` и `NavigationMenuItemIndicator` отвечают за необязательные элементы оформления активного состояния; используйте `NavigationMenuArrow` с общей областью `NavigationMenuViewport`.
 - `NavigationMenuViewportPositioner` и `NavigationMenuViewport` отвечают за общую анимированную область панели.
 
-Основные публичные точки подключения: `data-slot="navigation-menu-root"`,
-`data-slot="navigation-menu-root-provider"`, `data-slot="navigation-menu-list"`,
-`data-slot="navigation-menu-item"`, `data-slot="navigation-menu-trigger"`,
-`data-slot="navigation-menu-content"`, `data-slot="navigation-menu-link"`,
-`data-slot="navigation-menu-indicator"`, `data-slot="navigation-menu-item-indicator"`,
-`data-slot="navigation-menu-arrow"`, `data-slot="navigation-menu-viewport-positioner"` и
-`data-slot="navigation-menu-viewport"`.
-
 Полезные атрибуты Ark: `data-scope="navigation-menu"`, `data-part`, `data-state`, `data-current`,
 `data-disabled`, `data-orientation` и `data-motion`. Во время работы Ark записывает переменные
 `--trigger-x`, `--trigger-y`, `--trigger-width`, `--trigger-height`, `--viewport-x`, `--viewport-y`,
 `--viewport-width` и `--viewport-height`.
+
+## Клавиатура
+
+| Клавиша | Действие |
+| --- | --- |
+| `Tab` / `Shift+Tab` | Перемещает между кнопками и ссылками верхнего уровня. |
+| `Enter` / `Space` | Открывает или закрывает панель кнопки в фокусе. |
+| `Esc` | Закрывает открытую панель и возвращает фокус на её кнопку. |
+
+## Справочник API
+
+| Проп | Тип | По умолчанию |
+| --- | --- | --- |
+| `value` | `string` | — |
+| `defaultValue` | `string` | — |
+| `onValueChange` | `(details: ValueChangeDetails) => void` | — |
+| `openDelay` | `number` | `200` |
+| `closeDelay` | `number` | `300` |
+| `disableClickTrigger` | `boolean` | `false` |
+| `disableHoverTrigger` | `boolean` | `false` |
+| `disablePointerLeaveClose` | `boolean` | `false` |

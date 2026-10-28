@@ -1,7 +1,7 @@
 ---
 title: Rating Group
 component: rating-group
-description: Компонент для выбора оценки в виде набора звёзд на основе примитива rating-group из Ark UI для React, Solid и Vue.
+description: Оценка по шкале из звёзд, в том числе с шагом в половину звезды.
 ark: https://ark-ui.com/docs/components/rating-group
 ---
 
@@ -14,6 +14,19 @@ import * as RatingGroupDocs from '@/components/examples/rating-group/css-propert
 <ComponentInstall />
 
 ## Использование
+
+<UsageCode
+  react={'<RatingGroup count={5} defaultValue={3.5} allowHalf name="rating">\n  <RatingGroupLabel>Overall satisfaction</RatingGroupLabel>\n  <RatingGroupControl>\n    <RatingGroupItems />\n  </RatingGroupControl>\n  <RatingGroupHiddenInput />\n</RatingGroup>'}
+  vue={'<RatingGroup :count="5" :default-value="3.5" allow-half name="rating">\n  <RatingGroupLabel>Overall satisfaction</RatingGroupLabel>\n  <RatingGroupControl>\n    <RatingGroupItems />\n  </RatingGroupControl>\n  <RatingGroupHiddenInput />\n</RatingGroup>'}
+/>
+
+<PropChips
+  items={[
+    ['count', 'Число звёзд, по умолчанию 5.'],
+    ['allowHalf', 'Разрешает половинки звезды.'],
+    ['readOnly', 'Показывает оценку без возможности изменить.'],
+  ]}
+/>
 
 Используйте `RatingGroup` как корневой компонент и добавьте `RatingGroupLabel`,
 `RatingGroupControl` и `RatingGroupItems` для стандартного рейтинга со звёздами. Если значение
@@ -142,13 +155,42 @@ RatingGroupRootProvider
 
 ### Хуки стилизации
 
-- `data-slot="rating-group-root"` и `data-slot="rating-group-root-provider"`
-- `data-slot="rating-group-label"`
-- `data-slot="rating-group-control"`
-- `data-slot="rating-group-item"`
-- `data-slot="rating-group-item-indicator"`
-- `data-slot="rating-group-item-indicator-bg"` и `data-slot="rating-group-item-indicator-fg"`
+| Часть | `data-slot` |
+| --- | --- |
+| `RatingGroup` | `rating-group-root` |
+| `RatingGroupRootProvider` | `rating-group-root-provider` |
+| `RatingGroupLabel` | `rating-group-label` |
+| `RatingGroupControl` | `rating-group-control` |
+| `RatingGroupItem` | `rating-group-item` |
+| `RatingGroupItemIndicator` | `rating-group-item-indicator` |
+| `RatingGroupItemIndicator`, внутренний элемент | `rating-group-item-indicator-bg` |
+| `RatingGroupItemIndicator`, внутренний элемент | `rating-group-item-indicator-fg` |
+
 - `data-size="xs" | "sm" | "md" | "lg" | "xl"` на корневом компоненте или root provider
 - Атрибуты label Ark: `data-disabled` и `data-required`
 - Атрибуты control Ark: `data-disabled` и `data-readonly`
 - Атрибуты item Ark: `data-checked`, `data-highlighted`, `data-half`, `data-disabled` и `data-readonly`
+
+## Клавиатура
+
+| Клавиша | Действие |
+| --- | --- |
+| `ArrowRight` / `ArrowLeft` | Повышает или понижает оценку. |
+| `Home` / `End` | Ставит минимальную или максимальную оценку. |
+
+## Справочник API
+
+| Проп | Тип | По умолчанию |
+| --- | --- | --- |
+| `value` | `number` | — |
+| `defaultValue` | `number` | — |
+| `onValueChange` | `(details: ValueChangeDetails) => void` | — |
+| `onHoverChange` | `(details: HoverChangeDetails) => void` | — |
+| `count` | `number` | `5` |
+| `allowHalf` | `boolean` | `false` |
+| `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'` | `'md'` |
+| `name` | `string` | — |
+| `disabled` | `boolean` | `false` |
+| `readOnly` | `boolean` | `false` |
+| `invalid` | `boolean` | `false` |
+| `required` | `boolean` | `false` |

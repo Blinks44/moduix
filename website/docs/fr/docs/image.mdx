@@ -1,7 +1,7 @@
 ---
 title: Image
 component: image
-description: "Images responsives avec détection automatique des CDN. Unpic génère les attributs srcset et sizes."
+description: Servir des images adaptatives avec srcset généré pour les CDN courants.
 ark: https://ark-ui.com/docs/guides/composition
 ---
 
@@ -14,6 +14,19 @@ import * as ImageDocs from '@/components/examples/image/css-properties';
 <ComponentInstall />
 
 ## Utilisation
+
+<UsageCode
+  react={'<Image\n  src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4"\n  alt="Mountain landscape"\n  width={800}\n  height={520}\n  layout="constrained"\n/>'}
+  vue={'<Image\n  src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4"\n  alt="Mountain landscape"\n  :width="800"\n  :height="520"\n  layout="constrained"\n/>'}
+/>
+
+<PropChips
+  items={[
+    ['layout', 'constrained, fixed ou fullWidth.'],
+    ['width / height', 'Taille intrinsèque ; requise pour constrained et fixed.'],
+    ['priority', 'Charge immédiatement les images visibles au départ.'],
+  ]}
+/>
 
 Utilisez `Image` avec l’URL d’une image provenant d’un CDN pris en charge ou avec une URL d’image classique.
 Dans le mode `layout="constrained"`, indiquez `width` et `height`. Unpic génère un `srcset` et un attribut
@@ -95,6 +108,26 @@ partagés par les deux modes de style.
 
 ### Points d’accroche CSS
 
+| Partie | `data-slot` |
+| --- | --- |
+| `Image` | `image-root` |
+| `ImageSource` | `image-source` |
+
 - `data-slot="image-root"` permet de sélectionner l’élément `<img>` affiché en CSS.
 - `data-slot="image-source"` permet de sélectionner le nœud `<source>` dans un élément natif `<picture>`.
 - `className` en React et `class` en Solid et Vue sont les méthodes recommandées pour appliquer des styles locaux.
+
+## Référence de l’API
+
+`Image` accepte les props d’image Unpic et les props natives de `img`.
+
+| Prop | Type | Défaut |
+| --- | --- | --- |
+| `src` | `string` | — |
+| `alt` | `string` | — |
+| `layout` | `'constrained' \| 'fixed' \| 'fullWidth'` | `'constrained'` |
+| `width` | `number` | — |
+| `height` | `number` | — |
+| `aspectRatio` | `number` | — |
+| `priority` | `boolean` | `false` |
+| `background` | `string` | — |

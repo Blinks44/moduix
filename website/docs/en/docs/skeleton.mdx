@@ -1,7 +1,7 @@
 ---
 title: Skeleton
 component: skeleton
-description: A loading placeholder for text, cards, media, and custom page sections in React, Solid, and Vue.
+description: Hold the place of text, cards, and media while content loads.
 ark: https://ark-ui.com/docs/guides/composition#the-ark-factory
 ---
 
@@ -14,6 +14,19 @@ import * as SkeletonDocs from '@/components/examples/skeleton/css-properties';
 <ComponentInstall />
 
 ## Usage
+
+<UsageCode
+  react={'<Skeleton loading={isLoading} width="60%" height={16} borderRadius={4}>\n  <p>{title}</p>\n</Skeleton>'}
+  vue={'<Skeleton :loading="isLoading" width="60%" :height="16" :border-radius="4">\n  <p>{{ title }}</p>\n</Skeleton>'}
+/>
+
+<PropChips
+  items={[
+    ['loading', 'Shows the placeholder; false reveals the children.'],
+    ['width / height', 'Size; numbers become px. boxSize sets both.'],
+    ['variant', 'pulse animates the surface, none keeps it still.'],
+  ]}
+/>
 
 Use `Skeleton` for text lines, cards, avatars, and media placeholders. The surrounding layout owns spacing and
 responsive composition. See [Quick Start](/docs/quick-start) for package setup, registry configuration, and
@@ -93,8 +106,23 @@ attributes and `data-slot` hooks are shared by both styling tracks.
 
 ### Styling hooks
 
+| Part | `data-slot` |
+| --- | --- |
+| `Skeleton` | `skeleton-root` |
+
 - `[data-scope="skeleton"][data-part="root"]` targets the exported root.
-- `data-slot="skeleton-root"` is the stable moduix selector for the root.
 - `data-state="loading"` and `data-state="loaded"` reflect the `loading` prop.
 - `data-variant="pulse"` and `data-variant="none"` reflect the variant.
 - `data-loading` is present only while placeholder styles are active.
+
+## API reference
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `loading` | `boolean` | `true` |
+| `variant` | `'pulse' \| 'none'` | `'pulse'` |
+| `width` | `number \| string` | — |
+| `height` | `number \| string` | — |
+| `boxSize` | `number \| string` | — |
+| `borderRadius` | `number \| string` | — |
+| `asChild` | `boolean` | `false` |

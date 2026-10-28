@@ -1,7 +1,7 @@
 ---
 title: Tag
 component: tag
-description: Компактная метка для выбранных значений, фильтров, назначений и других коротких значений интерфейса с необязательными значками и действием удаления.
+description: Выбранное значение, фильтр или назначение в виде удаляемой метки.
 ark: https://ark-ui.com/docs/guides/composition#the-ark-factory
 ---
 
@@ -14,6 +14,19 @@ import * as TagDocs from '@/components/examples/tag/css-properties';
 <ComponentInstall />
 
 ## Использование
+
+<UsageCode
+  react={'<Tag variant="secondary" size="sm">\n  <TagLabel>TypeScript</TagLabel>\n  <TagCloseTrigger aria-label="Remove TypeScript" onClick={remove} />\n</Tag>'}
+  vue={'<Tag variant="secondary" size="sm">\n  <TagLabel>TypeScript</TagLabel>\n  <TagCloseTrigger aria-label="Remove TypeScript" @click="remove" />\n</Tag>'}
+/>
+
+<PropChips
+  items={[
+    ['variant', 'default, secondary, outline, ghost или destructive.'],
+    ['size', 'sm, md или lg.'],
+    ['TagCloseTrigger', 'Необязательная кнопка удаления метки.'],
+  ]}
+/>
 
 Начните с корневого `Tag`
 и `TagLabel`. Добавляйте остальные части, только если метке нужны значок, дополнительное
@@ -123,7 +136,23 @@ Tag
 
 ### Хуки стилизации
 
+| Часть | `data-slot` |
+| --- | --- |
+| `Tag` | `tag-root` |
+| `TagLabel` | `tag-label` |
+| `TagStartElement` | `tag-start-element` |
+| `TagEndElement` | `tag-end-element` |
+| `TagCloseTrigger` | `tag-close-trigger` |
+
 - Экспортированные части создают `data-scope="tag"` и `data-part="root" | "label" | "start-element" | "end-element" | "close-trigger"`.
-- `data-slot="tag-root"`, `data-slot="tag-label"`, `data-slot="tag-start-element"`, `data-slot="tag-end-element"` и `data-slot="tag-close-trigger"` являются стабильными селекторами moduix.
 - `Tag` записывает выбранные размер и вариант в `data-size` и `data-variant`.
 - `TagCloseTrigger` создаёт `data-disabled` для отключённых состояний или `aria-disabled` и наследует цвет метки.
+
+## Справочник API
+
+Также принимает нативные пропсы своего элемента и `asChild`.
+
+| Проп | Тип | По умолчанию |
+| --- | --- | --- |
+| `variant` | `'default' \| 'secondary' \| 'outline' \| 'ghost' \| 'destructive'` | `'default'` |
+| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` |

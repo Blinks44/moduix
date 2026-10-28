@@ -1,7 +1,7 @@
 ---
 title: Table
 component: table
-description: Нативный компонент таблицы с необязательным контейнером для прокрутки, числовыми столбцами, подписями и состоянием «нет данных» для React, Solid и Vue.
+description: Строки данных с заголовками, подписью и числовыми колонками.
 ark: https://ark-ui.com/docs/guides/composition#the-ark-factory
 ---
 
@@ -14,6 +14,20 @@ import * as TableDocs from '@/components/examples/table/css-properties';
 <ComponentInstall />
 
 ## Использование
+
+<UsageCode
+  react={'<TableScrollArea>\n  <Table size="sm" striped stickyHeader>\n    <TableHeader>\n      <TableRow>\n        <TableColumnHeader scope="col">Invoice</TableColumnHeader>\n        <TableColumnHeader numeric scope="col">Amount</TableColumnHeader>\n      </TableRow>\n    </TableHeader>\n    <TableBody>\n      <TableRow>\n        <TableCell>INV-001</TableCell>\n        <TableCell numeric>$250.00</TableCell>\n      </TableRow>\n    </TableBody>\n  </Table>\n</TableScrollArea>'}
+  vue={'<TableScrollArea>\n  <Table size="sm" striped stickyHeader>\n    <TableHeader>\n      <TableRow>\n        <TableColumnHeader scope="col">Invoice</TableColumnHeader>\n        <TableColumnHeader numeric scope="col">Amount</TableColumnHeader>\n      </TableRow>\n    </TableHeader>\n    <TableBody>\n      <TableRow>\n        <TableCell>INV-001</TableCell>\n        <TableCell numeric>$250.00</TableCell>\n      </TableRow>\n    </TableBody>\n  </Table>\n</TableScrollArea>'}
+/>
+
+<PropChips
+  items={[
+    ['size', 'Плотность строк: sm, md или lg.'],
+    ['striped', 'Заливает каждую вторую строку.'],
+    ['stickyHeader', 'Держит заголовок видимым при прокрутке.'],
+    ['numeric', 'Выравнивает числа вправо в заголовке или ячейке.'],
+  ]}
+/>
 
 Если таблица может не поместиться по ширине, оберните её в `TableScrollArea`. Затем соберите `Table`
 из `TableHeader`, `TableBody`, `TableRow` и соответствующих частей для заголовков и ячеек. Такой
@@ -173,16 +187,40 @@ CSS-переменные `--moduix-table-*`. Варианты Tailwind испо�
 
 ### Хуки стилизации
 
+| Часть | `data-slot` |
+| --- | --- |
+| `Table` | `table-root` |
+| `TableScrollArea` | `table-scroll-area` |
+| `TableCaption` | `table-caption` |
+| `TableColumnGroup` | `table-column-group` |
+| `TableColumn` | `table-column` |
+| `TableHeader` | `table-header` |
+| `TableBody` | `table-body` |
+| `TableFooter` | `table-footer` |
+| `TableRow` | `table-row` |
+| `TableColumnHeader` | `table-column-header` |
+| `TableCell` | `table-cell` |
+| `TableEmpty` | `table-empty` |
+
 Используйте часть или атрибут, которые отвечают за нужное оформление:
 
 - `className` у `TableScrollArea` - граница, радиус и фон всего контейнера;
 - `className` у `Table` - типографика и ограничения ширины;
-- `data-slot="table-root"`, `table-scroll-area`, `table-column-group`, `table-column`, `table-caption`,
-  `table-header`, `table-body`, `table-footer`, `table-row`, `table-column-header`, `table-cell` и
-  `table-empty` - выбор отдельных частей;
 - `data-side="top" | "bottom"` у `TableCaption` - положение подписи;
 - `data-numeric` у `TableColumnHeader` и `TableCell` - числовые столбцы;
 - `data-empty` у строки, созданной `TableEmpty`, - пустое состояние;
 - `data-size`, `data-striped`, `data-interactive`, `data-sticky-header` и
   `data-show-column-border` у `Table` - состояния корня;
 - `data-sticky="start" | "end"` у `TableColumnHeader` и `TableCell` - закреплённые столбцы.
+
+## Справочник API
+
+Пропсы `Table`. `numeric` задаётся на `TableColumnHeader` и `TableCell`; `side` (`'top' | 'bottom'`) на `TableCaption`.
+
+| Проп | Тип | По умолчанию |
+| --- | --- | --- |
+| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` |
+| `striped` | `boolean` | `false` |
+| `interactive` | `boolean` | `false` |
+| `stickyHeader` | `boolean` | `false` |
+| `showColumnBorder` | `boolean` | `false` |

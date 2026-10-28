@@ -1,7 +1,7 @@
 ---
 title: Typeset
 component: typeset
-description: Style semantic HTML, rendered Markdown, and streaming content with a scoped reading rhythm.
+description: Style rendered Markdown, CMS content, and AI answers for reading.
 ark: https://ark-ui.com/docs/guides/composition#the-ark-factory
 ---
 
@@ -14,6 +14,19 @@ import * as TypesetDocs from '@/components/examples/typeset/css-properties';
 <ComponentInstall />
 
 ## Usage
+
+<UsageCode
+  react={'<Typeset asChild>\n  <article dangerouslySetInnerHTML={{ __html: html }} />\n</Typeset>'}
+  solid={'<Typeset asChild={(props) => (\n  <article innerHTML={html} {...props()} />\n)} />'}
+  vue={'<Typeset as-child>\n  <article v-html="html" />\n</Typeset>'}
+/>
+
+<PropChips
+  items={[
+    ['asChild', 'Applies the styles to your article or section.'],
+    ['data-not-typeset', 'Opts a nested block out of the content styles; .not-typeset works too.'],
+  ]}
+/>
 
 Wrap HTML that your renderer has already produced in `<Typeset>`. Use `asChild` only when the outer
 container needs to be semantic, such as an `article` or `section`. Keep lists as native `<ul>` and
@@ -110,7 +123,18 @@ with `cn` last, so the six CSS variables customize both styling tracks.
 
 ### Styling hooks
 
-- `data-slot="typeset"` targets the root container.
-- `data-slot="typeset-scroll"` targets the optional overflow wrapper and its focus-visible state.
+| Part | `data-slot` |
+| --- | --- |
+| `Typeset` | `typeset` |
+| `TypesetScroll` | `typeset-scroll` |
+
 - `[data-scope="typeset"][data-part="root"]` and `[data-part="scroll"]` expose stable anatomy
   hooks.
+
+## API reference
+
+Also accepts the native props of its element and `asChild`.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `asChild` | `boolean` | `false` |

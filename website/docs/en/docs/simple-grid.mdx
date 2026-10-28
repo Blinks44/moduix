@@ -1,7 +1,7 @@
 ---
 title: Simple Grid
 component: simple-grid
-description: Build responsive equal-column grids in React, Solid, or Vue with package and shadcn installation options.
+description: Lay out cards and tiles in equal columns that adapt to the width.
 ark: https://ark-ui.com/docs/guides/composition
 ---
 
@@ -12,6 +12,20 @@ ark: https://ark-ui.com/docs/guides/composition
 <ComponentInstall />
 
 ## Usage
+
+<UsageCode
+  react={'<SimpleGrid minChildWidth="18rem" gap={16}>\n  {plans.map((plan) => (\n    <Card key={plan.name}>…</Card>\n  ))}\n</SimpleGrid>'}
+  solid={'<SimpleGrid minChildWidth="18rem" gap={16}>\n  <For each={plans}>\n    {(plan) => (\n      <Card>…</Card>\n    )}\n  </For>\n</SimpleGrid>'}
+  vue={'<SimpleGrid min-child-width="18rem" :gap="16">\n  <Card v-for="plan in plans" :key="plan.name">…</Card>\n</SimpleGrid>'}
+/>
+
+<PropChips
+  items={[
+    ['minChildWidth', 'Minimum column width; the column count follows the space.'],
+    ['columns', 'Fixed number of columns instead.'],
+    ['gap', 'Space between cells; numbers become px.'],
+  ]}
+/>
 
 Use `minChildWidth` when the number of equal columns should follow the available width. The component
 uses CSS Grid `auto-fit` and `minmax()`; numeric values are treated as pixels, while strings can
@@ -81,11 +95,26 @@ both styling tracks.
 
 ### Styling hooks
 
+| Part | `data-slot` |
+| --- | --- |
+| `SimpleGrid` | `simple-grid-root` |
+
 - `className` or `class` styles the rendered root, including `display` and a responsive
   `grid-template-columns` when both layout props are omitted.
 - `data-scope="simple-grid"` and `data-part="root"` follow Ark's styling conventions.
-- `data-slot="simple-grid-root"` is the stable moduix selector for local CSS.
 - `columns`, `minChildWidth`, `gap`, `rowGap`, and `columnGap` write inline styles and take priority
   over declarations from consumer classes.
 - `style` is merged after those props and is the final per-instance override.
 - The component exposes no state or animation styling hooks.
+
+## API reference
+
+Also accepts the native props of its element and `asChild`.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `minChildWidth` | `number \| string` | — |
+| `columns` | `number` | — |
+| `gap` | `number \| string` | — |
+| `rowGap` | `number \| string` | — |
+| `columnGap` | `number \| string` | — |

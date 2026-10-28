@@ -1,7 +1,7 @@
 ---
 title: Tags Input
 component: tags-input
-description: Une liste modifiable de tags texte avec validation, envoi de formulaire et suggestions facultatives.
+description: Saisir une liste de valeurs courtes sous forme d’étiquettes modifiables.
 ark: https://ark-ui.com/docs/components/tags-input
 ---
 
@@ -17,6 +17,20 @@ import tagsInputVueWithCombobox from '../../../snippets/combobox/vue/with-tags-i
 <ComponentInstall />
 
 ## Utilisation
+
+<UsageCode
+  react={'<TagsInput defaultValue={[\'React\', \'Vue\']} max={5} name="frameworks" onValueChange={(details) => setTags(details.value)}>\n  <TagsInputLabel>Frameworks</TagsInputLabel>\n  <TagsInputControl>\n    <TagsInputItems />\n    <TagsInputInput placeholder="Add framework" />\n    <TagsInputClearTrigger aria-label="Clear frameworks" />\n  </TagsInputControl>\n  <TagsInputHiddenInput />\n</TagsInput>'}
+  vue={'<TagsInput v-model="tags" :max="5" name="frameworks">\n  <TagsInputLabel>Frameworks</TagsInputLabel>\n  <TagsInputControl>\n    <TagsInputItems />\n    <TagsInputInput placeholder="Add framework" />\n    <TagsInputClearTrigger aria-label="Clear frameworks" />\n  </TagsInputControl>\n  <TagsInputHiddenInput />\n</TagsInput>'}
+/>
+
+<PropChips
+  items={[
+    ['defaultValue', 'Étiquettes initiales ; contrôlez-les avec value.'],
+    ['max', 'Nombre maximal d’étiquettes.'],
+    ['delimiter', 'Caractère qui ajoute une étiquette, la virgule par défaut.'],
+    ['validate', 'Refuse une étiquette avant l’ajout.'],
+  ]}
+/>
 
 Commencez par `TagsInput`, `TagsInputLabel`, `TagsInputControl`, `TagsInputItems`,
 `TagsInputInput` et `TagsInputClearTrigger`. Ajoutez explicitement `TagsInputHiddenInput` lorsque
@@ -215,9 +229,22 @@ TagsInputRootProvider
 
 <CssPropertiesSection properties={TagsInputDocs.tagsInputCssProperties} />
 
-### Hooks de style
+### Points d’accroche CSS
 
-- `TagsInput` et `TagsInputRootProvider` exposent `data-slot="tags-input-root"` et `data-slot="tags-input-root-provider"`.
+| Partie | `data-slot` |
+| --- | --- |
+| `TagsInput` | `tags-input-root` |
+| `TagsInputRootProvider` | `tags-input-root-provider` |
+| `TagsInputLabel` | `tags-input-label` |
+| `TagsInputControl` | `tags-input-control` |
+| `TagsInputItem` | `tags-input-item` |
+| `TagsInputItemPreview` | `tags-input-item-preview` |
+| `TagsInputItemText` | `tags-input-item-text` |
+| `TagsInputItemDeleteTrigger` | `tags-input-item-delete-trigger` |
+| `TagsInputItemInput` | `tags-input-item-input` |
+| `TagsInputInput` | `tags-input-input` |
+| `TagsInputClearTrigger` | `tags-input-clear-trigger` |
+
 - Les parties Ark conservent `data-scope="tags-input"` et les valeurs `data-part` de l’anatomie.
 - Les états peuvent utiliser `data-disabled`, `data-readonly`, `data-invalid`, `data-focus`, `data-empty`, `data-required`, `data-value` et `data-highlighted` lorsque Ark les émet.
 - Les déclencheurs de suppression et d’effacement exposent des hooks `data-slot` stables. La suppression d’un tag utilise une petite icône ; l’effacement global reprend le style partagé du bouton de fermeture.
@@ -237,3 +264,37 @@ le champ de formulaire masqué. Ce champ explicite sérialise la liste pour l’
 - Lorsque le champ est vide ou que le curseur est au début, `ArrowLeft` et `ArrowRight` déplacent le focus visuel entre les tags.
 - `Backspace` et `Delete` suppriment le tag sélectionné. `Backspace` supprime aussi le dernier tag lorsque le champ est vide.
 - Avec `addOnPaste`, `Control+V` ajoute les valeurs collées après leur séparation avec `delimiter`.
+
+## Clavier
+
+| Touche | Action |
+| --- | --- |
+| `Enter` | Ajoute le texte saisi comme étiquette. |
+| `ArrowLeft` / `ArrowRight` | Passe d’une étiquette à l’autre quand le champ est vide. |
+| `Backspace` / `Delete` | Met en surbrillance puis supprime une étiquette. |
+| `Enter` sur une étiquette | Modifie l’étiquette en surbrillance si editable est actif. |
+
+## Référence de l’API
+
+| Prop | Type | Défaut |
+| --- | --- | --- |
+| `value` | `string[]` | — |
+| `defaultValue` | `string[]` | — |
+| `onValueChange` | `(details: ValueChangeDetails) => void` | — |
+| `inputValue` | `string` | — |
+| `onInputValueChange` | `(details: InputValueChangeDetails) => void` | — |
+| `max` | `number` | `Infinity` |
+| `maxLength` | `number` | — |
+| `delimiter` | `string \| RegExp` | `','` |
+| `validate` | `(details: ValidateArgs) => boolean` | — |
+| `onValueInvalid` | `(details: ValidityChangeDetails) => void` | — |
+| `allowDuplicates` | `boolean` | `false` |
+| `addOnPaste` | `boolean` | `false` |
+| `editable` | `boolean` | `true` |
+| `blurBehavior` | `'clear' \| 'add'` | — |
+| `placeholder` | `string` | — |
+| `name` | `string` | — |
+| `disabled` | `boolean` | `false` |
+| `readOnly` | `boolean` | `false` |
+| `invalid` | `boolean` | `false` |
+| `required` | `boolean` | `false` |

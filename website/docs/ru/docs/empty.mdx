@@ -1,7 +1,7 @@
 ---
 title: Empty
 component: empty
-description: Компонент для экранов без результатов или данных, а также для первого запуска.
+description: "Пустой список или первый запуск: сообщение и следующие шаги."
 ark: https://ark-ui.com/docs/guides/composition#the-ark-factory
 ---
 
@@ -14,6 +14,19 @@ import * as EmptyDocs from '@/components/examples/empty/css-properties';
 <ComponentInstall />
 
 ## Использование
+
+<UsageCode
+  react={'<Empty>\n  <EmptyIcon>\n    <InboxIcon />\n  </EmptyIcon>\n  <EmptyContent>\n    <EmptyTitle>No projects yet</EmptyTitle>\n    <EmptyDescription>Create a project to get started.</EmptyDescription>\n  </EmptyContent>\n  <EmptyActions>\n    <Button>New project</Button>\n  </EmptyActions>\n</Empty>'}
+  vue={'<Empty>\n  <EmptyIcon>\n    <InboxIcon />\n  </EmptyIcon>\n  <EmptyContent>\n    <EmptyTitle>No projects yet</EmptyTitle>\n    <EmptyDescription>Create a project to get started.</EmptyDescription>\n  </EmptyContent>\n  <EmptyActions>\n    <Button>New project</Button>\n  </EmptyActions>\n</Empty>'}
+/>
+
+<PropChips
+  items={[
+    ['EmptyIcon', 'Необязательная иконка над текстом.'],
+    ['EmptyTitle', 'Рендерит h3; для другого уровня заголовка используйте asChild.'],
+    ['EmptyActions', 'Необязательный ряд со следующим шагом.'],
+  ]}
+/>
 
 Начните с `<Empty />` и добавьте нужные части компонента. Добавляйте `EmptyIcon` и `EmptyActions`
 только если к пустому состоянию нужна визуальная подсказка или понятное действие.
@@ -90,6 +103,15 @@ Ark по атрибутам `data-scope="empty"` / `data-part` и стабиль
 
 ### Хуки стилизации
 
+| Часть | `data-slot` |
+| --- | --- |
+| `Empty` | `empty-root` |
+| `EmptyIcon` | `empty-icon` |
+| `EmptyContent` | `empty-content` |
+| `EmptyTitle` | `empty-title` |
+| `EmptyDescription` | `empty-description` |
+| `EmptyActions` | `empty-actions` |
+
 Выбирайте часть, которая отвечает за нужное визуальное свойство:
 
 - `[data-scope="empty"][data-part="root"]` или `[data-slot="empty-root"]` для макета контейнера,
@@ -102,3 +124,11 @@ Ark по атрибутам `data-scope="empty"` / `data-part` и стабиль
   `[data-scope="empty"][data-part="description"]` или `[data-slot="empty-description"]` для типографики
 - `[data-scope="empty"][data-part="actions"]` или `[data-slot="empty-actions"]` для расстояний
   и выравнивания ряда действий
+
+## Справочник API
+
+Каждая часть принимает нативные пропсы своего элемента и `asChild`.
+
+| Проп | Тип | По умолчанию |
+| --- | --- | --- |
+| `asChild` | `boolean` | `false` |

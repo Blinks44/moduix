@@ -160,14 +160,17 @@ utilisez l’attribut Ark `data-copied` avec les hooks `data-slot` de moduix.
 
 ### Points d’accroche CSS
 
-- `Clipboard` -> `data-slot="clipboard-root"`
-- `ClipboardRootProvider` -> `data-slot="clipboard-root-provider"`
-- `ClipboardLabel` -> `data-slot="clipboard-label"`
-- `ClipboardControl` -> `data-slot="clipboard-control"`
-- `ClipboardInput` -> `data-slot="clipboard-input"`
-- `ClipboardTrigger` -> `data-slot="clipboard-trigger"`
-- `ClipboardIndicator` -> `data-slot="clipboard-indicator"`
-- `ClipboardValueText` -> `data-slot="clipboard-value-text"`
+| Partie | `data-slot` |
+| --- | --- |
+| `Clipboard` | `clipboard-root` |
+| `ClipboardRootProvider` | `clipboard-root-provider` |
+| `ClipboardLabel` | `clipboard-label` |
+| `ClipboardControl` | `clipboard-control` |
+| `ClipboardInput` | `clipboard-input` |
+| `ClipboardTrigger` | `clipboard-trigger` |
+| `ClipboardIndicator` | `clipboard-indicator` |
+| `ClipboardValueText` | `clipboard-value-text` |
+
 - Ark ajoute `data-copied` à `Clipboard`, `ClipboardLabel`, `ClipboardControl`, `ClipboardInput` et
   `ClipboardTrigger` tant que l’état copié est actif.
 - Ark rend `ClipboardInput` en lecture seule et lui ajoute `data-readonly`.

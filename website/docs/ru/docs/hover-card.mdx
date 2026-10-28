@@ -1,7 +1,7 @@
 ---
 title: Hover Card
 component: hover-card
-description: Компонент Hover Card на базе Ark UI для дополнительных предпросмотров, открывающихся при наведении или получении фокуса.
+description: Превью профиля или ссылки в карточке при наведении на триггер.
 ark: https://ark-ui.com/docs/components/hover-card
 ---
 
@@ -12,6 +12,19 @@ ark: https://ark-ui.com/docs/components/hover-card
 <ComponentInstall />
 
 ## Использование
+
+<UsageCode
+  react={'<HoverCard openDelay={600} closeDelay={300} positioning={{ placement: \'top\' }}>\n  <HoverCardTrigger href="/u/sarah">@sarah_chen</HoverCardTrigger>\n  <HoverCardPositioner>\n    <HoverCardContent>\n      <HoverCardBody>Design lead at Acme</HoverCardBody>\n    </HoverCardContent>\n  </HoverCardPositioner>\n</HoverCard>'}
+  vue={'<HoverCard :open-delay="600" :close-delay="300" :positioning="{ placement: \'top\' }">\n  <HoverCardTrigger href="/u/sarah">@sarah_chen</HoverCardTrigger>\n  <HoverCardPositioner>\n    <HoverCardContent>\n      <HoverCardBody>Design lead at Acme</HoverCardBody>\n    </HoverCardContent>\n  </HoverCardPositioner>\n</HoverCard>'}
+/>
+
+<PropChips
+  items={[
+    ['openDelay / closeDelay', 'Задержки наведения в мс, по умолчанию 600 и 300.'],
+    ['positioning', 'Положение и отступ карточки.'],
+    ['disabled', 'Не даёт карточке открыться.'],
+  ]}
+/>
 
 Соберите карточку из явных частей Ark. `HoverCardTrigger` открывает карточку, а
 `HoverCardPositioner` и `HoverCardContent` задают её всплывающее содержимое. В базовой
@@ -151,10 +164,18 @@ foundation и не имеют переменных компонента: кла�
 
 ### Хуки стилизации
 
+| Часть | `data-slot` |
+| --- | --- |
+| `HoverCardTrigger` | `hover-card-trigger` |
+| `HoverCardPositioner` | `hover-card-positioner` |
+| `HoverCardContent` | `hover-card-content` |
+| `HoverCardArrow` | `hover-card-arrow` |
+| `HoverCardArrowTip` | `hover-card-arrow-tip` |
+| `HoverCardBody` | `hover-card-body` |
+
 Moduix добавляет атрибуты `data-slot="hover-card-*"` к триггеру, позиционеру, содержимому, стрелке,
 наконечнику стрелки и области содержимого. `HoverCard` и `HoverCardRootProvider` только
-предоставляют состояние и не создают DOM-элементы, поэтому у них нет собственных точек стилизации.
-Ark добавляет к своим частям `data-scope="hover-card"`
+предоставляют состояние и не создают DOM-элементы, поэтому у них нет собственных точек стилизации. Ark добавляет к своим частям `data-scope="hover-card"`
 и `data-part`. Для стилизации с учётом состояния используйте `data-state="open|closed"`,
 `data-placement`, `data-side`, `data-value`, `data-current`, `data-nested` и `data-has-nested`.
 
@@ -162,3 +183,24 @@ Ark добавляет к своим частям `data-scope="hover-card"`
 `--available-height`, `--x`, `--y`, `--z-index` и `--transform-origin`. `HoverCardContent`
 предоставляет `--layer-index` и `--nested-layer-count`. `HoverCardArrow` предоставляет
 `--arrow-size`, `--arrow-size-half`, `--arrow-background` и `--arrow-offset`.
+
+## Клавиатура
+
+| Клавиша | Действие |
+| --- | --- |
+| `Tab` | Фокус на триггере открывает карточку после задержки. |
+| `Esc` | Закрывает карточку. |
+
+## Справочник API
+
+| Проп | Тип | По умолчанию |
+| --- | --- | --- |
+| `open` | `boolean` | — |
+| `defaultOpen` | `boolean` | `false` |
+| `onOpenChange` | `(details: OpenChangeDetails) => void` | — |
+| `openDelay` | `number` | `600` |
+| `closeDelay` | `number` | `300` |
+| `positioning` | `PositioningOptions` | — |
+| `disabled` | `boolean` | `false` |
+| `lazyMount` | `boolean` | `true` |
+| `unmountOnExit` | `boolean` | `true` |

@@ -1,7 +1,7 @@
 ---
 title: Chart
 component: chart
-description: Créez des graphiques accessibles et adaptatifs avec TanStack Charts, puis composez leur figure, leur info-bulle, leur légende et leurs animations avec moduix.
+description: Tracer des données avec TanStack Charts dans une figure titrée accessible.
 ---
 
 import * as ChartDocs from '@/components/examples/chart/css-properties';
@@ -23,6 +23,19 @@ exposent la même API de définition des graphiques ; les paquets Solid et Vue u
 de rendu de TanStack.
 
 ## Utilisation
+
+<UsageCode
+  react={'<Chart>\n  <ChartHeader>\n    <ChartTitle>Monthly revenue</ChartTitle>\n    <ChartDescription>In thousands of dollars.</ChartDescription>\n  </ChartHeader>\n  <ChartPlot definition={definition} height={320} ariaLabel="Monthly revenue" />\n  <ChartLegend aria-label="Series">\n    <ChartLegendItem color="var(--moduix-color-chart-1)">Revenue</ChartLegendItem>\n  </ChartLegend>\n</Chart>'}
+  vue={'<Chart>\n  <ChartHeader>\n    <ChartTitle>Monthly revenue</ChartTitle>\n    <ChartDescription>In thousands of dollars.</ChartDescription>\n  </ChartHeader>\n  <ChartPlot :definition="definition" :height="320" ariaLabel="Monthly revenue" />\n  <ChartLegend aria-label="Series">\n    <ChartLegendItem color="var(--moduix-color-chart-1)">Revenue</ChartLegendItem>\n  </ChartLegend>\n</Chart>'}
+/>
+
+<PropChips
+  items={[
+    ['definition', 'Définition TanStack Charts : données, marques et échelles.'],
+    ['ariaLabel', 'Nom court du graphique pour les technologies d’assistance.'],
+    ['motion', 'Rendu animé ; false utilise un SVG statique.'],
+  ]}
+/>
 
 Créez une définition TanStack et transmettez-la à `ChartPlot`. Ajoutez autour du graphique un
 titre, une description et une légende visibles, puis définissez un `ariaLabel` concis pour les
@@ -182,14 +195,40 @@ Pour modifier l’enveloppe de l’info-bulle, remplacez ces variables avec une 
 
 ### Points d’accroche CSS
 
+| Partie | `data-slot` |
+| --- | --- |
+| `Chart` | `chart-root` |
+| `Chart`, élément interne | `chart-tooltip-text` |
+| `Chart`, élément interne | `chart-tooltip-body` |
+| `Chart`, élément interne | `chart-tooltip-title` |
+| `Chart`, élément interne | `chart-tooltip-swatch` |
+| `Chart`, élément interne | `chart-tooltip-rows` |
+| `Chart`, élément interne | `chart-tooltip-row` |
+| `Chart`, élément interne | `chart-tooltip-label` |
+| `Chart`, élément interne | `chart-tooltip-value` |
+| `ChartHeader` | `chart-header` |
+| `ChartTitle` | `chart-title` |
+| `ChartDescription` | `chart-description` |
+| `ChartLegend` | `chart-legend` |
+| `ChartLegendItem` | `chart-legend-item` |
+
 - `Chart`, `ChartHeader`, `ChartTitle`, `ChartDescription`, `ChartLegend` et
   `ChartLegendItem` exposent `data-scope="chart"`, `data-part` et `data-slot`.
 - `className` en React et `class` en Solid et Vue sur `ChartPlot` atteignent l’élément externe `.ts-chart-host`.
-- L’info-bulle par défaut utilise les slots `chart-tooltip-body`, `chart-tooltip-title`,
-  `chart-tooltip-rows`, `chart-tooltip-row`, `chart-tooltip-swatch`, `chart-tooltip-label`,
-  `chart-tooltip-value` et `chart-tooltip-text`.
 - Utilisez `--moduix-color-chart-1` à `--moduix-color-chart-5` dans les échelles de couleurs TanStack.
 - Les lignes de l’info-bulle que TanStack marque comme `active` reçoivent `data-active`.
 - L’enveloppe de l’info-bulle lit les variables TanStack `--ts-chart-tooltip-*` sur l’hôte
   `ChartPlot`. Utilisez `tooltip.className` pour vos sélecteurs CSS, ou `renderTooltipBody` pour un
   contenu personnalisé autour du `defaultBody` de moduix.
+
+## Référence de l’API
+
+Props de `ChartPlot`. Les autres props de TanStack, comme `height` et `renderTooltipBody`, sont transmises.
+
+| Prop | Type | Défaut |
+| --- | --- | --- |
+| `definition` | `ChartDefinition` | — |
+| `ariaLabel` | `string` | — |
+| `height` | `number` | — |
+| `motion` | `boolean` | `true` |
+| `renderer` | `ChartRenderer` | — |

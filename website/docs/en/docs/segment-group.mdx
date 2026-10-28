@@ -1,7 +1,7 @@
 ---
 title: Segment Group
 component: segment-group
-description: A compact segmented control based on Ark UI for choosing one value from a small visible set.
+description: Switch between a few options in a compact segmented control.
 ark: https://ark-ui.com/docs/components/segment-group
 ---
 
@@ -15,6 +15,19 @@ import { CssPropertiesSection } from '@/components/mdx/Components';
 <ComponentInstall />
 
 ## Usage
+
+<UsageCode
+  react={'<SegmentGroup defaultValue="week" size="sm" aria-label="Range" onValueChange={(details) => setRange(details.value)}>\n  <SegmentGroupIndicator />\n  <SegmentGroupItems items={[\'day\', \'week\', \'month\']} />\n</SegmentGroup>'}
+  vue={'<SegmentGroup v-model="range" size="sm" aria-label="Range">\n  <SegmentGroupIndicator />\n  <SegmentGroupItems :items="[\'day\', \'week\', \'month\']" />\n</SegmentGroup>'}
+/>
+
+<PropChips
+  items={[
+    ['items', 'On SegmentGroupItems: strings or { value, label, disabled }.'],
+    ['size', 'sm, md, or lg.'],
+    ['orientation', 'horizontal or vertical.'],
+  ]}
+/>
 
 Use `SegmentGroup` as the root, place `SegmentGroupIndicator` before the items, and use
 `SegmentGroupItems` when every segment only needs a text label. `SegmentGroupItems` creates the item,
@@ -156,9 +169,15 @@ classes; the component variables below customize the CSS Modules variants. Data 
 
 ### Styling hooks
 
-- Stable `data-slot` selectors: `segment-group-root`, `segment-group-root-provider`,
-  `segment-group-label`, `segment-group-indicator`, `segment-group-item`,
-  and `segment-group-item-text`.
+| Part | `data-slot` |
+| --- | --- |
+| `SegmentGroup` | `segment-group-root` |
+| `SegmentGroupRootProvider` | `segment-group-root-provider` |
+| `SegmentGroupLabel` | `segment-group-label` |
+| `SegmentGroupItem` | `segment-group-item` |
+| `SegmentGroupItemText` | `segment-group-item-text` |
+| `SegmentGroupIndicator` | `segment-group-indicator` |
+
 - Ark part selectors: `data-scope="segment-group"` and `data-part` on the root, label, indicator,
   item, item text, and hidden input.
 - Ark state selectors: `data-state="checked|unchecked"`, `data-orientation`, `data-disabled`,
@@ -168,3 +187,25 @@ classes; the component variables below customize the CSS Modules variants. Data 
   `--moduix-duration-normal` and `--moduix-ease-in-out`. Set them with a class on
   `SegmentGroupIndicator` (in Tailwind, `[--transition-duration:300ms]`); `duration-*` utilities lose
   to the inline transition that Ark writes.
+
+## Keyboard
+
+| Key | Action |
+| --- | --- |
+| `ArrowDown` / `ArrowUp` / `ArrowLeft` / `ArrowRight` | Moves to the next or previous option and selects it. |
+| `Tab` | Moves focus in and out of the group. |
+
+## API reference
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `value` | `string \| null` | — |
+| `defaultValue` | `string \| null` | — |
+| `onValueChange` | `(details: ValueChangeDetails) => void` | — |
+| `orientation` | `'horizontal' \| 'vertical'` | `'horizontal'` |
+| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` |
+| `name` | `string` | — |
+| `disabled` | `boolean` | `false` |
+| `readOnly` | `boolean` | `false` |
+| `invalid` | `boolean` | `false` |
+| `required` | `boolean` | `false` |

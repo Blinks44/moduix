@@ -1,7 +1,7 @@
 ---
 title: Fieldset
 component: fieldset
-description: Group related form controls under one legend while preserving native fieldset semantics and shared state. Helper text and error messages are connected to the group so assistive technologies can announce them.
+description: Group related form controls under one legend with shared state.
 ark: https://ark-ui.com/docs/components/fieldset
 ---
 
@@ -13,9 +13,17 @@ ark: https://ark-ui.com/docs/components/fieldset
 
 ## Usage
 
-Import `Fieldset` from `@moduix/react/fieldset`, `@moduix/solid/fieldset`, or `@moduix/vue/fieldset`
-for CSS Modules, and from `@moduix/react-tailwind/fieldset`, `@moduix/solid-tailwind/fieldset`, or
-`@moduix/vue-tailwind/fieldset` for Tailwind CSS.
+<UsageCode
+  react={'<Fieldset invalid={!!error}>\n  <FieldsetLegend>Contact details</FieldsetLegend>\n  <Field>\n    <FieldLabel>Name</FieldLabel>\n    <Input name="name" />\n  </Field>\n  <FieldsetHelperText>We only use these details to contact you.</FieldsetHelperText>\n  <FieldsetErrorText>{error}</FieldsetErrorText>\n</Fieldset>'}
+  vue={'<Fieldset :invalid="!!error">\n  <FieldsetLegend>Contact details</FieldsetLegend>\n  <Field>\n    <FieldLabel>Name</FieldLabel>\n    <Input name="name" />\n  </Field>\n  <FieldsetHelperText>We only use these details to contact you.</FieldsetHelperText>\n  <FieldsetErrorText>{{ error }}</FieldsetErrorText>\n</Fieldset>'}
+/>
+
+<PropChips
+  items={[
+    ['invalid', 'Shows FieldsetErrorText for the whole group.'],
+    ['disabled', 'Disables every control inside, like a native fieldset.'],
+  ]}
+/>
 
 Build a group with `Fieldset`, `FieldsetLegend`, the related controls, and optional helper or error
 text. `Fieldset` is the root component for the group.
@@ -114,5 +122,21 @@ variables: a class on the part overrides the layered component styles.
 
 ### Styling hooks
 
+| Part | `data-slot` |
+| --- | --- |
+| `Fieldset` | `fieldset-root` |
+| `FieldsetRootProvider` | `fieldset-root-provider` |
+| `FieldsetLegend` | `fieldset-legend` |
+| `FieldsetHelperText` | `fieldset-helper-text` |
+| `FieldsetErrorText` | `fieldset-error-text` |
+
 Every DOM part has Ark's `data-scope="fieldset"` and a `data-part` that matches the anatomy. The root
 and legend expose `data-disabled` and `data-invalid`; moduix also adds `data-slot="fieldset-*"` hooks.
+
+## API reference
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `invalid` | `boolean` | `false` |
+| `disabled` | `boolean` | `false` |
+| `asChild` | `boolean` | `false` |

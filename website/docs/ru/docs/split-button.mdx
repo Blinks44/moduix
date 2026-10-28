@@ -146,12 +146,15 @@ Tailwind настраиваются обычными утилитами и по�
 
 ### Хуки стилизации
 
+| Часть | `data-slot` |
+| --- | --- |
+| `SplitButton` | `split-button-root` |
+| `SplitButtonAction` | `split-button-action` |
+| `SplitButtonTrigger` | `split-button-trigger` |
+| `SplitButtonPositioner` | `split-button-positioner` |
+| `SplitButtonContent` | `split-button-content` |
+
 - `data-scope="split-button"` и `data-part="root"` задают семантическую группу.
-- `data-slot="split-button-root"` выбирает обёртку группы.
-- `data-slot="split-button-action"` выбирает основное действие.
-- `data-slot="split-button-trigger"` выбирает триггер меню.
-- `data-slot="split-button-positioner"` выбирает позиционер Ark Menu.
-- `data-slot="split-button-content"` выбирает поверхность содержимого Ark Menu.
 - `SplitButtonTrigger` получает атрибуты состояния Ark Menu, включая `aria-expanded`, `aria-controls` и `data-state`.
 - `SplitButtonContent` получает атрибуты Ark Menu, включая `data-state`, `data-side`, `data-placement`,
   `data-nested` и `data-has-nested`.

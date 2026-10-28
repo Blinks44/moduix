@@ -1,7 +1,7 @@
 ---
 title: List
 component: list
-description: Liste sémantique avec espacement, typographie, tonalité et marqueurs natifs personnalisables.
+description: Afficher des listes à puces ou numérotées avec un espacement cohérent.
 ark: https://ark-ui.com/docs/guides/composition#the-ark-factory
 ---
 
@@ -12,6 +12,20 @@ ark: https://ark-ui.com/docs/guides/composition#the-ark-factory
 <ComponentInstall />
 
 ## Utilisation
+
+<UsageCode
+  react={'<List as="ol" gap="md" tone="muted">\n  <ListItem>Create a project</ListItem>\n  <ListItem>Invite your team</ListItem>\n</List>'}
+  vue={'<List as="ol" gap="md" tone="muted">\n  <ListItem>Create a project</ListItem>\n  <ListItem>Invite your team</ListItem>\n</List>'}
+/>
+
+<PropChips
+  items={[
+    ['as', 'ul ou ol ; les puces suivent : disc ou decimal.'],
+    ['marker', 'disc, decimal ou none.'],
+    ['gap', 'Espace entre éléments, de xs à 2xl.'],
+    ['tone', 'default, muted, primary ou destructive.'],
+  ]}
+/>
 
 `List` rend un élément `<ul>` sémantique par défaut. Utilisez `ListItem` si vous avez besoin de sa partie stable et
 de ses points d’accroche CSS, ou passez directement des éléments `<li>` natifs si ce wrapper ne vous est pas utile.
@@ -122,6 +136,12 @@ composants.
 
 ### Points d’accroche CSS
 
+| Partie | `data-slot` |
+| --- | --- |
+| `List` | `list-root` |
+| `ListItem` | `list-item` |
+| `ListIndicator` | `list-indicator` |
+
 `List` expose les points d’accroche CSS publics suivants :
 
 - racine : `data-scope="list"`, `data-part="root"`, `data-slot="list-root"`
@@ -132,3 +152,15 @@ composants.
 - `data-size="xs" | "sm" | "md" | "lg" | "xl"` pour cibler les styles liés à la taille typographique
 - `data-tone="default" | "muted" | "primary" | "destructive"` pour les couleurs sémantiques
 - le sélecteur natif `li::marker` pour remplacer la couleur ou l’épaisseur du marqueur
+
+## Référence de l’API
+
+Accepte aussi les props natives de son élément et `asChild`.
+
+| Prop | Type | Défaut |
+| --- | --- | --- |
+| `as` | `'ul' \| 'ol'` | `'ul'` |
+| `marker` | `'disc' \| 'decimal' \| 'none'` | by `as` |
+| `gap` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl' \| '2xl'` | `'sm'` |
+| `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'` | `'md'` |
+| `tone` | `'default' \| 'muted' \| 'primary' \| 'destructive'` | `'default'` |

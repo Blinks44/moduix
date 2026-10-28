@@ -39,7 +39,9 @@ the precise Ark guide when no primitive exists), Report issue, and the Copy page
 6. `Composition` - only when the component has a meaningful choice not already clear from Basic or examples
 7. `Anatomy` - ASCII tree plus a `Part | Role` table; it comes before Styling because the styling
    hooks refer to these parts
-8. `Styling` - `CSS variables` table, then a `Styling hooks` table (`Attribute | Present when`)
+8. `Styling` - `CSS variables` table, then `Styling hooks`: a `Part | data-slot` table that matches
+   the React source (internal elements marked as such), followed by short prose for state attributes
+   and runtime variables. A single-part component may use `Attribute | Present when` instead
 9. `Keyboard` - a `Key | Action` table when the component has keyboard interaction
 10. `API reference` - a `Prop | Type | Default` table
 

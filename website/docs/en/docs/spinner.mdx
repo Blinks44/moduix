@@ -1,7 +1,7 @@
 ---
 title: Spinner
 component: spinner
-description: A compact loading indicator with status semantics, size control, and optional custom indicator content.
+description: Signal a short wait in buttons, rows, and compact states.
 ark: https://ark-ui.com/docs/guides/composition
 ---
 
@@ -14,6 +14,19 @@ import * as SpinnerDocs from '@/components/examples/spinner/css-properties';
 <ComponentInstall />
 
 ## Usage
+
+<UsageCode
+  react={'<Spinner size="sm" aria-label="Saving changes" />'}
+  vue={'<Spinner size="sm" aria-label="Saving changes" />'}
+/>
+
+<PropChips
+  items={[
+    ['size', 'xs to xl, or inherit to follow the font size.'],
+    ['aria-label', 'Names the wait; defaults to the English “Loading”.'],
+    ['decorative', 'Hides the spinner when nearby text already says it.'],
+  ]}
+/>
 
 Use `Spinner` for short-lived loading states in buttons, inline status rows, and compact empty
 states. By default, it exposes the loading status to assistive technology with `role="status"` and
@@ -110,12 +123,24 @@ utility classes and consumer class overrides instead of mirroring the CSS Module
 
 ### Styling hooks
 
+| Part | `data-slot` |
+| --- | --- |
+| `Spinner` | `spinner-root` |
+| `Spinner`, inner element | `spinner-indicator` |
+| `Spinner`, inner element | `spinner-ring` |
+
 - `[data-scope="spinner"][data-part="root"]` targets the Ark-style root.
 - `[data-scope="spinner"][data-part="indicator"]` targets the rotating inner wrapper.
 - `[data-scope="spinner"][data-part="ring"]` targets the default ring only.
-- `data-slot="spinner-root"` is the stable moduix selector for the rendered root.
-- `data-slot="spinner-indicator"` is the stable moduix selector for the rotating inner wrapper.
-- `data-slot="spinner-ring"` targets the default ring only.
 - `Spinner` writes `data-size="inherit" | "xs" | "sm" | "md" | "lg" | "xl"` on the root.
 - `className` or `class` applies to the rendered root. With `asChild`, that is the single child
   element. Target the indicator or ring with descendant selectors when needed.
+
+## API reference
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `size` | `'inherit' \| 'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'` | `'md'` |
+| `decorative` | `boolean` | `false` |
+| `aria-label` | `string` | `'Loading'` |
+| `asChild` | `boolean` | `false` |

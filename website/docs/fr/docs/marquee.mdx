@@ -1,7 +1,7 @@
 ---
 title: Marquee
 component: marquee
-description: Un composant basé sur Ark UI pour faire défiler en continu des logos, des annonces ou d’autres contenus répétés.
+description: Faire défiler logos ou annonces en boucle continue.
 ark: https://ark-ui.com/docs/components/marquee
 ---
 
@@ -14,6 +14,21 @@ import * as MarqueeDocs from '@/components/examples/marquee/css-properties';
 <ComponentInstall />
 
 ## Utilisation
+
+<UsageCode
+  react={'<Marquee speed={40} pauseOnInteraction aria-label="Partner logos">\n  <MarqueeViewport>\n    <MarqueeContent>\n      {partners.map((partner) => (\n        <MarqueeItem key={partner.name}>{partner.name}</MarqueeItem>\n      ))}\n    </MarqueeContent>\n  </MarqueeViewport>\n</Marquee>'}
+  solid={'<Marquee speed={40} pauseOnInteraction aria-label="Partner logos">\n  <MarqueeViewport>\n    <MarqueeContent>\n      <For each={partners}>\n        {(partner) => (\n          <MarqueeItem>{partner.name}</MarqueeItem>\n        )}\n      </For>\n    </MarqueeContent>\n  </MarqueeViewport>\n</Marquee>'}
+  vue={'<Marquee :speed="40" pause-on-interaction aria-label="Partner logos">\n  <MarqueeViewport>\n    <MarqueeContent>\n      <MarqueeItem v-for="partner in partners" :key="partner.name">{{ partner.name }}</MarqueeItem>\n    </MarqueeContent>\n  </MarqueeViewport>\n</Marquee>'}
+/>
+
+<PropChips
+  items={[
+    ['speed', 'Pixels par seconde, 50 par défaut.'],
+    ['pauseOnInteraction', 'Se met en pause au survol et au focus.'],
+    ['side', 'Sens : start, end, top ou bottom.'],
+    ['autoFill', 'Répète les éléments pour remplir la largeur.'],
+  ]}
+/>
 
 Utilisez la forme courte `Marquee` comme racine, puis composez explicitement `MarqueeViewport`, `MarqueeContent` et `MarqueeItem` à
 l’intérieur. Si le contenu défilant transmet une information, ajoutez un libellé avec `aria-label` ou
@@ -144,6 +159,31 @@ avez besoin d’un conteneur avec un fond ou une bordure, définissez-le dans le
 
 ### Points d’accroche CSS
 
-- `data-slot="marquee-root"`, `marquee-root-provider`, `marquee-viewport`, `marquee-content`, `marquee-item` et `marquee-edge`.
+| Partie | `data-slot` |
+| --- | --- |
+| `Marquee` | `marquee-root` |
+| `MarqueeRootProvider` | `marquee-root-provider` |
+| `MarqueeViewport` | `marquee-viewport` |
+| `MarqueeContent` | `marquee-content` |
+| `MarqueeItem` | `marquee-item` |
+| `MarqueeEdge` | `marquee-edge` |
+
 - Attributs Ark : `data-scope="marquee"`, `data-part="root|viewport|content|item|edge"`, `data-state="paused|idle"`, `data-orientation`, `data-side`, `data-index`, `data-paused`, `data-reverse` et `data-clone`.
 - Variables CSS Ark : `--marquee-duration`, `--marquee-spacing`, `--marquee-delay`, `--marquee-loop-count` et `--marquee-translate`.
+
+## Référence de l’API
+
+| Prop | Type | Défaut |
+| --- | --- | --- |
+| `speed` | `number` | `50` |
+| `side` | `'start' \| 'end' \| 'top' \| 'bottom'` | `'start'` |
+| `spacing` | `string` | `'1rem'` |
+| `autoFill` | `boolean` | `false` |
+| `reverse` | `boolean` | `false` |
+| `pauseOnInteraction` | `boolean` | `false` |
+| `paused` | `boolean` | — |
+| `defaultPaused` | `boolean` | `false` |
+| `delay` | `number` | `0` |
+| `loopCount` | `number` | `0` |
+| `onPauseChange` | `(details: PauseStatusDetails) => void` | — |
+| `onComplete` | `() => void` | — |

@@ -1,7 +1,7 @@
 ---
 title: Spinner
 component: spinner
-description: Un indicateur de chargement compact avec un statut accessible, plusieurs tailles et un contenu personnalisé facultatif.
+description: Signaler une courte attente dans les boutons, lignes et états compacts.
 ark: https://ark-ui.com/docs/guides/composition
 ---
 
@@ -14,6 +14,19 @@ import * as SpinnerDocs from '@/components/examples/spinner/css-properties';
 <ComponentInstall />
 
 ## Utilisation
+
+<UsageCode
+  react={'<Spinner size="sm" aria-label="Saving changes" />'}
+  vue={'<Spinner size="sm" aria-label="Saving changes" />'}
+/>
+
+<PropChips
+  items={[
+    ['size', 'De xs à xl, ou inherit pour suivre la taille de police.'],
+    ['aria-label', 'Nomme l’attente ; « Loading » en anglais par défaut.'],
+    ['decorative', 'Masque le spinner quand un texte voisin le dit déjà.'],
+  ]}
+/>
 
 Utilisez `Spinner` pour les états de chargement de courte durée dans les boutons, les lignes de statut et les petits
 blocs vides. Par défaut, le composant signale le chargement aux technologies d’assistance avec `role="status"` et
@@ -106,12 +119,24 @@ Appliquez des styles à `Spinner` avec `className` en React, `class` en Solid et
 
 ### Points d’accroche CSS
 
+| Partie | `data-slot` |
+| --- | --- |
+| `Spinner` | `spinner-root` |
+| `Spinner`, élément interne | `spinner-indicator` |
+| `Spinner`, élément interne | `spinner-ring` |
+
 - `[data-scope="spinner"][data-part="root"]` cible la racine selon les conventions d’Ark.
 - `[data-scope="spinner"][data-part="indicator"]` cible l’enveloppe interne rotative.
 - `[data-scope="spinner"][data-part="ring"]` cible uniquement l’anneau par défaut.
-- `data-slot="spinner-root"` est le sélecteur stable de moduix pour la racine rendue.
-- `data-slot="spinner-indicator"` est le sélecteur stable de moduix pour l’enveloppe interne rotative.
-- `data-slot="spinner-ring"` cible uniquement l’anneau par défaut.
 - `Spinner` écrit `data-size="inherit" | "xs" | "sm" | "md" | "lg" | "xl"` sur la racine.
 - `className` s’applique à la racine rendue. Avec `asChild`, il s’applique donc à l’unique enfant. Ciblez l’indicateur
   ou l’anneau avec des sélecteurs descendants si nécessaire.
+
+## Référence de l’API
+
+| Prop | Type | Défaut |
+| --- | --- | --- |
+| `size` | `'inherit' \| 'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'` | `'md'` |
+| `decorative` | `boolean` | `false` |
+| `aria-label` | `string` | `'Loading'` |
+| `asChild` | `boolean` | `false` |

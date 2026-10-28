@@ -1,7 +1,7 @@
 ---
 title: Pagination
 component: pagination
-description: Accessible page navigation for lists, tables, search results, and other paginated content.
+description: Move through pages of a list, table, or search results.
 ark: https://ark-ui.com/docs/components/pagination
 ---
 
@@ -14,6 +14,20 @@ import * as PaginationDocs from '@/components/examples/pagination/css-properties
 <ComponentInstall />
 
 ## Usage
+
+<UsageCode
+  react={'<Pagination count={200} pageSize={10} siblingCount={2} onPageChange={(details) => setPage(details.page)}>\n  <PaginationPrevTrigger />\n  <PaginationItems />\n  <PaginationNextTrigger />\n</Pagination>'}
+  vue={'<Pagination v-model:page="page" :count="200" :page-size="10" :sibling-count="2">\n  <PaginationPrevTrigger />\n  <PaginationItems />\n  <PaginationNextTrigger />\n</Pagination>'}
+/>
+
+<PropChips
+  items={[
+    ['count', 'Total number of items, not pages.'],
+    ['pageSize', 'Items per page, 10 by default.'],
+    ['siblingCount', 'Pages shown on each side of the current one.'],
+    ['type', 'link renders anchors; pair it with getPageUrl.'],
+  ]}
+/>
 
 Use `Pagination` as the root component. `PaginationItems` renders the page buttons and ellipses for
 the current page range.
@@ -153,12 +167,37 @@ Modules variants.
 
 ### Styling hooks
 
+| Part | `data-slot` |
+| --- | --- |
+| `Pagination` | `pagination-root` |
+| `PaginationRootProvider` | `pagination-root-provider` |
+| `PaginationItem` | `pagination-item` |
+| `PaginationEllipsis` | `pagination-ellipsis` |
+| `PaginationPrevTrigger` | `pagination-prev-trigger` |
+| `PaginationNextTrigger` | `pagination-next-trigger` |
+| `PaginationFirstTrigger` | `pagination-first-trigger` |
+| `PaginationLastTrigger` | `pagination-last-trigger` |
+
 - `data-scope="pagination"` and `data-part="item"` on `PaginationItem`
 - `data-scope="pagination"` and `data-part="prev-trigger"` on `PaginationPrevTrigger`
 - `data-scope="pagination"` and `data-part="next-trigger"` on `PaginationNextTrigger`
 - `data-scope="pagination"` with `data-part="first-trigger"` or `data-part="last-trigger"` on edge triggers
 - `data-selected` on the active page item
 - `data-disabled` on unavailable triggers
-- `data-slot="pagination-root"`, `pagination-root-provider`, `pagination-item`,
-  `pagination-ellipsis`, `pagination-prev-trigger`, `pagination-next-trigger`,
-  `pagination-first-trigger`, and `pagination-last-trigger` for moduix overrides
+
+## API reference
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `count` | `number` | — |
+| `page` | `number` | — |
+| `defaultPage` | `number` | `1` |
+| `onPageChange` | `(details: PageChangeDetails) => void` | — |
+| `pageSize` | `number` | — |
+| `defaultPageSize` | `number` | `10` |
+| `onPageSizeChange` | `(details: PageSizeChangeDetails) => void` | — |
+| `siblingCount` | `number` | `1` |
+| `boundaryCount` | `number` | `1` |
+| `type` | `'button' \| 'link'` | `'button'` |
+| `getPageUrl` | `(details: PageUrlDetails) => string` | — |
+| `translations` | `IntlTranslations` | — |

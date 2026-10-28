@@ -1,7 +1,7 @@
 ---
 title: Carousel
 component: carousel
-description: Un carrousel paginé fondé sur Ark UI, avec lecture automatique, état géré par l’application et diapositives de largeur variable.
+description: Faire défiler des diapositives par boutons, indicateurs, balayage ou lecture auto.
 ark: https://ark-ui.com/docs/components/carousel
 ---
 
@@ -14,6 +14,21 @@ import * as CarouselDocs from '@/components/examples/carousel/css-properties';
 <ComponentInstall />
 
 ## Utilisation
+
+<UsageCode
+  react={'<Carousel slideCount={slides.length} slidesPerPage={2} spacing="16px" loop aria-label="Gallery">\n  <CarouselItemGroup>\n    {slides.map((slide, index) => (\n      <CarouselItem key={slide.id} index={index}>\n        <img src={slide.src} alt={slide.alt} />\n      </CarouselItem>\n    ))}\n  </CarouselItemGroup>\n  <CarouselControl>\n    <CarouselPrevTrigger />\n    <CarouselNextTrigger />\n  </CarouselControl>\n  <CarouselIndicators />\n</Carousel>'}
+  solid={'<Carousel slideCount={slides.length} slidesPerPage={2} spacing="16px" loop aria-label="Gallery">\n  <CarouselItemGroup>\n    <For each={slides}>\n      {(slide, index) => (\n        <CarouselItem index={index()}>\n          <img src={slide.src} alt={slide.alt} />\n        </CarouselItem>\n      )}\n    </For>\n  </CarouselItemGroup>\n  <CarouselControl>\n    <CarouselPrevTrigger />\n    <CarouselNextTrigger />\n  </CarouselControl>\n  <CarouselIndicators />\n</Carousel>'}
+  vue={'<Carousel :slide-count="slides.length" :slides-per-page="2" spacing="16px" loop aria-label="Gallery">\n  <CarouselItemGroup>\n    <CarouselItem v-for="(slide, index) in slides" :key="slide.id" :index="index">\n      <img :src="slide.src" :alt="slide.alt" />\n    </CarouselItem>\n  </CarouselItemGroup>\n  <CarouselControl>\n    <CarouselPrevTrigger />\n    <CarouselNextTrigger />\n  </CarouselControl>\n  <CarouselIndicators />\n</Carousel>'}
+/>
+
+<PropChips
+  items={[
+    ['slideCount', 'Nombre de diapositives ; obligatoire.'],
+    ['slidesPerPage', 'Diapositives visibles à la fois, 1 par défaut.'],
+    ['loop', 'Revient de la dernière diapositive à la première.'],
+    ['autoplay', 'Avance seul ; passez { delay } en ms.'],
+  ]}
+/>
 
 Commencez par `Carousel` comme composant racine. Ajoutez `CarouselItemGroup` pour la piste des diapositives,
 placez les boutons précédent et suivant dans `CarouselControl`, puis utilisez `CarouselIndicators` et
@@ -194,12 +209,50 @@ structurels. Pour les styles liés à l’état, privilégiez les attributs de d
 
 ### Points d’accroche CSS
 
-- `data-slot="carousel-root"`, `carousel-root-provider`, `carousel-control`, `carousel-item-group`,
-  `carousel-item`, `carousel-prev-trigger`, `carousel-next-trigger`, `carousel-indicator-group`,
-  `carousel-indicator`, `carousel-autoplay-trigger`, `carousel-autoplay-indicator` et
-  `carousel-progress-text` sont des sélecteurs stables pour les parties exportées.
+| Partie | `data-slot` |
+| --- | --- |
+| `Carousel` | `carousel-root` |
+| `CarouselRootProvider` | `carousel-root-provider` |
+| `CarouselControl` | `carousel-control` |
+| `CarouselItemGroup` | `carousel-item-group` |
+| `CarouselItem` | `carousel-item` |
+| `CarouselPrevTrigger` | `carousel-prev-trigger` |
+| `CarouselNextTrigger` | `carousel-next-trigger` |
+| `CarouselIndicatorGroup` | `carousel-indicator-group` |
+| `CarouselIndicator` | `carousel-indicator` |
+| `CarouselAutoplayTrigger` | `carousel-autoplay-trigger` |
+| `CarouselAutoplayIndicator` | `carousel-autoplay-indicator` |
+| `CarouselProgressText` | `carousel-progress-text` |
+
 - Ark ajoute également `data-scope="carousel"` et les noms `data-part` aux nœuds rendus.
 - `data-orientation="horizontal" | "vertical"` est disponible sur la racine et les parties structurelles.
 - `CarouselItemGroup` fournit `data-dragging` pendant une interaction de glissement.
 - `CarouselIndicator` fournit `data-current`, tandis que `CarouselItem` fournit `data-index` et `data-inview`.
 - `CarouselIndicator` fournit `data-readonly`, tandis que `CarouselAutoplayTrigger` fournit `data-pressed`.
+
+## Clavier
+
+| Touche | Action |
+| --- | --- |
+| `ArrowLeft` / `ArrowRight` | Passe d’un indicateur à l’autre ; ArrowUp et ArrowDown en vertical. |
+| `Home` / `End` | Va à la première ou dernière page depuis les indicateurs. |
+| `Enter` / `Space` | Active le bouton précédent, suivant ou lecture ayant le focus. |
+
+## Référence de l’API
+
+| Prop | Type | Défaut |
+| --- | --- | --- |
+| `slideCount` | `number` | — |
+| `page` | `number` | — |
+| `defaultPage` | `number` | `0` |
+| `onPageChange` | `(details: PageChangeDetails) => void` | — |
+| `slidesPerPage` | `number` | `1` |
+| `slidesPerMove` | `number \| 'auto'` | `'auto'` |
+| `spacing` | `string` | `'0px'` |
+| `padding` | `string` | — |
+| `loop` | `boolean` | `false` |
+| `autoplay` | `boolean \| { delay: number }` | `false` |
+| `allowMouseDrag` | `boolean` | `false` |
+| `autoSize` | `boolean` | `false` |
+| `orientation` | `'horizontal' \| 'vertical'` | `'horizontal'` |
+| `snapType` | `'proximity' \| 'mandatory'` | `'mandatory'` |

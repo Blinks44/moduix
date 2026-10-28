@@ -1,7 +1,7 @@
 ---
 title: Breadcrumbs
 component: breadcrumbs
-description: Accessible breadcrumb navigation for React, Solid, and Vue with explicit parts and a compact shorthand for short paths.
+description: Show where a page sits in the site hierarchy with links back up.
 ark: https://ark-ui.com/docs/guides/composition#the-ark-factory
 ---
 
@@ -14,6 +14,19 @@ import * as BreadcrumbsDocs from '@/components/examples/breadcrumbs/css-properti
 <ComponentInstall />
 
 ## Usage
+
+<UsageCode
+  react={'<Breadcrumbs>\n  <BreadcrumbsPath\n    links={[\n      { href: \'/\', label: \'Home\' },\n      { href: \'/jobs\', label: \'Jobs\' },\n    ]}\n    page="Go Developer"\n    separator="/"\n  />\n</Breadcrumbs>'}
+  vue={'<Breadcrumbs>\n  <BreadcrumbsPath\n    :links="[\n      { href: \'/\', label: \'Home\' },\n      { href: \'/jobs\', label: \'Jobs\' },\n    ]"\n    page="Go Developer"\n    separator="/"\n  />\n</Breadcrumbs>'}
+/>
+
+<PropChips
+  items={[
+    ['links', 'Parent pages in order, each with href and label.'],
+    ['page', 'Label of the current page, rendered without a link.'],
+    ['separator', 'Content between items; a chevron by default.'],
+  ]}
+/>
 
 Use `BreadcrumbsPath` when you already have the path segments to display. It builds the ordered list,
 items, links, current page, and separators from required `links` and `page` props.
@@ -111,11 +124,29 @@ variants. For state-based styles, prefer Ark data attributes together with modui
 
 ### Styling hooks
 
-- `data-slot="breadcrumbs-root"`, `breadcrumbs-list`, `breadcrumbs-item`, `breadcrumbs-link`,
-  `breadcrumbs-page`, `breadcrumbs-separator`, and `breadcrumbs-ellipsis` remain stable moduix selectors.
+| Part | `data-slot` |
+| --- | --- |
+| `Breadcrumbs` | `breadcrumbs-root` |
+| `BreadcrumbsList` | `breadcrumbs-list` |
+| `BreadcrumbsItem` | `breadcrumbs-item` |
+| `BreadcrumbsLink` | `breadcrumbs-link` |
+| `BreadcrumbsPage` | `breadcrumbs-page` |
+| `BreadcrumbsSeparator` | `breadcrumbs-separator` |
+| `BreadcrumbsEllipsis` | `breadcrumbs-ellipsis` |
+
 - `BreadcrumbsLink`, `BreadcrumbsPage`, and `BreadcrumbsEllipsis` share the horizontal padding from
   `--moduix-breadcrumbs-item-padding-x` in CSS Modules variants.
 - Visible `BreadcrumbsItem` parts can shrink to keep the trail in one line. The last visible item
   remains the primary truncation target and uses `--moduix-breadcrumbs-item-max-width` in CSS Modules variants.
 - Links, separators, and the ellipsis inherit the root text color. Set `color` on `Breadcrumbs` (or
   `--moduix-breadcrumbs-color` in CSS Modules variants) to recolor the whole trail; the current page keeps its own color.
+
+## API reference
+
+Props of `BreadcrumbsPath`. The explicit parts accept the native props of their elements.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `links` | `readonly { href: string; label: ReactNode }[]` | — |
+| `page` | `ReactNode` | — |
+| `separator` | `ReactNode` | chevron |

@@ -1,7 +1,7 @@
 ---
 title: Typeset
 component: typeset
-description: Настраивайте ритм чтения для семантического HTML, отрендеренного Markdown и потокового контента.
+description: Оформление готового Markdown, контента CMS и ответов ИИ для чтения.
 ark: https://ark-ui.com/docs/guides/composition#the-ark-factory
 ---
 
@@ -14,6 +14,19 @@ import * as TypesetDocs from '@/components/examples/typeset/css-properties';
 <ComponentInstall />
 
 ## Использование
+
+<UsageCode
+  react={'<Typeset asChild>\n  <article dangerouslySetInnerHTML={{ __html: html }} />\n</Typeset>'}
+  solid={'<Typeset asChild={(props) => (\n  <article innerHTML={html} {...props()} />\n)} />'}
+  vue={'<Typeset as-child>\n  <article v-html="html" />\n</Typeset>'}
+/>
+
+<PropChips
+  items={[
+    ['asChild', 'Применяет стили к вашему article или section.'],
+    ['data-not-typeset', 'Исключает вложенный блок из стилей контента; .not-typeset тоже работает.'],
+  ]}
+/>
 
 Оберните в `<Typeset>` HTML, который уже подготовил ваш рендерер. Используйте `asChild`, только
 когда внешний контейнер должен быть семантическим элементом, например `article` или `section`.
@@ -111,7 +124,18 @@ Typeset
 
 ### Хуки стилизации
 
-- `data-slot="typeset"` выбирает корневой контейнер.
-- `data-slot="typeset-scroll"` выбирает необязательную обёртку переполнения и её состояние при фокусе.
+| Часть | `data-slot` |
+| --- | --- |
+| `Typeset` | `typeset` |
+| `TypesetScroll` | `typeset-scroll` |
+
 - `[data-scope="typeset"][data-part="root"]` и `[data-part="scroll"]` дают стабильные хуки для
   частей компонента.
+
+## Справочник API
+
+Также принимает нативные пропсы своего элемента и `asChild`.
+
+| Проп | Тип | По умолчанию |
+| --- | --- | --- |
+| `asChild` | `boolean` | `false` |

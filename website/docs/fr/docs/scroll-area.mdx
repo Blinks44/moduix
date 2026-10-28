@@ -1,7 +1,7 @@
 ---
 title: Scroll Area
 component: scroll-area
-description: Créez des conteneurs de défilement avec des barres de défilement stylisées en React, Solid ou Vue avec une installation par package ou via shadcn.
+description: Faire défiler le contenu avec des barres stylées assorties au thème.
 ark: https://ark-ui.com/docs/components/scroll-area
 ---
 
@@ -14,6 +14,20 @@ import * as ScrollAreaDocs from '@/components/examples/scroll-area/css-propertie
 <ComponentInstall />
 
 ## Utilisation
+
+<UsageCode
+  react={'<ScrollArea variant="always" fade style={{ height: 240 }}>\n  <ScrollAreaViewport>\n    <ScrollAreaContent>…</ScrollAreaContent>\n  </ScrollAreaViewport>\n  <ScrollAreaScrollbar>\n    <ScrollAreaThumb />\n  </ScrollAreaScrollbar>\n</ScrollArea>'}
+  solid={'<ScrollArea variant="always" fade style={{ height: \'240px\' }}>\n  <ScrollAreaViewport>\n    <ScrollAreaContent>…</ScrollAreaContent>\n  </ScrollAreaViewport>\n  <ScrollAreaScrollbar>\n    <ScrollAreaThumb />\n  </ScrollAreaScrollbar>\n</ScrollArea>'}
+  vue={'<ScrollArea variant="always" fade :style="{ height: \'240px\' }">\n  <ScrollAreaViewport>\n    <ScrollAreaContent>…</ScrollAreaContent>\n  </ScrollAreaViewport>\n  <ScrollAreaScrollbar>\n    <ScrollAreaThumb />\n  </ScrollAreaScrollbar>\n</ScrollArea>'}
+/>
+
+<PropChips
+  items={[
+    ['variant', 'hover affiche les barres au survol, always en permanence.'],
+    ['fade', 'Estompe les bords où du contenu est masqué.'],
+    ['orientation', 'Sur ScrollAreaScrollbar : vertical ou horizontal.'],
+  ]}
+/>
 
 Utilisez `ScrollArea` comme racine. Placez `ScrollAreaViewport` autour de `ScrollAreaContent`,
 ajoutez un `ScrollAreaScrollbar` et un `ScrollAreaThumb` pour chaque axe de défilement, puis ajoutez
@@ -114,9 +128,16 @@ arrondit aussi le contenu découpé et l’anneau de focus.
 
 ### Points d’accroche CSS
 
-- moduix ajoute des points d’accroche `data-slot` stables avec les valeurs `scroll-area-root`,
-  `scroll-area-root-provider`, `scroll-area-viewport`, `scroll-area-content`,
-  `scroll-area-scrollbar`, `scroll-area-thumb` et `scroll-area-corner`.
+| Partie | `data-slot` |
+| --- | --- |
+| `ScrollArea` | `scroll-area-root` |
+| `ScrollAreaRootProvider` | `scroll-area-root-provider` |
+| `ScrollAreaViewport` | `scroll-area-viewport` |
+| `ScrollAreaContent` | `scroll-area-content` |
+| `ScrollAreaScrollbar` | `scroll-area-scrollbar` |
+| `ScrollAreaThumb` | `scroll-area-thumb` |
+| `ScrollAreaCorner` | `scroll-area-corner` |
+
 - La propriété `fade` ajoute `data-fade`, tandis que `variant` ajoute
   `data-variant="hover" | "always"` à `ScrollArea` et `ScrollAreaRootProvider`.
 - Ark ajoute `data-scope="scroll-area"` et `data-part` à chaque partie.
@@ -133,3 +154,11 @@ arrondit aussi le contenu découpé et l’anneau de focus.
   `--scroll-area-overflow-x-start`, `--scroll-area-overflow-x-end`,
   `--scroll-area-overflow-y-start` et `--scroll-area-overflow-y-end` indiquent les distances par
   rapport aux bords.
+
+## Référence de l’API
+
+| Prop | Type | Défaut |
+| --- | --- | --- |
+| `variant` | `'hover' \| 'always'` | `'hover'` |
+| `fade` | `boolean` | `false` |
+| `asChild` | `boolean` | `false` |

@@ -1,7 +1,7 @@
 ---
 title: Scroll Area
 component: scroll-area
-description: Build scroll containers with styled scrollbars in React, Solid, or Vue with package and shadcn installation options.
+description: Scroll overflowing content with styled scrollbars that match the theme.
 ark: https://ark-ui.com/docs/components/scroll-area
 ---
 
@@ -14,6 +14,20 @@ import * as ScrollAreaDocs from '@/components/examples/scroll-area/css-propertie
 <ComponentInstall />
 
 ## Usage
+
+<UsageCode
+  react={'<ScrollArea variant="always" fade style={{ height: 240 }}>\n  <ScrollAreaViewport>\n    <ScrollAreaContent>…</ScrollAreaContent>\n  </ScrollAreaViewport>\n  <ScrollAreaScrollbar>\n    <ScrollAreaThumb />\n  </ScrollAreaScrollbar>\n</ScrollArea>'}
+  solid={'<ScrollArea variant="always" fade style={{ height: \'240px\' }}>\n  <ScrollAreaViewport>\n    <ScrollAreaContent>…</ScrollAreaContent>\n  </ScrollAreaViewport>\n  <ScrollAreaScrollbar>\n    <ScrollAreaThumb />\n  </ScrollAreaScrollbar>\n</ScrollArea>'}
+  vue={'<ScrollArea variant="always" fade :style="{ height: \'240px\' }">\n  <ScrollAreaViewport>\n    <ScrollAreaContent>…</ScrollAreaContent>\n  </ScrollAreaViewport>\n  <ScrollAreaScrollbar>\n    <ScrollAreaThumb />\n  </ScrollAreaScrollbar>\n</ScrollArea>'}
+/>
+
+<PropChips
+  items={[
+    ['variant', 'hover shows scrollbars on hover, always keeps them visible.'],
+    ['fade', 'Fades the edges where more content is hidden.'],
+    ['orientation', 'On ScrollAreaScrollbar: vertical or horizontal.'],
+  ]}
+/>
 
 Use `ScrollArea` as the root. Put `ScrollAreaViewport` around `ScrollAreaContent`, add one
 `ScrollAreaScrollbar` and `ScrollAreaThumb` for
@@ -110,9 +124,16 @@ the scrollbar thickness, the thumb color, or the fade depth. The viewport inheri
 
 ### Styling hooks
 
-- moduix adds stable `data-slot` hooks with the values `scroll-area-root`, `scroll-area-root-provider`,
-  `scroll-area-viewport`, `scroll-area-content`, `scroll-area-scrollbar`, `scroll-area-thumb`, and
-  `scroll-area-corner`.
+| Part | `data-slot` |
+| --- | --- |
+| `ScrollArea` | `scroll-area-root` |
+| `ScrollAreaRootProvider` | `scroll-area-root-provider` |
+| `ScrollAreaViewport` | `scroll-area-viewport` |
+| `ScrollAreaContent` | `scroll-area-content` |
+| `ScrollAreaScrollbar` | `scroll-area-scrollbar` |
+| `ScrollAreaThumb` | `scroll-area-thumb` |
+| `ScrollAreaCorner` | `scroll-area-corner` |
+
 - `data-fade` is added by the `fade` prop and `data-variant="hover" | "always"` by the `variant`
   prop on `ScrollArea` and `ScrollAreaRootProvider`.
 - Ark adds `data-scope="scroll-area"` and `data-part` for every part.
@@ -128,3 +149,11 @@ the scrollbar thickness, the thumb color, or the fade depth. The viewport inheri
   drive the corner offset and thumb dimensions. Ark viewport variables
   `--scroll-area-overflow-x-start`, `--scroll-area-overflow-x-end`,
   `--scroll-area-overflow-y-start`, and `--scroll-area-overflow-y-end` expose edge distances.
+
+## API reference
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `variant` | `'hover' \| 'always'` | `'hover'` |
+| `fade` | `boolean` | `false` |
+| `asChild` | `boolean` | `false` |

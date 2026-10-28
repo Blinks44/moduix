@@ -1,7 +1,7 @@
 ---
 title: Avatar
 component: avatar
-description: A compact representation of a user or entity with Ark UI-managed image loading and fallback behavior.
+description: Show a user’s photo, with initials while it loads or if it fails.
 ark: https://ark-ui.com/docs/components/avatar
 ---
 
@@ -14,6 +14,19 @@ import * as AvatarDocs from '@/components/examples/avatar/css-properties';
 <ComponentInstall />
 
 ## Usage
+
+<UsageCode
+  react={'<Avatar size="lg" onStatusChange={(details) => log(details.status)}>\n  <AvatarFallback>AT</AvatarFallback>\n  <AvatarImage src={user.photo} alt={user.name} />\n</Avatar>'}
+  vue={'<Avatar size="lg" @status-change="(details) => log(details.status)">\n  <AvatarFallback>AT</AvatarFallback>\n  <AvatarImage :src="user.photo" :alt="user.name" />\n</Avatar>'}
+/>
+
+<PropChips
+  items={[
+    ['size', 'xs to xl, md by default.'],
+    ['AvatarFallback', 'Initials or an icon shown until the image loads.'],
+    ['onStatusChange', 'Reports loading, loaded, or error.'],
+  ]}
+/>
 
 Use `Avatar`, `AvatarFallback`, and `AvatarImage` together. Keep `AvatarFallback` in the tree so
 Ark UI can switch between the fallback and the image as the loading state changes.
@@ -127,11 +140,25 @@ to CSS Modules variants. For state-based styles, prefer Ark data attributes toge
 
 ### Styling hooks
 
-- `data-slot="avatar-root"`, `avatar-root-provider`, `avatar-image`, `avatar-fallback`, and
-  `avatar-group`.
+| Part | `data-slot` |
+| --- | --- |
+| `Avatar` | `avatar-root` |
+| `AvatarRootProvider` | `avatar-root-provider` |
+| `AvatarImage` | `avatar-image` |
+| `AvatarFallback` | `avatar-fallback` |
+| `AvatarGroup` | `avatar-group` |
+
 - Ark anatomy hooks: `data-scope="avatar"` and
   `data-part="root" | "image" | "fallback"`.
 - Ark image state: `data-state="visible" | "hidden"` on `AvatarImage` and
   `AvatarFallback`.
 - moduix size state: `data-size="xs" | "sm" | "md" | "lg" | "xl"` on
   `Avatar` and `AvatarRootProvider`, `md` by default.
+
+## API reference
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'` | `'md'` |
+| `onStatusChange` | `(details: StatusChangeDetails) => void` | — |
+| `asChild` | `boolean` | `false` |

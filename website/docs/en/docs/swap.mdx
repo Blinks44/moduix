@@ -109,9 +109,12 @@ root, which out-specifies a plain consumer `perspective` utility, so repeat that
 
 ### Styling hooks
 
-- `Swap` uses `data-slot="swap-root"`.
-- `SwapRootProvider` uses `data-slot="swap-root-provider"`.
-- `SwapIndicator` uses `data-slot="swap-indicator"`.
+| Part | `data-slot` |
+| --- | --- |
+| `Swap` | `swap-root` |
+| `SwapRootProvider` | `swap-root-provider` |
+| `SwapIndicator` | `swap-indicator` |
+
 - `animation` is exposed as `data-animation` on `Swap` and `SwapRootProvider`.
 - In CSS Modules, built-in recipes target only direct `SwapIndicator` children of their root. Tailwind
   recipes read the nearest `group/swap` ancestor, so do not nest one `Swap` inside another.

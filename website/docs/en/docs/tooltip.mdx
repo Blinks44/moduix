@@ -1,7 +1,7 @@
 ---
 title: Tooltip
 component: tooltip
-description: A short, supplementary label that appears when its trigger is hovered or focused.
+description: Give a control a short hint that shows on hover or focus.
 ark: https://ark-ui.com/docs/components/tooltip
 ---
 
@@ -17,6 +17,20 @@ import tooltipVueContextPart from '../../../snippets/tooltip/vue/TooltipStateCon
 <ComponentInstall />
 
 ## Usage
+
+<UsageCode
+  react={'<Tooltip openDelay={400} positioning={{ placement: \'top\' }}>\n  <TooltipTrigger asChild>\n    <Button aria-label="Notifications">\n      <BellIcon />\n    </Button>\n  </TooltipTrigger>\n  <TooltipBody>Notifications</TooltipBody>\n</Tooltip>'}
+  solid={'<Tooltip openDelay={400} positioning={{ placement: \'top\' }}>\n  <TooltipTrigger asChild={(props) => (\n    <Button aria-label="Notifications" {...props()}>\n      <BellIcon />\n    </Button>\n  )} />\n  <TooltipBody>Notifications</TooltipBody>\n</Tooltip>'}
+  vue={'<Tooltip :open-delay="400" :positioning="{ placement: \'top\' }">\n  <TooltipTrigger as-child>\n    <Button aria-label="Notifications">\n      <BellIcon />\n    </Button>\n  </TooltipTrigger>\n  <TooltipBody>Notifications</TooltipBody>\n</Tooltip>'}
+/>
+
+<PropChips
+  items={[
+    ['openDelay / closeDelay', 'Delays in ms, 400 and 150 by default.'],
+    ['positioning', 'Side and offset of the tooltip.'],
+    ['interactive', 'Keeps it open while the pointer is over the content.'],
+  ]}
+/>
 
 Use `TooltipTrigger` for the element that opens the tooltip and `TooltipBody` for its content.
 `TooltipBody` combines `TooltipPositioner` and `TooltipContent`. Give the trigger an accessible
@@ -208,6 +222,15 @@ variables: a class on the part overrides the layered component styles. Data attr
 
 ### Styling hooks
 
+| Part | `data-slot` |
+| --- | --- |
+| `TooltipTrigger` | `tooltip-trigger` |
+| `TooltipDisabledTrigger` | `tooltip-disabled-trigger` |
+| `TooltipPositioner` | `tooltip-positioner` |
+| `TooltipContent` | `tooltip-content` |
+| `TooltipArrow` | `tooltip-arrow` |
+| `TooltipArrowTip` | `tooltip-arrow-tip` |
+
 - `TooltipBody` does not create a DOM node. When using the explicit composition, style
   `TooltipPositioner` and `TooltipContent` separately.
 - `TooltipTrigger` controls trigger chrome, hover and open feedback, and focus styling.
@@ -216,12 +239,34 @@ variables: a class on the part overrides the layered component styles. Data attr
 - `TooltipContent` controls the popup surface.
 - `TooltipArrow` and `TooltipArrowTip` control the arrow size, background, and stroke.
 
-The main public hooks are `data-slot="tooltip-trigger"`, `data-slot="tooltip-positioner"`,
-`data-slot="tooltip-content"`, `data-slot="tooltip-disabled-trigger"`,
-`data-slot="tooltip-arrow"`, and `data-slot="tooltip-arrow-tip"`.
-
 Ark also adds `data-scope="tooltip"`, `data-part`, `data-state="open" | "closed"`, `data-value`,
 `data-current`, `data-expanded`, `data-instant`, `data-placement`, and `data-side` to the relevant
 parts. The positioner exposes runtime CSS variables including `--available-width`,
 `--available-height`, `--reference-width`, `--reference-height`, `--x`, `--y`, `--z-index`, and
 `--transform-origin`.
+
+## Keyboard
+
+| Key | Action |
+| --- | --- |
+| `Tab` | Focusing the trigger shows the tooltip. |
+| `Esc` | Hides the tooltip. |
+
+## API reference
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `open` | `boolean` | — |
+| `defaultOpen` | `boolean` | `false` |
+| `onOpenChange` | `(details: OpenChangeDetails) => void` | — |
+| `openDelay` | `number` | `400` |
+| `closeDelay` | `number` | `150` |
+| `positioning` | `PositioningOptions` | — |
+| `disabled` | `boolean` | `false` |
+| `interactive` | `boolean` | `false` |
+| `closeOnPointerDown` | `boolean` | `true` |
+| `closeOnScroll` | `boolean` | `true` |
+| `closeOnClick` | `boolean` | `true` |
+| `closeOnEscape` | `boolean` | `true` |
+| `lazyMount` | `boolean` | `true` |
+| `unmountOnExit` | `boolean` | `true` |

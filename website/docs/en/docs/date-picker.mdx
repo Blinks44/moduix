@@ -1,7 +1,7 @@
 ---
 title: Date Picker
 component: date-picker
-description: A date picker built on Ark UI with popup and inline calendars, range selection, and multiple-date selection.
+description: Pick a date, range, or several dates from a calendar.
 ark: https://ark-ui.com/docs/components/date-picker
 ---
 
@@ -14,6 +14,20 @@ import * as DatePickerDocs from '@/components/examples/date-picker/css-propertie
 <ComponentInstall />
 
 ## Usage
+
+<UsageCode
+  react={'<DatePicker defaultValue={[parseDate(\'2026-06-22\')]} selectionMode="range" min={today(getLocalTimeZone())}>\n  <DatePickerLabel>Trip dates</DatePickerLabel>\n  <DatePickerField />\n  <DatePickerPositioner>\n    <DatePickerContent>\n      <DatePickerView view="day">\n        <DatePickerDayTable />\n      </DatePickerView>\n    </DatePickerContent>\n  </DatePickerPositioner>\n</DatePicker>'}
+  vue={'<DatePicker :default-value="[parseDate(\'2026-06-22\')]" selection-mode="range" :min="today(getLocalTimeZone())">\n  <DatePickerLabel>Trip dates</DatePickerLabel>\n  <DatePickerField />\n  <DatePickerPositioner>\n    <DatePickerContent>\n      <DatePickerView view="day">\n        <DatePickerDayTable />\n      </DatePickerView>\n    </DatePickerContent>\n  </DatePickerPositioner>\n</DatePicker>'}
+/>
+
+<PropChips
+  items={[
+    ['selectionMode', 'single, range, or multiple dates.'],
+    ['min / max', 'Earliest and latest selectable dates.'],
+    ['isDateUnavailable', 'Disables specific days, such as weekends.'],
+    ['inline', 'Shows the calendar in the page without a popup.'],
+  ]}
+/>
 
 Use `DatePicker` as the root, `DatePickerField` for a standard field, and
 `DatePickerDayTable`, `DatePickerMonthTable`, and `DatePickerYearTable` for the calendar views. Each table
@@ -250,16 +264,83 @@ below. Both styling tracks share Ark state attributes and moduix `data-slot` hoo
 
 ### Styling hooks
 
-Use these `data-slot` hooks to target individual parts:
-
-- `date-picker-root`, `date-picker-root-provider`, `date-picker-label`, `date-picker-control`, and `date-picker-input`.
-- `date-picker-trigger`, `date-picker-clear-trigger`, and `date-picker-value-text`.
-- `date-picker-positioner`, `date-picker-content`, `date-picker-view`, and `date-picker-view-control`.
-- `date-picker-view-trigger`, `date-picker-prev-trigger`, `date-picker-next-trigger`, and `date-picker-range-text`.
-- `date-picker-table-*`, `date-picker-table-cell-trigger`, `date-picker-week-number-header-cell`, and `date-picker-week-number-cell`.
-- `date-picker-month-select`, `date-picker-year-select`, and `date-picker-preset-trigger`.
+| Part | `data-slot` |
+| --- | --- |
+| `DatePicker` | `date-picker-root` |
+| `DatePickerRootProvider` | `date-picker-root-provider` |
+| `DatePickerLabel` | `date-picker-label` |
+| `DatePickerControl` | `date-picker-control` |
+| `DatePickerInput` | `date-picker-input` |
+| `DatePickerTrigger` | `date-picker-trigger` |
+| `DatePickerClearTrigger` | `date-picker-clear-trigger` |
+| `DatePickerPositioner` | `date-picker-positioner` |
+| `DatePickerContent` | `date-picker-content` |
+| `DatePickerView` | `date-picker-view` |
+| `DatePickerViewControl` | `date-picker-view-control` |
+| `DatePickerPrevTrigger` | `date-picker-prev-trigger` |
+| `DatePickerNextTrigger` | `date-picker-next-trigger` |
+| `DatePickerRangeText` | `date-picker-range-text` |
+| `DatePickerViewTrigger` | `date-picker-view-trigger` |
+| `DatePickerTable` | `date-picker-table` |
+| `DatePickerTableHead` | `date-picker-table-head` |
+| `DatePickerTableBody` | `date-picker-table-body` |
+| `DatePickerTableRow` | `date-picker-table-row` |
+| `DatePickerTableHeader` | `date-picker-table-header` |
+| `DatePickerWeekNumberHeaderCell` | `date-picker-week-number-header-cell` |
+| `DatePickerWeekNumberCell` | `date-picker-week-number-cell` |
+| `DatePickerTableCell` | `date-picker-table-cell` |
+| `DatePickerTableCellTrigger` | `date-picker-table-cell-trigger` |
+| `DatePickerMonthSelect`, inner element | `date-picker-month-select-control` |
+| `DatePickerMonthSelect` | `date-picker-month-select` |
+| `DatePickerMonthSelect`, inner element | `date-picker-month-select-indicator` |
+| `DatePickerYearSelect`, inner element | `date-picker-year-select-control` |
+| `DatePickerYearSelect` | `date-picker-year-select` |
+| `DatePickerYearSelect`, inner element | `date-picker-year-select-indicator` |
+| `DatePickerPresetTrigger` | `date-picker-preset-trigger` |
+| `DatePickerValueText` | `date-picker-value-text` |
 
 Ark state attributes include `data-state`, `data-disabled`, `data-readonly`, `data-invalid`,
 `data-focus`, `data-selected`, `data-today`, `data-unavailable`, `data-outside-range`,
 `data-in-range`, `data-range-start`, `data-range-end`, `data-in-hover-range`,
 `data-hover-range-start`, `data-hover-range-end`, and `data-view`.
+
+## Keyboard
+
+| Key | Action |
+| --- | --- |
+| `ArrowLeft` / `ArrowRight` / `ArrowUp` / `ArrowDown` | Moves focus by a day or a week in the calendar. |
+| `PageUp` / `PageDown` | Goes to the previous or next month; with Shift, the year. |
+| `Home` / `End` | Moves to the start or end of the week. |
+| `Enter` / `Space` | Selects the focused date. |
+| `Esc` | Closes the calendar. |
+
+## API reference
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `value` | `DateValue[]` | — |
+| `defaultValue` | `DateValue[]` | — |
+| `onValueChange` | `(details: ValueChangeDetails) => void` | — |
+| `selectionMode` | `'single' \| 'range' \| 'multiple'` | `'single'` |
+| `min` | `DateValue` | — |
+| `max` | `DateValue` | — |
+| `isDateUnavailable` | `(date: DateValue, locale: string) => boolean` | — |
+| `locale` | `string` | `'en-US'` |
+| `timeZone` | `string` | `'UTC'` |
+| `startOfWeek` | `number` | — |
+| `numOfMonths` | `number` | — |
+| `fixedWeeks` | `boolean` | `false` |
+| `showWeekNumbers` | `boolean` | `false` |
+| `closeOnSelect` | `boolean` | `true` |
+| `inline` | `boolean` | `false` |
+| `defaultView` | `'day' \| 'month' \| 'year'` | `'day'` |
+| `open` | `boolean` | — |
+| `onOpenChange` | `(details: OpenChangeDetails) => void` | — |
+| `positioning` | `PositioningOptions` | — |
+| `name` | `string` | — |
+| `disabled` | `boolean` | `false` |
+| `readOnly` | `boolean` | `false` |
+| `invalid` | `boolean` | `false` |
+| `required` | `boolean` | `false` |
+| `lazyMount` | `boolean` | `true` |
+| `unmountOnExit` | `boolean` | `true` |

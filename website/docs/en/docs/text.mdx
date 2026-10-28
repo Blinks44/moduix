@@ -1,7 +1,7 @@
 ---
 title: Text
 component: text
-description: A typography component for body text, inline content, semantic emphasis, and truncated previews.
+description: Set body text, captions, and inline copy on the type scale.
 ark: https://ark-ui.com/docs/guides/composition#the-ark-factory
 ---
 
@@ -12,6 +12,20 @@ ark: https://ark-ui.com/docs/guides/composition#the-ark-factory
 <ComponentInstall />
 
 ## Usage
+
+<UsageCode
+  react={'<Text as="span" size="sm" tone="muted" lineClamp={2}>\n  {post.summary}\n</Text>'}
+  vue={'<Text as="span" size="sm" tone="muted" lineClamp={2}>\n  {post.summary}\n</Text>'}
+/>
+
+<PropChips
+  items={[
+    ['as', 'p, span, small, strong, em, or div.'],
+    ['size / weight', 'Type scale step and font weight.'],
+    ['tone', 'default, muted, primary, or destructive.'],
+    ['truncate / lineClamp', 'Cuts to one line or to N lines.'],
+  ]}
+/>
 
 Use the default `p` root for a paragraph. Pass `as` when the content needs a different semantic HTML
 element but should keep `Text`'s typography styles.
@@ -100,8 +114,11 @@ component variables: a class on the root overrides the layered component styles.
 
 ### Styling hooks
 
+| Part | `data-slot` |
+| --- | --- |
+| `Text` | `text-root` |
+
 - `data-scope="text"` and `data-part="root"` identify the Ark-style root.
-- `data-slot="text-root"` is the stable moduix selector on the exported root.
 - `data-size` reflects the resolved visual size: `xs`, `sm`, `md`, `lg`, or `xl`.
 - `data-weight` reflects the resolved weight preset: `regular`, `medium`, `semibold`, or `bold`.
 - `data-tone` reflects the active tone preset: `default`, `muted`, `primary`, or
@@ -111,3 +128,17 @@ component variables: a class on the root overrides the layered component styles.
 - `data-truncate` appears when single-line ellipsis is active.
 - `data-line-clamp` appears when `lineClamp` is a positive integer; the line count is set inline as
   `-webkit-line-clamp`.
+
+## API reference
+
+Also accepts the native props of its element and `asChild`.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `as` | `'p' \| 'span' \| 'small' \| 'strong' \| 'em' \| 'div'` | `'p'` |
+| `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'` | — |
+| `weight` | `'regular' \| 'medium' \| 'semibold' \| 'bold'` | — |
+| `tone` | `'default' \| 'muted' \| 'primary' \| 'destructive'` | `'default'` |
+| `align` | `'start' \| 'center' \| 'end' \| 'left' \| 'right' \| 'justify'` | — |
+| `truncate` | `boolean` | `false` |
+| `lineClamp` | `number` | — |

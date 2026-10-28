@@ -1,7 +1,7 @@
 ---
 title: Accordion
 component: accordion
-description: Создание доступных аккордеонов в React, Solid и Vue с установкой из пакета или через shadcn CLI.
+description: Секции, которые раскрываются и сворачиваются, показывая связанный контент.
 ark: https://ark-ui.com/docs/components/accordion
 ---
 
@@ -14,6 +14,19 @@ import * as AccordionDocs from '@/components/examples/accordion/css-properties';
 <ComponentInstall />
 
 ## Использование
+
+<UsageCode
+  react={'<Accordion defaultValue={[\'billing\']} multiple collapsible>\n  <AccordionItem value="billing">\n    <h3>\n      <AccordionItemTrigger>\n        Billing\n        <AccordionItemIndicator />\n      </AccordionItemTrigger>\n    </h3>\n    <AccordionItemContent>\n      <AccordionItemBody>Invoices and payment methods.</AccordionItemBody>\n    </AccordionItemContent>\n  </AccordionItem>\n</Accordion>'}
+  vue={'<Accordion :default-value="[\'billing\']" multiple collapsible>\n  <AccordionItem value="billing">\n    <h3>\n      <AccordionItemTrigger>\n        Billing\n        <AccordionItemIndicator />\n      </AccordionItemTrigger>\n    </h3>\n    <AccordionItemContent>\n      <AccordionItemBody>Invoices and payment methods.</AccordionItemBody>\n    </AccordionItemContent>\n  </AccordionItem>\n</Accordion>'}
+/>
+
+<PropChips
+  items={[
+    ['defaultValue', 'Открытые при первом рендере пункты, массив value.'],
+    ['multiple', 'Позволяет открыть несколько пунктов сразу.'],
+    ['collapsible', 'Позволяет закрыть единственный открытый пункт.'],
+  ]}
+/>
 
 Используйте `Accordion` как корневой компонент и задайте каждому элементу стабильное значение
 `value`. Поместите интерактивный заголовок в триггер элемента, панель в часть содержимого, а её
@@ -140,12 +153,41 @@ AccordionRootProvider
 
 ### Хуки стилизации
 
-- Стабильные селекторы `data-slot`: `accordion-root`, `accordion-root-provider`, `accordion-item`,
-  `accordion-item-trigger`, `accordion-item-indicator`, `accordion-item-content` и
-  `accordion-item-body`.
+| Часть | `data-slot` |
+| --- | --- |
+| `Accordion` | `accordion-root` |
+| `AccordionRootProvider` | `accordion-root-provider` |
+| `AccordionItem` | `accordion-item` |
+| `AccordionItemTrigger` | `accordion-item-trigger` |
+| `AccordionItemIndicator` | `accordion-item-indicator` |
+| `AccordionItemContent` | `accordion-item-content` |
+| `AccordionItemBody` | `accordion-item-body` |
+
 - Селекторы частей Ark: `data-scope="accordion"` и
   `data-part="root|item|item-trigger|item-indicator|item-content"`.
 - Дополнительный селектор moduix: `data-part="item-body"` на части тела элемента.
 - Селекторы состояния Ark: `data-state="open|closed"`, `data-disabled`, `data-focus`, `data-controls`
   и `data-orientation="horizontal|vertical"`.
 - Переменные содержимого Ark: `--height` для вертикальной анимации и `--width` для горизонтальной анимации.
+
+## Клавиатура
+
+| Клавиша | Действие |
+| --- | --- |
+| `Enter` / `Space` | Открывает или закрывает пункт в фокусе. |
+| `ArrowDown` / `ArrowUp` | Переводит фокус на следующий или предыдущий заголовок. |
+| `Home` / `End` | Переводит фокус на первый или последний заголовок. |
+
+## Справочник API
+
+| Проп | Тип | По умолчанию |
+| --- | --- | --- |
+| `value` | `string[]` | — |
+| `defaultValue` | `string[]` | — |
+| `onValueChange` | `(details: ValueChangeDetails) => void` | — |
+| `multiple` | `boolean` | `false` |
+| `collapsible` | `boolean` | `false` |
+| `disabled` | `boolean` | `false` |
+| `orientation` | `'horizontal' \| 'vertical'` | `'vertical'` |
+| `lazyMount` | `boolean` | `false` |
+| `unmountOnExit` | `boolean` | `false` |

@@ -1,7 +1,7 @@
 ---
 title: Tabs
 component: tabs
-description: Basculez entre des panneaux liés avec une navigation clavier accessible, un état contrôlé, un montage différé, des liens et une orientation verticale.
+description: Basculer entre des panneaux liés dans une zone de la page.
 ark: https://ark-ui.com/docs/components/tabs
 ---
 
@@ -87,6 +87,20 @@ import tabsVueVertical from '../../../snippets/tabs/vue/vertical.vue?raw';
 <ComponentInstall />
 
 ## Utilisation
+
+<UsageCode
+  react={'<Tabs defaultValue="overview" variant="line" size="sm">\n  <TabsList>\n    <TabsTrigger value="overview">Overview</TabsTrigger>\n    <TabsTrigger value="activity">Activity</TabsTrigger>\n    <TabsIndicator />\n  </TabsList>\n  <TabsContent value="overview">Project summary</TabsContent>\n  <TabsContent value="activity">Recent changes</TabsContent>\n</Tabs>'}
+  vue={'<Tabs default-value="overview" variant="line" size="sm">\n  <TabsList>\n    <TabsTrigger value="overview">Overview</TabsTrigger>\n    <TabsTrigger value="activity">Activity</TabsTrigger>\n    <TabsIndicator />\n  </TabsList>\n  <TabsContent value="overview">Project summary</TabsContent>\n  <TabsContent value="activity">Recent changes</TabsContent>\n</Tabs>'}
+/>
+
+<PropChips
+  items={[
+    ['defaultValue', 'Onglet sélectionné au départ ; contrôlez-le avec value.'],
+    ['variant', 'default dessine des segments, line un soulignement.'],
+    ['size', 'sm, md ou lg.'],
+    ['fitted', 'Étire les onglets sur toute la largeur.'],
+  ]}
+/>
 
 Commencez avec `Tabs` et donnez la même valeur `value` à chaque paire `TabsTrigger` et
 `TabsContent`. Rendez `TabsIndicator` explicitement lorsque l’onglet sélectionné doit avoir un
@@ -644,6 +658,15 @@ variables ci-dessous personnalisent les variantes CSS Modules.
 
 ### Points d’accroche CSS
 
+| Partie | `data-slot` |
+| --- | --- |
+| `Tabs` | `tabs-root` |
+| `TabsRootProvider` | `tabs-root-provider` |
+| `TabsList` | `tabs-list` |
+| `TabsTrigger` | `tabs-trigger` |
+| `TabsIndicator` | `tabs-indicator` |
+| `TabsContent` | `tabs-content` |
+
 Ciblez la partie qui porte la responsabilité visuelle concernée :
 
 - `Tabs` pour la largeur, l’espacement général, l’orientation et les remplacements liés à la variante
@@ -653,10 +676,32 @@ Ciblez la partie qui porte la responsabilité visuelle concernée :
   variables Ark `--transition-duration` et `--transition-timing-function` pour modifier le mouvement
 - `TabsContent` pour la surface, les marges internes et le focus du panneau
 
-Les principaux points d’accroche publics sont `data-slot="tabs-root"`,
-`data-slot="tabs-root-provider"`, `data-slot="tabs-list"`, `data-slot="tabs-trigger"`,
-`data-slot="tabs-indicator"` et `data-slot="tabs-content"`.
-
 Les points d’accroche Ark utiles sont `data-scope="tabs"`, `data-part`, `data-orientation`,
 `data-selected`, `data-disabled`, `data-focus`, ainsi que les variables de l’indicateur `--left`,
 `--top`, `--width`, `--height` et `--transition-property`.
+
+## Clavier
+
+| Touche | Action |
+| --- | --- |
+| `ArrowLeft` / `ArrowRight` | Passe à l’onglet précédent ou suivant ; ArrowUp et ArrowDown en vertical. |
+| `Home` / `End` | Va au premier ou au dernier onglet. |
+| `Enter` / `Space` | Sélectionne l’onglet ayant le focus si activationMode vaut manual. |
+| `Tab` | Déplace le focus de la liste vers le panneau actif. |
+
+## Référence de l’API
+
+| Prop | Type | Défaut |
+| --- | --- | --- |
+| `value` | `string \| null` | — |
+| `defaultValue` | `string \| null` | — |
+| `onValueChange` | `(details: ValueChangeDetails) => void` | — |
+| `variant` | `'default' \| 'line'` | `'default'` |
+| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` |
+| `fitted` | `boolean` | `false` |
+| `orientation` | `'horizontal' \| 'vertical'` | `'horizontal'` |
+| `activationMode` | `'automatic' \| 'manual'` | `'automatic'` |
+| `loopFocus` | `boolean` | `true` |
+| `deselectable` | `boolean` | `false` |
+| `lazyMount` | `boolean` | `false` |
+| `unmountOnExit` | `boolean` | `false` |

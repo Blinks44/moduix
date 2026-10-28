@@ -1,7 +1,7 @@
 ---
 title: Pin Input
 component: pin-input
-description: Компонент для ввода коротких PIN-кодов и кодов подтверждения по отдельным ячейкам, с автоматическим переводом фокуса и поддержкой OTP.
+description: Ввод короткого PIN или одноразового кода, по символу в ячейке.
 ark: https://ark-ui.com/docs/components/pin-input
 ---
 
@@ -14,6 +14,20 @@ import * as PinInputDocs from '@/components/examples/pin-input/css-properties';
 <ComponentInstall />
 
 ## Использование
+
+<UsageCode
+  react={'<PinInput count={6} otp type="numeric" onValueComplete={(details) => verify(details.valueAsString)}>\n  <PinInputLabel>Verification code</PinInputLabel>\n  <PinInputControl>\n    <PinInputInputs />\n  </PinInputControl>\n  <PinInputHiddenInput />\n</PinInput>'}
+  vue={'<PinInput :count="6" otp type="numeric" @value-complete="(details) => verify(details.valueAsString)">\n  <PinInputLabel>Verification code</PinInputLabel>\n  <PinInputControl>\n    <PinInputInputs />\n  </PinInputControl>\n  <PinInputHiddenInput />\n</PinInput>'}
+/>
+
+<PropChips
+  items={[
+    ['count', 'Число ячеек; обязательно.'],
+    ['otp', 'Позволяет браузеру подставить одноразовый код.'],
+    ['mask', 'Скрывает символы, как пароль.'],
+    ['onValueComplete', 'Вызывается, когда заполнены все ячейки.'],
+  ]}
+/>
 
 Используйте `PinInput` как корневой компонент и явно задайте `count`. Добавьте `PinInputLabel` для доступного имени,
 поместите `PinInputInputs` внутрь `PinInputControl` и явно добавьте `PinInputHiddenInput`, если значение должно участвовать в работе
@@ -148,13 +162,49 @@ PinInputRootProvider
 
 ### Хуки стилизации
 
-- Корневой элемент и `PinInputRootProvider` имеют `data-slot="pin-input-root"` и `data-slot="pin-input-root-provider"`.
-- `PinInputLabel`, `PinInputControl` и `PinInputInput` имеют `data-slot="pin-input-label"`, `data-slot="pin-input-control"` и
-  `data-slot="pin-input-input"`.
+| Часть | `data-slot` |
+| --- | --- |
+| `PinInput` | `pin-input-root` |
+| `PinInputRootProvider` | `pin-input-root-provider` |
+| `PinInputLabel` | `pin-input-label` |
+| `PinInputControl` | `pin-input-control` |
+| `PinInputInput` | `pin-input-input` |
+| `PinInputSeparator` | `pin-input-separator` |
+
 - Части Ark используют `data-scope="pin-input"` и `data-part="root" | "label" | "control" | "input"`.
 - Для стилей состояния корня используются `data-disabled`, `data-invalid`, `data-complete` и `data-readonly`.
 - Для стилей состояния ячейки используются `data-disabled`, `data-invalid`, `data-complete`, `data-filled` и
   `data-index`.
-- `PinInputSeparator` имеет `data-slot="pin-input-separator"` и по умолчанию является декоративным.
 - Корень дублирует `size` в `data-size`. Отключённый `PinInput` внутри отключённого `Field` или `Fieldset` не
   затемняется второй раз.
+
+## Клавиатура
+
+| Клавиша | Действие |
+| --- | --- |
+| Символы | Заполняют ячейку и переходят к следующей. |
+| `Backspace` | Очищает ячейку и переходит к предыдущей. |
+| `ArrowLeft` / `ArrowRight` | Перемещает между ячейками. |
+| `Ctrl+V` | Вставляет весь код по ячейкам. |
+
+## Справочник API
+
+| Проп | Тип | По умолчанию |
+| --- | --- | --- |
+| `count` | `number` | — |
+| `value` | `string[]` | — |
+| `defaultValue` | `string[]` | — |
+| `onValueChange` | `(details: ValueChangeDetails) => void` | — |
+| `onValueComplete` | `(details: ValueChangeDetails) => void` | — |
+| `type` | `'numeric' \| 'alphanumeric' \| 'alphabetic'` | `'numeric'` |
+| `otp` | `boolean` | `false` |
+| `mask` | `boolean` | `false` |
+| `placeholder` | `string` | `''` |
+| `blurOnComplete` | `boolean` | `false` |
+| `autoFocus` | `boolean` | `false` |
+| `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'` | `'md'` |
+| `name` | `string` | — |
+| `disabled` | `boolean` | `false` |
+| `readOnly` | `boolean` | `false` |
+| `invalid` | `boolean` | `false` |
+| `required` | `boolean` | `false` |

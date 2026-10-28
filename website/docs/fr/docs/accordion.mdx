@@ -1,7 +1,7 @@
 ---
 title: Accordion
 component: accordion
-description: Créez des accordéons accessibles avec React, Solid ou Vue, installés par paquet ou avec la CLI shadcn.
+description: Empiler des sections qui s’ouvrent et se ferment sur du contenu lié.
 ark: https://ark-ui.com/docs/components/accordion
 ---
 
@@ -14,6 +14,19 @@ import * as AccordionDocs from '@/components/examples/accordion/css-properties';
 <ComponentInstall />
 
 ## Utilisation
+
+<UsageCode
+  react={'<Accordion defaultValue={[\'billing\']} multiple collapsible>\n  <AccordionItem value="billing">\n    <h3>\n      <AccordionItemTrigger>\n        Billing\n        <AccordionItemIndicator />\n      </AccordionItemTrigger>\n    </h3>\n    <AccordionItemContent>\n      <AccordionItemBody>Invoices and payment methods.</AccordionItemBody>\n    </AccordionItemContent>\n  </AccordionItem>\n</Accordion>'}
+  vue={'<Accordion :default-value="[\'billing\']" multiple collapsible>\n  <AccordionItem value="billing">\n    <h3>\n      <AccordionItemTrigger>\n        Billing\n        <AccordionItemIndicator />\n      </AccordionItemTrigger>\n    </h3>\n    <AccordionItemContent>\n      <AccordionItemBody>Invoices and payment methods.</AccordionItemBody>\n    </AccordionItemContent>\n  </AccordionItem>\n</Accordion>'}
+/>
+
+<PropChips
+  items={[
+    ['defaultValue', 'Éléments ouverts au départ, tableau de valeurs.'],
+    ['multiple', 'Permet d’ouvrir plusieurs éléments à la fois.'],
+    ['collapsible', 'Permet de refermer le seul élément ouvert.'],
+  ]}
+/>
 
 Utilisez `Accordion` comme racine et attribuez un identifiant `value` stable à chaque élément.
 Placez le libellé interactif dans le déclencheur, le panneau dans la partie de contenu, puis son
@@ -141,12 +154,41 @@ qu’Ark puisse mesurer et animer correctement le panneau.
 
 ### Points d’accroche CSS
 
-- Sélecteurs `data-slot` stables : `accordion-root`, `accordion-root-provider`, `accordion-item`,
-  `accordion-item-trigger`, `accordion-item-indicator`, `accordion-item-content` et
-  `accordion-item-body`.
+| Partie | `data-slot` |
+| --- | --- |
+| `Accordion` | `accordion-root` |
+| `AccordionRootProvider` | `accordion-root-provider` |
+| `AccordionItem` | `accordion-item` |
+| `AccordionItemTrigger` | `accordion-item-trigger` |
+| `AccordionItemIndicator` | `accordion-item-indicator` |
+| `AccordionItemContent` | `accordion-item-content` |
+| `AccordionItemBody` | `accordion-item-body` |
+
 - Sélecteurs des parties Ark : `data-scope="accordion"` et
   `data-part="root|item|item-trigger|item-indicator|item-content"`.
 - Sélecteur spécifique à moduix : `data-part="item-body"` sur la partie interne de l'élément.
 - Sélecteurs d'état Ark : `data-state="open|closed"`, `data-disabled`, `data-focus`, `data-controls`
   et `data-orientation="horizontal|vertical"`.
 - Variables de contenu Ark : `--height` pour l'animation verticale et `--width` pour l'animation horizontale.
+
+## Clavier
+
+| Touche | Action |
+| --- | --- |
+| `Enter` / `Space` | Ouvre ou ferme l’élément ayant le focus. |
+| `ArrowDown` / `ArrowUp` | Déplace le focus vers le déclencheur suivant ou précédent. |
+| `Home` / `End` | Déplace le focus vers le premier ou le dernier déclencheur. |
+
+## Référence de l’API
+
+| Prop | Type | Défaut |
+| --- | --- | --- |
+| `value` | `string[]` | — |
+| `defaultValue` | `string[]` | — |
+| `onValueChange` | `(details: ValueChangeDetails) => void` | — |
+| `multiple` | `boolean` | `false` |
+| `collapsible` | `boolean` | `false` |
+| `disabled` | `boolean` | `false` |
+| `orientation` | `'horizontal' \| 'vertical'` | `'vertical'` |
+| `lazyMount` | `boolean` | `false` |
+| `unmountOnExit` | `boolean` | `false` |

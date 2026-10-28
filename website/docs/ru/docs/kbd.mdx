@@ -1,7 +1,7 @@
 ---
 title: Kbd
 component: kbd
-description: Компактный компонент для обозначения сочетаний клавиш, команд и отдельных клавиш в интерфейсе.
+description: Клавиша или сочетание клавиш в строке рядом с окружающим текстом.
 ark: https://ark-ui.com/docs/guides/composition#the-ark-factory
 ---
 
@@ -14,6 +14,18 @@ import * as KbdDocs from '@/components/examples/kbd/css-properties';
 <ComponentInstall />
 
 ## Использование
+
+<UsageCode
+  react={'<KbdGroup aria-label="Command K">\n  <Kbd>⌘</Kbd>\n  <Kbd>K</Kbd>\n</KbdGroup>'}
+  vue={'<KbdGroup aria-label="Command K">\n  <Kbd>⌘</Kbd>\n  <Kbd>K</Kbd>\n</KbdGroup>'}
+/>
+
+<PropChips
+  items={[
+    ['KbdGroup', 'Объединяет клавиши одного сочетания.'],
+    ['aria-label', 'Читает сочетание словами, например «Command K».'],
+  ]}
+/>
 
 Используйте `Kbd`, чтобы показать одну клавишу. Для сочетания из нескольких клавиш поместите клавиши и текстовые разделители в `KbdGroup`.
 
@@ -81,7 +93,18 @@ KbdGroup
 
 ### Хуки стилизации
 
-- `data-slot="kbd-root"` выбирает отдельный элемент клавиши
-- `data-slot="kbd-group"` выбирает строчный контейнер для сгруппированных сочетаний
+| Часть | `data-slot` |
+| --- | --- |
+| `Kbd` | `kbd-root` |
+| `KbdGroup` | `kbd-group` |
+
 - `[data-scope="kbd"][data-part="root"]` и `[data-part="group"]` предоставляют селекторы анатомии в стиле Ark
 - Разделители в `KbdGroup` наследуют цвет текста группы. Чтобы его изменить, задайте `color` для `KbdGroup` своим классом
+
+## Справочник API
+
+`Kbd` рендерит элемент `kbd`, а `KbdGroup` элемент `span`. Оба принимают нативные пропсы и `asChild`.
+
+| Проп | Тип | По умолчанию |
+| --- | --- | --- |
+| `asChild` | `boolean` | `false` |

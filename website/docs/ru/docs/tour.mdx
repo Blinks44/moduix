@@ -1,7 +1,7 @@
 ---
 title: Tour
 component: tour
-description: Компонент для пошагового знакомства с продуктом на основе состояния Tour из Ark UI, с доступным оверлеем и готовыми действиями.
+description: Пошаговое знакомство с продуктом с привязкой шагов к элементам страницы.
 ark: https://ark-ui.com/docs/components/tour
 ---
 
@@ -12,6 +12,20 @@ ark: https://ark-ui.com/docs/components/tour
 <ComponentInstall />
 
 ## Использование
+
+<UsageCode
+  react={'const tour = useTour({\n  steps: [\n    {\n      id: \'upload\',\n      type: \'tooltip\',\n      title: \'Upload files\',\n      target: () => document.querySelector(\'#upload\'),\n      actions: [{ label: \'Next\', action: \'next\' }],\n    },\n  ],\n});\n\n<Tour tour={tour}>\n  <TourBackdrop />\n  <TourSpotlight />\n  <TourPositioner>\n    <TourContent>\n      <TourTitle />\n      <TourDescription />\n      <TourActionList />\n    </TourContent>\n  </TourPositioner>\n</Tour>'}
+  vue={'const tour = useTour({\n  steps: [\n    {\n      id: \'upload\',\n      type: \'tooltip\',\n      title: \'Upload files\',\n      target: () => document.querySelector(\'#upload\'),\n      actions: [{ label: \'Next\', action: \'next\' }],\n    },\n  ],\n});\n\n<Tour :tour="tour">\n  <TourBackdrop />\n  <TourSpotlight />\n  <TourPositioner>\n    <TourContent>\n      <TourTitle />\n      <TourDescription />\n      <TourActionList />\n    </TourContent>\n  </TourPositioner>\n</Tour>'}
+/>
+
+<PropChips
+  items={[
+    ['steps', 'У каждого шага id, тип, текст и действия.'],
+    ['type', 'dialog, tooltip, floating или wait для ожидания действия.'],
+    ['target', 'Возвращает элемент, к которому привязан шаг tooltip.'],
+    ['tour.start()', 'Запускает тур с первого шага.'],
+  ]}
+/>
 
 Создайте состояние тура через `useTour`, опишите шаги и передайте возвращённый объект в `Tour`. В примере сначала
 открывается диалог, затем подсказка у элемента интерфейса, а в конце появляется плавающий шаг. Оставляйте части
@@ -113,9 +127,49 @@ Tour
 
 ### Хуки стилизации
 
-Основные публичные хуки: `data-slot="tour-backdrop"`, `tour-spotlight`, `tour-positioner`, `tour-content`,
-`tour-arrow`, `tour-arrow-tip`, `tour-title`, `tour-description`, `tour-progress-text`, `tour-body`,
-`tour-close-trigger`, `tour-close-icon`, `tour-control` и `tour-action-trigger`. Ark также добавляет
+| Часть | `data-slot` |
+| --- | --- |
+| `TourBackdrop` | `tour-backdrop` |
+| `TourSpotlight` | `tour-spotlight` |
+| `TourPositioner` | `tour-positioner` |
+| `TourContent` | `tour-content` |
+| `TourArrow` | `tour-arrow` |
+| `TourArrowTip` | `tour-arrow-tip` |
+| `TourTitle` | `tour-title` |
+| `TourDescription` | `tour-description` |
+| `TourProgressText` | `tour-progress-text` |
+| `TourBody` | `tour-body` |
+| `TourCloseTrigger` | `tour-close-trigger` |
+| `TourCloseIcon` | `tour-close-icon` |
+| `TourControl` | `tour-control` |
+| `TourActionTrigger` | `tour-action-trigger` |
+
+Ark также добавляет
 `data-scope="tour"`, `data-part`, `data-state`, `data-type`, `data-placement`, `data-side`, `data-step` и
 `data-disabled`, а также переменные времени выполнения, включая `--tour-layer`, `--available-width`,
 `--available-height`, `--transform-origin` и переменные стрелки.
+
+## Клавиатура
+
+| Клавиша | Действие |
+| --- | --- |
+| `ArrowRight` / `ArrowLeft` | Переходит к следующему или предыдущему шагу, если включён keyboardNavigation. |
+| `Tab` / `Shift+Tab` | Перемещает между действиями шага. |
+| `Esc` | Завершает тур. |
+
+## Справочник API
+
+Опции `useTour()`. Возвращённый объект передайте в `Tour` как `tour`.
+
+| Проп | Тип | По умолчанию |
+| --- | --- | --- |
+| `steps` | `TourStepDetails[]` | — |
+| `stepId` | `string \| null` | — |
+| `onStepChange` | `(details: StepChangeDetails) => void` | — |
+| `onStatusChange` | `(details: StatusChangeDetails) => void` | — |
+| `keyboardNavigation` | `boolean` | `true` |
+| `closeOnEscape` | `boolean` | `true` |
+| `closeOnInteractOutside` | `boolean` | `true` |
+| `preventInteraction` | `boolean` | `false` |
+| `spotlightOffset` | `{ x: number; y: number }` | `{ x: 10, y: 10 }` |
+| `spotlightRadius` | `number` | `4` |

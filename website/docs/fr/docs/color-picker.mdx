@@ -1,7 +1,7 @@
 ---
 title: Color Picker
 component: color-picker
-description: Un sélecteur de couleurs basé sur Ark UI pour choisir une couleur, modifier ses canaux et sélectionner des couleurs prédéfinies, avec React, Solid ou Vue.
+description: Choisir une couleur avec une zone, des curseurs, des champs et des nuanciers.
 ark: https://ark-ui.com/docs/components/color-picker
 ---
 
@@ -14,6 +14,20 @@ import * as ColorPickerDocs from '@/components/examples/color-picker/css-propert
 <ComponentInstall />
 
 ## Utilisation
+
+<UsageCode
+  react={'<ColorPicker defaultValue={parseColor(\'#eb5e41\')} defaultFormat="hsla" onValueChangeEnd={(details) => save(details.valueAsString)}>\n  <ColorPickerLabel>Brand color</ColorPickerLabel>\n  <ColorPickerControl>\n    <ColorPickerChannelInput channel="hex" />\n    <ColorPickerTrigger aria-label="Open color picker" />\n  </ColorPickerControl>\n  <ColorPickerPositioner>\n    <ColorPickerContent>\n      <ColorPickerArea />\n      <ColorPickerChannelSlider channel="hue" />\n    </ColorPickerContent>\n  </ColorPickerPositioner>\n  <ColorPickerHiddenInput />\n</ColorPicker>'}
+  vue={'<ColorPicker :default-value="parseColor(\'#eb5e41\')" default-format="hsla" @value-change-end="(details) => save(details.valueAsString)">\n  <ColorPickerLabel>Brand color</ColorPickerLabel>\n  <ColorPickerControl>\n    <ColorPickerChannelInput channel="hex" />\n    <ColorPickerTrigger aria-label="Open color picker" />\n  </ColorPickerControl>\n  <ColorPickerPositioner>\n    <ColorPickerContent>\n      <ColorPickerArea />\n      <ColorPickerChannelSlider channel="hue" />\n    </ColorPickerContent>\n  </ColorPickerPositioner>\n  <ColorPickerHiddenInput />\n</ColorPicker>'}
+/>
+
+<PropChips
+  items={[
+    ['defaultValue', 'Couleur initiale via parseColor() ; contrôlez-la avec value.'],
+    ['defaultFormat', 'rgba, hsla ou hsba pour les champs de canaux.'],
+    ['inline', 'Affiche le sélecteur dans la page sans popup.'],
+    ['onValueChangeEnd', 'Appelé quand l’utilisateur a fini de glisser.'],
+  ]}
+/>
 
 Commencez par un champ compact composé du composant racine, d’un champ pour un canal, de la pastille par défaut du bouton
 d’ouverture et du contenu explicite de la fenêtre contextuelle. Les parties internes peuvent rester sans enfants : le
@@ -209,7 +223,38 @@ Utilisez `className` en React ou `class` en Solid et Vue sur les parties export�
 
 <CssPropertiesSection properties={ColorPickerDocs.colorPickerOverrideCssProperties} />
 
-### Sélecteurs de style
+### Points d’accroche CSS
+
+| Partie | `data-slot` |
+| --- | --- |
+| `ColorPicker` | `color-picker-root` |
+| `ColorPickerRootProvider` | `color-picker-root-provider` |
+| `ColorPickerLabel` | `color-picker-label` |
+| `ColorPickerControl` | `color-picker-control` |
+| `ColorPickerTrigger` | `color-picker-trigger` |
+| `ColorPickerPositioner` | `color-picker-positioner` |
+| `ColorPickerContent` | `color-picker-content` |
+| `ColorPickerArea` | `color-picker-area` |
+| `ColorPickerAreaBackground` | `color-picker-area-background` |
+| `ColorPickerAreaThumb` | `color-picker-area-thumb` |
+| `ColorPickerChannelSlider` | `color-picker-channel-slider` |
+| `ColorPickerSliders` | `color-picker-sliders` |
+| `ColorPickerChannelSliderTrack` | `color-picker-channel-slider-track` |
+| `ColorPickerChannelSliderThumb` | `color-picker-channel-slider-thumb` |
+| `ColorPickerChannelSliderLabel` | `color-picker-channel-slider-label` |
+| `ColorPickerChannelSliderValueText` | `color-picker-channel-slider-value-text` |
+| `ColorPickerChannelInput` | `color-picker-channel-input` |
+| `ColorPickerEyeDropperTrigger` | `color-picker-eye-dropper-trigger` |
+| `ColorPickerFormatSelect` | `color-picker-format-select` |
+| `ColorPickerFormatTrigger` | `color-picker-format-trigger` |
+| `ColorPickerSwatchGroup` | `color-picker-swatch-group` |
+| `ColorPickerSwatchTrigger` | `color-picker-swatch-trigger` |
+| `ColorPickerSwatch` | `color-picker-swatch` |
+| `ColorPickerSwatchIndicator` | `color-picker-swatch-indicator` |
+| `ColorPickerTransparencyGrid` | `color-picker-transparency-grid` |
+| `ColorPickerValueSwatch` | `color-picker-value-swatch` |
+| `ColorPickerValueText` | `color-picker-value-text` |
+| `ColorPickerView` | `color-picker-view` |
 
 Utilisez la partie qui contrôle l’aspect visuel concerné :
 
@@ -231,3 +276,35 @@ disponibles à l’exécution comprennent `--color`, `--value`, `--available-wid
 
 Lorsque `prefers-reduced-motion` est activé, les animations d’ouverture et de fermeture de la fenêtre contextuelle sont
 désactivées ; Ark termine quand même son cycle de fermeture.
+
+## Clavier
+
+| Touche | Action |
+| --- | --- |
+| `Enter` / `Space` | Ouvre le sélecteur depuis le déclencheur. |
+| `ArrowUp` / `ArrowDown` / `ArrowLeft` / `ArrowRight` | Déplace le curseur de la zone ou du curseur ayant le focus. |
+| `Esc` | Ferme le sélecteur. |
+
+## Référence de l’API
+
+| Prop | Type | Défaut |
+| --- | --- | --- |
+| `value` | `Color` | — |
+| `defaultValue` | `Color` | `#000000` |
+| `onValueChange` | `(details: ValueChangeDetails) => void` | — |
+| `onValueChangeEnd` | `(details: ValueChangeDetails) => void` | — |
+| `format` | `'rgba' \| 'hsla' \| 'hsba'` | — |
+| `defaultFormat` | `'rgba' \| 'hsla' \| 'hsba'` | `'rgba'` |
+| `open` | `boolean` | — |
+| `defaultOpen` | `boolean` | `false` |
+| `onOpenChange` | `(details: OpenChangeDetails) => void` | — |
+| `inline` | `boolean` | `false` |
+| `closeOnSelect` | `boolean` | `false` |
+| `positioning` | `PositioningOptions` | — |
+| `name` | `string` | — |
+| `disabled` | `boolean` | `false` |
+| `readOnly` | `boolean` | `false` |
+| `invalid` | `boolean` | `false` |
+| `required` | `boolean` | `false` |
+| `lazyMount` | `boolean` | `true` |
+| `unmountOnExit` | `boolean` | `true` |

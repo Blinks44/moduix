@@ -1,7 +1,7 @@
 ---
 title: Image Cropper
 component: image-cropper
-description: A component for cropping and transforming images with zoom, rotation, and aspect-ratio controls.
+description: Crop, zoom, rotate, and flip an image before upload.
 ark: https://ark-ui.com/docs/components/image-cropper
 ---
 
@@ -16,6 +16,20 @@ the Unsplash image.
 <ComponentInstall />
 
 ## Usage
+
+<UsageCode
+  react={'<ImageCropper aspectRatio={1} cropShape="circle" onCropChange={(details) => setCrop(details.crop)}>\n  <ImageCropperViewport>\n    <ImageCropperImage src={photo} alt="Profile photo" crossOrigin="anonymous" />\n    <ImageCropperCropArea />\n  </ImageCropperViewport>\n</ImageCropper>'}
+  vue={'<ImageCropper :aspect-ratio="1" crop-shape="circle" @crop-change="(details) => (crop = details.crop)">\n  <ImageCropperViewport>\n    <ImageCropperImage :src="photo" alt="Profile photo" cross-origin="anonymous" />\n    <ImageCropperCropArea />\n  </ImageCropperViewport>\n</ImageCropper>'}
+/>
+
+<PropChips
+  items={[
+    ['aspectRatio', 'Locks the crop to a width-to-height ratio.'],
+    ['cropShape', 'rectangle or circle.'],
+    ['onCropChange', 'Reports the crop rectangle as it changes.'],
+    ['minZoom / maxZoom', 'Zoom range, 1 to 5 by default.'],
+  ]}
+/>
 
 Use `ImageCropper` with `ImageCropperViewport`, `ImageCropperImage`, and `ImageCropperCropArea`.
 Pass the image URL to `ImageCropperImage`. `ImageCropperCropArea` adds the selection, grid lines,
@@ -151,9 +165,17 @@ tracks.
 
 ### Styling hooks
 
-Use the stable `data-slot` hooks `image-cropper-root`, `image-cropper-root-provider`,
-`image-cropper-viewport`, `image-cropper-image`, `image-cropper-selection`, `image-cropper-grid`,
-and `image-cropper-handle` for local styling. Ark also exposes `data-scope="image-cropper"`,
+| Part | `data-slot` |
+| --- | --- |
+| `ImageCropper` | `image-cropper-root` |
+| `ImageCropperRootProvider` | `image-cropper-root-provider` |
+| `ImageCropperViewport` | `image-cropper-viewport` |
+| `ImageCropperImage` | `image-cropper-image` |
+| `ImageCropperSelection` | `image-cropper-selection` |
+| `ImageCropperGrid` | `image-cropper-grid` |
+| `ImageCropperHandle` | `image-cropper-handle` |
+
+Ark also exposes `data-scope="image-cropper"`,
 `data-part`, and state attributes such as `data-fixed`, `data-shape`, `data-pinch`, `data-ready`,
 `data-disabled`, `data-measured`, `data-dragging`, `data-panning`, `data-axis`, and `data-position`
 on the relevant parts.
@@ -161,3 +183,35 @@ on the relevant parts.
 Ark writes `--crop-width`, `--crop-height`, `--crop-x`, `--crop-y`, `--image-zoom`,
 `--image-rotation`, `--image-offset-x`, and `--image-offset-y` on the root. These are read-only
 runtime values for synchronizing custom UI. Do not override them.
+
+## Keyboard
+
+| Key | Action |
+| --- | --- |
+| `ArrowUp` / `ArrowDown` / `ArrowLeft` / `ArrowRight` | Moves the crop area; Shift and Ctrl take larger steps. |
+| `Alt` + arrows | Resizes the crop area. |
+| `+` / `-` | Zooms in or out. |
+
+## API reference
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `aspectRatio` | `number` | — |
+| `cropShape` | `'rectangle' \| 'circle'` | `'rectangle'` |
+| `initialCrop` | `Rect` | — |
+| `fixedCropArea` | `boolean` | `false` |
+| `minWidth` | `number` | `40` |
+| `minHeight` | `number` | `40` |
+| `maxWidth` | `number` | `Infinity` |
+| `maxHeight` | `number` | `Infinity` |
+| `zoom` | `number` | — |
+| `defaultZoom` | `number` | `1` |
+| `minZoom` | `number` | `1` |
+| `maxZoom` | `number` | `5` |
+| `zoomStep` | `number` | `0.1` |
+| `rotation` | `number` | — |
+| `defaultRotation` | `number` | `0` |
+| `flip` | `{ horizontal: boolean; vertical: boolean }` | — |
+| `onCropChange` | `(details: CropChangeDetails) => void` | — |
+| `onZoomChange` | `(details: ZoomChangeDetails) => void` | — |
+| `onRotationChange` | `(details: RotationChangeDetails) => void` | — |

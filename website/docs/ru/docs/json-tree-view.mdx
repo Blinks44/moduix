@@ -1,7 +1,7 @@
 ---
 title: JSON Tree View
 component: json-tree-view
-description: Просматривайте значения JSON и JavaScript в доступном раскрываемом дереве с JsonTreeView из moduix.
+description: Просмотр JSON и значений JavaScript в раскрывающемся дереве.
 ark: https://ark-ui.com/docs/utilities/json-tree-view
 ---
 
@@ -12,6 +12,19 @@ ark: https://ark-ui.com/docs/utilities/json-tree-view
 <ComponentInstall />
 
 ## Использование
+
+<UsageCode
+  react={'<JsonTreeView data={deployment} defaultExpandedDepth={2} quotesOnKeys>\n  <JsonTreeViewTree />\n</JsonTreeView>'}
+  vue={'<JsonTreeView :data="deployment" :default-expanded-depth="2" quotes-on-keys>\n  <JsonTreeViewTree />\n</JsonTreeView>'}
+/>
+
+<PropChips
+  items={[
+    ['data', 'Любое JSON-подобное значение: объекты, массивы, Map, Set, Date.'],
+    ['defaultExpandedDepth', 'Сколько уровней открыто сразу.'],
+    ['maxPreviewItems', 'Сколько элементов видно в свёрнутом превью.'],
+  ]}
+/>
 
 Адаптеры фреймворков сохраняют одинаковые плоские имена компонентов; в примере Vue используются нативный SFC и
 именованные слоты.
@@ -75,8 +88,7 @@ JsonTreeViewRootProvider
 передайте собственную иконку через именованный слот `#arrow`, если для области просмотра нужна другая стрелка
 раскрытия.
 
-Сгенерированные узлы сохраняют атрибуты Ark `data-scope="json-tree-view"` и `data-part`. moduix добавляет
-стабильные селекторы `data-slot="json-tree-view-root"`, `json-tree-view-root-provider` и `json-tree-view-tree`.
+Сгенерированные узлы сохраняют атрибуты Ark `data-scope="json-tree-view"` и `data-part`.
 
 `JsonTreeViewTree` пробрасывает проп Ark `indentGuide`, когда вы включаете направляющие отступов. moduix не
 стилизует сгенерированные элементы `[data-part='branch-indent-guide']`; при включённых направляющих задайте им
@@ -87,3 +99,31 @@ JsonTreeViewRootProvider
 Компонент напрямую использует базовые токены и не вводит отдельный слой переменных
 `--moduix-json-tree-view-*`. Если области просмотра нужно другое оформление, добавьте класс или обратитесь к
 атрибутам частей Ark.
+
+### Хуки стилизации
+
+| Часть | `data-slot` |
+| --- | --- |
+| `JsonTreeView` | `json-tree-view-root` |
+| `JsonTreeViewRootProvider` | `json-tree-view-root-provider` |
+| `JsonTreeViewTree` | `json-tree-view-tree` |
+
+## Клавиатура
+
+| Клавиша | Действие |
+| --- | --- |
+| `ArrowDown` / `ArrowUp` | Переводит фокус на следующую или предыдущую строку. |
+| `ArrowRight` / `ArrowLeft` | Открывает или закрывает объект или массив в фокусе. |
+| `Home` / `End` | Переводит фокус на первую или последнюю строку. |
+
+## Справочник API
+
+| Проп | Тип | По умолчанию |
+| --- | --- | --- |
+| `data` | `unknown` | — |
+| `defaultExpandedDepth` | `number` | — |
+| `quotesOnKeys` | `boolean` | `false` |
+| `maxPreviewItems` | `number` | — |
+| `collapseStringsAfterLength` | `number` | — |
+| `groupArraysAfterLength` | `number` | — |
+| `showNonenumerable` | `boolean` | `false` |

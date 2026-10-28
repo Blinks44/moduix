@@ -1,7 +1,7 @@
 ---
 title: Separator
 component: separator
-description: Доступные горизонтальные и вертикальные разделители для React, Solid и Vue.
+description: Линия между связанными разделами, горизонтальная или вертикальная.
 ark: https://ark-ui.com/docs/guides/composition#the-ark-factory
 ---
 
@@ -14,6 +14,19 @@ import * as SeparatorDocs from '@/components/examples/separator/css-properties';
 <ComponentInstall />
 
 ## Использование
+
+<UsageCode
+  react={'<Separator orientation="vertical" variant="dashed" size="md" />'}
+  vue={'<Separator orientation="vertical" variant="dashed" size="md" />'}
+/>
+
+<PropChips
+  items={[
+    ['orientation', 'horizontal или vertical.'],
+    ['variant', 'solid, dashed или dotted.'],
+    ['size', 'Толщина линии от xs до lg.'],
+  ]}
+/>
 
 Используйте `Separator`, чтобы визуально обозначить границу между связанными разделами. По умолчанию
 используются `orientation="horizontal"`, `variant="solid"` и `size="sm"`.
@@ -90,8 +103,21 @@ Tailwind применяйте нативные utility-классы и клас�
 
 ### Хуки стилизации
 
+| Часть | `data-slot` |
+| --- | --- |
+| `Separator` | `separator-root` |
+
 - `data-scope="separator"` и `data-part="root"` определяют корневую часть в стиле Ark.
-- `data-slot="separator-root"` является стабильным селектором moduix.
 - `data-orientation="horizontal"` и `data-orientation="vertical"` позволяют настраивать стили для каждой оси.
 - `data-size="xs|sm|md|lg"` и `data-variant="solid|dashed|dotted"` раскрывают визуальные настройки.
 - `className` или `class`, а также `style` применяются непосредственно к корневому элементу.
+
+## Справочник API
+
+Также принимает нативные пропсы своего элемента и `asChild`.
+
+| Проп | Тип | По умолчанию |
+| --- | --- | --- |
+| `orientation` | `'horizontal' \| 'vertical'` | `'horizontal'` |
+| `variant` | `'solid' \| 'dashed' \| 'dotted'` | `'solid'` |
+| `size` | `'xs' \| 'sm' \| 'md' \| 'lg'` | `'sm'` |

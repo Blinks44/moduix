@@ -1,7 +1,7 @@
 ---
 title: Rating Group
 component: rating-group
-description: Contrôle de notation par étoiles fondé sur le primitif rating-group d’Ark UI pour React, Solid et Vue.
+description: Noter sur une échelle d’étoiles, demi-étoiles comprises.
 ark: https://ark-ui.com/docs/components/rating-group
 ---
 
@@ -14,6 +14,19 @@ import * as RatingGroupDocs from '@/components/examples/rating-group/css-propert
 <ComponentInstall />
 
 ## Utilisation
+
+<UsageCode
+  react={'<RatingGroup count={5} defaultValue={3.5} allowHalf name="rating">\n  <RatingGroupLabel>Overall satisfaction</RatingGroupLabel>\n  <RatingGroupControl>\n    <RatingGroupItems />\n  </RatingGroupControl>\n  <RatingGroupHiddenInput />\n</RatingGroup>'}
+  vue={'<RatingGroup :count="5" :default-value="3.5" allow-half name="rating">\n  <RatingGroupLabel>Overall satisfaction</RatingGroupLabel>\n  <RatingGroupControl>\n    <RatingGroupItems />\n  </RatingGroupControl>\n  <RatingGroupHiddenInput />\n</RatingGroup>'}
+/>
+
+<PropChips
+  items={[
+    ['count', 'Nombre d’étoiles, 5 par défaut.'],
+    ['allowHalf', 'Autorise les demi-étoiles.'],
+    ['readOnly', 'Affiche une note non modifiable.'],
+  ]}
+/>
 
 Utilisez `RatingGroup` comme racine et ajoutez `RatingGroupLabel`, `RatingGroupControl` et
 `RatingGroupItems` pour une notation standard par étoiles. Rendez `RatingGroupHiddenInput`
@@ -141,13 +154,42 @@ consommateur ; les variantes CSS Modules exposent aussi les variables enregistr�
 
 ### Points d’accroche CSS
 
-- `data-slot="rating-group-root"` et `data-slot="rating-group-root-provider"`
-- `data-slot="rating-group-label"`
-- `data-slot="rating-group-control"`
-- `data-slot="rating-group-item"`
-- `data-slot="rating-group-item-indicator"`
-- `data-slot="rating-group-item-indicator-bg"` et `data-slot="rating-group-item-indicator-fg"`
+| Partie | `data-slot` |
+| --- | --- |
+| `RatingGroup` | `rating-group-root` |
+| `RatingGroupRootProvider` | `rating-group-root-provider` |
+| `RatingGroupLabel` | `rating-group-label` |
+| `RatingGroupControl` | `rating-group-control` |
+| `RatingGroupItem` | `rating-group-item` |
+| `RatingGroupItemIndicator` | `rating-group-item-indicator` |
+| `RatingGroupItemIndicator`, élément interne | `rating-group-item-indicator-bg` |
+| `RatingGroupItemIndicator`, élément interne | `rating-group-item-indicator-fg` |
+
 - `data-size="xs" | "sm" | "md" | "lg" | "xl"` sur la racine ou le root provider
 - Attributs du label Ark : `data-disabled` et `data-required`
 - Attributs du control Ark : `data-disabled` et `data-readonly`
 - Attributs de l’item Ark : `data-checked`, `data-highlighted`, `data-half`, `data-disabled` et `data-readonly`
+
+## Clavier
+
+| Touche | Action |
+| --- | --- |
+| `ArrowRight` / `ArrowLeft` | Augmente ou diminue la note. |
+| `Home` / `End` | Règle la note minimale ou maximale. |
+
+## Référence de l’API
+
+| Prop | Type | Défaut |
+| --- | --- | --- |
+| `value` | `number` | — |
+| `defaultValue` | `number` | — |
+| `onValueChange` | `(details: ValueChangeDetails) => void` | — |
+| `onHoverChange` | `(details: HoverChangeDetails) => void` | — |
+| `count` | `number` | `5` |
+| `allowHalf` | `boolean` | `false` |
+| `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'` | `'md'` |
+| `name` | `string` | — |
+| `disabled` | `boolean` | `false` |
+| `readOnly` | `boolean` | `false` |
+| `invalid` | `boolean` | `false` |
+| `required` | `boolean` | `false` |

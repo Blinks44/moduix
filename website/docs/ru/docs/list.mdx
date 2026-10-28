@@ -1,7 +1,7 @@
 ---
 title: List
 component: list
-description: Семантический список с настраиваемыми отступами, типографикой, цветом и нативными маркерами.
+description: Маркированные и нумерованные списки с единым шагом и маркерами.
 ark: https://ark-ui.com/docs/guides/composition#the-ark-factory
 ---
 
@@ -12,6 +12,20 @@ ark: https://ark-ui.com/docs/guides/composition#the-ark-factory
 <ComponentInstall />
 
 ## Использование
+
+<UsageCode
+  react={'<List as="ol" gap="md" tone="muted">\n  <ListItem>Create a project</ListItem>\n  <ListItem>Invite your team</ListItem>\n</List>'}
+  vue={'<List as="ol" gap="md" tone="muted">\n  <ListItem>Create a project</ListItem>\n  <ListItem>Invite your team</ListItem>\n</List>'}
+/>
+
+<PropChips
+  items={[
+    ['as', 'ul или ol; маркеры следуют: disc или decimal.'],
+    ['marker', 'disc, decimal или none.'],
+    ['gap', 'Расстояние между пунктами, от xs до 2xl.'],
+    ['tone', 'default, muted, primary или destructive.'],
+  ]}
+/>
 
 `List` по умолчанию отрисовывает семантический `<ul>`. Используйте `ListItem`, если нужны стабильная часть
 элемента и её хуки стилизации, или передавайте обычные `<li>`, когда дополнительная обёртка не нужна. Корневой
@@ -120,6 +134,12 @@ List
 
 ### Хуки стилизации
 
+| Часть | `data-slot` |
+| --- | --- |
+| `List` | `list-root` |
+| `ListItem` | `list-item` |
+| `ListIndicator` | `list-indicator` |
+
 `List` предоставляет следующие публичные хуки стилизации:
 
 - корневой элемент: `data-scope="list"`, `data-part="root"`, `data-slot="list-root"`
@@ -130,3 +150,15 @@ List
 - `data-size="xs" | "sm" | "md" | "lg" | "xl"` для стилей размера типографики
 - `data-tone="default" | "muted" | "primary" | "destructive"` для семантических цветов
 - нативный селектор `li::marker` для переопределения цвета или толщины маркера
+
+## Справочник API
+
+Также принимает нативные пропсы своего элемента и `asChild`.
+
+| Проп | Тип | По умолчанию |
+| --- | --- | --- |
+| `as` | `'ul' \| 'ol'` | `'ul'` |
+| `marker` | `'disc' \| 'decimal' \| 'none'` | by `as` |
+| `gap` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl' \| '2xl'` | `'sm'` |
+| `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'` | `'md'` |
+| `tone` | `'default' \| 'muted' \| 'primary' \| 'destructive'` | `'default'` |

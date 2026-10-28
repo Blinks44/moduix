@@ -1,7 +1,7 @@
 ---
 title: Card
 component: card
-description: "Create flexible cards in React, Solid, or Vue, with package and shadcn installation options."
+description: Group a title, content, and actions on one surface.
 ark: https://ark-ui.com/docs/guides/composition#the-ark-factory
 ---
 
@@ -14,6 +14,19 @@ import * as CardDocs from '@/components/examples/card/css-properties';
 <ComponentInstall />
 
 ## Usage
+
+<UsageCode
+  react={'<Card variant="elevated" size="md">\n  <CardHeader>\n    <CardTitle>Release 2.4</CardTitle>\n    <CardDescription>Ready to promote.</CardDescription>\n  </CardHeader>\n  <CardBody>12 changes, all checks passed.</CardBody>\n  <CardFooter>\n    <Button>Promote</Button>\n  </CardFooter>\n</Card>'}
+  vue={'<Card variant="elevated" size="md">\n  <CardHeader>\n    <CardTitle>Release 2.4</CardTitle>\n    <CardDescription>Ready to promote.</CardDescription>\n  </CardHeader>\n  <CardBody>12 changes, all checks passed.</CardBody>\n  <CardFooter>\n    <Button>Promote</Button>\n  </CardFooter>\n</Card>'}
+/>
+
+<PropChips
+  items={[
+    ['variant', 'outline, elevated, or subtle surface.'],
+    ['size', 'Inner spacing: sm, md, or lg.'],
+    ['asChild', 'Renders the card as your link or article.'],
+  ]}
+/>
 
 Use `Card` as the root and add only the parts you need. Import each additional part directly, such
 as `CardHeader` and `CardTitle`. The same names work with npm packages and shadcn registry source.
@@ -145,12 +158,32 @@ Data attributes and `data-slot` hooks are shared by both styling tracks.
 
 ### Styling hooks
 
+| Part | `data-slot` |
+| --- | --- |
+| `Card` | `card-root` |
+| `CardHeader` | `card-header` |
+| `CardBody` | `card-body` |
+| `CardMedia` | `card-media` |
+| `CardBackground` | `card-background` |
+| `CardFooter` | `card-footer` |
+| `CardTitle` | `card-title` |
+| `CardDescription` | `card-description` |
+| `CardAction` | `card-action` |
+| `CardLink` | `card-link` |
+
 - Every part exposes `data-scope="card"` and a matching `data-part`.
-- Stable moduix hooks are `data-slot="card-root"`, `card-background`, `card-media`, `card-header`, `card-body`,
-  `card-footer`, `card-title`, `card-description`, `card-action`, and `card-link`.
 - The root exposes `data-size="sm | md | lg"` and `data-variant="elevated | outline | subtle"`.
 - The CSS variables override every variant. To theme one variant across the app, set them on
   `[data-slot='card-root'][data-variant='<variant>']`.
 - Each section has the same top inset, and the last section also gets it at the bottom. In Tailwind,
   change that bottom inset with `last:pb-*` on the section or `[--card-spacing:…]` on the root.
 - Card has no interactive state attributes because it owns no state or behavior.
+
+## API reference
+
+Also accepts the native props of its element and `asChild`.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `variant` | `'outline' \| 'elevated' \| 'subtle'` | `'outline'` |
+| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` |

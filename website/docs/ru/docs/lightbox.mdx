@@ -1,7 +1,7 @@
 ---
 title: Lightbox
 component: lightbox
-description: Модальный просмотрщик изображений с навигацией по галерее и управляемым состоянием в React, Solid и Vue.
+description: Просмотр изображений в модальном окне, по одному или галереей.
 ark: https://ark-ui.com/docs/components/dialog
 ---
 
@@ -18,6 +18,20 @@ import lightboxVueRootProviderAndContextPart from '../../../snippets/lightbox/vu
 <ComponentInstall />
 
 ## Использование
+
+<UsageCode
+  react={'<Lightbox>\n  <LightboxTrigger asChild>\n    <button type="button">\n      <img src={photo.thumbnail} alt={photo.alt} />\n    </button>\n  </LightboxTrigger>\n  <LightboxBackdrop />\n  <LightboxPositioner>\n    <LightboxContent aria-label={photo.alt}>\n      <LightboxCloseIcon />\n      <LightboxBody>\n        <LightboxImage src={photo.src} alt={photo.alt} closeOnClick />\n      </LightboxBody>\n    </LightboxContent>\n  </LightboxPositioner>\n</Lightbox>'}
+  solid={'<Lightbox>\n  <LightboxTrigger asChild={(props) => (\n    <button type="button" {...props()}>\n      <img src={photo.thumbnail} alt={photo.alt} />\n    </button>\n  )} />\n  <LightboxBackdrop />\n  <LightboxPositioner>\n    <LightboxContent aria-label={photo.alt}>\n      <LightboxCloseIcon />\n      <LightboxBody>\n        <LightboxImage src={photo.src} alt={photo.alt} closeOnClick />\n      </LightboxBody>\n    </LightboxContent>\n  </LightboxPositioner>\n</Lightbox>'}
+  vue={'<Lightbox>\n  <LightboxTrigger as-child>\n    <button type="button">\n      <img :src="photo.thumbnail" :alt="photo.alt" />\n    </button>\n  </LightboxTrigger>\n  <LightboxBackdrop />\n  <LightboxPositioner>\n    <LightboxContent :aria-label="photo.alt">\n      <LightboxCloseIcon />\n      <LightboxBody>\n        <LightboxImage :src="photo.src" :alt="photo.alt" close-on-click />\n      </LightboxBody>\n    </LightboxContent>\n  </LightboxPositioner>\n</Lightbox>'}
+/>
+
+<PropChips
+  items={[
+    ['closeOnClick', 'На LightboxImage: клик по изображению закрывает окно.'],
+    ['aria-label', 'Название окна; используйте alt изображения.'],
+    ['modal', 'false оставляет страницу доступной за окном.'],
+  ]}
+/>
 
 Явно соберите структуру диалога Ark UI из `Lightbox`, `LightboxTrigger`,
 `LightboxBackdrop`, `LightboxPositioner` и `LightboxContent`. С помощью `asChild` передайте
@@ -219,10 +233,22 @@ LightboxRootProvider
 
 ### Хуки стилизации
 
-- Слоты moduix: `lightbox-trigger`, `lightbox-backdrop`, `lightbox-positioner`,
-  `lightbox-content`, `lightbox-title`, `lightbox-description`, `lightbox-close-trigger`,
-  `lightbox-close-icon`, `lightbox-header`, `lightbox-body`, `lightbox-footer`, `lightbox-image`
-  и `lightbox-gallery`.
+| Часть | `data-slot` |
+| --- | --- |
+| `LightboxTrigger` | `lightbox-trigger` |
+| `LightboxBackdrop` | `lightbox-backdrop` |
+| `LightboxPositioner` | `lightbox-positioner` |
+| `LightboxContent` | `lightbox-content` |
+| `LightboxTitle` | `lightbox-title` |
+| `LightboxDescription` | `lightbox-description` |
+| `LightboxCloseTrigger` | `lightbox-close-trigger` |
+| `LightboxCloseIcon` | `lightbox-close-icon` |
+| `LightboxImage` | `lightbox-image` |
+| `LightboxGallery` | `lightbox-gallery` |
+| `LightboxHeader` | `lightbox-header` |
+| `LightboxBody` | `lightbox-body` |
+| `LightboxFooter` | `lightbox-footer` |
+
 - Атрибуты состояния и анатомии Ark: `data-scope="dialog"`, `data-part`, `data-state="open|closed"`,
   `data-nested`, `data-has-nested`, `--layer-index` и `--nested-layer-count`.
 - Локальные точки настройки: `LightboxImage` добавляет `data-slot="lightbox-image"` и, если
@@ -236,3 +262,32 @@ LightboxRootProvider
   лайтбокса, добавьте класс на нужную часть. Подложка читает общие `--moduix-backdrop-bg` и
   `--moduix-backdrop-filter`, анимация содержимого — `--moduix-popup-motion-*` на `LightboxContent`,
   а `LightboxCloseIcon` — переменные `--moduix-close-button-*`.
+
+## Клавиатура
+
+| Клавиша | Действие |
+| --- | --- |
+| `Enter` / `Space` | Открывает с кнопки в фокусе. |
+| `Tab` / `Shift+Tab` | Перемещает фокус между элементами; пока открыто, фокус не выходит наружу. |
+| `Esc` | Закрывает и возвращает фокус на кнопку. |
+
+## Справочник API
+
+`Lightbox` принимает те же пропсы, что и `Dialog`. `LightboxImage` добавляет `closeOnClick` (`boolean`, по умолчанию `false`).
+
+| Проп | Тип | По умолчанию |
+| --- | --- | --- |
+| `open` | `boolean` | — |
+| `defaultOpen` | `boolean` | `false` |
+| `onOpenChange` | `(details: OpenChangeDetails) => void` | — |
+| `modal` | `boolean` | `true` |
+| `role` | `'dialog' \| 'alertdialog'` | `'dialog'` |
+| `closeOnEscape` | `boolean` | `true` |
+| `closeOnInteractOutside` | `boolean` | `true` |
+| `trapFocus` | `boolean` | `true` |
+| `preventScroll` | `boolean` | `true` |
+| `initialFocusEl` | `() => HTMLElement \| null \| false` | — |
+| `finalFocusEl` | `() => HTMLElement \| null` | — |
+| `lazyMount` | `boolean` | `true` |
+| `unmountOnExit` | `boolean` | `true` |
+| `portalled` | `boolean` | `true` |

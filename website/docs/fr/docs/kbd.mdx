@@ -1,7 +1,7 @@
 ---
 title: Kbd
 component: kbd
-description: Un composant compact pour afficher des raccourcis clavier, des commandes et des libellés de touches dans l’interface.
+description: Afficher une touche ou un raccourci dans le texte.
 ark: https://ark-ui.com/docs/guides/composition#the-ark-factory
 ---
 
@@ -14,6 +14,18 @@ import * as KbdDocs from '@/components/examples/kbd/css-properties';
 <ComponentInstall />
 
 ## Utilisation
+
+<UsageCode
+  react={'<KbdGroup aria-label="Command K">\n  <Kbd>⌘</Kbd>\n  <Kbd>K</Kbd>\n</KbdGroup>'}
+  vue={'<KbdGroup aria-label="Command K">\n  <Kbd>⌘</Kbd>\n  <Kbd>K</Kbd>\n</KbdGroup>'}
+/>
+
+<PropChips
+  items={[
+    ['KbdGroup', 'Regroupe les touches d’un raccourci.'],
+    ['aria-label', 'Lit le raccourci en mots, par exemple « Command K ».'],
+  ]}
+/>
 
 Utilisez `Kbd` pour afficher une touche. Pour un raccourci composé de plusieurs touches, placez les touches et leurs séparateurs textuels dans `KbdGroup`.
 
@@ -81,7 +93,18 @@ Personnalisez `Kbd` et `KbdGroup` avec `className` en React ou `class` en Solid 
 
 ### Points d’accroche CSS
 
-- `data-slot="kbd-root"` cible chaque touche affichée
-- `data-slot="kbd-group"` cible le conteneur en ligne des raccourcis regroupés
+| Partie | `data-slot` |
+| --- | --- |
+| `Kbd` | `kbd-root` |
+| `KbdGroup` | `kbd-group` |
+
 - `[data-scope="kbd"][data-part="root"]` et `[data-part="group"]` fournissent des sélecteurs d’anatomie dans le style d’Ark
 - Les séparateurs de `KbdGroup` héritent de la couleur du texte du groupe. Pour la changer, définissez `color` sur `KbdGroup` avec votre propre classe
+
+## Référence de l’API
+
+`Kbd` rend un élément `kbd` et `KbdGroup` un `span`. Les deux acceptent leurs props natives et `asChild`.
+
+| Prop | Type | Défaut |
+| --- | --- | --- |
+| `asChild` | `boolean` | `false` |

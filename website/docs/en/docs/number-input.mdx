@@ -1,7 +1,7 @@
 ---
 title: Number Input
 component: number-input
-description: A numeric input built on Ark UI with increment and decrement controls, formatting, validation, and optional drag-to-change interaction.
+description: Enter a number with step buttons, limits, and locale formatting.
 ark: https://ark-ui.com/docs/components/number-input
 ---
 
@@ -15,10 +15,19 @@ import * as NumberInputDocs from '@/components/examples/number-input/css-propert
 
 ## Usage
 
-Import it from `@moduix/react/number-input`, `@moduix/solid/number-input`, or
-`@moduix/vue/number-input` for CSS Modules. For Tailwind CSS, use the matching
-`@moduix/react-tailwind/number-input`, `@moduix/solid-tailwind/number-input`, or
-`@moduix/vue-tailwind/number-input` path.
+<UsageCode
+  react={'<NumberInput defaultValue="100" min={0} max={1000} step={5} formatOptions={{ style: \'currency\', currency: \'USD\' }}>\n  <NumberInputLabel>Amount</NumberInputLabel>\n  <NumberInputField />\n</NumberInput>'}
+  vue={'<NumberInput default-value="100" :min="0" :max="1000" :step="5" :format-options="{ style: \'currency\', currency: \'USD\' }">\n  <NumberInputLabel>Amount</NumberInputLabel>\n  <NumberInputField />\n</NumberInput>'}
+/>
+
+<PropChips
+  items={[
+    ['defaultValue', 'Starting value as a string; use value to control it.'],
+    ['min / max', 'Limits; the value is clamped on blur.'],
+    ['step', 'Change per arrow press or button click.'],
+    ['formatOptions', 'Intl options, such as currency or percent.'],
+  ]}
+/>
 
 Use `NumberInput` as the root and `NumberInputField` for the standard input with increment and
 decrement controls. Give the input an accessible name with `NumberInputLabel`, `aria-label`, or
@@ -174,8 +183,50 @@ Data attributes and `data-slot` hooks are shared by both styling tracks.
 
 ### Styling hooks
 
-- Stable `data-slot` selectors: `number-input-root`, `number-input-root-provider`, `number-input-label`,
-  `number-input-scrubber`, `number-input-control`, `number-input-decrement-trigger`,
-  `number-input-input`, `number-input-increment-trigger`, and `number-input-value-text`.
+| Part | `data-slot` |
+| --- | --- |
+| `NumberInput` | `number-input-root` |
+| `NumberInputRootProvider` | `number-input-root-provider` |
+| `NumberInputLabel` | `number-input-label` |
+| `NumberInputScrubber` | `number-input-scrubber` |
+| `NumberInputControl` | `number-input-control` |
+| `NumberInputDecrementTrigger` | `number-input-decrement-trigger` |
+| `NumberInputInput` | `number-input-input` |
+| `NumberInputIncrementTrigger` | `number-input-increment-trigger` |
+| `NumberInputValueText` | `number-input-value-text` |
+
 - Ark state hooks: `data-disabled`, `data-invalid`, `data-focus`, and `data-scrubbing`.
 - Ark part hooks: `data-scope="number-input"` and `data-part` values matching the Ark anatomy.
+
+## Keyboard
+
+| Key | Action |
+| --- | --- |
+| `ArrowUp` / `ArrowDown` | Increases or decreases by one step. |
+| `Shift` + arrows | Changes by a large step, 10 steps by default. |
+| `Home` / `End` | Sets the minimum or maximum. |
+| `Enter` | Commits the typed value. |
+
+## API reference
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `value` | `string` | — |
+| `defaultValue` | `string` | — |
+| `onValueChange` | `(details: ValueChangeDetails) => void` | — |
+| `onValueCommit` | `(details: ValueChangeDetails) => void` | — |
+| `min` | `number` | `Number.MIN_SAFE_INTEGER` |
+| `max` | `number` | `Number.MAX_SAFE_INTEGER` |
+| `step` | `number` | `1` |
+| `largeStep` | `number` | `10 * step` |
+| `formatOptions` | `Intl.NumberFormatOptions` | — |
+| `locale` | `string` | — |
+| `allowMouseWheel` | `boolean` | `false` |
+| `clampValueOnBlur` | `boolean` | `true` |
+| `spinOnPress` | `boolean` | `true` |
+| `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'` | `'md'` |
+| `name` | `string` | — |
+| `disabled` | `boolean` | `false` |
+| `readOnly` | `boolean` | `false` |
+| `invalid` | `boolean` | `false` |
+| `required` | `boolean` | `false` |

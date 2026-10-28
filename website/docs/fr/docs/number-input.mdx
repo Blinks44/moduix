@@ -1,7 +1,7 @@
 ---
 title: Number Input
 component: number-input
-description: Champ de saisie numérique basé sur Ark UI, avec boutons d’incrémentation et de décrémentation, formatage, validation et glissement facultatif.
+description: Saisir un nombre avec boutons de pas, limites et format local.
 ark: https://ark-ui.com/docs/components/number-input
 ---
 
@@ -15,10 +15,19 @@ import * as NumberInputDocs from '@/components/examples/number-input/css-propert
 
 ## Utilisation
 
-Importez-le depuis `@moduix/react/number-input`, `@moduix/solid/number-input` ou
-`@moduix/vue/number-input` pour CSS Modules. Pour Tailwind CSS, utilisez le chemin correspondant
-`@moduix/react-tailwind/number-input`, `@moduix/solid-tailwind/number-input` ou
-`@moduix/vue-tailwind/number-input`.
+<UsageCode
+  react={'<NumberInput defaultValue="100" min={0} max={1000} step={5} formatOptions={{ style: \'currency\', currency: \'USD\' }}>\n  <NumberInputLabel>Amount</NumberInputLabel>\n  <NumberInputField />\n</NumberInput>'}
+  vue={'<NumberInput default-value="100" :min="0" :max="1000" :step="5" :format-options="{ style: \'currency\', currency: \'USD\' }">\n  <NumberInputLabel>Amount</NumberInputLabel>\n  <NumberInputField />\n</NumberInput>'}
+/>
+
+<PropChips
+  items={[
+    ['defaultValue', 'Valeur initiale en chaîne ; contrôlez-la avec value.'],
+    ['min / max', 'Limites ; la valeur est bornée à la perte du focus.'],
+    ['step', 'Variation par flèche ou clic.'],
+    ['formatOptions', 'Options Intl, comme devise ou pourcentage.'],
+  ]}
+/>
 
 Utilisez `NumberInput` comme racine et `NumberInputField` pour le champ standard avec ses boutons d’incrémentation et
 de décrémentation. Donnez au champ un nom accessible avec `NumberInputLabel`, `aria-label` ou `aria-labelledby`.
@@ -174,8 +183,50 @@ les variantes CSS Modules. Les attributs de données et les hooks `data-slot` so
 
 ### Points d’accroche CSS
 
-- Sélecteurs `data-slot` stables : `number-input-root`, `number-input-root-provider`, `number-input-label`,
-  `number-input-scrubber`, `number-input-control`, `number-input-decrement-trigger`, `number-input-input`,
-  `number-input-increment-trigger` et `number-input-value-text`.
+| Partie | `data-slot` |
+| --- | --- |
+| `NumberInput` | `number-input-root` |
+| `NumberInputRootProvider` | `number-input-root-provider` |
+| `NumberInputLabel` | `number-input-label` |
+| `NumberInputScrubber` | `number-input-scrubber` |
+| `NumberInputControl` | `number-input-control` |
+| `NumberInputDecrementTrigger` | `number-input-decrement-trigger` |
+| `NumberInputInput` | `number-input-input` |
+| `NumberInputIncrementTrigger` | `number-input-increment-trigger` |
+| `NumberInputValueText` | `number-input-value-text` |
+
 - Attributs d’état Ark : `data-disabled`, `data-invalid`, `data-focus` et `data-scrubbing`.
 - Attributs des parties Ark : `data-scope="number-input"` et valeurs de `data-part` correspondant à l’anatomie Ark.
+
+## Clavier
+
+| Touche | Action |
+| --- | --- |
+| `ArrowUp` / `ArrowDown` | Augmente ou diminue d’un pas. |
+| `Shift` + arrows | Change d’un grand pas, 10 pas par défaut. |
+| `Home` / `End` | Règle le minimum ou le maximum. |
+| `Enter` | Valide la valeur saisie. |
+
+## Référence de l’API
+
+| Prop | Type | Défaut |
+| --- | --- | --- |
+| `value` | `string` | — |
+| `defaultValue` | `string` | — |
+| `onValueChange` | `(details: ValueChangeDetails) => void` | — |
+| `onValueCommit` | `(details: ValueChangeDetails) => void` | — |
+| `min` | `number` | `Number.MIN_SAFE_INTEGER` |
+| `max` | `number` | `Number.MAX_SAFE_INTEGER` |
+| `step` | `number` | `1` |
+| `largeStep` | `number` | `10 * step` |
+| `formatOptions` | `Intl.NumberFormatOptions` | — |
+| `locale` | `string` | — |
+| `allowMouseWheel` | `boolean` | `false` |
+| `clampValueOnBlur` | `boolean` | `true` |
+| `spinOnPress` | `boolean` | `true` |
+| `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'` | `'md'` |
+| `name` | `string` | — |
+| `disabled` | `boolean` | `false` |
+| `readOnly` | `boolean` | `false` |
+| `invalid` | `boolean` | `false` |
+| `required` | `boolean` | `false` |

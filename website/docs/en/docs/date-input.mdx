@@ -1,7 +1,7 @@
 ---
 title: Date Input
 component: date-input
-description: Build accessible segmented date inputs in React, Solid, or Vue with CSS Modules or Tailwind, including locale-aware editing and native form submission.
+description: Type a date into locale-aware day, month, and year segments.
 ark: https://ark-ui.com/docs/components/date-input
 ---
 
@@ -14,6 +14,20 @@ import * as DateInputDocs from '@/components/examples/date-input/css-properties'
 <ComponentInstall />
 
 ## Usage
+
+<UsageCode
+  react={'<DateInput defaultValue={[new CalendarDate(2026, 6, 22)]} min={today(getLocalTimeZone())} name="release-date">\n  <DateInputLabel>Release date</DateInputLabel>\n  <DateInputControl>\n    <DateInputSegments />\n  </DateInputControl>\n  <DateInputHiddenInput />\n</DateInput>'}
+  vue={'<DateInput :default-value="[new CalendarDate(2026, 6, 22)]" :min="today(getLocalTimeZone())" name="release-date">\n  <DateInputLabel>Release date</DateInputLabel>\n  <DateInputControl>\n    <DateInputSegments />\n  </DateInputControl>\n  <DateInputHiddenInput />\n</DateInput>'}
+/>
+
+<PropChips
+  items={[
+    ['defaultValue', 'Array of CalendarDate values from @internationalized/date.'],
+    ['min / max', 'Earliest and latest dates the user can enter.'],
+    ['granularity', 'Smallest segment: day, hour, minute, or second.'],
+    ['locale', 'Order and format of the segments.'],
+  ]}
+/>
 
 `DateInput` renders locale-aware date segments that users can edit with the keyboard. Put
 `DateInputSegments` inside `DateInputControl` for the standard composition.
@@ -168,10 +182,48 @@ The root is sized to its content and the control fills it. To stretch the input 
 
 ### Styling hooks
 
-- Stable `data-slot` selectors: `date-input-root`, `date-input-root-provider`, `date-input-label`,
-  `date-input-control`, `date-input-segment-group`, `date-input-segment`, and
-  `date-input-separator`.
+| Part | `data-slot` |
+| --- | --- |
+| `DateInput` | `date-input-root` |
+| `DateInputRootProvider` | `date-input-root-provider` |
+| `DateInputLabel` | `date-input-label` |
+| `DateInputControl` | `date-input-control` |
+| `DateInputSegmentGroup` | `date-input-segment-group` |
+| `DateInputSegment` | `date-input-segment` |
+| `DateInputSeparator` | `date-input-separator` |
+
 - Ark part selectors use `data-scope="date-input"` and the corresponding `data-part` values.
 - Ark state attributes include `data-disabled`, `data-readonly`, `data-invalid`, and `data-focus`
   on the control and segment groups, together with `data-type`, `data-editable`, and
   `data-placeholder-shown` on segments.
+
+## Keyboard
+
+| Key | Action |
+| --- | --- |
+| `ArrowLeft` / `ArrowRight` | Moves to the previous or next segment. |
+| `ArrowUp` / `ArrowDown` | Increases or decreases the focused segment. |
+| Digits | Type the value and move to the next segment. |
+| `Backspace` | Clears the focused segment. |
+
+## API reference
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `value` | `DateValue[]` | — |
+| `defaultValue` | `DateValue[]` | — |
+| `onValueChange` | `(details: ValueChangeDetails) => void` | — |
+| `min` | `DateValue` | — |
+| `max` | `DateValue` | — |
+| `isDateUnavailable` | `(date: DateValue, locale: string) => boolean` | — |
+| `granularity` | `'day' \| 'hour' \| 'minute' \| 'second'` | `'day'` |
+| `selectionMode` | `'single' \| 'range'` | `'single'` |
+| `locale` | `string` | — |
+| `timeZone` | `string` | — |
+| `hourCycle` | `12 \| 24` | — |
+| `shouldForceLeadingZeros` | `boolean` | `false` |
+| `name` | `string` | — |
+| `disabled` | `boolean` | `false` |
+| `readOnly` | `boolean` | `false` |
+| `invalid` | `boolean` | `false` |
+| `required` | `boolean` | `false` |

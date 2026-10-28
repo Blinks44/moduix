@@ -1,7 +1,7 @@
 ---
 title: Empty
 component: empty
-description: A composable empty-state component for no-results, no-data, and first-run screens.
+description: Fill an empty list or first-run screen with a message and next steps.
 ark: https://ark-ui.com/docs/guides/composition#the-ark-factory
 ---
 
@@ -14,6 +14,19 @@ import * as EmptyDocs from '@/components/examples/empty/css-properties';
 <ComponentInstall />
 
 ## Usage
+
+<UsageCode
+  react={'<Empty>\n  <EmptyIcon>\n    <InboxIcon />\n  </EmptyIcon>\n  <EmptyContent>\n    <EmptyTitle>No projects yet</EmptyTitle>\n    <EmptyDescription>Create a project to get started.</EmptyDescription>\n  </EmptyContent>\n  <EmptyActions>\n    <Button>New project</Button>\n  </EmptyActions>\n</Empty>'}
+  vue={'<Empty>\n  <EmptyIcon>\n    <InboxIcon />\n  </EmptyIcon>\n  <EmptyContent>\n    <EmptyTitle>No projects yet</EmptyTitle>\n    <EmptyDescription>Create a project to get started.</EmptyDescription>\n  </EmptyContent>\n  <EmptyActions>\n    <Button>New project</Button>\n  </EmptyActions>\n</Empty>'}
+/>
+
+<PropChips
+  items={[
+    ['EmptyIcon', 'Optional visual cue above the text.'],
+    ['EmptyTitle', 'Renders an h3; use asChild for another heading level.'],
+    ['EmptyActions', 'Optional row for the next step.'],
+  ]}
+/>
 
 Start with `<Empty />` and add its named parts. Add `EmptyIcon` and `EmptyActions` only when
 the state benefits from a visual cue or a clear next step.
@@ -86,6 +99,15 @@ once. Style the other parts with a class: it overrides the layered component sty
 
 ### Styling hooks
 
+| Part | `data-slot` |
+| --- | --- |
+| `Empty` | `empty-root` |
+| `EmptyIcon` | `empty-icon` |
+| `EmptyContent` | `empty-content` |
+| `EmptyTitle` | `empty-title` |
+| `EmptyDescription` | `empty-description` |
+| `EmptyActions` | `empty-actions` |
+
 Target the part that controls the visual property you want to change:
 
 - `[data-scope="empty"][data-part="root"]` or `[data-slot="empty-root"]` for container layout,
@@ -99,3 +121,11 @@ Target the part that controls the visual property you want to change:
   typography
 - `[data-scope="empty"][data-part="actions"]` or `[data-slot="empty-actions"]` for action row
   spacing and alignment
+
+## API reference
+
+Every part accepts the native props of its element and `asChild`.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `asChild` | `boolean` | `false` |

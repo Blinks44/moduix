@@ -1,7 +1,7 @@
 ---
 title: Container
 component: container
-description: Адаптивный примитив разметки для читабельной ширины содержимого и гибких горизонтальных отступов.
+description: Центрирует контент страницы по удобной ширине с адаптивными отступами.
 ark: https://ark-ui.com/docs/guides/composition#the-ark-factory
 ---
 
@@ -15,9 +15,18 @@ import * as ContainerDocs from '@/components/examples/container/css-properties';
 
 ## Использование
 
-Импортируйте `Container` из подходящего пакета: `@moduix/react/container`, `@moduix/solid/container` или
-`@moduix/vue/container` для CSS Modules, а для Tailwind CSS используйте `@moduix/react-tailwind/container`,
-`@moduix/solid-tailwind/container` или `@moduix/vue-tailwind/container`.
+<UsageCode
+  react={'<Container size="md" gutter="lg">\n  <Heading as="h1">Release notes</Heading>\n  <Text>What changed this month.</Text>\n</Container>'}
+  vue={'<Container size="md" gutter="lg">\n  <Heading as="h1">Release notes</Heading>\n  <Text>What changed this month.</Text>\n</Container>'}
+/>
+
+<PropChips
+  items={[
+    ['size', 'Максимальная ширина: от xs до xl или full.'],
+    ['gutter', 'Боковые отступы: none, sm, md или lg.'],
+  ]}
+/>
+
 
 Используйте `Container` для центрированной колонки с читабельной шириной. Компонент добавляет адаптивные
 горизонтальные отступы, а вертикальные интервалы остаются задачей внешней разметки.
@@ -89,9 +98,20 @@ utility-классы.
 
 ### Хуки стилизации
 
-- `Container` добавляет `data-slot="container-root"` на корневой элемент.
+| Часть | `data-slot` |
+| --- | --- |
+| `Container` | `container-root` |
+
 - `data-scope="container"` и `data-part="root"` соответствуют соглашениям Ark по стилизации.
 - `data-size` выбирает предустановку ширины: `xs`, `sm`, `md`, `lg`, `xl`, `full`.
 - `data-gutter` выбирает предустановку отступов: `none`, `sm`, `md`, `lg`.
-- Переменные `--moduix-container-*` управляют горизонтальными отступами и расчётом `max-width` в CSS Modules.
-  Вертикальные интервалы и расположение дочерних элементов задаются внешними стилями.
+- Переменные `--moduix-container-*` управляют горизонтальными отступами и расчётом `max-width` в CSS Modules. Вертикальные интервалы и расположение дочерних элементов задаются внешними стилями.
+
+## Справочник API
+
+Также принимает нативные пропсы своего элемента и `asChild`.
+
+| Проп | Тип | По умолчанию |
+| --- | --- | --- |
+| `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl' \| 'full'` | `'lg'` |
+| `gutter` | `'none' \| 'sm' \| 'md' \| 'lg'` | `'md'` |

@@ -1,7 +1,7 @@
 ---
 title: File Upload
 component: file-upload
-description: Composant Ark UI pour sélectionner, valider et prévisualiser des fichiers, avec prise en charge du glisser-déposer.
+description: Choisir ou déposer des fichiers avec contrôle du type, de la taille et du nombre.
 ark: https://ark-ui.com/docs/components/file-upload
 ---
 
@@ -12,6 +12,20 @@ ark: https://ark-ui.com/docs/components/file-upload
 <ComponentInstall />
 
 ## Utilisation
+
+<UsageCode
+  react={'<FileUpload accept="image/*" maxFiles={5} maxFileSize={5 * 1024 * 1024} onFileAccept={(details) => upload(details.files)}>\n  <FileUploadLabel>Photos</FileUploadLabel>\n  <FileUploadHiddenInput />\n  <FileUploadDropzone>Drop images here</FileUploadDropzone>\n  <FileUploadItemGroup>\n    <FileUploadItems />\n  </FileUploadItemGroup>\n</FileUpload>'}
+  vue={'<FileUpload accept="image/*" :max-files="5" :max-file-size="5 * 1024 * 1024" @file-accept="(details) => upload(details.files)">\n  <FileUploadLabel>Photos</FileUploadLabel>\n  <FileUploadHiddenInput />\n  <FileUploadDropzone>Drop images here</FileUploadDropzone>\n  <FileUploadItemGroup>\n    <FileUploadItems />\n  </FileUploadItemGroup>\n</FileUpload>'}
+/>
+
+<PropChips
+  items={[
+    ['accept', 'Types MIME ou extensions autorisés.'],
+    ['maxFiles', 'Nombre de fichiers autorisés, 1 par défaut.'],
+    ['maxFileSize', 'Taille maximale d’un fichier en octets.'],
+    ['onFileAccept', 'Appelé avec les fichiers acceptés.'],
+  ]}
+/>
 
 Commencez par utiliser `FileUpload` comme composant racine. Ajoutez un `FileUploadLabel`, puis enveloppez un `Button` dans `FileUploadTrigger asChild` pour un contrôle
 compact ou `FileUploadDropzone` pour le glisser-déposer. Ajoutez explicitement `FileUploadHiddenInput` pour
@@ -211,7 +225,55 @@ grille aux zones nommées `preview`, `name`, `meta` et `delete` : un enfant pers
 
 ### Points d’accroche CSS
 
-Utilisez des slots moduix stables, comme `[data-slot="file-upload-dropzone"]`,
-`[data-slot="file-upload-item"]` et `[data-slot="file-upload-item-delete-trigger"]`.
+| Partie | `data-slot` |
+| --- | --- |
+| `FileUpload` | `file-upload-root` |
+| `FileUploadRootProvider` | `file-upload-root-provider` |
+| `FileUploadLabel` | `file-upload-label` |
+| `FileUploadDropzone` | `file-upload-dropzone` |
+| `FileUploadDropzoneIcon` | `file-upload-dropzone-icon` |
+| `FileUploadTrigger` | `file-upload-trigger` |
+| `FileUploadItemGroup` | `file-upload-item-group` |
+| `FileUploadItem` | `file-upload-item` |
+| `FileUploadItemPreview` | `file-upload-item-preview` |
+| `FileUploadItemPreviewImage` | `file-upload-item-preview-image` |
+| `FileUploadItemPreviewIcon` | `file-upload-item-preview-icon` |
+| `FileUploadItemName` | `file-upload-item-name` |
+| `FileUploadItemSizeText` | `file-upload-item-size-text` |
+| `FileUploadItemMetadata` | `file-upload-item-metadata` |
+| `FileUploadItemDeleteTrigger` | `file-upload-item-delete-trigger` |
+| `FileUploadClearTrigger` | `file-upload-clear-trigger` |
+
 Ark expose également `data-scope="file-upload"`, `data-part` pour les parties et les attributs d’état tels que
 `data-disabled`, `data-readonly`, `data-invalid`, `data-required`, `data-dragging` et `data-type`.
+
+## Clavier
+
+| Touche | Action |
+| --- | --- |
+| `Enter` / `Space` | Ouvre le sélecteur depuis le déclencheur ou la zone de dépôt. |
+| `Tab` | Passe de la zone au déclencheur et aux actions sur les fichiers. |
+
+## Référence de l’API
+
+| Prop | Type | Défaut |
+| --- | --- | --- |
+| `accept` | `string \| string[] \| Record<string, string[]>` | — |
+| `maxFiles` | `number` | `1` |
+| `maxFileSize` | `number` | `Infinity` |
+| `minFileSize` | `number` | `0` |
+| `acceptedFiles` | `File[]` | — |
+| `defaultAcceptedFiles` | `File[]` | — |
+| `onFileChange` | `(details: FileChangeDetails) => void` | — |
+| `onFileAccept` | `(details: FileAcceptDetails) => void` | — |
+| `onFileReject` | `(details: FileRejectDetails) => void` | — |
+| `validate` | `(file: File, details: FileValidateDetails) => FileError[] \| null` | — |
+| `allowDrop` | `boolean` | `true` |
+| `directory` | `boolean` | `false` |
+| `capture` | `'user' \| 'environment'` | — |
+| `transformFiles` | `(files: File[]) => Promise<File[]>` | — |
+| `name` | `string` | — |
+| `disabled` | `boolean` | `false` |
+| `readOnly` | `boolean` | `false` |
+| `invalid` | `boolean` | `false` |
+| `required` | `boolean` | `false` |

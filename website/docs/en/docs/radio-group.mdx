@@ -1,7 +1,7 @@
 ---
 title: Radio Group
 component: radio-group
-description: A radio group for choosing exactly one option from a visible set.
+description: Choose exactly one option from a short visible list.
 ark: https://ark-ui.com/docs/components/radio-group
 ---
 
@@ -14,6 +14,19 @@ import * as RadioGroupDocs from '@/components/examples/radio-group/css-propertie
 <ComponentInstall />
 
 ## Usage
+
+<UsageCode
+  react={'<RadioGroup defaultValue="monthly" name="billing" orientation="horizontal" onValueChange={(details) => setPlan(details.value)}>\n  <RadioGroupLabel>Billing</RadioGroupLabel>\n  <RadioGroupOption value="monthly">Monthly</RadioGroupOption>\n  <RadioGroupOption value="yearly">Yearly</RadioGroupOption>\n</RadioGroup>'}
+  vue={'<RadioGroup v-model="plan" name="billing" orientation="horizontal">\n  <RadioGroupLabel>Billing</RadioGroupLabel>\n  <RadioGroupOption value="monthly">Monthly</RadioGroupOption>\n  <RadioGroupOption value="yearly">Yearly</RadioGroupOption>\n</RadioGroup>'}
+/>
+
+<PropChips
+  items={[
+    ['defaultValue', 'Option selected on first render; use value to control it.'],
+    ['orientation', 'vertical or horizontal layout.'],
+    ['size', 'xs to xl, md by default.'],
+  ]}
+/>
 
 Use `RadioGroup` as the root and give every option a value. `RadioGroupOption` renders a labelled
 item with its control, text, and native input.
@@ -183,12 +196,42 @@ classes; the component variables below customize the CSS Modules variants. Data 
 
 ### Styling hooks
 
+| Part | `data-slot` |
+| --- | --- |
+| `RadioGroup` | `radio-group-root` |
+| `RadioGroupRootProvider` | `radio-group-root-provider` |
+| `RadioGroupLabel` | `radio-group-label` |
+| `RadioGroupItem` | `radio-group-item` |
+| `RadioGroupItemControl` | `radio-group-item-control` |
+| `RadioGroupItemText` | `radio-group-item-text` |
+| `RadioGroupIndicator` | `radio-group-indicator` |
+
 - Ark anatomy hooks: `data-scope="radio-group"` and `data-part` on the root, label, item,
   item-control, item-text, item-hidden-input, and indicator.
 - Ark state hooks: `data-state="checked|unchecked"`, `data-disabled`, `data-readonly`,
   `data-invalid`, `data-required`, `data-focus`, `data-focus-visible`, `data-hover`,
   `data-active`, and `data-orientation`.
 - Ark indicator variables: `--transition-property`, `--left`, `--top`, `--width`, and `--height`.
-- moduix hooks: `data-slot="radio-group-root"`, `radio-group-root-provider`,
-  `radio-group-label`, `radio-group-item`, `radio-group-item-control`, `radio-group-item-text`,
-  and `radio-group-indicator`, plus `data-size` on the root and `RadioGroupRootProvider`.
+
+## Keyboard
+
+| Key | Action |
+| --- | --- |
+| `Tab` | Moves focus into the group, to the selected option. |
+| `ArrowDown` / `ArrowUp` / `ArrowLeft` / `ArrowRight` | Moves to the next or previous option and selects it. |
+| `Space` | Selects the focused option. |
+
+## API reference
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `value` | `string \| null` | — |
+| `defaultValue` | `string \| null` | — |
+| `onValueChange` | `(details: ValueChangeDetails) => void` | — |
+| `orientation` | `'horizontal' \| 'vertical'` | `'vertical'` |
+| `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'` | `'md'` |
+| `name` | `string` | — |
+| `disabled` | `boolean` | `false` |
+| `readOnly` | `boolean` | `false` |
+| `invalid` | `boolean` | `false` |
+| `required` | `boolean` | `false` |

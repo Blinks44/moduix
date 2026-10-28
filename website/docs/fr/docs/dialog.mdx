@@ -1,7 +1,7 @@
 ---
 title: Dialog
 component: dialog
-description: Fenêtre modale pour les tâches ciblées comme les formulaires, les confirmations et les détails.
+description: Ouvrir une fenêtre modale pour un formulaire, une confirmation ou des détails.
 ark: https://ark-ui.com/docs/components/dialog
 ---
 
@@ -14,6 +14,21 @@ import * as DialogDocs from '@/components/examples/dialog/css-properties';
 <ComponentInstall />
 
 ## Utilisation
+
+<UsageCode
+  react={'<Dialog onOpenChange={(details) => setOpen(details.open)}>\n  <DialogTrigger asChild>\n    <Button>Edit profile</Button>\n  </DialogTrigger>\n  <DialogBackdrop />\n  <DialogPositioner>\n    <DialogContent size="md" placement="center">\n      <DialogHeader>\n        <DialogTitle>Edit profile</DialogTitle>\n        <DialogCloseIcon />\n      </DialogHeader>\n      <DialogBody>…</DialogBody>\n    </DialogContent>\n  </DialogPositioner>\n</Dialog>'}
+  solid={'<Dialog onOpenChange={(details) => setOpen(details.open)}>\n  <DialogTrigger asChild={(props) => (\n    <Button {...props()}>Edit profile</Button>\n  )} />\n  <DialogBackdrop />\n  <DialogPositioner>\n    <DialogContent size="md" placement="center">\n      <DialogHeader>\n        <DialogTitle>Edit profile</DialogTitle>\n        <DialogCloseIcon />\n      </DialogHeader>\n      <DialogBody>…</DialogBody>\n    </DialogContent>\n  </DialogPositioner>\n</Dialog>'}
+  vue={'<Dialog v-model:open="open">\n  <DialogTrigger as-child>\n    <Button>Edit profile</Button>\n  </DialogTrigger>\n  <DialogBackdrop />\n  <DialogPositioner>\n    <DialogContent size="md" placement="center">\n      <DialogHeader>\n        <DialogTitle>Edit profile</DialogTitle>\n        <DialogCloseIcon />\n      </DialogHeader>\n      <DialogBody>…</DialogBody>\n    </DialogContent>\n  </DialogPositioner>\n</Dialog>'}
+/>
+
+<PropChips
+  items={[
+    ['size', 'Largeur sur DialogContent : de sm à xl, ou full.'],
+    ['placement', 'Position verticale : center, top ou bottom.'],
+    ['role', 'alertdialog pour les confirmations qui exigent une réponse.'],
+    ['onOpenChange', 'Appelé à l’ouverture et à la fermeture.'],
+  ]}
+/>
 
 Utilisez `Dialog` comme racine et composez explicitement ses parties structurelles.
 `DialogBackdrop` est l’arrière-plan modal, `DialogPositioner` positionne le dialogue et
@@ -194,9 +209,20 @@ sont communs aux deux approches.
 
 ### Points d’accroche CSS
 
-- Valeurs `data-slot` de moduix : `dialog-trigger`, `dialog-backdrop`, `dialog-positioner`,
-  `dialog-content`, `dialog-title`, `dialog-description`, `dialog-close-trigger`,
-  `dialog-close-icon`, `dialog-header`, `dialog-body` et `dialog-footer`.
+| Partie | `data-slot` |
+| --- | --- |
+| `DialogTrigger` | `dialog-trigger` |
+| `DialogBackdrop` | `dialog-backdrop` |
+| `DialogPositioner` | `dialog-positioner` |
+| `DialogContent` | `dialog-content` |
+| `DialogTitle` | `dialog-title` |
+| `DialogDescription` | `dialog-description` |
+| `DialogCloseTrigger` | `dialog-close-trigger` |
+| `DialogCloseIcon` | `dialog-close-icon` |
+| `DialogHeader` | `dialog-header` |
+| `DialogBody` | `dialog-body` |
+| `DialogFooter` | `dialog-footer` |
+
 - Attributs Ark : `data-scope="dialog"` et
   `data-part="trigger|backdrop|positioner|content|title|description|close-trigger"`.
 - Attributs d’état : `data-state="open|closed"`, `data-has-nested`, `data-nested`, `data-current`
@@ -207,3 +233,32 @@ sont communs aux deux approches.
 - Les couleurs, bordures, espacements et la typographie viennent des tokens de la fondation. Pour un
   seul dialogue, modifiez-les avec une classe sur la partie concernée, et l’animation avec
   `--moduix-popup-motion-*` sur `DialogContent`.
+
+## Clavier
+
+| Touche | Action |
+| --- | --- |
+| `Enter` / `Space` | Ouvre depuis le déclencheur ayant le focus. |
+| `Tab` / `Shift+Tab` | Déplace le focus entre les contrôles ; il reste à l’intérieur tant que c’est ouvert. |
+| `Esc` | Ferme et rend le focus au déclencheur. |
+
+## Référence de l’API
+
+Props de `Dialog`. `size` (`'sm' | 'md' | 'lg' | 'xl' | 'full'`, par défaut `'md'`), `placement` (`'center' | 'top' | 'bottom'`, par défaut `'center'`) et `scrollBehavior` (`'outside' | 'inside'`, par défaut `'outside'`) se placent sur `DialogContent`.
+
+| Prop | Type | Défaut |
+| --- | --- | --- |
+| `open` | `boolean` | — |
+| `defaultOpen` | `boolean` | `false` |
+| `onOpenChange` | `(details: OpenChangeDetails) => void` | — |
+| `modal` | `boolean` | `true` |
+| `role` | `'dialog' \| 'alertdialog'` | `'dialog'` |
+| `closeOnEscape` | `boolean` | `true` |
+| `closeOnInteractOutside` | `boolean` | `true` |
+| `trapFocus` | `boolean` | `true` |
+| `preventScroll` | `boolean` | `true` |
+| `initialFocusEl` | `() => HTMLElement \| null \| false` | — |
+| `finalFocusEl` | `() => HTMLElement \| null` | — |
+| `lazyMount` | `boolean` | `true` |
+| `unmountOnExit` | `boolean` | `true` |
+| `portalled` | `boolean` | `true` |

@@ -1,7 +1,7 @@
 ---
 title: Toggle Group
 component: toggle-group
-description: Группа кнопок-переключателей с навигацией с клавиатуры для одиночного и множественного выбора в React, Solid и Vue.
+description: Группа кнопок-переключателей для одного или нескольких выборов.
 ark: https://ark-ui.com/docs/components/toggle-group
 ---
 
@@ -19,6 +19,19 @@ import toggleGroupVueContextPart from '../../../snippets/toggle-group/vue/Alignm
 <ComponentInstall />
 
 ## Использование
+
+<UsageCode
+  react={'<ToggleGroup defaultValue={[\'left\']} variant="outline" aria-label="Text alignment" onValueChange={(details) => setAlign(details.value)}>\n  <ToggleGroupItem value="left">Left</ToggleGroupItem>\n  <ToggleGroupItem value="center">Center</ToggleGroupItem>\n  <ToggleGroupItem value="right">Right</ToggleGroupItem>\n</ToggleGroup>'}
+  vue={'<ToggleGroup v-model="align" variant="outline" aria-label="Text alignment">\n  <ToggleGroupItem value="left">Left</ToggleGroupItem>\n  <ToggleGroupItem value="center">Center</ToggleGroupItem>\n  <ToggleGroupItem value="right">Right</ToggleGroupItem>\n</ToggleGroup>'}
+/>
+
+<PropChips
+  items={[
+    ['defaultValue', 'Нажатые при первом рендере пункты, массив.'],
+    ['multiple', 'Позволяет нажать несколько пунктов сразу.'],
+    ['deselectable', 'Позволяет отжать последний пункт, по умолчанию true.'],
+  ]}
+/>
 
 Интерактивный
 
@@ -191,8 +204,37 @@ Toggle](/docs/toggle#css-переменные) для цветов и состо
 
 ### Хуки стилизации
 
-- Стабильные селекторы `data-slot`: `toggle-group-root`, `toggle-group-root-provider` и `toggle-group-item`.
+| Часть | `data-slot` |
+| --- | --- |
+| `ToggleGroup` | `toggle-group-root` |
+| `ToggleGroupRootProvider` | `toggle-group-root-provider` |
+| `ToggleGroupItem` | `toggle-group-item` |
+
 - Селекторы частей Ark: `data-scope="toggle-group"` и `data-part="root" | "item"`.
 - Селекторы состояния Ark: `data-state="on" | "off"`, `data-disabled`, `data-focus` и
   `data-orientation="horizontal" | "vertical"`.
 - Селекторы moduix: `data-variant` и `data-size`.
+
+## Клавиатура
+
+| Клавиша | Действие |
+| --- | --- |
+| `ArrowLeft` / `ArrowRight` | Перемещает фокус между пунктами; ArrowUp и ArrowDown в вертикальном режиме. |
+| `Home` / `End` | Переводит фокус на первый или последний пункт. |
+| `Enter` / `Space` | Нажимает или отжимает пункт в фокусе. |
+
+## Справочник API
+
+| Проп | Тип | По умолчанию |
+| --- | --- | --- |
+| `value` | `string[]` | — |
+| `defaultValue` | `string[]` | — |
+| `onValueChange` | `(details: ValueChangeDetails) => void` | — |
+| `multiple` | `boolean` | `false` |
+| `deselectable` | `boolean` | `true` |
+| `orientation` | `'horizontal' \| 'vertical'` | `'horizontal'` |
+| `loopFocus` | `boolean` | `true` |
+| `rovingFocus` | `boolean` | `true` |
+| `variant` | `'default' \| 'outline' \| 'ghost'` | `'default'` |
+| `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'icon-sm' \| 'icon-md' \| 'icon-lg'` | `'md'` |
+| `disabled` | `boolean` | `false` |

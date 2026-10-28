@@ -145,12 +145,15 @@ separator on the trigger's `::before`; outline variants share the border instead
 
 ### Styling hooks
 
+| Part | `data-slot` |
+| --- | --- |
+| `SplitButton` | `split-button-root` |
+| `SplitButtonAction` | `split-button-action` |
+| `SplitButtonTrigger` | `split-button-trigger` |
+| `SplitButtonPositioner` | `split-button-positioner` |
+| `SplitButtonContent` | `split-button-content` |
+
 - `data-scope="split-button"` and `data-part="root"` target the semantic group.
-- `data-slot="split-button-root"` targets the group wrapper.
-- `data-slot="split-button-action"` targets the primary action.
-- `data-slot="split-button-trigger"` targets the menu trigger.
-- `data-slot="split-button-positioner"` targets the Ark Menu positioner.
-- `data-slot="split-button-content"` targets the Ark Menu content surface.
 - `SplitButtonTrigger` carries Ark Menu state attributes such as `aria-expanded`, `aria-controls`, and `data-state`.
 - `SplitButtonContent` carries Ark Menu attributes such as `data-state`, `data-side`, `data-placement`, `data-nested`,
   and `data-has-nested`.

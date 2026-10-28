@@ -1,7 +1,7 @@
 ---
 title: Native Select
 component: native-select
-description: A styled native `<select>` for simple option lists in React, Solid, or Vue, with browser-owned selection behavior.
+description: Pick from a short list with the browser’s own select.
 ark: https://ark-ui.com/docs/components/field
 ---
 
@@ -14,6 +14,19 @@ import * as NativeSelectDocs from '@/components/examples/native-select/css-prope
 <ComponentInstall />
 
 ## Usage
+
+<UsageCode
+  react={'<Field>\n  <FieldLabel>Framework</FieldLabel>\n  <NativeSelect name="framework" defaultValue="react">\n    <option value="react">React</option>\n    <option value="solid">Solid</option>\n    <option value="vue">Vue</option>\n  </NativeSelect>\n</Field>'}
+  vue={'<Field>\n  <FieldLabel>Framework</FieldLabel>\n  <NativeSelect v-model="framework" name="framework">\n    <option value="react">React</option>\n    <option value="solid">Solid</option>\n    <option value="vue">Vue</option>\n  </NativeSelect>\n</Field>'}
+/>
+
+<PropChips
+  items={[
+    ['option / optgroup', 'Native children, as in a plain select.'],
+    ['multiple', 'Native multi-select list.'],
+    ['controlProps', 'Props for the wrapper that holds the chevron.'],
+  ]}
+/>
 
 Add native `option` or `optgroup` elements as children and pass the same props you would pass to an
 HTML `<select>`.
@@ -101,13 +114,35 @@ geometry use the shared 4px spacing scale.
 
 ### Styling hooks
 
+| Part | `data-slot` |
+| --- | --- |
+| `NativeSelect`, inner element | `native-select-control` |
+| `NativeSelect` | `native-select-root` |
+| `NativeSelect`, inner element | `native-select-indicator` |
+
 - In React use `className` on the select, and in Solid or Vue use `class`. Use
   `controlProps.className` or `controlProps.class` for the outer wrapper `<span>`.
 - Set `--moduix-select-action-size` in `controlProps.style` (or on an ancestor) so both the select
   padding and the indicator follow it.
 - `data-scope="field"` and `data-part="select"` preserve the Ark Field styling contract.
 - `data-slot="native-select-root"` is the stable moduix selector for the `<select>` control.
-- `data-slot="native-select-control"` and `data-slot="native-select-indicator"` target the internal
-  layout and icon.
 - Native `:focus-visible`, `:disabled`, `[aria-invalid="true"]`, `[multiple]`, and `[size]` selectors
   control the visual states.
+
+## Keyboard
+
+The browser handles the keyboard, as in any native select.
+
+| Key | Action |
+| --- | --- |
+| `ArrowDown` / `ArrowUp` | Changes the selected option. |
+| `Space` / `Alt+ArrowDown` | Opens the option list. |
+
+## API reference
+
+Also accepts the native `select` props.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `controlProps` | `ComponentProps<'span'>` | — |
+| `multiple` | `boolean` | `false` |

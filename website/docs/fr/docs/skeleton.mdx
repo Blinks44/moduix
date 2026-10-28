@@ -1,7 +1,7 @@
 ---
 title: Skeleton
 component: skeleton
-description: Un espace réservé pour le chargement de textes, cartes, médias et sections personnalisées en React, Solid et Vue.
+description: Réserver la place du texte, des cartes et des médias pendant le chargement.
 ark: https://ark-ui.com/docs/guides/composition#the-ark-factory
 ---
 
@@ -14,6 +14,19 @@ import * as SkeletonDocs from '@/components/examples/skeleton/css-properties';
 <ComponentInstall />
 
 ## Utilisation
+
+<UsageCode
+  react={'<Skeleton loading={isLoading} width="60%" height={16} borderRadius={4}>\n  <p>{title}</p>\n</Skeleton>'}
+  vue={'<Skeleton :loading="isLoading" width="60%" :height="16" :border-radius="4">\n  <p>{{ title }}</p>\n</Skeleton>'}
+/>
+
+<PropChips
+  items={[
+    ['loading', 'Affiche l’espace réservé ; false révèle le contenu.'],
+    ['width / height', 'Taille ; les nombres deviennent des px. boxSize règle les deux.'],
+    ['variant', 'pulse anime la surface, none la garde fixe.'],
+  ]}
+/>
 
 Utilisez `Skeleton` pour les lignes de texte, les cartes, les avatars et les espaces réservés aux médias. La
 mise en page environnante gère les espacements et la composition responsive. Consultez le [guide de démarrage](/docs/quick-start)
@@ -93,10 +106,25 @@ modes de style.
 
 <CssPropertiesSection properties={SkeletonDocs.skeletonOverrideCssProperties} />
 
-### Sélecteurs et attributs de style
+### Points d’accroche CSS
+
+| Partie | `data-slot` |
+| --- | --- |
+| `Skeleton` | `skeleton-root` |
 
 - `[data-scope="skeleton"][data-part="root"]` cible l’élément racine exporté.
-- `data-slot="skeleton-root"` est le sélecteur stable de moduix pour cet élément.
 - `data-state="loading"` et `data-state="loaded"` reflètent la propriété `loading`.
 - `data-variant="pulse"` et `data-variant="none"` reflètent la variante choisie.
 - `data-loading` n’est présent que lorsque les styles d’attente sont actifs.
+
+## Référence de l’API
+
+| Prop | Type | Défaut |
+| --- | --- | --- |
+| `loading` | `boolean` | `true` |
+| `variant` | `'pulse' \| 'none'` | `'pulse'` |
+| `width` | `number \| string` | — |
+| `height` | `number \| string` | — |
+| `boxSize` | `number \| string` | — |
+| `borderRadius` | `number \| string` | — |
+| `asChild` | `boolean` | `false` |

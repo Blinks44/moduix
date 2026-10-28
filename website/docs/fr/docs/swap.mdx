@@ -110,9 +110,12 @@ variant documenté (par exemple `data-[animation=flip]:[perspective:32rem]`) pou
 
 ### Points d’accroche CSS
 
-- `Swap` utilise `data-slot="swap-root"`.
-- `SwapRootProvider` utilise `data-slot="swap-root-provider"`.
-- `SwapIndicator` utilise `data-slot="swap-indicator"`.
+| Partie | `data-slot` |
+| --- | --- |
+| `Swap` | `swap-root` |
+| `SwapRootProvider` | `swap-root-provider` |
+| `SwapIndicator` | `swap-indicator` |
+
 - `animation` est exposée sous forme de `data-animation` sur `Swap` et `SwapRootProvider`.
 - Avec CSS Modules, les préréglages intégrés ciblent uniquement les enfants directs `SwapIndicator` de
   leur racine. Les préréglages Tailwind lisent l’ancêtre `group/swap` le plus proche : n’imbriquez pas

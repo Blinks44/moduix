@@ -151,12 +151,15 @@ la bordure à la place. Utilisez `--moduix-split-button-separator-color` pour ch
 
 ### Points d’accroche CSS
 
+| Partie | `data-slot` |
+| --- | --- |
+| `SplitButton` | `split-button-root` |
+| `SplitButtonAction` | `split-button-action` |
+| `SplitButtonTrigger` | `split-button-trigger` |
+| `SplitButtonPositioner` | `split-button-positioner` |
+| `SplitButtonContent` | `split-button-content` |
+
 - `data-scope="split-button"` et `data-part="root"` ciblent le groupe sémantique.
-- `data-slot="split-button-root"` cible l’enveloppe du groupe.
-- `data-slot="split-button-action"` cible l’action principale.
-- `data-slot="split-button-trigger"` cible le déclencheur du menu.
-- `data-slot="split-button-positioner"` cible le positionneur Ark Menu.
-- `data-slot="split-button-content"` cible la surface de contenu Ark Menu.
 - `SplitButtonTrigger` reçoit les attributs d’état d’Ark Menu, notamment `aria-expanded`, `aria-controls` et `data-state`.
 - `SplitButtonContent` reçoit les attributs Ark Menu tels que `data-state`, `data-side`, `data-placement`,
   `data-nested` et `data-has-nested`.

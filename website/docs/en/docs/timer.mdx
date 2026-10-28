@@ -1,7 +1,7 @@
 ---
 title: Timer
 component: timer
-description: A timer for tracking elapsed or remaining time with explicit controls in React, Solid, or Vue.
+description: Count elapsed or remaining time with start, pause, and reset.
 ark: https://ark-ui.com/docs/components/timer
 ---
 
@@ -12,6 +12,19 @@ ark: https://ark-ui.com/docs/components/timer
 <ComponentInstall />
 
 ## Usage
+
+<UsageCode
+  react={'<Timer countdown startMs={5 * 60 * 1000} autoStart onComplete={notify}>\n  <TimerSegments types={[\'minutes\', \'seconds\']} />\n  <TimerControl>\n    <TimerActionTrigger action="pause">Pause</TimerActionTrigger>\n    <TimerActionTrigger action="resume">Resume</TimerActionTrigger>\n    <TimerActionTrigger action="reset">Reset</TimerActionTrigger>\n  </TimerControl>\n</Timer>'}
+  vue={'<Timer countdown :start-ms="5 * 60 * 1000" auto-start @complete="notify">\n  <TimerSegments :types="[\'minutes\', \'seconds\']" />\n  <TimerControl>\n    <TimerActionTrigger action="pause">Pause</TimerActionTrigger>\n    <TimerActionTrigger action="resume">Resume</TimerActionTrigger>\n    <TimerActionTrigger action="reset">Reset</TimerActionTrigger>\n  </TimerControl>\n</Timer>'}
+/>
+
+<PropChips
+  items={[
+    ['countdown', 'Counts down from startMs instead of up.'],
+    ['startMs / targetMs', 'Start time and the time to stop at, in ms.'],
+    ['types', 'On TimerSegments: units to show, such as minutes and seconds.'],
+  ]}
+/>
 
 `TimerSegments` is the quickest way to render a conventional time display separated by colons. By default, it shows
 hours, minutes, and seconds. Pass `types` to choose a different set of units. Use the individual parts when you need
@@ -105,9 +118,29 @@ variables: a class on a part, or a `data-slot` selector, overrides the layered c
 
 ### Styling hooks
 
-- `data-slot="timer-root"`, `timer-root-provider`, `timer-area`, `timer-item`,
-  `timer-separator`, `timer-control`, and `timer-action-trigger`.
+| Part | `data-slot` |
+| --- | --- |
+| `Timer` | `timer-root` |
+| `TimerRootProvider` | `timer-root-provider` |
+| `TimerArea` | `timer-area` |
+| `TimerItem` | `timer-item` |
+| `TimerSeparator` | `timer-separator` |
+| `TimerControl` | `timer-control` |
+| `TimerActionTrigger` | `timer-action-trigger` |
+
 - Ark anatomy attributes: `data-scope="timer"` and
   `data-part="root|area|item|separator|control|action-trigger"`.
 - `TimerItem` exposes `data-type` and Ark's `--value` runtime variable.
 - Ark adds `hidden` to action triggers that are unavailable in the current timer state.
+
+## API reference
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `countdown` | `boolean` | `false` |
+| `startMs` | `number` | — |
+| `targetMs` | `number` | — |
+| `autoStart` | `boolean` | `false` |
+| `interval` | `number` | `1000` |
+| `onTick` | `(details: TickDetails) => void` | — |
+| `onComplete` | `() => void` | — |

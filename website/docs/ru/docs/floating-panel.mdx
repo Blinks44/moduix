@@ -1,7 +1,7 @@
 ---
 title: Floating Panel
 component: floating-panel
-description: Немодальное окно Ark UI для содержимого, которое можно перемещать, изменять в размере, сворачивать и разворачивать.
+description: Окно, которое можно перетаскивать, менять размер, сворачивать и разворачивать.
 ark: https://ark-ui.com/docs/components/floating-panel
 ---
 
@@ -12,6 +12,21 @@ ark: https://ark-ui.com/docs/components/floating-panel
 <ComponentInstall />
 
 ## Использование
+
+<UsageCode
+  react={'<FloatingPanel defaultSize={{ width: 360, height: 260 }} minSize={{ width: 240, height: 160 }}>\n  <FloatingPanelTrigger asChild>\n    <Button>Open panel</Button>\n  </FloatingPanelTrigger>\n  <FloatingPanelPositioner>\n    <FloatingPanelContent>\n      <FloatingPanelDragTrigger>\n        <FloatingPanelHeader>\n          <FloatingPanelTitle>Inspector</FloatingPanelTitle>\n          <FloatingPanelCloseIcon />\n        </FloatingPanelHeader>\n      </FloatingPanelDragTrigger>\n      <FloatingPanelBody>…</FloatingPanelBody>\n      <FloatingPanelResizeTriggerGroup />\n    </FloatingPanelContent>\n  </FloatingPanelPositioner>\n</FloatingPanel>'}
+  solid={'<FloatingPanel defaultSize={{ width: 360, height: 260 }} minSize={{ width: 240, height: 160 }}>\n  <FloatingPanelTrigger asChild={(props) => (\n    <Button {...props()}>Open panel</Button>\n  )} />\n  <FloatingPanelPositioner>\n    <FloatingPanelContent>\n      <FloatingPanelDragTrigger>\n        <FloatingPanelHeader>\n          <FloatingPanelTitle>Inspector</FloatingPanelTitle>\n          <FloatingPanelCloseIcon />\n        </FloatingPanelHeader>\n      </FloatingPanelDragTrigger>\n      <FloatingPanelBody>…</FloatingPanelBody>\n      <FloatingPanelResizeTriggerGroup />\n    </FloatingPanelContent>\n  </FloatingPanelPositioner>\n</FloatingPanel>'}
+  vue={'<FloatingPanel :default-size="{ width: 360, height: 260 }" :min-size="{ width: 240, height: 160 }">\n  <FloatingPanelTrigger as-child>\n    <Button>Open panel</Button>\n  </FloatingPanelTrigger>\n  <FloatingPanelPositioner>\n    <FloatingPanelContent>\n      <FloatingPanelDragTrigger>\n        <FloatingPanelHeader>\n          <FloatingPanelTitle>Inspector</FloatingPanelTitle>\n          <FloatingPanelCloseIcon />\n        </FloatingPanelHeader>\n      </FloatingPanelDragTrigger>\n      <FloatingPanelBody>…</FloatingPanelBody>\n      <FloatingPanelResizeTriggerGroup />\n    </FloatingPanelContent>\n  </FloatingPanelPositioner>\n</FloatingPanel>'}
+/>
+
+<PropChips
+  items={[
+    ['defaultSize', 'Начальные ширина и высота в px.'],
+    ['minSize / maxSize', 'Пределы изменения размера.'],
+    ['getBoundaryEl', 'Элемент, за границы которого панель не выходит.'],
+    ['persistRect', 'Запоминает положение и размер между открытиями.'],
+  ]}
+/>
 
 Явно соберите части Ark UI. `FloatingPanelPositioner` применяет рассчитанные Ark значения позиции
 и размера, а `FloatingPanelContent` представляет видимую поверхность окна. Заголовок становится
@@ -164,10 +179,58 @@ FloatingPanel
 
 ### Хуки стилизации
 
+| Часть | `data-slot` |
+| --- | --- |
+| `FloatingPanelTrigger` | `floating-panel-trigger` |
+| `FloatingPanelPositioner` | `floating-panel-positioner` |
+| `FloatingPanelContent` | `floating-panel-content` |
+| `FloatingPanelDragTrigger` | `floating-panel-drag-trigger` |
+| `FloatingPanelHeader` | `floating-panel-header` |
+| `FloatingPanelTitle` | `floating-panel-title` |
+| `FloatingPanelControl` | `floating-panel-control` |
+| `FloatingPanelStageTrigger` | `floating-panel-stage-trigger` |
+| `FloatingPanelCloseTrigger` | `floating-panel-close-trigger` |
+| `FloatingPanelCloseIcon` | `floating-panel-close-icon` |
+| `FloatingPanelBody` | `floating-panel-body` |
+| `FloatingPanelFooter` | `floating-panel-footer` |
+| `FloatingPanelResizeTrigger` | `floating-panel-resize-trigger` |
+| `FloatingPanelDragIndicator` | `floating-panel-drag-indicator` |
+
 Части Ark UI сохраняют `data-scope="floating-panel"` и значения `data-part`. moduix добавляет
 `data-slot="floating-panel-*"` к отрисованным обёрткам. Используйте `data-state="open|closed"`,
 `data-dragging`, `data-disabled`, `data-stage`, `data-topmost`, `data-behind`, `data-minimized`,
-`data-maximized`, `data-staged` и `data-axis` для стилизации состояния соответствующих частей.
-`FloatingPanelFooter` повторяет `data-minimized` содержимого.
+`data-maximized`, `data-staged` и `data-axis` для стилизации состояния соответствующих частей. `FloatingPanelFooter` повторяет `data-minimized` содержимого.
 
 `FloatingPanelPositioner` предоставляет переменные Ark `--width`, `--height`, `--x`, `--y` и `--z-index`.
+
+## Клавиатура
+
+| Клавиша | Действие |
+| --- | --- |
+| `Enter` / `Space` | Открывает с кнопки в фокусе. |
+| `Tab` / `Shift+Tab` | Перемещает фокус между элементами панели. |
+| `Esc` | Закрывает панель. |
+
+## Справочник API
+
+| Проп | Тип | По умолчанию |
+| --- | --- | --- |
+| `open` | `boolean` | — |
+| `defaultOpen` | `boolean` | `false` |
+| `onOpenChange` | `(details: OpenChangeDetails) => void` | — |
+| `size` | `{ width: number; height: number }` | — |
+| `defaultSize` | `{ width: number; height: number }` | — |
+| `minSize` | `{ width: number; height: number }` | — |
+| `maxSize` | `{ width: number; height: number }` | — |
+| `position` | `{ x: number; y: number }` | — |
+| `defaultPosition` | `{ x: number; y: number }` | — |
+| `getAnchorPosition` | `(details: AnchorPositionDetails) => Point` | — |
+| `draggable` | `boolean` | `true` |
+| `resizable` | `boolean` | `true` |
+| `lockAspectRatio` | `boolean` | `false` |
+| `getBoundaryEl` | `() => HTMLElement \| null` | — |
+| `closeOnEscape` | `boolean` | `true` |
+| `persistRect` | `boolean` | `true` |
+| `gridSize` | `number` | `1` |
+| `lazyMount` | `boolean` | `true` |
+| `unmountOnExit` | `boolean` | `true` |

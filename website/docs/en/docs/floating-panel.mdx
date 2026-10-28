@@ -1,7 +1,7 @@
 ---
 title: Floating Panel
 component: floating-panel
-description: A non-modal Ark UI window for content users can drag, resize, minimize, and maximize.
+description: Open a window that users can drag, resize, minimize, and maximize.
 ark: https://ark-ui.com/docs/components/floating-panel
 ---
 
@@ -12,6 +12,21 @@ ark: https://ark-ui.com/docs/components/floating-panel
 <ComponentInstall />
 
 ## Usage
+
+<UsageCode
+  react={'<FloatingPanel defaultSize={{ width: 360, height: 260 }} minSize={{ width: 240, height: 160 }}>\n  <FloatingPanelTrigger asChild>\n    <Button>Open panel</Button>\n  </FloatingPanelTrigger>\n  <FloatingPanelPositioner>\n    <FloatingPanelContent>\n      <FloatingPanelDragTrigger>\n        <FloatingPanelHeader>\n          <FloatingPanelTitle>Inspector</FloatingPanelTitle>\n          <FloatingPanelCloseIcon />\n        </FloatingPanelHeader>\n      </FloatingPanelDragTrigger>\n      <FloatingPanelBody>…</FloatingPanelBody>\n      <FloatingPanelResizeTriggerGroup />\n    </FloatingPanelContent>\n  </FloatingPanelPositioner>\n</FloatingPanel>'}
+  solid={'<FloatingPanel defaultSize={{ width: 360, height: 260 }} minSize={{ width: 240, height: 160 }}>\n  <FloatingPanelTrigger asChild={(props) => (\n    <Button {...props()}>Open panel</Button>\n  )} />\n  <FloatingPanelPositioner>\n    <FloatingPanelContent>\n      <FloatingPanelDragTrigger>\n        <FloatingPanelHeader>\n          <FloatingPanelTitle>Inspector</FloatingPanelTitle>\n          <FloatingPanelCloseIcon />\n        </FloatingPanelHeader>\n      </FloatingPanelDragTrigger>\n      <FloatingPanelBody>…</FloatingPanelBody>\n      <FloatingPanelResizeTriggerGroup />\n    </FloatingPanelContent>\n  </FloatingPanelPositioner>\n</FloatingPanel>'}
+  vue={'<FloatingPanel :default-size="{ width: 360, height: 260 }" :min-size="{ width: 240, height: 160 }">\n  <FloatingPanelTrigger as-child>\n    <Button>Open panel</Button>\n  </FloatingPanelTrigger>\n  <FloatingPanelPositioner>\n    <FloatingPanelContent>\n      <FloatingPanelDragTrigger>\n        <FloatingPanelHeader>\n          <FloatingPanelTitle>Inspector</FloatingPanelTitle>\n          <FloatingPanelCloseIcon />\n        </FloatingPanelHeader>\n      </FloatingPanelDragTrigger>\n      <FloatingPanelBody>…</FloatingPanelBody>\n      <FloatingPanelResizeTriggerGroup />\n    </FloatingPanelContent>\n  </FloatingPanelPositioner>\n</FloatingPanel>'}
+/>
+
+<PropChips
+  items={[
+    ['defaultSize', 'Starting width and height in px.'],
+    ['minSize / maxSize', 'Limits for resizing.'],
+    ['getBoundaryEl', 'Element that keeps the panel inside its bounds.'],
+    ['persistRect', 'Remembers position and size between openings.'],
+  ]}
+/>
 
 Keep the Ark UI parts explicit. `FloatingPanelPositioner` applies the position and size calculated
 by Ark, while `FloatingPanelContent` is the visible window surface. The header acts as the drag
@@ -161,6 +176,23 @@ variables: a class on the part overrides the layered component styles.
 
 ### Styling hooks
 
+| Part | `data-slot` |
+| --- | --- |
+| `FloatingPanelTrigger` | `floating-panel-trigger` |
+| `FloatingPanelPositioner` | `floating-panel-positioner` |
+| `FloatingPanelContent` | `floating-panel-content` |
+| `FloatingPanelDragTrigger` | `floating-panel-drag-trigger` |
+| `FloatingPanelHeader` | `floating-panel-header` |
+| `FloatingPanelTitle` | `floating-panel-title` |
+| `FloatingPanelControl` | `floating-panel-control` |
+| `FloatingPanelStageTrigger` | `floating-panel-stage-trigger` |
+| `FloatingPanelCloseTrigger` | `floating-panel-close-trigger` |
+| `FloatingPanelCloseIcon` | `floating-panel-close-icon` |
+| `FloatingPanelBody` | `floating-panel-body` |
+| `FloatingPanelFooter` | `floating-panel-footer` |
+| `FloatingPanelResizeTrigger` | `floating-panel-resize-trigger` |
+| `FloatingPanelDragIndicator` | `floating-panel-drag-indicator` |
+
 Ark parts retain `data-scope="floating-panel"` and their `data-part` values. moduix adds
 `data-slot="floating-panel-*"` to rendered wrappers. Use `data-state="open|closed"`, `data-dragging`,
 `data-disabled`, `data-stage`, `data-topmost`, `data-behind`, `data-minimized`, `data-maximized`,
@@ -168,3 +200,35 @@ Ark parts retain `data-scope="floating-panel"` and their `data-part` values. mod
 mirrors `data-minimized` from the content.
 
 `FloatingPanelPositioner` exposes Ark's `--width`, `--height`, `--x`, `--y`, and `--z-index`.
+
+## Keyboard
+
+| Key | Action |
+| --- | --- |
+| `Enter` / `Space` | Opens it from the focused trigger. |
+| `Tab` / `Shift+Tab` | Moves focus between the controls in the panel. |
+| `Esc` | Closes the panel. |
+
+## API reference
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `open` | `boolean` | — |
+| `defaultOpen` | `boolean` | `false` |
+| `onOpenChange` | `(details: OpenChangeDetails) => void` | — |
+| `size` | `{ width: number; height: number }` | — |
+| `defaultSize` | `{ width: number; height: number }` | — |
+| `minSize` | `{ width: number; height: number }` | — |
+| `maxSize` | `{ width: number; height: number }` | — |
+| `position` | `{ x: number; y: number }` | — |
+| `defaultPosition` | `{ x: number; y: number }` | — |
+| `getAnchorPosition` | `(details: AnchorPositionDetails) => Point` | — |
+| `draggable` | `boolean` | `true` |
+| `resizable` | `boolean` | `true` |
+| `lockAspectRatio` | `boolean` | `false` |
+| `getBoundaryEl` | `() => HTMLElement \| null` | — |
+| `closeOnEscape` | `boolean` | `true` |
+| `persistRect` | `boolean` | `true` |
+| `gridSize` | `number` | `1` |
+| `lazyMount` | `boolean` | `true` |
+| `unmountOnExit` | `boolean` | `true` |

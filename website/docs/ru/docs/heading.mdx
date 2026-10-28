@@ -1,7 +1,7 @@
 ---
 title: Heading
 component: heading
-description: Семантический компонент для заголовков с композицией на основе фабрики Ark и типографическими токенами moduix для React, Solid и Vue.
+description: Заголовок страницы или раздела с нужным уровнем и размером.
 ark: https://ark-ui.com/docs/guides/composition#the-ark-factory
 ---
 
@@ -12,6 +12,19 @@ ark: https://ark-ui.com/docs/guides/composition#the-ark-factory
 <ComponentInstall />
 
 ## Использование
+
+<UsageCode
+  react={'<Heading as="h2" size="xl" weight="bold">\n  Billing\n</Heading>'}
+  vue={'<Heading as="h2" size="xl" weight="bold">\n  Billing\n</Heading>'}
+/>
+
+<PropChips
+  items={[
+    ['as', 'Уровень h1–h6, по умолчанию h1.'],
+    ['size', 'Визуальный размер от xs до 2xl, отдельно от уровня.'],
+    ['weight', 'regular, medium, semibold или bold.'],
+  ]}
+/>
 
 По умолчанию `Heading` создаёт `h1`. Используйте его для заголовков документа и выбирайте значение
 `as` в соответствии с местом заголовка в структуре документа. Если визуальный акцент должен
@@ -83,9 +96,22 @@ foundation и не имеют переменных компонента: кла�
 
 ### Хуки стилизации
 
+| Часть | `data-slot` |
+| --- | --- |
+| `Heading` | `heading-root` |
+
 - `data-scope="heading"` и `data-part="root"` обозначают корневой элемент в соглашении Ark.
-- `data-slot="heading-root"` - стабильный селектор moduix.
 - `data-size` содержит итоговый размер: явный `size` или размер по умолчанию для `as`.
 - `data-weight` содержит выбранное значение: `regular`, `medium`, `semibold` или `bold`.
 - `Heading` сам задаёт эти атрибуты. Одноимённые свойства `data-*` не могут заменить контракт стилизации компонента.
 - Используйте `className` или `class` для utility-классов потребителя и локальных переопределений стилей.
+
+## Справочник API
+
+Также принимает нативные пропсы своего элемента и `asChild`.
+
+| Проп | Тип | По умолчанию |
+| --- | --- | --- |
+| `as` | `'h1' \| 'h2' \| 'h3' \| 'h4' \| 'h5' \| 'h6'` | `'h1'` |
+| `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl' \| '2xl'` | — |
+| `weight` | `'regular' \| 'medium' \| 'semibold' \| 'bold'` | `'semibold'` |

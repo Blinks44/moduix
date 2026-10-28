@@ -1,7 +1,7 @@
 ---
 title: Command Palette
 component: command-palette
-description: Палитра команд в диалоге с поиском и сочетаниями клавиш для быстрого доступа.
+description: Поиск и запуск команд в диалоге, который открывается кнопкой или сочетанием.
 ark: https://ark-ui.com/docs/components/dialog
 ---
 
@@ -14,6 +14,20 @@ import * as CommandPaletteDocs from '@/components/examples/command-palette/css-p
 <ComponentInstall />
 
 ## Использование
+
+<UsageCode
+  react={'<CommandPalette shortcut="mod+k" aria-label="Command palette">\n  <CommandPalettePanel>\n    <CommandPaletteCombobox collection={collection} onInputValueChange={(d) => filter(d.inputValue)}>\n      <CommandPaletteSearch placeholder="Search commands..." />\n      <CommandPaletteList>\n        <CommandPaletteEmpty>No commands found.</CommandPaletteEmpty>\n        {collection.items.map((item) => (\n          <CommandPaletteItem key={item.id} item={item}>\n            <CommandPaletteItemLabel>{item.label}</CommandPaletteItemLabel>\n          </CommandPaletteItem>\n        ))}\n      </CommandPaletteList>\n    </CommandPaletteCombobox>\n  </CommandPalettePanel>\n</CommandPalette>'}
+  solid={'<CommandPalette shortcut="mod+k" aria-label="Command palette">\n  <CommandPalettePanel>\n    <CommandPaletteCombobox collection={collection} onInputValueChange={(d) => filter(d.inputValue)}>\n      <CommandPaletteSearch placeholder="Search commands..." />\n      <CommandPaletteList>\n        <CommandPaletteEmpty>No commands found.</CommandPaletteEmpty>\n        <For each={collection.items}>\n          {(item) => (\n            <CommandPaletteItem item={item}>\n              <CommandPaletteItemLabel>{item.label}</CommandPaletteItemLabel>\n            </CommandPaletteItem>\n          )}\n        </For>\n      </CommandPaletteList>\n    </CommandPaletteCombobox>\n  </CommandPalettePanel>\n</CommandPalette>'}
+  vue={'<CommandPalette shortcut="mod+k" aria-label="Command palette">\n  <CommandPalettePanel>\n    <CommandPaletteCombobox :collection="collection" @input-value-change="(d) => filter(d.inputValue)">\n      <CommandPaletteSearch placeholder="Search commands..." />\n      <CommandPaletteList>\n        <CommandPaletteEmpty>No commands found.</CommandPaletteEmpty>\n        <CommandPaletteItem v-for="item in collection.items" :key="item.id" :item="item">\n          <CommandPaletteItemLabel>{{ item.label }}</CommandPaletteItemLabel>\n        </CommandPaletteItem>\n      </CommandPaletteList>\n    </CommandPaletteCombobox>\n  </CommandPalettePanel>\n</CommandPalette>'}
+/>
+
+<PropChips
+  items={[
+    ['shortcut', 'Глобальное сочетание клавиш для открытия, по умолчанию выключено.'],
+    ['collection', 'Элементы для поиска из createListCollection().'],
+    ['onInputValueChange', 'Вызывается при вводе; здесь фильтруйте коллекцию.'],
+  ]}
+/>
 
 Просмотр на этой странице
 использует пакет React CSS Modules,
@@ -150,8 +164,60 @@ CommandPaletteRootProvider
 
 ### Хуки стилизации
 
-- Экспортируемые части предоставляют стабильные хуки `data-slot`, включая `command-palette-trigger`, `command-palette-backdrop`, `command-palette-positioner`, `command-palette-content`, `command-palette-title`, `command-palette-description`, `command-palette-header`, `command-palette-combobox`, `command-palette-control`, `command-palette-input`, `command-palette-clear-trigger`, `command-palette-list`, `command-palette-empty`, `command-palette-item-group`, `command-palette-item-group-label`, `command-palette-item`, `command-palette-item-text`, `command-palette-item-indicator`, `command-palette-item-icon`, `command-palette-item-label`, `command-palette-item-description`, `command-palette-item-meta`, `command-palette-separator`, `command-palette-footer` и `command-palette-kbd`.
+| Часть | `data-slot` |
+| --- | --- |
+| `CommandPaletteTrigger` | `command-palette-trigger` |
+| `CommandPaletteBackdrop` | `command-palette-backdrop` |
+| `CommandPalettePositioner` | `command-palette-positioner` |
+| `CommandPaletteContent` | `command-palette-content` |
+| `CommandPaletteTitle` | `command-palette-title` |
+| `CommandPaletteDescription` | `command-palette-description` |
+| `CommandPaletteHeader` | `command-palette-header` |
+| `CommandPaletteCombobox` | `command-palette-combobox` |
+| `CommandPaletteControl` | `command-palette-control` |
+| `CommandPaletteInput` | `command-palette-input` |
+| `CommandPaletteSearch`, внутренний элемент | `command-palette-search-icon` |
+| `CommandPaletteClearTrigger` | `command-palette-clear-trigger` |
+| `CommandPaletteList` | `command-palette-list` |
+| `CommandPaletteEmpty` | `command-palette-empty` |
+| `CommandPaletteItemGroup` | `command-palette-item-group` |
+| `CommandPaletteItemGroupLabel` | `command-palette-item-group-label` |
+| `CommandPaletteItem` | `command-palette-item` |
+| `CommandPaletteItemText` | `command-palette-item-text` |
+| `CommandPaletteItemIndicator` | `command-palette-item-indicator` |
+| `CommandPaletteItemIcon` | `command-palette-item-icon` |
+| `CommandPaletteItemLabel` | `command-palette-item-label` |
+| `CommandPaletteItemDescription` | `command-palette-item-description` |
+| `CommandPaletteItemMeta` | `command-palette-item-meta` |
+| `CommandPaletteSeparator` | `command-palette-separator` |
+| `CommandPaletteFooter` | `command-palette-footer` |
+| `CommandPaletteKbd` | `command-palette-kbd` |
+
 - `CommandPaletteList` рендерит `ScrollArea`, поэтому части прокрутки сохраняют хуки `scroll-area-root`, `scroll-area-viewport` и `scroll-area-content`; обращайтесь к ним внутри `[data-slot='command-palette-list']`.
 - Хуки состояния Ark Dialog включают `data-scope="dialog"`, `data-part` и `data-state="open" | "closed"` у таких частей диалога, как триггер, фон и содержимое.
 - Хуки состояния Ark Combobox включают `data-scope="combobox"`, `data-part`, `data-state`, `data-highlighted`, `data-disabled`, `data-invalid` и `data-empty` там, где они применимы.
 - Анимация привязана к `data-state` Ark. Устаревшие атрибуты `data-starting-style`, `data-ending-style` и `data-open` не входят в контракт command-palette.
+
+## Клавиатура
+
+| Клавиша | Действие |
+| --- | --- |
+| `shortcut` | Открывает или закрывает палитру, если задан проп, например `mod+k`. |
+| `ArrowDown` / `ArrowUp` | Подсвечивает следующую или предыдущую команду. |
+| `Home` / `End` | Подсвечивает первую или последнюю команду. |
+| `Enter` | Запускает подсвеченную команду. |
+| `Esc` | Закрывает палитру. |
+
+## Справочник API
+
+Пропсы `CommandPalette`. Он также принимает пропсы диалога `open`, `defaultOpen` и `onOpenChange`; пропсы поиска, например `collection` и `onInputValueChange`, задаются на `CommandPaletteCombobox`.
+
+| Проп | Тип | По умолчанию |
+| --- | --- | --- |
+| `shortcut` | `false \| string` | `false` |
+| `open` | `boolean` | — |
+| `defaultOpen` | `boolean` | `false` |
+| `onOpenChange` | `(details: OpenChangeDetails) => void` | — |
+| `lazyMount` | `boolean` | `true` |
+| `unmountOnExit` | `boolean` | `true` |
+| `portalled` | `boolean` | `true` |

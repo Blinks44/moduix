@@ -1,7 +1,7 @@
 ---
 title: Card
 component: card
-description: "Гибкие карточки на React, Solid и Vue: установка из пакета или через shadcn."
+description: Заголовок, содержимое и действия на одной поверхности.
 ark: https://ark-ui.com/docs/guides/composition#the-ark-factory
 ---
 
@@ -14,6 +14,19 @@ import * as CardDocs from '@/components/examples/card/css-properties';
 <ComponentInstall />
 
 ## Использование
+
+<UsageCode
+  react={'<Card variant="elevated" size="md">\n  <CardHeader>\n    <CardTitle>Release 2.4</CardTitle>\n    <CardDescription>Ready to promote.</CardDescription>\n  </CardHeader>\n  <CardBody>12 changes, all checks passed.</CardBody>\n  <CardFooter>\n    <Button>Promote</Button>\n  </CardFooter>\n</Card>'}
+  vue={'<Card variant="elevated" size="md">\n  <CardHeader>\n    <CardTitle>Release 2.4</CardTitle>\n    <CardDescription>Ready to promote.</CardDescription>\n  </CardHeader>\n  <CardBody>12 changes, all checks passed.</CardBody>\n  <CardFooter>\n    <Button>Promote</Button>\n  </CardFooter>\n</Card>'}
+/>
+
+<PropChips
+  items={[
+    ['variant', 'Поверхность outline, elevated или subtle.'],
+    ['size', 'Внутренние отступы: sm, md или lg.'],
+    ['asChild', 'Рендерит карточку как вашу ссылку или article.'],
+  ]}
+/>
 
 Используйте `Card` как корневой компонент и добавляйте только нужные части. Импортируйте каждую
 часть напрямую, например `CardHeader` и `CardTitle`. Те же имена работают с npm-пакетами и
@@ -145,12 +158,32 @@ Card
 
 ### Хуки стилизации
 
+| Часть | `data-slot` |
+| --- | --- |
+| `Card` | `card-root` |
+| `CardHeader` | `card-header` |
+| `CardBody` | `card-body` |
+| `CardMedia` | `card-media` |
+| `CardBackground` | `card-background` |
+| `CardFooter` | `card-footer` |
+| `CardTitle` | `card-title` |
+| `CardDescription` | `card-description` |
+| `CardAction` | `card-action` |
+| `CardLink` | `card-link` |
+
 - Каждая часть предоставляет `data-scope="card"` и соответствующий `data-part`.
-- Стабильные хуки moduix: `data-slot="card-root"`, `card-background`, `card-media`, `card-header`, `card-body`,
-  `card-footer`, `card-title`, `card-description`, `card-action` и `card-link`.
 - Корневой компонент предоставляет `data-size="sm | md | lg"` и `data-variant="elevated | outline | subtle"`.
 - CSS-переменные переопределяют любой вариант. Чтобы настроить один вариант во всём приложении,
   задайте их на `[data-slot='card-root'][data-variant='<variant>']`.
 - У каждой секции одинаковый отступ сверху, у последней он есть и снизу. В Tailwind нижний отступ
   меняется через `last:pb-*` на секции или `[--card-spacing:…]` на корне.
 - Card не имеет атрибутов интерактивного состояния, поскольку не управляет состоянием и поведением.
+
+## Справочник API
+
+Также принимает нативные пропсы своего элемента и `asChild`.
+
+| Проп | Тип | По умолчанию |
+| --- | --- | --- |
+| `variant` | `'outline' \| 'elevated' \| 'subtle'` | `'outline'` |
+| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` |

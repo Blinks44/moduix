@@ -1,7 +1,7 @@
 ---
 title: Progress Circular
 component: progress-circular
-description: A circular progress indicator for determinate or indeterminate tasks.
+description: Show task progress in a compact ring, with a known or unknown end.
 ark: https://ark-ui.com/docs/components/progress-circular
 ---
 
@@ -14,6 +14,19 @@ import * as ProgressCircularDocs from '@/components/examples/progress-circular/c
 <ComponentInstall />
 
 ## Usage
+
+<UsageCode
+  react={'<ProgressCircular defaultValue={42}>\n  <ProgressCircularLabel>Export data</ProgressCircularLabel>\n  <ProgressCircularRing aria-label="Export data" />\n  <ProgressCircularValueText />\n</ProgressCircular>'}
+  vue={'<ProgressCircular :default-value="42">\n  <ProgressCircularLabel>Export data</ProgressCircularLabel>\n  <ProgressCircularRing aria-label="Export data" />\n  <ProgressCircularValueText />\n</ProgressCircular>'}
+/>
+
+<PropChips
+  items={[
+    ['defaultValue', 'Starting value; pass null for an indeterminate state.'],
+    ['min / max', 'Range of the value, 0 to 100 by default.'],
+    ['formatOptions', 'Intl options for the value text, percent by default.'],
+  ]}
+/>
 
 Use `ProgressCircularRing` to render the standard circle with its track and range. Add
 `ProgressCircularValueText` to show the current value. The example wraps the circle and value text
@@ -136,13 +149,33 @@ does not transition and the arc stays still. To give indeterminate progress its 
 
 ### Styling hooks
 
-- `data-slot="progress-circular-root"`, `data-slot="progress-circular-root-provider"`,
-  `data-slot="progress-circular-label"`, `data-slot="progress-circular-circle"`,
-  `data-slot="progress-circular-circle-track"`, `data-slot="progress-circular-circle-range"`,
-  `data-slot="progress-circular-value-text"`, and `data-slot="progress-circular-view"`.
+| Part | `data-slot` |
+| --- | --- |
+| `ProgressCircular` | `progress-circular-root` |
+| `ProgressCircularRootProvider` | `progress-circular-root-provider` |
+| `ProgressCircularLabel` | `progress-circular-label` |
+| `ProgressCircularValueText` | `progress-circular-value-text` |
+| `ProgressCircularCircle` | `progress-circular-circle` |
+| `ProgressCircularCircleTrack` | `progress-circular-circle-track` |
+| `ProgressCircularCircleRange` | `progress-circular-circle-range` |
+| `ProgressCircularView` | `progress-circular-view` |
+
 - `ProgressCircularRing` shares `ProgressCircularCircle`'s `data-slot`, `className`/`class`, ref, and
   `--moduix-progress-circular-*` size and thickness variables.
 - Ark hooks: `data-scope="progress"`, `data-part`, `data-state="indeterminate|loading|complete"`,
   `data-orientation`, `data-value`, and `data-max`.
 - Ark circle variables: `--size`, `--thickness`, `--radius`, `--circumference`, `--percent`, and
   `--offset`.
+
+## API reference
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `value` | `number \| null` | — |
+| `defaultValue` | `number \| null` | `50` |
+| `onValueChange` | `(details: ValueChangeDetails) => void` | — |
+| `min` | `number` | `0` |
+| `max` | `number` | `100` |
+| `formatOptions` | `Intl.NumberFormatOptions` | `{ style: 'percent' }` |
+| `locale` | `string` | — |
+| `translations` | `IntlTranslations` | — |

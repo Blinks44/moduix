@@ -1,7 +1,7 @@
 ---
 title: Collapsible
 component: collapsible
-description: Доступный компонент для раскрытия и сворачивания одной области содержимого в React, Solid и Vue.
+description: Показывает и скрывает одну область контента по кнопке.
 ark: https://ark-ui.com/docs/components/collapsible
 ---
 
@@ -14,6 +14,19 @@ import * as CollapsibleDocs from '@/components/examples/collapsible/css-properti
 <ComponentInstall />
 
 ## Использование
+
+<UsageCode
+  react={'<Collapsible defaultOpen={false} onOpenChange={(details) => track(details.open)}>\n  <CollapsibleTrigger>\n    Recovery keys\n    <CollapsibleIndicator />\n  </CollapsibleTrigger>\n  <CollapsibleContent>\n    <CollapsibleBody>…</CollapsibleBody>\n  </CollapsibleContent>\n</Collapsible>'}
+  vue={'<Collapsible v-model:open="open">\n  <CollapsibleTrigger>\n    Recovery keys\n    <CollapsibleIndicator />\n  </CollapsibleTrigger>\n  <CollapsibleContent>\n    <CollapsibleBody>…</CollapsibleBody>\n  </CollapsibleContent>\n</Collapsible>'}
+/>
+
+<PropChips
+  items={[
+    ['defaultOpen', 'Открыт сразу; для управления используйте open и onOpenChange.'],
+    ['collapsedHeight', 'Оставляет часть контента видимой в закрытом виде.'],
+    ['disabled', 'Кнопка перестаёт переключать.'],
+  ]}
+/>
 
 Используйте `Collapsible` с частями `CollapsibleTrigger`, необязательным `CollapsibleIndicator` и `CollapsibleContent`, чтобы
 раскрывать и сворачивать одну область содержимого. Размещайте содержимое внутри `CollapsibleBody`,
@@ -154,8 +167,15 @@ CollapsibleRootProvider
 
 ### Хуки стилизации
 
-- Части DOM предоставляют `data-slot="collapsible-root"`, `collapsible-root-provider`,
-  `collapsible-trigger`, `collapsible-indicator`, `collapsible-content` и `collapsible-body`.
+| Часть | `data-slot` |
+| --- | --- |
+| `Collapsible` | `collapsible-root` |
+| `CollapsibleRootProvider` | `collapsible-root-provider` |
+| `CollapsibleTrigger` | `collapsible-trigger` |
+| `CollapsibleIndicator` | `collapsible-indicator` |
+| `CollapsibleContent` | `collapsible-content` |
+| `CollapsibleBody` | `collapsible-body` |
+
 - Части Ark предоставляют `data-scope="collapsible"` и значения `data-part` для корня, триггера,
   индикатора и содержимого.
 - Ark добавляет `data-state="open" | "closed"` к корневому компоненту, триггеру, индикатору и содержимому.
@@ -163,3 +183,23 @@ CollapsibleRootProvider
 - `data-disabled` помечает триггер, индикатор и содержимое, если они отключены.
 - `data-has-collapsed-size` помечает содержимое, настроенное через `collapsedHeight` или `collapsedWidth`.
 - Для анимации содержимого используются переменные Ark `--height`, `--width`, `--collapsed-height` и `--collapsed-width`.
+
+## Клавиатура
+
+| Клавиша | Действие |
+| --- | --- |
+| `Enter` / `Space` | Открывает или закрывает контент с кнопки. |
+
+## Справочник API
+
+| Проп | Тип | По умолчанию |
+| --- | --- | --- |
+| `open` | `boolean` | — |
+| `defaultOpen` | `boolean` | `false` |
+| `onOpenChange` | `(details: OpenChangeDetails) => void` | — |
+| `onExitComplete` | `() => void` | — |
+| `disabled` | `boolean` | `false` |
+| `collapsedHeight` | `number \| string` | — |
+| `collapsedWidth` | `number \| string` | — |
+| `lazyMount` | `boolean` | `false` |
+| `unmountOnExit` | `boolean` | `false` |

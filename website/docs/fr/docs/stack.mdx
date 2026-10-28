@@ -1,7 +1,7 @@
 ---
 title: Stack
 component: stack
-description: Une primitive flex légère pour composer des interfaces verticales ou horizontales avec React, Solid ou Vue.
+description: Aligner des éléments en ligne ou en colonne avec un espacement régulier.
 ark: https://ark-ui.com/docs/guides/composition#the-ark-factory
 ---
 
@@ -12,6 +12,19 @@ ark: https://ark-ui.com/docs/guides/composition#the-ark-factory
 <ComponentInstall />
 
 ## Utilisation
+
+<UsageCode
+  react={'<Stack direction={{ mobile: \'column\', desktop: \'row\' }} gap={12} align="center">\n  <Avatar />\n  <Text>Ada Lovelace</Text>\n</Stack>'}
+  vue={'<Stack :direction="{ mobile: \'column\', desktop: \'row\' }" :gap="12" align="center">\n  <Avatar />\n  <Text>Ada Lovelace</Text>\n</Stack>'}
+/>
+
+<PropChips
+  items={[
+    ['direction', 'row, column ou inversés ; mobile et desktop pour les deux.'],
+    ['gap', 'Espace entre éléments ; les nombres deviennent des px.'],
+    ['align / justify', 'Alignement sur l’axe secondaire et principal.'],
+  ]}
+/>
 
 Utilisez `Stack` lorsqu’un seul conteneur flex suffit et qu’il faut simplement définir la direction, l’espacement et
 l’alignement.
@@ -97,9 +110,25 @@ sont communs aux deux approches de style.
 
 ### Points d’accroche CSS
 
+| Partie | `data-slot` |
+| --- | --- |
+| `Stack` | `stack-root` |
+
 - `className` ou `class` applique les styles à l’unique racine pour la largeur, les espacements internes, les bordures, les arrière-plans et les autres aspects visuels.
 - `data-scope="stack"` et `data-part="root"` alignent l’enveloppe sur les conventions de style d’Ark.
-- `data-slot="stack-root"` est le sélecteur moduix stable permettant de cibler la racine dans le CSS local.
 - `direction` et `fill` passent par la feuille de style du composant ou par des utilitaires : les classes du consommateur peuvent donc les remplacer. `gap`, `align`, `justify` et `wrap` écrivent des styles inline.
 - `style` est appliqué en dernier et peut donc remplacer les valeurs inline de `gap`, `alignItems`, `justifyContent` et `flexWrap`.
 - Le contrat public ne contient aucun attribut d’état, aucune variable d’animation CSS et aucune map `slotProps`.
+
+## Référence de l’API
+
+Accepte aussi les props natives de son élément et `asChild`.
+
+| Prop | Type | Défaut |
+| --- | --- | --- |
+| `direction` | `StackDirection \| { mobile?: StackDirection; desktop?: StackDirection }` | `'column'` |
+| `gap` | `number \| string` | — |
+| `align` | `CSSProperties['alignItems']` | — |
+| `justify` | `CSSProperties['justifyContent']` | — |
+| `wrap` | `CSSProperties['flexWrap']` | — |
+| `fill` | `boolean` | `false` |

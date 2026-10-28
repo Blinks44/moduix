@@ -1,7 +1,7 @@
 ---
 title: Chart
 component: chart
-description: Создавайте доступные адаптивные графики с TanStack Charts и оформляйте их с помощью figure, легенды, подсказки и анимации moduix.
+description: Графики на TanStack Charts внутри доступной фигуры с заголовком.
 ---
 
 import * as ChartDocs from '@/components/examples/chart/css-properties';
@@ -23,6 +23,19 @@ moduix предоставляет доступную оболочку компо
 TanStack.
 
 ## Использование
+
+<UsageCode
+  react={'<Chart>\n  <ChartHeader>\n    <ChartTitle>Monthly revenue</ChartTitle>\n    <ChartDescription>In thousands of dollars.</ChartDescription>\n  </ChartHeader>\n  <ChartPlot definition={definition} height={320} ariaLabel="Monthly revenue" />\n  <ChartLegend aria-label="Series">\n    <ChartLegendItem color="var(--moduix-color-chart-1)">Revenue</ChartLegendItem>\n  </ChartLegend>\n</Chart>'}
+  vue={'<Chart>\n  <ChartHeader>\n    <ChartTitle>Monthly revenue</ChartTitle>\n    <ChartDescription>In thousands of dollars.</ChartDescription>\n  </ChartHeader>\n  <ChartPlot :definition="definition" :height="320" ariaLabel="Monthly revenue" />\n  <ChartLegend aria-label="Series">\n    <ChartLegendItem color="var(--moduix-color-chart-1)">Revenue</ChartLegendItem>\n  </ChartLegend>\n</Chart>'}
+/>
+
+<PropChips
+  items={[
+    ['definition', 'Определение TanStack Charts: данные, метки и шкалы.'],
+    ['ariaLabel', 'Короткое название графика для вспомогательных технологий.'],
+    ['motion', 'Анимированный рендер; false даёт статичный SVG.'],
+  ]}
+/>
 
 Создайте определение графика в TanStack Charts и передайте его в `ChartPlot`. Добавьте вокруг
 графика видимые заголовок, описание и легенду, а для пользователей вспомогательных технологий
@@ -181,14 +194,40 @@ CSS-свойства настраивают варианты с CSS Modules. О�
 
 ### Хуки стилизации
 
+| Часть | `data-slot` |
+| --- | --- |
+| `Chart` | `chart-root` |
+| `Chart`, внутренний элемент | `chart-tooltip-text` |
+| `Chart`, внутренний элемент | `chart-tooltip-body` |
+| `Chart`, внутренний элемент | `chart-tooltip-title` |
+| `Chart`, внутренний элемент | `chart-tooltip-swatch` |
+| `Chart`, внутренний элемент | `chart-tooltip-rows` |
+| `Chart`, внутренний элемент | `chart-tooltip-row` |
+| `Chart`, внутренний элемент | `chart-tooltip-label` |
+| `Chart`, внутренний элемент | `chart-tooltip-value` |
+| `ChartHeader` | `chart-header` |
+| `ChartTitle` | `chart-title` |
+| `ChartDescription` | `chart-description` |
+| `ChartLegend` | `chart-legend` |
+| `ChartLegendItem` | `chart-legend-item` |
+
 - `Chart`, `ChartHeader`, `ChartTitle`, `ChartDescription`, `ChartLegend` и
   `ChartLegendItem` предоставляют `data-scope="chart"`, `data-part` и `data-slot`.
 - `className` в React и `class` в Solid и Vue у `ChartPlot` применяются к внешнему элементу `.ts-chart-host`.
-- Стандартная подсказка использует слоты данных `chart-tooltip-body`, `chart-tooltip-title`,
-  `chart-tooltip-rows`, `chart-tooltip-row`, `chart-tooltip-swatch`, `chart-tooltip-label`,
-  `chart-tooltip-value` и `chart-tooltip-text`.
 - Используйте `--moduix-color-chart-1` - `--moduix-color-chart-5` в цветовых шкалах TanStack.
 - Строки подсказки, которые TanStack помечает как `active`, получают `data-active`.
 - Оболочка подсказки читает переменные TanStack `--ts-chart-tooltip-*` с хоста `ChartPlot`. Для
   собственных CSS-селекторов используйте `tooltip.className`, а для собственного содержимого вокруг
   `defaultBody` от moduix - `renderTooltipBody`.
+
+## Справочник API
+
+Пропсы `ChartPlot`. Остальные пропсы чарта TanStack, например `height` и `renderTooltipBody`, передаются дальше.
+
+| Проп | Тип | По умолчанию |
+| --- | --- | --- |
+| `definition` | `ChartDefinition` | — |
+| `ariaLabel` | `string` | — |
+| `height` | `number` | — |
+| `motion` | `boolean` | `true` |
+| `renderer` | `ChartRenderer` | — |

@@ -1,7 +1,7 @@
 ---
 title: Hover Card
 component: hover-card
-description: An Ark UI hover card for supplementary previews opened when its trigger is hovered or focused.
+description: Preview a profile or link in a card when its trigger is hovered.
 ark: https://ark-ui.com/docs/components/hover-card
 ---
 
@@ -12,6 +12,19 @@ ark: https://ark-ui.com/docs/components/hover-card
 <ComponentInstall />
 
 ## Usage
+
+<UsageCode
+  react={'<HoverCard openDelay={600} closeDelay={300} positioning={{ placement: \'top\' }}>\n  <HoverCardTrigger href="/u/sarah">@sarah_chen</HoverCardTrigger>\n  <HoverCardPositioner>\n    <HoverCardContent>\n      <HoverCardBody>Design lead at Acme</HoverCardBody>\n    </HoverCardContent>\n  </HoverCardPositioner>\n</HoverCard>'}
+  vue={'<HoverCard :open-delay="600" :close-delay="300" :positioning="{ placement: \'top\' }">\n  <HoverCardTrigger href="/u/sarah">@sarah_chen</HoverCardTrigger>\n  <HoverCardPositioner>\n    <HoverCardContent>\n      <HoverCardBody>Design lead at Acme</HoverCardBody>\n    </HoverCardContent>\n  </HoverCardPositioner>\n</HoverCard>'}
+/>
+
+<PropChips
+  items={[
+    ['openDelay / closeDelay', 'Hover delays in ms, 600 and 300 by default.'],
+    ['positioning', 'Placement and offset of the card.'],
+    ['disabled', 'Stops the card from opening.'],
+  ]}
+/>
 
 Compose the card from explicit Ark parts. `HoverCardTrigger` opens the card, while
 `HoverCardPositioner` and `HoverCardContent` define its floating content. The basic composition
@@ -146,9 +159,17 @@ variables: a class on the part overrides the layered component styles. Data attr
 
 ### Styling hooks
 
+| Part | `data-slot` |
+| --- | --- |
+| `HoverCardTrigger` | `hover-card-trigger` |
+| `HoverCardPositioner` | `hover-card-positioner` |
+| `HoverCardContent` | `hover-card-content` |
+| `HoverCardArrow` | `hover-card-arrow` |
+| `HoverCardArrowTip` | `hover-card-arrow-tip` |
+| `HoverCardBody` | `hover-card-body` |
+
 Moduix adds `data-slot="hover-card-*"` hooks to the trigger, positioner, content, arrow, arrow tip,
-and body.
-`HoverCard` and `HoverCardRootProvider` only provide state and do not render DOM elements, so they have no styling hooks. Ark adds
+and body. `HoverCard` and `HoverCardRootProvider` only provide state and do not render DOM elements, so they have no styling hooks. Ark adds
 `data-scope="hover-card"` and `data-part` to its parts. For state-aware styling, target
 `data-state="open|closed"`, `data-placement`, `data-side`, `data-value`, `data-current`,
 `data-nested`, and `data-has-nested`.
@@ -157,3 +178,24 @@ and body.
 `--available-height`, `--x`, `--y`, `--z-index`, and `--transform-origin`. `HoverCardContent`
 exposes `--layer-index` and `--nested-layer-count`. `HoverCardArrow` exposes `--arrow-size`,
 `--arrow-size-half`, `--arrow-background`, and `--arrow-offset`.
+
+## Keyboard
+
+| Key | Action |
+| --- | --- |
+| `Tab` | Focusing the trigger opens the card after the delay. |
+| `Esc` | Closes the card. |
+
+## API reference
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `open` | `boolean` | — |
+| `defaultOpen` | `boolean` | `false` |
+| `onOpenChange` | `(details: OpenChangeDetails) => void` | — |
+| `openDelay` | `number` | `600` |
+| `closeDelay` | `number` | `300` |
+| `positioning` | `PositioningOptions` | — |
+| `disabled` | `boolean` | `false` |
+| `lazyMount` | `boolean` | `true` |
+| `unmountOnExit` | `boolean` | `true` |

@@ -1,7 +1,7 @@
 ---
 title: Breadcrumbs
 component: breadcrumbs
-description: Navigation sémantique en fil d’Ariane pour React, Solid et Vue, avec une composition explicite et une API compacte pour les chemins courts.
+description: Montrer la place d’une page dans le site avec des liens vers le haut.
 ark: https://ark-ui.com/docs/guides/composition#the-ark-factory
 ---
 
@@ -14,6 +14,19 @@ import * as BreadcrumbsDocs from '@/components/examples/breadcrumbs/css-properti
 <ComponentInstall />
 
 ## Utilisation
+
+<UsageCode
+  react={'<Breadcrumbs>\n  <BreadcrumbsPath\n    links={[\n      { href: \'/\', label: \'Home\' },\n      { href: \'/jobs\', label: \'Jobs\' },\n    ]}\n    page="Go Developer"\n    separator="/"\n  />\n</Breadcrumbs>'}
+  vue={'<Breadcrumbs>\n  <BreadcrumbsPath\n    :links="[\n      { href: \'/\', label: \'Home\' },\n      { href: \'/jobs\', label: \'Jobs\' },\n    ]"\n    page="Go Developer"\n    separator="/"\n  />\n</Breadcrumbs>'}
+/>
+
+<PropChips
+  items={[
+    ['links', 'Pages parentes dans l’ordre, chacune avec href et label.'],
+    ['page', 'Libellé de la page courante, sans lien.'],
+    ['separator', 'Contenu entre les éléments ; un chevron par défaut.'],
+  ]}
+/>
 
 Utilisez `BreadcrumbsPath` lorsque vous disposez déjà des segments du chemin à afficher. Le composant génère la liste
 ordonnée, les éléments, les liens, la page actuelle et les séparateurs à partir des props requises `links` et `page`.
@@ -104,10 +117,18 @@ l’anneau de focus, les séparateurs et la taille des points de suspension.
 
 <CssPropertiesSection properties={BreadcrumbsDocs.breadcrumbsCssProperties} />
 
-### Sélecteurs de style
+### Points d’accroche CSS
 
-- Les valeurs `data-slot="breadcrumbs-root"`, `breadcrumbs-list`, `breadcrumbs-item`, `breadcrumbs-link`, `breadcrumbs-page`,
-  `breadcrumbs-separator` et `breadcrumbs-ellipsis` constituent des sélecteurs moduix stables.
+| Partie | `data-slot` |
+| --- | --- |
+| `Breadcrumbs` | `breadcrumbs-root` |
+| `BreadcrumbsList` | `breadcrumbs-list` |
+| `BreadcrumbsItem` | `breadcrumbs-item` |
+| `BreadcrumbsLink` | `breadcrumbs-link` |
+| `BreadcrumbsPage` | `breadcrumbs-page` |
+| `BreadcrumbsSeparator` | `breadcrumbs-separator` |
+| `BreadcrumbsEllipsis` | `breadcrumbs-ellipsis` |
+
 - `BreadcrumbsLink`, `BreadcrumbsPage` et `BreadcrumbsEllipsis` partagent l’espacement intérieur horizontal défini par
   `--moduix-breadcrumbs-item-padding-x`.
 - Les éléments visibles de `BreadcrumbsItem` peuvent rétrécir pour que le fil d’Ariane tienne sur une ligne. Le dernier
@@ -115,3 +136,13 @@ l’anneau de focus, les séparateurs et la taille des points de suspension.
 - Les liens, les séparateurs et l’ellipse héritent de la couleur du texte de la racine. Définissez `color` sur
   `Breadcrumbs` (ou `--moduix-breadcrumbs-color` dans les variantes CSS Modules) pour recolorer tout le fil d’Ariane ;
   la page courante conserve sa propre couleur.
+
+## Référence de l’API
+
+Props de `BreadcrumbsPath`. Les parties explicites acceptent les props natives de leurs éléments.
+
+| Prop | Type | Défaut |
+| --- | --- | --- |
+| `links` | `readonly { href: string; label: ReactNode }[]` | — |
+| `page` | `ReactNode` | — |
+| `separator` | `ReactNode` | chevron |

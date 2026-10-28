@@ -1,7 +1,7 @@
 ---
 title: Popover
 component: popover
-description: Une fenêtre contextuelle accessible pour un contenu interactif compact, ancrée à un déclencheur ou à un autre élément de référence.
+description: Afficher du contenu interactif dans un panneau ancré à un déclencheur.
 ark: https://ark-ui.com/docs/components/popover
 ---
 
@@ -12,6 +12,20 @@ ark: https://ark-ui.com/docs/components/popover
 <ComponentInstall />
 
 ## Utilisation
+
+<UsageCode
+  react={'<Popover positioning={{ placement: \'bottom-start\', gutter: 8 }}>\n  <PopoverTrigger asChild>\n    <Button>Notifications</Button>\n  </PopoverTrigger>\n  <PopoverPositioner>\n    <PopoverContent>\n      <PopoverHeader>\n        <PopoverTitle>Notifications</PopoverTitle>\n        <PopoverDescription>You are all caught up.</PopoverDescription>\n      </PopoverHeader>\n    </PopoverContent>\n  </PopoverPositioner>\n</Popover>'}
+  solid={'<Popover positioning={{ placement: \'bottom-start\', gutter: 8 }}>\n  <PopoverTrigger asChild={(props) => (\n    <Button {...props()}>Notifications</Button>\n  )} />\n  <PopoverPositioner>\n    <PopoverContent>\n      <PopoverHeader>\n        <PopoverTitle>Notifications</PopoverTitle>\n        <PopoverDescription>You are all caught up.</PopoverDescription>\n      </PopoverHeader>\n    </PopoverContent>\n  </PopoverPositioner>\n</Popover>'}
+  vue={'<Popover :positioning="{ placement: \'bottom-start\', gutter: 8 }">\n  <PopoverTrigger as-child>\n    <Button>Notifications</Button>\n  </PopoverTrigger>\n  <PopoverPositioner>\n    <PopoverContent>\n      <PopoverHeader>\n        <PopoverTitle>Notifications</PopoverTitle>\n        <PopoverDescription>You are all caught up.</PopoverDescription>\n      </PopoverHeader>\n    </PopoverContent>\n  </PopoverPositioner>\n</Popover>'}
+/>
+
+<PropChips
+  items={[
+    ['positioning', 'Placement, gutter et sameWidth du panneau.'],
+    ['modal', 'Piège le focus et bloque la page tant que c’est ouvert.'],
+    ['closeOnInteractOutside', 'Ferme au clic extérieur, true par défaut.'],
+  ]}
+/>
 
 Utilisez `Popover` comme racine et importez directement chaque partie supplémentaire, par exemple
 `PopoverTrigger` et `PopoverContent`. Ces noms plats sont identiques dans les paquets npm et les
@@ -195,17 +209,57 @@ reposent sur les jetons de foundation et n’ont pas de variables de composant :
 remplace les styles du composant en couche. Les attributs d’état et les hooks `data-slot` sont communs
 aux deux modes de style.
 
-### Ciblage des styles
+### Points d’accroche CSS
+
+| Partie | `data-slot` |
+| --- | --- |
+| `PopoverAnchor` | `popover-anchor` |
+| `PopoverTrigger` | `popover-trigger` |
+| `PopoverIndicator` | `popover-indicator` |
+| `PopoverPositioner` | `popover-positioner` |
+| `PopoverContent` | `popover-content` |
+| `PopoverArrow` | `popover-arrow` |
+| `PopoverArrowTip` | `popover-arrow-tip` |
+| `PopoverTitle` | `popover-title` |
+| `PopoverDescription` | `popover-description` |
+| `PopoverCloseTrigger` | `popover-close-trigger` |
+| `PopoverCloseIcon` | `popover-close-icon` |
+| `PopoverHeader` | `popover-header` |
+| `PopoverBody` | `popover-body` |
+| `PopoverFooter` | `popover-footer` |
 
 Chaque partie rendue accepte `className` ou `class`. Les parties Ark conservent `data-scope="popover"`
-et leurs valeurs `data-part`, tandis que moduix ajoute `data-slot="popover-*"` aux conteneurs rendus.
-`Popover` et `PopoverRootProvider` fournissent l’état, mais ne rendent pas d’éléments DOM. Pour les
+et leurs valeurs `data-part`, tandis que moduix ajoute `data-slot="popover-*"` aux conteneurs rendus. `Popover` et `PopoverRootProvider` fournissent l’état, mais ne rendent pas d’éléments DOM. Pour les
 styles liés à l’état, ciblez `data-state="open|closed"`, `data-placement`, `data-side`, `data-value`,
 `data-nested`, `data-has-nested`, `data-expanded` et `data-current` lorsque plusieurs déclencheurs
 avec une `value` partagent une même fenêtre.
 
 `PopoverPositioner` expose `--reference-width`, `--reference-height`, `--available-width`,
 `--available-height`, `--x`, `--y`, `--z-index` et `--transform-origin`. `PopoverContent` expose
-`--layer-index` et `--nested-layer-count`. `PopoverArrow` expose les variables de mesure de la flèche Ark.
-Le contenu renvoie les longues chaînes sans séparateur à la ligne et désactive ses animations lorsque
+`--layer-index` et `--nested-layer-count`. `PopoverArrow` expose les variables de mesure de la flèche Ark. Le contenu renvoie les longues chaînes sans séparateur à la ligne et désactive ses animations lorsque
 l’utilisateur préfère réduire les animations.
+
+## Clavier
+
+| Touche | Action |
+| --- | --- |
+| `Enter` / `Space` | Ouvre ou ferme le popover depuis le déclencheur. |
+| `Tab` / `Shift+Tab` | Parcourt le contenu ; en sortir ferme un popover non modal. |
+| `Esc` | Ferme et rend le focus au déclencheur. |
+
+## Référence de l’API
+
+| Prop | Type | Défaut |
+| --- | --- | --- |
+| `open` | `boolean` | — |
+| `defaultOpen` | `boolean` | `false` |
+| `onOpenChange` | `(details: OpenChangeDetails) => void` | — |
+| `positioning` | `PositioningOptions` | — |
+| `modal` | `boolean` | `false` |
+| `autoFocus` | `boolean` | `true` |
+| `closeOnEscape` | `boolean` | `true` |
+| `closeOnInteractOutside` | `boolean` | `true` |
+| `initialFocusEl` | `() => HTMLElement \| null \| false` | — |
+| `portalled` | `boolean` | `true` |
+| `lazyMount` | `boolean` | `true` |
+| `unmountOnExit` | `boolean` | `true` |

@@ -1,7 +1,7 @@
 ---
 title: Alert
 component: alert
-description: Messages intégrés à la page pour les mises à jour de statut, la validation et les messages système.
+description: Afficher un message d’état intégré avec un titre, une description et des actions.
 ark: https://ark-ui.com/docs/guides/composition
 ---
 
@@ -14,6 +14,19 @@ import * as AlertDocs from '@/components/examples/alert/css-properties';
 <ComponentInstall />
 
 ## Utilisation
+
+<UsageCode
+  react={'<Alert status="warning">\n  <AlertIndicator>\n    <TriangleAlertIcon />\n  </AlertIndicator>\n  <AlertContent>\n    <AlertTitle>Storage almost full</AlertTitle>\n    <AlertDescription>Free up space to keep syncing files.</AlertDescription>\n  </AlertContent>\n</Alert>'}
+  vue={'<Alert status="warning">\n  <AlertIndicator>\n    <TriangleAlertIcon />\n  </AlertIndicator>\n  <AlertContent>\n    <AlertTitle>Storage almost full</AlertTitle>\n    <AlertDescription>Free up space to keep syncing files.</AlertDescription>\n  </AlertContent>\n</Alert>'}
+/>
+
+<PropChips
+  items={[
+    ['status', 'Définit le ton : info, success, warning ou error.'],
+    ['AlertIndicator', 'Emplacement d’icône facultatif, masqué aux technologies d’assistance.'],
+    ['AlertActions', 'Rangée facultative pour des boutons ou des liens sous le message.'],
+  ]}
+/>
 
 Pour un message intégré courant, utilisez la forme courte `<Alert>` avec `AlertTitle` et
 `AlertDescription`. Ajoutez `AlertIndicator` lorsqu’une icône aide à comprendre plus rapidement le
@@ -138,8 +151,23 @@ Les statuts intégrés utilisent également les tokens de palette partagée :
 
 <CssPropertiesSection properties={AlertDocs.alertCssProperties} />
 
-### Sélecteurs de style
+### Points d’accroche CSS
 
-- Sélecteurs `data-slot` stables : `alert-root`, `alert-indicator`, `alert-content`, `alert-title`, `alert-description` et `alert-actions`
+| Partie | `data-slot` |
+| --- | --- |
+| `Alert` | `alert-root` |
+| `AlertIndicator` | `alert-indicator` |
+| `AlertContent` | `alert-content` |
+| `AlertTitle` | `alert-title` |
+| `AlertDescription` | `alert-description` |
+| `AlertActions` | `alert-actions` |
+
 - Sélecteurs de style Ark : `data-scope="alert"` avec `data-part="root"`, `indicator`, `content`, `title`, `description` ou `actions`
 - `Alert` écrit le statut sélectionné dans `data-status`
+
+## Référence de l’API
+
+| Prop | Type | Défaut |
+| --- | --- | --- |
+| `status` | `'info' \| 'success' \| 'warning' \| 'error'` | `'info'` |
+| `asChild` | `boolean` | `false` |

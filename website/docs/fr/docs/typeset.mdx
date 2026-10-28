@@ -1,7 +1,7 @@
 ---
 title: Typeset
 component: typeset
-description: Appliquez un rythme de lecture au HTML sémantique, au Markdown rendu et au contenu diffusé en continu.
+description: Mettre en forme le Markdown rendu, le contenu CMS et les réponses d’IA.
 ark: https://ark-ui.com/docs/guides/composition#the-ark-factory
 ---
 
@@ -14,6 +14,19 @@ import * as TypesetDocs from '@/components/examples/typeset/css-properties';
 <ComponentInstall />
 
 ## Utilisation
+
+<UsageCode
+  react={'<Typeset asChild>\n  <article dangerouslySetInnerHTML={{ __html: html }} />\n</Typeset>'}
+  solid={'<Typeset asChild={(props) => (\n  <article innerHTML={html} {...props()} />\n)} />'}
+  vue={'<Typeset as-child>\n  <article v-html="html" />\n</Typeset>'}
+/>
+
+<PropChips
+  items={[
+    ['asChild', 'Applique les styles à votre article ou section.'],
+    ['data-not-typeset', 'Exclut un bloc imbriqué des styles de contenu ; .not-typeset fonctionne aussi.'],
+  ]}
+/>
 
 Placez le HTML déjà produit par votre moteur de rendu dans `<Typeset>`. Utilisez `asChild` seulement
 lorsque le conteneur extérieur doit être un élément sémantique, comme `article` ou `section`. Gardez
@@ -115,7 +128,18 @@ dernier ; les six variables CSS personnalisent donc les deux variantes.
 
 ### Points d’accroche CSS
 
-- `data-slot="typeset"` cible le conteneur racine.
-- `data-slot="typeset-scroll"` cible la zone de débordement facultative et son état au focus.
+| Partie | `data-slot` |
+| --- | --- |
+| `Typeset` | `typeset` |
+| `TypesetScroll` | `typeset-scroll` |
+
 - `[data-scope="typeset"][data-part="root"]` et `[data-part="scroll"]` fournissent des points
   d’accroche stables pour les parties du composant.
+
+## Référence de l’API
+
+Accepte aussi les props natives de son élément et `asChild`.
+
+| Prop | Type | Défaut |
+| --- | --- | --- |
+| `asChild` | `boolean` | `false` |

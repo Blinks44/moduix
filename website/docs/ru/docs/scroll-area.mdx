@@ -1,7 +1,7 @@
 ---
 title: Scroll Area
 component: scroll-area
-description: Создавайте контейнеры прокрутки со стилизованными полосами прокрутки в React, Solid и Vue с установкой пакетом или через shadcn.
+description: Прокрутка с оформленными полосами, которые совпадают с темой.
 ark: https://ark-ui.com/docs/components/scroll-area
 ---
 
@@ -14,6 +14,20 @@ import * as ScrollAreaDocs from '@/components/examples/scroll-area/css-propertie
 <ComponentInstall />
 
 ## Использование
+
+<UsageCode
+  react={'<ScrollArea variant="always" fade style={{ height: 240 }}>\n  <ScrollAreaViewport>\n    <ScrollAreaContent>…</ScrollAreaContent>\n  </ScrollAreaViewport>\n  <ScrollAreaScrollbar>\n    <ScrollAreaThumb />\n  </ScrollAreaScrollbar>\n</ScrollArea>'}
+  solid={'<ScrollArea variant="always" fade style={{ height: \'240px\' }}>\n  <ScrollAreaViewport>\n    <ScrollAreaContent>…</ScrollAreaContent>\n  </ScrollAreaViewport>\n  <ScrollAreaScrollbar>\n    <ScrollAreaThumb />\n  </ScrollAreaScrollbar>\n</ScrollArea>'}
+  vue={'<ScrollArea variant="always" fade :style="{ height: \'240px\' }">\n  <ScrollAreaViewport>\n    <ScrollAreaContent>…</ScrollAreaContent>\n  </ScrollAreaViewport>\n  <ScrollAreaScrollbar>\n    <ScrollAreaThumb />\n  </ScrollAreaScrollbar>\n</ScrollArea>'}
+/>
+
+<PropChips
+  items={[
+    ['variant', 'hover показывает полосы при наведении, always всегда.'],
+    ['fade', 'Затемняет края, за которыми есть ещё контент.'],
+    ['orientation', 'На ScrollAreaScrollbar: vertical или horizontal.'],
+  ]}
+/>
 
 Используйте `ScrollArea` как корневой элемент. Разместите `ScrollAreaViewport` вокруг
 `ScrollAreaContent`, добавьте по одному `ScrollAreaScrollbar` и `ScrollAreaThumb` для каждой оси
@@ -114,9 +128,16 @@ ScrollAreaRootProvider
 
 ### Хуки стилизации
 
-- moduix добавляет стабильные хуки `data-slot` со значениями `scroll-area-root`,
-  `scroll-area-root-provider`, `scroll-area-viewport`, `scroll-area-content`,
-  `scroll-area-scrollbar`, `scroll-area-thumb` и `scroll-area-corner`.
+| Часть | `data-slot` |
+| --- | --- |
+| `ScrollArea` | `scroll-area-root` |
+| `ScrollAreaRootProvider` | `scroll-area-root-provider` |
+| `ScrollAreaViewport` | `scroll-area-viewport` |
+| `ScrollAreaContent` | `scroll-area-content` |
+| `ScrollAreaScrollbar` | `scroll-area-scrollbar` |
+| `ScrollAreaThumb` | `scroll-area-thumb` |
+| `ScrollAreaCorner` | `scroll-area-corner` |
+
 - Свойство `fade` добавляет `data-fade`, а свойство `variant` добавляет
   `data-variant="hover" | "always"` на `ScrollArea` и `ScrollAreaRootProvider`.
 - Ark добавляет `data-scope="scroll-area"` и `data-part` для каждой части.
@@ -131,3 +152,11 @@ ScrollAreaRootProvider
   управляют смещением угла и размерами бегунка. Переменные `ScrollAreaViewport`
   `--scroll-area-overflow-x-start`, `--scroll-area-overflow-x-end`,
   `--scroll-area-overflow-y-start` и `--scroll-area-overflow-y-end` показывают расстояние до краёв.
+
+## Справочник API
+
+| Проп | Тип | По умолчанию |
+| --- | --- | --- |
+| `variant` | `'hover' \| 'always'` | `'hover'` |
+| `fade` | `boolean` | `false` |
+| `asChild` | `boolean` | `false` |

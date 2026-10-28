@@ -1,7 +1,7 @@
 ---
 title: Editable
 component: editable
-description: Modifiez du texte directement avec React, Solid ou Vue, avec une installation par paquet ou via la CLI shadcn.
+description: Modifier un court texte sur place et valider ou annuler.
 ark: https://ark-ui.com/docs/components/editable
 ---
 
@@ -14,6 +14,19 @@ import * as EditableDocs from '@/components/examples/editable/css-properties';
 <ComponentInstall />
 
 ## Utilisation
+
+<UsageCode
+  react={'<Editable defaultValue="Layer name" activationMode="dblclick" onValueCommit={(details) => rename(details.value)}>\n  <EditableLabel>Name</EditableLabel>\n  <EditableArea>\n    <EditableInput />\n    <EditablePreview />\n  </EditableArea>\n  <EditableControls />\n</Editable>'}
+  vue={'<Editable default-value="Layer name" activation-mode="dblclick" @value-commit="(details) => rename(details.value)">\n  <EditableLabel>Name</EditableLabel>\n  <EditableArea>\n    <EditableInput />\n    <EditablePreview />\n  </EditableArea>\n  <EditableControls />\n</Editable>'}
+/>
+
+<PropChips
+  items={[
+    ['activationMode', 'Comment l’édition démarre : dblclick, click, focus ou none.'],
+    ['submitMode', 'Valide sur enter, blur, both ou none.'],
+    ['onValueCommit', 'Appelé avec la valeur validée.'],
+  ]}
+/>
 
 Utilisez `Editable` comme racine, puis composez-le avec `EditableLabel`, `EditableArea`,
 `EditableInput` et `EditablePreview`. Ajoutez `EditableControls` pour le parcours standard de
@@ -150,11 +163,51 @@ largeur, appliquez `max-width` à la racine avec une classe.
 
 ### Points d’accroche CSS
 
-- Sélecteurs `data-slot` stables : `editable-root`, `editable-root-provider`, `editable-label`,
-  `editable-area`, `editable-input`, `editable-preview`, `editable-control`,
-  `editable-edit-trigger`, `editable-submit-trigger` et `editable-cancel-trigger`.
+| Partie | `data-slot` |
+| --- | --- |
+| `Editable` | `editable-root` |
+| `EditableRootProvider` | `editable-root-provider` |
+| `EditableLabel` | `editable-label` |
+| `EditableArea` | `editable-area` |
+| `EditableInput` | `editable-input` |
+| `EditablePreview` | `editable-preview` |
+| `EditableControl` | `editable-control` |
+| `EditableEditTrigger` | `editable-edit-trigger` |
+| `EditableSubmitTrigger` | `editable-submit-trigger` |
+| `EditableCancelTrigger` | `editable-cancel-trigger` |
+
 - Sélecteurs des parties Ark : `data-scope="editable"` et
   `data-part="root|area|label|preview|input|edit-trigger|submit-trigger|cancel-trigger|control"`.
 - Sélecteurs d’état Ark : `data-disabled`, `data-focus`, `data-invalid`, `data-readonly`,
   `data-required`, `data-placeholder-shown` et `data-autoresize`.
 - `EditableControls` partage le slot `editable-control` avec `EditableControl`.
+
+## Clavier
+
+| Touche | Action |
+| --- | --- |
+| `Enter` | Valide la valeur si submitMode le permet. |
+| `Esc` | Annule et rétablit la valeur précédente. |
+
+## Référence de l’API
+
+| Prop | Type | Défaut |
+| --- | --- | --- |
+| `value` | `string` | — |
+| `defaultValue` | `string` | — |
+| `onValueChange` | `(details: ValueChangeDetails) => void` | — |
+| `onValueCommit` | `(details: ValueChangeDetails) => void` | — |
+| `onValueRevert` | `(details: ValueChangeDetails) => void` | — |
+| `activationMode` | `'focus' \| 'dblclick' \| 'click' \| 'none'` | `'dblclick'` |
+| `submitMode` | `'enter' \| 'blur' \| 'both' \| 'none'` | `'both'` |
+| `selectOnFocus` | `boolean` | `true` |
+| `edit` | `boolean` | — |
+| `onEditChange` | `(details: EditChangeDetails) => void` | — |
+| `placeholder` | `string \| { edit: string; preview: string }` | — |
+| `maxLength` | `number` | — |
+| `autoResize` | `boolean` | `false` |
+| `name` | `string` | — |
+| `disabled` | `boolean` | `false` |
+| `readOnly` | `boolean` | `false` |
+| `invalid` | `boolean` | `false` |
+| `required` | `boolean` | `false` |

@@ -1,7 +1,7 @@
 ---
 title: Collapsible
 component: collapsible
-description: An accessible disclosure control for showing and hiding one content region in React, Solid, or Vue.
+description: Show and hide one region of content with a trigger.
 ark: https://ark-ui.com/docs/components/collapsible
 ---
 
@@ -14,6 +14,19 @@ import * as CollapsibleDocs from '@/components/examples/collapsible/css-properti
 <ComponentInstall />
 
 ## Usage
+
+<UsageCode
+  react={'<Collapsible defaultOpen={false} onOpenChange={(details) => track(details.open)}>\n  <CollapsibleTrigger>\n    Recovery keys\n    <CollapsibleIndicator />\n  </CollapsibleTrigger>\n  <CollapsibleContent>\n    <CollapsibleBody>…</CollapsibleBody>\n  </CollapsibleContent>\n</Collapsible>'}
+  vue={'<Collapsible v-model:open="open">\n  <CollapsibleTrigger>\n    Recovery keys\n    <CollapsibleIndicator />\n  </CollapsibleTrigger>\n  <CollapsibleContent>\n    <CollapsibleBody>…</CollapsibleBody>\n  </CollapsibleContent>\n</Collapsible>'}
+/>
+
+<PropChips
+  items={[
+    ['defaultOpen', 'Starts open; use open and onOpenChange to control it.'],
+    ['collapsedHeight', 'Keeps part of the content visible when closed.'],
+    ['disabled', 'Stops the trigger from toggling.'],
+  ]}
+/>
 
 Use `Collapsible` with `CollapsibleTrigger`, the optional `CollapsibleIndicator`, and `CollapsibleContent` to show and hide one
 content region. Put the content inside `CollapsibleBody` when you need the recommended inner
@@ -152,8 +165,15 @@ content correctly.
 
 ### Styling hooks
 
-- DOM parts expose `data-slot="collapsible-root"`, `collapsible-root-provider`,
-  `collapsible-trigger`, `collapsible-indicator`, `collapsible-content`, and `collapsible-body`.
+| Part | `data-slot` |
+| --- | --- |
+| `Collapsible` | `collapsible-root` |
+| `CollapsibleRootProvider` | `collapsible-root-provider` |
+| `CollapsibleTrigger` | `collapsible-trigger` |
+| `CollapsibleIndicator` | `collapsible-indicator` |
+| `CollapsibleContent` | `collapsible-content` |
+| `CollapsibleBody` | `collapsible-body` |
+
 - Ark parts expose `data-scope="collapsible"` and `data-part` values for the root, trigger, indicator,
   and content.
 - Ark exposes `data-state="open" | "closed"` on root, trigger, indicator, and content.
@@ -161,3 +181,23 @@ content correctly.
 - `data-disabled` marks disabled trigger, indicator, and content parts.
 - `data-has-collapsed-size` marks content configured with `collapsedHeight` or `collapsedWidth`.
 - Content animation uses Ark `--height`, `--width`, `--collapsed-height`, and `--collapsed-width`.
+
+## Keyboard
+
+| Key | Action |
+| --- | --- |
+| `Enter` / `Space` | Opens or closes the content from the trigger. |
+
+## API reference
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `open` | `boolean` | — |
+| `defaultOpen` | `boolean` | `false` |
+| `onOpenChange` | `(details: OpenChangeDetails) => void` | — |
+| `onExitComplete` | `() => void` | — |
+| `disabled` | `boolean` | `false` |
+| `collapsedHeight` | `number \| string` | — |
+| `collapsedWidth` | `number \| string` | — |
+| `lazyMount` | `boolean` | `false` |
+| `unmountOnExit` | `boolean` | `false` |

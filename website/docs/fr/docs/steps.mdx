@@ -1,7 +1,7 @@
 ---
 title: Steps
 component: steps
-description: Guidez les utilisateurs dans un processus en plusieurs étapes avec un état et une navigation accessibles grâce à Ark UI.
+description: Guider l’utilisateur dans une tâche en plusieurs étapes avec validation.
 ark: https://ark-ui.com/docs/components/steps
 ---
 
@@ -14,6 +14,20 @@ import * as StepsDocs from '@/components/examples/steps/css-properties';
 <ComponentInstall />
 
 ## Utilisation
+
+<UsageCode
+  react={'<Steps count={3} linear onStepComplete={finish}>\n  <StepsList>\n    <StepsItem index={0}>\n      <StepsTrigger>\n        <StepsIndicator />\n        Account\n      </StepsTrigger>\n      <StepsSeparator />\n    </StepsItem>\n    {/* items 1 and 2 */}\n  </StepsList>\n  <StepsContent index={0}>Account details</StepsContent>\n  <StepsCompletedContent>All set.</StepsCompletedContent>\n  <StepsPrevTrigger>Back</StepsPrevTrigger>\n  <StepsNextTrigger>Next</StepsNextTrigger>\n</Steps>'}
+  vue={'<Steps :count="3" linear @step-complete="finish">\n  <StepsList>\n    <StepsItem :index="0">\n      <StepsTrigger>\n        <StepsIndicator />\n        Account\n      </StepsTrigger>\n      <StepsSeparator />\n    </StepsItem>\n    <!-- items 1 and 2 -->\n  </StepsList>\n  <StepsContent :index="0">Account details</StepsContent>\n  <StepsCompletedContent>All set.</StepsCompletedContent>\n  <StepsPrevTrigger>Back</StepsPrevTrigger>\n  <StepsNextTrigger>Next</StepsNextTrigger>\n</Steps>'}
+/>
+
+<PropChips
+  items={[
+    ['count', 'Nombre d’étapes ; les index commencent à 0.'],
+    ['linear', 'Exige de terminer chaque étape avant la suivante.'],
+    ['isStepValid', 'Bloque Next tant que l’étape est invalide.'],
+    ['orientation', 'Disposition horizontale ou verticale.'],
+  ]}
+/>
 
 Utilisez `Steps` avec `count`, une `StepsList` contenant un `StepsItem` par étape, les panneaux
 `StepsContent` correspondants et les boutons intégrés pour avancer ou reculer. Les index des étapes
@@ -139,12 +153,26 @@ couleurs, la typographie et les surfaces avec une classe sur la partie.
 
 <CssPropertiesSection properties={StepsDocs.stepsCssProperties} />
 
-### Hooks de style
+### Points d’accroche CSS
+
+| Partie | `data-slot` |
+| --- | --- |
+| `Steps` | `steps-root` |
+| `StepsRootProvider` | `steps-root-provider` |
+| `StepsList` | `steps-list` |
+| `StepsItem` | `steps-item` |
+| `StepsTrigger` | `steps-trigger` |
+| `StepsIndicator` | `steps-indicator` |
+| `StepsSeparator` | `steps-separator` |
+| `StepsContent` | `steps-content` |
+| `StepsCompletedContent` | `steps-completed-content` |
+| `StepsPrevTrigger` | `steps-prev-trigger` |
+| `StepsNextTrigger` | `steps-next-trigger` |
+| `StepsProgress` | `steps-progress` |
 
 Les hooks publics utiles sont les suivants :
 
 - `className` dans React ou `class` dans Solid et Vue sur `Steps`, `StepsRootProvider`, `StepsList`, `StepsItem`, `StepsTrigger`, `StepsIndicator`, `StepsSeparator`, `StepsContent`, `StepsCompletedContent`, `StepsPrevTrigger`, `StepsNextTrigger` et `StepsProgress`
-- `data-slot="steps-root"`, `steps-root-provider`, `steps-list`, `steps-item`, `steps-trigger`, `steps-indicator`, `steps-separator`, `steps-content`, `steps-completed-content`, `steps-prev-trigger`, `steps-next-trigger` et `steps-progress`
 - Les valeurs Ark `data-scope="steps"` et `data-part` pour chaque partie primitive
 - `data-orientation="horizontal" | "vertical"` sur la racine, la liste, l’étape, le déclencheur, le contenu et le séparateur
 - `data-current`, `data-complete` et `data-incomplete` sur les surfaces d’état de l’indicateur, du séparateur et du déclencheur
@@ -152,3 +180,25 @@ Les hooks publics utiles sont les suivants :
 - `data-state="open" | "closed"` sur les déclencheurs et les panneaux de contenu
 - `data-complete` sur `StepsProgress`
 - La variable Ark `--percent` sur la racine, consommée par `StepsProgress`
+
+## Clavier
+
+| Touche | Action |
+| --- | --- |
+| `Tab` / `Shift+Tab` | Passe d’une étape aux boutons Back et Next. |
+| `Enter` / `Space` | Ouvre l’étape ayant le focus ou active Back et Next. |
+
+## Référence de l’API
+
+| Prop | Type | Défaut |
+| --- | --- | --- |
+| `count` | `number` | — |
+| `step` | `number` | — |
+| `defaultStep` | `number` | `0` |
+| `onStepChange` | `(details: StepChangeDetails) => void` | — |
+| `onStepComplete` | `() => void` | — |
+| `linear` | `boolean` | `false` |
+| `orientation` | `'horizontal' \| 'vertical'` | `'horizontal'` |
+| `isStepValid` | `(index: number) => boolean` | `() => true` |
+| `isStepSkippable` | `(index: number) => boolean` | `() => false` |
+| `onStepInvalid` | `(details: StepInvalidDetails) => void` | — |

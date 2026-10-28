@@ -1,7 +1,7 @@
 ---
 title: Avatar
 component: avatar
-description: 'Компактное представление пользователя или объекта: Ark UI управляет загрузкой изображения и показом резервного содержимого.'
+description: Фото пользователя с инициалами, пока оно грузится или если не загрузилось.
 ark: https://ark-ui.com/docs/components/avatar
 ---
 
@@ -14,6 +14,19 @@ import * as AvatarDocs from '@/components/examples/avatar/css-properties';
 <ComponentInstall />
 
 ## Использование
+
+<UsageCode
+  react={'<Avatar size="lg" onStatusChange={(details) => log(details.status)}>\n  <AvatarFallback>AT</AvatarFallback>\n  <AvatarImage src={user.photo} alt={user.name} />\n</Avatar>'}
+  vue={'<Avatar size="lg" @status-change="(details) => log(details.status)">\n  <AvatarFallback>AT</AvatarFallback>\n  <AvatarImage :src="user.photo" :alt="user.name" />\n</Avatar>'}
+/>
+
+<PropChips
+  items={[
+    ['size', 'От xs до xl, по умолчанию md.'],
+    ['AvatarFallback', 'Инициалы или иконка, пока не загрузилось изображение.'],
+    ['onStatusChange', 'Сообщает loading, loaded или error.'],
+  ]}
+/>
 
 Используйте вместе `Avatar`, `AvatarFallback` и `AvatarImage`. Не убирайте `AvatarFallback` из
 дерева, чтобы Ark UI мог переключаться между ним и изображением при изменении состояния загрузки.
@@ -135,11 +148,25 @@ CSS-переменных относится к вариантам с CSS Modules
 
 ### Хуки стилизации
 
-- `data-slot="avatar-root"`, `avatar-root-provider`, `avatar-image`, `avatar-fallback` и
-  `avatar-group`.
+| Часть | `data-slot` |
+| --- | --- |
+| `Avatar` | `avatar-root` |
+| `AvatarRootProvider` | `avatar-root-provider` |
+| `AvatarImage` | `avatar-image` |
+| `AvatarFallback` | `avatar-fallback` |
+| `AvatarGroup` | `avatar-group` |
+
 - Атрибуты анатомии Ark: `data-scope="avatar"` и
   `data-part="root" | "image" | "fallback"`.
 - Состояние изображения Ark: `data-state="visible" | "hidden"` на `AvatarImage` и
   `AvatarFallback`.
 - Состояние размера moduix: `data-size="xs" | "sm" | "md" | "lg" | "xl"` на
   `Avatar` и `AvatarRootProvider`, по умолчанию `md`.
+
+## Справочник API
+
+| Проп | Тип | По умолчанию |
+| --- | --- | --- |
+| `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'` | `'md'` |
+| `onStatusChange` | `(details: StatusChangeDetails) => void` | — |
+| `asChild` | `boolean` | `false` |

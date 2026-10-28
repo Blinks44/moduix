@@ -1,7 +1,7 @@
 ---
 title: Input
 component: input
-description: A styled native single-line input built on Ark FieldInput, with native events and moduix styling.
+description: Collect a single line of text with native input behavior.
 ark: https://ark-ui.com/docs/components/field
 ---
 
@@ -14,6 +14,20 @@ import * as InputDocs from '@/components/examples/input/css-properties';
 <ComponentInstall />
 
 ## Usage
+
+<UsageCode
+  react={'<Field>\n  <FieldLabel>Name</FieldLabel>\n  <Input name="name" size="md" placeholder="Enter your name" onChange={(event) => setName(event.target.value)} />\n</Field>'}
+  solid={'<Field>\n  <FieldLabel>Name</FieldLabel>\n  <Input name="name" size="md" placeholder="Enter your name" onInput={(event) => setName(event.currentTarget.value)} />\n</Field>'}
+  vue={'<Field>\n  <FieldLabel>Name</FieldLabel>\n  <Input v-model="name" name="name" size="md" placeholder="Enter your name" />\n</Field>'}
+/>
+
+<PropChips
+  items={[
+    ['size', 'Height and text size, xs to xl.'],
+    ['htmlSize', 'Native size attribute, in characters.'],
+    ['Field', 'Wrap it to add a label, helper, and error text.'],
+  ]}
+/>
 
 Place `Input` inside `Field` when you need a label, helper text, or an error message. `Field`
 connects that content to the control, generates the necessary ids, and provides its state.
@@ -140,8 +154,21 @@ field state.
 
 ### Styling hooks
 
-- `data-slot="input-root"`
+| Part | `data-slot` |
+| --- | --- |
+| `Input` | `input-root` |
+
 - `data-size="xs" | "sm" | "md" | "lg" | "xl"`
 - `data-scope="field"` and `data-part="input"`
 - Ark `data-invalid`, `data-required`, and `data-readonly` inside `Field`
 - native `:disabled`, `:read-only`, `:focus-visible`, and `[aria-invalid="true"]`
+
+## API reference
+
+Also accepts the native props of its element.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'` | `'md'` |
+| `htmlSize` | `number` | — |
+| `asChild` | `boolean` | `false` |

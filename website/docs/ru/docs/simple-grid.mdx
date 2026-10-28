@@ -1,7 +1,7 @@
 ---
 title: Simple Grid
 component: simple-grid
-description: Адаптивная сетка с равными колонками для React, Solid и Vue с установкой через пакет или shadcn.
+description: Карточки и плитки в равных колонках, которые подстраиваются под ширину.
 ark: https://ark-ui.com/docs/guides/composition
 ---
 
@@ -12,6 +12,20 @@ ark: https://ark-ui.com/docs/guides/composition
 <ComponentInstall />
 
 ## Использование
+
+<UsageCode
+  react={'<SimpleGrid minChildWidth="18rem" gap={16}>\n  {plans.map((plan) => (\n    <Card key={plan.name}>…</Card>\n  ))}\n</SimpleGrid>'}
+  solid={'<SimpleGrid minChildWidth="18rem" gap={16}>\n  <For each={plans}>\n    {(plan) => (\n      <Card>…</Card>\n    )}\n  </For>\n</SimpleGrid>'}
+  vue={'<SimpleGrid min-child-width="18rem" :gap="16">\n  <Card v-for="plan in plans" :key="plan.name">…</Card>\n</SimpleGrid>'}
+/>
+
+<PropChips
+  items={[
+    ['minChildWidth', 'Минимальная ширина колонки; число колонок зависит от места.'],
+    ['columns', 'Фиксированное число колонок вместо этого.'],
+    ['gap', 'Расстояние между ячейками; числа становятся px.'],
+  ]}
+/>
 
 Используйте `minChildWidth`, если число равных колонок должно меняться вместе с доступной шириной.
 Компонент использует `auto-fit` и `minmax()` из CSS Grid: числовые значения считаются пикселями,
@@ -85,11 +99,26 @@ SimpleGrid
 
 ### Хуки стилизации
 
+| Часть | `data-slot` |
+| --- | --- |
+| `SimpleGrid` | `simple-grid-root` |
+
 - `className` или `class` стилизует отрендеренный корневой элемент, включая `display` и адаптивный
   `grid-template-columns`, если свойства раскладки не переданы.
 - `data-scope="simple-grid"` и `data-part="root"` соответствуют соглашениям Ark о стилизации.
-- `data-slot="simple-grid-root"` - стабильный селектор moduix для локального CSS.
 - `columns`, `minChildWidth`, `gap`, `rowGap` и `columnGap` записывают inline-стили и имеют приоритет
   над объявлениями из классов приложения.
 - `style` объединяется после этих свойств и является последним переопределением для экземпляра.
 - Компонент не предоставляет хуков стилизации для состояния или анимации.
+
+## Справочник API
+
+Также принимает нативные пропсы своего элемента и `asChild`.
+
+| Проп | Тип | По умолчанию |
+| --- | --- | --- |
+| `minChildWidth` | `number \| string` | — |
+| `columns` | `number` | — |
+| `gap` | `number \| string` | — |
+| `rowGap` | `number \| string` | — |
+| `columnGap` | `number \| string` | — |

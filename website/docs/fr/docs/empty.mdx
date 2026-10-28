@@ -1,7 +1,7 @@
 ---
 title: Empty
 component: empty
-description: Composant pour les écrans sans résultats, sans données ou affichés lors de la première utilisation.
+description: Remplir une liste vide ou un premier écran avec un message et des actions.
 ark: https://ark-ui.com/docs/guides/composition#the-ark-factory
 ---
 
@@ -14,6 +14,19 @@ import * as EmptyDocs from '@/components/examples/empty/css-properties';
 <ComponentInstall />
 
 ## Utilisation
+
+<UsageCode
+  react={'<Empty>\n  <EmptyIcon>\n    <InboxIcon />\n  </EmptyIcon>\n  <EmptyContent>\n    <EmptyTitle>No projects yet</EmptyTitle>\n    <EmptyDescription>Create a project to get started.</EmptyDescription>\n  </EmptyContent>\n  <EmptyActions>\n    <Button>New project</Button>\n  </EmptyActions>\n</Empty>'}
+  vue={'<Empty>\n  <EmptyIcon>\n    <InboxIcon />\n  </EmptyIcon>\n  <EmptyContent>\n    <EmptyTitle>No projects yet</EmptyTitle>\n    <EmptyDescription>Create a project to get started.</EmptyDescription>\n  </EmptyContent>\n  <EmptyActions>\n    <Button>New project</Button>\n  </EmptyActions>\n</Empty>'}
+/>
+
+<PropChips
+  items={[
+    ['EmptyIcon', 'Repère visuel facultatif au-dessus du texte.'],
+    ['EmptyTitle', 'Rend un h3 ; utilisez asChild pour un autre niveau de titre.'],
+    ['EmptyActions', 'Rangée facultative pour l’étape suivante.'],
+  ]}
+/>
 
 Commencez par `<Empty />` et ajoutez les parties du composant dont vous avez besoin. Ajoutez
 `EmptyIcon` et `EmptyActions` uniquement si l’état vide a besoin d’un repère visuel ou d’une action claire.
@@ -90,6 +103,15 @@ une classe : elle l’emporte sur les styles en couche du composant.
 
 ### Points d’accroche CSS
 
+| Partie | `data-slot` |
+| --- | --- |
+| `Empty` | `empty-root` |
+| `EmptyIcon` | `empty-icon` |
+| `EmptyContent` | `empty-content` |
+| `EmptyTitle` | `empty-title` |
+| `EmptyDescription` | `empty-description` |
+| `EmptyActions` | `empty-actions` |
+
 Ciblez la partie qui contrôle la propriété visuelle à modifier :
 
 - `[data-scope="empty"][data-part="root"]` ou `[data-slot="empty-root"]` pour la mise en page du
@@ -102,3 +124,11 @@ Ciblez la partie qui contrôle la propriété visuelle à modifier :
   `[data-scope="empty"][data-part="description"]` ou `[data-slot="empty-description"]` pour la typographie
 - `[data-scope="empty"][data-part="actions"]` ou `[data-slot="empty-actions"]` pour l’espacement
   et l’alignement de la ligne d’actions
+
+## Référence de l’API
+
+Chaque partie accepte les props natives de son élément et `asChild`.
+
+| Prop | Type | Défaut |
+| --- | --- | --- |
+| `asChild` | `boolean` | `false` |

@@ -1,7 +1,7 @@
 ---
 title: Switch
 component: switch
-description: Un switch Ark UI composable pour activer ou désactiver un réglage booléen immédiatement.
+description: Activer ou désactiver un réglage avec effet immédiat.
 ark: https://ark-ui.com/docs/components/switch
 ---
 
@@ -14,6 +14,19 @@ import * as SwitchDocs from '@/components/examples/switch/css-properties';
 <ComponentInstall />
 
 ## Utilisation
+
+<UsageCode
+  react={'<Switch defaultChecked name="notifications" onCheckedChange={(details) => save(details.checked)}>\n  <SwitchControl />\n  <SwitchLabel>Enable notifications</SwitchLabel>\n  <SwitchHiddenInput />\n</Switch>'}
+  vue={'<Switch v-model:checked="enabled" name="notifications">\n  <SwitchControl />\n  <SwitchLabel>Enable notifications</SwitchLabel>\n  <SwitchHiddenInput />\n</Switch>'}
+/>
+
+<PropChips
+  items={[
+    ['defaultChecked', 'Activé au départ ; contrôlez-le avec checked.'],
+    ['onCheckedChange', 'Appelé avec le nouvel état.'],
+    ['size', 'De xs à xl, md par défaut.'],
+  ]}
+/>
 
 Un switch de base comprend une racine, un contrôle visuel, un libellé et `SwitchHiddenInput` explicitement rendu pour les interactions
 natives et les formulaires. Le contrôle reçoit un thumb par défaut lorsqu’il n’a pas d’enfants.
@@ -145,11 +158,37 @@ garde carré et aligné sur les deux bords. La direction de droite à gauche vie
 
 ### Points d’accroche CSS
 
+| Partie | `data-slot` |
+| --- | --- |
+| `Switch` | `switch-root` |
+| `SwitchRootProvider` | `switch-root-provider` |
+| `SwitchControl` | `switch-control` |
+| `SwitchThumb` | `switch-thumb` |
+| `SwitchLabel` | `switch-label` |
+
 - `Switch` et `SwitchRootProvider` exposent `data-slot="switch-root"` /
   `data-slot="switch-root-provider"` et définissent l’attribut `data-size` de moduix.
 - `SwitchControl` expose `data-slot="switch-control"` et reçoit les attributs d’état Ark comme
   `data-state`, `data-focus-visible`, `data-hover`, `data-active`, `data-disabled`, `data-readonly`,
   `data-invalid` et `data-required`.
-- `SwitchThumb` expose `data-slot="switch-thumb"` et reçoit les mêmes attributs d’état Ark pour
-  le déplacement du thumb et le style de son contenu personnalisé.
-- `SwitchLabel` expose `data-slot="switch-label"` pour personnaliser la typographie.
+
+## Clavier
+
+| Touche | Action |
+| --- | --- |
+| `Space` | Bascule l’interrupteur ayant le focus. |
+
+## Référence de l’API
+
+| Prop | Type | Défaut |
+| --- | --- | --- |
+| `checked` | `boolean` | — |
+| `defaultChecked` | `boolean` | `false` |
+| `onCheckedChange` | `(details: CheckedChangeDetails) => void` | — |
+| `value` | `string \| number` | `'on'` |
+| `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'` | `'md'` |
+| `name` | `string` | — |
+| `disabled` | `boolean` | `false` |
+| `readOnly` | `boolean` | `false` |
+| `invalid` | `boolean` | `false` |
+| `required` | `boolean` | `false` |

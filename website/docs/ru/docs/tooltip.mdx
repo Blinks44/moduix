@@ -1,7 +1,7 @@
 ---
 title: Tooltip
 component: tooltip
-description: Короткая дополнительная подсказка, которая появляется при наведении или когда триггер получает фокус.
+description: Короткая подсказка к элементу при наведении или фокусе.
 ark: https://ark-ui.com/docs/components/tooltip
 ---
 
@@ -17,6 +17,20 @@ import tooltipVueContextPart from '../../../snippets/tooltip/vue/TooltipStateCon
 <ComponentInstall />
 
 ## Использование
+
+<UsageCode
+  react={'<Tooltip openDelay={400} positioning={{ placement: \'top\' }}>\n  <TooltipTrigger asChild>\n    <Button aria-label="Notifications">\n      <BellIcon />\n    </Button>\n  </TooltipTrigger>\n  <TooltipBody>Notifications</TooltipBody>\n</Tooltip>'}
+  solid={'<Tooltip openDelay={400} positioning={{ placement: \'top\' }}>\n  <TooltipTrigger asChild={(props) => (\n    <Button aria-label="Notifications" {...props()}>\n      <BellIcon />\n    </Button>\n  )} />\n  <TooltipBody>Notifications</TooltipBody>\n</Tooltip>'}
+  vue={'<Tooltip :open-delay="400" :positioning="{ placement: \'top\' }">\n  <TooltipTrigger as-child>\n    <Button aria-label="Notifications">\n      <BellIcon />\n    </Button>\n  </TooltipTrigger>\n  <TooltipBody>Notifications</TooltipBody>\n</Tooltip>'}
+/>
+
+<PropChips
+  items={[
+    ['openDelay / closeDelay', 'Задержки в мс, по умолчанию 400 и 150.'],
+    ['positioning', 'Сторона и отступ подсказки.'],
+    ['interactive', 'Не закрывает, пока указатель над подсказкой.'],
+  ]}
+/>
 
 Используйте `TooltipTrigger` для элемента, который открывает подсказку, а `TooltipBody` для её
 содержимого. `TooltipBody` объединяет `TooltipPositioner` и `TooltipContent`. У триггера должно
@@ -213,6 +227,15 @@ foundation и не имеют переменных компонента: кла�
 
 ### Хуки стилизации
 
+| Часть | `data-slot` |
+| --- | --- |
+| `TooltipTrigger` | `tooltip-trigger` |
+| `TooltipDisabledTrigger` | `tooltip-disabled-trigger` |
+| `TooltipPositioner` | `tooltip-positioner` |
+| `TooltipContent` | `tooltip-content` |
+| `TooltipArrow` | `tooltip-arrow` |
+| `TooltipArrowTip` | `tooltip-arrow-tip` |
+
 - `TooltipBody` не создаёт DOM-узел. При явной композиции стилизуйте отдельно
   `TooltipPositioner` и `TooltipContent`.
 - `TooltipTrigger` отвечает за оформление триггера, состояния при наведении и открытии, а также за
@@ -223,13 +246,34 @@ foundation и не имеют переменных компонента: кла�
 - `TooltipContent` отвечает за оформление всплывающей поверхности.
 - `TooltipArrow` и `TooltipArrowTip` отвечают за размер, фон и обводку стрелки.
 
-Основные публичные точки привязки: `data-slot="tooltip-trigger"`,
-`data-slot="tooltip-positioner"`, `data-slot="tooltip-content"`,
-`data-slot="tooltip-disabled-trigger"`, `data-slot="tooltip-arrow"` и
-`data-slot="tooltip-arrow-tip"`.
-
 Ark также добавляет к соответствующим частям `data-scope="tooltip"`, `data-part`,
 `data-state="open" | "closed"`, `data-value`, `data-current`, `data-expanded`, `data-instant`,
 `data-placement` и `data-side`. Positioner предоставляет CSS-переменные времени выполнения, в том
 числе `--available-width`, `--available-height`, `--reference-width`, `--reference-height`, `--x`,
 `--y`, `--z-index` и `--transform-origin`.
+
+## Клавиатура
+
+| Клавиша | Действие |
+| --- | --- |
+| `Tab` | Фокус на триггере показывает подсказку. |
+| `Esc` | Скрывает подсказку. |
+
+## Справочник API
+
+| Проп | Тип | По умолчанию |
+| --- | --- | --- |
+| `open` | `boolean` | — |
+| `defaultOpen` | `boolean` | `false` |
+| `onOpenChange` | `(details: OpenChangeDetails) => void` | — |
+| `openDelay` | `number` | `400` |
+| `closeDelay` | `number` | `150` |
+| `positioning` | `PositioningOptions` | — |
+| `disabled` | `boolean` | `false` |
+| `interactive` | `boolean` | `false` |
+| `closeOnPointerDown` | `boolean` | `true` |
+| `closeOnScroll` | `boolean` | `true` |
+| `closeOnClick` | `boolean` | `true` |
+| `closeOnEscape` | `boolean` | `true` |
+| `lazyMount` | `boolean` | `true` |
+| `unmountOnExit` | `boolean` | `true` |

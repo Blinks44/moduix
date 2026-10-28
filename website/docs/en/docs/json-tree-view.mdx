@@ -1,7 +1,7 @@
 ---
 title: JSON Tree View
 component: json-tree-view
-description: Inspect JSON and JavaScript values in an accessible, expandable tree with JsonTreeView from moduix.
+description: Inspect JSON and JavaScript values in an expandable tree.
 ark: https://ark-ui.com/docs/utilities/json-tree-view
 ---
 
@@ -12,6 +12,19 @@ ark: https://ark-ui.com/docs/utilities/json-tree-view
 <ComponentInstall />
 
 ## Usage
+
+<UsageCode
+  react={'<JsonTreeView data={deployment} defaultExpandedDepth={2} quotesOnKeys>\n  <JsonTreeViewTree />\n</JsonTreeView>'}
+  vue={'<JsonTreeView :data="deployment" :default-expanded-depth="2" quotes-on-keys>\n  <JsonTreeViewTree />\n</JsonTreeView>'}
+/>
+
+<PropChips
+  items={[
+    ['data', 'Any JSON-like value: objects, arrays, Map, Set, Date.'],
+    ['defaultExpandedDepth', 'How many levels start open.'],
+    ['maxPreviewItems', 'Items shown in a collapsed preview.'],
+  ]}
+/>
 
 Pass any JSON-like JavaScript value through `data`, then render `<JsonTreeViewTree />` inside the component.
 `JsonTreeView` generates the object, array, and value nodes for you. moduix styles the rows, indentation, focus
@@ -71,8 +84,7 @@ tokens.
 `JsonTreeViewTree` uses the `ChevronRightIcon` supplied by moduix when `arrow` is omitted in React or Solid. In Vue,
 provide the `#arrow` slot when the inspection surface needs a different disclosure icon.
 
-Generated nodes preserve Ark's `data-scope="json-tree-view"` and `data-part` attributes. moduix adds the stable
-`data-slot="json-tree-view-root"`, `json-tree-view-root-provider`, and `json-tree-view-tree` hooks.
+Generated nodes preserve Ark's `data-scope="json-tree-view"` and `data-part` attributes.
 
 `JsonTreeViewTree` forwards Ark's `indentGuide` prop when you opt into indentation guides. moduix does not style the
 generated `[data-part='branch-indent-guide']` elements; target that attribute with your own styles when guides are
@@ -82,3 +94,31 @@ In Vue, use the native `#indentGuide` slot to provide custom guide content.
 
 The component uses foundation tokens directly, without a separate `--moduix-json-tree-view-*` variable layer. Add a
 class or target Ark part attributes when an inspection surface needs different styling.
+
+### Styling hooks
+
+| Part | `data-slot` |
+| --- | --- |
+| `JsonTreeView` | `json-tree-view-root` |
+| `JsonTreeViewRootProvider` | `json-tree-view-root-provider` |
+| `JsonTreeViewTree` | `json-tree-view-tree` |
+
+## Keyboard
+
+| Key | Action |
+| --- | --- |
+| `ArrowDown` / `ArrowUp` | Moves focus to the next or previous row. |
+| `ArrowRight` / `ArrowLeft` | Opens or closes the focused object or array. |
+| `Home` / `End` | Moves focus to the first or last row. |
+
+## API reference
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `data` | `unknown` | — |
+| `defaultExpandedDepth` | `number` | — |
+| `quotesOnKeys` | `boolean` | `false` |
+| `maxPreviewItems` | `number` | — |
+| `collapseStringsAfterLength` | `number` | — |
+| `groupArraysAfterLength` | `number` | — |
+| `showNonenumerable` | `boolean` | `false` |

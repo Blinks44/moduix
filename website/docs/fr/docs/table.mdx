@@ -1,7 +1,7 @@
 ---
 title: Table
 component: table
-description: Un composant de tableau natif avec un conteneur de défilement facultatif, des colonnes numériques, des légendes et un état vide pour React, Solid et Vue.
+description: Présenter des lignes de données avec en-têtes, légende et colonnes numériques.
 ark: https://ark-ui.com/docs/guides/composition#the-ark-factory
 ---
 
@@ -14,6 +14,20 @@ import * as TableDocs from '@/components/examples/table/css-properties';
 <ComponentInstall />
 
 ## Utilisation
+
+<UsageCode
+  react={'<TableScrollArea>\n  <Table size="sm" striped stickyHeader>\n    <TableHeader>\n      <TableRow>\n        <TableColumnHeader scope="col">Invoice</TableColumnHeader>\n        <TableColumnHeader numeric scope="col">Amount</TableColumnHeader>\n      </TableRow>\n    </TableHeader>\n    <TableBody>\n      <TableRow>\n        <TableCell>INV-001</TableCell>\n        <TableCell numeric>$250.00</TableCell>\n      </TableRow>\n    </TableBody>\n  </Table>\n</TableScrollArea>'}
+  vue={'<TableScrollArea>\n  <Table size="sm" striped stickyHeader>\n    <TableHeader>\n      <TableRow>\n        <TableColumnHeader scope="col">Invoice</TableColumnHeader>\n        <TableColumnHeader numeric scope="col">Amount</TableColumnHeader>\n      </TableRow>\n    </TableHeader>\n    <TableBody>\n      <TableRow>\n        <TableCell>INV-001</TableCell>\n        <TableCell numeric>$250.00</TableCell>\n      </TableRow>\n    </TableBody>\n  </Table>\n</TableScrollArea>'}
+/>
+
+<PropChips
+  items={[
+    ['size', 'Densité des lignes : sm, md ou lg.'],
+    ['striped', 'Colore une ligne sur deux.'],
+    ['stickyHeader', 'Garde l’en-tête visible au défilement.'],
+    ['numeric', 'Aligne les nombres à droite dans un en-tête ou une cellule.'],
+  ]}
+/>
 
 Si le tableau risque de dépasser la largeur de son conteneur, enveloppez-le dans `TableScrollArea`. Composez
 ensuite `Table` avec `TableHeader`, `TableBody`, `TableRow` et les parties correspondantes pour les en-têtes et
@@ -175,16 +189,40 @@ natives et les classes du consommateur ; les variables ci-dessous s’appliquent
 
 ### Points d’accroche CSS
 
+| Partie | `data-slot` |
+| --- | --- |
+| `Table` | `table-root` |
+| `TableScrollArea` | `table-scroll-area` |
+| `TableCaption` | `table-caption` |
+| `TableColumnGroup` | `table-column-group` |
+| `TableColumn` | `table-column` |
+| `TableHeader` | `table-header` |
+| `TableBody` | `table-body` |
+| `TableFooter` | `table-footer` |
+| `TableRow` | `table-row` |
+| `TableColumnHeader` | `table-column-header` |
+| `TableCell` | `table-cell` |
+| `TableEmpty` | `table-empty` |
+
 Utilisez la partie ou l’attribut qui contrôle l’aspect visuel concerné :
 
 - `className` sur `TableScrollArea` pour remplacer la bordure, le rayon et le fond du conteneur
 - `className` sur `Table` pour la typographie du tableau et les contraintes de largeur
-- `data-slot="table-root"`, `table-scroll-area`, `table-column-group`, `table-column`, `table-caption`,
-  `table-header`, `table-body`, `table-footer`, `table-row`, `table-column-header`, `table-cell` et `table-empty` pour
-  cibler chaque partie
 - `data-side="top" | "bottom"` sur `TableCaption` pour styliser la position de la légende
 - `data-numeric` sur `TableColumnHeader` et `TableCell` pour cibler les colonnes numériques
 - `data-empty` sur la ligne générée par `TableEmpty` pour cibler la ligne vide
 - `data-size`, `data-striped`, `data-interactive`, `data-sticky-header` et
   `data-show-column-border` sur `Table` pour les styles d’état au niveau de la racine
 - `data-sticky="start" | "end"` sur `TableColumnHeader` et `TableCell` pour les colonnes fixes
+
+## Référence de l’API
+
+Props de `Table`. `numeric` se place sur `TableColumnHeader` et `TableCell` ; `side` (`'top' | 'bottom'`) sur `TableCaption`.
+
+| Prop | Type | Défaut |
+| --- | --- | --- |
+| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` |
+| `striped` | `boolean` | `false` |
+| `interactive` | `boolean` | `false` |
+| `stickyHeader` | `boolean` | `false` |
+| `showColumnBorder` | `boolean` | `false` |

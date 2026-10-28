@@ -1,7 +1,7 @@
 ---
 title: Pin Input
 component: pin-input
-description: Un champ segmenté pour saisir des codes PIN et des codes de vérification courts, avec gestion automatique du focus et prise en charge des codes OTP.
+description: Saisir un code PIN ou un code à usage unique, un caractère par case.
 ark: https://ark-ui.com/docs/components/pin-input
 ---
 
@@ -14,6 +14,20 @@ import * as PinInputDocs from '@/components/examples/pin-input/css-properties';
 <ComponentInstall />
 
 ## Utilisation
+
+<UsageCode
+  react={'<PinInput count={6} otp type="numeric" onValueComplete={(details) => verify(details.valueAsString)}>\n  <PinInputLabel>Verification code</PinInputLabel>\n  <PinInputControl>\n    <PinInputInputs />\n  </PinInputControl>\n  <PinInputHiddenInput />\n</PinInput>'}
+  vue={'<PinInput :count="6" otp type="numeric" @value-complete="(details) => verify(details.valueAsString)">\n  <PinInputLabel>Verification code</PinInputLabel>\n  <PinInputControl>\n    <PinInputInputs />\n  </PinInputControl>\n  <PinInputHiddenInput />\n</PinInput>'}
+/>
+
+<PropChips
+  items={[
+    ['count', 'Nombre de cases ; obligatoire.'],
+    ['otp', 'Permet au navigateur de remplir un code à usage unique.'],
+    ['mask', 'Masque les caractères comme un mot de passe.'],
+    ['onValueComplete', 'Appelé quand toutes les cases sont remplies.'],
+  ]}
+/>
 
 Utilisez `PinInput` comme racine et définissez explicitement `count`. Ajoutez `PinInputLabel` pour donner un nom accessible
 au groupe, placez `PinInputInputs` dans `PinInputControl` et composez `PinInputHiddenInput` lorsque la valeur doit participer au comportement
@@ -147,13 +161,49 @@ Tailwind utilisent des classes utilitaires natives et les remplacements de l’u
 
 ### Points d’accroche CSS
 
-- La racine et `PinInputRootProvider` exposent `data-slot="pin-input-root"` et `data-slot="pin-input-root-provider"`.
-- `PinInputLabel`, `PinInputControl` et `PinInputInput` exposent `data-slot="pin-input-label"`, `data-slot="pin-input-control"` et
-  `data-slot="pin-input-input"`.
+| Partie | `data-slot` |
+| --- | --- |
+| `PinInput` | `pin-input-root` |
+| `PinInputRootProvider` | `pin-input-root-provider` |
+| `PinInputLabel` | `pin-input-label` |
+| `PinInputControl` | `pin-input-control` |
+| `PinInputInput` | `pin-input-input` |
+| `PinInputSeparator` | `pin-input-separator` |
+
 - Les parties Ark utilisent `data-scope="pin-input"` et `data-part="root" | "label" | "control" | "input"`.
 - Les styles de l’état racine utilisent `data-disabled`, `data-invalid`, `data-complete` et `data-readonly`.
 - Les styles d’état des cases utilisent `data-disabled`, `data-invalid`, `data-complete`, `data-filled` et
   `data-index`.
-- `PinInputSeparator` expose `data-slot="pin-input-separator"` et est décoratif par défaut.
 - La racine reflète `size` dans `data-size`. Un `PinInput` désactivé dans un `Field` ou un `Fieldset` désactivé
   n’est pas assombri une seconde fois.
+
+## Clavier
+
+| Touche | Action |
+| --- | --- |
+| Caractères | Remplissent la case et passent à la suivante. |
+| `Backspace` | Vide la case et revient à la précédente. |
+| `ArrowLeft` / `ArrowRight` | Passe d’une case à l’autre. |
+| `Ctrl+V` | Colle un code entier dans les cases. |
+
+## Référence de l’API
+
+| Prop | Type | Défaut |
+| --- | --- | --- |
+| `count` | `number` | — |
+| `value` | `string[]` | — |
+| `defaultValue` | `string[]` | — |
+| `onValueChange` | `(details: ValueChangeDetails) => void` | — |
+| `onValueComplete` | `(details: ValueChangeDetails) => void` | — |
+| `type` | `'numeric' \| 'alphanumeric' \| 'alphabetic'` | `'numeric'` |
+| `otp` | `boolean` | `false` |
+| `mask` | `boolean` | `false` |
+| `placeholder` | `string` | `''` |
+| `blurOnComplete` | `boolean` | `false` |
+| `autoFocus` | `boolean` | `false` |
+| `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'` | `'md'` |
+| `name` | `string` | — |
+| `disabled` | `boolean` | `false` |
+| `readOnly` | `boolean` | `false` |
+| `invalid` | `boolean` | `false` |
+| `required` | `boolean` | `false` |

@@ -1,7 +1,7 @@
 ---
 title: Table of Contents
 component: toc
-description: Synchronisez un sommaire accessible avec la section consultée.
+description: Mettre en évidence la section lue dans une liste « Sur cette page ».
 ark: https://ark-ui.com/docs/components/toc
 ---
 
@@ -12,6 +12,20 @@ ark: https://ark-ui.com/docs/components/toc
 <ComponentInstall />
 
 ## Utilisation
+
+<UsageCode
+  react={'<Toc items={items}>\n  <TocNav>\n    <TocTitle>On this page</TocTitle>\n    <TocList>\n      <TocIndicator />\n      {items.map((item) => (\n        <TocItem key={item.value} item={item}>\n          <TocLink href={`#${item.value}`}>{item.label}</TocLink>\n        </TocItem>\n      ))}\n    </TocList>\n  </TocNav>\n</Toc>'}
+  solid={'<Toc items={items}>\n  <TocNav>\n    <TocTitle>On this page</TocTitle>\n    <TocList>\n      <TocIndicator />\n      <For each={items}>\n        {(item) => (\n          <TocItem item={item}>\n            <TocLink href={`#${item.value}`}>{item.label}</TocLink>\n          </TocItem>\n        )}\n      </For>\n    </TocList>\n  </TocNav>\n</Toc>'}
+  vue={'<Toc :items="items">\n  <TocNav>\n    <TocTitle>On this page</TocTitle>\n    <TocList>\n      <TocIndicator />\n      <TocItem v-for="item in items" :key="item.value" :item="item">\n        <TocLink :href="`#${item.value}`">{{ item.label }}</TocLink>\n      </TocItem>\n    </TocList>\n  </TocNav>\n</Toc>'}
+/>
+
+<PropChips
+  items={[
+    ['items', 'Titres suivis : value est l’id, depth le niveau.'],
+    ['scrollEl', 'Conteneur de défilement ; la fenêtre par défaut.'],
+    ['autoScroll', 'Garde le lien actif visible dans une longue liste ; désactivé par défaut.'],
+  ]}
+/>
 
 `Toc` est le composant racine de l’API plate. Passez-lui un tableau `items` contenant les titres à
 suivre. Chaque élément doit avoir une `value` correspondant à l’attribut `id` d’un titre et un
@@ -116,9 +130,34 @@ remplace les styles du composant placés dans une couche. Pour modifier la colon
 
 ### Points d’accroche CSS
 
-- `data-slot="toc-root"`, `toc-root-provider`, `toc-content`, `toc-nav`, `toc-title`, `toc-list`,
-  `toc-item`, `toc-link`, `toc-indicator` et `toc-rail`
+| Partie | `data-slot` |
+| --- | --- |
+| `Toc` | `toc-root` |
+| `TocRootProvider` | `toc-root-provider` |
+| `TocContent` | `toc-content` |
+| `TocNav` | `toc-nav` |
+| `TocTitle` | `toc-title` |
+| `TocList` | `toc-list` |
+| `TocItem` | `toc-item` |
+| `TocLink` | `toc-link` |
+| `TocIndicator` | `toc-indicator` |
+| `TocRail` | `toc-rail` |
+
 - Les attributs Ark `data-scope="toc"` et `data-part` sur les parties primitives
 - Les attributs et variables de `TocItem` : `data-value`, `data-depth`, `data-active`, `data-first`,
   `data-last` et `--depth` ; `TocLink` expose `data-value`, `data-active` et `aria-current`
 - Les variables d’exécution Ark `--top`, `--left`, `--width` et `--height` sur la racine
+
+## Référence de l’API
+
+| Prop | Type | Défaut |
+| --- | --- | --- |
+| `items` | `TocItem[]` | — |
+| `scrollEl` | `() => HTMLElement \| null` | — |
+| `rootMargin` | `string` | `'-20px 0px -40% 0px'` |
+| `threshold` | `number \| number[]` | `0` |
+| `autoScroll` | `boolean` | `false` |
+| `scrollBehavior` | `ScrollBehavior` | `'smooth'` |
+| `activeIds` | `string[]` | — |
+| `defaultActiveIds` | `string[]` | — |
+| `onActiveChange` | `(details: ActiveChangeDetails) => void` | — |

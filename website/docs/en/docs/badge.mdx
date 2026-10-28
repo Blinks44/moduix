@@ -1,7 +1,7 @@
 ---
 title: Badge
 component: badge
-description: A compact label for brief metadata such as status, category, version, or count.
+description: Label a status, category, version, or count in a small chip.
 ark: https://ark-ui.com/docs/guides/composition#the-ark-factory
 ---
 
@@ -14,6 +14,19 @@ import * as BadgeDocs from '@/components/examples/badge/css-properties';
 <ComponentInstall />
 
 ## Usage
+
+<UsageCode
+  react={'<Badge variant="secondary" size="sm">\n  <BadgeDot />\n  Beta\n</Badge>'}
+  vue={'<Badge variant="secondary" size="sm">\n  <BadgeDot />\n  Beta\n</Badge>'}
+/>
+
+<PropChips
+  items={[
+    ['variant', 'default, secondary, destructive, outline, ghost, or link.'],
+    ['size', 'sm, md, or lg.'],
+    ['BadgeDot', 'Optional dot before the label for status.'],
+  ]}
+/>
 
 Start with a plain `<Badge>`. The component renders a presentational `span` by default. Set `variant`
 to choose `default`, `secondary`, `destructive`, `outline`, `ghost`, or `link`, set `size` to `sm`,
@@ -124,9 +137,23 @@ Ark data attributes are shared by all styling tracks.
 
 ### Styling hooks
 
-- `data-slot="badge-root"`, `data-slot="badge-label"`, and `data-slot="badge-dot"` are stable selectors for styling the exported parts.
+| Part | `data-slot` |
+| --- | --- |
+| `Badge` | `badge-root` |
+| `BadgeLabel` | `badge-label` |
+| `BadgeDot` | `badge-dot` |
+
 - `Badge` also exposes `data-scope="badge"` and `data-part="root"`. `BadgeLabel` and `BadgeDot` expose `data-part="label"` and `data-part="dot"`.
 - `Badge` writes the selected variant to `data-variant` and the selected size to `data-size`.
 - Focusable hosts rendered through `Badge asChild` receive the root focus-visible styling. Anchor roots also receive the variant hover and pointer-cursor styles; button-specific interaction styles remain application-owned.
 - Direct child `svg` icons inherit `currentColor`, do not receive pointer events, and are 12px unless a class on the icon sets another size.
 - Badge has no dedicated Ark primitive or behavior machine, so it does not expose Ark-managed states or runtime CSS variables.
+
+## API reference
+
+Also accepts the native props of its element and `asChild`.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `variant` | `'default' \| 'secondary' \| 'destructive' \| 'outline' \| 'ghost' \| 'link'` | `'default'` |
+| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` |

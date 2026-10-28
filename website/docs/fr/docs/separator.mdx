@@ -1,7 +1,7 @@
 ---
 title: Separator
 component: separator
-description: Créez des séparateurs horizontaux ou verticaux accessibles en React, Solid ou Vue.
+description: Tracer une ligne entre des sections liées, horizontale ou verticale.
 ark: https://ark-ui.com/docs/guides/composition#the-ark-factory
 ---
 
@@ -14,6 +14,19 @@ import * as SeparatorDocs from '@/components/examples/separator/css-properties';
 <ComponentInstall />
 
 ## Utilisation
+
+<UsageCode
+  react={'<Separator orientation="vertical" variant="dashed" size="md" />'}
+  vue={'<Separator orientation="vertical" variant="dashed" size="md" />'}
+/>
+
+<PropChips
+  items={[
+    ['orientation', 'horizontal ou vertical.'],
+    ['variant', 'solid, dashed ou dotted.'],
+    ['size', 'Épaisseur de la ligne de xs à lg.'],
+  ]}
+/>
 
 Utilisez `Separator` pour marquer visuellement la limite entre des sections liées. Par défaut, le
 composant utilise `orientation="horizontal"`, `variant="solid"` et `size="sm"`.
@@ -91,8 +104,21 @@ sont communs aux deux modes de style.
 
 ### Points d’accroche CSS
 
+| Partie | `data-slot` |
+| --- | --- |
+| `Separator` | `separator-root` |
+
 - `data-scope="separator"` et `data-part="root"` identifient la partie racine au format Ark.
-- `data-slot="separator-root"` est le sélecteur moduix stable.
 - `data-orientation="horizontal"` et `data-orientation="vertical"` permettent de cibler les styles propres à chaque axe.
 - `data-size="xs|sm|md|lg"` et `data-variant="solid|dashed|dotted"` exposent les paramètres du style visuel.
 - `className` ou `class`, ainsi que `style`, s’appliquent directement à l’élément séparateur racine.
+
+## Référence de l’API
+
+Accepte aussi les props natives de son élément et `asChild`.
+
+| Prop | Type | Défaut |
+| --- | --- | --- |
+| `orientation` | `'horizontal' \| 'vertical'` | `'horizontal'` |
+| `variant` | `'solid' \| 'dashed' \| 'dotted'` | `'solid'` |
+| `size` | `'xs' \| 'sm' \| 'md' \| 'lg'` | `'sm'` |

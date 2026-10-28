@@ -1,7 +1,7 @@
 ---
 title: Textarea
 component: textarea
-description: Нативное многострочное поле ввода с поддержкой Field и стилями moduix.
+description: Многострочный ввод текста с автоматической высотой по желанию.
 ark: https://ark-ui.com/docs/components/field
 ---
 
@@ -14,6 +14,19 @@ import * as TextareaDocs from '@/components/examples/textarea/css-properties';
 <ComponentInstall />
 
 ## Использование
+
+<UsageCode
+  react={'<Field>\n  <FieldLabel>Comment</FieldLabel>\n  <Textarea name="comment" rows={3} autoresize size="md" />\n</Field>'}
+  vue={'<Field>\n  <FieldLabel>Comment</FieldLabel>\n  <Textarea v-model="comment" name="comment" :rows="3" autoresize size="md" />\n</Field>'}
+/>
+
+<PropChips
+  items={[
+    ['autoresize', 'Растёт вместе с текстом вместо прокрутки.'],
+    ['rows', 'Нативная начальная высота в строках.'],
+    ['size', 'Размер текста и отступы, от xs до xl.'],
+  ]}
+/>
 
 Поместите `Textarea` внутрь `Field`, если полю нужны доступная метка или поясняющий текст. Это
 рекомендуемый вариант для комментариев, заметок, описаний задач и похожих полей.
@@ -127,8 +140,21 @@ Tailwind используют нативные utility-классы и клас�
 
 ### Хуки стилизации
 
-- `data-slot="textarea-root"`
+| Часть | `data-slot` |
+| --- | --- |
+| `Textarea` | `textarea-root` |
+
 - `data-size="xs" | "sm" | "md" | "lg" | "xl"`
 - `data-scope="field"` и `data-part="textarea"`
 - `data-invalid`, `data-required`, `data-disabled` и `data-readonly` от Ark внутри `Field`
 - нативные `:disabled`, `:read-only`, `:focus-visible` и `[aria-invalid="true"]`
+
+## Справочник API
+
+Также принимает нативные пропсы `textarea`.
+
+| Проп | Тип | По умолчанию |
+| --- | --- | --- |
+| `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'` | `'md'` |
+| `autoresize` | `boolean` | `false` |
+| `asChild` | `boolean` | `false` |

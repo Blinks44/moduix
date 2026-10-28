@@ -1,7 +1,7 @@
 ---
 title: Kbd
 component: kbd
-description: A compact component for keyboard shortcuts, command hints, and inline key labels.
+description: Show a keyboard key or a shortcut inline with the surrounding text.
 ark: https://ark-ui.com/docs/guides/composition#the-ark-factory
 ---
 
@@ -14,6 +14,18 @@ import * as KbdDocs from '@/components/examples/kbd/css-properties';
 <ComponentInstall />
 
 ## Usage
+
+<UsageCode
+  react={'<KbdGroup aria-label="Command K">\n  <Kbd>⌘</Kbd>\n  <Kbd>K</Kbd>\n</KbdGroup>'}
+  vue={'<KbdGroup aria-label="Command K">\n  <Kbd>⌘</Kbd>\n  <Kbd>K</Kbd>\n</KbdGroup>'}
+/>
+
+<PropChips
+  items={[
+    ['KbdGroup', 'Wraps the keys of one shortcut.'],
+    ['aria-label', 'Reads the shortcut as words, such as “Command K”.'],
+  ]}
+/>
 
 Use `Kbd` to show one key. For a shortcut made of several keys, place the keycaps and their text separators inside
 `KbdGroup`.
@@ -87,7 +99,18 @@ classes, while CSS Modules variants use the component variables and consumer CSS
 
 ### Styling hooks
 
-- `data-slot="kbd-root"` targets each keycap element
-- `data-slot="kbd-group"` targets the inline wrapper for grouped shortcuts
+| Part | `data-slot` |
+| --- | --- |
+| `Kbd` | `kbd-root` |
+| `KbdGroup` | `kbd-group` |
+
 - `[data-scope="kbd"][data-part="root"]` and `[data-part="group"]` expose Ark-style anatomy selectors
 - Separators in `KbdGroup` inherit the group's text color. To change it, set `color` on `KbdGroup` with your own class
+
+## API reference
+
+`Kbd` renders a `kbd` element and `KbdGroup` a `span`. Both accept their native props and `asChild`.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `asChild` | `boolean` | `false` |

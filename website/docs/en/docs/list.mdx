@@ -1,7 +1,7 @@
 ---
 title: List
 component: list
-description: A semantic list with configurable spacing, typography, tones, and native markers.
+description: Render bulleted or numbered lists with consistent spacing and markers.
 ark: https://ark-ui.com/docs/guides/composition#the-ark-factory
 ---
 
@@ -12,6 +12,20 @@ ark: https://ark-ui.com/docs/guides/composition#the-ark-factory
 <ComponentInstall />
 
 ## Usage
+
+<UsageCode
+  react={'<List as="ol" gap="md" tone="muted">\n  <ListItem>Create a project</ListItem>\n  <ListItem>Invite your team</ListItem>\n</List>'}
+  vue={'<List as="ol" gap="md" tone="muted">\n  <ListItem>Create a project</ListItem>\n  <ListItem>Invite your team</ListItem>\n</List>'}
+/>
+
+<PropChips
+  items={[
+    ['as', 'ul or ol; markers follow: disc or decimal.'],
+    ['marker', 'disc, decimal, or none.'],
+    ['gap', 'Space between items, xs to 2xl.'],
+    ['tone', 'default, muted, primary, or destructive.'],
+  ]}
+/>
 
 `List` renders a semantic `<ul>` by default. Use `ListItem` when you need the stable item part and its
 styling hooks, or use native `<li>` children when you do not need the wrapper. The root controls spacing,
@@ -116,6 +130,12 @@ variables: a class on the root overrides the layered component styles.
 
 ### Styling hooks
 
+| Part | `data-slot` |
+| --- | --- |
+| `List` | `list-root` |
+| `ListItem` | `list-item` |
+| `ListIndicator` | `list-indicator` |
+
 `List` exposes these public styling hooks:
 
 - root: `data-scope="list"`, `data-part="root"`, `data-slot="list-root"`
@@ -126,3 +146,15 @@ variables: a class on the root overrides the layered component styles.
 - `data-size="xs" | "sm" | "md" | "lg" | "xl"` for typography size styles
 - `data-tone="default" | "muted" | "primary" | "destructive"` for semantic colors
 - native `li::marker` for overriding marker color or weight
+
+## API reference
+
+Also accepts the native props of its element and `asChild`.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `as` | `'ul' \| 'ol'` | `'ul'` |
+| `marker` | `'disc' \| 'decimal' \| 'none'` | by `as` |
+| `gap` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl' \| '2xl'` | `'sm'` |
+| `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'` | `'md'` |
+| `tone` | `'default' \| 'muted' \| 'primary' \| 'destructive'` | `'default'` |

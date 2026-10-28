@@ -1,7 +1,7 @@
 ---
 title: QR Code
 component: qr-code
-description: Компонент QR-кода на базе Ark UI, который выводит SVG, поддерживает наложение содержимого и скачивание изображения.
+description: Превращает ссылку или текст в QR-код, который можно отсканировать или скачать.
 ark: https://ark-ui.com/docs/components/qr-code
 ---
 
@@ -17,6 +17,19 @@ import qrCodeVueRootProvider from '../../../snippets/qr-code/vue/root-provider.v
 <ComponentInstall />
 
 ## Использование
+
+<UsageCode
+  react={'<QrCode defaultValue="https://moduix.dev" encoding={{ ecc: \'H\' }}>\n  <QrCodeFrame role="img" aria-label="QR code for moduix.dev">\n    <QrCodePattern />\n  </QrCodeFrame>\n  <QrCodeDownloadTrigger fileName="moduix.png" mimeType="image/png">Download</QrCodeDownloadTrigger>\n</QrCode>'}
+  vue={'<QrCode default-value="https://moduix.dev" :encoding="{ ecc: \'H\' }">\n  <QrCodeFrame role="img" aria-label="QR code for moduix.dev">\n    <QrCodePattern />\n  </QrCodeFrame>\n  <QrCodeDownloadTrigger file-name="moduix.png" mime-type="image/png">Download</QrCodeDownloadTrigger>\n</QrCode>'}
+/>
+
+<PropChips
+  items={[
+    ['defaultValue', 'Текст или URL для кодирования; для управления используйте value.'],
+    ['encoding', 'Уровень коррекции ошибок L, M, Q или H.'],
+    ['QrCodeDownloadTrigger', 'Сохраняет код как файл изображения.'],
+  ]}
+/>
 
 Используйте `QrCode` в обычном сценарии. Передайте содержимое для кодирования через `defaultValue`,
 затем явно отрисуйте `QrCodeFrame` и `QrCodePattern`, чтобы показать созданный SVG. Если QR-код
@@ -164,7 +177,24 @@ QrCodeRootProvider
 
 ### Хуки стилизации
 
-- Стабильные селекторы `data-slot`: `qr-code-root`, `qr-code-root-provider`, `qr-code-frame`,
-  `qr-code-pattern`, `qr-code-overlay` и `qr-code-download-trigger`.
+| Часть | `data-slot` |
+| --- | --- |
+| `QrCode` | `qr-code-root` |
+| `QrCodeRootProvider` | `qr-code-root-provider` |
+| `QrCodeFrame` | `qr-code-frame` |
+| `QrCodePattern` | `qr-code-pattern` |
+| `QrCodeOverlay` | `qr-code-overlay` |
+| `QrCodeDownloadTrigger` | `qr-code-download-trigger` |
+
 - Селекторы частей Ark: `data-scope="qr-code"` и
   `data-part="root|frame|pattern|overlay|download-trigger"`.
+
+## Справочник API
+
+| Проп | Тип | По умолчанию |
+| --- | --- | --- |
+| `value` | `string` | — |
+| `defaultValue` | `string` | — |
+| `onValueChange` | `(details: ValueChangeDetails) => void` | — |
+| `encoding` | `QrCodeGenerateOptions` | — |
+| `pixelSize` | `number` | — |

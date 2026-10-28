@@ -1,7 +1,7 @@
 ---
 title: Tree View
 component: tree-view
-description: Une arborescence accessible, fondée sur Ark UI, pour les dossiers, les fichiers et toutes les données imbriquées.
+description: Parcourir dossiers, fichiers et données imbriquées dans un arbre.
 ark: https://ark-ui.com/docs/components/tree-view
 ---
 
@@ -74,6 +74,21 @@ import treeViewVueRootProviderNode from '../../../snippets/tree-view/vue/RootPro
 <ComponentInstall />
 
 ## Utilisation
+
+<UsageCode
+  react={'const collection = createTreeCollection({ rootNode, nodeToValue: (n) => n.id, nodeToString: (n) => n.name });\n\n<TreeView collection={collection} defaultExpandedValue={[\'src\']} selectionMode="multiple">\n  <TreeViewTree>\n    {collection.rootNode.children.map((node, index) => (\n      <FileTreeNode key={node.id} node={node} indexPath={[index]} />\n    ))}\n  </TreeViewTree>\n</TreeView>'}
+  solid={'const collection = createTreeCollection({ rootNode, nodeToValue: (n) => n.id, nodeToString: (n) => n.name });\n\n<TreeView collection={collection} defaultExpandedValue={[\'src\']} selectionMode="multiple">\n  <TreeViewTree>\n    <For each={collection.rootNode.children}>\n      {(node, index) => (\n        <FileTreeNode node={node} indexPath={[index()]} />\n      )}\n    </For>\n  </TreeViewTree>\n</TreeView>'}
+  vue={'const collection = createTreeCollection({ rootNode, nodeToValue: (n) => n.id, nodeToString: (n) => n.name });\n\n<TreeView :collection="collection" :default-expanded-value="[\'src\']" selection-mode="multiple">\n  <TreeViewTree>\n    <FileTreeNode\n      v-for="(node, index) in collection.rootNode.children"\n      :key="node.id"\n      :node="node"\n      :index-path="[index]"\n    />\n  </TreeViewTree>\n</TreeView>'}
+/>
+
+<PropChips
+  items={[
+    ['collection', 'Données de l’arbre issues de createTreeCollection().'],
+    ['defaultExpandedValue', 'Branches ouvertes au départ.'],
+    ['selectionMode', 'Sélection simple ou multiple.'],
+    ['loadChildren', 'Charge les enfants d’une branche à la première ouverture.'],
+  ]}
+/>
 
 Créez la collection de données avec `createTreeCollection`, puis transmettez-la à `TreeView`.
 `TreeViewNode` fournit au rendu récursif les valeurs courantes `node`, `indexPath` et `state`, ce qui
@@ -384,11 +399,55 @@ surchargez le reste avec une classe sur la partie.
 
 <CssPropertiesSection properties={TreeViewDocs.treeViewOverrideCssProperties} />
 
-### Points d’accroche de style
+### Points d’accroche CSS
 
-- `data-slot="tree-view-root"`, `tree-view-root-provider`, `tree-view-label`, `tree-view-tree`,
-  `tree-view-branch`, `tree-view-branch-control`, `tree-view-branch-trigger`,
-  `tree-view-branch-indicator`, `tree-view-branch-text`, `tree-view-branch-content`,
-  `tree-view-branch-indent-guide`, `tree-view-item`, `tree-view-item-text`,
-  `tree-view-item-indicator`, `tree-view-node-checkbox`, `tree-view-node-checkbox-indicator` et
-  `tree-view-node-rename-input`.
+| Partie | `data-slot` |
+| --- | --- |
+| `TreeView` | `tree-view-root` |
+| `TreeViewRootProvider` | `tree-view-root-provider` |
+| `TreeViewLabel` | `tree-view-label` |
+| `TreeViewTree` | `tree-view-tree` |
+| `TreeViewBranch` | `tree-view-branch` |
+| `TreeViewBranchControl` | `tree-view-branch-control` |
+| `TreeViewBranchTrigger` | `tree-view-branch-trigger` |
+| `TreeViewBranchIndicator` | `tree-view-branch-indicator` |
+| `TreeViewBranchText` | `tree-view-branch-text` |
+| `TreeViewBranchContent` | `tree-view-branch-content` |
+| `TreeViewBranchIndentGuide` | `tree-view-branch-indent-guide` |
+| `TreeViewItem` | `tree-view-item` |
+| `TreeViewItemText` | `tree-view-item-text` |
+| `TreeViewItemIndicator` | `tree-view-item-indicator` |
+| `TreeViewNodeCheckbox` | `tree-view-node-checkbox` |
+| `TreeViewNodeCheckboxIndicator` | `tree-view-node-checkbox-indicator` |
+| `TreeViewNodeRenameInput` | `tree-view-node-rename-input` |
+
+## Clavier
+
+| Touche | Action |
+| --- | --- |
+| `ArrowDown` / `ArrowUp` | Déplace le focus vers le nœud visible suivant ou précédent. |
+| `ArrowRight` | Ouvre une branche fermée ou entre dans une branche ouverte. |
+| `ArrowLeft` | Ferme une branche ouverte ou remonte au parent. |
+| `Home` / `End` | Déplace le focus vers le premier ou le dernier nœud. |
+| `Enter` / `Space` | Sélectionne le nœud ou bascule une branche. |
+| `*` | Ouvre toutes les branches sœurs. |
+| `F2` | Lance le renommage si canRename l’autorise. |
+
+## Référence de l’API
+
+| Prop | Type | Défaut |
+| --- | --- | --- |
+| `collection` | `TreeCollection<T>` | — |
+| `expandedValue` | `string[]` | — |
+| `defaultExpandedValue` | `string[]` | — |
+| `onExpandedChange` | `(details: ExpandedChangeDetails) => void` | — |
+| `selectedValue` | `string[]` | — |
+| `defaultSelectedValue` | `string[]` | — |
+| `onSelectionChange` | `(details: SelectionChangeDetails) => void` | — |
+| `selectionMode` | `'single' \| 'multiple'` | `'single'` |
+| `checkedValue` | `string[]` | — |
+| `onCheckedChange` | `(details: CheckedChangeDetails) => void` | — |
+| `expandOnClick` | `boolean` | `true` |
+| `typeahead` | `boolean` | `true` |
+| `loadChildren` | `(details: LoadChildrenDetails) => Promise<T[]>` | — |
+| `canRename` | `(node: T, indexPath: IndexPath) => boolean` | — |

@@ -1,7 +1,7 @@
 ---
 title: Splitter
 component: splitter
-description: Доступная раскладка с изменяемыми панелями для React, Solid и Vue с вариантами установки через пакет и shadcn.
+description: Делит раскладку на панели, размер которых меняют перетаскиванием.
 ark: https://ark-ui.com/docs/components/splitter
 ---
 
@@ -15,6 +15,19 @@ import { splitterOverrideCssProperties } from '@/components/examples/splitter/cs
 <ComponentInstall />
 
 ## Использование
+
+<UsageCode
+  react={'<Splitter\n  panels={[{ id: \'a\', minSize: 20 }, { id: \'b\', collapsible: true }]}\n  defaultSize={[40, 60]}\n>\n  <SplitterPanel id="a">Files</SplitterPanel>\n  <SplitterResizeTrigger id="a:b" aria-label="Resize panels" />\n  <SplitterPanel id="b">Editor</SplitterPanel>\n</Splitter>'}
+  vue={'<Splitter\n  :panels="[{ id: \'a\', minSize: 20 }, { id: \'b\', collapsible: true }]"\n  :default-size="[40, 60]"\n>\n  <SplitterPanel id="a">Files</SplitterPanel>\n  <SplitterResizeTrigger id="a:b" aria-label="Resize panels" />\n  <SplitterPanel id="b">Editor</SplitterPanel>\n</Splitter>'}
+/>
+
+<PropChips
+  items={[
+    ['panels', 'id панелей с minSize, maxSize и collapsible.'],
+    ['defaultSize', 'Начальные размеры в процентах, по порядку панелей.'],
+    ['orientation', 'Деление по горизонтали или вертикали.'],
+  ]}
+/>
 
 Соберите Splitter из `Splitter`, `SplitterPanel` и `SplitterResizeTrigger`. Свойство `panels`
 содержит идентификаторы панелей и ограничения их размеров. У каждой отрисованной `SplitterPanel`
@@ -135,11 +148,17 @@ Ark ставит каждой панели inline `overflow: hidden`, чтобы
 
 <CssPropertiesSection properties={splitterOverrideCssProperties} />
 
-### Точки привязки для стилей
+### Хуки стилизации
 
-Ark записывает `data-scope="splitter"` и `data-part` в отрисованные части. moduix также добавляет
-значения `data-slot`: `splitter-root`, `splitter-root-provider`, `splitter-panel`,
-`splitter-resize-trigger` и `splitter-resize-trigger-indicator`.
+| Часть | `data-slot` |
+| --- | --- |
+| `Splitter` | `splitter-root` |
+| `SplitterRootProvider` | `splitter-root-provider` |
+| `SplitterPanel` | `splitter-panel` |
+| `SplitterResizeTriggerIndicator` | `splitter-resize-trigger-indicator` |
+| `SplitterResizeTrigger` | `splitter-resize-trigger` |
+
+Ark записывает `data-scope="splitter"` и `data-part` в отрисованные части.
 
 Полезные атрибуты отдельных частей включают `data-id` и `data-index` у панелей, а также
 `data-orientation`, `data-dragging`, `data-focus` и `data-disabled` у соответствующих элементов.
@@ -154,3 +173,27 @@ Ark записывает `data-scope="splitter"` и `data-part` в отрисо�
 
 Ark сообщает о состоянии через атрибуты `data-orientation`, `data-dragging`, `data-focus` и
 `data-disabled`. Используйте их для стилизации состояний взаимодействия.
+
+## Клавиатура
+
+| Клавиша | Действие |
+| --- | --- |
+| `ArrowLeft` / `ArrowRight` | Меняет размер панелей с ручки в фокусе; ArrowUp и ArrowDown в вертикальном режиме. |
+| `Home` / `End` | Сдвигает ручку к минимуму или максимуму. |
+| `Enter` | Сворачивает или разворачивает сворачиваемую панель. |
+| `F6` | Переводит фокус на следующую ручку. |
+
+## Справочник API
+
+| Проп | Тип | По умолчанию |
+| --- | --- | --- |
+| `panels` | `PanelData[]` | — |
+| `size` | `PanelSize[]` | — |
+| `defaultSize` | `PanelSize[]` | — |
+| `orientation` | `'horizontal' \| 'vertical'` | `'horizontal'` |
+| `onResize` | `(details: ResizeDetails) => void` | — |
+| `onResizeStart` | `() => void` | — |
+| `onResizeEnd` | `(details: ResizeEndDetails) => void` | — |
+| `onCollapse` | `(details: ExpandCollapseDetails) => void` | — |
+| `onExpand` | `(details: ExpandCollapseDetails) => void` | — |
+| `keyboardResizeBy` | `number \| null` | — |

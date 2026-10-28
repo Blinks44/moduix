@@ -1,7 +1,7 @@
 ---
 title: Pagination
 component: pagination
-description: Navigation accessible entre les pages pour les listes, les tableaux, les résultats de recherche et les autres contenus paginés.
+description: Parcourir les pages d’une liste, d’un tableau ou de résultats.
 ark: https://ark-ui.com/docs/components/pagination
 ---
 
@@ -14,6 +14,20 @@ import * as PaginationDocs from '@/components/examples/pagination/css-properties
 <ComponentInstall />
 
 ## Utilisation
+
+<UsageCode
+  react={'<Pagination count={200} pageSize={10} siblingCount={2} onPageChange={(details) => setPage(details.page)}>\n  <PaginationPrevTrigger />\n  <PaginationItems />\n  <PaginationNextTrigger />\n</Pagination>'}
+  vue={'<Pagination v-model:page="page" :count="200" :page-size="10" :sibling-count="2">\n  <PaginationPrevTrigger />\n  <PaginationItems />\n  <PaginationNextTrigger />\n</Pagination>'}
+/>
+
+<PropChips
+  items={[
+    ['count', 'Nombre total d’éléments, pas de pages.'],
+    ['pageSize', 'Éléments par page, 10 par défaut.'],
+    ['siblingCount', 'Pages affichées de chaque côté de la page courante.'],
+    ['type', 'link rend des liens ; à utiliser avec getPageUrl.'],
+  ]}
+/>
 
 Utilisez `Pagination` comme composant racine. `PaginationItems` affiche les boutons de page et les
 points de suspension correspondant à la plage courante.
@@ -155,12 +169,37 @@ des ellipses et des déclencheurs dans les variantes CSS Modules.
 
 ### Points d’accroche CSS
 
+| Partie | `data-slot` |
+| --- | --- |
+| `Pagination` | `pagination-root` |
+| `PaginationRootProvider` | `pagination-root-provider` |
+| `PaginationItem` | `pagination-item` |
+| `PaginationEllipsis` | `pagination-ellipsis` |
+| `PaginationPrevTrigger` | `pagination-prev-trigger` |
+| `PaginationNextTrigger` | `pagination-next-trigger` |
+| `PaginationFirstTrigger` | `pagination-first-trigger` |
+| `PaginationLastTrigger` | `pagination-last-trigger` |
+
 - `data-scope="pagination"` et `data-part="item"` sur `PaginationItem`
 - `data-scope="pagination"` et `data-part="prev-trigger"` sur `PaginationPrevTrigger`
 - `data-scope="pagination"` et `data-part="next-trigger"` sur `PaginationNextTrigger`
 - `data-scope="pagination"` avec `data-part="first-trigger"` ou `data-part="last-trigger"` sur les contrôles de début et de fin
 - `data-selected` sur l’élément de page actif
 - `data-disabled` sur les déclencheurs indisponibles
-- `data-slot="pagination-root"`, `pagination-root-provider`, `pagination-item`,
-  `pagination-ellipsis`, `pagination-prev-trigger`, `pagination-next-trigger`,
-  `pagination-first-trigger` et `pagination-last-trigger` pour personnaliser les styles moduix
+
+## Référence de l’API
+
+| Prop | Type | Défaut |
+| --- | --- | --- |
+| `count` | `number` | — |
+| `page` | `number` | — |
+| `defaultPage` | `number` | `1` |
+| `onPageChange` | `(details: PageChangeDetails) => void` | — |
+| `pageSize` | `number` | — |
+| `defaultPageSize` | `number` | `10` |
+| `onPageSizeChange` | `(details: PageSizeChangeDetails) => void` | — |
+| `siblingCount` | `number` | `1` |
+| `boundaryCount` | `number` | `1` |
+| `type` | `'button' \| 'link'` | `'button'` |
+| `getPageUrl` | `(details: PageUrlDetails) => string` | — |
+| `translations` | `IntlTranslations` | — |

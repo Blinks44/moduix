@@ -1,7 +1,7 @@
 ---
 title: Input Group
 component: input-group
-description: Créez des champs de saisie avec préfixes, suffixes et actions en ligne en React, Solid ou Vue, installés par paquet ou avec la CLI shadcn.
+description: Ajouter préfixes, suffixes et boutons autour d’un champ.
 ark: https://ark-ui.com/docs/guides/composition
 ---
 
@@ -14,6 +14,19 @@ import * as InputGroupDocs from '@/components/examples/input-group/css-propertie
 <ComponentInstall />
 
 ## Utilisation
+
+<UsageCode
+  react={'<InputGroup size="md">\n  <InputGroupAddon>https://</InputGroupAddon>\n  <InputGroupInput name="domain" placeholder="example.com" />\n  <InputGroupAddon>\n    <InputGroupButton aria-label="Copy">\n      <CopyIcon />\n    </InputGroupButton>\n  </InputGroupAddon>\n</InputGroup>'}
+  vue={'<InputGroup size="md">\n  <InputGroupAddon>https://</InputGroupAddon>\n  <InputGroupInput name="domain" placeholder="example.com" />\n  <InputGroupAddon>\n    <InputGroupButton aria-label="Copy">\n      <CopyIcon />\n    </InputGroupButton>\n  </InputGroupAddon>\n</InputGroup>'}
+/>
+
+<PropChips
+  items={[
+    ['size', 'Taille commune au champ et aux add-ons, de xs à xl.'],
+    ['align', 'Sur InputGroupAddon : inline à côté ou block au-dessus.'],
+    ['InputGroupClearTrigger', 'Bouton qui vide le champ.'],
+  ]}
+/>
 
 Utilisez `InputGroup` comme racine et composez un seul `InputGroupInput` avec les parties
 `InputGroupAddon`, `InputGroupText` ou `InputGroupButton` nécessaires.
@@ -154,17 +167,30 @@ sélecteurs `data-slot` sont communs aux deux approches.
 
 ### Points d’accroche CSS
 
+| Partie | `data-slot` |
+| --- | --- |
+| `InputGroup` | `input-group-root` |
+| `InputGroupAddon` | `input-group-addon` |
+| `InputGroupText` | `input-group-text` |
+| `InputGroupButton` | `input-group-button` |
+| `InputGroupClearTrigger` | `input-group-clear-trigger` |
+
 - `data-slot="input-group-root"` et `data-size="xs" | "sm" | "md" | "lg" | "xl"` sur la racine
 - `data-scope="input-group"` et `data-part="root" | "addon" | "text"` sur les parties de la fabrique Ark
 - `data-slot="input-root"` et les attributs d’état du champ Ark
-- `data-slot="input-group-addon"`
-- `data-slot="input-group-clear-trigger"`
-- `data-slot="input-group-text"`
 - `data-align="inline" | "block"` sur `InputGroupAddon` et `InputGroupText`
 - `data-slot="textarea-root"` et les attributs d’état Ark Field du textarea sur `InputGroupTextarea`
-- `data-slot="input-group-button"` sur le bouton d’action du groupe
 - les états imbriqués `data-invalid`, `aria-invalid="true"` et `data-disabled`/`:disabled` sont reflétés sur la racine via `:has(...)`
 
 Les hooks `data-slot`, `data-scope`, `data-part` et `data-size` gérés par le composant restent
 stables même si vous fournissez vos propres propriétés. `className` en React et `class` en Solid et Vue
 s’ajoutent toujours aux styles du composant.
+
+## Référence de l’API
+
+Props de `InputGroup`. `InputGroupAddon` accepte `align` (`'inline' | 'block'`, par défaut `'inline'`).
+
+| Prop | Type | Défaut |
+| --- | --- | --- |
+| `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'` | `'md'` |
+| `asChild` | `boolean` | `false` |

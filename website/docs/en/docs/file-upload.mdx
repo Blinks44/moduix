@@ -1,7 +1,7 @@
 ---
 title: File Upload
 component: file-upload
-description: Ark UI file upload component for file selection, drag-and-drop, validation, and previews.
+description: Pick or drop files with type, size, and count checks.
 ark: https://ark-ui.com/docs/components/file-upload
 ---
 
@@ -12,6 +12,20 @@ ark: https://ark-ui.com/docs/components/file-upload
 <ComponentInstall />
 
 ## Usage
+
+<UsageCode
+  react={'<FileUpload accept="image/*" maxFiles={5} maxFileSize={5 * 1024 * 1024} onFileAccept={(details) => upload(details.files)}>\n  <FileUploadLabel>Photos</FileUploadLabel>\n  <FileUploadHiddenInput />\n  <FileUploadDropzone>Drop images here</FileUploadDropzone>\n  <FileUploadItemGroup>\n    <FileUploadItems />\n  </FileUploadItemGroup>\n</FileUpload>'}
+  vue={'<FileUpload accept="image/*" :max-files="5" :max-file-size="5 * 1024 * 1024" @file-accept="(details) => upload(details.files)">\n  <FileUploadLabel>Photos</FileUploadLabel>\n  <FileUploadHiddenInput />\n  <FileUploadDropzone>Drop images here</FileUploadDropzone>\n  <FileUploadItemGroup>\n    <FileUploadItems />\n  </FileUploadItemGroup>\n</FileUpload>'}
+/>
+
+<PropChips
+  items={[
+    ['accept', 'Allowed MIME types or extensions.'],
+    ['maxFiles', 'How many files may be selected, 1 by default.'],
+    ['maxFileSize', 'Largest file in bytes.'],
+    ['onFileAccept', 'Runs with the files that passed the checks.'],
+  ]}
+/>
 
 Start with `FileUpload` as the root. Add a `FileUploadLabel`, then wrap a `Button` in `FileUploadTrigger asChild` for a compact control or `FileUploadDropzone` for
 drag-and-drop. Add `FileUploadHiddenInput` explicitly to open the native picker. Put `FileUploadItems` inside
@@ -203,7 +217,55 @@ named areas `preview`, `name`, `meta`, and `delete`, so a custom child without a
 
 ### Styling hooks
 
-Target stable moduix slots such as `[data-slot="file-upload-dropzone"]`,
-`[data-slot="file-upload-item"]`, and `[data-slot="file-upload-item-delete-trigger"]`.
+| Part | `data-slot` |
+| --- | --- |
+| `FileUpload` | `file-upload-root` |
+| `FileUploadRootProvider` | `file-upload-root-provider` |
+| `FileUploadLabel` | `file-upload-label` |
+| `FileUploadDropzone` | `file-upload-dropzone` |
+| `FileUploadDropzoneIcon` | `file-upload-dropzone-icon` |
+| `FileUploadTrigger` | `file-upload-trigger` |
+| `FileUploadItemGroup` | `file-upload-item-group` |
+| `FileUploadItem` | `file-upload-item` |
+| `FileUploadItemPreview` | `file-upload-item-preview` |
+| `FileUploadItemPreviewImage` | `file-upload-item-preview-image` |
+| `FileUploadItemPreviewIcon` | `file-upload-item-preview-icon` |
+| `FileUploadItemName` | `file-upload-item-name` |
+| `FileUploadItemSizeText` | `file-upload-item-size-text` |
+| `FileUploadItemMetadata` | `file-upload-item-metadata` |
+| `FileUploadItemDeleteTrigger` | `file-upload-item-delete-trigger` |
+| `FileUploadClearTrigger` | `file-upload-clear-trigger` |
+
 Ark also exposes `data-scope="file-upload"`, part-specific `data-part`, and state attributes such as
 `data-disabled`, `data-readonly`, `data-invalid`, `data-required`, `data-dragging`, and `data-type`.
+
+## Keyboard
+
+| Key | Action |
+| --- | --- |
+| `Enter` / `Space` | Opens the file picker from the trigger or dropzone. |
+| `Tab` | Moves between the dropzone, the trigger, and file actions. |
+
+## API reference
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `accept` | `string \| string[] \| Record<string, string[]>` | — |
+| `maxFiles` | `number` | `1` |
+| `maxFileSize` | `number` | `Infinity` |
+| `minFileSize` | `number` | `0` |
+| `acceptedFiles` | `File[]` | — |
+| `defaultAcceptedFiles` | `File[]` | — |
+| `onFileChange` | `(details: FileChangeDetails) => void` | — |
+| `onFileAccept` | `(details: FileAcceptDetails) => void` | — |
+| `onFileReject` | `(details: FileRejectDetails) => void` | — |
+| `validate` | `(file: File, details: FileValidateDetails) => FileError[] \| null` | — |
+| `allowDrop` | `boolean` | `true` |
+| `directory` | `boolean` | `false` |
+| `capture` | `'user' \| 'environment'` | — |
+| `transformFiles` | `(files: File[]) => Promise<File[]>` | — |
+| `name` | `string` | — |
+| `disabled` | `boolean` | `false` |
+| `readOnly` | `boolean` | `false` |
+| `invalid` | `boolean` | `false` |
+| `required` | `boolean` | `false` |

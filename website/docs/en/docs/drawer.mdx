@@ -1,7 +1,7 @@
 ---
 title: Drawer
 component: drawer
-description: An accessible edge panel for navigation, forms, bottom sheets, snap points, and swipe-driven workflows in React, Solid, and Vue.
+description: Slide a panel in from a screen edge, with swipe and snap points.
 ark: https://ark-ui.com/docs/components/drawer
 ---
 
@@ -14,6 +14,20 @@ import * as DrawerDocs from '@/components/examples/drawer/css-properties';
 <ComponentInstall />
 
 ## Usage
+
+<UsageCode
+  react={'<Drawer swipeDirection="down" snapPoints={[0.5, 1]} defaultSnapPoint={0.5}>\n  <DrawerTrigger asChild>\n    <Button>Open drawer</Button>\n  </DrawerTrigger>\n  <DrawerBackdrop />\n  <DrawerPositioner>\n    <DrawerContent>\n      <DrawerGrabber>\n        <DrawerGrabberIndicator />\n      </DrawerGrabber>\n      <DrawerHeader>\n        <DrawerTitle>Notifications</DrawerTitle>\n        <DrawerCloseIcon />\n      </DrawerHeader>\n      <DrawerBody>…</DrawerBody>\n    </DrawerContent>\n  </DrawerPositioner>\n</Drawer>'}
+  solid={'<Drawer swipeDirection="down" snapPoints={[0.5, 1]} defaultSnapPoint={0.5}>\n  <DrawerTrigger asChild={(props) => (\n    <Button {...props()}>Open drawer</Button>\n  )} />\n  <DrawerBackdrop />\n  <DrawerPositioner>\n    <DrawerContent>\n      <DrawerGrabber>\n        <DrawerGrabberIndicator />\n      </DrawerGrabber>\n      <DrawerHeader>\n        <DrawerTitle>Notifications</DrawerTitle>\n        <DrawerCloseIcon />\n      </DrawerHeader>\n      <DrawerBody>…</DrawerBody>\n    </DrawerContent>\n  </DrawerPositioner>\n</Drawer>'}
+  vue={'<Drawer swipe-direction="down" :snap-points="[0.5, 1]" :default-snap-point="0.5">\n  <DrawerTrigger as-child>\n    <Button>Open drawer</Button>\n  </DrawerTrigger>\n  <DrawerBackdrop />\n  <DrawerPositioner>\n    <DrawerContent>\n      <DrawerGrabber>\n        <DrawerGrabberIndicator />\n      </DrawerGrabber>\n      <DrawerHeader>\n        <DrawerTitle>Notifications</DrawerTitle>\n        <DrawerCloseIcon />\n      </DrawerHeader>\n      <DrawerBody>…</DrawerBody>\n    </DrawerContent>\n  </DrawerPositioner>\n</Drawer>'}
+/>
+
+<PropChips
+  items={[
+    ['swipeDirection', 'Edge to swipe toward when closing: down, up, start, or end.'],
+    ['snapPoints', 'Heights the drawer rests at, as fractions or px.'],
+    ['size', 'Width of start and end drawers on DrawerContent.'],
+  ]}
+/>
 
 Compose the drawer from Ark's structural parts. This example opens at a compact snap point, then lets
 the user drag it to full height. `DrawerContent` is the interactive surface, `DrawerPositioner`
@@ -196,10 +210,25 @@ classes; the component variables below customize the CSS Modules variants. Data 
 
 ### Styling hooks
 
-- moduix `data-slot` values: `drawer-trigger`, `drawer-backdrop`, `drawer-positioner`, `drawer-content`,
-  `drawer-grabber`, `drawer-grabber-indicator`, `drawer-title`, `drawer-description`,
-  `drawer-close-trigger`, `drawer-close-icon`, `drawer-swipe-area`, `drawer-indent`,
-  `drawer-indent-background`, `drawer-header`, `drawer-body`, and `drawer-footer`.
+| Part | `data-slot` |
+| --- | --- |
+| `DrawerTrigger` | `drawer-trigger` |
+| `DrawerBackdrop` | `drawer-backdrop` |
+| `DrawerPositioner` | `drawer-positioner` |
+| `DrawerContent` | `drawer-content` |
+| `DrawerGrabber` | `drawer-grabber` |
+| `DrawerGrabberIndicator` | `drawer-grabber-indicator` |
+| `DrawerTitle` | `drawer-title` |
+| `DrawerDescription` | `drawer-description` |
+| `DrawerCloseTrigger` | `drawer-close-trigger` |
+| `DrawerCloseIcon` | `drawer-close-icon` |
+| `DrawerSwipeArea` | `drawer-swipe-area` |
+| `DrawerIndent` | `drawer-indent` |
+| `DrawerIndentBackground` | `drawer-indent-background` |
+| `DrawerHeader` | `drawer-header` |
+| `DrawerBody` | `drawer-body` |
+| `DrawerFooter` | `drawer-footer` |
+
 - `DrawerContent` writes `data-size` (default `md`) and `data-variant="island"` when its island
   presentation is active.
 - Ark part hooks: `data-scope="drawer"` with `data-part`.
@@ -218,3 +247,33 @@ classes; the component variables below customize the CSS Modules variants. Data 
   `--moduix-backdrop-filter`.
 - Top and bottom drawers are capped at `max-height: 80dvh`; set another `max-height` with a class on
   `DrawerContent`.
+
+## Keyboard
+
+| Key | Action |
+| --- | --- |
+| `Enter` / `Space` | Opens it from the focused trigger. |
+| `Tab` / `Shift+Tab` | Moves focus between controls; focus stays inside while open. |
+| `Esc` | Closes it and returns focus to the trigger. |
+
+## API reference
+
+Props of `Drawer`. `size` (`'sm' | 'md' | 'lg' | 'xl'`, default `'md'`) and `variant` (`'island'`) go on `DrawerContent`.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `open` | `boolean` | — |
+| `defaultOpen` | `boolean` | `false` |
+| `onOpenChange` | `(details: OpenChangeDetails) => void` | — |
+| `swipeDirection` | `'up' \| 'down' \| 'start' \| 'end'` | `'down'` |
+| `snapPoints` | `(number \| string)[]` | `[1]` |
+| `snapPoint` | `number \| string \| null` | — |
+| `defaultSnapPoint` | `number \| string \| null` | `1` |
+| `onSnapPointChange` | `(details: SnapPointChangeDetails) => void` | — |
+| `snapToSequentialPoints` | `boolean` | `false` |
+| `closeThreshold` | `number` | `0.25` |
+| `modal` | `boolean` | `true` |
+| `closeOnEscape` | `boolean` | `true` |
+| `closeOnInteractOutside` | `boolean` | `true` |
+| `lazyMount` | `boolean` | `true` |
+| `unmountOnExit` | `boolean` | `true` |

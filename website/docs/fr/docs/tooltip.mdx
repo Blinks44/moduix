@@ -1,7 +1,7 @@
 ---
 title: Tooltip
 component: tooltip
-description: Une brève information complémentaire affichée lorsque l’élément déclencheur est survolé ou reçoit le focus.
+description: Ajouter une courte info-bulle à un contrôle au survol ou au focus.
 ark: https://ark-ui.com/docs/components/tooltip
 ---
 
@@ -17,6 +17,20 @@ import tooltipVueContextPart from '../../../snippets/tooltip/vue/TooltipStateCon
 <ComponentInstall />
 
 ## Utilisation
+
+<UsageCode
+  react={'<Tooltip openDelay={400} positioning={{ placement: \'top\' }}>\n  <TooltipTrigger asChild>\n    <Button aria-label="Notifications">\n      <BellIcon />\n    </Button>\n  </TooltipTrigger>\n  <TooltipBody>Notifications</TooltipBody>\n</Tooltip>'}
+  solid={'<Tooltip openDelay={400} positioning={{ placement: \'top\' }}>\n  <TooltipTrigger asChild={(props) => (\n    <Button aria-label="Notifications" {...props()}>\n      <BellIcon />\n    </Button>\n  )} />\n  <TooltipBody>Notifications</TooltipBody>\n</Tooltip>'}
+  vue={'<Tooltip :open-delay="400" :positioning="{ placement: \'top\' }">\n  <TooltipTrigger as-child>\n    <Button aria-label="Notifications">\n      <BellIcon />\n    </Button>\n  </TooltipTrigger>\n  <TooltipBody>Notifications</TooltipBody>\n</Tooltip>'}
+/>
+
+<PropChips
+  items={[
+    ['openDelay / closeDelay', 'Délais en ms, 400 et 150 par défaut.'],
+    ['positioning', 'Côté et décalage de l’info-bulle.'],
+    ['interactive', 'La garde ouverte tant que le pointeur la survole.'],
+  ]}
+/>
 
 Utilisez `TooltipTrigger` pour l’élément qui ouvre l’infobulle et `TooltipBody` pour son contenu.
 `TooltipBody` réunit `TooltipPositioner` et `TooltipContent`. Donnez au déclencheur son propre
@@ -210,7 +224,16 @@ reposent sur les jetons de foundation et n’ont pas de variables de composant :
 remplace les styles du composant en couche. Les attributs d’état et les hooks `data-slot` sont communs
 aux deux modes de style.
 
-### Ciblage des styles
+### Points d’accroche CSS
+
+| Partie | `data-slot` |
+| --- | --- |
+| `TooltipTrigger` | `tooltip-trigger` |
+| `TooltipDisabledTrigger` | `tooltip-disabled-trigger` |
+| `TooltipPositioner` | `tooltip-positioner` |
+| `TooltipContent` | `tooltip-content` |
+| `TooltipArrow` | `tooltip-arrow` |
+| `TooltipArrowTip` | `tooltip-arrow-tip` |
 
 - `TooltipBody` ne crée aucun nœud DOM. Avec la composition explicite, stylez séparément
   `TooltipPositioner` et `TooltipContent`.
@@ -221,13 +244,34 @@ aux deux modes de style.
 - `TooltipContent` contrôle la surface de la fenêtre flottante.
 - `TooltipArrow` et `TooltipArrowTip` contrôlent la taille, l’arrière-plan et le contour de la flèche.
 
-Les principaux points de ciblage publics sont `data-slot="tooltip-trigger"`,
-`data-slot="tooltip-positioner"`, `data-slot="tooltip-content"`,
-`data-slot="tooltip-disabled-trigger"`, `data-slot="tooltip-arrow"` et
-`data-slot="tooltip-arrow-tip"`.
-
 Ark ajoute également `data-scope="tooltip"`, `data-part`, `data-state="open" | "closed"`,
 `data-value`, `data-current`, `data-expanded`, `data-instant`, `data-placement` et `data-side` aux
 parties concernées. La partie `TooltipPositioner` expose notamment les variables CSS d’exécution
 `--available-width`, `--available-height`, `--reference-width`, `--reference-height`, `--x`, `--y`,
 `--z-index` et `--transform-origin`.
+
+## Clavier
+
+| Touche | Action |
+| --- | --- |
+| `Tab` | Le focus sur le déclencheur affiche l’info-bulle. |
+| `Esc` | Masque l’info-bulle. |
+
+## Référence de l’API
+
+| Prop | Type | Défaut |
+| --- | --- | --- |
+| `open` | `boolean` | — |
+| `defaultOpen` | `boolean` | `false` |
+| `onOpenChange` | `(details: OpenChangeDetails) => void` | — |
+| `openDelay` | `number` | `400` |
+| `closeDelay` | `number` | `150` |
+| `positioning` | `PositioningOptions` | — |
+| `disabled` | `boolean` | `false` |
+| `interactive` | `boolean` | `false` |
+| `closeOnPointerDown` | `boolean` | `true` |
+| `closeOnScroll` | `boolean` | `true` |
+| `closeOnClick` | `boolean` | `true` |
+| `closeOnEscape` | `boolean` | `true` |
+| `lazyMount` | `boolean` | `true` |
+| `unmountOnExit` | `boolean` | `true` |

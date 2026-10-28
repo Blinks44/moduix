@@ -1,7 +1,7 @@
 ---
 title: Container
 component: container
-description: A responsive layout primitive for readable content widths and fluid horizontal padding.
+description: Center page content at a readable width with responsive side padding.
 ark: https://ark-ui.com/docs/guides/composition#the-ark-factory
 ---
 
@@ -15,9 +15,18 @@ import * as ContainerDocs from '@/components/examples/container/css-properties';
 
 ## Usage
 
-Import `Container` from the matching package: `@moduix/react/container`, `@moduix/solid/container`, or
-`@moduix/vue/container` for CSS Modules, and `@moduix/react-tailwind/container`,
-`@moduix/solid-tailwind/container`, or `@moduix/vue-tailwind/container` for Tailwind CSS.
+<UsageCode
+  react={'<Container size="md" gutter="lg">\n  <Heading as="h1">Release notes</Heading>\n  <Text>What changed this month.</Text>\n</Container>'}
+  vue={'<Container size="md" gutter="lg">\n  <Heading as="h1">Release notes</Heading>\n  <Text>What changed this month.</Text>\n</Container>'}
+/>
+
+<PropChips
+  items={[
+    ['size', 'Maximum width: xs to xl, or full.'],
+    ['gutter', 'Side padding: none, sm, md, or lg.'],
+  ]}
+/>
+
 
 Use `Container` for a centered content column with a readable width. It adds responsive horizontal gutters and leaves
 vertical spacing to the surrounding layout.
@@ -89,9 +98,21 @@ through utilities.
 
 ### Styling hooks
 
-- `Container` exposes `data-slot="container-root"` on the root.
+| Part | `data-slot` |
+| --- | --- |
+| `Container` | `container-root` |
+
 - `data-scope="container"` and `data-part="root"` follow Ark's styling conventions.
 - `data-size` selects the width preset: `xs`, `sm`, `md`, `lg`, `xl`, `full`.
 - `data-gutter` selects the gutter preset: `none`, `sm`, `md`, `lg`.
 - `--moduix-container-*` variables control horizontal gutters and max-width math for CSS Modules. Vertical spacing and
   child layout remain the responsibility of the surrounding CSS.
+
+## API reference
+
+Also accepts the native props of its element and `asChild`.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl' \| 'full'` | `'lg'` |
+| `gutter` | `'none' \| 'sm' \| 'md' \| 'lg'` | `'md'` |

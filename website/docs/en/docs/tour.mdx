@@ -1,7 +1,7 @@
 ---
 title: Tour
 component: tour
-description: Build guided product walkthroughs with Ark UI tour state, accessible overlay parts, and ready-made actions.
+description: Walk users through a product with steps anchored to page elements.
 ark: https://ark-ui.com/docs/components/tour
 ---
 
@@ -12,6 +12,20 @@ ark: https://ark-ui.com/docs/components/tour
 <ComponentInstall />
 
 ## Usage
+
+<UsageCode
+  react={'const tour = useTour({\n  steps: [\n    {\n      id: \'upload\',\n      type: \'tooltip\',\n      title: \'Upload files\',\n      target: () => document.querySelector(\'#upload\'),\n      actions: [{ label: \'Next\', action: \'next\' }],\n    },\n  ],\n});\n\n<Tour tour={tour}>\n  <TourBackdrop />\n  <TourSpotlight />\n  <TourPositioner>\n    <TourContent>\n      <TourTitle />\n      <TourDescription />\n      <TourActionList />\n    </TourContent>\n  </TourPositioner>\n</Tour>'}
+  vue={'const tour = useTour({\n  steps: [\n    {\n      id: \'upload\',\n      type: \'tooltip\',\n      title: \'Upload files\',\n      target: () => document.querySelector(\'#upload\'),\n      actions: [{ label: \'Next\', action: \'next\' }],\n    },\n  ],\n});\n\n<Tour :tour="tour">\n  <TourBackdrop />\n  <TourSpotlight />\n  <TourPositioner>\n    <TourContent>\n      <TourTitle />\n      <TourDescription />\n      <TourActionList />\n    </TourContent>\n  </TourPositioner>\n</Tour>'}
+/>
+
+<PropChips
+  items={[
+    ['steps', 'Each step has an id, a type, text, and actions.'],
+    ['type', 'dialog, tooltip, floating, or wait for user input.'],
+    ['target', 'Returns the element a tooltip step points to.'],
+    ['tour.start()', 'Starts the tour from the first step.'],
+  ]}
+/>
 
 Create tour state with `useTour`, define its steps, and pass the returned object to `Tour`. The example starts with a
 dialog, moves to a tooltip anchored to a page control, and finishes with a floating step. Keep the parts explicit so
@@ -114,10 +128,49 @@ to `TourActionList` to style every generated trigger.
 
 ### Styling hooks
 
-The main public hooks are `data-slot="tour-backdrop"`, `tour-spotlight`, `tour-positioner`,
-`tour-content`, `tour-arrow`, `tour-arrow-tip`, `tour-title`, `tour-description`,
-`tour-progress-text`, `tour-body`, `tour-close-trigger`, `tour-close-icon`, `tour-control`, and
-`tour-action-trigger`. Ark also adds `data-scope="tour"`, `data-part`, `data-state`, `data-type`,
+| Part | `data-slot` |
+| --- | --- |
+| `TourBackdrop` | `tour-backdrop` |
+| `TourSpotlight` | `tour-spotlight` |
+| `TourPositioner` | `tour-positioner` |
+| `TourContent` | `tour-content` |
+| `TourArrow` | `tour-arrow` |
+| `TourArrowTip` | `tour-arrow-tip` |
+| `TourTitle` | `tour-title` |
+| `TourDescription` | `tour-description` |
+| `TourProgressText` | `tour-progress-text` |
+| `TourBody` | `tour-body` |
+| `TourCloseTrigger` | `tour-close-trigger` |
+| `TourCloseIcon` | `tour-close-icon` |
+| `TourControl` | `tour-control` |
+| `TourActionTrigger` | `tour-action-trigger` |
+
+Ark also adds `data-scope="tour"`, `data-part`, `data-state`, `data-type`,
 `data-placement`, `data-side`, `data-step`, and `data-disabled`, plus runtime variables including
 `--tour-layer`, `--available-width`, `--available-height`, `--transform-origin`, and the arrow
 variables.
+
+## Keyboard
+
+| Key | Action |
+| --- | --- |
+| `ArrowRight` / `ArrowLeft` | Goes to the next or previous step when keyboardNavigation is on. |
+| `Tab` / `Shift+Tab` | Moves between the step actions. |
+| `Esc` | Ends the tour. |
+
+## API reference
+
+Options of `useTour()`. Pass the returned object to `Tour` as `tour`.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `steps` | `TourStepDetails[]` | — |
+| `stepId` | `string \| null` | — |
+| `onStepChange` | `(details: StepChangeDetails) => void` | — |
+| `onStatusChange` | `(details: StatusChangeDetails) => void` | — |
+| `keyboardNavigation` | `boolean` | `true` |
+| `closeOnEscape` | `boolean` | `true` |
+| `closeOnInteractOutside` | `boolean` | `true` |
+| `preventInteraction` | `boolean` | `false` |
+| `spotlightOffset` | `{ x: number; y: number }` | `{ x: 10, y: 10 }` |
+| `spotlightRadius` | `number` | `4` |

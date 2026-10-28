@@ -1,7 +1,7 @@
 ---
 title: Progress Circular
 component: progress-circular
-description: Indicateur circulaire pour suivre une progression déterminée ou indéterminée.
+description: Afficher la progression dans un anneau compact, connue ou indéterminée.
 ark: https://ark-ui.com/docs/components/progress-circular
 ---
 
@@ -14,6 +14,19 @@ import * as ProgressCircularDocs from '@/components/examples/progress-circular/c
 <ComponentInstall />
 
 ## Utilisation
+
+<UsageCode
+  react={'<ProgressCircular defaultValue={42}>\n  <ProgressCircularLabel>Export data</ProgressCircularLabel>\n  <ProgressCircularRing aria-label="Export data" />\n  <ProgressCircularValueText />\n</ProgressCircular>'}
+  vue={'<ProgressCircular :default-value="42">\n  <ProgressCircularLabel>Export data</ProgressCircularLabel>\n  <ProgressCircularRing aria-label="Export data" />\n  <ProgressCircularValueText />\n</ProgressCircular>'}
+/>
+
+<PropChips
+  items={[
+    ['defaultValue', 'Valeur initiale ; null pour un état indéterminé.'],
+    ['min / max', 'Plage de la valeur, de 0 à 100 par défaut.'],
+    ['formatOptions', 'Options Intl du texte de valeur, en pourcentage par défaut.'],
+  ]}
+/>
 
 Utilisez `ProgressCircularRing` pour afficher le cercle SVG standard, sa piste et son arc de
 progression. Ajoutez `ProgressCircularValueText` pour afficher la valeur actuelle. L’exemple place
@@ -141,13 +154,33 @@ progression indéterminée sa propre couleur, stylisez `ProgressCircularCircleRa
 
 ### Points d’accroche CSS
 
-- `data-slot="progress-circular-root"`, `data-slot="progress-circular-root-provider"`,
-  `data-slot="progress-circular-label"`, `data-slot="progress-circular-circle"`,
-  `data-slot="progress-circular-circle-track"`, `data-slot="progress-circular-circle-range"`,
-  `data-slot="progress-circular-value-text"` et `data-slot="progress-circular-view"`.
+| Partie | `data-slot` |
+| --- | --- |
+| `ProgressCircular` | `progress-circular-root` |
+| `ProgressCircularRootProvider` | `progress-circular-root-provider` |
+| `ProgressCircularLabel` | `progress-circular-label` |
+| `ProgressCircularValueText` | `progress-circular-value-text` |
+| `ProgressCircularCircle` | `progress-circular-circle` |
+| `ProgressCircularCircleTrack` | `progress-circular-circle-track` |
+| `ProgressCircularCircleRange` | `progress-circular-circle-range` |
+| `ProgressCircularView` | `progress-circular-view` |
+
 - `ProgressCircularRing` utilise les mêmes `data-slot`, `className`/`class`, ref et variables de taille et
   d’épaisseur `--moduix-progress-circular-*` que `ProgressCircularCircle`.
 - Attributs Ark : `data-scope="progress"`, `data-part`, `data-state="indeterminate|loading|complete"`,
   `data-orientation`, `data-value` et `data-max`.
 - Variables SVG Ark du cercle : `--size`, `--thickness`, `--radius`, `--circumference`, `--percent`
   et `--offset`.
+
+## Référence de l’API
+
+| Prop | Type | Défaut |
+| --- | --- | --- |
+| `value` | `number \| null` | — |
+| `defaultValue` | `number \| null` | `50` |
+| `onValueChange` | `(details: ValueChangeDetails) => void` | — |
+| `min` | `number` | `0` |
+| `max` | `number` | `100` |
+| `formatOptions` | `Intl.NumberFormatOptions` | `{ style: 'percent' }` |
+| `locale` | `string` | — |
+| `translations` | `IntlTranslations` | — |

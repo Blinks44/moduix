@@ -1,7 +1,7 @@
 ---
 title: QR Code
 component: qr-code
-description: Un composant de code QR fondé sur Ark UI qui produit un SVG, prend en charge les superpositions et permet de télécharger le code comme image.
+description: Transformer un lien ou un texte en code QR à scanner ou télécharger.
 ark: https://ark-ui.com/docs/components/qr-code
 ---
 
@@ -17,6 +17,19 @@ import qrCodeVueRootProvider from '../../../snippets/qr-code/vue/root-provider.v
 <ComponentInstall />
 
 ## Utilisation
+
+<UsageCode
+  react={'<QrCode defaultValue="https://moduix.dev" encoding={{ ecc: \'H\' }}>\n  <QrCodeFrame role="img" aria-label="QR code for moduix.dev">\n    <QrCodePattern />\n  </QrCodeFrame>\n  <QrCodeDownloadTrigger fileName="moduix.png" mimeType="image/png">Download</QrCodeDownloadTrigger>\n</QrCode>'}
+  vue={'<QrCode default-value="https://moduix.dev" :encoding="{ ecc: \'H\' }">\n  <QrCodeFrame role="img" aria-label="QR code for moduix.dev">\n    <QrCodePattern />\n  </QrCodeFrame>\n  <QrCodeDownloadTrigger file-name="moduix.png" mime-type="image/png">Download</QrCodeDownloadTrigger>\n</QrCode>'}
+/>
+
+<PropChips
+  items={[
+    ['defaultValue', 'Texte ou URL à encoder ; contrôlez-le avec value.'],
+    ['encoding', 'Niveau de correction L, M, Q ou H.'],
+    ['QrCodeDownloadTrigger', 'Enregistre le code comme image.'],
+  ]}
+/>
 
 Utilisez `QrCode` dans le cas courant. Passez le contenu à encoder dans `defaultValue`, puis affichez
 explicitement `QrCodeFrame` et `QrCodePattern` pour rendre le SVG généré. Donnez un nom accessible
@@ -164,7 +177,24 @@ runtime `--qrcode-pixel-size`, `--qrcode-width` et `--qrcode-height` sur la raci
 
 ### Points d’accroche CSS
 
-- Sélecteurs `data-slot` stables : `qr-code-root`, `qr-code-root-provider`, `qr-code-frame`,
-  `qr-code-pattern`, `qr-code-overlay` et `qr-code-download-trigger`.
+| Partie | `data-slot` |
+| --- | --- |
+| `QrCode` | `qr-code-root` |
+| `QrCodeRootProvider` | `qr-code-root-provider` |
+| `QrCodeFrame` | `qr-code-frame` |
+| `QrCodePattern` | `qr-code-pattern` |
+| `QrCodeOverlay` | `qr-code-overlay` |
+| `QrCodeDownloadTrigger` | `qr-code-download-trigger` |
+
 - Sélecteurs de parties Ark : `data-scope="qr-code"` et
   `data-part="root|frame|pattern|overlay|download-trigger"`.
+
+## Référence de l’API
+
+| Prop | Type | Défaut |
+| --- | --- | --- |
+| `value` | `string` | — |
+| `defaultValue` | `string` | — |
+| `onValueChange` | `(details: ValueChangeDetails) => void` | — |
+| `encoding` | `QrCodeGenerateOptions` | — |
+| `pixelSize` | `number` | — |

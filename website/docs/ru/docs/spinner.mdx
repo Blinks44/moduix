@@ -1,7 +1,7 @@
 ---
 title: Spinner
 component: spinner
-description: Компактный индикатор загрузки, который сообщает ассистивным технологиям о состоянии загрузки и поддерживает несколько размеров и собственное содержимое.
+description: Короткое ожидание в кнопках, строках и компактных состояниях.
 ark: https://ark-ui.com/docs/guides/composition
 ---
 
@@ -14,6 +14,19 @@ import * as SpinnerDocs from '@/components/examples/spinner/css-properties';
 <ComponentInstall />
 
 ## Использование
+
+<UsageCode
+  react={'<Spinner size="sm" aria-label="Saving changes" />'}
+  vue={'<Spinner size="sm" aria-label="Saving changes" />'}
+/>
+
+<PropChips
+  items={[
+    ['size', 'От xs до xl или inherit, чтобы следовать размеру шрифта.'],
+    ['aria-label', 'Описывает ожидание; по умолчанию английское «Loading».'],
+    ['decorative', 'Скрывает спиннер, если рядом уже есть текст об ожидании.'],
+  ]}
+/>
 
 Используйте `Spinner` для кратковременных состояний загрузки в кнопках, строках статуса и небольших блоках,
 где контент ещё не появился. По умолчанию компонент сообщает ассистивным технологиям о загрузке: у корневого
@@ -111,12 +124,23 @@ Spinner
 
 ### Хуки стилизации
 
+| Часть | `data-slot` |
+| --- | --- |
+| `Spinner` | `spinner-root` |
+| `Spinner`, внутренний элемент | `spinner-indicator` |
+| `Spinner`, внутренний элемент | `spinner-ring` |
+
 - `[data-scope="spinner"][data-part="root"]` выбирает корневой элемент в соответствии с анатомией Ark.
 - `[data-scope="spinner"][data-part="indicator"]` выбирает вращающуюся внутреннюю обёртку.
 - `[data-scope="spinner"][data-part="ring"]` выбирает только стандартное кольцо.
-- `data-slot="spinner-root"` - стабильный селектор moduix для отрисованного корня.
-- `data-slot="spinner-indicator"` - стабильный селектор moduix для вращающейся внутренней обёртки.
-- `data-slot="spinner-ring"` выбирает только стандартное кольцо.
 - `Spinner` записывает в корень `data-size="inherit" | "xs" | "sm" | "md" | "lg" | "xl"`.
-- `className` или `class` применяется к отрисованному корню. При `asChild` это единственный дочерний элемент.
-  При необходимости выбирайте индикатор или кольцо дочерними селекторами.
+- `className` или `class` применяется к отрисованному корню. При `asChild` это единственный дочерний элемент. При необходимости выбирайте индикатор или кольцо дочерними селекторами.
+
+## Справочник API
+
+| Проп | Тип | По умолчанию |
+| --- | --- | --- |
+| `size` | `'inherit' \| 'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'` | `'md'` |
+| `decorative` | `boolean` | `false` |
+| `aria-label` | `string` | `'Loading'` |
+| `asChild` | `boolean` | `false` |

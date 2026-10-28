@@ -1,7 +1,7 @@
 ---
 title: Bleed
 component: bleed
-description: Composant de mise en page qui permet à certains contenus de dépasser les limites d’un conteneur.
+description: Faire déborder une bannière ou une image hors des marges du conteneur.
 ark: https://ark-ui.com/docs/guides/composition#the-ark-factory
 ---
 
@@ -12,6 +12,18 @@ ark: https://ark-ui.com/docs/guides/composition#the-ark-factory
 <ComponentInstall />
 
 ## Utilisation
+
+<UsageCode
+  react={'<Container>\n  <Text>Article intro</Text>\n  <Bleed inline="full" block="md">\n    <img src={banner.src} alt={banner.alt} />\n  </Bleed>\n</Container>'}
+  vue={'<Container>\n  <Text>Article intro</Text>\n  <Bleed inline="full" block="md">\n    <img src={banner.src} alt={banner.alt} />\n  </Bleed>\n</Container>'}
+/>
+
+<PropChips
+  items={[
+    ['inline', 'Débord horizontal : de none à xl, ou full jusqu’aux bords.'],
+    ['block', 'Débord vertical, none par défaut.'],
+  ]}
+/>
 
 La valeur par défaut `inline="full"` permet à un bloc média, une bannière ou un élément décoratif de section
 d’atteindre les bords de la fenêtre tout en restant dans le flux normal du document.
@@ -52,9 +64,6 @@ Utilisez [Container](/docs/container) pour conserver une colonne de contenu agr�
 l’intérieur lorsque seul un bloc média, un arrière-plan, un séparateur ou une bannière doit dépasser les limites du
 conteneur.
 
-Importez `Bleed` depuis le sous-chemin qui correspond au framework et au style choisi. Pour CSS Modules, utilisez
-`@moduix/react/bleed`, `@moduix/solid/bleed` ou `@moduix/vue/bleed`. Pour Tailwind, utilisez
-`@moduix/react-tailwind/bleed`, `@moduix/solid-tailwind/bleed` ou `@moduix/vue-tailwind/bleed`.
 
 `Bleed` est un composant de présentation sans état. Il ne possède qu’une partie racine ; il n’y a donc aucune partie enfant à coordonner. Les valeurs par défaut sont `inline="full"`, `block="none"` et `asChild={false}`. Lorsque `asChild` doit confier la racine rendue à un élément sémantique, fournissez exactement un enfant capable de recevoir les propriétés DOM et une ref en React, ou utilisez la fonction de rendu Solid. Les refs React ciblent la racine ou l’enfant rendu ; la forme Solid ne transmet pas la ref du composant à l’hôte personnalisé. Dans Vue, `asChild` transmet la racine à un unique enfant sémantique via la fabrique Ark. La ref du composant donne accès à l’élément rendu avec `$el`.
 
@@ -89,7 +98,19 @@ Sur ces systèmes, ajoutez `overflow-x: clip` à la racine de la page pour évit
 
 ### Points d’accroche CSS
 
+| Partie | `data-slot` |
+| --- | --- |
+| `Bleed` | `bleed-root` |
+
 - `data-scope="bleed"` et `data-part="root"` fournissent des points d’accroche conformes à Ark sur l’élément racine exporté.
-- `data-slot="bleed-root"` est un sélecteur moduix stable sur l’élément racine exporté.
 - `data-inline` indique le mode de dépassement actuel sur l’axe en ligne : `none`, `xs`, `sm`, `md`, `lg`, `xl` ou `full`.
 - `data-block` indique le mode de dépassement actuel sur l’axe de bloc : `none`, `xs`, `sm`, `md`, `lg` ou `xl`.
+
+## Référence de l’API
+
+Accepte aussi les props natives de son élément et `asChild`.
+
+| Prop | Type | Défaut |
+| --- | --- | --- |
+| `inline` | `'none' \| 'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl' \| 'full'` | `'full'` |
+| `block` | `'none' \| 'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'` | `'none'` |

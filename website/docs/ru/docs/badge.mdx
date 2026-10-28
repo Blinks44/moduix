@@ -1,7 +1,7 @@
 ---
 title: Badge
 component: badge
-description: "Компактная метка для краткой информации: статуса, категории, версии или количества."
+description: Небольшая метка для статуса, категории, версии или счётчика.
 ark: https://ark-ui.com/docs/guides/composition#the-ark-factory
 ---
 
@@ -14,6 +14,19 @@ import * as BadgeDocs from '@/components/examples/badge/css-properties';
 <ComponentInstall />
 
 ## Использование
+
+<UsageCode
+  react={'<Badge variant="secondary" size="sm">\n  <BadgeDot />\n  Beta\n</Badge>'}
+  vue={'<Badge variant="secondary" size="sm">\n  <BadgeDot />\n  Beta\n</Badge>'}
+/>
+
+<PropChips
+  items={[
+    ['variant', 'default, secondary, destructive, outline, ghost или link.'],
+    ['size', 'sm, md или lg.'],
+    ['BadgeDot', 'Необязательная точка перед текстом для статуса.'],
+  ]}
+/>
 
 Начните с обычного `<Badge>`. По умолчанию компонент отображается как `span` и не добавляет интерактивного
 поведения. Укажите `variant`, чтобы выбрать `default`, `secondary`, `destructive`, `outline`, `ghost` или `link`,
@@ -124,9 +137,23 @@ CSS-переменных относится к пакетам с CSS Modules; в
 
 ### Хуки стилизации
 
-- `data-slot="badge-root"`, `data-slot="badge-label"` и `data-slot="badge-dot"` - стабильные селекторы экспортируемых частей.
+| Часть | `data-slot` |
+| --- | --- |
+| `Badge` | `badge-root` |
+| `BadgeLabel` | `badge-label` |
+| `BadgeDot` | `badge-dot` |
+
 - `Badge` также предоставляет `data-scope="badge"` и `data-part="root"`. `BadgeLabel` и `BadgeDot` предоставляют `data-part="label"` и `data-part="dot"`.
 - `Badge` записывает выбранный вариант в `data-variant`, а размер в `data-size`.
 - Фокусируемые элементы, созданные через `Badge asChild`, получают стандартное кольцо фокуса. Корневые ссылки также получают стили наведения и курсор-указатель; оформление взаимодействия кнопок остаётся ответственностью приложения.
 - Дочерние `svg`-иконки наследуют `currentColor`, не получают события указателя и имеют размер 12px, если класс на иконке не задаёт другой.
 - У Badge нет отдельного примитива или машины поведения Ark, поэтому он не предоставляет управляемые Ark-состояния и runtime CSS-переменные.
+
+## Справочник API
+
+Также принимает нативные пропсы своего элемента и `asChild`.
+
+| Проп | Тип | По умолчанию |
+| --- | --- | --- |
+| `variant` | `'default' \| 'secondary' \| 'destructive' \| 'outline' \| 'ghost' \| 'link'` | `'default'` |
+| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` |

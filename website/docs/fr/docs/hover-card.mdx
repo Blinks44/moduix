@@ -1,7 +1,7 @@
 ---
 title: Hover Card
 component: hover-card
-description: Composant Hover Card basé sur Ark UI qui affiche des aperçus complémentaires au survol ou lorsque le déclencheur reçoit le focus.
+description: Prévisualiser un profil ou un lien dans une carte au survol.
 ark: https://ark-ui.com/docs/components/hover-card
 ---
 
@@ -12,6 +12,19 @@ ark: https://ark-ui.com/docs/components/hover-card
 <ComponentInstall />
 
 ## Utilisation
+
+<UsageCode
+  react={'<HoverCard openDelay={600} closeDelay={300} positioning={{ placement: \'top\' }}>\n  <HoverCardTrigger href="/u/sarah">@sarah_chen</HoverCardTrigger>\n  <HoverCardPositioner>\n    <HoverCardContent>\n      <HoverCardBody>Design lead at Acme</HoverCardBody>\n    </HoverCardContent>\n  </HoverCardPositioner>\n</HoverCard>'}
+  vue={'<HoverCard :open-delay="600" :close-delay="300" :positioning="{ placement: \'top\' }">\n  <HoverCardTrigger href="/u/sarah">@sarah_chen</HoverCardTrigger>\n  <HoverCardPositioner>\n    <HoverCardContent>\n      <HoverCardBody>Design lead at Acme</HoverCardBody>\n    </HoverCardContent>\n  </HoverCardPositioner>\n</HoverCard>'}
+/>
+
+<PropChips
+  items={[
+    ['openDelay / closeDelay', 'Délais de survol en ms, 600 et 300 par défaut.'],
+    ['positioning', 'Placement et décalage de la carte.'],
+    ['disabled', 'Empêche la carte de s’ouvrir.'],
+  ]}
+/>
 
 Composez la carte à partir des parties Ark explicites. `HoverCardTrigger` ouvre la carte, tandis
 que `HoverCardPositioner` et `HoverCardContent` définissent son contenu flottant. La composition
@@ -151,12 +164,20 @@ reposent sur les jetons de foundation et n’ont pas de variables de composant :
 remplace les styles du composant en couche. Les attributs d’état et les hooks `data-slot` sont communs
 aux deux modes de style.
 
-### Ciblage des styles
+### Points d’accroche CSS
+
+| Partie | `data-slot` |
+| --- | --- |
+| `HoverCardTrigger` | `hover-card-trigger` |
+| `HoverCardPositioner` | `hover-card-positioner` |
+| `HoverCardContent` | `hover-card-content` |
+| `HoverCardArrow` | `hover-card-arrow` |
+| `HoverCardArrowTip` | `hover-card-arrow-tip` |
+| `HoverCardBody` | `hover-card-body` |
 
 Moduix ajoute également des attributs `data-slot="hover-card-*"` au déclencheur, à `HoverCardPositioner`, au contenu, à la
 flèche, à sa pointe et à la région de contenu. `HoverCard` et `HoverCardRootProvider` fournissent
-uniquement l’état et ne rendent aucun élément DOM : ils n’ont donc pas de point d’accroche CSS propre.
-Ark ajoute `data-scope="hover-card"` et
+uniquement l’état et ne rendent aucun élément DOM : ils n’ont donc pas de point d’accroche CSS propre. Ark ajoute `data-scope="hover-card"` et
 `data-part` à ses parties. Pour adapter les styles à l’état, ciblez `data-state="open|closed"`,
 `data-placement`, `data-side`, `data-value`, `data-current`, `data-nested` et `data-has-nested`.
 
@@ -164,3 +185,24 @@ Ark ajoute `data-scope="hover-card"` et
 `--available-height`, `--x`, `--y`, `--z-index` et `--transform-origin`. `HoverCardContent`
 expose `--layer-index` et `--nested-layer-count`. `HoverCardArrow` expose `--arrow-size`,
 `--arrow-size-half`, `--arrow-background` et `--arrow-offset`.
+
+## Clavier
+
+| Touche | Action |
+| --- | --- |
+| `Tab` | Le focus sur le déclencheur ouvre la carte après le délai. |
+| `Esc` | Ferme la carte. |
+
+## Référence de l’API
+
+| Prop | Type | Défaut |
+| --- | --- | --- |
+| `open` | `boolean` | — |
+| `defaultOpen` | `boolean` | `false` |
+| `onOpenChange` | `(details: OpenChangeDetails) => void` | — |
+| `openDelay` | `number` | `600` |
+| `closeDelay` | `number` | `300` |
+| `positioning` | `PositioningOptions` | — |
+| `disabled` | `boolean` | `false` |
+| `lazyMount` | `boolean` | `true` |
+| `unmountOnExit` | `boolean` | `true` |

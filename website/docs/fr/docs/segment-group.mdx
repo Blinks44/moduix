@@ -1,7 +1,7 @@
 ---
 title: Segment Group
 component: segment-group
-description: Un contrôle segmenté compact basé sur Ark UI pour choisir une valeur parmi un petit ensemble visible.
+description: Basculer entre quelques options dans un contrôle segmenté compact.
 ark: https://ark-ui.com/docs/components/segment-group
 ---
 
@@ -15,6 +15,19 @@ import { CssPropertiesSection } from '@/components/mdx/Components';
 <ComponentInstall />
 
 ## Utilisation
+
+<UsageCode
+  react={'<SegmentGroup defaultValue="week" size="sm" aria-label="Range" onValueChange={(details) => setRange(details.value)}>\n  <SegmentGroupIndicator />\n  <SegmentGroupItems items={[\'day\', \'week\', \'month\']} />\n</SegmentGroup>'}
+  vue={'<SegmentGroup v-model="range" size="sm" aria-label="Range">\n  <SegmentGroupIndicator />\n  <SegmentGroupItems :items="[\'day\', \'week\', \'month\']" />\n</SegmentGroup>'}
+/>
+
+<PropChips
+  items={[
+    ['items', 'Sur SegmentGroupItems : chaînes ou { value, label, disabled }.'],
+    ['size', 'sm, md ou lg.'],
+    ['orientation', 'horizontal ou vertical.'],
+  ]}
+/>
 
 Utilisez `SegmentGroup` comme racine, placez `SegmentGroupIndicator` avant les éléments et utilisez
 `SegmentGroupItems` lorsque chaque segment n'a besoin que d'un libellé textuel. `SegmentGroupItems` crée pour chaque
@@ -161,11 +174,17 @@ par les deux modes de style.
 
 <CssPropertiesSection properties={SegmentGroupDocs.segmentGroupOverrideCssProperties} />
 
-### Hooks de style
+### Points d’accroche CSS
 
-- Sélecteurs `data-slot` stables : `segment-group-root`, `segment-group-root-provider`,
-  `segment-group-label`, `segment-group-indicator`, `segment-group-item`
-  et `segment-group-item-text`.
+| Partie | `data-slot` |
+| --- | --- |
+| `SegmentGroup` | `segment-group-root` |
+| `SegmentGroupRootProvider` | `segment-group-root-provider` |
+| `SegmentGroupLabel` | `segment-group-label` |
+| `SegmentGroupItem` | `segment-group-item` |
+| `SegmentGroupItemText` | `segment-group-item-text` |
+| `SegmentGroupIndicator` | `segment-group-indicator` |
+
 - Sélecteurs des parties Ark : `data-scope="segment-group"` et `data-part` sur la racine, le libellé,
   l'indicateur, l'élément, le texte de l'élément et le champ masqué.
 - Sélecteurs d'état Ark : `data-state="checked|unchecked"`, `data-orientation`, `data-disabled`,
@@ -176,3 +195,25 @@ par les deux modes de style.
   `--moduix-ease-in-out`. Définissez-les avec une classe sur `SegmentGroupIndicator` (en Tailwind,
   `[--transition-duration:300ms]`) ; les utilitaires `duration-*` perdent face à la transition inline
   écrite par Ark.
+
+## Clavier
+
+| Touche | Action |
+| --- | --- |
+| `ArrowDown` / `ArrowUp` / `ArrowLeft` / `ArrowRight` | Passe à l’option suivante ou précédente et la sélectionne. |
+| `Tab` | Entre dans le groupe et en sort. |
+
+## Référence de l’API
+
+| Prop | Type | Défaut |
+| --- | --- | --- |
+| `value` | `string \| null` | — |
+| `defaultValue` | `string \| null` | — |
+| `onValueChange` | `(details: ValueChangeDetails) => void` | — |
+| `orientation` | `'horizontal' \| 'vertical'` | `'horizontal'` |
+| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` |
+| `name` | `string` | — |
+| `disabled` | `boolean` | `false` |
+| `readOnly` | `boolean` | `false` |
+| `invalid` | `boolean` | `false` |
+| `required` | `boolean` | `false` |

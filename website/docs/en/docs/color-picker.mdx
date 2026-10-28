@@ -1,7 +1,7 @@
 ---
 title: Color Picker
 component: color-picker
-description: An Ark UI-based color picker for choosing colors, editing color channels, and selecting swatches in React, Solid, or Vue.
+description: Choose a color with an area, channel sliders, inputs, and swatches.
 ark: https://ark-ui.com/docs/components/color-picker
 ---
 
@@ -14,6 +14,20 @@ import * as ColorPickerDocs from '@/components/examples/color-picker/css-propert
 <ComponentInstall />
 
 ## Usage
+
+<UsageCode
+  react={'<ColorPicker defaultValue={parseColor(\'#eb5e41\')} defaultFormat="hsla" onValueChangeEnd={(details) => save(details.valueAsString)}>\n  <ColorPickerLabel>Brand color</ColorPickerLabel>\n  <ColorPickerControl>\n    <ColorPickerChannelInput channel="hex" />\n    <ColorPickerTrigger aria-label="Open color picker" />\n  </ColorPickerControl>\n  <ColorPickerPositioner>\n    <ColorPickerContent>\n      <ColorPickerArea />\n      <ColorPickerChannelSlider channel="hue" />\n    </ColorPickerContent>\n  </ColorPickerPositioner>\n  <ColorPickerHiddenInput />\n</ColorPicker>'}
+  vue={'<ColorPicker :default-value="parseColor(\'#eb5e41\')" default-format="hsla" @value-change-end="(details) => save(details.valueAsString)">\n  <ColorPickerLabel>Brand color</ColorPickerLabel>\n  <ColorPickerControl>\n    <ColorPickerChannelInput channel="hex" />\n    <ColorPickerTrigger aria-label="Open color picker" />\n  </ColorPickerControl>\n  <ColorPickerPositioner>\n    <ColorPickerContent>\n      <ColorPickerArea />\n      <ColorPickerChannelSlider channel="hue" />\n    </ColorPickerContent>\n  </ColorPickerPositioner>\n  <ColorPickerHiddenInput />\n</ColorPicker>'}
+/>
+
+<PropChips
+  items={[
+    ['defaultValue', 'Starting color from parseColor(); use value to control it.'],
+    ['defaultFormat', 'rgba, hsla, or hsba for the channel inputs.'],
+    ['inline', 'Shows the picker in the page without a popup.'],
+    ['onValueChangeEnd', 'Runs once the user finishes dragging.'],
+  ]}
+/>
 
 Start with a compact field that combines a root, one channel input, the trigger's default swatch,
 explicit popup content, and the picker's default internal parts. Add `ColorPickerHiddenInput`
@@ -208,6 +222,37 @@ Use `className` in React or `class` in Solid and Vue on exported parts. Tailwind
 
 ### Styling hooks
 
+| Part | `data-slot` |
+| --- | --- |
+| `ColorPicker` | `color-picker-root` |
+| `ColorPickerRootProvider` | `color-picker-root-provider` |
+| `ColorPickerLabel` | `color-picker-label` |
+| `ColorPickerControl` | `color-picker-control` |
+| `ColorPickerTrigger` | `color-picker-trigger` |
+| `ColorPickerPositioner` | `color-picker-positioner` |
+| `ColorPickerContent` | `color-picker-content` |
+| `ColorPickerArea` | `color-picker-area` |
+| `ColorPickerAreaBackground` | `color-picker-area-background` |
+| `ColorPickerAreaThumb` | `color-picker-area-thumb` |
+| `ColorPickerChannelSlider` | `color-picker-channel-slider` |
+| `ColorPickerSliders` | `color-picker-sliders` |
+| `ColorPickerChannelSliderTrack` | `color-picker-channel-slider-track` |
+| `ColorPickerChannelSliderThumb` | `color-picker-channel-slider-thumb` |
+| `ColorPickerChannelSliderLabel` | `color-picker-channel-slider-label` |
+| `ColorPickerChannelSliderValueText` | `color-picker-channel-slider-value-text` |
+| `ColorPickerChannelInput` | `color-picker-channel-input` |
+| `ColorPickerEyeDropperTrigger` | `color-picker-eye-dropper-trigger` |
+| `ColorPickerFormatSelect` | `color-picker-format-select` |
+| `ColorPickerFormatTrigger` | `color-picker-format-trigger` |
+| `ColorPickerSwatchGroup` | `color-picker-swatch-group` |
+| `ColorPickerSwatchTrigger` | `color-picker-swatch-trigger` |
+| `ColorPickerSwatch` | `color-picker-swatch` |
+| `ColorPickerSwatchIndicator` | `color-picker-swatch-indicator` |
+| `ColorPickerTransparencyGrid` | `color-picker-transparency-grid` |
+| `ColorPickerValueSwatch` | `color-picker-value-swatch` |
+| `ColorPickerValueText` | `color-picker-value-text` |
+| `ColorPickerView` | `color-picker-view` |
+
 Use the part that owns the visual concern:
 
 - `ColorPicker` for width, gap, shared color, and disabled opacity
@@ -230,3 +275,35 @@ The main state hooks are `data-state`, `data-focus`, `data-invalid`, `data-disab
 
 When `prefers-reduced-motion` is enabled, popup entry and exit animations are disabled; Ark still
 completes its exit lifecycle.
+
+## Keyboard
+
+| Key | Action |
+| --- | --- |
+| `Enter` / `Space` | Opens the picker from the trigger. |
+| `ArrowUp` / `ArrowDown` / `ArrowLeft` / `ArrowRight` | Moves the thumb of the focused area or slider. |
+| `Esc` | Closes the picker. |
+
+## API reference
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `value` | `Color` | — |
+| `defaultValue` | `Color` | `#000000` |
+| `onValueChange` | `(details: ValueChangeDetails) => void` | — |
+| `onValueChangeEnd` | `(details: ValueChangeDetails) => void` | — |
+| `format` | `'rgba' \| 'hsla' \| 'hsba'` | — |
+| `defaultFormat` | `'rgba' \| 'hsla' \| 'hsba'` | `'rgba'` |
+| `open` | `boolean` | — |
+| `defaultOpen` | `boolean` | `false` |
+| `onOpenChange` | `(details: OpenChangeDetails) => void` | — |
+| `inline` | `boolean` | `false` |
+| `closeOnSelect` | `boolean` | `false` |
+| `positioning` | `PositioningOptions` | — |
+| `name` | `string` | — |
+| `disabled` | `boolean` | `false` |
+| `readOnly` | `boolean` | `false` |
+| `invalid` | `boolean` | `false` |
+| `required` | `boolean` | `false` |
+| `lazyMount` | `boolean` | `true` |
+| `unmountOnExit` | `boolean` | `true` |

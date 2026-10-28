@@ -1,7 +1,7 @@
 ---
 title: Number Input
 component: number-input
-description: Поле для ввода чисел на базе Ark UI с кнопками изменения значения, форматированием, валидацией и необязательным перетаскиванием.
+description: Ввод числа с кнопками шага, пределами и форматом локали.
 ark: https://ark-ui.com/docs/components/number-input
 ---
 
@@ -15,10 +15,19 @@ import * as NumberInputDocs from '@/components/examples/number-input/css-propert
 
 ## Использование
 
-Для CSS Modules импортируйте компонент из `@moduix/react/number-input`,
-`@moduix/solid/number-input` или `@moduix/vue/number-input`. Для Tailwind CSS используйте соответствующие пути
-`@moduix/react-tailwind/number-input`, `@moduix/solid-tailwind/number-input` или
-`@moduix/vue-tailwind/number-input`.
+<UsageCode
+  react={'<NumberInput defaultValue="100" min={0} max={1000} step={5} formatOptions={{ style: \'currency\', currency: \'USD\' }}>\n  <NumberInputLabel>Amount</NumberInputLabel>\n  <NumberInputField />\n</NumberInput>'}
+  vue={'<NumberInput default-value="100" :min="0" :max="1000" :step="5" :format-options="{ style: \'currency\', currency: \'USD\' }">\n  <NumberInputLabel>Amount</NumberInputLabel>\n  <NumberInputField />\n</NumberInput>'}
+/>
+
+<PropChips
+  items={[
+    ['defaultValue', 'Начальное значение строкой; для управления используйте value.'],
+    ['min / max', 'Пределы; при потере фокуса значение приводится к ним.'],
+    ['step', 'Изменение за нажатие стрелки или кнопки.'],
+    ['formatOptions', 'Опции Intl, например валюта или проценты.'],
+  ]}
+/>
 
 Используйте `NumberInput` как корневой компонент, а `NumberInputField` для стандартного поля с кнопками увеличения
 и уменьшения значения. Задайте полю доступное имя с помощью `NumberInputLabel`, `aria-label` или `aria-labelledby`.
@@ -172,8 +181,50 @@ NumberInputRootProvider
 
 ### Хуки стилизации
 
-- Стабильные селекторы `data-slot`: `number-input-root`, `number-input-root-provider`, `number-input-label`,
-  `number-input-scrubber`, `number-input-control`, `number-input-decrement-trigger`, `number-input-input`,
-  `number-input-increment-trigger` и `number-input-value-text`.
+| Часть | `data-slot` |
+| --- | --- |
+| `NumberInput` | `number-input-root` |
+| `NumberInputRootProvider` | `number-input-root-provider` |
+| `NumberInputLabel` | `number-input-label` |
+| `NumberInputScrubber` | `number-input-scrubber` |
+| `NumberInputControl` | `number-input-control` |
+| `NumberInputDecrementTrigger` | `number-input-decrement-trigger` |
+| `NumberInputInput` | `number-input-input` |
+| `NumberInputIncrementTrigger` | `number-input-increment-trigger` |
+| `NumberInputValueText` | `number-input-value-text` |
+
 - Атрибуты состояния Ark: `data-disabled`, `data-invalid`, `data-focus` и `data-scrubbing`.
 - Атрибуты частей Ark: `data-scope="number-input"` и значения `data-part`, соответствующие анатомии Ark.
+
+## Клавиатура
+
+| Клавиша | Действие |
+| --- | --- |
+| `ArrowUp` / `ArrowDown` | Увеличивает или уменьшает на шаг. |
+| `Shift` + arrows | Меняет на большой шаг, по умолчанию 10 шагов. |
+| `Home` / `End` | Ставит минимум или максимум. |
+| `Enter` | Подтверждает введённое значение. |
+
+## Справочник API
+
+| Проп | Тип | По умолчанию |
+| --- | --- | --- |
+| `value` | `string` | — |
+| `defaultValue` | `string` | — |
+| `onValueChange` | `(details: ValueChangeDetails) => void` | — |
+| `onValueCommit` | `(details: ValueChangeDetails) => void` | — |
+| `min` | `number` | `Number.MIN_SAFE_INTEGER` |
+| `max` | `number` | `Number.MAX_SAFE_INTEGER` |
+| `step` | `number` | `1` |
+| `largeStep` | `number` | `10 * step` |
+| `formatOptions` | `Intl.NumberFormatOptions` | — |
+| `locale` | `string` | — |
+| `allowMouseWheel` | `boolean` | `false` |
+| `clampValueOnBlur` | `boolean` | `true` |
+| `spinOnPress` | `boolean` | `true` |
+| `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'` | `'md'` |
+| `name` | `string` | — |
+| `disabled` | `boolean` | `false` |
+| `readOnly` | `boolean` | `false` |
+| `invalid` | `boolean` | `false` |
+| `required` | `boolean` | `false` |

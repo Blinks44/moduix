@@ -1,7 +1,7 @@
 ---
 title: Select
 component: select
-description: Ark UI select composition for choosing one or more values from a popup list.
+description: Pick one or more values from a popup list of options.
 ark: https://ark-ui.com/docs/components/select
 ---
 
@@ -14,6 +14,20 @@ import * as SelectDocs from '@/components/examples/select/css-properties';
 <ComponentInstall />
 
 ## Usage
+
+<UsageCode
+  react={'const collection = createListCollection({ items: fruits });\n\n<Select collection={collection} multiple onValueChange={(details) => setValue(details.value)}>\n  <SelectLabel>Fruit</SelectLabel>\n  <SelectField placeholder="Select fruit" clearLabel="Clear selection" />\n  <SelectPositioner>\n    <SelectContent>\n      {collection.items.map((item) => (\n        <SelectOption key={item.value} item={item}>{item.label}</SelectOption>\n      ))}\n    </SelectContent>\n  </SelectPositioner>\n  <SelectHiddenSelect />\n</Select>'}
+  solid={'const collection = createListCollection({ items: fruits });\n\n<Select collection={collection} multiple onValueChange={(details) => setValue(details.value)}>\n  <SelectLabel>Fruit</SelectLabel>\n  <SelectField placeholder="Select fruit" clearLabel="Clear selection" />\n  <SelectPositioner>\n    <SelectContent>\n      <For each={collection.items}>\n        {(item) => <SelectOption item={item}>{item.label}</SelectOption>}\n      </For>\n    </SelectContent>\n  </SelectPositioner>\n  <SelectHiddenSelect />\n</Select>'}
+  vue={'const collection = createListCollection({ items: fruits });\n\n<Select v-model="value" :collection="collection" multiple>\n  <SelectLabel>Fruit</SelectLabel>\n  <SelectField placeholder="Select fruit" clear-label="Clear selection" />\n  <SelectPositioner>\n    <SelectContent>\n      <SelectOption v-for="item in collection.items" :key="item.value" :item="item">\n        {{ item.label }}\n      </SelectOption>\n    </SelectContent>\n  </SelectPositioner>\n  <SelectHiddenSelect />\n</Select>'}
+/>
+
+<PropChips
+  items={[
+    ['collection', 'Items from createListCollection().'],
+    ['multiple', 'Lets the user pick several values.'],
+    ['clearLabel', 'On SelectField: adds a clear button with this label.'],
+  ]}
+/>
 
 Pass a collection to `Select`, use `SelectField` for the standard visible control, and keep the popup structure explicit. `clearLabel` adds an accessible clear action. Add `SelectHiddenSelect` explicitly when native submission, autofill, validation, and reset are needed.
 
@@ -195,16 +209,68 @@ Style Select with `className` in React, `class` in Solid and Vue, stable `data-s
 
 ### Styling hooks
 
-`SelectField` renders the existing `select-control`, `select-trigger`, `select-value-text`,
-`select-indicator`, and optional `select-clear-trigger` slots. Its `indicator` prop supplies the
-child of the existing indicator slot. Rich item text helpers expose `select-item-text-content`,
-`select-item-text-icon`, and `select-item-text-label` slots. `SelectOption` reuses the item slots
+| Part | `data-slot` |
+| --- | --- |
+| `Select` | `select-root` |
+| `SelectRootProvider` | `select-root-provider` |
+| `SelectLabel` | `select-label` |
+| `SelectControl` | `select-control` |
+| `SelectTrigger` | `select-trigger` |
+| `SelectValueText` | `select-value-text` |
+| `SelectClearTrigger` | `select-clear-trigger` |
+| `SelectIndicator` | `select-indicator` |
+| `SelectPositioner` | `select-positioner` |
+| `SelectContent` | `select-content` |
+| `SelectList` | `select-list` |
+| `SelectItemGroup` | `select-item-group` |
+| `SelectItemGroupLabel` | `select-item-group-label` |
+| `SelectItem` | `select-item` |
+| `SelectItemText` | `select-item-text` |
+| `SelectItemIndicator` | `select-item-indicator` |
+| `SelectItemTextContent` | `select-item-text-content` |
+| `SelectItemTextIcon` | `select-item-text-icon` |
+| `SelectItemTextLabel` | `select-item-text-label` |
+
+Its `indicator` prop supplies the
+child of the existing indicator slot. `SelectOption` reuses the item slots
 instead of adding its own styling hook.
 
-- Roots expose `data-slot="select-root"` and `data-slot="select-root-provider"`.
 - Ark anatomy uses `data-scope="select"` and `data-part`.
 - State styling uses `data-state="open" | "closed"`, `data-focus`, `data-invalid`,
   `data-disabled`, `data-readonly`, `data-required`, `data-placeholder-shown`, `data-highlighted`,
   and item `data-state="checked" | "unchecked"`.
 - `SelectPositioner` exposes `--reference-width`, `--reference-height`, `--available-width`,
   `--available-height`, `--x`, `--y`, `--z-index`, and `--transform-origin`.
+
+## Keyboard
+
+| Key | Action |
+| --- | --- |
+| `Enter` / `Space` / `ArrowDown` | Opens the list from the trigger. |
+| `ArrowDown` / `ArrowUp` | Highlights the next or previous option. |
+| `Enter` | Selects the highlighted option. |
+| `Esc` | Closes the list. |
+| Letters | Highlights the next option that starts with the typed text. |
+
+## API reference
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `collection` | `ListCollection<T>` | — |
+| `value` | `string[]` | — |
+| `defaultValue` | `string[]` | — |
+| `onValueChange` | `(details: ValueChangeDetails) => void` | — |
+| `multiple` | `boolean` | `false` |
+| `closeOnSelect` | `boolean` | `true` |
+| `deselectable` | `boolean` | `false` |
+| `loopFocus` | `boolean` | `false` |
+| `positioning` | `PositioningOptions` | — |
+| `open` | `boolean` | — |
+| `onOpenChange` | `(details: OpenChangeDetails) => void` | — |
+| `lazyMount` | `boolean` | `true` |
+| `unmountOnExit` | `boolean` | `true` |
+| `name` | `string` | — |
+| `disabled` | `boolean` | `false` |
+| `readOnly` | `boolean` | `false` |
+| `invalid` | `boolean` | `false` |
+| `required` | `boolean` | `false` |

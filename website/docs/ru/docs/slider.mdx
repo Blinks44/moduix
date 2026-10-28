@@ -1,7 +1,7 @@
 ---
 title: Slider
 component: slider
-description: Доступный слайдер для React, Solid и Vue, позволяющий выбирать одно значение или диапазон в заданных границах.
+description: Выбор значения или диапазона перетаскиванием по шкале.
 ark: https://ark-ui.com/docs/components/slider
 ---
 
@@ -18,6 +18,20 @@ import sliderVueContextPart from '../../../snippets/slider/vue/SliderStatus.vue?
 <ComponentInstall />
 
 ## Использование
+
+<UsageCode
+  react={'<Slider defaultValue={[20, 80]} min={0} max={100} step={5} onValueChangeEnd={(details) => apply(details.value)}>\n  <SliderLabel>Price</SliderLabel>\n  <SliderValueText />\n  <SliderControl>\n    <SliderTrack>\n      <SliderRange />\n    </SliderTrack>\n    <SliderThumbs />\n  </SliderControl>\n</Slider>'}
+  vue={'<Slider :default-value="[20, 80]" :min="0" :max="100" :step="5" @value-change-end="(details) => apply(details.value)">\n  <SliderLabel>Price</SliderLabel>\n  <SliderValueText />\n  <SliderControl>\n    <SliderTrack>\n      <SliderRange />\n    </SliderTrack>\n    <SliderThumbs />\n  </SliderControl>\n</Slider>'}
+/>
+
+<PropChips
+  items={[
+    ['defaultValue', 'Массив значений; два значения дают диапазон.'],
+    ['min / max / step', 'Границы и шаг, по умолчанию 0, 100 и 1.'],
+    ['onValueChangeEnd', 'Вызывается, когда пользователь отпускает ползунок.'],
+    ['orientation', 'horizontal или vertical.'],
+  ]}
+/>
 
 `SliderThumbs` создаёт по одному ползунку с нативным полем на значение. Для своего содержимого ползунка
 используйте `SliderThumb` явно и вложите в него `SliderHiddenInput`.
@@ -258,10 +272,21 @@ CSS-переменные Ark и публичные CSS-переменные modu
 
 ### Хуки стилизации
 
-Ark добавляет `data-scope="slider"` и `data-part` ко всем отрендеренным частям. moduix также добавляет
-значения `data-slot`: `slider-root`, `slider-root-provider`, `slider-label`, `slider-value-text`,
-`slider-control`, `slider-track`, `slider-range`, `slider-thumb`,
-`slider-marker-group`, `slider-marker` и `slider-dragging-indicator`.
+| Часть | `data-slot` |
+| --- | --- |
+| `Slider` | `slider-root` |
+| `SliderRootProvider` | `slider-root-provider` |
+| `SliderLabel` | `slider-label` |
+| `SliderValueText` | `slider-value-text` |
+| `SliderControl` | `slider-control` |
+| `SliderTrack` | `slider-track` |
+| `SliderRange` | `slider-range` |
+| `SliderThumb` | `slider-thumb` |
+| `SliderMarkerGroup` | `slider-marker-group` |
+| `SliderMarker` | `slider-marker` |
+| `SliderDraggingIndicator` | `slider-dragging-indicator` |
+
+Ark добавляет `data-scope="slider"` и `data-part` ко всем отрендеренным частям.
 
 К важным атрибутам состояния Ark относятся `data-orientation`, `data-disabled`, `data-invalid`,
 `data-focus`, `data-dragging`, `data-state` у отметок и `data-state="open | closed"` индикатора
@@ -277,3 +302,35 @@ moduix добавляет `data-readonly` к `Slider`, когда задано �
 
 Стандартное кольцо фокуса ползунка использует `:focus-visible` при навигации с клавиатуры и `data-dragging` Ark
 во время перетаскивания. После отпускания указателя оно исчезает.
+
+## Клавиатура
+
+| Клавиша | Действие |
+| --- | --- |
+| `ArrowRight` / `ArrowUp` | Увеличивает значение на шаг. |
+| `ArrowLeft` / `ArrowDown` | Уменьшает значение на шаг. |
+| `PageUp` / `PageDown` | Меняет значение на большой шаг. |
+| `Home` / `End` | Ставит минимум или максимум. |
+
+## Справочник API
+
+| Проп | Тип | По умолчанию |
+| --- | --- | --- |
+| `value` | `number[]` | — |
+| `defaultValue` | `number[]` | — |
+| `onValueChange` | `(details: ValueChangeDetails) => void` | — |
+| `onValueChangeEnd` | `(details: ValueChangeDetails) => void` | — |
+| `min` | `number` | `0` |
+| `max` | `number` | `100` |
+| `step` | `number` | `1` |
+| `largeStep` | `number` | `10 * step` |
+| `minStepsBetweenThumbs` | `number` | `0` |
+| `orientation` | `'horizontal' \| 'vertical'` | `'horizontal'` |
+| `origin` | `'start' \| 'center' \| 'end'` | `'start'` |
+| `thumbCollisionBehavior` | `'none' \| 'push' \| 'swap'` | `'none'` |
+| `getAriaValueText` | `(details: ValueTextDetails) => string` | — |
+| `name` | `string` | — |
+| `disabled` | `boolean` | `false` |
+| `readOnly` | `boolean` | `false` |
+| `invalid` | `boolean` | `false` |
+| `required` | `boolean` | `false` |

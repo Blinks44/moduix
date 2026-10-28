@@ -1,7 +1,7 @@
 ---
 title: Input Group
 component: input-group
-description: Создавайте поля ввода с префиксами, суффиксами и действиями внутри поля в React, Solid или Vue с установкой из пакета или через shadcn CLI.
+description: Префиксы, суффиксы и встроенные кнопки вокруг поля ввода текста.
 ark: https://ark-ui.com/docs/guides/composition
 ---
 
@@ -14,6 +14,19 @@ import * as InputGroupDocs from '@/components/examples/input-group/css-propertie
 <ComponentInstall />
 
 ## Использование
+
+<UsageCode
+  react={'<InputGroup size="md">\n  <InputGroupAddon>https://</InputGroupAddon>\n  <InputGroupInput name="domain" placeholder="example.com" />\n  <InputGroupAddon>\n    <InputGroupButton aria-label="Copy">\n      <CopyIcon />\n    </InputGroupButton>\n  </InputGroupAddon>\n</InputGroup>'}
+  vue={'<InputGroup size="md">\n  <InputGroupAddon>https://</InputGroupAddon>\n  <InputGroupInput name="domain" placeholder="example.com" />\n  <InputGroupAddon>\n    <InputGroupButton aria-label="Copy">\n      <CopyIcon />\n    </InputGroupButton>\n  </InputGroupAddon>\n</InputGroup>'}
+/>
+
+<PropChips
+  items={[
+    ['size', 'Общий размер поля и аддонов, от xs до xl.'],
+    ['align', 'На InputGroupAddon: inline рядом с полем или block над ним.'],
+    ['InputGroupClearTrigger', 'Кнопка очистки поля.'],
+  ]}
+/>
 
 Интерактивное
 
@@ -154,17 +167,30 @@ foundation и открывают только три переменные ниж
 
 ### Хуки стилизации
 
+| Часть | `data-slot` |
+| --- | --- |
+| `InputGroup` | `input-group-root` |
+| `InputGroupAddon` | `input-group-addon` |
+| `InputGroupText` | `input-group-text` |
+| `InputGroupButton` | `input-group-button` |
+| `InputGroupClearTrigger` | `input-group-clear-trigger` |
+
 - `data-slot="input-group-root"` и `data-size="xs" | "sm" | "md" | "lg" | "xl"` на корне
 - `data-scope="input-group"` и `data-part="root" | "addon" | "text"` на частях фабрики Ark
 - `data-slot="input-root"` вместе с атрибутами состояния поля Ark
-- `data-slot="input-group-addon"`
-- `data-slot="input-group-clear-trigger"`
-- `data-slot="input-group-text"`
 - `data-align="inline" | "block"` у `InputGroupAddon` и `InputGroupText`
 - `data-slot="textarea-root"` и атрибуты состояния Ark Field textarea у `InputGroupTextarea`
-- `data-slot="input-group-button"` у кнопки действия в группе
 - вложенные состояния `data-invalid`, `aria-invalid="true"` и `data-disabled`/`:disabled` отражаются на корне через `:has(...)`
 
 Слоты и атрибуты `data-slot`, `data-scope`, `data-part` и `data-size`, которыми управляет
 компонент, остаются неизменными, даже если вы передаёте собственные свойства. `className` в React
 и `class` в Solid и Vue объединяются со стилями компонента.
+
+## Справочник API
+
+Пропсы `InputGroup`. `InputGroupAddon` принимает `align` (`'inline' | 'block'`, по умолчанию `'inline'`).
+
+| Проп | Тип | По умолчанию |
+| --- | --- | --- |
+| `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'` | `'md'` |
+| `asChild` | `boolean` | `false` |

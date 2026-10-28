@@ -1,7 +1,7 @@
 ---
 title: Sidebar
 component: sidebar
-description: Изменяемая по ширине и сворачиваемая навигация приложения на базе Ark UI Splitter.
+description: Навигация приложения, которая меняет ширину и сворачивается до иконок.
 ark: https://ark-ui.com/docs/components/splitter
 ---
 
@@ -14,6 +14,20 @@ import { sidebarOverrideCssProperties } from '@/components/examples/sidebar/css-
 <ComponentInstall />
 
 ## Использование
+
+<UsageCode
+  react={'<Sidebar side="left" defaultSize={[\'16rem\']}>\n  <SidebarPanel>\n    <SidebarContent>\n      <SidebarNavigationList>\n        <SidebarNavigationItem>\n          <SidebarNavigationButton asChild active>\n            <a href="/overview">Overview</a>\n          </SidebarNavigationButton>\n        </SidebarNavigationItem>\n      </SidebarNavigationList>\n    </SidebarContent>\n  </SidebarPanel>\n  <SidebarResizeTrigger aria-label="Resize sidebar" />\n  <SidebarInset>…</SidebarInset>\n</Sidebar>'}
+  solid={'<Sidebar side="left" defaultSize={[\'16rem\']}>\n  <SidebarPanel>\n    <SidebarContent>\n      <SidebarNavigationList>\n        <SidebarNavigationItem>\n          <SidebarNavigationButton asChild={(props) => (\n            <a href="/overview" {...props()}>Overview</a>\n          )} active />\n        </SidebarNavigationItem>\n      </SidebarNavigationList>\n    </SidebarContent>\n  </SidebarPanel>\n  <SidebarResizeTrigger aria-label="Resize sidebar" />\n  <SidebarInset>…</SidebarInset>\n</Sidebar>'}
+  vue={'<Sidebar side="left" :default-size="[\'16rem\']">\n  <SidebarPanel>\n    <SidebarContent>\n      <SidebarNavigationList>\n        <SidebarNavigationItem>\n          <SidebarNavigationButton as-child active>\n            <a href="/overview">Overview</a>\n          </SidebarNavigationButton>\n        </SidebarNavigationItem>\n      </SidebarNavigationList>\n    </SidebarContent>\n  </SidebarPanel>\n  <SidebarResizeTrigger aria-label="Resize sidebar" />\n  <SidebarInset>…</SidebarInset>\n</Sidebar>'}
+/>
+
+<PropChips
+  items={[
+    ['side', 'Левый или правый край раскладки.'],
+    ['defaultSize', 'Начальные размеры панелей; сайдбар по умолчанию 16rem.'],
+    ['active', 'На SidebarNavigationButton: отмечает текущую страницу.'],
+  ]}
+/>
 
 Соберите панель навигации, ручку изменения размера и основную область содержимого как прямых
 потомков корня. Стандартных id и ограничений достаточно для обычного макета с левой боковой
@@ -188,6 +202,54 @@ Sidebar
 
 ### Хуки стилизации
 
+| Часть | `data-slot` |
+| --- | --- |
+| `Sidebar` | `sidebar-root` |
+| `SidebarPanel` | `sidebar-panel` |
+| `SidebarInset` | `sidebar-inset` |
+| `SidebarResizeTrigger` | `sidebar-resize-trigger` |
+| `SidebarTrigger` | `sidebar-trigger` |
+| `SidebarLabel` | `sidebar-label` |
+| `SidebarHeader` | `sidebar-header` |
+| `SidebarContent` | `sidebar-content` |
+| `SidebarExpandedContent` | `sidebar-expanded-content` |
+| `SidebarCollapsedContent` | `sidebar-collapsed-content` |
+| `SidebarFooter` | `sidebar-footer` |
+| `SidebarGroup` | `sidebar-group` |
+| `SidebarGroupLabel` | `sidebar-group-label` |
+| `SidebarGroupHeader` | `sidebar-group-header` |
+| `SidebarGroupAction` | `sidebar-group-action` |
+| `SidebarNavigationList` | `sidebar-navigation-list` |
+| `SidebarNavigationItem` | `sidebar-navigation-item` |
+| `SidebarNavigationButton` | `sidebar-navigation-button` |
+| `SidebarNavigationBadge` | `sidebar-navigation-badge` |
+| `SidebarNavigationSubList` | `sidebar-navigation-sub-list` |
+| `SidebarNavigationSubItem` | `sidebar-navigation-sub-item` |
+| `SidebarNavigationSubButton` | `sidebar-navigation-sub-button` |
+
 Части оболочки Sidebar также предоставляют `data-scope="sidebar"` и `data-part`. `SidebarInput` и
 `SidebarSeparator` сохраняют scope базовых примитивов, а части на базе Ark сохраняют атрибуты
 состояния Splitter, включая `data-focus`, `data-dragging`, `data-disabled` и `data-orientation`.
+
+## Клавиатура
+
+| Клавиша | Действие |
+| --- | --- |
+| `ArrowLeft` / `ArrowRight` | Меняет размер панелей с ручки в фокусе; ArrowUp и ArrowDown в вертикальном режиме. |
+| `Home` / `End` | Сдвигает ручку к минимуму или максимуму. |
+| `Enter` | Сворачивает или разворачивает сворачиваемую панель. |
+| `F6` | Переводит фокус на следующую ручку. |
+
+## Справочник API
+
+`Sidebar` также принимает пропсы `Splitter`, кроме `orientation` и `panels`; панель сайдбара от 3rem до 18rem и сворачивается до 3rem.
+
+| Проп | Тип | По умолчанию |
+| --- | --- | --- |
+| `side` | `'left' \| 'right'` | `'left'` |
+| `panelId` | `string` | `'sidebar'` |
+| `defaultSize` | `PanelSize[]` | `['16rem']` |
+| `size` | `PanelSize[]` | — |
+| `onResize` | `(details: ResizeDetails) => void` | — |
+| `onCollapse` | `(details: ExpandCollapseDetails) => void` | — |
+| `onExpand` | `(details: ExpandCollapseDetails) => void` | — |

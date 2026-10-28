@@ -1,7 +1,7 @@
 ---
 title: Native Select
 component: native-select
-description: Стилизованный нативный `<select>` для простых списков опций в React, Solid и Vue, где выбором управляет браузер.
+description: Выбор из короткого списка нативным select браузера.
 ark: https://ark-ui.com/docs/components/field
 ---
 
@@ -14,6 +14,19 @@ import * as NativeSelectDocs from '@/components/examples/native-select/css-prope
 <ComponentInstall />
 
 ## Использование
+
+<UsageCode
+  react={'<Field>\n  <FieldLabel>Framework</FieldLabel>\n  <NativeSelect name="framework" defaultValue="react">\n    <option value="react">React</option>\n    <option value="solid">Solid</option>\n    <option value="vue">Vue</option>\n  </NativeSelect>\n</Field>'}
+  vue={'<Field>\n  <FieldLabel>Framework</FieldLabel>\n  <NativeSelect v-model="framework" name="framework">\n    <option value="react">React</option>\n    <option value="solid">Solid</option>\n    <option value="vue">Vue</option>\n  </NativeSelect>\n</Field>'}
+/>
+
+<PropChips
+  items={[
+    ['option / optgroup', 'Нативные дочерние элементы, как в обычном select.'],
+    ['multiple', 'Нативный список с множественным выбором.'],
+    ['controlProps', 'Пропсы обёртки с шевроном.'],
+  ]}
+/>
 
 Добавьте дочерние элементы `option` или `optgroup` и передайте те же свойства, что и обычному HTML-элементу
 `<select>`.
@@ -99,13 +112,35 @@ CSS Modules, поэтому размеры обоих селектов меня�
 
 ### Хуки стилизации
 
+| Часть | `data-slot` |
+| --- | --- |
+| `NativeSelect`, внутренний элемент | `native-select-control` |
+| `NativeSelect` | `native-select-root` |
+| `NativeSelect`, внутренний элемент | `native-select-indicator` |
+
 - В React используйте `className`, а в Solid и Vue `class` на самом select. Для внешнего контейнера `<span>` используйте
   `controlProps.className` или `controlProps.class`.
 - Задавайте `--moduix-select-action-size` в `controlProps.style` (или на предке), чтобы ей следовали и отступ
   `<select>`, и индикатор.
 - `data-scope="field"` и `data-part="select"` сохраняют контракт стилизации Ark Field.
 - `data-slot="native-select-root"` это стабильный селектор moduix для элемента `<select>`.
-- `data-slot="native-select-control"` и `data-slot="native-select-indicator"` используются для стилизации внутреннего
-  контейнера и значка.
 - Нативные псевдоклассы и атрибуты `:focus-visible`, `:disabled`, `[aria-invalid="true"]`, `[multiple]` и `[size]`
   управляют визуальными состояниями.
+
+## Клавиатура
+
+Клавиатуру обрабатывает браузер, как в любом нативном select.
+
+| Клавиша | Действие |
+| --- | --- |
+| `ArrowDown` / `ArrowUp` | Меняет выбранную опцию. |
+| `Space` / `Alt+ArrowDown` | Открывает список опций. |
+
+## Справочник API
+
+Также принимает нативные пропсы `select`.
+
+| Проп | Тип | По умолчанию |
+| --- | --- | --- |
+| `controlProps` | `ComponentProps<'span'>` | — |
+| `multiple` | `boolean` | `false` |

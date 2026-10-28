@@ -1,7 +1,7 @@
 ---
 title: Combobox
 component: combobox
-description: A searchable input for selecting one or more values from an Ark UI collection in React, Solid, or Vue.
+description: Type to filter a list and pick one or more values.
 ark: https://ark-ui.com/docs/components/combobox
 ---
 
@@ -14,6 +14,21 @@ import * as ComboboxDocs from '@/components/examples/combobox/css-properties';
 <ComponentInstall />
 
 ## Usage
+
+<UsageCode
+  react={'const { collection, filter } = useListCollection({ initialItems: fruits, filter: contains });\n\n<Combobox collection={collection} onInputValueChange={(d) => filter(d.inputValue)} openOnClick>\n  <ComboboxLabel>Fruit</ComboboxLabel>\n  <ComboboxControl>\n    <ComboboxInput placeholder="e.g. Mango" />\n    <ComboboxTrigger aria-label="Open options" />\n  </ComboboxControl>\n  <ComboboxPositioner>\n    <ComboboxContent>\n      <ComboboxEmpty>No fruits found.</ComboboxEmpty>\n      <ComboboxList>\n        {collection.items.map((item) => (\n          <ComboboxOption key={item.value} item={item}>{item.label}</ComboboxOption>\n        ))}\n      </ComboboxList>\n    </ComboboxContent>\n  </ComboboxPositioner>\n</Combobox>'}
+  solid={'const { collection, filter } = useListCollection({ initialItems: fruits, filter: contains });\n\n<Combobox collection={collection()} onInputValueChange={(d) => filter(d.inputValue)} openOnClick>\n  <ComboboxLabel>Fruit</ComboboxLabel>\n  <ComboboxControl>\n    <ComboboxInput placeholder="e.g. Mango" />\n    <ComboboxTrigger aria-label="Open options" />\n  </ComboboxControl>\n  <ComboboxPositioner>\n    <ComboboxContent>\n      <ComboboxEmpty>No fruits found.</ComboboxEmpty>\n      <ComboboxList>\n        <For each={collection().items}>\n          {(item) => <ComboboxOption item={item}>{item.label}</ComboboxOption>}\n        </For>\n      </ComboboxList>\n    </ComboboxContent>\n  </ComboboxPositioner>\n</Combobox>'}
+  vue={'const { collection, filter } = useListCollection({ initialItems: fruits, filter: contains });\n\n<Combobox :collection="collection" @input-value-change="(d) => filter(d.inputValue)" open-on-click>\n  <ComboboxLabel>Fruit</ComboboxLabel>\n  <ComboboxControl>\n    <ComboboxInput placeholder="e.g. Mango" />\n    <ComboboxTrigger aria-label="Open options" />\n  </ComboboxControl>\n  <ComboboxPositioner>\n    <ComboboxContent>\n      <ComboboxEmpty>No fruits found.</ComboboxEmpty>\n      <ComboboxList>\n        <ComboboxOption v-for="item in collection.items" :key="item.value" :item="item">\n          {{ item.label }}\n        </ComboboxOption>\n      </ComboboxList>\n    </ComboboxContent>\n  </ComboboxPositioner>\n</Combobox>'}
+/>
+
+<PropChips
+  items={[
+    ['collection', 'Items from useListCollection(); filter it as the user types.'],
+    ['multiple', 'Lets the user pick several values.'],
+    ['inputBehavior', 'autohighlight or autocomplete the first match.'],
+    ['allowCustomValue', 'Keeps text that matches no option.'],
+  ]}
+/>
 
 Create an Ark collection with `useListCollection`, pass it to `Combobox`, and keep the popup structure
 explicit. Use `ComboboxOption` for ordinary rows; use `ComboboxItem` when a row needs custom structure.
@@ -195,16 +210,69 @@ variants. Data attributes and `data-slot` hooks are shared by both styling track
 
 ### Styling hooks
 
+| Part | `data-slot` |
+| --- | --- |
+| `Combobox` | `combobox-root` |
+| `ComboboxRootProvider` | `combobox-root-provider` |
+| `ComboboxLabel` | `combobox-label` |
+| `ComboboxControl` | `combobox-control` |
+| `ComboboxInput` | `combobox-input` |
+| `ComboboxClearTrigger` | `combobox-clear-trigger` |
+| `ComboboxTrigger` | `combobox-trigger` |
+| `ComboboxPositioner` | `combobox-positioner` |
+| `ComboboxContent` | `combobox-content` |
+| `ComboboxEmpty` | `combobox-empty` |
+| `ComboboxStatus` | `combobox-status` |
+| `ComboboxList` | `combobox-list` |
+| `ComboboxItemGroup` | `combobox-item-group` |
+| `ComboboxItemGroupLabel` | `combobox-item-group-label` |
+| `ComboboxItem` | `combobox-item` |
+| `ComboboxItemText` | `combobox-item-text` |
+| `ComboboxItemIndicator` | `combobox-item-indicator` |
+
 - Ark parts keep `data-scope="combobox"` and their `data-part` values. moduix adds stable `data-slot`
   hooks to the styled parts.
-- Stable slots include `combobox-root`, `combobox-root-provider`, `combobox-label`, `combobox-control`,
-  `combobox-input`, `combobox-clear-trigger`, `combobox-trigger`, `combobox-positioner`,
-  `combobox-content`, `combobox-empty`, `combobox-status`, `combobox-list`, `combobox-item-group`,
-  `combobox-item-group-label`, `combobox-item`, `combobox-item-text`, and `combobox-item-indicator`.
-  `ComboboxOption` reuses the item slots instead of adding its own styling hook.
+- `ComboboxOption` reuses the item slots instead of adding its own styling hook.
 - Ark state hooks include `data-state="open|closed"`, `data-focus`, `data-invalid`,
   `data-disabled`, `data-highlighted`, `data-empty`, `data-placement`, and `data-side`.
 - Ark positioning variables include `--reference-width`, `--available-width`,
   `--available-height`, `--transform-origin`, `--z-index`, and `--layer-index`. The shared theme
   registers neutral initial values for tooling and unpositioned content; Ark replaces them with
   measured values on `Positioner`.
+
+## Keyboard
+
+| Key | Action |
+| --- | --- |
+| `ArrowDown` / `ArrowUp` | Opens the list and highlights the next or previous option. |
+| `Home` / `End` | Highlights the first or last option. |
+| `Enter` | Selects the highlighted option. |
+| `Esc` | Closes the list. |
+
+## API reference
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `collection` | `ListCollection<T>` | — |
+| `value` | `string[]` | — |
+| `defaultValue` | `string[]` | `[]` |
+| `onValueChange` | `(details: ValueChangeDetails) => void` | — |
+| `inputValue` | `string` | — |
+| `onInputValueChange` | `(details: InputValueChangeDetails) => void` | — |
+| `multiple` | `boolean` | `false` |
+| `inputBehavior` | `'autohighlight' \| 'autocomplete' \| 'none'` | `'none'` |
+| `selectionBehavior` | `'clear' \| 'replace' \| 'preserve'` | `'replace'` |
+| `openOnClick` | `boolean` | `false` |
+| `allowCustomValue` | `boolean` | `false` |
+| `closeOnSelect` | `boolean` | — |
+| `positioning` | `PositioningOptions` | `{ placement: 'bottom-start' }` |
+| `open` | `boolean` | — |
+| `onOpenChange` | `(details: OpenChangeDetails) => void` | — |
+| `placeholder` | `string` | — |
+| `name` | `string` | — |
+| `disabled` | `boolean` | `false` |
+| `readOnly` | `boolean` | `false` |
+| `invalid` | `boolean` | `false` |
+| `required` | `boolean` | `false` |
+| `lazyMount` | `boolean` | `true` |
+| `unmountOnExit` | `boolean` | `true` |

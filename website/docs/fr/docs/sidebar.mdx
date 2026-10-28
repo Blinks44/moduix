@@ -1,7 +1,7 @@
 ---
 title: Sidebar
 component: sidebar
-description: Navigation d’application redimensionnable et repliable, basée sur le Splitter d’Ark UI.
+description: Créer une navigation d’app redimensionnable et réductible en icônes.
 ark: https://ark-ui.com/docs/components/splitter
 ---
 
@@ -14,6 +14,20 @@ import { sidebarOverrideCssProperties } from '@/components/examples/sidebar/css-
 <ComponentInstall />
 
 ## Utilisation
+
+<UsageCode
+  react={'<Sidebar side="left" defaultSize={[\'16rem\']}>\n  <SidebarPanel>\n    <SidebarContent>\n      <SidebarNavigationList>\n        <SidebarNavigationItem>\n          <SidebarNavigationButton asChild active>\n            <a href="/overview">Overview</a>\n          </SidebarNavigationButton>\n        </SidebarNavigationItem>\n      </SidebarNavigationList>\n    </SidebarContent>\n  </SidebarPanel>\n  <SidebarResizeTrigger aria-label="Resize sidebar" />\n  <SidebarInset>…</SidebarInset>\n</Sidebar>'}
+  solid={'<Sidebar side="left" defaultSize={[\'16rem\']}>\n  <SidebarPanel>\n    <SidebarContent>\n      <SidebarNavigationList>\n        <SidebarNavigationItem>\n          <SidebarNavigationButton asChild={(props) => (\n            <a href="/overview" {...props()}>Overview</a>\n          )} active />\n        </SidebarNavigationItem>\n      </SidebarNavigationList>\n    </SidebarContent>\n  </SidebarPanel>\n  <SidebarResizeTrigger aria-label="Resize sidebar" />\n  <SidebarInset>…</SidebarInset>\n</Sidebar>'}
+  vue={'<Sidebar side="left" :default-size="[\'16rem\']">\n  <SidebarPanel>\n    <SidebarContent>\n      <SidebarNavigationList>\n        <SidebarNavigationItem>\n          <SidebarNavigationButton as-child active>\n            <a href="/overview">Overview</a>\n          </SidebarNavigationButton>\n        </SidebarNavigationItem>\n      </SidebarNavigationList>\n    </SidebarContent>\n  </SidebarPanel>\n  <SidebarResizeTrigger aria-label="Resize sidebar" />\n  <SidebarInset>…</SidebarInset>\n</Sidebar>'}
+/>
+
+<PropChips
+  items={[
+    ['side', 'Bord gauche ou droit de la mise en page.'],
+    ['defaultSize', 'Tailles initiales ; la barre fait 16rem par défaut.'],
+    ['active', 'Sur SidebarNavigationButton : marque la page courante.'],
+  ]}
+/>
 
 Composez le panneau de navigation, la poignée de redimensionnement et la zone de contenu principale
 comme enfants directs de la racine. Les identifiants et contraintes par défaut conviennent à la mise
@@ -190,7 +204,55 @@ que les libellés longs soient tronqués et quittent la barre repliée.
 
 ### Points d’accroche CSS
 
+| Partie | `data-slot` |
+| --- | --- |
+| `Sidebar` | `sidebar-root` |
+| `SidebarPanel` | `sidebar-panel` |
+| `SidebarInset` | `sidebar-inset` |
+| `SidebarResizeTrigger` | `sidebar-resize-trigger` |
+| `SidebarTrigger` | `sidebar-trigger` |
+| `SidebarLabel` | `sidebar-label` |
+| `SidebarHeader` | `sidebar-header` |
+| `SidebarContent` | `sidebar-content` |
+| `SidebarExpandedContent` | `sidebar-expanded-content` |
+| `SidebarCollapsedContent` | `sidebar-collapsed-content` |
+| `SidebarFooter` | `sidebar-footer` |
+| `SidebarGroup` | `sidebar-group` |
+| `SidebarGroupLabel` | `sidebar-group-label` |
+| `SidebarGroupHeader` | `sidebar-group-header` |
+| `SidebarGroupAction` | `sidebar-group-action` |
+| `SidebarNavigationList` | `sidebar-navigation-list` |
+| `SidebarNavigationItem` | `sidebar-navigation-item` |
+| `SidebarNavigationButton` | `sidebar-navigation-button` |
+| `SidebarNavigationBadge` | `sidebar-navigation-badge` |
+| `SidebarNavigationSubList` | `sidebar-navigation-sub-list` |
+| `SidebarNavigationSubItem` | `sidebar-navigation-sub-item` |
+| `SidebarNavigationSubButton` | `sidebar-navigation-sub-button` |
+
 Les parties de la coque Sidebar exposent aussi `data-scope="sidebar"` et `data-part`. `SidebarInput`
 et `SidebarSeparator` conservent les scopes de leurs primitives, tandis que les parties basées sur
 Ark conservent les attributs d’état du Splitter, notamment `data-focus`, `data-dragging`,
 `data-disabled` et `data-orientation`.
+
+## Clavier
+
+| Touche | Action |
+| --- | --- |
+| `ArrowLeft` / `ArrowRight` | Redimensionne les panneaux depuis la poignée ; ArrowUp et ArrowDown en vertical. |
+| `Home` / `End` | Amène la poignée à son minimum ou maximum. |
+| `Enter` | Réduit ou développe un panneau repliable. |
+| `F6` | Passe à la poignée suivante. |
+
+## Référence de l’API
+
+`Sidebar` accepte aussi les props de `Splitter` sauf `orientation` et `panels` ; le panneau va de 3rem à 18rem et se réduit à 3rem.
+
+| Prop | Type | Défaut |
+| --- | --- | --- |
+| `side` | `'left' \| 'right'` | `'left'` |
+| `panelId` | `string` | `'sidebar'` |
+| `defaultSize` | `PanelSize[]` | `['16rem']` |
+| `size` | `PanelSize[]` | — |
+| `onResize` | `(details: ResizeDetails) => void` | — |
+| `onCollapse` | `(details: ExpandCollapseDetails) => void` | — |
+| `onExpand` | `(details: ExpandCollapseDetails) => void` | — |

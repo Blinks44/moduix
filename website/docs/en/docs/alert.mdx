@@ -1,7 +1,7 @@
 ---
 title: Alert
 component: alert
-description: Inline messages for status updates, validation results, and system feedback.
+description: Show an inline status message with a title, description, and actions.
 ark: https://ark-ui.com/docs/guides/composition#the-ark-factory
 ---
 
@@ -14,6 +14,19 @@ import * as AlertDocs from '@/components/examples/alert/css-properties';
 <ComponentInstall />
 
 ## Usage
+
+<UsageCode
+  react={'<Alert status="warning">\n  <AlertIndicator>\n    <TriangleAlertIcon />\n  </AlertIndicator>\n  <AlertContent>\n    <AlertTitle>Storage almost full</AlertTitle>\n    <AlertDescription>Free up space to keep syncing files.</AlertDescription>\n  </AlertContent>\n</Alert>'}
+  vue={'<Alert status="warning">\n  <AlertIndicator>\n    <TriangleAlertIcon />\n  </AlertIndicator>\n  <AlertContent>\n    <AlertTitle>Storage almost full</AlertTitle>\n    <AlertDescription>Free up space to keep syncing files.</AlertDescription>\n  </AlertContent>\n</Alert>'}
+/>
+
+<PropChips
+  items={[
+    ['status', 'Sets the tone: info, success, warning, or error.'],
+    ['AlertIndicator', 'Optional icon slot, hidden from assistive technology.'],
+    ['AlertActions', 'Optional row for buttons or links under the message.'],
+  ]}
+/>
 
 For a standard inline message, place `AlertTitle` and `AlertDescription` inside `AlertContent`.
 Add `AlertIndicator` when an icon helps people scan the message.
@@ -133,6 +146,21 @@ Built-in statuses also read shared palette tokens:
 
 ### Styling hooks
 
-- Stable `data-slot` selectors: `alert-root`, `alert-indicator`, `alert-content`, `alert-title`, `alert-description`, and `alert-actions`
+| Part | `data-slot` |
+| --- | --- |
+| `Alert` | `alert-root` |
+| `AlertIndicator` | `alert-indicator` |
+| `AlertContent` | `alert-content` |
+| `AlertTitle` | `alert-title` |
+| `AlertDescription` | `alert-description` |
+| `AlertActions` | `alert-actions` |
+
 - Ark-style selectors: `data-scope="alert"` with `data-part="root"`, `indicator`, `content`, `title`, `description`, or `actions`
 - `Alert` writes the selected status to `data-status`
+
+## API reference
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `status` | `'info' \| 'success' \| 'warning' \| 'error'` | `'info'` |
+| `asChild` | `boolean` | `false` |

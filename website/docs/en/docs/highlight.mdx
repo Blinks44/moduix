@@ -1,6 +1,6 @@
 ---
 title: Highlight
-description: Highlight words and phrases inside existing text with native mark elements and moduix styles in React, Solid, or Vue.
+description: Mark the words that match a search query inside a piece of text.
 component: highlight
 ark: https://ark-ui.com/docs/utilities/highlight
 ---
@@ -14,6 +14,19 @@ import * as HighlightDocs from '@/components/examples/highlight/css-properties';
 <ComponentInstall />
 
 ## Usage
+
+<UsageCode
+  react={'<Text>\n  <Highlight text={result.title} query={search} ignoreCase matchAll />\n</Text>'}
+  vue={'<Text>\n  <Highlight :text="result.title" :query="search" ignore-case match-all />\n</Text>'}
+/>
+
+<PropChips
+  items={[
+    ['query', 'Term or array of terms to find.'],
+    ['ignoreCase', 'Matches regardless of letter case.'],
+    ['matchAll', 'Marks every match, not only the first.'],
+  ]}
+/>
 
 Pass the complete source string through `text` and the term to find through `query`. Place
 `Highlight` inside the text component or HTML element that should provide the surrounding layout
@@ -98,7 +111,20 @@ use Tailwind utilities or consumer classes for Tailwind variants.
 
 ### Styling hooks
 
+| Part | `data-slot` |
+| --- | --- |
+| `Highlight` | `highlight-root` |
+
 - Every matched `<mark>` has `data-scope="highlight"` and `data-part="root"`.
-- `data-slot="highlight-root"` is the stable moduix selector for each matched mark.
 - Props such as `className`/`class`, `style`, `title`, and `data-*` are applied to every matched `<mark>`.
 - There is no wrapper element, state attribute, or Ark runtime CSS variable.
+
+## API reference
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `text` | `string` | — |
+| `query` | `string \| string[]` | — |
+| `ignoreCase` | `boolean` | `false` |
+| `matchAll` | `boolean` | `false` |
+| `exactMatch` | `boolean` | `false` |

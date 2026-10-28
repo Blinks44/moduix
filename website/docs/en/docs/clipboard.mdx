@@ -153,14 +153,17 @@ below. For copied-state styles, use Ark's `data-copied` attribute together with 
 
 ### Styling hooks
 
-- `Clipboard` -> `data-slot="clipboard-root"`
-- `ClipboardRootProvider` -> `data-slot="clipboard-root-provider"`
-- `ClipboardLabel` -> `data-slot="clipboard-label"`
-- `ClipboardControl` -> `data-slot="clipboard-control"`
-- `ClipboardInput` -> `data-slot="clipboard-input"`
-- `ClipboardTrigger` -> `data-slot="clipboard-trigger"`
-- `ClipboardIndicator` -> `data-slot="clipboard-indicator"`
-- `ClipboardValueText` -> `data-slot="clipboard-value-text"`
+| Part | `data-slot` |
+| --- | --- |
+| `Clipboard` | `clipboard-root` |
+| `ClipboardRootProvider` | `clipboard-root-provider` |
+| `ClipboardLabel` | `clipboard-label` |
+| `ClipboardControl` | `clipboard-control` |
+| `ClipboardInput` | `clipboard-input` |
+| `ClipboardTrigger` | `clipboard-trigger` |
+| `ClipboardIndicator` | `clipboard-indicator` |
+| `ClipboardValueText` | `clipboard-value-text` |
+
 - Ark adds `data-copied` to `Clipboard`, `ClipboardLabel`, `ClipboardControl`, `ClipboardInput`, and
   `ClipboardTrigger` while the copied state is active.
 - Ark renders `ClipboardInput` read-only and adds `data-readonly` to it.

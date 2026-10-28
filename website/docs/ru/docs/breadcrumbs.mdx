@@ -1,7 +1,7 @@
 ---
 title: Breadcrumbs
 component: breadcrumbs
-description: Доступная навигация по иерархии страниц для React, Solid и Vue с явными частями и компактным API для коротких цепочек.
+description: Показывает место страницы в структуре сайта со ссылками наверх.
 ark: https://ark-ui.com/docs/guides/composition#the-ark-factory
 ---
 
@@ -14,6 +14,19 @@ import * as BreadcrumbsDocs from '@/components/examples/breadcrumbs/css-properti
 <ComponentInstall />
 
 ## Использование
+
+<UsageCode
+  react={'<Breadcrumbs>\n  <BreadcrumbsPath\n    links={[\n      { href: \'/\', label: \'Home\' },\n      { href: \'/jobs\', label: \'Jobs\' },\n    ]}\n    page="Go Developer"\n    separator="/"\n  />\n</Breadcrumbs>'}
+  vue={'<Breadcrumbs>\n  <BreadcrumbsPath\n    :links="[\n      { href: \'/\', label: \'Home\' },\n      { href: \'/jobs\', label: \'Jobs\' },\n    ]"\n    page="Go Developer"\n    separator="/"\n  />\n</Breadcrumbs>'}
+/>
+
+<PropChips
+  items={[
+    ['links', 'Родительские страницы по порядку, у каждой href и label.'],
+    ['page', 'Название текущей страницы, без ссылки.'],
+    ['separator', 'Разделитель между пунктами; по умолчанию шеврон.'],
+  ]}
+/>
 
 Используйте `BreadcrumbsPath`, если у вас уже есть список сегментов пути. На основе обязательных пропсов `links` и `page`
 компонент создаёт упорядоченный список, элементы, ссылки, текущую страницу и разделители.
@@ -114,11 +127,29 @@ moduix.
 
 ### Хуки стилизации
 
-- `data-slot="breadcrumbs-root"`, `breadcrumbs-list`, `breadcrumbs-item`, `breadcrumbs-link`, `breadcrumbs-page`,
-  `breadcrumbs-separator` и `breadcrumbs-ellipsis` - стабильные селекторы moduix.
+| Часть | `data-slot` |
+| --- | --- |
+| `Breadcrumbs` | `breadcrumbs-root` |
+| `BreadcrumbsList` | `breadcrumbs-list` |
+| `BreadcrumbsItem` | `breadcrumbs-item` |
+| `BreadcrumbsLink` | `breadcrumbs-link` |
+| `BreadcrumbsPage` | `breadcrumbs-page` |
+| `BreadcrumbsSeparator` | `breadcrumbs-separator` |
+| `BreadcrumbsEllipsis` | `breadcrumbs-ellipsis` |
+
 - В вариантах с CSS Modules `BreadcrumbsLink`, `BreadcrumbsPage` и `BreadcrumbsEllipsis` используют общий
   горизонтальный внутренний отступ `--moduix-breadcrumbs-item-padding-x`.
 - Видимые элементы `BreadcrumbsItem` могут сжиматься, чтобы цепочка помещалась в одну строку. В вариантах с CSS
   Modules последний видимый элемент остаётся главной целью усечения и использует `--moduix-breadcrumbs-item-max-width`.
 - Ссылки, разделители и многоточие наследуют цвет текста корня. Задайте `color` у `Breadcrumbs` (или
   `--moduix-breadcrumbs-color` в вариантах с CSS Modules), чтобы перекрасить всю цепочку; текущая страница сохраняет свой цвет.
+
+## Справочник API
+
+Пропсы `BreadcrumbsPath`. Отдельные части принимают нативные пропсы своих элементов.
+
+| Проп | Тип | По умолчанию |
+| --- | --- | --- |
+| `links` | `readonly { href: string; label: ReactNode }[]` | — |
+| `page` | `ReactNode` | — |
+| `separator` | `ReactNode` | chevron |

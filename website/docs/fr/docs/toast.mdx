@@ -1,7 +1,7 @@
 ---
 title: Toast
 component: toast
-description: Notifications temporaires pour les actions, les changements d’état et les retours contextuels.
+description: Afficher de brèves notifications empilées qui se ferment seules.
 ark: https://ark-ui.com/docs/components/toast
 ---
 
@@ -14,6 +14,19 @@ import * as ToastDocs from '@/components/examples/toast/css-properties';
 <ComponentInstall />
 
 ## Utilisation
+
+<UsageCode
+  react={'const toaster = createToaster({ placement: \'bottom-end\', max: 3 });\n\n<ToastToaster toaster={toaster} />\n\ntoaster.create({\n  title: \'Changes saved\',\n  description: \'Your profile is up to date.\',\n  type: \'success\',\n  duration: 4000,\n});'}
+  vue={'const toaster = createToaster({ placement: \'bottom-end\', max: 3 });\n\n<ToastToaster :toaster="toaster" />\n\ntoaster.create({\n  title: \'Changes saved\',\n  description: \'Your profile is up to date.\',\n  type: \'success\',\n  duration: 4000,\n});'}
+/>
+
+<PropChips
+  items={[
+    ['placement', 'Coin ou bord de l’écran où apparaissent les toasts.'],
+    ['type', 'success, error, warning, info ou loading.'],
+    ['duration', 'Durée à l’écran en ms ; Infinity le garde jusqu’à fermeture.'],
+  ]}
+/>
 
 Créez une instance de toaster avec `createToaster()`, utilisez ses méthodes pour ajouter des
 notifications, puis affichez-la avec `ToastToaster`.
@@ -145,8 +158,16 @@ variantes Tailwind utilisent les utilitaires natifs et les classes de l’applic
 
 ### Points d’accroche CSS
 
-Utilisez la racine de `Toast` pour la surface, la bordure, les animations et les variantes par type.
-Utilisez `ToastTitle`, `ToastDescription`, `ToastActionTrigger` et `ToastCloseTrigger` pour la
+| Partie | `data-slot` |
+| --- | --- |
+| `ToastToaster` | `toast-toaster` |
+| `Toast` | `toast-root` |
+| `ToastTitle` | `toast-title` |
+| `ToastDescription` | `toast-description` |
+| `ToastActionTrigger` | `toast-action-trigger` |
+| `ToastCloseTrigger` | `toast-close-trigger` |
+
+Utilisez la racine de `Toast` pour la surface, la bordure, les animations et les variantes par type. Utilisez `ToastTitle`, `ToastDescription`, `ToastActionTrigger` et `ToastCloseTrigger` pour la
 typographie et les contrôles internes.
 
 Sélecteurs Ark utiles :
@@ -159,10 +180,30 @@ Sélecteurs Ark utiles :
 - `[data-scope='toast'][data-part='close-trigger']` sur `ToastCloseTrigger`
 - `--x`, `--y`, `--scale`, `--z-index`, `--height`, `--opacity` et `--gap` sur `Toast`
 
-Moduix ajoute également des points d’accroche stables : `data-slot="toast-toaster"`,
-`data-slot="toast-root"`, `data-slot="toast-title"`, `data-slot="toast-description"`,
-`data-slot="toast-action-trigger"` et `data-slot="toast-close-trigger"`.
-
 Jusqu’à une largeur de fenêtre de `40rem`, chaque placement est centré horizontalement. Les toasts
 gardent leur largeur de `20rem` et se rétrécissent entre les `offsets` d’Ark et les zones de sécurité
 horizontales de l’écran.
+
+## Clavier
+
+| Touche | Action |
+| --- | --- |
+| `Alt+T` | Déplace le focus vers la zone des toasts. Modifiable avec l’option hotkey. |
+| `Tab` / `Shift+Tab` | Passe d’une action ou d’un bouton de fermeture à l’autre. |
+| `Esc` | Ferme le toast ayant le focus. |
+
+## Référence de l’API
+
+Options de `createToaster()`. Chaque appel à `toaster.create()` accepte aussi `title`, `description`, `type`, `duration`, `action` et `closable`.
+
+| Prop | Type | Défaut |
+| --- | --- | --- |
+| `placement` | `'top-start' \| 'top' \| 'top-end' \| 'bottom-start' \| 'bottom' \| 'bottom-end'` | `'bottom'` |
+| `max` | `number` | `24` |
+| `overlap` | `boolean` | `false` |
+| `duration` | `number` | — |
+| `gap` | `number` | `16` |
+| `offsets` | `string \| Record<Side, string>` | — |
+| `hotkey` | `string[]` | `['altKey', 'KeyT']` |
+| `removeDelay` | `number` | `200` |
+| `pauseOnPageIdle` | `boolean` | `true` |

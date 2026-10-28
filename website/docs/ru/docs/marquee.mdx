@@ -1,7 +1,7 @@
 ---
 title: Marquee
 component: marquee
-description: Компонент на базе Ark UI для непрерывной прокрутки логотипов, объявлений и другого повторяющегося содержимого.
+description: Бесконечная прокрутка логотипов или объявлений по кругу на странице.
 ark: https://ark-ui.com/docs/components/marquee
 ---
 
@@ -14,6 +14,21 @@ import * as MarqueeDocs from '@/components/examples/marquee/css-properties';
 <ComponentInstall />
 
 ## Использование
+
+<UsageCode
+  react={'<Marquee speed={40} pauseOnInteraction aria-label="Partner logos">\n  <MarqueeViewport>\n    <MarqueeContent>\n      {partners.map((partner) => (\n        <MarqueeItem key={partner.name}>{partner.name}</MarqueeItem>\n      ))}\n    </MarqueeContent>\n  </MarqueeViewport>\n</Marquee>'}
+  solid={'<Marquee speed={40} pauseOnInteraction aria-label="Partner logos">\n  <MarqueeViewport>\n    <MarqueeContent>\n      <For each={partners}>\n        {(partner) => (\n          <MarqueeItem>{partner.name}</MarqueeItem>\n        )}\n      </For>\n    </MarqueeContent>\n  </MarqueeViewport>\n</Marquee>'}
+  vue={'<Marquee :speed="40" pause-on-interaction aria-label="Partner logos">\n  <MarqueeViewport>\n    <MarqueeContent>\n      <MarqueeItem v-for="partner in partners" :key="partner.name">{{ partner.name }}</MarqueeItem>\n    </MarqueeContent>\n  </MarqueeViewport>\n</Marquee>'}
+/>
+
+<PropChips
+  items={[
+    ['speed', 'Пикселей в секунду, по умолчанию 50.'],
+    ['pauseOnInteraction', 'Останавливается при наведении и фокусе.'],
+    ['side', 'Направление: start, end, top или bottom.'],
+    ['autoFill', 'Повторяет элементы, чтобы заполнить ширину.'],
+  ]}
+/>
 
 Используйте короткую форму `Marquee` и явно соберите внутри неё `MarqueeViewport`, `MarqueeContent` и `MarqueeItem`. Если движущееся
 содержимое передаёт пользователю информацию, задайте метку через `aria-label` или `translations.root`. Компонент
@@ -144,6 +159,31 @@ MarqueeRootProvider
 
 ### Хуки стилизации
 
-- `data-slot="marquee-root"`, `marquee-root-provider`, `marquee-viewport`, `marquee-content`, `marquee-item` и `marquee-edge`.
+| Часть | `data-slot` |
+| --- | --- |
+| `Marquee` | `marquee-root` |
+| `MarqueeRootProvider` | `marquee-root-provider` |
+| `MarqueeViewport` | `marquee-viewport` |
+| `MarqueeContent` | `marquee-content` |
+| `MarqueeItem` | `marquee-item` |
+| `MarqueeEdge` | `marquee-edge` |
+
 - Атрибуты Ark: `data-scope="marquee"`, `data-part="root|viewport|content|item|edge"`, `data-state="paused|idle"`, `data-orientation`, `data-side`, `data-index`, `data-paused`, `data-reverse` и `data-clone`.
 - CSS-переменные Ark: `--marquee-duration`, `--marquee-spacing`, `--marquee-delay`, `--marquee-loop-count` и `--marquee-translate`.
+
+## Справочник API
+
+| Проп | Тип | По умолчанию |
+| --- | --- | --- |
+| `speed` | `number` | `50` |
+| `side` | `'start' \| 'end' \| 'top' \| 'bottom'` | `'start'` |
+| `spacing` | `string` | `'1rem'` |
+| `autoFill` | `boolean` | `false` |
+| `reverse` | `boolean` | `false` |
+| `pauseOnInteraction` | `boolean` | `false` |
+| `paused` | `boolean` | — |
+| `defaultPaused` | `boolean` | `false` |
+| `delay` | `number` | `0` |
+| `loopCount` | `number` | `0` |
+| `onPauseChange` | `(details: PauseStatusDetails) => void` | — |
+| `onComplete` | `() => void` | — |

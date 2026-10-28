@@ -1,7 +1,7 @@
 ---
 title: Textarea
 component: textarea
-description: Zone de texte native multiligne, compatible avec Field et stylée par moduix.
+description: Saisir plusieurs lignes de texte, avec hauteur automatique en option.
 ark: https://ark-ui.com/docs/components/field
 ---
 
@@ -14,6 +14,19 @@ import * as TextareaDocs from '@/components/examples/textarea/css-properties';
 <ComponentInstall />
 
 ## Utilisation
+
+<UsageCode
+  react={'<Field>\n  <FieldLabel>Comment</FieldLabel>\n  <Textarea name="comment" rows={3} autoresize size="md" />\n</Field>'}
+  vue={'<Field>\n  <FieldLabel>Comment</FieldLabel>\n  <Textarea v-model="comment" name="comment" :rows="3" autoresize size="md" />\n</Field>'}
+/>
+
+<PropChips
+  items={[
+    ['autoresize', 'S’agrandit avec le contenu au lieu de défiler.'],
+    ['rows', 'Hauteur initiale native en lignes.'],
+    ['size', 'Taille du texte et marges, de xs à xl.'],
+  ]}
+/>
 
 Placez `Textarea` dans `Field` lorsqu’il faut fournir au champ un libellé accessible ou un texte
 complémentaire. C’est la configuration recommandée pour les commentaires, notes, descriptions de
@@ -130,8 +143,21 @@ les styles du composant placés dans une couche.
 
 ### Points d’accroche CSS
 
-- `data-slot="textarea-root"`
+| Partie | `data-slot` |
+| --- | --- |
+| `Textarea` | `textarea-root` |
+
 - `data-size="xs" | "sm" | "md" | "lg" | "xl"`
 - `data-scope="field"` et `data-part="textarea"`
 - `data-invalid`, `data-required`, `data-disabled` et `data-readonly` d’Ark dans `Field`
 - les sélecteurs natifs `:disabled`, `:read-only`, `:focus-visible` et `[aria-invalid="true"]`
+
+## Référence de l’API
+
+Accepte aussi les props natives de `textarea`.
+
+| Prop | Type | Défaut |
+| --- | --- | --- |
+| `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'` | `'md'` |
+| `autoresize` | `boolean` | `false` |
+| `asChild` | `boolean` | `false` |

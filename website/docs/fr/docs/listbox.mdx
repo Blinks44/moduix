@@ -1,7 +1,7 @@
 ---
 title: Listbox
 component: listbox
-description: Une listbox visible pour sélectionner un ou plusieurs éléments, avec filtrage et sélection étendue facultatifs.
+description: Afficher une liste visible d’options pour en choisir une ou plusieurs.
 ark: https://ark-ui.com/docs/components/listbox
 ---
 
@@ -18,6 +18,20 @@ import listboxVueSelectAllPart from '../../../snippets/listbox/vue/SelectAllMeta
 <ComponentInstall />
 
 ## Utilisation
+
+<UsageCode
+  react={'const collection = createListCollection({ items: countries });\n\n<Listbox collection={collection} selectionMode="multiple" onValueChange={(details) => setValue(details.value)}>\n  <ListboxLabel>Countries</ListboxLabel>\n  <ListboxContent>\n    {collection.items.map((item) => (\n      <ListboxItem key={item.value} item={item}>\n        <ListboxItemText>{item.label}</ListboxItemText>\n        <ListboxItemIndicator />\n      </ListboxItem>\n    ))}\n  </ListboxContent>\n</Listbox>'}
+  solid={'const collection = createListCollection({ items: countries });\n\n<Listbox collection={collection} selectionMode="multiple" onValueChange={(details) => setValue(details.value)}>\n  <ListboxLabel>Countries</ListboxLabel>\n  <ListboxContent>\n    <For each={collection.items}>\n      {(item) => (\n        <ListboxItem item={item}>\n          <ListboxItemText>{item.label}</ListboxItemText>\n          <ListboxItemIndicator />\n        </ListboxItem>\n      )}\n    </For>\n  </ListboxContent>\n</Listbox>'}
+  vue={'const collection = createListCollection({ items: countries });\n\n<Listbox v-model="value" :collection="collection" selection-mode="multiple">\n  <ListboxLabel>Countries</ListboxLabel>\n  <ListboxContent>\n    <ListboxItem v-for="item in collection.items" :key="item.value" :item="item">\n      <ListboxItemText>{{ item.label }}</ListboxItemText>\n      <ListboxItemIndicator />\n    </ListboxItem>\n  </ListboxContent>\n</Listbox>'}
+/>
+
+<PropChips
+  items={[
+    ['collection', 'Éléments issus de createListCollection().'],
+    ['selectionMode', 'single, multiple ou extended avec Shift et Ctrl.'],
+    ['orientation', 'Liste verticale ou horizontale.'],
+  ]}
+/>
 
 Passez une `collection`, rendez `ListboxContent` et transmettez chaque élément de la collection à
 `ListboxItem` via `item`. Ajoutez `ListboxItemIndicator` lorsque les lignes doivent afficher leur
@@ -221,13 +235,57 @@ suivent aussi les variables partagées `--moduix-popup-item-*`, `--moduix-popup-
 
 ### Points d’accroche CSS
 
+| Partie | `data-slot` |
+| --- | --- |
+| `Listbox` | `listbox-root` |
+| `ListboxRootProvider` | `listbox-root-provider` |
+| `ListboxLabel` | `listbox-label` |
+| `ListboxInput` | `listbox-input` |
+| `ListboxFilter` | `listbox-filter` |
+| `ListboxFilter`, élément interne | `listbox-filter-icon` |
+| `ListboxClearTrigger` | `listbox-clear-trigger` |
+| `ListboxContent` | `listbox-content` |
+| `ListboxEmpty` | `listbox-empty` |
+| `ListboxItemGroup` | `listbox-item-group` |
+| `ListboxItemGroupLabel` | `listbox-item-group-label` |
+| `ListboxItem` | `listbox-item` |
+| `ListboxItemText` | `listbox-item-text` |
+| `ListboxItemIndicator` | `listbox-item-indicator` |
+| `ListboxValueText` | `listbox-value-text` |
+| `ListboxItemTextContent` | `listbox-item-text-content` |
+| `ListboxItemTextIcon` | `listbox-item-text-icon` |
+| `ListboxItemTextLabel` | `listbox-item-text-label` |
+
 - Points d’anatomie Ark : `data-scope="listbox"` et `data-part` sur la racine, le libellé, le champ,
   le contenu, le groupe d’éléments, le libellé du groupe, l’élément, son texte, son indicateur, le
   texte de valeur et l’état vide.
 - Points d’état : `data-orientation`, `data-disabled`, `data-empty`, `data-layout`,
   `data-activedescendant`, `data-value`, `data-selected`, `data-state` et `data-highlighted`.
-- Points moduix : `data-slot="listbox-root"`, `listbox-root-provider`, `listbox-label`,
-  `listbox-filter`, `listbox-filter-icon`, `listbox-input`, `listbox-clear-trigger`,
-  `listbox-content`, `listbox-empty`, `listbox-item-group`, `listbox-item-group-label`,
-  `listbox-item`, `listbox-item-text`, `listbox-item-text-content`, `listbox-item-text-icon`,
-  `listbox-item-text-label`, `listbox-item-indicator` et `listbox-value-text`.
+
+## Clavier
+
+| Touche | Action |
+| --- | --- |
+| `ArrowDown` / `ArrowUp` | Met en surbrillance l’option suivante ou précédente. |
+| `Home` / `End` | Met en surbrillance la première ou la dernière option. |
+| `Enter` / `Space` | Sélectionne l’option en surbrillance. |
+| `Ctrl+A` | Sélectionne toutes les options en mode multiple ou extended. |
+| Lettres | Met en surbrillance l’option qui commence par le texte saisi. |
+
+## Référence de l’API
+
+| Prop | Type | Défaut |
+| --- | --- | --- |
+| `collection` | `ListCollection<T> \| GridCollection<T>` | — |
+| `value` | `string[]` | — |
+| `defaultValue` | `string[]` | `[]` |
+| `onValueChange` | `(details: ValueChangeDetails) => void` | — |
+| `selectionMode` | `'single' \| 'multiple' \| 'extended'` | `'single'` |
+| `orientation` | `'horizontal' \| 'vertical'` | `'vertical'` |
+| `loopFocus` | `boolean` | `false` |
+| `selectOnHighlight` | `boolean` | `false` |
+| `deselectable` | `boolean` | `false` |
+| `typeahead` | `boolean` | `true` |
+| `disallowSelectAll` | `boolean` | `false` |
+| `onSelect` | `(details: SelectionDetails) => void` | — |
+| `disabled` | `boolean` | `false` |

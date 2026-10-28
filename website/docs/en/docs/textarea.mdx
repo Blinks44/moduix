@@ -1,7 +1,7 @@
 ---
 title: Textarea
 component: textarea
-description: A native multiline text input with Field integration and moduix styling.
+description: Collect several lines of text, with optional auto-resize.
 ark: https://ark-ui.com/docs/components/field
 ---
 
@@ -14,6 +14,19 @@ import * as TextareaDocs from '@/components/examples/textarea/css-properties';
 <ComponentInstall />
 
 ## Usage
+
+<UsageCode
+  react={'<Field>\n  <FieldLabel>Comment</FieldLabel>\n  <Textarea name="comment" rows={3} autoresize size="md" />\n</Field>'}
+  vue={'<Field>\n  <FieldLabel>Comment</FieldLabel>\n  <Textarea v-model="comment" name="comment" :rows="3" autoresize size="md" />\n</Field>'}
+/>
+
+<PropChips
+  items={[
+    ['autoresize', 'Grows with the content instead of scrolling.'],
+    ['rows', 'Native starting height in lines.'],
+    ['size', 'Text size and padding, xs to xl.'],
+  ]}
+/>
 
 Place `Textarea` inside `Field` when the control needs an accessible label or supporting text. This
 is the recommended setup for comments, notes, issue descriptions, and similar content.
@@ -126,8 +139,21 @@ wins over the layered component styles.
 
 ### Styling hooks
 
-- `data-slot="textarea-root"`
+| Part | `data-slot` |
+| --- | --- |
+| `Textarea` | `textarea-root` |
+
 - `data-size="xs" | "sm" | "md" | "lg" | "xl"`
 - `data-scope="field"` and `data-part="textarea"`
 - Ark `data-invalid`, `data-required`, `data-disabled`, and `data-readonly` inside `Field`
 - native `:disabled`, `:read-only`, `:focus-visible`, and `[aria-invalid="true"]`
+
+## API reference
+
+Also accepts the native `textarea` props.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'` | `'md'` |
+| `autoresize` | `boolean` | `false` |
+| `asChild` | `boolean` | `false` |

@@ -1,7 +1,7 @@
 ---
 title: Splitter
 component: splitter
-description: Build accessible resizable layouts in React, Solid, or Vue with package and shadcn installation options.
+description: Split a layout into panels that users resize by dragging a handle.
 ark: https://ark-ui.com/docs/components/splitter
 ---
 
@@ -15,6 +15,19 @@ import { splitterOverrideCssProperties } from '@/components/examples/splitter/cs
 <ComponentInstall />
 
 ## Usage
+
+<UsageCode
+  react={'<Splitter\n  panels={[{ id: \'a\', minSize: 20 }, { id: \'b\', collapsible: true }]}\n  defaultSize={[40, 60]}\n>\n  <SplitterPanel id="a">Files</SplitterPanel>\n  <SplitterResizeTrigger id="a:b" aria-label="Resize panels" />\n  <SplitterPanel id="b">Editor</SplitterPanel>\n</Splitter>'}
+  vue={'<Splitter\n  :panels="[{ id: \'a\', minSize: 20 }, { id: \'b\', collapsible: true }]"\n  :default-size="[40, 60]"\n>\n  <SplitterPanel id="a">Files</SplitterPanel>\n  <SplitterResizeTrigger id="a:b" aria-label="Resize panels" />\n  <SplitterPanel id="b">Editor</SplitterPanel>\n</Splitter>'}
+/>
+
+<PropChips
+  items={[
+    ['panels', 'Panel ids with minSize, maxSize, and collapsible.'],
+    ['defaultSize', 'Starting sizes in percent, in panel order.'],
+    ['orientation', 'horizontal or vertical split.'],
+  ]}
+/>
 
 Build a splitter from `Splitter`, `SplitterPanel`, and `SplitterResizeTrigger`. The `panels` prop
 lists the panel ids and their size constraints. Each rendered `SplitterPanel` must use one of those
@@ -131,9 +144,15 @@ below.
 
 ### Styling hooks
 
-Ark writes `data-scope="splitter"` and `data-part` to the rendered parts. moduix also writes these
-`data-slot` values: `splitter-root`, `splitter-root-provider`, `splitter-panel`,
-`splitter-resize-trigger`, and `splitter-resize-trigger-indicator`.
+| Part | `data-slot` |
+| --- | --- |
+| `Splitter` | `splitter-root` |
+| `SplitterRootProvider` | `splitter-root-provider` |
+| `SplitterPanel` | `splitter-panel` |
+| `SplitterResizeTriggerIndicator` | `splitter-resize-trigger-indicator` |
+| `SplitterResizeTrigger` | `splitter-resize-trigger` |
+
+Ark writes `data-scope="splitter"` and `data-part` to the rendered parts.
 
 Useful part-specific attributes include `data-id` and `data-index` on panels, plus
 `data-orientation`, `data-dragging`, `data-focus`, and `data-disabled` on the relevant parts.
@@ -147,3 +166,27 @@ custom host must keep button semantics, focus behavior, and keyboard interaction
 
 Ark exposes state through attributes such as `data-orientation`, `data-dragging`, `data-focus`, and
 `data-disabled`. Use these attributes when styling interaction states.
+
+## Keyboard
+
+| Key | Action |
+| --- | --- |
+| `ArrowLeft` / `ArrowRight` | Resizes the panels from the focused handle; ArrowUp and ArrowDown when vertical. |
+| `Home` / `End` | Moves the handle to its minimum or maximum. |
+| `Enter` | Collapses or expands a collapsible panel. |
+| `F6` | Moves focus to the next resize handle. |
+
+## API reference
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `panels` | `PanelData[]` | — |
+| `size` | `PanelSize[]` | — |
+| `defaultSize` | `PanelSize[]` | — |
+| `orientation` | `'horizontal' \| 'vertical'` | `'horizontal'` |
+| `onResize` | `(details: ResizeDetails) => void` | — |
+| `onResizeStart` | `() => void` | — |
+| `onResizeEnd` | `(details: ResizeEndDetails) => void` | — |
+| `onCollapse` | `(details: ExpandCollapseDetails) => void` | — |
+| `onExpand` | `(details: ExpandCollapseDetails) => void` | — |
+| `keyboardResizeBy` | `number \| null` | — |

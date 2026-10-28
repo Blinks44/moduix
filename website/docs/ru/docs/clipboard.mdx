@@ -158,14 +158,17 @@ Clipboard | ClipboardRootProvider
 
 ### Хуки стилизации
 
-- `Clipboard` -> `data-slot="clipboard-root"`
-- `ClipboardRootProvider` -> `data-slot="clipboard-root-provider"`
-- `ClipboardLabel` -> `data-slot="clipboard-label"`
-- `ClipboardControl` -> `data-slot="clipboard-control"`
-- `ClipboardInput` -> `data-slot="clipboard-input"`
-- `ClipboardTrigger` -> `data-slot="clipboard-trigger"`
-- `ClipboardIndicator` -> `data-slot="clipboard-indicator"`
-- `ClipboardValueText` -> `data-slot="clipboard-value-text"`
+| Часть | `data-slot` |
+| --- | --- |
+| `Clipboard` | `clipboard-root` |
+| `ClipboardRootProvider` | `clipboard-root-provider` |
+| `ClipboardLabel` | `clipboard-label` |
+| `ClipboardControl` | `clipboard-control` |
+| `ClipboardInput` | `clipboard-input` |
+| `ClipboardTrigger` | `clipboard-trigger` |
+| `ClipboardIndicator` | `clipboard-indicator` |
+| `ClipboardValueText` | `clipboard-value-text` |
+
 - Пока активно состояние копирования, Ark добавляет `data-copied` к `Clipboard`, `ClipboardLabel`,
   `ClipboardControl`, `ClipboardInput` и `ClipboardTrigger`.
 - Ark делает `ClipboardInput` доступным только для чтения и добавляет к нему `data-readonly`.

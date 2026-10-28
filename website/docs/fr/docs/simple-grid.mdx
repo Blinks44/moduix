@@ -1,7 +1,7 @@
 ---
 title: Simple Grid
 component: simple-grid
-description: Créez des grilles adaptatives à colonnes égales en React, Solid ou Vue avec une installation par paquet ou shadcn.
+description: Disposer cartes et tuiles en colonnes égales qui s’adaptent à la largeur.
 ark: https://ark-ui.com/docs/guides/composition
 ---
 
@@ -12,6 +12,20 @@ ark: https://ark-ui.com/docs/guides/composition
 <ComponentInstall />
 
 ## Utilisation
+
+<UsageCode
+  react={'<SimpleGrid minChildWidth="18rem" gap={16}>\n  {plans.map((plan) => (\n    <Card key={plan.name}>…</Card>\n  ))}\n</SimpleGrid>'}
+  solid={'<SimpleGrid minChildWidth="18rem" gap={16}>\n  <For each={plans}>\n    {(plan) => (\n      <Card>…</Card>\n    )}\n  </For>\n</SimpleGrid>'}
+  vue={'<SimpleGrid min-child-width="18rem" :gap="16">\n  <Card v-for="plan in plans" :key="plan.name">…</Card>\n</SimpleGrid>'}
+/>
+
+<PropChips
+  items={[
+    ['minChildWidth', 'Largeur minimale de colonne ; le nombre suit l’espace.'],
+    ['columns', 'Nombre fixe de colonnes à la place.'],
+    ['gap', 'Espace entre cellules ; les nombres deviennent des px.'],
+  ]}
+/>
 
 Utilisez `minChildWidth` lorsque le nombre de colonnes égales doit suivre la largeur disponible. Le
 composant s’appuie sur `auto-fit` et `minmax()` de CSS Grid ; les valeurs numériques sont interprétées
@@ -86,12 +100,27 @@ utilisent les utilitaires natifs et les classes de l’application ; les attribu
 
 ### Points d’accroche CSS
 
+| Partie | `data-slot` |
+| --- | --- |
+| `SimpleGrid` | `simple-grid-root` |
+
 - `className` ou `class` permet de styliser la racine rendue, y compris `display` et un
   `grid-template-columns` adaptatif lorsque les deux propriétés de mise en page sont omises.
 - `data-scope="simple-grid"` et `data-part="root"` suivent les conventions de style d’Ark.
-- `data-slot="simple-grid-root"` est le sélecteur moduix stable à utiliser dans votre CSS local.
 - `columns`, `minChildWidth`, `gap`, `rowGap` et `columnGap` écrivent des styles inline, prioritaires
   sur les déclarations des classes de l’application.
 - `style` est fusionné après ces propriétés et constitue le dernier remplacement disponible pour
   l’instance.
 - Le composant ne fournit aucun hook de style lié à un état ou à une animation.
+
+## Référence de l’API
+
+Accepte aussi les props natives de son élément et `asChild`.
+
+| Prop | Type | Défaut |
+| --- | --- | --- |
+| `minChildWidth` | `number \| string` | — |
+| `columns` | `number` | — |
+| `gap` | `number \| string` | — |
+| `rowGap` | `number \| string` | — |
+| `columnGap` | `number \| string` | — |

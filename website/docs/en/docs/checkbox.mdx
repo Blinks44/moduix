@@ -1,7 +1,7 @@
 ---
 title: Checkbox
 component: checkbox
-description: A composable checkbox for individual options and multi-select groups.
+description: Turn an option on or off, alone or as part of a group.
 ark: https://ark-ui.com/docs/components/checkbox
 ---
 
@@ -14,6 +14,20 @@ import * as CheckboxDocs from '@/components/examples/checkbox/css-properties';
 <ComponentInstall />
 
 ## Usage
+
+<UsageCode
+  react={'<Checkbox defaultChecked name="updates" size="md" onCheckedChange={(details) => save(details.checked)}>\n  <CheckboxControl />\n  <CheckboxLabel>Email me about updates</CheckboxLabel>\n  <CheckboxHiddenInput />\n</Checkbox>'}
+  vue={'<Checkbox v-model:checked="checked" name="updates" size="md">\n  <CheckboxControl />\n  <CheckboxLabel>Email me about updates</CheckboxLabel>\n  <CheckboxHiddenInput />\n</Checkbox>'}
+/>
+
+<PropChips
+  items={[
+    ['defaultChecked', 'Starting state: true, false, or \'indeterminate\'.'],
+    ['onCheckedChange', 'Runs with the new checked state.'],
+    ['size', 'xs to xl, md by default.'],
+    ['CheckboxGroup', 'Wraps several checkboxes that share one value array.'],
+  ]}
+/>
 
 Compose a checkbox from Ark's parts. Leave `CheckboxControl` empty to use moduix's built-in checked
 and indeterminate icons. Add `CheckboxLabel` for the visible text and `CheckboxHiddenInput` for
@@ -194,9 +208,36 @@ hooks are shared by both styling tracks.
 
 ### Styling hooks
 
+| Part | `data-slot` |
+| --- | --- |
+| `Checkbox` | `checkbox-root` |
+| `CheckboxRootProvider` | `checkbox-root-provider` |
+| `CheckboxIndicator` | `checkbox-indicator` |
+| `CheckboxControl` | `checkbox-control` |
+| `CheckboxLabel` | `checkbox-label` |
+| `CheckboxGroup` | `checkbox-group` |
+
 - `Checkbox` exposes `data-slot="checkbox-root"`, `data-size`, and Ark state attributes such as `data-state`, `data-active`, `data-disabled`, `data-readonly`, `data-invalid`, `data-required`, `data-hover`, `data-focus`, and `data-focus-visible`.
-- `CheckboxRootProvider` exposes `data-slot="checkbox-root-provider"` and the same root styling contract.
 - `CheckboxControl` exposes `data-slot="checkbox-control"` and Ark state attributes including `data-state="checked" | "indeterminate" | "unchecked"` and `data-active`.
-- `CheckboxIndicator` exposes `data-slot="checkbox-indicator"` and inherits Ark checkbox state attributes.
-- `CheckboxLabel` exposes `data-slot="checkbox-label"` and Ark checkbox state attributes.
-- `CheckboxGroup` exposes `data-slot="checkbox-group"`.
+
+## Keyboard
+
+| Key | Action |
+| --- | --- |
+| `Space` | Toggles the focused checkbox. |
+| `Tab` | Moves to the next checkbox. |
+
+## API reference
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `checked` | `boolean \| 'indeterminate'` | — |
+| `defaultChecked` | `boolean \| 'indeterminate'` | `false` |
+| `onCheckedChange` | `(details: CheckedChangeDetails) => void` | — |
+| `value` | `string` | `'on'` |
+| `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'` | `'md'` |
+| `name` | `string` | — |
+| `disabled` | `boolean` | `false` |
+| `readOnly` | `boolean` | `false` |
+| `invalid` | `boolean` | `false` |
+| `required` | `boolean` | `false` |

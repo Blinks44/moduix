@@ -1,7 +1,7 @@
 ---
 title: Drawer
 component: drawer
-description: Доступная панель от края экрана для навигации, форм, нижних панелей, точек привязки и сценариев со свайпами в React, Solid и Vue.
+description: Панель, которая выезжает с края экрана, со свайпом и точками остановки.
 ark: https://ark-ui.com/docs/components/drawer
 ---
 
@@ -14,6 +14,20 @@ import * as DrawerDocs from '@/components/examples/drawer/css-properties';
 <ComponentInstall />
 
 ## Использование
+
+<UsageCode
+  react={'<Drawer swipeDirection="down" snapPoints={[0.5, 1]} defaultSnapPoint={0.5}>\n  <DrawerTrigger asChild>\n    <Button>Open drawer</Button>\n  </DrawerTrigger>\n  <DrawerBackdrop />\n  <DrawerPositioner>\n    <DrawerContent>\n      <DrawerGrabber>\n        <DrawerGrabberIndicator />\n      </DrawerGrabber>\n      <DrawerHeader>\n        <DrawerTitle>Notifications</DrawerTitle>\n        <DrawerCloseIcon />\n      </DrawerHeader>\n      <DrawerBody>…</DrawerBody>\n    </DrawerContent>\n  </DrawerPositioner>\n</Drawer>'}
+  solid={'<Drawer swipeDirection="down" snapPoints={[0.5, 1]} defaultSnapPoint={0.5}>\n  <DrawerTrigger asChild={(props) => (\n    <Button {...props()}>Open drawer</Button>\n  )} />\n  <DrawerBackdrop />\n  <DrawerPositioner>\n    <DrawerContent>\n      <DrawerGrabber>\n        <DrawerGrabberIndicator />\n      </DrawerGrabber>\n      <DrawerHeader>\n        <DrawerTitle>Notifications</DrawerTitle>\n        <DrawerCloseIcon />\n      </DrawerHeader>\n      <DrawerBody>…</DrawerBody>\n    </DrawerContent>\n  </DrawerPositioner>\n</Drawer>'}
+  vue={'<Drawer swipe-direction="down" :snap-points="[0.5, 1]" :default-snap-point="0.5">\n  <DrawerTrigger as-child>\n    <Button>Open drawer</Button>\n  </DrawerTrigger>\n  <DrawerBackdrop />\n  <DrawerPositioner>\n    <DrawerContent>\n      <DrawerGrabber>\n        <DrawerGrabberIndicator />\n      </DrawerGrabber>\n      <DrawerHeader>\n        <DrawerTitle>Notifications</DrawerTitle>\n        <DrawerCloseIcon />\n      </DrawerHeader>\n      <DrawerBody>…</DrawerBody>\n    </DrawerContent>\n  </DrawerPositioner>\n</Drawer>'}
+/>
+
+<PropChips
+  items={[
+    ['swipeDirection', 'Направление свайпа для закрытия: down, up, start или end.'],
+    ['snapPoints', 'Высоты остановки в долях или px.'],
+    ['size', 'Ширина боковых панелей на DrawerContent.'],
+  ]}
+/>
 
 Соберите панель из структурных частей Ark. В этом примере она открывается на компактной точке
 привязки, а затем её можно перетащить на полную высоту. `DrawerContent` отвечает за интерактивную
@@ -202,10 +216,25 @@ DrawerRootProvider
 
 ### Хуки стилизации
 
-- значения moduix `data-slot`: `drawer-trigger`, `drawer-backdrop`, `drawer-positioner`, `drawer-content`,
-  `drawer-grabber`, `drawer-grabber-indicator`, `drawer-title`, `drawer-description`,
-  `drawer-close-trigger`, `drawer-close-icon`, `drawer-swipe-area`, `drawer-indent`,
-  `drawer-indent-background`, `drawer-header`, `drawer-body` и `drawer-footer`.
+| Часть | `data-slot` |
+| --- | --- |
+| `DrawerTrigger` | `drawer-trigger` |
+| `DrawerBackdrop` | `drawer-backdrop` |
+| `DrawerPositioner` | `drawer-positioner` |
+| `DrawerContent` | `drawer-content` |
+| `DrawerGrabber` | `drawer-grabber` |
+| `DrawerGrabberIndicator` | `drawer-grabber-indicator` |
+| `DrawerTitle` | `drawer-title` |
+| `DrawerDescription` | `drawer-description` |
+| `DrawerCloseTrigger` | `drawer-close-trigger` |
+| `DrawerCloseIcon` | `drawer-close-icon` |
+| `DrawerSwipeArea` | `drawer-swipe-area` |
+| `DrawerIndent` | `drawer-indent` |
+| `DrawerIndentBackground` | `drawer-indent-background` |
+| `DrawerHeader` | `drawer-header` |
+| `DrawerBody` | `drawer-body` |
+| `DrawerFooter` | `drawer-footer` |
+
 - `DrawerContent` записывает `data-size` (по умолчанию `md`) и `data-variant="island"`, когда
   включено островное представление.
 - хуки частей Ark: `data-scope="drawer"` вместе с `data-part`.
@@ -224,3 +253,33 @@ DrawerRootProvider
   `--moduix-backdrop-filter`.
 - Высота верхнего и нижнего drawer ограничена `max-height: 80dvh`; другое значение задайте классом
   на `DrawerContent`.
+
+## Клавиатура
+
+| Клавиша | Действие |
+| --- | --- |
+| `Enter` / `Space` | Открывает с кнопки в фокусе. |
+| `Tab` / `Shift+Tab` | Перемещает фокус между элементами; пока открыто, фокус не выходит наружу. |
+| `Esc` | Закрывает и возвращает фокус на кнопку. |
+
+## Справочник API
+
+Пропсы `Drawer`. `size` (`'sm' | 'md' | 'lg' | 'xl'`, по умолчанию `'md'`) и `variant` (`'island'`) задаются на `DrawerContent`.
+
+| Проп | Тип | По умолчанию |
+| --- | --- | --- |
+| `open` | `boolean` | — |
+| `defaultOpen` | `boolean` | `false` |
+| `onOpenChange` | `(details: OpenChangeDetails) => void` | — |
+| `swipeDirection` | `'up' \| 'down' \| 'start' \| 'end'` | `'down'` |
+| `snapPoints` | `(number \| string)[]` | `[1]` |
+| `snapPoint` | `number \| string \| null` | — |
+| `defaultSnapPoint` | `number \| string \| null` | `1` |
+| `onSnapPointChange` | `(details: SnapPointChangeDetails) => void` | — |
+| `snapToSequentialPoints` | `boolean` | `false` |
+| `closeThreshold` | `number` | `0.25` |
+| `modal` | `boolean` | `true` |
+| `closeOnEscape` | `boolean` | `true` |
+| `closeOnInteractOutside` | `boolean` | `true` |
+| `lazyMount` | `boolean` | `true` |
+| `unmountOnExit` | `boolean` | `true` |

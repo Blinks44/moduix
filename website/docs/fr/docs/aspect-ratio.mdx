@@ -1,7 +1,7 @@
 ---
 title: Aspect Ratio
 component: aspect-ratio
-description: Place les médias et les contenus intégrés dans un cadre adaptatif dont le rapport hauteur/largeur reste fixe.
+description: Garder images, vidéos et intégrations à un rapport largeur/hauteur fixe.
 ark: https://ark-ui.com/docs/guides/composition#the-ark-factory
 ---
 
@@ -12,6 +12,17 @@ ark: https://ark-ui.com/docs/guides/composition#the-ark-factory
 <ComponentInstall />
 
 ## Utilisation
+
+<UsageCode
+  react={'<AspectRatio ratio={16 / 9}>\n  <img src={cover.src} alt={cover.alt} />\n</AspectRatio>'}
+  vue={'<AspectRatio :ratio="16 / 9">\n  <img :src="cover.src" :alt="cover.alt" />\n</AspectRatio>'}
+/>
+
+<PropChips
+  items={[
+    ['ratio', 'Largeur divisée par hauteur : 1 pour un carré, 16 / 9 pour un écran large.'],
+  ]}
+/>
 
 Utilisez `AspectRatio` comme racine du cadre adaptatif. Par défaut, il occupe toute la largeur disponible dans
 son conteneur parent. Ajoutez `width` ou `max-width` à la racine si le cadre doit avoir une autre largeur, puis
@@ -74,12 +85,23 @@ AspectRatio
 
 ## Styles
 
-### Sélecteurs utiles pour le style
+### Points d’accroche CSS
+
+| Partie | `data-slot` |
+| --- | --- |
+| `AspectRatio` | `aspect-ratio-root` |
 
 - `data-scope="aspect-ratio"` et `data-part="root"` sont disponibles sur la racine et servent de sélecteurs compatibles avec Ark.
-- `data-slot="aspect-ratio-root"` est le sélecteur stable de la racine moduix.
 - Placez les styles de largeur, de largeur maximale et de mise en page sur la racine. Si le rapport doit changer
   selon la largeur de l’écran, redéfinissez `aspect-ratio` dans votre CSS.
 - Le composant ne style pas ses enfants. Appliquez directement au média sa taille et son `object-fit`.
 - Un contenu plus haut que le cadre ne l’agrandit pas : il déborde. Ajoutez `overflow: hidden` et un rayon à la
   racine lorsque la composition doit rogner son contenu.
+
+## Référence de l’API
+
+Accepte aussi les props natives de son élément et `asChild`.
+
+| Prop | Type | Défaut |
+| --- | --- | --- |
+| `ratio` | `number` | `1` |

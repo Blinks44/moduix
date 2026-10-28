@@ -1,7 +1,7 @@
 ---
 title: Date Input
 component: date-input
-description: Доступное сегментированное поле для ввода дат в React, Solid и Vue с CSS Modules или Tailwind, поддержкой локали и нативных форм.
+description: Ввод даты по сегментам дня, месяца и года с учётом локали.
 ark: https://ark-ui.com/docs/components/date-input
 ---
 
@@ -14,6 +14,20 @@ import * as DateInputDocs from '@/components/examples/date-input/css-properties'
 <ComponentInstall />
 
 ## Использование
+
+<UsageCode
+  react={'<DateInput defaultValue={[new CalendarDate(2026, 6, 22)]} min={today(getLocalTimeZone())} name="release-date">\n  <DateInputLabel>Release date</DateInputLabel>\n  <DateInputControl>\n    <DateInputSegments />\n  </DateInputControl>\n  <DateInputHiddenInput />\n</DateInput>'}
+  vue={'<DateInput :default-value="[new CalendarDate(2026, 6, 22)]" :min="today(getLocalTimeZone())" name="release-date">\n  <DateInputLabel>Release date</DateInputLabel>\n  <DateInputControl>\n    <DateInputSegments />\n  </DateInputControl>\n  <DateInputHiddenInput />\n</DateInput>'}
+/>
+
+<PropChips
+  items={[
+    ['defaultValue', 'Массив значений CalendarDate из @internationalized/date.'],
+    ['min / max', 'Самая ранняя и самая поздняя допустимые даты.'],
+    ['granularity', 'Наименьший сегмент: day, hour, minute или second.'],
+    ['locale', 'Порядок и формат сегментов.'],
+  ]}
+/>
 
 `DateInput` отображает сегменты даты с учётом локали, которые можно редактировать с клавиатуры. Поместите
 `DateInputSegments` внутрь `DateInputControl` для стандартной композиции.
@@ -169,8 +183,47 @@ Tailwind используют обычные utility-классы и класс�
 
 ### Хуки стилизации
 
-- Стабильные селекторы `data-slot`: `date-input-root`, `date-input-root-provider`, `date-input-label`,
-  `date-input-control`, `date-input-segment-group`, `date-input-segment` и `date-input-separator`.
+| Часть | `data-slot` |
+| --- | --- |
+| `DateInput` | `date-input-root` |
+| `DateInputRootProvider` | `date-input-root-provider` |
+| `DateInputLabel` | `date-input-label` |
+| `DateInputControl` | `date-input-control` |
+| `DateInputSegmentGroup` | `date-input-segment-group` |
+| `DateInputSegment` | `date-input-segment` |
+| `DateInputSeparator` | `date-input-separator` |
+
 - Селекторы частей Ark UI используют `data-scope="date-input"` и соответствующие значения `data-part`.
 - Атрибуты состояния Ark UI включают `data-disabled`, `data-readonly`, `data-invalid` и `data-focus` на
   control и группах сегментов, а также `data-type`, `data-editable` и `data-placeholder-shown` на сегментах.
+
+## Клавиатура
+
+| Клавиша | Действие |
+| --- | --- |
+| `ArrowLeft` / `ArrowRight` | Переходит к предыдущему или следующему сегменту. |
+| `ArrowUp` / `ArrowDown` | Увеличивает или уменьшает сегмент в фокусе. |
+| Цифры | Вводят значение и переходят к следующему сегменту. |
+| `Backspace` | Очищает сегмент в фокусе. |
+
+## Справочник API
+
+| Проп | Тип | По умолчанию |
+| --- | --- | --- |
+| `value` | `DateValue[]` | — |
+| `defaultValue` | `DateValue[]` | — |
+| `onValueChange` | `(details: ValueChangeDetails) => void` | — |
+| `min` | `DateValue` | — |
+| `max` | `DateValue` | — |
+| `isDateUnavailable` | `(date: DateValue, locale: string) => boolean` | — |
+| `granularity` | `'day' \| 'hour' \| 'minute' \| 'second'` | `'day'` |
+| `selectionMode` | `'single' \| 'range'` | `'single'` |
+| `locale` | `string` | — |
+| `timeZone` | `string` | — |
+| `hourCycle` | `12 \| 24` | — |
+| `shouldForceLeadingZeros` | `boolean` | `false` |
+| `name` | `string` | — |
+| `disabled` | `boolean` | `false` |
+| `readOnly` | `boolean` | `false` |
+| `invalid` | `boolean` | `false` |
+| `required` | `boolean` | `false` |

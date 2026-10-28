@@ -1,7 +1,7 @@
 ---
 title: Angle Slider
 component: angle-slider
-description: Круговой элемент управления для выбора угла от 0 до 360 градусов в React, Solid или Vue.
+description: Выбор угла от 0 до 360 градусов на круговой шкале.
 ark: https://ark-ui.com/docs/components/angle-slider
 ---
 
@@ -14,6 +14,19 @@ import * as AngleSliderDocs from '@/components/examples/angle-slider/css-propert
 <ComponentInstall />
 
 ## Использование
+
+<UsageCode
+  react={'<AngleSlider defaultValue={135} step={15} aria-label="Rotation" onValueChangeEnd={(details) => save(details.value)}>\n  <AngleSliderDial />\n</AngleSlider>'}
+  vue={'<AngleSlider :default-value="135" :step="15" aria-label="Rotation" @value-change-end="(details) => save(details.value)">\n  <AngleSliderDial />\n</AngleSlider>'}
+/>
+
+<PropChips
+  items={[
+    ['defaultValue', 'Начальный угол в градусах; для управления используйте value.'],
+    ['step', 'Шаг угла, по умолчанию 1.'],
+    ['onValueChangeEnd', 'Вызывается, когда пользователь отпускает ползунок.'],
+  ]}
+/>
 
 Начните с `AngleSliderDial`: он объединяет круговой трек, центрированное значение и бегунок. Трек заполняется
 сверхи по мере роста угла. `AngleSlider` принимает
@@ -156,11 +169,42 @@ AngleSliderRootProvider
 
 ### Хуки стилизации
 
-- Стабильные селекторы `data-slot`: `angle-slider-root`, `angle-slider-root-provider`,
-  `angle-slider-label`, `angle-slider-control`, `angle-slider-thumb`, `angle-slider-marker-group`,
-  `angle-slider-marker` и `angle-slider-value-text`.
+| Часть | `data-slot` |
+| --- | --- |
+| `AngleSlider` | `angle-slider-root` |
+| `AngleSliderLabel` | `angle-slider-label` |
+| `AngleSliderRootProvider` | `angle-slider-root-provider` |
+| `AngleSliderControl` | `angle-slider-control` |
+| `AngleSliderThumb` | `angle-slider-thumb` |
+| `AngleSliderMarkerGroup` | `angle-slider-marker-group` |
+| `AngleSliderMarker` | `angle-slider-marker` |
+| `AngleSliderValueText` | `angle-slider-value-text` |
+
 - Селекторы частей Ark используют `data-scope="angle-slider"` и `data-part`.
 - `AngleSliderMarks` создаёт те же хуки маркеров, что и явные части `AngleSliderMarkerGroup` и `AngleSliderMarker`.
 - Для стилизации доступны переменные корня `--value` и `--angle`, а также переменные маркеров
   `--marker-value` и `--marker-display-value`.
 - При включённом предпочтении пользователя уменьшать движение анимация бегунка отключается.
+
+## Клавиатура
+
+| Клавиша | Действие |
+| --- | --- |
+| `ArrowRight` / `ArrowDown` | Увеличивает угол на шаг. |
+| `ArrowLeft` / `ArrowUp` | Уменьшает угол на шаг. |
+| `Home` / `End` | Ставит угол 0 или 360. |
+
+## Справочник API
+
+| Проп | Тип | По умолчанию |
+| --- | --- | --- |
+| `value` | `number` | — |
+| `defaultValue` | `number` | `0` |
+| `onValueChange` | `(details: ValueChangeDetails) => void` | — |
+| `onValueChangeEnd` | `(details: ValueChangeDetails) => void` | — |
+| `step` | `number` | `1` |
+| `name` | `string` | — |
+| `disabled` | `boolean` | `false` |
+| `readOnly` | `boolean` | `false` |
+| `invalid` | `boolean` | `false` |
+| `required` | `boolean` | `false` |

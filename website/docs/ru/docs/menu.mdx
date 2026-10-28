@@ -1,7 +1,7 @@
 ---
 title: Menu
 component: menu
-description: Меню, которое открывается по триггеру и подходит для действий, ссылок, выбора вариантов, вложенных команд и контекстных меню.
+description: Список действий или опций по кнопке или правому клику.
 ark: https://ark-ui.com/docs/components/menu
 ---
 
@@ -14,6 +14,20 @@ import * as MenuDocs from '@/components/examples/menu/css-properties';
 <ComponentInstall />
 
 ## Использование
+
+<UsageCode
+  react={'<Menu onSelect={(details) => run(details.value)} positioning={{ placement: \'bottom-start\' }}>\n  <MenuTrigger asChild>\n    <Button>File</Button>\n  </MenuTrigger>\n  <MenuPositioner>\n    <MenuContent>\n      <MenuItem value="new">New file</MenuItem>\n      <MenuItem value="delete" tone="destructive">Delete</MenuItem>\n    </MenuContent>\n  </MenuPositioner>\n</Menu>'}
+  solid={'<Menu onSelect={(details) => run(details.value)} positioning={{ placement: \'bottom-start\' }}>\n  <MenuTrigger asChild={(props) => (\n    <Button {...props()}>File</Button>\n  )} />\n  <MenuPositioner>\n    <MenuContent>\n      <MenuItem value="new">New file</MenuItem>\n      <MenuItem value="delete" tone="destructive">Delete</MenuItem>\n    </MenuContent>\n  </MenuPositioner>\n</Menu>'}
+  vue={'<Menu @select="(details) => run(details.value)" :positioning="{ placement: \'bottom-start\' }">\n  <MenuTrigger as-child>\n    <Button>File</Button>\n  </MenuTrigger>\n  <MenuPositioner>\n    <MenuContent>\n      <MenuItem value="new">New file</MenuItem>\n      <MenuItem value="delete" tone="destructive">Delete</MenuItem>\n    </MenuContent>\n  </MenuPositioner>\n</Menu>'}
+/>
+
+<PropChips
+  items={[
+    ['onSelect', 'Вызывается со значением выбранного пункта.'],
+    ['positioning', 'Положение, отступ и переворот всплывающего меню.'],
+    ['tone', 'destructive выделяет опасные пункты в MenuItem.'],
+  ]}
+/>
 
 Используйте `Menu` как корневой компонент и задайте каждому `MenuItem` стабильное значение
 `value`. Оставляйте `MenuPositioner` и `MenuContent` явными, а внутрь содержимого добавляйте
@@ -232,17 +246,65 @@ Menu
 
 ### Хуки стилизации
 
+| Часть | `data-slot` |
+| --- | --- |
+| `MenuTrigger` | `menu-trigger` |
+| `MenuIndicator` | `menu-indicator` |
+| `MenuContextTrigger` | `menu-context-trigger` |
+| `MenuPositioner` | `menu-positioner` |
+| `MenuContent` | `menu-content` |
+| `MenuViewport` | `menu-viewport` |
+| `MenuArrow` | `menu-arrow` |
+| `MenuArrowTip` | `menu-arrow-tip` |
+| `MenuItem` | `menu-item` |
+| `MenuTriggerItem` | `menu-trigger-item` |
+| `MenuTriggerItemIcon` | `menu-trigger-item-icon` |
+| `MenuSeparator` | `menu-separator` |
+| `MenuItemGroup` | `menu-item-group` |
+| `MenuItemGroupLabel` | `menu-item-group-label` |
+| `MenuRadioItemGroup` | `menu-radio-item-group` |
+| `MenuRadioItem` | `menu-radio-item` |
+| `MenuCheckboxItem` | `menu-checkbox-item` |
+| `MenuItemIndicator` | `menu-item-indicator` |
+| `MenuItemText` | `menu-item-text` |
+| `MenuItemTextContent` | `menu-item-text-content` |
+| `MenuItemTextIcon` | `menu-item-text-icon` |
+| `MenuItemTextLabel` | `menu-item-text-label` |
+| `MenuItemShortcut` | `menu-item-shortcut` |
+
 - Атрибуты Ark: `[data-scope='menu']`, `[data-part='trigger']`, `[data-part='indicator']`,
   `[data-part='content']`, `[data-part='viewport']`, `[data-part='item']`, `[data-type='checkbox' | 'radio']`,
   `[data-state='open' | 'closed' | 'checked' | 'unchecked']`, `[data-current]`, `[data-highlighted]`,
   `[data-disabled]`, `[data-placement]` и `[data-side]`.
-- Атрибуты moduix: `[data-slot='menu-trigger']`, `[data-slot='menu-indicator']`, `[data-slot='menu-context-trigger']`, `[data-slot='menu-positioner']`,
-  `[data-slot='menu-content']`, `[data-slot='menu-viewport']`, `[data-slot='menu-arrow']`, `[data-slot='menu-arrow-tip']`,
-  `[data-slot='menu-item']`, `[data-slot='menu-trigger-item']`, `[data-slot='menu-trigger-item-icon']`,
-  `[data-slot='menu-separator']`, `[data-slot='menu-item-group']`, `[data-slot='menu-item-group-label']`,
-  `[data-slot='menu-radio-item-group']`, `[data-slot='menu-radio-item']`, `[data-slot='menu-checkbox-item']`,
-  `[data-slot='menu-item-indicator']`, `[data-slot='menu-item-text']`, `[data-slot='menu-item-text-content']`,
-  `[data-slot='menu-item-text-icon']`, `[data-slot='menu-item-text-label']`, `[data-slot='menu-item-shortcut']`
-  и `[data-indicator-position='start' | 'end' | 'none']`.
+- У `MenuCheckboxItem` и `MenuRadioItem` есть `[data-indicator-position='start' | 'end' | 'none']`.
 - Переменные позиционирования: `--reference-width`, `--available-width`, `--available-height`,
   `--transform-origin`, `--layer-index`, `--arrow-size` и `--arrow-background`.
+
+## Клавиатура
+
+| Клавиша | Действие |
+| --- | --- |
+| `Enter` / `Space` | Открывает меню с кнопки или выбирает подсвеченный пункт. |
+| `ArrowDown` / `ArrowUp` | Переводит подсветку на следующий или предыдущий пункт. |
+| `ArrowRight` / `ArrowLeft` | Открывает или закрывает вложенное меню. |
+| `Home` / `End` | Подсвечивает первый или последний пункт. |
+| `Esc` | Закрывает меню и возвращает фокус на кнопку. |
+| Буквы | Подсвечивает пункт, который начинается с набранного текста. |
+
+## Справочник API
+
+| Проп | Тип | По умолчанию |
+| --- | --- | --- |
+| `open` | `boolean` | — |
+| `defaultOpen` | `boolean` | `false` |
+| `onOpenChange` | `(details: OpenChangeDetails) => void` | — |
+| `onSelect` | `(details: SelectionDetails) => void` | — |
+| `closeOnSelect` | `boolean` | `true` |
+| `positioning` | `PositioningOptions` | — |
+| `loopFocus` | `boolean` | `false` |
+| `typeahead` | `boolean` | `true` |
+| `highlightedValue` | `string \| null` | — |
+| `onHighlightChange` | `(details: HighlightChangeDetails) => void` | — |
+| `lazyMount` | `boolean` | `true` |
+| `unmountOnExit` | `boolean` | `true` |
+| `portalled` | `boolean` | `true` |

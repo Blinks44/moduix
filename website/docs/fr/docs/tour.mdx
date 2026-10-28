@@ -1,7 +1,7 @@
 ---
 title: Tour
 component: tour
-description: Créez des parcours guidés pour faire découvrir votre produit avec l’état Tour d’Ark UI, une couche superposée accessible et des actions prêtes à l’emploi.
+description: Guider l’utilisateur dans le produit avec des étapes ancrées aux éléments.
 ark: https://ark-ui.com/docs/components/tour
 ---
 
@@ -12,6 +12,20 @@ ark: https://ark-ui.com/docs/components/tour
 <ComponentInstall />
 
 ## Utilisation
+
+<UsageCode
+  react={'const tour = useTour({\n  steps: [\n    {\n      id: \'upload\',\n      type: \'tooltip\',\n      title: \'Upload files\',\n      target: () => document.querySelector(\'#upload\'),\n      actions: [{ label: \'Next\', action: \'next\' }],\n    },\n  ],\n});\n\n<Tour tour={tour}>\n  <TourBackdrop />\n  <TourSpotlight />\n  <TourPositioner>\n    <TourContent>\n      <TourTitle />\n      <TourDescription />\n      <TourActionList />\n    </TourContent>\n  </TourPositioner>\n</Tour>'}
+  vue={'const tour = useTour({\n  steps: [\n    {\n      id: \'upload\',\n      type: \'tooltip\',\n      title: \'Upload files\',\n      target: () => document.querySelector(\'#upload\'),\n      actions: [{ label: \'Next\', action: \'next\' }],\n    },\n  ],\n});\n\n<Tour :tour="tour">\n  <TourBackdrop />\n  <TourSpotlight />\n  <TourPositioner>\n    <TourContent>\n      <TourTitle />\n      <TourDescription />\n      <TourActionList />\n    </TourContent>\n  </TourPositioner>\n</Tour>'}
+/>
+
+<PropChips
+  items={[
+    ['steps', 'Chaque étape a un id, un type, un texte et des actions.'],
+    ['type', 'dialog, tooltip, floating ou wait pour attendre une action.'],
+    ['target', 'Renvoie l’élément visé par une étape tooltip.'],
+    ['tour.start()', 'Lance la visite depuis la première étape.'],
+  ]}
+/>
 
 Créez l’état du tour avec `useTour`, définissez les étapes, puis transmettez l’objet renvoyé à `Tour`. L’exemple
 commence par une boîte de dialogue, passe à une infobulle ancrée à un contrôle de la page, puis se termine par une
@@ -118,11 +132,51 @@ jetons de foundation et n’ont pas de variables de composant : une classe sur l
 du composant placés dans une couche. Passez `className` (ou `class`) à `TourActionList` pour styliser
 chaque déclencheur généré.
 
-### Hooks de style
+### Points d’accroche CSS
 
-Les principaux hooks publics sont `data-slot="tour-backdrop"`, `tour-spotlight`, `tour-positioner`,
-`tour-content`, `tour-arrow`, `tour-arrow-tip`, `tour-title`, `tour-description`, `tour-progress-text`,
-`tour-body`, `tour-close-trigger`, `tour-close-icon`, `tour-control` et `tour-action-trigger`. Ark ajoute
+| Partie | `data-slot` |
+| --- | --- |
+| `TourBackdrop` | `tour-backdrop` |
+| `TourSpotlight` | `tour-spotlight` |
+| `TourPositioner` | `tour-positioner` |
+| `TourContent` | `tour-content` |
+| `TourArrow` | `tour-arrow` |
+| `TourArrowTip` | `tour-arrow-tip` |
+| `TourTitle` | `tour-title` |
+| `TourDescription` | `tour-description` |
+| `TourProgressText` | `tour-progress-text` |
+| `TourBody` | `tour-body` |
+| `TourCloseTrigger` | `tour-close-trigger` |
+| `TourCloseIcon` | `tour-close-icon` |
+| `TourControl` | `tour-control` |
+| `TourActionTrigger` | `tour-action-trigger` |
+
+Ark ajoute
 aussi `data-scope="tour"`, `data-part`, `data-state`, `data-type`, `data-placement`, `data-side`,
 `data-step` et `data-disabled`, ainsi que des variables d’exécution comme `--tour-layer`,
 `--available-width`, `--available-height`, `--transform-origin` et les variables de la flèche.
+
+## Clavier
+
+| Touche | Action |
+| --- | --- |
+| `ArrowRight` / `ArrowLeft` | Passe à l’étape suivante ou précédente si keyboardNavigation est actif. |
+| `Tab` / `Shift+Tab` | Passe d’une action de l’étape à l’autre. |
+| `Esc` | Termine la visite. |
+
+## Référence de l’API
+
+Options de `useTour()`. Passez l’objet renvoyé à `Tour` via `tour`.
+
+| Prop | Type | Défaut |
+| --- | --- | --- |
+| `steps` | `TourStepDetails[]` | — |
+| `stepId` | `string \| null` | — |
+| `onStepChange` | `(details: StepChangeDetails) => void` | — |
+| `onStatusChange` | `(details: StatusChangeDetails) => void` | — |
+| `keyboardNavigation` | `boolean` | `true` |
+| `closeOnEscape` | `boolean` | `true` |
+| `closeOnInteractOutside` | `boolean` | `true` |
+| `preventInteraction` | `boolean` | `false` |
+| `spotlightOffset` | `{ x: number; y: number }` | `{ x: 10, y: 10 }` |
+| `spotlightRadius` | `number` | `4` |

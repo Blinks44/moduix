@@ -1,7 +1,7 @@
 ---
 title: Aspect Ratio
 component: aspect-ratio
-description: Keeps media and embedded content inside a responsive frame with a fixed aspect ratio.
+description: Keep images, video, and embeds at a fixed width-to-height ratio.
 ark: https://ark-ui.com/docs/guides/composition#the-ark-factory
 ---
 
@@ -12,6 +12,17 @@ ark: https://ark-ui.com/docs/guides/composition#the-ark-factory
 <ComponentInstall />
 
 ## Usage
+
+<UsageCode
+  react={'<AspectRatio ratio={16 / 9}>\n  <img src={cover.src} alt={cover.alt} />\n</AspectRatio>'}
+  vue={'<AspectRatio :ratio="16 / 9">\n  <img :src="cover.src" :alt="cover.alt" />\n</AspectRatio>'}
+/>
+
+<PropChips
+  items={[
+    ['ratio', 'Width divided by height: 1 is a square, 16 / 9 is widescreen.'],
+  ]}
+/>
 
 Use `AspectRatio` as the root for a responsive frame. It fills the width of its containing block by default.
 Add `width` or `max-width` to the root when the frame needs a different size, then pass the width-to-height
@@ -81,10 +92,21 @@ AspectRatio
 
 ### Styling hooks
 
+| Part | `data-slot` |
+| --- | --- |
+| `AspectRatio` | `aspect-ratio-root` |
+
 - `data-scope="aspect-ratio"` and `data-part="root"` are Ark-aligned hooks on the root.
-- `data-slot="aspect-ratio-root"` is the stable moduix root hook.
 - Put width, max-width, and layout styles on the root. Override `aspect-ratio` in your own CSS when the frame
   needs a different ratio at a particular breakpoint.
 - The component does not style its children. Apply media sizing and `object-fit` directly to the child.
 - Content taller than the frame does not stretch it; it overflows. Add `overflow: hidden` and a border radius to
   the root when the composition needs clipping.
+
+## API reference
+
+Also accepts the native props of its element and `asChild`.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `ratio` | `number` | `1` |

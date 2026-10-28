@@ -1,7 +1,7 @@
 ---
 title: Chart
 component: chart
-description: Build accessible, responsive charts with TanStack Charts and moduix's figure, tooltip, legend, and motion defaults.
+description: Plot data with TanStack Charts inside an accessible titled figure.
 ---
 
 import * as ChartDocs from '@/components/examples/chart/css-properties';
@@ -22,6 +22,19 @@ around them.
 expose the same chart definition API; the Solid and Vue packages use TanStack's renderer adapter.
 
 ## Usage
+
+<UsageCode
+  react={'<Chart>\n  <ChartHeader>\n    <ChartTitle>Monthly revenue</ChartTitle>\n    <ChartDescription>In thousands of dollars.</ChartDescription>\n  </ChartHeader>\n  <ChartPlot definition={definition} height={320} ariaLabel="Monthly revenue" />\n  <ChartLegend aria-label="Series">\n    <ChartLegendItem color="var(--moduix-color-chart-1)">Revenue</ChartLegendItem>\n  </ChartLegend>\n</Chart>'}
+  vue={'<Chart>\n  <ChartHeader>\n    <ChartTitle>Monthly revenue</ChartTitle>\n    <ChartDescription>In thousands of dollars.</ChartDescription>\n  </ChartHeader>\n  <ChartPlot :definition="definition" :height="320" ariaLabel="Monthly revenue" />\n  <ChartLegend aria-label="Series">\n    <ChartLegendItem color="var(--moduix-color-chart-1)">Revenue</ChartLegendItem>\n  </ChartLegend>\n</Chart>'}
+/>
+
+<PropChips
+  items={[
+    ['definition', 'TanStack Charts definition: data, marks, and scales.'],
+    ['ariaLabel', 'Short name of the plot for assistive technology.'],
+    ['motion', 'Animated renderer; false uses static SVG.'],
+  ]}
+/>
 
 Create a TanStack definition and pass it to `ChartPlot`. Add a visible title, description, and
 legend around the plot, then provide a concise `ariaLabel` for assistive technology.
@@ -174,14 +187,40 @@ React or `class` in Solid and Vue):
 
 ### Styling hooks
 
+| Part | `data-slot` |
+| --- | --- |
+| `Chart` | `chart-root` |
+| `Chart`, inner element | `chart-tooltip-text` |
+| `Chart`, inner element | `chart-tooltip-body` |
+| `Chart`, inner element | `chart-tooltip-title` |
+| `Chart`, inner element | `chart-tooltip-swatch` |
+| `Chart`, inner element | `chart-tooltip-rows` |
+| `Chart`, inner element | `chart-tooltip-row` |
+| `Chart`, inner element | `chart-tooltip-label` |
+| `Chart`, inner element | `chart-tooltip-value` |
+| `ChartHeader` | `chart-header` |
+| `ChartTitle` | `chart-title` |
+| `ChartDescription` | `chart-description` |
+| `ChartLegend` | `chart-legend` |
+| `ChartLegendItem` | `chart-legend-item` |
+
 - `Chart`, `ChartHeader`, `ChartTitle`, `ChartDescription`, `ChartLegend`, and
   `ChartLegendItem` expose `data-scope="chart"`, `data-part`, and `data-slot`.
 - `className` in React and `class` in Solid and Vue on `ChartPlot` reach the outer `.ts-chart-host` element.
-- The default tooltip uses `chart-tooltip-body`, `chart-tooltip-title`, `chart-tooltip-rows`,
-  `chart-tooltip-row`, `chart-tooltip-swatch`, `chart-tooltip-label`, `chart-tooltip-value`, and
-  `chart-tooltip-text` data slots.
 - Use `--moduix-color-chart-1` through `--moduix-color-chart-5` in TanStack color scales.
 - Tooltip rows that TanStack marks as `active` get `data-active`.
 - The tooltip shell reads TanStack's `--ts-chart-tooltip-*` variables from the `ChartPlot` host. Use
   TanStack's `tooltip.className` for custom selectors, or `renderTooltipBody` when you need custom
   content around the moduix `defaultBody`.
+
+## API reference
+
+Props of `ChartPlot`. The other TanStack chart props, such as `height` and `renderTooltipBody`, pass through.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `definition` | `ChartDefinition` | — |
+| `ariaLabel` | `string` | — |
+| `height` | `number` | — |
+| `motion` | `boolean` | `true` |
+| `renderer` | `ChartRenderer` | — |

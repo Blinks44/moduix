@@ -1,7 +1,7 @@
 ---
 title: Tags Input
 component: tags-input
-description: An editable list of string tags with validation, form submission, and optional suggestions.
+description: Enter a list of short values as tags that users can edit or remove.
 ark: https://ark-ui.com/docs/components/tags-input
 ---
 
@@ -17,6 +17,20 @@ import tagsInputVueWithCombobox from '../../../snippets/combobox/vue/with-tags-i
 <ComponentInstall />
 
 ## Usage
+
+<UsageCode
+  react={'<TagsInput defaultValue={[\'React\', \'Vue\']} max={5} name="frameworks" onValueChange={(details) => setTags(details.value)}>\n  <TagsInputLabel>Frameworks</TagsInputLabel>\n  <TagsInputControl>\n    <TagsInputItems />\n    <TagsInputInput placeholder="Add framework" />\n    <TagsInputClearTrigger aria-label="Clear frameworks" />\n  </TagsInputControl>\n  <TagsInputHiddenInput />\n</TagsInput>'}
+  vue={'<TagsInput v-model="tags" :max="5" name="frameworks">\n  <TagsInputLabel>Frameworks</TagsInputLabel>\n  <TagsInputControl>\n    <TagsInputItems />\n    <TagsInputInput placeholder="Add framework" />\n    <TagsInputClearTrigger aria-label="Clear frameworks" />\n  </TagsInputControl>\n  <TagsInputHiddenInput />\n</TagsInput>'}
+/>
+
+<PropChips
+  items={[
+    ['defaultValue', 'Starting tags; use value to control them.'],
+    ['max', 'Most tags allowed.'],
+    ['delimiter', 'Character that adds a tag, a comma by default.'],
+    ['validate', 'Rejects a tag before it is added.'],
+  ]}
+/>
 
 Start with `TagsInput`, `TagsInputLabel`, `TagsInputControl`, `TagsInputItems`,
 `TagsInputInput`, and `TagsInputClearTrigger`. Add an explicit `TagsInputHiddenInput` when the
@@ -210,7 +224,20 @@ TagsInputRootProvider
 
 ### Styling hooks
 
-- The root and root provider expose `data-slot="tags-input-root"` and `data-slot="tags-input-root-provider"`.
+| Part | `data-slot` |
+| --- | --- |
+| `TagsInput` | `tags-input-root` |
+| `TagsInputRootProvider` | `tags-input-root-provider` |
+| `TagsInputLabel` | `tags-input-label` |
+| `TagsInputControl` | `tags-input-control` |
+| `TagsInputItem` | `tags-input-item` |
+| `TagsInputItemPreview` | `tags-input-item-preview` |
+| `TagsInputItemText` | `tags-input-item-text` |
+| `TagsInputItemDeleteTrigger` | `tags-input-item-delete-trigger` |
+| `TagsInputItemInput` | `tags-input-item-input` |
+| `TagsInputInput` | `tags-input-input` |
+| `TagsInputClearTrigger` | `tags-input-clear-trigger` |
+
 - Ark parts keep `data-scope="tags-input"` and their `data-part` values from the anatomy.
 - State styling can use `data-disabled`, `data-readonly`, `data-invalid`, `data-focus`, `data-empty`, `data-required`, `data-value`, and `data-highlighted` where Ark emits them.
 - Delete and clear triggers expose stable `data-slot` hooks. Item deletion uses a compact close icon; clear-all uses the shared close-button styling.
@@ -230,3 +257,37 @@ when needed, `form` to associate it with a form.
 - When the entry input is empty or the caret is at its start, `ArrowLeft` and `ArrowRight` move visual focus between tags.
 - `Backspace` and `Delete` remove the highlighted tag. `Backspace` also removes the last tag when the entry input is empty.
 - With `addOnPaste`, `Control+V` adds pasted values after splitting them with `delimiter`.
+
+## Keyboard
+
+| Key | Action |
+| --- | --- |
+| `Enter` | Adds the typed text as a tag. |
+| `ArrowLeft` / `ArrowRight` | Moves between tags when the input is empty. |
+| `Backspace` / `Delete` | Highlights and then removes a tag. |
+| `Enter` on a tag | Edits the highlighted tag when editable is on. |
+
+## API reference
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `value` | `string[]` | — |
+| `defaultValue` | `string[]` | — |
+| `onValueChange` | `(details: ValueChangeDetails) => void` | — |
+| `inputValue` | `string` | — |
+| `onInputValueChange` | `(details: InputValueChangeDetails) => void` | — |
+| `max` | `number` | `Infinity` |
+| `maxLength` | `number` | — |
+| `delimiter` | `string \| RegExp` | `','` |
+| `validate` | `(details: ValidateArgs) => boolean` | — |
+| `onValueInvalid` | `(details: ValidityChangeDetails) => void` | — |
+| `allowDuplicates` | `boolean` | `false` |
+| `addOnPaste` | `boolean` | `false` |
+| `editable` | `boolean` | `true` |
+| `blurBehavior` | `'clear' \| 'add'` | — |
+| `placeholder` | `string` | — |
+| `name` | `string` | — |
+| `disabled` | `boolean` | `false` |
+| `readOnly` | `boolean` | `false` |
+| `invalid` | `boolean` | `false` |
+| `required` | `boolean` | `false` |

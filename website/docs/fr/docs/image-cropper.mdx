@@ -1,7 +1,7 @@
 ---
 title: Image Cropper
 component: image-cropper
-description: Composant permettant de recadrer et de transformer des images, avec prise en charge du zoom, de la rotation et du rapport d’aspect.
+description: Recadrer, zoomer, pivoter et retourner une image avant l’envoi.
 ark: https://ark-ui.com/docs/components/image-cropper
 ---
 
@@ -16,6 +16,20 @@ exemples utilisent cette configuration pour l’image Unsplash.
 <ComponentInstall />
 
 ## Utilisation
+
+<UsageCode
+  react={'<ImageCropper aspectRatio={1} cropShape="circle" onCropChange={(details) => setCrop(details.crop)}>\n  <ImageCropperViewport>\n    <ImageCropperImage src={photo} alt="Profile photo" crossOrigin="anonymous" />\n    <ImageCropperCropArea />\n  </ImageCropperViewport>\n</ImageCropper>'}
+  vue={'<ImageCropper :aspect-ratio="1" crop-shape="circle" @crop-change="(details) => (crop = details.crop)">\n  <ImageCropperViewport>\n    <ImageCropperImage :src="photo" alt="Profile photo" cross-origin="anonymous" />\n    <ImageCropperCropArea />\n  </ImageCropperViewport>\n</ImageCropper>'}
+/>
+
+<PropChips
+  items={[
+    ['aspectRatio', 'Verrouille le recadrage sur un rapport.'],
+    ['cropShape', 'rectangle ou circle.'],
+    ['onCropChange', 'Signale le rectangle de recadrage à chaque changement.'],
+    ['minZoom / maxZoom', 'Plage de zoom, de 1 à 5 par défaut.'],
+  ]}
+/>
 
 Utilisez `ImageCropper` avec `ImageCropperViewport`, `ImageCropperImage` et
 `ImageCropperCropArea`. Passez l’URL de l’image à `ImageCropperImage`.
@@ -155,11 +169,19 @@ partie remplace les styles du composant placés dans une couche, par exemple un 
 une autre `height` de la zone d’affichage. Les attributs de données et les hooks `data-slot` sont
 communs aux deux approches.
 
-### Sélecteurs de style
+### Points d’accroche CSS
 
-Utilisez les valeurs stables de `data-slot` `image-cropper-root`, `image-cropper-root-provider`,
-`image-cropper-viewport`, `image-cropper-image`, `image-cropper-selection`, `image-cropper-grid` et
-`image-cropper-handle` pour les styles locaux. Ark expose également `data-scope="image-cropper"`,
+| Partie | `data-slot` |
+| --- | --- |
+| `ImageCropper` | `image-cropper-root` |
+| `ImageCropperRootProvider` | `image-cropper-root-provider` |
+| `ImageCropperViewport` | `image-cropper-viewport` |
+| `ImageCropperImage` | `image-cropper-image` |
+| `ImageCropperSelection` | `image-cropper-selection` |
+| `ImageCropperGrid` | `image-cropper-grid` |
+| `ImageCropperHandle` | `image-cropper-handle` |
+
+Ark expose également `data-scope="image-cropper"`,
 `data-part` et des attributs d’état tels que `data-fixed`, `data-shape`, `data-pinch`, `data-ready`,
 `data-disabled`, `data-measured`, `data-dragging`, `data-panning`, `data-axis` et `data-position`
 sur les parties concernées.
@@ -168,3 +190,35 @@ Ark écrit `--crop-width`, `--crop-height`, `--crop-x`, `--crop-y`, `--image-zoo
 `--image-rotation`, `--image-offset-x` et `--image-offset-y` sur la racine. Ces variables en lecture
 seule reflètent l’état courant et peuvent servir à synchroniser une interface personnalisée. Ne les
 redéfinissez pas.
+
+## Clavier
+
+| Touche | Action |
+| --- | --- |
+| `ArrowUp` / `ArrowDown` / `ArrowLeft` / `ArrowRight` | Déplace la zone ; Shift et Ctrl font de plus grands pas. |
+| `Alt` + arrows | Redimensionne la zone de recadrage. |
+| `+` / `-` | Zoome ou dézoome. |
+
+## Référence de l’API
+
+| Prop | Type | Défaut |
+| --- | --- | --- |
+| `aspectRatio` | `number` | — |
+| `cropShape` | `'rectangle' \| 'circle'` | `'rectangle'` |
+| `initialCrop` | `Rect` | — |
+| `fixedCropArea` | `boolean` | `false` |
+| `minWidth` | `number` | `40` |
+| `minHeight` | `number` | `40` |
+| `maxWidth` | `number` | `Infinity` |
+| `maxHeight` | `number` | `Infinity` |
+| `zoom` | `number` | — |
+| `defaultZoom` | `number` | `1` |
+| `minZoom` | `number` | `1` |
+| `maxZoom` | `number` | `5` |
+| `zoomStep` | `number` | `0.1` |
+| `rotation` | `number` | — |
+| `defaultRotation` | `number` | `0` |
+| `flip` | `{ horizontal: boolean; vertical: boolean }` | — |
+| `onCropChange` | `(details: CropChangeDetails) => void` | — |
+| `onZoomChange` | `(details: ZoomChangeDetails) => void` | — |
+| `onRotationChange` | `(details: RotationChangeDetails) => void` | — |

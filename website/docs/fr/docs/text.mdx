@@ -1,7 +1,7 @@
 ---
 title: Text
 component: text
-description: Un composant typographique pour le texte courant ou en ligne, l’emphase sémantique et les aperçus tronqués.
+description: Composer le texte courant, les légendes et le texte en ligne.
 ark: https://ark-ui.com/docs/guides/composition#the-ark-factory
 ---
 
@@ -12,6 +12,20 @@ ark: https://ark-ui.com/docs/guides/composition#the-ark-factory
 <ComponentInstall />
 
 ## Utilisation
+
+<UsageCode
+  react={'<Text as="span" size="sm" tone="muted" lineClamp={2}>\n  {post.summary}\n</Text>'}
+  vue={'<Text as="span" size="sm" tone="muted" lineClamp={2}>\n  {post.summary}\n</Text>'}
+/>
+
+<PropChips
+  items={[
+    ['as', 'p, span, small, strong, em ou div.'],
+    ['size / weight', 'Pas de l’échelle et graisse.'],
+    ['tone', 'default, muted, primary ou destructive.'],
+    ['truncate / lineClamp', 'Coupe à une ligne ou à N lignes.'],
+  ]}
+/>
 
 Utilisez l’élément `p` par défaut pour un paragraphe. Passez `as` lorsque le contenu doit utiliser une autre balise HTML
 sémantique tout en conservant le style typographique de `Text`.
@@ -101,8 +115,11 @@ remplace les styles du composant.
 
 ### Points d’accroche CSS
 
+| Partie | `data-slot` |
+| --- | --- |
+| `Text` | `text-root` |
+
 - `data-scope="text"` et `data-part="root"` identifient la racine utilisée par Ark.
-- `data-slot="text-root"` est le sélecteur moduix stable de la racine exportée.
 - `data-size` reflète la taille visuelle calculée : `xs`, `sm`, `md`, `lg` ou `xl`.
 - `data-weight` reflète la graisse calculée : `regular`, `medium`, `semibold` ou `bold`.
 - `data-tone` reflète la tonalité active : `default`, `muted`, `primary` ou `destructive`.
@@ -110,3 +127,17 @@ remplace les styles du composant.
 - `data-truncate` apparaît lorsque la troncature sur une ligne avec points de suspension est active.
 - `data-line-clamp` apparaît lorsque `lineClamp` est un entier positif ; le nombre de lignes est défini en
   style en ligne via `-webkit-line-clamp`.
+
+## Référence de l’API
+
+Accepte aussi les props natives de son élément et `asChild`.
+
+| Prop | Type | Défaut |
+| --- | --- | --- |
+| `as` | `'p' \| 'span' \| 'small' \| 'strong' \| 'em' \| 'div'` | `'p'` |
+| `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'` | — |
+| `weight` | `'regular' \| 'medium' \| 'semibold' \| 'bold'` | — |
+| `tone` | `'default' \| 'muted' \| 'primary' \| 'destructive'` | `'default'` |
+| `align` | `'start' \| 'center' \| 'end' \| 'left' \| 'right' \| 'justify'` | — |
+| `truncate` | `boolean` | `false` |
+| `lineClamp` | `number` | — |

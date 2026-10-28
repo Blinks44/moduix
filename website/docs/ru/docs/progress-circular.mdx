@@ -1,7 +1,7 @@
 ---
 title: Progress Circular
 component: progress-circular
-description: Круговой индикатор для отображения определённого или неопределённого прогресса.
+description: Прогресс задачи в компактном кольце, с известным или неизвестным концом.
 ark: https://ark-ui.com/docs/components/progress-circular
 ---
 
@@ -14,6 +14,19 @@ import * as ProgressCircularDocs from '@/components/examples/progress-circular/c
 <ComponentInstall />
 
 ## Использование
+
+<UsageCode
+  react={'<ProgressCircular defaultValue={42}>\n  <ProgressCircularLabel>Export data</ProgressCircularLabel>\n  <ProgressCircularRing aria-label="Export data" />\n  <ProgressCircularValueText />\n</ProgressCircular>'}
+  vue={'<ProgressCircular :default-value="42">\n  <ProgressCircularLabel>Export data</ProgressCircularLabel>\n  <ProgressCircularRing aria-label="Export data" />\n  <ProgressCircularValueText />\n</ProgressCircular>'}
+/>
+
+<PropChips
+  items={[
+    ['defaultValue', 'Начальное значение; null включает неопределённое состояние.'],
+    ['min / max', 'Диапазон значения, по умолчанию от 0 до 100.'],
+    ['formatOptions', 'Опции Intl для текста значения, по умолчанию проценты.'],
+  ]}
+/>
 
 Используйте `ProgressCircularRing`, чтобы отобразить стандартный круг с фоновой дорожкой и дугой
 прогресса. Добавьте `ProgressCircularValueText`, чтобы показать текущее значение. В примере
@@ -138,13 +151,33 @@ CSS Modules предоставляют переменные ниже. Для с�
 
 ### Хуки стилизации
 
-- `data-slot="progress-circular-root"`, `data-slot="progress-circular-root-provider"`,
-  `data-slot="progress-circular-label"`, `data-slot="progress-circular-circle"`,
-  `data-slot="progress-circular-circle-track"`, `data-slot="progress-circular-circle-range"`,
-  `data-slot="progress-circular-value-text"` и `data-slot="progress-circular-view"`.
+| Часть | `data-slot` |
+| --- | --- |
+| `ProgressCircular` | `progress-circular-root` |
+| `ProgressCircularRootProvider` | `progress-circular-root-provider` |
+| `ProgressCircularLabel` | `progress-circular-label` |
+| `ProgressCircularValueText` | `progress-circular-value-text` |
+| `ProgressCircularCircle` | `progress-circular-circle` |
+| `ProgressCircularCircleTrack` | `progress-circular-circle-track` |
+| `ProgressCircularCircleRange` | `progress-circular-circle-range` |
+| `ProgressCircularView` | `progress-circular-view` |
+
 - `ProgressCircularRing` использует те же `data-slot`, `className`/`class`, ref и переменные размера и
   толщины `--moduix-progress-circular-*`, что и `ProgressCircularCircle`.
 - Атрибуты Ark: `data-scope="progress"`, `data-part`, `data-state="indeterminate|loading|complete"`,
   `data-orientation`, `data-value` и `data-max`.
 - Переменные Ark для круга: `--size`, `--thickness`, `--radius`, `--circumference`, `--percent` и
   `--offset`.
+
+## Справочник API
+
+| Проп | Тип | По умолчанию |
+| --- | --- | --- |
+| `value` | `number \| null` | — |
+| `defaultValue` | `number \| null` | `50` |
+| `onValueChange` | `(details: ValueChangeDetails) => void` | — |
+| `min` | `number` | `0` |
+| `max` | `number` | `100` |
+| `formatOptions` | `Intl.NumberFormatOptions` | `{ style: 'percent' }` |
+| `locale` | `string` | — |
+| `translations` | `IntlTranslations` | — |

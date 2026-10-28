@@ -1,7 +1,7 @@
 ---
 title: Angle Slider
 component: angle-slider
-description: Contrôle circulaire permettant de choisir un angle compris entre 0 et 360 degrés avec React, Solid ou Vue.
+description: Choisir un angle de 0 à 360 degrés sur un cadran circulaire.
 ark: https://ark-ui.com/docs/components/angle-slider
 ---
 
@@ -14,6 +14,19 @@ import * as AngleSliderDocs from '@/components/examples/angle-slider/css-propert
 <ComponentInstall />
 
 ## Utilisation
+
+<UsageCode
+  react={'<AngleSlider defaultValue={135} step={15} aria-label="Rotation" onValueChangeEnd={(details) => save(details.value)}>\n  <AngleSliderDial />\n</AngleSlider>'}
+  vue={'<AngleSlider :default-value="135" :step="15" aria-label="Rotation" @value-change-end="(details) => save(details.value)">\n  <AngleSliderDial />\n</AngleSlider>'}
+/>
+
+<PropChips
+  items={[
+    ['defaultValue', 'Angle initial en degrés ; contrôlez-le avec value.'],
+    ['step', 'Pas de l’angle, 1 par défaut.'],
+    ['onValueChangeEnd', 'Appelé quand l’utilisateur relâche le curseur.'],
+  ]}
+/>
 
 Commencez par `AngleSliderDial`, qui réunit la piste circulaire, la valeur centrée et la poignée. La piste se remplit depuis le haut
 à mesure que l’angle augmente. `AngleSlider` accepte une seule valeur d’angle comprise entre 0
@@ -29,8 +42,6 @@ circulaire.
 - Choisissez **`Slider`** lorsque la valeur est plus facile à choisir sur une échelle linéaire.
 - Choisissez **`NumberInput`** lorsque la saisie précise d’une valeur en degrés est plus importante qu’une
   manipulation directe.
-
-Les mêmes exports sont disponibles dans les packages `@moduix/react`, `@moduix/solid` et `@moduix/vue`, sous le sous-chemin `angle-slider`.
 
 ## Exemples
 
@@ -143,9 +154,19 @@ approches.
 
 <CssPropertiesSection properties={AngleSliderDocs.angleSliderCssProperties} />
 
-### Sélecteurs de style
+### Points d’accroche CSS
 
-- `data-slot="angle-slider-root"` et `data-slot="angle-slider-root-provider"` fournissent la mise en page commune.
+| Partie | `data-slot` |
+| --- | --- |
+| `AngleSlider` | `angle-slider-root` |
+| `AngleSliderLabel` | `angle-slider-label` |
+| `AngleSliderRootProvider` | `angle-slider-root-provider` |
+| `AngleSliderControl` | `angle-slider-control` |
+| `AngleSliderThumb` | `angle-slider-thumb` |
+| `AngleSliderMarkerGroup` | `angle-slider-marker-group` |
+| `AngleSliderMarker` | `angle-slider-marker` |
+| `AngleSliderValueText` | `angle-slider-value-text` |
+
 - `data-slot="angle-slider-control"` style le cadran et reçoit `data-disabled`, `data-invalid` et `data-readonly`.
 - `data-slot="angle-slider-thumb"` identifie l’indicateur rotatif qui peut recevoir le focus et être ciblé avec
   `:focus-visible`.
@@ -155,5 +176,27 @@ approches.
   `data-slot="angle-slider-marker"` que les parties de marqueur explicites.
 - Les variables Ark du root `--value` et `--angle`, ainsi que les variables de marqueur `--marker-value` et
   `--marker-display-value`, restent disponibles.
-- Les couleurs de l’anneau au survol et lors de l’appui s’appliquent uniquement lorsque le cadran est interactif.
-  Les transitions de la poignée sont supprimées lorsque l’utilisateur préfère réduire les mouvements.
+- Les couleurs de l’anneau au survol et lors de l’appui s’appliquent uniquement lorsque le cadran est interactif. Les transitions de la poignée sont supprimées lorsque l’utilisateur préfère réduire les mouvements.
+
+## Clavier
+
+| Touche | Action |
+| --- | --- |
+| `ArrowRight` / `ArrowDown` | Augmente l’angle d’un pas. |
+| `ArrowLeft` / `ArrowUp` | Diminue l’angle d’un pas. |
+| `Home` / `End` | Règle l’angle sur 0 ou 360. |
+
+## Référence de l’API
+
+| Prop | Type | Défaut |
+| --- | --- | --- |
+| `value` | `number` | — |
+| `defaultValue` | `number` | `0` |
+| `onValueChange` | `(details: ValueChangeDetails) => void` | — |
+| `onValueChangeEnd` | `(details: ValueChangeDetails) => void` | — |
+| `step` | `number` | `1` |
+| `name` | `string` | — |
+| `disabled` | `boolean` | `false` |
+| `readOnly` | `boolean` | `false` |
+| `invalid` | `boolean` | `false` |
+| `required` | `boolean` | `false` |

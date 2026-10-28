@@ -111,9 +111,12 @@ Ark закрепляет раскладку inline-стилями: корень 
 
 ### Хуки стилизации
 
-- `Swap` использует `data-slot="swap-root"`.
-- `SwapRootProvider` использует `data-slot="swap-root-provider"`.
-- `SwapIndicator` использует `data-slot="swap-indicator"`.
+| Часть | `data-slot` |
+| --- | --- |
+| `Swap` | `swap-root` |
+| `SwapRootProvider` | `swap-root-provider` |
+| `SwapIndicator` | `swap-indicator` |
+
 - `animation` доступно как `data-animation` на `Swap` и `SwapRootProvider`.
 - В CSS Modules встроенные рецепты нацелены только на непосредственных потомков `SwapIndicator` своего
   корня. Рецепты Tailwind читают ближайшего предка `group/swap`, поэтому не вкладывайте один `Swap` в

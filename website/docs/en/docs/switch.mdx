@@ -1,7 +1,7 @@
 ---
 title: Switch
 component: switch
-description: A composable Ark UI switch for React, Solid, or Vue that turns an immediate boolean setting on or off.
+description: Turn a setting on or off with an immediate effect.
 ark: https://ark-ui.com/docs/components/switch
 ---
 
@@ -14,6 +14,19 @@ import * as SwitchDocs from '@/components/examples/switch/css-properties';
 <ComponentInstall />
 
 ## Usage
+
+<UsageCode
+  react={'<Switch defaultChecked name="notifications" onCheckedChange={(details) => save(details.checked)}>\n  <SwitchControl />\n  <SwitchLabel>Enable notifications</SwitchLabel>\n  <SwitchHiddenInput />\n</Switch>'}
+  vue={'<Switch v-model:checked="enabled" name="notifications">\n  <SwitchControl />\n  <SwitchLabel>Enable notifications</SwitchLabel>\n  <SwitchHiddenInput />\n</Switch>'}
+/>
+
+<PropChips
+  items={[
+    ['defaultChecked', 'Starts on; use checked to control it.'],
+    ['onCheckedChange', 'Runs with the new state.'],
+    ['size', 'xs to xl, md by default.'],
+  ]}
+/>
 
 A basic switch has a root, a visual control, a label, and an explicit `SwitchHiddenInput` for native
 interaction and form behavior. The control receives a default thumb when it has no children.
@@ -144,11 +157,37 @@ Ark writes `dir` on every part and the checked thumb moves to the inline end.
 
 ### Styling hooks
 
+| Part | `data-slot` |
+| --- | --- |
+| `Switch` | `switch-root` |
+| `SwitchRootProvider` | `switch-root-provider` |
+| `SwitchControl` | `switch-control` |
+| `SwitchThumb` | `switch-thumb` |
+| `SwitchLabel` | `switch-label` |
+
 - `Switch` and `SwitchRootProvider` expose `data-slot="switch-root"` /
   `data-slot="switch-root-provider"` and set the moduix `data-size` attribute.
 - `SwitchControl` exposes `data-slot="switch-control"` and receives Ark state attributes such as
   `data-state`, `data-focus-visible`, `data-hover`, `data-active`, `data-disabled`, `data-readonly`,
   `data-invalid`, and `data-required`.
-- `SwitchThumb` exposes `data-slot="switch-thumb"` and receives the same Ark state attributes for
-  thumb movement and custom content styling.
-- `SwitchLabel` exposes `data-slot="switch-label"` for typography overrides.
+
+## Keyboard
+
+| Key | Action |
+| --- | --- |
+| `Space` | Toggles the focused switch. |
+
+## API reference
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `checked` | `boolean` | — |
+| `defaultChecked` | `boolean` | `false` |
+| `onCheckedChange` | `(details: CheckedChangeDetails) => void` | — |
+| `value` | `string \| number` | `'on'` |
+| `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'` | `'md'` |
+| `name` | `string` | — |
+| `disabled` | `boolean` | `false` |
+| `readOnly` | `boolean` | `false` |
+| `invalid` | `boolean` | `false` |
+| `required` | `boolean` | `false` |

@@ -1,7 +1,7 @@
 ---
 title: Image Cropper
 component: image-cropper
-description: Компонент для кадрирования и преобразования изображений с поддержкой масштабирования, поворота и соотношения сторон.
+description: Обрезка, масштаб, поворот и отражение изображения перед загрузкой.
 ark: https://ark-ui.com/docs/components/image-cropper
 ---
 
@@ -16,6 +16,20 @@ ark: https://ark-ui.com/docs/components/image-cropper
 <ComponentInstall />
 
 ## Использование
+
+<UsageCode
+  react={'<ImageCropper aspectRatio={1} cropShape="circle" onCropChange={(details) => setCrop(details.crop)}>\n  <ImageCropperViewport>\n    <ImageCropperImage src={photo} alt="Profile photo" crossOrigin="anonymous" />\n    <ImageCropperCropArea />\n  </ImageCropperViewport>\n</ImageCropper>'}
+  vue={'<ImageCropper :aspect-ratio="1" crop-shape="circle" @crop-change="(details) => (crop = details.crop)">\n  <ImageCropperViewport>\n    <ImageCropperImage :src="photo" alt="Profile photo" cross-origin="anonymous" />\n    <ImageCropperCropArea />\n  </ImageCropperViewport>\n</ImageCropper>'}
+/>
+
+<PropChips
+  items={[
+    ['aspectRatio', 'Фиксирует пропорцию области обрезки.'],
+    ['cropShape', 'rectangle или circle.'],
+    ['onCropChange', 'Сообщает прямоугольник обрезки при изменении.'],
+    ['minZoom / maxZoom', 'Диапазон масштаба, по умолчанию от 1 до 5.'],
+  ]}
+/>
 
 Используйте `ImageCropper` вместе с `ImageCropperViewport`, `ImageCropperImage` и
 `ImageCropperCropArea`. Передайте URL изображения в `ImageCropperImage`. Компонент
@@ -154,9 +168,17 @@ foundation и не имеют переменных компонента: кла�
 
 ### Хуки стилизации
 
-Для локальной стилизации используйте стабильные значения `data-slot`: `image-cropper-root`,
-`image-cropper-root-provider`, `image-cropper-viewport`, `image-cropper-image`,
-`image-cropper-selection`, `image-cropper-grid` и `image-cropper-handle`. Ark также предоставляет
+| Часть | `data-slot` |
+| --- | --- |
+| `ImageCropper` | `image-cropper-root` |
+| `ImageCropperRootProvider` | `image-cropper-root-provider` |
+| `ImageCropperViewport` | `image-cropper-viewport` |
+| `ImageCropperImage` | `image-cropper-image` |
+| `ImageCropperSelection` | `image-cropper-selection` |
+| `ImageCropperGrid` | `image-cropper-grid` |
+| `ImageCropperHandle` | `image-cropper-handle` |
+
+Ark также предоставляет
 `data-scope="image-cropper"`, `data-part` и атрибуты состояния на соответствующих частях, включая
 `data-fixed`, `data-shape`, `data-pinch`, `data-ready`, `data-disabled`, `data-measured`,
 `data-dragging`, `data-panning`, `data-axis` и `data-position`.
@@ -165,3 +187,35 @@ Ark записывает в корневой элемент `--crop-width`, `--c
 `--image-zoom`, `--image-rotation`, `--image-offset-x` и `--image-offset-y`. Это значения только
 для чтения, отражающие текущее состояние и подходящие для синхронизации собственного
 интерфейса. Не переопределяйте их.
+
+## Клавиатура
+
+| Клавиша | Действие |
+| --- | --- |
+| `ArrowUp` / `ArrowDown` / `ArrowLeft` / `ArrowRight` | Двигает область обрезки; с Shift и Ctrl шаг больше. |
+| `Alt` + arrows | Меняет размер области обрезки. |
+| `+` / `-` | Увеличивает или уменьшает масштаб. |
+
+## Справочник API
+
+| Проп | Тип | По умолчанию |
+| --- | --- | --- |
+| `aspectRatio` | `number` | — |
+| `cropShape` | `'rectangle' \| 'circle'` | `'rectangle'` |
+| `initialCrop` | `Rect` | — |
+| `fixedCropArea` | `boolean` | `false` |
+| `minWidth` | `number` | `40` |
+| `minHeight` | `number` | `40` |
+| `maxWidth` | `number` | `Infinity` |
+| `maxHeight` | `number` | `Infinity` |
+| `zoom` | `number` | — |
+| `defaultZoom` | `number` | `1` |
+| `minZoom` | `number` | `1` |
+| `maxZoom` | `number` | `5` |
+| `zoomStep` | `number` | `0.1` |
+| `rotation` | `number` | — |
+| `defaultRotation` | `number` | `0` |
+| `flip` | `{ horizontal: boolean; vertical: boolean }` | — |
+| `onCropChange` | `(details: CropChangeDetails) => void` | — |
+| `onZoomChange` | `(details: ZoomChangeDetails) => void` | — |
+| `onRotationChange` | `(details: RotationChangeDetails) => void` | — |

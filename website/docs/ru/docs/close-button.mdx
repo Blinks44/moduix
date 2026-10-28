@@ -94,9 +94,12 @@ Tailwind используют обычные utility-классы и класс�
 
 ### Хуки стилизации
 
+| Часть | `data-slot` |
+| --- | --- |
+| `CloseButton` | `close-button-root` |
+
 - `data-scope="close-button"` определяет семейство компонента.
 - `data-part="root"` определяет единственную экспортируемую часть.
-- `data-slot="close-button-root"` служит хуком слота moduix.
 - `data-disabled` указывает на нормализованное отключённое состояние для `disabled` и `aria-disabled="true"`.
 - `className`/`class` объединяется со стандартными стилями компонента на корневом элементе.
 - В вариантах с CSS Modules размер непосредственно вложенных SVG задаётся через `--moduix-close-button-icon-size`.

@@ -1,7 +1,7 @@
 ---
 title: Radio Group
 component: radio-group
-description: Un groupe de boutons radio pour choisir une seule option parmi plusieurs.
+description: Choisir exactement une option dans une courte liste visible.
 ark: https://ark-ui.com/docs/components/radio-group
 ---
 
@@ -14,6 +14,19 @@ import * as RadioGroupDocs from '@/components/examples/radio-group/css-propertie
 <ComponentInstall />
 
 ## Utilisation
+
+<UsageCode
+  react={'<RadioGroup defaultValue="monthly" name="billing" orientation="horizontal" onValueChange={(details) => setPlan(details.value)}>\n  <RadioGroupLabel>Billing</RadioGroupLabel>\n  <RadioGroupOption value="monthly">Monthly</RadioGroupOption>\n  <RadioGroupOption value="yearly">Yearly</RadioGroupOption>\n</RadioGroup>'}
+  vue={'<RadioGroup v-model="plan" name="billing" orientation="horizontal">\n  <RadioGroupLabel>Billing</RadioGroupLabel>\n  <RadioGroupOption value="monthly">Monthly</RadioGroupOption>\n  <RadioGroupOption value="yearly">Yearly</RadioGroupOption>\n</RadioGroup>'}
+/>
+
+<PropChips
+  items={[
+    ['defaultValue', 'Option sélectionnée au départ ; contrôlez-la avec value.'],
+    ['orientation', 'Disposition verticale ou horizontale.'],
+    ['size', 'De xs à xl, md par défaut.'],
+  ]}
+/>
 
 Utilisez `RadioGroup` comme racine et donnez une valeur à chaque option. `RadioGroupOption` affiche
 un élément libellé avec son contrôle, son texte et son champ natif.
@@ -189,12 +202,42 @@ partagés par les deux approches de style.
 
 ### Points d’accroche CSS
 
+| Partie | `data-slot` |
+| --- | --- |
+| `RadioGroup` | `radio-group-root` |
+| `RadioGroupRootProvider` | `radio-group-root-provider` |
+| `RadioGroupLabel` | `radio-group-label` |
+| `RadioGroupItem` | `radio-group-item` |
+| `RadioGroupItemControl` | `radio-group-item-control` |
+| `RadioGroupItemText` | `radio-group-item-text` |
+| `RadioGroupIndicator` | `radio-group-indicator` |
+
 - Hooks d’anatomie Ark : `data-scope="radio-group"` et `data-part` sur la racine, le libellé,
   l’option, le contrôle, le texte, le champ masqué et l’indicateur.
 - Hooks d’état Ark : `data-state="checked|unchecked"`, `data-disabled`, `data-readonly`,
   `data-invalid`, `data-required`, `data-focus`, `data-focus-visible`, `data-hover`,
   `data-active` et `data-orientation`.
 - Variables de l’indicateur Ark : `--transition-property`, `--left`, `--top`, `--width` et `--height`.
-- Hooks moduix : `data-slot="radio-group-root"`, `radio-group-root-provider`,
-  `radio-group-label`, `radio-group-item`, `radio-group-item-control`, `radio-group-item-text` et
-  `radio-group-indicator`, ainsi que `data-size` sur la racine et `RadioGroupRootProvider`.
+
+## Clavier
+
+| Touche | Action |
+| --- | --- |
+| `Tab` | Entre dans le groupe, sur l’option sélectionnée. |
+| `ArrowDown` / `ArrowUp` / `ArrowLeft` / `ArrowRight` | Passe à l’option suivante ou précédente et la sélectionne. |
+| `Space` | Sélectionne l’option ayant le focus. |
+
+## Référence de l’API
+
+| Prop | Type | Défaut |
+| --- | --- | --- |
+| `value` | `string \| null` | — |
+| `defaultValue` | `string \| null` | — |
+| `onValueChange` | `(details: ValueChangeDetails) => void` | — |
+| `orientation` | `'horizontal' \| 'vertical'` | `'vertical'` |
+| `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'` | `'md'` |
+| `name` | `string` | — |
+| `disabled` | `boolean` | `false` |
+| `readOnly` | `boolean` | `false` |
+| `invalid` | `boolean` | `false` |
+| `required` | `boolean` | `false` |

@@ -1,7 +1,7 @@
 ---
 title: Angle Slider
 component: angle-slider
-description: A circular control for selecting an angle between 0 and 360 degrees in React, Solid, or Vue.
+description: Pick an angle from 0 to 360 degrees on a circular dial.
 ark: https://ark-ui.com/docs/components/angle-slider
 ---
 
@@ -14,6 +14,19 @@ import * as AngleSliderDocs from '@/components/examples/angle-slider/css-propert
 <ComponentInstall />
 
 ## Usage
+
+<UsageCode
+  react={'<AngleSlider defaultValue={135} step={15} aria-label="Rotation" onValueChangeEnd={(details) => save(details.value)}>\n  <AngleSliderDial />\n</AngleSlider>'}
+  vue={'<AngleSlider :default-value="135" :step="15" aria-label="Rotation" @value-change-end="(details) => save(details.value)">\n  <AngleSliderDial />\n</AngleSlider>'}
+/>
+
+<PropChips
+  items={[
+    ['defaultValue', 'Starting angle in degrees; use value to control it.'],
+    ['step', 'Snaps the angle to multiples, 1 by default.'],
+    ['onValueChangeEnd', 'Runs once the user releases the thumb.'],
+  ]}
+/>
 
 Start with `AngleSliderDial`, which combines the circular track, the centered value, and the thumb. The track
 fills from the top as the angle grows. `AngleSlider` accepts one angle
@@ -151,12 +164,43 @@ variables and the listed data hooks remain available in both styling tracks.
 
 ### Styling hooks
 
-- Stable `data-slot` selectors include `angle-slider-root`, `angle-slider-root-provider`,
-  `angle-slider-label`, `angle-slider-control`, `angle-slider-thumb`, `angle-slider-marker-group`,
-  `angle-slider-marker`, and `angle-slider-value-text`.
+| Part | `data-slot` |
+| --- | --- |
+| `AngleSlider` | `angle-slider-root` |
+| `AngleSliderLabel` | `angle-slider-label` |
+| `AngleSliderRootProvider` | `angle-slider-root-provider` |
+| `AngleSliderControl` | `angle-slider-control` |
+| `AngleSliderThumb` | `angle-slider-thumb` |
+| `AngleSliderMarkerGroup` | `angle-slider-marker-group` |
+| `AngleSliderMarker` | `angle-slider-marker` |
+| `AngleSliderValueText` | `angle-slider-value-text` |
+
 - Ark part selectors use `data-scope="angle-slider"` and `data-part`.
 - `AngleSliderMarks` renders the same marker hooks as the explicit `AngleSliderMarkerGroup` and `AngleSliderMarker`
   parts.
 - Root variables `--value` and `--angle`, and marker variables `--marker-value` and
   `--marker-display-value`, remain available for styling.
 - Thumb motion is removed when the user prefers reduced motion.
+
+## Keyboard
+
+| Key | Action |
+| --- | --- |
+| `ArrowRight` / `ArrowDown` | Increases the angle by one step. |
+| `ArrowLeft` / `ArrowUp` | Decreases the angle by one step. |
+| `Home` / `End` | Sets the angle to 0 or 360. |
+
+## API reference
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `value` | `number` | — |
+| `defaultValue` | `number` | `0` |
+| `onValueChange` | `(details: ValueChangeDetails) => void` | — |
+| `onValueChangeEnd` | `(details: ValueChangeDetails) => void` | — |
+| `step` | `number` | `1` |
+| `name` | `string` | — |
+| `disabled` | `boolean` | `false` |
+| `readOnly` | `boolean` | `false` |
+| `invalid` | `boolean` | `false` |
+| `required` | `boolean` | `false` |

@@ -1,7 +1,7 @@
 ---
 title: Collapsible
 component: collapsible
-description: Un composant accessible pour déplier ou replier une seule zone de contenu avec React, Solid ou Vue.
+description: Afficher et masquer une zone de contenu avec un déclencheur.
 ark: https://ark-ui.com/docs/components/collapsible
 ---
 
@@ -14,6 +14,19 @@ import * as CollapsibleDocs from '@/components/examples/collapsible/css-properti
 <ComponentInstall />
 
 ## Utilisation
+
+<UsageCode
+  react={'<Collapsible defaultOpen={false} onOpenChange={(details) => track(details.open)}>\n  <CollapsibleTrigger>\n    Recovery keys\n    <CollapsibleIndicator />\n  </CollapsibleTrigger>\n  <CollapsibleContent>\n    <CollapsibleBody>…</CollapsibleBody>\n  </CollapsibleContent>\n</Collapsible>'}
+  vue={'<Collapsible v-model:open="open">\n  <CollapsibleTrigger>\n    Recovery keys\n    <CollapsibleIndicator />\n  </CollapsibleTrigger>\n  <CollapsibleContent>\n    <CollapsibleBody>…</CollapsibleBody>\n  </CollapsibleContent>\n</Collapsible>'}
+/>
+
+<PropChips
+  items={[
+    ['defaultOpen', 'Ouvert au départ ; contrôlez-le avec open et onOpenChange.'],
+    ['collapsedHeight', 'Garde une partie du contenu visible une fois fermé.'],
+    ['disabled', 'Empêche le déclencheur de basculer.'],
+  ]}
+/>
 
 Utilisez `Collapsible` avec `CollapsibleTrigger`, `CollapsibleContent` et, si besoin, `CollapsibleIndicator` pour déplier ou replier une
 seule zone de contenu. Placez le contenu dans `CollapsibleBody` lorsque vous avez besoin du conteneur
@@ -155,8 +168,15 @@ mesurer et animer correctement le contenu.
 
 ### Points d’accroche CSS
 
-- Les parties DOM exposent `data-slot="collapsible-root"`, `collapsible-root-provider`,
-  `collapsible-trigger`, `collapsible-indicator`, `collapsible-content` et `collapsible-body`.
+| Partie | `data-slot` |
+| --- | --- |
+| `Collapsible` | `collapsible-root` |
+| `CollapsibleRootProvider` | `collapsible-root-provider` |
+| `CollapsibleTrigger` | `collapsible-trigger` |
+| `CollapsibleIndicator` | `collapsible-indicator` |
+| `CollapsibleContent` | `collapsible-content` |
+| `CollapsibleBody` | `collapsible-body` |
+
 - Les parties Ark exposent `data-scope="collapsible"` et les valeurs `data-part` de la racine, du
   déclencheur, de l’indicateur et du contenu.
 - Ark ajoute `data-state="open" | "closed"` à la racine, au déclencheur, à l’indicateur et au contenu.
@@ -164,3 +184,23 @@ mesurer et animer correctement le contenu.
 - `data-disabled` marque les parties déclencheur, indicateur et contenu lorsqu’elles sont désactivées.
 - `data-has-collapsed-size` marque le contenu configuré avec `collapsedHeight` ou `collapsedWidth`.
 - L’animation du contenu utilise les variables Ark `--height`, `--width`, `--collapsed-height` et `--collapsed-width`.
+
+## Clavier
+
+| Touche | Action |
+| --- | --- |
+| `Enter` / `Space` | Ouvre ou ferme le contenu depuis le déclencheur. |
+
+## Référence de l’API
+
+| Prop | Type | Défaut |
+| --- | --- | --- |
+| `open` | `boolean` | — |
+| `defaultOpen` | `boolean` | `false` |
+| `onOpenChange` | `(details: OpenChangeDetails) => void` | — |
+| `onExitComplete` | `() => void` | — |
+| `disabled` | `boolean` | `false` |
+| `collapsedHeight` | `number \| string` | — |
+| `collapsedWidth` | `number \| string` | — |
+| `lazyMount` | `boolean` | `false` |
+| `unmountOnExit` | `boolean` | `false` |

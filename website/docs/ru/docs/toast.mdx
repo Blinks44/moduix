@@ -1,7 +1,7 @@
 ---
 title: Toast
 component: toast
-description: Временные уведомления о действиях, изменениях статуса и событиях в интерфейсе.
+description: Короткие уведомления, которые складываются в стопку и скрываются сами.
 ark: https://ark-ui.com/docs/components/toast
 ---
 
@@ -14,6 +14,19 @@ import * as ToastDocs from '@/components/examples/toast/css-properties';
 <ComponentInstall />
 
 ## Использование
+
+<UsageCode
+  react={'const toaster = createToaster({ placement: \'bottom-end\', max: 3 });\n\n<ToastToaster toaster={toaster} />\n\ntoaster.create({\n  title: \'Changes saved\',\n  description: \'Your profile is up to date.\',\n  type: \'success\',\n  duration: 4000,\n});'}
+  vue={'const toaster = createToaster({ placement: \'bottom-end\', max: 3 });\n\n<ToastToaster :toaster="toaster" />\n\ntoaster.create({\n  title: \'Changes saved\',\n  description: \'Your profile is up to date.\',\n  type: \'success\',\n  duration: 4000,\n});'}
+/>
+
+<PropChips
+  items={[
+    ['placement', 'Угол или край экрана, где появляются уведомления.'],
+    ['type', 'success, error, warning, info или loading.'],
+    ['duration', 'Время на экране в мс; Infinity держит до закрытия.'],
+  ]}
+/>
 
 Один раз создайте toaster через `createToaster()`, добавляйте уведомления его методами и выведите
 их с помощью `ToastToaster`.
@@ -146,6 +159,15 @@ CSS Modules также читают четыре переменные ниже; 
 
 ### Хуки стилизации
 
+| Часть | `data-slot` |
+| --- | --- |
+| `ToastToaster` | `toast-toaster` |
+| `Toast` | `toast-root` |
+| `ToastTitle` | `toast-title` |
+| `ToastDescription` | `toast-description` |
+| `ToastActionTrigger` | `toast-action-trigger` |
+| `ToastCloseTrigger` | `toast-close-trigger` |
+
 На корневом элементе задавайте стили поверхности, границы, анимации и вариантов по типу. Для
 внутренней типографики и элементов управления используйте `ToastTitle`, `ToastDescription`,
 `ToastActionTrigger` и `ToastCloseTrigger`.
@@ -160,9 +182,29 @@ CSS Modules также читают четыре переменные ниже; 
 - `[data-scope='toast'][data-part='close-trigger']` на `ToastCloseTrigger`
 - `--x`, `--y`, `--scale`, `--z-index`, `--height`, `--opacity` и `--gap` на `Toast`
 
-Moduix также добавляет стабильные хуки: `data-slot="toast-toaster"`, `data-slot="toast-root"`,
-`data-slot="toast-title"`, `data-slot="toast-description"`, `data-slot="toast-action-trigger"`
-и `data-slot="toast-close-trigger"`.
-
 При ширине окна до `40rem` любое размещение центрируется по горизонтали. Уведомления сохраняют ширину
 `20rem` и сужаются, чтобы поместиться между `offsets` Ark и горизонтальными безопасными зонами экрана.
+
+## Клавиатура
+
+| Клавиша | Действие |
+| --- | --- |
+| `Alt+T` | Переводит фокус в область уведомлений. Меняется опцией hotkey. |
+| `Tab` / `Shift+Tab` | Перемещает между кнопками действий и закрытия. |
+| `Esc` | Закрывает уведомление в фокусе. |
+
+## Справочник API
+
+Опции `createToaster()`. Каждый вызов `toaster.create()` также принимает `title`, `description`, `type`, `duration`, `action` и `closable`.
+
+| Проп | Тип | По умолчанию |
+| --- | --- | --- |
+| `placement` | `'top-start' \| 'top' \| 'top-end' \| 'bottom-start' \| 'bottom' \| 'bottom-end'` | `'bottom'` |
+| `max` | `number` | `24` |
+| `overlap` | `boolean` | `false` |
+| `duration` | `number` | — |
+| `gap` | `number` | `16` |
+| `offsets` | `string \| Record<Side, string>` | — |
+| `hotkey` | `string[]` | `['altKey', 'KeyT']` |
+| `removeDelay` | `number` | `200` |
+| `pauseOnPageIdle` | `boolean` | `true` |

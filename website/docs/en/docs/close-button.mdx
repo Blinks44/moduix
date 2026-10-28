@@ -91,9 +91,12 @@ and `data-slot` hooks are shared by both styling tracks.
 
 ### Styling hooks
 
+| Part | `data-slot` |
+| --- | --- |
+| `CloseButton` | `close-button-root` |
+
 - `data-scope="close-button"` identifies the component family.
 - `data-part="root"` identifies the only exported part.
-- `data-slot="close-button-root"` provides the moduix slot hook.
 - `data-disabled` exposes the normalized `disabled` and `aria-disabled="true"` styling state.
 - `className`/`class` is merged with the component's default styles on the root.
 - For CSS Modules variants, direct child SVG elements use `--moduix-close-button-icon-size` for their width and height.

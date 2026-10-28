@@ -1,7 +1,7 @@
 ---
 title: Bleed
 component: bleed
-description: Компонент для выхода отдельных блоков за границы ограниченного контейнера.
+description: Баннер или картинка выходят за внутренние отступы контейнера.
 ark: https://ark-ui.com/docs/guides/composition#the-ark-factory
 ---
 
@@ -12,6 +12,18 @@ ark: https://ark-ui.com/docs/guides/composition#the-ark-factory
 <ComponentInstall />
 
 ## Использование
+
+<UsageCode
+  react={'<Container>\n  <Text>Article intro</Text>\n  <Bleed inline="full" block="md">\n    <img src={banner.src} alt={banner.alt} />\n  </Bleed>\n</Container>'}
+  vue={'<Container>\n  <Text>Article intro</Text>\n  <Bleed inline="full" block="md">\n    <img src={banner.src} alt={banner.alt} />\n  </Bleed>\n</Container>'}
+/>
+
+<PropChips
+  items={[
+    ['inline', 'Выход по горизонтали: от none до xl или full до краёв окна.'],
+    ['block', 'Выход по вертикали, по умолчанию none.'],
+  ]}
+/>
 
 Значение `inline="full"` по умолчанию позволяет медиаблоку, баннеру или декоративному элементу секции растянуться
 до краёв окна браузера и при этом остаться в обычном потоке документа.
@@ -50,9 +62,6 @@ ark: https://ark-ui.com/docs/guides/composition#the-ark-factory
 Используйте [Container](/docs/container), чтобы сохранить удобную для чтения ширину основного содержимого.
 Размещайте внутри него `Bleed`, если за границы контейнера должен выйти только медиаблок, фон, разделитель или баннер.
 
-Импортируйте `Bleed` из пакета, соответствующего фреймворку и способу стилизации. Для CSS Modules используйте
-`@moduix/react/bleed`, `@moduix/solid/bleed` или `@moduix/vue/bleed`, а для Tailwind -
-`@moduix/react-tailwind/bleed`, `@moduix/solid-tailwind/bleed` или `@moduix/vue-tailwind/bleed`.
 
 `Bleed` отвечает только за визуальное оформление и не владеет состоянием. У него одна корневая часть, поэтому
 дополнительные части не нужно согласовывать. По умолчанию `inline` равен
@@ -96,7 +105,19 @@ Bleed
 
 ### Хуки стилизации
 
+| Часть | `data-slot` |
+| --- | --- |
+| `Bleed` | `bleed-root` |
+
 - `data-scope="bleed"` и `data-part="root"` служат хуками стилизации, согласованными с Ark, на экспортируемом корневом элементе.
-- `data-slot="bleed-root"` - стабильный селектор moduix на экспортируемом корневом элементе.
 - `data-inline` показывает текущий режим выхода по строчной оси: `none`, `xs`, `sm`, `md`, `lg`, `xl` или `full`.
 - `data-block` показывает текущий режим выхода по блочной оси: `none`, `xs`, `sm`, `md`, `lg` или `xl`.
+
+## Справочник API
+
+Также принимает нативные пропсы своего элемента и `asChild`.
+
+| Проп | Тип | По умолчанию |
+| --- | --- | --- |
+| `inline` | `'none' \| 'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl' \| 'full'` | `'full'` |
+| `block` | `'none' \| 'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'` | `'none'` |

@@ -1,7 +1,7 @@
 ---
 title: Field
 component: field
-description: Доступный контекст поля формы для React, Solid и Vue с вариантами пакетов CSS Modules и Tailwind.
+description: Связывает подпись, подсказку и ошибку с одним полем формы.
 ark: https://ark-ui.com/docs/components/field
 ---
 
@@ -12,6 +12,19 @@ ark: https://ark-ui.com/docs/components/field
 <ComponentInstall />
 
 ## Использование
+
+<UsageCode
+  react={'<Field invalid={!!error} required>\n  <FieldLabel>\n    Email\n    <FieldRequiredIndicator />\n  </FieldLabel>\n  <Input type="email" name="email" />\n  <FieldHelperText>We never share your email.</FieldHelperText>\n  <FieldErrorText>{error}</FieldErrorText>\n</Field>'}
+  vue={'<Field :invalid="!!error" required>\n  <FieldLabel>\n    Email\n    <FieldRequiredIndicator />\n  </FieldLabel>\n  <Input type="email" name="email" />\n  <FieldHelperText>We never share your email.</FieldHelperText>\n  <FieldErrorText>{{ error }}</FieldErrorText>\n</Field>'}
+/>
+
+<PropChips
+  items={[
+    ['invalid', 'Показывает FieldErrorText и помечает поле как ошибочное.'],
+    ['required', 'Делает поле обязательным и показывает индикатор.'],
+    ['disabled / readOnly', 'Передаются полю внутри.'],
+  ]}
+/>
 
 Используйте `Field` как оболочку для одного элемента управления формы. Разместите `FieldLabel` перед
 ним, а затем при необходимости добавьте `FieldHelperText` или `FieldErrorText`.
@@ -160,8 +173,27 @@ FieldRootProvider
 
 ### Хуки стилизации
 
+| Часть | `data-slot` |
+| --- | --- |
+| `Field` | `field-root` |
+| `FieldRootProvider` | `field-root-provider` |
+| `FieldItem` | `field-item` |
+| `FieldLabel` | `field-label` |
+| `FieldHelperText` | `field-helper-text` |
+| `FieldErrorText` | `field-error-text` |
+| `FieldRequiredIndicator` | `field-required-indicator` |
+
 Ark добавляет `data-disabled`, `data-invalid`, `data-readonly` и `data-required` к соответствующим
-частям. `FieldErrorText` существует только пока текущий контекст поля находится в состоянии `invalid`.
-Идентификаторы поясняющего текста и активного сообщения об ошибке входят в `aria-describedby`
+частям. `FieldErrorText` существует только пока текущий контекст поля находится в состоянии `invalid`. Идентификаторы поясняющего текста и активного сообщения об ошибке входят в `aria-describedby`
 элемента управления. У каждой DOM-части также есть стабильный хук
 `data-slot="field-*"`.
+
+## Справочник API
+
+| Проп | Тип | По умолчанию |
+| --- | --- | --- |
+| `disabled` | `boolean` | `false` |
+| `readOnly` | `boolean` | `false` |
+| `invalid` | `boolean` | `false` |
+| `required` | `boolean` | `false` |
+| `asChild` | `boolean` | `false` |

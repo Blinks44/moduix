@@ -1,7 +1,7 @@
 ---
 title: Command Palette
 component: command-palette
-description: A searchable command menu in a dialog, with keyboard shortcuts for quick access.
+description: Search and run commands from a dialog opened by a button or shortcut.
 ark: https://ark-ui.com/docs/components/dialog
 ---
 
@@ -14,6 +14,20 @@ import * as CommandPaletteDocs from '@/components/examples/command-palette/css-p
 <ComponentInstall />
 
 ## Usage
+
+<UsageCode
+  react={'<CommandPalette shortcut="mod+k" aria-label="Command palette">\n  <CommandPalettePanel>\n    <CommandPaletteCombobox collection={collection} onInputValueChange={(d) => filter(d.inputValue)}>\n      <CommandPaletteSearch placeholder="Search commands..." />\n      <CommandPaletteList>\n        <CommandPaletteEmpty>No commands found.</CommandPaletteEmpty>\n        {collection.items.map((item) => (\n          <CommandPaletteItem key={item.id} item={item}>\n            <CommandPaletteItemLabel>{item.label}</CommandPaletteItemLabel>\n          </CommandPaletteItem>\n        ))}\n      </CommandPaletteList>\n    </CommandPaletteCombobox>\n  </CommandPalettePanel>\n</CommandPalette>'}
+  solid={'<CommandPalette shortcut="mod+k" aria-label="Command palette">\n  <CommandPalettePanel>\n    <CommandPaletteCombobox collection={collection} onInputValueChange={(d) => filter(d.inputValue)}>\n      <CommandPaletteSearch placeholder="Search commands..." />\n      <CommandPaletteList>\n        <CommandPaletteEmpty>No commands found.</CommandPaletteEmpty>\n        <For each={collection.items}>\n          {(item) => (\n            <CommandPaletteItem item={item}>\n              <CommandPaletteItemLabel>{item.label}</CommandPaletteItemLabel>\n            </CommandPaletteItem>\n          )}\n        </For>\n      </CommandPaletteList>\n    </CommandPaletteCombobox>\n  </CommandPalettePanel>\n</CommandPalette>'}
+  vue={'<CommandPalette shortcut="mod+k" aria-label="Command palette">\n  <CommandPalettePanel>\n    <CommandPaletteCombobox :collection="collection" @input-value-change="(d) => filter(d.inputValue)">\n      <CommandPaletteSearch placeholder="Search commands..." />\n      <CommandPaletteList>\n        <CommandPaletteEmpty>No commands found.</CommandPaletteEmpty>\n        <CommandPaletteItem v-for="item in collection.items" :key="item.id" :item="item">\n          <CommandPaletteItemLabel>{{ item.label }}</CommandPaletteItemLabel>\n        </CommandPaletteItem>\n      </CommandPaletteList>\n    </CommandPaletteCombobox>\n  </CommandPalettePanel>\n</CommandPalette>'}
+/>
+
+<PropChips
+  items={[
+    ['shortcut', 'Global hotkey that toggles the palette, off by default.'],
+    ['collection', 'Items to search, from createListCollection().'],
+    ['onInputValueChange', 'Runs on each keystroke; filter the collection here.'],
+  ]}
+/>
 
 Use `CommandPalettePanel` for the standard dialog layout. It renders the backdrop, positioner, and
 content for you. Add `CommandPaletteCombobox` inside it, pass a collection, and render the filtered
@@ -145,8 +159,60 @@ visible scrollbar track.
 
 ### Styling hooks
 
-- Exported parts expose stable `data-slot` hooks, including `command-palette-trigger`, `command-palette-backdrop`, `command-palette-positioner`, `command-palette-content`, `command-palette-title`, `command-palette-description`, `command-palette-header`, `command-palette-combobox`, `command-palette-control`, `command-palette-input`, `command-palette-clear-trigger`, `command-palette-list`, `command-palette-empty`, `command-palette-item-group`, `command-palette-item-group-label`, `command-palette-item`, `command-palette-item-text`, `command-palette-item-indicator`, `command-palette-item-icon`, `command-palette-item-label`, `command-palette-item-description`, `command-palette-item-meta`, `command-palette-separator`, `command-palette-footer`, and `command-palette-kbd`.
+| Part | `data-slot` |
+| --- | --- |
+| `CommandPaletteTrigger` | `command-palette-trigger` |
+| `CommandPaletteBackdrop` | `command-palette-backdrop` |
+| `CommandPalettePositioner` | `command-palette-positioner` |
+| `CommandPaletteContent` | `command-palette-content` |
+| `CommandPaletteTitle` | `command-palette-title` |
+| `CommandPaletteDescription` | `command-palette-description` |
+| `CommandPaletteHeader` | `command-palette-header` |
+| `CommandPaletteCombobox` | `command-palette-combobox` |
+| `CommandPaletteControl` | `command-palette-control` |
+| `CommandPaletteInput` | `command-palette-input` |
+| `CommandPaletteSearch`, inner element | `command-palette-search-icon` |
+| `CommandPaletteClearTrigger` | `command-palette-clear-trigger` |
+| `CommandPaletteList` | `command-palette-list` |
+| `CommandPaletteEmpty` | `command-palette-empty` |
+| `CommandPaletteItemGroup` | `command-palette-item-group` |
+| `CommandPaletteItemGroupLabel` | `command-palette-item-group-label` |
+| `CommandPaletteItem` | `command-palette-item` |
+| `CommandPaletteItemText` | `command-palette-item-text` |
+| `CommandPaletteItemIndicator` | `command-palette-item-indicator` |
+| `CommandPaletteItemIcon` | `command-palette-item-icon` |
+| `CommandPaletteItemLabel` | `command-palette-item-label` |
+| `CommandPaletteItemDescription` | `command-palette-item-description` |
+| `CommandPaletteItemMeta` | `command-palette-item-meta` |
+| `CommandPaletteSeparator` | `command-palette-separator` |
+| `CommandPaletteFooter` | `command-palette-footer` |
+| `CommandPaletteKbd` | `command-palette-kbd` |
+
 - `CommandPaletteList` renders a `ScrollArea`, so the scroll parts keep the `scroll-area-root`, `scroll-area-viewport`, and `scroll-area-content` hooks; target them under `[data-slot='command-palette-list']`.
 - Ark Dialog state hooks include `data-scope="dialog"`, `data-part`, and `data-state="open" | "closed"` on dialog parts such as the trigger, backdrop, and content.
 - Ark Combobox state hooks include `data-scope="combobox"`, `data-part`, `data-state`, `data-highlighted`, `data-disabled`, `data-invalid`, and `data-empty` where applicable.
 - Motion is tied to Ark `data-state`. Legacy `data-starting-style`, `data-ending-style`, and `data-open` attributes are not part of the command-palette contract.
+
+## Keyboard
+
+| Key | Action |
+| --- | --- |
+| `shortcut` | Opens or closes the palette when the prop is set, for example `mod+k`. |
+| `ArrowDown` / `ArrowUp` | Highlights the next or previous command. |
+| `Home` / `End` | Highlights the first or last command. |
+| `Enter` | Runs the highlighted command. |
+| `Esc` | Closes the palette. |
+
+## API reference
+
+Props of `CommandPalette`. It also takes the dialog props `open`, `defaultOpen`, and `onOpenChange`; search props such as `collection` and `onInputValueChange` go on `CommandPaletteCombobox`.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `shortcut` | `false \| string` | `false` |
+| `open` | `boolean` | — |
+| `defaultOpen` | `boolean` | `false` |
+| `onOpenChange` | `(details: OpenChangeDetails) => void` | — |
+| `lazyMount` | `boolean` | `true` |
+| `unmountOnExit` | `boolean` | `true` |
+| `portalled` | `boolean` | `true` |

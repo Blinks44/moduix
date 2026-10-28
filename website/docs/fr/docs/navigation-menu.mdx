@@ -1,7 +1,7 @@
 ---
 title: Navigation Menu
 component: navigation-menu
-description: Barre de navigation pour les liens directs et les panneaux dépliables, avec la possibilité d’utiliser une zone `NavigationMenuViewport` partagée pour les transitions animées.
+description: Créer un en-tête où les éléments mènent à un lien ou ouvrent un panneau.
 ark: https://ark-ui.com/docs/components/navigation-menu
 ---
 
@@ -15,10 +15,18 @@ import * as NavigationMenuDocs from '@/components/examples/navigation-menu/css-p
 
 ## Utilisation
 
-Importez-le depuis le sous-chemin du package adapté : `@moduix/react/navigation-menu`,
-`@moduix/solid/navigation-menu`, `@moduix/vue/navigation-menu`,
-`@moduix/react-tailwind/navigation-menu`, `@moduix/solid-tailwind/navigation-menu` ou
-`@moduix/vue-tailwind/navigation-menu`.
+<UsageCode
+  react={'<NavigationMenu openDelay={200} closeDelay={300}>\n  <NavigationMenuList>\n    <NavigationMenuItem value="home">\n      <NavigationMenuLink href="/">Home</NavigationMenuLink>\n    </NavigationMenuItem>\n    <NavigationMenuItem value="products">\n      <NavigationMenuTrigger>Products</NavigationMenuTrigger>\n      <NavigationMenuContent>\n        <NavigationMenuLink href="/analytics">Analytics</NavigationMenuLink>\n      </NavigationMenuContent>\n    </NavigationMenuItem>\n  </NavigationMenuList>\n</NavigationMenu>'}
+  vue={'<NavigationMenu :open-delay="200" :close-delay="300">\n  <NavigationMenuList>\n    <NavigationMenuItem value="home">\n      <NavigationMenuLink href="/">Home</NavigationMenuLink>\n    </NavigationMenuItem>\n    <NavigationMenuItem value="products">\n      <NavigationMenuTrigger>Products</NavigationMenuTrigger>\n      <NavigationMenuContent>\n        <NavigationMenuLink href="/analytics">Analytics</NavigationMenuLink>\n      </NavigationMenuContent>\n    </NavigationMenuItem>\n  </NavigationMenuList>\n</NavigationMenu>'}
+/>
+
+<PropChips
+  items={[
+    ['value', 'Identifiant unique de chaque NavigationMenuItem.'],
+    ['openDelay / closeDelay', 'Délais de survol en ms avant l’ouverture ou la fermeture.'],
+    ['disableHoverTrigger', 'Ouvre les panneaux au clic uniquement.'],
+  ]}
+/>
 
 Utilisez `NavigationMenu` avec `NavigationMenuList` et `NavigationMenuItem`. Attribuez une valeur
 `value` unique à chaque élément. Pour un groupe de liens, placez `NavigationMenuTrigger` et
@@ -127,6 +135,21 @@ aux deux modes de style.
 
 ### Points d’accroche CSS
 
+| Partie | `data-slot` |
+| --- | --- |
+| `NavigationMenu` | `navigation-menu-root` |
+| `NavigationMenuRootProvider` | `navigation-menu-root-provider` |
+| `NavigationMenuList` | `navigation-menu-list` |
+| `NavigationMenuItem` | `navigation-menu-item` |
+| `NavigationMenuTrigger` | `navigation-menu-trigger` |
+| `NavigationMenuContent` | `navigation-menu-content` |
+| `NavigationMenuLink` | `navigation-menu-link` |
+| `NavigationMenuIndicator` | `navigation-menu-indicator` |
+| `NavigationMenuItemIndicator` | `navigation-menu-item-indicator` |
+| `NavigationMenuArrow` | `navigation-menu-arrow` |
+| `NavigationMenuViewportPositioner` | `navigation-menu-viewport-positioner` |
+| `NavigationMenuViewport` | `navigation-menu-viewport` |
+
 Ciblez la partie responsable de l’aspect que vous souhaitez modifier :
 
 - `NavigationMenu` pour la largeur de la racine, la couleur du texte et sa position dans la mise en page
@@ -136,15 +159,28 @@ Ciblez la partie responsable de l’aspect que vous souhaitez modifier :
 - `NavigationMenuIndicator` et `NavigationMenuItemIndicator` pour les décorations facultatives de l’état actif ; utilisez `NavigationMenuArrow` avec une zone `NavigationMenuViewport` partagée
 - `NavigationMenuViewportPositioner` et `NavigationMenuViewport` pour une zone de panneau partagée et animée
 
-Les principaux points d’accroche publics sont `data-slot="navigation-menu-root"`,
-`data-slot="navigation-menu-root-provider"`, `data-slot="navigation-menu-list"`,
-`data-slot="navigation-menu-item"`, `data-slot="navigation-menu-trigger"`,
-`data-slot="navigation-menu-content"`, `data-slot="navigation-menu-link"`,
-`data-slot="navigation-menu-indicator"`, `data-slot="navigation-menu-item-indicator"`,
-`data-slot="navigation-menu-arrow"`, `data-slot="navigation-menu-viewport-positioner"` et
-`data-slot="navigation-menu-viewport"`.
-
 Parmi les attributs Ark utiles figurent `data-scope="navigation-menu"`, `data-part`, `data-state`,
 `data-current`, `data-disabled`, `data-orientation` et `data-motion`. À l’exécution, Ark définit les
 variables `--trigger-x`, `--trigger-y`, `--trigger-width`, `--trigger-height`, `--viewport-x`,
 `--viewport-y`, `--viewport-width` et `--viewport-height`.
+
+## Clavier
+
+| Touche | Action |
+| --- | --- |
+| `Tab` / `Shift+Tab` | Passe d’un déclencheur ou lien de premier niveau à l’autre. |
+| `Enter` / `Space` | Ouvre ou ferme le panneau du déclencheur ayant le focus. |
+| `Esc` | Ferme le panneau ouvert et rend le focus à son déclencheur. |
+
+## Référence de l’API
+
+| Prop | Type | Défaut |
+| --- | --- | --- |
+| `value` | `string` | — |
+| `defaultValue` | `string` | — |
+| `onValueChange` | `(details: ValueChangeDetails) => void` | — |
+| `openDelay` | `number` | `200` |
+| `closeDelay` | `number` | `300` |
+| `disableClickTrigger` | `boolean` | `false` |
+| `disableHoverTrigger` | `boolean` | `false` |
+| `disablePointerLeaveClose` | `boolean` | `false` |

@@ -1,7 +1,7 @@
 ---
 title: Splitter
 component: splitter
-description: Créez des mises en page redimensionnables et accessibles en React, Solid ou Vue avec des options d'installation par package et shadcn.
+description: Diviser une mise en page en panneaux redimensionnables par une poignée.
 ark: https://ark-ui.com/docs/components/splitter
 ---
 
@@ -15,6 +15,19 @@ import { splitterOverrideCssProperties } from '@/components/examples/splitter/cs
 <ComponentInstall />
 
 ## Utilisation
+
+<UsageCode
+  react={'<Splitter\n  panels={[{ id: \'a\', minSize: 20 }, { id: \'b\', collapsible: true }]}\n  defaultSize={[40, 60]}\n>\n  <SplitterPanel id="a">Files</SplitterPanel>\n  <SplitterResizeTrigger id="a:b" aria-label="Resize panels" />\n  <SplitterPanel id="b">Editor</SplitterPanel>\n</Splitter>'}
+  vue={'<Splitter\n  :panels="[{ id: \'a\', minSize: 20 }, { id: \'b\', collapsible: true }]"\n  :default-size="[40, 60]"\n>\n  <SplitterPanel id="a">Files</SplitterPanel>\n  <SplitterResizeTrigger id="a:b" aria-label="Resize panels" />\n  <SplitterPanel id="b">Editor</SplitterPanel>\n</Splitter>'}
+/>
+
+<PropChips
+  items={[
+    ['panels', 'Ids des panneaux avec minSize, maxSize et collapsible.'],
+    ['defaultSize', 'Tailles initiales en pourcentage, dans l’ordre.'],
+    ['orientation', 'Division horizontale ou verticale.'],
+  ]}
+/>
 
 Construisez un splitter avec `Splitter`, `SplitterPanel` et `SplitterResizeTrigger`. La prop
 `panels` contient les identifiants des panneaux et leurs contraintes de taille. Chaque
@@ -135,11 +148,17 @@ variantes CSS Modules les exposent avec les variables ci-dessous.
 
 <CssPropertiesSection properties={splitterOverrideCssProperties} />
 
-### Points d'accroche pour les styles
+### Points d’accroche CSS
 
-Ark écrit `data-scope="splitter"` et `data-part` sur les parties rendues. moduix ajoute également les
-valeurs `data-slot` suivantes : `splitter-root`, `splitter-root-provider`, `splitter-panel`,
-`splitter-resize-trigger` et `splitter-resize-trigger-indicator`.
+| Partie | `data-slot` |
+| --- | --- |
+| `Splitter` | `splitter-root` |
+| `SplitterRootProvider` | `splitter-root-provider` |
+| `SplitterPanel` | `splitter-panel` |
+| `SplitterResizeTriggerIndicator` | `splitter-resize-trigger-indicator` |
+| `SplitterResizeTrigger` | `splitter-resize-trigger` |
+
+Ark écrit `data-scope="splitter"` et `data-part` sur les parties rendues.
 
 Les attributs utiles selon les parties sont notamment `data-id` et `data-index` sur les panneaux, ainsi
 que `data-orientation`, `data-dragging`, `data-focus` et `data-disabled` sur les éléments concernés.
@@ -154,3 +173,27 @@ clavier.
 
 Ark expose l'état avec des attributs tels que `data-orientation`, `data-dragging`, `data-focus` et
 `data-disabled`. Utilisez-les pour styliser les états d'interaction.
+
+## Clavier
+
+| Touche | Action |
+| --- | --- |
+| `ArrowLeft` / `ArrowRight` | Redimensionne les panneaux depuis la poignée ; ArrowUp et ArrowDown en vertical. |
+| `Home` / `End` | Amène la poignée à son minimum ou maximum. |
+| `Enter` | Réduit ou développe un panneau repliable. |
+| `F6` | Passe à la poignée suivante. |
+
+## Référence de l’API
+
+| Prop | Type | Défaut |
+| --- | --- | --- |
+| `panels` | `PanelData[]` | — |
+| `size` | `PanelSize[]` | — |
+| `defaultSize` | `PanelSize[]` | — |
+| `orientation` | `'horizontal' \| 'vertical'` | `'horizontal'` |
+| `onResize` | `(details: ResizeDetails) => void` | — |
+| `onResizeStart` | `() => void` | — |
+| `onResizeEnd` | `(details: ResizeEndDetails) => void` | — |
+| `onCollapse` | `(details: ExpandCollapseDetails) => void` | — |
+| `onExpand` | `(details: ExpandCollapseDetails) => void` | — |
+| `keyboardResizeBy` | `number \| null` | — |

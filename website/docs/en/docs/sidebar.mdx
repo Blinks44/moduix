@@ -1,7 +1,7 @@
 ---
 title: Sidebar
 component: sidebar
-description: Resizable and collapsible application navigation built on the Ark UI Splitter.
+description: Build app navigation that resizes and collapses to icons.
 ark: https://ark-ui.com/docs/components/splitter
 ---
 
@@ -14,6 +14,20 @@ import { sidebarOverrideCssProperties } from '@/components/examples/sidebar/css-
 <ComponentInstall />
 
 ## Usage
+
+<UsageCode
+  react={'<Sidebar side="left" defaultSize={[\'16rem\']}>\n  <SidebarPanel>\n    <SidebarContent>\n      <SidebarNavigationList>\n        <SidebarNavigationItem>\n          <SidebarNavigationButton asChild active>\n            <a href="/overview">Overview</a>\n          </SidebarNavigationButton>\n        </SidebarNavigationItem>\n      </SidebarNavigationList>\n    </SidebarContent>\n  </SidebarPanel>\n  <SidebarResizeTrigger aria-label="Resize sidebar" />\n  <SidebarInset>…</SidebarInset>\n</Sidebar>'}
+  solid={'<Sidebar side="left" defaultSize={[\'16rem\']}>\n  <SidebarPanel>\n    <SidebarContent>\n      <SidebarNavigationList>\n        <SidebarNavigationItem>\n          <SidebarNavigationButton asChild={(props) => (\n            <a href="/overview" {...props()}>Overview</a>\n          )} active />\n        </SidebarNavigationItem>\n      </SidebarNavigationList>\n    </SidebarContent>\n  </SidebarPanel>\n  <SidebarResizeTrigger aria-label="Resize sidebar" />\n  <SidebarInset>…</SidebarInset>\n</Sidebar>'}
+  vue={'<Sidebar side="left" :default-size="[\'16rem\']">\n  <SidebarPanel>\n    <SidebarContent>\n      <SidebarNavigationList>\n        <SidebarNavigationItem>\n          <SidebarNavigationButton as-child active>\n            <a href="/overview">Overview</a>\n          </SidebarNavigationButton>\n        </SidebarNavigationItem>\n      </SidebarNavigationList>\n    </SidebarContent>\n  </SidebarPanel>\n  <SidebarResizeTrigger aria-label="Resize sidebar" />\n  <SidebarInset>…</SidebarInset>\n</Sidebar>'}
+/>
+
+<PropChips
+  items={[
+    ['side', 'left or right edge of the layout.'],
+    ['defaultSize', 'Starting panel sizes; the sidebar is 16rem by default.'],
+    ['active', 'On SidebarNavigationButton: marks the current page.'],
+  ]}
+/>
 
 Compose the navigation panel, resize handle, and main content panel as direct children of the root.
 The default ids and constraints cover the usual left-sidebar layout. Wrap icon-only navigation
@@ -184,7 +198,55 @@ truncate and leave the collapsed rail.
 
 ### Styling hooks
 
+| Part | `data-slot` |
+| --- | --- |
+| `Sidebar` | `sidebar-root` |
+| `SidebarPanel` | `sidebar-panel` |
+| `SidebarInset` | `sidebar-inset` |
+| `SidebarResizeTrigger` | `sidebar-resize-trigger` |
+| `SidebarTrigger` | `sidebar-trigger` |
+| `SidebarLabel` | `sidebar-label` |
+| `SidebarHeader` | `sidebar-header` |
+| `SidebarContent` | `sidebar-content` |
+| `SidebarExpandedContent` | `sidebar-expanded-content` |
+| `SidebarCollapsedContent` | `sidebar-collapsed-content` |
+| `SidebarFooter` | `sidebar-footer` |
+| `SidebarGroup` | `sidebar-group` |
+| `SidebarGroupLabel` | `sidebar-group-label` |
+| `SidebarGroupHeader` | `sidebar-group-header` |
+| `SidebarGroupAction` | `sidebar-group-action` |
+| `SidebarNavigationList` | `sidebar-navigation-list` |
+| `SidebarNavigationItem` | `sidebar-navigation-item` |
+| `SidebarNavigationButton` | `sidebar-navigation-button` |
+| `SidebarNavigationBadge` | `sidebar-navigation-badge` |
+| `SidebarNavigationSubList` | `sidebar-navigation-sub-list` |
+| `SidebarNavigationSubItem` | `sidebar-navigation-sub-item` |
+| `SidebarNavigationSubButton` | `sidebar-navigation-sub-button` |
+
 Sidebar shell parts also expose `data-scope="sidebar"` and `data-part`. `SidebarInput` and
 `SidebarSeparator` retain the scopes of their underlying primitives, while Ark-backed layout parts
 retain Splitter state attributes such as `data-focus`, `data-dragging`, `data-disabled`, and
 `data-orientation`.
+
+## Keyboard
+
+| Key | Action |
+| --- | --- |
+| `ArrowLeft` / `ArrowRight` | Resizes the panels from the focused handle; ArrowUp and ArrowDown when vertical. |
+| `Home` / `End` | Moves the handle to its minimum or maximum. |
+| `Enter` | Collapses or expands a collapsible panel. |
+| `F6` | Moves focus to the next resize handle. |
+
+## API reference
+
+`Sidebar` also takes the `Splitter` props except `orientation` and `panels`; the sidebar panel is 3rem to 18rem and collapses to 3rem.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `side` | `'left' \| 'right'` | `'left'` |
+| `panelId` | `string` | `'sidebar'` |
+| `defaultSize` | `PanelSize[]` | `['16rem']` |
+| `size` | `PanelSize[]` | — |
+| `onResize` | `(details: ResizeDetails) => void` | — |
+| `onCollapse` | `(details: ExpandCollapseDetails) => void` | — |
+| `onExpand` | `(details: ExpandCollapseDetails) => void` | — |

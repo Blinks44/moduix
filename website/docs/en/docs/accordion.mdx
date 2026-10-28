@@ -1,7 +1,7 @@
 ---
 title: Accordion
 component: accordion
-description: Build accessible accordions in React, Solid, or Vue with package and shadcn installation options.
+description: Stack sections that open and close to show related content.
 ark: https://ark-ui.com/docs/components/accordion
 ---
 
@@ -14,6 +14,19 @@ import * as AccordionDocs from '@/components/examples/accordion/css-properties';
 <ComponentInstall />
 
 ## Usage
+
+<UsageCode
+  react={'<Accordion defaultValue={[\'billing\']} multiple collapsible>\n  <AccordionItem value="billing">\n    <h3>\n      <AccordionItemTrigger>\n        Billing\n        <AccordionItemIndicator />\n      </AccordionItemTrigger>\n    </h3>\n    <AccordionItemContent>\n      <AccordionItemBody>Invoices and payment methods.</AccordionItemBody>\n    </AccordionItemContent>\n  </AccordionItem>\n</Accordion>'}
+  vue={'<Accordion :default-value="[\'billing\']" multiple collapsible>\n  <AccordionItem value="billing">\n    <h3>\n      <AccordionItemTrigger>\n        Billing\n        <AccordionItemIndicator />\n      </AccordionItemTrigger>\n    </h3>\n    <AccordionItemContent>\n      <AccordionItemBody>Invoices and payment methods.</AccordionItemBody>\n    </AccordionItemContent>\n  </AccordionItem>\n</Accordion>'}
+/>
+
+<PropChips
+  items={[
+    ['defaultValue', 'Items open on first render, as an array of values.'],
+    ['multiple', 'Lets several items stay open at once.'],
+    ['collapsible', 'Lets the only open item close again.'],
+  ]}
+/>
 
 Use `Accordion` as the root and give every item a stable `value`. Put the interactive label in the
 item trigger, the panel in the item content, and the panel's inner content in the item body. The
@@ -137,12 +150,41 @@ and animate the panel correctly.
 
 ### Styling hooks
 
-- Stable `data-slot` selectors: `accordion-root`, `accordion-root-provider`, `accordion-item`,
-  `accordion-item-trigger`, `accordion-item-indicator`, `accordion-item-content`, and
-  `accordion-item-body`.
+| Part | `data-slot` |
+| --- | --- |
+| `Accordion` | `accordion-root` |
+| `AccordionRootProvider` | `accordion-root-provider` |
+| `AccordionItem` | `accordion-item` |
+| `AccordionItemTrigger` | `accordion-item-trigger` |
+| `AccordionItemIndicator` | `accordion-item-indicator` |
+| `AccordionItemContent` | `accordion-item-content` |
+| `AccordionItemBody` | `accordion-item-body` |
+
 - Ark part selectors: `data-scope="accordion"` and
   `data-part="root|item|item-trigger|item-indicator|item-content"`.
 - moduix-specific selector: `data-part="item-body"` on the item body part.
 - Ark state selectors: `data-state="open|closed"`, `data-disabled`, `data-focus`, `data-controls`,
   and `data-orientation="horizontal|vertical"`.
 - Ark content variables: `--height` for vertical animation and `--width` for horizontal animation.
+
+## Keyboard
+
+| Key | Action |
+| --- | --- |
+| `Enter` / `Space` | Opens or closes the focused item. |
+| `ArrowDown` / `ArrowUp` | Moves focus to the next or previous trigger. |
+| `Home` / `End` | Moves focus to the first or last trigger. |
+
+## API reference
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `value` | `string[]` | — |
+| `defaultValue` | `string[]` | — |
+| `onValueChange` | `(details: ValueChangeDetails) => void` | — |
+| `multiple` | `boolean` | `false` |
+| `collapsible` | `boolean` | `false` |
+| `disabled` | `boolean` | `false` |
+| `orientation` | `'horizontal' \| 'vertical'` | `'vertical'` |
+| `lazyMount` | `boolean` | `false` |
+| `unmountOnExit` | `boolean` | `false` |

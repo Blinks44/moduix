@@ -1,7 +1,7 @@
 ---
 title: Signature Pad
 component: signature-pad
-description: Un composant qui permet de capturer une signature manuscrite au pointeur ou au toucher.
+description: Capturer une signature manuscrite à la souris, au stylet ou au doigt.
 ark: https://ark-ui.com/docs/components/signature-pad
 ---
 
@@ -14,6 +14,19 @@ import * as SignaturePadDocs from '@/components/examples/signature-pad/css-prope
 <ComponentInstall />
 
 ## Utilisation
+
+<UsageCode
+  react={'<SignaturePad name="signature" drawing={{ size: 3 }} onDrawEnd={(details) => details.getDataUrl(\'image/png\').then(save)}>\n  <SignaturePadLabel>Sign below</SignaturePadLabel>\n  <SignaturePadCanvas />\n  <SignaturePadHiddenInput />\n</SignaturePad>'}
+  vue={'<SignaturePad name="signature" :drawing="{ size: 3 }" @draw-end="(details) => details.getDataUrl(\'image/png\').then(save)">\n  <SignaturePadLabel>Sign below</SignaturePadLabel>\n  <SignaturePadCanvas />\n  <SignaturePadHiddenInput />\n</SignaturePad>'}
+/>
+
+<PropChips
+  items={[
+    ['drawing', 'Options du trait, comme size et fill.'],
+    ['onDrawEnd', 'Appelé après chaque trait ; getDataUrl() renvoie une image.'],
+    ['name', 'Envoie les tracés avec le formulaire via le champ caché.'],
+  ]}
+/>
 
 Pour la plupart des cas, commencez avec `SignaturePadCanvas`. Il fournit la surface de dessin
 standard avec les parties Ark `SignaturePadControl`, `SignaturePadSegment`, `SignaturePadClearTrigger`
@@ -134,6 +147,16 @@ SignaturePadRootProvider
 
 ### Points d’accroche CSS
 
+| Partie | `data-slot` |
+| --- | --- |
+| `SignaturePad` | `signature-pad-root` |
+| `SignaturePadRootProvider` | `signature-pad-root-provider` |
+| `SignaturePadLabel` | `signature-pad-label` |
+| `SignaturePadControl` | `signature-pad-control` |
+| `SignaturePadSegment` | `signature-pad-segment` |
+| `SignaturePadGuide` | `signature-pad-guide` |
+| `SignaturePadClearTrigger` | `signature-pad-clear-trigger` |
+
 Utilisez `className` dans React ou `class` dans Solid et Vue sur toute partie exportée pour appliquer des
 styles locaux. moduix ajoute également des attributs `data-slot` stables :
 
@@ -152,3 +175,17 @@ Les attributs Ark restent disponibles pour cibler les styles. `SignaturePad`, `S
 tracés internes du segment fournissent `data-scope="signature-pad"`
 et `data-part` ; `data-disabled` apparaît sur la racine, le libellé, la zone de dessin et la ligne
 repère, tandis que `data-required` apparaît sur le libellé.
+
+## Référence de l’API
+
+| Prop | Type | Défaut |
+| --- | --- | --- |
+| `paths` | `string[]` | — |
+| `defaultPaths` | `string[]` | — |
+| `onDraw` | `(details: DrawDetails) => void` | — |
+| `onDrawEnd` | `(details: DrawEndDetails) => void` | — |
+| `drawing` | `DrawingOptions` | — |
+| `name` | `string` | — |
+| `disabled` | `boolean` | `false` |
+| `readOnly` | `boolean` | `false` |
+| `required` | `boolean` | `false` |

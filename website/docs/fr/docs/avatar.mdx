@@ -1,7 +1,7 @@
 ---
 title: Avatar
 component: avatar
-description: Une représentation compacte d’un utilisateur ou d’une entité. Ark UI gère le chargement de l’image et l’affichage du contenu de remplacement.
+description: Afficher la photo d’un utilisateur, avec ses initiales en attendant.
 ark: https://ark-ui.com/docs/components/avatar
 ---
 
@@ -14,6 +14,19 @@ import * as AvatarDocs from '@/components/examples/avatar/css-properties';
 <ComponentInstall />
 
 ## Utilisation
+
+<UsageCode
+  react={'<Avatar size="lg" onStatusChange={(details) => log(details.status)}>\n  <AvatarFallback>AT</AvatarFallback>\n  <AvatarImage src={user.photo} alt={user.name} />\n</Avatar>'}
+  vue={'<Avatar size="lg" @status-change="(details) => log(details.status)">\n  <AvatarFallback>AT</AvatarFallback>\n  <AvatarImage :src="user.photo" :alt="user.name" />\n</Avatar>'}
+/>
+
+<PropChips
+  items={[
+    ['size', 'De xs à xl, md par défaut.'],
+    ['AvatarFallback', 'Initiales ou icône affichées avant le chargement.'],
+    ['onStatusChange', 'Signale loading, loaded ou error.'],
+  ]}
+/>
 
 Utilisez `Avatar`, `AvatarFallback` et `AvatarImage` ensemble. Gardez `AvatarFallback` dans l’arbre
 pour qu’Ark UI puisse basculer entre le contenu de remplacement et l’image lorsque l’état de chargement change.
@@ -123,11 +136,25 @@ données fournis par Ark lorsque le style dépend de l’état de l’image.
 
 ### Points d’accroche CSS
 
-- `data-slot="avatar-root"`, `avatar-root-provider`, `avatar-image`, `avatar-fallback` et
-  `avatar-group`.
+| Partie | `data-slot` |
+| --- | --- |
+| `Avatar` | `avatar-root` |
+| `AvatarRootProvider` | `avatar-root-provider` |
+| `AvatarImage` | `avatar-image` |
+| `AvatarFallback` | `avatar-fallback` |
+| `AvatarGroup` | `avatar-group` |
+
 - Attributs d’anatomie Ark : `data-scope="avatar"` et
   `data-part="root" | "image" | "fallback"`.
 - État de l’image géré par Ark : `data-state="visible" | "hidden"` sur `AvatarImage` et
   `AvatarFallback`.
 - Attribut de taille de moduix : `data-size="xs" | "sm" | "md" | "lg" | "xl"` sur
   `Avatar` et `AvatarRootProvider`, `md` par défaut.
+
+## Référence de l’API
+
+| Prop | Type | Défaut |
+| --- | --- | --- |
+| `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'` | `'md'` |
+| `onStatusChange` | `(details: StatusChangeDetails) => void` | — |
+| `asChild` | `boolean` | `false` |

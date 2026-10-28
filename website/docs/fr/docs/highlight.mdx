@@ -1,6 +1,6 @@
 ---
 title: Highlight
-description: Mettez en évidence des mots et des expressions dans un texte existant avec des éléments mark natifs et les styles moduix dans React, Solid ou Vue.
+description: Surligner les correspondances d’une recherche dans un texte.
 component: highlight
 ark: https://ark-ui.com/docs/utilities/highlight
 ---
@@ -14,6 +14,19 @@ import * as HighlightDocs from '@/components/examples/highlight/css-properties';
 <ComponentInstall />
 
 ## Utilisation
+
+<UsageCode
+  react={'<Text>\n  <Highlight text={result.title} query={search} ignoreCase matchAll />\n</Text>'}
+  vue={'<Text>\n  <Highlight :text="result.title" :query="search" ignore-case match-all />\n</Text>'}
+/>
+
+<PropChips
+  items={[
+    ['query', 'Terme ou tableau de termes à trouver.'],
+    ['ignoreCase', 'Ignore la casse.'],
+    ['matchAll', 'Marque toutes les occurrences, pas seulement la première.'],
+  ]}
+/>
 
 Transmettez le texte source complet via `text` et le terme recherché via `query`. Placez `Highlight`
 dans le composant de texte ou l’élément HTML qui définit la mise en page et la sémantique autour du
@@ -102,7 +115,21 @@ utilitaires ou les classes du consommateur.
 
 ### Points d’accroche CSS
 
+| Partie | `data-slot` |
+| --- | --- |
+| `Highlight` | `highlight-root` |
+
 - Chaque `<mark>` correspondant porte `data-scope="highlight"` et `data-part="root"`.
 - `data-slot="highlight-root"` est le sélecteur moduix stable de chaque `mark` correspondant.
 - Les propriétés comme `className`/`class`, `style`, `title` et `data-*` s’appliquent à chaque `<mark>` correspondant.
 - Il n’y a ni conteneur supplémentaire, ni attribut d’état, ni variable CSS d’exécution Ark.
+
+## Référence de l’API
+
+| Prop | Type | Défaut |
+| --- | --- | --- |
+| `text` | `string` | — |
+| `query` | `string \| string[]` | — |
+| `ignoreCase` | `boolean` | `false` |
+| `matchAll` | `boolean` | `false` |
+| `exactMatch` | `boolean` | `false` |

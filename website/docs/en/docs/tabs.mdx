@@ -1,7 +1,7 @@
 ---
 title: Tabs
 component: tabs
-description: Switch between related content panels with accessible keyboard navigation, controlled state, lazy mounting, links, and vertical layouts.
+description: Switch between related panels in one area of the page.
 ark: https://ark-ui.com/docs/components/tabs
 ---
 
@@ -87,6 +87,20 @@ import tabsVueVertical from '../../../snippets/tabs/vue/vertical.vue?raw';
 <ComponentInstall />
 
 ## Usage
+
+<UsageCode
+  react={'<Tabs defaultValue="overview" variant="line" size="sm">\n  <TabsList>\n    <TabsTrigger value="overview">Overview</TabsTrigger>\n    <TabsTrigger value="activity">Activity</TabsTrigger>\n    <TabsIndicator />\n  </TabsList>\n  <TabsContent value="overview">Project summary</TabsContent>\n  <TabsContent value="activity">Recent changes</TabsContent>\n</Tabs>'}
+  vue={'<Tabs default-value="overview" variant="line" size="sm">\n  <TabsList>\n    <TabsTrigger value="overview">Overview</TabsTrigger>\n    <TabsTrigger value="activity">Activity</TabsTrigger>\n    <TabsIndicator />\n  </TabsList>\n  <TabsContent value="overview">Project summary</TabsContent>\n  <TabsContent value="activity">Recent changes</TabsContent>\n</Tabs>'}
+/>
+
+<PropChips
+  items={[
+    ['defaultValue', 'Tab selected on first render; use value to control it.'],
+    ['variant', 'default draws a segmented list, line an underline.'],
+    ['size', 'sm, md, or lg.'],
+    ['fitted', 'Stretches triggers to fill the list width.'],
+  ]}
+/>
 
 Start with `Tabs` and give each `TabsTrigger` and `TabsContent` the same `value`. Render
 `TabsIndicator` explicitly when you want a visual marker for the selected tab.
@@ -637,6 +651,15 @@ classes; the variables below customize the CSS Modules variants.
 
 ### Styling hooks
 
+| Part | `data-slot` |
+| --- | --- |
+| `Tabs` | `tabs-root` |
+| `TabsRootProvider` | `tabs-root-provider` |
+| `TabsList` | `tabs-list` |
+| `TabsTrigger` | `tabs-trigger` |
+| `TabsIndicator` | `tabs-indicator` |
+| `TabsContent` | `tabs-content` |
+
 Target the part that owns the visual concern:
 
 - `Tabs` for layout width, overall gap, orientation, and variant-level overrides
@@ -646,10 +669,32 @@ Target the part that owns the visual concern:
   `--transition-duration` and `--transition-timing-function` on it to change the movement
 - `TabsContent` for the panel surface, padding, and focus styling
 
-The main public hooks are `data-slot="tabs-root"`, `data-slot="tabs-root-provider"`,
-`data-slot="tabs-list"`, `data-slot="tabs-trigger"`, `data-slot="tabs-indicator"`, and
-`data-slot="tabs-content"`.
-
 Useful Ark hooks include `data-scope="tabs"`, `data-part`, `data-orientation`, `data-selected`,
 `data-disabled`, `data-focus`, and the indicator variables `--left`, `--top`, `--width`,
 `--height`, and `--transition-property`.
+
+## Keyboard
+
+| Key | Action |
+| --- | --- |
+| `ArrowLeft` / `ArrowRight` | Moves to the previous or next tab; ArrowUp and ArrowDown when vertical. |
+| `Home` / `End` | Moves to the first or last tab. |
+| `Enter` / `Space` | Selects the focused tab when activationMode is manual. |
+| `Tab` | Moves focus from the tab list into the active panel. |
+
+## API reference
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `value` | `string \| null` | — |
+| `defaultValue` | `string \| null` | — |
+| `onValueChange` | `(details: ValueChangeDetails) => void` | — |
+| `variant` | `'default' \| 'line'` | `'default'` |
+| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` |
+| `fitted` | `boolean` | `false` |
+| `orientation` | `'horizontal' \| 'vertical'` | `'horizontal'` |
+| `activationMode` | `'automatic' \| 'manual'` | `'automatic'` |
+| `loopFocus` | `boolean` | `true` |
+| `deselectable` | `boolean` | `false` |
+| `lazyMount` | `boolean` | `false` |
+| `unmountOnExit` | `boolean` | `false` |

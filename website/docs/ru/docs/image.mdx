@@ -1,7 +1,7 @@
 ---
 title: Image
 component: image
-description: "Адаптивные изображения с автоматическим определением CDN. Unpic генерирует атрибуты srcset и sizes."
+description: Адаптивные изображения с srcset для популярных CDN.
 ark: https://ark-ui.com/docs/guides/composition
 ---
 
@@ -14,6 +14,19 @@ import * as ImageDocs from '@/components/examples/image/css-properties';
 <ComponentInstall />
 
 ## Использование
+
+<UsageCode
+  react={'<Image\n  src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4"\n  alt="Mountain landscape"\n  width={800}\n  height={520}\n  layout="constrained"\n/>'}
+  vue={'<Image\n  src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4"\n  alt="Mountain landscape"\n  :width="800"\n  :height="520"\n  layout="constrained"\n/>'}
+/>
+
+<PropChips
+  items={[
+    ['layout', 'constrained, fixed или fullWidth.'],
+    ['width / height', 'Исходный размер; нужен для constrained и fixed.'],
+    ['priority', 'Загружает сразу, для изображений в первом экране.'],
+  ]}
+/>
 
 Пример на этой странице
 выпущенного адаптера с тем же публичным контрактом.
@@ -97,6 +110,26 @@ picture (native)
 
 ### Хуки стилизации
 
+| Часть | `data-slot` |
+| --- | --- |
+| `Image` | `image-root` |
+| `ImageSource` | `image-source` |
+
 - `data-slot="image-root"` позволяет выбрать отрисованный `<img>` в CSS.
 - `data-slot="image-source"` позволяет выбрать узел `<source>` внутри нативного `<picture>`.
 - `className` в React и `class` в Solid и Vue являются рекомендуемым способом локальной стилизации.
+
+## Справочник API
+
+`Image` принимает пропсы изображения Unpic и нативные пропсы `img`.
+
+| Проп | Тип | По умолчанию |
+| --- | --- | --- |
+| `src` | `string` | — |
+| `alt` | `string` | — |
+| `layout` | `'constrained' \| 'fixed' \| 'fullWidth'` | `'constrained'` |
+| `width` | `number` | — |
+| `height` | `number` | — |
+| `aspectRatio` | `number` | — |
+| `priority` | `boolean` | `false` |
+| `background` | `string` | — |

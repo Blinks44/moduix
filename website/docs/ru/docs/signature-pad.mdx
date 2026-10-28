@@ -1,7 +1,7 @@
 ---
 title: Signature Pad
 component: signature-pad
-description: Поле для рисования рукописной подписи указателем или касанием.
+description: Рукописная подпись мышью, пером или пальцем прямо на странице.
 ark: https://ark-ui.com/docs/components/signature-pad
 ---
 
@@ -14,6 +14,19 @@ import * as SignaturePadDocs from '@/components/examples/signature-pad/css-prope
 <ComponentInstall />
 
 ## Использование
+
+<UsageCode
+  react={'<SignaturePad name="signature" drawing={{ size: 3 }} onDrawEnd={(details) => details.getDataUrl(\'image/png\').then(save)}>\n  <SignaturePadLabel>Sign below</SignaturePadLabel>\n  <SignaturePadCanvas />\n  <SignaturePadHiddenInput />\n</SignaturePad>'}
+  vue={'<SignaturePad name="signature" :drawing="{ size: 3 }" @draw-end="(details) => details.getDataUrl(\'image/png\').then(save)">\n  <SignaturePadLabel>Sign below</SignaturePadLabel>\n  <SignaturePadCanvas />\n  <SignaturePadHiddenInput />\n</SignaturePad>'}
+/>
+
+<PropChips
+  items={[
+    ['drawing', 'Параметры линии, например size и fill.'],
+    ['onDrawEnd', 'Вызывается после каждого штриха; getDataUrl() возвращает изображение.'],
+    ['name', 'Отправляет линии с формой через скрытое поле.'],
+  ]}
+/>
 
 Для большинства случаев начните с `SignaturePadCanvas`. Он выводит стандартную область рисования
 с частями Ark `SignaturePadControl`, `SignaturePadSegment`, `SignaturePadClearTrigger` и
@@ -131,6 +144,16 @@ SignaturePadRootProvider
 
 ### Хуки стилизации
 
+| Часть | `data-slot` |
+| --- | --- |
+| `SignaturePad` | `signature-pad-root` |
+| `SignaturePadRootProvider` | `signature-pad-root-provider` |
+| `SignaturePadLabel` | `signature-pad-label` |
+| `SignaturePadControl` | `signature-pad-control` |
+| `SignaturePadSegment` | `signature-pad-segment` |
+| `SignaturePadGuide` | `signature-pad-guide` |
+| `SignaturePadClearTrigger` | `signature-pad-clear-trigger` |
+
 Используйте `className` в React или `class` в Solid и Vue на любой экспортируемой части для локальной
 стилизации. moduix также добавляет стабильные атрибуты `data-slot`:
 
@@ -149,3 +172,17 @@ SignaturePadRootProvider
 внутренние пути сегмента предоставляют `data-scope="signature-pad"` и
 `data-part`; атрибут `data-disabled` появляется на корне, подписи, области рисования и линии
 ориентира, а `data-required` появляется на подписи.
+
+## Справочник API
+
+| Проп | Тип | По умолчанию |
+| --- | --- | --- |
+| `paths` | `string[]` | — |
+| `defaultPaths` | `string[]` | — |
+| `onDraw` | `(details: DrawDetails) => void` | — |
+| `onDrawEnd` | `(details: DrawEndDetails) => void` | — |
+| `drawing` | `DrawingOptions` | — |
+| `name` | `string` | — |
+| `disabled` | `boolean` | `false` |
+| `readOnly` | `boolean` | `false` |
+| `required` | `boolean` | `false` |

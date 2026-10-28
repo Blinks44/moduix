@@ -1,7 +1,7 @@
 ---
 title: Checkbox
 component: checkbox
-description: Компонент флажка для отдельных вариантов и групп с множественным выбором.
+description: Включает или выключает опцию, отдельно или в группе.
 ark: https://ark-ui.com/docs/components/checkbox
 ---
 
@@ -14,6 +14,20 @@ import * as CheckboxDocs from '@/components/examples/checkbox/css-properties';
 <ComponentInstall />
 
 ## Использование
+
+<UsageCode
+  react={'<Checkbox defaultChecked name="updates" size="md" onCheckedChange={(details) => save(details.checked)}>\n  <CheckboxControl />\n  <CheckboxLabel>Email me about updates</CheckboxLabel>\n  <CheckboxHiddenInput />\n</Checkbox>'}
+  vue={'<Checkbox v-model:checked="checked" name="updates" size="md">\n  <CheckboxControl />\n  <CheckboxLabel>Email me about updates</CheckboxLabel>\n  <CheckboxHiddenInput />\n</Checkbox>'}
+/>
+
+<PropChips
+  items={[
+    ['defaultChecked', 'Начальное состояние: true, false или \'indeterminate\'.'],
+    ['onCheckedChange', 'Вызывается с новым состоянием.'],
+    ['size', 'От xs до xl, по умолчанию md.'],
+    ['CheckboxGroup', 'Объединяет несколько чекбоксов с общим массивом значений.'],
+  ]}
+/>
 
 Соберите флажок из частей Ark. Оставьте `CheckboxControl` пустым, чтобы использовать встроенные
 иконки выбранного и неопределённого состояния от moduix. Добавьте `CheckboxLabel` для видимой
@@ -196,9 +210,36 @@ CheckboxGroup
 
 ### Хуки стилизации
 
+| Часть | `data-slot` |
+| --- | --- |
+| `Checkbox` | `checkbox-root` |
+| `CheckboxRootProvider` | `checkbox-root-provider` |
+| `CheckboxIndicator` | `checkbox-indicator` |
+| `CheckboxControl` | `checkbox-control` |
+| `CheckboxLabel` | `checkbox-label` |
+| `CheckboxGroup` | `checkbox-group` |
+
 - `Checkbox` предоставляет `data-slot="checkbox-root"`, `data-size` и атрибуты состояния Ark, включая `data-state`, `data-active`, `data-disabled`, `data-readonly`, `data-invalid`, `data-required`, `data-hover`, `data-focus` и `data-focus-visible`.
-- `CheckboxRootProvider` предоставляет `data-slot="checkbox-root-provider"` и тот же контракт стилизации корневого компонента.
 - `CheckboxControl` предоставляет `data-slot="checkbox-control"` и атрибуты состояния Ark, включая `data-state="checked" | "indeterminate" | "unchecked"` и `data-active`.
-- `CheckboxIndicator` предоставляет `data-slot="checkbox-indicator"` и наследует атрибуты состояния Checkbox Ark.
-- `CheckboxLabel` предоставляет `data-slot="checkbox-label"` и атрибуты состояния Checkbox Ark.
-- `CheckboxGroup` предоставляет `data-slot="checkbox-group"`.
+
+## Клавиатура
+
+| Клавиша | Действие |
+| --- | --- |
+| `Space` | Переключает чекбокс в фокусе. |
+| `Tab` | Переходит к следующему чекбоксу. |
+
+## Справочник API
+
+| Проп | Тип | По умолчанию |
+| --- | --- | --- |
+| `checked` | `boolean \| 'indeterminate'` | — |
+| `defaultChecked` | `boolean \| 'indeterminate'` | `false` |
+| `onCheckedChange` | `(details: CheckedChangeDetails) => void` | — |
+| `value` | `string` | `'on'` |
+| `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'` | `'md'` |
+| `name` | `string` | — |
+| `disabled` | `boolean` | `false` |
+| `readOnly` | `boolean` | `false` |
+| `invalid` | `boolean` | `false` |
+| `required` | `boolean` | `false` |

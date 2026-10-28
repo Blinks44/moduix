@@ -1,7 +1,7 @@
 ---
 title: Rating Group
 component: rating-group
-description: A star rating control built on the Ark UI rating-group primitive for React, Solid, and Vue.
+description: Rate something on a scale of stars, including half-star steps.
 ark: https://ark-ui.com/docs/components/rating-group
 ---
 
@@ -14,6 +14,19 @@ import * as RatingGroupDocs from '@/components/examples/rating-group/css-propert
 <ComponentInstall />
 
 ## Usage
+
+<UsageCode
+  react={'<RatingGroup count={5} defaultValue={3.5} allowHalf name="rating">\n  <RatingGroupLabel>Overall satisfaction</RatingGroupLabel>\n  <RatingGroupControl>\n    <RatingGroupItems />\n  </RatingGroupControl>\n  <RatingGroupHiddenInput />\n</RatingGroup>'}
+  vue={'<RatingGroup :count="5" :default-value="3.5" allow-half name="rating">\n  <RatingGroupLabel>Overall satisfaction</RatingGroupLabel>\n  <RatingGroupControl>\n    <RatingGroupItems />\n  </RatingGroupControl>\n  <RatingGroupHiddenInput />\n</RatingGroup>'}
+/>
+
+<PropChips
+  items={[
+    ['count', 'Number of stars, 5 by default.'],
+    ['allowHalf', 'Allows half-star values.'],
+    ['readOnly', 'Shows a rating without letting users change it.'],
+  ]}
+/>
 
 Use `RatingGroup` as the root and add `RatingGroupLabel`, `RatingGroupControl`, and
 `RatingGroupItems` for the standard star rating. Render `RatingGroupHiddenInput` explicitly when
@@ -140,13 +153,42 @@ native utilities and consumer classes; the CSS Modules variants also expose the 
 
 ### Styling hooks
 
-- `data-slot="rating-group-root"` and `data-slot="rating-group-root-provider"`
-- `data-slot="rating-group-label"`
-- `data-slot="rating-group-control"`
-- `data-slot="rating-group-item"`
-- `data-slot="rating-group-item-indicator"`
-- `data-slot="rating-group-item-indicator-bg"` and `data-slot="rating-group-item-indicator-fg"`
+| Part | `data-slot` |
+| --- | --- |
+| `RatingGroup` | `rating-group-root` |
+| `RatingGroupRootProvider` | `rating-group-root-provider` |
+| `RatingGroupLabel` | `rating-group-label` |
+| `RatingGroupControl` | `rating-group-control` |
+| `RatingGroupItem` | `rating-group-item` |
+| `RatingGroupItemIndicator` | `rating-group-item-indicator` |
+| `RatingGroupItemIndicator`, inner element | `rating-group-item-indicator-bg` |
+| `RatingGroupItemIndicator`, inner element | `rating-group-item-indicator-fg` |
+
 - `data-size="xs" | "sm" | "md" | "lg" | "xl"` on the root or root provider
 - Ark label attributes: `data-disabled` and `data-required`
 - Ark control attributes: `data-disabled` and `data-readonly`
 - Ark item attributes: `data-checked`, `data-highlighted`, `data-half`, `data-disabled`, and `data-readonly`
+
+## Keyboard
+
+| Key | Action |
+| --- | --- |
+| `ArrowRight` / `ArrowLeft` | Raises or lowers the rating. |
+| `Home` / `End` | Sets the lowest or highest rating. |
+
+## API reference
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `value` | `number` | — |
+| `defaultValue` | `number` | — |
+| `onValueChange` | `(details: ValueChangeDetails) => void` | — |
+| `onHoverChange` | `(details: HoverChangeDetails) => void` | — |
+| `count` | `number` | `5` |
+| `allowHalf` | `boolean` | `false` |
+| `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'` | `'md'` |
+| `name` | `string` | — |
+| `disabled` | `boolean` | `false` |
+| `readOnly` | `boolean` | `false` |
+| `invalid` | `boolean` | `false` |
+| `required` | `boolean` | `false` |

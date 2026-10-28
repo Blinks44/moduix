@@ -1,7 +1,7 @@
 ---
 title: Toggle
 component: toggle
-description: Кнопка с двумя состояниями для компактных действий, например добавления в избранное, сохранения, форматирования и действий на панели инструментов.
+description: Кнопка, которая включает опцию нажатием и выключает повторным.
 ark: https://ark-ui.com/docs/components/toggle
 ---
 
@@ -14,6 +14,19 @@ import * as ToggleDocs from '@/components/examples/toggle/css-properties';
 <ComponentInstall />
 
 ## Использование
+
+<UsageCode
+  react={'<Toggle defaultPressed variant="outline" size="icon-md" aria-label="Favorite" onPressedChange={setFavorite}>\n  <StarIcon />\n</Toggle>'}
+  vue={'<Toggle v-model:pressed="favorite" variant="outline" size="icon-md" aria-label="Favorite">\n  <StarIcon />\n</Toggle>'}
+/>
+
+<PropChips
+  items={[
+    ['defaultPressed', 'Нажата сразу; для управления используйте pressed.'],
+    ['variant', 'default, outline или ghost.'],
+    ['size', 'От xs до lg или от icon-sm до icon-lg для квадратных кнопок.'],
+  ]}
+/>
 
 Используйте `Toggle` в обычном случае, сохраняя поведение Ark для состояния нажатия.
 
@@ -123,9 +136,31 @@ ToggleContext (читает состояние, но не создаёт час�
 
 ### Хуки стилизации
 
-- Стабильные селекторы `data-slot`: `toggle-root` и `toggle-indicator`.
+| Часть | `data-slot` |
+| --- | --- |
+| `Toggle` | `toggle-root` |
+| `ToggleIndicator` | `toggle-indicator` |
+
 - Селекторы частей Ark UI: `data-scope="toggle"` и `data-part="root" | "indicator"`.
 - Состояния Ark UI: `data-state="on" | "off"`, `data-pressed` и `data-disabled`.
 - Селекторы moduix: `data-variant` и `data-size`, включая `icon-sm`, `icon-md` и `icon-lg`.
 - Прямые дочерние иконки и иконки внутри `ToggleIndicator` по умолчанию 16px. Класс на иконке, например `size-5`
   в Tailwind, переопределяет этот размер.
+
+## Клавиатура
+
+| Клавиша | Действие |
+| --- | --- |
+| `Enter` / `Space` | Переключает нажатое состояние. |
+
+## Справочник API
+
+| Проп | Тип | По умолчанию |
+| --- | --- | --- |
+| `pressed` | `boolean` | — |
+| `defaultPressed` | `boolean` | `false` |
+| `onPressedChange` | `(pressed: boolean) => void` | — |
+| `variant` | `'default' \| 'outline' \| 'ghost'` | `'default'` |
+| `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'icon-sm' \| 'icon-md' \| 'icon-lg'` | `'md'` |
+| `disabled` | `boolean` | `false` |
+| `asChild` | `boolean` | `false` |

@@ -1,7 +1,7 @@
 ---
 title: Bleed
 component: bleed
-description: Layout primitive that lets selected content extend beyond a constrained container.
+description: Let a banner or image extend past the padding of its container.
 ark: https://ark-ui.com/docs/guides/composition#the-ark-factory
 ---
 
@@ -12,6 +12,18 @@ ark: https://ark-ui.com/docs/guides/composition#the-ark-factory
 <ComponentInstall />
 
 ## Usage
+
+<UsageCode
+  react={'<Container>\n  <Text>Article intro</Text>\n  <Bleed inline="full" block="md">\n    <img src={banner.src} alt={banner.alt} />\n  </Bleed>\n</Container>'}
+  vue={'<Container>\n  <Text>Article intro</Text>\n  <Bleed inline="full" block="md">\n    <img src={banner.src} alt={banner.alt} />\n  </Bleed>\n</Container>'}
+/>
+
+<PropChips
+  items={[
+    ['inline', 'Horizontal overflow: none to xl, or full to reach the viewport edges.'],
+    ['block', 'Vertical overflow, none by default.'],
+  ]}
+/>
 
 The default `inline="full"` makes media, banners, and section decorations reach the viewport edges while
 remaining in the normal document flow.
@@ -50,10 +62,6 @@ element becomes the `Bleed` root.
 Use [Container](/docs/container) to keep the main content at a readable width. Put `Bleed` inside it when
 only a media block, background, divider, or banner should extend beyond the container.
 
-Import `Bleed` from the matching runtime and styling package: `@moduix/react/bleed`,
-`@moduix/solid/bleed`, or `@moduix/vue/bleed` for CSS Modules, and the corresponding
-`@moduix/react-tailwind/bleed`, `@moduix/solid-tailwind/bleed`, or `@moduix/vue-tailwind/bleed`
-subpath for Tailwind.
 
 `Bleed` is presentational and owns no state. It has one root part, so there are no child parts to coordinate.
 The defaults are `inline="full"`, `block="none"`, and `asChild={false}`.
@@ -94,7 +102,19 @@ systems, add `overflow-x: clip` to the page root to avoid a horizontal scrollbar
 
 ### Styling hooks
 
+| Part | `data-slot` |
+| --- | --- |
+| `Bleed` | `bleed-root` |
+
 - `data-scope="bleed"` and `data-part="root"` provide Ark-aligned hooks on the exported root.
-- `data-slot="bleed-root"` is the stable moduix selector on the exported root.
 - `data-inline` shows the current inline bleed mode: `none`, `xs`, `sm`, `md`, `lg`, `xl`, or `full`.
 - `data-block` shows the current block bleed mode: `none`, `xs`, `sm`, `md`, `lg`, or `xl`.
+
+## API reference
+
+Also accepts the native props of its element and `asChild`.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `inline` | `'none' \| 'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl' \| 'full'` | `'full'` |
+| `block` | `'none' \| 'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'` | `'none'` |

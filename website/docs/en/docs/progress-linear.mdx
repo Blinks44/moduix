@@ -1,7 +1,7 @@
 ---
 title: Progress Linear
 component: progress-linear
-description: A linear progress indicator for tasks with known or unknown progress.
+description: Show task progress on a bar, with a known or unknown end.
 ark: https://ark-ui.com/docs/components/progress-linear
 ---
 
@@ -14,6 +14,20 @@ import * as ProgressLinearDocs from '@/components/examples/progress-linear/css-p
 <ComponentInstall />
 
 ## Usage
+
+<UsageCode
+  react={'<ProgressLinear defaultValue={24}>\n  <ProgressLinearLabel>Export data</ProgressLinearLabel>\n  <ProgressLinearValueText />\n  <ProgressLinearTrack aria-label="Export data">\n    <ProgressLinearRange />\n  </ProgressLinearTrack>\n</ProgressLinear>'}
+  vue={'<ProgressLinear :default-value="24">\n  <ProgressLinearLabel>Export data</ProgressLinearLabel>\n  <ProgressLinearValueText />\n  <ProgressLinearTrack aria-label="Export data">\n    <ProgressLinearRange />\n  </ProgressLinearTrack>\n</ProgressLinear>'}
+/>
+
+<PropChips
+  items={[
+    ['defaultValue', 'Starting value; pass null for an indeterminate state.'],
+    ['min / max', 'Range of the value, 0 to 100 by default.'],
+    ['formatOptions', 'Intl options for the value text, percent by default.'],
+    ['orientation', 'Horizontal by default; vertical fills from the bottom.'],
+  ]}
+/>
 
 Compose the progress bar from the explicit `ProgressLinearLabel`, `ProgressLinearValueText`, `ProgressLinearTrack`, and `ProgressLinearRange` parts. Give
 `ProgressLinearTrack` an accessible name that describes the task.
@@ -131,8 +145,29 @@ edge.
 
 ### Styling hooks
 
-- `data-slot="progress-linear-root"`, `progress-linear-root-provider`, `progress-linear-label`,
-  `progress-linear-value-text`, `progress-linear-track`, `progress-linear-range`, and
-  `progress-linear-view`.
+| Part | `data-slot` |
+| --- | --- |
+| `ProgressLinear` | `progress-linear-root` |
+| `ProgressLinearRootProvider` | `progress-linear-root-provider` |
+| `ProgressLinearLabel` | `progress-linear-label` |
+| `ProgressLinearValueText` | `progress-linear-value-text` |
+| `ProgressLinearTrack` | `progress-linear-track` |
+| `ProgressLinearRange` | `progress-linear-range` |
+| `ProgressLinearView` | `progress-linear-view` |
+
 - Ark hooks: `data-scope="progress"`, `data-part`, `data-state="indeterminate|loading|complete"`,
   `data-orientation="horizontal|vertical"`, `data-value`, and `data-max`.
+
+## API reference
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `value` | `number \| null` | — |
+| `defaultValue` | `number \| null` | `50` |
+| `onValueChange` | `(details: ValueChangeDetails) => void` | — |
+| `min` | `number` | `0` |
+| `max` | `number` | `100` |
+| `formatOptions` | `Intl.NumberFormatOptions` | `{ style: 'percent' }` |
+| `locale` | `string` | — |
+| `translations` | `IntlTranslations` | — |
+| `orientation` | `'horizontal' \| 'vertical'` | `'horizontal'` |

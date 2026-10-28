@@ -1,7 +1,7 @@
 ---
 title: Editable
 component: editable
-description: Доступное редактирование текста в React, Solid и Vue с установкой из пакета или через shadcn CLI.
+description: Правка короткого текста на месте с сохранением или отменой.
 ark: https://ark-ui.com/docs/components/editable
 ---
 
@@ -14,6 +14,19 @@ import * as EditableDocs from '@/components/examples/editable/css-properties';
 <ComponentInstall />
 
 ## Использование
+
+<UsageCode
+  react={'<Editable defaultValue="Layer name" activationMode="dblclick" onValueCommit={(details) => rename(details.value)}>\n  <EditableLabel>Name</EditableLabel>\n  <EditableArea>\n    <EditableInput />\n    <EditablePreview />\n  </EditableArea>\n  <EditableControls />\n</Editable>'}
+  vue={'<Editable default-value="Layer name" activation-mode="dblclick" @value-commit="(details) => rename(details.value)">\n  <EditableLabel>Name</EditableLabel>\n  <EditableArea>\n    <EditableInput />\n    <EditablePreview />\n  </EditableArea>\n  <EditableControls />\n</Editable>'}
+/>
+
+<PropChips
+  items={[
+    ['activationMode', 'Как начинается правка: dblclick, click, focus или none.'],
+    ['submitMode', 'Сохраняет по enter, blur, both или none.'],
+    ['onValueCommit', 'Вызывается с сохранённым значением.'],
+  ]}
+/>
 
 Используйте `Editable` как корневой компонент и составьте его из `EditableLabel`, `EditableArea`,
 `EditableInput` и `EditablePreview`. Добавьте `EditableControls` для стандартного сценария
@@ -148,11 +161,51 @@ EditableRootProvider
 
 ### Хуки стилизации
 
-- Стабильные селекторы `data-slot`: `editable-root`, `editable-root-provider`, `editable-label`,
-  `editable-area`, `editable-input`, `editable-preview`, `editable-control`,
-  `editable-edit-trigger`, `editable-submit-trigger` и `editable-cancel-trigger`.
+| Часть | `data-slot` |
+| --- | --- |
+| `Editable` | `editable-root` |
+| `EditableRootProvider` | `editable-root-provider` |
+| `EditableLabel` | `editable-label` |
+| `EditableArea` | `editable-area` |
+| `EditableInput` | `editable-input` |
+| `EditablePreview` | `editable-preview` |
+| `EditableControl` | `editable-control` |
+| `EditableEditTrigger` | `editable-edit-trigger` |
+| `EditableSubmitTrigger` | `editable-submit-trigger` |
+| `EditableCancelTrigger` | `editable-cancel-trigger` |
+
 - Селекторы частей Ark: `data-scope="editable"` и
   `data-part="root|area|label|preview|input|edit-trigger|submit-trigger|cancel-trigger|control"`.
 - Селекторы состояния Ark: `data-disabled`, `data-focus`, `data-invalid`, `data-readonly`,
   `data-required`, `data-placeholder-shown` и `data-autoresize`.
 - `EditableControls` использует слот `editable-control` вместе с `EditableControl`.
+
+## Клавиатура
+
+| Клавиша | Действие |
+| --- | --- |
+| `Enter` | Сохраняет значение, если это разрешает submitMode. |
+| `Esc` | Отменяет правку и возвращает прежнее значение. |
+
+## Справочник API
+
+| Проп | Тип | По умолчанию |
+| --- | --- | --- |
+| `value` | `string` | — |
+| `defaultValue` | `string` | — |
+| `onValueChange` | `(details: ValueChangeDetails) => void` | — |
+| `onValueCommit` | `(details: ValueChangeDetails) => void` | — |
+| `onValueRevert` | `(details: ValueChangeDetails) => void` | — |
+| `activationMode` | `'focus' \| 'dblclick' \| 'click' \| 'none'` | `'dblclick'` |
+| `submitMode` | `'enter' \| 'blur' \| 'both' \| 'none'` | `'both'` |
+| `selectOnFocus` | `boolean` | `true` |
+| `edit` | `boolean` | — |
+| `onEditChange` | `(details: EditChangeDetails) => void` | — |
+| `placeholder` | `string \| { edit: string; preview: string }` | — |
+| `maxLength` | `number` | — |
+| `autoResize` | `boolean` | `false` |
+| `name` | `string` | — |
+| `disabled` | `boolean` | `false` |
+| `readOnly` | `boolean` | `false` |
+| `invalid` | `boolean` | `false` |
+| `required` | `boolean` | `false` |

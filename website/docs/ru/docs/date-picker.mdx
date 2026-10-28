@@ -1,7 +1,7 @@
 ---
 title: Date Picker
 component: date-picker
-description: Компонент выбора даты на базе Ark UI с календарём во всплывающем окне или на странице, выбором диапазона и нескольких дат.
+description: Выбор даты, диапазона или нескольких дат в календаре.
 ark: https://ark-ui.com/docs/components/date-picker
 ---
 
@@ -14,6 +14,20 @@ import * as DatePickerDocs from '@/components/examples/date-picker/css-propertie
 <ComponentInstall />
 
 ## Использование
+
+<UsageCode
+  react={'<DatePicker defaultValue={[parseDate(\'2026-06-22\')]} selectionMode="range" min={today(getLocalTimeZone())}>\n  <DatePickerLabel>Trip dates</DatePickerLabel>\n  <DatePickerField />\n  <DatePickerPositioner>\n    <DatePickerContent>\n      <DatePickerView view="day">\n        <DatePickerDayTable />\n      </DatePickerView>\n    </DatePickerContent>\n  </DatePickerPositioner>\n</DatePicker>'}
+  vue={'<DatePicker :default-value="[parseDate(\'2026-06-22\')]" selection-mode="range" :min="today(getLocalTimeZone())">\n  <DatePickerLabel>Trip dates</DatePickerLabel>\n  <DatePickerField />\n  <DatePickerPositioner>\n    <DatePickerContent>\n      <DatePickerView view="day">\n        <DatePickerDayTable />\n      </DatePickerView>\n    </DatePickerContent>\n  </DatePickerPositioner>\n</DatePicker>'}
+/>
+
+<PropChips
+  items={[
+    ['selectionMode', 'single, range или multiple.'],
+    ['min / max', 'Самая ранняя и самая поздняя доступные даты.'],
+    ['isDateUnavailable', 'Отключает отдельные дни, например выходные.'],
+    ['inline', 'Показывает календарь на странице без всплывающего окна.'],
+  ]}
+/>
 
 Используйте `DatePicker` как корневой компонент, `DatePickerField` для стандартного поля и
 `DatePickerDayTable`, `DatePickerMonthTable` и `DatePickerYearTable` для представлений календаря.
@@ -256,16 +270,83 @@ moduix.
 
 ### Хуки стилизации
 
-Используйте следующие хуки `data-slot` для стилизации отдельных частей:
-
-- `date-picker-root`, `date-picker-root-provider`, `date-picker-label`, `date-picker-control` и `date-picker-input`.
-- `date-picker-trigger`, `date-picker-clear-trigger` и `date-picker-value-text`.
-- `date-picker-positioner`, `date-picker-content`, `date-picker-view` и `date-picker-view-control`.
-- `date-picker-view-trigger`, `date-picker-prev-trigger`, `date-picker-next-trigger` и `date-picker-range-text`.
-- `date-picker-table-*`, `date-picker-table-cell-trigger`, `date-picker-week-number-header-cell` и `date-picker-week-number-cell`.
-- `date-picker-month-select`, `date-picker-year-select` и `date-picker-preset-trigger`.
+| Часть | `data-slot` |
+| --- | --- |
+| `DatePicker` | `date-picker-root` |
+| `DatePickerRootProvider` | `date-picker-root-provider` |
+| `DatePickerLabel` | `date-picker-label` |
+| `DatePickerControl` | `date-picker-control` |
+| `DatePickerInput` | `date-picker-input` |
+| `DatePickerTrigger` | `date-picker-trigger` |
+| `DatePickerClearTrigger` | `date-picker-clear-trigger` |
+| `DatePickerPositioner` | `date-picker-positioner` |
+| `DatePickerContent` | `date-picker-content` |
+| `DatePickerView` | `date-picker-view` |
+| `DatePickerViewControl` | `date-picker-view-control` |
+| `DatePickerPrevTrigger` | `date-picker-prev-trigger` |
+| `DatePickerNextTrigger` | `date-picker-next-trigger` |
+| `DatePickerRangeText` | `date-picker-range-text` |
+| `DatePickerViewTrigger` | `date-picker-view-trigger` |
+| `DatePickerTable` | `date-picker-table` |
+| `DatePickerTableHead` | `date-picker-table-head` |
+| `DatePickerTableBody` | `date-picker-table-body` |
+| `DatePickerTableRow` | `date-picker-table-row` |
+| `DatePickerTableHeader` | `date-picker-table-header` |
+| `DatePickerWeekNumberHeaderCell` | `date-picker-week-number-header-cell` |
+| `DatePickerWeekNumberCell` | `date-picker-week-number-cell` |
+| `DatePickerTableCell` | `date-picker-table-cell` |
+| `DatePickerTableCellTrigger` | `date-picker-table-cell-trigger` |
+| `DatePickerMonthSelect`, внутренний элемент | `date-picker-month-select-control` |
+| `DatePickerMonthSelect` | `date-picker-month-select` |
+| `DatePickerMonthSelect`, внутренний элемент | `date-picker-month-select-indicator` |
+| `DatePickerYearSelect`, внутренний элемент | `date-picker-year-select-control` |
+| `DatePickerYearSelect` | `date-picker-year-select` |
+| `DatePickerYearSelect`, внутренний элемент | `date-picker-year-select-indicator` |
+| `DatePickerPresetTrigger` | `date-picker-preset-trigger` |
+| `DatePickerValueText` | `date-picker-value-text` |
 
 Атрибуты состояния Ark включают `data-state`, `data-disabled`, `data-readonly`, `data-invalid`,
 `data-focus`, `data-selected`, `data-today`, `data-unavailable`, `data-outside-range`,
 `data-in-range`, `data-range-start`, `data-range-end`, `data-in-hover-range`,
 `data-hover-range-start`, `data-hover-range-end` и `data-view`.
+
+## Клавиатура
+
+| Клавиша | Действие |
+| --- | --- |
+| `ArrowLeft` / `ArrowRight` / `ArrowUp` / `ArrowDown` | Перемещает фокус на день или неделю в календаре. |
+| `PageUp` / `PageDown` | Переходит к предыдущему или следующему месяцу; с Shift к году. |
+| `Home` / `End` | Переходит к началу или концу недели. |
+| `Enter` / `Space` | Выбирает дату в фокусе. |
+| `Esc` | Закрывает календарь. |
+
+## Справочник API
+
+| Проп | Тип | По умолчанию |
+| --- | --- | --- |
+| `value` | `DateValue[]` | — |
+| `defaultValue` | `DateValue[]` | — |
+| `onValueChange` | `(details: ValueChangeDetails) => void` | — |
+| `selectionMode` | `'single' \| 'range' \| 'multiple'` | `'single'` |
+| `min` | `DateValue` | — |
+| `max` | `DateValue` | — |
+| `isDateUnavailable` | `(date: DateValue, locale: string) => boolean` | — |
+| `locale` | `string` | `'en-US'` |
+| `timeZone` | `string` | `'UTC'` |
+| `startOfWeek` | `number` | — |
+| `numOfMonths` | `number` | — |
+| `fixedWeeks` | `boolean` | `false` |
+| `showWeekNumbers` | `boolean` | `false` |
+| `closeOnSelect` | `boolean` | `true` |
+| `inline` | `boolean` | `false` |
+| `defaultView` | `'day' \| 'month' \| 'year'` | `'day'` |
+| `open` | `boolean` | — |
+| `onOpenChange` | `(details: OpenChangeDetails) => void` | — |
+| `positioning` | `PositioningOptions` | — |
+| `name` | `string` | — |
+| `disabled` | `boolean` | `false` |
+| `readOnly` | `boolean` | `false` |
+| `invalid` | `boolean` | `false` |
+| `required` | `boolean` | `false` |
+| `lazyMount` | `boolean` | `true` |
+| `unmountOnExit` | `boolean` | `true` |

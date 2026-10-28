@@ -1,7 +1,7 @@
 ---
 title: Dialog
 component: dialog
-description: Модальное окно для сосредоточенных задач, например форм, подтверждений и просмотра деталей.
+description: Модальное окно для формы, подтверждения или подробностей.
 ark: https://ark-ui.com/docs/components/dialog
 ---
 
@@ -14,6 +14,21 @@ import * as DialogDocs from '@/components/examples/dialog/css-properties';
 <ComponentInstall />
 
 ## Использование
+
+<UsageCode
+  react={'<Dialog onOpenChange={(details) => setOpen(details.open)}>\n  <DialogTrigger asChild>\n    <Button>Edit profile</Button>\n  </DialogTrigger>\n  <DialogBackdrop />\n  <DialogPositioner>\n    <DialogContent size="md" placement="center">\n      <DialogHeader>\n        <DialogTitle>Edit profile</DialogTitle>\n        <DialogCloseIcon />\n      </DialogHeader>\n      <DialogBody>…</DialogBody>\n    </DialogContent>\n  </DialogPositioner>\n</Dialog>'}
+  solid={'<Dialog onOpenChange={(details) => setOpen(details.open)}>\n  <DialogTrigger asChild={(props) => (\n    <Button {...props()}>Edit profile</Button>\n  )} />\n  <DialogBackdrop />\n  <DialogPositioner>\n    <DialogContent size="md" placement="center">\n      <DialogHeader>\n        <DialogTitle>Edit profile</DialogTitle>\n        <DialogCloseIcon />\n      </DialogHeader>\n      <DialogBody>…</DialogBody>\n    </DialogContent>\n  </DialogPositioner>\n</Dialog>'}
+  vue={'<Dialog v-model:open="open">\n  <DialogTrigger as-child>\n    <Button>Edit profile</Button>\n  </DialogTrigger>\n  <DialogBackdrop />\n  <DialogPositioner>\n    <DialogContent size="md" placement="center">\n      <DialogHeader>\n        <DialogTitle>Edit profile</DialogTitle>\n        <DialogCloseIcon />\n      </DialogHeader>\n      <DialogBody>…</DialogBody>\n    </DialogContent>\n  </DialogPositioner>\n</Dialog>'}
+/>
+
+<PropChips
+  items={[
+    ['size', 'Ширина на DialogContent: от sm до xl или full.'],
+    ['placement', 'Положение по вертикали: center, top или bottom.'],
+    ['role', 'alertdialog для подтверждений, требующих ответа.'],
+    ['onOpenChange', 'Вызывается при открытии и закрытии.'],
+  ]}
+/>
 
 Используйте `Dialog` как корневой компонент и явно соберите его структурные части.
 `DialogBackdrop` отвечает за модальный фон, `DialogPositioner` размещает диалог, а
@@ -192,9 +207,20 @@ DialogContext
 
 ### Хуки стилизации
 
-- Значения `data-slot` moduix: `dialog-trigger`, `dialog-backdrop`, `dialog-positioner`,
-  `dialog-content`, `dialog-title`, `dialog-description`, `dialog-close-trigger`,
-  `dialog-close-icon`, `dialog-header`, `dialog-body` и `dialog-footer`.
+| Часть | `data-slot` |
+| --- | --- |
+| `DialogTrigger` | `dialog-trigger` |
+| `DialogBackdrop` | `dialog-backdrop` |
+| `DialogPositioner` | `dialog-positioner` |
+| `DialogContent` | `dialog-content` |
+| `DialogTitle` | `dialog-title` |
+| `DialogDescription` | `dialog-description` |
+| `DialogCloseTrigger` | `dialog-close-trigger` |
+| `DialogCloseIcon` | `dialog-close-icon` |
+| `DialogHeader` | `dialog-header` |
+| `DialogBody` | `dialog-body` |
+| `DialogFooter` | `dialog-footer` |
+
 - Атрибуты Ark: `data-scope="dialog"` и
   `data-part="trigger|backdrop|positioner|content|title|description|close-trigger"`.
 - Атрибуты состояния: `data-state="open|closed"`, `data-has-nested`, `data-nested`, `data-current`,
@@ -204,3 +230,32 @@ DialogContext
   зависит от `DialogHeader`.
 - Цвета, рамки, отступы и типографика берутся из токенов foundation. Для одного диалога меняйте их
   классом на нужной части, а анимацию задавайте через `--moduix-popup-motion-*` на `DialogContent`.
+
+## Клавиатура
+
+| Клавиша | Действие |
+| --- | --- |
+| `Enter` / `Space` | Открывает с кнопки в фокусе. |
+| `Tab` / `Shift+Tab` | Перемещает фокус между элементами; пока открыто, фокус не выходит наружу. |
+| `Esc` | Закрывает и возвращает фокус на кнопку. |
+
+## Справочник API
+
+Пропсы `Dialog`. `size` (`'sm' | 'md' | 'lg' | 'xl' | 'full'`, по умолчанию `'md'`), `placement` (`'center' | 'top' | 'bottom'`, по умолчанию `'center'`) и `scrollBehavior` (`'outside' | 'inside'`, по умолчанию `'outside'`) задаются на `DialogContent`.
+
+| Проп | Тип | По умолчанию |
+| --- | --- | --- |
+| `open` | `boolean` | — |
+| `defaultOpen` | `boolean` | `false` |
+| `onOpenChange` | `(details: OpenChangeDetails) => void` | — |
+| `modal` | `boolean` | `true` |
+| `role` | `'dialog' \| 'alertdialog'` | `'dialog'` |
+| `closeOnEscape` | `boolean` | `true` |
+| `closeOnInteractOutside` | `boolean` | `true` |
+| `trapFocus` | `boolean` | `true` |
+| `preventScroll` | `boolean` | `true` |
+| `initialFocusEl` | `() => HTMLElement \| null \| false` | — |
+| `finalFocusEl` | `() => HTMLElement \| null` | — |
+| `lazyMount` | `boolean` | `true` |
+| `unmountOnExit` | `boolean` | `true` |
+| `portalled` | `boolean` | `true` |

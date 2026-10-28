@@ -1,7 +1,7 @@
 ---
 title: Image
 component: image
-description: Responsive images with automatic CDN detection and Unpic-generated srcset and sizes attributes.
+description: Serve responsive images with srcset generated for common CDNs.
 ark: https://ark-ui.com/docs/guides/composition
 ---
 
@@ -14,6 +14,19 @@ import * as ImageDocs from '@/components/examples/image/css-properties';
 <ComponentInstall />
 
 ## Usage
+
+<UsageCode
+  react={'<Image\n  src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4"\n  alt="Mountain landscape"\n  width={800}\n  height={520}\n  layout="constrained"\n/>'}
+  vue={'<Image\n  src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4"\n  alt="Mountain landscape"\n  :width="800"\n  :height="520"\n  layout="constrained"\n/>'}
+/>
+
+<PropChips
+  items={[
+    ['layout', 'constrained, fixed, or fullWidth.'],
+    ['width / height', 'Intrinsic size; needed for constrained and fixed.'],
+    ['priority', 'Loads eagerly for images above the fold.'],
+  ]}
+/>
 
 Use `Image` with a URL from a supported image CDN or any regular image URL. For the default
 `layout="constrained"`, provide `width` and `height`. When Unpic recognizes the provider, it
@@ -93,6 +106,26 @@ customizes the CSS Modules variants, while `data-slot` hooks are shared by both 
 
 ### Styling hooks
 
+| Part | `data-slot` |
+| --- | --- |
+| `Image` | `image-root` |
+| `ImageSource` | `image-source` |
+
 - `data-slot="image-root"` targets the rendered `<img>` for styling.
 - `data-slot="image-source"` targets the source node inside a native `<picture>`.
 - `className` in React and `class` in Solid and Vue are the recommended ways to apply local styles.
+
+## API reference
+
+`Image` takes the Unpic image props and the native `img` props.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `src` | `string` | — |
+| `alt` | `string` | — |
+| `layout` | `'constrained' \| 'fixed' \| 'fullWidth'` | `'constrained'` |
+| `width` | `number` | — |
+| `height` | `number` | — |
+| `aspectRatio` | `number` | — |
+| `priority` | `boolean` | `false` |
+| `background` | `string` | — |

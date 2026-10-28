@@ -1,7 +1,7 @@
 ---
 title: Toggle Group
 component: toggle-group
-description: Un groupe de boutons à bascule navigable au clavier pour une sélection unique ou multiple dans React, Solid et Vue.
+description: Grouper des boutons bascule pour un ou plusieurs choix.
 ark: https://ark-ui.com/docs/components/toggle-group
 ---
 
@@ -19,6 +19,19 @@ import toggleGroupVueContextPart from '../../../snippets/toggle-group/vue/Alignm
 <ComponentInstall />
 
 ## Utilisation
+
+<UsageCode
+  react={'<ToggleGroup defaultValue={[\'left\']} variant="outline" aria-label="Text alignment" onValueChange={(details) => setAlign(details.value)}>\n  <ToggleGroupItem value="left">Left</ToggleGroupItem>\n  <ToggleGroupItem value="center">Center</ToggleGroupItem>\n  <ToggleGroupItem value="right">Right</ToggleGroupItem>\n</ToggleGroup>'}
+  vue={'<ToggleGroup v-model="align" variant="outline" aria-label="Text alignment">\n  <ToggleGroupItem value="left">Left</ToggleGroupItem>\n  <ToggleGroupItem value="center">Center</ToggleGroupItem>\n  <ToggleGroupItem value="right">Right</ToggleGroupItem>\n</ToggleGroup>'}
+/>
+
+<PropChips
+  items={[
+    ['defaultValue', 'Éléments enfoncés au départ, tableau.'],
+    ['multiple', 'Permet d’enfoncer plusieurs éléments.'],
+    ['deselectable', 'Permet de relâcher le dernier élément, true par défaut.'],
+  ]}
+/>
 
 Utilisez `ToggleGroup` comme racine et ajoutez un `ToggleGroupItem` pour chaque choix. Donnez au groupe
 un nom accessible avec `aria-label` ou `aria-labelledby`.
@@ -191,8 +204,37 @@ Définissez une propriété `--moduix-toggle-*` sur la racine pour styliser tous
 
 ### Points d’accroche CSS
 
-- Sélecteurs `data-slot` stables : `toggle-group-root`, `toggle-group-root-provider` et `toggle-group-item`.
+| Partie | `data-slot` |
+| --- | --- |
+| `ToggleGroup` | `toggle-group-root` |
+| `ToggleGroupRootProvider` | `toggle-group-root-provider` |
+| `ToggleGroupItem` | `toggle-group-item` |
+
 - Sélecteurs des parties Ark : `data-scope="toggle-group"` et `data-part="root" | "item"`.
 - Sélecteurs d’état Ark : `data-state="on" | "off"`, `data-disabled`, `data-focus` et
   `data-orientation="horizontal" | "vertical"`.
 - Sélecteurs moduix : `data-variant` et `data-size`.
+
+## Clavier
+
+| Touche | Action |
+| --- | --- |
+| `ArrowLeft` / `ArrowRight` | Déplace le focus entre éléments ; ArrowUp et ArrowDown en vertical. |
+| `Home` / `End` | Déplace le focus vers le premier ou le dernier élément. |
+| `Enter` / `Space` | Enfonce ou relâche l’élément ayant le focus. |
+
+## Référence de l’API
+
+| Prop | Type | Défaut |
+| --- | --- | --- |
+| `value` | `string[]` | — |
+| `defaultValue` | `string[]` | — |
+| `onValueChange` | `(details: ValueChangeDetails) => void` | — |
+| `multiple` | `boolean` | `false` |
+| `deselectable` | `boolean` | `true` |
+| `orientation` | `'horizontal' \| 'vertical'` | `'horizontal'` |
+| `loopFocus` | `boolean` | `true` |
+| `rovingFocus` | `boolean` | `true` |
+| `variant` | `'default' \| 'outline' \| 'ghost'` | `'default'` |
+| `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'icon-sm' \| 'icon-md' \| 'icon-lg'` | `'md'` |
+| `disabled` | `boolean` | `false` |

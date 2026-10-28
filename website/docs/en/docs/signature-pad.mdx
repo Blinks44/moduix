@@ -1,7 +1,7 @@
 ---
 title: Signature Pad
 component: signature-pad
-description: A signature pad for capturing handwritten input from a pointer or touch device.
+description: Capture a handwritten signature with a mouse, pen, or finger.
 ark: https://ark-ui.com/docs/components/signature-pad
 ---
 
@@ -14,6 +14,19 @@ import * as SignaturePadDocs from '@/components/examples/signature-pad/css-prope
 <ComponentInstall />
 
 ## Usage
+
+<UsageCode
+  react={'<SignaturePad name="signature" drawing={{ size: 3 }} onDrawEnd={(details) => details.getDataUrl(\'image/png\').then(save)}>\n  <SignaturePadLabel>Sign below</SignaturePadLabel>\n  <SignaturePadCanvas />\n  <SignaturePadHiddenInput />\n</SignaturePad>'}
+  vue={'<SignaturePad name="signature" :drawing="{ size: 3 }" @draw-end="(details) => details.getDataUrl(\'image/png\').then(save)">\n  <SignaturePadLabel>Sign below</SignaturePadLabel>\n  <SignaturePadCanvas />\n  <SignaturePadHiddenInput />\n</SignaturePad>'}
+/>
+
+<PropChips
+  items={[
+    ['drawing', 'Stroke options such as size and fill.'],
+    ['onDrawEnd', 'Runs after each stroke; getDataUrl() returns an image.'],
+    ['name', 'Submits the paths with a form through the hidden input.'],
+  ]}
+/>
 
 For most use cases, start with `SignaturePadCanvas`. It provides the standard drawing surface with
 Ark's `SignaturePadControl`, `SignaturePadSegment`, `SignaturePadClearTrigger`, and
@@ -130,6 +143,16 @@ SignaturePadRootProvider
 
 ### Styling hooks
 
+| Part | `data-slot` |
+| --- | --- |
+| `SignaturePad` | `signature-pad-root` |
+| `SignaturePadRootProvider` | `signature-pad-root-provider` |
+| `SignaturePadLabel` | `signature-pad-label` |
+| `SignaturePadControl` | `signature-pad-control` |
+| `SignaturePadSegment` | `signature-pad-segment` |
+| `SignaturePadGuide` | `signature-pad-guide` |
+| `SignaturePadClearTrigger` | `signature-pad-clear-trigger` |
+
 Use `className` in React or `class` in Solid and Vue on any exported part for local styling. moduix also
 adds stable `data-slot` attributes:
 
@@ -148,3 +171,17 @@ Ark attributes remain available for targeted styles. `SignaturePad`, `SignatureP
 the internal segment paths expose `data-scope="signature-pad"` and
 `data-part`; `data-disabled` appears on root, label, control, and guide, while `data-required`
 appears on label.
+
+## API reference
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `paths` | `string[]` | — |
+| `defaultPaths` | `string[]` | — |
+| `onDraw` | `(details: DrawDetails) => void` | — |
+| `onDrawEnd` | `(details: DrawEndDetails) => void` | — |
+| `drawing` | `DrawingOptions` | — |
+| `name` | `string` | — |
+| `disabled` | `boolean` | `false` |
+| `readOnly` | `boolean` | `false` |
+| `required` | `boolean` | `false` |

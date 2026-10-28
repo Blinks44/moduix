@@ -1,7 +1,7 @@
 ---
 title: Timer
 component: timer
-description: Un composant pour suivre le temps écoulé ou restant, avec des contrôles explicites en React, Solid ou Vue.
+description: Compter le temps écoulé ou restant avec démarrer, pause et remise à zéro.
 ark: https://ark-ui.com/docs/components/timer
 ---
 
@@ -12,6 +12,19 @@ ark: https://ark-ui.com/docs/components/timer
 <ComponentInstall />
 
 ## Utilisation
+
+<UsageCode
+  react={'<Timer countdown startMs={5 * 60 * 1000} autoStart onComplete={notify}>\n  <TimerSegments types={[\'minutes\', \'seconds\']} />\n  <TimerControl>\n    <TimerActionTrigger action="pause">Pause</TimerActionTrigger>\n    <TimerActionTrigger action="resume">Resume</TimerActionTrigger>\n    <TimerActionTrigger action="reset">Reset</TimerActionTrigger>\n  </TimerControl>\n</Timer>'}
+  vue={'<Timer countdown :start-ms="5 * 60 * 1000" auto-start @complete="notify">\n  <TimerSegments :types="[\'minutes\', \'seconds\']" />\n  <TimerControl>\n    <TimerActionTrigger action="pause">Pause</TimerActionTrigger>\n    <TimerActionTrigger action="resume">Resume</TimerActionTrigger>\n    <TimerActionTrigger action="reset">Reset</TimerActionTrigger>\n  </TimerControl>\n</Timer>'}
+/>
+
+<PropChips
+  items={[
+    ['countdown', 'Décompte depuis startMs au lieu de compter.'],
+    ['startMs / targetMs', 'Temps de départ et d’arrêt, en ms.'],
+    ['types', 'Sur TimerSegments : unités affichées, comme minutes et secondes.'],
+  ]}
+/>
 
 `TimerSegments` est la façon la plus simple d’afficher le temps au format courant, avec des deux-points comme
 séparateurs. Par défaut, il affiche les heures, les minutes et les secondes. Passez `types` pour choisir un autre
@@ -109,11 +122,31 @@ Tailwind utilisent des classes utilitaires et vos propres classes. Les variantes
 jetons de foundation et n’ont pas de variables propres : une classe sur un élément, ou un sélecteur `data-slot`,
 remplace les styles du composant placés dans une couche.
 
-### Sélecteurs et attributs de style
+### Points d’accroche CSS
 
-- Sélecteurs `data-slot="timer-root"`, `timer-root-provider`, `timer-area`, `timer-item`,
-  `timer-separator`, `timer-control` et `timer-action-trigger`.
+| Partie | `data-slot` |
+| --- | --- |
+| `Timer` | `timer-root` |
+| `TimerRootProvider` | `timer-root-provider` |
+| `TimerArea` | `timer-area` |
+| `TimerItem` | `timer-item` |
+| `TimerSeparator` | `timer-separator` |
+| `TimerControl` | `timer-control` |
+| `TimerActionTrigger` | `timer-action-trigger` |
+
 - Attributs de structure Ark : `data-scope="timer"` et
   `data-part="root|area|item|separator|control|action-trigger"`.
 - `TimerItem` expose `data-type` et la variable CSS `--value` mise à jour par Ark.
 - Ark ajoute l’attribut `hidden` aux déclencheurs d’action indisponibles dans l’état courant du minuteur.
+
+## Référence de l’API
+
+| Prop | Type | Défaut |
+| --- | --- | --- |
+| `countdown` | `boolean` | `false` |
+| `startMs` | `number` | — |
+| `targetMs` | `number` | — |
+| `autoStart` | `boolean` | `false` |
+| `interval` | `number` | `1000` |
+| `onTick` | `(details: TickDetails) => void` | — |
+| `onComplete` | `() => void` | — |

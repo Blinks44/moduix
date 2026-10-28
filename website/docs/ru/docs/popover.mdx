@@ -1,7 +1,7 @@
 ---
 title: Popover
 component: popover
-description: Доступное всплывающее окно для компактного интерактивного содержимого, привязанного к триггеру или другому элементу.
+description: Интерактивный контент в панели, привязанной к триггеру.
 ark: https://ark-ui.com/docs/components/popover
 ---
 
@@ -12,6 +12,20 @@ ark: https://ark-ui.com/docs/components/popover
 <ComponentInstall />
 
 ## Использование
+
+<UsageCode
+  react={'<Popover positioning={{ placement: \'bottom-start\', gutter: 8 }}>\n  <PopoverTrigger asChild>\n    <Button>Notifications</Button>\n  </PopoverTrigger>\n  <PopoverPositioner>\n    <PopoverContent>\n      <PopoverHeader>\n        <PopoverTitle>Notifications</PopoverTitle>\n        <PopoverDescription>You are all caught up.</PopoverDescription>\n      </PopoverHeader>\n    </PopoverContent>\n  </PopoverPositioner>\n</Popover>'}
+  solid={'<Popover positioning={{ placement: \'bottom-start\', gutter: 8 }}>\n  <PopoverTrigger asChild={(props) => (\n    <Button {...props()}>Notifications</Button>\n  )} />\n  <PopoverPositioner>\n    <PopoverContent>\n      <PopoverHeader>\n        <PopoverTitle>Notifications</PopoverTitle>\n        <PopoverDescription>You are all caught up.</PopoverDescription>\n      </PopoverHeader>\n    </PopoverContent>\n  </PopoverPositioner>\n</Popover>'}
+  vue={'<Popover :positioning="{ placement: \'bottom-start\', gutter: 8 }">\n  <PopoverTrigger as-child>\n    <Button>Notifications</Button>\n  </PopoverTrigger>\n  <PopoverPositioner>\n    <PopoverContent>\n      <PopoverHeader>\n        <PopoverTitle>Notifications</PopoverTitle>\n        <PopoverDescription>You are all caught up.</PopoverDescription>\n      </PopoverHeader>\n    </PopoverContent>\n  </PopoverPositioner>\n</Popover>'}
+/>
+
+<PropChips
+  items={[
+    ['positioning', 'Положение, отступ и sameWidth панели.'],
+    ['modal', 'Удерживает фокус и блокирует страницу, пока открыто.'],
+    ['closeOnInteractOutside', 'Закрывает по клику снаружи, по умолчанию true.'],
+  ]}
+/>
 
 Используйте `Popover` как корневой компонент, а остальные части импортируйте напрямую, например
 `PopoverTrigger` и `PopoverContent`. Эти плоские имена одинаковы в npm-пакетах и исходниках
@@ -190,6 +204,23 @@ foundation и не имеют переменных компонента: кла�
 
 ### Хуки стилизации
 
+| Часть | `data-slot` |
+| --- | --- |
+| `PopoverAnchor` | `popover-anchor` |
+| `PopoverTrigger` | `popover-trigger` |
+| `PopoverIndicator` | `popover-indicator` |
+| `PopoverPositioner` | `popover-positioner` |
+| `PopoverContent` | `popover-content` |
+| `PopoverArrow` | `popover-arrow` |
+| `PopoverArrowTip` | `popover-arrow-tip` |
+| `PopoverTitle` | `popover-title` |
+| `PopoverDescription` | `popover-description` |
+| `PopoverCloseTrigger` | `popover-close-trigger` |
+| `PopoverCloseIcon` | `popover-close-icon` |
+| `PopoverHeader` | `popover-header` |
+| `PopoverBody` | `popover-body` |
+| `PopoverFooter` | `popover-footer` |
+
 Каждая отрисованная часть принимает `className` или `class`. Части Ark сохраняют `data-scope="popover"`
 и значения `data-part`, а moduix добавляет к обёрткам стабильные `data-slot="popover-*"`. `Popover`
 и `PopoverRootProvider` предоставляют состояние, но не создают DOM-элементы. Для стилей, зависящих
@@ -198,6 +229,30 @@ foundation и не имеют переменных компонента: кла�
 
 `PopoverPositioner` предоставляет `--reference-width`, `--reference-height`, `--available-width`,
 `--available-height`, `--x`, `--y`, `--z-index` и `--transform-origin`. `PopoverContent` предоставляет
-`--layer-index` и `--nested-layer-count`, а `PopoverArrow` предоставляет переменные измерения стрелки Ark.
-Содержимое переносит длинные строки без пробелов и отключает анимацию, если пользователь предпочитает
+`--layer-index` и `--nested-layer-count`, а `PopoverArrow` предоставляет переменные измерения стрелки Ark. Содержимое переносит длинные строки без пробелов и отключает анимацию, если пользователь предпочитает
 уменьшить движение.
+
+## Клавиатура
+
+| Клавиша | Действие |
+| --- | --- |
+| `Enter` / `Space` | Открывает или закрывает поповер с кнопки. |
+| `Tab` / `Shift+Tab` | Перемещает по содержимому; выход из него закрывает немодальный поповер. |
+| `Esc` | Закрывает и возвращает фокус на кнопку. |
+
+## Справочник API
+
+| Проп | Тип | По умолчанию |
+| --- | --- | --- |
+| `open` | `boolean` | — |
+| `defaultOpen` | `boolean` | `false` |
+| `onOpenChange` | `(details: OpenChangeDetails) => void` | — |
+| `positioning` | `PositioningOptions` | — |
+| `modal` | `boolean` | `false` |
+| `autoFocus` | `boolean` | `true` |
+| `closeOnEscape` | `boolean` | `true` |
+| `closeOnInteractOutside` | `boolean` | `true` |
+| `initialFocusEl` | `() => HTMLElement \| null \| false` | — |
+| `portalled` | `boolean` | `true` |
+| `lazyMount` | `boolean` | `true` |
+| `unmountOnExit` | `boolean` | `true` |

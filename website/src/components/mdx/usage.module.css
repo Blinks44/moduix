@@ -5,12 +5,14 @@
 
 .props {
   display: grid;
-  gap: 10px;
+  grid-template-columns: minmax(92px, max-content) 1fr;
+  gap: 10px 12px;
   margin: 0 0 1.5rem;
 
   > div {
     display: grid;
-    grid-template-columns: 92px 1fr;
+    grid-column: 1 / -1;
+    grid-template-columns: subgrid;
     align-items: baseline;
   }
 

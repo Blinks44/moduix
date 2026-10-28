@@ -1,7 +1,7 @@
 ---
 title: Input Group
 component: input-group
-description: Build inputs with prefixes, suffixes, and inline actions in React, Solid, or Vue with package and shadcn installation options.
+description: Add prefixes, suffixes, and inline buttons around an input.
 ark: https://ark-ui.com/docs/guides/composition
 ---
 
@@ -14,6 +14,19 @@ import * as InputGroupDocs from '@/components/examples/input-group/css-propertie
 <ComponentInstall />
 
 ## Usage
+
+<UsageCode
+  react={'<InputGroup size="md">\n  <InputGroupAddon>https://</InputGroupAddon>\n  <InputGroupInput name="domain" placeholder="example.com" />\n  <InputGroupAddon>\n    <InputGroupButton aria-label="Copy">\n      <CopyIcon />\n    </InputGroupButton>\n  </InputGroupAddon>\n</InputGroup>'}
+  vue={'<InputGroup size="md">\n  <InputGroupAddon>https://</InputGroupAddon>\n  <InputGroupInput name="domain" placeholder="example.com" />\n  <InputGroupAddon>\n    <InputGroupButton aria-label="Copy">\n      <CopyIcon />\n    </InputGroupButton>\n  </InputGroupAddon>\n</InputGroup>'}
+/>
+
+<PropChips
+  items={[
+    ['size', 'Size shared by the input and addons, xs to xl.'],
+    ['align', 'On InputGroupAddon: inline beside the input or block above it.'],
+    ['InputGroupClearTrigger', 'Button that clears the input.'],
+  ]}
+/>
 
 Use `InputGroup` as the root and compose exactly one `InputGroupInput` with any needed `InputGroupAddon`,
 `InputGroupText`, or `InputGroupButton` parts.
@@ -148,17 +161,30 @@ component styles. Data attributes and `data-slot` hooks are shared by both styli
 
 ### Styling hooks
 
+| Part | `data-slot` |
+| --- | --- |
+| `InputGroup` | `input-group-root` |
+| `InputGroupAddon` | `input-group-addon` |
+| `InputGroupText` | `input-group-text` |
+| `InputGroupButton` | `input-group-button` |
+| `InputGroupClearTrigger` | `input-group-clear-trigger` |
+
 - `data-slot="input-group-root"` and `data-size="xs" | "sm" | "md" | "lg" | "xl"` on the root
 - `data-scope="input-group"` and `data-part="root" | "addon" | "text"` on the Ark factory parts
 - `data-slot="input-root"` plus Ark Field input state attributes
-- `data-slot="input-group-addon"`
-- `data-slot="input-group-clear-trigger"`
-- `data-slot="input-group-text"`
 - `data-align="inline" | "block"` on `InputGroupAddon` and `InputGroupText`
 - `data-slot="textarea-root"` plus Ark Field textarea state attributes on `InputGroupTextarea`
-- `data-slot="input-group-button"` on the grouped action button
 - Nested `data-invalid`, `aria-invalid="true"`, and `data-disabled`/`:disabled` states are reflected through `:has(...)` on the root
 
 Component-owned `data-slot`, `data-scope`, `data-part`, and root `data-size` hooks stay stable when
 consumer props are supplied. `className` in React and `class` in Solid and Vue merge with the component
 styles.
+
+## API reference
+
+Props of `InputGroup`. `InputGroupAddon` takes `align` (`'inline' | 'block'`, default `'inline'`).
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'` | `'md'` |
+| `asChild` | `boolean` | `false` |

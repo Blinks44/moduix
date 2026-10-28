@@ -1,7 +1,7 @@
 ---
 title: Badge
 component: badge
-description: Un badge compact pour afficher de brèves informations comme un statut, une catégorie, une version ou un nombre.
+description: Étiqueter un statut, une catégorie, une version ou un compteur.
 ark: https://ark-ui.com/docs/guides/composition#the-ark-factory
 ---
 
@@ -14,6 +14,19 @@ import * as BadgeDocs from '@/components/examples/badge/css-properties';
 <ComponentInstall />
 
 ## Utilisation
+
+<UsageCode
+  react={'<Badge variant="secondary" size="sm">\n  <BadgeDot />\n  Beta\n</Badge>'}
+  vue={'<Badge variant="secondary" size="sm">\n  <BadgeDot />\n  Beta\n</Badge>'}
+/>
+
+<PropChips
+  items={[
+    ['variant', 'default, secondary, destructive, outline, ghost ou link.'],
+    ['size', 'sm, md ou lg.'],
+    ['BadgeDot', 'Point facultatif avant le libellé pour un statut.'],
+  ]}
+/>
 
 Commencez par un `<Badge>` simple. Par défaut, le composant rend un `span` de présentation. Définissez `variant` pour
 choisir un style intégré, `size` pour choisir `sm`, `md` ou `lg`, et ajoutez `BadgeDot` uniquement lorsqu’un statut
@@ -116,9 +129,23 @@ Ces variables CSS s’appliquent aux packages CSS Modules ; les packages Tailwin
 
 ### Points d’accroche CSS
 
-- `data-slot="badge-root"`, `data-slot="badge-label"` et `data-slot="badge-dot"` sont des sélecteurs stables pour cibler les parties exportées en CSS.
+| Partie | `data-slot` |
+| --- | --- |
+| `Badge` | `badge-root` |
+| `BadgeLabel` | `badge-label` |
+| `BadgeDot` | `badge-dot` |
+
 - `Badge` expose également `data-scope="badge"` et `data-part="root"`. `BadgeLabel` et `BadgeDot` exposent `data-part="label"` et `data-part="dot"`.
 - `Badge` indique la variante sélectionnée dans l’attribut `data-variant` et la taille dans `data-size`.
 - Les hôtes focalisables rendus avec `Badge asChild` reçoivent le style de focus visible. Les racines de type lien reçoivent aussi le survol de la variante et le curseur pointeur ; les styles propres aux boutons restent gérés par l’application.
 - Les icônes `svg` placées directement comme enfants héritent de `currentColor`, ne capturent pas les événements du pointeur et mesurent 12px sauf si une classe sur l’icône définit une autre taille.
 - `Badge` ne dispose ni d’une primitive Ark dédiée ni d’une machine de comportement ; il n’expose donc aucun état géré par Ark ni aucune variable CSS d’exécution.
+
+## Référence de l’API
+
+Accepte aussi les props natives de son élément et `asChild`.
+
+| Prop | Type | Défaut |
+| --- | --- | --- |
+| `variant` | `'default' \| 'secondary' \| 'destructive' \| 'outline' \| 'ghost' \| 'link'` | `'default'` |
+| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` |

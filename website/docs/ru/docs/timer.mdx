@@ -1,7 +1,7 @@
 ---
 title: Timer
 component: timer
-description: Компонент для отсчёта прошедшего или оставшегося времени с явными элементами управления в React, Solid и Vue.
+description: Отсчёт прошедшего или оставшегося времени с запуском, паузой и сбросом.
 ark: https://ark-ui.com/docs/components/timer
 ---
 
@@ -12,6 +12,19 @@ ark: https://ark-ui.com/docs/components/timer
 <ComponentInstall />
 
 ## Использование
+
+<UsageCode
+  react={'<Timer countdown startMs={5 * 60 * 1000} autoStart onComplete={notify}>\n  <TimerSegments types={[\'minutes\', \'seconds\']} />\n  <TimerControl>\n    <TimerActionTrigger action="pause">Pause</TimerActionTrigger>\n    <TimerActionTrigger action="resume">Resume</TimerActionTrigger>\n    <TimerActionTrigger action="reset">Reset</TimerActionTrigger>\n  </TimerControl>\n</Timer>'}
+  vue={'<Timer countdown :start-ms="5 * 60 * 1000" auto-start @complete="notify">\n  <TimerSegments :types="[\'minutes\', \'seconds\']" />\n  <TimerControl>\n    <TimerActionTrigger action="pause">Pause</TimerActionTrigger>\n    <TimerActionTrigger action="resume">Resume</TimerActionTrigger>\n    <TimerActionTrigger action="reset">Reset</TimerActionTrigger>\n  </TimerControl>\n</Timer>'}
+/>
+
+<PropChips
+  items={[
+    ['countdown', 'Считает вниз от startMs, а не вверх.'],
+    ['startMs / targetMs', 'Время старта и время остановки в мс.'],
+    ['types', 'На TimerSegments: какие единицы показывать, например минуты и секунды.'],
+  ]}
+/>
 
 `TimerSegments` проще всего использовать для классического отображения времени с разделителями `:`. По умолчанию
 компонент показывает часы, минуты и секунды. Передайте `types`, чтобы выбрать другой набор единиц. Если нужны
@@ -105,11 +118,31 @@ TimerSegments
 используют утилиты и классы приложения. Варианты CSS Modules построены на токенах foundation и не имеют
 собственных переменных: класс на части или селектор по `data-slot` переопределяет стили компонента из слоя.
 
-### Селекторы и атрибуты стиля
+### Хуки стилизации
 
-- Селекторы `data-slot="timer-root"`, `timer-root-provider`, `timer-area`, `timer-item`,
-  `timer-separator`, `timer-control` и `timer-action-trigger`.
+| Часть | `data-slot` |
+| --- | --- |
+| `Timer` | `timer-root` |
+| `TimerRootProvider` | `timer-root-provider` |
+| `TimerArea` | `timer-area` |
+| `TimerItem` | `timer-item` |
+| `TimerSeparator` | `timer-separator` |
+| `TimerControl` | `timer-control` |
+| `TimerActionTrigger` | `timer-action-trigger` |
+
 - Атрибуты анатомии Ark: `data-scope="timer"` и
   `data-part="root|area|item|separator|control|action-trigger"`.
 - `TimerItem` предоставляет `data-type` и переменную CSS `--value`, которую обновляет Ark.
 - Ark добавляет атрибут `hidden` к триггерам действий, недоступным в текущем состоянии таймера.
+
+## Справочник API
+
+| Проп | Тип | По умолчанию |
+| --- | --- | --- |
+| `countdown` | `boolean` | `false` |
+| `startMs` | `number` | — |
+| `targetMs` | `number` | — |
+| `autoStart` | `boolean` | `false` |
+| `interval` | `number` | `1000` |
+| `onTick` | `(details: TickDetails) => void` | — |
+| `onComplete` | `() => void` | — |

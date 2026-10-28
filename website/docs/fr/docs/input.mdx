@@ -1,7 +1,7 @@
 ---
 title: Input
 component: input
-description: Champ de saisie natif sur une ligne, fondé sur FieldInput d’Ark UI, avec les événements natifs et les styles moduix.
+description: Saisir une ligne de texte avec le comportement natif.
 ark: https://ark-ui.com/docs/components/field
 ---
 
@@ -14,6 +14,20 @@ import * as InputDocs from '@/components/examples/input/css-properties';
 <ComponentInstall />
 
 ## Utilisation
+
+<UsageCode
+  react={'<Field>\n  <FieldLabel>Name</FieldLabel>\n  <Input name="name" size="md" placeholder="Enter your name" onChange={(event) => setName(event.target.value)} />\n</Field>'}
+  solid={'<Field>\n  <FieldLabel>Name</FieldLabel>\n  <Input name="name" size="md" placeholder="Enter your name" onInput={(event) => setName(event.currentTarget.value)} />\n</Field>'}
+  vue={'<Field>\n  <FieldLabel>Name</FieldLabel>\n  <Input v-model="name" name="name" size="md" placeholder="Enter your name" />\n</Field>'}
+/>
+
+<PropChips
+  items={[
+    ['size', 'Hauteur et taille du texte, de xs à xl.'],
+    ['htmlSize', 'Attribut size natif, en caractères.'],
+    ['Field', 'Enveloppez-le pour ajouter libellé, aide et erreur.'],
+  ]}
+/>
 
 Placez `Input` dans `Field` lorsque vous avez besoin d’un libellé, d’un texte d’aide ou d’un message d’erreur. `Field` relie ces éléments au champ, génère les identifiants nécessaires et lui transmet son état.
 
@@ -144,8 +158,21 @@ partagés et les sélecteurs d’état natifs.
 
 ### Points d’accroche CSS
 
-- `data-slot="input-root"`
+| Partie | `data-slot` |
+| --- | --- |
+| `Input` | `input-root` |
+
 - `data-size="xs" | "sm" | "md" | "lg" | "xl"`
 - `data-scope="field"` et `data-part="input"`
 - `data-invalid`, `data-required` et `data-readonly` d’Ark dans `Field`
 - les sélecteurs natifs `:disabled`, `:read-only`, `:focus-visible` et `[aria-invalid="true"]`
+
+## Référence de l’API
+
+Accepte aussi les props natives de son élément.
+
+| Prop | Type | Défaut |
+| --- | --- | --- |
+| `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'` | `'md'` |
+| `htmlSize` | `number` | — |
+| `asChild` | `boolean` | `false` |

@@ -1,7 +1,7 @@
 ---
 title: Card
 component: card
-description: "Créez des cartes flexibles avec React, Solid ou Vue, en installant le package ou via shadcn."
+description: Regrouper un titre, du contenu et des actions sur une surface.
 ark: https://ark-ui.com/docs/guides/composition#the-ark-factory
 ---
 
@@ -14,6 +14,19 @@ import * as CardDocs from '@/components/examples/card/css-properties';
 <ComponentInstall />
 
 ## Utilisation
+
+<UsageCode
+  react={'<Card variant="elevated" size="md">\n  <CardHeader>\n    <CardTitle>Release 2.4</CardTitle>\n    <CardDescription>Ready to promote.</CardDescription>\n  </CardHeader>\n  <CardBody>12 changes, all checks passed.</CardBody>\n  <CardFooter>\n    <Button>Promote</Button>\n  </CardFooter>\n</Card>'}
+  vue={'<Card variant="elevated" size="md">\n  <CardHeader>\n    <CardTitle>Release 2.4</CardTitle>\n    <CardDescription>Ready to promote.</CardDescription>\n  </CardHeader>\n  <CardBody>12 changes, all checks passed.</CardBody>\n  <CardFooter>\n    <Button>Promote</Button>\n  </CardFooter>\n</Card>'}
+/>
+
+<PropChips
+  items={[
+    ['variant', 'Surface outline, elevated ou subtle.'],
+    ['size', 'Espacement interne : sm, md ou lg.'],
+    ['asChild', 'Rend la carte comme votre lien ou article.'],
+  ]}
+/>
 
 Utilisez `Card` comme racine et ajoutez uniquement les parties nécessaires. Importez chaque partie
 supplémentaire directement, comme `CardHeader` et `CardTitle`. Les mêmes noms fonctionnent avec les
@@ -132,11 +145,22 @@ Card
 
 <CssPropertiesSection properties={CardDocs.cardOverrideCssProperties} />
 
-### Attributs utiles pour le style
+### Points d’accroche CSS
+
+| Partie | `data-slot` |
+| --- | --- |
+| `Card` | `card-root` |
+| `CardHeader` | `card-header` |
+| `CardBody` | `card-body` |
+| `CardMedia` | `card-media` |
+| `CardBackground` | `card-background` |
+| `CardFooter` | `card-footer` |
+| `CardTitle` | `card-title` |
+| `CardDescription` | `card-description` |
+| `CardAction` | `card-action` |
+| `CardLink` | `card-link` |
 
 - Chaque partie expose `data-scope="card"` et le `data-part` correspondant.
-- Les points d’accroche `data-slot` stables de moduix sont `card-root`, `card-background`, `card-media`, `card-header`, `card-body`,
-  `card-footer`, `card-title`, `card-description`, `card-action` et `card-link`.
 - Le composant racine expose `data-size="sm | md | lg"` et
   `data-variant="elevated | outline | subtle"`.
 - Les variables CSS s’appliquent à toutes les variantes. Pour personnaliser une variante dans toute
@@ -144,3 +168,12 @@ Card
 - Chaque section a la même marge intérieure en haut, et la dernière l’a aussi en bas. Avec Tailwind,
   modifiez cette marge basse avec `last:pb-*` sur la section ou `[--card-spacing:…]` sur la racine.
 - Card n’expose aucun attribut d’état interactif, car il ne gère ni état ni comportement.
+
+## Référence de l’API
+
+Accepte aussi les props natives de son élément et `asChild`.
+
+| Prop | Type | Défaut |
+| --- | --- | --- |
+| `variant` | `'outline' \| 'elevated' \| 'subtle'` | `'outline'` |
+| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` |

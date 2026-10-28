@@ -1,7 +1,7 @@
 ---
 title: Stack
 component: stack
-description: A lightweight flex layout primitive for arranging content vertically or horizontally in React, Solid, or Vue.
+description: Arrange items in a row or column with even spacing.
 ark: https://ark-ui.com/docs/guides/composition#the-ark-factory
 ---
 
@@ -12,6 +12,19 @@ ark: https://ark-ui.com/docs/guides/composition#the-ark-factory
 <ComponentInstall />
 
 ## Usage
+
+<UsageCode
+  react={'<Stack direction={{ mobile: \'column\', desktop: \'row\' }} gap={12} align="center">\n  <Avatar />\n  <Text>Ada Lovelace</Text>\n</Stack>'}
+  vue={'<Stack :direction="{ mobile: \'column\', desktop: \'row\' }" :gap="12" align="center">\n  <Avatar />\n  <Text>Ada Lovelace</Text>\n</Stack>'}
+/>
+
+<PropChips
+  items={[
+    ['direction', 'row, column, or reversed; pass mobile and desktop for both.'],
+    ['gap', 'Space between items; numbers become px.'],
+    ['align / justify', 'Cross-axis and main-axis alignment.'],
+  ]}
+/>
 
 Use `Stack` when a single flex container is enough and you only need to control direction, gap, and alignment.
 
@@ -94,10 +107,26 @@ classes and consumer class overrides; the data attributes and `data-slot` hook a
 
 ### Styling hooks
 
+| Part | `data-slot` |
+| --- | --- |
+| `Stack` | `stack-root` |
+
 - `className` or `class` styles the single root for width, padding, borders, backgrounds, and other surface concerns.
 - `data-scope="stack"` and `data-part="root"` align the wrapper with Ark styling conventions.
-- `data-slot="stack-root"` is the stable moduix selector for targeting the root in local CSS.
 - `direction` and `fill` are applied through the component stylesheet or utilities, so consumer classes can override
   them. `gap`, `align`, `justify`, and `wrap` write inline styles.
 - `style` is applied last, so it can override the inline `gap`, `alignItems`, `justifyContent`, and `flexWrap`.
 - There are no state attributes, CSS animation variables, or `slotProps` maps in the public contract.
+
+## API reference
+
+Also accepts the native props of its element and `asChild`.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `direction` | `StackDirection \| { mobile?: StackDirection; desktop?: StackDirection }` | `'column'` |
+| `gap` | `number \| string` | — |
+| `align` | `CSSProperties['alignItems']` | — |
+| `justify` | `CSSProperties['justifyContent']` | — |
+| `wrap` | `CSSProperties['flexWrap']` | — |
+| `fill` | `boolean` | `false` |

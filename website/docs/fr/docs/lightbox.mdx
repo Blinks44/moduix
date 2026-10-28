@@ -1,7 +1,7 @@
 ---
 title: Lightbox
 component: lightbox
-description: Créez une visionneuse d’images modale avec navigation de galerie et état contrôlé en React, Solid ou Vue.
+description: Afficher des images dans une visionneuse modale, une à une ou en galerie.
 ark: https://ark-ui.com/docs/components/dialog
 ---
 
@@ -18,6 +18,20 @@ import lightboxVueRootProviderAndContextPart from '../../../snippets/lightbox/vu
 <ComponentInstall />
 
 ## Utilisation
+
+<UsageCode
+  react={'<Lightbox>\n  <LightboxTrigger asChild>\n    <button type="button">\n      <img src={photo.thumbnail} alt={photo.alt} />\n    </button>\n  </LightboxTrigger>\n  <LightboxBackdrop />\n  <LightboxPositioner>\n    <LightboxContent aria-label={photo.alt}>\n      <LightboxCloseIcon />\n      <LightboxBody>\n        <LightboxImage src={photo.src} alt={photo.alt} closeOnClick />\n      </LightboxBody>\n    </LightboxContent>\n  </LightboxPositioner>\n</Lightbox>'}
+  solid={'<Lightbox>\n  <LightboxTrigger asChild={(props) => (\n    <button type="button" {...props()}>\n      <img src={photo.thumbnail} alt={photo.alt} />\n    </button>\n  )} />\n  <LightboxBackdrop />\n  <LightboxPositioner>\n    <LightboxContent aria-label={photo.alt}>\n      <LightboxCloseIcon />\n      <LightboxBody>\n        <LightboxImage src={photo.src} alt={photo.alt} closeOnClick />\n      </LightboxBody>\n    </LightboxContent>\n  </LightboxPositioner>\n</Lightbox>'}
+  vue={'<Lightbox>\n  <LightboxTrigger as-child>\n    <button type="button">\n      <img :src="photo.thumbnail" :alt="photo.alt" />\n    </button>\n  </LightboxTrigger>\n  <LightboxBackdrop />\n  <LightboxPositioner>\n    <LightboxContent :aria-label="photo.alt">\n      <LightboxCloseIcon />\n      <LightboxBody>\n        <LightboxImage :src="photo.src" :alt="photo.alt" close-on-click />\n      </LightboxBody>\n    </LightboxContent>\n  </LightboxPositioner>\n</Lightbox>'}
+/>
+
+<PropChips
+  items={[
+    ['closeOnClick', 'Sur LightboxImage : un clic sur l’image ferme la visionneuse.'],
+    ['aria-label', 'Nomme la visionneuse ; reprenez le texte alt.'],
+    ['modal', 'false laisse la page utilisable derrière.'],
+  ]}
+/>
 
 Composez explicitement la structure de dialogue Ark UI avec `Lightbox`, `LightboxTrigger`,
 `LightboxBackdrop`, `LightboxPositioner` et `LightboxContent`. Avec `asChild`, fournissez un
@@ -220,9 +234,22 @@ LightboxRootProvider
 
 ### Points d’accroche CSS
 
-- Slots moduix : `lightbox-trigger`, `lightbox-backdrop`, `lightbox-positioner`, `lightbox-content`,
-  `lightbox-title`, `lightbox-description`, `lightbox-close-trigger`, `lightbox-close-icon`,
-  `lightbox-header`, `lightbox-body`, `lightbox-footer`, `lightbox-image` et `lightbox-gallery`.
+| Partie | `data-slot` |
+| --- | --- |
+| `LightboxTrigger` | `lightbox-trigger` |
+| `LightboxBackdrop` | `lightbox-backdrop` |
+| `LightboxPositioner` | `lightbox-positioner` |
+| `LightboxContent` | `lightbox-content` |
+| `LightboxTitle` | `lightbox-title` |
+| `LightboxDescription` | `lightbox-description` |
+| `LightboxCloseTrigger` | `lightbox-close-trigger` |
+| `LightboxCloseIcon` | `lightbox-close-icon` |
+| `LightboxImage` | `lightbox-image` |
+| `LightboxGallery` | `lightbox-gallery` |
+| `LightboxHeader` | `lightbox-header` |
+| `LightboxBody` | `lightbox-body` |
+| `LightboxFooter` | `lightbox-footer` |
+
 - Attributs d’état et d’anatomie Ark : `data-scope="dialog"`, `data-part`,
   `data-state="open|closed"`, `data-nested`, `data-has-nested`, `--layer-index` et
   `--nested-layer-count`.
@@ -238,3 +265,32 @@ LightboxRootProvider
   partagées `--moduix-backdrop-bg` et `--moduix-backdrop-filter`, l’animation du contenu lit
   `--moduix-popup-motion-*` sur `LightboxContent`, et `LightboxCloseIcon` lit les variables
   `--moduix-close-button-*`.
+
+## Clavier
+
+| Touche | Action |
+| --- | --- |
+| `Enter` / `Space` | Ouvre depuis le déclencheur ayant le focus. |
+| `Tab` / `Shift+Tab` | Déplace le focus entre les contrôles ; il reste à l’intérieur tant que c’est ouvert. |
+| `Esc` | Ferme et rend le focus au déclencheur. |
+
+## Référence de l’API
+
+`Lightbox` accepte les mêmes props que `Dialog`. `LightboxImage` ajoute `closeOnClick` (`boolean`, par défaut `false`).
+
+| Prop | Type | Défaut |
+| --- | --- | --- |
+| `open` | `boolean` | — |
+| `defaultOpen` | `boolean` | `false` |
+| `onOpenChange` | `(details: OpenChangeDetails) => void` | — |
+| `modal` | `boolean` | `true` |
+| `role` | `'dialog' \| 'alertdialog'` | `'dialog'` |
+| `closeOnEscape` | `boolean` | `true` |
+| `closeOnInteractOutside` | `boolean` | `true` |
+| `trapFocus` | `boolean` | `true` |
+| `preventScroll` | `boolean` | `true` |
+| `initialFocusEl` | `() => HTMLElement \| null \| false` | — |
+| `finalFocusEl` | `() => HTMLElement \| null` | — |
+| `lazyMount` | `boolean` | `true` |
+| `unmountOnExit` | `boolean` | `true` |
+| `portalled` | `boolean` | `true` |

@@ -1,7 +1,7 @@
 ---
 title: Heading
 component: heading
-description: Composant sémantique pour les titres, basé sur la fabrique Ark et les tokens typographiques de moduix pour React, Solid et Vue.
+description: Titrer une page ou une section avec le bon niveau et la bonne taille.
 ark: https://ark-ui.com/docs/guides/composition#the-ark-factory
 ---
 
@@ -12,6 +12,19 @@ ark: https://ark-ui.com/docs/guides/composition#the-ark-factory
 <ComponentInstall />
 
 ## Utilisation
+
+<UsageCode
+  react={'<Heading as="h2" size="xl" weight="bold">\n  Billing\n</Heading>'}
+  vue={'<Heading as="h2" size="xl" weight="bold">\n  Billing\n</Heading>'}
+/>
+
+<PropChips
+  items={[
+    ['as', 'Niveau h1 à h6, h1 par défaut.'],
+    ['size', 'Taille visuelle de xs à 2xl, distincte du niveau.'],
+    ['weight', 'regular, medium, semibold ou bold.'],
+  ]}
+/>
 
 Par défaut, `Heading` rend un `h1`. Utilisez-le pour les titres du document et choisissez la valeur de `as`
 en fonction de sa place dans la structure du document. Définissez `size` séparément lorsque l’importance
@@ -84,9 +97,22 @@ styles du composant déclarés dans leur couche.
 
 ### Points d’accroche CSS
 
+| Partie | `data-slot` |
+| --- | --- |
+| `Heading` | `heading-root` |
+
 - `data-scope="heading"` et `data-part="root"` identifient la racine selon les conventions d’Ark.
-- `data-slot="heading-root"` est un sélecteur moduix stable.
 - `data-size` indique la taille résolue : la valeur explicite de `size` ou la taille par défaut de `as`.
 - `data-weight` indique la graisse choisie : `regular`, `medium`, `semibold` ou `bold`.
 - `Heading` définit lui-même ces attributs. Les propriétés `data-*` correspondantes ne peuvent pas remplacer le contrat de style du composant.
 - Utilisez `className` ou `class` pour les classes utilitaires de l’application et les ajustements de style locaux.
+
+## Référence de l’API
+
+Accepte aussi les props natives de son élément et `asChild`.
+
+| Prop | Type | Défaut |
+| --- | --- | --- |
+| `as` | `'h1' \| 'h2' \| 'h3' \| 'h4' \| 'h5' \| 'h6'` | `'h1'` |
+| `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl' \| '2xl'` | — |
+| `weight` | `'regular' \| 'medium' \| 'semibold' \| 'bold'` | `'semibold'` |

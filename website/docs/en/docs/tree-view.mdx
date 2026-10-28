@@ -1,7 +1,7 @@
 ---
 title: Tree View
 component: tree-view
-description: Accessible tree controls for folders, files, and other nested data, built on Ark UI.
+description: Browse folders, files, and other nested data in an expandable tree.
 ark: https://ark-ui.com/docs/components/tree-view
 ---
 
@@ -74,6 +74,21 @@ import treeViewVueRootProviderNode from '../../../snippets/tree-view/vue/RootPro
 <ComponentInstall />
 
 ## Usage
+
+<UsageCode
+  react={'const collection = createTreeCollection({ rootNode, nodeToValue: (n) => n.id, nodeToString: (n) => n.name });\n\n<TreeView collection={collection} defaultExpandedValue={[\'src\']} selectionMode="multiple">\n  <TreeViewTree>\n    {collection.rootNode.children.map((node, index) => (\n      <FileTreeNode key={node.id} node={node} indexPath={[index]} />\n    ))}\n  </TreeViewTree>\n</TreeView>'}
+  solid={'const collection = createTreeCollection({ rootNode, nodeToValue: (n) => n.id, nodeToString: (n) => n.name });\n\n<TreeView collection={collection} defaultExpandedValue={[\'src\']} selectionMode="multiple">\n  <TreeViewTree>\n    <For each={collection.rootNode.children}>\n      {(node, index) => (\n        <FileTreeNode node={node} indexPath={[index()]} />\n      )}\n    </For>\n  </TreeViewTree>\n</TreeView>'}
+  vue={'const collection = createTreeCollection({ rootNode, nodeToValue: (n) => n.id, nodeToString: (n) => n.name });\n\n<TreeView :collection="collection" :default-expanded-value="[\'src\']" selection-mode="multiple">\n  <TreeViewTree>\n    <FileTreeNode\n      v-for="(node, index) in collection.rootNode.children"\n      :key="node.id"\n      :node="node"\n      :index-path="[index]"\n    />\n  </TreeViewTree>\n</TreeView>'}
+/>
+
+<PropChips
+  items={[
+    ['collection', 'Tree data from createTreeCollection().'],
+    ['defaultExpandedValue', 'Branches open on first render.'],
+    ['selectionMode', 'single or multiple selection.'],
+    ['loadChildren', 'Loads a branch’s children on first expand.'],
+  ]}
+/>
 
 Create the data collection with `createTreeCollection`, then pass it to `TreeView`.
 `TreeViewNode` gives each recursive render callback the current `node`, `indexPath`, and `state`, so
@@ -380,9 +395,53 @@ step as CSS variables; override other styles with a class on the part.
 
 ### Styling hooks
 
-- `data-slot="tree-view-root"`, `tree-view-root-provider`, `tree-view-label`, `tree-view-tree`,
-  `tree-view-branch`, `tree-view-branch-control`, `tree-view-branch-trigger`,
-  `tree-view-branch-indicator`, `tree-view-branch-text`, `tree-view-branch-content`,
-  `tree-view-branch-indent-guide`, `tree-view-item`, `tree-view-item-text`,
-  `tree-view-item-indicator`, `tree-view-node-checkbox`, `tree-view-node-checkbox-indicator`, and
-  `tree-view-node-rename-input`.
+| Part | `data-slot` |
+| --- | --- |
+| `TreeView` | `tree-view-root` |
+| `TreeViewRootProvider` | `tree-view-root-provider` |
+| `TreeViewLabel` | `tree-view-label` |
+| `TreeViewTree` | `tree-view-tree` |
+| `TreeViewBranch` | `tree-view-branch` |
+| `TreeViewBranchControl` | `tree-view-branch-control` |
+| `TreeViewBranchTrigger` | `tree-view-branch-trigger` |
+| `TreeViewBranchIndicator` | `tree-view-branch-indicator` |
+| `TreeViewBranchText` | `tree-view-branch-text` |
+| `TreeViewBranchContent` | `tree-view-branch-content` |
+| `TreeViewBranchIndentGuide` | `tree-view-branch-indent-guide` |
+| `TreeViewItem` | `tree-view-item` |
+| `TreeViewItemText` | `tree-view-item-text` |
+| `TreeViewItemIndicator` | `tree-view-item-indicator` |
+| `TreeViewNodeCheckbox` | `tree-view-node-checkbox` |
+| `TreeViewNodeCheckboxIndicator` | `tree-view-node-checkbox-indicator` |
+| `TreeViewNodeRenameInput` | `tree-view-node-rename-input` |
+
+## Keyboard
+
+| Key | Action |
+| --- | --- |
+| `ArrowDown` / `ArrowUp` | Moves focus to the next or previous visible node. |
+| `ArrowRight` | Opens a closed branch or moves into an open one. |
+| `ArrowLeft` | Closes an open branch or moves to the parent. |
+| `Home` / `End` | Moves focus to the first or last node. |
+| `Enter` / `Space` | Selects the node or toggles a branch. |
+| `*` | Opens all sibling branches. |
+| `F2` | Starts renaming when canRename allows it. |
+
+## API reference
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `collection` | `TreeCollection<T>` | — |
+| `expandedValue` | `string[]` | — |
+| `defaultExpandedValue` | `string[]` | — |
+| `onExpandedChange` | `(details: ExpandedChangeDetails) => void` | — |
+| `selectedValue` | `string[]` | — |
+| `defaultSelectedValue` | `string[]` | — |
+| `onSelectionChange` | `(details: SelectionChangeDetails) => void` | — |
+| `selectionMode` | `'single' \| 'multiple'` | `'single'` |
+| `checkedValue` | `string[]` | — |
+| `onCheckedChange` | `(details: CheckedChangeDetails) => void` | — |
+| `expandOnClick` | `boolean` | `true` |
+| `typeahead` | `boolean` | `true` |
+| `loadChildren` | `(details: LoadChildrenDetails) => Promise<T[]>` | — |
+| `canRename` | `(node: T, indexPath: IndexPath) => boolean` | — |

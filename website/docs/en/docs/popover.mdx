@@ -1,7 +1,7 @@
 ---
 title: Popover
 component: popover
-description: An accessible popover for compact interactive content, anchored to a trigger or another reference element.
+description: Show interactive content in a panel anchored to a trigger.
 ark: https://ark-ui.com/docs/components/popover
 ---
 
@@ -12,6 +12,20 @@ ark: https://ark-ui.com/docs/components/popover
 <ComponentInstall />
 
 ## Usage
+
+<UsageCode
+  react={'<Popover positioning={{ placement: \'bottom-start\', gutter: 8 }}>\n  <PopoverTrigger asChild>\n    <Button>Notifications</Button>\n  </PopoverTrigger>\n  <PopoverPositioner>\n    <PopoverContent>\n      <PopoverHeader>\n        <PopoverTitle>Notifications</PopoverTitle>\n        <PopoverDescription>You are all caught up.</PopoverDescription>\n      </PopoverHeader>\n    </PopoverContent>\n  </PopoverPositioner>\n</Popover>'}
+  solid={'<Popover positioning={{ placement: \'bottom-start\', gutter: 8 }}>\n  <PopoverTrigger asChild={(props) => (\n    <Button {...props()}>Notifications</Button>\n  )} />\n  <PopoverPositioner>\n    <PopoverContent>\n      <PopoverHeader>\n        <PopoverTitle>Notifications</PopoverTitle>\n        <PopoverDescription>You are all caught up.</PopoverDescription>\n      </PopoverHeader>\n    </PopoverContent>\n  </PopoverPositioner>\n</Popover>'}
+  vue={'<Popover :positioning="{ placement: \'bottom-start\', gutter: 8 }">\n  <PopoverTrigger as-child>\n    <Button>Notifications</Button>\n  </PopoverTrigger>\n  <PopoverPositioner>\n    <PopoverContent>\n      <PopoverHeader>\n        <PopoverTitle>Notifications</PopoverTitle>\n        <PopoverDescription>You are all caught up.</PopoverDescription>\n      </PopoverHeader>\n    </PopoverContent>\n  </PopoverPositioner>\n</Popover>'}
+/>
+
+<PropChips
+  items={[
+    ['positioning', 'Placement, gutter, and sameWidth of the panel.'],
+    ['modal', 'Traps focus and blocks the page while open.'],
+    ['closeOnInteractOutside', 'Closes on a click outside, true by default.'],
+  ]}
+/>
 
 Use `Popover` as the root and import each additional part directly, such as `PopoverTrigger` and
 `PopoverContent`. The same flat names work with npm packages and shadcn registry source. Set
@@ -187,6 +201,23 @@ variables: a class on the part overrides the layered component styles. Data attr
 
 ### Styling hooks
 
+| Part | `data-slot` |
+| --- | --- |
+| `PopoverAnchor` | `popover-anchor` |
+| `PopoverTrigger` | `popover-trigger` |
+| `PopoverIndicator` | `popover-indicator` |
+| `PopoverPositioner` | `popover-positioner` |
+| `PopoverContent` | `popover-content` |
+| `PopoverArrow` | `popover-arrow` |
+| `PopoverArrowTip` | `popover-arrow-tip` |
+| `PopoverTitle` | `popover-title` |
+| `PopoverDescription` | `popover-description` |
+| `PopoverCloseTrigger` | `popover-close-trigger` |
+| `PopoverCloseIcon` | `popover-close-icon` |
+| `PopoverHeader` | `popover-header` |
+| `PopoverBody` | `popover-body` |
+| `PopoverFooter` | `popover-footer` |
+
 Every rendered part accepts `className` or `class`. Ark parts retain `data-scope="popover"` and
 their `data-part` values, while moduix adds `data-slot="popover-*"` to rendered wrappers. `Popover`
 and `PopoverRootProvider` provide state but do not render DOM elements. For state-aware styling,
@@ -196,5 +227,29 @@ popover.
 
 `PopoverPositioner` exposes `--reference-width`, `--reference-height`, `--available-width`,
 `--available-height`, `--x`, `--y`, `--z-index`, and `--transform-origin`. `PopoverContent` exposes
-`--layer-index` and `--nested-layer-count`. `PopoverArrow` exposes Ark's arrow measurement variables.
-Content wraps long unbroken strings and disables its motion when the user prefers reduced motion.
+`--layer-index` and `--nested-layer-count`. `PopoverArrow` exposes Ark's arrow measurement variables. Content wraps long unbroken strings and disables its motion when the user prefers reduced motion.
+
+## Keyboard
+
+| Key | Action |
+| --- | --- |
+| `Enter` / `Space` | Opens or closes the popover from the trigger. |
+| `Tab` / `Shift+Tab` | Moves through the content; leaving it closes a non-modal popover. |
+| `Esc` | Closes it and returns focus to the trigger. |
+
+## API reference
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `open` | `boolean` | — |
+| `defaultOpen` | `boolean` | `false` |
+| `onOpenChange` | `(details: OpenChangeDetails) => void` | — |
+| `positioning` | `PositioningOptions` | — |
+| `modal` | `boolean` | `false` |
+| `autoFocus` | `boolean` | `true` |
+| `closeOnEscape` | `boolean` | `true` |
+| `closeOnInteractOutside` | `boolean` | `true` |
+| `initialFocusEl` | `() => HTMLElement \| null \| false` | — |
+| `portalled` | `boolean` | `true` |
+| `lazyMount` | `boolean` | `true` |
+| `unmountOnExit` | `boolean` | `true` |

@@ -1,7 +1,7 @@
 ---
 title: Toggle Group
 component: toggle-group
-description: A keyboard-navigable group of toggle buttons for single or multiple selection in React, Solid, and Vue.
+description: Group toggle buttons for one or several choices, like text alignment.
 ark: https://ark-ui.com/docs/components/toggle-group
 ---
 
@@ -19,6 +19,19 @@ import toggleGroupVueContextPart from '../../../snippets/toggle-group/vue/Alignm
 <ComponentInstall />
 
 ## Usage
+
+<UsageCode
+  react={'<ToggleGroup defaultValue={[\'left\']} variant="outline" aria-label="Text alignment" onValueChange={(details) => setAlign(details.value)}>\n  <ToggleGroupItem value="left">Left</ToggleGroupItem>\n  <ToggleGroupItem value="center">Center</ToggleGroupItem>\n  <ToggleGroupItem value="right">Right</ToggleGroupItem>\n</ToggleGroup>'}
+  vue={'<ToggleGroup v-model="align" variant="outline" aria-label="Text alignment">\n  <ToggleGroupItem value="left">Left</ToggleGroupItem>\n  <ToggleGroupItem value="center">Center</ToggleGroupItem>\n  <ToggleGroupItem value="right">Right</ToggleGroupItem>\n</ToggleGroup>'}
+/>
+
+<PropChips
+  items={[
+    ['defaultValue', 'Pressed items on first render, as an array.'],
+    ['multiple', 'Lets several items be pressed at once.'],
+    ['deselectable', 'Lets the last pressed item be released, true by default.'],
+  ]}
+/>
 
 Use `ToggleGroup` as the root and add one `ToggleGroupItem` for each choice. Give the group an
 accessible name with `aria-label` or `aria-labelledby`.
@@ -186,8 +199,37 @@ properties](/docs/toggle#css-variables) for its colors and interaction states. S
 
 ### Styling hooks
 
-- Stable `data-slot` selectors: `toggle-group-root`, `toggle-group-root-provider`, and `toggle-group-item`.
+| Part | `data-slot` |
+| --- | --- |
+| `ToggleGroup` | `toggle-group-root` |
+| `ToggleGroupRootProvider` | `toggle-group-root-provider` |
+| `ToggleGroupItem` | `toggle-group-item` |
+
 - Ark part selectors: `data-scope="toggle-group"` and `data-part="root" | "item"`.
 - Ark state selectors: `data-state="on" | "off"`, `data-disabled`, `data-focus`, and
   `data-orientation="horizontal" | "vertical"`.
 - moduix selectors: `data-variant` and `data-size`.
+
+## Keyboard
+
+| Key | Action |
+| --- | --- |
+| `ArrowLeft` / `ArrowRight` | Moves focus between items; ArrowUp and ArrowDown when vertical. |
+| `Home` / `End` | Moves focus to the first or last item. |
+| `Enter` / `Space` | Presses or releases the focused item. |
+
+## API reference
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `value` | `string[]` | — |
+| `defaultValue` | `string[]` | — |
+| `onValueChange` | `(details: ValueChangeDetails) => void` | — |
+| `multiple` | `boolean` | `false` |
+| `deselectable` | `boolean` | `true` |
+| `orientation` | `'horizontal' \| 'vertical'` | `'horizontal'` |
+| `loopFocus` | `boolean` | `true` |
+| `rovingFocus` | `boolean` | `true` |
+| `variant` | `'default' \| 'outline' \| 'ghost'` | `'default'` |
+| `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'icon-sm' \| 'icon-md' \| 'icon-lg'` | `'md'` |
+| `disabled` | `boolean` | `false` |

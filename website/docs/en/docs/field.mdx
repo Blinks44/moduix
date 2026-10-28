@@ -1,7 +1,7 @@
 ---
 title: Field
 component: field
-description: Accessible form field context for React, Solid, and Vue with CSS Modules and Tailwind package options.
+description: Connect a label, helper text, and error message to one form control.
 ark: https://ark-ui.com/docs/components/field
 ---
 
@@ -12,6 +12,19 @@ ark: https://ark-ui.com/docs/components/field
 <ComponentInstall />
 
 ## Usage
+
+<UsageCode
+  react={'<Field invalid={!!error} required>\n  <FieldLabel>\n    Email\n    <FieldRequiredIndicator />\n  </FieldLabel>\n  <Input type="email" name="email" />\n  <FieldHelperText>We never share your email.</FieldHelperText>\n  <FieldErrorText>{error}</FieldErrorText>\n</Field>'}
+  vue={'<Field :invalid="!!error" required>\n  <FieldLabel>\n    Email\n    <FieldRequiredIndicator />\n  </FieldLabel>\n  <Input type="email" name="email" />\n  <FieldHelperText>We never share your email.</FieldHelperText>\n  <FieldErrorText>{{ error }}</FieldErrorText>\n</Field>'}
+/>
+
+<PropChips
+  items={[
+    ['invalid', 'Shows FieldErrorText and marks the control invalid.'],
+    ['required', 'Marks the control required and shows the indicator.'],
+    ['disabled / readOnly', 'Passed to the control inside.'],
+  ]}
+/>
 
 Use `Field` as the wrapper for one form control. Put `FieldLabel` before the control, then add
 `FieldHelperText` or `FieldErrorText` when the user needs more information.
@@ -158,7 +171,25 @@ class on the part overrides the layered component styles. The root fills the wid
 
 ### Styling hooks
 
-Ark adds `data-disabled`, `data-invalid`, `data-readonly`, and `data-required` to the relevant parts.
-`FieldErrorText` exists only while the current field context is invalid. The helper text id and the
-active error text id are included in the control's `aria-describedby`.
-Every DOM part also keeps a stable `data-slot="field-*"` hook.
+| Part | `data-slot` |
+| --- | --- |
+| `Field` | `field-root` |
+| `FieldRootProvider` | `field-root-provider` |
+| `FieldItem` | `field-item` |
+| `FieldLabel` | `field-label` |
+| `FieldHelperText` | `field-helper-text` |
+| `FieldErrorText` | `field-error-text` |
+| `FieldRequiredIndicator` | `field-required-indicator` |
+
+Ark adds `data-disabled`, `data-invalid`, `data-readonly`, and `data-required` to the relevant parts. `FieldErrorText` exists only while the current field context is invalid. The helper text id and the
+active error text id are included in the control's `aria-describedby`. Every DOM part also keeps a stable `data-slot="field-*"` hook.
+
+## API reference
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `disabled` | `boolean` | `false` |
+| `readOnly` | `boolean` | `false` |
+| `invalid` | `boolean` | `false` |
+| `required` | `boolean` | `false` |
+| `asChild` | `boolean` | `false` |

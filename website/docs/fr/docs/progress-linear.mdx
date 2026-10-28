@@ -1,7 +1,7 @@
 ---
 title: Progress Linear
 component: progress-linear
-description: Indicateur de progression linéaire pour suivre l’avancement d’une tâche, qu’il soit connu ou non.
+description: Afficher la progression sur une barre, connue ou indéterminée.
 ark: https://ark-ui.com/docs/components/progress-linear
 ---
 
@@ -14,6 +14,20 @@ import * as ProgressLinearDocs from '@/components/examples/progress-linear/css-p
 <ComponentInstall />
 
 ## Utilisation
+
+<UsageCode
+  react={'<ProgressLinear defaultValue={24}>\n  <ProgressLinearLabel>Export data</ProgressLinearLabel>\n  <ProgressLinearValueText />\n  <ProgressLinearTrack aria-label="Export data">\n    <ProgressLinearRange />\n  </ProgressLinearTrack>\n</ProgressLinear>'}
+  vue={'<ProgressLinear :default-value="24">\n  <ProgressLinearLabel>Export data</ProgressLinearLabel>\n  <ProgressLinearValueText />\n  <ProgressLinearTrack aria-label="Export data">\n    <ProgressLinearRange />\n  </ProgressLinearTrack>\n</ProgressLinear>'}
+/>
+
+<PropChips
+  items={[
+    ['defaultValue', 'Valeur initiale ; null pour un état indéterminé.'],
+    ['min / max', 'Plage de la valeur, de 0 à 100 par défaut.'],
+    ['formatOptions', 'Options Intl du texte de valeur, en pourcentage par défaut.'],
+    ['orientation', 'Horizontal par défaut ; vertical se remplit par le bas.'],
+  ]}
+/>
 
 Composez la barre de progression avec les parties explicites `ProgressLinearLabel`, `ProgressLinearValueText`, `ProgressLinearTrack` et
 `ProgressLinearRange`. Donnez à `ProgressLinearTrack` un nom accessible qui décrit la tâche.
@@ -139,8 +153,29 @@ début.
 
 ### Points d’accroche CSS
 
-- `data-slot="progress-linear-root"`, `progress-linear-root-provider`, `progress-linear-label`,
-  `progress-linear-value-text`, `progress-linear-track`, `progress-linear-range` et
-  `progress-linear-view`.
+| Partie | `data-slot` |
+| --- | --- |
+| `ProgressLinear` | `progress-linear-root` |
+| `ProgressLinearRootProvider` | `progress-linear-root-provider` |
+| `ProgressLinearLabel` | `progress-linear-label` |
+| `ProgressLinearValueText` | `progress-linear-value-text` |
+| `ProgressLinearTrack` | `progress-linear-track` |
+| `ProgressLinearRange` | `progress-linear-range` |
+| `ProgressLinearView` | `progress-linear-view` |
+
 - Attributs Ark : `data-scope="progress"`, `data-part`, `data-state="indeterminate|loading|complete"`,
   `data-orientation="horizontal|vertical"`, `data-value` et `data-max`.
+
+## Référence de l’API
+
+| Prop | Type | Défaut |
+| --- | --- | --- |
+| `value` | `number \| null` | — |
+| `defaultValue` | `number \| null` | `50` |
+| `onValueChange` | `(details: ValueChangeDetails) => void` | — |
+| `min` | `number` | `0` |
+| `max` | `number` | `100` |
+| `formatOptions` | `Intl.NumberFormatOptions` | `{ style: 'percent' }` |
+| `locale` | `string` | — |
+| `translations` | `IntlTranslations` | — |
+| `orientation` | `'horizontal' \| 'vertical'` | `'horizontal'` |

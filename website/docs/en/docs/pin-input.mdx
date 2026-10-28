@@ -1,7 +1,7 @@
 ---
 title: Pin Input
 component: pin-input
-description: A segmented input for short PINs and verification codes, with automatic focus management and OTP support.
+description: Enter a short PIN or one-time code, one character per box.
 ark: https://ark-ui.com/docs/components/pin-input
 ---
 
@@ -14,6 +14,20 @@ import * as PinInputDocs from '@/components/examples/pin-input/css-properties';
 <ComponentInstall />
 
 ## Usage
+
+<UsageCode
+  react={'<PinInput count={6} otp type="numeric" onValueComplete={(details) => verify(details.valueAsString)}>\n  <PinInputLabel>Verification code</PinInputLabel>\n  <PinInputControl>\n    <PinInputInputs />\n  </PinInputControl>\n  <PinInputHiddenInput />\n</PinInput>'}
+  vue={'<PinInput :count="6" otp type="numeric" @value-complete="(details) => verify(details.valueAsString)">\n  <PinInputLabel>Verification code</PinInputLabel>\n  <PinInputControl>\n    <PinInputInputs />\n  </PinInputControl>\n  <PinInputHiddenInput />\n</PinInput>'}
+/>
+
+<PropChips
+  items={[
+    ['count', 'Number of boxes; required.'],
+    ['otp', 'Lets the browser autofill a one-time code.'],
+    ['mask', 'Hides the characters like a password.'],
+    ['onValueComplete', 'Runs when every box is filled.'],
+  ]}
+/>
 
 Use `PinInput` as the root and set `count` explicitly. Add `PinInputLabel` for an accessible name, put `PinInputInputs` inside
 `PinInputControl`, and compose `PinInputHiddenInput` when the value must participate in native form behavior.
@@ -144,12 +158,48 @@ and consumer `className` or `class` overrides.
 
 ### Styling hooks
 
-- The root and `PinInputRootProvider` expose `data-slot="pin-input-root"` and `data-slot="pin-input-root-provider"`.
-- `PinInputLabel`, `PinInputControl`, and `PinInputInput` expose `data-slot="pin-input-label"`,
-  `data-slot="pin-input-control"`, and `data-slot="pin-input-input"`.
+| Part | `data-slot` |
+| --- | --- |
+| `PinInput` | `pin-input-root` |
+| `PinInputRootProvider` | `pin-input-root-provider` |
+| `PinInputLabel` | `pin-input-label` |
+| `PinInputControl` | `pin-input-control` |
+| `PinInputInput` | `pin-input-input` |
+| `PinInputSeparator` | `pin-input-separator` |
+
 - Ark parts use `data-scope="pin-input"` and `data-part="root" | "label" | "control" | "input"`.
 - Root state styling uses `data-disabled`, `data-invalid`, `data-complete`, and `data-readonly`.
 - Input state styling uses `data-disabled`, `data-invalid`, `data-complete`, `data-filled`, and `data-index`.
-- `PinInputSeparator` exposes `data-slot="pin-input-separator"` and is decorative by default.
 - The root mirrors `size` as `data-size`. A disabled `PinInput` inside a disabled `Field` or `Fieldset` is not
   dimmed a second time.
+
+## Keyboard
+
+| Key | Action |
+| --- | --- |
+| Characters | Fill the box and move to the next one. |
+| `Backspace` | Clears the box and moves to the previous one. |
+| `ArrowLeft` / `ArrowRight` | Moves between boxes. |
+| `Ctrl+V` | Pastes a whole code across the boxes. |
+
+## API reference
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `count` | `number` | — |
+| `value` | `string[]` | — |
+| `defaultValue` | `string[]` | — |
+| `onValueChange` | `(details: ValueChangeDetails) => void` | — |
+| `onValueComplete` | `(details: ValueChangeDetails) => void` | — |
+| `type` | `'numeric' \| 'alphanumeric' \| 'alphabetic'` | `'numeric'` |
+| `otp` | `boolean` | `false` |
+| `mask` | `boolean` | `false` |
+| `placeholder` | `string` | `''` |
+| `blurOnComplete` | `boolean` | `false` |
+| `autoFocus` | `boolean` | `false` |
+| `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'` | `'md'` |
+| `name` | `string` | — |
+| `disabled` | `boolean` | `false` |
+| `readOnly` | `boolean` | `false` |
+| `invalid` | `boolean` | `false` |
+| `required` | `boolean` | `false` |

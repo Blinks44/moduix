@@ -1,7 +1,7 @@
 ---
 title: Stack
 component: stack
-description: Небольшой flex-компонент для вертикальной и горизонтальной раскладки в React, Solid и Vue.
+description: Размещает элементы в строку или колонку с равными отступами.
 ark: https://ark-ui.com/docs/guides/composition#the-ark-factory
 ---
 
@@ -12,6 +12,19 @@ ark: https://ark-ui.com/docs/guides/composition#the-ark-factory
 <ComponentInstall />
 
 ## Использование
+
+<UsageCode
+  react={'<Stack direction={{ mobile: \'column\', desktop: \'row\' }} gap={12} align="center">\n  <Avatar />\n  <Text>Ada Lovelace</Text>\n</Stack>'}
+  vue={'<Stack :direction="{ mobile: \'column\', desktop: \'row\' }" :gap="12" align="center">\n  <Avatar />\n  <Text>Ada Lovelace</Text>\n</Stack>'}
+/>
+
+<PropChips
+  items={[
+    ['direction', 'row, column или обратные; mobile и desktop для двух размеров.'],
+    ['gap', 'Расстояние между элементами; числа становятся px.'],
+    ['align / justify', 'Выравнивание по поперечной и главной оси.'],
+  ]}
+/>
 
 Интерактивное
 
@@ -98,10 +111,26 @@ Stack
 
 ### Хуки стилизации
 
+| Часть | `data-slot` |
+| --- | --- |
+| `Stack` | `stack-root` |
+
 - `className` или `class` задаёт стили единственному корневому элементу: ширину, внутренние отступы, границы, фон и другие свойства оформления.
 - `data-scope="stack"` и `data-part="root"` соответствуют соглашениям Ark для стилизации.
-- `data-slot="stack-root"` - стабильный селектор moduix для корневого элемента в локальном CSS.
 - `direction` и `fill` применяются через таблицу стилей компонента или утилиты, поэтому классы потребителя могут их
   переопределить. `gap`, `align`, `justify` и `wrap` записываются встроенными стилями.
 - `style` применяется последним и может переопределить встроенные `gap`, `alignItems`, `justifyContent` и `flexWrap`.
 - В публичном контракте нет атрибутов состояния, CSS-переменных для анимации или объекта `slotProps`.
+
+## Справочник API
+
+Также принимает нативные пропсы своего элемента и `asChild`.
+
+| Проп | Тип | По умолчанию |
+| --- | --- | --- |
+| `direction` | `StackDirection \| { mobile?: StackDirection; desktop?: StackDirection }` | `'column'` |
+| `gap` | `number \| string` | — |
+| `align` | `CSSProperties['alignItems']` | — |
+| `justify` | `CSSProperties['justifyContent']` | — |
+| `wrap` | `CSSProperties['flexWrap']` | — |
+| `fill` | `boolean` | `false` |

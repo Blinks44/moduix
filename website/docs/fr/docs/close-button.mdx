@@ -99,9 +99,12 @@ de styles.
 
 ### Points d’accroche CSS
 
+| Partie | `data-slot` |
+| --- | --- |
+| `CloseButton` | `close-button-root` |
+
 - `data-scope="close-button"` identifie la famille du composant.
 - `data-part="root"` identifie l’unique partie exportée.
-- `data-slot="close-button-root"` fournit le hook de slot de moduix.
 - `data-disabled` expose l’état désactivé normalisé de `disabled` et `aria-disabled="true"`.
 - `className`/`class` est combiné avec les styles par défaut du composant sur la racine.
 - Dans les variantes CSS Modules, les éléments SVG enfants directs utilisent `--moduix-close-button-icon-size` pour leur largeur et leur hauteur.

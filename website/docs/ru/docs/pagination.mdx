@@ -1,7 +1,7 @@
 ---
 title: Pagination
 component: pagination
-description: Доступная навигация по страницам для списков, таблиц, результатов поиска и других данных с пагинацией.
+description: Переход по страницам списка, таблицы или результатов поиска.
 ark: https://ark-ui.com/docs/components/pagination
 ---
 
@@ -14,6 +14,20 @@ import * as PaginationDocs from '@/components/examples/pagination/css-properties
 <ComponentInstall />
 
 ## Использование
+
+<UsageCode
+  react={'<Pagination count={200} pageSize={10} siblingCount={2} onPageChange={(details) => setPage(details.page)}>\n  <PaginationPrevTrigger />\n  <PaginationItems />\n  <PaginationNextTrigger />\n</Pagination>'}
+  vue={'<Pagination v-model:page="page" :count="200" :page-size="10" :sibling-count="2">\n  <PaginationPrevTrigger />\n  <PaginationItems />\n  <PaginationNextTrigger />\n</Pagination>'}
+/>
+
+<PropChips
+  items={[
+    ['count', 'Общее число элементов, а не страниц.'],
+    ['pageSize', 'Элементов на странице, по умолчанию 10.'],
+    ['siblingCount', 'Сколько страниц видно по бокам от текущей.'],
+    ['type', 'link рендерит ссылки; используйте вместе с getPageUrl.'],
+  ]}
+/>
 
 Используйте `Pagination` как корневой компонент. `PaginationItems` выводит кнопки страниц и многоточия
 для текущего диапазона.
@@ -154,12 +168,37 @@ Modules.
 
 ### Хуки стилизации
 
+| Часть | `data-slot` |
+| --- | --- |
+| `Pagination` | `pagination-root` |
+| `PaginationRootProvider` | `pagination-root-provider` |
+| `PaginationItem` | `pagination-item` |
+| `PaginationEllipsis` | `pagination-ellipsis` |
+| `PaginationPrevTrigger` | `pagination-prev-trigger` |
+| `PaginationNextTrigger` | `pagination-next-trigger` |
+| `PaginationFirstTrigger` | `pagination-first-trigger` |
+| `PaginationLastTrigger` | `pagination-last-trigger` |
+
 - `data-scope="pagination"` и `data-part="item"` на `PaginationItem`
 - `data-scope="pagination"` и `data-part="prev-trigger"` на `PaginationPrevTrigger`
 - `data-scope="pagination"` и `data-part="next-trigger"` на `PaginationNextTrigger`
 - `data-scope="pagination"` и `data-part="first-trigger"` или `data-part="last-trigger"` на крайних триггерах
 - `data-selected` на активном элементе страницы
 - `data-disabled` на недоступных триггерах
-- `data-slot="pagination-root"`, `pagination-root-provider`, `pagination-item`,
-  `pagination-ellipsis`, `pagination-prev-trigger`, `pagination-next-trigger`,
-  `pagination-first-trigger` и `pagination-last-trigger` для переопределения стилей moduix
+
+## Справочник API
+
+| Проп | Тип | По умолчанию |
+| --- | --- | --- |
+| `count` | `number` | — |
+| `page` | `number` | — |
+| `defaultPage` | `number` | `1` |
+| `onPageChange` | `(details: PageChangeDetails) => void` | — |
+| `pageSize` | `number` | — |
+| `defaultPageSize` | `number` | `10` |
+| `onPageSizeChange` | `(details: PageSizeChangeDetails) => void` | — |
+| `siblingCount` | `number` | `1` |
+| `boundaryCount` | `number` | `1` |
+| `type` | `'button' \| 'link'` | `'button'` |
+| `getPageUrl` | `(details: PageUrlDetails) => string` | — |
+| `translations` | `IntlTranslations` | — |

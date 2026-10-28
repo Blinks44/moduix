@@ -1,7 +1,7 @@
 ---
 title: Drawer
 component: drawer
-description: Un panneau accessible qui glisse depuis le bord de l'écran pour la navigation, les formulaires, les panneaux bas, les points d'ancrage et les interactions par balayage dans React, Solid et Vue.
+description: Faire glisser un panneau depuis un bord, avec balayage et points d’arrêt.
 ark: https://ark-ui.com/docs/components/drawer
 ---
 
@@ -14,6 +14,20 @@ import * as DrawerDocs from '@/components/examples/drawer/css-properties';
 <ComponentInstall />
 
 ## Utilisation
+
+<UsageCode
+  react={'<Drawer swipeDirection="down" snapPoints={[0.5, 1]} defaultSnapPoint={0.5}>\n  <DrawerTrigger asChild>\n    <Button>Open drawer</Button>\n  </DrawerTrigger>\n  <DrawerBackdrop />\n  <DrawerPositioner>\n    <DrawerContent>\n      <DrawerGrabber>\n        <DrawerGrabberIndicator />\n      </DrawerGrabber>\n      <DrawerHeader>\n        <DrawerTitle>Notifications</DrawerTitle>\n        <DrawerCloseIcon />\n      </DrawerHeader>\n      <DrawerBody>…</DrawerBody>\n    </DrawerContent>\n  </DrawerPositioner>\n</Drawer>'}
+  solid={'<Drawer swipeDirection="down" snapPoints={[0.5, 1]} defaultSnapPoint={0.5}>\n  <DrawerTrigger asChild={(props) => (\n    <Button {...props()}>Open drawer</Button>\n  )} />\n  <DrawerBackdrop />\n  <DrawerPositioner>\n    <DrawerContent>\n      <DrawerGrabber>\n        <DrawerGrabberIndicator />\n      </DrawerGrabber>\n      <DrawerHeader>\n        <DrawerTitle>Notifications</DrawerTitle>\n        <DrawerCloseIcon />\n      </DrawerHeader>\n      <DrawerBody>…</DrawerBody>\n    </DrawerContent>\n  </DrawerPositioner>\n</Drawer>'}
+  vue={'<Drawer swipe-direction="down" :snap-points="[0.5, 1]" :default-snap-point="0.5">\n  <DrawerTrigger as-child>\n    <Button>Open drawer</Button>\n  </DrawerTrigger>\n  <DrawerBackdrop />\n  <DrawerPositioner>\n    <DrawerContent>\n      <DrawerGrabber>\n        <DrawerGrabberIndicator />\n      </DrawerGrabber>\n      <DrawerHeader>\n        <DrawerTitle>Notifications</DrawerTitle>\n        <DrawerCloseIcon />\n      </DrawerHeader>\n      <DrawerBody>…</DrawerBody>\n    </DrawerContent>\n  </DrawerPositioner>\n</Drawer>'}
+/>
+
+<PropChips
+  items={[
+    ['swipeDirection', 'Sens du balayage pour fermer : down, up, start ou end.'],
+    ['snapPoints', 'Hauteurs d’arrêt, en fractions ou en px.'],
+    ['size', 'Largeur des panneaux latéraux sur DrawerContent.'],
+  ]}
+/>
 
 Composez le panneau avec les parties structurelles d'Ark. Cet exemple s'ouvre sur un point d'ancrage
 compact, puis peut être déplacé jusqu'à sa hauteur maximale. `DrawerContent` est la surface
@@ -203,10 +217,25 @@ variables ci-dessous personnalisent les variantes CSS Modules. Les attributs de 
 
 ### Points d’accroche CSS
 
-- valeurs `data-slot` de moduix : `drawer-trigger`, `drawer-backdrop`, `drawer-positioner`, `drawer-content`,
-  `drawer-grabber`, `drawer-grabber-indicator`, `drawer-title`, `drawer-description`,
-  `drawer-close-trigger`, `drawer-close-icon`, `drawer-swipe-area`, `drawer-indent`,
-  `drawer-indent-background`, `drawer-header`, `drawer-body` et `drawer-footer`.
+| Partie | `data-slot` |
+| --- | --- |
+| `DrawerTrigger` | `drawer-trigger` |
+| `DrawerBackdrop` | `drawer-backdrop` |
+| `DrawerPositioner` | `drawer-positioner` |
+| `DrawerContent` | `drawer-content` |
+| `DrawerGrabber` | `drawer-grabber` |
+| `DrawerGrabberIndicator` | `drawer-grabber-indicator` |
+| `DrawerTitle` | `drawer-title` |
+| `DrawerDescription` | `drawer-description` |
+| `DrawerCloseTrigger` | `drawer-close-trigger` |
+| `DrawerCloseIcon` | `drawer-close-icon` |
+| `DrawerSwipeArea` | `drawer-swipe-area` |
+| `DrawerIndent` | `drawer-indent` |
+| `DrawerIndentBackground` | `drawer-indent-background` |
+| `DrawerHeader` | `drawer-header` |
+| `DrawerBody` | `drawer-body` |
+| `DrawerFooter` | `drawer-footer` |
+
 - `DrawerContent` écrit `data-size` (par défaut `md`) et `data-variant="island"` lorsque sa
   présentation en îlot est active.
 - hooks des parties Ark : `data-scope="drawer"` avec `data-part`.
@@ -225,3 +254,33 @@ variables ci-dessous personnalisent les variantes CSS Modules. Les attributs de 
   `--moduix-backdrop-bg` et `--moduix-backdrop-filter`.
 - Les drawers du haut et du bas sont limités à `max-height: 80dvh` ; définissez une autre
   `max-height` avec une classe sur `DrawerContent`.
+
+## Clavier
+
+| Touche | Action |
+| --- | --- |
+| `Enter` / `Space` | Ouvre depuis le déclencheur ayant le focus. |
+| `Tab` / `Shift+Tab` | Déplace le focus entre les contrôles ; il reste à l’intérieur tant que c’est ouvert. |
+| `Esc` | Ferme et rend le focus au déclencheur. |
+
+## Référence de l’API
+
+Props de `Drawer`. `size` (`'sm' | 'md' | 'lg' | 'xl'`, par défaut `'md'`) et `variant` (`'island'`) se placent sur `DrawerContent`.
+
+| Prop | Type | Défaut |
+| --- | --- | --- |
+| `open` | `boolean` | — |
+| `defaultOpen` | `boolean` | `false` |
+| `onOpenChange` | `(details: OpenChangeDetails) => void` | — |
+| `swipeDirection` | `'up' \| 'down' \| 'start' \| 'end'` | `'down'` |
+| `snapPoints` | `(number \| string)[]` | `[1]` |
+| `snapPoint` | `number \| string \| null` | — |
+| `defaultSnapPoint` | `number \| string \| null` | `1` |
+| `onSnapPointChange` | `(details: SnapPointChangeDetails) => void` | — |
+| `snapToSequentialPoints` | `boolean` | `false` |
+| `closeThreshold` | `number` | `0.25` |
+| `modal` | `boolean` | `true` |
+| `closeOnEscape` | `boolean` | `true` |
+| `closeOnInteractOutside` | `boolean` | `true` |
+| `lazyMount` | `boolean` | `true` |
+| `unmountOnExit` | `boolean` | `true` |

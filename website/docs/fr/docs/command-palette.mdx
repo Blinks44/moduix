@@ -1,7 +1,7 @@
 ---
 title: Command Palette
 component: command-palette
-description: Une palette de commandes dans une boîte de dialogue, avec recherche et raccourcis clavier pour un accès rapide.
+description: Chercher et lancer des commandes dans un dialogue ouvert par un bouton ou un raccourci.
 ark: https://ark-ui.com/docs/components/dialog
 ---
 
@@ -14,6 +14,20 @@ import * as CommandPaletteDocs from '@/components/examples/command-palette/css-p
 <ComponentInstall />
 
 ## Utilisation
+
+<UsageCode
+  react={'<CommandPalette shortcut="mod+k" aria-label="Command palette">\n  <CommandPalettePanel>\n    <CommandPaletteCombobox collection={collection} onInputValueChange={(d) => filter(d.inputValue)}>\n      <CommandPaletteSearch placeholder="Search commands..." />\n      <CommandPaletteList>\n        <CommandPaletteEmpty>No commands found.</CommandPaletteEmpty>\n        {collection.items.map((item) => (\n          <CommandPaletteItem key={item.id} item={item}>\n            <CommandPaletteItemLabel>{item.label}</CommandPaletteItemLabel>\n          </CommandPaletteItem>\n        ))}\n      </CommandPaletteList>\n    </CommandPaletteCombobox>\n  </CommandPalettePanel>\n</CommandPalette>'}
+  solid={'<CommandPalette shortcut="mod+k" aria-label="Command palette">\n  <CommandPalettePanel>\n    <CommandPaletteCombobox collection={collection} onInputValueChange={(d) => filter(d.inputValue)}>\n      <CommandPaletteSearch placeholder="Search commands..." />\n      <CommandPaletteList>\n        <CommandPaletteEmpty>No commands found.</CommandPaletteEmpty>\n        <For each={collection.items}>\n          {(item) => (\n            <CommandPaletteItem item={item}>\n              <CommandPaletteItemLabel>{item.label}</CommandPaletteItemLabel>\n            </CommandPaletteItem>\n          )}\n        </For>\n      </CommandPaletteList>\n    </CommandPaletteCombobox>\n  </CommandPalettePanel>\n</CommandPalette>'}
+  vue={'<CommandPalette shortcut="mod+k" aria-label="Command palette">\n  <CommandPalettePanel>\n    <CommandPaletteCombobox :collection="collection" @input-value-change="(d) => filter(d.inputValue)">\n      <CommandPaletteSearch placeholder="Search commands..." />\n      <CommandPaletteList>\n        <CommandPaletteEmpty>No commands found.</CommandPaletteEmpty>\n        <CommandPaletteItem v-for="item in collection.items" :key="item.id" :item="item">\n          <CommandPaletteItemLabel>{{ item.label }}</CommandPaletteItemLabel>\n        </CommandPaletteItem>\n      </CommandPaletteList>\n    </CommandPaletteCombobox>\n  </CommandPalettePanel>\n</CommandPalette>'}
+/>
+
+<PropChips
+  items={[
+    ['shortcut', 'Raccourci global qui ouvre la palette, désactivé par défaut.'],
+    ['collection', 'Éléments à chercher, issus de createListCollection().'],
+    ['onInputValueChange', 'Appelé à chaque frappe ; filtrez la collection ici.'],
+  ]}
+/>
 
 Utilisez `CommandPalettePanel` pour obtenir la structure de dialogue standard. Il rend automatiquement l'arrière-plan,
 le conteneur de positionnement et le contenu. Placez `CommandPaletteCombobox` à l'intérieur,
@@ -147,8 +161,60 @@ n'affiche pas de barre de défilement visible.
 
 ### Points d’accroche CSS
 
-- Les parties exportées fournissent des points d'accroche stables via `data-slot`, notamment `command-palette-trigger`, `command-palette-backdrop`, `command-palette-positioner`, `command-palette-content`, `command-palette-title`, `command-palette-description`, `command-palette-header`, `command-palette-combobox`, `command-palette-control`, `command-palette-input`, `command-palette-clear-trigger`, `command-palette-list`, `command-palette-empty`, `command-palette-item-group`, `command-palette-item-group-label`, `command-palette-item`, `command-palette-item-text`, `command-palette-item-indicator`, `command-palette-item-icon`, `command-palette-item-label`, `command-palette-item-description`, `command-palette-item-meta`, `command-palette-separator`, `command-palette-footer` et `command-palette-kbd`.
+| Partie | `data-slot` |
+| --- | --- |
+| `CommandPaletteTrigger` | `command-palette-trigger` |
+| `CommandPaletteBackdrop` | `command-palette-backdrop` |
+| `CommandPalettePositioner` | `command-palette-positioner` |
+| `CommandPaletteContent` | `command-palette-content` |
+| `CommandPaletteTitle` | `command-palette-title` |
+| `CommandPaletteDescription` | `command-palette-description` |
+| `CommandPaletteHeader` | `command-palette-header` |
+| `CommandPaletteCombobox` | `command-palette-combobox` |
+| `CommandPaletteControl` | `command-palette-control` |
+| `CommandPaletteInput` | `command-palette-input` |
+| `CommandPaletteSearch`, élément interne | `command-palette-search-icon` |
+| `CommandPaletteClearTrigger` | `command-palette-clear-trigger` |
+| `CommandPaletteList` | `command-palette-list` |
+| `CommandPaletteEmpty` | `command-palette-empty` |
+| `CommandPaletteItemGroup` | `command-palette-item-group` |
+| `CommandPaletteItemGroupLabel` | `command-palette-item-group-label` |
+| `CommandPaletteItem` | `command-palette-item` |
+| `CommandPaletteItemText` | `command-palette-item-text` |
+| `CommandPaletteItemIndicator` | `command-palette-item-indicator` |
+| `CommandPaletteItemIcon` | `command-palette-item-icon` |
+| `CommandPaletteItemLabel` | `command-palette-item-label` |
+| `CommandPaletteItemDescription` | `command-palette-item-description` |
+| `CommandPaletteItemMeta` | `command-palette-item-meta` |
+| `CommandPaletteSeparator` | `command-palette-separator` |
+| `CommandPaletteFooter` | `command-palette-footer` |
+| `CommandPaletteKbd` | `command-palette-kbd` |
+
 - `CommandPaletteList` affiche une `ScrollArea` : les parties de défilement gardent les points d'accroche `scroll-area-root`, `scroll-area-viewport` et `scroll-area-content` ; ciblez-les sous `[data-slot='command-palette-list']`.
 - Les attributs d'état d'Ark Dialog comprennent `data-scope="dialog"`, `data-part` et `data-state="open" | "closed"` sur les parties du dialogue, notamment le déclencheur, l'arrière-plan et le contenu.
 - Les attributs d'état d'Ark Combobox comprennent `data-scope="combobox"`, `data-part`, `data-state`, `data-highlighted`, `data-disabled`, `data-invalid` et `data-empty` lorsque ces attributs s'appliquent.
 - Les animations utilisent `data-state` d'Ark. Les anciens attributs `data-starting-style`, `data-ending-style` et `data-open` ne font pas partie du contrat de command-palette.
+
+## Clavier
+
+| Touche | Action |
+| --- | --- |
+| `shortcut` | Ouvre ou ferme la palette si la prop est définie, par exemple `mod+k`. |
+| `ArrowDown` / `ArrowUp` | Met en surbrillance la commande suivante ou précédente. |
+| `Home` / `End` | Met en surbrillance la première ou la dernière commande. |
+| `Enter` | Lance la commande en surbrillance. |
+| `Esc` | Ferme la palette. |
+
+## Référence de l’API
+
+Props de `CommandPalette`. Il accepte aussi les props de dialogue `open`, `defaultOpen` et `onOpenChange` ; les props de recherche comme `collection` et `onInputValueChange` vont sur `CommandPaletteCombobox`.
+
+| Prop | Type | Défaut |
+| --- | --- | --- |
+| `shortcut` | `false \| string` | `false` |
+| `open` | `boolean` | — |
+| `defaultOpen` | `boolean` | `false` |
+| `onOpenChange` | `(details: OpenChangeDetails) => void` | — |
+| `lazyMount` | `boolean` | `true` |
+| `unmountOnExit` | `boolean` | `true` |
+| `portalled` | `boolean` | `true` |

@@ -1,7 +1,7 @@
 ---
 title: Container
 component: container
-description: Un primitif de mise en page adaptatif pour conserver une largeur de contenu lisible et des espacements horizontaux fluides.
+description: Centrer le contenu à une largeur lisible avec des marges adaptatives.
 ark: https://ark-ui.com/docs/guides/composition#the-ark-factory
 ---
 
@@ -15,9 +15,18 @@ import * as ContainerDocs from '@/components/examples/container/css-properties';
 
 ## Utilisation
 
-Importez `Container` depuis le package adapté : `@moduix/react/container`, `@moduix/solid/container` ou
-`@moduix/vue/container` pour CSS Modules, et `@moduix/react-tailwind/container`,
-`@moduix/solid-tailwind/container` ou `@moduix/vue-tailwind/container` pour Tailwind CSS.
+<UsageCode
+  react={'<Container size="md" gutter="lg">\n  <Heading as="h1">Release notes</Heading>\n  <Text>What changed this month.</Text>\n</Container>'}
+  vue={'<Container size="md" gutter="lg">\n  <Heading as="h1">Release notes</Heading>\n  <Text>What changed this month.</Text>\n</Container>'}
+/>
+
+<PropChips
+  items={[
+    ['size', 'Largeur maximale : de xs à xl, ou full.'],
+    ['gutter', 'Marges latérales : none, sm, md ou lg.'],
+  ]}
+/>
+
 
 Utilisez `Container` pour une colonne de contenu centrée et lisible. Le composant ajoute des espacements horizontaux
 adaptatifs et laisse les espacements verticaux à la mise en page qui l’entoure.
@@ -89,9 +98,21 @@ avec des utilitaires.
 
 ### Points d’accroche CSS
 
-- `Container` expose `data-slot="container-root"` sur la racine.
+| Partie | `data-slot` |
+| --- | --- |
+| `Container` | `container-root` |
+
 - `data-scope="container"` et `data-part="root"` suivent les conventions de style d’Ark.
 - `data-size` sélectionne la largeur : `xs`, `sm`, `md`, `lg`, `xl`, `full`.
 - `data-gutter` sélectionne l’espacement latéral : `none`, `sm`, `md`, `lg`.
 - Les variables `--moduix-container-*` contrôlent les espacements horizontaux et le calcul de `max-width` pour CSS
   Modules. Les espacements verticaux et la disposition des enfants restent gérés par la mise en page environnante.
+
+## Référence de l’API
+
+Accepte aussi les props natives de son élément et `asChild`.
+
+| Prop | Type | Défaut |
+| --- | --- | --- |
+| `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl' \| 'full'` | `'lg'` |
+| `gutter` | `'none' \| 'sm' \| 'md' \| 'lg'` | `'md'` |

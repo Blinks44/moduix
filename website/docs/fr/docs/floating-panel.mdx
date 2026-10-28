@@ -1,7 +1,7 @@
 ---
 title: Floating Panel
 component: floating-panel
-description: Une fenêtre non modale Ark UI que l'utilisateur peut déplacer, redimensionner, réduire et agrandir.
+description: Ouvrir une fenêtre déplaçable, redimensionnable, réductible et agrandissable.
 ark: https://ark-ui.com/docs/components/floating-panel
 ---
 
@@ -12,6 +12,21 @@ ark: https://ark-ui.com/docs/components/floating-panel
 <ComponentInstall />
 
 ## Utilisation
+
+<UsageCode
+  react={'<FloatingPanel defaultSize={{ width: 360, height: 260 }} minSize={{ width: 240, height: 160 }}>\n  <FloatingPanelTrigger asChild>\n    <Button>Open panel</Button>\n  </FloatingPanelTrigger>\n  <FloatingPanelPositioner>\n    <FloatingPanelContent>\n      <FloatingPanelDragTrigger>\n        <FloatingPanelHeader>\n          <FloatingPanelTitle>Inspector</FloatingPanelTitle>\n          <FloatingPanelCloseIcon />\n        </FloatingPanelHeader>\n      </FloatingPanelDragTrigger>\n      <FloatingPanelBody>…</FloatingPanelBody>\n      <FloatingPanelResizeTriggerGroup />\n    </FloatingPanelContent>\n  </FloatingPanelPositioner>\n</FloatingPanel>'}
+  solid={'<FloatingPanel defaultSize={{ width: 360, height: 260 }} minSize={{ width: 240, height: 160 }}>\n  <FloatingPanelTrigger asChild={(props) => (\n    <Button {...props()}>Open panel</Button>\n  )} />\n  <FloatingPanelPositioner>\n    <FloatingPanelContent>\n      <FloatingPanelDragTrigger>\n        <FloatingPanelHeader>\n          <FloatingPanelTitle>Inspector</FloatingPanelTitle>\n          <FloatingPanelCloseIcon />\n        </FloatingPanelHeader>\n      </FloatingPanelDragTrigger>\n      <FloatingPanelBody>…</FloatingPanelBody>\n      <FloatingPanelResizeTriggerGroup />\n    </FloatingPanelContent>\n  </FloatingPanelPositioner>\n</FloatingPanel>'}
+  vue={'<FloatingPanel :default-size="{ width: 360, height: 260 }" :min-size="{ width: 240, height: 160 }">\n  <FloatingPanelTrigger as-child>\n    <Button>Open panel</Button>\n  </FloatingPanelTrigger>\n  <FloatingPanelPositioner>\n    <FloatingPanelContent>\n      <FloatingPanelDragTrigger>\n        <FloatingPanelHeader>\n          <FloatingPanelTitle>Inspector</FloatingPanelTitle>\n          <FloatingPanelCloseIcon />\n        </FloatingPanelHeader>\n      </FloatingPanelDragTrigger>\n      <FloatingPanelBody>…</FloatingPanelBody>\n      <FloatingPanelResizeTriggerGroup />\n    </FloatingPanelContent>\n  </FloatingPanelPositioner>\n</FloatingPanel>'}
+/>
+
+<PropChips
+  items={[
+    ['defaultSize', 'Largeur et hauteur initiales en px.'],
+    ['minSize / maxSize', 'Limites du redimensionnement.'],
+    ['getBoundaryEl', 'Élément dont le panneau ne sort pas.'],
+    ['persistRect', 'Garde position et taille entre deux ouvertures.'],
+  ]}
+/>
 
 Conservez les parties Ark UI explicites. `FloatingPanelPositioner` applique la position et la taille
 calculées par Ark, tandis que `FloatingPanelContent` représente la surface visible de la fenêtre.
@@ -165,12 +180,60 @@ utilisent les utilitaires natifs et les classes du consommateur. Les variantes C
 les jetons de foundation et n’ont pas de variables de composant : une classe sur la partie remplace les
 styles du composant définis dans la couche.
 
-### Points d'accroche pour les styles
+### Points d’accroche CSS
+
+| Partie | `data-slot` |
+| --- | --- |
+| `FloatingPanelTrigger` | `floating-panel-trigger` |
+| `FloatingPanelPositioner` | `floating-panel-positioner` |
+| `FloatingPanelContent` | `floating-panel-content` |
+| `FloatingPanelDragTrigger` | `floating-panel-drag-trigger` |
+| `FloatingPanelHeader` | `floating-panel-header` |
+| `FloatingPanelTitle` | `floating-panel-title` |
+| `FloatingPanelControl` | `floating-panel-control` |
+| `FloatingPanelStageTrigger` | `floating-panel-stage-trigger` |
+| `FloatingPanelCloseTrigger` | `floating-panel-close-trigger` |
+| `FloatingPanelCloseIcon` | `floating-panel-close-icon` |
+| `FloatingPanelBody` | `floating-panel-body` |
+| `FloatingPanelFooter` | `floating-panel-footer` |
+| `FloatingPanelResizeTrigger` | `floating-panel-resize-trigger` |
+| `FloatingPanelDragIndicator` | `floating-panel-drag-indicator` |
 
 Les parties Ark UI conservent `data-scope="floating-panel"` et leurs valeurs `data-part`. moduix ajoute
 `data-slot="floating-panel-*"` aux conteneurs rendus. Utilisez `data-state="open|closed"`, `data-dragging`,
 `data-disabled`, `data-stage`, `data-topmost`, `data-behind`, `data-minimized`, `data-maximized`,
-`data-staged` et `data-axis` sur les parties concernées pour appliquer des styles selon l'état.
-`FloatingPanelFooter` reprend `data-minimized` du contenu.
+`data-staged` et `data-axis` sur les parties concernées pour appliquer des styles selon l'état. `FloatingPanelFooter` reprend `data-minimized` du contenu.
 
 `FloatingPanelPositioner` expose les variables d’Ark `--width`, `--height`, `--x`, `--y` et `--z-index`.
+
+## Clavier
+
+| Touche | Action |
+| --- | --- |
+| `Enter` / `Space` | Ouvre depuis le déclencheur ayant le focus. |
+| `Tab` / `Shift+Tab` | Déplace le focus entre les contrôles du panneau. |
+| `Esc` | Ferme le panneau. |
+
+## Référence de l’API
+
+| Prop | Type | Défaut |
+| --- | --- | --- |
+| `open` | `boolean` | — |
+| `defaultOpen` | `boolean` | `false` |
+| `onOpenChange` | `(details: OpenChangeDetails) => void` | — |
+| `size` | `{ width: number; height: number }` | — |
+| `defaultSize` | `{ width: number; height: number }` | — |
+| `minSize` | `{ width: number; height: number }` | — |
+| `maxSize` | `{ width: number; height: number }` | — |
+| `position` | `{ x: number; y: number }` | — |
+| `defaultPosition` | `{ x: number; y: number }` | — |
+| `getAnchorPosition` | `(details: AnchorPositionDetails) => Point` | — |
+| `draggable` | `boolean` | `true` |
+| `resizable` | `boolean` | `true` |
+| `lockAspectRatio` | `boolean` | `false` |
+| `getBoundaryEl` | `() => HTMLElement \| null` | — |
+| `closeOnEscape` | `boolean` | `true` |
+| `persistRect` | `boolean` | `true` |
+| `gridSize` | `number` | `1` |
+| `lazyMount` | `boolean` | `true` |
+| `unmountOnExit` | `boolean` | `true` |

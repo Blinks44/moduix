@@ -1,7 +1,7 @@
 ---
 title: Input
 component: input
-description: Стилизованный однострочный `<input>` на основе FieldInput из Ark UI с нативными событиями и стилями moduix.
+description: Однострочный ввод текста с поведением нативного поля.
 ark: https://ark-ui.com/docs/components/field
 ---
 
@@ -14,6 +14,20 @@ import * as InputDocs from '@/components/examples/input/css-properties';
 <ComponentInstall />
 
 ## Использование
+
+<UsageCode
+  react={'<Field>\n  <FieldLabel>Name</FieldLabel>\n  <Input name="name" size="md" placeholder="Enter your name" onChange={(event) => setName(event.target.value)} />\n</Field>'}
+  solid={'<Field>\n  <FieldLabel>Name</FieldLabel>\n  <Input name="name" size="md" placeholder="Enter your name" onInput={(event) => setName(event.currentTarget.value)} />\n</Field>'}
+  vue={'<Field>\n  <FieldLabel>Name</FieldLabel>\n  <Input v-model="name" name="name" size="md" placeholder="Enter your name" />\n</Field>'}
+/>
+
+<PropChips
+  items={[
+    ['size', 'Высота и размер текста, от xs до xl.'],
+    ['htmlSize', 'Нативный атрибут size, в символах.'],
+    ['Field', 'Оберните, чтобы добавить подпись, подсказку и ошибку.'],
+  ]}
+/>
 
 Поместите `Input` в `Field`, если полю нужны метка, пояснение или сообщение об ошибке. `Field` свяжет эти элементы с полем, автоматически создаст нужные идентификаторы и передаст его состояние.
 
@@ -143,8 +157,21 @@ Tailwind используют нативные utility-классы и клас�
 
 ### Хуки стилизации
 
-- `data-slot="input-root"`
+| Часть | `data-slot` |
+| --- | --- |
+| `Input` | `input-root` |
+
 - `data-size="xs" | "sm" | "md" | "lg" | "xl"`
 - `data-scope="field"` и `data-part="input"`
 - `data-invalid`, `data-required` и `data-readonly` Ark внутри `Field`
 - нативные `:disabled`, `:read-only`, `:focus-visible` и `[aria-invalid="true"]`
+
+## Справочник API
+
+Также принимает нативные пропсы своего элемента.
+
+| Проп | Тип | По умолчанию |
+| --- | --- | --- |
+| `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'` | `'md'` |
+| `htmlSize` | `number` | — |
+| `asChild` | `boolean` | `false` |

@@ -1,7 +1,7 @@
 ---
 title: Lightbox
 component: lightbox
-description: Build a modal image viewer with gallery navigation and controlled state in React, Solid, or Vue.
+description: View images in a modal viewer, one at a time or as a gallery.
 ark: https://ark-ui.com/docs/components/dialog
 ---
 
@@ -18,6 +18,20 @@ import lightboxVueRootProviderAndContextPart from '../../../snippets/lightbox/vu
 <ComponentInstall />
 
 ## Usage
+
+<UsageCode
+  react={'<Lightbox>\n  <LightboxTrigger asChild>\n    <button type="button">\n      <img src={photo.thumbnail} alt={photo.alt} />\n    </button>\n  </LightboxTrigger>\n  <LightboxBackdrop />\n  <LightboxPositioner>\n    <LightboxContent aria-label={photo.alt}>\n      <LightboxCloseIcon />\n      <LightboxBody>\n        <LightboxImage src={photo.src} alt={photo.alt} closeOnClick />\n      </LightboxBody>\n    </LightboxContent>\n  </LightboxPositioner>\n</Lightbox>'}
+  solid={'<Lightbox>\n  <LightboxTrigger asChild={(props) => (\n    <button type="button" {...props()}>\n      <img src={photo.thumbnail} alt={photo.alt} />\n    </button>\n  )} />\n  <LightboxBackdrop />\n  <LightboxPositioner>\n    <LightboxContent aria-label={photo.alt}>\n      <LightboxCloseIcon />\n      <LightboxBody>\n        <LightboxImage src={photo.src} alt={photo.alt} closeOnClick />\n      </LightboxBody>\n    </LightboxContent>\n  </LightboxPositioner>\n</Lightbox>'}
+  vue={'<Lightbox>\n  <LightboxTrigger as-child>\n    <button type="button">\n      <img :src="photo.thumbnail" :alt="photo.alt" />\n    </button>\n  </LightboxTrigger>\n  <LightboxBackdrop />\n  <LightboxPositioner>\n    <LightboxContent :aria-label="photo.alt">\n      <LightboxCloseIcon />\n      <LightboxBody>\n        <LightboxImage :src="photo.src" :alt="photo.alt" close-on-click />\n      </LightboxBody>\n    </LightboxContent>\n  </LightboxPositioner>\n</Lightbox>'}
+/>
+
+<PropChips
+  items={[
+    ['closeOnClick', 'On LightboxImage: a click on the image closes the viewer.'],
+    ['aria-label', 'Names the viewer; use the image alt text.'],
+    ['modal', 'false keeps the page usable behind the viewer.'],
+  ]}
+/>
 
 Build the explicit Ark UI dialog structure with `Lightbox`, `LightboxTrigger`,
 `LightboxBackdrop`, `LightboxPositioner`, and `LightboxContent`. Use `asChild` with a single
@@ -216,10 +230,22 @@ LightboxRootProvider
 
 ### Styling hooks
 
-- moduix slots: `lightbox-trigger`, `lightbox-backdrop`, `lightbox-positioner`,
-  `lightbox-content`, `lightbox-title`, `lightbox-description`, `lightbox-close-trigger`,
-  `lightbox-close-icon`, `lightbox-header`, `lightbox-body`, `lightbox-footer`, `lightbox-image`,
-  and `lightbox-gallery`.
+| Part | `data-slot` |
+| --- | --- |
+| `LightboxTrigger` | `lightbox-trigger` |
+| `LightboxBackdrop` | `lightbox-backdrop` |
+| `LightboxPositioner` | `lightbox-positioner` |
+| `LightboxContent` | `lightbox-content` |
+| `LightboxTitle` | `lightbox-title` |
+| `LightboxDescription` | `lightbox-description` |
+| `LightboxCloseTrigger` | `lightbox-close-trigger` |
+| `LightboxCloseIcon` | `lightbox-close-icon` |
+| `LightboxImage` | `lightbox-image` |
+| `LightboxGallery` | `lightbox-gallery` |
+| `LightboxHeader` | `lightbox-header` |
+| `LightboxBody` | `lightbox-body` |
+| `LightboxFooter` | `lightbox-footer` |
+
 - Ark state and anatomy hooks: `data-scope="dialog"`, `data-part`, `data-state="open|closed"`,
   `data-nested`, `data-has-nested`, `--layer-index`, and `--nested-layer-count`.
 - Local hooks: `LightboxImage` exposes `data-slot="lightbox-image"` and optional
@@ -233,3 +259,32 @@ LightboxRootProvider
   class on the part. The backdrop reads the shared `--moduix-backdrop-bg` and
   `--moduix-backdrop-filter`, content motion reads `--moduix-popup-motion-*` on `LightboxContent`,
   and `LightboxCloseIcon` reads the `--moduix-close-button-*` variables.
+
+## Keyboard
+
+| Key | Action |
+| --- | --- |
+| `Enter` / `Space` | Opens it from the focused trigger. |
+| `Tab` / `Shift+Tab` | Moves focus between controls; focus stays inside while open. |
+| `Esc` | Closes it and returns focus to the trigger. |
+
+## API reference
+
+`Lightbox` takes the same props as `Dialog`. `LightboxImage` adds `closeOnClick` (`boolean`, default `false`).
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `open` | `boolean` | — |
+| `defaultOpen` | `boolean` | `false` |
+| `onOpenChange` | `(details: OpenChangeDetails) => void` | — |
+| `modal` | `boolean` | `true` |
+| `role` | `'dialog' \| 'alertdialog'` | `'dialog'` |
+| `closeOnEscape` | `boolean` | `true` |
+| `closeOnInteractOutside` | `boolean` | `true` |
+| `trapFocus` | `boolean` | `true` |
+| `preventScroll` | `boolean` | `true` |
+| `initialFocusEl` | `() => HTMLElement \| null \| false` | — |
+| `finalFocusEl` | `() => HTMLElement \| null` | — |
+| `lazyMount` | `boolean` | `true` |
+| `unmountOnExit` | `boolean` | `true` |
+| `portalled` | `boolean` | `true` |

@@ -1,7 +1,7 @@
 ---
 title: Alert
 component: alert
-description: Встроенные сообщения о статусе, результатах проверки и системной обратной связи.
+description: Встроенное сообщение о статусе с заголовком, описанием и действиями.
 ark: https://ark-ui.com/docs/guides/composition#the-ark-factory
 ---
 
@@ -14,6 +14,19 @@ import * as AlertDocs from '@/components/examples/alert/css-properties';
 <ComponentInstall />
 
 ## Использование
+
+<UsageCode
+  react={'<Alert status="warning">\n  <AlertIndicator>\n    <TriangleAlertIcon />\n  </AlertIndicator>\n  <AlertContent>\n    <AlertTitle>Storage almost full</AlertTitle>\n    <AlertDescription>Free up space to keep syncing files.</AlertDescription>\n  </AlertContent>\n</Alert>'}
+  vue={'<Alert status="warning">\n  <AlertIndicator>\n    <TriangleAlertIcon />\n  </AlertIndicator>\n  <AlertContent>\n    <AlertTitle>Storage almost full</AlertTitle>\n    <AlertDescription>Free up space to keep syncing files.</AlertDescription>\n  </AlertContent>\n</Alert>'}
+/>
+
+<PropChips
+  items={[
+    ['status', 'Задаёт тон: info, success, warning или error.'],
+    ['AlertIndicator', 'Необязательное место для иконки, скрыто от вспомогательных технологий.'],
+    ['AlertActions', 'Необязательный ряд для кнопок или ссылок под сообщением.'],
+  ]}
+/>
 
 Для обычного встроенного сообщения поместите `AlertTitle` и `AlertDescription` внутрь
 `AlertContent`. Добавьте `AlertIndicator`, если значок помогает быстрее понять тип сообщения.
@@ -138,6 +151,21 @@ Tailwind настраиваются обычными утилитами и по�
 
 ### Хуки стилизации
 
-- Стабильные селекторы `data-slot`: `alert-root`, `alert-indicator`, `alert-content`, `alert-title`, `alert-description` и `alert-actions`
+| Часть | `data-slot` |
+| --- | --- |
+| `Alert` | `alert-root` |
+| `AlertIndicator` | `alert-indicator` |
+| `AlertContent` | `alert-content` |
+| `AlertTitle` | `alert-title` |
+| `AlertDescription` | `alert-description` |
+| `AlertActions` | `alert-actions` |
+
 - Селекторы в стиле Ark: `data-scope="alert"` с `data-part="root"`, `indicator`, `content`, `title`, `description` или `actions`
 - `Alert` записывает выбранный статус в `data-status`
+
+## Справочник API
+
+| Проп | Тип | По умолчанию |
+| --- | --- | --- |
+| `status` | `'info' \| 'success' \| 'warning' \| 'error'` | `'info'` |
+| `asChild` | `boolean` | `false` |
