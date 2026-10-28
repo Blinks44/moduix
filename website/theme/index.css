@@ -1068,15 +1068,26 @@ body .rp-doc {
     width: 16px;
     height: 16px;
   }
+}
 
-  /* Doc bar: "On this page" is a muted label without the reading progress ring. */
-  .rp-sidebar-menu__right {
-    color: var(--rp-c-text-2);
-    font-weight: 400;
+/* Doc bar (below 1280px): "On this page" is a muted label without the reading progress ring. */
+.rp-sidebar-menu__right {
+  color: var(--rp-c-text-2);
+  font-weight: 400;
+}
+
+.rp-sidebar-menu__right .rp-progress-circle {
+  display: none;
+}
+
+/* With the sidebar visible and no outline (catalog pages), the doc bar would be an empty strip. */
+@media (width >= 768px) {
+  .rp-sidebar-menu:has(.rp-sidebar-menu__right:empty) {
+    display: none;
   }
 
-  .rp-sidebar-menu__right .rp-progress-circle {
-    display: none;
+  html:root:has(.rp-sidebar-menu__right:empty) {
+    --rp-sidebar-menu-height: 0px;
   }
 }
 
