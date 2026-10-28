@@ -6,68 +6,8 @@ ark: https://ark-ui.com/docs/components/tree-view
 ---
 
 import * as TreeViewDocs from '@/components/examples/tree-view/css-properties';
-import AsyncTreeView from '@/components/examples/tree-view/async-loading.tsx';
-import CheckboxTreeView from '@/components/examples/tree-view/checkboxes.tsx';
-import FileIconsTreeView from '@/components/examples/tree-view/file-icons.tsx';
-import LinkedTreeView from '@/components/examples/tree-view/links.tsx';
-import RootProviderTreeView from '@/components/examples/tree-view/root-provider.tsx';
-import TreeViewBasic from '@/components/examples/tree-view/basic.tsx';
-import treeViewSolidAsyncLoading from '../../../snippets/tree-view/solid/async-loading.tsx?raw';
-import treeViewSolidBasic from '../../../snippets/tree-view/solid/basic.tsx?raw';
-import treeViewSolidCheckboxes from '../../../snippets/tree-view/solid/checkboxes.tsx?raw';
-import treeViewSolidFileIcons from '../../../snippets/tree-view/solid/file-icons.tsx?raw';
-import treeViewSolidLinks from '../../../snippets/tree-view/solid/links.tsx?raw';
-import treeViewSolidRootProvider from '../../../snippets/tree-view/solid/root-provider.tsx?raw';
-import treeViewVueAsyncLoading from '../../../snippets/tree-view/vue/async-loading.vue?raw';
-import treeViewVueAsyncLoadingNode from '../../../snippets/tree-view/vue/AsyncLoadingTreeNode.vue?raw';
-import treeViewVueBasic from '../../../snippets/tree-view/vue/basic.vue?raw';
-import treeViewVueBasicNode from '../../../snippets/tree-view/vue/BasicTreeNode.vue?raw';
-import treeViewVueCheckboxes from '../../../snippets/tree-view/vue/checkboxes.vue?raw';
-import treeViewVueCheckboxesNode from '../../../snippets/tree-view/vue/CheckboxesTreeNode.vue?raw';
-import treeViewVueFileIcons from '../../../snippets/tree-view/vue/file-icons.vue?raw';
-import treeViewVueFileIconsNode from '../../../snippets/tree-view/vue/FileIconsTreeNode.vue?raw';
-import treeViewVueLinks from '../../../snippets/tree-view/vue/links.vue?raw';
-import treeViewVueLinksNode from '../../../snippets/tree-view/vue/LinksTreeNode.vue?raw';
-import treeViewVueRootProvider from '../../../snippets/tree-view/vue/root-provider.vue?raw';
-import treeViewVueRootProviderNode from '../../../snippets/tree-view/vue/RootProviderTreeNode.vue?raw';
 
-<ExampleFrame variant="component">
-  <TreeViewBasic />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/tree-view/basic.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={treeViewSolidBasic} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={treeViewVueBasic} />
-
-<CodeBlockRuntime lang="vue" code={treeViewVueBasicNode} title="BasicTreeNode.vue" />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="tree-view/basic" />
 
 ## Установка
 
@@ -104,86 +44,14 @@ React, Solid и Vue используют одинаковые плоские и�
 элементом, например ссылкой. Этот элемент должен принимать props Ark, чтобы сохранить фокус и
 клавиатурное управление.
 
-<ExampleFrame variant="component">
-  <LinkedTreeView />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/tree-view/links.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={treeViewSolidLinks} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={treeViewVueLinks} />
-
-<CodeBlockRuntime lang="vue" code={treeViewVueLinksNode} title="LinksTreeNode.vue" />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="tree-view/links" />
 
 ### Асинхронная загрузка
 
 Если у ветки известно значение `childrenCount`, загрузите дочерние узлы через `loadChildren`. В
 `onLoadChildrenComplete` замените коллекцию в состоянии приложения значением `details.collection`.
 
-<ExampleFrame variant="component">
-  <AsyncTreeView />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/tree-view/async-loading.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={treeViewSolidAsyncLoading} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={treeViewVueAsyncLoading} />
-
-<CodeBlockRuntime lang="vue" code={treeViewVueAsyncLoadingNode} title="AsyncLoadingTreeNode.vue" />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="tree-view/async-loading" />
 
 ### Дерево с флажками
 
@@ -194,86 +62,14 @@ React, Solid и Vue используют одинаковые плоские и�
 `indeterminate` и `fallback` задают значки частично отмеченного и неотмеченного состояний. Для настройки
 этих состояний используются слоты, а не props.
 
-<ExampleFrame variant="component">
-  <CheckboxTreeView />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/tree-view/checkboxes.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={treeViewSolidCheckboxes} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={treeViewVueCheckboxes} />
-
-<CodeBlockRuntime lang="vue" code={treeViewVueCheckboxesNode} title="CheckboxesTreeNode.vue" />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="tree-view/checkboxes" />
 
 ### Значки файлов
 
 Помещайте декоративные значки файлов и папок внутрь `TreeViewBranchText` и `TreeViewItemText`. Оставьте
 `TreeViewBranchIndicator` отдельным элементом, чтобы он отвечал только за раскрытие и сворачивание.
 
-<ExampleFrame variant="component">
-  <FileIconsTreeView />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/tree-view/file-icons.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={treeViewSolidFileIcons} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={treeViewVueFileIcons} />
-
-<CodeBlockRuntime lang="vue" code={treeViewVueFileIconsNode} title="FileIconsTreeNode.vue" />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="tree-view/file-icons" />
 
 ### Множественный выбор
 
@@ -290,48 +86,7 @@ React, Solid и Vue используют одинаковые плоские и�
 `TreeView`. Пример также показывает низкоуровневую композицию узла: каждый узел использует
 `TreeViewNodeProvider` и читает состояние из `TreeViewNodeContext` вместо сокращения `TreeViewNode`.
 
-<ExampleFrame variant="component">
-  <RootProviderTreeView />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/tree-view/root-provider.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={treeViewSolidRootProvider} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={treeViewVueRootProvider} />
-
-<CodeBlockRuntime lang="vue" code={treeViewVueRootProviderNode} title="RootProviderTreeNode.vue" />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/tree-view/tree-view-root-provider.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="tree-view/root-provider" />
 
 ## Композиция
 

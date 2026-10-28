@@ -3,14 +3,10 @@ title: Tree Collection
 description: "Создавайте, находите, обходите, фильтруйте и обновляйте иерархические данные для Tree View и своих древовидных интерфейсов."
 ---
 
-import TreeCollectionBasic from '@/components/examples/tree-collection/basic.tsx';
 import treeCollectionSolidCustomNodes from '../../../snippets/tree-collection/solid/custom-nodes.tsx?raw';
 import treeCollectionVueCustomNodes from '../../../snippets/tree-collection/vue/custom-nodes.ts?raw';
 import treeCollectionSolidFilePaths from '../../../snippets/tree-collection/solid/file-paths.tsx?raw';
 import treeCollectionVueFilePaths from '../../../snippets/tree-collection/vue/file-paths.ts?raw';
-import treeCollectionSolidBasic from '../../../snippets/tree-collection/solid/basic.tsx?raw';
-import treeCollectionVueBasic from '../../../snippets/tree-collection/vue/basic.vue?raw';
-import treeCollectionVueBasicHelper from '../../../snippets/tree-collection/vue/FileTreeNode.vue?raw';
 
 # Tree Collection
 
@@ -69,45 +65,7 @@ Moduix также реэкспортирует обе функции из каж
 Используйте коллекцию как источник данных для `TreeView`. Отрисовывайте
 `collection.rootNode.children` и передавайте каждой ветви её числовую позицию как `indexPath`.
 
-<ExampleFrame variant="component">
-  <PreviewFrame maxWidth="sm">
-    <TreeCollectionBasic />
-  </PreviewFrame>
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/tree-collection/basic.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={treeCollectionSolidBasic} />
-
-    </Tab>
-  <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={treeCollectionVueBasic} title="basic.vue" />
-
-<CodeBlockRuntime lang="vue" code={treeCollectionVueBasicHelper} title="FileTreeNode.vue" />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="tree-collection/basic" />
 
 `TreeViewLabel` задаёт доступное имя дерева, а `TreeView` управляет фокусом, клавиатурной
 навигацией, раскрытием и выбором. Полную анатомию и поведение компонента смотрите на странице

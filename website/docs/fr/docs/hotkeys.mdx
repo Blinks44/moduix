@@ -3,13 +3,6 @@ title: Hotkeys
 description: Enregistrez des raccourcis clavier adaptés à la plateforme, des séquences et des métadonnées de commandes dans une application React, Solid ou Vue.
 ---
 
-import HotkeysBasicDemo from '@/components/examples/hotkeys/basic.tsx';
-import HotkeysSequencesDemo from '@/components/examples/hotkeys/sequences.tsx';
-import hotkeysSolidBasic from '../../../snippets/hotkeys/solid/basic.tsx?raw';
-import hotkeysVueBasic from '../../../snippets/hotkeys/vue/basic.vue?raw';
-import hotkeysSolidSequences from '../../../snippets/hotkeys/solid/sequences.tsx?raw';
-import hotkeysVueSequences from '../../../snippets/hotkeys/vue/sequences.vue?raw';
-
 `Hotkeys` est l'utilitaire d'Ark UI qui enregistre des commandes clavier. Il écoute un document ou une
 autre cible, tandis que votre application garde la responsabilité de l'action et des contrôles
 visibles.
@@ -58,42 +51,7 @@ Utilisez `useHotkey` pour une commande. Elle est enregistrée au montage du comp
 à son démontage. `mod` correspond à Command sur macOS et à Control sur Windows et Linux : la même
 déclaration fonctionne donc sur toutes les plateformes.
 
-<ExampleFrame variant="component">
-  <PreviewFrame maxWidth="sm">
-    <HotkeysBasicDemo />
-  </PreviewFrame>
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/hotkeys/basic.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={hotkeysSolidBasic} />
-
-    </Tab>
-  <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={hotkeysVueBasic} />
-
-    </Tab>
-  </Tabs>
-</div>
-</ExampleCode>
+<Example name="hotkeys/basic" />
 
 `action` reçoit le `KeyboardEvent` et peut donc l'inspecter si nécessaire. Ajoutez
 `options.preventDefault` lorsque le raccourci doit intentionnellement remplacer une commande du
@@ -110,42 +68,7 @@ fournir des métadonnées à une palette de commandes.
 Séparez les étapes d'une séquence avec `>`. Le délai d'attente par défaut est de
 1000 millisecondes.
 
-<ExampleFrame variant="component">
-  <PreviewFrame maxWidth="sm">
-    <HotkeysSequencesDemo />
-  </PreviewFrame>
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/hotkeys/sequences.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={hotkeysSolidSequences} />
-
-    </Tab>
-  <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={hotkeysVueSequences} />
-
-    </Tab>
-  </Tabs>
-</div>
-</ExampleCode>
+<Example name="hotkeys/sequences" />
 
 ## Portées et options
 

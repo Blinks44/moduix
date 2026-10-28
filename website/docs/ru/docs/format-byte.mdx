@@ -3,12 +3,6 @@ title: Format Byte
 description: Форматируйте размеры в React, Solid и Vue с помощью Ark UI, выбирая десятичную или двоичную систему единиц и локализованный вывод.
 ---
 
-import FormatByteBasic from '@/components/examples/format-byte/basic.tsx';
-import FormatByteUnitSystem from '@/components/examples/format-byte/unit-system.tsx';
-import formatByteSolidBasic from '../../../snippets/format-byte/solid/basic.tsx?raw';
-import formatByteVueBasic from '../../../snippets/format-byte/vue/basic.vue?raw';
-import formatByteSolidUnitSystem from '../../../snippets/format-byte/solid/unit-system.tsx?raw';
-import formatByteVueUnitSystem from '../../../snippets/format-byte/vue/unit-system.vue?raw';
 import formatByteSolidLocale from '../../../snippets/format-byte/solid/locale.tsx?raw';
 import formatByteVueLocale from '../../../snippets/format-byte/vue/locale.vue?raw';
 
@@ -61,84 +55,14 @@ import { Format } from '@ark-ui/vue';
 Предпросмотр использует React, потому что документация работает на React. Во вкладках Solid и Vue
 показаны нативные исходники с тем же результатом и API.
 
-<ExampleFrame variant="component">
-  <PreviewFrame maxWidth="sm">
-    <FormatByteBasic />
-  </PreviewFrame>
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/format-byte/basic.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={formatByteSolidBasic} />
-
-    </Tab>
-  <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={formatByteVueBasic} />
-
-    </Tab>
-  </Tabs>
-</div>
-</ExampleCode>
+<Example name="format-byte/basic" />
 
 ## Десятичная и двоичная системы
 
 Используйте `unitSystem="decimal"` для кратных 1000 и `unitSystem="binary"` для кратных 1024. Выбирайте систему
 осознанно, если продукт различает заявленную ёмкость диска и технические значения хранения.
 
-<ExampleFrame variant="component">
-  <PreviewFrame maxWidth="sm">
-    <FormatByteUnitSystem />
-  </PreviewFrame>
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/format-byte/unit-system.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={formatByteSolidUnitSystem} />
-
-    </Tab>
-  <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={formatByteVueUnitSystem} />
-
-    </Tab>
-  </Tabs>
-</div>
-</ExampleCode>
+<Example name="format-byte/unit-system" />
 
 ## Локаль
 

@@ -4,7 +4,7 @@ import { Card, CardBody, CardFooter, CardHeader, CardTitle } from '@moduix/react
 import { Stack } from '@moduix/react/stack';
 import { useRef, useState } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';
-import styles from '../../../../snippets/focus-trap/css-modules/focus-trap-basic.module.css';
+import styles from '@/components/examples/focus-trap/focus-trap-basic.module.css';
 
 export default function FocusTrapBasicPreview() {
   const [isReviewing, setIsReviewing] = useState(false);

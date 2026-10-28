@@ -3,13 +3,6 @@ title: List Collection
 description: Создавайте, ищите, фильтруйте и обновляйте коллекции на основе массивов для Select, Combobox, Listbox и собственных интерфейсов.
 ---
 
-import ListCollectionBasic from '@/components/examples/list-collection/basic.tsx';
-import ListCollectionFiltering from '@/components/examples/listbox/standalone-filter-input.tsx';
-import listCollectionSolidBasic from '../../../snippets/select/solid/basic.tsx?raw';
-import listCollectionVueBasic from '../../../snippets/select/vue/basic.vue?raw';
-import listCollectionSolidFiltering from '../../../snippets/listbox/solid/standalone-filter-input.tsx?raw';
-import listCollectionVueFiltering from '../../../snippets/listbox/vue/standalone-filter-input.vue?raw';
-
 # List Collection
 
 `ListCollection` - это утилита данных Ark UI для элементов на основе массива. Она сопоставляет
@@ -67,42 +60,7 @@ import { createListCollection, useListCollection } from '@ark-ui/vue/collection'
 Solid для одного и того же примера. Исходник Solid отображается как код, потому что превью
 документации работает на React.
 
-<ExampleFrame variant="component">
-  <PreviewFrame maxWidth="sm">
-    <ListCollectionBasic />
-  </PreviewFrame>
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/list-collection/basic.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={listCollectionSolidBasic} />
-
-    </Tab>
-  <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={listCollectionVueBasic} />
-
-    </Tab>
-  </Tabs>
-</div>
-</ExampleCode>
+<Example name="select/basic" />
 
 Храните статическую коллекцию за пределами компонента. Если элементы приходят из свойств,
 состояния или запроса, создавайте коллекцию заново только при изменении исходных данных. Если
@@ -205,42 +163,7 @@ const nextValue = collection.search('p', {
 В примере `Listbox` использует отдельное подписанное поле фильтра. Установите `typeahead={false}`,
 если фильтрацией управляет это поле, и отображайте пустое состояние, когда совпадений нет.
 
-<ExampleFrame variant="component">
-  <PreviewFrame maxWidth="sm">
-    <ListCollectionFiltering />
-  </PreviewFrame>
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/listbox/standalone-filter-input.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={listCollectionSolidFiltering} />
-
-    </Tab>
-  <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={listCollectionVueFiltering} />
-
-    </Tab>
-  </Tabs>
-</div>
-</ExampleCode>
+<Example name="listbox/standalone-filter-input" />
 
 В React `collection` - это `ListCollection`. В Solid это accessor, поэтому при передаче коллекции
 компоненту или чтении `collection().items` в цикле `<For>` вызывайте `collection()`. В Vue это ref:

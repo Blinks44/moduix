@@ -7,10 +7,6 @@ ark: https://ark-ui.com/docs/components/toggle-group
 
 import * as ToggleGroupDocs from '@/components/examples/toggle-group/css-properties';
 import { CssPropertiesSection } from '@/components/mdx/Components';
-import ToggleGroupContext from '@/components/examples/toggle-group/context.tsx';
-import toggleGroupSolidContext from '../../../snippets/toggle-group/solid/context.tsx?raw';
-import toggleGroupVueContext from '../../../snippets/toggle-group/vue/context.vue?raw';
-import toggleGroupVueContextPart from '../../../snippets/toggle-group/vue/AlignmentItem.vue?raw';
 
 <Example name="toggle-group/basic" />
 
@@ -64,42 +60,7 @@ import toggleGroupVueContextPart from '../../../snippets/toggle-group/vue/Alignm
 состояние группы. `ToggleGroupContext` предоставляет то же состояние через функцию рендера в React и
 Solid или scoped slot во Vue.
 
-<ExampleFrame variant="component">
-  <ToggleGroupContext />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/toggle-group/context.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={toggleGroupSolidContext} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={toggleGroupVueContext} />
-
-<CodeBlockRuntime lang="vue" code={toggleGroupVueContextPart} title="AlignmentItem.vue" />
-
-    </Tab>
-  </Tabs>
-</div>
-</ExampleCode>
+<Example name="toggle-group/context" />
 
 ### Управляемое состояние
 

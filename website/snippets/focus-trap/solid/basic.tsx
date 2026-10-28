@@ -3,7 +3,7 @@ import { Button } from '@moduix/solid/button';
 import { Card, CardBody, CardFooter, CardHeader, CardTitle } from '@moduix/solid/card';
 import { Stack } from '@moduix/solid/stack';
 import { createSignal } from 'solid-js';
-import styles from '../css-modules/focus-trap-basic.module.css';
+import styles from '@/components/examples/focus-trap/focus-trap-basic.module.css';
 
 export default function FocusTrapBasic() {
   const [isReviewing, setIsReviewing] = createSignal(false);

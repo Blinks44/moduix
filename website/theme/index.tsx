@@ -122,7 +122,8 @@ function DocActions() {
     typeof frontmatter.component === 'string' ? frontmatter.component.trim() : undefined;
   const block = typeof frontmatter.block === 'string' ? frontmatter.block.trim() : undefined;
 
-  if (import.meta.env.SSG_MD) return null;
+  // The wide catalog pages (Components index, Browse blocks) have no page actions in the design.
+  if (import.meta.env.SSG_MD || frontmatter.pageType === 'doc-wide') return null;
 
   return (
     <div className="moduix-doc-actions">

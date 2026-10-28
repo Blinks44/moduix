@@ -3,10 +3,6 @@ title: Focus Trap
 description: Keep keyboard focus inside a custom interactive surface with Ark UI FocusTrap.
 ---
 
-import FocusTrapBasic from '@/components/examples/focus-trap/basic.tsx';
-import focusTrapSolidCssModules from '../../../snippets/focus-trap/solid/css-modules.tsx?raw';
-import focusTrapVueCssModules from '../../../snippets/focus-trap/vue/css-modules.vue?raw';
-
 `FocusTrap` keeps keyboard focus inside a custom interactive surface until the workflow is released.
 
 ## API Reference
@@ -57,45 +53,7 @@ with `initialFocus`, keeps `isReviewing` in sync from `onDeactivate`, and restor
 is released. The preview uses the React CSS Modules package and reports whether the trap is active. The source tabs show
 the same behavior with native React, Solid, and Vue code.
 
-<ExampleFrame variant="component">
-  <PreviewFrame maxWidth="sm">
-    <FocusTrapBasic />
-  </PreviewFrame>
-</ExampleFrame>
-
-<ExampleCode>
-<Tabs
-  groupId="framework"
-  values={[
-    { label: 'React', value: 'react' },
-    { label: 'Solid', value: 'solid' },
-    { label: 'Vue', value: 'vue' },
-  ]}
-  className="docs-tabs"
->
-  <Tab value="react">
-
-```tsx pure file="../../../snippets/focus-trap/css-modules/react.tsx"
-```
-
-  </Tab>
-  <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={focusTrapSolidCssModules} />
-
-  </Tab>
-  <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={focusTrapVueCssModules} />
-
-  </Tab>
-</Tabs>
-
-**Styles**
-
-```css file="../../../snippets/focus-trap/css-modules/focus-trap-basic.module.css"
-```
-</ExampleCode>
+<Example name="focus-trap/basic" />
 
 ## Focus lifecycle
 

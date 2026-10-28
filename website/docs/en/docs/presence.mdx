@@ -3,14 +3,8 @@ title: Presence
 description: Control when application-owned content mounts, stays hidden, animates, and unmounts in React, Solid, or Vue.
 ---
 
-import PresenceBasic from '@/components/examples/presence/basic.tsx';
-import PresenceMountOnDemand from '@/components/examples/presence/mount-on-demand.tsx';
-import presenceSolidBasic from '../../../snippets/presence/solid/basic.tsx?raw';
-import presenceVueBasic from '../../../snippets/presence/vue/basic.vue?raw';
 import presenceSolidExitAnimations from '../../../snippets/presence/solid/exit-animations.tsx?raw';
 import presenceVueExitAnimations from '../../../snippets/presence/vue/exit-animations.vue?raw';
-import presenceSolidMountOnDemand from '../../../snippets/presence/solid/mount-on-demand.tsx?raw';
-import presenceVueMountOnDemand from '../../../snippets/presence/vue/mount-on-demand.vue?raw';
 
 ## API Reference
 
@@ -58,47 +52,7 @@ import { Presence } from '@ark-ui/vue/presence';
 Use `unmountOnExit` when the subtree should be removed after its exit animation. Without it, the root stays mounted
 and Ark hides it with the `hidden` attribute when `present` becomes `false`.
 
-<ExampleFrame variant="component">
-  <PreviewFrame maxWidth="sm">
-    <PresenceBasic />
-  </PreviewFrame>
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/presence/basic.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={presenceSolidBasic} />
-
-    </Tab>
-  <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={presenceVueBasic} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/presence/presence-basic.module.css"
-```
-</div>
-</ExampleCode>
+<Example name="presence/basic" />
 
 ## Lazy mount
 
@@ -107,47 +61,7 @@ Add `lazyMount` when the content should not be mounted before its first appearan
 
 `lazyMount` only delays the first mount. It does not remove a subtree after closing on its own.
 
-<ExampleFrame variant="component">
-  <PreviewFrame maxWidth="sm">
-    <PresenceMountOnDemand />
-  </PreviewFrame>
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/presence/mount-on-demand.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={presenceSolidMountOnDemand} />
-
-    </Tab>
-  <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={presenceVueMountOnDemand} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/presence/presence-mount-on-demand.module.css"
-```
-</div>
-</ExampleCode>
+<Example name="presence/mount-on-demand" />
 
 ## Exit animations and callbacks
 

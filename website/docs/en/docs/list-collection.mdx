@@ -3,13 +3,6 @@ title: List Collection
 description: Create, query, filter, and update array-backed collections for Select, Combobox, Listbox, and custom interfaces.
 ---
 
-import ListCollectionBasic from '@/components/examples/list-collection/basic.tsx';
-import ListCollectionFiltering from '@/components/examples/listbox/standalone-filter-input.tsx';
-import listCollectionSolidBasic from '../../../snippets/select/solid/basic.tsx?raw';
-import listCollectionVueBasic from '../../../snippets/select/vue/basic.vue?raw';
-import listCollectionSolidFiltering from '../../../snippets/listbox/solid/standalone-filter-input.tsx?raw';
-import listCollectionVueFiltering from '../../../snippets/listbox/vue/standalone-filter-input.vue?raw';
-
 # List Collection
 
 `ListCollection` is Ark UI's data utility for array-backed items. It maps each item to a string
@@ -66,42 +59,7 @@ The preview uses React with the CSS Modules styling track. The tabs contain nati
 source for the same example. Solid source is shown as code because the documentation preview runs
 in React.
 
-<ExampleFrame variant="component">
-  <PreviewFrame maxWidth="sm">
-    <ListCollectionBasic />
-  </PreviewFrame>
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/list-collection/basic.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={listCollectionSolidBasic} />
-
-    </Tab>
-  <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={listCollectionVueBasic} />
-
-    </Tab>
-  </Tabs>
-</div>
-</ExampleCode>
+<Example name="select/basic" />
 
 Keep a static collection outside the component. When items come from props, state, or a request,
 create the collection again only when the source items change. The dynamic hook below is the
@@ -201,42 +159,7 @@ can cap the number of items kept in the collection for large datasets.
 The example uses `Listbox` with a separately labelled filter input. Set `typeahead={false}` when the
 input owns filtering, and render an empty state when no items match.
 
-<ExampleFrame variant="component">
-  <PreviewFrame maxWidth="sm">
-    <ListCollectionFiltering />
-  </PreviewFrame>
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/listbox/standalone-filter-input.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={listCollectionSolidFiltering} />
-
-    </Tab>
-  <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={listCollectionVueFiltering} />
-
-    </Tab>
-  </Tabs>
-</div>
-</ExampleCode>
+<Example name="listbox/standalone-filter-input" />
 
 In React, `collection` is a `ListCollection`. In Solid, it is an accessor, so use
 `collection()` when passing it to a component or reading `collection().items` in a `<For>` loop.

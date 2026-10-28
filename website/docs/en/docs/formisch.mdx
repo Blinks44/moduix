@@ -3,10 +3,6 @@ title: Formisch
 description: Connect Moduix controls to Formisch and Valibot across supported framework adapters.
 ---
 
-import ProjectForm from '@/components/examples/formisch/complete-form.tsx';
-import formischSolidCompleteForm from '../../../snippets/formisch/solid/complete-form.tsx?raw';
-import formischVueCompleteForm from '../../../snippets/formisch/vue/complete-form.vue?raw';
-
 # Formisch
 
 [Formisch](https://formisch.dev) is a schema-first form library with native framework adapters.
@@ -79,47 +75,7 @@ the field store.
 The example integrates `Input`, `Select`, `Combobox`, `Textarea`, and `Checkbox`. Each supported adapter uses
 the same schema, behavior, Moduix composition, and stylesheet. The live preview renders React.
 
-<ExampleFrame variant="component">
-  <PreviewFrame maxWidth="sm">
-    <ProjectForm />
-  </PreviewFrame>
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/formisch/complete-form.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={formischSolidCompleteForm} />
-
-    </Tab>
-  <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={formischVueCompleteForm} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/formisch/formisch-complete-form.module.css"
-```
-</div>
-</ExampleCode>
+<Example name="formisch/complete-form" />
 
 ## Repeated fields and server errors
 

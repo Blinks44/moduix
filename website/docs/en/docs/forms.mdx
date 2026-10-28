@@ -4,9 +4,6 @@ description: Build accessible forms with Moduix controls, native form behavior, 
 ---
 
 import { Card, Cards } from '@/components/mdx/Components';
-import NativeForm from '@/components/examples/forms/native-form.tsx';
-import nativeFormSolid from '../../../snippets/forms/solid/native-form.tsx?raw';
-import nativeFormVue from '../../../snippets/forms/vue/native-form.vue?raw';
 
 # Forms
 
@@ -82,47 +79,7 @@ The example combines native inputs with Ark-backed `Select`, `Combobox`, and `Ch
 The browser owns validation and `FormData`; Moduix owns the visible controls and their native form
 parts. The live preview uses React because the documentation application runs React.
 
-<ExampleFrame variant="component">
-  <PreviewFrame maxWidth="sm">
-    <NativeForm />
-  </PreviewFrame>
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/forms/native-form.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={nativeFormSolid} />
-
-    </Tab>
-  <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={nativeFormVue} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/forms/forms-native-form.module.css"
-```
-</div>
-</ExampleCode>
+<Example name="forms/native-form" />
 
 ## Validation and reset
 

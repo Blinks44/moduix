@@ -6,10 +6,6 @@ ark: https://ark-ui.com/docs/components/dialog
 ---
 
 import * as LightboxDocs from '@/components/examples/lightbox/css-properties';
-import LightboxRootProviderAndContext from '@/components/examples/lightbox/root-provider-and-context.tsx';
-import lightboxSolidRootProviderAndContext from '../../../snippets/lightbox/solid/root-provider-and-context.tsx?raw';
-import lightboxVueRootProviderAndContext from '../../../snippets/lightbox/vue/root-provider-and-context.vue?raw';
-import lightboxVueRootProviderAndContextPart from '../../../snippets/lightbox/vue/LightboxStatus.vue?raw';
 
 <Example name="lightbox/basic" />
 
@@ -112,48 +108,7 @@ Lightbox, но не создаёт его подложку, содержимое
 компонента. В дочернем компоненте читайте состояние через `useLightboxContext()`. Внешняя кнопка
 остаётся обычным компонентом `Button` из moduix.
 
-<ExampleFrame variant="component">
-  <LightboxRootProviderAndContext />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/lightbox/root-provider-and-context.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={lightboxSolidRootProviderAndContext} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={lightboxVueRootProviderAndContext} />
-
-<CodeBlockRuntime lang="vue" code={lightboxVueRootProviderAndContextPart} title="LightboxStatus.vue" />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/lightbox/lightbox-root-provider-and-context.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="lightbox/root-provider-and-context" />
 
 ### Расширенная настройка
 

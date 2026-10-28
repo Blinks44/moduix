@@ -3,9 +3,6 @@ title: Async List
 description: Управляйте асинхронными данными списка с помощью useAsyncList - загружайте, фильтруйте, сортируйте и постранично подгружайте данные, отменяйте запросы и повторяйте загрузку после ошибок.
 ---
 
-import AsyncListBasic from '@/components/examples/async-list/basic.tsx';
-import asyncListSolidBasic from '../../../snippets/async-list/solid/basic.tsx?raw';
-import asyncListVueBasic from '../../../snippets/async-list/vue/basic.vue?raw';
 import asyncListSolidServerDriven from '../../../snippets/async-list/solid/server-driven.tsx?raw';
 import asyncListVueServerDriven from '../../../snippets/async-list/vue/server-driven.vue?raw';
 
@@ -66,42 +63,7 @@ CSS Modules и Tailwind не меняют API hook. Стилизуйте окр�
 после ошибки вызывайте `reload()`. Хук не добавляет семантику списка, поэтому пример сам задаёт
 подписанную секцию, список и роли для сообщений о состоянии.
 
-<ExampleFrame clientOnly variant="component">
-  <PreviewFrame maxWidth="sm">
-    <AsyncListBasic />
-  </PreviewFrame>
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/async-list/basic.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={asyncListSolidBasic} />
-
-    </Tab>
-  <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={asyncListVueBasic} />
-
-    </Tab>
-  </Tabs>
-</div>
-</ExampleCode>
+<Example name="async-list/basic" clientOnly />
 
 ## Список с загрузкой с сервера
 

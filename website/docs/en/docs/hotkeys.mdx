@@ -3,13 +3,6 @@ title: Hotkeys
 description: Register platform-aware keyboard shortcuts, sequences, and command metadata in a React, Solid, or Vue application.
 ---
 
-import HotkeysBasicDemo from '@/components/examples/hotkeys/basic.tsx';
-import HotkeysSequencesDemo from '@/components/examples/hotkeys/sequences.tsx';
-import hotkeysSolidBasic from '../../../snippets/hotkeys/solid/basic.tsx?raw';
-import hotkeysVueBasic from '../../../snippets/hotkeys/vue/basic.vue?raw';
-import hotkeysSolidSequences from '../../../snippets/hotkeys/solid/sequences.tsx?raw';
-import hotkeysVueSequences from '../../../snippets/hotkeys/vue/sequences.vue?raw';
-
 `Hotkeys` is Ark UI's utility for registering keyboard commands. It listens on a document or another
 target, while your application owns the command action and the visible controls.
 
@@ -57,42 +50,7 @@ Use `useHotkey` for one command. The command is registered when the component mo
 it unmounts. `mod` means Command on macOS and Control on Windows and Linux, so the same declaration
 works across platforms.
 
-<ExampleFrame variant="component">
-  <PreviewFrame maxWidth="sm">
-    <HotkeysBasicDemo />
-  </PreviewFrame>
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/hotkeys/basic.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={hotkeysSolidBasic} />
-
-    </Tab>
-  <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={hotkeysVueBasic} />
-
-    </Tab>
-  </Tabs>
-</div>
-</ExampleCode>
+<Example name="hotkeys/basic" />
 
 The `action` receives the `KeyboardEvent`, so it can inspect the event when needed. Add
 `options.preventDefault` when the shortcut intentionally replaces a browser command. Keep a visible
@@ -106,42 +64,7 @@ data. Each command needs a `hotkey` and an `action`; `id`, `label`, `description
 
 Separate the steps in a sequence with `>`. The default sequence timeout is 1000 milliseconds.
 
-<ExampleFrame variant="component">
-  <PreviewFrame maxWidth="sm">
-    <HotkeysSequencesDemo />
-  </PreviewFrame>
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/hotkeys/sequences.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={hotkeysSolidSequences} />
-
-    </Tab>
-  <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={hotkeysVueSequences} />
-
-    </Tab>
-  </Tabs>
-</div>
-</ExampleCode>
+<Example name="hotkeys/sequences" />
 
 ## Scope behavior and options
 

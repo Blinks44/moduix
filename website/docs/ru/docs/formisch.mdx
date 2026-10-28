@@ -3,10 +3,6 @@ title: Formisch
 description: Подключайте компоненты Moduix к Formisch и Valibot во всех поддерживаемых фреймворках.
 ---
 
-import ProjectForm from '@/components/examples/formisch/complete-form.tsx';
-import formischSolidCompleteForm from '../../../snippets/formisch/solid/complete-form.tsx?raw';
-import formischVueCompleteForm from '../../../snippets/formisch/vue/complete-form.vue?raw';
-
 # Formisch
 
 [Formisch](https://formisch.dev) представляет собой библиотеку форм с нативными адаптерами и
@@ -70,39 +66,7 @@ Vue использует `useForm` и scoped slot компонента `Field`. 
 В примере объединены `Input`, `Select`, `Combobox`, `Textarea` и `Checkbox`. Каждый поддерживаемый адаптер использует
 одну схему, одинаковое поведение, композицию Moduix и стили. Интерактивный пример работает на React.
 
-<ExampleFrame variant="component">
-  <PreviewFrame maxWidth="sm">
-    <ProjectForm />
-  </PreviewFrame>
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/formisch/complete-form.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={formischSolidCompleteForm} />
-
-    </Tab>
-  <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={formischVueCompleteForm} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/formisch/formisch-complete-form.module.css"
-```
-</div>
-</ExampleCode>
+<Example name="formisch/complete-form" />
 
 ## Повторяющиеся поля и серверные ошибки
 

@@ -3,12 +3,6 @@ title: Format Byte
 description: Format byte values as readable sizes in React, Solid, and Vue with Ark UI, including decimal or binary units and locale-aware output.
 ---
 
-import FormatByteBasic from '@/components/examples/format-byte/basic.tsx';
-import FormatByteUnitSystem from '@/components/examples/format-byte/unit-system.tsx';
-import formatByteSolidBasic from '../../../snippets/format-byte/solid/basic.tsx?raw';
-import formatByteVueBasic from '../../../snippets/format-byte/vue/basic.vue?raw';
-import formatByteSolidUnitSystem from '../../../snippets/format-byte/solid/unit-system.tsx?raw';
-import formatByteVueUnitSystem from '../../../snippets/format-byte/vue/unit-system.vue?raw';
 import formatByteSolidLocale from '../../../snippets/format-byte/solid/locale.tsx?raw';
 import formatByteVueLocale from '../../../snippets/format-byte/vue/locale.vue?raw';
 
@@ -61,84 +55,14 @@ list when several values need a shared context.
 The preview uses React because the documentation app is React-based. The Solid and Vue tabs contain
 native source for the same output and API.
 
-<ExampleFrame variant="component">
-  <PreviewFrame maxWidth="sm">
-    <FormatByteBasic />
-  </PreviewFrame>
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/format-byte/basic.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={formatByteSolidBasic} />
-
-    </Tab>
-  <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={formatByteVueBasic} />
-
-    </Tab>
-  </Tabs>
-</div>
-</ExampleCode>
+<Example name="format-byte/basic" />
 
 ## Decimal and binary systems
 
 Use `unitSystem="decimal"` for multiples of 1000 and `unitSystem="binary"` for multiples of 1024. Choose one
 system deliberately when the product distinguishes advertised disk capacity from technical storage values.
 
-<ExampleFrame variant="component">
-  <PreviewFrame maxWidth="sm">
-    <FormatByteUnitSystem />
-  </PreviewFrame>
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/format-byte/unit-system.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={formatByteSolidUnitSystem} />
-
-    </Tab>
-  <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={formatByteVueUnitSystem} />
-
-    </Tab>
-  </Tabs>
-</div>
-</ExampleCode>
+<Example name="format-byte/unit-system" />
 
 ## Locale
 

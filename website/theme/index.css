@@ -929,6 +929,36 @@ body .rp-doc {
   .rp-sidebar-menu__mask {
     background: rgb(9 9 11 / 24%);
   }
+
+  /* Docs · Component · Mobile: H1 28/33, description 15/20, Copy page under the links. */
+  body .rp-doc :not(:where(.rp-not-doc, .rp-not-doc *)):where(h1) {
+    font-size: 28px;
+    line-height: 33px;
+    letter-spacing: -0.5px;
+  }
+
+  body .rp-doc .moduix-doc-description {
+    font-size: 15px;
+    line-height: 20px;
+  }
+
+  body .rp-doc .moduix-doc-actions {
+    justify-content: flex-start;
+
+    .rp-llms-container {
+      margin-left: 0;
+    }
+  }
+
+  /* Doc bar: "On this page" is a muted label without the reading progress ring. */
+  .rp-sidebar-menu__right {
+    color: var(--rp-c-text-2);
+    font-weight: 400;
+  }
+
+  .rp-sidebar-menu__right .rp-progress-circle {
+    display: none;
+  }
 }
 
 /* Callout/* symbols: tinted box, Lucide icon in the callout color, dark title, body under the title. */
@@ -1277,4 +1307,20 @@ body .rp-doc :not(:where(.rp-not-doc, .rp-not-doc *)):where(table) {
   *::after {
     scroll-behavior: auto !important;
   }
+}
+/* Steps in Docs · Guide · Quick start: 28px numbered markers on a divider-colored rail. */
+.rp-steps {
+  --rp-steps-gap: 20px;
+  --rp-steps-size: 28px;
+  --rp-steps-offset-y: -2px;
+
+  margin-left: 14px;
+  border-left-color: var(--rp-c-divider);
+}
+
+.rp-steps > :is(h3, h4)::before {
+  border: 1px solid var(--rp-c-divider);
+  color: var(--rp-c-text-1);
+  font-size: 13px;
+  font-weight: 500;
 }

@@ -5,10 +5,7 @@ description: Превращает ссылку или текст в QR-код, �
 ark: https://ark-ui.com/docs/components/qr-code
 ---
 
-import RootProviderQrCode from '@/components/examples/qr-code/root-provider.tsx';
 import * as QrCodeDocs from '@/components/examples/qr-code/css-properties';
-import qrCodeSolidRootProvider from '../../../snippets/qr-code/solid/root-provider.tsx?raw';
-import qrCodeVueRootProvider from '../../../snippets/qr-code/vue/root-provider.vue?raw';
 
 <Example name="qr-code/basic" />
 
@@ -91,41 +88,7 @@ import qrCodeVueRootProvider from '../../../snippets/qr-code/vue/root-provider.v
 Создайте состояние QR-кода через `useQrCode()`, если его нужно разделить с контролами за пределами
 дерева QR-кода, затем передайте состояние в `QrCodeRootProvider`.
 
-<ExampleFrame variant="component">
-  <RootProviderQrCode />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/qr-code/root-provider.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={qrCodeSolidRootProvider} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={qrCodeVueRootProvider} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="qr-code/root-provider" />
 
 ## Композиция
 

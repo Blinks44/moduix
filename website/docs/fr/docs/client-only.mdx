@@ -3,10 +3,6 @@ title: Client Only
 description: Affichez une interface dépendante du navigateur après l’hydratation avec ClientOnly d’Ark UI et un fallback qui préserve la mise en page.
 ---
 
-import ClientOnlyBasic from '@/components/examples/client-only/basic.tsx';
-import clientOnlySolidBasic from '../../../snippets/client-only/solid/basic.tsx?raw';
-import clientOnlyVueBasic from '../../../snippets/client-only/vue/basic.vue?raw';
-
 Utilisez `ClientOnly` lorsqu’une sous-arborescence dépendante du navigateur doit rester absente du rendu serveur, tandis
 qu’un `fallback` conserve sa place dans la mise en page.
 
@@ -60,42 +56,7 @@ Cette recette affiche une `Card` dépendante du navigateur avec un `Skeleton` qu
 chargement. L’aperçu utilise le package React avec CSS Modules ; les onglets de code contiennent des exemples natifs
 en React et en Solid qui produisent le même comportement.
 
-<ExampleFrame clientOnly variant="component">
-  <PreviewFrame maxWidth="sm">
-    <ClientOnlyBasic />
-  </PreviewFrame>
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/client-only/basic.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={clientOnlySolidBasic} />
-
-    </Tab>
-  <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={clientOnlyVueBasic} />
-
-    </Tab>
-  </Tabs>
-</div>
-</ExampleCode>
+<Example name="client-only/basic" clientOnly />
 
 ## Garder les API du navigateur dans la limite `ClientOnly`
 

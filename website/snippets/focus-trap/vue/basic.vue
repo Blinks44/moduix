@@ -4,7 +4,7 @@ import { Button } from '@moduix/vue/button';
 import { Card, CardBody, CardFooter, CardHeader, CardTitle } from '@moduix/vue/card';
 import { Stack } from '@moduix/vue/stack';
 import { ref } from 'vue';
-import styles from '../css-modules/focus-trap-basic.module.css';
+import styles from '@/components/examples/focus-trap/focus-trap-basic.module.css';
 
 const isReviewing = ref(false);
 const detailsButton = ref<{ $el: HTMLButtonElement } | null>(null);

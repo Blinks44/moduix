@@ -5,10 +5,6 @@ description: Ajouter une courte info-bulle à un contrôle au survol ou au focus
 ark: https://ark-ui.com/docs/components/tooltip
 ---
 
-import TooltipContext from '@/components/examples/tooltip/context.tsx';
-import tooltipSolidContext from '../../../snippets/tooltip/solid/context.tsx?raw';
-import tooltipVueContext from '../../../snippets/tooltip/vue/context.vue?raw';
-import tooltipVueContextPart from '../../../snippets/tooltip/vue/TooltipStateContent.vue?raw';
 
 <Example name="tooltip/basic" />
 
@@ -52,43 +48,7 @@ l’élément déclencheur reçoit le focus.
 
 Utilisez `useTooltipContext()` dans un descendant qui doit lire l’état courant.
 
-<ExampleFrame variant="component">
-  <TooltipContext />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/tooltip/context.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={tooltipSolidContext} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={tooltipVueContext} />
-
-<CodeBlockRuntime lang="vue" code={tooltipVueContextPart} title="TooltipStateContent.vue" />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="tooltip/context" />
 
 ### État contrôlé
 

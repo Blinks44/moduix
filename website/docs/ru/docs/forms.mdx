@@ -4,9 +4,6 @@ description: Создавайте доступные формы с компон�
 ---
 
 import { Card, Cards } from '@/components/mdx/Components';
-import NativeForm from '@/components/examples/forms/native-form.tsx';
-import nativeFormSolid from '../../../snippets/forms/solid/native-form.tsx?raw';
-import nativeFormVue from '../../../snippets/forms/vue/native-form.vue?raw';
 
 # Формы
 
@@ -63,39 +60,7 @@ Formisch или TanStack Form, а не слой совместимости дл�
 валидацию и `FormData`, а Moduix за элементы управления и их нативные части формы. Интерактивный
 пример использует React, потому что на React работает сайт документации.
 
-<ExampleFrame variant="component">
-  <PreviewFrame maxWidth="sm">
-    <NativeForm />
-  </PreviewFrame>
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/forms/native-form.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={nativeFormSolid} />
-
-    </Tab>
-  <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={nativeFormVue} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/forms/forms-native-form.module.css"
-```
-</div>
-</ExampleCode>
+<Example name="forms/native-form" />
 
 ## Валидация и сброс
 

@@ -6,81 +6,8 @@ ark: https://ark-ui.com/docs/components/tabs
 ---
 
 import * as TabsDocs from '@/components/examples/tabs/css-properties';
-import TabsBasic from '@/components/examples/tabs/basic.tsx';
-import TabsControlledValue from '@/components/examples/tabs/controlled-value.tsx';
-import TabsCustomIcons from '@/components/examples/tabs/custom-icons.tsx';
-import TabsDisabledTab from '@/components/examples/tabs/disabled-tab.tsx';
-import TabsFitted from '@/components/examples/tabs/fitted.tsx';
-import TabsLazyMount from '@/components/examples/tabs/lazy-mount.tsx';
-import TabsLine from '@/components/examples/tabs/line.tsx';
-import TabsLinks from '@/components/examples/tabs/links.tsx';
-import TabsManualActivation from '@/components/examples/tabs/manual-activation.tsx';
-import TabsRootProvider from '@/components/examples/tabs/root-provider.tsx';
-import TabsSizes from '@/components/examples/tabs/sizes.tsx';
-import TabsVertical from '@/components/examples/tabs/vertical.tsx';
-import tabsPreviewStyles from '@/components/examples/tabs/tabs-preview.module.css';
-import tabsSolidBasic from '../../../snippets/tabs/solid/basic.tsx?raw';
-import tabsSolidControlledValue from '../../../snippets/tabs/solid/controlled-value.tsx?raw';
-import tabsSolidCustomIcons from '../../../snippets/tabs/solid/custom-icons.tsx?raw';
-import tabsSolidDisabledTab from '../../../snippets/tabs/solid/disabled-tab.tsx?raw';
-import tabsSolidFitted from '../../../snippets/tabs/solid/fitted.tsx?raw';
-import tabsSolidLazyMount from '../../../snippets/tabs/solid/lazy-mount.tsx?raw';
-import tabsSolidLine from '../../../snippets/tabs/solid/line.tsx?raw';
-import tabsSolidLinks from '../../../snippets/tabs/solid/links.tsx?raw';
-import tabsSolidManualActivation from '../../../snippets/tabs/solid/manual-activation.tsx?raw';
-import tabsSolidRootProvider from '../../../snippets/tabs/solid/root-provider.tsx?raw';
-import tabsSolidSizes from '../../../snippets/tabs/solid/sizes.tsx?raw';
-import tabsSolidVertical from '../../../snippets/tabs/solid/vertical.tsx?raw';
-import tabsVueBasic from '../../../snippets/tabs/vue/basic.vue?raw';
-import tabsVueControlledValue from '../../../snippets/tabs/vue/controlled-value.vue?raw';
-import tabsVueCustomIcons from '../../../snippets/tabs/vue/custom-icons.vue?raw';
-import tabsVueDisabledTab from '../../../snippets/tabs/vue/disabled-tab.vue?raw';
-import tabsVueFitted from '../../../snippets/tabs/vue/fitted.vue?raw';
-import tabsVueLazyMount from '../../../snippets/tabs/vue/lazy-mount.vue?raw';
-import tabsVueLine from '../../../snippets/tabs/vue/line.vue?raw';
-import tabsVueLinks from '../../../snippets/tabs/vue/links.vue?raw';
-import tabsVueManualActivation from '../../../snippets/tabs/vue/manual-activation.vue?raw';
-import tabsVueRootProvider from '../../../snippets/tabs/vue/root-provider.vue?raw';
-import tabsVueSizes from '../../../snippets/tabs/vue/sizes.vue?raw';
-import tabsVueVertical from '../../../snippets/tabs/vue/vertical.vue?raw';
 
-<ExampleFrame variant="component">
-  <div className={tabsPreviewStyles.root}>
-    <TabsBasic />
-  </div>
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/tabs/basic.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={tabsSolidBasic} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={tabsVueBasic} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="tabs/basic" width="lg" />
 
 ## Установка
 
@@ -121,214 +48,33 @@ import tabsVueVertical from '../../../snippets/tabs/vue/vertical.vue?raw';
 Управляйте выбранной вкладкой через состояние приложения, если активной панели нужно синхронизироваться
 с другими элементами интерфейса.
 
-<ExampleFrame variant="component">
-  <div className={tabsPreviewStyles.root}>
-    <TabsControlledValue />
-  </div>
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/tabs/controlled-value.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={tabsSolidControlledValue} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={tabsVueControlledValue} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="tabs/controlled-value" width="lg" />
 
 ### Собственные значки
 
 Размещайте значки и подписи непосредственно внутри `TabsTrigger`.
 
-<ExampleFrame variant="component">
-  <div className={tabsPreviewStyles.root}>
-    <TabsCustomIcons />
-  </div>
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/tabs/custom-icons.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={tabsSolidCustomIcons} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={tabsVueCustomIcons} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="tabs/custom-icons" width="lg" />
 
 ### Отключённая вкладка
 
 Отключите вкладку, если она должна оставаться видимой, но пока недоступна.
 
-<ExampleFrame variant="component">
-  <div className={tabsPreviewStyles.root}>
-    <TabsDisabledTab />
-  </div>
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/tabs/disabled-tab.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={tabsSolidDisabledTab} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={tabsVueDisabledTab} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="tabs/disabled-tab" width="lg" />
 
 ### Растянутые вкладки
 
 Передайте `fitted` в `Tabs` или `TabsRootProvider`, чтобы горизонтальный список вкладок занял всю
 ширину корня и поделил её поровну между триггерами. Вертикальные вкладки его игнорируют.
 
-<ExampleFrame variant="component">
-  <div className={tabsPreviewStyles.root}>
-    <TabsFitted />
-  </div>
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/tabs/fitted.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={tabsSolidFitted} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={tabsVueFitted} />
-
-    </Tab>
-  </Tabs>
-
-</div>
-
-</ExampleCode>
+<Example name="tabs/fitted" width="lg" />
 
 ### Ленивое монтирование
 
 Используйте `lazyMount`, если неактивные панели не должны монтироваться до выбора. Добавьте
 `unmountOnExit`, чтобы после ухода с вкладки удалять их из DOM.
 
-<ExampleFrame variant="component">
-  <div className={tabsPreviewStyles.root}>
-    <TabsLazyMount />
-  </div>
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/tabs/lazy-mount.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={tabsSolidLazyMount} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={tabsVueLazyMount} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="tabs/lazy-mount" width="lg" />
 
 ### Вариант с линией
 
@@ -336,268 +82,42 @@ import tabsVueVertical from '../../../snippets/tabs/vue/vertical.vue?raw';
 выбранную вкладку. У горизонтальных вкладок линия идёт под списком, у вертикальных по его краю
 со стороны панели.
 
-<ExampleFrame variant="component">
-  <div className={tabsPreviewStyles.root}>
-    <TabsLine />
-  </div>
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/tabs/line.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={tabsSolidLine} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={tabsVueLine} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="tabs/line" width="lg" />
 
 ### Ссылки
 
 Используйте `asChild`, если триггеры вкладок должны отображаться как ссылки, которыми управляет
 ваш роутер.
 
-<ExampleFrame variant="component">
-  <div className={tabsPreviewStyles.root}>
-    <TabsLinks />
-  </div>
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/tabs/links.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={tabsSolidLinks} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={tabsVueLinks} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="tabs/links" width="lg" />
 
 ### Ручная активация
 
 Установите `activationMode="manual"`, если стрелки должны перемещать фокус, не меняя выбранную
 вкладку. Активируйте её кликом, клавишей Enter или пробелом.
 
-<ExampleFrame variant="component">
-  <div className={tabsPreviewStyles.root}>
-    <TabsManualActivation />
-  </div>
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/tabs/manual-activation.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={tabsSolidManualActivation} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={tabsVueManualActivation} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="tabs/manual-activation" width="lg" />
 
 ### Размеры
 
 Задайте `size` у `Tabs` или `TabsRootProvider`: `sm`, `md` (по умолчанию) или `lg`. Тогда список
 вкладок получает высоту `Button` или `Input` того же размера, как `SegmentGroup`.
 
-<ExampleFrame variant="component">
-  <div className={tabsPreviewStyles.root}>
-    <TabsSizes />
-  </div>
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/tabs/sizes.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={tabsSolidSizes} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={tabsVueSizes} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/tabs/tabs-sizes.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="tabs/sizes" width="lg" />
 
 ### Вертикальная ориентация
 
 Используйте `orientation="vertical"`, если список вкладок должен располагаться рядом с активной
 панелью. Список занимает до `12rem`, а в узком контейнере не больше 40% ширины корня.
 
-<ExampleFrame variant="component">
-  <div className={tabsPreviewStyles.root}>
-    <TabsVertical />
-  </div>
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/tabs/vertical.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={tabsSolidVertical} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={tabsVueVertical} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="tabs/vertical" width="lg" />
 
 ### Расширенная настройка
 
 Создайте состояние вкладок через `useTabs()`, если оно должно существовать до отображения дерева
 частей или если соседнему интерфейсу нужно читать выбранное значение.
 
-<ExampleFrame variant="component">
-  <div className={tabsPreviewStyles.root}>
-    <TabsRootProvider />
-  </div>
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/tabs/root-provider.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={tabsSolidRootProvider} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={tabsVueRootProvider} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/tabs/tabs-root-provider.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="tabs/root-provider" width="lg" />
 
 ## Композиция
 

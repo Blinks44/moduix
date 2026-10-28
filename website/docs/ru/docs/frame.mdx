@@ -3,12 +3,6 @@ title: Frame
 description: Рендерите содержимое React, Solid или Vue в изолированном iframe с помощью Frame из Ark UI.
 ---
 
-import FrameBasic from '@/components/examples/frame/basic.tsx';
-import FrameSizing from '@/components/examples/frame/sizing.tsx';
-import frameSolidBasic from '../../../snippets/frame/solid/basic.tsx?raw';
-import frameVueBasic from '../../../snippets/frame/vue/basic.vue?raw';
-import frameSolidSizing from '../../../snippets/frame/solid/sizing.tsx?raw';
-import frameVueSizing from '../../../snippets/frame/vue/sizing.vue?raw';
 import frameSolidLifecycle from '../../../snippets/frame/solid/lifecycle.tsx?raw';
 import frameVueLifecycle from '../../../snippets/frame/vue/lifecycle.vue?raw';
 import frameSolidStaticDocument from '../../../snippets/frame/solid/static-document.tsx?raw';
@@ -60,42 +54,7 @@ import { Frame } from '@ark-ui/vue';
 доступным именем iframe. В примере через `head` также передаётся элемент `<style>`, потому что стили родительского
 документа не проникают внутрь iframe.
 
-<ExampleFrame variant="component">
-  <PreviewFrame maxWidth="sm">
-    <FrameBasic />
-  </PreviewFrame>
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/frame/basic.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={frameSolidBasic} />
-
-    </Tab>
-  <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={frameVueBasic} />
-
-    </Tab>
-  </Tabs>
-</div>
-</ExampleCode>
+<Example name="frame/basic" />
 
 ## Стили содержимого и размер
 
@@ -106,42 +65,7 @@ import { Frame } from '@ark-ui/vue';
 `--height` на элементе iframe. Используйте `block-size: var(--height, 10rem)`, если iframe должен расти вместе с
 содержимым. Переменную `--width` можно использовать так же для inline-размера.
 
-<ExampleFrame variant="component">
-  <PreviewFrame maxWidth="sm">
-    <FrameSizing />
-  </PreviewFrame>
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/frame/sizing.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={frameSolidSizing} />
-
-    </Tab>
-  <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={frameVueSizing} />
-
-    </Tab>
-  </Tabs>
-</div>
-</ExampleCode>
+<Example name="frame/sizing" />
 
 ## Колбэки жизненного цикла
 

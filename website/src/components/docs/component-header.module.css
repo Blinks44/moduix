@@ -55,3 +55,9 @@
     color: var(--rp-c-text-3);
   }
 }
+/* Docs · Component · Mobile: the header keeps Source, npm and Ark UI; Report issue stays on desktop. */
+@media (width <= 768px) {
+  .links li:last-child {
+    display: none;
+  }
+}

@@ -3,16 +3,6 @@ title: Format Time
 description: Format clock times for a specific locale in React, Solid, or Vue with Ark UI Format.Time.
 ---
 
-import FormatTimeBasic from '@/components/examples/format-time/basic.tsx';
-import FormatTimeSecondsAndLabels from '@/components/examples/format-time/seconds-and-labels.tsx';
-import FormatTimeLocale from '@/components/examples/format-time/locale.tsx';
-import formatTimeSolidBasic from '../../../snippets/format-time/solid/basic.tsx?raw';
-import formatTimeVueBasic from '../../../snippets/format-time/vue/basic.vue?raw';
-import formatTimeSolidSecondsAndLabels from '../../../snippets/format-time/solid/seconds-and-labels.tsx?raw';
-import formatTimeVueSecondsAndLabels from '../../../snippets/format-time/vue/seconds-and-labels.vue?raw';
-import formatTimeSolidLocale from '../../../snippets/format-time/solid/locale.tsx?raw';
-import formatTimeVueLocale from '../../../snippets/format-time/vue/locale.vue?raw';
-
 `Format.Time` turns a clock value into locale-aware text. The same props work in every shipped framework adapter.
 
 ## API Reference
@@ -58,84 +48,14 @@ import { Format } from '@ark-ui/vue';
 Pass a string in `HH:mm` or `HH:mm:ss` form for a wall-clock value such as a scheduled departure. A string is not
 converted between time zones.
 
-<ExampleFrame variant="component">
-  <PreviewFrame maxWidth="sm">
-    <FormatTimeBasic />
-  </PreviewFrame>
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/format-time/basic.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={formatTimeSolidBasic} />
-
-    </Tab>
-  <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={formatTimeVueBasic} />
-
-    </Tab>
-  </Tabs>
-</div>
-</ExampleCode>
+<Example name="format-time/basic" />
 
 ## Formatting options
 
 The default format is 24-hour. Set `format="12h"` for a 12-hour clock, `withSeconds` to include seconds, and
 `amLabel` or `pmLabel` to replace the day-period labels in 12-hour output.
 
-<ExampleFrame variant="component">
-  <PreviewFrame maxWidth="sm">
-    <FormatTimeSecondsAndLabels />
-  </PreviewFrame>
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/format-time/seconds-and-labels.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={formatTimeSolidSecondsAndLabels} />
-
-    </Tab>
-  <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={formatTimeVueSecondsAndLabels} />
-
-    </Tab>
-  </Tabs>
-</div>
-</ExampleCode>
+<Example name="format-time/seconds-and-labels" />
 
 Use seconds only when they help people act on the information. Do not add them to a schedule just because the source
 data contains them.
@@ -148,39 +68,4 @@ time zone. `LocaleProvider` changes the locale, not the time zone.
 
 Keep scheduled wall-clock times as strings. Pass a `Date` only when the time-zone conversion is intended.
 
-<ExampleFrame variant="component">
-  <PreviewFrame maxWidth="sm">
-    <FormatTimeLocale />
-  </PreviewFrame>
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/format-time/locale.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={formatTimeSolidLocale} />
-
-    </Tab>
-  <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={formatTimeVueLocale} />
-
-    </Tab>
-  </Tabs>
-</div>
-</ExampleCode>
+<Example name="format-time/locale" />

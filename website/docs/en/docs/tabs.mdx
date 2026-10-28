@@ -6,81 +6,8 @@ ark: https://ark-ui.com/docs/components/tabs
 ---
 
 import * as TabsDocs from '@/components/examples/tabs/css-properties';
-import TabsBasic from '@/components/examples/tabs/basic.tsx';
-import TabsControlledValue from '@/components/examples/tabs/controlled-value.tsx';
-import TabsCustomIcons from '@/components/examples/tabs/custom-icons.tsx';
-import TabsDisabledTab from '@/components/examples/tabs/disabled-tab.tsx';
-import TabsFitted from '@/components/examples/tabs/fitted.tsx';
-import TabsLazyMount from '@/components/examples/tabs/lazy-mount.tsx';
-import TabsLine from '@/components/examples/tabs/line.tsx';
-import TabsLinks from '@/components/examples/tabs/links.tsx';
-import TabsManualActivation from '@/components/examples/tabs/manual-activation.tsx';
-import TabsRootProvider from '@/components/examples/tabs/root-provider.tsx';
-import TabsSizes from '@/components/examples/tabs/sizes.tsx';
-import TabsVertical from '@/components/examples/tabs/vertical.tsx';
-import tabsPreviewStyles from '@/components/examples/tabs/tabs-preview.module.css';
-import tabsSolidBasic from '../../../snippets/tabs/solid/basic.tsx?raw';
-import tabsSolidControlledValue from '../../../snippets/tabs/solid/controlled-value.tsx?raw';
-import tabsSolidCustomIcons from '../../../snippets/tabs/solid/custom-icons.tsx?raw';
-import tabsSolidDisabledTab from '../../../snippets/tabs/solid/disabled-tab.tsx?raw';
-import tabsSolidFitted from '../../../snippets/tabs/solid/fitted.tsx?raw';
-import tabsSolidLazyMount from '../../../snippets/tabs/solid/lazy-mount.tsx?raw';
-import tabsSolidLine from '../../../snippets/tabs/solid/line.tsx?raw';
-import tabsSolidLinks from '../../../snippets/tabs/solid/links.tsx?raw';
-import tabsSolidManualActivation from '../../../snippets/tabs/solid/manual-activation.tsx?raw';
-import tabsSolidRootProvider from '../../../snippets/tabs/solid/root-provider.tsx?raw';
-import tabsSolidSizes from '../../../snippets/tabs/solid/sizes.tsx?raw';
-import tabsSolidVertical from '../../../snippets/tabs/solid/vertical.tsx?raw';
-import tabsVueBasic from '../../../snippets/tabs/vue/basic.vue?raw';
-import tabsVueControlledValue from '../../../snippets/tabs/vue/controlled-value.vue?raw';
-import tabsVueCustomIcons from '../../../snippets/tabs/vue/custom-icons.vue?raw';
-import tabsVueDisabledTab from '../../../snippets/tabs/vue/disabled-tab.vue?raw';
-import tabsVueFitted from '../../../snippets/tabs/vue/fitted.vue?raw';
-import tabsVueLazyMount from '../../../snippets/tabs/vue/lazy-mount.vue?raw';
-import tabsVueLine from '../../../snippets/tabs/vue/line.vue?raw';
-import tabsVueLinks from '../../../snippets/tabs/vue/links.vue?raw';
-import tabsVueManualActivation from '../../../snippets/tabs/vue/manual-activation.vue?raw';
-import tabsVueRootProvider from '../../../snippets/tabs/vue/root-provider.vue?raw';
-import tabsVueSizes from '../../../snippets/tabs/vue/sizes.vue?raw';
-import tabsVueVertical from '../../../snippets/tabs/vue/vertical.vue?raw';
 
-<ExampleFrame variant="component">
-  <div className={tabsPreviewStyles.root}>
-    <TabsBasic />
-  </div>
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/tabs/basic.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={tabsSolidBasic} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={tabsVueBasic} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="tabs/basic" width="lg" />
 
 ## Installation
 
@@ -120,214 +47,33 @@ content panel and hides the other panels.
 
 Control the selected tab from application state when the active panel needs to coordinate with other UI.
 
-<ExampleFrame variant="component">
-  <div className={tabsPreviewStyles.root}>
-    <TabsControlledValue />
-  </div>
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/tabs/controlled-value.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={tabsSolidControlledValue} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={tabsVueControlledValue} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="tabs/controlled-value" width="lg" />
 
 ### Custom Icons
 
 Place icons and labels directly inside `TabsTrigger`.
 
-<ExampleFrame variant="component">
-  <div className={tabsPreviewStyles.root}>
-    <TabsCustomIcons />
-  </div>
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/tabs/custom-icons.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={tabsSolidCustomIcons} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={tabsVueCustomIcons} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="tabs/custom-icons" width="lg" />
 
 ### Disabled Tab
 
 Disable a tab that should remain visible but is not currently available.
 
-<ExampleFrame variant="component">
-  <div className={tabsPreviewStyles.root}>
-    <TabsDisabledTab />
-  </div>
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/tabs/disabled-tab.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={tabsSolidDisabledTab} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={tabsVueDisabledTab} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="tabs/disabled-tab" width="lg" />
 
 ### Fitted
 
 Set `fitted` on `Tabs` or `TabsRootProvider` to stretch a horizontal tab list across the root and
 share its width equally between the triggers. Vertical tabs ignore it.
 
-<ExampleFrame variant="component">
-  <div className={tabsPreviewStyles.root}>
-    <TabsFitted />
-  </div>
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/tabs/fitted.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={tabsSolidFitted} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={tabsVueFitted} />
-
-    </Tab>
-  </Tabs>
-
-</div>
-
-</ExampleCode>
+<Example name="tabs/fitted" width="lg" />
 
 ### Lazy Mount
 
 Use `lazyMount` when inactive panels should not mount until selected. Add `unmountOnExit` to
 remove them from the DOM again after the user leaves them.
 
-<ExampleFrame variant="component">
-  <div className={tabsPreviewStyles.root}>
-    <TabsLazyMount />
-  </div>
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/tabs/lazy-mount.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={tabsSolidLazyMount} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={tabsVueLazyMount} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="tabs/lazy-mount" width="lg" />
 
 ### Line
 
@@ -335,267 +81,41 @@ Use `variant="line"` when the indicator should sit on the active edge instead of
 selected tab. Horizontal tabs draw the line under the list; vertical tabs draw it on the inline-end
 edge of the list.
 
-<ExampleFrame variant="component">
-  <div className={tabsPreviewStyles.root}>
-    <TabsLine />
-  </div>
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/tabs/line.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={tabsSolidLine} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={tabsVueLine} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="tabs/line" width="lg" />
 
 ### Links
 
 Use `asChild` when tab triggers should render anchors or links managed by your router.
 
-<ExampleFrame variant="component">
-  <div className={tabsPreviewStyles.root}>
-    <TabsLinks />
-  </div>
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/tabs/links.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={tabsSolidLinks} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={tabsVueLinks} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="tabs/links" width="lg" />
 
 ### Manual Activation
 
 Set `activationMode="manual"` when arrow keys should move focus without changing the selected
 tab. Activate it with a click, Enter, or Space.
 
-<ExampleFrame variant="component">
-  <div className={tabsPreviewStyles.root}>
-    <TabsManualActivation />
-  </div>
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/tabs/manual-activation.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={tabsSolidManualActivation} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={tabsVueManualActivation} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="tabs/manual-activation" width="lg" />
 
 ### Sizes
 
 Set `size` on `Tabs` or `TabsRootProvider` to `sm`, `md` (default), or `lg`. The tab list then has
 the height of a `Button` or `Input` of the same size, like `SegmentGroup`.
 
-<ExampleFrame variant="component">
-  <div className={tabsPreviewStyles.root}>
-    <TabsSizes />
-  </div>
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/tabs/sizes.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={tabsSolidSizes} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={tabsVueSizes} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/tabs/tabs-sizes.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="tabs/sizes" width="lg" />
 
 ### Vertical
 
 Use `orientation="vertical"` when the tab list should sit beside the active panel. The list takes
 up to `12rem`, and at most 40% of the root width in narrow containers.
 
-<ExampleFrame variant="component">
-  <div className={tabsPreviewStyles.root}>
-    <TabsVertical />
-  </div>
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/tabs/vertical.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={tabsSolidVertical} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={tabsVueVertical} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="tabs/vertical" width="lg" />
 
 ### Advanced Customization
 
 Create the tab state with `useTabs()` when it must exist before the part tree renders or when
 adjacent UI needs to read the selected value.
 
-<ExampleFrame variant="component">
-  <div className={tabsPreviewStyles.root}>
-    <TabsRootProvider />
-  </div>
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/tabs/root-provider.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={tabsSolidRootProvider} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={tabsVueRootProvider} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/tabs/tabs-root-provider.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="tabs/root-provider" width="lg" />
 
 ## Composition
 

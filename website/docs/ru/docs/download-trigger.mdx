@@ -3,13 +3,6 @@ title: Download Trigger
 description: Запускайте скачивание строк, Blob, File и данных, созданных по запросу, с помощью Ark UI.
 ---
 
-import DownloadTriggerBasic from '@/components/examples/download-trigger/basic.tsx';
-import DownloadTriggerAsyncData from '@/components/examples/download-trigger/async-data.tsx';
-import downloadTriggerSolidBasic from '../../../snippets/download-trigger/solid/basic.tsx?raw';
-import downloadTriggerVueBasic from '../../../snippets/download-trigger/vue/basic.vue?raw';
-import downloadTriggerSolidAsyncData from '../../../snippets/download-trigger/solid/async-data.tsx?raw';
-import downloadTriggerVueAsyncData from '../../../snippets/download-trigger/vue/async-data.vue?raw';
-
 Используйте `DownloadTrigger` из Ark UI, чтобы превратить содержимое файла в скачивание в браузере. Если действие
 должно соответствовать остальному интерфейсу, передайте ему кнопку `Button` из moduix.
 
@@ -59,86 +52,14 @@ import { DownloadTrigger } from '@ark-ui/vue/download-trigger';
 Предпросмотр использует React. Вкладки с исходным кодом содержат нативные примеры React, Solid и Vue с одинаковым
 поведением.
 
-<ExampleFrame clientOnly variant="component">
-  <PreviewFrame maxWidth="sm">
-    <DownloadTriggerBasic />
-  </PreviewFrame>
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/download-trigger/basic.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={downloadTriggerSolidBasic} />
-
-    </Tab>
-  <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={downloadTriggerVueBasic} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="download-trigger/basic" clientOnly />
 
 ## Генерация по запросу
 
 Передайте функцию, если файл нужно создать после активации триггера. Ark вызывает её при нажатии и дожидается
 выполнения возвращённого промиса, прежде чем сохранить результат.
 
-<ExampleFrame clientOnly variant="component">
-  <PreviewFrame maxWidth="sm">
-    <DownloadTriggerAsyncData />
-  </PreviewFrame>
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/download-trigger/async-data.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={downloadTriggerSolidAsyncData} />
-
-    </Tab>
-  <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={downloadTriggerVueAsyncData} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="download-trigger/async-data" clientOnly />
 
 У `DownloadTrigger` нет встроенного состояния загрузки и обработчика ошибок. Если генерация занимает время, храните
 это состояние в приложении, на время операции отключайте или заменяйте триггер и обрабатывайте ошибки внутри функции,

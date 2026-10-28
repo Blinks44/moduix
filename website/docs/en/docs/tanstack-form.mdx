@@ -3,10 +3,6 @@ title: TanStack Form
 description: Connect Moduix controls to native TanStack Form adapters across supported frameworks.
 ---
 
-import ProjectForm from '@/components/examples/tanstack-form/complete-form.tsx';
-import tanStackFormSolidCompleteForm from '../../../snippets/tanstack-form/solid/complete-form.tsx?raw';
-import tanStackFormVueCompleteForm from '../../../snippets/tanstack-form/vue/complete-form.vue?raw';
-
 # TanStack Form
 
 [TanStack Form](https://tanstack.com/form/latest) provides typed, headless form state with
@@ -76,47 +72,7 @@ The example integrates `Input`, `Select`, `Combobox`, `Textarea`, and `Checkbox`
 and focuses the first invalid control. Supported adapters share the same behavior and stylesheet. The
 live preview renders React.
 
-<ExampleFrame variant="component">
-  <PreviewFrame maxWidth="sm">
-    <ProjectForm />
-  </PreviewFrame>
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/tanstack-form/complete-form.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={tanStackFormSolidCompleteForm} />
-
-    </Tab>
-  <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={tanStackFormVueCompleteForm} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/tanstack-form/tanstack-form-complete-form.module.css"
-```
-</div>
-</ExampleCode>
+<Example name="tanstack-form/complete-form" />
 
 ## Repeated fields and server errors
 

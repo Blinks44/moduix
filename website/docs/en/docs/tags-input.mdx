@@ -6,9 +6,6 @@ ark: https://ark-ui.com/docs/components/tags-input
 ---
 
 import * as TagsInputDocs from '@/components/examples/tags-input/css-properties';
-import TagsInputWithCombobox from '@/components/examples/tags-input/with-combobox.tsx';
-import tagsInputSolidWithCombobox from '../../../snippets/combobox/solid/with-tags-input.tsx?raw';
-import tagsInputVueWithCombobox from '../../../snippets/combobox/vue/with-tags-input.vue?raw';
 
 <Example name="tags-input/basic" />
 
@@ -132,29 +129,7 @@ rejected. Add `maxLength` when the entry input should stop accepting long values
 Compose `TagsInput` with `Combobox` when typed input should offer known options while still allowing
 custom tags. Share the input and control IDs and compose the inputs with `asChild`.
 
-<ExampleFrame variant="component">
-  <TagsInputWithCombobox />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/tags-input/with-combobox.tsx"
-```
-
-    </Tab>
-    <Tab value="solid"><CodeBlockRuntime lang="tsx" code={tagsInputSolidWithCombobox} /></Tab>
-    <Tab value="vue"><CodeBlockRuntime lang="vue" code={tagsInputVueWithCombobox} /></Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/tags-input/tags-input-with-combobox.module.css"
-```
-</div>
-</ExampleCode>
+<Example name="combobox/with-tags-input" />
 
 ### Advanced Customization
 

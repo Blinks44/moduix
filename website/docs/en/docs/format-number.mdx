@@ -3,14 +3,8 @@ title: Format Number
 description: Format numbers for a locale with currency, percentage, unit, and compact notation using Ark UI Format.Number.
 ---
 
-import FormatNumberBasic from '@/components/examples/format-number/basic.tsx';
-import FormatNumberOptions from '@/components/examples/format-number/options.tsx';
-import formatNumberSolidBasic from '../../../snippets/format-number/solid/basic.tsx?raw';
-import formatNumberVueBasic from '../../../snippets/format-number/vue/basic.vue?raw';
 import formatNumberSolidLocale from '../../../snippets/format-number/solid/locale.tsx?raw';
 import formatNumberVueLocale from '../../../snippets/format-number/vue/locale.vue?raw';
-import formatNumberSolidOptions from '../../../snippets/format-number/solid/options.tsx?raw';
-import formatNumberVueOptions from '../../../snippets/format-number/vue/options.vue?raw';
 
 `Format.Number` formats a numeric value with the browser's `Intl.NumberFormat` rules. It is a read-only formatter, not
 an input control.
@@ -61,84 +55,14 @@ only text, so keep its label and surrounding layout in your own markup.
 The preview uses React because the documentation site runs React. The Solid and Vue tabs contain
 native implementations of the same example.
 
-<ExampleFrame variant="component">
-  <PreviewFrame maxWidth="sm">
-    <FormatNumberBasic />
-  </PreviewFrame>
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/format-number/basic.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={formatNumberSolidBasic} />
-
-    </Tab>
-  <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={formatNumberVueBasic} />
-
-    </Tab>
-  </Tabs>
-</div>
-</ExampleCode>
+<Example name="format-number/basic" />
 
 ## Formatting options
 
 `Format.Number` accepts the standard `Intl.NumberFormatOptions`, including `style`, `currency`, `unit`,
 `unitDisplay`, `notation`, and fraction digit options.
 
-<ExampleFrame variant="component">
-  <PreviewFrame maxWidth="sm">
-    <FormatNumberOptions />
-  </PreviewFrame>
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/format-number/options.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={formatNumberSolidOptions} />
-
-    </Tab>
-  <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={formatNumberVueOptions} />
-
-    </Tab>
-  </Tabs>
-</div>
-</ExampleCode>
+<Example name="format-number/options" />
 
 `style="percent"` multiplies the value by 100: pass `0.0642` to display `6.4%` with
 `maximumFractionDigits={1}`. Combine `minimumFractionDigits` and `maximumFractionDigits` when the number of decimal

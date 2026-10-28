@@ -6,10 +6,6 @@ ark: https://ark-ui.com/docs/components/slider
 ---
 
 import * as SliderDocs from '@/components/examples/slider/css-properties';
-import SliderContext from '@/components/examples/slider/context.tsx';
-import sliderSolidContext from '../../../snippets/slider/solid/context.tsx?raw';
-import sliderVueContext from '../../../snippets/slider/vue/context.vue?raw';
-import sliderVueContextPart from '../../../snippets/slider/vue/SliderStatus.vue?raw';
 
 <Example name="slider/basic" width="sm" />
 
@@ -65,43 +61,7 @@ au clavier est terminé.
 Utilisez `useSliderContext` de moduix dans un composant enfant lorsque celui-ci doit lire l’état du slider, par exemple
 `value`, `dragging` ou l’état du focus.
 
-<ExampleFrame variant="component" width="sm">
-  <SliderContext />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/slider/context.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={sliderSolidContext} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={sliderVueContext} />
-
-<CodeBlockRuntime lang="vue" code={sliderVueContextPart} title="SliderStatus.vue" />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="slider/context" width="sm" />
 
 ### État contrôlé
 

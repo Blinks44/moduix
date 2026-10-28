@@ -3,9 +3,6 @@ title: Environment
 description: Настройте DOM-запросы Ark UI для iframe, Shadow DOM, Electron и других нестандартных окружений в React, Solid и Vue.
 ---
 
-import EnvironmentBasic from '@/components/examples/environment/basic.tsx';
-import environmentSolidBasic from '../../../snippets/environment/solid/basic.tsx?raw';
-import environmentVueBasic from '../../../snippets/environment/vue/basic.vue?raw';
 import environmentSolidCustomRoot from '../../../snippets/environment/solid/custom-root.tsx?raw';
 import environmentVueCustomRoot from '../../../snippets/environment/vue/custom-root.vue?raw';
 
@@ -53,42 +50,7 @@ import { EnvironmentProvider, useEnvironmentContext } from '@ark-ui/vue/environm
 
 Оберните провайдером всё поддерево, относящееся к нужному окружению. Без `value` провайдер определяет окружение, в котором отображается сам. Используйте `useEnvironmentContext`, если коду приложения нужны корневой узел, документ или окно.
 
-<ExampleFrame variant="component">
-  <PreviewFrame maxWidth="sm">
-    <EnvironmentBasic />
-  </PreviewFrame>
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/environment/basic.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={environmentSolidBasic} />
-
-    </Tab>
-  <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={environmentVueBasic} />
-
-    </Tab>
-  </Tabs>
-</div>
-</ExampleCode>
+<Example name="environment/basic" />
 
 В предпросмотре используется основной документ, поэтому провайдер автоматически находит `document`. В Solid `useEnvironmentContext()` возвращает accessor, поэтому сначала вызовите его, а затем обращайтесь к `getRootNode`, `getDocument` или `getWindow`.
 

@@ -1,0 +1,274 @@
+/* Docs · Components index and the "Empty catalog" state of Interaction · Code & empty states. */
+.catalog {
+  margin-block: 2rem 1rem;
+}
+
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px 8px;
+  margin-block-end: 42px;
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.chip {
+  display: inline-flex;
+  height: 34px;
+  align-items: center;
+  gap: 6px;
+  border: 1px solid var(--moduix-doc-border-strong);
+  border-radius: 17px;
+  padding: 0 13px;
+  background: var(--rp-c-bg);
+  color: var(--rp-c-text-1);
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 18px;
+  cursor: pointer;
+
+  &:hover {
+    background: var(--rp-c-bg-mute);
+  }
+
+  &[aria-pressed='true'] {
+    border-color: var(--rp-c-text-0);
+    background: var(--rp-c-text-0);
+    color: var(--rp-c-bg);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--rp-c-brand);
+    outline-offset: 2px;
+  }
+}
+
+.count {
+  color: var(--rp-c-text-4);
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 16px;
+}
+
+.filter {
+  display: flex;
+  width: 240px;
+  height: 36px;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid var(--rp-c-divider);
+  border-radius: 10px;
+  padding: 0 12px;
+  background: var(--rp-c-bg-mute);
+  color: var(--rp-c-text-4);
+
+  &:focus-within {
+    outline: 2px solid var(--rp-c-brand);
+    outline-offset: 1px;
+  }
+
+  svg {
+    width: 16px;
+    height: 16px;
+    flex: none;
+  }
+
+  input {
+    min-width: 0;
+    flex: 1;
+    border: 0;
+    padding: 0;
+    background: transparent;
+    color: var(--rp-c-text-1);
+    font: inherit;
+    font-size: 14px;
+    outline: none;
+
+    &::placeholder {
+      color: var(--rp-c-text-4);
+    }
+  }
+}
+
+.section + .section {
+  margin-block-start: 56px;
+}
+
+.sectionHeader {
+  display: flex;
+  align-items: baseline;
+  gap: 9px;
+  margin-block-end: 18px;
+
+  h2 {
+    margin: 0;
+    color: var(--rp-c-text-0);
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 30px;
+    letter-spacing: -0.3px;
+  }
+
+  .count {
+    font-size: 14px;
+    line-height: 20px;
+  }
+}
+
+.showAll {
+  margin-inline-start: auto;
+  border: 0;
+  padding: 0;
+  background: none;
+  color: var(--rp-c-link);
+  font-size: 14px;
+  line-height: 19px;
+  cursor: pointer;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+
+  li {
+    margin: 0;
+  }
+}
+
+.card {
+  position: relative;
+  display: flex;
+  height: 100%;
+  min-height: 96px;
+  flex-direction: column;
+  gap: 5px;
+  border: 1px solid var(--rp-c-divider);
+  border-radius: 12px;
+  padding: 14px 40px 14px 16px;
+  background: var(--rp-c-bg);
+  text-decoration: none;
+
+  &:hover {
+    border-color: var(--moduix-doc-border-strong);
+    background: var(--rp-c-bg-soft);
+  }
+
+  svg {
+    position: absolute;
+    top: 14px;
+    right: 16px;
+    width: 16px;
+    height: 16px;
+    color: var(--rp-c-text-4);
+  }
+}
+
+.cardTitle {
+  color: var(--rp-c-text-0);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 19px;
+}
+
+.cardDescription {
+  color: var(--rp-c-text-2);
+  font-size: 13px;
+  line-height: 18px;
+}
+
+.empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  border: 1px solid var(--rp-c-divider);
+  border-radius: 12px;
+  padding: 36px 24px;
+  background: var(--rp-c-bg-soft);
+  color: var(--rp-c-text-2);
+  font-size: 13px;
+  line-height: 18px;
+  text-align: center;
+
+  strong {
+    margin-block-start: 12px;
+    color: var(--rp-c-text-0);
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 20px;
+  }
+}
+
+.emptyIcon {
+  display: grid;
+  width: 40px;
+  height: 40px;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--rp-c-bg-mute);
+  color: var(--rp-c-text-2);
+
+  svg {
+    width: 16px;
+    height: 16px;
+  }
+}
+
+.clear {
+  margin-block-start: 14px;
+  height: 32px;
+  border: 1px solid var(--moduix-doc-border-strong);
+  border-radius: 8px;
+  padding: 0 12px;
+  background: var(--rp-c-bg);
+  color: var(--rp-c-text-1);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+@media (width <= 1024px) {
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (width <= 640px) {
+  .toolbar {
+    margin-block-end: 32px;
+  }
+
+  .chips {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    margin-inline: -16px;
+    padding-inline: 16px;
+    scrollbar-width: none;
+  }
+
+  .chip {
+    flex: none;
+  }
+
+  .filter {
+    width: 100%;
+  }
+
+  .grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

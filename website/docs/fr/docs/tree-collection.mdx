@@ -3,14 +3,10 @@ title: Tree Collection
 description: "Créez, recherchez, parcourez, filtrez et mettez à jour des données hiérarchiques pour Tree View et vos interfaces arborescentes."
 ---
 
-import TreeCollectionBasic from '@/components/examples/tree-collection/basic.tsx';
 import treeCollectionSolidCustomNodes from '../../../snippets/tree-collection/solid/custom-nodes.tsx?raw';
 import treeCollectionVueCustomNodes from '../../../snippets/tree-collection/vue/custom-nodes.ts?raw';
 import treeCollectionSolidFilePaths from '../../../snippets/tree-collection/solid/file-paths.tsx?raw';
 import treeCollectionVueFilePaths from '../../../snippets/tree-collection/vue/file-paths.ts?raw';
-import treeCollectionSolidBasic from '../../../snippets/tree-collection/solid/basic.tsx?raw';
-import treeCollectionVueBasic from '../../../snippets/tree-collection/vue/basic.vue?raw';
-import treeCollectionVueBasicHelper from '../../../snippets/tree-collection/vue/FileTreeNode.vue?raw';
 
 # Tree Collection
 
@@ -71,45 +67,7 @@ le même package.
 Utilisez la collection comme source de données pour `TreeView`. Rendez
 `collection.rootNode.children` et transmettez à chaque nœud sa position numérique comme `indexPath`.
 
-<ExampleFrame variant="component">
-  <PreviewFrame maxWidth="sm">
-    <TreeCollectionBasic />
-  </PreviewFrame>
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/tree-collection/basic.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={treeCollectionSolidBasic} />
-
-    </Tab>
-  <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={treeCollectionVueBasic} title="basic.vue" />
-
-<CodeBlockRuntime lang="vue" code={treeCollectionVueBasicHelper} title="FileTreeNode.vue" />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="tree-collection/basic" />
 
 `TreeViewLabel` donne un nom accessible à l'arbre, tandis que `TreeView` gère le focus, la navigation
 au clavier, l'ouverture et la sélection. Consultez [Tree View](/docs/tree-view) pour découvrir

@@ -3,10 +3,6 @@ title: Focus Trap
 description: Удерживайте фокус при навигации с клавиатуры внутри пользовательской интерактивной области с помощью Ark UI FocusTrap.
 ---
 
-import FocusTrapBasic from '@/components/examples/focus-trap/basic.tsx';
-import focusTrapSolidCssModules from '../../../snippets/focus-trap/solid/css-modules.tsx?raw';
-import focusTrapVueCssModules from '../../../snippets/focus-trap/vue/css-modules.vue?raw';
-
 `FocusTrap` удерживает фокус при навигации с клавиатуры внутри пользовательской интерактивной области до завершения сценария.
 
 ## Справочник API
@@ -57,45 +53,7 @@ import { FocusTrap } from '@ark-ui/vue/focus-trap';
 фокус возвращается на **Start review**. В интерактивном примере через `PreviewMeta` показано, активна ли ловушка. Вкладки
 с исходным кодом показывают одинаковое поведение с нативными примерами для React, Solid и Vue.
 
-<ExampleFrame variant="component">
-  <PreviewFrame maxWidth="sm">
-    <FocusTrapBasic />
-  </PreviewFrame>
-</ExampleFrame>
-
-<ExampleCode>
-<Tabs
-  groupId="framework"
-  values={[
-    { label: 'React', value: 'react' },
-    { label: 'Solid', value: 'solid' },
-    { label: 'Vue', value: 'vue' },
-  ]}
-  className="docs-tabs"
->
-  <Tab value="react">
-
-```tsx pure file="../../../snippets/focus-trap/css-modules/react.tsx"
-```
-
-  </Tab>
-  <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={focusTrapSolidCssModules} />
-
-  </Tab>
-  <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={focusTrapVueCssModules} />
-
-  </Tab>
-</Tabs>
-
-**Стили**
-
-```css file="../../../snippets/focus-trap/css-modules/focus-trap-basic.module.css"
-```
-</ExampleCode>
+<Example name="focus-trap/basic" />
 
 ## Жизненный цикл фокуса
 

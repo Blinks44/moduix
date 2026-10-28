@@ -1,390 +1,706 @@
-import { createListCollection } from '@ark-ui/react/collection';
 import { Button } from '@moduix/react/button';
 import {
-  Dialog,
-  DialogBackdrop,
-  DialogCloseTrigger,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogPositioner,
-  DialogTitle,
-  DialogTrigger,
-} from '@moduix/react/dialog';
+  Checkbox,
+  CheckboxControl,
+  CheckboxHiddenInput,
+  CheckboxLabel,
+} from '@moduix/react/checkbox';
+import { Field, FieldLabel } from '@moduix/react/field';
+import { Input } from '@moduix/react/input';
 import {
-  ProgressLinear,
-  ProgressLinearLabel,
-  ProgressLinearValueText,
-  ProgressLinearTrack,
-  ProgressLinearRange,
-} from '@moduix/react/progress-linear';
+  SegmentGroup,
+  SegmentGroupIndicator,
+  SegmentGroupItems,
+} from '@moduix/react/segment-group';
 import {
-  Select,
-  SelectLabel,
-  SelectControl,
-  SelectTrigger,
-  SelectValueText,
-  SelectIndicator,
-  SelectPositioner,
-  SelectContent,
-  SelectOption,
-} from '@moduix/react/select';
+  Slider,
+  SliderControl,
+  SliderLabel,
+  SliderRange,
+  SliderThumbs,
+  SliderTrack,
+  SliderValueText,
+} from '@moduix/react/slider';
 import { Switch, SwitchControl, SwitchHiddenInput, SwitchLabel } from '@moduix/react/switch';
-import { Tabs, TabsContent, TabsIndicator, TabsList, TabsTrigger } from '@moduix/react/tabs';
 import { useI18n } from '@rspress/core/runtime';
-import { Link } from '@rspress/core/theme';
-import {
-  ArrowRight,
-  BookOpen,
-  Boxes,
-  ClipboardList,
-  Component,
-  Database,
-  Wrench,
-} from 'lucide-react';
+import { CodeBlockRuntime, Link } from '@rspress/core/theme';
+import { ArrowRight, Check, Copy } from 'lucide-react';
 import { useState } from 'react';
-import { DataTable } from '@/components/blocks/data-table';
-import { SidebarDashboard } from '@/components/blocks/sidebar-dashboard';
-import { FrameworkSupport } from '@/components/home/framework-support';
-import { useLocalizedPath } from '@/utils/localized-path';
+import reactPackage from '../../../../packages/react/package.json';
+import { getComponentCategories } from '../docs/component-gallery';
+import { usePreset } from '../docs/nav-menus';
+import { ScaledPreview } from '../docs/scaled-preview';
+import ColorPickerTile from '../examples/color-picker/inline';
+import DatePickerTile from '../examples/date-picker/inline-and-week-numbers';
+import FileUploadTile from '../examples/file-upload/basic';
+import SignaturePadTile from '../examples/signature-pad/basic';
+import TagsInputTile from '../examples/tags-input/basic';
+import { ComboboxTile, ToastTile, TourTile } from './home-tiles';
 import styles from './Home.module.css';
 
-export function Home() {
-  const t = useI18n<typeof import('i18n')>();
-  const quickStartPath = useLocalizedPath('/docs/quick-start');
-  const changelogPath = useLocalizedPath('/docs/changelog');
-  const componentsPath = useLocalizedPath('/docs/components');
-  const collectionsPath = useLocalizedPath('/docs/collections');
-  const utilitiesPath = useLocalizedPath('/docs/utilities');
-  const formsPath = useLocalizedPath('/docs/forms');
-  const guidesPath = useLocalizedPath('/docs/styling');
-  const blocksPath = useLocalizedPath('/blocks');
-  const documentationAreas = [
-    {
-      title: t('homeAreaComponents'),
-      description: t('homeAreaComponentsDescription'),
-      href: componentsPath,
-      icon: Component,
-    },
-    {
-      title: t('homeAreaCollections'),
-      description: t('homeAreaCollectionsDescription'),
-      href: collectionsPath,
-      icon: Database,
-    },
-    {
-      title: t('homeAreaUtilities'),
-      description: t('homeAreaUtilitiesDescription'),
-      href: utilitiesPath,
-      icon: Wrench,
-    },
-    {
-      title: t('homeAreaForms'),
-      description: t('homeAreaFormsDescription'),
-      href: formsPath,
-      icon: ClipboardList,
-    },
-    {
-      title: t('homeAreaGuides'),
-      description: t('homeAreaGuidesDescription'),
-      href: guidesPath,
-      icon: BookOpen,
-    },
-    {
-      title: t('homeAreaBlocks'),
-      description: t('homeAreaBlocksDescription'),
-      href: blocksPath,
-      icon: Boxes,
-    },
-  ];
+type T = ReturnType<typeof useI18n<typeof import('i18n')>>;
+type Framework = 'react' | 'solid' | 'vue';
+
+const frameworks = [
+  { value: 'react', label: 'React' },
+  { value: 'solid', label: 'Solid' },
+  { value: 'vue', label: 'Vue' },
+] as const;
+
+const arkMajor = reactPackage.peerDependencies['@ark-ui/react'].match(/\d+/)?.[0];
+const version = reactPackage.version.split('.').slice(0, 2).join('.');
+
+const switchCode: Record<Framework, { file: string; lang: string; code: string }> = {
+  react: {
+    file: 'Notifications.tsx',
+    lang: 'tsx',
+    code: `import { Switch, SwitchControl, SwitchLabel } from '@moduix/react/switch';
+
+<Switch defaultChecked>
+  <SwitchLabel>Product updates</SwitchLabel>
+  <SwitchControl />
+</Switch>`,
+  },
+  solid: {
+    file: 'Notifications.tsx',
+    lang: 'tsx',
+    code: `import { Switch, SwitchControl, SwitchLabel } from '@moduix/solid/switch';
+
+<Switch defaultChecked>
+  <SwitchLabel>Product updates</SwitchLabel>
+  <SwitchControl />
+</Switch>`,
+  },
+  vue: {
+    file: 'Notifications.vue',
+    lang: 'vue',
+    code: `<script setup>
+import { Switch, SwitchControl, SwitchLabel } from '@moduix/vue/switch';
+</script>
+
+<template>
+  <Switch default-checked>
+    <SwitchLabel>Product updates</SwitchLabel>
+    <SwitchControl />
+  </Switch>
+</template>`,
+  },
+};
+
+const buttonCode: Record<Framework, { file: string; lang: string; code: string }> = {
+  react: {
+    file: 'Button.tsx',
+    lang: 'tsx',
+    code: `import { Button } from
+  '@moduix/react/button';
+
+export default function Demo() {
   return (
-    <main className={`${styles.home} moduix-home`}>
-      <div className={styles.spotlight} />
-      <section className={styles.hero} aria-labelledby="home-title">
-        <div className={styles.content}>
-          <Link href={changelogPath} className={`${styles.badge} ${styles.releaseBadge}`}>
-            <span className={styles.releaseDot} aria-hidden="true" />
-            {t('homeReleaseBadge')}
-          </Link>
-          <p className={styles.title}>moduix</p>
-          <h1
-            id="home-title"
-            className={styles.tagline}
-            dangerouslySetInnerHTML={{ __html: t('homeTitle') }}
-          />
-          <p className={styles.lead} dangerouslySetInnerHTML={{ __html: t('homeLead') }} />
-          <FrameworkSupport />
-          <p className={styles.frameworkStatus}>{t('homeFrameworkStatus')}</p>
-          <div className={styles.actions}>
-            <Link href={quickStartPath} className={styles.primary}>
-              {t('homeGetStarted')}
-              <ArrowRight size={18} aria-hidden="true" />
-            </Link>
-          </div>
-        </div>
+    <Button variant="outline">
+      Save changes
+    </Button>
+  );
+}`,
+  },
+  solid: {
+    file: 'Button.tsx',
+    lang: 'tsx',
+    code: `import { Button } from
+  '@moduix/solid/button';
 
-        <div className={styles.showcase}>
-          <div className={`${styles.panel} ${styles.panelMain}`}>
-            <div className={styles.panelHeader}>
-              <span />
-              <span />
-              <span />
-            </div>
-            <HomeShowcase />
-          </div>
+export default function Demo() {
+  return (
+    <Button variant="outline">
+      Save changes
+    </Button>
+  );
+}`,
+  },
+  vue: {
+    file: 'Button.vue',
+    lang: 'vue',
+    code: `<script setup>
+import { Button } from
+  '@moduix/vue/button';
+</script>
 
-          <div className={`${styles.panel} ${styles.floatPanel}`} aria-hidden="true">
-            <div className={styles.menuLine} />
-            <div className={styles.menuLine} />
-            <div className={styles.menuLine} />
-          </div>
-        </div>
-      </section>
+<template>
+  <Button variant="outline">
+    Save changes
+  </Button>
+</template>`,
+  },
+};
 
-      <section className={styles.documentationSection} aria-labelledby="documentation-title">
-        <div className={styles.documentationIntro}>
-          <span className={styles.sectionEyebrow}>{t('homeDocumentationEyebrow')}</span>
-          <h2 id="documentation-title">{t('homeDocumentationTitle')}</h2>
-          <p>{t('homeDocumentationDescription')}</p>
-        </div>
-        <div className={styles.documentationGrid}>
-          {documentationAreas.map(({ title, description, href, icon: Icon }) => (
-            <Link key={title} href={href} className={styles.documentationCard}>
-              <span className={styles.documentationIcon}>
-                <Icon size={18} aria-hidden="true" />
-              </span>
-              <span className={styles.documentationCardContent}>
-                <strong>{title}</strong>
-                <span>{description}</span>
-              </span>
-              <ArrowRight size={16} aria-hidden="true" />
-            </Link>
-          ))}
-        </div>
-      </section>
+const featured = [
+  {
+    title: 'Color Picker',
+    href: '/docs/color-picker',
+    category: 'categoryForms',
+    width: 300,
+    preview: <ColorPickerTile />,
+  },
+  {
+    title: 'Date Picker',
+    href: '/docs/date-picker',
+    category: 'categoryForms',
+    width: 320,
+    preview: <DatePickerTile />,
+  },
+  {
+    title: 'Tour',
+    href: '/docs/tour',
+    category: 'categoryOverlays',
+    width: 340,
+    preview: <TourTile />,
+  },
+  {
+    title: 'Signature Pad',
+    href: '/docs/signature-pad',
+    category: 'categoryForms',
+    width: 320,
+    preview: <SignaturePadTile />,
+  },
+  {
+    title: 'Combobox',
+    href: '/docs/combobox',
+    category: 'categoryForms',
+    width: 280,
+    preview: <ComboboxTile />,
+  },
+  {
+    title: 'File Upload',
+    href: '/docs/file-upload',
+    category: 'categoryForms',
+    width: 320,
+    preview: <FileUploadTile />,
+  },
+  {
+    title: 'Toast',
+    href: '/docs/toast',
+    category: 'categoryFeedback',
+    width: 300,
+    preview: <ToastTile />,
+  },
+  {
+    title: 'Tags Input',
+    href: '/docs/tags-input',
+    category: 'categoryForms',
+    width: 300,
+    preview: <TagsInputTile />,
+  },
+] as const;
 
-      <section className={styles.dataTableSection} aria-labelledby="component-table-title">
-        <div className={styles.dataTableIntro}>
-          <div>
-            <span className={styles.sectionEyebrow}>{t('homeCompositionInPractice')}</span>
-            <h2 id="component-table-title">{t('homeComponentsTogether')}</h2>
-            <p>{t('homeCompositionDescription')}</p>
-          </div>
-          <Link href={blocksPath} className={styles.tableLink}>
-            {t('homeExploreBlocks')}
-            <ArrowRight size={16} aria-hidden="true" />
-          </Link>
-        </div>
-        <Tabs defaultValue="data-table" className={styles.componentTabs}>
-          <TabsList className={styles.componentTabsList}>
-            <TabsTrigger value="data-table">DataTable</TabsTrigger>
-            <TabsTrigger value="sidebar">Sidebar</TabsTrigger>
-            <TabsIndicator />
-          </TabsList>
+const presets = [
+  {
+    value: 'calm',
+    title: 'Calm',
+    descriptionKey: 'homeThemeCalm',
+    control: 'Control 36px · radius 10px',
+  },
+  {
+    value: 'dense',
+    title: 'Dense',
+    descriptionKey: 'homeThemeDense',
+    control: 'Control 34px · radius 7px',
+  },
+  {
+    value: 'soft',
+    title: 'Soft',
+    descriptionKey: 'homeThemeSoft',
+    control: 'Control 40px · radius 16px',
+  },
+  {
+    value: 'contrast',
+    title: 'Contrast',
+    descriptionKey: 'homeThemeContrast',
+    control: 'Control 36px · radius 6px',
+  },
+] as const;
 
-          <TabsContent value="data-table" className={styles.componentTabPanel}>
-            <DataTable />
-          </TabsContent>
-          <TabsContent
-            value="sidebar"
-            className={`${styles.componentTabPanel} ${styles.componentTabPanelSidebar}`}
-          >
-            <SidebarDashboard />
-          </TabsContent>
-        </Tabs>
-      </section>
-    </main>
+const setups = [
+  { name: 'Vite', supportKey: 'homeStartAll', href: '/docs/installation/vite' },
+  { name: 'Next.js', support: 'React', href: '/docs/installation/nextjs' },
+  { name: 'React Router', support: 'React', href: '/docs/installation/react-router' },
+  { name: 'TanStack Start', support: 'React · Solid', href: '/docs/installation/tanstack-start' },
+  { name: 'Nuxt', support: 'Vue', href: '/docs/installation/nuxt' },
+  { name: 'SolidStart', support: 'Solid', href: '/docs/installation/solid-start' },
+  { name: 'Astro', supportKey: 'homeStartAll', href: '/docs/installation/astro' },
+  { name: 'Rsbuild', supportKey: 'homeStartAll', href: '/docs/installation/rsbuild' },
+] as const;
+
+function Eyebrow({ index, children }: { index: string; children: string }) {
+  return (
+    <p className={styles.eyebrow}>
+      {index} · {children}
+    </p>
   );
 }
 
-function HomeShowcase() {
+function CopyCommand({ command }: { command: string }) {
   const t = useI18n<typeof import('i18n')>();
-  const workspaceOptions = [
-    { label: t('homeWorkspaceDesignSystem'), value: 'design-system' },
-    { label: t('homeWorkspaceCheckoutFlow'), value: 'checkout-flow' },
-    { label: t('homeWorkspaceMapsWidgets'), value: 'maps-widgets' },
-  ];
-  const workspaceCollection = createListCollection({ items: workspaceOptions });
-  const [automationEnabled, setAutomationEnabled] = useState(true);
-  const [progressValue, setProgressValue] = useState(72);
-  const [workspaceValue, setWorkspaceValue] = useState<string[]>(['design-system']);
+  const [copied, setCopied] = useState(false);
+  return (
+    <div className={styles.command}>
+      <code>
+        <span aria-hidden="true">$ </span>
+        {command}
+      </code>
+      <button
+        type="button"
+        aria-label={t(copied ? 'exampleCopied' : 'exampleCopy')}
+        onClick={async () => {
+          await navigator.clipboard.writeText(command);
+          setCopied(true);
+          setTimeout(() => setCopied(false), 1500);
+        }}
+      >
+        {copied ? <Check aria-hidden="true" /> : <Copy aria-hidden="true" />}
+      </button>
+    </div>
+  );
+}
 
-  const workspaceLabel =
-    workspaceOptions.find((item) => item.value === workspaceValue[0])?.label ??
-    t('homeSelectWorkspace');
+function FrameworkDot({ framework }: { framework: Framework }) {
+  return <span className={styles.dot} data-framework={framework} aria-hidden="true" />;
+}
 
-  const handleAutomationChange = (details: { checked: boolean }) => {
-    setAutomationEnabled(details.checked);
-    setProgressValue(details.checked ? 72 : 38);
-  };
+function NotificationsDemo({ t }: { t: T }) {
+  return (
+    <div className={styles.notifications}>
+      <div>
+        <p className={styles.notificationsTitle}>{t('homeDemoTitle')}</p>
+        <p className={styles.notificationsText}>{t('homeDemoText')}</p>
+      </div>
+      {(
+        [
+          ['homeDemoProduct', true],
+          ['homeDemoSecurity', true],
+          ['homeDemoDigest', false],
+        ] as const
+      ).map(([key, checked]) => (
+        <Switch key={key} defaultChecked={checked} className={styles.switch}>
+          <SwitchLabel>{t(key)}</SwitchLabel>
+          <SwitchControl />
+          <SwitchHiddenInput />
+        </Switch>
+      ))}
+      <Slider
+        defaultValue={[22, 31]}
+        min={18}
+        max={34}
+        getAriaValueText={({ value }) => `${String(value % 24).padStart(2, '0')}:00`}
+      >
+        <div className={styles.sliderHeader}>
+          <SliderLabel>{t('homeDemoQuiet')}</SliderLabel>
+          <SliderValueText>22:00 – 07:00</SliderValueText>
+        </div>
+        <SliderControl>
+          <SliderTrack>
+            <SliderRange />
+          </SliderTrack>
+          <SliderThumbs />
+        </SliderControl>
+      </Slider>
+      <div className={styles.notificationsActions}>
+        <Button variant="outline" size="sm">
+          {t('homeDemoCancel')}
+        </Button>
+        <Button size="sm">{t('homeDemoSave')}</Button>
+      </div>
+    </div>
+  );
+}
+
+function Hero({ t, count }: { t: T; count: number }) {
+  const [framework, setFramework] = useState<Framework>('react');
+  const [tab, setTab] = useState<'preview' | 'code'>('preview');
+  const sample = switchCode[framework];
 
   return (
-    <Tabs defaultValue="button" className={styles.showcaseTabs}>
-      <TabsList className={styles.showcaseTabsList}>
-        <TabsTrigger value="button">Button</TabsTrigger>
-        <TabsTrigger value="dialog">Dialog</TabsTrigger>
-        <TabsTrigger value="select">Select</TabsTrigger>
-        <TabsIndicator />
-      </TabsList>
+    <section className={styles.hero}>
+      <div className={styles.heroCopy}>
+        <p className={styles.meta}>
+          v{version} · MIT · {t('homeHeroArk').replace('{version}', arkMajor ?? '')}
+        </p>
+        <h1 className={styles.heroTitle}>{t('homeHeroTitle')}</h1>
+        <p className={styles.heroText}>{t('homeHeroText').replace('{count}', String(count))}</p>
+        <div className={styles.heroActions}>
+          <Button asChild size="lg">
+            <Link href="/docs/quick-start">
+              {t('homeGetStarted')}
+              <ArrowRight aria-hidden="true" />
+            </Link>
+          </Button>
+          <Button asChild size="lg" variant="outline">
+            <Link href="/docs/components">{t('homeBrowseComponents')}</Link>
+          </Button>
+        </div>
+        <CopyCommand command="pnpm add @moduix/react @ark-ui/react" />
+        <div className={styles.works}>
+          <p>{t('homeWorksWith')}</p>
+          <ul>
+            {frameworks.map((item) => (
+              <li key={item.value} className={styles.frameworkChip}>
+                <FrameworkDot framework={item.value} />
+                {item.label}
+              </li>
+            ))}
+            <li className={styles.worksNote}>CSS Modules · Tailwind CSS · shadcn CLI</li>
+          </ul>
+        </div>
+      </div>
 
-      <TabsContent value="button" className={styles.showcasePanel}>
-        <Tabs defaultValue="actions" variant="line" className={styles.nestedTabs}>
-          <TabsList className={styles.nestedTabsList}>
-            <TabsTrigger value="actions">{t('homeShowcaseActions')}</TabsTrigger>
-            <TabsTrigger value="status">{t('homeShowcaseStatus')}</TabsTrigger>
-            <TabsIndicator className={styles.nestedIndicator} />
-          </TabsList>
-
-          <TabsContent value="actions" className={styles.nestedPanel}>
-            <div className={styles.previewCard}>
-              <div className={styles.previewHeader}>
-                <span className={styles.eyebrow}>{t('homeReleaseControls')}</span>
-                <strong>{t('homeFastActions')}</strong>
-              </div>
-              <div className={styles.buttonRow}>
-                <Button>{t('homePublishUpdate')}</Button>
-                <Button variant="outline">{t('homePreview')}</Button>
-                <Button variant="ghost">{t('homeShare')}</Button>
-              </div>
-              <div className={styles.miniStats}>
-                <div className={styles.metric}>
-                  <span>{t('homePrimaryAction')}</span>
-                  <strong>{t('homeDefaultVariant')}</strong>
-                </div>
-                <div className={styles.metric}>
-                  <span>{t('homeSecondaryAction')}</span>
-                  <strong>{t('homeOutlineAndGhost')}</strong>
-                </div>
-              </div>
-            </div>
-          </TabsContent>
-
-          <TabsContent value="status" className={styles.nestedPanel}>
-            <div className={styles.previewCard}>
-              <div className={styles.previewHeader}>
-                <span className={styles.eyebrow}>{t('homeFlowHealth')}</span>
-                <strong>{t('homeToggleAndProgress')}</strong>
-              </div>
-              <Switch
-                checked={automationEnabled}
-                onCheckedChange={handleAutomationChange}
-                className={styles.switchRow}
-              >
-                <SwitchControl />
-                <SwitchHiddenInput />
-                <SwitchLabel>{t('homeAutoReview')}</SwitchLabel>
-              </Switch>
-              <ProgressLinear value={progressValue} className={styles.heroProgress}>
-                <ProgressLinearLabel>{t('homeReleaseReadiness')}</ProgressLinearLabel>
-                <ProgressLinearValueText />
-                <ProgressLinearTrack>
-                  <ProgressLinearRange />
-                </ProgressLinearTrack>
-              </ProgressLinear>
-              <div className={styles.statusRow}>
-                <span>{automationEnabled ? t('homeChecksEnabled') : t('homeManualReview')}</span>
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={() => setProgressValue((value) => Math.min(value + 9, 100))}
+      <div className={styles.heroDemo}>
+        <div className={styles.demoPanel}>
+          <div className={styles.demoToolbar}>
+            <div className={styles.frameworkSwitch} role="group" aria-label={t('exampleFramework')}>
+              {frameworks.map((item) => (
+                <button
+                  key={item.value}
+                  type="button"
+                  aria-pressed={framework === item.value}
+                  onClick={() => setFramework(item.value)}
                 >
-                  {t('homeAdvance')}
-                </Button>
+                  <FrameworkDot framework={item.value} />
+                  {item.label}
+                </button>
+              ))}
+            </div>
+            <div className={styles.demoTabs} role="tablist">
+              {(['preview', 'code'] as const).map((value) => (
+                <button
+                  key={value}
+                  type="button"
+                  role="tab"
+                  aria-selected={tab === value}
+                  onClick={() => setTab(value)}
+                >
+                  {t(value === 'preview' ? 'examplePreview' : 'exampleCode')}
+                </button>
+              ))}
+            </div>
+          </div>
+          <div className={styles.demoStage}>
+            {tab === 'preview' ? (
+              <NotificationsDemo t={t} />
+            ) : (
+              <CodeBlockRuntime lang={sample.lang} code={sample.code} />
+            )}
+          </div>
+        </div>
+        <div className={styles.heroCode} aria-hidden={tab === 'code'}>
+          <p className={styles.heroCodeFile}>{sample.file}</p>
+          <CodeBlockRuntime lang={sample.lang} code={sample.code} />
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function OneApi({ t }: { t: T }) {
+  return (
+    <section className={styles.section}>
+      <Eyebrow index="01">{t('homeApiEyebrow')}</Eyebrow>
+      <h2 className={styles.title}>{t('homeApiTitle')}</h2>
+      <p className={styles.lead}>{t('homeApiText')}</p>
+      <div className={styles.apiGrid}>
+        {frameworks.map((item) => (
+          <figure key={item.value} className={styles.apiCard}>
+            <figcaption>
+              <FrameworkDot framework={item.value} />
+              <strong>{item.label}</strong>
+              <span>@moduix/{item.value}</span>
+              <span className={styles.apiFile}>{buttonCode[item.value].file}</span>
+            </figcaption>
+            <CodeBlockRuntime
+              lang={buttonCode[item.value].lang}
+              code={buttonCode[item.value].code}
+            />
+          </figure>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function Install({ t }: { t: T }) {
+  const rows = [
+    {
+      name: 'CSS Modules',
+      noteKey: 'homeInstallCssNote',
+      pkg: '@moduix/react',
+      registry: '@moduix-react/button',
+    },
+    {
+      name: 'Tailwind CSS',
+      noteKey: 'homeInstallTailwindNote',
+      pkg: '@moduix/react-tailwind',
+      registry: '@moduix-react-tailwind/button',
+    },
+  ] as const;
+
+  return (
+    <section className={`${styles.section} ${styles.install}`}>
+      <div>
+        <Eyebrow index="02">{t('homeInstallEyebrow')}</Eyebrow>
+        <h2 className={styles.title}>{t('homeInstallTitle')}</h2>
+        <p className={styles.lead}>{t('homeInstallText')}</p>
+      </div>
+      <div>
+        <table className={styles.installTable}>
+          <thead>
+            <tr>
+              <td />
+              <th scope="col">
+                {t('homeInstallPackage')}
+                <span>{t('homeInstallPackageNote')}</span>
+              </th>
+              <th scope="col">
+                {t('homeInstallRegistry')}
+                <span>{t('homeInstallRegistryNote')}</span>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {rows.map((row) => (
+              <tr key={row.name}>
+                <th scope="row">
+                  {row.name}
+                  <span>{t(row.noteKey)}</span>
+                </th>
+                <td>
+                  <code>
+                    <span>pnpm add</span>
+                    {row.pkg}
+                  </code>
+                </td>
+                <td>
+                  <code>
+                    <span>pnpm dlx shadcn add</span>
+                    {row.registry}
+                  </code>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+        <p className={styles.installNote}>{t('homeInstallArk')}</p>
+      </div>
+    </section>
+  );
+}
+
+function Components({
+  t,
+  count,
+  categories,
+}: {
+  t: T;
+  count: number;
+  categories: ReturnType<typeof getComponentCategories>;
+}) {
+  return (
+    <section className={styles.section}>
+      <Eyebrow index="03">{t('homeComponentsEyebrow')}</Eyebrow>
+      <h2 className={styles.title}>{t('homeComponentsTitle').replace('{count}', String(count))}</h2>
+      <p className={styles.lead}>{t('homeComponentsText')}</p>
+      <div className={styles.componentsBar}>
+        <ul className={styles.chips}>
+          <li>
+            <Link className={styles.chip} href="/docs/components" aria-current="true">
+              {t('catalogAll')}
+              <span>{count}</span>
+            </Link>
+          </li>
+          {categories.map((category) => (
+            <li key={category.id}>
+              <Link className={styles.chip} href="/docs/components">
+                {t(category.labelKey)}
+                <span>{category.count}</span>
+              </Link>
+            </li>
+          ))}
+        </ul>
+        <Link className={styles.more} href="/docs/components">
+          {t('homeBrowseAll')}
+          <ArrowRight aria-hidden="true" />
+        </Link>
+      </div>
+      <ul className={styles.tiles}>
+        {featured.map((item) => (
+          <li key={item.href}>
+            <Link className={styles.tile} href={item.href}>
+              <ScaledPreview className={styles.tilePreview} width={item.width}>
+                {item.preview}
+              </ScaledPreview>
+              <strong>{item.title}</strong>
+              <span>{t(item.category)}</span>
+            </Link>
+          </li>
+        ))}
+      </ul>
+    </section>
+  );
+}
+
+function Themes({ t }: { t: T }) {
+  const [{ value: preset }] = usePreset();
+
+  return (
+    <section className={styles.section}>
+      <Eyebrow index="04">{t('homeThemesEyebrow')}</Eyebrow>
+      <h2 className={styles.title}>{t('homeThemesTitle')}</h2>
+      <p className={styles.lead}>{t('homeThemesText')}</p>
+      <code className={styles.themeCode}>{'<html data-moduix-theme="soft">'}</code>
+      <div className={styles.themeGrid}>
+        {presets.map((item) => (
+          <div
+            key={item.value}
+            className={styles.themeCard}
+            data-active={preset === item.value ? '' : undefined}
+            data-moduix-theme={item.value}
+          >
+            <div className={styles.themeHeader}>
+              <div>
+                <strong>{item.title}</strong>
+                <span>{t(item.descriptionKey)}</span>
               </div>
+              {preset === item.value ? (
+                <span className={styles.themeActive}>{t('homeThemeActive')}</span>
+              ) : null}
             </div>
-          </TabsContent>
-        </Tabs>
-      </TabsContent>
+            <Field>
+              <FieldLabel>Email</FieldLabel>
+              <Input defaultValue="ada@moduix.dev" aria-label={`${item.title} email`} />
+            </Field>
+            <Checkbox defaultChecked>
+              <CheckboxControl />
+              <CheckboxLabel>{t('homeThemeRemember')}</CheckboxLabel>
+              <CheckboxHiddenInput />
+            </Checkbox>
+            <SegmentGroup defaultValue="monthly" aria-label={`${item.title} billing`}>
+              <SegmentGroupIndicator />
+              <SegmentGroupItems
+                items={[
+                  { value: 'monthly', label: t('homeThemeMonthly') },
+                  { value: 'yearly', label: t('homeThemeYearly') },
+                ]}
+              />
+            </SegmentGroup>
+            <Button>{t('homeThemeContinue')}</Button>
+            <p className={styles.themeMeta}>{item.control}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
 
-      <TabsContent value="dialog" className={styles.showcasePanel}>
-        <div className={styles.previewCard}>
-          <div className={styles.previewHeader}>
-            <span className={styles.eyebrow}>{t('homeApprovalFlow')}</span>
-            <strong>{t('homeOpenModal')}</strong>
-          </div>
-          <p className={styles.previewText}>{t('homeDialogPreviewDescription')}</p>
-          <div className={styles.buttonRow}>
-            <Dialog>
-              <DialogTrigger asChild>
-                <Button>{t('homeReviewChanges')}</Button>
-              </DialogTrigger>
-              <DialogBackdrop />
-              <DialogPositioner>
-                <DialogContent>
-                  <DialogHeader>
-                    <DialogTitle>{t('homePublishRelease')}</DialogTitle>
-                    <DialogDescription>{t('homePublishReleaseDescription')}</DialogDescription>
-                  </DialogHeader>
-                  <DialogFooter>
-                    <DialogCloseTrigger asChild>
-                      <Button variant="outline">{t('homeBack')}</Button>
-                    </DialogCloseTrigger>
-                    <DialogCloseTrigger asChild>
-                      <Button>{t('homeApprove')}</Button>
-                    </DialogCloseTrigger>
-                  </DialogFooter>
-                </DialogContent>
-              </DialogPositioner>
-            </Dialog>
-            <Button variant="outline">{t('homeInspectApi')}</Button>
-          </div>
-          <div className={styles.miniStats}>
-            <div className={styles.metric}>
-              <span>{t('homeFocusManagement')}</span>
-              <strong>{t('homeBuiltIn')}</strong>
-            </div>
-            <div className={styles.metric}>
-              <span>{t('homeShowcaseComposition')}</span>
-              <strong>{t('homeTriggerContentFooter')}</strong>
-            </div>
-          </div>
+function Start({ t }: { t: T }) {
+  return (
+    <section className={styles.start}>
+      <div>
+        <p className={styles.startEyebrow}>05 · {t('homeStartEyebrow')}</p>
+        <h2>{t('homeStartTitle')}</h2>
+        <p>{t('homeStartText')}</p>
+        <div className={styles.startActions}>
+          <Link className={styles.startPrimary} href="/docs/quick-start">
+            {t('homeQuickStart')}
+            <ArrowRight aria-hidden="true" />
+          </Link>
+          <Link className={styles.startGhost} href="/docs/migrate-from-shadcn">
+            {t('homeMigrate')}
+          </Link>
         </div>
-      </TabsContent>
+      </div>
+      <ul className={styles.setups}>
+        {setups.map((item) => (
+          <li key={item.name}>
+            <Link href={item.href}>
+              <strong>{item.name}</strong>
+              <span>{'supportKey' in item ? t(item.supportKey) : item.support}</span>
+              <ArrowRight aria-hidden="true" />
+            </Link>
+          </li>
+        ))}
+      </ul>
+    </section>
+  );
+}
 
-      <TabsContent value="select" className={styles.showcasePanel}>
-        <div className={styles.previewCard}>
-          <div className={styles.previewHeader}>
-            <span className={styles.eyebrow}>{t('homeWorkspacePicker')}</span>
-            <strong>{t('homeInteractiveSelect')}</strong>
-          </div>
-          <div className={styles.heroSelect}>
-            <Select
-              collection={workspaceCollection}
-              value={workspaceValue}
-              onValueChange={(details) => setWorkspaceValue(details.value)}
-            >
-              <SelectLabel>{t('homeActiveWorkspace')}</SelectLabel>
-              <SelectControl>
-                <SelectTrigger>
-                  <SelectValueText placeholder={t('homeSelectWorkspace')} />
-                </SelectTrigger>
-                <SelectIndicator />
-              </SelectControl>
+function Footer({ t }: { t: T }) {
+  const columns = [
+    {
+      title: 'Docs',
+      links: [
+        [t('homeFooterIntroduction'), '/docs/'],
+        [t('homeFooterQuickStart'), '/docs/quick-start'],
+        [t('homeFooterThemes'), '/docs/themes'],
+        [t('homeFooterTokens'), '/docs/tokens'],
+        [t('homeFooterChangelog'), '/docs/changelog'],
+      ],
+    },
+    {
+      title: t('homeFooterLibrary'),
+      links: [
+        [t('homeFooterComponents'), '/docs/components'],
+        [t('homeFooterBlocks'), '/blocks/'],
+        [t('homeFooterShadcn'), '/docs/migrate-from-shadcn'],
+        [t('homeFooterCompare'), '/docs/comparison'],
+      ],
+    },
+    {
+      title: t('homeFooterCommunity'),
+      links: [
+        ['GitHub', 'https://github.com/Blinks44/moduix'],
+        ['Discussions', 'https://github.com/Blinks44/moduix/discussions'],
+        ['npm', 'https://www.npmjs.com/package/@moduix/react'],
+        ['llms.txt', '/llms.txt'],
+      ],
+    },
+  ];
 
-              <SelectPositioner>
-                <SelectContent>
-                  {workspaceCollection.items.map((item) => (
-                    <SelectOption key={item.value} item={item}>
-                      {item.label}
-                    </SelectOption>
-                  ))}
-                </SelectContent>
-              </SelectPositioner>
-            </Select>
-          </div>
-          <div className={styles.miniStats}>
-            <div className={styles.metric}>
-              <span>{t('homeSelected')}</span>
-              <strong>{workspaceLabel}</strong>
-            </div>
-            <div className={styles.metric}>
-              <span>{t('homePattern')}</span>
-              <strong>{t('homeFieldTriggerList')}</strong>
-            </div>
-          </div>
-        </div>
-      </TabsContent>
-    </Tabs>
+  return (
+    <footer className={styles.footer}>
+      <div className={styles.footerBrand}>
+        <p className={styles.footerLogo}>
+          <img src="/moduix-logo.svg" alt="" width="24" height="24" />
+          moduix
+        </p>
+        <p>{t('homeFooterText')}</p>
+        <p className={styles.footerCopy}>© {new Date().getFullYear()} moduix</p>
+      </div>
+      {columns.map((column) => (
+        <nav key={column.title} aria-label={column.title}>
+          <p>{column.title}</p>
+          <ul>
+            {column.links.map(([label, href]) => (
+              <li key={href}>
+                <Link href={href}>{label}</Link>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      ))}
+    </footer>
+  );
+}
+
+export function Home() {
+  const t = useI18n<typeof import('i18n')>();
+  const categories = getComponentCategories();
+  const count = categories.reduce((total, category) => total + category.count, 0);
+
+  return (
+    <div className={styles.home}>
+      <Hero t={t} count={count} />
+      <OneApi t={t} />
+      <Install t={t} />
+      <Components t={t} count={count} categories={categories} />
+      <Themes t={t} />
+      <Start t={t} />
+      <Footer t={t} />
+    </div>
   );
 }

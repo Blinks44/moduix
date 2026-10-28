@@ -6,10 +6,6 @@ ark: https://ark-ui.com/docs/components/listbox
 ---
 
 import * as ListboxDocs from '@/components/examples/listbox/css-properties';
-import ListboxSelectAll from '@/components/examples/listbox/select-all.tsx';
-import listboxSolidSelectAll from '../../../snippets/listbox/solid/select-all.tsx?raw';
-import listboxVueSelectAll from '../../../snippets/listbox/vue/select-all.vue?raw';
-import listboxVueSelectAllPart from '../../../snippets/listbox/vue/SelectAllMeta.vue?raw';
 
 <Example name="listbox/basic" />
 
@@ -111,36 +107,7 @@ import listboxVueSelectAllPart from '../../../snippets/listbox/vue/SelectAllMeta
 Используйте `useListboxContext` во внутреннем компоненте, чтобы добавить кнопку, изменяющую выбор
 listbox.
 
-<ExampleFrame variant="component">
-  <ListboxSelectAll />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/listbox/select-all.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={listboxSolidSelectAll} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={listboxVueSelectAll} />
-
-<CodeBlockRuntime lang="vue" code={listboxVueSelectAllPart} title="SelectAllMeta.vue" />
-
-    </Tab>
-  </Tabs>
-
-</div>
-
-</ExampleCode>
+<Example name="listbox/select-all" />
 
 ### Отдельное поле фильтра
 

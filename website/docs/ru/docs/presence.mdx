@@ -3,14 +3,8 @@ title: Presence
 description: Управляйте монтированием, скрытием, анимацией и размонтированием содержимого приложения в React, Solid и Vue.
 ---
 
-import PresenceBasic from '@/components/examples/presence/basic.tsx';
-import PresenceMountOnDemand from '@/components/examples/presence/mount-on-demand.tsx';
-import presenceSolidBasic from '../../../snippets/presence/solid/basic.tsx?raw';
-import presenceVueBasic from '../../../snippets/presence/vue/basic.vue?raw';
 import presenceSolidExitAnimations from '../../../snippets/presence/solid/exit-animations.tsx?raw';
 import presenceVueExitAnimations from '../../../snippets/presence/vue/exit-animations.vue?raw';
-import presenceSolidMountOnDemand from '../../../snippets/presence/solid/mount-on-demand.tsx?raw';
-import presenceVueMountOnDemand from '../../../snippets/presence/vue/mount-on-demand.vue?raw';
 
 ## Справочник API
 
@@ -59,47 +53,7 @@ import { Presence } from '@ark-ui/vue/presence';
 Укажите `unmountOnExit`, если поддерево нужно удалить после анимации выхода. Без этого параметра корень остаётся
 смонтированным, а Ark скрывает его атрибутом `hidden`, когда `present` становится `false`.
 
-<ExampleFrame variant="component">
-  <PreviewFrame maxWidth="sm">
-    <PresenceBasic />
-  </PreviewFrame>
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/presence/basic.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={presenceSolidBasic} />
-
-    </Tab>
-  <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={presenceVueBasic} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/presence/presence-basic.module.css"
-```
-</div>
-</ExampleCode>
+<Example name="presence/basic" />
 
 ## Монтирование по требованию
 
@@ -108,47 +62,7 @@ import { Presence } from '@ark-ui/vue/presence';
 
 Сам по себе `lazyMount` только откладывает первое монтирование и не удаляет поддерево после закрытия.
 
-<ExampleFrame variant="component">
-  <PreviewFrame maxWidth="sm">
-    <PresenceMountOnDemand />
-  </PreviewFrame>
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/presence/mount-on-demand.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={presenceSolidMountOnDemand} />
-
-    </Tab>
-  <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={presenceVueMountOnDemand} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/presence/presence-mount-on-demand.module.css"
-```
-</div>
-</ExampleCode>
+<Example name="presence/mount-on-demand" />
 
 ## Анимации выхода и обратные вызовы
 

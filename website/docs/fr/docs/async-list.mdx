@@ -3,9 +3,6 @@ title: Async List
 description: Gérez les données asynchrones d'une liste avec useAsyncList - chargement, filtrage, tri, pagination, annulation des requêtes et nouvelles tentatives.
 ---
 
-import AsyncListBasic from '@/components/examples/async-list/basic.tsx';
-import asyncListSolidBasic from '../../../snippets/async-list/solid/basic.tsx?raw';
-import asyncListVueBasic from '../../../snippets/async-list/vue/basic.vue?raw';
 import asyncListSolidServerDriven from '../../../snippets/async-list/solid/server-driven.tsx?raw';
 import asyncListVueServerDriven from '../../../snippets/async-list/vue/server-driven.vue?raw';
 
@@ -67,42 +64,7 @@ des états distincts pour le chargement, la liste vide et l’erreur, puis utili
 actualiser la liste ou réessayer après une erreur. Le hook ne fournit aucune sémantique de liste :
 l’exemple ajoute lui-même une section nommée, une liste et les rôles des messages d’état.
 
-<ExampleFrame clientOnly variant="component">
-  <PreviewFrame maxWidth="sm">
-    <AsyncListBasic />
-  </PreviewFrame>
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/async-list/basic.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={asyncListSolidBasic} />
-
-    </Tab>
-  <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={asyncListVueBasic} />
-
-    </Tab>
-  </Tabs>
-</div>
-</ExampleCode>
+<Example name="async-list/basic" clientOnly />
 
 ## Liste alimentée par un serveur
 

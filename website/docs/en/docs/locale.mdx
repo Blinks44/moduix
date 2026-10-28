@@ -3,13 +3,6 @@ title: Locale
 description: Provide locale and text direction to Ark formatters and locale-aware content in React, Solid, or Vue.
 ---
 
-import LocaleBasic from '@/components/examples/locale/basic.tsx';
-import LocaleContext from '@/components/examples/locale/context.tsx';
-import localeSolidBasic from '../../../snippets/locale/solid/basic.tsx?raw';
-import localeVueBasic from '../../../snippets/locale/vue/basic.vue?raw';
-import localeSolidContext from '../../../snippets/locale/solid/context.tsx?raw';
-import localeVueContext from '../../../snippets/locale/vue/context.vue?raw';
-import localeVueContextHelper from '../../../snippets/locale/vue/LocaleSection.vue?raw';
 import localeSolidDocument from '../../../snippets/locale/solid/document.tsx?raw';
 import localeVueDocument from '../../../snippets/locale/vue/document.vue?raw';
 
@@ -61,42 +54,7 @@ import { LocaleProvider, useLocaleContext } from '@moduix/vue/locale';
 Wrap the part of the interface that shares a locale. Formatters and locale-aware components below the provider read
 the same context.
 
-<ExampleFrame variant="component">
-  <PreviewFrame maxWidth="sm">
-    <LocaleBasic />
-  </PreviewFrame>
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/locale/basic.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={localeSolidBasic} />
-
-    </Tab>
-  <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={localeVueBasic} />
-
-    </Tab>
-  </Tabs>
-</div>
-</ExampleCode>
+<Example name="locale/basic" />
 
 `LocaleProvider` accepts a BCP 47 locale string such as `fr-FR`. Without a provider, Ark uses `en-US` and `ltr`.
 
@@ -106,44 +64,7 @@ the same context.
 same language and direction as locale-aware components. React reads the values directly; Solid reads them from an
 accessor. Vue returns a computed ref: use `.value` in setup code; templates unwrap it automatically.
 
-<ExampleFrame variant="component">
-  <PreviewFrame maxWidth="sm">
-    <LocaleContext />
-  </PreviewFrame>
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/locale/context.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={localeSolidContext} />
-
-    </Tab>
-  <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={localeVueContext} title="context.vue" />
-
-<CodeBlockRuntime lang="vue" code={localeVueContextHelper} title="LocaleSection.vue" />
-
-    </Tab>
-  </Tabs>
-</div>
-</ExampleCode>
+<Example name="locale/context" />
 
 ## Set document language and direction
 
