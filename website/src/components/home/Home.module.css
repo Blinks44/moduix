@@ -331,6 +331,15 @@
   gap: 8px;
 }
 
+.demoCodeToggle,
+.apiTabs,
+.tileDots,
+.moreMobile,
+.footerPhone,
+.footerPhoneCopy {
+  display: none;
+}
+
 /* Hero · Code overlaps the bottom edge of Hero · Demo by 18px and starts 100px to its left. */
 .heroCode {
   position: relative;
@@ -891,6 +900,167 @@
 @media (width <= 640px) {
   .home > * {
     width: calc(100% - 32px);
+  }
+
+  /* Home · Mobile frame: stacked hero actions, a Code toggle instead of the code card, one API
+     card with framework tabs, a tile carousel, four setups and a one-line footer. */
+  .desktopOnly,
+  .works,
+  .heroCode,
+  .startActions .startGhost,
+  .startEyebrow + h2 + p,
+  .setups li:not([data-phone]),
+  .componentsBar .more,
+  .footerBrand > p:not(.footerLogo, .footerPhoneCopy),
+  .footer > nav {
+    display: none;
+  }
+
+  .heroActions {
+    flex-direction: column;
+    align-items: stretch;
+
+    > * {
+      justify-content: center;
+    }
+  }
+
+  .demoCodeToggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    border: 0;
+    padding: 6px 4px;
+    background: none;
+    color: var(--rp-c-text-1);
+    font-size: 13px;
+    cursor: pointer;
+
+    svg {
+      width: 16px;
+    }
+
+    &[aria-pressed='true'] {
+      color: var(--rp-c-text-0);
+      font-weight: 500;
+    }
+  }
+
+  .demoStage :global(.rp-codeblock) {
+    width: 100%;
+    margin: 0;
+  }
+
+  .apiGrid {
+    overflow: hidden;
+    border: 1px solid var(--rp-c-divider);
+    border-radius: 12px;
+    gap: 0;
+  }
+
+  .apiTabs {
+    display: flex;
+    gap: 20px;
+    border-bottom: 1px solid var(--rp-c-divider);
+    padding: 0 16px;
+
+    button {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: -1px;
+      border: 0;
+      border-bottom: 2px solid transparent;
+      padding: 12px 0;
+      background: none;
+      color: var(--rp-c-text-2);
+      font-size: 13px;
+      cursor: pointer;
+    }
+
+    button[aria-pressed='true'] {
+      border-bottom-color: var(--rp-c-text-0);
+      color: var(--rp-c-text-0);
+    }
+  }
+
+  .apiCard {
+    border: 0;
+    border-radius: 0;
+
+    &:not([data-active]) {
+      display: none;
+    }
+
+    figcaption {
+      display: none;
+    }
+  }
+
+  .tileDots {
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+    margin-top: 16px;
+
+    span {
+      width: 6px;
+      height: 6px;
+      border-radius: 3px;
+      background: var(--rp-c-divider);
+      transition: width 0.2s;
+    }
+
+    span[data-active] {
+      width: 18px;
+      background: var(--rp-c-text-0);
+    }
+  }
+
+  .moreMobile {
+    display: flex;
+    margin-top: 20px;
+  }
+
+  .start {
+    display: flex;
+    flex-direction: column;
+
+    > div {
+      display: contents;
+    }
+  }
+
+  .startActions {
+    order: 2;
+    margin-top: 16px;
+
+    .startPrimary {
+      width: 100%;
+      justify-content: center;
+    }
+  }
+
+  .footer .footerPhone {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin: 16px 0 0;
+    padding: 0;
+    list-style: none;
+
+    a {
+      color: var(--rp-c-text-2);
+      font-size: 13px;
+      text-decoration: none;
+    }
+  }
+
+  .footerPhoneCopy {
+    display: block;
+    margin: 12px 0 0;
+    color: var(--rp-c-text-3);
+    font-size: 12px;
   }
 
   .hero {

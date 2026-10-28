@@ -24,8 +24,8 @@ import {
 import { Switch, SwitchControl, SwitchHiddenInput, SwitchLabel } from '@moduix/react/switch';
 import { useI18n } from '@rspress/core/runtime';
 import { CodeBlockRuntime, Link } from '@rspress/core/theme';
-import { ArrowRight, Check, Copy } from 'lucide-react';
-import { useState } from 'react';
+import { ArrowRight, Check, Code, Copy } from 'lucide-react';
+import { useState, type UIEvent } from 'react';
 import reactPackage from '../../../../packages/react/package.json';
 import { getComponentCategories } from '../docs/component-gallery';
 import { usePreset } from '../docs/nav-menus';
@@ -233,6 +233,9 @@ const setups = [
   { name: 'Rsbuild', supportKey: 'homeStartAll', href: '/docs/installation/rsbuild' },
 ] as const;
 
+// The phone layout of 05 · Start lists four setups and links to the rest.
+const phoneSetups: string[] = ['Vite', 'Next.js', 'Nuxt', 'SolidStart'];
+
 function Eyebrow({ index, children }: { index: string; children: string }) {
   return (
     <p className={styles.eyebrow}>
@@ -319,6 +322,8 @@ function NotificationsDemo({ t }: { t: T }) {
 
 function Hero({ t, count }: { t: T; count: number }) {
   const [framework, setFramework] = useState<Framework>('react');
+  // Phones have no room for the overlapping code card, so the demo toolbar switches to the code.
+  const [showCode, setShowCode] = useState(false);
   const sample = switchCode[framework];
 
   return (
@@ -371,9 +376,22 @@ function Hero({ t, count }: { t: T; count: number }) {
                 </button>
               ))}
             </div>
+            <button
+              type="button"
+              className={styles.demoCodeToggle}
+              aria-pressed={showCode}
+              onClick={() => setShowCode(!showCode)}
+            >
+              <Code aria-hidden="true" />
+              {t('exampleCode')}
+            </button>
           </div>
           <div className={styles.demoStage}>
-            <NotificationsDemo t={t} />
+            {showCode ? (
+              <CodeBlockRuntime lang={sample.lang} code={sample.code} />
+            ) : (
+              <NotificationsDemo t={t} />
+            )}
           </div>
         </div>
         <div className={styles.heroCode}>
@@ -386,14 +404,34 @@ function Hero({ t, count }: { t: T; count: number }) {
 }
 
 function OneApi({ t }: { t: T }) {
+  // On phones the three cards collapse into one card with framework tabs.
+  const [active, setActive] = useState<Framework>('react');
+
   return (
     <section className={styles.section}>
       <Eyebrow index="01">{t('homeApiEyebrow')}</Eyebrow>
       <h2 className={styles.title}>{t('homeApiTitle')}</h2>
       <p className={styles.lead}>{t('homeApiText')}</p>
       <div className={styles.apiGrid}>
+        <div className={styles.apiTabs} role="group" aria-label={t('exampleFramework')}>
+          {frameworks.map((item) => (
+            <button
+              key={item.value}
+              type="button"
+              aria-pressed={active === item.value}
+              onClick={() => setActive(item.value)}
+            >
+              <FrameworkDot framework={item.value} />
+              {item.label}
+            </button>
+          ))}
+        </div>
         {frameworks.map((item) => (
-          <figure key={item.value} className={styles.apiCard}>
+          <figure
+            key={item.value}
+            className={styles.apiCard}
+            data-active={active === item.value ? '' : undefined}
+          >
             <figcaption>
               <FrameworkDot framework={item.value} />
               <strong>{item.label}</strong>
@@ -428,7 +466,7 @@ function Install({ t }: { t: T }) {
   ] as const;
 
   return (
-    <section className={`${styles.section} ${styles.install}`}>
+    <section className={`${styles.section} ${styles.install} ${styles.desktopOnly}`}>
       <div>
         <Eyebrow index="02">{t('homeInstallEyebrow')}</Eyebrow>
         <h2 className={styles.title}>{t('homeInstallTitle')}</h2>
@@ -487,6 +525,15 @@ function Components({
   count: number;
   categories: ReturnType<typeof getComponentCategories>;
 }) {
+  // Phones show the tiles as a carousel; the dots follow the scroll position, two tiles per dot.
+  const [page, setPage] = useState(0);
+  const tilePages = Math.ceil(featured.length / 2);
+  const handleTilesScroll = (event: UIEvent<HTMLUListElement>) => {
+    const { scrollLeft, scrollWidth, clientWidth } = event.currentTarget;
+    const progress = scrollWidth > clientWidth ? scrollLeft / (scrollWidth - clientWidth) : 0;
+    setPage(Math.round(progress * (tilePages - 1)));
+  };
+
   return (
     <section className={styles.section}>
       <Eyebrow index="03">{t('homeComponentsEyebrow')}</Eyebrow>
@@ -514,7 +561,7 @@ function Components({
           <ArrowRight aria-hidden="true" />
         </Link>
       </div>
-      <ul className={styles.tiles}>
+      <ul className={styles.tiles} onScroll={handleTilesScroll}>
         {featured.map((item) => (
           <li key={item.href}>
             <Link className={styles.tile} href={item.href}>
@@ -527,6 +574,15 @@ function Components({
           </li>
         ))}
       </ul>
+      <div className={styles.tileDots} aria-hidden="true">
+        {Array.from({ length: tilePages }, (_, index) => (
+          <span key={index} data-active={index === page ? '' : undefined} />
+        ))}
+      </div>
+      <Link className={`${styles.more} ${styles.moreMobile}`} href="/docs/components">
+        {t('homeBrowseAll')}
+        <ArrowRight aria-hidden="true" />
+      </Link>
     </section>
   );
 }
@@ -535,7 +591,7 @@ function Themes({ t }: { t: T }) {
   const [{ value: preset }] = usePreset();
 
   return (
-    <section className={styles.section}>
+    <section className={`${styles.section} ${styles.desktopOnly}`}>
       <Eyebrow index="04">{t('homeThemesEyebrow')}</Eyebrow>
       <h2 className={styles.title}>{t('homeThemesTitle')}</h2>
       <p className={styles.lead}>{t('homeThemesText')}</p>
@@ -586,33 +642,39 @@ function Themes({ t }: { t: T }) {
 
 function Start({ t }: { t: T }) {
   return (
-    <section className={styles.start}>
-      <div>
-        <p className={styles.startEyebrow}>05 · {t('homeStartEyebrow')}</p>
-        <h2>{t('homeStartTitle')}</h2>
-        <p>{t('homeStartText')}</p>
-        <div className={styles.startActions}>
-          <Link className={styles.startPrimary} href="/docs/quick-start">
-            {t('homeQuickStart')}
-            <ArrowRight aria-hidden="true" />
-          </Link>
-          <Link className={styles.startGhost} href="/docs/migrate-from-shadcn">
-            {t('homeMigrate')}
-          </Link>
-        </div>
-      </div>
-      <ul className={styles.setups}>
-        {setups.map((item) => (
-          <li key={item.name}>
-            <Link href={item.href}>
-              <strong>{item.name}</strong>
-              <span>{'supportKey' in item ? t(item.supportKey) : item.support}</span>
+    <>
+      <section className={styles.start}>
+        <div>
+          <p className={styles.startEyebrow}>05 · {t('homeStartEyebrow')}</p>
+          <h2>{t('homeStartTitle')}</h2>
+          <p>{t('homeStartText')}</p>
+          <div className={styles.startActions}>
+            <Link className={styles.startPrimary} href="/docs/quick-start">
+              {t('homeQuickStart')}
               <ArrowRight aria-hidden="true" />
             </Link>
-          </li>
-        ))}
-      </ul>
-    </section>
+            <Link className={styles.startGhost} href="/docs/migrate-from-shadcn">
+              {t('homeMigrate')}
+            </Link>
+          </div>
+        </div>
+        <ul className={styles.setups}>
+          {setups.map((item) => (
+            <li key={item.name} data-phone={phoneSetups.includes(item.name) ? '' : undefined}>
+              <Link href={item.href}>
+                <strong>{item.name}</strong>
+                <span>{'supportKey' in item ? t(item.supportKey) : item.support}</span>
+                <ArrowRight aria-hidden="true" />
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </section>
+      <Link className={`${styles.more} ${styles.moreMobile}`} href="/docs/installation/vite">
+        {t('homeAllSetups').replace('{count}', String(setups.length))}
+        <ArrowRight aria-hidden="true" />
+      </Link>
+    </>
   );
 }
 
@@ -648,6 +710,13 @@ function Footer({ t }: { t: T }) {
     },
   ];
 
+  const phoneLinks = [
+    ['Docs', '/docs/'],
+    [t('homeFooterComponents'), '/docs/components'],
+    [t('homeFooterBlocks'), '/blocks/'],
+    ['GitHub', 'https://github.com/Blinks44/moduix'],
+  ];
+
   return (
     <footer className={styles.footer}>
       <div className={styles.footerBrand}>
@@ -657,6 +726,14 @@ function Footer({ t }: { t: T }) {
         </p>
         <p>{t('homeFooterText')}</p>
         <p className={styles.footerCopy}>© {new Date().getFullYear()} moduix</p>
+        <ul className={styles.footerPhone}>
+          {phoneLinks.map(([label, href]) => (
+            <li key={href}>
+              <Link href={href}>{label}</Link>
+            </li>
+          ))}
+        </ul>
+        <p className={styles.footerPhoneCopy}>© {new Date().getFullYear()} moduix · MIT</p>
       </div>
       {columns.map((column) => (
         <nav key={column.title} aria-label={column.title}>

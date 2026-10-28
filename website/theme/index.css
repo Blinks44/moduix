@@ -485,6 +485,26 @@ svg.rp-search-panel__close {
   overflow: auto;
 }
 
+/* Interaction · Empty search: a title and one hint, no illustration. */
+.rp-no-search-result__icon {
+  display: none;
+}
+
+.rp-no-search-result__text {
+  color: var(--rp-c-text-0);
+  font-size: 22px;
+  font-weight: 600;
+
+  b {
+    font-weight: inherit;
+  }
+}
+
+.rp-no-search-result__suggestion {
+  color: var(--rp-c-text-2);
+  font-size: 14px;
+}
+
 .rp-search-panel__tabs,
 .rp-search-panel__tabs .rp-tabs__label {
   background: var(--rp-c-bg);

@@ -15,7 +15,8 @@
 
   .demoContent {
     flex-direction: column;
-    overflow: hidden;
+    /* Wide examples (Steps, Listbox, Breadcrumbs) scroll sideways on narrow screens instead of being cut. */
+    overflow: auto hidden;
     padding-block: 0.5rem;
 
     > * {

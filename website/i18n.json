@@ -44,12 +44,14 @@
     "ru": "Отмена"
   },
   "searchNoResultsText": {
-    "fr": "Aucun résultat correspondant",
-    "ru": "Совпадений не найдено"
+    "en": "No results for",
+    "ru": "Ничего не найдено по запросу",
+    "fr": "Aucun résultat pour"
   },
   "searchSuggestedQueryText": {
-    "fr": "Essayez d’autres mots-clés",
-    "ru": "Попробуйте другие ключевые слова"
+    "en": "Try a component name or a shorter search.",
+    "ru": "Попробуйте название компонента или запрос короче.",
+    "fr": "Essayez le nom d’un composant ou une recherche plus courte."
   },
   "overview.filterNameText": {
     "fr": "Filtrer",
@@ -1318,5 +1320,10 @@
     "en": "View as Markdown",
     "ru": "Открыть как Markdown",
     "fr": "Afficher en Markdown"
+  },
+  "homeAllSetups": {
+    "en": "All {count} setup guides",
+    "ru": "Все {count} руководств по настройке",
+    "fr": "Les {count} guides d’installation"
   }
 }
