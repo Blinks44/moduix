@@ -5,6 +5,7 @@ description: Choisir un angle de 0 à 360 degrés sur un cadran circulaire.
 ark: https://ark-ui.com/docs/components/angle-slider
 ---
 
+import AnatomyScene from '@/components/examples/angle-slider/basic';
 import * as AngleSliderDocs from '@/components/examples/angle-slider/css-properties';
 
 <Example name="angle-slider/basic" />
@@ -113,30 +114,25 @@ Utilisez `defaultValue` pour un curseur non contrôlé et `value` avec `onValueC
 
 ## Anatomie
 
-```text
-AngleSlider
-├─ AngleSliderLabel
-├─ AngleSliderControl
-│  ├─ AngleSliderMarkerGroup
-│  │  └─ AngleSliderMarker[value]
-│  ├─ AngleSliderValueText
-│  └─ AngleSliderThumb
-└─ AngleSliderHiddenInput (explicite)
-```
+Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
 
-| Partie                             | Rôle                                                                    |
-| ---------------------------------- | ----------------------------------------------------------------------- |
-| `AngleSlider` | Racine stylisée qui gère l’état contrôlé ou non contrôlé du curseur.    |
-| `AngleSliderHiddenInput` | Champ natif d’Ark ; composition explicite décrite ci-dessous. |
-| `AngleSliderRootProvider`         | Relie les parties à l’état Ark créé en dehors de l’arborescence rendue.  |
-| `AngleSliderLabel`                | Associe une étiquette visible au curseur.                               |
-| `AngleSliderControl`              | Fournit la zone circulaire d’interaction avec le pointeur.              |
-| `AngleSliderDial`                 | Associe `AngleSliderControl`, la `AngleSliderValueText` centrée et `AngleSliderThumb` ; accepte des enfants.   |
-| `AngleSliderMarkerGroup`          | Contient les marqueurs de référence facultatifs.                        |
-| `AngleSliderMarker`               | Place un marqueur numérique et indique sa relation avec la valeur courante. |
-| `AngleSliderMarks`                | Composition pratique qui crée les marqueurs à partir d’un tableau `values`. |
-| `AngleSliderThumb`                | Poignée circulaire pouvant recevoir le focus et suivant la piste selon l’angle courant. |
-| `AngleSliderValueText`            | Affiche la valeur actuelle en degrés ; `AngleSliderDial` la centre dans le cadran. |
+<AnatomyInspector
+  parts={[
+    ["AngleSlider", "angle-slider-root", "Racine stylisée qui gère l’état contrôlé ou non contrôlé du curseur.", 0],
+    ["AngleSliderLabel", "angle-slider-label", "Associe une étiquette visible au curseur.", 1],
+    ["AngleSliderDial", "", "Associe `AngleSliderControl`, la `AngleSliderValueText` centrée et `AngleSliderThumb` ; accepte des enfants.", 1],
+    ["AngleSliderMarks", "", "Composition pratique qui crée les marqueurs à partir d’un tableau `values`.", 2],
+    ["AngleSliderMarker", "angle-slider-marker", "Place un marqueur numérique et indique sa relation avec la valeur courante.", 3],
+    ["AngleSliderMarkerGroup", "angle-slider-marker-group", "Contient les marqueurs de référence facultatifs.", 4],
+    ["AngleSliderValueText", "angle-slider-value-text", "Affiche la valeur actuelle en degrés ; `AngleSliderDial` la centre dans le cadran.", 2],
+    ["AngleSliderThumb", "angle-slider-thumb", "Poignée circulaire pouvant recevoir le focus et suivant la piste selon l’angle courant.", 2],
+    ["AngleSliderHiddenInput", "", "Champ natif d’Ark ; composition explicite décrite ci-dessous.", 1],
+    ["AngleSliderControl", "angle-slider-control", "Fournit la zone circulaire d’interaction avec le pointeur.", 1],
+    ["AngleSliderRootProvider", "angle-slider-root-provider", "Relie les parties à l’état Ark créé en dehors de l’arborescence rendue.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 Composez explicitement `AngleSliderHiddenInput` dans la racine ou `AngleSliderRootProvider` lorsque la valeur
 doit participer à un formulaire natif.
@@ -152,7 +148,11 @@ approches.
 
 ### Variables CSS
 
-<CssPropertiesSection properties={AngleSliderDocs.angleSliderCssProperties} />
+Survolez ou sélectionnez une variable pour la voir dans l’aperçu.
+
+<CssPropertiesSection properties={AngleSliderDocs.angleSliderCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Points d’accroche CSS
 

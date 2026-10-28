@@ -5,6 +5,7 @@ description: Split a layout into panels that users resize by dragging a handle.
 ark: https://ark-ui.com/docs/components/splitter
 ---
 
+import AnatomyScene from '@/components/examples/splitter/basic';
 import { CssPropertiesSection } from '@/components/mdx/Components';
 import { splitterOverrideCssProperties } from '@/components/examples/splitter/css-properties';
 
@@ -104,24 +105,19 @@ creating a second state container.
 
 ## Anatomy
 
-```text
-Splitter
-├─ SplitterPanel[id]
-├─ SplitterResizeTrigger[id="panel-a:panel-b"]
-│  └─ SplitterResizeTriggerIndicator (default, customizable)
-└─ SplitterPanel[id]
+Hover or focus a part to find it in the preview.
 
-SplitterRootProvider
-└─ same panel tree connected to a useSplitter() store
-```
-
-| Part                              | Role                                                                           |
-| --------------------------------- | ------------------------------------------------------------------------------ |
-| `Splitter`                  | Manages panel definitions, sizes, orientation, callbacks, and splitter state. |
-| `SplitterPanel`                  | Resizable region whose `id` must match an entry in `panels`.                  |
-| `SplitterResizeTrigger`          | Accessible button for resizing the two adjacent panels.                       |
-| `SplitterResizeTriggerIndicator` | Default visual handle. Custom trigger children replace it.                   |
-| `SplitterRootProvider`            | Renders the same parts using state created with `useSplitter()`.              |
+<AnatomyInspector
+  parts={[
+    ["Splitter", "splitter-root", "Manages panel definitions, sizes, orientation, callbacks, and splitter state.", 0],
+    ["SplitterPanel", "splitter-panel", "Resizable region whose `id` must match an entry in `panels`.", 1],
+    ["SplitterResizeTrigger", "splitter-resize-trigger", "Accessible button for resizing the two adjacent panels.", 1],
+    ["SplitterResizeTriggerIndicator", "splitter-resize-trigger-indicator", "Default visual handle. Custom trigger children replace it.", 2],
+    ["SplitterRootProvider", "splitter-root-provider", "Renders the same parts using state created with `useSplitter()`.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styling
 
@@ -140,7 +136,11 @@ below.
 
 ### CSS variables
 
-<CssPropertiesSection properties={splitterOverrideCssProperties} />
+Hover or focus a variable to see it in the preview.
+
+<CssPropertiesSection properties={splitterOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Styling hooks
 

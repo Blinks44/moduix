@@ -5,6 +5,7 @@ description: Анимированная смена двух значков ил�
 ark: https://ark-ui.com/docs/utilities/swap
 ---
 
+import AnatomyScene from '@/components/examples/swap/basic';
 import * as SwapDocs from '@/components/examples/swap/css-properties';
 
 <Example name="swap/basic" />
@@ -73,20 +74,17 @@ import * as SwapDocs from '@/components/examples/swap/css-properties';
 
 ## Анатомия
 
-```text
-Swap
-├─ SwapIndicator type="off"
-└─ SwapIndicator type="on"
+Наведите на часть или выберите её, чтобы найти её в превью.
 
-SwapRootProvider
-└─ то же дерево индикаторов, подключённое к состоянию из useSwap()
-```
-
-| Часть                | Назначение                                                        |
-| -------------------- | ----------------------------------------------------------------- |
-| `Swap` | Передаёт состояние `swap` и размещает оба визуальных состояния.  |
-| `SwapRootProvider`  | Подключает части к состоянию, созданному через `useSwap()`. |
-| `SwapIndicator`     | Отрисовывает состояние `on` или `off`, выбранное свойством `type`. |
+<AnatomyInspector
+  parts={[
+    ["Swap", "swap-root", "Передаёт состояние `swap` и размещает оба визуальных состояния.", 0],
+    ["SwapIndicator", "swap-indicator", "Отрисовывает состояние `on` или `off`, выбранное свойством `type`.", 1],
+    ["SwapRootProvider", "swap-root-provider", "Подключает части к состоянию, созданному через `useSwap()`.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Стилизация
 
@@ -107,7 +105,11 @@ Ark закрепляет раскладку inline-стилями: корень 
 
 ### CSS-переменные
 
-<CssPropertiesSection properties={SwapDocs.swapOverrideCssProperties} />
+Наведите на переменную или выберите её, чтобы увидеть её в превью.
+
+<CssPropertiesSection properties={SwapDocs.swapOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Хуки стилизации
 

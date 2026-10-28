@@ -5,6 +5,7 @@ description: Видимый список опций для выбора одно
 ark: https://ark-ui.com/docs/components/listbox
 ---
 
+import AnatomyScene from '@/components/examples/listbox/basic';
 import * as ListboxDocs from '@/components/examples/listbox/css-properties';
 
 <Example name="listbox/basic" />
@@ -139,50 +140,31 @@ listbox.
 
 ## Анатомия
 
-```text
-Listbox
-├─ ListboxLabel
-├─ ListboxFilter
-│  ├─ ListboxInput
-│  └─ ListboxClearTrigger
-├─ ListboxContent
-│  ├─ ListboxEmpty
-│  ├─ ListboxItemGroup
-│  │  ├─ ListboxItemGroupLabel
-│  │  └─ ListboxItem[item]
-│  │     ├─ ListboxItemText
-│  │     └─ ListboxItemIndicator
-│  └─ ListboxItem[item]
-│     ├─ ListboxItemText
-│     │  └─ ListboxItemTextContent (необязательно)
-│     │     ├─ ListboxItemTextIcon (необязательно)
-│     │     └─ ListboxItemTextLabel (необязательно)
-│     └─ ListboxItemIndicator
-└─ ListboxValueText
+Наведите на часть или выберите её, чтобы найти её в превью.
 
-ListboxRootProvider
-└─ то же дерево элементов, подключённое к состоянию из useListbox()
-```
-
-| Часть                      | Назначение                                                                                   |
-| -------------------------- | -------------------------------------------------------------------------------------------- |
-| `Listbox` | Управляет коллекцией, выбранными значениями, подсвеченным элементом и режимом выбора.        |
-| `ListboxRootProvider`     | Отрисовывает дерево listbox из состояния, возвращённого `useListbox`.                        |
-| `ListboxLabel`            | Подпись, задающая listbox доступное имя.                                                      |
-| `ListboxFilter`           | Визуальная обёртка для поля фильтра с иконкой поиска по умолчанию. Размещайте перед `ListboxContent`. |
-| `ListboxInput`            | Поле фильтра, обычно размещаемое внутри `ListboxFilter`.                                            |
-| `ListboxClearTrigger`     | Кнопка сброса запроса фильтра с иконкой закрытия по умолчанию.                               |
-| `ListboxContent`          | Фокусируемый контейнер listbox, управляющий навигацией с клавиатуры.                          |
-| `ListboxEmpty`            | Содержимое, отображаемое, когда после фильтрации не осталось элементов.                       |
-| `ListboxItemGroup`        | Обёртка для связанных элементов коллекции.                                                   |
-| `ListboxItemGroupLabel`   | Подпись группы элементов коллекции.                                                          |
-| `ListboxItem`             | Выбираемый элемент. Передайте его элемент коллекции через `item`.                            |
-| `ListboxItemText`         | Текст для отображения и доступности.                                                         |
-| `ListboxItemTextContent`  | Необязательная обёртка для размещения иконки и текста внутри `ListboxItemText`.                     |
-| `ListboxItemTextIcon`     | Необязательная обёртка для иконки внутри `ListboxItemTextContent`.                                 |
-| `ListboxItemTextLabel`    | Обёртка текста внутри `ListboxItemTextContent`, которая позволяет обрезать длинные подписи без нарушения разметки. |
-| `ListboxItemIndicator`    | Индикатор выбора с иконкой галочки moduix по умолчанию.                                      |
-| `ListboxValueText`        | Сводка выбранных значений.                                                                   |
+<AnatomyInspector
+  parts={[
+    ["Listbox", "listbox-root", "Управляет коллекцией, выбранными значениями, подсвеченным элементом и режимом выбора.", 0],
+    ["ListboxLabel", "listbox-label", "Подпись, задающая listbox доступное имя.", 1],
+    ["ListboxFilter", "listbox-filter-icon", "Визуальная обёртка для поля фильтра с иконкой поиска по умолчанию. Размещайте перед `ListboxContent`.", 1],
+    ["ListboxInput", "listbox-input", "Поле фильтра, обычно размещаемое внутри `ListboxFilter`.", 2],
+    ["ListboxClearTrigger", "listbox-clear-trigger", "Кнопка сброса запроса фильтра с иконкой закрытия по умолчанию.", 2],
+    ["ListboxContent", "listbox-content", "Фокусируемый контейнер listbox, управляющий навигацией с клавиатуры.", 1],
+    ["ListboxEmpty", "listbox-empty", "Содержимое, отображаемое, когда после фильтрации не осталось элементов.", 2],
+    ["ListboxItemGroup", "listbox-item-group", "Обёртка для связанных элементов коллекции.", 2],
+    ["ListboxItemGroupLabel", "listbox-item-group-label", "Подпись группы элементов коллекции.", 3],
+    ["ListboxItem", "listbox-item", "Выбираемый элемент. Передайте его элемент коллекции через `item`.", 3],
+    ["ListboxItemText", "listbox-item-text", "Текст для отображения и доступности.", 4],
+    ["ListboxItemIndicator", "listbox-item-indicator", "Индикатор выбора с иконкой галочки moduix по умолчанию.", 4],
+    ["ListboxItemTextContent", "listbox-item-text-content", "Необязательная обёртка для размещения иконки и текста внутри `ListboxItemText`.", 2],
+    ["ListboxItemTextIcon", "listbox-item-text-icon", "Необязательная обёртка для иконки внутри `ListboxItemTextContent`.", 3],
+    ["ListboxItemTextLabel", "listbox-item-text-label", "Обёртка текста внутри `ListboxItemTextContent`, которая позволяет обрезать длинные подписи без нарушения разметки.", 3],
+    ["ListboxValueText", "listbox-value-text", "Сводка выбранных значений.", 1],
+    ["ListboxRootProvider", "listbox-root-provider", "Отрисовывает дерево listbox из состояния, возвращённого `useListbox`.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Стилизация
 
@@ -195,7 +177,11 @@ ListboxRootProvider
 
 ### CSS-переменные
 
-<CssPropertiesSection properties={ListboxDocs.listboxOverrideCssProperties} />
+Наведите на переменную или выберите её, чтобы увидеть её в превью.
+
+<CssPropertiesSection properties={ListboxDocs.listboxOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Хуки стилизации
 

@@ -5,6 +5,8 @@ description: Aligner des éléments en ligne ou en colonne avec un espacement r�
 ark: https://ark-ui.com/docs/guides/composition#the-ark-factory
 ---
 
+import AnatomyScene from '@/components/examples/stack/basic';
+
 <Example name="stack/basic" />
 
 ## Installation
@@ -88,15 +90,15 @@ nécessaire et utilisez `asChild` lorsque la racine doit être un élément sém
 l’alignement, le retour à la ligne et un simple changement de direction responsive. Gardez les règles de mise en page
 plus générales dans votre CSS local.
 
-```text
-Stack
-└─ root[data-scope="stack"][data-part="root"][data-slot="stack-root"]
-   └─ children
-```
+Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
 
-| Partie                 | Rôle                                                                    |
-| ---------------------- | ----------------------------------------------------------------------- |
-| `Stack`                | Conteneur flex racine pour la direction, l’espacement, l’alignement et l’écart entre les enfants. |
+<AnatomyInspector
+  parts={[
+    ["Stack", "stack-root", "Conteneur flex racine pour la direction, l’espacement, l’alignement et l’écart entre les enfants.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styles
 

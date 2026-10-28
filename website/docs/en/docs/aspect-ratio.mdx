@@ -5,6 +5,8 @@ description: Keep images, video, and embeds at a fixed width-to-height ratio.
 ark: https://ark-ui.com/docs/guides/composition#the-ark-factory
 ---
 
+import AnatomyScene from '@/components/examples/aspect-ratio/basic';
+
 <Example name="aspect-ratio/basic" />
 
 ## Installation
@@ -79,14 +81,15 @@ In Solid, assign a ref to the element created inside the `asChild` render functi
 
 ## Anatomy
 
-```text
-AspectRatio
-└─ media | iframe | canvas | svg | custom content
-```
+Hover or focus a part to find it in the preview.
 
-| Part         | Role                        |
-| ------------ | --------------------------- |
-| `AspectRatio` | Responsive ratio container. |
+<AnatomyInspector
+  parts={[
+    ["AspectRatio", "aspect-ratio-root", "Responsive ratio container.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styling
 

@@ -5,6 +5,8 @@ description: Группа связанных полей формы под одн
 ark: https://ark-ui.com/docs/components/fieldset
 ---
 
+import AnatomyScene from '@/components/examples/fieldset/basic';
+
 <Example name="fieldset/basic" />
 
 ## Установка
@@ -93,22 +95,20 @@ ARIA-состояние.
 
 ## Анатомия
 
-```text
-Fieldset | FieldsetRootProvider
-├─ FieldsetLegend
-├─ grouped controls
-├─ FieldsetHelperText (optional)
-└─ FieldsetErrorText (optional)
-```
+Наведите на часть или выберите её, чтобы найти её в превью.
 
-| Часть                        | Назначение                                                                                         |
-| ---------------------------- | -------------------------------------------------------------------------------------------------- |
-| `Fieldset`                   | Создаёт состояние и добавляет в DOM нативный элемент `fieldset`.                                  |
-| `FieldsetRootProvider`       | Добавляет в DOM нативный `fieldset` с состоянием, созданным через `useFieldset`.                   |
-| `FieldsetContext`            | Даёт дочерним компонентам доступ к состоянию группы и не добавляет отдельный элемент в DOM.       |
-| `FieldsetLegend`             | Нативный `legend`, задающий доступное имя группы.                                                  |
-| `FieldsetHelperText`         | Поясняющий текст, связанный с корнем через `aria-describedby`.                                     |
-| `FieldsetErrorText`          | Сообщение об ошибке, объявляемое через `aria-live="polite"`; выводится только когда `invalid` равно `true`. |
+<AnatomyInspector
+  parts={[
+    ["Fieldset", "fieldset-root", "Создаёт состояние и добавляет в DOM нативный элемент `fieldset`.", 0],
+    ["FieldsetLegend", "fieldset-legend", "Нативный `legend`, задающий доступное имя группы.", 1],
+    ["FieldsetHelperText", "fieldset-helper-text", "Поясняющий текст, связанный с корнем через `aria-describedby`.", 1],
+    ["FieldsetErrorText", "fieldset-error-text", "Сообщение об ошибке, объявляемое через `aria-live=\"polite\"`; выводится только когда `invalid` равно `true`.", 1],
+    ["FieldsetRootProvider", "fieldset-root-provider", "Добавляет в DOM нативный `fieldset` с состоянием, созданным через `useFieldset`.", 0],
+    ["FieldsetContext", null, "Даёт дочерним компонентам доступ к состоянию группы и не добавляет отдельный элемент в DOM.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Стилизация
 

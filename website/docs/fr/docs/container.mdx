@@ -5,6 +5,7 @@ description: Centrer le contenu à une largeur lisible avec des marges adaptativ
 ark: https://ark-ui.com/docs/guides/composition#the-ark-factory
 ---
 
+import AnatomyScene from '@/components/examples/container/basic';
 import * as ContainerDocs from '@/components/examples/container/css-properties';
 
 <Example name="container/basic" />
@@ -73,14 +74,15 @@ du composant. Placez `Bleed` dans `Container` lorsqu’un seul enfant doit dépa
 
 `Container` rend un seul élément racine et n’ajoute aucune enveloppe supplémentaire.
 
-```text
-Container
-└─ enfants
-```
+Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
 
-| Partie      | Rôle                                                                                  |
-| ----------- | ------------------------------------------------------------------------------------- |
-| `Container` | Élément racine de mise en page. Centre le contenu et gère sa largeur ainsi que ses espacements horizontaux. |
+<AnatomyInspector
+  parts={[
+    ["Container", "container-root", "Élément racine de mise en page. Centre le contenu et gère sa largeur ainsi que ses espacements horizontaux.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styles
 
@@ -91,7 +93,11 @@ bloc, comme le padding, les bordures ou les arrière-plans.
 
 ### Variables CSS
 
-<CssPropertiesSection properties={ContainerDocs.containerOverrideCssProperties} />
+Survolez ou sélectionnez une variable pour la voir dans l’aperçu.
+
+<CssPropertiesSection properties={ContainerDocs.containerOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 Ces variables s’appliquent aux packages CSS Modules. Les packages Tailwind exposent les mêmes choix `size` et `gutter`
 avec des utilitaires.

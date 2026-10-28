@@ -5,6 +5,7 @@ description: Remplir une liste vide ou un premier écran avec un message et des 
 ark: https://ark-ui.com/docs/guides/composition#the-ark-factory
 ---
 
+import AnatomyScene from '@/components/examples/empty/basic';
 import * as EmptyDocs from '@/components/examples/empty/css-properties';
 
 <Example name="empty/basic" />
@@ -71,23 +72,20 @@ expose l’élément rendu via `$el`. Ajoutez la région, le rôle, la gestion d
 
 ## Anatomie
 
-```text
-Empty
-├─ EmptyIcon (facultatif)
-├─ EmptyContent
-│  ├─ EmptyTitle
-│  └─ EmptyDescription
-└─ EmptyActions (facultatif)
-```
+Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
 
-| Partie                 | Rôle                                                                                                   |
-| ---------------------- | ------------------------------------------------------------------------------------------------------ |
-| `Empty`               | Conteneur racine pour les espacements, la bordure, l’arrière-plan et l’alignement.                    |
-| `EmptyIcon`           | Conteneur facultatif pour une icône ou un autre petit élément visuel.                                 |
-| `EmptyContent`        | Regroupe le titre et la description avec des espacements plus compacts.                               |
-| `EmptyTitle`          | Titre principal de l’état vide.                                                                       |
-| `EmptyDescription`    | Contenu complémentaire sous le titre. Il peut contenir des paragraphes, des liens ou d’autres éléments de type bloc. |
-| `EmptyActions`        | Ligne facultative d’actions qui revient à la ligne si nécessaire.                                      |
+<AnatomyInspector
+  parts={[
+    ["Empty", "empty-root", "Conteneur racine pour les espacements, la bordure, l’arrière-plan et l’alignement.", 0],
+    ["EmptyIcon", "empty-icon", "Conteneur facultatif pour une icône ou un autre petit élément visuel.", 1],
+    ["EmptyContent", "empty-content", "Regroupe le titre et la description avec des espacements plus compacts.", 1],
+    ["EmptyTitle", "empty-title", "Titre principal de l’état vide.", 2],
+    ["EmptyDescription", "empty-description", "Contenu complémentaire sous le titre. Il peut contenir des paragraphes, des liens ou d’autres éléments de type bloc.", 2],
+    ["EmptyActions", "empty-actions", "Ligne facultative d’actions qui revient à la ligne si nécessaire.", 1],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styles
 
@@ -99,7 +97,11 @@ une classe : elle l’emporte sur les styles en couche du composant.
 
 ### Variables CSS
 
-<CssPropertiesSection properties={EmptyDocs.emptyOverrideCssProperties} />
+Survolez ou sélectionnez une variable pour la voir dans l’aperçu.
+
+<CssPropertiesSection properties={EmptyDocs.emptyOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Points d’accroche CSS
 

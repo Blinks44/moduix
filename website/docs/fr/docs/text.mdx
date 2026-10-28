@@ -5,6 +5,8 @@ description: Composer le texte courant, les légendes et le texte en ligne.
 ark: https://ark-ui.com/docs/guides/composition#the-ark-factory
 ---
 
+import AnatomyScene from '@/components/examples/text/basic';
+
 <Example name="text/basic" />
 
 ## Installation
@@ -97,14 +99,15 @@ contrôle du dépliage restent dans l’interface environnante.
 
 `Text` rend un seul élément racine avec la fabrique Ark via l’export racine plat.
 
-```text
-Text
-└─ texte ou contenu en ligne
-```
+Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
 
-| Partie                | Rôle                                                                  |
-| --------------------- | --------------------------------------------------------------------- |
-| `Text`              | Racine typographique avec sémantique HTML et attributs `data-*` stables. |
+<AnatomyInspector
+  parts={[
+    ["Text", "text-root", "Racine typographique avec sémantique HTML et attributs `data-*` stables.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styles
 

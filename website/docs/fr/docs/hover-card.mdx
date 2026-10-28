@@ -5,6 +5,8 @@ description: Prévisualiser un profil ou un lien dans une carte au survol.
 ark: https://ark-ui.com/docs/components/hover-card
 ---
 
+import AnatomyScene from '@/components/examples/hover-card/anatomy';
+
 <Example name="hover-card/basic" />
 
 ## Installation
@@ -121,32 +123,23 @@ un autre élément sémantique. Si plusieurs déclencheurs partagent un même co
 
 ## Anatomie
 
-```text
-HoverCard
-├─ HoverCardTrigger
-└─ Sous-arbre flottant (rendu automatiquement dans un portail)
-   └─ HoverCardPositioner
-      └─ HoverCardContent
-         ├─ HoverCardArrow
-         │  └─ HoverCardArrowTip
-         └─ HoverCardBody
-            └─ contenu
+Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
 
-HoverCardRootProvider
-└─ même arborescence reliée à l’état useHoverCard() de moduix
-```
-
-| Partie                         | Rôle                                                                            |
-| ------------------------------ | ------------------------------------------------------------------------------- |
-| `HoverCard`                  | Gère l’état, le cycle de vie, les délais, le positionnement, les identifiants et les interactions extérieures. |
-| `HoverCardRootProvider`       | Relie les parties à l’état créé avec `useHoverCard()`.                         |
-| `HoverCardContext`            | Expose l’état courant aux descendants via une fonction de rendu.               |
-| `HoverCardTrigger`            | Élément interactif qui ouvre la carte au survol ou au focus. Utilisez `asChild` pour en faire un lien ou un autre élément sémantique. |
-| `HoverCardPositioner`         | Élément de positionnement flottant qui expose les variables CSS de positionnement d’Ark. |
-| `HoverCardContent`            | Surface visible de la carte, qui se ferme lors d’une interaction extérieure.   |
-| `HoverCardArrow`              | Enveloppe facultative de la flèche positionnée, qui rend `HoverCardArrowTip` par défaut. |
-| `HoverCardArrowTip`           | Pointe de la flèche, stylée avec les variables de flèche d’Ark.                |
-| `HoverCardBody`               | Région facultative et défilable pour le contenu des aperçus contraints.         |
+<AnatomyInspector
+  parts={[
+    ["HoverCard", null, "Gère l’état, le cycle de vie, les délais, le positionnement, les identifiants et les interactions extérieures.", 0],
+    ["HoverCardTrigger", "hover-card-trigger", "Élément interactif qui ouvre la carte au survol ou au focus. Utilisez `asChild` pour en faire un lien ou un autre élément sémantique.", 1],
+    ["HoverCardPositioner", "hover-card-positioner", "Élément de positionnement flottant qui expose les variables CSS de positionnement d’Ark.", 1],
+    ["HoverCardContent", "hover-card-content", "Surface visible de la carte, qui se ferme lors d’une interaction extérieure.", 2],
+    ["HoverCardArrow", "hover-card-arrow", "Enveloppe facultative de la flèche positionnée, qui rend `HoverCardArrowTip` par défaut.", 3],
+    ["HoverCardArrowTip", "hover-card-arrow-tip", "Pointe de la flèche, stylée avec les variables de flèche d’Ark.", 4],
+    ["HoverCardBody", "hover-card-body", "Région facultative et défilable pour le contenu des aperçus contraints.", 3],
+    ["HoverCardRootProvider", null, "Relie les parties à l’état créé avec `useHoverCard()`.", 0],
+    ["HoverCardContext", null, "Expose l’état courant aux descendants via une fonction de rendu.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 `HoverCard` est l’unique valeur publique de la racine. Utilisez-la avec les parties préfixées par
 le nom de la famille dans le code de l’application.

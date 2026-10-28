@@ -5,6 +5,7 @@ description: Faire glisser un panneau depuis un bord, avec balayage et points d�
 ark: https://ark-ui.com/docs/components/drawer
 ---
 
+import AnatomyScene from '@/components/examples/drawer/anatomy';
 import * as DrawerDocs from '@/components/examples/drawer/css-properties';
 
 <Example name="drawer/basic" />
@@ -162,45 +163,31 @@ détails, comme `details.open`, `details.snapPoint` et `details.value`.
 
 ## Anatomie
 
-```text
-Drawer
-├─ DrawerTrigger
-├─ DrawerSwipeArea (facultatif)
-├─ DrawerBackdrop
-└─ DrawerPositioner
-   └─ DrawerContent
-      ├─ DrawerGrabber
-      │  └─ DrawerGrabberIndicator
-      ├─ DrawerHeader (aide de mise en page facultative)
-      │  ├─ DrawerTitle
-      │  ├─ DrawerDescription
-      │  └─ DrawerCloseIcon (aide facultative)
-      ├─ DrawerBody (aide de mise en page facultative)
-      └─ DrawerFooter (aide de mise en page facultative)
+Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
 
-DrawerRootProvider
-└─ même arborescence de parties connectée à un store useDrawer()
-```
-
-| Partie | Rôle |
-| --- | --- |
-| `Drawer` | Partie racine qui gère l'état d'ouverture, les points d'ancrage et le balayage. |
-| `DrawerRootProvider` | Connecte les parties à l'état créé avec `useDrawer()`. |
-| `DrawerTrigger` | Ouvre le panneau. |
-| `DrawerSwipeArea` | Zone facultative au bord de l'écran qui ouvre le panneau par balayage. |
-| `DrawerBackdrop` | Calque modal. |
-| `DrawerPositioner` | Positionne le contenu du panneau. |
-| `DrawerContent` | Surface interactive du panneau. |
-| `DrawerGrabber` | Conteneur de la poignée de déplacement. |
-| `DrawerGrabberIndicator` | Indicateur visuel dans la poignée. |
-| `DrawerTitle` | Nom accessible du panneau. |
-| `DrawerDescription` | Description accessible du panneau. |
-| `DrawerCloseTrigger` | Ferme le panneau. |
-| `DrawerCloseIcon` | Contrôle de fermeture moduix composé avec `DrawerCloseTrigger`. |
-| `DrawerStack` | Coordonne les panneaux imbriqués et les surfaces décalées. |
-| `DrawerIndent` | Surface qui recule lorsqu'un panneau empilé s'ouvre. |
-| `DrawerIndentBackground` | Arrière-plan derrière une surface décalée. |
-| `DrawerHeader`, `DrawerBody`, `DrawerFooter` | Aides de mise en page facultatives sans état propre. |
+<AnatomyInspector
+  parts={[
+    ["Drawer", null, "Partie racine qui gère l'état d'ouverture, les points d'ancrage et le balayage.", 0],
+    ["DrawerTrigger", "drawer-trigger", "Ouvre le panneau.", 1],
+    ["DrawerSwipeArea", "drawer-swipe-area", "Zone facultative au bord de l'écran qui ouvre le panneau par balayage.", 1],
+    ["DrawerBackdrop", "drawer-backdrop", "Calque modal.", 1],
+    ["DrawerPositioner", "drawer-positioner", "Positionne le contenu du panneau.", 1],
+    ["DrawerContent", "drawer-content", "Surface interactive du panneau.", 2],
+    ["DrawerGrabber", "drawer-grabber", "Conteneur de la poignée de déplacement.", 3],
+    ["DrawerGrabberIndicator", "drawer-grabber-indicator", "Indicateur visuel dans la poignée.", 4],
+    ["DrawerHeader, DrawerBody, DrawerFooter", "drawer-header", "Aides de mise en page facultatives sans état propre.", 3],
+    ["DrawerTitle", "drawer-title", "Nom accessible du panneau.", 4],
+    ["DrawerCloseIcon", "drawer-close-icon", "Contrôle de fermeture moduix composé avec `DrawerCloseTrigger`.", 4],
+    ["DrawerDescription", "drawer-description", "Description accessible du panneau.", 4],
+    ["DrawerCloseTrigger", "drawer-close-trigger", "Ferme le panneau.", 3],
+    ["DrawerStack", "", "Coordonne les panneaux imbriqués et les surfaces décalées.", 0],
+    ["DrawerIndent", "drawer-indent", "Surface qui recule lorsqu'un panneau empilé s'ouvre.", 0],
+    ["DrawerIndentBackground", "drawer-indent-background", "Arrière-plan derrière une surface décalée.", 1],
+    ["DrawerRootProvider", null, "Connecte les parties à l'état créé avec `useDrawer()`.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styles
 
@@ -213,7 +200,11 @@ variables ci-dessous personnalisent les variantes CSS Modules. Les attributs de 
 
 ### Variables CSS
 
-<CssPropertiesSection properties={DrawerDocs.drawerOverrideCssProperties} />
+Survolez ou sélectionnez une variable pour la voir dans l’aperçu.
+
+<CssPropertiesSection properties={DrawerDocs.drawerOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Points d’accroche CSS
 

@@ -5,6 +5,7 @@ description: Lancer l’action principale ou en choisir une autre dans un menu a
 ark: https://ark-ui.com/docs/guides/composition#the-ark-factory
 ---
 
+import AnatomyScene from '@/components/examples/split-button/anatomy';
 import * as SplitButtonDocs from '@/components/examples/split-button/css-properties';
 
 <Example name="split-button/basic" />
@@ -113,25 +114,19 @@ Dans Vue, utilisez `@click` pour l’action principale, `@open-change` ou `v-mod
 
 ## Anatomie
 
-```text
-SplitButton
-├─ SplitButtonAction
-├─ SplitButtonTrigger
-└─ Sous-arbre de la fenêtre contextuelle (placé automatiquement dans un portail)
-   └─ SplitButtonPositioner
-      └─ SplitButtonContent
-         ├─ MenuItem
-         ├─ MenuSeparator
-         └─ autres parties Menu partagées
-```
+Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
 
-| Partie                            | Rôle                                                                  |
-| --------------------------------- | --------------------------------------------------------------------- |
-| `SplitButton`                     | Racine qui gère l’état du menu et le groupe sémantique des deux boutons. |
-| `SplitButtonAction`              | Action principale `Button`.                                           |
-| `SplitButtonTrigger`             | Déclencheur Ark Menu rendu comme un Button moduix, avec un chevron par défaut. |
-| `SplitButtonPositioner`          | Positionne la fenêtre contextuelle Ark Menu.                           |
-| `SplitButtonContent`              | Surface de contenu Ark Menu pour les parties `MenuItem` et `MenuItemGroup` partagées.       |
+<AnatomyInspector
+  parts={[
+    ["SplitButton", "split-button-root", "Racine qui gère l’état du menu et le groupe sémantique des deux boutons.", 0],
+    ["SplitButtonAction", "split-button-action", "Action principale `Button`.", 1],
+    ["SplitButtonTrigger", "split-button-trigger", "Déclencheur Ark Menu rendu comme un Button moduix, avec un chevron par défaut.", 1],
+    ["SplitButtonPositioner", "split-button-positioner", "Positionne la fenêtre contextuelle Ark Menu.", 1],
+    ["SplitButtonContent", "split-button-content", "Surface de contenu Ark Menu pour les parties `MenuItem` et `MenuItemGroup` partagées.", 2],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styles
 
@@ -147,7 +142,11 @@ la bordure à la place. Utilisez `--moduix-split-button-separator-color` pour ch
 
 ### Variables CSS
 
-<CssPropertiesSection properties={SplitButtonDocs.splitButtonCssProperties} />
+Survolez ou sélectionnez une variable pour la voir dans l’aperçu.
+
+<CssPropertiesSection properties={SplitButtonDocs.splitButtonCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Points d’accroche CSS
 

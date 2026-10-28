@@ -5,6 +5,7 @@ description: Линия между связанными разделами, го
 ark: https://ark-ui.com/docs/guides/composition#the-ark-factory
 ---
 
+import AnatomyScene from '@/components/examples/separator/basic';
 import * as SeparatorDocs from '@/components/examples/separator/css-properties';
 
 <Example name="separator/basic" />
@@ -82,14 +83,15 @@ Chakra UI по компоненту Separator](https://chakra-ui.com/docs/compon
 
 У `Separator` одна корневая часть.
 
-```text
-Separator
-└─ root[data-scope="separator"][data-part="root"][data-slot="separator-root"]
-```
+Наведите на часть или выберите её, чтобы найти её в превью.
 
-| Часть       | Назначение                                                                 |
-| ----------- | -------------------------------------------------------------------------- |
-| `Separator` | Корневой элемент-разделитель. Задаёт ориентацию, доступность и визуальный стиль. |
+<AnatomyInspector
+  parts={[
+    ["Separator", "separator-root", "Корневой элемент-разделитель. Задаёт ориентацию, доступность и визуальный стиль.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Стилизация
 
@@ -99,7 +101,11 @@ Tailwind применяйте нативные utility-классы и клас�
 
 ### CSS-переменные
 
-<CssPropertiesSection properties={SeparatorDocs.separatorOverrideCssProperties} />
+Наведите на переменную или выберите её, чтобы увидеть её в превью.
+
+<CssPropertiesSection properties={SeparatorDocs.separatorOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Хуки стилизации
 

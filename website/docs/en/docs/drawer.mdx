@@ -5,6 +5,7 @@ description: Slide a panel in from a screen edge, with swipe and snap points.
 ark: https://ark-ui.com/docs/components/drawer
 ---
 
+import AnatomyScene from '@/components/examples/drawer/anatomy';
 import * as DrawerDocs from '@/components/examples/drawer/css-properties';
 
 <Example name="drawer/basic" />
@@ -156,45 +157,31 @@ objects, such as `details.open`, `details.snapPoint`, and `details.value`.
 
 ## Anatomy
 
-```text
-Drawer
-├─ DrawerTrigger
-├─ DrawerSwipeArea (optional)
-├─ DrawerBackdrop
-└─ DrawerPositioner
-   └─ DrawerContent
-      ├─ DrawerGrabber
-      │  └─ DrawerGrabberIndicator
-      ├─ DrawerHeader (optional layout helper)
-      │  ├─ DrawerTitle
-      │  ├─ DrawerDescription
-      │  └─ DrawerCloseIcon (optional helper)
-      ├─ DrawerBody (optional layout helper)
-      └─ DrawerFooter (optional layout helper)
+Hover or focus a part to find it in the preview.
 
-DrawerRootProvider
-└─ same part tree connected to a useDrawer() store
-```
-
-| Part | Role |
-| --- | --- |
-| `Drawer` | Root part that owns open state, snap points, and swipe behavior. |
-| `DrawerRootProvider` | Connects the parts to state created with `useDrawer()`. |
-| `DrawerTrigger` | Opens the drawer. |
-| `DrawerSwipeArea` | Optional edge region that opens the drawer on swipe. |
-| `DrawerBackdrop` | Modal backdrop layer. |
-| `DrawerPositioner` | Positions the drawer content. |
-| `DrawerContent` | Interactive surface of the drawer. |
-| `DrawerGrabber` | Container for the drag handle. |
-| `DrawerGrabberIndicator` | Visual indicator inside the drag handle. |
-| `DrawerTitle` | Accessible title for the drawer. |
-| `DrawerDescription` | Accessible description for the drawer. |
-| `DrawerCloseTrigger` | Closes the drawer. |
-| `DrawerCloseIcon` | Moduix close control composed from `DrawerCloseTrigger`. |
-| `DrawerStack` | Coordinates nested drawers and indented surfaces. |
-| `DrawerIndent` | Surface that moves back when a stacked drawer opens. |
-| `DrawerIndentBackground` | Background behind an indented surface. |
-| `DrawerHeader`, `DrawerBody`, `DrawerFooter` | Optional layout helpers with no state of their own. |
+<AnatomyInspector
+  parts={[
+    ["Drawer", null, "Root part that owns open state, snap points, and swipe behavior.", 0],
+    ["DrawerTrigger", "drawer-trigger", "Opens the drawer.", 1],
+    ["DrawerSwipeArea", "drawer-swipe-area", "Optional edge region that opens the drawer on swipe.", 1],
+    ["DrawerBackdrop", "drawer-backdrop", "Modal backdrop layer.", 1],
+    ["DrawerPositioner", "drawer-positioner", "Positions the drawer content.", 1],
+    ["DrawerContent", "drawer-content", "Interactive surface of the drawer.", 2],
+    ["DrawerGrabber", "drawer-grabber", "Container for the drag handle.", 3],
+    ["DrawerGrabberIndicator", "drawer-grabber-indicator", "Visual indicator inside the drag handle.", 4],
+    ["DrawerHeader, DrawerBody, DrawerFooter", "drawer-header", "Optional layout helpers with no state of their own.", 3],
+    ["DrawerTitle", "drawer-title", "Accessible title for the drawer.", 4],
+    ["DrawerCloseIcon", "drawer-close-icon", "Moduix close control composed from `DrawerCloseTrigger`.", 4],
+    ["DrawerDescription", "drawer-description", "Accessible description for the drawer.", 4],
+    ["DrawerCloseTrigger", "drawer-close-trigger", "Closes the drawer.", 3],
+    ["DrawerStack", "", "Coordinates nested drawers and indented surfaces.", 0],
+    ["DrawerIndent", "drawer-indent", "Surface that moves back when a stacked drawer opens.", 0],
+    ["DrawerIndentBackground", "drawer-indent-background", "Background behind an indented surface.", 1],
+    ["DrawerRootProvider", null, "Connects the parts to state created with `useDrawer()`.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styling
 
@@ -206,7 +193,11 @@ classes; the component variables below customize the CSS Modules variants. Data 
 
 ### CSS variables
 
-<CssPropertiesSection properties={DrawerDocs.drawerOverrideCssProperties} />
+Hover or focus a variable to see it in the preview.
+
+<CssPropertiesSection properties={DrawerDocs.drawerOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Styling hooks
 

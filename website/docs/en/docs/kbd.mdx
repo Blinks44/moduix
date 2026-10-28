@@ -5,6 +5,7 @@ description: Show a keyboard key or a shortcut inline with the surrounding text.
 ark: https://ark-ui.com/docs/guides/composition#the-ark-factory
 ---
 
+import AnatomyScene from '@/components/examples/kbd/basic';
 import * as KbdDocs from '@/components/examples/kbd/css-properties';
 
 <Example name="kbd/basic" />
@@ -73,19 +74,18 @@ semantic `<kbd>` element, and pass exactly one child.
 
 ## Anatomy
 
-The structure of a shortcut is simple. The `+` in this example is ordinary text, not a component part.
+A shortcut is a `KbdGroup` of `Kbd` keycaps. A `+` between keys is ordinary text, not a component part.
 
-```text
-KbdGroup
-├─ Kbd
-├─ +
-└─ Kbd
-```
+Hover or focus a part to find it in the preview.
 
-| Part               | Role                                                                          |
-| ------------------ | ----------------------------------------------------------------------------- |
-| `Kbd`              | Root keycap; renders a `<kbd>` element by default.                            |
-| `KbdGroup`         | Inline wrapper for related keycaps; uses the `group` role by default.         |
+<AnatomyInspector
+  parts={[
+    ["KbdGroup", "kbd-group", "Inline wrapper for related keycaps; uses the `group` role by default.", 0],
+    ["Kbd", "kbd-root", "Root keycap; renders a `<kbd>` element by default.", 1],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styling
 
@@ -95,7 +95,11 @@ classes, while CSS Modules variants use the component variables and consumer CSS
 
 ### CSS variables
 
-<CssPropertiesSection properties={KbdDocs.kbdOverrideCssProperties} />
+Hover or focus a variable to see it in the preview.
+
+<CssPropertiesSection properties={KbdDocs.kbdOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Styling hooks
 

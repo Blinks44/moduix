@@ -5,6 +5,7 @@ description: Show a user’s photo, with initials while it loads or if it fails.
 ark: https://ark-ui.com/docs/components/avatar
 ---
 
+import AnatomyScene from '@/components/examples/avatar/basic';
 import * as AvatarDocs from '@/components/examples/avatar/css-properties';
 
 <Example name="avatar/basic" />
@@ -107,25 +108,19 @@ itself is not forwarded through that composition path. Vue refs point to the com
 
 ## Anatomy
 
-```text
-Avatar
-├─ AvatarFallback
-└─ AvatarImage
+Hover or focus a part to find it in the preview.
 
-AvatarRootProvider
-└─ same parts connected to a useAvatar() store
-
-AvatarGroup
-└─ Avatar, Avatar, ...
-```
-
-| Part                | Role                                                               |
-| ------------------- | ------------------------------------------------------------------ |
-| `Avatar`            | Creates and owns the Ark UI avatar state.                          |
-| `AvatarRootProvider` | Renders an avatar from Ark UI state created outside the component. |
-| `AvatarFallback`    | Shows consumer-provided content until the image loads.             |
-| `AvatarImage`       | Shows the image after it loads successfully.                       |
-| `AvatarGroup`       | Stacks avatars with an overlap and a background-colored ring.      |
+<AnatomyInspector
+  parts={[
+    ["Avatar", "avatar-root", "Creates and owns the Ark UI avatar state.", 0],
+    ["AvatarFallback", "avatar-fallback", "Shows consumer-provided content until the image loads.", 1],
+    ["AvatarImage", "avatar-image", "Shows the image after it loads successfully.", 1],
+    ["AvatarRootProvider", "avatar-root-provider", "Renders an avatar from Ark UI state created outside the component.", 0],
+    ["AvatarGroup", "avatar-group", "Stacks avatars with an overlap and a background-colored ring.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styling
 
@@ -136,7 +131,11 @@ to CSS Modules variants. For state-based styles, prefer Ark data attributes toge
 
 ### CSS variables
 
-<CssPropertiesSection properties={AvatarDocs.avatarCssProperties} />
+Hover or focus a variable to see it in the preview.
+
+<CssPropertiesSection properties={AvatarDocs.avatarCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Styling hooks
 

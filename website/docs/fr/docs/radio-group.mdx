@@ -5,6 +5,7 @@ description: Choisir exactement une option dans une courte liste visible.
 ark: https://ark-ui.com/docs/components/radio-group
 ---
 
+import AnatomyScene from '@/components/examples/radio-group/basic';
 import * as RadioGroupDocs from '@/components/examples/radio-group/css-properties';
 
 <Example name="radio-group/basic" />
@@ -159,33 +160,23 @@ son état à `RadioGroup`. Passez `disabled`, `invalid`, `readOnly` et `required
 
 ## Anatomie
 
-```text
-RadioGroup
-├─ RadioGroupLabel
-├─ RadioGroupIndicator (facultatif)
-└─ RadioGroupItem[value]
-   ├─ RadioGroupItemControl
-   ├─ RadioGroupItemText
-   └─ RadioGroupItemHiddenInput (explicite)
+Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
 
-RadioGroupRootProvider
-└─ le même arbre de parties connecté à useRadioGroup()
-
-RadioGroupOption
-└─ RadioGroupItem + RadioGroupItemControl + RadioGroupItemText + RadioGroupItemHiddenInput (composition fixe)
-```
-
-| Partie                        | Rôle                                                            |
-| ---------------------------- | --------------------------------------------------------------- |
-| `RadioGroup`       | Gère la valeur, la navigation au clavier, l’orientation et les formulaires. |
-| `RadioGroupRootProvider`    | Relie les parties à l’état créé avec `useRadioGroup()`.         |
-| `RadioGroupLabel`           | Libellé accessible du groupe.                                   |
-| `RadioGroupItem`             | Une option sélectionnable ; rend un `label` par défaut.         |
-| `RadioGroupOption`           | Élément pratique avec contrôle, texte et champ masqué.           |
-| `RadioGroupItemControl`      | Contrôle radio visuel ; sa taille vient de `size` sur la racine. |
-| `RadioGroupItemText`         | Texte visible de l’option.                                      |
-| `RadioGroupItemHiddenInput`  | Champ natif pour la composition explicite de `RadioGroupItem`.             |
-| `RadioGroupIndicator`        | Indicateur facultatif de l’élément actif, mesuré par Ark.        |
+<AnatomyInspector
+  parts={[
+    ["RadioGroup", "radio-group-root", "Gère la valeur, la navigation au clavier, l’orientation et les formulaires.", 0],
+    ["RadioGroupLabel", "radio-group-label", "Libellé accessible du groupe.", 1],
+    ["RadioGroupIndicator", "radio-group-indicator", "Indicateur facultatif de l’élément actif, mesuré par Ark.", 1],
+    ["RadioGroupItem", "radio-group-item", "Une option sélectionnable ; rend un `label` par défaut.", 1],
+    ["RadioGroupItemControl", "radio-group-item-control", "Contrôle radio visuel ; sa taille vient de `size` sur la racine.", 2],
+    ["RadioGroupItemText", "radio-group-item-text", "Texte visible de l’option.", 2],
+    ["RadioGroupItemHiddenInput", "", "Champ natif pour la composition explicite de `RadioGroupItem`.", 2],
+    ["RadioGroupRootProvider", "radio-group-root-provider", "Relie les parties à l’état créé avec `useRadioGroup()`.", 0],
+    ["RadioGroupOption", "", "Élément pratique avec contrôle, texte et champ masqué.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styles
 
@@ -198,7 +189,11 @@ partagés par les deux approches de style.
 
 ### Variables CSS
 
-<CssPropertiesSection properties={RadioGroupDocs.radioGroupOverrideCssProperties} />
+Survolez ou sélectionnez une variable pour la voir dans l’aperçu.
+
+<CssPropertiesSection properties={RadioGroupDocs.radioGroupOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Points d’accroche CSS
 

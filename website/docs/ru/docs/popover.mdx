@@ -5,6 +5,8 @@ description: Интерактивный контент в панели, прив
 ark: https://ark-ui.com/docs/components/popover
 ---
 
+import AnatomyScene from '@/components/examples/popover/anatomy';
+
 <Example name="popover/basic" />
 
 ## Установка
@@ -147,47 +149,29 @@ Popover элементы должны читать или изменять ег�
 
 ## Анатомия
 
-```text
-Popover
-├─ PopoverAnchor (необязательно)
-├─ PopoverTrigger
-│  └─ PopoverIndicator (необязательно)
-└─ Поддерево оверлея (автоматически переносится в портал)
-   └─ PopoverPositioner
-      └─ PopoverContent
-         ├─ PopoverArrow
-         │  └─ PopoverArrowTip
-         ├─ PopoverHeader
-         │  ├─ PopoverTitle
-         │  └─ PopoverDescription
-         ├─ PopoverBody
-         ├─ PopoverFooter
-         └─ PopoverCloseTrigger / PopoverCloseIcon
+Наведите на часть или выберите её, чтобы найти её в превью.
 
-PopoverRootProvider
-└─ то же дерево частей, связанное с состоянием moduix из usePopover()
-
-PopoverContext
-└─ render prop с текущим состоянием всплывающего окна
-```
-
-| Часть                         | Назначение                                                          |
-| ----------------------------- | ------------------------------------------------------------------- |
-| `Popover`    | Управляет состоянием, открытием и закрытием, фокусом, закрытием при внешнем взаимодействии и позиционированием. |
-| `PopoverRootProvider`        | Подключает части к состоянию, созданному через `usePopover()`.      |
-| `PopoverContext`             | Передаёт потомкам текущее состояние через render prop.              |
-| `PopoverAnchor`              | Необязательный элемент, относительно которого выполняется позиционирование. |
-| `PopoverTrigger`             | Кнопка, открывающая и закрывающая окно; для триггера можно задать `value`. |
-| `PopoverIndicator`           | Необязательный индикатор состояния триггера.                        |
-| `PopoverPositioner`          | Плавающий слой с CSS-переменными Ark для позиционирования.          |
-| `PopoverContent`             | Видимая интерактивная область всплывающего окна.                    |
-| `PopoverArrow` / `PopoverArrowTip`  | Необязательная позиционируемая стрелка и её видимый наконечник.     |
-| `PopoverTitle`               | Доступный заголовок, связанный с содержимым.                        |
-| `PopoverDescription`         | Доступное описание, связанное с содержимым.                         |
-| `PopoverCloseTrigger`        | Низкоуровневый триггер, закрывающий окно.                            |
-| `PopoverCloseIcon`            | Вспомогательная часть moduix, объединяющая триггер закрытия Ark и кнопку с иконкой. |
-| `PopoverHeader` / `PopoverBody`      | Вспомогательные обёртки moduix со стабильными слотами.              |
-| `PopoverFooter`               | Вспомогательная обёртка moduix для строки действий.                 |
+<AnatomyInspector
+  parts={[
+    ["Popover", null, "Управляет состоянием, открытием и закрытием, фокусом, закрытием при внешнем взаимодействии и позиционированием.", 0],
+    ["PopoverAnchor", "popover-anchor", "Необязательный элемент, относительно которого выполняется позиционирование.", 1],
+    ["PopoverTrigger", "popover-trigger", "Кнопка, открывающая и закрывающая окно; для триггера можно задать `value`.", 2],
+    ["PopoverIndicator", "popover-indicator", "Необязательный индикатор состояния триггера.", 3],
+    ["PopoverPositioner", "popover-positioner", "Плавающий слой с CSS-переменными Ark для позиционирования.", 1],
+    ["PopoverContent", "popover-content", "Видимая интерактивная область всплывающего окна.", 2],
+    ["PopoverArrow / PopoverArrowTip", "popover-arrow", "Необязательная позиционируемая стрелка и её видимый наконечник.", 3],
+    ["PopoverHeader / PopoverBody", "popover-header", "Вспомогательные обёртки moduix со стабильными слотами.", 3],
+    ["PopoverTitle", "popover-title", "Доступный заголовок, связанный с содержимым.", 4],
+    ["PopoverCloseIcon", "popover-close-icon", "Вспомогательная часть moduix, объединяющая триггер закрытия Ark и кнопку с иконкой.", 4],
+    ["PopoverDescription", "popover-description", "Доступное описание, связанное с содержимым.", 4],
+    ["PopoverFooter", "popover-footer", "Вспомогательная обёртка moduix для строки действий.", 3],
+    ["PopoverCloseTrigger", "popover-close-trigger", "Низкоуровневый триггер, закрывающий окно.", 4],
+    ["PopoverRootProvider", null, "Подключает части к состоянию, созданному через `usePopover()`.", 0],
+    ["PopoverContext", null, "Передаёт потомкам текущее состояние через render prop.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Стилизация
 

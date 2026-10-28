@@ -5,6 +5,7 @@ description: Browse folders, files, and other nested data in an expandable tree.
 ark: https://ark-ui.com/docs/components/tree-view
 ---
 
+import AnatomyScene from '@/components/examples/tree-view/basic';
 import * as TreeViewDocs from '@/components/examples/tree-view/css-properties';
 
 <Example name="tree-view/basic" />
@@ -101,35 +102,24 @@ replaceable collection in a `shallowRef` so Vue preserves its class instance.
 
 ## Anatomy
 
-```text
-TreeView
-├─ TreeViewLabel
-└─ TreeViewTree
-   └─ TreeViewNode or TreeViewNodeProvider
-      ├─ TreeViewBranch
-      │  ├─ TreeViewBranchControl
-      │  │  ├─ TreeViewBranchIndicator
-      │  │  └─ TreeViewBranchText
-      │  ├─ TreeViewBranchTrigger (optional, dedicated trigger)
-      │  └─ TreeViewBranchContent
-      │     ├─ TreeViewBranchIndentGuide
-      │     └─ nested nodes
-      └─ TreeViewItem
-         └─ TreeViewItemText
-```
+Hover or focus a part to find it in the preview.
 
-| Part                             | Role                                                                  |
-| -------------------------------- | --------------------------------------------------------------------- |
-| `TreeView`                  | Stores the collection and manages expansion, selection, focus, checking, and renaming. |
-| `TreeViewRootProvider`          | Connects tree parts to an instance returned by `useTreeView`.        |
-| `TreeViewLabel`                 | Gives the tree an accessible name.                                    |
-| `TreeViewTree`                  | Renders the ARIA tree container.                                      |
-| `TreeViewNode`                  | A convenience provider that exposes `{ node, indexPath, state }`.    |
-| `TreeViewNodeProvider`          | The low-level Ark context boundary for custom composition.           |
-| `TreeViewBranch*`               | An expandable node, its control, indicator, text, and child content. |
-| `TreeViewItem*`                 | A leaf node and its optional selected-state indicator.               |
-| `TreeViewNodeCheckbox*`         | The checkbox control and its checked or indeterminate indicator.     |
-| `TreeViewNodeRenameInput`       | The inline input shown while a node is being renamed.                |
+<AnatomyInspector
+  parts={[
+    ["TreeView", "tree-view-root", "Stores the collection and manages expansion, selection, focus, checking, and renaming.", 0],
+    ["TreeViewLabel", "tree-view-label", "Gives the tree an accessible name.", 1],
+    ["TreeViewTree", "tree-view-tree", "Renders the ARIA tree container.", 1],
+    ["TreeViewNode", "", "A convenience provider that exposes `{ node, indexPath, state }`.", 2],
+    ["TreeViewBranch*", "tree-view-branch", "An expandable node, its control, indicator, text, and child content.", 3],
+    ["TreeViewItem*", "tree-view-item", "A leaf node and its optional selected-state indicator.", 3],
+    ["TreeViewNodeCheckbox*", "tree-view-node-checkbox", "The checkbox control and its checked or indeterminate indicator.", 3],
+    ["TreeViewNodeRenameInput", "tree-view-node-rename-input", "The inline input shown while a node is being renamed.", 3],
+    ["TreeViewRootProvider", "tree-view-root-provider", "Connects tree parts to an instance returned by `useTreeView`.", 0],
+    ["TreeViewNodeProvider", null, "The low-level Ark context boundary for custom composition.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styling
 
@@ -146,7 +136,11 @@ step as CSS variables; override other styles with a class on the part.
 
 ### CSS variables
 
-<CssPropertiesSection properties={TreeViewDocs.treeViewOverrideCssProperties} />
+Hover or focus a variable to see it in the preview.
+
+<CssPropertiesSection properties={TreeViewDocs.treeViewOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Styling hooks
 

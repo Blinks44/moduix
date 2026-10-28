@@ -5,6 +5,7 @@ description: Edit a short text in place and save or cancel the change.
 ark: https://ark-ui.com/docs/components/editable
 ---
 
+import AnatomyScene from '@/components/examples/editable/basic';
 import * as EditableDocs from '@/components/examples/editable/css-properties';
 
 <Example name="editable/basic" />
@@ -112,34 +113,25 @@ and context is an accessor, so read state as `editable().editing`.
 
 ## Anatomy
 
-```text
-Editable
-├─ EditableLabel
-├─ EditableArea
-│  ├─ EditableInput
-│  └─ EditablePreview
-├─ EditableControl or EditableControls
-│  ├─ EditableEditTrigger
-│  ├─ EditableSubmitTrigger
-│  └─ EditableCancelTrigger
+Hover or focus a part to find it in the preview.
 
-EditableRootProvider
-└─ same part tree connected to Ark `useEditable()` state
-```
-
-| Part                         | Role                                                   |
-| ---------------------------- | ------------------------------------------------------ |
-| `Editable`                 | Component state, callbacks, form props, and accessibility wiring. |
-| `EditableRootProvider`      | Root connected to a `useEditable()` instance.          |
-| `EditableLabel`             | Visible label for the input and preview.               |
-| `EditableArea`              | Shared container for the input and preview.            |
-| `EditableInput`             | Text input shown while editing.                        |
-| `EditablePreview`           | Read-only value or placeholder shown outside edit mode. |
-| `EditableControl`           | Optional container for edit, submit, and cancel buttons. |
-| `EditableControls`          | Convenience wrapper for the standard trigger flow.   |
-| `EditableEditTrigger`       | Button that enters edit mode.                          |
-| `EditableSubmitTrigger`     | Button that commits the current value.                 |
-| `EditableCancelTrigger`     | Button that reverts the current value.                 |
+<AnatomyInspector
+  parts={[
+    ["Editable", "editable-root", "Component state, callbacks, form props, and accessibility wiring.", 0],
+    ["EditableLabel", "editable-label", "Visible label for the input and preview.", 1],
+    ["EditableArea", "editable-area", "Shared container for the input and preview.", 1],
+    ["EditableInput", "editable-input", "Text input shown while editing.", 2],
+    ["EditablePreview", "editable-preview", "Read-only value or placeholder shown outside edit mode.", 2],
+    ["EditableControl", "editable-control", "Optional container for edit, submit, and cancel buttons.", 1],
+    ["EditableEditTrigger", "editable-edit-trigger", "Button that enters edit mode.", 2],
+    ["EditableSubmitTrigger", "editable-submit-trigger", "Button that commits the current value.", 2],
+    ["EditableCancelTrigger", "editable-cancel-trigger", "Button that reverts the current value.", 2],
+    ["EditableControls", "", "Convenience wrapper for the standard trigger flow.", 2],
+    ["EditableRootProvider", "editable-root-provider", "Root connected to a `useEditable()` instance.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styling
 
@@ -154,7 +146,11 @@ layout. With `autoResize`, the root follows the text width instead. To limit the
 
 ### CSS variables
 
-<CssPropertiesSection properties={EditableDocs.editableOverrideCssProperties} />
+Hover or focus a variable to see it in the preview.
+
+<CssPropertiesSection properties={EditableDocs.editableOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Styling hooks
 

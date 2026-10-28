@@ -5,6 +5,7 @@ description: Закрытие уведомления, карточки или о
 ark: https://ark-ui.com/docs/guides/composition#the-ark-factory
 ---
 
+import AnatomyScene from '@/components/examples/close-button/basic';
 import * as CloseButtonDocs from '@/components/examples/close-button/css-properties';
 
 <Example name="close-button/basic" />
@@ -72,15 +73,15 @@ import * as CloseButtonDocs from '@/components/examples/close-button/css-propert
 
 У `CloseButton` одна корневая часть, построенная по модели Ark.
 
-```text
-CloseButton
-└─ root[data-scope="close-button"][data-part="root"][data-slot="close-button-root"]
-   └─ CloseIcon (стандартная) | пользовательские дочерние элементы
-```
+Наведите на часть или выберите её, чтобы найти её в превью.
 
-| Часть         | Назначение                                                              |
-| ------------- | ------------------------------------------------------------------------ |
-| `CloseButton` | Интерактивный элемент закрытия на основе семантики кнопки с поддержкой доступности. |
+<AnatomyInspector
+  parts={[
+    ["CloseButton", "close-button-root", "Интерактивный элемент закрытия на основе семантики кнопки с поддержкой доступности.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Стилизация
 
@@ -90,7 +91,11 @@ Tailwind используют обычные utility-классы и класс�
 
 ### CSS-переменные
 
-<CssPropertiesSection properties={CloseButtonDocs.closeButtonOverrideCssProperties} />
+Наведите на переменную или выберите её, чтобы увидеть её в превью.
+
+<CssPropertiesSection properties={CloseButtonDocs.closeButtonOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Хуки стилизации
 

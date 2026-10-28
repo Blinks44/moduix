@@ -5,6 +5,7 @@ description: Add prefixes, suffixes, and inline buttons around an input.
 ark: https://ark-ui.com/docs/guides/composition
 ---
 
+import AnatomyScene from '@/components/examples/input-group/basic';
 import * as InputGroupDocs from '@/components/examples/input-group/css-properties';
 
 <Example name="input-group/basic" />
@@ -127,24 +128,21 @@ meant for actions beside the control.
 
 ## Anatomy
 
-```text
-InputGroup
-├─ InputGroupAddon (optional)
-├─ InputGroupInput or InputGroupTextarea
-├─ InputGroupText (optional)
-├─ InputGroupButton (optional)
-└─ InputGroupClearTrigger (optional)
-```
+Hover or focus a part to find it in the preview.
 
-| Part                             | Role                                                        |
-| -------------------------------- | ----------------------------------------------------------- |
-| `InputGroup`                    | Passive layout wrapper with shared styling and size context. |
-| `InputGroupInput`               | Native `<input>` that owns the form value and field state.  |
-| `InputGroupTextarea`            | Native `<textarea>` for multi-line values; use it instead of `InputGroupInput`. |
-| `InputGroupAddon`               | Filled prefix or suffix.                                   |
-| `InputGroupText`                | Inline text without a fill.                                |
-| `InputGroupButton`              | Action button associated with the input.                   |
-| `InputGroupClearTrigger` | Clear action with a default close icon; clearing is handled by the application. |
+<AnatomyInspector
+  parts={[
+    ["InputGroup", "input-group-root", "Passive layout wrapper with shared styling and size context.", 0],
+    ["InputGroupAddon", "input-group-addon", "Filled prefix or suffix.", 1],
+    ["InputGroupInput", "", "Native `<input>` that owns the form value and field state.", 1],
+    ["InputGroupText", "input-group-text", "Inline text without a fill.", 1],
+    ["InputGroupTextarea", "", "Native `<textarea>` for multi-line values; use it instead of `InputGroupInput`.", 2],
+    ["InputGroupButton", "input-group-button", "Action button associated with the input.", 1],
+    ["InputGroupClearTrigger", "input-group-clear-trigger", "Clear action with a default close icon; clearing is handled by the application.", 1],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styling
 
@@ -157,7 +155,11 @@ component styles. Data attributes and `data-slot` hooks are shared by both styli
 
 ### CSS variables
 
-<CssPropertiesSection properties={InputGroupDocs.inputGroupOverrideCssProperties} />
+Hover or focus a variable to see it in the preview.
+
+<CssPropertiesSection properties={InputGroupDocs.inputGroupOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Styling hooks
 

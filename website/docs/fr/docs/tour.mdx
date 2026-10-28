@@ -5,6 +5,8 @@ description: Guider l’utilisateur dans le produit avec des étapes ancrées au
 ark: https://ark-ui.com/docs/components/tour
 ---
 
+import AnatomyScene from '@/components/examples/tour/basic';
+
 <Example name="tour/basic" />
 
 ## Installation
@@ -83,35 +85,22 @@ d’autres événements sur la racine, mais ne les émet pas pour un objet d’�
 
 ## Anatomie
 
-```text
-Tour
-└─ Éléments superposés (rendus dans un portail par défaut)
-   ├─ TourBackdrop
-   ├─ TourSpotlight
-   └─ TourPositioner
-      └─ TourContent
-         ├─ TourArrow
-         ├─ TourCloseIcon / TourCloseTrigger
-         ├─ TourBody
-         │  ├─ TourTitle
-         │  ├─ TourDescription
-         │  └─ TourProgressText
-         └─ TourControl
-            ├─ TourActionList
-            └─ TourActions
-               └─ TourActionTrigger[action]
-```
+Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
 
-| Partie | Rôle |
-| --- | --- |
-| `Tour` | Composant racine associé à l’objet renvoyé par `useTour`. |
-| `TourBackdrop` / `TourSpotlight` | Voile d’arrière-plan facultatif et mise en évidence de la cible active. |
-| `TourPositioner` / `TourContent` | Positionnent et affichent la boîte de dialogue `alertdialog` d’Ark. |
-| `TourArrow` | Affiche par défaut `TourArrowTip` de moduix pour les étapes de type infobulle. |
-| `TourCloseIcon` / `TourCloseTrigger` | Contrôle de fermeture accessible par défaut ou balisage personnalisé. |
-| `TourBody` | Conteneur moduix défilant pour le titre, la description et le texte de progression. |
-| `TourControl` / `TourActionList` | Rangée d’actions recommandée et actions de l’étape en cours. |
-| `TourActions` / `TourActionTrigger` | Interface d’actions personnalisée qui conserve chaque objet d’action Ark. |
+<AnatomyInspector
+  parts={[
+    ["Tour", null, "Composant racine associé à l’objet renvoyé par `useTour`.", 0],
+    ["TourBackdrop / TourSpotlight", "tour-backdrop", "Voile d’arrière-plan facultatif et mise en évidence de la cible active.", 1],
+    ["TourPositioner / TourContent", "tour-positioner", "Positionnent et affichent la boîte de dialogue `alertdialog` d’Ark.", 1],
+    ["TourArrow", "tour-arrow", "Affiche par défaut `TourArrowTip` de moduix pour les étapes de type infobulle.", 2],
+    ["TourCloseIcon / TourCloseTrigger", "tour-close-icon", "Contrôle de fermeture accessible par défaut ou balisage personnalisé.", 2],
+    ["TourBody", "tour-body", "Conteneur moduix défilant pour le titre, la description et le texte de progression.", 2],
+    ["TourControl / TourActionList", "tour-control", "Rangée d’actions recommandée et actions de l’étape en cours.", 2],
+    ["TourActions / TourActionTrigger", "", "Interface d’actions personnalisée qui conserve chaque objet d’action Ark.", 3],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styles
 

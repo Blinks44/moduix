@@ -5,6 +5,8 @@ description: Relier un libellé, une aide et une erreur à un contrôle de formu
 ark: https://ark-ui.com/docs/components/field
 ---
 
+import AnatomyScene from '@/components/examples/field/basic';
+
 <Example name="field/basic" />
 
 ## Installation
@@ -136,28 +138,22 @@ L’API publique `Field` utilise des valeurs plates préfixées par le nom de la
 pas son propre contrôle : placez-y un `Input`, un `Textarea`, un `NativeSelect` ou un autre contrôle de
 formulaire moduix, qui lit le contexte du champ.
 
-```text
-Field
-├─ FieldLabel
-├─ Input | Textarea | NativeSelect | another form control
-├─ FieldHelperText
-├─ FieldErrorText
-└─ FieldRequiredIndicator
+Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
 
-FieldRootProvider
-└─ même arbre de parties relié à l’état fourni par useField()
-```
-
-| Partie                    | Rôle                                                                                           |
-| ------------------------ | ---------------------------------------------------------------------------------------------- |
-| `Field`                  | Contexte racine. Il rend par défaut un `<div role="group">`.                                 |
-| `FieldRootProvider`     | Racine utilisant un état `useField()` créé en dehors de l’arbre de rendu.                      |
-| `FieldContext`          | Permet de lire l’état courant du champ sans ajouter d’élément au DOM.                          |
-| `FieldLabel`            | Libellé accessible associé au contrôle courant.                                                |
-| `FieldHelperText`       | Texte d’aide associé au contrôle via `aria-describedby`.                                       |
-| `FieldErrorText`        | Message d’erreur rendu lorsque la racine est dans l’état `invalid`.                           |
-| `FieldRequiredIndicator` | Marqueur visuel d’un champ obligatoire. Utilisez `fallback` pour remplacer le marqueur par défaut. |
-| `FieldItem`             | Contexte imbriqué pour un contrôle groupé identifié par `value` ; sa ref pointe vers le wrapper local. |
+<AnatomyInspector
+  parts={[
+    ["Field", "field-root", "Contexte racine. Il rend par défaut un `<div role=\"group\">`.", 0],
+    ["FieldLabel", "field-label", "Libellé accessible associé au contrôle courant.", 1],
+    ["FieldHelperText", "field-helper-text", "Texte d’aide associé au contrôle via `aria-describedby`.", 1],
+    ["FieldErrorText", "field-error-text", "Message d’erreur rendu lorsque la racine est dans l’état `invalid`.", 1],
+    ["FieldRequiredIndicator", "field-required-indicator", "Marqueur visuel d’un champ obligatoire. Utilisez `fallback` pour remplacer le marqueur par défaut.", 1],
+    ["FieldItem", "field-item", "Contexte imbriqué pour un contrôle groupé identifié par `value` ; sa ref pointe vers le wrapper local.", 1],
+    ["FieldRootProvider", "field-root-provider", "Racine utilisant un état `useField()` créé en dehors de l’arbre de rendu.", 0],
+    ["FieldContext", null, "Permet de lire l’état courant du champ sans ajouter d’élément au DOM.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styles
 

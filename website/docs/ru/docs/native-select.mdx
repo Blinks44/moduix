@@ -5,6 +5,7 @@ description: Выбор из короткого списка нативным se
 ark: https://ark-ui.com/docs/components/field
 ---
 
+import AnatomyScene from '@/components/examples/native-select/basic';
 import * as NativeSelectDocs from '@/components/examples/native-select/css-properties';
 
 <Example name="native-select/basic" />
@@ -82,19 +83,15 @@ Vue не имеет эффекта. Используйте `value` вместе 
 добавляется декоративная иконка `ChevronDownIcon`; при `multiple` и `size > 1`, когда браузер показывает
 список, иконка скрывается.
 
-```text
-NativeSelect
-└─ span[data-scope="native-select"][data-part="control"][data-slot="native-select-control"]
-   ├─ select[data-scope="field"][data-part="select"][data-slot="native-select-root"]
-   │  ├─ option
-   │  └─ optgroup
-   └─ span[data-scope="native-select"][data-part="indicator"][data-slot="native-select-indicator"]
-      └─ ChevronDownIcon
-```
+Наведите на часть или выберите её, чтобы найти её в превью.
 
-| Часть | Назначение |
-| ----- | ---------- |
-| `NativeSelect` | Публичный корневой компонент. Выводит нативный `<select>` и декоративный индикатор. |
+<AnatomyInspector
+  parts={[
+    ["NativeSelect", "native-select-indicator", "Публичный корневой компонент. Выводит нативный `<select>` и декоративный индикатор.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Стилизация
 
@@ -108,7 +105,11 @@ CSS Modules, поэтому размеры обоих селектов меня�
 Следующие переменные доступны в вариантах с CSS Modules. Отступы по умолчанию и геометрия индикатора опираются
 на общую шкалу с шагом 4 px.
 
-<CssPropertiesSection properties={NativeSelectDocs.nativeSelectCssProperties} />
+Наведите на переменную или выберите её, чтобы увидеть её в превью.
+
+<CssPropertiesSection properties={NativeSelectDocs.nativeSelectCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Хуки стилизации
 

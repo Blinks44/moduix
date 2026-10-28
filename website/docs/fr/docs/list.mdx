@@ -5,6 +5,8 @@ description: Afficher des listes à puces ou numérotées avec un espacement coh
 ark: https://ark-ui.com/docs/guides/composition#the-ark-factory
 ---
 
+import AnatomyScene from '@/components/examples/list/basic';
+
 <Example name="list/basic" />
 
 ## Installation
@@ -115,17 +117,17 @@ sélection au clavier relève de `Listbox`.
 
 ## Anatomie
 
-```text
-List
-└─ ListItem | li
-   └─ ListIndicator
-```
+Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
 
-| Partie               | Rôle                                                                                                  |
-| -------------------- | ----------------------------------------------------------------------------------------------------- |
-| `List`     | Racine sémantique de la liste, qui rend `ul` ou `ol` et contrôle les marqueurs, l’espacement, la taille et la tonalité. |
-| `ListItem` | Partie facultative qui rend `li`, transmet les attributs natifs et la ref, et prend en charge `asChild`.             |
-| `ListIndicator` | `span` facultatif placé en tête d’un élément pour une icône à la place du marqueur natif. |
+<AnatomyInspector
+  parts={[
+    ["List", "list-root", "Racine sémantique de la liste, qui rend `ul` ou `ol` et contrôle les marqueurs, l’espacement, la taille et la tonalité.", 0],
+    ["ListItem", "list-item", "Partie facultative qui rend `li`, transmet les attributs natifs et la ref, et prend en charge `asChild`.", 1],
+    ["ListIndicator", "list-indicator", "`span` facultatif placé en tête d’un élément pour une icône à la place du marqueur natif.", 2],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styles
 

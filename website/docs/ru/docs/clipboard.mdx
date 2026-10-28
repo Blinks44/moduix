@@ -5,6 +5,7 @@ description: Копирование значения в буфер обмена 
 ark: https://ark-ui.com/docs/components/clipboard
 ---
 
+import AnatomyScene from '@/components/examples/clipboard/basic';
 import * as ClipboardDocs from '@/components/examples/clipboard/css-properties';
 
 <Example name="clipboard/basic" />
@@ -125,25 +126,22 @@ Solid его `children` и `copied` принимают текст и иконк�
 
 ## Анатомия
 
-```text
-Clipboard | ClipboardRootProvider
-├─ ClipboardLabel (необязательно)
-├─ ClipboardControl
-│  ├─ ClipboardInput или ClipboardValueText
-│  └─ ClipboardTrigger
-│     └─ ClipboardIndicator (необязательно)
-```
+Наведите на часть или выберите её, чтобы найти её в превью.
 
-| Часть | Назначение |
-| --- | --- |
-| `Clipboard` | Хранит значение и управляет временным состоянием после копирования. |
-| `ClipboardRootProvider` | Связывает части с состоянием, созданным через `useClipboard()`. |
-| `ClipboardLabel` | Задаёт доступную подпись для значения. |
-| `ClipboardControl` | Объединяет отображение значения и кнопку копирования. |
-| `ClipboardInput` | Показывает значение в поле только для чтения. Для изменения используйте контролируемое состояние или `ClipboardContext.setValue()`. |
-| `ClipboardTrigger` | Копирует текущее значение при активации. По умолчанию отображается как кнопка. |
-| `ClipboardIndicator` | Показывает разное содержимое до и после копирования. По умолчанию это иконки копирования и подтверждения; в React и Solid передайте `copied="Copied"` и `children`, а в Vue используйте соответствующие слоты. |
-| `ClipboardValueText` | Выводит значение как текст, когда поле ввода не подходит. |
+<AnatomyInspector
+  parts={[
+    ["Clipboard", "clipboard-root", "Хранит значение и управляет временным состоянием после копирования.", 0],
+    ["ClipboardLabel", "clipboard-label", "Задаёт доступную подпись для значения.", 1],
+    ["ClipboardControl", "clipboard-control", "Объединяет отображение значения и кнопку копирования.", 1],
+    ["ClipboardInput", "clipboard-input", "Показывает значение в поле только для чтения. Для изменения используйте контролируемое состояние или `ClipboardContext.setValue()`.", 2],
+    ["ClipboardTrigger", "clipboard-trigger", "Копирует текущее значение при активации. По умолчанию отображается как кнопка.", 2],
+    ["ClipboardIndicator", "clipboard-indicator", "Показывает разное содержимое до и после копирования. По умолчанию это иконки копирования и подтверждения; в React и Solid передайте `copied=\"Copied\"` и `children`, а в Vue используйте соответствующие слоты.", 3],
+    ["ClipboardValueText", "clipboard-value-text", "Выводит значение как текст, когда поле ввода не подходит.", 1],
+    ["ClipboardRootProvider", "clipboard-root-provider", "Связывает части с состоянием, созданным через `useClipboard()`.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Стилизация
 
@@ -154,7 +152,11 @@ Clipboard | ClipboardRootProvider
 
 ### CSS-переменные
 
-<CssPropertiesSection properties={ClipboardDocs.clipboardOverrideCssProperties} />
+Наведите на переменную или выберите её, чтобы увидеть её в превью.
+
+<CssPropertiesSection properties={ClipboardDocs.clipboardOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Хуки стилизации
 

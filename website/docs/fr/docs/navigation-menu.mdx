@@ -5,6 +5,7 @@ description: Créer un en-tête où les éléments mènent à un lien ou ouvrent
 ark: https://ark-ui.com/docs/components/navigation-menu
 ---
 
+import AnatomyScene from '@/components/examples/navigation-menu/anatomy';
 import * as NavigationMenuDocs from '@/components/examples/navigation-menu/css-properties';
 
 <Example name="navigation-menu/basic" />
@@ -82,41 +83,26 @@ interactif pouvant recevoir le focus.
 
 ## Anatomie
 
-```text
-NavigationMenu
-├─ NavigationMenuList
-│  ├─ NavigationMenuItem[value]
-│  │  └─ NavigationMenuLink
-│  └─ NavigationMenuItem[value]
-│     ├─ NavigationMenuTrigger
-│     ├─ NavigationMenuItemIndicator (facultatif)
-│     └─ NavigationMenuContent
-│        └─ NavigationMenuLink
-│  └─ NavigationMenuIndicator > NavigationMenuArrow (facultatif)
-└─ NavigationMenuViewportPositioner (facultatif)
-   └─ NavigationMenuViewport
+Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
 
-NavigationMenuRootProvider
-└─ même arbre de parties relié à l’état créé avec useNavigationMenu()
-
-NavigationMenuContext
-└─ accès avancé à l’état courant de la navigation via une fonction de rendu
-```
-
-| Partie | Rôle |
-| --- | --- |
-| `NavigationMenu` | Élément `nav` racine qui gère l’élément ouvert, les délais, le focus et l’orientation. |
-| `NavigationMenuRootProvider` | Relie les parties à l’état créé avec `useNavigationMenu()`. |
-| `NavigationMenuContext` | Expose l’état courant de la navigation via une fonction de rendu. |
-| `NavigationMenuList` | Regroupe les éléments de navigation de premier niveau. |
-| `NavigationMenuItem` | Requiert une valeur `value` unique et relie le déclencheur, le contenu et les liens de l’élément. |
-| `NavigationMenuTrigger` | Bouton qui ouvre ou ferme le panneau dépliable de l’élément. |
-| `NavigationMenuContent` | Panneau dépliable de l’élément. Il peut s’afficher à côté de l’élément ou dans une zone `NavigationMenuViewport` partagée. |
-| `NavigationMenuLink` | Lien vers une destination directe ou lien à l’intérieur d’un panneau dépliable. |
-| `NavigationMenuItemIndicator` | Marqueur visuel facultatif de l’élément courant. |
-| `NavigationMenuIndicator` | Repère facultatif du déclencheur actif ; placez-le dans `NavigationMenuList`. Utilisez `NavigationMenuArrow` avec une zone `NavigationMenuViewport` partagée. |
-| `NavigationMenuViewportPositioner` | Positionne une zone `NavigationMenuViewport` partagée. |
-| `NavigationMenuViewport` | Zone animée partagée pour le contenu actuellement ouvert. |
+<AnatomyInspector
+  parts={[
+    ["NavigationMenu", "navigation-menu-root", "Élément `nav` racine qui gère l’élément ouvert, les délais, le focus et l’orientation.", 0],
+    ["NavigationMenuList", "navigation-menu-list", "Regroupe les éléments de navigation de premier niveau.", 1],
+    ["NavigationMenuItem", "navigation-menu-item", "Requiert une valeur `value` unique et relie le déclencheur, le contenu et les liens de l’élément.", 2],
+    ["NavigationMenuLink", "navigation-menu-link", "Lien vers une destination directe ou lien à l’intérieur d’un panneau dépliable.", 3],
+    ["NavigationMenuTrigger", "navigation-menu-trigger", "Bouton qui ouvre ou ferme le panneau dépliable de l’élément.", 2],
+    ["NavigationMenuItemIndicator", "navigation-menu-item-indicator", "Marqueur visuel facultatif de l’élément courant.", 2],
+    ["NavigationMenuContent", "navigation-menu-content", "Panneau dépliable de l’élément. Il peut s’afficher à côté de l’élément ou dans une zone `NavigationMenuViewport` partagée.", 2],
+    ["NavigationMenuIndicator", "navigation-menu-indicator", "Repère facultatif du déclencheur actif ; placez-le dans `NavigationMenuList`. Utilisez `NavigationMenuArrow` avec une zone `NavigationMenuViewport` partagée.", 2],
+    ["NavigationMenuViewportPositioner", "navigation-menu-viewport-positioner", "Positionne une zone `NavigationMenuViewport` partagée.", 1],
+    ["NavigationMenuViewport", "navigation-menu-viewport", "Zone animée partagée pour le contenu actuellement ouvert.", 2],
+    ["NavigationMenuRootProvider", "navigation-menu-root-provider", "Relie les parties à l’état créé avec `useNavigationMenu()`.", 0],
+    ["NavigationMenuContext", null, "Expose l’état courant de la navigation via une fonction de rendu.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styles
 
@@ -131,7 +117,11 @@ aux deux modes de style.
 
 ### Variables CSS
 
-<CssPropertiesSection properties={NavigationMenuDocs.navigationMenuOverrideCssProperties} />
+Survolez ou sélectionnez une variable pour la voir dans l’aperçu.
+
+<CssPropertiesSection properties={NavigationMenuDocs.navigationMenuOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Points d’accroche CSS
 

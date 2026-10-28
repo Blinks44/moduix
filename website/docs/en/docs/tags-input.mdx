@@ -5,6 +5,7 @@ description: Enter a list of short values as tags that users can edit or remove.
 ark: https://ark-ui.com/docs/components/tags-input
 ---
 
+import AnatomyScene from '@/components/examples/tags-input/basic';
 import * as TagsInputDocs from '@/components/examples/tags-input/css-properties';
 
 <Example name="tags-input/basic" />
@@ -155,47 +156,39 @@ with `asChild`.
 
 ## Anatomy
 
-```text
-TagsInput
-├─ TagsInputLabel
-├─ TagsInputControl
-│  ├─ TagsInputItems
-│  └─ TagsInputItem[index, value]
-│     ├─ TagsInputItemPreview
-│     │  ├─ TagsInputItemText
-│     │  └─ TagsInputItemDeleteTrigger
-│     └─ TagsInputItemInput
-│  ├─ TagsInputInput
-│  └─ TagsInputClearTrigger
-└─ TagsInputHiddenInput (explicit)
+Hover or focus a part to find it in the preview.
 
-TagsInputRootProvider
-└─ same part tree connected to a useTagsInput() store
-```
-
-| Part | Role |
-| --- | --- |
-| `TagsInput` | Root state, tag values, entry input, validation, and form integration. |
-| `TagsInputRootProvider` | Connects the parts to state returned by `useTagsInput()`. |
-| `TagsInputLabel` | Accessible label for the tags input. |
-| `TagsInputControl` | Visible shell containing tags, the entry input, and the clear trigger. |
-| `TagsInputItems` | Standard editable tag renderer for the current root values. |
-| `TagsInputItem` | One tag. Pass `index` and `value` when rendering custom items. |
-| `TagsInputItemContext` | Render-prop access to the state of the current item inside the component tree. |
-| `TagsInputItemPreview` | Visible tag content outside edit mode. |
-| `TagsInputItemText` | Visible tag text. |
-| `TagsInputItemDeleteTrigger` | Removes one tag and provides a compact close icon by default. |
-| `TagsInputItemInput` | Input used when a tag is edited in place. |
-| `TagsInputInput` | Entry input for new tags. |
-| `TagsInputClearTrigger` | Clears all tags and uses the shared close-button visual by default. |
-| `TagsInputHiddenInput` | Explicit native input for form submission. |
-| `TagsInputContext` | Render-prop access to the root state inside the component tree. |
+<AnatomyInspector
+  parts={[
+    ["TagsInput", "tags-input-root", "Root state, tag values, entry input, validation, and form integration.", 0],
+    ["TagsInputLabel", "tags-input-label", "Accessible label for the tags input.", 1],
+    ["TagsInputControl", "tags-input-control", "Visible shell containing tags, the entry input, and the clear trigger.", 1],
+    ["TagsInputItems", "", "Standard editable tag renderer for the current root values.", 2],
+    ["TagsInputItem", "tags-input-item", "One tag. Pass `index` and `value` when rendering custom items.", 2],
+    ["TagsInputItemPreview", "tags-input-item-preview", "Visible tag content outside edit mode.", 3],
+    ["TagsInputItemText", "tags-input-item-text", "Visible tag text.", 4],
+    ["TagsInputItemDeleteTrigger", "tags-input-item-delete-trigger", "Removes one tag and provides a compact close icon by default.", 4],
+    ["TagsInputItemInput", "tags-input-item-input", "Input used when a tag is edited in place.", 3],
+    ["TagsInputInput", "tags-input-input", "Entry input for new tags.", 2],
+    ["TagsInputClearTrigger", "tags-input-clear-trigger", "Clears all tags and uses the shared close-button visual by default.", 2],
+    ["TagsInputHiddenInput", "", "Explicit native input for form submission.", 1],
+    ["TagsInputRootProvider", "tags-input-root-provider", "Connects the parts to state returned by `useTagsInput()`.", 0],
+    ["TagsInputItemContext", null, "Render-prop access to the state of the current item inside the component tree.", 0],
+    ["TagsInputContext", null, "Render-prop access to the root state inside the component tree.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styling
 
 ### CSS variables
 
-<CssPropertiesSection properties={TagsInputDocs.tagsInputCssProperties} />
+Hover or focus a variable to see it in the preview.
+
+<CssPropertiesSection properties={TagsInputDocs.tagsInputCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Styling hooks
 

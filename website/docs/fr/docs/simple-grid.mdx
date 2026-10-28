@@ -5,6 +5,8 @@ description: Disposer cartes et tuiles en colonnes égales qui s’adaptent à l
 ark: https://ark-ui.com/docs/guides/composition
 ---
 
+import AnatomyScene from '@/components/examples/simple-grid/basic';
+
 <Example name="simple-grid/basic" />
 
 ## Installation
@@ -77,15 +79,15 @@ modèle dans votre propre classe, y compris un modèle adaptatif dans des media 
 
 `SimpleGrid` rend un seul élément racine CSS Grid et n’ajoute aucune enveloppe autour de ses enfants.
 
-```text
-SimpleGrid
-└─ root[data-scope="simple-grid"][data-part="root"][data-slot="simple-grid-root"]
-   └─ children
-```
+Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
 
-| Partie       | Rôle                                                     |
-| ------------ | -------------------------------------------------------- |
-| `SimpleGrid` | Élément racine qui crée des colonnes CSS Grid de même largeur. |
+<AnatomyInspector
+  parts={[
+    ["SimpleGrid", "simple-grid-root", "Élément racine qui crée des colonnes CSS Grid de même largeur.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styles
 

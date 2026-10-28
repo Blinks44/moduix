@@ -5,6 +5,7 @@ description: Pick from a short list with the browser’s own select.
 ark: https://ark-ui.com/docs/components/field
 ---
 
+import AnatomyScene from '@/components/examples/native-select/basic';
 import * as NativeSelectDocs from '@/components/examples/native-select/css-properties';
 
 <Example name="native-select/basic" />
@@ -84,19 +85,15 @@ hidden. `asChild` can replace the rendered select, but the child must remain one
 controls also get a decorative `ChevronDownIcon`; the indicator is hidden for `multiple` and
 `size > 1`, when the browser displays a list.
 
-```text
-NativeSelect
-└─ span[data-scope="native-select"][data-part="control"][data-slot="native-select-control"]
-   ├─ select[data-scope="field"][data-part="select"][data-slot="native-select-root"]
-   │  ├─ option
-   │  └─ optgroup
-   └─ span[data-scope="native-select"][data-part="indicator"][data-slot="native-select-indicator"]
-      └─ ChevronDownIcon
-```
+Hover or focus a part to find it in the preview.
 
-| Part | Role |
-| ---- | ---- |
-| `NativeSelect` | Public root component. Renders the native `<select>` and decorative indicator. |
+<AnatomyInspector
+  parts={[
+    ["NativeSelect", "native-select-indicator", "Public root component. Renders the native `<select>` and decorative indicator.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styling
 
@@ -110,7 +107,11 @@ classes and consumer class overrides.
 The following variables are available in the CSS Modules variants. Default padding and indicator
 geometry use the shared 4px spacing scale.
 
-<CssPropertiesSection properties={NativeSelectDocs.nativeSelectCssProperties} />
+Hover or focus a variable to see it in the preview.
+
+<CssPropertiesSection properties={NativeSelectDocs.nativeSelectCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Styling hooks
 

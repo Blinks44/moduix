@@ -5,6 +5,7 @@ description: Показывает и скрывает одну область к
 ark: https://ark-ui.com/docs/components/collapsible
 ---
 
+import AnatomyScene from '@/components/examples/collapsible/basic';
 import * as CollapsibleDocs from '@/components/examples/collapsible/css-properties';
 
 <Example name="collapsible/basic" />
@@ -128,27 +129,20 @@ Vue для того же управляемого контракта испол�
 
 ## Анатомия
 
-```text
-Collapsible
-├─ CollapsibleTrigger
-│  ├─ метка
-│  └─ CollapsibleIndicator (необязательно)
-└─ CollapsibleContent
-   └─ CollapsibleBody
-       └─ содержимое
+Наведите на часть или выберите её, чтобы найти её в превью.
 
-CollapsibleRootProvider
-└─ то же дерево частей, подключённое к состоянию из useCollapsible()
-```
-
-| Часть                     | Назначение                                                               |
-| ------------------------- | ------------------------------------------------------------------------ |
-| `Collapsible`             | Управляет состоянием одного раскрывающегося блока.                       |
-| `CollapsibleRootProvider` | Подключает части к состоянию, созданному через `useCollapsible`.          |
-| `CollapsibleTrigger`      | Доступная кнопка для раскрытия и сворачивания содержимого.                |
-| `CollapsibleIndicator`    | Необязательный индикатор состояния с шевроном moduix по умолчанию.        |
-| `CollapsibleContent`      | Анимируемая область, размер которой измеряет Ark.                        |
-| `CollapsibleBody`         | Внутренняя обёртка для отступов и размещения содержимого.                 |
+<AnatomyInspector
+  parts={[
+    ["Collapsible", "collapsible-root", "Управляет состоянием одного раскрывающегося блока.", 0],
+    ["CollapsibleTrigger", "collapsible-trigger", "Доступная кнопка для раскрытия и сворачивания содержимого.", 1],
+    ["CollapsibleIndicator", "collapsible-indicator", "Необязательный индикатор состояния с шевроном moduix по умолчанию.", 2],
+    ["CollapsibleContent", "collapsible-content", "Анимируемая область, размер которой измеряет Ark.", 1],
+    ["CollapsibleBody", "collapsible-body", "Внутренняя обёртка для отступов и размещения содержимого.", 2],
+    ["CollapsibleRootProvider", "collapsible-root-provider", "Подключает части к состоянию, созданному через `useCollapsible`.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Стилизация
 
@@ -163,7 +157,11 @@ CollapsibleRootProvider
 
 ### CSS-переменные
 
-<CssPropertiesSection properties={CollapsibleDocs.collapsibleOverrideCssProperties} />
+Наведите на переменную или выберите её, чтобы увидеть её в превью.
+
+<CssPropertiesSection properties={CollapsibleDocs.collapsibleOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Хуки стилизации
 

@@ -5,6 +5,7 @@ description: Ajouter une courte info-bulle à un contrôle au survol ou au focus
 ark: https://ark-ui.com/docs/components/tooltip
 ---
 
+import AnatomyScene from '@/components/examples/tooltip/anatomy';
 
 <Example name="tooltip/basic" />
 
@@ -133,41 +134,27 @@ options avec `:unmount-on-exit="false"` et `:lazy-mount="false"`.
 
 ## Anatomie
 
-```text
-Tooltip
-├─ TooltipTrigger
-└─ Sous-arbre flottant (rendu automatiquement dans un portail)
-   └─ TooltipPositioner
-      └─ TooltipContent
-         └─ contenu
-```
-
 Ajoutez `TooltipArrow` comme premier enfant du contenu lorsque la fenêtre flottante doit pointer
 vers son élément déclencheur. `TooltipArrow` rend `TooltipArrowTip` par défaut.
 
-```text
-Tooltip
-├─ TooltipTrigger
-└─ Sous-arbre flottant (rendu automatiquement dans un portail)
-   └─ TooltipPositioner
-      └─ TooltipContent
-         ├─ TooltipArrow
-         │  └─ TooltipArrowTip
-         └─ contenu
-```
+Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
 
-| Partie | Rôle |
-| --- | --- |
-| `Tooltip` | Gère l’état, l’ouverture et la fermeture, les délais, le positionnement et le cycle de vie de l’infobulle. |
-| `TooltipRootProvider` | Affiche une infobulle à partir d’un objet d’état `useTooltip()` créé en dehors de l’arbre. |
-| `TooltipContext` | Expose l’état courant aux descendants personnalisés via une fonction de rendu ou un slot avec portée en Vue. |
-| `TooltipBody` | Raccourci qui rend `TooltipPositioner` et `TooltipContent` ensemble. |
-| `TooltipTrigger` | Élément interactif qui ouvre l’infobulle au survol ou au focus. |
-| `TooltipDisabledTrigger` | Enveloppe pouvant recevoir le focus autour d’un unique contrôle natif désactivé qui nécessite une explication. |
-| `TooltipPositioner` | Positionne le contenu et expose les variables de positionnement d’Ark. |
-| `TooltipContent` | Surface visible de l’infobulle. |
-| `TooltipArrow` | Enveloppe facultative de la flèche, positionnée automatiquement, qui rend `TooltipArrowTip` par défaut. |
-| `TooltipArrowTip` | Pointe visible de la flèche. |
+<AnatomyInspector
+  parts={[
+    ["Tooltip", null, "Gère l’état, l’ouverture et la fermeture, les délais, le positionnement et le cycle de vie de l’infobulle.", 0],
+    ["TooltipTrigger", "tooltip-trigger", "Élément interactif qui ouvre l’infobulle au survol ou au focus.", 1],
+    ["TooltipDisabledTrigger", "tooltip-disabled-trigger", "Enveloppe pouvant recevoir le focus autour d’un unique contrôle natif désactivé qui nécessite une explication.", 1],
+    ["TooltipPositioner", "tooltip-positioner", "Positionne le contenu et expose les variables de positionnement d’Ark.", 1],
+    ["TooltipContent", "tooltip-content", "Surface visible de l’infobulle.", 2],
+    ["TooltipArrow", "tooltip-arrow", "Enveloppe facultative de la flèche, positionnée automatiquement, qui rend `TooltipArrowTip` par défaut.", 3],
+    ["TooltipArrowTip", "tooltip-arrow-tip", "Pointe visible de la flèche.", 4],
+    ["TooltipBody", "", "Raccourci qui rend `TooltipPositioner` et `TooltipContent` ensemble.", 1],
+    ["TooltipRootProvider", null, "Affiche une infobulle à partir d’un objet d’état `useTooltip()` créé en dehors de l’arbre.", 0],
+    ["TooltipContext", null, "Expose l’état courant aux descendants personnalisés via une fonction de rendu ou un slot avec portée en Vue.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styles
 

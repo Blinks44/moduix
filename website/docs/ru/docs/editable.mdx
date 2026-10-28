@@ -5,6 +5,7 @@ description: Правка короткого текста на месте с с�
 ark: https://ark-ui.com/docs/components/editable
 ---
 
+import AnatomyScene from '@/components/examples/editable/basic';
 import * as EditableDocs from '@/components/examples/editable/css-properties';
 
 <Example name="editable/basic" />
@@ -115,34 +116,25 @@ import * as EditableDocs from '@/components/examples/editable/css-properties';
 
 ## Анатомия
 
-```text
-Editable
-├─ EditableLabel
-├─ EditableArea
-│  ├─ EditableInput
-│  └─ EditablePreview
-├─ EditableControl или EditableControls
-│  ├─ EditableEditTrigger
-│  ├─ EditableSubmitTrigger
-│  └─ EditableCancelTrigger
+Наведите на часть или выберите её, чтобы найти её в превью.
 
-EditableRootProvider
-└─ то же дерево частей, подключённое к состоянию Ark из `useEditable()`
-```
-
-| Часть                        | Назначение                                             |
-| ---------------------------- | ------------------------------------------------------ |
-| `Editable`                 | Состояние компонента, callbacks, свойства формы и доступность. |
-| `EditableRootProvider`      | Корневая часть, подключённая к экземпляру `useEditable()`. |
-| `EditableLabel`             | Видимая подпись поля и отображаемого значения.         |
-| `EditableArea`              | Общий контейнер для поля ввода и отображаемого значения. |
-| `EditableInput`             | Текстовое поле в режиме редактирования.               |
-| `EditablePreview`           | Значение или плейсхолдер вне режима редактирования.    |
-| `EditableControl`           | Необязательный контейнер кнопок редактирования, сохранения и отмены. |
-| `EditableControls`           | Удобная обёртка стандартного сценария управления.     |
-| `EditableEditTrigger`       | Кнопка перехода в режим редактирования.               |
-| `EditableSubmitTrigger`     | Кнопка сохранения текущего значения.                   |
-| `EditableCancelTrigger`     | Кнопка отмены текущих изменений.                       |
+<AnatomyInspector
+  parts={[
+    ["Editable", "editable-root", "Состояние компонента, callbacks, свойства формы и доступность.", 0],
+    ["EditableLabel", "editable-label", "Видимая подпись поля и отображаемого значения.", 1],
+    ["EditableArea", "editable-area", "Общий контейнер для поля ввода и отображаемого значения.", 1],
+    ["EditableInput", "editable-input", "Текстовое поле в режиме редактирования.", 2],
+    ["EditablePreview", "editable-preview", "Значение или плейсхолдер вне режима редактирования.", 2],
+    ["EditableControl", "editable-control", "Необязательный контейнер кнопок редактирования, сохранения и отмены.", 1],
+    ["EditableEditTrigger", "editable-edit-trigger", "Кнопка перехода в режим редактирования.", 2],
+    ["EditableSubmitTrigger", "editable-submit-trigger", "Кнопка сохранения текущего значения.", 2],
+    ["EditableCancelTrigger", "editable-cancel-trigger", "Кнопка отмены текущих изменений.", 2],
+    ["EditableControls", "", "Удобная обёртка стандартного сценария управления.", 2],
+    ["EditableRootProvider", "editable-root-provider", "Корневая часть, подключённая к экземпляру `useEditable()`.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Стилизация
 
@@ -157,7 +149,11 @@ EditableRootProvider
 
 ### CSS-переменные
 
-<CssPropertiesSection properties={EditableDocs.editableOverrideCssProperties} />
+Наведите на переменную или выберите её, чтобы увидеть её в превью.
+
+<CssPropertiesSection properties={EditableDocs.editableOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Хуки стилизации
 

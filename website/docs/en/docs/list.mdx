@@ -5,6 +5,8 @@ description: Render bulleted or numbered lists with consistent spacing and marke
 ark: https://ark-ui.com/docs/guides/composition#the-ark-factory
 ---
 
+import AnatomyScene from '@/components/examples/list/basic';
+
 <Example name="list/basic" />
 
 ## Installation
@@ -110,17 +112,17 @@ machine or callbacks, so keyboard selection belongs to `Listbox`.
 
 ## Anatomy
 
-```text
-List
-└─ ListItem | li
-   └─ ListIndicator
-```
+Hover or focus a part to find it in the preview.
 
-| Part                 | Role                                                                                              |
-| -------------------- | ------------------------------------------------------------------------------------------------- |
-| `List`     | Semantic list root that renders `ul` or `ol` and controls markers, spacing, size, and tone.      |
-| `ListItem` | Optional item part that renders `li`, forwards native attributes and refs, and supports `asChild`. |
-| `ListIndicator` | Optional `span` placed first in an item for an icon instead of a native marker. |
+<AnatomyInspector
+  parts={[
+    ["List", "list-root", "Semantic list root that renders `ul` or `ol` and controls markers, spacing, size, and tone.", 0],
+    ["ListItem", "list-item", "Optional item part that renders `li`, forwards native attributes and refs, and supports `asChild`.", 1],
+    ["ListIndicator", "list-indicator", "Optional `span` placed first in an item for an icon instead of a native marker.", 2],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styling
 

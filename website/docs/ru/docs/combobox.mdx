@@ -5,6 +5,7 @@ description: Ввод с фильтрацией списка и выбором �
 ark: https://ark-ui.com/docs/components/combobox
 ---
 
+import AnatomyScene from '@/components/examples/combobox/anatomy';
 import * as ComboboxDocs from '@/components/examples/combobox/css-properties';
 
 <Example name="combobox/basic" />
@@ -153,45 +154,29 @@ import * as ComboboxDocs from '@/components/examples/combobox/css-properties';
 
 ## Анатомия
 
-```text
-Combobox[collection]
-├─ ComboboxLabel
-├─ ComboboxControl
-│  ├─ ComboboxInput
-│  ├─ ComboboxClearTrigger
-│  └─ ComboboxTrigger
-└─ Поддерево всплывающего списка (автоматически помещается в портал)
- └─ ComboboxPositioner
-    └─ ComboboxContent
-       ├─ ComboboxEmpty
-       ├─ ComboboxStatus
-       ├─ ComboboxList
-       │  ├─ ComboboxOption[item]
-       │  └─ ComboboxItem[item]
-       │     ├─ ComboboxItemText
-       │     └─ ComboboxItemIndicator
-       └─ ComboboxItemGroup
-          ├─ ComboboxItemGroupLabel
-          └─ ComboboxItem
-```
+Наведите на часть или выберите её, чтобы найти её в превью.
 
-| Часть                        | Назначение                                                         |
-| ---------------------------- | ------------------------------------------------------------------ |
-| `Combobox` | Управляет состоянием Combobox, фильтрацией, подсветкой и выбранными значениями. |
-| `ComboboxControl`           | Обёртка для поля ввода и кнопок действий.                          |
-| `ComboboxInput`             | Поле, в котором пользователь ищет и выбирает вариант.              |
-| `ComboboxTrigger`           | Открывает и закрывает список вариантов.                            |
-| `ComboboxClearTrigger`      | Очищает выбранное значение и/или текст в поле.                     |
-| `ComboboxPositioner`        | Позиционирует всплывающий список.                                  |
-| `ComboboxContent`           | Контейнер содержимого списка.                                      |
-| `ComboboxStatus`            | Стилизованный контейнер для сообщений приложения о загрузке, ошибке или подсказке. |
-| `ComboboxList`              | Обёртка списка вариантов.                                          |
-| `ComboboxOption`            | Готовая строка для простого варианта, с текстом и индикатором.     |
-| `ComboboxItem`              | Выбираемая строка списка.                                          |
-| `ComboboxItemText`          | Слот текста элемента.                                               |
-| `ComboboxItemIndicator`     | Слот индикатора выбранного состояния.                              |
-| `ComboboxContext`           | Доступ к состоянию Combobox без добавления элементов в DOM.        |
-| `ComboboxItemContext`       | Доступ к состоянию текущего элемента без добавления элементов в DOM. |
+<AnatomyInspector
+  parts={[
+    ["Combobox", "combobox-root", "Управляет состоянием Combobox, фильтрацией, подсветкой и выбранными значениями.", 0],
+    ["ComboboxControl", "combobox-control", "Обёртка для поля ввода и кнопок действий.", 1],
+    ["ComboboxInput", "combobox-input", "Поле, в котором пользователь ищет и выбирает вариант.", 2],
+    ["ComboboxClearTrigger", "combobox-clear-trigger", "Очищает выбранное значение и/или текст в поле.", 2],
+    ["ComboboxTrigger", "combobox-trigger", "Открывает и закрывает список вариантов.", 2],
+    ["ComboboxPositioner", "combobox-positioner", "Позиционирует всплывающий список.", 1],
+    ["ComboboxContent", "combobox-content", "Контейнер содержимого списка.", 2],
+    ["ComboboxStatus", "combobox-status", "Стилизованный контейнер для сообщений приложения о загрузке, ошибке или подсказке.", 3],
+    ["ComboboxList", "combobox-list", "Обёртка списка вариантов.", 3],
+    ["ComboboxOption", "", "Готовая строка для простого варианта, с текстом и индикатором.", 4],
+    ["ComboboxItem", "combobox-item", "Выбираемая строка списка.", 4],
+    ["ComboboxItemText", "combobox-item-text", "Слот текста элемента.", 5],
+    ["ComboboxItemIndicator", "combobox-item-indicator", "Слот индикатора выбранного состояния.", 5],
+    ["ComboboxContext", null, "Доступ к состоянию Combobox без добавления элементов в DOM.", 0],
+    ["ComboboxItemContext", null, "Доступ к состоянию текущего элемента без добавления элементов в DOM.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 `ComboboxRootProvider` использует ту же стилизацию корневого компонента для состояния, созданного через `useCombobox` из moduix.
 Состояние Combobox внутри дерева можно получить через `ComboboxContext` или `useComboboxContext`, а состояние элемента - через
@@ -205,7 +190,11 @@ Combobox[collection]
 
 ### CSS-переменные
 
-<CssPropertiesSection properties={ComboboxDocs.comboboxOverrideCssProperties} />
+Наведите на переменную или выберите её, чтобы увидеть её в превью.
+
+<CssPropertiesSection properties={ComboboxDocs.comboboxOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Хуки стилизации
 

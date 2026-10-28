@@ -5,6 +5,7 @@ description: Модальное окно для формы, подтвержде
 ark: https://ark-ui.com/docs/components/dialog
 ---
 
+import AnatomyScene from '@/components/examples/dialog/anatomy';
 import * as DialogDocs from '@/components/examples/dialog/css-properties';
 
 <Example name="dialog/basic" />
@@ -151,43 +152,28 @@ moduix использует это состояние, чтобы отодвин
 
 ## Анатомия
 
-```text
-Dialog
-├─ DialogTrigger
-└─ Содержимое overlay (автоматически переносится в portal)
-   ├─ DialogBackdrop (необязательно)
-   └─ DialogPositioner
-      └─ DialogContent
-         ├─ DialogCloseTrigger или DialogCloseIcon
-         ├─ DialogTitle
-         ├─ DialogDescription
-         ├─ DialogHeader (вспомогательная часть moduix для разметки)
-         ├─ DialogBody (вспомогательная часть moduix для разметки)
-         └─ DialogFooter (вспомогательная часть moduix для разметки)
+Наведите на часть или выберите её, чтобы найти её в превью.
 
-DialogRootProvider
-└─ то же дерево частей, подключённое к состоянию из moduix useDialog()
-
-DialogContext
-└─ render-функция с текущим состоянием и методами диалога
-```
-
-| Часть                    | Назначение                                                          |
-| ------------------------ | ------------------------------------------------------------------- |
-| `Dialog` / `DialogRootProvider` | Управляет состоянием открытия, фокусом и закрытием.                 |
-| `DialogRootProvider`    | Подключает части к состоянию, созданному с помощью `useDialog()`.   |
-| `DialogTrigger`         | Открывает диалог.                                                    |
-| `DialogBackdrop`        | Необязательный фон модального диалога.                              |
-| `DialogPositioner`      | Размещает содержимое диалога.                                        |
-| `DialogContent`         | Содержит видимую поверхность диалога.                               |
-| `DialogTitle`           | Задаёт доступное имя диалога.                                       |
-| `DialogDescription`     | Добавляет дополнительный доступный текст.                           |
-| `DialogCloseTrigger`    | Закрывает диалог.                                                    |
-| `DialogCloseIcon`       | Вспомогательная кнопка moduix, которая закрывает диалог.             |
-| `DialogHeader`          | Вспомогательная часть moduix для разметки заголовка.                 |
-| `DialogBody`            | Вспомогательная часть moduix для основного содержимого.              |
-| `DialogFooter`          | Вспомогательная часть moduix для действий.                          |
-| `DialogContext`         | Передаёт дочерним элементам состояние и методы диалога.             |
+<AnatomyInspector
+  parts={[
+    ["Dialog", null, "Управляет состоянием открытия, фокусом и закрытием.", 0],
+    ["DialogTrigger", "dialog-trigger", "Открывает диалог.", 1],
+    ["DialogBackdrop", "dialog-backdrop", "Необязательный фон модального диалога.", 1],
+    ["DialogPositioner", "dialog-positioner", "Размещает содержимое диалога.", 1],
+    ["DialogContent", "dialog-content", "Содержит видимую поверхность диалога.", 2],
+    ["DialogHeader", "dialog-header", "Вспомогательная часть moduix для разметки заголовка.", 3],
+    ["DialogTitle", "dialog-title", "Задаёт доступное имя диалога.", 4],
+    ["DialogCloseIcon", "dialog-close-icon", "Вспомогательная кнопка moduix, которая закрывает диалог.", 4],
+    ["DialogDescription", "dialog-description", "Добавляет дополнительный доступный текст.", 4],
+    ["DialogBody", "dialog-body", "Вспомогательная часть moduix для основного содержимого.", 3],
+    ["DialogFooter", "dialog-footer", "Вспомогательная часть moduix для действий.", 3],
+    ["DialogCloseTrigger", "dialog-close-trigger", "Закрывает диалог.", 4],
+    ["DialogRootProvider", null, "Подключает части к состоянию, созданному с помощью `useDialog()`.", 0],
+    ["DialogContext", null, "Передаёт дочерним элементам состояние и методы диалога.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 Импортируйте `useDialog()`, если состояние диалога должно находиться за пределами его дерева.
 Читайте или обновляйте это состояние через `DialogContext` или `useDialogContext()` из выбранного
@@ -203,7 +189,11 @@ DialogContext
 
 ### CSS-переменные
 
-<CssPropertiesSection properties={DialogDocs.dialogOverrideCssProperties} />
+Наведите на переменную или выберите её, чтобы увидеть её в превью.
+
+<CssPropertiesSection properties={DialogDocs.dialogOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Хуки стилизации
 

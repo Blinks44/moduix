@@ -5,6 +5,8 @@ description: Arrange items in a row or column with even spacing.
 ark: https://ark-ui.com/docs/guides/composition#the-ark-factory
 ---
 
+import AnatomyScene from '@/components/examples/stack/basic';
+
 <Example name="stack/basic" />
 
 ## Installation
@@ -86,15 +88,15 @@ and use `asChild` when the root should be a semantic element.
 `Stack` renders one flex root that follows Ark's factory model. It controls direction, gap, alignment, wrapping, and
 a simple responsive direction switch. Keep broader layout rules in your local CSS.
 
-```text
-Stack
-└─ root[data-scope="stack"][data-part="root"][data-slot="stack-root"]
-   └─ children
-```
+Hover or focus a part to find it in the preview.
 
-| Part                   | Role                                                                |
-| ---------------------- | ------------------------------------------------------------------- |
-| `Stack`                | Root flex wrapper for direction, gap, alignment, and child spacing. |
+<AnatomyInspector
+  parts={[
+    ["Stack", "stack-root", "Root flex wrapper for direction, gap, alignment, and child spacing.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styling
 

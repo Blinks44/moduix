@@ -5,6 +5,7 @@ description: Parcourir dossiers, fichiers et données imbriquées dans un arbre.
 ark: https://ark-ui.com/docs/components/tree-view
 ---
 
+import AnatomyScene from '@/components/examples/tree-view/basic';
 import * as TreeViewDocs from '@/components/examples/tree-view/css-properties';
 
 <Example name="tree-view/basic" />
@@ -105,35 +106,24 @@ pour que Vue préserve son instance de classe.
 
 ## Anatomie
 
-```text
-TreeView
-├─ TreeViewLabel
-└─ TreeViewTree
-   └─ TreeViewNode ou TreeViewNodeProvider
-      ├─ TreeViewBranch
-      │  ├─ TreeViewBranchControl
-      │  │  ├─ TreeViewBranchIndicator
-      │  │  └─ TreeViewBranchText
-      │  ├─ TreeViewBranchTrigger (optionnel, déclencheur dédié)
-      │  └─ TreeViewBranchContent
-      │     ├─ TreeViewBranchIndentGuide
-      │     └─ nœuds imbriqués
-      └─ TreeViewItem
-         └─ TreeViewItemText
-```
+Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
 
-| Partie                           | Rôle                                                                  |
-| -------------------------------- | --------------------------------------------------------------------- |
-| `TreeView`                  | Conserve la collection et gère l’ouverture, la sélection, le focus, les cases à cocher et le renommage. |
-| `TreeViewRootProvider`          | Relie les parties de l’arborescence à une instance créée par `useTreeView`. |
-| `TreeViewLabel`                 | Donne un nom accessible à l’arborescence.                            |
-| `TreeViewTree`                  | Crée le conteneur d’arborescence ARIA.                               |
-| `TreeViewNode`                  | Un provider pratique qui expose `{ node, indexPath, state }`.        |
-| `TreeViewNodeProvider`          | La limite de contexte Ark de bas niveau pour une composition personnalisée. |
-| `TreeViewBranch*`               | Un nœud dépliable, son contrôle, son indicateur, son texte et son contenu enfant. |
-| `TreeViewItem*`                 | Une feuille et son indicateur facultatif de sélection.               |
-| `TreeViewNodeCheckbox*`         | La case à cocher et son indicateur coché ou indéterminé.             |
-| `TreeViewNodeRenameInput`       | Le champ affiché pendant le renommage d’un nœud.                     |
+<AnatomyInspector
+  parts={[
+    ["TreeView", "tree-view-root", "Conserve la collection et gère l’ouverture, la sélection, le focus, les cases à cocher et le renommage.", 0],
+    ["TreeViewLabel", "tree-view-label", "Donne un nom accessible à l’arborescence.", 1],
+    ["TreeViewTree", "tree-view-tree", "Crée le conteneur d’arborescence ARIA.", 1],
+    ["TreeViewNode", "", "Un provider pratique qui expose `{ node, indexPath, state }`.", 2],
+    ["TreeViewBranch*", "tree-view-branch", "Un nœud dépliable, son contrôle, son indicateur, son texte et son contenu enfant.", 3],
+    ["TreeViewItem*", "tree-view-item", "Une feuille et son indicateur facultatif de sélection.", 3],
+    ["TreeViewNodeCheckbox*", "tree-view-node-checkbox", "La case à cocher et son indicateur coché ou indéterminé.", 3],
+    ["TreeViewNodeRenameInput", "tree-view-node-rename-input", "Le champ affiché pendant le renommage d’un nœud.", 3],
+    ["TreeViewRootProvider", "tree-view-root-provider", "Relie les parties de l’arborescence à une instance créée par `useTreeView`.", 0],
+    ["TreeViewNodeProvider", null, "La limite de contexte Ark de bas niveau pour une composition personnalisée.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styles
 
@@ -152,7 +142,11 @@ surchargez le reste avec une classe sur la partie.
 
 ### Variables CSS
 
-<CssPropertiesSection properties={TreeViewDocs.treeViewOverrideCssProperties} />
+Survolez ou sélectionnez une variable pour la voir dans l’aperçu.
+
+<CssPropertiesSection properties={TreeViewDocs.treeViewOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Points d’accroche CSS
 

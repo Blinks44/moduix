@@ -5,6 +5,7 @@ description: Saisir une liste de valeurs courtes sous forme d’étiquettes modi
 ark: https://ark-ui.com/docs/components/tags-input
 ---
 
+import AnatomyScene from '@/components/examples/tags-input/basic';
 import * as TagsInputDocs from '@/components/examples/tags-input/css-properties';
 
 <Example name="tags-input/basic" />
@@ -162,47 +163,39 @@ puis composez les champs avec `asChild`.
 
 ## Anatomie
 
-```text
-TagsInput
-├─ TagsInputLabel
-├─ TagsInputControl
-│  ├─ TagsInputItems
-│  └─ TagsInputItem[index, value]
-│     ├─ TagsInputItemPreview
-│     │  ├─ TagsInputItemText
-│     │  └─ TagsInputItemDeleteTrigger
-│     └─ TagsInputItemInput
-│  ├─ TagsInputInput
-│  └─ TagsInputClearTrigger
-└─ TagsInputHiddenInput (explicit)
+Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
 
-TagsInputRootProvider
-└─ same part tree connected to a useTagsInput() store
-```
-
-| Partie | Rôle |
-| --- | --- |
-| `TagsInput` | Racine qui gère l’état, les valeurs, la saisie, la validation et l’intégration au formulaire. |
-| `TagsInputRootProvider` | Relie les parties à l’état renvoyé par `useTagsInput()`. |
-| `TagsInputLabel` | Libellé accessible du champ de tags. |
-| `TagsInputControl` | Conteneur visible des tags, du champ de saisie et du déclencheur d’effacement. |
-| `TagsInputItems` | Rendu standard des tags modifiables de la racine. |
-| `TagsInputItem` | Un tag. Transmettez `index` et `value` pour un rendu personnalisé. |
-| `TagsInputItemContext` | Accès par render prop à l’état de l’élément courant dans l’arbre du composant. |
-| `TagsInputItemPreview` | Contenu visible d’un tag hors du mode d’édition. |
-| `TagsInputItemText` | Texte visible du tag. |
-| `TagsInputItemDeleteTrigger` | Supprime un tag et fournit par défaut une petite icône de fermeture. |
-| `TagsInputItemInput` | Champ utilisé pour modifier un tag sur place. |
-| `TagsInputInput` | Champ de saisie des nouveaux tags. |
-| `TagsInputClearTrigger` | Supprime tous les tags et utilise par défaut le style partagé du bouton de fermeture. |
-| `TagsInputHiddenInput` | Champ natif explicite pour l’envoi du formulaire. |
-| `TagsInputContext` | Accès render prop à l’état de la racine dans l’arbre du composant. |
+<AnatomyInspector
+  parts={[
+    ["TagsInput", "tags-input-root", "Racine qui gère l’état, les valeurs, la saisie, la validation et l’intégration au formulaire.", 0],
+    ["TagsInputLabel", "tags-input-label", "Libellé accessible du champ de tags.", 1],
+    ["TagsInputControl", "tags-input-control", "Conteneur visible des tags, du champ de saisie et du déclencheur d’effacement.", 1],
+    ["TagsInputItems", "", "Rendu standard des tags modifiables de la racine.", 2],
+    ["TagsInputItem", "tags-input-item", "Un tag. Transmettez `index` et `value` pour un rendu personnalisé.", 2],
+    ["TagsInputItemPreview", "tags-input-item-preview", "Contenu visible d’un tag hors du mode d’édition.", 3],
+    ["TagsInputItemText", "tags-input-item-text", "Texte visible du tag.", 4],
+    ["TagsInputItemDeleteTrigger", "tags-input-item-delete-trigger", "Supprime un tag et fournit par défaut une petite icône de fermeture.", 4],
+    ["TagsInputItemInput", "tags-input-item-input", "Champ utilisé pour modifier un tag sur place.", 3],
+    ["TagsInputInput", "tags-input-input", "Champ de saisie des nouveaux tags.", 2],
+    ["TagsInputClearTrigger", "tags-input-clear-trigger", "Supprime tous les tags et utilise par défaut le style partagé du bouton de fermeture.", 2],
+    ["TagsInputHiddenInput", "", "Champ natif explicite pour l’envoi du formulaire.", 1],
+    ["TagsInputRootProvider", "tags-input-root-provider", "Relie les parties à l’état renvoyé par `useTagsInput()`.", 0],
+    ["TagsInputItemContext", null, "Accès par render prop à l’état de l’élément courant dans l’arbre du composant.", 0],
+    ["TagsInputContext", null, "Accès render prop à l’état de la racine dans l’arbre du composant.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styles
 
 ### Variables CSS
 
-<CssPropertiesSection properties={TagsInputDocs.tagsInputCssProperties} />
+Survolez ou sélectionnez une variable pour la voir dans l’aperçu.
+
+<CssPropertiesSection properties={TagsInputDocs.tagsInputCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Points d’accroche CSS
 

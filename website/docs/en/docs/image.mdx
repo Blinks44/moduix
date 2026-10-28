@@ -5,6 +5,7 @@ description: Serve responsive images with srcset generated for common CDNs.
 ark: https://ark-ui.com/docs/guides/composition
 ---
 
+import AnatomyScene from '@/components/examples/image/basic';
 import * as ImageDocs from '@/components/examples/image/css-properties';
 
 <Example name="image/basic" />
@@ -79,19 +80,16 @@ use a native `<source srcset>` instead.
 
 ## Anatomy
 
-```text
-Image
-└─ img
+Hover or focus a part to find it in the preview.
 
-picture (native)
-├─ ImageSource
-└─ Image
-```
-
-| Part                   | Role                                                                       |
-| ---------------------- | -------------------------------------------------------------------------- |
-| `Image`                | Responsive native `<img>` element; Unpic creates `srcset`, `sizes`, and styles. |
-| `ImageSource`          | Responsive `<source>` for a native `<picture>` element.                       |
+<AnatomyInspector
+  parts={[
+    ["Image", "image-root", "Responsive native `<img>` element; Unpic creates `srcset`, `sizes`, and styles.", 0],
+    ["ImageSource", "image-source", "Responsive `<source>` for a native `<picture>` element.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styling
 
@@ -102,7 +100,11 @@ customizes the CSS Modules variants, while `data-slot` hooks are shared by both 
 
 ### CSS variables
 
-<CssPropertiesSection properties={ImageDocs.imageCssProperties} />
+Hover or focus a variable to see it in the preview.
+
+<CssPropertiesSection properties={ImageDocs.imageCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Styling hooks
 

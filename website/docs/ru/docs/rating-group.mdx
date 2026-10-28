@@ -5,6 +5,7 @@ description: Оценка по шкале из звёзд, в том числе 
 ark: https://ark-ui.com/docs/components/rating-group
 ---
 
+import AnatomyScene from '@/components/examples/rating-group/basic';
 import * as RatingGroupDocs from '@/components/examples/rating-group/css-properties';
 
 <Example name="rating-group/basic" />
@@ -112,34 +113,24 @@ import * as RatingGroupDocs from '@/components/examples/rating-group/css-propert
 
 ## Анатомия
 
-```text
-RatingGroup
-├─ RatingGroupLabel
-└─ RatingGroupControl
-   ├─ RatingGroupItems
-   │  └─ RatingGroupItem[index]
-   │     └─ RatingGroupItemIndicator
-   ├─ RatingGroupContext
-   │  └─ RatingGroupItem[index]
-   │     └─ RatingGroupItemIndicator
-   └─ RatingGroupHiddenInput (явно)
+Наведите на часть или выберите её, чтобы найти её в превью.
 
-RatingGroupRootProvider
-└─ то же дерево частей, подключённое к состоянию moduix из useRatingGroup()
-```
-
-| Часть                               | Назначение                                                        |
-| ---------------------------------- | ----------------------------------------------------------------- |
-| `RatingGroup`                    | Хранит состояние оценки, управляет клавиатурной навигацией, фокусом и интеграцией с формами. |
-| `RatingGroupHiddenInput`          | Нативное поле Ark, которое нужно добавить явно.                  |
-| `RatingGroupRootProvider`          | Подключает части к состоянию, созданному с помощью `useRatingGroup()`. |
-| `RatingGroupContext`               | Даёт доступ к текущему состоянию корня через render prop.        |
-| `RatingGroupItemContext`           | Даёт доступ к текущему состоянию элемента через render prop.     |
-| `RatingGroupLabel`                 | Доступная подпись группы рейтинга.                                |
-| `RatingGroupControl`               | Объединяет интерактивные элементы рейтинга.                       |
-| `RatingGroupItems`                 | Создаёт элемент для каждого значения и добавляет звезду по умолчанию. |
-| `RatingGroupItem`                  | Один выбираемый элемент рейтинга, которому нужен числовой `index`. |
-| `RatingGroupItemIndicator`         | Стандартный визуальный индикатор moduix для элемента.             |
+<AnatomyInspector
+  parts={[
+    ["RatingGroup", "rating-group-root", "Хранит состояние оценки, управляет клавиатурной навигацией, фокусом и интеграцией с формами.", 0],
+    ["RatingGroupLabel", "rating-group-label", "Доступная подпись группы рейтинга.", 1],
+    ["RatingGroupControl", "rating-group-control", "Объединяет интерактивные элементы рейтинга.", 1],
+    ["RatingGroupItems", "", "Создаёт элемент для каждого значения и добавляет звезду по умолчанию.", 2],
+    ["RatingGroupItem", "rating-group-item", "Один выбираемый элемент рейтинга, которому нужен числовой `index`.", 3],
+    ["RatingGroupItemIndicator", "rating-group-item-indicator-fg", "Стандартный визуальный индикатор moduix для элемента.", 4],
+    ["RatingGroupContext", null, "Даёт доступ к текущему состоянию корня через render prop.", 2],
+    ["RatingGroupHiddenInput", "", "Нативное поле Ark, которое нужно добавить явно.", 2],
+    ["RatingGroupRootProvider", "rating-group-root-provider", "Подключает части к состоянию, созданному с помощью `useRatingGroup()`.", 0],
+    ["RatingGroupItemContext", null, "Даёт доступ к текущему состоянию элемента через render prop.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Стилизация
 
@@ -151,7 +142,11 @@ RatingGroupRootProvider
 
 ### CSS-переменные
 
-<CssPropertiesSection properties={RatingGroupDocs.ratingGroupOverrideCssProperties} />
+Наведите на переменную или выберите её, чтобы увидеть её в превью.
+
+<CssPropertiesSection properties={RatingGroupDocs.ratingGroupOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Хуки стилизации
 

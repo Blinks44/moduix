@@ -5,6 +5,7 @@ description: Fermer une notification, une carte ou un panneau avec un bouton ic�
 ark: https://ark-ui.com/docs/guides/composition
 ---
 
+import AnatomyScene from '@/components/examples/close-button/basic';
 import * as CloseButtonDocs from '@/components/examples/close-button/css-properties';
 
 <Example name="close-button/basic" />
@@ -76,15 +77,15 @@ dans le slot par défaut. Avec Solid, passez une fonction de rendu à `asChild` 
 
 `CloseButton` expose une seule partie racine, suivant le modèle d’Ark.
 
-```text
-CloseButton
-└─ root[data-scope="close-button"][data-part="root"][data-slot="close-button-root"]
-   └─ CloseIcon (par défaut) | enfants personnalisés
-```
+Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
 
-| Partie        | Rôle                                                                          |
-| ------------ | ----------------------------------------------------------------------------- |
-| `CloseButton` | Contrôle interactif de fermeture fondé sur la sémantique et l’accessibilité d’un bouton. |
+<AnatomyInspector
+  parts={[
+    ["CloseButton", "close-button-root", "Contrôle interactif de fermeture fondé sur la sémantique et l’accessibilité d’un bouton.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styles
 
@@ -95,7 +96,11 @@ de styles.
 
 ### Variables CSS
 
-<CssPropertiesSection properties={CloseButtonDocs.closeButtonOverrideCssProperties} />
+Survolez ou sélectionnez une variable pour la voir dans l’aperçu.
+
+<CssPropertiesSection properties={CloseButtonDocs.closeButtonOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Points d’accroche CSS
 

@@ -5,6 +5,7 @@ description: Group a title, content, and actions on one surface.
 ark: https://ark-ui.com/docs/guides/composition#the-ark-factory
 ---
 
+import AnatomyScene from '@/components/examples/card/basic';
 import * as CardDocs from '@/components/examples/card/css-properties';
 
 <Example name="card/basic" />
@@ -121,30 +122,24 @@ your application.
 
 ## Anatomy
 
-```text
-Card
-├─ CardBackground (optional moduix helper)
-├─ CardMedia (optional moduix helper)
-├─ CardHeader
-│  ├─ CardTitle
-│  ├─ CardDescription
-│  └─ CardAction (optional moduix helper)
-├─ CardBody
-└─ CardFooter (optional)
-```
+Hover or focus a part to find it in the preview.
 
-| Part                 | Role                                                                                  |
-| -------------------- | ------------------------------------------------------------------------------------- |
-| `Card`               | Root container with `size`, `variant`, and `asChild`.                                |
-| `CardBackground`    | Optional full-card background layer for decorative media.                            |
-| `CardMedia`         | Optional edge-to-edge media wrapper that clips the top corners consistently.          |
-| `CardHeader`        | Header layout for the title, description, and an optional trailing action.            |
-| `CardBody`          | Main content area.                                                                    |
-| `CardFooter`        | Footer row for actions or metadata. It wraps when needed.                             |
-| `CardTitle`         | Heading. Renders `h3` by default; use `asChild` for another heading level.            |
-| `CardDescription`   | Supporting text below the title.                                                      |
-| `CardAction`        | Layout slot for an action in the header.                                               |
-| `CardLink`          | Link whose clickable area expands across the card while leaving other controls usable. |
+<AnatomyInspector
+  parts={[
+    ["Card", "card-root", "Root container with `size`, `variant`, and `asChild`.", 0],
+    ["CardBackground", "card-background", "Optional full-card background layer for decorative media.", 1],
+    ["CardMedia", "card-media", "Optional edge-to-edge media wrapper that clips the top corners consistently.", 1],
+    ["CardHeader", "card-header", "Header layout for the title, description, and an optional trailing action.", 1],
+    ["CardTitle", "card-title", "Heading. Renders `h3` by default; use `asChild` for another heading level.", 2],
+    ["CardDescription", "card-description", "Supporting text below the title.", 2],
+    ["CardAction", "card-action", "Layout slot for an action in the header.", 2],
+    ["CardBody", "card-body", "Main content area.", 1],
+    ["CardFooter", "card-footer", "Footer row for actions or metadata. It wraps when needed.", 1],
+    ["CardLink", "card-link", "Link whose clickable area expands across the card while leaving other controls usable.", 1],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styling
 
@@ -154,7 +149,11 @@ Data attributes and `data-slot` hooks are shared by both styling tracks.
 
 ### CSS variables
 
-<CssPropertiesSection properties={CardDocs.cardOverrideCssProperties} />
+Hover or focus a variable to see it in the preview.
+
+<CssPropertiesSection properties={CardDocs.cardOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Styling hooks
 

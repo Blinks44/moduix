@@ -5,6 +5,7 @@ description: Open a list of actions or options from a button or a right click.
 ark: https://ark-ui.com/docs/components/menu
 ---
 
+import AnatomyScene from '@/components/examples/menu/anatomy';
 import * as MenuDocs from '@/components/examples/menu/css-properties';
 
 <Example name="menu/basic" />
@@ -175,55 +176,33 @@ A nested menu is another `Menu` root inside the parent content, paired with its 
 
 ## Anatomy
 
-```text
-Menu
-├─ MenuTrigger
-│  └─ MenuIndicator
-├─ MenuContextTrigger
-└─ Overlay subtree (automatically portalled)
-   └─ MenuPositioner
-      └─ MenuContent
-         ├─ MenuArrow
-         │  └─ MenuArrowTip
-         └─ MenuViewport
-            ├─ MenuItem
-            │  ├─ MenuItemText
-            │  │  ├─ MenuItemTextIcon
-            │  │  └─ MenuItemTextLabel
-            │  └─ MenuItemShortcut
-            ├─ MenuCheckboxItem
-            │  └─ MenuItemIndicator
-            ├─ MenuRadioItemGroup
-            │  └─ MenuRadioItem
-            ├─ MenuItemGroup
-            │  └─ MenuItemGroupLabel
-            ├─ MenuSeparator
-            └─ Menu
-               └─ MenuTriggerItem
-                  └─ MenuTriggerItemIcon
-```
+Hover or focus a part to find it in the preview.
 
-| Part | Role |
-| --- | --- |
-| `Menu` | Root that manages open state, positioning, typeahead, focus, and dismissal. |
-| `MenuRootProvider` | Connects a menu to a state instance created with `useMenu`. |
-| `MenuTrigger` | Button that opens the menu. It has no styles of its own; use `asChild` with `Button` or another semantic element. |
-| `MenuIndicator` | State-aware trigger indicator, usually rendered as a chevron. |
-| `MenuContextTrigger` | Unstyled area that opens the menu on right-click and long press. |
-| `MenuPositioner` | Positions the floating menu layer. |
-| `MenuContent` | Popup surface with the menu role and its item collection. |
-| `MenuViewport` | Explicit scroll container around the item collection. |
-| `MenuArrow` / `MenuArrowTip` | Optional visual anchor for the popup. |
-| `MenuItem` | Standard command item. |
-| `MenuCheckboxItem` | Item with an independent boolean state. |
-| `MenuRadioItemGroup` / `MenuRadioItem` | Group and items for choosing one value. |
-| `MenuItemIndicator` | Selection indicator for checkbox and radio items. |
-| `MenuItemText` and text helpers | Helpers for composing item text with icons and labels. |
-| `MenuItemShortcut` | Wrapper for a keyboard shortcut or other trailing hint. |
-| `MenuItemGroup` / `MenuItemGroupLabel` | Group and label for related items. |
-| `MenuSeparator` | Divider between groups of items. |
-| `MenuTriggerItem` / `MenuTriggerItemIcon` | Item and icon for opening a nested menu. |
-| `MenuItemContext` | Provides item state to content rendered inside an item. |
+<AnatomyInspector
+  parts={[
+    ["Menu", null, "Root that manages open state, positioning, typeahead, focus, and dismissal.", 0],
+    ["MenuTrigger", "menu-trigger", "Button that opens the menu. It has no styles of its own; use `asChild` with `Button` or another semantic element.", 1],
+    ["MenuIndicator", "menu-indicator", "State-aware trigger indicator, usually rendered as a chevron.", 2],
+    ["MenuContextTrigger", "menu-context-trigger", "Unstyled area that opens the menu on right-click and long press.", 1],
+    ["MenuPositioner", "menu-positioner", "Positions the floating menu layer.", 1],
+    ["MenuContent", "menu-content", "Popup surface with the menu role and its item collection.", 2],
+    ["MenuArrow / MenuArrowTip", "menu-arrow", "Optional visual anchor for the popup.", 3],
+    ["MenuViewport", "menu-viewport", "Explicit scroll container around the item collection.", 3],
+    ["MenuItemGroup / MenuItemGroupLabel", "menu-item-group", "Group and label for related items.", 4],
+    ["MenuItem", "menu-item", "Standard command item.", 5],
+    ["MenuItemText and text helpers", "menu-item-text", "Helpers for composing item text with icons and labels.", 6],
+    ["MenuItemShortcut", "menu-item-shortcut", "Wrapper for a keyboard shortcut or other trailing hint.", 6],
+    ["MenuCheckboxItem", "menu-checkbox-item", "Item with an independent boolean state.", 5],
+    ["MenuItemIndicator", "menu-item-indicator", "Selection indicator for checkbox and radio items.", 6],
+    ["MenuSeparator", "menu-separator", "Divider between groups of items.", 4],
+    ["MenuRadioItemGroup / MenuRadioItem", "menu-radio-item-group", "Group and items for choosing one value.", 4],
+    ["MenuTriggerItem / MenuTriggerItemIcon", "menu-trigger-item", "Item and icon for opening a nested menu.", 4],
+    ["MenuRootProvider", null, "Connects a menu to a state instance created with `useMenu`.", 0],
+    ["MenuItemContext", null, "Provides item state to content rendered inside an item.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styling
 
@@ -238,7 +217,11 @@ are shared by both styling tracks.
 
 ### CSS variables
 
-<CssPropertiesSection properties={MenuDocs.menuOverrideCssProperties} />
+Hover or focus a variable to see it in the preview.
+
+<CssPropertiesSection properties={MenuDocs.menuOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Styling hooks
 

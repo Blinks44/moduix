@@ -5,6 +5,7 @@ description: Afficher la photo d’un utilisateur, avec ses initiales en attenda
 ark: https://ark-ui.com/docs/components/avatar
 ---
 
+import AnatomyScene from '@/components/examples/avatar/basic';
 import * as AvatarDocs from '@/components/examples/avatar/css-properties';
 
 <Example name="avatar/basic" />
@@ -105,25 +106,19 @@ En Solid, attribuez la ref à l’élément créé dans la fonction de rendu `as
 
 ## Anatomie
 
-```text
-Avatar
-├─ AvatarFallback
-└─ AvatarImage
+Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
 
-AvatarRootProvider
-└─ les mêmes parties connectées à un store useAvatar()
-
-AvatarGroup
-└─ Avatar, Avatar, ...
-```
-
-| Composant           | Rôle |
-| ------------------- | ----------------------------------------------------------------- |
-| `Avatar`            | Crée l’élément racine et gère l’état de l’avatar Ark UI. |
-| `AvatarRootProvider` | Relie l’avatar à un état Ark UI créé en dehors de son arbre. |
-| `AvatarFallback`    | Affiche le contenu fourni par le consommateur jusqu’au chargement de l’image. |
-| `AvatarImage`       | Affiche l’image après un chargement réussi. |
-| `AvatarGroup`       | Empile les avatars avec un chevauchement et un anneau de la couleur du fond. |
+<AnatomyInspector
+  parts={[
+    ["Avatar", "avatar-root", "Crée l’élément racine et gère l’état de l’avatar Ark UI.", 0],
+    ["AvatarFallback", "avatar-fallback", "Affiche le contenu fourni par le consommateur jusqu’au chargement de l’image.", 1],
+    ["AvatarImage", "avatar-image", "Affiche l’image après un chargement réussi.", 1],
+    ["AvatarRootProvider", "avatar-root-provider", "Relie l’avatar à un état Ark UI créé en dehors de son arbre.", 0],
+    ["AvatarGroup", "avatar-group", "Empile les avatars avec un chevauchement et un anneau de la couleur du fond.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styles
 
@@ -132,7 +127,11 @@ données fournis par Ark lorsque le style dépend de l’état de l’image.
 
 ### Variables CSS
 
-<CssPropertiesSection properties={AvatarDocs.avatarCssProperties} />
+Survolez ou sélectionnez une variable pour la voir dans l’aperçu.
+
+<CssPropertiesSection properties={AvatarDocs.avatarCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Points d’accroche CSS
 

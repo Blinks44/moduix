@@ -5,6 +5,7 @@ description: Шапка сайта, где пункты ведут по ссыл
 ark: https://ark-ui.com/docs/components/navigation-menu
 ---
 
+import AnatomyScene from '@/components/examples/navigation-menu/anatomy';
 import * as NavigationMenuDocs from '@/components/examples/navigation-menu/css-properties';
 
 <Example name="navigation-menu/basic" />
@@ -79,41 +80,26 @@ import * as NavigationMenuDocs from '@/components/examples/navigation-menu/css-p
 
 ## Анатомия
 
-```text
-NavigationMenu
-├─ NavigationMenuList
-│  ├─ NavigationMenuItem[value]
-│  │  └─ NavigationMenuLink
-│  └─ NavigationMenuItem[value]
-│     ├─ NavigationMenuTrigger
-│     ├─ NavigationMenuItemIndicator (необязательно)
-│     └─ NavigationMenuContent
-│        └─ NavigationMenuLink
-│  └─ NavigationMenuIndicator > NavigationMenuArrow (необязательно)
-└─ NavigationMenuViewportPositioner (необязательно)
-   └─ NavigationMenuViewport
+Наведите на часть или выберите её, чтобы найти её в превью.
 
-NavigationMenuRootProvider
-└─ то же дерево частей, подключённое к хранилищу из useNavigationMenu()
-
-NavigationMenuContext
-└─ расширенный доступ к текущему состоянию навигации через функцию рендера (`render prop`)
-```
-
-| Часть | Назначение |
-| --- | --- |
-| `NavigationMenu` | Корневой элемент `nav`, который управляет открытым элементом, задержками, фокусом и ориентацией. |
-| `NavigationMenuRootProvider` | Подключает части к хранилищу, созданному через `useNavigationMenu()`. |
-| `NavigationMenuContext` | Передаёт текущее состояние навигации через функцию рендера (`render prop`). |
-| `NavigationMenuList` | Объединяет элементы навигации верхнего уровня. |
-| `NavigationMenuItem` | Требует уникальное значение `value` и связывает триггер, содержимое и ссылки элемента. |
-| `NavigationMenuTrigger` | Кнопка, открывающая и закрывающая раскрывающуюся панель элемента. |
-| `NavigationMenuContent` | Раскрывающаяся панель элемента. Может отображаться рядом с элементом или внутри общей области `NavigationMenuViewport`. |
-| `NavigationMenuLink` | Ссылка на прямую страницу или ссылка внутри раскрывающейся панели. |
-| `NavigationMenuItemIndicator` | Необязательный визуальный маркер активного элемента. |
-| `NavigationMenuIndicator` | Необязательный маркер активного триггера; размещайте его внутри `NavigationMenuList`. Используйте `NavigationMenuArrow` с общей областью `NavigationMenuViewport`. |
-| `NavigationMenuViewportPositioner` | Размещает общую область `NavigationMenuViewport`. |
-| `NavigationMenuViewport` | Общая анимированная область для открытого содержимого. |
+<AnatomyInspector
+  parts={[
+    ["NavigationMenu", "navigation-menu-root", "Корневой элемент `nav`, который управляет открытым элементом, задержками, фокусом и ориентацией.", 0],
+    ["NavigationMenuList", "navigation-menu-list", "Объединяет элементы навигации верхнего уровня.", 1],
+    ["NavigationMenuItem", "navigation-menu-item", "Требует уникальное значение `value` и связывает триггер, содержимое и ссылки элемента.", 2],
+    ["NavigationMenuLink", "navigation-menu-link", "Ссылка на прямую страницу или ссылка внутри раскрывающейся панели.", 3],
+    ["NavigationMenuTrigger", "navigation-menu-trigger", "Кнопка, открывающая и закрывающая раскрывающуюся панель элемента.", 2],
+    ["NavigationMenuItemIndicator", "navigation-menu-item-indicator", "Необязательный визуальный маркер активного элемента.", 2],
+    ["NavigationMenuContent", "navigation-menu-content", "Раскрывающаяся панель элемента. Может отображаться рядом с элементом или внутри общей области `NavigationMenuViewport`.", 2],
+    ["NavigationMenuIndicator", "navigation-menu-indicator", "Необязательный маркер активного триггера; размещайте его внутри `NavigationMenuList`. Используйте `NavigationMenuArrow` с общей областью `NavigationMenuViewport`.", 2],
+    ["NavigationMenuViewportPositioner", "navigation-menu-viewport-positioner", "Размещает общую область `NavigationMenuViewport`.", 1],
+    ["NavigationMenuViewport", "navigation-menu-viewport", "Общая анимированная область для открытого содержимого.", 2],
+    ["NavigationMenuRootProvider", "navigation-menu-root-provider", "Подключает части к хранилищу, созданному через `useNavigationMenu()`.", 0],
+    ["NavigationMenuContext", null, "Передаёт текущее состояние навигации через функцию рендера (`render prop`).", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Стилизация
 
@@ -127,7 +113,11 @@ foundation и выносят в CSS-переменные только огран
 
 ### CSS-переменные
 
-<CssPropertiesSection properties={NavigationMenuDocs.navigationMenuOverrideCssProperties} />
+Наведите на переменную или выберите её, чтобы увидеть её в превью.
+
+<CssPropertiesSection properties={NavigationMenuDocs.navigationMenuOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Хуки стилизации
 

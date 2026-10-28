@@ -5,6 +5,7 @@ description: Ajouter préfixes, suffixes et boutons autour d’un champ.
 ark: https://ark-ui.com/docs/guides/composition
 ---
 
+import AnatomyScene from '@/components/examples/input-group/basic';
 import * as InputGroupDocs from '@/components/examples/input-group/css-properties';
 
 <Example name="input-group/basic" />
@@ -131,24 +132,21 @@ s’étire sur toute la hauteur du groupe et sert aux actions placées à côté
 
 ## Anatomie
 
-```text
-InputGroup
-├─ InputGroupAddon (facultatif)
-├─ InputGroupInput ou InputGroupTextarea
-├─ InputGroupText (facultatif)
-├─ InputGroupButton (facultatif)
-└─ InputGroupClearTrigger (facultatif)
-```
+Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
 
-| Partie                            | Rôle                                                       |
-| --------------------------------- | ---------------------------------------------------------- |
-| `InputGroup`                    | Conteneur passif avec styles et contexte de taille partagés. |
-| `InputGroupInput`               | Élément `<input>` natif qui possède la valeur et l’état du champ. |
-| `InputGroupTextarea`            | Élément `<textarea>` natif pour une valeur sur plusieurs lignes ; remplace `InputGroupInput`. |
-| `InputGroupAddon`               | Préfixe ou suffixe avec un fond.                           |
-| `InputGroupText`                | Texte intégré sans fond.                                  |
-| `InputGroupButton`              | Bouton d’action associé au champ.                         |
-| `InputGroupClearTrigger` | Bouton avec une icône de croix ; l’application gère l’effacement. |
+<AnatomyInspector
+  parts={[
+    ["InputGroup", "input-group-root", "Conteneur passif avec styles et contexte de taille partagés.", 0],
+    ["InputGroupAddon", "input-group-addon", "Préfixe ou suffixe avec un fond.", 1],
+    ["InputGroupInput", "", "Élément `<input>` natif qui possède la valeur et l’état du champ.", 1],
+    ["InputGroupText", "input-group-text", "Texte intégré sans fond.", 1],
+    ["InputGroupTextarea", "", "Élément `<textarea>` natif pour une valeur sur plusieurs lignes ; remplace `InputGroupInput`.", 2],
+    ["InputGroupButton", "input-group-button", "Bouton d’action associé au champ.", 1],
+    ["InputGroupClearTrigger", "input-group-clear-trigger", "Bouton avec une icône de croix ; l’application gère l’effacement.", 1],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styles
 
@@ -163,7 +161,11 @@ sélecteurs `data-slot` sont communs aux deux approches.
 
 ### Variables CSS
 
-<CssPropertiesSection properties={InputGroupDocs.inputGroupOverrideCssProperties} />
+Survolez ou sélectionnez une variable pour la voir dans l’aperçu.
+
+<CssPropertiesSection properties={InputGroupDocs.inputGroupOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Points d’accroche CSS
 

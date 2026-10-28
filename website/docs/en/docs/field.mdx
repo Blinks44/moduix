@@ -5,6 +5,8 @@ description: Connect a label, helper text, and error message to one form control
 ark: https://ark-ui.com/docs/components/field
 ---
 
+import AnatomyScene from '@/components/examples/field/basic';
+
 <Example name="field/basic" />
 
 ## Installation
@@ -135,28 +137,22 @@ The public `Field` API uses flat, family-prefixed values. `Field` does not rende
 an `Input`, `Textarea`, `NativeSelect`, or another moduix form control inside it, and the control reads
 the field context.
 
-```text
-Field
-├─ FieldLabel
-├─ Input | Textarea | NativeSelect | another form control
-├─ FieldHelperText
-├─ FieldErrorText
-└─ FieldRequiredIndicator
+Hover or focus a part to find it in the preview.
 
-FieldRootProvider
-└─ same part tree connected to a useField() store
-```
-
-| Part                      | Role                                                                                          |
-| ------------------------- | --------------------------------------------------------------------------------------------- |
-| `Field`                  | Root context. It renders a `<div role="group">` by default.                                |
-| `FieldRootProvider`      | Root that uses a `useField()` state object created outside the tree.                          |
-| `FieldContext`           | Reads the current field state without adding an element to the DOM.                          |
-| `FieldLabel`             | Accessible label associated with the current control.                                         |
-| `FieldHelperText`        | Helper text associated with the control through `aria-describedby`.                           |
-| `FieldErrorText`         | Error text rendered when the root is `invalid`.                                               |
-| `FieldRequiredIndicator` | Visual marker for a required field. Use `fallback` to replace its default marker.              |
-| `FieldItem`              | Nested context for a grouped control identified by `value`; its ref points to the local row wrapper. |
+<AnatomyInspector
+  parts={[
+    ["Field", "field-root", "Root context. It renders a `<div role=\"group\">` by default.", 0],
+    ["FieldLabel", "field-label", "Accessible label associated with the current control.", 1],
+    ["FieldHelperText", "field-helper-text", "Helper text associated with the control through `aria-describedby`.", 1],
+    ["FieldErrorText", "field-error-text", "Error text rendered when the root is `invalid`.", 1],
+    ["FieldRequiredIndicator", "field-required-indicator", "Visual marker for a required field. Use `fallback` to replace its default marker.", 1],
+    ["FieldItem", "field-item", "Nested context for a grouped control identified by `value`; its ref points to the local row wrapper.", 1],
+    ["FieldRootProvider", "field-root-provider", "Root that uses a `useField()` state object created outside the tree.", 0],
+    ["FieldContext", null, "Reads the current field state without adding an element to the DOM.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styling
 

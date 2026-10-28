@@ -5,6 +5,7 @@ description: Прогресс задачи на полосе, с известн�
 ark: https://ark-ui.com/docs/components/progress-linear
 ---
 
+import AnatomyScene from '@/components/examples/progress-linear/basic';
 import * as ProgressLinearDocs from '@/components/examples/progress-linear/css-properties';
 
 <Example name="progress-linear/basic" width="sm" />
@@ -110,28 +111,22 @@ React, Solid и Vue используют одинаковые плоские и�
 
 ## Анатомия
 
-```text
-ProgressLinear
-├─ ProgressLinearLabel
-├─ ProgressLinearValueText
-├─ ProgressLinearTrack
-│  └─ ProgressLinearRange
-└─ ProgressLinearView
+Наведите на часть или выберите её, чтобы найти её в превью.
 
-ProgressLinearRootProvider
-└─ та же структура частей, подключённая к useProgress()
-```
-
-| Часть                                      | Назначение                                                                    |
-| ------------------------------------------ | ----------------------------------------------------------------------------- |
-| `ProgressLinear`   | Хранит состояние прогресса и передаёт Ark форматирование, идентификаторы и другие свойства. |
-| `ProgressLinearRootProvider`              | Подключает части к хранилищу, которое возвращает `useProgress()`. |
-| `ProgressLinearContext`                   | Передаёт текущее состояние прогресса функции, переданной как дочерний элемент. |
-| `ProgressLinearLabel`                     | Видимая подпись задачи. Она автоматически не становится доступным именем `ProgressLinearTrack`. |
-| `ProgressLinearValueText`                 | Показывает отформатированный процент и сообщает об изменениях. Через `ProgressLinearContext` можно вывести свой текст. |
-| `ProgressLinearTrack`                     | Основа полосы прогресса. Ark добавляет ей роль и ARIA-атрибуты значения.       |
-| `ProgressLinearRange`                     | Заполненная часть, отражающая текущий прогресс.                               |
-| `ProgressLinearView`                      | Показывает содержимое, только когда его `state` совпадает с текущим состоянием прогресса. |
+<AnatomyInspector
+  parts={[
+    ["ProgressLinear", "progress-linear-root", "Хранит состояние прогресса и передаёт Ark форматирование, идентификаторы и другие свойства.", 0],
+    ["ProgressLinearLabel", "progress-linear-label", "Видимая подпись задачи. Она автоматически не становится доступным именем `ProgressLinearTrack`.", 1],
+    ["ProgressLinearValueText", "progress-linear-value-text", "Показывает отформатированный процент и сообщает об изменениях. Через `ProgressLinearContext` можно вывести свой текст.", 1],
+    ["ProgressLinearTrack", "progress-linear-track", "Основа полосы прогресса. Ark добавляет ей роль и ARIA-атрибуты значения.", 1],
+    ["ProgressLinearRange", "progress-linear-range", "Заполненная часть, отражающая текущий прогресс.", 2],
+    ["ProgressLinearView", "progress-linear-view", "Показывает содержимое, только когда его `state` совпадает с текущим состоянием прогресса.", 1],
+    ["ProgressLinearRootProvider", "progress-linear-root-provider", "Подключает части к хранилищу, которое возвращает `useProgress()`.", 0],
+    ["ProgressLinearContext", null, "Передаёт текущее состояние прогресса функции, переданной как дочерний элемент.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Стилизация
 
@@ -149,7 +144,11 @@ moduix. Варианты Tailwind используют нативные утил
 
 ### CSS-переменные
 
-<CssPropertiesSection properties={ProgressLinearDocs.progressLinearCssProperties} />
+Наведите на переменную или выберите её, чтобы увидеть её в превью.
+
+<CssPropertiesSection properties={ProgressLinearDocs.progressLinearCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Хуки стилизации
 

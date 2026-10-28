@@ -5,6 +5,7 @@ description: Walk users through a multi-step task with progress and validation.
 ark: https://ark-ui.com/docs/components/steps
 ---
 
+import AnatomyScene from '@/components/examples/steps/basic';
 import * as StepsDocs from '@/components/examples/steps/css-properties';
 
 <Example name="steps/basic" />
@@ -104,36 +105,25 @@ completed step; pass children to control the marker.
 
 ## Anatomy
 
-```text
-Steps
-├─ StepsProgress (optional)
-├─ StepsList
-│  └─ StepsItem[index]
-│     ├─ StepsTrigger
-│     │  └─ StepsIndicator
-│     └─ StepsSeparator
-├─ StepsContent[index]
-├─ StepsCompletedContent
-├─ StepsPrevTrigger
-└─ StepsNextTrigger
+Hover or focus a part to find it in the preview.
 
-StepsRootProvider
-└─ same part tree connected to a useSteps() store
-```
-
-| Part                              | Role                                                                              |
-| --------------------------------- | --------------------------------------------------------------------------------- |
-| `Steps`                    | Root state machine for step state, orientation, navigation, validation, and IDs. |
-| `StepsRootProvider`         | Connects the parts to state created with `useSteps()`.                            |
-| `StepsProgress`             | Optional visual progress track driven by Ark's `--percent` root variable.         |
-| `StepsList`                 | Tablist containing the step triggers.                                             |
-| `StepsItem`                 | Step item with a required zero-based `index`.                                      |
-| `StepsTrigger`              | Tab trigger for a step; supports `asChild` for custom semantic elements.          |
-| `StepsIndicator`            | Visual step marker with a number or check icon by default.                        |
-| `StepsSeparator`            | Decorative connector between step items.                                          |
-| `StepsContent`              | Content panel for one step, matched by `index`.                                    |
-| `StepsCompletedContent`     | Panel shown when the current step value equals `count`.                           |
-| `StepsPrevTrigger` / `StepsNextTrigger` | Buttons wired to Ark's previous and next actions.                    |
+<AnatomyInspector
+  parts={[
+    ["Steps", "steps-root", "Root state machine for step state, orientation, navigation, validation, and IDs.", 0],
+    ["StepsProgress", "steps-progress", "Optional visual progress track driven by Ark's `--percent` root variable.", 1],
+    ["StepsList", "steps-list", "Tablist containing the step triggers.", 1],
+    ["StepsItem", "steps-item", "Step item with a required zero-based `index`.", 2],
+    ["StepsTrigger", "steps-trigger", "Tab trigger for a step; supports `asChild` for custom semantic elements.", 3],
+    ["StepsIndicator", "steps-indicator", "Visual step marker with a number or check icon by default.", 4],
+    ["StepsSeparator", "steps-separator", "Decorative connector between step items.", 3],
+    ["StepsContent", "steps-content", "Content panel for one step, matched by `index`.", 1],
+    ["StepsCompletedContent", "steps-completed-content", "Panel shown when the current step value equals `count`.", 1],
+    ["StepsPrevTrigger / StepsNextTrigger", "steps-prev-trigger", "Buttons wired to Ark's previous and next actions.", 1],
+    ["StepsRootProvider", "steps-root-provider", "Connects the parts to state created with `useSteps()`.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styling
 
@@ -148,7 +138,11 @@ vertical list gap with a class. Change colors, typography, and surfaces with a c
 
 ### CSS variables
 
-<CssPropertiesSection properties={StepsDocs.stepsCssProperties} />
+Hover or focus a variable to see it in the preview.
+
+<CssPropertiesSection properties={StepsDocs.stepsCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Styling hooks
 

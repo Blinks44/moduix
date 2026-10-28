@@ -1,6 +1,7 @@
 ---
 title: List Selection
 description: Управляйте одиночным, множественным, отменяемым выбором и выбором диапазона в пользовательских списках.
+ark: https://ark-ui.com/docs/collections/list-selection
 ---
 
 # List Selection
@@ -8,9 +9,7 @@ description: Управляйте одиночным, множественным
 `useListSelection` хранит выбранные значения в `ListCollection`, а приложение отвечает за разметку и
 логику взаимодействия.
 
-## Справочник API
-
-<PrimitiveReference href="https://ark-ui.com/docs/collections/list-selection" />
+## Импорт
 
 Хук предоставляется Ark UI и не реэкспортируется Moduix. Импортируйте его из точки входа коллекции
 для нужного фреймворка:
@@ -46,10 +45,6 @@ import { createListCollection, useListSelection } from '@ark-ui/vue/collection';
 
   </Tab>
 </Tabs>
-
-В `@moduix/react`, `@moduix/solid`, `@moduix/react-tailwind` и `@moduix/solid-tailwind` нет экспорта
-`list-selection` и записи для него в registry. На этой странице описан хук Ark UI, который можно
-использовать вместе с любым из этих пакетов.
 
 ## Одиночный выбор
 

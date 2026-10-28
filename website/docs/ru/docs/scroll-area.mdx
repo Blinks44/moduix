@@ -5,6 +5,7 @@ description: Прокрутка с оформленными полосами, к
 ark: https://ark-ui.com/docs/components/scroll-area
 ---
 
+import AnatomyScene from '@/components/examples/scroll-area/basic';
 import * as ScrollAreaDocs from '@/components/examples/scroll-area/css-properties';
 
 <Example name="scroll-area/basic" />
@@ -92,28 +93,21 @@ Ark мог измерять их независимо.
 
 ## Анатомия
 
-```text
-ScrollArea
-├─ ScrollAreaViewport
-│  └─ ScrollAreaContent
-│     └─ children
-├─ ScrollAreaScrollbar
-│  └─ ScrollAreaThumb
-└─ ScrollAreaCorner
+Наведите на часть или выберите её, чтобы найти её в превью.
 
-ScrollAreaRootProvider
-└─ то же дерево, подключённое к состоянию useScrollArea()
-```
-
-| Часть                             | Назначение                                                       |
-| -------------------------------- | ---------------------------------------------------------------- |
-| `ScrollArea`                     | Управляет состоянием прокрутки и позиционированием.              |
-| `ScrollAreaRootProvider`        | Подключает части к состоянию из `useScrollArea()`.               |
-| `ScrollAreaViewport`            | Нативный контейнер прокрутки и элемент, принимающий фокус.      |
-| `ScrollAreaContent`             | Внутренняя оболочка содержимого, которую измеряет Ark UI.       |
-| `ScrollAreaScrollbar`           | Стилизованная полоса прокрутки для одной оси.                   |
-| `ScrollAreaThumb`               | Перетаскиваемый бегунок внутри полосы прокрутки.                 |
-| `ScrollAreaCorner`              | Заполняет область пересечения при переполнении по обеим осям.  |
+<AnatomyInspector
+  parts={[
+    ["ScrollArea", "scroll-area-root", "Управляет состоянием прокрутки и позиционированием.", 0],
+    ["ScrollAreaViewport", "scroll-area-viewport", "Нативный контейнер прокрутки и элемент, принимающий фокус.", 1],
+    ["ScrollAreaContent", "scroll-area-content", "Внутренняя оболочка содержимого, которую измеряет Ark UI.", 2],
+    ["ScrollAreaScrollbar", "scroll-area-scrollbar", "Стилизованная полоса прокрутки для одной оси.", 1],
+    ["ScrollAreaThumb", "scroll-area-thumb", "Перетаскиваемый бегунок внутри полосы прокрутки.", 2],
+    ["ScrollAreaCorner", "scroll-area-corner", "Заполняет область пересечения при переполнении по обеим осям.", 1],
+    ["ScrollAreaRootProvider", "scroll-area-root-provider", "Подключает части к состоянию из `useScrollArea()`.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Стилизация
 
@@ -124,7 +118,11 @@ ScrollAreaRootProvider
 
 ### CSS-переменные
 
-<CssPropertiesSection properties={ScrollAreaDocs.scrollAreaOverrideCssProperties} />
+Наведите на переменную или выберите её, чтобы увидеть её в превью.
+
+<CssPropertiesSection properties={ScrollAreaDocs.scrollAreaOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Хуки стилизации
 

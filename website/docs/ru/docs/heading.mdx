@@ -5,6 +5,8 @@ description: Заголовок страницы или раздела с нуж
 ark: https://ark-ui.com/docs/guides/composition#the-ark-factory
 ---
 
+import AnatomyScene from '@/components/examples/heading/basic';
+
 <Example name="heading/basic" />
 
 ## Установка
@@ -79,14 +81,15 @@ ark: https://ark-ui.com/docs/guides/composition#the-ark-factory
 
 `Heading` выводит один нативный элемент заголовка.
 
-```text
-Heading
-└─ текст или встроенное содержимое
-```
+Наведите на часть или выберите её, чтобы найти её в превью.
 
-| Часть                      | Назначение                                                  |
-| -------------------------- | ----------------------------------------------------------- |
-| `Heading` | Нативный семантический заголовок со стилями типографики moduix. |
+<AnatomyInspector
+  parts={[
+    ["Heading", "heading-root", "Нативный семантический заголовок со стилями типографики moduix.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Стилизация
 

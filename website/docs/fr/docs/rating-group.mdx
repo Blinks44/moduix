@@ -5,6 +5,7 @@ description: Noter sur une échelle d’étoiles, demi-étoiles comprises.
 ark: https://ark-ui.com/docs/components/rating-group
 ---
 
+import AnatomyScene from '@/components/examples/rating-group/basic';
 import * as RatingGroupDocs from '@/components/examples/rating-group/css-properties';
 
 <Example name="rating-group/basic" />
@@ -110,34 +111,24 @@ retournée, et Vue expose directement le store réactif dans le template.
 
 ## Anatomie
 
-```text
-RatingGroup
-├─ RatingGroupLabel
-└─ RatingGroupControl
-   ├─ RatingGroupItems
-   │  └─ RatingGroupItem[index]
-   │     └─ RatingGroupItemIndicator
-   ├─ RatingGroupContext
-   │  └─ RatingGroupItem[index]
-   │     └─ RatingGroupItemIndicator
-   └─ RatingGroupHiddenInput (explicite)
+Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
 
-RatingGroupRootProvider
-└─ même arbre de parties relié à un état moduix créé avec useRatingGroup()
-```
-
-| Partie                               | Rôle                                                                |
-| ------------------------------------ | ------------------------------------------------------------------- |
-| `RatingGroup`                    | Gère l’état de la note, la navigation au clavier, le focus et les formulaires. |
-| `RatingGroupHiddenInput`             | Champ natif d’Ark à composer explicitement.                         |
-| `RatingGroupRootProvider`            | Relie les parties à l’état créé avec `useRatingGroup()`.             |
-| `RatingGroupContext`                 | Donne accès à l’état racine actuel via une render prop.              |
-| `RatingGroupItemContext`             | Donne accès à l’état actuel de l’élément via une render prop.        |
-| `RatingGroupLabel`                   | Libellé accessible du groupe de notation.                            |
-| `RatingGroupControl`                 | Regroupe les éléments interactifs de notation.                       |
-| `RatingGroupItems`                   | Crée un élément pour chaque valeur et fournit l’étoile par défaut.   |
-| `RatingGroupItem`                    | Élément sélectionnable qui nécessite un `index` numérique.           |
-| `RatingGroupItemIndicator`           | Visuel étoilé moduix par défaut pour un élément.                     |
+<AnatomyInspector
+  parts={[
+    ["RatingGroup", "rating-group-root", "Gère l’état de la note, la navigation au clavier, le focus et les formulaires.", 0],
+    ["RatingGroupLabel", "rating-group-label", "Libellé accessible du groupe de notation.", 1],
+    ["RatingGroupControl", "rating-group-control", "Regroupe les éléments interactifs de notation.", 1],
+    ["RatingGroupItems", "", "Crée un élément pour chaque valeur et fournit l’étoile par défaut.", 2],
+    ["RatingGroupItem", "rating-group-item", "Élément sélectionnable qui nécessite un `index` numérique.", 3],
+    ["RatingGroupItemIndicator", "rating-group-item-indicator-fg", "Visuel étoilé moduix par défaut pour un élément.", 4],
+    ["RatingGroupContext", null, "Donne accès à l’état racine actuel via une render prop.", 2],
+    ["RatingGroupHiddenInput", "", "Champ natif d’Ark à composer explicitement.", 2],
+    ["RatingGroupRootProvider", "rating-group-root-provider", "Relie les parties à l’état créé avec `useRatingGroup()`.", 0],
+    ["RatingGroupItemContext", null, "Donne accès à l’état actuel de l’élément via une render prop.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styles
 
@@ -150,7 +141,11 @@ consommateur ; les variantes CSS Modules exposent aussi les variables enregistr�
 
 ### Variables CSS
 
-<CssPropertiesSection properties={RatingGroupDocs.ratingGroupOverrideCssProperties} />
+Survolez ou sélectionnez une variable pour la voir dans l’aperçu.
+
+<CssPropertiesSection properties={RatingGroupDocs.ratingGroupOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Points d’accroche CSS
 

@@ -5,6 +5,7 @@ description: Ввод числа с кнопками шага, пределам�
 ark: https://ark-ui.com/docs/components/number-input
 ---
 
+import AnatomyScene from '@/components/examples/number-input/basic';
 import * as NumberInputDocs from '@/components/examples/number-input/css-properties';
 
 <Example name="number-input/basic" />
@@ -140,34 +141,25 @@ import * as NumberInputDocs from '@/components/examples/number-input/css-propert
 
 ## Анатомия
 
-```text
-NumberInput
-├─ NumberInputLabel
-├─ NumberInputScrubber (необязательно)
-├─ NumberInputField (рекомендуемая короткая форма)
-│  └─ отображает NumberInputControl
-│     ├─ NumberInputDecrementTrigger
-│     ├─ NumberInputInput
-│     └─ NumberInputIncrementTrigger
-└─ NumberInputValueText (необязательно)
+Наведите на часть или выберите её, чтобы найти её в превью.
 
-NumberInputRootProvider
-└─ то же дерево частей, подключённое к состоянию, созданному с помощью `useNumberInput()`
-```
-
-| Часть | Назначение |
-| --- | --- |
-| `NumberInput` | Управляет состоянием числового поля, разбором введённого значения, форматированием и поведением клавиатуры. |
-| `NumberInputRootProvider` | Подключает части к состоянию, созданному с помощью `useNumberInput()`. |
-| `NumberInputContext` | Предоставляет форматированное и числовое представление значения, а также императивные методы работы с состоянием. |
-| `NumberInputLabel` | Доступная подпись управляемого поля. |
-| `NumberInputScrubber` | Необязательная зона перетаскивания, которая изменяет значение при движении указателя. |
-| `NumberInputControl` | Объединяет поле ввода и кнопки увеличения и уменьшения значения. |
-| `NumberInputField` | Удобная часть, которая отображает стандартный контрол и группу кнопок. |
-| `NumberInputDecrementTrigger` | Кнопка уменьшения текущего значения. Если дочерний элемент не задан, отображает значок минуса moduix. |
-| `NumberInputInput` | Редактируемое текстовое поле для числа под управлением Ark UI. |
-| `NumberInputIncrementTrigger` | Кнопка увеличения текущего значения. Если дочерний элемент не задан, отображает значок плюса moduix. |
-| `NumberInputValueText` | Текстовый элемент только для чтения с форматированным значением. |
+<AnatomyInspector
+  parts={[
+    ["NumberInput", "number-input-root", "Управляет состоянием числового поля, разбором введённого значения, форматированием и поведением клавиатуры.", 0],
+    ["NumberInputLabel", "number-input-label", "Доступная подпись управляемого поля.", 1],
+    ["NumberInputScrubber", "number-input-scrubber", "Необязательная зона перетаскивания, которая изменяет значение при движении указателя.", 1],
+    ["NumberInputField", "", "Удобная часть, которая отображает стандартный контрол и группу кнопок.", 1],
+    ["NumberInputDecrementTrigger", "number-input-decrement-trigger", "Кнопка уменьшения текущего значения. Если дочерний элемент не задан, отображает значок минуса moduix.", 2],
+    ["NumberInputInput", "number-input-input", "Редактируемое текстовое поле для числа под управлением Ark UI.", 2],
+    ["NumberInputIncrementTrigger", "number-input-increment-trigger", "Кнопка увеличения текущего значения. Если дочерний элемент не задан, отображает значок плюса moduix.", 2],
+    ["NumberInputValueText", "number-input-value-text", "Текстовый элемент только для чтения с форматированным значением.", 1],
+    ["NumberInputControl", "number-input-control", "Объединяет поле ввода и кнопки увеличения и уменьшения значения.", 1],
+    ["NumberInputRootProvider", "number-input-root-provider", "Подключает части к состоянию, созданному с помощью `useNumberInput()`.", 0],
+    ["NumberInputContext", null, "Предоставляет форматированное и числовое представление значения, а также императивные методы работы с состоянием.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Стилизация
 
@@ -177,7 +169,11 @@ NumberInputRootProvider
 
 ### CSS-переменные
 
-<CssPropertiesSection properties={NumberInputDocs.numberInputOverrideCssProperties} />
+Наведите на переменную или выберите её, чтобы увидеть её в превью.
+
+<CssPropertiesSection properties={NumberInputDocs.numberInputOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Хуки стилизации
 

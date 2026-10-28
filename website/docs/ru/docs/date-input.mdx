@@ -5,6 +5,7 @@ description: Ввод даты по сегментам дня, месяца и �
 ark: https://ark-ui.com/docs/components/date-input
 ---
 
+import AnatomyScene from '@/components/examples/date-input/basic';
 import * as DateInputDocs from '@/components/examples/date-input/css-properties';
 
 <Example name="date-input/basic" />
@@ -136,37 +137,25 @@ import * as DateInputDocs from '@/components/examples/date-input/css-properties'
 
 ## Анатомия
 
-```text
-DateInput
-├─ DateInputLabel
-├─ DateInputControl
-│  ├─ DateInputSegments
-│  └─ DateInputSeparator (необязательно, для диапазонов)
-└─ DateInputHiddenInput[index] (явно, по одному на отправляемую дату)
+Наведите на часть или выберите её, чтобы найти её в превью.
 
-Расширенная настройка:
-
-DateInputSegmentGroup
-└─ DateInputSegmentContext
-   └─ DateInputSegment
-
-DateInputRootProvider
-└─ то же дерево частей, подключённое к состоянию из useDateInput()
-```
-
-| Часть | Назначение |
-| ---- | ---- |
-| `DateInput` | Отвечает за значения дат, форматирование с учётом локали, фокус сегментов и валидацию. |
-| `DateInputHiddenInput` | Нативное поле Ark, которое для отправки формы нужно добавить явно. |
-| `DateInputRootProvider` | Подключает части к состоянию из `useDateInput()`. |
-| `DateInputLabel` | Подпись поля даты, доступная вспомогательным технологиям. |
-| `DateInputControl` | Визуальная рамка вокруг одной или нескольких групп сегментов. |
-| `DateInputSegmentGroup` | Объединяет сегменты для одного индекса даты. |
-| `DateInputSegment` | Редактируемый или фиксированный сегмент, предоставляемый Ark UI. |
-| `DateInputSegments` | Отображает одну группу сегментов с учётом локали для обычного сценария. |
-| `DateInputSeparator` | Текстовый разделитель между группами диапазона. |
-| `DateInputContext` | Даёт доступ к текущему состоянию поля без собственной разметки. |
-| `DateInputSegmentContext` | Помогает отображать сегменты с учётом локали. |
+<AnatomyInspector
+  parts={[
+    ["DateInput", "date-input-root", "Отвечает за значения дат, форматирование с учётом локали, фокус сегментов и валидацию.", 0],
+    ["DateInputLabel", "date-input-label", "Подпись поля даты, доступная вспомогательным технологиям.", 1],
+    ["DateInputControl", "date-input-control", "Визуальная рамка вокруг одной или нескольких групп сегментов.", 1],
+    ["DateInputSegments", "", "Отображает одну группу сегментов с учётом локали для обычного сценария.", 2],
+    ["DateInputSeparator", "date-input-separator", "Текстовый разделитель между группами диапазона.", 2],
+    ["DateInputHiddenInput", "", "Нативное поле Ark, которое для отправки формы нужно добавить явно.", 1],
+    ["DateInputSegmentGroup", "date-input-segment-group", "Объединяет сегменты для одного индекса даты.", 0],
+    ["DateInputSegmentContext", null, "Помогает отображать сегменты с учётом локали.", 1],
+    ["DateInputSegment", "date-input-segment", "Редактируемый или фиксированный сегмент, предоставляемый Ark UI.", 2],
+    ["DateInputRootProvider", "date-input-root-provider", "Подключает части к состоянию из `useDateInput()`.", 0],
+    ["DateInputContext", null, "Даёт доступ к текущему состоянию поля без собственной разметки.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Стилизация
 
@@ -179,7 +168,11 @@ Tailwind используют обычные utility-классы и класс�
 
 ### CSS-переменные
 
-<CssPropertiesSection properties={DateInputDocs.dateInputOverrideCssProperties} />
+Наведите на переменную или выберите её, чтобы увидеть её в превью.
+
+<CssPropertiesSection properties={DateInputDocs.dateInputOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Хуки стилизации
 

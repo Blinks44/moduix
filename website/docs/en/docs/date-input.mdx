@@ -5,6 +5,7 @@ description: Type a date into locale-aware day, month, and year segments.
 ark: https://ark-ui.com/docs/components/date-input
 ---
 
+import AnatomyScene from '@/components/examples/date-input/basic';
 import * as DateInputDocs from '@/components/examples/date-input/css-properties';
 
 <Example name="date-input/basic" />
@@ -135,37 +136,25 @@ input for each submitted date and use matching `index` values for a range. Use
 
 ## Anatomy
 
-```text
-DateInput
-├─ DateInputLabel
-├─ DateInputControl
-│  ├─ DateInputSegments
-│  └─ DateInputSeparator (optional, range layouts)
-└─ DateInputHiddenInput[index] (explicit, one per submitted date)
+Hover or focus a part to find it in the preview.
 
-Advanced customization:
-
-DateInputSegmentGroup
-└─ DateInputSegmentContext
-   └─ DateInputSegment
-
-DateInputRootProvider
-└─ same part tree connected to a useDateInput() store
-```
-
-| Part | Role |
-| ---- | ---- |
-| `DateInput` | Owns date values, locale formatting, segment focus, and validation. |
-| `DateInputHiddenInput` | Native Ark form control that must be composed explicitly for submission. |
-| `DateInputRootProvider` | Connects the parts to state created by `useDateInput()`. |
-| `DateInputLabel` | Accessible label for the date input. |
-| `DateInputControl` | Visual frame around one or more segment groups. |
-| `DateInputSegmentGroup` | Groups segments for one date index. |
-| `DateInputSegment` | Editable or literal segment supplied by Ark UI. |
-| `DateInputSegments` | Renders one locale-aware segment group for the common case. |
-| `DateInputSeparator` | Presentational text used between range groups. |
-| `DateInputContext` | Renderless access to the current date input state. |
-| `DateInputSegmentContext` | Render helper for locale-aware segment rendering. |
+<AnatomyInspector
+  parts={[
+    ["DateInput", "date-input-root", "Owns date values, locale formatting, segment focus, and validation.", 0],
+    ["DateInputLabel", "date-input-label", "Accessible label for the date input.", 1],
+    ["DateInputControl", "date-input-control", "Visual frame around one or more segment groups.", 1],
+    ["DateInputSegments", "", "Renders one locale-aware segment group for the common case.", 2],
+    ["DateInputSeparator", "date-input-separator", "Presentational text used between range groups.", 2],
+    ["DateInputHiddenInput", "", "Native Ark form control that must be composed explicitly for submission.", 1],
+    ["DateInputSegmentGroup", "date-input-segment-group", "Groups segments for one date index.", 0],
+    ["DateInputSegmentContext", null, "Render helper for locale-aware segment rendering.", 1],
+    ["DateInputSegment", "date-input-segment", "Editable or literal segment supplied by Ark UI.", 2],
+    ["DateInputRootProvider", "date-input-root-provider", "Connects the parts to state created by `useDateInput()`.", 0],
+    ["DateInputContext", null, "Renderless access to the current date input state.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styling
 
@@ -178,7 +167,11 @@ The root is sized to its content and the control fills it. To stretch the input 
 
 ### CSS variables
 
-<CssPropertiesSection properties={DateInputDocs.dateInputOverrideCssProperties} />
+Hover or focus a variable to see it in the preview.
+
+<CssPropertiesSection properties={DateInputDocs.dateInputOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Styling hooks
 

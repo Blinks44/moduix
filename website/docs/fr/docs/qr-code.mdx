@@ -5,6 +5,7 @@ description: Transformer un lien ou un texte en code QR à scanner ou téléchar
 ark: https://ark-ui.com/docs/components/qr-code
 ---
 
+import AnatomyScene from '@/components/examples/qr-code/basic';
 import * as QrCodeDocs from '@/components/examples/qr-code/css-properties';
 
 <Example name="qr-code/basic" />
@@ -104,25 +105,20 @@ puis testez le code final avec les scanners utilisés par vos utilisateurs.
 
 ## Anatomie
 
-```text
-QrCode
-├─ QrCodeFrame
-│  └─ QrCodePattern
-├─ QrCodeOverlay
-└─ QrCodeDownloadTrigger
+Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
 
-QrCodeRootProvider
-└─ même arbre de parties connecté à un store useQrCode()
-```
-
-| Part                     | Rôle                                                                  |
-| ------------------------ | --------------------------------------------------------------------- |
-| `QrCode`                | Possède la valeur encodée et les options de génération, et fournit l’état du code QR. |
-| `QrCodeRootProvider`    | Connecte les parties à l’état créé avec `useQrCode()`.                |
-| `QrCodeFrame`           | Élément SVG qui contient le code QR généré.                            |
-| `QrCodePattern`         | Chemin SVG qui dessine les modules du code QR.                         |
-| `QrCodeOverlay`         | Contenu affiché au centre du code QR.                                  |
-| `QrCodeDownloadTrigger` | Bouton qui télécharge le code QR actuel comme image.                   |
+<AnatomyInspector
+  parts={[
+    ["QrCode", "qr-code-root", "Possède la valeur encodée et les options de génération, et fournit l’état du code QR.", 0],
+    ["QrCodeFrame", "qr-code-frame", "Élément SVG qui contient le code QR généré.", 1],
+    ["QrCodePattern", "qr-code-pattern", "Chemin SVG qui dessine les modules du code QR.", 2],
+    ["QrCodeOverlay", "qr-code-overlay", "Contenu affiché au centre du code QR.", 1],
+    ["QrCodeDownloadTrigger", "qr-code-download-trigger", "Bouton qui télécharge le code QR actuel comme image.", 1],
+    ["QrCodeRootProvider", "qr-code-root-provider", "Connecte les parties à l’état créé avec `useQrCode()`.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styles
 
@@ -136,7 +132,11 @@ runtime `--qrcode-pixel-size`, `--qrcode-width` et `--qrcode-height` sur la raci
 
 ### Variables CSS
 
-<CssPropertiesSection properties={QrCodeDocs.qrCodeOverrideCssProperties} />
+Survolez ou sélectionnez une variable pour la voir dans l’aperçu.
+
+<CssPropertiesSection properties={QrCodeDocs.qrCodeOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Points d’accroche CSS
 

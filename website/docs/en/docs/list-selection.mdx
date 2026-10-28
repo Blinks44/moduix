@@ -1,6 +1,7 @@
 ---
 title: List Selection
 description: Manage single, multiple, deselectable, and range selection in custom list interfaces.
+ark: https://ark-ui.com/docs/collections/list-selection
 ---
 
 # List Selection
@@ -8,9 +9,7 @@ description: Manage single, multiple, deselectable, and range selection in custo
 `useListSelection` manages selected values in a `ListCollection` while your application owns the
 markup and interaction model.
 
-## API Reference
-
-<PrimitiveReference href="https://ark-ui.com/docs/collections/list-selection" />
+## Import
 
 The hook is provided by Ark UI, not re-exported by Moduix. Import it from the collection entry point
 for the framework in your application:
@@ -46,10 +45,6 @@ import { createListCollection, useListSelection } from '@ark-ui/vue/collection';
 
   </Tab>
 </Tabs>
-
-There is no `list-selection` export or registry item in `@moduix/react`, `@moduix/solid`,
-`@moduix/react-tailwind`, or `@moduix/solid-tailwind`. This page documents the Ark UI hook that can
-be used alongside any of those packages.
 
 ## Basic selection
 

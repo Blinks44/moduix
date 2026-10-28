@@ -5,6 +5,7 @@ description: Trigger an action or follow a link with accessible button styles.
 ark: https://ark-ui.com/docs/guides/composition
 ---
 
+import { Button } from '@moduix/react/button';
 import * as ButtonDocs from '@/components/examples/button/css-properties';
 
 <Example name="button/basic" />
@@ -89,17 +90,11 @@ lifecycle. Native roots default to `type="button"`, while `asChild` targets do n
 
 ## Anatomy
 
-`Button` has a single part.
+`Button` has a single part. Hover or focus a part to find it in the preview.
 
-```text
-Button
-└─ root[data-scope="button"][data-part="root"][data-slot="button-root"]
-   └─ children
-```
-
-| Part     | Role                                                |
-| -------- | --------------------------------------------------- |
-| `Button` | Single interactive root element with moduix styles. |
+<AnatomyInspector parts={[['Button', 'button-root', 'Single interactive root element with moduix styles.']]}>
+  <Button>Button</Button>
+</AnatomyInspector>
 
 ## Styling
 
@@ -110,7 +105,11 @@ apply to the CSS Modules packages; Tailwind packages use native utilities and co
 
 ### CSS variables
 
-<CssPropertiesSection properties={ButtonDocs.buttonCssProperties} />
+Grouped by what they change. Hover or focus a variable to see it on the button.
+
+<CssPropertiesSection properties={ButtonDocs.buttonCssProperties}>
+  <Button>Button</Button>
+</CssPropertiesSection>
 
 ### Styling hooks
 

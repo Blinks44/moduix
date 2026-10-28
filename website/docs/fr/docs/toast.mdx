@@ -5,6 +5,7 @@ description: Afficher de brèves notifications empilées qui se ferment seules.
 ark: https://ark-ui.com/docs/components/toast
 ---
 
+import AnatomyScene from '@/components/examples/toast/anatomy';
 import * as ToastDocs from '@/components/examples/toast/css-properties';
 
 <Example name="toast/basic" />
@@ -124,25 +125,21 @@ le titre, la description et les boutons d’action et de fermeture.
 
 ## Anatomie
 
-```text
-createToaster()
-└─ ToastToaster (portalled to document.body by default)
-   └─ Toast
-      ├─ ToastTitle
-      ├─ ToastDescription
-      ├─ ToastActionTrigger
-      └─ ToastCloseTrigger
-```
+Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
 
-| Partie                         | Rôle                                                                                 |
-| ------------------------------ | ------------------------------------------------------------------------------------ |
-| `Toast`               | Racine d’une notification visible.                                      |
-| `ToastToaster`        | Rend le store du toaster et gère le groupe de notifications.            |
-| `ToastTitle`          | Partie du titre. Utilise le `title` de la notification courante sans enfant. |
-| `ToastDescription`    | Partie de la description. Utilise la `description` courante sans enfant. |
-| `ToastActionTrigger`  | Bouton d’action lié à `toast.action.onClick`.                           |
-| `ToastCloseTrigger`   | Bouton de fermeture. Utilise `CloseButton` par défaut.                  |
-| `ToastContext`        | Partie de contexte pour une composition personnalisée et l’accès direct à l’état. |
+<AnatomyInspector
+  parts={[
+    ["ToastToaster", "toast-toaster", "Rend le store du toaster et gère le groupe de notifications.", 0],
+    ["Toast", "toast-root", "Racine d’une notification visible.", 1],
+    ["ToastTitle", "toast-title", "Partie du titre. Utilise le `title` de la notification courante sans enfant.", 2],
+    ["ToastDescription", "toast-description", "Partie de la description. Utilise la `description` courante sans enfant.", 2],
+    ["ToastActionTrigger", "toast-action-trigger", "Bouton d’action lié à `toast.action.onClick`.", 2],
+    ["ToastCloseTrigger", "toast-close-trigger", "Bouton de fermeture. Utilise `CloseButton` par défaut.", 2],
+    ["ToastContext", null, "Partie de contexte pour une composition personnalisée et l’accès direct à l’état.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styles
 
@@ -154,7 +151,11 @@ variantes Tailwind utilisent les utilitaires natifs et les classes de l’applic
 
 ### Variables CSS
 
-<CssPropertiesSection properties={ToastDocs.toastCssProperties} />
+Survolez ou sélectionnez une variable pour la voir dans l’aperçu.
+
+<CssPropertiesSection properties={ToastDocs.toastCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Points d’accroche CSS
 

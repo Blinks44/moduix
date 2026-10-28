@@ -5,6 +5,7 @@ component: highlight
 ark: https://ark-ui.com/docs/utilities/highlight
 ---
 
+import AnatomyScene from '@/components/examples/highlight/basic';
 import * as HighlightDocs from '@/components/examples/highlight/css-properties';
 
 <Example name="highlight/basic" />
@@ -93,14 +94,15 @@ construisez cette structure dans votre propre composant.
 supplémentaire. Chaque segment correspondant devient un élément natif `<mark>`, tandis que le texte
 sans correspondance reste du texte ordinaire dans le flux environnant.
 
-```text
-Highlight
-└─ segments correspondants rendus dans des éléments <mark> successifs
-```
+Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
 
-| Partie      | Rôle                                                                |
-| ----------- | ------------------------------------------------------------------- |
-| `Highlight` | Applique les styles moduix à chaque correspondance du texte fourni. |
+<AnatomyInspector
+  parts={[
+    ["Highlight", "highlight-root", "Applique les styles moduix à chaque correspondance du texte fourni.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styles
 
@@ -111,7 +113,11 @@ utilitaires ou les classes du consommateur.
 
 ### Variables CSS
 
-<CssPropertiesSection properties={HighlightDocs.highlightCssProperties} />
+Survolez ou sélectionnez une variable pour la voir dans l’aperçu.
+
+<CssPropertiesSection properties={HighlightDocs.highlightCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Points d’accroche CSS
 

@@ -5,6 +5,7 @@ description: Show where a page sits in the site hierarchy with links back up.
 ark: https://ark-ui.com/docs/guides/composition#the-ark-factory
 ---
 
+import AnatomyScene from '@/components/examples/breadcrumbs/basic';
 import * as BreadcrumbsDocs from '@/components/examples/breadcrumbs/css-properties';
 
 <Example name="breadcrumbs/basic" />
@@ -89,25 +90,21 @@ needs no styles of its own.
 
 ## Anatomy
 
-```text
-Breadcrumbs
-└─ BreadcrumbsList
-   ├─ BreadcrumbsItem
-   │  └─ BreadcrumbsLink
-   ├─ BreadcrumbsSeparator
-   └─ BreadcrumbsItem
-      └─ BreadcrumbsPage
-```
+Hover or focus a part to find it in the preview.
 
-| Part                  | Role                                                              |
-| --------------------- | ----------------------------------------------------------------- |
-| `Breadcrumbs`         | Root navigation landmark with a default `aria-label`.             |
-| `BreadcrumbsList`     | Ordered list of breadcrumb segments.                              |
-| `BreadcrumbsItem`     | List item wrapper for a segment.                                  |
-| `BreadcrumbsLink`     | Styled anchor for navigable segments; supports `asChild`.         |
-| `BreadcrumbsPage`     | Current page text with `aria-current="page"`.                     |
-| `BreadcrumbsSeparator`| Visual delimiter hidden from assistive technology.                |
-| `BreadcrumbsEllipsis` | Compact marker for a menu trigger that reveals hidden segments.   |
+<AnatomyInspector
+  parts={[
+    ["Breadcrumbs", "breadcrumbs-root", "Root navigation landmark with a default `aria-label`.", 0],
+    ["BreadcrumbsList", "breadcrumbs-list", "Ordered list of breadcrumb segments.", 1],
+    ["BreadcrumbsItem", "breadcrumbs-item", "List item wrapper for a segment.", 2],
+    ["BreadcrumbsLink", "breadcrumbs-link", "Styled anchor for navigable segments; supports `asChild`.", 3],
+    ["BreadcrumbsSeparator", "breadcrumbs-separator", "Visual delimiter hidden from assistive technology.", 2],
+    ["BreadcrumbsPage", "breadcrumbs-page", "Current page text with `aria-current=\"page\"`.", 2],
+    ["BreadcrumbsEllipsis", "breadcrumbs-ellipsis", "Compact marker for a menu trigger that reveals hidden segments.", 1],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 `BreadcrumbsPath` is a moduix shorthand that builds `BreadcrumbsList`, `BreadcrumbsItem`,
 `BreadcrumbsLink`, `BreadcrumbsPage`, and `BreadcrumbsSeparator` from `links` and `page` props.
@@ -120,7 +117,11 @@ variants. For state-based styles, prefer Ark data attributes together with modui
 
 ### CSS variables
 
-<CssPropertiesSection properties={BreadcrumbsDocs.breadcrumbsCssProperties} />
+Hover or focus a variable to see it in the preview.
+
+<CssPropertiesSection properties={BreadcrumbsDocs.breadcrumbsCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Styling hooks
 

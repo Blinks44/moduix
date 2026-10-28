@@ -5,6 +5,7 @@ description: Give a control a short hint that shows on hover or focus.
 ark: https://ark-ui.com/docs/components/tooltip
 ---
 
+import AnatomyScene from '@/components/examples/tooltip/anatomy';
 
 <Example name="tooltip/basic" />
 
@@ -131,41 +132,27 @@ for eager rendering. In Vue, bind these options as `:unmount-on-exit="false"` an
 
 ## Anatomy
 
-```text
-Tooltip
-├─ TooltipTrigger
-└─ Overlay subtree (automatically rendered in a portal)
-   └─ TooltipPositioner
-      └─ TooltipContent
-         └─ content
-```
-
 Add `TooltipArrow` as the first child of the content when the popup should point to its trigger.
 `TooltipArrow` renders `TooltipArrowTip` by default.
 
-```text
-Tooltip
-├─ TooltipTrigger
-└─ Overlay subtree (automatically rendered in a portal)
-   └─ TooltipPositioner
-      └─ TooltipContent
-         ├─ TooltipArrow
-         │  └─ TooltipArrowTip
-         └─ content
-```
+Hover or focus a part to find it in the preview.
 
-| Part | Role |
-| --- | --- |
-| `Tooltip` | Owns tooltip state, opening and closing, delays, positioning, and lifecycle. |
-| `TooltipRootProvider` | Renders a tooltip from a `useTooltip()` state object created outside the tree. |
-| `TooltipContext` | Exposes current tooltip state through a render prop or a Vue scoped slot for custom descendants. |
-| `TooltipBody` | Convenience wrapper that renders `TooltipPositioner` and `TooltipContent` together. |
-| `TooltipTrigger` | Interactive element that opens the tooltip on hover or focus. |
-| `TooltipDisabledTrigger` | Focusable wrapper for one disabled native control that still needs an explanation. |
-| `TooltipPositioner` | Positions the content and exposes Ark positioning variables. |
-| `TooltipContent` | Visible tooltip surface. |
-| `TooltipArrow` | Optional positioned arrow wrapper that renders `TooltipArrowTip` by default. |
-| `TooltipArrowTip` | Arrow tip element. |
+<AnatomyInspector
+  parts={[
+    ["Tooltip", null, "Owns tooltip state, opening and closing, delays, positioning, and lifecycle.", 0],
+    ["TooltipTrigger", "tooltip-trigger", "Interactive element that opens the tooltip on hover or focus.", 1],
+    ["TooltipDisabledTrigger", "tooltip-disabled-trigger", "Focusable wrapper for one disabled native control that still needs an explanation.", 1],
+    ["TooltipPositioner", "tooltip-positioner", "Positions the content and exposes Ark positioning variables.", 1],
+    ["TooltipContent", "tooltip-content", "Visible tooltip surface.", 2],
+    ["TooltipArrow", "tooltip-arrow", "Optional positioned arrow wrapper that renders `TooltipArrowTip` by default.", 3],
+    ["TooltipArrowTip", "tooltip-arrow-tip", "Arrow tip element.", 4],
+    ["TooltipBody", "", "Convenience wrapper that renders `TooltipPositioner` and `TooltipContent` together.", 1],
+    ["TooltipRootProvider", null, "Renders a tooltip from a `useTooltip()` state object created outside the tree.", 0],
+    ["TooltipContext", null, "Exposes current tooltip state through a render prop or a Vue scoped slot for custom descendants.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styling
 

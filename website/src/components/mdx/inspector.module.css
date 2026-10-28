@@ -1,0 +1,351 @@
+.inspector {
+  --inspector-accent: var(--rp-c-link);
+  --inspector-active: color-mix(in srgb, var(--rp-c-link) 8%, transparent);
+
+  margin-block: 1rem 1.5rem;
+  overflow: hidden;
+  border: 1px solid var(--rp-c-divider);
+  border-radius: 12px;
+  background: var(--rp-c-bg);
+}
+
+.scene {
+  position: relative;
+  border-bottom: 1px solid var(--rp-c-divider);
+  background: var(--rp-c-bg-soft);
+}
+
+.stage {
+  /* Fixed overlay parts such as a dialog backdrop are laid out and clipped inside the scene. */
+  contain: layout paint;
+  display: flex;
+  min-height: 200px;
+  align-items: center;
+  justify-content: center;
+  padding: 48px 24px;
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.outline {
+  position: absolute;
+  box-sizing: border-box;
+  border: 1.5px solid var(--inspector-accent);
+  border-radius: 11.5px;
+  background: var(--inspector-active);
+}
+
+.padding {
+  position: absolute;
+  background: color-mix(in srgb, var(--inspector-accent) 70%, transparent);
+
+  &[data-edge='start'] {
+    border-start-start-radius: 8px;
+    border-end-start-radius: 8px;
+  }
+
+  &[data-edge='end'] {
+    border-start-end-radius: 8px;
+    border-end-end-radius: 8px;
+  }
+
+  &[data-vertical][data-edge='start'] {
+    border-radius: 8px 8px 0 0;
+  }
+
+  &[data-vertical][data-edge='end'] {
+    border-radius: 0 0 8px 8px;
+  }
+}
+
+.dimension {
+  position: absolute;
+  box-sizing: border-box;
+  height: 11px;
+  border-inline: 1px solid var(--inspector-accent);
+
+  &::before {
+    position: absolute;
+    inset-inline: 0;
+    top: 5px;
+    height: 1px;
+    background: var(--inspector-accent);
+    content: '';
+  }
+
+  &[data-vertical] {
+    width: 11px;
+    height: auto;
+    border-block: 1px solid var(--inspector-accent);
+    border-inline: 0;
+
+    &::before {
+      inset-block: 0;
+      inset-inline: 5px auto;
+      top: 0;
+      width: 1px;
+      height: auto;
+    }
+  }
+}
+
+.label {
+  position: absolute;
+  border: 1px solid var(--inspector-accent);
+  border-radius: 4px;
+  background: var(--rp-c-bg);
+  color: var(--inspector-accent);
+  padding: 2px 6px;
+  font-family: var(--rp-font-family-mono);
+  font-size: 12px;
+  line-height: 16px;
+  white-space: nowrap;
+
+  &[data-align='center'] {
+    translate: -50% 0;
+  }
+}
+
+.table {
+  display: table;
+  width: 100%;
+  margin: 0;
+  border-collapse: collapse;
+  font-size: 14px;
+  line-height: 20px;
+
+  th,
+  td {
+    border: 0;
+    border-bottom: 1px solid var(--rp-c-divider);
+    padding: 8px 16px;
+    text-align: start;
+    vertical-align: top;
+  }
+
+  thead th:first-child {
+    width: 41%;
+  }
+
+  thead th {
+    background: none;
+    color: var(--rp-c-text-2);
+    font-size: 13px;
+    font-weight: 400;
+  }
+
+  tbody:last-child tr:last-child td {
+    border-bottom: 0;
+  }
+
+  tr {
+    background: none;
+  }
+
+  tr[data-active] {
+    background: var(--inspector-active);
+    box-shadow: inset 2px 0 var(--inspector-accent);
+  }
+}
+
+.group th {
+  background: var(--rp-c-bg-soft);
+  color: var(--rp-c-text-3);
+  padding-block: 4px;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.rowButton {
+  display: flex;
+  max-width: 100%;
+  align-items: baseline;
+  gap: 8px;
+  border: 0;
+  background: none;
+  color: inherit;
+  padding: 0;
+  font: inherit;
+  text-align: start;
+  cursor: default;
+
+  &:focus-visible {
+    border-radius: 2px;
+    outline: 2px solid var(--inspector-accent);
+    outline-offset: 2px;
+  }
+}
+
+.name,
+.value code,
+.branch {
+  border: 0;
+  background: none;
+  padding: 0;
+  font-family: var(--rp-font-family-mono);
+  font-size: 13px;
+  white-space: nowrap;
+}
+
+.name {
+  color: var(--rp-c-text-1);
+
+  tr[data-active] & {
+    color: var(--inspector-accent);
+  }
+}
+
+.branch {
+  color: var(--rp-c-text-3);
+  white-space: pre;
+}
+
+.muted,
+.computed,
+.scope {
+  color: var(--rp-c-text-3);
+  font-size: 12px;
+}
+
+.computed {
+  margin-inline-start: 8px;
+  font-family: var(--rp-font-family-mono);
+}
+
+.scope {
+  text-align: end;
+  white-space: nowrap;
+}
+
+.role {
+  color: var(--rp-c-text-1);
+}
+
+.value code {
+  color: var(--rp-c-text-1);
+
+  /* Token names stay whole; only expressions such as color-mix() wrap at their spaces. */
+  &[data-expression] {
+    white-space: normal;
+  }
+}
+
+.swatch {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  margin-inline-end: 8px;
+  border: 1px solid var(--moduix-doc-border-strong);
+  border-radius: 50%;
+  vertical-align: -1px;
+}
+
+/* Only the active row shows its description; the text stays available to screen readers. */
+.description {
+  margin: 2px 0 0;
+  color: var(--rp-c-text-2);
+  font-size: 13px;
+  line-height: 18px;
+  white-space: normal;
+
+  tr:not([data-active]) & {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+}
+
+.note {
+  margin: 0;
+  border-top: 1px solid var(--rp-c-divider);
+  background: var(--rp-c-bg-soft);
+  color: var(--rp-c-text-2);
+  padding: 8px 16px;
+  font-size: 12px;
+  line-height: 16px;
+}
+
+/* Phones stack the name above its value, as in the mobile frame. */
+@media (width <= 640px) {
+  .table[data-variables] {
+    thead {
+      display: none;
+    }
+
+    tr:not(.group) {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      border-bottom: 1px solid var(--rp-c-divider);
+      padding: 8px 12px;
+    }
+
+    tr:not(.group) td {
+      border: 0;
+      padding: 0;
+    }
+
+    td:first-child {
+      display: contents;
+    }
+
+    .rowButton {
+      grid-column: 1;
+      grid-row: 1;
+    }
+
+    .description {
+      grid-column: 1 / -1;
+      grid-row: 3;
+    }
+
+    .value {
+      grid-column: 1 / -1;
+      grid-row: 2;
+      white-space: normal;
+    }
+
+    .scope {
+      grid-column: 2;
+      grid-row: 1;
+    }
+
+    .group th {
+      padding-inline: 12px;
+    }
+  }
+
+  .table:not([data-variables]) {
+    tr {
+      display: grid;
+      border-bottom: 1px solid var(--rp-c-divider);
+      padding: 8px 12px;
+    }
+
+    thead {
+      display: none;
+    }
+
+    td {
+      border: 0;
+      padding: 0;
+    }
+
+    .role {
+      color: var(--rp-c-text-2);
+      font-size: 13px;
+    }
+  }
+
+  .table tbody:last-child tr:last-child {
+    border-bottom: 0;
+  }
+}

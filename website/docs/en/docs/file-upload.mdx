@@ -5,6 +5,8 @@ description: Pick or drop files with type, size, and count checks.
 ark: https://ark-ui.com/docs/components/file-upload
 ---
 
+import AnatomyScene from '@/components/examples/file-upload/basic';
+
 <Example name="file-upload/basic" />
 
 ## Installation
@@ -161,49 +163,33 @@ choose one preview per file from `acceptedFiles` or `rejectedFiles`.
 
 ## Anatomy
 
-```text
-FileUpload / FileUploadRootProvider
-├─ FileUploadLabel
-├─ FileUploadDropzone (optional)
-│  ├─ FileUploadDropzoneIcon
-│  └─ FileUploadTrigger
-├─ FileUploadTrigger (when no dropzone is used)
-├─ FileUploadItemGroup[type]
-│  ├─ FileUploadItems
-│  └─ FileUploadContext
-│     └─ FileUploadItem[file]
-│        ├─ FileUploadItemPreview[type]
-│        │  ├─ FileUploadItemPreviewImage
-│        │  └─ FileUploadItemPreviewIcon
-│        ├─ FileUploadItemName
-│        ├─ FileUploadItemMetadata[file]
-│        ├─ FileUploadItemSizeText
-│        └─ FileUploadItemDeleteTrigger
-├─ FileUploadClearTrigger
-└─ FileUploadHiddenInput (explicit)
-```
+Hover or focus a part to find it in the preview.
 
-| Part                             | Role                                                                   |
-| -------------------------------- | ---------------------------------------------------------------------- |
-| `FileUpload` / `FileUploadRootProvider` | Owns file state and handles validation, drag-and-drop, paste, and form integration. |
-| `FileUploadHiddenInput` | Native Ark form control; compose explicitly as described below. |
-| `FileUploadRootProvider`        | Connects the upload tree to state returned by the `useFileUpload` hook.              |
-| `FileUploadLabel`               | Accessible label for the hidden file input and upload controls.                     |
-| `FileUploadDropzone`            | Drag-and-drop target. Pass `disableClick` when it contains a nested trigger.        |
-| `FileUploadDropzoneIcon`        | Decorative upload icon for a `FileUploadDropzone`.                                            |
-| `FileUploadTrigger`             | Unstyled button that opens the native file picker. Compose it with a `Button` through `asChild`.                                           |
-| `FileUploadItemGroup`           | List for accepted or rejected files.                                                 |
-| `FileUploadItems`               | Convenience component that renders image cards and file rows with previews, metadata, and delete controls. |
-| `FileUploadContext`             | Ark-compatible render-prop context for custom file rows.                             |
-| `FileUploadItem`                | File row. Pass it the current `file` object.                                         |
-| `FileUploadItemPreview`         | Preview slot that matches a file by MIME type.                                       |
-| `FileUploadItemPreviewImage`    | Image preview inside `FileUploadItemPreview`.                                                  |
-| `FileUploadItemPreviewIcon`     | Generic file icon for a fallback preview inside `FileUploadItemPreview`.                      |
-| `FileUploadItemName`            | File name text.                                                                      |
-| `FileUploadItemMetadata`        | File type and localized size. Pass it the current `file` object.                    |
-| `FileUploadItemSizeText`        | Localized file-size text.                                                            |
-| `FileUploadItemDeleteTrigger`   | Removes one file. Defaults to the moduix trash icon; Ark `translations.deleteFile` names it.                                |
-| `FileUploadClearTrigger`        | Unstyled button that clears accepted files; hidden while the list is empty. Compose it with a `Button` through `asChild`.                           |
+<AnatomyInspector
+  parts={[
+    ["FileUpload / FileUploadRootProvider", "file-upload-root", "Owns file state and handles validation, drag-and-drop, paste, and form integration.", 0],
+    ["FileUploadLabel", "file-upload-label", "Accessible label for the hidden file input and upload controls.", 1],
+    ["FileUploadDropzone", "file-upload-dropzone", "Drag-and-drop target. Pass `disableClick` when it contains a nested trigger.", 1],
+    ["FileUploadDropzoneIcon", "file-upload-dropzone-icon", "Decorative upload icon for a `FileUploadDropzone`.", 2],
+    ["FileUploadTrigger", "file-upload-trigger", "Unstyled button that opens the native file picker. Compose it with a `Button` through `asChild`.", 2],
+    ["FileUploadItemGroup", "file-upload-item-group", "List for accepted or rejected files.", 1],
+    ["FileUploadItems", "", "Convenience component that renders image cards and file rows with previews, metadata, and delete controls.", 2],
+    ["FileUploadContext", null, "Ark-compatible render-prop context for custom file rows.", 2],
+    ["FileUploadItem", "file-upload-item", "File row. Pass it the current `file` object.", 3],
+    ["FileUploadItemPreview", "file-upload-item-preview", "Preview slot that matches a file by MIME type.", 4],
+    ["FileUploadItemPreviewImage", "file-upload-item-preview-image", "Image preview inside `FileUploadItemPreview`.", 5],
+    ["FileUploadItemPreviewIcon", "file-upload-item-preview-icon", "Generic file icon for a fallback preview inside `FileUploadItemPreview`.", 5],
+    ["FileUploadItemName", "file-upload-item-name", "File name text.", 4],
+    ["FileUploadItemMetadata", "file-upload-item-metadata", "File type and localized size. Pass it the current `file` object.", 4],
+    ["FileUploadItemSizeText", "file-upload-item-size-text", "Localized file-size text.", 4],
+    ["FileUploadItemDeleteTrigger", "file-upload-item-delete-trigger", "Removes one file. Defaults to the moduix trash icon; Ark `translations.deleteFile` names it.", 4],
+    ["FileUploadClearTrigger", "file-upload-clear-trigger", "Unstyled button that clears accepted files; hidden while the list is empty. Compose it with a `Button` through `asChild`.", 1],
+    ["FileUploadHiddenInput", "", "Native Ark form control; compose explicitly as described below.", 1],
+    ["FileUploadRootProvider", "file-upload-root-provider", "Connects the upload tree to state returned by the `useFileUpload` hook.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styling
 

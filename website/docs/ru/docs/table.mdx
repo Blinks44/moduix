@@ -5,6 +5,7 @@ description: Строки данных с заголовками, подпись
 ark: https://ark-ui.com/docs/guides/composition#the-ark-factory
 ---
 
+import AnatomyScene from '@/components/examples/table/basic';
 import * as TableDocs from '@/components/examples/table/css-properties';
 
 <Example name="table/basic" />
@@ -143,36 +144,26 @@ import * as TableDocs from '@/components/examples/table/css-properties';
 
 Стандартная композиция остаётся близкой к нативной разметке таблицы:
 
-```text
-TableScrollArea (optional)
-└─ Table
-   ├─ TableColumnGroup (optional)
-   │  └─ TableColumn
-   ├─ TableCaption (optional)
-   ├─ TableHeader
-   │  └─ TableRow
-   │     └─ TableColumnHeader
-   ├─ TableBody
-   │  ├─ TableRow
-   │  │  └─ TableCell
-   │  └─ TableEmpty (optional)
-   └─ TableFooter (optional)
-```
+Наведите на часть или выберите её, чтобы найти её в превью.
 
-| Часть                  | Назначение                                                                 |
-| ---------------------- | -------------------------------------------------------------------------- |
-| `Table`           | Нативный корневой элемент `table` с типографикой, разделителями и атрибутами состояния. |
-| `TableScrollArea`     | Необязательный контейнер с рамкой и горизонтальной прокруткой.             |
-| `TableColumnGroup`    | Нативный `colgroup` для задания ширины столбцов.                           |
-| `TableColumn`         | Нативный `col`. Ширину задаёт нативный атрибут `width`.                     |
-| `TableCaption`        | Необязательная подпись над или под таблицей; положение задаёт `side`.      |
-| `TableHeader`         | Нативный `thead` для заголовков столбцов.                                  |
-| `TableBody`           | Нативный `tbody` для строк с данными.                                      |
-| `TableFooter`         | Нативный `tfoot` для итоговых строк.                                       |
-| `TableRow`            | Нативный `tr` с разделителями.                                             |
-| `TableColumnHeader`   | Нативный `th` с поддержкой `numeric`.                                      |
-| `TableCell`           | Нативный `td` с поддержкой `numeric`.                                      |
-| `TableEmpty`          | Готовая строка и ячейка для пустого состояния внутри `TableBody`.         |
+<AnatomyInspector
+  parts={[
+    ["TableScrollArea", "table-scroll-area", "Необязательный контейнер с рамкой и горизонтальной прокруткой.", 0],
+    ["Table", "table-root", "Нативный корневой элемент `table` с типографикой, разделителями и атрибутами состояния.", 1],
+    ["TableColumnGroup", "table-column-group", "Нативный `colgroup` для задания ширины столбцов.", 2],
+    ["TableColumn", "table-column", "Нативный `col`. Ширину задаёт нативный атрибут `width`.", 3],
+    ["TableCaption", "table-caption", "Необязательная подпись над или под таблицей; положение задаёт `side`.", 2],
+    ["TableHeader", "table-header", "Нативный `thead` для заголовков столбцов.", 2],
+    ["TableRow", "table-row", "Нативный `tr` с разделителями.", 3],
+    ["TableColumnHeader", "table-column-header", "Нативный `th` с поддержкой `numeric`.", 4],
+    ["TableBody", "table-body", "Нативный `tbody` для строк с данными.", 2],
+    ["TableCell", "table-cell", "Нативный `td` с поддержкой `numeric`.", 3],
+    ["TableEmpty", "table-empty", "Готовая строка и ячейка для пустого состояния внутри `TableBody`.", 3],
+    ["TableFooter", "table-footer", "Нативный `tfoot` для итоговых строк.", 2],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Стилизация
 
@@ -183,7 +174,11 @@ CSS-переменные `--moduix-table-*`. Варианты Tailwind испо�
 
 ### CSS-переменные
 
-<CssPropertiesSection properties={TableDocs.tableOverrideCssProperties} />
+Наведите на переменную или выберите её, чтобы увидеть её в превью.
+
+<CssPropertiesSection properties={TableDocs.tableOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Хуки стилизации
 

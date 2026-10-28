@@ -5,6 +5,7 @@ description: Список действий или опций по кнопке �
 ark: https://ark-ui.com/docs/components/menu
 ---
 
+import AnatomyScene from '@/components/examples/menu/anatomy';
 import * as MenuDocs from '@/components/examples/menu/css-properties';
 
 <Example name="menu/basic" />
@@ -179,55 +180,33 @@ render-функции `asChild`: ref на самой части `Menu` чере�
 
 ## Анатомия
 
-```text
-Menu
-├─ MenuTrigger
-│  └─ MenuIndicator
-├─ MenuContextTrigger
-└─ Ветка всплывающего слоя (автоматически переносится в портал)
-   └─ MenuPositioner
-      └─ MenuContent
-         ├─ MenuArrow
-         │  └─ MenuArrowTip
-         └─ MenuViewport
-            ├─ MenuItem
-            │  ├─ MenuItemText
-            │  │  ├─ MenuItemTextIcon
-            │  │  └─ MenuItemTextLabel
-            │  └─ MenuItemShortcut
-            ├─ MenuCheckboxItem
-            │  └─ MenuItemIndicator
-            ├─ MenuRadioItemGroup
-            │  └─ MenuRadioItem
-            ├─ MenuItemGroup
-            │  └─ MenuItemGroupLabel
-            ├─ MenuSeparator
-            └─ Menu
-               └─ MenuTriggerItem
-                  └─ MenuTriggerItemIcon
-```
+Наведите на часть или выберите её, чтобы найти её в превью.
 
-| Часть | Назначение |
-| --- | --- |
-| `Menu` | Корневой компонент, который управляет открытием, позиционированием, поиском по начальным символам, фокусом и закрытием меню. |
-| `MenuRootProvider` | Подключает меню к экземпляру состояния, созданному с помощью `useMenu`. |
-| `MenuTrigger` | Кнопка, открывающая меню. Своих стилей у неё нет; используйте `asChild` с `Button` или другим семантическим элементом. |
-| `MenuIndicator` | Индикатор состояния триггера, обычно шеврон. |
-| `MenuContextTrigger` | Область без стилей, которая открывает меню по правому клику или долгому нажатию. |
-| `MenuPositioner` | Позиционирует плавающий слой меню. |
-| `MenuContent` | Всплывающая область с ролью `menu` и коллекцией пунктов. |
-| `MenuViewport` | Явный прокручиваемый контейнер вокруг коллекции пунктов. |
-| `MenuArrow` / `MenuArrowTip` | Необязательная стрелка, визуально связывающая всплывающее меню с триггером. |
-| `MenuItem` | Обычный пункт, выполняющий команду. |
-| `MenuCheckboxItem` | Пункт с независимым логическим состоянием. |
-| `MenuRadioItemGroup` / `MenuRadioItem` | Группа и пункты для выбора одного значения. |
-| `MenuItemIndicator` | Индикатор выбора для пунктов с флажками и вариантами с единственным выбором. |
-| `MenuItemText` и помощники для текста | Компоненты для текста пункта, иконки и подписи. |
-| `MenuItemShortcut` | Обёртка для сочетания клавиш или другой подсказки справа. |
-| `MenuItemGroup` / `MenuItemGroupLabel` | Группа и подпись для связанных пунктов. |
-| `MenuSeparator` | Разделитель между группами пунктов. |
-| `MenuTriggerItem` / `MenuTriggerItemIcon` | Пункт и иконка для открытия вложенного меню. |
-| `MenuItemContext` | Передаёт состояние пункта его содержимому. |
+<AnatomyInspector
+  parts={[
+    ["Menu", null, "Корневой компонент, который управляет открытием, позиционированием, поиском по начальным символам, фокусом и закрытием меню.", 0],
+    ["MenuTrigger", "menu-trigger", "Кнопка, открывающая меню. Своих стилей у неё нет; используйте `asChild` с `Button` или другим семантическим элементом.", 1],
+    ["MenuIndicator", "menu-indicator", "Индикатор состояния триггера, обычно шеврон.", 2],
+    ["MenuContextTrigger", "menu-context-trigger", "Область без стилей, которая открывает меню по правому клику или долгому нажатию.", 1],
+    ["MenuPositioner", "menu-positioner", "Позиционирует плавающий слой меню.", 1],
+    ["MenuContent", "menu-content", "Всплывающая область с ролью `menu` и коллекцией пунктов.", 2],
+    ["MenuArrow / MenuArrowTip", "menu-arrow", "Необязательная стрелка, визуально связывающая всплывающее меню с триггером.", 3],
+    ["MenuViewport", "menu-viewport", "Явный прокручиваемый контейнер вокруг коллекции пунктов.", 3],
+    ["MenuItemGroup / MenuItemGroupLabel", "menu-item-group", "Группа и подпись для связанных пунктов.", 4],
+    ["MenuItem", "menu-item", "Обычный пункт, выполняющий команду.", 5],
+    ["MenuItemText и помощники для текста", "menu-item-text", "Компоненты для текста пункта, иконки и подписи.", 6],
+    ["MenuItemShortcut", "menu-item-shortcut", "Обёртка для сочетания клавиш или другой подсказки справа.", 6],
+    ["MenuCheckboxItem", "menu-checkbox-item", "Пункт с независимым логическим состоянием.", 5],
+    ["MenuItemIndicator", "menu-item-indicator", "Индикатор выбора для пунктов с флажками и вариантами с единственным выбором.", 6],
+    ["MenuSeparator", "menu-separator", "Разделитель между группами пунктов.", 4],
+    ["MenuRadioItemGroup / MenuRadioItem", "menu-radio-item-group", "Группа и пункты для выбора одного значения.", 4],
+    ["MenuTriggerItem / MenuTriggerItemIcon", "menu-trigger-item", "Пункт и иконка для открытия вложенного меню.", 4],
+    ["MenuRootProvider", null, "Подключает меню к экземпляру состояния, созданному с помощью `useMenu`.", 0],
+    ["MenuItemContext", null, "Передаёт состояние пункта его содержимому.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Стилизация
 
@@ -242,7 +221,11 @@ Menu
 
 ### CSS-переменные
 
-<CssPropertiesSection properties={MenuDocs.menuOverrideCssProperties} />
+Наведите на переменную или выберите её, чтобы увидеть её в превью.
+
+<CssPropertiesSection properties={MenuDocs.menuOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Хуки стилизации
 

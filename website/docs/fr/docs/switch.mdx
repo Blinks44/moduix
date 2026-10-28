@@ -5,6 +5,7 @@ description: Activer ou désactiver un réglage avec effet immédiat.
 ark: https://ark-ui.com/docs/components/switch
 ---
 
+import AnatomyScene from '@/components/examples/switch/basic';
 import * as SwitchDocs from '@/components/examples/switch/css-properties';
 
 <Example name="switch/basic" />
@@ -118,22 +119,20 @@ du switch.
 
 ## Anatomie
 
-```text
-Switch
-├─ SwitchControl
-│  └─ SwitchThumb
-├─ SwitchLabel
-└─ SwitchHiddenInput (explicit)
-```
+Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
 
-| Partie                        | Rôle                                                                    |
-| ----------------------------- | ----------------------------------------------------------------------- |
-| `Switch`                 | Élément `label` racine. Gère l’état, les identifiants, les props de formulaire et `size`. |
-| `SwitchHiddenInput`          | Contrôle de formulaire natif d’Ark ; composez-le explicitement comme indiqué ci-dessous. |
-| `SwitchRootProvider`         | Élément `label` racine piloté par l’état créé avec `useSwitch()`.     |
-| `SwitchControl`              | Piste visuelle et cible de l’anneau de focus. Ajoute `SwitchThumb` par défaut. |
-| `SwitchThumb`                | Thumb mobile pour l’apparence par défaut ou un contenu personnalisé.  |
-| `SwitchLabel`                | Texte du libellé relié à Ark.                                         |
+<AnatomyInspector
+  parts={[
+    ["Switch", "switch-root", "Élément `label` racine. Gère l’état, les identifiants, les props de formulaire et `size`.", 0],
+    ["SwitchControl", "switch-control", "Piste visuelle et cible de l’anneau de focus. Ajoute `SwitchThumb` par défaut.", 1],
+    ["SwitchThumb", "switch-thumb", "Thumb mobile pour l’apparence par défaut ou un contenu personnalisé.", 2],
+    ["SwitchLabel", "switch-label", "Texte du libellé relié à Ark.", 1],
+    ["SwitchHiddenInput", "", "Contrôle de formulaire natif d’Ark ; composez-le explicitement comme indiqué ci-dessous.", 1],
+    ["SwitchRootProvider", "switch-root-provider", "Élément `label` racine piloté par l’état créé avec `useSwitch()`.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 `Switch` est le composant racine. `SwitchContext`, `useSwitchContext` et `useSwitch` sont exportés
 depuis `@moduix/react` avec le composant. Les exports Vue sont disponibles depuis
@@ -154,7 +153,11 @@ garde carré et aligné sur les deux bords. La direction de droite à gauche vie
 
 ### Variables CSS
 
-<CssPropertiesSection properties={SwitchDocs.switchOverrideCssProperties} />
+Survolez ou sélectionnez une variable pour la voir dans l’aperçu.
+
+<CssPropertiesSection properties={SwitchDocs.switchOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Points d’accroche CSS
 

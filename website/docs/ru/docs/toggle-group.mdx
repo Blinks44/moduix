@@ -5,6 +5,7 @@ description: Группа кнопок-переключателей для од�
 ark: https://ark-ui.com/docs/components/toggle-group
 ---
 
+import AnatomyScene from '@/components/examples/toggle-group/basic';
 import * as ToggleGroupDocs from '@/components/examples/toggle-group/css-properties';
 import { CssPropertiesSection } from '@/components/mdx/Components';
 
@@ -131,21 +132,18 @@ Solid или scoped slot во Vue.
 
 ## Анатомия
 
-```text
-ToggleGroup
-├─ ToggleGroupContext (необязательно)
-└─ ToggleGroupItem[value]
+Наведите на часть или выберите её, чтобы найти её в превью.
 
-ToggleGroupRootProvider
-└─ ToggleGroupItem[value]
-```
-
-| Часть                     | Назначение                                                                            |
-| ------------------------ | ------------------------------------------------------------------------------------- |
-| `ToggleGroup`            | Корневая часть, управляющая выбранными значениями, фокусом, ориентацией и отключённым состоянием. |
-| `ToggleGroupItem`        | Интерактивный элемент с обязательным `value` и состоянием выбора, которым управляет Ark. |
-| `ToggleGroupRootProvider` | Подключает дерево элементов к состоянию, созданному с помощью `useToggleGroup()`.     |
-| `ToggleGroupContext`     | Передаёт текущее состояние группы через функцию рендера или scoped slot во Vue.       |
+<AnatomyInspector
+  parts={[
+    ["ToggleGroup", "toggle-group-root", "Корневая часть, управляющая выбранными значениями, фокусом, ориентацией и отключённым состоянием.", 0],
+    ["ToggleGroupContext", null, "Передаёт текущее состояние группы через функцию рендера или scoped slot во Vue.", 1],
+    ["ToggleGroupItem", "toggle-group-item", "Интерактивный элемент с обязательным `value` и состоянием выбора, которым управляет Ark.", 1],
+    ["ToggleGroupRootProvider", "toggle-group-root-provider", "Подключает дерево элементов к состоянию, созданному с помощью `useToggleGroup()`.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Стилизация
 
@@ -156,7 +154,11 @@ ToggleGroupRootProvider
 
 ### CSS-переменные
 
-<CssPropertiesSection properties={ToggleGroupDocs.toggleGroupOverrideCssProperties} />
+Наведите на переменную или выберите её, чтобы увидеть её в превью.
+
+<CssPropertiesSection properties={ToggleGroupDocs.toggleGroupOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 В таблице перечислены свойства уровня группы. Каждый `ToggleGroupItem` также поддерживает [CSS-свойства
 Toggle](/docs/toggle#css-переменные) для цветов и состояний взаимодействия. Задайте свойство

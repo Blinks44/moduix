@@ -5,6 +5,7 @@ description: Center page content at a readable width with responsive side paddin
 ark: https://ark-ui.com/docs/guides/composition#the-ark-factory
 ---
 
+import AnatomyScene from '@/components/examples/container/basic';
 import * as ContainerDocs from '@/components/examples/container/css-properties';
 
 <Example name="container/basic" />
@@ -73,14 +74,15 @@ constrained text column.
 
 `Container` renders one root element and does not add an extra wrapper.
 
-```text
-Container
-└─ children
-```
+Hover or focus a part to find it in the preview.
 
-| Part        | Role                                                     |
-| ----------- | -------------------------------------------------------- |
-| `Container` | Root layout element. Centers content and controls its width and horizontal padding. |
+<AnatomyInspector
+  parts={[
+    ["Container", "container-root", "Root layout element. Centers content and controls its width and horizontal padding.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styling
 
@@ -91,7 +93,11 @@ backgrounds.
 
 ### CSS variables
 
-<CssPropertiesSection properties={ContainerDocs.containerOverrideCssProperties} />
+Hover or focus a variable to see it in the preview.
+
+<CssPropertiesSection properties={ContainerDocs.containerOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 These variables apply to the CSS Modules packages. Tailwind packages expose the same `size` and `gutter` choices
 through utilities.

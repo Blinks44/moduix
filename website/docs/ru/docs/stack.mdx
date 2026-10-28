@@ -5,6 +5,8 @@ description: Размещает элементы в строку или коло
 ark: https://ark-ui.com/docs/guides/composition#the-ark-factory
 ---
 
+import AnatomyScene from '@/components/examples/stack/basic';
+
 <Example name="stack/basic" />
 
 ## Установка
@@ -90,15 +92,15 @@ ark: https://ark-ui.com/docs/guides/composition#the-ark-factory
 промежутком, выравниванием, переносом элементов и простым адаптивным переключением направления. Остальные правила
 раскладки задавайте в локальном CSS.
 
-```text
-Stack
-└─ root[data-scope="stack"][data-part="root"][data-slot="stack-root"]
-   └─ children
-```
+Наведите на часть или выберите её, чтобы найти её в превью.
 
-| Часть                  | Назначение                                                               |
-| ---------------------- | ------------------------------------------------------------------------ |
-| `Stack`                | Корневая flex-обёртка для направления, промежутка, выравнивания и расстояния между дочерними элементами. |
+<AnatomyInspector
+  parts={[
+    ["Stack", "stack-root", "Корневая flex-обёртка для направления, промежутка, выравнивания и расстояния между дочерними элементами.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Стилизация
 

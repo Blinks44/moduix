@@ -5,6 +5,8 @@ description: Let a banner or image extend past the padding of its container.
 ark: https://ark-ui.com/docs/guides/composition#the-ark-factory
 ---
 
+import AnatomyScene from '@/components/examples/bleed/basic';
+
 <Example name="bleed/basic" />
 
 ## Installation
@@ -79,15 +81,15 @@ shell, use a fixed amount that matches the shell padding, or set your own margin
 `Bleed` renders one root element that follows Ark's conventions. It uses negative margins on the inline
 and/or block axis, without adding an inner wrapper.
 
-```text
-Bleed
-└─ root[data-scope="bleed"][data-part="root"][data-slot="bleed-root"]
-   └─ children
-```
+Hover or focus a part to find it in the preview.
 
-| Part                   | Role                                                                   |
-| ---------------------- | ---------------------------------------------------------------------- |
-| `Bleed`                | Root component for extending content along the inline and block axes. |
+<AnatomyInspector
+  parts={[
+    ["Bleed", "bleed-root", "Root component for extending content along the inline and block axes.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styling
 

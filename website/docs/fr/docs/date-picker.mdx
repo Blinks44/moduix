@@ -5,6 +5,7 @@ description: Choisir une date, une plage ou plusieurs dates dans un calendrier.
 ark: https://ark-ui.com/docs/components/date-picker
 ---
 
+import AnatomyScene from '@/components/examples/date-picker/anatomy';
 import * as DatePickerDocs from '@/components/examples/date-picker/css-properties';
 
 <Example name="date-picker/basic" />
@@ -197,69 +198,42 @@ personnalisé ou `inline` pour garder `DatePickerContent` dans le flux normal du
 
 ## Anatomie
 
-```text
-DatePicker
-├─ DatePickerLabel
-├─ DatePickerControl
-│  ├─ DatePickerInput
-│  ├─ DatePickerClearTrigger
-│  └─ DatePickerTrigger
-├─ DatePickerField / DatePickerRangeField (parties pratiques)
-├─ Sous-arbre du calendrier contextuel (mis dans un portail automatiquement)
-│  └─ DatePickerPositioner
-│     └─ DatePickerContent
-│        ├─ DatePickerView[view="day" | "month" | "year"]
-│        │  ├─ DatePickerViewControl
-│        │  │  ├─ DatePickerPrevTrigger
-│        │  │  ├─ DatePickerViewTrigger / DatePickerRangeText
-│        │  │  └─ DatePickerNextTrigger
-│        │  ├─ DatePickerDayTable / MonthTable / YearTable (tables pratiques)
-│        │  └─ DatePickerTable
-│        │     ├─ DatePickerTableHead / TableBody / TableRow
-│        │     ├─ DatePickerTableHeader
-│        │     ├─ DatePickerTableCell
-│        │     ├─ DatePickerTableCellTrigger
-│        │     ├─ DatePickerWeekNumberHeaderCell
-│        │     └─ DatePickerWeekNumberCell
-│        ├─ DatePickerMonthSelect / DatePickerYearSelect
-│        └─ DatePickerPresetTrigger
-├─ DatePickerValueText (résumé facultatif des valeurs sélectionnées)
-└─ DatePickerContext
+Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
 
-DatePickerRootProvider
-└─ même arborescence reliée à un store useDatePicker()
-```
-
-| Partie                            | Rôle                                                               |
-| --------------------------------- | ------------------------------------------------------------------ |
-| `DatePicker`  | Racine qui gère la valeur, la vue, l’ouverture, la locale, la validation et le formulaire. |
-| `DatePickerRootProvider`         | Affiche les parties avec l’état renvoyé par `useDatePicker()`.     |
-| `DatePickerLabel`                | Libellé accessible du champ de date.                               |
-| `DatePickerControl`              | Conteneur du champ pour une disposition personnalisée.             |
-| `DatePickerField`                | Champ pratique avec saisie, effacement et ouverture du calendrier. |
-| `DatePickerRangeField`           | Champ de plage avec saisies de début et de fin indexées.           |
-| `DatePickerInput`                | Saisie de date modifiable, incluse dans l’envoi natif du formulaire. |
-| `DatePickerTrigger`              | Ouvre le calendrier.                                                |
-| `DatePickerClearTrigger`         | Efface la valeur courante.                                          |
-| `DatePickerPositioner`           | Positionne le calendrier contextuel.                                |
-| `DatePickerContent`              | Conteneur du calendrier contextuel ou intégré.                      |
-| `DatePickerView`                 | Vue du jour, du mois ou de l’année.                                 |
-| `DatePickerViewControl`          | En-tête contenant les commandes de navigation.                      |
-| `DatePickerPrevTrigger`          | Passe au mois, à l’année ou à la décennie précédente.               |
-| `DatePickerNextTrigger`          | Passe au mois, à l’année ou à la décennie suivante.                 |
-| `DatePickerViewTrigger`          | Change de vue du calendrier.                                        |
-| `DatePickerRangeText`            | Affiche la plage visible dans l’en-tête.                            |
-| `DatePickerValueText`            | Affiche les valeurs sélectionnées.                                  |
-| `DatePickerDayTable`             | Table standard des jours avec son en-tête.                          |
-| `DatePickerMonthTable`           | Table standard des mois avec son en-tête.                           |
-| `DatePickerYearTable`            | Table standard des années avec son en-tête.                         |
-| `DatePickerTable*`               | Parties pour composer une grille personnalisée.                     |
-| `DatePickerWeekNumberHeaderCell` | En-tête de la colonne des numéros de semaine.                       |
-| `DatePickerWeekNumberCell`       | Cellule contenant un numéro de semaine.                             |
-| `DatePickerMonthSelect`          | Sélecteur de mois natif lié à la date ciblée.                        |
-| `DatePickerYearSelect`           | Sélecteur d’année natif lié à la date ciblée.                       |
-| `DatePickerPresetTrigger`        | Bouton d’une plage prédéfinie.                                      |
-| `DatePickerContext`              | Accès sans rendu à l’état du calendrier.                            |
+<AnatomyInspector
+  parts={[
+    ["DatePicker", "date-picker-root", "Racine qui gère la valeur, la vue, l’ouverture, la locale, la validation et le formulaire.", 0],
+    ["DatePickerLabel", "date-picker-label", "Libellé accessible du champ de date.", 1],
+    ["DatePickerControl", "date-picker-control", "Conteneur du champ pour une disposition personnalisée.", 1],
+    ["DatePickerInput", "date-picker-input", "Saisie de date modifiable, incluse dans l’envoi natif du formulaire.", 2],
+    ["DatePickerClearTrigger", "date-picker-clear-trigger", "Efface la valeur courante.", 2],
+    ["DatePickerTrigger", "date-picker-trigger", "Ouvre le calendrier.", 2],
+    ["DatePickerField", "", "Champ pratique avec saisie, effacement et ouverture du calendrier.", 1],
+    ["DatePickerPositioner", "date-picker-positioner", "Positionne le calendrier contextuel.", 1],
+    ["DatePickerContent", "date-picker-content", "Conteneur du calendrier contextuel ou intégré.", 2],
+    ["DatePickerView", "date-picker-view", "Vue du jour, du mois ou de l’année.", 3],
+    ["DatePickerViewControl", "date-picker-view-control", "En-tête contenant les commandes de navigation.", 4],
+    ["DatePickerPrevTrigger", "date-picker-prev-trigger", "Passe au mois, à l’année ou à la décennie précédente.", 5],
+    ["DatePickerViewTrigger", "date-picker-view-trigger", "Change de vue du calendrier.", 5],
+    ["DatePickerNextTrigger", "date-picker-next-trigger", "Passe au mois, à l’année ou à la décennie suivante.", 5],
+    ["DatePickerDayTable", "", "Table standard des jours avec son en-tête.", 4],
+    ["DatePickerTable*", "date-picker-table", "Parties pour composer une grille personnalisée.", 4],
+    ["DatePickerWeekNumberHeaderCell", "date-picker-week-number-header-cell", "En-tête de la colonne des numéros de semaine.", 5],
+    ["DatePickerWeekNumberCell", "date-picker-week-number-cell", "Cellule contenant un numéro de semaine.", 5],
+    ["DatePickerMonthSelect", "date-picker-month-select-indicator", "Sélecteur de mois natif lié à la date ciblée.", 3],
+    ["DatePickerPresetTrigger", "date-picker-preset-trigger", "Bouton d’une plage prédéfinie.", 3],
+    ["DatePickerValueText", "date-picker-value-text", "Affiche les valeurs sélectionnées.", 1],
+    ["DatePickerContext", null, "Accès sans rendu à l’état du calendrier.", 1],
+    ["DatePickerRangeField", "", "Champ de plage avec saisies de début et de fin indexées.", 1],
+    ["DatePickerRangeText", "date-picker-range-text", "Affiche la plage visible dans l’en-tête.", 1],
+    ["DatePickerMonthTable", "", "Table standard des mois avec son en-tête.", 1],
+    ["DatePickerYearTable", "", "Table standard des années avec son en-tête.", 1],
+    ["DatePickerYearSelect", "date-picker-year-select-indicator", "Sélecteur d’année natif lié à la date ciblée.", 1],
+    ["DatePickerRootProvider", "date-picker-root-provider", "Affiche les parties avec l’état renvoyé par `useDatePicker()`.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styles
 
@@ -270,7 +244,11 @@ attributs d’état Ark et les hooks `data-slot` de moduix.
 
 ### Variables CSS
 
-<CssPropertiesSection properties={DatePickerDocs.datePickerOverrideCssProperties} />
+Survolez ou sélectionnez une variable pour la voir dans l’aperçu.
+
+<CssPropertiesSection properties={DatePickerDocs.datePickerOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Points d’accroche CSS
 

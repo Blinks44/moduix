@@ -1,6 +1,7 @@
 ---
 title: Async List
 description: Gérez les données asynchrones d'une liste avec useAsyncList - chargement, filtrage, tri, pagination, annulation des requêtes et nouvelles tentatives.
+ark: https://ark-ui.com/docs/collections/async-list
 ---
 
 import asyncListSolidServerDriven from '../../../snippets/async-list/solid/server-driven.tsx?raw';
@@ -12,9 +13,7 @@ import asyncListVueServerDriven from '../../../snippets/async-list/vue/server-dr
 marquage. Il regroupe les éléments, le filtrage, le tri, la pagination, les chargements et les
 erreurs, tandis que votre composant choisit la structure de la liste et l’affichage de ses états.
 
-## Référence de l’API
-
-<PrimitiveReference href="https://ark-ui.com/docs/collections/async-list" />
+## Importation
 
 Ce hook est fourni par Ark UI et n’est pas réexporté par Moduix. Utilisez le point d’entrée du
 framework de votre application :
@@ -51,11 +50,9 @@ import { useAsyncList } from '@ark-ui/vue/collection';
   </Tab>
 </Tabs>
 
-`useAsyncList` est un hook de comportement, pas un composant Moduix. Il n’existe pas dans les
-exports ni dans les manifests de registry de `@moduix/react`, `@moduix/solid`,
-`@moduix/react-tailwind` ou `@moduix/solid-tailwind`. CSS Modules et Tailwind ne modifient donc
-pas son API. Stylisez le marquage autour du hook avec le choix adapté à votre application, ou
-utilisez les éléments natifs comme dans les exemples ci-dessous.
+`useAsyncList` ne produit aucun balisage : CSS Modules et Tailwind ne modifient donc pas son API.
+Stylisez le balisage autour du hook avec l’approche choisie, ou utilisez des éléments natifs comme dans
+les exemples ci-dessous.
 
 ## Liste de base
 

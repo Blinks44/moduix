@@ -5,6 +5,7 @@ description: Un bouton qui active une option et la désactive au second appui.
 ark: https://ark-ui.com/docs/components/toggle
 ---
 
+import AnatomyScene from '@/components/examples/toggle/basic';
 import * as ToggleDocs from '@/components/examples/toggle/css-properties';
 
 <Example name="toggle/basic" />
@@ -111,18 +112,17 @@ avec `v-model:pressed`.
 
 ## Anatomie
 
-```text
-Toggle
-└─ ToggleIndicator (facultatif)
+Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
 
-ToggleContext (lecteur d’état, pas une partie du DOM)
-```
-
-| Partie | Rôle |
-| ------ | --- |
-| `Toggle` | Partie racine qui gère l’état activé, le focus, la désactivation et la composition `asChild`. |
-| `ToggleIndicator` | Partie facultative qui affiche le contenu activé et son `fallback` lorsque le toggle est désactivé. |
-| `ToggleContext` | Lit l’état du toggle le plus proche pour les descendants personnalisés ; il ne rend pas de partie du DOM. |
+<AnatomyInspector
+  parts={[
+    ["Toggle", "toggle-root", "Partie racine qui gère l’état activé, le focus, la désactivation et la composition `asChild`.", 0],
+    ["ToggleIndicator", "toggle-indicator", "Partie facultative qui affiche le contenu activé et son `fallback` lorsque le toggle est désactivé.", 1],
+    ["ToggleContext", null, "Lit l’état du toggle le plus proche pour les descendants personnalisés ; il ne rend pas de partie du DOM.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styles
 
@@ -134,7 +134,11 @@ une classe. Les paquets Tailwind utilisent à la place les utilitaires natifs et
 
 ### Variables CSS
 
-<CssPropertiesSection properties={ToggleDocs.toggleOverrideCssProperties} />
+Survolez ou sélectionnez une variable pour la voir dans l’aperçu.
+
+<CssPropertiesSection properties={ToggleDocs.toggleOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Points d’accroche CSS
 

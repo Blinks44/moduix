@@ -5,6 +5,7 @@ description: Show task progress in a compact ring, with a known or unknown end.
 ark: https://ark-ui.com/docs/components/progress-circular
 ---
 
+import AnatomyScene from '@/components/examples/progress-circular/basic';
 import * as ProgressCircularDocs from '@/components/examples/progress-circular/css-properties';
 
 <Example name="progress-circular/basic" />
@@ -104,33 +105,24 @@ rendering another root for the same store.
 
 ## Anatomy
 
-```text
-ProgressCircular
-├─ ProgressCircularLabel
-├─ ProgressCircularCircle
-│  ├─ ProgressCircularCircleTrack
-│  └─ ProgressCircularCircleRange
-├─ ProgressCircularRing
-│  └─ fixed ProgressCircularCircle, ProgressCircularCircleTrack, and ProgressCircularCircleRange subtree
-├─ ProgressCircularValueText
-└─ ProgressCircularView
+Hover or focus a part to find it in the preview.
 
-ProgressCircularRootProvider
-└─ same part tree connected to useProgress()
-```
-
-| Part                                         | Role                                                                                       |
-| -------------------------------------------- | ------------------------------------------------------------------------------------------ |
-| `ProgressCircular` | Owns progress state, formatting, and generated ids.                                        |
-| `ProgressCircularRootProvider`              | Connects parts to state created with `useProgress()`.                     |
-| `ProgressCircularContext`                   | Exposes the current progress state through a render prop.                                  |
-| `ProgressCircularLabel`                     | Provides visible context for the progress indicator.                                       |
-| `ProgressCircularRing`                      | Convenience part that renders the default circle, track, and range.                       |
-| `ProgressCircularCircle`                    | SVG progressbar element with Ark's role and ARIA value attributes.                        |
-| `ProgressCircularCircleTrack`               | Background circle.                                                                         |
-| `ProgressCircularCircleRange`               | Foreground circle that reflects the current progress or indeterminate state.               |
-| `ProgressCircularValueText`                 | Displays the formatted value and announces updates.                                       |
-| `ProgressCircularView`                      | Renders content for `indeterminate`, `loading`, or `complete`.                             |
+<AnatomyInspector
+  parts={[
+    ["ProgressCircular", "progress-circular-root", "Owns progress state, formatting, and generated ids.", 0],
+    ["ProgressCircularLabel", "progress-circular-label", "Provides visible context for the progress indicator.", 1],
+    ["ProgressCircularCircle", "progress-circular-circle", "SVG progressbar element with Ark's role and ARIA value attributes.", 1],
+    ["ProgressCircularCircleTrack", "progress-circular-circle-track", "Background circle.", 2],
+    ["ProgressCircularCircleRange", "progress-circular-circle-range", "Foreground circle that reflects the current progress or indeterminate state.", 2],
+    ["ProgressCircularRing", "", "Convenience part that renders the default circle, track, and range.", 1],
+    ["ProgressCircularValueText", "progress-circular-value-text", "Displays the formatted value and announces updates.", 1],
+    ["ProgressCircularView", "progress-circular-view", "Renders content for `indeterminate`, `loading`, or `complete`.", 1],
+    ["ProgressCircularRootProvider", "progress-circular-root-provider", "Connects parts to state created with `useProgress()`.", 0],
+    ["ProgressCircularContext", null, "Exposes the current progress state through a render prop.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styling
 
@@ -145,7 +137,11 @@ does not transition and the arc stays still. To give indeterminate progress its 
 
 ### CSS variables
 
-<CssPropertiesSection properties={ProgressCircularDocs.progressCircularCssProperties} />
+Hover or focus a variable to see it in the preview.
+
+<CssPropertiesSection properties={ProgressCircularDocs.progressCircularCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Styling hooks
 

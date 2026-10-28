@@ -5,6 +5,8 @@ description: Group related form controls under one legend with shared state.
 ark: https://ark-ui.com/docs/components/fieldset
 ---
 
+import AnatomyScene from '@/components/examples/fieldset/basic';
+
 <Example name="fieldset/basic" />
 
 ## Installation
@@ -92,22 +94,20 @@ Use `asChild` with one semantic child when replacing a part's rendered element.
 
 ## Anatomy
 
-```text
-Fieldset | FieldsetRootProvider
-├─ FieldsetLegend
-├─ grouped controls
-├─ FieldsetHelperText (optional)
-└─ FieldsetErrorText (optional)
-```
+Hover or focus a part to find it in the preview.
 
-| Part                         | Role                                                                  |
-| ---------------------------- | --------------------------------------------------------------------- |
-| `Fieldset`                   | Creates state and renders a native `fieldset`.                                                 |
-| `FieldsetRootProvider`       | Renders a native `fieldset` with state created by `useFieldset`.                               |
-| `FieldsetContext`            | Exposes the current fieldset state to descendants without rendering an extra DOM element.      |
-| `FieldsetLegend`             | Native `legend` that provides the accessible name for the group.                               |
-| `FieldsetHelperText`         | Description linked to the root through `aria-describedby`.                                     |
-| `FieldsetErrorText`          | Validation message announced through `aria-live="polite"` and rendered only when `invalid` is `true`. |
+<AnatomyInspector
+  parts={[
+    ["Fieldset", "fieldset-root", "Creates state and renders a native `fieldset`.", 0],
+    ["FieldsetLegend", "fieldset-legend", "Native `legend` that provides the accessible name for the group.", 1],
+    ["FieldsetHelperText", "fieldset-helper-text", "Description linked to the root through `aria-describedby`.", 1],
+    ["FieldsetErrorText", "fieldset-error-text", "Validation message announced through `aria-live=\"polite\"` and rendered only when `invalid` is `true`.", 1],
+    ["FieldsetRootProvider", "fieldset-root-provider", "Renders a native `fieldset` with state created by `useFieldset`.", 0],
+    ["FieldsetContext", null, "Exposes the current fieldset state to descendants without rendering an extra DOM element.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styling
 

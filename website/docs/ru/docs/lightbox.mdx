@@ -5,6 +5,7 @@ description: Просмотр изображений в модальном ок�
 ark: https://ark-ui.com/docs/components/dialog
 ---
 
+import AnatomyScene from '@/components/examples/lightbox/anatomy';
 import * as LightboxDocs from '@/components/examples/lightbox/css-properties';
 
 <Example name="lightbox/basic" />
@@ -142,49 +143,39 @@ Content плавно появляется и исчезает, а Body меня�
 
 ## Анатомия
 
-```text
-Lightbox
-├─ LightboxTrigger
-├─ LightboxBind
-└─ Поддерево модального окна (автоматически выводится через портал)
-   ├─ LightboxBackdrop
-   └─ LightboxPositioner
-      ├─ LightboxCloseTrigger или LightboxCloseIcon
-      └─ LightboxContent
-         ├─ LightboxHeader (необязательно)
-         │  ├─ LightboxTitle
-         │  └─ LightboxDescription
-         ├─ LightboxBody
-         │  └─ LightboxImage
-         └─ LightboxFooter (необязательно)
+Наведите на часть или выберите её, чтобы найти её в превью.
 
-LightboxRootProvider
-└─ то же дерево частей, связанное с useLightbox()
-```
-
-| Часть | Назначение |
-| ---------------------------- | ------------------------------------------------------------------------------------ |
-| `Lightbox` | Корневой компонент Dialog из Ark UI. Он управляет состоянием открытия, фокусом, закрытием и доступностью. |
-| `LightboxRootProvider` | Провайдер состояния, созданного с помощью `useLightbox()`. |
-| `LightboxTrigger` | Триггер Ark. С `asChild` можно передать семантическую кнопку или ссылку. |
-| `LightboxBackdrop` | Модальная подложка с атрибутом Ark `data-state` и переменными слоя. |
-| `LightboxPositioner` | Фиксированный контейнер, центрирующий содержимое модального окна. |
-| `LightboxContent` | Узел с содержимым диалога Ark UI. |
-| `LightboxTitle` | Необязательный доступный заголовок. |
-| `LightboxDescription` | Необязательное доступное описание. |
-| `LightboxCloseTrigger` | Низкоуровневый триггер закрытия Ark UI. |
-| `LightboxCloseIcon` | Упрощённый вариант, объединяющий `CloseButton` с триггером закрытия Ark UI. |
-| `LightboxHeader` / `LightboxBody` | Необязательные компоненты для размещения текста и медиа. |
-| `LightboxFooter` | Необязательный компонент для действий или статуса под медиа. |
-| `LightboxImage` | Стилизованный `<img>`, передающий ref нативного элемента `HTMLImageElement`. |
-| `LightboxGallery` | Контейнер для компоновки и стилизации `Carousel`. |
-| `LightboxBind` | Компонент без собственного DOM, связывающий внешнюю разметку с корнем. |
+<AnatomyInspector
+  parts={[
+    ["Lightbox", null, "Корневой компонент Dialog из Ark UI. Он управляет состоянием открытия, фокусом, закрытием и доступностью.", 0],
+    ["LightboxTrigger", "lightbox-trigger", "Триггер Ark. С `asChild` можно передать семантическую кнопку или ссылку.", 1],
+    ["LightboxBind", "", "Компонент без собственного DOM, связывающий внешнюю разметку с корнем.", 1],
+    ["LightboxBackdrop", "lightbox-backdrop", "Модальная подложка с атрибутом Ark `data-state` и переменными слоя.", 1],
+    ["LightboxPositioner", "lightbox-positioner", "Фиксированный контейнер, центрирующий содержимое модального окна.", 1],
+    ["LightboxContent", "lightbox-content", "Узел с содержимым диалога Ark UI.", 2],
+    ["LightboxCloseTrigger", "lightbox-close-trigger", "Низкоуровневый триггер закрытия Ark UI.", 3],
+    ["LightboxHeader / LightboxBody", "lightbox-header", "Необязательные компоненты для размещения текста и медиа.", 3],
+    ["LightboxTitle", "lightbox-title", "Необязательный доступный заголовок.", 4],
+    ["LightboxDescription", "lightbox-description", "Необязательное доступное описание.", 4],
+    ["LightboxImage", "lightbox-image", "Стилизованный `<img>`, передающий ref нативного элемента `HTMLImageElement`.", 3],
+    ["LightboxFooter", "lightbox-footer", "Необязательный компонент для действий или статуса под медиа.", 3],
+    ["LightboxCloseIcon", "lightbox-close-icon", "Упрощённый вариант, объединяющий `CloseButton` с триггером закрытия Ark UI.", 1],
+    ["LightboxGallery", "lightbox-gallery", "Контейнер для компоновки и стилизации `Carousel`.", 1],
+    ["LightboxRootProvider", null, "Провайдер состояния, созданного с помощью `useLightbox()`.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Стилизация
 
 ### CSS-переменные
 
-<CssPropertiesSection properties={LightboxDocs.lightboxOverrideCssProperties} />
+Наведите на переменную или выберите её, чтобы увидеть её в превью.
+
+<CssPropertiesSection properties={LightboxDocs.lightboxOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Хуки стилизации
 

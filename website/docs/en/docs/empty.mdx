@@ -5,6 +5,7 @@ description: Fill an empty list or first-run screen with a message and next step
 ark: https://ark-ui.com/docs/guides/composition#the-ark-factory
 ---
 
+import AnatomyScene from '@/components/examples/empty/basic';
 import * as EmptyDocs from '@/components/examples/empty/css-properties';
 
 <Example name="empty/basic" />
@@ -68,23 +69,20 @@ required landmark, role, focus management, or `aria-live` behavior in the surrou
 
 ## Anatomy
 
-```text
-Empty
-├─ EmptyIcon (optional)
-├─ EmptyContent
-│  ├─ EmptyTitle
-│  └─ EmptyDescription
-└─ EmptyActions (optional)
-```
+Hover or focus a part to find it in the preview.
 
-| Part                   | Role                                                                                          |
-| ---------------------- | --------------------------------------------------------------------------------------------- |
-| `Empty`               | Root container for padding, border, background, and alignment.                                |
-| `EmptyIcon`           | Optional container for an icon or another small visual cue.                                   |
-| `EmptyContent`        | Groups the title and description with tighter spacing.                                        |
-| `EmptyTitle`          | Main heading for the empty state.                                                             |
-| `EmptyDescription`    | Supporting content below the title. It can contain paragraphs, links, or other block content. |
-| `EmptyActions`        | Optional action row that wraps its children when needed.                                      |
+<AnatomyInspector
+  parts={[
+    ["Empty", "empty-root", "Root container for padding, border, background, and alignment.", 0],
+    ["EmptyIcon", "empty-icon", "Optional container for an icon or another small visual cue.", 1],
+    ["EmptyContent", "empty-content", "Groups the title and description with tighter spacing.", 1],
+    ["EmptyTitle", "empty-title", "Main heading for the empty state.", 2],
+    ["EmptyDescription", "empty-description", "Supporting content below the title. It can contain paragraphs, links, or other block content.", 2],
+    ["EmptyActions", "empty-actions", "Optional action row that wraps its children when needed.", 1],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styling
 
@@ -95,7 +93,11 @@ once. Style the other parts with a class: it overrides the layered component sty
 
 ### CSS variables
 
-<CssPropertiesSection properties={EmptyDocs.emptyOverrideCssProperties} />
+Hover or focus a variable to see it in the preview.
+
+<CssPropertiesSection properties={EmptyDocs.emptyOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Styling hooks
 

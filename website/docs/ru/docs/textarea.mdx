@@ -5,6 +5,7 @@ description: Многострочный ввод текста с автомат�
 ark: https://ark-ui.com/docs/components/field
 ---
 
+import AnatomyScene from '@/components/examples/textarea/basic';
 import * as TextareaDocs from '@/components/examples/textarea/css-properties';
 
 <Example name="textarea/basic" />
@@ -112,14 +113,15 @@ Ark отключает ручное изменение размера.
 
 В публичной структуре есть только одна часть:
 
-```text
-Field (optional wrapper)
-└─ Textarea
-```
+Наведите на часть или выберите её, чтобы найти её в превью.
 
-| Часть      | Назначение                                                  |
-| ---------- | ----------------------------------------------------------- |
-| `Textarea` | Нативный `textarea` со стилями moduix и состоянием `Field`. |
+<AnatomyInspector
+  parts={[
+    ["Textarea", "textarea-root", "Нативный `textarea` со стилями moduix и состоянием `Field`.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 `Textarea` не экспортирует дополнительные оболочки, составные подкомпоненты, провайдеры и
 контекстные хуки, скрытые поля, подпись или счётчик символов.
@@ -136,7 +138,11 @@ Tailwind используют нативные utility-классы и клас�
 
 ### CSS-переменные
 
-<CssPropertiesSection properties={TextareaDocs.textareaCssProperties} />
+Наведите на переменную или выберите её, чтобы увидеть её в превью.
+
+<CssPropertiesSection properties={TextareaDocs.textareaCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Хуки стилизации
 

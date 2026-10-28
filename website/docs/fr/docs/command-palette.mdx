@@ -5,6 +5,7 @@ description: Chercher et lancer des commandes dans un dialogue ouvert par un bou
 ark: https://ark-ui.com/docs/components/dialog
 ---
 
+import AnatomyScene from '@/components/examples/command-palette/anatomy';
 import * as CommandPaletteDocs from '@/components/examples/command-palette/css-properties';
 
 <Example name="command-palette/basic" />
@@ -86,65 +87,36 @@ du package du framework correspondant lorsque l'état du dialogue doit être cr�
 
 ## Anatomie
 
-```text
-CommandPalette
-├─ CommandPaletteTrigger
-└─ Contenu de la superposition, automatiquement placé dans un portail
-   ├─ CommandPaletteBackdrop
-   └─ CommandPalettePositioner
-      └─ CommandPaletteContent
-         ├─ CommandPaletteHeader
-         │  ├─ CommandPaletteTitle
-         │  └─ CommandPaletteDescription
-         └─ CommandPaletteCombobox
-            ├─ CommandPaletteControl
-            │  ├─ CommandPaletteInput
-            │  └─ CommandPaletteClearTrigger
-            ├─ CommandPaletteList
-            │  ├─ CommandPaletteEmpty
-            │  └─ CommandPaletteItemGroup
-            │     ├─ CommandPaletteItemGroupLabel
-            │     └─ CommandPaletteItem
-            │        ├─ CommandPaletteItemIcon
-            │        ├─ CommandPaletteItemText
-            │        │  ├─ CommandPaletteItemLabel
-            │        │  └─ CommandPaletteItemDescription
-            │        ├─ CommandPaletteItemMeta
-            │        └─ CommandPaletteItemIndicator
-            └─ CommandPaletteFooter
-               └─ CommandPaletteKbd
+Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
 
-CommandPalettePanel
-└─ composition abrégée pour CommandPaletteBackdrop, CommandPalettePositioner et CommandPaletteContent
-
-CommandPaletteRootProvider
-└─ le même arbre de contenu, relié à l'état créé avec useDialog()
-```
-
-| Partie | Rôle |
-| --- | --- |
-| `CommandPalette` | Gère l'état d'Ark Dialog et le gestionnaire facultatif de raccourci global. |
-| `CommandPaletteRootProvider` | Relie les parties de la palette à l'état du dialogue créé en dehors de l'arbre rendu. Accepte la même prop `shortcut`. |
-| `CommandPaletteTrigger` | Ouvre la palette. Il n'a pas de style : utilisez `asChild` avec un `Button` ou votre propre élément. |
-| `CommandPaletteBackdrop` | Arrière-plan d'Ark Dialog, avec l'état d'animation dans `data-state`. |
-| `CommandPalettePositioner` | Positionne le dialogue dans la fenêtre et maintient son contenu dans ses limites. |
-| `CommandPaletteContent` | Contenu du dialogue et surface visuelle de la palette. |
-| `CommandPalettePanel` | Structure prête à l'emploi pour l'arrière-plan, le positionnement et le contenu standards. |
-| `CommandPaletteHeader` / `CommandPaletteTitle` / `CommandPaletteDescription` | Éléments de mise en page facultatifs, ainsi que les parties de titre et de description accessibles d'Ark Dialog. |
-| `CommandPaletteCombobox` | Racine Ark Combobox qui gère la recherche et la sélection des commandes. |
-| `CommandPaletteControl` | Regroupe le champ de recherche et le bouton d'effacement. |
-| `CommandPaletteInput` | Champ de saisie Ark Combobox. |
-| `CommandPaletteSearch` | Barre de recherche prête à l'emploi qui regroupe `CommandPaletteControl`, une icône de recherche décorative, `CommandPaletteInput` et `CommandPaletteClearTrigger`. Elle ajoute aussi un nom accessible par défaut au champ. Utilisez les parties explicites lorsqu'elles nécessitent une configuration individuelle. |
-| `CommandPaletteClearTrigger` | Efface la requête et reste masqué lorsque le champ est vide. |
-| `CommandPaletteList` | Liste des résultats Ark Combobox enveloppée dans un `ScrollArea` moduix. |
-| `CommandPaletteEmpty` | Message affiché lorsque la collection filtrée ne contient aucun résultat. |
-| `CommandPaletteItemGroup` / `CommandPaletteItemGroupLabel` | Sections groupées de commandes et leurs intitulés. |
-| `CommandPaletteItem` | Ligne de commande avec des états de surbrillance, de sélection et de désactivation. |
-| `CommandPaletteItemText` | Conteneur du libellé et de la description de la commande. |
-| `CommandPaletteItemIndicator` | Indicateur de sélection, avec une coche par défaut. |
-| `CommandPaletteItemIcon`, `CommandPaletteItemLabel`, `CommandPaletteItemDescription`, `CommandPaletteItemMeta` | Parties visuelles pour l'icône, le texte, la description et les métadonnées à droite. |
-| `CommandPaletteSeparator` | Séparateur visuel entre les sections de commandes. |
-| `CommandPaletteFooter` / `CommandPaletteKbd` | Zone de pied de page et enveloppe `Kbd` de moduix pour afficher les raccourcis. |
+<AnatomyInspector
+  parts={[
+    ["CommandPalette", null, "Gère l'état d'Ark Dialog et le gestionnaire facultatif de raccourci global.", 0],
+    ["CommandPaletteTrigger", "command-palette-trigger", "Ouvre la palette. Il n'a pas de style : utilisez `asChild` avec un `Button` ou votre propre élément.", 1],
+    ["CommandPaletteBackdrop", "command-palette-backdrop", "Arrière-plan d'Ark Dialog, avec l'état d'animation dans `data-state`.", 1],
+    ["CommandPalettePositioner", "command-palette-positioner", "Positionne le dialogue dans la fenêtre et maintient son contenu dans ses limites.", 1],
+    ["CommandPaletteContent", "command-palette-content", "Contenu du dialogue et surface visuelle de la palette.", 2],
+    ["CommandPaletteHeader / CommandPaletteTitle / CommandPaletteDescription", "command-palette-header", "Éléments de mise en page facultatifs, ainsi que les parties de titre et de description accessibles d'Ark Dialog.", 3],
+    ["CommandPaletteCombobox", "command-palette-combobox", "Racine Ark Combobox qui gère la recherche et la sélection des commandes.", 3],
+    ["CommandPaletteControl", "command-palette-control", "Regroupe le champ de recherche et le bouton d'effacement.", 4],
+    ["CommandPaletteInput", "command-palette-input", "Champ de saisie Ark Combobox.", 5],
+    ["CommandPaletteClearTrigger", "command-palette-clear-trigger", "Efface la requête et reste masqué lorsque le champ est vide.", 5],
+    ["CommandPaletteList", "command-palette-list", "Liste des résultats Ark Combobox enveloppée dans un `ScrollArea` moduix.", 4],
+    ["CommandPaletteEmpty", "command-palette-empty", "Message affiché lorsque la collection filtrée ne contient aucun résultat.", 5],
+    ["CommandPaletteItemGroup / CommandPaletteItemGroupLabel", "command-palette-item-group", "Sections groupées de commandes et leurs intitulés.", 5],
+    ["CommandPaletteItem", "command-palette-item", "Ligne de commande avec des états de surbrillance, de sélection et de désactivation.", 6],
+    ["CommandPaletteItemIcon, CommandPaletteItemLabel, CommandPaletteItemDescription, CommandPaletteItemMeta", "command-palette-item-icon", "Parties visuelles pour l'icône, le texte, la description et les métadonnées à droite.", 7],
+    ["CommandPaletteItemText", "command-palette-item-text", "Conteneur du libellé et de la description de la commande.", 7],
+    ["CommandPaletteItemIndicator", "command-palette-item-indicator", "Indicateur de sélection, avec une coche par défaut.", 7],
+    ["CommandPaletteFooter / CommandPaletteKbd", "command-palette-footer", "Zone de pied de page et enveloppe `Kbd` de moduix pour afficher les raccourcis.", 4],
+    ["CommandPaletteSearch", "command-palette-search-icon", "Barre de recherche prête à l'emploi qui regroupe `CommandPaletteControl`, une icône de recherche décorative, `CommandPaletteInput` et `CommandPaletteClearTrigger`. Elle ajoute aussi un nom accessible par défaut au champ. Utilisez les parties explicites lorsqu'elles nécessitent une configuration individuelle.", 1],
+    ["CommandPaletteSeparator", "command-palette-separator", "Séparateur visuel entre les sections de commandes.", 1],
+    ["CommandPalettePanel", "", "Structure prête à l'emploi pour l'arrière-plan, le positionnement et le contenu standards.", 0],
+    ["CommandPaletteRootProvider", null, "Relie les parties de la palette à l'état du dialogue créé en dehors de l'arbre rendu. Accepte la même prop `shortcut`.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styles
 
@@ -157,7 +129,11 @@ n'affiche pas de barre de défilement visible.
 
 ### Variables CSS
 
-<CssPropertiesSection properties={CommandPaletteDocs.commandPaletteOverrideCssProperties} />
+Survolez ou sélectionnez une variable pour la voir dans l’aperçu.
+
+<CssPropertiesSection properties={CommandPaletteDocs.commandPaletteOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Points d’accroche CSS
 

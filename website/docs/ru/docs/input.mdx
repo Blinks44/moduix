@@ -5,6 +5,7 @@ description: Однострочный ввод текста с поведени�
 ark: https://ark-ui.com/docs/components/field
 ---
 
+import AnatomyScene from '@/components/examples/input/basic';
 import * as InputDocs from '@/components/examples/input/css-properties';
 
 <Example name="input/basic" />
@@ -130,14 +131,15 @@ import * as InputDocs from '@/components/examples/input/css-properties';
 
 ## Анатомия
 
-```text
-Field (необязательная оболочка)
-└─ Input
-```
+Наведите на часть или выберите её, чтобы найти её в превью.
 
-| Часть                   | Назначение                                                                  |
-| ----------------------- | --------------------------------------------------------------------------- |
-| `Input`                 | Стилизованная версия `FieldInput` из Ark UI, которая отрисовывает нативный однострочный `<input>`. |
+<AnatomyInspector
+  parts={[
+    ["Input", "input-root", "Стилизованная версия `FieldInput` из Ark UI, которая отрисовывает нативный однострочный `<input>`.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Стилизация
 
@@ -153,7 +155,11 @@ Tailwind используют нативные utility-классы и клас�
 
 ### CSS-переменные
 
-<CssPropertiesSection properties={InputDocs.inputOverrideCssProperties} />
+Наведите на переменную или выберите её, чтобы увидеть её в превью.
+
+<CssPropertiesSection properties={InputDocs.inputOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Хуки стилизации
 

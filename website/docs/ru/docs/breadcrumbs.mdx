@@ -5,6 +5,7 @@ description: Показывает место страницы в структу�
 ark: https://ark-ui.com/docs/guides/composition#the-ark-factory
 ---
 
+import AnatomyScene from '@/components/examples/breadcrumbs/basic';
 import * as BreadcrumbsDocs from '@/components/examples/breadcrumbs/css-properties';
 
 <Example name="breadcrumbs/basic" />
@@ -91,25 +92,21 @@ npm, и в исходниках реестра shadcn.
 
 ## Анатомия
 
-```text
-Breadcrumbs
-└─ BreadcrumbsList
-   ├─ BreadcrumbsItem
-   │  └─ BreadcrumbsLink
-   ├─ BreadcrumbsSeparator
-   └─ BreadcrumbsItem
-      └─ BreadcrumbsPage
-```
+Наведите на часть или выберите её, чтобы найти её в превью.
 
-| Часть                  | Назначение                                                       |
-| ---------------------- | ---------------------------------------------------------------- |
-| `Breadcrumbs`          | Область навигации с `aria-label` по умолчанию.                    |
-| `BreadcrumbsList`      | Упорядоченный список сегментов пути.                              |
-| `BreadcrumbsItem`      | Элемент списка, содержащий один сегмент.                          |
-| `BreadcrumbsLink`      | Стилизованная ссылка для сегментов, по которым можно перейти; поддерживает `asChild`. |
-| `BreadcrumbsPage`      | Текст текущей страницы с `aria-current="page"`.                  |
-| `BreadcrumbsSeparator` | Визуальный разделитель, скрытый от вспомогательных технологий.   |
-| `BreadcrumbsEllipsis`  | Компактный маркер для кнопки меню, открывающей скрытые сегменты.  |
+<AnatomyInspector
+  parts={[
+    ["Breadcrumbs", "breadcrumbs-root", "Область навигации с `aria-label` по умолчанию.", 0],
+    ["BreadcrumbsList", "breadcrumbs-list", "Упорядоченный список сегментов пути.", 1],
+    ["BreadcrumbsItem", "breadcrumbs-item", "Элемент списка, содержащий один сегмент.", 2],
+    ["BreadcrumbsLink", "breadcrumbs-link", "Стилизованная ссылка для сегментов, по которым можно перейти; поддерживает `asChild`.", 3],
+    ["BreadcrumbsSeparator", "breadcrumbs-separator", "Визуальный разделитель, скрытый от вспомогательных технологий.", 2],
+    ["BreadcrumbsPage", "breadcrumbs-page", "Текст текущей страницы с `aria-current=\"page\"`.", 2],
+    ["BreadcrumbsEllipsis", "breadcrumbs-ellipsis", "Компактный маркер для кнопки меню, открывающей скрытые сегменты.", 1],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 `BreadcrumbsPath` - сокращённый API moduix. Он создаёт `BreadcrumbsList`, `BreadcrumbsItem`,
 `BreadcrumbsLink`, `BreadcrumbsPage` и `BreadcrumbsSeparator` на основе пропсов `links` и `page`.
@@ -123,7 +120,11 @@ moduix.
 
 ### CSS-переменные
 
-<CssPropertiesSection properties={BreadcrumbsDocs.breadcrumbsCssProperties} />
+Наведите на переменную или выберите её, чтобы увидеть её в превью.
+
+<CssPropertiesSection properties={BreadcrumbsDocs.breadcrumbsCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Хуки стилизации
 

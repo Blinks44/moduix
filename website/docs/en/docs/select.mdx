@@ -5,6 +5,7 @@ description: Pick one or more values from a popup list of options.
 ark: https://ark-ui.com/docs/components/select
 ---
 
+import AnatomyScene from '@/components/examples/select/anatomy';
 import * as SelectDocs from '@/components/examples/select/css-properties';
 
 <Example name="select/basic" />
@@ -148,56 +149,38 @@ Use `useSelect` with `SelectRootProvider` when state must be shared with control
 
 ## Anatomy
 
-```text
-Select
-├─ SelectLabel
-├─ SelectControl / SelectField
-│  ├─ SelectTrigger
-│  │  ├─ SelectValueText
-│  ├─ SelectClearTrigger
-│  └─ SelectIndicator
-├─ Overlay subtree (automatically portalled)
-│  └─ SelectPositioner
-│     └─ SelectContent
-│        ├─ SelectList
-│        └─ SelectItemGroup
-│           ├─ SelectItemGroupLabel
-│           ├─ SelectOption[item]
-│           └─ SelectItem[item]
-│              ├─ SelectItemText
-│              │  └─ SelectItemTextContent
-│              │     ├─ SelectItemTextIcon
-│              │     └─ SelectItemTextLabel
-│              └─ SelectItemIndicator
-└─ SelectHiddenSelect (explicit)
-```
+Hover or focus a part to find it in the preview.
 
-| Part                     | Role                                                                   |
-| ------------------------ | ---------------------------------------------------------------------- |
-| `Select`                  | Root state, collection, selection, popup lifecycle, and form data.     |
-| `SelectHiddenSelect`      | Native Ark form control; compose explicitly as described below.       |
-| `SelectRootProvider`      | Renders a select tree from state returned by `useSelect`.              |
-| `SelectContext`           | Root context for advanced state reads.                                 |
-| `SelectItemContext`       | Item context for advanced state reads.                                 |
-| `SelectLabel`           | Accessible label inherited by the trigger and native form control.     |
-| `SelectControl`         | Visual field wrapper that receives focus, invalid, and open state.     |
-| `SelectField`           | moduix helper that renders the standard control, trigger, and actions. |
-| `SelectTrigger`         | Button that opens the popup and owns keyboard entry.                   |
-| `SelectValueText`       | Placeholder or selected item labels.                                   |
-| `SelectClearTrigger`    | Button that clears the current value.                                  |
-| `SelectIndicator`       | Trigger indicator with the moduix default chevron icon.                |
-| `SelectPositioner`      | Floating layer that exposes Ark positioning CSS variables.             |
-| `SelectContent`         | Popup surface and listbox container.                                   |
-| `SelectList`            | Optional list wrapper for virtualized or custom list layouts.          |
-| `SelectItemGroup`       | Group wrapper for related collection items.                            |
-| `SelectItemGroupLabel`  | Label for a collection group.                                          |
-| `SelectItem`            | Selectable row. Pass the collection item through `item`.               |
-| `SelectOption` | Convenience row for simple options with text and an indicator. |
-| `SelectItemText`        | Text used for display and accessibility.                               |
-| `SelectItemTextContent` | Layout helper for rich item text.                                     |
-| `SelectItemTextIcon`    | Icon wrapper for rich item text.                                      |
-| `SelectItemTextLabel`   | Label wrapper for rich item text.                                    |
-| `SelectItemIndicator`   | Selected-state indicator with the moduix default check icon.           |
+<AnatomyInspector
+  parts={[
+    ["Select", "select-root", "Root state, collection, selection, popup lifecycle, and form data.", 0],
+    ["SelectLabel", "select-label", "Accessible label inherited by the trigger and native form control.", 1],
+    ["SelectControl", "select-control", "Visual field wrapper that receives focus, invalid, and open state.", 1],
+    ["SelectTrigger", "select-trigger", "Button that opens the popup and owns keyboard entry.", 2],
+    ["SelectValueText", "select-value-text", "Placeholder or selected item labels.", 3],
+    ["SelectClearTrigger", "select-clear-trigger", "Button that clears the current value.", 2],
+    ["SelectIndicator", "select-indicator", "Trigger indicator with the moduix default chevron icon.", 2],
+    ["SelectPositioner", "select-positioner", "Floating layer that exposes Ark positioning CSS variables.", 1],
+    ["SelectContent", "select-content", "Popup surface and listbox container.", 2],
+    ["SelectList", "select-list", "Optional list wrapper for virtualized or custom list layouts.", 3],
+    ["SelectItemGroup", "select-item-group", "Group wrapper for related collection items.", 3],
+    ["SelectItemGroupLabel", "select-item-group-label", "Label for a collection group.", 4],
+    ["SelectOption", "", "Convenience row for simple options with text and an indicator.", 4],
+    ["SelectItem", "select-item", "Selectable row. Pass the collection item through `item`.", 4],
+    ["SelectItemText", "select-item-text", "Text used for display and accessibility.", 5],
+    ["SelectItemTextContent", "select-item-text-content", "Layout helper for rich item text.", 6],
+    ["SelectItemTextIcon", "select-item-text-icon", "Icon wrapper for rich item text.", 7],
+    ["SelectItemTextLabel", "select-item-text-label", "Label wrapper for rich item text.", 7],
+    ["SelectItemIndicator", "select-item-indicator", "Selected-state indicator with the moduix default check icon.", 5],
+    ["SelectHiddenSelect", "", "Native Ark form control; compose explicitly as described below.", 1],
+    ["SelectField", "", "moduix helper that renders the standard control, trigger, and actions.", 1],
+    ["SelectRootProvider", "select-root-provider", "Renders a select tree from state returned by `useSelect`.", 0],
+    ["SelectContext", null, "Root context for advanced state reads.", 0],
+    ["SelectItemContext", null, "Item context for advanced state reads.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styling
 
@@ -205,7 +188,11 @@ Style Select with `className` in React, `class` in Solid and Vue, stable `data-s
 
 ### CSS variables
 
-<CssPropertiesSection properties={SelectDocs.selectOverrideCssProperties} />
+Hover or focus a variable to see it in the preview.
+
+<CssPropertiesSection properties={SelectDocs.selectOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Styling hooks
 

@@ -5,6 +5,7 @@ description: Бесконечная прокрутка логотипов или
 ark: https://ark-ui.com/docs/components/marquee
 ---
 
+import AnatomyScene from '@/components/examples/marquee/basic';
 import * as MarqueeDocs from '@/components/examples/marquee/css-properties';
 
 <Example name="marquee/basic" />
@@ -118,27 +119,21 @@ import * as MarqueeDocs from '@/components/examples/marquee/css-properties';
 
 ## Анатомия
 
-```text
-Marquee
-├─ MarqueeEdge (необязательно)
-├─ MarqueeViewport
-│  └─ MarqueeContent
-│     └─ MarqueeItem
-└─ MarqueeEdge (необязательно)
+Наведите на часть или выберите её, чтобы найти её в превью.
 
-MarqueeRootProvider
-└─ то же дерево частей, подключённое к состоянию, созданному useMarquee() из moduix
-```
-
-| Часть                       | Назначение                                                                  |
-| -------------------------- | --------------------------------------------------------------------------- |
-| `Marquee` | Состояние компонента, метки, идентификаторы, ориентация, состояние паузы и CSS-переменные. |
-| `MarqueeRootProvider`     | Выводит дерево компонента на основе состояния, возвращённого `useMarquee()`.              |
-| `MarqueeViewport`         | Область просмотра, которая скрывает содержимое за своими границами.                      |
-| `MarqueeContent`          | Обёртка анимированного содержимого. При необходимости Ark клонирует её.                  |
-| `MarqueeItem`             | Отдельный элемент внутри содержимого.                                                     |
-| `MarqueeEdge`             | Необязательный градиент, создающий эффект затухания у края. Передайте `side`, чтобы выбрать край. |
-| `MarqueeContext`          | Доступ к контексту родительского компонента `Marquee` для расширенных сценариев.          |
+<AnatomyInspector
+  parts={[
+    ["Marquee", "marquee-root", "Состояние компонента, метки, идентификаторы, ориентация, состояние паузы и CSS-переменные.", 0],
+    ["MarqueeEdge", "marquee-edge", "Необязательный градиент, создающий эффект затухания у края. Передайте `side`, чтобы выбрать край.", 1],
+    ["MarqueeViewport", "marquee-viewport", "Область просмотра, которая скрывает содержимое за своими границами.", 1],
+    ["MarqueeContent", "marquee-content", "Обёртка анимированного содержимого. При необходимости Ark клонирует её.", 2],
+    ["MarqueeItem", "marquee-item", "Отдельный элемент внутри содержимого.", 3],
+    ["MarqueeRootProvider", "marquee-root-provider", "Выводит дерево компонента на основе состояния, возвращённого `useMarquee()`.", 0],
+    ["MarqueeContext", null, "Доступ к контексту родительского компонента `Marquee` для расширенных сценариев.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Стилизация
 
@@ -155,7 +150,11 @@ MarqueeRootProvider
 
 ### CSS-переменные
 
-<CssPropertiesSection properties={MarqueeDocs.marqueeCssProperties} />
+Наведите на переменную или выберите её, чтобы увидеть её в превью.
+
+<CssPropertiesSection properties={MarqueeDocs.marqueeCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Хуки стилизации
 

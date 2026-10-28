@@ -5,6 +5,7 @@ description: Ouvrir une fenêtre modale pour un formulaire, une confirmation ou 
 ark: https://ark-ui.com/docs/components/dialog
 ---
 
+import AnatomyScene from '@/components/examples/dialog/anatomy';
 import * as DialogDocs from '@/components/examples/dialog/css-properties';
 
 <Example name="dialog/basic" />
@@ -153,43 +154,28 @@ composition.
 
 ## Anatomie
 
-```text
-Dialog
-├─ DialogTrigger
-└─ Contenu superposé (rendu automatiquement dans un portail)
-   ├─ DialogBackdrop (facultatif)
-   └─ DialogPositioner
-      └─ DialogContent
-         ├─ DialogCloseTrigger ou DialogCloseIcon
-         ├─ DialogTitle
-         ├─ DialogDescription
-         ├─ DialogHeader (aide de mise en page moduix)
-         ├─ DialogBody (aide de mise en page moduix)
-         └─ DialogFooter (aide de mise en page moduix)
+Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
 
-DialogRootProvider
-└─ même arbre de parties relié à l’état fourni par useDialog() de moduix
-
-DialogContext
-└─ fonction de rendu qui reçoit l’état et les méthodes actuels du dialogue
-```
-
-| Partie                    | Rôle                                                               |
-| ------------------------ | ------------------------------------------------------------------ |
-| `Dialog` / `DialogRootProvider` | Gère l’état d’ouverture, le focus et la fermeture du dialogue.      |
-| `DialogRootProvider`    | Relie les parties à l’état créé avec `useDialog()`.                |
-| `DialogTrigger`         | Ouvre le dialogue.                                                   |
-| `DialogBackdrop`        | Couche d’arrière-plan facultative du dialogue modal.                |
-| `DialogPositioner`      | Positionne le contenu du dialogue.                                  |
-| `DialogContent`         | Contient la surface visible du dialogue.                            |
-| `DialogTitle`           | Donne au dialogue un titre accessible.                              |
-| `DialogDescription`     | Ajoute un texte complémentaire accessible.                          |
-| `DialogCloseTrigger`    | Ferme le dialogue.                                                   |
-| `DialogCloseIcon`       | Aide moduix qui associe un bouton de fermeture au dialogue.          |
-| `DialogHeader`          | Aide de mise en page moduix pour l’en-tête.                         |
-| `DialogBody`            | Aide de mise en page moduix pour le contenu principal.              |
-| `DialogFooter`          | Aide de mise en page moduix pour les actions.                       |
-| `DialogContext`         | Rend les enfants avec l’état et les méthodes actuels du dialogue.   |
+<AnatomyInspector
+  parts={[
+    ["Dialog", null, "Gère l’état d’ouverture, le focus et la fermeture du dialogue.", 0],
+    ["DialogTrigger", "dialog-trigger", "Ouvre le dialogue.", 1],
+    ["DialogBackdrop", "dialog-backdrop", "Couche d’arrière-plan facultative du dialogue modal.", 1],
+    ["DialogPositioner", "dialog-positioner", "Positionne le contenu du dialogue.", 1],
+    ["DialogContent", "dialog-content", "Contient la surface visible du dialogue.", 2],
+    ["DialogHeader", "dialog-header", "Aide de mise en page moduix pour l’en-tête.", 3],
+    ["DialogTitle", "dialog-title", "Donne au dialogue un titre accessible.", 4],
+    ["DialogCloseIcon", "dialog-close-icon", "Aide moduix qui associe un bouton de fermeture au dialogue.", 4],
+    ["DialogDescription", "dialog-description", "Ajoute un texte complémentaire accessible.", 4],
+    ["DialogBody", "dialog-body", "Aide de mise en page moduix pour le contenu principal.", 3],
+    ["DialogFooter", "dialog-footer", "Aide de mise en page moduix pour les actions.", 3],
+    ["DialogCloseTrigger", "dialog-close-trigger", "Ferme le dialogue.", 4],
+    ["DialogRootProvider", null, "Relie les parties à l’état créé avec `useDialog()`.", 0],
+    ["DialogContext", null, "Rend les enfants avec l’état et les méthodes actuels du dialogue.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 Importez `useDialog()` lorsque l’état doit vivre en dehors de l’arbre rendu du dialogue. Lisez-le ou
 mettez-le à jour avec `DialogContext` ou `useDialogContext()` depuis le paquet correspondant.
@@ -205,7 +191,11 @@ sont communs aux deux approches.
 
 ### Variables CSS
 
-<CssPropertiesSection properties={DialogDocs.dialogOverrideCssProperties} />
+Survolez ou sélectionnez une variable pour la voir dans l’aperçu.
+
+<CssPropertiesSection properties={DialogDocs.dialogOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Points d’accroche CSS
 

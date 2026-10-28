@@ -5,6 +5,7 @@ description: Заглушка для текста, карточек и меди�
 ark: https://ark-ui.com/docs/guides/composition#the-ark-factory
 ---
 
+import AnatomyScene from '@/components/examples/skeleton/basic';
 import * as SkeletonDocs from '@/components/examples/skeleton/css-properties';
 
 <Example name="skeleton/basic" />
@@ -86,14 +87,15 @@ import * as SkeletonDocs from '@/components/examples/skeleton/css-properties';
 
 `Skeleton` состоит из одной визуальной части. Компоновку задаёт окружающая разметка.
 
-```text
-Skeleton
-└─ children (необязательно, отображаются при loading={false})
-```
+Наведите на часть или выберите её, чтобы найти её в превью.
 
-| Часть                        | Назначение                                                                                  |
-| ---------------------------- | ------------------------------------------------------------------------------------------- |
-| `Skeleton` | Блок-заполнитель. По умолчанию рендерит элемент фабрики Ark; с `asChild` корневым можно сделать другой семантический элемент. |
+<AnatomyInspector
+  parts={[
+    ["Skeleton", "skeleton-root", "Блок-заполнитель. По умолчанию рендерит элемент фабрики Ark; с `asChild` корневым можно сделать другой семантический элемент.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Стилизация
 
@@ -103,7 +105,11 @@ Skeleton
 
 ### CSS-переменные
 
-<CssPropertiesSection properties={SkeletonDocs.skeletonOverrideCssProperties} />
+Наведите на переменную или выберите её, чтобы увидеть её в превью.
+
+<CssPropertiesSection properties={SkeletonDocs.skeletonOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Хуки стилизации
 

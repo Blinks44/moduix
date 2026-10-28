@@ -5,6 +5,8 @@ description: Ouvrir une fenêtre déplaçable, redimensionnable, réductible et 
 ark: https://ark-ui.com/docs/components/floating-panel
 ---
 
+import AnatomyScene from '@/components/examples/floating-panel/anatomy';
+
 <Example name="floating-panel/basic" />
 
 ## Installation
@@ -128,41 +130,29 @@ utilise le slot enfant, tandis que Solid utilise la forme avec fonction de rendu
 
 ## Anatomie
 
-```text
-FloatingPanel
-├─ FloatingPanelTrigger
-└─ Sous-arbre de l'overlay (placé automatiquement dans un portail)
-   └─ FloatingPanelPositioner
-      └─ FloatingPanelContent
-         ├─ FloatingPanelDragTrigger
-         │  └─ FloatingPanelHeader
-         │     ├─ FloatingPanelTitle
-         │     │  └─ FloatingPanelDragIndicator (facultatif)
-         │     └─ FloatingPanelControl
-         │        ├─ FloatingPanelStageTrigger
-         │        └─ FloatingPanelCloseTrigger / FloatingPanelCloseIcon
-         ├─ FloatingPanelBody
-         ├─ FloatingPanelFooter
-         └─ FloatingPanelResizeTrigger / FloatingPanelResizeTriggerGroup
-```
+Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
 
-| Partie                                      | Rôle                                                                    |
-| ------------------------------------------- | ----------------------------------------------------------------------- |
-| `FloatingPanel`                            | Gère l'ouverture, la position, la taille, le déplacement, le redimensionnement et le mode de la fenêtre. |
-| `FloatingPanelTrigger`                     | Ouvre la fenêtre ou inverse son état.                                   |
-| `FloatingPanelPositioner`                  | Applique les valeurs de position, de taille, de transformation et de z-index calculées par Ark. |
-| `FloatingPanelContent`                     | Surface visible de la fenêtre flottante.                               |
-| `FloatingPanelDragTrigger`                 | Définit la zone déplaçable, généralement l'en-tête.                     |
-| `FloatingPanelHeader`                      | Partie d'en-tête Ark et conteneur de la poignée de déplacement.          |
-| `FloatingPanelTitle`                       | Définit le nom accessible de la fenêtre.                                |
-| `FloatingPanelControl`                     | Regroupe les commandes de mode et de fermeture.                         |
-| `FloatingPanelStageTrigger`                | Passe entre les modes `default`, `minimized` et `maximized`.             |
-| `FloatingPanelCloseTrigger` / `FloatingPanelCloseIcon` | Ferme la fenêtre.                                             |
-| `FloatingPanelBody`                        | Zone principale du contenu, avec défilement.                            |
-| `FloatingPanelFooter`                      | Zone facultative pour les actions ou le statut.                         |
-| `FloatingPanelResizeTrigger`               | Poignée de redimensionnement pour un axe Ark.                           |
-| `FloatingPanelResizeTriggerGroup`          | Affiche toutes les poignées ou seulement celles qui sont sélectionnées.  |
-| `FloatingPanelRootProvider`                | Relie les parties à l'état créé avec `useFloatingPanel()`. |
+<AnatomyInspector
+  parts={[
+    ["FloatingPanel", null, "Gère l'ouverture, la position, la taille, le déplacement, le redimensionnement et le mode de la fenêtre.", 0],
+    ["FloatingPanelTrigger", "floating-panel-trigger", "Ouvre la fenêtre ou inverse son état.", 1],
+    ["FloatingPanelPositioner", "floating-panel-positioner", "Applique les valeurs de position, de taille, de transformation et de z-index calculées par Ark.", 1],
+    ["FloatingPanelContent", "floating-panel-content", "Surface visible de la fenêtre flottante.", 2],
+    ["FloatingPanelDragTrigger", "floating-panel-drag-trigger", "Définit la zone déplaçable, généralement l'en-tête.", 3],
+    ["FloatingPanelHeader", "floating-panel-header", "Partie d'en-tête Ark et conteneur de la poignée de déplacement.", 4],
+    ["FloatingPanelTitle", "floating-panel-title", "Définit le nom accessible de la fenêtre.", 5],
+    ["FloatingPanelControl", "floating-panel-control", "Regroupe les commandes de mode et de fermeture.", 5],
+    ["FloatingPanelStageTrigger", "floating-panel-stage-trigger", "Passe entre les modes `default`, `minimized` et `maximized`.", 6],
+    ["FloatingPanelCloseTrigger / FloatingPanelCloseIcon", "floating-panel-close-trigger", "Ferme la fenêtre.", 6],
+    ["FloatingPanelBody", "floating-panel-body", "Zone principale du contenu, avec défilement.", 3],
+    ["FloatingPanelFooter", "floating-panel-footer", "Zone facultative pour les actions ou le statut.", 3],
+    ["FloatingPanelResizeTrigger", "floating-panel-resize-trigger", "Poignée de redimensionnement pour un axe Ark.", 3],
+    ["FloatingPanelResizeTriggerGroup", "", "Affiche toutes les poignées ou seulement celles qui sont sélectionnées.", 4],
+    ["FloatingPanelRootProvider", null, "Relie les parties à l'état créé avec `useFloatingPanel()`.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 `FloatingPanelDragIndicator`, `FloatingPanelCloseIcon`, `FloatingPanelFooter` et
 `FloatingPanelResizeTriggerGroup` sont des utilitaires moduix. Ils complètent les parties

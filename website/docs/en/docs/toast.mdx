@@ -5,6 +5,7 @@ description: Show brief notifications that stack and dismiss on their own.
 ark: https://ark-ui.com/docs/components/toast
 ---
 
+import AnatomyScene from '@/components/examples/toast/anatomy';
 import * as ToastDocs from '@/components/examples/toast/css-properties';
 
 <Example name="toast/basic" />
@@ -121,25 +122,21 @@ composition paths. Title, description, action, and close-trigger `asChild` compo
 
 ## Anatomy
 
-```text
-createToaster()
-└─ ToastToaster (portalled to document.body by default)
-   └─ Toast
-      ├─ ToastTitle
-      ├─ ToastDescription
-      ├─ ToastActionTrigger
-      └─ ToastCloseTrigger
-```
+Hover or focus a part to find it in the preview.
 
-| Part                           | Role                                                                                   |
-| ------------------------------ | -------------------------------------------------------------------------------------- |
-| `Toast`               | Root of a visible toast.                                             |
-| `ToastToaster`        | Renders the toaster store and manages the toast group.               |
-| `ToastTitle`          | Title part. Uses the current toast `title` when no children are passed. |
-| `ToastDescription`    | Description part. Uses the current toast `description` when no children are passed. |
-| `ToastActionTrigger`  | Action button connected to `toast.action.onClick`.                   |
-| `ToastCloseTrigger`   | Dismiss button. Uses `CloseButton` by default.                       |
-| `ToastContext`        | Context part for custom composition and direct toast state access.   |
+<AnatomyInspector
+  parts={[
+    ["ToastToaster", "toast-toaster", "Renders the toaster store and manages the toast group.", 0],
+    ["Toast", "toast-root", "Root of a visible toast.", 1],
+    ["ToastTitle", "toast-title", "Title part. Uses the current toast `title` when no children are passed.", 2],
+    ["ToastDescription", "toast-description", "Description part. Uses the current toast `description` when no children are passed.", 2],
+    ["ToastActionTrigger", "toast-action-trigger", "Action button connected to `toast.action.onClick`.", 2],
+    ["ToastCloseTrigger", "toast-close-trigger", "Dismiss button. Uses `CloseButton` by default.", 2],
+    ["ToastContext", null, "Context part for custom composition and direct toast state access.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styling
 
@@ -150,7 +147,11 @@ selectors to theme one type. Tailwind variants use native utilities and consumer
 
 ### CSS variables
 
-<CssPropertiesSection properties={ToastDocs.toastCssProperties} />
+Hover or focus a variable to see it in the preview.
+
+<CssPropertiesSection properties={ToastDocs.toastCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Styling hooks
 

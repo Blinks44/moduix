@@ -5,6 +5,8 @@ description: Окно, которое можно перетаскивать, м�
 ark: https://ark-ui.com/docs/components/floating-panel
 ---
 
+import AnatomyScene from '@/components/examples/floating-panel/anatomy';
+
 <Example name="floating-panel/basic" />
 
 ## Установка
@@ -127,41 +129,29 @@ React, Solid и Vue используют одинаковые плоские и�
 
 ## Анатомия
 
-```text
-FloatingPanel
-├─ FloatingPanelTrigger
-└─ Дерево оверлея (автоматически помещается в портал)
-   └─ FloatingPanelPositioner
-      └─ FloatingPanelContent
-         ├─ FloatingPanelDragTrigger
-         │  └─ FloatingPanelHeader
-         │     ├─ FloatingPanelTitle
-         │     │  └─ FloatingPanelDragIndicator (необязательно)
-         │     └─ FloatingPanelControl
-         │        ├─ FloatingPanelStageTrigger
-         │        └─ FloatingPanelCloseTrigger / FloatingPanelCloseIcon
-         ├─ FloatingPanelBody
-         ├─ FloatingPanelFooter
-         └─ FloatingPanelResizeTrigger / FloatingPanelResizeTriggerGroup
-```
+Наведите на часть или выберите её, чтобы найти её в превью.
 
-| Часть                                      | Назначение                                                               |
-| ------------------------------------------ | ------------------------------------------------------------------------ |
-| `FloatingPanel`                           | Управляет состоянием открытия, позицией, размером, перетаскиванием и режимом окна. |
-| `FloatingPanelTrigger`                    | Открывает панель или переключает её состояние.                           |
-| `FloatingPanelPositioner`                 | Применяет рассчитанные Ark значения позиции, размера, трансформации и z-index. |
-| `FloatingPanelContent`                    | Видимая поверхность плавающего окна.                                    |
-| `FloatingPanelDragTrigger`                | Задаёт область, за которую можно перетаскивать панель, обычно заголовок.   |
-| `FloatingPanelHeader`                     | Часть Ark для заголовка и обёртка области перетаскивания.                 |
-| `FloatingPanelTitle`                      | Задаёт доступное имя панели.                                             |
-| `FloatingPanelControl`                    | Группирует кнопки смены режима и закрытия.                               |
-| `FloatingPanelStageTrigger`               | Переключает режимы `default`, `minimized` и `maximized`.                  |
-| `FloatingPanelCloseTrigger` / `FloatingPanelCloseIcon` | Закрывает панель.                                             |
-| `FloatingPanelBody`                       | Основная область содержимого с прокруткой.                               |
-| `FloatingPanelFooter`                     | Необязательная нижняя область для действий или статуса.                  |
-| `FloatingPanelResizeTrigger`              | Ручка изменения размера для одной оси Ark.                              |
-| `FloatingPanelResizeTriggerGroup`         | Выводит все или выбранные ручки изменения размера.                       |
-| `FloatingPanelRootProvider`               | Подключает части к состоянию из `useFloatingPanel()`.       |
+<AnatomyInspector
+  parts={[
+    ["FloatingPanel", null, "Управляет состоянием открытия, позицией, размером, перетаскиванием и режимом окна.", 0],
+    ["FloatingPanelTrigger", "floating-panel-trigger", "Открывает панель или переключает её состояние.", 1],
+    ["FloatingPanelPositioner", "floating-panel-positioner", "Применяет рассчитанные Ark значения позиции, размера, трансформации и z-index.", 1],
+    ["FloatingPanelContent", "floating-panel-content", "Видимая поверхность плавающего окна.", 2],
+    ["FloatingPanelDragTrigger", "floating-panel-drag-trigger", "Задаёт область, за которую можно перетаскивать панель, обычно заголовок.", 3],
+    ["FloatingPanelHeader", "floating-panel-header", "Часть Ark для заголовка и обёртка области перетаскивания.", 4],
+    ["FloatingPanelTitle", "floating-panel-title", "Задаёт доступное имя панели.", 5],
+    ["FloatingPanelControl", "floating-panel-control", "Группирует кнопки смены режима и закрытия.", 5],
+    ["FloatingPanelStageTrigger", "floating-panel-stage-trigger", "Переключает режимы `default`, `minimized` и `maximized`.", 6],
+    ["FloatingPanelCloseTrigger / FloatingPanelCloseIcon", "floating-panel-close-trigger", "Закрывает панель.", 6],
+    ["FloatingPanelBody", "floating-panel-body", "Основная область содержимого с прокруткой.", 3],
+    ["FloatingPanelFooter", "floating-panel-footer", "Необязательная нижняя область для действий или статуса.", 3],
+    ["FloatingPanelResizeTrigger", "floating-panel-resize-trigger", "Ручка изменения размера для одной оси Ark.", 3],
+    ["FloatingPanelResizeTriggerGroup", "", "Выводит все или выбранные ручки изменения размера.", 4],
+    ["FloatingPanelRootProvider", null, "Подключает части к состоянию из `useFloatingPanel()`.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 `FloatingPanelDragIndicator`, `FloatingPanelCloseIcon`, `FloatingPanelFooter` и
 `FloatingPanelResizeTriggerGroup` являются вспомогательными частями moduix. Они дополняют

@@ -5,6 +5,8 @@ description: Highlight the section a reader is on in an “On this page” list.
 ark: https://ark-ui.com/docs/components/toc
 ---
 
+import AnatomyScene from '@/components/examples/table-of-contents/basic';
+
 <Example name="table-of-contents/basic" />
 
 ## Installation
@@ -87,33 +89,24 @@ This remaining limitation is tracked in [Ark #4187](https://github.com/chakra-ui
 
 ## Anatomy
 
-```text
-Toc
-├─ TocContent
-└─ TocNav
-   ├─ TocTitle
-   └─ TocList
-      ├─ TocIndicator (optional)
-      └─ TocItem[item]
-         └─ TocLink
-            └─ TocRail (optional)
+Hover or focus a part to find it in the preview.
 
-TocRootProvider
-└─ same part tree connected to useToc()
-```
-
-| Part               | Role                                                                 |
-| ------------------ | -------------------------------------------------------------------- |
-| `Toc`             | Root part that owns tracking state from the item list.               |
-| `TocContent`      | Article containing headings whose IDs match item values.             |
-| `TocNav`          | Navigation region connected to the table of contents title.          |
-| `TocTitle`        | Accessible name and visible heading for the navigation.              |
-| `TocList`         | List containing heading links and the optional indicator.             |
-| `TocItem`         | List item bound to one heading, with depth and active-state metadata. |
-| `TocLink`         | Same-page anchor that scrolls to its matching heading.               |
-| `TocIndicator`    | Subtle marker that follows the active range in the list.              |
-| `TocRootProvider` | Connects the parts to tracking state created outside the part tree.   |
-| `TocRail`         | Optional SVG branch connecting neighbouring heading depths.            |
+<AnatomyInspector
+  parts={[
+    ["Toc", "toc-root", "Root part that owns tracking state from the item list.", 0],
+    ["TocContent", "toc-content", "Article containing headings whose IDs match item values.", 1],
+    ["TocNav", "toc-nav", "Navigation region connected to the table of contents title.", 1],
+    ["TocTitle", "toc-title", "Accessible name and visible heading for the navigation.", 2],
+    ["TocList", "toc-list", "List containing heading links and the optional indicator.", 2],
+    ["TocIndicator", "toc-indicator", "Subtle marker that follows the active range in the list.", 3],
+    ["TocItem", "toc-item", "List item bound to one heading, with depth and active-state metadata.", 3],
+    ["TocLink", "toc-link", "Same-page anchor that scrolls to its matching heading.", 4],
+    ["TocRail", "toc-rail", "Optional SVG branch connecting neighbouring heading depths.", 5],
+    ["TocRootProvider", "toc-root-provider", "Connects the parts to tracking state created outside the part tree.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styling
 

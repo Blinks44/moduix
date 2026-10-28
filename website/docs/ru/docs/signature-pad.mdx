@@ -5,6 +5,7 @@ description: Рукописная подпись мышью, пером или �
 ark: https://ark-ui.com/docs/components/signature-pad
 ---
 
+import AnatomyScene from '@/components/examples/signature-pad/basic';
 import * as SignaturePadDocs from '@/components/examples/signature-pad/css-properties';
 
 <Example name="signature-pad/basic" />
@@ -110,37 +111,33 @@ Ark показано `simulatePressure: true`), поэтому имитация 
 
 ## Анатомия
 
-```text
-SignaturePad
-├─ SignaturePadLabel
-├─ SignaturePadCanvas (готовая композиция moduix)
-│  └─ SignaturePadControl
-│     ├─ SignaturePadSegment
-│     ├─ SignaturePadClearTrigger
-│     └─ SignaturePadGuide
-└─ SignaturePadHiddenInput value={serializedPaths} (явно)
+Наведите на часть или выберите её, чтобы найти её в превью.
 
-SignaturePadRootProvider
-└─ то же дерево частей, подключённое к состоянию useSignaturePad()
-```
-
-| Часть                                | Назначение                                                                    |
-| ------------------------------------ | ----------------------------------------------------------------------------- |
-| `SignaturePad`             | Хранит пути, параметры рисования, имя поля формы, идентификаторы и колбэки.    |
-| `SignaturePadHiddenInput`  | Нативное поле Ark, которое нужно добавлять явно.                              |
-| `SignaturePadRootProvider` | Выводит то же дерево частей из состояния, созданного через `useSignaturePad()`. |
-| `SignaturePadLabel`        | Связывает видимую подпись с областью рисования и скрытым полем формы.         |
-| `SignaturePadCanvas`       | Готовая область рисования со стандартными частями; передаёт свойства `SignaturePadControl`. |
-| `SignaturePadControl`      | Область рисования указателем или касанием, доступная для фокуса.              |
-| `SignaturePadSegment`      | SVG-слой для сохранённых штрихов и текущего незавершённого штриха.            |
-| `SignaturePadClearTrigger` | Нативная кнопка очистки путей.                                                |
-| `SignaturePadGuide`        | Неинтерактивная линия для подписи внутри области рисования.                  |
+<AnatomyInspector
+  parts={[
+    ["SignaturePad", "signature-pad-root", "Хранит пути, параметры рисования, имя поля формы, идентификаторы и колбэки.", 0],
+    ["SignaturePadLabel", "signature-pad-label", "Связывает видимую подпись с областью рисования и скрытым полем формы.", 1],
+    ["SignaturePadCanvas", "", "Готовая область рисования со стандартными частями; передаёт свойства `SignaturePadControl`.", 1],
+    ["SignaturePadControl", "signature-pad-control", "Область рисования указателем или касанием, доступная для фокуса.", 2],
+    ["SignaturePadSegment", "signature-pad-segment", "SVG-слой для сохранённых штрихов и текущего незавершённого штриха.", 3],
+    ["SignaturePadClearTrigger", "signature-pad-clear-trigger", "Нативная кнопка очистки путей.", 3],
+    ["SignaturePadGuide", "signature-pad-guide", "Неинтерактивная линия для подписи внутри области рисования.", 3],
+    ["SignaturePadHiddenInput", "", "Нативное поле Ark, которое нужно добавлять явно.", 1],
+    ["SignaturePadRootProvider", "signature-pad-root-provider", "Выводит то же дерево частей из состояния, созданного через `useSignaturePad()`.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Стилизация
 
 ### CSS-переменные
 
-<CssPropertiesSection properties={SignaturePadDocs.signaturePadCssProperties} />
+Наведите на переменную или выберите её, чтобы увидеть её в превью.
+
+<CssPropertiesSection properties={SignaturePadDocs.signaturePadCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Хуки стилизации
 

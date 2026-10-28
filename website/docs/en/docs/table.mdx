@@ -5,6 +5,7 @@ description: Present rows of data with headers, captions, and numeric columns.
 ark: https://ark-ui.com/docs/guides/composition#the-ark-factory
 ---
 
+import AnatomyScene from '@/components/examples/table/basic';
 import * as TableDocs from '@/components/examples/table/css-properties';
 
 <Example name="table/basic" />
@@ -142,36 +143,26 @@ description, and use `id` / `headers` when a complex table needs explicit header
 
 The normal consumer path stays close to native table markup:
 
-```text
-TableScrollArea (optional)
-└─ Table
-   ├─ TableColumnGroup (optional)
-   │  └─ TableColumn
-   ├─ TableCaption (optional)
-   ├─ TableHeader
-   │  └─ TableRow
-   │     └─ TableColumnHeader
-   ├─ TableBody
-   │  ├─ TableRow
-   │  │  └─ TableCell
-   │  └─ TableEmpty (optional)
-   └─ TableFooter (optional)
-```
+Hover or focus a part to find it in the preview.
 
-| Part                   | Role                                                                       |
-| ---------------------- | -------------------------------------------------------------------------- |
-| `Table`           | Native `table` root. Owns typography, dividers, and state attributes.      |
-| `TableScrollArea`     | Optional bordered container with horizontal overflow for the table.       |
-| `TableColumnGroup`    | Native `colgroup` wrapper for column width distribution.                   |
-| `TableColumn`         | Native `col` wrapper. Use the native `width` attribute.                    |
-| `TableCaption`        | Optional table caption above or below the table via `side`.                |
-| `TableHeader`         | Native `thead` wrapper for column headers.                                 |
-| `TableBody`           | Native `tbody` wrapper for body rows.                                      |
-| `TableFooter`         | Native `tfoot` wrapper for summary rows.                                   |
-| `TableRow`            | Native `tr` wrapper with divider behavior.                                 |
-| `TableColumnHeader`   | Native `th` wrapper. Supports `numeric`.                                   |
-| `TableCell`           | Native `td` wrapper. Supports `numeric`.                                   |
-| `TableEmpty`          | Convenience empty-state row and cell inside `TableBody`.                 |
+<AnatomyInspector
+  parts={[
+    ["TableScrollArea", "table-scroll-area", "Optional bordered container with horizontal overflow for the table.", 0],
+    ["Table", "table-root", "Native `table` root. Owns typography, dividers, and state attributes.", 1],
+    ["TableColumnGroup", "table-column-group", "Native `colgroup` wrapper for column width distribution.", 2],
+    ["TableColumn", "table-column", "Native `col` wrapper. Use the native `width` attribute.", 3],
+    ["TableCaption", "table-caption", "Optional table caption above or below the table via `side`.", 2],
+    ["TableHeader", "table-header", "Native `thead` wrapper for column headers.", 2],
+    ["TableRow", "table-row", "Native `tr` wrapper with divider behavior.", 3],
+    ["TableColumnHeader", "table-column-header", "Native `th` wrapper. Supports `numeric`.", 4],
+    ["TableBody", "table-body", "Native `tbody` wrapper for body rows.", 2],
+    ["TableCell", "table-cell", "Native `td` wrapper. Supports `numeric`.", 3],
+    ["TableEmpty", "table-empty", "Convenience empty-state row and cell inside `TableBody`.", 3],
+    ["TableFooter", "table-footer", "Native `tfoot` wrapper for summary rows.", 2],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styling
 
@@ -182,7 +173,11 @@ variables below apply to CSS Modules variants.
 
 ### CSS variables
 
-<CssPropertiesSection properties={TableDocs.tableOverrideCssProperties} />
+Hover or focus a variable to see it in the preview.
+
+<CssPropertiesSection properties={TableDocs.tableOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Styling hooks
 

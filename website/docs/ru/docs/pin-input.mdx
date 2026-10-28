@@ -5,6 +5,7 @@ description: Ввод короткого PIN или одноразового к�
 ark: https://ark-ui.com/docs/components/pin-input
 ---
 
+import AnatomyScene from '@/components/examples/pin-input/basic';
 import * as PinInputDocs from '@/components/examples/pin-input/css-properties';
 
 <Example name="pin-input/basic" />
@@ -122,38 +123,35 @@ Ark управляет переводом фокуса, распределени
 
 ## Анатомия
 
-```text
-PinInput
-├─ PinInputLabel
-├─ PinInputControl
-│  ├─ PinInputInput[index=0]
-│  ├─ PinInputInput[index=1]
-│  └─ PinInputInput[index=2]
-└─ PinInputHiddenInput (явно)
+Наведите на часть или выберите её, чтобы найти её в превью.
 
-PinInputRootProvider
-└─ то же дерево частей, связанное с состоянием usePinInput()
-```
-
-| Часть | Назначение |
-| --- | --- |
-| `PinInput` | Управляет количеством ячеек, состоянием значения, проверкой и параметрами формы. |
-| `PinInputHiddenInput` | Нативное поле Ark, которое нужно добавлять явно. |
-| `PinInputRootProvider` | Подключает части к состоянию, созданному через `usePinInput()`. |
-| `PinInputContext` | Передаёт текущее состояние корневого компонента потомкам через render prop. |
-| `PinInputLabel` | Задаёт подпись для группы PIN-кода или кода подтверждения. |
-| `PinInputControl` | Контейнер видимых ячеек с индексами. |
-| `PinInputInput` | Одна видимая ячейка для символа. Передайте индекс, начиная с нуля. |
-| `PinInputInputs` | Создаёт по одному `PinInputInput` с индексом для каждой ячейки контекста Ark. |
-| `PinInputSeparator` | Декоративный вспомогательный компонент moduix для группировки, а не часть примитива Ark. |
-| `usePinInput` | Создаёт состояние для `PinInputRootProvider`. |
-| `usePinInputContext` | Читает текущее состояние Pin Input внутри дерева компонента. |
+<AnatomyInspector
+  parts={[
+    ["PinInput", "pin-input-root", "Управляет количеством ячеек, состоянием значения, проверкой и параметрами формы.", 0],
+    ["PinInputLabel", "pin-input-label", "Задаёт подпись для группы PIN-кода или кода подтверждения.", 1],
+    ["PinInputControl", "pin-input-control", "Контейнер видимых ячеек с индексами.", 1],
+    ["PinInputInput", "pin-input-input", "Одна видимая ячейка для символа. Передайте индекс, начиная с нуля.", 2],
+    ["PinInputInputs", "", "Создаёт по одному `PinInputInput` с индексом для каждой ячейки контекста Ark.", 3],
+    ["PinInputHiddenInput", "", "Нативное поле Ark, которое нужно добавлять явно.", 1],
+    ["PinInputSeparator", "pin-input-separator", "Декоративный вспомогательный компонент moduix для группировки, а не часть примитива Ark.", 1],
+    ["PinInputRootProvider", "pin-input-root-provider", "Подключает части к состоянию, созданному через `usePinInput()`.", 0],
+    ["PinInputContext", null, "Передаёт текущее состояние корневого компонента потомкам через render prop.", 0],
+    ["usePinInput", null, "Создаёт состояние для `PinInputRootProvider`.", 0],
+    ["usePinInputContext", null, "Читает текущее состояние Pin Input внутри дерева компонента.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Стилизация
 
 ### CSS-переменные
 
-<CssPropertiesSection properties={PinInputDocs.pinInputOverrideCssProperties} />
+Наведите на переменную или выберите её, чтобы увидеть её в превью.
+
+<CssPropertiesSection properties={PinInputDocs.pinInputOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 Пакеты с CSS Modules предоставляют три переменные: `--moduix-pin-input-input-size` (действует для всех
 размеров), `--moduix-pin-input-gap` и `--moduix-pin-input-radius`. Цвета, рамки, типографика и focus ring

@@ -5,6 +5,7 @@ description: Mettre en forme le Markdown rendu, le contenu CMS et les réponses 
 ark: https://ark-ui.com/docs/guides/composition#the-ark-factory
 ---
 
+import AnatomyScene from '@/components/examples/typeset/basic';
 import * as TypesetDocs from '@/components/examples/typeset/css-properties';
 
 <Example name="typeset/basic" />
@@ -98,21 +99,26 @@ mise en forme. Une zone de défilement destinée aux utilisateurs doit avoir un 
 
 ## Anatomie
 
-```text
-Typeset
-└─ TypesetScroll (facultatif)
-```
+Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
 
-| Partie | Rôle |
-| --- | --- |
-| `Typeset` | Conteneur racine qui applique les styles aux descendants sémantiques. |
-| `TypesetScroll` | Zone de défilement horizontal focusable pour un bloc rendu large. |
+<AnatomyInspector
+  parts={[
+    ["Typeset", "typeset", "Conteneur racine qui applique les styles aux descendants sémantiques.", 0],
+    ["TypesetScroll", "typeset-scroll", "Zone de défilement horizontal focusable pour un bloc rendu large.", 1],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styles
 
 ### Variables CSS
 
-<CssPropertiesSection properties={TypesetDocs.typesetOverrideCssProperties} />
+Survolez ou sélectionnez une variable pour la voir dans l’aperçu.
+
+<CssPropertiesSection properties={TypesetDocs.typesetOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 Utilisez `--moduix-typeset-size`, `--moduix-typeset-leading` et `--moduix-typeset-flow` pour régler
 le rythme de lecture. Les variables de police sont facultatives ; les couleurs, bordures et rayons

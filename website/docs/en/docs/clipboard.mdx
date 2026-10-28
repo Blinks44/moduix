@@ -5,6 +5,7 @@ description: Copy a value to the clipboard with a trigger that confirms the copy
 ark: https://ark-ui.com/docs/components/clipboard
 ---
 
+import AnatomyScene from '@/components/examples/clipboard/basic';
 import * as ClipboardDocs from '@/components/examples/clipboard/css-properties';
 
 <Example name="clipboard/basic" />
@@ -120,25 +121,22 @@ Use `asChild` on those parts only when another semantic element should own the r
 
 ## Anatomy
 
-```text
-Clipboard | ClipboardRootProvider
-├─ ClipboardLabel (optional)
-├─ ClipboardControl
-│  ├─ ClipboardInput or ClipboardValueText
-│  └─ ClipboardTrigger
-│     └─ ClipboardIndicator (optional)
-```
+Hover or focus a part to find it in the preview.
 
-| Part | Role |
-| --- | --- |
-| `Clipboard` | Owns the value and the temporary copied state. |
-| `ClipboardRootProvider` | Connects the parts to a store created with `useClipboard()`. |
-| `ClipboardLabel` | Provides an accessible label for the value. |
-| `ClipboardControl` | Groups the value surface and the copy button. |
-| `ClipboardInput` | Renders the value in a read-only input. Use controlled state or `ClipboardContext.setValue()` to change it. |
-| `ClipboardTrigger` | Copies the current value when activated. It renders a button by default. |
-| `ClipboardIndicator` | Shows different content for the idle and copied states. Its defaults are the copy/check icons; pass `copied="Copied"` and children in React/Solid, or use the matching Vue slots. |
-| `ClipboardValueText` | Renders the value as text when an input is not the right surface. |
+<AnatomyInspector
+  parts={[
+    ["Clipboard", "clipboard-root", "Owns the value and the temporary copied state.", 0],
+    ["ClipboardLabel", "clipboard-label", "Provides an accessible label for the value.", 1],
+    ["ClipboardControl", "clipboard-control", "Groups the value surface and the copy button.", 1],
+    ["ClipboardInput", "clipboard-input", "Renders the value in a read-only input. Use controlled state or `ClipboardContext.setValue()` to change it.", 2],
+    ["ClipboardTrigger", "clipboard-trigger", "Copies the current value when activated. It renders a button by default.", 2],
+    ["ClipboardIndicator", "clipboard-indicator", "Shows different content for the idle and copied states. Its defaults are the copy/check icons; pass `copied=\"Copied\"` and children in React/Solid, or use the matching Vue slots.", 3],
+    ["ClipboardValueText", "clipboard-value-text", "Renders the value as text when an input is not the right surface.", 1],
+    ["ClipboardRootProvider", "clipboard-root-provider", "Connects the parts to a store created with `useClipboard()`.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styling
 
@@ -149,7 +147,11 @@ below. For copied-state styles, use Ark's `data-copied` attribute together with 
 
 ### CSS variables
 
-<CssPropertiesSection properties={ClipboardDocs.clipboardOverrideCssProperties} />
+Hover or focus a variable to see it in the preview.
+
+<CssPropertiesSection properties={ClipboardDocs.clipboardOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Styling hooks
 

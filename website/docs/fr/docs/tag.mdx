@@ -5,6 +5,7 @@ description: Afficher une valeur, un filtre ou une affectation en jeton supprima
 ark: https://ark-ui.com/docs/guides/composition#the-ark-factory
 ---
 
+import AnatomyScene from '@/components/examples/tag/basic';
 import * as TagDocs from '@/components/examples/tag/css-properties';
 
 <Example name="tag/basic" />
@@ -104,21 +105,19 @@ nom qui inclut la valeur, par exemple `aria-label="Remove TypeScript tag"`.
 
 Utilisez `Tag` comme élément racine.
 
-```text
-Tag
-├─ TagStartElement (facultatif)
-├─ TagLabel
-└─ TagEndElement (facultatif)
-   └─ TagCloseTrigger (facultatif)
-```
+Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
 
-| Partie             | Rôle                                                                                     |
-| ------------------ | ---------------------------------------------------------------------------------------- |
-| `Tag`              | Élément racine. Applique la mise en page du token, la bordure, la taille, la variante et la composition `asChild`. |
-| `TagLabel`        | Conteneur de la valeur visible et limite de troncature.                                 |
-| `TagStartElement` | Zone facultative à gauche pour une icône, un avatar ou un indicateur d’état.              |
-| `TagEndElement`   | Zone facultative à droite pour une icône ou une action.                                  |
-| `TagCloseTrigger` | Bouton facultatif pour supprimer le token.                                               |
+<AnatomyInspector
+  parts={[
+    ["Tag", "tag-root", "Élément racine. Applique la mise en page du token, la bordure, la taille, la variante et la composition `asChild`.", 0],
+    ["TagStartElement", "tag-start-element", "Zone facultative à gauche pour une icône, un avatar ou un indicateur d’état.", 1],
+    ["TagLabel", "tag-label", "Conteneur de la valeur visible et limite de troncature.", 1],
+    ["TagEndElement", "tag-end-element", "Zone facultative à droite pour une icône ou une action.", 1],
+    ["TagCloseTrigger", "tag-close-trigger", "Bouton facultatif pour supprimer le token.", 2],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styles
 
@@ -133,7 +132,11 @@ utilisent les tokens de foundation ; modifiez-les avec une classe sur la partie.
 
 ### Variables CSS
 
-<CssPropertiesSection properties={TagDocs.tagCssProperties} />
+Survolez ou sélectionnez une variable pour la voir dans l’aperçu.
+
+<CssPropertiesSection properties={TagDocs.tagCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Points d’accroche CSS
 

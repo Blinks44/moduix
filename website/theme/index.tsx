@@ -51,13 +51,13 @@ import { NotFound } from '@/components/docs/not-found';
 import { BlockInstall } from '@/components/mdx/block-install';
 import { ComponentInstall } from '@/components/mdx/component-install';
 import {
+  AnatomyInspector,
   Card,
   Cards,
   CssPropertiesSection,
   ExampleCode,
   ExampleFrame,
   PreviewFrame,
-  PrimitiveReference,
   ShadcnInstallOptions,
   StyleTrackCard,
   StyleTrackCards,
@@ -167,13 +167,14 @@ function DocActions() {
   const component =
     typeof frontmatter.component === 'string' ? frontmatter.component.trim() : undefined;
   const block = typeof frontmatter.block === 'string' ? frontmatter.block.trim() : undefined;
+  const ark = typeof frontmatter.ark === 'string';
 
   // The wide catalog pages (Components index, Browse blocks) have no page actions in the design.
   if (import.meta.env.SSG_MD || frontmatter.pageType === 'doc-wide') return null;
 
   return (
     <div className="moduix-doc-actions">
-      {component ? <ComponentLinks component={component} /> : null}
+      {component || ark ? <ComponentLinks component={component} /> : null}
       {block ? <BlockLinks block={block} /> : null}
       <LlmsContainer>
         <LlmsCopyButton />
@@ -292,6 +293,7 @@ function ModuixNavTitle() {
 }
 
 const mdxComponents = {
+  AnatomyInspector,
   Card,
   Cards,
   CodeBlockRuntime,
@@ -303,7 +305,6 @@ const mdxComponents = {
   FrameworkCode,
   PreviewFrame,
   PackageManagerTabs,
-  PrimitiveReference,
   PropChips,
   BlockInstall,
   ShadcnInstallOptions,

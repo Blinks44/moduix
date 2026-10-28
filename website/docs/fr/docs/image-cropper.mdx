@@ -5,6 +5,8 @@ description: Recadrer, zoomer, pivoter et retourner une image avant l’envoi.
 ark: https://ark-ui.com/docs/components/image-cropper
 ---
 
+import AnatomyScene from '@/components/examples/image-cropper/basic';
+
 <Example name="image-cropper/basic" />
 
 Si vous appelez `getCroppedImage()` pour une image provenant d’une autre origine, le serveur de
@@ -144,16 +146,22 @@ géré ailleurs dans l’application. Ark transmet la nouvelle valeur dans l’o
 </ImageCropper>
 ```
 
-| Partie                                | Rôle                                                                                           |
-| ------------------------------------- | ---------------------------------------------------------------------------------------------- |
-| `ImageCropper`                     | Composant racine qui gère l’état du recadrage et des transformations, les attributs ARIA et les variables CSS mises à jour pendant l’utilisation. |
-| `ImageCropperRootProvider`          | Racine liée à une instance `useImageCropper` créée en dehors de l’arbre de composants.          |
-| `ImageCropperViewport`              | Zone d’affichage qui masque ce qui dépasse et permet de déplacer l’image.                      |
-| `ImageCropperImage`                 | Élément d’image auquel Ark applique les transformations.                                       |
-| `ImageCropperSelection`             | Zone de recadrage focalisable et cible des interactions au clavier. Avec `fixedCropArea`, elle reste focalisable et les flèches déplacent l’image. |
-| `ImageCropperGrid`                  | Ligne de guidage horizontale ou verticale, non interactive. `axis` est obligatoire.            |
-| `ImageCropperHandle`                | Poignée de redimensionnement pour une position de `ImageCropperHandles`. `position` est obligatoire. |
-| `ImageCropperCropArea`              | Zone prête à l’emploi avec les deux grilles et toutes les poignées. Elle n’accepte ni `children` ni `asChild`. |
+Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
+
+<AnatomyInspector
+  parts={[
+    ["ImageCropper", "image-cropper-root", "Composant racine qui gère l’état du recadrage et des transformations, les attributs ARIA et les variables CSS mises à jour pendant l’utilisation.", 0],
+    ["ImageCropperViewport", "image-cropper-viewport", "Zone d’affichage qui masque ce qui dépasse et permet de déplacer l’image.", 1],
+    ["ImageCropperImage", "image-cropper-image", "Élément d’image auquel Ark applique les transformations.", 1],
+    ["ImageCropperSelection", "image-cropper-selection", "Zone de recadrage focalisable et cible des interactions au clavier. Avec `fixedCropArea`, elle reste focalisable et les flèches déplacent l’image.", 1],
+    ["ImageCropperGrid", "image-cropper-grid", "Ligne de guidage horizontale ou verticale, non interactive. `axis` est obligatoire.", 1],
+    ["ImageCropperHandle", "image-cropper-handle", "Poignée de redimensionnement pour une position de `ImageCropperHandles`. `position` est obligatoire.", 1],
+    ["ImageCropperCropArea", "", "Zone prête à l’emploi avec les deux grilles et toutes les poignées. Elle n’accepte ni `children` ni `asChild`.", 1],
+    ["ImageCropperRootProvider", "image-cropper-root-provider", "Racine liée à une instance `useImageCropper` créée en dehors de l’arbre de composants.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styles
 

@@ -5,6 +5,7 @@ description: Превращает ссылку или текст в QR-код, �
 ark: https://ark-ui.com/docs/components/qr-code
 ---
 
+import AnatomyScene from '@/components/examples/qr-code/basic';
 import * as QrCodeDocs from '@/components/examples/qr-code/css-properties';
 
 <Example name="qr-code/basic" />
@@ -104,25 +105,20 @@ QR-кода. Не создавайте для одного хранилища о
 
 ## Анатомия
 
-```text
-QrCode
-├─ QrCodeFrame
-│  └─ QrCodePattern
-├─ QrCodeOverlay
-└─ QrCodeDownloadTrigger
+Наведите на часть или выберите её, чтобы найти её в превью.
 
-QrCodeRootProvider
-└─ то же дерево частей, подключённое к хранилищу useQrCode()
-```
-
-| Part                     | Назначение                                                            |
-| ------------------------ | --------------------------------------------------------------------- |
-| `QrCode`                | Хранит кодируемое значение и параметры генерации, предоставляет состояние QR-кода. |
-| `QrCodeRootProvider`    | Подключает части к состоянию, созданному через `useQrCode()`.          |
-| `QrCodeFrame`           | SVG-элемент, содержащий созданный QR-код.                              |
-| `QrCodePattern`         | SVG-путь, который рисует модули QR-кода.                               |
-| `QrCodeOverlay`         | Содержимое, отображаемое по центру QR-кода.                            |
-| `QrCodeDownloadTrigger` | Кнопка для скачивания текущего QR-кода как изображения.                |
+<AnatomyInspector
+  parts={[
+    ["QrCode", "qr-code-root", "Хранит кодируемое значение и параметры генерации, предоставляет состояние QR-кода.", 0],
+    ["QrCodeFrame", "qr-code-frame", "SVG-элемент, содержащий созданный QR-код.", 1],
+    ["QrCodePattern", "qr-code-pattern", "SVG-путь, который рисует модули QR-кода.", 2],
+    ["QrCodeOverlay", "qr-code-overlay", "Содержимое, отображаемое по центру QR-кода.", 1],
+    ["QrCodeDownloadTrigger", "qr-code-download-trigger", "Кнопка для скачивания текущего QR-кода как изображения.", 1],
+    ["QrCodeRootProvider", "qr-code-root-provider", "Подключает части к состоянию, созданному через `useQrCode()`.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Стилизация
 
@@ -136,7 +132,11 @@ QrCodeRootProvider
 
 ### CSS-переменные
 
-<CssPropertiesSection properties={QrCodeDocs.qrCodeOverrideCssProperties} />
+Наведите на переменную или выберите её, чтобы увидеть её в превью.
+
+<CssPropertiesSection properties={QrCodeDocs.qrCodeOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Хуки стилизации
 

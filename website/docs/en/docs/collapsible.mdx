@@ -5,6 +5,7 @@ description: Show and hide one region of content with a trigger.
 ark: https://ark-ui.com/docs/components/collapsible
 ---
 
+import AnatomyScene from '@/components/examples/collapsible/basic';
 import * as CollapsibleDocs from '@/components/examples/collapsible/css-properties';
 
 <Example name="collapsible/basic" />
@@ -126,27 +127,20 @@ must remain a keyboard-accessible button. In Solid, pass a render function such 
 
 ## Anatomy
 
-```text
-Collapsible
-├─ CollapsibleTrigger
-│  ├─ label
-│  └─ CollapsibleIndicator (optional)
-└─ CollapsibleContent
-   └─ CollapsibleBody
-      └─ content
+Hover or focus a part to find it in the preview.
 
-CollapsibleRootProvider
-└─ same part tree connected to a useCollapsible() store
-```
-
-| Part                      | Role                                                               |
-| ------------------------- | ------------------------------------------------------------------ |
-| `Collapsible`             | Owns the open state for one disclosure.                            |
-| `CollapsibleRootProvider` | Connects the parts to state created with `useCollapsible`.         |
-| `CollapsibleTrigger`      | Accessible button that opens or closes the content.                 |
-| `CollapsibleIndicator`    | Optional state indicator that renders a moduix chevron by default. |
-| `CollapsibleContent`      | Animated region whose dimensions Ark measures.                     |
-| `CollapsibleBody`         | Inner wrapper for spacing and content layout.                       |
+<AnatomyInspector
+  parts={[
+    ["Collapsible", "collapsible-root", "Owns the open state for one disclosure.", 0],
+    ["CollapsibleTrigger", "collapsible-trigger", "Accessible button that opens or closes the content.", 1],
+    ["CollapsibleIndicator", "collapsible-indicator", "Optional state indicator that renders a moduix chevron by default.", 2],
+    ["CollapsibleContent", "collapsible-content", "Animated region whose dimensions Ark measures.", 1],
+    ["CollapsibleBody", "collapsible-body", "Inner wrapper for spacing and content layout.", 2],
+    ["CollapsibleRootProvider", "collapsible-root-provider", "Connects the parts to state created with `useCollapsible`.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styling
 
@@ -161,7 +155,11 @@ content correctly.
 
 ### CSS variables
 
-<CssPropertiesSection properties={CollapsibleDocs.collapsibleOverrideCssProperties} />
+Hover or focus a variable to see it in the preview.
+
+<CssPropertiesSection properties={CollapsibleDocs.collapsibleOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Styling hooks
 

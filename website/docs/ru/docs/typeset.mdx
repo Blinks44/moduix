@@ -5,6 +5,7 @@ description: Оформление готового Markdown, контента CM
 ark: https://ark-ui.com/docs/guides/composition#the-ark-factory
 ---
 
+import AnatomyScene from '@/components/examples/typeset/basic';
 import * as TypesetDocs from '@/components/examples/typeset/css-properties';
 
 <Example name="typeset/basic" />
@@ -96,21 +97,26 @@ CSS-first контракт Typeset следует подходу из [доку�
 
 ## Анатомия
 
-```text
-Typeset
-└─ TypesetScroll (необязательно)
-```
+Наведите на часть или выберите её, чтобы найти её в превью.
 
-| Часть | Назначение |
-| --- | --- |
-| `Typeset` | Корневой контейнер, который стилизует семантические дочерние элементы. |
-| `TypesetScroll` | Фокусируемая область с горизонтальной прокруткой для широкого отрендеренного блока. |
+<AnatomyInspector
+  parts={[
+    ["Typeset", "typeset", "Корневой контейнер, который стилизует семантические дочерние элементы.", 0],
+    ["TypesetScroll", "typeset-scroll", "Фокусируемая область с горизонтальной прокруткой для широкого отрендеренного блока.", 1],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Стилизация
 
 ### CSS-переменные
 
-<CssPropertiesSection properties={TypesetDocs.typesetOverrideCssProperties} />
+Наведите на переменную или выберите её, чтобы увидеть её в превью.
+
+<CssPropertiesSection properties={TypesetDocs.typesetOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 Ритм чтения задают `--moduix-typeset-size`, `--moduix-typeset-leading` и
 `--moduix-typeset-flow`. Переменные шрифта необязательны, а цвета, границы и радиус берутся из

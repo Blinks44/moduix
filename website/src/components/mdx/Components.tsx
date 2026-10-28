@@ -6,39 +6,12 @@ import {
 } from '@moduix/react/collapsible';
 import { useI18n } from '@rspress/core/runtime';
 import { Link, PackageManagerTabs } from '@rspress/core/theme';
-import { ArrowUpRight, Code2, Layers3 } from 'lucide-react';
+import { Code2 } from 'lucide-react';
 import type { ComponentProps, ReactNode } from 'react';
 import { useLocalizedPath } from '@/utils/localized-path';
 import styles from './Components.module.css';
-import {
-  CSSPropertiesReferenceTable,
-  ExampleFrame,
-  PreviewFrame,
-  normalizeCssProperties,
-  type CssPropertyInput,
-} from './reference';
-
-function PrimitiveReference({ href }: { href: string }) {
-  const t = useI18n<typeof import('i18n')>();
-
-  return (
-    <aside className={styles.reference}>
-      <div className={styles.referenceBody}>
-        <span className={styles.referenceIcon} aria-hidden="true">
-          <Layers3 />
-        </span>
-        <div className={styles.referenceContent}>
-          <strong>{t('primitiveReferenceTitle')}</strong>
-          <p>{t('primitiveReferenceDescription')}</p>
-        </div>
-      </div>
-      <a className={styles.referenceLink} href={href} target="_blank" rel="noreferrer">
-        {t('primitiveReferenceLink')}
-        <ArrowUpRight aria-hidden="true" />
-      </a>
-    </aside>
-  );
-}
+import { AnatomyInspector, CssVariablesInspector } from './inspector';
+import { ExampleFrame, PreviewFrame, type CssPropertyInput } from './reference';
 
 type ShadcnInstallOption = {
   label: string;
@@ -144,12 +117,15 @@ function ShadcnInstallOptions({ options }: { options: ShadcnInstallOption[] }) {
   );
 }
 
-function CssPropertiesSection({ properties }: { properties: CssPropertyInput[] }) {
-  return (
-    <div className={styles.cssProperties}>
-      <CSSPropertiesReferenceTable properties={normalizeCssProperties(properties)} />
-    </div>
-  );
+// Children render the inspector scene: a live preview where hovered variables are measured.
+function CssPropertiesSection({
+  children,
+  properties,
+}: {
+  children?: ReactNode;
+  properties: CssPropertyInput[];
+}) {
+  return <CssVariablesInspector properties={properties}>{children}</CssVariablesInspector>;
 }
 
 function Cards({ children }: { children: ReactNode }) {
@@ -220,6 +196,7 @@ function ExampleCode({ children }: { children: ReactNode }) {
 }
 
 export {
+  AnatomyInspector,
   Card,
   Cards,
   CssPropertiesSection,
@@ -227,7 +204,6 @@ export {
   ExampleFrame,
   PreviewFrame,
   PreviewMeta,
-  PrimitiveReference,
   ShadcnInstallOptions,
   StyleTrackCard,
   StyleTrackCards,

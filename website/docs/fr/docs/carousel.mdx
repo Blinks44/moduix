@@ -5,6 +5,7 @@ description: Faire défiler des diapositives par boutons, indicateurs, balayage 
 ark: https://ark-ui.com/docs/components/carousel
 ---
 
+import AnatomyScene from '@/components/examples/carousel/basic';
 import * as CarouselDocs from '@/components/examples/carousel/css-properties';
 
 <Example name="carousel/basic" />
@@ -157,31 +158,25 @@ En Vue, une ref de template sur une partie pointe vers son hôte rendu via `$el`
 
 ## Anatomie
 
-```text
-Carousel
-├─ CarouselItemGroup
-│  └─ CarouselItem[index]
-├─ CarouselControl
-│  ├─ CarouselPrevTrigger
-│  └─ CarouselNextTrigger
-├─ CarouselIndicatorGroup
-│  └─ CarouselIndicator[index]
-└─ CarouselProgressText
-```
+Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
 
-| Élément                   | Rôle                                                                       |
-| ------------------------- | -------------------------------------------------------------------------- |
-| `Carousel`                | Crée le carrousel et gère son état, sa navigation et sa liste de diapositives. |
-| `CarouselRootProvider`    | Relie les éléments à l’état créé avec `useCarousel()`.                    |
-| `CarouselControl`            | Conteneur des boutons de navigation et des autres contrôles.              |
-| `CarouselItemGroup`          | Piste contenant les éléments `CarouselItem`.                             |
-| `CarouselItem`               | Diapositive individuelle avec un `index` stable.                           |
-| `CarouselPrevTrigger`        | Bouton qui passe à la page précédente.                                     |
-| `CarouselNextTrigger`        | Bouton qui passe à la page suivante.                                       |
-| `CarouselIndicators`         | Composant pratique moduix qui génère les indicateurs de page par défaut.   |
-| `CarouselIndicatorGroup`     | Conteneur pour les indicateurs de page personnalisés.                     |
-| `CarouselIndicator`          | Bouton qui mène à la page correspondant à l’index indiqué.                 |
-| `CarouselProgressText`       | Texte affichant la page actuelle et le nombre total de pages.              |
+<AnatomyInspector
+  parts={[
+    ["Carousel", "carousel-root", "Crée le carrousel et gère son état, sa navigation et sa liste de diapositives.", 0],
+    ["CarouselItemGroup", "carousel-item-group", "Piste contenant les éléments `CarouselItem`.", 1],
+    ["CarouselItem", "carousel-item", "Diapositive individuelle avec un `index` stable.", 2],
+    ["CarouselControl", "carousel-control", "Conteneur des boutons de navigation et des autres contrôles.", 1],
+    ["CarouselPrevTrigger", "carousel-prev-trigger", "Bouton qui passe à la page précédente.", 2],
+    ["CarouselNextTrigger", "carousel-next-trigger", "Bouton qui passe à la page suivante.", 2],
+    ["CarouselIndicatorGroup", "carousel-indicator-group", "Conteneur pour les indicateurs de page personnalisés.", 1],
+    ["CarouselIndicator", "carousel-indicator", "Bouton qui mène à la page correspondant à l’index indiqué.", 2],
+    ["CarouselIndicators", "", "Composant pratique moduix qui génère les indicateurs de page par défaut.", 3],
+    ["CarouselProgressText", "carousel-progress-text", "Texte affichant la page actuelle et le nombre total de pages.", 1],
+    ["CarouselRootProvider", "carousel-root-provider", "Relie les éléments à l’état créé avec `useCarousel()`.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 `CarouselIndicators` lit `pageSnapPoints` dans le contexte et génère un `CarouselIndicator` par page.
 Utilisez-le à la place de `CarouselIndicatorGroup` lorsque les indicateurs par défaut suffisent.
@@ -205,7 +200,11 @@ structurels. Pour les styles liés à l’état, privilégiez les attributs de d
 
 ### Variables CSS
 
-<CssPropertiesSection properties={CarouselDocs.carouselOverrideCssProperties} />
+Survolez ou sélectionnez une variable pour la voir dans l’aperçu.
+
+<CssPropertiesSection properties={CarouselDocs.carouselOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Points d’accroche CSS
 

@@ -5,6 +5,7 @@ description: Basculer entre quelques options dans un contrôle segmenté compact
 ark: https://ark-ui.com/docs/components/segment-group
 ---
 
+import AnatomyScene from '@/components/examples/segment-group/basic';
 import * as SegmentGroupDocs from '@/components/examples/segment-group/css-properties';
 import { CssPropertiesSection } from '@/components/mdx/Components';
 
@@ -133,33 +134,24 @@ objet, tandis que Solid lit son état réactif à travers la fonction d'accès r
 
 ## Anatomie
 
-```text
-SegmentGroup
-├─ SegmentGroupLabel (facultatif)
-├─ SegmentGroupIndicator
-└─ SegmentGroupItem[value]
-   ├─ SegmentGroupItemText
-   └─ champ de formulaire natif
+Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
 
-SegmentGroupRootProvider
-└─ même arborescence d’éléments reliée à un store moduix useSegmentGroup()
-
-SegmentGroupContext / SegmentGroupItemContext
-└─ accès avancé à l’état Ark via render prop
-```
-
-| Partie                                | Rôle                                                                  |
-| ------------------------------------- | --------------------------------------------------------------------- |
-| `SegmentGroup`  | Gère la valeur sélectionnée, la navigation au clavier et les formulaires. |
-| `SegmentGroupItemHiddenInput` | Champ natif d’Ark ; composition explicite décrite ci-dessous. |
-| `SegmentGroupRootProvider`            | Relie les parties à l’état créé avec `useSegmentGroup()` de moduix.   |
-| `SegmentGroupContext`                 | Donne un accès avancé à l’état racine via render prop.                |
-| `SegmentGroupItemContext`             | Donne un accès avancé à l’état de l’élément courant via render prop.  |
-| `SegmentGroupLabel`                   | Libellé accessible facultatif du groupe.                              |
-| `SegmentGroupIndicator`               | Positionne la mise en évidence de l’élément actif avec les variables CSS d’Ark. |
-| `SegmentGroupItems`                   | Méthode recommandée pour afficher des segments textuels standard.     |
-| `SegmentGroupItem`                    | Segment sélectionnable ; rend un `label` par défaut.                  |
-| `SegmentGroupItemText`                | Libellé visible du segment.                                           |
+<AnatomyInspector
+  parts={[
+    ["SegmentGroup", "segment-group-root", "Gère la valeur sélectionnée, la navigation au clavier et les formulaires.", 0],
+    ["SegmentGroupLabel", "segment-group-label", "Libellé accessible facultatif du groupe.", 1],
+    ["SegmentGroupIndicator", "segment-group-indicator", "Positionne la mise en évidence de l’élément actif avec les variables CSS d’Ark.", 1],
+    ["SegmentGroupItem", "segment-group-item", "Segment sélectionnable ; rend un `label` par défaut.", 1],
+    ["SegmentGroupItemText", "segment-group-item-text", "Libellé visible du segment.", 2],
+    ["SegmentGroupItemHiddenInput", "", "Champ natif d’Ark ; composition explicite décrite ci-dessous.", 2],
+    ["SegmentGroupItems", "", "Méthode recommandée pour afficher des segments textuels standard.", 2],
+    ["SegmentGroupRootProvider", "segment-group-root-provider", "Relie les parties à l’état créé avec `useSegmentGroup()` de moduix.", 0],
+    ["SegmentGroupContext", null, "Donne un accès avancé à l’état racine via render prop.", 0],
+    ["SegmentGroupItemContext", null, "Donne un accès avancé à l’état de l’élément courant via render prop.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styles
 
@@ -172,7 +164,11 @@ par les deux modes de style.
 
 ### Variables CSS
 
-<CssPropertiesSection properties={SegmentGroupDocs.segmentGroupOverrideCssProperties} />
+Survolez ou sélectionnez une variable pour la voir dans l’aperçu.
+
+<CssPropertiesSection properties={SegmentGroupDocs.segmentGroupOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Points d’accroche CSS
 

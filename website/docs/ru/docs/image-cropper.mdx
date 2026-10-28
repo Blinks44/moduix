@@ -5,6 +5,8 @@ description: Обрезка, масштаб, поворот и отражени�
 ark: https://ark-ui.com/docs/components/image-cropper
 ---
 
+import AnatomyScene from '@/components/examples/image-cropper/basic';
+
 <Example name="image-cropper/basic" />
 
 Если вы вызываете `getCroppedImage()` для изображения с другого домена, сервер изображения должен
@@ -142,16 +144,22 @@ ark: https://ark-ui.com/docs/components/image-cropper
 </ImageCropper>
 ```
 
-| Часть                                | Назначение                                                                                  |
-| ------------------------------------ | ------------------------------------------------------------------------------------------- |
-| `ImageCropper`                    | Корневой компонент, который управляет состоянием кадрирования и преобразований, ARIA-атрибутами и CSS-переменными, обновляемыми во время работы. |
-| `ImageCropperRootProvider`          | Корневой компонент, связанный с экземпляром `useImageCropper`, созданным вне дерева компонентов. |
-| `ImageCropperViewport`              | Область просмотра, в которой можно панорамировать изображение; всё за её границами скрывается. |
-| `ImageCropperImage`                 | Элемент изображения, к которому Ark применяет преобразования.                              |
-| `ImageCropperSelection`             | Фокусируемая область кадрирования и цель для управления с клавиатуры. При `fixedCropArea` она остаётся в фокусе, а стрелки сдвигают изображение. |
-| `ImageCropperGrid`                  | Неинтерактивная горизонтальная или вертикальная линия сетки. Требуется `axis`.              |
-| `ImageCropperHandle`                | Маркер изменения размера для позиции из `ImageCropperHandles`. Требуется `position`.       |
-| `ImageCropperCropArea`              | Готовая область кадрирования с обеими сетками и всеми маркерами изменения размера. Не принимает `children` и `asChild`. |
+Наведите на часть или выберите её, чтобы найти её в превью.
+
+<AnatomyInspector
+  parts={[
+    ["ImageCropper", "image-cropper-root", "Корневой компонент, который управляет состоянием кадрирования и преобразований, ARIA-атрибутами и CSS-переменными, обновляемыми во время работы.", 0],
+    ["ImageCropperViewport", "image-cropper-viewport", "Область просмотра, в которой можно панорамировать изображение; всё за её границами скрывается.", 1],
+    ["ImageCropperImage", "image-cropper-image", "Элемент изображения, к которому Ark применяет преобразования.", 1],
+    ["ImageCropperSelection", "image-cropper-selection", "Фокусируемая область кадрирования и цель для управления с клавиатуры. При `fixedCropArea` она остаётся в фокусе, а стрелки сдвигают изображение.", 1],
+    ["ImageCropperGrid", "image-cropper-grid", "Неинтерактивная горизонтальная или вертикальная линия сетки. Требуется `axis`.", 1],
+    ["ImageCropperHandle", "image-cropper-handle", "Маркер изменения размера для позиции из `ImageCropperHandles`. Требуется `position`.", 1],
+    ["ImageCropperCropArea", "", "Готовая область кадрирования с обеими сетками и всеми маркерами изменения размера. Не принимает `children` и `asChild`.", 1],
+    ["ImageCropperRootProvider", "image-cropper-root-provider", "Корневой компонент, связанный с экземпляром `useImageCropper`, созданным вне дерева компонентов.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Стилизация
 

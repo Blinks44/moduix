@@ -5,6 +5,7 @@ description: Turn a link or text into a QR code that users can scan or download.
 ark: https://ark-ui.com/docs/components/qr-code
 ---
 
+import AnatomyScene from '@/components/examples/qr-code/basic';
 import * as QrCodeDocs from '@/components/examples/qr-code/css-properties';
 
 <Example name="qr-code/basic" />
@@ -101,25 +102,20 @@ with the scanners your users rely on.
 
 ## Anatomy
 
-```text
-QrCode
-├─ QrCodeFrame
-│  └─ QrCodePattern
-├─ QrCodeOverlay
-└─ QrCodeDownloadTrigger
+Hover or focus a part to find it in the preview.
 
-QrCodeRootProvider
-└─ same part tree connected to a useQrCode() store
-```
-
-| Part                     | Role                                                                    |
-| ------------------------ | ----------------------------------------------------------------------- |
-| `QrCode`                 | Owns the encoded value and generation options, and provides QR state.   |
-| `QrCodeRootProvider`     | Connects the parts to state created with `useQrCode()`.                 |
-| `QrCodeFrame`            | SVG element that contains the generated QR code.                       |
-| `QrCodePattern`          | SVG path that draws the QR modules.                                     |
-| `QrCodeOverlay`          | Centered content rendered over the QR code.                             |
-| `QrCodeDownloadTrigger`  | Button that downloads the current QR code as an image.                  |
+<AnatomyInspector
+  parts={[
+    ["QrCode", "qr-code-root", "Owns the encoded value and generation options, and provides QR state.", 0],
+    ["QrCodeFrame", "qr-code-frame", "SVG element that contains the generated QR code.", 1],
+    ["QrCodePattern", "qr-code-pattern", "SVG path that draws the QR modules.", 2],
+    ["QrCodeOverlay", "qr-code-overlay", "Centered content rendered over the QR code.", 1],
+    ["QrCodeDownloadTrigger", "qr-code-download-trigger", "Button that downloads the current QR code as an image.", 1],
+    ["QrCodeRootProvider", "qr-code-root-provider", "Connects the parts to state created with `useQrCode()`.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styling
 
@@ -132,7 +128,11 @@ The CSS Variables panel lists the complete public variable set. Ark also sets
 
 ### CSS variables
 
-<CssPropertiesSection properties={QrCodeDocs.qrCodeOverrideCssProperties} />
+Hover or focus a variable to see it in the preview.
+
+<CssPropertiesSection properties={QrCodeDocs.qrCodeOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Styling hooks
 

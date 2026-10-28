@@ -5,6 +5,7 @@ description: Enter a number with step buttons, limits, and locale formatting.
 ark: https://ark-ui.com/docs/components/number-input
 ---
 
+import AnatomyScene from '@/components/examples/number-input/basic';
 import * as NumberInputDocs from '@/components/examples/number-input/css-properties';
 
 <Example name="number-input/basic" />
@@ -142,34 +143,25 @@ or `valueAsNumber`.
 
 ## Anatomy
 
-```text
-NumberInput
-├─ NumberInputLabel
-├─ NumberInputScrubber (optional)
-├─ NumberInputField (recommended shortcut)
-│  └─ renders NumberInputControl
-│     ├─ NumberInputDecrementTrigger
-│     ├─ NumberInputInput
-│     └─ NumberInputIncrementTrigger
-└─ NumberInputValueText (optional)
+Hover or focus a part to find it in the preview.
 
-NumberInputRootProvider
-└─ same part tree connected to state created by `useNumberInput()`
-```
-
-| Part | Role |
-| --- | --- |
-| `NumberInput` | Owns number input state, parsing, formatting, and keyboard behavior. |
-| `NumberInputRootProvider` | Connects parts to state created with `useNumberInput()`. |
-| `NumberInputContext` | Exposes formatted and numeric values plus imperative state methods. |
-| `NumberInputLabel` | Accessible label for the managed input. |
-| `NumberInputScrubber` | Optional drag target that changes the value as the pointer moves. |
-| `NumberInputControl` | Groups the input and increment and decrement triggers. |
-| `NumberInputField` | Convenience part that renders the standard control and trigger group. |
-| `NumberInputDecrementTrigger` | Button that decreases the current value. It renders the moduix minus icon by default. |
-| `NumberInputInput` | Editable numeric text input managed by Ark UI. |
-| `NumberInputIncrementTrigger` | Button that increases the current value. It renders the moduix plus icon by default. |
-| `NumberInputValueText` | Read-only text element for the formatted value. |
+<AnatomyInspector
+  parts={[
+    ["NumberInput", "number-input-root", "Owns number input state, parsing, formatting, and keyboard behavior.", 0],
+    ["NumberInputLabel", "number-input-label", "Accessible label for the managed input.", 1],
+    ["NumberInputScrubber", "number-input-scrubber", "Optional drag target that changes the value as the pointer moves.", 1],
+    ["NumberInputField", "", "Convenience part that renders the standard control and trigger group.", 1],
+    ["NumberInputDecrementTrigger", "number-input-decrement-trigger", "Button that decreases the current value. It renders the moduix minus icon by default.", 2],
+    ["NumberInputInput", "number-input-input", "Editable numeric text input managed by Ark UI.", 2],
+    ["NumberInputIncrementTrigger", "number-input-increment-trigger", "Button that increases the current value. It renders the moduix plus icon by default.", 2],
+    ["NumberInputValueText", "number-input-value-text", "Read-only text element for the formatted value.", 1],
+    ["NumberInputControl", "number-input-control", "Groups the input and increment and decrement triggers.", 1],
+    ["NumberInputRootProvider", "number-input-root-provider", "Connects parts to state created with `useNumberInput()`.", 0],
+    ["NumberInputContext", null, "Exposes formatted and numeric values plus imperative state methods.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styling
 
@@ -179,7 +171,11 @@ Data attributes and `data-slot` hooks are shared by both styling tracks.
 
 ### CSS variables
 
-<CssPropertiesSection properties={NumberInputDocs.numberInputOverrideCssProperties} />
+Hover or focus a variable to see it in the preview.
+
+<CssPropertiesSection properties={NumberInputDocs.numberInputOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Styling hooks
 

@@ -5,6 +5,7 @@ description: Выбор даты, диапазона или нескольких
 ark: https://ark-ui.com/docs/components/date-picker
 ---
 
+import AnatomyScene from '@/components/examples/date-picker/anatomy';
 import * as DatePickerDocs from '@/components/examples/date-picker/css-properties';
 
 <Example name="date-picker/basic" />
@@ -193,69 +194,42 @@ import * as DatePickerDocs from '@/components/examples/date-picker/css-propertie
 
 ## Анатомия
 
-```text
-DatePicker
-├─ DatePickerLabel
-├─ DatePickerControl
-│  ├─ DatePickerInput
-│  ├─ DatePickerClearTrigger
-│  └─ DatePickerTrigger
-├─ DatePickerField / DatePickerRangeField (готовые элементы управления)
-├─ Поддерево всплывающего календаря (корневой компонент автоматически помещает его в портал)
-│  └─ DatePickerPositioner
-│     └─ DatePickerContent
-│        ├─ DatePickerView[view="day" | "month" | "year"]
-│        │  ├─ DatePickerViewControl
-│        │  │  ├─ DatePickerPrevTrigger
-│        │  │  ├─ DatePickerViewTrigger / DatePickerRangeText
-│        │  │  └─ DatePickerNextTrigger
-│        │  ├─ DatePickerDayTable / MonthTable / YearTable (готовые таблицы)
-│        │  └─ DatePickerTable
-│        │     ├─ DatePickerTableHead / TableBody / TableRow
-│        │     ├─ DatePickerTableHeader
-│        │     ├─ DatePickerTableCell
-│        │     ├─ DatePickerTableCellTrigger
-│        │     ├─ DatePickerWeekNumberHeaderCell
-│        │     └─ DatePickerWeekNumberCell
-│        ├─ DatePickerMonthSelect / DatePickerYearSelect
-│        └─ DatePickerPresetTrigger
-├─ DatePickerValueText (необязательный текст с выбранными значениями)
-└─ DatePickerContext
+Наведите на часть или выберите её, чтобы найти её в превью.
 
-DatePickerRootProvider
-└─ то же дерево частей, подключённое к хранилищу useDatePicker()
-```
-
-| Часть                             | Роль                                                               |
-| --------------------------------- | ------------------------------------------------------------------ |
-| `DatePicker` / `DatePicker`  | Корень, который управляет значением, представлением, открытием, локалью, валидацией и формой. |
-| `DatePickerRootProvider`         | Отображает части, используя состояние из `useDatePicker()`.       |
-| `DatePickerLabel`                | Доступное имя поля даты.                                           |
-| `DatePickerControl`              | Обёртка поля для собственной раскладки ввода.                      |
-| `DatePickerField`                | Готовое поле с вводом, очисткой и открытием календаря.             |
-| `DatePickerRangeField`           | Готовое поле диапазона с индексированными началами и концами.     |
-| `DatePickerInput`                | Редактируемый ввод даты, участвующий в отправке формы.             |
-| `DatePickerTrigger`              | Открывает календарь.                                               |
-| `DatePickerClearTrigger`         | Очищает текущее значение.                                          |
-| `DatePickerPositioner`           | Позиционирует всплывающий календарь.                               |
-| `DatePickerContent`              | Контейнер календаря во всплывающем или встроенном режиме.         |
-| `DatePickerView`                 | Представление дня, месяца или года.                                |
-| `DatePickerViewControl`          | Заголовок с навигацией по календарю.                                |
-| `DatePickerPrevTrigger`          | Переходит к предыдущему месяцу, году или десятилетию.              |
-| `DatePickerNextTrigger`          | Переходит к следующему месяцу, году или десятилетию.               |
-| `DatePickerViewTrigger`          | Переключает представление календаря.                               |
-| `DatePickerRangeText`            | Показывает видимый диапазон дат в заголовке.                        |
-| `DatePickerValueText`            | Показывает выбранные значения.                                     |
-| `DatePickerDayTable`             | Готовая таблица дней с заголовком.                                 |
-| `DatePickerMonthTable`           | Готовая таблица месяцев с заголовком.                              |
-| `DatePickerYearTable`            | Готовая таблица лет с заголовком.                                  |
-| `DatePickerTable*`               | Части для собственной таблицы календаря.                           |
-| `DatePickerWeekNumberHeaderCell` | Заголовок столбца с номерами недель.                               |
-| `DatePickerWeekNumberCell`       | Ячейка с номером недели.                                           |
-| `DatePickerMonthSelect`          | Нативный список месяца, связанный с активной датой.                |
-| `DatePickerYearSelect`           | Нативный список года, связанный с активной датой.                  |
-| `DatePickerPresetTrigger`        | Кнопка готового диапазона.                                         |
-| `DatePickerContext`              | Доступ к состоянию календаря без собственного DOM-элемента.        |
+<AnatomyInspector
+  parts={[
+    ["DatePicker / DatePicker", "date-picker-root", "Корень, который управляет значением, представлением, открытием, локалью, валидацией и формой.", 0],
+    ["DatePickerLabel", "date-picker-label", "Доступное имя поля даты.", 1],
+    ["DatePickerControl", "date-picker-control", "Обёртка поля для собственной раскладки ввода.", 1],
+    ["DatePickerInput", "date-picker-input", "Редактируемый ввод даты, участвующий в отправке формы.", 2],
+    ["DatePickerClearTrigger", "date-picker-clear-trigger", "Очищает текущее значение.", 2],
+    ["DatePickerTrigger", "date-picker-trigger", "Открывает календарь.", 2],
+    ["DatePickerField", "", "Готовое поле с вводом, очисткой и открытием календаря.", 1],
+    ["DatePickerPositioner", "date-picker-positioner", "Позиционирует всплывающий календарь.", 1],
+    ["DatePickerContent", "date-picker-content", "Контейнер календаря во всплывающем или встроенном режиме.", 2],
+    ["DatePickerView", "date-picker-view", "Представление дня, месяца или года.", 3],
+    ["DatePickerViewControl", "date-picker-view-control", "Заголовок с навигацией по календарю.", 4],
+    ["DatePickerPrevTrigger", "date-picker-prev-trigger", "Переходит к предыдущему месяцу, году или десятилетию.", 5],
+    ["DatePickerViewTrigger", "date-picker-view-trigger", "Переключает представление календаря.", 5],
+    ["DatePickerNextTrigger", "date-picker-next-trigger", "Переходит к следующему месяцу, году или десятилетию.", 5],
+    ["DatePickerDayTable", "", "Готовая таблица дней с заголовком.", 4],
+    ["DatePickerTable*", "date-picker-table", "Части для собственной таблицы календаря.", 4],
+    ["DatePickerWeekNumberHeaderCell", "date-picker-week-number-header-cell", "Заголовок столбца с номерами недель.", 5],
+    ["DatePickerWeekNumberCell", "date-picker-week-number-cell", "Ячейка с номером недели.", 5],
+    ["DatePickerMonthSelect", "date-picker-month-select-indicator", "Нативный список месяца, связанный с активной датой.", 3],
+    ["DatePickerPresetTrigger", "date-picker-preset-trigger", "Кнопка готового диапазона.", 3],
+    ["DatePickerValueText", "date-picker-value-text", "Показывает выбранные значения.", 1],
+    ["DatePickerContext", null, "Доступ к состоянию календаря без собственного DOM-элемента.", 1],
+    ["DatePickerRangeField", "", "Готовое поле диапазона с индексированными началами и концами.", 1],
+    ["DatePickerRangeText", "date-picker-range-text", "Показывает видимый диапазон дат в заголовке.", 1],
+    ["DatePickerMonthTable", "", "Готовая таблица месяцев с заголовком.", 1],
+    ["DatePickerYearTable", "", "Готовая таблица лет с заголовком.", 1],
+    ["DatePickerYearSelect", "date-picker-year-select-indicator", "Нативный список года, связанный с активной датой.", 1],
+    ["DatePickerRootProvider", "date-picker-root-provider", "Отображает части, используя состояние из `useDatePicker()`.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Стилизация
 
@@ -266,7 +240,11 @@ moduix.
 
 ### CSS-переменные
 
-<CssPropertiesSection properties={DatePickerDocs.datePickerOverrideCssProperties} />
+Наведите на переменную или выберите её, чтобы увидеть её в превью.
+
+<CssPropertiesSection properties={DatePickerDocs.datePickerOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Хуки стилизации
 

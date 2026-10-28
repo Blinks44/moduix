@@ -5,6 +5,7 @@ description: Search and run commands from a dialog opened by a button or shortcu
 ark: https://ark-ui.com/docs/components/dialog
 ---
 
+import AnatomyScene from '@/components/examples/command-palette/anatomy';
 import * as CommandPaletteDocs from '@/components/examples/command-palette/css-properties';
 
 <Example name="command-palette/basic" />
@@ -84,65 +85,36 @@ dialog state must be created outside the rendered tree.
 
 ## Anatomy
 
-```text
-CommandPalette
-├─ CommandPaletteTrigger
-└─ Overlay content (automatically portalled)
-   ├─ CommandPaletteBackdrop
-   └─ CommandPalettePositioner
-      └─ CommandPaletteContent
-         ├─ CommandPaletteHeader
-         │  ├─ CommandPaletteTitle
-         │  └─ CommandPaletteDescription
-         └─ CommandPaletteCombobox
-            ├─ CommandPaletteControl
-            │  ├─ CommandPaletteInput
-            │  └─ CommandPaletteClearTrigger
-            ├─ CommandPaletteList
-            │  ├─ CommandPaletteEmpty
-            │  └─ CommandPaletteItemGroup
-            │     ├─ CommandPaletteItemGroupLabel
-            │     └─ CommandPaletteItem
-            │        ├─ CommandPaletteItemIcon
-            │        ├─ CommandPaletteItemText
-            │        │  ├─ CommandPaletteItemLabel
-            │        │  └─ CommandPaletteItemDescription
-            │        ├─ CommandPaletteItemMeta
-            │        └─ CommandPaletteItemIndicator
-            └─ CommandPaletteFooter
-               └─ CommandPaletteKbd
+Hover or focus a part to find it in the preview.
 
-CommandPalettePanel
-└─ shorthand for CommandPaletteBackdrop, CommandPalettePositioner, and CommandPaletteContent
-
-CommandPaletteRootProvider
-└─ the same content tree connected to state from useDialog()
-```
-
-| Part | Role |
-| --- | --- |
-| `CommandPalette` | Owns Ark Dialog state and the optional global shortcut listener. |
-| `CommandPaletteRootProvider` | Connects the palette parts to dialog state created outside the rendered tree. Accepts the same `shortcut` prop. |
-| `CommandPaletteTrigger` | Opens the palette. It is unstyled; use `asChild` with a `Button` or your own element. |
-| `CommandPaletteBackdrop` | Ark Dialog backdrop with `data-state` animation state. |
-| `CommandPalettePositioner` | Positions the dialog in the viewport and keeps its content within it. |
-| `CommandPaletteContent` | The dialog content and visual palette surface. |
-| `CommandPalettePanel` | Convenience shell for the standard backdrop, positioner, and content. |
-| `CommandPaletteHeader` / `CommandPaletteTitle` / `CommandPaletteDescription` | Optional layout helpers and accessible Dialog title and description parts. |
-| `CommandPaletteCombobox` | Ark Combobox root for search state and command selection. |
-| `CommandPaletteControl` | Wraps the search input and clear button. |
-| `CommandPaletteInput` | Ark Combobox input. |
-| `CommandPaletteSearch` | Convenience search row that renders `CommandPaletteControl`, a decorative search icon, `CommandPaletteInput`, and `CommandPaletteClearTrigger`. It also adds a default accessible label to the input. Render the explicit parts when their individual configuration is needed. |
-| `CommandPaletteClearTrigger` | Clears the search input and stays hidden while it is empty. |
-| `CommandPaletteList` | Ark Combobox listbox wrapped in a moduix `ScrollArea`. |
-| `CommandPaletteEmpty` | Message shown when the filtered collection has no results. |
-| `CommandPaletteItemGroup` / `CommandPaletteItemGroupLabel` | Grouped sections of command results. |
-| `CommandPaletteItem` | A command row with highlighted, selected, and disabled states. |
-| `CommandPaletteItemText` | Text container for the command label and description. |
-| `CommandPaletteItemIndicator` | Selected-state indicator with a check icon by default. |
-| `CommandPaletteItemIcon`, `CommandPaletteItemLabel`, `CommandPaletteItemDescription`, `CommandPaletteItemMeta` | Visual parts for command icons, text, descriptions, and trailing metadata. |
-| `CommandPaletteSeparator` | Visual separator between command sections. |
-| `CommandPaletteFooter` / `CommandPaletteKbd` | Footer area and command-palette wrapper around moduix `Kbd`. |
+<AnatomyInspector
+  parts={[
+    ["CommandPalette", null, "Owns Ark Dialog state and the optional global shortcut listener.", 0],
+    ["CommandPaletteTrigger", "command-palette-trigger", "Opens the palette. It is unstyled; use `asChild` with a `Button` or your own element.", 1],
+    ["CommandPaletteBackdrop", "command-palette-backdrop", "Ark Dialog backdrop with `data-state` animation state.", 1],
+    ["CommandPalettePositioner", "command-palette-positioner", "Positions the dialog in the viewport and keeps its content within it.", 1],
+    ["CommandPaletteContent", "command-palette-content", "The dialog content and visual palette surface.", 2],
+    ["CommandPaletteHeader / CommandPaletteTitle / CommandPaletteDescription", "command-palette-header", "Optional layout helpers and accessible Dialog title and description parts.", 3],
+    ["CommandPaletteCombobox", "command-palette-combobox", "Ark Combobox root for search state and command selection.", 3],
+    ["CommandPaletteControl", "command-palette-control", "Wraps the search input and clear button.", 4],
+    ["CommandPaletteInput", "command-palette-input", "Ark Combobox input.", 5],
+    ["CommandPaletteClearTrigger", "command-palette-clear-trigger", "Clears the search input and stays hidden while it is empty.", 5],
+    ["CommandPaletteList", "command-palette-list", "Ark Combobox listbox wrapped in a moduix `ScrollArea`.", 4],
+    ["CommandPaletteEmpty", "command-palette-empty", "Message shown when the filtered collection has no results.", 5],
+    ["CommandPaletteItemGroup / CommandPaletteItemGroupLabel", "command-palette-item-group", "Grouped sections of command results.", 5],
+    ["CommandPaletteItem", "command-palette-item", "A command row with highlighted, selected, and disabled states.", 6],
+    ["CommandPaletteItemIcon, CommandPaletteItemLabel, CommandPaletteItemDescription, CommandPaletteItemMeta", "command-palette-item-icon", "Visual parts for command icons, text, descriptions, and trailing metadata.", 7],
+    ["CommandPaletteItemText", "command-palette-item-text", "Text container for the command label and description.", 7],
+    ["CommandPaletteItemIndicator", "command-palette-item-indicator", "Selected-state indicator with a check icon by default.", 7],
+    ["CommandPaletteFooter / CommandPaletteKbd", "command-palette-footer", "Footer area and command-palette wrapper around moduix `Kbd`.", 4],
+    ["CommandPaletteSearch", "command-palette-search-icon", "Convenience search row that renders `CommandPaletteControl`, a decorative search icon, `CommandPaletteInput`, and `CommandPaletteClearTrigger`. It also adds a default accessible label to the input. Render the explicit parts when their individual configuration is needed.", 1],
+    ["CommandPaletteSeparator", "command-palette-separator", "Visual separator between command sections.", 1],
+    ["CommandPalettePanel", "", "Convenience shell for the standard backdrop, positioner, and content.", 0],
+    ["CommandPaletteRootProvider", null, "Connects the palette parts to dialog state created outside the rendered tree. Accepts the same `shortcut` prop.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styling
 
@@ -155,7 +127,11 @@ visible scrollbar track.
 
 ### CSS variables
 
-<CssPropertiesSection properties={CommandPaletteDocs.commandPaletteOverrideCssProperties} />
+Hover or focus a variable to see it in the preview.
+
+<CssPropertiesSection properties={CommandPaletteDocs.commandPaletteOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Styling hooks
 

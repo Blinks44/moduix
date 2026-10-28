@@ -5,6 +5,8 @@ description: Сохраняет пропорции изображений, ви�
 ark: https://ark-ui.com/docs/guides/composition#the-ark-factory
 ---
 
+import AnatomyScene from '@/components/examples/aspect-ratio/basic';
+
 <Example name="aspect-ratio/basic" />
 
 ## Установка
@@ -82,14 +84,15 @@ ark: https://ark-ui.com/docs/guides/composition#the-ark-factory
 
 ## Анатомия
 
-```text
-AspectRatio
-└─ media | iframe | canvas | svg | custom content
-```
+Наведите на часть или выберите её, чтобы найти её в превью.
 
-| Часть         | Назначение                                           |
-| ------------- | ---------------------------------------------------- |
-| `AspectRatio` | Адаптивный контейнер с заданным соотношением сторон. |
+<AnatomyInspector
+  parts={[
+    ["AspectRatio", "aspect-ratio-root", "Адаптивный контейнер с заданным соотношением сторон.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Стилизация
 

@@ -5,6 +5,8 @@ description: Crop, zoom, rotate, and flip an image before upload.
 ark: https://ark-ui.com/docs/components/image-cropper
 ---
 
+import AnatomyScene from '@/components/examples/image-cropper/basic';
+
 <Example name="image-cropper/basic" />
 
 If you call `getCroppedImage()` for an image from another origin, the image server must allow CORS
@@ -140,16 +142,22 @@ the application owns that state. Ark passes the updated value in the callback's 
 </ImageCropper>
 ```
 
-| Part                                 | Role                                                                                 |
-| ------------------------------------ | ------------------------------------------------------------------------------------ |
-| `ImageCropper`                    | Root component that owns crop and transform state, ARIA attributes, and runtime CSS variables. |
-| `ImageCropperRootProvider`          | Root connected to a `useImageCropper` instance created outside the component tree.   |
-| `ImageCropperViewport`              | Viewport that clips overflow and provides the surface for panning the image.         |
-| `ImageCropperImage`                 | Image element that Ark transforms as the user edits the crop.                        |
-| `ImageCropperSelection`             | Focusable crop area and keyboard target. With `fixedCropArea` it stays focusable and arrow keys pan the image. |
-| `ImageCropperGrid`                  | Non-interactive horizontal or vertical crop guide. Requires `axis`.                  |
-| `ImageCropperHandle`                | Resize handle for a position from `ImageCropperHandles`. Requires `position`.       |
-| `ImageCropperCropArea`              | Ready-made selection with both grids and every resize handle. It does not accept `children` or `asChild`. |
+Hover or focus a part to find it in the preview.
+
+<AnatomyInspector
+  parts={[
+    ["ImageCropper", "image-cropper-root", "Root component that owns crop and transform state, ARIA attributes, and runtime CSS variables.", 0],
+    ["ImageCropperViewport", "image-cropper-viewport", "Viewport that clips overflow and provides the surface for panning the image.", 1],
+    ["ImageCropperImage", "image-cropper-image", "Image element that Ark transforms as the user edits the crop.", 1],
+    ["ImageCropperSelection", "image-cropper-selection", "Focusable crop area and keyboard target. With `fixedCropArea` it stays focusable and arrow keys pan the image.", 1],
+    ["ImageCropperGrid", "image-cropper-grid", "Non-interactive horizontal or vertical crop guide. Requires `axis`.", 1],
+    ["ImageCropperHandle", "image-cropper-handle", "Resize handle for a position from `ImageCropperHandles`. Requires `position`.", 1],
+    ["ImageCropperCropArea", "", "Ready-made selection with both grids and every resize handle. It does not accept `children` or `asChild`.", 1],
+    ["ImageCropperRootProvider", "image-cropper-root-provider", "Root connected to a `useImageCropper` instance created outside the component tree.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styling
 

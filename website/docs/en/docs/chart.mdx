@@ -4,6 +4,7 @@ component: chart
 description: Plot data with TanStack Charts inside an accessible titled figure.
 ---
 
+import AnatomyScene from '@/components/examples/chart/basic';
 import * as ChartDocs from '@/components/examples/chart/css-properties';
 
 <Example name="chart/basic" />
@@ -139,26 +140,21 @@ application.
 
 ## Anatomy
 
-```text
-Chart
-├─ ChartHeader (optional figcaption)
-│  ├─ ChartTitle
-│  └─ ChartDescription
-├─ ChartPlot
-│  └─ TanStack chart surface (SVG by default)
-└─ ChartLegend (optional)
-   └─ ChartLegendItem
-```
+Hover or focus a part to find it in the preview.
 
-| Part | Role |
-| --- | --- |
-| `Chart` | Composed `figure` root. Accepts native props, `asChild`, and an `HTMLElement` ref (`$el` of the component ref in Vue). |
-| `ChartPlot` | TanStack Charts host. Requires `definition` and `ariaLabel`; uses the moduix motion preset by default and accepts `motion={false}`. |
-| `ChartHeader` | `figcaption` layout for the title and description. |
-| `ChartTitle` | Chart heading; renders `h3` by default. |
-| `ChartDescription` | Supporting visible context. |
-| `ChartLegend` | Semantic list of visible series. |
-| `ChartLegendItem` | Legend item with an optional indicator `color`. |
+<AnatomyInspector
+  parts={[
+    ["Chart", "chart-tooltip-value", "Composed `figure` root. Accepts native props, `asChild`, and an `HTMLElement` ref (`$el` of the component ref in Vue).", 0],
+    ["ChartHeader", "chart-header", "`figcaption` layout for the title and description.", 1],
+    ["ChartTitle", "chart-title", "Chart heading; renders `h3` by default.", 2],
+    ["ChartDescription", "chart-description", "Supporting visible context.", 2],
+    ["ChartPlot", "", "TanStack Charts host. Requires `definition` and `ariaLabel`; uses the moduix motion preset by default and accepts `motion={false}`.", 1],
+    ["ChartLegend", "chart-legend", "Semantic list of visible series.", 1],
+    ["ChartLegendItem", "chart-legend-item", "Legend item with an optional indicator `color`.", 2],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styling
 
@@ -183,7 +179,11 @@ React or `class` in Solid and Vue):
 
 ### CSS variables
 
-<CssPropertiesSection properties={ChartDocs.chartCssProperties} />
+Hover or focus a variable to see it in the preview.
+
+<CssPropertiesSection properties={ChartDocs.chartCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Styling hooks
 

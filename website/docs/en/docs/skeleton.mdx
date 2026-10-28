@@ -5,6 +5,7 @@ description: Hold the place of text, cards, and media while content loads.
 ark: https://ark-ui.com/docs/guides/composition#the-ark-factory
 ---
 
+import AnatomyScene from '@/components/examples/skeleton/basic';
 import * as SkeletonDocs from '@/components/examples/skeleton/css-properties';
 
 <Example name="skeleton/basic" />
@@ -85,14 +86,15 @@ Use `asChild` only when a different semantic root is required. Solid passes a re
 
 `Skeleton` is a single visual part. Keep layout in the surrounding markup.
 
-```text
-Skeleton
-└─ children (optional, shown when loading={false})
-```
+Hover or focus a part to find it in the preview.
 
-| Part                         | Role                                                                                        |
-| ---------------------------- | ------------------------------------------------------------------------------------------- |
-| `Skeleton` | Placeholder block. Renders an Ark factory element and accepts `asChild` when you need a different semantic root element. |
+<AnatomyInspector
+  parts={[
+    ["Skeleton", "skeleton-root", "Placeholder block. Renders an Ark factory element and accepts `asChild` when you need a different semantic root element.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styling
 
@@ -102,7 +104,11 @@ attributes and `data-slot` hooks are shared by both styling tracks.
 
 ### CSS variables
 
-<CssPropertiesSection properties={SkeletonDocs.skeletonOverrideCssProperties} />
+Hover or focus a variable to see it in the preview.
+
+<CssPropertiesSection properties={SkeletonDocs.skeletonOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Styling hooks
 

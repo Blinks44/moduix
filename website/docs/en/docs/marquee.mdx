@@ -5,6 +5,7 @@ description: Scroll logos or announcements in a continuous loop.
 ark: https://ark-ui.com/docs/components/marquee
 ---
 
+import AnatomyScene from '@/components/examples/marquee/basic';
 import * as MarqueeDocs from '@/components/examples/marquee/css-properties';
 
 <Example name="marquee/basic" />
@@ -116,27 +117,21 @@ same state. Controls inside the tree can read the current API from `MarqueeConte
 
 ## Anatomy
 
-```text
-Marquee
-├─ MarqueeEdge (optional)
-├─ MarqueeViewport
-│  └─ MarqueeContent
-│     └─ MarqueeItem
-└─ MarqueeEdge (optional)
+Hover or focus a part to find it in the preview.
 
-MarqueeRootProvider
-└─ same part tree connected to moduix useMarquee()
-```
-
-| Part                       | Role                                                                  |
-| -------------------------- | --------------------------------------------------------------------- |
-| `Marquee` | Root state, labels, ids, orientation, pause state, and CSS variables. |
-| `MarqueeRootProvider`     | Renders a marquee tree from state returned by `useMarquee`.           |
-| `MarqueeViewport`         | Clipping viewport for the scrolling content.                          |
-| `MarqueeContent`          | Animated content wrapper. Ark clones it when needed.                  |
-| `MarqueeItem`             | Individual repeated item inside the content.                          |
-| `MarqueeEdge`             | Optional fade overlay. Pass `side` to choose the edge.                |
-| `MarqueeContext`          | Advanced access to the context of the enclosing marquee.              |
+<AnatomyInspector
+  parts={[
+    ["Marquee", "marquee-root", "Root state, labels, ids, orientation, pause state, and CSS variables.", 0],
+    ["MarqueeEdge", "marquee-edge", "Optional fade overlay. Pass `side` to choose the edge.", 1],
+    ["MarqueeViewport", "marquee-viewport", "Clipping viewport for the scrolling content.", 1],
+    ["MarqueeContent", "marquee-content", "Animated content wrapper. Ark clones it when needed.", 2],
+    ["MarqueeItem", "marquee-item", "Individual repeated item inside the content.", 3],
+    ["MarqueeRootProvider", "marquee-root-provider", "Renders a marquee tree from state returned by `useMarquee`.", 0],
+    ["MarqueeContext", null, "Advanced access to the context of the enclosing marquee.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styling
 
@@ -153,7 +148,11 @@ surface in your own CSS when you need one.
 
 ### CSS variables
 
-<CssPropertiesSection properties={MarqueeDocs.marqueeCssProperties} />
+Hover or focus a variable to see it in the preview.
+
+<CssPropertiesSection properties={MarqueeDocs.marqueeCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Styling hooks
 

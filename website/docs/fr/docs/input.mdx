@@ -5,6 +5,7 @@ description: Saisir une ligne de texte avec le comportement natif.
 ark: https://ark-ui.com/docs/components/field
 ---
 
+import AnatomyScene from '@/components/examples/input/basic';
 import * as InputDocs from '@/components/examples/input/css-properties';
 
 <Example name="input/basic" />
@@ -130,14 +131,15 @@ un seul enfant focusable et compatible avec un champ de saisie ; Ark fusionne le
 
 ## Anatomie
 
-```text
-Field (conteneur facultatif)
-└─ Input
-```
+Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
 
-| Partie                 | Rôle                                                                                          |
-| ---------------------- | --------------------------------------------------------------------------------------------- |
-| `Input`                | Version stylée du `FieldInput` d’Ark UI, qui rend un `<input>` natif sur une seule ligne.       |
+<AnatomyInspector
+  parts={[
+    ["Input", "input-root", "Version stylée du `FieldInput` d’Ark UI, qui rend un `<input>` natif sur une seule ligne.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styles
 
@@ -154,7 +156,11 @@ partagés et les sélecteurs d’état natifs.
 
 ### Variables CSS
 
-<CssPropertiesSection properties={InputDocs.inputOverrideCssProperties} />
+Survolez ou sélectionnez une variable pour la voir dans l’aperçu.
+
+<CssPropertiesSection properties={InputDocs.inputOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Points d’accroche CSS
 

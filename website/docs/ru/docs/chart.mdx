@@ -4,6 +4,7 @@ component: chart
 description: Графики на TanStack Charts внутри доступной фигуры с заголовком.
 ---
 
+import AnatomyScene from '@/components/examples/chart/basic';
 import * as ChartDocs from '@/components/examples/chart/css-properties';
 
 <Example name="chart/basic" />
@@ -146,26 +147,21 @@ TanStack.
 
 ## Анатомия
 
-```text
-Chart
-├─ ChartHeader (необязательный figcaption)
-│  ├─ ChartTitle
-│  └─ ChartDescription
-├─ ChartPlot
-│  └─ Поверхность графика TanStack (по умолчанию SVG)
-└─ ChartLegend (необязательно)
-   └─ ChartLegendItem
-```
+Наведите на часть или выберите её, чтобы найти её в превью.
 
-| Часть | Назначение |
-| --- | --- |
-| `Chart` | Составной корневой элемент `figure`. Принимает нативные свойства, `asChild` и ref на `HTMLElement` (у Vue это `$el` компонента). |
-| `ChartPlot` | Хост TanStack Charts. Требует `definition` и `ariaLabel`, по умолчанию использует пресет анимации moduix и принимает `motion={false}`. |
-| `ChartHeader` | Разметка `figcaption` для заголовка и описания. |
-| `ChartTitle` | Заголовок графика, по умолчанию рендерится как `h3`. |
-| `ChartDescription` | Видимое пояснение к графику. |
-| `ChartLegend` | Семантический список видимых серий. |
-| `ChartLegendItem` | Элемент легенды с необязательным цветом индикатора `color`. |
+<AnatomyInspector
+  parts={[
+    ["Chart", "chart-tooltip-value", "Составной корневой элемент `figure`. Принимает нативные свойства, `asChild` и ref на `HTMLElement` (у Vue это `$el` компонента).", 0],
+    ["ChartHeader", "chart-header", "Разметка `figcaption` для заголовка и описания.", 1],
+    ["ChartTitle", "chart-title", "Заголовок графика, по умолчанию рендерится как `h3`.", 2],
+    ["ChartDescription", "chart-description", "Видимое пояснение к графику.", 2],
+    ["ChartPlot", "", "Хост TanStack Charts. Требует `definition` и `ariaLabel`, по умолчанию использует пресет анимации moduix и принимает `motion={false}`.", 1],
+    ["ChartLegend", "chart-legend", "Семантический список видимых серий.", 1],
+    ["ChartLegendItem", "chart-legend-item", "Элемент легенды с необязательным цветом индикатора `color`.", 2],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Стилизация
 
@@ -190,7 +186,11 @@ CSS-свойства настраивают варианты с CSS Modules. О�
 
 ### CSS-переменные
 
-<CssPropertiesSection properties={ChartDocs.chartCssProperties} />
+Наведите на переменную или выберите её, чтобы увидеть её в превью.
+
+<CssPropertiesSection properties={ChartDocs.chartCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Хуки стилизации
 

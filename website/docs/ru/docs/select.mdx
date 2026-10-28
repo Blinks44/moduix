@@ -5,6 +5,7 @@ description: Выбор одного или нескольких значени�
 ark: https://ark-ui.com/docs/components/select
 ---
 
+import AnatomyScene from '@/components/examples/select/anatomy';
 import * as SelectDocs from '@/components/examples/select/css-properties';
 
 <Example name="select/basic" />
@@ -152,56 +153,38 @@ Select с одним экземпляром состояния Ark.
 
 ## Анатомия
 
-```text
-Select
-├─ SelectLabel
-├─ SelectControl / SelectField
-│  ├─ SelectTrigger
-│  │  ├─ SelectValueText
-│  ├─ SelectClearTrigger
-│  └─ SelectIndicator
-├─ Поддерево оверлея (портируется автоматически)
-│  └─ SelectPositioner
-│     └─ SelectContent
-│        ├─ SelectList
-│        └─ SelectItemGroup
-│           ├─ SelectItemGroupLabel
-│           ├─ SelectOption[item]
-│           └─ SelectItem[item]
-│              ├─ SelectItemText
-│              │  └─ SelectItemTextContent
-│              │     ├─ SelectItemTextIcon
-│              │     └─ SelectItemTextLabel
-│              └─ SelectItemIndicator
-└─ SelectHiddenSelect (явно)
-```
+Наведите на часть или выберите её, чтобы найти её в превью.
 
-| Часть                     | Назначение                                                               |
-| ------------------------- | ------------------------------------------------------------------------ |
-| `Select`                  | Корневое состояние, коллекция, выбор, жизненный цикл всплывающего окна и данные формы. |
-| `SelectHiddenSelect`      | Нативное поле Ark; правила явной композиции описаны ниже.                       |
-| `SelectRootProvider`      | Рендерит дерево Select на основе состояния, возвращённого `useSelect`.          |
-| `SelectContext`           | Корневой контекст для чтения расширенного состояния.                             |
-| `SelectItemContext`       | Контекст элемента для чтения расширенного состояния.                            |
-| `SelectLabel`            | Доступная подпись, с которой связаны триггер и нативный элемент формы.   |
-| `SelectControl`          | Обёртка видимого поля, которая отражает состояния фокуса, ошибки и открытого списка. |
-| `SelectField`            | Вспомогательный компонент moduix для стандартного поля, триггера и действий. |
-| `SelectTrigger`          | Кнопка, открывающая всплывающее окно и обрабатывающая ввод с клавиатуры. |
-| `SelectValueText`        | Плейсхолдер или подписи выбранных элементов.                             |
-| `SelectClearTrigger`     | Кнопка, очищающая текущее значение.                                     |
-| `SelectIndicator`        | Индикатор триггера со стандартной иконкой стрелки moduix.               |
-| `SelectPositioner`       | Плавающий слой, который предоставляет CSS-переменные Ark для позиционирования. |
-| `SelectContent`           | Содержимое всплывающего окна и контейнер listbox.                       |
-| `SelectList`              | Необязательная обёртка списка для виртуализации или собственной разметки. |
-| `SelectItemGroup`         | Обёртка группы связанных элементов коллекции.                           |
-| `SelectItemGroupLabel`   | Подпись группы коллекции.                                                |
-| `SelectItem`              | Выбираемая строка. Передайте элемент коллекции через `item`.             |
-| `SelectOption` | Готовая строка для простых пунктов с текстом и индикатором. |
-| `SelectItemText`          | Текст для отображения и доступности.                                    |
-| `SelectItemTextContent`   | Вспомогательный компонент для разметки сложного текста элемента.        |
-| `SelectItemTextIcon`      | Обёртка для иконки в тексте элемента.                                   |
-| `SelectItemTextLabel`     | Обёртка для подписи в тексте элемента.                                  |
-| `SelectItemIndicator`     | Индикатор выбранного состояния со стандартной иконкой галочки moduix.    |
+<AnatomyInspector
+  parts={[
+    ["Select", "select-root", "Корневое состояние, коллекция, выбор, жизненный цикл всплывающего окна и данные формы.", 0],
+    ["SelectLabel", "select-label", "Доступная подпись, с которой связаны триггер и нативный элемент формы.", 1],
+    ["SelectControl", "select-control", "Обёртка видимого поля, которая отражает состояния фокуса, ошибки и открытого списка.", 1],
+    ["SelectTrigger", "select-trigger", "Кнопка, открывающая всплывающее окно и обрабатывающая ввод с клавиатуры.", 2],
+    ["SelectValueText", "select-value-text", "Плейсхолдер или подписи выбранных элементов.", 3],
+    ["SelectClearTrigger", "select-clear-trigger", "Кнопка, очищающая текущее значение.", 2],
+    ["SelectIndicator", "select-indicator", "Индикатор триггера со стандартной иконкой стрелки moduix.", 2],
+    ["SelectPositioner", "select-positioner", "Плавающий слой, который предоставляет CSS-переменные Ark для позиционирования.", 1],
+    ["SelectContent", "select-content", "Содержимое всплывающего окна и контейнер listbox.", 2],
+    ["SelectList", "select-list", "Необязательная обёртка списка для виртуализации или собственной разметки.", 3],
+    ["SelectItemGroup", "select-item-group", "Обёртка группы связанных элементов коллекции.", 3],
+    ["SelectItemGroupLabel", "select-item-group-label", "Подпись группы коллекции.", 4],
+    ["SelectOption", "", "Готовая строка для простых пунктов с текстом и индикатором.", 4],
+    ["SelectItem", "select-item", "Выбираемая строка. Передайте элемент коллекции через `item`.", 4],
+    ["SelectItemText", "select-item-text", "Текст для отображения и доступности.", 5],
+    ["SelectItemTextContent", "select-item-text-content", "Вспомогательный компонент для разметки сложного текста элемента.", 6],
+    ["SelectItemTextIcon", "select-item-text-icon", "Обёртка для иконки в тексте элемента.", 7],
+    ["SelectItemTextLabel", "select-item-text-label", "Обёртка для подписи в тексте элемента.", 7],
+    ["SelectItemIndicator", "select-item-indicator", "Индикатор выбранного состояния со стандартной иконкой галочки moduix.", 5],
+    ["SelectHiddenSelect", "", "Нативное поле Ark; правила явной композиции описаны ниже.", 1],
+    ["SelectField", "", "Вспомогательный компонент moduix для стандартного поля, триггера и действий.", 1],
+    ["SelectRootProvider", "select-root-provider", "Рендерит дерево Select на основе состояния, возвращённого `useSelect`.", 0],
+    ["SelectContext", null, "Корневой контекст для чтения расширенного состояния.", 0],
+    ["SelectItemContext", null, "Контекст элемента для чтения расширенного состояния.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Стилизация
 
@@ -209,7 +192,11 @@ Select
 
 ### CSS-переменные
 
-<CssPropertiesSection properties={SelectDocs.selectOverrideCssProperties} />
+Наведите на переменную или выберите её, чтобы увидеть её в превью.
+
+<CssPropertiesSection properties={SelectDocs.selectOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Хуки стилизации
 

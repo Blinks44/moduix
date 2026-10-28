@@ -5,6 +5,8 @@ description: Mettre en évidence la section lue dans une liste « Sur cette page
 ark: https://ark-ui.com/docs/components/toc
 ---
 
+import AnatomyScene from '@/components/examples/table-of-contents/basic';
+
 <Example name="table-of-contents/basic" />
 
 ## Installation
@@ -92,33 +94,24 @@ sont rendues, ce qui crée des ID dupliqués. Cette limite est suivie dans
 
 ## Anatomie
 
-```text
-Toc
-├─ TocContent
-└─ TocNav
-   ├─ TocTitle
-   └─ TocList
-      ├─ TocIndicator (facultatif)
-      └─ TocItem[item]
-         └─ TocLink
-            └─ TocRail (facultatif)
+Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
 
-TocRootProvider
-└─ même arbre de parties connecté à useToc()
-```
-
-| Partie              | Rôle                                                                    |
-| ------------------- | ----------------------------------------------------------------------- |
-| `Toc`              | Partie racine qui gère l’état de suivi à partir de la liste d’éléments. |
-| `TocContent`       | Article contenant les titres dont les ID correspondent aux valeurs.     |
-| `TocNav`           | Zone de navigation liée au titre du sommaire.                           |
-| `TocTitle`         | Nom accessible et titre visible de la navigation.                       |
-| `TocList`          | Liste des liens vers les titres et de l’indicateur facultatif.          |
-| `TocItem`          | Élément associé à un titre, avec son niveau et son état actif.          |
-| `TocLink`          | Lien vers une section de la même page.                                  |
-| `TocIndicator`     | Repère discret qui suit la plage active dans la liste.                  |
-| `TocRootProvider`  | Relie les parties à un état de suivi créé en dehors de l’arbre.          |
-| `TocRail`          | Branche SVG facultative qui relie les niveaux de titres voisins.         |
+<AnatomyInspector
+  parts={[
+    ["Toc", "toc-root", "Partie racine qui gère l’état de suivi à partir de la liste d’éléments.", 0],
+    ["TocContent", "toc-content", "Article contenant les titres dont les ID correspondent aux valeurs.", 1],
+    ["TocNav", "toc-nav", "Zone de navigation liée au titre du sommaire.", 1],
+    ["TocTitle", "toc-title", "Nom accessible et titre visible de la navigation.", 2],
+    ["TocList", "toc-list", "Liste des liens vers les titres et de l’indicateur facultatif.", 2],
+    ["TocIndicator", "toc-indicator", "Repère discret qui suit la plage active dans la liste.", 3],
+    ["TocItem", "toc-item", "Élément associé à un titre, avec son niveau et son état actif.", 3],
+    ["TocLink", "toc-link", "Lien vers une section de la même page.", 4],
+    ["TocRail", "toc-rail", "Branche SVG facultative qui relie les niveaux de titres voisins.", 5],
+    ["TocRootProvider", "toc-root-provider", "Relie les parties à un état de suivi créé en dehors de l’arbre.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styles
 

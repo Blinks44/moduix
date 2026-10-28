@@ -5,6 +5,7 @@ description: Afficher des images dans une visionneuse modale, une à une ou en g
 ark: https://ark-ui.com/docs/components/dialog
 ---
 
+import AnatomyScene from '@/components/examples/lightbox/anatomy';
 import * as LightboxDocs from '@/components/examples/lightbox/css-properties';
 
 <Example name="lightbox/basic" />
@@ -143,49 +144,39 @@ est le raccourci qui ferme la fenêtre après un clic sur l’image.
 
 ## Anatomie
 
-```text
-Lightbox
-├─ LightboxTrigger
-├─ LightboxBind
-└─ Sous-arbre de la fenêtre modale (rendu automatiquement dans un portail)
-   ├─ LightboxBackdrop
-   └─ LightboxPositioner
-      ├─ LightboxCloseTrigger ou LightboxCloseIcon
-      └─ LightboxContent
-         ├─ LightboxHeader (facultatif)
-         │  ├─ LightboxTitle
-         │  └─ LightboxDescription
-         ├─ LightboxBody
-         │  └─ LightboxImage
-         └─ LightboxFooter (facultatif)
+Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
 
-LightboxRootProvider
-└─ le même arbre de composants, relié à useLightbox()
-```
-
-| Partie | Rôle |
-| ---------------------------- | ------------------------------------------------------------------------------------ |
-| `Lightbox` | Racine du Dialog Ark qui gère l’état d’ouverture, le focus, la fermeture et l’accessibilité. |
-| `LightboxRootProvider` | Fournisseur de l’état créé avec `useLightbox()`. |
-| `LightboxTrigger` | Déclencheur Ark. Utilisez `asChild` pour transmettre un bouton ou un lien sémantique personnalisé. |
-| `LightboxBackdrop` | Arrière-plan modal avec `data-state` et les variables de calque d’Ark. |
-| `LightboxPositioner` | Conteneur fixe qui centre le contenu de la fenêtre modale. |
-| `LightboxContent` | Nœud qui contient le contenu du dialogue Ark. |
-| `LightboxTitle` | Titre accessible facultatif. |
-| `LightboxDescription` | Description accessible facultative. |
-| `LightboxCloseTrigger` | Déclencheur de fermeture Ark de bas niveau. |
-| `LightboxCloseIcon` | Raccourci moduix qui combine `CloseButton` avec le déclencheur de fermeture Ark. |
-| `LightboxHeader` / `LightboxBody` | Conteneurs facultatifs pour organiser le texte et les médias. |
-| `LightboxFooter` | Conteneur facultatif pour les actions ou l’état sous le média. |
-| `LightboxImage` | Image native stylisée qui transmet sa ref à l’`HTMLImageElement`. |
-| `LightboxGallery` | Zone qui définit la mise en page et le style d’un `Carousel` composé. |
-| `LightboxBind` | Partie sans rendu qui relie un balisage externe à la racine. |
+<AnatomyInspector
+  parts={[
+    ["Lightbox", null, "Racine du Dialog Ark qui gère l’état d’ouverture, le focus, la fermeture et l’accessibilité.", 0],
+    ["LightboxTrigger", "lightbox-trigger", "Déclencheur Ark. Utilisez `asChild` pour transmettre un bouton ou un lien sémantique personnalisé.", 1],
+    ["LightboxBind", "", "Partie sans rendu qui relie un balisage externe à la racine.", 1],
+    ["LightboxBackdrop", "lightbox-backdrop", "Arrière-plan modal avec `data-state` et les variables de calque d’Ark.", 1],
+    ["LightboxPositioner", "lightbox-positioner", "Conteneur fixe qui centre le contenu de la fenêtre modale.", 1],
+    ["LightboxContent", "lightbox-content", "Nœud qui contient le contenu du dialogue Ark.", 2],
+    ["LightboxCloseTrigger", "lightbox-close-trigger", "Déclencheur de fermeture Ark de bas niveau.", 3],
+    ["LightboxHeader / LightboxBody", "lightbox-header", "Conteneurs facultatifs pour organiser le texte et les médias.", 3],
+    ["LightboxTitle", "lightbox-title", "Titre accessible facultatif.", 4],
+    ["LightboxDescription", "lightbox-description", "Description accessible facultative.", 4],
+    ["LightboxImage", "lightbox-image", "Image native stylisée qui transmet sa ref à l’`HTMLImageElement`.", 3],
+    ["LightboxFooter", "lightbox-footer", "Conteneur facultatif pour les actions ou l’état sous le média.", 3],
+    ["LightboxCloseIcon", "lightbox-close-icon", "Raccourci moduix qui combine `CloseButton` avec le déclencheur de fermeture Ark.", 1],
+    ["LightboxGallery", "lightbox-gallery", "Zone qui définit la mise en page et le style d’un `Carousel` composé.", 1],
+    ["LightboxRootProvider", null, "Fournisseur de l’état créé avec `useLightbox()`.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styles
 
 ### Variables CSS
 
-<CssPropertiesSection properties={LightboxDocs.lightboxOverrideCssProperties} />
+Survolez ou sélectionnez une variable pour la voir dans l’aperçu.
+
+<CssPropertiesSection properties={LightboxDocs.lightboxOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Points d’accroche CSS
 

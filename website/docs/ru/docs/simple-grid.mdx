@@ -5,6 +5,8 @@ description: Карточки и плитки в равных колонках, 
 ark: https://ark-ui.com/docs/guides/composition
 ---
 
+import AnatomyScene from '@/components/examples/simple-grid/basic';
+
 <Example name="simple-grid/basic" />
 
 ## Установка
@@ -76,15 +78,15 @@ ark: https://ark-ui.com/docs/guides/composition
 
 `SimpleGrid` рендерит один корневой элемент CSS Grid и не добавляет обёртки вокруг дочерних элементов.
 
-```text
-SimpleGrid
-└─ root[data-scope="simple-grid"][data-part="root"][data-slot="simple-grid-root"]
-   └─ children
-```
+Наведите на часть или выберите её, чтобы найти её в превью.
 
-| Часть        | Назначение                                           |
-| ------------ | ---------------------------------------------------- |
-| `SimpleGrid` | Корневой элемент, создающий равные колонки CSS Grid. |
+<AnatomyInspector
+  parts={[
+    ["SimpleGrid", "simple-grid-root", "Корневой элемент, создающий равные колонки CSS Grid.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Стилизация
 

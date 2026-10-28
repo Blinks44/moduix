@@ -5,6 +5,7 @@ description: Клавиша или сочетание клавиш в строк
 ark: https://ark-ui.com/docs/guides/composition#the-ark-factory
 ---
 
+import AnatomyScene from '@/components/examples/kbd/basic';
 import * as KbdDocs from '@/components/examples/kbd/css-properties';
 
 <Example name="kbd/basic" />
@@ -69,19 +70,18 @@ Kbd не хранит состояние и не обрабатывает наж
 
 ## Анатомия
 
-Структура сочетания проста. Знак `+` в этой схеме является обычным текстом, а не отдельной частью компонента.
+Сочетание клавиш - это `KbdGroup` из клавиш `Kbd`. Знак `+` между клавишами - обычный текст, а не часть компонента.
 
-```text
-KbdGroup
-├─ Kbd
-├─ +
-└─ Kbd
-```
+Наведите на часть или выберите её, чтобы найти её в превью.
 
-| Часть               | Назначение                                                                  |
-| ------------------- | --------------------------------------------------------------------------- |
-| `Kbd`              | Корневой элемент клавиши. По умолчанию выводит элемент `<kbd>`.             |
-| `KbdGroup`         | Строчный контейнер для связанных клавиш. По умолчанию получает роль `group`. |
+<AnatomyInspector
+  parts={[
+    ["KbdGroup", "kbd-group", "Строчный контейнер для связанных клавиш. По умолчанию получает роль `group`.", 0],
+    ["Kbd", "kbd-root", "Корневой элемент клавиши. По умолчанию выводит элемент `<kbd>`.", 1],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Стилизация
 
@@ -89,7 +89,11 @@ KbdGroup
 
 ### CSS-переменные
 
-<CssPropertiesSection properties={KbdDocs.kbdOverrideCssProperties} />
+Наведите на переменную или выберите её, чтобы увидеть её в превью.
+
+<CssPropertiesSection properties={KbdDocs.kbdOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Хуки стилизации
 

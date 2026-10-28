@@ -5,6 +5,7 @@ description: Basculer entre des panneaux liés dans une zone de la page.
 ark: https://ark-ui.com/docs/components/tabs
 ---
 
+import AnatomyScene from '@/components/examples/tabs/basic';
 import * as TabsDocs from '@/components/examples/tabs/css-properties';
 
 <Example name="tabs/basic" width="lg" />
@@ -139,30 +140,21 @@ automatiquement.
 
 ## Anatomie
 
-```text
-Tabs
-├─ TabsList
-│  ├─ TabsTrigger[value]
-│  ├─ TabsTrigger[value]
-│  └─ TabsIndicator
-└─ TabsContent[value]
+Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
 
-TabsRootProvider
-└─ mêmes parties reliées à un store useTabs()
-
-TabsContext
-└─ render prop / scoped slot
-```
-
-| Partie                | Rôle                                                               |
-| --------------------- | ------------------------------------------------------------------ |
-| `Tabs`                | Racine qui gère la valeur sélectionnée, le focus, l’orientation et le mode. |
-| `TabsRootProvider`   | Relie les parties à l’état créé avec `useTabs()` de moduix.        |
-| `TabsContext`        | Expose l’état courant des onglets via une render prop ou un scoped slot en Vue. |
-| `TabsList`           | Regroupe les déclencheurs et gère les déplacements du focus.       |
-| `TabsTrigger`        | Bouton d’onglet interactif, ou hôte `asChild`, avec une valeur obligatoire. |
-| `TabsIndicator`      | Indicateur facultatif de l’onglet sélectionné.                     |
-| `TabsContent`        | Panneau associé au déclencheur qui possède la même valeur.        |
+<AnatomyInspector
+  parts={[
+    ["Tabs", "tabs-root", "Racine qui gère la valeur sélectionnée, le focus, l’orientation et le mode.", 0],
+    ["TabsList", "tabs-list", "Regroupe les déclencheurs et gère les déplacements du focus.", 1],
+    ["TabsTrigger", "tabs-trigger", "Bouton d’onglet interactif, ou hôte `asChild`, avec une valeur obligatoire.", 2],
+    ["TabsIndicator", "tabs-indicator", "Indicateur facultatif de l’onglet sélectionné.", 2],
+    ["TabsContent", "tabs-content", "Panneau associé au déclencheur qui possède la même valeur.", 1],
+    ["TabsRootProvider", "tabs-root-provider", "Relie les parties à l’état créé avec `useTabs()` de moduix.", 0],
+    ["TabsContext", null, "Expose l’état courant des onglets via une render prop ou un scoped slot en Vue.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styles
 
@@ -174,7 +166,11 @@ variables ci-dessous personnalisent les variantes CSS Modules.
 
 ### Variables CSS
 
-<CssPropertiesSection properties={TabsDocs.tabsOverrideCssProperties} />
+Survolez ou sélectionnez une variable pour la voir dans l’aperçu.
+
+<CssPropertiesSection properties={TabsDocs.tabsOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Points d’accroche CSS
 

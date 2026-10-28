@@ -5,6 +5,7 @@ description: Префиксы, суффиксы и встроенные кноп
 ark: https://ark-ui.com/docs/guides/composition
 ---
 
+import AnatomyScene from '@/components/examples/input-group/basic';
 import * as InputGroupDocs from '@/components/examples/input-group/css-properties';
 
 <Example name="input-group/basic" />
@@ -132,24 +133,21 @@ ARIA-атрибуты в `InputGroupInput`, а группа отразит со�
 
 ## Анатомия
 
-```text
-InputGroup
-├─ InputGroupAddon (необязательно)
-├─ InputGroupInput или InputGroupTextarea
-├─ InputGroupText (необязательно)
-├─ InputGroupButton (необязательно)
-└─ InputGroupClearTrigger (необязательно)
-```
+Наведите на часть или выберите её, чтобы найти её в превью.
 
-| Часть                            | Назначение                                                  |
-| -------------------------------- | ----------------------------------------------------------- |
-| `InputGroup`                    | Пассивный контейнер с общей стилизацией и контекстом размера. |
-| `InputGroupInput`               | Нативный `<input>`, который содержит значение формы и состояние поля. |
-| `InputGroupTextarea`            | Нативный `<textarea>` для многострочного значения; используется вместо `InputGroupInput`. |
-| `InputGroupAddon`               | Префикс или суффикс с заливкой.                             |
-| `InputGroupText`                | Встроенный текст без заливки.                               |
-| `InputGroupButton`              | Кнопка действия, связанного с полем.                       |
-| `InputGroupClearTrigger` | Кнопка с крестиком; очисткой значения управляет приложение. |
+<AnatomyInspector
+  parts={[
+    ["InputGroup", "input-group-root", "Пассивный контейнер с общей стилизацией и контекстом размера.", 0],
+    ["InputGroupAddon", "input-group-addon", "Префикс или суффикс с заливкой.", 1],
+    ["InputGroupInput", "", "Нативный `<input>`, который содержит значение формы и состояние поля.", 1],
+    ["InputGroupText", "input-group-text", "Встроенный текст без заливки.", 1],
+    ["InputGroupTextarea", "", "Нативный `<textarea>` для многострочного значения; используется вместо `InputGroupInput`.", 2],
+    ["InputGroupButton", "input-group-button", "Кнопка действия, связанного с полем.", 1],
+    ["InputGroupClearTrigger", "input-group-clear-trigger", "Кнопка с крестиком; очисткой значения управляет приложение.", 1],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Стилизация
 
@@ -163,7 +161,11 @@ foundation и открывают только три переменные ниж
 
 ### CSS-переменные
 
-<CssPropertiesSection properties={InputGroupDocs.inputGroupOverrideCssProperties} />
+Наведите на переменную или выберите её, чтобы увидеть её в превью.
+
+<CssPropertiesSection properties={InputGroupDocs.inputGroupOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Хуки стилизации
 

@@ -5,6 +5,7 @@ description: Выбор угла от 0 до 360 градусов на круг�
 ark: https://ark-ui.com/docs/components/angle-slider
 ---
 
+import AnatomyScene from '@/components/examples/angle-slider/basic';
 import * as AngleSliderDocs from '@/components/examples/angle-slider/css-properties';
 
 <Example name="angle-slider/basic" />
@@ -126,33 +127,25 @@ store нужно создать вне дерева слайдера; не ре�
 
 ## Анатомия
 
-```text
-AngleSlider
-├─ AngleSliderLabel
-├─ AngleSliderDial
-│  ├─ AngleSliderMarks (необязательно)
-│  │  └─ AngleSliderMarker[value]
-│  ├─ AngleSliderValueText
-│  └─ AngleSliderThumb
-└─ AngleSliderHiddenInput (явно)
+Наведите на часть или выберите её, чтобы найти её в превью.
 
-AngleSliderRootProvider
-└─ same part tree connected to a useAngleSlider() store
-```
-
-| Часть                              | Назначение                                                            |
-| ---------------------------------- | --------------------------------------------------------------------- |
-| `AngleSlider` | Стилизованный корневой компонент, который хранит состояние слайдера.  |
-| `AngleSliderRootProvider`         | Подключает части к состоянию, созданному через `useAngleSlider()`.    |
-| `AngleSliderLabel`                | Связывает видимую подпись со слайдером.                               |
-| `AngleSliderControl`              | Задаёт круглую область для взаимодействия указателем.                 |
-| `AngleSliderDial`                 | Удобная композиция из `Control`, центрированной `ValueText` и `Thumb`. |
-| `AngleSliderThumb`                | Фокусируемый круглый бегунок, движущийся по треку в соответствии с текущим углом. |
-| `AngleSliderMarkerGroup`          | Содержит необязательные опорные маркеры.                              |
-| `AngleSliderMarker`               | Размещает числовой маркер вокруг диска.                               |
-| `AngleSliderMarks`                | Создаёт маркеры по массиву `values`.                                  |
-| `AngleSliderValueText`             | Показывает текущее значение в градусах; `AngleSliderDial` центрирует его в диске. |
-| `AngleSliderHiddenInput`           | Нативное поле формы; добавляйте его явно для отправки значения.       |
+<AnatomyInspector
+  parts={[
+    ["AngleSlider", "angle-slider-root", "Стилизованный корневой компонент, который хранит состояние слайдера.", 0],
+    ["AngleSliderLabel", "angle-slider-label", "Связывает видимую подпись со слайдером.", 1],
+    ["AngleSliderDial", "", "Удобная композиция из `Control`, центрированной `ValueText` и `Thumb`.", 1],
+    ["AngleSliderMarks", "", "Создаёт маркеры по массиву `values`.", 2],
+    ["AngleSliderMarker", "angle-slider-marker", "Размещает числовой маркер вокруг диска.", 3],
+    ["AngleSliderMarkerGroup", "angle-slider-marker-group", "Содержит необязательные опорные маркеры.", 4],
+    ["AngleSliderValueText", "angle-slider-value-text", "Показывает текущее значение в градусах; `AngleSliderDial` центрирует его в диске.", 2],
+    ["AngleSliderThumb", "angle-slider-thumb", "Фокусируемый круглый бегунок, движущийся по треку в соответствии с текущим углом.", 2],
+    ["AngleSliderHiddenInput", "", "Нативное поле формы; добавляйте его явно для отправки значения.", 1],
+    ["AngleSliderControl", "angle-slider-control", "Задаёт круглую область для взаимодействия указателем.", 1],
+    ["AngleSliderRootProvider", "angle-slider-root-provider", "Подключает части к состоянию, созданному через `useAngleSlider()`.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Стилизация
 
@@ -165,7 +158,11 @@ AngleSliderRootProvider
 
 ### CSS-переменные
 
-<CssPropertiesSection properties={AngleSliderDocs.angleSliderCssProperties} />
+Наведите на переменную или выберите её, чтобы увидеть её в превью.
+
+<CssPropertiesSection properties={AngleSliderDocs.angleSliderCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Хуки стилизации
 

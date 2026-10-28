@@ -5,6 +5,7 @@ description: Show an inline status message with a title, description, and action
 ark: https://ark-ui.com/docs/guides/composition#the-ark-factory
 ---
 
+import AnatomyScene from '@/components/examples/alert/basic';
 import * as AlertDocs from '@/components/examples/alert/css-properties';
 
 <Example name="alert/basic" />
@@ -101,24 +102,20 @@ uses the `as-child` attribute with a single child element.
 Place message content inside `AlertContent`. `AlertIndicator` is optional and sits beside that
 content when it helps people scan the message.
 
-```text
-Alert
-├─ AlertIndicator (optional)
-└─ AlertContent
-   ├─ AlertTitle
-   ├─ AlertDescription
-   ├─ AlertActions (optional)
-   └─ Extra custom blocks
-```
+Hover or focus a part to find it in the preview.
 
-| Part               | Role                                                               | `data-part`   |
-| ------------------ | ------------------------------------------------------------------ | ------------- |
-| `Alert`            | Root element. Applies status styles.                               | `root`        |
-| `AlertIndicator`   | Optional visual cue. Child SVG icons receive a consistent size.   | `indicator`   |
-| `AlertContent`     | Required column wrapper for message content and actions.           | `content`     |
-| `AlertTitle`       | Alert title. Renders a `p` by default.                              | `title`       |
-| `AlertDescription` | Supporting message text.                                           | `description` |
-| `AlertActions`     | Optional wrapped row for actions inside `Content`.                 | `actions`     |
+<AnatomyInspector
+  parts={[
+    ["Alert", "alert-root", "Root element. Applies status styles.", 0],
+    ["AlertIndicator", "alert-indicator", "Optional visual cue. Child SVG icons receive a consistent size.", 1],
+    ["AlertContent", "alert-content", "Required column wrapper for message content and actions.", 1],
+    ["AlertTitle", "alert-title", "Alert title. Renders a `p` by default.", 2],
+    ["AlertDescription", "alert-description", "Supporting message text.", 2],
+    ["AlertActions", "alert-actions", "Optional wrapped row for actions inside `Content`.", 2],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styling
 
@@ -142,7 +139,11 @@ Built-in statuses also read shared palette tokens:
 
 ### CSS variables
 
-<CssPropertiesSection properties={AlertDocs.alertCssProperties} />
+Hover or focus a variable to see it in the preview.
+
+<CssPropertiesSection properties={AlertDocs.alertCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Styling hooks
 

@@ -5,6 +5,7 @@ description: Page through slides with buttons, indicators, swipe, or autoplay.
 ark: https://ark-ui.com/docs/components/carousel
 ---
 
+import AnatomyScene from '@/components/examples/carousel/basic';
 import * as CarouselDocs from '@/components/examples/carousel/css-properties';
 
 <Example name="carousel/basic" />
@@ -166,34 +167,25 @@ replacement host.
 
 ## Anatomy
 
-```text
-Carousel
-├─ CarouselItemGroup
-│  └─ CarouselItem[index]
-├─ CarouselControl
-│  ├─ CarouselPrevTrigger
-│  └─ CarouselNextTrigger
-├─ CarouselIndicatorGroup
-│  └─ CarouselIndicator[index]
-└─ CarouselProgressText
+Hover or focus a part to find it in the preview.
 
-CarouselRootProvider
-└─ same part tree connected to a useCarousel() store
-```
-
-| Part                     | Role                                                             |
-| ------------------------ | ---------------------------------------------------------------- |
-| `Carousel`               | Owns carousel state, navigation, and the slide collection.       |
-| `CarouselRootProvider`   | Connects the parts to state created with `useCarousel()`.        |
-| `CarouselControl`        | Container for navigation buttons and other controls.             |
-| `CarouselItemGroup`      | Slide track that contains `CarouselItem` parts.                  |
-| `CarouselItem`           | A single slide with a stable `index`.                            |
-| `CarouselPrevTrigger`    | Button that moves to the previous page.                          |
-| `CarouselNextTrigger`    | Button that moves to the next page.                              |
-| `CarouselIndicators`     | moduix convenience component that renders the default page dots. |
-| `CarouselIndicatorGroup` | Container for custom page indicators.                            |
-| `CarouselIndicator`      | Button that moves to the page with the given index.              |
-| `CarouselProgressText`   | Text showing the current page and the total number of pages.     |
+<AnatomyInspector
+  parts={[
+    ["Carousel", "carousel-root", "Owns carousel state, navigation, and the slide collection.", 0],
+    ["CarouselItemGroup", "carousel-item-group", "Slide track that contains `CarouselItem` parts.", 1],
+    ["CarouselItem", "carousel-item", "A single slide with a stable `index`.", 2],
+    ["CarouselControl", "carousel-control", "Container for navigation buttons and other controls.", 1],
+    ["CarouselPrevTrigger", "carousel-prev-trigger", "Button that moves to the previous page.", 2],
+    ["CarouselNextTrigger", "carousel-next-trigger", "Button that moves to the next page.", 2],
+    ["CarouselIndicatorGroup", "carousel-indicator-group", "Container for custom page indicators.", 1],
+    ["CarouselIndicator", "carousel-indicator", "Button that moves to the page with the given index.", 2],
+    ["CarouselIndicators", "", "moduix convenience component that renders the default page dots.", 3],
+    ["CarouselProgressText", "carousel-progress-text", "Text showing the current page and the total number of pages.", 1],
+    ["CarouselRootProvider", "carousel-root-provider", "Connects the parts to state created with `useCarousel()`.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styling
 
@@ -205,7 +197,11 @@ class overrides; the CSS Properties reference below applies to the CSS Modules p
 
 ### CSS variables
 
-<CssPropertiesSection properties={CarouselDocs.carouselOverrideCssProperties} />
+Hover or focus a variable to see it in the preview.
+
+<CssPropertiesSection properties={CarouselDocs.carouselOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Styling hooks
 

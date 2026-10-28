@@ -5,6 +5,7 @@ description: Afficher et masquer une zone de contenu avec un déclencheur.
 ark: https://ark-ui.com/docs/components/collapsible
 ---
 
+import AnatomyScene from '@/components/examples/collapsible/basic';
 import * as CollapsibleDocs from '@/components/examples/collapsible/css-properties';
 
 <Example name="collapsible/basic" />
@@ -128,27 +129,20 @@ fonction de rendu, par exemple `asChild={(props) => <button {...props()} />}`.
 
 ## Anatomie
 
-```text
-Collapsible
-├─ CollapsibleTrigger
-│  ├─ libellé
-│  └─ CollapsibleIndicator (facultatif)
-└─ CollapsibleContent
-   └─ CollapsibleBody
-       └─ contenu
+Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
 
-CollapsibleRootProvider
-└─ même arbre de parties relié à un store useCollapsible()
-```
-
-| Partie                    | Rôle                                                                    |
-| ------------------------- | ----------------------------------------------------------------------- |
-| `Collapsible`             | Gère l’état d’une seule section repliable.                              |
-| `CollapsibleRootProvider` | Relie les parties à l’état créé avec `useCollapsible`.                  |
-| `CollapsibleTrigger`      | Bouton accessible qui déplie ou replie le contenu.                       |
-| `CollapsibleIndicator`    | Indicateur facultatif qui affiche par défaut un chevron moduix.         |
-| `CollapsibleContent`      | Zone animée dont Ark mesure les dimensions.                             |
-| `CollapsibleBody`         | Conteneur interne pour les espacements et la mise en page du contenu.    |
+<AnatomyInspector
+  parts={[
+    ["Collapsible", "collapsible-root", "Gère l’état d’une seule section repliable.", 0],
+    ["CollapsibleTrigger", "collapsible-trigger", "Bouton accessible qui déplie ou replie le contenu.", 1],
+    ["CollapsibleIndicator", "collapsible-indicator", "Indicateur facultatif qui affiche par défaut un chevron moduix.", 2],
+    ["CollapsibleContent", "collapsible-content", "Zone animée dont Ark mesure les dimensions.", 1],
+    ["CollapsibleBody", "collapsible-body", "Conteneur interne pour les espacements et la mise en page du contenu.", 2],
+    ["CollapsibleRootProvider", "collapsible-root-provider", "Relie les parties à l’état créé avec `useCollapsible`.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styles
 
@@ -164,7 +158,11 @@ mesurer et animer correctement le contenu.
 
 ### Variables CSS
 
-<CssPropertiesSection properties={CollapsibleDocs.collapsibleOverrideCssProperties} />
+Survolez ou sélectionnez une variable pour la voir dans l’aperçu.
+
+<CssPropertiesSection properties={CollapsibleDocs.collapsibleOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Points d’accroche CSS
 

@@ -5,6 +5,7 @@ description: Copier une valeur dans le presse-papiers avec une confirmation sur 
 ark: https://ark-ui.com/docs/components/clipboard
 ---
 
+import AnatomyScene from '@/components/examples/clipboard/basic';
 import * as ClipboardDocs from '@/components/examples/clipboard/css-properties';
 
 <Example name="clipboard/basic" />
@@ -127,25 +128,22 @@ autre élément sémantique doit porter le nœud DOM rendu.
 
 ## Anatomie
 
-```text
-Clipboard | ClipboardRootProvider
-├─ ClipboardLabel (facultatif)
-├─ ClipboardControl
-│  ├─ ClipboardInput ou ClipboardValueText
-│  └─ ClipboardTrigger
-│     └─ ClipboardIndicator (facultatif)
-```
+Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
 
-| Partie | Rôle |
-| --- | --- |
-| `Clipboard` | Gère la valeur et l’état temporaire qui suit la copie. |
-| `ClipboardRootProvider` | Relie les parties à un store créé avec `useClipboard()`. |
-| `ClipboardLabel` | Fournit un libellé accessible pour la valeur. |
-| `ClipboardControl` | Regroupe l’affichage de la valeur et le bouton de copie. |
-| `ClipboardInput` | Affiche la valeur dans un champ en lecture seule. Utilisez un état contrôlé ou `ClipboardContext.setValue()` pour la modifier. |
-| `ClipboardTrigger` | Copie la valeur actuelle lorsqu’il est activé. Il s’affiche comme un bouton par défaut. |
-| `ClipboardIndicator` | Affiche un contenu différent selon que la valeur a été copiée ou non. Par défaut : icônes de copie et de confirmation ; utilisez `copied="Copied"` et `children` en React/Solid, ou les slots Vue correspondants. |
-| `ClipboardValueText` | Affiche la valeur sous forme de texte lorsqu’un champ n’est pas adapté. |
+<AnatomyInspector
+  parts={[
+    ["Clipboard", "clipboard-root", "Gère la valeur et l’état temporaire qui suit la copie.", 0],
+    ["ClipboardLabel", "clipboard-label", "Fournit un libellé accessible pour la valeur.", 1],
+    ["ClipboardControl", "clipboard-control", "Regroupe l’affichage de la valeur et le bouton de copie.", 1],
+    ["ClipboardInput", "clipboard-input", "Affiche la valeur dans un champ en lecture seule. Utilisez un état contrôlé ou `ClipboardContext.setValue()` pour la modifier.", 2],
+    ["ClipboardTrigger", "clipboard-trigger", "Copie la valeur actuelle lorsqu’il est activé. Il s’affiche comme un bouton par défaut.", 2],
+    ["ClipboardIndicator", "clipboard-indicator", "Affiche un contenu différent selon que la valeur a été copiée ou non. Par défaut : icônes de copie et de confirmation ; utilisez `copied=\"Copied\"` et `children` en React/Solid, ou les slots Vue correspondants.", 3],
+    ["ClipboardValueText", "clipboard-value-text", "Affiche la valeur sous forme de texte lorsqu’un champ n’est pas adapté.", 1],
+    ["ClipboardRootProvider", "clipboard-root-provider", "Relie les parties à un store créé avec `useClipboard()`.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styles
 
@@ -156,7 +154,11 @@ utilisez l’attribut Ark `data-copied` avec les hooks `data-slot` de moduix.
 
 ### Variables CSS
 
-<CssPropertiesSection properties={ClipboardDocs.clipboardOverrideCssProperties} />
+Survolez ou sélectionnez une variable pour la voir dans l’aperçu.
+
+<CssPropertiesSection properties={ClipboardDocs.clipboardOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Points d’accroche CSS
 

@@ -5,6 +5,7 @@ description: Guider l’utilisateur dans une tâche en plusieurs étapes avec va
 ark: https://ark-ui.com/docs/components/steps
 ---
 
+import AnatomyScene from '@/components/examples/steps/basic';
 import * as StepsDocs from '@/components/examples/steps/css-properties';
 
 <Example name="steps/basic" />
@@ -106,36 +107,25 @@ marqueur.
 
 ## Anatomie
 
-```text
-Steps
-├─ StepsProgress (optional)
-├─ StepsList
-│  └─ StepsItem[index]
-│     ├─ StepsTrigger
-│     │  └─ StepsIndicator
-│     └─ StepsSeparator
-├─ StepsContent[index]
-├─ StepsCompletedContent
-├─ StepsPrevTrigger
-└─ StepsNextTrigger
+Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
 
-StepsRootProvider
-└─ same part tree connected to a useSteps() store
-```
-
-| Partie                            | Rôle                                                                                |
-| --------------------------------- | ----------------------------------------------------------------------------------- |
-| `Steps`                            | Machine d’état racine pour les étapes, l’orientation, la navigation, la validation et les identifiants. |
-| `StepsRootProvider`               | Relie les parties à l’état créé avec `useSteps()`.                                  |
-| `StepsProgress`                   | Barre de progression visuelle facultative, pilotée par la variable Ark `--percent`. |
-| `StepsList`                       | Liste d’onglets contenant les déclencheurs des étapes.                              |
-| `StepsItem`                       | Étape avec un `index` obligatoire commençant à zéro.                                |
-| `StepsTrigger`                    | Déclencheur d’onglet ; prend en charge `asChild` pour les éléments sémantiques.     |
-| `StepsIndicator`                  | Marqueur d’étape avec un nombre ou une icône de validation par défaut.               |
-| `StepsSeparator`                  | Connecteur décoratif entre les étapes.                                              |
-| `StepsContent`                    | Panneau de contenu d’une étape, associé à son `index`.                              |
-| `StepsCompletedContent`           | Panneau affiché lorsque la valeur de l’étape courante vaut `count`.                 |
-| `StepsPrevTrigger` / `StepsNextTrigger` | Boutons reliés aux actions Ark précédente et suivante.                       |
+<AnatomyInspector
+  parts={[
+    ["Steps", "steps-root", "Machine d’état racine pour les étapes, l’orientation, la navigation, la validation et les identifiants.", 0],
+    ["StepsProgress", "steps-progress", "Barre de progression visuelle facultative, pilotée par la variable Ark `--percent`.", 1],
+    ["StepsList", "steps-list", "Liste d’onglets contenant les déclencheurs des étapes.", 1],
+    ["StepsItem", "steps-item", "Étape avec un `index` obligatoire commençant à zéro.", 2],
+    ["StepsTrigger", "steps-trigger", "Déclencheur d’onglet ; prend en charge `asChild` pour les éléments sémantiques.", 3],
+    ["StepsIndicator", "steps-indicator", "Marqueur d’étape avec un nombre ou une icône de validation par défaut.", 4],
+    ["StepsSeparator", "steps-separator", "Connecteur décoratif entre les étapes.", 3],
+    ["StepsContent", "steps-content", "Panneau de contenu d’une étape, associé à son `index`.", 1],
+    ["StepsCompletedContent", "steps-completed-content", "Panneau affiché lorsque la valeur de l’étape courante vaut `count`.", 1],
+    ["StepsPrevTrigger / StepsNextTrigger", "steps-prev-trigger", "Boutons reliés aux actions Ark précédente et suivante.", 1],
+    ["StepsRootProvider", "steps-root-provider", "Relie les parties à l’état créé avec `useSteps()`.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styles
 
@@ -151,7 +141,11 @@ couleurs, la typographie et les surfaces avec une classe sur la partie.
 
 ### Variables CSS
 
-<CssPropertiesSection properties={StepsDocs.stepsCssProperties} />
+Survolez ou sélectionnez une variable pour la voir dans l’aperçu.
+
+<CssPropertiesSection properties={StepsDocs.stepsCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Points d’accroche CSS
 

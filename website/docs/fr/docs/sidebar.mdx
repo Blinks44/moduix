@@ -5,6 +5,7 @@ description: Créer une navigation d’app redimensionnable et réductible en ic
 ark: https://ark-ui.com/docs/components/splitter
 ---
 
+import AnatomyScene from '@/components/examples/sidebar/basic';
 import { sidebarOverrideCssProperties } from '@/components/examples/sidebar/css-properties';
 
 <Example name="sidebar/basic" />
@@ -128,51 +129,29 @@ sans émettre `@collapse`. Le modèle et `useSidebar().collapsed` reflètent tou
 
 ## Anatomie
 
-```text
-Sidebar
-├─ SidebarPanel[id="sidebar"]
-│  ├─ SidebarHeader
-│  │  ├─ SidebarLabel
-│  │  └─ SidebarInput
-│  ├─ SidebarContent
-│  │  └─ SidebarGroup
-│  │     ├─ SidebarGroupHeader
-│  │     │  ├─ SidebarGroupLabel
-│  │     │  └─ SidebarGroupAction
-│  │     └─ SidebarNavigationList
-│  │        └─ SidebarNavigationItem
-│  │           ├─ SidebarNavigationButton
-│  │           ├─ SidebarNavigationBadge (facultatif)
-│  │           ├─ SidebarExpandedContent
-│  │           ├─ SidebarCollapsedContent
-│  │           └─ SidebarNavigationSubList
-│  │              └─ SidebarNavigationSubItem
-│  │                 ├─ SidebarNavigationSubButton
-│  │                 └─ SidebarNavigationBadge (facultatif)
-│  └─ SidebarFooter
-│     └─ SidebarSeparator
-├─ SidebarResizeTrigger
-├─ SidebarTrigger
-└─ SidebarInset[id="content"]
-```
+Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
 
-| Partie | Rôle |
-| --- | --- |
-| `Sidebar` | Racine Ark Splitter avec les réglages d’une barre à deux panneaux. |
-| `SidebarPanel` | Panneau de navigation repliable, avec l’identifiant `"sidebar"` par défaut. |
-| `SidebarInset` | Panneau de contenu principal, avec l’identifiant `"content"` par défaut. |
-| `SidebarResizeTrigger` | Ligne de poignée accessible pour le redimensionnement à la souris ou au clavier ; elle rend par défaut le `SplitterResizeTriggerIndicator` partagé, et des enfants personnalisés le remplacent. |
-| `SidebarTrigger` | Contrôle latéral pour replier ou déplier le panneau. |
-| `SidebarHeader` | Zone supérieure qui ne défile pas. |
-| `SidebarContent` | Zone centrale défilante. |
-| `SidebarFooter` | Zone inférieure qui ne défile pas. |
-| `SidebarGroup` | Section de navigation sémantique. |
-| `SidebarNavigationButton` | Bouton ou lien `asChild` avec les états active et size. |
-| `SidebarNavigationBadge` | Compteur facultatif placé à côté d’un bouton de navigation simple ou imbriqué. |
-| `SidebarExpandedContent` | Contenu affiché lorsque le panneau est déplié. |
-| `SidebarCollapsedContent` | Contenu affiché lorsque le panneau est replié. |
-| `SidebarTooltip` | Aide de libellé repliée avec positionnement adapté au côté. |
-| `SidebarNavigationSubList` | Liste de navigation imbriquée. |
+<AnatomyInspector
+  parts={[
+    ["Sidebar", "sidebar-root", "Racine Ark Splitter avec les réglages d’une barre à deux panneaux.", 0],
+    ["SidebarPanel", "sidebar-panel", "Panneau de navigation repliable, avec l’identifiant `\"sidebar\"` par défaut.", 1],
+    ["SidebarHeader", "sidebar-header", "Zone supérieure qui ne défile pas.", 2],
+    ["SidebarContent", "sidebar-content", "Zone centrale défilante.", 2],
+    ["SidebarGroup", "sidebar-group", "Section de navigation sémantique.", 3],
+    ["SidebarNavigationButton", "sidebar-navigation-button", "Bouton ou lien `asChild` avec les états active et size.", 4],
+    ["SidebarNavigationBadge", "sidebar-navigation-badge", "Compteur facultatif placé à côté d’un bouton de navigation simple ou imbriqué.", 4],
+    ["SidebarExpandedContent", "sidebar-expanded-content", "Contenu affiché lorsque le panneau est déplié.", 4],
+    ["SidebarCollapsedContent", "sidebar-collapsed-content", "Contenu affiché lorsque le panneau est replié.", 4],
+    ["SidebarNavigationSubList", "sidebar-navigation-sub-list", "Liste de navigation imbriquée.", 4],
+    ["SidebarFooter", "sidebar-footer", "Zone inférieure qui ne défile pas.", 2],
+    ["SidebarResizeTrigger", "sidebar-resize-trigger", "Ligne de poignée accessible pour le redimensionnement à la souris ou au clavier ; elle rend par défaut le `SplitterResizeTriggerIndicator` partagé, et des enfants personnalisés le remplacent.", 1],
+    ["SidebarTrigger", "sidebar-trigger", "Contrôle latéral pour replier ou déplier le panneau.", 1],
+    ["SidebarInset", "sidebar-inset", "Panneau de contenu principal, avec l’identifiant `\"content\"` par défaut.", 1],
+    ["SidebarTooltip", "", "Aide de libellé repliée avec positionnement adapté au côté.", 1],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styles
 
@@ -200,7 +179,11 @@ que les libellés longs soient tronqués et quittent la barre repliée.
 
 ### Variables CSS
 
-<CssPropertiesSection properties={sidebarOverrideCssProperties} />
+Survolez ou sélectionnez une variable pour la voir dans l’aperçu.
+
+<CssPropertiesSection properties={sidebarOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Points d’accroche CSS
 

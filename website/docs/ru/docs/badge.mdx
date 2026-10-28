@@ -5,6 +5,7 @@ description: Небольшая метка для статуса, категор
 ark: https://ark-ui.com/docs/guides/composition#the-ark-factory
 ---
 
+import AnatomyScene from '@/components/examples/badge/basic';
 import * as BadgeDocs from '@/components/examples/badge/css-properties';
 
 <Example name="badge/basic" />
@@ -106,18 +107,17 @@ import * as BadgeDocs from '@/components/examples/badge/css-properties';
 `Badge` - корневой компонент семейства. Публичный API небольшой и включает только
 видимые части.
 
-```text
-Badge
-├─ BadgeLabel (необязательно; используйте явно для усечения)
-├─ BadgeDot (необязательно)
-└─ svg-иконка (необязательно)
-```
+Наведите на часть или выберите её, чтобы найти её в превью.
 
-| Часть      | Назначение                                                                              |
-| ---------- | --------------------------------------------------------------------------------------- |
-| `Badge`    | Корневая часть. Отвечает за вариант, границу и отступы.                                |
-| `BadgeLabel` | Явная часть с текстом. Позволяет обрезать составную подпись.                           |
-| `BadgeDot` | Декоративная часть. Рисует круглый индикатор, который наследует цвет текста.             |
+<AnatomyInspector
+  parts={[
+    ["Badge", "badge-root", "Корневая часть. Отвечает за вариант, границу и отступы.", 0],
+    ["BadgeLabel", "badge-label", "Явная часть с текстом. Позволяет обрезать составную подпись.", 1],
+    ["BadgeDot", "badge-dot", "Декоративная часть. Рисует круглый индикатор, который наследует цвет текста.", 1],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Стилизация
 
@@ -133,7 +133,11 @@ CSS-переменных относится к пакетам с CSS Modules; в
 
 ### CSS-переменные
 
-<CssPropertiesSection properties={BadgeDocs.badgeCssProperties} />
+Наведите на переменную или выберите её, чтобы увидеть её в превью.
+
+<CssPropertiesSection properties={BadgeDocs.badgeCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Хуки стилизации
 

@@ -5,6 +5,8 @@ description: Отсчёт прошедшего или оставшегося в�
 ark: https://ark-ui.com/docs/components/timer
 ---
 
+import AnatomyScene from '@/components/examples/timer/basic';
+
 <Example name="timer/basic" />
 
 ## Установка
@@ -86,31 +88,22 @@ ark: https://ark-ui.com/docs/components/timer
 
 ## Анатомия
 
-```text
-Timer
-├─ TimerArea
-│  ├─ TimerItem
-│  └─ TimerSeparator
-└─ TimerControl
-   └─ TimerActionTrigger
+Наведите на часть или выберите её, чтобы найти её в превью.
 
-TimerRootProvider
-└─ то же дерево, подключённое к состоянию из `useTimer()`
-
-TimerSegments
-└─ TimerArea со стандартными элементами TimerItem и TimerSeparator
-```
-
-| Элемент                 | Назначение                                                               |
-| ----------------------- | ------------------------------------------------------------------------ |
-| `Timer`  | Управляет состоянием таймера Ark, его ID, интервалом и обратными вызовами. |
-| `TimerRootProvider`    | Подключает элементы к состоянию, созданному с помощью `useTimer()`.      |
-| `TimerSegments`        | Собирает стандартные единицы времени и разделители.                      |
-| `TimerArea`            | Группирует отображаемые значения времени.                                |
-| `TimerItem`            | Отображает одну отформатированную единицу времени, например `hours`, `minutes` или `seconds`. |
-| `TimerSeparator`       | Отображает разделитель между единицами времени.                          |
-| `TimerControl`         | Группирует триггеры действий.                                             |
-| `TimerActionTrigger`   | Запускает действие `start`, `pause`, `resume`, `reset` или `restart`.    |
+<AnatomyInspector
+  parts={[
+    ["Timer", "timer-root", "Управляет состоянием таймера Ark, его ID, интервалом и обратными вызовами.", 0],
+    ["TimerArea", "timer-area", "Группирует отображаемые значения времени.", 1],
+    ["TimerItem", "timer-item", "Отображает одну отформатированную единицу времени, например `hours`, `minutes` или `seconds`.", 2],
+    ["TimerSeparator", "timer-separator", "Отображает разделитель между единицами времени.", 2],
+    ["TimerControl", "timer-control", "Группирует триггеры действий.", 1],
+    ["TimerActionTrigger", "timer-action-trigger", "Запускает действие `start`, `pause`, `resume`, `reset` или `restart`.", 2],
+    ["TimerRootProvider", "timer-root-provider", "Подключает элементы к состоянию, созданному с помощью `useTimer()`.", 0],
+    ["TimerSegments", "", "Собирает стандартные единицы времени и разделители.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Стилизация
 

@@ -5,6 +5,7 @@ description: Листание слайдов кнопками, индикато�
 ark: https://ark-ui.com/docs/components/carousel
 ---
 
+import AnatomyScene from '@/components/examples/carousel/basic';
 import * as CarouselDocs from '@/components/examples/carousel/css-properties';
 
 <Example name="carousel/basic" />
@@ -170,34 +171,25 @@ Carousel не пробрасывается через этот путь комп
 
 ## Анатомия
 
-```text
-Carousel
-├─ CarouselItemGroup
-│  └─ CarouselItem[index]
-├─ CarouselControl
-│  ├─ CarouselPrevTrigger
-│  └─ CarouselNextTrigger
-├─ CarouselIndicatorGroup
-│  └─ CarouselIndicator[index]
-└─ CarouselProgressText
+Наведите на часть или выберите её, чтобы найти её в превью.
 
-CarouselRootProvider
-└─ та же структура частей, подключённая к хранилищу useCarousel()
-```
-
-| Элемент                   | Назначение                                                        |
-| ------------------------- | ----------------------------------------------------------------- |
-| `Carousel`                | Управляет состоянием, навигацией и коллекцией слайдов.            |
-| `CarouselRootProvider`    | Подключает части к состоянию, созданному через `useCarousel()`.   |
-| `CarouselControl`           | Контейнер для кнопок навигации и других элементов управления.    |
-| `CarouselItemGroup`         | Лента слайдов, содержащая части `CarouselItem`.                 |
-| `CarouselItem`              | Отдельный слайд со стабильным `index`.                            |
-| `CarouselPrevTrigger`       | Кнопка перехода на предыдущую страницу.                          |
-| `CarouselNextTrigger`       | Кнопка перехода на следующую страницу.                           |
-| `CarouselIndicators`        | Компонент moduix для стандартных точек страниц.                  |
-| `CarouselIndicatorGroup`    | Контейнер для пользовательских индикаторов страниц.              |
-| `CarouselIndicator`         | Кнопка перехода на страницу с указанным индексом.                |
-| `CarouselProgressText`      | Текст с номером текущей страницы и общим числом страниц.          |
+<AnatomyInspector
+  parts={[
+    ["Carousel", "carousel-root", "Управляет состоянием, навигацией и коллекцией слайдов.", 0],
+    ["CarouselItemGroup", "carousel-item-group", "Лента слайдов, содержащая части `CarouselItem`.", 1],
+    ["CarouselItem", "carousel-item", "Отдельный слайд со стабильным `index`.", 2],
+    ["CarouselControl", "carousel-control", "Контейнер для кнопок навигации и других элементов управления.", 1],
+    ["CarouselPrevTrigger", "carousel-prev-trigger", "Кнопка перехода на предыдущую страницу.", 2],
+    ["CarouselNextTrigger", "carousel-next-trigger", "Кнопка перехода на следующую страницу.", 2],
+    ["CarouselIndicatorGroup", "carousel-indicator-group", "Контейнер для пользовательских индикаторов страниц.", 1],
+    ["CarouselIndicator", "carousel-indicator", "Кнопка перехода на страницу с указанным индексом.", 2],
+    ["CarouselIndicators", "", "Компонент moduix для стандартных точек страниц.", 3],
+    ["CarouselProgressText", "carousel-progress-text", "Текст с номером текущей страницы и общим числом страниц.", 1],
+    ["CarouselRootProvider", "carousel-root-provider", "Подключает части к состоянию, созданному через `useCarousel()`.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Стилизация
 
@@ -209,7 +201,11 @@ utility-классы и переопределения через классы �
 
 ### CSS-переменные
 
-<CssPropertiesSection properties={CarouselDocs.carouselOverrideCssProperties} />
+Наведите на переменную или выберите её, чтобы увидеть её в превью.
+
+<CssPropertiesSection properties={CarouselDocs.carouselOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Хуки стилизации
 

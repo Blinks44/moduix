@@ -5,6 +5,7 @@ description: Делит раскладку на панели, размер ко�
 ark: https://ark-ui.com/docs/components/splitter
 ---
 
+import AnatomyScene from '@/components/examples/splitter/basic';
 import { CssPropertiesSection } from '@/components/mdx/Components';
 import { splitterOverrideCssProperties } from '@/components/examples/splitter/css-properties';
 
@@ -109,24 +110,19 @@ import { splitterOverrideCssProperties } from '@/components/examples/splitter/cs
 
 ## Анатомия
 
-```text
-Splitter
-├─ SplitterPanel[id]
-├─ SplitterResizeTrigger[id="panel-a:panel-b"]
-│  └─ SplitterResizeTriggerIndicator (по умолчанию, настраивается)
-└─ SplitterPanel[id]
+Наведите на часть или выберите её, чтобы найти её в превью.
 
-SplitterRootProvider
-└─ то же дерево панелей, подключённое к состоянию useSplitter()
-```
-
-| Часть                              | Назначение                                                                     |
-| ---------------------------------- | ------------------------------------------------------------------------------ |
-| `Splitter`                    | Управляет панелями, их размерами, ориентацией, колбэками и состоянием.          |
-| `SplitterPanel`                   | Область с изменяемым размером. Её `id` должен совпадать с записью в `panels`.  |
-| `SplitterResizeTrigger`           | Доступная кнопка для изменения размера двух соседних панелей.                  |
-| `SplitterResizeTriggerIndicator`  | Стандартная визуальная ручка. Дочерние элементы триггера заменяют её.           |
-| `SplitterRootProvider`            | Отображает те же части, используя состояние из `useSplitter()`.                |
+<AnatomyInspector
+  parts={[
+    ["Splitter", "splitter-root", "Управляет панелями, их размерами, ориентацией, колбэками и состоянием.", 0],
+    ["SplitterPanel", "splitter-panel", "Область с изменяемым размером. Её `id` должен совпадать с записью в `panels`.", 1],
+    ["SplitterResizeTrigger", "splitter-resize-trigger", "Доступная кнопка для изменения размера двух соседних панелей.", 1],
+    ["SplitterResizeTriggerIndicator", "splitter-resize-trigger-indicator", "Стандартная визуальная ручка. Дочерние элементы триггера заменяют её.", 2],
+    ["SplitterRootProvider", "splitter-root-provider", "Отображает те же части, используя состояние из `useSplitter()`.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Стилизация
 
@@ -146,7 +142,11 @@ Ark ставит каждой панели inline `overflow: hidden`, чтобы
 
 ### CSS-переменные
 
-<CssPropertiesSection properties={splitterOverrideCssProperties} />
+Наведите на переменную или выберите её, чтобы увидеть её в превью.
+
+<CssPropertiesSection properties={splitterOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Хуки стилизации
 

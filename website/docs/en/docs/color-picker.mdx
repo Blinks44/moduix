@@ -5,6 +5,7 @@ description: Choose a color with an area, channel sliders, inputs, and swatches.
 ark: https://ark-ui.com/docs/components/color-picker
 ---
 
+import AnatomyScene from '@/components/examples/color-picker/anatomy';
 import * as ColorPickerDocs from '@/components/examples/color-picker/css-properties';
 
 <Example name="color-picker/basic" />
@@ -161,54 +162,33 @@ template `ref` on a part and read the rendered element through `$el`.
 
 ## Anatomy
 
-```text
-ColorPicker
-├─ ColorPickerLabel
-├─ ColorPickerControl
-│  ├─ ColorPickerChannelInput[channel]
-│  └─ ColorPickerTrigger
-│     └─ ColorPickerValueSwatch
-├─ Overlay subtree (automatically portalled)
-│  └─ ColorPickerPositioner
-│     └─ ColorPickerContent
-│        ├─ ColorPickerArea
-│        │  ├─ ColorPickerAreaBackground
-│        │  └─ ColorPickerAreaThumb
-│        ├─ ColorPickerEyeDropperTrigger
-│        ├─ ColorPickerChannelSlider[channel]
-│        │  ├─ ColorPickerTransparencyGrid
-│        │  ├─ ColorPickerChannelSliderTrack
-│        │  └─ ColorPickerChannelSliderThumb
-│        ├─ ColorPickerSwatchGroup
-│        │  └─ ColorPickerSwatchTrigger[value]
-│        │     └─ ColorPickerSwatch[value]
-│        │        └─ ColorPickerSwatchIndicator
-│        └─ ColorPickerView[format]
-│           └─ ColorPickerChannelInput[channel]
-└─ ColorPickerHiddenInput (explicit)
-```
+Hover or focus a part to find it in the preview.
 
-| Part                               | Role                                                                   |
-| ---------------------------------- | ---------------------------------------------------------------------- |
-| `ColorPicker` | Owns color value, format, popup state, and form integration.           |
-| `ColorPickerHiddenInput` | Native Ark form control; compose explicitly as described below. |
-| `ColorPickerLabel` | Accessible label for the visible picker controls. |
-| `ColorPickerControl`              | Groups visible inputs and trigger.                                     |
-| `ColorPickerTrigger`              | Button that opens the popup and renders the current swatch by default. |
-| `ColorPickerPositioner` | Floating layer that positions the popup and exposes Ark positioning CSS variables. |
-| `ColorPickerContent`              | Actual Ark popup content part.                                         |
-| `ColorPickerArea`                 | Two-dimensional color interaction surface.                             |
-| `ColorPickerAreaBackground` | Background layer that captures pointer input for the color area. |
-| `ColorPickerEyeDropperTrigger` | Samples a color from the screen; rendered only where the browser supports the EyeDropper API. |
-| `ColorPickerChannelSlider`        | One-dimensional channel control for hue, alpha, or other channels.     |
-| `ColorPickerTransparencyGrid` | Checkerboard backdrop that makes alpha visible behind a channel slider track. Swatches draw their own checkerboard. |
-| `ColorPickerSliders`              | Styled hue and alpha slider pair.                                      |
-| `ColorPickerChannelInput`         | Text or numeric input for a specific color channel.                    |
-| `ColorPickerSwatchTrigger`        | Selectable preset color button.                                        |
-| `ColorPickerSwatch` | Colored surface rendered inside a swatch trigger or value swatch. |
-| `ColorPickerSwatchIndicator` | Optional marker inside a swatch, such as a check for the selected preset. |
-| `ColorPickerValueSwatch`          | Visual swatch for the current value.                                   |
-| `ColorPickerValueText` | Read-only text of the formatted value. |
+<AnatomyInspector
+  parts={[
+    ["ColorPicker", "color-picker-root", "Owns color value, format, popup state, and form integration.", 0],
+    ["ColorPickerLabel", "color-picker-label", "Accessible label for the visible picker controls.", 1],
+    ["ColorPickerControl", "color-picker-control", "Groups visible inputs and trigger.", 1],
+    ["ColorPickerChannelInput", "color-picker-channel-input", "Text or numeric input for a specific color channel.", 2],
+    ["ColorPickerTrigger", "color-picker-trigger", "Button that opens the popup and renders the current swatch by default.", 2],
+    ["ColorPickerValueSwatch", "color-picker-value-swatch", "Visual swatch for the current value.", 3],
+    ["ColorPickerPositioner", "color-picker-positioner", "Floating layer that positions the popup and exposes Ark positioning CSS variables.", 1],
+    ["ColorPickerContent", "color-picker-content", "Actual Ark popup content part.", 2],
+    ["ColorPickerArea", "color-picker-area", "Two-dimensional color interaction surface.", 3],
+    ["ColorPickerAreaBackground", "color-picker-area-background", "Background layer that captures pointer input for the color area.", 4],
+    ["ColorPickerEyeDropperTrigger", "color-picker-eye-dropper-trigger", "Samples a color from the screen; rendered only where the browser supports the EyeDropper API.", 3],
+    ["ColorPickerChannelSlider", "color-picker-channel-slider", "One-dimensional channel control for hue, alpha, or other channels.", 3],
+    ["ColorPickerTransparencyGrid", "color-picker-transparency-grid", "Checkerboard backdrop that makes alpha visible behind a channel slider track. Swatches draw their own checkerboard.", 4],
+    ["ColorPickerSwatchTrigger", "color-picker-swatch-trigger", "Selectable preset color button.", 3],
+    ["ColorPickerSwatch", "color-picker-swatch", "Colored surface rendered inside a swatch trigger or value swatch.", 4],
+    ["ColorPickerSwatchIndicator", "color-picker-swatch-indicator", "Optional marker inside a swatch, such as a check for the selected preset.", 5],
+    ["ColorPickerHiddenInput", "", "Native Ark form control; compose explicitly as described below.", 1],
+    ["ColorPickerSliders", "color-picker-sliders", "Styled hue and alpha slider pair.", 1],
+    ["ColorPickerValueText", "color-picker-value-text", "Read-only text of the formatted value.", 1],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 `ColorPickerRootProvider`, `parseColor`, `useColorPicker`, and `useColorPickerContext` cover the
 normal advanced state path.
@@ -218,7 +198,11 @@ normal advanced state path.
 Use `className` in React or `class` in Solid and Vue on exported parts. Tailwind variants use native utilities and consumer classes; CSS Modules variants expose a short list of `--moduix-color-picker-*` variables for sizes that several parts or default children share; colors, spacing, and typography follow foundation tokens, so change them with a class on the part. Both styling tracks expose stable `data-slot="color-picker-*"` hooks and Ark `data-scope` / `data-part` attributes.
 ### CSS variables
 
-<CssPropertiesSection properties={ColorPickerDocs.colorPickerOverrideCssProperties} />
+Hover or focus a variable to see it in the preview.
+
+<CssPropertiesSection properties={ColorPickerDocs.colorPickerOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Styling hooks
 

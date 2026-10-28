@@ -5,6 +5,7 @@ description: Pick an angle from 0 to 360 degrees on a circular dial.
 ark: https://ark-ui.com/docs/components/angle-slider
 ---
 
+import AnatomyScene from '@/components/examples/angle-slider/basic';
 import * as AngleSliderDocs from '@/components/examples/angle-slider/css-properties';
 
 <Example name="angle-slider/basic" />
@@ -122,33 +123,25 @@ tree, or set `form` on `AngleSliderHiddenInput` when the form is elsewhere.
 
 ## Anatomy
 
-```text
-AngleSlider
-├─ AngleSliderLabel
-├─ AngleSliderDial
-│  ├─ AngleSliderMarks (optional)
-│  │  └─ AngleSliderMarker[value]
-│  ├─ AngleSliderValueText
-│  └─ AngleSliderThumb
-└─ AngleSliderHiddenInput (explicit)
+Hover or focus a part to find it in the preview.
 
-AngleSliderRootProvider
-└─ same part tree connected to a useAngleSlider() store
-```
-
-| Part                               | Role                                                                  |
-| ---------------------------------- | --------------------------------------------------------------------- |
-| `AngleSlider` | Styled root that owns controlled or uncontrolled slider state.        |
-| `AngleSliderRootProvider`         | Connects the parts to state created with `useAngleSlider()`.          |
-| `AngleSliderLabel`                | Associates a visible label with the slider.                           |
-| `AngleSliderControl`              | Provides the circular pointer interaction area.                       |
-| `AngleSliderDial`                 | Convenience composition of `Control`, the centered `ValueText`, and `Thumb`. |
-| `AngleSliderThumb`                | Focusable circular handle that rides the track at the current angle.  |
-| `AngleSliderMarkerGroup`          | Contains optional reference markers.                                  |
-| `AngleSliderMarker`               | Places a numeric marker around the dial.                               |
-| `AngleSliderMarks`                | Convenience composition that creates markers from a `values` array.    |
-| `AngleSliderValueText`             | Displays the current value in degrees; `AngleSliderDial` centers it in the dial. |
-| `AngleSliderHiddenInput`           | Native form control; compose it explicitly when submitting the value. |
+<AnatomyInspector
+  parts={[
+    ["AngleSlider", "angle-slider-root", "Styled root that owns controlled or uncontrolled slider state.", 0],
+    ["AngleSliderLabel", "angle-slider-label", "Associates a visible label with the slider.", 1],
+    ["AngleSliderDial", "", "Convenience composition of `Control`, the centered `ValueText`, and `Thumb`.", 1],
+    ["AngleSliderMarks", "", "Convenience composition that creates markers from a `values` array.", 2],
+    ["AngleSliderMarker", "angle-slider-marker", "Places a numeric marker around the dial.", 3],
+    ["AngleSliderMarkerGroup", "angle-slider-marker-group", "Contains optional reference markers.", 4],
+    ["AngleSliderValueText", "angle-slider-value-text", "Displays the current value in degrees; `AngleSliderDial` centers it in the dial.", 2],
+    ["AngleSliderThumb", "angle-slider-thumb", "Focusable circular handle that rides the track at the current angle.", 2],
+    ["AngleSliderHiddenInput", "", "Native form control; compose it explicitly when submitting the value.", 1],
+    ["AngleSliderControl", "angle-slider-control", "Provides the circular pointer interaction area.", 1],
+    ["AngleSliderRootProvider", "angle-slider-root-provider", "Connects the parts to state created with `useAngleSlider()`.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styling
 
@@ -160,7 +153,11 @@ variables and the listed data hooks remain available in both styling tracks.
 
 ### CSS variables
 
-<CssPropertiesSection properties={AngleSliderDocs.angleSliderCssProperties} />
+Hover or focus a variable to see it in the preview.
+
+<CssPropertiesSection properties={AngleSliderDocs.angleSliderCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Styling hooks
 

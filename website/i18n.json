@@ -126,11 +126,6 @@
     "ru": "Открыть в формате Markdown",
     "fr": "Voir au format Markdown"
   },
-  "primitiveReferenceTitle": {
-    "en": "Ark UI API reference",
-    "ru": "Документация Ark UI",
-    "fr": "Référence de l’API Ark UI"
-  },
   "categoryForms": {
     "en": "Forms",
     "ru": "Формы",
@@ -266,25 +261,20 @@
     "ru": "Показать код",
     "fr": "Afficher le code"
   },
-  "primitiveReferenceDescription": {
-    "en": "For behavior, accessibility guidance, and low-level props, see the Ark UI reference.",
-    "ru": "Описание поведения, требований доступности и низкоуровневых свойств смотрите в документации Ark UI.",
-    "fr": "La documentation Ark UI décrit le comportement, l’accessibilité et les propriétés de bas niveau."
-  },
-  "primitiveReferenceLink": {
-    "en": "Open",
-    "ru": "Открыть",
-    "fr": "Ouvrir"
-  },
   "cssProperty": {
-    "en": "Property",
-    "ru": "Свойство",
-    "fr": "Propriété"
+    "en": "Variable",
+    "ru": "Переменная",
+    "fr": "Variable"
   },
   "cssDefault": {
     "en": "Default",
     "ru": "По умолчанию",
     "fr": "Par défaut"
+  },
+  "cssDescription": {
+    "en": "Description",
+    "ru": "Описание",
+    "fr": "Description"
   },
   "themePreviewLight": {
     "en": "Light",
@@ -781,61 +771,6 @@
     "ru": "Вертикальное смещение при скрытии",
     "fr": "Décalage vertical à la sortie"
   },
-  "ownershipLayersBehavior": {
-    "en": "Behavior",
-    "ru": "Поведение",
-    "fr": "Comportement"
-  },
-  "ownershipLayersPresentation": {
-    "en": "Styling",
-    "ru": "Стилизация",
-    "fr": "Styles"
-  },
-  "ownershipLayersOwnership": {
-    "en": "Installation",
-    "ru": "Установка",
-    "fr": "Installation"
-  },
-  "ownershipLayersStyling": {
-    "en": "CSS Modules or Tailwind + tokens",
-    "ru": "CSS Modules или Tailwind + токены",
-    "fr": "CSS Modules ou Tailwind + tokens"
-  },
-  "ownershipLayersPackageSource": {
-    "en": "Package or source",
-    "ru": "Пакет или исходный код",
-    "fr": "Paquet ou code source"
-  },
-  "ownershipLayersEyebrow": {
-    "en": "How moduix works",
-    "ru": "Как устроен moduix",
-    "fr": "Comment fonctionne moduix"
-  },
-  "ownershipLayersTitle": {
-    "en": "Behavior, styles, and installation",
-    "ru": "Поведение, стили и установка",
-    "fr": "Comportement, styles et installation"
-  },
-  "ownershipLayersSummary": {
-    "en": "Ark UI handles keyboard interaction and focus. moduix adds styles and shared tokens. You choose the theme and compose the parts in your application.",
-    "ru": "Ark UI отвечает за управление с клавиатуры и фокус. moduix добавляет стили и общие токены. Вы выбираете тему и собираете компоненты из отдельных частей в своём приложении.",
-    "fr": "Ark UI gère les interactions au clavier et le focus. moduix ajoute les styles et les tokens partagés. Vous choisissez le thème et assemblez les parties dans votre application."
-  },
-  "ownershipLayersTokenFirstStyling": {
-    "en": "Token-first styling",
-    "ru": "Стилизация на основе токенов",
-    "fr": "Styles pilotés par des tokens"
-  },
-  "ownershipLayersThemeable": {
-    "en": "themeable",
-    "ru": "настраивается темой",
-    "fr": "personnalisable par thème"
-  },
-  "ownershipLayersNote": {
-    "en": "Semantic tokens set shared colors and sizes. Family tokens apply to related controls. CSS Modules also provide variables for individual components.",
-    "ru": "Семантические токены задают общие цвета и размеры. Токены семейства применяются к связанным элементам управления. В CSS Modules также есть переменные для отдельных компонентов.",
-    "fr": "Les tokens sémantiques définissent les couleurs et les dimensions communes. Les tokens de famille s’appliquent aux contrôles associés. CSS Modules fournit aussi des variables propres à chaque composant."
-  },
   "tokensOverviewSemanticVariables": {
     "en": "Components read semantic variables while themes override the raw palette.",
     "ru": "Компоненты используют семантические переменные, а темы переопределяют исходную палитру.",
@@ -1325,5 +1260,55 @@
     "en": "All {count} setup guides",
     "ru": "Все {count} руководств по настройке",
     "fr": "Les {count} guides d’installation"
+  },
+  "anatomyPart": {
+    "en": "Part",
+    "ru": "Часть",
+    "fr": "Partie"
+  },
+  "anatomyRole": {
+    "en": "Role",
+    "ru": "Роль",
+    "fr": "Rôle"
+  },
+  "anatomyNoElement": {
+    "en": "no element",
+    "ru": "без элемента",
+    "fr": "sans élément"
+  },
+  "cssGroupColor": {
+    "en": "Color",
+    "ru": "Цвет",
+    "fr": "Couleur"
+  },
+  "cssGroupSize": {
+    "en": "Size and spacing",
+    "ru": "Размеры и отступы",
+    "fr": "Taille et espacement"
+  },
+  "cssGroupTypography": {
+    "en": "Typography",
+    "ru": "Типографика",
+    "fr": "Typographie"
+  },
+  "cssGroupShape": {
+    "en": "Shape",
+    "ru": "Форма",
+    "fr": "Forme"
+  },
+  "cssGroupOther": {
+    "en": "Other",
+    "ru": "Прочее",
+    "fr": "Autres"
+  },
+  "cssPerVariant": {
+    "en": "per variant",
+    "ru": "у каждого variant",
+    "fr": "selon variant"
+  },
+  "cssPerSize": {
+    "en": "per size",
+    "ru": "у каждого size",
+    "fr": "selon size"
   }
 }

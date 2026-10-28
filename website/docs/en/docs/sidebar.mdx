@@ -5,6 +5,7 @@ description: Build app navigation that resizes and collapses to icons.
 ark: https://ark-ui.com/docs/components/splitter
 ---
 
+import AnatomyScene from '@/components/examples/sidebar/basic';
 import { sidebarOverrideCssProperties } from '@/components/examples/sidebar/css-properties';
 
 <Example name="sidebar/basic" />
@@ -123,51 +124,29 @@ emitting `@collapse`. The model and `useSidebar().collapsed` still reflect the n
 
 ## Anatomy
 
-```text
-Sidebar
-├─ SidebarPanel[id="sidebar"]
-│  ├─ SidebarHeader
-│  │  ├─ SidebarLabel
-│  │  └─ SidebarInput
-│  ├─ SidebarContent
-│  │  └─ SidebarGroup
-│  │     ├─ SidebarGroupHeader
-│  │     │  ├─ SidebarGroupLabel
-│  │     │  └─ SidebarGroupAction
-│  │     └─ SidebarNavigationList
-│  │        └─ SidebarNavigationItem
-│  │           ├─ SidebarNavigationButton
-│  │           ├─ SidebarNavigationBadge (optional)
-│  │           ├─ SidebarExpandedContent
-│  │           ├─ SidebarCollapsedContent
-│  │           └─ SidebarNavigationSubList
-│  │              └─ SidebarNavigationSubItem
-│  │                 ├─ SidebarNavigationSubButton
-│  │                 └─ SidebarNavigationBadge (optional)
-│  └─ SidebarFooter
-│     └─ SidebarSeparator
-├─ SidebarResizeTrigger
-├─ SidebarTrigger
-└─ SidebarInset[id="content"]
-```
+Hover or focus a part to find it in the preview.
 
-| Part | Role |
-| --- | --- |
-| `Sidebar` | Ark Splitter root with defaults for a two-panel sidebar. |
-| `SidebarPanel` | Collapsible navigation panel; its default id is `"sidebar"`. |
-| `SidebarInset` | Main content panel; its default id is `"content"`. |
-| `SidebarResizeTrigger` | Accessible handle line for pointer and keyboard resizing; it renders the shared `SplitterResizeTriggerIndicator` by default, and custom children replace it. |
-| `SidebarTrigger` | Side-aware control for collapsing and expanding the panel. |
-| `SidebarHeader` | Non-scrolling top region. |
-| `SidebarContent` | Scrolling middle region. |
-| `SidebarFooter` | Non-scrolling bottom region. |
-| `SidebarGroup` | Semantic navigation section. |
-| `SidebarNavigationButton` | Button or `asChild` link with active and size states. |
-| `SidebarNavigationBadge` | Optional counter beside a simple navigation button or sub-button. |
-| `SidebarExpandedContent` | Content shown while the panel is expanded. |
-| `SidebarCollapsedContent` | Content shown while the panel is collapsed. |
-| `SidebarTooltip` | Collapsed-only label helper with side-aware placement. |
-| `SidebarNavigationSubList` | Nested navigation list. |
+<AnatomyInspector
+  parts={[
+    ["Sidebar", "sidebar-root", "Ark Splitter root with defaults for a two-panel sidebar.", 0],
+    ["SidebarPanel", "sidebar-panel", "Collapsible navigation panel; its default id is `\"sidebar\"`.", 1],
+    ["SidebarHeader", "sidebar-header", "Non-scrolling top region.", 2],
+    ["SidebarContent", "sidebar-content", "Scrolling middle region.", 2],
+    ["SidebarGroup", "sidebar-group", "Semantic navigation section.", 3],
+    ["SidebarNavigationButton", "sidebar-navigation-button", "Button or `asChild` link with active and size states.", 4],
+    ["SidebarNavigationBadge", "sidebar-navigation-badge", "Optional counter beside a simple navigation button or sub-button.", 4],
+    ["SidebarExpandedContent", "sidebar-expanded-content", "Content shown while the panel is expanded.", 4],
+    ["SidebarCollapsedContent", "sidebar-collapsed-content", "Content shown while the panel is collapsed.", 4],
+    ["SidebarNavigationSubList", "sidebar-navigation-sub-list", "Nested navigation list.", 4],
+    ["SidebarFooter", "sidebar-footer", "Non-scrolling bottom region.", 2],
+    ["SidebarResizeTrigger", "sidebar-resize-trigger", "Accessible handle line for pointer and keyboard resizing; it renders the shared `SplitterResizeTriggerIndicator` by default, and custom children replace it.", 1],
+    ["SidebarTrigger", "sidebar-trigger", "Side-aware control for collapsing and expanding the panel.", 1],
+    ["SidebarInset", "sidebar-inset", "Main content panel; its default id is `\"content\"`.", 1],
+    ["SidebarTooltip", "", "Collapsed-only label helper with side-aware placement.", 1],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styling
 
@@ -194,7 +173,11 @@ truncate and leave the collapsed rail.
 
 ### CSS variables
 
-<CssPropertiesSection properties={sidebarOverrideCssProperties} />
+Hover or focus a variable to see it in the preview.
+
+<CssPropertiesSection properties={sidebarOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Styling hooks
 

@@ -5,6 +5,7 @@ description: Основное действие и меню связанных д
 ark: https://ark-ui.com/docs/guides/composition#the-ark-factory
 ---
 
+import AnatomyScene from '@/components/examples/split-button/anatomy';
 import * as SplitButtonDocs from '@/components/examples/split-button/css-properties';
 
 <Example name="split-button/basic" />
@@ -110,25 +111,19 @@ import * as SplitButtonDocs from '@/components/examples/split-button/css-propert
 
 ## Анатомия
 
-```text
-SplitButton
-├─ SplitButtonAction
-├─ SplitButtonTrigger
-└─ Ветка всплывающего меню (по умолчанию в портале)
-   └─ SplitButtonPositioner
-      └─ SplitButtonContent
-         ├─ MenuItem
-         ├─ MenuSeparator
-         └─ другие общие части Menu
-```
+Наведите на часть или выберите её, чтобы найти её в превью.
 
-| Часть                             | Назначение                                                               |
-| -------------------------------- | ------------------------------------------------------------------------ |
-| `SplitButton`                    | Корень, управляющий состоянием меню и семантической группой двух кнопок. |
-| `SplitButtonAction`             | Основное действие `Button`.                                             |
-| `SplitButtonTrigger`            | Триггер Ark Menu в виде кнопки moduix; по умолчанию показывает шеврон.  |
-| `SplitButtonPositioner`         | Размещает всплывающее меню Ark.                                          |
-| `SplitButtonContent`            | Поверхность содержимого Ark Menu для общих частей `MenuItem` и `MenuItemGroup`.              |
+<AnatomyInspector
+  parts={[
+    ["SplitButton", "split-button-root", "Корень, управляющий состоянием меню и семантической группой двух кнопок.", 0],
+    ["SplitButtonAction", "split-button-action", "Основное действие `Button`.", 1],
+    ["SplitButtonTrigger", "split-button-trigger", "Триггер Ark Menu в виде кнопки moduix; по умолчанию показывает шеврон.", 1],
+    ["SplitButtonPositioner", "split-button-positioner", "Размещает всплывающее меню Ark.", 1],
+    ["SplitButtonContent", "split-button-content", "Поверхность содержимого Ark Menu для общих частей `MenuItem` и `MenuItemGroup`.", 2],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Стилизация
 
@@ -142,7 +137,11 @@ Tailwind настраиваются обычными утилитами и по�
 
 ### CSS-переменные
 
-<CssPropertiesSection properties={SplitButtonDocs.splitButtonCssProperties} />
+Наведите на переменную или выберите её, чтобы увидеть её в превью.
+
+<CssPropertiesSection properties={SplitButtonDocs.splitButtonCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Хуки стилизации
 

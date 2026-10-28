@@ -5,6 +5,7 @@ description: Afficher une liste visible d’options pour en choisir une ou plusi
 ark: https://ark-ui.com/docs/components/listbox
 ---
 
+import AnatomyScene from '@/components/examples/listbox/basic';
 import * as ListboxDocs from '@/components/examples/listbox/css-properties';
 
 <Example name="listbox/basic" />
@@ -141,50 +142,31 @@ afficher un résumé des valeurs sélectionnées.
 
 ## Anatomie
 
-```text
-Listbox
-├─ ListboxLabel
-├─ ListboxFilter
-│  ├─ ListboxInput
-│  └─ ListboxClearTrigger
-├─ ListboxContent
-│  ├─ ListboxEmpty
-│  ├─ ListboxItemGroup
-│  │  ├─ ListboxItemGroupLabel
-│  │  └─ ListboxItem[item]
-│  │     ├─ ListboxItemText
-│  │     └─ ListboxItemIndicator
-│  └─ ListboxItem[item]
-│     ├─ ListboxItemText
-│     │  └─ ListboxItemTextContent (facultatif)
-│     │     ├─ ListboxItemTextIcon (facultatif)
-│     │     └─ ListboxItemTextLabel (facultatif)
-│     └─ ListboxItemIndicator
-└─ ListboxValueText
+Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
 
-ListboxRootProvider
-└─ même arbre d’éléments relié à un store useListbox()
-```
-
-| Partie                     | Rôle                                                                                     |
-| ------------------------- | ---------------------------------------------------------------------------------------- |
-| `Listbox` | Gère la collection, les valeurs sélectionnées, l’élément mis en évidence et le mode de sélection. |
-| `ListboxRootProvider`     | Rend l’arbre de la listbox à partir de l’état renvoyé par `useListbox`.                   |
-| `ListboxLabel`            | Libellé qui fournit un nom accessible à la listbox.                                      |
-| `ListboxFilter`           | Conteneur visuel pour un champ de filtrage avec l’icône de recherche par défaut. Placez-le avant `ListboxContent`. |
-| `ListboxInput`            | Champ de filtrage, généralement placé dans `ListboxFilter`.                                    |
-| `ListboxClearTrigger`     | Bouton qui réinitialise la requête de filtrage, avec l’icône de fermeture par défaut.   |
-| `ListboxContent`          | Conteneur focalisable qui gère la navigation au clavier.                                |
-| `ListboxEmpty`            | Contenu affiché lorsque la collection filtrée ne contient aucun élément.                 |
-| `ListboxItemGroup`        | Conteneur pour des éléments liés de la collection.                                      |
-| `ListboxItemGroupLabel`   | Libellé d’un groupe d’éléments.                                                          |
-| `ListboxItem`             | Élément sélectionnable. Transmettez-lui l’élément de la collection via `item`.           |
-| `ListboxItemText`         | Texte utilisé pour l’affichage et l’accessibilité.                                      |
-| `ListboxItemTextContent`  | Conteneur facultatif pour organiser une icône et du texte dans `ListboxItemText`.               |
-| `ListboxItemTextIcon`     | Conteneur facultatif pour une icône dans `ListboxItemTextContent`.                              |
-| `ListboxItemTextLabel`    | Conteneur du texte dans `ListboxItemTextContent`, qui peut tronquer les libellés longs sans perturber la mise en page. |
-| `ListboxItemIndicator`    | Indicateur de sélection avec l’icône de coche moduix par défaut.                         |
-| `ListboxValueText`        | Résumé des valeurs sélectionnées.                                                        |
+<AnatomyInspector
+  parts={[
+    ["Listbox", "listbox-root", "Gère la collection, les valeurs sélectionnées, l’élément mis en évidence et le mode de sélection.", 0],
+    ["ListboxLabel", "listbox-label", "Libellé qui fournit un nom accessible à la listbox.", 1],
+    ["ListboxFilter", "listbox-filter-icon", "Conteneur visuel pour un champ de filtrage avec l’icône de recherche par défaut. Placez-le avant `ListboxContent`.", 1],
+    ["ListboxInput", "listbox-input", "Champ de filtrage, généralement placé dans `ListboxFilter`.", 2],
+    ["ListboxClearTrigger", "listbox-clear-trigger", "Bouton qui réinitialise la requête de filtrage, avec l’icône de fermeture par défaut.", 2],
+    ["ListboxContent", "listbox-content", "Conteneur focalisable qui gère la navigation au clavier.", 1],
+    ["ListboxEmpty", "listbox-empty", "Contenu affiché lorsque la collection filtrée ne contient aucun élément.", 2],
+    ["ListboxItemGroup", "listbox-item-group", "Conteneur pour des éléments liés de la collection.", 2],
+    ["ListboxItemGroupLabel", "listbox-item-group-label", "Libellé d’un groupe d’éléments.", 3],
+    ["ListboxItem", "listbox-item", "Élément sélectionnable. Transmettez-lui l’élément de la collection via `item`.", 3],
+    ["ListboxItemText", "listbox-item-text", "Texte utilisé pour l’affichage et l’accessibilité.", 4],
+    ["ListboxItemIndicator", "listbox-item-indicator", "Indicateur de sélection avec l’icône de coche moduix par défaut.", 4],
+    ["ListboxItemTextContent", "listbox-item-text-content", "Conteneur facultatif pour organiser une icône et du texte dans `ListboxItemText`.", 2],
+    ["ListboxItemTextIcon", "listbox-item-text-icon", "Conteneur facultatif pour une icône dans `ListboxItemTextContent`.", 3],
+    ["ListboxItemTextLabel", "listbox-item-text-label", "Conteneur du texte dans `ListboxItemTextContent`, qui peut tronquer les libellés longs sans perturber la mise en page.", 3],
+    ["ListboxValueText", "listbox-value-text", "Résumé des valeurs sélectionnées.", 1],
+    ["ListboxRootProvider", "listbox-root-provider", "Rend l’arbre de la listbox à partir de l’état renvoyé par `useListbox`.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styles
 
@@ -198,7 +180,11 @@ suivent aussi les variables partagées `--moduix-popup-item-*`, `--moduix-popup-
 
 ### Variables CSS
 
-<CssPropertiesSection properties={ListboxDocs.listboxOverrideCssProperties} />
+Survolez ou sélectionnez une variable pour la voir dans l’aperçu.
+
+<CssPropertiesSection properties={ListboxDocs.listboxOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Points d’accroche CSS
 

@@ -5,6 +5,7 @@ description: Saisir une date dans des segments jour, mois et année selon la loc
 ark: https://ark-ui.com/docs/components/date-input
 ---
 
+import AnatomyScene from '@/components/examples/date-input/basic';
 import * as DateInputDocs from '@/components/examples/date-input/css-properties';
 
 <Example name="date-input/basic" />
@@ -137,37 +138,25 @@ de `DateInputSegments` ne suffit pas.
 
 ## Anatomie
 
-```text
-DateInput
-├─ DateInputLabel
-├─ DateInputControl
-│  ├─ DateInputSegments
-│  └─ DateInputSeparator (facultatif, pour les plages)
-└─ DateInputHiddenInput[index] (explicite, un par date envoyée)
+Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
 
-Personnalisation avancée :
-
-DateInputSegmentGroup
-└─ DateInputSegmentContext
-   └─ DateInputSegment
-
-DateInputRootProvider
-└─ même arborescence reliée à un store useDateInput()
-```
-
-| Partie | Rôle |
-| ---- | ---- |
-| `DateInput` | Gère les valeurs, le formatage selon la locale, le focus des segments et la validation. |
-| `DateInputHiddenInput` | Contrôle de formulaire natif Ark à composer explicitement pour l’envoi. |
-| `DateInputRootProvider` | Relie les parties à l’état créé avec `useDateInput()`. |
-| `DateInputLabel` | Libellé accessible du champ de date. |
-| `DateInputControl` | Cadre visuel autour d’un ou plusieurs groupes de segments. |
-| `DateInputSegmentGroup` | Regroupe les segments d’un index de date. |
-| `DateInputSegment` | Segment modifiable ou littéral fourni par Ark UI. |
-| `DateInputSegments` | Affiche un groupe de segments adapté à la locale pour le cas courant. |
-| `DateInputSeparator` | Texte de présentation entre les groupes d’une plage. |
-| `DateInputContext` | Accès sans rendu à l’état courant du champ. |
-| `DateInputSegmentContext` | Aide au rendu des segments selon la locale. |
+<AnatomyInspector
+  parts={[
+    ["DateInput", "date-input-root", "Gère les valeurs, le formatage selon la locale, le focus des segments et la validation.", 0],
+    ["DateInputLabel", "date-input-label", "Libellé accessible du champ de date.", 1],
+    ["DateInputControl", "date-input-control", "Cadre visuel autour d’un ou plusieurs groupes de segments.", 1],
+    ["DateInputSegments", "", "Affiche un groupe de segments adapté à la locale pour le cas courant.", 2],
+    ["DateInputSeparator", "date-input-separator", "Texte de présentation entre les groupes d’une plage.", 2],
+    ["DateInputHiddenInput", "", "Contrôle de formulaire natif Ark à composer explicitement pour l’envoi.", 1],
+    ["DateInputSegmentGroup", "date-input-segment-group", "Regroupe les segments d’un index de date.", 0],
+    ["DateInputSegmentContext", null, "Aide au rendu des segments selon la locale.", 1],
+    ["DateInputSegment", "date-input-segment", "Segment modifiable ou littéral fourni par Ark UI.", 2],
+    ["DateInputRootProvider", "date-input-root-provider", "Relie les parties à l’état créé avec `useDateInput()`.", 0],
+    ["DateInputContext", null, "Accès sans rendu à l’état courant du champ.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styles
 
@@ -181,7 +170,11 @@ définissez `--moduix-date-input-width: 100%` en CSS Modules ou ajoutez `w-full`
 
 ### Variables CSS
 
-<CssPropertiesSection properties={DateInputDocs.dateInputOverrideCssProperties} />
+Survolez ou sélectionnez une variable pour la voir dans l’aperçu.
+
+<CssPropertiesSection properties={DateInputDocs.dateInputOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Points d’accroche CSS
 

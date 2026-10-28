@@ -5,6 +5,7 @@ description: Choisir une valeur ou une plage en glissant sur une piste.
 ark: https://ark-ui.com/docs/components/slider
 ---
 
+import AnatomyScene from '@/components/examples/slider/basic';
 import * as SliderDocs from '@/components/examples/slider/css-properties';
 
 <Example name="slider/basic" width="sm" />
@@ -191,34 +192,26 @@ retourné, et Vue expose directement le store réactif dans le template.
 
 ## Anatomie
 
-```text
-Slider
-├─ SliderLabel
-├─ SliderValueText
-├─ SliderControl
-│  ├─ SliderTrack
-│  │  └─ SliderRange
-│  └─ SliderThumb[index]
-│     ├─ SliderDraggingIndicator
-│     └─ SliderHiddenInput
-└─ SliderMarkerGroup
-   └─ SliderMarker[value]
-```
+Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
 
-| Partie                                  | Rôle                                                                    |
-| --------------------------------------- | ----------------------------------------------------------------------- |
-| `Slider`               | Racine Ark stylisée pour un état contrôlé ou non contrôlé.              |
-| `SliderHiddenInput` | Champ natif d’Ark ; composition explicite décrite ci-dessous. |
-| `SliderRootProvider`                  | Racine connectée à un état `useSlider` créé à l’extérieur.             |
-| `SliderLabel`                         | Libellé visible du groupe.                                              |
-| `SliderValueText`                     | Texte de la valeur actuelle généré par Ark.                             |
-| `SliderControl`                       | Zone d’interaction au pointeur.                                         |
-| `SliderTrack`                         | Piste visuelle complète.                                                |
-| `SliderRange`                         | Partie remplie entre l’origine configurée et la valeur.                 |
-| `SliderThumb`                         | Poignée du slider qui peut recevoir le focus.                           |
-| `SliderThumbs`                        | Utilitaire moduix qui génère une poignée par valeur.                    |
-| `SliderMarkerGroup` / `SliderMarker` | Groupe facultatif de repères et repère individuel.                      |
-| `SliderDraggingIndicator`             | Bulle de valeur facultative affichée pendant le glissement.             |
+<AnatomyInspector
+  parts={[
+    ["Slider", "slider-root", "Racine Ark stylisée pour un état contrôlé ou non contrôlé.", 0],
+    ["SliderLabel", "slider-label", "Libellé visible du groupe.", 1],
+    ["SliderValueText", "slider-value-text", "Texte de la valeur actuelle généré par Ark.", 1],
+    ["SliderControl", "slider-control", "Zone d’interaction au pointeur.", 1],
+    ["SliderTrack", "slider-track", "Piste visuelle complète.", 2],
+    ["SliderRange", "slider-range", "Partie remplie entre l’origine configurée et la valeur.", 3],
+    ["SliderThumb", "slider-thumb", "Poignée du slider qui peut recevoir le focus.", 2],
+    ["SliderDraggingIndicator", "slider-dragging-indicator", "Bulle de valeur facultative affichée pendant le glissement.", 3],
+    ["SliderHiddenInput", "", "Champ natif d’Ark ; composition explicite décrite ci-dessous.", 3],
+    ["SliderThumbs", "", "Utilitaire moduix qui génère une poignée par valeur.", 3],
+    ["SliderMarkerGroup / SliderMarker", "slider-marker-group", "Groupe facultatif de repères et repère individuel.", 1],
+    ["SliderRootProvider", "slider-root-provider", "Racine connectée à un état `useSlider` créé à l’extérieur.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styles
 
@@ -227,7 +220,11 @@ Personnalisez l’apparence de `Slider` avec `className` (ou `class` dans Vue), 
 
 ### Variables CSS
 
-<CssPropertiesSection properties={SliderDocs.sliderCssProperties} />
+Survolez ou sélectionnez une variable pour la voir dans l’aperçu.
+
+<CssPropertiesSection properties={SliderDocs.sliderCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Points d’accroche CSS
 

@@ -5,6 +5,7 @@ description: Build a site header where items link directly or open panels of lin
 ark: https://ark-ui.com/docs/components/navigation-menu
 ---
 
+import AnatomyScene from '@/components/examples/navigation-menu/anatomy';
 import * as NavigationMenuDocs from '@/components/examples/navigation-menu/css-properties';
 
 <Example name="navigation-menu/basic" />
@@ -78,41 +79,26 @@ triggers only when the child remains one interactive, focusable element.
 
 ## Anatomy
 
-```text
-NavigationMenu
-├─ NavigationMenuList
-│  ├─ NavigationMenuItem[value]
-│  │  └─ NavigationMenuLink
-│  └─ NavigationMenuItem[value]
-│     ├─ NavigationMenuTrigger
-│     ├─ NavigationMenuItemIndicator (optional)
-│     └─ NavigationMenuContent
-│        └─ NavigationMenuLink
-│  └─ NavigationMenuIndicator > NavigationMenuArrow (optional)
-└─ NavigationMenuViewportPositioner (optional)
-   └─ NavigationMenuViewport
+Hover or focus a part to find it in the preview.
 
-NavigationMenuRootProvider
-└─ same part tree connected to a useNavigationMenu() store
-
-NavigationMenuContext
-└─ advanced render-prop access to the current navigation state
-```
-
-| Part | Role |
-| --- | --- |
-| `NavigationMenu` | Root `nav` element that owns the open value, delays, focus behavior, and orientation. |
-| `NavigationMenuRootProvider` | Connects the parts to a store created with `useNavigationMenu()`. |
-| `NavigationMenuContext` | Exposes the current navigation state through a render prop. |
-| `NavigationMenuList` | Groups top-level navigation items. |
-| `NavigationMenuItem` | Requires a unique `value` and connects an item's trigger, content, and links. |
-| `NavigationMenuTrigger` | Button that opens or closes the item's disclosure panel. |
-| `NavigationMenuContent` | Disclosure panel for an item. It can render beside the item or inside a shared `NavigationMenuViewport`. |
-| `NavigationMenuLink` | Anchor for a direct destination or a link inside a disclosure panel. |
-| `NavigationMenuItemIndicator` | Optional visual marker for the current item. |
-| `NavigationMenuIndicator` | Optional marker for the active trigger; render it inside `NavigationMenuList`. Use `NavigationMenuArrow` with a shared `NavigationMenuViewport`. |
-| `NavigationMenuViewportPositioner` | Positions a shared `NavigationMenuViewport`. |
-| `NavigationMenuViewport` | Shared animated surface for the currently open content. |
+<AnatomyInspector
+  parts={[
+    ["NavigationMenu", "navigation-menu-root", "Root `nav` element that owns the open value, delays, focus behavior, and orientation.", 0],
+    ["NavigationMenuList", "navigation-menu-list", "Groups top-level navigation items.", 1],
+    ["NavigationMenuItem", "navigation-menu-item", "Requires a unique `value` and connects an item's trigger, content, and links.", 2],
+    ["NavigationMenuLink", "navigation-menu-link", "Anchor for a direct destination or a link inside a disclosure panel.", 3],
+    ["NavigationMenuTrigger", "navigation-menu-trigger", "Button that opens or closes the item's disclosure panel.", 2],
+    ["NavigationMenuItemIndicator", "navigation-menu-item-indicator", "Optional visual marker for the current item.", 2],
+    ["NavigationMenuContent", "navigation-menu-content", "Disclosure panel for an item. It can render beside the item or inside a shared `NavigationMenuViewport`.", 2],
+    ["NavigationMenuIndicator", "navigation-menu-indicator", "Optional marker for the active trigger; render it inside `NavigationMenuList`. Use `NavigationMenuArrow` with a shared `NavigationMenuViewport`.", 2],
+    ["NavigationMenuViewportPositioner", "navigation-menu-viewport-positioner", "Positions a shared `NavigationMenuViewport`.", 1],
+    ["NavigationMenuViewport", "navigation-menu-viewport", "Shared animated surface for the currently open content.", 2],
+    ["NavigationMenuRootProvider", "navigation-menu-root-provider", "Connects the parts to a store created with `useNavigationMenu()`.", 0],
+    ["NavigationMenuContext", null, "Exposes the current navigation state through a render prop.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styling
 
@@ -126,7 +112,11 @@ attributes and `data-slot` hooks are shared by both styling tracks.
 
 ### CSS variables
 
-<CssPropertiesSection properties={NavigationMenuDocs.navigationMenuOverrideCssProperties} />
+Hover or focus a variable to see it in the preview.
+
+<CssPropertiesSection properties={NavigationMenuDocs.navigationMenuOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Styling hooks
 

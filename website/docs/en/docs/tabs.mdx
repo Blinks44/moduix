@@ -5,6 +5,7 @@ description: Switch between related panels in one area of the page.
 ark: https://ark-ui.com/docs/components/tabs
 ---
 
+import AnatomyScene from '@/components/examples/tabs/basic';
 import * as TabsDocs from '@/components/examples/tabs/css-properties';
 
 <Example name="tabs/basic" width="lg" />
@@ -133,30 +134,21 @@ for the same state. Use `asChild` on `TabsTrigger` for a link or router componen
 
 ## Anatomy
 
-```text
-Tabs
-├─ TabsList
-│  ├─ TabsTrigger[value]
-│  ├─ TabsTrigger[value]
-│  └─ TabsIndicator
-└─ TabsContent[value]
+Hover or focus a part to find it in the preview.
 
-TabsRootProvider
-└─ same parts connected to a useTabs() store
-
-TabsContext
-└─ render prop / scoped slot
-```
-
-| Part                  | Role                                                               |
-| --------------------- | ------------------------------------------------------------------ |
-| `Tabs`                | Root that owns the selected value, focus, orientation, and mode.   |
-| `TabsRootProvider`   | Connects the parts to state created with moduix `useTabs()`.       |
-| `TabsContext`        | Exposes the current tab state through a render prop or Vue scoped slot. |
-| `TabsList`           | Groups triggers and manages focus movement between them.          |
-| `TabsTrigger`        | Interactive tab button, or an `asChild` host, with a required value. |
-| `TabsIndicator`      | Optional indicator for the selected tab.                           |
-| `TabsContent`        | Content panel associated with a matching trigger value.            |
+<AnatomyInspector
+  parts={[
+    ["Tabs", "tabs-root", "Root that owns the selected value, focus, orientation, and mode.", 0],
+    ["TabsList", "tabs-list", "Groups triggers and manages focus movement between them.", 1],
+    ["TabsTrigger", "tabs-trigger", "Interactive tab button, or an `asChild` host, with a required value.", 2],
+    ["TabsIndicator", "tabs-indicator", "Optional indicator for the selected tab.", 2],
+    ["TabsContent", "tabs-content", "Content panel associated with a matching trigger value.", 1],
+    ["TabsRootProvider", "tabs-root-provider", "Connects the parts to state created with moduix `useTabs()`.", 0],
+    ["TabsContext", null, "Exposes the current tab state through a render prop or Vue scoped slot.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styling
 
@@ -167,7 +159,11 @@ classes; the variables below customize the CSS Modules variants.
 
 ### CSS variables
 
-<CssPropertiesSection properties={TabsDocs.tabsOverrideCssProperties} />
+Hover or focus a variable to see it in the preview.
+
+<CssPropertiesSection properties={TabsDocs.tabsOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Styling hooks
 

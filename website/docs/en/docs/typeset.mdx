@@ -5,6 +5,7 @@ description: Style rendered Markdown, CMS content, and AI answers for reading.
 ark: https://ark-ui.com/docs/guides/composition#the-ark-factory
 ---
 
+import AnatomyScene from '@/components/examples/typeset/basic';
 import * as TypesetDocs from '@/components/examples/typeset/css-properties';
 
 <Example name="typeset/basic" />
@@ -95,21 +96,26 @@ default.
 
 ## Anatomy
 
-```text
-Typeset
-└─ TypesetScroll (optional)
-```
+Hover or focus a part to find it in the preview.
 
-| Part | Role |
-| --- | --- |
-| `Typeset` | Scoped root that styles semantic descendants. |
-| `TypesetScroll` | Focusable horizontal scroller for a wide rendered block. |
+<AnatomyInspector
+  parts={[
+    ["Typeset", "typeset", "Scoped root that styles semantic descendants.", 0],
+    ["TypesetScroll", "typeset-scroll", "Focusable horizontal scroller for a wide rendered block.", 1],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styling
 
 ### CSS variables
 
-<CssPropertiesSection properties={TypesetDocs.typesetOverrideCssProperties} />
+Hover or focus a variable to see it in the preview.
+
+<CssPropertiesSection properties={TypesetDocs.typesetOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 Use `--moduix-typeset-size`, `--moduix-typeset-leading`, and `--moduix-typeset-flow` to control the
 reading rhythm. Font variables are optional; colors, borders, and radius come from the active moduix

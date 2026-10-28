@@ -5,6 +5,7 @@ description: Présenter des lignes de données avec en-têtes, légende et colon
 ark: https://ark-ui.com/docs/guides/composition#the-ark-factory
 ---
 
+import AnatomyScene from '@/components/examples/table/basic';
 import * as TableDocs from '@/components/examples/table/css-properties';
 
 <Example name="table/basic" />
@@ -145,36 +146,26 @@ particulière du focus.
 
 La composition recommandée reste proche du balisage natif des tableaux :
 
-```text
-TableScrollArea (optional)
-└─ Table
-   ├─ TableColumnGroup (optional)
-   │  └─ TableColumn
-   ├─ TableCaption (optional)
-   ├─ TableHeader
-   │  └─ TableRow
-   │     └─ TableColumnHeader
-   ├─ TableBody
-   │  ├─ TableRow
-   │  │  └─ TableCell
-   │  └─ TableEmpty (optional)
-   └─ TableFooter (optional)
-```
+Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
 
-| Partie                  | Rôle                                                                            |
-| ----------------------- | ------------------------------------------------------------------------------- |
-| `Table`            | Racine native `table`. Gère la typographie, les séparateurs et les attributs d’état. |
-| `TableScrollArea`      | Conteneur facultatif avec bordure et défilement horizontal.                    |
-| `TableColumnGroup`     | Élément natif `colgroup` pour définir la largeur des colonnes.                 |
-| `TableColumn`          | Élément natif `col`. Utilisez l’attribut natif `width`.                        |
-| `TableCaption`         | Légende facultative au-dessus ou au-dessous du tableau via `side`.             |
-| `TableHeader`          | Élément natif `thead` pour les en-têtes de colonne.                             |
-| `TableBody`            | Élément natif `tbody` pour les lignes de données.                               |
-| `TableFooter`          | Élément natif `tfoot` pour les lignes de synthèse.                              |
-| `TableRow`             | Élément natif `tr` avec des séparateurs.                                        |
-| `TableColumnHeader`    | Élément natif `th`. Accepte `numeric`.                                          |
-| `TableCell`            | Élément natif `td`. Accepte `numeric`.                                          |
-| `TableEmpty`           | Ligne et cellule d’état vide pratiques dans `TableBody`.                      |
+<AnatomyInspector
+  parts={[
+    ["TableScrollArea", "table-scroll-area", "Conteneur facultatif avec bordure et défilement horizontal.", 0],
+    ["Table", "table-root", "Racine native `table`. Gère la typographie, les séparateurs et les attributs d’état.", 1],
+    ["TableColumnGroup", "table-column-group", "Élément natif `colgroup` pour définir la largeur des colonnes.", 2],
+    ["TableColumn", "table-column", "Élément natif `col`. Utilisez l’attribut natif `width`.", 3],
+    ["TableCaption", "table-caption", "Légende facultative au-dessus ou au-dessous du tableau via `side`.", 2],
+    ["TableHeader", "table-header", "Élément natif `thead` pour les en-têtes de colonne.", 2],
+    ["TableRow", "table-row", "Élément natif `tr` avec des séparateurs.", 3],
+    ["TableColumnHeader", "table-column-header", "Élément natif `th`. Accepte `numeric`.", 4],
+    ["TableBody", "table-body", "Élément natif `tbody` pour les lignes de données.", 2],
+    ["TableCell", "table-cell", "Élément natif `td`. Accepte `numeric`.", 3],
+    ["TableEmpty", "table-empty", "Ligne et cellule d’état vide pratiques dans `TableBody`.", 3],
+    ["TableFooter", "table-footer", "Élément natif `tfoot` pour les lignes de synthèse.", 2],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styles
 
@@ -185,7 +176,11 @@ natives et les classes du consommateur ; les variables ci-dessous s’appliquent
 
 ### Variables CSS
 
-<CssPropertiesSection properties={TableDocs.tableOverrideCssProperties} />
+Survolez ou sélectionnez une variable pour la voir dans l’aperçu.
+
+<CssPropertiesSection properties={TableDocs.tableOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Points d’accroche CSS
 

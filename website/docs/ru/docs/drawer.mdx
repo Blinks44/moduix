@@ -5,6 +5,7 @@ description: Панель, которая выезжает с края экра�
 ark: https://ark-ui.com/docs/components/drawer
 ---
 
+import AnatomyScene from '@/components/examples/drawer/anatomy';
 import * as DrawerDocs from '@/components/examples/drawer/css-properties';
 
 <Example name="drawer/basic" />
@@ -162,45 +163,31 @@ import * as DrawerDocs from '@/components/examples/drawer/css-properties';
 
 ## Анатомия
 
-```text
-Drawer
-├─ DrawerTrigger
-├─ DrawerSwipeArea (необязательно)
-├─ DrawerBackdrop
-└─ DrawerPositioner
-   └─ DrawerContent
-      ├─ DrawerGrabber
-      │  └─ DrawerGrabberIndicator
-      ├─ DrawerHeader (необязательный помощник для компоновки)
-      │  ├─ DrawerTitle
-      │  ├─ DrawerDescription
-      │  └─ DrawerCloseIcon (необязательный помощник)
-      ├─ DrawerBody (необязательный помощник для компоновки)
-      └─ DrawerFooter (необязательный помощник для компоновки)
+Наведите на часть или выберите её, чтобы найти её в превью.
 
-DrawerRootProvider
-└─ то же дерево частей, подключённое к хранилищу useDrawer()
-```
-
-| Часть | Назначение |
-| --- | --- |
-| `Drawer` | Корневая часть, которая хранит состояние открытия, точки привязки и поведение свайпа. |
-| `DrawerRootProvider` | Подключает части к состоянию, созданному через `useDrawer()`. |
-| `DrawerTrigger` | Открывает панель. |
-| `DrawerSwipeArea` | Необязательная область у края экрана, открывающая панель свайпом. |
-| `DrawerBackdrop` | Модальный фон. |
-| `DrawerPositioner` | Размещает содержимое панели. |
-| `DrawerContent` | Интерактивная поверхность панели. |
-| `DrawerGrabber` | Контейнер ручки для перетаскивания. |
-| `DrawerGrabberIndicator` | Визуальный индикатор внутри ручки. |
-| `DrawerTitle` | Доступное имя панели. |
-| `DrawerDescription` | Доступное описание панели. |
-| `DrawerCloseTrigger` | Закрывает панель. |
-| `DrawerCloseIcon` | Кнопка закрытия moduix, собранная из `DrawerCloseTrigger`. |
-| `DrawerStack` | Координирует вложенные панели и поверхности с отступом. |
-| `DrawerIndent` | Поверхность, которая отодвигается при открытии панели из стека. |
-| `DrawerIndentBackground` | Фон за поверхностью с отступом. |
-| `DrawerHeader`, `DrawerBody`, `DrawerFooter` | Необязательные помощники для компоновки без собственного состояния. |
+<AnatomyInspector
+  parts={[
+    ["Drawer", null, "Корневая часть, которая хранит состояние открытия, точки привязки и поведение свайпа.", 0],
+    ["DrawerTrigger", "drawer-trigger", "Открывает панель.", 1],
+    ["DrawerSwipeArea", "drawer-swipe-area", "Необязательная область у края экрана, открывающая панель свайпом.", 1],
+    ["DrawerBackdrop", "drawer-backdrop", "Модальный фон.", 1],
+    ["DrawerPositioner", "drawer-positioner", "Размещает содержимое панели.", 1],
+    ["DrawerContent", "drawer-content", "Интерактивная поверхность панели.", 2],
+    ["DrawerGrabber", "drawer-grabber", "Контейнер ручки для перетаскивания.", 3],
+    ["DrawerGrabberIndicator", "drawer-grabber-indicator", "Визуальный индикатор внутри ручки.", 4],
+    ["DrawerHeader, DrawerBody, DrawerFooter", "drawer-header", "Необязательные помощники для компоновки без собственного состояния.", 3],
+    ["DrawerTitle", "drawer-title", "Доступное имя панели.", 4],
+    ["DrawerCloseIcon", "drawer-close-icon", "Кнопка закрытия moduix, собранная из `DrawerCloseTrigger`.", 4],
+    ["DrawerDescription", "drawer-description", "Доступное описание панели.", 4],
+    ["DrawerCloseTrigger", "drawer-close-trigger", "Закрывает панель.", 3],
+    ["DrawerStack", "", "Координирует вложенные панели и поверхности с отступом.", 0],
+    ["DrawerIndent", "drawer-indent", "Поверхность, которая отодвигается при открытии панели из стека.", 0],
+    ["DrawerIndentBackground", "drawer-indent-background", "Фон за поверхностью с отступом.", 1],
+    ["DrawerRootProvider", null, "Подключает части к состоянию, созданному через `useDrawer()`.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Стилизация
 
@@ -212,7 +199,11 @@ DrawerRootProvider
 
 ### CSS-переменные
 
-<CssPropertiesSection properties={DrawerDocs.drawerOverrideCssProperties} />
+Наведите на переменную или выберите её, чтобы увидеть её в превью.
+
+<CssPropertiesSection properties={DrawerDocs.drawerOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Хуки стилизации
 

@@ -5,6 +5,8 @@ description: Walk users through a product with steps anchored to page elements.
 ark: https://ark-ui.com/docs/components/tour
 ---
 
+import AnatomyScene from '@/components/examples/tour/basic';
+
 <Example name="tour/basic" />
 
 ## Installation
@@ -80,35 +82,22 @@ other root events but does not emit them from a tour object created outside the 
 
 ## Anatomy
 
-```text
-Tour
-└─ Overlay subtree (portalled by default)
-   ├─ TourBackdrop
-   ├─ TourSpotlight
-   └─ TourPositioner
-      └─ TourContent
-         ├─ TourArrow
-         ├─ TourCloseIcon / TourCloseTrigger
-         ├─ TourBody
-         │  ├─ TourTitle
-         │  ├─ TourDescription
-         │  └─ TourProgressText
-         └─ TourControl
-            ├─ TourActionList
-            └─ TourActions
-               └─ TourActionTrigger[action]
-```
+Hover or focus a part to find it in the preview.
 
-| Part | Role |
-| --- | --- |
-| `Tour` | Root bound to the object returned by `useTour`. |
-| `TourBackdrop` / `TourSpotlight` | Optional page overlay and highlight for the current target. |
-| `TourPositioner` / `TourContent` | Position and render Ark's `alertdialog` surface. |
-| `TourArrow` | Renders moduix's `TourArrowTip` by default for tooltip steps. |
-| `TourCloseIcon` / `TourCloseTrigger` | Default accessible dismiss control or a custom close control. |
-| `TourBody` | Scrollable moduix wrapper for the title, description, and progress text. |
-| `TourControl` / `TourActionList` | Recommended action row and the actions from the current step. |
-| `TourActions` / `TourActionTrigger` | Custom action UI while preserving each Ark action object. |
+<AnatomyInspector
+  parts={[
+    ["Tour", null, "Root bound to the object returned by `useTour`.", 0],
+    ["TourBackdrop / TourSpotlight", "tour-backdrop", "Optional page overlay and highlight for the current target.", 1],
+    ["TourPositioner / TourContent", "tour-positioner", "Position and render Ark's `alertdialog` surface.", 1],
+    ["TourArrow", "tour-arrow", "Renders moduix's `TourArrowTip` by default for tooltip steps.", 2],
+    ["TourCloseIcon / TourCloseTrigger", "tour-close-icon", "Default accessible dismiss control or a custom close control.", 2],
+    ["TourBody", "tour-body", "Scrollable moduix wrapper for the title, description, and progress text.", 2],
+    ["TourControl / TourActionList", "tour-control", "Recommended action row and the actions from the current step.", 2],
+    ["TourActions / TourActionTrigger", "", "Custom action UI while preserving each Ark action object.", 3],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styling
 

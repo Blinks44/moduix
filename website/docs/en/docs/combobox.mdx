@@ -5,6 +5,7 @@ description: Type to filter a list and pick one or more values.
 ark: https://ark-ui.com/docs/components/combobox
 ---
 
+import AnatomyScene from '@/components/examples/combobox/anatomy';
 import * as ComboboxDocs from '@/components/examples/combobox/css-properties';
 
 <Example name="combobox/basic" />
@@ -154,45 +155,29 @@ also an application-owned message container and does not manage loading or error
 
 ## Anatomy
 
-```text
-Combobox[collection]
-├─ ComboboxLabel
-├─ ComboboxControl
-│  ├─ ComboboxInput
-│  ├─ ComboboxClearTrigger
-│  └─ ComboboxTrigger
-└─ Overlay subtree (automatically portalled)
- └─ ComboboxPositioner
-    └─ ComboboxContent
-       ├─ ComboboxEmpty
-       ├─ ComboboxStatus
-       ├─ ComboboxList
-       │  ├─ ComboboxOption[item]
-       │  └─ ComboboxItem[item]
-       │     ├─ ComboboxItemText
-       │     └─ ComboboxItemIndicator
-       └─ ComboboxItemGroup
-          ├─ ComboboxItemGroupLabel
-          └─ ComboboxItem
-```
+Hover or focus a part to find it in the preview.
 
-| Part                         | Role                                                               |
-| ---------------------------- | ------------------------------------------------------------------ |
-| `Combobox` | Owns combobox state, filtering, highlighting, and selected values. |
-| `ComboboxControl`           | Wrapper for input and trigger controls.                            |
-| `ComboboxInput`             | Text input that drives search and selection.                       |
-| `ComboboxTrigger`           | Opens and closes the popup list.                                   |
-| `ComboboxClearTrigger`      | Clears current value and/or input.                                 |
-| `ComboboxPositioner`        | Floating positioner for popup content.                             |
-| `ComboboxContent`           | Popup content container.                                           |
-| `ComboboxStatus`            | Styled consumer-owned loading, error, or guidance message.         |
-| `ComboboxList`              | Option list wrapper.                                               |
-| `ComboboxOption`            | Convenience row for simple options with text and an indicator.     |
-| `ComboboxItem`              | Selectable option row.                                             |
-| `ComboboxItemText`          | Text label slot inside an item.                                    |
-| `ComboboxItemIndicator`     | Selected/highlight indicator slot for an item.                     |
-| `ComboboxContext`           | Renderless access to the current combobox state.                   |
-| `ComboboxItemContext`       | Renderless access to the current item state.                       |
+<AnatomyInspector
+  parts={[
+    ["Combobox", "combobox-root", "Owns combobox state, filtering, highlighting, and selected values.", 0],
+    ["ComboboxControl", "combobox-control", "Wrapper for input and trigger controls.", 1],
+    ["ComboboxInput", "combobox-input", "Text input that drives search and selection.", 2],
+    ["ComboboxClearTrigger", "combobox-clear-trigger", "Clears current value and/or input.", 2],
+    ["ComboboxTrigger", "combobox-trigger", "Opens and closes the popup list.", 2],
+    ["ComboboxPositioner", "combobox-positioner", "Floating positioner for popup content.", 1],
+    ["ComboboxContent", "combobox-content", "Popup content container.", 2],
+    ["ComboboxStatus", "combobox-status", "Styled consumer-owned loading, error, or guidance message.", 3],
+    ["ComboboxList", "combobox-list", "Option list wrapper.", 3],
+    ["ComboboxOption", "", "Convenience row for simple options with text and an indicator.", 4],
+    ["ComboboxItem", "combobox-item", "Selectable option row.", 4],
+    ["ComboboxItemText", "combobox-item-text", "Text label slot inside an item.", 5],
+    ["ComboboxItemIndicator", "combobox-item-indicator", "Selected/highlight indicator slot for an item.", 5],
+    ["ComboboxContext", null, "Renderless access to the current combobox state.", 0],
+    ["ComboboxItemContext", null, "Renderless access to the current item state.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 `ComboboxRootProvider` renders the same styled root for state created with moduix's `useCombobox`.
 Read combobox state inside the tree with `ComboboxContext` or `useComboboxContext`; use
@@ -206,7 +191,11 @@ variants. Data attributes and `data-slot` hooks are shared by both styling track
 
 ### CSS variables
 
-<CssPropertiesSection properties={ComboboxDocs.comboboxOverrideCssProperties} />
+Hover or focus a variable to see it in the preview.
+
+<CssPropertiesSection properties={ComboboxDocs.comboboxOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Styling hooks
 

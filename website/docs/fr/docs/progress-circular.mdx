@@ -5,6 +5,7 @@ description: Afficher la progression dans un anneau compact, connue ou indéterm
 ark: https://ark-ui.com/docs/components/progress-circular
 ---
 
+import AnatomyScene from '@/components/examples/progress-circular/basic';
 import * as ProgressCircularDocs from '@/components/examples/progress-circular/css-properties';
 
 <Example name="progress-circular/basic" />
@@ -107,33 +108,24 @@ rendu, créez-le avec `useProgress()` et passez le store à
 
 ## Anatomie
 
-```text
-ProgressCircular
-├─ ProgressCircularLabel
-├─ ProgressCircularCircle
-│  ├─ ProgressCircularCircleTrack
-│  └─ ProgressCircularCircleRange
-├─ ProgressCircularRing
-│  └─ fixed ProgressCircularCircle, ProgressCircularCircleTrack, and ProgressCircularCircleRange subtree
-├─ ProgressCircularValueText
-└─ ProgressCircularView
+Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
 
-ProgressCircularRootProvider
-└─ same part tree connected to useProgress()
-```
-
-| Partie                                        | Rôle                                                                                |
-| --------------------------------------------- | ----------------------------------------------------------------------------------- |
-| `ProgressCircular`  | Gère l’état de progression, le formatage et les identifiants générés.               |
-| `ProgressCircularRootProvider`               | Relie les parties à l’état créé par `useProgress()`.               |
-| `ProgressCircularContext`                    | Expose l’état courant via une fonction de rendu.                                     |
-| `ProgressCircularLabel`                      | Fournit le contexte visible de l’indicateur de progression.                         |
-| `ProgressCircularRing`                       | Partie pratique qui rend le cercle, la piste et l’arc par défaut.                   |
-| `ProgressCircularCircle`                     | Élément SVG auquel Ark ajoute le rôle et les attributs ARIA de valeur.              |
-| `ProgressCircularCircleTrack`                | Cercle d’arrière-plan.                                                              |
-| `ProgressCircularCircleRange`                | Arc au premier plan qui reflète la progression actuelle ou l’état indéterminé.      |
-| `ProgressCircularValueText`                  | Affiche la valeur formatée et annonce les mises à jour.                             |
-| `ProgressCircularView`                       | Rend du contenu pour les états `indeterminate`, `loading` ou `complete`.            |
+<AnatomyInspector
+  parts={[
+    ["ProgressCircular", "progress-circular-root", "Gère l’état de progression, le formatage et les identifiants générés.", 0],
+    ["ProgressCircularLabel", "progress-circular-label", "Fournit le contexte visible de l’indicateur de progression.", 1],
+    ["ProgressCircularCircle", "progress-circular-circle", "Élément SVG auquel Ark ajoute le rôle et les attributs ARIA de valeur.", 1],
+    ["ProgressCircularCircleTrack", "progress-circular-circle-track", "Cercle d’arrière-plan.", 2],
+    ["ProgressCircularCircleRange", "progress-circular-circle-range", "Arc au premier plan qui reflète la progression actuelle ou l’état indéterminé.", 2],
+    ["ProgressCircularRing", "", "Partie pratique qui rend le cercle, la piste et l’arc par défaut.", 1],
+    ["ProgressCircularValueText", "progress-circular-value-text", "Affiche la valeur formatée et annonce les mises à jour.", 1],
+    ["ProgressCircularView", "progress-circular-view", "Rend du contenu pour les états `indeterminate`, `loading` ou `complete`.", 1],
+    ["ProgressCircularRootProvider", "progress-circular-root-provider", "Relie les parties à l’état créé par `useProgress()`.", 0],
+    ["ProgressCircularContext", null, "Expose l’état courant via une fonction de rendu.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styles
 
@@ -150,7 +142,11 @@ progression indéterminée sa propre couleur, stylisez `ProgressCircularCircleRa
 
 ### Variables CSS
 
-<CssPropertiesSection properties={ProgressCircularDocs.progressCircularCssProperties} />
+Survolez ou sélectionnez une variable pour la voir dans l’aperçu.
+
+<CssPropertiesSection properties={ProgressCircularDocs.progressCircularCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Points d’accroche CSS
 

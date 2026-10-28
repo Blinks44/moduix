@@ -5,6 +5,7 @@ description: Запускайте действие или открывайте �
 ark: https://ark-ui.com/docs/guides/composition
 ---
 
+import { Button } from '@moduix/react/button';
 import * as ButtonDocs from '@/components/examples/button/css-properties';
 
 <Example name="button/basic" />
@@ -92,17 +93,11 @@ ref на самом `Button` в этом случае не передаётся.
 
 ## Анатомия
 
-У `Button` одна часть.
+У `Button` одна часть. Наведите на часть или выберите её, чтобы найти её в превью.
 
-```text
-Button
-└─ root[data-scope="button"][data-part="root"][data-slot="button-root"]
-   └─ children
-```
-
-| Часть    | Роль                                                       |
-| -------- | ---------------------------------------------------------- |
-| `Button` | Единственный интерактивный корневой элемент со стилями moduix. |
+<AnatomyInspector parts={[['Button', 'button-root', 'Единственный интерактивный корневой элемент со стилями moduix.']]}>
+  <Button>Button</Button>
+</AnatomyInspector>
 
 ## Стилизация
 
@@ -114,7 +109,11 @@ CSS-переменные относятся к пакетам с CSS Modules; в
 
 ### CSS-переменные
 
-<CssPropertiesSection properties={ButtonDocs.buttonCssProperties} />
+Переменные сгруппированы по тому, что они меняют. Наведите на переменную или выберите её, чтобы увидеть её на кнопке.
+
+<CssPropertiesSection properties={ButtonDocs.buttonCssProperties}>
+  <Button>Button</Button>
+</CssPropertiesSection>
 
 ### Хуки стилизации
 

@@ -5,6 +5,7 @@ description: Включает или выключает настройку ср�
 ark: https://ark-ui.com/docs/components/switch
 ---
 
+import AnatomyScene from '@/components/examples/switch/basic';
 import * as SwitchDocs from '@/components/examples/switch/css-properties';
 
 <Example name="switch/basic" />
@@ -118,22 +119,20 @@ import * as SwitchDocs from '@/components/examples/switch/css-properties';
 
 ## Анатомия
 
-```text
-Switch
-├─ SwitchControl
-│  └─ SwitchThumb
-├─ SwitchLabel
-└─ SwitchHiddenInput (explicit)
-```
+Наведите на часть или выберите её, чтобы найти её в превью.
 
-| Часть                         | Назначение                                                              |
-| ----------------------------- | ----------------------------------------------------------------------- |
-| `Switch`                 | Корневой элемент `label`. Хранит состояние, ID, свойства формы и `size`. |
-| `SwitchHiddenInput`          | Нативное поле Ark; правила явной композиции описаны ниже.               |
-| `SwitchRootProvider`         | Корневой элемент с состоянием, созданным через `useSwitch()`.            |
-| `SwitchControl`              | Визуальная дорожка и цель для кольца фокуса. По умолчанию добавляет бегунок. |
-| `SwitchThumb`                | Подвижный бегунок для стандартного вида или пользовательского содержимого. |
-| `SwitchLabel`                | Подпись, связанная с переключателем через Ark.                         |
+<AnatomyInspector
+  parts={[
+    ["Switch", "switch-root", "Корневой элемент `label`. Хранит состояние, ID, свойства формы и `size`.", 0],
+    ["SwitchControl", "switch-control", "Визуальная дорожка и цель для кольца фокуса. По умолчанию добавляет бегунок.", 1],
+    ["SwitchThumb", "switch-thumb", "Подвижный бегунок для стандартного вида или пользовательского содержимого.", 2],
+    ["SwitchLabel", "switch-label", "Подпись, связанная с переключателем через Ark.", 1],
+    ["SwitchHiddenInput", "", "Нативное поле Ark; правила явной композиции описаны ниже.", 1],
+    ["SwitchRootProvider", "switch-root-provider", "Корневой элемент с состоянием, созданным через `useSwitch()`.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 `Switch` - корневой компонент. `SwitchContext`, `useSwitchContext` и `useSwitch` экспортируются
 из `@moduix/react` вместе с компонентом. Экспорты Vue доступны из `@moduix/vue` и
@@ -154,7 +153,11 @@ Ark ставит `dir` на каждую часть, и ползунок в со
 
 ### CSS-переменные
 
-<CssPropertiesSection properties={SwitchDocs.switchOverrideCssProperties} />
+Наведите на переменную или выберите её, чтобы увидеть её в превью.
+
+<CssPropertiesSection properties={SwitchDocs.switchOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Хуки стилизации
 

@@ -5,6 +5,8 @@ description: Faire déborder une bannière ou une image hors des marges du conte
 ark: https://ark-ui.com/docs/guides/composition#the-ark-factory
 ---
 
+import AnatomyScene from '@/components/examples/bleed/basic';
+
 <Example name="bleed/basic" />
 
 ## Installation
@@ -74,15 +76,15 @@ Combinez `inline` et `block` lorsqu’une surface doit dépasser les marges inte
 `Bleed` rend un seul élément racine conforme aux conventions d’Ark. Il applique des marges négatives sur l’axe en
 ligne et/ou l’axe de bloc, sans ajouter d’enveloppe interne.
 
-```text
-Bleed
-└─ root[data-scope="bleed"][data-part="root"][data-slot="bleed-root"]
-   └─ children
-```
+Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
 
-| Partie | Rôle                                                                                 |
-| ------ | ------------------------------------------------------------------------------------ |
-| `Bleed` | Composant racine qui permet au contenu de dépasser sur les axes en ligne et de bloc. |
+<AnatomyInspector
+  parts={[
+    ["Bleed", "bleed-root", "Composant racine qui permet au contenu de dépasser sur les axes en ligne et de bloc.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styles
 

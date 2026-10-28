@@ -5,6 +5,7 @@ component: highlight
 ark: https://ark-ui.com/docs/utilities/highlight
 ---
 
+import AnatomyScene from '@/components/examples/highlight/basic';
 import * as HighlightDocs from '@/components/examples/highlight/css-properties';
 
 <Example name="highlight/basic" />
@@ -90,14 +91,15 @@ import * as HighlightDocs from '@/components/examples/highlight/css-properties';
 обёртку. Каждый совпавший фрагмент становится нативным элементом `<mark>`, а текст без совпадений
 остаётся обычным текстом в окружающей разметке.
 
-```text
-Highlight
-└─ совпавшие фрагменты в отдельных элементах <mark>
-```
+Наведите на часть или выберите её, чтобы найти её в превью.
 
-| Часть       | Назначение                                                       |
-| ----------- | ---------------------------------------------------------------- |
-| `Highlight` | Применяет стили moduix к каждому совпадению в переданном тексте. |
+<AnatomyInspector
+  parts={[
+    ["Highlight", "highlight-root", "Применяет стили moduix к каждому совпадению в переданном тексте.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Стилизация
 
@@ -107,7 +109,11 @@ Highlight
 
 ### CSS-переменные
 
-<CssPropertiesSection properties={HighlightDocs.highlightCssProperties} />
+Наведите на переменную или выберите её, чтобы увидеть её в превью.
+
+<CssPropertiesSection properties={HighlightDocs.highlightCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Хуки стилизации
 

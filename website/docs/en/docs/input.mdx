@@ -5,6 +5,7 @@ description: Collect a single line of text with native input behavior.
 ark: https://ark-ui.com/docs/components/field
 ---
 
+import AnatomyScene from '@/components/examples/input/basic';
 import * as InputDocs from '@/components/examples/input/css-properties';
 
 <Example name="input/basic" />
@@ -128,14 +129,15 @@ that DOM node.
 
 ## Anatomy
 
-```text
-Field (optional wrapper)
-└─ Input
-```
+Hover or focus a part to find it in the preview.
 
-| Part                   | Role                                                                  |
-| ---------------------- | --------------------------------------------------------------------- |
-| `Input`                | Styled version of Ark's `FieldInput` that renders a native single-line `<input>`. |
+<AnatomyInspector
+  parts={[
+    ["Input", "input-root", "Styled version of Ark's `FieldInput` that renders a native single-line `<input>`.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styling
 
@@ -150,7 +152,11 @@ field state.
 
 ### CSS variables
 
-<CssPropertiesSection properties={InputDocs.inputOverrideCssProperties} />
+Hover or focus a variable to see it in the preview.
+
+<CssPropertiesSection properties={InputDocs.inputOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Styling hooks
 

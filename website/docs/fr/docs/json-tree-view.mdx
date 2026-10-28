@@ -5,6 +5,8 @@ description: Inspecter du JSON et des valeurs JavaScript dans un arbre dépliabl
 ark: https://ark-ui.com/docs/utilities/json-tree-view
 ---
 
+import AnatomyScene from '@/components/examples/json-tree-view/basic';
+
 <Example name="json-tree-view/basic" />
 
 ## Installation
@@ -59,20 +61,17 @@ l’état appartient à l’application. Ne rendez pas `JsonTreeView` et `JsonTr
 
 ## Anatomie
 
-```text
-JsonTreeView
-└─ JsonTreeViewTree
-   └─ branches et éléments JSON générés
+Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
 
-JsonTreeViewRootProvider
-└─ même arbre relié à un état useJsonTreeView
-```
-
-| Partie | Rôle |
-| --- | --- |
-| `JsonTreeView` | Gère les données, la collection générée et l’état de l’arbre Ark. |
-| `JsonTreeViewRootProvider` | Relie les parties à une instance d’état `useJsonTreeView` créée en dehors de l’arbre. |
-| `JsonTreeViewTree` | Affiche les nœuds générés pour les objets, tableaux et valeurs. |
+<AnatomyInspector
+  parts={[
+    ["JsonTreeView", "json-tree-view-root", "Gère les données, la collection générée et l’état de l’arbre Ark.", 0],
+    ["JsonTreeViewTree", "json-tree-view-tree", "Affiche les nœuds générés pour les objets, tableaux et valeurs.", 1],
+    ["JsonTreeViewRootProvider", "json-tree-view-root-provider", "Relie les parties à une instance d’état `useJsonTreeView` créée en dehors de l’arbre.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styles
 

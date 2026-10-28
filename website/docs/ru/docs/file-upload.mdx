@@ -5,6 +5,8 @@ description: Выбор или перетаскивание файлов с пр
 ark: https://ark-ui.com/docs/components/file-upload
 ---
 
+import AnatomyScene from '@/components/examples/file-upload/basic';
+
 <Example name="file-upload/basic" />
 
 ## Установка
@@ -169,49 +171,33 @@ ark: https://ark-ui.com/docs/components/file-upload
 
 ## Анатомия
 
-```text
-FileUpload / FileUploadRootProvider
-├─ FileUploadLabel
-├─ FileUploadDropzone (необязательно)
-│  ├─ FileUploadDropzoneIcon
-│  └─ FileUploadTrigger
-├─ FileUploadTrigger (если Dropzone не используется)
-├─ FileUploadItemGroup[type]
-│  ├─ FileUploadItems
-│  └─ FileUploadContext
-│     └─ FileUploadItem[file]
-│        ├─ FileUploadItemPreview[type]
-│        │  ├─ FileUploadItemPreviewImage
-│        │  └─ FileUploadItemPreviewIcon
-│        ├─ FileUploadItemName
-│        ├─ FileUploadItemMetadata[file]
-│        ├─ FileUploadItemSizeText
-│        └─ FileUploadItemDeleteTrigger
-├─ FileUploadClearTrigger
-└─ FileUploadHiddenInput (явно)
-```
+Наведите на часть или выберите её, чтобы найти её в превью.
 
-| Часть                            | Назначение                                                               |
-| -------------------------------- | ------------------------------------------------------------------------ |
-| `FileUpload` / `FileUploadRootProvider` | Хранит состояние файлов и отвечает за проверку, перетаскивание, вставку из буфера обмена и интеграцию с формами. |
-| `FileUploadHiddenInput` | Нативное поле Ark; правила явной композиции описаны ниже. |
-| `FileUploadRootProvider`        | Подключает дерево компонента к состоянию, возвращённому хуком `useFileUpload`.                              |
-| `FileUploadLabel`               | Доступная метка для скрытого поля выбора файлов и элементов управления загрузкой.                            |
-| `FileUploadDropzone`            | Область для перетаскивания файлов. Если внутри есть `FileUploadTrigger`, передайте `disableClick`, чтобы не открывать окно выбора дважды. |
-| `FileUploadDropzoneIcon`        | Декоративная иконка загрузки для `FileUploadDropzone`.                                                                |
-| `FileUploadTrigger`             | Кнопка без стилей, открывающая системное окно выбора файлов. Оберните ею `Button` через `asChild`.                                                          |
-| `FileUploadItemGroup`           | Список принятых или отклонённых файлов.                                                                    |
-| `FileUploadItems`               | Готовый вывод списка: карточки изображений и строки для остальных файлов с превью, метаданными и кнопками удаления. |
-| `FileUploadContext`             | Контекст с функцией-рендерером, совместимый с Ark, для собственных строк файлов.                            |
-| `FileUploadItem`                | Строка файла. Передайте текущий объект `file`.                                                              |
-| `FileUploadItemPreview`         | Слот для превью, которое показывается в зависимости от MIME-типа файла.                                    |
-| `FileUploadItemPreviewImage`    | Превью изображения внутри `FileUploadItemPreview`.                                                                   |
-| `FileUploadItemPreviewIcon`     | Универсальная иконка файла для запасного варианта превью в `FileUploadItemPreview`.                                   |
-| `FileUploadItemName`            | Имя файла.                                                                                                  |
-| `FileUploadItemMetadata`        | Тип и локализованный размер файла. Передайте текущий объект `file`.                                         |
-| `FileUploadItemSizeText`        | Локализованный размер файла.                                                                                |
-| `FileUploadItemDeleteTrigger`   | Удаляет один файл. По умолчанию показывает иконку корзины moduix; подпись берётся из Ark `translations.deleteFile`.                                          |
-| `FileUploadClearTrigger`        | Кнопка без стилей, которая очищает принятые файлы; скрыта, пока список пуст. Оберните ею `Button` через `asChild`.                                   |
+<AnatomyInspector
+  parts={[
+    ["FileUpload / FileUploadRootProvider", "file-upload-root", "Хранит состояние файлов и отвечает за проверку, перетаскивание, вставку из буфера обмена и интеграцию с формами.", 0],
+    ["FileUploadLabel", "file-upload-label", "Доступная метка для скрытого поля выбора файлов и элементов управления загрузкой.", 1],
+    ["FileUploadDropzone", "file-upload-dropzone", "Область для перетаскивания файлов. Если внутри есть `FileUploadTrigger`, передайте `disableClick`, чтобы не открывать окно выбора дважды.", 1],
+    ["FileUploadDropzoneIcon", "file-upload-dropzone-icon", "Декоративная иконка загрузки для `FileUploadDropzone`.", 2],
+    ["FileUploadTrigger", "file-upload-trigger", "Кнопка без стилей, открывающая системное окно выбора файлов. Оберните ею `Button` через `asChild`.", 2],
+    ["FileUploadItemGroup", "file-upload-item-group", "Список принятых или отклонённых файлов.", 1],
+    ["FileUploadItems", "", "Готовый вывод списка: карточки изображений и строки для остальных файлов с превью, метаданными и кнопками удаления.", 2],
+    ["FileUploadContext", null, "Контекст с функцией-рендерером, совместимый с Ark, для собственных строк файлов.", 2],
+    ["FileUploadItem", "file-upload-item", "Строка файла. Передайте текущий объект `file`.", 3],
+    ["FileUploadItemPreview", "file-upload-item-preview", "Слот для превью, которое показывается в зависимости от MIME-типа файла.", 4],
+    ["FileUploadItemPreviewImage", "file-upload-item-preview-image", "Превью изображения внутри `FileUploadItemPreview`.", 5],
+    ["FileUploadItemPreviewIcon", "file-upload-item-preview-icon", "Универсальная иконка файла для запасного варианта превью в `FileUploadItemPreview`.", 5],
+    ["FileUploadItemName", "file-upload-item-name", "Имя файла.", 4],
+    ["FileUploadItemMetadata", "file-upload-item-metadata", "Тип и локализованный размер файла. Передайте текущий объект `file`.", 4],
+    ["FileUploadItemSizeText", "file-upload-item-size-text", "Локализованный размер файла.", 4],
+    ["FileUploadItemDeleteTrigger", "file-upload-item-delete-trigger", "Удаляет один файл. По умолчанию показывает иконку корзины moduix; подпись берётся из Ark `translations.deleteFile`.", 4],
+    ["FileUploadClearTrigger", "file-upload-clear-trigger", "Кнопка без стилей, которая очищает принятые файлы; скрыта, пока список пуст. Оберните ею `Button` через `asChild`.", 1],
+    ["FileUploadHiddenInput", "", "Нативное поле Ark; правила явной композиции описаны ниже.", 1],
+    ["FileUploadRootProvider", "file-upload-root-provider", "Подключает дерево компонента к состоянию, возвращённому хуком `useFileUpload`.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Стилизация
 

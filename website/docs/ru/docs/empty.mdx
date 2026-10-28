@@ -5,6 +5,7 @@ description: "Пустой список или первый запуск: соо
 ark: https://ark-ui.com/docs/guides/composition#the-ark-factory
 ---
 
+import AnatomyScene from '@/components/examples/empty/basic';
 import * as EmptyDocs from '@/components/examples/empty/css-properties';
 
 <Example name="empty/basic" />
@@ -71,23 +72,20 @@ import * as EmptyDocs from '@/components/examples/empty/css-properties';
 
 ## Анатомия
 
-```text
-Empty
-├─ EmptyIcon (необязательно)
-├─ EmptyContent
-│  ├─ EmptyTitle
-│  └─ EmptyDescription
-└─ EmptyActions (необязательно)
-```
+Наведите на часть или выберите её, чтобы найти её в превью.
 
-| Часть                  | Назначение                                                                            |
-| ---------------------- | ------------------------------------------------------------------------------------- |
-| `Empty`               | Корневой контейнер с отступами, границей, фоном и выравниванием.                       |
-| `EmptyIcon`           | Необязательный контейнер для иконки или другого небольшого визуального элемента.      |
-| `EmptyContent`        | Объединяет заголовок и описание с небольшими расстояниями между ними.                 |
-| `EmptyTitle`          | Основной заголовок пустого состояния.                                                 |
-| `EmptyDescription`    | Дополнительное содержимое под заголовком. Может включать абзацы, ссылки и другую блочную разметку. |
-| `EmptyActions`        | Необязательный ряд действий. Элементы переносятся, если не помещаются в одну строку.    |
+<AnatomyInspector
+  parts={[
+    ["Empty", "empty-root", "Корневой контейнер с отступами, границей, фоном и выравниванием.", 0],
+    ["EmptyIcon", "empty-icon", "Необязательный контейнер для иконки или другого небольшого визуального элемента.", 1],
+    ["EmptyContent", "empty-content", "Объединяет заголовок и описание с небольшими расстояниями между ними.", 1],
+    ["EmptyTitle", "empty-title", "Основной заголовок пустого состояния.", 2],
+    ["EmptyDescription", "empty-description", "Дополнительное содержимое под заголовком. Может включать абзацы, ссылки и другую блочную разметку.", 2],
+    ["EmptyActions", "empty-actions", "Необязательный ряд действий. Элементы переносятся, если не помещаются в одну строку.", 1],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Стилизация
 
@@ -99,7 +97,11 @@ Ark по атрибутам `data-scope="empty"` / `data-part` и стабиль
 
 ### CSS-переменные
 
-<CssPropertiesSection properties={EmptyDocs.emptyOverrideCssProperties} />
+Наведите на переменную или выберите её, чтобы увидеть её в превью.
+
+<CssPropertiesSection properties={EmptyDocs.emptyOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Хуки стилизации
 

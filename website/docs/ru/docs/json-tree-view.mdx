@@ -5,6 +5,8 @@ description: Просмотр JSON и значений JavaScript в раскр�
 ark: https://ark-ui.com/docs/utilities/json-tree-view
 ---
 
+import AnatomyScene from '@/components/examples/json-tree-view/basic';
+
 <Example name="json-tree-view/basic" />
 
 ## Установка
@@ -63,20 +65,17 @@ ark: https://ark-ui.com/docs/utilities/json-tree-view
 
 ## Анатомия
 
-```text
-JsonTreeView
-└─ JsonTreeViewTree
-   └─ сгенерированные ветви и элементы JSON
+Наведите на часть или выберите её, чтобы найти её в превью.
 
-JsonTreeViewRootProvider
-└─ то же дерево, подключённое к состоянию useJsonTreeView
-```
-
-| Часть | Назначение |
-| --- | --- |
-| `JsonTreeView` | Хранит данные, сгенерированную коллекцию и состояние дерева Ark. |
-| `JsonTreeViewRootProvider` | Подключает к частям состояние `useJsonTreeView`, созданное вне дерева. |
-| `JsonTreeViewTree` | Отображает сгенерированные узлы объектов, массивов и значений. |
+<AnatomyInspector
+  parts={[
+    ["JsonTreeView", "json-tree-view-root", "Хранит данные, сгенерированную коллекцию и состояние дерева Ark.", 0],
+    ["JsonTreeViewTree", "json-tree-view-tree", "Отображает сгенерированные узлы объектов, массивов и значений.", 1],
+    ["JsonTreeViewRootProvider", "json-tree-view-root-provider", "Подключает к частям состояние `useJsonTreeView`, созданное вне дерева.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Стилизация
 

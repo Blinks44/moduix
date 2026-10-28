@@ -5,6 +5,7 @@ description: Afficher une touche ou un raccourci dans le texte.
 ark: https://ark-ui.com/docs/guides/composition#the-ark-factory
 ---
 
+import AnatomyScene from '@/components/examples/kbd/basic';
 import * as KbdDocs from '@/components/examples/kbd/css-properties';
 
 <Example name="kbd/basic" />
@@ -69,19 +70,18 @@ Kbd est statique et ne gère ni état ni interaction clavier. Utilisez `asChild`
 
 ## Anatomie
 
-La structure d’un raccourci est simple. Le signe `+` est ici du texte ordinaire, pas une partie du composant.
+Un raccourci est un `KbdGroup` de touches `Kbd`. Le signe `+` entre les touches est du texte ordinaire, pas une partie du composant.
 
-```text
-KbdGroup
-├─ Kbd
-├─ +
-└─ Kbd
-```
+Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
 
-| Partie              | Rôle                                                                      |
-| ------------------- | ------------------------------------------------------------------------- |
-| `Kbd`              | Élément racine, rendu sous forme de `<kbd>` par défaut.                   |
-| `KbdGroup`         | Conteneur en ligne pour les touches liées ; utilise le rôle `group` par défaut. |
+<AnatomyInspector
+  parts={[
+    ["KbdGroup", "kbd-group", "Conteneur en ligne pour les touches liées ; utilise le rôle `group` par défaut.", 0],
+    ["Kbd", "kbd-root", "Élément racine, rendu sous forme de `<kbd>` par défaut.", 1],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styles
 
@@ -89,7 +89,11 @@ Personnalisez `Kbd` et `KbdGroup` avec `className` en React ou `class` en Solid 
 
 ### Variables CSS
 
-<CssPropertiesSection properties={KbdDocs.kbdOverrideCssProperties} />
+Survolez ou sélectionnez une variable pour la voir dans l’aperçu.
+
+<CssPropertiesSection properties={KbdDocs.kbdOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Points d’accroche CSS
 

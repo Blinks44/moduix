@@ -5,6 +5,7 @@ description: Draw a line between related sections, horizontal or vertical.
 ark: https://ark-ui.com/docs/guides/composition#the-ark-factory
 ---
 
+import AnatomyScene from '@/components/examples/separator/basic';
 import * as SeparatorDocs from '@/components/examples/separator/css-properties';
 
 <Example name="separator/basic" />
@@ -81,14 +82,15 @@ with one child that accepts the merged role, ARIA,
 
 `Separator` exposes one root part.
 
-```text
-Separator
-└─ root[data-scope="separator"][data-part="root"][data-slot="separator-root"]
-```
+Hover or focus a part to find it in the preview.
 
-| Part        | Role                                                                       |
-| ----------- | -------------------------------------------------------------------------- |
-| `Separator` | Root divider element. Sets orientation, accessibility metadata, and style. |
+<AnatomyInspector
+  parts={[
+    ["Separator", "separator-root", "Root divider element. Sets orientation, accessibility metadata, and style.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styling
 
@@ -98,7 +100,11 @@ attributes and `data-slot` hooks are shared by both styling tracks.
 
 ### CSS variables
 
-<CssPropertiesSection properties={SeparatorDocs.separatorOverrideCssProperties} />
+Hover or focus a variable to see it in the preview.
+
+<CssPropertiesSection properties={SeparatorDocs.separatorOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Styling hooks
 

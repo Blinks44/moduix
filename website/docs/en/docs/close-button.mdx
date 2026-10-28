@@ -5,6 +5,7 @@ description: Dismiss a notification, card, or overlay with an accessible icon bu
 ark: https://ark-ui.com/docs/guides/composition#the-ark-factory
 ---
 
+import AnatomyScene from '@/components/examples/close-button/basic';
 import * as CloseButtonDocs from '@/components/examples/close-button/css-properties';
 
 <Example name="close-button/basic" />
@@ -69,15 +70,15 @@ Solid, pass a render function to `asChild` and spread `props()` onto the child.
 
 `CloseButton` exposes a single root part following the Ark model.
 
-```text
-CloseButton
-└─ root[data-scope="close-button"][data-part="root"][data-slot="close-button-root"]
-   └─ CloseIcon (default) | custom children
-```
+Hover or focus a part to find it in the preview.
 
-| Part          | Role                                                                     |
-| ------------- | ------------------------------------------------------------------------ |
-| `CloseButton` | Interactive dismiss control based on button semantics and accessibility. |
+<AnatomyInspector
+  parts={[
+    ["CloseButton", "close-button-root", "Interactive dismiss control based on button semantics and accessibility.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styling
 
@@ -87,7 +88,11 @@ and `data-slot` hooks are shared by both styling tracks.
 
 ### CSS variables
 
-<CssPropertiesSection properties={CloseButtonDocs.closeButtonOverrideCssProperties} />
+Hover or focus a variable to see it in the preview.
+
+<CssPropertiesSection properties={CloseButtonDocs.closeButtonOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Styling hooks
 

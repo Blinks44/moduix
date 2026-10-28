@@ -5,6 +5,7 @@ description: Regrouper un titre, du contenu et des actions sur une surface.
 ark: https://ark-ui.com/docs/guides/composition#the-ark-factory
 ---
 
+import AnatomyScene from '@/components/examples/card/basic';
 import * as CardDocs from '@/components/examples/card/css-properties';
 
 <Example name="card/basic" />
@@ -114,36 +115,34 @@ Lorsqu’une carte est entièrement un lien et ne contient aucun contrôle imbri
 
 ## Anatomie
 
-```text
-Card
-├─ CardBackground (aide moduix facultative)
-├─ CardMedia (aide moduix facultative)
-├─ CardHeader
-│  ├─ CardTitle
-│  ├─ CardDescription
-│  └─ CardAction (aide moduix facultative)
-├─ CardBody
-└─ CardFooter (facultatif)
-```
+Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
 
-| Partie               | Rôle                                                                                          |
-| -------------------- | --------------------------------------------------------------------------------------------- |
-| `Card` | Conteneur racine avec les props `size`, `variant` et `asChild`.                               |
-| `CardBackground`    | Couche de fond facultative couvrant toute la carte pour un média décoratif.                  |
-| `CardMedia`         | Conteneur facultatif pour un média bord à bord, avec un arrondi uniforme des angles supérieurs. |
-| `CardHeader`        | Mise en page de l’en-tête pour le titre, la description et une éventuelle action à droite.    |
-| `CardBody`          | Zone principale du contenu.                                                                  |
-| `CardFooter`        | Ligne inférieure pour les actions ou les métadonnées. Elle passe à la ligne si nécessaire.   |
-| `CardTitle`         | Titre rendu en `h3` par défaut. Utilisez `asChild` pour choisir un autre niveau.              |
-| `CardDescription`   | Texte complémentaire sous le titre.                                                          |
-| `CardAction`        | Emplacement réservé à une action dans l’en-tête.                                             |
-| `CardLink`          | Lien dont la zone cliquable s’étend à toute la carte sans bloquer les autres contrôles.      |
+<AnatomyInspector
+  parts={[
+    ["Card", "card-root", "Conteneur racine avec les props `size`, `variant` et `asChild`.", 0],
+    ["CardBackground", "card-background", "Couche de fond facultative couvrant toute la carte pour un média décoratif.", 1],
+    ["CardMedia", "card-media", "Conteneur facultatif pour un média bord à bord, avec un arrondi uniforme des angles supérieurs.", 1],
+    ["CardHeader", "card-header", "Mise en page de l’en-tête pour le titre, la description et une éventuelle action à droite.", 1],
+    ["CardTitle", "card-title", "Titre rendu en `h3` par défaut. Utilisez `asChild` pour choisir un autre niveau.", 2],
+    ["CardDescription", "card-description", "Texte complémentaire sous le titre.", 2],
+    ["CardAction", "card-action", "Emplacement réservé à une action dans l’en-tête.", 2],
+    ["CardBody", "card-body", "Zone principale du contenu.", 1],
+    ["CardFooter", "card-footer", "Ligne inférieure pour les actions ou les métadonnées. Elle passe à la ligne si nécessaire.", 1],
+    ["CardLink", "card-link", "Lien dont la zone cliquable s’étend à toute la carte sans bloquer les autres contrôles.", 1],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styles
 
 ### Variables CSS
 
-<CssPropertiesSection properties={CardDocs.cardOverrideCssProperties} />
+Survolez ou sélectionnez une variable pour la voir dans l’aperçu.
+
+<CssPropertiesSection properties={CardDocs.cardOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Points d’accroche CSS
 

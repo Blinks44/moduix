@@ -5,6 +5,7 @@ description: Фото пользователя с инициалами, пока
 ark: https://ark-ui.com/docs/components/avatar
 ---
 
+import AnatomyScene from '@/components/examples/avatar/basic';
 import * as AvatarDocs from '@/components/examples/avatar/css-properties';
 
 <Example name="avatar/basic" />
@@ -115,25 +116,19 @@ import * as AvatarDocs from '@/components/examples/avatar/css-properties';
 
 ## Анатомия
 
-```text
-Avatar
-├─ AvatarFallback
-└─ AvatarImage
+Наведите на часть или выберите её, чтобы найти её в превью.
 
-AvatarRootProvider
-└─ те же части, подключённые к хранилищу useAvatar()
-
-AvatarGroup
-└─ Avatar, Avatar, ...
-```
-
-| Часть                 | Назначение                                                             |
-| --------------------- | ---------------------------------------------------------------------- |
-| `Avatar`              | Создаёт корневой элемент и хранит состояние аватара Ark UI.            |
-| `AvatarRootProvider`  | Подключает состояние Ark UI, созданное за пределами компонента.        |
-| `AvatarFallback`      | Показывает переданное потребителем содержимое до загрузки изображения.  |
-| `AvatarImage`         | Показывает изображение после успешной загрузки.                        |
-| `AvatarGroup`         | Выстраивает аватары с перекрытием и кольцом цвета фона.                |
+<AnatomyInspector
+  parts={[
+    ["Avatar", "avatar-root", "Создаёт корневой элемент и хранит состояние аватара Ark UI.", 0],
+    ["AvatarFallback", "avatar-fallback", "Показывает переданное потребителем содержимое до загрузки изображения.", 1],
+    ["AvatarImage", "avatar-image", "Показывает изображение после успешной загрузки.", 1],
+    ["AvatarRootProvider", "avatar-root-provider", "Подключает состояние Ark UI, созданное за пределами компонента.", 0],
+    ["AvatarGroup", "avatar-group", "Выстраивает аватары с перекрытием и кольцом цвета фона.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Стилизация
 
@@ -144,7 +139,11 @@ CSS-переменных относится к вариантам с CSS Modules
 
 ### CSS-переменные
 
-<CssPropertiesSection properties={AvatarDocs.avatarCssProperties} />
+Наведите на переменную или выберите её, чтобы увидеть её в превью.
+
+<CssPropertiesSection properties={AvatarDocs.avatarCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Хуки стилизации
 

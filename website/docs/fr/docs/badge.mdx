@@ -5,6 +5,7 @@ description: Étiqueter un statut, une catégorie, une version ou un compteur.
 ark: https://ark-ui.com/docs/guides/composition#the-ark-factory
 ---
 
+import AnatomyScene from '@/components/examples/badge/basic';
 import * as BadgeDocs from '@/components/examples/badge/css-properties';
 
 <Example name="badge/basic" />
@@ -100,18 +101,17 @@ En Vue, placez exactement un enfant dans le slot par défaut avec `as-child` ; l
 
 `Badge` est le composant racine. Son API publique reste volontairement réduite aux parties visibles.
 
-```text
-Badge
-├─ BadgeLabel (facultatif ; à utiliser explicitement pour la troncature)
-├─ BadgeDot (facultatif)
-└─ icône svg (facultative)
-```
+Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
 
-| Partie      | Rôle                                                                                  |
-| ----------- | ------------------------------------------------------------------------------------- |
-| `Badge`     | Partie racine. Applique la variante, la bordure et les espacements.                    |
-| `BadgeLabel` | Partie de texte explicite. Permet de tronquer correctement un badge composé.          |
-| `BadgeDot`  | Partie décorative. Affiche un marqueur circulaire qui reprend la couleur du texte.    |
+<AnatomyInspector
+  parts={[
+    ["Badge", "badge-root", "Partie racine. Applique la variante, la bordure et les espacements.", 0],
+    ["BadgeLabel", "badge-label", "Partie de texte explicite. Permet de tronquer correctement un badge composé.", 1],
+    ["BadgeDot", "badge-dot", "Partie décorative. Affiche un marqueur circulaire qui reprend la couleur du texte.", 1],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styles
 
@@ -125,7 +125,11 @@ Ces variables CSS s’appliquent aux packages CSS Modules ; les packages Tailwin
 
 ### Variables CSS
 
-<CssPropertiesSection properties={BadgeDocs.badgeCssProperties} />
+Survolez ou sélectionnez une variable pour la voir dans l’aperçu.
+
+<CssPropertiesSection properties={BadgeDocs.badgeCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Points d’accroche CSS
 

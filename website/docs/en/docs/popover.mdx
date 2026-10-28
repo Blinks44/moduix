@@ -5,6 +5,8 @@ description: Show interactive content in a panel anchored to a trigger.
 ark: https://ark-ui.com/docs/components/popover
 ---
 
+import AnatomyScene from '@/components/examples/popover/anatomy';
+
 <Example name="popover/basic" />
 
 ## Installation
@@ -144,47 +146,29 @@ triggers share one popover, give each trigger a `value` and update the surroundi
 
 ## Anatomy
 
-```text
-Popover
-├─ PopoverAnchor (optional)
-├─ PopoverTrigger
-│  └─ PopoverIndicator (optional)
-└─ Overlay subtree (automatically rendered in a portal)
-   └─ PopoverPositioner
-      └─ PopoverContent
-         ├─ PopoverArrow
-         │  └─ PopoverArrowTip
-         ├─ PopoverHeader
-         │  ├─ PopoverTitle
-         │  └─ PopoverDescription
-         ├─ PopoverBody
-         ├─ PopoverFooter
-         └─ PopoverCloseTrigger / PopoverCloseIcon
+Hover or focus a part to find it in the preview.
 
-PopoverRootProvider
-└─ the same part tree connected to state from moduix usePopover()
-
-PopoverContext
-└─ a render prop with the current popover state
-```
-
-| Part                         | Role                                                                  |
-| ---------------------------- | --------------------------------------------------------------------- |
-| `Popover`   | Owns state, opening and closing, focus, dismissal, and positioning.    |
-| `PopoverRootProvider`       | Connects the parts to state created with `usePopover()`.              |
-| `PopoverContext`            | Exposes current state through a render prop for descendants.          |
-| `PopoverAnchor`             | Optional reference element used for positioning.                      |
-| `PopoverTrigger`            | Button that toggles the popover and can have a trigger `value`.       |
-| `PopoverIndicator`           | Optional indicator for the trigger's state.                            |
-| `PopoverPositioner`         | Floating layer that exposes Ark positioning CSS variables.             |
-| `PopoverContent`             | Visible interactive popover surface.                                   |
-| `PopoverArrow` / `PopoverArrowTip` | Optional positioned arrow and its visible tip.                        |
-| `PopoverTitle`               | Accessible title associated with the content.                          |
-| `PopoverDescription`         | Accessible description associated with the content.                    |
-| `PopoverCloseTrigger`        | Low-level trigger that closes the popover.                             |
-| `PopoverCloseIcon`            | Moduix helper that combines Ark's close trigger with an icon button.   |
-| `PopoverHeader` / `PopoverBody`      | Moduix layout helpers with stable slots.                               |
-| `PopoverFooter`               | Moduix action-row helper with a stable slot.                            |
+<AnatomyInspector
+  parts={[
+    ["Popover", null, "Owns state, opening and closing, focus, dismissal, and positioning.", 0],
+    ["PopoverAnchor", "popover-anchor", "Optional reference element used for positioning.", 1],
+    ["PopoverTrigger", "popover-trigger", "Button that toggles the popover and can have a trigger `value`.", 2],
+    ["PopoverIndicator", "popover-indicator", "Optional indicator for the trigger's state.", 3],
+    ["PopoverPositioner", "popover-positioner", "Floating layer that exposes Ark positioning CSS variables.", 1],
+    ["PopoverContent", "popover-content", "Visible interactive popover surface.", 2],
+    ["PopoverArrow / PopoverArrowTip", "popover-arrow", "Optional positioned arrow and its visible tip.", 3],
+    ["PopoverHeader / PopoverBody", "popover-header", "Moduix layout helpers with stable slots.", 3],
+    ["PopoverTitle", "popover-title", "Accessible title associated with the content.", 4],
+    ["PopoverCloseIcon", "popover-close-icon", "Moduix helper that combines Ark's close trigger with an icon button.", 4],
+    ["PopoverDescription", "popover-description", "Accessible description associated with the content.", 4],
+    ["PopoverFooter", "popover-footer", "Moduix action-row helper with a stable slot.", 3],
+    ["PopoverCloseTrigger", "popover-close-trigger", "Low-level trigger that closes the popover.", 4],
+    ["PopoverRootProvider", null, "Connects the parts to state created with `usePopover()`.", 0],
+    ["PopoverContext", null, "Exposes current state through a render prop for descendants.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styling
 

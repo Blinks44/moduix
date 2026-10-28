@@ -5,6 +5,8 @@ description: Баннер или картинка выходят за внутр
 ark: https://ark-ui.com/docs/guides/composition#the-ark-factory
 ---
 
+import AnatomyScene from '@/components/examples/bleed/basic';
+
 <Example name="bleed/basic" />
 
 ## Установка
@@ -82,15 +84,15 @@ ark: https://ark-ui.com/docs/guides/composition#the-ark-factory
 `Bleed` отрисовывает один корневой элемент в соответствии с соглашениями Ark. Он применяет отрицательные внешние
 отступы по строчной и/или блочной оси и не добавляет внутреннюю обёртку.
 
-```text
-Bleed
-└─ root[data-scope="bleed"][data-part="root"][data-slot="bleed-root"]
-   └─ children
-```
+Наведите на часть или выберите её, чтобы найти её в превью.
 
-| Часть  | Назначение                                                            |
-| ------ | ---------------------------------------------------------------------- |
-| `Bleed` | Корневой компонент для выхода содержимого по строчной и блочной оси.  |
+<AnatomyInspector
+  parts={[
+    ["Bleed", "bleed-root", "Корневой компонент для выхода содержимого по строчной и блочной оси.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Стилизация
 

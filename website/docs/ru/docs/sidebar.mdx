@@ -5,6 +5,7 @@ description: Навигация приложения, которая меняе�
 ark: https://ark-ui.com/docs/components/splitter
 ---
 
+import AnatomyScene from '@/components/examples/sidebar/basic';
 import { sidebarOverrideCssProperties } from '@/components/examples/sidebar/css-properties';
 
 <Example name="sidebar/basic" />
@@ -127,51 +128,29 @@ import { sidebarOverrideCssProperties } from '@/components/examples/sidebar/css-
 
 ## Анатомия
 
-```text
-Sidebar
-├─ SidebarPanel[id="sidebar"]
-│  ├─ SidebarHeader
-│  │  ├─ SidebarLabel
-│  │  └─ SidebarInput
-│  ├─ SidebarContent
-│  │  └─ SidebarGroup
-│  │     ├─ SidebarGroupHeader
-│  │     │  ├─ SidebarGroupLabel
-│  │     │  └─ SidebarGroupAction
-│  │     └─ SidebarNavigationList
-│  │        └─ SidebarNavigationItem
-│  │           ├─ SidebarNavigationButton
-│  │           ├─ SidebarNavigationBadge (необязательно)
-│  │           ├─ SidebarExpandedContent
-│  │           ├─ SidebarCollapsedContent
-│  │           └─ SidebarNavigationSubList
-│  │              └─ SidebarNavigationSubItem
-│  │                 ├─ SidebarNavigationSubButton
-│  │                 └─ SidebarNavigationBadge (необязательно)
-│  └─ SidebarFooter
-│     └─ SidebarSeparator
-├─ SidebarResizeTrigger
-├─ SidebarTrigger
-└─ SidebarInset[id="content"]
-```
+Наведите на часть или выберите её, чтобы найти её в превью.
 
-| Часть | Назначение |
-| --- | --- |
-| `Sidebar` | Корень Ark Splitter с настройками для двух панелей. |
-| `SidebarPanel` | Сворачиваемая панель навигации с id `"sidebar"` по умолчанию. |
-| `SidebarInset` | Основная область содержимого с id `"content"` по умолчанию. |
-| `SidebarResizeTrigger` | Доступная линия-ручка для изменения размера мышью и клавиатурой; по умолчанию она рендерит общий `SplitterResizeTriggerIndicator`, а собственные children заменяют его. |
-| `SidebarTrigger` | Управление сворачиванием и разворачиванием панели. |
-| `SidebarHeader` | Непрокручиваемая верхняя область. |
-| `SidebarContent` | Прокручиваемая центральная область. |
-| `SidebarFooter` | Непрокручиваемая нижняя область. |
-| `SidebarGroup` | Семантическая секция навигации. |
-| `SidebarNavigationButton` | Кнопка или ссылка через `asChild` с состояниями active и size. |
-| `SidebarNavigationBadge` | Необязательный счётчик рядом с обычной кнопкой навигации или вложенной кнопкой. |
-| `SidebarExpandedContent` | Содержимое при развернутой панели. |
-| `SidebarCollapsedContent` | Содержимое при свернутой панели. |
-| `SidebarTooltip` | Подпись для свернутого режима с учетом стороны панели. |
-| `SidebarNavigationSubList` | Вложенный список навигации. |
+<AnatomyInspector
+  parts={[
+    ["Sidebar", "sidebar-root", "Корень Ark Splitter с настройками для двух панелей.", 0],
+    ["SidebarPanel", "sidebar-panel", "Сворачиваемая панель навигации с id `\"sidebar\"` по умолчанию.", 1],
+    ["SidebarHeader", "sidebar-header", "Непрокручиваемая верхняя область.", 2],
+    ["SidebarContent", "sidebar-content", "Прокручиваемая центральная область.", 2],
+    ["SidebarGroup", "sidebar-group", "Семантическая секция навигации.", 3],
+    ["SidebarNavigationButton", "sidebar-navigation-button", "Кнопка или ссылка через `asChild` с состояниями active и size.", 4],
+    ["SidebarNavigationBadge", "sidebar-navigation-badge", "Необязательный счётчик рядом с обычной кнопкой навигации или вложенной кнопкой.", 4],
+    ["SidebarExpandedContent", "sidebar-expanded-content", "Содержимое при развернутой панели.", 4],
+    ["SidebarCollapsedContent", "sidebar-collapsed-content", "Содержимое при свернутой панели.", 4],
+    ["SidebarNavigationSubList", "sidebar-navigation-sub-list", "Вложенный список навигации.", 4],
+    ["SidebarFooter", "sidebar-footer", "Непрокручиваемая нижняя область.", 2],
+    ["SidebarResizeTrigger", "sidebar-resize-trigger", "Доступная линия-ручка для изменения размера мышью и клавиатурой; по умолчанию она рендерит общий `SplitterResizeTriggerIndicator`, а собственные children заменяют его.", 1],
+    ["SidebarTrigger", "sidebar-trigger", "Управление сворачиванием и разворачиванием панели.", 1],
+    ["SidebarInset", "sidebar-inset", "Основная область содержимого с id `\"content\"` по умолчанию.", 1],
+    ["SidebarTooltip", "", "Подпись для свернутого режима с учетом стороны панели.", 1],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Стилизация
 
@@ -198,7 +177,11 @@ Sidebar
 
 ### CSS-переменные
 
-<CssPropertiesSection properties={sidebarOverrideCssProperties} />
+Наведите на переменную или выберите её, чтобы увидеть её в превью.
+
+<CssPropertiesSection properties={sidebarOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Хуки стилизации
 

@@ -5,6 +5,8 @@ description: Пошаговое знакомство с продуктом с п
 ark: https://ark-ui.com/docs/components/tour
 ---
 
+import AnatomyScene from '@/components/examples/tour/basic';
+
 <Example name="tour/basic" />
 
 ## Установка
@@ -80,35 +82,22 @@ ark: https://ark-ui.com/docs/components/tour
 
 ## Анатомия
 
-```text
-Tour
-└─ Поддерево оверлея (по умолчанию выводится в портал)
-   ├─ TourBackdrop
-   ├─ TourSpotlight
-   └─ TourPositioner
-      └─ TourContent
-         ├─ TourArrow
-         ├─ TourCloseIcon / TourCloseTrigger
-         ├─ TourBody
-         │  ├─ TourTitle
-         │  ├─ TourDescription
-         │  └─ TourProgressText
-         └─ TourControl
-            ├─ TourActionList
-            └─ TourActions
-               └─ TourActionTrigger[action]
-```
+Наведите на часть или выберите её, чтобы найти её в превью.
 
-| Часть | Роль |
-| --- | --- |
-| `Tour` | Корневой компонент, связанный с объектом, который возвращает `useTour`. |
-| `TourBackdrop` / `TourSpotlight` | Необязательный фон и подсветка текущего целевого элемента. |
-| `TourPositioner` / `TourContent` | Позиционируют и отображают элемент `alertdialog` из Ark. |
-| `TourArrow` | По умолчанию выводит `TourArrowTip` из moduix для шагов с подсказкой. |
-| `TourCloseIcon` / `TourCloseTrigger` | Доступное закрытие по умолчанию или собственная кнопка закрытия. |
-| `TourBody` | Прокручиваемая обёртка moduix для заголовка, описания и текста прогресса. |
-| `TourControl` / `TourActionList` | Рекомендуемая строка действий и действия текущего шага. |
-| `TourActions` / `TourActionTrigger` | Позволяют отрисовать свои действия, сохранив объекты действий Ark. |
+<AnatomyInspector
+  parts={[
+    ["Tour", null, "Корневой компонент, связанный с объектом, который возвращает `useTour`.", 0],
+    ["TourBackdrop / TourSpotlight", "tour-backdrop", "Необязательный фон и подсветка текущего целевого элемента.", 1],
+    ["TourPositioner / TourContent", "tour-positioner", "Позиционируют и отображают элемент `alertdialog` из Ark.", 1],
+    ["TourArrow", "tour-arrow", "По умолчанию выводит `TourArrowTip` из moduix для шагов с подсказкой.", 2],
+    ["TourCloseIcon / TourCloseTrigger", "tour-close-icon", "Доступное закрытие по умолчанию или собственная кнопка закрытия.", 2],
+    ["TourBody", "tour-body", "Прокручиваемая обёртка moduix для заголовка, описания и текста прогресса.", 2],
+    ["TourControl / TourActionList", "tour-control", "Рекомендуемая строка действий и действия текущего шага.", 2],
+    ["TourActions / TourActionTrigger", "", "Позволяют отрисовать свои действия, сохранив объекты действий Ark.", 3],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Стилизация
 

@@ -5,6 +5,7 @@ description: Show a selected value, filter, or assignment as a removable token.
 ark: https://ark-ui.com/docs/guides/composition#the-ark-factory
 ---
 
+import AnatomyScene from '@/components/examples/tag/basic';
 import * as TagDocs from '@/components/examples/tag/css-properties';
 
 <Example name="tag/basic" />
@@ -102,21 +103,19 @@ the value, such as `aria-label="Remove TypeScript tag"`.
 
 Use `Tag` as the root element.
 
-```text
-Tag
-├─ TagStartElement (optional)
-├─ TagLabel
-└─ TagEndElement (optional)
-   └─ TagCloseTrigger (optional)
-```
+Hover or focus a part to find it in the preview.
 
-| Part               | Role                                                                                     |
-| ------------------ | ---------------------------------------------------------------------------------------- |
-| `Tag`              | Root element. Applies the token layout, border, size, variant, and `asChild` composition. |
-| `TagLabel`        | Visible value wrapper and truncation boundary.                                            |
-| `TagStartElement` | Optional leading area for an icon, avatar, or status indicator.                           |
-| `TagEndElement`   | Optional trailing area for an icon or action.                                              |
-| `TagCloseTrigger` | Optional button for removing the token.                                                   |
+<AnatomyInspector
+  parts={[
+    ["Tag", "tag-root", "Root element. Applies the token layout, border, size, variant, and `asChild` composition.", 0],
+    ["TagStartElement", "tag-start-element", "Optional leading area for an icon, avatar, or status indicator.", 1],
+    ["TagLabel", "tag-label", "Visible value wrapper and truncation boundary.", 1],
+    ["TagEndElement", "tag-end-element", "Optional trailing area for an icon or action.", 1],
+    ["TagCloseTrigger", "tag-close-trigger", "Optional button for removing the token.", 2],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styling
 
@@ -130,7 +129,11 @@ class on the part.
 
 ### CSS variables
 
-<CssPropertiesSection properties={TagDocs.tagCssProperties} />
+Hover or focus a variable to see it in the preview.
+
+<CssPropertiesSection properties={TagDocs.tagCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Styling hooks
 

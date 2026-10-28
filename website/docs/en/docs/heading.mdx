@@ -5,6 +5,8 @@ description: Title a page or section with the right level and visual size.
 ark: https://ark-ui.com/docs/guides/composition#the-ark-factory
 ---
 
+import AnatomyScene from '@/components/examples/heading/basic';
+
 <Example name="heading/basic" />
 
 ## Installation
@@ -77,14 +79,15 @@ when visual emphasis should differ. Without an explicit `size`,
 
 `Heading` renders one native heading element.
 
-```text
-Heading
-└─ text or inline content
-```
+Hover or focus a part to find it in the preview.
 
-| Part                       | Role                                                    |
-| -------------------------- | ------------------------------------------------------- |
-| `Heading` | Native semantic heading with moduix typography styling. |
+<AnatomyInspector
+  parts={[
+    ["Heading", "heading-root", "Native semantic heading with moduix typography styling.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styling
 

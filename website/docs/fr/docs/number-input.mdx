@@ -5,6 +5,7 @@ description: Saisir un nombre avec boutons de pas, limites et format local.
 ark: https://ark-ui.com/docs/components/number-input
 ---
 
+import AnatomyScene from '@/components/examples/number-input/basic';
 import * as NumberInputDocs from '@/components/examples/number-input/css-properties';
 
 <Example name="number-input/basic" />
@@ -142,34 +143,25 @@ de la valeur formatée ou de `valueAsNumber`.
 
 ## Anatomie
 
-```text
-NumberInput
-├─ NumberInputLabel
-├─ NumberInputScrubber (facultatif)
-├─ NumberInputField (raccourci recommandé)
-│  └─ affiche NumberInputControl
-│     ├─ NumberInputDecrementTrigger
-│     ├─ NumberInputInput
-│     └─ NumberInputIncrementTrigger
-└─ NumberInputValueText (facultatif)
+Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
 
-NumberInputRootProvider
-└─ même arborescence reliée à l’état créé avec `useNumberInput()`
-```
-
-| Partie | Rôle |
-| --- | --- |
-| `NumberInput` | Gère l’état du champ numérique, l’interprétation de la saisie, le formatage et le comportement au clavier. |
-| `NumberInputRootProvider` | Relie les parties à l’état créé avec `useNumberInput()`. |
-| `NumberInputContext` | Expose les valeurs formatée et numérique, ainsi que les méthodes impératives de gestion de l’état. |
-| `NumberInputLabel` | Libellé accessible associé au champ géré. |
-| `NumberInputScrubber` | Zone de glissement facultative qui modifie la valeur selon le déplacement du pointeur. |
-| `NumberInputControl` | Regroupe le champ et les boutons d’incrémentation et de décrémentation. |
-| `NumberInputField` | Partie pratique qui affiche le contrôle standard et le groupe de boutons. |
-| `NumberInputDecrementTrigger` | Bouton qui diminue la valeur actuelle. Il affiche par défaut l’icône moins de moduix. |
-| `NumberInputInput` | Champ de texte numérique modifiable géré par Ark UI. |
-| `NumberInputIncrementTrigger` | Bouton qui augmente la valeur actuelle. Il affiche par défaut l’icône plus de moduix. |
-| `NumberInputValueText` | Texte en lecture seule qui affiche la valeur formatée. |
+<AnatomyInspector
+  parts={[
+    ["NumberInput", "number-input-root", "Gère l’état du champ numérique, l’interprétation de la saisie, le formatage et le comportement au clavier.", 0],
+    ["NumberInputLabel", "number-input-label", "Libellé accessible associé au champ géré.", 1],
+    ["NumberInputScrubber", "number-input-scrubber", "Zone de glissement facultative qui modifie la valeur selon le déplacement du pointeur.", 1],
+    ["NumberInputField", "", "Partie pratique qui affiche le contrôle standard et le groupe de boutons.", 1],
+    ["NumberInputDecrementTrigger", "number-input-decrement-trigger", "Bouton qui diminue la valeur actuelle. Il affiche par défaut l’icône moins de moduix.", 2],
+    ["NumberInputInput", "number-input-input", "Champ de texte numérique modifiable géré par Ark UI.", 2],
+    ["NumberInputIncrementTrigger", "number-input-increment-trigger", "Bouton qui augmente la valeur actuelle. Il affiche par défaut l’icône plus de moduix.", 2],
+    ["NumberInputValueText", "number-input-value-text", "Texte en lecture seule qui affiche la valeur formatée.", 1],
+    ["NumberInputControl", "number-input-control", "Regroupe le champ et les boutons d’incrémentation et de décrémentation.", 1],
+    ["NumberInputRootProvider", "number-input-root-provider", "Relie les parties à l’état créé avec `useNumberInput()`.", 0],
+    ["NumberInputContext", null, "Expose les valeurs formatée et numérique, ainsi que les méthodes impératives de gestion de l’état.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styles
 
@@ -179,7 +171,11 @@ les variantes CSS Modules. Les attributs de données et les hooks `data-slot` so
 
 ### Variables CSS
 
-<CssPropertiesSection properties={NumberInputDocs.numberInputOverrideCssProperties} />
+Survolez ou sélectionnez une variable pour la voir dans l’aperçu.
+
+<CssPropertiesSection properties={NumberInputDocs.numberInputOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Points d’accroche CSS
 

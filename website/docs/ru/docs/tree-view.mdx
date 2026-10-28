@@ -5,6 +5,7 @@ description: Папки, файлы и другие вложенные данн�
 ark: https://ark-ui.com/docs/components/tree-view
 ---
 
+import AnatomyScene from '@/components/examples/tree-view/basic';
 import * as TreeViewDocs from '@/components/examples/tree-view/css-properties';
 
 <Example name="tree-view/basic" />
@@ -104,35 +105,24 @@ Vue сохранял экземпляр класса.
 
 ## Анатомия
 
-```text
-TreeView
-├─ TreeViewLabel
-└─ TreeViewTree
-   └─ TreeViewNode или TreeViewNodeProvider
-      ├─ TreeViewBranch
-      │  ├─ TreeViewBranchControl
-      │  │  ├─ TreeViewBranchIndicator
-      │  │  └─ TreeViewBranchText
-      │  ├─ TreeViewBranchTrigger (опционально, отдельный триггер)
-      │  └─ TreeViewBranchContent
-      │     ├─ TreeViewBranchIndentGuide
-      │     └─ вложенные узлы
-      └─ TreeViewItem
-         └─ TreeViewItemText
-```
+Наведите на часть или выберите её, чтобы найти её в превью.
 
-| Часть                            | Назначение                                                            |
-| -------------------------------- | --------------------------------------------------------------------- |
-| `TreeView`                  | Хранит коллекцию и управляет раскрытием, выбором, фокусом, флажками и переименованием. |
-| `TreeViewRootProvider`          | Связывает части дерева с экземпляром, созданным через `useTreeView`. |
-| `TreeViewLabel`                 | Задаёт доступное имя дерева.                                         |
-| `TreeViewTree`                  | Создаёт контейнер дерева с ARIA-разметкой.                           |
-| `TreeViewNode`                  | Упрощённый провайдер с `{ node, indexPath, state }`.                 |
-| `TreeViewNodeProvider`          | Низкоуровневая граница контекста Ark для нестандартной композиции.   |
-| `TreeViewBranch*`               | Раскрываемый узел, его элемент управления, индикатор, текст и содержимое. |
-| `TreeViewItem*`                 | Конечный узел и необязательный индикатор выбранного состояния.       |
-| `TreeViewNodeCheckbox*`         | Флажок и индикатор отмеченного или частично отмеченного состояния.   |
-| `TreeViewNodeRenameInput`       | Поле ввода, которое появляется при переименовании узла.              |
+<AnatomyInspector
+  parts={[
+    ["TreeView", "tree-view-root", "Хранит коллекцию и управляет раскрытием, выбором, фокусом, флажками и переименованием.", 0],
+    ["TreeViewLabel", "tree-view-label", "Задаёт доступное имя дерева.", 1],
+    ["TreeViewTree", "tree-view-tree", "Создаёт контейнер дерева с ARIA-разметкой.", 1],
+    ["TreeViewNode", "", "Упрощённый провайдер с `{ node, indexPath, state }`.", 2],
+    ["TreeViewBranch*", "tree-view-branch", "Раскрываемый узел, его элемент управления, индикатор, текст и содержимое.", 3],
+    ["TreeViewItem*", "tree-view-item", "Конечный узел и необязательный индикатор выбранного состояния.", 3],
+    ["TreeViewNodeCheckbox*", "tree-view-node-checkbox", "Флажок и индикатор отмеченного или частично отмеченного состояния.", 3],
+    ["TreeViewNodeRenameInput", "tree-view-node-rename-input", "Поле ввода, которое появляется при переименовании узла.", 3],
+    ["TreeViewRootProvider", "tree-view-root-provider", "Связывает части дерева с экземпляром, созданным через `useTreeView`.", 0],
+    ["TreeViewNodeProvider", null, "Низкоуровневая граница контекста Ark для нестандартной композиции.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Стилизация
 
@@ -149,7 +139,11 @@ TreeView
 
 ### CSS-переменные
 
-<CssPropertiesSection properties={TreeViewDocs.treeViewOverrideCssProperties} />
+Наведите на переменную или выберите её, чтобы увидеть её в превью.
+
+<CssPropertiesSection properties={TreeViewDocs.treeViewOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Хуки стилизации
 

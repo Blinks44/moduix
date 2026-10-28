@@ -5,6 +5,7 @@ description: Activer ou désactiver une option, seule ou dans un groupe.
 ark: https://ark-ui.com/docs/components/checkbox
 ---
 
+import AnatomyScene from '@/components/examples/checkbox/basic';
 import * as CheckboxDocs from '@/components/examples/checkbox/css-properties';
 
 <Example name="checkbox/basic" />
@@ -170,33 +171,21 @@ le store à `CheckboxRootProvider`. Ne rendez pas `Checkbox` ou `CheckboxRootPro
 
 ## Anatomie
 
-```text
-Checkbox
-├─ CheckboxControl
-│  ├─ CheckboxIndicator
-│  └─ CheckboxIndicator[indeterminate] (facultatif)
-├─ CheckboxLabel
-└─ CheckboxHiddenInput (explicite)
+Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
 
-CheckboxRootProvider
-└─ même arbre de parties relié à l’état fourni par useCheckbox()
-
-CheckboxGroup
-└─ Checkbox[value]
-   ├─ CheckboxControl
-   ├─ CheckboxLabel
-   └─ CheckboxHiddenInput
-```
-
-| Partie                        | Rôle                                                                                       |
-| ----------------------------- | ------------------------------------------------------------------------------------------ |
-| `Checkbox`                    | Gère l’état d’une case à cocher et rend le `label` qui l’enveloppe.                        |
-| `CheckboxHiddenInput`         | Champ natif d’Ark ; ajoutez-le explicitement dans la racine.                               |
-| `CheckboxRootProvider`        | Relie les parties à un état Ark créé en dehors de l’arbre rendu.                           |
-| `CheckboxControl`             | Partie visible ; vide, elle affiche les icônes d’état intégrées.                           |
-| `CheckboxIndicator`           | Emplacement facultatif pour une icône personnalisée. Passez `indeterminate` pour cet état. |
-| `CheckboxLabel`               | Libellé visible de la case à cocher.                                                       |
-| `CheckboxGroup`               | Gère les valeurs sélectionnées de plusieurs cases à cocher.                                |
+<AnatomyInspector
+  parts={[
+    ["Checkbox", "checkbox-root", "Gère l’état d’une case à cocher et rend le `label` qui l’enveloppe.", 0],
+    ["CheckboxControl", "checkbox-control", "Partie visible ; vide, elle affiche les icônes d’état intégrées.", 1],
+    ["CheckboxIndicator", "checkbox-indicator", "Emplacement facultatif pour une icône personnalisée. Passez `indeterminate` pour cet état.", 2],
+    ["CheckboxLabel", "checkbox-label", "Libellé visible de la case à cocher.", 1],
+    ["CheckboxHiddenInput", "", "Champ natif d’Ark ; ajoutez-le explicitement dans la racine.", 1],
+    ["CheckboxRootProvider", "checkbox-root-provider", "Relie les parties à un état Ark créé en dehors de l’arbre rendu.", 0],
+    ["CheckboxGroup", "checkbox-group", "Gère les valeurs sélectionnées de plusieurs cases à cocher.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styles
 
@@ -209,7 +198,11 @@ approches de style.
 
 ### Variables CSS
 
-<CssPropertiesSection properties={CheckboxDocs.checkboxOverrideCssProperties} />
+Survolez ou sélectionnez une variable pour la voir dans l’aperçu.
+
+<CssPropertiesSection properties={CheckboxDocs.checkboxOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Points d’accroche CSS
 

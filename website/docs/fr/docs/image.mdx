@@ -5,6 +5,7 @@ description: Servir des images adaptatives avec srcset généré pour les CDN co
 ark: https://ark-ui.com/docs/guides/composition
 ---
 
+import AnatomyScene from '@/components/examples/image/basic';
 import * as ImageDocs from '@/components/examples/image/css-properties';
 
 <Example name="image/basic" />
@@ -81,19 +82,16 @@ fichiers locaux, utilisez un `<source srcset>` natif.
 
 ## Anatomie
 
-```text
-Image
-└─ img
+Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
 
-picture (native)
-├─ ImageSource
-└─ Image
-```
-
-| Partie                 | Rôle                                                                      |
-| ---------------------- | ------------------------------------------------------------------------- |
-| `Image`                | Élément `<img>` natif et adaptatif ; Unpic génère `srcset`, `sizes` et les styles. |
-| `ImageSource`          | Élément `<source>` adaptatif utilisé dans un élément natif `<picture>`.          |
+<AnatomyInspector
+  parts={[
+    ["Image", "image-root", "Élément `<img>` natif et adaptatif ; Unpic génère `srcset`, `sizes` et les styles.", 0],
+    ["ImageSource", "image-source", "Élément `<source>` adaptatif utilisé dans un élément natif `<picture>`.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styles
 
@@ -104,7 +102,11 @@ partagés par les deux modes de style.
 
 ### Variables CSS
 
-<CssPropertiesSection properties={ImageDocs.imageCssProperties} />
+Survolez ou sélectionnez une variable pour la voir dans l’aperçu.
+
+<CssPropertiesSection properties={ImageDocs.imageCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Points d’accroche CSS
 

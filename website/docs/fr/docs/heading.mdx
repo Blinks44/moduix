@@ -5,6 +5,8 @@ description: Titrer une page ou une section avec le bon niveau et la bonne taill
 ark: https://ark-ui.com/docs/guides/composition#the-ark-factory
 ---
 
+import AnatomyScene from '@/components/examples/heading/basic';
+
 <Example name="heading/basic" />
 
 ## Installation
@@ -79,14 +81,15 @@ porter le nœud DOM rendu.
 
 `Heading` rend un seul élément de titre natif.
 
-```text
-Heading
-└─ texte ou contenu en ligne
-```
+Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
 
-| Partie                     | Rôle                                                               |
-| -------------------------- | ------------------------------------------------------------------ |
-| `Heading` | Titre sémantique natif avec la mise en forme typographique de moduix. |
+<AnatomyInspector
+  parts={[
+    ["Heading", "heading-root", "Titre sémantique natif avec la mise en forme typographique de moduix.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styles
 

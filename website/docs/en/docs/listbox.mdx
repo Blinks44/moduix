@@ -5,6 +5,7 @@ description: Show a visible list of options for picking one or many.
 ark: https://ark-ui.com/docs/components/listbox
 ---
 
+import AnatomyScene from '@/components/examples/listbox/basic';
 import * as ListboxDocs from '@/components/examples/listbox/css-properties';
 
 <Example name="listbox/basic" />
@@ -132,50 +133,31 @@ value summary.
 
 ## Anatomy
 
-```text
-Listbox
-├─ ListboxLabel
-├─ ListboxFilter
-│  ├─ ListboxInput
-│  └─ ListboxClearTrigger
-├─ ListboxContent
-│  ├─ ListboxEmpty
-│  ├─ ListboxItemGroup
-│  │  ├─ ListboxItemGroupLabel
-│  │  └─ ListboxItem[item]
-│  │     ├─ ListboxItemText
-│  │     └─ ListboxItemIndicator
-│  └─ ListboxItem[item]
-│     ├─ ListboxItemText
-│     │  └─ ListboxItemTextContent (optional)
-│     │     ├─ ListboxItemTextIcon (optional)
-│     │     └─ ListboxItemTextLabel (optional)
-│     └─ ListboxItemIndicator
-└─ ListboxValueText
+Hover or focus a part to find it in the preview.
 
-ListboxRootProvider
-└─ same item tree connected to a useListbox() store
-```
-
-| Part                       | Role                                                                                   |
-| -------------------------- | -------------------------------------------------------------------------------------- |
-| `Listbox` | Manages the collection, selected values, highlighted item, and selection mode.         |
-| `ListboxRootProvider`     | Renders the listbox tree from state returned by `useListbox`.                          |
-| `ListboxLabel`            | Label that gives the listbox an accessible name.                                       |
-| `ListboxFilter`           | Visual wrapper for a filter input with the default search icon. Place it before `ListboxContent`. |
-| `ListboxInput`            | Filter input, usually placed inside `ListboxFilter`.                                         |
-| `ListboxClearTrigger`     | Button for resetting the filter query, with the default close icon.                    |
-| `ListboxContent`          | Focusable listbox container that handles keyboard navigation.                          |
-| `ListboxEmpty`            | Content shown when the filtered collection has no items.                               |
-| `ListboxItemGroup`        | Group wrapper for related collection items.                                            |
-| `ListboxItemGroupLabel`   | Label for a collection group.                                                          |
-| `ListboxItem`             | Selectable item. Pass its collection item through `item`.                              |
-| `ListboxItemText`         | Text used for display and accessibility.                                               |
-| `ListboxItemTextContent`  | Optional wrapper for laying out an icon and text inside `ListboxItemText`.                    |
-| `ListboxItemTextIcon`     | Optional icon wrapper inside `ListboxItemTextContent`.                                       |
-| `ListboxItemTextLabel`    | Text wrapper inside `ListboxItemTextContent` that can truncate long labels without breaking layout. |
-| `ListboxItemIndicator`    | Selection indicator with the default moduix check icon.                                |
-| `ListboxValueText`        | Summary of the selected values.                                                        |
+<AnatomyInspector
+  parts={[
+    ["Listbox", "listbox-root", "Manages the collection, selected values, highlighted item, and selection mode.", 0],
+    ["ListboxLabel", "listbox-label", "Label that gives the listbox an accessible name.", 1],
+    ["ListboxFilter", "listbox-filter-icon", "Visual wrapper for a filter input with the default search icon. Place it before `ListboxContent`.", 1],
+    ["ListboxInput", "listbox-input", "Filter input, usually placed inside `ListboxFilter`.", 2],
+    ["ListboxClearTrigger", "listbox-clear-trigger", "Button for resetting the filter query, with the default close icon.", 2],
+    ["ListboxContent", "listbox-content", "Focusable listbox container that handles keyboard navigation.", 1],
+    ["ListboxEmpty", "listbox-empty", "Content shown when the filtered collection has no items.", 2],
+    ["ListboxItemGroup", "listbox-item-group", "Group wrapper for related collection items.", 2],
+    ["ListboxItemGroupLabel", "listbox-item-group-label", "Label for a collection group.", 3],
+    ["ListboxItem", "listbox-item", "Selectable item. Pass its collection item through `item`.", 3],
+    ["ListboxItemText", "listbox-item-text", "Text used for display and accessibility.", 4],
+    ["ListboxItemIndicator", "listbox-item-indicator", "Selection indicator with the default moduix check icon.", 4],
+    ["ListboxItemTextContent", "listbox-item-text-content", "Optional wrapper for laying out an icon and text inside `ListboxItemText`.", 2],
+    ["ListboxItemTextIcon", "listbox-item-text-icon", "Optional icon wrapper inside `ListboxItemTextContent`.", 3],
+    ["ListboxItemTextLabel", "listbox-item-text-label", "Text wrapper inside `ListboxItemTextContent` that can truncate long labels without breaking layout.", 3],
+    ["ListboxValueText", "listbox-value-text", "Summary of the selected values.", 1],
+    ["ListboxRootProvider", "listbox-root-provider", "Renders the listbox tree from state returned by `useListbox`.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styling
 
@@ -188,7 +170,11 @@ also follow the shared `--moduix-popup-item-*`, `--moduix-popup-group-label-*`, 
 
 ### CSS variables
 
-<CssPropertiesSection properties={ListboxDocs.listboxOverrideCssProperties} />
+Hover or focus a variable to see it in the preview.
+
+<CssPropertiesSection properties={ListboxDocs.listboxOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Styling hooks
 

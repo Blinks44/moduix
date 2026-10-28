@@ -5,6 +5,7 @@ description: Выбранное значение, фильтр или назна
 ark: https://ark-ui.com/docs/guides/composition#the-ark-factory
 ---
 
+import AnatomyScene from '@/components/examples/tag/basic';
 import * as TagDocs from '@/components/examples/tag/css-properties';
 
 <Example name="tag/basic" />
@@ -104,21 +105,19 @@ import * as TagDocs from '@/components/examples/tag/css-properties';
 
 Используйте `Tag` как корневой элемент.
 
-```text
-Tag
-├─ TagStartElement (необязательно)
-├─ TagLabel
-└─ TagEndElement (необязательно)
-   └─ TagCloseTrigger (необязательно)
-```
+Наведите на часть или выберите её, чтобы найти её в превью.
 
-| Часть              | Роль                                                                                     |
-| ------------------ | ---------------------------------------------------------------------------------------- |
-| `Tag`              | Корневой элемент. Задаёт разметку метки, границу, размер, вариант и композицию через `asChild`. |
-| `TagLabel`        | Обёртка видимого значения и граница обрезки.                                             |
-| `TagStartElement` | Необязательная область слева для значка, аватара или индикатора состояния.                |
-| `TagEndElement`   | Необязательная область справа для значка или действия.                                   |
-| `TagCloseTrigger` | Необязательная кнопка для удаления метки.                                                |
+<AnatomyInspector
+  parts={[
+    ["Tag", "tag-root", "Корневой элемент. Задаёт разметку метки, границу, размер, вариант и композицию через `asChild`.", 0],
+    ["TagStartElement", "tag-start-element", "Необязательная область слева для значка, аватара или индикатора состояния.", 1],
+    ["TagLabel", "tag-label", "Обёртка видимого значения и граница обрезки.", 1],
+    ["TagEndElement", "tag-end-element", "Необязательная область справа для значка или действия.", 1],
+    ["TagCloseTrigger", "tag-close-trigger", "Необязательная кнопка для удаления метки.", 2],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Стилизация
 
@@ -132,7 +131,11 @@ Tag
 
 ### CSS-переменные
 
-<CssPropertiesSection properties={TagDocs.tagCssProperties} />
+Наведите на переменную или выберите её, чтобы увидеть её в превью.
+
+<CssPropertiesSection properties={TagDocs.tagCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Хуки стилизации
 

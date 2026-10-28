@@ -5,6 +5,7 @@ description: Animate between two icons or labels when a control changes state.
 ark: https://ark-ui.com/docs/utilities/swap
 ---
 
+import AnatomyScene from '@/components/examples/swap/basic';
 import * as SwapDocs from '@/components/examples/swap/css-properties';
 
 <Example name="swap/basic" />
@@ -72,20 +73,17 @@ or pass a custom name and define its CSS with the root's `data-animation` and th
 
 ## Anatomy
 
-```text
-Swap
-├─ SwapIndicator type="off"
-└─ SwapIndicator type="on"
+Hover or focus a part to find it in the preview.
 
-SwapRootProvider
-└─ same indicator tree connected to a useSwap() store
-```
-
-| Part                 | Role                                                               |
-| -------------------- | ------------------------------------------------------------------ |
-| `Swap` | Supplies the `swap` state and stacks both visual states.           |
-| `SwapRootProvider`  | Connects the parts to state created with `useSwap()`.         |
-| `SwapIndicator`     | Renders the `on` or `off` state selected by its `type` prop.        |
+<AnatomyInspector
+  parts={[
+    ["Swap", "swap-root", "Supplies the `swap` state and stacks both visual states.", 0],
+    ["SwapIndicator", "swap-indicator", "Renders the `on` or `off` state selected by its `type` prop.", 1],
+    ["SwapRootProvider", "swap-root-provider", "Connects the parts to state created with `useSwap()`.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styling
 
@@ -105,7 +103,11 @@ root, which out-specifies a plain consumer `perspective` utility, so repeat that
 
 ### CSS variables
 
-<CssPropertiesSection properties={SwapDocs.swapOverrideCssProperties} />
+Hover or focus a variable to see it in the preview.
+
+<CssPropertiesSection properties={SwapDocs.swapOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Styling hooks
 

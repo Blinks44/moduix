@@ -5,6 +5,8 @@ description: Set body text, captions, and inline copy on the type scale.
 ark: https://ark-ui.com/docs/guides/composition#the-ark-factory
 ---
 
+import AnatomyScene from '@/components/examples/text/basic';
+
 <Example name="text/basic" />
 
 ## Installation
@@ -97,14 +99,15 @@ in the surrounding UI.
 
 `Text` renders a single root element using Ark's factory through the flat root export.
 
-```text
-Text
-└─ text or inline content
-```
+Hover or focus a part to find it in the preview.
 
-| Part                 | Role                                                             |
-| -------------------- | ---------------------------------------------------------------- |
-| `Text`              | Typography root with semantic HTML and stable data attributes. |
+<AnatomyInspector
+  parts={[
+    ["Text", "text-root", "Typography root with semantic HTML and stable data attributes.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styling
 

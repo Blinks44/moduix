@@ -5,6 +5,7 @@ description: Grouper des boutons bascule pour un ou plusieurs choix.
 ark: https://ark-ui.com/docs/components/toggle-group
 ---
 
+import AnatomyScene from '@/components/examples/toggle-group/basic';
 import * as ToggleGroupDocs from '@/components/examples/toggle-group/css-properties';
 import { CssPropertiesSection } from '@/components/mdx/Components';
 
@@ -131,21 +132,18 @@ Vue reçoit un seul élément enfant. Ne rendez pas
 
 ## Anatomie
 
-```text
-ToggleGroup
-├─ ToggleGroupContext (facultatif)
-└─ ToggleGroupItem[value]
+Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
 
-ToggleGroupRootProvider
-└─ ToggleGroupItem[value]
-```
-
-| Partie                    | Rôle                                                                                   |
-| ------------------------- | -------------------------------------------------------------------------------------- |
-| `ToggleGroup`             | Partie racine qui gère les valeurs sélectionnées, le focus, l’orientation et l’état désactivé. |
-| `ToggleGroupItem`         | Élément interactif avec un `value` obligatoire et l’état de sélection géré par Ark.    |
-| `ToggleGroupRootProvider` | Relie l’arbre des éléments à l’état créé avec `useToggleGroup()`.                      |
-| `ToggleGroupContext`      | Expose l’état actuel du groupe via une fonction de rendu ou un slot avec portée Vue.    |
+<AnatomyInspector
+  parts={[
+    ["ToggleGroup", "toggle-group-root", "Partie racine qui gère les valeurs sélectionnées, le focus, l’orientation et l’état désactivé.", 0],
+    ["ToggleGroupContext", null, "Expose l’état actuel du groupe via une fonction de rendu ou un slot avec portée Vue.", 1],
+    ["ToggleGroupItem", "toggle-group-item", "Élément interactif avec un `value` obligatoire et l’état de sélection géré par Ark.", 1],
+    ["ToggleGroupRootProvider", "toggle-group-root-provider", "Relie l’arbre des éléments à l’état créé avec `useToggleGroup()`.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styles
 
@@ -156,7 +154,11 @@ CSS Modules exposent les tokens `--moduix-toggle-group-*`. Les éléments hérit
 
 ### Variables CSS
 
-<CssPropertiesSection properties={ToggleGroupDocs.toggleGroupOverrideCssProperties} />
+Survolez ou sélectionnez une variable pour la voir dans l’aperçu.
+
+<CssPropertiesSection properties={ToggleGroupDocs.toggleGroupOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 Le tableau couvre les propriétés du groupe. Chaque `ToggleGroupItem` prend également en charge les
 [propriétés CSS de Toggle](/docs/toggle#variables-css) pour ses couleurs et ses états d’interaction.

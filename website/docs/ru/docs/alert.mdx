@@ -5,6 +5,7 @@ description: Встроенное сообщение о статусе с заг
 ark: https://ark-ui.com/docs/guides/composition#the-ark-factory
 ---
 
+import AnatomyScene from '@/components/examples/alert/basic';
 import * as AlertDocs from '@/components/examples/alert/css-properties';
 
 <Example name="alert/basic" />
@@ -106,24 +107,20 @@ import * as AlertDocs from '@/components/examples/alert/css-properties';
 Поместите содержимое сообщения в `AlertContent`. `AlertIndicator` необязателен и располагается
 рядом с этим содержимым, когда помогает быстрее понять тип сообщения.
 
-```text
-Alert
-├─ AlertIndicator (optional)
-└─ AlertContent
-   ├─ AlertTitle
-   ├─ AlertDescription
-   ├─ AlertActions (optional)
-   └─ Extra custom blocks
-```
+Наведите на часть или выберите её, чтобы найти её в превью.
 
-| Часть              | Назначение                                                               | `data-part`   |
-| ------------------ | ------------------------------------------------------------------------ | ------------- |
-| `Alert`            | Корневой элемент. Применяет стили статуса.                                 | `root`        |
-| `AlertIndicator`   | Необязательный визуальный ориентир. Вложенные SVG-иконки получают единый размер. | `indicator`   |
-| `AlertContent`     | Обязательная колонка для содержимого сообщения и действий.                | `content`     |
-| `AlertTitle`       | Заголовок сообщения. По умолчанию рендерится как `p`.                     | `title`       |
-| `AlertDescription` | Дополнительный текст сообщения.                                           | `description` |
-| `AlertActions`     | Необязательная строка действий с переносом внутри `Content`.              | `actions`     |
+<AnatomyInspector
+  parts={[
+    ["Alert", "alert-root", "Корневой элемент. Применяет стили статуса.", 0],
+    ["AlertIndicator", "alert-indicator", "Необязательный визуальный ориентир. Вложенные SVG-иконки получают единый размер.", 1],
+    ["AlertContent", "alert-content", "Обязательная колонка для содержимого сообщения и действий.", 1],
+    ["AlertTitle", "alert-title", "Заголовок сообщения. По умолчанию рендерится как `p`.", 2],
+    ["AlertDescription", "alert-description", "Дополнительный текст сообщения.", 2],
+    ["AlertActions", "alert-actions", "Необязательная строка действий с переносом внутри `Content`.", 2],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Стилизация
 
@@ -147,7 +144,11 @@ Tailwind настраиваются обычными утилитами и по�
 
 ### CSS-переменные
 
-<CssPropertiesSection properties={AlertDocs.alertCssProperties} />
+Наведите на переменную или выберите её, чтобы увидеть её в превью.
+
+<CssPropertiesSection properties={AlertDocs.alertCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Хуки стилизации
 

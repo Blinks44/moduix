@@ -5,6 +5,7 @@ description: Afficher la progression sur une barre, connue ou indéterminée.
 ark: https://ark-ui.com/docs/components/progress-linear
 ---
 
+import AnatomyScene from '@/components/examples/progress-linear/basic';
 import * as ProgressLinearDocs from '@/components/examples/progress-linear/css-properties';
 
 <Example name="progress-linear/basic" width="sm" />
@@ -109,28 +110,22 @@ Dans Vue, utilisez `v-model` pour la même valeur contrôlée.
 
 ## Anatomie
 
-```text
-ProgressLinear
-├─ ProgressLinearLabel
-├─ ProgressLinearValueText
-├─ ProgressLinearTrack
-│  └─ ProgressLinearRange
-└─ ProgressLinearView
+Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
 
-ProgressLinearRootProvider
-└─ le même arbre de parties relié à useProgress()
-```
-
-| Partie                                    | Rôle                                                                            |
-| ----------------------------------------- | ------------------------------------------------------------------------------- |
-| `ProgressLinear`  | Gère l’état de progression et transmet à Ark le formatage, les identifiants et les autres propriétés. |
-| `ProgressLinearRootProvider`             | Relie les parties à l’état renvoyé par `useProgress()`.          |
-| `ProgressLinearContext`                  | Transmet l’état courant à une fonction de rendu.                                |
-| `ProgressLinearLabel`                    | Libellé visible de la tâche. Il ne devient pas automatiquement le nom accessible de `ProgressLinearTrack`. |
-| `ProgressLinearValueText`                | Affiche le pourcentage formaté et annonce les changements. Utilisez `ProgressLinearContext` pour un texte personnalisé. |
-| `ProgressLinearTrack`                    | Piste de progression. Ark lui ajoute le rôle et les attributs ARIA de valeur.  |
-| `ProgressLinearRange`                    | Partie remplie qui représente l’avancement actuel.                             |
-| `ProgressLinearView`                     | Affiche son contenu uniquement lorsque son `state` correspond à l’état courant. |
+<AnatomyInspector
+  parts={[
+    ["ProgressLinear", "progress-linear-root", "Gère l’état de progression et transmet à Ark le formatage, les identifiants et les autres propriétés.", 0],
+    ["ProgressLinearLabel", "progress-linear-label", "Libellé visible de la tâche. Il ne devient pas automatiquement le nom accessible de `ProgressLinearTrack`.", 1],
+    ["ProgressLinearValueText", "progress-linear-value-text", "Affiche le pourcentage formaté et annonce les changements. Utilisez `ProgressLinearContext` pour un texte personnalisé.", 1],
+    ["ProgressLinearTrack", "progress-linear-track", "Piste de progression. Ark lui ajoute le rôle et les attributs ARIA de valeur.", 1],
+    ["ProgressLinearRange", "progress-linear-range", "Partie remplie qui représente l’avancement actuel.", 2],
+    ["ProgressLinearView", "progress-linear-view", "Affiche son contenu uniquement lorsque son `state` correspond à l’état courant.", 1],
+    ["ProgressLinearRootProvider", "progress-linear-root-provider", "Relie les parties à l’état renvoyé par `useProgress()`.", 0],
+    ["ProgressLinearContext", null, "Transmet l’état courant à une fonction de rendu.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styles
 
@@ -149,7 +144,11 @@ début.
 
 ### Variables CSS
 
-<CssPropertiesSection properties={ProgressLinearDocs.progressLinearCssProperties} />
+Survolez ou sélectionnez une variable pour la voir dans l’aperçu.
+
+<CssPropertiesSection properties={ProgressLinearDocs.progressLinearCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Points d’accroche CSS
 

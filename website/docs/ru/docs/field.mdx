@@ -5,6 +5,8 @@ description: Связывает подпись, подсказку и ошибк
 ark: https://ark-ui.com/docs/components/field
 ---
 
+import AnatomyScene from '@/components/examples/field/basic';
+
 <Example name="field/basic" />
 
 ## Установка
@@ -136,28 +138,22 @@ ark: https://ark-ui.com/docs/components/field
 элемент ввода: поместите внутрь `Input`, `Textarea`, `NativeSelect` или другой элемент формы moduix, и он
 прочитает контекст поля.
 
-```text
-Field
-├─ FieldLabel
-├─ Input | Textarea | NativeSelect | another form control
-├─ FieldHelperText
-├─ FieldErrorText
-└─ FieldRequiredIndicator
+Наведите на часть или выберите её, чтобы найти её в превью.
 
-FieldRootProvider
-└─ то же дерево частей, подключённое к состоянию из useField()
-```
-
-| Часть                     | Назначение                                                                                       |
-| ------------------------ | ------------------------------------------------------------------------------------------------- |
-| `Field`                  | Корневой контекст. По умолчанию рендерит `<div role="group">`.                                   |
-| `FieldRootProvider`     | Корень, использующий состояние `useField()`, созданное вне дерева компонентов.                  |
-| `FieldContext`          | Даёт доступ к текущему состоянию поля, не добавляя элемент в DOM.                                |
-| `FieldLabel`            | Доступная метка, связанная с текущим элементом управления.                                       |
-| `FieldHelperText`       | Поясняющий текст, связанный с элементом через `aria-describedby`.                                |
-| `FieldErrorText`        | Текст ошибки, который рендерится при состоянии корня `invalid`.                                  |
-| `FieldRequiredIndicator` | Визуальный маркер обязательного поля. С помощью `fallback` можно заменить маркер по умолчанию.  |
-| `FieldItem`             | Вложенный контекст для группового элемента с `value`; ref указывает на локальную обёртку строки. |
+<AnatomyInspector
+  parts={[
+    ["Field", "field-root", "Корневой контекст. По умолчанию рендерит `<div role=\"group\">`.", 0],
+    ["FieldLabel", "field-label", "Доступная метка, связанная с текущим элементом управления.", 1],
+    ["FieldHelperText", "field-helper-text", "Поясняющий текст, связанный с элементом через `aria-describedby`.", 1],
+    ["FieldErrorText", "field-error-text", "Текст ошибки, который рендерится при состоянии корня `invalid`.", 1],
+    ["FieldRequiredIndicator", "field-required-indicator", "Визуальный маркер обязательного поля. С помощью `fallback` можно заменить маркер по умолчанию.", 1],
+    ["FieldItem", "field-item", "Вложенный контекст для группового элемента с `value`; ref указывает на локальную обёртку строки.", 1],
+    ["FieldRootProvider", "field-root-provider", "Корень, использующий состояние `useField()`, созданное вне дерева компонентов.", 0],
+    ["FieldContext", null, "Даёт доступ к текущему состоянию поля, не добавляя элемент в DOM.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Стилизация
 

@@ -5,6 +5,7 @@ description: Список коротких значений в виде мето
 ark: https://ark-ui.com/docs/components/tags-input
 ---
 
+import AnatomyScene from '@/components/examples/tags-input/basic';
 import * as TagsInputDocs from '@/components/examples/tags-input/css-properties';
 
 <Example name="tags-input/basic" />
@@ -159,47 +160,39 @@ import * as TagsInputDocs from '@/components/examples/tags-input/css-properties'
 
 ## Анатомия
 
-```text
-TagsInput
-├─ TagsInputLabel
-├─ TagsInputControl
-│  ├─ TagsInputItems
-│  └─ TagsInputItem[index, value]
-│     ├─ TagsInputItemPreview
-│     │  ├─ TagsInputItemText
-│     │  └─ TagsInputItemDeleteTrigger
-│     └─ TagsInputItemInput
-│  ├─ TagsInputInput
-│  └─ TagsInputClearTrigger
-└─ TagsInputHiddenInput (explicit)
+Наведите на часть или выберите её, чтобы найти её в превью.
 
-TagsInputRootProvider
-└─ same part tree connected to a useTagsInput() store
-```
-
-| Часть | Назначение |
-| --- | --- |
-| `TagsInput` | Корень, который управляет состоянием, значениями тегов, вводом, проверкой и формой. |
-| `TagsInputRootProvider` | Подключает части к состоянию, которое вернул `useTagsInput()`. |
-| `TagsInputLabel` | Доступная подпись поля тегов. |
-| `TagsInputControl` | Видимая область с тегами, полем ввода и кнопкой очистки. |
-| `TagsInputItems` | Стандартно отображает редактируемые теги из текущего состояния. |
-| `TagsInputItem` | Один тег. Передайте `index` и `value` для собственных элементов. |
-| `TagsInputItemContext` | Доступ через render prop к состоянию текущего элемента внутри дерева компонентов. |
-| `TagsInputItemPreview` | Отображает тег вне режима редактирования. |
-| `TagsInputItemText` | Видимый текст тега. |
-| `TagsInputItemDeleteTrigger` | Удаляет один тег и по умолчанию показывает компактный значок закрытия. |
-| `TagsInputItemInput` | Поле для редактирования тега на месте. |
-| `TagsInputInput` | Поле ввода новых тегов. |
-| `TagsInputClearTrigger` | Удаляет все теги и по умолчанию использует оформление общей кнопки закрытия. |
-| `TagsInputHiddenInput` | Явно добавляемое нативное поле для отправки формы. |
-| `TagsInputContext` | Render prop с доступом к состоянию корня внутри дерева компонента. |
+<AnatomyInspector
+  parts={[
+    ["TagsInput", "tags-input-root", "Корень, который управляет состоянием, значениями тегов, вводом, проверкой и формой.", 0],
+    ["TagsInputLabel", "tags-input-label", "Доступная подпись поля тегов.", 1],
+    ["TagsInputControl", "tags-input-control", "Видимая область с тегами, полем ввода и кнопкой очистки.", 1],
+    ["TagsInputItems", "", "Стандартно отображает редактируемые теги из текущего состояния.", 2],
+    ["TagsInputItem", "tags-input-item", "Один тег. Передайте `index` и `value` для собственных элементов.", 2],
+    ["TagsInputItemPreview", "tags-input-item-preview", "Отображает тег вне режима редактирования.", 3],
+    ["TagsInputItemText", "tags-input-item-text", "Видимый текст тега.", 4],
+    ["TagsInputItemDeleteTrigger", "tags-input-item-delete-trigger", "Удаляет один тег и по умолчанию показывает компактный значок закрытия.", 4],
+    ["TagsInputItemInput", "tags-input-item-input", "Поле для редактирования тега на месте.", 3],
+    ["TagsInputInput", "tags-input-input", "Поле ввода новых тегов.", 2],
+    ["TagsInputClearTrigger", "tags-input-clear-trigger", "Удаляет все теги и по умолчанию использует оформление общей кнопки закрытия.", 2],
+    ["TagsInputHiddenInput", "", "Явно добавляемое нативное поле для отправки формы.", 1],
+    ["TagsInputRootProvider", "tags-input-root-provider", "Подключает части к состоянию, которое вернул `useTagsInput()`.", 0],
+    ["TagsInputItemContext", null, "Доступ через render prop к состоянию текущего элемента внутри дерева компонентов.", 0],
+    ["TagsInputContext", null, "Render prop с доступом к состоянию корня внутри дерева компонента.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Стилизация
 
 ### CSS-переменные
 
-<CssPropertiesSection properties={TagsInputDocs.tagsInputCssProperties} />
+Наведите на переменную или выберите её, чтобы увидеть её в превью.
+
+<CssPropertiesSection properties={TagsInputDocs.tagsInputCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Хуки стилизации
 

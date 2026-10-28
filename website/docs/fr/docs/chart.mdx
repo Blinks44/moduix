@@ -4,6 +4,7 @@ component: chart
 description: Tracer des données avec TanStack Charts dans une figure titrée accessible.
 ---
 
+import AnatomyScene from '@/components/examples/chart/basic';
 import * as ChartDocs from '@/components/examples/chart/css-properties';
 
 <Example name="chart/basic" />
@@ -146,26 +147,21 @@ contrôlés par l’application.
 
 ## Anatomie
 
-```text
-Chart
-├─ ChartHeader (figcaption facultatif)
-│  ├─ ChartTitle
-│  └─ ChartDescription
-├─ ChartPlot
-│  └─ zone de rendu TanStack (SVG par défaut)
-└─ ChartLegend (facultatif)
-   └─ ChartLegendItem
-```
+Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
 
-| Partie | Rôle |
-| --- | --- |
-| `Chart` | Racine `figure` composée. Accepte les propriétés natives, `asChild` et une ref `HTMLElement` (`$el` de la ref de composant en Vue). |
-| `ChartPlot` | Hôte TanStack Charts. Nécessite `definition` et `ariaLabel`, utilise le préréglage d’animation moduix par défaut et accepte `motion={false}`. |
-| `ChartHeader` | Structure `figcaption` du titre et de la description. |
-| `ChartTitle` | Titre du graphique, rendu dans un `h3` par défaut. |
-| `ChartDescription` | Explication visible qui accompagne le graphique. |
-| `ChartLegend` | Liste sémantique des séries visibles. |
-| `ChartLegendItem` | Élément de légende avec un `color` facultatif pour l’indicateur. |
+<AnatomyInspector
+  parts={[
+    ["Chart", "chart-tooltip-value", "Racine `figure` composée. Accepte les propriétés natives, `asChild` et une ref `HTMLElement` (`$el` de la ref de composant en Vue).", 0],
+    ["ChartHeader", "chart-header", "Structure `figcaption` du titre et de la description.", 1],
+    ["ChartTitle", "chart-title", "Titre du graphique, rendu dans un `h3` par défaut.", 2],
+    ["ChartDescription", "chart-description", "Explication visible qui accompagne le graphique.", 2],
+    ["ChartPlot", "", "Hôte TanStack Charts. Nécessite `definition` et `ariaLabel`, utilise le préréglage d’animation moduix par défaut et accepte `motion={false}`.", 1],
+    ["ChartLegend", "chart-legend", "Liste sémantique des séries visibles.", 1],
+    ["ChartLegendItem", "chart-legend-item", "Élément de légende avec un `color` facultatif pour l’indicateur.", 2],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styles
 
@@ -191,7 +187,11 @@ Pour modifier l’enveloppe de l’info-bulle, remplacez ces variables avec une 
 
 ### Variables CSS
 
-<CssPropertiesSection properties={ChartDocs.chartCssProperties} />
+Survolez ou sélectionnez une variable pour la voir dans l’aperçu.
+
+<CssPropertiesSection properties={ChartDocs.chartCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Points d’accroche CSS
 

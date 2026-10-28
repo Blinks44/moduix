@@ -5,6 +5,7 @@ description: View images in a modal viewer, one at a time or as a gallery.
 ark: https://ark-ui.com/docs/components/dialog
 ---
 
+import AnatomyScene from '@/components/examples/lightbox/anatomy';
 import * as LightboxDocs from '@/components/examples/lightbox/css-properties';
 
 <Example name="lightbox/basic" />
@@ -139,49 +140,39 @@ parts. `LightboxImage closeOnClick` is the shortcut for closing after an image c
 
 ## Anatomy
 
-```text
-Lightbox
-├─ LightboxTrigger
-├─ LightboxBind
-└─ Overlay subtree (automatically portalled)
-   ├─ LightboxBackdrop
-   └─ LightboxPositioner
-      └─ LightboxContent
-         ├─ LightboxCloseTrigger or LightboxCloseIcon
-         ├─ LightboxHeader (optional)
-         │  ├─ LightboxTitle
-         │  └─ LightboxDescription
-         ├─ LightboxBody
-         │  └─ LightboxImage
-         └─ LightboxFooter (optional)
+Hover or focus a part to find it in the preview.
 
-LightboxRootProvider
-└─ the same part tree connected to useLightbox()
-```
-
-| Part                         | Role                                                                           |
-| ---------------------------- | ------------------------------------------------------------------------------ |
-| `Lightbox`                  | Ark Dialog root that manages open state, focus lifecycle, dismissal, and accessibility. |
-| `LightboxRootProvider`      | Provides state created with `useLightbox()`.                                   |
-| `LightboxTrigger`           | Ark trigger. Use `asChild` for custom semantic buttons or links.               |
-| `LightboxBackdrop`          | Modal backdrop with Ark `data-state` and layer variables.                      |
-| `LightboxPositioner`        | Fixed, centered overlay container.                                             |
-| `LightboxContent`           | The actual Ark dialog content node.                                            |
-| `LightboxTitle`             | Optional accessible title.                                                      |
-| `LightboxDescription`       | Optional accessible description.                                               |
-| `LightboxCloseTrigger`      | Low-level Ark close trigger.                                                   |
-| `LightboxCloseIcon`         | Convenience wrapper that combines `CloseButton` with the Ark close trigger. |
-| `LightboxHeader` / `LightboxBody` | Optional layout helpers for text and media regions inside the content.         |
-| `LightboxFooter`            | Optional layout helper for actions or status below the media.                  |
-| `LightboxImage`             | Styled native image that forwards an `HTMLImageElement` ref.                   |
-| `LightboxGallery`           | Layout and styling boundary for a composed `Carousel`.                         |
-| `LightboxBind`              | Renderless behavior part that connects external image markup to the root.       |
+<AnatomyInspector
+  parts={[
+    ["Lightbox", null, "Ark Dialog root that manages open state, focus lifecycle, dismissal, and accessibility.", 0],
+    ["LightboxTrigger", "lightbox-trigger", "Ark trigger. Use `asChild` for custom semantic buttons or links.", 1],
+    ["LightboxBind", "", "Renderless behavior part that connects external image markup to the root.", 1],
+    ["LightboxBackdrop", "lightbox-backdrop", "Modal backdrop with Ark `data-state` and layer variables.", 1],
+    ["LightboxPositioner", "lightbox-positioner", "Fixed, centered overlay container.", 1],
+    ["LightboxContent", "lightbox-content", "The actual Ark dialog content node.", 2],
+    ["LightboxCloseTrigger", "lightbox-close-trigger", "Low-level Ark close trigger.", 3],
+    ["LightboxHeader / LightboxBody", "lightbox-header", "Optional layout helpers for text and media regions inside the content.", 3],
+    ["LightboxTitle", "lightbox-title", "Optional accessible title.", 4],
+    ["LightboxDescription", "lightbox-description", "Optional accessible description.", 4],
+    ["LightboxImage", "lightbox-image", "Styled native image that forwards an `HTMLImageElement` ref.", 3],
+    ["LightboxFooter", "lightbox-footer", "Optional layout helper for actions or status below the media.", 3],
+    ["LightboxCloseIcon", "lightbox-close-icon", "Convenience wrapper that combines `CloseButton` with the Ark close trigger.", 1],
+    ["LightboxGallery", "lightbox-gallery", "Layout and styling boundary for a composed `Carousel`.", 1],
+    ["LightboxRootProvider", null, "Provides state created with `useLightbox()`.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styling
 
 ### CSS variables
 
-<CssPropertiesSection properties={LightboxDocs.lightboxOverrideCssProperties} />
+Hover or focus a variable to see it in the preview.
+
+<CssPropertiesSection properties={LightboxDocs.lightboxOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Styling hooks
 

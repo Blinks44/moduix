@@ -5,6 +5,7 @@ description: Press a button to turn an option on and press again to turn it off.
 ark: https://ark-ui.com/docs/components/toggle
 ---
 
+import AnatomyScene from '@/components/examples/toggle/basic';
 import * as ToggleDocs from '@/components/examples/toggle/css-properties';
 
 <Example name="toggle/basic" />
@@ -108,18 +109,17 @@ when you need the emitted Boolean value without binding it with `v-model:pressed
 
 ## Anatomy
 
-```text
-Toggle
-└─ ToggleIndicator (optional)
+Hover or focus a part to find it in the preview.
 
-ToggleContext (state reader, not a DOM part)
-```
-
-| Part | Role |
-| ---- | ---- |
-| `Toggle` | Root part that owns pressed state, focus, disabled state, and `asChild` composition. |
-| `ToggleIndicator` | Optional part that renders pressed content and its `fallback` when the toggle is off. |
-| `ToggleContext` | Reads the nearest toggle state for custom descendants; it does not render a DOM part. |
+<AnatomyInspector
+  parts={[
+    ["Toggle", "toggle-root", "Root part that owns pressed state, focus, disabled state, and `asChild` composition.", 0],
+    ["ToggleIndicator", "toggle-indicator", "Optional part that renders pressed content and its `fallback` when the toggle is off.", 1],
+    ["ToggleContext", null, "Reads the nearest toggle state for custom descendants; it does not render a DOM part.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styling
 
@@ -130,7 +130,11 @@ change them with a class. Tailwind packages use native utilities and consumer cl
 
 ### CSS variables
 
-<CssPropertiesSection properties={ToggleDocs.toggleOverrideCssProperties} />
+Hover or focus a variable to see it in the preview.
+
+<CssPropertiesSection properties={ToggleDocs.toggleOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Styling hooks
 

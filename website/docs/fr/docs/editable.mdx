@@ -5,6 +5,7 @@ description: Modifier un court texte sur place et valider ou annuler.
 ark: https://ark-ui.com/docs/components/editable
 ---
 
+import AnatomyScene from '@/components/examples/editable/basic';
 import * as EditableDocs from '@/components/examples/editable/css-properties';
 
 <Example name="editable/basic" />
@@ -116,34 +117,25 @@ lit avec `editable().editing`.
 
 ## Anatomie
 
-```text
-Editable
-├─ EditableLabel
-├─ EditableArea
-│  ├─ EditableInput
-│  └─ EditablePreview
-├─ EditableControl ou EditableControls
-│  ├─ EditableEditTrigger
-│  ├─ EditableSubmitTrigger
-│  └─ EditableCancelTrigger
+Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
 
-EditableRootProvider
-└─ même arbre de parties relié à l’état Ark fourni par `useEditable()`
-```
-
-| Partie                       | Rôle                                                   |
-| --------------------------- | ------------------------------------------------------ |
-| `Editable`                 | Racine qui gère l’état, les callbacks, les propriétés du formulaire et l’accessibilité. |
-| `EditableRootProvider`      | Racine reliée à une instance de `useEditable()`.       |
-| `EditableLabel`             | Libellé visible du champ et de la valeur affichée.     |
-| `EditableArea`              | Conteneur commun du champ de saisie et de l’aperçu.    |
-| `EditableInput`             | Champ de saisie affiché pendant la modification.      |
-| `EditablePreview`           | Valeur ou espace réservé affiché hors modification.    |
-| `EditableControl`           | Conteneur facultatif des boutons de modification, validation et annulation. |
-| `EditableControls`          | Groupe pratique pour le parcours standard.            |
-| `EditableEditTrigger`       | Bouton qui active le mode de modification.            |
-| `EditableSubmitTrigger`     | Bouton qui valide la valeur actuelle.                  |
-| `EditableCancelTrigger`     | Bouton qui annule les modifications en cours.          |
+<AnatomyInspector
+  parts={[
+    ["Editable", "editable-root", "Racine qui gère l’état, les callbacks, les propriétés du formulaire et l’accessibilité.", 0],
+    ["EditableLabel", "editable-label", "Libellé visible du champ et de la valeur affichée.", 1],
+    ["EditableArea", "editable-area", "Conteneur commun du champ de saisie et de l’aperçu.", 1],
+    ["EditableInput", "editable-input", "Champ de saisie affiché pendant la modification.", 2],
+    ["EditablePreview", "editable-preview", "Valeur ou espace réservé affiché hors modification.", 2],
+    ["EditableControl", "editable-control", "Conteneur facultatif des boutons de modification, validation et annulation.", 1],
+    ["EditableEditTrigger", "editable-edit-trigger", "Bouton qui active le mode de modification.", 2],
+    ["EditableSubmitTrigger", "editable-submit-trigger", "Bouton qui valide la valeur actuelle.", 2],
+    ["EditableCancelTrigger", "editable-cancel-trigger", "Bouton qui annule les modifications en cours.", 2],
+    ["EditableControls", "", "Groupe pratique pour le parcours standard.", 2],
+    ["EditableRootProvider", "editable-root-provider", "Racine reliée à une instance de `useEditable()`.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styles
 
@@ -159,7 +151,11 @@ largeur, appliquez `max-width` à la racine avec une classe.
 
 ### Variables CSS
 
-<CssPropertiesSection properties={EditableDocs.editableOverrideCssProperties} />
+Survolez ou sélectionnez une variable pour la voir dans l’aperçu.
+
+<CssPropertiesSection properties={EditableDocs.editableOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Points d’accroche CSS
 

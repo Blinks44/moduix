@@ -5,6 +5,7 @@ description: Montrer la place d’une page dans le site avec des liens vers le h
 ark: https://ark-ui.com/docs/guides/composition#the-ark-factory
 ---
 
+import AnatomyScene from '@/components/examples/breadcrumbs/basic';
 import * as BreadcrumbsDocs from '@/components/examples/breadcrumbs/css-properties';
 
 <Example name="breadcrumbs/basic" />
@@ -85,25 +86,21 @@ Pour un chemin condensé, placez `BreadcrumbsEllipsis` dans `MenuTrigger`, puis 
 
 ## Anatomie
 
-```text
-Breadcrumbs
-└─ BreadcrumbsList
-   ├─ BreadcrumbsItem
-   │  └─ BreadcrumbsLink
-   ├─ BreadcrumbsSeparator
-   └─ BreadcrumbsItem
-      └─ BreadcrumbsPage
-```
+Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
 
-| Partie                | Rôle                                                               |
-| --------------------- | ------------------------------------------------------------------ |
-| `Breadcrumbs`         | Zone de navigation avec un `aria-label` par défaut.               |
-| `BreadcrumbsList`     | Liste ordonnée des segments du fil d’Ariane.                       |
-| `BreadcrumbsItem`     | Élément de liste qui contient un segment.                          |
-| `BreadcrumbsLink`     | Ancre stylisée pour les segments navigables ; prend en charge `asChild`. |
-| `BreadcrumbsPage`     | Texte de la page actuelle avec `aria-current="page"`.             |
-| `BreadcrumbsSeparator`| Séparateur visuel, sans rôle sémantique, masqué pour les technologies d’assistance. |
-| `BreadcrumbsEllipsis` | Marqueur compact pour un déclencheur de menu qui révèle les segments masqués. |
+<AnatomyInspector
+  parts={[
+    ["Breadcrumbs", "breadcrumbs-root", "Zone de navigation avec un `aria-label` par défaut.", 0],
+    ["BreadcrumbsList", "breadcrumbs-list", "Liste ordonnée des segments du fil d’Ariane.", 1],
+    ["BreadcrumbsItem", "breadcrumbs-item", "Élément de liste qui contient un segment.", 2],
+    ["BreadcrumbsLink", "breadcrumbs-link", "Ancre stylisée pour les segments navigables ; prend en charge `asChild`.", 3],
+    ["BreadcrumbsSeparator", "breadcrumbs-separator", "Séparateur visuel, sans rôle sémantique, masqué pour les technologies d’assistance.", 2],
+    ["BreadcrumbsPage", "breadcrumbs-page", "Texte de la page actuelle avec `aria-current=\"page\"`.", 2],
+    ["BreadcrumbsEllipsis", "breadcrumbs-ellipsis", "Marqueur compact pour un déclencheur de menu qui révèle les segments masqués.", 1],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 `BreadcrumbsPath` est un raccourci fourni par moduix. Il génère `BreadcrumbsList`, `BreadcrumbsItem`, `BreadcrumbsLink`,
 `BreadcrumbsPage` et `BreadcrumbsSeparator` à partir des props `links` et `page`.
@@ -115,7 +112,11 @@ l’anneau de focus, les séparateurs et la taille des points de suspension.
 
 ### Variables CSS
 
-<CssPropertiesSection properties={BreadcrumbsDocs.breadcrumbsCssProperties} />
+Survolez ou sélectionnez une variable pour la voir dans l’aperçu.
+
+<CssPropertiesSection properties={BreadcrumbsDocs.breadcrumbsCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Points d’accroche CSS
 

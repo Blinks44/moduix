@@ -37,8 +37,9 @@ the precise Ark guide when no primitive exists), Report issue, and the Copy page
 4. `Choosing the right component` - only for close alternatives
 5. `Examples`
 6. `Composition` - only when the component has a meaningful choice not already clear from Basic or examples
-7. `Anatomy` - ASCII tree plus a `Part | Role` table; it comes before Styling because the styling
-   hooks refer to these parts
+7. `Anatomy` - `<AnatomyInspector parts={[...]}>` with a live scene (the ASCII tree and the separate
+   `Part | Role` table are legacy; `button.mdx` is the reference); it comes before Styling because the
+   styling hooks refer to these parts
 8. `Styling` - `CSS variables` table, then `Styling hooks`: a `Part | data-slot` table that matches
    the React source (internal elements marked as such), followed by short prose for state attributes
    and runtime variables. A single-part component may use `Attribute | Present when` instead
@@ -56,9 +57,17 @@ the precise Ark guide when no primitive exists), Report issue, and the Copy page
 - **Install with shadcn:** put runtime choices in `groupId="framework"` tabs and list only the CSS
   Modules and Tailwind registry commands that currently ship for that runtime. Keep package-manager
   variants inside `PackageManagerTabs`; link to Quick Start for full registry configuration.
-- **Anatomy:** an ASCII tree plus a `Part | Role` table. Use only flat public value names. The first
-  row is the family-named root, followed by family-prefixed parts such as `AccordionItem` and
-  `AccordionItemTrigger`.
+- **Anatomy:** `<AnatomyInspector parts={[[name, slot, role, depth], ...]}>` with the rendered
+  component as children. Each row is `[name, data-slot or null, role, depth]`; the tree branches are
+  drawn from `depth` (0 for the root), `null` marks a part that renders no element, and an optional
+  `note` names parts left to API reference. Hovering, focusing, or tapping a row outlines its
+  `data-slot` element in the scene. The scene is `import AnatomyScene from
+  '@/components/examples/<component>/basic'`, or a scene-only `anatomy.tsx` next to it when the basic
+  example hides parts: overlays render `open`, `portalled={false}` and `modal={false}` inside a
+  `min-height` wrapper (Dialog is the reference). The scene is `inert`, so it never takes focus. Pass
+  the same `<AnatomyScene />` to `CssPropertiesSection`. Use only flat public value names. The first row is the
+  family-named root, followed by family-prefixed parts such as `AccordionItem` and
+  `AccordionItemTrigger`. Lead in with one sentence that ends with how to use the inspector.
 - **Composition:** add this section only for non-obvious state ownership or part combinations. Write
   it as one concise section by default. Do not add the fixed `Recommended composition`, `When to go
   custom`, `Default props`, or `Behavioral notes` template. When migrating a page that still uses
@@ -105,7 +114,12 @@ Popup-like components teach the explicit part tree. Do not add `Portal` to examp
 ## CSS properties
 
 Render `<CssPropertiesSection properties={...} />` with the array exported from the component's
-`css-properties.tsx`; do not add per-component panels or wrap the table in tabs. The table covers the
+`css-properties.tsx`; do not add per-component panels or wrap the table in tabs. Pass the rendered
+component as children to add the inspector scene: a hovered variable outlines the part that uses it
+(the first `data-slot` element, or the optional fourth tuple field `part`) and measures paddings,
+widths, and heights. The table groups variables by name (Color, Size and spacing, Typography, Shape),
+resolves token values in the scene, and reads `per variant` / `per size` from descriptions that say
+"Each `variant`" or "Each `size`" sets its own default. The table covers the
 complete public variable contract rather than an abbreviated prose list. Every entry has a
 description, and the default is a real value: when variants or sizes set their own value, list the
 default recipe's value and say so in the description.

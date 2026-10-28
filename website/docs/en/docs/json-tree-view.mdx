@@ -5,6 +5,8 @@ description: Inspect JSON and JavaScript values in an expandable tree.
 ark: https://ark-ui.com/docs/utilities/json-tree-view
 ---
 
+import AnatomyScene from '@/components/examples/json-tree-view/basic';
+
 <Example name="json-tree-view/basic" />
 
 ## Installation
@@ -60,20 +62,17 @@ the store to `JsonTreeViewRootProvider`, then render `JsonTreeViewTree` inside i
 
 ## Anatomy
 
-```text
-JsonTreeView
-└─ JsonTreeViewTree
-   └─ generated JSON branches and items
+Hover or focus a part to find it in the preview.
 
-JsonTreeViewRootProvider
-└─ same tree connected to a useJsonTreeView store
-```
-
-| Part | Role |
-| --- | --- |
-| `JsonTreeView` | Owns the data, generated tree collection, and Ark tree state. |
-| `JsonTreeViewRootProvider` | Connects the parts to a `useJsonTreeView` state instance created outside the tree. |
-| `JsonTreeViewTree` | Renders the generated object, array, and value nodes. |
+<AnatomyInspector
+  parts={[
+    ["JsonTreeView", "json-tree-view-root", "Owns the data, generated tree collection, and Ark tree state.", 0],
+    ["JsonTreeViewTree", "json-tree-view-tree", "Renders the generated object, array, and value nodes.", 1],
+    ["JsonTreeViewRootProvider", "json-tree-view-root-provider", "Connects the parts to a `useJsonTreeView` state instance created outside the tree.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styling
 

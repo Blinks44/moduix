@@ -5,6 +5,7 @@ description: Collect several lines of text, with optional auto-resize.
 ark: https://ark-ui.com/docs/components/field
 ---
 
+import AnatomyScene from '@/components/examples/textarea/basic';
 import * as TextareaDocs from '@/components/examples/textarea/css-properties';
 
 <Example name="textarea/basic" />
@@ -111,14 +112,15 @@ ref.
 
 The public structure has one component part:
 
-```text
-Field (optional wrapper)
-└─ Textarea
-```
+Hover or focus a part to find it in the preview.
 
-| Part       | Role                                                  |
-| ---------- | ----------------------------------------------------- |
-| `Textarea` | Native `textarea` with moduix styles and Field state. |
+<AnatomyInspector
+  parts={[
+    ["Textarea", "textarea-root", "Native `textarea` with moduix styles and Field state.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 `Textarea` does not export an additional wrapper, compound subcomponents, provider or context hooks,
 hidden inputs, or a label or character-counter API.
@@ -135,7 +137,11 @@ wins over the layered component styles.
 
 ### CSS variables
 
-<CssPropertiesSection properties={TextareaDocs.textareaCssProperties} />
+Hover or focus a variable to see it in the preview.
+
+<CssPropertiesSection properties={TextareaDocs.textareaCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Styling hooks
 

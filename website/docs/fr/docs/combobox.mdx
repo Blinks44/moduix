@@ -5,6 +5,7 @@ description: Saisir pour filtrer une liste et choisir une ou plusieurs valeurs.
 ark: https://ark-ui.com/docs/components/combobox
 ---
 
+import AnatomyScene from '@/components/examples/combobox/anatomy';
 import * as ComboboxDocs from '@/components/examples/combobox/css-properties';
 
 <Example name="combobox/basic" />
@@ -151,45 +152,29 @@ représentation des valeurs appartiennent à l’application ; composez avec `Ta
 
 ## Anatomie
 
-```text
-Combobox[collection]
-├─ ComboboxLabel
-├─ ComboboxControl
-│  ├─ ComboboxInput
-│  ├─ ComboboxClearTrigger
-│  └─ ComboboxTrigger
-└─ Sous-arbre du menu déroulant (placé automatiquement dans un portail)
- └─ ComboboxPositioner
-    └─ ComboboxContent
-       ├─ ComboboxEmpty
-       ├─ ComboboxStatus
-       ├─ ComboboxList
-       │  ├─ ComboboxOption[item]
-       │  └─ ComboboxItem[item]
-       │     ├─ ComboboxItemText
-       │     └─ ComboboxItemIndicator
-       └─ ComboboxItemGroup
-          ├─ ComboboxItemGroupLabel
-          └─ ComboboxItem
-```
+Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
 
-| Partie | Rôle |
-| --- | --- |
-| `Combobox` | Gère l’état du composant, le filtrage, la mise en évidence et les valeurs sélectionnées. |
-| `ComboboxControl` | Conteneur du champ de saisie et des boutons d’action. |
-| `ComboboxInput` | Champ de texte utilisé pour rechercher et sélectionner une option. |
-| `ComboboxTrigger` | Ouvre et ferme la liste d’options. |
-| `ComboboxClearTrigger` | Efface la valeur sélectionnée et/ou le texte du champ. |
-| `ComboboxPositioner` | Positionne la liste flottante. |
-| `ComboboxContent` | Conteneur du contenu de la liste. |
-| `ComboboxStatus` | Conteneur stylisé pour les messages de chargement, d’erreur ou d’aide de l’application. |
-| `ComboboxList` | Conteneur de la liste des options. |
-| `ComboboxOption` | Ligne prête à l’emploi pour une option simple, avec texte et indicateur. |
-| `ComboboxItem` | Option sélectionnable de la liste. |
-| `ComboboxItemText` | Slot du texte de l’élément. |
-| `ComboboxItemIndicator` | Slot de l’indicateur de sélection. |
-| `ComboboxContext` | Accès à l’état actuel du composant sans ajouter d’éléments au DOM. |
-| `ComboboxItemContext` | Accès à l’état de l’élément courant sans ajouter d’éléments au DOM. |
+<AnatomyInspector
+  parts={[
+    ["Combobox", "combobox-root", "Gère l’état du composant, le filtrage, la mise en évidence et les valeurs sélectionnées.", 0],
+    ["ComboboxControl", "combobox-control", "Conteneur du champ de saisie et des boutons d’action.", 1],
+    ["ComboboxInput", "combobox-input", "Champ de texte utilisé pour rechercher et sélectionner une option.", 2],
+    ["ComboboxClearTrigger", "combobox-clear-trigger", "Efface la valeur sélectionnée et/ou le texte du champ.", 2],
+    ["ComboboxTrigger", "combobox-trigger", "Ouvre et ferme la liste d’options.", 2],
+    ["ComboboxPositioner", "combobox-positioner", "Positionne la liste flottante.", 1],
+    ["ComboboxContent", "combobox-content", "Conteneur du contenu de la liste.", 2],
+    ["ComboboxStatus", "combobox-status", "Conteneur stylisé pour les messages de chargement, d’erreur ou d’aide de l’application.", 3],
+    ["ComboboxList", "combobox-list", "Conteneur de la liste des options.", 3],
+    ["ComboboxOption", "", "Ligne prête à l’emploi pour une option simple, avec texte et indicateur.", 4],
+    ["ComboboxItem", "combobox-item", "Option sélectionnable de la liste.", 4],
+    ["ComboboxItemText", "combobox-item-text", "Slot du texte de l’élément.", 5],
+    ["ComboboxItemIndicator", "combobox-item-indicator", "Slot de l’indicateur de sélection.", 5],
+    ["ComboboxContext", null, "Accès à l’état actuel du composant sans ajouter d’éléments au DOM.", 0],
+    ["ComboboxItemContext", null, "Accès à l’état de l’élément courant sans ajouter d’éléments au DOM.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 `ComboboxRootProvider` conserve le style du composant racine et l’applique à un état créé avec `useCombobox` de moduix.
 Accédez à l’état du composant `Combobox` dans l’arbre avec `ComboboxContext` ou `useComboboxContext`. Pour l’état d’un élément,
@@ -203,7 +188,11 @@ personnalisent les variantes CSS Modules. Les attributs d’état et les hooks `
 
 ### Variables CSS
 
-<CssPropertiesSection properties={ComboboxDocs.comboboxOverrideCssProperties} />
+Survolez ou sélectionnez une variable pour la voir dans l’aperçu.
+
+<CssPropertiesSection properties={ComboboxDocs.comboboxOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Points d’accroche CSS
 

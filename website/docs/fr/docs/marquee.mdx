@@ -5,6 +5,7 @@ description: Faire défiler logos ou annonces en boucle continue.
 ark: https://ark-ui.com/docs/components/marquee
 ---
 
+import AnatomyScene from '@/components/examples/marquee/basic';
 import * as MarqueeDocs from '@/components/examples/marquee/css-properties';
 
 <Example name="marquee/basic" />
@@ -118,27 +119,21 @@ le même état. Les commandes placées dans l’arbre peuvent lire l’API coura
 
 ## Anatomie
 
-```text
-Marquee
-├─ MarqueeEdge (facultatif)
-├─ MarqueeViewport
-│  └─ MarqueeContent
-│     └─ MarqueeItem
-└─ MarqueeEdge (facultatif)
+Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
 
-MarqueeRootProvider
-└─ même arbre de parties, relié à l’état créé par useMarquee() de moduix
-```
-
-| Partie                       | Rôle                                                                                              |
-| ---------------------------- | ------------------------------------------------------------------------------------------------- |
-| `Marquee`   | État du composant, libellés, identifiants, orientation, état de pause et variables CSS.            |
-| `MarqueeRootProvider`       | Rend l’arbre du composant à partir de l’état renvoyé par `useMarquee()`.                           |
-| `MarqueeViewport`           | Zone d’affichage qui masque ce qui dépasse du contenu défilant.                                   |
-| `MarqueeContent`            | Conteneur du contenu animé. Ark le duplique si nécessaire.                                         |
-| `MarqueeItem`               | Élément individuel du contenu.                                                                    |
-| `MarqueeEdge`               | Dégradé facultatif qui fait disparaître le contenu au bord. `side` en choisit le côté.           |
-| `MarqueeContext`            | Accès avancé au contexte du composant `Marquee` qui l’englobe.                                   |
+<AnatomyInspector
+  parts={[
+    ["Marquee", "marquee-root", "État du composant, libellés, identifiants, orientation, état de pause et variables CSS.", 0],
+    ["MarqueeEdge", "marquee-edge", "Dégradé facultatif qui fait disparaître le contenu au bord. `side` en choisit le côté.", 1],
+    ["MarqueeViewport", "marquee-viewport", "Zone d’affichage qui masque ce qui dépasse du contenu défilant.", 1],
+    ["MarqueeContent", "marquee-content", "Conteneur du contenu animé. Ark le duplique si nécessaire.", 2],
+    ["MarqueeItem", "marquee-item", "Élément individuel du contenu.", 3],
+    ["MarqueeRootProvider", "marquee-root-provider", "Rend l’arbre du composant à partir de l’état renvoyé par `useMarquee()`.", 0],
+    ["MarqueeContext", null, "Accès avancé au contexte du composant `Marquee` qui l’englobe.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styles
 
@@ -155,7 +150,11 @@ avez besoin d’un conteneur avec un fond ou une bordure, définissez-le dans le
 
 ### Variables CSS
 
-<CssPropertiesSection properties={MarqueeDocs.marqueeCssProperties} />
+Survolez ou sélectionnez une variable pour la voir dans l’aperçu.
+
+<CssPropertiesSection properties={MarqueeDocs.marqueeCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Points d’accroche CSS
 

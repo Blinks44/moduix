@@ -5,6 +5,8 @@ description: Preview a profile or link in a card when its trigger is hovered.
 ark: https://ark-ui.com/docs/components/hover-card
 ---
 
+import AnatomyScene from '@/components/examples/hover-card/anatomy';
+
 <Example name="hover-card/basic" />
 
 ## Installation
@@ -116,32 +118,23 @@ content from `onTriggerValueChange(details)`.
 
 ## Anatomy
 
-```text
-HoverCard
-├─ HoverCardTrigger
-└─ Overlay subtree (automatically rendered in a portal)
-   └─ HoverCardPositioner
-      └─ HoverCardContent
-         ├─ HoverCardArrow
-         │  └─ HoverCardArrowTip
-         └─ HoverCardBody
-            └─ content
+Hover or focus a part to find it in the preview.
 
-HoverCardRootProvider
-└─ same part tree connected to a moduix useHoverCard() store
-```
-
-| Part                           | Role                                                                  |
-| ------------------------------ | --------------------------------------------------------------------- |
-| `HoverCard`                    | Owns state, lifecycle, delays, positioning, ids, and outside interaction. |
-| `HoverCardRootProvider`        | Connects the parts to state created with `useHoverCard()`.            |
-| `HoverCardContext`             | Exposes current state through a render prop for descendants.         |
-| `HoverCardTrigger`             | Interactive element that opens the card on hover or focus. Use `asChild` for a link or another semantic element. |
-| `HoverCardPositioner`          | Positions the floating layer and exposes Ark positioning variables.  |
-| `HoverCardContent`             | Visible card surface that closes on outside interaction.              |
-| `HoverCardArrow`               | Optional positioned arrow wrapper that renders `HoverCardArrowTip` by default. |
-| `HoverCardArrowTip`             | Arrow tip element styled through Ark arrow variables.                 |
-| `HoverCardBody`                | Optional scrollable content region for constrained previews.          |
+<AnatomyInspector
+  parts={[
+    ["HoverCard", null, "Owns state, lifecycle, delays, positioning, ids, and outside interaction.", 0],
+    ["HoverCardTrigger", "hover-card-trigger", "Interactive element that opens the card on hover or focus. Use `asChild` for a link or another semantic element.", 1],
+    ["HoverCardPositioner", "hover-card-positioner", "Positions the floating layer and exposes Ark positioning variables.", 1],
+    ["HoverCardContent", "hover-card-content", "Visible card surface that closes on outside interaction.", 2],
+    ["HoverCardArrow", "hover-card-arrow", "Optional positioned arrow wrapper that renders `HoverCardArrowTip` by default.", 3],
+    ["HoverCardArrowTip", "hover-card-arrow-tip", "Arrow tip element styled through Ark arrow variables.", 4],
+    ["HoverCardBody", "hover-card-body", "Optional scrollable content region for constrained previews.", 3],
+    ["HoverCardRootProvider", null, "Connects the parts to state created with `useHoverCard()`.", 0],
+    ["HoverCardContext", null, "Exposes current state through a render prop for descendants.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 `HoverCard` is the only public root value. Use it with the family-prefixed parts in application code.
 

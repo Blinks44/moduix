@@ -5,6 +5,8 @@ description: Regrouper des contrôles liés sous une légende avec un état comm
 ark: https://ark-ui.com/docs/components/fieldset
 ---
 
+import AnatomyScene from '@/components/examples/fieldset/basic';
+
 <Example name="fieldset/basic" />
 
 ## Installation
@@ -93,22 +95,20 @@ pour la même instance. Utilisez `asChild` avec un seul enfant sémantique pour 
 
 ## Anatomie
 
-```text
-Fieldset | FieldsetRootProvider
-├─ FieldsetLegend
-├─ grouped controls
-├─ FieldsetHelperText (optional)
-└─ FieldsetErrorText (optional)
-```
+Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
 
-| Partie                        | Rôle                                                                                              |
-| ----------------------------- | ------------------------------------------------------------------------------------------------- |
-| `Fieldset`                    | Crée l’état et rend un élément `fieldset` natif.                                                  |
-| `FieldsetRootProvider`        | Rend un `fieldset` natif avec l’état créé par `useFieldset`.                                      |
-| `FieldsetContext`             | Expose l’état courant du groupe aux descendants sans rendre d’élément DOM supplémentaire.       |
-| `FieldsetLegend`              | Élément `legend` natif qui fournit le nom accessible du groupe.                                   |
-| `FieldsetHelperText`          | Description associée à la racine via `aria-describedby`.                                         |
-| `FieldsetErrorText`           | Message de validation annoncé via `aria-live="polite"` et rendu uniquement quand `invalid` vaut `true`. |
+<AnatomyInspector
+  parts={[
+    ["Fieldset", "fieldset-root", "Crée l’état et rend un élément `fieldset` natif.", 0],
+    ["FieldsetLegend", "fieldset-legend", "Élément `legend` natif qui fournit le nom accessible du groupe.", 1],
+    ["FieldsetHelperText", "fieldset-helper-text", "Description associée à la racine via `aria-describedby`.", 1],
+    ["FieldsetErrorText", "fieldset-error-text", "Message de validation annoncé via `aria-live=\"polite\"` et rendu uniquement quand `invalid` vaut `true`.", 1],
+    ["FieldsetRootProvider", "fieldset-root-provider", "Rend un `fieldset` natif avec l’état créé par `useFieldset`.", 0],
+    ["FieldsetContext", null, "Expose l’état courant du groupe aux descendants sans rendre d’élément DOM supplémentaire.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styles
 

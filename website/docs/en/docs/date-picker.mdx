@@ -5,6 +5,7 @@ description: Pick a date, range, or several dates from a calendar.
 ark: https://ark-ui.com/docs/components/date-picker
 ---
 
+import AnatomyScene from '@/components/examples/date-picker/anatomy';
 import * as DatePickerDocs from '@/components/examples/date-picker/css-properties';
 
 <Example name="date-picker/basic" />
@@ -188,69 +189,42 @@ The root portals the popup automatically. Use `portalled={false}` for the curren
 
 ## Anatomy
 
-```text
-DatePicker
-├─ DatePickerLabel
-├─ DatePickerControl
-│  ├─ DatePickerInput
-│  ├─ DatePickerClearTrigger
-│  └─ DatePickerTrigger
-├─ DatePickerField / DatePickerRangeField (convenience controls)
-├─ Overlay subtree (portalled automatically)
-│  └─ DatePickerPositioner
-│     └─ DatePickerContent
-│        ├─ DatePickerView[view="day" | "month" | "year"]
-│        │  ├─ DatePickerViewControl
-│        │  │  ├─ DatePickerPrevTrigger
-│        │  │  ├─ DatePickerViewTrigger / DatePickerRangeText
-│        │  │  └─ DatePickerNextTrigger
-│        │  ├─ DatePickerDayTable / MonthTable / YearTable (convenience tables)
-│        │  └─ DatePickerTable
-│        │     ├─ DatePickerTableHead / TableBody / TableRow
-│        │     ├─ DatePickerTableHeader
-│        │     ├─ DatePickerTableCell
-│        │     ├─ DatePickerTableCellTrigger
-│        │     ├─ DatePickerWeekNumberHeaderCell
-│        │     └─ DatePickerWeekNumberCell
-│        ├─ DatePickerMonthSelect / DatePickerYearSelect
-│        └─ DatePickerPresetTrigger
-├─ DatePickerValueText (optional selected-value summary)
-└─ DatePickerContext
+Hover or focus a part to find it in the preview.
 
-DatePickerRootProvider
-└─ same part tree connected to a useDatePicker() store
-```
-
-| Part                              | Role                                                               |
-| --------------------------------- | ------------------------------------------------------------------ |
-| `DatePicker`                    | Root that manages value, view, open state, locale, validation, and form context. |
-| `DatePickerRootProvider`         | Renders parts using state returned by `useDatePicker()`.           |
-| `DatePickerLabel`                | Accessible label for the date field.                              |
-| `DatePickerControl`              | Field wrapper for custom input layouts.                           |
-| `DatePickerField`                | Convenience control with an input, clear trigger, and open trigger. |
-| `DatePickerRangeField`           | Convenience range control with indexed start and end inputs.      |
-| `DatePickerInput`                | Editable date input that participates in native form submission.   |
-| `DatePickerTrigger`              | Opens the calendar.                                                |
-| `DatePickerClearTrigger`         | Clears the current value.                                          |
-| `DatePickerPositioner`           | Positions the popup.                                               |
-| `DatePickerContent`              | Calendar container for popup or inline mode.                       |
-| `DatePickerView`                 | Day, month, or year panel.                                          |
-| `DatePickerViewControl`          | Header containing calendar navigation controls.                    |
-| `DatePickerPrevTrigger`          | Moves to the previous month, year, or decade.                      |
-| `DatePickerNextTrigger`          | Moves to the next month, year, or decade.                          |
-| `DatePickerViewTrigger`          | Switches between calendar views.                                   |
-| `DatePickerRangeText`            | Displays the visible date range in the calendar header.            |
-| `DatePickerValueText`            | Displays selected values.                                          |
-| `DatePickerDayTable`             | Standard day-view table with its header.                           |
-| `DatePickerMonthTable`           | Standard month-view table with its header.                         |
-| `DatePickerYearTable`            | Standard year-view table with its header.                          |
-| `DatePickerTable*`               | Parts for a custom calendar grid.                                  |
-| `DatePickerWeekNumberHeaderCell` | Header cell for the week-number column.                            |
-| `DatePickerWeekNumberCell`       | Body cell for a week number.                                       |
-| `DatePickerMonthSelect`          | Native month select linked to the focused date.                    |
-| `DatePickerYearSelect`           | Native year select linked to the focused date.                     |
-| `DatePickerPresetTrigger`        | Button for a predefined range.                                     |
-| `DatePickerContext`              | Renderless access to calendar state.                               |
+<AnatomyInspector
+  parts={[
+    ["DatePicker", "date-picker-root", "Root that manages value, view, open state, locale, validation, and form context.", 0],
+    ["DatePickerLabel", "date-picker-label", "Accessible label for the date field.", 1],
+    ["DatePickerControl", "date-picker-control", "Field wrapper for custom input layouts.", 1],
+    ["DatePickerInput", "date-picker-input", "Editable date input that participates in native form submission.", 2],
+    ["DatePickerClearTrigger", "date-picker-clear-trigger", "Clears the current value.", 2],
+    ["DatePickerTrigger", "date-picker-trigger", "Opens the calendar.", 2],
+    ["DatePickerField", "", "Convenience control with an input, clear trigger, and open trigger.", 1],
+    ["DatePickerPositioner", "date-picker-positioner", "Positions the popup.", 1],
+    ["DatePickerContent", "date-picker-content", "Calendar container for popup or inline mode.", 2],
+    ["DatePickerView", "date-picker-view", "Day, month, or year panel.", 3],
+    ["DatePickerViewControl", "date-picker-view-control", "Header containing calendar navigation controls.", 4],
+    ["DatePickerPrevTrigger", "date-picker-prev-trigger", "Moves to the previous month, year, or decade.", 5],
+    ["DatePickerViewTrigger", "date-picker-view-trigger", "Switches between calendar views.", 5],
+    ["DatePickerNextTrigger", "date-picker-next-trigger", "Moves to the next month, year, or decade.", 5],
+    ["DatePickerDayTable", "", "Standard day-view table with its header.", 4],
+    ["DatePickerTable*", "date-picker-table", "Parts for a custom calendar grid.", 4],
+    ["DatePickerWeekNumberHeaderCell", "date-picker-week-number-header-cell", "Header cell for the week-number column.", 5],
+    ["DatePickerWeekNumberCell", "date-picker-week-number-cell", "Body cell for a week number.", 5],
+    ["DatePickerMonthSelect", "date-picker-month-select-indicator", "Native month select linked to the focused date.", 3],
+    ["DatePickerPresetTrigger", "date-picker-preset-trigger", "Button for a predefined range.", 3],
+    ["DatePickerValueText", "date-picker-value-text", "Displays selected values.", 1],
+    ["DatePickerContext", null, "Renderless access to calendar state.", 1],
+    ["DatePickerRangeField", "", "Convenience range control with indexed start and end inputs.", 1],
+    ["DatePickerRangeText", "date-picker-range-text", "Displays the visible date range in the calendar header.", 1],
+    ["DatePickerMonthTable", "", "Standard month-view table with its header.", 1],
+    ["DatePickerYearTable", "", "Standard year-view table with its header.", 1],
+    ["DatePickerYearSelect", "date-picker-year-select-indicator", "Native year select linked to the focused date.", 1],
+    ["DatePickerRootProvider", "date-picker-root-provider", "Renders parts using state returned by `useDatePicker()`.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styling
 
@@ -260,7 +234,11 @@ below. Both styling tracks share Ark state attributes and moduix `data-slot` hoo
 
 ### CSS variables
 
-<CssPropertiesSection properties={DatePickerDocs.datePickerOverrideCssProperties} />
+Hover or focus a variable to see it in the preview.
+
+<CssPropertiesSection properties={DatePickerDocs.datePickerOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Styling hooks
 

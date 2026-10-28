@@ -5,6 +5,7 @@ description: Включает или выключает опцию, отдель
 ark: https://ark-ui.com/docs/components/checkbox
 ---
 
+import AnatomyScene from '@/components/examples/checkbox/basic';
 import * as CheckboxDocs from '@/components/examples/checkbox/css-properties';
 
 <Example name="checkbox/basic" />
@@ -168,33 +169,21 @@ import * as CheckboxDocs from '@/components/examples/checkbox/css-properties';
 
 ## Анатомия
 
-```text
-Checkbox
-├─ CheckboxControl
-│  ├─ CheckboxIndicator
-│  └─ CheckboxIndicator[indeterminate] (необязательно)
-├─ CheckboxLabel
-└─ CheckboxHiddenInput (явно)
+Наведите на часть или выберите её, чтобы найти её в превью.
 
-CheckboxRootProvider
-└─ то же дерево частей, подключённое к состоянию из useCheckbox()
-
-CheckboxGroup
-└─ Checkbox[value]
-   ├─ CheckboxControl
-   ├─ CheckboxLabel
-   └─ CheckboxHiddenInput
-```
-
-| Часть                        | Назначение                                                                                 |
-| ---------------------------- | ------------------------------------------------------------------------------------------ |
-| `Checkbox`                   | Хранит состояние одного флажка и отрисовывает содержащий его `label`.                      |
-| `CheckboxHiddenInput`        | Нативное поле Ark; добавляйте его явно внутрь корневого компонента.                        |
-| `CheckboxRootProvider`       | Связывает части с состоянием Ark, созданным вне дерева компонентов.                        |
-| `CheckboxControl`            | Видимая часть флажка; если оставить пустой, отображает встроенные иконки состояния.        |
-| `CheckboxIndicator`          | Необязательный слот для собственной иконки. Для этого состояния передайте `indeterminate`. |
-| `CheckboxLabel`              | Видимая подпись флажка.                                                                    |
-| `CheckboxGroup`              | Управляет выбранными значениями нескольких флажков.                                        |
+<AnatomyInspector
+  parts={[
+    ["Checkbox", "checkbox-root", "Хранит состояние одного флажка и отрисовывает содержащий его `label`.", 0],
+    ["CheckboxControl", "checkbox-control", "Видимая часть флажка; если оставить пустой, отображает встроенные иконки состояния.", 1],
+    ["CheckboxIndicator", "checkbox-indicator", "Необязательный слот для собственной иконки. Для этого состояния передайте `indeterminate`.", 2],
+    ["CheckboxLabel", "checkbox-label", "Видимая подпись флажка.", 1],
+    ["CheckboxHiddenInput", "", "Нативное поле Ark; добавляйте его явно внутрь корневого компонента.", 1],
+    ["CheckboxRootProvider", "checkbox-root-provider", "Связывает части с состоянием Ark, созданным вне дерева компонентов.", 0],
+    ["CheckboxGroup", "checkbox-group", "Управляет выбранными значениями нескольких флажков.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Стилизация
 
@@ -206,7 +195,11 @@ CheckboxGroup
 
 ### CSS-переменные
 
-<CssPropertiesSection properties={CheckboxDocs.checkboxOverrideCssProperties} />
+Наведите на переменную или выберите её, чтобы увидеть её в превью.
+
+<CssPropertiesSection properties={CheckboxDocs.checkboxOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Хуки стилизации
 

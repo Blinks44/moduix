@@ -5,6 +5,7 @@ description: Enter a short PIN or one-time code, one character per box.
 ark: https://ark-ui.com/docs/components/pin-input
 ---
 
+import AnatomyScene from '@/components/examples/pin-input/basic';
 import * as PinInputDocs from '@/components/examples/pin-input/css-properties';
 
 <Example name="pin-input/basic" />
@@ -118,38 +119,35 @@ Ark manages focus transfer, paste distribution, keyboard editing, and one-time-c
 
 ## Anatomy
 
-```text
-PinInput
-├─ PinInputLabel
-├─ PinInputControl
-│  ├─ PinInputInput[index=0]
-│  ├─ PinInputInput[index=1]
-│  └─ PinInputInput[index=2]
-└─ PinInputHiddenInput (explicit)
+Hover or focus a part to find it in the preview.
 
-PinInputRootProvider
-└─ same part tree connected to a usePinInput() store
-```
-
-| Part | Role |
-| --- | --- |
-| `PinInput` | Owns input count, value state, validation, and form options. |
-| `PinInputHiddenInput` | Native Ark form control that must be composed explicitly. |
-| `PinInputRootProvider` | Connects the parts to state created with `usePinInput()`. |
-| `PinInputContext` | Exposes the current root state to descendants through a render prop. |
-| `PinInputLabel` | Labels the PIN or code input group. |
-| `PinInputControl` | Container for the visible indexed inputs. |
-| `PinInputInput` | One visible character input. Pass a zero-based `index`. |
-| `PinInputInputs` | Generates one indexed `PinInputInput` for each item in the Ark context. |
-| `PinInputSeparator` | Decorative moduix helper for grouping. It is not an Ark primitive part. |
-| `usePinInput` | Creates state for use with `PinInputRootProvider`. |
-| `usePinInputContext` | Reads the current Pin Input state inside the component tree. |
+<AnatomyInspector
+  parts={[
+    ["PinInput", "pin-input-root", "Owns input count, value state, validation, and form options.", 0],
+    ["PinInputLabel", "pin-input-label", "Labels the PIN or code input group.", 1],
+    ["PinInputControl", "pin-input-control", "Container for the visible indexed inputs.", 1],
+    ["PinInputInput", "pin-input-input", "One visible character input. Pass a zero-based `index`.", 2],
+    ["PinInputInputs", "", "Generates one indexed `PinInputInput` for each item in the Ark context.", 3],
+    ["PinInputHiddenInput", "", "Native Ark form control that must be composed explicitly.", 1],
+    ["PinInputSeparator", "pin-input-separator", "Decorative moduix helper for grouping. It is not an Ark primitive part.", 1],
+    ["PinInputRootProvider", "pin-input-root-provider", "Connects the parts to state created with `usePinInput()`.", 0],
+    ["PinInputContext", null, "Exposes the current root state to descendants through a render prop.", 0],
+    ["usePinInput", null, "Creates state for use with `PinInputRootProvider`.", 0],
+    ["usePinInputContext", null, "Reads the current Pin Input state inside the component tree.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styling
 
 ### CSS variables
 
-<CssPropertiesSection properties={PinInputDocs.pinInputOverrideCssProperties} />
+Hover or focus a variable to see it in the preview.
+
+<CssPropertiesSection properties={PinInputDocs.pinInputOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 CSS Modules packages expose three variables: `--moduix-pin-input-input-size` (applies to every size),
 `--moduix-pin-input-gap`, and `--moduix-pin-input-radius`. Colors, borders, typography, and the focus ring

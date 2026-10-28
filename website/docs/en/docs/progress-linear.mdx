@@ -5,6 +5,7 @@ description: Show task progress on a bar, with a known or unknown end.
 ark: https://ark-ui.com/docs/components/progress-linear
 ---
 
+import AnatomyScene from '@/components/examples/progress-linear/basic';
 import * as ProgressLinearDocs from '@/components/examples/progress-linear/css-properties';
 
 <Example name="progress-linear/basic" width="sm" />
@@ -104,28 +105,22 @@ In Vue, use `v-model` for the same controlled value.
 
 ## Anatomy
 
-```text
-ProgressLinear
-├─ ProgressLinearLabel
-├─ ProgressLinearValueText
-├─ ProgressLinearTrack
-│  └─ ProgressLinearRange
-└─ ProgressLinearView
+Hover or focus a part to find it in the preview.
 
-ProgressLinearRootProvider
-└─ the same part tree connected to useProgress()
-```
-
-| Part                                     | Role                                                                       |
-| ---------------------------------------- | -------------------------------------------------------------------------- |
-| `ProgressLinear` | Owns progress state and passes formatting, IDs, and other props to Ark.    |
-| `ProgressLinearRootProvider`             | Connects parts to the store returned by `useProgress()`.    |
-| `ProgressLinearContext`                 | Provides the current progress state to a render prop.                     |
-| `ProgressLinearLabel`                   | Visible task label. It is not automatically used as `ProgressLinearTrack`'s accessible name. |
-| `ProgressLinearValueText`                | Displays the formatted percentage and announces changes. Use `ProgressLinearContext` for custom text. |
-| `ProgressLinearTrack`                   | Progressbar surface. Ark adds the role and ARIA value attributes.         |
-| `ProgressLinearRange`                   | Filled portion that reflects the current progress.                        |
-| `ProgressLinearView`                    | Shows content only when its `state` matches the current progress state.   |
+<AnatomyInspector
+  parts={[
+    ["ProgressLinear", "progress-linear-root", "Owns progress state and passes formatting, IDs, and other props to Ark.", 0],
+    ["ProgressLinearLabel", "progress-linear-label", "Visible task label. It is not automatically used as `ProgressLinearTrack`'s accessible name.", 1],
+    ["ProgressLinearValueText", "progress-linear-value-text", "Displays the formatted percentage and announces changes. Use `ProgressLinearContext` for custom text.", 1],
+    ["ProgressLinearTrack", "progress-linear-track", "Progressbar surface. Ark adds the role and ARIA value attributes.", 1],
+    ["ProgressLinearRange", "progress-linear-range", "Filled portion that reflects the current progress.", 2],
+    ["ProgressLinearView", "progress-linear-view", "Shows content only when its `state` matches the current progress state.", 1],
+    ["ProgressLinearRootProvider", "progress-linear-root-provider", "Connects parts to the store returned by `useProgress()`.", 0],
+    ["ProgressLinearContext", null, "Provides the current progress state to a render prop.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styling
 
@@ -141,7 +136,11 @@ edge.
 
 ### CSS variables
 
-<CssPropertiesSection properties={ProgressLinearDocs.progressLinearCssProperties} />
+Hover or focus a variable to see it in the preview.
+
+<CssPropertiesSection properties={ProgressLinearDocs.progressLinearCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Styling hooks
 

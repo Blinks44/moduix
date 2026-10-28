@@ -5,6 +5,8 @@ description: Afficher du contenu interactif dans un panneau ancré à un déclen
 ark: https://ark-ui.com/docs/components/popover
 ---
 
+import AnatomyScene from '@/components/examples/popover/anatomy';
+
 <Example name="popover/basic" />
 
 ## Installation
@@ -150,47 +152,29 @@ une même fenêtre, attribuez une `value` à chacun et mettez à jour le contenu
 
 ## Anatomie
 
-```text
-Popover
-├─ PopoverAnchor (facultatif)
-├─ PopoverTrigger
-│  └─ PopoverIndicator (facultatif)
-└─ Sous-arbre de superposition (rendu automatiquement dans un portail)
-   └─ PopoverPositioner
-      └─ PopoverContent
-         ├─ PopoverArrow
-         │  └─ PopoverArrowTip
-         ├─ PopoverHeader
-         │  ├─ PopoverTitle
-         │  └─ PopoverDescription
-         ├─ PopoverBody
-         ├─ PopoverFooter
-         └─ PopoverCloseTrigger / PopoverCloseIcon
+Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
 
-PopoverRootProvider
-└─ même arborescence reliée à l’état moduix créé avec usePopover()
-
-PopoverContext
-└─ fonction de rendu avec l’état courant de la fenêtre contextuelle
-```
-
-| Partie                       | Rôle                                                                  |
-| --------------------------- | --------------------------------------------------------------------- |
-| `Popover`  | Gère l’état, l’ouverture et la fermeture, le focus, la fermeture extérieure et le positionnement. |
-| `PopoverRootProvider`      | Relie les parties à l’état créé avec `usePopover()`.                 |
-| `PopoverContext`            | Expose l’état courant aux descendants via une fonction de rendu.      |
-| `PopoverAnchor`             | Élément de référence facultatif utilisé pour le positionnement.       |
-| `PopoverTrigger`            | Bouton qui ouvre ou ferme la fenêtre et peut recevoir une `value`.     |
-| `PopoverIndicator`          | Indicateur facultatif de l’état du déclencheur.                       |
-| `PopoverPositioner`         | Calque flottant qui expose les variables CSS de positionnement d’Ark. |
-| `PopoverContent`             | Surface interactive visible de la fenêtre contextuelle.              |
-| `PopoverArrow` / `PopoverArrowTip` | Flèche positionnée facultative et sa pointe visible.                  |
-| `PopoverTitle`               | Titre accessible associé au contenu.                                  |
-| `PopoverDescription`         | Description accessible associée au contenu.                           |
-| `PopoverCloseTrigger`        | Déclencheur bas niveau qui ferme la fenêtre.                           |
-| `PopoverCloseIcon`            | Aide moduix qui associe le déclencheur de fermeture Ark à un bouton avec icône. |
-| `PopoverHeader` / `PopoverBody`      | Aides de mise en page moduix avec des slots stables.                  |
-| `PopoverFooter`               | Aide moduix pour la rangée d’actions avec un slot stable.              |
+<AnatomyInspector
+  parts={[
+    ["Popover", null, "Gère l’état, l’ouverture et la fermeture, le focus, la fermeture extérieure et le positionnement.", 0],
+    ["PopoverAnchor", "popover-anchor", "Élément de référence facultatif utilisé pour le positionnement.", 1],
+    ["PopoverTrigger", "popover-trigger", "Bouton qui ouvre ou ferme la fenêtre et peut recevoir une `value`.", 2],
+    ["PopoverIndicator", "popover-indicator", "Indicateur facultatif de l’état du déclencheur.", 3],
+    ["PopoverPositioner", "popover-positioner", "Calque flottant qui expose les variables CSS de positionnement d’Ark.", 1],
+    ["PopoverContent", "popover-content", "Surface interactive visible de la fenêtre contextuelle.", 2],
+    ["PopoverArrow / PopoverArrowTip", "popover-arrow", "Flèche positionnée facultative et sa pointe visible.", 3],
+    ["PopoverHeader / PopoverBody", "popover-header", "Aides de mise en page moduix avec des slots stables.", 3],
+    ["PopoverTitle", "popover-title", "Titre accessible associé au contenu.", 4],
+    ["PopoverCloseIcon", "popover-close-icon", "Aide moduix qui associe le déclencheur de fermeture Ark à un bouton avec icône.", 4],
+    ["PopoverDescription", "popover-description", "Description accessible associée au contenu.", 4],
+    ["PopoverFooter", "popover-footer", "Aide moduix pour la rangée d’actions avec un slot stable.", 3],
+    ["PopoverCloseTrigger", "popover-close-trigger", "Déclencheur bas niveau qui ferme la fenêtre.", 4],
+    ["PopoverRootProvider", null, "Relie les parties à l’état créé avec `usePopover()`.", 0],
+    ["PopoverContext", null, "Expose l’état courant aux descendants via une fonction de rendu.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 Dans le code de l’application, utilisez `Popover` comme racine. Importez directement les autres
 parties depuis le paquet afin de garder une composition explicite et lisible.

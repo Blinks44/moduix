@@ -5,6 +5,7 @@ description: Déclenchez une action ou ouvrez un lien avec un bouton accessible.
 ark: https://ark-ui.com/docs/guides/composition
 ---
 
+import { Button } from '@moduix/react/button';
 import * as ButtonDocs from '@/components/examples/button/css-properties';
 
 <Example name="button/basic" />
@@ -89,17 +90,11 @@ les cibles `asChild` ne reçoivent pas cette valeur par défaut.
 
 ## Anatomie
 
-`Button` comporte une seule partie.
+`Button` comporte une seule partie. Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
 
-```text
-Button
-└─ root[data-scope="button"][data-part="root"][data-slot="button-root"]
-   └─ children
-```
-
-| Partie   | Rôle                                                        |
-| -------- | ----------------------------------------------------------- |
-| `Button` | Unique élément racine interactif avec les styles moduix.    |
+<AnatomyInspector parts={[['Button', 'button-root', 'Unique élément racine interactif avec les styles moduix.']]}>
+  <Button>Button</Button>
+</AnatomyInspector>
 
 ## Styles
 
@@ -111,7 +106,11 @@ les paquets Tailwind utilisent des utilitaires natifs et vos propres classes.
 
 ### Variables CSS
 
-<CssPropertiesSection properties={ButtonDocs.buttonCssProperties} />
+Regroupées selon ce qu’elles modifient. Survolez ou sélectionnez une variable pour la voir sur le bouton.
+
+<CssPropertiesSection properties={ButtonDocs.buttonCssProperties}>
+  <Button>Button</Button>
+</CssPropertiesSection>
 
 ### Points d’accroche CSS
 

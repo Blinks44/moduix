@@ -5,6 +5,7 @@ description: Выбор цвета через область, слайдеры �
 ark: https://ark-ui.com/docs/components/color-picker
 ---
 
+import AnatomyScene from '@/components/examples/color-picker/anatomy';
 import * as ColorPickerDocs from '@/components/examples/color-picker/css-properties';
 
 <Example name="color-picker/basic" />
@@ -163,54 +164,33 @@ ColorPicker через этот путь композиции не пробра�
 
 ## Анатомия
 
-```text
-ColorPicker
-├─ ColorPickerLabel
-├─ ColorPickerControl
-│  ├─ ColorPickerChannelInput[channel]
-│  └─ ColorPickerTrigger
-│     └─ ColorPickerValueSwatch
-├─ Ветка всплывающего окна (по умолчанию выводится через портал)
-│  └─ ColorPickerPositioner
-│     └─ ColorPickerContent
-│        ├─ ColorPickerArea
-│        │  ├─ ColorPickerAreaBackground
-│        │  └─ ColorPickerAreaThumb
-│        ├─ ColorPickerEyeDropperTrigger
-│        ├─ ColorPickerChannelSlider[channel]
-│        │  ├─ ColorPickerTransparencyGrid
-│        │  ├─ ColorPickerChannelSliderTrack
-│        │  └─ ColorPickerChannelSliderThumb
-│        ├─ ColorPickerSwatchGroup
-│        │  └─ ColorPickerSwatchTrigger[value]
-│        │     └─ ColorPickerSwatch[value]
-│        │        └─ ColorPickerSwatchIndicator
-│        └─ ColorPickerView[format]
-│           └─ ColorPickerChannelInput[channel]
-└─ ColorPickerHiddenInput (явно)
-```
+Наведите на часть или выберите её, чтобы найти её в превью.
 
-| Часть | Назначение |
-| --- | --- |
-| `ColorPicker` | Хранит выбранный цвет и его формат, управляет открытием всплывающего окна и связывает компонент с формой. |
-| `ColorPickerHiddenInput` | Нативное поле Ark; правила явной композиции описаны ниже. |
-| `ColorPickerLabel` | Доступная подпись видимых элементов управления. |
-| `ColorPickerControl` | Объединяет видимые поля ввода и кнопку открытия. |
-| `ColorPickerTrigger` | Кнопка, которая открывает всплывающее окно и по умолчанию показывает образец текущего цвета. |
-| `ColorPickerPositioner` | Плавающий слой, который позиционирует всплывающее окно и предоставляет CSS-переменные позиционирования Ark. |
-| `ColorPickerContent` | Содержимое всплывающего окна на базе Ark. |
-| `ColorPickerArea` | Двумерная область для выбора цвета. |
-| `ColorPickerAreaBackground` | Фоновый слой, который обрабатывает ввод указателя в области выбора цвета. |
-| `ColorPickerEyeDropperTrigger` | Пипетка для снятия цвета с экрана; отображается только там, где браузер поддерживает EyeDropper API. |
-| `ColorPickerChannelSlider` | Одномерный регулятор для оттенка, альфа-канала или другого канала. |
-| `ColorPickerTransparencyGrid` | Шахматный фон, который делает альфа-канал видимым за дорожкой слайдера канала. Свотчи рисуют шахматку сами. |
-| `ColorPickerSliders` | Готовая пара слайдеров для оттенка и альфа-канала. |
-| `ColorPickerChannelInput` | Текстовое или числовое поле для отдельного канала цвета. |
-| `ColorPickerSwatchTrigger` | Кнопка выбора готового цвета. |
-| `ColorPickerSwatch` | Цветная поверхность внутри кнопки-образца или образца текущего значения. |
-| `ColorPickerSwatchIndicator` | Необязательный маркер внутри образца, например галочка у выбранного готового цвета. |
-| `ColorPickerValueSwatch` | Показывает образец текущего цвета. |
-| `ColorPickerValueText` | Текст только для чтения с форматированным значением. |
+<AnatomyInspector
+  parts={[
+    ["ColorPicker", "color-picker-root", "Хранит выбранный цвет и его формат, управляет открытием всплывающего окна и связывает компонент с формой.", 0],
+    ["ColorPickerLabel", "color-picker-label", "Доступная подпись видимых элементов управления.", 1],
+    ["ColorPickerControl", "color-picker-control", "Объединяет видимые поля ввода и кнопку открытия.", 1],
+    ["ColorPickerChannelInput", "color-picker-channel-input", "Текстовое или числовое поле для отдельного канала цвета.", 2],
+    ["ColorPickerTrigger", "color-picker-trigger", "Кнопка, которая открывает всплывающее окно и по умолчанию показывает образец текущего цвета.", 2],
+    ["ColorPickerValueSwatch", "color-picker-value-swatch", "Показывает образец текущего цвета.", 3],
+    ["ColorPickerPositioner", "color-picker-positioner", "Плавающий слой, который позиционирует всплывающее окно и предоставляет CSS-переменные позиционирования Ark.", 1],
+    ["ColorPickerContent", "color-picker-content", "Содержимое всплывающего окна на базе Ark.", 2],
+    ["ColorPickerArea", "color-picker-area", "Двумерная область для выбора цвета.", 3],
+    ["ColorPickerAreaBackground", "color-picker-area-background", "Фоновый слой, который обрабатывает ввод указателя в области выбора цвета.", 4],
+    ["ColorPickerEyeDropperTrigger", "color-picker-eye-dropper-trigger", "Пипетка для снятия цвета с экрана; отображается только там, где браузер поддерживает EyeDropper API.", 3],
+    ["ColorPickerChannelSlider", "color-picker-channel-slider", "Одномерный регулятор для оттенка, альфа-канала или другого канала.", 3],
+    ["ColorPickerTransparencyGrid", "color-picker-transparency-grid", "Шахматный фон, который делает альфа-канал видимым за дорожкой слайдера канала. Свотчи рисуют шахматку сами.", 4],
+    ["ColorPickerSwatchTrigger", "color-picker-swatch-trigger", "Кнопка выбора готового цвета.", 3],
+    ["ColorPickerSwatch", "color-picker-swatch", "Цветная поверхность внутри кнопки-образца или образца текущего значения.", 4],
+    ["ColorPickerSwatchIndicator", "color-picker-swatch-indicator", "Необязательный маркер внутри образца, например галочка у выбранного готового цвета.", 5],
+    ["ColorPickerHiddenInput", "", "Нативное поле Ark; правила явной композиции описаны ниже.", 1],
+    ["ColorPickerSliders", "color-picker-sliders", "Готовая пара слайдеров для оттенка и альфа-канала.", 1],
+    ["ColorPickerValueText", "color-picker-value-text", "Текст только для чтения с форматированным значением.", 1],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 `ColorPickerRootProvider`, `parseColor`, `useColorPicker` и `useColorPickerContext` подходят для типичных расширенных
 сценариев управления состоянием.
@@ -220,7 +200,11 @@ ColorPicker
 Используйте `className` в React и `class` в Solid и Vue для экспортируемых частей. Варианты Tailwind используют классы-утилиты и классы приложения, а варианты CSS Modules дают короткий список переменных `--moduix-color-picker-*` для размеров, общих для нескольких частей или дочерних элементов по умолчанию; цвета, отступы и типографика берутся из токенов foundation, их меняют классом на нужной части. Обе стилистические версии предоставляют стабильные хуки `data-slot="color-picker-*"` и атрибуты Ark `data-scope` / `data-part`.
 ### CSS-переменные
 
-<CssPropertiesSection properties={ColorPickerDocs.colorPickerOverrideCssProperties} />
+Наведите на переменную или выберите её, чтобы увидеть её в превью.
+
+<CssPropertiesSection properties={ColorPickerDocs.colorPickerOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Хуки стилизации
 

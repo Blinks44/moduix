@@ -5,6 +5,7 @@ description: Кнопка, которая включает опцию нажат
 ark: https://ark-ui.com/docs/components/toggle
 ---
 
+import AnatomyScene from '@/components/examples/toggle/basic';
 import * as ToggleDocs from '@/components/examples/toggle/css-properties';
 
 <Example name="toggle/basic" />
@@ -110,18 +111,17 @@ import * as ToggleDocs from '@/components/examples/toggle/css-properties';
 
 ## Анатомия
 
-```text
-Toggle
-└─ ToggleIndicator (необязательно)
+Наведите на часть или выберите её, чтобы найти её в превью.
 
-ToggleContext (читает состояние, но не создаёт часть DOM)
-```
-
-| Часть | Назначение |
-| ----- | ---------- |
-| `Toggle` | Корневая часть, которая управляет состоянием нажатия, фокусом, отключением и композицией через `asChild`. |
-| `ToggleIndicator` | Необязательная часть, которая показывает содержимое в нажатом состоянии и `fallback`, когда кнопка не нажата. |
-| `ToggleContext` | Читает состояние ближайшего `Toggle` для пользовательских потомков, но не создаёт часть DOM. |
+<AnatomyInspector
+  parts={[
+    ["Toggle", "toggle-root", "Корневая часть, которая управляет состоянием нажатия, фокусом, отключением и композицией через `asChild`.", 0],
+    ["ToggleIndicator", "toggle-indicator", "Необязательная часть, которая показывает содержимое в нажатом состоянии и `fallback`, когда кнопка не нажата.", 1],
+    ["ToggleContext", null, "Читает состояние ближайшего `Toggle` для пользовательских потомков, но не создаёт часть DOM.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Стилизация
 
@@ -132,7 +132,11 @@ ToggleContext (читает состояние, но не создаёт час�
 
 ### CSS-переменные
 
-<CssPropertiesSection properties={ToggleDocs.toggleOverrideCssProperties} />
+Наведите на переменную или выберите её, чтобы увидеть её в превью.
+
+<CssPropertiesSection properties={ToggleDocs.toggleOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Хуки стилизации
 

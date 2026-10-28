@@ -5,6 +5,7 @@ description: Короткие уведомления, которые склад�
 ark: https://ark-ui.com/docs/components/toast
 ---
 
+import AnatomyScene from '@/components/examples/toast/anatomy';
 import * as ToastDocs from '@/components/examples/toast/css-properties';
 
 <Example name="toast/basic" />
@@ -125,25 +126,21 @@ computed ref. Для `asChild` у кнопок действия и закрыт�
 
 ## Анатомия
 
-```text
-createToaster()
-└─ ToastToaster (portalled to document.body by default)
-   └─ Toast
-      ├─ ToastTitle
-      ├─ ToastDescription
-      ├─ ToastActionTrigger
-      └─ ToastCloseTrigger
-```
+Наведите на часть или выберите её, чтобы найти её в превью.
 
-| Часть                          | Назначение                                                                            |
-| ------------------------------ | ------------------------------------------------------------------------------------- |
-| `Toast`               | Корень видимого уведомления.                                      |
-| `ToastToaster`        | Выводит хранилище toaster и управляет группой уведомлений.       |
-| `ToastTitle`          | Заголовок. Если дочерние элементы не переданы, использует `title` текущего уведомления. |
-| `ToastDescription`    | Описание. Если дочерние элементы не переданы, использует `description` текущего уведомления. |
-| `ToastActionTrigger`  | Кнопка действия, связанная с `toast.action.onClick`.             |
-| `ToastCloseTrigger`   | Кнопка закрытия. По умолчанию использует `CloseButton`.          |
-| `ToastContext`        | Контекстная часть для собственной композиции и прямого доступа к состоянию уведомления. |
+<AnatomyInspector
+  parts={[
+    ["ToastToaster", "toast-toaster", "Выводит хранилище toaster и управляет группой уведомлений.", 0],
+    ["Toast", "toast-root", "Корень видимого уведомления.", 1],
+    ["ToastTitle", "toast-title", "Заголовок. Если дочерние элементы не переданы, использует `title` текущего уведомления.", 2],
+    ["ToastDescription", "toast-description", "Описание. Если дочерние элементы не переданы, использует `description` текущего уведомления.", 2],
+    ["ToastActionTrigger", "toast-action-trigger", "Кнопка действия, связанная с `toast.action.onClick`.", 2],
+    ["ToastCloseTrigger", "toast-close-trigger", "Кнопка закрытия. По умолчанию использует `CloseButton`.", 2],
+    ["ToastContext", null, "Контекстная часть для собственной композиции и прямого доступа к состоянию уведомления.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Стилизация
 
@@ -155,7 +152,11 @@ CSS Modules также читают четыре переменные ниже; 
 
 ### CSS-переменные
 
-<CssPropertiesSection properties={ToastDocs.toastCssProperties} />
+Наведите на переменную или выберите её, чтобы увидеть её в превью.
+
+<CssPropertiesSection properties={ToastDocs.toastCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Хуки стилизации
 

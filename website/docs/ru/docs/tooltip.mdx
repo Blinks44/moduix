@@ -5,6 +5,7 @@ description: Короткая подсказка к элементу при на
 ark: https://ark-ui.com/docs/components/tooltip
 ---
 
+import AnatomyScene from '@/components/examples/tooltip/anatomy';
 
 <Example name="tooltip/basic" />
 
@@ -135,41 +136,27 @@ ark: https://ark-ui.com/docs/components/tooltip
 
 ## Анатомия
 
-```text
-Tooltip
-├─ TooltipTrigger
-└─ Поддерево всплывающего содержимого (автоматически выводится через портал)
-   └─ TooltipPositioner
-      └─ TooltipContent
-         └─ содержимое
-```
-
 Добавьте `TooltipArrow` первым потомком содержимого, если всплывающий элемент должен указывать на
 триггер. `TooltipArrow` по умолчанию выводит `TooltipArrowTip`.
 
-```text
-Tooltip
-├─ TooltipTrigger
-└─ Поддерево всплывающего содержимого (автоматически выводится через портал)
-   └─ TooltipPositioner
-      └─ TooltipContent
-         ├─ TooltipArrow
-         │  └─ TooltipArrowTip
-         └─ содержимое
-```
+Наведите на часть или выберите её, чтобы найти её в превью.
 
-| Часть | Назначение |
-| --- | --- |
-| `Tooltip` | Управляет состоянием подсказки, открытием и закрытием, задержками, позиционированием и жизненным циклом. |
-| `TooltipRootProvider` | Отображает подсказку из объекта состояния `useTooltip()`, созданного за пределами дерева. |
-| `TooltipContext` | Передаёт текущее состояние пользовательским потомкам через функцию рендеринга или слот с параметрами в Vue. |
-| `TooltipBody` | Удобная обёртка, которая одновременно выводит `TooltipPositioner` и `TooltipContent`. |
-| `TooltipTrigger` | Интерактивный элемент, открывающий подсказку при наведении или фокусе. |
-| `TooltipDisabledTrigger` | Доступная для фокуса обёртка для одного отключённого нативного элемента управления, которому нужно пояснение. |
-| `TooltipPositioner` | Позиционирует содержимое и предоставляет переменные позиционирования Ark. |
-| `TooltipContent` | Видимая поверхность подсказки. |
-| `TooltipArrow` | Необязательная позиционируемая обёртка стрелки, по умолчанию выводящая `TooltipArrowTip`. |
-| `TooltipArrowTip` | Видимый наконечник стрелки. |
+<AnatomyInspector
+  parts={[
+    ["Tooltip", null, "Управляет состоянием подсказки, открытием и закрытием, задержками, позиционированием и жизненным циклом.", 0],
+    ["TooltipTrigger", "tooltip-trigger", "Интерактивный элемент, открывающий подсказку при наведении или фокусе.", 1],
+    ["TooltipDisabledTrigger", "tooltip-disabled-trigger", "Доступная для фокуса обёртка для одного отключённого нативного элемента управления, которому нужно пояснение.", 1],
+    ["TooltipPositioner", "tooltip-positioner", "Позиционирует содержимое и предоставляет переменные позиционирования Ark.", 1],
+    ["TooltipContent", "tooltip-content", "Видимая поверхность подсказки.", 2],
+    ["TooltipArrow", "tooltip-arrow", "Необязательная позиционируемая обёртка стрелки, по умолчанию выводящая `TooltipArrowTip`.", 3],
+    ["TooltipArrowTip", "tooltip-arrow-tip", "Видимый наконечник стрелки.", 4],
+    ["TooltipBody", "", "Удобная обёртка, которая одновременно выводит `TooltipPositioner` и `TooltipContent`.", 1],
+    ["TooltipRootProvider", null, "Отображает подсказку из объекта состояния `useTooltip()`, созданного за пределами дерева.", 0],
+    ["TooltipContext", null, "Передаёт текущее состояние пользовательским потомкам через функцию рендеринга или слот с параметрами в Vue.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Стилизация
 

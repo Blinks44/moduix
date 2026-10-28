@@ -5,6 +5,7 @@ description: Run a primary action or pick a related one from an attached menu.
 ark: https://ark-ui.com/docs/guides/composition#the-ark-factory
 ---
 
+import AnatomyScene from '@/components/examples/split-button/anatomy';
 import * as SplitButtonDocs from '@/components/examples/split-button/css-properties';
 
 <Example name="split-button/basic" />
@@ -108,25 +109,19 @@ In Vue, listen with `@click` on the action, use `@open-change` or `v-model:open`
 
 ## Anatomy
 
-```text
-SplitButton
-├─ SplitButtonAction
-├─ SplitButtonTrigger
-└─ Popup subtree (automatically portalled)
-   └─ SplitButtonPositioner
-      └─ SplitButtonContent
-         ├─ MenuItem
-         ├─ MenuSeparator
-         └─ other shared Menu parts
-```
+Hover or focus a part to find it in the preview.
 
-| Part                               | Role                                                                  |
-| ---------------------------------- | --------------------------------------------------------------------- |
-| `SplitButton`                     | Root that owns menu state and the semantic group around both buttons. |
-| `SplitButtonAction`               | Primary Button action.                                                |
-| `SplitButtonTrigger`              | Ark Menu trigger rendered as a moduix Button with a chevron by default. |
-| `SplitButtonPositioner`           | Positions the Ark Menu popup.                                         |
-| `SplitButtonContent`              | Ark Menu content surface for shared `MenuItem` and `MenuItemGroup` parts. |
+<AnatomyInspector
+  parts={[
+    ["SplitButton", "split-button-root", "Root that owns menu state and the semantic group around both buttons.", 0],
+    ["SplitButtonAction", "split-button-action", "Primary Button action.", 1],
+    ["SplitButtonTrigger", "split-button-trigger", "Ark Menu trigger rendered as a moduix Button with a chevron by default.", 1],
+    ["SplitButtonPositioner", "split-button-positioner", "Positions the Ark Menu popup.", 1],
+    ["SplitButtonContent", "split-button-content", "Ark Menu content surface for shared `MenuItem` and `MenuItemGroup` parts.", 2],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styling
 
@@ -141,7 +136,11 @@ separator on the trigger's `::before`; outline variants share the border instead
 
 ### CSS variables
 
-<CssPropertiesSection properties={SplitButtonDocs.splitButtonCssProperties} />
+Hover or focus a variable to see it in the preview.
+
+<CssPropertiesSection properties={SplitButtonDocs.splitButtonCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Styling hooks
 

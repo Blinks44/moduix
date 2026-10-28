@@ -5,6 +5,8 @@ description: Garder images, vidéos et intégrations à un rapport largeur/haute
 ark: https://ark-ui.com/docs/guides/composition#the-ark-factory
 ---
 
+import AnatomyScene from '@/components/examples/aspect-ratio/basic';
+
 <Example name="aspect-ratio/basic" />
 
 ## Installation
@@ -74,14 +76,15 @@ En Solid, affectez le `ref` à l’élément créé dans la fonction de rendu ut
 
 ## Anatomie
 
-```text
-AspectRatio
-└─ media | iframe | canvas | svg | custom content
-```
+Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
 
-| Partie         | Rôle                                       |
-| -------------- | ------------------------------------------ |
-| `AspectRatio` | Conteneur adaptatif avec un rapport fixe. |
+<AnatomyInspector
+  parts={[
+    ["AspectRatio", "aspect-ratio-root", "Conteneur adaptatif avec un rapport fixe.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styles
 

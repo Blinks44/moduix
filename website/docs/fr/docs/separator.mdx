@@ -5,6 +5,7 @@ description: Tracer une ligne entre des sections liées, horizontale ou vertical
 ark: https://ark-ui.com/docs/guides/composition#the-ark-factory
 ---
 
+import AnatomyScene from '@/components/examples/separator/basic';
 import * as SeparatorDocs from '@/components/examples/separator/css-properties';
 
 <Example name="separator/basic" />
@@ -82,14 +83,15 @@ ref. En React et Vue, l’élément enfant est transmis directement ; en Solid, 
 
 `Separator` n’expose qu’une seule partie racine.
 
-```text
-Separator
-└─ root[data-scope="separator"][data-part="root"][data-slot="separator-root"]
-```
+Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
 
-| Partie      | Rôle                                                                    |
-| ----------- | ----------------------------------------------------------------------- |
-| `Separator` | Élément séparateur racine. Définit l’orientation, l’accessibilité et le style. |
+<AnatomyInspector
+  parts={[
+    ["Separator", "separator-root", "Élément séparateur racine. Définit l’orientation, l’accessibilité et le style.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styles
 
@@ -100,7 +102,11 @@ sont communs aux deux modes de style.
 
 ### Variables CSS
 
-<CssPropertiesSection properties={SeparatorDocs.separatorOverrideCssProperties} />
+Survolez ou sélectionnez une variable pour la voir dans l’aperçu.
+
+<CssPropertiesSection properties={SeparatorDocs.separatorOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Points d’accroche CSS
 

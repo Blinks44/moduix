@@ -5,6 +5,7 @@ description: Signaler une courte attente dans les boutons, lignes et états comp
 ark: https://ark-ui.com/docs/guides/composition
 ---
 
+import AnatomyScene from '@/components/examples/spinner/basic';
 import * as SpinnerDocs from '@/components/examples/spinner/css-properties';
 
 <Example name="spinner/basic" />
@@ -95,18 +96,17 @@ et un anneau par défaut. Ce sont des nœuds DOM et des points d’accroche CSS,
 Un contenu personnalisé passé via `children` remplace l’anneau ; `asChild` remplace la racine et laisse l’enfant fournir la structure
 de l’indicateur.
 
-```text
-Spinner
-└─ root[data-scope="spinner"][data-part="root"][data-slot="spinner-root"][data-size]
-   └─ indicator[data-scope="spinner"][data-part="indicator"][data-slot="spinner-indicator"]
-      └─ ring[data-scope="spinner"][data-part="ring"][data-slot="spinner-ring"] (par défaut uniquement)
-```
+Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
 
-| Partie              | Rôle                                                                                                        |
-| ------------------- | ----------------------------------------------------------------------------------------------------------- |
-| `Spinner`                   | Racine publique. Accepte `size`, `decorative`, `asChild`, `children` et les propriétés natives de `span`. |
-| indicator                  | Enveloppe interne rotative qui gère la taille et l’animation de l’indicateur.                     |
-| ring                       | Anneau par défaut interne. Il n’est pas rendu lorsqu’un contenu personnalisé est fourni via `children`. |
+<AnatomyInspector
+  parts={[
+    ["Spinner", "spinner-ring", "Racine publique. Accepte `size`, `decorative`, `asChild`, `children` et les propriétés natives de `span`.", 0],
+    ["indicator", "", "Enveloppe interne rotative qui gère la taille et l’animation de l’indicateur.", 1],
+    ["ring", "", "Anneau par défaut interne. Il n’est pas rendu lorsqu’un contenu personnalisé est fourni via `children`.", 2],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styles
 
@@ -115,7 +115,11 @@ Appliquez des styles à `Spinner` avec `className` en React, `class` en Solid et
 
 ### Variables CSS
 
-<CssPropertiesSection properties={SpinnerDocs.spinnerOverrideCssProperties} />
+Survolez ou sélectionnez une variable pour la voir dans l’aperçu.
+
+<CssPropertiesSection properties={SpinnerDocs.spinnerOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Points d’accroche CSS
 

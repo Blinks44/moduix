@@ -5,6 +5,7 @@ description: Réserver la place du texte, des cartes et des médias pendant le c
 ark: https://ark-ui.com/docs/guides/composition#the-ark-factory
 ---
 
+import AnatomyScene from '@/components/examples/skeleton/basic';
 import * as SkeletonDocs from '@/components/examples/skeleton/css-properties';
 
 <Example name="skeleton/basic" />
@@ -86,14 +87,15 @@ en Vue, utilisez `as-child` avec un seul élément sémantique dans le slot par 
 
 `Skeleton` ne comporte qu’une seule partie visuelle. La mise en page se fait dans le balisage qui l’entoure.
 
-```text
-Skeleton
-└─ children (facultatifs, affichés lorsque loading={false})
-```
+Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
 
-| Partie                        | Rôle                                                                                                                  |
-| ----------------------------- | --------------------------------------------------------------------------------------------------------------------- |
-| `Skeleton` | Bloc d’attente. Rend par défaut un élément de la fabrique Ark ; avec `asChild`, un autre élément sémantique peut devenir la racine. |
+<AnatomyInspector
+  parts={[
+    ["Skeleton", "skeleton-root", "Bloc d’attente. Rend par défaut un élément de la fabrique Ark ; avec `asChild`, un autre élément sémantique peut devenir la racine.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styles
 
@@ -104,7 +106,11 @@ modes de style.
 
 ### Variables CSS
 
-<CssPropertiesSection properties={SkeletonDocs.skeletonOverrideCssProperties} />
+Survolez ou sélectionnez une variable pour la voir dans l’aperçu.
+
+<CssPropertiesSection properties={SkeletonDocs.skeletonOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Points d’accroche CSS
 

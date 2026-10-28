@@ -5,6 +5,7 @@ description: Scroll overflowing content with styled scrollbars that match the th
 ark: https://ark-ui.com/docs/components/scroll-area
 ---
 
+import AnatomyScene from '@/components/examples/scroll-area/basic';
 import * as ScrollAreaDocs from '@/components/examples/scroll-area/css-properties';
 
 <Example name="scroll-area/basic" />
@@ -88,28 +89,21 @@ returned by `useScrollArea()`.
 
 ## Anatomy
 
-```text
-ScrollArea
-├─ ScrollAreaViewport
-│  └─ ScrollAreaContent
-│     └─ children
-├─ ScrollAreaScrollbar
-│  └─ ScrollAreaThumb
-└─ ScrollAreaCorner
+Hover or focus a part to find it in the preview.
 
-ScrollAreaRootProvider
-└─ same tree connected to a useScrollArea() store
-```
-
-| Part                             | Role                                                               |
-| -------------------------------- | ------------------------------------------------------------------ |
-| `ScrollArea`                     | Root part that owns scroll state and positioning.                  |
-| `ScrollAreaRootProvider`        | Connects the parts to state created with `useScrollArea()`.        |
-| `ScrollAreaViewport`            | Native scroll container and focus target.                          |
-| `ScrollAreaContent`             | Inner content wrapper measured by Ark UI.                          |
-| `ScrollAreaScrollbar`           | Styled scrollbar track for one axis.                              |
-| `ScrollAreaThumb`               | Draggable thumb inside a scrollbar.                                |
-| `ScrollAreaCorner`              | Fills the intersection when both axes overflow.                   |
+<AnatomyInspector
+  parts={[
+    ["ScrollArea", "scroll-area-root", "Root part that owns scroll state and positioning.", 0],
+    ["ScrollAreaViewport", "scroll-area-viewport", "Native scroll container and focus target.", 1],
+    ["ScrollAreaContent", "scroll-area-content", "Inner content wrapper measured by Ark UI.", 2],
+    ["ScrollAreaScrollbar", "scroll-area-scrollbar", "Styled scrollbar track for one axis.", 1],
+    ["ScrollAreaThumb", "scroll-area-thumb", "Draggable thumb inside a scrollbar.", 2],
+    ["ScrollAreaCorner", "scroll-area-corner", "Fills the intersection when both axes overflow.", 1],
+    ["ScrollAreaRootProvider", "scroll-area-root-provider", "Connects the parts to state created with `useScrollArea()`.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styling
 
@@ -120,7 +114,11 @@ the scrollbar thickness, the thumb color, or the fade depth. The viewport inheri
 
 ### CSS variables
 
-<CssPropertiesSection properties={ScrollAreaDocs.scrollAreaOverrideCssProperties} />
+Hover or focus a variable to see it in the preview.
+
+<CssPropertiesSection properties={ScrollAreaDocs.scrollAreaOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Styling hooks
 

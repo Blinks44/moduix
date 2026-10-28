@@ -5,6 +5,7 @@ description: Переключение между несколькими опци
 ark: https://ark-ui.com/docs/components/segment-group
 ---
 
+import AnatomyScene from '@/components/examples/segment-group/basic';
 import * as SegmentGroupDocs from '@/components/examples/segment-group/css-properties';
 import { CssPropertiesSection } from '@/components/mdx/Components';
 
@@ -135,33 +136,24 @@ import { CssPropertiesSection } from '@/components/mdx/Components';
 
 ## Анатомия
 
-```text
-SegmentGroup
-├─ SegmentGroupLabel (необязательно)
-├─ SegmentGroupIndicator
-└─ SegmentGroupItem[value]
-   ├─ SegmentGroupItemText
-   └─ нативное поле формы
+Наведите на часть или выберите её, чтобы найти её в превью.
 
-SegmentGroupRootProvider
-└─ то же дерево элементов, подключённое к хранилищу moduix useSegmentGroup()
-
-SegmentGroupContext / SegmentGroupItemContext
-└─ расширенный доступ к состоянию Ark через render prop
-```
-
-| Часть                                 | Назначение                                                               |
-| ------------------------------------ | ------------------------------------------------------------------------ |
-| `SegmentGroup` | Управляет выбранным значением, навигацией с клавиатуры и формами.        |
-| `SegmentGroupItemHiddenInput` | Нативное поле Ark; правила явной композиции описаны ниже. |
-| `SegmentGroupRootProvider`          | Подключает части к состоянию, созданному хуком `useSegmentGroup()` из moduix. |
-| `SegmentGroupContext`               | Даёт расширенный доступ к состоянию корневого элемента через render prop. |
-| `SegmentGroupItemContext`           | Даёт расширенный доступ к состоянию текущего элемента через render prop. |
-| `SegmentGroupLabel`                 | Необязательная доступная подпись группы.                                 |
-| `SegmentGroupIndicator`             | Размещает выделение активного элемента с помощью CSS-переменных Ark.     |
-| `SegmentGroupItems`                 | Рекомендуемый способ отрисовать стандартные текстовые сегменты.         |
-| `SegmentGroupItem`                  | Один выбираемый сегмент; по умолчанию создаёт элемент `label`.           |
-| `SegmentGroupItemText`              | Видимая подпись сегмента.                                                  |
+<AnatomyInspector
+  parts={[
+    ["SegmentGroup", "segment-group-root", "Управляет выбранным значением, навигацией с клавиатуры и формами.", 0],
+    ["SegmentGroupLabel", "segment-group-label", "Необязательная доступная подпись группы.", 1],
+    ["SegmentGroupIndicator", "segment-group-indicator", "Размещает выделение активного элемента с помощью CSS-переменных Ark.", 1],
+    ["SegmentGroupItem", "segment-group-item", "Один выбираемый сегмент; по умолчанию создаёт элемент `label`.", 1],
+    ["SegmentGroupItemText", "segment-group-item-text", "Видимая подпись сегмента.", 2],
+    ["SegmentGroupItemHiddenInput", "", "Нативное поле Ark; правила явной композиции описаны ниже.", 2],
+    ["SegmentGroupItems", "", "Рекомендуемый способ отрисовать стандартные текстовые сегменты.", 2],
+    ["SegmentGroupRootProvider", "segment-group-root-provider", "Подключает части к состоянию, созданному хуком `useSegmentGroup()` из moduix.", 0],
+    ["SegmentGroupContext", null, "Даёт расширенный доступ к состоянию корневого элемента через render prop.", 0],
+    ["SegmentGroupItemContext", null, "Даёт расширенный доступ к состоянию текущего элемента через render prop.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Стилизация
 
@@ -173,7 +165,11 @@ utility-классы и классы потребителя, а переменн
 
 ### CSS-переменные
 
-<CssPropertiesSection properties={SegmentGroupDocs.segmentGroupOverrideCssProperties} />
+Наведите на переменную или выберите её, чтобы увидеть её в превью.
+
+<CssPropertiesSection properties={SegmentGroupDocs.segmentGroupOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Хуки стилизации
 

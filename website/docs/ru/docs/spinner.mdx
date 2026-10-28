@@ -5,6 +5,7 @@ description: Короткое ожидание в кнопках, строках
 ark: https://ark-ui.com/docs/guides/composition
 ---
 
+import AnatomyScene from '@/components/examples/spinner/basic';
 import * as SpinnerDocs from '@/components/examples/spinner/css-properties';
 
 <Example name="spinner/basic" />
@@ -98,18 +99,17 @@ import * as SpinnerDocs from '@/components/examples/spinner/css-properties';
 Собственное содержимое через `children` заменяет кольцо, а `asChild` заменяет корневой элемент и оставляет
 разметку индикатора на дочернем элементе.
 
-```text
-Spinner
-└─ root[data-scope="spinner"][data-part="root"][data-slot="spinner-root"][data-size]
-   └─ indicator[data-scope="spinner"][data-part="indicator"][data-slot="spinner-indicator"]
-      └─ ring[data-scope="spinner"][data-part="ring"][data-slot="spinner-ring"] (только по умолчанию)
-```
+Наведите на часть или выберите её, чтобы найти её в превью.
 
-| Часть               | Назначение                                                                                  |
-| ------------------- | ------------------------------------------------------------------------------------------- |
-| `Spinner`                   | Публичный корневой элемент. Принимает `size`, `decorative`, `asChild`, `children` и нативные свойства `span`. |
-| indicator                   | Внутренняя вращающаяся обёртка, которая отвечает за размер и анимацию индикатора.               |
-| ring                        | Внутреннее стандартное кольцо. Не создаётся, если передано собственное `children`.             |
+<AnatomyInspector
+  parts={[
+    ["Spinner", "spinner-ring", "Публичный корневой элемент. Принимает `size`, `decorative`, `asChild`, `children` и нативные свойства `span`.", 0],
+    ["indicator", "", "Внутренняя вращающаяся обёртка, которая отвечает за размер и анимацию индикатора.", 1],
+    ["ring", "", "Внутреннее стандартное кольцо. Не создаётся, если передано собственное `children`.", 2],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Стилизация
 
@@ -120,7 +120,11 @@ Spinner
 
 ### CSS-переменные
 
-<CssPropertiesSection properties={SpinnerDocs.spinnerOverrideCssProperties} />
+Наведите на переменную или выберите её, чтобы увидеть её в превью.
+
+<CssPropertiesSection properties={SpinnerDocs.spinnerOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Хуки стилизации
 

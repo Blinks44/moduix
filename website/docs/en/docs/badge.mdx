@@ -5,6 +5,7 @@ description: Label a status, category, version, or count in a small chip.
 ark: https://ark-ui.com/docs/guides/composition#the-ark-factory
 ---
 
+import AnatomyScene from '@/components/examples/badge/basic';
 import * as BadgeDocs from '@/components/examples/badge/css-properties';
 
 <Example name="badge/basic" />
@@ -107,18 +108,17 @@ In Vue, place exactly one child in the default slot when using `as-child`; the c
 
 `Badge` is the root component. It keeps the public API small and exposes only the parts you can see.
 
-```text
-Badge
-├─ BadgeLabel (optional; use explicitly for truncation)
-├─ BadgeDot (optional)
-└─ svg icon (optional)
-```
+Hover or focus a part to find it in the preview.
 
-| Part         | Role                                                                                 |
-| ------------ | ------------------------------------------------------------------------------------ |
-| `Badge`      | Root part. Applies the variant, border, and spacing.                                |
-| `BadgeLabel` | Explicit text part. Keeps a composed label truncatable.                              |
-| `BadgeDot`   | Optional decorative part. Renders a circular marker that inherits the text color.    |
+<AnatomyInspector
+  parts={[
+    ["Badge", "badge-root", "Root part. Applies the variant, border, and spacing.", 0],
+    ["BadgeLabel", "badge-label", "Explicit text part. Keeps a composed label truncatable.", 1],
+    ["BadgeDot", "badge-dot", "Optional decorative part. Renders a circular marker that inherits the text color.", 1],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styling
 
@@ -133,7 +133,11 @@ Ark data attributes are shared by all styling tracks.
 
 ### CSS variables
 
-<CssPropertiesSection properties={BadgeDocs.badgeCssProperties} />
+Hover or focus a variable to see it in the preview.
+
+<CssPropertiesSection properties={BadgeDocs.badgeCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Styling hooks
 

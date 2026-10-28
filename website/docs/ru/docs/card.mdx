@@ -5,6 +5,7 @@ description: Заголовок, содержимое и действия на �
 ark: https://ark-ui.com/docs/guides/composition#the-ark-factory
 ---
 
+import AnatomyScene from '@/components/examples/card/basic';
 import * as CardDocs from '@/components/examples/card/css-properties';
 
 <Example name="card/basic" />
@@ -121,30 +122,24 @@ Card не управляет состоянием, колбэками, пров�
 
 ## Анатомия
 
-```text
-Card
-├─ CardBackground (необязательный помощник moduix)
-├─ CardMedia (необязательный помощник moduix)
-├─ CardHeader
-│  ├─ CardTitle
-│  ├─ CardDescription
-│  └─ CardAction (необязательный помощник moduix)
-├─ CardBody
-└─ CardFooter (необязательно)
-```
+Наведите на часть или выберите её, чтобы найти её в превью.
 
-| Часть                | Назначение                                                                                |
-| -------------------- | ------------------------------------------------------------------------------------------ |
-| `Card` | Корневой контейнер со свойствами `size`, `variant` и `asChild`.                            |
-| `CardBackground`    | Необязательный фоновый слой на всю карточку для декоративного медиа.                      |
-| `CardMedia`         | Необязательная обёртка для медиа на всю ширину с единым скруглением верхних углов.        |
-| `CardHeader`        | Контейнер для заголовка, описания и необязательного действия справа.                      |
-| `CardBody`          | Основная область содержимого.                                                              |
-| `CardFooter`        | Нижняя строка для действий или метаданных. При необходимости содержимое переносится.     |
-| `CardTitle`         | Заголовок, по умолчанию рендерится как `h3`; для другого уровня используйте `asChild`.   |
-| `CardDescription`   | Дополнительный текст под заголовком.                                                       |
-| `CardAction`        | Слот для действия в заголовке.                                                             |
-| `CardLink`          | Ссылка с расширенной областью клика, которая не перекрывает остальные элементы управления. |
+<AnatomyInspector
+  parts={[
+    ["Card", "card-root", "Корневой контейнер со свойствами `size`, `variant` и `asChild`.", 0],
+    ["CardBackground", "card-background", "Необязательный фоновый слой на всю карточку для декоративного медиа.", 1],
+    ["CardMedia", "card-media", "Необязательная обёртка для медиа на всю ширину с единым скруглением верхних углов.", 1],
+    ["CardHeader", "card-header", "Контейнер для заголовка, описания и необязательного действия справа.", 1],
+    ["CardTitle", "card-title", "Заголовок, по умолчанию рендерится как `h3`; для другого уровня используйте `asChild`.", 2],
+    ["CardDescription", "card-description", "Дополнительный текст под заголовком.", 2],
+    ["CardAction", "card-action", "Слот для действия в заголовке.", 2],
+    ["CardBody", "card-body", "Основная область содержимого.", 1],
+    ["CardFooter", "card-footer", "Нижняя строка для действий или метаданных. При необходимости содержимое переносится.", 1],
+    ["CardLink", "card-link", "Ссылка с расширенной областью клика, которая не перекрывает остальные элементы управления.", 1],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Стилизация
 
@@ -154,7 +149,11 @@ Card
 
 ### CSS-переменные
 
-<CssPropertiesSection properties={CardDocs.cardOverrideCssProperties} />
+Наведите на переменную или выберите её, чтобы увидеть её в превью.
+
+<CssPropertiesSection properties={CardDocs.cardOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Хуки стилизации
 

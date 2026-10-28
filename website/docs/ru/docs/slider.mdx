@@ -5,6 +5,7 @@ description: Выбор значения или диапазона перета�
 ark: https://ark-ui.com/docs/components/slider
 ---
 
+import AnatomyScene from '@/components/examples/slider/basic';
 import * as SliderDocs from '@/components/examples/slider/css-properties';
 
 <Example name="slider/basic" width="sm" />
@@ -192,34 +193,26 @@ Vue для управляемого контракта можно связать
 
 ## Анатомия
 
-```text
-Slider
-├─ SliderLabel
-├─ SliderValueText
-├─ SliderControl
-│  ├─ SliderTrack
-│  │  └─ SliderRange
-│  └─ SliderThumb[index]
-│     ├─ SliderDraggingIndicator
-│     └─ SliderHiddenInput
-└─ SliderMarkerGroup
-   └─ SliderMarker[value]
-```
+Наведите на часть или выберите её, чтобы найти её в превью.
 
-| Часть                                  | Назначение                                                       |
-| -------------------------------------- | ---------------------------------------------------------------- |
-| `Slider`               | Стилизованный корневой элемент Ark для управляемого и неуправляемого состояния. |
-| `SliderHiddenInput` | Нативное поле Ark; правила явной композиции описаны ниже. |
-| `SliderRootProvider`                  | Корневой элемент, подключённый к состоянию `useSlider`, созданному отдельно.    |
-| `SliderLabel`                         | Видимая подпись группы.                                                        |
-| `SliderValueText`                     | Текст текущего значения, который формирует Ark.                               |
-| `SliderControl`                       | Область взаимодействия с указателем.                                          |
-| `SliderTrack`                         | Полная визуальная дорожка.                                                     |
-| `SliderRange`                         | Заполненная часть от точки отсчёта до текущего значения.                       |
-| `SliderThumb`                         | Ползунок, который можно сфокусировать.                                        |
-| `SliderThumbs`                        | Вспомогательный компонент moduix, создающий ползунок для каждого значения.      |
-| `SliderMarkerGroup` / `SliderMarker` | Необязательная группа отметок и отдельная отметка.                             |
-| `SliderDraggingIndicator`             | Необязательное всплывающее значение во время перетаскивания.                   |
+<AnatomyInspector
+  parts={[
+    ["Slider", "slider-root", "Стилизованный корневой элемент Ark для управляемого и неуправляемого состояния.", 0],
+    ["SliderLabel", "slider-label", "Видимая подпись группы.", 1],
+    ["SliderValueText", "slider-value-text", "Текст текущего значения, который формирует Ark.", 1],
+    ["SliderControl", "slider-control", "Область взаимодействия с указателем.", 1],
+    ["SliderTrack", "slider-track", "Полная визуальная дорожка.", 2],
+    ["SliderRange", "slider-range", "Заполненная часть от точки отсчёта до текущего значения.", 3],
+    ["SliderThumb", "slider-thumb", "Ползунок, который можно сфокусировать.", 2],
+    ["SliderDraggingIndicator", "slider-dragging-indicator", "Необязательное всплывающее значение во время перетаскивания.", 3],
+    ["SliderHiddenInput", "", "Нативное поле Ark; правила явной композиции описаны ниже.", 3],
+    ["SliderThumbs", "", "Вспомогательный компонент moduix, создающий ползунок для каждого значения.", 3],
+    ["SliderMarkerGroup / SliderMarker", "slider-marker-group", "Необязательная группа отметок и отдельная отметка.", 1],
+    ["SliderRootProvider", "slider-root-provider", "Корневой элемент, подключённый к состоянию `useSlider`, созданному отдельно.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Стилизация
 
@@ -228,7 +221,11 @@ CSS-переменные Ark и публичные CSS-переменные modu
 
 ### CSS-переменные
 
-<CssPropertiesSection properties={SliderDocs.sliderCssProperties} />
+Наведите на переменную или выберите её, чтобы увидеть её в превью.
+
+<CssPropertiesSection properties={SliderDocs.sliderCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Хуки стилизации
 

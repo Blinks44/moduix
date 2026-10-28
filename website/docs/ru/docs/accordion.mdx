@@ -5,6 +5,7 @@ description: Секции, которые раскрываются и свора
 ark: https://ark-ui.com/docs/components/accordion
 ---
 
+import AnatomyScene from '@/components/examples/accordion/basic';
 import * as AccordionDocs from '@/components/examples/accordion/css-properties';
 
 <Example name="accordion/basic" />
@@ -111,30 +112,21 @@ React состояние читается как обычный объект, в
 
 ## Анатомия
 
-```text
-Accordion
-└─ AccordionItem[value]
- ├─ h3 (рекомендуемый заголовок)
- │  └─ AccordionItemTrigger
- │     ├─ label
- │     └─ AccordionItemIndicator (необязательно)
- └─ AccordionItemContent
-    └─ AccordionItemBody
-       └─ content
+Наведите на часть или выберите её, чтобы найти её в превью.
 
-AccordionRootProvider
-└─ то же дерево элементов, подключённое к состоянию из useAccordion()
-```
-
-| Часть                    | Назначение                                                                         |
-| ------------------------ | ---------------------------------------------------------------------------------- |
-| `Accordion`              | Корневая часть, управляющая состоянием и навигацией с клавиатуры.                  |
-| `AccordionRootProvider`  | Подключает части к состоянию, созданному с помощью `useAccordion()`.                |
-| `AccordionItem`          | Сворачиваемый элемент с обязательным стабильным значением `value`.                 |
-| `AccordionItemTrigger`   | Кнопка, открывающая и закрывающая элемент.                                          |
-| `AccordionItemIndicator` | Необязательный индикатор. Без содержимого moduix показывает шеврон.           |
-| `AccordionItemContent`   | Раскрывающаяся панель с анимацией на основе измерений размера Ark.                  |
-| `AccordionItemBody`      | Внутренняя обёртка moduix с отступами панели по умолчанию.                          |
+<AnatomyInspector
+  parts={[
+    ["Accordion", "accordion-root", "Корневая часть, управляющая состоянием и навигацией с клавиатуры.", 0],
+    ["AccordionItem", "accordion-item", "Сворачиваемый элемент с обязательным стабильным значением `value`.", 1],
+    ["AccordionItemTrigger", "accordion-item-trigger", "Кнопка, открывающая и закрывающая элемент.", 2],
+    ["AccordionItemIndicator", "accordion-item-indicator", "Необязательный индикатор. Без содержимого moduix показывает шеврон.", 3],
+    ["AccordionItemContent", "accordion-item-content", "Раскрывающаяся панель с анимацией на основе измерений размера Ark.", 2],
+    ["AccordionItemBody", "accordion-item-body", "Внутренняя обёртка moduix с отступами панели по умолчанию.", 3],
+    ["AccordionRootProvider", "accordion-root-provider", "Подключает части к состоянию, созданному с помощью `useAccordion()`.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Стилизация
 
@@ -149,7 +141,11 @@ AccordionRootProvider
 
 ### CSS-переменные
 
-<CssPropertiesSection properties={AccordionDocs.accordionOverrideCssProperties} />
+Наведите на переменную или выберите её, чтобы увидеть её в превью.
+
+<CssPropertiesSection properties={AccordionDocs.accordionOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Хуки стилизации
 

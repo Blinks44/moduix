@@ -5,6 +5,7 @@ description: Group toggle buttons for one or several choices, like text alignmen
 ark: https://ark-ui.com/docs/components/toggle-group
 ---
 
+import AnatomyScene from '@/components/examples/toggle-group/basic';
 import * as ToggleGroupDocs from '@/components/examples/toggle-group/css-properties';
 import { CssPropertiesSection } from '@/components/mdx/Components';
 
@@ -127,21 +128,18 @@ that returns the element hosting the Ark behavior, and Vue receives one element 
 
 ## Anatomy
 
-```text
-ToggleGroup
-├─ ToggleGroupContext (optional)
-└─ ToggleGroupItem[value]
+Hover or focus a part to find it in the preview.
 
-ToggleGroupRootProvider
-└─ ToggleGroupItem[value]
-```
-
-| Part                    | Role                                                                                 |
-| ----------------------- | ------------------------------------------------------------------------------------ |
-| `ToggleGroup`           | Root part that owns selected values, focus movement, orientation, and disabled state. |
-| `ToggleGroupItem`       | Interactive item with a required `value` and Ark selection state.                    |
-| `ToggleGroupRootProvider` | Connects the item tree to state created with `useToggleGroup()`.                    |
-| `ToggleGroupContext`    | Exposes the current group state through a render prop or Vue scoped slot.             |
+<AnatomyInspector
+  parts={[
+    ["ToggleGroup", "toggle-group-root", "Root part that owns selected values, focus movement, orientation, and disabled state.", 0],
+    ["ToggleGroupContext", null, "Exposes the current group state through a render prop or Vue scoped slot.", 1],
+    ["ToggleGroupItem", "toggle-group-item", "Interactive item with a required `value` and Ark selection state.", 1],
+    ["ToggleGroupRootProvider", "toggle-group-root-provider", "Connects the item tree to state created with `useToggleGroup()`.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styling
 
@@ -152,7 +150,11 @@ either prop when one item needs different treatment.
 
 ### CSS variables
 
-<CssPropertiesSection properties={ToggleGroupDocs.toggleGroupOverrideCssProperties} />
+Hover or focus a variable to see it in the preview.
+
+<CssPropertiesSection properties={ToggleGroupDocs.toggleGroupOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 The table covers group-level properties. Each `ToggleGroupItem` also supports the [Toggle CSS
 properties](/docs/toggle#css-variables) for its colors and interaction states. Set a

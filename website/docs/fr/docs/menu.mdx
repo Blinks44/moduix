@@ -5,6 +5,7 @@ description: Ouvrir une liste d’actions ou d’options depuis un bouton ou un 
 ark: https://ark-ui.com/docs/components/menu
 ---
 
+import AnatomyScene from '@/components/examples/menu/anatomy';
 import * as MenuDocs from '@/components/examples/menu/css-properties';
 
 <Example name="menu/basic" />
@@ -146,55 +147,33 @@ Utilisez `defaultOpen` pour un menu non contrôlé. Lorsque l’ouverture ou l�
 
 ## Anatomie
 
-```text
-Menu
-├─ MenuTrigger
-│  └─ MenuIndicator
-├─ MenuContextTrigger
-└─ Sous-arbre du calque (placé automatiquement dans un portail)
-   └─ MenuPositioner
-      └─ MenuContent
-         ├─ MenuArrow
-         │  └─ MenuArrowTip
-         └─ MenuViewport
-            ├─ MenuItem
-            │  ├─ MenuItemText
-            │  │  ├─ MenuItemTextIcon
-            │  │  └─ MenuItemTextLabel
-            │  └─ MenuItemShortcut
-            ├─ MenuCheckboxItem
-            │  └─ MenuItemIndicator
-            ├─ MenuRadioItemGroup
-            │  └─ MenuRadioItem
-            ├─ MenuItemGroup
-            │  └─ MenuItemGroupLabel
-            ├─ MenuSeparator
-            └─ Menu
-               └─ MenuTriggerItem
-                  └─ MenuTriggerItemIcon
-```
+Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
 
-| Partie | Rôle |
-| --- | --- |
-| `Menu` | Composant racine qui gère l’ouverture, le positionnement, la recherche par saisie, le focus et la fermeture. |
-| `MenuRootProvider` | Relie le menu à une instance d’état créée avec `useMenu`. |
-| `MenuTrigger` | Bouton qui ouvre le menu. Il n’a pas de styles propres ; utilisez `asChild` avec `Button` ou un autre élément sémantique. |
-| `MenuIndicator` | Indicateur du déclencheur qui reflète son état, généralement affiché comme un chevron. |
-| `MenuContextTrigger` | Zone sans styles qui ouvre le menu par clic droit ou appui prolongé. |
-| `MenuPositioner` | Positionne le calque flottant du menu. |
-| `MenuContent` | Surface de la fenêtre contextuelle avec le rôle `menu` et sa collection d’éléments. |
-| `MenuViewport` | Conteneur de défilement explicite autour de la collection d’éléments. |
-| `MenuArrow` / `MenuArrowTip` | Flèche facultative qui relie visuellement la fenêtre contextuelle à son déclencheur. |
-| `MenuItem` | Élément de commande standard. |
-| `MenuCheckboxItem` | Élément doté d’un état booléen indépendant. |
-| `MenuRadioItemGroup` / `MenuRadioItem` | Groupe et éléments permettant de choisir une seule valeur. |
-| `MenuItemIndicator` | Indicateur de sélection des éléments avec case à cocher et des options radio. |
-| `MenuItemText` et composants utilitaires de texte | Composants utilitaires pour composer le texte d’un élément avec une icône et un libellé. |
-| `MenuItemShortcut` | Conteneur pour un raccourci clavier ou une autre indication placée à droite. |
-| `MenuItemGroup` / `MenuItemGroupLabel` | Groupe et libellé pour des éléments associés. |
-| `MenuSeparator` | Séparateur entre des groupes d’éléments. |
-| `MenuTriggerItem` / `MenuTriggerItemIcon` | Élément et icône pour ouvrir un menu imbriqué. |
-| `MenuItemContext` | Fournit l’état de l’élément à son contenu. |
+<AnatomyInspector
+  parts={[
+    ["Menu", null, "Composant racine qui gère l’ouverture, le positionnement, la recherche par saisie, le focus et la fermeture.", 0],
+    ["MenuTrigger", "menu-trigger", "Bouton qui ouvre le menu. Il n’a pas de styles propres ; utilisez `asChild` avec `Button` ou un autre élément sémantique.", 1],
+    ["MenuIndicator", "menu-indicator", "Indicateur du déclencheur qui reflète son état, généralement affiché comme un chevron.", 2],
+    ["MenuContextTrigger", "menu-context-trigger", "Zone sans styles qui ouvre le menu par clic droit ou appui prolongé.", 1],
+    ["MenuPositioner", "menu-positioner", "Positionne le calque flottant du menu.", 1],
+    ["MenuContent", "menu-content", "Surface de la fenêtre contextuelle avec le rôle `menu` et sa collection d’éléments.", 2],
+    ["MenuArrow / MenuArrowTip", "menu-arrow", "Flèche facultative qui relie visuellement la fenêtre contextuelle à son déclencheur.", 3],
+    ["MenuViewport", "menu-viewport", "Conteneur de défilement explicite autour de la collection d’éléments.", 3],
+    ["MenuItemGroup / MenuItemGroupLabel", "menu-item-group", "Groupe et libellé pour des éléments associés.", 4],
+    ["MenuItem", "menu-item", "Élément de commande standard.", 5],
+    ["MenuItemText et composants utilitaires de texte", "menu-item-text", "Composants utilitaires pour composer le texte d’un élément avec une icône et un libellé.", 6],
+    ["MenuItemShortcut", "menu-item-shortcut", "Conteneur pour un raccourci clavier ou une autre indication placée à droite.", 6],
+    ["MenuCheckboxItem", "menu-checkbox-item", "Élément doté d’un état booléen indépendant.", 5],
+    ["MenuItemIndicator", "menu-item-indicator", "Indicateur de sélection des éléments avec case à cocher et des options radio.", 6],
+    ["MenuSeparator", "menu-separator", "Séparateur entre des groupes d’éléments.", 4],
+    ["MenuRadioItemGroup / MenuRadioItem", "menu-radio-item-group", "Groupe et éléments permettant de choisir une seule valeur.", 4],
+    ["MenuTriggerItem / MenuTriggerItemIcon", "menu-trigger-item", "Élément et icône pour ouvrir un menu imbriqué.", 4],
+    ["MenuRootProvider", null, "Relie le menu à une instance d’état créée avec `useMenu`.", 0],
+    ["MenuItemContext", null, "Fournit l’état de l’élément à son contenu.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styles
 
@@ -210,7 +189,11 @@ attributs de données et les sélecteurs `data-slot` sont communs aux deux modes
 
 ### Variables CSS
 
-<CssPropertiesSection properties={MenuDocs.menuOverrideCssProperties} />
+Survolez ou sélectionnez une variable pour la voir dans l’aperçu.
+
+<CssPropertiesSection properties={MenuDocs.menuOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Points d’accroche CSS
 

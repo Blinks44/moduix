@@ -5,6 +5,8 @@ description: Lay out cards and tiles in equal columns that adapt to the width.
 ark: https://ark-ui.com/docs/guides/composition
 ---
 
+import AnatomyScene from '@/components/examples/simple-grid/basic';
+
 <Example name="simple-grid/basic" />
 
 ## Installation
@@ -72,15 +74,15 @@ your own class, including responsive templates in media queries.
 
 `SimpleGrid` renders one CSS Grid root and does not add wrappers around its children.
 
-```text
-SimpleGrid
-└─ root[data-scope="simple-grid"][data-part="root"][data-slot="simple-grid-root"]
-   └─ children
-```
+Hover or focus a part to find it in the preview.
 
-| Part         | Role                                                   |
-| ------------ | ------------------------------------------------------ |
-| `SimpleGrid` | Root wrapper that creates equal-width CSS Grid columns. |
+<AnatomyInspector
+  parts={[
+    ["SimpleGrid", "simple-grid-root", "Root wrapper that creates equal-width CSS Grid columns.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styling
 

@@ -70,10 +70,13 @@ is flat, or for which frameworks and styling variants ship.
 
 Use this structure for Ark utilities that are not moduix components:
 
-1. `API Reference` with the exact upstream Ark UI page and a compact import example for every shipped framework;
-2. a recommended basic use case with one live preview when rendering or interaction helps understanding;
-3. native framework source tabs for each applicable preview;
-4. additional usage sections only for distinct behavior, configuration, lifecycle, accessibility, or integration concerns.
+1. frontmatter `ark` with the exact upstream Ark UI page; the theme shows it as the Ark UI link in the
+   page header next to Report issue, without the Source and npm links of component pages;
+2. `Import` (`Импорт`, `Importation`) with a compact import example for every shipped framework in
+   `groupId="framework"` tabs;
+3. a recommended basic use case with one live preview when rendering or interaction helps understanding;
+4. native framework source tabs for each applicable preview;
+5. additional usage sections only for distinct behavior, configuration, lifecycle, accessibility, or integration concerns.
 
 Keep utility pages concise. Do not reproduce the upstream prop table or every example. Explain the local happy path, important constraints, and the boundary between Ark behavior and application-owned behavior.
 
@@ -83,7 +86,7 @@ Use `ExampleFrame variant="component"` for a displayed example. Wrap its content
 
 Use this structure for Ark collection APIs that manage data without owning the complete interface:
 
-1. `API Reference` with the exact upstream Ark UI page and a compact import example for every shipped framework;
+1. frontmatter `ark` and an `Import` section, as on utility pages;
 2. a recommended basic use case with one live preview when rendering helps explain the data contract;
 3. native framework source tabs for each applicable preview;
 4. focused usage sections for distinct concerns such as item mapping, asynchronous loading, selection, querying, traversal, filtering, or immutable updates;

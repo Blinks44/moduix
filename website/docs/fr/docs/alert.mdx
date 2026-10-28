@@ -5,6 +5,7 @@ description: Afficher un message d’état intégré avec un titre, une descript
 ark: https://ark-ui.com/docs/guides/composition
 ---
 
+import AnatomyScene from '@/components/examples/alert/basic';
 import * as AlertDocs from '@/components/examples/alert/css-properties';
 
 <Example name="alert/basic" />
@@ -106,24 +107,20 @@ Si le titre doit utiliser un autre élément sémantique, utilisez `AlertTitle a
 Placez le contenu du message dans `AlertContent`. `AlertIndicator` est facultatif et se place à
 côté de ce contenu lorsqu’il aide à identifier le message.
 
-```text
-Alert
-├─ AlertIndicator (optional)
-└─ AlertContent
-   ├─ AlertTitle
-   ├─ AlertDescription
-   ├─ AlertActions (optional)
-   └─ Extra custom blocks
-```
+Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
 
-| Partie             | Rôle                                                                  | `data-part`   |
-| ------------------ | --------------------------------------------------------------------- | ------------- |
-| `Alert`            | Élément racine. Applique les styles du statut.                         | `root`        |
-| `AlertIndicator`   | Repère visuel facultatif. Les icônes SVG qu’il contient ont une taille cohérente. | `indicator`   |
-| `AlertContent`     | Conteneur en colonne obligatoire pour le contenu et les actions.   | `content`     |
-| `AlertTitle`       | Titre de l’alerte. Rend un `p` par défaut.                              | `title`       |
-| `AlertDescription` | Texte complémentaire du message.                                       | `description` |
-| `AlertActions`     | Ligne d’actions facultative avec retour à la ligne dans `Content`.     | `actions`     |
+<AnatomyInspector
+  parts={[
+    ["Alert", "alert-root", "Élément racine. Applique les styles du statut.", 0],
+    ["AlertIndicator", "alert-indicator", "Repère visuel facultatif. Les icônes SVG qu’il contient ont une taille cohérente.", 1],
+    ["AlertContent", "alert-content", "Conteneur en colonne obligatoire pour le contenu et les actions.", 1],
+    ["AlertTitle", "alert-title", "Titre de l’alerte. Rend un `p` par défaut.", 2],
+    ["AlertDescription", "alert-description", "Texte complémentaire du message.", 2],
+    ["AlertActions", "alert-actions", "Ligne d’actions facultative avec retour à la ligne dans `Content`.", 2],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styles
 
@@ -149,7 +146,11 @@ Les statuts intégrés utilisent également les tokens de palette partagée :
 
 ### Variables CSS
 
-<CssPropertiesSection properties={AlertDocs.alertCssProperties} />
+Survolez ou sélectionnez une variable pour la voir dans l’aperçu.
+
+<CssPropertiesSection properties={AlertDocs.alertCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Points d’accroche CSS
 

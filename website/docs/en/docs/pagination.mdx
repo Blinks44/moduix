@@ -5,6 +5,7 @@ description: Move through pages of a list, table, or search results.
 ark: https://ark-ui.com/docs/components/pagination
 ---
 
+import AnatomyScene from '@/components/examples/pagination/basic';
 import * as PaginationDocs from '@/components/examples/pagination/css-properties';
 
 <Example name="pagination/basic" />
@@ -120,35 +121,26 @@ In Vue, use `v-model:page` and `v-model:page-size` for controlled state. The `pa
 
 ## Anatomy
 
-```text
-Pagination
-├─ PaginationFirstTrigger (optional)
-├─ PaginationPrevTrigger
-├─ PaginationItems (recommended)
-├─ PaginationContext (advanced render-prop access)
-│  ├─ PaginationItem
-│  └─ PaginationEllipsis
-├─ PaginationNextTrigger
-└─ PaginationLastTrigger (optional)
+Hover or focus a part to find it in the preview.
 
-PaginationRootProvider
-└─ same trigger, item, ellipsis, and context tree connected to usePagination()
-```
-
-| Part                              | Role                                                               |
-| --------------------------------- | ------------------------------------------------------------------ |
-| `Pagination`                      | Navigation root that manages the current page and page size.       |
-| `PaginationRootProvider`         | Connects parts to state created by `usePagination()`.   |
-| `PaginationItems`                | Renders the computed page items and ellipses.                      |
-| `PaginationContext`              | Exposes root state and navigation helpers through an Ark render prop. |
-| `usePagination`        | Creates pagination state outside the rendered tree.                |
-| `usePaginationContext` | Reads pagination state from a descendant.                          |
-| `PaginationItem`                 | Interactive page control. Pass a page object as its props.        |
-| `PaginationEllipsis`             | Decorative marker for a collapsed page range, hidden from assistive technology. Requires `index`. |
-| `PaginationPrevTrigger`          | Moves to the previous page and disables itself on the first page.  |
-| `PaginationNextTrigger`          | Moves to the next page and disables itself on the last page.      |
-| `PaginationFirstTrigger`         | Moves to the first page and disables itself when already there.    |
-| `PaginationLastTrigger`          | Moves to the last page and disables itself when already there.     |
+<AnatomyInspector
+  parts={[
+    ["Pagination", "pagination-root", "Navigation root that manages the current page and page size.", 0],
+    ["PaginationFirstTrigger", "pagination-first-trigger", "Moves to the first page and disables itself when already there.", 1],
+    ["PaginationPrevTrigger", "pagination-prev-trigger", "Moves to the previous page and disables itself on the first page.", 1],
+    ["PaginationItems", "", "Renders the computed page items and ellipses.", 1],
+    ["PaginationContext", null, "Exposes root state and navigation helpers through an Ark render prop.", 1],
+    ["PaginationItem", "pagination-item", "Interactive page control. Pass a page object as its props.", 2],
+    ["PaginationEllipsis", "pagination-ellipsis", "Decorative marker for a collapsed page range, hidden from assistive technology. Requires `index`.", 2],
+    ["PaginationNextTrigger", "pagination-next-trigger", "Moves to the next page and disables itself on the last page.", 1],
+    ["PaginationLastTrigger", "pagination-last-trigger", "Moves to the last page and disables itself when already there.", 1],
+    ["PaginationRootProvider", "pagination-root-provider", "Connects parts to state created by `usePagination()`.", 0],
+    ["usePagination", null, "Creates pagination state outside the rendered tree.", 0],
+    ["usePaginationContext", null, "Reads pagination state from a descendant.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styling
 
@@ -163,7 +155,11 @@ Modules variants.
 
 ### CSS variables
 
-<CssPropertiesSection properties={PaginationDocs.paginationOverrideCssProperties} />
+Hover or focus a variable to see it in the preview.
+
+<CssPropertiesSection properties={PaginationDocs.paginationOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Styling hooks
 

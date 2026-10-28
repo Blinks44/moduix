@@ -5,6 +5,7 @@ description: Animer le passage entre deux icônes ou libellés quand un contrôl
 ark: https://ark-ui.com/docs/utilities/swap
 ---
 
+import AnatomyScene from '@/components/examples/swap/basic';
 import * as SwapDocs from '@/components/examples/swap/css-properties';
 
 <Example name="swap/basic" />
@@ -73,20 +74,17 @@ même état. Avec `asChild`, fournissez exactement un enfant sémantique.
 
 ## Anatomie
 
-```text
-Swap
-├─ SwapIndicator type="off"
-└─ SwapIndicator type="on"
+Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
 
-SwapRootProvider
-└─ même arbre d’indicateurs relié à un état créé avec useSwap()
-```
-
-| Partie               | Rôle                                                               |
-| -------------------- | ------------------------------------------------------------------ |
-| `Swap` | Fournit l’état `swap` et superpose les deux états visuels.         |
-| `SwapRootProvider`  | Relie les parties à l’état créé avec `useSwap()`.             |
-| `SwapIndicator`     | Affiche l’état `on` ou `off` sélectionné par la propriété `type`.  |
+<AnatomyInspector
+  parts={[
+    ["Swap", "swap-root", "Fournit l’état `swap` et superpose les deux états visuels.", 0],
+    ["SwapIndicator", "swap-indicator", "Affiche l’état `on` ou `off` sélectionné par la propriété `type`.", 1],
+    ["SwapRootProvider", "swap-root-provider", "Relie les parties à l’état créé avec `useSwap()`.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styles
 
@@ -106,7 +104,11 @@ variant documenté (par exemple `data-[animation=flip]:[perspective:32rem]`) pou
 
 ### Variables CSS
 
-<CssPropertiesSection properties={SwapDocs.swapOverrideCssProperties} />
+Survolez ou sélectionnez une variable pour la voir dans l’aperçu.
+
+<CssPropertiesSection properties={SwapDocs.swapOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Points d’accroche CSS
 

@@ -5,6 +5,8 @@ description: Choisir ou déposer des fichiers avec contrôle du type, de la tail
 ark: https://ark-ui.com/docs/components/file-upload
 ---
 
+import AnatomyScene from '@/components/examples/file-upload/basic';
+
 <Example name="file-upload/basic" />
 
 ## Installation
@@ -169,49 +171,33 @@ Utilisez `FileUploadItems` dans `FileUploadItemGroup` pour les lignes de fichier
 
 ## Anatomie
 
-```text
-FileUpload / FileUploadRootProvider
-├─ FileUploadLabel
-├─ FileUploadDropzone (facultatif)
-│  ├─ FileUploadDropzoneIcon
-│  └─ FileUploadTrigger
-├─ FileUploadTrigger (sans `FileUploadDropzone`)
-├─ FileUploadItemGroup[type]
-│  ├─ FileUploadItems
-│  └─ FileUploadContext
-│     └─ FileUploadItem[file]
-│        ├─ FileUploadItemPreview[type]
-│        │  ├─ FileUploadItemPreviewImage
-│        │  └─ FileUploadItemPreviewIcon
-│        ├─ FileUploadItemName
-│        ├─ FileUploadItemMetadata[file]
-│        ├─ FileUploadItemSizeText
-│        └─ FileUploadItemDeleteTrigger
-├─ FileUploadClearTrigger
-└─ FileUploadHiddenInput (explicite)
-```
+Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
 
-| Partie | Rôle |
-| -------------------------------- | ------------------------------------------------------------------------ |
-| `FileUpload` / `FileUploadRootProvider` | Gère l’état des fichiers, la validation, le glisser-déposer, le collage et l’intégration aux formulaires. |
-| `FileUploadHiddenInput` | Champ natif d’Ark ; composition explicite décrite ci-dessous. |
-| `FileUploadRootProvider` | Relie l’arbre du composant à l’état renvoyé par le hook `useFileUpload`. |
-| `FileUploadLabel` | Libellé accessible pour le champ de fichier masqué et les contrôles de téléversement. |
-| `FileUploadDropzone` | Zone de dépôt. Passez `disableClick` si elle contient un `FileUploadTrigger` imbriqué, afin de ne pas ouvrir deux fois le sélecteur. |
-| `FileUploadDropzoneIcon` | Icône de téléversement décorative pour une `FileUploadDropzone`. |
-| `FileUploadTrigger` | Bouton sans style qui ouvre le sélecteur de fichiers natif. Composez-le avec un `Button` via `asChild`. |
-| `FileUploadItemGroup` | Liste des fichiers acceptés ou rejetés. |
-| `FileUploadItems` | Composant prêt à l’emploi qui affiche des cartes pour les images et des lignes pour les autres fichiers, avec aperçu, métadonnées et suppression. |
-| `FileUploadContext` | Contexte compatible avec Ark et basé sur une fonction de rendu pour créer des lignes personnalisées. |
-| `FileUploadItem` | Ligne de fichier. Transmettez-lui l’objet `file` courant. |
-| `FileUploadItemPreview` | Emplacement d’aperçu affiché selon le type MIME du fichier. |
-| `FileUploadItemPreviewImage` | Aperçu d’image à l’intérieur de `FileUploadItemPreview`. |
-| `FileUploadItemPreviewIcon` | Icône de fichier générique pour un aperçu de secours dans `FileUploadItemPreview`. |
-| `FileUploadItemName` | Nom du fichier. |
-| `FileUploadItemMetadata` | Type du fichier et taille formatée selon la locale. Passez-lui l’objet `file` courant. |
-| `FileUploadItemSizeText` | Taille du fichier formatée selon la locale. |
-| `FileUploadItemDeleteTrigger` | Supprime un fichier. Utilise par défaut l’icône de corbeille moduix ; son nom vient de `translations.deleteFile` d’Ark. |
-| `FileUploadClearTrigger` | Bouton sans style qui efface les fichiers acceptés ; masqué tant que la liste est vide. Composez-le avec un `Button` via `asChild`. |
+<AnatomyInspector
+  parts={[
+    ["FileUpload / FileUploadRootProvider", "file-upload-root", "Gère l’état des fichiers, la validation, le glisser-déposer, le collage et l’intégration aux formulaires.", 0],
+    ["FileUploadLabel", "file-upload-label", "Libellé accessible pour le champ de fichier masqué et les contrôles de téléversement.", 1],
+    ["FileUploadDropzone", "file-upload-dropzone", "Zone de dépôt. Passez `disableClick` si elle contient un `FileUploadTrigger` imbriqué, afin de ne pas ouvrir deux fois le sélecteur.", 1],
+    ["FileUploadDropzoneIcon", "file-upload-dropzone-icon", "Icône de téléversement décorative pour une `FileUploadDropzone`.", 2],
+    ["FileUploadTrigger", "file-upload-trigger", "Bouton sans style qui ouvre le sélecteur de fichiers natif. Composez-le avec un `Button` via `asChild`.", 2],
+    ["FileUploadItemGroup", "file-upload-item-group", "Liste des fichiers acceptés ou rejetés.", 1],
+    ["FileUploadItems", "", "Composant prêt à l’emploi qui affiche des cartes pour les images et des lignes pour les autres fichiers, avec aperçu, métadonnées et suppression.", 2],
+    ["FileUploadContext", null, "Contexte compatible avec Ark et basé sur une fonction de rendu pour créer des lignes personnalisées.", 2],
+    ["FileUploadItem", "file-upload-item", "Ligne de fichier. Transmettez-lui l’objet `file` courant.", 3],
+    ["FileUploadItemPreview", "file-upload-item-preview", "Emplacement d’aperçu affiché selon le type MIME du fichier.", 4],
+    ["FileUploadItemPreviewImage", "file-upload-item-preview-image", "Aperçu d’image à l’intérieur de `FileUploadItemPreview`.", 5],
+    ["FileUploadItemPreviewIcon", "file-upload-item-preview-icon", "Icône de fichier générique pour un aperçu de secours dans `FileUploadItemPreview`.", 5],
+    ["FileUploadItemName", "file-upload-item-name", "Nom du fichier.", 4],
+    ["FileUploadItemMetadata", "file-upload-item-metadata", "Type du fichier et taille formatée selon la locale. Passez-lui l’objet `file` courant.", 4],
+    ["FileUploadItemSizeText", "file-upload-item-size-text", "Taille du fichier formatée selon la locale.", 4],
+    ["FileUploadItemDeleteTrigger", "file-upload-item-delete-trigger", "Supprime un fichier. Utilise par défaut l’icône de corbeille moduix ; son nom vient de `translations.deleteFile` d’Ark.", 4],
+    ["FileUploadClearTrigger", "file-upload-clear-trigger", "Bouton sans style qui efface les fichiers acceptés ; masqué tant que la liste est vide. Composez-le avec un `Button` via `asChild`.", 1],
+    ["FileUploadHiddenInput", "", "Champ natif d’Ark ; composition explicite décrite ci-dessous.", 1],
+    ["FileUploadRootProvider", "file-upload-root-provider", "Relie l’arbre du composant à l’état renvoyé par le hook `useFileUpload`.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styles
 

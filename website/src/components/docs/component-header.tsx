@@ -28,7 +28,8 @@ export function ComponentBreadcrumb() {
   );
 }
 
-export function ComponentLinks({ component }: { component: string }) {
+// Ark utility and collection pages have no moduix package, so they get only the Ark and issue links.
+export function ComponentLinks({ component }: { component?: string }) {
   const t = useI18n<typeof import('i18n')>();
   const { frontmatter } = useFrontmatter();
   const { page } = usePage();
@@ -36,11 +37,15 @@ export function ComponentLinks({ component }: { component: string }) {
   const packageName = `${framework.value}${styling.value === 'tailwind' ? '-tailwind' : ''}`;
   const ark = typeof frontmatter.ark === 'string' ? frontmatter.ark : undefined;
   const links = [
-    [
-      t('componentSource'),
-      `${repository}/tree/main/packages/${packageName}/src/components/${component}`,
-    ],
-    ['npm', `https://www.npmjs.com/package/@moduix/${packageName}`],
+    ...(component
+      ? [
+          [
+            t('componentSource'),
+            `${repository}/tree/main/packages/${packageName}/src/components/${component}`,
+          ],
+          ['npm', `https://www.npmjs.com/package/@moduix/${packageName}`],
+        ]
+      : []),
     ...(ark ? [['Ark UI', ark]] : []),
     [
       t('componentReportIssue'),

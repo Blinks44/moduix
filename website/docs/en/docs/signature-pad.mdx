@@ -5,6 +5,7 @@ description: Capture a handwritten signature with a mouse, pen, or finger.
 ark: https://ark-ui.com/docs/components/signature-pad
 ---
 
+import AnatomyScene from '@/components/examples/signature-pad/basic';
 import * as SignaturePadDocs from '@/components/examples/signature-pad/css-properties';
 
 <Example name="signature-pad/basic" />
@@ -109,37 +110,33 @@ surrounding `Field`, or `useSignaturePad()`, preventing an irreversible clear wh
 
 ## Anatomy
 
-```text
-SignaturePad
-├─ SignaturePadLabel
-├─ SignaturePadCanvas (moduix ready-made composition)
-│  └─ SignaturePadControl
-│     ├─ SignaturePadSegment
-│     ├─ SignaturePadClearTrigger
-│     └─ SignaturePadGuide
-└─ SignaturePadHiddenInput value={serializedPaths} (explicit)
+Hover or focus a part to find it in the preview.
 
-SignaturePadRootProvider
-└─ same part tree connected to useSignaturePad()
-```
-
-| Part                                 | Role                                                                    |
-| ------------------------------------ | ----------------------------------------------------------------------- |
-| `SignaturePad`             | Owns paths, drawing options, form name, ids, and callbacks.              |
-| `SignaturePadHiddenInput`  | Native Ark form control that you compose explicitly.                    |
-| `SignaturePadRootProvider` | Renders the same part tree from state created with `useSignaturePad()`. |
-| `SignaturePadLabel`        | Associates the visible label with the drawing area and hidden input.    |
-| `SignaturePadCanvas`       | Ready-made drawing surface that renders the standard parts and forwards `SignaturePadControl` props. |
-| `SignaturePadControl`      | Focusable pointer and touch drawing area.                               |
-| `SignaturePadSegment`      | SVG layer for saved strokes and the current in-progress stroke.         |
-| `SignaturePadClearTrigger` | Native button that clears paths.                                        |
-| `SignaturePadGuide`        | Non-interactive baseline inside the drawing area.                       |
+<AnatomyInspector
+  parts={[
+    ["SignaturePad", "signature-pad-root", "Owns paths, drawing options, form name, ids, and callbacks.", 0],
+    ["SignaturePadLabel", "signature-pad-label", "Associates the visible label with the drawing area and hidden input.", 1],
+    ["SignaturePadCanvas", "", "Ready-made drawing surface that renders the standard parts and forwards `SignaturePadControl` props.", 1],
+    ["SignaturePadControl", "signature-pad-control", "Focusable pointer and touch drawing area.", 2],
+    ["SignaturePadSegment", "signature-pad-segment", "SVG layer for saved strokes and the current in-progress stroke.", 3],
+    ["SignaturePadClearTrigger", "signature-pad-clear-trigger", "Native button that clears paths.", 3],
+    ["SignaturePadGuide", "signature-pad-guide", "Non-interactive baseline inside the drawing area.", 3],
+    ["SignaturePadHiddenInput", "", "Native Ark form control that you compose explicitly.", 1],
+    ["SignaturePadRootProvider", "signature-pad-root-provider", "Renders the same part tree from state created with `useSignaturePad()`.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styling
 
 ### CSS variables
 
-<CssPropertiesSection properties={SignaturePadDocs.signaturePadCssProperties} />
+Hover or focus a variable to see it in the preview.
+
+<CssPropertiesSection properties={SignaturePadDocs.signaturePadCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Styling hooks
 

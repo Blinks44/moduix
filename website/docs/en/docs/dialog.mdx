@@ -5,6 +5,7 @@ description: Open a modal window for a form, confirmation, or details.
 ark: https://ark-ui.com/docs/components/dialog
 ---
 
+import AnatomyScene from '@/components/examples/dialog/anatomy';
 import * as DialogDocs from '@/components/examples/dialog/css-properties';
 
 <Example name="dialog/basic" />
@@ -148,43 +149,28 @@ helpers fit the composition.
 
 ## Anatomy
 
-```text
-Dialog
-├─ DialogTrigger
-└─ Overlay content (automatically portalled)
-   ├─ DialogBackdrop (optional)
-   └─ DialogPositioner
-      └─ DialogContent
-         ├─ DialogCloseTrigger or DialogCloseIcon
-         ├─ DialogTitle
-         ├─ DialogDescription
-         ├─ DialogHeader (moduix layout helper)
-         ├─ DialogBody (moduix layout helper)
-         └─ DialogFooter (moduix layout helper)
+Hover or focus a part to find it in the preview.
 
-DialogRootProvider
-└─ the same part tree connected to state from moduix useDialog()
-
-DialogContext
-└─ a render function with the current dialog state and methods
-```
-
-| Part                     | Role                                                                |
-| ------------------------ | ------------------------------------------------------------------- |
-| `Dialog` / `DialogRootProvider` | Owns open state, focus management, and dismissal behavior.          |
-| `DialogRootProvider`    | Connects parts to state created with `useDialog()`.                 |
-| `DialogTrigger`         | Opens the dialog.                                                    |
-| `DialogBackdrop`        | Optional background layer for a modal dialog.                       |
-| `DialogPositioner`      | Positions the dialog content.                                        |
-| `DialogContent`         | Contains the visible dialog surface.                                 |
-| `DialogTitle`           | Gives the dialog an accessible title.                                |
-| `DialogDescription`     | Provides supporting accessible text.                                 |
-| `DialogCloseTrigger`    | Closes the dialog.                                                   |
-| `DialogCloseIcon`       | Moduix close-button helper that also closes the dialog.              |
-| `DialogHeader`          | Moduix layout helper for the header.                                 |
-| `DialogBody`            | Moduix layout helper for the main content.                           |
-| `DialogFooter`          | Moduix layout helper for actions.                                    |
-| `DialogContext`         | Renders children with current state and dialog methods.              |
+<AnatomyInspector
+  parts={[
+    ["Dialog", null, "Owns open state, focus management, and dismissal behavior.", 0],
+    ["DialogTrigger", "dialog-trigger", "Opens the dialog.", 1],
+    ["DialogBackdrop", "dialog-backdrop", "Optional background layer for a modal dialog.", 1],
+    ["DialogPositioner", "dialog-positioner", "Positions the dialog content.", 1],
+    ["DialogContent", "dialog-content", "Contains the visible dialog surface.", 2],
+    ["DialogHeader", "dialog-header", "Moduix layout helper for the header.", 3],
+    ["DialogTitle", "dialog-title", "Gives the dialog an accessible title.", 4],
+    ["DialogCloseIcon", "dialog-close-icon", "Moduix close-button helper that also closes the dialog.", 4],
+    ["DialogDescription", "dialog-description", "Provides supporting accessible text.", 4],
+    ["DialogBody", "dialog-body", "Moduix layout helper for the main content.", 3],
+    ["DialogFooter", "dialog-footer", "Moduix layout helper for actions.", 3],
+    ["DialogCloseTrigger", "dialog-close-trigger", "Closes the dialog.", 4],
+    ["DialogRootProvider", null, "Connects parts to state created with `useDialog()`.", 0],
+    ["DialogContext", null, "Renders children with current state and dialog methods.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 Import `useDialog()` when the dialog state needs to live outside the rendered dialog tree. Read or
 update that state with `DialogContext` or `useDialogContext()` from the matching package.
@@ -199,7 +185,11 @@ by both styling tracks.
 
 ### CSS variables
 
-<CssPropertiesSection properties={DialogDocs.dialogOverrideCssProperties} />
+Hover or focus a variable to see it in the preview.
+
+<CssPropertiesSection properties={DialogDocs.dialogOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Styling hooks
 

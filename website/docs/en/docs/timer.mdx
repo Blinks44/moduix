@@ -5,6 +5,8 @@ description: Count elapsed or remaining time with start, pause, and reset.
 ark: https://ark-ui.com/docs/components/timer
 ---
 
+import AnatomyScene from '@/components/examples/timer/basic';
+
 <Example name="timer/basic" />
 
 ## Installation
@@ -84,31 +86,22 @@ upstream fixes this behavior; the examples above use that supported composition.
 
 ## Anatomy
 
-```text
-Timer
-├─ TimerArea
-│  ├─ TimerItem
-│  └─ TimerSeparator
-└─ TimerControl
-   └─ TimerActionTrigger
+Hover or focus a part to find it in the preview.
 
-TimerRootProvider
-└─ same part tree connected to state from `useTimer()`
-
-TimerSegments
-└─ TimerArea with TimerItem and TimerSeparator
-```
-
-| Part                   | Role                                                                    |
-| ---------------------- | ----------------------------------------------------------------------- |
-| `Timer` | Owns the Ark timer state, ids, interval, and callbacks.                 |
-| `TimerRootProvider`   | Connects parts to timer state created with Ark `useTimer()`.            |
-| `TimerSegments`       | Builds standard time units and separators.                              |
-| `TimerArea`           | Groups the visible time parts.                                          |
-| `TimerItem`           | Displays one formatted time unit such as `hours`, `minutes`, or `seconds`. |
-| `TimerSeparator`      | Displays a separator between time units.                                |
-| `TimerControl`        | Groups action triggers.                                                 |
-| `TimerActionTrigger`  | Dispatches the `start`, `pause`, `resume`, `reset`, or `restart` action. |
+<AnatomyInspector
+  parts={[
+    ["Timer", "timer-root", "Owns the Ark timer state, ids, interval, and callbacks.", 0],
+    ["TimerArea", "timer-area", "Groups the visible time parts.", 1],
+    ["TimerItem", "timer-item", "Displays one formatted time unit such as `hours`, `minutes`, or `seconds`.", 2],
+    ["TimerSeparator", "timer-separator", "Displays a separator between time units.", 2],
+    ["TimerControl", "timer-control", "Groups action triggers.", 1],
+    ["TimerActionTrigger", "timer-action-trigger", "Dispatches the `start`, `pause`, `resume`, `reset`, or `restart` action.", 2],
+    ["TimerRootProvider", "timer-root-provider", "Connects parts to timer state created with Ark `useTimer()`.", 0],
+    ["TimerSegments", "", "Builds standard time units and separators.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styling
 

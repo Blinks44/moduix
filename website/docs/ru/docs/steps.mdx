@@ -5,6 +5,7 @@ description: Проводит пользователя через задачу �
 ark: https://ark-ui.com/docs/components/steps
 ---
 
+import AnatomyScene from '@/components/examples/steps/basic';
 import * as StepsDocs from '@/components/examples/steps/css-properties';
 
 <Example name="steps/basic" />
@@ -105,36 +106,25 @@ React, Solid и Vue используют одинаковые плоские и�
 
 ## Анатомия
 
-```text
-Steps
-├─ StepsProgress (optional)
-├─ StepsList
-│  └─ StepsItem[index]
-│     ├─ StepsTrigger
-│     │  └─ StepsIndicator
-│     └─ StepsSeparator
-├─ StepsContent[index]
-├─ StepsCompletedContent
-├─ StepsPrevTrigger
-└─ StepsNextTrigger
+Наведите на часть или выберите её, чтобы найти её в превью.
 
-StepsRootProvider
-└─ same part tree connected to a useSteps() store
-```
-
-| Часть                              | Назначение                                                                         |
-| ---------------------------------- | ---------------------------------------------------------------------------------- |
-| `Steps`                            | Корневая машина состояния шагов, ориентации, навигации, валидации и идентификаторов. |
-| `StepsRootProvider`                | Подключает части к состоянию, созданному через `useSteps()`.                       |
-| `StepsProgress`                    | Необязательная полоса прогресса на основе корневой переменной Ark `--percent`.     |
-| `StepsList`                        | Список вкладок с триггерами шагов.                                                  |
-| `StepsItem`                        | Шаг с обязательным индексом `index`, отсчитываемым от нуля.                        |
-| `StepsTrigger`                     | Триггер вкладки; поддерживает `asChild` для семантических элементов.               |
-| `StepsIndicator`                   | Маркер шага, по умолчанию с номером или иконкой галочки.                            |
-| `StepsSeparator`                   | Декоративный соединитель между шагами.                                              |
-| `StepsContent`                     | Панель содержимого шага, связанная с `index`.                                       |
-| `StepsCompletedContent`            | Панель, показываемая, когда текущее значение шага равно `count`.                    |
-| `StepsPrevTrigger` / `StepsNextTrigger` | Кнопки, связанные с действиями Ark для перехода назад и вперёд.               |
+<AnatomyInspector
+  parts={[
+    ["Steps", "steps-root", "Корневая машина состояния шагов, ориентации, навигации, валидации и идентификаторов.", 0],
+    ["StepsProgress", "steps-progress", "Необязательная полоса прогресса на основе корневой переменной Ark `--percent`.", 1],
+    ["StepsList", "steps-list", "Список вкладок с триггерами шагов.", 1],
+    ["StepsItem", "steps-item", "Шаг с обязательным индексом `index`, отсчитываемым от нуля.", 2],
+    ["StepsTrigger", "steps-trigger", "Триггер вкладки; поддерживает `asChild` для семантических элементов.", 3],
+    ["StepsIndicator", "steps-indicator", "Маркер шага, по умолчанию с номером или иконкой галочки.", 4],
+    ["StepsSeparator", "steps-separator", "Декоративный соединитель между шагами.", 3],
+    ["StepsContent", "steps-content", "Панель содержимого шага, связанная с `index`.", 1],
+    ["StepsCompletedContent", "steps-completed-content", "Панель, показываемая, когда текущее значение шага равно `count`.", 1],
+    ["StepsPrevTrigger / StepsNextTrigger", "steps-prev-trigger", "Кнопки, связанные с действиями Ark для перехода назад и вперёд.", 1],
+    ["StepsRootProvider", "steps-root-provider", "Подключает части к состоянию, созданному через `useSteps()`.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Стилизация
 
@@ -149,7 +139,11 @@ Modules дают две переменные, потому что от них с
 
 ### CSS-переменные
 
-<CssPropertiesSection properties={StepsDocs.stepsCssProperties} />
+Наведите на переменную или выберите её, чтобы увидеть её в превью.
+
+<CssPropertiesSection properties={StepsDocs.stepsCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Хуки стилизации
 

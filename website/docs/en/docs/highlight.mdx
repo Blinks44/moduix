@@ -5,6 +5,7 @@ component: highlight
 ark: https://ark-ui.com/docs/utilities/highlight
 ---
 
+import AnatomyScene from '@/components/examples/highlight/basic';
 import * as HighlightDocs from '@/components/examples/highlight/css-properties';
 
 <Example name="highlight/basic" />
@@ -90,14 +91,15 @@ different element or interactive behavior.
 range becomes a native `<mark>` element. Text that does not match stays as ordinary text in the
 surrounding flow.
 
-```text
-Highlight
-└─ matched ranges rendered as repeated <mark> elements
-```
+Hover or focus a part to find it in the preview.
 
-| Part        | Role                                                                |
-| ----------- | ------------------------------------------------------------------- |
-| `Highlight` | Applies moduix styling to every matched range in the provided text. |
+<AnatomyInspector
+  parts={[
+    ["Highlight", "highlight-root", "Applies moduix styling to every matched range in the provided text.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styling
 
@@ -107,7 +109,11 @@ use Tailwind utilities or consumer classes for Tailwind variants.
 
 ### CSS variables
 
-<CssPropertiesSection properties={HighlightDocs.highlightCssProperties} />
+Hover or focus a variable to see it in the preview.
+
+<CssPropertiesSection properties={HighlightDocs.highlightCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Styling hooks
 

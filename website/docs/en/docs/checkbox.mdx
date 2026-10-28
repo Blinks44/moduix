@@ -5,6 +5,7 @@ description: Turn an option on or off, alone or as part of a group.
 ark: https://ark-ui.com/docs/components/checkbox
 ---
 
+import AnatomyScene from '@/components/examples/checkbox/basic';
 import * as CheckboxDocs from '@/components/examples/checkbox/css-properties';
 
 <Example name="checkbox/basic" />
@@ -166,33 +167,21 @@ store to `CheckboxRootProvider`. Do not render `Checkbox` or `CheckboxRootProvid
 
 ## Anatomy
 
-```text
-Checkbox
-├─ CheckboxControl
-│  ├─ CheckboxIndicator
-│  └─ CheckboxIndicator[indeterminate] (optional)
-├─ CheckboxLabel
-└─ CheckboxHiddenInput (explicit)
+Hover or focus a part to find it in the preview.
 
-CheckboxRootProvider
-└─ same part tree connected to useCheckbox()
-
-CheckboxGroup
-└─ Checkbox[value]
-   ├─ CheckboxControl
-   ├─ CheckboxLabel
-   └─ CheckboxHiddenInput
-```
-
-| Part                         | Role                                                                                  |
-| ---------------------------- | ------------------------------------------------------------------------------------- |
-| `Checkbox`                   | Holds the state for one checkbox and renders its wrapping label.                      |
-| `CheckboxHiddenInput`        | Native Ark form control; compose it explicitly inside the root.                       |
-| `CheckboxRootProvider`       | Connects the parts to Ark state created outside the rendered tree.                    |
-| `CheckboxControl`            | The visible checkbox; empty, it renders the built-in state icons.                     |
-| `CheckboxIndicator`          | Optional slot for a custom icon. Pass `indeterminate` for that state.                 |
-| `CheckboxLabel`              | The visible label for the checkbox.                                                   |
-| `CheckboxGroup`              | Manages the selected values for several checkboxes.                                   |
+<AnatomyInspector
+  parts={[
+    ["Checkbox", "checkbox-root", "Holds the state for one checkbox and renders its wrapping label.", 0],
+    ["CheckboxControl", "checkbox-control", "The visible checkbox; empty, it renders the built-in state icons.", 1],
+    ["CheckboxIndicator", "checkbox-indicator", "Optional slot for a custom icon. Pass `indeterminate` for that state.", 2],
+    ["CheckboxLabel", "checkbox-label", "The visible label for the checkbox.", 1],
+    ["CheckboxHiddenInput", "", "Native Ark form control; compose it explicitly inside the root.", 1],
+    ["CheckboxRootProvider", "checkbox-root-provider", "Connects the parts to Ark state created outside the rendered tree.", 0],
+    ["CheckboxGroup", "checkbox-group", "Manages the selected values for several checkboxes.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styling
 
@@ -204,7 +193,11 @@ hooks are shared by both styling tracks.
 
 ### CSS variables
 
-<CssPropertiesSection properties={CheckboxDocs.checkboxOverrideCssProperties} />
+Hover or focus a variable to see it in the preview.
+
+<CssPropertiesSection properties={CheckboxDocs.checkboxOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Styling hooks
 

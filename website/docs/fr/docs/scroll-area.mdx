@@ -5,6 +5,7 @@ description: Faire défiler le contenu avec des barres stylées assorties au th�
 ark: https://ark-ui.com/docs/components/scroll-area
 ---
 
+import AnatomyScene from '@/components/examples/scroll-area/basic';
 import * as ScrollAreaDocs from '@/components/examples/scroll-area/css-properties';
 
 <Example name="scroll-area/basic" />
@@ -91,28 +92,21 @@ via l’accesseur renvoyé par `useScrollArea()`.
 
 ## Anatomie
 
-```text
-ScrollArea
-├─ ScrollAreaViewport
-│  └─ ScrollAreaContent
-│     └─ children
-├─ ScrollAreaScrollbar
-│  └─ ScrollAreaThumb
-└─ ScrollAreaCorner
+Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
 
-ScrollAreaRootProvider
-└─ même arborescence reliée à un store useScrollArea()
-```
-
-| Partie                           | Rôle                                                               |
-| -------------------------------- | ------------------------------------------------------------------ |
-| `ScrollArea`                     | Racine qui gère l’état du défilement et le positionnement.         |
-| `ScrollAreaRootProvider`        | Relie les parties à l’état créé avec `useScrollArea()`.           |
-| `ScrollAreaViewport`            | Conteneur de défilement natif et cible du focus.                   |
-| `ScrollAreaContent`             | Enveloppe interne mesurée par Ark UI.                              |
-| `ScrollAreaScrollbar`           | Piste de défilement stylisée pour un axe.                          |
-| `ScrollAreaThumb`               | Curseur déplaçable dans une piste.                                 |
-| `ScrollAreaCorner`              | Remplit l’intersection lorsque les deux axes débordent.            |
+<AnatomyInspector
+  parts={[
+    ["ScrollArea", "scroll-area-root", "Racine qui gère l’état du défilement et le positionnement.", 0],
+    ["ScrollAreaViewport", "scroll-area-viewport", "Conteneur de défilement natif et cible du focus.", 1],
+    ["ScrollAreaContent", "scroll-area-content", "Enveloppe interne mesurée par Ark UI.", 2],
+    ["ScrollAreaScrollbar", "scroll-area-scrollbar", "Piste de défilement stylisée pour un axe.", 1],
+    ["ScrollAreaThumb", "scroll-area-thumb", "Curseur déplaçable dans une piste.", 2],
+    ["ScrollAreaCorner", "scroll-area-corner", "Remplit l’intersection lorsque les deux axes débordent.", 1],
+    ["ScrollAreaRootProvider", "scroll-area-root-provider", "Relie les parties à l’état créé avec `useScrollArea()`.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styles
 
@@ -124,7 +118,11 @@ arrondit aussi le contenu découpé et l’anneau de focus.
 
 ### Variables CSS
 
-<CssPropertiesSection properties={ScrollAreaDocs.scrollAreaOverrideCssProperties} />
+Survolez ou sélectionnez une variable pour la voir dans l’aperçu.
+
+<CssPropertiesSection properties={ScrollAreaDocs.scrollAreaOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Points d’accroche CSS
 

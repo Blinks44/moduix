@@ -5,6 +5,7 @@ description: Signal a short wait in buttons, rows, and compact states.
 ark: https://ark-ui.com/docs/guides/composition
 ---
 
+import AnatomyScene from '@/components/examples/spinner/basic';
 import * as SpinnerDocs from '@/components/examples/spinner/css-properties';
 
 <Example name="spinner/basic" />
@@ -97,18 +98,17 @@ wrapper and a default ring. These are DOM nodes and styling hooks, not separatel
 Custom `children` replace the ring, while `asChild` replaces the root and leaves the indicator
 markup to the child.
 
-```text
-Spinner
-└─ root[data-scope="spinner"][data-part="root"][data-slot="spinner-root"][data-size]
-   └─ indicator[data-scope="spinner"][data-part="indicator"][data-slot="spinner-indicator"]
-      └─ ring[data-scope="spinner"][data-part="ring"][data-slot="spinner-ring"] (default only)
-```
+Hover or focus a part to find it in the preview.
 
-| Part                       | Role                                                                                  |
-| -------------------------- | ------------------------------------------------------------------------------------- |
-| `Spinner`                   | Public root. Accepts `size`, `decorative`, `asChild`, `children`, and native `span` props. |
-| indicator                  | Internal rotating wrapper that owns the indicator's size and animation.                     |
-| ring                       | Internal default ring. It is omitted when custom `children` are provided.                    |
+<AnatomyInspector
+  parts={[
+    ["Spinner", "spinner-ring", "Public root. Accepts `size`, `decorative`, `asChild`, `children`, and native `span` props.", 0],
+    ["indicator", "", "Internal rotating wrapper that owns the indicator's size and animation.", 1],
+    ["ring", "", "Internal default ring. It is omitted when custom `children` are provided.", 2],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styling
 
@@ -119,7 +119,11 @@ utility classes and consumer class overrides instead of mirroring the CSS Module
 
 ### CSS variables
 
-<CssPropertiesSection properties={SpinnerDocs.spinnerOverrideCssProperties} />
+Hover or focus a variable to see it in the preview.
+
+<CssPropertiesSection properties={SpinnerDocs.spinnerOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Styling hooks
 

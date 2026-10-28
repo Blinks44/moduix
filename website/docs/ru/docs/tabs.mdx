@@ -5,6 +5,7 @@ description: Переключение между связанными панел
 ark: https://ark-ui.com/docs/components/tabs
 ---
 
+import AnatomyScene from '@/components/examples/tabs/basic';
 import * as TabsDocs from '@/components/examples/tabs/css-properties';
 
 <Example name="tabs/basic" width="lg" />
@@ -136,30 +137,21 @@ import * as TabsDocs from '@/components/examples/tabs/css-properties';
 
 ## Анатомия
 
-```text
-Tabs
-├─ TabsList
-│  ├─ TabsTrigger[value]
-│  ├─ TabsTrigger[value]
-│  └─ TabsIndicator
-└─ TabsContent[value]
+Наведите на часть или выберите её, чтобы найти её в превью.
 
-TabsRootProvider
-└─ те же части, подключённые к состоянию из useTabs()
-
-TabsContext
-└─ render prop / scoped slot
-```
-
-| Часть                 | Назначение                                                         |
-| --------------------- | ------------------------------------------------------------------ |
-| `Tabs`                | Корневая часть, управляющая выбранным значением, фокусом, ориентацией и режимом. |
-| `TabsRootProvider`   | Подключает части к состоянию, созданному с помощью `useTabs()` в moduix. |
-| `TabsContext`        | Передаёт текущее состояние вкладок через render prop или scoped slot в Vue. |
-| `TabsList`           | Группирует триггеры и управляет перемещением фокуса между ними.   |
-| `TabsTrigger`        | Интерактивная кнопка вкладки или хост `asChild` с обязательным `value`. |
-| `TabsIndicator`      | Необязательный индикатор выбранной вкладки.                       |
-| `TabsContent`        | Панель содержимого, связанная с триггером с таким же `value`.     |
+<AnatomyInspector
+  parts={[
+    ["Tabs", "tabs-root", "Корневая часть, управляющая выбранным значением, фокусом, ориентацией и режимом.", 0],
+    ["TabsList", "tabs-list", "Группирует триггеры и управляет перемещением фокуса между ними.", 1],
+    ["TabsTrigger", "tabs-trigger", "Интерактивная кнопка вкладки или хост `asChild` с обязательным `value`.", 2],
+    ["TabsIndicator", "tabs-indicator", "Необязательный индикатор выбранной вкладки.", 2],
+    ["TabsContent", "tabs-content", "Панель содержимого, связанная с триггером с таким же `value`.", 1],
+    ["TabsRootProvider", "tabs-root-provider", "Подключает части к состоянию, созданному с помощью `useTabs()` в moduix.", 0],
+    ["TabsContext", null, "Передаёт текущее состояние вкладок через render prop или scoped slot в Vue.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Стилизация
 
@@ -170,7 +162,11 @@ TabsContext
 
 ### CSS-переменные
 
-<CssPropertiesSection properties={TabsDocs.tabsOverrideCssProperties} />
+Наведите на переменную или выберите её, чтобы увидеть её в превью.
+
+<CssPropertiesSection properties={TabsDocs.tabsOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Хуки стилизации
 

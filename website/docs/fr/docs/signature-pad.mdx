@@ -5,6 +5,7 @@ description: Capturer une signature manuscrite à la souris, au stylet ou au doi
 ark: https://ark-ui.com/docs/components/signature-pad
 ---
 
+import AnatomyScene from '@/components/examples/signature-pad/basic';
 import * as SignaturePadDocs from '@/components/examples/signature-pad/css-properties';
 
 <Example name="signature-pad/basic" />
@@ -113,37 +114,33 @@ le `clear()` programmatique reste disponible.
 
 ## Anatomie
 
-```text
-SignaturePad
-├─ SignaturePadLabel
-├─ SignaturePadCanvas (composition prête à l’emploi de moduix)
-│  └─ SignaturePadControl
-│     ├─ SignaturePadSegment
-│     ├─ SignaturePadClearTrigger
-│     └─ SignaturePadGuide
-└─ SignaturePadHiddenInput value={serializedPaths} (explicite)
+Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
 
-SignaturePadRootProvider
-└─ même arbre de parties connecté à l’état de useSignaturePad()
-```
-
-| Partie                               | Rôle                                                                    |
-| ------------------------------------ | ----------------------------------------------------------------------- |
-| `SignaturePad`             | Gère les tracés, les options de dessin, le nom du champ, les identifiants et les rappels. |
-| `SignaturePadHiddenInput`  | Champ natif d’Ark à composer explicitement.                             |
-| `SignaturePadRootProvider` | Rend le même arbre de parties à partir de l’état créé avec `useSignaturePad()`. |
-| `SignaturePadLabel`        | Associe le libellé visible à la zone de dessin et au champ masqué.      |
-| `SignaturePadCanvas`       | Surface prête à l’emploi qui rend les parties standard et transmet les propriétés de `SignaturePadControl`. |
-| `SignaturePadControl`      | Zone de dessin au pointeur et au toucher, pouvant recevoir le focus.     |
-| `SignaturePadSegment`      | Calque SVG pour les traits enregistrés et le trait en cours.            |
-| `SignaturePadClearTrigger` | Bouton natif qui efface les tracés.                                     |
-| `SignaturePadGuide`        | Ligne repère non interactive dans la zone de dessin.                    |
+<AnatomyInspector
+  parts={[
+    ["SignaturePad", "signature-pad-root", "Gère les tracés, les options de dessin, le nom du champ, les identifiants et les rappels.", 0],
+    ["SignaturePadLabel", "signature-pad-label", "Associe le libellé visible à la zone de dessin et au champ masqué.", 1],
+    ["SignaturePadCanvas", "", "Surface prête à l’emploi qui rend les parties standard et transmet les propriétés de `SignaturePadControl`.", 1],
+    ["SignaturePadControl", "signature-pad-control", "Zone de dessin au pointeur et au toucher, pouvant recevoir le focus.", 2],
+    ["SignaturePadSegment", "signature-pad-segment", "Calque SVG pour les traits enregistrés et le trait en cours.", 3],
+    ["SignaturePadClearTrigger", "signature-pad-clear-trigger", "Bouton natif qui efface les tracés.", 3],
+    ["SignaturePadGuide", "signature-pad-guide", "Ligne repère non interactive dans la zone de dessin.", 3],
+    ["SignaturePadHiddenInput", "", "Champ natif d’Ark à composer explicitement.", 1],
+    ["SignaturePadRootProvider", "signature-pad-root-provider", "Rend le même arbre de parties à partir de l’état créé avec `useSignaturePad()`.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styles
 
 ### Variables CSS
 
-<CssPropertiesSection properties={SignaturePadDocs.signaturePadCssProperties} />
+Survolez ou sélectionnez une variable pour la voir dans l’aperçu.
+
+<CssPropertiesSection properties={SignaturePadDocs.signaturePadCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Points d’accroche CSS
 

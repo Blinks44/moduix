@@ -5,6 +5,8 @@ description: Compter le temps écoulé ou restant avec démarrer, pause et remis
 ark: https://ark-ui.com/docs/components/timer
 ---
 
+import AnatomyScene from '@/components/examples/timer/basic';
+
 <Example name="timer/basic" />
 
 ## Installation
@@ -89,31 +91,22 @@ la correction dans Ark ; les exemples ci-dessus utilisent cette composition pris
 
 ## Anatomie
 
-```text
-Timer
-├─ TimerArea
-│  ├─ TimerItem
-│  └─ TimerSeparator
-└─ TimerControl
-   └─ TimerActionTrigger
+Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
 
-TimerRootProvider
-└─ même arbre de composition relié à l’état créé par `useTimer()`
-
-TimerSegments
-└─ TimerArea avec les éléments TimerItem et TimerSeparator
-```
-
-| Élément | Rôle |
-| ----------------------- | ------------------------------------------------------------------------ |
-| `Timer` | Gère l’état du minuteur Ark, ses identifiants, l’intervalle et les fonctions de rappel. |
-| `TimerRootProvider` | Relie les éléments à l’état créé par `useTimer()`. |
-| `TimerSegments` | Construit les unités de temps standard et leurs séparateurs. |
-| `TimerArea` | Regroupe les valeurs de temps visibles. |
-| `TimerItem` | Affiche une unité de temps formatée, comme `hours`, `minutes` ou `seconds`. |
-| `TimerSeparator` | Affiche un séparateur entre les unités de temps. |
-| `TimerControl` | Regroupe les déclencheurs d’action. |
-| `TimerActionTrigger` | Déclenche l’action `start`, `pause`, `resume`, `reset` ou `restart`. |
+<AnatomyInspector
+  parts={[
+    ["Timer", "timer-root", "Gère l’état du minuteur Ark, ses identifiants, l’intervalle et les fonctions de rappel.", 0],
+    ["TimerArea", "timer-area", "Regroupe les valeurs de temps visibles.", 1],
+    ["TimerItem", "timer-item", "Affiche une unité de temps formatée, comme `hours`, `minutes` ou `seconds`.", 2],
+    ["TimerSeparator", "timer-separator", "Affiche un séparateur entre les unités de temps.", 2],
+    ["TimerControl", "timer-control", "Regroupe les déclencheurs d’action.", 1],
+    ["TimerActionTrigger", "timer-action-trigger", "Déclenche l’action `start`, `pause`, `resume`, `reset` ou `restart`.", 2],
+    ["TimerRootProvider", "timer-root-provider", "Relie les éléments à l’état créé par `useTimer()`.", 0],
+    ["TimerSegments", "", "Construit les unités de temps standard et leurs séparateurs.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styles
 

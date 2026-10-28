@@ -5,6 +5,8 @@ description: Open a window that users can drag, resize, minimize, and maximize.
 ark: https://ark-ui.com/docs/components/floating-panel
 ---
 
+import AnatomyScene from '@/components/examples/floating-panel/anatomy';
+
 <Example name="floating-panel/basic" />
 
 ## Installation
@@ -124,41 +126,29 @@ form of this prop.
 
 ## Anatomy
 
-```text
-FloatingPanel
-├─ FloatingPanelTrigger
-└─ Overlay subtree (automatically portalled)
-   └─ FloatingPanelPositioner
-      └─ FloatingPanelContent
-         ├─ FloatingPanelDragTrigger
-         │  └─ FloatingPanelHeader
-         │     ├─ FloatingPanelTitle
-         │     │  └─ FloatingPanelDragIndicator (optional)
-         │     └─ FloatingPanelControl
-         │        ├─ FloatingPanelStageTrigger
-         │        └─ FloatingPanelCloseTrigger / FloatingPanelCloseIcon
-         ├─ FloatingPanelBody
-         ├─ FloatingPanelFooter
-         └─ FloatingPanelResizeTrigger / FloatingPanelResizeTriggerGroup
-```
+Hover or focus a part to find it in the preview.
 
-| Part                                       | Role                                                                    |
-| ------------------------------------------ | ----------------------------------------------------------------------- |
-| `FloatingPanel`                           | Owns open, position, size, drag, resize, and stage state.               |
-| `FloatingPanelTrigger`                    | Opens the panel or toggles its open state.                               |
-| `FloatingPanelPositioner`                 | Applies Ark's calculated position, size, transform, and z-index values. |
-| `FloatingPanelContent`                    | Visible surface of the floating window.                                 |
-| `FloatingPanelDragTrigger`                | Defines the draggable area, usually the header.                          |
-| `FloatingPanelHeader`                     | Ark header part and wrapper for the drag handle.                         |
-| `FloatingPanelTitle`                      | Gives the panel an accessible name.                                     |
-| `FloatingPanelControl`                    | Groups stage and close controls.                                         |
-| `FloatingPanelStageTrigger`               | Switches between `default`, `minimized`, and `maximized`.               |
-| `FloatingPanelCloseTrigger` / `FloatingPanelCloseIcon` | Closes the panel.                                             |
-| `FloatingPanelBody`                       | Main scrollable content area.                                           |
-| `FloatingPanelFooter`                     | Optional bottom area for actions or status text.                         |
-| `FloatingPanelResizeTrigger`              | Resize handle for one Ark axis.                                         |
-| `FloatingPanelResizeTriggerGroup`         | Renders all or selected resize handles.                                 |
-| `FloatingPanelRootProvider`               | Connects parts to state from `useFloatingPanel()`.        |
+<AnatomyInspector
+  parts={[
+    ["FloatingPanel", null, "Owns open, position, size, drag, resize, and stage state.", 0],
+    ["FloatingPanelTrigger", "floating-panel-trigger", "Opens the panel or toggles its open state.", 1],
+    ["FloatingPanelPositioner", "floating-panel-positioner", "Applies Ark's calculated position, size, transform, and z-index values.", 1],
+    ["FloatingPanelContent", "floating-panel-content", "Visible surface of the floating window.", 2],
+    ["FloatingPanelDragTrigger", "floating-panel-drag-trigger", "Defines the draggable area, usually the header.", 3],
+    ["FloatingPanelHeader", "floating-panel-header", "Ark header part and wrapper for the drag handle.", 4],
+    ["FloatingPanelTitle", "floating-panel-title", "Gives the panel an accessible name.", 5],
+    ["FloatingPanelControl", "floating-panel-control", "Groups stage and close controls.", 5],
+    ["FloatingPanelStageTrigger", "floating-panel-stage-trigger", "Switches between `default`, `minimized`, and `maximized`.", 6],
+    ["FloatingPanelCloseTrigger / FloatingPanelCloseIcon", "floating-panel-close-trigger", "Closes the panel.", 6],
+    ["FloatingPanelBody", "floating-panel-body", "Main scrollable content area.", 3],
+    ["FloatingPanelFooter", "floating-panel-footer", "Optional bottom area for actions or status text.", 3],
+    ["FloatingPanelResizeTrigger", "floating-panel-resize-trigger", "Resize handle for one Ark axis.", 3],
+    ["FloatingPanelResizeTriggerGroup", "", "Renders all or selected resize handles.", 4],
+    ["FloatingPanelRootProvider", null, "Connects parts to state from `useFloatingPanel()`.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 `FloatingPanelDragIndicator`, `FloatingPanelCloseIcon`, `FloatingPanelFooter`, and
 `FloatingPanelResizeTriggerGroup` are moduix helpers. They complement Ark's structural parts

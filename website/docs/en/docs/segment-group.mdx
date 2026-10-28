@@ -5,6 +5,7 @@ description: Switch between a few options in a compact segmented control.
 ark: https://ark-ui.com/docs/components/segment-group
 ---
 
+import AnatomyScene from '@/components/examples/segment-group/basic';
 import * as SegmentGroupDocs from '@/components/examples/segment-group/css-properties';
 import { CssPropertiesSection } from '@/components/mdx/Components';
 
@@ -130,30 +131,24 @@ an object, while Solid reads its reactive state through the returned accessor.
 
 ## Anatomy
 
-```text
-SegmentGroup
-├─ SegmentGroupLabel (optional)
-├─ SegmentGroupIndicator
-└─ SegmentGroupItem[value]
-   ├─ SegmentGroupItemText
-   └─ the native form input
+Hover or focus a part to find it in the preview.
 
-SegmentGroupRootProvider
-└─ the same item tree connected to a useSegmentGroup() store
-```
-
-| Part | Role |
-| ---- | ---- |
-| `SegmentGroup` | Root part that owns the selected value, keyboard navigation, and form integration. |
-| `SegmentGroupRootProvider` | Connects the parts to state created with `useSegmentGroup()`. |
-| `SegmentGroupContext` | Render-prop access to the root state for advanced composition. |
-| `SegmentGroupItemContext` | Render-prop access to the item state for advanced composition. |
-| `SegmentGroupItem` | One selectable segment with a required `value`. |
-| `SegmentGroupItemHiddenInput` | Native Ark form control for an explicit item composition. |
-| `SegmentGroupItemText` | Visible text for a segment. |
-| `SegmentGroupItems` | Renderer for standard text segments with the native input included. |
-| `SegmentGroupIndicator` | Positions the active-item highlight using Ark CSS variables. |
-| `SegmentGroupLabel` | Optional accessible label for the group. |
+<AnatomyInspector
+  parts={[
+    ["SegmentGroup", "segment-group-root", "Root part that owns the selected value, keyboard navigation, and form integration.", 0],
+    ["SegmentGroupLabel", "segment-group-label", "Optional accessible label for the group.", 1],
+    ["SegmentGroupIndicator", "segment-group-indicator", "Positions the active-item highlight using Ark CSS variables.", 1],
+    ["SegmentGroupItem", "segment-group-item", "One selectable segment with a required `value`.", 1],
+    ["SegmentGroupItemText", "segment-group-item-text", "Visible text for a segment.", 2],
+    ["SegmentGroupItemHiddenInput", "", "Native Ark form control for an explicit item composition.", 2],
+    ["SegmentGroupItems", "", "Renderer for standard text segments with the native input included.", 2],
+    ["SegmentGroupRootProvider", "segment-group-root-provider", "Connects the parts to state created with `useSegmentGroup()`.", 0],
+    ["SegmentGroupContext", null, "Render-prop access to the root state for advanced composition.", 0],
+    ["SegmentGroupItemContext", null, "Render-prop access to the item state for advanced composition.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styling
 
@@ -165,7 +160,11 @@ classes; the component variables below customize the CSS Modules variants. Data 
 
 ### CSS variables
 
-<CssPropertiesSection properties={SegmentGroupDocs.segmentGroupOverrideCssProperties} />
+Hover or focus a variable to see it in the preview.
+
+<CssPropertiesSection properties={SegmentGroupDocs.segmentGroupOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Styling hooks
 

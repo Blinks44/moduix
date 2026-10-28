@@ -5,6 +5,7 @@ description: Diviser une mise en page en panneaux redimensionnables par une poig
 ark: https://ark-ui.com/docs/components/splitter
 ---
 
+import AnatomyScene from '@/components/examples/splitter/basic';
 import { CssPropertiesSection } from '@/components/mdx/Components';
 import { splitterOverrideCssProperties } from '@/components/examples/splitter/css-properties';
 
@@ -109,24 +110,19 @@ template sans créer un second conteneur d'état.
 
 ## Anatomie
 
-```text
-Splitter
-├─ SplitterPanel[id]
-├─ SplitterResizeTrigger[id="panel-a:panel-b"]
-│  └─ SplitterResizeTriggerIndicator (par défaut, personnalisable)
-└─ SplitterPanel[id]
+Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
 
-SplitterRootProvider
-└─ même arborescence de panneaux reliée à un état useSplitter()
-```
-
-| Partie                              | Rôle                                                                          |
-| ----------------------------------- | ----------------------------------------------------------------------------- |
-| `Splitter`                    | Gère les panneaux, leurs tailles, l'orientation, les rappels et l'état.      |
-| `SplitterPanel`                    | Région redimensionnable dont l'`id` correspond à une entrée de `panels`.      |
-| `SplitterResizeTrigger`            | Bouton accessible qui redimensionne les deux panneaux adjacents.             |
-| `SplitterResizeTriggerIndicator`   | Poignée visuelle par défaut. Un contenu personnalisé la remplace.             |
-| `SplitterRootProvider`             | Affiche les mêmes parties avec l'état créé par `useSplitter()`.              |
+<AnatomyInspector
+  parts={[
+    ["Splitter", "splitter-root", "Gère les panneaux, leurs tailles, l'orientation, les rappels et l'état.", 0],
+    ["SplitterPanel", "splitter-panel", "Région redimensionnable dont l'`id` correspond à une entrée de `panels`.", 1],
+    ["SplitterResizeTrigger", "splitter-resize-trigger", "Bouton accessible qui redimensionne les deux panneaux adjacents.", 1],
+    ["SplitterResizeTriggerIndicator", "splitter-resize-trigger-indicator", "Poignée visuelle par défaut. Un contenu personnalisé la remplace.", 2],
+    ["SplitterRootProvider", "splitter-root-provider", "Affiche les mêmes parties avec l'état créé par `useSplitter()`.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styles
 
@@ -146,7 +142,11 @@ variantes CSS Modules les exposent avec les variables ci-dessous.
 
 ### Variables CSS
 
-<CssPropertiesSection properties={splitterOverrideCssProperties} />
+Survolez ou sélectionnez une variable pour la voir dans l’aperçu.
+
+<CssPropertiesSection properties={splitterOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Points d’accroche CSS
 

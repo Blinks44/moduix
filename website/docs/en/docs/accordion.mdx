@@ -5,6 +5,7 @@ description: Stack sections that open and close to show related content.
 ark: https://ark-ui.com/docs/components/accordion
 ---
 
+import AnatomyScene from '@/components/examples/accordion/basic';
 import * as AccordionDocs from '@/components/examples/accordion/css-properties';
 
 <Example name="accordion/basic" />
@@ -108,30 +109,21 @@ accessor; Vue exposes the reactive store directly to the template.
 
 ## Anatomy
 
-```text
-Accordion
-└─ AccordionItem[value]
- ├─ h3 (recommended heading)
- │  └─ AccordionItemTrigger
- │     ├─ label
- │     └─ AccordionItemIndicator (optional)
- └─ AccordionItemContent
-    └─ AccordionItemBody
-       └─ content
+Hover or focus a part to find it in the preview.
 
-AccordionRootProvider
-└─ same item tree connected to a useAccordion() store
-```
-
-| Part                     | Role                                                                                      |
-| ------------------------ | ----------------------------------------------------------------------------------------- |
-| `Accordion`              | Root part that owns accordion state and keyboard navigation.                              |
-| `AccordionRootProvider`  | Connects the parts to state created with `useAccordion()`.                                |
-| `AccordionItem`          | A collapsible item with a required, stable `value`.                                       |
-| `AccordionItemTrigger`   | The button that opens or closes the item.                                                 |
-| `AccordionItemIndicator` | Optional state indicator. Defaults to a chevron when no children are provided. |
-| `AccordionItemContent`   | The collapsible panel, with Ark's size-animation behavior.                                |
-| `AccordionItemBody`      | The moduix inner wrapper that provides default panel spacing.                             |
+<AnatomyInspector
+  parts={[
+    ["Accordion", "accordion-root", "Root part that owns accordion state and keyboard navigation.", 0],
+    ["AccordionItem", "accordion-item", "A collapsible item with a required, stable `value`.", 1],
+    ["AccordionItemTrigger", "accordion-item-trigger", "The button that opens or closes the item.", 2],
+    ["AccordionItemIndicator", "accordion-item-indicator", "Optional state indicator. Defaults to a chevron when no children are provided.", 3],
+    ["AccordionItemContent", "accordion-item-content", "The collapsible panel, with Ark's size-animation behavior.", 2],
+    ["AccordionItemBody", "accordion-item-body", "The moduix inner wrapper that provides default panel spacing.", 3],
+    ["AccordionRootProvider", "accordion-root-provider", "Connects the parts to state created with `useAccordion()`.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styling
 
@@ -146,7 +138,11 @@ and animate the panel correctly.
 
 ### CSS variables
 
-<CssPropertiesSection properties={AccordionDocs.accordionOverrideCssProperties} />
+Hover or focus a variable to see it in the preview.
+
+<CssPropertiesSection properties={AccordionDocs.accordionOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Styling hooks
 

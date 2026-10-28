@@ -5,6 +5,7 @@ description: Адаптивные изображения с srcset для поп
 ark: https://ark-ui.com/docs/guides/composition
 ---
 
+import AnatomyScene from '@/components/examples/image/basic';
 import * as ImageDocs from '@/components/examples/image/css-properties';
 
 <Example name="image/basic" />
@@ -83,19 +84,16 @@ import * as ImageDocs from '@/components/examples/image/css-properties';
 
 ## Анатомия
 
-```text
-Image
-└─ img
+Наведите на часть или выберите её, чтобы найти её в превью.
 
-picture (native)
-├─ ImageSource
-└─ Image
-```
-
-| Часть                  | Роль                                                                   |
-| ---------------------- | ---------------------------------------------------------------------- |
-| `Image`                | Адаптивный нативный элемент `<img>`; Unpic генерирует `srcset`, `sizes` и стили. |
-| `ImageSource`          | Адаптивный `<source>` для нативного элемента `<picture>`.                       |
+<AnatomyInspector
+  parts={[
+    ["Image", "image-root", "Адаптивный нативный элемент `<img>`; Unpic генерирует `srcset`, `sizes` и стили.", 0],
+    ["ImageSource", "image-source", "Адаптивный `<source>` для нативного элемента `<picture>`.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Стилизация
 
@@ -106,7 +104,11 @@ picture (native)
 
 ### CSS-переменные
 
-<CssPropertiesSection properties={ImageDocs.imageCssProperties} />
+Наведите на переменную или выберите её, чтобы увидеть её в превью.
+
+<CssPropertiesSection properties={ImageDocs.imageCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Хуки стилизации
 

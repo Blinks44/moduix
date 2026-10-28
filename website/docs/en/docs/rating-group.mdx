@@ -5,6 +5,7 @@ description: Rate something on a scale of stars, including half-star steps.
 ark: https://ark-ui.com/docs/components/rating-group
 ---
 
+import AnatomyScene from '@/components/examples/rating-group/basic';
 import * as RatingGroupDocs from '@/components/examples/rating-group/css-properties';
 
 <Example name="rating-group/basic" />
@@ -110,34 +111,24 @@ returned accessor, and Vue exposes the reactive store directly to the template.
 
 ## Anatomy
 
-```text
-RatingGroup
-├─ RatingGroupLabel
-└─ RatingGroupControl
-   ├─ RatingGroupItems
-   │  └─ RatingGroupItem[index]
-   │     └─ RatingGroupItemIndicator
-   ├─ RatingGroupContext
-   │  └─ RatingGroupItem[index]
-   │     └─ RatingGroupItemIndicator
-   └─ RatingGroupHiddenInput (explicit)
+Hover or focus a part to find it in the preview.
 
-RatingGroupRootProvider
-└─ same part tree connected to a moduix useRatingGroup() store
-```
-
-| Part                               | Role                                                               |
-| ---------------------------------- | ------------------------------------------------------------------ |
-| `RatingGroup`                    | Owns rating state, keyboard navigation, focus, and form integration. |
-| `RatingGroupHiddenInput`          | Native Ark form control that must be composed explicitly.          |
-| `RatingGroupRootProvider`          | Connects the parts to state created with `useRatingGroup()`.       |
-| `RatingGroupContext`               | Render-prop access to the current root state.                      |
-| `RatingGroupItemContext`           | Render-prop access to the current item state.                      |
-| `RatingGroupLabel`                 | Accessible label for the rating group.                             |
-| `RatingGroupControl`               | Groups the interactive rating items.                               |
-| `RatingGroupItems`                 | Creates one item for each value and supplies the default star.     |
-| `RatingGroupItem`                  | One selectable rating item; requires a numeric `index`.            |
-| `RatingGroupItemIndicator`         | The default moduix star visual for an item.                        |
+<AnatomyInspector
+  parts={[
+    ["RatingGroup", "rating-group-root", "Owns rating state, keyboard navigation, focus, and form integration.", 0],
+    ["RatingGroupLabel", "rating-group-label", "Accessible label for the rating group.", 1],
+    ["RatingGroupControl", "rating-group-control", "Groups the interactive rating items.", 1],
+    ["RatingGroupItems", "", "Creates one item for each value and supplies the default star.", 2],
+    ["RatingGroupItem", "rating-group-item", "One selectable rating item; requires a numeric `index`.", 3],
+    ["RatingGroupItemIndicator", "rating-group-item-indicator-fg", "The default moduix star visual for an item.", 4],
+    ["RatingGroupContext", null, "Render-prop access to the current root state.", 2],
+    ["RatingGroupHiddenInput", "", "Native Ark form control that must be composed explicitly.", 2],
+    ["RatingGroupRootProvider", "rating-group-root-provider", "Connects the parts to state created with `useRatingGroup()`.", 0],
+    ["RatingGroupItemContext", null, "Render-prop access to the current item state.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styling
 
@@ -149,7 +140,11 @@ native utilities and consumer classes; the CSS Modules variants also expose the 
 
 ### CSS variables
 
-<CssPropertiesSection properties={RatingGroupDocs.ratingGroupOverrideCssProperties} />
+Hover or focus a variable to see it in the preview.
+
+<CssPropertiesSection properties={RatingGroupDocs.ratingGroupOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Styling hooks
 

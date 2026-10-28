@@ -5,6 +5,8 @@ description: Основной текст, подписи и строчный т�
 ark: https://ark-ui.com/docs/guides/composition#the-ark-factory
 ---
 
+import AnatomyScene from '@/components/examples/text/basic';
+
 <Example name="text/basic" />
 
 ## Установка
@@ -97,14 +99,15 @@ ark: https://ark-ui.com/docs/guides/composition#the-ark-factory
 
 `Text` выводит один корневой элемент с помощью фабрики Ark через плоский корневой экспорт.
 
-```text
-Text
-└─ текст или встроенное содержимое
-```
+Наведите на часть или выберите её, чтобы найти её в превью.
 
-| Часть                 | Назначение                                                       |
-| --------------------- | ---------------------------------------------------------------- |
-| `Text`              | Типографический корневой элемент с семантическим HTML и стабильными data-атрибутами. |
+<AnatomyInspector
+  parts={[
+    ["Text", "text-root", "Типографический корневой элемент с семантическим HTML и стабильными data-атрибутами.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Стилизация
 

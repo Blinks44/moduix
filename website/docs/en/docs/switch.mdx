@@ -5,6 +5,7 @@ description: Turn a setting on or off with an immediate effect.
 ark: https://ark-ui.com/docs/components/switch
 ---
 
+import AnatomyScene from '@/components/examples/switch/basic';
 import * as SwitchDocs from '@/components/examples/switch/css-properties';
 
 <Example name="switch/basic" />
@@ -117,22 +118,20 @@ accessible.
 
 ## Anatomy
 
-```text
-Switch
-├─ SwitchControl
-│  └─ SwitchThumb
-├─ SwitchLabel
-└─ SwitchHiddenInput (explicit)
-```
+Hover or focus a part to find it in the preview.
 
-| Part                          | Role                                                                 |
-| ----------------------------- | -------------------------------------------------------------------- |
-| `Switch`                 | Root `label` element. Owns switch state, ids, form props, and `size`. |
-| `SwitchHiddenInput`           | Native Ark form control; compose explicitly as described below.      |
-| `SwitchRootProvider`          | Root `label` driven by state created with `useSwitch()`.             |
-| `SwitchControl`               | Visual track and focus-ring target. Adds `SwitchThumb` by default.  |
-| `SwitchThumb`                 | Movable thumb for the default visuals or custom thumb content.       |
-| `SwitchLabel`                 | Ark-connected label text.                                            |
+<AnatomyInspector
+  parts={[
+    ["Switch", "switch-root", "Root `label` element. Owns switch state, ids, form props, and `size`.", 0],
+    ["SwitchControl", "switch-control", "Visual track and focus-ring target. Adds `SwitchThumb` by default.", 1],
+    ["SwitchThumb", "switch-thumb", "Movable thumb for the default visuals or custom thumb content.", 2],
+    ["SwitchLabel", "switch-label", "Ark-connected label text.", 1],
+    ["SwitchHiddenInput", "", "Native Ark form control; compose explicitly as described below.", 1],
+    ["SwitchRootProvider", "switch-root-provider", "Root `label` driven by state created with `useSwitch()`.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 `Switch` is the root component. `SwitchContext`, `useSwitchContext`, and `useSwitch` are exported
 from `@moduix/react` alongside the component. The Vue exports are available from
@@ -153,7 +152,11 @@ Ark writes `dir` on every part and the checked thumb moves to the inline end.
 
 ### CSS variables
 
-<CssPropertiesSection properties={SwitchDocs.switchOverrideCssProperties} />
+Hover or focus a variable to see it in the preview.
+
+<CssPropertiesSection properties={SwitchDocs.switchOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Styling hooks
 

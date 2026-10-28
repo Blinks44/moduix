@@ -5,6 +5,7 @@ description: Saisir plusieurs lignes de texte, avec hauteur automatique en optio
 ark: https://ark-ui.com/docs/components/field
 ---
 
+import AnatomyScene from '@/components/examples/textarea/basic';
 import * as TextareaDocs from '@/components/examples/textarea/css-properties';
 
 <Example name="textarea/basic" />
@@ -114,14 +115,15 @@ capable de recevoir les propriétés fusionnées et la ref.
 
 La structure publique se limite à une seule partie :
 
-```text
-Field (optional wrapper)
-└─ Textarea
-```
+Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
 
-| Partie     | Rôle                                                                  |
-| ---------- | --------------------------------------------------------------------- |
-| `Textarea` | Élément `textarea` natif avec les styles moduix et l’état de `Field`. |
+<AnatomyInspector
+  parts={[
+    ["Textarea", "textarea-root", "Élément `textarea` natif avec les styles moduix et l’état de `Field`.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 `Textarea` n’exporte ni conteneur supplémentaire, ni sous-composant, ni provider ou hook de contexte,
 ni champ masqué, ni libellé ou compteur de caractères.
@@ -139,7 +141,11 @@ les styles du composant placés dans une couche.
 
 ### Variables CSS
 
-<CssPropertiesSection properties={TextareaDocs.textareaCssProperties} />
+Survolez ou sélectionnez une variable pour la voir dans l’aperçu.
+
+<CssPropertiesSection properties={TextareaDocs.textareaCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Points d’accroche CSS
 
