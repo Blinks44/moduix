@@ -1313,5 +1313,10 @@
     "en": "Accessible components for React, Solid and Vue. MIT licensed. Built on Ark UI.",
     "ru": "Доступные компоненты для React, Solid и Vue. Лицензия MIT. Построены на Ark UI.",
     "fr": "Composants accessibles pour React, Solid et Vue. Licence MIT. Basés sur Ark UI."
+  },
+  "viewAsMarkdown": {
+    "en": "View as Markdown",
+    "ru": "Открыть как Markdown",
+    "fr": "Afficher en Markdown"
   }
 }

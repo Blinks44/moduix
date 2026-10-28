@@ -1,12 +1,51 @@
 /* Home · Desktop and Home · Mobile in Moduix.sketch. */
 .home {
   --home-width: 1200px;
+  --home-grid-line: rgb(9 9 11 / 4%);
 
+  position: relative;
+  isolation: isolate;
   overflow: hidden;
-  background:
-    radial-gradient(60rem 36rem at 80% -10%, var(--rp-c-brand-tint), transparent 70%),
-    var(--rp-c-bg);
+  background: var(--rp-c-bg);
   color: var(--rp-c-text-1);
+}
+
+:global(.dark) .home {
+  --home-grid-line: rgb(250 250 250 / 4%);
+}
+
+/* Hero background from the Home frame: an 80px grid, React, Solid and Vue glows, and a fade into
+   the page background. Positions follow the centered 1440px frame (the nav covers its first 64px). */
+.home::before {
+  position: absolute;
+  z-index: -1;
+  inset: 0 0 auto;
+  height: 856px;
+  background:
+    linear-gradient(transparent calc(100% - 240px), var(--rp-c-bg)),
+    radial-gradient(
+      450px 380px at calc(50% - 430px) 56px,
+      rgb(56 189 248 / 15%),
+      rgb(56 189 248 / 5%) 50%,
+      transparent
+    ),
+    radial-gradient(
+      450px 380px at calc(50% + 370px) 116px,
+      rgb(109 140 240 / 15%),
+      rgb(109 140 240 / 5%) 50%,
+      transparent
+    ),
+    radial-gradient(
+      500px 350px at calc(50% + 80px) 546px,
+      rgb(52 211 153 / 15%),
+      rgb(52 211 153 / 5%) 50%,
+      transparent
+    ),
+    linear-gradient(90deg, var(--home-grid-line) 1px, transparent 1px) calc(50% - 720px) 16px / 80px
+      80px,
+    linear-gradient(var(--home-grid-line) 1px, transparent 1px) calc(50% - 720px) 16px / 80px 80px;
+  content: '';
+  pointer-events: none;
 }
 
 .home > * {
@@ -188,7 +227,6 @@
 
 .heroDemo {
   position: relative;
-  padding-bottom: 150px;
 }
 
 .demoPanel {
@@ -237,42 +275,17 @@
   }
 }
 
-.demoTabs {
-  display: flex;
-  gap: 16px;
-
-  button {
-    border: 0;
-    border-bottom: 2px solid transparent;
-    padding: 6px 0;
-    background: none;
-    color: var(--rp-c-text-3);
-    font-size: 13px;
-    cursor: pointer;
-  }
-
-  button[aria-selected='true'] {
-    border-bottom-color: var(--rp-c-text-0);
-    color: var(--rp-c-text-0);
-  }
-}
-
 .demoStage {
   display: grid;
   min-height: 340px;
   place-items: center;
   padding: 28px;
   background: var(--rp-c-bg-soft);
-
-  :global(.rp-codeblock) {
-    width: 100%;
-    margin: 0;
-  }
 }
 
 .notifications {
   display: grid;
-  width: min(100%, 320px);
+  width: min(100%, 380px);
   gap: 16px;
   border: 1px solid var(--rp-c-divider);
   border-radius: 12px;
@@ -294,8 +307,16 @@
   font-size: 12px;
 }
 
+/* Hero · Demo: labels on the left, switches on the right edge, a divider above Quiet hours. */
 .switch {
+  display: flex;
+  width: 100%;
   justify-content: space-between;
+}
+
+.quietHours {
+  border-top: 1px solid var(--rp-c-divider);
+  padding-top: 16px;
 }
 
 .sliderHeader {
@@ -310,10 +331,11 @@
   gap: 8px;
 }
 
+/* Hero · Code overlaps the bottom edge of Hero · Demo by 18px and starts 100px to its left. */
 .heroCode {
-  position: absolute;
-  bottom: 0;
+  position: relative;
   left: -100px;
+  margin-top: -18px;
   width: min(584px, 100% + 100px);
   overflow: hidden;
   border-radius: 12px;
@@ -561,14 +583,14 @@
   background: var(--rp-c-bg);
   text-decoration: none;
 
-  strong {
+  > strong {
     margin: 14px 10px 0;
     color: var(--rp-c-text-0);
     font-size: 14px;
     font-weight: 500;
   }
 
-  span {
+  > span {
     margin: 0 10px;
     color: var(--rp-c-text-3);
     font-size: 12px;
@@ -892,12 +914,7 @@
     line-height: 34px;
   }
 
-  .heroDemo {
-    padding-bottom: 0;
-  }
-
   .heroCode {
-    position: static;
     margin-top: 16px;
   }
 

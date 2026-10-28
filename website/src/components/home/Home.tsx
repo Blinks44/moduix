@@ -30,12 +30,16 @@ import reactPackage from '../../../../packages/react/package.json';
 import { getComponentCategories } from '../docs/component-gallery';
 import { usePreset } from '../docs/nav-menus';
 import { ScaledPreview } from '../docs/scaled-preview';
-import ColorPickerTile from '../examples/color-picker/inline';
-import DatePickerTile from '../examples/date-picker/inline-and-week-numbers';
-import FileUploadTile from '../examples/file-upload/basic';
-import SignaturePadTile from '../examples/signature-pad/basic';
-import TagsInputTile from '../examples/tags-input/basic';
-import { ComboboxTile, ToastTile, TourTile } from './home-tiles';
+import {
+  ColorPickerTile,
+  ComboboxTile,
+  DatePickerTile,
+  FileUploadTile,
+  SignaturePadTile,
+  TagsInputTile,
+  ToastTile,
+  TourTile,
+} from './home-tiles';
 import styles from './Home.module.css';
 
 type T = ReturnType<typeof useI18n<typeof import('i18n')>>;
@@ -137,56 +141,56 @@ const featured = [
     title: 'Color Picker',
     href: '/docs/color-picker',
     category: 'categoryForms',
-    width: 300,
+    width: 158,
     preview: <ColorPickerTile />,
   },
   {
     title: 'Date Picker',
     href: '/docs/date-picker',
     category: 'categoryForms',
-    width: 320,
+    width: 178,
     preview: <DatePickerTile />,
   },
   {
     title: 'Tour',
     href: '/docs/tour',
     category: 'categoryOverlays',
-    width: 340,
+    width: 230,
     preview: <TourTile />,
   },
   {
     title: 'Signature Pad',
     href: '/docs/signature-pad',
     category: 'categoryForms',
-    width: 320,
+    width: 220,
     preview: <SignaturePadTile />,
   },
   {
     title: 'Combobox',
     href: '/docs/combobox',
     category: 'categoryForms',
-    width: 280,
+    width: 170,
     preview: <ComboboxTile />,
   },
   {
     title: 'File Upload',
     href: '/docs/file-upload',
     category: 'categoryForms',
-    width: 320,
+    width: 210,
     preview: <FileUploadTile />,
   },
   {
     title: 'Toast',
     href: '/docs/toast',
     category: 'categoryFeedback',
-    width: 300,
+    width: 210,
     preview: <ToastTile />,
   },
   {
     title: 'Tags Input',
     href: '/docs/tags-input',
     category: 'categoryForms',
-    width: 300,
+    width: 210,
     preview: <TagsInputTile />,
   },
 ] as const;
@@ -286,6 +290,7 @@ function NotificationsDemo({ t }: { t: T }) {
         </Switch>
       ))}
       <Slider
+        className={styles.quietHours}
         defaultValue={[22, 31]}
         min={18}
         max={34}
@@ -314,7 +319,6 @@ function NotificationsDemo({ t }: { t: T }) {
 
 function Hero({ t, count }: { t: T; count: number }) {
   const [framework, setFramework] = useState<Framework>('react');
-  const [tab, setTab] = useState<'preview' | 'code'>('preview');
   const sample = switchCode[framework];
 
   return (
@@ -367,29 +371,12 @@ function Hero({ t, count }: { t: T; count: number }) {
                 </button>
               ))}
             </div>
-            <div className={styles.demoTabs} role="tablist">
-              {(['preview', 'code'] as const).map((value) => (
-                <button
-                  key={value}
-                  type="button"
-                  role="tab"
-                  aria-selected={tab === value}
-                  onClick={() => setTab(value)}
-                >
-                  {t(value === 'preview' ? 'examplePreview' : 'exampleCode')}
-                </button>
-              ))}
-            </div>
           </div>
           <div className={styles.demoStage}>
-            {tab === 'preview' ? (
-              <NotificationsDemo t={t} />
-            ) : (
-              <CodeBlockRuntime lang={sample.lang} code={sample.code} />
-            )}
+            <NotificationsDemo t={t} />
           </div>
         </div>
-        <div className={styles.heroCode} aria-hidden={tab === 'code'}>
+        <div className={styles.heroCode}>
           <p className={styles.heroCodeFile}>{sample.file}</p>
           <CodeBlockRuntime lang={sample.lang} code={sample.code} />
         </div>

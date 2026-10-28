@@ -21,6 +21,7 @@ import {
   PackageManagerTabs,
   type RootProps,
   Tab,
+  useMdUrl,
   Tabs as OriginalTabs,
 } from '@rspress/core/theme-original';
 import { clsx } from 'clsx';
@@ -161,6 +162,8 @@ function SocialMetadata() {
 
 function DocActions() {
   const { frontmatter } = useFrontmatter();
+  const t = useI18n<typeof import('i18n')>();
+  const { pathname: mdPath } = useMdUrl();
   const component =
     typeof frontmatter.component === 'string' ? frontmatter.component.trim() : undefined;
   const block = typeof frontmatter.block === 'string' ? frontmatter.block.trim() : undefined;
@@ -174,7 +177,14 @@ function DocActions() {
       {block ? <BlockLinks block={block} /> : null}
       <LlmsContainer>
         <LlmsCopyButton />
-        <LlmsViewOptions />
+        <LlmsViewOptions
+          options={[
+            'markdownLink',
+            { title: t('viewAsMarkdown'), href: mdPath, icon: <FileText /> },
+            'chatgpt',
+            'claude',
+          ]}
+        />
       </LlmsContainer>
     </div>
   );
