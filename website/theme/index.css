@@ -414,6 +414,8 @@ body {
   font-family: var(--rp-font-family-mono);
   font-size: 11px;
   font-weight: 400;
+  display: flex;
+  gap: 4px;
 }
 
 /* Search · ⌘K frame: white 640px window, borderless field, quiet active result. */
@@ -457,6 +459,13 @@ body {
 .rp-search-panel__search-icon {
   color: var(--rp-c-text-3);
   font-size: 16px;
+}
+
+svg.rp-search-button__icon,
+svg.rp-search-panel__search-icon,
+svg.rp-search-panel__close {
+  width: 16px;
+  height: 16px;
 }
 
 .rp-search-panel__results {
@@ -510,7 +519,7 @@ body {
   .rp-suggest-item__mark {
     background: none;
     color: inherit;
-    font-weight: 600;
+    font-weight: inherit;
     text-decoration: none;
   }
 }
@@ -1273,6 +1282,126 @@ body .rp-doc :not(:where(.rp-not-doc, .rp-not-doc *)):where(table) {
 .rp-tabs__content,
 .rp-tabs__content__item {
   background: var(--rp-code-block-bg);
+}
+
+/* Framework Switcher symbol: a muted track of pills with framework dots above the code. */
+.moduix-tabs[data-group='framework'] > .rp-tabs {
+  margin-block: 12px 16px;
+  border: 0;
+  border-radius: 0;
+  background: none;
+
+  > .rp-tabs__label {
+    display: inline-flex;
+    min-width: 0;
+    gap: 2px;
+    margin-bottom: 12px;
+    border: 0;
+    border-radius: 9px;
+    padding: 2px;
+    background: var(--rp-c-bg-mute);
+  }
+
+  > .rp-tabs__label > .rp-tabs__label__item {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    height: 26px;
+    border: 1px solid transparent;
+    border-radius: 7px;
+    padding: 0 10px;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 18px;
+
+    &::before {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--moduix-doc-framework-color, transparent);
+      content: '';
+    }
+
+    &[data-index='0'] {
+      --moduix-doc-framework-color: #38bdf8;
+    }
+
+    &[data-index='1'] {
+      --moduix-doc-framework-color: #4f7fd0;
+    }
+
+    &[data-index='2'] {
+      --moduix-doc-framework-color: #34c38f;
+    }
+
+    &[data-index='3']::before {
+      display: none;
+    }
+  }
+
+  > .rp-tabs__label > .rp-tabs__label__item--selected {
+    border-color: var(--rp-c-divider);
+    background: var(--rp-c-bg);
+    font-weight: 500;
+  }
+
+  > .rp-tabs__content,
+  > .rp-tabs__content > .rp-tabs__content__item {
+    background: none;
+  }
+}
+
+.moduix-tabs[data-group='framework'][data-values='react-solid vue']
+  > .rp-tabs
+  > .rp-tabs__label
+  > [data-index='1'] {
+  --moduix-doc-framework-color: #34c38f;
+}
+
+/* Inside these unboxed groups, a single code block or package manager card keeps its own frame. */
+.moduix-tabs[data-group] > .rp-tabs > .rp-tabs__content > .rp-tabs__content__item {
+  padding: 0;
+
+  > .rp-codeblock:only-child,
+  > .rp-tabs:only-child {
+    margin: 0;
+    border: var(--rp-code-block-border);
+    border-radius: var(--rp-radius);
+  }
+}
+
+/* Styling tabs: underlined labels on a divider, without the code block card. */
+.moduix-tabs[data-group='styling'] > .rp-tabs {
+  margin-block: 12px 16px;
+  border: 0;
+  border-radius: 0;
+  background: none;
+
+  > .rp-tabs__label {
+    gap: 24px;
+    border-bottom: 1px solid var(--rp-c-divider);
+    padding: 0;
+    background: none;
+  }
+
+  > .rp-tabs__label > .rp-tabs__label__item {
+    margin-bottom: -1px;
+    border-bottom: 2px solid transparent;
+    padding: 10px 2px;
+    font-size: 14px;
+    font-weight: 400;
+  }
+
+  > .rp-tabs__label > .rp-tabs__label__item--selected {
+    border-bottom-color: var(--rp-c-text-0);
+    font-weight: 500;
+  }
+
+  > .rp-tabs__content,
+  > .rp-tabs__content > .rp-tabs__content__item {
+    padding: 0;
+    background: none;
+  }
 }
 
 .packageMatrix {

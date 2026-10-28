@@ -21,11 +21,23 @@ import {
   PackageManagerTabs,
   type RootProps,
   Tab,
-  Tabs,
+  Tabs as OriginalTabs,
 } from '@rspress/core/theme-original';
 import { clsx } from 'clsx';
-import { Clock, Menu, Moon, PanelLeft, Sun, X } from 'lucide-react';
-import { useEffect, type ComponentProps, type SVGProps } from 'react';
+import {
+  Clock,
+  CornerDownLeft,
+  FileText,
+  Hash,
+  Menu,
+  Moon,
+  PanelLeft,
+  Search,
+  Sun,
+  TextAlignStart,
+  X,
+} from 'lucide-react';
+import { Children, isValidElement, useEffect, type ComponentProps, type SVGProps } from 'react';
 import './index.css';
 import {
   BlockLinks,
@@ -58,7 +70,15 @@ export * from '@rspress/core/theme-original';
 
 // Lucide icons from the Moduix.sketch Icon/* symbols. Native components import icons from
 // `@rspress/core/theme`, so these named exports replace the built-in ones.
-export { PanelLeft as IconMenu };
+export {
+  FileText as IconTitle,
+  Hash as IconHeader,
+  TextAlignStart as IconFile,
+  CornerDownLeft as IconJump,
+  PanelLeft as IconMenu,
+  Search as IconSearch,
+  X as IconClose,
+};
 
 // SwitchAppearance passes fill="currentColor" for its filled icons; Lucide icons are outlines.
 export function IconSun(props: SVGProps<SVGSVGElement>) {
@@ -283,6 +303,20 @@ const mdxComponents = {
   Tabs,
   UsageCode,
 };
+
+// Framework and styling tabs from the Sketch layout: the native Tabs keep their behavior, and the
+// wrapper exposes the group and tab values so CSS can draw the framework switcher with its dots.
+function Tabs(props: ComponentProps<typeof OriginalTabs>) {
+  const values = Children.toArray(props.children)
+    .map((child) => (isValidElement<{ value?: string }>(child) ? child.props.value : undefined))
+    .join(' ');
+
+  return (
+    <div className="moduix-tabs" data-group={props.groupId} data-values={values}>
+      <OriginalTabs {...props} />
+    </div>
+  );
+}
 
 export function Root({ children }: RootProps) {
   return <MDXProvider components={mdxComponents}>{children}</MDXProvider>;

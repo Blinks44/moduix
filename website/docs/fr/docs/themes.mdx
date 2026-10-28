@@ -45,21 +45,43 @@ foundation tokens → optional preset → application overrides → component al
 Importez le socle une fois, puis un préréglage. Définissez `data-moduix-theme` sur `<html>` pour que
 le contenu rendu dans un portail reçoive les mêmes valeurs.
 
+<Tabs groupId="styling">
+  <Tab label="CSS Modules" value="css-modules">
+
 <Tabs groupId="framework">
   <Tab label="React" value="react">
 
-<StyleTrackCards>
-  <StyleTrackCard label="CSS Modules">
-
-```tsx
+```tsx title="main.tsx"
 import '@moduix/react/style.css';
 import '@moduix/react/presets/soft.css';
 ```
 
-  </StyleTrackCard>
-  <StyleTrackCard label="Tailwind CSS">
+  </Tab>
+  <Tab label="Solid" value="solid">
 
-```css
+```tsx title="index.tsx"
+import '@moduix/solid/style.css';
+import '@moduix/solid/presets/soft.css';
+```
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+```ts title="main.ts"
+import '@moduix/vue/style.css';
+import '@moduix/vue/presets/soft.css';
+```
+
+  </Tab>
+</Tabs>
+
+  </Tab>
+  <Tab label="Tailwind CSS" value="tailwind">
+
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+```css title="app.css"
 @import '@moduix/react-tailwind/style.css';
 @import '@moduix/react-tailwind/presets/soft.css';
 @import 'tailwindcss';
@@ -67,24 +89,10 @@ import '@moduix/react/presets/soft.css';
 @source '../node_modules/@moduix/react-tailwind/dist/components';
 ```
 
-  </StyleTrackCard>
-</StyleTrackCards>
-
   </Tab>
   <Tab label="Solid" value="solid">
 
-<StyleTrackCards>
-  <StyleTrackCard label="CSS Modules">
-
-```tsx
-import '@moduix/solid/style.css';
-import '@moduix/solid/presets/soft.css';
-```
-
-  </StyleTrackCard>
-  <StyleTrackCard label="Tailwind CSS">
-
-```css
+```css title="app.css"
 @import '@moduix/solid-tailwind/style.css';
 @import '@moduix/solid-tailwind/presets/soft.css';
 @import 'tailwindcss';
@@ -92,24 +100,10 @@ import '@moduix/solid/presets/soft.css';
 @source '../node_modules/@moduix/solid-tailwind/dist/components';
 ```
 
-  </StyleTrackCard>
-</StyleTrackCards>
-
   </Tab>
   <Tab label="Vue" value="vue">
 
-<StyleTrackCards>
-  <StyleTrackCard label="CSS Modules">
-
-```ts
-import '@moduix/vue/style.css';
-import '@moduix/vue/presets/soft.css';
-```
-
-  </StyleTrackCard>
-  <StyleTrackCard label="Tailwind CSS">
-
-```css
+```css title="app.css"
 @import '@moduix/vue-tailwind/style.css';
 @import '@moduix/vue-tailwind/presets/soft.css';
 @import 'tailwindcss';
@@ -117,8 +111,8 @@ import '@moduix/vue/presets/soft.css';
 @source '../node_modules/@moduix/vue-tailwind/dist/components';
 ```
 
-  </StyleTrackCard>
-</StyleTrackCards>
+  </Tab>
+</Tabs>
 
   </Tab>
 </Tabs>

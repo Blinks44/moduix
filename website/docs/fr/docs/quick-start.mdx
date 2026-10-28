@@ -104,7 +104,7 @@ Importez la réinitialisation et la base une seule fois dans votre point d’ent
 <Tabs groupId="framework">
   <Tab label="React" value="react">
 
-```tsx
+```tsx title="main.tsx"
 import '@moduix/react/reset.css';
 import '@moduix/react/style.css';
 ```
@@ -112,7 +112,7 @@ import '@moduix/react/style.css';
   </Tab>
   <Tab label="Solid" value="solid">
 
-```tsx
+```tsx title="index.tsx"
 import '@moduix/solid/reset.css';
 import '@moduix/solid/style.css';
 ```
@@ -120,7 +120,7 @@ import '@moduix/solid/style.css';
   </Tab>
   <Tab label="Vue" value="vue">
 
-```ts
+```ts title="main.ts"
 import '@moduix/vue/reset.css';
 import '@moduix/vue/style.css';
 ```
@@ -176,17 +176,17 @@ Accordion existe dans chaque framework et chaque approche de style : c’est un 
 <Tabs groupId="framework">
   <Tab label="React" value="react">
 
-<CodeBlockRuntime lang="tsx" code={reactCssModules} />
+<CodeBlockRuntime lang="tsx" title="App.tsx" code={reactCssModules} />
 
   </Tab>
   <Tab label="Solid" value="solid">
 
-<CodeBlockRuntime lang="tsx" code={solidCssModules} />
+<CodeBlockRuntime lang="tsx" title="App.tsx" code={solidCssModules} />
 
   </Tab>
   <Tab label="Vue" value="vue">
 
-<CodeBlockRuntime lang="vue" code={VueCssModules} />
+<CodeBlockRuntime lang="vue" title="App.vue" code={VueCssModules} />
 
   </Tab>
 </Tabs>
@@ -197,17 +197,17 @@ Accordion existe dans chaque framework et chaque approche de style : c’est un 
 <Tabs groupId="framework">
   <Tab label="React" value="react">
 
-<CodeBlockRuntime lang="tsx" code={reactTailwind} />
+<CodeBlockRuntime lang="tsx" title="App.tsx" code={reactTailwind} />
 
   </Tab>
   <Tab label="Solid" value="solid">
 
-<CodeBlockRuntime lang="tsx" code={solidTailwind} />
+<CodeBlockRuntime lang="tsx" title="App.tsx" code={solidTailwind} />
 
   </Tab>
   <Tab label="Vue" value="vue">
 
-<CodeBlockRuntime lang="vue" code={VueTailwind} />
+<CodeBlockRuntime lang="vue" title="App.vue" code={VueTailwind} />
 
   </Tab>
 </Tabs>
@@ -250,35 +250,47 @@ Associez l’alias `@/*` à votre dossier source dans TypeScript et le bundler :
 
 Utilisez le namespace qui correspond à votre framework et à votre approche de style, sans mélanger les namespaces dans un même arbre de composants.
 
+<Tabs groupId="styling">
+  <Tab label="CSS Modules" value="css-modules">
+
 <Tabs groupId="framework">
   <Tab label="React" value="react">
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/accordion' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/accordion' },
-  ]}
-/>
+<PackageManagerTabs command="shadcn@latest add @moduix-react/accordion" dlx />
 
   </Tab>
   <Tab label="Solid" value="solid">
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/accordion' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/accordion' },
-  ]}
-/>
+<PackageManagerTabs command="shadcn@latest add @moduix-solid/accordion" dlx />
 
   </Tab>
   <Tab label="Vue" value="vue">
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/accordion' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/accordion' },
-  ]}
-/>
+<PackageManagerTabs command="shadcn@latest add @moduix-vue/accordion" dlx />
+
+  </Tab>
+</Tabs>
+
+  </Tab>
+  <Tab label="Tailwind CSS" value="tailwind">
+
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+<PackageManagerTabs command="shadcn@latest add @moduix-react-tailwind/accordion" dlx />
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<PackageManagerTabs command="shadcn@latest add @moduix-solid-tailwind/accordion" dlx />
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+<PackageManagerTabs command="shadcn@latest add @moduix-vue-tailwind/accordion" dlx />
+
+  </Tab>
+</Tabs>
 
   </Tab>
 </Tabs>
@@ -308,7 +320,7 @@ Importez la base générée. Ajoutez la réinitialisation moduix comme élément
   </Tab>
 </Tabs>
 
-```tsx
+```tsx title="main.tsx"
 import '@/lib/moduix/styles/reset.css';
 import '@/lib/moduix/styles/style.css';
 ```
@@ -331,17 +343,17 @@ Chargez la base générée avant Tailwind. Tailwind Preflight fournit la réinit
 <Tabs groupId="framework">
   <Tab label="React" value="react">
 
-<CodeBlockRuntime lang="tsx" code={shadcnAccordion} />
+<CodeBlockRuntime lang="tsx" title="App.tsx" code={shadcnAccordion} />
 
   </Tab>
   <Tab label="Solid" value="solid">
 
-<CodeBlockRuntime lang="tsx" code={shadcnAccordion} />
+<CodeBlockRuntime lang="tsx" title="App.tsx" code={shadcnAccordion} />
 
   </Tab>
   <Tab label="Vue" value="vue">
 
-<CodeBlockRuntime lang="vue" code={shadcnAccordionVue} />
+<CodeBlockRuntime lang="vue" title="App.vue" code={shadcnAccordionVue} />
 
   </Tab>
 </Tabs>
