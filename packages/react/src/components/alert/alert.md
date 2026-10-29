@@ -168,6 +168,9 @@ Built-in statuses derive their accents from shared palette tokens:
 - `warning` -> `--moduix-warning`
 - `error` -> `--moduix-destructive`
 
+The `success` and `warning` icons mix the token 70% with `--moduix-foreground`, so they keep at
+least 3:1 contrast while the status surface stays bright.
+
 The four color variables override every status. Scope them with `[data-status='success']` and
 similar selectors to retheme one status. Spacing, radius, shadow, and typography use foundation
 tokens; override them with a class on the part.

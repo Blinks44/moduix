@@ -20,14 +20,22 @@
       --_alert-bg: color-mix(in oklab, var(--moduix-success) 10%, var(--moduix-background));
       --_alert-border-color: color-mix(in oklab, var(--moduix-success) 34%, transparent);
       --_alert-color: var(--moduix-foreground);
-      --_alert-indicator-color: var(--moduix-success);
+      --_alert-indicator-color: color-mix(
+        in oklab,
+        var(--moduix-success) 70%,
+        var(--moduix-foreground)
+      );
     }
 
     &[data-status='warning'] {
       --_alert-bg: color-mix(in oklab, var(--moduix-warning) 13%, var(--moduix-background));
       --_alert-border-color: color-mix(in oklab, var(--moduix-warning) 38%, transparent);
       --_alert-color: var(--moduix-foreground);
-      --_alert-indicator-color: var(--moduix-warning);
+      --_alert-indicator-color: color-mix(
+        in oklab,
+        var(--moduix-warning) 70%,
+        var(--moduix-foreground)
+      );
     }
 
     &[data-status='error'] {
