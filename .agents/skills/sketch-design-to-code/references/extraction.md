@@ -75,9 +75,7 @@ When Sketch exposes stacks, pins/resizing, or other relative layout constraints,
 ```javascript
 const sketch = require('sketch');
 const doc = sketch.getSelectedDocument();
-function hex(c) {
-  return c ? String(c).slice(0, 7) : null;
-}
+function hex(c) { return c ? String(c).slice(0, 7) : null; }
 const swatches = doc.swatches.map(function (s) {
   return { name: s.name, hex: hex(s.color) };
 });

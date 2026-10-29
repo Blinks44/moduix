@@ -30,6 +30,18 @@
       "sourceType": "github",
       "skillPath": "skills/rstest-best-practices/SKILL.md",
       "computedHash": "f0b2092fa4696a8364b0ae15e44fa7752367bac01a2dd1b98223d01ffe001e04"
+    },
+    "sketch-design-from-reference": {
+      "source": "sketch-hq/agents",
+      "sourceType": "github",
+      "skillPath": "skills/sketch-design-from-reference/SKILL.md",
+      "computedHash": "002b39d19e125f135105bf23357342d3f8f43ebe78f5b41b35f45ff81c6049a2"
+    },
+    "sketch-design-to-code": {
+      "source": "sketch-hq/agents",
+      "sourceType": "github",
+      "skillPath": "skills/sketch-design-to-code/SKILL.md",
+      "computedHash": "7cc2a01df21088f5e692062b2aa7547a295cfd27a145084e42a276207fab6736"
     }
   }
 }

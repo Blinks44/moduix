@@ -41,11 +41,9 @@ Follow these steps in order. The main flow should be enough for ordinary work; l
 
 1. Probe document context with `get_document_info`.
 2. Resolve implementation target (priority order):
-
-- Sketch share link — extract `/f/<canvas-frame-uuid>` from URLs like `https://sketch.com/s/<doc-uuid>/f/<frame-uuid>`; find that layer using the share-link guidance in `get_guide` with `topic: "use"`, and select it. Prefer this over current selection or name matching.
-- User-selected layer in Sketch.
-- Layer IDs or names via `get_document_info` / `get_layer_tree_summary`; use targeted `run_code` only if the dedicated tools cannot resolve the target. Confirm if multiple matches.
-
+  - Sketch share link — extract `/f/<canvas-frame-uuid>` from URLs like `https://sketch.com/s/<doc-uuid>/f/<frame-uuid>`; find that layer using the share-link guidance in `get_guide` with `topic: "use"`, and select it. Prefer this over current selection or name matching.
+  - User-selected layer in Sketch.
+  - Layer IDs or names via `get_document_info` / `get_layer_tree_summary`; use targeted `run_code` only if the dedicated tools cannot resolve the target. Confirm if multiple matches.
 3. Treat a target frame as a full page or screen unless the user explicitly says it is a partial component, section, or crop.
 4. Capture reference screenshot: `get_screenshot` on the target frame (`targetDocumentID` + `layerID`). This is the primary visual reference for implementation and validation.
 

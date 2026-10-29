@@ -41,11 +41,11 @@ React:
 
 ```tsx
 type IconButtonProps = {
-  label: string;
-  iconSrc: string;
-  iconAlt?: string;
-  onClick?: () => void;
-};
+  label: string
+  iconSrc: string
+  iconAlt?: string
+  onClick?: () => void
+}
 
 export function IconButton({ label, iconSrc, iconAlt = '', onClick }: IconButtonProps) {
   return (
@@ -53,15 +53,15 @@ export function IconButton({ label, iconSrc, iconAlt = '', onClick }: IconButton
       <img src={iconSrc} alt={iconAlt} className="h-[17px] w-[17px]" />
       <span>{label}</span>
     </button>
-  );
+  )
 }
 
 // Multiple Sketch instances of the same master → one component, data-driven list
 const items = [
   { label: '<Label A>', iconSrc: '/assets/icon-a.png' },
   { label: '<Label B>', iconSrc: '/assets/icon-b.png' },
-];
-items.map((it) => <IconButton key={it.label} {...it} />);
+]
+items.map((it) => <IconButton key={it.label} {...it} />)
 ```
 
 SwiftUI sketch:
@@ -76,7 +76,7 @@ struct IconButton: View {
 
 ### Composition: symbols inside symbols
 
-Mirror nesting in code. If an outer Sketch master _contains_ an inner master, expose the outer component as a composition over the inner one, not flattened into a single component. This preserves the override model on the design side and keeps code refactors local.
+Mirror nesting in code. If an outer Sketch master *contains* an inner master, expose the outer component as a composition over the inner one, not flattened into a single component. This preserves the override model on the design side and keeps code refactors local.
 
 Use `instance.overridesForExpandedLayer(nested)` (see `get_guide` with `topic: "symbols"`) to map nested overrides to the inner component's props.
 

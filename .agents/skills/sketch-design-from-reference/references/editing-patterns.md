@@ -18,19 +18,15 @@ if (!stack) {
   var before = stack.layers.length;
   var order = ['<CHILD-A-NAME>', '<CHILD-B-NAME>', '<CHILD-C-NAME>'];
   for (var i = 0; i < order.length; i++) {
-    var L = stack.layers.find(function (l) {
-      return l.name === order[i];
-    });
+    var L = stack.layers.find(function (l) { return l.name === order[i]; });
     if (L) L.index = i;
   }
   stack.stackLayout.apply();
-  console.log(
-    JSON.stringify({
-      ok: true,
-      childCountBefore: before,
-      childCountAfter: stack.layers.length,
-    }),
-  );
+  console.log(JSON.stringify({
+    ok: true,
+    childCountBefore: before,
+    childCountAfter: stack.layers.length,
+  }));
 }
 ```
 
@@ -44,14 +40,10 @@ Move children with `child.parent = newParent`; never rewrite a parent's entire `
 const sketch = require('sketch');
 const doc = sketch.getSelectedDocument();
 var frame = sketch.find('#' + '<FRAME-UUID>', doc)[0];
-var sourceStack = frame.layers.find(function (l) {
-  return l.name === '<SOURCE-STACK-NAME>';
-});
+var sourceStack = frame.layers.find(function (l) { return l.name === '<SOURCE-STACK-NAME>'; });
 var beforeSource = sourceStack.layers.length;
 
-var region = frame.layers.find(function (l) {
-  return l.name === '<REGION-NAME>';
-});
+var region = frame.layers.find(function (l) { return l.name === '<REGION-NAME>'; });
 if (!region) {
   region = new sketch.Group({
     parent: frame,
@@ -73,13 +65,11 @@ region.frame = {
   height: region.frame.height,
 };
 
-console.log(
-  JSON.stringify({
-    ok: true,
-    source: { id: sourceStack.id, before: beforeSource, after: sourceStack.layers.length },
-    region: { id: region.id, before: beforeRegion, after: region.layers.length },
-  }),
-);
+console.log(JSON.stringify({
+  ok: true,
+  source: { id: sourceStack.id, before: beforeSource, after: sourceStack.layers.length },
+  region: { id: region.id, before: beforeRegion, after: region.layers.length },
+}));
 ```
 
 If `beforeSource + beforeRegion !== sourceStack.layers.length + region.layers.length`, stop and tell the user to Undo.

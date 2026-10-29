@@ -38,11 +38,9 @@ Follow these steps in order. The main flow should be enough for ordinary work; l
 1. Fetch the required guides.
 2. Resolve the target document with `get_document_info`.
 3. Classify the reference type:
-
-- URL — gather page title, viewport width, DOM structure, source HTML, linked or bundled JavaScript/CSS when available, computed colors/fonts, copy, and asset URLs.
-- Screenshot — gather dimensions, regions, text content, alignment, and key colors.
-- Code — gather theme tokens, font stack, spacing scale, component names, inline SVGs, and asset imports.
-
+  - URL — gather page title, viewport width, DOM structure, source HTML, linked or bundled JavaScript/CSS when available, computed colors/fonts, copy, and asset URLs.
+  - Screenshot — gather dimensions, regions, text content, alignment, and key colors.
+  - Code — gather theme tokens, font stack, spacing scale, component names, inline SVGs, and asset imports.
 4. Extract a fidelity spec and capture a reference anchor screenshot at the target width before any layout mutations. The spec must include regions (top-to-bottom), verbatim copy, colors, typography, layout widths, and asset sources — see [references/reference-extraction.md](references/reference-extraction.md).
 
 For reference-specific extraction, read [references/reference-extraction.md](references/reference-extraction.md). For comparison and completion gates, read [references/validation.md](references/validation.md) before Step 5.

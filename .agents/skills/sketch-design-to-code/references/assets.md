@@ -12,6 +12,7 @@ Classify assets before exporting or coding them:
 - Text-bearing UI, cards, navigation, page sections → implement as code. Do not export the whole group as an image unless the source design itself is an actual bitmap layer.
 - Mixed card/section with text plus artwork → implement container, text, controls, and spacing as code; export only the inner artwork layer. Keep live text live and non-semantic artwork as assets.
 
+
 ## Rules
 
 - Export icons, bitmaps, logos, and other designed assets from Sketch when the document contains them.
