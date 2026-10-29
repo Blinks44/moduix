@@ -111,3 +111,27 @@ test('preserves asChild composition with a semantic select element', async () =>
     .toHaveAttribute('data-slot', 'native-select-root');
   expect(select.parentElement?.getAttribute('data-slot')).toBe('native-select-control');
 });
+test('keeps the declared selection of a multiple select', () => {
+  render(() => (
+    <>
+      <NativeSelect multiple aria-label="Frameworks">
+        <option value="react" selected>
+          React
+        </option>
+        <option value="vue" selected>
+          Vue
+        </option>
+        <option value="svelte">Svelte</option>
+      </NativeSelect>
+      <NativeSelect multiple aria-label="Runtimes">
+        <option value="node">Node</option>
+        <option value="deno">Deno</option>
+      </NativeSelect>
+    </>
+  ));
+
+  const [frameworks, runtimes] = document.querySelectorAll('select');
+
+  expect([...frameworks!.selectedOptions].map((option) => option.value)).toEqual(['react', 'vue']);
+  expect(runtimes!.selectedOptions).toHaveLength(0);
+});

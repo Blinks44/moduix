@@ -109,8 +109,12 @@ export const Invalid: Story = {
 export const Multiple: Story = {
   render: () => (
     <NativeSelect multiple size={3} aria-label="Frameworks">
-      <option value="react">React</option>
-      <option value="vue">Vue</option>
+      <option value="react" selected>
+        React
+      </option>
+      <option value="vue" selected>
+        Vue
+      </option>
       <option value="svelte">Svelte</option>
     </NativeSelect>
   ),

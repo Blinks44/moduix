@@ -138,3 +138,27 @@ test('lets consumer utilities replace defaults and hides the indicator for list 
   await expect.element(rootLocator).toHaveCSS('width', '320px');
   await expect.element(rootLocator).toHaveCSS('padding-left', '0px');
 });
+test('keeps the declared selection of a multiple select', () => {
+  render(() => (
+    <>
+      <NativeSelect multiple aria-label="Frameworks">
+        <option value="react" selected>
+          React
+        </option>
+        <option value="vue" selected>
+          Vue
+        </option>
+        <option value="svelte">Svelte</option>
+      </NativeSelect>
+      <NativeSelect multiple aria-label="Runtimes">
+        <option value="node">Node</option>
+        <option value="deno">Deno</option>
+      </NativeSelect>
+    </>
+  ));
+
+  const [frameworks, runtimes] = document.querySelectorAll('select');
+
+  expect([...frameworks!.selectedOptions].map((option) => option.value)).toEqual(['react', 'vue']);
+  expect(runtimes!.selectedOptions).toHaveLength(0);
+});
