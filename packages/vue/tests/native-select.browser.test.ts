@@ -141,6 +141,28 @@ test('preserves native form submission and reset behavior', async () => {
     .toHaveValue('react');
 });
 
+test('keeps natively selected options when uncontrolled', () => {
+  render({
+    components,
+    template: `
+      <NativeSelect aria-label="Framework">
+        <option value="react">React</option>
+        <option value="vue" selected>Vue</option>
+      </NativeSelect>
+      <NativeSelect multiple aria-label="Frameworks">
+        <option value="react" selected>React</option>
+        <option value="vue" selected>Vue</option>
+        <option value="svelte">Svelte</option>
+      </NativeSelect>
+    `,
+  });
+
+  const [single, multiple] = document.querySelectorAll('select');
+
+  expect(single!.value).toBe('vue');
+  expect([...multiple!.selectedOptions].map((option) => option.value)).toEqual(['react', 'vue']);
+});
+
 test('hides the indicator for native list controls', async () => {
   render({
     components,
