@@ -91,13 +91,22 @@ import * as AccordionDocs from '@/components/examples/accordion/css-properties';
 
 <Example name="accordion/root-provider" />
 
-### Расширенная настройка
+### Со слайдером
 
 В содержимое аккордеона можно поместить другой составной виджет на базе Ark, например `Slider`.
 Оставляйте структуру частей каждого примитива явной, чтобы нужный компонент сам обрабатывал клавиатуру
 и управлял скрытыми полями формы.
 
 <Example name="accordion/with-slider" />
+
+### Сборка из частей
+
+Тот же аккордеон, что в Basic, но без `AccordionItemBody` и с явной иконкой индикатора:
+`AccordionItemIndicator` рисует шеврон по умолчанию, только когда у него нет дочерних элементов, а
+тело стало обычным элементом внутри `AccordionItemContent`. Начинайте с него, если дизайн меняет иконку
+или отступы содержимого.
+
+<Example name="accordion/build-from-parts" />
 
 ## Композиция
 

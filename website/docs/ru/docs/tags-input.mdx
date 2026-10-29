@@ -135,13 +135,14 @@ import * as TagsInputDocs from '@/components/examples/tags-input/css-properties'
 
 <Example name="combobox/with-tags-input" />
 
-### Расширенная настройка
+### Сборка из частей
 
-Не используйте `TagsInputItems`, если каждому тегу нужны собственное содержимое или действия. Свяжите значения
-корня с полной структурой частей и оставьте `TagsInputItemInput` внутри каждого тега, если редактирование на
-месте всё ещё нужно.
+То же поле, что в Basic, но без `TagsInputItems`: `TagsInputContext` отдаёт значения, а каждый
+`TagsInputItem` содержит превью с текстом и кнопкой удаления и `TagsInputItemInput` для редактирования
+на месте. Кнопки удаления и очистки получают явные иконки. Начинайте с него, если тегам нужно своё
+содержимое или действия.
 
-<Example name="tags-input/advanced-customization" />
+<Example name="tags-input/build-from-parts" />
 
 ## Композиция
 

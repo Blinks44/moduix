@@ -69,6 +69,13 @@ Utilisez `min` et `max` lorsque la plage de progression diffère de la plage par
 
 <Example name="progress-linear/min-max" width="sm" />
 
+### Root Provider
+
+Créez l’état de progression avec `useProgress()` dans un composant parent, puis
+reliez-le aux parties rendues avec `ProgressLinearRootProvider`.
+
+<Example name="progress-linear/root-provider" width="sm" />
+
 ### Vues d’état
 
 Utilisez `ProgressLinearView` lorsque le texte ou l’interface d’accompagnement doit changer avec
@@ -90,13 +97,6 @@ En mode vertical, la hauteur par défaut est de `12rem`. Si votre mise en page n
 hauteur, définissez `height` sur la racine.
 
 <Example name="progress-linear/vertical" />
-
-### Personnalisation avancée
-
-Créez l’état de progression avec `useProgress()` dans un composant parent, puis
-reliez-le aux parties rendues avec `ProgressLinearRootProvider`.
-
-<Example name="progress-linear/root-provider" width="sm" />
 
 ## Composition
 

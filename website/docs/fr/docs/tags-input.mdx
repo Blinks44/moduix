@@ -137,13 +137,15 @@ les champs avec `asChild`.
 
 <Example name="combobox/with-tags-input" />
 
-### Personnalisation avancée
+### Assembler à partir des parties
 
-N’utilisez pas `TagsInputItems` lorsque chaque tag nécessite un contenu ou des actions personnalisés. Reliez
-les valeurs de la racine à l’arbre complet des parties et gardez `TagsInputItemInput` dans chaque élément si
-l’édition sur place doit rester possible.
+Le même champ que Basic, sans `TagsInputItems` : `TagsInputContext` fournit les valeurs, et chaque
+`TagsInputItem` contient l’aperçu avec son texte et son déclencheur de suppression, ainsi que
+`TagsInputItemInput` pour l’édition en ligne. Les déclencheurs de suppression et d’effacement reçoivent
+des icônes explicites. Partez de cet exemple quand les tags ont besoin d’un contenu ou d’actions
+personnalisés.
 
-<Example name="tags-input/advanced-customization" />
+<Example name="tags-input/build-from-parts" />
 
 ## Composition
 

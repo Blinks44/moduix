@@ -61,12 +61,13 @@ Pass a node as the `page` prop when the current page needs extra attributes, suc
 
 <Example name="breadcrumbs/long-current-label" />
 
-### Advanced Customization
+### Build from parts
 
-Use the explicit parts instead of `BreadcrumbsPath` when a trail combines framework links, a custom
-separator, and a current-page label with extra markup.
+The same trail as Basic, without `BreadcrumbsPath`: `BreadcrumbsList` holds one `BreadcrumbsItem` per
+link, a `BreadcrumbsSeparator` with an explicit icon between them, and `BreadcrumbsPage` for the
+current page. Start here when items need router links, extra markup, or different separators.
 
-<Example name="breadcrumbs/advanced-customization" />
+<Example name="breadcrumbs/build-from-parts" />
 
 ## Composition
 

@@ -135,12 +135,14 @@ Passez à l’orientation verticale lorsque le carrousel et ses contrôles doive
 
 <Example name="carousel/vertical" />
 
-### Personnalisation avancée
+### Assembler à partir des parties
 
-N’utilisez pas `CarouselIndicators` lorsque vous devez afficher vous-même `pageSnapPoints` ou placer la pagination
-à côté d’autres contrôles pilotés par le contexte.
+Le même carrousel que Basic, sans `CarouselIndicators` : `CarouselContext` fournit `pageSnapPoints`,
+et `CarouselIndicatorGroup` affiche un `CarouselIndicator` par page. Les déclencheurs précédent et
+suivant reçoivent des icônes explicites. Partez de cet exemple quand la pagination se place à côté
+d’autres contrôles ou a besoin d’un contenu personnalisé.
 
-<Example name="carousel/advanced-customization" />
+<Example name="carousel/build-from-parts" />
 
 ## Composition
 

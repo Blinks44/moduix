@@ -55,6 +55,19 @@ and automatically follow the active theme.
 
 <Example name="chart/line-colors" />
 
+### Dashboard Layout
+
+The Ark factory parts accept `asChild`, so they can apply their styles to semantic elements in your
+layout. This dashboard example combines Chart with Button, replaces the default `figure` and
+`figcaption` with a labelled `section` and `header`, and places the legend in the header.
+
+`ChartPlot` is still the TanStack host, not a slot. Use its `class` or `className` and `style` on
+the outer element, and use `renderTooltipBody` to extend the tooltip. Render `defaultBody` inside
+your own wrapper while TanStack continues to position and portal it. Add interactive controls only
+to a pinned tooltip.
+
+<Example name="chart/dashboard-layout" />
+
 ### Interactive legend
 
 Use TanStack's `interactiveColorLegend` instead of a separate `ChartLegend` when readers need to
@@ -112,19 +125,6 @@ Use a TanStack color channel and the `stack()` layout for multi-series bars. `fo
 keeps the tooltip and keyboard focus grouped by quarter.
 
 <Example name="chart/stacked-bars" />
-
-### Advanced Customization
-
-The Ark factory parts accept `asChild`, so they can apply their styles to semantic elements in your
-layout. This dashboard example combines Chart with Button, replaces the default `figure` and
-`figcaption` with a labelled `section` and `header`, and places the legend in the header.
-
-`ChartPlot` is still the TanStack host, not a slot. Use its `class` or `className` and `style` on
-the outer element, and use `renderTooltipBody` to extend the tooltip. Render `defaultBody` inside
-your own wrapper while TanStack continues to position and portal it. Add interactive controls only
-to a pinned tooltip.
-
-<Example name="chart/advanced-customization" />
 
 ## Composition
 

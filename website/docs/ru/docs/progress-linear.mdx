@@ -69,6 +69,13 @@ React, Solid и Vue используют одинаковые плоские и�
 
 <Example name="progress-linear/min-max" width="sm" />
 
+### Root Provider
+
+Создайте состояние прогресса с помощью `useProgress()` в родительском компоненте,
+а затем подключите его к частям через `ProgressLinearRootProvider`.
+
+<Example name="progress-linear/root-provider" width="sm" />
+
 ### Представления состояния
 
 Используйте `ProgressLinearView`, если вспомогательный текст или интерфейс должен меняться вместе
@@ -90,13 +97,6 @@ React, Solid и Vue используют одинаковые плоские и�
 задайте `height` на корневой части.
 
 <Example name="progress-linear/vertical" />
-
-### Расширенная настройка
-
-Создайте состояние прогресса с помощью `useProgress()` в родительском компоненте,
-а затем подключите его к частям через `ProgressLinearRootProvider`.
-
-<Example name="progress-linear/root-provider" width="sm" />
 
 ## Композиция
 

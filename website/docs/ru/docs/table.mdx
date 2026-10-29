@@ -50,6 +50,14 @@ import * as TableDocs from '@/components/examples/table/css-properties';
 
 <Example name="table/column-group-and-borders" />
 
+### Своя обёртка
+
+Используйте собственный контейнер вместо `TableScrollArea`, если родительская разметка уже
+отвечает за фон или прокрутку. При этом композиция нативных частей таблицы останется явной, а
+оформление контейнера будет полностью под вашим контролем.
+
+<Example name="table/custom-wrapper" />
+
 ### Пустое состояние
 
 Используйте `TableEmpty`, если в теле таблицы нет строк. Значение `colSpan` должно совпадать с
@@ -106,14 +114,6 @@ import * as TableDocs from '@/components/examples/table/css-properties';
 лёгкой обёрткой над нативной таблицей.
 
 <Example name="table/with-scrollarea" />
-
-### Расширенная настройка
-
-Используйте собственный контейнер вместо `TableScrollArea`, если родительская разметка уже
-отвечает за фон или прокрутку. При этом композиция нативных частей таблицы останется явной, а
-оформление контейнера будет полностью под вашим контролем.
-
-<Example name="table/custom-composition" />
 
 ## Композиция
 

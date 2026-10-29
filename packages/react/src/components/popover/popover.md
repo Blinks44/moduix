@@ -107,8 +107,9 @@ export function PopoverDemo() {
 }
 ```
 
-The docs "Advanced customization" example builds the popup without the moduix helpers:
-`PopoverCloseTrigger asChild` around `CloseButton` and an explicit `PopoverArrowTip`.
+The docs "Build from parts" example renders Basic without `PopoverHeader` and `PopoverFooter`.
+`PopoverCloseIcon` is `PopoverCloseTrigger asChild` around `CloseButton`, and `PopoverArrow` renders
+`PopoverArrowTip` when it has no children.
 
 ## Accessibility and state
 

@@ -68,6 +68,14 @@ doit utiliser des libellés adaptés à votre produit.
 
 <Example name="clipboard/custom-copy-text" />
 
+### Éléments personnalisés
+
+Utilisez `asChild` pour que vos propres éléments de champ et de bouton rendent les parties Clipboard,
+tout en conservant l’état et le comportement du composant. Avec `asChild`, `ClipboardInput` et
+`ClipboardTrigger` n’ajoutent pas leurs propres styles : le composant enfant garde son apparence.
+
+<Example name="clipboard/custom-elements" />
+
 ### État désactivé
 
 Transmettez `disabled` au champ et au bouton lorsque les utilisateurs peuvent voir la valeur, mais ne
@@ -95,14 +103,6 @@ Utilisez `ClipboardValueText` lorsque la valeur doit apparaître comme du texte 
 champ de saisie.
 
 <Example name="clipboard/value-text" />
-
-### Personnalisation avancée
-
-Utilisez `asChild` pour que vos propres éléments de champ et de bouton rendent les parties Clipboard,
-tout en conservant l’état et le comportement du composant. Avec `asChild`, `ClipboardInput` et
-`ClipboardTrigger` n’ajoutent pas leurs propres styles : le composant enfant garde son apparence.
-
-<Example name="clipboard/as-child" />
 
 ## Composition
 

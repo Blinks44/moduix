@@ -103,12 +103,14 @@ Reset показывает встроенный в Ark сброс формы. У
 
 <Example name="angle-slider/with-marks" />
 
-### Расширенная настройка
+### Сборка из частей
 
-Используйте явные части вместо `AngleSliderDial` и `AngleSliderMarks`, если диску нужна собственная
-композиция маркеров или дополнительные дочерние элементы внутри области управления.
+Тот же регулятор, что в Basic, но без `AngleSliderDial`: `AngleSliderControl` содержит
+`AngleSliderValueText` и `AngleSliderThumb`. `AngleSliderMarks` из примера с отметками состоит из
+`AngleSliderMarkerGroup` и одного `AngleSliderMarker` на каждое значение. Начинайте с него, если
+регулятору нужны дополнительные элементы или свои отметки.
 
-<Example name="angle-slider/advanced-customization" />
+<Example name="angle-slider/build-from-parts" />
 
 ## Композиция
 

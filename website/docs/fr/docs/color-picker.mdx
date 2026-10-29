@@ -146,12 +146,15 @@ sélecteur complet.
 
 <Example name="color-picker/value-swatch" />
 
-### Personnalisation avancée
+### Assembler à partir des parties
 
-Utilisez des parties et des enfants explicites lorsque la composition intégrée ne suffit pas et qu’une autre structure
-visuelle est nécessaire.
+Le même sélecteur que Basic avec tous les enfants par défaut écrits explicitement :
+`ColorPickerValueSwatch` dans le déclencheur, le fond et le curseur de la zone, un
+`ColorPickerChannelSlider` par canal au lieu de `ColorPickerSliders`, et des nuanciers avec
+`ColorPickerSwatchIndicator`. La pipette et l’indicateur de nuancier reçoivent des icônes explicites.
+Partez de cet exemple quand le design réorganise la fenêtre.
 
-<Example name="color-picker/advanced-customization" />
+<Example name="color-picker/build-from-parts" />
 
 ## Composition
 

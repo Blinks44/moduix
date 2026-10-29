@@ -40,6 +40,13 @@ Ajoutez `action: { label, onClick }` lorsque la notification doit proposer une a
 
 <Example name="toast/action" />
 
+### Composition personnalisée
+
+Utilisez la render prop pour remplacer le rendu standard de `ToastToaster`, ajouter une icône, remplacer
+l’icône de fermeture et appliquer des variables CSS propres au composant.
+
+<Example name="toast/custom-composition" />
+
 ### Durée
 
 Définissez `duration` en millisecondes lorsqu’une notification doit disparaître plus tôt, rester
@@ -90,12 +97,15 @@ Conservez l’identifiant renvoyé lors de la création d’une notification et 
 
 <Example name="toast/update" />
 
-### Personnalisation avancée
+### Assembler à partir des parties
 
-Utilisez la render prop pour remplacer le rendu standard de `ToastToaster`, ajouter une icône, remplacer
-l’icône de fermeture et appliquer des variables CSS propres au composant.
+Le même toast que Basic avec le rendu par défaut écrit explicitement : la fonction de `ToastToaster`
+renvoie `Toast` avec `ToastTitle`, `ToastDescription` et `ToastCloseTrigger` avec une icône explicite.
+Le rendu intégré ajoute aussi un spinner aux titres de chargement et un `ToastActionTrigger` quand un
+toast a une action. Partez de cet exemple quand les toasts ont besoin d’icônes ou d’une autre mise en
+page.
 
-<Example name="toast/custom-composition" />
+<Example name="toast/build-from-parts" />
 
 ## Composition
 

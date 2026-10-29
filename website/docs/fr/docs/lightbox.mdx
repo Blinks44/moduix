@@ -70,6 +70,13 @@ avec l’état de l’application en React ou en Solid. En Vue, utilisez `v-mode
 
 <Example name="lightbox/controlled" />
 
+### Styles personnalisés
+
+Passez des classes à l’arrière-plan, au contenu et au bouton de fermeture et remplacez leurs tokens
+lorsque la zone média a besoin de son propre style.
+
+<Example name="lightbox/custom-styling" />
+
 ### Focus et identifiants
 
 Utilisez `initialFocusEl`, `finalFocusEl` et `ids` lorsque la lightbox nécessite des cibles de focus
@@ -110,12 +117,13 @@ Dans un composant enfant, lisez l’état avec `useLightboxContext()`. Le bouton
 
 <Example name="lightbox/root-provider-and-context" />
 
-### Personnalisation avancée
+### Assembler à partir des parties
 
-N’utilisez pas les conteneurs facultatifs lorsque la zone média nécessite ses propres classes de slots
-et des remplacements de tokens. `LightboxBackdrop`, `LightboxPositioner` et `LightboxContent` restent explicites.
+Le même lightbox que Basic, sans `LightboxCloseIcon` : `LightboxCloseTrigger` entoure `CloseButton`
+avec une icône explicite et une classe qui le fixe dans le coin. `LightboxBody` reste, car il porte
+l’animation d’ouverture et de fermeture de l’image.
 
-<Example name="lightbox/advanced-customization" />
+<Example name="lightbox/build-from-parts" />
 
 ## Composition
 

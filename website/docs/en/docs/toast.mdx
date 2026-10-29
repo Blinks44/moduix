@@ -40,6 +40,13 @@ Add `action: { label, onClick }` when the notification should offer one direct f
 
 <Example name="toast/action" />
 
+### Custom Composition
+
+Use the render prop to bypass the default `ToastToaster` renderer, add an icon, replace the close icon,
+and apply component-specific CSS variables.
+
+<Example name="toast/custom-composition" />
+
 ### Duration
 
 Set `duration` in milliseconds when a notification should disappear sooner, stay visible longer, or
@@ -89,12 +96,14 @@ notification should change in place.
 
 <Example name="toast/update" />
 
-### Advanced Customization
+### Build from parts
 
-Use the render prop to bypass the default `ToastToaster` renderer, add an icon, replace the close icon,
-and apply component-specific CSS variables.
+The same toast as Basic with the default renderer written out: the `ToastToaster` render function
+returns `Toast` with `ToastTitle`, `ToastDescription`, and `ToastCloseTrigger` with an explicit icon.
+The built-in renderer also adds a spinner to loading titles and a `ToastActionTrigger` when a toast has
+an action. Start here when toasts need icons or a different layout.
 
-<Example name="toast/custom-composition" />
+<Example name="toast/build-from-parts" />
 
 ## Composition
 

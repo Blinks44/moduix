@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { Button } from '@moduix/vue/button';
+import { Card, CardBody } from '@moduix/vue/card';
 import {
   Drawer,
   DrawerBackdrop,
@@ -38,11 +39,17 @@ const notifications = [
             >Three updates need your attention.</DrawerDescription
           ></DrawerHeader
         >
-        <DrawerBody :class="styles.body"
-          ><ul>
-            <li v-for="notification in notifications" :key="notification">{{ notification }}</li>
-          </ul></DrawerBody
-        >
+        <DrawerBody :class="styles.body">
+          <Card size="sm" :class="styles.card">
+            <CardBody>
+              <ul>
+                <li v-for="notification in notifications" :key="notification">
+                  {{ notification }}
+                </li>
+              </ul>
+            </CardBody>
+          </Card>
+        </DrawerBody>
         <DrawerFooter
           ><Button>View inbox</Button
           ><DrawerCloseTrigger as-child

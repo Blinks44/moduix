@@ -106,12 +106,15 @@ React, Solid и Vue используют одинаковые плоские и�
 
 <Example name="floating-panel/root-provider" />
 
-### Расширенная настройка
+### Сборка из частей
 
-Используйте отдельные части `FloatingPanelResizeTrigger`, если каждой оси изменения размера нужны свои положение
-или стили.
+Та же панель, что в Basic, но без `FloatingPanelCloseIcon`, `FloatingPanelDragIndicator`,
+`FloatingPanelFooter` и `FloatingPanelResizeTriggerGroup`: кнопки режима и закрытия получают явные
+иконки, подвал стал обычным элементом, а каждая ось изменения размера стала отдельным
+`FloatingPanelResizeTrigger`. Начинайте с него, если дизайн меняет кнопки в шапке или оставляет только
+часть ручек.
 
-<Example name="floating-panel/advanced-customization" />
+<Example name="floating-panel/build-from-parts" />
 
 ## Композиция
 

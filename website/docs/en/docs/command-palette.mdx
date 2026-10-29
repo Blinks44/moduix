@@ -58,12 +58,14 @@ after the selected action runs.
 
 <Example name="command-palette/item-actions" />
 
-### Advanced Customization
+### Build from parts
 
-Render the explicit dialog and search parts when the palette needs a custom header or search layout. The
-example keeps Ark Dialog and Combobox behavior while replacing the convenience `CommandPalettePanel` and `CommandPaletteSearch` helpers.
+The same palette as Basic, without `CommandPalettePanel`, `CommandPaletteSearch`, and
+`CommandPaletteFooter`: the backdrop, positioner, and content are explicit, the search row is
+`CommandPaletteControl` with an icon, `CommandPaletteInput`, and `CommandPaletteClearTrigger`, and the
+footer is a plain element. Start here when a design adds a header or changes the search row.
 
-<Example name="command-palette/advanced-customization" />
+<Example name="command-palette/build-from-parts" />
 
 ## Composition
 

@@ -54,7 +54,7 @@ detail types are re-exported from `@ark-ui/react/tags-input`.
 
 - Ark props, callbacks, and detail objects pass through unchanged; there are no local aliases.
 - `TagsInputItems` has no props. For custom tag content, map `tagsInput.value` from
-  `TagsInputContext` and compose the item parts; the "Advanced customization" example does this.
+  `TagsInputContext` and compose the item parts; the "Build from parts" example does this.
 - `TagsInputClearTrigger` renders `CloseButton` through Ark `asChild`, so Ark's label
   (`translations.clearTriggerLabel`, default `Clear all tags`), anatomy, `disabled`, and `hidden`
   land on that button. Custom children replace the icon. `aria-label` and `aria-labelledby` pass

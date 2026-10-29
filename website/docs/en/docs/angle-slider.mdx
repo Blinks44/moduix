@@ -99,12 +99,13 @@ composition together.
 
 <Example name="angle-slider/with-marks" />
 
-### Advanced Customization
+### Build from parts
 
-Use the explicit parts instead of `AngleSliderDial` and `AngleSliderMarks` when the dial needs a
-custom marker composition or extra children inside the control.
+The same dial as Basic, without `AngleSliderDial`: `AngleSliderControl` holds `AngleSliderValueText`
+and `AngleSliderThumb`. `AngleSliderMarks` from With Marks is an `AngleSliderMarkerGroup` with one
+`AngleSliderMarker` per value. Start here when the dial needs extra children or custom markers.
 
-<Example name="angle-slider/advanced-customization" />
+<Example name="angle-slider/build-from-parts" />
 
 ## Composition
 

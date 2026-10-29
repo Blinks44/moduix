@@ -141,13 +141,14 @@ ou indiquer qu’il est obligatoire ou invalide.
 
 <Example name="file-upload/with-field" />
 
-### Personnalisation avancée
+### Assembler à partir des parties
 
-Remplacez `FileUploadItems` par vos propres lignes lorsque vous avez besoin d’aperçus selon le type MIME, de métadonnées supplémentaires
-ou d’une autre disposition. La composition explicite avec `FileUploadContext` vous permet de conserver l’accès à l’état Ark
-et de choisir un aperçu d’image ou un aperçu de secours pour chaque fichier.
+Le même envoi que Basic, sans `FileUploadItems` : `FileUploadContext` fournit les fichiers acceptés,
+et chaque `FileUploadItem` contient l’aperçu, le nom, les métadonnées et un déclencheur de suppression
+avec une icône explicite. Partez de cet exemple quand les lignes ont besoin d’aperçus selon le type
+MIME, de métadonnées supplémentaires ou d’une autre mise en page.
 
-<Example name="file-upload/advanced-customization" />
+<Example name="file-upload/build-from-parts" />
 
 ## Composition
 

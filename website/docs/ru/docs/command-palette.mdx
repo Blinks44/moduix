@@ -61,13 +61,14 @@ import * as CommandPaletteDocs from '@/components/examples/command-palette/css-p
 
 <Example name="command-palette/item-actions" />
 
-### Расширенная настройка
+### Сборка из частей
 
-Используйте явные части диалога и поиска, если палитре нужны собственный заголовок или нестандартная строка
-поиска. В примере сохраняется поведение Ark Dialog и Combobox, а готовые помощники `CommandPalettePanel` и `CommandPaletteSearch` заменяются
-явной разметкой.
+Та же палитра, что в Basic, но без `CommandPalettePanel`, `CommandPaletteSearch` и
+`CommandPaletteFooter`: фон, позиционер и содержимое записаны явно, строка поиска собрана из
+`CommandPaletteControl` с иконкой, `CommandPaletteInput` и `CommandPaletteClearTrigger`, а подвал стал
+обычным элементом. Начинайте с него, если дизайн добавляет шапку или меняет строку поиска.
 
-<Example name="command-palette/advanced-customization" />
+<Example name="command-palette/build-from-parts" />
 
 ## Композиция
 

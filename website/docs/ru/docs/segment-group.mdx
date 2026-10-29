@@ -63,6 +63,13 @@ import { CssPropertiesSection } from '@/components/mdx/Components';
 
 <Example name="segment-group/controlled" />
 
+### Пользовательская разметка элемента
+
+Используйте `SegmentGroupItem asChild` вместо `SegmentGroupItems`, если собственная разметка
+подписи должна владеть DOM-узлом элемента.
+
+<Example name="segment-group/custom-item-layout" />
+
 ### Отключённый элемент и группа
 
 Задайте `disabled` на отдельном элементе, если недоступным должен быть только этот сегмент. Чтобы
@@ -114,12 +121,13 @@ import { CssPropertiesSection } from '@/components/mdx/Components';
 
 <Example name="segment-group/vertical-orientation" />
 
-### Расширенная настройка
+### Сборка из частей
 
-Используйте `SegmentGroupItem asChild` вместо `SegmentGroupItems`, если собственная разметка
-подписи должна владеть DOM-узлом элемента.
+Та же группа, что в Basic, но без `SegmentGroupItems`: каждый `SegmentGroupItem` содержит
+`SegmentGroupItemText` и `SegmentGroupItemHiddenInput`. Начинайте с него, если пунктам нужно разное
+содержимое или пропсы.
 
-<Example name="segment-group/aschild" />
+<Example name="segment-group/build-from-parts" />
 
 ## Композиция
 

@@ -34,6 +34,15 @@ Commencez par `<Empty />` et ajoutez les parties du composant dont vous avez bes
 
 ## Exemples
 
+### Élément personnalisé
+
+Utilisez la propriété `asChild` sur `Empty` lorsque l’état vide doit être rendu dans un conteneur
+sémantique, tel que `section`. Utilisez-la sur `EmptyTitle` lorsque le titre doit avoir un autre niveau.
+Comme `EmptyDescription` est rendu sous la forme d’un `div`, il peut contenir des paragraphes, des liens
+et d’autres éléments de type bloc.
+
+<Example name="empty/custom-element" />
+
 ### Sans actions
 
 N’ajoutez pas `EmptyActions` lorsque l’état est informatif et ne nécessite aucune action immédiate.
@@ -45,15 +54,6 @@ N’ajoutez pas `EmptyActions` lorsque l’état est informatif et ne nécessite
 L’icône est facultative : un état vide composé uniquement de texte peut donc rester compact.
 
 <Example name="empty/without-icon" />
-
-### Personnalisation avancée
-
-Utilisez la propriété `asChild` sur `Empty` lorsque l’état vide doit être rendu dans un conteneur
-sémantique, tel que `section`. Utilisez-la sur `EmptyTitle` lorsque le titre doit avoir un autre niveau.
-Comme `EmptyDescription` est rendu sous la forme d’un `div`, il peut contenir des paragraphes, des liens
-et d’autres éléments de type bloc.
-
-<Example name="empty/advanced-customization" />
 
 ## Composition
 

@@ -49,6 +49,13 @@ Use `align` when alignment belongs to the text rather than its surrounding layou
 
 <Example name="text/alignment" />
 
+### Custom Element
+
+Use `asChild` when the root should be an existing custom element instead of one of the supported
+intrinsic `as` values. The child must be a single element that accepts the forwarded props and ref.
+
+<Example name="text/custom-element" />
+
 ### Semantics
 
 Use `as` to choose a semantic HTML element while keeping `Text`'s typography styles.
@@ -80,13 +87,6 @@ expansion or disclosure behavior in the surrounding UI.
 Use `weight` when the emphasis should stay within the same semantic element.
 
 <Example name="text/weight" />
-
-### Advanced Customization
-
-Use `asChild` when the root should be an existing custom element instead of one of the supported
-intrinsic `as` values. The child must be a single element that accepts the forwarded props and ref.
-
-<Example name="text/custom-composition" />
 
 ## Composition
 

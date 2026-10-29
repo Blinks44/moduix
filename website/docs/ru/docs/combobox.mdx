@@ -99,6 +99,13 @@ import * as ComboboxDocs from '@/components/examples/combobox/css-properties';
 
 <Example name="combobox/limit-results" />
 
+### Ссылки
+
+Отрисуйте каждый результат ссылкой через `ComboboxItem asChild`, если выбор пункта должен вести на
+другую страницу. `selectionBehavior="preserve"` сохраняет введённый текст после выбора.
+
+<Example name="combobox/links" />
+
 ### Множественный выбор
 
 Включите `multiple` и отображайте выбранные объекты из управляемого `value`. Теги нужно отрисовать на стороне приложения.
@@ -129,12 +136,13 @@ import * as ComboboxDocs from '@/components/examples/combobox/css-properties';
 
 <Example name="combobox/with-tags-input" />
 
-### Расширенная настройка
+### Сборка из частей
 
-Используйте полную композицию элемента, если ему нужен собственный семантический элемент или макет. В этом примере
-каждый результат отображается как ссылка через `ComboboxItem asChild`.
+Тот же Combobox, что в Basic, но без `ComboboxOption`: каждый `ComboboxItem` содержит
+`ComboboxItemText` и `ComboboxItemIndicator`, а кнопка очистки, шеврон и галочка получают иконки
+напрямую. Начинайте с него, если дизайн меняет поле или раскладку пунктов.
 
-<Example name="combobox/advanced-customization" />
+<Example name="combobox/build-from-parts" />
 
 ## Композиция
 

@@ -132,12 +132,14 @@ custom tags. Share the input and control IDs and compose the inputs with `asChil
 
 <Example name="combobox/with-tags-input" />
 
-### Advanced Customization
+### Build from parts
 
-Bypass `TagsInputItems` when each tag needs custom content or actions. Map the root values to the full item
-tree and keep `TagsInputItemInput` in each item if inline editing is still needed.
+The same field as Basic, without `TagsInputItems`: `TagsInputContext` provides the values, and each
+`TagsInputItem` holds the preview with its text and delete trigger plus `TagsInputItemInput` for inline
+editing. The delete and clear triggers receive explicit icons. Start here when tags need custom
+content or actions.
 
-<Example name="tags-input/advanced-customization" />
+<Example name="tags-input/build-from-parts" />
 
 ## Composition
 

@@ -48,6 +48,13 @@ Passez le tableau de dates sélectionnées à `value` et mettez-le à jour avec 
 
 <Example name="date-input/controlled" />
 
+### Segments personnalisés
+
+Stylisez chaque segment selon ses données Ark avec `DateInputSegmentContext`. Dans cet exemple, le
+segment du jour reçoit sa propre classe.
+
+<Example name="date-input/custom-segments" />
+
 ### Désactivé et en lecture seule
 
 Utilisez `disabled` pour empêcher toute interaction. Utilisez `readOnly` lorsque la valeur doit rester
@@ -116,12 +123,13 @@ ne fait pas partie de la valeur modifiée par l’utilisateur.
 
 <Example name="date-input/time-only" />
 
-### Personnalisation avancée
+### Assembler à partir des parties
 
-Utilisez la composition complète des segments lorsque le rendu doit varier selon les données du segment Ark.
-`DateInputSegments` reste la voie recommandée pour le rendu standard.
+Le même champ que Basic, sans `DateInputSegments` : `DateInputSegmentGroup` contient
+`DateInputSegmentContext`, qui affiche un `DateInputSegment` par segment Ark. Partez de cet exemple
+quand les segments ou les séparateurs ont besoin de leur propre balisage.
 
-<Example name="date-input/advanced-customization" />
+<Example name="date-input/build-from-parts" />
 
 ## Composition
 

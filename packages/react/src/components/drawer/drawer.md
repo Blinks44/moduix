@@ -160,7 +160,7 @@ State hooks: `data-state`, `data-swipe-direction` (the resolved physical directi
 - `DrawerHeader`, `DrawerBody`, and `DrawerFooter` are plain layout helpers with no state.
   `DrawerHeader` places the title and `DrawerCloseIcon` in one row and lets the description span it.
 - `DrawerContent size` follows the Dialog `size` pattern and the Chakra UI drawer sizes.
-- The "Advanced customization" docs example builds the drawer without any of these helpers.
+- The "Build from parts" docs example builds the drawer without any of these helpers.
 
 ## Agent notes
 

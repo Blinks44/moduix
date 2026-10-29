@@ -48,6 +48,13 @@ Pass the selected date array to `value` and update it from `details.value` in `o
 
 <Example name="date-input/controlled" />
 
+### Custom Segments
+
+Style each segment from its Ark data with `DateInputSegmentContext`. This example gives the day
+segment its own class.
+
+<Example name="date-input/custom-segments" />
+
 ### Disabled and read-only
 
 Use `disabled` to prevent interaction. Use `readOnly` when the value should remain focusable but not
@@ -114,12 +121,13 @@ of the value users edit.
 
 <Example name="date-input/time-only" />
 
-### Advanced customization
+### Build from parts
 
-Use the full segment composition when rendering needs to vary based on Ark segment data.
-`DateInputSegments` remains the default path for standard rendering.
+The same input as Basic, without `DateInputSegments`: `DateInputSegmentGroup` holds
+`DateInputSegmentContext`, which renders one `DateInputSegment` per Ark segment. Start here when
+segments or literals need their own markup.
 
-<Example name="date-input/advanced-customization" />
+<Example name="date-input/build-from-parts" />
 
 ## Composition
 

@@ -90,6 +90,14 @@ empilés disposent de l'espace nécessaire pour être redimensionnés.
 
 <Example name="splitter/vertical" />
 
+### Assembler à partir des parties
+
+Le même séparateur que Basic avec la poignée écrite explicitement : `SplitterResizeTrigger` n’ajoute
+`SplitterResizeTriggerIndicator` que s’il n’a pas d’enfants. Partez de cet exemple quand le design
+remplace la poignée ou y ajoute du contenu.
+
+<Example name="splitter/build-from-parts" />
+
 ## Composition
 
 Utilisez `size` avec `onResize(details)` lorsque l'application doit gérer les tailles actuelles des

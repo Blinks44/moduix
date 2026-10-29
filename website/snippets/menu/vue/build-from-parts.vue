@@ -1,0 +1,40 @@
+<script setup lang="ts">
+import { ChevronDown as ChevronDownIcon } from '@lucide/vue';
+import { Button } from '@moduix/vue/button';
+import {
+  Menu,
+  MenuContent,
+  MenuIndicator,
+  MenuItem,
+  MenuPositioner,
+  MenuTrigger,
+  MenuViewport,
+} from '@moduix/vue/menu';
+
+const fileItems = [
+  { value: 'new-file', label: 'New File' },
+  { value: 'open', label: 'Open...' },
+  { value: 'save', label: 'Save' },
+  { value: 'save-as', label: 'Save As...' },
+];
+</script>
+
+<template>
+  <Menu>
+    <MenuTrigger as-child>
+      <Button>
+        File
+        <MenuIndicator><ChevronDownIcon :stroke-width="3" /></MenuIndicator>
+      </Button>
+    </MenuTrigger>
+    <MenuPositioner>
+      <MenuContent>
+        <MenuViewport>
+          <MenuItem v-for="item in fileItems" :key="item.value" :value="item.value">
+            {{ item.label }}
+          </MenuItem>
+        </MenuViewport>
+      </MenuContent>
+    </MenuPositioner>
+  </Menu>
+</template>

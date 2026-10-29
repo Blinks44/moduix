@@ -108,13 +108,13 @@ the cropper. The example keeps rotation and flip state controlled.
 
 <Example name="image-cropper/rotation-flip-and-reset" />
 
-### Advanced Customization
+### Build from parts
 
-Replace `ImageCropperCropArea` with the explicit `ImageCropperSelection`, `ImageCropperGrid`, and
-`ImageCropperHandle` parts when the crop area needs a different structure or custom child parts.
-`ImageCropperGrid` requires an `axis`, and `ImageCropperHandle` requires a `position`.
+The same cropper as Basic, without `ImageCropperCropArea`: `ImageCropperSelection` holds two
+`ImageCropperGrid` lines with an `axis` and one `ImageCropperHandle` per `position` from
+`ImageCropperHandles`. Start here when the crop area needs fewer handles or custom children.
 
-<Example name="image-cropper/advanced-customization" />
+<Example name="image-cropper/build-from-parts" />
 
 ## Composition
 

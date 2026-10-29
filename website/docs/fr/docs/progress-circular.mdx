@@ -71,14 +71,6 @@ afin que le texte visible corresponde à la chaîne de valeur accessible.
 
 <Example name="progress-circular/value-text" />
 
-### Personnalisation avancée
-
-Utilisez les parties individuelles du cercle à la place de `ProgressCircularRing` lorsque
-l’arborescence SVG ou la gestion de l’état doit être personnalisée. Seule la composition directe
-permet de donner à `ProgressCircularCircleTrack` et `ProgressCircularCircleRange` leurs propres classes, comme dans cet exemple.
-
-<Example name="progress-circular/circle-parts" />
-
 ### Root Provider
 
 Créez le store avec `useProgress()` et passez-le à `ProgressCircularRootProvider` lorsqu’un autre
@@ -92,6 +84,14 @@ Utilisez `ProgressCircularView` lorsque le texte ou l’interface d’accompagne
 l’état de progression Ark.
 
 <Example name="progress-circular/state-views" />
+
+### Assembler à partir des parties
+
+La même progression que Basic, sans `ProgressCircularRing` : `ProgressCircularCircle` contient
+`ProgressCircularCircleTrack` et `ProgressCircularCircleRange`. Partez de cet exemple quand la piste et
+la plage ont besoin de leurs propres classes ou que l’arbre SVG a besoin d’enfants supplémentaires.
+
+<Example name="progress-circular/build-from-parts" />
 
 ## Composition
 

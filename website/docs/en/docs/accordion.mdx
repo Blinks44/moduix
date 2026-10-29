@@ -89,12 +89,21 @@ same store.
 
 <Example name="accordion/root-provider" />
 
-### Advanced Customization
+### With Slider
 
 Accordion content can contain another Ark-based composite widget, such as `Slider`. Keep each
 primitive's part tree explicit so the right component owns keyboard handling and hidden form inputs.
 
 <Example name="accordion/with-slider" />
+
+### Build from parts
+
+The same accordion as Basic, without `AccordionItemBody` and with the indicator icon written out:
+`AccordionItemIndicator` renders a default chevron only when it has no children, and the body is a
+plain element inside `AccordionItemContent`. Start here when a design changes the icon or the content
+spacing.
+
+<Example name="accordion/build-from-parts" />
 
 ## Composition
 

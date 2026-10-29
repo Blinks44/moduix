@@ -107,12 +107,15 @@ via un accessor.
 
 <Example name="floating-panel/root-provider" />
 
-### Personnalisation avancée
+### Assembler à partir des parties
 
-Utilisez des parties `FloatingPanelResizeTrigger` distinctes lorsque chaque axe de redimensionnement doit avoir
-son propre emplacement ou style.
+Le même panneau que Basic, sans `FloatingPanelCloseIcon`, `FloatingPanelDragIndicator`,
+`FloatingPanelFooter` ni `FloatingPanelResizeTriggerGroup` : les déclencheurs d’état et de fermeture
+reçoivent des icônes explicites, le pied de page est un simple élément et chaque axe de
+redimensionnement est un `FloatingPanelResizeTrigger`. Partez de cet exemple quand le design modifie
+les contrôles de l’en-tête ou ne garde qu’une partie des poignées.
 
-<Example name="floating-panel/advanced-customization" />
+<Example name="floating-panel/build-from-parts" />
 
 ## Composition
 

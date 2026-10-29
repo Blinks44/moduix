@@ -50,6 +50,13 @@ unavailable too.
 
 <Example name="input-group/disabled" />
 
+### Custom Element
+
+Use `asChild` when the root must render a custom container instead of the default `div`. The group
+keeps its styling and size context, and the child must remain a semantic layout container.
+
+<Example name="input-group/custom-element" />
+
 ### Field State
 
 Set `invalid` on `Field` when validation fails. Ark passes the state and required ARIA attributes to
@@ -94,13 +101,6 @@ for your language, or use `aria-labelledby`; children replace the default icon.
 The compact hover surface matches the clear buttons in Select and Combobox.
 
 <Example name="input-group/clear-trigger" />
-
-### Advanced Customization
-
-Use `asChild` when the root must render a custom container instead of the default `div`. The group
-keeps its styling and size context, and the child must remain a semantic layout container.
-
-<Example name="input-group/as-child" />
 
 ## Composition
 

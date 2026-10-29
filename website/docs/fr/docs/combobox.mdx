@@ -99,6 +99,13 @@ Définissez `limit` dans `useListCollection` lorsque tous les résultats ne sont
 
 <Example name="combobox/limit-results" />
 
+### Liens
+
+Affichez chaque résultat comme un lien avec `ComboboxItem asChild` lorsque le choix d’un élément doit
+naviguer. `selectionBehavior="preserve"` conserve le texte saisi après un choix.
+
+<Example name="combobox/links" />
+
 ### Sélection multiple
 
 Activez `multiple` et affichez les objets sélectionnés depuis la valeur contrôlée `value`. Les tags sont gérés par l’application.
@@ -129,12 +136,14 @@ doivent apparaître dans le même champ éditable que les tags.
 
 <Example name="combobox/with-tags-input" />
 
-### Personnalisation avancée
+### Assembler à partir des parties
 
-Utilisez la composition complète d’un élément lorsqu’il nécessite son propre élément sémantique ou sa propre disposition.
-Cet exemple affiche chaque résultat comme un lien avec `ComboboxItem asChild`.
+Le même combobox que Basic, sans `ComboboxOption` : chaque `ComboboxItem` contient
+`ComboboxItemText` et `ComboboxItemIndicator`, et le bouton d’effacement, le chevron et la coche
+reçoivent leurs icônes directement. Partez de cet exemple quand le design modifie le champ ou la mise
+en page des options.
 
-<Example name="combobox/advanced-customization" />
+<Example name="combobox/build-from-parts" />
 
 ## Composition
 

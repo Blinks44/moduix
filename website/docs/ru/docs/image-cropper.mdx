@@ -109,13 +109,14 @@ import AnatomyScene from '@/components/examples/image-cropper/basic';
 
 <Example name="image-cropper/rotation-flip-and-reset" />
 
-### Расширенная настройка
+### Сборка из частей
 
-Замените `ImageCropperCropArea` на отдельные части `ImageCropperSelection`, `ImageCropperGrid` и
-`ImageCropperHandle`, если области кадрирования нужна другая структура или собственные дочерние
-элементы. Для `ImageCropperGrid` требуется `axis`, а для `ImageCropperHandle` требуется `position`.
+Тот же редактор кадрирования, что в Basic, но без `ImageCropperCropArea`: `ImageCropperSelection`
+содержит две линии `ImageCropperGrid` с `axis` и по одному `ImageCropperHandle` на каждую `position` из
+`ImageCropperHandles`. Начинайте с него, если области кадрирования нужно меньше ручек или свои
+дочерние элементы.
 
-<Example name="image-cropper/advanced-customization" />
+<Example name="image-cropper/build-from-parts" />
 
 ## Композиция
 

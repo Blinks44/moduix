@@ -96,13 +96,14 @@ import * as PaginationDocs from '@/components/examples/pagination/css-properties
 
 <Example name="pagination/with-edges" />
 
-### Расширенная настройка
+### Сборка из частей
 
-Используйте `PaginationContext` вместо `PaginationItems`, если кнопкам страниц или многоточиям нужно
-нестандартное содержимое. Передавайте каждый объект страницы в `PaginationItem` без изменений, чтобы
-сохранить состояние и доступность Ark.
+Та же пагинация, что в Basic, но без `PaginationItems`: `PaginationContext` отдаёт страницы, и для
+каждой рисуется `PaginationItem` или `PaginationEllipsis` с явной иконкой. Передавайте объект страницы
+в `PaginationItem` без изменений, чтобы Ark сохранил состояние и доступность. Кнопки «назад» и «вперёд»
+оставляют стандартные шевроны: с дочерними элементами они становятся текстовыми кнопками.
 
-<Example name="pagination/advanced-customization" />
+<Example name="pagination/build-from-parts" />
 
 ## Композиция
 

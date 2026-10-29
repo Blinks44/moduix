@@ -82,6 +82,13 @@ Set `allowHalf` to enable half-step selection and rendering.
 
 <Example name="rating-group/half-rating" />
 
+### Root Provider
+
+Use `RatingGroupRootProvider` with `useRatingGroup()` when the rating state must be created outside
+the rendered rating tree, for example to set the value from a separate button.
+
+<Example name="rating-group/root-provider" />
+
 ### Sizes
 
 Use the moduix `size` prop when the rating needs to keep the same Ark behavior at a different visual
@@ -89,13 +96,13 @@ density.
 
 <Example name="rating-group/sizes" />
 
-### Advanced Customization
+### Build from parts
 
-Use `RatingGroupRootProvider` with `useRatingGroup()` when the rating state must be created outside
-the rendered rating tree. Use `RatingGroupContext` when `RatingGroupItems` is not enough and you
-need to render each item yourself.
+The same rating as Basic, without `RatingGroupItems`: `RatingGroupContext` provides the item indexes,
+and each `RatingGroupItem` renders a `RatingGroupItemIndicator`. Start here when items need their own
+markup; to change only the star, pass an icon as shown in Custom Icon.
 
-<Example name="rating-group/advanced-customization" />
+<Example name="rating-group/build-from-parts" />
 
 ## Composition
 

@@ -71,6 +71,13 @@ use `v-model:open` in Vue.
 
 <Example name="lightbox/controlled" />
 
+### Custom Styling
+
+Pass classes to the backdrop, content, and close button and override their tokens when the media
+surface needs its own look.
+
+<Example name="lightbox/custom-styling" />
+
 ### Focus and IDs
 
 Use Ark's `initialFocusEl`, `finalFocusEl`, and `ids` when a lightbox needs explicit focus targets
@@ -109,12 +116,13 @@ component with `useLightboxContext()`. The external opener is a regular moduix `
 
 <Example name="lightbox/root-provider-and-context" />
 
-### Advanced Customization
+### Build from parts
 
-Skip the optional layout helpers when the media surface needs custom slot classes and token
-overrides. `LightboxBackdrop`, `LightboxPositioner`, and `LightboxContent` remain explicit.
+The same lightbox as Basic, without `LightboxCloseIcon`: `LightboxCloseTrigger` wraps `CloseButton`
+with an explicit icon and a class that pins it to the corner. `LightboxBody` stays because it carries
+the image open and close animation.
 
-<Example name="lightbox/advanced-customization" />
+<Example name="lightbox/build-from-parts" />
 
 ## Composition
 

@@ -54,6 +54,14 @@ gère l’état.
 
 <Example name="collapsible/controlled" />
 
+### Déclencheur personnalisé
+
+Utilisez `asChild` pour appliquer le comportement du déclencheur à un bouton défini par votre application.
+Les styles par défaut de `CollapsibleTrigger` ne sont alors pas appliqués, mais le comportement Ark et
+les attributs d’état sont conservés.
+
+<Example name="collapsible/custom-trigger" />
+
 ### Ouvert par défaut
 
 Définissez `defaultOpen` pour qu’un composant non contrôlé soit ouvert dès son rendu initial.
@@ -100,13 +108,14 @@ extérieur à l’arborescence rendue doit y accéder.
 
 <Example name="collapsible/root-provider" />
 
-### Personnalisation avancée
+### Assembler à partir des parties
 
-Utilisez `asChild` pour appliquer le comportement du déclencheur à un bouton défini par votre application.
-Les styles par défaut de `CollapsibleTrigger` ne sont alors pas appliqués, mais le comportement Ark et
-les attributs d’état sont conservés.
+Le même bloc repliable que Basic, sans `CollapsibleBody` et avec l’icône de l’indicateur écrite
+explicitement : `CollapsibleIndicator` n’affiche un chevron par défaut que s’il n’a pas d’enfants, et le
+corps est un simple élément dans `CollapsibleContent`. Partez de cet exemple quand le design modifie
+l’icône ou l’espacement du contenu.
 
-<Example name="collapsible/custom-composition" />
+<Example name="collapsible/build-from-parts" />
 
 ## Composition
 

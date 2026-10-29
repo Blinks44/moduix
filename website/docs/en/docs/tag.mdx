@@ -57,6 +57,14 @@ truncation boundary and action sizing stays independent.
 
 <Example name="tag/icon" />
 
+### Interactive Tag
+
+Use `asChild` when the whole token is an action. This replaces the default `span`; the single child
+becomes the semantic and interactive host, so it must provide the behavior expected from a button or link. A `button` or `a`
+host gets a pointer cursor.
+
+<Example name="tag/interactive" />
+
 ### Overflow
 
 Constrain the root when long values need to fit a narrow area. `TagLabel` becomes the truncation
@@ -77,14 +85,6 @@ comfortable spacing. Use `size="lg"` for tags next to larger text or in roomy fi
 Use the built-in variants for common moduix color roles while keeping the same part structure.
 
 <Example name="tag/variants" />
-
-### Advanced Customization
-
-Use `asChild` when the whole token is an action. This replaces the default `span`; the single child
-becomes the semantic and interactive host, so it must provide the behavior expected from a button or link. A `button` or `a`
-host gets a pointer cursor.
-
-<Example name="tag/render-as-button" />
 
 ## Composition
 

@@ -66,6 +66,14 @@ interagir avec lui. Transmettez-le à `AvatarRootProvider` à la place de `Avata
 
 <Example name="avatar/root-provider" />
 
+### Avatar interactif
+
+Utilisez `asChild` lorsque l’avatar est lui-même un élément interactif, par exemple un lien. Le composant
+n’ajoute alors pas son nœud DOM racine par défaut, tout en conservant l’état Ark, le comportement du contenu
+de remplacement et la composition explicite des parties.
+
+<Example name="avatar/interactive" />
+
 ### Tailles et avatar sans image
 
 La propriété `size` de moduix permet de choisir l’une des tailles courantes des tokens de design pour l’un ou
@@ -89,14 +97,6 @@ signaler une présence ou un badge. Donnez-lui un nom accessible si le statut n�
 texte voisin.
 
 <Example name="avatar/status" />
-
-### Personnalisation avancée
-
-Utilisez `asChild` lorsque l’avatar est lui-même un élément interactif, par exemple un lien. Le composant
-n’ajoute alors pas son nœud DOM racine par défaut, tout en conservant l’état Ark, le comportement du contenu
-de remplacement et la composition explicite des parties.
-
-<Example name="avatar/custom-composition" />
 
 ## Composition
 

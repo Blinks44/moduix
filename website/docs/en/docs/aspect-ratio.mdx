@@ -43,6 +43,13 @@ different dimensions.
 
 <Example name="aspect-ratio/card-grid" />
 
+### Custom Element
+
+Use `asChild` when another semantic element, such as `figure`, should be the rendered root. Ark merges the
+component props into its only child element.
+
+<Example name="aspect-ratio/custom-element" />
+
 ### Embedded content
 
 Wrap a video or another embed in `AspectRatio` to keep the frame stable while external content loads.
@@ -56,13 +63,6 @@ inside it explicitly. The same root setup also works with Next.js `Image` using 
 
 <Example name="aspect-ratio/migrating-from-shadcn" />
 
-### Advanced customization
-
-Use `asChild` when another semantic element, such as `figure`, should be the rendered root. Ark merges the
-component props into its only child element.
-
-<Example name="aspect-ratio/advanced-customization" />
-
 ## Composition
 
 Import `AspectRatio` from the matching runtime and styling package: `@moduix/react/aspect-ratio`,
@@ -72,7 +72,7 @@ Import `AspectRatio` from the matching runtime and styling package: `@moduix/rea
 
 `AspectRatio` is presentational and owns no state. The component has one root part and
 no child parts to combine. Use `asChild` only when another semantic element must own the rendered root, and provide
-exactly one child in React or the Solid render-function form shown in Advanced customization. Vue uses the
+exactly one child in React or the Solid render-function form shown in Custom Element. Vue uses the
 `as-child` attribute with a single child element. Child sizing,
 fitting, borders, radius, and clipping remain owned by the application.
 

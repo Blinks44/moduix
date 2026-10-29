@@ -182,9 +182,9 @@ segment shortcuts, or local event aliases.
 
 ## Agent notes
 
-- Keep default examples on `DateInputSegments`; title full low-level segment rendering examples
-  `Advanced Customization`, and use `DateInputSegmentContext` only when per-segment rendering is
-  the point of the example.
+- Keep default examples on `DateInputSegments`; end Examples with `Build from parts`, which
+  expands `DateInputSegments` into `DateInputSegmentGroup` and `DateInputSegmentContext`; use
+  `Custom Segments` when per-segment rendering is the point of the example.
 - Keep callback details untouched: `onValueChange(details)` reports `details.value` and
   `details.valueAsString`.
 - Set `name` on each explicit `HiddenInput`. For ranges, Ark appends each date index.

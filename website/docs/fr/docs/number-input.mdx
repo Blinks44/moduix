@@ -47,6 +47,13 @@ Conservez l’état contrôlé sous forme de chaîne et utilisez `details.value`
 
 <Example name="number-input/controlled" />
 
+### Icônes personnalisées
+
+Passez vos propres icônes à `NumberInputDecrementTrigger` et `NumberInputIncrementTrigger`. Passez
+`translations` lorsque le contenu des déclencheurs a besoin de libellés accessibles localisés.
+
+<Example name="number-input/custom-icons" />
+
 ### État désactivé et lecture seule
 
 Utilisez `disabled` pour désactiver toute interaction. Utilisez `readOnly` lorsque la valeur doit rester sélectionnable,
@@ -121,13 +128,13 @@ Utilisez `NumberInputValueText` lorsque la valeur formatée doit également appa
 
 <Example name="number-input/value-text" />
 
-### Personnalisation avancée
+### Assembler à partir des parties
 
-Assemblez directement les parties de bas niveau au lieu d’utiliser `NumberInputField` lorsque les icônes des boutons
-ou le style du champ doivent être personnalisés. Transmettez `translations` lorsque le contenu personnalisé des boutons
-nécessite des libellés localisés pour les technologies d’assistance.
+Le même champ que Basic, sans `NumberInputField` : `NumberInputControl` contient le déclencheur de
+décrément, `NumberInputInput` et le déclencheur d’incrément, chacun avec une icône explicite. Partez de
+cet exemple quand le design déplace les déclencheurs ou modifie la mise en page du champ.
 
-<Example name="number-input/custom-icons" />
+<Example name="number-input/build-from-parts" />
 
 ## Composition
 

@@ -123,12 +123,13 @@ section. `Fieldset` can also provide its disabled and invalid state to the neste
 
 <Example name="radio-group/with-fieldset" />
 
-### Advanced Customization
+### Build from parts
 
-Bypass `RadioGroupOption` and use the full `RadioGroupItem` tree when each nested part needs custom placement, props, or
-styling.
+The same group as Basic, without `RadioGroupOption`: each `RadioGroupItem` holds
+`RadioGroupItemControl`, `RadioGroupItemText`, and `RadioGroupItemHiddenInput`. Start here when a
+design changes the item layout or adds content next to the label.
 
-<Example name="radio-group/advanced-customization" />
+<Example name="radio-group/build-from-parts" />
 
 ## Composition
 

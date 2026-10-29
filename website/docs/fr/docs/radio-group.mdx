@@ -128,12 +128,13 @@ imbriqué.
 
 <Example name="radio-group/with-fieldset" />
 
-### Personnalisation avancée
+### Assembler à partir des parties
 
-Contournez `RadioGroupOption` et utilisez l’arbre complet de `RadioGroupItem` lorsque chaque partie imbriquée doit avoir
-son propre placement, ses propres props ou son propre style.
+Le même groupe que Basic, sans `RadioGroupOption` : chaque `RadioGroupItem` contient
+`RadioGroupItemControl`, `RadioGroupItemText` et `RadioGroupItemHiddenInput`. Partez de cet exemple
+quand le design modifie la mise en page de l’option ou ajoute du contenu à côté du libellé.
 
-<Example name="radio-group/advanced-customization" />
+<Example name="radio-group/build-from-parts" />
 
 ## Composition
 

@@ -46,7 +46,19 @@ the precise Ark guide when no primitive exists), Report issue, and the Copy page
 9. `Keyboard` - a `Key | Action` table when the component has keyboard interaction
 10. `API reference` - a `Prop | Type | Default` table
 
-`Basic` is the recommended happy path and must not be repeated without a clear structural reason. Every example heading has a short lead-in. Order feature examples alphabetically; put `Advanced Customization` last when it intentionally bypasses convenience composition.
+`Basic` is the recommended happy path and must not be repeated without a clear structural reason. Every example heading has a short lead-in. Order feature examples alphabetically.
+
+When moduix helpers hide Ark parts (composite helpers such as `SelectField` and `SelectOption`,
+`*CloseIcon`, layout wrappers such as `DialogHeader`, or default indicator icons), end Examples with
+`Build from parts` (`Сборка из частей`, `Assembler à partir des parties`) in
+`<component>/build-from-parts`. It renders the same result as Basic from the explicit parts: composite
+helpers expanded, default icons passed as explicit lucide children with the stroke width moduix uses (`strokeWidth={3}`
+for X, Check, chevrons, Plus, and Minus; 2.5 for Calendar and Pipette), layout wrappers replaced by plain
+elements with classes from the example CSS module. Keep a wrapper whose behavior a plain element
+would lose (the `LightboxBody` animation) and say so in the lead-in. The lead-in names the skipped
+helpers. Components without such helpers have no `Build from parts` section; Dialog and Select are the
+reference. Other examples get headings by what they show (`Custom Element` for `asChild` hosts,
+`Root Provider`), never `Advanced Customization`.
 
 ## Section intent
 

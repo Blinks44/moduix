@@ -77,12 +77,13 @@ rendered tree need direct access to `paths`, `clear()`, or `getDataUrl()`.
 
 <Example name="signature-pad/root-provider" />
 
-### Advanced Customization
+### Build from parts
 
-Use the explicit parts instead of `SignaturePadCanvas` when you need to control the drawing-part tree or
-provide a custom clear trigger.
+The same pad as Basic, without `SignaturePadCanvas`: `SignaturePadControl` holds
+`SignaturePadSegment`, `SignaturePadClearTrigger` with an explicit icon, and `SignaturePadGuide`. Start
+here when a design changes the clear control or removes the guide.
 
-<Example name="signature-pad/advanced-customization" />
+<Example name="signature-pad/build-from-parts" />
 
 ## Composition
 

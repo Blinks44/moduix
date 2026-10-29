@@ -162,14 +162,14 @@ Use `DatePickerRangeText` in the header because the year view has no higher view
 
 <Example name="date-picker/year-picker" />
 
-### Advanced customization
+### Build from parts
 
-Use the full Ark composition when the field or calendar grids need custom rendering, such as a
-class or extra content on individual cells. This example builds the control and all three views
-from the low-level parts instead of `DatePickerField` and the table sugar, while keeping the same
-Ark state and styled parts.
+The same picker as Basic, without `DatePickerField` and the table helpers: the control holds the
+input, clear trigger, and trigger, and each view renders its own header and grid from
+`DatePickerContext`. Triggers receive explicit icons. Start here when the field or the calendar cells
+need custom rendering, such as a class or extra content on individual days.
 
-<Example name="date-picker/advanced-customization" />
+<Example name="date-picker/build-from-parts" />
 
 ## Composition
 

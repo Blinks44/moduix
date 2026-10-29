@@ -58,6 +58,20 @@ fonctionnent comme des valeurs de peinture SVG et suivent automatiquement le th�
 
 <Example name="chart/line-colors" />
 
+### Mise en page de tableau de bord
+
+Les parties de la factory Ark acceptent `asChild` et peuvent donc appliquer leurs styles à des
+éléments sémantiques de votre mise en page. Cet exemple de tableau de bord combine Chart et Button,
+remplace `figure` et `figcaption` par un `section` et un `header` identifiés, puis place la légende
+dans l’en-tête.
+
+`ChartPlot` reste l’hôte TanStack, pas un slot. Utilisez `class` ou `className` et `style` sur
+l’élément externe, et `renderTooltipBody` pour étendre l’info-bulle. Rendez `defaultBody` dans votre
+propre enveloppe pendant que TanStack continue de gérer le positionnement et le portail. N’ajoutez
+des contrôles interactifs que dans une info-bulle épinglée.
+
+<Example name="chart/dashboard-layout" />
+
 ### Légende interactive
 
 Utilisez `interactiveColorLegend` de TanStack plutôt qu’un `ChartLegend` séparé pour permettre de
@@ -117,20 +131,6 @@ Utilisez un canal de couleur TanStack et la disposition `stack()` pour les barre
 `focus: 'group-x'` regroupe l’info-bulle et le focus clavier par trimestre.
 
 <Example name="chart/stacked-bars" />
-
-### Personnalisation avancée
-
-Les parties de la factory Ark acceptent `asChild` et peuvent donc appliquer leurs styles à des
-éléments sémantiques de votre mise en page. Cet exemple de tableau de bord combine Chart et Button,
-remplace `figure` et `figcaption` par un `section` et un `header` identifiés, puis place la légende
-dans l’en-tête.
-
-`ChartPlot` reste l’hôte TanStack, pas un slot. Utilisez `class` ou `className` et `style` sur
-l’élément externe, et `renderTooltipBody` pour étendre l’info-bulle. Rendez `defaultBody` dans votre
-propre enveloppe pendant que TanStack continue de gérer le positionnement et le portail. N’ajoutez
-des contrôles interactifs que dans une info-bulle épinglée.
-
-<Example name="chart/advanced-customization" />
 
 ## Composition
 

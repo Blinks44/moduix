@@ -86,6 +86,14 @@ resize.
 
 <Example name="splitter/vertical" />
 
+### Build from parts
+
+The same splitter as Basic with the handle written out: `SplitterResizeTrigger` renders
+`SplitterResizeTriggerIndicator` only when it has no children. Start here when a design replaces the
+grip or adds content to the handle.
+
+<Example name="splitter/build-from-parts" />
+
 ## Composition
 
 Use `size` with `onResize(details)` when the application owns the current panel sizes. Use

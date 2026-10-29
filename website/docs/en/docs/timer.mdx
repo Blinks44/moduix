@@ -62,12 +62,19 @@ Use `onComplete` (`@complete` in Vue) to switch between work and break durations
 
 <Example name="timer/pomodoro" />
 
-### Advanced Customization
+### Root Provider
 
-Use `useTimer()` when the timer state and methods must also be available outside the rendered part tree. This is
-also the right composition for unit labels and other custom item layouts.
+Use `useTimer()` with `TimerRootProvider` when the timer state and methods must also be available
+outside the rendered part tree.
 
 <Example name="timer/root-provider" />
+
+### Build from parts
+
+The same timer as Basic, without `TimerSegments`: `TimerArea` holds one `TimerItem` per unit with a
+`TimerSeparator` between them. Start here when units need labels or a custom layout.
+
+<Example name="timer/build-from-parts" />
 
 ## Composition
 

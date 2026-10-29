@@ -62,6 +62,13 @@ need to coordinate with it, then render `AvatarRootProvider` instead of `Avatar`
 
 <Example name="avatar/root-provider" />
 
+### Interactive Avatar
+
+Use `asChild` when the avatar itself is the interactive element. This replaces the default root DOM
+node while keeping Ark state, fallback behavior, and part composition explicit.
+
+<Example name="avatar/interactive" />
+
 ### Sizes and Fallback Only
 
 The moduix `size` shortcut maps common design-token sizes onto either root component. A fallback-only
@@ -83,13 +90,6 @@ The avatar root does not clip its children, so an absolutely positioned element 
 mark presence or a badge. Give it an accessible name when the status is not stated in nearby text.
 
 <Example name="avatar/status" />
-
-### Advanced Customization
-
-Use `asChild` when the avatar itself is the interactive element. This replaces the default root DOM
-node while keeping Ark state, fallback behavior, and part composition explicit.
-
-<Example name="avatar/custom-composition" />
 
 ## Composition
 

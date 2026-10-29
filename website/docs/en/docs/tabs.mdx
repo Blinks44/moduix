@@ -97,6 +97,13 @@ tab. Activate it with a click, Enter, or Space.
 
 <Example name="tabs/manual-activation" width="lg" />
 
+### Root Provider
+
+Create the tab state with `useTabs()` when it must exist before the part tree renders or when
+adjacent UI needs to read the selected value.
+
+<Example name="tabs/root-provider" width="lg" />
+
 ### Sizes
 
 Set `size` on `Tabs` or `TabsRootProvider` to `sm`, `md` (default), or `lg`. The tab list then has
@@ -110,13 +117,6 @@ Use `orientation="vertical"` when the tab list should sit beside the active pane
 up to `12rem`, and at most 40% of the root width in narrow containers.
 
 <Example name="tabs/vertical" width="lg" />
-
-### Advanced Customization
-
-Create the tab state with `useTabs()` when it must exist before the part tree renders or when
-adjacent UI needs to read the selected value.
-
-<Example name="tabs/root-provider" width="lg" />
 
 ## Composition
 

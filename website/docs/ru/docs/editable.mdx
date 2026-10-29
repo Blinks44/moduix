@@ -57,6 +57,14 @@ import * as EditableDocs from '@/components/examples/editable/css-properties';
 
 <Example name="editable/disabled-and-read-only" />
 
+### Свои кнопки
+
+Отрисуйте свой `Button` в каждом триггере через `asChild`. `EditableContext` переключает кнопку
+редактирования и кнопки сохранения и отмены, а `translations` держит доступные названия в согласии с
+видимым текстом.
+
+<Example name="editable/custom-triggers" />
+
 ### Field
 
 Поместите `Editable` в `Field`, если состояние валидации или сообщение об ошибке должны отображаться
@@ -96,14 +104,13 @@ import * as EditableDocs from '@/components/examples/editable/css-properties';
 
 <Example name="editable/textarea" />
 
-### Расширенная настройка
+### Сборка из частей
 
-Пример собирает то же, что делает `EditableControls`, из низкоуровневых частей: `EditableContext`
-переключает `EditableEditTrigger` и кнопки сохранения и отмены внутри `EditableControl`. С `asChild`
-триггер рендерит ваш `Button` и сохраняет его стили, а `translations` согласует доступные имена с
-видимым текстом.
+То же поле, что в Basic, но без `EditableControls`: `EditableContext` переключает внутри
+`EditableControl` кнопку `EditableEditTrigger` и кнопки сохранения и отмены, у каждой явная иконка.
+Начинайте с него, если дизайн меняет кнопки или их иконки.
 
-<Example name="editable/advanced-customization" />
+<Example name="editable/build-from-parts" />
 
 ## Композиция
 

@@ -71,6 +71,13 @@ Lightbox, но не создаёт его подложку, содержимое
 
 <Example name="lightbox/controlled" />
 
+### Пользовательская стилизация
+
+Передайте классы фону, содержимому и кнопке закрытия и переопределите их токены, если медиаконтенту
+нужен собственный вид.
+
+<Example name="lightbox/custom-styling" />
+
 ### Фокус и идентификаторы
 
 Используйте `initialFocusEl`, `finalFocusEl` и `ids`, если нужны явные цели фокуса или стабильные
@@ -111,12 +118,13 @@ Lightbox, но не создаёт его подложку, содержимое
 
 <Example name="lightbox/root-provider-and-context" />
 
-### Расширенная настройка
+### Сборка из частей
 
-Не используйте необязательные компоненты компоновки, если для медиаконтента нужны собственные классы
-слотов и переопределения токенов. `LightboxBackdrop`, `LightboxPositioner` и `LightboxContent` остаются явными.
+Тот же Lightbox, что в Basic, но без `LightboxCloseIcon`: `LightboxCloseTrigger` оборачивает
+`CloseButton` с явной иконкой и классом, который закрепляет кнопку в углу. `LightboxBody` остаётся,
+потому что задаёт анимацию открытия и закрытия изображения.
 
-<Example name="lightbox/advanced-customization" />
+<Example name="lightbox/build-from-parts" />
 
 ## Композиция
 

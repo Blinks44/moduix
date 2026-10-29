@@ -100,6 +100,13 @@ popup harder to scan. Filtering still runs against the complete initial collecti
 
 <Example name="combobox/limit-results" />
 
+### Links
+
+Render each result as a link with `ComboboxItem asChild` when choosing an item should navigate.
+`selectionBehavior="preserve"` keeps the typed text after a choice.
+
+<Example name="combobox/links" />
+
 ### Multiple
 
 Enable `multiple` and render selected objects from controlled `value`. Tags belong to the application;
@@ -131,12 +138,13 @@ live inside one editable chip field.
 
 <Example name="combobox/with-tags-input" />
 
-### Advanced Customization
+### Build from parts
 
-Use the full item composition when a row needs a custom semantic element or layout. This example
-renders each result as a link with `ComboboxItem asChild`.
+The same combobox as Basic, without `ComboboxOption`: each `ComboboxItem` holds `ComboboxItemText`
+and `ComboboxItemIndicator`, and the clear button, chevron, and check receive their icons directly.
+Start here when a design changes the control or the item layout.
 
-<Example name="combobox/advanced-customization" />
+<Example name="combobox/build-from-parts" />
 
 ## Composition
 

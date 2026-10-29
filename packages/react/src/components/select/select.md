@@ -87,7 +87,7 @@ Styled parts expose matching kebab-case `data-slot` hooks (`select-root`, `selec
 ## Agent notes
 
 - Keep `Positioner` and `Content` explicit; only portal transport belongs to the root.
-- Docs examples use `SelectField` and `SelectOption`; "Advanced customization" keeps the full
-  low-level composition.
+- Docs examples use `SelectField` and `SelectOption`; "Build from parts" keeps the full
+  low-level composition with explicit icons.
 - Do not add a parallel variant API or compatibility aliases.
 - When registry-shipped select source changes, run `pnpm run build:registry`.

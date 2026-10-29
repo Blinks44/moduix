@@ -59,14 +59,14 @@ l’option `arrow` de l’étape pour qu’Ark positionne la flèche.
 
 <Example name="tour/with-arrow" />
 
-### Personnalisation avancée
+### Assembler à partir des parties
 
-Remplacez `TourActionList` lorsque chaque action demande son propre balisage. L’exemple utilise des enfants
-`Button` personnalisés pour Continue, Back et Skip tour. Chaque `TourActionTrigger` reçoit toujours l’objet d’action
-Ark d’origine : la navigation, la fermeture et l’état désactivé restent donc actifs. L’exemple se passe aussi des assistants `TourCloseIcon` et `TourBody` :
-le titre, la description et la progression sont placés directement dans `TourContent`.
+La même visite que Basic, sans `TourCloseIcon`, `TourBody` ni `TourActionList` : `TourCloseTrigger`
+entoure `CloseButton` avec une icône explicite, le texte est dans un simple élément et `TourActions`
+affiche un `TourActionTrigger` par action de l’étape. Chaque déclencheur reçoit l’objet d’action Ark :
+la navigation et la fermeture fonctionnent encore si vous remplacez son contenu par vos propres boutons.
 
-<Example name="tour/advanced-customization" />
+<Example name="tour/build-from-parts" />
 
 ## Composition
 

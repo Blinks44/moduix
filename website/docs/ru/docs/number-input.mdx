@@ -47,6 +47,13 @@ import * as NumberInputDocs from '@/components/examples/number-input/css-propert
 
 <Example name="number-input/controlled" />
 
+### Собственные значки
+
+Передайте свои иконки в `NumberInputDecrementTrigger` и `NumberInputIncrementTrigger`. Если
+содержимому кнопок нужны локализованные доступные названия, передайте `translations`.
+
+<Example name="number-input/custom-icons" />
+
 ### Отключённое состояние и только для чтения
 
 Используйте `disabled`, чтобы запретить любое взаимодействие. Используйте `readOnly`, если значение должно оставаться
@@ -120,12 +127,13 @@ import * as NumberInputDocs from '@/components/examples/number-input/css-propert
 
 <Example name="number-input/value-text" />
 
-### Расширенная настройка
+### Сборка из частей
 
-Соберите низкоуровневые части вместо `NumberInputField`, если нужно изменить значки кнопок или стили поля. Передайте
-`translations`, если собственное содержимое кнопок требует локализованных подписей для вспомогательных технологий.
+То же поле, что в Basic, но без `NumberInputField`: `NumberInputControl` содержит кнопку уменьшения,
+`NumberInputInput` и кнопку увеличения, у каждой кнопки явная иконка. Начинайте с него, если дизайн
+переносит кнопки или меняет раскладку поля.
 
-<Example name="number-input/custom-icons" />
+<Example name="number-input/build-from-parts" />
 
 ## Композиция
 

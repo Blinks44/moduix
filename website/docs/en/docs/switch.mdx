@@ -56,6 +56,12 @@ Use controlled mode when the switch needs to stay in sync with other UI or appli
 
 <Example name="switch/controlled" />
 
+### Custom Thumb
+
+Pass children to `SwitchThumb` when the thumb needs an icon or other custom content.
+
+<Example name="switch/custom-thumb" />
+
 ### Disabled
 
 Use `disabled` to prevent interaction while keeping the current visual state.
@@ -94,11 +100,12 @@ Use moduix `size` to match different form densities without changing the Ark par
 
 <Example name="switch/sizes" />
 
-### Advanced Customization
+### Build from parts
 
-Add `SwitchThumb` explicitly when the thumb needs custom content or styling.
+The same switch as Basic with `SwitchThumb` written out: `SwitchControl` renders it only when it has
+no children. Start here when a design styles the track and the thumb separately.
 
-<Example name="switch/advanced-customization" />
+<Example name="switch/build-from-parts" />
 
 ## Composition
 

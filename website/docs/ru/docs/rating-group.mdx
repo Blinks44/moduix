@@ -83,6 +83,13 @@ import * as RatingGroupDocs from '@/components/examples/rating-group/css-propert
 
 <Example name="rating-group/half-rating" />
 
+### Root Provider
+
+Используйте `RatingGroupRootProvider` с `useRatingGroup()`, если состояние рейтинга нужно создать вне
+отрисованного дерева, например чтобы задавать значение отдельной кнопкой.
+
+<Example name="rating-group/root-provider" />
+
 ### Размеры
 
 Используйте свойство `size` moduix, если рейтинг должен сохранять поведение Ark при другой
@@ -90,13 +97,13 @@ import * as RatingGroupDocs from '@/components/examples/rating-group/css-propert
 
 <Example name="rating-group/sizes" />
 
-### Расширенная композиция
+### Сборка из частей
 
-Используйте `RatingGroupRootProvider` вместе с `useRatingGroup()`, если состояние рейтинга нужно
-создать вне дерева. Используйте `RatingGroupContext`, когда `RatingGroupItems` недостаточно и
-нужно вывести каждый элемент самостоятельно.
+Тот же рейтинг, что в Basic, но без `RatingGroupItems`: `RatingGroupContext` отдаёт индексы пунктов,
+а каждый `RatingGroupItem` рисует `RatingGroupItemIndicator`. Начинайте с него, если пунктам нужна своя
+разметка; чтобы заменить только звезду, передайте иконку, как в примере «Пользовательский значок».
 
-<Example name="rating-group/advanced-customization" />
+<Example name="rating-group/build-from-parts" />
 
 ## Композиция
 

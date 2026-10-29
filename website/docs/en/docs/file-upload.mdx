@@ -133,13 +133,13 @@ Wrap the upload in `Field` when helper text, an error message, required state, o
 
 <Example name="file-upload/with-field" />
 
-### Advanced Customization
+### Build from parts
 
-Use custom rows instead of `FileUploadItems` when you need MIME-specific previews, extra metadata, or a different layout. The
-explicit `FileUploadContext` composition keeps Ark state visible and lets you choose one image or fallback preview
-for each file.
+The same upload as Basic, without `FileUploadItems`: `FileUploadContext` provides the accepted files,
+and each `FileUploadItem` holds the preview, name, metadata, and a delete trigger with an explicit
+icon. Start here when rows need MIME-specific previews, extra metadata, or a different layout.
 
-<Example name="file-upload/advanced-customization" />
+<Example name="file-upload/build-from-parts" />
 
 ## Composition
 

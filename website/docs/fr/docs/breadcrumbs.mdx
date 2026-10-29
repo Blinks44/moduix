@@ -67,12 +67,14 @@ risquent donc moins de faire déborder le fil d’Ariane.
 
 <Example name="breadcrumbs/long-current-label" />
 
-### Personnalisation avancée
+### Assembler à partir des parties
 
-Utilisez les parties explicites plutôt que `BreadcrumbsPath` lorsqu’un même fil combine des liens fournis par le routeur du
-framework, un séparateur personnalisé et un libellé de page actuelle enrichi par du balisage.
+Le même fil que Basic, sans `BreadcrumbsPath` : `BreadcrumbsList` contient un `BreadcrumbsItem` par
+lien, un `BreadcrumbsSeparator` avec une icône explicite entre eux et `BreadcrumbsPage` pour la page
+actuelle. Partez de cet exemple quand les éléments ont besoin de liens de routeur, de balisage
+supplémentaire ou de séparateurs différents.
 
-<Example name="breadcrumbs/advanced-customization" />
+<Example name="breadcrumbs/build-from-parts" />
 
 ## Composition
 

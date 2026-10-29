@@ -46,6 +46,14 @@ Si l’utilisateur doit parcourir la liste au clavier et sélectionner une ou pl
 
 ## Exemples
 
+### Élément personnalisé
+
+Utilisez `ListItem asChild` lorsqu’un composant personnalisé doit rendre lui-même l’élément `<li>`. Il doit
+transmettre les props et la ref reçues et conserver l’élément sémantique `<li>`. Dans les autres cas, utilisez
+directement `ListItem className` ou `class`.
+
+<Example name="list/custom-element" />
+
 ### Racine personnalisée
 
 Utilisez `List asChild` lorsqu’un composant de votre application doit rendre lui-même l’élément sémantique de la liste.
@@ -96,14 +104,6 @@ racine. Un élément avec indicateur devient une ligne flex : l’icône mesure 
 le texte long revient à la ligne à côté d’elle plutôt qu’en dessous.
 
 <Example name="list/with-indicator" />
-
-### Personnalisation avancée
-
-Utilisez `ListItem asChild` lorsqu’un composant personnalisé doit rendre lui-même l’élément `<li>`. Il doit
-transmettre les props et la ref reçues et conserver l’élément sémantique `<li>`. Dans les autres cas, utilisez
-directement `ListItem className` ou `class`.
-
-<Example name="list/custom-composition" />
 
 ## Composition
 

@@ -34,6 +34,13 @@ Use `Separator` to make the boundary between related sections visible. The defau
 
 ## Examples
 
+### Custom Element
+
+Use `asChild` when a specific host element needs to receive the separator role, styling hooks, and
+forwarded ref. Otherwise, use `<Separator />` directly.
+
+<Example name="separator/custom-element" />
+
 ### Decorative
 
 Use `role="presentation"` for a line that is only visual and carries no structural meaning for
@@ -58,13 +65,6 @@ Use `variant` to choose a solid, dashed, or dotted line.
 Use `orientation="vertical"` for inline groups such as navigation links.
 
 <Example name="separator/vertical" />
-
-### Advanced Customization
-
-Use `asChild` when a specific host element needs to receive the separator role, styling hooks, and
-forwarded ref. Otherwise, use `<Separator />` directly.
-
-<Example name="separator/as-child" />
 
 ## Composition
 

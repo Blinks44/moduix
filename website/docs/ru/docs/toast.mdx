@@ -40,6 +40,13 @@ import * as ToastDocs from '@/components/examples/toast/css-properties';
 
 <Example name="toast/action" />
 
+### Своя композиция
+
+Используйте render prop, чтобы заменить стандартную разметку `ToastToaster`, добавить иконку, изменить
+иконку закрытия и применить CSS-переменные компонента.
+
+<Example name="toast/custom-composition" />
+
 ### Длительность
 
 Задайте `duration` в миллисекундах, если уведомление должно исчезнуть раньше, оставаться дольше или
@@ -90,12 +97,14 @@ toaster, а не отдельный режим компонента.
 
 <Example name="toast/update" />
 
-### Расширенная настройка
+### Сборка из частей
 
-Используйте render prop, чтобы заменить стандартную разметку `ToastToaster`, добавить иконку, изменить
-иконку закрытия и применить CSS-переменные компонента.
+То же уведомление, что в Basic, но с явной отрисовкой: функция в `ToastToaster` возвращает `Toast` с
+`ToastTitle`, `ToastDescription` и `ToastCloseTrigger` с явной иконкой. Встроенная отрисовка ещё
+добавляет спиннер в заголовок загрузки и `ToastActionTrigger`, если у уведомления есть действие. Начинайте с
+него, если уведомлениям нужны иконки или другая раскладка.
 
-<Example name="toast/custom-composition" />
+<Example name="toast/build-from-parts" />
 
 ## Композиция
 

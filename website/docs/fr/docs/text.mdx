@@ -49,6 +49,13 @@ Utilisez `align` lorsque l’alignement appartient au texte lui-même et non à 
 
 <Example name="text/alignment" />
 
+### Élément personnalisé
+
+Utilisez `asChild` lorsque la racine doit être un élément personnalisé existant plutôt que l’une des valeurs prises en
+charge par `as`. L’enfant doit être un élément unique capable d’accepter les propriétés transmises et la `ref`.
+
+<Example name="text/custom-element" />
+
 ### Sémantique
 
 Utilisez `as` pour choisir une balise HTML sémantique tout en conservant le style typographique de `Text`.
@@ -80,13 +87,6 @@ pas sur la troncature sur une ligne. Ajoutez le comportement de dépliage dans l
 Utilisez `weight` lorsque l’emphase doit rester dans le même élément sémantique.
 
 <Example name="text/weight" />
-
-### Personnalisation avancée
-
-Utilisez `asChild` lorsque la racine doit être un élément personnalisé existant plutôt que l’une des valeurs prises en
-charge par `as`. L’enfant doit être un élément unique capable d’accepter les propriétés transmises et la `ref`.
-
-<Example name="text/custom-composition" />
 
 ## Composition
 

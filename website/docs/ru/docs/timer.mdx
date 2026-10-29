@@ -64,12 +64,20 @@ import AnatomyScene from '@/components/examples/timer/basic';
 
 <Example name="timer/pomodoro" />
 
-### Расширенная настройка
+### Root Provider
 
-Используйте `useTimer()`, если состояние и методы таймера должны быть доступны за пределами отображаемого дерева
-композиции. Это также подход для подписей единиц и другой пользовательской композиции элементов.
+Используйте `useTimer()` с `TimerRootProvider`, если состояние и методы таймера нужны и вне
+отрисованного дерева частей.
 
 <Example name="timer/root-provider" />
+
+### Сборка из частей
+
+Тот же таймер, что в Basic, но без `TimerSegments`: `TimerArea` содержит по одному `TimerItem` на
+единицу времени и `TimerSeparator` между ними. Начинайте с него, если единицам нужны подписи или своя
+раскладка.
+
+<Example name="timer/build-from-parts" />
 
 ## Композиция
 

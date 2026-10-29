@@ -58,13 +58,15 @@ ferme après l'exécution de l'action sélectionnée.
 
 <Example name="command-palette/item-actions" />
 
-### Personnalisation avancée
+### Assembler à partir des parties
 
-Rendez les parties explicites du dialogue et de la recherche lorsque la palette nécessite un en-tête ou une barre
-de recherche personnalisés. L'exemple conserve le comportement d'Ark Dialog et d'Ark Combobox, tout en remplaçant
-les composants utilitaires `CommandPalettePanel` et `CommandPaletteSearch` par une composition explicite.
+La même palette que Basic, sans `CommandPalettePanel`, `CommandPaletteSearch` ni
+`CommandPaletteFooter` : l’arrière-plan, le positionneur et le contenu sont explicites, la ligne de
+recherche réunit `CommandPaletteControl` avec une icône, `CommandPaletteInput` et
+`CommandPaletteClearTrigger`, et le pied de page est un simple élément. Partez de cet exemple quand le
+design ajoute un en-tête ou modifie la ligne de recherche.
 
-<Example name="command-palette/advanced-customization" />
+<Example name="command-palette/build-from-parts" />
 
 ## Composition
 

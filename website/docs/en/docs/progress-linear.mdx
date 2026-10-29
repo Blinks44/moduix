@@ -66,6 +66,13 @@ Use `min` and `max` when the progress range is different from the default range 
 
 <Example name="progress-linear/min-max" width="sm" />
 
+### Root Provider
+
+Create the progress state with `useProgress()` in a parent component, then connect it
+to the rendered parts with `ProgressLinearRootProvider`.
+
+<Example name="progress-linear/root-provider" width="sm" />
+
 ### State Views
 
 Use `ProgressLinearView` when supporting text or UI should change with the Ark progress state.
@@ -85,13 +92,6 @@ Set `orientation="vertical"` when the range should fill from bottom to top. Vert
 a default height of `12rem`; set `height` on the root when your layout needs a different height.
 
 <Example name="progress-linear/vertical" />
-
-### Advanced Customization
-
-Create the progress state with `useProgress()` in a parent component, then connect it
-to the rendered parts with `ProgressLinearRootProvider`.
-
-<Example name="progress-linear/root-provider" width="sm" />
 
 ## Composition
 

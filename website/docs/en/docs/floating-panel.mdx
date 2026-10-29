@@ -105,11 +105,14 @@ methods such as `minimize`, `maximize`, and `setOpen`. The Solid store is read t
 
 <Example name="floating-panel/root-provider" />
 
-### Advanced Customization
+### Build from parts
 
-Use individual `FloatingPanelResizeTrigger` parts when each resize axis needs its own placement or styling.
+The same panel as Basic, without `FloatingPanelCloseIcon`, `FloatingPanelDragIndicator`,
+`FloatingPanelFooter`, and `FloatingPanelResizeTriggerGroup`: the stage and close triggers receive
+explicit icons, the footer is a plain element, and each resize axis is a `FloatingPanelResizeTrigger`.
+Start here when a design changes the header controls or keeps only some resize handles.
 
-<Example name="floating-panel/advanced-customization" />
+<Example name="floating-panel/build-from-parts" />
 
 ## Composition
 

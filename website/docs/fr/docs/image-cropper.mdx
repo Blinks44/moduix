@@ -112,13 +112,14 @@ depuis l’état React, Solid ou Vue.
 
 <Example name="image-cropper/rotation-flip-and-reset" />
 
-### Personnalisation avancée
+### Assembler à partir des parties
 
-Remplacez `ImageCropperCropArea` par les parties explicites `ImageCropperSelection`,
-`ImageCropperGrid` et `ImageCropperHandle` lorsque la zone nécessite une structure différente ou des
-enfants personnalisés. `ImageCropperGrid` requiert `axis` et `ImageCropperHandle` requiert `position`.
+Le même recadreur que Basic, sans `ImageCropperCropArea` : `ImageCropperSelection` contient deux
+lignes `ImageCropperGrid` avec un `axis` et un `ImageCropperHandle` par `position` de
+`ImageCropperHandles`. Partez de cet exemple quand la zone de recadrage a besoin de moins de poignées
+ou d’enfants personnalisés.
 
-<Example name="image-cropper/advanced-customization" />
+<Example name="image-cropper/build-from-parts" />
 
 ## Composition
 

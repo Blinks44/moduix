@@ -51,6 +51,14 @@ Utilisez `TableColumnGroup` et `TableColumn` pour définir les largeurs natives 
 
 <Example name="table/column-group-and-borders" />
 
+### Conteneur personnalisé
+
+Utilisez votre propre conteneur à la place de `TableScrollArea` lorsque la mise en page environnante gère déjà la
+surface ou le défilement. La composition native du tableau reste explicite et votre mise en page garde le contrôle du
+conteneur.
+
+<Example name="table/custom-wrapper" />
+
 ### État vide
 
 Utilisez `TableEmpty` lorsque le corps n’afficherait aucune ligne. Définissez `colSpan` sur le nombre actuel de
@@ -108,14 +116,6 @@ un effet de fondu ou l’API de la zone de défilement. `TableScrollArea` est un
 défilement horizontal. Gardez la structure de `ScrollArea` explicite afin que le tableau reste natif et léger.
 
 <Example name="table/with-scrollarea" />
-
-### Personnalisation avancée
-
-Utilisez votre propre conteneur à la place de `TableScrollArea` lorsque la mise en page environnante gère déjà la
-surface ou le défilement. La composition native du tableau reste explicite et votre mise en page garde le contrôle du
-conteneur.
-
-<Example name="table/custom-composition" />
 
 ## Composition
 

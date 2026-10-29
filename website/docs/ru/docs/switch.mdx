@@ -57,6 +57,12 @@ import * as SwitchDocs from '@/components/examples/switch/css-properties';
 
 <Example name="switch/controlled" />
 
+### Свой бегунок
+
+Передайте дочерние элементы в `SwitchThumb`, если бегунку нужна иконка или другое содержимое.
+
+<Example name="switch/custom-thumb" />
+
 ### Отключённое состояние
 
 Используйте `disabled`, чтобы запретить взаимодействие и сохранить текущее визуальное состояние.
@@ -95,11 +101,13 @@ import * as SwitchDocs from '@/components/examples/switch/css-properties';
 
 <Example name="switch/sizes" />
 
-### Расширенная настройка
+### Сборка из частей
 
-Добавьте `SwitchThumb` явно, когда бегунку нужны пользовательское содержимое или собственная стилизация.
+Тот же переключатель, что в Basic, но с явным `SwitchThumb`: `SwitchControl` добавляет его, только
+когда у него нет дочерних элементов. Начинайте с него, если дизайн стилизует дорожку и бегунок по
+отдельности.
 
-<Example name="switch/advanced-customization" />
+<Example name="switch/build-from-parts" />
 
 ## Композиция
 

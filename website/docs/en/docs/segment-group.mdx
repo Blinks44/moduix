@@ -60,6 +60,13 @@ Keep the selected value in application state and update it from `details.value` 
 
 <Example name="segment-group/controlled" />
 
+### Custom Item Layout
+
+Use `SegmentGroupItem asChild` instead of `SegmentGroupItems` when a custom label layout should
+own the item's DOM node.
+
+<Example name="segment-group/custom-item-layout" />
+
 ### Disabled
 
 Set `disabled` on an item when only that segment should be unavailable. Set it on the root to
@@ -110,12 +117,13 @@ navigation.
 
 <Example name="segment-group/vertical-orientation" />
 
-### Advanced Customization
+### Build from parts
 
-Use `SegmentGroupItem asChild` instead of `SegmentGroupItems` when a custom label layout should
-own the item's DOM node.
+The same group as Basic, without `SegmentGroupItems`: each `SegmentGroupItem` holds
+`SegmentGroupItemText` and `SegmentGroupItemHiddenInput`. Start here when items need different
+content or props.
 
-<Example name="segment-group/aschild" />
+<Example name="segment-group/build-from-parts" />
 
 ## Composition
 

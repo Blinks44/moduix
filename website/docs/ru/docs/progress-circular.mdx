@@ -71,14 +71,6 @@ import * as ProgressCircularDocs from '@/components/examples/progress-circular/c
 
 <Example name="progress-circular/value-text" />
 
-### Расширенная настройка
-
-Используйте отдельные части круга вместо `ProgressCircularRing`, если нужно изменить SVG-дерево
-или способ владения состоянием. Только прямая композиция позволяет задать `ProgressCircularCircleTrack` и
-`ProgressCircularCircleRange` собственные классы - как в этом примере.
-
-<Example name="progress-circular/circle-parts" />
-
 ### Root Provider
 
 Создайте хранилище состояния через `useProgress()` и передайте его в `ProgressCircularRootProvider`, если
@@ -92,6 +84,14 @@ import * as ProgressCircularDocs from '@/components/examples/progress-circular/c
 вместе с состоянием прогресса Ark.
 
 <Example name="progress-circular/state-views" />
+
+### Сборка из частей
+
+Тот же индикатор, что в Basic, но без `ProgressCircularRing`: `ProgressCircularCircle` содержит
+`ProgressCircularCircleTrack` и `ProgressCircularCircleRange`. Начинайте с него, если дорожке и
+заполнению нужны свои классы или в SVG нужны дополнительные элементы.
+
+<Example name="progress-circular/build-from-parts" />
 
 ## Композиция
 

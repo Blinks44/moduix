@@ -50,6 +50,14 @@ indisponibles.
 
 <Example name="input-group/disabled" />
 
+### Élément personnalisé
+
+Utilisez `asChild` lorsque la racine doit rendre un conteneur personnalisé à la place du `div` par
+défaut. Le groupe conserve ses styles et son contexte de taille, tandis que l’enfant doit rester un
+conteneur de mise en page sémantique.
+
+<Example name="input-group/custom-element" />
+
 ### État du champ
 
 Définissez `invalid` sur `Field` lorsque la validation échoue. Ark transmet l’état et les attributs
@@ -97,14 +105,6 @@ un `aria-label` dans la langue souhaitée ou `aria-labelledby` ; le contenu enfa
 La petite zone de survol reprend le style des boutons d’effacement de Select et Combobox.
 
 <Example name="input-group/clear-trigger" />
-
-### Personnalisation avancée
-
-Utilisez `asChild` lorsque la racine doit rendre un conteneur personnalisé à la place du `div` par
-défaut. Le groupe conserve ses styles et son contexte de taille, tandis que l’enfant doit rester un
-conteneur de mise en page sémantique.
-
-<Example name="input-group/as-child" />
 
 ## Composition
 

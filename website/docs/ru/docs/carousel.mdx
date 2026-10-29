@@ -140,12 +140,14 @@ import * as CarouselDocs from '@/components/examples/carousel/css-properties';
 
 <Example name="carousel/vertical" />
 
-### Расширенная настройка
+### Сборка из частей
 
-Не используйте `CarouselIndicators`, если нужно самостоятельно отрисовать `pageSnapPoints` или
-разместить элементы управления пейджером рядом с другими элементами, работающими через контекст.
+Та же карусель, что в Basic, но без `CarouselIndicators`: `CarouselContext` отдаёт `pageSnapPoints`, а
+`CarouselIndicatorGroup` рисует по одному `CarouselIndicator` на страницу. Кнопки «назад» и «вперёд»
+получают явные иконки. Начинайте с него, если переключатель страниц стоит рядом с другими элементами
+управления или требует своего содержимого.
 
-<Example name="carousel/advanced-customization" />
+<Example name="carousel/build-from-parts" />
 
 ## Композиция
 

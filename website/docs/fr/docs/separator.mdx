@@ -34,6 +34,14 @@ composant utilise `orientation="horizontal"`, `variant="solid"` et `size="sm"`.
 
 ## Exemples
 
+### Élément personnalisé
+
+Utilisez `asChild` lorsqu’un élément hôte précis doit recevoir le rôle de séparateur, les points
+d’accroche de style et la `ref` transmise. Dans les autres cas, utilisez directement
+`<Separator />`.
+
+<Example name="separator/custom-element" />
+
 ### Décoratif
 
 Utilisez `role="presentation"` pour une ligne purement visuelle qui n’apporte aucune structure aux
@@ -59,14 +67,6 @@ Utilisez `variant` pour choisir une ligne continue, en tirets ou en pointillés.
 Utilisez `orientation="vertical"` pour les groupes disposés sur une ligne, comme des liens de navigation.
 
 <Example name="separator/vertical" />
-
-### Personnalisation avancée
-
-Utilisez `asChild` lorsqu’un élément hôte précis doit recevoir le rôle de séparateur, les points
-d’accroche de style et la `ref` transmise. Dans les autres cas, utilisez directement
-`<Separator />`.
-
-<Example name="separator/as-child" />
 
 ## Composition
 

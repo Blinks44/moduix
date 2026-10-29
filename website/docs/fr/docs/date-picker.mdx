@@ -168,15 +168,15 @@ supérieure vers laquelle basculer.
 
 <Example name="date-picker/year-picker" />
 
-### Personnalisation avancée
+### Assembler à partir des parties
 
-Utilisez la composition Ark complète lorsque le champ ou les grilles du calendrier nécessitent un
-rendu personnalisé, par exemple une classe ou un contenu supplémentaire sur certaines cellules. Cet
-exemple construit le contrôle et les trois vues à partir des parties de bas niveau au lieu de
-`DatePickerField` et des tables prêtes à l'emploi, tout en conservant le même état Ark et les
-parties stylisées.
+Le même sélecteur que Basic, sans `DatePickerField` ni les aides de tableau : le contrôle contient la
+saisie, le déclencheur d’effacement et le déclencheur, et chaque vue affiche son en-tête et sa grille à
+partir de `DatePickerContext`. Les déclencheurs reçoivent des icônes explicites. Partez de cet exemple
+quand le champ ou les cellules du calendrier ont besoin d’un rendu personnalisé, comme une classe ou du
+contenu supplémentaire sur certains jours.
 
-<Example name="date-picker/advanced-customization" />
+<Example name="date-picker/build-from-parts" />
 
 ## Composition
 

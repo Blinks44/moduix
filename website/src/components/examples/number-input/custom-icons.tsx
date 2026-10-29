@@ -7,7 +7,7 @@ import {
   NumberInputLabel,
 } from '@moduix/react/number-input';
 import { ChevronDown as ChevronDownIcon, ChevronUp as ChevronUpIcon } from 'lucide-react';
-import styles from '@/components/examples/number-input/number-input-advanced-customization.module.css';
+import styles from '@/components/examples/number-input/number-input-custom-icons.module.css';
 
 export default function CustomIconsNumberInputDemo() {
   return (

@@ -91,13 +91,22 @@ l’état doit être créé en dehors de l’arbre de l’accordéon. Ne rendez 
 
 <Example name="accordion/root-provider" />
 
-### Personnalisation avancée
+### Avec un slider
 
 Le contenu d'un accordéon peut accueillir un autre widget composite basé sur Ark, comme `Slider`.
 Gardez la structure des parties de chaque primitive explicite afin que le bon composant gère le clavier
 et les champs de formulaire masqués.
 
 <Example name="accordion/with-slider" />
+
+### Assembler à partir des parties
+
+Le même accordéon que Basic, sans `AccordionItemBody` et avec l’icône de l’indicateur écrite
+explicitement : `AccordionItemIndicator` n’affiche un chevron par défaut que s’il n’a pas d’enfants, et
+le corps est un simple élément dans `AccordionItemContent`. Partez de cet exemple quand le design
+modifie l’icône ou l’espacement du contenu.
+
+<Example name="accordion/build-from-parts" />
 
 ## Composition
 

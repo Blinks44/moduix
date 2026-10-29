@@ -50,6 +50,14 @@ column separation needs to be visible.
 
 <Example name="table/column-group-and-borders" />
 
+### Custom Wrapper
+
+Use your own wrapper instead of `TableScrollArea` when the surrounding layout already owns the
+surface or scrolling behavior. This keeps the native table composition explicit while giving your
+layout full control of the shell.
+
+<Example name="table/custom-wrapper" />
+
 ### Empty State
 
 Use `TableEmpty` when a body would otherwise render no rows. Set `colSpan` to the current number of
@@ -106,14 +114,6 @@ scroll area API. `TableScrollArea` is a simpler bordered horizontal-overflow wra
 `ScrollArea` structure explicit so the table stays native and lightweight.
 
 <Example name="table/with-scrollarea" />
-
-### Advanced Customization
-
-Use your own wrapper instead of `TableScrollArea` when the surrounding layout already owns the
-surface or scrolling behavior. This keeps the native table composition explicit while giving your
-layout full control of the shell.
-
-<Example name="table/custom-composition" />
 
 ## Composition
 

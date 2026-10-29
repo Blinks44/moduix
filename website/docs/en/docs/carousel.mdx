@@ -136,12 +136,14 @@ axis.
 
 <Example name="carousel/vertical" />
 
-### Advanced Customization
+### Build from parts
 
-Skip `CarouselIndicators` when you need to render `pageSnapPoints` yourself or place pager controls
-alongside other context-driven controls.
+The same carousel as Basic, without `CarouselIndicators`: `CarouselContext` provides
+`pageSnapPoints`, and `CarouselIndicatorGroup` renders one `CarouselIndicator` per page. The previous
+and next triggers receive explicit icons. Start here when the pager sits next to other controls or
+needs custom content.
 
-<Example name="carousel/advanced-customization" />
+<Example name="carousel/build-from-parts" />
 
 ## Composition
 

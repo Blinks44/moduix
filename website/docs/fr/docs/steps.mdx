@@ -51,6 +51,14 @@ avec le routage, la validation ou une autre partie de l’interface.
 
 <Example name="steps/controlled" />
 
+### Déclencheurs-liens
+
+Utilisez `asChild` lorsqu’un déclencheur doit être rendu comme une ancre ou un lien de routeur plutôt
+que comme un bouton par défaut. Gardez un seul enfant sémantique afin qu’il reçoive le comportement
+ARIA, le clavier et le focus gérés par Ark.
+
+<Example name="steps/link-triggers" />
+
 ### Validation
 
 Utilisez `linear`, `isStepValid` et `onStepInvalid` pour empêcher la navigation tant que l’étape
@@ -79,14 +87,6 @@ Définissez `orientation="vertical"` lorsque la liste des étapes doit se trouve
 actif sur les écrans larges, puis au-dessus sur les écrans étroits.
 
 <Example name="steps/vertical" />
-
-### Personnalisation avancée
-
-Utilisez `asChild` lorsqu’un déclencheur doit être rendu comme une ancre ou un lien de routeur plutôt
-que comme un bouton par défaut. Gardez un seul enfant sémantique afin qu’il reçoive le comportement
-ARIA, le clavier et le focus gérés par Ark.
-
-<Example name="steps/custom-composition" />
 
 ## Composition
 

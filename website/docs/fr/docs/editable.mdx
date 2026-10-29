@@ -57,6 +57,14 @@ rester visible sans pouvoir être modifiée.
 
 <Example name="editable/disabled-and-read-only" />
 
+### Déclencheurs personnalisés
+
+Affichez votre propre `Button` dans chaque déclencheur avec `asChild`. `EditableContext` alterne entre
+le déclencheur d’édition et les déclencheurs de validation et d’annulation, et `translations` aligne les
+noms accessibles sur le texte visible.
+
+<Example name="editable/custom-triggers" />
+
 ### Field
 
 Utilisez `Editable` dans `Field` lorsque l’état de validation ou le message d’erreur doivent s’afficher
@@ -96,14 +104,13 @@ haut. Cmd/Ctrl + Entrée enregistre ; Entrée insère une nouvelle ligne.
 
 <Example name="editable/textarea" />
 
-### Personnalisation avancée
+### Assembler à partir des parties
 
-Cet exemple reconstruit `EditableControls` à partir des parties de bas niveau : `EditableContext`
-alterne entre `EditableEditTrigger` et les déclencheurs de validation et d’annulation dans
-`EditableControl`. Avec `asChild`, chaque déclencheur rend votre propre `Button` et conserve ses
-styles ; `translations` aligne les noms accessibles sur le texte visible.
+Le même champ que Basic, sans `EditableControls` : dans `EditableControl`, `EditableContext` alterne
+entre `EditableEditTrigger` et les déclencheurs de validation et d’annulation, chacun avec une icône
+explicite. Partez de cet exemple quand le design modifie les contrôles ou leurs icônes.
 
-<Example name="editable/advanced-customization" />
+<Example name="editable/build-from-parts" />
 
 ## Composition
 

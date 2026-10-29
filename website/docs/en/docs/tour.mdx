@@ -57,14 +57,14 @@ option so Ark can position it.
 
 <Example name="tour/with-arrow" />
 
-### Advanced customization
+### Build from parts
 
-Replace `TourActionList` when each action needs its own markup. The example uses custom `Button` children for
-Continue, Back, and Skip tour. Each `TourActionTrigger` still receives the original Ark action object, so navigation,
-dismissal, and disabled state continue to work. The example also skips the `TourCloseIcon` and `TourBody`
-helpers and places the title, description, and progress text directly in `TourContent`.
+The same tour as Basic, without `TourCloseIcon`, `TourBody`, and `TourActionList`: `TourCloseTrigger`
+wraps `CloseButton` with an explicit icon, the text sits in a plain element, and `TourActions` renders
+one `TourActionTrigger` per step action. Each trigger keeps the Ark action object, so navigation and
+dismissal still work when you replace its children with your own buttons.
 
-<Example name="tour/advanced-customization" />
+<Example name="tour/build-from-parts" />
 
 ## Composition
 

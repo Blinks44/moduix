@@ -88,6 +88,13 @@ Solid или scoped slot во Vue.
 
 <Example name="toggle-group/multiple-selection" />
 
+### Root Provider
+
+Используйте `ToggleGroupRootProvider` с `useToggleGroup()`, если экземпляр состояния нужно создать
+вне дерева отрисованной группы.
+
+<Example name="toggle-group/root-provider" />
+
 ### Варианты
 
 Установите `variant` на группе, если все элементы должны использовать одинаковое оформление.
@@ -99,13 +106,6 @@ Solid или scoped slot во Vue.
 Установите `orientation="vertical"`, если варианты должны располагаться столбцом.
 
 <Example name="toggle-group/vertical" />
-
-### Расширенная настройка
-
-Используйте `ToggleGroupRootProvider` с `useToggleGroup()`, если экземпляр состояния нужно создать
-вне дерева отрисованной группы.
-
-<Example name="toggle-group/root-provider" />
 
 ## Композиция
 

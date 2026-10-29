@@ -80,12 +80,13 @@ situés en dehors de l’arborescence rendue doivent accéder directement à `pa
 
 <Example name="signature-pad/root-provider" />
 
-### Personnalisation avancée
+### Assembler à partir des parties
 
-Utilisez les parties explicites à la place de `SignaturePadCanvas` lorsque vous devez contrôler l’arborescence
-des parties de dessin ou fournir votre propre bouton d’effacement.
+Le même pavé que Basic, sans `SignaturePadCanvas` : `SignaturePadControl` contient
+`SignaturePadSegment`, `SignaturePadClearTrigger` avec une icône explicite et `SignaturePadGuide`.
+Partez de cet exemple quand le design modifie le bouton d’effacement ou retire le guide.
 
-<Example name="signature-pad/advanced-customization" />
+<Example name="signature-pad/build-from-parts" />
 
 ## Composition
 

@@ -44,6 +44,13 @@ dimensions différentes.
 
 <Example name="aspect-ratio/card-grid" />
 
+### Élément personnalisé
+
+Utilisez `asChild` lorsqu’un élément sémantique, comme `figure`, doit devenir la racine rendue. Ark transmet les
+propriétés du composant à son unique enfant.
+
+<Example name="aspect-ratio/custom-element" />
+
 ### Contenu intégré
 
 Entourez une vidéo ou un autre contenu intégré avec `AspectRatio` pour conserver un cadre stable pendant le
@@ -58,20 +65,13 @@ sur un conteneur extérieur. La même racine fonctionne avec `Image` de Next.js 
 
 <Example name="aspect-ratio/migrating-from-shadcn" />
 
-### Personnalisation avancée
-
-Utilisez `asChild` lorsqu’un élément sémantique, comme `figure`, doit devenir la racine rendue. Ark transmet les
-propriétés du composant à son unique enfant.
-
-<Example name="aspect-ratio/advanced-customization" />
-
 ## Composition
 
 Les exports CSS Modules sont disponibles depuis `@moduix/react/aspect-ratio`, `@moduix/solid/aspect-ratio`
 et `@moduix/vue/aspect-ratio`. Pour Tailwind, utilisez respectivement `@moduix/react-tailwind/aspect-ratio`,
 `@moduix/solid-tailwind/aspect-ratio` ou `@moduix/vue-tailwind/aspect-ratio`.
 
-`AspectRatio` est un composant de présentation et ne gère aucun état. Le composant ne possède qu’une racine et aucune partie enfant à combiner. Utilisez `asChild` uniquement lorsqu’un autre élément sémantique doit porter la racine rendue, avec exactement un enfant en React ou la fonction de rendu Solid présentée dans l’exemple de personnalisation avancée. En Vue, utilisez l’attribut `as-child` avec un seul élément enfant. Le dimensionnement, l’ajustement, les bordures, les rayons et le masquage du contenu restent sous la responsabilité de l’application.
+`AspectRatio` est un composant de présentation et ne gère aucun état. Le composant ne possède qu’une racine et aucune partie enfant à combiner. Utilisez `asChild` uniquement lorsqu’un autre élément sémantique doit porter la racine rendue, avec exactement un enfant en React ou la fonction de rendu Solid présentée dans l’exemple « Élément personnalisé ». En Vue, utilisez l’attribut `as-child` avec un seul élément enfant. Le dimensionnement, l’ajustement, les bordures, les rayons et le masquage du contenu restent sous la responsabilité de l’application.
 En Solid, affectez le `ref` à l’élément créé dans la fonction de rendu utilisée avec `asChild`. Le `ref` placé sur `AspectRatio` n’est pas transmis dans cette composition.
 
 ## Anatomie

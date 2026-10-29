@@ -1,0 +1,8 @@
+.separatorIcon {
+  width: 1em;
+  height: 1em;
+
+  &:dir(rtl) {
+    transform: rotate(180deg);
+  }
+}

@@ -8,7 +8,7 @@ import {
   NumberInputInput,
   NumberInputLabel,
 } from '@moduix/vue/number-input';
-import styles from '@/components/examples/number-input/number-input-advanced-customization.module.css';
+import styles from '@/components/examples/number-input/number-input-custom-icons.module.css';
 </script>
 
 <template>

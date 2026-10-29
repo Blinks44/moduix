@@ -86,4 +86,5 @@ Slider / SliderRootProvider       data-slot="slider-root[-provider]"
 
 - Keep `SliderRootProvider` styled with the same root class as `Slider`.
 - Keep `SliderThumbs` narrow: it only repeats `SliderThumb` with a hidden input.
-- The "Advanced customization" docs example builds thumbs explicitly without `SliderThumbs`.
+- The docs Basic example renders `SliderThumb` explicitly, so the page needs no `Build from parts`
+  example; other examples may use `SliderThumbs`.

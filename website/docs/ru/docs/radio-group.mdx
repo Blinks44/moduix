@@ -127,12 +127,13 @@ import * as RadioGroupDocs from '@/components/examples/radio-group/css-propertie
 
 <Example name="radio-group/with-fieldset" />
 
-### Расширенная настройка
+### Сборка из частей
 
-Откажитесь от `RadioGroupOption` и используйте полное дерево `RadioGroupItem`, если каждой вложенной части нужны своё
-размещение, свойства или стили.
+Та же группа, что в Basic, но без `RadioGroupOption`: каждый `RadioGroupItem` содержит
+`RadioGroupItemControl`, `RadioGroupItemText` и `RadioGroupItemHiddenInput`. Начинайте с него, если
+дизайн меняет раскладку пункта или добавляет содержимое рядом с подписью.
 
-<Example name="radio-group/advanced-customization" />
+<Example name="radio-group/build-from-parts" />
 
 ## Композиция
 

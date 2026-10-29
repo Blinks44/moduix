@@ -34,6 +34,14 @@ the state benefits from a visual cue or a clear next step.
 
 ## Examples
 
+### Custom Element
+
+Use the `asChild` prop on `Empty` when the empty state needs to render as a semantic container such
+as `section`. Use it on `EmptyTitle` when the heading needs a different level. Because
+`EmptyDescription` renders as a `div`, it can contain paragraphs, links, and other block content.
+
+<Example name="empty/custom-element" />
+
 ### Without actions
 
 Leave out `EmptyActions` when the state is informational and does not need an immediate action.
@@ -45,14 +53,6 @@ Leave out `EmptyActions` when the state is informational and does not need an im
 The icon is optional, so a text-only empty state can stay compact.
 
 <Example name="empty/without-icon" />
-
-### Advanced customization
-
-Use the `asChild` prop on `Empty` when the empty state needs to render as a semantic container such
-as `section`. Use it on `EmptyTitle` when the heading needs a different level. Because
-`EmptyDescription` renders as a `div`, it can contain paragraphs, links, and other block content.
-
-<Example name="empty/advanced-customization" />
 
 ## Composition
 

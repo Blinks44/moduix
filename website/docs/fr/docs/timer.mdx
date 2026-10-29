@@ -65,13 +65,20 @@ Utilisez `onComplete` (`@complete` en Vue) pour passer du travail à la pause et
 
 <Example name="timer/pomodoro" />
 
-### Personnalisation avancée
+### Root Provider
 
-Utilisez `useTimer()` lorsque l’état et les méthodes du minuteur doivent aussi être disponibles en dehors de l’arbre
-de composition rendu. C’est également la bonne approche pour ajouter des libellés d’unité ou composer des éléments
-personnalisés.
+Utilisez `useTimer()` avec `TimerRootProvider` lorsque l’état et les méthodes du minuteur doivent aussi
+être disponibles en dehors de l’arbre de parties rendu.
 
 <Example name="timer/root-provider" />
+
+### Assembler à partir des parties
+
+Le même minuteur que Basic, sans `TimerSegments` : `TimerArea` contient un `TimerItem` par unité avec
+un `TimerSeparator` entre eux. Partez de cet exemple quand les unités ont besoin de libellés ou d’une
+mise en page personnalisée.
+
+<Example name="timer/build-from-parts" />
 
 ## Composition
 

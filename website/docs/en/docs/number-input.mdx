@@ -47,6 +47,13 @@ Keep controlled state as a string and use `details.value` in `onValueChange`.
 
 <Example name="number-input/controlled" />
 
+### Custom Icons
+
+Pass your own icons to `NumberInputDecrementTrigger` and `NumberInputIncrementTrigger`. Pass
+`translations` when custom trigger content needs localized accessible labels.
+
+<Example name="number-input/custom-icons" />
+
 ### Disabled and read-only
 
 Use `disabled` to prevent all interaction. Use `readOnly` when the value should remain selectable but
@@ -121,12 +128,13 @@ input.
 
 <Example name="number-input/value-text" />
 
-### Advanced Customization
+### Build from parts
 
-Compose the low-level parts instead of `NumberInputField` when the trigger icons or input styling
-must be customized. Pass `translations` when custom trigger content needs localized accessible labels.
+The same input as Basic, without `NumberInputField`: `NumberInputControl` holds the decrement trigger,
+`NumberInputInput`, and the increment trigger, each trigger with an explicit icon. Start here when a
+design moves the triggers or changes the control layout.
 
-<Example name="number-input/custom-icons" />
+<Example name="number-input/build-from-parts" />
 
 ## Composition
 

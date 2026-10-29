@@ -82,6 +82,13 @@ Définissez `allowHalf` pour activer la sélection et l’affichage par demi-pas
 
 <Example name="rating-group/half-rating" />
 
+### Root Provider
+
+Utilisez `RatingGroupRootProvider` avec `useRatingGroup()` lorsque l’état de la notation doit être créé
+en dehors de l’arbre rendu, par exemple pour définir la valeur depuis un bouton séparé.
+
+<Example name="rating-group/root-provider" />
+
 ### Tailles
 
 Utilisez la propriété `size` de moduix lorsque la notation doit conserver le comportement d’Ark avec
@@ -89,13 +96,14 @@ une densité visuelle différente.
 
 <Example name="rating-group/sizes" />
 
-### Composition avancée
+### Assembler à partir des parties
 
-Utilisez `RatingGroupRootProvider` avec `useRatingGroup()` lorsque l’état doit être créé en dehors
-de l’arbre rendu. Utilisez `RatingGroupContext` lorsque `RatingGroupItems` ne suffit pas et que
-vous devez rendre chaque élément vous-même.
+La même notation que Basic, sans `RatingGroupItems` : `RatingGroupContext` fournit les index des
+éléments et chaque `RatingGroupItem` affiche un `RatingGroupItemIndicator`. Partez de cet exemple quand
+les éléments ont besoin de leur propre balisage ; pour changer seulement l’étoile, passez une icône
+comme dans l’exemple « Icône personnalisée ».
 
-<Example name="rating-group/advanced-customization" />
+<Example name="rating-group/build-from-parts" />
 
 ## Composition
 

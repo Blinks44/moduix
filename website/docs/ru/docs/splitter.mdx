@@ -89,6 +89,14 @@ import { splitterOverrideCssProperties } from '@/components/examples/splitter/cs
 
 <Example name="splitter/vertical" />
 
+### Сборка из частей
+
+Тот же разделитель, что в Basic, но с явной ручкой: `SplitterResizeTrigger` добавляет
+`SplitterResizeTriggerIndicator`, только когда у него нет дочерних элементов. Начинайте с него, если
+дизайн заменяет ручку или добавляет в неё содержимое.
+
+<Example name="splitter/build-from-parts" />
+
 ## Композиция
 
 Используйте `size` вместе с `onResize(details)`, если приложение владеет текущими размерами панелей.

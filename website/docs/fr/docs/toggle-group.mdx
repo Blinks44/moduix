@@ -88,6 +88,13 @@ Utilisez `multiple` lorsque plusieurs choix peuvent rester actifs en même temps
 
 <Example name="toggle-group/multiple-selection" />
 
+### Root Provider
+
+Utilisez `ToggleGroupRootProvider` avec `useToggleGroup()` lorsque l’instance d’état doit être créée
+en dehors de l’arbre rendu du groupe.
+
+<Example name="toggle-group/root-provider" />
+
 ### Variantes
 
 Définissez `variant` sur le groupe lorsque tous les éléments doivent partager le même style visuel.
@@ -99,13 +106,6 @@ Définissez `variant` sur le groupe lorsque tous les éléments doivent partager
 Définissez `orientation="vertical"` lorsque les choix doivent être disposés en colonne.
 
 <Example name="toggle-group/vertical" />
-
-### Personnalisation avancée
-
-Utilisez `ToggleGroupRootProvider` avec `useToggleGroup()` lorsque l’instance d’état doit être créée
-en dehors de l’arbre rendu du groupe.
-
-<Example name="toggle-group/root-provider" />
 
 ## Composition
 

@@ -52,6 +52,13 @@ value back through `value` when the framework uses separate input and value bind
 
 <Example name="input/controlled" />
 
+### Custom Element
+
+Use `asChild` only when another DOM node must be rendered as the input. Keep one semantic,
+focusable input element that can receive the merged props and `ref`.
+
+<Example name="input/custom-element" />
+
 ### Disabled and read-only
 
 Use `disabled` when the user must not interact with the control. Use `readOnly` when they can read
@@ -96,13 +103,6 @@ native character-based width.
 ids are not generated automatically and helper or error text is not connected to the control.
 
 <Example name="input/standalone-input" />
-
-### Advanced Customization
-
-Use `asChild` only when another DOM node must be rendered as the input. Keep one semantic,
-focusable input element that can receive the merged props and `ref`.
-
-<Example name="input/as-child" />
 
 ## Composition
 

@@ -52,6 +52,14 @@ liaisons de l’événement et de la valeur.
 
 <Example name="input/controlled" />
 
+### Élément personnalisé
+
+Utilisez `asChild` uniquement lorsqu’un autre nœud DOM doit être rendu à la place de l’élément du
+champ. Fournissez un seul élément sémantique et focusable, capable de recevoir les propriétés
+fusionnées et la `ref`.
+
+<Example name="input/custom-element" />
+
 ### Désactivé et en lecture seule
 
 Utilisez `disabled` lorsque l’utilisateur ne doit pas interagir avec le contrôle. Utilisez `readOnly`
@@ -99,14 +107,6 @@ toujours, mais sans contexte `Field`, les identifiants ne sont pas générés au
 textes d’aide ou d’erreur ne sont pas associés au champ.
 
 <Example name="input/standalone-input" />
-
-### Personnalisation avancée
-
-Utilisez `asChild` uniquement lorsqu’un autre nœud DOM doit être rendu à la place de l’élément du
-champ. Fournissez un seul élément sémantique et focusable, capable de recevoir les propriétés
-fusionnées et la `ref`.
-
-<Example name="input/as-child" />
 
 ## Composition
 

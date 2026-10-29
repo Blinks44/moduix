@@ -96,13 +96,14 @@ and last page.
 
 <Example name="pagination/with-edges" />
 
-### Advanced Customization
+### Build from parts
 
-Use `PaginationContext` instead of `PaginationItems` when page buttons or ellipses need custom
-content. Pass each page object to `PaginationItem` unchanged so Ark can keep its state and
-accessibility behavior.
+The same pagination as Basic, without `PaginationItems`: `PaginationContext` provides the pages, and
+each entry renders a `PaginationItem` or a `PaginationEllipsis` with an explicit icon. Pass each page
+object to `PaginationItem` unchanged so Ark keeps its state and accessibility behavior. The previous
+and next triggers keep their default chevrons: passing children turns them into text buttons.
 
-<Example name="pagination/advanced-customization" />
+<Example name="pagination/build-from-parts" />
 
 ## Composition
 

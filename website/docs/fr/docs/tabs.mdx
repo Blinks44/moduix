@@ -101,6 +101,13 @@ l’onglet sélectionné. Activez-le avec un clic, Entrée ou Espace.
 
 <Example name="tabs/manual-activation" width="lg" />
 
+### Root Provider
+
+Créez l’état des onglets avec `useTabs()` lorsqu’il doit exister avant le rendu de l’arbre de parties
+ou lorsque l’interface voisine doit lire la valeur sélectionnée.
+
+<Example name="tabs/root-provider" width="lg" />
+
 ### Tailles
 
 Définissez `size` sur `Tabs` ou `TabsRootProvider` : `sm`, `md` (par défaut) ou `lg`. La liste
@@ -115,13 +122,6 @@ actif. La liste occupe jusqu’à `12rem`, et au plus 40 % de la largeur de la r
 étroit.
 
 <Example name="tabs/vertical" width="lg" />
-
-### Personnalisation avancée
-
-Créez l’état des onglets avec `useTabs()` lorsqu’il doit exister avant le rendu de l’arbre de parties
-ou lorsque l’interface voisine doit lire la valeur sélectionnée.
-
-<Example name="tabs/root-provider" width="lg" />
 
 ## Composition
 

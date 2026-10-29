@@ -48,6 +48,13 @@ import * as DateInputDocs from '@/components/examples/date-input/css-properties'
 
 <Example name="date-input/controlled" />
 
+### Свои сегменты
+
+Стилизуйте каждый сегмент по его данным Ark через `DateInputSegmentContext`. В этом примере у сегмента
+дня свой класс.
+
+<Example name="date-input/custom-segments" />
+
 ### Отключённое состояние и только для чтения
 
 Используйте `disabled`, чтобы запретить взаимодействие, и `readOnly`, чтобы оставить значение доступным для
@@ -115,12 +122,13 @@ import * as DateInputDocs from '@/components/examples/date-input/css-properties'
 
 <Example name="date-input/time-only" />
 
-### Расширенная настройка
+### Сборка из частей
 
-Используйте полную композицию сегментов, если отображение должно зависеть от данных сегмента Ark UI.
-Для стандартного отображения остаётся `DateInputSegments`.
+То же поле, что в Basic, но без `DateInputSegments`: `DateInputSegmentGroup` содержит
+`DateInputSegmentContext`, который рисует по одному `DateInputSegment` на каждый сегмент Ark. Начинайте
+с него, если сегментам или разделителям нужна своя разметка.
 
-<Example name="date-input/advanced-customization" />
+<Example name="date-input/build-from-parts" />
 
 ## Композиция
 

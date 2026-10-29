@@ -99,6 +99,13 @@ import * as TabsDocs from '@/components/examples/tabs/css-properties';
 
 <Example name="tabs/manual-activation" width="lg" />
 
+### Root Provider
+
+Создайте состояние вкладок через `useTabs()`, если оно должно существовать до отображения дерева
+частей или если соседнему интерфейсу нужно читать выбранное значение.
+
+<Example name="tabs/root-provider" width="lg" />
+
 ### Размеры
 
 Задайте `size` у `Tabs` или `TabsRootProvider`: `sm`, `md` (по умолчанию) или `lg`. Тогда список
@@ -112,13 +119,6 @@ import * as TabsDocs from '@/components/examples/tabs/css-properties';
 панелью. Список занимает до `12rem`, а в узком контейнере не больше 40% ширины корня.
 
 <Example name="tabs/vertical" width="lg" />
-
-### Расширенная настройка
-
-Создайте состояние вкладок через `useTabs()`, если оно должно существовать до отображения дерева
-частей или если соседнему интерфейсу нужно читать выбранное значение.
-
-<Example name="tabs/root-provider" width="lg" />
 
 ## Композиция
 

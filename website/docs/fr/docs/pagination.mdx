@@ -96,13 +96,15 @@ accès rapide à la première et à la dernière page.
 
 <Example name="pagination/with-edges" />
 
-### Personnalisation avancée
+### Assembler à partir des parties
 
-Utilisez `PaginationContext` à la place de `PaginationItems` lorsque les boutons de page ou les points
-de suspension doivent afficher un contenu personnalisé. Transmettez chaque objet de page tel quel à
-`PaginationItem` afin qu’Ark conserve son état et son comportement accessible.
+La même pagination que Basic, sans `PaginationItems` : `PaginationContext` fournit les pages, et
+chaque entrée affiche un `PaginationItem` ou un `PaginationEllipsis` avec une icône explicite. Passez
+chaque objet de page à `PaginationItem` sans le modifier pour qu’Ark conserve son état et son
+accessibilité. Les déclencheurs précédent et suivant gardent leurs chevrons par défaut : avec des
+enfants, ils deviennent des boutons texte.
 
-<Example name="pagination/advanced-customization" />
+<Example name="pagination/build-from-parts" />
 
 ## Composition
 

@@ -51,6 +51,13 @@ validation, or another part of the interface.
 
 <Example name="steps/controlled" />
 
+### Link Triggers
+
+Use `asChild` when a trigger must render as an anchor or router link instead of the default button.
+Keep one semantic child so it receives Ark's ARIA, keyboard, and focus behavior.
+
+<Example name="steps/link-triggers" />
+
 ### Validation
 
 Use `linear`, `isStepValid`, and `onStepInvalid` to prevent navigation until the current step
@@ -79,13 +86,6 @@ Set `orientation="vertical"` when the step list should sit beside the active con
 wide layouts and stack above it on narrow screens.
 
 <Example name="steps/vertical" />
-
-### Advanced Customization
-
-Use `asChild` when a trigger must render as an anchor or router link instead of the default button.
-Keep one semantic child so it receives Ark's ARIA, keyboard, and focus behavior.
-
-<Example name="steps/custom-composition" />
 
 ## Composition
 

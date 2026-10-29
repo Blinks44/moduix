@@ -56,6 +56,14 @@ should remain visible but must not be editable.
 
 <Example name="editable/disabled-and-read-only" />
 
+### Custom Triggers
+
+Render your own `Button` in each trigger with `asChild`. `EditableContext` switches between the edit
+trigger and the submit and cancel triggers, and `translations` keeps the accessible names in line with
+the visible text.
+
+<Example name="editable/custom-triggers" />
+
 ### Field
 
 Wrap `Editable` in `Field` when validation state or an error message should appear outside the component.
@@ -93,14 +101,13 @@ Enter to save; Enter inserts a new line.
 
 <Example name="editable/textarea" />
 
-### Advanced Customization
+### Build from parts
 
-This example builds what `EditableControls` does from low-level parts: `EditableContext` switches
-between `EditableEditTrigger` and the submit and cancel triggers inside `EditableControl`. With
-`asChild`, each trigger renders your own `Button` and keeps its styles; `translations` keeps the
-accessible names in line with the visible text.
+The same field as Basic, without `EditableControls`: `EditableContext` switches between
+`EditableEditTrigger` and the submit and cancel triggers inside `EditableControl`, and each trigger
+receives an explicit icon. Start here when a design changes the controls or their icons.
 
-<Example name="editable/advanced-customization" />
+<Example name="editable/build-from-parts" />
 
 ## Composition
 

@@ -141,13 +141,13 @@ import AnatomyScene from '@/components/examples/file-upload/basic';
 
 <Example name="file-upload/with-field" />
 
-### Расширенная настройка
+### Сборка из частей
 
-Вместо `FileUploadItems` используйте собственные строки, если нужны превью для разных MIME-типов, дополнительные метаданные или
-другая разметка. Явная композиция `FileUploadContext` оставляет состояние Ark доступным и позволяет выбрать для каждого
-файла либо превью изображения, либо запасной вариант.
+Та же загрузка, что в Basic, но без `FileUploadItems`: `FileUploadContext` отдаёт принятые файлы, а
+каждый `FileUploadItem` содержит превью, имя, метаданные и кнопку удаления с явной иконкой. Начинайте с
+него, если строкам нужны превью по MIME-типу, дополнительные метаданные или другая раскладка.
 
-<Example name="file-upload/advanced-customization" />
+<Example name="file-upload/build-from-parts" />
 
 ## Композиция
 

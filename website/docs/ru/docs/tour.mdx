@@ -57,14 +57,14 @@ import AnatomyScene from '@/components/examples/tour/basic';
 
 <Example name="tour/with-arrow" />
 
-### Расширенная настройка
+### Сборка из частей
 
-Замените `TourActionList`, когда для каждого действия нужна своя разметка. В примере используются собственные
-элементы `Button` для Continue, Back и Skip tour. Каждый `TourActionTrigger` всё равно получает исходный объект
-действия Ark, поэтому навигация, закрытие и отключённое состояние продолжают работать. Пример также обходится без помощников `TourCloseIcon` и `TourBody`:
-заголовок, описание и прогресс лежат прямо в `TourContent`.
+Тот же тур, что в Basic, но без `TourCloseIcon`, `TourBody` и `TourActionList`: `TourCloseTrigger`
+оборачивает `CloseButton` с явной иконкой, текст лежит в обычном элементе, а `TourActions` рисует по
+одному `TourActionTrigger` на каждое действие шага. Триггер получает объект действия Ark, поэтому
+переходы и закрытие работают и после замены его содержимого своими кнопками.
 
-<Example name="tour/advanced-customization" />
+<Example name="tour/build-from-parts" />
 
 ## Композиция
 

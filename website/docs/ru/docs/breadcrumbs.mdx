@@ -66,12 +66,14 @@ npm, и в исходниках реестра shadcn.
 
 <Example name="breadcrumbs/long-current-label" />
 
-### Расширенная настройка
+### Сборка из частей
 
-Используйте отдельные части вместо `BreadcrumbsPath`, если в одной цепочке нужно сочетать ссылки из роутера приложения,
-свой разделитель и текущую страницу с дополнительной разметкой.
+Та же цепочка, что в Basic, но без `BreadcrumbsPath`: `BreadcrumbsList` содержит по одному
+`BreadcrumbsItem` на ссылку, `BreadcrumbsSeparator` с явной иконкой между ними и `BreadcrumbsPage` для
+текущей страницы. Начинайте с него, если пунктам нужны ссылки роутера, дополнительная разметка или
+разные разделители.
 
-<Example name="breadcrumbs/advanced-customization" />
+<Example name="breadcrumbs/build-from-parts" />
 
 ## Композиция
 

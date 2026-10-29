@@ -53,6 +53,13 @@ Use `open` with the Ark `onOpenChange(details)` callback when another part of yo
 
 <Example name="collapsible/controlled" />
 
+### Custom Trigger
+
+Use `asChild` to apply the trigger behavior to a button you own. This skips the default
+`CollapsibleTrigger` styling while preserving Ark behavior and state attributes.
+
+<Example name="collapsible/custom-trigger" />
+
 ### Default Open
 
 Set `defaultOpen` to start an uncontrolled disclosure in the open state.
@@ -99,12 +106,13 @@ the rendered component tree needs access to the state.
 
 <Example name="collapsible/root-provider" />
 
-### Advanced Customization
+### Build from parts
 
-Use `asChild` to apply the trigger behavior to a button you own. This skips the default
-`CollapsibleTrigger` styling while preserving Ark behavior and state attributes.
+The same collapsible as Basic, without `CollapsibleBody` and with the indicator icon written out:
+`CollapsibleIndicator` renders a default chevron only when it has no children, and the body is a plain
+element inside `CollapsibleContent`. Start here when a design changes the icon or the content spacing.
 
-<Example name="collapsible/custom-composition" />
+<Example name="collapsible/build-from-parts" />
 
 ## Composition
 

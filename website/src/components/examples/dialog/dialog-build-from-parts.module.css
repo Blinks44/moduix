@@ -1,0 +1,17 @@
+.header {
+  display: grid;
+  gap: var(--moduix-spacing-1);
+}
+
+.title {
+  padding-inline-end: var(--moduix-spacing-7);
+}
+
+.closeButton {
+  --moduix-close-button-radius: var(--moduix-radius-md);
+  --moduix-close-button-color-hover: var(--moduix-color-popover-foreground);
+  --moduix-close-button-bg-hover: var(--moduix-color-accent);
+  position: absolute;
+  inset-block-start: var(--moduix-spacing-4);
+  inset-inline-end: var(--moduix-spacing-4);
+}

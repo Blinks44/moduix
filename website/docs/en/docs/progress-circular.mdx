@@ -69,14 +69,6 @@ value string.
 
 <Example name="progress-circular/value-text" />
 
-### Advanced customization
-
-`ProgressCircularRing` is the quick path. Compose `ProgressCircularCircle`, `ProgressCircularCircleTrack`, and `ProgressCircularCircleRange`
-directly when the SVG tree or state ownership needs to be customized. Only direct composition can
-give `ProgressCircularCircleTrack` and `ProgressCircularCircleRange` their own classes, as in this example.
-
-<Example name="progress-circular/circle-parts" />
-
 ### Root Provider
 
 Create the store with `useProgress()` and pass it to `ProgressCircularRootProvider` when another
@@ -89,6 +81,14 @@ component needs to read or update progress outside the rendered tree.
 Use `ProgressCircularView` when supporting text or UI should change with the Ark progress state.
 
 <Example name="progress-circular/state-views" />
+
+### Build from parts
+
+The same progress as Basic, without `ProgressCircularRing`: `ProgressCircularCircle` holds
+`ProgressCircularCircleTrack` and `ProgressCircularCircleRange`. Start here when the track and range
+need their own classes or the SVG tree needs extra children.
+
+<Example name="progress-circular/build-from-parts" />
 
 ## Composition
 

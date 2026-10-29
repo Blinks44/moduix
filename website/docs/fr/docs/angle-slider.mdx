@@ -99,12 +99,14 @@ composition de `AngleSliderMarkerGroup` et `AngleSliderMarker`. `AngleSliderDial
 
 <Example name="angle-slider/with-marks" />
 
-### Personnalisation avancée
+### Assembler à partir des parties
 
-Utilisez les parties explicites à la place de `AngleSliderDial` et `AngleSliderMarks` lorsque le cadran nécessite
-une composition de marqueurs personnalisée ou des enfants supplémentaires dans la zone de contrôle.
+Le même cadran que Basic, sans `AngleSliderDial` : `AngleSliderControl` contient
+`AngleSliderValueText` et `AngleSliderThumb`. `AngleSliderMarks` de l’exemple avec repères est un
+`AngleSliderMarkerGroup` avec un `AngleSliderMarker` par valeur. Partez de cet exemple quand le cadran
+a besoin d’enfants supplémentaires ou de repères personnalisés.
 
-<Example name="angle-slider/advanced-customization" />
+<Example name="angle-slider/build-from-parts" />
 
 ## Composition
 

@@ -61,6 +61,13 @@ Conservez la valeur sélectionnée dans l’état React et mettez-la à jour ave
 
 <Example name="segment-group/controlled" />
 
+### Disposition personnalisée des éléments
+
+Utilisez `SegmentGroupItem asChild` à la place de `SegmentGroupItems` lorsque la disposition
+personnalisée du libellé doit posséder le nœud DOM de l’élément.
+
+<Example name="segment-group/custom-item-layout" />
+
 ### Élément et groupe désactivés
 
 Définissez `disabled` sur un élément lorsqu’un seul segment doit être indisponible. Définissez-le sur
@@ -112,12 +119,13 @@ une navigation verticale avec les touches fléchées.
 
 <Example name="segment-group/vertical-orientation" />
 
-### Personnalisation avancée
+### Assembler à partir des parties
 
-Utilisez `SegmentGroupItem asChild` à la place de `SegmentGroupItems` lorsque la disposition
-personnalisée du libellé doit posséder le nœud DOM de l’élément.
+Le même groupe que Basic, sans `SegmentGroupItems` : chaque `SegmentGroupItem` contient
+`SegmentGroupItemText` et `SegmentGroupItemHiddenInput`. Partez de cet exemple quand les options ont
+besoin d’un contenu ou de props différents.
 
-<Example name="segment-group/aschild" />
+<Example name="segment-group/build-from-parts" />
 
 ## Composition
 

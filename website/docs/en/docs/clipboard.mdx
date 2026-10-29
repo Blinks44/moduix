@@ -63,6 +63,14 @@ that match your product.
 
 <Example name="clipboard/custom-copy-text" />
 
+### Custom Elements
+
+Use `asChild` to let your own input and button elements render the Clipboard parts while preserving
+the component's state and behavior. With `asChild`, `ClipboardInput` and `ClipboardTrigger` drop their
+own styles, so the child component keeps its look.
+
+<Example name="clipboard/custom-elements" />
+
 ### Disabled
 
 Pass `disabled` to both the input and the trigger when users may view the value but must not edit or
@@ -89,14 +97,6 @@ three seconds.
 Use `ClipboardValueText` when the value should appear as text instead of inside an input field.
 
 <Example name="clipboard/value-text" />
-
-### Advanced Customization
-
-Use `asChild` to let your own input and button elements render the Clipboard parts while preserving
-the component's state and behavior. With `asChild`, `ClipboardInput` and `ClipboardTrigger` drop their
-own styles, so the child component keeps its look.
-
-<Example name="clipboard/as-child" />
 
 ## Composition
 

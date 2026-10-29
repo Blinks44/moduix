@@ -78,12 +78,13 @@ Ark показано `simulatePressure: true`), поэтому имитация 
 
 <Example name="signature-pad/root-provider" />
 
-### Расширенная настройка
+### Сборка из частей
 
-Используйте отдельные части вместо `SignaturePadCanvas`, если нужно управлять деревом частей рисования или
-предоставить собственную кнопку очистки.
+То же поле подписи, что в Basic, но без `SignaturePadCanvas`: `SignaturePadControl` содержит
+`SignaturePadSegment`, `SignaturePadClearTrigger` с явной иконкой и `SignaturePadGuide`. Начинайте с
+него, если дизайн меняет кнопку очистки или убирает направляющую.
 
-<Example name="signature-pad/advanced-customization" />
+<Example name="signature-pad/build-from-parts" />
 
 ## Композиция
 
