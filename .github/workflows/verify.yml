@@ -152,15 +152,9 @@ jobs:
       - name: Build public packages
         run: pnpm run build:packages
 
-      # Fails when a key component exceeds its budget in .size-limit.mjs; sizes go to the job summary.
+      # Fails when a key component exceeds its budget in .size-limit.mjs.
       - name: Check component size budgets
-        run: |
-          status=0
-          pnpm exec size-limit --json > "$RUNNER_TEMP/size-limit.json" || status=$?
-          jq -r '"| Component | Size (brotli) | Limit |", "| --- | --- | --- |",
-            (.[] | "| \(.name) | \(.size / 10 | round / 100) kB | \(.sizeLimit / 1000) kB\(if .passed then "" else " ❌" end) |")' \
-            "$RUNNER_TEMP/size-limit.json" >> "$GITHUB_STEP_SUMMARY"
-          exit $status
+        run: pnpm run size
 
       - name: Build registry and docs
         run: pnpm run build:docs
@@ -175,6 +169,7 @@ jobs:
   storybook:
     name: Storybook smoke
     runs-on: ubuntu-latest
+    # Pull requests only build the storybooks; pushes to main also compare every story.
     timeout-minutes: 45
 
     steps:
@@ -191,6 +186,7 @@ jobs:
         run: pnpm --filter './playgrounds/*' run build:storybook
 
       - name: Cache Playwright browsers
+        if: github.event_name == 'push'
         id: playwright-cache
         uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6
         with:
@@ -198,15 +194,16 @@ jobs:
           key: playwright-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}
 
       - name: Install Chromium
-        if: steps.playwright-cache.outputs.cache-hit != 'true'
+        if: github.event_name == 'push' && steps.playwright-cache.outputs.cache-hit != 'true'
         run: pnpm exec playwright install --with-deps --only-shell chromium
 
       - name: Install Chromium system dependencies
-        if: steps.playwright-cache.outputs.cache-hit == 'true'
+        if: github.event_name == 'push' && steps.playwright-cache.outputs.cache-hit == 'true'
         run: pnpm exec playwright install-deps chromium
 
       # Every adapter is compared with React CSS Modules; known exceptions live in the script.
       - name: Compare stories across adapters
+        if: github.event_name == 'push'
         run: pnpm run compare:stories
 
       - name: Upload story diffs

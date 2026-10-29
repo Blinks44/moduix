@@ -1,76 +1,35 @@
 // Screenshots built playground stories and compares every adapter with React CSS Modules.
 // Usage: pnpm run compare:stories [component...]   (run build:storybook in the playgrounds first)
-import { existsSync, mkdirSync, readdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
-import { createServer } from 'node:http';
-import { extname, join, normalize } from 'node:path';
+import { mkdirSync, rmSync, writeFileSync } from 'node:fs';
+import { join } from 'node:path';
 import pixelmatch from 'pixelmatch';
 import { chromium } from 'playwright';
 import { PNG } from 'pngjs';
+import { playgrounds, servePlaygrounds, storyIds } from './playgrounds.mjs';
 
 const reference = 'react';
 const maxDiffRatio = 0.001;
-// Story ids, or id prefixes for a whole component.
-const skipped = [
+const skipped = new Set([
   // CSS Modules style these demos through component variables and Tailwind through utilities.
   'components-angleslider--custom-styling',
   'components-marquee--custom-styling',
   'components-pagination--custom-styles',
   'components-tagsinput--custom-styling',
-  // Solid applies `multiple` after inserting options, so the first option starts selected.
-  'components-nativeselect--multiple',
-  // The sidebar converts its default width to a percentage of a container measured on mount.
-  'components-sidebar--',
   // Ark Vue renders the key separator without the trailing space that Ark React and Solid keep.
   'utilities-jsontreeview--basic',
   'utilities-jsontreeview--compact-previews',
-];
+]);
 const outDir = '.stories-diff';
-const types = {
-  '.html': 'text/html',
-  '.js': 'text/javascript',
-  '.css': 'text/css',
-  '.json': 'application/json',
-  '.svg': 'image/svg+xml',
-  '.woff2': 'font/woff2',
-  '.png': 'image/png',
-};
+const stories = storyIds(reference, process.argv.slice(2)).filter((id) => !skipped.has(id));
+const server = await servePlaygrounds();
 
-const playgrounds = readdirSync('playgrounds').filter((name) =>
-  existsSync(join('playgrounds', name, 'storybook-static/index.json')),
-);
-const components = process.argv.slice(2);
-const index = JSON.parse(
-  readFileSync(`playgrounds/${reference}/storybook-static/index.json`, 'utf8'),
-);
-const stories = Object.values(index.entries)
-  .filter((entry) => entry.type === 'story')
-  .map((entry) => entry.id)
-  .filter((id) => !skipped.some((skip) => id.startsWith(skip)))
-  .filter(
-    (id) => !components.length || components.some((name) => id.startsWith(`components-${name}--`)),
-  );
-
-const server = createServer((request, response) => {
-  const path = normalize(decodeURIComponent(new URL(request.url, 'http://x').pathname)).replace(
-    /^(\.\.[/\\])+/,
-    '',
-  );
-  const file = join('playgrounds', path);
-  if (!existsSync(file)) return response.writeHead(404).end();
-  response.writeHead(200, { 'content-type': types[extname(file)] ?? 'application/octet-stream' });
-  response.end(readFileSync(file));
-});
-await new Promise((resolve) => server.listen(0, resolve));
-const origin = `http://localhost:${server.address().port}`;
-
+const viewport = { width: 1024, height: 768 };
 const browser = await chromium.launch();
-const context = await browser.newContext({
-  viewport: { width: 1024, height: 768 },
-  reducedMotion: 'reduce',
-});
+const context = await browser.newContext({ viewport, reducedMotion: 'reduce' });
 
 async function screenshot(page, playground, id) {
-  await page.goto(`${origin}/${playground}/storybook-static/iframe.html?id=${id}&viewMode=story`);
+  await page.setViewportSize(viewport);
+  await page.goto(server.storyUrl(playground, id));
   await page.waitForSelector('#storybook-root > *', { state: 'attached' });
   await page.addStyleTag({
     content:
@@ -79,6 +38,17 @@ async function screenshot(page, playground, id) {
   });
   await page.evaluate(() => document.fonts.ready);
   await page.waitForLoadState('networkidle');
+  // A full-page capture of an overflowing story widens the viewport mid-shot, and vw-based layouts
+  // such as Sidebar may or may not reflow in time. Resize first and let observers settle.
+  await page.setViewportSize(
+    await page.evaluate(() => ({
+      width: document.documentElement.scrollWidth,
+      height: document.documentElement.scrollHeight,
+    })),
+  );
+  await page.evaluate(
+    () => new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve))),
+  );
   return PNG.sync.read(await page.screenshot({ fullPage: true }));
 }
 
