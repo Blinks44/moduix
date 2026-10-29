@@ -107,20 +107,7 @@ There is no component-owned state, callback, context, or keyboard navigation.
   `--moduix-breadcrumbs-item-max-width` and grows to fill the remaining space up to that cap.
 - Links show an inset-width focus ring as a `box-shadow` with the foundation ring tokens.
 
-Public CSS variables (CSS Modules):
-
-| Variable                                   | Default                             |
-| ------------------------------------------ | ----------------------------------- |
-| `--moduix-breadcrumbs-color`               | `var(--moduix-muted-foreground)`    |
-| `--moduix-breadcrumbs-font-size`           | `var(--moduix-text-sm)`             |
-| `--moduix-breadcrumbs-gap`                 | `var(--moduix-spacing-1)`           |
-| `--moduix-breadcrumbs-item-max-width`      | `16rem`                             |
-| `--moduix-breadcrumbs-item-padding-x`      | `var(--moduix-spacing-1)`           |
-| `--moduix-breadcrumbs-line-height`         | `var(--moduix-line-height-text-sm)` |
-| `--moduix-breadcrumbs-link-color-hover`    | `var(--moduix-foreground)`          |
-| `--moduix-breadcrumbs-page-color`          | `var(--moduix-foreground)`          |
-| `--moduix-breadcrumbs-page-font-weight`    | `var(--moduix-weight-medium)`       |
-| `--moduix-breadcrumbs-separator-icon-size` | `1em`                               |
+Public CSS variables (CSS Modules packages) are listed in `website/src/components/examples/breadcrumbs/css-properties.tsx`.
 
 ## Intentional sugar and differences from upstream
 

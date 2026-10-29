@@ -114,8 +114,8 @@ Guides, Ark UI, AI. Entries have no `tag` icons and no counts.
 
 ## CSS variables and registry docs
 
-- Cover a component's full public `--<component>-*` CSS Modules contract from
-  `packages/foundation/src/styles/variables-moduix.css` using the shared CSS variables reference UI;
+- Cover a component's full public `--<component>-*` CSS Modules contract (declared in its CSS Module) in
+  `css-properties.tsx` using the shared CSS variables reference UI;
   do not imply that Tailwind mirrors those variables or duplicate the table in prose.
 - Keep styling hooks limited to meaningful `className`/`class`, `data-slot`, and state attributes
   that consumers can target. Explain that Tailwind variants use native utility and consumer-class

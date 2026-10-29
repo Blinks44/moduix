@@ -40,7 +40,7 @@ custom interactive roles retain their native semantics, while their hover, disab
 action-specific presentation remains consumer-owned.
 
 CSS Modules expose 3 `--moduix-badge-*` variables listed in
-`packages/foundation/src/styles/variables-moduix.css`: `bg`, `border-color`, and `color` override any
+`website/src/components/examples/badge/css-properties.tsx`: `bg`, `border-color`, and `color` override any
 variant, including the anchor hover colors, and a variant is themed app-wide by setting them on
 `[data-slot='badge-root'][data-variant='<variant>']`. Size, spacing, typography, radius, icon and dot
 size, focus ring, transition, and hover use foundation tokens directly; a consumer class on the part

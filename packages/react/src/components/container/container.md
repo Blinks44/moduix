@@ -126,18 +126,7 @@ exactly one semantic child, and the ref then targets that child.
 | `asChild`   | `false` | Ark factory composition              |
 | `className` | -       | Applied to the root                  |
 
-Public CSS variables:
-
-| Variable                          | Default                                                        | Used by       |
-| --------------------------------- | -------------------------------------------------------------- | ------------- |
-| `--moduix-container-gutter-sm`    | `clamp(var(--moduix-spacing-3), 3vw, var(--moduix-spacing-6))` | `gutter="sm"` |
-| `--moduix-container-gutter-md`    | `clamp(var(--moduix-spacing-4), 4vw, var(--moduix-spacing-8))` | `gutter="md"` |
-| `--moduix-container-gutter-lg`    | `clamp(var(--moduix-spacing-6), 5vw, 3rem)`                    | `gutter="lg"` |
-| `--moduix-container-max-width-xs` | `40rem`                                                        | `size="xs"`   |
-| `--moduix-container-max-width-sm` | `48rem`                                                        | `size="sm"`   |
-| `--moduix-container-max-width-md` | `64rem`                                                        | `size="md"`   |
-| `--moduix-container-max-width-lg` | `72rem`                                                        | `size="lg"`   |
-| `--moduix-container-max-width-xl` | `90rem`                                                        | `size="xl"`   |
+Public CSS variables (CSS Modules packages) are listed in `website/src/components/examples/container/css-properties.tsx`.
 
 There is no dedicated CSS variable for `size="full"` or `gutter="none"`: those states bypass the
 max-width cap or zero out the gutter directly. Override variables on the root or a parent scope

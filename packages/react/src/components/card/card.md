@@ -39,7 +39,7 @@ Ark UI has no dedicated Card primitive. moduix builds the parts with the
 ## Styling
 
 CSS Modules expose 7 `--moduix-card-*` variables listed in
-`packages/foundation/src/styles/variables-moduix.css`: `bg`, `color`, `border-color`,
+`website/src/components/examples/card/css-properties.tsx`: `bg`, `color`, `border-color`,
 `border-width`, `shadow`, `radius`, and `spacing`. They override every variant; a variant is themed
 app-wide by setting them on `[data-slot='card-root'][data-variant='<variant>']`. Size and variant
 values live in private `--_card-*` properties. Part typography, gaps, and focus rings use foundation

@@ -108,14 +108,7 @@ overridden by accident.
 | `lg`   | `--moduix-size-lg` | `--moduix-text-lg` |
 | `xl`   | `--moduix-size-xl` | `--moduix-text-lg` |
 
-Public CSS variables:
-
-- `--moduix-avatar-bg`
-- `--moduix-avatar-color`
-- `--moduix-avatar-font-size`
-- `--moduix-avatar-font-weight`
-- `--moduix-avatar-radius`
-- `--moduix-avatar-size`
+Public CSS variables (CSS Modules packages) are listed in `website/src/components/examples/avatar/css-properties.tsx`.
 
 State-dependent styling should target Ark `data-state`; local visual hooks should use `data-slot`
 or the public CSS variables.

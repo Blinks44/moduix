@@ -80,5 +80,5 @@ wrapper is layout, not a library part.
 
 - Do not add hidden structural wrappers to center `ProgressCircularValueText`.
 - Keep callbacks Ark-shaped and keep `ProgressCircularRootProvider` on Ark state.
-- When changing CSS variables, update docs examples, this file, `variables-moduix.css`, and the
+- When changing CSS variables, update docs examples, this file, `css-properties.tsx`, and the
   registry output.

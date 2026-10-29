@@ -153,13 +153,7 @@ Extends Ark `div` props and supports `asChild`.
 
 ### Public CSS variables
 
-| Variable                           | Default/fallback                                             |
-| ---------------------------------- | ------------------------------------------------------------ |
-| `--moduix-alert-bg`                | Status-dependent; info uses `var(--moduix-card)`             |
-| `--moduix-alert-border-color`      | Status-dependent; info uses `var(--moduix-border)`           |
-| `--moduix-alert-color`             | Status-dependent; info uses `var(--moduix-card-foreground)`  |
-| `--moduix-alert-description-color` | `var(--moduix-muted-foreground)`                             |
-| `--moduix-alert-indicator-color`   | Status-dependent; info uses `var(--moduix-muted-foreground)` |
+Public CSS variables (CSS Modules packages) are listed in `website/src/components/examples/alert/css-properties.tsx`.
 
 Built-in statuses derive their accents from shared palette tokens:
 

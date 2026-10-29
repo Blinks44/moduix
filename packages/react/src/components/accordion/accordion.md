@@ -151,7 +151,7 @@ the heading adds no visual change.
 - Horizontal orientation uses fixed defaults (20rem root height, 2.5rem trigger width, 16rem content
   width); override them with `className` on the parts.
 
-CSS variables (the full list lives in `packages/foundation/src/styles/variables-moduix.css`):
+CSS variables (the full list lives in `website/src/components/examples/accordion/css-properties.tsx`):
 
 | Variable                                | Default                          |
 | --------------------------------------- | -------------------------------- |

@@ -54,18 +54,7 @@ export function ShortcutHint() {
 
 ## Styling
 
-Public CSS variables (CSS Modules only), all on `Kbd`:
-
-| Variable                    | Default                                                             |
-| --------------------------- | ------------------------------------------------------------------- |
-| `--moduix-kbd-bg`           | `var(--moduix-muted)`                                               |
-| `--moduix-kbd-border-color` | `var(--moduix-border)`                                              |
-| `--moduix-kbd-border-width` | `var(--moduix-border-width-sm)`                                     |
-| `--moduix-kbd-color`        | `var(--moduix-foreground)`                                          |
-| `--moduix-kbd-height`       | `var(--moduix-size-xs)`; also the minimum width                     |
-| `--moduix-kbd-padding-x`    | `var(--moduix-spacing-2)`                                           |
-| `--moduix-kbd-radius`       | `var(--moduix-radius-sm)`                                           |
-| `--moduix-kbd-shadow`       | `inset 0 -1px 0 color-mix(in oklab, currentColor 12%, transparent)` |
+Public CSS variables (CSS Modules packages) are listed in `website/src/components/examples/kbd/css-properties.tsx`.
 
 Typography and `KbdGroup` styles come from foundation tokens; override them with a class. Separators
 inherit the group text color. The keycap edge shadow follows the text color.

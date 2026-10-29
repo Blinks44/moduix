@@ -53,11 +53,13 @@ Use this skill for CSS, CSS Modules, and styling work in this repo.
 
 ## CSS Variable References
 
-- `packages/foundation/src/styles/variables-moduix.css` and `packages/foundation/src/styles/variables-ark.css` are internal
-  reference sources for the public moduix and Ark runtime custom-property contracts. Never import either file at
-  runtime, publish it in the npm build, or ship it through the shadcn registry.
-- When adding, renaming, or removing a public custom property, update the relevant reference source and the
-  component documentation in the same change. Do not add IDE metadata or a generator solely for CSS completion.
+- The component CSS Module is the source of a component's public `--moduix-*` variables; the docs list them in
+  `website/src/components/examples/<component>/css-properties.tsx`. Do not repeat the list in component-local
+  markdown.
+- `packages/foundation/src/styles/variables-ark.css` is an internal reference for Ark runtime custom properties.
+  Never import it at runtime, publish it in the npm build, or ship it through the shadcn registry.
+- When adding, renaming, or removing a public custom property, update `css-properties.tsx` in the same change.
+  Do not add IDE metadata or a generator solely for CSS completion.
 
 ## Ark Styling
 

@@ -79,5 +79,5 @@ ProgressLinear / ProgressLinearRootProvider  data-slot="progress-linear-root[-pr
 
 Do not add hidden structural wrappers for label, value text, track, or range. Do not remap Ark
 callback detail objects or replace `ProgressLinearRootProvider` with a local state layer. When
-changing styling hooks or CSS variables, update docs examples, this file, `variables-moduix.css`,
+changing styling hooks or CSS variables, update docs examples, this file, `css-properties.tsx`,
 and the registry output.

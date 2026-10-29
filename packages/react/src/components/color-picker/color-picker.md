@@ -179,13 +179,7 @@ The square trigger, channel inputs, format select, and adjacent action triggers 
 
 ### Public CSS variables
 
-The public documentation provides the defaults and descriptions for this exact contract. Keep its
-`colorPickerOverrideCssProperties` list synchronized with the variables below.
-
-`--moduix-color-picker-width`, `--moduix-color-picker-radius`, `--moduix-color-picker-trigger-size`,
-`--moduix-color-picker-content-width`, `--moduix-color-picker-area-height`,
-`--moduix-color-picker-thumb-size`, `--moduix-color-picker-channel-slider-height`, and
-`--moduix-color-picker-swatch-size`.
+Public CSS variables (CSS Modules packages) are listed in `website/src/components/examples/color-picker/css-properties.tsx`.
 
 Variables cover sizes shared by several parts or by default children. Colors, spacing, typography,
 focus rings, and motion come from foundation tokens; change them with a class on the part. Popup

@@ -106,21 +106,7 @@ icon content because the single child is the composed root:
 | `asChild`   | `false`     | Ark factory composition                    |
 | `className` | -           | Applied to the root                        |
 
-Public CSS variables:
-
-| CSS variable                              | Default                           |
-| ----------------------------------------- | --------------------------------- |
-| `--moduix-close-button-bg`                | `transparent`                     |
-| `--moduix-close-button-bg-hover`          | `var(--moduix-muted)`             |
-| `--moduix-close-button-color`             | `var(--moduix-muted-foreground)`  |
-| `--moduix-close-button-color-hover`       | `var(--moduix-foreground)`        |
-| `--moduix-close-button-disabled-opacity`  | `var(--moduix-opacity-disabled)`  |
-| `--moduix-close-button-focus-ring-color`  | `var(--moduix-ring)`              |
-| `--moduix-close-button-focus-ring-offset` | `var(--moduix-focus-ring-offset)` |
-| `--moduix-close-button-focus-ring-width`  | `var(--moduix-focus-ring-width)`  |
-| `--moduix-close-button-icon-size`         | `var(--moduix-spacing-4)`         |
-| `--moduix-close-button-radius`            | `var(--moduix-radius-sm)`         |
-| `--moduix-close-button-size`              | `var(--moduix-spacing-7)`         |
+Public CSS variables (CSS Modules packages) are listed in `website/src/components/examples/close-button/css-properties.tsx`.
 
 ## Agent notes
 
