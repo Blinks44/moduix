@@ -207,14 +207,33 @@ Avec un registre fondé sur CSS Modules :
 import '@/lib/moduix/styles/style.css';
 ```
 
-Personnalisez les tokens sémantiques dans votre propre CSS :
+Les tokens de couleur moduix reprennent les noms de shadcn/ui avec le préfixe `--moduix-`.
+Associez-les à vos valeurs existantes pour que les deux bibliothèques partagent une seule palette
+pendant la migration :
 
 ```css title="app.css"
 :root {
-  --moduix-color-accent: oklch(58% 0.18 260deg);
-  --moduix-radius-md: 0.625rem;
+  --moduix-background: var(--background);
+  --moduix-foreground: var(--foreground);
+  --moduix-primary: var(--primary);
+  --moduix-primary-foreground: var(--primary-foreground);
+  --moduix-muted: var(--muted);
+  --moduix-muted-foreground: var(--muted-foreground);
+  --moduix-accent: var(--accent);
+  --moduix-accent-foreground: var(--accent-foreground);
+  --moduix-destructive: var(--destructive);
+  --moduix-border: var(--border);
+  --moduix-ring: var(--ring);
+  --moduix-radius: var(--radius);
+}
+
+.dark {
+  color-scheme: dark;
 }
 ```
+
+Les tokens associés changent avec vos règles `.dark`. La règle `color-scheme` fait basculer tous
+les autres tokens ; voir [Mode sombre](/docs/dark-mode#brancher-un-sélecteur-de-thème-existant).
 
 Tailwind peut rester dans l’application pour la mise en page et les classes ponctuelles pendant une
 migration vers les paquets CSS Modules. Si les styles des composants doivent rester en Tailwind,

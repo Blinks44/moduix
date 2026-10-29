@@ -11,7 +11,7 @@
 on [Ark UI](https://ark-ui.com/), with the same API in every framework. Style them with CSS Modules
 or Tailwind CSS v4, and install from npm or copy the source into your app with the shadcn CLI.
 
-Ark UI handles keyboard interaction, focus, and accessibility semantics. Svelte support is planned.
+Ark UI handles keyboard interaction, focus, and accessibility semantics.
 
 Install a published package to receive updates through your package manager, or copy component
 source into your application with the shadcn registry to edit it directly.

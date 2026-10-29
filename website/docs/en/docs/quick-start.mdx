@@ -383,16 +383,6 @@ values.
 }
 ```
 
-If your application supports Safari on iOS 26, test a scrolled modal while Safari's browser UI is
-visible. If content remains visible below the backdrop, set `body` to `position: relative` so an
-absolutely positioned backdrop can cover the full visual viewport.
-
-```css title="styles.css"
-body {
-  position: relative;
-}
-```
-
 ## Troubleshooting
 
 | Symptom                                  | Check                                                                                 |
@@ -401,6 +391,7 @@ body {
 | Hidden component content remains visible | With CSS Modules, check that the moduix reset or your own reset is loaded. Keep Tailwind Preflight enabled for the Tailwind track. |
 | A generated component import is unresolved | Verify the `@/*` alias in TypeScript and your bundler, then check `components.json`.    |
 | A popup appears below page content       | Add `isolation: isolate` to the application root and avoid unrelated global z-indexes. |
+| Content shows below a modal backdrop on Safari for iOS 26 | Set `body` to `position: relative` so the backdrop covers the whole visible area. |
 | Server rendering reports client APIs     | Keep interactive components inside a client boundary in frameworks that require one.  |
 
 ## Next steps

@@ -66,6 +66,28 @@ export function saveColorScheme(scheme: ColorScheme) {
 Suivez la préférence du système jusqu’à ce que l’utilisateur fasse un choix explicite. Donnez au
 contrôle un nom accessible décrivant l’action, par exemple `Switch to dark mode`.
 
+## Brancher un sélecteur de thème existant
+
+Si votre application change déjà de thème avec une classe `dark`, comme les projets shadcn/ui,
+next-themes avec `attribute="class"` ou `useDark()` de VueUse, associez cette classe au schéma de
+couleurs natif. Les tokens moduix la suivent comme ils suivent l’attribut :
+
+```css
+.dark {
+  color-scheme: dark;
+}
+```
+
+Par défaut, la variante `dark:` de Tailwind suit la préférence du système d’exploitation. Si vous
+changez de thème avec `data-moduix-color-scheme`, faites pointer la variante vers cet attribut pour
+que vos utilitaires et les composants moduix changent ensemble :
+
+```css title="styles.css"
+@custom-variant dark (&:where([data-moduix-color-scheme='dark'], [data-moduix-color-scheme='dark'] *));
+```
+
+Avec une classe `dark`, conservez la variante que votre projet définit déjà pour cette classe.
+
 ## Combiner schéma et preset
 
 Le schéma de couleur et le preset visuel sont indépendants. Placez les deux attributs sur la même
@@ -103,24 +125,27 @@ Seul l’import du package natif diffère :
 Le contenu portalled sort du conteneur et n’en hérite pas les tokens. Si cette surface ouvre des
 superpositions, déplacez l’attribut vers le conteneur de portail, `<body>` ou `<html>`.
 
+:::warning Gardez `light-dark()` natif
+Une surface délimitée ne change de schéma que si le navigateur exécute `light-dark()` nativement. Les
+outils de build qui le remplacent pour les anciens navigateurs, comme Lightning CSS dans Rsbuild avec
+les cibles par défaut, laissent les surfaces imbriquées dans le schéma de la page. Définissez un
+`browserslist` adapté à moduix : Chrome et Edge 123+, Firefox 120+, Safari 17.5+.
+:::
+
 ## Personnaliser les tokens
 
-Chargez les redéfinitions de l’application après la feuille de styles Moduix et traitez les deux
-schémas explicitement :
+Chargez les redéfinitions de l’application après la feuille de styles moduix. Définissez les valeurs
+claire et sombre dans une seule déclaration avec `light-dark()` :
 
 ```css
 :root {
-  --moduix-background: oklch(0.99 0.004 285);
-  --moduix-primary: oklch(0.5 0.18 260);
-}
-
-[data-moduix-color-scheme='dark'] {
-  --moduix-background: oklch(0.16 0.01 285);
-  --moduix-primary: oklch(0.76 0.13 260);
+  --moduix-background: light-dark(oklch(0.99 0.004 285), oklch(0.16 0.01 285));
+  --moduix-primary: light-dark(oklch(0.5 0.18 260), oklch(0.76 0.13 260));
 }
 ```
 
-Les tokens non redéfinis conservent leur valeur intégrée.
+`light-dark()` suit le schéma de couleurs, quelle que soit la façon de le changer : l’attribut, une
+classe `dark` ou une surface délimitée. Les tokens non redéfinis conservent leur valeur intégrée.
 
 ## Vérifier le thème
 

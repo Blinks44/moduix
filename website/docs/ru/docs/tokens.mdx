@@ -109,7 +109,7 @@ moduix. Путь `@source` задаётся относительно файла 
 | Слой | Примеры | Подходит для |
 | --- | --- | --- |
 | Примитивы темы | `--moduix-primary`, `--moduix-spacing-2`, `--moduix-size-md`, `--moduix-radius` | Задать визуальный язык приложения или пресета. |
-| Семантические алиасы | `--moduix-color-primary`, `--moduix-spacing-md`, `--moduix-radius-md` | Использовать вычисленные значения в компонентах и стилях приложения. |
+| Производные шаги | `--moduix-spacing-1-5`, `--moduix-radius-md` | Использовать в своих стилях. Они следуют примитивам темы, поэтому переопределяйте примитивы. |
 | Общие значения семейства | `--moduix-popup-item-min-height`, `--moduix-focus-ring-width` | Согласовать связанные элементы управления, строки списков и состояния. |
 | Алиасы компонентов | `--moduix-input-height`, `--moduix-select-control-height` | Создать осознанное исключение для одного компонента или его экземпляра. |
 
@@ -191,7 +191,7 @@ moduix определяет только переменные `--moduix-*`. Ва
 | <code>--moduix-scale-popup</code><br /><code>--moduix-scale-dropdown</code> | Масштаб открытия и закрытия всплывающих окон и списков | Содержимое оверлеев и всплывающие списки, включая Dialog, Popover, Tooltip, Menu, Toast, Select и Combobox |
 | <code>--moduix-popup-\*</code> | Общая плотность и интервалы списков всплывающих окон | Menu, Select, Combobox, CommandPalette |
 | <code>--moduix-spacing-\*</code><br /><code>--moduix-size-\*</code> | Общая плотность и шкала элементов управления | Элементы управления, геометрия иконок, строки всплывающих списков, ритм макета |
-| <code>--moduix-focus-ring-\*</code><br /><code>--moduix-color-ring</code> | Общая геометрия и цвет кольца фокуса в CSS Modules и Tailwind (`outline-focus`, `outline-focus-inset`, `outline-offset-focus`, `outline-offset-focus-inset`) | Кнопки, поля ввода, составные элементы управления, триггеры всплывающих окон |
+| <code>--moduix-focus-ring-\*</code><br /><code>--moduix-ring</code> | Общая геометрия и цвет кольца фокуса в CSS Modules и Tailwind (`outline-focus`, `outline-focus-inset`, `outline-offset-focus`, `outline-offset-focus-inset`) | Кнопки, поля ввода, составные элементы управления, триггеры всплывающих окон |
 | <code>--moduix-opacity-disabled</code> | Затемнение отключённых и read-only состояний в CSS Modules и Tailwind (`opacity-disabled`) | Кнопки, поля ввода, триггеры, пункты и другие отключённые элементы |
 | <code>--moduix-opacity-hover</code> | Затемнение заполненных бейджей-ссылок при наведении в CSS Modules и Tailwind (`opacity-hover`) | Badge |
 | <code>--moduix-border-width-sm</code> | Толщина рамки по умолчанию в CSS Modules и Tailwind (`border`, `border-t`, `divide-y` и подобные) | Карточки, поля ввода, всплывающие панели, уведомления, таблицы, разделители |
@@ -222,9 +222,15 @@ moduix определяет только переменные `--moduix-*`. Ва
 
 ## Область переопределения
 
-Токены уровня проекта задавайте в `:root`. Значение на `[data-moduix-color-scheme='dark']` или другом родительском
-контейнере наследуют только компоненты, отрисованные внутри него. Для оверлеев, которые по умолчанию рендерятся через
-портал, значение нужно указать на корне документа, `body` или контейнере портала в той же области.
+Токены уровня проекта задавайте в `:root`. Цвета и примитивы работают и на любом другом элементе,
+например на классе одного раздела страницы. Производные шаги вроде `--moduix-spacing-1-5` и
+`--moduix-radius-md` пересчитываются только на `:root` и на элементах с `data-moduix-theme` или
+`data-moduix-color-scheme`. Если вы меняете отступы или `--moduix-radius` для части страницы, задайте
+их на элементе с `data-moduix-theme`: на обычном классе промежуточные шаги и радиусы останутся прежними.
+
+Значения наследуют только компоненты внутри этого элемента. Для оверлеев, которые по умолчанию
+рендерятся через портал, значение нужно указать на корне документа, `body` или контейнере портала в
+той же области.
 
 ```css
 :root {
@@ -233,7 +239,8 @@ moduix определяет только переменные `--moduix-*`. Ва
   --moduix-backdrop-filter: blur(4px);
 }
 
-.dense-panel {
+/* <section data-moduix-theme="dense-panel"> */
+[data-moduix-theme='dense-panel'] {
   --moduix-spacing-1: 3px;
   --moduix-spacing-2: 6px;
   --moduix-spacing-3: 10px;

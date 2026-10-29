@@ -26,8 +26,8 @@ de rendu de TanStack.
 ## Utilisation
 
 <UsageCode
-  react={'<Chart>\n  <ChartHeader>\n    <ChartTitle>Monthly revenue</ChartTitle>\n    <ChartDescription>In thousands of dollars.</ChartDescription>\n  </ChartHeader>\n  <ChartPlot definition={definition} height={320} ariaLabel="Monthly revenue" />\n  <ChartLegend aria-label="Series">\n    <ChartLegendItem color="var(--moduix-color-chart-1)">Revenue</ChartLegendItem>\n  </ChartLegend>\n</Chart>'}
-  vue={'<Chart>\n  <ChartHeader>\n    <ChartTitle>Monthly revenue</ChartTitle>\n    <ChartDescription>In thousands of dollars.</ChartDescription>\n  </ChartHeader>\n  <ChartPlot :definition="definition" :height="320" ariaLabel="Monthly revenue" />\n  <ChartLegend aria-label="Series">\n    <ChartLegendItem color="var(--moduix-color-chart-1)">Revenue</ChartLegendItem>\n  </ChartLegend>\n</Chart>'}
+  react={'<Chart>\n  <ChartHeader>\n    <ChartTitle>Monthly revenue</ChartTitle>\n    <ChartDescription>In thousands of dollars.</ChartDescription>\n  </ChartHeader>\n  <ChartPlot definition={definition} height={320} ariaLabel="Monthly revenue" />\n  <ChartLegend aria-label="Series">\n    <ChartLegendItem color="var(--moduix-chart-1)">Revenue</ChartLegendItem>\n  </ChartLegend>\n</Chart>'}
+  vue={'<Chart>\n  <ChartHeader>\n    <ChartTitle>Monthly revenue</ChartTitle>\n    <ChartDescription>In thousands of dollars.</ChartDescription>\n  </ChartHeader>\n  <ChartPlot :definition="definition" :height="320" ariaLabel="Monthly revenue" />\n  <ChartLegend aria-label="Series">\n    <ChartLegendItem color="var(--moduix-chart-1)">Revenue</ChartLegendItem>\n  </ChartLegend>\n</Chart>'}
 />
 
 <PropChips
@@ -179,7 +179,7 @@ Pour modifier l’enveloppe de l’info-bulle, remplacez ces variables avec une 
 
 ```css
 .sales-plot {
-  --ts-chart-tooltip-background: var(--moduix-color-card);
+  --ts-chart-tooltip-background: var(--moduix-card);
   --ts-chart-tooltip-font: var(--moduix-weight-medium) var(--moduix-text-sm) /
     var(--moduix-line-height-text-sm) var(--moduix-font-sans);
 }
@@ -215,7 +215,7 @@ Survolez ou sélectionnez une variable pour la voir dans l’aperçu.
 - `Chart`, `ChartHeader`, `ChartTitle`, `ChartDescription`, `ChartLegend` et
   `ChartLegendItem` exposent `data-scope="chart"`, `data-part` et `data-slot`.
 - `className` en React et `class` en Solid et Vue sur `ChartPlot` atteignent l’élément externe `.ts-chart-host`.
-- Utilisez `--moduix-color-chart-1` à `--moduix-color-chart-5` dans les échelles de couleurs TanStack.
+- Utilisez `--moduix-chart-1` à `--moduix-chart-5` dans les échelles de couleurs TanStack.
 - Les lignes de l’info-bulle que TanStack marque comme `active` reçoivent `data-active`.
 - L’enveloppe de l’info-bulle lit les variables TanStack `--ts-chart-tooltip-*` sur l’hôte
   `ChartPlot`. Utilisez `tooltip.className` pour vos sélecteurs CSS, ou `renderTooltipBody` pour un

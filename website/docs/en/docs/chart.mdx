@@ -25,8 +25,8 @@ expose the same chart definition API; the Solid and Vue packages use TanStack's 
 ## Usage
 
 <UsageCode
-  react={'<Chart>\n  <ChartHeader>\n    <ChartTitle>Monthly revenue</ChartTitle>\n    <ChartDescription>In thousands of dollars.</ChartDescription>\n  </ChartHeader>\n  <ChartPlot definition={definition} height={320} ariaLabel="Monthly revenue" />\n  <ChartLegend aria-label="Series">\n    <ChartLegendItem color="var(--moduix-color-chart-1)">Revenue</ChartLegendItem>\n  </ChartLegend>\n</Chart>'}
-  vue={'<Chart>\n  <ChartHeader>\n    <ChartTitle>Monthly revenue</ChartTitle>\n    <ChartDescription>In thousands of dollars.</ChartDescription>\n  </ChartHeader>\n  <ChartPlot :definition="definition" :height="320" ariaLabel="Monthly revenue" />\n  <ChartLegend aria-label="Series">\n    <ChartLegendItem color="var(--moduix-color-chart-1)">Revenue</ChartLegendItem>\n  </ChartLegend>\n</Chart>'}
+  react={'<Chart>\n  <ChartHeader>\n    <ChartTitle>Monthly revenue</ChartTitle>\n    <ChartDescription>In thousands of dollars.</ChartDescription>\n  </ChartHeader>\n  <ChartPlot definition={definition} height={320} ariaLabel="Monthly revenue" />\n  <ChartLegend aria-label="Series">\n    <ChartLegendItem color="var(--moduix-chart-1)">Revenue</ChartLegendItem>\n  </ChartLegend>\n</Chart>'}
+  vue={'<Chart>\n  <ChartHeader>\n    <ChartTitle>Monthly revenue</ChartTitle>\n    <ChartDescription>In thousands of dollars.</ChartDescription>\n  </ChartHeader>\n  <ChartPlot :definition="definition" :height="320" ariaLabel="Monthly revenue" />\n  <ChartLegend aria-label="Series">\n    <ChartLegendItem color="var(--moduix-chart-1)">Revenue</ChartLegendItem>\n  </ChartLegend>\n</Chart>'}
 />
 
 <PropChips
@@ -171,7 +171,7 @@ React or `class` in Solid and Vue):
 
 ```css
 .sales-plot {
-  --ts-chart-tooltip-background: var(--moduix-color-card);
+  --ts-chart-tooltip-background: var(--moduix-card);
   --ts-chart-tooltip-font: var(--moduix-weight-medium) var(--moduix-text-sm) /
     var(--moduix-line-height-text-sm) var(--moduix-font-sans);
 }
@@ -207,7 +207,7 @@ Hover or focus a variable to see it in the preview.
 - `Chart`, `ChartHeader`, `ChartTitle`, `ChartDescription`, `ChartLegend`, and
   `ChartLegendItem` expose `data-scope="chart"`, `data-part`, and `data-slot`.
 - `className` in React and `class` in Solid and Vue on `ChartPlot` reach the outer `.ts-chart-host` element.
-- Use `--moduix-color-chart-1` through `--moduix-color-chart-5` in TanStack color scales.
+- Use `--moduix-chart-1` through `--moduix-chart-5` in TanStack color scales.
 - Tooltip rows that TanStack marks as `active` get `data-active`.
 - The tooltip shell reads TanStack's `--ts-chart-tooltip-*` variables from the `ChartPlot` host. Use
   TanStack's `tooltip.className` for custom selectors, or `renderTooltipBody` when you need custom

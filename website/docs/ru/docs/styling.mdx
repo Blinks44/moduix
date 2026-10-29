@@ -61,7 +61,7 @@ CSS Modules и Tailwind являются равноправными вариан
 
 ## Настройте компонент
 
-На странице каждого CSS Modules-компонента в разделе **CSS-свойства** перечислены его публичные
+На странице каждого CSS Modules-компонента в разделе **CSS-переменные** перечислены его публичные
 переменные. Они намеренно общие: у Button есть `--moduix-button-bg`, `--moduix-button-height` и
 `--moduix-button-padding-x`, а не отдельная переменная на каждый вариант и размер. Значения вариантов
 и размеров по умолчанию скрыты, а публичная переменная перебивает их там, где вы её задали. Насколько
@@ -73,7 +73,7 @@ CSS Modules и Tailwind являются равноправными вариан
 
 ```css
 .save {
-  --moduix-button-bg: var(--moduix-color-success);
+  --moduix-button-bg: var(--moduix-success);
   --moduix-button-radius: var(--moduix-radius-full);
 }
 ```
@@ -87,8 +87,8 @@ CSS Modules и Tailwind являются равноправными вариан
 
 ```css
 [data-slot='button-root'][data-variant='outline'] {
-  --moduix-button-border-color: var(--moduix-color-primary);
-  --moduix-button-bg-hover: color-mix(in oklab, var(--moduix-color-primary) 12%, transparent);
+  --moduix-button-border-color: var(--moduix-primary);
+  --moduix-button-bg-hover: color-mix(in oklab, var(--moduix-primary) 12%, transparent);
 }
 ```
 
@@ -203,7 +203,7 @@ CSS-переменные наследуются, поэтому значения
     padding-inline: var(--moduix-spacing-4);
 
     &[data-state='open'] {
-      color: var(--moduix-color-primary);
+      color: var(--moduix-primary);
     }
   }
 }
@@ -296,7 +296,7 @@ stylesheet описана в [Быстром старте](/docs/quick-start).
 
 | Симптом | Что проверить |
 | --- | --- |
-| Переменная не действует | Есть ли она в разделе CSS-свойства страницы компонента и задана ли на самом компоненте или его предке. |
+| Переменная не действует | Есть ли она в разделе CSS-переменные страницы компонента и задана ли на самом компоненте или его предке. |
 | Класс проигрывает стилям компонента | Не обёрнут ли ваш файл стилей в более ранний `@layer`: CSS вне слоя побеждает всегда. |
 | Popup игнорирует значение контейнера | Задайте значение портальной части, корню или portal-контейнеру. |
 | Селектор состояния не срабатывает | Проверьте точный атрибут Ark на нужной части. |

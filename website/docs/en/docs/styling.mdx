@@ -61,7 +61,7 @@ Two rules follow from it:
 
 ## Customize a component
 
-Each CSS Modules component page lists its public variables under **CSS Properties**. Component
+Each CSS Modules component page lists its public variables under **CSS variables**. Component
 variables are deliberately generic: Button exposes `--moduix-button-bg`, `--moduix-button-height`,
 and `--moduix-button-padding-x`, not a separate variable for every variant and size. Variant and size
 defaults stay private, and a public variable overrides them wherever you set it. The scope of the
@@ -73,7 +73,7 @@ Set the variables in a class, or inline when the value is dynamic:
 
 ```css
 .save {
-  --moduix-button-bg: var(--moduix-color-success);
+  --moduix-button-bg: var(--moduix-success);
   --moduix-button-radius: var(--moduix-radius-full);
 }
 ```
@@ -87,8 +87,8 @@ Target the stable `data-slot` together with the variant attribute. Load the styl
 
 ```css
 [data-slot='button-root'][data-variant='outline'] {
-  --moduix-button-border-color: var(--moduix-color-primary);
-  --moduix-button-bg-hover: color-mix(in oklab, var(--moduix-color-primary) 12%, transparent);
+  --moduix-button-border-color: var(--moduix-primary);
+  --moduix-button-bg-hover: color-mix(in oklab, var(--moduix-primary) 12%, transparent);
 }
 ```
 
@@ -203,7 +203,7 @@ hatch:
     padding-inline: var(--moduix-spacing-4);
 
     &[data-state='open'] {
-      color: var(--moduix-color-primary);
+      color: var(--moduix-primary);
     }
   }
 }
@@ -296,7 +296,7 @@ Keep Tailwind's `@source` entry for the selected package so its shipped classes 
 
 | Symptom | Check |
 | --- | --- |
-| A variable has no effect | Confirm the component page lists it under CSS Properties and that you set it on the component or an ancestor. |
+| A variable has no effect | Confirm the component page lists it under CSS variables and that you set it on the component or an ancestor. |
 | A class loses to component styles | Check that your stylesheet is not wrapped in an earlier `@layer`; unlayered CSS always wins. |
 | A popup ignores a wrapper-scoped value | Put the value on the portalled part, root, or portal container. |
 | A state selector never matches | Inspect the exact Ark state attribute on that part. |

@@ -62,7 +62,7 @@ Il en découle deux règles :
 
 ## Personnaliser un composant
 
-La page de chaque composant CSS Modules liste ses variables publiques dans **Propriétés CSS**. Ces
+La page de chaque composant CSS Modules liste ses variables publiques dans **Variables CSS**. Ces
 variables sont volontairement génériques : Button expose `--moduix-button-bg`,
 `--moduix-button-height` et `--moduix-button-padding-x`, et non une variable par variante et par
 taille. Les valeurs par défaut des variantes et des tailles restent privées, et une variable publique
@@ -74,7 +74,7 @@ Définissez les variables dans une classe, ou en ligne lorsque la valeur est dyn
 
 ```css
 .save {
-  --moduix-button-bg: var(--moduix-color-success);
+  --moduix-button-bg: var(--moduix-success);
   --moduix-button-radius: var(--moduix-radius-full);
 }
 ```
@@ -88,8 +88,8 @@ Ciblez le `data-slot` stable avec l’attribut de variante. Chargez cette feuill
 
 ```css
 [data-slot='button-root'][data-variant='outline'] {
-  --moduix-button-border-color: var(--moduix-color-primary);
-  --moduix-button-bg-hover: color-mix(in oklab, var(--moduix-color-primary) 12%, transparent);
+  --moduix-button-border-color: var(--moduix-primary);
+  --moduix-button-bg-hover: color-mix(in oklab, var(--moduix-primary) 12%, transparent);
 }
 ```
 
@@ -206,7 +206,7 @@ stable comme solution de secours :
     padding-inline: var(--moduix-spacing-4);
 
     &[data-state='open'] {
-      color: var(--moduix-color-primary);
+      color: var(--moduix-primary);
     }
   }
 }
@@ -300,7 +300,7 @@ Conservez l’entrée `@source` du package choisi afin que Tailwind génère ses
 
 | Symptôme | Vérification |
 | --- | --- |
-| Une variable n’a aucun effet | Vérifiez qu’elle figure dans les Propriétés CSS du composant et qu’elle est définie sur le composant ou sur un ancêtre. |
+| Une variable n’a aucun effet | Vérifiez qu’elle figure dans les Variables CSS du composant et qu’elle est définie sur le composant ou sur un ancêtre. |
 | Une classe perd face aux styles du composant | Vérifiez que votre feuille de styles n’est pas placée dans un `@layer` antérieur : le CSS hors couche l’emporte toujours. |
 | Un popup ignore la valeur d’un conteneur | Placez-la sur la partie rendue dans un portail, la racine ou le conteneur de portail. |
 | Un sélecteur d’état ne correspond jamais | Inspectez l’attribut Ark exact sur cette partie. |
