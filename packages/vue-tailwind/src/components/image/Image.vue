@@ -15,7 +15,11 @@ export interface Props
   extends /* @vue-ignore */ Omit<UnpicImageProps<ImgHTMLAttributes>, 'fetchpriority'> {
   class?: HTMLAttributes['class'];
   fetchpriority?: ImgHTMLAttributes['fetchpriority'];
+  // Declared so Vue casts bare template attributes (`<Image unstyled />`) to `true`; as fallthrough
+  // attrs they would arrive as an empty string, which Unpic treats as false.
+  priority?: boolean;
   style?: ImgHTMLAttributes['style'];
+  unstyled?: boolean;
 }
 
 defineOptions({ inheritAttrs: false });

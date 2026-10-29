@@ -115,6 +115,17 @@ test('leaves layout styles to the consumer when unstyled is set', () => {
   expect(screen.getByAltText('Mountain landscape').hasAttribute('style')).toBe(false);
 });
 
+test('casts bare unstyled and priority template attributes to true', () => {
+  render({
+    components: imageComponents,
+    template: `<Image :src="'${imageUrl}'" alt="Mountain landscape" :width="800" :height="520" unstyled priority />`,
+  });
+  const image = screen.getByAltText('Mountain landscape');
+
+  expect(image.hasAttribute('style')).toBe(false);
+  expect(image.getAttribute('loading')).toBe('eager');
+});
+
 test('preserves consumer classes and styles', async () => {
   render(Image, {
     props: {
