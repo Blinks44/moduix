@@ -828,7 +828,7 @@
     font-weight: 500;
   }
 
-  ul {
+  nav ul {
     display: grid;
     gap: 6px;
     margin: 10px 0 0;
@@ -912,6 +912,8 @@
   .heroCode,
   .startActions .startGhost,
   .startEyebrow + h2 + p,
+  .quietHours,
+  .lead:has(+ .componentsBar),
   .setups li:not([data-phone]),
   .componentsBar .more,
   .footerBrand > p:not(.footerLogo, .footerPhoneCopy),
@@ -947,6 +949,11 @@
       color: var(--rp-c-text-0);
       font-weight: 500;
     }
+  }
+
+  .demoStage {
+    min-height: 0;
+    padding: 16px;
   }
 
   .demoStage :global(.rp-codeblock) {
@@ -1028,10 +1035,22 @@
   .start {
     display: flex;
     flex-direction: column;
+    gap: 0;
 
     > div {
       display: contents;
     }
+  }
+
+  .setups {
+    margin-top: 20px;
+  }
+
+  /* One line, as in Home · Mobile. */
+  .command {
+    max-width: 100%;
+    font-size: 12px;
+    white-space: nowrap;
   }
 
   .startActions {
