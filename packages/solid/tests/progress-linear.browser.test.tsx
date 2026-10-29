@@ -4,48 +4,48 @@ import { render, screen } from '@solidjs/testing-library';
 import {
   ProgressLinear,
   ProgressLinearContext,
-  ProgressLinearLabel,
   ProgressLinearValueText,
   ProgressLinearTrack,
   ProgressLinearRange,
   ProgressLinearRootProvider,
   useProgress,
   useProgressContext,
-} from '../src';
-import { LocaleProvider } from '../src/locale';
+} from '@/index';
+import { LocaleProvider } from '@/locale';
 
-test('renders the linear Ark anatomy with stable hooks and an accessible name', async () => {
-  let rootRef!: HTMLDivElement;
-  let trackRef!: HTMLDivElement;
+function sweepEdges(name: string) {
+  const track = screen.getByRole('progressbar', { name });
+  const range = track.querySelector<HTMLElement>('[data-part="range"]')!;
+  const [animation] = range.getAnimations();
+  const duration = Number(animation!.effect!.getComputedTiming().duration);
+  animation!.pause();
+  const frames = [0, duration - 1].map((time) => {
+    animation!.currentTime = time;
+    return range.getBoundingClientRect();
+  });
 
-  render(() => (
-    <ProgressLinear ref={(element) => (rootRef = element)} defaultValue={42}>
-      <ProgressLinearLabel>Export data</ProgressLinearLabel>
-      <ProgressLinearValueText />
-      <ProgressLinearTrack ref={(element) => (trackRef = element)} aria-label="Export data">
+  return { track: track.getBoundingClientRect(), start: frames[0]!, end: frames[1]! };
+}
+
+function ProgressContextValue() {
+  const progress = useProgressContext();
+
+  return <output>{progress().value}</output>;
+}
+
+function RootProviderProgress() {
+  const progress = useProgress({ defaultValue: 58 });
+
+  return (
+    <ProgressLinearRootProvider value={progress} data-testid="progress-provider">
+      <ProgressLinearTrack aria-label="Team rollout">
         <ProgressLinearRange />
       </ProgressLinearTrack>
-    </ProgressLinear>
-  ));
-
-  const progressbar = screen.getByRole('progressbar', { name: 'Export data' });
-
-  expect(rootRef.dataset).toMatchObject({
-    scope: 'progress',
-    part: 'root',
-    slot: 'progress-linear-root',
-    state: 'loading',
-  });
-  expect(progressbar.getAttribute('data-slot')).toBe('progress-linear-track');
-  await expect
-    .element(page.getByRole('progressbar', { name: 'Export data' }))
-    .toHaveAttribute('aria-valuenow', '42');
-  expect(trackRef).toBe(progressbar);
-  expect(progressbar.querySelector('[data-part="range"]')?.getAttribute('data-slot')).toBe(
-    'progress-linear-range',
+      <ProgressLinearContext>{(state) => <output>{state().value}</output>}</ProgressLinearContext>
+      <ProgressContextValue />
+    </ProgressLinearRootProvider>
   );
-  await expect.element(page.getByText('42%')).toHaveAttribute('aria-live', 'polite');
-});
+}
 
 test('preserves semantic root composition with asChild', () => {
   let rootRef: HTMLElement | undefined;
@@ -87,19 +87,6 @@ test('renders an indeterminate linear progressbar without an ARIA value', async 
 });
 
 // Pauses the indeterminate animation at its first and last frame and reads the range position.
-function sweepEdges(name: string) {
-  const track = screen.getByRole('progressbar', { name });
-  const range = track.querySelector<HTMLElement>('[data-part="range"]')!;
-  const [animation] = range.getAnimations();
-  const duration = Number(animation!.effect!.getComputedTiming().duration);
-  animation!.pause();
-  const frames = [0, duration - 1].map((time) => {
-    animation!.currentTime = time;
-    return range.getBoundingClientRect();
-  });
-
-  return { track: track.getBoundingClientRect(), start: frames[0]!, end: frames[1]! };
-}
 
 test('sweeps the indeterminate range from the start edge to the end edge', () => {
   render(() => (
@@ -169,26 +156,6 @@ test('preserves custom bounds and accessible value text', async () => {
     .element(page.getByText('420 of 800 requests completed'))
     .toHaveAttribute('aria-live', 'polite');
 });
-
-function ProgressContextValue() {
-  const progress = useProgressContext();
-
-  return <output>{progress().value}</output>;
-}
-
-function RootProviderProgress() {
-  const progress = useProgress({ defaultValue: 58 });
-
-  return (
-    <ProgressLinearRootProvider value={progress} data-testid="progress-provider">
-      <ProgressLinearTrack aria-label="Team rollout">
-        <ProgressLinearRange />
-      </ProgressLinearTrack>
-      <ProgressLinearContext>{(state) => <output>{state().value}</output>}</ProgressLinearContext>
-      <ProgressContextValue />
-    </ProgressLinearRootProvider>
-  );
-}
 
 test('exposes the flat RootProvider, Context, and hook exports', async () => {
   render(() => <RootProviderProgress />);

@@ -6,7 +6,7 @@ import {
   EditableInput,
   EditablePreview,
   EditableControls,
-} from '../../src/components/editable';
+} from '@/components/editable';
 </script>
 
 <template>

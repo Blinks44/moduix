@@ -10,7 +10,7 @@ import {
   ChartPlot,
   ChartLegend,
   ChartLegendItem,
-} from '../../src/components/chart';
+} from '@/components/chart';
 
 const label = ref('Monthly revenue');
 const definition = defineChart({

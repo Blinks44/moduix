@@ -6,7 +6,7 @@ import {
   NavigationMenuTrigger,
   NavigationMenuContent,
   NavigationMenuLink,
-} from '../../src';
+} from '@/index';
 </script>
 
 <template>

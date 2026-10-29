@@ -17,8 +17,9 @@ import {
   PaginationRootProvider,
   usePagination,
   usePaginationContext,
-} from '../src';
-import type { PaginationPageChangeDetails } from '../src';
+} from '@/index';
+import type { PaginationPageChangeDetails } from '@/index';
+import SsrPagination from './fixtures/SsrPagination.vue';
 import PaginationConsumer from './pagination-consumer.vue';
 
 const paginationComponents = {
@@ -306,6 +307,7 @@ test('hydrates without replacing hosts or ids and responds to selection', async 
     error.mockRestore();
   }
 });
+
 test('keeps the public flat API usable from a Vue consumer SFC', async () => {
   render(PaginationConsumer);
 
@@ -315,4 +317,3 @@ test('keeps the public flat API usable from a Vue consumer SFC', async () => {
     .click();
   await expect.element(page.getByText('3 of 3')).toBeAttached();
 });
-import SsrPagination from './fixtures/SsrPagination.vue';

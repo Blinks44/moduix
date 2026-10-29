@@ -2,7 +2,7 @@ import { page } from '@rstest/browser';
 import { expect, test } from '@rstest/core';
 import { render } from '@testing-library/react';
 import type { CSSProperties } from 'react';
-import { useRef } from 'react';
+import { useRef, createRef } from 'react';
 import {
   Toc,
   TocContent,
@@ -16,7 +16,7 @@ import {
   TocTitle,
   useToc,
   useTocContext,
-} from '../src';
+} from '@/index';
 
 const items = [
   { value: 'introduction', depth: 2 },
@@ -170,6 +170,7 @@ test('supports Ark navigation placement and scrolls the supplied reading pane', 
     .element(page.getByRole('navigation', { name: 'Left navigation' }))
     .toHaveAttribute('data-placement', 'left');
 });
+
 test('keeps the indicator on Ark measurements inside a parent that sets --top and --height', async () => {
   const { container } = render(
     <Toc items={items} defaultActiveIds={['introduction']}>
@@ -204,4 +205,39 @@ test('keeps the indicator on Ark measurements inside a parent that sets --top an
   };
 
   await expect.poll(getIndicatorOffset).toBeLessThanOrEqual(1);
+});
+
+test('forwards refs through ordinary parts and preserves semantic asChild composition', async () => {
+  const rootRef = createRef<HTMLDivElement>();
+  const contentRef = createRef<HTMLElement>();
+
+  render(
+    <Toc ref={rootRef} items={items} asChild>
+      <section aria-label="Table of contents">
+        <TocContent ref={contentRef}>
+          <h2 id="introduction">Introduction</h2>
+        </TocContent>
+      </section>
+    </Toc>,
+  );
+
+  expect(rootRef.current?.getAttribute('data-slot')).toBe('toc-root');
+  expect(contentRef.current?.getAttribute('data-slot')).toBe('toc-content');
+  await expect
+    .element(page.getByRole('region', { name: 'Table of contents' }))
+    .toHaveAttribute('data-slot', 'toc-root');
+});
+
+test('forwards refs on the ordinary root path', async () => {
+  const rootRef = createRef<HTMLDivElement>();
+
+  render(
+    <Toc ref={rootRef} items={items}>
+      <TocContent>
+        <h2 id="introduction">Introduction</h2>
+      </TocContent>
+    </Toc>,
+  );
+
+  expect(rootRef.current?.getAttribute('data-slot')).toBe('toc-root');
 });

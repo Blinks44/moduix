@@ -14,7 +14,7 @@ import {
   TocTitle,
   useToc,
   useTocContext,
-} from '../src';
+} from '@/index';
 
 const items = [
   { value: 'introduction', depth: 2 },
@@ -212,6 +212,7 @@ test('forwards refs on the ordinary root path', async () => {
 
   expect(rootRef?.getAttribute('data-slot')).toBe('toc-root');
 });
+
 test('keeps the indicator on Ark measurements inside a parent that sets --top and --height', async () => {
   const { container } = render(() => (
     <Toc items={items} defaultActiveIds={['introduction']}>

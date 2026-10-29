@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Stack } from '../../src';
+import { Stack } from '@/index';
 </script>
 
 <template>

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Container } from '../../src';
+import { Container } from '@/index';
 </script>
 
 <template>

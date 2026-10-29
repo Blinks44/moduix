@@ -14,7 +14,8 @@ import {
   ListboxRootProvider,
   useListbox,
   useListboxContext,
-} from '../src';
+  ListboxItemContext,
+} from '@/index';
 
 const fruits = createListCollection({
   items: [
@@ -192,4 +193,54 @@ test('renders the consumer-wired clear trigger as an accessible button', async (
     .toHaveAttribute('type', 'button');
   await page.getByRole('button', { name: 'Clear search', exact: true }).click();
   expect(handleClick).toHaveBeenCalledTimes(1);
+});
+
+test('exposes initial item state through the Ark ItemContext', async () => {
+  render(
+    <Listbox collection={fruits} defaultValue={['apple']}>
+      <ListboxContent>
+        {fruits.items.map((item) => (
+          <ListboxItem key={item.value} item={item}>
+            <ListboxItemContext>
+              {(itemContext) => (
+                <ListboxItemText>
+                  {itemContext.selected ? `${item.label} (selected)` : item.label}
+                </ListboxItemText>
+              )}
+            </ListboxItemContext>
+          </ListboxItem>
+        ))}
+      </ListboxContent>
+    </Listbox>,
+  );
+
+  await expect
+    .element(page.getByRole('option', { name: 'Apple (selected)', exact: true }))
+    .toHaveAttribute('data-selected');
+});
+
+test('exposes the item context and keeps component-owned visual parts visible', async () => {
+  render(
+    <Listbox collection={fruits} defaultValue={['apple']}>
+      <ListboxLabel>Styled fruit</ListboxLabel>
+      <ListboxContent>
+        {fruits.items.map((item) => (
+          <ListboxItem key={item.value} item={item}>
+            <ListboxItemContext>
+              {(itemContext) => (
+                <ListboxItemText>
+                  {itemContext.selected ? `${item.label} (selected)` : item.label}
+                </ListboxItemText>
+              )}
+            </ListboxItemContext>
+            <ListboxItemIndicator />
+          </ListboxItem>
+        ))}
+      </ListboxContent>
+    </Listbox>,
+  );
+
+  await expect
+    .element(page.getByRole('option', { name: 'Apple (selected)', exact: true }))
+    .toHaveAttribute('data-selected');
 });

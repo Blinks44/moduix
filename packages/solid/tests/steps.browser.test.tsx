@@ -15,7 +15,7 @@ import {
   StepsSeparator,
   StepsTrigger,
   useSteps,
-} from '../src';
+} from '@/index';
 
 const items = [
   { title: 'Account', content: 'Account content' },

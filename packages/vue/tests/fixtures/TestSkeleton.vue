@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import type { ComponentPublicInstance } from 'vue';
-import { Skeleton } from '../../src';
+import { Skeleton } from '@/index';
 
 const loading = ref(true);
 const rootRef = ref<ComponentPublicInstance | null>(null);

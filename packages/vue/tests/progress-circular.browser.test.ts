@@ -17,7 +17,7 @@ import {
   ProgressCircularView,
   useProgress,
   useProgressContext,
-} from '../src';
+} from '@/index';
 import SsrProgressCircular from './fixtures/SsrProgressCircular.vue';
 
 const progressComponents = {
@@ -31,6 +31,14 @@ const progressComponents = {
   ProgressCircularRootProvider,
   ProgressCircularValueText,
   ProgressCircularView,
+};
+
+const ProgressContextValue = {
+  setup() {
+    const progress = useProgressContext();
+    return { progress };
+  },
+  template: '<output>{{ progress.value }}</output>',
 };
 
 test('updates fallback and consumer value text without losing attrs or refs', async () => {
@@ -195,63 +203,6 @@ test('renders an indeterminate circular progressbar without an ARIA value', asyn
   expect(arcStyle.animationName).toBe('moduix-progress-circular-indeterminate');
   expect(Number.parseFloat(arcStyle.strokeDasharray) / arc.getTotalLength()).toBeGreaterThan(0.2);
 });
-
-test('synchronizes custom circular composition with controlled values and state views', async () => {
-  render({
-    components: progressComponents,
-    setup() {
-      const value = ref<number | null>(10);
-      return { value };
-    },
-    template: `
-      <ProgressCircular
-        v-model="value"
-        :min="10"
-        :max="30"
-        :translations="{ value: ({ value, max }) => \`Processed \${value} of \${max}\` }"
-      >
-        <ProgressCircularCircle>
-          <ProgressCircularCircleTrack />
-          <ProgressCircularCircleRange />
-        </ProgressCircularCircle>
-        <ProgressCircularContext v-slot="state">
-          <ProgressCircularValueText>{{ state.valueAsString }}</ProgressCircularValueText>
-        </ProgressCircularContext>
-        <ProgressCircularView state="loading">Import in progress</ProgressCircularView>
-        <ProgressCircularView state="complete">Import complete</ProgressCircularView>
-      </ProgressCircular>
-      <button type="button" @click="value = 30">Complete import</button>
-    `,
-  });
-
-  const progressbar = screen.getByRole('progressbar', { name: 'Processed 10 of 30' });
-
-  const progressbarLocator = page.getByRole('progressbar');
-  await expect.element(progressbarLocator).toHaveAttribute('aria-valuemin', '10');
-  await expect.element(progressbarLocator).toHaveAttribute('aria-valuemax', '30');
-  await expect.element(progressbarLocator).toHaveAttribute('aria-valuenow', '10');
-  await expect.element(progressbarLocator).toHaveAttribute('data-state', 'loading');
-  await expect.element(page.getByText('Processed 10 of 30')).toHaveAttribute('aria-live', 'polite');
-  await expect.element(page.getByText('Import in progress')).toBeVisible();
-  await expect.element(page.getByText('Import complete')).not.toBeVisible();
-
-  await page.getByRole('button', { name: 'Complete import' }).click();
-
-  await expect.element(progressbarLocator).toHaveAttribute('aria-valuenow', '30');
-  await expect.element(progressbarLocator).toHaveAttribute('data-state', 'complete');
-  expect(screen.getByRole('progressbar', { name: 'Processed 30 of 30' })).toBe(progressbar);
-  await expect.element(page.getByText('Processed 30 of 30')).toHaveAttribute('aria-live', 'polite');
-  await expect.element(page.getByText('Import in progress')).not.toBeVisible();
-  await expect.element(page.getByText('Import complete')).toBeVisible();
-});
-
-const ProgressContextValue = {
-  setup() {
-    const progress = useProgressContext();
-    return { progress };
-  },
-  template: '<output>{{ progress.value }}</output>',
-};
 
 test('supports context updates from the public hook', async () => {
   const ProgressContextActions = {

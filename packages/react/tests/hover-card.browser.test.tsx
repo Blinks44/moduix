@@ -13,7 +13,7 @@ import {
   HoverCardTrigger,
   useHoverCard,
   useHoverCardContext,
-} from '../src';
+} from '@/index';
 
 function HoverCardSurface() {
   return (
@@ -256,4 +256,38 @@ test('scrolls long body content inside the content height and uses shared popup 
   expect(body.offsetHeight).toBeLessThan(content.offsetHeight);
   expect(body.scrollHeight).toBeGreaterThan(body.clientHeight);
   expect(getComputedStyle(content).animationName).toBe('moduix-popup-in');
+});
+
+test('forwards refs through native parts and preserves asChild composition', async () => {
+  const triggerRef = createRef<HTMLButtonElement>();
+  const positionerRef = createRef<HTMLDivElement>();
+  const contentRef = createRef<HTMLDivElement>();
+  const arrowRef = createRef<HTMLDivElement>();
+  const arrowTipRef = createRef<HTMLDivElement>();
+
+  render(
+    <HoverCard open portalled={false}>
+      <HoverCardTrigger ref={triggerRef}>Profile</HoverCardTrigger>
+      <HoverCardTrigger asChild>
+        <a href="#profile">Composed profile</a>
+      </HoverCardTrigger>
+      <HoverCardPositioner ref={positionerRef}>
+        <HoverCardContent ref={contentRef}>
+          <HoverCardArrow ref={arrowRef}>
+            <HoverCardArrowTip ref={arrowTipRef} />
+          </HoverCardArrow>
+          <HoverCardBody />
+        </HoverCardContent>
+      </HoverCardPositioner>
+    </HoverCard>,
+  );
+
+  expect(triggerRef.current?.getAttribute('data-slot')).toBe('hover-card-trigger');
+  expect(positionerRef.current?.getAttribute('data-slot')).toBe('hover-card-positioner');
+  expect(contentRef.current?.getAttribute('data-slot')).toBe('hover-card-content');
+  expect(arrowRef.current?.getAttribute('data-slot')).toBe('hover-card-arrow');
+  expect(arrowTipRef.current?.getAttribute('data-slot')).toBe('hover-card-arrow-tip');
+  await expect
+    .element(page.getByRole('link', { name: 'Composed profile' }))
+    .toHaveAttribute('data-slot', 'hover-card-trigger');
 });

@@ -7,7 +7,7 @@ import {
   StepsIndicator,
   StepsContent,
   StepsCompletedContent,
-} from '../../src/components/steps';
+} from '@/components/steps';
 </script>
 
 <template>

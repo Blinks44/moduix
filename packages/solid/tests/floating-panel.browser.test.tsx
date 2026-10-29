@@ -19,7 +19,7 @@ import {
   FloatingPanelFooter,
   FloatingPanelResizeTriggerGroup,
   useFloatingPanel,
-} from '../src';
+} from '@/index';
 
 function PanelContent(props: { footer?: JSX.Element }) {
   return (

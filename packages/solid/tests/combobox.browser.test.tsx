@@ -17,7 +17,7 @@ import {
   ComboboxPositioner,
   ComboboxRootProvider,
   ComboboxTrigger,
-} from '../src';
+} from '@/index';
 
 const fruits = createListCollection({
   items: [

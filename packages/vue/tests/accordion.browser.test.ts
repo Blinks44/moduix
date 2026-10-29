@@ -15,7 +15,7 @@ import {
   useAccordion,
   useAccordionContext,
   useAccordionItemContext,
-} from '../src';
+} from '@/index';
 import SsrAccordion from './fixtures/SsrAccordion.vue';
 
 const accordionComponents = {

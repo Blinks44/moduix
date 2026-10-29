@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Heading } from '../../src';
+import { Heading } from '@/index';
 </script>
 
 <template>

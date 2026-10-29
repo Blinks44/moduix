@@ -11,7 +11,16 @@ import {
   ToastToaster,
   createToaster,
   useToastContext,
-} from '../src';
+} from '@/index';
+
+const responsivePlacements = [
+  'top-start',
+  'top',
+  'top-end',
+  'bottom-start',
+  'bottom',
+  'bottom-end',
+] as const;
 
 test('renders the default toaster content and keeps closable and action behavior', async () => {
   const toaster = createToaster({ placement: 'bottom', duration: Infinity });
@@ -237,15 +246,6 @@ test.each([false, true])(
     expect(screen.getByRole('button', { name: 'Close toast' })).toBe(trigger);
   },
 );
-
-const responsivePlacements = [
-  'top-start',
-  'top',
-  'top-end',
-  'bottom-start',
-  'bottom',
-  'bottom-end',
-] as const;
 
 test.each(
   responsivePlacements.flatMap((placement) =>

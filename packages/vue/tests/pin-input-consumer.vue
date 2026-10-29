@@ -6,7 +6,7 @@ import {
   PinInputHiddenInput,
   PinInputInput,
   PinInputLabel,
-} from '../src/components/pin-input';
+} from '@/components/pin-input';
 
 const value = ref<string[]>([]);
 const lastValue = ref<string[]>([]);

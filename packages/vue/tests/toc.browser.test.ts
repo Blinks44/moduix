@@ -18,7 +18,7 @@ import {
   TocRootProvider,
   TocTitle,
   useToc,
-} from '../src';
+} from '@/index';
 import TestToc from './fixtures/TestToc.vue';
 
 const tocComponents = {
@@ -39,6 +39,17 @@ const items = [
   { value: 'introduction', depth: 2 },
   { value: 'configuration', depth: 3 },
 ];
+
+const renderToc = (template: string, setup?: () => Record<string, unknown>) =>
+  render(
+    defineComponent({
+      components: tocComponents,
+      setup() {
+        return { ...setup?.() };
+      },
+      template,
+    }),
+  );
 
 test('sizes the rail in CSS pixels and reacts to depth changes', async () => {
   const depth = ref(3);
@@ -105,17 +116,6 @@ test('preserves reactive hook props and its native emit callback', async () => {
   activeIds.value = ['introduction'];
   await expect.element(page.getByRole('status')).toContainText('introduction');
 });
-
-const renderToc = (template: string, setup?: () => Record<string, unknown>) =>
-  render(
-    defineComponent({
-      components: tocComponents,
-      setup() {
-        return { ...setup?.() };
-      },
-      template,
-    }),
-  );
 
 test('preserves Ark navigation semantics, active state, anatomy, attrs, and refs', async () => {
   const rootRef = ref<ComponentPublicInstance | null>(null);
@@ -205,6 +205,7 @@ test('controlled active-change reports the requested ids', async () => {
 });
 
 // Ark 5.39.2 TocNav uses getRootProps(), duplicating the root id in native Ark.
+
 test.skip('direct Ark root and navigation have distinct ids', async () => {
   const { container } = render(
     defineComponent({
@@ -341,25 +342,6 @@ test('preserves semantic asChild composition and component refs', async () => {
   expect(contentRef.value?.$el?.getAttribute('data-slot')).toBe('toc-content');
 });
 
-test('keeps the flat API and merges consumer classes after CSS Modules defaults', async () => {
-  renderToc(
-    `
-      <Toc class="consumer-root" :items="items">
-        <TocNav class="consumer-nav"><TocTitle>On this page</TocTitle></TocNav>
-      </Toc>
-    `,
-    () => ({ items }),
-  );
-
-  const root = document.querySelector('[data-slot="toc-root"]')!;
-
-  expect(Toc).not.toHaveProperty('Root');
-  expect([...root!.classList]).toEqual(expect.arrayContaining(['consumer-root']));
-  expect([...document.querySelector('[data-slot="toc-nav"]')!.classList]).toEqual(
-    expect.arrayContaining(['consumer-nav']),
-  );
-});
-
 test('hydrates without replacing hosts, id drift, or warnings', async () => {
   const host = document.createElement('div');
   host.innerHTML = await renderToString(createSSRApp(TestToc));
@@ -383,6 +365,7 @@ test('hydrates without replacing hosts, id drift, or warnings', async () => {
     error.mockRestore();
   }
 });
+
 test('keeps the indicator on Ark measurements inside a parent that sets --top and --height', async () => {
   const { container } = renderToc(
     `

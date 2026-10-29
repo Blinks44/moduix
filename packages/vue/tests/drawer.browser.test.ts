@@ -26,7 +26,7 @@ import {
   DrawerTitle,
   DrawerTrigger,
   useDrawer,
-} from '../src';
+} from '@/index';
 import TestDrawer from './fixtures/TestDrawer.vue';
 
 const drawerComponents = {
@@ -281,18 +281,6 @@ test('forwards refs through every public part and supports asChild', () => {
   );
 });
 
-test('applies consumer classes after CSS Module defaults', () => {
-  const Harness = defineComponent({
-    components: drawerComponents,
-    template:
-      '<Drawer default-open :portalled="false"><DrawerTrigger class="consumer-trigger">Open drawer</DrawerTrigger><DrawerBackdrop /><DrawerPositioner><DrawerContent class="consumer-content"><DrawerHeader><DrawerTitle>Preferences</DrawerTitle><DrawerCloseIcon class="consumer-close" /><DrawerDescription>Description</DrawerDescription></DrawerHeader><DrawerBody class="consumer-body">Body</DrawerBody><DrawerFooter class="consumer-footer">Footer</DrawerFooter></DrawerContent></DrawerPositioner></Drawer>',
-  });
-  render(Harness);
-  expect([...document.querySelector('[data-slot="drawer-trigger"]')!.classList]).toEqual([
-    'consumer-trigger',
-  ]);
-});
-
 test('marks an island drawer and closes it through its accessible close icon', async () => {
   const Harness = defineComponent({
     components: drawerComponents,
@@ -385,4 +373,33 @@ test('keeps close-icon labels, attrs and fallback content reactive', async () =>
   await expect.element(button.locator('svg')).toHaveCount(0);
   custom.value = false;
   await expect.element(button.locator('svg')).toHaveCount(1);
+});
+
+test('supports custom portals, context and refs through RootProvider', async () => {
+  const contentRef = ref<ComponentPublicInstance>();
+  const Harness = defineComponent({
+    components: drawerComponents,
+    setup() {
+      const portalTarget = ref<HTMLDivElement>();
+      return {
+        contentRef,
+        drawer: useDrawer({ defaultOpen: true }),
+        portalTarget,
+        getPortal: () => portalTarget.value,
+      };
+    },
+    template: `
+      <div ref="portalTarget" data-testid="portal"></div>
+      <DrawerRootProvider :value="drawer" :portal-ref="getPortal">
+        <DrawerBackdrop /><DrawerPositioner><DrawerContent ref="contentRef">
+          <DrawerTitle>Preferences</DrawerTitle>
+          <DrawerContext v-slot="drawer"><output>Open: {{ String(drawer.open) }}</output></DrawerContext>
+        </DrawerContent></DrawerPositioner>
+      </DrawerRootProvider>
+    `,
+  });
+  render(Harness);
+  await expect.element(page.getByTestId('portal').getByRole('dialog')).toBeVisible();
+  await expect.element(page.getByText('Open: true')).toBeVisible();
+  expect(contentRef.value?.$el).toBe(document.querySelector('[role="dialog"]'));
 });

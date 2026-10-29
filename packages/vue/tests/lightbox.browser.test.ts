@@ -4,6 +4,7 @@ import { render, screen } from '@testing-library/vue';
 import { renderToString } from '@vue/server-renderer';
 import { createSSRApp, defineComponent, mergeProps, ref, shallowRef } from 'vue';
 import type { ComponentPublicInstance } from 'vue';
+import { resolveRootNode } from '@/components/lightbox/lightbox';
 import {
   Lightbox,
   LightboxBackdrop,
@@ -23,9 +24,8 @@ import {
   LightboxTrigger,
   useLightbox,
   useLightboxContext,
-} from '../src';
-import type { LightboxImageSelectDetails } from '../src';
-import { resolveRootNode } from '../src/components/lightbox/lightbox';
+} from '@/index';
+import type { LightboxImageSelectDetails } from '@/index';
 import SsrLightbox from './fixtures/SsrLightbox.vue';
 
 const lightboxComponents = {

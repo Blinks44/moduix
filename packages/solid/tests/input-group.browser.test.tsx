@@ -11,7 +11,7 @@ import {
   InputGroupClearTrigger,
   InputGroupInput,
   InputGroupText,
-} from '../src';
+} from '@/index';
 
 test('preserves grouped field state, owned hooks, and native refs', async () => {
   let rootRef!: HTMLDivElement;

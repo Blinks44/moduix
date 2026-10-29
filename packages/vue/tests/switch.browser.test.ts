@@ -13,7 +13,8 @@ import {
   SwitchThumb,
   useSwitch,
   useSwitchContext,
-} from '../src';
+} from '@/index';
+import SsrSwitch from './fixtures/SsrSwitch.vue';
 
 const switchComponents = {
   Switch,
@@ -82,42 +83,6 @@ test('preserves Ark behavior and semantic asChild composition', async () => {
   await expect.element(switchInputLocator).toBeChecked();
   await expect.element(switchInputLocator).toHaveAttribute('type', 'checkbox');
   expect(rootRef.value?.$el).toBe(switchInput.closest('label'));
-});
-
-test('forwards Vue refs and exposes stable slots on public parts', () => {
-  const refs = {
-    root: ref<ComponentPublicInstance | null>(null),
-    control: ref<ComponentPublicInstance | null>(null),
-    thumb: ref<ComponentPublicInstance | null>(null),
-    label: ref<ComponentPublicInstance | null>(null),
-  };
-
-  render({
-    components: switchComponents,
-    setup() {
-      return {
-        rootRef: refs.root,
-        controlRef: refs.control,
-        thumbRef: refs.thumb,
-        labelRef: refs.label,
-      };
-    },
-    template: `
-      <Switch ref="rootRef" size="lg" data-size="sm">
-        <SwitchControl ref="controlRef">
-          <SwitchThumb ref="thumbRef" />
-        </SwitchControl>
-        <SwitchHiddenInput />
-        <SwitchLabel ref="labelRef">Email notifications</SwitchLabel>
-      </Switch>
-    `,
-  });
-
-  expect(refs.root.value?.$el?.getAttribute('data-slot')).toBe('switch-root');
-  expect(refs.root.value?.$el?.getAttribute('data-size')).toBe('lg');
-  expect(refs.control.value?.$el?.getAttribute('data-slot')).toBe('switch-control');
-  expect(refs.thumb.value?.$el?.getAttribute('data-slot')).toBe('switch-thumb');
-  expect(refs.label.value?.$el?.getAttribute('data-slot')).toBe('switch-label');
 });
 
 test('preserves disabled, read-only, invalid, and required semantics', async () => {
@@ -263,4 +228,3 @@ test('hydrates without replacing hosts or ids and responds to clicks', async () 
     error.mockRestore();
   }
 });
-import SsrSwitch from './fixtures/SsrSwitch.vue';

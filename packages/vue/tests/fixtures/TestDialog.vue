@@ -8,7 +8,7 @@ import {
   DialogTitle,
   DialogDescription,
   DialogCloseIcon,
-} from '../../src';
+} from '@/index';
 </script>
 
 <template>

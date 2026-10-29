@@ -11,9 +11,9 @@ import {
   EditableLabel,
   EditablePreview,
   EditableRootProvider,
-  Field,
   useEditable,
-} from '../src';
+  useEditableContext,
+} from '@/index';
 
 function TestEditable({
   defaultValue = 'Layer name',
@@ -92,23 +92,6 @@ test('forwards the controls ref and exposes context state', async () => {
   await expect.element(page.getByRole('status')).toContainText('Context value');
 });
 
-test('preserves semantic hosts with asChild composition', async () => {
-  render(
-    <Editable asChild defaultValue="Layer name">
-      <section aria-label="Editable section">
-        <EditableArea>
-          <EditableInput />
-          <EditablePreview />
-        </EditableArea>
-      </section>
-    </Editable>,
-  );
-
-  await expect
-    .element(page.getByRole('region', { name: 'Editable section', exact: true }))
-    .toHaveAttribute('data-slot', 'editable-root');
-});
-
 test('keeps disabled triggers unavailable and read-only values unchanged', async () => {
   render(
     <>
@@ -171,49 +154,6 @@ test('keeps disabled triggers unavailable and read-only values unchanged', async
         .getByRole('textbox'),
     )
     .toHaveCount(0);
-});
-
-test('inherits Field state and preserves public styling hooks', async () => {
-  const { container } = render(
-    <Field disabled id="layer-name" invalid readOnly required>
-      <Editable defaultValue="Layer name">
-        <EditableLabel>Layer name</EditableLabel>
-        <EditableArea>
-          <EditableInput />
-          <EditablePreview />
-        </EditableArea>
-        <EditableControls />
-      </Editable>
-    </Field>,
-  );
-
-  const root = container.querySelector<HTMLElement>('[data-slot="editable-root"]');
-  const area = container.querySelector<HTMLElement>('[data-slot="editable-area"]');
-  const input = container.querySelector<HTMLInputElement>('[data-slot="editable-input"]');
-  const label = container.querySelector<HTMLElement>('[data-slot="editable-label"]');
-
-  expect(root).not.toBeNull();
-  expect(area).not.toBeNull();
-  expect(input).not.toBeNull();
-  expect(label).not.toBeNull();
-  await expect
-    .element(page.locator('[data-slot="editable-root"]'))
-    .toHaveAttribute('data-slot', 'editable-root');
-  await expect
-    .element(page.locator('[data-slot="editable-area"]'))
-    .toHaveAttribute('data-disabled');
-  const rootLocator = page.locator('[data-slot="editable-input"]');
-  await expect.element(rootLocator).toHaveAttribute('data-slot', 'editable-input');
-  await expect.element(rootLocator).toBeDisabled();
-  await expect.element(rootLocator).toHaveAttribute('aria-invalid', 'true');
-  await expect.element(rootLocator).toHaveAttribute('readonly');
-  await expect.element(rootLocator).toHaveAttribute('required');
-  await expect
-    .element(page.locator('[data-slot="editable-label"]'))
-    .toHaveAttribute('data-invalid');
-  await expect
-    .element(page.locator('[data-slot="editable-label"]'))
-    .toHaveAttribute('for', input!.id);
 });
 
 test('participates in native form submission', () => {
@@ -319,4 +259,32 @@ test('wraps long values inside the area', () => {
 
   const area = document.querySelector<HTMLElement>('[data-slot="editable-area"]')!;
   expect(area.scrollWidth).toBeLessThanOrEqual(area.clientWidth);
+});
+
+test('forwards refs on ordinary parts and exposes context state', async () => {
+  const rootRef = createRef<HTMLDivElement>();
+  const inputRef = createRef<HTMLInputElement>();
+
+  function EditableStatus() {
+    const editable = useEditableContext();
+
+    return <output>{`${editable.value}:${String(editable.editing)}`}</output>;
+  }
+
+  render(
+    <Editable ref={rootRef} defaultValue="Context value">
+      <EditableLabel>Name</EditableLabel>
+      <EditableArea>
+        <EditableInput ref={inputRef} />
+        <EditablePreview />
+      </EditableArea>
+      <EditableContext>{(editable) => <span>{`render:${editable.value}`}</span>}</EditableContext>
+      <EditableStatus />
+    </Editable>,
+  );
+
+  expect(rootRef.current?.getAttribute('data-slot')).toBe('editable-root');
+  expect(inputRef.current?.getAttribute('data-slot')).toBe('editable-input');
+  await expect.element(page.getByText('render:Context value')).toBeAttached();
+  await expect.element(page.getByText('Context value:false')).toBeAttached();
 });

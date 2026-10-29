@@ -28,7 +28,7 @@ import {
   DatePickerYearTable,
   DatePickerMonthSelect,
   DatePickerYearSelect,
-} from '../src';
+} from '@/index';
 
 const translations = {
   clearTrigger: 'Clear localized date',
@@ -43,6 +43,26 @@ const translations = {
   viewTrigger: () => 'Change view',
   yearSelect: 'Year',
 };
+
+function DatePickerPopup() {
+  return (
+    <DatePickerPositioner>
+      <DatePickerContent data-testid="date-picker-content">
+        <DatePickerView view="day">
+          <DatePickerDayTable />
+        </DatePickerView>
+      </DatePickerContent>
+    </DatePickerPositioner>
+  );
+}
+
+function Calendar({ children }: { children: ReactNode }) {
+  return (
+    <DatePickerPositioner>
+      <DatePickerContent>{children}</DatePickerContent>
+    </DatePickerPositioner>
+  );
+}
 
 test('renders Ark month and year primitives as native selects', async () => {
   render(
@@ -60,18 +80,6 @@ test('renders Ark month and year primitives as native selects', async () => {
   expect(yearSelect.tagName).toBe('SELECT');
   expect(yearSelect.querySelector('option[value="2026"]')).not.toBeNull();
 });
-
-function DatePickerPopup() {
-  return (
-    <DatePickerPositioner>
-      <DatePickerContent data-testid="date-picker-content">
-        <DatePickerView view="day">
-          <DatePickerDayTable />
-        </DatePickerView>
-      </DatePickerContent>
-    </DatePickerPositioner>
-  );
-}
 
 test('keeps Field labels and placeholders owned by Ark localization', async () => {
   render(
@@ -400,13 +408,6 @@ test.each([false, true])('preserves a labelled clear trigger with asChild=%s', a
     .element(page.getByRole('textbox', { name: 'Clearable date', exact: true }))
     .toHaveValue('');
 });
-function Calendar({ children }: { children: ReactNode }) {
-  return (
-    <DatePickerPositioner>
-      <DatePickerContent>{children}</DatePickerContent>
-    </DatePickerPositioner>
-  );
-}
 
 test('renders month and year tables with a navigation header', async () => {
   const { unmount } = render(

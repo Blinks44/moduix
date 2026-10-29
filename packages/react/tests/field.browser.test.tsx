@@ -12,7 +12,10 @@ import {
   FieldLabel,
   FieldRequiredIndicator,
   FieldRootProvider,
-} from '../src';
+  NativeSelect,
+  useFieldContext,
+  FieldContext,
+} from '@/index';
 
 test('wires labels, descriptions, errors, and field state to a native control', async () => {
   render(
@@ -146,4 +149,75 @@ test('preserves Ark asChild composition and forwards refs for the root', async (
   expect(rootRef.current).toBe(screen.getByRole('group'));
   expect(rootRef.current!.getAttribute('data-slot')).toBe('field-root');
   await expect.element(page.getByRole('textbox', { name: 'Email', exact: true })).toBeVisible();
+});
+
+test('exposes the field context through the hook and render prop', () => {
+  function ContextValue() {
+    const field = useFieldContext();
+
+    return <output>{field.required ? 'required' : 'optional'}</output>;
+  }
+
+  render(
+    <Field required>
+      <FieldContext>
+        {(field) => <output>{field.required ? 'required' : 'optional'}</output>}
+      </FieldContext>
+      <ContextValue />
+    </Field>,
+  );
+
+  expect(screen.getAllByText('required')).toHaveLength(2);
+});
+
+test('keeps controlled field props reactive', async () => {
+  const { rerender } = render(
+    <Field required={false}>
+      <Input aria-label="Project key" />
+      <FieldRequiredIndicator />
+    </Field>,
+  );
+
+  await expect
+    .element(page.getByRole('textbox', { name: 'Project key', exact: true }))
+    .not.toHaveAttribute('required');
+  rerender(
+    <Field required>
+      <Input aria-label="Project key" />
+      <FieldRequiredIndicator />
+    </Field>,
+  );
+
+  await expect
+    .element(page.getByRole('textbox', { name: 'Project key', exact: true }))
+    .toHaveAttribute('required');
+});
+
+test('preserves native default values and reset behavior', async () => {
+  render(
+    <form aria-label="Project form">
+      <Field>
+        <Input aria-label="Project key" defaultValue="MAPS" name="project" />
+      </Field>
+      <Field>
+        <NativeSelect aria-label="Priority" defaultValue="normal" name="priority">
+          <option value="low">Low</option>
+          <option value="normal">Normal</option>
+        </NativeSelect>
+      </Field>
+    </form>,
+  );
+
+  const form = screen.getByRole('form', { name: 'Project form' }) as HTMLFormElement;
+
+  const textbox = page.getByRole('textbox', { name: 'Project key', exact: true });
+  await expect.element(textbox).toHaveValue('MAPS');
+  await expect
+    .element(page.getByRole('combobox', { name: 'Priority', exact: true }))
+    .toHaveValue('normal');
+
+  await textbox.fill('MODUIX');
+  form.reset();
+
+  await expect.element(textbox).toHaveValue('MAPS');
 });

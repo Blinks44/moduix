@@ -13,7 +13,7 @@ import {
   RadioGroupOption,
   RadioGroupRootProvider,
   useRadioGroup,
-} from '../src';
+} from '@/index';
 
 const frameworks = ['React', 'Solid', 'Vue'];
 
@@ -77,24 +77,6 @@ test('submits through explicit Ark item inputs', async () => {
   await expect.element(page.getByRole('radio', { name: 'Solid', exact: true })).toBeChecked();
   expect(new FormData(form).get('framework')).toBe('Solid');
   expect(changes).toEqual(['Solid']);
-});
-
-test('keeps asChild composition semantic with an explicit item input', () => {
-  render(
-    <RadioGroup defaultValue="React">
-      <RadioGroupItem asChild value="React">
-        <label data-testid="custom-item">
-          <RadioGroupItemControl />
-          <RadioGroupItemHiddenInput />
-          <RadioGroupItemText>React</RadioGroupItemText>
-        </label>
-      </RadioGroupItem>
-    </RadioGroup>,
-  );
-
-  const item = screen.getByTestId('custom-item');
-  expect(item.tagName).toBe('LABEL');
-  expect(item.querySelectorAll('input[type="radio"]')).toHaveLength(1);
 });
 
 test('preserves controlled and provider composition paths', async () => {

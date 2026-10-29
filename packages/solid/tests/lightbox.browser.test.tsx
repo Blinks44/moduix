@@ -5,24 +5,17 @@ import { createSignal } from 'solid-js';
 import {
   LightboxRootProvider,
   LightboxTrigger,
-  LightboxBackdrop,
   LightboxPositioner,
   LightboxContent,
-  LightboxTitle,
-  LightboxDescription,
-  LightboxCloseTrigger,
   LightboxCloseIcon,
-  LightboxHeader,
   LightboxBody,
-  LightboxFooter,
   LightboxImage,
-  LightboxGallery,
   LightboxBind,
   Lightbox,
   useLightbox,
   useLightboxContext,
   type LightboxImageSelectDetails,
-} from '../src';
+} from '@/index';
 
 test.each([false, true])('supports bound image handlers (prevented=%s)', async (prevented) => {
   const payload = { action: 'close-preview' };
@@ -257,72 +250,6 @@ test('exposes RootProvider state through useLightboxContext', async () => {
     .element(page.getByRole('dialog', { name: 'Image preview', exact: true }))
     .toBeAttached();
   await expect.element(page.getByText('Open: true')).toBeAttached();
-});
-
-test('forwards refs through native parts and keeps asChild composition native', () => {
-  let triggerRef!: HTMLButtonElement;
-  let backdropRef!: HTMLDivElement;
-  let positionerRef!: HTMLDivElement;
-  let contentRef!: HTMLDivElement;
-  let titleRef!: HTMLHeadingElement;
-  let descriptionRef!: HTMLDivElement;
-  let closeTriggerRef!: HTMLButtonElement;
-  let imageRef!: HTMLImageElement;
-  let galleryRef!: HTMLDivElement;
-  let headerRef!: HTMLDivElement;
-  let bodyRef!: HTMLDivElement;
-  let footerRef!: HTMLDivElement;
-  let composedTriggerRef: HTMLButtonElement | undefined;
-  let closeIconRef: HTMLButtonElement | undefined;
-
-  render(() => (
-    <Lightbox defaultOpen portalled={false}>
-      <LightboxTrigger ref={(element) => (triggerRef = element)}>Open preview</LightboxTrigger>
-      <LightboxTrigger
-        ref={(element) => (composedTriggerRef = element)}
-        asChild={(props) => <button {...props()}>Composed trigger</button>}
-      />
-      <LightboxBackdrop ref={(element) => (backdropRef = element)} />
-      <LightboxPositioner ref={(element) => (positionerRef = element)}>
-        <LightboxContent ref={(element) => (contentRef = element)}>
-          <LightboxCloseIcon ref={(element) => (closeIconRef = element)} />
-          <LightboxHeader ref={(element) => (headerRef = element)}>
-            <LightboxTitle ref={(element) => (titleRef = element)}>Preview</LightboxTitle>
-            <LightboxDescription ref={(element) => (descriptionRef = element)}>
-              Description
-            </LightboxDescription>
-          </LightboxHeader>
-          <LightboxBody ref={(element) => (bodyRef = element)}>
-            <LightboxImage
-              ref={(element) => (imageRef = element)}
-              src="/full-size.jpg"
-              alt="Mountain ridge"
-            />
-            <LightboxGallery ref={(element) => (galleryRef = element)} />
-          </LightboxBody>
-          <LightboxFooter ref={(element) => (footerRef = element)} />
-          <LightboxCloseTrigger ref={(element) => (closeTriggerRef = element)}>
-            Close
-          </LightboxCloseTrigger>
-        </LightboxContent>
-      </LightboxPositioner>
-    </Lightbox>
-  ));
-
-  expect(triggerRef.getAttribute('data-slot')).toBe('lightbox-trigger');
-  expect(backdropRef.getAttribute('data-slot')).toBe('lightbox-backdrop');
-  expect(positionerRef.getAttribute('data-slot')).toBe('lightbox-positioner');
-  expect(contentRef.getAttribute('data-slot')).toBe('lightbox-content');
-  expect(titleRef.getAttribute('data-slot')).toBe('lightbox-title');
-  expect(descriptionRef.getAttribute('data-slot')).toBe('lightbox-description');
-  expect(closeTriggerRef.getAttribute('data-slot')).toBe('lightbox-close-trigger');
-  expect(imageRef.getAttribute('data-slot')).toBe('lightbox-image');
-  expect(galleryRef.getAttribute('data-slot')).toBe('lightbox-gallery');
-  expect(headerRef.getAttribute('data-slot')).toBe('lightbox-header');
-  expect(bodyRef.getAttribute('data-slot')).toBe('lightbox-body');
-  expect(footerRef.getAttribute('data-slot')).toBe('lightbox-footer');
-  expect(composedTriggerRef).toBeUndefined();
-  expect(closeIconRef).toBeUndefined();
 });
 
 test('keeps the close-on-click marker aligned with its behavior', async () => {

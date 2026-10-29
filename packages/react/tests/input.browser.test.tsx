@@ -2,7 +2,7 @@ import { page } from '@rstest/browser';
 import { expect, test } from '@rstest/core';
 import { render, screen } from '@testing-library/react';
 import { createRef } from 'react';
-import { Field, Input, FieldLabel } from '../src';
+import { Field, Input, FieldLabel } from '@/index';
 
 test('preserves native field state and component-owned styling hooks', async () => {
   render(

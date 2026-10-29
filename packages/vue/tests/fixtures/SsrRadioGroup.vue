@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { RadioGroup, RadioGroupLabel, RadioGroupOption } from '../../src';
+import { RadioGroup, RadioGroupLabel, RadioGroupOption } from '@/index';
 </script>
 
 <template>

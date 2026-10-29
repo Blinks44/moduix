@@ -14,7 +14,8 @@ import {
   CheckboxRootProvider,
   useCheckbox,
   useCheckboxContext,
-} from '../src';
+} from '@/index';
+import SsrCheckbox from './fixtures/SsrCheckbox.vue';
 
 const checkboxComponents = {
   Checkbox,
@@ -296,4 +297,3 @@ test('hydrates without replacing hosts or ids and responds to clicks', async () 
     error.mockRestore();
   }
 });
-import SsrCheckbox from './fixtures/SsrCheckbox.vue';

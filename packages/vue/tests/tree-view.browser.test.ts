@@ -7,7 +7,7 @@ import type { Component, ComponentPublicInstance, PropType } from 'vue';
 import type {
   TreeViewRenameCompleteDetails,
   TreeViewRenameStartDetails,
-} from '../src/components/tree-view';
+} from '@/components/tree-view';
 import {
   TreeView,
   TreeViewBranch,
@@ -28,7 +28,7 @@ import {
   TreeViewTree,
   createTreeCollection,
   useTreeView,
-} from '../src/components/tree-view';
+} from '@/components/tree-view';
 import SsrTreeView from './fixtures/SsrTreeView.vue';
 
 interface FileNode {
@@ -464,6 +464,7 @@ test('preserves the mixed-state slot and default mixed/check icons', async () =>
 
 // Zag focuses the rename input before Vue removes `hidden`.
 // Bare Ark reproduces this. Re-enable after upstream fixes post-render rename focus.
+
 test.skip('preserves rename input asChild refs, attrs, and native rename completion', async () => {
   const order: string[] = [];
   const renameStart = rs.fn((_details: TreeViewRenameStartDetails<FileNode>) =>

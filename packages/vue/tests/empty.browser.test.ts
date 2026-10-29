@@ -4,7 +4,14 @@ import { render, screen } from '@testing-library/vue';
 import { renderToString } from '@vue/server-renderer';
 import { createSSRApp, nextTick, ref } from 'vue';
 import type { ComponentPublicInstance } from 'vue';
-import { Empty, EmptyActions, EmptyContent, EmptyDescription, EmptyIcon, EmptyTitle } from '../src';
+import {
+  Empty,
+  EmptyActions,
+  EmptyContent,
+  EmptyDescription,
+  EmptyIcon,
+  EmptyTitle,
+} from '@/index';
 import SsrEmpty from './fixtures/SsrEmpty.vue';
 
 const emptyComponents = {

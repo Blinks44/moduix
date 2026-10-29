@@ -1,7 +1,7 @@
 import { expect, test } from '@rstest/core';
 import { render, screen } from '@solidjs/testing-library';
 import type { JSX } from 'solid-js';
-import { AspectRatio } from '../src';
+import { AspectRatio } from '@/index';
 
 test('renders a styled root with stable hooks and a forwarded ref', () => {
   let ref!: HTMLDivElement;

@@ -13,7 +13,7 @@ import {
   ImageCropperRootProvider,
   ImageCropperViewport,
   useImageCropper,
-} from '../src';
+} from '@/index';
 import landscape from './fixtures/landscape.svg';
 import SsrImageCropper from './fixtures/SsrImageCropper.vue';
 
@@ -349,4 +349,27 @@ test('hydrates image-cropper without replacing hosts or IDs and remains interact
     app.unmount();
     host.remove();
   }
+});
+
+test('supports RootProvider with the recommended CropArea anatomy', async () => {
+  const ProviderImageCropper = defineComponent({
+    components: imageCropperComponents,
+    setup() {
+      return { landscape, imageCropper: useImageCropper({ aspectRatio: 16 / 9 }) };
+    },
+    template: `
+      <ImageCropperRootProvider :value="imageCropper" data-testid="image-cropper-provider">
+        <ImageCropperViewport>
+          <ImageCropperImage :src="landscape" />
+          <ImageCropperCropArea />
+        </ImageCropperViewport>
+      </ImageCropperRootProvider>
+    `,
+  });
+
+  render(ProviderImageCropper);
+
+  await expect
+    .element(page.getByTestId('image-cropper-provider'))
+    .toHaveAttribute('data-slot', 'image-cropper-root-provider');
 });

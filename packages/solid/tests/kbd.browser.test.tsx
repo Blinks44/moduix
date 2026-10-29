@@ -1,6 +1,6 @@
 import { expect, test } from '@rstest/core';
 import { render, screen } from '@solidjs/testing-library';
-import { Kbd, KbdGroup } from '../src';
+import { Kbd, KbdGroup } from '@/index';
 
 test('renders semantic keycaps and a labelled shortcut group with stable hooks', () => {
   let groupRef!: HTMLSpanElement;

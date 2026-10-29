@@ -5,7 +5,7 @@ import {
   ClipboardControl,
   ClipboardInput,
   ClipboardTrigger,
-} from '../../src/components/clipboard';
+} from '@/components/clipboard';
 </script>
 
 <template>

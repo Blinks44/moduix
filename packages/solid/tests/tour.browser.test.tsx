@@ -2,7 +2,7 @@ import type { TourStepDetails } from '@ark-ui/solid/tour';
 import { page } from '@rstest/browser';
 import { describe, expect, test } from '@rstest/core';
 import { render, screen } from '@solidjs/testing-library';
-import { Dialog, DialogContent, DialogPositioner, DialogTitle } from '../src/components/dialog';
+import { Dialog, DialogContent, DialogPositioner, DialogTitle } from '@/components/dialog';
 import {
   Tour,
   TourBackdrop,
@@ -19,7 +19,7 @@ import {
   TourActionList,
   TourActionTrigger,
   useTour,
-} from '../src/components/tour';
+} from '@/components/tour';
 
 const steps = [
   {

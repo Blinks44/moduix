@@ -27,7 +27,7 @@ import {
   SelectTrigger,
   SelectValueText,
   SelectIndicator,
-} from '../src';
+} from '@/index';
 
 const workspaces = createListCollection({
   items: [{ label: 'Acme Inc.', value: 'acme' }],

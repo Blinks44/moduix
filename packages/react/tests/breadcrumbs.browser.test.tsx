@@ -11,7 +11,7 @@ import {
   BreadcrumbsPage,
   BreadcrumbsPath,
   BreadcrumbsSeparator,
-} from '../src';
+} from '@/index';
 
 type BreadcrumbsPathProps = ComponentProps<typeof BreadcrumbsPath>;
 

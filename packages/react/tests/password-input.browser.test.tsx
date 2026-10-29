@@ -12,7 +12,7 @@ import {
   PasswordInputRootProvider,
   PasswordInputVisibilityTrigger,
   usePasswordInput,
-} from '../src';
+} from '@/index';
 
 function ControlledPasswordInput() {
   const [visible, setVisible] = useState(false);

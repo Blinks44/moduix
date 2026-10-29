@@ -3,7 +3,6 @@ import { expect, rs, test } from '@rstest/core';
 import { render, screen } from '@testing-library/react';
 import { createRef } from 'react';
 import {
-  LocaleProvider,
   Marquee,
   MarqueeContent,
   MarqueeEdge,
@@ -12,7 +11,8 @@ import {
   MarqueeViewport,
   useMarquee,
   useMarqueeContext,
-} from '../src';
+} from '@/index';
+import { LocaleProvider } from '@/locale';
 
 function TestMarquee({ defaultPaused, paused }: { defaultPaused?: boolean; paused?: boolean }) {
   return (
@@ -26,6 +26,16 @@ function TestMarquee({ defaultPaused, paused }: { defaultPaused?: boolean; pause
       </MarqueeViewport>
       <MarqueeEdge side="end" />
     </Marquee>
+  );
+}
+
+function ContextPauseControl() {
+  const marquee = useMarqueeContext();
+
+  return (
+    <button type="button" onClick={() => marquee.pause()}>
+      Pause marquee
+    </button>
   );
 }
 
@@ -91,16 +101,6 @@ test('preserves Ark controlled and uncontrolled pause state', async () => {
   await expect.element(rootLocator).toHaveAttribute('data-state', 'idle');
   await expect.element(rootLocator).not.toHaveAttribute('data-paused');
 });
-
-function ContextPauseControl() {
-  const marquee = useMarqueeContext();
-
-  return (
-    <button type="button" onClick={() => marquee.pause()}>
-      Pause marquee
-    </button>
-  );
-}
 
 test('pauses on hover and resumes with the original callback details', async () => {
   const onPauseChange = rs.fn();

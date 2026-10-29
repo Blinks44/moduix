@@ -4,7 +4,7 @@ import { render } from '@testing-library/vue';
 import { renderToString } from '@vue/server-renderer';
 import { createSSRApp, h, ref } from 'vue';
 import type { ComponentPublicInstance } from 'vue';
-import { SimpleGrid } from '../src';
+import { SimpleGrid } from '@/index';
 import TestSimpleGrid from './fixtures/TestSimpleGrid.vue';
 
 test('renders the default single-column root with stable hooks and a native ref', () => {
@@ -150,24 +150,5 @@ test('hydrates simple-grid without replacing the server host', async () => {
     host.remove();
     warn.mockRestore();
     error.mockRestore();
-  }
-});
-
-test('lets consumer classes override the default display and template', () => {
-  const sheet = document.createElement('style');
-  sheet.textContent =
-    '.consumer-grid { display: inline-grid; grid-template-columns: 100px 200px; }';
-  document.head.append(sheet);
-
-  try {
-    const grid = render(SimpleGrid, {
-      props: { class: 'consumer-grid' },
-      attrs: { 'data-testid': 'grid' },
-    }).getByTestId('grid');
-
-    expect(getComputedStyle(grid).display).toBe('inline-grid');
-    expect(getComputedStyle(grid).gridTemplateColumns).toBe('100px 200px');
-  } finally {
-    sheet.remove();
   }
 });

@@ -1,10 +1,5 @@
 <script setup lang="ts">
-import {
-  PinInput,
-  PinInputLabel,
-  PinInputControl,
-  PinInputInputs,
-} from '../../src/components/pin-input';
+import { PinInput, PinInputLabel, PinInputControl, PinInputInputs } from '@/components/pin-input';
 </script>
 
 <template>

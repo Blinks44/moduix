@@ -22,7 +22,7 @@ import {
   SliderValueText,
   useSlider,
   useSliderContext,
-} from '../src';
+} from '@/index';
 import TestSlider from './fixtures/TestSlider.vue';
 
 const sliderComponents = {
@@ -37,6 +37,44 @@ const sliderComponents = {
   SliderThumbs,
   SliderTrack,
   SliderValueText,
+  SliderMarker,
+  SliderMarkerGroup,
+};
+
+const SliderStatus = defineComponent({
+  components: { SliderLabel },
+  setup() {
+    return { slider: useSliderContext() };
+  },
+  template: `
+    <SliderLabel>Hook: {{ slider.value.join(', ') }} / Dragging: {{ String(slider.dragging) }}</SliderLabel>
+  `,
+});
+
+function rect(selector: string, root: ParentNode = document) {
+  return root.querySelector(selector)!.getBoundingClientRect();
+}
+
+function pressThumb(thumb: Element) {
+  const box = thumb.getBoundingClientRect();
+  thumb.dispatchEvent(
+    new PointerEvent('pointerdown', {
+      bubbles: true,
+      button: 0,
+      clientX: box.left + box.width / 2,
+      clientY: box.top + box.height / 2,
+      isPrimary: true,
+      pointerId: 1,
+    }),
+  );
+}
+
+const sliderLayoutComponents = {
+  ...sliderComponents,
+  LocaleProvider,
+  SliderDraggingIndicator,
+  SliderMarker,
+  SliderMarkerGroup,
 };
 
 test('preserves anatomy, attrs, refs, and explicit/generated form inputs', async () => {
@@ -187,16 +225,6 @@ test('preserves asChild hosts, Vue refs, slots, and explicit input placement', (
   expect(thumb.querySelector('input[hidden]')).not.toBeNull();
 });
 
-const SliderStatus = defineComponent({
-  components: { SliderLabel },
-  setup() {
-    return { slider: useSliderContext() };
-  },
-  template: `
-    <SliderLabel>Hook: {{ slider.value.join(', ') }} / Dragging: {{ String(slider.dragging) }}</SliderLabel>
-  `,
-});
-
 test('keeps RootProvider, Context, and useSliderContext connected', async () => {
   render({
     components: { ...sliderComponents, SliderStatus },
@@ -279,32 +307,6 @@ test('forwards consumer classes to every styled part', () => {
     expect(element.classList.contains(`consumer-${part}`)).toBe(true);
   }
 });
-
-function rect(selector: string, root: ParentNode = document) {
-  return root.querySelector(selector)!.getBoundingClientRect();
-}
-
-function pressThumb(thumb: Element) {
-  const box = thumb.getBoundingClientRect();
-  thumb.dispatchEvent(
-    new PointerEvent('pointerdown', {
-      bubbles: true,
-      button: 0,
-      clientX: box.left + box.width / 2,
-      clientY: box.top + box.height / 2,
-      isPrimary: true,
-      pointerId: 1,
-    }),
-  );
-}
-
-const sliderLayoutComponents = {
-  ...sliderComponents,
-  LocaleProvider,
-  SliderDraggingIndicator,
-  SliderMarker,
-  SliderMarkerGroup,
-};
 
 test('places label and value text on one row above the control', async () => {
   render({

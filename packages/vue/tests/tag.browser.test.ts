@@ -4,13 +4,7 @@ import { render, screen } from '@testing-library/vue';
 import { renderToString } from '@vue/server-renderer';
 import { createSSRApp, nextTick, ref } from 'vue';
 import type { ComponentPublicInstance } from 'vue';
-import {
-  Tag,
-  TagCloseTrigger,
-  TagEndElement,
-  TagLabel,
-  TagStartElement,
-} from '../src/components/tag';
+import { Tag, TagCloseTrigger, TagEndElement, TagLabel, TagStartElement } from '@/components/tag';
 import SsrTag from './fixtures/SsrTag.vue';
 
 const tagComponents = { Tag, TagCloseTrigger, TagEndElement, TagLabel, TagStartElement };

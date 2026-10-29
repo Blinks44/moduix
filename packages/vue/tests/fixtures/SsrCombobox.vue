@@ -9,7 +9,7 @@ import {
   ComboboxContent,
   ComboboxList,
   ComboboxOption,
-} from '../../src/components/combobox';
+} from '@/components/combobox';
 const collection = createListCollection({
   items: [
     { label: 'Apple', value: 'apple' },

@@ -1,7 +1,14 @@
 import { page } from '@rstest/browser';
 import { expect, test } from '@rstest/core';
 import { render, screen } from '@solidjs/testing-library';
-import { Empty, EmptyActions, EmptyContent, EmptyDescription, EmptyIcon, EmptyTitle } from '../src';
+import {
+  Empty,
+  EmptyActions,
+  EmptyContent,
+  EmptyDescription,
+  EmptyIcon,
+  EmptyTitle,
+} from '@/index';
 
 test('renders presentational anatomy with stable hooks and forwarded refs', async () => {
   let rootRef!: HTMLDivElement;

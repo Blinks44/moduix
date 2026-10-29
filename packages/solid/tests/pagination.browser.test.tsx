@@ -15,7 +15,7 @@ import {
   PaginationRootProvider,
   usePagination,
   usePaginationContext,
-} from '../src';
+} from '@/index';
 
 function PageItems() {
   return (

@@ -14,7 +14,7 @@ import {
   DrawerTrigger,
   useDrawer,
   useDrawerContext,
-} from '../src';
+} from '@/index';
 
 function DrawerParts(props: { children?: JSX.Element; variant?: 'island' }) {
   return (

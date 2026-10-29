@@ -2,7 +2,7 @@ import { expect, test } from '@rstest/core';
 import { render, screen } from '@testing-library/vue';
 import { ref } from 'vue';
 import type { ComponentPublicInstance } from 'vue';
-import { Kbd, KbdGroup } from '../src';
+import { Kbd, KbdGroup } from '@/index';
 
 const kbdComponents = { Kbd, KbdGroup };
 

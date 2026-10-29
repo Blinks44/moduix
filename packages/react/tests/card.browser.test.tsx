@@ -14,7 +14,7 @@ import {
   CardLink,
   CardMedia,
   CardTitle,
-} from '../src';
+} from '@/index';
 
 test('renders the default root with stable hooks', async () => {
   render(

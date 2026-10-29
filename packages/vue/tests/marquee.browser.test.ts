@@ -13,8 +13,8 @@ import {
   MarqueeViewport,
   useMarquee,
   useMarqueeContext,
-} from '../src';
-import { LocaleProvider } from '../src/locale';
+} from '@/index';
+import { LocaleProvider } from '@/locale';
 import SsrMarquee from './fixtures/SsrMarquee.vue';
 
 const marqueeComponents = {
@@ -45,6 +45,15 @@ const TestMarquee = defineComponent({
       <MarqueeEdge side="end" />
     </Marquee>
   `,
+});
+
+const ContextPauseControl = defineComponent({
+  setup() {
+    const marquee = useMarqueeContext();
+    const handlePause = () => marquee.value.pause();
+    return { handlePause };
+  },
+  template: '<button type="button" @click="handlePause">Pause marquee</button>',
 });
 
 test('preserves Ark marquee anatomy, semantics, attrs, and moduix styling hooks', async () => {
@@ -116,15 +125,6 @@ test('preserves Ark controlled and uncontrolled pause state', async () => {
 
   await expect.element(rootLocator).toHaveAttribute('data-state', 'idle');
   await expect.element(rootLocator).not.toHaveAttribute('data-paused');
-});
-
-const ContextPauseControl = defineComponent({
-  setup() {
-    const marquee = useMarqueeContext();
-    const handlePause = () => marquee.value.pause();
-    return { handlePause };
-  },
-  template: '<button type="button" @click="handlePause">Pause marquee</button>',
 });
 
 test('pauses on hover and resumes with the original callback details', async () => {

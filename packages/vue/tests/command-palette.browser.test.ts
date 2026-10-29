@@ -21,7 +21,9 @@ import {
   CommandPaletteTitle,
   CommandPaletteTrigger,
   useDialog,
-} from '../src';
+  CommandPaletteItemDescription,
+  CommandPaletteItemIcon,
+} from '@/index';
 import SsrCommandPalette from './fixtures/SsrCommandPalette.vue';
 
 const commands = createListCollection({
@@ -56,6 +58,11 @@ const commandPaletteComponents = {
   CommandPaletteSearch,
   CommandPaletteTitle,
   CommandPaletteTrigger,
+  CommandPaletteItemDescription,
+  CommandPaletteItemIcon,
+  CommandPaletteItemLabel,
+  CommandPaletteItemMeta,
+  CommandPaletteItemText,
 } as unknown as Record<string, Component>;
 
 test('keeps the flat API, dialog semantics, anatomy, and refs', async () => {
@@ -109,48 +116,6 @@ test('composes the shared Kbd anatomy and command-palette styles', async () => {
   await expect.element(page.getByTestId('kbd')).toHaveAttribute('data-scope', 'kbd');
   await expect.element(page.getByTestId('kbd')).toHaveAttribute('data-part', 'root');
   await expect.element(page.getByTestId('kbd')).toHaveAttribute('data-slot', 'kbd-root');
-});
-
-test('opens and closes from the shortcut while ignoring editable targets and repeats', async () => {
-  render(
-    defineComponent({
-      components: commandPaletteComponents,
-      setup() {
-        return { collection: commands, itemValue: commands.items[0] };
-      },
-      template:
-        '<div><input aria-label="Editable target" /><button type="button">Shortcut target</button><CommandPalette aria-label="Command palette" :portalled="false" shortcut="alt+k"><CommandPalettePanel><CommandPaletteCombobox :collection="collection"><CommandPaletteSearch /><CommandPaletteList><CommandPaletteItem :item="itemValue">Open settings</CommandPaletteItem></CommandPaletteList></CommandPaletteCombobox></CommandPalettePanel></CommandPalette></div>',
-    }),
-  );
-
-  await page.getByRole('textbox', { name: 'Editable target', exact: true }).press('Alt+k');
-  await expect
-    .element(page.getByRole('dialog', { name: 'Command palette', exact: true }))
-    .toHaveCount(0);
-
-  await page.getByRole('button', { name: 'Shortcut target', exact: true }).press('Alt+k');
-  await expect
-    .element(page.getByRole('dialog', { name: 'Command palette', exact: true }))
-    .toBeVisible();
-
-  document.dispatchEvent(
-    new KeyboardEvent('keydown', {
-      bubbles: true,
-      cancelable: true,
-      altKey: true,
-      code: 'KeyK',
-      key: 'k',
-      repeat: true,
-    }),
-  );
-  await expect
-    .element(page.getByRole('dialog', { name: 'Command palette', exact: true }))
-    .toBeVisible();
-
-  await page.getByRole('dialog').press('Alt+k');
-  await expect
-    .element(page.getByRole('dialog', { name: 'Command palette', exact: true }))
-    .toHaveCount(0);
 });
 
 test('clears the search without losing focus', async () => {
@@ -477,4 +442,61 @@ test('renders a decorative search icon before the input', async () => {
   const icon = document.querySelector('[data-slot="command-palette-search-icon"]');
   expect(icon?.getAttribute('aria-hidden')).toBe('true');
   expect(icon?.nextElementSibling?.getAttribute('data-slot')).toBe('command-palette-input');
+});
+
+test('forwards selection details and keeps the palette open when closeOnSelect is false', async () => {
+  const onSelect = rs.fn();
+  const Harness = defineComponent({
+    components: commandPaletteComponents,
+    setup() {
+      return { collection: commands, itemValue: commands.items[0], onSelect };
+    },
+    template:
+      '<CommandPalette default-open aria-label="Command palette" :portalled="false"><CommandPalettePanel><CommandPaletteCombobox :collection="collection" :close-on-select="false" @select="onSelect"><CommandPaletteSearch /><CommandPaletteList><CommandPaletteItem :item="itemValue">Open settings</CommandPaletteItem></CommandPaletteList></CommandPaletteCombobox></CommandPalettePanel></CommandPalette>',
+  });
+
+  render(Harness);
+  await page.getByRole('option', { name: 'Open settings', exact: true }).click();
+  await expect
+    .poll(() => onSelect)
+    .toHaveBeenCalledWith(expect.objectContaining({ itemValue: 'settings', value: ['settings'] }));
+  await expect
+    .element(page.getByRole('dialog', { name: 'Command palette', exact: true }))
+    .toBeVisible();
+});
+
+test('uses dialog title and description semantics', () => {
+  const Harness = defineComponent({
+    components: commandPaletteComponents,
+    setup() {
+      return { collection: commands, itemValue: commands.items[0] };
+    },
+    template:
+      '<CommandPalette default-open :portalled="false"><CommandPalettePanel><CommandPaletteTitle>Command palette</CommandPaletteTitle><CommandPaletteDescription>Select a command to continue.</CommandPaletteDescription><CommandPaletteCombobox :collection="collection"><CommandPaletteSearch /><CommandPaletteList><CommandPaletteItem :item="itemValue">Open settings</CommandPaletteItem></CommandPaletteList></CommandPaletteCombobox></CommandPalettePanel></CommandPalette>',
+  });
+
+  render(Harness);
+  expect(
+    screen.getByRole('dialog', {
+      name: 'Command palette',
+      description: 'Select a command to continue.',
+    }).isConnected,
+  ).toBe(true);
+});
+
+test('closes after selection by default', async () => {
+  const Harness = defineComponent({
+    components: commandPaletteComponents,
+    setup() {
+      return { collection: commands, itemValue: commands.items[0] };
+    },
+    template:
+      '<CommandPalette default-open :portalled="false"><CommandPalettePanel><CommandPaletteCombobox :collection="collection"><CommandPaletteSearch /><CommandPaletteList><CommandPaletteItem :item="itemValue">Open settings</CommandPaletteItem></CommandPaletteList></CommandPaletteCombobox></CommandPalettePanel></CommandPalette>',
+  });
+
+  render(Harness);
+  await page.getByRole('option', { name: 'Open settings', exact: true }).click();
+  await expect
+    .element(page.getByRole('dialog', { name: 'Command palette', exact: true }))
+    .toHaveCount(0);
 });

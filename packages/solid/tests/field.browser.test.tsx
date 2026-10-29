@@ -14,7 +14,7 @@ import {
   FieldLabel,
   FieldRequiredIndicator,
   FieldRootProvider,
-} from '../src';
+} from '@/index';
 
 test('wires labels, descriptions, errors, and field state to a native control', async () => {
   render(() => (

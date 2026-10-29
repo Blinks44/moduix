@@ -13,7 +13,8 @@ import {
   FieldsetRootProvider,
   useFieldset,
   useFieldsetContext,
-} from '../src';
+} from '@/index';
+import SsrFieldset from './fixtures/SsrFieldset.vue';
 
 const fieldsetComponents = {
   Fieldset,
@@ -150,4 +151,3 @@ test('hydrates without replacing hosts or generated ids', async () => {
     error.mockRestore();
   }
 });
-import SsrFieldset from './fixtures/SsrFieldset.vue';

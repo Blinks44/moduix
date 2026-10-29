@@ -23,7 +23,7 @@ import {
   ToastToaster,
   createToaster,
   useToastContext,
-} from '../src';
+} from '@/index';
 import SsrToast from './fixtures/SsrToast.vue';
 
 const toastComponents = {
@@ -34,6 +34,30 @@ const toastComponents = {
   ToastTitle,
   ToastToaster,
 };
+
+function renderToaster(toaster: CreateToasterReturn<VNodeChild>, portalled?: boolean) {
+  const Harness = defineComponent({
+    components: { ToastToaster },
+    setup() {
+      return { portalled, toaster };
+    },
+    template:
+      portalled === undefined
+        ? '<ToastToaster :toaster="toaster" />'
+        : '<ToastToaster :toaster="toaster" :portalled="portalled" />',
+  });
+
+  return render(Harness);
+}
+
+const responsivePlacements = [
+  'top-start',
+  'top',
+  'top-end',
+  'bottom-start',
+  'bottom',
+  'bottom-end',
+] as const;
 
 test('keeps rendered VNode content and context fallbacks reactive across store updates', async () => {
   const toaster = createToaster({ placement: 'bottom', duration: Infinity });
@@ -184,6 +208,7 @@ test('keeps queue limits, toast status details, dismissal, and replacement conte
 });
 
 // Ark Vue 5.39.2 applies root attrs to its leading ghost DIV instead of the provided child.
+
 test.skip('preserves the native Ark root asChild host', async () => {
   const toaster = createToaster({ placement: 'bottom', duration: Infinity });
   render(
@@ -206,6 +231,7 @@ test.skip('preserves the native Ark root asChild host', async () => {
 });
 
 // Ark Vue 5.39.2 declares asChild on Toaster but never forwards it to ark.div.
+
 test.skip('forwards native Ark toaster asChild to the group host', async () => {
   const toaster = createToaster({ placement: 'bottom', duration: Infinity });
   render(
@@ -222,21 +248,6 @@ test.skip('forwards native Ark toaster asChild to the group host', async () => {
   toaster.create({ title: 'Native group' });
   await expect.element(page.getByTestId('native-group')).toHaveAttribute('data-part', 'group');
 });
-
-function renderToaster(toaster: CreateToasterReturn<VNodeChild>, portalled?: boolean) {
-  const Harness = defineComponent({
-    components: { ToastToaster },
-    setup() {
-      return { portalled, toaster };
-    },
-    template:
-      portalled === undefined
-        ? '<ToastToaster :toaster="toaster" />'
-        : '<ToastToaster :toaster="toaster" :portalled="portalled" />',
-  });
-
-  return render(Harness);
-}
 
 test('renders default content and keeps closable and action behavior', async () => {
   const toaster = createToaster({ placement: 'bottom', duration: Infinity });
@@ -574,15 +585,6 @@ test.each([false, true])(
     target.remove();
   },
 );
-
-const responsivePlacements = [
-  'top-start',
-  'top',
-  'top-end',
-  'bottom-start',
-  'bottom',
-  'bottom-end',
-] as const;
 
 test.each(
   responsivePlacements.flatMap((placement) =>

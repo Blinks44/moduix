@@ -6,7 +6,7 @@ import {
   DateInputHiddenInput,
   DateInputLabel,
   DateInputSegments,
-} from '../../src/components/date-input';
+} from '@/components/date-input';
 const defaultValue = [new CalendarDate(2026, 6, 22)];
 </script>
 

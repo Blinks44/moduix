@@ -1,7 +1,7 @@
 import { expect, test } from '@rstest/core';
 import { render, screen } from '@testing-library/react';
 import type { ComponentProps } from 'react';
-import { Highlight } from '../src';
+import { Highlight } from '@/index';
 
 const hasRootRef: 'ref' extends keyof ComponentProps<typeof Highlight> ? true : false = false;
 

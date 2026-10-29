@@ -4,7 +4,7 @@ import {
   CollapsibleTrigger,
   CollapsibleContent,
   CollapsibleBody,
-} from '../../src/components/collapsible';
+} from '@/components/collapsible';
 </script>
 
 <template>

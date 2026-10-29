@@ -10,7 +10,7 @@ import {
   CardLink,
   CardMedia,
   CardTitle,
-} from '../src';
+} from '@/index';
 </script>
 
 <template>

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Badge } from '../../src';
+import { Badge } from '@/index';
 </script>
 
 <template>

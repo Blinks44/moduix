@@ -2,7 +2,7 @@ import { page } from '@rstest/browser';
 import { expect, test } from '@rstest/core';
 import { render, screen } from '@solidjs/testing-library';
 import { createSignal } from 'solid-js';
-import { JsonTreeView, JsonTreeViewRootProvider, JsonTreeViewTree, useJsonTreeView } from '../src';
+import { JsonTreeView, JsonTreeViewRootProvider, JsonTreeViewTree, useJsonTreeView } from '@/index';
 
 const data = {
   release: {

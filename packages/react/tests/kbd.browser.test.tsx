@@ -1,7 +1,7 @@
 import { expect, test } from '@rstest/core';
 import { render, screen } from '@testing-library/react';
 import { createRef } from 'react';
-import { Kbd, KbdGroup } from '../src';
+import { Kbd, KbdGroup } from '@/index';
 
 test('renders semantic keycaps and a labelled shortcut group with stable hooks', () => {
   const groupRef = createRef<HTMLSpanElement>();

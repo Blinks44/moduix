@@ -13,7 +13,7 @@ import {
   TagsInputLabel,
   TagsInputRootProvider,
   useTagsInput,
-} from '../src';
+} from '@/index';
 
 function Tags(props: {
   defaultValue?: string[];
@@ -132,31 +132,6 @@ test('submits through an explicit Ark hidden input', async () => {
   await page.getByRole('textbox', { name: 'Frameworks', exact: true }).press('Enter');
 
   await expect.poll(() => new FormData(form).get('frameworks')).toBe('React, Vue');
-});
-
-test('keeps explicit form data for asChild roots', () => {
-  const { container } = render(() => (
-    <form>
-      <TagsInput
-        asChild={(props) => <section {...props()} />}
-        defaultValue={['React']}
-        name="frameworks"
-      >
-        <TagsInputLabel>Frameworks</TagsInputLabel>
-        <TagsInputControl>
-          <TagsInputItems />
-          <TagsInputInput />
-        </TagsInputControl>
-        <TagsInputHiddenInput />
-      </TagsInput>
-    </form>
-  ));
-
-  const form = container.querySelector('form')!;
-
-  expect(new FormData(form).get('frameworks')).toBe('React');
-  expect(container.querySelector('section input[name="frameworks"]')).not.toBeNull();
-  expect(container.querySelector('section input[hidden]')).not.toBeNull();
 });
 
 test('keeps explicit form data for root providers', async () => {

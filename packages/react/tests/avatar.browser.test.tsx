@@ -2,9 +2,19 @@ import { page } from '@rstest/browser';
 import { expect, rs, test } from '@rstest/core';
 import { render, screen } from '@testing-library/react';
 import { createRef } from 'react';
-import { Avatar, AvatarFallback, AvatarImage, AvatarRootProvider, useAvatar } from '../src';
+import { Avatar, AvatarFallback, AvatarImage, AvatarRootProvider, useAvatar } from '@/index';
 
 const imageUrl = `data:image/svg+xml,${encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64"/>')}`;
+
+function ProviderAvatar() {
+  const avatar = useAvatar();
+
+  return (
+    <AvatarRootProvider value={avatar} size="sm" data-testid="avatar-provider">
+      <AvatarFallback>AT</AvatarFallback>
+    </AvatarRootProvider>
+  );
+}
 
 test('renders the Ark anatomy with moduix hooks and explicit fallback content', () => {
   const rootRef = createRef<HTMLDivElement>();
@@ -56,6 +66,7 @@ test('preserves real image loading, fallback visibility, and callback details', 
     .toEqual([[{ status: 'loaded' }]]);
   expect((screen.getByAltText('Alex Taylor') as HTMLImageElement).naturalWidth).toBe(64);
 });
+
 test('keeps the fallback visible when a real image fails', async () => {
   const onStatusChange = rs.fn();
   render(
@@ -68,6 +79,7 @@ test('keeps the fallback visible when a real image fails', async () => {
   await expect.element(page.getByText('AT')).toHaveAttribute('data-state', 'visible');
   await expect.element(page.getByAltText('Alex Taylor')).toHaveAttribute('data-state', 'hidden');
 });
+
 test('preserves semantic root composition with asChild', () => {
   render(
     <Avatar asChild>
@@ -80,16 +92,6 @@ test('preserves semantic root composition with asChild', () => {
   expect(root.getAttribute('data-slot')).toBe('avatar-root');
   expect(root.getAttribute('data-scope')).toBe('avatar');
 });
-
-function ProviderAvatar() {
-  const avatar = useAvatar();
-
-  return (
-    <AvatarRootProvider value={avatar} size="sm" data-testid="avatar-provider">
-      <AvatarFallback>AT</AvatarFallback>
-    </AvatarRootProvider>
-  );
-}
 
 test('styles externally owned Ark state through RootProvider', () => {
   render(<ProviderAvatar />);

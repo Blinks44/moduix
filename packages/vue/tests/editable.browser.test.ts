@@ -20,7 +20,7 @@ import {
   FieldErrorText,
   useEditable,
   useEditableContext,
-} from '../src';
+} from '@/index';
 import SsrEditable from './fixtures/SsrEditable.vue';
 
 const editableComponents = {
@@ -62,6 +62,18 @@ const TestEditable = defineComponent({
     </Editable>
   `,
 });
+
+const layoutComponents = {
+  ...editableComponents,
+  Button,
+  EditableControl,
+  EditableEditTrigger,
+  TestEditable,
+} as Record<string, Component>;
+
+function renderTemplate(template: string) {
+  return render(defineComponent({ components: layoutComponents, template }));
+}
 
 test('preserves Ark semantics, refs, anatomy, attrs, and moduix hooks', () => {
   const refs = {
@@ -265,21 +277,6 @@ test('inherits Field state and preserves public styling hooks', () => {
   expect(label?.getAttribute('for')).toBe(input?.id);
 });
 
-test('participates in native form submission', () => {
-  render({
-    components: { ...editableComponents, TestEditable },
-    template: `
-      <form>
-        <TestEditable default-value="Layer name" name="title" />
-      </form>
-    `,
-  });
-  const form = document.querySelector('form');
-
-  expect(form).not.toBeNull();
-  expect(new FormData(form! as HTMLFormElement).get('title')).toBe('Layer name');
-});
-
 test('submits the committed value through an external form owner', async () => {
   render({
     components: { ...editableComponents, TestEditable },
@@ -301,42 +298,6 @@ test('submits the committed value through an external form owner', async () => {
 
   expect(form).toBeInstanceOf(HTMLFormElement);
   expect(new FormData(form as HTMLFormElement).get('title')).toBe('Published name');
-});
-
-test('commits textarea values with Ctrl or Cmd + Enter', async () => {
-  const commits: string[] = [];
-  const Harness = defineComponent({
-    components: editableComponents,
-    setup() {
-      return { commits };
-    },
-    template: `
-      <Editable
-        default-edit
-        default-value="Draft description"
-        @value-commit="commits.push($event.value)"
-      >
-        <EditableLabel>Description</EditableLabel>
-        <EditableArea>
-          <EditableInput as-child><textarea aria-label="editable input" /></EditableInput>
-          <EditablePreview />
-        </EditableArea>
-        <EditableControls />
-      </Editable>
-    `,
-  });
-
-  render(Harness);
-
-  await page
-    .getByRole('textbox', { name: 'editable input', exact: true })
-    .fill('Published description');
-  await page
-    .getByRole('textbox', { name: 'editable input', exact: true })
-    .press('ControlOrMeta+Enter');
-
-  await expect.poll(() => commits).toEqual(['Published description']);
-  await expect.element(page.locator('[data-slot="editable-input"]')).toHaveAttribute('hidden');
 });
 
 test('forwards the controls ref and supports RootProvider state', async () => {
@@ -448,18 +409,6 @@ test('hydrates stable hosts and ids and remains interactive', async () => {
     host.remove();
   }
 });
-
-const layoutComponents = {
-  ...editableComponents,
-  Button,
-  EditableControl,
-  EditableEditTrigger,
-  TestEditable,
-} as Record<string, Component>;
-
-function renderTemplate(template: string) {
-  return render(defineComponent({ components: layoutComponents, template }));
-}
 
 test('wraps long values inside the area', async () => {
   renderTemplate(

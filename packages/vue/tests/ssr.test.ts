@@ -1,7 +1,7 @@
 import { expect, test } from '@rstest/core';
 import { renderToString } from '@vue/server-renderer';
 import { createSSRApp, type Component } from 'vue';
-import { createToaster } from '../src/components/toast';
+import { createToaster } from '@/components/toast';
 
 const fixtures = import.meta.webpackContext('./fixtures', { regExp: /\.vue$/ });
 // SsrTreeNode is a recursive part of SsrTreeView, not a standalone fixture.

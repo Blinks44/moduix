@@ -15,7 +15,7 @@ import {
   AngleSliderThumb,
   AngleSliderValueText,
   useAngleSlider,
-} from '../src';
+} from '@/index';
 import TestAngleSlider from './fixtures/TestAngleSlider.vue';
 import TestAngleSliderRootLabel from './fixtures/TestAngleSliderRootLabel.vue';
 

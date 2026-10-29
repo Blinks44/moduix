@@ -50,6 +50,13 @@ follow the matching native convention skill. `component-workflow` owns adapter p
 - Tailwind browser projects use the official Rsbuild Tailwind plugin and a CSS entry scanning their
   own components/tests, so the override contracts above can be checked on real CSS. Do not add
   tests that compile utilities and compare class or CSS strings.
+- Browser behavior tests are shared per framework. They live once in the CSS Modules package
+  (`packages/<framework>/tests/*.browser.test.*`) and import components, fixtures, and consumers
+  through `@/`, so the Tailwind package's browser project (which includes
+  `../<framework>/tests/*.browser.test.*`) runs the same scenarios against its own source. Put
+  checks of one package's styling contract (CSS variables, Tailwind utility overrides, measured
+  styles) or a genuinely adapter-specific harness in that package's `tests/styles/`. A shared test
+  must not use Tailwind utilities: the Tailwind entry does not scan the CSS Modules package.
 - Node SSR coverage lives in one `tests/ssr.test.*` per package: it loads every component without
   browser globals and renders open overlays (React, Solid) or every Vue fixture. Do not add
   per-component SSR files; add a focused Node test only for a server-specific regression.

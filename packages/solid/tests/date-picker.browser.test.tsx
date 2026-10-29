@@ -28,7 +28,7 @@ import {
   DatePickerYearTable,
   DatePickerMonthSelect,
   DatePickerYearSelect,
-} from '../src';
+} from '@/index';
 
 const translations = {
   clearTrigger: 'Clear localized date',
@@ -43,6 +43,26 @@ const translations = {
   viewTrigger: () => 'Change view',
   yearSelect: 'Year',
 };
+
+function DatePickerPopup() {
+  return (
+    <DatePickerPositioner>
+      <DatePickerContent data-testid="date-picker-content">
+        <DatePickerView view="day">
+          <DatePickerDayTable />
+        </DatePickerView>
+      </DatePickerContent>
+    </DatePickerPositioner>
+  );
+}
+
+function Calendar(props: { children: JSX.Element }) {
+  return (
+    <DatePickerPositioner>
+      <DatePickerContent>{props.children}</DatePickerContent>
+    </DatePickerPositioner>
+  );
+}
 
 test('renders Ark month and year primitives as native selects', async () => {
   render(() => (
@@ -60,18 +80,6 @@ test('renders Ark month and year primitives as native selects', async () => {
   expect(yearSelect.tagName).toBe('SELECT');
   expect(yearSelect.querySelector('option[value="2026"]')).not.toBeNull();
 });
-
-function DatePickerPopup() {
-  return (
-    <DatePickerPositioner>
-      <DatePickerContent data-testid="date-picker-content">
-        <DatePickerView view="day">
-          <DatePickerDayTable />
-        </DatePickerView>
-      </DatePickerContent>
-    </DatePickerPositioner>
-  );
-}
 
 test('keeps Field labels and placeholders owned by Ark localization', async () => {
   render(() => (
@@ -378,13 +386,6 @@ test.each([false, true])('updates the clear trigger class (asChild=%s)', async (
   setClassName('after');
   expect(container.querySelector('button')).toBe(trigger);
 });
-function Calendar(props: { children: JSX.Element }) {
-  return (
-    <DatePickerPositioner>
-      <DatePickerContent>{props.children}</DatePickerContent>
-    </DatePickerPositioner>
-  );
-}
 
 test('renders month and year tables with a navigation header', async () => {
   const { unmount } = render(() => (

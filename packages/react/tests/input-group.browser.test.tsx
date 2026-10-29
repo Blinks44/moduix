@@ -1,7 +1,7 @@
 import { page } from '@rstest/browser';
 import { expect, test, rs } from '@rstest/core';
 import { render, screen } from '@testing-library/react';
-import { useState } from 'react';
+import { useState, createRef } from 'react';
 import {
   Field,
   FieldLabel,
@@ -11,7 +11,7 @@ import {
   InputGroupClearTrigger,
   InputGroupInput,
   InputGroupText,
-} from '../src';
+} from '@/index';
 
 test('keeps the Input slot that drives grouped field state styling', async () => {
   render(
@@ -179,4 +179,152 @@ test('clear trigger preserves custom labels, children, asChild hosts, refs, and 
     .element(page.getByRole('button', { name: 'Disabled clear', exact: true }))
     .toBeDisabled();
   expect(clear).toHaveBeenCalledTimes(1);
+});
+
+test('preserves grouped field state, owned hooks, and native refs', async () => {
+  const rootRef = createRef<HTMLDivElement>();
+  const addonRef = createRef<HTMLSpanElement>();
+  const inputRef = createRef<HTMLInputElement>();
+  const textRef = createRef<HTMLSpanElement>();
+  const buttonRef = createRef<HTMLButtonElement>();
+
+  render(
+    <Field disabled id="workspace" invalid readOnly>
+      <FieldLabel>Workspace</FieldLabel>
+      <InputGroup
+        ref={rootRef}
+        className="consumer-root"
+        data-part="consumer-part"
+        data-scope="consumer-scope"
+        data-size="xs"
+        data-slot="consumer-slot"
+        data-testid="input-group"
+        size="lg"
+      >
+        <InputGroupAddon
+          ref={addonRef}
+          className="consumer-addon"
+          data-part="consumer-part"
+          data-scope="consumer-scope"
+          data-slot="consumer-slot"
+        >
+          @
+        </InputGroupAddon>
+        <InputGroupInput ref={inputRef} />
+        <InputGroupText
+          ref={textRef}
+          className="consumer-text"
+          data-part="consumer-part"
+          data-scope="consumer-scope"
+          data-slot="consumer-slot"
+        >
+          .com
+        </InputGroupText>
+        <InputGroupButton ref={buttonRef} className="consumer-button" data-slot="consumer-slot">
+          Copy
+        </InputGroupButton>
+      </InputGroup>
+    </Field>,
+  );
+
+  const group = screen.getByTestId('input-group');
+  const addon = screen.getByText('@');
+  const input = screen.getByRole('textbox', { name: 'Workspace' });
+  const text = screen.getByText('.com');
+  const button = screen.getByRole('button', { name: 'Copy' });
+
+  const groupLocator = page.getByTestId('input-group');
+  await expect.element(groupLocator).toHaveAttribute('data-slot', 'input-group-root');
+  await expect.element(groupLocator).toHaveAttribute('data-scope', 'input-group');
+  await expect.element(groupLocator).toHaveAttribute('data-part', 'root');
+  await expect.element(groupLocator).toHaveAttribute('data-size', 'lg');
+  expect([...group.classList]).toEqual(expect.arrayContaining(['consumer-root']));
+  const textLocator = page.getByText('@', { exact: true });
+  await expect.element(textLocator).toHaveAttribute('data-slot', 'input-group-addon');
+  await expect.element(textLocator).toHaveAttribute('data-scope', 'input-group');
+  await expect.element(textLocator).toHaveAttribute('data-part', 'addon');
+  expect([...addon.classList]).toEqual(expect.arrayContaining(['consumer-addon']));
+  const inputLocator = page.getByRole('textbox', { name: 'Workspace', exact: true });
+  await expect.element(inputLocator).toHaveAttribute('data-slot', 'input-root');
+  await expect.element(inputLocator).toHaveAttribute('data-size', 'lg');
+  await expect.element(inputLocator).toHaveAttribute('data-invalid');
+  await expect.element(inputLocator).toBeDisabled();
+  await expect.element(inputLocator).toHaveAttribute('readonly');
+  const textLocator2 = page.getByText('.com', { exact: true });
+  await expect.element(textLocator2).toHaveAttribute('data-slot', 'input-group-text');
+  await expect.element(textLocator2).toHaveAttribute('data-scope', 'input-group');
+  await expect.element(textLocator2).toHaveAttribute('data-part', 'text');
+  expect([...text.classList]).toEqual(expect.arrayContaining(['consumer-text']));
+  const buttonLocator = page.getByRole('button', { name: 'Copy', exact: true });
+  await expect.element(buttonLocator).toHaveAttribute('data-slot', 'input-group-button');
+  await expect.element(buttonLocator).toHaveAttribute('data-size', 'lg');
+  await expect.element(buttonLocator).toHaveAttribute('type', 'button');
+  expect([...button.classList]).toEqual(expect.arrayContaining(['consumer-button']));
+  await expect.element(buttonLocator).toBeEnabled();
+  expect(rootRef.current).toBe(group);
+  expect(addonRef.current).toBe(addon);
+  expect(inputRef.current).toBe(input);
+  expect(textRef.current).toBe(text);
+  expect(buttonRef.current).toBe(button);
+});
+
+test('keeps the group size context reactive', async () => {
+  const { rerender } = render(
+    <InputGroup size="sm" data-testid="responsive-group">
+      <InputGroupInput aria-label="Workspace" />
+      <InputGroupButton>Copy</InputGroupButton>
+    </InputGroup>,
+  );
+
+  await expect.element(page.getByTestId('responsive-group')).toHaveAttribute('data-size', 'sm');
+  await expect
+    .element(page.getByRole('textbox', { name: 'Workspace', exact: true }))
+    .toHaveAttribute('data-size', 'sm');
+  await expect
+    .element(page.getByRole('button', { name: 'Copy', exact: true }))
+    .toHaveAttribute('data-size', 'sm');
+
+  rerender(
+    <InputGroup size="xl" data-testid="responsive-group">
+      <InputGroupInput aria-label="Workspace" />
+      <InputGroupButton>Copy</InputGroupButton>
+    </InputGroup>,
+  );
+
+  await expect.element(page.getByTestId('responsive-group')).toHaveAttribute('data-size', 'xl');
+  await expect
+    .element(page.getByRole('textbox', { name: 'Workspace', exact: true }))
+    .toHaveAttribute('data-size', 'xl');
+  await expect
+    .element(page.getByRole('button', { name: 'Copy', exact: true }))
+    .toHaveAttribute('data-size', 'xl');
+});
+
+test('preserves semantic hosts with asChild composition', async () => {
+  render(
+    <InputGroup data-testid="as-child-root" asChild>
+      <section aria-label="Workspace group">
+        <InputGroupAddon asChild>
+          <strong>@</strong>
+        </InputGroupAddon>
+        <InputGroupInput aria-label="Workspace" />
+        <InputGroupText asChild>
+          <em>.com</em>
+        </InputGroupText>
+      </section>
+    </InputGroup>,
+  );
+
+  const root = screen.getByTestId('as-child-root');
+
+  expect(root.tagName).toBe('SECTION');
+  await expect
+    .element(page.getByTestId('as-child-root'))
+    .toHaveAttribute('data-slot', 'input-group-root');
+  await expect
+    .element(page.getByText('@', { exact: true }))
+    .toHaveAttribute('data-slot', 'input-group-addon');
+  await expect
+    .element(page.getByText('.com', { exact: true }))
+    .toHaveAttribute('data-slot', 'input-group-text');
 });

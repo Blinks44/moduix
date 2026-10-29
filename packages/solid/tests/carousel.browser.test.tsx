@@ -11,7 +11,7 @@ import {
   CarouselNextTrigger,
   CarouselPrevTrigger,
   CarouselProgressText,
-} from '../src';
+} from '@/index';
 
 function TestCarousel(props: {
   dir?: 'ltr' | 'rtl';

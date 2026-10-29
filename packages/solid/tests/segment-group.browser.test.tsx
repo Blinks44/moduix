@@ -11,9 +11,10 @@ import {
   SegmentGroupItems,
   SegmentGroupRootProvider,
   useSegmentGroup,
-} from '../src';
+} from '@/index';
 
 const frameworks = ['React', 'Solid', 'Vue'];
+
 const frameworkItems = frameworks.map((value) => ({ value, label: value }));
 
 function SegmentItems() {
@@ -236,6 +237,7 @@ test('keeps read-only inputs checked and outside keyboard navigation', async () 
   await expect.element(react).toBeChecked();
   await expect.element(solid).not.toBeChecked();
 });
+
 test('preserves controlled and provider composition paths', async () => {
   const { unmount } = render(() => <ControlledSegmentGroup />);
 

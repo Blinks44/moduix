@@ -17,7 +17,7 @@ import {
   PinInputRootProvider,
   PinInputSeparator,
   usePinInput,
-} from '../src';
+} from '@/index';
 import SsrPinInput from './fixtures/SsrPinInput.vue';
 
 const pinInputComponents = {

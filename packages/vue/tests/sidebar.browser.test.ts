@@ -40,7 +40,7 @@ import {
   SidebarTooltip,
   SidebarTrigger,
   useSplitterContext,
-} from '../src';
+} from '@/index';
 import TestSidebar from './fixtures/TestSidebar.vue';
 
 const workspaces = createListCollection({
@@ -587,6 +587,7 @@ test.each([false, true])(
 
 // Zag Splitter omits the first programmatic collapse notification (chakra-ui/zag#3371).
 // Keep the direct Ark reproduction until the upstream size-notification map is initialized correctly.
+
 test.skip('emits collapse on the first controlled transition in direct Ark', async () => {
   const NativeToggle = defineComponent({
     setup() {

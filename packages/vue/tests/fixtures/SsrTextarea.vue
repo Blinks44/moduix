@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Textarea } from '../../src';
+import { Textarea } from '@/index';
 </script>
 
 <template>

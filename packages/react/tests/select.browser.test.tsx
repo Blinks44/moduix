@@ -2,7 +2,7 @@ import { createListCollection } from '@ark-ui/react/collection';
 import { page } from '@rstest/browser';
 import { expect, test } from '@rstest/core';
 import { render, screen } from '@testing-library/react';
-import { createRef, type CSSProperties } from 'react';
+import { createRef } from 'react';
 import {
   SelectOption,
   Field,
@@ -18,7 +18,7 @@ import {
   SelectItemIndicator,
   SelectHiddenSelect,
   SelectRootProvider,
-} from '../src';
+} from '@/index';
 
 const fruits = createListCollection({
   items: [
@@ -73,28 +73,6 @@ test('keeps default values and native form values Ark-shaped', async () => {
   await expect
     .element(page.getByRole('button', { name: 'Clear fruit', exact: true }))
     .toBeVisible();
-});
-
-test('reserves trigger room from the action size variable', async () => {
-  const style = { '--moduix-select-action-size': '32px' } as CSSProperties;
-  render(
-    <>
-      <Select collection={fruits} defaultValue={['apple']} style={style}>
-        <SelectField />
-      </Select>
-      <Select collection={fruits} defaultValue={['apple']} style={style}>
-        <SelectField clearLabel="Clear fruit" />
-      </Select>
-    </>,
-  );
-
-  const [withoutClear, withClear] = [
-    ...document.querySelectorAll<HTMLElement>('[data-slot="select-trigger"]'),
-  ];
-  await expect.poll(() => getComputedStyle(withClear!).paddingInlineEnd).toBe('84px');
-  expect(getComputedStyle(withoutClear!).paddingInlineEnd).toBe('54px');
-  const indicator = document.querySelector<HTMLElement>('[data-slot="select-indicator"]')!;
-  expect(indicator.offsetWidth).toBe(32);
 });
 
 test('keeps the default indicator outside the trigger button', () => {

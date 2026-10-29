@@ -13,7 +13,7 @@ import {
   useAccordion,
   useAccordionContext,
   useAccordionItemContext,
-} from '../src';
+} from '@/index';
 
 const items = [
   { value: 'first', label: 'First item', content: 'First content' },

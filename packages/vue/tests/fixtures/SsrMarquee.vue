@@ -5,7 +5,7 @@ import {
   MarqueeViewport,
   MarqueeContent,
   MarqueeItem,
-} from '../../src/components/marquee';
+} from '@/components/marquee';
 </script>
 <template>
   <Marquee aria-label="Partner logos"

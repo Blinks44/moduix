@@ -1,7 +1,7 @@
 import { expect, test } from '@rstest/core';
 import { render } from '@testing-library/react';
 import { createRef, type CSSProperties } from 'react';
-import { AspectRatio } from '../src';
+import { AspectRatio } from '@/index';
 
 test('renders a styled root with stable hooks and a forwarded ref', () => {
   const ref = createRef<HTMLDivElement>();

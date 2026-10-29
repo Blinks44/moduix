@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Tooltip, TooltipArrow, TooltipBody, TooltipTrigger } from '../../src/components/tooltip';
+import { Tooltip, TooltipArrow, TooltipBody, TooltipTrigger } from '@/components/tooltip';
 </script>
 
 <template>

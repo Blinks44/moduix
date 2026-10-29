@@ -14,7 +14,7 @@ import {
   ListboxFilter,
   MenuTriggerItemIcon,
   PinInputSeparator,
-} from '../src';
+} from '@/index';
 
 test.each(['object', 'callback'] as const)(
   'forwards %s refs through public DOM helpers',

@@ -20,10 +20,11 @@ import {
   SignaturePadRootProvider,
   useSignaturePad,
   useSignaturePadContext,
-} from '../src';
+} from '@/index';
 import SsrSignaturePad from './fixtures/SsrSignaturePad.vue';
 
 const defaultPaths = ['M1,1 L2,2'];
+
 const translations = {
   clearTrigger: 'Clear signature',
   control: 'Signature drawing area',
@@ -276,48 +277,6 @@ test('forwards Canvas control props and ref', async () => {
   );
 });
 
-test('supports controlled paths through Vue v-model and preserves root asChild composition', async () => {
-  const rootRef = ref<ComponentPublicInstance>();
-  const paths = ref(defaultPaths);
-  const changes: string[][] = [];
-  const App = defineComponent({
-    components: signaturePadComponents,
-    setup: () => ({ changes, paths, rootRef, translations }),
-    template: `
-      <SignaturePad
-        ref="rootRef"
-        as-child
-        v-model:paths="paths"
-        data-probe="root"
-        :translations="translations"
-        @update:paths="changes.push($event)"
-      >
-        <section aria-label="Custom signature">
-          <SignaturePadParts label="Custom signature" />
-        </section>
-      </SignaturePad>
-      <output>Paths: {{ paths.length }}</output>
-    `,
-  });
-
-  render(App);
-
-  const root = screen.getByRole('region', { name: 'Custom signature' });
-  expect(root.tagName).toBe('SECTION');
-  expect(rootRef.value?.$el).toBe(root);
-  await expect
-    .element(page.getByRole('region', { name: 'Custom signature', exact: true }))
-    .toHaveAttribute('data-slot', 'signature-pad-root');
-  await expect
-    .element(page.getByRole('region', { name: 'Custom signature', exact: true }))
-    .toHaveAttribute('data-probe', 'root');
-
-  await page.getByRole('button', { name: 'Clear signature', exact: true }).nth(0).click();
-  await expect.element(page.getByText('Paths: 0')).toBeAttached();
-  expect(paths.value).toEqual([]);
-  expect(changes).toEqual([[]]);
-});
-
 test('preserves RootProvider state and moduix read-only behavior', async () => {
   const App = defineComponent({
     components: signaturePadComponents,
@@ -352,26 +311,6 @@ test('preserves RootProvider state and moduix read-only behavior', async () => {
   await expect
     .element(page.locator('[data-slot="signature-pad-clear-trigger"]').nth(1))
     .not.toBeVisible();
-});
-
-test('renders Ark anatomy and lets consumer classes win', async () => {
-  const App = defineComponent({
-    components: signaturePadComponents,
-    template: `
-      <SignaturePad class="consumer-root">
-        <SignaturePadLabel class="consumer-label">Signature</SignaturePadLabel>
-        <SignaturePadCanvas class="consumer-control" />
-      </SignaturePad>
-    `,
-  });
-
-  const { container } = render(App);
-  const root = container.querySelector('[data-slot="signature-pad-root"]');
-
-  expect(root?.className.endsWith('consumer-root')).toBe(true);
-  await expect
-    .element(page.locator('[data-slot="signature-pad-root"]'))
-    .toHaveAttribute('data-scope', 'signature-pad');
 });
 
 test('updates clear-trigger attrs and preserves one consumer class through asChild', async () => {
@@ -459,6 +398,7 @@ test('commits pointer strokes and preserves uncontrolled drawing details', async
 
 // Ark Vue 5.39.2 emits drawEnd before the controlled paths prop reflects the committed stroke.
 // Re-enable after upstream supplies the committed paths in the event details.
+
 test.skip('includes the committed paths in controlled drawEnd details in direct Ark', async () => {
   const paths = ref<string[]>([]);
   const committed: string[][] = [];
@@ -524,6 +464,7 @@ test('hydrates signature-pad without replacing hosts or IDs and remains interact
     host.remove();
   }
 });
+
 test('accepts the raw Ark API without read-only metadata', async () => {
   render(
     defineComponent({

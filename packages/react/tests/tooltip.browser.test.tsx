@@ -2,20 +2,17 @@ import { page } from '@rstest/browser';
 import { expect, test } from '@rstest/core';
 import { render } from '@testing-library/react';
 import { createRef, useState } from 'react';
-import { Button } from '../src/components/button';
+import { Button } from '@/components/button';
 import {
   Tooltip,
   useTooltip,
   useTooltipContext,
   TooltipArrow,
-  TooltipArrowTip,
   TooltipBody,
-  TooltipContent,
   TooltipDisabledTrigger,
-  TooltipPositioner,
   TooltipRootProvider,
   TooltipTrigger,
-} from '../src/components/tooltip';
+} from '@/components/tooltip';
 
 test('preserves Ark open-change details and keeps trigger focus after Escape', async () => {
   const details: Array<{ open: boolean }> = [];
@@ -165,50 +162,6 @@ test('reports the active value when moving between triggers', async () => {
   await expect.element(page.getByRole('tooltip')).toBeVisible();
   await page.getByRole('button', { name: 'Save' }).hover();
   await expect.element(page.getByText('save', { exact: true })).toBeVisible();
-});
-
-test('forwards refs on native parts and keeps asChild composition native', () => {
-  const triggerRef = createRef<HTMLButtonElement>();
-  const disabledTriggerRef = createRef<HTMLSpanElement>();
-  const positionerRef = createRef<HTMLDivElement>();
-  const contentRef = createRef<HTMLDivElement>();
-  const arrowRef = createRef<HTMLDivElement>();
-  const arrowTipRef = createRef<HTMLDivElement>();
-  const composedTriggerRef = createRef<HTMLElement>();
-
-  render(
-    <Tooltip open portalled={false}>
-      <TooltipTrigger ref={triggerRef}>Save</TooltipTrigger>
-      <TooltipTrigger
-        asChild
-        aria-label="Composed save"
-        ref={(element) => {
-          composedTriggerRef.current = element;
-        }}
-      >
-        <a href="#save">Composed save</a>
-      </TooltipTrigger>
-      <TooltipDisabledTrigger ref={disabledTriggerRef} aria-label="Disabled save">
-        <Button disabled>Disabled save</Button>
-      </TooltipDisabledTrigger>
-      <TooltipPositioner ref={positionerRef}>
-        <TooltipContent ref={contentRef}>
-          <TooltipArrow ref={arrowRef}>
-            <TooltipArrowTip ref={arrowTipRef} />
-          </TooltipArrow>
-          Explicit content
-        </TooltipContent>
-      </TooltipPositioner>
-    </Tooltip>,
-  );
-
-  expect(triggerRef.current?.getAttribute('data-slot')).toBe('tooltip-trigger');
-  expect(disabledTriggerRef.current?.getAttribute('data-slot')).toBe('tooltip-disabled-trigger');
-  expect(positionerRef.current?.getAttribute('data-slot')).toBe('tooltip-positioner');
-  expect(contentRef.current?.getAttribute('data-slot')).toBe('tooltip-content');
-  expect(arrowRef.current?.getAttribute('data-slot')).toBe('tooltip-arrow');
-  expect(arrowTipRef.current?.getAttribute('data-slot')).toBe('tooltip-arrow-tip');
-  expect(composedTriggerRef.current?.getAttribute('href')).toBe('#save');
 });
 
 test('lets long content grow instead of spilling past the surface', async () => {

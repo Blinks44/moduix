@@ -5,7 +5,7 @@ import {
   LightboxContent,
   LightboxTitle,
   LightboxImage,
-} from '../../src/components/lightbox';
+} from '@/components/lightbox';
 </script>
 <template>
   <Lightbox default-open :portalled="false">

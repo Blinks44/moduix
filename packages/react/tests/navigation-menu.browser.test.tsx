@@ -1,20 +1,15 @@
 import { page } from '@rstest/browser';
-import { beforeEach, expect, test } from '@rstest/core';
+import { expect, test } from '@rstest/core';
 import { render, screen } from '@testing-library/react';
 import {
   NavigationMenu,
-  useNavigationMenu,
-  useNavigationMenuContext,
   NavigationMenuList,
   NavigationMenuItem,
   NavigationMenuLink,
   NavigationMenuTrigger,
   NavigationMenuContent,
-  NavigationMenuRootProvider,
   NavigationMenuIndicator,
-  NavigationMenuViewportPositioner,
-  NavigationMenuViewport,
-} from '../src';
+} from '@/index';
 
 function NavigationMenuParts() {
   return (
@@ -41,35 +36,6 @@ function NavigationMenuParts() {
     </NavigationMenuList>
   );
 }
-
-function ProviderNavigationMenu() {
-  const navigationMenu = useNavigationMenu({ defaultValue: 'products' });
-
-  return (
-    <NavigationMenuRootProvider value={navigationMenu}>
-      <NavigationMenuParts />
-      <ContextValue />
-      <NavigationMenuViewportPositioner align="center">
-        <NavigationMenuViewport />
-      </NavigationMenuViewportPositioner>
-    </NavigationMenuRootProvider>
-  );
-}
-
-function ContextValue() {
-  const navigationMenu = useNavigationMenuContext();
-  return <output data-testid="navigation-menu-value">{navigationMenu.value ?? 'none'}</output>;
-}
-
-beforeEach(async () => {
-  const { unmount } = render(
-    <button type="button" style={{ position: 'fixed', right: 0, bottom: 0 }}>
-      Outside navigation
-    </button>,
-  );
-  await page.getByRole('button', { name: 'Outside navigation', exact: true }).hover();
-  unmount();
-});
 
 test('preserves Ark value changes and navigation semantics', async () => {
   const changes: Array<string | null> = [];
@@ -158,30 +124,4 @@ test('preserves asChild and current link styling hooks', async () => {
   await expect
     .element(page.getByTestId('home-link'))
     .toHaveAttribute('data-slot', 'navigation-menu-link');
-});
-
-test('keeps viewport motion and provider composition Ark-shaped', async () => {
-  render(<ProviderNavigationMenu />);
-
-  await expect.element(page.getByTestId('navigation-menu-value')).toContainText('products');
-  await expect.element(page.locator('[data-slot="navigation-menu-root-provider"]')).toBeAttached();
-
-  await expect.element(page.getByRole('link', { name: 'Analytics', exact: true })).toBeVisible();
-  await expect
-    .element(page.locator('[data-slot="navigation-menu-viewport-positioner"]'))
-    .toBeAttached();
-  await expect
-    .element(page.locator('[data-slot="navigation-menu-viewport"]'))
-    .toHaveAttribute('data-state', 'open');
-
-  await page.getByRole('button', { name: 'Docs', exact: true }).hover();
-
-  await expect
-    .element(page.locator('[data-slot="navigation-menu-content"][data-value="docs"]'))
-    .toHaveAttribute('data-motion', 'from-end');
-
-  await page.getByRole('button', { name: 'Products', exact: true }).hover();
-  await expect
-    .element(page.locator('[data-slot="navigation-menu-content"][data-value="products"]'))
-    .toHaveAttribute('data-motion', 'from-start');
 });

@@ -1,7 +1,7 @@
 import { page } from '@rstest/browser';
 import { expect, test } from '@rstest/core';
 import { render, screen } from '@testing-library/react';
-import { JsonTreeView, JsonTreeViewTree } from '../src';
+import { JsonTreeView, JsonTreeViewTree } from '@/index';
 
 const data = {
   release: {

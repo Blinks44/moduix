@@ -16,7 +16,9 @@ import {
   DialogTitle,
   DialogTrigger,
   useDialog,
-} from '../src';
+  DialogBackdrop,
+  DialogDescription,
+} from '@/index';
 
 function DialogParts({ children }: { children?: ReactNode }) {
   return (
@@ -218,6 +220,7 @@ test('forwards a ref through native asChild composition', async () => {
   expect(contentRef).toBe(document.querySelector('[role="dialog"]'));
   expect(contentRef).toHaveProperty('tagName', 'SECTION');
 });
+
 test('mounts the content lazily and unmounts it after closing by default', async () => {
   render(
     <Dialog>
@@ -258,19 +261,6 @@ test('keeps tall content inside the dialog surface and scrolls the positioner', 
   expect(positioner.scrollHeight).toBeGreaterThan(positioner.clientHeight);
 });
 
-test('exposes the default recipe values on the content', async () => {
-  render(
-    <Dialog defaultOpen portalled={false}>
-      <DialogParts />
-    </Dialog>,
-  );
-
-  const dialog = page.getByRole('dialog');
-  await expect.element(dialog).toHaveAttribute('data-size', 'md');
-  await expect.element(dialog).toHaveAttribute('data-placement', 'center');
-  await expect.element(dialog).toHaveAttribute('data-scroll-behavior', 'outside');
-});
-
 test('scrolls the body inside and keeps the footer visible with scrollBehavior inside', async () => {
   render(
     <Dialog defaultOpen portalled={false}>
@@ -298,4 +288,94 @@ test('scrolls the body inside and keeps the footer visible with scrollBehavior i
   expect(footer.bottom).toBeLessThanOrEqual(content.bottom + 1);
   expect(body.scrollHeight).toBeGreaterThan(body.clientHeight);
   expect(positioner.scrollHeight).toBeLessThanOrEqual(positioner.clientHeight + 1);
+});
+
+test('forwards refs through native parts and keeps asChild composition native', () => {
+  let triggerRef!: HTMLButtonElement;
+  let backdropRef!: HTMLDivElement;
+  let positionerRef!: HTMLDivElement;
+  let contentRef!: HTMLElement;
+  let titleRef!: HTMLHeadingElement;
+  let descriptionRef!: HTMLDivElement;
+  let closeTriggerRef!: HTMLButtonElement;
+  let composedTriggerRef: HTMLButtonElement | undefined;
+  let closeIconRef: HTMLButtonElement | undefined;
+
+  render(
+    <Dialog defaultOpen portalled={false}>
+      <DialogTrigger
+        ref={(element) => {
+          triggerRef = element!;
+        }}
+      >
+        Open dialog
+      </DialogTrigger>
+      <DialogTrigger
+        ref={(element) => {
+          composedTriggerRef = element ?? undefined;
+        }}
+        asChild
+      >
+        <button>Composed trigger</button>
+      </DialogTrigger>
+      <DialogBackdrop
+        ref={(element) => {
+          backdropRef = element!;
+        }}
+      />
+      <DialogPositioner
+        ref={(element) => {
+          positionerRef = element!;
+        }}
+      >
+        <DialogContent
+          asChild
+          ref={(element) => {
+            contentRef = element!;
+          }}
+        >
+          <section>
+            <DialogTitle
+              ref={(element) => {
+                titleRef = element!;
+              }}
+            >
+              Preferences
+            </DialogTitle>
+            <DialogDescription
+              ref={(element) => {
+                descriptionRef = element!;
+              }}
+            >
+              Description
+            </DialogDescription>
+            <DialogCloseTrigger
+              ref={(element) => {
+                closeTriggerRef = element!;
+              }}
+            >
+              Close
+            </DialogCloseTrigger>
+            <DialogCloseIcon
+              ref={(element) => {
+                closeIconRef = element ?? undefined;
+              }}
+            />
+          </section>
+        </DialogContent>
+      </DialogPositioner>
+    </Dialog>,
+  );
+
+  expect(triggerRef?.getAttribute('data-slot')).toBe('dialog-trigger');
+  expect(backdropRef?.getAttribute('data-slot')).toBe('dialog-backdrop');
+  expect(positionerRef?.getAttribute('data-slot')).toBe('dialog-positioner');
+  expect(contentRef?.getAttribute('data-slot')).toBe('dialog-content');
+  expect(titleRef?.getAttribute('data-slot')).toBe('dialog-title');
+  expect(descriptionRef?.getAttribute('data-slot')).toBe('dialog-description');
+  expect(closeTriggerRef?.getAttribute('data-slot')).toBe('dialog-close-trigger');
+  expect(composedTriggerRef?.getAttribute('data-slot')).toBe('dialog-trigger');
+  expect(closeIconRef?.getAttribute('data-slot')).toBe('dialog-close-icon');
+  expect(contentRef).toBe(document.querySelector('[role="dialog"]'));
+  expect(contentRef.tagName).toBe('SECTION');
 });

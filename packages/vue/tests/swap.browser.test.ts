@@ -4,7 +4,7 @@ import { render, screen } from '@testing-library/vue';
 import { renderToString } from '@vue/server-renderer';
 import { computed, createSSRApp, defineComponent, nextTick, ref } from 'vue';
 import type { ComponentPublicInstance } from 'vue';
-import { Swap, SwapIndicator, SwapRootProvider, useSwap, useSwapContext } from '../src';
+import { Swap, SwapIndicator, SwapRootProvider, useSwap, useSwapContext } from '@/index';
 import SsrSwap from './fixtures/SsrSwap.vue';
 
 const swapComponents = { Swap, SwapIndicator, SwapRootProvider };

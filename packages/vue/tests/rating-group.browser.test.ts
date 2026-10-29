@@ -17,7 +17,8 @@ import {
   useRatingGroup,
   useRatingGroupContext,
   useRatingGroupItemContext,
-} from '../src';
+} from '@/index';
+import SsrRatingGroup from './fixtures/SsrRatingGroup.vue';
 
 const ratingGroupComponents = {
   RatingGroup,
@@ -30,53 +31,6 @@ const ratingGroupComponents = {
   RatingGroupLabel,
   RatingGroupRootProvider,
 } as Record<string, Component>;
-
-test('preserves Ark semantics, Vue refs, anatomy, attrs, and moduix hooks', async () => {
-  const rootRef = ref<ComponentPublicInstance>();
-  const labelRef = ref<ComponentPublicInstance>();
-  const controlRef = ref<ComponentPublicInstance>();
-  const itemRef = ref<ComponentPublicInstance>();
-  const indicatorRef = ref<ComponentPublicInstance>();
-
-  render({
-    components: ratingGroupComponents,
-    setup() {
-      return { controlRef, indicatorRef, itemRef, labelRef, rootRef };
-    },
-    template: `
-      <RatingGroup ref="rootRef" :default-value="3" data-probe="root">
-        <RatingGroupLabel ref="labelRef">Rating</RatingGroupLabel>
-        <RatingGroupControl ref="controlRef">
-          <RatingGroupItem ref="itemRef" :index="1">
-            <RatingGroupItemIndicator ref="indicatorRef" />
-          </RatingGroupItem>
-        </RatingGroupControl>
-        <RatingGroupHiddenInput />
-      </RatingGroup>
-    `,
-  });
-
-  const root = rootRef.value?.$el as HTMLElement;
-  const item = screen.getByRole('radio');
-  const indicator = screen
-    .getByRole('radio')
-    .querySelector('[data-slot="rating-group-item-indicator"]')!;
-
-  expect(root.getAttribute('data-slot')).toBe('rating-group-root');
-  expect(root.getAttribute('data-scope')).toBe('rating-group');
-  expect(root.getAttribute('data-probe')).toBe('root');
-  expect(root.getAttribute('data-size')).toBe('md');
-  expect(labelRef.value?.$el?.getAttribute('data-slot')).toBe('rating-group-label');
-  expect(controlRef.value?.$el?.getAttribute('data-slot')).toBe('rating-group-control');
-  expect(itemRef.value?.$el).toBe(item);
-  await expect.element(page.getByRole('radio')).toHaveAttribute('aria-setsize', '5');
-  expect(indicatorRef.value?.$el).toBe(indicator);
-  expect(indicator?.getAttribute('data-slot')).toBe('rating-group-item-indicator');
-  expect(
-    screen.getByRole('radio').closest('[data-slot="rating-group-root"] input[hidden]'),
-  ).toBeNull();
-  expect(root.querySelector('input[hidden]')?.isConnected).toBe(true);
-});
 
 test('submits through an explicit Ark hidden input', async () => {
   render({
@@ -180,6 +134,7 @@ test('preserves half steps, keyboard focus and mouse focus visibility', async ()
   await expect.element(items.nth(2)).toBeFocused();
   expect(document.activeElement?.matches(':focus-visible')).toBe(false);
 });
+
 test('repeats custom indicators with Ark item state', async () => {
   render({
     components: ratingGroupComponents,
@@ -275,4 +230,3 @@ test('hydrates without replacing hosts or ids and responds to selection', async 
     error.mockRestore();
   }
 });
-import SsrRatingGroup from './fixtures/SsrRatingGroup.vue';

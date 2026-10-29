@@ -1,7 +1,7 @@
 import { expect, test } from '@rstest/core';
 import { render } from '@testing-library/react';
 import { createRef } from 'react';
-import { Container } from '../src';
+import { Container } from '@/index';
 
 test.each([
   ['xs', '640px'],

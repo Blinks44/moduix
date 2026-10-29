@@ -4,7 +4,7 @@ import { render } from '@testing-library/vue';
 import { renderToString } from '@vue/server-renderer';
 import { computed, createSSRApp, defineComponent, ref } from 'vue';
 import type { ComponentPublicInstance } from 'vue';
-import { Button } from '../src/components/button';
+import { Button } from '@/components/button';
 import {
   Tooltip,
   TooltipArrow,
@@ -18,7 +18,7 @@ import {
   TooltipTrigger,
   useTooltip,
   useTooltipContext,
-} from '../src/components/tooltip';
+} from '@/components/tooltip';
 import TestTooltip from './fixtures/TestTooltip.vue';
 
 const tooltipComponents = {

@@ -10,7 +10,7 @@ import {
   TabsTrigger,
   useTabs,
   useTabsContext,
-} from '../src';
+} from '@/index';
 
 const items = [
   { value: 'overview', label: 'Overview', content: 'Overview content' },

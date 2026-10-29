@@ -27,7 +27,7 @@ import {
   useMenu,
   useMenuContext,
   useMenuItemContext,
-} from '../src';
+} from '@/index';
 import TestSsrMenu from './fixtures/TestMenu.vue';
 
 const menuComponents = {
@@ -304,20 +304,6 @@ test('opens a context menu on right click', async () => {
   await expect.element(page.getByRole('menu')).toBeVisible();
 });
 
-test('applies consumer classes alongside CSS Module defaults', async () => {
-  const Harness = {
-    components: menuComponents,
-    template:
-      '<Menu default-open :portalled="false"><MenuTrigger class="consumer-trigger">Actions</MenuTrigger><MenuPositioner><MenuContent class="consumer-content"><MenuViewport><MenuItem class="consumer-item" value="edit">Edit</MenuItem></MenuViewport></MenuContent></MenuPositioner></Menu>',
-  };
-  render(Harness);
-  const trigger = screen.getByRole('button', { name: 'Actions' });
-  const content = screen.getByRole('menu');
-  const item = screen.getByRole('menuitem', { name: 'Edit' });
-  expect(trigger.className).toBe('consumer-trigger');
-  expect(content?.classList.contains('consumer-content')).toBe(true);
-  expect(item?.classList.contains('consumer-item')).toBe(true);
-});
 test('hydrates server hosts and preserves Escape dismissal without mismatches', async () => {
   const html = await renderToString(createSSRApp(TestSsrMenu));
   const host = document.createElement('div');

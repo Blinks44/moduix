@@ -1,9 +1,8 @@
-import { page } from '@rstest/browser';
 import { expect, rs, test } from '@rstest/core';
 import { render, screen } from '@testing-library/vue';
 import { renderToString } from '@vue/server-renderer';
 import { createSSRApp, defineComponent, nextTick, ref } from 'vue';
-import { Highlight } from '../src';
+import { Highlight } from '@/index';
 import SsrHighlight from './fixtures/SsrHighlight.vue';
 
 test('exports a flat root without compound aliases', () => {
@@ -112,37 +111,6 @@ test('preserves Ark case-insensitive and exact Latin matching', async () => {
   await expect
     .poll(() => [...document.querySelectorAll('mark')].map((mark) => mark.textContent))
     .toEqual(['box', 'box']);
-});
-
-test('forwards mark attrs and native listeners to every matched segment', async () => {
-  let clicks = 0;
-  render({
-    components: { Highlight },
-    setup: () => ({ handleClick: () => clicks++ }),
-    template: `
-      <Highlight
-        class="custom-highlight"
-        data-testid="highlight"
-        match-all
-        query="component"
-        text="component component"
-        title="Matched query"
-        style="color: red"
-        @click="handleClick"
-      />
-    `,
-  });
-
-  const marks = screen.getAllByTestId('highlight');
-
-  expect(marks).toHaveLength(2);
-  for (const [index, mark] of marks.entries()) {
-    expect(mark.classList.contains('custom-highlight')).toBe(true);
-    expect(mark.getAttribute('title')).toBe('Matched query');
-    expect(getComputedStyle(mark).color).toBe('rgb(255, 0, 0)');
-    await page.getByTestId('highlight').nth(index).click();
-  }
-  expect(clicks).toBe(2);
 });
 
 test('hydrates highlight without replacing hosts or IDs', async () => {

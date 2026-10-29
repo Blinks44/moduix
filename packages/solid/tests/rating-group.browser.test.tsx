@@ -12,7 +12,7 @@ import {
   RatingGroupLabel,
   RatingGroupRootProvider,
   useRatingGroup,
-} from '../src';
+} from '@/index';
 
 function RatingItems() {
   return (
@@ -121,6 +121,7 @@ test('preserves controlled and provider paths', async () => {
   await expect.element(items.nth(2)).toHaveAttribute('aria-checked', 'true');
   await expect.element(items.nth(2)).toHaveAttribute('data-checked');
 });
+
 test('preserves half steps, keyboard focus and mouse focus visibility', async () => {
   render(() => (
     <>
@@ -147,6 +148,7 @@ test('preserves half steps, keyboard focus and mouse focus visibility', async ()
   await expect.element(items.nth(2)).toBeFocused();
   expect(document.activeElement?.matches(':focus-visible')).toBe(false);
 });
+
 test('repeats custom indicators with Ark item state', async () => {
   render(() => (
     <RatingGroup allowHalf defaultValue={3.5}>

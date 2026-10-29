@@ -1,7 +1,7 @@
 import { page } from '@rstest/browser';
 import { expect, test } from '@rstest/core';
 import { render, screen } from '@testing-library/react';
-import { useState } from 'react';
+import { useState, createRef } from 'react';
 import {
   RatingGroup,
   RatingGroupControl,
@@ -11,7 +11,8 @@ import {
   RatingGroupLabel,
   RatingGroupRootProvider,
   useRatingGroup,
-} from '../src';
+  RatingGroupItem,
+} from '@/index';
 
 function RatingItems() {
   return (
@@ -97,6 +98,7 @@ test('preserves controlled and provider paths', async () => {
   rerender(<ProviderRatingGroup />);
   await expect.element(items.nth(2)).toHaveAttribute('data-checked');
 });
+
 test('preserves half steps, keyboard focus and mouse focus visibility', async () => {
   render(
     <>
@@ -123,6 +125,7 @@ test('preserves half steps, keyboard focus and mouse focus visibility', async ()
   await expect.element(items.nth(2)).toBeFocused();
   expect(document.activeElement?.matches(':focus-visible')).toBe(false);
 });
+
 test('repeats custom indicators with Ark item state', async () => {
   render(
     <RatingGroup allowHalf defaultValue={3.5}>
@@ -144,4 +147,31 @@ test('repeats custom indicators with Ark item state', async () => {
     .element(page.getByTestId('custom-indicator').nth(2))
     .toHaveAttribute('data-highlighted');
   await expect.element(page.getByTestId('custom-indicator').nth(3)).toHaveAttribute('data-half');
+});
+
+test('forwards refs and exposes stable slots on public parts', async () => {
+  const rootRef = createRef<HTMLDivElement>();
+  const labelRef = createRef<HTMLLabelElement>();
+  const controlRef = createRef<HTMLDivElement>();
+  const itemRef = createRef<HTMLSpanElement>();
+  const indicatorRef = createRef<HTMLSpanElement>();
+
+  render(
+    <RatingGroup ref={rootRef} defaultValue={3}>
+      <RatingGroupLabel ref={labelRef}>Rating</RatingGroupLabel>
+      <RatingGroupControl ref={controlRef}>
+        <RatingGroupItem ref={itemRef} index={1}>
+          <RatingGroupItemIndicator ref={indicatorRef} />
+        </RatingGroupItem>
+      </RatingGroupControl>
+      <RatingGroupHiddenInput />
+    </RatingGroup>,
+  );
+
+  expect(rootRef.current?.getAttribute('data-slot')).toBe('rating-group-root');
+  expect(labelRef.current?.getAttribute('data-slot')).toBe('rating-group-label');
+  expect(controlRef.current?.getAttribute('data-slot')).toBe('rating-group-control');
+  expect(itemRef.current?.getAttribute('data-slot')).toBe('rating-group-item');
+  expect(indicatorRef.current?.getAttribute('data-slot')).toBe('rating-group-item-indicator');
+  await expect.element(page.locator('input[hidden]')).toHaveAttribute('hidden');
 });

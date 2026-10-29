@@ -4,7 +4,9 @@ import { render, screen } from '@testing-library/vue';
 import { renderToString } from '@vue/server-renderer';
 import { createSSRApp, nextTick, ref } from 'vue';
 import type { ComponentPublicInstance } from 'vue';
-import { Toggle, ToggleContext, ToggleIndicator, useToggleContext } from '../src';
+import * as toggleEntry from '@/components/toggle';
+import * as toggleSource from '@/components/toggle/Toggle.vue';
+import { Toggle, ToggleContext, ToggleIndicator, useToggleContext } from '@/index';
 import SsrToggle from './fixtures/SsrToggle.vue';
 import SsrToggleHost from './fixtures/SsrToggleHost.vue';
 
@@ -304,26 +306,8 @@ test('hydrates toggle without replacing server hosts or ids', async () => {
     error.mockRestore();
   }
 });
-test('applies the public color variables to every variant and the pressed state', () => {
-  render({
-    components: toggleComponents,
-    template: `
-      <div
-        style="--moduix-toggle-bg: rgb(1, 2, 3); --moduix-toggle-border-color: rgb(4, 5, 6); --moduix-toggle-bg-pressed: rgb(7, 8, 9); --moduix-toggle-color-pressed: rgb(10, 11, 12)"
-      >
-        <Toggle variant="ghost">Off</Toggle>
-        <Toggle variant="ghost" default-pressed>On</Toggle>
-      </div>
-    `,
-  });
 
-  expect(getComputedStyle(screen.getByRole('button', { name: 'Off' }))).toMatchObject({
-    backgroundColor: 'rgb(1, 2, 3)',
-    borderTopColor: 'rgb(4, 5, 6)',
-  });
-  expect(getComputedStyle(screen.getByRole('button', { name: 'On' }))).toMatchObject({
-    backgroundColor: 'rgb(7, 8, 9)',
-    borderTopColor: 'rgb(7, 8, 9)',
-    color: 'rgb(10, 11, 12)',
-  });
+test('keeps toggleVariants out of package and registry source entry points', () => {
+  expect('toggleVariants' in toggleEntry).toBe(false);
+  expect('toggleVariants' in toggleSource).toBe(false);
 });

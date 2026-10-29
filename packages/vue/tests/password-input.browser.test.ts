@@ -15,7 +15,7 @@ import {
   PasswordInputRootProvider,
   PasswordInputVisibilityTrigger,
   usePasswordInput,
-} from '../src/components/password-input';
+} from '@/components/password-input';
 import SsrPasswordInput from './fixtures/SsrPasswordInput.vue';
 
 const passwordInputComponents = {

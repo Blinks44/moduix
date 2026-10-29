@@ -1,6 +1,6 @@
 import { page } from '@rstest/browser';
 import { expect, test } from '@rstest/core';
-import { render, screen, within } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import {
   Popover,
   PopoverContent,
@@ -12,7 +12,16 @@ import {
   ToastToaster,
   createToaster,
   useToastContext,
-} from '../src';
+} from '@/index';
+
+const responsivePlacements = [
+  'top-start',
+  'top',
+  'top-end',
+  'bottom-start',
+  'bottom',
+  'bottom-end',
+] as const;
 
 test('renders the default toaster content and keeps closable and action behavior', async () => {
   const toaster = createToaster({ duration: Infinity });
@@ -115,36 +124,6 @@ test('keeps the short Toast root form and exported context hook available for cu
   await expect.element(page.getByText('Custom toast')).toHaveCount(0);
 });
 
-test('portals by default, supports inline rendering, and accepts a custom portal target', async () => {
-  const portalledToaster = createToaster({ duration: Infinity });
-  const portalled = render(<ToastToaster toaster={portalledToaster} />);
-
-  portalledToaster.create({ title: 'Portalled toast' });
-  const portalledTitle = await screen.findByText('Portalled toast');
-  expect(portalled.container!.contains(portalledTitle)).not.toBe(true);
-  portalled.unmount();
-
-  const inlineToaster = createToaster({ duration: Infinity });
-  const inline = render(<ToastToaster toaster={inlineToaster} portalled={false} />);
-
-  inlineToaster.create({ title: 'Inline toast' });
-  const inlineTitle = await screen.findByText('Inline toast');
-  expect(inline.container!.contains(inlineTitle)).toBe(true);
-  inline.unmount();
-
-  const customToaster = createToaster({ duration: Infinity });
-  const portalRef = { current: document.createElement('div') };
-  document.body.append(portalRef.current);
-  const custom = render(<ToastToaster toaster={customToaster} portalRef={portalRef} />);
-  customToaster.create({ title: 'Custom portal toast' });
-
-  expect(
-    Boolean((await within(portalRef.current).findByText('Custom portal toast'))?.isConnected),
-  ).toBe(true);
-  custom.unmount();
-  portalRef.current.remove();
-});
-
 test.each([true, false])(
   "preserves a nested popover's own portalled=%s setting",
   async (portalled) => {
@@ -174,15 +153,6 @@ test.each([true, false])(
     portalRef.current.remove();
   },
 );
-
-const responsivePlacements = [
-  'top-start',
-  'top',
-  'top-end',
-  'bottom-start',
-  'bottom',
-  'bottom-end',
-] as const;
 
 test.each(
   responsivePlacements.flatMap((placement) =>

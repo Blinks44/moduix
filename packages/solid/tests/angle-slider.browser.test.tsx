@@ -10,7 +10,7 @@ import {
   AngleSliderRootProvider,
   AngleSliderThumb,
   useAngleSlider,
-} from '../src';
+} from '@/index';
 
 function ProviderAngleSlider() {
   const angleSlider = useAngleSlider({

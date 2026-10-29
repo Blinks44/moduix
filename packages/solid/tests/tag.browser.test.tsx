@@ -2,7 +2,7 @@ import { page } from '@rstest/browser';
 import { expect, test } from '@rstest/core';
 import { render, screen } from '@solidjs/testing-library';
 import { createSignal } from 'solid-js';
-import { Tag, TagCloseTrigger, TagEndElement, TagLabel, TagStartElement } from '../src';
+import { Tag, TagCloseTrigger, TagEndElement, TagLabel, TagStartElement } from '@/index';
 
 test('resolves custom close-trigger children once and preserves their reactive content', async () => {
   const [label, setLabel] = createSignal('Dismiss');

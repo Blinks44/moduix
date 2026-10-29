@@ -1,3 +1,4 @@
+import { useSignaturePad as useArkSignaturePad } from '@ark-ui/react/signature-pad';
 import { page } from '@rstest/browser';
 import { expect, test } from '@rstest/core';
 import { render, screen } from '@testing-library/react';
@@ -11,9 +12,10 @@ import {
   SignaturePadRootProvider,
   useSignaturePad,
   useSignaturePadContext,
-} from '../src';
+} from '@/index';
 
 const defaultPaths = ['M1,1 L2,2'];
+
 const translations = {
   clearTrigger: 'Clear signature',
   control: 'Signature drawing area',
@@ -209,4 +211,3 @@ test('updates provider readonly metadata and preserves explicit Field overrides'
   await expect.element(page.getByTestId('readonly')).toContainText('true');
   await expect.element(page.locator('[data-slot="signature-pad-clear-trigger"]')).not.toBeVisible();
 });
-import { useSignaturePad as useArkSignaturePad } from '@ark-ui/react/signature-pad';

@@ -8,7 +8,7 @@ import {
   SelectContent,
   SelectList,
   SelectItem,
-} from '../../src/components/select';
+} from '@/components/select';
 const collection = createListCollection({
   items: [
     { label: 'Apple', value: 'apple' },

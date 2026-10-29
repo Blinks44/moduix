@@ -11,7 +11,7 @@ import {
   DateInputSegments,
   DateInputSeparator,
   useDateInput,
-} from '../src';
+} from '@/index';
 
 function ProviderDateInput() {
   const dateInput = useDateInput({

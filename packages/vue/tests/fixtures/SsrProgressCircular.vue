@@ -4,7 +4,7 @@ import {
   ProgressCircularLabel,
   ProgressCircularValueText,
   ProgressCircularRing,
-} from '../../src';
+} from '@/index';
 </script>
 
 <template>

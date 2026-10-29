@@ -14,7 +14,7 @@ import {
   DrawerTrigger,
   useDrawer,
   useDrawerContext,
-} from '../src';
+} from '@/index';
 
 function DrawerParts({ children, variant }: { children?: ReactNode; variant?: 'island' }) {
   return (

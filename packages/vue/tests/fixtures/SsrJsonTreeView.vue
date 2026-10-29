@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { JsonTreeView, JsonTreeViewTree } from '../../src/components/json-tree-view';
+import { JsonTreeView, JsonTreeViewTree } from '@/components/json-tree-view';
 const data = {
   release: {
     status: 'ready',

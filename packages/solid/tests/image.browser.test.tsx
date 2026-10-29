@@ -2,7 +2,7 @@ import { page } from '@rstest/browser';
 import { expect, test } from '@rstest/core';
 import { render, screen } from '@solidjs/testing-library';
 import { createSignal } from 'solid-js';
-import { Image, ImageSource } from '../src';
+import { Image, ImageSource } from '@/index';
 
 const imageUrl = 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4';
 
@@ -100,23 +100,6 @@ test('leaves layout styles to the consumer when unstyled is set', () => {
   expect(screen.getByAltText('Mountain landscape').hasAttribute('style')).toBe(false);
 });
 
-test('preserves consumer class names and styles', async () => {
-  render(() => (
-    <Image
-      src={imageUrl}
-      alt="Mountain landscape"
-      width={800}
-      height={520}
-      class="consumer-image"
-      style={{ 'object-fit': 'contain' }}
-    />
-  ));
-
-  const image = screen.getByAltText('Mountain landscape');
-
-  expect([...image.classList]).toEqual(expect.arrayContaining(['consumer-image']));
-  await expect.element(page.getByAltText('Mountain landscape')).toHaveCSS('object-fit', 'contain');
-});
 test('defaults local images to lazy loading and async decoding', () => {
   render(() => (
     <Image src="/__info-new/assets/photo.webp" alt="Local photo" width={800} height={520} />

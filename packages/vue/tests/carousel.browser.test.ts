@@ -15,7 +15,9 @@ import {
   CarouselNextTrigger,
   CarouselPrevTrigger,
   CarouselProgressText,
-} from '../src';
+  CarouselIndicator,
+  CarouselIndicatorGroup,
+} from '@/index';
 import TestCarousel from './fixtures/TestCarousel.vue';
 
 const carouselComponents = {
@@ -29,6 +31,8 @@ const carouselComponents = {
   CarouselNextTrigger,
   CarouselPrevTrigger,
   CarouselProgressText,
+  CarouselIndicator,
+  CarouselIndicatorGroup,
 };
 
 test('labels the carousel, renders controls, and preserves page-change details and direction', async () => {

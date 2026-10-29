@@ -15,7 +15,7 @@ import {
   useLightbox,
   useLightboxContext,
   type LightboxImageSelectDetails,
-} from '../src';
+} from '@/index';
 
 test('opens from a semantic Bind selector', async () => {
   function BoundLightbox() {

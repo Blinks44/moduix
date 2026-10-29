@@ -23,8 +23,11 @@ import {
   TourSpotlight,
   TourTitle,
   useTour,
-} from '../src';
-import { Dialog, DialogContent, DialogPositioner, DialogTitle } from '../src';
+  Dialog,
+  DialogContent,
+  DialogPositioner,
+  DialogTitle,
+} from '@/index';
 import SsrTour from './fixtures/SsrTour.vue';
 
 const steps = [
@@ -152,47 +155,6 @@ test('portals overlay parts by default and supports duplicate action labels', as
 
   const actions = screen.getAllByText('Continue');
   expect(actions).toHaveLength(2);
-  await expect.element(page.getByText('Continue').nth(0)).toBeDisabled();
-  await expect.element(page.getByText('Continue').nth(1)).not.toBeDisabled();
-});
-
-test('preserves Ark action behavior for custom Vue markup with asChild', async () => {
-  const App = defineComponent({
-    components: tourComponents,
-    setup() {
-      return { tour: useTour({ steps }) };
-    },
-    template: `
-      <button type="button" @click="tour.start()">Start custom action tour</button>
-      <Tour :tour="tour" :portalled="false">
-        <TourPositioner>
-          <TourContent>
-            <TourTitle />
-            <TourDescription />
-            <TourControl>
-              <TourActions v-slot="actions">
-                <TourActionTrigger
-                  v-for="(action, index) in actions"
-                  :key="action.label + index"
-                  :action="action"
-                  as-child
-                >
-                  <button type="button">{{ action.label }}</button>
-                </TourActionTrigger>
-              </TourActions>
-            </TourControl>
-          </TourContent>
-        </TourPositioner>
-      </Tour>
-    `,
-  });
-
-  render(App);
-  await page.getByRole('button', { name: 'Start custom action tour', exact: true }).click();
-
-  await expect
-    .element(page.getByText('Continue').nth(0))
-    .toHaveAttribute('data-slot', 'tour-action-trigger');
   await expect.element(page.getByText('Continue').nth(0)).toBeDisabled();
   await expect.element(page.getByText('Continue').nth(1)).not.toBeDisabled();
 });
@@ -585,4 +547,31 @@ test('shows a tour started from an open dialog above that dialog', async () => {
   const rect = content.getBoundingClientRect();
   const hit = document.elementFromPoint(rect.left + rect.width / 2, rect.top + rect.height / 2);
   expect(content.contains(hit)).toBe(true);
+});
+
+test('portals overlay parts by default and keeps duplicate actions distinct', async () => {
+  const App = defineComponent({
+    components: tourComponents,
+    setup() {
+      return { tour: useTour({ steps }) };
+    },
+    template: `
+      <div data-testid="tour-host">
+        <button type="button" @click="tour.start()">Start tour</button>
+        <Tour :tour="tour" lazy-mount unmount-on-exit>
+          <TourBackdrop />
+          <TourPositioner><TourContent><TourTitle /><TourActionList /></TourContent></TourPositioner>
+        </Tour>
+      </div>
+    `,
+  });
+
+  const { container } = render(App);
+  await page.getByRole('button', { name: 'Start tour', exact: true }).click();
+  const content = screen.getByRole('alertdialog', { name: 'Welcome' });
+  expect(container!.contains(content)).not.toBe(true);
+  const actions = screen.getAllByText('Continue');
+  expect(actions).toHaveLength(2);
+  await expect.element(page.getByText('Continue').nth(0)).toBeDisabled();
+  await expect.element(page.getByText('Continue').nth(1)).not.toBeDisabled();
 });

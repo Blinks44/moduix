@@ -12,7 +12,7 @@ import {
   PinInputLabel,
   PinInputControl,
   PinInputInputs,
-} from '../src';
+} from '@/index';
 
 function ControlledPinInput() {
   const [value, setValue] = useState<string[]>([]);

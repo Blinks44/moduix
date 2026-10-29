@@ -8,7 +8,7 @@ import {
   DrawerPositioner,
   DrawerTitle,
   DrawerTrigger,
-} from '../../src/components/drawer';
+} from '@/components/drawer';
 </script>
 
 <template>

@@ -13,7 +13,7 @@ import {
   AvatarRootProvider,
   useAvatar,
   useAvatarContext,
-} from '../src';
+} from '@/index';
 import SsrAvatar from './fixtures/SsrAvatar.vue';
 
 const imageUrl = `data:image/svg+xml,${encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64"/>')}`;
@@ -98,6 +98,7 @@ test('keeps image status, fallback, scoped slots, and context reactive after rea
     .toEqual([[{ status: 'loaded' }]]);
   expect((screen.getByAltText('Alex T.') as HTMLImageElement).naturalWidth).toBe(64);
 });
+
 test('keeps the fallback visible when a real image fails', async () => {
   const onStatusChange = rs.fn();
   render({
@@ -112,6 +113,7 @@ test('keeps the fallback visible when a real image fails', async () => {
     .toHaveAttribute('data-state', 'visible');
   await expect.element(page.getByAltText('Alex T.')).toHaveAttribute('data-state', 'hidden');
 });
+
 test('connects useAvatar state through AvatarRootProvider', () => {
   const rootRef = ref<ComponentPublicInstance | null>(null);
   render({

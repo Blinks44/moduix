@@ -17,7 +17,7 @@ import {
   SliderThumbs,
   SliderTrack,
   useSlider,
-} from '../src';
+} from '@/index';
 
 function SliderParts() {
   return (
@@ -45,6 +45,24 @@ function ProviderSlider() {
         </SliderThumb>
       </SliderControl>
     </SliderRootProvider>
+  );
+}
+
+function rect(selector: string, root: ParentNode = document) {
+  return root.querySelector(selector)!.getBoundingClientRect();
+}
+
+function pressThumb(thumb: Element) {
+  const box = thumb.getBoundingClientRect();
+  thumb.dispatchEvent(
+    new PointerEvent('pointerdown', {
+      bubbles: true,
+      button: 0,
+      clientX: box.left + box.width / 2,
+      clientY: box.top + box.height / 2,
+      isPrimary: true,
+      pointerId: 1,
+    }),
   );
 }
 
@@ -233,24 +251,6 @@ test('preserves active marker state for invalid sliders', async () => {
   await expect.element(activeMarker).toHaveAttribute('data-slot', 'slider-marker');
   await expect.element(activeMarker).toHaveAttribute('data-state', 'under-value');
 });
-
-function rect(selector: string, root: ParentNode = document) {
-  return root.querySelector(selector)!.getBoundingClientRect();
-}
-
-function pressThumb(thumb: Element) {
-  const box = thumb.getBoundingClientRect();
-  thumb.dispatchEvent(
-    new PointerEvent('pointerdown', {
-      bubbles: true,
-      button: 0,
-      clientX: box.left + box.width / 2,
-      clientY: box.top + box.height / 2,
-      isPrimary: true,
-      pointerId: 1,
-    }),
-  );
-}
 
 test('places label and value text on one row above the control', () => {
   render(

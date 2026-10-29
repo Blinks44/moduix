@@ -11,7 +11,7 @@ import {
   NumberInputLabel,
   NumberInputRootProvider,
   useNumberInput,
-} from '../src';
+} from '@/index';
 
 test('renders the Field shortcut and preserves keyboard value changes', async () => {
   const changes: string[] = [];

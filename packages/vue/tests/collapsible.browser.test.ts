@@ -13,7 +13,7 @@ import {
   CollapsibleTrigger,
   useCollapsible,
   useCollapsibleContext,
-} from '../src';
+} from '@/index';
 import SsrCollapsible from './fixtures/SsrCollapsible.vue';
 
 const collapsibleComponents = {

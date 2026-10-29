@@ -10,7 +10,7 @@ import {
   SwitchRootProvider,
   SwitchThumb,
   useSwitch,
-} from '../src/components/switch/index';
+} from '@/components/switch/index';
 
 function ProviderSwitch() {
   const switchApi = useSwitch({ defaultChecked: true, name: 'provider-notifications' });

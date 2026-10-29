@@ -15,7 +15,7 @@ import {
   TooltipPositioner,
   TooltipRootProvider,
   TooltipTrigger,
-} from '../src';
+} from '@/index';
 
 test('preserves Ark open-change details and keeps trigger focus after Escape', async () => {
   const details: Array<{ open: boolean }> = [];

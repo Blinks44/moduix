@@ -15,7 +15,7 @@ import {
   CardLink,
   CardMedia,
   CardTitle,
-} from '../src';
+} from '@/index';
 import TestCard from './fixtures/TestCard.vue';
 
 const cardComponents = {

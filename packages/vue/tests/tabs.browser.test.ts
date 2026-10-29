@@ -14,7 +14,7 @@ import {
   TabsTrigger,
   useTabs,
   useTabsContext,
-} from '../src';
+} from '@/index';
 import SsrTabs from './fixtures/SsrTabs.vue';
 
 const tabsComponents = {

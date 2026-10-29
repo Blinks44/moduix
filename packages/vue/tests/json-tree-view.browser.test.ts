@@ -8,7 +8,7 @@ import { render, screen } from '@testing-library/vue';
 import { renderToString } from '@vue/server-renderer';
 import { computed, createSSRApp, defineComponent, nextTick, ref } from 'vue';
 import type { ComponentPublicInstance } from 'vue';
-import { JsonTreeView, JsonTreeViewRootProvider, JsonTreeViewTree, useJsonTreeView } from '../src';
+import { JsonTreeView, JsonTreeViewRootProvider, JsonTreeViewTree, useJsonTreeView } from '@/index';
 import SsrJsonTreeView from './fixtures/SsrJsonTreeView.vue';
 
 const data = {
@@ -185,6 +185,7 @@ test('forwards indent guides and scoped value slots without replacing generated 
 
 // Ark supplies an empty indentGuide slot even when omitted, suppressing the
 // node's built-in indentGuide fallback. A custom named slot works.
+
 test.skip.each([
   ['Ark', ArkJsonTreeView, ArkJsonTreeViewTree],
   ['moduix', JsonTreeView, JsonTreeViewTree],

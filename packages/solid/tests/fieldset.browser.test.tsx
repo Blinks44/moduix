@@ -11,7 +11,27 @@ import {
   FieldsetRootProvider,
   useFieldset,
   useFieldsetContext,
-} from '../src';
+} from '@/index';
+
+function ContextState() {
+  const fieldset = useFieldsetContext();
+
+  return <output data-testid="hook-state">{String(fieldset().invalid)}</output>;
+}
+
+function ExternalFieldsetState() {
+  const fieldset = useFieldset({ invalid: true });
+
+  return (
+    <FieldsetRootProvider value={fieldset}>
+      <FieldsetLegend>Account details</FieldsetLegend>
+      <FieldsetContext>
+        {(context) => <output data-testid="render-prop-state">{String(context().invalid)}</output>}
+      </FieldsetContext>
+      <ContextState />
+    </FieldsetRootProvider>
+  );
+}
 
 test('updates invalid state and connects legend, description, and error text', async () => {
   const [invalid, setInvalid] = createSignal(false);
@@ -94,26 +114,6 @@ test('preserves native asChild composition without forwarding refs through Ark S
   expect(rootRef).toBeUndefined();
   expect(legendRef).toBeUndefined();
 });
-
-function ContextState() {
-  const fieldset = useFieldsetContext();
-
-  return <output data-testid="hook-state">{String(fieldset().invalid)}</output>;
-}
-
-function ExternalFieldsetState() {
-  const fieldset = useFieldset({ invalid: true });
-
-  return (
-    <FieldsetRootProvider value={fieldset}>
-      <FieldsetLegend>Account details</FieldsetLegend>
-      <FieldsetContext>
-        {(context) => <output data-testid="render-prop-state">{String(context().invalid)}</output>}
-      </FieldsetContext>
-      <ContextState />
-    </FieldsetRootProvider>
-  );
-}
 
 test('keeps RootProvider and state context exports Ark-shaped', async () => {
   render(() => <ExternalFieldsetState />);

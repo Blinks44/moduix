@@ -17,7 +17,8 @@ import {
   RadioGroupOption,
   RadioGroupRootProvider,
   useRadioGroup,
-} from '../src';
+} from '@/index';
+import SsrRadioGroup from './fixtures/SsrRadioGroup.vue';
 
 const radioGroupComponents = {
   RadioGroup,
@@ -75,35 +76,6 @@ test('submits through the convenience option input', async () => {
   await page.getByText('Solid', { exact: true }).click();
   await expect.element(page.getByRole('radio', { name: 'Solid', exact: true })).toBeChecked();
   expect(new FormData(form).get('framework')).toBe('Solid');
-});
-
-test('keeps asChild composition semantic with an explicit item input', async () => {
-  const itemRef = ref<ComponentPublicInstance>();
-
-  render({
-    components: radioGroupComponents,
-    setup() {
-      return { itemRef };
-    },
-    template: `
-      <RadioGroup default-value="React">
-        <RadioGroupItem ref="itemRef" as-child value="React">
-          <label data-testid="custom-item">
-            <RadioGroupItemControl />
-            <RadioGroupItemHiddenInput />
-            <RadioGroupItemText>React</RadioGroupItemText>
-          </label>
-        </RadioGroupItem>
-      </RadioGroup>
-    `,
-  });
-  const item = screen.getByTestId('custom-item');
-  expect(item.tagName).toBe('LABEL');
-  await expect
-    .element(page.getByTestId('custom-item'))
-    .toHaveAttribute('data-slot', 'radio-group-item');
-  expect(itemRef.value?.$el).toBe(item);
-  expect(item.querySelectorAll('input[type="radio"]')).toHaveLength(1);
 });
 
 test('preserves v-model, callback details and provider defaults', async () => {
@@ -290,4 +262,3 @@ test('hydrates without replacing hosts or ids and responds to selection', async 
     error.mockRestore();
   }
 });
-import SsrRadioGroup from './fixtures/SsrRadioGroup.vue';

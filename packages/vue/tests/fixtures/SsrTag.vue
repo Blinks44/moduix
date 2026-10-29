@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Tag, TagStartElement, TagLabel } from '../../src/components/tag';
+import { Tag, TagStartElement, TagLabel } from '@/components/tag';
 </script>
 
 <template>

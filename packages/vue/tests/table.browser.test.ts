@@ -17,7 +17,7 @@ import {
   TableHeader,
   TableRow,
   TableScrollArea,
-} from '../src';
+} from '@/index';
 import SsrTable from './fixtures/SsrTable.vue';
 import SsrTableHost from './fixtures/SsrTableHost.vue';
 
@@ -122,27 +122,6 @@ test.each(['sm', 'md', 'lg'] as const)('renders the %s size preset', (size) => {
   render(Table, { props: { size }, attrs: { 'data-testid': 'table' } });
 
   expect(screen.getByTestId('table').getAttribute('data-size')).toBe(size);
-});
-
-test('renders interactive, striped, sticky, and column-border state hooks', () => {
-  render(Table, {
-    props: {
-      interactive: true,
-      showColumnBorder: true,
-      stickyHeader: true,
-      striped: true,
-      class: 'consumer-class',
-    },
-    attrs: { 'data-testid': 'table' },
-  });
-
-  const table = screen.getByTestId('table');
-
-  expect(table.hasAttribute('data-interactive')).toBe(true);
-  expect(table.hasAttribute('data-show-column-border')).toBe(true);
-  expect(table.hasAttribute('data-sticky-header')).toBe(true);
-  expect(table.hasAttribute('data-striped')).toBe(true);
-  expect(table?.classList.contains('consumer-class')).toBe(true);
 });
 
 test('keeps public hooks when consumer data attributes conflict', () => {
@@ -405,4 +384,85 @@ test('renders and hydrates the native anatomy without replacement', async () => 
     warn.mockRestore();
     error.mockRestore();
   }
+});
+
+test('renders the native table anatomy with stable hooks and defaults', async () => {
+  render({
+    components: tableComponents,
+    template: `
+      <TableScrollArea data-testid="scroll-area">
+        <Table data-testid="table" size="lg">
+          <TableColumnGroup data-testid="column-group">
+            <TableColumn data-testid="column" width="40%" />
+          </TableColumnGroup>
+          <TableCaption data-testid="caption" side="top">Recent invoices</TableCaption>
+          <TableHeader data-testid="header">
+            <TableRow data-testid="header-row">
+              <TableColumnHeader data-testid="column-header" scope="col">Invoice</TableColumnHeader>
+              <TableColumnHeader data-testid="numeric-header" numeric>Amount</TableColumnHeader>
+            </TableRow>
+          </TableHeader>
+          <TableBody data-testid="body">
+            <TableRow data-testid="row">
+              <TableCell data-testid="cell">INV001</TableCell>
+              <TableCell numeric>$250.00</TableCell>
+            </TableRow>
+          </TableBody>
+          <TableFooter data-testid="footer">
+            <TableRow>
+              <TableCell :colspan="1">Total</TableCell>
+              <TableCell numeric>$250.00</TableCell>
+            </TableRow>
+          </TableFooter>
+        </Table>
+      </TableScrollArea>
+    `,
+  });
+
+  const scrollArea = screen.getByTestId('scroll-area');
+  const table = screen.getByTestId('table');
+  const columnGroup = screen.getByTestId('column-group');
+
+  const caption = screen.getByTestId('caption');
+  const header = screen.getByTestId('header');
+  const body = screen.getByTestId('body');
+  const footer = screen.getByTestId('footer');
+  const row = screen.getByTestId('row');
+  const columnHeader = screen.getByTestId('column-header');
+  const numericHeader = screen.getByTestId('numeric-header');
+  const cell = screen.getByTestId('cell');
+
+  expect(scrollArea.tagName).toBe('DIV');
+  expect(scrollArea.dataset).toMatchObject({ part: 'scroll-area', slot: 'table-scroll-area' });
+  expect(table.tagName).toBe('TABLE');
+
+  expect(table.dataset).toMatchObject({
+    scope: 'table',
+    part: 'root',
+    slot: 'table-root',
+    size: 'lg',
+  });
+  expect(columnGroup.tagName).toBe('COLGROUP');
+  expect(columnGroup.getAttribute('data-part')).toBe('column-group');
+
+  expect(screen.getByTestId('column').dataset).toMatchObject({
+    part: 'column',
+    slot: 'table-column',
+  });
+  await expect.element(page.getByTestId('column')).toHaveAttribute('width', '40%');
+  expect(caption.tagName).toBe('CAPTION');
+  expect(caption.dataset).toMatchObject({ part: 'caption', side: 'top' });
+  expect(header.tagName).toBe('THEAD');
+  expect(header.getAttribute('data-part')).toBe('header');
+  expect(body.tagName).toBe('TBODY');
+  expect(body.getAttribute('data-part')).toBe('body');
+  expect(footer.tagName).toBe('TFOOT');
+  expect(footer.getAttribute('data-part')).toBe('footer');
+  expect(row.tagName).toBe('TR');
+  expect(row.getAttribute('data-part')).toBe('row');
+  expect(columnHeader.tagName).toBe('TH');
+  await expect.element(page.getByTestId('column-header')).toHaveAttribute('scope', 'col');
+  expect(numericHeader.hasAttribute('data-numeric')).toBe(true);
+  expect(cell.tagName).toBe('TD');
+  expect(cell.getAttribute('data-part')).toBe('cell');
 });

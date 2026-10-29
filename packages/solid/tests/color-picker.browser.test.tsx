@@ -13,7 +13,7 @@ import {
   ColorPickerPositioner,
   ColorPickerContent,
   ColorPickerChannelInput,
-} from '../src';
+} from '@/index';
 
 function ProviderColorPicker() {
   const colorPicker = useColorPicker({

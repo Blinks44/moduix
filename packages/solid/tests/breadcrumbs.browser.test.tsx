@@ -11,7 +11,7 @@ import {
   BreadcrumbsPage,
   BreadcrumbsPath,
   BreadcrumbsSeparator,
-} from '../src';
+} from '@/index';
 
 type BreadcrumbsPathProps = ComponentProps<typeof BreadcrumbsPath>;
 
@@ -112,6 +112,23 @@ test('forwards a link ref and preserves the semantic child with asChild', async 
 });
 
 test('does not forward refs through native Ark Solid asChild composition', () => {
+  let ref: HTMLAnchorElement | undefined;
+
+  render(() => (
+    <BreadcrumbsLink
+      ref={(element) => (ref = element)}
+      asChild={(props) => (
+        <a {...props()} href="/docs">
+          Docs
+        </a>
+      )}
+    />
+  ));
+
+  expect(ref).toBeUndefined();
+});
+
+test('preserves native Ark asChild ref behavior', () => {
   let ref: HTMLAnchorElement | undefined;
 
   render(() => (

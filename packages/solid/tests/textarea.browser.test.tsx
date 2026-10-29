@@ -2,7 +2,7 @@ import { page } from '@rstest/browser';
 import { expect, test } from '@rstest/core';
 import { render, screen } from '@solidjs/testing-library';
 import { createSignal } from 'solid-js';
-import { Field, FieldLabel, Textarea } from '../src';
+import { Field, FieldLabel, Textarea } from '@/index';
 
 test('preserves native field state and component-owned styling hooks', async () => {
   render(() => (

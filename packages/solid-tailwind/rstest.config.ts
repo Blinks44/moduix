@@ -24,7 +24,8 @@ export default defineConfig({
       plugins: [pluginTailwindcss()],
       setupFiles: ['./rstest.browser.setup.ts'],
       testEnvironment: 'node',
-      include: ['tests/**/*.browser.test.{ts,tsx}'],
+      // Behavior tests are shared with the CSS Modules package; `@/` resolves to this package's source.
+      include: ['tests/**/*.browser.test.{ts,tsx}', '../solid/tests/*.browser.test.{ts,tsx}'],
       browser: {
         enabled: true,
         provider: 'playwright',

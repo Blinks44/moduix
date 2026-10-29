@@ -17,7 +17,10 @@ import {
   ColorPickerContent,
   ColorPickerChannelInput,
   ColorPickerContext,
-} from '../src';
+  ColorPickerArea,
+  ColorPickerChannelSlider,
+  ColorPickerSwatchTrigger,
+} from '@/index';
 import SsrColorPicker from './fixtures/SsrColorPicker.vue';
 
 const colorPickerComponents = {
@@ -31,6 +34,9 @@ const colorPickerComponents = {
   ColorPickerPositioner,
   ColorPickerRootProvider,
   ColorPickerTrigger,
+  ColorPickerArea,
+  ColorPickerChannelSlider,
+  ColorPickerSwatchTrigger,
 } as unknown as Record<string, Component>;
 
 test('submits through explicit Ark hidden inputs', async () => {
@@ -294,4 +300,29 @@ test('applies consumer classes alongside component defaults', async () => {
   expect(root?.className.endsWith('consumer-root')).toBe(true);
   expect(control?.className.endsWith('consumer-control')).toBe(true);
   expect(trigger?.className.endsWith('consumer-trigger')).toBe(true);
+});
+
+test('forwards refs through ordinary Ark Vue part paths', async () => {
+  const rootRef = ref<ComponentPublicInstance | null>(null);
+  const controlRef = ref<ComponentPublicInstance | null>(null);
+  const triggerRef = ref<ComponentPublicInstance | null>(null);
+  const Harness = defineComponent({
+    components: colorPickerComponents,
+    setup() {
+      return { rootRef, controlRef, triggerRef, defaultColor: parseColor('#eb5e41') };
+    },
+    template: `
+      <ColorPicker ref="rootRef" :default-value="defaultColor">
+        <ColorPickerControl ref="controlRef">
+          <ColorPickerTrigger ref="triggerRef" aria-label="Open" />
+        </ColorPickerControl>
+      </ColorPicker>
+    `,
+  });
+
+  render(Harness);
+
+  expect(rootRef.value!.$el.getAttribute('data-slot')).toBe('color-picker-root');
+  expect(controlRef.value!.$el.getAttribute('data-slot')).toBe('color-picker-control');
+  expect(triggerRef.value?.$el).toBe(screen.getByRole('button', { name: 'Open' }));
 });

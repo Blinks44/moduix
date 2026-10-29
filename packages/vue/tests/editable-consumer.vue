@@ -7,7 +7,7 @@ import {
   EditableInput,
   EditableLabel,
   EditablePreview,
-} from '../src/components/editable';
+} from '@/components/editable';
 
 const value = ref('Layer name');
 </script>

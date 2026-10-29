@@ -8,7 +8,7 @@ import {
   PaginationPrevTrigger,
   PaginationRootProvider,
   usePagination,
-} from '../src/components/pagination';
+} from '@/components/pagination';
 
 const page = ref(2);
 const pageSize = ref(10);

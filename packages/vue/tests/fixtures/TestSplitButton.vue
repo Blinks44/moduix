@@ -6,7 +6,7 @@ import {
   SplitButtonContent,
   SplitButtonPositioner,
   SplitButtonTrigger,
-} from '../../src';
+} from '@/index';
 </script>
 
 <template>

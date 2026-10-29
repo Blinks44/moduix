@@ -2,7 +2,7 @@ import { page } from '@rstest/browser';
 import { expect, test } from '@rstest/core';
 import { render, screen } from '@testing-library/react';
 import { createRef } from 'react';
-import { List, ListItem } from '../src';
+import { List, ListItem } from '@/index';
 
 test('updates the semantic host when as changes', async () => {
   const { rerender } = render(<List as="ul">Tasks</List>);

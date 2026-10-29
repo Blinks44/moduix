@@ -14,7 +14,7 @@ import {
   ScrollAreaThumb,
   ScrollAreaViewport,
   useScrollArea,
-} from '../src';
+} from '@/index';
 import SsrScrollArea from './fixtures/SsrScrollArea.vue';
 
 const scrollAreaComponents = {

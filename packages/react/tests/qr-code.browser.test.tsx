@@ -12,7 +12,7 @@ import {
   QrCodeRootProvider,
   useQrCode,
   useQrCodeContext,
-} from '../src';
+} from '@/index';
 
 function QrCodeValue() {
   const qrCode = useQrCodeContext();

@@ -2,7 +2,7 @@ import { page } from '@rstest/browser';
 import { expect, rs, test } from '@rstest/core';
 import { render, screen } from '@testing-library/react';
 import { createRef } from 'react';
-import { Tag, TagCloseTrigger, TagEndElement, TagLabel, TagStartElement } from '../src';
+import { Tag, TagCloseTrigger, TagEndElement, TagLabel, TagStartElement } from '@/index';
 
 test('renders the Tag anatomy with stable data hooks and a forwarded ref', () => {
   const ref = createRef<HTMLSpanElement>();

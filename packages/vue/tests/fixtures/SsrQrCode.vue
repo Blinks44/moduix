@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { QrCode, QrCodeFrame, QrCodePattern, QrCodeOverlay } from '../../src/components/qr-code';
+import { QrCode, QrCodeFrame, QrCodePattern, QrCodeOverlay } from '@/components/qr-code';
 </script>
 
 <template>

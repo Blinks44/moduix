@@ -2,7 +2,7 @@ import { expect, test } from '@rstest/core';
 import { render } from '@testing-library/vue';
 import { ref } from 'vue';
 import type { ComponentPublicInstance } from 'vue';
-import { AspectRatio } from '../src';
+import { AspectRatio } from '@/index';
 
 test('renders a styled root with stable hooks and a forwarded ref', () => {
   const rootRef = ref<ComponentPublicInstance>();

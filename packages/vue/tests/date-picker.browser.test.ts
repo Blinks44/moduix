@@ -1,6 +1,6 @@
 import { parseDate } from '@ark-ui/vue/date-picker';
 import { page } from '@rstest/browser';
-import { afterEach, expect, rs, test } from '@rstest/core';
+import { expect, rs, test } from '@rstest/core';
 import { render, screen } from '@testing-library/vue';
 import { renderToString } from '@vue/server-renderer';
 import { createSSRApp, defineComponent, ref, shallowRef } from 'vue';
@@ -32,7 +32,7 @@ import {
   Field,
   Fieldset,
   useDatePicker,
-} from '../src';
+} from '@/index';
 import SsrDatePicker from './fixtures/SsrDatePicker.vue';
 
 const datePickerComponents = {
@@ -90,9 +90,19 @@ const DatePickerPopup = defineComponent({
   `,
 });
 
-afterEach(() => {
-  rs.restoreAllMocks();
-});
+const june = parseDate('2026-06-01');
+
+function renderCalendar(root: string, table: string, setup = {}) {
+  return render({
+    components: datePickerComponents,
+    setup: () => ({ june, ...setup }),
+    template: `
+      <DatePicker default-open :portalled="false" ${root}>
+        <DatePickerPositioner><DatePickerContent>${table}</DatePickerContent></DatePickerPositioner>
+      </DatePicker>
+    `,
+  });
+}
 
 test.each([false, true])(
   'keeps clear-trigger accessible names reactive (asChild=%s)',
@@ -682,19 +692,6 @@ test.each(['DatePickerField', 'DatePickerRangeField'])(
     );
   },
 );
-const june = parseDate('2026-06-01');
-
-function renderCalendar(root: string, table: string, setup = {}) {
-  return render({
-    components: datePickerComponents,
-    setup: () => ({ june, ...setup }),
-    template: `
-      <DatePicker default-open :portalled="false" ${root}>
-        <DatePickerPositioner><DatePickerContent>${table}</DatePickerContent></DatePickerPositioner>
-      </DatePicker>
-    `,
-  });
-}
 
 test('renders month and year tables with a navigation header', () => {
   const { unmount } = renderCalendar(

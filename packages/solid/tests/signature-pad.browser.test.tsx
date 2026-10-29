@@ -1,6 +1,8 @@
+import { useSignaturePad as useArkSignaturePad } from '@ark-ui/solid/signature-pad';
 import { page } from '@rstest/browser';
 import { expect, test } from '@rstest/core';
 import { render, screen } from '@solidjs/testing-library';
+import { createSignal } from 'solid-js';
 import {
   Field,
   SignaturePad,
@@ -11,9 +13,10 @@ import {
   SignaturePadRootProvider,
   useSignaturePad,
   useSignaturePadContext,
-} from '../src';
+} from '@/index';
 
 const defaultPaths = ['M1,1 L2,2'];
+
 const translations = {
   clearTrigger: 'Clear signature',
   control: 'Signature drawing area',
@@ -164,8 +167,6 @@ test('preserves read-only behavior through useSignaturePad and RootProvider', as
 
   await expect.element(page.locator('[data-slot="signature-pad-clear-trigger"]')).not.toBeVisible();
 });
-import { useSignaturePad as useArkSignaturePad } from '@ark-ui/solid/signature-pad';
-import { createSignal } from 'solid-js';
 
 test('accepts a native Ark provider API without moduix metadata', async () => {
   function NativeProvider() {

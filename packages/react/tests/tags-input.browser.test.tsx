@@ -13,7 +13,7 @@ import {
   TagsInputLabel,
   TagsInputRootProvider,
   useTagsInput,
-} from '../src';
+} from '@/index';
 
 function Tags({
   defaultValue = ['React'],

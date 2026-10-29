@@ -21,7 +21,7 @@ import {
   ListboxValueText,
   useListbox,
   useListboxContext,
-} from '../src';
+} from '@/index';
 import SsrListbox from './fixtures/SsrListbox.vue';
 
 const fruits = createListCollection({
@@ -162,15 +162,6 @@ test('connects provider hooks and scoped context slots', async () => {
   expect(screen.getAllByText('mango')).toHaveLength(2);
 });
 
-test('applies consumer classes after CSS Module defaults and keeps clear trigger accessible', async () => {
-  render(ListboxClearTrigger, { props: { class: 'consumer-clear' } });
-  const clear = screen.getByRole('button', { name: 'Clear search' });
-  await expect
-    .element(page.getByRole('button', { name: 'Clear search', exact: true }))
-    .toHaveAttribute('type', 'button');
-  expect(Boolean(clear.querySelector('svg')?.isConnected)).toBe(true);
-});
-
 test('updates clear trigger labels without replacing the host', async () => {
   const label = ref<string | undefined>('Clear fruit');
   render({
@@ -252,4 +243,43 @@ test('hydrates stable hosts and ids and remains interactive', async () => {
     app.unmount();
     host.remove();
   }
+});
+
+test('preserves Ark semantics, refs, stable styling hooks, and the flat API', async () => {
+  const rootRef = ref<ComponentPublicInstance>();
+  const Harness = defineComponent({
+    components: listboxComponents,
+    setup() {
+      return { collection: fruits, items: fruits.items, rootRef };
+    },
+    template: `<Listbox ref="rootRef" class="consumer-root w-80" :collection="collection" :default-value="['apple']"><ListboxLabel>Fruit</ListboxLabel><ListboxContent><ListboxItem v-for="item in items" :key="item.value" :item="item"><ListboxItemText>{{ item.label }}</ListboxItemText><ListboxItemIndicator /></ListboxItem></ListboxContent></Listbox>`,
+  });
+
+  render(Harness);
+
+  const apple = screen.getByRole('option', { name: 'Apple' });
+
+  expect('Root' in Listbox).toBe(false);
+  expect(rootRef.value!.$el.getAttribute('data-slot')).toBe('listbox-root');
+  await expect
+    .element(page.getByRole('listbox', { name: 'Fruit', exact: true }))
+    .toHaveAttribute('data-slot', 'listbox-content');
+  await expect
+    .element(page.getByRole('option', { name: 'Apple', exact: true }))
+    .toHaveAttribute('data-slot', 'listbox-item');
+  await expect
+    .element(page.getByRole('option', { name: 'Apple', exact: true }))
+    .toHaveAttribute('data-selected');
+  expect(
+    Boolean(apple.querySelector('[data-slot="listbox-item-indicator"] svg')?.isConnected),
+  ).toBe(true);
+});
+
+test('renders the consumer-wired clear trigger as an accessible button', async () => {
+  render(ListboxClearTrigger, { props: { class: 'consumer-clear' } });
+  const clear = screen.getByRole('button', { name: 'Clear search' });
+  await expect
+    .element(page.getByRole('button', { name: 'Clear search', exact: true }))
+    .toHaveAttribute('type', 'button');
+  expect(Boolean(clear.querySelector('svg')?.isConnected)).toBe(true);
 });

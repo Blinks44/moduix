@@ -8,7 +8,7 @@ import {
   CommandPaletteSearch,
   CommandPaletteList,
   CommandPaletteItem,
-} from '../../src/components/command-palette';
+} from '@/components/command-palette';
 const collection = createListCollection({ items: [{ label: 'Open settings', value: 'settings' }] });
 const itemValue = collection.items[0];
 </script>

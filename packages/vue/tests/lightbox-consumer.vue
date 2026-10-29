@@ -7,7 +7,7 @@ import {
   LightboxImage,
   LightboxPositioner,
   LightboxTrigger,
-} from '../src/components/lightbox';
+} from '@/components/lightbox';
 
 const open = ref(false);
 </script>

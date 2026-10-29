@@ -4,7 +4,7 @@ import { render, screen } from '@testing-library/vue';
 import { renderToString } from '@vue/server-renderer';
 import { createSSRApp, defineComponent, ref } from 'vue';
 import type { ComponentPublicInstance } from 'vue';
-import { Field, FieldErrorText, FieldHelperText } from '../src/components/field';
+import { Field, FieldErrorText, FieldHelperText } from '@/components/field';
 import {
   NumberInput,
   NumberInputContext,
@@ -19,7 +19,7 @@ import {
   NumberInputValueText,
   useNumberInput,
   useNumberInputContext,
-} from '../src/components/number-input';
+} from '@/components/number-input';
 import NumberInputSsrConsumer from './number-input-ssr-consumer.vue';
 
 const numberInputComponents = {

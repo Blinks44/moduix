@@ -2,7 +2,7 @@ import { page } from '@rstest/browser';
 import { expect, test } from '@rstest/core';
 import { render, screen } from '@testing-library/react';
 import { createRef } from 'react';
-import { Typeset, TypesetScroll } from '../src';
+import { Typeset, TypesetScroll } from '@/index';
 
 test('renders stable data hooks without allowing consumer overrides', async () => {
   render(

@@ -1,13 +1,13 @@
-import { page } from '@rstest/browser';
 import { expect, rs, test } from '@rstest/core';
 import { render, screen } from '@testing-library/vue';
 import { renderToString } from '@vue/server-renderer';
 import { createSSRApp, ref } from 'vue';
 import type { ComponentPublicInstance } from 'vue';
-import { Image, ImageSource } from '../src';
+import { Image, ImageSource } from '@/index';
 import SsrImage from './fixtures/SsrImage.vue';
 
 const imageUrl = 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4';
+
 const imageComponents = { Image, ImageSource };
 
 test('preserves native refs, attrs, generated sources, and invariant moduix hooks', () => {
@@ -126,24 +126,6 @@ test('casts bare unstyled and priority template attributes to true', () => {
   expect(image.getAttribute('loading')).toBe('eager');
 });
 
-test('preserves consumer classes and styles', async () => {
-  render(Image, {
-    props: {
-      src: imageUrl,
-      alt: 'Mountain landscape',
-      width: 800,
-      height: 520,
-      class: 'consumer-image',
-      style: { objectFit: 'contain' },
-    },
-  });
-
-  const image = screen.getByAltText('Mountain landscape');
-
-  expect([...image.classList]).toEqual(expect.arrayContaining(['consumer-image']));
-  await expect.element(page.getByAltText('Mountain landscape')).toHaveCSS('object-fit', 'contain');
-});
-
 test('hydrates picture composition without replacing native hosts', async () => {
   const host = document.createElement('div');
   host.innerHTML = await renderToString(createSSRApp(SsrImage));
@@ -175,6 +157,7 @@ test('hydrates picture composition without replacing native hosts', async () => 
     error.mockRestore();
   }
 });
+
 test('defaults local images to lazy loading and async decoding', () => {
   render(Image, {
     props: { src: '/__info-new/assets/photo.webp', alt: 'Local photo', width: 800, height: 520 },

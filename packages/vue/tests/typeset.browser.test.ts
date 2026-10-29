@@ -4,7 +4,7 @@ import { render, screen } from '@testing-library/vue';
 import { renderToString } from '@vue/server-renderer';
 import { createSSRApp, nextTick, ref } from 'vue';
 import type { ComponentPublicInstance } from 'vue';
-import { Typeset, TypesetScroll } from '../src/components/typeset';
+import { Typeset, TypesetScroll } from '@/components/typeset';
 import SsrTypeset from './fixtures/SsrTypeset.vue';
 
 const typesetComponents = { Typeset, TypesetScroll };

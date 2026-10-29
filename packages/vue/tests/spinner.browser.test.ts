@@ -4,39 +4,8 @@ import { render, screen } from '@testing-library/vue';
 import { renderToString } from '@vue/server-renderer';
 import { createSSRApp, nextTick, ref } from 'vue';
 import type { ComponentPublicInstance } from 'vue';
-import { Spinner } from '../src';
+import { Spinner } from '@/index';
 import TestSpinner from './fixtures/TestSpinner.vue';
-
-test('renders the default status with stable styling hooks', async () => {
-  expect(Spinner).not.toHaveProperty('Root');
-  render({
-    components: { Spinner },
-    template: `
-      <Spinner
-        aria-label="Syncing files"
-        data-part="custom"
-        data-slot="custom"
-        data-scope="custom"
-        data-size="custom"
-        role="alert"
-      />
-    `,
-  });
-
-  await expect.element(page.getByRole('status', { name: 'Syncing files' })).toHaveCount(1);
-  const spinner = screen.getByRole('status', { name: 'Syncing files' });
-
-  expect(spinner.dataset).toMatchObject({
-    scope: 'spinner',
-    part: 'root',
-    slot: 'spinner-root',
-    size: 'md',
-  });
-  expect(
-    spinner.querySelector('[data-slot="spinner-indicator"]')?.getAttribute('aria-hidden'),
-  ).toBe('true');
-  expect(spinner.querySelector('[data-slot="spinner-ring"]')).toBeTruthy();
-});
 
 test.each([false, true])(
   'updates accessible names and decorative semantics on the same host (asChild=%s)',
@@ -88,23 +57,6 @@ test('keeps decorative default spinners out of the accessibility tree', async ()
   expect(spinner.getAttribute('data-size')).toBe('inherit');
   expect(spinner.hasAttribute('role')).toBe(false);
   expect(spinner.getAttribute('aria-hidden')).toBe('true');
-});
-
-test('applies the size variable to every size except inherit', async () => {
-  render({
-    components: { Spinner },
-    template: `
-      <Spinner decorative size="lg" data-testid="lg" />
-      <div style="--moduix-spinner-size: 40px; font-size: 10px">
-        <Spinner decorative size="xs" data-testid="xs" />
-        <Spinner decorative size="inherit" data-testid="inherit" />
-      </div>
-    `,
-  });
-
-  await expect.element(page.getByTestId('lg')).toHaveCSS('width', '28px');
-  await expect.element(page.getByTestId('xs')).toHaveCSS('width', '40px');
-  await expect.element(page.getByTestId('inherit')).toHaveCSS('width', '10px');
 });
 
 test('uses an external label instead of the default accessible name', async () => {

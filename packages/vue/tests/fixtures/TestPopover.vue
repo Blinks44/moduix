@@ -7,7 +7,7 @@ import {
   PopoverTitle,
   PopoverDescription,
   PopoverCloseIcon,
-} from '../../src';
+} from '@/index';
 </script>
 
 <template>

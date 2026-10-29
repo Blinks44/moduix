@@ -11,7 +11,7 @@ import {
   CheckboxLabel,
   CheckboxRootProvider,
   useCheckbox,
-} from '../src/components/checkbox/index';
+} from '@/components/checkbox/index';
 
 function ProviderCheckbox() {
   const checkbox = useCheckbox({ defaultChecked: true, name: 'provider-notifications' });

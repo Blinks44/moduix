@@ -16,8 +16,8 @@ import {
   TimerSeparator,
   useTimer,
   useTimerContext,
-} from '../src';
-import type { TimerItemProps } from '../src';
+} from '@/index';
+import type { TimerItemProps } from '@/index';
 import SsrTimer from './fixtures/SsrTimer.vue';
 
 const timerComponents = {
@@ -31,6 +31,14 @@ const timerComponents = {
   TimerSegments,
   TimerSeparator,
 };
+
+const ProviderStatus = defineComponent({
+  setup() {
+    const timer = useTimerContext();
+    return { timer };
+  },
+  template: '<output>{{ timer.running ? "Running" : "Idle" }}</output>',
+});
 
 test('renders the short root form with default segments, stable hooks, and Vue refs', async () => {
   const rootRef = ref<ComponentPublicInstance>();
@@ -187,14 +195,6 @@ test('preserves Ark action visibility and native button semantics', async () => 
   await expect.element(startLocator).not.toHaveAttribute('hidden');
   await expect.element(page.getByText('Reset', { exact: true })).toHaveAttribute('hidden');
   await expect.element(page.getByRole('timer')).toContainText('00:00:00');
-});
-
-const ProviderStatus = defineComponent({
-  setup() {
-    const timer = useTimerContext();
-    return { timer };
-  },
-  template: '<output>{{ timer.running ? "Running" : "Idle" }}</output>',
 });
 
 test('keeps RootProvider and context hook state connected', async () => {

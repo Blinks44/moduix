@@ -21,7 +21,7 @@ import {
   DialogTitle,
   DialogTrigger,
   useDialog,
-} from '../src';
+} from '@/index';
 import TestDialog from './fixtures/TestDialog.vue';
 
 const dialogComponents = {
@@ -118,22 +118,6 @@ test('portals overlays outside the root tree by default', async () => {
   expect(container.querySelector('[role="dialog"]')).toBeNull();
   await expect.element(page.getByRole('dialog')).toBeAttached();
 });
-
-test.each(['element', 'getter'] as const)(
-  'portals overlays into portalRef when provided (%s)',
-  async (targetType) => {
-    const portalTarget = ref<HTMLElement>();
-    const Harness = defineComponent({
-      components: dialogComponents,
-      setup() {
-        return { portalTarget, getPortal: () => portalTarget.value };
-      },
-      template: `<div><div ref="portalTarget" data-testid="dialog-portal"></div><Dialog default-open :portal-ref="${targetType === 'getter' ? 'getPortal' : 'portalTarget'}"><DialogPositioner><DialogContent><DialogTitle>Preferences</DialogTitle></DialogContent></DialogPositioner></Dialog></div>`,
-    });
-    render(Harness);
-    await expect.element(page.getByTestId('dialog-portal').getByRole('dialog')).toBeAttached();
-  },
-);
 
 test('opens a RootProvider dialog from external state and updates context', async () => {
   const Harness = defineComponent({
@@ -267,6 +251,7 @@ test('keeps close-icon labels, attrs and fallback content reactive', async () =>
   custom.value = false;
   await expect.element(button.locator('svg')).toBeAttached();
 });
+
 test('mounts the content lazily and unmounts it after closing by default', async () => {
   const Harness = defineComponent({
     components: dialogComponents,
@@ -361,4 +346,86 @@ test('scrolls the body inside and keeps the footer visible with scrollBehavior i
   expect(footer.bottom).toBeLessThanOrEqual(content.bottom + 1);
   expect(body.scrollHeight).toBeGreaterThan(body.clientHeight);
   expect(positioner.scrollHeight).toBeLessThanOrEqual(positioner.clientHeight + 1);
+});
+
+test('preserves dialog behavior and Vue composition', async () => {
+  const details: Array<{ open: boolean }> = [];
+  const Harness = defineComponent({
+    components: dialogComponents,
+    setup() {
+      const open = ref(false);
+      return {
+        onOpenChange: (detail: { open: boolean }) => details.push(detail),
+        open,
+      };
+    },
+    template:
+      '<Dialog v-model:open="open" :portalled="false" @open-change="onOpenChange"><DialogTrigger>Open dialog</DialogTrigger><DialogBackdrop /><DialogPositioner><DialogContent><DialogHeader><DialogTitle>Preferences</DialogTitle><DialogCloseIcon /><DialogDescription>Description</DialogDescription></DialogHeader><DialogBody>Body</DialogBody><DialogFooter><DialogCloseTrigger>Close dialog</DialogCloseTrigger></DialogFooter></DialogContent></DialogPositioner></Dialog>',
+  });
+  render(Harness);
+  const trigger = page.getByRole('button', { name: 'Open dialog' });
+  await trigger.click();
+  await expect.element(page.getByRole('dialog')).toBeVisible();
+  await page.locator('[data-slot="dialog-close-trigger"]').click();
+  await expect.poll(() => details).toEqual([{ open: true }, { open: false }]);
+  await expect.element(trigger).toBeFocused();
+  await trigger.click();
+  const closeIcon = page.locator('[data-slot="dialog-close-icon"]');
+  await expect.element(closeIcon).toBeFocused();
+  await closeIcon.press('Escape');
+  await expect.element(page.getByRole('dialog')).toHaveCount(0);
+  await expect.element(trigger).toBeFocused();
+  expect(details).toEqual([{ open: true }, { open: false }, { open: true }, { open: false }]);
+});
+
+test('keeps non-modal dialogs interactive and renders inline', async () => {
+  const clicks: string[] = [];
+  const Harness = defineComponent({
+    components: dialogComponents,
+    setup: () => ({ click: (target: string) => clicks.push(target) }),
+    template:
+      '<button type="button" @click="click(\'outside\')">Outside</button><div data-testid="host"><Dialog default-open :modal="false" :portalled="false"><DialogPositioner><DialogContent><DialogTitle>Preferences</DialogTitle><button type="button" @click="click(\'inside\')">Inside</button></DialogContent></DialogPositioner></Dialog></div>',
+  });
+  render(Harness);
+  await expect.element(page.getByTestId('host').getByRole('dialog')).toBeVisible();
+  await page.getByRole('button', { name: 'Inside' }).click();
+  await page.getByRole('button', { name: 'Outside' }).click();
+  expect(clicks).toEqual(['inside', 'outside']);
+});
+
+test('forwards refs through every public part and supports asChild', async () => {
+  const refs = {
+    trigger: ref<ComponentPublicInstance>(),
+    backdrop: ref<ComponentPublicInstance>(),
+    positioner: ref<ComponentPublicInstance>(),
+    content: ref<ComponentPublicInstance>(),
+    title: ref<ComponentPublicInstance>(),
+    description: ref<ComponentPublicInstance>(),
+    closeTrigger: ref<ComponentPublicInstance>(),
+    closeIcon: ref<ComponentPublicInstance>(),
+  };
+  const Harness = defineComponent({
+    components: dialogComponents,
+    setup() {
+      return refs;
+    },
+    template:
+      '<Dialog default-open :portalled="false"><DialogTrigger ref="trigger">Open</DialogTrigger><DialogTrigger as-child><button>Composed</button></DialogTrigger><DialogBackdrop ref="backdrop" /><DialogPositioner ref="positioner"><DialogContent ref="content"><DialogTitle ref="title">Title</DialogTitle><DialogDescription ref="description">Description</DialogDescription><DialogCloseTrigger ref="closeTrigger">Close</DialogCloseTrigger><DialogCloseIcon ref="closeIcon" /></DialogContent></DialogPositioner></Dialog>',
+  });
+  render(Harness);
+  for (const [name, slot] of Object.entries({
+    trigger: 'dialog-trigger',
+    backdrop: 'dialog-backdrop',
+    positioner: 'dialog-positioner',
+    content: 'dialog-content',
+    title: 'dialog-title',
+    description: 'dialog-description',
+    closeTrigger: 'dialog-close-trigger',
+    closeIcon: 'dialog-close-icon',
+  })) {
+    expect(refs[name as keyof typeof refs].value?.$el?.getAttribute('data-slot')).toBe(slot);
+  }
+  await expect
+    .element(page.getByRole('button', { name: 'Composed', includeHidden: true }))
+    .toHaveAttribute('data-slot', 'dialog-trigger');
 });

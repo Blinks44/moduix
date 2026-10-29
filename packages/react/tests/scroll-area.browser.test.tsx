@@ -12,7 +12,7 @@ import {
   ScrollAreaThumb,
   ScrollAreaViewport,
   useScrollArea,
-} from '../src';
+} from '@/index';
 
 test('renders Ark anatomy with stable styling hooks and forwarded refs', async () => {
   const rootRef = createRef<HTMLDivElement>();

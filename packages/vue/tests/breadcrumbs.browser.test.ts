@@ -12,7 +12,7 @@ import {
   BreadcrumbsPage,
   BreadcrumbsPath,
   BreadcrumbsSeparator,
-} from '../src';
+} from '@/index';
 
 type BreadcrumbsPathProps = InstanceType<typeof BreadcrumbsPath>['$props'];
 

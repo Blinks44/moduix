@@ -14,7 +14,7 @@ import {
   ColorPickerPositioner,
   ColorPickerContent,
   ColorPickerChannelInput,
-} from '../src';
+} from '@/index';
 
 function ProviderColorPicker() {
   const colorPicker = useColorPicker({
@@ -108,4 +108,22 @@ test('preserves Ark open-change details and default trigger composition', async 
   await expect.element(page.getByText('Content')).toBeFocused();
   await page.getByText('Content').press('Escape');
   await expect.poll(() => openStates).toEqual([true, false]);
+});
+
+test('forwards refs through ordinary Ark React part paths', async () => {
+  const rootRef = createRef<HTMLDivElement>();
+  const controlRef = createRef<HTMLDivElement>();
+  const triggerRef = createRef<HTMLButtonElement>();
+
+  render(
+    <ColorPicker ref={rootRef} defaultValue={parseColor('#eb5e41')}>
+      <ColorPickerControl ref={controlRef}>
+        <ColorPickerTrigger ref={triggerRef} aria-label="Open" />
+      </ColorPickerControl>
+    </ColorPicker>,
+  );
+
+  expect(rootRef.current!.getAttribute('data-slot')).toBe('color-picker-root');
+  expect(controlRef.current!.getAttribute('data-slot')).toBe('color-picker-control');
+  expect(triggerRef.current).toBe(screen.getByRole('button', { name: 'Open' }));
 });

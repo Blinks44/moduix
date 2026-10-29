@@ -1,5 +1,5 @@
 import { page } from '@rstest/browser';
-import { beforeEach, expect, rs, test } from '@rstest/core';
+import { expect, rs, test } from '@rstest/core';
 import { render, screen } from '@testing-library/vue';
 import { renderToString } from '@vue/server-renderer';
 import { createSSRApp, nextTick, defineComponent, ref } from 'vue';
@@ -19,7 +19,8 @@ import {
   NavigationMenuViewportPositioner,
   useNavigationMenu,
   useNavigationMenuContext,
-} from '../src';
+} from '@/index';
+import SsrNavigationMenu from './fixtures/SsrNavigationMenu.vue';
 
 const components = {
   NavigationMenu,
@@ -85,15 +86,6 @@ const ProviderNavigationMenu = defineComponent({
   `,
 });
 
-beforeEach(async () => {
-  const { unmount } = render({
-    template:
-      '<button style="position: fixed; right: 0; bottom: 0" type="button">Outside navigation</button>',
-  });
-  await page.getByRole('button', { name: 'Outside navigation', exact: true }).hover();
-  unmount();
-});
-
 test('preserves Ark value changes and navigation semantics', async () => {
   const changes: Array<string | null> = [];
 
@@ -151,6 +143,7 @@ test('supports controlled v-model:value state', async () => {
       return { value: ref<string | undefined>() };
     },
     template: `
+      <button type="button">Before menu</button>
       <NavigationMenu v-model:value="value">
         <NavigationMenuParts />
       </NavigationMenu>
@@ -158,6 +151,8 @@ test('supports controlled v-model:value state', async () => {
     `,
   });
 
+  // Park the pointer away from the triggers so a pointer left by an earlier test cannot open Docs.
+  await page.getByRole('button', { name: 'Before menu', exact: true }).hover();
   await page.getByRole('button', { name: 'Products', exact: true }).press('Enter');
   await expect.element(page.getByTestId('controlled-value')).toContainText('products');
 
@@ -326,4 +321,3 @@ test('keeps viewport motion and provider composition Ark-shaped', async () => {
     .element(page.locator('[data-slot="navigation-menu-content"][data-value="docs"][data-motion]'))
     .toBeAttached();
 });
-import SsrNavigationMenu from './fixtures/SsrNavigationMenu.vue';

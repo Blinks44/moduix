@@ -13,7 +13,7 @@ import {
   PinInputControl,
   PinInputInput,
   PinInputInputs,
-} from '../src';
+} from '@/index';
 
 function ControlledPinInput() {
   const [value, setValue] = createSignal<string[]>([]);

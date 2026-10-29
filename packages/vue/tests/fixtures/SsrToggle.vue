@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Toggle, ToggleIndicator } from '../../src/components/toggle';
+import { Toggle, ToggleIndicator } from '@/components/toggle';
 </script>
 
 <template>

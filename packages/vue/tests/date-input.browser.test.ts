@@ -20,7 +20,7 @@ import {
   type DateInputDateValue,
   useDateInput,
   useDateInputContext,
-} from '../src';
+} from '@/index';
 import SsrDateInput from './fixtures/SsrDateInput.vue';
 
 const dateInputComponents = {
@@ -94,44 +94,6 @@ test('submits through explicit Ark hidden inputs', async () => {
   ]);
   await page.getByRole('spinbutton').nth(0).press('ArrowUp');
   expect(new FormData(form).get('check-in[0]')).toBe('7/22/2026');
-});
-
-test('keeps explicit inputs inside an asChild root and forwards refs', async () => {
-  const rootRef = ref<ComponentPublicInstance | null>(null);
-  const Harness = defineComponent({
-    components: dateInputComponents,
-    setup() {
-      return { rootRef, releaseDate: [new CalendarDate(2026, 6, 22)] };
-    },
-    template: `
-      <form>
-        <DateInput
-          ref="rootRef"
-          as-child
-          :default-value="releaseDate"
-          name="release-date"
-        >
-          <fieldset>
-            <DateInputLabel>Release date</DateInputLabel>
-            <DateInputControl>
-              <DateInputSegments />
-            </DateInputControl>
-            <DateInputHiddenInput name="release-date" />
-          </fieldset>
-        </DateInput>
-      </form>
-    `,
-  });
-
-  const { container } = render(Harness);
-
-  const root = container.querySelector('[data-slot="date-input-root"]')!;
-  expect(root.tagName).toBe('FIELDSET');
-  expect(rootRef.value?.$el).toBe(root);
-  await expect
-    .element(page.locator('[data-slot="date-input-root"]'))
-    .toHaveAttribute('data-slot', 'date-input-root');
-  expect(root.querySelector('input[type="hidden"]')!.getAttribute('name')).toBe('release-date');
 });
 
 test('preserves Ark segment semantics, styling hooks, consumer attrs, and part refs', async () => {

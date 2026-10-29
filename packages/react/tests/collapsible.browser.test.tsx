@@ -10,7 +10,7 @@ import {
   CollapsibleTrigger,
   useCollapsible,
   useCollapsibleContext,
-} from '../src';
+} from '@/index';
 
 function ContextCloseButton() {
   const collapsible = useCollapsibleContext();

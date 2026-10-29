@@ -4,7 +4,7 @@ import { render, screen } from '@testing-library/vue';
 import { renderToString } from '@vue/server-renderer';
 import { createSSRApp, ref } from 'vue';
 import type { ComponentPublicInstance } from 'vue';
-import { Container } from '../src';
+import { Container } from '@/index';
 import TestContainer from './fixtures/TestContainer.vue';
 
 test.each([

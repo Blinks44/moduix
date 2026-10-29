@@ -1,6 +1,6 @@
 import { page } from '@rstest/browser';
 import { expect, test } from '@rstest/core';
-import { render, screen } from '@solidjs/testing-library';
+import { render } from '@solidjs/testing-library';
 import { createSignal } from 'solid-js';
 import {
   RadioGroup,
@@ -13,7 +13,7 @@ import {
   RadioGroupOption,
   RadioGroupRootProvider,
   useRadioGroup,
-} from '../src';
+} from '@/index';
 
 const frameworks = ['React', 'Solid', 'Vue'];
 
@@ -75,27 +75,6 @@ test('submits through explicit Ark item inputs', async () => {
   await expect.element(page.getByRole('radio', { name: 'Solid', exact: true })).toBeChecked();
   expect(new FormData(form).get('framework')).toBe('Solid');
   expect(changes).toEqual(['Solid']);
-});
-
-test('keeps asChild composition semantic with an explicit item input', () => {
-  render(() => (
-    <RadioGroup defaultValue="React">
-      <RadioGroupItem
-        asChild={(props) => <label data-testid="custom-item" {...props()} />}
-        value="React"
-      >
-        <>
-          <RadioGroupItemControl />
-          <RadioGroupItemHiddenInput />
-          <RadioGroupItemText>React</RadioGroupItemText>
-        </>
-      </RadioGroupItem>
-    </RadioGroup>
-  ));
-
-  const item = screen.getByTestId('custom-item');
-  expect(item.tagName).toBe('LABEL');
-  expect(item.querySelectorAll('input[type="radio"]')).toHaveLength(1);
 });
 
 test('does not forward refs through native Ark Solid asChild composition', () => {

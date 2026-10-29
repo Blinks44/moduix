@@ -22,7 +22,7 @@ import {
   createTreeCollection,
   type TreeViewNodeProviderProps,
   useTreeView,
-} from '../src';
+} from '@/index';
 
 interface FileNode {
   children?: FileNode[];

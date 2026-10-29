@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Splitter, SplitterPanel, SplitterResizeTrigger } from '../../src/components/splitter';
+import { Splitter, SplitterPanel, SplitterResizeTrigger } from '@/components/splitter';
 
 const panels = [
   { id: 'a', minSize: 20 },
