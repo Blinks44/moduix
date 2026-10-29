@@ -16,18 +16,7 @@ import * as ClipboardDocs from '@/components/examples/clipboard/css-properties';
 
 ## Usage
 
-<UsageCode
-  react={'<Clipboard defaultValue={shareUrl} timeout={2000}>\n  <ClipboardControl>\n    <ClipboardInput />\n    <ClipboardTrigger>\n      <ClipboardIndicator />\n    </ClipboardTrigger>\n  </ClipboardControl>\n</Clipboard>'}
-  vue={'<Clipboard :default-value="shareUrl" :timeout="2000">\n  <ClipboardControl>\n    <ClipboardInput />\n    <ClipboardTrigger>\n      <ClipboardIndicator />\n    </ClipboardTrigger>\n  </ClipboardControl>\n</Clipboard>'}
-/>
-
-<PropChips
-  items={[
-    ['defaultValue', 'Text to copy; use value and onValueChange to control it.'],
-    ['timeout', 'How long the copied state lasts, in milliseconds.'],
-    ['onStatusChange', 'Runs after each copy with { copied }.'],
-  ]}
-/>
+<Usage />
 
 Use `Clipboard` as the root. Put one value surface, `ClipboardInput` or `ClipboardValueText`, and
 `ClipboardTrigger` inside `ClipboardControl`. `ClipboardLabel` is optional. The trigger can contain
@@ -179,11 +168,11 @@ Hover or focus a variable to see it in the preview.
 
 ## API reference
 
-| Prop | Type | Default |
-| --- | --- | --- |
-| `value` | `string` | — |
-| `defaultValue` | `string` | — |
-| `onValueChange` | `(details: ValueChangeDetails) => void` | — |
-| `timeout` | `number` | `3000` |
-| `onStatusChange` | `(details: CopyStatusDetails) => void` | — |
-| `translations` | `IntlTranslations` | — |
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `value` | `string` | — | Text to copy, for controlled use. |
+| `defaultValue` | `string` | — | Initial text to copy when the value is not controlled. |
+| `onValueChange` | `(details: ValueChangeDetails) => void` | — | Called when the value changes. |
+| `timeout` | `number` | `3000` | How long the copied state lasts, in milliseconds. |
+| `onStatusChange` | `(details: CopyStatusDetails) => void` | — | Called after each copy with `{ copied }`. |
+| `translations` | `IntlTranslations` | — | Localized strings for accessibility labels. |

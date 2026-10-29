@@ -19,19 +19,7 @@ exemples utilisent cette configuration pour l’image Unsplash.
 
 ## Utilisation
 
-<UsageCode
-  react={'<ImageCropper aspectRatio={1} cropShape="circle" onCropChange={(details) => setCrop(details.crop)}>\n  <ImageCropperViewport>\n    <ImageCropperImage src={photo} alt="Profile photo" crossOrigin="anonymous" />\n    <ImageCropperCropArea />\n  </ImageCropperViewport>\n</ImageCropper>'}
-  vue={'<ImageCropper :aspect-ratio="1" crop-shape="circle" @crop-change="(details) => (crop = details.crop)">\n  <ImageCropperViewport>\n    <ImageCropperImage :src="photo" alt="Profile photo" cross-origin="anonymous" />\n    <ImageCropperCropArea />\n  </ImageCropperViewport>\n</ImageCropper>'}
-/>
-
-<PropChips
-  items={[
-    ['aspectRatio', 'Verrouille le recadrage sur un rapport.'],
-    ['cropShape', 'rectangle ou circle.'],
-    ['onCropChange', 'Signale le rectangle de recadrage à chaque changement.'],
-    ['minZoom / maxZoom', 'Plage de zoom, de 1 à 5 par défaut.'],
-  ]}
-/>
+<Usage />
 
 Utilisez `ImageCropper` avec `ImageCropperViewport`, `ImageCropperImage` et
 `ImageCropperCropArea`. Passez l’URL de l’image à `ImageCropperImage`.
@@ -212,31 +200,31 @@ redéfinissez pas.
 
 ## Référence de l’API
 
-| Prop | Type | Défaut |
-| --- | --- | --- |
-| `aspectRatio` | `number` | — |
-| `cropShape` | `'rectangle' \| 'circle'` | `'rectangle'` |
-| `initialCrop` | `Rect` | — |
-| `fixedCropArea` | `boolean` | `false` |
-| `minWidth` | `number` | `40` |
-| `minHeight` | `number` | `40` |
-| `maxWidth` | `number` | `Infinity` |
-| `maxHeight` | `number` | `Infinity` |
-| `zoom` | `number` | — |
-| `defaultZoom` | `number` | `1` |
-| `minZoom` | `number` | `1` |
-| `maxZoom` | `number` | `5` |
-| `zoomStep` | `number` | `0.1` |
-| `rotation` | `number` | — |
-| `defaultRotation` | `number` | `0` |
-| `flip` | `{ horizontal: boolean; vertical: boolean }` | — |
-| `onCropChange` | `(details: CropChangeDetails) => void` | — |
-| `onZoomChange` | `(details: ZoomChangeDetails) => void` | — |
-| `onRotationChange` | `(details: RotationChangeDetails) => void` | — |
-| `translations` | `IntlTranslations` | — |
-| `defaultFlip` | `FlipState` | `{ horizontal: false, vertical: false }` |
-| `zoomSensitivity` | `number` | `2` |
-| `nudgeStep` | `number` | `1` |
-| `nudgeStepShift` | `number` | `10` |
-| `nudgeStepCtrl` | `number` | `50` |
-| `onFlipChange` | `(details: FlipChangeDetails) => void` | — |
+| Prop | Type | Défaut | Description |
+| --- | --- | --- | --- |
+| `aspectRatio` | `number` | — | Verrouille le rapport largeur/hauteur du recadrage. |
+| `cropShape` | `'rectangle' \| 'circle'` | `'rectangle'` | Forme de la zone : `rectangle` ou `circle`. |
+| `initialCrop` | `Rect` | — | Rectangle de recadrage initial. |
+| `fixedCropArea` | `boolean` | `false` | Fige la zone de recadrage ; l’image se déplace et zoome dessous. |
+| `minWidth` | `number` | `40` | Largeur minimale du recadrage en pixels. |
+| `minHeight` | `number` | `40` | Hauteur minimale du recadrage en pixels. |
+| `maxWidth` | `number` | `Infinity` | Largeur maximale du recadrage en pixels. |
+| `maxHeight` | `number` | `Infinity` | Hauteur maximale du recadrage en pixels. |
+| `zoom` | `number` | — | Niveau de zoom en mode contrôlé. |
+| `defaultZoom` | `number` | `1` | Zoom initial lorsqu’il n’est pas contrôlé. |
+| `minZoom` | `number` | `1` | Zoom minimal autorisé. |
+| `maxZoom` | `number` | `5` | Zoom maximal autorisé. |
+| `zoomStep` | `number` | `0.1` | Variation du zoom par cran de molette. |
+| `rotation` | `number` | — | Rotation en degrés en mode contrôlé. |
+| `defaultRotation` | `number` | `0` | Rotation initiale en degrés. |
+| `flip` | `{ horizontal: boolean; vertical: boolean }` | — | Retournement horizontal et vertical en mode contrôlé. |
+| `onCropChange` | `(details: CropChangeDetails) => void` | — | Appelé avec le rectangle de recadrage à chaque changement. |
+| `onZoomChange` | `(details: ZoomChangeDetails) => void` | — | Appelé lorsque le zoom change. |
+| `onRotationChange` | `(details: RotationChangeDetails) => void` | — | Appelé lorsque la rotation change. |
+| `translations` | `IntlTranslations` | — | Textes localisés des libellés d’accessibilité. |
+| `defaultFlip` | `FlipState` | `{ horizontal: false, vertical: false }` | Retournement initial. |
+| `zoomSensitivity` | `number` | `2` | Sensibilité du zoom au pincement. |
+| `nudgeStep` | `number` | `1` | Pas de déplacement aux flèches, en pixels. |
+| `nudgeStepShift` | `number` | `10` | Pas aux flèches avec Maj, en pixels. |
+| `nudgeStepCtrl` | `number` | `50` | Pas aux flèches avec Ctrl ou Cmd, en pixels. |
+| `onFlipChange` | `(details: FlipChangeDetails) => void` | — | Appelé lorsque le retournement change. |

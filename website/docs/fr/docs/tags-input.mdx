@@ -16,19 +16,7 @@ import * as TagsInputDocs from '@/components/examples/tags-input/css-properties'
 
 ## Utilisation
 
-<UsageCode
-  react={'<TagsInput defaultValue={[\'React\', \'Vue\']} max={5} name="frameworks" onValueChange={(details) => setTags(details.value)}>\n  <TagsInputLabel>Frameworks</TagsInputLabel>\n  <TagsInputControl>\n    <TagsInputItems />\n    <TagsInputInput placeholder="Add framework" />\n    <TagsInputClearTrigger aria-label="Clear frameworks" />\n  </TagsInputControl>\n  <TagsInputHiddenInput />\n</TagsInput>'}
-  vue={'<TagsInput v-model="tags" :max="5" name="frameworks">\n  <TagsInputLabel>Frameworks</TagsInputLabel>\n  <TagsInputControl>\n    <TagsInputItems />\n    <TagsInputInput placeholder="Add framework" />\n    <TagsInputClearTrigger aria-label="Clear frameworks" />\n  </TagsInputControl>\n  <TagsInputHiddenInput />\n</TagsInput>'}
-/>
-
-<PropChips
-  items={[
-    ['defaultValue', 'Étiquettes initiales ; contrôlez-les avec value.'],
-    ['max', 'Nombre maximal d’étiquettes.'],
-    ['delimiter', 'Caractère qui ajoute une étiquette, la virgule par défaut.'],
-    ['validate', 'Refuse une étiquette avant l’ajout.'],
-  ]}
-/>
+<Usage />
 
 Commencez par `TagsInput`, `TagsInputLabel`, `TagsInputControl`, `TagsInputItems`,
 `TagsInputInput` et `TagsInputClearTrigger`. Ajoutez explicitement `TagsInputHiddenInput` lorsque
@@ -247,35 +235,35 @@ le champ de formulaire masqué. Ce champ explicite sérialise la liste pour l’
 
 ## Référence de l’API
 
-| Prop | Type | Défaut |
-| --- | --- | --- |
-| `value` | `string[]` | — |
-| `defaultValue` | `string[]` | — |
-| `onValueChange` | `(details: ValueChangeDetails) => void` | — |
-| `inputValue` | `string` | — |
-| `onInputValueChange` | `(details: InputValueChangeDetails) => void` | — |
-| `max` | `number` | `Infinity` |
-| `maxLength` | `number` | — |
-| `delimiter` | `string \| RegExp` | `','` |
-| `validate` | `(details: ValidateArgs) => boolean` | — |
-| `onValueInvalid` | `(details: ValidityChangeDetails) => void` | — |
-| `allowDuplicates` | `boolean` | `false` |
-| `addOnPaste` | `boolean` | `false` |
-| `editable` | `boolean` | `true` |
-| `blurBehavior` | `'clear' \| 'add'` | — |
-| `placeholder` | `string` | — |
-| `name` | `string` | — |
-| `disabled` | `boolean` | `false` |
-| `readOnly` | `boolean` | `false` |
-| `invalid` | `boolean` | `false` |
-| `required` | `boolean` | `false` |
-| `translations` | `IntlTranslations` | — |
-| `autoFocus` | `boolean` | — |
-| `defaultInputValue` | `string` | — |
-| `onHighlightChange` | `(details: HighlightChangeDetails) => void` | — |
-| `allowOverflow` | `boolean` | — |
-| `sanitizeValue` | `(value: string) => string` | `(value) => value.trim()` |
-| `form` | `string` | — |
-| `onPointerDownOutside` | `(event: PointerDownOutsideEvent) => void` | — |
-| `onFocusOutside` | `(event: FocusOutsideEvent) => void` | — |
-| `onInteractOutside` | `(event: InteractOutsideEvent) => void` | — |
+| Prop | Type | Défaut | Description |
+| --- | --- | --- | --- |
+| `value` | `string[]` | — | Tags en mode contrôlé. |
+| `defaultValue` | `string[]` | — | Tags initiaux. |
+| `onValueChange` | `(details: ValueChangeDetails) => void` | — | Appelé lorsque des tags sont ajoutés, modifiés ou supprimés. |
+| `inputValue` | `string` | — | Texte du champ en mode contrôlé. |
+| `onInputValueChange` | `(details: InputValueChangeDetails) => void` | — | Appelé lorsque le texte du champ change. |
+| `max` | `number` | `Infinity` | Nombre maximal de tags. |
+| `maxLength` | `number` | — | Longueur maximale d’un tag. |
+| `delimiter` | `string \| RegExp` | `','` | Caractère ou motif qui ajoute un tag pendant la saisie. |
+| `validate` | `(details: ValidateArgs) => boolean` | — | Renvoie `false` pour refuser un tag. |
+| `onValueInvalid` | `(details: ValidityChangeDetails) => void` | — | Appelé lorsque `max` est atteint ou que `validate` refuse un tag. |
+| `allowDuplicates` | `boolean` | `false` | Autorise les tags en double. |
+| `addOnPaste` | `boolean` | `false` | Découpe le texte collé en tags. |
+| `editable` | `boolean` | `true` | Permet de modifier un tag avec Entrée ou un double clic. |
+| `blurBehavior` | `'clear' \| 'add'` | — | Texte du champ à la perte du focus : `add` en tag ou `clear`. |
+| `placeholder` | `string` | — | Texte indicatif du champ. |
+| `name` | `string` | — | Nom du champ de formulaire de l’input sous-jacent. |
+| `disabled` | `boolean` | `false` | Désactive le contrôle. |
+| `readOnly` | `boolean` | `false` | Affiche la valeur sans permettre de la modifier. |
+| `invalid` | `boolean` | `false` | Marque le champ comme invalide. |
+| `required` | `boolean` | `false` | Exige une valeur avant l’envoi du formulaire. |
+| `translations` | `IntlTranslations` | — | Textes localisés des libellés d’accessibilité. |
+| `autoFocus` | `boolean` | — | Place le focus dans le champ au montage. |
+| `defaultInputValue` | `string` | — | Texte initial du champ. |
+| `onHighlightChange` | `(details: HighlightChangeDetails) => void` | — | Appelé lorsqu’un tag est mis en évidence. |
+| `allowOverflow` | `boolean` | — | Autorise plus de tags que `max` et marque le champ invalide. |
+| `sanitizeValue` | `(value: string) => string` | `(value) => value.trim()` | Nettoie un tag avant son ajout. |
+| `form` | `string` | — | Id du formulaire auquel l’input sous-jacent est rattaché. |
+| `onPointerDownOutside` | `(event: PointerDownOutsideEvent) => void` | — | Appelé lors d’un appui du pointeur en dehors de la fenêtre. |
+| `onFocusOutside` | `(event: FocusOutsideEvent) => void` | — | Appelé lorsque le focus quitte la fenêtre. |
+| `onInteractOutside` | `(event: InteractOutsideEvent) => void` | — | Appelé lors de toute interaction en dehors de la fenêtre. |

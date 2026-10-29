@@ -16,18 +16,7 @@ import * as ProgressCircularDocs from '@/components/examples/progress-circular/c
 
 ## Utilisation
 
-<UsageCode
-  react={'<ProgressCircular defaultValue={42}>\n  <ProgressCircularLabel>Export data</ProgressCircularLabel>\n  <ProgressCircularRing aria-label="Export data" />\n  <ProgressCircularValueText />\n</ProgressCircular>'}
-  vue={'<ProgressCircular :default-value="42">\n  <ProgressCircularLabel>Export data</ProgressCircularLabel>\n  <ProgressCircularRing aria-label="Export data" />\n  <ProgressCircularValueText />\n</ProgressCircular>'}
-/>
-
-<PropChips
-  items={[
-    ['defaultValue', 'Valeur initiale ; null pour un état indéterminé.'],
-    ['min / max', 'Plage de la valeur, de 0 à 100 par défaut.'],
-    ['formatOptions', 'Options Intl du texte de valeur, en pourcentage par défaut.'],
-  ]}
-/>
+<Usage />
 
 Utilisez `ProgressCircularRing` pour afficher le cercle SVG standard, sa piste et son arc de
 progression. Ajoutez `ProgressCircularValueText` pour afficher la valeur actuelle. L’exemple place
@@ -170,13 +159,13 @@ Survolez ou sélectionnez une variable pour la voir dans l’aperçu.
 
 ## Référence de l’API
 
-| Prop | Type | Défaut |
-| --- | --- | --- |
-| `value` | `number \| null` | — |
-| `defaultValue` | `number \| null` | `50` |
-| `onValueChange` | `(details: ValueChangeDetails) => void` | — |
-| `min` | `number` | `0` |
-| `max` | `number` | `100` |
-| `formatOptions` | `Intl.NumberFormatOptions` | `{ style: 'percent' }` |
-| `locale` | `string` | — |
-| `translations` | `IntlTranslations` | — |
+| Prop | Type | Défaut | Description |
+| --- | --- | --- | --- |
+| `value` | `number \| null` | — | Valeur de progression en mode contrôlé ; `null` affiche un état indéterminé. |
+| `defaultValue` | `number \| null` | `50` | Valeur initiale lorsqu’elle n’est pas contrôlée ; `null` est indéterminé. |
+| `onValueChange` | `(details: ValueChangeDetails) => void` | — | Appelé lorsque la valeur change. |
+| `min` | `number` | `0` | Valeur minimale. |
+| `max` | `number` | `100` | Valeur maximale. |
+| `formatOptions` | `Intl.NumberFormatOptions` | `{ style: 'percent' }` | Options `Intl.NumberFormat` pour le texte de la valeur. |
+| `locale` | `string` | — | Locale du formatage ; par défaut celle du `LocaleProvider` le plus proche. |
+| `translations` | `IntlTranslations` | — | Textes localisés des libellés d’accessibilité. |

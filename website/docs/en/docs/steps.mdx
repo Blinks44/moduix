@@ -16,19 +16,7 @@ import * as StepsDocs from '@/components/examples/steps/css-properties';
 
 ## Usage
 
-<UsageCode
-  react={'<Steps count={3} linear onStepComplete={finish}>\n  <StepsList>\n    <StepsItem index={0}>\n      <StepsTrigger>\n        <StepsIndicator />\n        Account\n      </StepsTrigger>\n      <StepsSeparator />\n    </StepsItem>\n    {/* items 1 and 2 */}\n  </StepsList>\n  <StepsContent index={0}>Account details</StepsContent>\n  <StepsCompletedContent>All set.</StepsCompletedContent>\n  <StepsPrevTrigger>Back</StepsPrevTrigger>\n  <StepsNextTrigger>Next</StepsNextTrigger>\n</Steps>'}
-  vue={'<Steps :count="3" linear @step-complete="finish">\n  <StepsList>\n    <StepsItem :index="0">\n      <StepsTrigger>\n        <StepsIndicator />\n        Account\n      </StepsTrigger>\n      <StepsSeparator />\n    </StepsItem>\n    <!-- items 1 and 2 -->\n  </StepsList>\n  <StepsContent :index="0">Account details</StepsContent>\n  <StepsCompletedContent>All set.</StepsCompletedContent>\n  <StepsPrevTrigger>Back</StepsPrevTrigger>\n  <StepsNextTrigger>Next</StepsNextTrigger>\n</Steps>'}
-/>
-
-<PropChips
-  items={[
-    ['count', 'Number of steps; indexes start at 0.'],
-    ['linear', 'Requires finishing each step before the next.'],
-    ['isStepValid', 'Blocks Next while the current step is invalid.'],
-    ['orientation', 'horizontal or vertical layout.'],
-  ]}
-/>
+<Usage />
 
 Use `Steps` with `count`, a `StepsList` containing one `StepsItem` for each step, matching
 `StepsContent` panels, and the built-in previous and next triggers. Step indexes start at zero.
@@ -180,15 +168,15 @@ The useful public hooks are:
 
 ## API reference
 
-| Prop | Type | Default |
-| --- | --- | --- |
-| `count` | `number` | — |
-| `step` | `number` | — |
-| `defaultStep` | `number` | `0` |
-| `onStepChange` | `(details: StepChangeDetails) => void` | — |
-| `onStepComplete` | `() => void` | — |
-| `linear` | `boolean` | `false` |
-| `orientation` | `'horizontal' \| 'vertical'` | `'horizontal'` |
-| `isStepValid` | `(index: number) => boolean` | `() => true` |
-| `isStepSkippable` | `(index: number) => boolean` | `() => false` |
-| `onStepInvalid` | `(details: StepInvalidDetails) => void` | — |
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `count` | `number` | — | Total number of steps. |
+| `step` | `number` | — | Current step index for controlled use. |
+| `defaultStep` | `number` | `0` | Initial step index. |
+| `onStepChange` | `(details: StepChangeDetails) => void` | — | Called when the step changes. |
+| `onStepComplete` | `() => void` | — | Called when the last step is completed. |
+| `linear` | `boolean` | `false` | Requires the steps to be completed in order. |
+| `orientation` | `'horizontal' \| 'vertical'` | `'horizontal'` | Layout: `horizontal` or `vertical`. |
+| `isStepValid` | `(index: number) => boolean` | `() => true` | Returns `false` to block moving past a step. |
+| `isStepSkippable` | `(index: number) => boolean` | `() => false` | Returns `true` for steps that can be skipped. |
+| `onStepInvalid` | `(details: StepInvalidDetails) => void` | — | Called when `isStepValid` blocks navigation. |

@@ -16,19 +16,7 @@ import * as DrawerDocs from '@/components/examples/drawer/css-properties';
 
 ## Usage
 
-<UsageCode
-  react={'<Drawer swipeDirection="down" snapPoints={[0.5, 1]} defaultSnapPoint={0.5}>\n  <DrawerTrigger asChild>\n    <Button>Open drawer</Button>\n  </DrawerTrigger>\n  <DrawerBackdrop />\n  <DrawerPositioner>\n    <DrawerContent>\n      <DrawerGrabber>\n        <DrawerGrabberIndicator />\n      </DrawerGrabber>\n      <DrawerHeader>\n        <DrawerTitle>Notifications</DrawerTitle>\n        <DrawerCloseIcon />\n      </DrawerHeader>\n      <DrawerBody>…</DrawerBody>\n    </DrawerContent>\n  </DrawerPositioner>\n</Drawer>'}
-  solid={'<Drawer swipeDirection="down" snapPoints={[0.5, 1]} defaultSnapPoint={0.5}>\n  <DrawerTrigger asChild={(props) => (\n    <Button {...props()}>Open drawer</Button>\n  )} />\n  <DrawerBackdrop />\n  <DrawerPositioner>\n    <DrawerContent>\n      <DrawerGrabber>\n        <DrawerGrabberIndicator />\n      </DrawerGrabber>\n      <DrawerHeader>\n        <DrawerTitle>Notifications</DrawerTitle>\n        <DrawerCloseIcon />\n      </DrawerHeader>\n      <DrawerBody>…</DrawerBody>\n    </DrawerContent>\n  </DrawerPositioner>\n</Drawer>'}
-  vue={'<Drawer swipe-direction="down" :snap-points="[0.5, 1]" :default-snap-point="0.5">\n  <DrawerTrigger as-child>\n    <Button>Open drawer</Button>\n  </DrawerTrigger>\n  <DrawerBackdrop />\n  <DrawerPositioner>\n    <DrawerContent>\n      <DrawerGrabber>\n        <DrawerGrabberIndicator />\n      </DrawerGrabber>\n      <DrawerHeader>\n        <DrawerTitle>Notifications</DrawerTitle>\n        <DrawerCloseIcon />\n      </DrawerHeader>\n      <DrawerBody>…</DrawerBody>\n    </DrawerContent>\n  </DrawerPositioner>\n</Drawer>'}
-/>
-
-<PropChips
-  items={[
-    ['swipeDirection', 'Edge to swipe toward when closing: down, up, start, or end.'],
-    ['snapPoints', 'Heights the drawer rests at, as fractions or px.'],
-    ['size', 'Width of start and end drawers on DrawerContent.'],
-  ]}
-/>
+<Usage />
 
 Compose the drawer from Ark's structural parts. This example opens at a compact snap point, then lets
 the user drag it to full height. `DrawerContent` is the interactive surface, `DrawerPositioner`
@@ -252,32 +240,32 @@ Hover or focus a variable to see it in the preview.
 
 Props of `Drawer`. `size` (`'sm' | 'md' | 'lg' | 'xl'`, default `'md'`) and `variant` (`'island'`) go on `DrawerContent`.
 
-| Prop | Type | Default |
-| --- | --- | --- |
-| `open` | `boolean` | — |
-| `defaultOpen` | `boolean` | `false` |
-| `onOpenChange` | `(details: OpenChangeDetails) => void` | — |
-| `swipeDirection` | `'up' \| 'down' \| 'start' \| 'end'` | `'down'` |
-| `snapPoints` | `(number \| string)[]` | `[1]` |
-| `snapPoint` | `number \| string \| null` | — |
-| `defaultSnapPoint` | `number \| string \| null` | `1` |
-| `onSnapPointChange` | `(details: SnapPointChangeDetails) => void` | — |
-| `snapToSequentialPoints` | `boolean` | `false` |
-| `closeThreshold` | `number` | `0.25` |
-| `modal` | `boolean` | `true` |
-| `closeOnEscape` | `boolean` | `true` |
-| `closeOnInteractOutside` | `boolean` | `true` |
-| `lazyMount` | `boolean` | `true` |
-| `unmountOnExit` | `boolean` | `true` |
-| `trapFocus` | `boolean` | `true` |
-| `preventScroll` | `boolean` | `true` |
-| `initialFocusEl` | `() => MaybeElement \| false` | — |
-| `finalFocusEl` | `() => MaybeElement` | — |
-| `restoreFocus` | `boolean` | `true` |
-| `role` | `'dialog' \| 'alertdialog'` | `'dialog'` |
-| `triggerValue` | `string \| null` | — |
-| `defaultTriggerValue` | `string \| null` | — |
-| `onTriggerValueChange` | `(details: TriggerValueChangeDetails) => void` | — |
-| `swipeVelocityThreshold` | `number` | `700` |
-| `preventDragOnScroll` | `boolean` | `true` |
-| `stack` | `DrawerStack` | — |
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `open` | `boolean` | — | Open state for controlled use. |
+| `defaultOpen` | `boolean` | `false` | Initial open state when it is not controlled. |
+| `onOpenChange` | `(details: OpenChangeDetails) => void` | — | Called when it opens or closes. |
+| `swipeDirection` | `'up' \| 'down' \| 'start' \| 'end'` | `'down'` | Direction that closes the drawer: `up`, `down`, `start`, or `end`. |
+| `snapPoints` | `(number \| string)[]` | `[1]` | Heights the drawer can rest at, as fractions or CSS lengths. |
+| `snapPoint` | `number \| string \| null` | — | Active snap point for controlled use. |
+| `defaultSnapPoint` | `number \| string \| null` | `1` | Initial snap point. |
+| `onSnapPointChange` | `(details: SnapPointChangeDetails) => void` | — | Called when the drawer settles on another snap point. |
+| `snapToSequentialPoints` | `boolean` | `false` | Moves one snap point at a time instead of skipping on fast swipes. |
+| `closeThreshold` | `number` | `0.25` | Share of the height a swipe must cover to close. |
+| `modal` | `boolean` | `true` | Blocks interaction outside and hides the rest of the page from assistive technology. |
+| `closeOnEscape` | `boolean` | `true` | Closes on Escape. |
+| `closeOnInteractOutside` | `boolean` | `true` | Closes on a click outside. |
+| `lazyMount` | `boolean` | `true` | Mounts the content on first open. |
+| `unmountOnExit` | `boolean` | `true` | Unmounts the content after it closes. |
+| `trapFocus` | `boolean` | `true` | Keeps keyboard focus inside while open. |
+| `preventScroll` | `boolean` | `true` | Locks page scroll while open. |
+| `initialFocusEl` | `() => MaybeElement \| false` | — | Returns the element to focus on open. |
+| `finalFocusEl` | `() => MaybeElement` | — | Returns the element to focus on close. |
+| `restoreFocus` | `boolean` | `true` | Returns focus to the previously focused element on close. |
+| `role` | `'dialog' \| 'alertdialog'` | `'dialog'` | `dialog`, or `alertdialog` for urgent confirmations. |
+| `triggerValue` | `string \| null` | — | Active trigger for controlled use when several triggers share one popup. |
+| `defaultTriggerValue` | `string \| null` | — | Initially active trigger. |
+| `onTriggerValueChange` | `(details: TriggerValueChangeDetails) => void` | — | Called when another trigger becomes active. |
+| `swipeVelocityThreshold` | `number` | `700` | Swipe speed that closes the drawer, in pixels per second. |
+| `preventDragOnScroll` | `boolean` | `true` | Scrolls inner content instead of dragging the drawer. |
+| `stack` | `DrawerStack` | — | Shared store that styles stacked drawers together. |

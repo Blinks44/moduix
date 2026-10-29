@@ -16,18 +16,7 @@ import * as SwapDocs from '@/components/examples/swap/css-properties';
 
 ## Utilisation
 
-<UsageCode
-  react={'<Swap swap={copied} animation="rotate">\n  <SwapIndicator type="off">\n    <CopyIcon />\n  </SwapIndicator>\n  <SwapIndicator type="on">\n    <CheckIcon />\n  </SwapIndicator>\n</Swap>'}
-  vue={'<Swap :swap="copied" animation="rotate">\n  <SwapIndicator type="off">\n    <CopyIcon />\n  </SwapIndicator>\n  <SwapIndicator type="on">\n    <CheckIcon />\n  </SwapIndicator>\n</Swap>'}
-/>
-
-<PropChips
-  items={[
-    ['swap', 'Affiche l’indicateur on quand il vaut true.'],
-    ['animation', 'fade · scale · rotate · flip'],
-    ['type', 'on · off'],
-  ]}
-/>
+<Usage />
 
 Utilisez `Swap` lorsqu’un élément de l’interface doit basculer entre deux états visuels, par exemple
 une icône qui change après une action. Passez la valeur booléenne courante à `swap` : `false` affiche
@@ -130,8 +119,8 @@ Survolez ou sélectionnez une variable pour la voir dans l’aperçu.
 
 `Swap` ne gère pas les interactions : le contrôle qui l’entoure reste responsable du clavier et des clics.
 
-| Prop | Type | Défaut |
-| --- | --- | --- |
-| `swap` | `boolean` | `false` |
-| `animation` | `SwapAnimation` | `'scale'` |
-| `type` (SwapIndicator) | `'on'` / `'off'` | — |
+| Prop | Type | Défaut | Description |
+| --- | --- | --- | --- |
+| `swap` | `boolean` | `false` | Affiche l’indicateur `on` si `true`, sinon l’indicateur `off`. |
+| `animation` | `SwapAnimation` | `'scale'` | Transition entre les indicateurs : `fade`, `scale`, `rotate` ou `flip`. |
+| `type` (SwapIndicator) | `'on'` / `'off'` | — | Indicateur concerné : `on` ou `off`. |

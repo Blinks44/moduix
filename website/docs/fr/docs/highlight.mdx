@@ -16,18 +16,7 @@ import * as HighlightDocs from '@/components/examples/highlight/css-properties';
 
 ## Utilisation
 
-<UsageCode
-  react={'<Text>\n  <Highlight text={result.title} query={search} ignoreCase matchAll />\n</Text>'}
-  vue={'<Text>\n  <Highlight :text="result.title" :query="search" ignore-case match-all />\n</Text>'}
-/>
-
-<PropChips
-  items={[
-    ['query', 'Terme ou tableau de termes à trouver.'],
-    ['ignoreCase', 'Ignore la casse.'],
-    ['matchAll', 'Marque toutes les occurrences, pas seulement la première.'],
-  ]}
-/>
+<Usage />
 
 Transmettez le texte source complet via `text` et le terme recherché via `query`. Placez `Highlight`
 dans le composant de texte ou l’élément HTML qui définit la mise en page et la sémantique autour du
@@ -132,10 +121,10 @@ Survolez ou sélectionnez une variable pour la voir dans l’aperçu.
 
 ## Référence de l’API
 
-| Prop | Type | Défaut |
-| --- | --- | --- |
-| `text` | `string` | — |
-| `query` | `string \| string[]` | — |
-| `ignoreCase` | `boolean` | `false` |
-| `matchAll` | `boolean` | `false` |
-| `exactMatch` | `boolean` | `false` |
+| Prop | Type | Défaut | Description |
+| --- | --- | --- | --- |
+| `text` | `string` | — | Texte dans lequel chercher. |
+| `query` | `string \| string[]` | — | Terme ou tableau de termes à marquer. |
+| `ignoreCase` | `boolean` | `false` | Ignore la casse des lettres. |
+| `matchAll` | `boolean` | `false` | Marque toutes les occurrences, pas seulement la première. |
+| `exactMatch` | `boolean` | `false` | Ne marque que les mots entiers. |

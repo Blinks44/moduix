@@ -16,19 +16,7 @@ import * as StepsDocs from '@/components/examples/steps/css-properties';
 
 ## Utilisation
 
-<UsageCode
-  react={'<Steps count={3} linear onStepComplete={finish}>\n  <StepsList>\n    <StepsItem index={0}>\n      <StepsTrigger>\n        <StepsIndicator />\n        Account\n      </StepsTrigger>\n      <StepsSeparator />\n    </StepsItem>\n    {/* items 1 and 2 */}\n  </StepsList>\n  <StepsContent index={0}>Account details</StepsContent>\n  <StepsCompletedContent>All set.</StepsCompletedContent>\n  <StepsPrevTrigger>Back</StepsPrevTrigger>\n  <StepsNextTrigger>Next</StepsNextTrigger>\n</Steps>'}
-  vue={'<Steps :count="3" linear @step-complete="finish">\n  <StepsList>\n    <StepsItem :index="0">\n      <StepsTrigger>\n        <StepsIndicator />\n        Account\n      </StepsTrigger>\n      <StepsSeparator />\n    </StepsItem>\n    <!-- items 1 and 2 -->\n  </StepsList>\n  <StepsContent :index="0">Account details</StepsContent>\n  <StepsCompletedContent>All set.</StepsCompletedContent>\n  <StepsPrevTrigger>Back</StepsPrevTrigger>\n  <StepsNextTrigger>Next</StepsNextTrigger>\n</Steps>'}
-/>
-
-<PropChips
-  items={[
-    ['count', 'Nombre d’étapes ; les index commencent à 0.'],
-    ['linear', 'Exige de terminer chaque étape avant la suivante.'],
-    ['isStepValid', 'Bloque Next tant que l’étape est invalide.'],
-    ['orientation', 'Disposition horizontale ou verticale.'],
-  ]}
-/>
+<Usage />
 
 Utilisez `Steps` avec `count`, une `StepsList` contenant un `StepsItem` par étape, les panneaux
 `StepsContent` correspondants et les boutons intégrés pour avancer ou reculer. Les index des étapes
@@ -183,15 +171,15 @@ Les hooks publics utiles sont les suivants :
 
 ## Référence de l’API
 
-| Prop | Type | Défaut |
-| --- | --- | --- |
-| `count` | `number` | — |
-| `step` | `number` | — |
-| `defaultStep` | `number` | `0` |
-| `onStepChange` | `(details: StepChangeDetails) => void` | — |
-| `onStepComplete` | `() => void` | — |
-| `linear` | `boolean` | `false` |
-| `orientation` | `'horizontal' \| 'vertical'` | `'horizontal'` |
-| `isStepValid` | `(index: number) => boolean` | `() => true` |
-| `isStepSkippable` | `(index: number) => boolean` | `() => false` |
-| `onStepInvalid` | `(details: StepInvalidDetails) => void` | — |
+| Prop | Type | Défaut | Description |
+| --- | --- | --- | --- |
+| `count` | `number` | — | Nombre total d’étapes. |
+| `step` | `number` | — | Index de l’étape courante en mode contrôlé. |
+| `defaultStep` | `number` | `0` | Étape initiale. |
+| `onStepChange` | `(details: StepChangeDetails) => void` | — | Appelé lorsque l’étape change. |
+| `onStepComplete` | `() => void` | — | Appelé lorsque la dernière étape est terminée. |
+| `linear` | `boolean` | `false` | Impose de terminer les étapes dans l’ordre. |
+| `orientation` | `'horizontal' \| 'vertical'` | `'horizontal'` | Disposition : `horizontal` ou `vertical`. |
+| `isStepValid` | `(index: number) => boolean` | `() => true` | Renvoie `false` pour bloquer le passage à l’étape suivante. |
+| `isStepSkippable` | `(index: number) => boolean` | `() => false` | Renvoie `true` pour les étapes facultatives. |
+| `onStepInvalid` | `(details: StepInvalidDetails) => void` | — | Appelé lorsque `isStepValid` bloque la navigation. |

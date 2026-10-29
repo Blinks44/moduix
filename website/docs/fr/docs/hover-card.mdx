@@ -15,18 +15,7 @@ import AnatomyScene from '@/components/examples/hover-card/anatomy';
 
 ## Utilisation
 
-<UsageCode
-  react={'<HoverCard openDelay={600} closeDelay={300} positioning={{ placement: \'top\' }}>\n  <HoverCardTrigger href="/u/sarah">@sarah_chen</HoverCardTrigger>\n  <HoverCardPositioner>\n    <HoverCardContent>\n      <HoverCardBody>Design lead at Acme</HoverCardBody>\n    </HoverCardContent>\n  </HoverCardPositioner>\n</HoverCard>'}
-  vue={'<HoverCard :open-delay="600" :close-delay="300" :positioning="{ placement: \'top\' }">\n  <HoverCardTrigger href="/u/sarah">@sarah_chen</HoverCardTrigger>\n  <HoverCardPositioner>\n    <HoverCardContent>\n      <HoverCardBody>Design lead at Acme</HoverCardBody>\n    </HoverCardContent>\n  </HoverCardPositioner>\n</HoverCard>'}
-/>
-
-<PropChips
-  items={[
-    ['openDelay / closeDelay', 'Délais de survol en ms, 600 et 300 par défaut.'],
-    ['positioning', 'Placement et décalage de la carte.'],
-    ['disabled', 'Empêche la carte de s’ouvrir.'],
-  ]}
-/>
+<Usage />
 
 Composez la carte à partir des parties Ark explicites. `HoverCardTrigger` ouvre la carte, tandis
 que `HoverCardPositioner` et `HoverCardContent` définissent son contenu flottant. La composition
@@ -188,20 +177,20 @@ expose `--layer-index` et `--nested-layer-count`. `HoverCardArrow` expose `--arr
 
 ## Référence de l’API
 
-| Prop | Type | Défaut |
-| --- | --- | --- |
-| `open` | `boolean` | — |
-| `defaultOpen` | `boolean` | `false` |
-| `onOpenChange` | `(details: OpenChangeDetails) => void` | — |
-| `openDelay` | `number` | `600` |
-| `closeDelay` | `number` | `300` |
-| `positioning` | `PositioningOptions` | — |
-| `disabled` | `boolean` | `false` |
-| `lazyMount` | `boolean` | `true` |
-| `unmountOnExit` | `boolean` | `true` |
-| `triggerValue` | `string \| null` | — |
-| `defaultTriggerValue` | `string \| null` | — |
-| `onTriggerValueChange` | `(details: TriggerValueChangeDetails) => void` | — |
-| `onPointerDownOutside` | `(event: PointerDownOutsideEvent) => void` | — |
-| `onFocusOutside` | `(event: FocusOutsideEvent) => void` | — |
-| `onInteractOutside` | `(event: InteractOutsideEvent) => void` | — |
+| Prop | Type | Défaut | Description |
+| --- | --- | --- | --- |
+| `open` | `boolean` | — | État d’ouverture en mode contrôlé. |
+| `defaultOpen` | `boolean` | `false` | État d’ouverture initial lorsqu’il n’est pas contrôlé. |
+| `onOpenChange` | `(details: OpenChangeDetails) => void` | — | Appelé à l’ouverture et à la fermeture. |
+| `openDelay` | `number` | `600` | Délai avant l’ouverture au survol, en millisecondes. |
+| `closeDelay` | `number` | `300` | Délai avant la fermeture après le départ du pointeur, en millisecondes. |
+| `positioning` | `PositioningOptions` | — | Placement, décalage et autres options de positionnement de la fenêtre. |
+| `disabled` | `boolean` | `false` | Désactive le contrôle. |
+| `lazyMount` | `boolean` | `true` | Monte le contenu à la première ouverture. |
+| `unmountOnExit` | `boolean` | `true` | Démonte le contenu après la fermeture. |
+| `triggerValue` | `string \| null` | — | Déclencheur actif en mode contrôlé lorsque plusieurs déclencheurs partagent la fenêtre. |
+| `defaultTriggerValue` | `string \| null` | — | Déclencheur actif au départ. |
+| `onTriggerValueChange` | `(details: TriggerValueChangeDetails) => void` | — | Appelé lorsqu’un autre déclencheur devient actif. |
+| `onPointerDownOutside` | `(event: PointerDownOutsideEvent) => void` | — | Appelé lors d’un appui du pointeur en dehors de la fenêtre. |
+| `onFocusOutside` | `(event: FocusOutsideEvent) => void` | — | Appelé lorsque le focus quitte la fenêtre. |
+| `onInteractOutside` | `(event: InteractOutsideEvent) => void` | — | Appelé lors de toute interaction en dehors de la fenêtre. |

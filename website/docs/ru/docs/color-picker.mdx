@@ -16,19 +16,7 @@ import * as ColorPickerDocs from '@/components/examples/color-picker/css-propert
 
 ## Использование
 
-<UsageCode
-  react={'<ColorPicker defaultValue={parseColor(\'#eb5e41\')} defaultFormat="hsla" onValueChangeEnd={(details) => save(details.valueAsString)}>\n  <ColorPickerLabel>Brand color</ColorPickerLabel>\n  <ColorPickerControl>\n    <ColorPickerChannelInput channel="hex" />\n    <ColorPickerTrigger aria-label="Open color picker" />\n  </ColorPickerControl>\n  <ColorPickerPositioner>\n    <ColorPickerContent>\n      <ColorPickerArea />\n      <ColorPickerChannelSlider channel="hue" />\n    </ColorPickerContent>\n  </ColorPickerPositioner>\n  <ColorPickerHiddenInput />\n</ColorPicker>'}
-  vue={'<ColorPicker :default-value="parseColor(\'#eb5e41\')" default-format="hsla" @value-change-end="(details) => save(details.valueAsString)">\n  <ColorPickerLabel>Brand color</ColorPickerLabel>\n  <ColorPickerControl>\n    <ColorPickerChannelInput channel="hex" />\n    <ColorPickerTrigger aria-label="Open color picker" />\n  </ColorPickerControl>\n  <ColorPickerPositioner>\n    <ColorPickerContent>\n      <ColorPickerArea />\n      <ColorPickerChannelSlider channel="hue" />\n    </ColorPickerContent>\n  </ColorPickerPositioner>\n  <ColorPickerHiddenInput />\n</ColorPicker>'}
-/>
-
-<PropChips
-  items={[
-    ['defaultValue', 'Начальный цвет из parseColor(); для управления используйте value.'],
-    ['defaultFormat', 'rgba, hsla или hsba для полей каналов.'],
-    ['inline', 'Показывает палитру на странице без всплывающего окна.'],
-    ['onValueChangeEnd', 'Вызывается, когда пользователь закончил перетаскивание.'],
-  ]}
-/>
+<Usage />
 
 Начните с компактного поля: добавьте корневой компонент, поле одного канала, стандартный цветовой образец в кнопке
 открытия и явное содержимое всплывающего окна. Внутренние части селектора можно оставить без дочерних элементов,
@@ -273,30 +261,30 @@ ColorPicker через этот путь композиции не пробра�
 
 ## Справочник API
 
-| Проп | Тип | По умолчанию |
-| --- | --- | --- |
-| `value` | `Color` | — |
-| `defaultValue` | `Color` | `#000000` |
-| `onValueChange` | `(details: ValueChangeDetails) => void` | — |
-| `onValueChangeEnd` | `(details: ValueChangeDetails) => void` | — |
-| `format` | `'rgba' \| 'hsla' \| 'hsba'` | — |
-| `defaultFormat` | `'rgba' \| 'hsla' \| 'hsba'` | `'rgba'` |
-| `open` | `boolean` | — |
-| `defaultOpen` | `boolean` | `false` |
-| `onOpenChange` | `(details: OpenChangeDetails) => void` | — |
-| `inline` | `boolean` | `false` |
-| `closeOnSelect` | `boolean` | `false` |
-| `positioning` | `PositioningOptions` | — |
-| `name` | `string` | — |
-| `disabled` | `boolean` | `false` |
-| `readOnly` | `boolean` | `false` |
-| `invalid` | `boolean` | `false` |
-| `required` | `boolean` | `false` |
-| `lazyMount` | `boolean` | `true` |
-| `unmountOnExit` | `boolean` | `true` |
-| `initialFocusEl` | `() => HTMLElement \| null \| false` | — |
-| `onFormatChange` | `(details: FormatChangeDetails) => void` | — |
-| `openAutoFocus` | `boolean` | `true` |
-| `onPointerDownOutside` | `(event: PointerDownOutsideEvent) => void` | — |
-| `onFocusOutside` | `(event: FocusOutsideEvent) => void` | — |
-| `onInteractOutside` | `(event: InteractOutsideEvent) => void` | — |
+| Проп | Тип | По умолчанию | Описание |
+| --- | --- | --- | --- |
+| `value` | `Color` | — | Цвет в управляемом режиме; создайте его через `parseColor()`. |
+| `defaultValue` | `Color` | `#000000` | Начальный цвет, если он не управляется извне. |
+| `onValueChange` | `(details: ValueChangeDetails) => void` | — | Вызывается при изменении цвета, в том числе во время перетаскивания. |
+| `onValueChangeEnd` | `(details: ValueChangeDetails) => void` | — | Вызывается, когда пользователь отпускает ползунок. |
+| `format` | `'rgba' \| 'hsla' \| 'hsba'` | — | Формат цвета в управляемом режиме: `rgba`, `hsla` или `hsba`. |
+| `defaultFormat` | `'rgba' \| 'hsla' \| 'hsba'` | `'rgba'` | Начальный формат цвета. |
+| `open` | `boolean` | — | Состояние открытия в управляемом режиме. |
+| `defaultOpen` | `boolean` | `false` | Начальное состояние открытия, если оно не управляется извне. |
+| `onOpenChange` | `(details: OpenChangeDetails) => void` | — | Вызывается при открытии и закрытии. |
+| `inline` | `boolean` | `false` | Показывает палитру на месте, без всплывающего окна. |
+| `closeOnSelect` | `boolean` | `false` | Закрывает окно при выборе образца. |
+| `positioning` | `PositioningOptions` | — | Расположение, отступ и другие настройки позиции всплывающего окна. |
+| `name` | `string` | — | Имя поля формы у внутреннего input. |
+| `disabled` | `boolean` | `false` | Отключает элемент управления. |
+| `readOnly` | `boolean` | `false` | Показывает значение, но не даёт его менять. |
+| `invalid` | `boolean` | `false` | Помечает поле как невалидное. |
+| `required` | `boolean` | `false` | Требует значение перед отправкой формы. |
+| `lazyMount` | `boolean` | `true` | Монтирует содержимое при первом открытии. |
+| `unmountOnExit` | `boolean` | `true` | Удаляет содержимое после закрытия. |
+| `initialFocusEl` | `() => HTMLElement \| null \| false` | — | Элемент, который получает фокус при открытии. |
+| `onFormatChange` | `(details: FormatChangeDetails) => void` | — | Вызывается при смене формата цвета. |
+| `openAutoFocus` | `boolean` | `true` | Переводит фокус в окно при открытии. |
+| `onPointerDownOutside` | `(event: PointerDownOutsideEvent) => void` | — | Вызывается при нажатии указателя вне всплывающего окна. |
+| `onFocusOutside` | `(event: FocusOutsideEvent) => void` | — | Вызывается, когда фокус уходит из всплывающего окна. |
+| `onInteractOutside` | `(event: InteractOutsideEvent) => void` | — | Вызывается при любом взаимодействии вне всплывающего окна. |

@@ -15,19 +15,7 @@ import AnatomyScene from '@/components/examples/tour/basic';
 
 ## Utilisation
 
-<UsageCode
-  react={'const tour = useTour({\n  steps: [\n    {\n      id: \'upload\',\n      type: \'tooltip\',\n      title: \'Upload files\',\n      target: () => document.querySelector(\'#upload\'),\n      actions: [{ label: \'Next\', action: \'next\' }],\n    },\n  ],\n});\n\n<Tour tour={tour}>\n  <TourBackdrop />\n  <TourSpotlight />\n  <TourPositioner>\n    <TourContent>\n      <TourTitle />\n      <TourDescription />\n      <TourActionList />\n    </TourContent>\n  </TourPositioner>\n</Tour>'}
-  vue={'const tour = useTour({\n  steps: [\n    {\n      id: \'upload\',\n      type: \'tooltip\',\n      title: \'Upload files\',\n      target: () => document.querySelector(\'#upload\'),\n      actions: [{ label: \'Next\', action: \'next\' }],\n    },\n  ],\n});\n\n<Tour :tour="tour">\n  <TourBackdrop />\n  <TourSpotlight />\n  <TourPositioner>\n    <TourContent>\n      <TourTitle />\n      <TourDescription />\n      <TourActionList />\n    </TourContent>\n  </TourPositioner>\n</Tour>'}
-/>
-
-<PropChips
-  items={[
-    ['steps', 'Chaque étape a un id, un type, un texte et des actions.'],
-    ['type', 'dialog, tooltip, floating ou wait pour attendre une action.'],
-    ['target', 'Renvoie l’élément visé par une étape tooltip.'],
-    ['tour.start()', 'Lance la visite depuis la première étape.'],
-  ]}
-/>
+<Usage />
 
 Créez l’état du tour avec `useTour`, définissez les étapes, puis transmettez l’objet renvoyé à `Tour`. L’exemple
 commence par une boîte de dialogue, passe à une infobulle ancrée à un contrôle de la page, puis se termine par une
@@ -156,20 +144,20 @@ aussi `data-scope="tour"`, `data-part`, `data-state`, `data-type`, `data-placeme
 
 Options de `useTour()`. Passez l’objet renvoyé à `Tour` via `tour`.
 
-| Prop | Type | Défaut |
-| --- | --- | --- |
-| `steps` | `TourStepDetails[]` | — |
-| `stepId` | `string \| null` | — |
-| `onStepChange` | `(details: StepChangeDetails) => void` | — |
-| `onStatusChange` | `(details: StatusChangeDetails) => void` | — |
-| `keyboardNavigation` | `boolean` | `true` |
-| `closeOnEscape` | `boolean` | `true` |
-| `closeOnInteractOutside` | `boolean` | `true` |
-| `preventInteraction` | `boolean` | `false` |
-| `spotlightOffset` | `{ x: number; y: number }` | `{ x: 10, y: 10 }` |
-| `spotlightRadius` | `number` | `4` |
-| `onStepsChange` | `(details: StepsChangeDetails) => void` | — |
-| `translations` | `IntlTranslations` | — |
-| `onPointerDownOutside` | `(event: PointerDownOutsideEvent) => void` | — |
-| `onFocusOutside` | `(event: FocusOutsideEvent) => void` | — |
-| `onInteractOutside` | `(event: InteractOutsideEvent) => void` | — |
+| Prop | Type | Défaut | Description |
+| --- | --- | --- | --- |
+| `steps` | `TourStepDetails[]` | — | Étapes de la visite : cible, titre et actions. |
+| `stepId` | `string \| null` | — | Id de l’étape courante en mode contrôlé. |
+| `onStepChange` | `(details: StepChangeDetails) => void` | — | Appelé lorsque l’étape change. |
+| `onStatusChange` | `(details: StatusChangeDetails) => void` | — | Appelé au démarrage, à l’arrêt et à la fin de la visite. |
+| `keyboardNavigation` | `boolean` | `true` | Les flèches gauche et droite changent d’étape. |
+| `closeOnEscape` | `boolean` | `true` | Se ferme avec Échap. |
+| `closeOnInteractOutside` | `boolean` | `true` | Se ferme au clic à l’extérieur. |
+| `preventInteraction` | `boolean` | `false` | Bloque la page pendant la visite. |
+| `spotlightOffset` | `{ x: number; y: number }` | `{ x: 10, y: 10 }` | Marge autour de l’élément mis en évidence, en pixels. |
+| `spotlightRadius` | `number` | `4` | Rayon des coins de la mise en évidence, en pixels. |
+| `onStepsChange` | `(details: StepsChangeDetails) => void` | — | Appelé lorsque des étapes sont ajoutées ou supprimées. |
+| `translations` | `IntlTranslations` | — | Textes localisés des libellés d’accessibilité. |
+| `onPointerDownOutside` | `(event: PointerDownOutsideEvent) => void` | — | Appelé lors d’un appui du pointeur en dehors de la fenêtre. |
+| `onFocusOutside` | `(event: FocusOutsideEvent) => void` | — | Appelé lorsque le focus quitte la fenêtre. |
+| `onInteractOutside` | `(event: InteractOutsideEvent) => void` | — | Appelé lors de toute interaction en dehors de la fenêtre. |

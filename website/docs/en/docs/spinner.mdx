@@ -16,18 +16,7 @@ import * as SpinnerDocs from '@/components/examples/spinner/css-properties';
 
 ## Usage
 
-<UsageCode
-  react={'<Spinner size="sm" aria-label="Saving changes" />'}
-  vue={'<Spinner size="sm" aria-label="Saving changes" />'}
-/>
-
-<PropChips
-  items={[
-    ['size', 'xs to xl, or inherit to follow the font size.'],
-    ['aria-label', 'Names the wait; defaults to the English “Loading”.'],
-    ['decorative', 'Hides the spinner when nearby text already says it.'],
-  ]}
-/>
+<Usage />
 
 Use `Spinner` for short-lived loading states in buttons, inline status rows, and compact empty
 states. By default, it exposes the loading status to assistive technology with `role="status"` and
@@ -142,9 +131,9 @@ Hover or focus a variable to see it in the preview.
 
 ## API reference
 
-| Prop | Type | Default |
-| --- | --- | --- |
-| `size` | `'inherit' \| 'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'` | `'md'` |
-| `decorative` | `boolean` | `false` |
-| `aria-label` | `string` | `'Loading'` |
-| `asChild` | `boolean` | `false` |
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `size` | `'inherit' \| 'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'` | `'md'` | Spinner size, `xs` to `xl`, or `inherit` to follow the font size. |
+| `decorative` | `boolean` | `false` | Hides the spinner from assistive technology when nearby text already says it is loading. |
+| `aria-label` | `string` | `'Loading'` | Accessible name of the status. |
+| `asChild` | `boolean` | `false` | Renders the root as its single child, which then draws the indicator. |

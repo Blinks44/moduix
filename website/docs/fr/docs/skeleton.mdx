@@ -16,18 +16,7 @@ import * as SkeletonDocs from '@/components/examples/skeleton/css-properties';
 
 ## Utilisation
 
-<UsageCode
-  react={'<Skeleton loading={isLoading} width="60%" height={16} borderRadius={4}>\n  <p>{title}</p>\n</Skeleton>'}
-  vue={'<Skeleton :loading="isLoading" width="60%" :height="16" :border-radius="4">\n  <p>{{ title }}</p>\n</Skeleton>'}
-/>
-
-<PropChips
-  items={[
-    ['loading', 'Affiche l’espace réservé ; false révèle le contenu.'],
-    ['width / height', 'Taille ; les nombres deviennent des px. boxSize règle les deux.'],
-    ['variant', 'pulse anime la surface, none la garde fixe.'],
-  ]}
-/>
+<Usage />
 
 Utilisez `Skeleton` pour les lignes de texte, les cartes, les avatars et les espaces réservés aux médias. La
 mise en page environnante gère les espacements et la composition responsive. Consultez le [guide de démarrage](/docs/quick-start)
@@ -125,12 +114,12 @@ Survolez ou sélectionnez une variable pour la voir dans l’aperçu.
 
 ## Référence de l’API
 
-| Prop | Type | Défaut |
-| --- | --- | --- |
-| `loading` | `boolean` | `true` |
-| `variant` | `'pulse' \| 'none'` | `'pulse'` |
-| `width` | `number \| string` | — |
-| `height` | `number \| string` | — |
-| `boxSize` | `number \| string` | — |
-| `borderRadius` | `number \| string` | — |
-| `asChild` | `boolean` | `false` |
+| Prop | Type | Défaut | Description |
+| --- | --- | --- | --- |
+| `loading` | `boolean` | `true` | Affiche le substitut ; `false` révèle les enfants. |
+| `variant` | `'pulse' \| 'none'` | `'pulse'` | Animation : `pulse` ou `none`. |
+| `width` | `number \| string` | — | Largeur du substitut ; les nombres sont en pixels. |
+| `height` | `number \| string` | — | Hauteur du substitut ; les nombres sont en pixels. |
+| `boxSize` | `number \| string` | — | Définit la largeur et la hauteur ensemble. |
+| `borderRadius` | `number \| string` | — | Rayon des coins, par exemple pour un avatar rond. |
+| `asChild` | `boolean` | `false` | Rend le substitut avec son unique élément enfant. |

@@ -19,19 +19,7 @@ the Unsplash image.
 
 ## Usage
 
-<UsageCode
-  react={'<ImageCropper aspectRatio={1} cropShape="circle" onCropChange={(details) => setCrop(details.crop)}>\n  <ImageCropperViewport>\n    <ImageCropperImage src={photo} alt="Profile photo" crossOrigin="anonymous" />\n    <ImageCropperCropArea />\n  </ImageCropperViewport>\n</ImageCropper>'}
-  vue={'<ImageCropper :aspect-ratio="1" crop-shape="circle" @crop-change="(details) => (crop = details.crop)">\n  <ImageCropperViewport>\n    <ImageCropperImage :src="photo" alt="Profile photo" cross-origin="anonymous" />\n    <ImageCropperCropArea />\n  </ImageCropperViewport>\n</ImageCropper>'}
-/>
-
-<PropChips
-  items={[
-    ['aspectRatio', 'Locks the crop to a width-to-height ratio.'],
-    ['cropShape', 'rectangle or circle.'],
-    ['onCropChange', 'Reports the crop rectangle as it changes.'],
-    ['minZoom / maxZoom', 'Zoom range, 1 to 5 by default.'],
-  ]}
-/>
+<Usage />
 
 Use `ImageCropper` with `ImageCropperViewport`, `ImageCropperImage`, and `ImageCropperCropArea`.
 Pass the image URL to `ImageCropperImage`. `ImageCropperCropArea` adds the selection, grid lines,
@@ -204,31 +192,31 @@ runtime values for synchronizing custom UI. Do not override them.
 
 ## API reference
 
-| Prop | Type | Default |
-| --- | --- | --- |
-| `aspectRatio` | `number` | — |
-| `cropShape` | `'rectangle' \| 'circle'` | `'rectangle'` |
-| `initialCrop` | `Rect` | — |
-| `fixedCropArea` | `boolean` | `false` |
-| `minWidth` | `number` | `40` |
-| `minHeight` | `number` | `40` |
-| `maxWidth` | `number` | `Infinity` |
-| `maxHeight` | `number` | `Infinity` |
-| `zoom` | `number` | — |
-| `defaultZoom` | `number` | `1` |
-| `minZoom` | `number` | `1` |
-| `maxZoom` | `number` | `5` |
-| `zoomStep` | `number` | `0.1` |
-| `rotation` | `number` | — |
-| `defaultRotation` | `number` | `0` |
-| `flip` | `{ horizontal: boolean; vertical: boolean }` | — |
-| `onCropChange` | `(details: CropChangeDetails) => void` | — |
-| `onZoomChange` | `(details: ZoomChangeDetails) => void` | — |
-| `onRotationChange` | `(details: RotationChangeDetails) => void` | — |
-| `translations` | `IntlTranslations` | — |
-| `defaultFlip` | `FlipState` | `{ horizontal: false, vertical: false }` |
-| `zoomSensitivity` | `number` | `2` |
-| `nudgeStep` | `number` | `1` |
-| `nudgeStepShift` | `number` | `10` |
-| `nudgeStepCtrl` | `number` | `50` |
-| `onFlipChange` | `(details: FlipChangeDetails) => void` | — |
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `aspectRatio` | `number` | — | Locks the crop to a width-to-height ratio. |
+| `cropShape` | `'rectangle' \| 'circle'` | `'rectangle'` | Crop area shape: `rectangle` or `circle`. |
+| `initialCrop` | `Rect` | — | Initial crop rectangle. |
+| `fixedCropArea` | `boolean` | `false` | Keeps the crop area fixed; the image pans and zooms under it. |
+| `minWidth` | `number` | `40` | Minimum crop width in pixels. |
+| `minHeight` | `number` | `40` | Minimum crop height in pixels. |
+| `maxWidth` | `number` | `Infinity` | Maximum crop width in pixels. |
+| `maxHeight` | `number` | `Infinity` | Maximum crop height in pixels. |
+| `zoom` | `number` | — | Zoom level for controlled use. |
+| `defaultZoom` | `number` | `1` | Initial zoom when it is not controlled. |
+| `minZoom` | `number` | `1` | Smallest allowed zoom. |
+| `maxZoom` | `number` | `5` | Largest allowed zoom. |
+| `zoomStep` | `number` | `0.1` | Zoom change per wheel step. |
+| `rotation` | `number` | — | Rotation in degrees for controlled use. |
+| `defaultRotation` | `number` | `0` | Initial rotation in degrees. |
+| `flip` | `{ horizontal: boolean; vertical: boolean }` | — | Horizontal and vertical flip for controlled use. |
+| `onCropChange` | `(details: CropChangeDetails) => void` | — | Called with the crop rectangle as it changes. |
+| `onZoomChange` | `(details: ZoomChangeDetails) => void` | — | Called when the zoom changes. |
+| `onRotationChange` | `(details: RotationChangeDetails) => void` | — | Called when the rotation changes. |
+| `translations` | `IntlTranslations` | — | Localized strings for accessibility labels. |
+| `defaultFlip` | `FlipState` | `{ horizontal: false, vertical: false }` | Initial flip state. |
+| `zoomSensitivity` | `number` | `2` | How strongly pinch gestures zoom. |
+| `nudgeStep` | `number` | `1` | Arrow-key move step in pixels. |
+| `nudgeStepShift` | `number` | `10` | Arrow-key step with Shift held, in pixels. |
+| `nudgeStepCtrl` | `number` | `50` | Arrow-key step with Ctrl or Cmd held, in pixels. |
+| `onFlipChange` | `(details: FlipChangeDetails) => void` | — | Called when the flip state changes. |

@@ -15,18 +15,7 @@ import AnatomyScene from '@/components/examples/timer/basic';
 
 ## Использование
 
-<UsageCode
-  react={'<Timer countdown startMs={5 * 60 * 1000} autoStart onComplete={notify}>\n  <TimerSegments types={[\'minutes\', \'seconds\']} />\n  <TimerControl>\n    <TimerActionTrigger action="pause">Pause</TimerActionTrigger>\n    <TimerActionTrigger action="resume">Resume</TimerActionTrigger>\n    <TimerActionTrigger action="reset">Reset</TimerActionTrigger>\n  </TimerControl>\n</Timer>'}
-  vue={'<Timer countdown :start-ms="5 * 60 * 1000" auto-start @complete="notify">\n  <TimerSegments :types="[\'minutes\', \'seconds\']" />\n  <TimerControl>\n    <TimerActionTrigger action="pause">Pause</TimerActionTrigger>\n    <TimerActionTrigger action="resume">Resume</TimerActionTrigger>\n    <TimerActionTrigger action="reset">Reset</TimerActionTrigger>\n  </TimerControl>\n</Timer>'}
-/>
-
-<PropChips
-  items={[
-    ['countdown', 'Считает вниз от startMs, а не вверх.'],
-    ['startMs / targetMs', 'Время старта и время остановки в мс.'],
-    ['types', 'На TimerSegments: какие единицы показывать, например минуты и секунды.'],
-  ]}
-/>
+<Usage />
 
 `TimerSegments` проще всего использовать для классического отображения времени с разделителями `:`. По умолчанию
 компонент показывает часы, минуты и секунды. Передайте `types`, чтобы выбрать другой набор единиц. Если нужны
@@ -138,13 +127,13 @@ import AnatomyScene from '@/components/examples/timer/basic';
 
 ## Справочник API
 
-| Проп | Тип | По умолчанию |
-| --- | --- | --- |
-| `countdown` | `boolean` | `false` |
-| `startMs` | `number` | — |
-| `targetMs` | `number` | — |
-| `autoStart` | `boolean` | `false` |
-| `interval` | `number` | `1000` |
-| `onTick` | `(details: TickDetails) => void` | — |
-| `onComplete` | `() => void` | — |
-| `translations` | `IntlTranslations` | — |
+| Проп | Тип | По умолчанию | Описание |
+| --- | --- | --- | --- |
+| `countdown` | `boolean` | `false` | Считает вниз, а не вверх. |
+| `startMs` | `number` | — | Начальное время в миллисекундах. |
+| `targetMs` | `number` | — | Время, на котором таймер завершается, в миллисекундах. |
+| `autoStart` | `boolean` | `false` | Запускает таймер при монтировании. |
+| `interval` | `number` | `1000` | Интервал обновления в миллисекундах. |
+| `onTick` | `(details: TickDetails) => void` | — | Вызывается при каждом обновлении. |
+| `onComplete` | `() => void` | — | Вызывается, когда таймер доходит до `targetMs`. |
+| `translations` | `IntlTranslations` | — | Переведённые строки для подписей доступности. |

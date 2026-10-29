@@ -16,18 +16,7 @@ import * as AccordionDocs from '@/components/examples/accordion/css-properties';
 
 ## Utilisation
 
-<UsageCode
-  react={'<Accordion defaultValue={[\'billing\']} multiple collapsible>\n  <AccordionItem value="billing">\n    <h3>\n      <AccordionItemTrigger>\n        Billing\n        <AccordionItemIndicator />\n      </AccordionItemTrigger>\n    </h3>\n    <AccordionItemContent>\n      <AccordionItemBody>Invoices and payment methods.</AccordionItemBody>\n    </AccordionItemContent>\n  </AccordionItem>\n</Accordion>'}
-  vue={'<Accordion :default-value="[\'billing\']" multiple collapsible>\n  <AccordionItem value="billing">\n    <h3>\n      <AccordionItemTrigger>\n        Billing\n        <AccordionItemIndicator />\n      </AccordionItemTrigger>\n    </h3>\n    <AccordionItemContent>\n      <AccordionItemBody>Invoices and payment methods.</AccordionItemBody>\n    </AccordionItemContent>\n  </AccordionItem>\n</Accordion>'}
-/>
-
-<PropChips
-  items={[
-    ['defaultValue', 'Éléments ouverts au départ, tableau de valeurs.'],
-    ['multiple', 'Permet d’ouvrir plusieurs éléments à la fois.'],
-    ['collapsible', 'Permet de refermer le seul élément ouvert.'],
-  ]}
-/>
+<Usage />
 
 Utilisez `Accordion` comme racine et attribuez un identifiant `value` stable à chaque élément.
 Placez le libellé interactif dans le déclencheur, le panneau dans la partie de contenu, puis son
@@ -185,15 +174,15 @@ Survolez ou sélectionnez une variable pour la voir dans l’aperçu.
 
 ## Référence de l’API
 
-| Prop | Type | Défaut |
-| --- | --- | --- |
-| `value` | `string[]` | — |
-| `defaultValue` | `string[]` | — |
-| `onValueChange` | `(details: ValueChangeDetails) => void` | — |
-| `multiple` | `boolean` | `false` |
-| `collapsible` | `boolean` | `false` |
-| `disabled` | `boolean` | `false` |
-| `orientation` | `'horizontal' \| 'vertical'` | `'vertical'` |
-| `lazyMount` | `boolean` | `false` |
-| `unmountOnExit` | `boolean` | `false` |
-| `onFocusChange` | `(details: FocusChangeDetails) => void` | — |
+| Prop | Type | Défaut | Description |
+| --- | --- | --- | --- |
+| `value` | `string[]` | — | Éléments dépliés en mode contrôlé. |
+| `defaultValue` | `string[]` | — | Éléments dépliés au départ. |
+| `onValueChange` | `(details: ValueChangeDetails) => void` | — | Appelé lorsque des éléments se déplient ou se replient. |
+| `multiple` | `boolean` | `false` | Permet de garder plusieurs éléments ouverts. |
+| `collapsible` | `boolean` | `false` | Permet de refermer l’élément ouvert en mode simple. |
+| `disabled` | `boolean` | `false` | Désactive le contrôle. |
+| `orientation` | `'horizontal' \| 'vertical'` | `'vertical'` | Sens des flèches : `vertical` ou `horizontal`. |
+| `lazyMount` | `boolean` | `false` | Monte le contenu à la première ouverture. |
+| `unmountOnExit` | `boolean` | `false` | Démonte le contenu après la fermeture. |
+| `onFocusChange` | `(details: FocusChangeDetails) => void` | — | Appelé lorsque le focus passe à un autre déclencheur. |

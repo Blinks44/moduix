@@ -16,19 +16,7 @@ import * as ListboxDocs from '@/components/examples/listbox/css-properties';
 
 ## Usage
 
-<UsageCode
-  react={'const collection = createListCollection({ items: countries });\n\n<Listbox collection={collection} selectionMode="multiple" onValueChange={(details) => setValue(details.value)}>\n  <ListboxLabel>Countries</ListboxLabel>\n  <ListboxContent>\n    {collection.items.map((item) => (\n      <ListboxItem key={item.value} item={item}>\n        <ListboxItemText>{item.label}</ListboxItemText>\n        <ListboxItemIndicator />\n      </ListboxItem>\n    ))}\n  </ListboxContent>\n</Listbox>'}
-  solid={'const collection = createListCollection({ items: countries });\n\n<Listbox collection={collection} selectionMode="multiple" onValueChange={(details) => setValue(details.value)}>\n  <ListboxLabel>Countries</ListboxLabel>\n  <ListboxContent>\n    <For each={collection.items}>\n      {(item) => (\n        <ListboxItem item={item}>\n          <ListboxItemText>{item.label}</ListboxItemText>\n          <ListboxItemIndicator />\n        </ListboxItem>\n      )}\n    </For>\n  </ListboxContent>\n</Listbox>'}
-  vue={'const collection = createListCollection({ items: countries });\n\n<Listbox v-model="value" :collection="collection" selection-mode="multiple">\n  <ListboxLabel>Countries</ListboxLabel>\n  <ListboxContent>\n    <ListboxItem v-for="item in collection.items" :key="item.value" :item="item">\n      <ListboxItemText>{{ item.label }}</ListboxItemText>\n      <ListboxItemIndicator />\n    </ListboxItem>\n  </ListboxContent>\n</Listbox>'}
-/>
-
-<PropChips
-  items={[
-    ['collection', 'Items from createListCollection().'],
-    ['selectionMode', 'single, multiple, or extended with Shift and Ctrl.'],
-    ['orientation', 'vertical or horizontal list.'],
-  ]}
-/>
+<Usage />
 
 Pass a `collection`, render `ListboxContent`, and pass each collection item to `ListboxItem`
 through `item`. Add `ListboxItemIndicator` when rows should show the selected state.
@@ -217,22 +205,22 @@ Hover or focus a variable to see it in the preview.
 
 ## API reference
 
-| Prop | Type | Default |
-| --- | --- | --- |
-| `collection` | `ListCollection<T> \| GridCollection<T>` | — |
-| `value` | `string[]` | — |
-| `defaultValue` | `string[]` | `[]` |
-| `onValueChange` | `(details: ValueChangeDetails) => void` | — |
-| `selectionMode` | `'single' \| 'multiple' \| 'extended'` | `'single'` |
-| `orientation` | `'horizontal' \| 'vertical'` | `'vertical'` |
-| `loopFocus` | `boolean` | `false` |
-| `selectOnHighlight` | `boolean` | `false` |
-| `deselectable` | `boolean` | `false` |
-| `typeahead` | `boolean` | `true` |
-| `disallowSelectAll` | `boolean` | `false` |
-| `onSelect` | `(details: SelectionDetails) => void` | — |
-| `disabled` | `boolean` | `false` |
-| `onHighlightChange` | `(details: HighlightChangeDetails<T>) => void` | — |
-| `highlightedValue` | `string \| null` | — |
-| `defaultHighlightedValue` | `string \| null` | — |
-| `scrollToIndexFn` | `(details: ScrollToIndexDetails) => void` | — |
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `collection` | `ListCollection<T> \| GridCollection<T>` | — | Items from `createListCollection()` or `createGridCollection()`. |
+| `value` | `string[]` | — | Selected values for controlled use. |
+| `defaultValue` | `string[]` | `[]` | Initial selected values. |
+| `onValueChange` | `(details: ValueChangeDetails) => void` | — | Called when the selection changes. |
+| `selectionMode` | `'single' \| 'multiple' \| 'extended'` | `'single'` | `single`, `multiple` by click, or `extended` with Shift and Ctrl. |
+| `orientation` | `'horizontal' \| 'vertical'` | `'vertical'` | Layout and arrow-key direction: `horizontal` or `vertical`. |
+| `loopFocus` | `boolean` | `false` | Keyboard navigation wraps from the last item to the first. |
+| `selectOnHighlight` | `boolean` | `false` | Selects an item as soon as it is highlighted. |
+| `deselectable` | `boolean` | `false` | Clicking the selected item clears it. |
+| `typeahead` | `boolean` | `true` | Typing letters highlights a matching item. |
+| `disallowSelectAll` | `boolean` | `false` | Turns off select-all with Ctrl or Cmd + A. |
+| `onSelect` | `(details: SelectionDetails) => void` | — | Called when an item is selected. |
+| `disabled` | `boolean` | `false` | Disables the listbox. |
+| `onHighlightChange` | `(details: HighlightChangeDetails<T>) => void` | — | Called when the highlighted item changes. |
+| `highlightedValue` | `string \| null` | — | Highlighted item for controlled use. |
+| `defaultHighlightedValue` | `string \| null` | — | Item highlighted initially. |
+| `scrollToIndexFn` | `(details: ScrollToIndexDetails) => void` | — | Scrolls a virtualized list to an item index. |

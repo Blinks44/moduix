@@ -15,18 +15,7 @@ import AnatomyScene from '@/components/examples/hover-card/anatomy';
 
 ## Usage
 
-<UsageCode
-  react={'<HoverCard openDelay={600} closeDelay={300} positioning={{ placement: \'top\' }}>\n  <HoverCardTrigger href="/u/sarah">@sarah_chen</HoverCardTrigger>\n  <HoverCardPositioner>\n    <HoverCardContent>\n      <HoverCardBody>Design lead at Acme</HoverCardBody>\n    </HoverCardContent>\n  </HoverCardPositioner>\n</HoverCard>'}
-  vue={'<HoverCard :open-delay="600" :close-delay="300" :positioning="{ placement: \'top\' }">\n  <HoverCardTrigger href="/u/sarah">@sarah_chen</HoverCardTrigger>\n  <HoverCardPositioner>\n    <HoverCardContent>\n      <HoverCardBody>Design lead at Acme</HoverCardBody>\n    </HoverCardContent>\n  </HoverCardPositioner>\n</HoverCard>'}
-/>
-
-<PropChips
-  items={[
-    ['openDelay / closeDelay', 'Hover delays in ms, 600 and 300 by default.'],
-    ['positioning', 'Placement and offset of the card.'],
-    ['disabled', 'Stops the card from opening.'],
-  ]}
-/>
+<Usage />
 
 Compose the card from explicit Ark parts. `HoverCardTrigger` opens the card, while
 `HoverCardPositioner` and `HoverCardContent` define its floating content. The basic composition
@@ -181,20 +170,20 @@ exposes `--layer-index` and `--nested-layer-count`. `HoverCardArrow` exposes `--
 
 ## API reference
 
-| Prop | Type | Default |
-| --- | --- | --- |
-| `open` | `boolean` | — |
-| `defaultOpen` | `boolean` | `false` |
-| `onOpenChange` | `(details: OpenChangeDetails) => void` | — |
-| `openDelay` | `number` | `600` |
-| `closeDelay` | `number` | `300` |
-| `positioning` | `PositioningOptions` | — |
-| `disabled` | `boolean` | `false` |
-| `lazyMount` | `boolean` | `true` |
-| `unmountOnExit` | `boolean` | `true` |
-| `triggerValue` | `string \| null` | — |
-| `defaultTriggerValue` | `string \| null` | — |
-| `onTriggerValueChange` | `(details: TriggerValueChangeDetails) => void` | — |
-| `onPointerDownOutside` | `(event: PointerDownOutsideEvent) => void` | — |
-| `onFocusOutside` | `(event: FocusOutsideEvent) => void` | — |
-| `onInteractOutside` | `(event: InteractOutsideEvent) => void` | — |
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `open` | `boolean` | — | Open state for controlled use. |
+| `defaultOpen` | `boolean` | `false` | Initial open state when it is not controlled. |
+| `onOpenChange` | `(details: OpenChangeDetails) => void` | — | Called when it opens or closes. |
+| `openDelay` | `number` | `600` | Hover delay before opening, in milliseconds. |
+| `closeDelay` | `number` | `300` | Delay before closing after the pointer leaves, in milliseconds. |
+| `positioning` | `PositioningOptions` | — | Placement, offset, and other popup positioning options. |
+| `disabled` | `boolean` | `false` | Disables the control. |
+| `lazyMount` | `boolean` | `true` | Mounts the content on first open. |
+| `unmountOnExit` | `boolean` | `true` | Unmounts the content after it closes. |
+| `triggerValue` | `string \| null` | — | Active trigger for controlled use when several triggers share one popup. |
+| `defaultTriggerValue` | `string \| null` | — | Initially active trigger. |
+| `onTriggerValueChange` | `(details: TriggerValueChangeDetails) => void` | — | Called when another trigger becomes active. |
+| `onPointerDownOutside` | `(event: PointerDownOutsideEvent) => void` | — | Called when the pointer is pressed outside the popup. |
+| `onFocusOutside` | `(event: FocusOutsideEvent) => void` | — | Called when focus moves outside the popup. |
+| `onInteractOutside` | `(event: InteractOutsideEvent) => void` | — | Called on any interaction outside the popup. |

@@ -16,18 +16,7 @@ import * as SeparatorDocs from '@/components/examples/separator/css-properties';
 
 ## Utilisation
 
-<UsageCode
-  react={'<Separator orientation="vertical" variant="dashed" size="md" />'}
-  vue={'<Separator orientation="vertical" variant="dashed" size="md" />'}
-/>
-
-<PropChips
-  items={[
-    ['orientation', 'horizontal ou vertical.'],
-    ['variant', 'solid, dashed ou dotted.'],
-    ['size', 'Épaisseur de la ligne de xs à lg.'],
-  ]}
-/>
+<Usage />
 
 Utilisez `Separator` pour marquer visuellement la limite entre des sections liées. Par défaut, le
 composant utilise `orientation="horizontal"`, `variant="solid"` et `size="sm"`.
@@ -123,8 +112,8 @@ Survolez ou sélectionnez une variable pour la voir dans l’aperçu.
 
 Accepte aussi les props natives de son élément et `asChild`.
 
-| Prop | Type | Défaut |
-| --- | --- | --- |
-| `orientation` | `'horizontal' \| 'vertical'` | `'horizontal'` |
-| `variant` | `'solid' \| 'dashed' \| 'dotted'` | `'solid'` |
-| `size` | `'xs' \| 'sm' \| 'md' \| 'lg'` | `'sm'` |
+| Prop | Type | Défaut | Description |
+| --- | --- | --- | --- |
+| `orientation` | `'horizontal' \| 'vertical'` | `'horizontal'` | Orientation de la ligne : `horizontal` ou `vertical`. |
+| `variant` | `'solid' \| 'dashed' \| 'dotted'` | `'solid'` | Style de ligne : `solid`, `dashed` ou `dotted`. |
+| `size` | `'xs' \| 'sm' \| 'md' \| 'lg'` | `'sm'` | Épaisseur de la ligne, de `xs` à `lg`. |

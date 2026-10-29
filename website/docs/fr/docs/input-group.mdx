@@ -16,18 +16,7 @@ import * as InputGroupDocs from '@/components/examples/input-group/css-propertie
 
 ## Utilisation
 
-<UsageCode
-  react={'<InputGroup size="md">\n  <InputGroupAddon>https://</InputGroupAddon>\n  <InputGroupInput name="domain" placeholder="example.com" />\n  <InputGroupAddon>\n    <InputGroupButton aria-label="Copy">\n      <CopyIcon />\n    </InputGroupButton>\n  </InputGroupAddon>\n</InputGroup>'}
-  vue={'<InputGroup size="md">\n  <InputGroupAddon>https://</InputGroupAddon>\n  <InputGroupInput name="domain" placeholder="example.com" />\n  <InputGroupAddon>\n    <InputGroupButton aria-label="Copy">\n      <CopyIcon />\n    </InputGroupButton>\n  </InputGroupAddon>\n</InputGroup>'}
-/>
-
-<PropChips
-  items={[
-    ['size', 'Taille commune au champ et aux add-ons, de xs à xl.'],
-    ['align', 'Sur InputGroupAddon : inline à côté ou block au-dessus.'],
-    ['InputGroupClearTrigger', 'Bouton qui vide le champ.'],
-  ]}
-/>
+<Usage />
 
 Utilisez `InputGroup` comme racine et composez un seul `InputGroupInput` avec les parties
 `InputGroupAddon`, `InputGroupText` ou `InputGroupButton` nécessaires.
@@ -192,7 +181,7 @@ s’ajoutent toujours aux styles du composant.
 
 Props de `InputGroup`. `InputGroupAddon` accepte `align` (`'inline' | 'block'`, par défaut `'inline'`).
 
-| Prop | Type | Défaut |
-| --- | --- | --- |
-| `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'` | `'md'` |
-| `asChild` | `boolean` | `false` |
+| Prop | Type | Défaut | Description |
+| --- | --- | --- | --- |
+| `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'` | `'md'` | Taille du groupe et du champ : `xs`, `sm`, `md`, `lg` ou `xl`. |
+| `asChild` | `boolean` | `false` | Rend la racine avec son unique élément enfant. |

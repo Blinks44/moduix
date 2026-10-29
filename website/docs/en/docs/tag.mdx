@@ -16,18 +16,7 @@ import * as TagDocs from '@/components/examples/tag/css-properties';
 
 ## Usage
 
-<UsageCode
-  react={'<Tag variant="secondary" size="sm">\n  <TagLabel>TypeScript</TagLabel>\n  <TagCloseTrigger aria-label="Remove TypeScript" onClick={remove} />\n</Tag>'}
-  vue={'<Tag variant="secondary" size="sm">\n  <TagLabel>TypeScript</TagLabel>\n  <TagCloseTrigger aria-label="Remove TypeScript" @click="remove" />\n</Tag>'}
-/>
-
-<PropChips
-  items={[
-    ['variant', 'default, secondary, outline, ghost, or destructive.'],
-    ['size', 'sm, md, or lg.'],
-    ['TagCloseTrigger', 'Optional button that removes the tag.'],
-  ]}
-/>
+<Usage />
 
 Start with a `Tag`
 root and `TagLabel`. Add the other parts only when the token needs an icon, supporting content,
@@ -153,7 +142,7 @@ Hover or focus a variable to see it in the preview.
 
 Also accepts the native props of its element and `asChild`.
 
-| Prop | Type | Default |
-| --- | --- | --- |
-| `variant` | `'default' \| 'secondary' \| 'outline' \| 'ghost' \| 'destructive'` | `'default'` |
-| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` |
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `variant` | `'default' \| 'secondary' \| 'outline' \| 'ghost' \| 'destructive'` | `'default'` | Visual style: `default`, `secondary`, `outline`, `ghost`, or `destructive`. |
+| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` | Tag size: `sm`, `md`, or `lg`. |

@@ -16,18 +16,7 @@ import * as SwitchDocs from '@/components/examples/switch/css-properties';
 
 ## Использование
 
-<UsageCode
-  react={'<Switch defaultChecked name="notifications" onCheckedChange={(details) => save(details.checked)}>\n  <SwitchControl />\n  <SwitchLabel>Enable notifications</SwitchLabel>\n  <SwitchHiddenInput />\n</Switch>'}
-  vue={'<Switch v-model:checked="enabled" name="notifications">\n  <SwitchControl />\n  <SwitchLabel>Enable notifications</SwitchLabel>\n  <SwitchHiddenInput />\n</Switch>'}
-/>
-
-<PropChips
-  items={[
-    ['defaultChecked', 'Включён сразу; для управления используйте checked.'],
-    ['onCheckedChange', 'Вызывается с новым состоянием.'],
-    ['size', 'От xs до xl, по умолчанию md.'],
-  ]}
-/>
+<Usage />
 
 Базовый переключатель состоит из корня, визуальной дорожки, подписи и явного `SwitchHiddenInput` для нативного
 взаимодействия и работы с формой. Если у дорожки нет дочерних элементов, она получает стандартный бегунок.
@@ -191,17 +180,17 @@ Ark ставит `dir` на каждую часть, и ползунок в со
 
 ## Справочник API
 
-| Проп | Тип | По умолчанию |
-| --- | --- | --- |
-| `checked` | `boolean` | — |
-| `defaultChecked` | `boolean` | `false` |
-| `onCheckedChange` | `(details: CheckedChangeDetails) => void` | — |
-| `value` | `string \| number` | `'on'` |
-| `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'` | `'md'` |
-| `name` | `string` | — |
-| `disabled` | `boolean` | `false` |
-| `readOnly` | `boolean` | `false` |
-| `invalid` | `boolean` | `false` |
-| `required` | `boolean` | `false` |
-| `label` | `string` | — |
-| `form` | `string` | — |
+| Проп | Тип | По умолчанию | Описание |
+| --- | --- | --- | --- |
+| `checked` | `boolean` | — | Состояние в управляемом режиме. |
+| `defaultChecked` | `boolean` | `false` | Начальное состояние. |
+| `onCheckedChange` | `(details: CheckedChangeDetails) => void` | — | Вызывается при переключении. |
+| `value` | `string \| number` | `'on'` | Значение, которое отправляется с формой во включённом состоянии. |
+| `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'` | `'md'` | Размер: `xs`, `sm`, `md`, `lg` или `xl`. |
+| `name` | `string` | — | Имя поля формы у внутреннего input. |
+| `disabled` | `boolean` | `false` | Отключает элемент управления. |
+| `readOnly` | `boolean` | `false` | Показывает значение, но не даёт его менять. |
+| `invalid` | `boolean` | `false` | Помечает поле как невалидное. |
+| `required` | `boolean` | `false` | Требует значение перед отправкой формы. |
+| `label` | `string` | — | Доступное имя, если нет видимой подписи. |
+| `form` | `string` | — | Id формы, к которой относится внутренний input. |

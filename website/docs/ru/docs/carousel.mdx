@@ -16,20 +16,7 @@ import * as CarouselDocs from '@/components/examples/carousel/css-properties';
 
 ## Использование
 
-<UsageCode
-  react={'<Carousel slideCount={slides.length} slidesPerPage={2} spacing="16px" loop aria-label="Gallery">\n  <CarouselItemGroup>\n    {slides.map((slide, index) => (\n      <CarouselItem key={slide.id} index={index}>\n        <img src={slide.src} alt={slide.alt} />\n      </CarouselItem>\n    ))}\n  </CarouselItemGroup>\n  <CarouselControl>\n    <CarouselPrevTrigger />\n    <CarouselNextTrigger />\n  </CarouselControl>\n  <CarouselIndicators />\n</Carousel>'}
-  solid={'<Carousel slideCount={slides.length} slidesPerPage={2} spacing="16px" loop aria-label="Gallery">\n  <CarouselItemGroup>\n    <For each={slides}>\n      {(slide, index) => (\n        <CarouselItem index={index()}>\n          <img src={slide.src} alt={slide.alt} />\n        </CarouselItem>\n      )}\n    </For>\n  </CarouselItemGroup>\n  <CarouselControl>\n    <CarouselPrevTrigger />\n    <CarouselNextTrigger />\n  </CarouselControl>\n  <CarouselIndicators />\n</Carousel>'}
-  vue={'<Carousel :slide-count="slides.length" :slides-per-page="2" spacing="16px" loop aria-label="Gallery">\n  <CarouselItemGroup>\n    <CarouselItem v-for="(slide, index) in slides" :key="slide.id" :index="index">\n      <img :src="slide.src" :alt="slide.alt" />\n    </CarouselItem>\n  </CarouselItemGroup>\n  <CarouselControl>\n    <CarouselPrevTrigger />\n    <CarouselNextTrigger />\n  </CarouselControl>\n  <CarouselIndicators />\n</Carousel>'}
-/>
-
-<PropChips
-  items={[
-    ['slideCount', 'Число слайдов; обязательно.'],
-    ['slidesPerPage', 'Сколько слайдов видно сразу, по умолчанию 1.'],
-    ['loop', 'С последнего слайда переходит на первый.'],
-    ['autoplay', 'Листает сам; передайте { delay } в мс.'],
-  ]}
-/>
+<Usage />
 
 Начните с `Carousel` в качестве корневого компонента. Добавьте `CarouselItemGroup` для ленты слайдов,
 поместите кнопки перехода в `CarouselControl`, а стандартный пейджер выведите с помощью
@@ -242,23 +229,23 @@ utility-классы и переопределения через классы �
 
 ## Справочник API
 
-| Проп | Тип | По умолчанию |
-| --- | --- | --- |
-| `slideCount` | `number` | — |
-| `page` | `number` | — |
-| `defaultPage` | `number` | `0` |
-| `onPageChange` | `(details: PageChangeDetails) => void` | — |
-| `slidesPerPage` | `number` | `1` |
-| `slidesPerMove` | `number \| 'auto'` | `'auto'` |
-| `spacing` | `string` | `'0px'` |
-| `padding` | `string` | — |
-| `loop` | `boolean` | `false` |
-| `autoplay` | `boolean \| { delay: number }` | `false` |
-| `allowMouseDrag` | `boolean` | `false` |
-| `autoSize` | `boolean` | `false` |
-| `orientation` | `'horizontal' \| 'vertical'` | `'horizontal'` |
-| `snapType` | `'proximity' \| 'mandatory'` | `'mandatory'` |
-| `translations` | `IntlTranslations` | — |
-| `inViewThreshold` | `number \| number[]` | `0.6` |
-| `onDragStatusChange` | `(details: DragStatusDetails) => void` | — |
-| `onAutoplayStatusChange` | `(details: AutoplayStatusDetails) => void` | — |
+| Проп | Тип | По умолчанию | Описание |
+| --- | --- | --- | --- |
+| `slideCount` | `number` | — | Общее число слайдов. Обязательный проп. |
+| `page` | `number` | — | Текущая страница в управляемом режиме. |
+| `defaultPage` | `number` | `0` | Начальная страница, если она не управляется извне. |
+| `onPageChange` | `(details: PageChangeDetails) => void` | — | Вызывается при смене страницы. |
+| `slidesPerPage` | `number` | `1` | Сколько слайдов видно одновременно. |
+| `slidesPerMove` | `number \| 'auto'` | `'auto'` | На сколько слайдов прокручивать за шаг, или `auto`. |
+| `spacing` | `string` | `'0px'` | Расстояние между слайдами, CSS-длина. |
+| `padding` | `string` | — | Дополнительный отступ вокруг области прокрутки, чтобы были видны соседние слайды. |
+| `loop` | `boolean` | `false` | После последнего слайда переходит к первому. |
+| `autoplay` | `boolean \| { delay: number }` | `false` | Листает сам; передайте `{ delay }` в миллисекундах, чтобы задать интервал. |
+| `allowMouseDrag` | `boolean` | `false` | Разрешает перетаскивать слайды мышью. |
+| `autoSize` | `boolean` | `false` | Разрешает слайды разной ширины. |
+| `orientation` | `'horizontal' \| 'vertical'` | `'horizontal'` | Направление прокрутки: `horizontal` или `vertical`. |
+| `snapType` | `'proximity' \| 'mandatory'` | `'mandatory'` | Режим CSS scroll snap: `mandatory` или `proximity`. |
+| `translations` | `IntlTranslations` | — | Переведённые строки для подписей доступности. |
+| `inViewThreshold` | `number \| number[]` | `0.6` | Какая видимая доля слайда считается показом. |
+| `onDragStatusChange` | `(details: DragStatusDetails) => void` | — | Вызывается в начале и в конце перетаскивания. |
+| `onAutoplayStatusChange` | `(details: AutoplayStatusDetails) => void` | — | Вызывается, когда автопрокрутка запускается, ставится на паузу или останавливается. |

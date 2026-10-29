@@ -16,17 +16,7 @@ import * as KbdDocs from '@/components/examples/kbd/css-properties';
 
 ## Usage
 
-<UsageCode
-  react={'<KbdGroup aria-label="Command K">\n  <Kbd>⌘</Kbd>\n  <Kbd>K</Kbd>\n</KbdGroup>'}
-  vue={'<KbdGroup aria-label="Command K">\n  <Kbd>⌘</Kbd>\n  <Kbd>K</Kbd>\n</KbdGroup>'}
-/>
-
-<PropChips
-  items={[
-    ['KbdGroup', 'Wraps the keys of one shortcut.'],
-    ['aria-label', 'Reads the shortcut as words, such as “Command K”.'],
-  ]}
-/>
+<Usage />
 
 Use `Kbd` to show one key. For a shortcut made of several keys, place the keycaps and their text separators inside
 `KbdGroup`.
@@ -115,6 +105,6 @@ Hover or focus a variable to see it in the preview.
 
 `Kbd` renders a `kbd` element and `KbdGroup` a `span`. Both accept their native props and `asChild`.
 
-| Prop | Type | Default |
-| --- | --- | --- |
-| `asChild` | `boolean` | `false` |
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `asChild` | `boolean` | `false` | Renders the key styles on its single child element. |

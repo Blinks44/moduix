@@ -16,18 +16,7 @@ import * as CardDocs from '@/components/examples/card/css-properties';
 
 ## Usage
 
-<UsageCode
-  react={'<Card variant="elevated" size="md">\n  <CardHeader>\n    <CardTitle>Release 2.4</CardTitle>\n    <CardDescription>Ready to promote.</CardDescription>\n  </CardHeader>\n  <CardBody>12 changes, all checks passed.</CardBody>\n  <CardFooter>\n    <Button>Promote</Button>\n  </CardFooter>\n</Card>'}
-  vue={'<Card variant="elevated" size="md">\n  <CardHeader>\n    <CardTitle>Release 2.4</CardTitle>\n    <CardDescription>Ready to promote.</CardDescription>\n  </CardHeader>\n  <CardBody>12 changes, all checks passed.</CardBody>\n  <CardFooter>\n    <Button>Promote</Button>\n  </CardFooter>\n</Card>'}
-/>
-
-<PropChips
-  items={[
-    ['variant', 'outline, elevated, or subtle surface.'],
-    ['size', 'Inner spacing: sm, md, or lg.'],
-    ['asChild', 'Renders the card as your link or article.'],
-  ]}
-/>
+<Usage />
 
 Use `Card` as the root and add only the parts you need. Import each additional part directly, such
 as `CardHeader` and `CardTitle`. The same names work with npm packages and shadcn registry source.
@@ -182,7 +171,7 @@ Hover or focus a variable to see it in the preview.
 
 Also accepts the native props of its element and `asChild`.
 
-| Prop | Type | Default |
-| --- | --- | --- |
-| `variant` | `'outline' \| 'elevated' \| 'subtle'` | `'outline'` |
-| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` |
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `variant` | `'outline' \| 'elevated' \| 'subtle'` | `'outline'` | Surface style: `outline`, `elevated`, or `subtle`. |
+| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` | Inner spacing: `sm`, `md`, or `lg`. |

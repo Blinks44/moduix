@@ -15,18 +15,7 @@ import AnatomyScene from '@/components/examples/field/basic';
 
 ## Utilisation
 
-<UsageCode
-  react={'<Field invalid={!!error} required>\n  <FieldLabel>\n    Email\n    <FieldRequiredIndicator />\n  </FieldLabel>\n  <Input type="email" name="email" />\n  <FieldHelperText>We never share your email.</FieldHelperText>\n  <FieldErrorText>{error}</FieldErrorText>\n</Field>'}
-  vue={'<Field :invalid="!!error" required>\n  <FieldLabel>\n    Email\n    <FieldRequiredIndicator />\n  </FieldLabel>\n  <Input type="email" name="email" />\n  <FieldHelperText>We never share your email.</FieldHelperText>\n  <FieldErrorText>{{ error }}</FieldErrorText>\n</Field>'}
-/>
-
-<PropChips
-  items={[
-    ['invalid', 'Affiche FieldErrorText et marque le contrôle invalide.'],
-    ['required', 'Rend le contrôle obligatoire et affiche l’indicateur.'],
-    ['disabled / readOnly', 'Transmis au contrôle à l’intérieur.'],
-  ]}
-/>
+<Usage />
 
 Utilisez `Field` comme conteneur d’un contrôle de formulaire. Placez `FieldLabel` avant le contrôle,
 puis ajoutez `FieldHelperText` ou `FieldErrorText` lorsque l’utilisateur a besoin d’informations
@@ -185,10 +174,10 @@ d’aide et du message d’erreur actif sont inclus dans `aria-describedby` du c
 
 ## Référence de l’API
 
-| Prop | Type | Défaut |
-| --- | --- | --- |
-| `disabled` | `boolean` | `false` |
-| `readOnly` | `boolean` | `false` |
-| `invalid` | `boolean` | `false` |
-| `required` | `boolean` | `false` |
-| `asChild` | `boolean` | `false` |
+| Prop | Type | Défaut | Description |
+| --- | --- | --- | --- |
+| `disabled` | `boolean` | `false` | Désactive le contrôle imbriqué et atténue le libellé. |
+| `readOnly` | `boolean` | `false` | Passe le contrôle imbriqué en lecture seule. |
+| `invalid` | `boolean` | `false` | Marque le champ invalide et affiche `FieldErrorText`. |
+| `required` | `boolean` | `false` | Rend le contrôle imbriqué obligatoire et affiche l’indicateur. |
+| `asChild` | `boolean` | `false` | Rend la racine avec son unique élément enfant. |

@@ -16,18 +16,7 @@ import * as AccordionDocs from '@/components/examples/accordion/css-properties';
 
 ## Usage
 
-<UsageCode
-  react={'<Accordion defaultValue={[\'billing\']} multiple collapsible>\n  <AccordionItem value="billing">\n    <h3>\n      <AccordionItemTrigger>\n        Billing\n        <AccordionItemIndicator />\n      </AccordionItemTrigger>\n    </h3>\n    <AccordionItemContent>\n      <AccordionItemBody>Invoices and payment methods.</AccordionItemBody>\n    </AccordionItemContent>\n  </AccordionItem>\n</Accordion>'}
-  vue={'<Accordion :default-value="[\'billing\']" multiple collapsible>\n  <AccordionItem value="billing">\n    <h3>\n      <AccordionItemTrigger>\n        Billing\n        <AccordionItemIndicator />\n      </AccordionItemTrigger>\n    </h3>\n    <AccordionItemContent>\n      <AccordionItemBody>Invoices and payment methods.</AccordionItemBody>\n    </AccordionItemContent>\n  </AccordionItem>\n</Accordion>'}
-/>
-
-<PropChips
-  items={[
-    ['defaultValue', 'Items open on first render, as an array of values.'],
-    ['multiple', 'Lets several items stay open at once.'],
-    ['collapsible', 'Lets the only open item close again.'],
-  ]}
-/>
+<Usage />
 
 Use `Accordion` as the root and give every item a stable `value`. Put the interactive label in the
 item trigger, the panel in the item content, and the panel's inner content in the item body. The
@@ -182,15 +171,15 @@ Hover or focus a variable to see it in the preview.
 
 ## API reference
 
-| Prop | Type | Default |
-| --- | --- | --- |
-| `value` | `string[]` | — |
-| `defaultValue` | `string[]` | — |
-| `onValueChange` | `(details: ValueChangeDetails) => void` | — |
-| `multiple` | `boolean` | `false` |
-| `collapsible` | `boolean` | `false` |
-| `disabled` | `boolean` | `false` |
-| `orientation` | `'horizontal' \| 'vertical'` | `'vertical'` |
-| `lazyMount` | `boolean` | `false` |
-| `unmountOnExit` | `boolean` | `false` |
-| `onFocusChange` | `(details: FocusChangeDetails) => void` | — |
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `value` | `string[]` | — | Expanded items for controlled use. |
+| `defaultValue` | `string[]` | — | Initially expanded items. |
+| `onValueChange` | `(details: ValueChangeDetails) => void` | — | Called when items expand or collapse. |
+| `multiple` | `boolean` | `false` | Lets several items stay open at once. |
+| `collapsible` | `boolean` | `false` | Lets the user close the open item in single mode. |
+| `disabled` | `boolean` | `false` | Disables the control. |
+| `orientation` | `'horizontal' \| 'vertical'` | `'vertical'` | Arrow-key direction: `vertical` or `horizontal`. |
+| `lazyMount` | `boolean` | `false` | Mounts the content on first open. |
+| `unmountOnExit` | `boolean` | `false` | Unmounts the content after it closes. |
+| `onFocusChange` | `(details: FocusChangeDetails) => void` | — | Called when focus moves to another trigger. |

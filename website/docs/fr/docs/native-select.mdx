@@ -16,18 +16,7 @@ import * as NativeSelectDocs from '@/components/examples/native-select/css-prope
 
 ## Utilisation
 
-<UsageCode
-  react={'<Field>\n  <FieldLabel>Framework</FieldLabel>\n  <NativeSelect name="framework" defaultValue="react">\n    <option value="react">React</option>\n    <option value="solid">Solid</option>\n    <option value="vue">Vue</option>\n  </NativeSelect>\n</Field>'}
-  vue={'<Field>\n  <FieldLabel>Framework</FieldLabel>\n  <NativeSelect v-model="framework" name="framework">\n    <option value="react">React</option>\n    <option value="solid">Solid</option>\n    <option value="vue">Vue</option>\n  </NativeSelect>\n</Field>'}
-/>
-
-<PropChips
-  items={[
-    ['option / optgroup', 'Enfants natifs, comme dans un select classique.'],
-    ['multiple', 'Liste native à sélection multiple.'],
-    ['controlProps', 'Props de l’enveloppe qui porte le chevron.'],
-  ]}
-/>
+<Usage />
 
 Ajoutez des éléments natifs `option` ou `optgroup` comme enfants et passez les mêmes propriétés qu’à un élément HTML `<select>`.
 
@@ -147,7 +136,7 @@ Le navigateur gère le clavier, comme pour tout select natif.
 
 Accepte aussi les props natives de `select`.
 
-| Prop | Type | Défaut |
-| --- | --- | --- |
-| `controlProps` | `ComponentProps<'span'>` | — |
-| `multiple` | `boolean` | `false` |
+| Prop | Type | Défaut | Description |
+| --- | --- | --- | --- |
+| `controlProps` | `ComponentProps<'span'>` | — | Propriétés de l’enveloppe du select et de son indicateur. |
+| `multiple` | `boolean` | `false` | Sélection multiple native ; masque l’indicateur. |

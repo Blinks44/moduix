@@ -16,18 +16,7 @@ import * as SignaturePadDocs from '@/components/examples/signature-pad/css-prope
 
 ## Utilisation
 
-<UsageCode
-  react={'<SignaturePad name="signature" drawing={{ size: 3 }} onDrawEnd={(details) => details.getDataUrl(\'image/png\').then(save)}>\n  <SignaturePadLabel>Sign below</SignaturePadLabel>\n  <SignaturePadCanvas />\n  <SignaturePadHiddenInput />\n</SignaturePad>'}
-  vue={'<SignaturePad name="signature" :drawing="{ size: 3 }" @draw-end="(details) => details.getDataUrl(\'image/png\').then(save)">\n  <SignaturePadLabel>Sign below</SignaturePadLabel>\n  <SignaturePadCanvas />\n  <SignaturePadHiddenInput />\n</SignaturePad>'}
-/>
-
-<PropChips
-  items={[
-    ['drawing', 'Options du trait, comme size et fill.'],
-    ['onDrawEnd', 'Appelé après chaque trait ; getDataUrl() renvoie une image.'],
-    ['name', 'Envoie les tracés avec le formulaire via le champ caché.'],
-  ]}
-/>
+<Usage />
 
 Pour la plupart des cas, commencez avec `SignaturePadCanvas`. Il fournit la surface de dessin
 standard avec les parties Ark `SignaturePadControl`, `SignaturePadSegment`, `SignaturePadClearTrigger`
@@ -176,15 +165,15 @@ repère, tandis que `data-required` apparaît sur le libellé.
 
 ## Référence de l’API
 
-| Prop | Type | Défaut |
-| --- | --- | --- |
-| `paths` | `string[]` | — |
-| `defaultPaths` | `string[]` | — |
-| `onDraw` | `(details: DrawDetails) => void` | — |
-| `onDrawEnd` | `(details: DrawEndDetails) => void` | — |
-| `drawing` | `DrawingOptions` | `{ size: 2, simulatePressure: true }` |
-| `name` | `string` | — |
-| `disabled` | `boolean` | `false` |
-| `readOnly` | `boolean` | `false` |
-| `required` | `boolean` | `false` |
-| `translations` | `IntlTranslations` | — |
+| Prop | Type | Défaut | Description |
+| --- | --- | --- | --- |
+| `paths` | `string[]` | — | Tracés SVG de la signature en mode contrôlé. |
+| `defaultPaths` | `string[]` | — | Tracés SVG initiaux. |
+| `onDraw` | `(details: DrawDetails) => void` | — | Appelé pendant le tracé et lorsque les tracés changent. |
+| `onDrawEnd` | `(details: DrawEndDetails) => void` | — | Appelé à la fin d’un trait ; obtenez l’image avec `getDataUrl`. |
+| `drawing` | `DrawingOptions` | `{ size: 2, simulatePressure: true }` | Options du trait : épaisseur, couleur et simulation de pression. |
+| `name` | `string` | — | Nom du champ de formulaire de l’input sous-jacent. |
+| `disabled` | `boolean` | `false` | Désactive le contrôle. |
+| `readOnly` | `boolean` | `false` | Affiche la valeur sans permettre de la modifier. |
+| `required` | `boolean` | `false` | Exige une valeur avant l’envoi du formulaire. |
+| `translations` | `IntlTranslations` | — | Textes localisés des libellés d’accessibilité. |

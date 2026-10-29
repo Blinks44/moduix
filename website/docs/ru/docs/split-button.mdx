@@ -16,18 +16,7 @@ import * as SplitButtonDocs from '@/components/examples/split-button/css-propert
 
 ## Использование
 
-<UsageCode
-  react={'<SplitButton variant="outline" size="sm" aria-label="Save actions">\n  <SplitButtonAction onClick={save}>Save</SplitButtonAction>\n  <SplitButtonTrigger />\n  <SplitButtonPositioner>\n    <SplitButtonContent>\n      <MenuItem value="draft">Save as draft</MenuItem>\n    </SplitButtonContent>\n  </SplitButtonPositioner>\n</SplitButton>'}
-  vue={'<SplitButton variant="outline" size="sm" aria-label="Save actions">\n  <SplitButtonAction @click="save">Save</SplitButtonAction>\n  <SplitButtonTrigger />\n  <SplitButtonPositioner>\n    <SplitButtonContent>\n      <MenuItem value="draft">Save as draft</MenuItem>\n    </SplitButtonContent>\n  </SplitButtonPositioner>\n</SplitButton>'}
-/>
-
-<PropChips
-  items={[
-    ['variant', 'default · outline · secondary · destructive · destructive-outline · ghost'],
-    ['size', 'xs · sm · md · lg · xl'],
-    ['aria-label', 'Называет группу действий.'],
-  ]}
-/>
+<Usage />
 
 Используйте `<SplitButton>` как корневой компонент и оставляйте структуру меню явной:
 `SplitButtonAction`, `SplitButtonTrigger`, `SplitButtonPositioner` и `SplitButtonContent`.
@@ -168,9 +157,9 @@ Tailwind настраиваются обычными утилитами и по�
 
 ## Справочник API
 
-| Проп | Тип | По умолчанию |
-| --- | --- | --- |
-| `variant` | `SplitButtonVariant` | `'default'` |
-| `size` | `SplitButtonSize` | `'md'` |
-| `aria-label` | `string` | — |
-| `open` / `onOpenChange` | `MenuRootProps` | — |
+| Проп | Тип | По умолчанию | Описание |
+| --- | --- | --- | --- |
+| `variant` | `SplitButtonVariant` | `'default'` | Общий вид обеих кнопок: `default`, `outline`, `secondary`, `destructive`, `destructive-outline` или `ghost`. |
+| `size` | `SplitButtonSize` | `'md'` | Общий размер обеих кнопок: `xs`, `sm`, `md`, `lg` или `xl`. |
+| `aria-label` | `string` | — | Доступное имя группы из двух кнопок. |
+| `open` / `onOpenChange` | `MenuRootProps` | — | Управляемое состояние меню, передаётся во внутренний `Menu`. |

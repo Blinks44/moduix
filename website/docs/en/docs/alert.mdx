@@ -16,18 +16,7 @@ import * as AlertDocs from '@/components/examples/alert/css-properties';
 
 ## Usage
 
-<UsageCode
-  react={'<Alert status="warning">\n  <AlertIndicator>\n    <TriangleAlertIcon />\n  </AlertIndicator>\n  <AlertContent>\n    <AlertTitle>Storage almost full</AlertTitle>\n    <AlertDescription>Free up space to keep syncing files.</AlertDescription>\n  </AlertContent>\n</Alert>'}
-  vue={'<Alert status="warning">\n  <AlertIndicator>\n    <TriangleAlertIcon />\n  </AlertIndicator>\n  <AlertContent>\n    <AlertTitle>Storage almost full</AlertTitle>\n    <AlertDescription>Free up space to keep syncing files.</AlertDescription>\n  </AlertContent>\n</Alert>'}
-/>
-
-<PropChips
-  items={[
-    ['status', 'Sets the tone: info, success, warning, or error.'],
-    ['AlertIndicator', 'Optional icon slot, hidden from assistive technology.'],
-    ['AlertActions', 'Optional row for buttons or links under the message.'],
-  ]}
-/>
+<Usage />
 
 For a standard inline message, place `AlertTitle` and `AlertDescription` inside `AlertContent`.
 Add `AlertIndicator` when an icon helps people scan the message.
@@ -161,7 +150,7 @@ Hover or focus a variable to see it in the preview.
 
 ## API reference
 
-| Prop | Type | Default |
-| --- | --- | --- |
-| `status` | `'info' \| 'success' \| 'warning' \| 'error'` | `'info'` |
-| `asChild` | `boolean` | `false` |
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `status` | `'info' \| 'success' \| 'warning' \| 'error'` | `'info'` | Meaning and color: `info`, `success`, `warning`, or `error`. |
+| `asChild` | `boolean` | `false` | Renders the root as its single child element. |

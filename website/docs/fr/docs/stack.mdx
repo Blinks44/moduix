@@ -15,18 +15,7 @@ import AnatomyScene from '@/components/examples/stack/basic';
 
 ## Utilisation
 
-<UsageCode
-  react={'<Stack direction={{ mobile: \'column\', desktop: \'row\' }} gap={12} align="center">\n  <Avatar />\n  <Text>Ada Lovelace</Text>\n</Stack>'}
-  vue={'<Stack :direction="{ mobile: \'column\', desktop: \'row\' }" :gap="12" align="center">\n  <Avatar />\n  <Text>Ada Lovelace</Text>\n</Stack>'}
-/>
-
-<PropChips
-  items={[
-    ['direction', 'row, column ou inversés ; mobile et desktop pour les deux.'],
-    ['gap', 'Espace entre éléments ; les nombres deviennent des px.'],
-    ['align / justify', 'Alignement sur l’axe secondaire et principal.'],
-  ]}
-/>
+<Usage />
 
 Utilisez `Stack` lorsqu’un seul conteneur flex suffit et qu’il faut simplement définir la direction, l’espacement et
 l’alignement.
@@ -126,11 +115,11 @@ sont communs aux deux approches de style.
 
 Accepte aussi les props natives de son élément et `asChild`.
 
-| Prop | Type | Défaut |
-| --- | --- | --- |
-| `direction` | `StackDirection \| { mobile?: StackDirection; desktop?: StackDirection }` | `'column'` |
-| `gap` | `number \| string` | — |
-| `align` | `CSSProperties['alignItems']` | — |
-| `justify` | `CSSProperties['justifyContent']` | — |
-| `wrap` | `CSSProperties['flexWrap']` | — |
-| `fill` | `boolean` | `false` |
+| Prop | Type | Défaut | Description |
+| --- | --- | --- | --- |
+| `direction` | `StackDirection \| { mobile?: StackDirection; desktop?: StackDirection }` | `'column'` | `column` ou `row`, ou des valeurs distinctes pour mobile et desktop. |
+| `gap` | `number \| string` | — | Espace entre les enfants ; les nombres sont en pixels. |
+| `align` | `CSSProperties['alignItems']` | — | `align-items` CSS. |
+| `justify` | `CSSProperties['justifyContent']` | — | `justify-content` CSS. |
+| `wrap` | `CSSProperties['flexWrap']` | — | `flex-wrap` CSS. |
+| `fill` | `boolean` | `false` | Étire la pile sur toute la largeur et la hauteur du parent. |

@@ -16,19 +16,7 @@ import * as ScrollAreaDocs from '@/components/examples/scroll-area/css-propertie
 
 ## Использование
 
-<UsageCode
-  react={'<ScrollArea variant="always" fade style={{ height: 240 }}>\n  <ScrollAreaViewport>\n    <ScrollAreaContent>…</ScrollAreaContent>\n  </ScrollAreaViewport>\n  <ScrollAreaScrollbar>\n    <ScrollAreaThumb />\n  </ScrollAreaScrollbar>\n</ScrollArea>'}
-  solid={'<ScrollArea variant="always" fade style={{ height: \'240px\' }}>\n  <ScrollAreaViewport>\n    <ScrollAreaContent>…</ScrollAreaContent>\n  </ScrollAreaViewport>\n  <ScrollAreaScrollbar>\n    <ScrollAreaThumb />\n  </ScrollAreaScrollbar>\n</ScrollArea>'}
-  vue={'<ScrollArea variant="always" fade :style="{ height: \'240px\' }">\n  <ScrollAreaViewport>\n    <ScrollAreaContent>…</ScrollAreaContent>\n  </ScrollAreaViewport>\n  <ScrollAreaScrollbar>\n    <ScrollAreaThumb />\n  </ScrollAreaScrollbar>\n</ScrollArea>'}
-/>
-
-<PropChips
-  items={[
-    ['variant', 'hover показывает полосы при наведении, always всегда.'],
-    ['fade', 'Затемняет края, за которыми есть ещё контент.'],
-    ['orientation', 'На ScrollAreaScrollbar: vertical или horizontal.'],
-  ]}
-/>
+<Usage />
 
 Используйте `ScrollArea` как корневой элемент. Разместите `ScrollAreaViewport` вокруг
 `ScrollAreaContent`, добавьте по одному `ScrollAreaScrollbar` и `ScrollAreaThumb` для каждой оси
@@ -153,8 +141,8 @@ Ark мог измерять их независимо.
 
 ## Справочник API
 
-| Проп | Тип | По умолчанию |
-| --- | --- | --- |
-| `variant` | `'hover' \| 'always'` | `'hover'` |
-| `fade` | `boolean` | `false` |
-| `asChild` | `boolean` | `false` |
+| Проп | Тип | По умолчанию | Описание |
+| --- | --- | --- | --- |
+| `variant` | `'hover' \| 'always'` | `'hover'` | Видимость полос прокрутки: при наведении (`hover`) или всегда (`always`). |
+| `fade` | `boolean` | `false` | Затемняет края, за которыми есть скрытое содержимое. |
+| `asChild` | `boolean` | `false` | Отрисовывает корень через единственный дочерний элемент. |

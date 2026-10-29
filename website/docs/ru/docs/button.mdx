@@ -16,18 +16,7 @@ import * as ButtonDocs from '@/components/examples/button/css-properties';
 
 ## Использование
 
-<UsageCode
-  react={'<Button variant="outline" size="sm" loading={saving}>\n  Save changes\n</Button>'}
-  vue={'<Button variant="outline" size="sm" :loading="saving">\n  Save changes\n</Button>'}
-/>
-
-<PropChips
-  items={[
-    ['variant', 'default · outline · secondary · destructive · destructive-outline · ghost · link'],
-    ['size', 'xs · sm · md · lg · xl · icon-sm · icon-md · icon-lg'],
-    ['loading', 'Задаёт aria-busy и блокирует нажатие; индикатор Spinner добавьте сами.'],
-  ]}
-/>
+<Usage />
 
 ## Примеры
 
@@ -139,10 +128,10 @@ CSS-переменные относятся к пакетам с CSS Modules; в
 
 ## Справочник API
 
-| Проп       | Тип             | По умолчанию |
-| ---------- | --------------- | ------------ |
-| `variant`  | `ButtonVariant` | `'default'`  |
-| `size`     | `ButtonSize`    | `'md'`       |
-| `loading`  | `boolean`       | `false`      |
-| `asChild`  | `boolean`       | `false`      |
-| `disabled` | `boolean`       | `false`      |
+| Проп       | Тип             | По умолчанию | Описание |
+| ---------- | --------------- | ------------ | --- |
+| `variant`  | `ButtonVariant` | `'default'`  | Вид кнопки: `default`, `outline`, `secondary`, `destructive`, `destructive-outline`, `ghost` или `link`. |
+| `size`     | `ButtonSize`    | `'md'`       | `xs`, `sm`, `md`, `lg`, `xl` или квадратные `icon-sm`, `icon-md`, `icon-lg` для кнопок с одной иконкой. |
+| `loading`  | `boolean`       | `false`      | Задаёт `aria-busy` и блокирует нажатие. `Spinner` добавьте внутрь сами. |
+| `asChild`  | `boolean`       | `false`      | Переносит стили и свойства Button на единственный дочерний элемент, например ссылку. |
+| `disabled` | `boolean`       | `false`      | Отключает кнопку. |

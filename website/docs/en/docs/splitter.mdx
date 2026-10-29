@@ -17,18 +17,7 @@ import { splitterOverrideCssProperties } from '@/components/examples/splitter/cs
 
 ## Usage
 
-<UsageCode
-  react={'<Splitter\n  panels={[{ id: \'a\', minSize: 20 }, { id: \'b\', collapsible: true }]}\n  defaultSize={[40, 60]}\n>\n  <SplitterPanel id="a">Files</SplitterPanel>\n  <SplitterResizeTrigger id="a:b" aria-label="Resize panels" />\n  <SplitterPanel id="b">Editor</SplitterPanel>\n</Splitter>'}
-  vue={'<Splitter\n  :panels="[{ id: \'a\', minSize: 20 }, { id: \'b\', collapsible: true }]"\n  :default-size="[40, 60]"\n>\n  <SplitterPanel id="a">Files</SplitterPanel>\n  <SplitterResizeTrigger id="a:b" aria-label="Resize panels" />\n  <SplitterPanel id="b">Editor</SplitterPanel>\n</Splitter>'}
-/>
-
-<PropChips
-  items={[
-    ['panels', 'Panel ids with minSize, maxSize, and collapsible.'],
-    ['defaultSize', 'Starting sizes in percent, in panel order.'],
-    ['orientation', 'horizontal or vertical split.'],
-  ]}
-/>
+<Usage />
 
 Build a splitter from `Splitter`, `SplitterPanel`, and `SplitterResizeTrigger`. The `panels` prop
 lists the panel ids and their size constraints. Each rendered `SplitterPanel` must use one of those
@@ -186,17 +175,17 @@ Ark exposes state through attributes such as `data-orientation`, `data-dragging`
 
 ## API reference
 
-| Prop | Type | Default |
-| --- | --- | --- |
-| `panels` | `PanelData[]` | — |
-| `size` | `PanelSize[]` | — |
-| `defaultSize` | `PanelSize[]` | — |
-| `orientation` | `'horizontal' \| 'vertical'` | `'horizontal'` |
-| `onResize` | `(details: ResizeDetails) => void` | — |
-| `onResizeStart` | `() => void` | — |
-| `onResizeEnd` | `(details: ResizeEndDetails) => void` | — |
-| `onCollapse` | `(details: ExpandCollapseDetails) => void` | — |
-| `onExpand` | `(details: ExpandCollapseDetails) => void` | — |
-| `keyboardResizeBy` | `number \| null` | — |
-| `nonce` | `string` | — |
-| `registry` | `SplitterRegistry` | — |
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `panels` | `PanelData[]` | — | Panel ids and size limits such as `minSize` and `collapsible`. |
+| `size` | `PanelSize[]` | — | Panel sizes for controlled use. |
+| `defaultSize` | `PanelSize[]` | — | Initial panel sizes. |
+| `orientation` | `'horizontal' \| 'vertical'` | `'horizontal'` | Panel direction: `horizontal` or `vertical`. |
+| `onResize` | `(details: ResizeDetails) => void` | — | Called while panels resize. |
+| `onResizeStart` | `() => void` | — | Called when a resize starts. |
+| `onResizeEnd` | `(details: ResizeEndDetails) => void` | — | Called when a resize ends. |
+| `onCollapse` | `(details: ExpandCollapseDetails) => void` | — | Called when a panel collapses. |
+| `onExpand` | `(details: ExpandCollapseDetails) => void` | — | Called when a panel expands. |
+| `keyboardResizeBy` | `number \| null` | — | Pixels per arrow-key press; by default a percentage step. |
+| `nonce` | `string` | — | CSP nonce for the injected cursor stylesheet. |
+| `registry` | `SplitterRegistry` | — | Shared registry that lets nested splitters drag together. |

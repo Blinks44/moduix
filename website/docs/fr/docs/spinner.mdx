@@ -16,18 +16,7 @@ import * as SpinnerDocs from '@/components/examples/spinner/css-properties';
 
 ## Utilisation
 
-<UsageCode
-  react={'<Spinner size="sm" aria-label="Saving changes" />'}
-  vue={'<Spinner size="sm" aria-label="Saving changes" />'}
-/>
-
-<PropChips
-  items={[
-    ['size', 'De xs à xl, ou inherit pour suivre la taille de police.'],
-    ['aria-label', 'Nomme l’attente ; « Loading » en anglais par défaut.'],
-    ['decorative', 'Masque le spinner quand un texte voisin le dit déjà.'],
-  ]}
-/>
+<Usage />
 
 Utilisez `Spinner` pour les états de chargement de courte durée dans les boutons, les lignes de statut et les petits
 blocs vides. Par défaut, le composant signale le chargement aux technologies d’assistance avec `role="status"` et
@@ -138,9 +127,9 @@ Survolez ou sélectionnez une variable pour la voir dans l’aperçu.
 
 ## Référence de l’API
 
-| Prop | Type | Défaut |
-| --- | --- | --- |
-| `size` | `'inherit' \| 'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'` | `'md'` |
-| `decorative` | `boolean` | `false` |
-| `aria-label` | `string` | `'Loading'` |
-| `asChild` | `boolean` | `false` |
+| Prop | Type | Défaut | Description |
+| --- | --- | --- | --- |
+| `size` | `'inherit' \| 'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'` | `'md'` | Taille, de `xs` à `xl`, ou `inherit` pour suivre la taille de police. |
+| `decorative` | `boolean` | `false` | Masque l’indicateur aux technologies d’assistance quand un texte voisin annonce déjà le chargement. |
+| `aria-label` | `string` | `'Loading'` | Nom accessible du statut. |
+| `asChild` | `boolean` | `false` | Rend la racine avec son unique enfant, qui dessine alors l’indicateur. |

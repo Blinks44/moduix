@@ -16,19 +16,7 @@ import * as TableDocs from '@/components/examples/table/css-properties';
 
 ## Utilisation
 
-<UsageCode
-  react={'<TableScrollArea>\n  <Table size="sm" striped stickyHeader>\n    <TableHeader>\n      <TableRow>\n        <TableColumnHeader scope="col">Invoice</TableColumnHeader>\n        <TableColumnHeader numeric scope="col">Amount</TableColumnHeader>\n      </TableRow>\n    </TableHeader>\n    <TableBody>\n      <TableRow>\n        <TableCell>INV-001</TableCell>\n        <TableCell numeric>$250.00</TableCell>\n      </TableRow>\n    </TableBody>\n  </Table>\n</TableScrollArea>'}
-  vue={'<TableScrollArea>\n  <Table size="sm" striped stickyHeader>\n    <TableHeader>\n      <TableRow>\n        <TableColumnHeader scope="col">Invoice</TableColumnHeader>\n        <TableColumnHeader numeric scope="col">Amount</TableColumnHeader>\n      </TableRow>\n    </TableHeader>\n    <TableBody>\n      <TableRow>\n        <TableCell>INV-001</TableCell>\n        <TableCell numeric>$250.00</TableCell>\n      </TableRow>\n    </TableBody>\n  </Table>\n</TableScrollArea>'}
-/>
-
-<PropChips
-  items={[
-    ['size', 'Densité des lignes : sm, md ou lg.'],
-    ['striped', 'Colore une ligne sur deux.'],
-    ['stickyHeader', 'Garde l’en-tête visible au défilement.'],
-    ['numeric', 'Aligne les nombres à droite dans un en-tête ou une cellule.'],
-  ]}
-/>
+<Usage />
 
 Si le tableau risque de dépasser la largeur de son conteneur, enveloppez-le dans `TableScrollArea`. Composez
 ensuite `Table` avec `TableHeader`, `TableBody`, `TableRow` et les parties correspondantes pour les en-têtes et
@@ -214,10 +202,10 @@ Utilisez la partie ou l’attribut qui contrôle l’aspect visuel concerné :
 
 Props de `Table`. `numeric` se place sur `TableColumnHeader` et `TableCell` ; `side` (`'top' | 'bottom'`) sur `TableCaption`.
 
-| Prop | Type | Défaut |
-| --- | --- | --- |
-| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` |
-| `striped` | `boolean` | `false` |
-| `interactive` | `boolean` | `false` |
-| `stickyHeader` | `boolean` | `false` |
-| `showColumnBorder` | `boolean` | `false` |
+| Prop | Type | Défaut | Description |
+| --- | --- | --- | --- |
+| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` | Espacement des cellules et taille du texte : `sm`, `md` ou `lg`. |
+| `striped` | `boolean` | `false` | Colore une ligne sur deux. |
+| `interactive` | `boolean` | `false` | Met en évidence la ligne survolée. |
+| `stickyHeader` | `boolean` | `false` | Garde l’en-tête visible pendant le défilement. |
+| `showColumnBorder` | `boolean` | `false` | Trace des bordures entre les colonnes. |

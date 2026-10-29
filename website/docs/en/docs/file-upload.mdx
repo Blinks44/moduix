@@ -15,19 +15,7 @@ import AnatomyScene from '@/components/examples/file-upload/basic';
 
 ## Usage
 
-<UsageCode
-  react={'<FileUpload accept="image/*" maxFiles={5} maxFileSize={5 * 1024 * 1024} onFileAccept={(details) => upload(details.files)}>\n  <FileUploadLabel>Photos</FileUploadLabel>\n  <FileUploadHiddenInput />\n  <FileUploadDropzone>Drop images here</FileUploadDropzone>\n  <FileUploadItemGroup>\n    <FileUploadItems />\n  </FileUploadItemGroup>\n</FileUpload>'}
-  vue={'<FileUpload accept="image/*" :max-files="5" :max-file-size="5 * 1024 * 1024" @file-accept="(details) => upload(details.files)">\n  <FileUploadLabel>Photos</FileUploadLabel>\n  <FileUploadHiddenInput />\n  <FileUploadDropzone>Drop images here</FileUploadDropzone>\n  <FileUploadItemGroup>\n    <FileUploadItems />\n  </FileUploadItemGroup>\n</FileUpload>'}
-/>
-
-<PropChips
-  items={[
-    ['accept', 'Allowed MIME types or extensions.'],
-    ['maxFiles', 'How many files may be selected, 1 by default.'],
-    ['maxFileSize', 'Largest file in bytes.'],
-    ['onFileAccept', 'Runs with the files that passed the checks.'],
-  ]}
-/>
+<Usage />
 
 Start with `FileUpload` as the root. Add a `FileUploadLabel`, then wrap a `Button` in `FileUploadTrigger asChild` for a compact control or `FileUploadDropzone` for
 drag-and-drop. Add `FileUploadHiddenInput` explicitly to open the native picker. Put `FileUploadItems` inside
@@ -233,27 +221,27 @@ Ark also exposes `data-scope="file-upload"`, part-specific `data-part`, and stat
 
 ## API reference
 
-| Prop | Type | Default |
-| --- | --- | --- |
-| `accept` | `string \| string[] \| Record<string, string[]>` | — |
-| `maxFiles` | `number` | `1` |
-| `maxFileSize` | `number` | `Infinity` |
-| `minFileSize` | `number` | `0` |
-| `acceptedFiles` | `File[]` | — |
-| `defaultAcceptedFiles` | `File[]` | — |
-| `onFileChange` | `(details: FileChangeDetails) => void` | — |
-| `onFileAccept` | `(details: FileAcceptDetails) => void` | — |
-| `onFileReject` | `(details: FileRejectDetails) => void` | — |
-| `validate` | `(file: File, details: FileValidateDetails) => FileError[] \| null` | — |
-| `allowDrop` | `boolean` | `true` |
-| `directory` | `boolean` | `false` |
-| `capture` | `'user' \| 'environment'` | — |
-| `transformFiles` | `(files: File[]) => Promise<File[]>` | — |
-| `name` | `string` | — |
-| `disabled` | `boolean` | `false` |
-| `readOnly` | `boolean` | `false` |
-| `invalid` | `boolean` | `false` |
-| `required` | `boolean` | `false` |
-| `translations` | `IntlTranslations` | — |
-| `preventDocumentDrop` | `boolean` | `true` |
-| `locale` | `string` | `'en-US'` |
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `accept` | `string \| string[] \| Record<string, string[]>` | — | Accepted file types, as MIME types or extensions. |
+| `maxFiles` | `number` | `1` | Maximum number of files. |
+| `maxFileSize` | `number` | `Infinity` | Maximum file size in bytes. |
+| `minFileSize` | `number` | `0` | Minimum file size in bytes. |
+| `acceptedFiles` | `File[]` | — | Accepted files for controlled use. |
+| `defaultAcceptedFiles` | `File[]` | — | Initial accepted files. |
+| `onFileChange` | `(details: FileChangeDetails) => void` | — | Called with accepted and rejected files after each change. |
+| `onFileAccept` | `(details: FileAcceptDetails) => void` | — | Called with newly accepted files. |
+| `onFileReject` | `(details: FileRejectDetails) => void` | — | Called with rejected files and their errors. |
+| `validate` | `(file: File, details: FileValidateDetails) => FileError[] \| null` | — | Custom check that returns errors for a file, or `null`. |
+| `allowDrop` | `boolean` | `true` | Accepts files dropped on the dropzone. |
+| `directory` | `boolean` | `false` | Lets the user pick a folder (WebKit browsers only). |
+| `capture` | `'user' \| 'environment'` | — | Camera to use on mobile: `user` or `environment`. |
+| `transformFiles` | `(files: File[]) => Promise<File[]>` | — | Transforms accepted files before they are stored, for example to compress images. |
+| `name` | `string` | — | Form field name of the underlying input. |
+| `disabled` | `boolean` | `false` | Disables the control. |
+| `readOnly` | `boolean` | `false` | Shows the value but prevents changes. |
+| `invalid` | `boolean` | `false` | Marks the control as invalid. |
+| `required` | `boolean` | `false` | Requires a value before form submission. |
+| `translations` | `IntlTranslations` | — | Localized strings for accessibility labels. |
+| `preventDocumentDrop` | `boolean` | `true` | Stops files dropped outside the dropzone from opening in the browser. |
+| `locale` | `string` | `'en-US'` | Locale for formatting; defaults to the nearest `LocaleProvider`. |

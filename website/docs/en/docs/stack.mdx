@@ -15,18 +15,7 @@ import AnatomyScene from '@/components/examples/stack/basic';
 
 ## Usage
 
-<UsageCode
-  react={'<Stack direction={{ mobile: \'column\', desktop: \'row\' }} gap={12} align="center">\n  <Avatar />\n  <Text>Ada Lovelace</Text>\n</Stack>'}
-  vue={'<Stack :direction="{ mobile: \'column\', desktop: \'row\' }" :gap="12" align="center">\n  <Avatar />\n  <Text>Ada Lovelace</Text>\n</Stack>'}
-/>
-
-<PropChips
-  items={[
-    ['direction', 'row, column, or reversed; pass mobile and desktop for both.'],
-    ['gap', 'Space between items; numbers become px.'],
-    ['align / justify', 'Cross-axis and main-axis alignment.'],
-  ]}
-/>
+<Usage />
 
 Use `Stack` when a single flex container is enough and you only need to control direction, gap, and alignment.
 
@@ -124,11 +113,11 @@ classes and consumer class overrides; the data attributes and `data-slot` hook a
 
 Also accepts the native props of its element and `asChild`.
 
-| Prop | Type | Default |
-| --- | --- | --- |
-| `direction` | `StackDirection \| { mobile?: StackDirection; desktop?: StackDirection }` | `'column'` |
-| `gap` | `number \| string` | — |
-| `align` | `CSSProperties['alignItems']` | — |
-| `justify` | `CSSProperties['justifyContent']` | — |
-| `wrap` | `CSSProperties['flexWrap']` | — |
-| `fill` | `boolean` | `false` |
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `direction` | `StackDirection \| { mobile?: StackDirection; desktop?: StackDirection }` | `'column'` | `column` or `row`, or separate values for mobile and desktop. |
+| `gap` | `number \| string` | — | Gap between children; numbers are pixels. |
+| `align` | `CSSProperties['alignItems']` | — | CSS `align-items`. |
+| `justify` | `CSSProperties['justifyContent']` | — | CSS `justify-content`. |
+| `wrap` | `CSSProperties['flexWrap']` | — | CSS `flex-wrap`. |
+| `fill` | `boolean` | `false` | Stretches the stack to the full width and height of its parent. |

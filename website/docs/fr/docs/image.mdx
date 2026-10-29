@@ -16,18 +16,7 @@ import * as ImageDocs from '@/components/examples/image/css-properties';
 
 ## Utilisation
 
-<UsageCode
-  react={'<Image\n  src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4"\n  alt="Mountain landscape"\n  width={800}\n  height={520}\n  layout="constrained"\n/>'}
-  vue={'<Image\n  src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4"\n  alt="Mountain landscape"\n  :width="800"\n  :height="520"\n  layout="constrained"\n/>'}
-/>
-
-<PropChips
-  items={[
-    ['layout', 'constrained, fixed ou fullWidth.'],
-    ['width / height', 'Taille intrinsèque ; requise pour constrained et fixed.'],
-    ['priority', 'Charge immédiatement les images visibles au départ.'],
-  ]}
-/>
+<Usage />
 
 Utilisez `Image` avec l’URL d’une image provenant d’un CDN pris en charge ou avec une URL d’image classique.
 Dans le mode `layout="constrained"`, indiquez `width` et `height`. Unpic génère un `srcset` et un attribut
@@ -123,13 +112,13 @@ Survolez ou sélectionnez une variable pour la voir dans l’aperçu.
 
 `Image` accepte les props d’image Unpic et les props natives de `img`.
 
-| Prop | Type | Défaut |
-| --- | --- | --- |
-| `src` | `string` | — |
-| `alt` | `string` | — |
-| `layout` | `'constrained' \| 'fixed' \| 'fullWidth'` | `'constrained'` |
-| `width` | `number` | — |
-| `height` | `number` | — |
-| `aspectRatio` | `number` | — |
-| `priority` | `boolean` | `false` |
-| `background` | `string` | — |
+| Prop | Type | Défaut | Description |
+| --- | --- | --- | --- |
+| `src` | `string` | — | URL de l’image ; les URL de CDN reçoivent un `srcset` adaptatif. |
+| `alt` | `string` | — | Texte alternatif ; chaîne vide pour une image décorative. |
+| `layout` | `'constrained' \| 'fixed' \| 'fullWidth'` | `'constrained'` | Mode de dimensionnement : `constrained`, `fixed` ou `fullWidth`. |
+| `width` | `number` | — | Largeur intrinsèque en pixels ; réserve l’espace avant le chargement. |
+| `height` | `number` | — | Hauteur intrinsèque en pixels ; réserve l’espace avant le chargement. |
+| `aspectRatio` | `number` | — | Rapport largeur/hauteur lorsqu’une seule dimension est connue. |
+| `priority` | `boolean` | `false` | Charge immédiatement en priorité, pour les images visibles dès l’ouverture. |
+| `background` | `string` | — | Arrière-plan de substitution affiché pendant le chargement. |

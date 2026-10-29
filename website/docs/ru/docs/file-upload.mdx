@@ -15,19 +15,7 @@ import AnatomyScene from '@/components/examples/file-upload/basic';
 
 ## Использование
 
-<UsageCode
-  react={'<FileUpload accept="image/*" maxFiles={5} maxFileSize={5 * 1024 * 1024} onFileAccept={(details) => upload(details.files)}>\n  <FileUploadLabel>Photos</FileUploadLabel>\n  <FileUploadHiddenInput />\n  <FileUploadDropzone>Drop images here</FileUploadDropzone>\n  <FileUploadItemGroup>\n    <FileUploadItems />\n  </FileUploadItemGroup>\n</FileUpload>'}
-  vue={'<FileUpload accept="image/*" :max-files="5" :max-file-size="5 * 1024 * 1024" @file-accept="(details) => upload(details.files)">\n  <FileUploadLabel>Photos</FileUploadLabel>\n  <FileUploadHiddenInput />\n  <FileUploadDropzone>Drop images here</FileUploadDropzone>\n  <FileUploadItemGroup>\n    <FileUploadItems />\n  </FileUploadItemGroup>\n</FileUpload>'}
-/>
-
-<PropChips
-  items={[
-    ['accept', 'Допустимые MIME-типы или расширения.'],
-    ['maxFiles', 'Сколько файлов можно выбрать, по умолчанию 1.'],
-    ['maxFileSize', 'Максимальный размер файла в байтах.'],
-    ['onFileAccept', 'Вызывается с файлами, прошедшими проверку.'],
-  ]}
-/>
+<Usage />
 
 Начните с `FileUpload` как корневого компонента. Добавьте `FileUploadLabel`, а затем оберните `Button` в `FileUploadTrigger asChild` для компактного
 элемента управления или `FileUploadDropzone` для загрузки перетаскиванием. Явно добавьте `FileUploadHiddenInput`, чтобы
@@ -241,27 +229,27 @@ Ark также предоставляет `data-scope="file-upload"`, `data-part
 
 ## Справочник API
 
-| Проп | Тип | По умолчанию |
-| --- | --- | --- |
-| `accept` | `string \| string[] \| Record<string, string[]>` | — |
-| `maxFiles` | `number` | `1` |
-| `maxFileSize` | `number` | `Infinity` |
-| `minFileSize` | `number` | `0` |
-| `acceptedFiles` | `File[]` | — |
-| `defaultAcceptedFiles` | `File[]` | — |
-| `onFileChange` | `(details: FileChangeDetails) => void` | — |
-| `onFileAccept` | `(details: FileAcceptDetails) => void` | — |
-| `onFileReject` | `(details: FileRejectDetails) => void` | — |
-| `validate` | `(file: File, details: FileValidateDetails) => FileError[] \| null` | — |
-| `allowDrop` | `boolean` | `true` |
-| `directory` | `boolean` | `false` |
-| `capture` | `'user' \| 'environment'` | — |
-| `transformFiles` | `(files: File[]) => Promise<File[]>` | — |
-| `name` | `string` | — |
-| `disabled` | `boolean` | `false` |
-| `readOnly` | `boolean` | `false` |
-| `invalid` | `boolean` | `false` |
-| `required` | `boolean` | `false` |
-| `translations` | `IntlTranslations` | — |
-| `preventDocumentDrop` | `boolean` | `true` |
-| `locale` | `string` | `'en-US'` |
+| Проп | Тип | По умолчанию | Описание |
+| --- | --- | --- | --- |
+| `accept` | `string \| string[] \| Record<string, string[]>` | — | Допустимые типы файлов: MIME-типы или расширения. |
+| `maxFiles` | `number` | `1` | Максимальное число файлов. |
+| `maxFileSize` | `number` | `Infinity` | Максимальный размер файла в байтах. |
+| `minFileSize` | `number` | `0` | Минимальный размер файла в байтах. |
+| `acceptedFiles` | `File[]` | — | Принятые файлы в управляемом режиме. |
+| `defaultAcceptedFiles` | `File[]` | — | Начальный список принятых файлов. |
+| `onFileChange` | `(details: FileChangeDetails) => void` | — | Вызывается с принятыми и отклонёнными файлами после каждого изменения. |
+| `onFileAccept` | `(details: FileAcceptDetails) => void` | — | Вызывается с новыми принятыми файлами. |
+| `onFileReject` | `(details: FileRejectDetails) => void` | — | Вызывается с отклонёнными файлами и ошибками. |
+| `validate` | `(file: File, details: FileValidateDetails) => FileError[] \| null` | — | Своя проверка: возвращает ошибки файла или `null`. |
+| `allowDrop` | `boolean` | `true` | Принимает файлы, перетащенные в зону. |
+| `directory` | `boolean` | `false` | Разрешает выбрать папку (только браузеры WebKit). |
+| `capture` | `'user' \| 'environment'` | — | Камера на мобильных: `user` или `environment`. |
+| `transformFiles` | `(files: File[]) => Promise<File[]>` | — | Преобразует принятые файлы перед сохранением, например сжимает изображения. |
+| `name` | `string` | — | Имя поля формы у внутреннего input. |
+| `disabled` | `boolean` | `false` | Отключает элемент управления. |
+| `readOnly` | `boolean` | `false` | Показывает значение, но не даёт его менять. |
+| `invalid` | `boolean` | `false` | Помечает поле как невалидное. |
+| `required` | `boolean` | `false` | Требует значение перед отправкой формы. |
+| `translations` | `IntlTranslations` | — | Переведённые строки для подписей доступности. |
+| `preventDocumentDrop` | `boolean` | `true` | Не даёт браузеру открыть файл, брошенный мимо зоны. |
+| `locale` | `string` | `'en-US'` | Локаль для форматирования; по умолчанию из ближайшего `LocaleProvider`. |

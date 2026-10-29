@@ -16,19 +16,7 @@ import * as CheckboxDocs from '@/components/examples/checkbox/css-properties';
 
 ## Utilisation
 
-<UsageCode
-  react={'<Checkbox defaultChecked name="updates" size="md" onCheckedChange={(details) => save(details.checked)}>\n  <CheckboxControl />\n  <CheckboxLabel>Email me about updates</CheckboxLabel>\n  <CheckboxHiddenInput />\n</Checkbox>'}
-  vue={'<Checkbox v-model:checked="checked" name="updates" size="md">\n  <CheckboxControl />\n  <CheckboxLabel>Email me about updates</CheckboxLabel>\n  <CheckboxHiddenInput />\n</Checkbox>'}
-/>
-
-<PropChips
-  items={[
-    ['defaultChecked', 'État initial : true, false ou \'indeterminate\'.'],
-    ['onCheckedChange', 'Appelé avec le nouvel état.'],
-    ['size', 'De xs à xl, md par défaut.'],
-    ['CheckboxGroup', 'Regroupe plusieurs cases avec un tableau de valeurs commun.'],
-  ]}
-/>
+<Usage />
 
 Composez une case à cocher avec les parties Ark. Laissez `CheckboxControl` vide pour utiliser les
 icônes intégrées de moduix pour les états coché et indéterminé. Ajoutez `CheckboxLabel` pour le
@@ -234,16 +222,16 @@ Survolez ou sélectionnez une variable pour la voir dans l’aperçu.
 
 ## Référence de l’API
 
-| Prop | Type | Défaut |
-| --- | --- | --- |
-| `checked` | `boolean \| 'indeterminate'` | — |
-| `defaultChecked` | `boolean \| 'indeterminate'` | `false` |
-| `onCheckedChange` | `(details: CheckedChangeDetails) => void` | — |
-| `value` | `string` | `'on'` |
-| `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'` | `'md'` |
-| `name` | `string` | — |
-| `disabled` | `boolean` | `false` |
-| `readOnly` | `boolean` | `false` |
-| `invalid` | `boolean` | `false` |
-| `required` | `boolean` | `false` |
-| `form` | `string` | — |
+| Prop | Type | Défaut | Description |
+| --- | --- | --- | --- |
+| `checked` | `boolean \| 'indeterminate'` | — | État coché en mode contrôlé ; `indeterminate` affiche un tiret. |
+| `defaultChecked` | `boolean \| 'indeterminate'` | `false` | État coché initial lorsqu’il n’est pas contrôlé. |
+| `onCheckedChange` | `(details: CheckedChangeDetails) => void` | — | Appelé lorsque l’état coché change. |
+| `value` | `string` | `'on'` | Valeur envoyée avec le formulaire lorsque la case est cochée. |
+| `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'` | `'md'` | Taille de la case : `xs`, `sm`, `md`, `lg` ou `xl`. |
+| `name` | `string` | — | Nom du champ de formulaire de l’input sous-jacent. |
+| `disabled` | `boolean` | `false` | Désactive le contrôle. |
+| `readOnly` | `boolean` | `false` | Affiche la valeur sans permettre de la modifier. |
+| `invalid` | `boolean` | `false` | Marque le champ comme invalide. |
+| `required` | `boolean` | `false` | Exige une valeur avant l’envoi du formulaire. |
+| `form` | `string` | — | Id du formulaire auquel l’input sous-jacent est rattaché. |

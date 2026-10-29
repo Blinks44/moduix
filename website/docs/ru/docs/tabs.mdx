@@ -16,19 +16,7 @@ import * as TabsDocs from '@/components/examples/tabs/css-properties';
 
 ## Использование
 
-<UsageCode
-  react={'<Tabs defaultValue="overview" variant="line" size="sm">\n  <TabsList>\n    <TabsTrigger value="overview">Overview</TabsTrigger>\n    <TabsTrigger value="activity">Activity</TabsTrigger>\n    <TabsIndicator />\n  </TabsList>\n  <TabsContent value="overview">Project summary</TabsContent>\n  <TabsContent value="activity">Recent changes</TabsContent>\n</Tabs>'}
-  vue={'<Tabs default-value="overview" variant="line" size="sm">\n  <TabsList>\n    <TabsTrigger value="overview">Overview</TabsTrigger>\n    <TabsTrigger value="activity">Activity</TabsTrigger>\n    <TabsIndicator />\n  </TabsList>\n  <TabsContent value="overview">Project summary</TabsContent>\n  <TabsContent value="activity">Recent changes</TabsContent>\n</Tabs>'}
-/>
-
-<PropChips
-  items={[
-    ['defaultValue', 'Вкладка при первом рендере; для управления используйте value.'],
-    ['variant', 'default рисует сегменты, line подчёркивание.'],
-    ['size', 'sm, md или lg.'],
-    ['fitted', 'Растягивает вкладки на всю ширину списка.'],
-  ]}
-/>
+<Usage />
 
 Начните с `Tabs` и задайте одинаковое значение `value` для каждой пары `TabsTrigger` и
 `TabsContent`. Добавьте `TabsIndicator`, если выбранную вкладку нужно отметить визуально.
@@ -203,21 +191,21 @@ import * as TabsDocs from '@/components/examples/tabs/css-properties';
 
 ## Справочник API
 
-| Проп | Тип | По умолчанию |
-| --- | --- | --- |
-| `value` | `string \| null` | — |
-| `defaultValue` | `string \| null` | — |
-| `onValueChange` | `(details: ValueChangeDetails) => void` | — |
-| `variant` | `'default' \| 'line'` | `'default'` |
-| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` |
-| `fitted` | `boolean` | `false` |
-| `orientation` | `'horizontal' \| 'vertical'` | `'horizontal'` |
-| `activationMode` | `'automatic' \| 'manual'` | `'automatic'` |
-| `loopFocus` | `boolean` | `true` |
-| `deselectable` | `boolean` | `false` |
-| `lazyMount` | `boolean` | `false` |
-| `unmountOnExit` | `boolean` | `false` |
-| `translations` | `IntlTranslations` | — |
-| `onFocusChange` | `(details: FocusChangeDetails) => void` | — |
-| `composite` | `boolean` | — |
-| `navigate` | `((details: NavigateDetails) => void) \| null` | — |
+| Проп | Тип | По умолчанию | Описание |
+| --- | --- | --- | --- |
+| `value` | `string \| null` | — | Выбранная вкладка в управляемом режиме. |
+| `defaultValue` | `string \| null` | — | Изначально выбранная вкладка. |
+| `onValueChange` | `(details: ValueChangeDetails) => void` | — | Вызывается при выборе другой вкладки. |
+| `variant` | `'default' \| 'line'` | `'default'` | Вид: `default` или `line`. |
+| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` | Размер: `sm`, `md` или `lg`. |
+| `fitted` | `boolean` | `false` | Растягивает триггеры на всю ширину поровну. |
+| `orientation` | `'horizontal' \| 'vertical'` | `'horizontal'` | Раскладка и направление стрелок: `horizontal` или `vertical`. |
+| `activationMode` | `'automatic' \| 'manual'` | `'automatic'` | `automatic` выбирает при фокусе, `manual` ждёт Enter или Space. |
+| `loopFocus` | `boolean` | `true` | Навигация с клавиатуры переходит с последнего элемента на первый. |
+| `deselectable` | `boolean` | `false` | Клик по активной вкладке снимает выбор. |
+| `lazyMount` | `boolean` | `false` | Монтирует содержимое при первом открытии. |
+| `unmountOnExit` | `boolean` | `false` | Удаляет содержимое после закрытия. |
+| `translations` | `IntlTranslations` | — | Переведённые строки для подписей доступности. |
+| `onFocusChange` | `(details: FocusChangeDetails) => void` | — | Вызывается, когда фокус переходит на другой триггер. |
+| `composite` | `boolean` | — | Укажите `false`, если компонент находится внутри другого составного виджета, например вкладок. |
+| `navigate` | `((details: NavigateDetails) => void) \| null` | — | Переходит по триггеру-ссылке, выбранному с клавиатуры. |

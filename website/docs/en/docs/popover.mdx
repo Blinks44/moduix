@@ -15,19 +15,7 @@ import AnatomyScene from '@/components/examples/popover/anatomy';
 
 ## Usage
 
-<UsageCode
-  react={'<Popover positioning={{ placement: \'bottom-start\', gutter: 8 }}>\n  <PopoverTrigger asChild>\n    <Button>Notifications</Button>\n  </PopoverTrigger>\n  <PopoverPositioner>\n    <PopoverContent>\n      <PopoverHeader>\n        <PopoverTitle>Notifications</PopoverTitle>\n        <PopoverDescription>You are all caught up.</PopoverDescription>\n      </PopoverHeader>\n    </PopoverContent>\n  </PopoverPositioner>\n</Popover>'}
-  solid={'<Popover positioning={{ placement: \'bottom-start\', gutter: 8 }}>\n  <PopoverTrigger asChild={(props) => (\n    <Button {...props()}>Notifications</Button>\n  )} />\n  <PopoverPositioner>\n    <PopoverContent>\n      <PopoverHeader>\n        <PopoverTitle>Notifications</PopoverTitle>\n        <PopoverDescription>You are all caught up.</PopoverDescription>\n      </PopoverHeader>\n    </PopoverContent>\n  </PopoverPositioner>\n</Popover>'}
-  vue={'<Popover :positioning="{ placement: \'bottom-start\', gutter: 8 }">\n  <PopoverTrigger as-child>\n    <Button>Notifications</Button>\n  </PopoverTrigger>\n  <PopoverPositioner>\n    <PopoverContent>\n      <PopoverHeader>\n        <PopoverTitle>Notifications</PopoverTitle>\n        <PopoverDescription>You are all caught up.</PopoverDescription>\n      </PopoverHeader>\n    </PopoverContent>\n  </PopoverPositioner>\n</Popover>'}
-/>
-
-<PropChips
-  items={[
-    ['positioning', 'Placement, gutter, and sameWidth of the panel.'],
-    ['modal', 'Traps focus and blocks the page while open.'],
-    ['closeOnInteractOutside', 'Closes on a click outside, true by default.'],
-  ]}
-/>
+<Usage />
 
 Use `Popover` as the root and import each additional part directly, such as `PopoverTrigger` and
 `PopoverContent`. The same flat names work with npm packages and shadcn registry source. Set
@@ -222,23 +210,23 @@ popover.
 
 ## API reference
 
-| Prop | Type | Default |
-| --- | --- | --- |
-| `open` | `boolean` | — |
-| `defaultOpen` | `boolean` | `false` |
-| `onOpenChange` | `(details: OpenChangeDetails) => void` | — |
-| `positioning` | `PositioningOptions` | — |
-| `modal` | `boolean` | `false` |
-| `autoFocus` | `boolean` | `true` |
-| `closeOnEscape` | `boolean` | `true` |
-| `closeOnInteractOutside` | `boolean` | `true` |
-| `initialFocusEl` | `() => HTMLElement \| null \| false` | — |
-| `portalled` | `boolean` | `true` |
-| `lazyMount` | `boolean` | `true` |
-| `unmountOnExit` | `boolean` | `true` |
-| `translations` | `IntlTranslations` | — |
-| `finalFocusEl` | `() => MaybeElement` | — |
-| `restoreFocus` | `boolean` | `true` |
-| `triggerValue` | `string \| null` | — |
-| `defaultTriggerValue` | `string \| null` | — |
-| `onTriggerValueChange` | `(details: TriggerValueChangeDetails) => void` | — |
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `open` | `boolean` | — | Open state for controlled use. |
+| `defaultOpen` | `boolean` | `false` | Initial open state when it is not controlled. |
+| `onOpenChange` | `(details: OpenChangeDetails) => void` | — | Called when it opens or closes. |
+| `positioning` | `PositioningOptions` | — | Placement, offset, and other popup positioning options. |
+| `modal` | `boolean` | `false` | Traps focus, blocks outside interaction, and locks page scroll. |
+| `autoFocus` | `boolean` | `true` | Moves focus to the first focusable element on open. |
+| `closeOnEscape` | `boolean` | `true` | Closes on Escape. |
+| `closeOnInteractOutside` | `boolean` | `true` | Closes on a click outside. |
+| `initialFocusEl` | `() => HTMLElement \| null \| false` | — | Returns the element to focus on open. |
+| `portalled` | `boolean` | `true` | Renders the popup in a portal at the end of `body`. |
+| `lazyMount` | `boolean` | `true` | Mounts the content on first open. |
+| `unmountOnExit` | `boolean` | `true` | Unmounts the content after it closes. |
+| `translations` | `IntlTranslations` | — | Localized strings for accessibility labels. |
+| `finalFocusEl` | `() => MaybeElement` | — | Returns the element to focus on close. |
+| `restoreFocus` | `boolean` | `true` | Returns focus to the previously focused element on close. |
+| `triggerValue` | `string \| null` | — | Active trigger for controlled use when several triggers share one popup. |
+| `defaultTriggerValue` | `string \| null` | — | Initially active trigger. |
+| `onTriggerValueChange` | `(details: TriggerValueChangeDetails) => void` | — | Called when another trigger becomes active. |

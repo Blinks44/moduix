@@ -16,18 +16,7 @@ import * as AvatarDocs from '@/components/examples/avatar/css-properties';
 
 ## Usage
 
-<UsageCode
-  react={'<Avatar size="lg" onStatusChange={(details) => log(details.status)}>\n  <AvatarFallback>AT</AvatarFallback>\n  <AvatarImage src={user.photo} alt={user.name} />\n</Avatar>'}
-  vue={'<Avatar size="lg" @status-change="(details) => log(details.status)">\n  <AvatarFallback>AT</AvatarFallback>\n  <AvatarImage :src="user.photo" :alt="user.name" />\n</Avatar>'}
-/>
-
-<PropChips
-  items={[
-    ['size', 'xs to xl, md by default.'],
-    ['AvatarFallback', 'Initials or an icon shown until the image loads.'],
-    ['onStatusChange', 'Reports loading, loaded, or error.'],
-  ]}
-/>
+<Usage />
 
 Use `Avatar`, `AvatarFallback`, and `AvatarImage` together. Keep `AvatarFallback` in the tree so
 Ark UI can switch between the fallback and the image as the loading state changes.
@@ -156,8 +145,8 @@ Hover or focus a variable to see it in the preview.
 
 ## API reference
 
-| Prop | Type | Default |
-| --- | --- | --- |
-| `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'` | `'md'` |
-| `onStatusChange` | `(details: StatusChangeDetails) => void` | — |
-| `asChild` | `boolean` | `false` |
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'` | `'md'` | Avatar size: `xs`, `sm`, `md`, `lg`, or `xl`. |
+| `onStatusChange` | `(details: StatusChangeDetails) => void` | — | Called when the image status becomes `loading`, `loaded`, or `error`. |
+| `asChild` | `boolean` | `false` | Renders the root as its single child element. |

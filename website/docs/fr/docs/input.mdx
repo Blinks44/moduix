@@ -16,19 +16,7 @@ import * as InputDocs from '@/components/examples/input/css-properties';
 
 ## Utilisation
 
-<UsageCode
-  react={'<Field>\n  <FieldLabel>Name</FieldLabel>\n  <Input name="name" size="md" placeholder="Enter your name" onChange={(event) => setName(event.target.value)} />\n</Field>'}
-  solid={'<Field>\n  <FieldLabel>Name</FieldLabel>\n  <Input name="name" size="md" placeholder="Enter your name" onInput={(event) => setName(event.currentTarget.value)} />\n</Field>'}
-  vue={'<Field>\n  <FieldLabel>Name</FieldLabel>\n  <Input v-model="name" name="name" size="md" placeholder="Enter your name" />\n</Field>'}
-/>
-
-<PropChips
-  items={[
-    ['size', 'Hauteur et taille du texte, de xs à xl.'],
-    ['htmlSize', 'Attribut size natif, en caractères.'],
-    ['Field', 'Enveloppez-le pour ajouter libellé, aide et erreur.'],
-  ]}
-/>
+<Usage />
 
 Placez `Input` dans `Field` lorsque vous avez besoin d’un libellé, d’un texte d’aide ou d’un message d’erreur. `Field` relie ces éléments au champ, génère les identifiants nécessaires et lui transmet son état.
 
@@ -177,8 +165,8 @@ Survolez ou sélectionnez une variable pour la voir dans l’aperçu.
 
 Accepte aussi les props natives de son élément.
 
-| Prop | Type | Défaut |
-| --- | --- | --- |
-| `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'` | `'md'` |
-| `htmlSize` | `number` | — |
-| `asChild` | `boolean` | `false` |
+| Prop | Type | Défaut | Description |
+| --- | --- | --- | --- |
+| `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'` | `'md'` | Taille : `xs`, `sm`, `md`, `lg` ou `xl`. |
+| `htmlSize` | `number` | — | Attribut natif `size` : largeur visible en caractères. |
+| `asChild` | `boolean` | `false` | Applique les styles du champ à son unique enfant, par exemple un input personnalisé. |

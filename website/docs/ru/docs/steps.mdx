@@ -16,19 +16,7 @@ import * as StepsDocs from '@/components/examples/steps/css-properties';
 
 ## Использование
 
-<UsageCode
-  react={'<Steps count={3} linear onStepComplete={finish}>\n  <StepsList>\n    <StepsItem index={0}>\n      <StepsTrigger>\n        <StepsIndicator />\n        Account\n      </StepsTrigger>\n      <StepsSeparator />\n    </StepsItem>\n    {/* items 1 and 2 */}\n  </StepsList>\n  <StepsContent index={0}>Account details</StepsContent>\n  <StepsCompletedContent>All set.</StepsCompletedContent>\n  <StepsPrevTrigger>Back</StepsPrevTrigger>\n  <StepsNextTrigger>Next</StepsNextTrigger>\n</Steps>'}
-  vue={'<Steps :count="3" linear @step-complete="finish">\n  <StepsList>\n    <StepsItem :index="0">\n      <StepsTrigger>\n        <StepsIndicator />\n        Account\n      </StepsTrigger>\n      <StepsSeparator />\n    </StepsItem>\n    <!-- items 1 and 2 -->\n  </StepsList>\n  <StepsContent :index="0">Account details</StepsContent>\n  <StepsCompletedContent>All set.</StepsCompletedContent>\n  <StepsPrevTrigger>Back</StepsPrevTrigger>\n  <StepsNextTrigger>Next</StepsNextTrigger>\n</Steps>'}
-/>
-
-<PropChips
-  items={[
-    ['count', 'Число шагов; индексы с 0.'],
-    ['linear', 'Требует завершить шаг перед следующим.'],
-    ['isStepValid', 'Блокирует Next, пока шаг не прошёл проверку.'],
-    ['orientation', 'Горизонтальная или вертикальная раскладка.'],
-  ]}
-/>
+<Usage />
 
 Используйте `Steps` с параметром `count`, списком `StepsList`, содержащим по одному
 `StepsItem` для каждого шага, соответствующими панелями `StepsContent` и встроенными кнопками
@@ -181,15 +169,15 @@ Modules дают две переменные, потому что от них с
 
 ## Справочник API
 
-| Проп | Тип | По умолчанию |
-| --- | --- | --- |
-| `count` | `number` | — |
-| `step` | `number` | — |
-| `defaultStep` | `number` | `0` |
-| `onStepChange` | `(details: StepChangeDetails) => void` | — |
-| `onStepComplete` | `() => void` | — |
-| `linear` | `boolean` | `false` |
-| `orientation` | `'horizontal' \| 'vertical'` | `'horizontal'` |
-| `isStepValid` | `(index: number) => boolean` | `() => true` |
-| `isStepSkippable` | `(index: number) => boolean` | `() => false` |
-| `onStepInvalid` | `(details: StepInvalidDetails) => void` | — |
+| Проп | Тип | По умолчанию | Описание |
+| --- | --- | --- | --- |
+| `count` | `number` | — | Общее число шагов. |
+| `step` | `number` | — | Индекс текущего шага в управляемом режиме. |
+| `defaultStep` | `number` | `0` | Начальный шаг. |
+| `onStepChange` | `(details: StepChangeDetails) => void` | — | Вызывается при смене шага. |
+| `onStepComplete` | `() => void` | — | Вызывается после завершения последнего шага. |
+| `linear` | `boolean` | `false` | Требует проходить шаги по порядку. |
+| `orientation` | `'horizontal' \| 'vertical'` | `'horizontal'` | Раскладка: `horizontal` или `vertical`. |
+| `isStepValid` | `(index: number) => boolean` | `() => true` | Возвращает `false`, чтобы не пускать дальше шага. |
+| `isStepSkippable` | `(index: number) => boolean` | `() => false` | Возвращает `true` для шагов, которые можно пропустить. |
+| `onStepInvalid` | `(details: StepInvalidDetails) => void` | — | Вызывается, когда `isStepValid` блокирует переход. |

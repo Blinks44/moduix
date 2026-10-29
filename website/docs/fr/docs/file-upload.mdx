@@ -15,19 +15,7 @@ import AnatomyScene from '@/components/examples/file-upload/basic';
 
 ## Utilisation
 
-<UsageCode
-  react={'<FileUpload accept="image/*" maxFiles={5} maxFileSize={5 * 1024 * 1024} onFileAccept={(details) => upload(details.files)}>\n  <FileUploadLabel>Photos</FileUploadLabel>\n  <FileUploadHiddenInput />\n  <FileUploadDropzone>Drop images here</FileUploadDropzone>\n  <FileUploadItemGroup>\n    <FileUploadItems />\n  </FileUploadItemGroup>\n</FileUpload>'}
-  vue={'<FileUpload accept="image/*" :max-files="5" :max-file-size="5 * 1024 * 1024" @file-accept="(details) => upload(details.files)">\n  <FileUploadLabel>Photos</FileUploadLabel>\n  <FileUploadHiddenInput />\n  <FileUploadDropzone>Drop images here</FileUploadDropzone>\n  <FileUploadItemGroup>\n    <FileUploadItems />\n  </FileUploadItemGroup>\n</FileUpload>'}
-/>
-
-<PropChips
-  items={[
-    ['accept', 'Types MIME ou extensions autorisés.'],
-    ['maxFiles', 'Nombre de fichiers autorisés, 1 par défaut.'],
-    ['maxFileSize', 'Taille maximale d’un fichier en octets.'],
-    ['onFileAccept', 'Appelé avec les fichiers acceptés.'],
-  ]}
-/>
+<Usage />
 
 Commencez par utiliser `FileUpload` comme composant racine. Ajoutez un `FileUploadLabel`, puis enveloppez un `Button` dans `FileUploadTrigger asChild` pour un contrôle
 compact ou `FileUploadDropzone` pour le glisser-déposer. Ajoutez explicitement `FileUploadHiddenInput` pour
@@ -242,27 +230,27 @@ Ark expose également `data-scope="file-upload"`, `data-part` pour les parties e
 
 ## Référence de l’API
 
-| Prop | Type | Défaut |
-| --- | --- | --- |
-| `accept` | `string \| string[] \| Record<string, string[]>` | — |
-| `maxFiles` | `number` | `1` |
-| `maxFileSize` | `number` | `Infinity` |
-| `minFileSize` | `number` | `0` |
-| `acceptedFiles` | `File[]` | — |
-| `defaultAcceptedFiles` | `File[]` | — |
-| `onFileChange` | `(details: FileChangeDetails) => void` | — |
-| `onFileAccept` | `(details: FileAcceptDetails) => void` | — |
-| `onFileReject` | `(details: FileRejectDetails) => void` | — |
-| `validate` | `(file: File, details: FileValidateDetails) => FileError[] \| null` | — |
-| `allowDrop` | `boolean` | `true` |
-| `directory` | `boolean` | `false` |
-| `capture` | `'user' \| 'environment'` | — |
-| `transformFiles` | `(files: File[]) => Promise<File[]>` | — |
-| `name` | `string` | — |
-| `disabled` | `boolean` | `false` |
-| `readOnly` | `boolean` | `false` |
-| `invalid` | `boolean` | `false` |
-| `required` | `boolean` | `false` |
-| `translations` | `IntlTranslations` | — |
-| `preventDocumentDrop` | `boolean` | `true` |
-| `locale` | `string` | `'en-US'` |
+| Prop | Type | Défaut | Description |
+| --- | --- | --- | --- |
+| `accept` | `string \| string[] \| Record<string, string[]>` | — | Types de fichiers acceptés, en types MIME ou extensions. |
+| `maxFiles` | `number` | `1` | Nombre maximal de fichiers. |
+| `maxFileSize` | `number` | `Infinity` | Taille maximale d’un fichier en octets. |
+| `minFileSize` | `number` | `0` | Taille minimale d’un fichier en octets. |
+| `acceptedFiles` | `File[]` | — | Fichiers acceptés en mode contrôlé. |
+| `defaultAcceptedFiles` | `File[]` | — | Fichiers acceptés initiaux. |
+| `onFileChange` | `(details: FileChangeDetails) => void` | — | Appelé avec les fichiers acceptés et refusés après chaque changement. |
+| `onFileAccept` | `(details: FileAcceptDetails) => void` | — | Appelé avec les nouveaux fichiers acceptés. |
+| `onFileReject` | `(details: FileRejectDetails) => void` | — | Appelé avec les fichiers refusés et leurs erreurs. |
+| `validate` | `(file: File, details: FileValidateDetails) => FileError[] \| null` | — | Vérification personnalisée qui renvoie des erreurs, ou `null`. |
+| `allowDrop` | `boolean` | `true` | Accepte les fichiers déposés dans la zone. |
+| `directory` | `boolean` | `false` | Permet de choisir un dossier (navigateurs WebKit seulement). |
+| `capture` | `'user' \| 'environment'` | — | Caméra à utiliser sur mobile : `user` ou `environment`. |
+| `transformFiles` | `(files: File[]) => Promise<File[]>` | — | Transforme les fichiers acceptés avant leur stockage, par exemple pour compresser des images. |
+| `name` | `string` | — | Nom du champ de formulaire de l’input sous-jacent. |
+| `disabled` | `boolean` | `false` | Désactive le contrôle. |
+| `readOnly` | `boolean` | `false` | Affiche la valeur sans permettre de la modifier. |
+| `invalid` | `boolean` | `false` | Marque le champ comme invalide. |
+| `required` | `boolean` | `false` | Exige une valeur avant l’envoi du formulaire. |
+| `translations` | `IntlTranslations` | — | Textes localisés des libellés d’accessibilité. |
+| `preventDocumentDrop` | `boolean` | `true` | Empêche le navigateur d’ouvrir un fichier déposé hors de la zone. |
+| `locale` | `string` | `'en-US'` | Locale du formatage ; par défaut celle du `LocaleProvider` le plus proche. |

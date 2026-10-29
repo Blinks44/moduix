@@ -15,20 +15,7 @@ import AnatomyScene from '@/components/examples/floating-panel/anatomy';
 
 ## Utilisation
 
-<UsageCode
-  react={'<FloatingPanel defaultSize={{ width: 360, height: 260 }} minSize={{ width: 240, height: 160 }}>\n  <FloatingPanelTrigger asChild>\n    <Button>Open panel</Button>\n  </FloatingPanelTrigger>\n  <FloatingPanelPositioner>\n    <FloatingPanelContent>\n      <FloatingPanelDragTrigger>\n        <FloatingPanelHeader>\n          <FloatingPanelTitle>Inspector</FloatingPanelTitle>\n          <FloatingPanelCloseIcon />\n        </FloatingPanelHeader>\n      </FloatingPanelDragTrigger>\n      <FloatingPanelBody>…</FloatingPanelBody>\n      <FloatingPanelResizeTriggerGroup />\n    </FloatingPanelContent>\n  </FloatingPanelPositioner>\n</FloatingPanel>'}
-  solid={'<FloatingPanel defaultSize={{ width: 360, height: 260 }} minSize={{ width: 240, height: 160 }}>\n  <FloatingPanelTrigger asChild={(props) => (\n    <Button {...props()}>Open panel</Button>\n  )} />\n  <FloatingPanelPositioner>\n    <FloatingPanelContent>\n      <FloatingPanelDragTrigger>\n        <FloatingPanelHeader>\n          <FloatingPanelTitle>Inspector</FloatingPanelTitle>\n          <FloatingPanelCloseIcon />\n        </FloatingPanelHeader>\n      </FloatingPanelDragTrigger>\n      <FloatingPanelBody>…</FloatingPanelBody>\n      <FloatingPanelResizeTriggerGroup />\n    </FloatingPanelContent>\n  </FloatingPanelPositioner>\n</FloatingPanel>'}
-  vue={'<FloatingPanel :default-size="{ width: 360, height: 260 }" :min-size="{ width: 240, height: 160 }">\n  <FloatingPanelTrigger as-child>\n    <Button>Open panel</Button>\n  </FloatingPanelTrigger>\n  <FloatingPanelPositioner>\n    <FloatingPanelContent>\n      <FloatingPanelDragTrigger>\n        <FloatingPanelHeader>\n          <FloatingPanelTitle>Inspector</FloatingPanelTitle>\n          <FloatingPanelCloseIcon />\n        </FloatingPanelHeader>\n      </FloatingPanelDragTrigger>\n      <FloatingPanelBody>…</FloatingPanelBody>\n      <FloatingPanelResizeTriggerGroup />\n    </FloatingPanelContent>\n  </FloatingPanelPositioner>\n</FloatingPanel>'}
-/>
-
-<PropChips
-  items={[
-    ['defaultSize', 'Largeur et hauteur initiales en px.'],
-    ['minSize / maxSize', 'Limites du redimensionnement.'],
-    ['getBoundaryEl', 'Élément dont le panneau ne sort pas.'],
-    ['persistRect', 'Garde position et taille entre deux ouvertures.'],
-  ]}
-/>
+<Usage />
 
 Conservez les parties Ark UI explicites. `FloatingPanelPositioner` applique la position et la taille
 calculées par Ark, tandis que `FloatingPanelContent` représente la surface visible de la fenêtre.
@@ -208,36 +195,36 @@ Les parties Ark UI conservent `data-scope="floating-panel"` et leurs valeurs `da
 
 ## Référence de l’API
 
-| Prop | Type | Défaut |
-| --- | --- | --- |
-| `open` | `boolean` | — |
-| `defaultOpen` | `boolean` | `false` |
-| `onOpenChange` | `(details: OpenChangeDetails) => void` | — |
-| `size` | `{ width: number; height: number }` | — |
-| `defaultSize` | `{ width: number; height: number }` | — |
-| `minSize` | `{ width: number; height: number }` | — |
-| `maxSize` | `{ width: number; height: number }` | — |
-| `position` | `{ x: number; y: number }` | — |
-| `defaultPosition` | `{ x: number; y: number }` | — |
-| `getAnchorPosition` | `(details: AnchorPositionDetails) => Point` | — |
-| `draggable` | `boolean` | `true` |
-| `resizable` | `boolean` | `true` |
-| `lockAspectRatio` | `boolean` | `false` |
-| `getBoundaryEl` | `() => HTMLElement \| null` | — |
-| `closeOnEscape` | `boolean` | `true` |
-| `persistRect` | `boolean` | `true` |
-| `gridSize` | `number` | `1` |
-| `lazyMount` | `boolean` | `true` |
-| `unmountOnExit` | `boolean` | `true` |
-| `translations` | `IntlTranslations` | — |
-| `strategy` | `'absolute' \| 'fixed'` | `'fixed'` |
-| `allowOverflow` | `boolean` | `true` |
-| `initialFocusEl` | `() => HTMLElement \| null \| false` | — |
-| `finalFocusEl` | `() => HTMLElement \| null` | — |
-| `restoreFocus` | `boolean` | `true` |
-| `disabled` | `boolean` | — |
-| `onPositionChange` | `(details: PositionChangeDetails) => void` | — |
-| `onPositionChangeEnd` | `(details: PositionChangeDetails) => void` | — |
-| `onSizeChange` | `(details: SizeChangeDetails) => void` | — |
-| `onSizeChangeEnd` | `(details: SizeChangeDetails) => void` | — |
-| `onStageChange` | `(details: StageChangeDetails) => void` | — |
+| Prop | Type | Défaut | Description |
+| --- | --- | --- | --- |
+| `open` | `boolean` | — | État d’ouverture en mode contrôlé. |
+| `defaultOpen` | `boolean` | `false` | État d’ouverture initial lorsqu’il n’est pas contrôlé. |
+| `onOpenChange` | `(details: OpenChangeDetails) => void` | — | Appelé à l’ouverture et à la fermeture. |
+| `size` | `{ width: number; height: number }` | — | Taille du panneau en mode contrôlé. |
+| `defaultSize` | `{ width: number; height: number }` | — | Taille initiale du panneau. |
+| `minSize` | `{ width: number; height: number }` | — | Taille minimale au redimensionnement. |
+| `maxSize` | `{ width: number; height: number }` | — | Taille maximale au redimensionnement. |
+| `position` | `{ x: number; y: number }` | — | Position du panneau en mode contrôlé. |
+| `defaultPosition` | `{ x: number; y: number }` | — | Position initiale du panneau. |
+| `getAnchorPosition` | `(details: AnchorPositionDetails) => Point` | — | Renvoie l’emplacement d’ouverture, par exemple près du déclencheur. |
+| `draggable` | `boolean` | `true` | Permet de déplacer le panneau. |
+| `resizable` | `boolean` | `true` | Permet de redimensionner le panneau. |
+| `lockAspectRatio` | `boolean` | `false` | Conserve les proportions au redimensionnement. |
+| `getBoundaryEl` | `() => HTMLElement \| null` | — | Renvoie l’élément dans lequel le panneau doit rester. |
+| `closeOnEscape` | `boolean` | `true` | Se ferme avec Échap. |
+| `persistRect` | `boolean` | `true` | Conserve la taille et la position après fermeture. |
+| `gridSize` | `number` | `1` | Grille d’accrochage en pixels pour déplacer et redimensionner. |
+| `lazyMount` | `boolean` | `true` | Monte le contenu à la première ouverture. |
+| `unmountOnExit` | `boolean` | `true` | Démonte le contenu après la fermeture. |
+| `translations` | `IntlTranslations` | — | Textes localisés des libellés d’accessibilité. |
+| `strategy` | `'absolute' \| 'fixed'` | `'fixed'` | Positionnement CSS : `fixed` ou `absolute`. |
+| `allowOverflow` | `boolean` | `true` | Permet de faire sortir le panneau en partie de la limite. |
+| `initialFocusEl` | `() => HTMLElement \| null \| false` | — | Renvoie l’élément qui reçoit le focus à l’ouverture. |
+| `finalFocusEl` | `() => HTMLElement \| null` | — | Renvoie l’élément qui reçoit le focus à la fermeture. |
+| `restoreFocus` | `boolean` | `true` | Rend le focus à l’élément précédent à la fermeture. |
+| `disabled` | `boolean` | — | Désactive le contrôle. |
+| `onPositionChange` | `(details: PositionChangeDetails) => void` | — | Appelé pendant le déplacement. |
+| `onPositionChangeEnd` | `(details: PositionChangeDetails) => void` | — | Appelé à la fin du déplacement. |
+| `onSizeChange` | `(details: SizeChangeDetails) => void` | — | Appelé pendant le redimensionnement. |
+| `onSizeChangeEnd` | `(details: SizeChangeDetails) => void` | — | Appelé à la fin du redimensionnement. |
+| `onStageChange` | `(details: StageChangeDetails) => void` | — | Appelé lorsque le panneau est réduit, agrandi ou restauré. |

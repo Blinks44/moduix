@@ -16,19 +16,7 @@ import * as TagsInputDocs from '@/components/examples/tags-input/css-properties'
 
 ## Использование
 
-<UsageCode
-  react={'<TagsInput defaultValue={[\'React\', \'Vue\']} max={5} name="frameworks" onValueChange={(details) => setTags(details.value)}>\n  <TagsInputLabel>Frameworks</TagsInputLabel>\n  <TagsInputControl>\n    <TagsInputItems />\n    <TagsInputInput placeholder="Add framework" />\n    <TagsInputClearTrigger aria-label="Clear frameworks" />\n  </TagsInputControl>\n  <TagsInputHiddenInput />\n</TagsInput>'}
-  vue={'<TagsInput v-model="tags" :max="5" name="frameworks">\n  <TagsInputLabel>Frameworks</TagsInputLabel>\n  <TagsInputControl>\n    <TagsInputItems />\n    <TagsInputInput placeholder="Add framework" />\n    <TagsInputClearTrigger aria-label="Clear frameworks" />\n  </TagsInputControl>\n  <TagsInputHiddenInput />\n</TagsInput>'}
-/>
-
-<PropChips
-  items={[
-    ['defaultValue', 'Начальные метки; для управления используйте value.'],
-    ['max', 'Максимальное число меток.'],
-    ['delimiter', 'Символ, который добавляет метку, по умолчанию запятая.'],
-    ['validate', 'Отклоняет метку до добавления.'],
-  ]}
-/>
+<Usage />
 
 Начните с `TagsInput`, `TagsInputLabel`, `TagsInputControl`, `TagsInputItems`,
 `TagsInputInput` и `TagsInputClearTrigger`. Добавьте `TagsInputHiddenInput`, если теги нужно
@@ -243,35 +231,35 @@ Ark связывает подпись с полем, управляет выде
 
 ## Справочник API
 
-| Проп | Тип | По умолчанию |
-| --- | --- | --- |
-| `value` | `string[]` | — |
-| `defaultValue` | `string[]` | — |
-| `onValueChange` | `(details: ValueChangeDetails) => void` | — |
-| `inputValue` | `string` | — |
-| `onInputValueChange` | `(details: InputValueChangeDetails) => void` | — |
-| `max` | `number` | `Infinity` |
-| `maxLength` | `number` | — |
-| `delimiter` | `string \| RegExp` | `','` |
-| `validate` | `(details: ValidateArgs) => boolean` | — |
-| `onValueInvalid` | `(details: ValidityChangeDetails) => void` | — |
-| `allowDuplicates` | `boolean` | `false` |
-| `addOnPaste` | `boolean` | `false` |
-| `editable` | `boolean` | `true` |
-| `blurBehavior` | `'clear' \| 'add'` | — |
-| `placeholder` | `string` | — |
-| `name` | `string` | — |
-| `disabled` | `boolean` | `false` |
-| `readOnly` | `boolean` | `false` |
-| `invalid` | `boolean` | `false` |
-| `required` | `boolean` | `false` |
-| `translations` | `IntlTranslations` | — |
-| `autoFocus` | `boolean` | — |
-| `defaultInputValue` | `string` | — |
-| `onHighlightChange` | `(details: HighlightChangeDetails) => void` | — |
-| `allowOverflow` | `boolean` | — |
-| `sanitizeValue` | `(value: string) => string` | `(value) => value.trim()` |
-| `form` | `string` | — |
-| `onPointerDownOutside` | `(event: PointerDownOutsideEvent) => void` | — |
-| `onFocusOutside` | `(event: FocusOutsideEvent) => void` | — |
-| `onInteractOutside` | `(event: InteractOutsideEvent) => void` | — |
+| Проп | Тип | По умолчанию | Описание |
+| --- | --- | --- | --- |
+| `value` | `string[]` | — | Теги в управляемом режиме. |
+| `defaultValue` | `string[]` | — | Начальные теги. |
+| `onValueChange` | `(details: ValueChangeDetails) => void` | — | Вызывается при добавлении, изменении и удалении тегов. |
+| `inputValue` | `string` | — | Текст поля в управляемом режиме. |
+| `onInputValueChange` | `(details: InputValueChangeDetails) => void` | — | Вызывается при изменении текста поля. |
+| `max` | `number` | `Infinity` | Максимальное число тегов. |
+| `maxLength` | `number` | — | Максимальная длина тега. |
+| `delimiter` | `string \| RegExp` | `','` | Символ или шаблон, который добавляет тег при вводе. |
+| `validate` | `(details: ValidateArgs) => boolean` | — | Возвращает `false`, чтобы отклонить тег. |
+| `onValueInvalid` | `(details: ValidityChangeDetails) => void` | — | Вызывается при достижении `max` или отказе `validate`. |
+| `allowDuplicates` | `boolean` | `false` | Разрешает повторяющиеся теги. |
+| `addOnPaste` | `boolean` | `false` | Разбивает вставленный текст на теги. |
+| `editable` | `boolean` | `true` | Разрешает править тег по Enter или двойному клику. |
+| `blurBehavior` | `'clear' \| 'add'` | — | Что делать с текстом при потере фокуса: `add` (добавить тег) или `clear`. |
+| `placeholder` | `string` | — | Подсказка в пустом поле. |
+| `name` | `string` | — | Имя поля формы у внутреннего input. |
+| `disabled` | `boolean` | `false` | Отключает элемент управления. |
+| `readOnly` | `boolean` | `false` | Показывает значение, но не даёт его менять. |
+| `invalid` | `boolean` | `false` | Помечает поле как невалидное. |
+| `required` | `boolean` | `false` | Требует значение перед отправкой формы. |
+| `translations` | `IntlTranslations` | — | Переведённые строки для подписей доступности. |
+| `autoFocus` | `boolean` | — | Ставит фокус в поле при монтировании. |
+| `defaultInputValue` | `string` | — | Начальный текст поля. |
+| `onHighlightChange` | `(details: HighlightChangeDetails) => void` | — | Вызывается при подсветке тега. |
+| `allowOverflow` | `boolean` | — | Разрешает тегов больше `max` и помечает поле невалидным. |
+| `sanitizeValue` | `(value: string) => string` | `(value) => value.trim()` | Очищает тег перед добавлением. |
+| `form` | `string` | — | Id формы, к которой относится внутренний input. |
+| `onPointerDownOutside` | `(event: PointerDownOutsideEvent) => void` | — | Вызывается при нажатии указателя вне всплывающего окна. |
+| `onFocusOutside` | `(event: FocusOutsideEvent) => void` | — | Вызывается, когда фокус уходит из всплывающего окна. |
+| `onInteractOutside` | `(event: InteractOutsideEvent) => void` | — | Вызывается при любом взаимодействии вне всплывающего окна. |

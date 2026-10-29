@@ -16,18 +16,7 @@ import * as AccordionDocs from '@/components/examples/accordion/css-properties';
 
 ## Использование
 
-<UsageCode
-  react={'<Accordion defaultValue={[\'billing\']} multiple collapsible>\n  <AccordionItem value="billing">\n    <h3>\n      <AccordionItemTrigger>\n        Billing\n        <AccordionItemIndicator />\n      </AccordionItemTrigger>\n    </h3>\n    <AccordionItemContent>\n      <AccordionItemBody>Invoices and payment methods.</AccordionItemBody>\n    </AccordionItemContent>\n  </AccordionItem>\n</Accordion>'}
-  vue={'<Accordion :default-value="[\'billing\']" multiple collapsible>\n  <AccordionItem value="billing">\n    <h3>\n      <AccordionItemTrigger>\n        Billing\n        <AccordionItemIndicator />\n      </AccordionItemTrigger>\n    </h3>\n    <AccordionItemContent>\n      <AccordionItemBody>Invoices and payment methods.</AccordionItemBody>\n    </AccordionItemContent>\n  </AccordionItem>\n</Accordion>'}
-/>
-
-<PropChips
-  items={[
-    ['defaultValue', 'Открытые при первом рендере пункты, массив value.'],
-    ['multiple', 'Позволяет открыть несколько пунктов сразу.'],
-    ['collapsible', 'Позволяет закрыть единственный открытый пункт.'],
-  ]}
-/>
+<Usage />
 
 Используйте `Accordion` как корневой компонент и задайте каждому элементу стабильное значение
 `value`. Поместите интерактивный заголовок в триггер элемента, панель в часть содержимого, а её
@@ -184,15 +173,15 @@ React состояние читается как обычный объект, в
 
 ## Справочник API
 
-| Проп | Тип | По умолчанию |
-| --- | --- | --- |
-| `value` | `string[]` | — |
-| `defaultValue` | `string[]` | — |
-| `onValueChange` | `(details: ValueChangeDetails) => void` | — |
-| `multiple` | `boolean` | `false` |
-| `collapsible` | `boolean` | `false` |
-| `disabled` | `boolean` | `false` |
-| `orientation` | `'horizontal' \| 'vertical'` | `'vertical'` |
-| `lazyMount` | `boolean` | `false` |
-| `unmountOnExit` | `boolean` | `false` |
-| `onFocusChange` | `(details: FocusChangeDetails) => void` | — |
+| Проп | Тип | По умолчанию | Описание |
+| --- | --- | --- | --- |
+| `value` | `string[]` | — | Раскрытые элементы в управляемом режиме. |
+| `defaultValue` | `string[]` | — | Изначально раскрытые элементы. |
+| `onValueChange` | `(details: ValueChangeDetails) => void` | — | Вызывается при раскрытии и сворачивании элементов. |
+| `multiple` | `boolean` | `false` | Разрешает держать открытыми несколько элементов. |
+| `collapsible` | `boolean` | `false` | Разрешает закрыть открытый элемент в одиночном режиме. |
+| `disabled` | `boolean` | `false` | Отключает элемент управления. |
+| `orientation` | `'horizontal' \| 'vertical'` | `'vertical'` | Направление стрелок: `vertical` или `horizontal`. |
+| `lazyMount` | `boolean` | `false` | Монтирует содержимое при первом открытии. |
+| `unmountOnExit` | `boolean` | `false` | Удаляет содержимое после закрытия. |
+| `onFocusChange` | `(details: FocusChangeDetails) => void` | — | Вызывается, когда фокус переходит на другой триггер. |

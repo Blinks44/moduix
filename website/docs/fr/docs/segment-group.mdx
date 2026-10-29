@@ -17,18 +17,7 @@ import { CssPropertiesSection } from '@/components/mdx/Components';
 
 ## Utilisation
 
-<UsageCode
-  react={'<SegmentGroup defaultValue="week" size="sm" aria-label="Range" onValueChange={(details) => setRange(details.value)}>\n  <SegmentGroupIndicator />\n  <SegmentGroupItems items={[\'day\', \'week\', \'month\']} />\n</SegmentGroup>'}
-  vue={'<SegmentGroup v-model="range" size="sm" aria-label="Range">\n  <SegmentGroupIndicator />\n  <SegmentGroupItems :items="[\'day\', \'week\', \'month\']" />\n</SegmentGroup>'}
-/>
-
-<PropChips
-  items={[
-    ['items', 'Sur SegmentGroupItems : chaînes ou { value, label, disabled }.'],
-    ['size', 'sm, md ou lg.'],
-    ['orientation', 'horizontal ou vertical.'],
-  ]}
-/>
+<Usage />
 
 Utilisez `SegmentGroup` comme racine, placez `SegmentGroupIndicator` avant les éléments et utilisez
 `SegmentGroupItems` lorsque chaque segment n'a besoin que d'un libellé textuel. `SegmentGroupItems` crée pour chaque
@@ -209,15 +198,15 @@ Survolez ou sélectionnez une variable pour la voir dans l’aperçu.
 
 ## Référence de l’API
 
-| Prop | Type | Défaut |
-| --- | --- | --- |
-| `value` | `string \| null` | — |
-| `defaultValue` | `string \| null` | — |
-| `onValueChange` | `(details: ValueChangeDetails) => void` | — |
-| `orientation` | `'horizontal' \| 'vertical'` | `'horizontal'` |
-| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` |
-| `name` | `string` | — |
-| `disabled` | `boolean` | `false` |
-| `readOnly` | `boolean` | `false` |
-| `invalid` | `boolean` | `false` |
-| `required` | `boolean` | `false` |
+| Prop | Type | Défaut | Description |
+| --- | --- | --- | --- |
+| `value` | `string \| null` | — | Segment sélectionné en mode contrôlé. |
+| `defaultValue` | `string \| null` | — | Segment sélectionné au départ. |
+| `onValueChange` | `(details: ValueChangeDetails) => void` | — | Appelé lorsqu’un autre segment est sélectionné. |
+| `orientation` | `'horizontal' \| 'vertical'` | `'horizontal'` | Disposition et sens des flèches : `horizontal` ou `vertical`. |
+| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` | Taille : `sm`, `md` ou `lg`. |
+| `name` | `string` | — | Nom du champ de formulaire de l’input sous-jacent. |
+| `disabled` | `boolean` | `false` | Désactive le contrôle. |
+| `readOnly` | `boolean` | `false` | Affiche la valeur sans permettre de la modifier. |
+| `invalid` | `boolean` | `false` | Marque le champ comme invalide. |
+| `required` | `boolean` | `false` | Exige une valeur avant l’envoi du formulaire. |

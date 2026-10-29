@@ -15,17 +15,7 @@ import AnatomyScene from '@/components/examples/bleed/basic';
 
 ## Utilisation
 
-<UsageCode
-  react={'<Container>\n  <Text>Article intro</Text>\n  <Bleed inline="full" block="md">\n    <img src={banner.src} alt={banner.alt} />\n  </Bleed>\n</Container>'}
-  vue={'<Container>\n  <Text>Article intro</Text>\n  <Bleed inline="full" block="md">\n    <img src={banner.src} alt={banner.alt} />\n  </Bleed>\n</Container>'}
-/>
-
-<PropChips
-  items={[
-    ['inline', 'Débord horizontal : de none à xl, ou full jusqu’aux bords.'],
-    ['block', 'Débord vertical, none par défaut.'],
-  ]}
-/>
+<Usage />
 
 La valeur par défaut `inline="full"` permet à un bloc média, une bannière ou un élément décoratif de section
 d’atteindre les bords de la fenêtre tout en restant dans le flux normal du document.
@@ -112,7 +102,7 @@ Sur ces systèmes, ajoutez `overflow-x: clip` à la racine de la page pour évit
 
 Accepte aussi les props natives de son élément et `asChild`.
 
-| Prop | Type | Défaut |
-| --- | --- | --- |
-| `inline` | `'none' \| 'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl' \| 'full'` | `'full'` |
-| `block` | `'none' \| 'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'` | `'none'` |
+| Prop | Type | Défaut | Description |
+| --- | --- | --- | --- |
+| `inline` | `'none' \| 'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl' \| 'full'` | `'full'` | Débordement au-delà de la marge horizontale : de `none` à `xl`, ou `full`. |
+| `block` | `'none' \| 'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'` | `'none'` | Débordement au-delà de la marge verticale : de `none` à `xl`. |

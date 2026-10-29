@@ -25,18 +25,7 @@ TanStack.
 
 ## Использование
 
-<UsageCode
-  react={'<Chart>\n  <ChartHeader>\n    <ChartTitle>Monthly revenue</ChartTitle>\n    <ChartDescription>In thousands of dollars.</ChartDescription>\n  </ChartHeader>\n  <ChartPlot definition={definition} height={320} ariaLabel="Monthly revenue" />\n  <ChartLegend aria-label="Series">\n    <ChartLegendItem color="var(--moduix-chart-1)">Revenue</ChartLegendItem>\n  </ChartLegend>\n</Chart>'}
-  vue={'<Chart>\n  <ChartHeader>\n    <ChartTitle>Monthly revenue</ChartTitle>\n    <ChartDescription>In thousands of dollars.</ChartDescription>\n  </ChartHeader>\n  <ChartPlot :definition="definition" :height="320" ariaLabel="Monthly revenue" />\n  <ChartLegend aria-label="Series">\n    <ChartLegendItem color="var(--moduix-chart-1)">Revenue</ChartLegendItem>\n  </ChartLegend>\n</Chart>'}
-/>
-
-<PropChips
-  items={[
-    ['definition', 'Определение TanStack Charts: данные, метки и шкалы.'],
-    ['ariaLabel', 'Короткое название графика для вспомогательных технологий.'],
-    ['motion', 'Анимированный рендер; false даёт статичный SVG.'],
-  ]}
-/>
+<Usage />
 
 Создайте определение графика в TanStack Charts и передайте его в `ChartPlot`. Добавьте вокруг
 графика видимые заголовок, описание и легенду, а для пользователей вспомогательных технологий
@@ -224,10 +213,10 @@ CSS-свойства настраивают варианты с CSS Modules. О�
 
 Пропсы `ChartPlot`. Остальные пропсы чарта TanStack, например `height` и `renderTooltipBody`, передаются дальше.
 
-| Проп | Тип | По умолчанию |
-| --- | --- | --- |
-| `definition` | `ChartDefinition` | — |
-| `ariaLabel` | `string` | — |
-| `height` | `number` | — |
-| `motion` | `boolean` | `true` |
-| `renderer` | `ChartRenderer` | — |
+| Проп | Тип | По умолчанию | Описание |
+| --- | --- | --- | --- |
+| `definition` | `ChartDefinition` | — | Определение TanStack Charts: данные, графические элементы и шкалы. |
+| `ariaLabel` | `string` | — | Короткое название графика для вспомогательных технологий. |
+| `height` | `number` | — | Высота графика в пикселях. |
+| `motion` | `boolean` | `true` | Включает анимированный рендерер; `false` рисует статичный SVG. |
+| `renderer` | `ChartRenderer` | — | Свой рендерер TanStack; заменяет выбор через `motion`. |

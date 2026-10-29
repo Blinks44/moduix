@@ -16,18 +16,7 @@ import * as ButtonDocs from '@/components/examples/button/css-properties';
 
 ## Usage
 
-<UsageCode
-  react={'<Button variant="outline" size="sm" loading={saving}>\n  Save changes\n</Button>'}
-  vue={'<Button variant="outline" size="sm" :loading="saving">\n  Save changes\n</Button>'}
-/>
-
-<PropChips
-  items={[
-    ['variant', 'default · outline · secondary · destructive · destructive-outline · ghost · link'],
-    ['size', 'xs · sm · md · lg · xl · icon-sm · icon-md · icon-lg'],
-    ['loading', 'Sets aria-busy and blocks activation; compose your own Spinner.'],
-  ]}
-/>
+<Usage />
 
 ## Examples
 
@@ -135,10 +124,10 @@ rendered element. Give icon-only buttons an accessible name.
 
 ## API reference
 
-| Prop       | Type            | Default     |
-| ---------- | --------------- | ----------- |
-| `variant`  | `ButtonVariant` | `'default'` |
-| `size`     | `ButtonSize`    | `'md'`      |
-| `loading`  | `boolean`       | `false`     |
-| `asChild`  | `boolean`       | `false`     |
-| `disabled` | `boolean`       | `false`     |
+| Prop       | Type            | Default     | Description |
+| ---------- | --------------- | ----------- | --- |
+| `variant`  | `ButtonVariant` | `'default'` | Visual style: `default`, `outline`, `secondary`, `destructive`, `destructive-outline`, `ghost`, or `link`. |
+| `size`     | `ButtonSize`    | `'md'`      | `xs`, `sm`, `md`, `lg`, `xl`, or a square `icon-sm`, `icon-md`, `icon-lg` for icon-only buttons. |
+| `loading`  | `boolean`       | `false`     | Sets `aria-busy` and blocks activation. Render your own `Spinner` inside. |
+| `asChild`  | `boolean`       | `false`     | Applies Button styles and props to its single child, for example a link. |
+| `disabled` | `boolean`       | `false`     | Disables the button. |

@@ -16,17 +16,7 @@ import * as ContainerDocs from '@/components/examples/container/css-properties';
 
 ## Usage
 
-<UsageCode
-  react={'<Container size="md" gutter="lg">\n  <Heading as="h1">Release notes</Heading>\n  <Text>What changed this month.</Text>\n</Container>'}
-  vue={'<Container size="md" gutter="lg">\n  <Heading as="h1">Release notes</Heading>\n  <Text>What changed this month.</Text>\n</Container>'}
-/>
-
-<PropChips
-  items={[
-    ['size', 'Maximum width: xs to xl, or full.'],
-    ['gutter', 'Side padding: none, sm, md, or lg.'],
-  ]}
-/>
+<Usage />
 
 
 Use `Container` for a centered content column with a readable width. It adds responsive horizontal gutters and leaves
@@ -118,7 +108,7 @@ through utilities.
 
 Also accepts the native props of its element and `asChild`.
 
-| Prop | Type | Default |
-| --- | --- | --- |
-| `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl' \| 'full'` | `'lg'` |
-| `gutter` | `'none' \| 'sm' \| 'md' \| 'lg'` | `'md'` |
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl' \| 'full'` | `'lg'` | Maximum width: `xs` to `xl`, or `full`. |
+| `gutter` | `'none' \| 'sm' \| 'md' \| 'lg'` | `'md'` | Inline padding: `none`, `sm`, `md`, or `lg`. |

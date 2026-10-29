@@ -15,19 +15,7 @@ import AnatomyScene from '@/components/examples/simple-grid/basic';
 
 ## Использование
 
-<UsageCode
-  react={'<SimpleGrid minChildWidth="18rem" gap={16}>\n  {plans.map((plan) => (\n    <Card key={plan.name}>…</Card>\n  ))}\n</SimpleGrid>'}
-  solid={'<SimpleGrid minChildWidth="18rem" gap={16}>\n  <For each={plans}>\n    {(plan) => (\n      <Card>…</Card>\n    )}\n  </For>\n</SimpleGrid>'}
-  vue={'<SimpleGrid min-child-width="18rem" :gap="16">\n  <Card v-for="plan in plans" :key="plan.name">…</Card>\n</SimpleGrid>'}
-/>
-
-<PropChips
-  items={[
-    ['minChildWidth', 'Минимальная ширина колонки; число колонок зависит от места.'],
-    ['columns', 'Фиксированное число колонок вместо этого.'],
-    ['gap', 'Расстояние между ячейками; числа становятся px.'],
-  ]}
-/>
+<Usage />
 
 Используйте `minChildWidth`, если число равных колонок должно меняться вместе с доступной шириной.
 Компонент использует `auto-fit` и `minmax()` из CSS Grid: числовые значения считаются пикселями,
@@ -117,10 +105,10 @@ import AnatomyScene from '@/components/examples/simple-grid/basic';
 
 Также принимает нативные пропсы своего элемента и `asChild`.
 
-| Проп | Тип | По умолчанию |
-| --- | --- | --- |
-| `minChildWidth` | `number \| string` | — |
-| `columns` | `number` | — |
-| `gap` | `number \| string` | — |
-| `rowGap` | `number \| string` | — |
-| `columnGap` | `number \| string` | — |
+| Проп | Тип | По умолчанию | Описание |
+| --- | --- | --- | --- |
+| `minChildWidth` | `number \| string` | — | Минимальная ширина колонки; колонки подстраиваются под место. |
+| `columns` | `number` | — | Фиксированное число колонок. |
+| `gap` | `number \| string` | — | Расстояние между ячейками; числа в пикселях. |
+| `rowGap` | `number \| string` | — | Расстояние между строками. |
+| `columnGap` | `number \| string` | — | Расстояние между колонками. |

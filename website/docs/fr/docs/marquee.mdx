@@ -16,20 +16,7 @@ import * as MarqueeDocs from '@/components/examples/marquee/css-properties';
 
 ## Utilisation
 
-<UsageCode
-  react={'<Marquee speed={40} pauseOnInteraction aria-label="Partner logos">\n  <MarqueeViewport>\n    <MarqueeContent>\n      {partners.map((partner) => (\n        <MarqueeItem key={partner.name}>{partner.name}</MarqueeItem>\n      ))}\n    </MarqueeContent>\n  </MarqueeViewport>\n</Marquee>'}
-  solid={'<Marquee speed={40} pauseOnInteraction aria-label="Partner logos">\n  <MarqueeViewport>\n    <MarqueeContent>\n      <For each={partners}>\n        {(partner) => (\n          <MarqueeItem>{partner.name}</MarqueeItem>\n        )}\n      </For>\n    </MarqueeContent>\n  </MarqueeViewport>\n</Marquee>'}
-  vue={'<Marquee :speed="40" pause-on-interaction aria-label="Partner logos">\n  <MarqueeViewport>\n    <MarqueeContent>\n      <MarqueeItem v-for="partner in partners" :key="partner.name">{{ partner.name }}</MarqueeItem>\n    </MarqueeContent>\n  </MarqueeViewport>\n</Marquee>'}
-/>
-
-<PropChips
-  items={[
-    ['speed', 'Pixels par seconde, 50 par défaut.'],
-    ['pauseOnInteraction', 'Se met en pause au survol et au focus.'],
-    ['side', 'Sens : start, end, top ou bottom.'],
-    ['autoFill', 'Répète les éléments pour remplir la largeur.'],
-  ]}
-/>
+<Usage />
 
 Utilisez la forme courte `Marquee` comme racine, puis composez explicitement `MarqueeViewport`, `MarqueeContent` et `MarqueeItem` à
 l’intérieur. Si le contenu défilant transmet une information, ajoutez un libellé avec `aria-label` ou
@@ -172,19 +159,19 @@ Survolez ou sélectionnez une variable pour la voir dans l’aperçu.
 
 ## Référence de l’API
 
-| Prop | Type | Défaut |
-| --- | --- | --- |
-| `speed` | `number` | `50` |
-| `side` | `'start' \| 'end' \| 'top' \| 'bottom'` | `'start'` |
-| `spacing` | `string` | `'1rem'` |
-| `autoFill` | `boolean` | `false` |
-| `reverse` | `boolean` | `false` |
-| `pauseOnInteraction` | `boolean` | `false` |
-| `paused` | `boolean` | — |
-| `defaultPaused` | `boolean` | `false` |
-| `delay` | `number` | `0` |
-| `loopCount` | `number` | `0` |
-| `onPauseChange` | `(details: PauseStatusDetails) => void` | — |
-| `onComplete` | `() => void` | — |
-| `translations` | `IntlTranslations` | — |
-| `onLoopComplete` | `() => void` | — |
+| Prop | Type | Défaut | Description |
+| --- | --- | --- | --- |
+| `speed` | `number` | `50` | Vitesse de défilement en pixels par seconde. |
+| `side` | `'start' \| 'end' \| 'top' \| 'bottom'` | `'start'` | Direction du défilement : `start`, `end`, `top` ou `bottom`. |
+| `spacing` | `string` | `'1rem'` | Espace entre les répétitions, en longueur CSS. |
+| `autoFill` | `boolean` | `false` | Duplique le contenu jusqu’à remplir le conteneur. |
+| `reverse` | `boolean` | `false` | Inverse le sens de l’animation. |
+| `pauseOnInteraction` | `boolean` | `false` | Met en pause au survol et au focus. |
+| `paused` | `boolean` | — | État de pause en mode contrôlé. |
+| `defaultPaused` | `boolean` | `false` | État de pause initial lorsqu’il n’est pas contrôlé. |
+| `delay` | `number` | `0` | Délai avant le début de l’animation, en secondes. |
+| `loopCount` | `number` | `0` | Nombre de boucles ; `0` répète indéfiniment. |
+| `onPauseChange` | `(details: PauseStatusDetails) => void` | — | Appelé à la pause et à la reprise. |
+| `onComplete` | `() => void` | — | Appelé après la dernière boucle lorsque `loopCount` est défini. |
+| `translations` | `IntlTranslations` | — | Textes localisés des libellés d’accessibilité. |
+| `onLoopComplete` | `() => void` | — | Appelé après chaque boucle. |

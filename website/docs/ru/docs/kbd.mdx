@@ -16,17 +16,7 @@ import * as KbdDocs from '@/components/examples/kbd/css-properties';
 
 ## Использование
 
-<UsageCode
-  react={'<KbdGroup aria-label="Command K">\n  <Kbd>⌘</Kbd>\n  <Kbd>K</Kbd>\n</KbdGroup>'}
-  vue={'<KbdGroup aria-label="Command K">\n  <Kbd>⌘</Kbd>\n  <Kbd>K</Kbd>\n</KbdGroup>'}
-/>
-
-<PropChips
-  items={[
-    ['KbdGroup', 'Объединяет клавиши одного сочетания.'],
-    ['aria-label', 'Читает сочетание словами, например «Command K».'],
-  ]}
-/>
+<Usage />
 
 Используйте `Kbd`, чтобы показать одну клавишу. Для сочетания из нескольких клавиш поместите клавиши и текстовые разделители в `KbdGroup`.
 
@@ -109,6 +99,6 @@ Kbd не хранит состояние и не обрабатывает наж
 
 `Kbd` рендерит элемент `kbd`, а `KbdGroup` элемент `span`. Оба принимают нативные пропсы и `asChild`.
 
-| Проп | Тип | По умолчанию |
-| --- | --- | --- |
-| `asChild` | `boolean` | `false` |
+| Проп | Тип | По умолчанию | Описание |
+| --- | --- | --- | --- |
+| `asChild` | `boolean` | `false` | Переносит стили клавиши на единственный дочерний элемент. |

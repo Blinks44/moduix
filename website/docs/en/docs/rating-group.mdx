@@ -16,18 +16,7 @@ import * as RatingGroupDocs from '@/components/examples/rating-group/css-propert
 
 ## Usage
 
-<UsageCode
-  react={'<RatingGroup count={5} defaultValue={3.5} allowHalf name="rating">\n  <RatingGroupLabel>Overall satisfaction</RatingGroupLabel>\n  <RatingGroupControl>\n    <RatingGroupItems />\n  </RatingGroupControl>\n  <RatingGroupHiddenInput />\n</RatingGroup>'}
-  vue={'<RatingGroup :count="5" :default-value="3.5" allow-half name="rating">\n  <RatingGroupLabel>Overall satisfaction</RatingGroupLabel>\n  <RatingGroupControl>\n    <RatingGroupItems />\n  </RatingGroupControl>\n  <RatingGroupHiddenInput />\n</RatingGroup>'}
-/>
-
-<PropChips
-  items={[
-    ['count', 'Number of stars, 5 by default.'],
-    ['allowHalf', 'Allows half-star values.'],
-    ['readOnly', 'Shows a rating without letting users change it.'],
-  ]}
-/>
+<Usage />
 
 Use `RatingGroup` as the root and add `RatingGroupLabel`, `RatingGroupControl`, and
 `RatingGroupItems` for the standard star rating. Render `RatingGroupHiddenInput` explicitly when
@@ -180,20 +169,20 @@ Hover or focus a variable to see it in the preview.
 
 ## API reference
 
-| Prop | Type | Default |
-| --- | --- | --- |
-| `value` | `number` | — |
-| `defaultValue` | `number` | — |
-| `onValueChange` | `(details: ValueChangeDetails) => void` | — |
-| `onHoverChange` | `(details: HoverChangeDetails) => void` | — |
-| `count` | `number` | `5` |
-| `allowHalf` | `boolean` | `false` |
-| `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'` | `'md'` |
-| `name` | `string` | — |
-| `disabled` | `boolean` | `false` |
-| `readOnly` | `boolean` | `false` |
-| `invalid` | `boolean` | `false` |
-| `required` | `boolean` | `false` |
-| `translations` | `IntlTranslations` | — |
-| `form` | `string` | — |
-| `autoFocus` | `boolean` | — |
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `value` | `number` | — | Rating for controlled use. |
+| `defaultValue` | `number` | — | Initial rating. |
+| `onValueChange` | `(details: ValueChangeDetails) => void` | — | Called when the rating changes. |
+| `onHoverChange` | `(details: HoverChangeDetails) => void` | — | Called with the hovered rating. |
+| `count` | `number` | `5` | Number of items. |
+| `allowHalf` | `boolean` | `false` | Allows half ratings. |
+| `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'` | `'md'` | Control size: `xs`, `sm`, `md`, `lg`, or `xl`. |
+| `name` | `string` | — | Form field name of the underlying input. |
+| `disabled` | `boolean` | `false` | Disables the control. |
+| `readOnly` | `boolean` | `false` | Shows the value but prevents changes. |
+| `invalid` | `boolean` | `false` | Marks the control as invalid. |
+| `required` | `boolean` | `false` | Requires a value before form submission. |
+| `translations` | `IntlTranslations` | — | Localized strings for accessibility labels. |
+| `form` | `string` | — | Id of the form the underlying input belongs to. |
+| `autoFocus` | `boolean` | — | Focuses the rating on mount. |

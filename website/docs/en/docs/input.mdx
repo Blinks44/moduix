@@ -16,19 +16,7 @@ import * as InputDocs from '@/components/examples/input/css-properties';
 
 ## Usage
 
-<UsageCode
-  react={'<Field>\n  <FieldLabel>Name</FieldLabel>\n  <Input name="name" size="md" placeholder="Enter your name" onChange={(event) => setName(event.target.value)} />\n</Field>'}
-  solid={'<Field>\n  <FieldLabel>Name</FieldLabel>\n  <Input name="name" size="md" placeholder="Enter your name" onInput={(event) => setName(event.currentTarget.value)} />\n</Field>'}
-  vue={'<Field>\n  <FieldLabel>Name</FieldLabel>\n  <Input v-model="name" name="name" size="md" placeholder="Enter your name" />\n</Field>'}
-/>
-
-<PropChips
-  items={[
-    ['size', 'Height and text size, xs to xl.'],
-    ['htmlSize', 'Native size attribute, in characters.'],
-    ['Field', 'Wrap it to add a label, helper, and error text.'],
-  ]}
-/>
+<Usage />
 
 Place `Input` inside `Field` when you need a label, helper text, or an error message. `Field`
 connects that content to the control, generates the necessary ids, and provides its state.
@@ -173,8 +161,8 @@ Hover or focus a variable to see it in the preview.
 
 Also accepts the native props of its element.
 
-| Prop | Type | Default |
-| --- | --- | --- |
-| `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'` | `'md'` |
-| `htmlSize` | `number` | — |
-| `asChild` | `boolean` | `false` |
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'` | `'md'` | Control size: `xs`, `sm`, `md`, `lg`, or `xl`. |
+| `htmlSize` | `number` | — | Native `size` attribute: visible width in characters. |
+| `asChild` | `boolean` | `false` | Applies the input styles to its single child, such as a custom input. |

@@ -16,18 +16,7 @@ import * as ToggleDocs from '@/components/examples/toggle/css-properties';
 
 ## Usage
 
-<UsageCode
-  react={'<Toggle defaultPressed variant="outline" size="icon-md" aria-label="Favorite" onPressedChange={setFavorite}>\n  <StarIcon />\n</Toggle>'}
-  vue={'<Toggle v-model:pressed="favorite" variant="outline" size="icon-md" aria-label="Favorite">\n  <StarIcon />\n</Toggle>'}
-/>
-
-<PropChips
-  items={[
-    ['defaultPressed', 'Starts pressed; use pressed to control it.'],
-    ['variant', 'default, outline, or ghost.'],
-    ['size', 'xs to lg, or icon-sm to icon-lg for square buttons.'],
-  ]}
-/>
+<Usage />
 
 Use `Toggle` for the common case. It preserves Ark's pressed-state behavior.
 
@@ -157,12 +146,12 @@ Hover or focus a variable to see it in the preview.
 
 ## API reference
 
-| Prop | Type | Default |
-| --- | --- | --- |
-| `pressed` | `boolean` | — |
-| `defaultPressed` | `boolean` | `false` |
-| `onPressedChange` | `(pressed: boolean) => void` | — |
-| `variant` | `'default' \| 'outline' \| 'ghost'` | `'default'` |
-| `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'icon-sm' \| 'icon-md' \| 'icon-lg'` | `'md'` |
-| `disabled` | `boolean` | `false` |
-| `asChild` | `boolean` | `false` |
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `pressed` | `boolean` | — | Pressed state for controlled use. |
+| `defaultPressed` | `boolean` | `false` | Initial pressed state. |
+| `onPressedChange` | `(pressed: boolean) => void` | — | Called with the new pressed state. |
+| `variant` | `'default' \| 'outline' \| 'ghost'` | `'default'` | Visual style: `default`, `outline`, or `ghost`. |
+| `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'icon-sm' \| 'icon-md' \| 'icon-lg'` | `'md'` | `xs`, `sm`, `md`, `lg`, or a square `icon-sm`, `icon-md`, `icon-lg`. |
+| `disabled` | `boolean` | `false` | Disables the toggle. |
+| `asChild` | `boolean` | `false` | Applies the toggle styles and behavior to its single child. |

@@ -16,18 +16,7 @@ import * as TypesetDocs from '@/components/examples/typeset/css-properties';
 
 ## Usage
 
-<UsageCode
-  react={'<Typeset asChild>\n  <article dangerouslySetInnerHTML={{ __html: html }} />\n</Typeset>'}
-  solid={'<Typeset asChild={(props) => (\n  <article innerHTML={html} {...props()} />\n)} />'}
-  vue={'<Typeset as-child>\n  <article v-html="html" />\n</Typeset>'}
-/>
-
-<PropChips
-  items={[
-    ['asChild', 'Applies the styles to your article or section.'],
-    ['data-not-typeset', 'Opts a nested block out of the content styles; .not-typeset works too.'],
-  ]}
-/>
+<Usage />
 
 Wrap HTML that your renderer has already produced in `<Typeset>`. Use `asChild` only when the outer
 container needs to be semantic, such as an `article` or `section`. Keep lists as native `<ul>` and
@@ -141,6 +130,6 @@ with `cn` last, so the six CSS variables customize both styling tracks.
 
 Also accepts the native props of its element and `asChild`.
 
-| Prop | Type | Default |
-| --- | --- | --- |
-| `asChild` | `boolean` | `false` |
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `asChild` | `boolean` | `false` | Applies the reading styles to its single child, such as `article`. |

@@ -16,19 +16,7 @@ import * as NumberInputDocs from '@/components/examples/number-input/css-propert
 
 ## Utilisation
 
-<UsageCode
-  react={'<NumberInput defaultValue="100" min={0} max={1000} step={5} formatOptions={{ style: \'currency\', currency: \'USD\' }}>\n  <NumberInputLabel>Amount</NumberInputLabel>\n  <NumberInputField />\n</NumberInput>'}
-  vue={'<NumberInput default-value="100" :min="0" :max="1000" :step="5" :format-options="{ style: \'currency\', currency: \'USD\' }">\n  <NumberInputLabel>Amount</NumberInputLabel>\n  <NumberInputField />\n</NumberInput>'}
-/>
-
-<PropChips
-  items={[
-    ['defaultValue', 'Valeur initiale en chaîne ; contrôlez-la avec value.'],
-    ['min / max', 'Limites ; la valeur est bornée à la perte du focus.'],
-    ['step', 'Variation par flèche ou clic.'],
-    ['formatOptions', 'Options Intl, comme devise ou pourcentage.'],
-  ]}
-/>
+<Usage />
 
 Utilisez `NumberInput` comme racine et `NumberInputField` pour le champ standard avec ses boutons d’incrémentation et
 de décrémentation. Donnez au champ un nom accessible avec `NumberInputLabel`, `aria-label` ou `aria-labelledby`.
@@ -215,33 +203,33 @@ Survolez ou sélectionnez une variable pour la voir dans l’aperçu.
 
 ## Référence de l’API
 
-| Prop | Type | Défaut |
-| --- | --- | --- |
-| `value` | `string` | — |
-| `defaultValue` | `string` | — |
-| `onValueChange` | `(details: ValueChangeDetails) => void` | — |
-| `onValueCommit` | `(details: ValueChangeDetails) => void` | — |
-| `min` | `number` | `Number.MIN_SAFE_INTEGER` |
-| `max` | `number` | `Number.MAX_SAFE_INTEGER` |
-| `step` | `number` | `1` |
-| `largeStep` | `number` | `10 * step` |
-| `formatOptions` | `Intl.NumberFormatOptions` | — |
-| `locale` | `string` | `'en-US'` |
-| `allowMouseWheel` | `boolean` | `false` |
-| `clampValueOnBlur` | `boolean` | `true` |
-| `spinOnPress` | `boolean` | `true` |
-| `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'` | `'md'` |
-| `name` | `string` | — |
-| `disabled` | `boolean` | `false` |
-| `readOnly` | `boolean` | `false` |
-| `invalid` | `boolean` | `false` |
-| `required` | `boolean` | `false` |
-| `form` | `string` | — |
-| `pattern` | `string` | `'-?[0-9]*(.[0-9]+)?'` |
-| `smallStep` | `number` | `step / 10` |
-| `allowOverflow` | `boolean` | `true` |
-| `focusInputOnChange` | `boolean` | `true` |
-| `translations` | `IntlTranslations` | — |
-| `inputMode` | `InputMode` | `'decimal'` |
-| `onValueInvalid` | `(details: ValueInvalidDetails) => void` | — |
-| `onFocusChange` | `(details: FocusChangeDetails) => void` | — |
+| Prop | Type | Défaut | Description |
+| --- | --- | --- | --- |
+| `value` | `string` | — | Valeur sous forme de chaîne, en mode contrôlé. |
+| `defaultValue` | `string` | — | Valeur initiale sous forme de chaîne. |
+| `onValueChange` | `(details: ValueChangeDetails) => void` | — | Appelé avec `value` et `valueAsNumber` à chaque changement. |
+| `onValueCommit` | `(details: ValueChangeDetails) => void` | — | Appelé à la perte du focus ou sur Entrée. |
+| `min` | `number` | `Number.MIN_SAFE_INTEGER` | Valeur minimale. |
+| `max` | `number` | `Number.MAX_SAFE_INTEGER` | Valeur maximale. |
+| `step` | `number` | `1` | Pas des boutons et des flèches. |
+| `largeStep` | `number` | `10 * step` | Pas avec Maj enfoncée. |
+| `formatOptions` | `Intl.NumberFormatOptions` | — | Options `Intl.NumberFormat`, par exemple devise ou pourcentage. |
+| `locale` | `string` | `'en-US'` | Locale du formatage ; par défaut celle du `LocaleProvider` le plus proche. |
+| `allowMouseWheel` | `boolean` | `false` | Modifie la valeur à la molette quand le champ a le focus. |
+| `clampValueOnBlur` | `boolean` | `true` | Ramène la valeur entre `min` et `max` à la perte du focus. |
+| `spinOnPress` | `boolean` | `true` | Continue de modifier la valeur tant qu’un bouton est maintenu. |
+| `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'` | `'md'` | Taille : `xs`, `sm`, `md`, `lg` ou `xl`. |
+| `name` | `string` | — | Nom du champ de formulaire de l’input sous-jacent. |
+| `disabled` | `boolean` | `false` | Désactive le contrôle. |
+| `readOnly` | `boolean` | `false` | Affiche la valeur sans permettre de la modifier. |
+| `invalid` | `boolean` | `false` | Marque le champ comme invalide. |
+| `required` | `boolean` | `false` | Exige une valeur avant l’envoi du formulaire. |
+| `form` | `string` | — | Id du formulaire auquel l’input sous-jacent est rattaché. |
+| `pattern` | `string` | `'-?[0-9]*(.[0-9]+)?'` | Motif que la saisie doit respecter. |
+| `smallStep` | `number` | `step / 10` | Pas avec Alt enfoncée. |
+| `allowOverflow` | `boolean` | `true` | Autorise la saisie hors de `min` et `max`. |
+| `focusInputOnChange` | `boolean` | `true` | Place le focus dans le champ lorsqu’un bouton change la valeur. |
+| `translations` | `IntlTranslations` | — | Textes localisés des libellés d’accessibilité. |
+| `inputMode` | `InputMode` | `'decimal'` | Indication pour le clavier virtuel. |
+| `onValueInvalid` | `(details: ValueInvalidDetails) => void` | — | Appelé lorsque la valeur sort de `min` ou `max`. |
+| `onFocusChange` | `(details: FocusChangeDetails) => void` | — | Appelé lorsque le champ prend ou perd le focus. |

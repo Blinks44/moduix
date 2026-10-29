@@ -16,19 +16,7 @@ import * as PinInputDocs from '@/components/examples/pin-input/css-properties';
 
 ## Usage
 
-<UsageCode
-  react={'<PinInput count={6} otp type="numeric" onValueComplete={(details) => verify(details.valueAsString)}>\n  <PinInputLabel>Verification code</PinInputLabel>\n  <PinInputControl>\n    <PinInputInputs />\n  </PinInputControl>\n  <PinInputHiddenInput />\n</PinInput>'}
-  vue={'<PinInput :count="6" otp type="numeric" @value-complete="(details) => verify(details.valueAsString)">\n  <PinInputLabel>Verification code</PinInputLabel>\n  <PinInputControl>\n    <PinInputInputs />\n  </PinInputControl>\n  <PinInputHiddenInput />\n</PinInput>'}
-/>
-
-<PropChips
-  items={[
-    ['count', 'Number of boxes; required.'],
-    ['otp', 'Lets the browser autofill a one-time code.'],
-    ['mask', 'Hides the characters like a password.'],
-    ['onValueComplete', 'Runs when every box is filled.'],
-  ]}
-/>
+<Usage />
 
 Use `PinInput` as the root and set `count` explicitly. Add `PinInputLabel` for an accessible name, put `PinInputInputs` inside
 `PinInputControl`, and compose `PinInputHiddenInput` when the value must participate in native form behavior.
@@ -184,29 +172,29 @@ and consumer `className` or `class` overrides.
 
 ## API reference
 
-| Prop | Type | Default |
-| --- | --- | --- |
-| `count` | `number` | — |
-| `value` | `string[]` | — |
-| `defaultValue` | `string[]` | — |
-| `onValueChange` | `(details: ValueChangeDetails) => void` | — |
-| `onValueComplete` | `(details: ValueChangeDetails) => void` | — |
-| `type` | `'numeric' \| 'alphanumeric' \| 'alphabetic'` | `'numeric'` |
-| `otp` | `boolean` | `false` |
-| `mask` | `boolean` | `false` |
-| `placeholder` | `string` | `''` |
-| `blurOnComplete` | `boolean` | `false` |
-| `autoFocus` | `boolean` | `false` |
-| `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'` | `'md'` |
-| `name` | `string` | — |
-| `disabled` | `boolean` | `false` |
-| `readOnly` | `boolean` | `false` |
-| `invalid` | `boolean` | `false` |
-| `required` | `boolean` | `false` |
-| `form` | `string` | — |
-| `pattern` | `string` | — |
-| `onValueInvalid` | `(details: ValueInvalidDetails) => void` | — |
-| `autoSubmit` | `boolean` | — |
-| `selectOnFocus` | `boolean` | — |
-| `sanitizeValue` | `(value: string) => string` | — |
-| `translations` | `IntlTranslations` | — |
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `count` | `number` | — | Number of inputs; set it for correct server-rendered ARIA. |
+| `value` | `string[]` | — | Values of each input, for controlled use. |
+| `defaultValue` | `string[]` | — | Initial values of each input. |
+| `onValueChange` | `(details: ValueChangeDetails) => void` | — | Called when any input changes. |
+| `onValueComplete` | `(details: ValueChangeDetails) => void` | — | Called when every input is filled. |
+| `type` | `'numeric' \| 'alphanumeric' \| 'alphabetic'` | `'numeric'` | Allowed characters: `numeric`, `alphanumeric`, or `alphabetic`. |
+| `otp` | `boolean` | `false` | Marks the inputs for one-time code autofill. |
+| `mask` | `boolean` | `false` | Hides the characters like a password. |
+| `placeholder` | `string` | `''` | Placeholder of each input. |
+| `blurOnComplete` | `boolean` | `false` | Removes focus once the code is complete. |
+| `autoFocus` | `boolean` | `false` | Focuses the first input on mount. |
+| `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'` | `'md'` | Control size: `xs`, `sm`, `md`, `lg`, or `xl`. |
+| `name` | `string` | — | Form field name of the underlying input. |
+| `disabled` | `boolean` | `false` | Disables the control. |
+| `readOnly` | `boolean` | `false` | Shows the value but prevents changes. |
+| `invalid` | `boolean` | `false` | Marks the control as invalid. |
+| `required` | `boolean` | `false` | Requires a value before form submission. |
+| `form` | `string` | — | Id of the form the underlying input belongs to. |
+| `pattern` | `string` | — | Regular expression each character must match. |
+| `onValueInvalid` | `(details: ValueInvalidDetails) => void` | — | Called when a character does not match `type` or `pattern`. |
+| `autoSubmit` | `boolean` | — | Submits the form when every input is filled. |
+| `selectOnFocus` | `boolean` | — | Selects the character when an input is focused. |
+| `sanitizeValue` | `(value: string) => string` | — | Cleans pasted text before validation. |
+| `translations` | `IntlTranslations` | — | Localized strings for accessibility labels. |

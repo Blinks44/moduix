@@ -16,18 +16,7 @@ import * as CloseButtonDocs from '@/components/examples/close-button/css-propert
 
 ## Использование
 
-<UsageCode
-  react={'<CloseButton aria-label="Dismiss notification" onClick={dismiss} />'}
-  vue={'<CloseButton aria-label="Dismiss notification" @click="dismiss" />'}
-/>
-
-<PropChips
-  items={[
-    ['aria-label', 'Называет, что закрывает кнопка; по умолчанию Close.'],
-    ['children', 'Заменяет значок закрытия по умолчанию.'],
-    ['asChild', 'Отрисовывает ваш элемент со стилями кнопки закрытия.'],
-  ]}
-/>
+<Usage />
 
 Используйте `CloseButton`, чтобы добавить кнопку закрытия к уведомлению, карточке, оверлею или другой области
 интерфейса. Свяжите обработчик `onClick` с состоянием, которое скрывает или удаляет эту область. Компонент
@@ -116,9 +105,9 @@ Tailwind используют обычные utility-классы и класс�
 
 ## Справочник API
 
-| Проп | Тип | По умолчанию |
-| --- | --- | --- |
-| `aria-label` | `string` | `'Close'` |
-| `children` | `ReactNode` | `CloseIcon` |
-| `asChild` | `boolean` | `false` |
-| `disabled` | `boolean` | `false` |
+| Проп | Тип | По умолчанию | Описание |
+| --- | --- | --- | --- |
+| `aria-label` | `string` | `'Close'` | Доступное имя кнопки; переведите его под свою локаль. |
+| `children` | `ReactNode` | `CloseIcon` | Заменяет иконку закрытия по умолчанию. |
+| `asChild` | `boolean` | `false` | Переносит стили и свойства кнопки на единственный дочерний элемент. |
+| `disabled` | `boolean` | `false` | Отключает кнопку. |

@@ -16,18 +16,7 @@ import * as ButtonDocs from '@/components/examples/button/css-properties';
 
 ## Utilisation
 
-<UsageCode
-  react={'<Button variant="outline" size="sm" loading={saving}>\n  Save changes\n</Button>'}
-  vue={'<Button variant="outline" size="sm" :loading="saving">\n  Save changes\n</Button>'}
-/>
-
-<PropChips
-  items={[
-    ['variant', 'default · outline · secondary · destructive · destructive-outline · ghost · link'],
-    ['size', 'xs · sm · md · lg · xl · icon-sm · icon-md · icon-lg'],
-    ['loading', 'Définit aria-busy et bloque l’activation ; ajoutez votre propre Spinner.'],
-  ]}
-/>
+<Usage />
 
 ## Exemples
 
@@ -137,10 +126,10 @@ celui de l’élément rendu. Donnez un nom accessible aux boutons composés uni
 
 ## Référence de l’API
 
-| Propriété  | Type            | Par défaut  |
-| ---------- | --------------- | ----------- |
-| `variant`  | `ButtonVariant` | `'default'` |
-| `size`     | `ButtonSize`    | `'md'`      |
-| `loading`  | `boolean`       | `false`     |
-| `asChild`  | `boolean`       | `false`     |
-| `disabled` | `boolean`       | `false`     |
+| Propriété  | Type            | Par défaut  | Description |
+| ---------- | --------------- | ----------- | --- |
+| `variant`  | `ButtonVariant` | `'default'` | Style visuel : `default`, `outline`, `secondary`, `destructive`, `destructive-outline`, `ghost` ou `link`. |
+| `size`     | `ButtonSize`    | `'md'`      | `xs`, `sm`, `md`, `lg`, `xl`, ou les tailles carrées `icon-sm`, `icon-md`, `icon-lg` pour un bouton icône. |
+| `loading`  | `boolean`       | `false`     | Définit `aria-busy` et bloque l’activation. Ajoutez votre propre `Spinner`. |
+| `asChild`  | `boolean`       | `false`     | Applique les styles et propriétés de Button à son unique enfant, par exemple un lien. |
+| `disabled` | `boolean`       | `false`     | Désactive le bouton. |

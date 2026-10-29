@@ -16,18 +16,7 @@ import * as SwapDocs from '@/components/examples/swap/css-properties';
 
 ## Использование
 
-<UsageCode
-  react={'<Swap swap={copied} animation="rotate">\n  <SwapIndicator type="off">\n    <CopyIcon />\n  </SwapIndicator>\n  <SwapIndicator type="on">\n    <CheckIcon />\n  </SwapIndicator>\n</Swap>'}
-  vue={'<Swap :swap="copied" animation="rotate">\n  <SwapIndicator type="off">\n    <CopyIcon />\n  </SwapIndicator>\n  <SwapIndicator type="on">\n    <CheckIcon />\n  </SwapIndicator>\n</Swap>'}
-/>
-
-<PropChips
-  items={[
-    ['swap', 'При true показывает индикатор on.'],
-    ['animation', 'fade · scale · rotate · flip'],
-    ['type', 'on · off'],
-  ]}
-/>
+<Usage />
 
 Используйте `Swap`, когда элемент интерфейса должен переключаться между двумя визуальными состояниями,
 например когда иконка меняется после действия. Передайте текущее логическое значение в `swap`: при
@@ -131,8 +120,8 @@ Ark закрепляет раскладку inline-стилями: корень 
 
 `Swap` не обрабатывает ввод: клавиатура и клики остаются за окружающим элементом управления.
 
-| Проп | Тип | По умолчанию |
-| --- | --- | --- |
-| `swap` | `boolean` | `false` |
-| `animation` | `SwapAnimation` | `'scale'` |
-| `type` (SwapIndicator) | `'on'` / `'off'` | — |
+| Проп | Тип | По умолчанию | Описание |
+| --- | --- | --- | --- |
+| `swap` | `boolean` | `false` | При `true` показывает индикатор `on`, иначе `off`. |
+| `animation` | `SwapAnimation` | `'scale'` | Переход между индикаторами: `fade`, `scale`, `rotate` или `flip`. |
+| `type` (SwapIndicator) | `'on'` / `'off'` | — | Какой это индикатор: `on` или `off`. |

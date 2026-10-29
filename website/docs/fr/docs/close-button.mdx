@@ -16,18 +16,7 @@ import * as CloseButtonDocs from '@/components/examples/close-button/css-propert
 
 ## Utilisation
 
-<UsageCode
-  react={'<CloseButton aria-label="Dismiss notification" onClick={dismiss} />'}
-  vue={'<CloseButton aria-label="Dismiss notification" @click="dismiss" />'}
-/>
-
-<PropChips
-  items={[
-    ['aria-label', 'Indique ce que le bouton ferme ; Close par défaut.'],
-    ['children', 'Remplace l’icône de fermeture par défaut.'],
-    ['asChild', 'Affiche votre propre élément avec les styles du bouton.'],
-  ]}
-/>
+<Usage />
 
 Utilisez `CloseButton` pour ajouter un bouton de fermeture à une notification, une carte, un panneau superposé
 ou une autre surface d’interface. Reliez son gestionnaire `onClick` à l’état qui masque ou supprime cette surface.
@@ -123,9 +112,9 @@ accessible lorsque le libellé par défaut ne convient pas.
 
 ## Référence de l’API
 
-| Prop | Type | Défaut |
-| --- | --- | --- |
-| `aria-label` | `string` | `'Close'` |
-| `children` | `ReactNode` | `CloseIcon` |
-| `asChild` | `boolean` | `false` |
-| `disabled` | `boolean` | `false` |
+| Prop | Type | Défaut | Description |
+| --- | --- | --- | --- |
+| `aria-label` | `string` | `'Close'` | Nom accessible ; traduisez-le dans votre langue. |
+| `children` | `ReactNode` | `CloseIcon` | Remplace l’icône de fermeture par défaut. |
+| `asChild` | `boolean` | `false` | Applique les styles et propriétés du bouton à son unique enfant. |
+| `disabled` | `boolean` | `false` | Désactive le bouton. |

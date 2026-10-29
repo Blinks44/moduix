@@ -15,19 +15,7 @@ import AnatomyScene from '@/components/examples/text/basic';
 
 ## Использование
 
-<UsageCode
-  react={'<Text as="span" size="sm" tone="muted" lineClamp={2}>\n  {post.summary}\n</Text>'}
-  vue={'<Text as="span" size="sm" tone="muted" lineClamp={2}>\n  {post.summary}\n</Text>'}
-/>
-
-<PropChips
-  items={[
-    ['as', 'p, span, small, strong, em или div.'],
-    ['size / weight', 'Шаг шкалы и насыщенность шрифта.'],
-    ['tone', 'default, muted, primary или destructive.'],
-    ['truncate / lineClamp', 'Обрезает до одной строки или до N строк.'],
-  ]}
-/>
+<Usage />
 
 Для абзаца используйте корневой элемент `p`, выбранный по умолчанию. Передавайте `as`, когда нужен другой
 семантический HTML-элемент, но оформление `Text` должно сохраниться.
@@ -134,12 +122,12 @@ import AnatomyScene from '@/components/examples/text/basic';
 
 Также принимает нативные пропсы своего элемента и `asChild`.
 
-| Проп | Тип | По умолчанию |
-| --- | --- | --- |
-| `as` | `'p' \| 'span' \| 'small' \| 'strong' \| 'em' \| 'div'` | `'p'` |
-| `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'` | — |
-| `weight` | `'regular' \| 'medium' \| 'semibold' \| 'bold'` | — |
-| `tone` | `'default' \| 'muted' \| 'primary' \| 'destructive'` | `'default'` |
-| `align` | `'start' \| 'center' \| 'end' \| 'left' \| 'right' \| 'justify'` | — |
-| `truncate` | `boolean` | `false` |
-| `lineClamp` | `number` | — |
+| Проп | Тип | По умолчанию | Описание |
+| --- | --- | --- | --- |
+| `as` | `'p' \| 'span' \| 'small' \| 'strong' \| 'em' \| 'div'` | `'p'` | Отрисовываемый элемент: `p`, `span`, `small`, `strong`, `em` или `div`. |
+| `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'` | — | Размер текста, от `xs` до `xl`. |
+| `weight` | `'regular' \| 'medium' \| 'semibold' \| 'bold'` | — | Начертание: `regular`, `medium`, `semibold` или `bold`. |
+| `tone` | `'default' \| 'muted' \| 'primary' \| 'destructive'` | `'default'` | Цвет текста: `default`, `muted`, `primary` или `destructive`. |
+| `align` | `'start' \| 'center' \| 'end' \| 'left' \| 'right' \| 'justify'` | — | Выравнивание текста. |
+| `truncate` | `boolean` | `false` | Держит текст в одну строку с многоточием. |
+| `lineClamp` | `number` | — | Ограничивает текст этим числом строк. |

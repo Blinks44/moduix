@@ -17,18 +17,7 @@ import { CssPropertiesSection } from '@/components/mdx/Components';
 
 ## Использование
 
-<UsageCode
-  react={'<SegmentGroup defaultValue="week" size="sm" aria-label="Range" onValueChange={(details) => setRange(details.value)}>\n  <SegmentGroupIndicator />\n  <SegmentGroupItems items={[\'day\', \'week\', \'month\']} />\n</SegmentGroup>'}
-  vue={'<SegmentGroup v-model="range" size="sm" aria-label="Range">\n  <SegmentGroupIndicator />\n  <SegmentGroupItems :items="[\'day\', \'week\', \'month\']" />\n</SegmentGroup>'}
-/>
-
-<PropChips
-  items={[
-    ['items', 'На SegmentGroupItems: строки или { value, label, disabled }.'],
-    ['size', 'sm, md или lg.'],
-    ['orientation', 'horizontal или vertical.'],
-  ]}
-/>
+<Usage />
 
 Интерактивные
 
@@ -208,15 +197,15 @@ utility-классы и классы потребителя, а переменн
 
 ## Справочник API
 
-| Проп | Тип | По умолчанию |
-| --- | --- | --- |
-| `value` | `string \| null` | — |
-| `defaultValue` | `string \| null` | — |
-| `onValueChange` | `(details: ValueChangeDetails) => void` | — |
-| `orientation` | `'horizontal' \| 'vertical'` | `'horizontal'` |
-| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` |
-| `name` | `string` | — |
-| `disabled` | `boolean` | `false` |
-| `readOnly` | `boolean` | `false` |
-| `invalid` | `boolean` | `false` |
-| `required` | `boolean` | `false` |
+| Проп | Тип | По умолчанию | Описание |
+| --- | --- | --- | --- |
+| `value` | `string \| null` | — | Выбранный сегмент в управляемом режиме. |
+| `defaultValue` | `string \| null` | — | Изначально выбранный сегмент. |
+| `onValueChange` | `(details: ValueChangeDetails) => void` | — | Вызывается при выборе другого сегмента. |
+| `orientation` | `'horizontal' \| 'vertical'` | `'horizontal'` | Раскладка и направление стрелок: `horizontal` или `vertical`. |
+| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` | Размер: `sm`, `md` или `lg`. |
+| `name` | `string` | — | Имя поля формы у внутреннего input. |
+| `disabled` | `boolean` | `false` | Отключает элемент управления. |
+| `readOnly` | `boolean` | `false` | Показывает значение, но не даёт его менять. |
+| `invalid` | `boolean` | `false` | Помечает поле как невалидное. |
+| `required` | `boolean` | `false` | Требует значение перед отправкой формы. |

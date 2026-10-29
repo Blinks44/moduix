@@ -16,18 +16,7 @@ import * as RadioGroupDocs from '@/components/examples/radio-group/css-propertie
 
 ## Usage
 
-<UsageCode
-  react={'<RadioGroup defaultValue="monthly" name="billing" orientation="horizontal" onValueChange={(details) => setPlan(details.value)}>\n  <RadioGroupLabel>Billing</RadioGroupLabel>\n  <RadioGroupOption value="monthly">Monthly</RadioGroupOption>\n  <RadioGroupOption value="yearly">Yearly</RadioGroupOption>\n</RadioGroup>'}
-  vue={'<RadioGroup v-model="plan" name="billing" orientation="horizontal">\n  <RadioGroupLabel>Billing</RadioGroupLabel>\n  <RadioGroupOption value="monthly">Monthly</RadioGroupOption>\n  <RadioGroupOption value="yearly">Yearly</RadioGroupOption>\n</RadioGroup>'}
-/>
-
-<PropChips
-  items={[
-    ['defaultValue', 'Option selected on first render; use value to control it.'],
-    ['orientation', 'vertical or horizontal layout.'],
-    ['size', 'xs to xl, md by default.'],
-  ]}
-/>
+<Usage />
 
 Use `RadioGroup` as the root and give every option a value. `RadioGroupOption` renders a labelled
 item with its control, text, and native input.
@@ -219,16 +208,16 @@ Hover or focus a variable to see it in the preview.
 
 ## API reference
 
-| Prop | Type | Default |
-| --- | --- | --- |
-| `value` | `string \| null` | — |
-| `defaultValue` | `string \| null` | — |
-| `onValueChange` | `(details: ValueChangeDetails) => void` | — |
-| `orientation` | `'horizontal' \| 'vertical'` | `'vertical'` |
-| `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'` | `'md'` |
-| `name` | `string` | — |
-| `disabled` | `boolean` | `false` |
-| `readOnly` | `boolean` | `false` |
-| `invalid` | `boolean` | `false` |
-| `required` | `boolean` | `false` |
-| `form` | `string` | — |
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `value` | `string \| null` | — | Checked value for controlled use. |
+| `defaultValue` | `string \| null` | — | Initially checked value. |
+| `onValueChange` | `(details: ValueChangeDetails) => void` | — | Called when another option is checked. |
+| `orientation` | `'horizontal' \| 'vertical'` | `'vertical'` | Layout and arrow-key direction: `horizontal` or `vertical`. |
+| `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'` | `'md'` | Control size: `xs`, `sm`, `md`, `lg`, or `xl`. |
+| `name` | `string` | — | Form field name shared by the radio inputs. |
+| `disabled` | `boolean` | `false` | Disables the control. |
+| `readOnly` | `boolean` | `false` | Shows the value but prevents changes. |
+| `invalid` | `boolean` | `false` | Marks the control as invalid. |
+| `required` | `boolean` | `false` | Requires a value before form submission. |
+| `form` | `string` | — | Id of the form the underlying input belongs to. |

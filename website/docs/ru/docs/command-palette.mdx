@@ -16,19 +16,7 @@ import * as CommandPaletteDocs from '@/components/examples/command-palette/css-p
 
 ## Использование
 
-<UsageCode
-  react={'<CommandPalette shortcut="mod+k" aria-label="Command palette">\n  <CommandPalettePanel>\n    <CommandPaletteCombobox collection={collection} onInputValueChange={(d) => filter(d.inputValue)}>\n      <CommandPaletteSearch placeholder="Search commands..." />\n      <CommandPaletteList>\n        <CommandPaletteEmpty>No commands found.</CommandPaletteEmpty>\n        {collection.items.map((item) => (\n          <CommandPaletteItem key={item.id} item={item}>\n            <CommandPaletteItemLabel>{item.label}</CommandPaletteItemLabel>\n          </CommandPaletteItem>\n        ))}\n      </CommandPaletteList>\n    </CommandPaletteCombobox>\n  </CommandPalettePanel>\n</CommandPalette>'}
-  solid={'<CommandPalette shortcut="mod+k" aria-label="Command palette">\n  <CommandPalettePanel>\n    <CommandPaletteCombobox collection={collection} onInputValueChange={(d) => filter(d.inputValue)}>\n      <CommandPaletteSearch placeholder="Search commands..." />\n      <CommandPaletteList>\n        <CommandPaletteEmpty>No commands found.</CommandPaletteEmpty>\n        <For each={collection.items}>\n          {(item) => (\n            <CommandPaletteItem item={item}>\n              <CommandPaletteItemLabel>{item.label}</CommandPaletteItemLabel>\n            </CommandPaletteItem>\n          )}\n        </For>\n      </CommandPaletteList>\n    </CommandPaletteCombobox>\n  </CommandPalettePanel>\n</CommandPalette>'}
-  vue={'<CommandPalette shortcut="mod+k" aria-label="Command palette">\n  <CommandPalettePanel>\n    <CommandPaletteCombobox :collection="collection" @input-value-change="(d) => filter(d.inputValue)">\n      <CommandPaletteSearch placeholder="Search commands..." />\n      <CommandPaletteList>\n        <CommandPaletteEmpty>No commands found.</CommandPaletteEmpty>\n        <CommandPaletteItem v-for="item in collection.items" :key="item.id" :item="item">\n          <CommandPaletteItemLabel>{{ item.label }}</CommandPaletteItemLabel>\n        </CommandPaletteItem>\n      </CommandPaletteList>\n    </CommandPaletteCombobox>\n  </CommandPalettePanel>\n</CommandPalette>'}
-/>
-
-<PropChips
-  items={[
-    ['shortcut', 'Глобальное сочетание клавиш для открытия, по умолчанию выключено.'],
-    ['collection', 'Элементы для поиска из createListCollection().'],
-    ['onInputValueChange', 'Вызывается при вводе; здесь фильтруйте коллекцию.'],
-  ]}
-/>
+<Usage />
 
 Просмотр на этой странице
 использует пакет React CSS Modules,
@@ -189,12 +177,12 @@ framework-пакета, если состояние диалога создаё�
 
 Пропсы `CommandPalette`. Он также принимает пропсы диалога `open`, `defaultOpen` и `onOpenChange`; пропсы поиска, например `collection` и `onInputValueChange`, задаются на `CommandPaletteCombobox`.
 
-| Проп | Тип | По умолчанию |
-| --- | --- | --- |
-| `shortcut` | `false \| string` | `false` |
-| `open` | `boolean` | — |
-| `defaultOpen` | `boolean` | `false` |
-| `onOpenChange` | `(details: OpenChangeDetails) => void` | — |
-| `lazyMount` | `boolean` | `true` |
-| `unmountOnExit` | `boolean` | `true` |
-| `portalled` | `boolean` | `true` |
+| Проп | Тип | По умолчанию | Описание |
+| --- | --- | --- | --- |
+| `shortcut` | `false \| string` | `false` | Глобальная клавиша, открывающая палитру, например `mod+k`; `false` отключает. |
+| `open` | `boolean` | — | Состояние открытия в управляемом режиме. |
+| `defaultOpen` | `boolean` | `false` | Начальное состояние открытия, если оно не управляется извне. |
+| `onOpenChange` | `(details: OpenChangeDetails) => void` | — | Вызывается при открытии и закрытии. |
+| `lazyMount` | `boolean` | `true` | Монтирует содержимое при первом открытии. |
+| `unmountOnExit` | `boolean` | `true` | Удаляет содержимое после закрытия. |
+| `portalled` | `boolean` | `true` | Отрисовывает окно в портале в конце `body`. |

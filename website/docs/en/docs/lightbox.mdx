@@ -16,19 +16,7 @@ import * as LightboxDocs from '@/components/examples/lightbox/css-properties';
 
 ## Usage
 
-<UsageCode
-  react={'<Lightbox>\n  <LightboxTrigger asChild>\n    <button type="button">\n      <img src={photo.thumbnail} alt={photo.alt} />\n    </button>\n  </LightboxTrigger>\n  <LightboxBackdrop />\n  <LightboxPositioner>\n    <LightboxContent aria-label={photo.alt}>\n      <LightboxCloseIcon />\n      <LightboxBody>\n        <LightboxImage src={photo.src} alt={photo.alt} closeOnClick />\n      </LightboxBody>\n    </LightboxContent>\n  </LightboxPositioner>\n</Lightbox>'}
-  solid={'<Lightbox>\n  <LightboxTrigger asChild={(props) => (\n    <button type="button" {...props()}>\n      <img src={photo.thumbnail} alt={photo.alt} />\n    </button>\n  )} />\n  <LightboxBackdrop />\n  <LightboxPositioner>\n    <LightboxContent aria-label={photo.alt}>\n      <LightboxCloseIcon />\n      <LightboxBody>\n        <LightboxImage src={photo.src} alt={photo.alt} closeOnClick />\n      </LightboxBody>\n    </LightboxContent>\n  </LightboxPositioner>\n</Lightbox>'}
-  vue={'<Lightbox>\n  <LightboxTrigger as-child>\n    <button type="button">\n      <img :src="photo.thumbnail" :alt="photo.alt" />\n    </button>\n  </LightboxTrigger>\n  <LightboxBackdrop />\n  <LightboxPositioner>\n    <LightboxContent :aria-label="photo.alt">\n      <LightboxCloseIcon />\n      <LightboxBody>\n        <LightboxImage :src="photo.src" :alt="photo.alt" close-on-click />\n      </LightboxBody>\n    </LightboxContent>\n  </LightboxPositioner>\n</Lightbox>'}
-/>
-
-<PropChips
-  items={[
-    ['closeOnClick', 'On LightboxImage: a click on the image closes the viewer.'],
-    ['aria-label', 'Names the viewer; use the image alt text.'],
-    ['modal', 'false keeps the page usable behind the viewer.'],
-  ]}
-/>
+<Usage />
 
 Build the explicit Ark UI dialog structure with `Lightbox`, `LightboxTrigger`,
 `LightboxBackdrop`, `LightboxPositioner`, and `LightboxContent`. Use `asChild` with a single
@@ -226,19 +214,19 @@ Hover or focus a variable to see it in the preview.
 
 `Lightbox` takes the same props as `Dialog`. `LightboxImage` adds `closeOnClick` (`boolean`, default `false`).
 
-| Prop | Type | Default |
-| --- | --- | --- |
-| `open` | `boolean` | — |
-| `defaultOpen` | `boolean` | `false` |
-| `onOpenChange` | `(details: OpenChangeDetails) => void` | — |
-| `modal` | `boolean` | `true` |
-| `role` | `'dialog' \| 'alertdialog'` | `'dialog'` |
-| `closeOnEscape` | `boolean` | `true` |
-| `closeOnInteractOutside` | `boolean` | `true` |
-| `trapFocus` | `boolean` | `true` |
-| `preventScroll` | `boolean` | `true` |
-| `initialFocusEl` | `() => HTMLElement \| null \| false` | — |
-| `finalFocusEl` | `() => HTMLElement \| null` | — |
-| `lazyMount` | `boolean` | `true` |
-| `unmountOnExit` | `boolean` | `true` |
-| `portalled` | `boolean` | `true` |
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `open` | `boolean` | — | Open state for controlled use. |
+| `defaultOpen` | `boolean` | `false` | Initial open state when it is not controlled. |
+| `onOpenChange` | `(details: OpenChangeDetails) => void` | — | Called when it opens or closes. |
+| `modal` | `boolean` | `true` | Blocks interaction outside and hides the rest of the page from assistive technology. |
+| `role` | `'dialog' \| 'alertdialog'` | `'dialog'` | `dialog`, or `alertdialog` for urgent confirmations. |
+| `closeOnEscape` | `boolean` | `true` | Closes on Escape. |
+| `closeOnInteractOutside` | `boolean` | `true` | Closes on a click outside. |
+| `trapFocus` | `boolean` | `true` | Keeps keyboard focus inside while open. |
+| `preventScroll` | `boolean` | `true` | Locks page scroll while open. |
+| `initialFocusEl` | `() => HTMLElement \| null \| false` | — | Returns the element to focus on open. |
+| `finalFocusEl` | `() => HTMLElement \| null` | — | Returns the element to focus on close. |
+| `lazyMount` | `boolean` | `true` | Mounts the content on first open. |
+| `unmountOnExit` | `boolean` | `true` | Unmounts the content after it closes. |
+| `portalled` | `boolean` | `true` | Renders the popup in a portal at the end of `body`. |

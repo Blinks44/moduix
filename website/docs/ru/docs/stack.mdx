@@ -15,18 +15,7 @@ import AnatomyScene from '@/components/examples/stack/basic';
 
 ## Использование
 
-<UsageCode
-  react={'<Stack direction={{ mobile: \'column\', desktop: \'row\' }} gap={12} align="center">\n  <Avatar />\n  <Text>Ada Lovelace</Text>\n</Stack>'}
-  vue={'<Stack :direction="{ mobile: \'column\', desktop: \'row\' }" :gap="12" align="center">\n  <Avatar />\n  <Text>Ada Lovelace</Text>\n</Stack>'}
-/>
-
-<PropChips
-  items={[
-    ['direction', 'row, column или обратные; mobile и desktop для двух размеров.'],
-    ['gap', 'Расстояние между элементами; числа становятся px.'],
-    ['align / justify', 'Выравнивание по поперечной и главной оси.'],
-  ]}
-/>
+<Usage />
 
 Интерактивное
 
@@ -128,11 +117,11 @@ import AnatomyScene from '@/components/examples/stack/basic';
 
 Также принимает нативные пропсы своего элемента и `asChild`.
 
-| Проп | Тип | По умолчанию |
-| --- | --- | --- |
-| `direction` | `StackDirection \| { mobile?: StackDirection; desktop?: StackDirection }` | `'column'` |
-| `gap` | `number \| string` | — |
-| `align` | `CSSProperties['alignItems']` | — |
-| `justify` | `CSSProperties['justifyContent']` | — |
-| `wrap` | `CSSProperties['flexWrap']` | — |
-| `fill` | `boolean` | `false` |
+| Проп | Тип | По умолчанию | Описание |
+| --- | --- | --- | --- |
+| `direction` | `StackDirection \| { mobile?: StackDirection; desktop?: StackDirection }` | `'column'` | `column` или `row`, либо отдельные значения для мобильных и десктопа. |
+| `gap` | `number \| string` | — | Расстояние между элементами; числа в пикселях. |
+| `align` | `CSSProperties['alignItems']` | — | CSS `align-items`. |
+| `justify` | `CSSProperties['justifyContent']` | — | CSS `justify-content`. |
+| `wrap` | `CSSProperties['flexWrap']` | — | CSS `flex-wrap`. |
+| `fill` | `boolean` | `false` | Растягивает стек на всю ширину и высоту родителя. |

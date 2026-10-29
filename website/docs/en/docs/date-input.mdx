@@ -16,19 +16,7 @@ import * as DateInputDocs from '@/components/examples/date-input/css-properties'
 
 ## Usage
 
-<UsageCode
-  react={'<DateInput defaultValue={[new CalendarDate(2026, 6, 22)]} min={today(getLocalTimeZone())} name="release-date">\n  <DateInputLabel>Release date</DateInputLabel>\n  <DateInputControl>\n    <DateInputSegments />\n  </DateInputControl>\n  <DateInputHiddenInput />\n</DateInput>'}
-  vue={'<DateInput :default-value="[new CalendarDate(2026, 6, 22)]" :min="today(getLocalTimeZone())" name="release-date">\n  <DateInputLabel>Release date</DateInputLabel>\n  <DateInputControl>\n    <DateInputSegments />\n  </DateInputControl>\n  <DateInputHiddenInput />\n</DateInput>'}
-/>
-
-<PropChips
-  items={[
-    ['defaultValue', 'Array of CalendarDate values from @internationalized/date.'],
-    ['min / max', 'Earliest and latest dates the user can enter.'],
-    ['granularity', 'Smallest segment: day, hour, minute, or second.'],
-    ['locale', 'Order and format of the segments.'],
-  ]}
-/>
+<Usage />
 
 `DateInput` renders locale-aware date segments that users can edit with the keyboard. Put
 `DateInputSegments` inside `DateInputControl` for the standard composition.
@@ -209,33 +197,33 @@ Hover or focus a variable to see it in the preview.
 
 ## API reference
 
-| Prop | Type | Default |
-| --- | --- | --- |
-| `value` | `DateValue[]` | — |
-| `defaultValue` | `DateValue[]` | — |
-| `onValueChange` | `(details: ValueChangeDetails) => void` | — |
-| `min` | `DateValue` | — |
-| `max` | `DateValue` | — |
-| `isDateUnavailable` | `(date: DateValue, locale: string) => boolean` | — |
-| `granularity` | `'day' \| 'hour' \| 'minute' \| 'second'` | `'day'` |
-| `selectionMode` | `'single' \| 'range'` | `'single'` |
-| `locale` | `string` | `'en-US'` |
-| `timeZone` | `string` | `'UTC'` |
-| `hourCycle` | `12 \| 24` | — |
-| `shouldForceLeadingZeros` | `boolean` | `false` |
-| `name` | `string` | — |
-| `disabled` | `boolean` | `false` |
-| `readOnly` | `boolean` | `false` |
-| `invalid` | `boolean` | `false` |
-| `required` | `boolean` | `false` |
-| `createCalendar` | `(identifier: CalendarIdentifier) => Calendar` | — |
-| `translations` | `IntlTranslations` | — |
-| `form` | `string` | — |
-| `placeholderValue` | `DateValue` | — |
-| `defaultPlaceholderValue` | `DateValue` | — |
-| `onPlaceholderChange` | `(details: PlaceholderChangeDetails) => void` | — |
-| `onFocusChange` | `(details: FocusChangeDetails) => void` | — |
-| `hideTimeZone` | `boolean` | `false` |
-| `formatter` | `DateFormatter` | — |
-| `allSegments` | `Segments` | — |
-| `format` | `(date: DateValue, details: FormatDateDetails) => string` | — |
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `value` | `DateValue[]` | — | Selected dates for controlled use. |
+| `defaultValue` | `DateValue[]` | — | Initial selected dates. |
+| `onValueChange` | `(details: ValueChangeDetails) => void` | — | Called when the selected dates change. |
+| `min` | `DateValue` | — | Earliest selectable date. |
+| `max` | `DateValue` | — | Latest selectable date. |
+| `isDateUnavailable` | `(date: DateValue, locale: string) => boolean` | — | Returns `true` for dates that cannot be picked. |
+| `granularity` | `'day' \| 'hour' \| 'minute' \| 'second'` | `'day'` | Smallest editable unit: `day`, `hour`, `minute`, or `second`. |
+| `selectionMode` | `'single' \| 'range'` | `'single'` | `single` date or a `range`. |
+| `locale` | `string` | `'en-US'` | Locale for formatting; defaults to the nearest `LocaleProvider`. |
+| `timeZone` | `string` | `'UTC'` | Time zone used for dates. |
+| `hourCycle` | `12 \| 24` | — | 12- or 24-hour time. |
+| `shouldForceLeadingZeros` | `boolean` | `false` | Always pads month, day, and hour with a zero. |
+| `name` | `string` | — | Form field name of the underlying input. |
+| `disabled` | `boolean` | `false` | Disables the control. |
+| `readOnly` | `boolean` | `false` | Shows the value but prevents changes. |
+| `invalid` | `boolean` | `false` | Marks the control as invalid. |
+| `required` | `boolean` | `false` | Requires a value before form submission. |
+| `createCalendar` | `(identifier: CalendarIdentifier) => Calendar` | — | Creates a non-Gregorian calendar system. |
+| `translations` | `IntlTranslations` | — | Localized strings for accessibility labels. |
+| `form` | `string` | — | Id of the form the underlying input belongs to. |
+| `placeholderValue` | `DateValue` | — | Date shown in empty segments, for controlled use. |
+| `defaultPlaceholderValue` | `DateValue` | — | Initial date shown in empty segments. |
+| `onPlaceholderChange` | `(details: PlaceholderChangeDetails) => void` | — | Called when the placeholder date changes. |
+| `onFocusChange` | `(details: FocusChangeDetails) => void` | — | Called when the input gains or loses focus. |
+| `hideTimeZone` | `boolean` | `false` | Hides the time zone segment of a `ZonedDateTime`. |
+| `formatter` | `DateFormatter` | — | Custom `DateFormatter` for the segments. |
+| `allSegments` | `Segments` | — | Segment map computed for a custom formatter. |
+| `format` | `(date: DateValue, details: FormatDateDetails) => string` | — | Converts a date to the hidden input value. |

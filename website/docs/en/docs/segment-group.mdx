@@ -17,18 +17,7 @@ import { CssPropertiesSection } from '@/components/mdx/Components';
 
 ## Usage
 
-<UsageCode
-  react={'<SegmentGroup defaultValue="week" size="sm" aria-label="Range" onValueChange={(details) => setRange(details.value)}>\n  <SegmentGroupIndicator />\n  <SegmentGroupItems items={[\'day\', \'week\', \'month\']} />\n</SegmentGroup>'}
-  vue={'<SegmentGroup v-model="range" size="sm" aria-label="Range">\n  <SegmentGroupIndicator />\n  <SegmentGroupItems :items="[\'day\', \'week\', \'month\']" />\n</SegmentGroup>'}
-/>
-
-<PropChips
-  items={[
-    ['items', 'On SegmentGroupItems: strings or { value, label, disabled }.'],
-    ['size', 'sm, md, or lg.'],
-    ['orientation', 'horizontal or vertical.'],
-  ]}
-/>
+<Usage />
 
 Use `SegmentGroup` as the root, place `SegmentGroupIndicator` before the items, and use
 `SegmentGroupItems` when every segment only needs a text label. `SegmentGroupItems` creates the item,
@@ -204,15 +193,15 @@ Hover or focus a variable to see it in the preview.
 
 ## API reference
 
-| Prop | Type | Default |
-| --- | --- | --- |
-| `value` | `string \| null` | — |
-| `defaultValue` | `string \| null` | — |
-| `onValueChange` | `(details: ValueChangeDetails) => void` | — |
-| `orientation` | `'horizontal' \| 'vertical'` | `'horizontal'` |
-| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` |
-| `name` | `string` | — |
-| `disabled` | `boolean` | `false` |
-| `readOnly` | `boolean` | `false` |
-| `invalid` | `boolean` | `false` |
-| `required` | `boolean` | `false` |
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `value` | `string \| null` | — | Selected segment for controlled use. |
+| `defaultValue` | `string \| null` | — | Initially selected segment. |
+| `onValueChange` | `(details: ValueChangeDetails) => void` | — | Called when another segment is selected. |
+| `orientation` | `'horizontal' \| 'vertical'` | `'horizontal'` | Layout and arrow-key direction: `horizontal` or `vertical`. |
+| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` | Size: `sm`, `md`, or `lg`. |
+| `name` | `string` | — | Form field name of the underlying input. |
+| `disabled` | `boolean` | `false` | Disables the control. |
+| `readOnly` | `boolean` | `false` | Shows the value but prevents changes. |
+| `invalid` | `boolean` | `false` | Marks the control as invalid. |
+| `required` | `boolean` | `false` | Requires a value before form submission. |

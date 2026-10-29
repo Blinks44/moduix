@@ -16,18 +16,7 @@ import * as CardDocs from '@/components/examples/card/css-properties';
 
 ## Использование
 
-<UsageCode
-  react={'<Card variant="elevated" size="md">\n  <CardHeader>\n    <CardTitle>Release 2.4</CardTitle>\n    <CardDescription>Ready to promote.</CardDescription>\n  </CardHeader>\n  <CardBody>12 changes, all checks passed.</CardBody>\n  <CardFooter>\n    <Button>Promote</Button>\n  </CardFooter>\n</Card>'}
-  vue={'<Card variant="elevated" size="md">\n  <CardHeader>\n    <CardTitle>Release 2.4</CardTitle>\n    <CardDescription>Ready to promote.</CardDescription>\n  </CardHeader>\n  <CardBody>12 changes, all checks passed.</CardBody>\n  <CardFooter>\n    <Button>Promote</Button>\n  </CardFooter>\n</Card>'}
-/>
-
-<PropChips
-  items={[
-    ['variant', 'Поверхность outline, elevated или subtle.'],
-    ['size', 'Внутренние отступы: sm, md или lg.'],
-    ['asChild', 'Рендерит карточку как вашу ссылку или article.'],
-  ]}
-/>
+<Usage />
 
 Используйте `Card` как корневой компонент и добавляйте только нужные части. Импортируйте каждую
 часть напрямую, например `CardHeader` и `CardTitle`. Те же имена работают с npm-пакетами и
@@ -182,7 +171,7 @@ Card не управляет состоянием, колбэками, пров�
 
 Также принимает нативные пропсы своего элемента и `asChild`.
 
-| Проп | Тип | По умолчанию |
-| --- | --- | --- |
-| `variant` | `'outline' \| 'elevated' \| 'subtle'` | `'outline'` |
-| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` |
+| Проп | Тип | По умолчанию | Описание |
+| --- | --- | --- | --- |
+| `variant` | `'outline' \| 'elevated' \| 'subtle'` | `'outline'` | Вид поверхности: `outline`, `elevated` или `subtle`. |
+| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` | Внутренние отступы: `sm`, `md` или `lg`. |

@@ -15,16 +15,7 @@ import AnatomyScene from '@/components/examples/aspect-ratio/basic';
 
 ## Usage
 
-<UsageCode
-  react={'<AspectRatio ratio={16 / 9}>\n  <img src={cover.src} alt={cover.alt} />\n</AspectRatio>'}
-  vue={'<AspectRatio :ratio="16 / 9">\n  <img :src="cover.src" :alt="cover.alt" />\n</AspectRatio>'}
-/>
-
-<PropChips
-  items={[
-    ['ratio', 'Width divided by height: 1 is a square, 16 / 9 is widescreen.'],
-  ]}
-/>
+<Usage />
 
 Use `AspectRatio` as the root for a responsive frame. It fills the width of its containing block by default.
 Add `width` or `max-width` to the root when the frame needs a different size, then pass the width-to-height
@@ -125,6 +116,6 @@ Hover or focus a part to find it in the preview.
 
 Also accepts the native props of its element and `asChild`.
 
-| Prop | Type | Default |
-| --- | --- | --- |
-| `ratio` | `number` | `1` |
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `ratio` | `number` | `1` | Width divided by height, for example `16 / 9`. |

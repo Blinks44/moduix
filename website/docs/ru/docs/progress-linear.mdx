@@ -16,19 +16,7 @@ import * as ProgressLinearDocs from '@/components/examples/progress-linear/css-p
 
 ## Использование
 
-<UsageCode
-  react={'<ProgressLinear defaultValue={24}>\n  <ProgressLinearLabel>Export data</ProgressLinearLabel>\n  <ProgressLinearValueText />\n  <ProgressLinearTrack aria-label="Export data">\n    <ProgressLinearRange />\n  </ProgressLinearTrack>\n</ProgressLinear>'}
-  vue={'<ProgressLinear :default-value="24">\n  <ProgressLinearLabel>Export data</ProgressLinearLabel>\n  <ProgressLinearValueText />\n  <ProgressLinearTrack aria-label="Export data">\n    <ProgressLinearRange />\n  </ProgressLinearTrack>\n</ProgressLinear>'}
-/>
-
-<PropChips
-  items={[
-    ['defaultValue', 'Начальное значение; null включает неопределённое состояние.'],
-    ['min / max', 'Диапазон значения, по умолчанию от 0 до 100.'],
-    ['formatOptions', 'Опции Intl для текста значения, по умолчанию проценты.'],
-    ['orientation', 'По умолчанию горизонтально; vertical заполняется снизу.'],
-  ]}
-/>
+<Usage />
 
 Соберите индикатор из явных частей `ProgressLinearLabel`, `ProgressLinearValueText`, `ProgressLinearTrack` и `ProgressLinearRange`. Задайте для `ProgressLinearTrack`
 доступное имя, которое описывает задачу.
@@ -167,14 +155,14 @@ moduix. Варианты Tailwind используют нативные утил
 
 ## Справочник API
 
-| Проп | Тип | По умолчанию |
-| --- | --- | --- |
-| `value` | `number \| null` | — |
-| `defaultValue` | `number \| null` | `50` |
-| `onValueChange` | `(details: ValueChangeDetails) => void` | — |
-| `min` | `number` | `0` |
-| `max` | `number` | `100` |
-| `formatOptions` | `Intl.NumberFormatOptions` | `{ style: 'percent' }` |
-| `locale` | `string` | — |
-| `translations` | `IntlTranslations` | — |
-| `orientation` | `'horizontal' \| 'vertical'` | `'horizontal'` |
+| Проп | Тип | По умолчанию | Описание |
+| --- | --- | --- | --- |
+| `value` | `number \| null` | — | Значение прогресса в управляемом режиме; `null` включает неопределённое состояние. |
+| `defaultValue` | `number \| null` | `50` | Начальное значение, если оно не управляется извне; `null` означает неопределённое. |
+| `onValueChange` | `(details: ValueChangeDetails) => void` | — | Вызывается при изменении значения. |
+| `min` | `number` | `0` | Минимальное значение. |
+| `max` | `number` | `100` | Максимальное значение. |
+| `formatOptions` | `Intl.NumberFormatOptions` | `{ style: 'percent' }` | Параметры `Intl.NumberFormat` для текста значения. |
+| `locale` | `string` | — | Локаль для форматирования; по умолчанию из ближайшего `LocaleProvider`. |
+| `translations` | `IntlTranslations` | — | Переведённые строки для подписей доступности. |
+| `orientation` | `'horizontal' \| 'vertical'` | `'horizontal'` | Направление полосы: `horizontal` или `vertical`. |

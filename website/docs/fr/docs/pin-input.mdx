@@ -16,19 +16,7 @@ import * as PinInputDocs from '@/components/examples/pin-input/css-properties';
 
 ## Utilisation
 
-<UsageCode
-  react={'<PinInput count={6} otp type="numeric" onValueComplete={(details) => verify(details.valueAsString)}>\n  <PinInputLabel>Verification code</PinInputLabel>\n  <PinInputControl>\n    <PinInputInputs />\n  </PinInputControl>\n  <PinInputHiddenInput />\n</PinInput>'}
-  vue={'<PinInput :count="6" otp type="numeric" @value-complete="(details) => verify(details.valueAsString)">\n  <PinInputLabel>Verification code</PinInputLabel>\n  <PinInputControl>\n    <PinInputInputs />\n  </PinInputControl>\n  <PinInputHiddenInput />\n</PinInput>'}
-/>
-
-<PropChips
-  items={[
-    ['count', 'Nombre de cases ; obligatoire.'],
-    ['otp', 'Permet au navigateur de remplir un code à usage unique.'],
-    ['mask', 'Masque les caractères comme un mot de passe.'],
-    ['onValueComplete', 'Appelé quand toutes les cases sont remplies.'],
-  ]}
-/>
+<Usage />
 
 Utilisez `PinInput` comme racine et définissez explicitement `count`. Ajoutez `PinInputLabel` pour donner un nom accessible
 au groupe, placez `PinInputInputs` dans `PinInputControl` et composez `PinInputHiddenInput` lorsque la valeur doit participer au comportement
@@ -188,29 +176,29 @@ Tailwind utilisent des classes utilitaires natives et les remplacements de l’u
 
 ## Référence de l’API
 
-| Prop | Type | Défaut |
-| --- | --- | --- |
-| `count` | `number` | — |
-| `value` | `string[]` | — |
-| `defaultValue` | `string[]` | — |
-| `onValueChange` | `(details: ValueChangeDetails) => void` | — |
-| `onValueComplete` | `(details: ValueChangeDetails) => void` | — |
-| `type` | `'numeric' \| 'alphanumeric' \| 'alphabetic'` | `'numeric'` |
-| `otp` | `boolean` | `false` |
-| `mask` | `boolean` | `false` |
-| `placeholder` | `string` | `''` |
-| `blurOnComplete` | `boolean` | `false` |
-| `autoFocus` | `boolean` | `false` |
-| `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'` | `'md'` |
-| `name` | `string` | — |
-| `disabled` | `boolean` | `false` |
-| `readOnly` | `boolean` | `false` |
-| `invalid` | `boolean` | `false` |
-| `required` | `boolean` | `false` |
-| `form` | `string` | — |
-| `pattern` | `string` | — |
-| `onValueInvalid` | `(details: ValueInvalidDetails) => void` | — |
-| `autoSubmit` | `boolean` | — |
-| `selectOnFocus` | `boolean` | — |
-| `sanitizeValue` | `(value: string) => string` | — |
-| `translations` | `IntlTranslations` | — |
+| Prop | Type | Défaut | Description |
+| --- | --- | --- | --- |
+| `count` | `number` | — | Nombre de champs ; à définir pour un ARIA correct au rendu serveur. |
+| `value` | `string[]` | — | Valeurs de chaque champ en mode contrôlé. |
+| `defaultValue` | `string[]` | — | Valeurs initiales de chaque champ. |
+| `onValueChange` | `(details: ValueChangeDetails) => void` | — | Appelé lorsqu’un champ change. |
+| `onValueComplete` | `(details: ValueChangeDetails) => void` | — | Appelé lorsque tous les champs sont remplis. |
+| `type` | `'numeric' \| 'alphanumeric' \| 'alphabetic'` | `'numeric'` | Caractères autorisés : `numeric`, `alphanumeric` ou `alphabetic`. |
+| `otp` | `boolean` | `false` | Active l’auto-remplissage des codes à usage unique. |
+| `mask` | `boolean` | `false` | Masque les caractères comme un mot de passe. |
+| `placeholder` | `string` | `''` | Texte indicatif de chaque champ. |
+| `blurOnComplete` | `boolean` | `false` | Retire le focus une fois le code complet. |
+| `autoFocus` | `boolean` | `false` | Place le focus dans le premier champ au montage. |
+| `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'` | `'md'` | Taille : `xs`, `sm`, `md`, `lg` ou `xl`. |
+| `name` | `string` | — | Nom du champ de formulaire de l’input sous-jacent. |
+| `disabled` | `boolean` | `false` | Désactive le contrôle. |
+| `readOnly` | `boolean` | `false` | Affiche la valeur sans permettre de la modifier. |
+| `invalid` | `boolean` | `false` | Marque le champ comme invalide. |
+| `required` | `boolean` | `false` | Exige une valeur avant l’envoi du formulaire. |
+| `form` | `string` | — | Id du formulaire auquel l’input sous-jacent est rattaché. |
+| `pattern` | `string` | — | Expression régulière que chaque caractère doit respecter. |
+| `onValueInvalid` | `(details: ValueInvalidDetails) => void` | — | Appelé lorsqu’un caractère ne respecte pas `type` ou `pattern`. |
+| `autoSubmit` | `boolean` | — | Envoie le formulaire lorsque tous les champs sont remplis. |
+| `selectOnFocus` | `boolean` | — | Sélectionne le caractère au focus d’un champ. |
+| `sanitizeValue` | `(value: string) => string` | — | Nettoie le texte collé avant validation. |
+| `translations` | `IntlTranslations` | — | Textes localisés des libellés d’accessibilité. |

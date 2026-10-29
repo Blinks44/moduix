@@ -16,17 +16,7 @@ import * as KbdDocs from '@/components/examples/kbd/css-properties';
 
 ## Utilisation
 
-<UsageCode
-  react={'<KbdGroup aria-label="Command K">\n  <Kbd>⌘</Kbd>\n  <Kbd>K</Kbd>\n</KbdGroup>'}
-  vue={'<KbdGroup aria-label="Command K">\n  <Kbd>⌘</Kbd>\n  <Kbd>K</Kbd>\n</KbdGroup>'}
-/>
-
-<PropChips
-  items={[
-    ['KbdGroup', 'Regroupe les touches d’un raccourci.'],
-    ['aria-label', 'Lit le raccourci en mots, par exemple « Command K ».'],
-  ]}
-/>
+<Usage />
 
 Utilisez `Kbd` pour afficher une touche. Pour un raccourci composé de plusieurs touches, placez les touches et leurs séparateurs textuels dans `KbdGroup`.
 
@@ -109,6 +99,6 @@ Survolez ou sélectionnez une variable pour la voir dans l’aperçu.
 
 `Kbd` rend un élément `kbd` et `KbdGroup` un `span`. Les deux acceptent leurs props natives et `asChild`.
 
-| Prop | Type | Défaut |
-| --- | --- | --- |
-| `asChild` | `boolean` | `false` |
+| Prop | Type | Défaut | Description |
+| --- | --- | --- | --- |
+| `asChild` | `boolean` | `false` | Applique les styles de touche à son unique enfant. |

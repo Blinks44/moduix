@@ -15,17 +15,7 @@ import AnatomyScene from '@/components/examples/bleed/basic';
 
 ## Usage
 
-<UsageCode
-  react={'<Container>\n  <Text>Article intro</Text>\n  <Bleed inline="full" block="md">\n    <img src={banner.src} alt={banner.alt} />\n  </Bleed>\n</Container>'}
-  vue={'<Container>\n  <Text>Article intro</Text>\n  <Bleed inline="full" block="md">\n    <img src={banner.src} alt={banner.alt} />\n  </Bleed>\n</Container>'}
-/>
-
-<PropChips
-  items={[
-    ['inline', 'Horizontal overflow: none to xl, or full to reach the viewport edges.'],
-    ['block', 'Vertical overflow, none by default.'],
-  ]}
-/>
+<Usage />
 
 The default `inline="full"` makes media, banners, and section decorations reach the viewport edges while
 remaining in the normal document flow.
@@ -116,7 +106,7 @@ systems, add `overflow-x: clip` to the page root to avoid a horizontal scrollbar
 
 Also accepts the native props of its element and `asChild`.
 
-| Prop | Type | Default |
-| --- | --- | --- |
-| `inline` | `'none' \| 'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl' \| 'full'` | `'full'` |
-| `block` | `'none' \| 'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'` | `'none'` |
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `inline` | `'none' \| 'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl' \| 'full'` | `'full'` | How far content extends past the inline padding: `none` to `xl`, or `full`. |
+| `block` | `'none' \| 'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'` | `'none'` | How far content extends past the block padding: `none` to `xl`. |

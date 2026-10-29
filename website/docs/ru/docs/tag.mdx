@@ -16,18 +16,7 @@ import * as TagDocs from '@/components/examples/tag/css-properties';
 
 ## Использование
 
-<UsageCode
-  react={'<Tag variant="secondary" size="sm">\n  <TagLabel>TypeScript</TagLabel>\n  <TagCloseTrigger aria-label="Remove TypeScript" onClick={remove} />\n</Tag>'}
-  vue={'<Tag variant="secondary" size="sm">\n  <TagLabel>TypeScript</TagLabel>\n  <TagCloseTrigger aria-label="Remove TypeScript" @click="remove" />\n</Tag>'}
-/>
-
-<PropChips
-  items={[
-    ['variant', 'default, secondary, outline, ghost или destructive.'],
-    ['size', 'sm, md или lg.'],
-    ['TagCloseTrigger', 'Необязательная кнопка удаления метки.'],
-  ]}
-/>
+<Usage />
 
 Начните с корневого `Tag`
 и `TagLabel`. Добавляйте остальные части, только если метке нужны значок, дополнительное
@@ -155,7 +144,7 @@ import * as TagDocs from '@/components/examples/tag/css-properties';
 
 Также принимает нативные пропсы своего элемента и `asChild`.
 
-| Проп | Тип | По умолчанию |
-| --- | --- | --- |
-| `variant` | `'default' \| 'secondary' \| 'outline' \| 'ghost' \| 'destructive'` | `'default'` |
-| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` |
+| Проп | Тип | По умолчанию | Описание |
+| --- | --- | --- | --- |
+| `variant` | `'default' \| 'secondary' \| 'outline' \| 'ghost' \| 'destructive'` | `'default'` | Вид тега: `default`, `secondary`, `outline`, `ghost` или `destructive`. |
+| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` | Размер тега: `sm`, `md` или `lg`. |

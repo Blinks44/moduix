@@ -16,18 +16,7 @@ import * as SpinnerDocs from '@/components/examples/spinner/css-properties';
 
 ## Использование
 
-<UsageCode
-  react={'<Spinner size="sm" aria-label="Saving changes" />'}
-  vue={'<Spinner size="sm" aria-label="Saving changes" />'}
-/>
-
-<PropChips
-  items={[
-    ['size', 'От xs до xl или inherit, чтобы следовать размеру шрифта.'],
-    ['aria-label', 'Описывает ожидание; по умолчанию английское «Loading».'],
-    ['decorative', 'Скрывает спиннер, если рядом уже есть текст об ожидании.'],
-  ]}
-/>
+<Usage />
 
 Используйте `Spinner` для кратковременных состояний загрузки в кнопках, строках статуса и небольших блоках,
 где контент ещё не появился. По умолчанию компонент сообщает ассистивным технологиям о загрузке: у корневого
@@ -142,9 +131,9 @@ import * as SpinnerDocs from '@/components/examples/spinner/css-properties';
 
 ## Справочник API
 
-| Проп | Тип | По умолчанию |
-| --- | --- | --- |
-| `size` | `'inherit' \| 'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'` | `'md'` |
-| `decorative` | `boolean` | `false` |
-| `aria-label` | `string` | `'Loading'` |
-| `asChild` | `boolean` | `false` |
+| Проп | Тип | По умолчанию | Описание |
+| --- | --- | --- | --- |
+| `size` | `'inherit' \| 'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'` | `'md'` | Размер, от `xs` до `xl`, или `inherit`, чтобы следовать размеру шрифта. |
+| `decorative` | `boolean` | `false` | Скрывает индикатор от вспомогательных технологий, если загрузку уже описывает текст рядом. |
+| `aria-label` | `string` | `'Loading'` | Доступное имя статуса. |
+| `asChild` | `boolean` | `false` | Отрисовывает корень через единственный дочерний элемент, который сам рисует индикатор. |

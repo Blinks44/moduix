@@ -16,19 +16,7 @@ import * as TabsDocs from '@/components/examples/tabs/css-properties';
 
 ## Utilisation
 
-<UsageCode
-  react={'<Tabs defaultValue="overview" variant="line" size="sm">\n  <TabsList>\n    <TabsTrigger value="overview">Overview</TabsTrigger>\n    <TabsTrigger value="activity">Activity</TabsTrigger>\n    <TabsIndicator />\n  </TabsList>\n  <TabsContent value="overview">Project summary</TabsContent>\n  <TabsContent value="activity">Recent changes</TabsContent>\n</Tabs>'}
-  vue={'<Tabs default-value="overview" variant="line" size="sm">\n  <TabsList>\n    <TabsTrigger value="overview">Overview</TabsTrigger>\n    <TabsTrigger value="activity">Activity</TabsTrigger>\n    <TabsIndicator />\n  </TabsList>\n  <TabsContent value="overview">Project summary</TabsContent>\n  <TabsContent value="activity">Recent changes</TabsContent>\n</Tabs>'}
-/>
-
-<PropChips
-  items={[
-    ['defaultValue', 'Onglet sélectionné au départ ; contrôlez-le avec value.'],
-    ['variant', 'default dessine des segments, line un soulignement.'],
-    ['size', 'sm, md ou lg.'],
-    ['fitted', 'Étire les onglets sur toute la largeur.'],
-  ]}
-/>
+<Usage />
 
 Commencez avec `Tabs` et donnez la même valeur `value` à chaque paire `TabsTrigger` et
 `TabsContent`. Rendez `TabsIndicator` explicitement lorsque l’onglet sélectionné doit avoir un
@@ -207,21 +195,21 @@ Les points d’accroche Ark utiles sont `data-scope="tabs"`, `data-part`, `data-
 
 ## Référence de l’API
 
-| Prop | Type | Défaut |
-| --- | --- | --- |
-| `value` | `string \| null` | — |
-| `defaultValue` | `string \| null` | — |
-| `onValueChange` | `(details: ValueChangeDetails) => void` | — |
-| `variant` | `'default' \| 'line'` | `'default'` |
-| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` |
-| `fitted` | `boolean` | `false` |
-| `orientation` | `'horizontal' \| 'vertical'` | `'horizontal'` |
-| `activationMode` | `'automatic' \| 'manual'` | `'automatic'` |
-| `loopFocus` | `boolean` | `true` |
-| `deselectable` | `boolean` | `false` |
-| `lazyMount` | `boolean` | `false` |
-| `unmountOnExit` | `boolean` | `false` |
-| `translations` | `IntlTranslations` | — |
-| `onFocusChange` | `(details: FocusChangeDetails) => void` | — |
-| `composite` | `boolean` | — |
-| `navigate` | `((details: NavigateDetails) => void) \| null` | — |
+| Prop | Type | Défaut | Description |
+| --- | --- | --- | --- |
+| `value` | `string \| null` | — | Onglet sélectionné en mode contrôlé. |
+| `defaultValue` | `string \| null` | — | Onglet sélectionné au départ. |
+| `onValueChange` | `(details: ValueChangeDetails) => void` | — | Appelé lorsqu’un autre onglet est sélectionné. |
+| `variant` | `'default' \| 'line'` | `'default'` | Style visuel : `default` ou `line`. |
+| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` | Taille : `sm`, `md` ou `lg`. |
+| `fitted` | `boolean` | `false` | Étire les déclencheurs pour occuper toute la largeur. |
+| `orientation` | `'horizontal' \| 'vertical'` | `'horizontal'` | Disposition et sens des flèches : `horizontal` ou `vertical`. |
+| `activationMode` | `'automatic' \| 'manual'` | `'automatic'` | `automatic` sélectionne au focus, `manual` attend Entrée ou Espace. |
+| `loopFocus` | `boolean` | `true` | La navigation au clavier revient du dernier élément au premier. |
+| `deselectable` | `boolean` | `false` | Un clic sur l’onglet actif le désélectionne. |
+| `lazyMount` | `boolean` | `false` | Monte le contenu à la première ouverture. |
+| `unmountOnExit` | `boolean` | `false` | Démonte le contenu après la fermeture. |
+| `translations` | `IntlTranslations` | — | Textes localisés des libellés d’accessibilité. |
+| `onFocusChange` | `(details: FocusChangeDetails) => void` | — | Appelé lorsque le focus passe à un autre déclencheur. |
+| `composite` | `boolean` | — | Passez `false` à l’intérieur d’un autre widget composite, comme des onglets. |
+| `navigate` | `((details: NavigateDetails) => void) \| null` | — | Navigue vers un déclencheur lien choisi au clavier. |

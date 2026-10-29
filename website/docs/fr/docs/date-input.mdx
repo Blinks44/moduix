@@ -16,19 +16,7 @@ import * as DateInputDocs from '@/components/examples/date-input/css-properties'
 
 ## Utilisation
 
-<UsageCode
-  react={'<DateInput defaultValue={[new CalendarDate(2026, 6, 22)]} min={today(getLocalTimeZone())} name="release-date">\n  <DateInputLabel>Release date</DateInputLabel>\n  <DateInputControl>\n    <DateInputSegments />\n  </DateInputControl>\n  <DateInputHiddenInput />\n</DateInput>'}
-  vue={'<DateInput :default-value="[new CalendarDate(2026, 6, 22)]" :min="today(getLocalTimeZone())" name="release-date">\n  <DateInputLabel>Release date</DateInputLabel>\n  <DateInputControl>\n    <DateInputSegments />\n  </DateInputControl>\n  <DateInputHiddenInput />\n</DateInput>'}
-/>
-
-<PropChips
-  items={[
-    ['defaultValue', 'Tableau de CalendarDate issu de @internationalized/date.'],
-    ['min / max', 'Dates les plus tôt et les plus tard acceptées.'],
-    ['granularity', 'Plus petit segment : day, hour, minute ou second.'],
-    ['locale', 'Ordre et format des segments.'],
-  ]}
-/>
+<Usage />
 
 `DateInput` affiche des segments de date adaptés à la locale, modifiables au clavier. Placez
 `DateInputSegments` dans `DateInputControl` pour la composition standard.
@@ -211,33 +199,33 @@ Survolez ou sélectionnez une variable pour la voir dans l’aperçu.
 
 ## Référence de l’API
 
-| Prop | Type | Défaut |
-| --- | --- | --- |
-| `value` | `DateValue[]` | — |
-| `defaultValue` | `DateValue[]` | — |
-| `onValueChange` | `(details: ValueChangeDetails) => void` | — |
-| `min` | `DateValue` | — |
-| `max` | `DateValue` | — |
-| `isDateUnavailable` | `(date: DateValue, locale: string) => boolean` | — |
-| `granularity` | `'day' \| 'hour' \| 'minute' \| 'second'` | `'day'` |
-| `selectionMode` | `'single' \| 'range'` | `'single'` |
-| `locale` | `string` | `'en-US'` |
-| `timeZone` | `string` | `'UTC'` |
-| `hourCycle` | `12 \| 24` | — |
-| `shouldForceLeadingZeros` | `boolean` | `false` |
-| `name` | `string` | — |
-| `disabled` | `boolean` | `false` |
-| `readOnly` | `boolean` | `false` |
-| `invalid` | `boolean` | `false` |
-| `required` | `boolean` | `false` |
-| `createCalendar` | `(identifier: CalendarIdentifier) => Calendar` | — |
-| `translations` | `IntlTranslations` | — |
-| `form` | `string` | — |
-| `placeholderValue` | `DateValue` | — |
-| `defaultPlaceholderValue` | `DateValue` | — |
-| `onPlaceholderChange` | `(details: PlaceholderChangeDetails) => void` | — |
-| `onFocusChange` | `(details: FocusChangeDetails) => void` | — |
-| `hideTimeZone` | `boolean` | `false` |
-| `formatter` | `DateFormatter` | — |
-| `allSegments` | `Segments` | — |
-| `format` | `(date: DateValue, details: FormatDateDetails) => string` | — |
+| Prop | Type | Défaut | Description |
+| --- | --- | --- | --- |
+| `value` | `DateValue[]` | — | Dates sélectionnées en mode contrôlé. |
+| `defaultValue` | `DateValue[]` | — | Dates sélectionnées initiales. |
+| `onValueChange` | `(details: ValueChangeDetails) => void` | — | Appelé lorsque les dates sélectionnées changent. |
+| `min` | `DateValue` | — | Date la plus ancienne sélectionnable. |
+| `max` | `DateValue` | — | Date la plus récente sélectionnable. |
+| `isDateUnavailable` | `(date: DateValue, locale: string) => boolean` | — | Renvoie `true` pour les dates indisponibles. |
+| `granularity` | `'day' \| 'hour' \| 'minute' \| 'second'` | `'day'` | Plus petite unité modifiable : `day`, `hour`, `minute` ou `second`. |
+| `selectionMode` | `'single' \| 'range'` | `'single'` | Date unique (`single`) ou plage (`range`). |
+| `locale` | `string` | `'en-US'` | Locale du formatage ; par défaut celle du `LocaleProvider` le plus proche. |
+| `timeZone` | `string` | `'UTC'` | Fuseau horaire des dates. |
+| `hourCycle` | `12 \| 24` | — | Format horaire sur 12 ou 24 heures. |
+| `shouldForceLeadingZeros` | `boolean` | `false` | Complète toujours le mois, le jour et l’heure par un zéro. |
+| `name` | `string` | — | Nom du champ de formulaire de l’input sous-jacent. |
+| `disabled` | `boolean` | `false` | Désactive le contrôle. |
+| `readOnly` | `boolean` | `false` | Affiche la valeur sans permettre de la modifier. |
+| `invalid` | `boolean` | `false` | Marque le champ comme invalide. |
+| `required` | `boolean` | `false` | Exige une valeur avant l’envoi du formulaire. |
+| `createCalendar` | `(identifier: CalendarIdentifier) => Calendar` | — | Crée un système de calendrier non grégorien. |
+| `translations` | `IntlTranslations` | — | Textes localisés des libellés d’accessibilité. |
+| `form` | `string` | — | Id du formulaire auquel l’input sous-jacent est rattaché. |
+| `placeholderValue` | `DateValue` | — | Date affichée dans les segments vides, en mode contrôlé. |
+| `defaultPlaceholderValue` | `DateValue` | — | Date initiale des segments vides. |
+| `onPlaceholderChange` | `(details: PlaceholderChangeDetails) => void` | — | Appelé lorsque la date indicative change. |
+| `onFocusChange` | `(details: FocusChangeDetails) => void` | — | Appelé lorsque le champ prend ou perd le focus. |
+| `hideTimeZone` | `boolean` | `false` | Masque le segment de fuseau d’un `ZonedDateTime`. |
+| `formatter` | `DateFormatter` | — | `DateFormatter` personnalisé pour les segments. |
+| `allSegments` | `Segments` | — | Carte des segments calculée pour un formateur personnalisé. |
+| `format` | `(date: DateValue, details: FormatDateDetails) => string` | — | Convertit une date en valeur de l’input masqué. |

@@ -16,18 +16,7 @@ import * as SeparatorDocs from '@/components/examples/separator/css-properties';
 
 ## Usage
 
-<UsageCode
-  react={'<Separator orientation="vertical" variant="dashed" size="md" />'}
-  vue={'<Separator orientation="vertical" variant="dashed" size="md" />'}
-/>
-
-<PropChips
-  items={[
-    ['orientation', 'horizontal or vertical.'],
-    ['variant', 'solid, dashed, or dotted.'],
-    ['size', 'Line thickness from xs to lg.'],
-  ]}
-/>
+<Usage />
 
 Use `Separator` to make the boundary between related sections visible. The defaults are
 `orientation="horizontal"`, `variant="solid"`, and `size="sm"`.
@@ -121,8 +110,8 @@ Hover or focus a variable to see it in the preview.
 
 Also accepts the native props of its element and `asChild`.
 
-| Prop | Type | Default |
-| --- | --- | --- |
-| `orientation` | `'horizontal' \| 'vertical'` | `'horizontal'` |
-| `variant` | `'solid' \| 'dashed' \| 'dotted'` | `'solid'` |
-| `size` | `'xs' \| 'sm' \| 'md' \| 'lg'` | `'sm'` |
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `orientation` | `'horizontal' \| 'vertical'` | `'horizontal'` | Line direction: `horizontal` or `vertical`. |
+| `variant` | `'solid' \| 'dashed' \| 'dotted'` | `'solid'` | Line style: `solid`, `dashed`, or `dotted`. |
+| `size` | `'xs' \| 'sm' \| 'md' \| 'lg'` | `'sm'` | Line thickness, `xs` to `lg`. |

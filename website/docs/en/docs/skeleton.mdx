@@ -16,18 +16,7 @@ import * as SkeletonDocs from '@/components/examples/skeleton/css-properties';
 
 ## Usage
 
-<UsageCode
-  react={'<Skeleton loading={isLoading} width="60%" height={16} borderRadius={4}>\n  <p>{title}</p>\n</Skeleton>'}
-  vue={'<Skeleton :loading="isLoading" width="60%" :height="16" :border-radius="4">\n  <p>{{ title }}</p>\n</Skeleton>'}
-/>
-
-<PropChips
-  items={[
-    ['loading', 'Shows the placeholder; false reveals the children.'],
-    ['width / height', 'Size; numbers become px. boxSize sets both.'],
-    ['variant', 'pulse animates the surface, none keeps it still.'],
-  ]}
-/>
+<Usage />
 
 Use `Skeleton` for text lines, cards, avatars, and media placeholders. The surrounding layout sets spacing and
 responsive composition. See [Quick Start](/docs/quick-start) for package setup, registry configuration, and
@@ -123,12 +112,12 @@ Hover or focus a variable to see it in the preview.
 
 ## API reference
 
-| Prop | Type | Default |
-| --- | --- | --- |
-| `loading` | `boolean` | `true` |
-| `variant` | `'pulse' \| 'none'` | `'pulse'` |
-| `width` | `number \| string` | — |
-| `height` | `number \| string` | — |
-| `boxSize` | `number \| string` | — |
-| `borderRadius` | `number \| string` | — |
-| `asChild` | `boolean` | `false` |
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `loading` | `boolean` | `true` | Shows the placeholder; `false` reveals the children. |
+| `variant` | `'pulse' \| 'none'` | `'pulse'` | Animation: `pulse` or `none`. |
+| `width` | `number \| string` | — | Placeholder width; numbers are pixels. |
+| `height` | `number \| string` | — | Placeholder height; numbers are pixels. |
+| `boxSize` | `number \| string` | — | Sets width and height together. |
+| `borderRadius` | `number \| string` | — | Corner radius, for example for a circular avatar placeholder. |
+| `asChild` | `boolean` | `false` | Renders the placeholder as its single child element. |

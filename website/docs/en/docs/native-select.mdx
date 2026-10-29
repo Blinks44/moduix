@@ -16,18 +16,7 @@ import * as NativeSelectDocs from '@/components/examples/native-select/css-prope
 
 ## Usage
 
-<UsageCode
-  react={'<Field>\n  <FieldLabel>Framework</FieldLabel>\n  <NativeSelect name="framework" defaultValue="react">\n    <option value="react">React</option>\n    <option value="solid">Solid</option>\n    <option value="vue">Vue</option>\n  </NativeSelect>\n</Field>'}
-  vue={'<Field>\n  <FieldLabel>Framework</FieldLabel>\n  <NativeSelect v-model="framework" name="framework">\n    <option value="react">React</option>\n    <option value="solid">Solid</option>\n    <option value="vue">Vue</option>\n  </NativeSelect>\n</Field>'}
-/>
-
-<PropChips
-  items={[
-    ['option / optgroup', 'Native children, as in a plain select.'],
-    ['multiple', 'Native multi-select list.'],
-    ['controlProps', 'Props for the wrapper that holds the chevron.'],
-  ]}
-/>
+<Usage />
 
 Add native `option` or `optgroup` elements as children and pass the same props you would pass to an
 HTML `<select>`.
@@ -150,7 +139,7 @@ The browser handles the keyboard, as in any native select.
 
 Also accepts the native `select` props.
 
-| Prop | Type | Default |
-| --- | --- | --- |
-| `controlProps` | `ComponentProps<'span'>` | — |
-| `multiple` | `boolean` | `false` |
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `controlProps` | `ComponentProps<'span'>` | — | Props for the wrapper around the select and its indicator. |
+| `multiple` | `boolean` | `false` | Native multiple selection; hides the indicator. |

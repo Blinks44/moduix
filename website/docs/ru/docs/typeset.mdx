@@ -16,18 +16,7 @@ import * as TypesetDocs from '@/components/examples/typeset/css-properties';
 
 ## Использование
 
-<UsageCode
-  react={'<Typeset asChild>\n  <article dangerouslySetInnerHTML={{ __html: html }} />\n</Typeset>'}
-  solid={'<Typeset asChild={(props) => (\n  <article innerHTML={html} {...props()} />\n)} />'}
-  vue={'<Typeset as-child>\n  <article v-html="html" />\n</Typeset>'}
-/>
-
-<PropChips
-  items={[
-    ['asChild', 'Применяет стили к вашему article или section.'],
-    ['data-not-typeset', 'Исключает вложенный блок из стилей контента; .not-typeset тоже работает.'],
-  ]}
-/>
+<Usage />
 
 Оберните в `<Typeset>` HTML, который уже подготовил ваш рендерер. Используйте `asChild`, только
 когда внешний контейнер должен быть семантическим элементом, например `article` или `section`.
@@ -142,6 +131,6 @@ CSS-first контракт Typeset следует подходу из [доку�
 
 Также принимает нативные пропсы своего элемента и `asChild`.
 
-| Проп | Тип | По умолчанию |
-| --- | --- | --- |
-| `asChild` | `boolean` | `false` |
+| Проп | Тип | По умолчанию | Описание |
+| --- | --- | --- | --- |
+| `asChild` | `boolean` | `false` | Переносит стили текста на единственный дочерний элемент, например `article`. |

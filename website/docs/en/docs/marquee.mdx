@@ -16,20 +16,7 @@ import * as MarqueeDocs from '@/components/examples/marquee/css-properties';
 
 ## Usage
 
-<UsageCode
-  react={'<Marquee speed={40} pauseOnInteraction aria-label="Partner logos">\n  <MarqueeViewport>\n    <MarqueeContent>\n      {partners.map((partner) => (\n        <MarqueeItem key={partner.name}>{partner.name}</MarqueeItem>\n      ))}\n    </MarqueeContent>\n  </MarqueeViewport>\n</Marquee>'}
-  solid={'<Marquee speed={40} pauseOnInteraction aria-label="Partner logos">\n  <MarqueeViewport>\n    <MarqueeContent>\n      <For each={partners}>\n        {(partner) => (\n          <MarqueeItem>{partner.name}</MarqueeItem>\n        )}\n      </For>\n    </MarqueeContent>\n  </MarqueeViewport>\n</Marquee>'}
-  vue={'<Marquee :speed="40" pause-on-interaction aria-label="Partner logos">\n  <MarqueeViewport>\n    <MarqueeContent>\n      <MarqueeItem v-for="partner in partners" :key="partner.name">{{ partner.name }}</MarqueeItem>\n    </MarqueeContent>\n  </MarqueeViewport>\n</Marquee>'}
-/>
-
-<PropChips
-  items={[
-    ['speed', 'Pixels per second, 50 by default.'],
-    ['pauseOnInteraction', 'Pauses on hover and focus.'],
-    ['side', 'Direction: start, end, top, or bottom.'],
-    ['autoFill', 'Repeats items to fill the width.'],
-  ]}
-/>
+<Usage />
 
 Use the short `Marquee` root and compose `MarqueeViewport`, `MarqueeContent`, and `MarqueeItem` inside it. Add
 `aria-label` or `translations.root` when the moving content conveys information. `Marquee`
@@ -173,19 +160,19 @@ Hover or focus a variable to see it in the preview.
 
 ## API reference
 
-| Prop | Type | Default |
-| --- | --- | --- |
-| `speed` | `number` | `50` |
-| `side` | `'start' \| 'end' \| 'top' \| 'bottom'` | `'start'` |
-| `spacing` | `string` | `'1rem'` |
-| `autoFill` | `boolean` | `false` |
-| `reverse` | `boolean` | `false` |
-| `pauseOnInteraction` | `boolean` | `false` |
-| `paused` | `boolean` | — |
-| `defaultPaused` | `boolean` | `false` |
-| `delay` | `number` | `0` |
-| `loopCount` | `number` | `0` |
-| `onPauseChange` | `(details: PauseStatusDetails) => void` | — |
-| `onComplete` | `() => void` | — |
-| `translations` | `IntlTranslations` | — |
-| `onLoopComplete` | `() => void` | — |
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `speed` | `number` | `50` | Scroll speed in pixels per second. |
+| `side` | `'start' \| 'end' \| 'top' \| 'bottom'` | `'start'` | Direction the content moves towards: `start`, `end`, `top`, or `bottom`. |
+| `spacing` | `string` | `'1rem'` | Gap between repeated items, as a CSS length. |
+| `autoFill` | `boolean` | `false` | Duplicates the content until it fills the container. |
+| `reverse` | `boolean` | `false` | Reverses the animation direction. |
+| `pauseOnInteraction` | `boolean` | `false` | Pauses on hover and focus. |
+| `paused` | `boolean` | — | Paused state for controlled use. |
+| `defaultPaused` | `boolean` | `false` | Initial paused state when it is not controlled. |
+| `delay` | `number` | `0` | Delay before the animation starts, in seconds. |
+| `loopCount` | `number` | `0` | Number of loops; `0` repeats forever. |
+| `onPauseChange` | `(details: PauseStatusDetails) => void` | — | Called when the marquee pauses or resumes. |
+| `onComplete` | `() => void` | — | Called after the last loop when `loopCount` is set. |
+| `translations` | `IntlTranslations` | — | Localized strings for accessibility labels. |
+| `onLoopComplete` | `() => void` | — | Called after each loop. |

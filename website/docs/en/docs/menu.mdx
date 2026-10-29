@@ -16,19 +16,7 @@ import * as MenuDocs from '@/components/examples/menu/css-properties';
 
 ## Usage
 
-<UsageCode
-  react={'<Menu onSelect={(details) => run(details.value)} positioning={{ placement: \'bottom-start\' }}>\n  <MenuTrigger asChild>\n    <Button>File</Button>\n  </MenuTrigger>\n  <MenuPositioner>\n    <MenuContent>\n      <MenuItem value="new">New file</MenuItem>\n      <MenuItem value="delete" tone="destructive">Delete</MenuItem>\n    </MenuContent>\n  </MenuPositioner>\n</Menu>'}
-  solid={'<Menu onSelect={(details) => run(details.value)} positioning={{ placement: \'bottom-start\' }}>\n  <MenuTrigger asChild={(props) => (\n    <Button {...props()}>File</Button>\n  )} />\n  <MenuPositioner>\n    <MenuContent>\n      <MenuItem value="new">New file</MenuItem>\n      <MenuItem value="delete" tone="destructive">Delete</MenuItem>\n    </MenuContent>\n  </MenuPositioner>\n</Menu>'}
-  vue={'<Menu @select="(details) => run(details.value)" :positioning="{ placement: \'bottom-start\' }">\n  <MenuTrigger as-child>\n    <Button>File</Button>\n  </MenuTrigger>\n  <MenuPositioner>\n    <MenuContent>\n      <MenuItem value="new">New file</MenuItem>\n      <MenuItem value="delete" tone="destructive">Delete</MenuItem>\n    </MenuContent>\n  </MenuPositioner>\n</Menu>'}
-/>
-
-<PropChips
-  items={[
-    ['onSelect', 'Runs with the value of the chosen item.'],
-    ['positioning', 'Placement, offset, and flipping of the popup.'],
-    ['tone', 'destructive marks risky items on MenuItem.'],
-  ]}
-/>
+<Usage />
 
 Use `Menu` as the root and give every `MenuItem` a stable `value`. Keep `MenuPositioner` and
 `MenuContent` explicit, then place items, groups, separators, or nested menus inside the content.
@@ -270,26 +258,26 @@ Hover or focus a variable to see it in the preview.
 
 ## API reference
 
-| Prop | Type | Default |
-| --- | --- | --- |
-| `open` | `boolean` | — |
-| `defaultOpen` | `boolean` | `false` |
-| `onOpenChange` | `(details: OpenChangeDetails) => void` | — |
-| `onSelect` | `(details: SelectionDetails) => void` | — |
-| `closeOnSelect` | `boolean` | `true` |
-| `positioning` | `PositioningOptions` | — |
-| `loopFocus` | `boolean` | `false` |
-| `typeahead` | `boolean` | `true` |
-| `highlightedValue` | `string \| null` | — |
-| `onHighlightChange` | `(details: HighlightChangeDetails) => void` | — |
-| `lazyMount` | `boolean` | `true` |
-| `unmountOnExit` | `boolean` | `true` |
-| `portalled` | `boolean` | `true` |
-| `defaultHighlightedValue` | `string \| null` | — |
-| `anchorPoint` | `Point \| null` | — |
-| `aria-label` | `string` | — |
-| `composite` | `boolean` | `true` |
-| `navigate` | `((details: NavigateDetails) => void) \| null` | — |
-| `triggerValue` | `string \| null` | — |
-| `defaultTriggerValue` | `string \| null` | — |
-| `onTriggerValueChange` | `(details: TriggerValueChangeDetails) => void` | — |
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `open` | `boolean` | — | Open state for controlled use. |
+| `defaultOpen` | `boolean` | `false` | Initial open state when it is not controlled. |
+| `onOpenChange` | `(details: OpenChangeDetails) => void` | — | Called when it opens or closes. |
+| `onSelect` | `(details: SelectionDetails) => void` | — | Called with the `value` of the selected item. |
+| `closeOnSelect` | `boolean` | `true` | Closes the menu after an item is selected. |
+| `positioning` | `PositioningOptions` | — | Placement, offset, and other popup positioning options. |
+| `loopFocus` | `boolean` | `false` | Keyboard navigation wraps from the last item to the first. |
+| `typeahead` | `boolean` | `true` | Typing letters highlights a matching item. |
+| `highlightedValue` | `string \| null` | — | Highlighted item for controlled use. |
+| `onHighlightChange` | `(details: HighlightChangeDetails) => void` | — | Called when the highlighted item changes. |
+| `lazyMount` | `boolean` | `true` | Mounts the content on first open. |
+| `unmountOnExit` | `boolean` | `true` | Unmounts the content after it closes. |
+| `portalled` | `boolean` | `true` | Renders the popup in a portal at the end of `body`. |
+| `defaultHighlightedValue` | `string \| null` | — | Item highlighted initially. |
+| `anchorPoint` | `Point \| null` | — | Opens the menu at a point, for context menus. |
+| `aria-label` | `string` | — | Accessible name of the menu. |
+| `composite` | `boolean` | `true` | Set to `false` when it sits inside another composite widget, such as tabs. |
+| `navigate` | `((details: NavigateDetails) => void) \| null` | — | Navigates to a link item selected with the keyboard. |
+| `triggerValue` | `string \| null` | — | Active trigger for controlled use when several triggers share one menu. |
+| `defaultTriggerValue` | `string \| null` | — | Initially active trigger. |
+| `onTriggerValueChange` | `(details: TriggerValueChangeDetails) => void` | — | Called when another trigger opens the menu. |

@@ -16,19 +16,7 @@ import * as ListboxDocs from '@/components/examples/listbox/css-properties';
 
 ## Utilisation
 
-<UsageCode
-  react={'const collection = createListCollection({ items: countries });\n\n<Listbox collection={collection} selectionMode="multiple" onValueChange={(details) => setValue(details.value)}>\n  <ListboxLabel>Countries</ListboxLabel>\n  <ListboxContent>\n    {collection.items.map((item) => (\n      <ListboxItem key={item.value} item={item}>\n        <ListboxItemText>{item.label}</ListboxItemText>\n        <ListboxItemIndicator />\n      </ListboxItem>\n    ))}\n  </ListboxContent>\n</Listbox>'}
-  solid={'const collection = createListCollection({ items: countries });\n\n<Listbox collection={collection} selectionMode="multiple" onValueChange={(details) => setValue(details.value)}>\n  <ListboxLabel>Countries</ListboxLabel>\n  <ListboxContent>\n    <For each={collection.items}>\n      {(item) => (\n        <ListboxItem item={item}>\n          <ListboxItemText>{item.label}</ListboxItemText>\n          <ListboxItemIndicator />\n        </ListboxItem>\n      )}\n    </For>\n  </ListboxContent>\n</Listbox>'}
-  vue={'const collection = createListCollection({ items: countries });\n\n<Listbox v-model="value" :collection="collection" selection-mode="multiple">\n  <ListboxLabel>Countries</ListboxLabel>\n  <ListboxContent>\n    <ListboxItem v-for="item in collection.items" :key="item.value" :item="item">\n      <ListboxItemText>{{ item.label }}</ListboxItemText>\n      <ListboxItemIndicator />\n    </ListboxItem>\n  </ListboxContent>\n</Listbox>'}
-/>
-
-<PropChips
-  items={[
-    ['collection', 'Éléments issus de createListCollection().'],
-    ['selectionMode', 'single, multiple ou extended avec Shift et Ctrl.'],
-    ['orientation', 'Liste verticale ou horizontale.'],
-  ]}
-/>
+<Usage />
 
 Passez une `collection`, rendez `ListboxContent` et transmettez chaque élément de la collection à
 `ListboxItem` via `item`. Ajoutez `ListboxItemIndicator` lorsque les lignes doivent afficher leur
@@ -229,22 +217,22 @@ Survolez ou sélectionnez une variable pour la voir dans l’aperçu.
 
 ## Référence de l’API
 
-| Prop | Type | Défaut |
-| --- | --- | --- |
-| `collection` | `ListCollection<T> \| GridCollection<T>` | — |
-| `value` | `string[]` | — |
-| `defaultValue` | `string[]` | `[]` |
-| `onValueChange` | `(details: ValueChangeDetails) => void` | — |
-| `selectionMode` | `'single' \| 'multiple' \| 'extended'` | `'single'` |
-| `orientation` | `'horizontal' \| 'vertical'` | `'vertical'` |
-| `loopFocus` | `boolean` | `false` |
-| `selectOnHighlight` | `boolean` | `false` |
-| `deselectable` | `boolean` | `false` |
-| `typeahead` | `boolean` | `true` |
-| `disallowSelectAll` | `boolean` | `false` |
-| `onSelect` | `(details: SelectionDetails) => void` | — |
-| `disabled` | `boolean` | `false` |
-| `onHighlightChange` | `(details: HighlightChangeDetails<T>) => void` | — |
-| `highlightedValue` | `string \| null` | — |
-| `defaultHighlightedValue` | `string \| null` | — |
-| `scrollToIndexFn` | `(details: ScrollToIndexDetails) => void` | — |
+| Prop | Type | Défaut | Description |
+| --- | --- | --- | --- |
+| `collection` | `ListCollection<T> \| GridCollection<T>` | — | Éléments créés avec `createListCollection()` ou `createGridCollection()`. |
+| `value` | `string[]` | — | Valeurs sélectionnées en mode contrôlé. |
+| `defaultValue` | `string[]` | `[]` | Valeurs sélectionnées initiales. |
+| `onValueChange` | `(details: ValueChangeDetails) => void` | — | Appelé lorsque la sélection change. |
+| `selectionMode` | `'single' \| 'multiple' \| 'extended'` | `'single'` | `single`, `multiple` au clic ou `extended` avec Maj et Ctrl. |
+| `orientation` | `'horizontal' \| 'vertical'` | `'vertical'` | Disposition et sens des flèches : `horizontal` ou `vertical`. |
+| `loopFocus` | `boolean` | `false` | La navigation au clavier revient du dernier élément au premier. |
+| `selectOnHighlight` | `boolean` | `false` | Sélectionne un élément dès qu’il est mis en évidence. |
+| `deselectable` | `boolean` | `false` | Un clic sur l’élément sélectionné le désélectionne. |
+| `typeahead` | `boolean` | `true` | La saisie de lettres met en évidence un élément correspondant. |
+| `disallowSelectAll` | `boolean` | `false` | Désactive la sélection totale avec Ctrl ou Cmd + A. |
+| `onSelect` | `(details: SelectionDetails) => void` | — | Appelé lorsqu’un élément est sélectionné. |
+| `disabled` | `boolean` | `false` | Désactive la liste. |
+| `onHighlightChange` | `(details: HighlightChangeDetails<T>) => void` | — | Appelé lorsque l’élément mis en évidence change. |
+| `highlightedValue` | `string \| null` | — | Élément mis en évidence en mode contrôlé. |
+| `defaultHighlightedValue` | `string \| null` | — | Élément mis en évidence au départ. |
+| `scrollToIndexFn` | `(details: ScrollToIndexDetails) => void` | — | Fait défiler une liste virtualisée jusqu’à un index. |

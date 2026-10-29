@@ -16,18 +16,7 @@ import * as HighlightDocs from '@/components/examples/highlight/css-properties';
 
 ## Usage
 
-<UsageCode
-  react={'<Text>\n  <Highlight text={result.title} query={search} ignoreCase matchAll />\n</Text>'}
-  vue={'<Text>\n  <Highlight :text="result.title" :query="search" ignore-case match-all />\n</Text>'}
-/>
-
-<PropChips
-  items={[
-    ['query', 'Term or array of terms to find.'],
-    ['ignoreCase', 'Matches regardless of letter case.'],
-    ['matchAll', 'Marks every match, not only the first.'],
-  ]}
-/>
+<Usage />
 
 Pass the complete source string through `text` and the term to find through `query`. Place
 `Highlight` inside the text component or HTML element that should provide the surrounding layout
@@ -127,10 +116,10 @@ Hover or focus a variable to see it in the preview.
 
 ## API reference
 
-| Prop | Type | Default |
-| --- | --- | --- |
-| `text` | `string` | — |
-| `query` | `string \| string[]` | — |
-| `ignoreCase` | `boolean` | `false` |
-| `matchAll` | `boolean` | `false` |
-| `exactMatch` | `boolean` | `false` |
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `text` | `string` | — | Text to search in. |
+| `query` | `string \| string[]` | — | Term or array of terms to mark. |
+| `ignoreCase` | `boolean` | `false` | Matches regardless of letter case. |
+| `matchAll` | `boolean` | `false` | Marks every match, not only the first. |
+| `exactMatch` | `boolean` | `false` | Matches whole words only. |

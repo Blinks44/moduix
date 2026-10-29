@@ -16,18 +16,7 @@ import * as SwitchDocs from '@/components/examples/switch/css-properties';
 
 ## Usage
 
-<UsageCode
-  react={'<Switch defaultChecked name="notifications" onCheckedChange={(details) => save(details.checked)}>\n  <SwitchControl />\n  <SwitchLabel>Enable notifications</SwitchLabel>\n  <SwitchHiddenInput />\n</Switch>'}
-  vue={'<Switch v-model:checked="enabled" name="notifications">\n  <SwitchControl />\n  <SwitchLabel>Enable notifications</SwitchLabel>\n  <SwitchHiddenInput />\n</Switch>'}
-/>
-
-<PropChips
-  items={[
-    ['defaultChecked', 'Starts on; use checked to control it.'],
-    ['onCheckedChange', 'Runs with the new state.'],
-    ['size', 'xs to xl, md by default.'],
-  ]}
-/>
+<Usage />
 
 A basic switch has a root, a visual control, a label, and an explicit `SwitchHiddenInput` for native
 interaction and form behavior. The control receives a default thumb when it has no children.
@@ -189,17 +178,17 @@ Hover or focus a variable to see it in the preview.
 
 ## API reference
 
-| Prop | Type | Default |
-| --- | --- | --- |
-| `checked` | `boolean` | — |
-| `defaultChecked` | `boolean` | `false` |
-| `onCheckedChange` | `(details: CheckedChangeDetails) => void` | — |
-| `value` | `string \| number` | `'on'` |
-| `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'` | `'md'` |
-| `name` | `string` | — |
-| `disabled` | `boolean` | `false` |
-| `readOnly` | `boolean` | `false` |
-| `invalid` | `boolean` | `false` |
-| `required` | `boolean` | `false` |
-| `label` | `string` | — |
-| `form` | `string` | — |
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `checked` | `boolean` | — | Checked state for controlled use. |
+| `defaultChecked` | `boolean` | `false` | Initial checked state. |
+| `onCheckedChange` | `(details: CheckedChangeDetails) => void` | — | Called when the switch is toggled. |
+| `value` | `string \| number` | `'on'` | Value submitted with the form when checked. |
+| `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'` | `'md'` | Control size: `xs`, `sm`, `md`, `lg`, or `xl`. |
+| `name` | `string` | — | Form field name of the underlying input. |
+| `disabled` | `boolean` | `false` | Disables the control. |
+| `readOnly` | `boolean` | `false` | Shows the value but prevents changes. |
+| `invalid` | `boolean` | `false` | Marks the control as invalid. |
+| `required` | `boolean` | `false` | Requires a value before form submission. |
+| `label` | `string` | — | Accessible name when there is no visible label. |
+| `form` | `string` | — | Id of the form the underlying input belongs to. |

@@ -15,18 +15,7 @@ import AnatomyScene from '@/components/examples/heading/basic';
 
 ## Usage
 
-<UsageCode
-  react={'<Heading as="h2" size="xl" weight="bold">\n  Billing\n</Heading>'}
-  vue={'<Heading as="h2" size="xl" weight="bold">\n  Billing\n</Heading>'}
-/>
-
-<PropChips
-  items={[
-    ['as', 'Semantic level h1 to h6, h1 by default.'],
-    ['size', 'Visual size xs to 2xl, separate from the level.'],
-    ['weight', 'regular, medium, semibold, or bold.'],
-  ]}
-/>
+<Usage />
 
 `Heading` renders an `h1` by default. Use it for document headings and choose the `as` value that
 matches the heading's place in the document outline. Set `size` separately when the visual emphasis
@@ -111,8 +100,8 @@ component variables: a class on the root overrides the layered component styles.
 
 Also accepts the native props of its element and `asChild`.
 
-| Prop | Type | Default |
-| --- | --- | --- |
-| `as` | `'h1' \| 'h2' \| 'h3' \| 'h4' \| 'h5' \| 'h6'` | `'h1'` |
-| `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl' \| '2xl'` | — |
-| `weight` | `'regular' \| 'medium' \| 'semibold' \| 'bold'` | `'semibold'` |
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `as` | `'h1' \| 'h2' \| 'h3' \| 'h4' \| 'h5' \| 'h6'` | `'h1'` | Semantic heading level, `h1` to `h6`. |
+| `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl' \| '2xl'` | — | Visual size `xs` to `2xl`, independent of the level. |
+| `weight` | `'regular' \| 'medium' \| 'semibold' \| 'bold'` | `'semibold'` | Font weight: `regular`, `medium`, `semibold`, or `bold`. |

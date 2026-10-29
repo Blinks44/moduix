@@ -16,18 +16,7 @@ import * as SignaturePadDocs from '@/components/examples/signature-pad/css-prope
 
 ## Использование
 
-<UsageCode
-  react={'<SignaturePad name="signature" drawing={{ size: 3 }} onDrawEnd={(details) => details.getDataUrl(\'image/png\').then(save)}>\n  <SignaturePadLabel>Sign below</SignaturePadLabel>\n  <SignaturePadCanvas />\n  <SignaturePadHiddenInput />\n</SignaturePad>'}
-  vue={'<SignaturePad name="signature" :drawing="{ size: 3 }" @draw-end="(details) => details.getDataUrl(\'image/png\').then(save)">\n  <SignaturePadLabel>Sign below</SignaturePadLabel>\n  <SignaturePadCanvas />\n  <SignaturePadHiddenInput />\n</SignaturePad>'}
-/>
-
-<PropChips
-  items={[
-    ['drawing', 'Параметры линии, например size и fill.'],
-    ['onDrawEnd', 'Вызывается после каждого штриха; getDataUrl() возвращает изображение.'],
-    ['name', 'Отправляет линии с формой через скрытое поле.'],
-  ]}
-/>
+<Usage />
 
 Для большинства случаев начните с `SignaturePadCanvas`. Он выводит стандартную область рисования
 с частями Ark `SignaturePadControl`, `SignaturePadSegment`, `SignaturePadClearTrigger` и
@@ -173,15 +162,15 @@ Ark показано `simulatePressure: true`), поэтому имитация 
 
 ## Справочник API
 
-| Проп | Тип | По умолчанию |
-| --- | --- | --- |
-| `paths` | `string[]` | — |
-| `defaultPaths` | `string[]` | — |
-| `onDraw` | `(details: DrawDetails) => void` | — |
-| `onDrawEnd` | `(details: DrawEndDetails) => void` | — |
-| `drawing` | `DrawingOptions` | `{ size: 2, simulatePressure: true }` |
-| `name` | `string` | — |
-| `disabled` | `boolean` | `false` |
-| `readOnly` | `boolean` | `false` |
-| `required` | `boolean` | `false` |
-| `translations` | `IntlTranslations` | — |
+| Проп | Тип | По умолчанию | Описание |
+| --- | --- | --- | --- |
+| `paths` | `string[]` | — | SVG-пути подписи в управляемом режиме. |
+| `defaultPaths` | `string[]` | — | Начальные SVG-пути. |
+| `onDraw` | `(details: DrawDetails) => void` | — | Вызывается во время рисования и при изменении путей. |
+| `onDrawEnd` | `(details: DrawEndDetails) => void` | — | Вызывается в конце штриха; изображение получите через `getDataUrl`. |
+| `drawing` | `DrawingOptions` | `{ size: 2, simulatePressure: true }` | Параметры штриха: толщина, цвет и имитация нажима. |
+| `name` | `string` | — | Имя поля формы у внутреннего input. |
+| `disabled` | `boolean` | `false` | Отключает элемент управления. |
+| `readOnly` | `boolean` | `false` | Показывает значение, но не даёт его менять. |
+| `required` | `boolean` | `false` | Требует значение перед отправкой формы. |
+| `translations` | `IntlTranslations` | — | Переведённые строки для подписей доступности. |

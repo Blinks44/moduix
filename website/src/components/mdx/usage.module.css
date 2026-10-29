@@ -1,36 +1,4 @@
-/* Usage block and prop chips of the Button page in Moduix.sketch. */
+/* Usage block of a component page in Moduix.sketch. */
 .code :global(.rp-codeblock) {
   margin-block: 0.75rem 1rem;
-}
-
-.props {
-  display: grid;
-  grid-template-columns: minmax(92px, max-content) 1fr;
-  gap: 10px 12px;
-  margin: 0 0 1.5rem;
-
-  > div {
-    display: grid;
-    grid-column: 1 / -1;
-    grid-template-columns: subgrid;
-    align-items: baseline;
-  }
-
-  dt code {
-    display: inline-block;
-    border-radius: 5px;
-    padding: 3px 8px;
-    background: var(--rp-c-brand-tint);
-    color: var(--rp-c-brand);
-    font-family: var(--rp-font-family-mono);
-    font-size: 12px;
-    line-height: 16px;
-  }
-
-  dd {
-    margin: 0;
-    color: var(--rp-c-text-2);
-    font-size: 13px;
-    line-height: 18px;
-  }
 }

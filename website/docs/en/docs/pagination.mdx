@@ -16,19 +16,7 @@ import * as PaginationDocs from '@/components/examples/pagination/css-properties
 
 ## Usage
 
-<UsageCode
-  react={'<Pagination count={200} pageSize={10} siblingCount={2} onPageChange={(details) => setPage(details.page)}>\n  <PaginationPrevTrigger />\n  <PaginationItems />\n  <PaginationNextTrigger />\n</Pagination>'}
-  vue={'<Pagination v-model:page="page" :count="200" :page-size="10" :sibling-count="2">\n  <PaginationPrevTrigger />\n  <PaginationItems />\n  <PaginationNextTrigger />\n</Pagination>'}
-/>
-
-<PropChips
-  items={[
-    ['count', 'Total number of items, not pages.'],
-    ['pageSize', 'Items per page, 10 by default.'],
-    ['siblingCount', 'Pages shown on each side of the current one.'],
-    ['type', 'link renders anchors; pair it with getPageUrl.'],
-  ]}
-/>
+<Usage />
 
 Use `Pagination` as the root component. `PaginationItems` renders the page buttons and ellipses for
 the current page range.
@@ -184,17 +172,17 @@ Hover or focus a variable to see it in the preview.
 
 ## API reference
 
-| Prop | Type | Default |
-| --- | --- | --- |
-| `count` | `number` | — |
-| `page` | `number` | — |
-| `defaultPage` | `number` | `1` |
-| `onPageChange` | `(details: PageChangeDetails) => void` | — |
-| `pageSize` | `number` | — |
-| `defaultPageSize` | `number` | `10` |
-| `onPageSizeChange` | `(details: PageSizeChangeDetails) => void` | — |
-| `siblingCount` | `number` | `1` |
-| `boundaryCount` | `number` | `1` |
-| `type` | `'button' \| 'link'` | `'button'` |
-| `getPageUrl` | `(details: PageUrlDetails) => string` | — |
-| `translations` | `IntlTranslations` | — |
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `count` | `number` | — | Total number of items, not pages. |
+| `page` | `number` | — | Current page for controlled use. |
+| `defaultPage` | `number` | `1` | Initial page. |
+| `onPageChange` | `(details: PageChangeDetails) => void` | — | Called when the page changes. |
+| `pageSize` | `number` | — | Items per page for controlled use. |
+| `defaultPageSize` | `number` | `10` | Initial items per page. |
+| `onPageSizeChange` | `(details: PageSizeChangeDetails) => void` | — | Called when the page size changes. |
+| `siblingCount` | `number` | `1` | Pages shown on each side of the current page. |
+| `boundaryCount` | `number` | `1` | Pages always shown at the start and end. |
+| `type` | `'button' \| 'link'` | `'button'` | Renders page items as `button` or `link`. |
+| `getPageUrl` | `(details: PageUrlDetails) => string` | — | Builds the `href` of each page when `type` is `link`. |
+| `translations` | `IntlTranslations` | — | Localized strings for accessibility labels. |

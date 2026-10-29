@@ -16,20 +16,7 @@ import * as CarouselDocs from '@/components/examples/carousel/css-properties';
 
 ## Usage
 
-<UsageCode
-  react={'<Carousel slideCount={slides.length} slidesPerPage={2} spacing="16px" loop aria-label="Gallery">\n  <CarouselItemGroup>\n    {slides.map((slide, index) => (\n      <CarouselItem key={slide.id} index={index}>\n        <img src={slide.src} alt={slide.alt} />\n      </CarouselItem>\n    ))}\n  </CarouselItemGroup>\n  <CarouselControl>\n    <CarouselPrevTrigger />\n    <CarouselNextTrigger />\n  </CarouselControl>\n  <CarouselIndicators />\n</Carousel>'}
-  solid={'<Carousel slideCount={slides.length} slidesPerPage={2} spacing="16px" loop aria-label="Gallery">\n  <CarouselItemGroup>\n    <For each={slides}>\n      {(slide, index) => (\n        <CarouselItem index={index()}>\n          <img src={slide.src} alt={slide.alt} />\n        </CarouselItem>\n      )}\n    </For>\n  </CarouselItemGroup>\n  <CarouselControl>\n    <CarouselPrevTrigger />\n    <CarouselNextTrigger />\n  </CarouselControl>\n  <CarouselIndicators />\n</Carousel>'}
-  vue={'<Carousel :slide-count="slides.length" :slides-per-page="2" spacing="16px" loop aria-label="Gallery">\n  <CarouselItemGroup>\n    <CarouselItem v-for="(slide, index) in slides" :key="slide.id" :index="index">\n      <img :src="slide.src" :alt="slide.alt" />\n    </CarouselItem>\n  </CarouselItemGroup>\n  <CarouselControl>\n    <CarouselPrevTrigger />\n    <CarouselNextTrigger />\n  </CarouselControl>\n  <CarouselIndicators />\n</Carousel>'}
-/>
-
-<PropChips
-  items={[
-    ['slideCount', 'Number of slides; required.'],
-    ['slidesPerPage', 'Slides visible at once, 1 by default.'],
-    ['loop', 'Wraps from the last slide to the first.'],
-    ['autoplay', 'Advances on its own; pass { delay } in ms.'],
-  ]}
-/>
+<Usage />
 
 Start with `Carousel` as the root. Add `CarouselItemGroup` for the slide track, place previous and
 next buttons in `CarouselControl`, and use `CarouselIndicators` with `CarouselProgressText`
@@ -240,23 +227,23 @@ Hover or focus a variable to see it in the preview.
 
 ## API reference
 
-| Prop | Type | Default |
-| --- | --- | --- |
-| `slideCount` | `number` | — |
-| `page` | `number` | — |
-| `defaultPage` | `number` | `0` |
-| `onPageChange` | `(details: PageChangeDetails) => void` | — |
-| `slidesPerPage` | `number` | `1` |
-| `slidesPerMove` | `number \| 'auto'` | `'auto'` |
-| `spacing` | `string` | `'0px'` |
-| `padding` | `string` | — |
-| `loop` | `boolean` | `false` |
-| `autoplay` | `boolean \| { delay: number }` | `false` |
-| `allowMouseDrag` | `boolean` | `false` |
-| `autoSize` | `boolean` | `false` |
-| `orientation` | `'horizontal' \| 'vertical'` | `'horizontal'` |
-| `snapType` | `'proximity' \| 'mandatory'` | `'mandatory'` |
-| `translations` | `IntlTranslations` | — |
-| `inViewThreshold` | `number \| number[]` | `0.6` |
-| `onDragStatusChange` | `(details: DragStatusDetails) => void` | — |
-| `onAutoplayStatusChange` | `(details: AutoplayStatusDetails) => void` | — |
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `slideCount` | `number` | — | Total number of slides. Required. |
+| `page` | `number` | — | Current page for controlled use. |
+| `defaultPage` | `number` | `0` | Initial page when the page is not controlled. |
+| `onPageChange` | `(details: PageChangeDetails) => void` | — | Called when the page changes. |
+| `slidesPerPage` | `number` | `1` | Number of slides visible at once. |
+| `slidesPerMove` | `number \| 'auto'` | `'auto'` | Number of slides to scroll per step, or `auto`. |
+| `spacing` | `string` | `'0px'` | Gap between slides, as a CSS length. |
+| `padding` | `string` | — | Extra space around the scroll area that reveals neighboring slides. |
+| `loop` | `boolean` | `false` | Wraps from the last slide to the first. |
+| `autoplay` | `boolean \| { delay: number }` | `false` | Advances on its own; pass `{ delay }` in milliseconds to set the interval. |
+| `allowMouseDrag` | `boolean` | `false` | Lets mouse users drag the slides. |
+| `autoSize` | `boolean` | `false` | Allows slides of different widths. |
+| `orientation` | `'horizontal' \| 'vertical'` | `'horizontal'` | Scroll direction: `horizontal` or `vertical`. |
+| `snapType` | `'proximity' \| 'mandatory'` | `'mandatory'` | CSS scroll snapping: `mandatory` or `proximity`. |
+| `translations` | `IntlTranslations` | — | Localized strings for accessibility labels. |
+| `inViewThreshold` | `number \| number[]` | `0.6` | Visible share of a slide that counts as in view. |
+| `onDragStatusChange` | `(details: DragStatusDetails) => void` | — | Called when dragging starts or ends. |
+| `onAutoplayStatusChange` | `(details: AutoplayStatusDetails) => void` | — | Called when autoplay starts, pauses, or stops. |

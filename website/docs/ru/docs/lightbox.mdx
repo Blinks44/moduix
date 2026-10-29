@@ -16,19 +16,7 @@ import * as LightboxDocs from '@/components/examples/lightbox/css-properties';
 
 ## Использование
 
-<UsageCode
-  react={'<Lightbox>\n  <LightboxTrigger asChild>\n    <button type="button">\n      <img src={photo.thumbnail} alt={photo.alt} />\n    </button>\n  </LightboxTrigger>\n  <LightboxBackdrop />\n  <LightboxPositioner>\n    <LightboxContent aria-label={photo.alt}>\n      <LightboxCloseIcon />\n      <LightboxBody>\n        <LightboxImage src={photo.src} alt={photo.alt} closeOnClick />\n      </LightboxBody>\n    </LightboxContent>\n  </LightboxPositioner>\n</Lightbox>'}
-  solid={'<Lightbox>\n  <LightboxTrigger asChild={(props) => (\n    <button type="button" {...props()}>\n      <img src={photo.thumbnail} alt={photo.alt} />\n    </button>\n  )} />\n  <LightboxBackdrop />\n  <LightboxPositioner>\n    <LightboxContent aria-label={photo.alt}>\n      <LightboxCloseIcon />\n      <LightboxBody>\n        <LightboxImage src={photo.src} alt={photo.alt} closeOnClick />\n      </LightboxBody>\n    </LightboxContent>\n  </LightboxPositioner>\n</Lightbox>'}
-  vue={'<Lightbox>\n  <LightboxTrigger as-child>\n    <button type="button">\n      <img :src="photo.thumbnail" :alt="photo.alt" />\n    </button>\n  </LightboxTrigger>\n  <LightboxBackdrop />\n  <LightboxPositioner>\n    <LightboxContent :aria-label="photo.alt">\n      <LightboxCloseIcon />\n      <LightboxBody>\n        <LightboxImage :src="photo.src" :alt="photo.alt" close-on-click />\n      </LightboxBody>\n    </LightboxContent>\n  </LightboxPositioner>\n</Lightbox>'}
-/>
-
-<PropChips
-  items={[
-    ['closeOnClick', 'На LightboxImage: клик по изображению закрывает окно.'],
-    ['aria-label', 'Название окна; используйте alt изображения.'],
-    ['modal', 'false оставляет страницу доступной за окном.'],
-  ]}
-/>
+<Usage />
 
 Явно соберите структуру диалога Ark UI из `Lightbox`, `LightboxTrigger`,
 `LightboxBackdrop`, `LightboxPositioner` и `LightboxContent`. С помощью `asChild` передайте
@@ -229,19 +217,19 @@ Content плавно появляется и исчезает, а Body меня�
 
 `Lightbox` принимает те же пропсы, что и `Dialog`. `LightboxImage` добавляет `closeOnClick` (`boolean`, по умолчанию `false`).
 
-| Проп | Тип | По умолчанию |
-| --- | --- | --- |
-| `open` | `boolean` | — |
-| `defaultOpen` | `boolean` | `false` |
-| `onOpenChange` | `(details: OpenChangeDetails) => void` | — |
-| `modal` | `boolean` | `true` |
-| `role` | `'dialog' \| 'alertdialog'` | `'dialog'` |
-| `closeOnEscape` | `boolean` | `true` |
-| `closeOnInteractOutside` | `boolean` | `true` |
-| `trapFocus` | `boolean` | `true` |
-| `preventScroll` | `boolean` | `true` |
-| `initialFocusEl` | `() => HTMLElement \| null \| false` | — |
-| `finalFocusEl` | `() => HTMLElement \| null` | — |
-| `lazyMount` | `boolean` | `true` |
-| `unmountOnExit` | `boolean` | `true` |
-| `portalled` | `boolean` | `true` |
+| Проп | Тип | По умолчанию | Описание |
+| --- | --- | --- | --- |
+| `open` | `boolean` | — | Состояние открытия в управляемом режиме. |
+| `defaultOpen` | `boolean` | `false` | Начальное состояние открытия, если оно не управляется извне. |
+| `onOpenChange` | `(details: OpenChangeDetails) => void` | — | Вызывается при открытии и закрытии. |
+| `modal` | `boolean` | `true` | Блокирует взаимодействие снаружи и скрывает остальную страницу от вспомогательных технологий. |
+| `role` | `'dialog' \| 'alertdialog'` | `'dialog'` | `dialog` или `alertdialog` для срочных подтверждений. |
+| `closeOnEscape` | `boolean` | `true` | Закрывается по Escape. |
+| `closeOnInteractOutside` | `boolean` | `true` | Закрывается по клику снаружи. |
+| `trapFocus` | `boolean` | `true` | Удерживает фокус внутри, пока открыто. |
+| `preventScroll` | `boolean` | `true` | Блокирует прокрутку страницы, пока открыто. |
+| `initialFocusEl` | `() => HTMLElement \| null \| false` | — | Возвращает элемент, который получает фокус при открытии. |
+| `finalFocusEl` | `() => HTMLElement \| null` | — | Возвращает элемент, который получает фокус при закрытии. |
+| `lazyMount` | `boolean` | `true` | Монтирует содержимое при первом открытии. |
+| `unmountOnExit` | `boolean` | `true` | Удаляет содержимое после закрытия. |
+| `portalled` | `boolean` | `true` | Отрисовывает окно в портале в конце `body`. |

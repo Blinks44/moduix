@@ -15,18 +15,7 @@ import AnatomyScene from '@/components/examples/json-tree-view/basic';
 
 ## Использование
 
-<UsageCode
-  react={'<JsonTreeView data={deployment} defaultExpandedDepth={2} quotesOnKeys>\n  <JsonTreeViewTree />\n</JsonTreeView>'}
-  vue={'<JsonTreeView :data="deployment" :default-expanded-depth="2" quotes-on-keys>\n  <JsonTreeViewTree />\n</JsonTreeView>'}
-/>
-
-<PropChips
-  items={[
-    ['data', 'Любое JSON-подобное значение: объекты, массивы, Map, Set, Date.'],
-    ['defaultExpandedDepth', 'Сколько уровней открыто сразу.'],
-    ['maxPreviewItems', 'Сколько элементов видно в свёрнутом превью.'],
-  ]}
-/>
+<Usage />
 
 Адаптеры фреймворков сохраняют одинаковые плоские имена компонентов; в примере Vue используются нативный SFC и
 именованные слоты.
@@ -124,12 +113,12 @@ import AnatomyScene from '@/components/examples/json-tree-view/basic';
 
 ## Справочник API
 
-| Проп | Тип | По умолчанию |
-| --- | --- | --- |
-| `data` | `unknown` | — |
-| `defaultExpandedDepth` | `number` | — |
-| `quotesOnKeys` | `boolean` | `false` |
-| `maxPreviewItems` | `number` | — |
-| `collapseStringsAfterLength` | `number` | — |
-| `groupArraysAfterLength` | `number` | — |
-| `showNonenumerable` | `boolean` | `false` |
+| Проп | Тип | По умолчанию | Описание |
+| --- | --- | --- | --- |
+| `data` | `unknown` | — | JSON-значение для отображения. |
+| `defaultExpandedDepth` | `number` | — | Сколько уровней раскрыто изначально. |
+| `quotesOnKeys` | `boolean` | `false` | Берёт ключи объектов в кавычки. |
+| `maxPreviewItems` | `number` | — | Сколько элементов видно в свёрнутом превью. |
+| `collapseStringsAfterLength` | `number` | — | Обрезает строки длиннее этого числа символов. |
+| `groupArraysAfterLength` | `number` | — | Группирует длинные массивы в диапазоны этого размера. |
+| `showNonenumerable` | `boolean` | `false` | Показывает неперечисляемые свойства. |

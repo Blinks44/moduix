@@ -16,18 +16,7 @@ import * as SignaturePadDocs from '@/components/examples/signature-pad/css-prope
 
 ## Usage
 
-<UsageCode
-  react={'<SignaturePad name="signature" drawing={{ size: 3 }} onDrawEnd={(details) => details.getDataUrl(\'image/png\').then(save)}>\n  <SignaturePadLabel>Sign below</SignaturePadLabel>\n  <SignaturePadCanvas />\n  <SignaturePadHiddenInput />\n</SignaturePad>'}
-  vue={'<SignaturePad name="signature" :drawing="{ size: 3 }" @draw-end="(details) => details.getDataUrl(\'image/png\').then(save)">\n  <SignaturePadLabel>Sign below</SignaturePadLabel>\n  <SignaturePadCanvas />\n  <SignaturePadHiddenInput />\n</SignaturePad>'}
-/>
-
-<PropChips
-  items={[
-    ['drawing', 'Stroke options such as size and fill.'],
-    ['onDrawEnd', 'Runs after each stroke; getDataUrl() returns an image.'],
-    ['name', 'Submits the paths with a form through the hidden input.'],
-  ]}
-/>
+<Usage />
 
 For most use cases, start with `SignaturePadCanvas`. It provides the standard drawing surface with
 Ark's `SignaturePadControl`, `SignaturePadSegment`, `SignaturePadClearTrigger`, and
@@ -172,15 +161,15 @@ appears on label.
 
 ## API reference
 
-| Prop | Type | Default |
-| --- | --- | --- |
-| `paths` | `string[]` | — |
-| `defaultPaths` | `string[]` | — |
-| `onDraw` | `(details: DrawDetails) => void` | — |
-| `onDrawEnd` | `(details: DrawEndDetails) => void` | — |
-| `drawing` | `DrawingOptions` | `{ size: 2, simulatePressure: true }` |
-| `name` | `string` | — |
-| `disabled` | `boolean` | `false` |
-| `readOnly` | `boolean` | `false` |
-| `required` | `boolean` | `false` |
-| `translations` | `IntlTranslations` | — |
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `paths` | `string[]` | — | SVG paths of the signature, for controlled use. |
+| `defaultPaths` | `string[]` | — | Initial SVG paths. |
+| `onDraw` | `(details: DrawDetails) => void` | — | Called while drawing and when the paths change. |
+| `onDrawEnd` | `(details: DrawEndDetails) => void` | — | Called when a stroke ends; read the image with `getDataUrl`. |
+| `drawing` | `DrawingOptions` | `{ size: 2, simulatePressure: true }` | Stroke options: size, color, and pressure simulation. |
+| `name` | `string` | — | Form field name of the underlying input. |
+| `disabled` | `boolean` | `false` | Disables the control. |
+| `readOnly` | `boolean` | `false` | Shows the value but prevents changes. |
+| `required` | `boolean` | `false` | Requires a value before form submission. |
+| `translations` | `IntlTranslations` | — | Localized strings for accessibility labels. |

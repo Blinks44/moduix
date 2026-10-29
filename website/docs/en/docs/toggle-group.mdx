@@ -17,18 +17,7 @@ import { CssPropertiesSection } from '@/components/mdx/Components';
 
 ## Usage
 
-<UsageCode
-  react={'<ToggleGroup defaultValue={[\'left\']} variant="outline" aria-label="Text alignment" onValueChange={(details) => setAlign(details.value)}>\n  <ToggleGroupItem value="left">Left</ToggleGroupItem>\n  <ToggleGroupItem value="center">Center</ToggleGroupItem>\n  <ToggleGroupItem value="right">Right</ToggleGroupItem>\n</ToggleGroup>'}
-  vue={'<ToggleGroup v-model="align" variant="outline" aria-label="Text alignment">\n  <ToggleGroupItem value="left">Left</ToggleGroupItem>\n  <ToggleGroupItem value="center">Center</ToggleGroupItem>\n  <ToggleGroupItem value="right">Right</ToggleGroupItem>\n</ToggleGroup>'}
-/>
-
-<PropChips
-  items={[
-    ['defaultValue', 'Pressed items on first render, as an array.'],
-    ['multiple', 'Lets several items be pressed at once.'],
-    ['deselectable', 'Lets the last pressed item be released, true by default.'],
-  ]}
-/>
+<Usage />
 
 Use `ToggleGroup` as the root and add one `ToggleGroupItem` for each choice. Give the group an
 accessible name with `aria-label` or `aria-labelledby`.
@@ -189,16 +178,16 @@ properties](/docs/toggle#css-variables) for its colors and interaction states. S
 
 ## API reference
 
-| Prop | Type | Default |
-| --- | --- | --- |
-| `value` | `string[]` | — |
-| `defaultValue` | `string[]` | — |
-| `onValueChange` | `(details: ValueChangeDetails) => void` | — |
-| `multiple` | `boolean` | `false` |
-| `deselectable` | `boolean` | `true` |
-| `orientation` | `'horizontal' \| 'vertical'` | `'horizontal'` |
-| `loopFocus` | `boolean` | `true` |
-| `rovingFocus` | `boolean` | `true` |
-| `variant` | `'default' \| 'outline' \| 'ghost'` | `'default'` |
-| `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'icon-sm' \| 'icon-md' \| 'icon-lg'` | `'md'` |
-| `disabled` | `boolean` | `false` |
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `value` | `string[]` | — | Pressed items for controlled use. |
+| `defaultValue` | `string[]` | — | Initially pressed items. |
+| `onValueChange` | `(details: ValueChangeDetails) => void` | — | Called when the pressed items change. |
+| `multiple` | `boolean` | `false` | Lets several items be pressed at once. |
+| `deselectable` | `boolean` | `true` | Lets the user unpress the last item. |
+| `orientation` | `'horizontal' \| 'vertical'` | `'horizontal'` | Layout and arrow-key direction: `horizontal` or `vertical`. |
+| `loopFocus` | `boolean` | `true` | Keyboard navigation wraps from the last item to the first. |
+| `rovingFocus` | `boolean` | `true` | Arrow keys move focus between items, Tab leaves the group. |
+| `variant` | `'default' \| 'outline' \| 'ghost'` | `'default'` | Visual style of every item: `default`, `outline`, or `ghost`. |
+| `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'icon-sm' \| 'icon-md' \| 'icon-lg'` | `'md'` | `xs`, `sm`, `md`, `lg`, or a square `icon-sm`, `icon-md`, `icon-lg`. |
+| `disabled` | `boolean` | `false` | Disables every item. |

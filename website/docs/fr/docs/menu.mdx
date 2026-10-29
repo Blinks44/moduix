@@ -16,19 +16,7 @@ import * as MenuDocs from '@/components/examples/menu/css-properties';
 
 ## Utilisation
 
-<UsageCode
-  react={'<Menu onSelect={(details) => run(details.value)} positioning={{ placement: \'bottom-start\' }}>\n  <MenuTrigger asChild>\n    <Button>File</Button>\n  </MenuTrigger>\n  <MenuPositioner>\n    <MenuContent>\n      <MenuItem value="new">New file</MenuItem>\n      <MenuItem value="delete" tone="destructive">Delete</MenuItem>\n    </MenuContent>\n  </MenuPositioner>\n</Menu>'}
-  solid={'<Menu onSelect={(details) => run(details.value)} positioning={{ placement: \'bottom-start\' }}>\n  <MenuTrigger asChild={(props) => (\n    <Button {...props()}>File</Button>\n  )} />\n  <MenuPositioner>\n    <MenuContent>\n      <MenuItem value="new">New file</MenuItem>\n      <MenuItem value="delete" tone="destructive">Delete</MenuItem>\n    </MenuContent>\n  </MenuPositioner>\n</Menu>'}
-  vue={'<Menu @select="(details) => run(details.value)" :positioning="{ placement: \'bottom-start\' }">\n  <MenuTrigger as-child>\n    <Button>File</Button>\n  </MenuTrigger>\n  <MenuPositioner>\n    <MenuContent>\n      <MenuItem value="new">New file</MenuItem>\n      <MenuItem value="delete" tone="destructive">Delete</MenuItem>\n    </MenuContent>\n  </MenuPositioner>\n</Menu>'}
-/>
-
-<PropChips
-  items={[
-    ['onSelect', 'Appelé avec la valeur de l’élément choisi.'],
-    ['positioning', 'Placement, décalage et retournement du menu.'],
-    ['tone', 'destructive signale les éléments risqués sur MenuItem.'],
-  ]}
-/>
+<Usage />
 
 Utilisez la composition standard pour un menu ouvert par un bouton, un déclencheur personnalisé ou un déclencheur contextuel. Le composant racine gère la navigation au clavier, la recherche par saisie, le focus et la fermeture. Attribuez une valeur `value` stable à chaque élément afin de préserver la sélection et la recherche par saisie lorsque la liste change.
 
@@ -241,26 +229,26 @@ Utilisez les attributs d’état d’Ark pour styliser le menu et ses éléments
 
 ## Référence de l’API
 
-| Prop | Type | Défaut |
-| --- | --- | --- |
-| `open` | `boolean` | — |
-| `defaultOpen` | `boolean` | `false` |
-| `onOpenChange` | `(details: OpenChangeDetails) => void` | — |
-| `onSelect` | `(details: SelectionDetails) => void` | — |
-| `closeOnSelect` | `boolean` | `true` |
-| `positioning` | `PositioningOptions` | — |
-| `loopFocus` | `boolean` | `false` |
-| `typeahead` | `boolean` | `true` |
-| `highlightedValue` | `string \| null` | — |
-| `onHighlightChange` | `(details: HighlightChangeDetails) => void` | — |
-| `lazyMount` | `boolean` | `true` |
-| `unmountOnExit` | `boolean` | `true` |
-| `portalled` | `boolean` | `true` |
-| `defaultHighlightedValue` | `string \| null` | — |
-| `anchorPoint` | `Point \| null` | — |
-| `aria-label` | `string` | — |
-| `composite` | `boolean` | `true` |
-| `navigate` | `((details: NavigateDetails) => void) \| null` | — |
-| `triggerValue` | `string \| null` | — |
-| `defaultTriggerValue` | `string \| null` | — |
-| `onTriggerValueChange` | `(details: TriggerValueChangeDetails) => void` | — |
+| Prop | Type | Défaut | Description |
+| --- | --- | --- | --- |
+| `open` | `boolean` | — | État d’ouverture en mode contrôlé. |
+| `defaultOpen` | `boolean` | `false` | État d’ouverture initial lorsqu’il n’est pas contrôlé. |
+| `onOpenChange` | `(details: OpenChangeDetails) => void` | — | Appelé à l’ouverture et à la fermeture. |
+| `onSelect` | `(details: SelectionDetails) => void` | — | Appelé avec la `value` de l’élément choisi. |
+| `closeOnSelect` | `boolean` | `true` | Ferme le menu après la sélection d’un élément. |
+| `positioning` | `PositioningOptions` | — | Placement, décalage et autres options de positionnement de la fenêtre. |
+| `loopFocus` | `boolean` | `false` | La navigation au clavier revient du dernier élément au premier. |
+| `typeahead` | `boolean` | `true` | La saisie de lettres met en évidence un élément correspondant. |
+| `highlightedValue` | `string \| null` | — | Élément mis en évidence en mode contrôlé. |
+| `onHighlightChange` | `(details: HighlightChangeDetails) => void` | — | Appelé lorsque l’élément mis en évidence change. |
+| `lazyMount` | `boolean` | `true` | Monte le contenu à la première ouverture. |
+| `unmountOnExit` | `boolean` | `true` | Démonte le contenu après la fermeture. |
+| `portalled` | `boolean` | `true` | Rend le menu dans un portail à la fin de `body`. |
+| `defaultHighlightedValue` | `string \| null` | — | Élément mis en évidence au départ. |
+| `anchorPoint` | `Point \| null` | — | Ouvre le menu à un point précis, pour un menu contextuel. |
+| `aria-label` | `string` | — | Nom accessible du menu. |
+| `composite` | `boolean` | `true` | Passez `false` à l’intérieur d’un autre widget composite, comme des onglets. |
+| `navigate` | `((details: NavigateDetails) => void) \| null` | — | Navigue vers un élément lien choisi au clavier. |
+| `triggerValue` | `string \| null` | — | Déclencheur actif en mode contrôlé lorsque plusieurs déclencheurs partagent un menu. |
+| `defaultTriggerValue` | `string \| null` | — | Déclencheur actif au départ. |
+| `onTriggerValueChange` | `(details: TriggerValueChangeDetails) => void` | — | Appelé lorsqu’un autre déclencheur ouvre le menu. |

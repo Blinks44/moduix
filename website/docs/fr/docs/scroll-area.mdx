@@ -16,19 +16,7 @@ import * as ScrollAreaDocs from '@/components/examples/scroll-area/css-propertie
 
 ## Utilisation
 
-<UsageCode
-  react={'<ScrollArea variant="always" fade style={{ height: 240 }}>\n  <ScrollAreaViewport>\n    <ScrollAreaContent>…</ScrollAreaContent>\n  </ScrollAreaViewport>\n  <ScrollAreaScrollbar>\n    <ScrollAreaThumb />\n  </ScrollAreaScrollbar>\n</ScrollArea>'}
-  solid={'<ScrollArea variant="always" fade style={{ height: \'240px\' }}>\n  <ScrollAreaViewport>\n    <ScrollAreaContent>…</ScrollAreaContent>\n  </ScrollAreaViewport>\n  <ScrollAreaScrollbar>\n    <ScrollAreaThumb />\n  </ScrollAreaScrollbar>\n</ScrollArea>'}
-  vue={'<ScrollArea variant="always" fade :style="{ height: \'240px\' }">\n  <ScrollAreaViewport>\n    <ScrollAreaContent>…</ScrollAreaContent>\n  </ScrollAreaViewport>\n  <ScrollAreaScrollbar>\n    <ScrollAreaThumb />\n  </ScrollAreaScrollbar>\n</ScrollArea>'}
-/>
-
-<PropChips
-  items={[
-    ['variant', 'hover affiche les barres au survol, always en permanence.'],
-    ['fade', 'Estompe les bords où du contenu est masqué.'],
-    ['orientation', 'Sur ScrollAreaScrollbar : vertical ou horizontal.'],
-  ]}
-/>
+<Usage />
 
 Utilisez `ScrollArea` comme racine. Placez `ScrollAreaViewport` autour de `ScrollAreaContent`,
 ajoutez un `ScrollAreaScrollbar` et un `ScrollAreaThumb` pour chaque axe de défilement, puis ajoutez
@@ -155,8 +143,8 @@ Survolez ou sélectionnez une variable pour la voir dans l’aperçu.
 
 ## Référence de l’API
 
-| Prop | Type | Défaut |
-| --- | --- | --- |
-| `variant` | `'hover' \| 'always'` | `'hover'` |
-| `fade` | `boolean` | `false` |
-| `asChild` | `boolean` | `false` |
+| Prop | Type | Défaut | Description |
+| --- | --- | --- | --- |
+| `variant` | `'hover' \| 'always'` | `'hover'` | Visibilité des barres : au survol (`hover`) ou toujours (`always`). |
+| `fade` | `boolean` | `false` | Estompe les bords où du contenu est masqué. |
+| `asChild` | `boolean` | `false` | Rend la racine avec son unique élément enfant. |

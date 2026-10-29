@@ -17,18 +17,7 @@ import { CssPropertiesSection } from '@/components/mdx/Components';
 
 ## Использование
 
-<UsageCode
-  react={'<ToggleGroup defaultValue={[\'left\']} variant="outline" aria-label="Text alignment" onValueChange={(details) => setAlign(details.value)}>\n  <ToggleGroupItem value="left">Left</ToggleGroupItem>\n  <ToggleGroupItem value="center">Center</ToggleGroupItem>\n  <ToggleGroupItem value="right">Right</ToggleGroupItem>\n</ToggleGroup>'}
-  vue={'<ToggleGroup v-model="align" variant="outline" aria-label="Text alignment">\n  <ToggleGroupItem value="left">Left</ToggleGroupItem>\n  <ToggleGroupItem value="center">Center</ToggleGroupItem>\n  <ToggleGroupItem value="right">Right</ToggleGroupItem>\n</ToggleGroup>'}
-/>
-
-<PropChips
-  items={[
-    ['defaultValue', 'Нажатые при первом рендере пункты, массив.'],
-    ['multiple', 'Позволяет нажать несколько пунктов сразу.'],
-    ['deselectable', 'Позволяет отжать последний пункт, по умолчанию true.'],
-  ]}
-/>
+<Usage />
 
 Интерактивный
 
@@ -194,16 +183,16 @@ Toggle](/docs/toggle#css-переменные) для цветов и состо
 
 ## Справочник API
 
-| Проп | Тип | По умолчанию |
-| --- | --- | --- |
-| `value` | `string[]` | — |
-| `defaultValue` | `string[]` | — |
-| `onValueChange` | `(details: ValueChangeDetails) => void` | — |
-| `multiple` | `boolean` | `false` |
-| `deselectable` | `boolean` | `true` |
-| `orientation` | `'horizontal' \| 'vertical'` | `'horizontal'` |
-| `loopFocus` | `boolean` | `true` |
-| `rovingFocus` | `boolean` | `true` |
-| `variant` | `'default' \| 'outline' \| 'ghost'` | `'default'` |
-| `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'icon-sm' \| 'icon-md' \| 'icon-lg'` | `'md'` |
-| `disabled` | `boolean` | `false` |
+| Проп | Тип | По умолчанию | Описание |
+| --- | --- | --- | --- |
+| `value` | `string[]` | — | Нажатые элементы в управляемом режиме. |
+| `defaultValue` | `string[]` | — | Изначально нажатые элементы. |
+| `onValueChange` | `(details: ValueChangeDetails) => void` | — | Вызывается при изменении нажатых элементов. |
+| `multiple` | `boolean` | `false` | Разрешает нажать несколько элементов сразу. |
+| `deselectable` | `boolean` | `true` | Разрешает отжать последний нажатый элемент. |
+| `orientation` | `'horizontal' \| 'vertical'` | `'horizontal'` | Раскладка и направление стрелок: `horizontal` или `vertical`. |
+| `loopFocus` | `boolean` | `true` | Навигация с клавиатуры переходит с последнего элемента на первый. |
+| `rovingFocus` | `boolean` | `true` | Стрелки переводят фокус между элементами, Tab выводит из группы. |
+| `variant` | `'default' \| 'outline' \| 'ghost'` | `'default'` | Вид всех элементов: `default`, `outline` или `ghost`. |
+| `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'icon-sm' \| 'icon-md' \| 'icon-lg'` | `'md'` | `xs`, `sm`, `md`, `lg` или квадратные `icon-sm`, `icon-md`, `icon-lg`. |
+| `disabled` | `boolean` | `false` | Отключает все элементы. |

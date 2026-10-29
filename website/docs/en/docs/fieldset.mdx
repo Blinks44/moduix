@@ -15,17 +15,7 @@ import AnatomyScene from '@/components/examples/fieldset/basic';
 
 ## Usage
 
-<UsageCode
-  react={'<Fieldset invalid={!!error}>\n  <FieldsetLegend>Contact details</FieldsetLegend>\n  <Field>\n    <FieldLabel>Name</FieldLabel>\n    <Input name="name" />\n  </Field>\n  <FieldsetHelperText>We only use these details to contact you.</FieldsetHelperText>\n  <FieldsetErrorText>{error}</FieldsetErrorText>\n</Fieldset>'}
-  vue={'<Fieldset :invalid="!!error">\n  <FieldsetLegend>Contact details</FieldsetLegend>\n  <Field>\n    <FieldLabel>Name</FieldLabel>\n    <Input name="name" />\n  </Field>\n  <FieldsetHelperText>We only use these details to contact you.</FieldsetHelperText>\n  <FieldsetErrorText>{{ error }}</FieldsetErrorText>\n</Fieldset>'}
-/>
-
-<PropChips
-  items={[
-    ['invalid', 'Shows FieldsetErrorText for the whole group.'],
-    ['disabled', 'Disables every control inside, like a native fieldset.'],
-  ]}
-/>
+<Usage />
 
 Build a group with `Fieldset`, `FieldsetLegend`, the related controls, and optional helper or error
 text. `Fieldset` is the root component for the group.
@@ -135,8 +125,8 @@ and legend expose `data-disabled` and `data-invalid`; moduix also adds `data-slo
 
 ## API reference
 
-| Prop | Type | Default |
-| --- | --- | --- |
-| `invalid` | `boolean` | `false` |
-| `disabled` | `boolean` | `false` |
-| `asChild` | `boolean` | `false` |
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `invalid` | `boolean` | `false` | Marks the group invalid and shows `FieldsetErrorText`. |
+| `disabled` | `boolean` | `false` | Disables every control in the group. |
+| `asChild` | `boolean` | `false` | Renders the root as its single child element. |

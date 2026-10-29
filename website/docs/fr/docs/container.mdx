@@ -16,17 +16,7 @@ import * as ContainerDocs from '@/components/examples/container/css-properties';
 
 ## Utilisation
 
-<UsageCode
-  react={'<Container size="md" gutter="lg">\n  <Heading as="h1">Release notes</Heading>\n  <Text>What changed this month.</Text>\n</Container>'}
-  vue={'<Container size="md" gutter="lg">\n  <Heading as="h1">Release notes</Heading>\n  <Text>What changed this month.</Text>\n</Container>'}
-/>
-
-<PropChips
-  items={[
-    ['size', 'Largeur maximale : de xs à xl, ou full.'],
-    ['gutter', 'Marges latérales : none, sm, md ou lg.'],
-  ]}
-/>
+<Usage />
 
 
 Utilisez `Container` pour une colonne de contenu centrée et lisible. Le composant ajoute des espacements horizontaux
@@ -118,7 +108,7 @@ avec des utilitaires.
 
 Accepte aussi les props natives de son élément et `asChild`.
 
-| Prop | Type | Défaut |
-| --- | --- | --- |
-| `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl' \| 'full'` | `'lg'` |
-| `gutter` | `'none' \| 'sm' \| 'md' \| 'lg'` | `'md'` |
+| Prop | Type | Défaut | Description |
+| --- | --- | --- | --- |
+| `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl' \| 'full'` | `'lg'` | Largeur maximale : de `xs` à `xl`, ou `full`. |
+| `gutter` | `'none' \| 'sm' \| 'md' \| 'lg'` | `'md'` | Marge horizontale : `none`, `sm`, `md` ou `lg`. |

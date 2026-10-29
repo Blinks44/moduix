@@ -16,18 +16,7 @@ import * as SplitButtonDocs from '@/components/examples/split-button/css-propert
 
 ## Usage
 
-<UsageCode
-  react={'<SplitButton variant="outline" size="sm" aria-label="Save actions">\n  <SplitButtonAction onClick={save}>Save</SplitButtonAction>\n  <SplitButtonTrigger />\n  <SplitButtonPositioner>\n    <SplitButtonContent>\n      <MenuItem value="draft">Save as draft</MenuItem>\n    </SplitButtonContent>\n  </SplitButtonPositioner>\n</SplitButton>'}
-  vue={'<SplitButton variant="outline" size="sm" aria-label="Save actions">\n  <SplitButtonAction @click="save">Save</SplitButtonAction>\n  <SplitButtonTrigger />\n  <SplitButtonPositioner>\n    <SplitButtonContent>\n      <MenuItem value="draft">Save as draft</MenuItem>\n    </SplitButtonContent>\n  </SplitButtonPositioner>\n</SplitButton>'}
-/>
-
-<PropChips
-  items={[
-    ['variant', 'default · outline · secondary · destructive · destructive-outline · ghost'],
-    ['size', 'xs · sm · md · lg · xl'],
-    ['aria-label', 'Names the group of actions.'],
-  ]}
-/>
+<Usage />
 
 Use `<SplitButton>` as the root and keep the menu structure explicit
 with `SplitButtonAction`, `SplitButtonTrigger`, `SplitButtonPositioner`, and `SplitButtonContent`.
@@ -167,9 +156,9 @@ Hover or focus a variable to see it in the preview.
 
 ## API reference
 
-| Prop | Type | Default |
-| --- | --- | --- |
-| `variant` | `SplitButtonVariant` | `'default'` |
-| `size` | `SplitButtonSize` | `'md'` |
-| `aria-label` | `string` | — |
-| `open` / `onOpenChange` | `MenuRootProps` | — |
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `variant` | `SplitButtonVariant` | `'default'` | Shared style of both buttons: `default`, `outline`, `secondary`, `destructive`, `destructive-outline`, or `ghost`. |
+| `size` | `SplitButtonSize` | `'md'` | Shared size of both buttons: `xs`, `sm`, `md`, `lg`, or `xl`. |
+| `aria-label` | `string` | — | Accessible name of the group around both buttons. |
+| `open` / `onOpenChange` | `MenuRootProps` | — | Controlled menu state, passed to the underlying `Menu`. |

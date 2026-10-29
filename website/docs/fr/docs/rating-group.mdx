@@ -16,18 +16,7 @@ import * as RatingGroupDocs from '@/components/examples/rating-group/css-propert
 
 ## Utilisation
 
-<UsageCode
-  react={'<RatingGroup count={5} defaultValue={3.5} allowHalf name="rating">\n  <RatingGroupLabel>Overall satisfaction</RatingGroupLabel>\n  <RatingGroupControl>\n    <RatingGroupItems />\n  </RatingGroupControl>\n  <RatingGroupHiddenInput />\n</RatingGroup>'}
-  vue={'<RatingGroup :count="5" :default-value="3.5" allow-half name="rating">\n  <RatingGroupLabel>Overall satisfaction</RatingGroupLabel>\n  <RatingGroupControl>\n    <RatingGroupItems />\n  </RatingGroupControl>\n  <RatingGroupHiddenInput />\n</RatingGroup>'}
-/>
-
-<PropChips
-  items={[
-    ['count', 'Nombre d’étoiles, 5 par défaut.'],
-    ['allowHalf', 'Autorise les demi-étoiles.'],
-    ['readOnly', 'Affiche une note non modifiable.'],
-  ]}
-/>
+<Usage />
 
 Utilisez `RatingGroup` comme racine et ajoutez `RatingGroupLabel`, `RatingGroupControl` et
 `RatingGroupItems` pour une notation standard par étoiles. Rendez `RatingGroupHiddenInput`
@@ -182,20 +171,20 @@ Survolez ou sélectionnez une variable pour la voir dans l’aperçu.
 
 ## Référence de l’API
 
-| Prop | Type | Défaut |
-| --- | --- | --- |
-| `value` | `number` | — |
-| `defaultValue` | `number` | — |
-| `onValueChange` | `(details: ValueChangeDetails) => void` | — |
-| `onHoverChange` | `(details: HoverChangeDetails) => void` | — |
-| `count` | `number` | `5` |
-| `allowHalf` | `boolean` | `false` |
-| `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'` | `'md'` |
-| `name` | `string` | — |
-| `disabled` | `boolean` | `false` |
-| `readOnly` | `boolean` | `false` |
-| `invalid` | `boolean` | `false` |
-| `required` | `boolean` | `false` |
-| `translations` | `IntlTranslations` | — |
-| `form` | `string` | — |
-| `autoFocus` | `boolean` | — |
+| Prop | Type | Défaut | Description |
+| --- | --- | --- | --- |
+| `value` | `number` | — | Note en mode contrôlé. |
+| `defaultValue` | `number` | — | Note initiale. |
+| `onValueChange` | `(details: ValueChangeDetails) => void` | — | Appelé lorsque la note change. |
+| `onHoverChange` | `(details: HoverChangeDetails) => void` | — | Appelé avec la note survolée. |
+| `count` | `number` | `5` | Nombre d’éléments. |
+| `allowHalf` | `boolean` | `false` | Autorise les demi-notes. |
+| `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'` | `'md'` | Taille : `xs`, `sm`, `md`, `lg` ou `xl`. |
+| `name` | `string` | — | Nom du champ de formulaire de l’input sous-jacent. |
+| `disabled` | `boolean` | `false` | Désactive le contrôle. |
+| `readOnly` | `boolean` | `false` | Affiche la valeur sans permettre de la modifier. |
+| `invalid` | `boolean` | `false` | Marque le champ comme invalide. |
+| `required` | `boolean` | `false` | Exige une valeur avant l’envoi du formulaire. |
+| `translations` | `IntlTranslations` | — | Textes localisés des libellés d’accessibilité. |
+| `form` | `string` | — | Id du formulaire auquel l’input sous-jacent est rattaché. |
+| `autoFocus` | `boolean` | — | Place le focus sur la note au montage. |

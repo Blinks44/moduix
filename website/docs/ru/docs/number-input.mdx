@@ -16,19 +16,7 @@ import * as NumberInputDocs from '@/components/examples/number-input/css-propert
 
 ## Использование
 
-<UsageCode
-  react={'<NumberInput defaultValue="100" min={0} max={1000} step={5} formatOptions={{ style: \'currency\', currency: \'USD\' }}>\n  <NumberInputLabel>Amount</NumberInputLabel>\n  <NumberInputField />\n</NumberInput>'}
-  vue={'<NumberInput default-value="100" :min="0" :max="1000" :step="5" :format-options="{ style: \'currency\', currency: \'USD\' }">\n  <NumberInputLabel>Amount</NumberInputLabel>\n  <NumberInputField />\n</NumberInput>'}
-/>
-
-<PropChips
-  items={[
-    ['defaultValue', 'Начальное значение строкой; для управления используйте value.'],
-    ['min / max', 'Пределы; при потере фокуса значение приводится к ним.'],
-    ['step', 'Изменение за нажатие стрелки или кнопки.'],
-    ['formatOptions', 'Опции Intl, например валюта или проценты.'],
-  ]}
-/>
+<Usage />
 
 Используйте `NumberInput` как корневой компонент, а `NumberInputField` для стандартного поля с кнопками увеличения
 и уменьшения значения. Задайте полю доступное имя с помощью `NumberInputLabel`, `aria-label` или `aria-labelledby`.
@@ -214,33 +202,33 @@ import * as NumberInputDocs from '@/components/examples/number-input/css-propert
 
 ## Справочник API
 
-| Проп | Тип | По умолчанию |
-| --- | --- | --- |
-| `value` | `string` | — |
-| `defaultValue` | `string` | — |
-| `onValueChange` | `(details: ValueChangeDetails) => void` | — |
-| `onValueCommit` | `(details: ValueChangeDetails) => void` | — |
-| `min` | `number` | `Number.MIN_SAFE_INTEGER` |
-| `max` | `number` | `Number.MAX_SAFE_INTEGER` |
-| `step` | `number` | `1` |
-| `largeStep` | `number` | `10 * step` |
-| `formatOptions` | `Intl.NumberFormatOptions` | — |
-| `locale` | `string` | `'en-US'` |
-| `allowMouseWheel` | `boolean` | `false` |
-| `clampValueOnBlur` | `boolean` | `true` |
-| `spinOnPress` | `boolean` | `true` |
-| `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'` | `'md'` |
-| `name` | `string` | — |
-| `disabled` | `boolean` | `false` |
-| `readOnly` | `boolean` | `false` |
-| `invalid` | `boolean` | `false` |
-| `required` | `boolean` | `false` |
-| `form` | `string` | — |
-| `pattern` | `string` | `'-?[0-9]*(.[0-9]+)?'` |
-| `smallStep` | `number` | `step / 10` |
-| `allowOverflow` | `boolean` | `true` |
-| `focusInputOnChange` | `boolean` | `true` |
-| `translations` | `IntlTranslations` | — |
-| `inputMode` | `InputMode` | `'decimal'` |
-| `onValueInvalid` | `(details: ValueInvalidDetails) => void` | — |
-| `onFocusChange` | `(details: FocusChangeDetails) => void` | — |
+| Проп | Тип | По умолчанию | Описание |
+| --- | --- | --- | --- |
+| `value` | `string` | — | Значение строкой в управляемом режиме. |
+| `defaultValue` | `string` | — | Начальное значение строкой. |
+| `onValueChange` | `(details: ValueChangeDetails) => void` | — | Вызывается с `value` и `valueAsNumber` при каждом изменении. |
+| `onValueCommit` | `(details: ValueChangeDetails) => void` | — | Вызывается при потере фокуса или по Enter. |
+| `min` | `number` | `Number.MIN_SAFE_INTEGER` | Минимальное значение. |
+| `max` | `number` | `Number.MAX_SAFE_INTEGER` | Максимальное значение. |
+| `step` | `number` | `1` | Шаг для кнопок и стрелок. |
+| `largeStep` | `number` | `10 * step` | Шаг с зажатым Shift. |
+| `formatOptions` | `Intl.NumberFormatOptions` | — | Параметры `Intl.NumberFormat`, например валюта или проценты. |
+| `locale` | `string` | `'en-US'` | Локаль для форматирования; по умолчанию из ближайшего `LocaleProvider`. |
+| `allowMouseWheel` | `boolean` | `false` | Меняет значение колесом мыши, пока поле в фокусе. |
+| `clampValueOnBlur` | `boolean` | `true` | Приводит значение к `min` и `max` при потере фокуса. |
+| `spinOnPress` | `boolean` | `true` | Продолжает менять значение, пока кнопка зажата. |
+| `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'` | `'md'` | Размер: `xs`, `sm`, `md`, `lg` или `xl`. |
+| `name` | `string` | — | Имя поля формы у внутреннего input. |
+| `disabled` | `boolean` | `false` | Отключает элемент управления. |
+| `readOnly` | `boolean` | `false` | Показывает значение, но не даёт его менять. |
+| `invalid` | `boolean` | `false` | Помечает поле как невалидное. |
+| `required` | `boolean` | `false` | Требует значение перед отправкой формы. |
+| `form` | `string` | — | Id формы, к которой относится внутренний input. |
+| `pattern` | `string` | `'-?[0-9]*(.[0-9]+)?'` | Шаблон, которому должен соответствовать ввод. |
+| `smallStep` | `number` | `step / 10` | Шаг с зажатым Alt. |
+| `allowOverflow` | `boolean` | `true` | Разрешает вводить значения вне `min` и `max`. |
+| `focusInputOnChange` | `boolean` | `true` | Ставит фокус в поле, когда значение меняет кнопка. |
+| `translations` | `IntlTranslations` | — | Переведённые строки для подписей доступности. |
+| `inputMode` | `InputMode` | `'decimal'` | Подсказка для экранной клавиатуры. |
+| `onValueInvalid` | `(details: ValueInvalidDetails) => void` | — | Вызывается, когда значение выходит за `min` или `max`. |
+| `onFocusChange` | `(details: FocusChangeDetails) => void` | — | Вызывается при получении и потере фокуса. |

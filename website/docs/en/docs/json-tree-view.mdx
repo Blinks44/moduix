@@ -15,18 +15,7 @@ import AnatomyScene from '@/components/examples/json-tree-view/basic';
 
 ## Usage
 
-<UsageCode
-  react={'<JsonTreeView data={deployment} defaultExpandedDepth={2} quotesOnKeys>\n  <JsonTreeViewTree />\n</JsonTreeView>'}
-  vue={'<JsonTreeView :data="deployment" :default-expanded-depth="2" quotes-on-keys>\n  <JsonTreeViewTree />\n</JsonTreeView>'}
-/>
-
-<PropChips
-  items={[
-    ['data', 'Any JSON-like value: objects, arrays, Map, Set, Date.'],
-    ['defaultExpandedDepth', 'How many levels start open.'],
-    ['maxPreviewItems', 'Items shown in a collapsed preview.'],
-  ]}
-/>
+<Usage />
 
 Pass any JSON-like JavaScript value through `data`, then render `<JsonTreeViewTree />` inside the component.
 `JsonTreeView` generates the object, array, and value nodes for you. moduix styles the rows, indentation, focus
@@ -119,12 +108,12 @@ class or target Ark part attributes when an inspection surface needs different s
 
 ## API reference
 
-| Prop | Type | Default |
-| --- | --- | --- |
-| `data` | `unknown` | — |
-| `defaultExpandedDepth` | `number` | — |
-| `quotesOnKeys` | `boolean` | `false` |
-| `maxPreviewItems` | `number` | — |
-| `collapseStringsAfterLength` | `number` | — |
-| `groupArraysAfterLength` | `number` | — |
-| `showNonenumerable` | `boolean` | `false` |
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `data` | `unknown` | — | JSON value to display. |
+| `defaultExpandedDepth` | `number` | — | How many levels are expanded initially. |
+| `quotesOnKeys` | `boolean` | `false` | Wraps object keys in quotes. |
+| `maxPreviewItems` | `number` | — | Number of items shown in a collapsed preview. |
+| `collapseStringsAfterLength` | `number` | — | Truncates longer strings after this many characters. |
+| `groupArraysAfterLength` | `number` | — | Groups longer arrays into ranges of this size. |
+| `showNonenumerable` | `boolean` | `false` | Shows non-enumerable properties. |

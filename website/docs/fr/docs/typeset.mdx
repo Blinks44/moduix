@@ -16,18 +16,7 @@ import * as TypesetDocs from '@/components/examples/typeset/css-properties';
 
 ## Utilisation
 
-<UsageCode
-  react={'<Typeset asChild>\n  <article dangerouslySetInnerHTML={{ __html: html }} />\n</Typeset>'}
-  solid={'<Typeset asChild={(props) => (\n  <article innerHTML={html} {...props()} />\n)} />'}
-  vue={'<Typeset as-child>\n  <article v-html="html" />\n</Typeset>'}
-/>
-
-<PropChips
-  items={[
-    ['asChild', 'Applique les styles à votre article ou section.'],
-    ['data-not-typeset', 'Exclut un bloc imbriqué des styles de contenu ; .not-typeset fonctionne aussi.'],
-  ]}
-/>
+<Usage />
 
 Placez le HTML déjà produit par votre moteur de rendu dans `<Typeset>`. Utilisez `asChild` seulement
 lorsque le conteneur extérieur doit être un élément sémantique, comme `article` ou `section`. Gardez
@@ -146,6 +135,6 @@ dernier ; les six variables CSS personnalisent donc les deux variantes.
 
 Accepte aussi les props natives de son élément et `asChild`.
 
-| Prop | Type | Défaut |
-| --- | --- | --- |
-| `asChild` | `boolean` | `false` |
+| Prop | Type | Défaut | Description |
+| --- | --- | --- | --- |
+| `asChild` | `boolean` | `false` | Applique les styles de lecture à son unique enfant, par exemple `article`. |

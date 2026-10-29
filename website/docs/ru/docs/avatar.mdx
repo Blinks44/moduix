@@ -16,18 +16,7 @@ import * as AvatarDocs from '@/components/examples/avatar/css-properties';
 
 ## Использование
 
-<UsageCode
-  react={'<Avatar size="lg" onStatusChange={(details) => log(details.status)}>\n  <AvatarFallback>AT</AvatarFallback>\n  <AvatarImage src={user.photo} alt={user.name} />\n</Avatar>'}
-  vue={'<Avatar size="lg" @status-change="(details) => log(details.status)">\n  <AvatarFallback>AT</AvatarFallback>\n  <AvatarImage :src="user.photo" :alt="user.name" />\n</Avatar>'}
-/>
-
-<PropChips
-  items={[
-    ['size', 'От xs до xl, по умолчанию md.'],
-    ['AvatarFallback', 'Инициалы или иконка, пока не загрузилось изображение.'],
-    ['onStatusChange', 'Сообщает loading, loaded или error.'],
-  ]}
-/>
+<Usage />
 
 Используйте вместе `Avatar`, `AvatarFallback` и `AvatarImage`. Не убирайте `AvatarFallback` из
 дерева, чтобы Ark UI мог переключаться между ним и изображением при изменении состояния загрузки.
@@ -164,8 +153,8 @@ CSS-переменных относится к вариантам с CSS Modules
 
 ## Справочник API
 
-| Проп | Тип | По умолчанию |
-| --- | --- | --- |
-| `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'` | `'md'` |
-| `onStatusChange` | `(details: StatusChangeDetails) => void` | — |
-| `asChild` | `boolean` | `false` |
+| Проп | Тип | По умолчанию | Описание |
+| --- | --- | --- | --- |
+| `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'` | `'md'` | Размер аватара: `xs`, `sm`, `md`, `lg` или `xl`. |
+| `onStatusChange` | `(details: StatusChangeDetails) => void` | — | Вызывается, когда статус изображения меняется на `loading`, `loaded` или `error`. |
+| `asChild` | `boolean` | `false` | Отрисовывает корень через единственный дочерний элемент. |

@@ -15,19 +15,7 @@ import AnatomyScene from '@/components/examples/text/basic';
 
 ## Usage
 
-<UsageCode
-  react={'<Text as="span" size="sm" tone="muted" lineClamp={2}>\n  {post.summary}\n</Text>'}
-  vue={'<Text as="span" size="sm" tone="muted" lineClamp={2}>\n  {post.summary}\n</Text>'}
-/>
-
-<PropChips
-  items={[
-    ['as', 'p, span, small, strong, em, or div.'],
-    ['size / weight', 'Type scale step and font weight.'],
-    ['tone', 'default, muted, primary, or destructive.'],
-    ['truncate / lineClamp', 'Cuts to one line or to N lines.'],
-  ]}
-/>
+<Usage />
 
 Use the default `p` root for a paragraph. Pass `as` when the content needs a different semantic HTML
 element but should keep `Text`'s typography styles.
@@ -136,12 +124,12 @@ component variables: a class on the root overrides the layered component styles.
 
 Also accepts the native props of its element and `asChild`.
 
-| Prop | Type | Default |
-| --- | --- | --- |
-| `as` | `'p' \| 'span' \| 'small' \| 'strong' \| 'em' \| 'div'` | `'p'` |
-| `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'` | — |
-| `weight` | `'regular' \| 'medium' \| 'semibold' \| 'bold'` | — |
-| `tone` | `'default' \| 'muted' \| 'primary' \| 'destructive'` | `'default'` |
-| `align` | `'start' \| 'center' \| 'end' \| 'left' \| 'right' \| 'justify'` | — |
-| `truncate` | `boolean` | `false` |
-| `lineClamp` | `number` | — |
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `as` | `'p' \| 'span' \| 'small' \| 'strong' \| 'em' \| 'div'` | `'p'` | Rendered element: `p`, `span`, `small`, `strong`, `em`, or `div`. |
+| `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'` | — | Text size, `xs` to `xl`. |
+| `weight` | `'regular' \| 'medium' \| 'semibold' \| 'bold'` | — | Font weight: `regular`, `medium`, `semibold`, or `bold`. |
+| `tone` | `'default' \| 'muted' \| 'primary' \| 'destructive'` | `'default'` | Text color: `default`, `muted`, `primary`, or `destructive`. |
+| `align` | `'start' \| 'center' \| 'end' \| 'left' \| 'right' \| 'justify'` | — | Text alignment. |
+| `truncate` | `boolean` | `false` | Keeps the text on one line with an ellipsis. |
+| `lineClamp` | `number` | — | Limits the text to this many lines. |

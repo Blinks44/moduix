@@ -16,18 +16,7 @@ import * as BadgeDocs from '@/components/examples/badge/css-properties';
 
 ## Utilisation
 
-<UsageCode
-  react={'<Badge variant="secondary" size="sm">\n  <BadgeDot />\n  Beta\n</Badge>'}
-  vue={'<Badge variant="secondary" size="sm">\n  <BadgeDot />\n  Beta\n</Badge>'}
-/>
-
-<PropChips
-  items={[
-    ['variant', 'default, secondary, destructive, outline, ghost ou link.'],
-    ['size', 'sm, md ou lg.'],
-    ['BadgeDot', 'Point facultatif avant le libellé pour un statut.'],
-  ]}
-/>
+<Usage />
 
 Commencez par un `<Badge>` simple. Par défaut, le composant rend un `span` de présentation. Définissez `variant` pour
 choisir un style intégré, `size` pour choisir `sm`, `md` ou `lg`, et ajoutez `BadgeDot` uniquement lorsqu’un statut
@@ -149,7 +138,7 @@ Survolez ou sélectionnez une variable pour la voir dans l’aperçu.
 
 Accepte aussi les props natives de son élément et `asChild`.
 
-| Prop | Type | Défaut |
-| --- | --- | --- |
-| `variant` | `'default' \| 'secondary' \| 'destructive' \| 'outline' \| 'ghost' \| 'link'` | `'default'` |
-| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` |
+| Prop | Type | Défaut | Description |
+| --- | --- | --- | --- |
+| `variant` | `'default' \| 'secondary' \| 'destructive' \| 'outline' \| 'ghost' \| 'link'` | `'default'` | Style visuel : `default`, `secondary`, `destructive`, `outline`, `ghost` ou `link`. |
+| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` | Taille du badge : `sm`, `md` ou `lg`. |

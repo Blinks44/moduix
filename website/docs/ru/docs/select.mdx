@@ -16,19 +16,7 @@ import * as SelectDocs from '@/components/examples/select/css-properties';
 
 ## Использование
 
-<UsageCode
-  react={'const collection = createListCollection({ items: fruits });\n\n<Select collection={collection} multiple onValueChange={(details) => setValue(details.value)}>\n  <SelectLabel>Fruit</SelectLabel>\n  <SelectField placeholder="Select fruit" clearLabel="Clear selection" />\n  <SelectPositioner>\n    <SelectContent>\n      {collection.items.map((item) => (\n        <SelectOption key={item.value} item={item}>{item.label}</SelectOption>\n      ))}\n    </SelectContent>\n  </SelectPositioner>\n  <SelectHiddenSelect />\n</Select>'}
-  solid={'const collection = createListCollection({ items: fruits });\n\n<Select collection={collection} multiple onValueChange={(details) => setValue(details.value)}>\n  <SelectLabel>Fruit</SelectLabel>\n  <SelectField placeholder="Select fruit" clearLabel="Clear selection" />\n  <SelectPositioner>\n    <SelectContent>\n      <For each={collection.items}>\n        {(item) => <SelectOption item={item}>{item.label}</SelectOption>}\n      </For>\n    </SelectContent>\n  </SelectPositioner>\n  <SelectHiddenSelect />\n</Select>'}
-  vue={'const collection = createListCollection({ items: fruits });\n\n<Select v-model="value" :collection="collection" multiple>\n  <SelectLabel>Fruit</SelectLabel>\n  <SelectField placeholder="Select fruit" clear-label="Clear selection" />\n  <SelectPositioner>\n    <SelectContent>\n      <SelectOption v-for="item in collection.items" :key="item.value" :item="item">\n        {{ item.label }}\n      </SelectOption>\n    </SelectContent>\n  </SelectPositioner>\n  <SelectHiddenSelect />\n</Select>'}
-/>
-
-<PropChips
-  items={[
-    ['collection', 'Элементы из createListCollection().'],
-    ['multiple', 'Позволяет выбрать несколько значений.'],
-    ['clearLabel', 'На SelectField: добавляет кнопку очистки с этой подписью.'],
-  ]}
-/>
+<Usage />
 
 Передайте коллекцию в `Select`, используйте `SelectField` для стандартного видимого поля и явно опишите структуру всплывающего окна. Свойство `clearLabel` добавляет доступную кнопку очистки. Явно добавьте `SelectHiddenSelect`, когда нужны нативная отправка, автозаполнение, валидация и сброс.
 
@@ -241,36 +229,36 @@ Select с одним экземпляром состояния Ark.
 
 ## Справочник API
 
-| Проп | Тип | По умолчанию |
-| --- | --- | --- |
-| `collection` | `ListCollection<T>` | — |
-| `value` | `string[]` | — |
-| `defaultValue` | `string[]` | — |
-| `onValueChange` | `(details: ValueChangeDetails) => void` | — |
-| `multiple` | `boolean` | `false` |
-| `closeOnSelect` | `boolean` | `true` |
-| `deselectable` | `boolean` | `false` |
-| `loopFocus` | `boolean` | `false` |
-| `positioning` | `PositioningOptions` | — |
-| `open` | `boolean` | — |
-| `onOpenChange` | `(details: OpenChangeDetails) => void` | — |
-| `lazyMount` | `boolean` | `true` |
-| `unmountOnExit` | `boolean` | `true` |
-| `name` | `string` | — |
-| `disabled` | `boolean` | `false` |
-| `readOnly` | `boolean` | `false` |
-| `invalid` | `boolean` | `false` |
-| `required` | `boolean` | `false` |
-| `translations` | `IntlTranslations` | — |
-| `form` | `string` | — |
-| `autoComplete` | `string` | — |
-| `onSelect` | `(details: SelectionDetails) => void` | — |
-| `onHighlightChange` | `(details: HighlightChangeDetails<T>) => void` | — |
-| `highlightedValue` | `string \| null` | — |
-| `defaultHighlightedValue` | `string \| null` | — |
-| `defaultOpen` | `boolean` | — |
-| `scrollToIndexFn` | `(details: ScrollToIndexDetails) => void` | — |
-| `composite` | `boolean` | `true` |
-| `onPointerDownOutside` | `(event: PointerDownOutsideEvent) => void` | — |
-| `onFocusOutside` | `(event: FocusOutsideEvent) => void` | — |
-| `onInteractOutside` | `(event: InteractOutsideEvent) => void` | — |
+| Проп | Тип | По умолчанию | Описание |
+| --- | --- | --- | --- |
+| `collection` | `ListCollection<T>` | — | Элементы из `createListCollection()`. |
+| `value` | `string[]` | — | Выбранные значения в управляемом режиме. |
+| `defaultValue` | `string[]` | — | Начальные значения, если выбор не управляется извне. |
+| `onValueChange` | `(details: ValueChangeDetails) => void` | — | Вызывается при изменении выбранных значений. |
+| `multiple` | `boolean` | `false` | Разрешает выбрать несколько значений. |
+| `closeOnSelect` | `boolean` | `true` | Закрывает список после выбора элемента. |
+| `deselectable` | `boolean` | `false` | Повторный клик по выбранному элементу снимает выбор. Только для одиночного выбора. |
+| `loopFocus` | `boolean` | `false` | Навигация с клавиатуры переходит с последнего элемента на первый. |
+| `positioning` | `PositioningOptions` | — | Расположение, отступ и другие настройки позиции списка. |
+| `open` | `boolean` | — | Открыт ли список, в управляемом режиме. |
+| `onOpenChange` | `(details: OpenChangeDetails) => void` | — | Вызывается при открытии и закрытии списка. |
+| `lazyMount` | `boolean` | `true` | Монтирует содержимое списка при первом открытии. |
+| `unmountOnExit` | `boolean` | `true` | Удаляет содержимое списка после закрытия. |
+| `name` | `string` | — | Имя поля формы у скрытого нативного select. |
+| `disabled` | `boolean` | `false` | Отключает выбор. |
+| `readOnly` | `boolean` | `false` | Показывает значение, но не даёт его менять. |
+| `invalid` | `boolean` | `false` | Помечает поле как невалидное. |
+| `required` | `boolean` | `false` | Требует выбрать значение перед отправкой формы. |
+| `translations` | `IntlTranslations` | — | Переведённые строки для подписей доступности. |
+| `form` | `string` | — | Id формы, к которой относится скрытый select. |
+| `autoComplete` | `string` | — | Подсказка автозаполнения браузера для скрытого select. |
+| `onSelect` | `(details: SelectionDetails) => void` | — | Вызывается при выборе элемента. |
+| `onHighlightChange` | `(details: HighlightChangeDetails<T>) => void` | — | Вызывается при смене подсвеченного элемента. |
+| `highlightedValue` | `string \| null` | — | Подсвеченный элемент в управляемом режиме. |
+| `defaultHighlightedValue` | `string \| null` | — | Элемент, подсвеченный при открытии списка. |
+| `defaultOpen` | `boolean` | — | Начальное состояние открытия, если оно не управляется извне. |
+| `scrollToIndexFn` | `(details: ScrollToIndexDetails) => void` | — | Прокручивает виртуализированный список к индексу элемента. |
+| `composite` | `boolean` | `true` | Укажите `false`, если select находится внутри другого составного виджета, например вкладок. |
+| `onPointerDownOutside` | `(event: PointerDownOutsideEvent) => void` | — | Вызывается при нажатии указателя вне списка. |
+| `onFocusOutside` | `(event: FocusOutsideEvent) => void` | — | Вызывается, когда фокус уходит из списка. |
+| `onInteractOutside` | `(event: InteractOutsideEvent) => void` | — | Вызывается при любом взаимодействии вне списка. |

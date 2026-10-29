@@ -16,18 +16,7 @@ import * as AvatarDocs from '@/components/examples/avatar/css-properties';
 
 ## Utilisation
 
-<UsageCode
-  react={'<Avatar size="lg" onStatusChange={(details) => log(details.status)}>\n  <AvatarFallback>AT</AvatarFallback>\n  <AvatarImage src={user.photo} alt={user.name} />\n</Avatar>'}
-  vue={'<Avatar size="lg" @status-change="(details) => log(details.status)">\n  <AvatarFallback>AT</AvatarFallback>\n  <AvatarImage :src="user.photo" :alt="user.name" />\n</Avatar>'}
-/>
-
-<PropChips
-  items={[
-    ['size', 'De xs à xl, md par défaut.'],
-    ['AvatarFallback', 'Initiales ou icône affichées avant le chargement.'],
-    ['onStatusChange', 'Signale loading, loaded ou error.'],
-  ]}
-/>
+<Usage />
 
 Utilisez `Avatar`, `AvatarFallback` et `AvatarImage` ensemble. Gardez `AvatarFallback` dans l’arbre
 pour qu’Ark UI puisse basculer entre le contenu de remplacement et l’image lorsque l’état de chargement change.
@@ -152,8 +141,8 @@ Survolez ou sélectionnez une variable pour la voir dans l’aperçu.
 
 ## Référence de l’API
 
-| Prop | Type | Défaut |
-| --- | --- | --- |
-| `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'` | `'md'` |
-| `onStatusChange` | `(details: StatusChangeDetails) => void` | — |
-| `asChild` | `boolean` | `false` |
+| Prop | Type | Défaut | Description |
+| --- | --- | --- | --- |
+| `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'` | `'md'` | Taille de l’avatar : `xs`, `sm`, `md`, `lg` ou `xl`. |
+| `onStatusChange` | `(details: StatusChangeDetails) => void` | — | Appelé lorsque l’image passe à `loading`, `loaded` ou `error`. |
+| `asChild` | `boolean` | `false` | Rend la racine avec son unique élément enfant. |

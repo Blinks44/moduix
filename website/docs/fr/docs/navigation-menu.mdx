@@ -16,18 +16,7 @@ import * as NavigationMenuDocs from '@/components/examples/navigation-menu/css-p
 
 ## Utilisation
 
-<UsageCode
-  react={'<NavigationMenu openDelay={200} closeDelay={300}>\n  <NavigationMenuList>\n    <NavigationMenuItem value="home">\n      <NavigationMenuLink href="/">Home</NavigationMenuLink>\n    </NavigationMenuItem>\n    <NavigationMenuItem value="products">\n      <NavigationMenuTrigger>Products</NavigationMenuTrigger>\n      <NavigationMenuContent>\n        <NavigationMenuLink href="/analytics">Analytics</NavigationMenuLink>\n      </NavigationMenuContent>\n    </NavigationMenuItem>\n  </NavigationMenuList>\n</NavigationMenu>'}
-  vue={'<NavigationMenu :open-delay="200" :close-delay="300">\n  <NavigationMenuList>\n    <NavigationMenuItem value="home">\n      <NavigationMenuLink href="/">Home</NavigationMenuLink>\n    </NavigationMenuItem>\n    <NavigationMenuItem value="products">\n      <NavigationMenuTrigger>Products</NavigationMenuTrigger>\n      <NavigationMenuContent>\n        <NavigationMenuLink href="/analytics">Analytics</NavigationMenuLink>\n      </NavigationMenuContent>\n    </NavigationMenuItem>\n  </NavigationMenuList>\n</NavigationMenu>'}
-/>
-
-<PropChips
-  items={[
-    ['value', 'Identifiant unique de chaque NavigationMenuItem.'],
-    ['openDelay / closeDelay', 'Délais de survol en ms avant l’ouverture ou la fermeture.'],
-    ['disableHoverTrigger', 'Ouvre les panneaux au clic uniquement.'],
-  ]}
-/>
+<Usage />
 
 Utilisez `NavigationMenu` avec `NavigationMenuList` et `NavigationMenuItem`. Attribuez une valeur
 `value` unique à chaque élément. Pour un groupe de liens, placez `NavigationMenuTrigger` et
@@ -173,15 +162,15 @@ variables `--trigger-x`, `--trigger-y`, `--trigger-width`, `--trigger-height`, `
 
 ## Référence de l’API
 
-| Prop | Type | Défaut |
-| --- | --- | --- |
-| `value` | `string` | — |
-| `defaultValue` | `string` | — |
-| `onValueChange` | `(details: ValueChangeDetails) => void` | — |
-| `openDelay` | `number` | `200` |
-| `closeDelay` | `number` | `300` |
-| `disableClickTrigger` | `boolean` | `false` |
-| `disableHoverTrigger` | `boolean` | `false` |
-| `disablePointerLeaveClose` | `boolean` | `false` |
-| `translations` | `IntlTranslations` | — |
-| `orientation` | `'horizontal' \| 'vertical'` | `'horizontal'` |
+| Prop | Type | Défaut | Description |
+| --- | --- | --- | --- |
+| `value` | `string` | — | Élément ouvert en mode contrôlé. |
+| `defaultValue` | `string` | — | Élément ouvert au départ. |
+| `onValueChange` | `(details: ValueChangeDetails) => void` | — | Appelé lorsqu’un autre élément s’ouvre ou que le menu se ferme. |
+| `openDelay` | `number` | `200` | Délai avant l’ouverture au survol, en millisecondes. |
+| `closeDelay` | `number` | `300` | Délai avant la fermeture après le départ du pointeur, en millisecondes. |
+| `disableClickTrigger` | `boolean` | `false` | Désactive l’ouverture au clic. |
+| `disableHoverTrigger` | `boolean` | `false` | Désactive l’ouverture au survol. |
+| `disablePointerLeaveClose` | `boolean` | `false` | Garde le menu ouvert lorsque le pointeur s’éloigne. |
+| `translations` | `IntlTranslations` | — | Textes localisés des libellés d’accessibilité. |
+| `orientation` | `'horizontal' \| 'vertical'` | `'horizontal'` | Disposition et sens des flèches : `horizontal` ou `vertical`. |

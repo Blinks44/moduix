@@ -15,19 +15,7 @@ import AnatomyScene from '@/components/examples/simple-grid/basic';
 
 ## Usage
 
-<UsageCode
-  react={'<SimpleGrid minChildWidth="18rem" gap={16}>\n  {plans.map((plan) => (\n    <Card key={plan.name}>…</Card>\n  ))}\n</SimpleGrid>'}
-  solid={'<SimpleGrid minChildWidth="18rem" gap={16}>\n  <For each={plans}>\n    {(plan) => (\n      <Card>…</Card>\n    )}\n  </For>\n</SimpleGrid>'}
-  vue={'<SimpleGrid min-child-width="18rem" :gap="16">\n  <Card v-for="plan in plans" :key="plan.name">…</Card>\n</SimpleGrid>'}
-/>
-
-<PropChips
-  items={[
-    ['minChildWidth', 'Minimum column width; the column count follows the space.'],
-    ['columns', 'Fixed number of columns instead.'],
-    ['gap', 'Space between cells; numbers become px.'],
-  ]}
-/>
+<Usage />
 
 Use `minChildWidth` when the number of equal columns should follow the available width. The component
 uses CSS Grid `auto-fit` and `minmax()`; numeric values are treated as pixels, while strings can
@@ -113,10 +101,10 @@ both styling tracks.
 
 Also accepts the native props of its element and `asChild`.
 
-| Prop | Type | Default |
-| --- | --- | --- |
-| `minChildWidth` | `number \| string` | — |
-| `columns` | `number` | — |
-| `gap` | `number \| string` | — |
-| `rowGap` | `number \| string` | — |
-| `columnGap` | `number \| string` | — |
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `minChildWidth` | `number \| string` | — | Minimum column width; columns fit the available space. |
+| `columns` | `number` | — | Fixed number of columns. |
+| `gap` | `number \| string` | — | Gap between cells; numbers are pixels. |
+| `rowGap` | `number \| string` | — | Gap between rows. |
+| `columnGap` | `number \| string` | — | Gap between columns. |

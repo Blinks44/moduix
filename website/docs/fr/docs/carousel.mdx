@@ -16,20 +16,7 @@ import * as CarouselDocs from '@/components/examples/carousel/css-properties';
 
 ## Utilisation
 
-<UsageCode
-  react={'<Carousel slideCount={slides.length} slidesPerPage={2} spacing="16px" loop aria-label="Gallery">\n  <CarouselItemGroup>\n    {slides.map((slide, index) => (\n      <CarouselItem key={slide.id} index={index}>\n        <img src={slide.src} alt={slide.alt} />\n      </CarouselItem>\n    ))}\n  </CarouselItemGroup>\n  <CarouselControl>\n    <CarouselPrevTrigger />\n    <CarouselNextTrigger />\n  </CarouselControl>\n  <CarouselIndicators />\n</Carousel>'}
-  solid={'<Carousel slideCount={slides.length} slidesPerPage={2} spacing="16px" loop aria-label="Gallery">\n  <CarouselItemGroup>\n    <For each={slides}>\n      {(slide, index) => (\n        <CarouselItem index={index()}>\n          <img src={slide.src} alt={slide.alt} />\n        </CarouselItem>\n      )}\n    </For>\n  </CarouselItemGroup>\n  <CarouselControl>\n    <CarouselPrevTrigger />\n    <CarouselNextTrigger />\n  </CarouselControl>\n  <CarouselIndicators />\n</Carousel>'}
-  vue={'<Carousel :slide-count="slides.length" :slides-per-page="2" spacing="16px" loop aria-label="Gallery">\n  <CarouselItemGroup>\n    <CarouselItem v-for="(slide, index) in slides" :key="slide.id" :index="index">\n      <img :src="slide.src" :alt="slide.alt" />\n    </CarouselItem>\n  </CarouselItemGroup>\n  <CarouselControl>\n    <CarouselPrevTrigger />\n    <CarouselNextTrigger />\n  </CarouselControl>\n  <CarouselIndicators />\n</Carousel>'}
-/>
-
-<PropChips
-  items={[
-    ['slideCount', 'Nombre de diapositives ; obligatoire.'],
-    ['slidesPerPage', 'Diapositives visibles à la fois, 1 par défaut.'],
-    ['loop', 'Revient de la dernière diapositive à la première.'],
-    ['autoplay', 'Avance seul ; passez { delay } en ms.'],
-  ]}
-/>
+<Usage />
 
 Commencez par `Carousel` comme composant racine. Ajoutez `CarouselItemGroup` pour la piste des diapositives,
 placez les boutons précédent et suivant dans `CarouselControl`, puis utilisez `CarouselIndicators` et
@@ -241,23 +228,23 @@ Survolez ou sélectionnez une variable pour la voir dans l’aperçu.
 
 ## Référence de l’API
 
-| Prop | Type | Défaut |
-| --- | --- | --- |
-| `slideCount` | `number` | — |
-| `page` | `number` | — |
-| `defaultPage` | `number` | `0` |
-| `onPageChange` | `(details: PageChangeDetails) => void` | — |
-| `slidesPerPage` | `number` | `1` |
-| `slidesPerMove` | `number \| 'auto'` | `'auto'` |
-| `spacing` | `string` | `'0px'` |
-| `padding` | `string` | — |
-| `loop` | `boolean` | `false` |
-| `autoplay` | `boolean \| { delay: number }` | `false` |
-| `allowMouseDrag` | `boolean` | `false` |
-| `autoSize` | `boolean` | `false` |
-| `orientation` | `'horizontal' \| 'vertical'` | `'horizontal'` |
-| `snapType` | `'proximity' \| 'mandatory'` | `'mandatory'` |
-| `translations` | `IntlTranslations` | — |
-| `inViewThreshold` | `number \| number[]` | `0.6` |
-| `onDragStatusChange` | `(details: DragStatusDetails) => void` | — |
-| `onAutoplayStatusChange` | `(details: AutoplayStatusDetails) => void` | — |
+| Prop | Type | Défaut | Description |
+| --- | --- | --- | --- |
+| `slideCount` | `number` | — | Nombre total de diapositives. Obligatoire. |
+| `page` | `number` | — | Page courante en mode contrôlé. |
+| `defaultPage` | `number` | `0` | Page initiale lorsque la page n’est pas contrôlée. |
+| `onPageChange` | `(details: PageChangeDetails) => void` | — | Appelé lorsque la page change. |
+| `slidesPerPage` | `number` | `1` | Nombre de diapositives visibles à la fois. |
+| `slidesPerMove` | `number \| 'auto'` | `'auto'` | Nombre de diapositives par défilement, ou `auto`. |
+| `spacing` | `string` | `'0px'` | Espace entre les diapositives, en longueur CSS. |
+| `padding` | `string` | — | Espace autour de la zone de défilement qui laisse voir les diapositives voisines. |
+| `loop` | `boolean` | `false` | Revient de la dernière diapositive à la première. |
+| `autoplay` | `boolean \| { delay: number }` | `false` | Défile automatiquement ; passez `{ delay }` en millisecondes pour l’intervalle. |
+| `allowMouseDrag` | `boolean` | `false` | Permet de faire glisser les diapositives à la souris. |
+| `autoSize` | `boolean` | `false` | Autorise des diapositives de largeurs différentes. |
+| `orientation` | `'horizontal' \| 'vertical'` | `'horizontal'` | Direction de défilement : `horizontal` ou `vertical`. |
+| `snapType` | `'proximity' \| 'mandatory'` | `'mandatory'` | Accrochage CSS au défilement : `mandatory` ou `proximity`. |
+| `translations` | `IntlTranslations` | — | Textes localisés des libellés d’accessibilité. |
+| `inViewThreshold` | `number \| number[]` | `0.6` | Part visible d’une diapositive à partir de laquelle elle est considérée affichée. |
+| `onDragStatusChange` | `(details: DragStatusDetails) => void` | — | Appelé au début et à la fin du glissement. |
+| `onAutoplayStatusChange` | `(details: AutoplayStatusDetails) => void` | — | Appelé lorsque la lecture automatique démarre, se met en pause ou s’arrête. |

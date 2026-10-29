@@ -16,18 +16,7 @@ import * as QrCodeDocs from '@/components/examples/qr-code/css-properties';
 
 ## Utilisation
 
-<UsageCode
-  react={'<QrCode defaultValue="https://moduix.dev" encoding={{ ecc: \'H\' }}>\n  <QrCodeFrame role="img" aria-label="QR code for moduix.dev">\n    <QrCodePattern />\n  </QrCodeFrame>\n  <QrCodeDownloadTrigger fileName="moduix.png" mimeType="image/png">Download</QrCodeDownloadTrigger>\n</QrCode>'}
-  vue={'<QrCode default-value="https://moduix.dev" :encoding="{ ecc: \'H\' }">\n  <QrCodeFrame role="img" aria-label="QR code for moduix.dev">\n    <QrCodePattern />\n  </QrCodeFrame>\n  <QrCodeDownloadTrigger file-name="moduix.png" mime-type="image/png">Download</QrCodeDownloadTrigger>\n</QrCode>'}
-/>
-
-<PropChips
-  items={[
-    ['defaultValue', 'Texte ou URL à encoder ; contrôlez-le avec value.'],
-    ['encoding', 'Niveau de correction L, M, Q ou H.'],
-    ['QrCodeDownloadTrigger', 'Enregistre le code comme image.'],
-  ]}
-/>
+<Usage />
 
 Utilisez `QrCode` dans le cas courant. Passez le contenu à encoder dans `defaultValue`, puis affichez
 explicitement `QrCodeFrame` et `QrCodePattern` pour rendre le SVG généré. Donnez un nom accessible
@@ -154,10 +143,10 @@ Survolez ou sélectionnez une variable pour la voir dans l’aperçu.
 
 ## Référence de l’API
 
-| Prop | Type | Défaut |
-| --- | --- | --- |
-| `value` | `string` | — |
-| `defaultValue` | `string` | — |
-| `onValueChange` | `(details: ValueChangeDetails) => void` | — |
-| `encoding` | `QrCodeGenerateOptions` | — |
-| `pixelSize` | `number` | — |
+| Prop | Type | Défaut | Description |
+| --- | --- | --- | --- |
+| `value` | `string` | — | Valeur encodée en mode contrôlé. |
+| `defaultValue` | `string` | — | Valeur initiale à encoder lorsqu’elle n’est pas contrôlée. |
+| `onValueChange` | `(details: ValueChangeDetails) => void` | — | Appelé lorsque la valeur change. |
+| `encoding` | `QrCodeGenerateOptions` | — | Options d’encodage, comme le niveau de correction d’erreur. |
+| `pixelSize` | `number` | — | Taille d’un module QR en pixels. |

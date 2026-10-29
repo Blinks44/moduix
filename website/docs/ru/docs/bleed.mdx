@@ -15,17 +15,7 @@ import AnatomyScene from '@/components/examples/bleed/basic';
 
 ## Использование
 
-<UsageCode
-  react={'<Container>\n  <Text>Article intro</Text>\n  <Bleed inline="full" block="md">\n    <img src={banner.src} alt={banner.alt} />\n  </Bleed>\n</Container>'}
-  vue={'<Container>\n  <Text>Article intro</Text>\n  <Bleed inline="full" block="md">\n    <img src={banner.src} alt={banner.alt} />\n  </Bleed>\n</Container>'}
-/>
-
-<PropChips
-  items={[
-    ['inline', 'Выход по горизонтали: от none до xl или full до краёв окна.'],
-    ['block', 'Выход по вертикали, по умолчанию none.'],
-  ]}
-/>
+<Usage />
 
 Значение `inline="full"` по умолчанию позволяет медиаблоку, баннеру или декоративному элементу секции растянуться
 до краёв окна браузера и при этом остаться в обычном потоке документа.
@@ -119,7 +109,7 @@ import AnatomyScene from '@/components/examples/bleed/basic';
 
 Также принимает нативные пропсы своего элемента и `asChild`.
 
-| Проп | Тип | По умолчанию |
-| --- | --- | --- |
-| `inline` | `'none' \| 'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl' \| 'full'` | `'full'` |
-| `block` | `'none' \| 'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'` | `'none'` |
+| Проп | Тип | По умолчанию | Описание |
+| --- | --- | --- | --- |
+| `inline` | `'none' \| 'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl' \| 'full'` | `'full'` | Насколько содержимое выходит за горизонтальные отступы: от `none` до `xl` или `full`. |
+| `block` | `'none' \| 'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'` | `'none'` | Насколько содержимое выходит за вертикальные отступы: от `none` до `xl`. |

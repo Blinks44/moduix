@@ -24,18 +24,7 @@ expose the same chart definition API; the Solid and Vue packages use TanStack's 
 
 ## Usage
 
-<UsageCode
-  react={'<Chart>\n  <ChartHeader>\n    <ChartTitle>Monthly revenue</ChartTitle>\n    <ChartDescription>In thousands of dollars.</ChartDescription>\n  </ChartHeader>\n  <ChartPlot definition={definition} height={320} ariaLabel="Monthly revenue" />\n  <ChartLegend aria-label="Series">\n    <ChartLegendItem color="var(--moduix-chart-1)">Revenue</ChartLegendItem>\n  </ChartLegend>\n</Chart>'}
-  vue={'<Chart>\n  <ChartHeader>\n    <ChartTitle>Monthly revenue</ChartTitle>\n    <ChartDescription>In thousands of dollars.</ChartDescription>\n  </ChartHeader>\n  <ChartPlot :definition="definition" :height="320" ariaLabel="Monthly revenue" />\n  <ChartLegend aria-label="Series">\n    <ChartLegendItem color="var(--moduix-chart-1)">Revenue</ChartLegendItem>\n  </ChartLegend>\n</Chart>'}
-/>
-
-<PropChips
-  items={[
-    ['definition', 'TanStack Charts definition: data, marks, and scales.'],
-    ['ariaLabel', 'Short name of the plot for assistive technology.'],
-    ['motion', 'Animated renderer; false uses static SVG.'],
-  ]}
-/>
+<Usage />
 
 Create a TanStack definition and pass it to `ChartPlot`. Add a visible title, description, and
 legend around the plot, then provide a concise `ariaLabel` for assistive technology.
@@ -217,10 +206,10 @@ Hover or focus a variable to see it in the preview.
 
 Props of `ChartPlot`. The other TanStack chart props, such as `height` and `renderTooltipBody`, pass through.
 
-| Prop | Type | Default |
-| --- | --- | --- |
-| `definition` | `ChartDefinition` | — |
-| `ariaLabel` | `string` | — |
-| `height` | `number` | — |
-| `motion` | `boolean` | `true` |
-| `renderer` | `ChartRenderer` | — |
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `definition` | `ChartDefinition` | — | TanStack Charts definition with data, marks, and scales. |
+| `ariaLabel` | `string` | — | Short name of the plot for assistive technology. |
+| `height` | `number` | — | Plot height in pixels. |
+| `motion` | `boolean` | `true` | Uses the animated renderer; `false` renders static SVG. |
+| `renderer` | `ChartRenderer` | — | Custom TanStack renderer; overrides `motion`. |

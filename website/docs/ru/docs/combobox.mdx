@@ -16,20 +16,7 @@ import * as ComboboxDocs from '@/components/examples/combobox/css-properties';
 
 ## Использование
 
-<UsageCode
-  react={'const { collection, filter } = useListCollection({ initialItems: fruits, filter: contains });\n\n<Combobox collection={collection} onInputValueChange={(d) => filter(d.inputValue)} openOnClick>\n  <ComboboxLabel>Fruit</ComboboxLabel>\n  <ComboboxControl>\n    <ComboboxInput placeholder="e.g. Mango" />\n    <ComboboxTrigger aria-label="Open options" />\n  </ComboboxControl>\n  <ComboboxPositioner>\n    <ComboboxContent>\n      <ComboboxEmpty>No fruits found.</ComboboxEmpty>\n      <ComboboxList>\n        {collection.items.map((item) => (\n          <ComboboxOption key={item.value} item={item}>{item.label}</ComboboxOption>\n        ))}\n      </ComboboxList>\n    </ComboboxContent>\n  </ComboboxPositioner>\n</Combobox>'}
-  solid={'const { collection, filter } = useListCollection({ initialItems: fruits, filter: contains });\n\n<Combobox collection={collection()} onInputValueChange={(d) => filter(d.inputValue)} openOnClick>\n  <ComboboxLabel>Fruit</ComboboxLabel>\n  <ComboboxControl>\n    <ComboboxInput placeholder="e.g. Mango" />\n    <ComboboxTrigger aria-label="Open options" />\n  </ComboboxControl>\n  <ComboboxPositioner>\n    <ComboboxContent>\n      <ComboboxEmpty>No fruits found.</ComboboxEmpty>\n      <ComboboxList>\n        <For each={collection().items}>\n          {(item) => <ComboboxOption item={item}>{item.label}</ComboboxOption>}\n        </For>\n      </ComboboxList>\n    </ComboboxContent>\n  </ComboboxPositioner>\n</Combobox>'}
-  vue={'const { collection, filter } = useListCollection({ initialItems: fruits, filter: contains });\n\n<Combobox :collection="collection" @input-value-change="(d) => filter(d.inputValue)" open-on-click>\n  <ComboboxLabel>Fruit</ComboboxLabel>\n  <ComboboxControl>\n    <ComboboxInput placeholder="e.g. Mango" />\n    <ComboboxTrigger aria-label="Open options" />\n  </ComboboxControl>\n  <ComboboxPositioner>\n    <ComboboxContent>\n      <ComboboxEmpty>No fruits found.</ComboboxEmpty>\n      <ComboboxList>\n        <ComboboxOption v-for="item in collection.items" :key="item.value" :item="item">\n          {{ item.label }}\n        </ComboboxOption>\n      </ComboboxList>\n    </ComboboxContent>\n  </ComboboxPositioner>\n</Combobox>'}
-/>
-
-<PropChips
-  items={[
-    ['collection', 'Элементы из useListCollection(); фильтруйте при вводе.'],
-    ['multiple', 'Позволяет выбрать несколько значений.'],
-    ['inputBehavior', 'autohighlight или autocomplete первого совпадения.'],
-    ['allowCustomValue', 'Сохраняет текст, которого нет среди опций.'],
-  ]}
-/>
+<Usage />
 
 Создайте коллекцию Ark с помощью `useListCollection` и передайте её в `Combobox`. Структуру списка задайте явно.
 Для обычных вариантов используйте `ComboboxOption`, а если нужна нестандартная разметка, используйте `ComboboxItem`.
@@ -249,48 +236,48 @@ import * as ComboboxDocs from '@/components/examples/combobox/css-properties';
 
 ## Справочник API
 
-| Проп | Тип | По умолчанию |
-| --- | --- | --- |
-| `collection` | `ListCollection<T>` | — |
-| `value` | `string[]` | — |
-| `defaultValue` | `string[]` | `[]` |
-| `onValueChange` | `(details: ValueChangeDetails) => void` | — |
-| `inputValue` | `string` | — |
-| `onInputValueChange` | `(details: InputValueChangeDetails) => void` | — |
-| `multiple` | `boolean` | `false` |
-| `inputBehavior` | `'autohighlight' \| 'autocomplete' \| 'none'` | `'none'` |
-| `selectionBehavior` | `'clear' \| 'replace' \| 'preserve'` | `'replace'` |
-| `openOnClick` | `boolean` | `false` |
-| `allowCustomValue` | `boolean` | `false` |
-| `closeOnSelect` | `boolean` | — |
-| `positioning` | `PositioningOptions` | `{ placement: 'bottom-start' }` |
-| `open` | `boolean` | — |
-| `onOpenChange` | `(details: OpenChangeDetails) => void` | — |
-| `placeholder` | `string` | — |
-| `name` | `string` | — |
-| `disabled` | `boolean` | `false` |
-| `readOnly` | `boolean` | `false` |
-| `invalid` | `boolean` | `false` |
-| `required` | `boolean` | `false` |
-| `lazyMount` | `boolean` | `true` |
-| `unmountOnExit` | `boolean` | `true` |
-| `defaultOpen` | `boolean` | — |
-| `defaultInputValue` | `string` | `''` |
-| `form` | `string` | — |
-| `defaultHighlightedValue` | `string \| null` | — |
-| `highlightedValue` | `string \| null` | — |
-| `autoFocus` | `boolean` | — |
-| `openOnChange` | `boolean \| ((details: InputValueChangeDetails) => boolean)` | `true` |
-| `alwaysSubmitOnEnter` | `boolean` | `false` |
-| `loopFocus` | `boolean` | `true` |
-| `onHighlightChange` | `(details: HighlightChangeDetails<T>) => void` | — |
-| `onSelect` | `(details: SelectionDetails) => void` | — |
-| `translations` | `IntlTranslations` | — |
-| `openOnKeyPress` | `boolean` | `true` |
-| `scrollToIndexFn` | `(details: ScrollToIndexDetails) => void` | — |
-| `composite` | `boolean` | `true` |
-| `disableLayer` | `boolean` | — |
-| `navigate` | `((details: NavigateDetails) => void) \| null` | — |
-| `onPointerDownOutside` | `(event: PointerDownOutsideEvent) => void` | — |
-| `onFocusOutside` | `(event: FocusOutsideEvent) => void` | — |
-| `onInteractOutside` | `(event: InteractOutsideEvent) => void` | — |
+| Проп | Тип | По умолчанию | Описание |
+| --- | --- | --- | --- |
+| `collection` | `ListCollection<T>` | — | Элементы из `createListCollection()`. |
+| `value` | `string[]` | — | Выбранные значения в управляемом режиме. |
+| `defaultValue` | `string[]` | `[]` | Начальные выбранные значения. |
+| `onValueChange` | `(details: ValueChangeDetails) => void` | — | Вызывается при изменении выбора. |
+| `inputValue` | `string` | — | Текст поля в управляемом режиме. |
+| `onInputValueChange` | `(details: InputValueChangeDetails) => void` | — | Вызывается при изменении текста; здесь фильтруйте коллекцию. |
+| `multiple` | `boolean` | `false` | Разрешает выбрать несколько значений. |
+| `inputBehavior` | `'autohighlight' \| 'autocomplete' \| 'none'` | `'none'` | Помощь при вводе: `autohighlight`, `autocomplete` или `none`. |
+| `selectionBehavior` | `'clear' \| 'replace' \| 'preserve'` | `'replace'` | Текст поля после выбора: `replace` (подпись), `clear` или `preserve`. |
+| `openOnClick` | `boolean` | `false` | Открывает список по клику на поле. |
+| `allowCustomValue` | `boolean` | `false` | Сохраняет введённый текст, даже если он не совпал ни с одним элементом. |
+| `closeOnSelect` | `boolean` | — | Закрывает список после выбора. |
+| `positioning` | `PositioningOptions` | `{ placement: 'bottom-start' }` | Расположение, отступ и другие настройки позиции всплывающего окна. |
+| `open` | `boolean` | — | Состояние открытия в управляемом режиме. |
+| `onOpenChange` | `(details: OpenChangeDetails) => void` | — | Вызывается при открытии и закрытии. |
+| `placeholder` | `string` | — | Подсказка в пустом поле. |
+| `name` | `string` | — | Имя поля формы у внутреннего input. |
+| `disabled` | `boolean` | `false` | Отключает элемент управления. |
+| `readOnly` | `boolean` | `false` | Показывает значение, но не даёт его менять. |
+| `invalid` | `boolean` | `false` | Помечает поле как невалидное. |
+| `required` | `boolean` | `false` | Требует значение перед отправкой формы. |
+| `lazyMount` | `boolean` | `true` | Монтирует содержимое при первом открытии. |
+| `unmountOnExit` | `boolean` | `true` | Удаляет содержимое после закрытия. |
+| `defaultOpen` | `boolean` | — | Начальное состояние открытия, если оно не управляется извне. |
+| `defaultInputValue` | `string` | `''` | Начальный текст поля. |
+| `form` | `string` | — | Id формы, к которой относится внутренний input. |
+| `defaultHighlightedValue` | `string \| null` | — | Элемент, подсвеченный изначально. |
+| `highlightedValue` | `string \| null` | — | Подсвеченный элемент в управляемом режиме. |
+| `autoFocus` | `boolean` | — | Ставит фокус в поле при монтировании. |
+| `openOnChange` | `boolean \| ((details: InputValueChangeDetails) => boolean)` | `true` | Открывает список при изменении текста. |
+| `alwaysSubmitOnEnter` | `boolean` | `false` | Enter отправляет форму, даже когда список открыт. |
+| `loopFocus` | `boolean` | `true` | Навигация с клавиатуры переходит с последнего элемента на первый. |
+| `onHighlightChange` | `(details: HighlightChangeDetails<T>) => void` | — | Вызывается при смене подсвеченного элемента. |
+| `onSelect` | `(details: SelectionDetails) => void` | — | Вызывается при выборе элемента. |
+| `translations` | `IntlTranslations` | — | Переведённые строки для подписей доступности. |
+| `openOnKeyPress` | `boolean` | `true` | Открывает список по стрелкам. |
+| `scrollToIndexFn` | `(details: ScrollToIndexDetails) => void` | — | Прокручивает виртуализированный список к индексу элемента. |
+| `composite` | `boolean` | `true` | Укажите `false`, если компонент находится внутри другого составного виджета, например вкладок. |
+| `disableLayer` | `boolean` | — | Не регистрирует окно в стеке закрываемых слоёв. |
+| `navigate` | `((details: NavigateDetails) => void) \| null` | — | Переходит по ссылке элемента при выборе. |
+| `onPointerDownOutside` | `(event: PointerDownOutsideEvent) => void` | — | Вызывается при нажатии указателя вне всплывающего окна. |
+| `onFocusOutside` | `(event: FocusOutsideEvent) => void` | — | Вызывается, когда фокус уходит из всплывающего окна. |
+| `onInteractOutside` | `(event: InteractOutsideEvent) => void` | — | Вызывается при любом взаимодействии вне всплывающего окна. |

@@ -15,18 +15,7 @@ import AnatomyScene from '@/components/examples/timer/basic';
 
 ## Utilisation
 
-<UsageCode
-  react={'<Timer countdown startMs={5 * 60 * 1000} autoStart onComplete={notify}>\n  <TimerSegments types={[\'minutes\', \'seconds\']} />\n  <TimerControl>\n    <TimerActionTrigger action="pause">Pause</TimerActionTrigger>\n    <TimerActionTrigger action="resume">Resume</TimerActionTrigger>\n    <TimerActionTrigger action="reset">Reset</TimerActionTrigger>\n  </TimerControl>\n</Timer>'}
-  vue={'<Timer countdown :start-ms="5 * 60 * 1000" auto-start @complete="notify">\n  <TimerSegments :types="[\'minutes\', \'seconds\']" />\n  <TimerControl>\n    <TimerActionTrigger action="pause">Pause</TimerActionTrigger>\n    <TimerActionTrigger action="resume">Resume</TimerActionTrigger>\n    <TimerActionTrigger action="reset">Reset</TimerActionTrigger>\n  </TimerControl>\n</Timer>'}
-/>
-
-<PropChips
-  items={[
-    ['countdown', 'Décompte depuis startMs au lieu de compter.'],
-    ['startMs / targetMs', 'Temps de départ et d’arrêt, en ms.'],
-    ['types', 'Sur TimerSegments : unités affichées, comme minutes et secondes.'],
-  ]}
-/>
+<Usage />
 
 `TimerSegments` est la façon la plus simple d’afficher le temps au format courant, avec des deux-points comme
 séparateurs. Par défaut, il affiche les heures, les minutes et les secondes. Passez `types` pour choisir un autre
@@ -141,13 +130,13 @@ remplace les styles du composant placés dans une couche.
 
 ## Référence de l’API
 
-| Prop | Type | Défaut |
-| --- | --- | --- |
-| `countdown` | `boolean` | `false` |
-| `startMs` | `number` | — |
-| `targetMs` | `number` | — |
-| `autoStart` | `boolean` | `false` |
-| `interval` | `number` | `1000` |
-| `onTick` | `(details: TickDetails) => void` | — |
-| `onComplete` | `() => void` | — |
-| `translations` | `IntlTranslations` | — |
+| Prop | Type | Défaut | Description |
+| --- | --- | --- | --- |
+| `countdown` | `boolean` | `false` | Compte à rebours au lieu de compter. |
+| `startMs` | `number` | — | Temps de départ en millisecondes. |
+| `targetMs` | `number` | — | Temps auquel le minuteur se termine, en millisecondes. |
+| `autoStart` | `boolean` | `false` | Démarre le minuteur au montage. |
+| `interval` | `number` | `1000` | Intervalle de mise à jour en millisecondes. |
+| `onTick` | `(details: TickDetails) => void` | — | Appelé à chaque mise à jour. |
+| `onComplete` | `() => void` | — | Appelé lorsque le minuteur atteint `targetMs`. |
+| `translations` | `IntlTranslations` | — | Textes localisés des libellés d’accessibilité. |

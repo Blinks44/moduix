@@ -1,43 +1,22 @@
 import { CodeBlockRuntime } from '@rspress/core/theme';
-import type { ReactNode } from 'react';
-import { useExampleSelection } from './example-panel';
+import { toStyling, useExampleSelection } from './example-panel';
 import styles from './usage.module.css';
 
-// Usage section of a component page: one short snippet for the selected framework, followed by
-// the props a reader reaches for first. Solid falls back to the React snippet when they match.
-function UsageCode({ react, solid = react, vue }: { react: string; solid?: string; vue: string }) {
-  const { framework } = useExampleSelection();
+// Usage section of a component page: `<Usage />` in MDX passes the page's Basic example sources,
+// shown for the selected framework and styling.
+function UsageCode({ sources }: { sources: Record<'react' | 'solid' | 'vue', string> }) {
+  const { framework, styling } = useExampleSelection();
 
-  if (import.meta.env.SSG_MD) return `\n\`\`\`tsx\n${react}\n\`\`\`\n`;
+  if (import.meta.env.SSG_MD) return `\n\`\`\`tsx\n${sources.react}\n\`\`\`\n`;
 
   return (
     <div className={styles.code}>
-      {framework.value === 'vue' ? (
-        <CodeBlockRuntime lang="vue" code={vue} />
-      ) : (
-        <CodeBlockRuntime lang="tsx" code={framework.value === 'solid' ? solid : react} />
-      )}
+      <CodeBlockRuntime
+        lang={framework.lang}
+        code={toStyling(sources[framework.value], framework.value, styling.value)}
+      />
     </div>
   );
 }
 
-function PropChips({ items }: { items: [name: string, description: ReactNode][] }) {
-  if (import.meta.env.SSG_MD) {
-    return items.map(([name, description]) => `\n- \`${name}\`: ${description}`).join('') + '\n';
-  }
-
-  return (
-    <dl className={`rp-not-doc ${styles.props}`}>
-      {items.map(([name, description]) => (
-        <div key={name}>
-          <dt>
-            <code>{name}</code>
-          </dt>
-          <dd>{description}</dd>
-        </div>
-      ))}
-    </dl>
-  );
-}
-
-export { PropChips, UsageCode };
+export { UsageCode };

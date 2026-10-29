@@ -16,18 +16,7 @@ import * as EditableDocs from '@/components/examples/editable/css-properties';
 
 ## Utilisation
 
-<UsageCode
-  react={'<Editable defaultValue="Layer name" activationMode="dblclick" onValueCommit={(details) => rename(details.value)}>\n  <EditableLabel>Name</EditableLabel>\n  <EditableArea>\n    <EditableInput />\n    <EditablePreview />\n  </EditableArea>\n  <EditableControls />\n</Editable>'}
-  vue={'<Editable default-value="Layer name" activation-mode="dblclick" @value-commit="(details) => rename(details.value)">\n  <EditableLabel>Name</EditableLabel>\n  <EditableArea>\n    <EditableInput />\n    <EditablePreview />\n  </EditableArea>\n  <EditableControls />\n</Editable>'}
-/>
-
-<PropChips
-  items={[
-    ['activationMode', 'Comment l’édition démarre : dblclick, click, focus ou none.'],
-    ['submitMode', 'Valide sur enter, blur, both ou none.'],
-    ['onValueCommit', 'Appelé avec la valeur validée.'],
-  ]}
-/>
+<Usage />
 
 Utilisez `Editable` comme racine, puis composez-le avec `EditableLabel`, `EditableArea`,
 `EditableInput` et `EditablePreview`. Ajoutez `EditableControls` pour le parcours standard de
@@ -194,30 +183,30 @@ Survolez ou sélectionnez une variable pour la voir dans l’aperçu.
 
 ## Référence de l’API
 
-| Prop | Type | Défaut |
-| --- | --- | --- |
-| `value` | `string` | — |
-| `defaultValue` | `string` | — |
-| `onValueChange` | `(details: ValueChangeDetails) => void` | — |
-| `onValueCommit` | `(details: ValueChangeDetails) => void` | — |
-| `onValueRevert` | `(details: ValueChangeDetails) => void` | — |
-| `activationMode` | `'focus' \| 'dblclick' \| 'click' \| 'none'` | `'dblclick'` |
-| `submitMode` | `'enter' \| 'blur' \| 'both' \| 'none'` | `'both'` |
-| `selectOnFocus` | `boolean` | `true` |
-| `edit` | `boolean` | — |
-| `onEditChange` | `(details: EditChangeDetails) => void` | — |
-| `placeholder` | `string \| { edit: string; preview: string }` | — |
-| `maxLength` | `number` | — |
-| `autoResize` | `boolean` | `false` |
-| `name` | `string` | — |
-| `disabled` | `boolean` | `false` |
-| `readOnly` | `boolean` | `false` |
-| `invalid` | `boolean` | `false` |
-| `required` | `boolean` | `false` |
-| `form` | `string` | — |
-| `defaultEdit` | `boolean` | — |
-| `translations` | `IntlTranslations` | — |
-| `finalFocusEl` | `() => HTMLElement \| null` | — |
-| `onPointerDownOutside` | `(event: PointerDownOutsideEvent) => void` | — |
-| `onFocusOutside` | `(event: FocusOutsideEvent) => void` | — |
-| `onInteractOutside` | `(event: InteractOutsideEvent) => void` | — |
+| Prop | Type | Défaut | Description |
+| --- | --- | --- | --- |
+| `value` | `string` | — | Valeur en mode contrôlé. |
+| `defaultValue` | `string` | — | Valeur initiale lorsqu’elle n’est pas contrôlée. |
+| `onValueChange` | `(details: ValueChangeDetails) => void` | — | Appelé lorsque la valeur change. |
+| `onValueCommit` | `(details: ValueChangeDetails) => void` | — | Appelé lorsque la modification est enregistrée. |
+| `onValueRevert` | `(details: ValueChangeDetails) => void` | — | Appelé lorsque la modification est annulée. |
+| `activationMode` | `'focus' \| 'dblclick' \| 'click' \| 'none'` | `'dblclick'` | Ce qui lance l’édition : `focus`, `click`, `dblclick` ou `none`. |
+| `submitMode` | `'enter' \| 'blur' \| 'both' \| 'none'` | `'both'` | Ce qui enregistre : `enter`, `blur`, `both` ou `none`. |
+| `selectOnFocus` | `boolean` | `true` | Sélectionne le texte au début de l’édition. |
+| `edit` | `boolean` | — | Mode édition en mode contrôlé. |
+| `onEditChange` | `(details: EditChangeDetails) => void` | — | Appelé à l’entrée et à la sortie du mode édition. |
+| `placeholder` | `string \| { edit: string; preview: string }` | — | Texte indicatif, commun ou distinct pour l’édition et l’aperçu. |
+| `maxLength` | `number` | — | Nombre maximal de caractères. |
+| `autoResize` | `boolean` | `false` | Agrandit le champ selon son contenu. |
+| `name` | `string` | — | Nom du champ de formulaire de l’input sous-jacent. |
+| `disabled` | `boolean` | `false` | Désactive le contrôle. |
+| `readOnly` | `boolean` | `false` | Affiche la valeur sans permettre de la modifier. |
+| `invalid` | `boolean` | `false` | Marque le champ comme invalide. |
+| `required` | `boolean` | `false` | Exige une valeur avant l’envoi du formulaire. |
+| `form` | `string` | — | Id du formulaire auquel l’input sous-jacent est rattaché. |
+| `defaultEdit` | `boolean` | — | Démarre en mode édition. |
+| `translations` | `IntlTranslations` | — | Textes localisés des libellés d’accessibilité. |
+| `finalFocusEl` | `() => HTMLElement \| null` | — | Élément qui reçoit le focus à la fin de l’édition. |
+| `onPointerDownOutside` | `(event: PointerDownOutsideEvent) => void` | — | Appelé lors d’un appui du pointeur en dehors de la fenêtre. |
+| `onFocusOutside` | `(event: FocusOutsideEvent) => void` | — | Appelé lorsque le focus quitte la fenêtre. |
+| `onInteractOutside` | `(event: InteractOutsideEvent) => void` | — | Appelé lors de toute interaction en dehors de la fenêtre. |

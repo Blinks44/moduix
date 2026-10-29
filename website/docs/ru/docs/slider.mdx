@@ -16,19 +16,7 @@ import * as SliderDocs from '@/components/examples/slider/css-properties';
 
 ## Использование
 
-<UsageCode
-  react={'<Slider defaultValue={[20, 80]} min={0} max={100} step={5} onValueChangeEnd={(details) => apply(details.value)}>\n  <SliderLabel>Price</SliderLabel>\n  <SliderValueText />\n  <SliderControl>\n    <SliderTrack>\n      <SliderRange />\n    </SliderTrack>\n    <SliderThumbs />\n  </SliderControl>\n</Slider>'}
-  vue={'<Slider :default-value="[20, 80]" :min="0" :max="100" :step="5" @value-change-end="(details) => apply(details.value)">\n  <SliderLabel>Price</SliderLabel>\n  <SliderValueText />\n  <SliderControl>\n    <SliderTrack>\n      <SliderRange />\n    </SliderTrack>\n    <SliderThumbs />\n  </SliderControl>\n</Slider>'}
-/>
-
-<PropChips
-  items={[
-    ['defaultValue', 'Массив значений; два значения дают диапазон.'],
-    ['min / max / step', 'Границы и шаг, по умолчанию 0, 100 и 1.'],
-    ['onValueChangeEnd', 'Вызывается, когда пользователь отпускает ползунок.'],
-    ['orientation', 'horizontal или vertical.'],
-  ]}
-/>
+<Usage />
 
 `SliderThumbs` создаёт по одному ползунку с нативным полем на значение. Для своего содержимого ползунка
 используйте `SliderThumb` явно и вложите в него `SliderHiddenInput`.
@@ -264,29 +252,29 @@ moduix добавляет `data-readonly` к `Slider`, когда задано �
 
 ## Справочник API
 
-| Проп | Тип | По умолчанию |
-| --- | --- | --- |
-| `value` | `number[]` | — |
-| `defaultValue` | `number[]` | — |
-| `onValueChange` | `(details: ValueChangeDetails) => void` | — |
-| `onValueChangeEnd` | `(details: ValueChangeDetails) => void` | — |
-| `min` | `number` | `0` |
-| `max` | `number` | `100` |
-| `step` | `number` | `1` |
-| `largeStep` | `number` | `10 * step` |
-| `minStepsBetweenThumbs` | `number` | `0` |
-| `orientation` | `'horizontal' \| 'vertical'` | `'horizontal'` |
-| `origin` | `'start' \| 'center' \| 'end'` | `'start'` |
-| `thumbCollisionBehavior` | `'none' \| 'push' \| 'swap'` | `'none'` |
-| `getAriaValueText` | `(details: ValueTextDetails) => string` | — |
-| `name` | `string` | — |
-| `disabled` | `boolean` | `false` |
-| `readOnly` | `boolean` | `false` |
-| `invalid` | `boolean` | `false` |
-| `required` | `boolean` | `false` |
-| `aria-label` | `string[]` | — |
-| `aria-labelledby` | `string[]` | — |
-| `form` | `string` | — |
-| `onFocusChange` | `(details: FocusChangeDetails) => void` | — |
-| `thumbAlignment` | `'contain' \| 'center'` | `'contain'` |
-| `thumbSize` | `{ width: number; height: number }` | — |
+| Проп | Тип | По умолчанию | Описание |
+| --- | --- | --- | --- |
+| `value` | `number[]` | — | Значения бегунков в управляемом режиме, по числу на бегунок. |
+| `defaultValue` | `number[]` | — | Начальные значения бегунков. |
+| `onValueChange` | `(details: ValueChangeDetails) => void` | — | Вызывается при изменении значения. |
+| `onValueChangeEnd` | `(details: ValueChangeDetails) => void` | — | Вызывается, когда пользователь закончил менять значение. |
+| `min` | `number` | `0` | Минимальное значение. |
+| `max` | `number` | `100` | Максимальное значение. |
+| `step` | `number` | `1` | Шаг между значениями. |
+| `largeStep` | `number` | `10 * step` | Шаг для Shift со стрелками и Page Up или Page Down. |
+| `minStepsBetweenThumbs` | `number` | `0` | Минимальное расстояние между бегунками, в шагах. |
+| `orientation` | `'horizontal' \| 'vertical'` | `'horizontal'` | Направление: `horizontal` или `vertical`. |
+| `origin` | `'start' \| 'center' \| 'end'` | `'start'` | Откуда начинается заливка: `start`, `center` или `end`. |
+| `thumbCollisionBehavior` | `'none' \| 'push' \| 'swap'` | `'none'` | Что делают бегунки при встрече: `none`, `push` или `swap`. |
+| `getAriaValueText` | `(details: ValueTextDetails) => string` | — | Возвращает понятный текст значения для экранных дикторов. |
+| `name` | `string` | — | Имя поля формы для бегунков. |
+| `disabled` | `boolean` | `false` | Отключает элемент управления. |
+| `readOnly` | `boolean` | `false` | Показывает значение, но не даёт его менять. |
+| `invalid` | `boolean` | `false` | Помечает поле как невалидное. |
+| `required` | `boolean` | `false` | Требует значение перед отправкой формы. |
+| `aria-label` | `string[]` | — | Доступное имя каждого бегунка. |
+| `aria-labelledby` | `string[]` | — | Id элементов, подписывающих каждый бегунок. |
+| `form` | `string` | — | Id формы, к которой относится внутренний input. |
+| `onFocusChange` | `(details: FocusChangeDetails) => void` | — | Вызывается, когда фокус переходит на другой бегунок. |
+| `thumbAlignment` | `'contain' \| 'center'` | `'contain'` | Держит бегунки внутри дорожки (`contain`) или по центру значения (`center`). |
+| `thumbSize` | `{ width: number; height: number }` | — | Размер бегунка, нужен для выравнивания `contain` при серверном рендеринге. |

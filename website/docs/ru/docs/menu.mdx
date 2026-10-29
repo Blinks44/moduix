@@ -16,19 +16,7 @@ import * as MenuDocs from '@/components/examples/menu/css-properties';
 
 ## Использование
 
-<UsageCode
-  react={'<Menu onSelect={(details) => run(details.value)} positioning={{ placement: \'bottom-start\' }}>\n  <MenuTrigger asChild>\n    <Button>File</Button>\n  </MenuTrigger>\n  <MenuPositioner>\n    <MenuContent>\n      <MenuItem value="new">New file</MenuItem>\n      <MenuItem value="delete" tone="destructive">Delete</MenuItem>\n    </MenuContent>\n  </MenuPositioner>\n</Menu>'}
-  solid={'<Menu onSelect={(details) => run(details.value)} positioning={{ placement: \'bottom-start\' }}>\n  <MenuTrigger asChild={(props) => (\n    <Button {...props()}>File</Button>\n  )} />\n  <MenuPositioner>\n    <MenuContent>\n      <MenuItem value="new">New file</MenuItem>\n      <MenuItem value="delete" tone="destructive">Delete</MenuItem>\n    </MenuContent>\n  </MenuPositioner>\n</Menu>'}
-  vue={'<Menu @select="(details) => run(details.value)" :positioning="{ placement: \'bottom-start\' }">\n  <MenuTrigger as-child>\n    <Button>File</Button>\n  </MenuTrigger>\n  <MenuPositioner>\n    <MenuContent>\n      <MenuItem value="new">New file</MenuItem>\n      <MenuItem value="delete" tone="destructive">Delete</MenuItem>\n    </MenuContent>\n  </MenuPositioner>\n</Menu>'}
-/>
-
-<PropChips
-  items={[
-    ['onSelect', 'Вызывается со значением выбранного пункта.'],
-    ['positioning', 'Положение, отступ и переворот всплывающего меню.'],
-    ['tone', 'destructive выделяет опасные пункты в MenuItem.'],
-  ]}
-/>
+<Usage />
 
 Используйте `Menu` как корневой компонент и задайте каждому `MenuItem` стабильное значение
 `value`. Оставляйте `MenuPositioner` и `MenuContent` явными, а внутрь содержимого добавляйте
@@ -274,26 +262,26 @@ render-функции `asChild`: ref на самой части `Menu` чере�
 
 ## Справочник API
 
-| Проп | Тип | По умолчанию |
-| --- | --- | --- |
-| `open` | `boolean` | — |
-| `defaultOpen` | `boolean` | `false` |
-| `onOpenChange` | `(details: OpenChangeDetails) => void` | — |
-| `onSelect` | `(details: SelectionDetails) => void` | — |
-| `closeOnSelect` | `boolean` | `true` |
-| `positioning` | `PositioningOptions` | — |
-| `loopFocus` | `boolean` | `false` |
-| `typeahead` | `boolean` | `true` |
-| `highlightedValue` | `string \| null` | — |
-| `onHighlightChange` | `(details: HighlightChangeDetails) => void` | — |
-| `lazyMount` | `boolean` | `true` |
-| `unmountOnExit` | `boolean` | `true` |
-| `portalled` | `boolean` | `true` |
-| `defaultHighlightedValue` | `string \| null` | — |
-| `anchorPoint` | `Point \| null` | — |
-| `aria-label` | `string` | — |
-| `composite` | `boolean` | `true` |
-| `navigate` | `((details: NavigateDetails) => void) \| null` | — |
-| `triggerValue` | `string \| null` | — |
-| `defaultTriggerValue` | `string \| null` | — |
-| `onTriggerValueChange` | `(details: TriggerValueChangeDetails) => void` | — |
+| Проп | Тип | По умолчанию | Описание |
+| --- | --- | --- | --- |
+| `open` | `boolean` | — | Состояние открытия в управляемом режиме. |
+| `defaultOpen` | `boolean` | `false` | Начальное состояние открытия, если оно не управляется извне. |
+| `onOpenChange` | `(details: OpenChangeDetails) => void` | — | Вызывается при открытии и закрытии. |
+| `onSelect` | `(details: SelectionDetails) => void` | — | Вызывается со значением `value` выбранного пункта. |
+| `closeOnSelect` | `boolean` | `true` | Закрывает меню после выбора пункта. |
+| `positioning` | `PositioningOptions` | — | Расположение, отступ и другие настройки позиции всплывающего окна. |
+| `loopFocus` | `boolean` | `false` | Навигация с клавиатуры переходит с последнего элемента на первый. |
+| `typeahead` | `boolean` | `true` | Ввод букв подсвечивает подходящий пункт. |
+| `highlightedValue` | `string \| null` | — | Подсвеченный элемент в управляемом режиме. |
+| `onHighlightChange` | `(details: HighlightChangeDetails) => void` | — | Вызывается при смене подсвеченного элемента. |
+| `lazyMount` | `boolean` | `true` | Монтирует содержимое при первом открытии. |
+| `unmountOnExit` | `boolean` | `true` | Удаляет содержимое после закрытия. |
+| `portalled` | `boolean` | `true` | Отрисовывает меню в портале в конце `body`. |
+| `defaultHighlightedValue` | `string \| null` | — | Элемент, подсвеченный изначально. |
+| `anchorPoint` | `Point \| null` | — | Открывает меню в точке, для контекстных меню. |
+| `aria-label` | `string` | — | Доступное имя меню. |
+| `composite` | `boolean` | `true` | Укажите `false`, если компонент находится внутри другого составного виджета, например вкладок. |
+| `navigate` | `((details: NavigateDetails) => void) \| null` | — | Переходит по пункту-ссылке, выбранному с клавиатуры. |
+| `triggerValue` | `string \| null` | — | Активный триггер в управляемом режиме, если у меню несколько триггеров. |
+| `defaultTriggerValue` | `string \| null` | — | Изначально активный триггер. |
+| `onTriggerValueChange` | `(details: TriggerValueChangeDetails) => void` | — | Вызывается, когда меню открывает другой триггер. |

@@ -16,19 +16,7 @@ import * as ProgressLinearDocs from '@/components/examples/progress-linear/css-p
 
 ## Utilisation
 
-<UsageCode
-  react={'<ProgressLinear defaultValue={24}>\n  <ProgressLinearLabel>Export data</ProgressLinearLabel>\n  <ProgressLinearValueText />\n  <ProgressLinearTrack aria-label="Export data">\n    <ProgressLinearRange />\n  </ProgressLinearTrack>\n</ProgressLinear>'}
-  vue={'<ProgressLinear :default-value="24">\n  <ProgressLinearLabel>Export data</ProgressLinearLabel>\n  <ProgressLinearValueText />\n  <ProgressLinearTrack aria-label="Export data">\n    <ProgressLinearRange />\n  </ProgressLinearTrack>\n</ProgressLinear>'}
-/>
-
-<PropChips
-  items={[
-    ['defaultValue', 'Valeur initiale ; null pour un état indéterminé.'],
-    ['min / max', 'Plage de la valeur, de 0 à 100 par défaut.'],
-    ['formatOptions', 'Options Intl du texte de valeur, en pourcentage par défaut.'],
-    ['orientation', 'Horizontal par défaut ; vertical se remplit par le bas.'],
-  ]}
-/>
+<Usage />
 
 Composez la barre de progression avec les parties explicites `ProgressLinearLabel`, `ProgressLinearValueText`, `ProgressLinearTrack` et
 `ProgressLinearRange`. Donnez à `ProgressLinearTrack` un nom accessible qui décrit la tâche.
@@ -167,14 +155,14 @@ Survolez ou sélectionnez une variable pour la voir dans l’aperçu.
 
 ## Référence de l’API
 
-| Prop | Type | Défaut |
-| --- | --- | --- |
-| `value` | `number \| null` | — |
-| `defaultValue` | `number \| null` | `50` |
-| `onValueChange` | `(details: ValueChangeDetails) => void` | — |
-| `min` | `number` | `0` |
-| `max` | `number` | `100` |
-| `formatOptions` | `Intl.NumberFormatOptions` | `{ style: 'percent' }` |
-| `locale` | `string` | — |
-| `translations` | `IntlTranslations` | — |
-| `orientation` | `'horizontal' \| 'vertical'` | `'horizontal'` |
+| Prop | Type | Défaut | Description |
+| --- | --- | --- | --- |
+| `value` | `number \| null` | — | Valeur de progression en mode contrôlé ; `null` affiche un état indéterminé. |
+| `defaultValue` | `number \| null` | `50` | Valeur initiale lorsqu’elle n’est pas contrôlée ; `null` est indéterminé. |
+| `onValueChange` | `(details: ValueChangeDetails) => void` | — | Appelé lorsque la valeur change. |
+| `min` | `number` | `0` | Valeur minimale. |
+| `max` | `number` | `100` | Valeur maximale. |
+| `formatOptions` | `Intl.NumberFormatOptions` | `{ style: 'percent' }` | Options `Intl.NumberFormat` pour le texte de la valeur. |
+| `locale` | `string` | — | Locale du formatage ; par défaut celle du `LocaleProvider` le plus proche. |
+| `translations` | `IntlTranslations` | — | Textes localisés des libellés d’accessibilité. |
+| `orientation` | `'horizontal' \| 'vertical'` | `'horizontal'` | Orientation de la barre : `horizontal` ou `vertical`. |

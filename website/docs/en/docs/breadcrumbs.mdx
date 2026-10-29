@@ -16,18 +16,7 @@ import * as BreadcrumbsDocs from '@/components/examples/breadcrumbs/css-properti
 
 ## Usage
 
-<UsageCode
-  react={'<Breadcrumbs>\n  <BreadcrumbsPath\n    links={[\n      { href: \'/\', label: \'Home\' },\n      { href: \'/jobs\', label: \'Jobs\' },\n    ]}\n    page="Go Developer"\n    separator="/"\n  />\n</Breadcrumbs>'}
-  vue={'<Breadcrumbs>\n  <BreadcrumbsPath\n    :links="[\n      { href: \'/\', label: \'Home\' },\n      { href: \'/jobs\', label: \'Jobs\' },\n    ]"\n    page="Go Developer"\n    separator="/"\n  />\n</Breadcrumbs>'}
-/>
-
-<PropChips
-  items={[
-    ['links', 'Parent pages in order, each with href and label.'],
-    ['page', 'Label of the current page, rendered without a link.'],
-    ['separator', 'Content between items; a chevron by default.'],
-  ]}
-/>
+<Usage />
 
 Use `BreadcrumbsPath` when you already have the path segments to display. It builds the ordered list,
 items, links, current page, and separators from required `links` and `page` props.
@@ -147,8 +136,8 @@ Hover or focus a variable to see it in the preview.
 
 Props of `BreadcrumbsPath`. The explicit parts accept the native props of their elements.
 
-| Prop | Type | Default |
-| --- | --- | --- |
-| `links` | `readonly { href: string; label: ReactNode }[]` | — |
-| `page` | `ReactNode` | — |
-| `separator` | `ReactNode` | chevron |
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `links` | `readonly { href: string; label: ReactNode }[]` | — | Ancestor pages for `BreadcrumbsPath`, each with `href` and `label`. |
+| `page` | `ReactNode` | — | Label of the current page, rendered last. |
+| `separator` | `ReactNode` | chevron | Content between items. |

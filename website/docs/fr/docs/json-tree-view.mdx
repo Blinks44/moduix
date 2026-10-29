@@ -15,18 +15,7 @@ import AnatomyScene from '@/components/examples/json-tree-view/basic';
 
 ## Utilisation
 
-<UsageCode
-  react={'<JsonTreeView data={deployment} defaultExpandedDepth={2} quotesOnKeys>\n  <JsonTreeViewTree />\n</JsonTreeView>'}
-  vue={'<JsonTreeView :data="deployment" :default-expanded-depth="2" quotes-on-keys>\n  <JsonTreeViewTree />\n</JsonTreeView>'}
-/>
-
-<PropChips
-  items={[
-    ['data', 'Toute valeur proche du JSON : objets, tableaux, Map, Set, Date.'],
-    ['defaultExpandedDepth', 'Nombre de niveaux ouverts au départ.'],
-    ['maxPreviewItems', 'Éléments affichés dans l’aperçu replié.'],
-  ]}
-/>
+<Usage />
 
 Transmettez via `data` n’importe quelle valeur JavaScript de type JSON ou comparable, puis affichez
 `<JsonTreeViewTree />` à l’intérieur du composant. `JsonTreeView` génère automatiquement les nœuds des objets, des
@@ -120,12 +109,12 @@ d’inspection a besoin d’un style différent.
 
 ## Référence de l’API
 
-| Prop | Type | Défaut |
-| --- | --- | --- |
-| `data` | `unknown` | — |
-| `defaultExpandedDepth` | `number` | — |
-| `quotesOnKeys` | `boolean` | `false` |
-| `maxPreviewItems` | `number` | — |
-| `collapseStringsAfterLength` | `number` | — |
-| `groupArraysAfterLength` | `number` | — |
-| `showNonenumerable` | `boolean` | `false` |
+| Prop | Type | Défaut | Description |
+| --- | --- | --- | --- |
+| `data` | `unknown` | — | Valeur JSON à afficher. |
+| `defaultExpandedDepth` | `number` | — | Nombre de niveaux dépliés au départ. |
+| `quotesOnKeys` | `boolean` | `false` | Entoure les clés d’objet de guillemets. |
+| `maxPreviewItems` | `number` | — | Nombre d’éléments affichés dans un aperçu replié. |
+| `collapseStringsAfterLength` | `number` | — | Tronque les chaînes au-delà de ce nombre de caractères. |
+| `groupArraysAfterLength` | `number` | — | Regroupe les longs tableaux en plages de cette taille. |
+| `showNonenumerable` | `boolean` | `false` | Affiche les propriétés non énumérables. |

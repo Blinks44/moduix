@@ -16,18 +16,7 @@ import * as TextareaDocs from '@/components/examples/textarea/css-properties';
 
 ## Utilisation
 
-<UsageCode
-  react={'<Field>\n  <FieldLabel>Comment</FieldLabel>\n  <Textarea name="comment" rows={3} autoresize size="md" />\n</Field>'}
-  vue={'<Field>\n  <FieldLabel>Comment</FieldLabel>\n  <Textarea v-model="comment" name="comment" :rows="3" autoresize size="md" />\n</Field>'}
-/>
-
-<PropChips
-  items={[
-    ['autoresize', 'S’agrandit avec le contenu au lieu de défiler.'],
-    ['rows', 'Hauteur initiale native en lignes.'],
-    ['size', 'Taille du texte et marges, de xs à xl.'],
-  ]}
-/>
+<Usage />
 
 Placez `Textarea` dans `Field` lorsqu’il faut fournir au champ un libellé accessible ou un texte
 complémentaire. C’est la configuration recommandée pour les commentaires, notes, descriptions de
@@ -162,8 +151,8 @@ Survolez ou sélectionnez une variable pour la voir dans l’aperçu.
 
 Accepte aussi les props natives de `textarea`.
 
-| Prop | Type | Défaut |
-| --- | --- | --- |
-| `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'` | `'md'` |
-| `autoresize` | `boolean` | `false` |
-| `asChild` | `boolean` | `false` |
+| Prop | Type | Défaut | Description |
+| --- | --- | --- | --- |
+| `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'` | `'md'` | Taille : `xs`, `sm`, `md`, `lg` ou `xl`. |
+| `autoresize` | `boolean` | `false` | Agrandit la hauteur selon le contenu. |
+| `asChild` | `boolean` | `false` | Applique les styles du champ à son unique enfant. |

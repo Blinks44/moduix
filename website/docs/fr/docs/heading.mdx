@@ -15,18 +15,7 @@ import AnatomyScene from '@/components/examples/heading/basic';
 
 ## Utilisation
 
-<UsageCode
-  react={'<Heading as="h2" size="xl" weight="bold">\n  Billing\n</Heading>'}
-  vue={'<Heading as="h2" size="xl" weight="bold">\n  Billing\n</Heading>'}
-/>
-
-<PropChips
-  items={[
-    ['as', 'Niveau h1 à h6, h1 par défaut.'],
-    ['size', 'Taille visuelle de xs à 2xl, distincte du niveau.'],
-    ['weight', 'regular, medium, semibold ou bold.'],
-  ]}
-/>
+<Usage />
 
 Par défaut, `Heading` rend un `h1`. Utilisez-le pour les titres du document et choisissez la valeur de `as`
 en fonction de sa place dans la structure du document. Définissez `size` séparément lorsque l’importance
@@ -114,8 +103,8 @@ styles du composant déclarés dans leur couche.
 
 Accepte aussi les props natives de son élément et `asChild`.
 
-| Prop | Type | Défaut |
-| --- | --- | --- |
-| `as` | `'h1' \| 'h2' \| 'h3' \| 'h4' \| 'h5' \| 'h6'` | `'h1'` |
-| `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl' \| '2xl'` | — |
-| `weight` | `'regular' \| 'medium' \| 'semibold' \| 'bold'` | `'semibold'` |
+| Prop | Type | Défaut | Description |
+| --- | --- | --- | --- |
+| `as` | `'h1' \| 'h2' \| 'h3' \| 'h4' \| 'h5' \| 'h6'` | `'h1'` | Niveau sémantique du titre, de `h1` à `h6`. |
+| `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl' \| '2xl'` | — | Taille visuelle de `xs` à `2xl`, indépendante du niveau. |
+| `weight` | `'regular' \| 'medium' \| 'semibold' \| 'bold'` | `'semibold'` | Graisse : `regular`, `medium`, `semibold` ou `bold`. |

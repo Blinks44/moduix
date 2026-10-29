@@ -16,20 +16,7 @@ import * as DialogDocs from '@/components/examples/dialog/css-properties';
 
 ## Использование
 
-<UsageCode
-  react={'<Dialog onOpenChange={(details) => setOpen(details.open)}>\n  <DialogTrigger asChild>\n    <Button>Edit profile</Button>\n  </DialogTrigger>\n  <DialogBackdrop />\n  <DialogPositioner>\n    <DialogContent size="md" placement="center">\n      <DialogHeader>\n        <DialogTitle>Edit profile</DialogTitle>\n        <DialogCloseIcon />\n      </DialogHeader>\n      <DialogBody>…</DialogBody>\n    </DialogContent>\n  </DialogPositioner>\n</Dialog>'}
-  solid={'<Dialog onOpenChange={(details) => setOpen(details.open)}>\n  <DialogTrigger asChild={(props) => (\n    <Button {...props()}>Edit profile</Button>\n  )} />\n  <DialogBackdrop />\n  <DialogPositioner>\n    <DialogContent size="md" placement="center">\n      <DialogHeader>\n        <DialogTitle>Edit profile</DialogTitle>\n        <DialogCloseIcon />\n      </DialogHeader>\n      <DialogBody>…</DialogBody>\n    </DialogContent>\n  </DialogPositioner>\n</Dialog>'}
-  vue={'<Dialog v-model:open="open">\n  <DialogTrigger as-child>\n    <Button>Edit profile</Button>\n  </DialogTrigger>\n  <DialogBackdrop />\n  <DialogPositioner>\n    <DialogContent size="md" placement="center">\n      <DialogHeader>\n        <DialogTitle>Edit profile</DialogTitle>\n        <DialogCloseIcon />\n      </DialogHeader>\n      <DialogBody>…</DialogBody>\n    </DialogContent>\n  </DialogPositioner>\n</Dialog>'}
-/>
-
-<PropChips
-  items={[
-    ['size', 'Ширина на DialogContent: от sm до xl или full.'],
-    ['placement', 'Положение по вертикали: center, top или bottom.'],
-    ['role', 'alertdialog для подтверждений, требующих ответа.'],
-    ['onOpenChange', 'Вызывается при открытии и закрытии.'],
-  ]}
-/>
+<Usage />
 
 Используйте `Dialog` как корневой компонент и явно соберите его структурные части.
 `DialogBackdrop` отвечает за модальный фон, `DialogPositioner` размещает диалог, а
@@ -234,24 +221,24 @@ moduix использует это состояние, чтобы отодвин
 
 Пропсы `Dialog`. `size` (`'sm' | 'md' | 'lg' | 'xl' | 'full'`, по умолчанию `'md'`), `placement` (`'center' | 'top' | 'bottom'`, по умолчанию `'center'`) и `scrollBehavior` (`'outside' | 'inside'`, по умолчанию `'outside'`) задаются на `DialogContent`.
 
-| Проп | Тип | По умолчанию |
-| --- | --- | --- |
-| `open` | `boolean` | — |
-| `defaultOpen` | `boolean` | `false` |
-| `onOpenChange` | `(details: OpenChangeDetails) => void` | — |
-| `modal` | `boolean` | `true` |
-| `role` | `'dialog' \| 'alertdialog'` | `'dialog'` |
-| `closeOnEscape` | `boolean` | `true` |
-| `closeOnInteractOutside` | `boolean` | `true` |
-| `trapFocus` | `boolean` | `true` |
-| `preventScroll` | `boolean` | `true` |
-| `initialFocusEl` | `() => HTMLElement \| null \| false` | — |
-| `finalFocusEl` | `() => HTMLElement \| null` | — |
-| `lazyMount` | `boolean` | `true` |
-| `unmountOnExit` | `boolean` | `true` |
-| `portalled` | `boolean` | `true` |
-| `restoreFocus` | `boolean` | — |
-| `aria-label` | `string` | — |
-| `triggerValue` | `string \| null` | — |
-| `defaultTriggerValue` | `string \| null` | — |
-| `onTriggerValueChange` | `(details: TriggerValueChangeDetails) => void` | — |
+| Проп | Тип | По умолчанию | Описание |
+| --- | --- | --- | --- |
+| `open` | `boolean` | — | Состояние открытия в управляемом режиме. |
+| `defaultOpen` | `boolean` | `false` | Начальное состояние открытия, если оно не управляется извне. |
+| `onOpenChange` | `(details: OpenChangeDetails) => void` | — | Вызывается при открытии и закрытии. |
+| `modal` | `boolean` | `true` | Блокирует взаимодействие снаружи и скрывает остальную страницу от вспомогательных технологий. |
+| `role` | `'dialog' \| 'alertdialog'` | `'dialog'` | `dialog` или `alertdialog` для срочных подтверждений. |
+| `closeOnEscape` | `boolean` | `true` | Закрывается по Escape. |
+| `closeOnInteractOutside` | `boolean` | `true` | Закрывается по клику снаружи. |
+| `trapFocus` | `boolean` | `true` | Удерживает фокус внутри, пока открыто. |
+| `preventScroll` | `boolean` | `true` | Блокирует прокрутку страницы, пока открыто. |
+| `initialFocusEl` | `() => HTMLElement \| null \| false` | — | Возвращает элемент, который получает фокус при открытии. |
+| `finalFocusEl` | `() => HTMLElement \| null` | — | Возвращает элемент, который получает фокус при закрытии. |
+| `lazyMount` | `boolean` | `true` | Монтирует содержимое при первом открытии. |
+| `unmountOnExit` | `boolean` | `true` | Удаляет содержимое после закрытия. |
+| `portalled` | `boolean` | `true` | Отрисовывает окно в портале в конце `body`. |
+| `restoreFocus` | `boolean` | — | Возвращает фокус на прежний элемент при закрытии. |
+| `aria-label` | `string` | — | Доступное имя, если у диалога нет видимого заголовка. |
+| `triggerValue` | `string \| null` | — | Активный триггер в управляемом режиме, если у окна несколько триггеров. |
+| `defaultTriggerValue` | `string \| null` | — | Изначально активный триггер. |
+| `onTriggerValueChange` | `(details: TriggerValueChangeDetails) => void` | — | Вызывается, когда активным становится другой триггер. |

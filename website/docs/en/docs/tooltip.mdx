@@ -15,19 +15,7 @@ import AnatomyScene from '@/components/examples/tooltip/anatomy';
 
 ## Usage
 
-<UsageCode
-  react={'<Tooltip openDelay={400} positioning={{ placement: \'top\' }}>\n  <TooltipTrigger asChild>\n    <Button aria-label="Notifications">\n      <BellIcon />\n    </Button>\n  </TooltipTrigger>\n  <TooltipBody>Notifications</TooltipBody>\n</Tooltip>'}
-  solid={'<Tooltip openDelay={400} positioning={{ placement: \'top\' }}>\n  <TooltipTrigger asChild={(props) => (\n    <Button aria-label="Notifications" {...props()}>\n      <BellIcon />\n    </Button>\n  )} />\n  <TooltipBody>Notifications</TooltipBody>\n</Tooltip>'}
-  vue={'<Tooltip :open-delay="400" :positioning="{ placement: \'top\' }">\n  <TooltipTrigger as-child>\n    <Button aria-label="Notifications">\n      <BellIcon />\n    </Button>\n  </TooltipTrigger>\n  <TooltipBody>Notifications</TooltipBody>\n</Tooltip>'}
-/>
-
-<PropChips
-  items={[
-    ['openDelay / closeDelay', 'Delays in ms, 400 and 150 by default.'],
-    ['positioning', 'Side and offset of the tooltip.'],
-    ['interactive', 'Keeps it open while the pointer is over the content.'],
-  ]}
-/>
+<Usage />
 
 Use `TooltipTrigger` for the element that opens the tooltip and `TooltipBody` for its content.
 `TooltipBody` combines `TooltipPositioner` and `TooltipContent`. Give the trigger an accessible
@@ -202,23 +190,23 @@ parts. The positioner exposes runtime CSS variables including `--available-width
 
 ## API reference
 
-| Prop | Type | Default |
-| --- | --- | --- |
-| `open` | `boolean` | — |
-| `defaultOpen` | `boolean` | `false` |
-| `onOpenChange` | `(details: OpenChangeDetails) => void` | — |
-| `openDelay` | `number` | `400` |
-| `closeDelay` | `number` | `150` |
-| `positioning` | `PositioningOptions` | — |
-| `disabled` | `boolean` | `false` |
-| `interactive` | `boolean` | `false` |
-| `closeOnPointerDown` | `boolean` | `true` |
-| `closeOnScroll` | `boolean` | `true` |
-| `closeOnClick` | `boolean` | `true` |
-| `closeOnEscape` | `boolean` | `true` |
-| `lazyMount` | `boolean` | `true` |
-| `unmountOnExit` | `boolean` | `true` |
-| `aria-label` | `string` | — |
-| `triggerValue` | `string \| null` | — |
-| `defaultTriggerValue` | `string \| null` | — |
-| `onTriggerValueChange` | `(details: TriggerValueChangeDetails) => void` | — |
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `open` | `boolean` | — | Open state for controlled use. |
+| `defaultOpen` | `boolean` | `false` | Initial open state when it is not controlled. |
+| `onOpenChange` | `(details: OpenChangeDetails) => void` | — | Called when it opens or closes. |
+| `openDelay` | `number` | `400` | Delay before opening, in milliseconds. |
+| `closeDelay` | `number` | `150` | Delay before closing, in milliseconds. |
+| `positioning` | `PositioningOptions` | — | Placement, offset, and other popup positioning options. |
+| `disabled` | `boolean` | `false` | Disables the control. |
+| `interactive` | `boolean` | `false` | Keeps the tooltip open while the pointer is over it. |
+| `closeOnPointerDown` | `boolean` | `true` | Closes when the trigger is pressed. |
+| `closeOnScroll` | `boolean` | `true` | Closes when the page scrolls. |
+| `closeOnClick` | `boolean` | `true` | Closes when the trigger is clicked. |
+| `closeOnEscape` | `boolean` | `true` | Closes on Escape. |
+| `lazyMount` | `boolean` | `true` | Mounts the content on first open. |
+| `unmountOnExit` | `boolean` | `true` | Unmounts the content after it closes. |
+| `aria-label` | `string` | — | Accessible text when the tooltip content is not plain text. |
+| `triggerValue` | `string \| null` | — | Active trigger for controlled use when several triggers share one popup. |
+| `defaultTriggerValue` | `string \| null` | — | Initially active trigger. |
+| `onTriggerValueChange` | `(details: TriggerValueChangeDetails) => void` | — | Called when another trigger becomes active. |

@@ -16,19 +16,7 @@ import * as NumberInputDocs from '@/components/examples/number-input/css-propert
 
 ## Usage
 
-<UsageCode
-  react={'<NumberInput defaultValue="100" min={0} max={1000} step={5} formatOptions={{ style: \'currency\', currency: \'USD\' }}>\n  <NumberInputLabel>Amount</NumberInputLabel>\n  <NumberInputField />\n</NumberInput>'}
-  vue={'<NumberInput default-value="100" :min="0" :max="1000" :step="5" :format-options="{ style: \'currency\', currency: \'USD\' }">\n  <NumberInputLabel>Amount</NumberInputLabel>\n  <NumberInputField />\n</NumberInput>'}
-/>
-
-<PropChips
-  items={[
-    ['defaultValue', 'Starting value as a string; use value to control it.'],
-    ['min / max', 'Limits; the value is clamped on blur.'],
-    ['step', 'Change per arrow press or button click.'],
-    ['formatOptions', 'Intl options, such as currency or percent.'],
-  ]}
-/>
+<Usage />
 
 Use `NumberInput` as the root and `NumberInputField` for the standard input with increment and
 decrement controls. Give the input an accessible name with `NumberInputLabel`, `aria-label`, or
@@ -216,33 +204,33 @@ Hover or focus a variable to see it in the preview.
 
 ## API reference
 
-| Prop | Type | Default |
-| --- | --- | --- |
-| `value` | `string` | — |
-| `defaultValue` | `string` | — |
-| `onValueChange` | `(details: ValueChangeDetails) => void` | — |
-| `onValueCommit` | `(details: ValueChangeDetails) => void` | — |
-| `min` | `number` | `Number.MIN_SAFE_INTEGER` |
-| `max` | `number` | `Number.MAX_SAFE_INTEGER` |
-| `step` | `number` | `1` |
-| `largeStep` | `number` | `10 * step` |
-| `formatOptions` | `Intl.NumberFormatOptions` | — |
-| `locale` | `string` | `'en-US'` |
-| `allowMouseWheel` | `boolean` | `false` |
-| `clampValueOnBlur` | `boolean` | `true` |
-| `spinOnPress` | `boolean` | `true` |
-| `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'` | `'md'` |
-| `name` | `string` | — |
-| `disabled` | `boolean` | `false` |
-| `readOnly` | `boolean` | `false` |
-| `invalid` | `boolean` | `false` |
-| `required` | `boolean` | `false` |
-| `form` | `string` | — |
-| `pattern` | `string` | `'-?[0-9]*(.[0-9]+)?'` |
-| `smallStep` | `number` | `step / 10` |
-| `allowOverflow` | `boolean` | `true` |
-| `focusInputOnChange` | `boolean` | `true` |
-| `translations` | `IntlTranslations` | — |
-| `inputMode` | `InputMode` | `'decimal'` |
-| `onValueInvalid` | `(details: ValueInvalidDetails) => void` | — |
-| `onFocusChange` | `(details: FocusChangeDetails) => void` | — |
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `value` | `string` | — | Value as a string, for controlled use. |
+| `defaultValue` | `string` | — | Initial value as a string. |
+| `onValueChange` | `(details: ValueChangeDetails) => void` | — | Called with `value` and `valueAsNumber` on every change. |
+| `onValueCommit` | `(details: ValueChangeDetails) => void` | — | Called on blur or Enter. |
+| `min` | `number` | `Number.MIN_SAFE_INTEGER` | Minimum value. |
+| `max` | `number` | `Number.MAX_SAFE_INTEGER` | Maximum value. |
+| `step` | `number` | `1` | Step for buttons and arrow keys. |
+| `largeStep` | `number` | `10 * step` | Step with Shift held. |
+| `formatOptions` | `Intl.NumberFormatOptions` | — | `Intl.NumberFormat` options, for example currency or percent. |
+| `locale` | `string` | `'en-US'` | Locale for formatting; defaults to the nearest `LocaleProvider`. |
+| `allowMouseWheel` | `boolean` | `false` | Changes the value with the mouse wheel while focused. |
+| `clampValueOnBlur` | `boolean` | `true` | Clamps the value to `min` and `max` on blur. |
+| `spinOnPress` | `boolean` | `true` | Keeps changing the value while a button is held. |
+| `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'` | `'md'` | Control size: `xs`, `sm`, `md`, `lg`, or `xl`. |
+| `name` | `string` | — | Form field name of the underlying input. |
+| `disabled` | `boolean` | `false` | Disables the control. |
+| `readOnly` | `boolean` | `false` | Shows the value but prevents changes. |
+| `invalid` | `boolean` | `false` | Marks the control as invalid. |
+| `required` | `boolean` | `false` | Requires a value before form submission. |
+| `form` | `string` | — | Id of the form the underlying input belongs to. |
+| `pattern` | `string` | `'-?[0-9]*(.[0-9]+)?'` | Pattern the typed value must match. |
+| `smallStep` | `number` | `step / 10` | Step with Alt held. |
+| `allowOverflow` | `boolean` | `true` | Allows typed values outside `min` and `max`. |
+| `focusInputOnChange` | `boolean` | `true` | Focuses the input when a button changes the value. |
+| `translations` | `IntlTranslations` | — | Localized strings for accessibility labels. |
+| `inputMode` | `InputMode` | `'decimal'` | Virtual keyboard hint. |
+| `onValueInvalid` | `(details: ValueInvalidDetails) => void` | — | Called when the value goes outside `min` or `max`. |
+| `onFocusChange` | `(details: FocusChangeDetails) => void` | — | Called when the input gains or loses focus. |

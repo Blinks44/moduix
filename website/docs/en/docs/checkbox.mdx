@@ -16,19 +16,7 @@ import * as CheckboxDocs from '@/components/examples/checkbox/css-properties';
 
 ## Usage
 
-<UsageCode
-  react={'<Checkbox defaultChecked name="updates" size="md" onCheckedChange={(details) => save(details.checked)}>\n  <CheckboxControl />\n  <CheckboxLabel>Email me about updates</CheckboxLabel>\n  <CheckboxHiddenInput />\n</Checkbox>'}
-  vue={'<Checkbox v-model:checked="checked" name="updates" size="md">\n  <CheckboxControl />\n  <CheckboxLabel>Email me about updates</CheckboxLabel>\n  <CheckboxHiddenInput />\n</Checkbox>'}
-/>
-
-<PropChips
-  items={[
-    ['defaultChecked', 'Starting state: true, false, or \'indeterminate\'.'],
-    ['onCheckedChange', 'Runs with the new checked state.'],
-    ['size', 'xs to xl, md by default.'],
-    ['CheckboxGroup', 'Wraps several checkboxes that share one value array.'],
-  ]}
-/>
+<Usage />
 
 Compose a checkbox from Ark's parts. Leave `CheckboxControl` empty to use moduix's built-in checked
 and indeterminate icons. Add `CheckboxLabel` for the visible text and `CheckboxHiddenInput` for
@@ -229,16 +217,16 @@ Hover or focus a variable to see it in the preview.
 
 ## API reference
 
-| Prop | Type | Default |
-| --- | --- | --- |
-| `checked` | `boolean \| 'indeterminate'` | — |
-| `defaultChecked` | `boolean \| 'indeterminate'` | `false` |
-| `onCheckedChange` | `(details: CheckedChangeDetails) => void` | — |
-| `value` | `string` | `'on'` |
-| `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'` | `'md'` |
-| `name` | `string` | — |
-| `disabled` | `boolean` | `false` |
-| `readOnly` | `boolean` | `false` |
-| `invalid` | `boolean` | `false` |
-| `required` | `boolean` | `false` |
-| `form` | `string` | — |
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `checked` | `boolean \| 'indeterminate'` | — | Checked state for controlled use; `indeterminate` shows a dash. |
+| `defaultChecked` | `boolean \| 'indeterminate'` | `false` | Initial checked state when it is not controlled. |
+| `onCheckedChange` | `(details: CheckedChangeDetails) => void` | — | Called when the checked state changes. |
+| `value` | `string` | `'on'` | Value submitted with the form when checked. |
+| `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'` | `'md'` | Checkbox size: `xs`, `sm`, `md`, `lg`, or `xl`. |
+| `name` | `string` | — | Form field name of the underlying input. |
+| `disabled` | `boolean` | `false` | Disables the control. |
+| `readOnly` | `boolean` | `false` | Shows the value but prevents changes. |
+| `invalid` | `boolean` | `false` | Marks the control as invalid. |
+| `required` | `boolean` | `false` | Requires a value before form submission. |
+| `form` | `string` | — | Id of the form the underlying input belongs to. |

@@ -16,18 +16,7 @@ import * as ImageDocs from '@/components/examples/image/css-properties';
 
 ## Usage
 
-<UsageCode
-  react={'<Image\n  src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4"\n  alt="Mountain landscape"\n  width={800}\n  height={520}\n  layout="constrained"\n/>'}
-  vue={'<Image\n  src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4"\n  alt="Mountain landscape"\n  :width="800"\n  :height="520"\n  layout="constrained"\n/>'}
-/>
-
-<PropChips
-  items={[
-    ['layout', 'constrained, fixed, or fullWidth.'],
-    ['width / height', 'Intrinsic size; needed for constrained and fixed.'],
-    ['priority', 'Loads eagerly for images above the fold.'],
-  ]}
-/>
+<Usage />
 
 Use `Image` with a URL from a supported image CDN or any regular image URL. For the default
 `layout="constrained"`, provide `width` and `height`. When Unpic recognizes the provider, it
@@ -121,13 +110,13 @@ Hover or focus a variable to see it in the preview.
 
 `Image` takes the Unpic image props and the native `img` props.
 
-| Prop | Type | Default |
-| --- | --- | --- |
-| `src` | `string` | — |
-| `alt` | `string` | — |
-| `layout` | `'constrained' \| 'fixed' \| 'fullWidth'` | `'constrained'` |
-| `width` | `number` | — |
-| `height` | `number` | — |
-| `aspectRatio` | `number` | — |
-| `priority` | `boolean` | `false` |
-| `background` | `string` | — |
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `src` | `string` | — | Image URL; CDN URLs get responsive `srcset` automatically. |
+| `alt` | `string` | — | Text alternative; use an empty string for decorative images. |
+| `layout` | `'constrained' \| 'fixed' \| 'fullWidth'` | `'constrained'` | Sizing mode: `constrained`, `fixed`, or `fullWidth`. |
+| `width` | `number` | — | Intrinsic width in pixels; reserves space before load. |
+| `height` | `number` | — | Intrinsic height in pixels; reserves space before load. |
+| `aspectRatio` | `number` | — | Width-to-height ratio used when only one dimension is known. |
+| `priority` | `boolean` | `false` | Loads eagerly with high priority, for images above the fold. |
+| `background` | `string` | — | Placeholder background shown while the image loads. |

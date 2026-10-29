@@ -16,20 +16,7 @@ import * as MarqueeDocs from '@/components/examples/marquee/css-properties';
 
 ## Использование
 
-<UsageCode
-  react={'<Marquee speed={40} pauseOnInteraction aria-label="Partner logos">\n  <MarqueeViewport>\n    <MarqueeContent>\n      {partners.map((partner) => (\n        <MarqueeItem key={partner.name}>{partner.name}</MarqueeItem>\n      ))}\n    </MarqueeContent>\n  </MarqueeViewport>\n</Marquee>'}
-  solid={'<Marquee speed={40} pauseOnInteraction aria-label="Partner logos">\n  <MarqueeViewport>\n    <MarqueeContent>\n      <For each={partners}>\n        {(partner) => (\n          <MarqueeItem>{partner.name}</MarqueeItem>\n        )}\n      </For>\n    </MarqueeContent>\n  </MarqueeViewport>\n</Marquee>'}
-  vue={'<Marquee :speed="40" pause-on-interaction aria-label="Partner logos">\n  <MarqueeViewport>\n    <MarqueeContent>\n      <MarqueeItem v-for="partner in partners" :key="partner.name">{{ partner.name }}</MarqueeItem>\n    </MarqueeContent>\n  </MarqueeViewport>\n</Marquee>'}
-/>
-
-<PropChips
-  items={[
-    ['speed', 'Пикселей в секунду, по умолчанию 50.'],
-    ['pauseOnInteraction', 'Останавливается при наведении и фокусе.'],
-    ['side', 'Направление: start, end, top или bottom.'],
-    ['autoFill', 'Повторяет элементы, чтобы заполнить ширину.'],
-  ]}
-/>
+<Usage />
 
 Используйте короткую форму `Marquee` и явно соберите внутри неё `MarqueeViewport`, `MarqueeContent` и `MarqueeItem`. Если движущееся
 содержимое передаёт пользователю информацию, задайте метку через `aria-label` или `translations.root`. Компонент
@@ -172,19 +159,19 @@ import * as MarqueeDocs from '@/components/examples/marquee/css-properties';
 
 ## Справочник API
 
-| Проп | Тип | По умолчанию |
-| --- | --- | --- |
-| `speed` | `number` | `50` |
-| `side` | `'start' \| 'end' \| 'top' \| 'bottom'` | `'start'` |
-| `spacing` | `string` | `'1rem'` |
-| `autoFill` | `boolean` | `false` |
-| `reverse` | `boolean` | `false` |
-| `pauseOnInteraction` | `boolean` | `false` |
-| `paused` | `boolean` | — |
-| `defaultPaused` | `boolean` | `false` |
-| `delay` | `number` | `0` |
-| `loopCount` | `number` | `0` |
-| `onPauseChange` | `(details: PauseStatusDetails) => void` | — |
-| `onComplete` | `() => void` | — |
-| `translations` | `IntlTranslations` | — |
-| `onLoopComplete` | `() => void` | — |
+| Проп | Тип | По умолчанию | Описание |
+| --- | --- | --- | --- |
+| `speed` | `number` | `50` | Скорость прокрутки в пикселях в секунду. |
+| `side` | `'start' \| 'end' \| 'top' \| 'bottom'` | `'start'` | Куда движется содержимое: `start`, `end`, `top` или `bottom`. |
+| `spacing` | `string` | `'1rem'` | Расстояние между повторами, CSS-длина. |
+| `autoFill` | `boolean` | `false` | Повторяет содержимое, пока оно не заполнит контейнер. |
+| `reverse` | `boolean` | `false` | Разворачивает направление анимации. |
+| `pauseOnInteraction` | `boolean` | `false` | Ставит на паузу при наведении и фокусе. |
+| `paused` | `boolean` | — | Состояние паузы в управляемом режиме. |
+| `defaultPaused` | `boolean` | `false` | Начальное состояние паузы, если оно не управляется извне. |
+| `delay` | `number` | `0` | Задержка перед стартом анимации, в секундах. |
+| `loopCount` | `number` | `0` | Число повторов; `0` значит бесконечно. |
+| `onPauseChange` | `(details: PauseStatusDetails) => void` | — | Вызывается при паузе и возобновлении. |
+| `onComplete` | `() => void` | — | Вызывается после последнего повтора, если задан `loopCount`. |
+| `translations` | `IntlTranslations` | — | Переведённые строки для подписей доступности. |
+| `onLoopComplete` | `() => void` | — | Вызывается после каждого повтора. |

@@ -16,19 +16,7 @@ import { sidebarOverrideCssProperties } from '@/components/examples/sidebar/css-
 
 ## Usage
 
-<UsageCode
-  react={'<Sidebar side="left" defaultSize={[\'16rem\']}>\n  <SidebarPanel>\n    <SidebarContent>\n      <SidebarNavigationList>\n        <SidebarNavigationItem>\n          <SidebarNavigationButton asChild active>\n            <a href="/overview">Overview</a>\n          </SidebarNavigationButton>\n        </SidebarNavigationItem>\n      </SidebarNavigationList>\n    </SidebarContent>\n  </SidebarPanel>\n  <SidebarResizeTrigger aria-label="Resize sidebar" />\n  <SidebarInset>…</SidebarInset>\n</Sidebar>'}
-  solid={'<Sidebar side="left" defaultSize={[\'16rem\']}>\n  <SidebarPanel>\n    <SidebarContent>\n      <SidebarNavigationList>\n        <SidebarNavigationItem>\n          <SidebarNavigationButton asChild={(props) => (\n            <a href="/overview" {...props()}>Overview</a>\n          )} active />\n        </SidebarNavigationItem>\n      </SidebarNavigationList>\n    </SidebarContent>\n  </SidebarPanel>\n  <SidebarResizeTrigger aria-label="Resize sidebar" />\n  <SidebarInset>…</SidebarInset>\n</Sidebar>'}
-  vue={'<Sidebar side="left" :default-size="[\'16rem\']">\n  <SidebarPanel>\n    <SidebarContent>\n      <SidebarNavigationList>\n        <SidebarNavigationItem>\n          <SidebarNavigationButton as-child active>\n            <a href="/overview">Overview</a>\n          </SidebarNavigationButton>\n        </SidebarNavigationItem>\n      </SidebarNavigationList>\n    </SidebarContent>\n  </SidebarPanel>\n  <SidebarResizeTrigger aria-label="Resize sidebar" />\n  <SidebarInset>…</SidebarInset>\n</Sidebar>'}
-/>
-
-<PropChips
-  items={[
-    ['side', 'left or right edge of the layout.'],
-    ['defaultSize', 'Starting panel sizes; the sidebar is 16rem by default.'],
-    ['active', 'On SidebarNavigationButton: marks the current page.'],
-  ]}
-/>
+<Usage />
 
 Compose the navigation panel, resize handle, and main content panel as direct children of the root.
 The default ids and constraints cover the usual left-sidebar layout. Wrap icon-only navigation
@@ -224,12 +212,12 @@ retain Splitter state attributes such as `data-focus`, `data-dragging`, `data-di
 
 `Sidebar` also takes the `Splitter` props except `orientation` and `panels`; the sidebar panel is 3rem to 18rem and collapses to 3rem.
 
-| Prop | Type | Default |
-| --- | --- | --- |
-| `side` | `'left' \| 'right'` | `'left'` |
-| `panelId` | `string` | `'sidebar'` |
-| `defaultSize` | `PanelSize[]` | `['16rem']` |
-| `size` | `PanelSize[]` | — |
-| `onResize` | `(details: ResizeDetails) => void` | — |
-| `onCollapse` | `(details: ExpandCollapseDetails) => void` | — |
-| `onExpand` | `(details: ExpandCollapseDetails) => void` | — |
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `side` | `'left' \| 'right'` | `'left'` | Side of the sidebar panel: `left` or `right`. |
+| `panelId` | `string` | `'sidebar'` | Id of the sidebar panel in the Splitter. |
+| `defaultSize` | `PanelSize[]` | `['16rem']` | Initial panel sizes. |
+| `size` | `PanelSize[]` | — | Panel sizes for controlled use. |
+| `onResize` | `(details: ResizeDetails) => void` | — | Called while the panels resize. |
+| `onCollapse` | `(details: ExpandCollapseDetails) => void` | — | Called when the sidebar collapses. |
+| `onExpand` | `(details: ExpandCollapseDetails) => void` | — | Called when the sidebar expands. |

@@ -16,18 +16,7 @@ import * as NavigationMenuDocs from '@/components/examples/navigation-menu/css-p
 
 ## Usage
 
-<UsageCode
-  react={'<NavigationMenu openDelay={200} closeDelay={300}>\n  <NavigationMenuList>\n    <NavigationMenuItem value="home">\n      <NavigationMenuLink href="/">Home</NavigationMenuLink>\n    </NavigationMenuItem>\n    <NavigationMenuItem value="products">\n      <NavigationMenuTrigger>Products</NavigationMenuTrigger>\n      <NavigationMenuContent>\n        <NavigationMenuLink href="/analytics">Analytics</NavigationMenuLink>\n      </NavigationMenuContent>\n    </NavigationMenuItem>\n  </NavigationMenuList>\n</NavigationMenu>'}
-  vue={'<NavigationMenu :open-delay="200" :close-delay="300">\n  <NavigationMenuList>\n    <NavigationMenuItem value="home">\n      <NavigationMenuLink href="/">Home</NavigationMenuLink>\n    </NavigationMenuItem>\n    <NavigationMenuItem value="products">\n      <NavigationMenuTrigger>Products</NavigationMenuTrigger>\n      <NavigationMenuContent>\n        <NavigationMenuLink href="/analytics">Analytics</NavigationMenuLink>\n      </NavigationMenuContent>\n    </NavigationMenuItem>\n  </NavigationMenuList>\n</NavigationMenu>'}
-/>
-
-<PropChips
-  items={[
-    ['value', 'Unique id of each NavigationMenuItem.'],
-    ['openDelay / closeDelay', 'Hover delays in ms before a panel opens or closes.'],
-    ['disableHoverTrigger', 'Opens panels on click only.'],
-  ]}
-/>
+<Usage />
 
 Use `NavigationMenu` with `NavigationMenuList` and `NavigationMenuItem`. Give every item a unique
 `value`. For a group of links, place `NavigationMenuTrigger` and `NavigationMenuContent` inside
@@ -168,15 +157,15 @@ Useful Ark hooks include `data-scope="navigation-menu"`, `data-part`, `data-stat
 
 ## API reference
 
-| Prop | Type | Default |
-| --- | --- | --- |
-| `value` | `string` | — |
-| `defaultValue` | `string` | — |
-| `onValueChange` | `(details: ValueChangeDetails) => void` | — |
-| `openDelay` | `number` | `200` |
-| `closeDelay` | `number` | `300` |
-| `disableClickTrigger` | `boolean` | `false` |
-| `disableHoverTrigger` | `boolean` | `false` |
-| `disablePointerLeaveClose` | `boolean` | `false` |
-| `translations` | `IntlTranslations` | — |
-| `orientation` | `'horizontal' \| 'vertical'` | `'horizontal'` |
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `value` | `string` | — | Open item for controlled use. |
+| `defaultValue` | `string` | — | Initially open item. |
+| `onValueChange` | `(details: ValueChangeDetails) => void` | — | Called when another item opens or the menu closes. |
+| `openDelay` | `number` | `200` | Hover delay before opening, in milliseconds. |
+| `closeDelay` | `number` | `300` | Delay before closing after the pointer leaves, in milliseconds. |
+| `disableClickTrigger` | `boolean` | `false` | Turns off opening by click. |
+| `disableHoverTrigger` | `boolean` | `false` | Turns off opening on hover. |
+| `disablePointerLeaveClose` | `boolean` | `false` | Keeps the menu open when the pointer leaves. |
+| `translations` | `IntlTranslations` | — | Localized strings for accessibility labels. |
+| `orientation` | `'horizontal' \| 'vertical'` | `'horizontal'` | Layout and arrow-key direction: `horizontal` or `vertical`. |

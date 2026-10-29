@@ -16,18 +16,7 @@ import * as HighlightDocs from '@/components/examples/highlight/css-properties';
 
 ## Использование
 
-<UsageCode
-  react={'<Text>\n  <Highlight text={result.title} query={search} ignoreCase matchAll />\n</Text>'}
-  vue={'<Text>\n  <Highlight :text="result.title" :query="search" ignore-case match-all />\n</Text>'}
-/>
-
-<PropChips
-  items={[
-    ['query', 'Строка или массив строк для поиска.'],
-    ['ignoreCase', 'Ищет без учёта регистра.'],
-    ['matchAll', 'Выделяет все совпадения, а не только первое.'],
-  ]}
-/>
+<Usage />
 
 Передайте полный исходный текст в `text`, а искомый термин в `query`. Разместите `Highlight` внутри
 текстового компонента или HTML-элемента, который отвечает за внешнюю разметку и семантику.
@@ -128,10 +117,10 @@ import * as HighlightDocs from '@/components/examples/highlight/css-properties';
 
 ## Справочник API
 
-| Проп | Тип | По умолчанию |
-| --- | --- | --- |
-| `text` | `string` | — |
-| `query` | `string \| string[]` | — |
-| `ignoreCase` | `boolean` | `false` |
-| `matchAll` | `boolean` | `false` |
-| `exactMatch` | `boolean` | `false` |
+| Проп | Тип | По умолчанию | Описание |
+| --- | --- | --- | --- |
+| `text` | `string` | — | Текст, в котором ищутся совпадения. |
+| `query` | `string \| string[]` | — | Слово или массив слов для выделения. |
+| `ignoreCase` | `boolean` | `false` | Ищет без учёта регистра. |
+| `matchAll` | `boolean` | `false` | Выделяет все совпадения, а не только первое. |
+| `exactMatch` | `boolean` | `false` | Ищет только целые слова. |

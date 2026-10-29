@@ -15,18 +15,7 @@ import AnatomyScene from '@/components/examples/field/basic';
 
 ## Usage
 
-<UsageCode
-  react={'<Field invalid={!!error} required>\n  <FieldLabel>\n    Email\n    <FieldRequiredIndicator />\n  </FieldLabel>\n  <Input type="email" name="email" />\n  <FieldHelperText>We never share your email.</FieldHelperText>\n  <FieldErrorText>{error}</FieldErrorText>\n</Field>'}
-  vue={'<Field :invalid="!!error" required>\n  <FieldLabel>\n    Email\n    <FieldRequiredIndicator />\n  </FieldLabel>\n  <Input type="email" name="email" />\n  <FieldHelperText>We never share your email.</FieldHelperText>\n  <FieldErrorText>{{ error }}</FieldErrorText>\n</Field>'}
-/>
-
-<PropChips
-  items={[
-    ['invalid', 'Shows FieldErrorText and marks the control invalid.'],
-    ['required', 'Marks the control required and shows the indicator.'],
-    ['disabled / readOnly', 'Passed to the control inside.'],
-  ]}
-/>
+<Usage />
 
 Use `Field` as the wrapper for one form control. Put `FieldLabel` before the control, then add
 `FieldHelperText` or `FieldErrorText` when the user needs more information.
@@ -182,10 +171,10 @@ active error text id are included in the control's `aria-describedby`. Every DOM
 
 ## API reference
 
-| Prop | Type | Default |
-| --- | --- | --- |
-| `disabled` | `boolean` | `false` |
-| `readOnly` | `boolean` | `false` |
-| `invalid` | `boolean` | `false` |
-| `required` | `boolean` | `false` |
-| `asChild` | `boolean` | `false` |
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `disabled` | `boolean` | `false` | Disables the nested control and dims the label. |
+| `readOnly` | `boolean` | `false` | Makes the nested control read-only. |
+| `invalid` | `boolean` | `false` | Marks the field invalid and shows `FieldErrorText`. |
+| `required` | `boolean` | `false` | Marks the nested control as required and shows the indicator. |
+| `asChild` | `boolean` | `false` | Renders the root as its single child element. |

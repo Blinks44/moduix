@@ -16,19 +16,7 @@ import * as DrawerDocs from '@/components/examples/drawer/css-properties';
 
 ## Utilisation
 
-<UsageCode
-  react={'<Drawer swipeDirection="down" snapPoints={[0.5, 1]} defaultSnapPoint={0.5}>\n  <DrawerTrigger asChild>\n    <Button>Open drawer</Button>\n  </DrawerTrigger>\n  <DrawerBackdrop />\n  <DrawerPositioner>\n    <DrawerContent>\n      <DrawerGrabber>\n        <DrawerGrabberIndicator />\n      </DrawerGrabber>\n      <DrawerHeader>\n        <DrawerTitle>Notifications</DrawerTitle>\n        <DrawerCloseIcon />\n      </DrawerHeader>\n      <DrawerBody>…</DrawerBody>\n    </DrawerContent>\n  </DrawerPositioner>\n</Drawer>'}
-  solid={'<Drawer swipeDirection="down" snapPoints={[0.5, 1]} defaultSnapPoint={0.5}>\n  <DrawerTrigger asChild={(props) => (\n    <Button {...props()}>Open drawer</Button>\n  )} />\n  <DrawerBackdrop />\n  <DrawerPositioner>\n    <DrawerContent>\n      <DrawerGrabber>\n        <DrawerGrabberIndicator />\n      </DrawerGrabber>\n      <DrawerHeader>\n        <DrawerTitle>Notifications</DrawerTitle>\n        <DrawerCloseIcon />\n      </DrawerHeader>\n      <DrawerBody>…</DrawerBody>\n    </DrawerContent>\n  </DrawerPositioner>\n</Drawer>'}
-  vue={'<Drawer swipe-direction="down" :snap-points="[0.5, 1]" :default-snap-point="0.5">\n  <DrawerTrigger as-child>\n    <Button>Open drawer</Button>\n  </DrawerTrigger>\n  <DrawerBackdrop />\n  <DrawerPositioner>\n    <DrawerContent>\n      <DrawerGrabber>\n        <DrawerGrabberIndicator />\n      </DrawerGrabber>\n      <DrawerHeader>\n        <DrawerTitle>Notifications</DrawerTitle>\n        <DrawerCloseIcon />\n      </DrawerHeader>\n      <DrawerBody>…</DrawerBody>\n    </DrawerContent>\n  </DrawerPositioner>\n</Drawer>'}
-/>
-
-<PropChips
-  items={[
-    ['swipeDirection', 'Sens du balayage pour fermer : down, up, start ou end.'],
-    ['snapPoints', 'Hauteurs d’arrêt, en fractions ou en px.'],
-    ['size', 'Largeur des panneaux latéraux sur DrawerContent.'],
-  ]}
-/>
+<Usage />
 
 Composez le panneau avec les parties structurelles d'Ark. Cet exemple s'ouvre sur un point d'ancrage
 compact, puis peut être déplacé jusqu'à sa hauteur maximale. `DrawerContent` est la surface
@@ -259,32 +247,32 @@ Survolez ou sélectionnez une variable pour la voir dans l’aperçu.
 
 Props de `Drawer`. `size` (`'sm' | 'md' | 'lg' | 'xl'`, par défaut `'md'`) et `variant` (`'island'`) se placent sur `DrawerContent`.
 
-| Prop | Type | Défaut |
-| --- | --- | --- |
-| `open` | `boolean` | — |
-| `defaultOpen` | `boolean` | `false` |
-| `onOpenChange` | `(details: OpenChangeDetails) => void` | — |
-| `swipeDirection` | `'up' \| 'down' \| 'start' \| 'end'` | `'down'` |
-| `snapPoints` | `(number \| string)[]` | `[1]` |
-| `snapPoint` | `number \| string \| null` | — |
-| `defaultSnapPoint` | `number \| string \| null` | `1` |
-| `onSnapPointChange` | `(details: SnapPointChangeDetails) => void` | — |
-| `snapToSequentialPoints` | `boolean` | `false` |
-| `closeThreshold` | `number` | `0.25` |
-| `modal` | `boolean` | `true` |
-| `closeOnEscape` | `boolean` | `true` |
-| `closeOnInteractOutside` | `boolean` | `true` |
-| `lazyMount` | `boolean` | `true` |
-| `unmountOnExit` | `boolean` | `true` |
-| `trapFocus` | `boolean` | `true` |
-| `preventScroll` | `boolean` | `true` |
-| `initialFocusEl` | `() => MaybeElement \| false` | — |
-| `finalFocusEl` | `() => MaybeElement` | — |
-| `restoreFocus` | `boolean` | `true` |
-| `role` | `'dialog' \| 'alertdialog'` | `'dialog'` |
-| `triggerValue` | `string \| null` | — |
-| `defaultTriggerValue` | `string \| null` | — |
-| `onTriggerValueChange` | `(details: TriggerValueChangeDetails) => void` | — |
-| `swipeVelocityThreshold` | `number` | `700` |
-| `preventDragOnScroll` | `boolean` | `true` |
-| `stack` | `DrawerStack` | — |
+| Prop | Type | Défaut | Description |
+| --- | --- | --- | --- |
+| `open` | `boolean` | — | État d’ouverture en mode contrôlé. |
+| `defaultOpen` | `boolean` | `false` | État d’ouverture initial lorsqu’il n’est pas contrôlé. |
+| `onOpenChange` | `(details: OpenChangeDetails) => void` | — | Appelé à l’ouverture et à la fermeture. |
+| `swipeDirection` | `'up' \| 'down' \| 'start' \| 'end'` | `'down'` | Sens du glissement qui ferme le tiroir : `up`, `down`, `start` ou `end`. |
+| `snapPoints` | `(number \| string)[]` | `[1]` | Hauteurs d’arrêt du tiroir, en fractions ou longueurs CSS. |
+| `snapPoint` | `number \| string \| null` | — | Point d’arrêt actif en mode contrôlé. |
+| `defaultSnapPoint` | `number \| string \| null` | `1` | Point d’arrêt initial. |
+| `onSnapPointChange` | `(details: SnapPointChangeDetails) => void` | — | Appelé lorsque le tiroir change de point d’arrêt. |
+| `snapToSequentialPoints` | `boolean` | `false` | Passe d’un point à l’autre sans en sauter lors d’un glissement rapide. |
+| `closeThreshold` | `number` | `0.25` | Part de la hauteur à parcourir pour fermer. |
+| `modal` | `boolean` | `true` | Bloque l’extérieur et masque le reste de la page aux technologies d’assistance. |
+| `closeOnEscape` | `boolean` | `true` | Se ferme avec Échap. |
+| `closeOnInteractOutside` | `boolean` | `true` | Se ferme au clic à l’extérieur. |
+| `lazyMount` | `boolean` | `true` | Monte le contenu à la première ouverture. |
+| `unmountOnExit` | `boolean` | `true` | Démonte le contenu après la fermeture. |
+| `trapFocus` | `boolean` | `true` | Garde le focus clavier à l’intérieur pendant l’ouverture. |
+| `preventScroll` | `boolean` | `true` | Bloque le défilement de la page pendant l’ouverture. |
+| `initialFocusEl` | `() => MaybeElement \| false` | — | Renvoie l’élément qui reçoit le focus à l’ouverture. |
+| `finalFocusEl` | `() => MaybeElement` | — | Renvoie l’élément qui reçoit le focus à la fermeture. |
+| `restoreFocus` | `boolean` | `true` | Rend le focus à l’élément précédent à la fermeture. |
+| `role` | `'dialog' \| 'alertdialog'` | `'dialog'` | `dialog`, ou `alertdialog` pour les confirmations urgentes. |
+| `triggerValue` | `string \| null` | — | Déclencheur actif en mode contrôlé lorsque plusieurs déclencheurs partagent la fenêtre. |
+| `defaultTriggerValue` | `string \| null` | — | Déclencheur actif au départ. |
+| `onTriggerValueChange` | `(details: TriggerValueChangeDetails) => void` | — | Appelé lorsqu’un autre déclencheur devient actif. |
+| `swipeVelocityThreshold` | `number` | `700` | Vitesse de glissement qui ferme le tiroir, en pixels par seconde. |
+| `preventDragOnScroll` | `boolean` | `true` | Fait défiler le contenu au lieu de faire glisser le tiroir. |
+| `stack` | `DrawerStack` | — | Store partagé qui coordonne l’apparence des tiroirs empilés. |

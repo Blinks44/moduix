@@ -25,18 +25,7 @@ de rendu de TanStack.
 
 ## Utilisation
 
-<UsageCode
-  react={'<Chart>\n  <ChartHeader>\n    <ChartTitle>Monthly revenue</ChartTitle>\n    <ChartDescription>In thousands of dollars.</ChartDescription>\n  </ChartHeader>\n  <ChartPlot definition={definition} height={320} ariaLabel="Monthly revenue" />\n  <ChartLegend aria-label="Series">\n    <ChartLegendItem color="var(--moduix-chart-1)">Revenue</ChartLegendItem>\n  </ChartLegend>\n</Chart>'}
-  vue={'<Chart>\n  <ChartHeader>\n    <ChartTitle>Monthly revenue</ChartTitle>\n    <ChartDescription>In thousands of dollars.</ChartDescription>\n  </ChartHeader>\n  <ChartPlot :definition="definition" :height="320" ariaLabel="Monthly revenue" />\n  <ChartLegend aria-label="Series">\n    <ChartLegendItem color="var(--moduix-chart-1)">Revenue</ChartLegendItem>\n  </ChartLegend>\n</Chart>'}
-/>
-
-<PropChips
-  items={[
-    ['definition', 'Définition TanStack Charts : données, marques et échelles.'],
-    ['ariaLabel', 'Nom court du graphique pour les technologies d’assistance.'],
-    ['motion', 'Rendu animé ; false utilise un SVG statique.'],
-  ]}
-/>
+<Usage />
 
 Créez une définition TanStack et transmettez-la à `ChartPlot`. Ajoutez autour du graphique un
 titre, une description et une légende visibles, puis définissez un `ariaLabel` concis pour les
@@ -225,10 +214,10 @@ Survolez ou sélectionnez une variable pour la voir dans l’aperçu.
 
 Props de `ChartPlot`. Les autres props de TanStack, comme `height` et `renderTooltipBody`, sont transmises.
 
-| Prop | Type | Défaut |
-| --- | --- | --- |
-| `definition` | `ChartDefinition` | — |
-| `ariaLabel` | `string` | — |
-| `height` | `number` | — |
-| `motion` | `boolean` | `true` |
-| `renderer` | `ChartRenderer` | — |
+| Prop | Type | Défaut | Description |
+| --- | --- | --- | --- |
+| `definition` | `ChartDefinition` | — | Définition TanStack Charts : données, marques et échelles. |
+| `ariaLabel` | `string` | — | Nom court du graphique pour les technologies d’assistance. |
+| `height` | `number` | — | Hauteur du graphique en pixels. |
+| `motion` | `boolean` | `true` | Utilise le rendu animé ; `false` produit un SVG statique. |
+| `renderer` | `ChartRenderer` | — | Rendu TanStack personnalisé ; remplace `motion`. |

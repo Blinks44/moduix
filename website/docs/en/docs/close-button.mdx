@@ -16,18 +16,7 @@ import * as CloseButtonDocs from '@/components/examples/close-button/css-propert
 
 ## Usage
 
-<UsageCode
-  react={'<CloseButton aria-label="Dismiss notification" onClick={dismiss} />'}
-  vue={'<CloseButton aria-label="Dismiss notification" @click="dismiss" />'}
-/>
-
-<PropChips
-  items={[
-    ['aria-label', 'Names what the button closes; defaults to Close.'],
-    ['children', 'Replaces the default close icon.'],
-    ['asChild', 'Renders your own element with the close button styles.'],
-  ]}
-/>
+<Usage />
 
 Use `CloseButton` to add a close control to a notification, card, overlay, or another UI surface. Connect its
 `onClick` handler to the state that hides or removes that surface. The component renders a semantic button, provides
@@ -113,9 +102,9 @@ accessible name when the default label does not fit.
 
 ## API reference
 
-| Prop | Type | Default |
-| --- | --- | --- |
-| `aria-label` | `string` | `'Close'` |
-| `children` | `ReactNode` | `CloseIcon` |
-| `asChild` | `boolean` | `false` |
-| `disabled` | `boolean` | `false` |
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `aria-label` | `string` | `'Close'` | Accessible name; translate it for your locale. |
+| `children` | `ReactNode` | `CloseIcon` | Replaces the default close icon. |
+| `asChild` | `boolean` | `false` | Applies the close button styles and props to its single child. |
+| `disabled` | `boolean` | `false` | Disables the button. |

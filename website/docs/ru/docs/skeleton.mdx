@@ -16,18 +16,7 @@ import * as SkeletonDocs from '@/components/examples/skeleton/css-properties';
 
 ## Использование
 
-<UsageCode
-  react={'<Skeleton loading={isLoading} width="60%" height={16} borderRadius={4}>\n  <p>{title}</p>\n</Skeleton>'}
-  vue={'<Skeleton :loading="isLoading" width="60%" :height="16" :border-radius="4">\n  <p>{{ title }}</p>\n</Skeleton>'}
-/>
-
-<PropChips
-  items={[
-    ['loading', 'Показывает заглушку; false показывает содержимое.'],
-    ['width / height', 'Размер; числа становятся px. boxSize задаёт оба.'],
-    ['variant', 'pulse анимирует фон, none оставляет статичным.'],
-  ]}
-/>
+<Usage />
 
 Используйте `Skeleton` для строк текста, карточек, аватаров и медиа-заполнителей. Окружающая разметка отвечает
 за отступы и адаптивную компоновку. Инструкции по установке пакетов, настройке реестра и выбору способа
@@ -124,12 +113,12 @@ import * as SkeletonDocs from '@/components/examples/skeleton/css-properties';
 
 ## Справочник API
 
-| Проп | Тип | По умолчанию |
-| --- | --- | --- |
-| `loading` | `boolean` | `true` |
-| `variant` | `'pulse' \| 'none'` | `'pulse'` |
-| `width` | `number \| string` | — |
-| `height` | `number \| string` | — |
-| `boxSize` | `number \| string` | — |
-| `borderRadius` | `number \| string` | — |
-| `asChild` | `boolean` | `false` |
+| Проп | Тип | По умолчанию | Описание |
+| --- | --- | --- | --- |
+| `loading` | `boolean` | `true` | Показывает заглушку; при `false` видны дочерние элементы. |
+| `variant` | `'pulse' \| 'none'` | `'pulse'` | Анимация: `pulse` или `none`. |
+| `width` | `number \| string` | — | Ширина заглушки; числа в пикселях. |
+| `height` | `number \| string` | — | Высота заглушки; числа в пикселях. |
+| `boxSize` | `number \| string` | — | Задаёт ширину и высоту сразу. |
+| `borderRadius` | `number \| string` | — | Радиус углов, например для круглой заглушки аватара. |
+| `asChild` | `boolean` | `false` | Отрисовывает заглушку через единственный дочерний элемент. |

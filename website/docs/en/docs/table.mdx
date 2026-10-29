@@ -16,19 +16,7 @@ import * as TableDocs from '@/components/examples/table/css-properties';
 
 ## Usage
 
-<UsageCode
-  react={'<TableScrollArea>\n  <Table size="sm" striped stickyHeader>\n    <TableHeader>\n      <TableRow>\n        <TableColumnHeader scope="col">Invoice</TableColumnHeader>\n        <TableColumnHeader numeric scope="col">Amount</TableColumnHeader>\n      </TableRow>\n    </TableHeader>\n    <TableBody>\n      <TableRow>\n        <TableCell>INV-001</TableCell>\n        <TableCell numeric>$250.00</TableCell>\n      </TableRow>\n    </TableBody>\n  </Table>\n</TableScrollArea>'}
-  vue={'<TableScrollArea>\n  <Table size="sm" striped stickyHeader>\n    <TableHeader>\n      <TableRow>\n        <TableColumnHeader scope="col">Invoice</TableColumnHeader>\n        <TableColumnHeader numeric scope="col">Amount</TableColumnHeader>\n      </TableRow>\n    </TableHeader>\n    <TableBody>\n      <TableRow>\n        <TableCell>INV-001</TableCell>\n        <TableCell numeric>$250.00</TableCell>\n      </TableRow>\n    </TableBody>\n  </Table>\n</TableScrollArea>'}
-/>
-
-<PropChips
-  items={[
-    ['size', 'Row density: sm, md, or lg.'],
-    ['striped', 'Shades every other row.'],
-    ['stickyHeader', 'Keeps the header visible while scrolling.'],
-    ['numeric', 'Right-aligns numbers in a header or cell.'],
-  ]}
-/>
+<Usage />
 
 If the table may be wider than its container, wrap it in `TableScrollArea`. Then compose `Table`
 with `TableHeader`, `TableBody`, `TableRow`, and the matching header and cell parts. This is the
@@ -211,10 +199,10 @@ Use the part that renders the element you want to style:
 
 Props of `Table`. `numeric` goes on `TableColumnHeader` and `TableCell`; `side` (`'top' | 'bottom'`) on `TableCaption`.
 
-| Prop | Type | Default |
-| --- | --- | --- |
-| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` |
-| `striped` | `boolean` | `false` |
-| `interactive` | `boolean` | `false` |
-| `stickyHeader` | `boolean` | `false` |
-| `showColumnBorder` | `boolean` | `false` |
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` | Cell spacing and text size: `sm`, `md`, or `lg`. |
+| `striped` | `boolean` | `false` | Shades every other row. |
+| `interactive` | `boolean` | `false` | Highlights rows on hover. |
+| `stickyHeader` | `boolean` | `false` | Keeps the header visible while the body scrolls. |
+| `showColumnBorder` | `boolean` | `false` | Draws borders between columns. |

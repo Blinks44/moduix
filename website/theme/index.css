@@ -1338,6 +1338,30 @@ body .rp-doc :not(:where(.rp-not-doc, .rp-not-doc *)):where(table) {
   }
 }
 
+/* API reference (`Prop | Type | Default | Description`): fixed column shares keep the description
+   inside the content column on desktop; long signatures wrap, and phones scroll the frame instead. */
+body .rp-doc :where(table:has(th:nth-child(4):last-child)) {
+  width: 100%;
+  min-width: 40rem;
+  table-layout: fixed;
+
+  th:nth-child(1) {
+    width: 30%;
+  }
+
+  th:nth-child(2) {
+    width: 24%;
+  }
+
+  th:nth-child(3) {
+    width: 14%;
+  }
+
+  td {
+    overflow-wrap: anywhere;
+  }
+}
+
 /* Long tables (API reference reaches 40+ props) scroll inside a 600px frame under a sticky header.
    The frame takes over the border so it stays put while rows scroll. */
 body .rp-doc .rp-table-scroll-container:has(> table > tbody > tr:nth-child(15)) {

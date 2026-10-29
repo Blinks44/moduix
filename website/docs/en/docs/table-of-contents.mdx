@@ -15,19 +15,7 @@ import AnatomyScene from '@/components/examples/table-of-contents/basic';
 
 ## Usage
 
-<UsageCode
-  react={'<Toc items={items}>\n  <TocNav>\n    <TocTitle>On this page</TocTitle>\n    <TocList>\n      <TocIndicator />\n      {items.map((item) => (\n        <TocItem key={item.value} item={item}>\n          <TocLink href={`#${item.value}`}>{item.label}</TocLink>\n        </TocItem>\n      ))}\n    </TocList>\n  </TocNav>\n</Toc>'}
-  solid={'<Toc items={items}>\n  <TocNav>\n    <TocTitle>On this page</TocTitle>\n    <TocList>\n      <TocIndicator />\n      <For each={items}>\n        {(item) => (\n          <TocItem item={item}>\n            <TocLink href={`#${item.value}`}>{item.label}</TocLink>\n          </TocItem>\n        )}\n      </For>\n    </TocList>\n  </TocNav>\n</Toc>'}
-  vue={'<Toc :items="items">\n  <TocNav>\n    <TocTitle>On this page</TocTitle>\n    <TocList>\n      <TocIndicator />\n      <TocItem v-for="item in items" :key="item.value" :item="item">\n        <TocLink :href="`#${item.value}`">{{ item.label }}</TocLink>\n      </TocItem>\n    </TocList>\n  </TocNav>\n</Toc>'}
-/>
-
-<PropChips
-  items={[
-    ['items', 'Headings to track: value is the heading id, depth its level.'],
-    ['scrollEl', 'Scroll container to observe; the page viewport by default.'],
-    ['autoScroll', 'Keeps the active link visible in a long list; off by default.'],
-  ]}
-/>
+<Usage />
 
 `Toc` is the shorthand root component. Pass an `items` array with the headings you want to track.
 Each item needs a `value` that matches a heading's `id` and a `depth` that matches its semantic
@@ -137,14 +125,14 @@ change the navigation column, override `grid-template-columns` on `Toc`.
 
 ## API reference
 
-| Prop | Type | Default |
-| --- | --- | --- |
-| `items` | `TocItem[]` | — |
-| `scrollEl` | `() => HTMLElement \| null` | — |
-| `rootMargin` | `string` | `'-20px 0px -40% 0px'` |
-| `threshold` | `number \| number[]` | `0` |
-| `autoScroll` | `boolean` | `false` |
-| `scrollBehavior` | `ScrollBehavior` | `'smooth'` |
-| `activeIds` | `string[]` | — |
-| `defaultActiveIds` | `string[]` | — |
-| `onActiveChange` | `(details: ActiveChangeDetails) => void` | — |
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `items` | `TocItem[]` | — | Headings to track, each with `value` (the heading id) and `depth`. |
+| `scrollEl` | `() => HTMLElement \| null` | — | Returns the scroll container to observe; defaults to the page. |
+| `rootMargin` | `string` | `'-20px 0px -40% 0px'` | IntersectionObserver margin that decides when a heading is active. |
+| `threshold` | `number \| number[]` | `0` | IntersectionObserver threshold. |
+| `autoScroll` | `boolean` | `false` | Scrolls the list so the active item stays visible. |
+| `scrollBehavior` | `ScrollBehavior` | `'smooth'` | Scroll behavior for `autoScroll`. |
+| `activeIds` | `string[]` | — | Active heading ids for controlled use. |
+| `defaultActiveIds` | `string[]` | — | Initially active heading ids. |
+| `onActiveChange` | `(details: ActiveChangeDetails) => void` | — | Called when the visible headings change. |

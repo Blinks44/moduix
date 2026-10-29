@@ -16,18 +16,7 @@ import * as AngleSliderDocs from '@/components/examples/angle-slider/css-propert
 
 ## Usage
 
-<UsageCode
-  react={'<AngleSlider defaultValue={135} step={15} aria-label="Rotation" onValueChangeEnd={(details) => save(details.value)}>\n  <AngleSliderDial />\n</AngleSlider>'}
-  vue={'<AngleSlider :default-value="135" :step="15" aria-label="Rotation" @value-change-end="(details) => save(details.value)">\n  <AngleSliderDial />\n</AngleSlider>'}
-/>
-
-<PropChips
-  items={[
-    ['defaultValue', 'Starting angle in degrees; use value to control it.'],
-    ['step', 'Snaps the angle to multiples, 1 by default.'],
-    ['onValueChangeEnd', 'Runs once the user releases the thumb.'],
-  ]}
-/>
+<Usage />
 
 Start with `AngleSliderDial`, which combines the circular track, the centered value, and the thumb. The track
 fills from the top as the angle grows. `AngleSlider` accepts one angle
@@ -193,17 +182,17 @@ Hover or focus a variable to see it in the preview.
 
 ## API reference
 
-| Prop | Type | Default |
-| --- | --- | --- |
-| `value` | `number` | — |
-| `defaultValue` | `number` | `0` |
-| `onValueChange` | `(details: ValueChangeDetails) => void` | — |
-| `onValueChangeEnd` | `(details: ValueChangeDetails) => void` | — |
-| `step` | `number` | `1` |
-| `name` | `string` | — |
-| `disabled` | `boolean` | `false` |
-| `readOnly` | `boolean` | `false` |
-| `invalid` | `boolean` | `false` |
-| `required` | `boolean` | `false` |
-| `aria-label` | `string` | — |
-| `aria-labelledby` | `string` | — |
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `value` | `number` | — | Angle in degrees for controlled use. |
+| `defaultValue` | `number` | `0` | Initial angle in degrees. |
+| `onValueChange` | `(details: ValueChangeDetails) => void` | — | Called while the angle changes. |
+| `onValueChangeEnd` | `(details: ValueChangeDetails) => void` | — | Called once the user finishes changing the value. |
+| `step` | `number` | `1` | Step in degrees. |
+| `name` | `string` | — | Form field name of the underlying input. |
+| `disabled` | `boolean` | `false` | Disables the control. |
+| `readOnly` | `boolean` | `false` | Shows the value but prevents changes. |
+| `invalid` | `boolean` | `false` | Marks the control as invalid. |
+| `required` | `boolean` | `false` | Requires a value before form submission. |
+| `aria-label` | `string` | — | Accessible name when there is no visible label. |
+| `aria-labelledby` | `string` | — | Id of the element that labels the control. |

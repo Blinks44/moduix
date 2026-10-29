@@ -16,19 +16,7 @@ import * as ColorPickerDocs from '@/components/examples/color-picker/css-propert
 
 ## Usage
 
-<UsageCode
-  react={'<ColorPicker defaultValue={parseColor(\'#eb5e41\')} defaultFormat="hsla" onValueChangeEnd={(details) => save(details.valueAsString)}>\n  <ColorPickerLabel>Brand color</ColorPickerLabel>\n  <ColorPickerControl>\n    <ColorPickerChannelInput channel="hex" />\n    <ColorPickerTrigger aria-label="Open color picker" />\n  </ColorPickerControl>\n  <ColorPickerPositioner>\n    <ColorPickerContent>\n      <ColorPickerArea />\n      <ColorPickerChannelSlider channel="hue" />\n    </ColorPickerContent>\n  </ColorPickerPositioner>\n  <ColorPickerHiddenInput />\n</ColorPicker>'}
-  vue={'<ColorPicker :default-value="parseColor(\'#eb5e41\')" default-format="hsla" @value-change-end="(details) => save(details.valueAsString)">\n  <ColorPickerLabel>Brand color</ColorPickerLabel>\n  <ColorPickerControl>\n    <ColorPickerChannelInput channel="hex" />\n    <ColorPickerTrigger aria-label="Open color picker" />\n  </ColorPickerControl>\n  <ColorPickerPositioner>\n    <ColorPickerContent>\n      <ColorPickerArea />\n      <ColorPickerChannelSlider channel="hue" />\n    </ColorPickerContent>\n  </ColorPickerPositioner>\n  <ColorPickerHiddenInput />\n</ColorPicker>'}
-/>
-
-<PropChips
-  items={[
-    ['defaultValue', 'Starting color from parseColor(); use value to control it.'],
-    ['defaultFormat', 'rgba, hsla, or hsba for the channel inputs.'],
-    ['inline', 'Shows the picker in the page without a popup.'],
-    ['onValueChangeEnd', 'Runs once the user finishes dragging.'],
-  ]}
-/>
+<Usage />
 
 Start with a compact field that combines a root, one channel input, the trigger's default swatch,
 explicit popup content, and the picker's default internal parts. Add `ColorPickerHiddenInput`
@@ -273,30 +261,30 @@ completes its exit lifecycle.
 
 ## API reference
 
-| Prop | Type | Default |
-| --- | --- | --- |
-| `value` | `Color` | — |
-| `defaultValue` | `Color` | `#000000` |
-| `onValueChange` | `(details: ValueChangeDetails) => void` | — |
-| `onValueChangeEnd` | `(details: ValueChangeDetails) => void` | — |
-| `format` | `'rgba' \| 'hsla' \| 'hsba'` | — |
-| `defaultFormat` | `'rgba' \| 'hsla' \| 'hsba'` | `'rgba'` |
-| `open` | `boolean` | — |
-| `defaultOpen` | `boolean` | `false` |
-| `onOpenChange` | `(details: OpenChangeDetails) => void` | — |
-| `inline` | `boolean` | `false` |
-| `closeOnSelect` | `boolean` | `false` |
-| `positioning` | `PositioningOptions` | — |
-| `name` | `string` | — |
-| `disabled` | `boolean` | `false` |
-| `readOnly` | `boolean` | `false` |
-| `invalid` | `boolean` | `false` |
-| `required` | `boolean` | `false` |
-| `lazyMount` | `boolean` | `true` |
-| `unmountOnExit` | `boolean` | `true` |
-| `initialFocusEl` | `() => HTMLElement \| null \| false` | — |
-| `onFormatChange` | `(details: FormatChangeDetails) => void` | — |
-| `openAutoFocus` | `boolean` | `true` |
-| `onPointerDownOutside` | `(event: PointerDownOutsideEvent) => void` | — |
-| `onFocusOutside` | `(event: FocusOutsideEvent) => void` | — |
-| `onInteractOutside` | `(event: InteractOutsideEvent) => void` | — |
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `value` | `Color` | — | Color for controlled use; create it with `parseColor()`. |
+| `defaultValue` | `Color` | `#000000` | Initial color when it is not controlled. |
+| `onValueChange` | `(details: ValueChangeDetails) => void` | — | Called while the color changes, including during drags. |
+| `onValueChangeEnd` | `(details: ValueChangeDetails) => void` | — | Called when the user stops dragging. |
+| `format` | `'rgba' \| 'hsla' \| 'hsba'` | — | Color format for controlled use: `rgba`, `hsla`, or `hsba`. |
+| `defaultFormat` | `'rgba' \| 'hsla' \| 'hsba'` | `'rgba'` | Initial color format. |
+| `open` | `boolean` | — | Open state for controlled use. |
+| `defaultOpen` | `boolean` | `false` | Initial open state when it is not controlled. |
+| `onOpenChange` | `(details: OpenChangeDetails) => void` | — | Called when it opens or closes. |
+| `inline` | `boolean` | `false` | Renders the picker in place instead of in a popup. |
+| `closeOnSelect` | `boolean` | `false` | Closes the popup when a swatch is picked. |
+| `positioning` | `PositioningOptions` | — | Placement, offset, and other popup positioning options. |
+| `name` | `string` | — | Form field name of the underlying input. |
+| `disabled` | `boolean` | `false` | Disables the control. |
+| `readOnly` | `boolean` | `false` | Shows the value but prevents changes. |
+| `invalid` | `boolean` | `false` | Marks the control as invalid. |
+| `required` | `boolean` | `false` | Requires a value before form submission. |
+| `lazyMount` | `boolean` | `true` | Mounts the content on first open. |
+| `unmountOnExit` | `boolean` | `true` | Unmounts the content after it closes. |
+| `initialFocusEl` | `() => HTMLElement \| null \| false` | — | Element to focus when the popup opens. |
+| `onFormatChange` | `(details: FormatChangeDetails) => void` | — | Called when the color format changes. |
+| `openAutoFocus` | `boolean` | `true` | Moves focus into the popup when it opens. |
+| `onPointerDownOutside` | `(event: PointerDownOutsideEvent) => void` | — | Called when the pointer is pressed outside the popup. |
+| `onFocusOutside` | `(event: FocusOutsideEvent) => void` | — | Called when focus moves outside the popup. |
+| `onInteractOutside` | `(event: InteractOutsideEvent) => void` | — | Called on any interaction outside the popup. |

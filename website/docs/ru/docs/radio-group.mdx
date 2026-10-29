@@ -16,18 +16,7 @@ import * as RadioGroupDocs from '@/components/examples/radio-group/css-propertie
 
 ## Использование
 
-<UsageCode
-  react={'<RadioGroup defaultValue="monthly" name="billing" orientation="horizontal" onValueChange={(details) => setPlan(details.value)}>\n  <RadioGroupLabel>Billing</RadioGroupLabel>\n  <RadioGroupOption value="monthly">Monthly</RadioGroupOption>\n  <RadioGroupOption value="yearly">Yearly</RadioGroupOption>\n</RadioGroup>'}
-  vue={'<RadioGroup v-model="plan" name="billing" orientation="horizontal">\n  <RadioGroupLabel>Billing</RadioGroupLabel>\n  <RadioGroupOption value="monthly">Monthly</RadioGroupOption>\n  <RadioGroupOption value="yearly">Yearly</RadioGroupOption>\n</RadioGroup>'}
-/>
-
-<PropChips
-  items={[
-    ['defaultValue', 'Опция, выбранная сразу; для управления используйте value.'],
-    ['orientation', 'Вертикальная или горизонтальная раскладка.'],
-    ['size', 'От xs до xl, по умолчанию md.'],
-  ]}
-/>
+<Usage />
 
 Используйте `RadioGroup` как корневой компонент и задайте `value` для каждого варианта.
 `RadioGroupOption` выводит элемент с подписью, управлением, текстом и нативным полем.
@@ -223,16 +212,16 @@ import * as RadioGroupDocs from '@/components/examples/radio-group/css-propertie
 
 ## Справочник API
 
-| Проп | Тип | По умолчанию |
-| --- | --- | --- |
-| `value` | `string \| null` | — |
-| `defaultValue` | `string \| null` | — |
-| `onValueChange` | `(details: ValueChangeDetails) => void` | — |
-| `orientation` | `'horizontal' \| 'vertical'` | `'vertical'` |
-| `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'` | `'md'` |
-| `name` | `string` | — |
-| `disabled` | `boolean` | `false` |
-| `readOnly` | `boolean` | `false` |
-| `invalid` | `boolean` | `false` |
-| `required` | `boolean` | `false` |
-| `form` | `string` | — |
+| Проп | Тип | По умолчанию | Описание |
+| --- | --- | --- | --- |
+| `value` | `string \| null` | — | Выбранное значение в управляемом режиме. |
+| `defaultValue` | `string \| null` | — | Изначально выбранное значение. |
+| `onValueChange` | `(details: ValueChangeDetails) => void` | — | Вызывается при выборе другого варианта. |
+| `orientation` | `'horizontal' \| 'vertical'` | `'vertical'` | Раскладка и направление стрелок: `horizontal` или `vertical`. |
+| `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'` | `'md'` | Размер: `xs`, `sm`, `md`, `lg` или `xl`. |
+| `name` | `string` | — | Общее имя поля формы для всех радиокнопок. |
+| `disabled` | `boolean` | `false` | Отключает элемент управления. |
+| `readOnly` | `boolean` | `false` | Показывает значение, но не даёт его менять. |
+| `invalid` | `boolean` | `false` | Помечает поле как невалидное. |
+| `required` | `boolean` | `false` | Требует значение перед отправкой формы. |
+| `form` | `string` | — | Id формы, к которой относится внутренний input. |

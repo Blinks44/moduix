@@ -16,18 +16,7 @@ import * as QrCodeDocs from '@/components/examples/qr-code/css-properties';
 
 ## Использование
 
-<UsageCode
-  react={'<QrCode defaultValue="https://moduix.dev" encoding={{ ecc: \'H\' }}>\n  <QrCodeFrame role="img" aria-label="QR code for moduix.dev">\n    <QrCodePattern />\n  </QrCodeFrame>\n  <QrCodeDownloadTrigger fileName="moduix.png" mimeType="image/png">Download</QrCodeDownloadTrigger>\n</QrCode>'}
-  vue={'<QrCode default-value="https://moduix.dev" :encoding="{ ecc: \'H\' }">\n  <QrCodeFrame role="img" aria-label="QR code for moduix.dev">\n    <QrCodePattern />\n  </QrCodeFrame>\n  <QrCodeDownloadTrigger file-name="moduix.png" mime-type="image/png">Download</QrCodeDownloadTrigger>\n</QrCode>'}
-/>
-
-<PropChips
-  items={[
-    ['defaultValue', 'Текст или URL для кодирования; для управления используйте value.'],
-    ['encoding', 'Уровень коррекции ошибок L, M, Q или H.'],
-    ['QrCodeDownloadTrigger', 'Сохраняет код как файл изображения.'],
-  ]}
-/>
+<Usage />
 
 Используйте `QrCode` в обычном сценарии. Передайте содержимое для кодирования через `defaultValue`,
 затем явно отрисуйте `QrCodeFrame` и `QrCodePattern`, чтобы показать созданный SVG. Если QR-код
@@ -154,10 +143,10 @@ QR-кода. Не создавайте для одного хранилища о
 
 ## Справочник API
 
-| Проп | Тип | По умолчанию |
-| --- | --- | --- |
-| `value` | `string` | — |
-| `defaultValue` | `string` | — |
-| `onValueChange` | `(details: ValueChangeDetails) => void` | — |
-| `encoding` | `QrCodeGenerateOptions` | — |
-| `pixelSize` | `number` | — |
+| Проп | Тип | По умолчанию | Описание |
+| --- | --- | --- | --- |
+| `value` | `string` | — | Кодируемое значение в управляемом режиме. |
+| `defaultValue` | `string` | — | Начальное значение, если оно не управляется извне. |
+| `onValueChange` | `(details: ValueChangeDetails) => void` | — | Вызывается при изменении значения. |
+| `encoding` | `QrCodeGenerateOptions` | — | Параметры кодирования, например уровень коррекции ошибок. |
+| `pixelSize` | `number` | — | Размер одного модуля QR в пикселях. |

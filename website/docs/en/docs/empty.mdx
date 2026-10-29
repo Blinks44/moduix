@@ -16,18 +16,7 @@ import * as EmptyDocs from '@/components/examples/empty/css-properties';
 
 ## Usage
 
-<UsageCode
-  react={'<Empty>\n  <EmptyIcon>\n    <InboxIcon />\n  </EmptyIcon>\n  <EmptyContent>\n    <EmptyTitle>No projects yet</EmptyTitle>\n    <EmptyDescription>Create a project to get started.</EmptyDescription>\n  </EmptyContent>\n  <EmptyActions>\n    <Button>New project</Button>\n  </EmptyActions>\n</Empty>'}
-  vue={'<Empty>\n  <EmptyIcon>\n    <InboxIcon />\n  </EmptyIcon>\n  <EmptyContent>\n    <EmptyTitle>No projects yet</EmptyTitle>\n    <EmptyDescription>Create a project to get started.</EmptyDescription>\n  </EmptyContent>\n  <EmptyActions>\n    <Button>New project</Button>\n  </EmptyActions>\n</Empty>'}
-/>
-
-<PropChips
-  items={[
-    ['EmptyIcon', 'Optional visual cue above the text.'],
-    ['EmptyTitle', 'Renders an h3; use asChild for another heading level.'],
-    ['EmptyActions', 'Optional row for the next step.'],
-  ]}
-/>
+<Usage />
 
 Start with `<Empty />` and add its named parts. Add `EmptyIcon` and `EmptyActions` only when
 the state benefits from a visual cue or a clear next step.
@@ -128,6 +117,6 @@ Target the part that controls the visual property you want to change:
 
 Every part accepts the native props of its element and `asChild`.
 
-| Prop | Type | Default |
-| --- | --- | --- |
-| `asChild` | `boolean` | `false` |
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `asChild` | `boolean` | `false` | Renders the root as its single child element, such as a table cell. |

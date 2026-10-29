@@ -16,18 +16,7 @@ import * as ClipboardDocs from '@/components/examples/clipboard/css-properties';
 
 ## Utilisation
 
-<UsageCode
-  react={'<Clipboard defaultValue={shareUrl} timeout={2000}>\n  <ClipboardControl>\n    <ClipboardInput />\n    <ClipboardTrigger>\n      <ClipboardIndicator />\n    </ClipboardTrigger>\n  </ClipboardControl>\n</Clipboard>'}
-  vue={'<Clipboard :default-value="shareUrl" :timeout="2000">\n  <ClipboardControl>\n    <ClipboardInput />\n    <ClipboardTrigger>\n      <ClipboardIndicator />\n    </ClipboardTrigger>\n  </ClipboardControl>\n</Clipboard>'}
-/>
-
-<PropChips
-  items={[
-    ['defaultValue', 'Texte à copier ; contrôlez-le avec value et onValueChange.'],
-    ['timeout', 'Durée de l’état copié, en millisecondes.'],
-    ['onStatusChange', 'Appelé après chaque copie avec { copied }.'],
-  ]}
-/>
+<Usage />
 
 Utilisez `Clipboard` comme racine. Placez une seule surface pour la valeur - `ClipboardInput` ou
 `ClipboardValueText` - ainsi que `ClipboardTrigger` dans `ClipboardControl`. `ClipboardLabel` est
@@ -186,11 +175,11 @@ Survolez ou sélectionnez une variable pour la voir dans l’aperçu.
 
 ## Référence de l’API
 
-| Prop | Type | Défaut |
-| --- | --- | --- |
-| `value` | `string` | — |
-| `defaultValue` | `string` | — |
-| `onValueChange` | `(details: ValueChangeDetails) => void` | — |
-| `timeout` | `number` | `3000` |
-| `onStatusChange` | `(details: CopyStatusDetails) => void` | — |
-| `translations` | `IntlTranslations` | — |
+| Prop | Type | Défaut | Description |
+| --- | --- | --- | --- |
+| `value` | `string` | — | Texte à copier en mode contrôlé. |
+| `defaultValue` | `string` | — | Texte initial à copier lorsque la valeur n’est pas contrôlée. |
+| `onValueChange` | `(details: ValueChangeDetails) => void` | — | Appelé lorsque la valeur change. |
+| `timeout` | `number` | `3000` | Durée de l’état copié, en millisecondes. |
+| `onStatusChange` | `(details: CopyStatusDetails) => void` | — | Appelé après chaque copie avec `{ copied }`. |
+| `translations` | `IntlTranslations` | — | Textes localisés des libellés d’accessibilité. |

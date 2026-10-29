@@ -16,18 +16,7 @@ import * as BreadcrumbsDocs from '@/components/examples/breadcrumbs/css-properti
 
 ## Использование
 
-<UsageCode
-  react={'<Breadcrumbs>\n  <BreadcrumbsPath\n    links={[\n      { href: \'/\', label: \'Home\' },\n      { href: \'/jobs\', label: \'Jobs\' },\n    ]}\n    page="Go Developer"\n    separator="/"\n  />\n</Breadcrumbs>'}
-  vue={'<Breadcrumbs>\n  <BreadcrumbsPath\n    :links="[\n      { href: \'/\', label: \'Home\' },\n      { href: \'/jobs\', label: \'Jobs\' },\n    ]"\n    page="Go Developer"\n    separator="/"\n  />\n</Breadcrumbs>'}
-/>
-
-<PropChips
-  items={[
-    ['links', 'Родительские страницы по порядку, у каждой href и label.'],
-    ['page', 'Название текущей страницы, без ссылки.'],
-    ['separator', 'Разделитель между пунктами; по умолчанию шеврон.'],
-  ]}
-/>
+<Usage />
 
 Используйте `BreadcrumbsPath`, если у вас уже есть список сегментов пути. На основе обязательных пропсов `links` и `page`
 компонент создаёт упорядоченный список, элементы, ссылки, текущую страницу и разделители.
@@ -151,8 +140,8 @@ moduix.
 
 Пропсы `BreadcrumbsPath`. Отдельные части принимают нативные пропсы своих элементов.
 
-| Проп | Тип | По умолчанию |
-| --- | --- | --- |
-| `links` | `readonly { href: string; label: ReactNode }[]` | — |
-| `page` | `ReactNode` | — |
-| `separator` | `ReactNode` | chevron |
+| Проп | Тип | По умолчанию | Описание |
+| --- | --- | --- | --- |
+| `links` | `readonly { href: string; label: ReactNode }[]` | — | Родительские страницы для `BreadcrumbsPath`, у каждой `href` и `label`. |
+| `page` | `ReactNode` | — | Подпись текущей страницы, идёт последней. |
+| `separator` | `ReactNode` | chevron | Разделитель между элементами. |

@@ -16,18 +16,7 @@ import * as EmptyDocs from '@/components/examples/empty/css-properties';
 
 ## Utilisation
 
-<UsageCode
-  react={'<Empty>\n  <EmptyIcon>\n    <InboxIcon />\n  </EmptyIcon>\n  <EmptyContent>\n    <EmptyTitle>No projects yet</EmptyTitle>\n    <EmptyDescription>Create a project to get started.</EmptyDescription>\n  </EmptyContent>\n  <EmptyActions>\n    <Button>New project</Button>\n  </EmptyActions>\n</Empty>'}
-  vue={'<Empty>\n  <EmptyIcon>\n    <InboxIcon />\n  </EmptyIcon>\n  <EmptyContent>\n    <EmptyTitle>No projects yet</EmptyTitle>\n    <EmptyDescription>Create a project to get started.</EmptyDescription>\n  </EmptyContent>\n  <EmptyActions>\n    <Button>New project</Button>\n  </EmptyActions>\n</Empty>'}
-/>
-
-<PropChips
-  items={[
-    ['EmptyIcon', 'Repère visuel facultatif au-dessus du texte.'],
-    ['EmptyTitle', 'Rend un h3 ; utilisez asChild pour un autre niveau de titre.'],
-    ['EmptyActions', 'Rangée facultative pour l’étape suivante.'],
-  ]}
-/>
+<Usage />
 
 Commencez par `<Empty />` et ajoutez les parties du composant dont vous avez besoin. Ajoutez
 `EmptyIcon` et `EmptyActions` uniquement si l’état vide a besoin d’un repère visuel ou d’une action claire.
@@ -131,6 +120,6 @@ Ciblez la partie qui contrôle la propriété visuelle à modifier :
 
 Chaque partie accepte les props natives de son élément et `asChild`.
 
-| Prop | Type | Défaut |
-| --- | --- | --- |
-| `asChild` | `boolean` | `false` |
+| Prop | Type | Défaut | Description |
+| --- | --- | --- | --- |
+| `asChild` | `boolean` | `false` | Rend la racine avec son unique enfant, par exemple une cellule de tableau. |

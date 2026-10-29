@@ -16,18 +16,7 @@ import * as ToggleDocs from '@/components/examples/toggle/css-properties';
 
 ## Utilisation
 
-<UsageCode
-  react={'<Toggle defaultPressed variant="outline" size="icon-md" aria-label="Favorite" onPressedChange={setFavorite}>\n  <StarIcon />\n</Toggle>'}
-  vue={'<Toggle v-model:pressed="favorite" variant="outline" size="icon-md" aria-label="Favorite">\n  <StarIcon />\n</Toggle>'}
-/>
-
-<PropChips
-  items={[
-    ['defaultPressed', 'Enfoncé au départ ; contrôlez-le avec pressed.'],
-    ['variant', 'default, outline ou ghost.'],
-    ['size', 'De xs à lg, ou icon-sm à icon-lg pour des boutons carrés.'],
-  ]}
-/>
+<Usage />
 
 Utilisez `Toggle` dans le cas courant et conservez le comportement d’Ark lié à l’état activé.
 
@@ -161,12 +150,12 @@ Survolez ou sélectionnez une variable pour la voir dans l’aperçu.
 
 ## Référence de l’API
 
-| Prop | Type | Défaut |
-| --- | --- | --- |
-| `pressed` | `boolean` | — |
-| `defaultPressed` | `boolean` | `false` |
-| `onPressedChange` | `(pressed: boolean) => void` | — |
-| `variant` | `'default' \| 'outline' \| 'ghost'` | `'default'` |
-| `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'icon-sm' \| 'icon-md' \| 'icon-lg'` | `'md'` |
-| `disabled` | `boolean` | `false` |
-| `asChild` | `boolean` | `false` |
+| Prop | Type | Défaut | Description |
+| --- | --- | --- | --- |
+| `pressed` | `boolean` | — | État enfoncé en mode contrôlé. |
+| `defaultPressed` | `boolean` | `false` | État enfoncé initial. |
+| `onPressedChange` | `(pressed: boolean) => void` | — | Appelé avec le nouvel état. |
+| `variant` | `'default' \| 'outline' \| 'ghost'` | `'default'` | Style visuel : `default`, `outline` ou `ghost`. |
+| `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'icon-sm' \| 'icon-md' \| 'icon-lg'` | `'md'` | `xs`, `sm`, `md`, `lg`, ou les tailles carrées `icon-sm`, `icon-md`, `icon-lg`. |
+| `disabled` | `boolean` | `false` | Désactive le bouton bascule. |
+| `asChild` | `boolean` | `false` | Applique les styles et le comportement à son unique enfant. |

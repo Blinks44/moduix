@@ -16,19 +16,7 @@ import * as ListboxDocs from '@/components/examples/listbox/css-properties';
 
 ## Использование
 
-<UsageCode
-  react={'const collection = createListCollection({ items: countries });\n\n<Listbox collection={collection} selectionMode="multiple" onValueChange={(details) => setValue(details.value)}>\n  <ListboxLabel>Countries</ListboxLabel>\n  <ListboxContent>\n    {collection.items.map((item) => (\n      <ListboxItem key={item.value} item={item}>\n        <ListboxItemText>{item.label}</ListboxItemText>\n        <ListboxItemIndicator />\n      </ListboxItem>\n    ))}\n  </ListboxContent>\n</Listbox>'}
-  solid={'const collection = createListCollection({ items: countries });\n\n<Listbox collection={collection} selectionMode="multiple" onValueChange={(details) => setValue(details.value)}>\n  <ListboxLabel>Countries</ListboxLabel>\n  <ListboxContent>\n    <For each={collection.items}>\n      {(item) => (\n        <ListboxItem item={item}>\n          <ListboxItemText>{item.label}</ListboxItemText>\n          <ListboxItemIndicator />\n        </ListboxItem>\n      )}\n    </For>\n  </ListboxContent>\n</Listbox>'}
-  vue={'const collection = createListCollection({ items: countries });\n\n<Listbox v-model="value" :collection="collection" selection-mode="multiple">\n  <ListboxLabel>Countries</ListboxLabel>\n  <ListboxContent>\n    <ListboxItem v-for="item in collection.items" :key="item.value" :item="item">\n      <ListboxItemText>{{ item.label }}</ListboxItemText>\n      <ListboxItemIndicator />\n    </ListboxItem>\n  </ListboxContent>\n</Listbox>'}
-/>
-
-<PropChips
-  items={[
-    ['collection', 'Элементы из createListCollection().'],
-    ['selectionMode', 'single, multiple или extended с Shift и Ctrl.'],
-    ['orientation', 'Вертикальный или горизонтальный список.'],
-  ]}
-/>
+<Usage />
 
 Интерактивный
 
@@ -225,22 +213,22 @@ listbox.
 
 ## Справочник API
 
-| Проп | Тип | По умолчанию |
-| --- | --- | --- |
-| `collection` | `ListCollection<T> \| GridCollection<T>` | — |
-| `value` | `string[]` | — |
-| `defaultValue` | `string[]` | `[]` |
-| `onValueChange` | `(details: ValueChangeDetails) => void` | — |
-| `selectionMode` | `'single' \| 'multiple' \| 'extended'` | `'single'` |
-| `orientation` | `'horizontal' \| 'vertical'` | `'vertical'` |
-| `loopFocus` | `boolean` | `false` |
-| `selectOnHighlight` | `boolean` | `false` |
-| `deselectable` | `boolean` | `false` |
-| `typeahead` | `boolean` | `true` |
-| `disallowSelectAll` | `boolean` | `false` |
-| `onSelect` | `(details: SelectionDetails) => void` | — |
-| `disabled` | `boolean` | `false` |
-| `onHighlightChange` | `(details: HighlightChangeDetails<T>) => void` | — |
-| `highlightedValue` | `string \| null` | — |
-| `defaultHighlightedValue` | `string \| null` | — |
-| `scrollToIndexFn` | `(details: ScrollToIndexDetails) => void` | — |
+| Проп | Тип | По умолчанию | Описание |
+| --- | --- | --- | --- |
+| `collection` | `ListCollection<T> \| GridCollection<T>` | — | Элементы из `createListCollection()` или `createGridCollection()`. |
+| `value` | `string[]` | — | Выбранные значения в управляемом режиме. |
+| `defaultValue` | `string[]` | `[]` | Начальные выбранные значения. |
+| `onValueChange` | `(details: ValueChangeDetails) => void` | — | Вызывается при изменении выбора. |
+| `selectionMode` | `'single' \| 'multiple' \| 'extended'` | `'single'` | `single`, `multiple` кликами или `extended` с Shift и Ctrl. |
+| `orientation` | `'horizontal' \| 'vertical'` | `'vertical'` | Раскладка и направление стрелок: `horizontal` или `vertical`. |
+| `loopFocus` | `boolean` | `false` | Навигация с клавиатуры переходит с последнего элемента на первый. |
+| `selectOnHighlight` | `boolean` | `false` | Выбирает элемент сразу при подсветке. |
+| `deselectable` | `boolean` | `false` | Повторный клик по выбранному элементу снимает выбор. |
+| `typeahead` | `boolean` | `true` | Ввод букв подсвечивает подходящий элемент. |
+| `disallowSelectAll` | `boolean` | `false` | Отключает выбор всего по Ctrl или Cmd + A. |
+| `onSelect` | `(details: SelectionDetails) => void` | — | Вызывается при выборе элемента. |
+| `disabled` | `boolean` | `false` | Отключает список. |
+| `onHighlightChange` | `(details: HighlightChangeDetails<T>) => void` | — | Вызывается при смене подсвеченного элемента. |
+| `highlightedValue` | `string \| null` | — | Подсвеченный элемент в управляемом режиме. |
+| `defaultHighlightedValue` | `string \| null` | — | Элемент, подсвеченный изначально. |
+| `scrollToIndexFn` | `(details: ScrollToIndexDetails) => void` | — | Прокручивает виртуализированный список к индексу элемента. |

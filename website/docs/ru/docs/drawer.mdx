@@ -16,19 +16,7 @@ import * as DrawerDocs from '@/components/examples/drawer/css-properties';
 
 ## Использование
 
-<UsageCode
-  react={'<Drawer swipeDirection="down" snapPoints={[0.5, 1]} defaultSnapPoint={0.5}>\n  <DrawerTrigger asChild>\n    <Button>Open drawer</Button>\n  </DrawerTrigger>\n  <DrawerBackdrop />\n  <DrawerPositioner>\n    <DrawerContent>\n      <DrawerGrabber>\n        <DrawerGrabberIndicator />\n      </DrawerGrabber>\n      <DrawerHeader>\n        <DrawerTitle>Notifications</DrawerTitle>\n        <DrawerCloseIcon />\n      </DrawerHeader>\n      <DrawerBody>…</DrawerBody>\n    </DrawerContent>\n  </DrawerPositioner>\n</Drawer>'}
-  solid={'<Drawer swipeDirection="down" snapPoints={[0.5, 1]} defaultSnapPoint={0.5}>\n  <DrawerTrigger asChild={(props) => (\n    <Button {...props()}>Open drawer</Button>\n  )} />\n  <DrawerBackdrop />\n  <DrawerPositioner>\n    <DrawerContent>\n      <DrawerGrabber>\n        <DrawerGrabberIndicator />\n      </DrawerGrabber>\n      <DrawerHeader>\n        <DrawerTitle>Notifications</DrawerTitle>\n        <DrawerCloseIcon />\n      </DrawerHeader>\n      <DrawerBody>…</DrawerBody>\n    </DrawerContent>\n  </DrawerPositioner>\n</Drawer>'}
-  vue={'<Drawer swipe-direction="down" :snap-points="[0.5, 1]" :default-snap-point="0.5">\n  <DrawerTrigger as-child>\n    <Button>Open drawer</Button>\n  </DrawerTrigger>\n  <DrawerBackdrop />\n  <DrawerPositioner>\n    <DrawerContent>\n      <DrawerGrabber>\n        <DrawerGrabberIndicator />\n      </DrawerGrabber>\n      <DrawerHeader>\n        <DrawerTitle>Notifications</DrawerTitle>\n        <DrawerCloseIcon />\n      </DrawerHeader>\n      <DrawerBody>…</DrawerBody>\n    </DrawerContent>\n  </DrawerPositioner>\n</Drawer>'}
-/>
-
-<PropChips
-  items={[
-    ['swipeDirection', 'Направление свайпа для закрытия: down, up, start или end.'],
-    ['snapPoints', 'Высоты остановки в долях или px.'],
-    ['size', 'Ширина боковых панелей на DrawerContent.'],
-  ]}
-/>
+<Usage />
 
 Соберите панель из структурных частей Ark. В этом примере она открывается на компактной точке
 привязки, а затем её можно перетащить на полную высоту. `DrawerContent` отвечает за интерактивную
@@ -258,32 +246,32 @@ import * as DrawerDocs from '@/components/examples/drawer/css-properties';
 
 Пропсы `Drawer`. `size` (`'sm' | 'md' | 'lg' | 'xl'`, по умолчанию `'md'`) и `variant` (`'island'`) задаются на `DrawerContent`.
 
-| Проп | Тип | По умолчанию |
-| --- | --- | --- |
-| `open` | `boolean` | — |
-| `defaultOpen` | `boolean` | `false` |
-| `onOpenChange` | `(details: OpenChangeDetails) => void` | — |
-| `swipeDirection` | `'up' \| 'down' \| 'start' \| 'end'` | `'down'` |
-| `snapPoints` | `(number \| string)[]` | `[1]` |
-| `snapPoint` | `number \| string \| null` | — |
-| `defaultSnapPoint` | `number \| string \| null` | `1` |
-| `onSnapPointChange` | `(details: SnapPointChangeDetails) => void` | — |
-| `snapToSequentialPoints` | `boolean` | `false` |
-| `closeThreshold` | `number` | `0.25` |
-| `modal` | `boolean` | `true` |
-| `closeOnEscape` | `boolean` | `true` |
-| `closeOnInteractOutside` | `boolean` | `true` |
-| `lazyMount` | `boolean` | `true` |
-| `unmountOnExit` | `boolean` | `true` |
-| `trapFocus` | `boolean` | `true` |
-| `preventScroll` | `boolean` | `true` |
-| `initialFocusEl` | `() => MaybeElement \| false` | — |
-| `finalFocusEl` | `() => MaybeElement` | — |
-| `restoreFocus` | `boolean` | `true` |
-| `role` | `'dialog' \| 'alertdialog'` | `'dialog'` |
-| `triggerValue` | `string \| null` | — |
-| `defaultTriggerValue` | `string \| null` | — |
-| `onTriggerValueChange` | `(details: TriggerValueChangeDetails) => void` | — |
-| `swipeVelocityThreshold` | `number` | `700` |
-| `preventDragOnScroll` | `boolean` | `true` |
-| `stack` | `DrawerStack` | — |
+| Проп | Тип | По умолчанию | Описание |
+| --- | --- | --- | --- |
+| `open` | `boolean` | — | Состояние открытия в управляемом режиме. |
+| `defaultOpen` | `boolean` | `false` | Начальное состояние открытия, если оно не управляется извне. |
+| `onOpenChange` | `(details: OpenChangeDetails) => void` | — | Вызывается при открытии и закрытии. |
+| `swipeDirection` | `'up' \| 'down' \| 'start' \| 'end'` | `'down'` | Направление свайпа для закрытия: `up`, `down`, `start` или `end`. |
+| `snapPoints` | `(number \| string)[]` | `[1]` | Высоты, на которых может остановиться панель: доли или CSS-длины. |
+| `snapPoint` | `number \| string \| null` | — | Активная точка в управляемом режиме. |
+| `defaultSnapPoint` | `number \| string \| null` | `1` | Начальная точка остановки. |
+| `onSnapPointChange` | `(details: SnapPointChangeDetails) => void` | — | Вызывается, когда панель встаёт на другую точку. |
+| `snapToSequentialPoints` | `boolean` | `false` | Переходит на соседнюю точку, не перескакивая при быстром свайпе. |
+| `closeThreshold` | `number` | `0.25` | Какую долю высоты нужно протянуть, чтобы закрыть. |
+| `modal` | `boolean` | `true` | Блокирует взаимодействие снаружи и скрывает остальную страницу от вспомогательных технологий. |
+| `closeOnEscape` | `boolean` | `true` | Закрывается по Escape. |
+| `closeOnInteractOutside` | `boolean` | `true` | Закрывается по клику снаружи. |
+| `lazyMount` | `boolean` | `true` | Монтирует содержимое при первом открытии. |
+| `unmountOnExit` | `boolean` | `true` | Удаляет содержимое после закрытия. |
+| `trapFocus` | `boolean` | `true` | Удерживает фокус внутри, пока открыто. |
+| `preventScroll` | `boolean` | `true` | Блокирует прокрутку страницы, пока открыто. |
+| `initialFocusEl` | `() => MaybeElement \| false` | — | Возвращает элемент, который получает фокус при открытии. |
+| `finalFocusEl` | `() => MaybeElement` | — | Возвращает элемент, который получает фокус при закрытии. |
+| `restoreFocus` | `boolean` | `true` | Возвращает фокус на прежний элемент при закрытии. |
+| `role` | `'dialog' \| 'alertdialog'` | `'dialog'` | `dialog` или `alertdialog` для срочных подтверждений. |
+| `triggerValue` | `string \| null` | — | Активный триггер в управляемом режиме, если у окна несколько триггеров. |
+| `defaultTriggerValue` | `string \| null` | — | Изначально активный триггер. |
+| `onTriggerValueChange` | `(details: TriggerValueChangeDetails) => void` | — | Вызывается, когда активным становится другой триггер. |
+| `swipeVelocityThreshold` | `number` | `700` | Скорость свайпа для закрытия, в пикселях в секунду. |
+| `preventDragOnScroll` | `boolean` | `true` | Прокручивает внутреннее содержимое вместо перетаскивания панели. |
+| `stack` | `DrawerStack` | — | Общее хранилище для оформления стопки панелей. |

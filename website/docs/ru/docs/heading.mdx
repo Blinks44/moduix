@@ -15,18 +15,7 @@ import AnatomyScene from '@/components/examples/heading/basic';
 
 ## Использование
 
-<UsageCode
-  react={'<Heading as="h2" size="xl" weight="bold">\n  Billing\n</Heading>'}
-  vue={'<Heading as="h2" size="xl" weight="bold">\n  Billing\n</Heading>'}
-/>
-
-<PropChips
-  items={[
-    ['as', 'Уровень h1–h6, по умолчанию h1.'],
-    ['size', 'Визуальный размер от xs до 2xl, отдельно от уровня.'],
-    ['weight', 'regular, medium, semibold или bold.'],
-  ]}
-/>
+<Usage />
 
 По умолчанию `Heading` создаёт `h1`. Используйте его для заголовков документа и выбирайте значение
 `as` в соответствии с местом заголовка в структуре документа. Если визуальный акцент должен
@@ -113,8 +102,8 @@ foundation и не имеют переменных компонента: кла�
 
 Также принимает нативные пропсы своего элемента и `asChild`.
 
-| Проп | Тип | По умолчанию |
-| --- | --- | --- |
-| `as` | `'h1' \| 'h2' \| 'h3' \| 'h4' \| 'h5' \| 'h6'` | `'h1'` |
-| `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl' \| '2xl'` | — |
-| `weight` | `'regular' \| 'medium' \| 'semibold' \| 'bold'` | `'semibold'` |
+| Проп | Тип | По умолчанию | Описание |
+| --- | --- | --- | --- |
+| `as` | `'h1' \| 'h2' \| 'h3' \| 'h4' \| 'h5' \| 'h6'` | `'h1'` | Семантический уровень заголовка, от `h1` до `h6`. |
+| `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl' \| '2xl'` | — | Визуальный размер от `xs` до `2xl`, не зависит от уровня. |
+| `weight` | `'regular' \| 'medium' \| 'semibold' \| 'bold'` | `'semibold'` | Начертание: `regular`, `medium`, `semibold` или `bold`. |

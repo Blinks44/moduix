@@ -15,19 +15,7 @@ import AnatomyScene from '@/components/examples/tour/basic';
 
 ## Usage
 
-<UsageCode
-  react={'const tour = useTour({\n  steps: [\n    {\n      id: \'upload\',\n      type: \'tooltip\',\n      title: \'Upload files\',\n      target: () => document.querySelector(\'#upload\'),\n      actions: [{ label: \'Next\', action: \'next\' }],\n    },\n  ],\n});\n\n<Tour tour={tour}>\n  <TourBackdrop />\n  <TourSpotlight />\n  <TourPositioner>\n    <TourContent>\n      <TourTitle />\n      <TourDescription />\n      <TourActionList />\n    </TourContent>\n  </TourPositioner>\n</Tour>'}
-  vue={'const tour = useTour({\n  steps: [\n    {\n      id: \'upload\',\n      type: \'tooltip\',\n      title: \'Upload files\',\n      target: () => document.querySelector(\'#upload\'),\n      actions: [{ label: \'Next\', action: \'next\' }],\n    },\n  ],\n});\n\n<Tour :tour="tour">\n  <TourBackdrop />\n  <TourSpotlight />\n  <TourPositioner>\n    <TourContent>\n      <TourTitle />\n      <TourDescription />\n      <TourActionList />\n    </TourContent>\n  </TourPositioner>\n</Tour>'}
-/>
-
-<PropChips
-  items={[
-    ['steps', 'Each step has an id, a type, text, and actions.'],
-    ['type', 'dialog, tooltip, floating, or wait for user input.'],
-    ['target', 'Returns the element a tooltip step points to.'],
-    ['tour.start()', 'Starts the tour from the first step.'],
-  ]}
-/>
+<Usage />
 
 Create tour state with `useTour`, define its steps, and pass the returned object to `Tour`. The example starts with a
 dialog, moves to a tooltip anchored to a page control, and finishes with a floating step. Keep the parts explicit so
@@ -150,20 +138,20 @@ variables.
 
 Options of `useTour()`. Pass the returned object to `Tour` as `tour`.
 
-| Prop | Type | Default |
-| --- | --- | --- |
-| `steps` | `TourStepDetails[]` | — |
-| `stepId` | `string \| null` | — |
-| `onStepChange` | `(details: StepChangeDetails) => void` | — |
-| `onStatusChange` | `(details: StatusChangeDetails) => void` | — |
-| `keyboardNavigation` | `boolean` | `true` |
-| `closeOnEscape` | `boolean` | `true` |
-| `closeOnInteractOutside` | `boolean` | `true` |
-| `preventInteraction` | `boolean` | `false` |
-| `spotlightOffset` | `{ x: number; y: number }` | `{ x: 10, y: 10 }` |
-| `spotlightRadius` | `number` | `4` |
-| `onStepsChange` | `(details: StepsChangeDetails) => void` | — |
-| `translations` | `IntlTranslations` | — |
-| `onPointerDownOutside` | `(event: PointerDownOutsideEvent) => void` | — |
-| `onFocusOutside` | `(event: FocusOutsideEvent) => void` | — |
-| `onInteractOutside` | `(event: InteractOutsideEvent) => void` | — |
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `steps` | `TourStepDetails[]` | — | Tour steps with target, title, and actions. |
+| `stepId` | `string \| null` | — | Current step id for controlled use. |
+| `onStepChange` | `(details: StepChangeDetails) => void` | — | Called when the current step changes. |
+| `onStatusChange` | `(details: StatusChangeDetails) => void` | — | Called when the tour starts, stops, or completes. |
+| `keyboardNavigation` | `boolean` | `true` | Left and right arrows move between steps. |
+| `closeOnEscape` | `boolean` | `true` | Closes on Escape. |
+| `closeOnInteractOutside` | `boolean` | `true` | Closes on a click outside. |
+| `preventInteraction` | `boolean` | `false` | Blocks interaction with the page while the tour is open. |
+| `spotlightOffset` | `{ x: number; y: number }` | `{ x: 10, y: 10 }` | Padding around the highlighted element, in pixels. |
+| `spotlightRadius` | `number` | `4` | Corner radius of the highlight, in pixels. |
+| `onStepsChange` | `(details: StepsChangeDetails) => void` | — | Called when steps are added or removed. |
+| `translations` | `IntlTranslations` | — | Localized strings for accessibility labels. |
+| `onPointerDownOutside` | `(event: PointerDownOutsideEvent) => void` | — | Called when the pointer is pressed outside the popup. |
+| `onFocusOutside` | `(event: FocusOutsideEvent) => void` | — | Called when focus moves outside the popup. |
+| `onInteractOutside` | `(event: InteractOutsideEvent) => void` | — | Called on any interaction outside the popup. |

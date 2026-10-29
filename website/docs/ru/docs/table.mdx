@@ -16,19 +16,7 @@ import * as TableDocs from '@/components/examples/table/css-properties';
 
 ## Использование
 
-<UsageCode
-  react={'<TableScrollArea>\n  <Table size="sm" striped stickyHeader>\n    <TableHeader>\n      <TableRow>\n        <TableColumnHeader scope="col">Invoice</TableColumnHeader>\n        <TableColumnHeader numeric scope="col">Amount</TableColumnHeader>\n      </TableRow>\n    </TableHeader>\n    <TableBody>\n      <TableRow>\n        <TableCell>INV-001</TableCell>\n        <TableCell numeric>$250.00</TableCell>\n      </TableRow>\n    </TableBody>\n  </Table>\n</TableScrollArea>'}
-  vue={'<TableScrollArea>\n  <Table size="sm" striped stickyHeader>\n    <TableHeader>\n      <TableRow>\n        <TableColumnHeader scope="col">Invoice</TableColumnHeader>\n        <TableColumnHeader numeric scope="col">Amount</TableColumnHeader>\n      </TableRow>\n    </TableHeader>\n    <TableBody>\n      <TableRow>\n        <TableCell>INV-001</TableCell>\n        <TableCell numeric>$250.00</TableCell>\n      </TableRow>\n    </TableBody>\n  </Table>\n</TableScrollArea>'}
-/>
-
-<PropChips
-  items={[
-    ['size', 'Плотность строк: sm, md или lg.'],
-    ['striped', 'Заливает каждую вторую строку.'],
-    ['stickyHeader', 'Держит заголовок видимым при прокрутке.'],
-    ['numeric', 'Выравнивает числа вправо в заголовке или ячейке.'],
-  ]}
-/>
+<Usage />
 
 Если таблица может не поместиться по ширине, оберните её в `TableScrollArea`. Затем соберите `Table`
 из `TableHeader`, `TableBody`, `TableRow` и соответствующих частей для заголовков и ячеек. Такой
@@ -212,10 +200,10 @@ CSS-переменные `--moduix-table-*`. Варианты Tailwind испо�
 
 Пропсы `Table`. `numeric` задаётся на `TableColumnHeader` и `TableCell`; `side` (`'top' | 'bottom'`) на `TableCaption`.
 
-| Проп | Тип | По умолчанию |
-| --- | --- | --- |
-| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` |
-| `striped` | `boolean` | `false` |
-| `interactive` | `boolean` | `false` |
-| `stickyHeader` | `boolean` | `false` |
-| `showColumnBorder` | `boolean` | `false` |
+| Проп | Тип | По умолчанию | Описание |
+| --- | --- | --- | --- |
+| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` | Отступы ячеек и размер текста: `sm`, `md` или `lg`. |
+| `striped` | `boolean` | `false` | Подкрашивает каждую вторую строку. |
+| `interactive` | `boolean` | `false` | Подсвечивает строку при наведении. |
+| `stickyHeader` | `boolean` | `false` | Держит шапку на месте при прокрутке. |
+| `showColumnBorder` | `boolean` | `false` | Рисует границы между колонками. |

@@ -16,18 +16,7 @@ import * as NavigationMenuDocs from '@/components/examples/navigation-menu/css-p
 
 ## Использование
 
-<UsageCode
-  react={'<NavigationMenu openDelay={200} closeDelay={300}>\n  <NavigationMenuList>\n    <NavigationMenuItem value="home">\n      <NavigationMenuLink href="/">Home</NavigationMenuLink>\n    </NavigationMenuItem>\n    <NavigationMenuItem value="products">\n      <NavigationMenuTrigger>Products</NavigationMenuTrigger>\n      <NavigationMenuContent>\n        <NavigationMenuLink href="/analytics">Analytics</NavigationMenuLink>\n      </NavigationMenuContent>\n    </NavigationMenuItem>\n  </NavigationMenuList>\n</NavigationMenu>'}
-  vue={'<NavigationMenu :open-delay="200" :close-delay="300">\n  <NavigationMenuList>\n    <NavigationMenuItem value="home">\n      <NavigationMenuLink href="/">Home</NavigationMenuLink>\n    </NavigationMenuItem>\n    <NavigationMenuItem value="products">\n      <NavigationMenuTrigger>Products</NavigationMenuTrigger>\n      <NavigationMenuContent>\n        <NavigationMenuLink href="/analytics">Analytics</NavigationMenuLink>\n      </NavigationMenuContent>\n    </NavigationMenuItem>\n  </NavigationMenuList>\n</NavigationMenu>'}
-/>
-
-<PropChips
-  items={[
-    ['value', 'Уникальный id каждого NavigationMenuItem.'],
-    ['openDelay / closeDelay', 'Задержки наведения в мс перед открытием и закрытием панели.'],
-    ['disableHoverTrigger', 'Панели открываются только по клику.'],
-  ]}
-/>
+<Usage />
 
 Используйте `NavigationMenu` вместе с `NavigationMenuList` и `NavigationMenuItem`. У каждого элемента
 должно быть уникальное значение `value`. Для группы ссылок поместите `NavigationMenuTrigger` и
@@ -170,15 +159,15 @@ foundation и выносят в CSS-переменные только огран
 
 ## Справочник API
 
-| Проп | Тип | По умолчанию |
-| --- | --- | --- |
-| `value` | `string` | — |
-| `defaultValue` | `string` | — |
-| `onValueChange` | `(details: ValueChangeDetails) => void` | — |
-| `openDelay` | `number` | `200` |
-| `closeDelay` | `number` | `300` |
-| `disableClickTrigger` | `boolean` | `false` |
-| `disableHoverTrigger` | `boolean` | `false` |
-| `disablePointerLeaveClose` | `boolean` | `false` |
-| `translations` | `IntlTranslations` | — |
-| `orientation` | `'horizontal' \| 'vertical'` | `'horizontal'` |
+| Проп | Тип | По умолчанию | Описание |
+| --- | --- | --- | --- |
+| `value` | `string` | — | Открытый пункт в управляемом режиме. |
+| `defaultValue` | `string` | — | Изначально открытый пункт. |
+| `onValueChange` | `(details: ValueChangeDetails) => void` | — | Вызывается, когда открывается другой пункт или меню закрывается. |
+| `openDelay` | `number` | `200` | Задержка перед открытием по наведению, в миллисекундах. |
+| `closeDelay` | `number` | `300` | Задержка перед закрытием после ухода указателя, в миллисекундах. |
+| `disableClickTrigger` | `boolean` | `false` | Отключает открытие по клику. |
+| `disableHoverTrigger` | `boolean` | `false` | Отключает открытие по наведению. |
+| `disablePointerLeaveClose` | `boolean` | `false` | Не закрывает меню, когда указатель уходит. |
+| `translations` | `IntlTranslations` | — | Переведённые строки для подписей доступности. |
+| `orientation` | `'horizontal' \| 'vertical'` | `'horizontal'` | Раскладка и направление стрелок: `horizontal` или `vertical`. |

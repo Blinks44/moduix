@@ -15,19 +15,7 @@ import AnatomyScene from '@/components/examples/tooltip/anatomy';
 
 ## Utilisation
 
-<UsageCode
-  react={'<Tooltip openDelay={400} positioning={{ placement: \'top\' }}>\n  <TooltipTrigger asChild>\n    <Button aria-label="Notifications">\n      <BellIcon />\n    </Button>\n  </TooltipTrigger>\n  <TooltipBody>Notifications</TooltipBody>\n</Tooltip>'}
-  solid={'<Tooltip openDelay={400} positioning={{ placement: \'top\' }}>\n  <TooltipTrigger asChild={(props) => (\n    <Button aria-label="Notifications" {...props()}>\n      <BellIcon />\n    </Button>\n  )} />\n  <TooltipBody>Notifications</TooltipBody>\n</Tooltip>'}
-  vue={'<Tooltip :open-delay="400" :positioning="{ placement: \'top\' }">\n  <TooltipTrigger as-child>\n    <Button aria-label="Notifications">\n      <BellIcon />\n    </Button>\n  </TooltipTrigger>\n  <TooltipBody>Notifications</TooltipBody>\n</Tooltip>'}
-/>
-
-<PropChips
-  items={[
-    ['openDelay / closeDelay', 'Délais en ms, 400 et 150 par défaut.'],
-    ['positioning', 'Côté et décalage de l’info-bulle.'],
-    ['interactive', 'La garde ouverte tant que le pointeur la survole.'],
-  ]}
-/>
+<Usage />
 
 Utilisez `TooltipTrigger` pour l’élément qui ouvre l’infobulle et `TooltipBody` pour son contenu.
 `TooltipBody` réunit `TooltipPositioner` et `TooltipContent`. Donnez au déclencheur son propre
@@ -207,23 +195,23 @@ parties concernées. La partie `TooltipPositioner` expose notamment les variable
 
 ## Référence de l’API
 
-| Prop | Type | Défaut |
-| --- | --- | --- |
-| `open` | `boolean` | — |
-| `defaultOpen` | `boolean` | `false` |
-| `onOpenChange` | `(details: OpenChangeDetails) => void` | — |
-| `openDelay` | `number` | `400` |
-| `closeDelay` | `number` | `150` |
-| `positioning` | `PositioningOptions` | — |
-| `disabled` | `boolean` | `false` |
-| `interactive` | `boolean` | `false` |
-| `closeOnPointerDown` | `boolean` | `true` |
-| `closeOnScroll` | `boolean` | `true` |
-| `closeOnClick` | `boolean` | `true` |
-| `closeOnEscape` | `boolean` | `true` |
-| `lazyMount` | `boolean` | `true` |
-| `unmountOnExit` | `boolean` | `true` |
-| `aria-label` | `string` | — |
-| `triggerValue` | `string \| null` | — |
-| `defaultTriggerValue` | `string \| null` | — |
-| `onTriggerValueChange` | `(details: TriggerValueChangeDetails) => void` | — |
+| Prop | Type | Défaut | Description |
+| --- | --- | --- | --- |
+| `open` | `boolean` | — | État d’ouverture en mode contrôlé. |
+| `defaultOpen` | `boolean` | `false` | État d’ouverture initial lorsqu’il n’est pas contrôlé. |
+| `onOpenChange` | `(details: OpenChangeDetails) => void` | — | Appelé à l’ouverture et à la fermeture. |
+| `openDelay` | `number` | `400` | Délai avant l’ouverture, en millisecondes. |
+| `closeDelay` | `number` | `150` | Délai avant la fermeture, en millisecondes. |
+| `positioning` | `PositioningOptions` | — | Placement, décalage et autres options de positionnement de la fenêtre. |
+| `disabled` | `boolean` | `false` | Désactive le contrôle. |
+| `interactive` | `boolean` | `false` | Garde l’infobulle ouverte tant que le pointeur la survole. |
+| `closeOnPointerDown` | `boolean` | `true` | Se ferme lorsque le déclencheur est pressé. |
+| `closeOnScroll` | `boolean` | `true` | Se ferme au défilement de la page. |
+| `closeOnClick` | `boolean` | `true` | Se ferme au clic sur le déclencheur. |
+| `closeOnEscape` | `boolean` | `true` | Se ferme avec Échap. |
+| `lazyMount` | `boolean` | `true` | Monte le contenu à la première ouverture. |
+| `unmountOnExit` | `boolean` | `true` | Démonte le contenu après la fermeture. |
+| `aria-label` | `string` | — | Texte accessible lorsque le contenu n’est pas du texte simple. |
+| `triggerValue` | `string \| null` | — | Déclencheur actif en mode contrôlé lorsque plusieurs déclencheurs partagent la fenêtre. |
+| `defaultTriggerValue` | `string \| null` | — | Déclencheur actif au départ. |
+| `onTriggerValueChange` | `(details: TriggerValueChangeDetails) => void` | — | Appelé lorsqu’un autre déclencheur devient actif. |

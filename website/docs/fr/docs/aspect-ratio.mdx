@@ -15,16 +15,7 @@ import AnatomyScene from '@/components/examples/aspect-ratio/basic';
 
 ## Utilisation
 
-<UsageCode
-  react={'<AspectRatio ratio={16 / 9}>\n  <img src={cover.src} alt={cover.alt} />\n</AspectRatio>'}
-  vue={'<AspectRatio :ratio="16 / 9">\n  <img :src="cover.src" :alt="cover.alt" />\n</AspectRatio>'}
-/>
-
-<PropChips
-  items={[
-    ['ratio', 'Largeur divisée par hauteur : 1 pour un carré, 16 / 9 pour un écran large.'],
-  ]}
-/>
+<Usage />
 
 Utilisez `AspectRatio` comme racine du cadre adaptatif. Par défaut, il occupe toute la largeur disponible dans
 son conteneur parent. Ajoutez `width` ou `max-width` à la racine si le cadre doit avoir une autre largeur, puis
@@ -120,6 +111,6 @@ Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
 
 Accepte aussi les props natives de son élément et `asChild`.
 
-| Prop | Type | Défaut |
-| --- | --- | --- |
-| `ratio` | `number` | `1` |
+| Prop | Type | Défaut | Description |
+| --- | --- | --- | --- |
+| `ratio` | `number` | `1` | Largeur divisée par la hauteur, par exemple `16 / 9`. |

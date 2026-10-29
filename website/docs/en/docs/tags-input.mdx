@@ -16,19 +16,7 @@ import * as TagsInputDocs from '@/components/examples/tags-input/css-properties'
 
 ## Usage
 
-<UsageCode
-  react={'<TagsInput defaultValue={[\'React\', \'Vue\']} max={5} name="frameworks" onValueChange={(details) => setTags(details.value)}>\n  <TagsInputLabel>Frameworks</TagsInputLabel>\n  <TagsInputControl>\n    <TagsInputItems />\n    <TagsInputInput placeholder="Add framework" />\n    <TagsInputClearTrigger aria-label="Clear frameworks" />\n  </TagsInputControl>\n  <TagsInputHiddenInput />\n</TagsInput>'}
-  vue={'<TagsInput v-model="tags" :max="5" name="frameworks">\n  <TagsInputLabel>Frameworks</TagsInputLabel>\n  <TagsInputControl>\n    <TagsInputItems />\n    <TagsInputInput placeholder="Add framework" />\n    <TagsInputClearTrigger aria-label="Clear frameworks" />\n  </TagsInputControl>\n  <TagsInputHiddenInput />\n</TagsInput>'}
-/>
-
-<PropChips
-  items={[
-    ['defaultValue', 'Starting tags; use value to control them.'],
-    ['max', 'Most tags allowed.'],
-    ['delimiter', 'Character that adds a tag, a comma by default.'],
-    ['validate', 'Rejects a tag before it is added.'],
-  ]}
-/>
+<Usage />
 
 Start with `TagsInput`, `TagsInputLabel`, `TagsInputControl`, `TagsInputItems`,
 `TagsInputInput`, and `TagsInputClearTrigger`. Add an explicit `TagsInputHiddenInput` when the
@@ -240,35 +228,35 @@ when needed, `form` to associate it with a form.
 
 ## API reference
 
-| Prop | Type | Default |
-| --- | --- | --- |
-| `value` | `string[]` | — |
-| `defaultValue` | `string[]` | — |
-| `onValueChange` | `(details: ValueChangeDetails) => void` | — |
-| `inputValue` | `string` | — |
-| `onInputValueChange` | `(details: InputValueChangeDetails) => void` | — |
-| `max` | `number` | `Infinity` |
-| `maxLength` | `number` | — |
-| `delimiter` | `string \| RegExp` | `','` |
-| `validate` | `(details: ValidateArgs) => boolean` | — |
-| `onValueInvalid` | `(details: ValidityChangeDetails) => void` | — |
-| `allowDuplicates` | `boolean` | `false` |
-| `addOnPaste` | `boolean` | `false` |
-| `editable` | `boolean` | `true` |
-| `blurBehavior` | `'clear' \| 'add'` | — |
-| `placeholder` | `string` | — |
-| `name` | `string` | — |
-| `disabled` | `boolean` | `false` |
-| `readOnly` | `boolean` | `false` |
-| `invalid` | `boolean` | `false` |
-| `required` | `boolean` | `false` |
-| `translations` | `IntlTranslations` | — |
-| `autoFocus` | `boolean` | — |
-| `defaultInputValue` | `string` | — |
-| `onHighlightChange` | `(details: HighlightChangeDetails) => void` | — |
-| `allowOverflow` | `boolean` | — |
-| `sanitizeValue` | `(value: string) => string` | `(value) => value.trim()` |
-| `form` | `string` | — |
-| `onPointerDownOutside` | `(event: PointerDownOutsideEvent) => void` | — |
-| `onFocusOutside` | `(event: FocusOutsideEvent) => void` | — |
-| `onInteractOutside` | `(event: InteractOutsideEvent) => void` | — |
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `value` | `string[]` | — | Tags for controlled use. |
+| `defaultValue` | `string[]` | — | Initial tags. |
+| `onValueChange` | `(details: ValueChangeDetails) => void` | — | Called when tags are added, edited, or removed. |
+| `inputValue` | `string` | — | Input text for controlled use. |
+| `onInputValueChange` | `(details: InputValueChangeDetails) => void` | — | Called when the input text changes. |
+| `max` | `number` | `Infinity` | Maximum number of tags. |
+| `maxLength` | `number` | — | Maximum length of a tag. |
+| `delimiter` | `string \| RegExp` | `','` | Character or pattern that adds a tag while typing. |
+| `validate` | `(details: ValidateArgs) => boolean` | — | Returns `false` to reject a tag. |
+| `onValueInvalid` | `(details: ValidityChangeDetails) => void` | — | Called when `max` is reached or `validate` rejects a tag. |
+| `allowDuplicates` | `boolean` | `false` | Allows the same tag twice. |
+| `addOnPaste` | `boolean` | `false` | Splits pasted text into tags. |
+| `editable` | `boolean` | `true` | Lets users edit a tag with Enter or a double click. |
+| `blurBehavior` | `'clear' \| 'add'` | — | Input text on blur: `add` it as a tag or `clear` it. |
+| `placeholder` | `string` | — | Placeholder text of the input. |
+| `name` | `string` | — | Form field name of the underlying input. |
+| `disabled` | `boolean` | `false` | Disables the control. |
+| `readOnly` | `boolean` | `false` | Shows the value but prevents changes. |
+| `invalid` | `boolean` | `false` | Marks the control as invalid. |
+| `required` | `boolean` | `false` | Requires a value before form submission. |
+| `translations` | `IntlTranslations` | — | Localized strings for accessibility labels. |
+| `autoFocus` | `boolean` | — | Focuses the input on mount. |
+| `defaultInputValue` | `string` | — | Initial input text. |
+| `onHighlightChange` | `(details: HighlightChangeDetails) => void` | — | Called when a tag is highlighted. |
+| `allowOverflow` | `boolean` | — | Allows more tags than `max` and marks the field invalid. |
+| `sanitizeValue` | `(value: string) => string` | `(value) => value.trim()` | Cleans a tag before it is added. |
+| `form` | `string` | — | Id of the form the underlying input belongs to. |
+| `onPointerDownOutside` | `(event: PointerDownOutsideEvent) => void` | — | Called when the pointer is pressed outside the popup. |
+| `onFocusOutside` | `(event: FocusOutsideEvent) => void` | — | Called when focus moves outside the popup. |
+| `onInteractOutside` | `(event: InteractOutsideEvent) => void` | — | Called on any interaction outside the popup. |

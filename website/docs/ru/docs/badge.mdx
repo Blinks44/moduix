@@ -16,18 +16,7 @@ import * as BadgeDocs from '@/components/examples/badge/css-properties';
 
 ## Использование
 
-<UsageCode
-  react={'<Badge variant="secondary" size="sm">\n  <BadgeDot />\n  Beta\n</Badge>'}
-  vue={'<Badge variant="secondary" size="sm">\n  <BadgeDot />\n  Beta\n</Badge>'}
-/>
-
-<PropChips
-  items={[
-    ['variant', 'default, secondary, destructive, outline, ghost или link.'],
-    ['size', 'sm, md или lg.'],
-    ['BadgeDot', 'Необязательная точка перед текстом для статуса.'],
-  ]}
-/>
+<Usage />
 
 Начните с обычного `<Badge>`. По умолчанию компонент отображается как `span` и не добавляет интерактивного
 поведения. Укажите `variant`, чтобы выбрать `default`, `secondary`, `destructive`, `outline`, `ghost` или `link`,
@@ -157,7 +146,7 @@ CSS-переменных относится к пакетам с CSS Modules; в
 
 Также принимает нативные пропсы своего элемента и `asChild`.
 
-| Проп | Тип | По умолчанию |
-| --- | --- | --- |
-| `variant` | `'default' \| 'secondary' \| 'destructive' \| 'outline' \| 'ghost' \| 'link'` | `'default'` |
-| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` |
+| Проп | Тип | По умолчанию | Описание |
+| --- | --- | --- | --- |
+| `variant` | `'default' \| 'secondary' \| 'destructive' \| 'outline' \| 'ghost' \| 'link'` | `'default'` | Вид бейджа: `default`, `secondary`, `destructive`, `outline`, `ghost` или `link`. |
+| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` | Размер бейджа: `sm`, `md` или `lg`. |

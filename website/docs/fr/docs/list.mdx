@@ -15,19 +15,7 @@ import AnatomyScene from '@/components/examples/list/basic';
 
 ## Utilisation
 
-<UsageCode
-  react={'<List as="ol" gap="md" tone="muted">\n  <ListItem>Create a project</ListItem>\n  <ListItem>Invite your team</ListItem>\n</List>'}
-  vue={'<List as="ol" gap="md" tone="muted">\n  <ListItem>Create a project</ListItem>\n  <ListItem>Invite your team</ListItem>\n</List>'}
-/>
-
-<PropChips
-  items={[
-    ['as', 'ul ou ol ; les puces suivent : disc ou decimal.'],
-    ['marker', 'disc, decimal ou none.'],
-    ['gap', 'Espace entre éléments, de xs à 2xl.'],
-    ['tone', 'default, muted, primary ou destructive.'],
-  ]}
-/>
+<Usage />
 
 `List` rend un élément `<ul>` sémantique par défaut. Utilisez `ListItem` si vous avez besoin de sa partie stable et
 de ses points d’accroche CSS, ou passez directement des éléments `<li>` natifs si ce wrapper ne vous est pas utile.
@@ -159,10 +147,10 @@ composants.
 
 Accepte aussi les props natives de son élément et `asChild`.
 
-| Prop | Type | Défaut |
-| --- | --- | --- |
-| `as` | `'ul' \| 'ol'` | `'ul'` |
-| `marker` | `'disc' \| 'decimal' \| 'none'` | by `as` |
-| `gap` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl' \| '2xl'` | `'sm'` |
-| `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'` | `'md'` |
-| `tone` | `'default' \| 'muted' \| 'primary' \| 'destructive'` | `'default'` |
+| Prop | Type | Défaut | Description |
+| --- | --- | --- | --- |
+| `as` | `'ul' \| 'ol'` | `'ul'` | Élément de liste : `ul` ou `ol`. |
+| `marker` | `'disc' \| 'decimal' \| 'none'` | by `as` | Puce : `disc`, `decimal` ou `none` ; dépend de `as` par défaut. |
+| `gap` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl' \| '2xl'` | `'sm'` | Espace entre les éléments, de `xs` à `2xl`. |
+| `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'` | `'md'` | Taille du texte, de `xs` à `xl`. |
+| `tone` | `'default' \| 'muted' \| 'primary' \| 'destructive'` | `'default'` | Couleur du texte : `default`, `muted`, `primary` ou `destructive`. |

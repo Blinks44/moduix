@@ -16,18 +16,7 @@ import * as InputGroupDocs from '@/components/examples/input-group/css-propertie
 
 ## Использование
 
-<UsageCode
-  react={'<InputGroup size="md">\n  <InputGroupAddon>https://</InputGroupAddon>\n  <InputGroupInput name="domain" placeholder="example.com" />\n  <InputGroupAddon>\n    <InputGroupButton aria-label="Copy">\n      <CopyIcon />\n    </InputGroupButton>\n  </InputGroupAddon>\n</InputGroup>'}
-  vue={'<InputGroup size="md">\n  <InputGroupAddon>https://</InputGroupAddon>\n  <InputGroupInput name="domain" placeholder="example.com" />\n  <InputGroupAddon>\n    <InputGroupButton aria-label="Copy">\n      <CopyIcon />\n    </InputGroupButton>\n  </InputGroupAddon>\n</InputGroup>'}
-/>
-
-<PropChips
-  items={[
-    ['size', 'Общий размер поля и аддонов, от xs до xl.'],
-    ['align', 'На InputGroupAddon: inline рядом с полем или block над ним.'],
-    ['InputGroupClearTrigger', 'Кнопка очистки поля.'],
-  ]}
-/>
+<Usage />
 
 Интерактивное
 
@@ -192,7 +181,7 @@ foundation и открывают только три переменные ниж
 
 Пропсы `InputGroup`. `InputGroupAddon` принимает `align` (`'inline' | 'block'`, по умолчанию `'inline'`).
 
-| Проп | Тип | По умолчанию |
-| --- | --- | --- |
-| `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'` | `'md'` |
-| `asChild` | `boolean` | `false` |
+| Проп | Тип | По умолчанию | Описание |
+| --- | --- | --- | --- |
+| `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'` | `'md'` | Размер группы и поля: `xs`, `sm`, `md`, `lg` или `xl`. |
+| `asChild` | `boolean` | `false` | Отрисовывает корень через единственный дочерний элемент. |

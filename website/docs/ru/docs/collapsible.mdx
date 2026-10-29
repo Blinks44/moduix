@@ -16,18 +16,7 @@ import * as CollapsibleDocs from '@/components/examples/collapsible/css-properti
 
 ## Использование
 
-<UsageCode
-  react={'<Collapsible defaultOpen={false} onOpenChange={(details) => track(details.open)}>\n  <CollapsibleTrigger>\n    Recovery keys\n    <CollapsibleIndicator />\n  </CollapsibleTrigger>\n  <CollapsibleContent>\n    <CollapsibleBody>…</CollapsibleBody>\n  </CollapsibleContent>\n</Collapsible>'}
-  vue={'<Collapsible v-model:open="open">\n  <CollapsibleTrigger>\n    Recovery keys\n    <CollapsibleIndicator />\n  </CollapsibleTrigger>\n  <CollapsibleContent>\n    <CollapsibleBody>…</CollapsibleBody>\n  </CollapsibleContent>\n</Collapsible>'}
-/>
-
-<PropChips
-  items={[
-    ['defaultOpen', 'Открыт сразу; для управления используйте open и onOpenChange.'],
-    ['collapsedHeight', 'Оставляет часть контента видимой в закрытом виде.'],
-    ['disabled', 'Кнопка перестаёт переключать.'],
-  ]}
-/>
+<Usage />
 
 Используйте `Collapsible` с частями `CollapsibleTrigger`, необязательным `CollapsibleIndicator` и `CollapsibleContent`, чтобы
 раскрывать и сворачивать одну область содержимого. Размещайте содержимое внутри `CollapsibleBody`,
@@ -199,14 +188,14 @@ Vue для того же управляемого контракта испол�
 
 ## Справочник API
 
-| Проп | Тип | По умолчанию |
-| --- | --- | --- |
-| `open` | `boolean` | — |
-| `defaultOpen` | `boolean` | `false` |
-| `onOpenChange` | `(details: OpenChangeDetails) => void` | — |
-| `onExitComplete` | `() => void` | — |
-| `disabled` | `boolean` | `false` |
-| `collapsedHeight` | `number \| string` | — |
-| `collapsedWidth` | `number \| string` | — |
-| `lazyMount` | `boolean` | `false` |
-| `unmountOnExit` | `boolean` | `false` |
+| Проп | Тип | По умолчанию | Описание |
+| --- | --- | --- | --- |
+| `open` | `boolean` | — | Состояние раскрытия в управляемом режиме. |
+| `defaultOpen` | `boolean` | `false` | Раскрыт изначально. |
+| `onOpenChange` | `(details: OpenChangeDetails) => void` | — | Вызывается при раскрытии и сворачивании. |
+| `onExitComplete` | `() => void` | — | Вызывается после окончания анимации закрытия. |
+| `disabled` | `boolean` | `false` | Отключает элемент управления. |
+| `collapsedHeight` | `number \| string` | — | Высота, видимая в свёрнутом виде, для превью. |
+| `collapsedWidth` | `number \| string` | — | Ширина, видимая в свёрнутом виде. |
+| `lazyMount` | `boolean` | `false` | Монтирует содержимое при первом открытии. |
+| `unmountOnExit` | `boolean` | `false` | Удаляет содержимое после закрытия. |

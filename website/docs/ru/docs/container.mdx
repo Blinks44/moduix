@@ -16,17 +16,7 @@ import * as ContainerDocs from '@/components/examples/container/css-properties';
 
 ## Использование
 
-<UsageCode
-  react={'<Container size="md" gutter="lg">\n  <Heading as="h1">Release notes</Heading>\n  <Text>What changed this month.</Text>\n</Container>'}
-  vue={'<Container size="md" gutter="lg">\n  <Heading as="h1">Release notes</Heading>\n  <Text>What changed this month.</Text>\n</Container>'}
-/>
-
-<PropChips
-  items={[
-    ['size', 'Максимальная ширина: от xs до xl или full.'],
-    ['gutter', 'Боковые отступы: none, sm, md или lg.'],
-  ]}
-/>
+<Usage />
 
 
 Используйте `Container` для центрированной колонки с читабельной шириной. Компонент добавляет адаптивные
@@ -117,7 +107,7 @@ utility-классы.
 
 Также принимает нативные пропсы своего элемента и `asChild`.
 
-| Проп | Тип | По умолчанию |
-| --- | --- | --- |
-| `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl' \| 'full'` | `'lg'` |
-| `gutter` | `'none' \| 'sm' \| 'md' \| 'lg'` | `'md'` |
+| Проп | Тип | По умолчанию | Описание |
+| --- | --- | --- | --- |
+| `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl' \| 'full'` | `'lg'` | Максимальная ширина: от `xs` до `xl` или `full`. |
+| `gutter` | `'none' \| 'sm' \| 'md' \| 'lg'` | `'md'` | Горизонтальные отступы: `none`, `sm`, `md` или `lg`. |

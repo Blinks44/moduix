@@ -32,8 +32,8 @@ the precise Ark guide when no primitive exists), Report issue, and the Copy page
 1. Basic preview - `<Example name="<component>/basic" />` right under the header, without a heading
 2. `Installation` - `<ComponentInstall />`; it builds the Package and shadcn CLI tabs from
    frontmatter and the selected framework and styling
-3. `Usage` - `<UsageCode react={...} vue={...} />` (add `solid` only when it differs from React)
-   with the main props, followed by `<PropChips items={[...]} />`
+3. `Usage` - `<Usage />`; the example loader renders the Basic source for the selected framework and
+   styling, so keep Basic minimal and free of demo-only constants. Prop details belong in API reference
 4. `Choosing the right component` - only for close alternatives
 5. `Examples`
 6. `Composition` - only when the component has a meaningful choice not already clear from Basic or examples
@@ -46,7 +46,8 @@ the precise Ark guide when no primitive exists), Report issue, and the Copy page
 9. `Keyboard` - a `Key | Action` table when the component has keyboard interaction. Skip rows that only
    repeat browser behavior (`Tab` between controls, `Enter`/`Space` on a native button); a component that
    renders a native element gets one sentence instead of a table
-10. `API reference` - a `Prop | Type | Default` table
+10. `API reference` - a `Prop | Type | Default | Description` table; one short sentence per prop, with
+    the accepted values when the type is a named union such as `ButtonVariant`
 
 `Basic` is the recommended happy path and must not be repeated without a clear structural reason. Every example heading has a short lead-in in sentence case (`Form usage`, not `Form Usage`). Order
 feature examples by task, not alphabetically: appearance first (variants, sizes), then common scenarios

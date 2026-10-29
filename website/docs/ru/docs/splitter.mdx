@@ -17,18 +17,7 @@ import { splitterOverrideCssProperties } from '@/components/examples/splitter/cs
 
 ## Использование
 
-<UsageCode
-  react={'<Splitter\n  panels={[{ id: \'a\', minSize: 20 }, { id: \'b\', collapsible: true }]}\n  defaultSize={[40, 60]}\n>\n  <SplitterPanel id="a">Files</SplitterPanel>\n  <SplitterResizeTrigger id="a:b" aria-label="Resize panels" />\n  <SplitterPanel id="b">Editor</SplitterPanel>\n</Splitter>'}
-  vue={'<Splitter\n  :panels="[{ id: \'a\', minSize: 20 }, { id: \'b\', collapsible: true }]"\n  :default-size="[40, 60]"\n>\n  <SplitterPanel id="a">Files</SplitterPanel>\n  <SplitterResizeTrigger id="a:b" aria-label="Resize panels" />\n  <SplitterPanel id="b">Editor</SplitterPanel>\n</Splitter>'}
-/>
-
-<PropChips
-  items={[
-    ['panels', 'id панелей с minSize, maxSize и collapsible.'],
-    ['defaultSize', 'Начальные размеры в процентах, по порядку панелей.'],
-    ['orientation', 'Деление по горизонтали или вертикали.'],
-  ]}
-/>
+<Usage />
 
 Соберите Splitter из `Splitter`, `SplitterPanel` и `SplitterResizeTrigger`. Свойство `panels`
 содержит идентификаторы панелей и ограничения их размеров. У каждой отрисованной `SplitterPanel`
@@ -193,17 +182,17 @@ Ark сообщает о состоянии через атрибуты `data-ori
 
 ## Справочник API
 
-| Проп | Тип | По умолчанию |
-| --- | --- | --- |
-| `panels` | `PanelData[]` | — |
-| `size` | `PanelSize[]` | — |
-| `defaultSize` | `PanelSize[]` | — |
-| `orientation` | `'horizontal' \| 'vertical'` | `'horizontal'` |
-| `onResize` | `(details: ResizeDetails) => void` | — |
-| `onResizeStart` | `() => void` | — |
-| `onResizeEnd` | `(details: ResizeEndDetails) => void` | — |
-| `onCollapse` | `(details: ExpandCollapseDetails) => void` | — |
-| `onExpand` | `(details: ExpandCollapseDetails) => void` | — |
-| `keyboardResizeBy` | `number \| null` | — |
-| `nonce` | `string` | — |
-| `registry` | `SplitterRegistry` | — |
+| Проп | Тип | По умолчанию | Описание |
+| --- | --- | --- | --- |
+| `panels` | `PanelData[]` | — | Id панелей и ограничения размеров, например `minSize` и `collapsible`. |
+| `size` | `PanelSize[]` | — | Размеры панелей в управляемом режиме. |
+| `defaultSize` | `PanelSize[]` | — | Начальные размеры панелей. |
+| `orientation` | `'horizontal' \| 'vertical'` | `'horizontal'` | Направление панелей: `horizontal` или `vertical`. |
+| `onResize` | `(details: ResizeDetails) => void` | — | Вызывается при изменении размеров. |
+| `onResizeStart` | `() => void` | — | Вызывается в начале изменения размера. |
+| `onResizeEnd` | `(details: ResizeEndDetails) => void` | — | Вызывается в конце изменения размера. |
+| `onCollapse` | `(details: ExpandCollapseDetails) => void` | — | Вызывается при сворачивании панели. |
+| `onExpand` | `(details: ExpandCollapseDetails) => void` | — | Вызывается при разворачивании панели. |
+| `keyboardResizeBy` | `number \| null` | — | Пикселей за нажатие стрелки; по умолчанию шаг в процентах. |
+| `nonce` | `string` | — | CSP nonce для внедряемых стилей курсора. |
+| `registry` | `SplitterRegistry` | — | Общий реестр, чтобы вложенные splitter перетаскивались вместе. |

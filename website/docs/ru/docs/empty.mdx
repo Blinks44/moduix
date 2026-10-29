@@ -16,18 +16,7 @@ import * as EmptyDocs from '@/components/examples/empty/css-properties';
 
 ## Использование
 
-<UsageCode
-  react={'<Empty>\n  <EmptyIcon>\n    <InboxIcon />\n  </EmptyIcon>\n  <EmptyContent>\n    <EmptyTitle>No projects yet</EmptyTitle>\n    <EmptyDescription>Create a project to get started.</EmptyDescription>\n  </EmptyContent>\n  <EmptyActions>\n    <Button>New project</Button>\n  </EmptyActions>\n</Empty>'}
-  vue={'<Empty>\n  <EmptyIcon>\n    <InboxIcon />\n  </EmptyIcon>\n  <EmptyContent>\n    <EmptyTitle>No projects yet</EmptyTitle>\n    <EmptyDescription>Create a project to get started.</EmptyDescription>\n  </EmptyContent>\n  <EmptyActions>\n    <Button>New project</Button>\n  </EmptyActions>\n</Empty>'}
-/>
-
-<PropChips
-  items={[
-    ['EmptyIcon', 'Необязательная иконка над текстом.'],
-    ['EmptyTitle', 'Рендерит h3; для другого уровня заголовка используйте asChild.'],
-    ['EmptyActions', 'Необязательный ряд со следующим шагом.'],
-  ]}
-/>
+<Usage />
 
 Начните с `<Empty />` и добавьте нужные части компонента. Добавляйте `EmptyIcon` и `EmptyActions`
 только если к пустому состоянию нужна визуальная подсказка или понятное действие.
@@ -131,6 +120,6 @@ Ark по атрибутам `data-scope="empty"` / `data-part` и стабиль
 
 Каждая часть принимает нативные пропсы своего элемента и `asChild`.
 
-| Проп | Тип | По умолчанию |
-| --- | --- | --- |
-| `asChild` | `boolean` | `false` |
+| Проп | Тип | По умолчанию | Описание |
+| --- | --- | --- | --- |
+| `asChild` | `boolean` | `false` | Отрисовывает корень через единственный дочерний элемент, например ячейку таблицы. |

@@ -16,20 +16,7 @@ import * as ComboboxDocs from '@/components/examples/combobox/css-properties';
 
 ## Utilisation
 
-<UsageCode
-  react={'const { collection, filter } = useListCollection({ initialItems: fruits, filter: contains });\n\n<Combobox collection={collection} onInputValueChange={(d) => filter(d.inputValue)} openOnClick>\n  <ComboboxLabel>Fruit</ComboboxLabel>\n  <ComboboxControl>\n    <ComboboxInput placeholder="e.g. Mango" />\n    <ComboboxTrigger aria-label="Open options" />\n  </ComboboxControl>\n  <ComboboxPositioner>\n    <ComboboxContent>\n      <ComboboxEmpty>No fruits found.</ComboboxEmpty>\n      <ComboboxList>\n        {collection.items.map((item) => (\n          <ComboboxOption key={item.value} item={item}>{item.label}</ComboboxOption>\n        ))}\n      </ComboboxList>\n    </ComboboxContent>\n  </ComboboxPositioner>\n</Combobox>'}
-  solid={'const { collection, filter } = useListCollection({ initialItems: fruits, filter: contains });\n\n<Combobox collection={collection()} onInputValueChange={(d) => filter(d.inputValue)} openOnClick>\n  <ComboboxLabel>Fruit</ComboboxLabel>\n  <ComboboxControl>\n    <ComboboxInput placeholder="e.g. Mango" />\n    <ComboboxTrigger aria-label="Open options" />\n  </ComboboxControl>\n  <ComboboxPositioner>\n    <ComboboxContent>\n      <ComboboxEmpty>No fruits found.</ComboboxEmpty>\n      <ComboboxList>\n        <For each={collection().items}>\n          {(item) => <ComboboxOption item={item}>{item.label}</ComboboxOption>}\n        </For>\n      </ComboboxList>\n    </ComboboxContent>\n  </ComboboxPositioner>\n</Combobox>'}
-  vue={'const { collection, filter } = useListCollection({ initialItems: fruits, filter: contains });\n\n<Combobox :collection="collection" @input-value-change="(d) => filter(d.inputValue)" open-on-click>\n  <ComboboxLabel>Fruit</ComboboxLabel>\n  <ComboboxControl>\n    <ComboboxInput placeholder="e.g. Mango" />\n    <ComboboxTrigger aria-label="Open options" />\n  </ComboboxControl>\n  <ComboboxPositioner>\n    <ComboboxContent>\n      <ComboboxEmpty>No fruits found.</ComboboxEmpty>\n      <ComboboxList>\n        <ComboboxOption v-for="item in collection.items" :key="item.value" :item="item">\n          {{ item.label }}\n        </ComboboxOption>\n      </ComboboxList>\n    </ComboboxContent>\n  </ComboboxPositioner>\n</Combobox>'}
-/>
-
-<PropChips
-  items={[
-    ['collection', 'Éléments issus de useListCollection() ; filtrez à la saisie.'],
-    ['multiple', 'Permet de choisir plusieurs valeurs.'],
-    ['inputBehavior', 'autohighlight ou autocomplete de la première correspondance.'],
-    ['allowCustomValue', 'Garde un texte qui ne correspond à aucune option.'],
-  ]}
-/>
+<Usage />
 
 Créez une collection Ark avec `useListCollection`, puis transmettez-la à `Combobox`. Déclarez explicitement la structure
 de la liste. Utilisez `ComboboxOption` pour les options simples et `ComboboxItem` lorsqu’une ligne nécessite une mise en page personnalisée.
@@ -247,48 +234,48 @@ Survolez ou sélectionnez une variable pour la voir dans l’aperçu.
 
 ## Référence de l’API
 
-| Prop | Type | Défaut |
-| --- | --- | --- |
-| `collection` | `ListCollection<T>` | — |
-| `value` | `string[]` | — |
-| `defaultValue` | `string[]` | `[]` |
-| `onValueChange` | `(details: ValueChangeDetails) => void` | — |
-| `inputValue` | `string` | — |
-| `onInputValueChange` | `(details: InputValueChangeDetails) => void` | — |
-| `multiple` | `boolean` | `false` |
-| `inputBehavior` | `'autohighlight' \| 'autocomplete' \| 'none'` | `'none'` |
-| `selectionBehavior` | `'clear' \| 'replace' \| 'preserve'` | `'replace'` |
-| `openOnClick` | `boolean` | `false` |
-| `allowCustomValue` | `boolean` | `false` |
-| `closeOnSelect` | `boolean` | — |
-| `positioning` | `PositioningOptions` | `{ placement: 'bottom-start' }` |
-| `open` | `boolean` | — |
-| `onOpenChange` | `(details: OpenChangeDetails) => void` | — |
-| `placeholder` | `string` | — |
-| `name` | `string` | — |
-| `disabled` | `boolean` | `false` |
-| `readOnly` | `boolean` | `false` |
-| `invalid` | `boolean` | `false` |
-| `required` | `boolean` | `false` |
-| `lazyMount` | `boolean` | `true` |
-| `unmountOnExit` | `boolean` | `true` |
-| `defaultOpen` | `boolean` | — |
-| `defaultInputValue` | `string` | `''` |
-| `form` | `string` | — |
-| `defaultHighlightedValue` | `string \| null` | — |
-| `highlightedValue` | `string \| null` | — |
-| `autoFocus` | `boolean` | — |
-| `openOnChange` | `boolean \| ((details: InputValueChangeDetails) => boolean)` | `true` |
-| `alwaysSubmitOnEnter` | `boolean` | `false` |
-| `loopFocus` | `boolean` | `true` |
-| `onHighlightChange` | `(details: HighlightChangeDetails<T>) => void` | — |
-| `onSelect` | `(details: SelectionDetails) => void` | — |
-| `translations` | `IntlTranslations` | — |
-| `openOnKeyPress` | `boolean` | `true` |
-| `scrollToIndexFn` | `(details: ScrollToIndexDetails) => void` | — |
-| `composite` | `boolean` | `true` |
-| `disableLayer` | `boolean` | — |
-| `navigate` | `((details: NavigateDetails) => void) \| null` | — |
-| `onPointerDownOutside` | `(event: PointerDownOutsideEvent) => void` | — |
-| `onFocusOutside` | `(event: FocusOutsideEvent) => void` | — |
-| `onInteractOutside` | `(event: InteractOutsideEvent) => void` | — |
+| Prop | Type | Défaut | Description |
+| --- | --- | --- | --- |
+| `collection` | `ListCollection<T>` | — | Éléments créés avec `createListCollection()`. |
+| `value` | `string[]` | — | Valeurs sélectionnées en mode contrôlé. |
+| `defaultValue` | `string[]` | `[]` | Valeurs sélectionnées initiales. |
+| `onValueChange` | `(details: ValueChangeDetails) => void` | — | Appelé lorsque la sélection change. |
+| `inputValue` | `string` | — | Texte du champ en mode contrôlé. |
+| `onInputValueChange` | `(details: InputValueChangeDetails) => void` | — | Appelé lorsque le texte change ; filtrez la collection ici. |
+| `multiple` | `boolean` | `false` | Permet de choisir plusieurs valeurs. |
+| `inputBehavior` | `'autohighlight' \| 'autocomplete' \| 'none'` | `'none'` | Aide à la saisie : `autohighlight`, `autocomplete` ou `none`. |
+| `selectionBehavior` | `'clear' \| 'replace' \| 'preserve'` | `'replace'` | Texte du champ après une sélection : `replace` par le libellé, `clear` ou `preserve`. |
+| `openOnClick` | `boolean` | `false` | Ouvre la liste au clic sur le champ. |
+| `allowCustomValue` | `boolean` | `false` | Conserve un texte saisi qui ne correspond à aucun élément. |
+| `closeOnSelect` | `boolean` | — | Ferme la liste après une sélection. |
+| `positioning` | `PositioningOptions` | `{ placement: 'bottom-start' }` | Placement, décalage et autres options de positionnement de la fenêtre. |
+| `open` | `boolean` | — | État d’ouverture en mode contrôlé. |
+| `onOpenChange` | `(details: OpenChangeDetails) => void` | — | Appelé à l’ouverture et à la fermeture. |
+| `placeholder` | `string` | — | Texte indicatif du champ. |
+| `name` | `string` | — | Nom du champ de formulaire de l’input sous-jacent. |
+| `disabled` | `boolean` | `false` | Désactive le contrôle. |
+| `readOnly` | `boolean` | `false` | Affiche la valeur sans permettre de la modifier. |
+| `invalid` | `boolean` | `false` | Marque le champ comme invalide. |
+| `required` | `boolean` | `false` | Exige une valeur avant l’envoi du formulaire. |
+| `lazyMount` | `boolean` | `true` | Monte le contenu à la première ouverture. |
+| `unmountOnExit` | `boolean` | `true` | Démonte le contenu après la fermeture. |
+| `defaultOpen` | `boolean` | — | État d’ouverture initial lorsqu’il n’est pas contrôlé. |
+| `defaultInputValue` | `string` | `''` | Texte initial du champ. |
+| `form` | `string` | — | Id du formulaire auquel l’input sous-jacent est rattaché. |
+| `defaultHighlightedValue` | `string \| null` | — | Élément mis en évidence au départ. |
+| `highlightedValue` | `string \| null` | — | Élément mis en évidence en mode contrôlé. |
+| `autoFocus` | `boolean` | — | Place le focus dans le champ au montage. |
+| `openOnChange` | `boolean \| ((details: InputValueChangeDetails) => boolean)` | `true` | Ouvre la liste lorsque le texte change. |
+| `alwaysSubmitOnEnter` | `boolean` | `false` | Entrée envoie le formulaire même si la liste est ouverte. |
+| `loopFocus` | `boolean` | `true` | La navigation au clavier revient du dernier élément au premier. |
+| `onHighlightChange` | `(details: HighlightChangeDetails<T>) => void` | — | Appelé lorsque l’élément mis en évidence change. |
+| `onSelect` | `(details: SelectionDetails) => void` | — | Appelé lorsqu’un élément est sélectionné. |
+| `translations` | `IntlTranslations` | — | Textes localisés des libellés d’accessibilité. |
+| `openOnKeyPress` | `boolean` | `true` | Ouvre la liste avec les flèches. |
+| `scrollToIndexFn` | `(details: ScrollToIndexDetails) => void` | — | Fait défiler une liste virtualisée jusqu’à un index. |
+| `composite` | `boolean` | `true` | Passez `false` à l’intérieur d’un autre widget composite, comme des onglets. |
+| `disableLayer` | `boolean` | — | Ne s’inscrit pas dans la pile des couches refermables. |
+| `navigate` | `((details: NavigateDetails) => void) \| null` | — | Navigue vers l’élément lien lors de la sélection. |
+| `onPointerDownOutside` | `(event: PointerDownOutsideEvent) => void` | — | Appelé lors d’un appui du pointeur en dehors de la fenêtre. |
+| `onFocusOutside` | `(event: FocusOutsideEvent) => void` | — | Appelé lorsque le focus quitte la fenêtre. |
+| `onInteractOutside` | `(event: InteractOutsideEvent) => void` | — | Appelé lors de toute interaction en dehors de la fenêtre. |

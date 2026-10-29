@@ -16,19 +16,7 @@ import * as SelectDocs from '@/components/examples/select/css-properties';
 
 ## Usage
 
-<UsageCode
-  react={'const collection = createListCollection({ items: fruits });\n\n<Select collection={collection} multiple onValueChange={(details) => setValue(details.value)}>\n  <SelectLabel>Fruit</SelectLabel>\n  <SelectField placeholder="Select fruit" clearLabel="Clear selection" />\n  <SelectPositioner>\n    <SelectContent>\n      {collection.items.map((item) => (\n        <SelectOption key={item.value} item={item}>{item.label}</SelectOption>\n      ))}\n    </SelectContent>\n  </SelectPositioner>\n  <SelectHiddenSelect />\n</Select>'}
-  solid={'const collection = createListCollection({ items: fruits });\n\n<Select collection={collection} multiple onValueChange={(details) => setValue(details.value)}>\n  <SelectLabel>Fruit</SelectLabel>\n  <SelectField placeholder="Select fruit" clearLabel="Clear selection" />\n  <SelectPositioner>\n    <SelectContent>\n      <For each={collection.items}>\n        {(item) => <SelectOption item={item}>{item.label}</SelectOption>}\n      </For>\n    </SelectContent>\n  </SelectPositioner>\n  <SelectHiddenSelect />\n</Select>'}
-  vue={'const collection = createListCollection({ items: fruits });\n\n<Select v-model="value" :collection="collection" multiple>\n  <SelectLabel>Fruit</SelectLabel>\n  <SelectField placeholder="Select fruit" clear-label="Clear selection" />\n  <SelectPositioner>\n    <SelectContent>\n      <SelectOption v-for="item in collection.items" :key="item.value" :item="item">\n        {{ item.label }}\n      </SelectOption>\n    </SelectContent>\n  </SelectPositioner>\n  <SelectHiddenSelect />\n</Select>'}
-/>
-
-<PropChips
-  items={[
-    ['collection', 'Items from createListCollection().'],
-    ['multiple', 'Lets the user pick several values.'],
-    ['clearLabel', 'On SelectField: adds a clear button with this label.'],
-  ]}
-/>
+<Usage />
 
 Pass a collection to `Select`, use `SelectField` for the standard visible control, and keep the popup structure explicit. `clearLabel` adds an accessible clear action. Add `SelectHiddenSelect` explicitly when native submission, autofill, validation, and reset are needed.
 
@@ -237,36 +225,36 @@ instead of adding its own styling hook.
 
 ## API reference
 
-| Prop | Type | Default |
-| --- | --- | --- |
-| `collection` | `ListCollection<T>` | — |
-| `value` | `string[]` | — |
-| `defaultValue` | `string[]` | — |
-| `onValueChange` | `(details: ValueChangeDetails) => void` | — |
-| `multiple` | `boolean` | `false` |
-| `closeOnSelect` | `boolean` | `true` |
-| `deselectable` | `boolean` | `false` |
-| `loopFocus` | `boolean` | `false` |
-| `positioning` | `PositioningOptions` | — |
-| `open` | `boolean` | — |
-| `onOpenChange` | `(details: OpenChangeDetails) => void` | — |
-| `lazyMount` | `boolean` | `true` |
-| `unmountOnExit` | `boolean` | `true` |
-| `name` | `string` | — |
-| `disabled` | `boolean` | `false` |
-| `readOnly` | `boolean` | `false` |
-| `invalid` | `boolean` | `false` |
-| `required` | `boolean` | `false` |
-| `translations` | `IntlTranslations` | — |
-| `form` | `string` | — |
-| `autoComplete` | `string` | — |
-| `onSelect` | `(details: SelectionDetails) => void` | — |
-| `onHighlightChange` | `(details: HighlightChangeDetails<T>) => void` | — |
-| `highlightedValue` | `string \| null` | — |
-| `defaultHighlightedValue` | `string \| null` | — |
-| `defaultOpen` | `boolean` | — |
-| `scrollToIndexFn` | `(details: ScrollToIndexDetails) => void` | — |
-| `composite` | `boolean` | `true` |
-| `onPointerDownOutside` | `(event: PointerDownOutsideEvent) => void` | — |
-| `onFocusOutside` | `(event: FocusOutsideEvent) => void` | — |
-| `onInteractOutside` | `(event: InteractOutsideEvent) => void` | — |
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `collection` | `ListCollection<T>` | — | Items from `createListCollection()`. |
+| `value` | `string[]` | — | Selected values for controlled use. |
+| `defaultValue` | `string[]` | — | Initial selected values when the value is not controlled. |
+| `onValueChange` | `(details: ValueChangeDetails) => void` | — | Called when the selected values change. |
+| `multiple` | `boolean` | `false` | Lets the user pick several values. |
+| `closeOnSelect` | `boolean` | `true` | Closes the popup after an item is selected. |
+| `deselectable` | `boolean` | `false` | Clicking the selected item clears it. Single selection only. |
+| `loopFocus` | `boolean` | `false` | Keyboard navigation wraps from the last item to the first. |
+| `positioning` | `PositioningOptions` | — | Placement, offset, and other popup positioning options. |
+| `open` | `boolean` | — | Popup open state for controlled use. |
+| `onOpenChange` | `(details: OpenChangeDetails) => void` | — | Called when the popup opens or closes. |
+| `lazyMount` | `boolean` | `true` | Mounts the popup content on first open. |
+| `unmountOnExit` | `boolean` | `true` | Unmounts the popup content after it closes. |
+| `name` | `string` | — | Form field name of the hidden native select. |
+| `disabled` | `boolean` | `false` | Disables the select. |
+| `readOnly` | `boolean` | `false` | Shows the value but prevents changes. |
+| `invalid` | `boolean` | `false` | Marks the select as invalid. |
+| `required` | `boolean` | `false` | Requires a value before form submission. |
+| `translations` | `IntlTranslations` | — | Localized strings for accessibility labels. |
+| `form` | `string` | — | Id of the form the hidden select belongs to. |
+| `autoComplete` | `string` | — | Browser autofill hint for the hidden select. |
+| `onSelect` | `(details: SelectionDetails) => void` | — | Called when an item is selected. |
+| `onHighlightChange` | `(details: HighlightChangeDetails<T>) => void` | — | Called when the highlighted item changes. |
+| `highlightedValue` | `string \| null` | — | Highlighted item for controlled use. |
+| `defaultHighlightedValue` | `string \| null` | — | Item highlighted when the popup opens. |
+| `defaultOpen` | `boolean` | — | Initial open state when it is not controlled. |
+| `scrollToIndexFn` | `(details: ScrollToIndexDetails) => void` | — | Scrolls a virtualized list to an item index. |
+| `composite` | `boolean` | `true` | Set to `false` when the select sits inside another composite widget, such as tabs. |
+| `onPointerDownOutside` | `(event: PointerDownOutsideEvent) => void` | — | Called when the pointer is pressed outside the popup. |
+| `onFocusOutside` | `(event: FocusOutsideEvent) => void` | — | Called when focus moves outside the popup. |
+| `onInteractOutside` | `(event: InteractOutsideEvent) => void` | — | Called on any interaction outside the popup. |

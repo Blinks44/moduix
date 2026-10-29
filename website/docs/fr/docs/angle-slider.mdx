@@ -16,18 +16,7 @@ import * as AngleSliderDocs from '@/components/examples/angle-slider/css-propert
 
 ## Utilisation
 
-<UsageCode
-  react={'<AngleSlider defaultValue={135} step={15} aria-label="Rotation" onValueChangeEnd={(details) => save(details.value)}>\n  <AngleSliderDial />\n</AngleSlider>'}
-  vue={'<AngleSlider :default-value="135" :step="15" aria-label="Rotation" @value-change-end="(details) => save(details.value)">\n  <AngleSliderDial />\n</AngleSlider>'}
-/>
-
-<PropChips
-  items={[
-    ['defaultValue', 'Angle initial en degrés ; contrôlez-le avec value.'],
-    ['step', 'Pas de l’angle, 1 par défaut.'],
-    ['onValueChangeEnd', 'Appelé quand l’utilisateur relâche le curseur.'],
-  ]}
-/>
+<Usage />
 
 Commencez par `AngleSliderDial`, qui réunit la piste circulaire, la valeur centrée et la poignée. La piste se remplit depuis le haut
 à mesure que l’angle augmente. `AngleSlider` accepte une seule valeur d’angle comprise entre 0
@@ -193,17 +182,17 @@ Survolez ou sélectionnez une variable pour la voir dans l’aperçu.
 
 ## Référence de l’API
 
-| Prop | Type | Défaut |
-| --- | --- | --- |
-| `value` | `number` | — |
-| `defaultValue` | `number` | `0` |
-| `onValueChange` | `(details: ValueChangeDetails) => void` | — |
-| `onValueChangeEnd` | `(details: ValueChangeDetails) => void` | — |
-| `step` | `number` | `1` |
-| `name` | `string` | — |
-| `disabled` | `boolean` | `false` |
-| `readOnly` | `boolean` | `false` |
-| `invalid` | `boolean` | `false` |
-| `required` | `boolean` | `false` |
-| `aria-label` | `string` | — |
-| `aria-labelledby` | `string` | — |
+| Prop | Type | Défaut | Description |
+| --- | --- | --- | --- |
+| `value` | `number` | — | Angle en degrés en mode contrôlé. |
+| `defaultValue` | `number` | `0` | Angle initial en degrés. |
+| `onValueChange` | `(details: ValueChangeDetails) => void` | — | Appelé pendant que l’angle change. |
+| `onValueChangeEnd` | `(details: ValueChangeDetails) => void` | — | Appelé lorsque l’utilisateur a fini de modifier la valeur. |
+| `step` | `number` | `1` | Pas en degrés. |
+| `name` | `string` | — | Nom du champ de formulaire de l’input sous-jacent. |
+| `disabled` | `boolean` | `false` | Désactive le contrôle. |
+| `readOnly` | `boolean` | `false` | Affiche la valeur sans permettre de la modifier. |
+| `invalid` | `boolean` | `false` | Marque le champ comme invalide. |
+| `required` | `boolean` | `false` | Exige une valeur avant l’envoi du formulaire. |
+| `aria-label` | `string` | — | Nom accessible en l’absence de libellé visible. |
+| `aria-labelledby` | `string` | — | Id de l’élément qui sert de libellé. |

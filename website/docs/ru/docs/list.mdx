@@ -15,19 +15,7 @@ import AnatomyScene from '@/components/examples/list/basic';
 
 ## Использование
 
-<UsageCode
-  react={'<List as="ol" gap="md" tone="muted">\n  <ListItem>Create a project</ListItem>\n  <ListItem>Invite your team</ListItem>\n</List>'}
-  vue={'<List as="ol" gap="md" tone="muted">\n  <ListItem>Create a project</ListItem>\n  <ListItem>Invite your team</ListItem>\n</List>'}
-/>
-
-<PropChips
-  items={[
-    ['as', 'ul или ol; маркеры следуют: disc или decimal.'],
-    ['marker', 'disc, decimal или none.'],
-    ['gap', 'Расстояние между пунктами, от xs до 2xl.'],
-    ['tone', 'default, muted, primary или destructive.'],
-  ]}
-/>
+<Usage />
 
 `List` по умолчанию отрисовывает семантический `<ul>`. Используйте `ListItem`, если нужны стабильная часть
 элемента и её хуки стилизации, или передавайте обычные `<li>`, когда дополнительная обёртка не нужна. Корневой
@@ -157,10 +145,10 @@ render-функцией, а в Vue используется семантичес
 
 Также принимает нативные пропсы своего элемента и `asChild`.
 
-| Проп | Тип | По умолчанию |
-| --- | --- | --- |
-| `as` | `'ul' \| 'ol'` | `'ul'` |
-| `marker` | `'disc' \| 'decimal' \| 'none'` | by `as` |
-| `gap` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl' \| '2xl'` | `'sm'` |
-| `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'` | `'md'` |
-| `tone` | `'default' \| 'muted' \| 'primary' \| 'destructive'` | `'default'` |
+| Проп | Тип | По умолчанию | Описание |
+| --- | --- | --- | --- |
+| `as` | `'ul' \| 'ol'` | `'ul'` | Элемент списка: `ul` или `ol`. |
+| `marker` | `'disc' \| 'decimal' \| 'none'` | by `as` | Маркер пунктов: `disc`, `decimal` или `none`; по умолчанию зависит от `as`. |
+| `gap` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl' \| '2xl'` | `'sm'` | Расстояние между пунктами, от `xs` до `2xl`. |
+| `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'` | `'md'` | Размер текста, от `xs` до `xl`. |
+| `tone` | `'default' \| 'muted' \| 'primary' \| 'destructive'` | `'default'` | Цвет текста: `default`, `muted`, `primary` или `destructive`. |

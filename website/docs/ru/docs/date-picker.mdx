@@ -16,19 +16,7 @@ import * as DatePickerDocs from '@/components/examples/date-picker/css-propertie
 
 ## Использование
 
-<UsageCode
-  react={'<DatePicker defaultValue={[parseDate(\'2026-06-22\')]} selectionMode="range" min={today(getLocalTimeZone())}>\n  <DatePickerLabel>Trip dates</DatePickerLabel>\n  <DatePickerField />\n  <DatePickerPositioner>\n    <DatePickerContent>\n      <DatePickerView view="day">\n        <DatePickerDayTable />\n      </DatePickerView>\n    </DatePickerContent>\n  </DatePickerPositioner>\n</DatePicker>'}
-  vue={'<DatePicker :default-value="[parseDate(\'2026-06-22\')]" selection-mode="range" :min="today(getLocalTimeZone())">\n  <DatePickerLabel>Trip dates</DatePickerLabel>\n  <DatePickerField />\n  <DatePickerPositioner>\n    <DatePickerContent>\n      <DatePickerView view="day">\n        <DatePickerDayTable />\n      </DatePickerView>\n    </DatePickerContent>\n  </DatePickerPositioner>\n</DatePicker>'}
-/>
-
-<PropChips
-  items={[
-    ['selectionMode', 'single, range или multiple.'],
-    ['min / max', 'Самая ранняя и самая поздняя доступные даты.'],
-    ['isDateUnavailable', 'Отключает отдельные дни, например выходные.'],
-    ['inline', 'Показывает календарь на странице без всплывающего окна.'],
-  ]}
-/>
+<Usage />
 
 Используйте `DatePicker` как корневой компонент, `DatePickerField` для стандартного поля и
 `DatePickerDayTable`, `DatePickerMonthTable` и `DatePickerYearTable` для представлений календаря.
@@ -302,48 +290,48 @@ moduix.
 
 ## Справочник API
 
-| Проп | Тип | По умолчанию |
-| --- | --- | --- |
-| `value` | `DateValue[]` | — |
-| `defaultValue` | `DateValue[]` | — |
-| `onValueChange` | `(details: ValueChangeDetails) => void` | — |
-| `selectionMode` | `'single' \| 'range' \| 'multiple'` | `'single'` |
-| `min` | `DateValue` | — |
-| `max` | `DateValue` | — |
-| `isDateUnavailable` | `(date: DateValue, locale: string) => boolean` | — |
-| `locale` | `string` | `'en-US'` |
-| `timeZone` | `string` | `'UTC'` |
-| `startOfWeek` | `number` | — |
-| `numOfMonths` | `number` | — |
-| `fixedWeeks` | `boolean` | `false` |
-| `showWeekNumbers` | `boolean` | `false` |
-| `closeOnSelect` | `boolean` | `true` |
-| `inline` | `boolean` | `false` |
-| `defaultView` | `'day' \| 'month' \| 'year'` | `'day'` |
-| `open` | `boolean` | — |
-| `onOpenChange` | `(details: OpenChangeDetails) => void` | — |
-| `positioning` | `PositioningOptions` | — |
-| `name` | `string` | — |
-| `disabled` | `boolean` | `false` |
-| `readOnly` | `boolean` | `false` |
-| `invalid` | `boolean` | `false` |
-| `required` | `boolean` | `false` |
-| `lazyMount` | `boolean` | `true` |
-| `unmountOnExit` | `boolean` | `true` |
-| `createCalendar` | `(identifier: CalendarIdentifier) => Calendar` | — |
-| `translations` | `IntlTranslations` | — |
-| `outsideDaySelectable` | `boolean` | `false` |
-| `openOnClick` | `boolean` | `false` |
-| `focusedValue` | `DateValue` | — |
-| `defaultFocusedValue` | `DateValue` | — |
-| `onFocusChange` | `(details: FocusChangeDetails) => void` | — |
-| `onViewChange` | `(details: ViewChangeDetails) => void` | — |
-| `onVisibleRangeChange` | `(details: VisibleRangeChangeDetails) => void` | — |
-| `maxSelectedDates` | `number` | — |
-| `format` | `(date: DateValue, details: LocaleDetails) => string` | — |
-| `parse` | `(value: string, details: LocaleDetails) => DateValue \| undefined` | — |
-| `placeholder` | `string` | — |
-| `view` | `DateView` | — |
-| `minView` | `DateView` | `'day'` |
-| `maxView` | `DateView` | `'year'` |
-| `defaultOpen` | `boolean` | — |
+| Проп | Тип | По умолчанию | Описание |
+| --- | --- | --- | --- |
+| `value` | `DateValue[]` | — | Выбранные даты в управляемом режиме. |
+| `defaultValue` | `DateValue[]` | — | Начальные выбранные даты. |
+| `onValueChange` | `(details: ValueChangeDetails) => void` | — | Вызывается при изменении выбранных дат. |
+| `selectionMode` | `'single' \| 'range' \| 'multiple'` | `'single'` | Одна дата (`single`), диапазон (`range`) или несколько дат (`multiple`). |
+| `min` | `DateValue` | — | Самая ранняя доступная дата. |
+| `max` | `DateValue` | — | Самая поздняя доступная дата. |
+| `isDateUnavailable` | `(date: DateValue, locale: string) => boolean` | — | Возвращает `true` для недоступных дат. |
+| `locale` | `string` | `'en-US'` | Локаль для форматирования; по умолчанию из ближайшего `LocaleProvider`. |
+| `timeZone` | `string` | `'UTC'` | Часовой пояс для дат. |
+| `startOfWeek` | `number` | — | Первый день недели, `0` означает воскресенье. |
+| `numOfMonths` | `number` | — | Сколько месяцев показано рядом. |
+| `fixedWeeks` | `boolean` | `false` | Всегда показывает шесть недель, чтобы высота не менялась. |
+| `showWeekNumbers` | `boolean` | `false` | Добавляет колонку с номерами недель. |
+| `closeOnSelect` | `boolean` | `true` | Закрывает календарь, когда выбор завершён. |
+| `inline` | `boolean` | `false` | Показывает календарь на месте, без всплывающего окна. |
+| `defaultView` | `'day' \| 'month' \| 'year'` | `'day'` | Начальный вид: `day`, `month` или `year`. |
+| `open` | `boolean` | — | Состояние открытия в управляемом режиме. |
+| `onOpenChange` | `(details: OpenChangeDetails) => void` | — | Вызывается при открытии и закрытии. |
+| `positioning` | `PositioningOptions` | — | Расположение, отступ и другие настройки позиции всплывающего окна. |
+| `name` | `string` | — | Имя поля формы у внутреннего input. |
+| `disabled` | `boolean` | `false` | Отключает элемент управления. |
+| `readOnly` | `boolean` | `false` | Показывает значение, но не даёт его менять. |
+| `invalid` | `boolean` | `false` | Помечает поле как невалидное. |
+| `required` | `boolean` | `false` | Требует значение перед отправкой формы. |
+| `lazyMount` | `boolean` | `true` | Монтирует содержимое при первом открытии. |
+| `unmountOnExit` | `boolean` | `true` | Удаляет содержимое после закрытия. |
+| `createCalendar` | `(identifier: CalendarIdentifier) => Calendar` | — | Создаёт календарную систему, отличную от григорианской. |
+| `translations` | `IntlTranslations` | — | Переведённые строки для подписей доступности. |
+| `outsideDaySelectable` | `boolean` | `false` | Разрешает выбирать дни соседних месяцев. |
+| `openOnClick` | `boolean` | `false` | Открывает календарь по клику на поле. |
+| `focusedValue` | `DateValue` | — | Дата в фокусе в управляемом режиме. |
+| `defaultFocusedValue` | `DateValue` | — | Дата в фокусе изначально; задаёт видимый месяц. |
+| `onFocusChange` | `(details: FocusChangeDetails) => void` | — | Вызывается при смене даты в фокусе. |
+| `onViewChange` | `(details: ViewChangeDetails) => void` | — | Вызывается при смене вида. |
+| `onVisibleRangeChange` | `(details: VisibleRangeChangeDetails) => void` | — | Вызывается при смене видимого периода. |
+| `maxSelectedDates` | `number` | — | Ограничение для режима `multiple`. |
+| `format` | `(date: DateValue, details: LocaleDetails) => string` | — | Форматирует дату для поля ввода. |
+| `parse` | `(value: string, details: LocaleDetails) => DateValue \| undefined` | — | Разбирает введённый текст обратно в дату. |
+| `placeholder` | `string` | — | Подсказка в пустом поле. |
+| `view` | `DateView` | — | Текущий вид в управляемом режиме. |
+| `minView` | `DateView` | `'day'` | Самый подробный доступный вид. |
+| `maxView` | `DateView` | `'year'` | Самый общий доступный вид. |
+| `defaultOpen` | `boolean` | — | Начальное состояние открытия, если оно не управляется извне. |

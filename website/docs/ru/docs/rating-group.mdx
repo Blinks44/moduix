@@ -16,18 +16,7 @@ import * as RatingGroupDocs from '@/components/examples/rating-group/css-propert
 
 ## Использование
 
-<UsageCode
-  react={'<RatingGroup count={5} defaultValue={3.5} allowHalf name="rating">\n  <RatingGroupLabel>Overall satisfaction</RatingGroupLabel>\n  <RatingGroupControl>\n    <RatingGroupItems />\n  </RatingGroupControl>\n  <RatingGroupHiddenInput />\n</RatingGroup>'}
-  vue={'<RatingGroup :count="5" :default-value="3.5" allow-half name="rating">\n  <RatingGroupLabel>Overall satisfaction</RatingGroupLabel>\n  <RatingGroupControl>\n    <RatingGroupItems />\n  </RatingGroupControl>\n  <RatingGroupHiddenInput />\n</RatingGroup>'}
-/>
-
-<PropChips
-  items={[
-    ['count', 'Число звёзд, по умолчанию 5.'],
-    ['allowHalf', 'Разрешает половинки звезды.'],
-    ['readOnly', 'Показывает оценку без возможности изменить.'],
-  ]}
-/>
+<Usage />
 
 Используйте `RatingGroup` как корневой компонент и добавьте `RatingGroupLabel`,
 `RatingGroupControl` и `RatingGroupItems` для стандартного рейтинга со звёздами. Если значение
@@ -181,20 +170,20 @@ import * as RatingGroupDocs from '@/components/examples/rating-group/css-propert
 
 ## Справочник API
 
-| Проп | Тип | По умолчанию |
-| --- | --- | --- |
-| `value` | `number` | — |
-| `defaultValue` | `number` | — |
-| `onValueChange` | `(details: ValueChangeDetails) => void` | — |
-| `onHoverChange` | `(details: HoverChangeDetails) => void` | — |
-| `count` | `number` | `5` |
-| `allowHalf` | `boolean` | `false` |
-| `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'` | `'md'` |
-| `name` | `string` | — |
-| `disabled` | `boolean` | `false` |
-| `readOnly` | `boolean` | `false` |
-| `invalid` | `boolean` | `false` |
-| `required` | `boolean` | `false` |
-| `translations` | `IntlTranslations` | — |
-| `form` | `string` | — |
-| `autoFocus` | `boolean` | — |
+| Проп | Тип | По умолчанию | Описание |
+| --- | --- | --- | --- |
+| `value` | `number` | — | Оценка в управляемом режиме. |
+| `defaultValue` | `number` | — | Начальная оценка. |
+| `onValueChange` | `(details: ValueChangeDetails) => void` | — | Вызывается при изменении оценки. |
+| `onHoverChange` | `(details: HoverChangeDetails) => void` | — | Вызывается с оценкой под указателем. |
+| `count` | `number` | `5` | Количество элементов. |
+| `allowHalf` | `boolean` | `false` | Разрешает половинные оценки. |
+| `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'` | `'md'` | Размер: `xs`, `sm`, `md`, `lg` или `xl`. |
+| `name` | `string` | — | Имя поля формы у внутреннего input. |
+| `disabled` | `boolean` | `false` | Отключает элемент управления. |
+| `readOnly` | `boolean` | `false` | Показывает значение, но не даёт его менять. |
+| `invalid` | `boolean` | `false` | Помечает поле как невалидное. |
+| `required` | `boolean` | `false` | Требует значение перед отправкой формы. |
+| `translations` | `IntlTranslations` | — | Переведённые строки для подписей доступности. |
+| `form` | `string` | — | Id формы, к которой относится внутренний input. |
+| `autoFocus` | `boolean` | — | Ставит фокус на оценку при монтировании. |

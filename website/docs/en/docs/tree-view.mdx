@@ -16,20 +16,7 @@ import * as TreeViewDocs from '@/components/examples/tree-view/css-properties';
 
 ## Usage
 
-<UsageCode
-  react={'const collection = createTreeCollection({ rootNode, nodeToValue: (n) => n.id, nodeToString: (n) => n.name });\n\n<TreeView collection={collection} defaultExpandedValue={[\'src\']} selectionMode="multiple">\n  <TreeViewTree>\n    {collection.rootNode.children.map((node, index) => (\n      <FileTreeNode key={node.id} node={node} indexPath={[index]} />\n    ))}\n  </TreeViewTree>\n</TreeView>'}
-  solid={'const collection = createTreeCollection({ rootNode, nodeToValue: (n) => n.id, nodeToString: (n) => n.name });\n\n<TreeView collection={collection} defaultExpandedValue={[\'src\']} selectionMode="multiple">\n  <TreeViewTree>\n    <For each={collection.rootNode.children}>\n      {(node, index) => (\n        <FileTreeNode node={node} indexPath={[index()]} />\n      )}\n    </For>\n  </TreeViewTree>\n</TreeView>'}
-  vue={'const collection = createTreeCollection({ rootNode, nodeToValue: (n) => n.id, nodeToString: (n) => n.name });\n\n<TreeView :collection="collection" :default-expanded-value="[\'src\']" selection-mode="multiple">\n  <TreeViewTree>\n    <FileTreeNode\n      v-for="(node, index) in collection.rootNode.children"\n      :key="node.id"\n      :node="node"\n      :index-path="[index]"\n    />\n  </TreeViewTree>\n</TreeView>'}
-/>
-
-<PropChips
-  items={[
-    ['collection', 'Tree data from createTreeCollection().'],
-    ['defaultExpandedValue', 'Branches open on first render.'],
-    ['selectionMode', 'single or multiple selection.'],
-    ['loadChildren', 'Loads a branch’s children on first expand.'],
-  ]}
-/>
+<Usage />
 
 Create the data collection with `createTreeCollection`, then pass it to `TreeView`.
 `TreeViewNode` gives each recursive render callback the current `node`, `indexPath`, and `state`, so
@@ -182,30 +169,30 @@ Hover or focus a variable to see it in the preview.
 
 ## API reference
 
-| Prop | Type | Default |
-| --- | --- | --- |
-| `collection` | `TreeCollection<T>` | — |
-| `expandedValue` | `string[]` | — |
-| `defaultExpandedValue` | `string[]` | — |
-| `onExpandedChange` | `(details: ExpandedChangeDetails) => void` | — |
-| `selectedValue` | `string[]` | — |
-| `defaultSelectedValue` | `string[]` | — |
-| `onSelectionChange` | `(details: SelectionChangeDetails) => void` | — |
-| `selectionMode` | `'single' \| 'multiple'` | `'single'` |
-| `checkedValue` | `string[]` | — |
-| `onCheckedChange` | `(details: CheckedChangeDetails) => void` | — |
-| `expandOnClick` | `boolean` | `true` |
-| `typeahead` | `boolean` | `true` |
-| `loadChildren` | `(details: LoadChildrenDetails) => Promise<T[]>` | — |
-| `canRename` | `(node: T, indexPath: IndexPath) => boolean` | — |
-| `translations` | `IntlTranslations` | — |
-| `defaultCheckedValue` | `string[]` | — |
-| `defaultFocusedValue` | `string \| null` | — |
-| `focusedValue` | `string \| null` | — |
-| `onFocusChange` | `(details: FocusChangeDetails<T>) => void` | — |
-| `onRenameStart` | `(details: RenameStartDetails<T>) => void` | — |
-| `onBeforeRename` | `(details: RenameCompleteDetails) => boolean` | — |
-| `onRenameComplete` | `(details: RenameCompleteDetails) => void` | — |
-| `onLoadChildrenComplete` | `(details: LoadChildrenCompleteDetails<T>) => void` | — |
-| `onLoadChildrenError` | `(details: LoadChildrenErrorDetails<T>) => void` | — |
-| `scrollToIndexFn` | `(details: ScrollToIndexDetails<T>) => void` | — |
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `collection` | `TreeCollection<T>` | — | Nodes from `createTreeCollection()`. |
+| `expandedValue` | `string[]` | — | Expanded node ids for controlled use. |
+| `defaultExpandedValue` | `string[]` | — | Initially expanded node ids. |
+| `onExpandedChange` | `(details: ExpandedChangeDetails) => void` | — | Called when branches expand or collapse. |
+| `selectedValue` | `string[]` | — | Selected node ids for controlled use. |
+| `defaultSelectedValue` | `string[]` | — | Initially selected node ids. |
+| `onSelectionChange` | `(details: SelectionChangeDetails) => void` | — | Called when the selection changes. |
+| `selectionMode` | `'single' \| 'multiple'` | `'single'` | `single` or `multiple` selection. |
+| `checkedValue` | `string[]` | — | Checked node ids for controlled use. |
+| `onCheckedChange` | `(details: CheckedChangeDetails) => void` | — | Called when checkboxes change. |
+| `expandOnClick` | `boolean` | `true` | Clicking a branch expands it. |
+| `typeahead` | `boolean` | `true` | Typing letters focuses a matching node. |
+| `loadChildren` | `(details: LoadChildrenDetails) => Promise<T[]>` | — | Loads the children of a branch asynchronously. |
+| `canRename` | `(node: T, indexPath: IndexPath) => boolean` | — | Returns `true` for nodes that can be renamed. |
+| `translations` | `IntlTranslations` | — | Localized strings for accessibility labels. |
+| `defaultCheckedValue` | `string[]` | — | Initially checked node ids. |
+| `defaultFocusedValue` | `string \| null` | — | Node focused initially. |
+| `focusedValue` | `string \| null` | — | Focused node for controlled use. |
+| `onFocusChange` | `(details: FocusChangeDetails<T>) => void` | — | Called when focus moves to another node. |
+| `onRenameStart` | `(details: RenameStartDetails<T>) => void` | — | Called when renaming starts. |
+| `onBeforeRename` | `(details: RenameCompleteDetails) => boolean` | — | Returns `false` to reject a new name. |
+| `onRenameComplete` | `(details: RenameCompleteDetails) => void` | — | Called with the new name; update the collection here. |
+| `onLoadChildrenComplete` | `(details: LoadChildrenCompleteDetails<T>) => void` | — | Called when children finish loading. |
+| `onLoadChildrenError` | `(details: LoadChildrenErrorDetails<T>) => void` | — | Called when loading children fails. |
+| `scrollToIndexFn` | `(details: ScrollToIndexDetails<T>) => void` | — | Scrolls a virtualized list to an item index. |

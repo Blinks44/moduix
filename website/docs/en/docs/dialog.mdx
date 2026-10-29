@@ -16,20 +16,7 @@ import * as DialogDocs from '@/components/examples/dialog/css-properties';
 
 ## Usage
 
-<UsageCode
-  react={'<Dialog onOpenChange={(details) => setOpen(details.open)}>\n  <DialogTrigger asChild>\n    <Button>Edit profile</Button>\n  </DialogTrigger>\n  <DialogBackdrop />\n  <DialogPositioner>\n    <DialogContent size="md" placement="center">\n      <DialogHeader>\n        <DialogTitle>Edit profile</DialogTitle>\n        <DialogCloseIcon />\n      </DialogHeader>\n      <DialogBody>…</DialogBody>\n    </DialogContent>\n  </DialogPositioner>\n</Dialog>'}
-  solid={'<Dialog onOpenChange={(details) => setOpen(details.open)}>\n  <DialogTrigger asChild={(props) => (\n    <Button {...props()}>Edit profile</Button>\n  )} />\n  <DialogBackdrop />\n  <DialogPositioner>\n    <DialogContent size="md" placement="center">\n      <DialogHeader>\n        <DialogTitle>Edit profile</DialogTitle>\n        <DialogCloseIcon />\n      </DialogHeader>\n      <DialogBody>…</DialogBody>\n    </DialogContent>\n  </DialogPositioner>\n</Dialog>'}
-  vue={'<Dialog v-model:open="open">\n  <DialogTrigger as-child>\n    <Button>Edit profile</Button>\n  </DialogTrigger>\n  <DialogBackdrop />\n  <DialogPositioner>\n    <DialogContent size="md" placement="center">\n      <DialogHeader>\n        <DialogTitle>Edit profile</DialogTitle>\n        <DialogCloseIcon />\n      </DialogHeader>\n      <DialogBody>…</DialogBody>\n    </DialogContent>\n  </DialogPositioner>\n</Dialog>'}
-/>
-
-<PropChips
-  items={[
-    ['size', 'Width on DialogContent: sm to xl, or full.'],
-    ['placement', 'Vertical position: center, top, or bottom.'],
-    ['role', 'alertdialog for confirmations that need an answer.'],
-    ['onOpenChange', 'Runs when the dialog opens or closes.'],
-  ]}
-/>
+<Usage />
 
 Use `Dialog` as the root and compose its structural parts explicitly. `DialogBackdrop` is the
 modal background, `DialogPositioner` places the dialog, and `DialogContent` contains its surface.
@@ -230,24 +217,24 @@ Hover or focus a variable to see it in the preview.
 
 Props of `Dialog`. `size` (`'sm' | 'md' | 'lg' | 'xl' | 'full'`, default `'md'`), `placement` (`'center' | 'top' | 'bottom'`, default `'center'`), and `scrollBehavior` (`'outside' | 'inside'`, default `'outside'`) go on `DialogContent`.
 
-| Prop | Type | Default |
-| --- | --- | --- |
-| `open` | `boolean` | — |
-| `defaultOpen` | `boolean` | `false` |
-| `onOpenChange` | `(details: OpenChangeDetails) => void` | — |
-| `modal` | `boolean` | `true` |
-| `role` | `'dialog' \| 'alertdialog'` | `'dialog'` |
-| `closeOnEscape` | `boolean` | `true` |
-| `closeOnInteractOutside` | `boolean` | `true` |
-| `trapFocus` | `boolean` | `true` |
-| `preventScroll` | `boolean` | `true` |
-| `initialFocusEl` | `() => HTMLElement \| null \| false` | — |
-| `finalFocusEl` | `() => HTMLElement \| null` | — |
-| `lazyMount` | `boolean` | `true` |
-| `unmountOnExit` | `boolean` | `true` |
-| `portalled` | `boolean` | `true` |
-| `restoreFocus` | `boolean` | — |
-| `aria-label` | `string` | — |
-| `triggerValue` | `string \| null` | — |
-| `defaultTriggerValue` | `string \| null` | — |
-| `onTriggerValueChange` | `(details: TriggerValueChangeDetails) => void` | — |
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `open` | `boolean` | — | Open state for controlled use. |
+| `defaultOpen` | `boolean` | `false` | Initial open state when it is not controlled. |
+| `onOpenChange` | `(details: OpenChangeDetails) => void` | — | Called when it opens or closes. |
+| `modal` | `boolean` | `true` | Blocks interaction outside and hides the rest of the page from assistive technology. |
+| `role` | `'dialog' \| 'alertdialog'` | `'dialog'` | `dialog`, or `alertdialog` for urgent confirmations. |
+| `closeOnEscape` | `boolean` | `true` | Closes on Escape. |
+| `closeOnInteractOutside` | `boolean` | `true` | Closes on a click outside. |
+| `trapFocus` | `boolean` | `true` | Keeps keyboard focus inside while open. |
+| `preventScroll` | `boolean` | `true` | Locks page scroll while open. |
+| `initialFocusEl` | `() => HTMLElement \| null \| false` | — | Returns the element to focus on open. |
+| `finalFocusEl` | `() => HTMLElement \| null` | — | Returns the element to focus on close. |
+| `lazyMount` | `boolean` | `true` | Mounts the content on first open. |
+| `unmountOnExit` | `boolean` | `true` | Unmounts the content after it closes. |
+| `portalled` | `boolean` | `true` | Renders the popup in a portal at the end of `body`. |
+| `restoreFocus` | `boolean` | — | Returns focus to the previously focused element on close. |
+| `aria-label` | `string` | — | Accessible name when the dialog has no visible title. |
+| `triggerValue` | `string \| null` | — | Active trigger for controlled use when several triggers share one popup. |
+| `defaultTriggerValue` | `string \| null` | — | Initially active trigger. |
+| `onTriggerValueChange` | `(details: TriggerValueChangeDetails) => void` | — | Called when another trigger becomes active. |

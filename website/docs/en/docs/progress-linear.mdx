@@ -16,19 +16,7 @@ import * as ProgressLinearDocs from '@/components/examples/progress-linear/css-p
 
 ## Usage
 
-<UsageCode
-  react={'<ProgressLinear defaultValue={24}>\n  <ProgressLinearLabel>Export data</ProgressLinearLabel>\n  <ProgressLinearValueText />\n  <ProgressLinearTrack aria-label="Export data">\n    <ProgressLinearRange />\n  </ProgressLinearTrack>\n</ProgressLinear>'}
-  vue={'<ProgressLinear :default-value="24">\n  <ProgressLinearLabel>Export data</ProgressLinearLabel>\n  <ProgressLinearValueText />\n  <ProgressLinearTrack aria-label="Export data">\n    <ProgressLinearRange />\n  </ProgressLinearTrack>\n</ProgressLinear>'}
-/>
-
-<PropChips
-  items={[
-    ['defaultValue', 'Starting value; pass null for an indeterminate state.'],
-    ['min / max', 'Range of the value, 0 to 100 by default.'],
-    ['formatOptions', 'Intl options for the value text, percent by default.'],
-    ['orientation', 'Horizontal by default; vertical fills from the bottom.'],
-  ]}
-/>
+<Usage />
 
 Compose the progress bar from the explicit `ProgressLinearLabel`, `ProgressLinearValueText`, `ProgressLinearTrack`, and `ProgressLinearRange` parts. Give
 `ProgressLinearTrack` an accessible name that describes the task.
@@ -159,14 +147,14 @@ Hover or focus a variable to see it in the preview.
 
 ## API reference
 
-| Prop | Type | Default |
-| --- | --- | --- |
-| `value` | `number \| null` | — |
-| `defaultValue` | `number \| null` | `50` |
-| `onValueChange` | `(details: ValueChangeDetails) => void` | — |
-| `min` | `number` | `0` |
-| `max` | `number` | `100` |
-| `formatOptions` | `Intl.NumberFormatOptions` | `{ style: 'percent' }` |
-| `locale` | `string` | — |
-| `translations` | `IntlTranslations` | — |
-| `orientation` | `'horizontal' \| 'vertical'` | `'horizontal'` |
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `value` | `number \| null` | — | Progress value for controlled use; `null` shows an indeterminate state. |
+| `defaultValue` | `number \| null` | `50` | Initial value when it is not controlled; `null` is indeterminate. |
+| `onValueChange` | `(details: ValueChangeDetails) => void` | — | Called when the value changes. |
+| `min` | `number` | `0` | Minimum value. |
+| `max` | `number` | `100` | Maximum value. |
+| `formatOptions` | `Intl.NumberFormatOptions` | `{ style: 'percent' }` | `Intl.NumberFormat` options for the value text. |
+| `locale` | `string` | — | Locale for number formatting; defaults to the nearest `LocaleProvider`. |
+| `translations` | `IntlTranslations` | — | Localized strings for accessibility labels. |
+| `orientation` | `'horizontal' \| 'vertical'` | `'horizontal'` | Bar direction: `horizontal` or `vertical`. |

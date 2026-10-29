@@ -16,19 +16,7 @@ import * as ColorPickerDocs from '@/components/examples/color-picker/css-propert
 
 ## Utilisation
 
-<UsageCode
-  react={'<ColorPicker defaultValue={parseColor(\'#eb5e41\')} defaultFormat="hsla" onValueChangeEnd={(details) => save(details.valueAsString)}>\n  <ColorPickerLabel>Brand color</ColorPickerLabel>\n  <ColorPickerControl>\n    <ColorPickerChannelInput channel="hex" />\n    <ColorPickerTrigger aria-label="Open color picker" />\n  </ColorPickerControl>\n  <ColorPickerPositioner>\n    <ColorPickerContent>\n      <ColorPickerArea />\n      <ColorPickerChannelSlider channel="hue" />\n    </ColorPickerContent>\n  </ColorPickerPositioner>\n  <ColorPickerHiddenInput />\n</ColorPicker>'}
-  vue={'<ColorPicker :default-value="parseColor(\'#eb5e41\')" default-format="hsla" @value-change-end="(details) => save(details.valueAsString)">\n  <ColorPickerLabel>Brand color</ColorPickerLabel>\n  <ColorPickerControl>\n    <ColorPickerChannelInput channel="hex" />\n    <ColorPickerTrigger aria-label="Open color picker" />\n  </ColorPickerControl>\n  <ColorPickerPositioner>\n    <ColorPickerContent>\n      <ColorPickerArea />\n      <ColorPickerChannelSlider channel="hue" />\n    </ColorPickerContent>\n  </ColorPickerPositioner>\n  <ColorPickerHiddenInput />\n</ColorPicker>'}
-/>
-
-<PropChips
-  items={[
-    ['defaultValue', 'Couleur initiale via parseColor() ; contrôlez-la avec value.'],
-    ['defaultFormat', 'rgba, hsla ou hsba pour les champs de canaux.'],
-    ['inline', 'Affiche le sélecteur dans la page sans popup.'],
-    ['onValueChangeEnd', 'Appelé quand l’utilisateur a fini de glisser.'],
-  ]}
-/>
+<Usage />
 
 Commencez par un champ compact composé du composant racine, d’un champ pour un canal, de la pastille par défaut du bouton
 d’ouverture et du contenu explicite de la fenêtre contextuelle. Les parties internes peuvent rester sans enfants : le
@@ -274,30 +262,30 @@ désactivées ; Ark termine quand même son cycle de fermeture.
 
 ## Référence de l’API
 
-| Prop | Type | Défaut |
-| --- | --- | --- |
-| `value` | `Color` | — |
-| `defaultValue` | `Color` | `#000000` |
-| `onValueChange` | `(details: ValueChangeDetails) => void` | — |
-| `onValueChangeEnd` | `(details: ValueChangeDetails) => void` | — |
-| `format` | `'rgba' \| 'hsla' \| 'hsba'` | — |
-| `defaultFormat` | `'rgba' \| 'hsla' \| 'hsba'` | `'rgba'` |
-| `open` | `boolean` | — |
-| `defaultOpen` | `boolean` | `false` |
-| `onOpenChange` | `(details: OpenChangeDetails) => void` | — |
-| `inline` | `boolean` | `false` |
-| `closeOnSelect` | `boolean` | `false` |
-| `positioning` | `PositioningOptions` | — |
-| `name` | `string` | — |
-| `disabled` | `boolean` | `false` |
-| `readOnly` | `boolean` | `false` |
-| `invalid` | `boolean` | `false` |
-| `required` | `boolean` | `false` |
-| `lazyMount` | `boolean` | `true` |
-| `unmountOnExit` | `boolean` | `true` |
-| `initialFocusEl` | `() => HTMLElement \| null \| false` | — |
-| `onFormatChange` | `(details: FormatChangeDetails) => void` | — |
-| `openAutoFocus` | `boolean` | `true` |
-| `onPointerDownOutside` | `(event: PointerDownOutsideEvent) => void` | — |
-| `onFocusOutside` | `(event: FocusOutsideEvent) => void` | — |
-| `onInteractOutside` | `(event: InteractOutsideEvent) => void` | — |
+| Prop | Type | Défaut | Description |
+| --- | --- | --- | --- |
+| `value` | `Color` | — | Couleur en mode contrôlé ; créez-la avec `parseColor()`. |
+| `defaultValue` | `Color` | `#000000` | Couleur initiale lorsqu’elle n’est pas contrôlée. |
+| `onValueChange` | `(details: ValueChangeDetails) => void` | — | Appelé pendant que la couleur change, y compris en glissant. |
+| `onValueChangeEnd` | `(details: ValueChangeDetails) => void` | — | Appelé lorsque l’utilisateur arrête de glisser. |
+| `format` | `'rgba' \| 'hsla' \| 'hsba'` | — | Format de couleur en mode contrôlé : `rgba`, `hsla` ou `hsba`. |
+| `defaultFormat` | `'rgba' \| 'hsla' \| 'hsba'` | `'rgba'` | Format de couleur initial. |
+| `open` | `boolean` | — | État d’ouverture en mode contrôlé. |
+| `defaultOpen` | `boolean` | `false` | État d’ouverture initial lorsqu’il n’est pas contrôlé. |
+| `onOpenChange` | `(details: OpenChangeDetails) => void` | — | Appelé à l’ouverture et à la fermeture. |
+| `inline` | `boolean` | `false` | Affiche le sélecteur sur place, sans fenêtre. |
+| `closeOnSelect` | `boolean` | `false` | Ferme la fenêtre lorsqu’un échantillon est choisi. |
+| `positioning` | `PositioningOptions` | — | Placement, décalage et autres options de positionnement de la fenêtre. |
+| `name` | `string` | — | Nom du champ de formulaire de l’input sous-jacent. |
+| `disabled` | `boolean` | `false` | Désactive le contrôle. |
+| `readOnly` | `boolean` | `false` | Affiche la valeur sans permettre de la modifier. |
+| `invalid` | `boolean` | `false` | Marque le champ comme invalide. |
+| `required` | `boolean` | `false` | Exige une valeur avant l’envoi du formulaire. |
+| `lazyMount` | `boolean` | `true` | Monte le contenu à la première ouverture. |
+| `unmountOnExit` | `boolean` | `true` | Démonte le contenu après la fermeture. |
+| `initialFocusEl` | `() => HTMLElement \| null \| false` | — | Élément qui reçoit le focus à l’ouverture. |
+| `onFormatChange` | `(details: FormatChangeDetails) => void` | — | Appelé lorsque le format de couleur change. |
+| `openAutoFocus` | `boolean` | `true` | Place le focus dans la fenêtre à l’ouverture. |
+| `onPointerDownOutside` | `(event: PointerDownOutsideEvent) => void` | — | Appelé lors d’un appui du pointeur en dehors de la fenêtre. |
+| `onFocusOutside` | `(event: FocusOutsideEvent) => void` | — | Appelé lorsque le focus quitte la fenêtre. |
+| `onInteractOutside` | `(event: InteractOutsideEvent) => void` | — | Appelé lors de toute interaction en dehors de la fenêtre. |

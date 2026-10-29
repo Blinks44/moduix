@@ -16,18 +16,7 @@ import * as ToastDocs from '@/components/examples/toast/css-properties';
 
 ## Usage
 
-<UsageCode
-  react={'const toaster = createToaster({ placement: \'bottom-end\', max: 3 });\n\n<ToastToaster toaster={toaster} />\n\ntoaster.create({\n  title: \'Changes saved\',\n  description: \'Your profile is up to date.\',\n  type: \'success\',\n  duration: 4000,\n});'}
-  vue={'const toaster = createToaster({ placement: \'bottom-end\', max: 3 });\n\n<ToastToaster :toaster="toaster" />\n\ntoaster.create({\n  title: \'Changes saved\',\n  description: \'Your profile is up to date.\',\n  type: \'success\',\n  duration: 4000,\n});'}
-/>
-
-<PropChips
-  items={[
-    ['placement', 'Screen corner or edge where toasts appear.'],
-    ['type', 'success, error, warning, info, or loading.'],
-    ['duration', 'Time on screen in ms; Infinity keeps it until closed.'],
-  ]}
-/>
+<Usage />
 
 Create a toaster once with `createToaster()`, use its methods to add notifications, and render it
 with `ToastToaster`.
@@ -203,14 +192,14 @@ At viewport widths up to `40rem`, every placement is centered horizontally. Toas
 
 Options of `createToaster()`. Each `toaster.create()` call also takes `title`, `description`, `type`, `duration`, `action`, and `closable`.
 
-| Prop | Type | Default |
-| --- | --- | --- |
-| `placement` | `'top-start' \| 'top' \| 'top-end' \| 'bottom-start' \| 'bottom' \| 'bottom-end'` | `'bottom'` |
-| `max` | `number` | `24` |
-| `overlap` | `boolean` | `false` |
-| `duration` | `number` | — |
-| `gap` | `number` | `16` |
-| `offsets` | `string \| Record<Side, string>` | — |
-| `hotkey` | `string[]` | `['altKey', 'KeyT']` |
-| `removeDelay` | `number` | `200` |
-| `pauseOnPageIdle` | `boolean` | `true` |
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `placement` | `'top-start' \| 'top' \| 'top-end' \| 'bottom-start' \| 'bottom' \| 'bottom-end'` | `'bottom'` | Screen edge where toasts appear. |
+| `max` | `number` | `24` | Maximum number of visible toasts. |
+| `overlap` | `boolean` | `false` | Stacks toasts on top of each other until hovered. |
+| `duration` | `number` | — | Default display time in milliseconds. |
+| `gap` | `number` | `16` | Space between toasts in pixels. |
+| `offsets` | `string \| Record<Side, string>` | — | Distance from the viewport edges. |
+| `hotkey` | `string[]` | `['altKey', 'KeyT']` | Keys that move focus to the toast region. |
+| `removeDelay` | `number` | `200` | Delay before a dismissed toast is removed, for its exit animation. |
+| `pauseOnPageIdle` | `boolean` | `true` | Pauses timers while the page is hidden. |

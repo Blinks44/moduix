@@ -17,18 +17,7 @@ import { CssPropertiesSection } from '@/components/mdx/Components';
 
 ## Utilisation
 
-<UsageCode
-  react={'<ToggleGroup defaultValue={[\'left\']} variant="outline" aria-label="Text alignment" onValueChange={(details) => setAlign(details.value)}>\n  <ToggleGroupItem value="left">Left</ToggleGroupItem>\n  <ToggleGroupItem value="center">Center</ToggleGroupItem>\n  <ToggleGroupItem value="right">Right</ToggleGroupItem>\n</ToggleGroup>'}
-  vue={'<ToggleGroup v-model="align" variant="outline" aria-label="Text alignment">\n  <ToggleGroupItem value="left">Left</ToggleGroupItem>\n  <ToggleGroupItem value="center">Center</ToggleGroupItem>\n  <ToggleGroupItem value="right">Right</ToggleGroupItem>\n</ToggleGroup>'}
-/>
-
-<PropChips
-  items={[
-    ['defaultValue', 'Éléments enfoncés au départ, tableau.'],
-    ['multiple', 'Permet d’enfoncer plusieurs éléments.'],
-    ['deselectable', 'Permet de relâcher le dernier élément, true par défaut.'],
-  ]}
-/>
+<Usage />
 
 Utilisez `ToggleGroup` comme racine et ajoutez un `ToggleGroupItem` pour chaque choix. Donnez au groupe
 un nom accessible avec `aria-label` ou `aria-labelledby`.
@@ -194,16 +183,16 @@ Définissez une propriété `--moduix-toggle-*` sur la racine pour styliser tous
 
 ## Référence de l’API
 
-| Prop | Type | Défaut |
-| --- | --- | --- |
-| `value` | `string[]` | — |
-| `defaultValue` | `string[]` | — |
-| `onValueChange` | `(details: ValueChangeDetails) => void` | — |
-| `multiple` | `boolean` | `false` |
-| `deselectable` | `boolean` | `true` |
-| `orientation` | `'horizontal' \| 'vertical'` | `'horizontal'` |
-| `loopFocus` | `boolean` | `true` |
-| `rovingFocus` | `boolean` | `true` |
-| `variant` | `'default' \| 'outline' \| 'ghost'` | `'default'` |
-| `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'icon-sm' \| 'icon-md' \| 'icon-lg'` | `'md'` |
-| `disabled` | `boolean` | `false` |
+| Prop | Type | Défaut | Description |
+| --- | --- | --- | --- |
+| `value` | `string[]` | — | Éléments enfoncés en mode contrôlé. |
+| `defaultValue` | `string[]` | — | Éléments enfoncés au départ. |
+| `onValueChange` | `(details: ValueChangeDetails) => void` | — | Appelé lorsque les éléments enfoncés changent. |
+| `multiple` | `boolean` | `false` | Permet d’enfoncer plusieurs éléments à la fois. |
+| `deselectable` | `boolean` | `true` | Permet de relâcher le dernier élément enfoncé. |
+| `orientation` | `'horizontal' \| 'vertical'` | `'horizontal'` | Disposition et sens des flèches : `horizontal` ou `vertical`. |
+| `loopFocus` | `boolean` | `true` | La navigation au clavier revient du dernier élément au premier. |
+| `rovingFocus` | `boolean` | `true` | Les flèches déplacent le focus, Tab quitte le groupe. |
+| `variant` | `'default' \| 'outline' \| 'ghost'` | `'default'` | Style visuel de chaque élément : `default`, `outline` ou `ghost`. |
+| `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'icon-sm' \| 'icon-md' \| 'icon-lg'` | `'md'` | `xs`, `sm`, `md`, `lg`, ou les tailles carrées `icon-sm`, `icon-md`, `icon-lg`. |
+| `disabled` | `boolean` | `false` | Désactive tous les éléments. |

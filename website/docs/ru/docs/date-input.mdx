@@ -16,19 +16,7 @@ import * as DateInputDocs from '@/components/examples/date-input/css-properties'
 
 ## Использование
 
-<UsageCode
-  react={'<DateInput defaultValue={[new CalendarDate(2026, 6, 22)]} min={today(getLocalTimeZone())} name="release-date">\n  <DateInputLabel>Release date</DateInputLabel>\n  <DateInputControl>\n    <DateInputSegments />\n  </DateInputControl>\n  <DateInputHiddenInput />\n</DateInput>'}
-  vue={'<DateInput :default-value="[new CalendarDate(2026, 6, 22)]" :min="today(getLocalTimeZone())" name="release-date">\n  <DateInputLabel>Release date</DateInputLabel>\n  <DateInputControl>\n    <DateInputSegments />\n  </DateInputControl>\n  <DateInputHiddenInput />\n</DateInput>'}
-/>
-
-<PropChips
-  items={[
-    ['defaultValue', 'Массив значений CalendarDate из @internationalized/date.'],
-    ['min / max', 'Самая ранняя и самая поздняя допустимые даты.'],
-    ['granularity', 'Наименьший сегмент: day, hour, minute или second.'],
-    ['locale', 'Порядок и формат сегментов.'],
-  ]}
-/>
+<Usage />
 
 `DateInput` отображает сегменты даты с учётом локали, которые можно редактировать с клавиатуры. Поместите
 `DateInputSegments` внутрь `DateInputControl` для стандартной композиции.
@@ -209,33 +197,33 @@ Tailwind используют обычные utility-классы и класс�
 
 ## Справочник API
 
-| Проп | Тип | По умолчанию |
-| --- | --- | --- |
-| `value` | `DateValue[]` | — |
-| `defaultValue` | `DateValue[]` | — |
-| `onValueChange` | `(details: ValueChangeDetails) => void` | — |
-| `min` | `DateValue` | — |
-| `max` | `DateValue` | — |
-| `isDateUnavailable` | `(date: DateValue, locale: string) => boolean` | — |
-| `granularity` | `'day' \| 'hour' \| 'minute' \| 'second'` | `'day'` |
-| `selectionMode` | `'single' \| 'range'` | `'single'` |
-| `locale` | `string` | `'en-US'` |
-| `timeZone` | `string` | `'UTC'` |
-| `hourCycle` | `12 \| 24` | — |
-| `shouldForceLeadingZeros` | `boolean` | `false` |
-| `name` | `string` | — |
-| `disabled` | `boolean` | `false` |
-| `readOnly` | `boolean` | `false` |
-| `invalid` | `boolean` | `false` |
-| `required` | `boolean` | `false` |
-| `createCalendar` | `(identifier: CalendarIdentifier) => Calendar` | — |
-| `translations` | `IntlTranslations` | — |
-| `form` | `string` | — |
-| `placeholderValue` | `DateValue` | — |
-| `defaultPlaceholderValue` | `DateValue` | — |
-| `onPlaceholderChange` | `(details: PlaceholderChangeDetails) => void` | — |
-| `onFocusChange` | `(details: FocusChangeDetails) => void` | — |
-| `hideTimeZone` | `boolean` | `false` |
-| `formatter` | `DateFormatter` | — |
-| `allSegments` | `Segments` | — |
-| `format` | `(date: DateValue, details: FormatDateDetails) => string` | — |
+| Проп | Тип | По умолчанию | Описание |
+| --- | --- | --- | --- |
+| `value` | `DateValue[]` | — | Выбранные даты в управляемом режиме. |
+| `defaultValue` | `DateValue[]` | — | Начальные выбранные даты. |
+| `onValueChange` | `(details: ValueChangeDetails) => void` | — | Вызывается при изменении выбранных дат. |
+| `min` | `DateValue` | — | Самая ранняя доступная дата. |
+| `max` | `DateValue` | — | Самая поздняя доступная дата. |
+| `isDateUnavailable` | `(date: DateValue, locale: string) => boolean` | — | Возвращает `true` для недоступных дат. |
+| `granularity` | `'day' \| 'hour' \| 'minute' \| 'second'` | `'day'` | Самая мелкая редактируемая единица: `day`, `hour`, `minute` или `second`. |
+| `selectionMode` | `'single' \| 'range'` | `'single'` | Одна дата (`single`) или диапазон (`range`). |
+| `locale` | `string` | `'en-US'` | Локаль для форматирования; по умолчанию из ближайшего `LocaleProvider`. |
+| `timeZone` | `string` | `'UTC'` | Часовой пояс для дат. |
+| `hourCycle` | `12 \| 24` | — | 12- или 24-часовой формат времени. |
+| `shouldForceLeadingZeros` | `boolean` | `false` | Всегда дополняет месяц, день и час ведущим нулём. |
+| `name` | `string` | — | Имя поля формы у внутреннего input. |
+| `disabled` | `boolean` | `false` | Отключает элемент управления. |
+| `readOnly` | `boolean` | `false` | Показывает значение, но не даёт его менять. |
+| `invalid` | `boolean` | `false` | Помечает поле как невалидное. |
+| `required` | `boolean` | `false` | Требует значение перед отправкой формы. |
+| `createCalendar` | `(identifier: CalendarIdentifier) => Calendar` | — | Создаёт календарную систему, отличную от григорианской. |
+| `translations` | `IntlTranslations` | — | Переведённые строки для подписей доступности. |
+| `form` | `string` | — | Id формы, к которой относится внутренний input. |
+| `placeholderValue` | `DateValue` | — | Дата для пустых сегментов в управляемом режиме. |
+| `defaultPlaceholderValue` | `DateValue` | — | Начальная дата для пустых сегментов. |
+| `onPlaceholderChange` | `(details: PlaceholderChangeDetails) => void` | — | Вызывается при изменении даты-подсказки. |
+| `onFocusChange` | `(details: FocusChangeDetails) => void` | — | Вызывается при получении и потере фокуса. |
+| `hideTimeZone` | `boolean` | `false` | Скрывает сегмент часового пояса у `ZonedDateTime`. |
+| `formatter` | `DateFormatter` | — | Свой `DateFormatter` для сегментов. |
+| `allSegments` | `Segments` | — | Карта сегментов для своего форматтера. |
+| `format` | `(date: DateValue, details: FormatDateDetails) => string` | — | Превращает дату в значение скрытого input. |

@@ -16,19 +16,7 @@ import * as ScrollAreaDocs from '@/components/examples/scroll-area/css-propertie
 
 ## Usage
 
-<UsageCode
-  react={'<ScrollArea variant="always" fade style={{ height: 240 }}>\n  <ScrollAreaViewport>\n    <ScrollAreaContent>…</ScrollAreaContent>\n  </ScrollAreaViewport>\n  <ScrollAreaScrollbar>\n    <ScrollAreaThumb />\n  </ScrollAreaScrollbar>\n</ScrollArea>'}
-  solid={'<ScrollArea variant="always" fade style={{ height: \'240px\' }}>\n  <ScrollAreaViewport>\n    <ScrollAreaContent>…</ScrollAreaContent>\n  </ScrollAreaViewport>\n  <ScrollAreaScrollbar>\n    <ScrollAreaThumb />\n  </ScrollAreaScrollbar>\n</ScrollArea>'}
-  vue={'<ScrollArea variant="always" fade :style="{ height: \'240px\' }">\n  <ScrollAreaViewport>\n    <ScrollAreaContent>…</ScrollAreaContent>\n  </ScrollAreaViewport>\n  <ScrollAreaScrollbar>\n    <ScrollAreaThumb />\n  </ScrollAreaScrollbar>\n</ScrollArea>'}
-/>
-
-<PropChips
-  items={[
-    ['variant', 'hover shows scrollbars on hover, always keeps them visible.'],
-    ['fade', 'Fades the edges where more content is hidden.'],
-    ['orientation', 'On ScrollAreaScrollbar: vertical or horizontal.'],
-  ]}
-/>
+<Usage />
 
 Use `ScrollArea` as the root. Put `ScrollAreaViewport` around `ScrollAreaContent`, add one
 `ScrollAreaScrollbar` and `ScrollAreaThumb` for
@@ -150,8 +138,8 @@ Hover or focus a variable to see it in the preview.
 
 ## API reference
 
-| Prop | Type | Default |
-| --- | --- | --- |
-| `variant` | `'hover' \| 'always'` | `'hover'` |
-| `fade` | `boolean` | `false` |
-| `asChild` | `boolean` | `false` |
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `variant` | `'hover' \| 'always'` | `'hover'` | Scrollbar visibility: on `hover` or `always`. |
+| `fade` | `boolean` | `false` | Fades the edges where more content is hidden. |
+| `asChild` | `boolean` | `false` | Renders the root as its single child element. |

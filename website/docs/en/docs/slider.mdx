@@ -16,19 +16,7 @@ import * as SliderDocs from '@/components/examples/slider/css-properties';
 
 ## Usage
 
-<UsageCode
-  react={'<Slider defaultValue={[20, 80]} min={0} max={100} step={5} onValueChangeEnd={(details) => apply(details.value)}>\n  <SliderLabel>Price</SliderLabel>\n  <SliderValueText />\n  <SliderControl>\n    <SliderTrack>\n      <SliderRange />\n    </SliderTrack>\n    <SliderThumbs />\n  </SliderControl>\n</Slider>'}
-  vue={'<Slider :default-value="[20, 80]" :min="0" :max="100" :step="5" @value-change-end="(details) => apply(details.value)">\n  <SliderLabel>Price</SliderLabel>\n  <SliderValueText />\n  <SliderControl>\n    <SliderTrack>\n      <SliderRange />\n    </SliderTrack>\n    <SliderThumbs />\n  </SliderControl>\n</Slider>'}
-/>
-
-<PropChips
-  items={[
-    ['defaultValue', 'Array of values; two values make a range.'],
-    ['min / max / step', 'Bounds and step, 0, 100, and 1 by default.'],
-    ['onValueChangeEnd', 'Runs once the user releases the thumb.'],
-    ['orientation', 'horizontal or vertical.'],
-  ]}
-/>
+<Usage />
 
 `SliderThumbs` renders one thumb with a native input per value. For custom thumb content, compose
 `SliderThumb` explicitly and nest `SliderHiddenInput` inside it.
@@ -267,29 +255,29 @@ the thumb is pressed. It is removed after pointer release.
 
 ## API reference
 
-| Prop | Type | Default |
-| --- | --- | --- |
-| `value` | `number[]` | — |
-| `defaultValue` | `number[]` | — |
-| `onValueChange` | `(details: ValueChangeDetails) => void` | — |
-| `onValueChangeEnd` | `(details: ValueChangeDetails) => void` | — |
-| `min` | `number` | `0` |
-| `max` | `number` | `100` |
-| `step` | `number` | `1` |
-| `largeStep` | `number` | `10 * step` |
-| `minStepsBetweenThumbs` | `number` | `0` |
-| `orientation` | `'horizontal' \| 'vertical'` | `'horizontal'` |
-| `origin` | `'start' \| 'center' \| 'end'` | `'start'` |
-| `thumbCollisionBehavior` | `'none' \| 'push' \| 'swap'` | `'none'` |
-| `getAriaValueText` | `(details: ValueTextDetails) => string` | — |
-| `name` | `string` | — |
-| `disabled` | `boolean` | `false` |
-| `readOnly` | `boolean` | `false` |
-| `invalid` | `boolean` | `false` |
-| `required` | `boolean` | `false` |
-| `aria-label` | `string[]` | — |
-| `aria-labelledby` | `string[]` | — |
-| `form` | `string` | — |
-| `onFocusChange` | `(details: FocusChangeDetails) => void` | — |
-| `thumbAlignment` | `'contain' \| 'center'` | `'contain'` |
-| `thumbSize` | `{ width: number; height: number }` | — |
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `value` | `number[]` | — | Thumb values for controlled use; one number per thumb. |
+| `defaultValue` | `number[]` | — | Initial thumb values. |
+| `onValueChange` | `(details: ValueChangeDetails) => void` | — | Called while the value changes. |
+| `onValueChangeEnd` | `(details: ValueChangeDetails) => void` | — | Called once the user finishes changing the value. |
+| `min` | `number` | `0` | Minimum value. |
+| `max` | `number` | `100` | Maximum value. |
+| `step` | `number` | `1` | Step between values. |
+| `largeStep` | `number` | `10 * step` | Step for Shift + arrows and Page Up or Page Down. |
+| `minStepsBetweenThumbs` | `number` | `0` | Minimum distance between thumbs, in steps. |
+| `orientation` | `'horizontal' \| 'vertical'` | `'horizontal'` | Direction: `horizontal` or `vertical`. |
+| `origin` | `'start' \| 'center' \| 'end'` | `'start'` | Where the filled range starts: `start`, `center`, or `end`. |
+| `thumbCollisionBehavior` | `'none' \| 'push' \| 'swap'` | `'none'` | What thumbs do when they meet: `none`, `push`, or `swap`. |
+| `getAriaValueText` | `(details: ValueTextDetails) => string` | — | Returns readable text for a thumb value, for screen readers. |
+| `name` | `string` | — | Form field name for the thumb inputs. |
+| `disabled` | `boolean` | `false` | Disables the control. |
+| `readOnly` | `boolean` | `false` | Shows the value but prevents changes. |
+| `invalid` | `boolean` | `false` | Marks the control as invalid. |
+| `required` | `boolean` | `false` | Requires a value before form submission. |
+| `aria-label` | `string[]` | — | Accessible name of each thumb. |
+| `aria-labelledby` | `string[]` | — | Ids of the elements that label each thumb. |
+| `form` | `string` | — | Id of the form the underlying input belongs to. |
+| `onFocusChange` | `(details: FocusChangeDetails) => void` | — | Called when another thumb gets focus. |
+| `thumbAlignment` | `'contain' \| 'center'` | `'contain'` | Keeps thumbs inside the track (`contain`) or centered on the value (`center`). |
+| `thumbSize` | `{ width: number; height: number }` | — | Thumb size, needed for `contain` alignment during server rendering. |

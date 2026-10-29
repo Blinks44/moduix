@@ -15,16 +15,7 @@ import AnatomyScene from '@/components/examples/aspect-ratio/basic';
 
 ## Использование
 
-<UsageCode
-  react={'<AspectRatio ratio={16 / 9}>\n  <img src={cover.src} alt={cover.alt} />\n</AspectRatio>'}
-  vue={'<AspectRatio :ratio="16 / 9">\n  <img :src="cover.src" :alt="cover.alt" />\n</AspectRatio>'}
-/>
-
-<PropChips
-  items={[
-    ['ratio', 'Ширина, делённая на высоту: 1 это квадрат, 16 / 9 широкий экран.'],
-  ]}
-/>
+<Usage />
 
 Используйте `AspectRatio` как корневой элемент адаптивного контейнера. По умолчанию он занимает всю доступную
 ширину родительского контейнера. Если размер нужно ограничить или изменить, задайте корневому элементу `width`
@@ -129,6 +120,6 @@ import AnatomyScene from '@/components/examples/aspect-ratio/basic';
 
 Также принимает нативные пропсы своего элемента и `asChild`.
 
-| Проп | Тип | По умолчанию |
-| --- | --- | --- |
-| `ratio` | `number` | `1` |
+| Проп | Тип | По умолчанию | Описание |
+| --- | --- | --- | --- |
+| `ratio` | `number` | `1` | Ширина, делённая на высоту, например `16 / 9`. |

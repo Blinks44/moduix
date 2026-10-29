@@ -15,19 +15,7 @@ import AnatomyScene from '@/components/examples/table-of-contents/basic';
 
 ## Utilisation
 
-<UsageCode
-  react={'<Toc items={items}>\n  <TocNav>\n    <TocTitle>On this page</TocTitle>\n    <TocList>\n      <TocIndicator />\n      {items.map((item) => (\n        <TocItem key={item.value} item={item}>\n          <TocLink href={`#${item.value}`}>{item.label}</TocLink>\n        </TocItem>\n      ))}\n    </TocList>\n  </TocNav>\n</Toc>'}
-  solid={'<Toc items={items}>\n  <TocNav>\n    <TocTitle>On this page</TocTitle>\n    <TocList>\n      <TocIndicator />\n      <For each={items}>\n        {(item) => (\n          <TocItem item={item}>\n            <TocLink href={`#${item.value}`}>{item.label}</TocLink>\n          </TocItem>\n        )}\n      </For>\n    </TocList>\n  </TocNav>\n</Toc>'}
-  vue={'<Toc :items="items">\n  <TocNav>\n    <TocTitle>On this page</TocTitle>\n    <TocList>\n      <TocIndicator />\n      <TocItem v-for="item in items" :key="item.value" :item="item">\n        <TocLink :href="`#${item.value}`">{{ item.label }}</TocLink>\n      </TocItem>\n    </TocList>\n  </TocNav>\n</Toc>'}
-/>
-
-<PropChips
-  items={[
-    ['items', 'Titres suivis : value est l’id, depth le niveau.'],
-    ['scrollEl', 'Conteneur de défilement ; la fenêtre par défaut.'],
-    ['autoScroll', 'Garde le lien actif visible dans une longue liste ; désactivé par défaut.'],
-  ]}
-/>
+<Usage />
 
 `Toc` est le composant racine de l’API plate. Passez-lui un tableau `items` contenant les titres à
 suivre. Chaque élément doit avoir une `value` correspondant à l’attribut `id` d’un titre et un
@@ -143,14 +131,14 @@ remplace les styles du composant placés dans une couche. Pour modifier la colon
 
 ## Référence de l’API
 
-| Prop | Type | Défaut |
-| --- | --- | --- |
-| `items` | `TocItem[]` | — |
-| `scrollEl` | `() => HTMLElement \| null` | — |
-| `rootMargin` | `string` | `'-20px 0px -40% 0px'` |
-| `threshold` | `number \| number[]` | `0` |
-| `autoScroll` | `boolean` | `false` |
-| `scrollBehavior` | `ScrollBehavior` | `'smooth'` |
-| `activeIds` | `string[]` | — |
-| `defaultActiveIds` | `string[]` | — |
-| `onActiveChange` | `(details: ActiveChangeDetails) => void` | — |
+| Prop | Type | Défaut | Description |
+| --- | --- | --- | --- |
+| `items` | `TocItem[]` | — | Titres suivis, chacun avec `value` (id du titre) et `depth`. |
+| `scrollEl` | `() => HTMLElement \| null` | — | Renvoie le conteneur de défilement ; la page par défaut. |
+| `rootMargin` | `string` | `'-20px 0px -40% 0px'` | Marge de l’IntersectionObserver qui décide quand un titre est actif. |
+| `threshold` | `number \| number[]` | `0` | Seuil de l’IntersectionObserver. |
+| `autoScroll` | `boolean` | `false` | Fait défiler la liste pour garder l’élément actif visible. |
+| `scrollBehavior` | `ScrollBehavior` | `'smooth'` | Comportement de défilement pour `autoScroll`. |
+| `activeIds` | `string[]` | — | Id des titres actifs en mode contrôlé. |
+| `defaultActiveIds` | `string[]` | — | Titres actifs au départ. |
+| `onActiveChange` | `(details: ActiveChangeDetails) => void` | — | Appelé lorsque les titres visibles changent. |

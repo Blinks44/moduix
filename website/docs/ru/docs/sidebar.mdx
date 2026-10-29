@@ -16,19 +16,7 @@ import { sidebarOverrideCssProperties } from '@/components/examples/sidebar/css-
 
 ## Использование
 
-<UsageCode
-  react={'<Sidebar side="left" defaultSize={[\'16rem\']}>\n  <SidebarPanel>\n    <SidebarContent>\n      <SidebarNavigationList>\n        <SidebarNavigationItem>\n          <SidebarNavigationButton asChild active>\n            <a href="/overview">Overview</a>\n          </SidebarNavigationButton>\n        </SidebarNavigationItem>\n      </SidebarNavigationList>\n    </SidebarContent>\n  </SidebarPanel>\n  <SidebarResizeTrigger aria-label="Resize sidebar" />\n  <SidebarInset>…</SidebarInset>\n</Sidebar>'}
-  solid={'<Sidebar side="left" defaultSize={[\'16rem\']}>\n  <SidebarPanel>\n    <SidebarContent>\n      <SidebarNavigationList>\n        <SidebarNavigationItem>\n          <SidebarNavigationButton asChild={(props) => (\n            <a href="/overview" {...props()}>Overview</a>\n          )} active />\n        </SidebarNavigationItem>\n      </SidebarNavigationList>\n    </SidebarContent>\n  </SidebarPanel>\n  <SidebarResizeTrigger aria-label="Resize sidebar" />\n  <SidebarInset>…</SidebarInset>\n</Sidebar>'}
-  vue={'<Sidebar side="left" :default-size="[\'16rem\']">\n  <SidebarPanel>\n    <SidebarContent>\n      <SidebarNavigationList>\n        <SidebarNavigationItem>\n          <SidebarNavigationButton as-child active>\n            <a href="/overview">Overview</a>\n          </SidebarNavigationButton>\n        </SidebarNavigationItem>\n      </SidebarNavigationList>\n    </SidebarContent>\n  </SidebarPanel>\n  <SidebarResizeTrigger aria-label="Resize sidebar" />\n  <SidebarInset>…</SidebarInset>\n</Sidebar>'}
-/>
-
-<PropChips
-  items={[
-    ['side', 'Левый или правый край раскладки.'],
-    ['defaultSize', 'Начальные размеры панелей; сайдбар по умолчанию 16rem.'],
-    ['active', 'На SidebarNavigationButton: отмечает текущую страницу.'],
-  ]}
-/>
+<Usage />
 
 Соберите панель навигации, ручку изменения размера и основную область содержимого как прямых
 потомков корня. Стандартных id и ограничений достаточно для обычного макета с левой боковой
@@ -227,12 +215,12 @@ import { sidebarOverrideCssProperties } from '@/components/examples/sidebar/css-
 
 `Sidebar` также принимает пропсы `Splitter`, кроме `orientation` и `panels`; панель сайдбара от 3rem до 18rem и сворачивается до 3rem.
 
-| Проп | Тип | По умолчанию |
-| --- | --- | --- |
-| `side` | `'left' \| 'right'` | `'left'` |
-| `panelId` | `string` | `'sidebar'` |
-| `defaultSize` | `PanelSize[]` | `['16rem']` |
-| `size` | `PanelSize[]` | — |
-| `onResize` | `(details: ResizeDetails) => void` | — |
-| `onCollapse` | `(details: ExpandCollapseDetails) => void` | — |
-| `onExpand` | `(details: ExpandCollapseDetails) => void` | — |
+| Проп | Тип | По умолчанию | Описание |
+| --- | --- | --- | --- |
+| `side` | `'left' \| 'right'` | `'left'` | Сторона панели: `left` или `right`. |
+| `panelId` | `string` | `'sidebar'` | Id панели боковой колонки в Splitter. |
+| `defaultSize` | `PanelSize[]` | `['16rem']` | Начальные размеры панелей. |
+| `size` | `PanelSize[]` | — | Размеры панелей в управляемом режиме. |
+| `onResize` | `(details: ResizeDetails) => void` | — | Вызывается при изменении размеров панелей. |
+| `onCollapse` | `(details: ExpandCollapseDetails) => void` | — | Вызывается при сворачивании боковой колонки. |
+| `onExpand` | `(details: ExpandCollapseDetails) => void` | — | Вызывается при разворачивании боковой колонки. |

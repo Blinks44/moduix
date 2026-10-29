@@ -16,18 +16,7 @@ import * as AlertDocs from '@/components/examples/alert/css-properties';
 
 ## Использование
 
-<UsageCode
-  react={'<Alert status="warning">\n  <AlertIndicator>\n    <TriangleAlertIcon />\n  </AlertIndicator>\n  <AlertContent>\n    <AlertTitle>Storage almost full</AlertTitle>\n    <AlertDescription>Free up space to keep syncing files.</AlertDescription>\n  </AlertContent>\n</Alert>'}
-  vue={'<Alert status="warning">\n  <AlertIndicator>\n    <TriangleAlertIcon />\n  </AlertIndicator>\n  <AlertContent>\n    <AlertTitle>Storage almost full</AlertTitle>\n    <AlertDescription>Free up space to keep syncing files.</AlertDescription>\n  </AlertContent>\n</Alert>'}
-/>
-
-<PropChips
-  items={[
-    ['status', 'Задаёт тон: info, success, warning или error.'],
-    ['AlertIndicator', 'Необязательное место для иконки, скрыто от вспомогательных технологий.'],
-    ['AlertActions', 'Необязательный ряд для кнопок или ссылок под сообщением.'],
-  ]}
-/>
+<Usage />
 
 Для обычного встроенного сообщения поместите `AlertTitle` и `AlertDescription` внутрь
 `AlertContent`. Добавьте `AlertIndicator`, если значок помогает быстрее понять тип сообщения.
@@ -166,7 +155,7 @@ Tailwind настраиваются обычными утилитами и по�
 
 ## Справочник API
 
-| Проп | Тип | По умолчанию |
-| --- | --- | --- |
-| `status` | `'info' \| 'success' \| 'warning' \| 'error'` | `'info'` |
-| `asChild` | `boolean` | `false` |
+| Проп | Тип | По умолчанию | Описание |
+| --- | --- | --- | --- |
+| `status` | `'info' \| 'success' \| 'warning' \| 'error'` | `'info'` | Смысл и цвет: `info`, `success`, `warning` или `error`. |
+| `asChild` | `boolean` | `false` | Отрисовывает корень через единственный дочерний элемент. |

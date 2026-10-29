@@ -16,18 +16,7 @@ import * as CollapsibleDocs from '@/components/examples/collapsible/css-properti
 
 ## Usage
 
-<UsageCode
-  react={'<Collapsible defaultOpen={false} onOpenChange={(details) => track(details.open)}>\n  <CollapsibleTrigger>\n    Recovery keys\n    <CollapsibleIndicator />\n  </CollapsibleTrigger>\n  <CollapsibleContent>\n    <CollapsibleBody>…</CollapsibleBody>\n  </CollapsibleContent>\n</Collapsible>'}
-  vue={'<Collapsible v-model:open="open">\n  <CollapsibleTrigger>\n    Recovery keys\n    <CollapsibleIndicator />\n  </CollapsibleTrigger>\n  <CollapsibleContent>\n    <CollapsibleBody>…</CollapsibleBody>\n  </CollapsibleContent>\n</Collapsible>'}
-/>
-
-<PropChips
-  items={[
-    ['defaultOpen', 'Starts open; use open and onOpenChange to control it.'],
-    ['collapsedHeight', 'Keeps part of the content visible when closed.'],
-    ['disabled', 'Stops the trigger from toggling.'],
-  ]}
-/>
+<Usage />
 
 Use `Collapsible` with `CollapsibleTrigger`, the optional `CollapsibleIndicator`, and `CollapsibleContent` to show and hide one
 content region. Put the content inside `CollapsibleBody` when you need the recommended inner
@@ -196,14 +185,14 @@ Hover or focus a variable to see it in the preview.
 
 ## API reference
 
-| Prop | Type | Default |
-| --- | --- | --- |
-| `open` | `boolean` | — |
-| `defaultOpen` | `boolean` | `false` |
-| `onOpenChange` | `(details: OpenChangeDetails) => void` | — |
-| `onExitComplete` | `() => void` | — |
-| `disabled` | `boolean` | `false` |
-| `collapsedHeight` | `number \| string` | — |
-| `collapsedWidth` | `number \| string` | — |
-| `lazyMount` | `boolean` | `false` |
-| `unmountOnExit` | `boolean` | `false` |
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `open` | `boolean` | — | Open state for controlled use. |
+| `defaultOpen` | `boolean` | `false` | Initially open. |
+| `onOpenChange` | `(details: OpenChangeDetails) => void` | — | Called when it opens or closes. |
+| `onExitComplete` | `() => void` | — | Called after the close animation ends. |
+| `disabled` | `boolean` | `false` | Disables the control. |
+| `collapsedHeight` | `number \| string` | — | Height left visible when collapsed, for a preview. |
+| `collapsedWidth` | `number \| string` | — | Width left visible when collapsed. |
+| `lazyMount` | `boolean` | `false` | Mounts the content on first open. |
+| `unmountOnExit` | `boolean` | `false` | Unmounts the content after it closes. |

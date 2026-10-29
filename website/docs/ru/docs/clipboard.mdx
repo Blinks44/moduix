@@ -16,18 +16,7 @@ import * as ClipboardDocs from '@/components/examples/clipboard/css-properties';
 
 ## Использование
 
-<UsageCode
-  react={'<Clipboard defaultValue={shareUrl} timeout={2000}>\n  <ClipboardControl>\n    <ClipboardInput />\n    <ClipboardTrigger>\n      <ClipboardIndicator />\n    </ClipboardTrigger>\n  </ClipboardControl>\n</Clipboard>'}
-  vue={'<Clipboard :default-value="shareUrl" :timeout="2000">\n  <ClipboardControl>\n    <ClipboardInput />\n    <ClipboardTrigger>\n      <ClipboardIndicator />\n    </ClipboardTrigger>\n  </ClipboardControl>\n</Clipboard>'}
-/>
-
-<PropChips
-  items={[
-    ['defaultValue', 'Текст для копирования; для управления используйте value и onValueChange.'],
-    ['timeout', 'Сколько длится состояние «скопировано», в миллисекундах.'],
-    ['onStatusChange', 'Вызывается после каждого копирования с { copied }.'],
-  ]}
-/>
+<Usage />
 
 Используйте `Clipboard` как корневой компонент. Внутри `ClipboardControl` разместите одну
 поверхность значения - `ClipboardInput` или `ClipboardValueText` - и `ClipboardTrigger`.
@@ -184,11 +173,11 @@ Solid его `children` и `copied` принимают текст и иконк�
 
 ## Справочник API
 
-| Проп | Тип | По умолчанию |
-| --- | --- | --- |
-| `value` | `string` | — |
-| `defaultValue` | `string` | — |
-| `onValueChange` | `(details: ValueChangeDetails) => void` | — |
-| `timeout` | `number` | `3000` |
-| `onStatusChange` | `(details: CopyStatusDetails) => void` | — |
-| `translations` | `IntlTranslations` | — |
+| Проп | Тип | По умолчанию | Описание |
+| --- | --- | --- | --- |
+| `value` | `string` | — | Текст для копирования в управляемом режиме. |
+| `defaultValue` | `string` | — | Начальный текст для копирования, если значение не управляется извне. |
+| `onValueChange` | `(details: ValueChangeDetails) => void` | — | Вызывается при изменении значения. |
+| `timeout` | `number` | `3000` | Сколько миллисекунд держится состояние «скопировано». |
+| `onStatusChange` | `(details: CopyStatusDetails) => void` | — | Вызывается после каждого копирования с `{ copied }`. |
+| `translations` | `IntlTranslations` | — | Переведённые строки для подписей доступности. |

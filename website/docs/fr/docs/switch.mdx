@@ -16,18 +16,7 @@ import * as SwitchDocs from '@/components/examples/switch/css-properties';
 
 ## Utilisation
 
-<UsageCode
-  react={'<Switch defaultChecked name="notifications" onCheckedChange={(details) => save(details.checked)}>\n  <SwitchControl />\n  <SwitchLabel>Enable notifications</SwitchLabel>\n  <SwitchHiddenInput />\n</Switch>'}
-  vue={'<Switch v-model:checked="enabled" name="notifications">\n  <SwitchControl />\n  <SwitchLabel>Enable notifications</SwitchLabel>\n  <SwitchHiddenInput />\n</Switch>'}
-/>
-
-<PropChips
-  items={[
-    ['defaultChecked', 'Activé au départ ; contrôlez-le avec checked.'],
-    ['onCheckedChange', 'Appelé avec le nouvel état.'],
-    ['size', 'De xs à xl, md par défaut.'],
-  ]}
-/>
+<Usage />
 
 Un switch de base comprend une racine, un contrôle visuel, un libellé et `SwitchHiddenInput` explicitement rendu pour les interactions
 natives et les formulaires. Le contrôle reçoit un thumb par défaut lorsqu’il n’a pas d’enfants.
@@ -190,17 +179,17 @@ Survolez ou sélectionnez une variable pour la voir dans l’aperçu.
 
 ## Référence de l’API
 
-| Prop | Type | Défaut |
-| --- | --- | --- |
-| `checked` | `boolean` | — |
-| `defaultChecked` | `boolean` | `false` |
-| `onCheckedChange` | `(details: CheckedChangeDetails) => void` | — |
-| `value` | `string \| number` | `'on'` |
-| `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'` | `'md'` |
-| `name` | `string` | — |
-| `disabled` | `boolean` | `false` |
-| `readOnly` | `boolean` | `false` |
-| `invalid` | `boolean` | `false` |
-| `required` | `boolean` | `false` |
-| `label` | `string` | — |
-| `form` | `string` | — |
+| Prop | Type | Défaut | Description |
+| --- | --- | --- | --- |
+| `checked` | `boolean` | — | État activé en mode contrôlé. |
+| `defaultChecked` | `boolean` | `false` | État initial. |
+| `onCheckedChange` | `(details: CheckedChangeDetails) => void` | — | Appelé lorsque l’interrupteur bascule. |
+| `value` | `string \| number` | `'on'` | Valeur envoyée avec le formulaire lorsqu’il est activé. |
+| `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'` | `'md'` | Taille : `xs`, `sm`, `md`, `lg` ou `xl`. |
+| `name` | `string` | — | Nom du champ de formulaire de l’input sous-jacent. |
+| `disabled` | `boolean` | `false` | Désactive le contrôle. |
+| `readOnly` | `boolean` | `false` | Affiche la valeur sans permettre de la modifier. |
+| `invalid` | `boolean` | `false` | Marque le champ comme invalide. |
+| `required` | `boolean` | `false` | Exige une valeur avant l’envoi du formulaire. |
+| `label` | `string` | — | Nom accessible en l’absence de libellé visible. |
+| `form` | `string` | — | Id du formulaire auquel l’input sous-jacent est rattaché. |

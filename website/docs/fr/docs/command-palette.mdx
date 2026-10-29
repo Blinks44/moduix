@@ -16,19 +16,7 @@ import * as CommandPaletteDocs from '@/components/examples/command-palette/css-p
 
 ## Utilisation
 
-<UsageCode
-  react={'<CommandPalette shortcut="mod+k" aria-label="Command palette">\n  <CommandPalettePanel>\n    <CommandPaletteCombobox collection={collection} onInputValueChange={(d) => filter(d.inputValue)}>\n      <CommandPaletteSearch placeholder="Search commands..." />\n      <CommandPaletteList>\n        <CommandPaletteEmpty>No commands found.</CommandPaletteEmpty>\n        {collection.items.map((item) => (\n          <CommandPaletteItem key={item.id} item={item}>\n            <CommandPaletteItemLabel>{item.label}</CommandPaletteItemLabel>\n          </CommandPaletteItem>\n        ))}\n      </CommandPaletteList>\n    </CommandPaletteCombobox>\n  </CommandPalettePanel>\n</CommandPalette>'}
-  solid={'<CommandPalette shortcut="mod+k" aria-label="Command palette">\n  <CommandPalettePanel>\n    <CommandPaletteCombobox collection={collection} onInputValueChange={(d) => filter(d.inputValue)}>\n      <CommandPaletteSearch placeholder="Search commands..." />\n      <CommandPaletteList>\n        <CommandPaletteEmpty>No commands found.</CommandPaletteEmpty>\n        <For each={collection.items}>\n          {(item) => (\n            <CommandPaletteItem item={item}>\n              <CommandPaletteItemLabel>{item.label}</CommandPaletteItemLabel>\n            </CommandPaletteItem>\n          )}\n        </For>\n      </CommandPaletteList>\n    </CommandPaletteCombobox>\n  </CommandPalettePanel>\n</CommandPalette>'}
-  vue={'<CommandPalette shortcut="mod+k" aria-label="Command palette">\n  <CommandPalettePanel>\n    <CommandPaletteCombobox :collection="collection" @input-value-change="(d) => filter(d.inputValue)">\n      <CommandPaletteSearch placeholder="Search commands..." />\n      <CommandPaletteList>\n        <CommandPaletteEmpty>No commands found.</CommandPaletteEmpty>\n        <CommandPaletteItem v-for="item in collection.items" :key="item.id" :item="item">\n          <CommandPaletteItemLabel>{{ item.label }}</CommandPaletteItemLabel>\n        </CommandPaletteItem>\n      </CommandPaletteList>\n    </CommandPaletteCombobox>\n  </CommandPalettePanel>\n</CommandPalette>'}
-/>
-
-<PropChips
-  items={[
-    ['shortcut', 'Raccourci global qui ouvre la palette, désactivé par défaut.'],
-    ['collection', 'Éléments à chercher, issus de createListCollection().'],
-    ['onInputValueChange', 'Appelé à chaque frappe ; filtrez la collection ici.'],
-  ]}
-/>
+<Usage />
 
 Utilisez `CommandPalettePanel` pour obtenir la structure de dialogue standard. Il rend automatiquement l'arrière-plan,
 le conteneur de positionnement et le contenu. Placez `CommandPaletteCombobox` à l'intérieur,
@@ -187,12 +175,12 @@ Survolez ou sélectionnez une variable pour la voir dans l’aperçu.
 
 Props de `CommandPalette`. Il accepte aussi les props de dialogue `open`, `defaultOpen` et `onOpenChange` ; les props de recherche comme `collection` et `onInputValueChange` vont sur `CommandPaletteCombobox`.
 
-| Prop | Type | Défaut |
-| --- | --- | --- |
-| `shortcut` | `false \| string` | `false` |
-| `open` | `boolean` | — |
-| `defaultOpen` | `boolean` | `false` |
-| `onOpenChange` | `(details: OpenChangeDetails) => void` | — |
-| `lazyMount` | `boolean` | `true` |
-| `unmountOnExit` | `boolean` | `true` |
-| `portalled` | `boolean` | `true` |
+| Prop | Type | Défaut | Description |
+| --- | --- | --- | --- |
+| `shortcut` | `false \| string` | `false` | Raccourci global qui ouvre la palette, par exemple `mod+k` ; `false` le désactive. |
+| `open` | `boolean` | — | État d’ouverture en mode contrôlé. |
+| `defaultOpen` | `boolean` | `false` | État d’ouverture initial lorsqu’il n’est pas contrôlé. |
+| `onOpenChange` | `(details: OpenChangeDetails) => void` | — | Appelé à l’ouverture et à la fermeture. |
+| `lazyMount` | `boolean` | `true` | Monte le contenu à la première ouverture. |
+| `unmountOnExit` | `boolean` | `true` | Démonte le contenu après la fermeture. |
+| `portalled` | `boolean` | `true` | Rend la fenêtre dans un portail à la fin de `body`. |

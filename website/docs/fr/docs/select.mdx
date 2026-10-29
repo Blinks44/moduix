@@ -16,19 +16,7 @@ import * as SelectDocs from '@/components/examples/select/css-properties';
 
 ## Utilisation
 
-<UsageCode
-  react={'const collection = createListCollection({ items: fruits });\n\n<Select collection={collection} multiple onValueChange={(details) => setValue(details.value)}>\n  <SelectLabel>Fruit</SelectLabel>\n  <SelectField placeholder="Select fruit" clearLabel="Clear selection" />\n  <SelectPositioner>\n    <SelectContent>\n      {collection.items.map((item) => (\n        <SelectOption key={item.value} item={item}>{item.label}</SelectOption>\n      ))}\n    </SelectContent>\n  </SelectPositioner>\n  <SelectHiddenSelect />\n</Select>'}
-  solid={'const collection = createListCollection({ items: fruits });\n\n<Select collection={collection} multiple onValueChange={(details) => setValue(details.value)}>\n  <SelectLabel>Fruit</SelectLabel>\n  <SelectField placeholder="Select fruit" clearLabel="Clear selection" />\n  <SelectPositioner>\n    <SelectContent>\n      <For each={collection.items}>\n        {(item) => <SelectOption item={item}>{item.label}</SelectOption>}\n      </For>\n    </SelectContent>\n  </SelectPositioner>\n  <SelectHiddenSelect />\n</Select>'}
-  vue={'const collection = createListCollection({ items: fruits });\n\n<Select v-model="value" :collection="collection" multiple>\n  <SelectLabel>Fruit</SelectLabel>\n  <SelectField placeholder="Select fruit" clear-label="Clear selection" />\n  <SelectPositioner>\n    <SelectContent>\n      <SelectOption v-for="item in collection.items" :key="item.value" :item="item">\n        {{ item.label }}\n      </SelectOption>\n    </SelectContent>\n  </SelectPositioner>\n  <SelectHiddenSelect />\n</Select>'}
-/>
-
-<PropChips
-  items={[
-    ['collection', 'Éléments issus de createListCollection().'],
-    ['multiple', 'Permet de choisir plusieurs valeurs.'],
-    ['clearLabel', 'Sur SelectField : ajoute un bouton d’effacement avec ce libellé.'],
-  ]}
-/>
+<Usage />
 
 Passez une collection à `Select`, utilisez `SelectField` pour le contrôle visible standard et gardez la structure de la fenêtre contextuelle explicite. `clearLabel` ajoute une action d’effacement accessible. Ajoutez explicitement `SelectHiddenSelect` lorsque la soumission, le remplissage automatique, la validation et la réinitialisation natives sont nécessaires.
 
@@ -243,36 +231,36 @@ sans ajouter son propre hook de style.
 
 ## Référence de l’API
 
-| Prop | Type | Défaut |
-| --- | --- | --- |
-| `collection` | `ListCollection<T>` | — |
-| `value` | `string[]` | — |
-| `defaultValue` | `string[]` | — |
-| `onValueChange` | `(details: ValueChangeDetails) => void` | — |
-| `multiple` | `boolean` | `false` |
-| `closeOnSelect` | `boolean` | `true` |
-| `deselectable` | `boolean` | `false` |
-| `loopFocus` | `boolean` | `false` |
-| `positioning` | `PositioningOptions` | — |
-| `open` | `boolean` | — |
-| `onOpenChange` | `(details: OpenChangeDetails) => void` | — |
-| `lazyMount` | `boolean` | `true` |
-| `unmountOnExit` | `boolean` | `true` |
-| `name` | `string` | — |
-| `disabled` | `boolean` | `false` |
-| `readOnly` | `boolean` | `false` |
-| `invalid` | `boolean` | `false` |
-| `required` | `boolean` | `false` |
-| `translations` | `IntlTranslations` | — |
-| `form` | `string` | — |
-| `autoComplete` | `string` | — |
-| `onSelect` | `(details: SelectionDetails) => void` | — |
-| `onHighlightChange` | `(details: HighlightChangeDetails<T>) => void` | — |
-| `highlightedValue` | `string \| null` | — |
-| `defaultHighlightedValue` | `string \| null` | — |
-| `defaultOpen` | `boolean` | — |
-| `scrollToIndexFn` | `(details: ScrollToIndexDetails) => void` | — |
-| `composite` | `boolean` | `true` |
-| `onPointerDownOutside` | `(event: PointerDownOutsideEvent) => void` | — |
-| `onFocusOutside` | `(event: FocusOutsideEvent) => void` | — |
-| `onInteractOutside` | `(event: InteractOutsideEvent) => void` | — |
+| Prop | Type | Défaut | Description |
+| --- | --- | --- | --- |
+| `collection` | `ListCollection<T>` | — | Éléments créés avec `createListCollection()`. |
+| `value` | `string[]` | — | Valeurs sélectionnées en mode contrôlé. |
+| `defaultValue` | `string[]` | — | Valeurs initiales lorsque la sélection n’est pas contrôlée. |
+| `onValueChange` | `(details: ValueChangeDetails) => void` | — | Appelé lorsque les valeurs sélectionnées changent. |
+| `multiple` | `boolean` | `false` | Permet de choisir plusieurs valeurs. |
+| `closeOnSelect` | `boolean` | `true` | Ferme la liste après la sélection d’un élément. |
+| `deselectable` | `boolean` | `false` | Un clic sur l’élément sélectionné le désélectionne. Sélection simple uniquement. |
+| `loopFocus` | `boolean` | `false` | La navigation au clavier revient du dernier élément au premier. |
+| `positioning` | `PositioningOptions` | — | Placement, décalage et autres options de positionnement de la liste. |
+| `open` | `boolean` | — | État d’ouverture de la liste en mode contrôlé. |
+| `onOpenChange` | `(details: OpenChangeDetails) => void` | — | Appelé à l’ouverture et à la fermeture de la liste. |
+| `lazyMount` | `boolean` | `true` | Monte le contenu de la liste à la première ouverture. |
+| `unmountOnExit` | `boolean` | `true` | Démonte le contenu de la liste après sa fermeture. |
+| `name` | `string` | — | Nom du champ de formulaire du select natif masqué. |
+| `disabled` | `boolean` | `false` | Désactive la sélection. |
+| `readOnly` | `boolean` | `false` | Affiche la valeur sans permettre de la modifier. |
+| `invalid` | `boolean` | `false` | Marque le champ comme invalide. |
+| `required` | `boolean` | `false` | Exige une valeur avant l’envoi du formulaire. |
+| `translations` | `IntlTranslations` | — | Textes localisés des libellés d’accessibilité. |
+| `form` | `string` | — | Id du formulaire auquel le select masqué est rattaché. |
+| `autoComplete` | `string` | — | Indication d’auto-remplissage du navigateur pour le select masqué. |
+| `onSelect` | `(details: SelectionDetails) => void` | — | Appelé lorsqu’un élément est sélectionné. |
+| `onHighlightChange` | `(details: HighlightChangeDetails<T>) => void` | — | Appelé lorsque l’élément mis en évidence change. |
+| `highlightedValue` | `string \| null` | — | Élément mis en évidence en mode contrôlé. |
+| `defaultHighlightedValue` | `string \| null` | — | Élément mis en évidence à l’ouverture de la liste. |
+| `defaultOpen` | `boolean` | — | État d’ouverture initial lorsqu’il n’est pas contrôlé. |
+| `scrollToIndexFn` | `(details: ScrollToIndexDetails) => void` | — | Fait défiler une liste virtualisée jusqu’à un index. |
+| `composite` | `boolean` | `true` | Passez `false` lorsque le select se trouve dans un autre widget composite, comme des onglets. |
+| `onPointerDownOutside` | `(event: PointerDownOutsideEvent) => void` | — | Appelé lors d’un appui du pointeur en dehors de la liste. |
+| `onFocusOutside` | `(event: FocusOutsideEvent) => void` | — | Appelé lorsque le focus quitte la liste. |
+| `onInteractOutside` | `(event: InteractOutsideEvent) => void` | — | Appelé lors de toute interaction en dehors de la liste. |

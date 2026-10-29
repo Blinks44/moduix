@@ -16,18 +16,7 @@ import * as QrCodeDocs from '@/components/examples/qr-code/css-properties';
 
 ## Usage
 
-<UsageCode
-  react={'<QrCode defaultValue="https://moduix.dev" encoding={{ ecc: \'H\' }}>\n  <QrCodeFrame role="img" aria-label="QR code for moduix.dev">\n    <QrCodePattern />\n  </QrCodeFrame>\n  <QrCodeDownloadTrigger fileName="moduix.png" mimeType="image/png">Download</QrCodeDownloadTrigger>\n</QrCode>'}
-  vue={'<QrCode default-value="https://moduix.dev" :encoding="{ ecc: \'H\' }">\n  <QrCodeFrame role="img" aria-label="QR code for moduix.dev">\n    <QrCodePattern />\n  </QrCodeFrame>\n  <QrCodeDownloadTrigger file-name="moduix.png" mime-type="image/png">Download</QrCodeDownloadTrigger>\n</QrCode>'}
-/>
-
-<PropChips
-  items={[
-    ['defaultValue', 'Text or URL to encode; use value to control it.'],
-    ['encoding', 'Error correction level L, M, Q, or H.'],
-    ['QrCodeDownloadTrigger', 'Saves the code as an image file.'],
-  ]}
-/>
+<Usage />
 
 Use `QrCode` for the usual case. Pass the content to encode with `defaultValue`, then render
 `QrCodeFrame` and `QrCodePattern` to display the generated SVG. Give `QrCodeFrame` an accessible
@@ -150,10 +139,10 @@ Hover or focus a variable to see it in the preview.
 
 ## API reference
 
-| Prop | Type | Default |
-| --- | --- | --- |
-| `value` | `string` | — |
-| `defaultValue` | `string` | — |
-| `onValueChange` | `(details: ValueChangeDetails) => void` | — |
-| `encoding` | `QrCodeGenerateOptions` | — |
-| `pixelSize` | `number` | — |
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `value` | `string` | — | Encoded value for controlled use. |
+| `defaultValue` | `string` | — | Initial value to encode when it is not controlled. |
+| `onValueChange` | `(details: ValueChangeDetails) => void` | — | Called when the value changes. |
+| `encoding` | `QrCodeGenerateOptions` | — | Encoding options such as error correction level. |
+| `pixelSize` | `number` | — | Size of one QR module in pixels. |

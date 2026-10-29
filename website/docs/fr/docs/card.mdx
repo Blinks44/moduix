@@ -16,18 +16,7 @@ import * as CardDocs from '@/components/examples/card/css-properties';
 
 ## Utilisation
 
-<UsageCode
-  react={'<Card variant="elevated" size="md">\n  <CardHeader>\n    <CardTitle>Release 2.4</CardTitle>\n    <CardDescription>Ready to promote.</CardDescription>\n  </CardHeader>\n  <CardBody>12 changes, all checks passed.</CardBody>\n  <CardFooter>\n    <Button>Promote</Button>\n  </CardFooter>\n</Card>'}
-  vue={'<Card variant="elevated" size="md">\n  <CardHeader>\n    <CardTitle>Release 2.4</CardTitle>\n    <CardDescription>Ready to promote.</CardDescription>\n  </CardHeader>\n  <CardBody>12 changes, all checks passed.</CardBody>\n  <CardFooter>\n    <Button>Promote</Button>\n  </CardFooter>\n</Card>'}
-/>
-
-<PropChips
-  items={[
-    ['variant', 'Surface outline, elevated ou subtle.'],
-    ['size', 'Espacement interne : sm, md ou lg.'],
-    ['asChild', 'Rend la carte comme votre lien ou article.'],
-  ]}
-/>
+<Usage />
 
 Utilisez `Card` comme racine et ajoutez uniquement les parties nécessaires. Importez chaque partie
 supplémentaire directement, comme `CardHeader` et `CardTitle`. Les mêmes noms fonctionnent avec les
@@ -172,7 +161,7 @@ Survolez ou sélectionnez une variable pour la voir dans l’aperçu.
 
 Accepte aussi les props natives de son élément et `asChild`.
 
-| Prop | Type | Défaut |
-| --- | --- | --- |
-| `variant` | `'outline' \| 'elevated' \| 'subtle'` | `'outline'` |
-| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` |
+| Prop | Type | Défaut | Description |
+| --- | --- | --- | --- |
+| `variant` | `'outline' \| 'elevated' \| 'subtle'` | `'outline'` | Style de surface : `outline`, `elevated` ou `subtle`. |
+| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` | Espacement interne : `sm`, `md` ou `lg`. |

@@ -205,4 +205,4 @@ function FrameworkCode({ sources, name }: { sources: Record<Framework, string>; 
   );
 }
 
-export { ExamplePanel, FrameworkCode, useExampleSelection };
+export { ExamplePanel, FrameworkCode, toStyling, useExampleSelection };

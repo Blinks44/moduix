@@ -16,19 +16,7 @@ import * as PinInputDocs from '@/components/examples/pin-input/css-properties';
 
 ## Использование
 
-<UsageCode
-  react={'<PinInput count={6} otp type="numeric" onValueComplete={(details) => verify(details.valueAsString)}>\n  <PinInputLabel>Verification code</PinInputLabel>\n  <PinInputControl>\n    <PinInputInputs />\n  </PinInputControl>\n  <PinInputHiddenInput />\n</PinInput>'}
-  vue={'<PinInput :count="6" otp type="numeric" @value-complete="(details) => verify(details.valueAsString)">\n  <PinInputLabel>Verification code</PinInputLabel>\n  <PinInputControl>\n    <PinInputInputs />\n  </PinInputControl>\n  <PinInputHiddenInput />\n</PinInput>'}
-/>
-
-<PropChips
-  items={[
-    ['count', 'Число ячеек; обязательно.'],
-    ['otp', 'Позволяет браузеру подставить одноразовый код.'],
-    ['mask', 'Скрывает символы, как пароль.'],
-    ['onValueComplete', 'Вызывается, когда заполнены все ячейки.'],
-  ]}
-/>
+<Usage />
 
 Используйте `PinInput` как корневой компонент и явно задайте `count`. Добавьте `PinInputLabel` для доступного имени,
 поместите `PinInputInputs` внутрь `PinInputControl` и явно добавьте `PinInputHiddenInput`, если значение должно участвовать в работе
@@ -189,29 +177,29 @@ Ark управляет переводом фокуса, распределени
 
 ## Справочник API
 
-| Проп | Тип | По умолчанию |
-| --- | --- | --- |
-| `count` | `number` | — |
-| `value` | `string[]` | — |
-| `defaultValue` | `string[]` | — |
-| `onValueChange` | `(details: ValueChangeDetails) => void` | — |
-| `onValueComplete` | `(details: ValueChangeDetails) => void` | — |
-| `type` | `'numeric' \| 'alphanumeric' \| 'alphabetic'` | `'numeric'` |
-| `otp` | `boolean` | `false` |
-| `mask` | `boolean` | `false` |
-| `placeholder` | `string` | `''` |
-| `blurOnComplete` | `boolean` | `false` |
-| `autoFocus` | `boolean` | `false` |
-| `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'` | `'md'` |
-| `name` | `string` | — |
-| `disabled` | `boolean` | `false` |
-| `readOnly` | `boolean` | `false` |
-| `invalid` | `boolean` | `false` |
-| `required` | `boolean` | `false` |
-| `form` | `string` | — |
-| `pattern` | `string` | — |
-| `onValueInvalid` | `(details: ValueInvalidDetails) => void` | — |
-| `autoSubmit` | `boolean` | — |
-| `selectOnFocus` | `boolean` | — |
-| `sanitizeValue` | `(value: string) => string` | — |
-| `translations` | `IntlTranslations` | — |
+| Проп | Тип | По умолчанию | Описание |
+| --- | --- | --- | --- |
+| `count` | `number` | — | Число полей; задайте для правильной ARIA при серверном рендеринге. |
+| `value` | `string[]` | — | Значения полей в управляемом режиме. |
+| `defaultValue` | `string[]` | — | Начальные значения полей. |
+| `onValueChange` | `(details: ValueChangeDetails) => void` | — | Вызывается при изменении любого поля. |
+| `onValueComplete` | `(details: ValueChangeDetails) => void` | — | Вызывается, когда заполнены все поля. |
+| `type` | `'numeric' \| 'alphanumeric' \| 'alphabetic'` | `'numeric'` | Допустимые символы: `numeric`, `alphanumeric` или `alphabetic`. |
+| `otp` | `boolean` | `false` | Включает автозаполнение одноразового кода. |
+| `mask` | `boolean` | `false` | Скрывает символы, как в пароле. |
+| `placeholder` | `string` | `''` | Подсказка в каждом пустом поле. |
+| `blurOnComplete` | `boolean` | `false` | Убирает фокус, когда код введён. |
+| `autoFocus` | `boolean` | `false` | Ставит фокус в первое поле при монтировании. |
+| `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'` | `'md'` | Размер: `xs`, `sm`, `md`, `lg` или `xl`. |
+| `name` | `string` | — | Имя поля формы у внутреннего input. |
+| `disabled` | `boolean` | `false` | Отключает элемент управления. |
+| `readOnly` | `boolean` | `false` | Показывает значение, но не даёт его менять. |
+| `invalid` | `boolean` | `false` | Помечает поле как невалидное. |
+| `required` | `boolean` | `false` | Требует значение перед отправкой формы. |
+| `form` | `string` | — | Id формы, к которой относится внутренний input. |
+| `pattern` | `string` | — | Регулярное выражение для каждого символа. |
+| `onValueInvalid` | `(details: ValueInvalidDetails) => void` | — | Вызывается, если символ не подходит под `type` или `pattern`. |
+| `autoSubmit` | `boolean` | — | Отправляет форму, когда заполнены все поля. |
+| `selectOnFocus` | `boolean` | — | Выделяет символ при фокусе на поле. |
+| `sanitizeValue` | `(value: string) => string` | — | Очищает вставленный текст перед проверкой. |
+| `translations` | `IntlTranslations` | — | Переведённые строки для подписей доступности. |

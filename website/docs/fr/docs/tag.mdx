@@ -16,18 +16,7 @@ import * as TagDocs from '@/components/examples/tag/css-properties';
 
 ## Utilisation
 
-<UsageCode
-  react={'<Tag variant="secondary" size="sm">\n  <TagLabel>TypeScript</TagLabel>\n  <TagCloseTrigger aria-label="Remove TypeScript" onClick={remove} />\n</Tag>'}
-  vue={'<Tag variant="secondary" size="sm">\n  <TagLabel>TypeScript</TagLabel>\n  <TagCloseTrigger aria-label="Remove TypeScript" @click="remove" />\n</Tag>'}
-/>
-
-<PropChips
-  items={[
-    ['variant', 'default, secondary, outline, ghost ou destructive.'],
-    ['size', 'sm, md ou lg.'],
-    ['TagCloseTrigger', 'Bouton facultatif qui retire le jeton.'],
-  ]}
-/>
+<Usage />
 
 Commencez par
 un `Tag` racine et `TagLabel`. Ajoutez les autres parties uniquement si le token a besoin d’une
@@ -156,7 +145,7 @@ Survolez ou sélectionnez une variable pour la voir dans l’aperçu.
 
 Accepte aussi les props natives de son élément et `asChild`.
 
-| Prop | Type | Défaut |
-| --- | --- | --- |
-| `variant` | `'default' \| 'secondary' \| 'outline' \| 'ghost' \| 'destructive'` | `'default'` |
-| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` |
+| Prop | Type | Défaut | Description |
+| --- | --- | --- | --- |
+| `variant` | `'default' \| 'secondary' \| 'outline' \| 'ghost' \| 'destructive'` | `'default'` | Style visuel : `default`, `secondary`, `outline`, `ghost` ou `destructive`. |
+| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` | Taille du tag : `sm`, `md` ou `lg`. |

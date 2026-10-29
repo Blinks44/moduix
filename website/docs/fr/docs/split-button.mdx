@@ -16,18 +16,7 @@ import * as SplitButtonDocs from '@/components/examples/split-button/css-propert
 
 ## Utilisation
 
-<UsageCode
-  react={'<SplitButton variant="outline" size="sm" aria-label="Save actions">\n  <SplitButtonAction onClick={save}>Save</SplitButtonAction>\n  <SplitButtonTrigger />\n  <SplitButtonPositioner>\n    <SplitButtonContent>\n      <MenuItem value="draft">Save as draft</MenuItem>\n    </SplitButtonContent>\n  </SplitButtonPositioner>\n</SplitButton>'}
-  vue={'<SplitButton variant="outline" size="sm" aria-label="Save actions">\n  <SplitButtonAction @click="save">Save</SplitButtonAction>\n  <SplitButtonTrigger />\n  <SplitButtonPositioner>\n    <SplitButtonContent>\n      <MenuItem value="draft">Save as draft</MenuItem>\n    </SplitButtonContent>\n  </SplitButtonPositioner>\n</SplitButton>'}
-/>
-
-<PropChips
-  items={[
-    ['variant', 'default · outline · secondary · destructive · destructive-outline · ghost'],
-    ['size', 'xs · sm · md · lg · xl'],
-    ['aria-label', 'Nomme le groupe d’actions.'],
-  ]}
-/>
+<Usage />
 
 Utilisez `<SplitButton>` comme racine et gardez la structure du menu
 explicite avec `SplitButtonAction`, `SplitButtonTrigger`, `SplitButtonPositioner` et `SplitButtonContent`.
@@ -173,9 +162,9 @@ Survolez ou sélectionnez une variable pour la voir dans l’aperçu.
 
 ## Référence de l’API
 
-| Prop | Type | Défaut |
-| --- | --- | --- |
-| `variant` | `SplitButtonVariant` | `'default'` |
-| `size` | `SplitButtonSize` | `'md'` |
-| `aria-label` | `string` | — |
-| `open` / `onOpenChange` | `MenuRootProps` | — |
+| Prop | Type | Défaut | Description |
+| --- | --- | --- | --- |
+| `variant` | `SplitButtonVariant` | `'default'` | Style commun aux deux boutons : `default`, `outline`, `secondary`, `destructive`, `destructive-outline` ou `ghost`. |
+| `size` | `SplitButtonSize` | `'md'` | Taille commune aux deux boutons : `xs`, `sm`, `md`, `lg` ou `xl`. |
+| `aria-label` | `string` | — | Nom accessible du groupe qui entoure les deux boutons. |
+| `open` / `onOpenChange` | `MenuRootProps` | — | État contrôlé du menu, transmis au `Menu` sous-jacent. |

@@ -16,19 +16,7 @@ import * as DatePickerDocs from '@/components/examples/date-picker/css-propertie
 
 ## Usage
 
-<UsageCode
-  react={'<DatePicker defaultValue={[parseDate(\'2026-06-22\')]} selectionMode="range" min={today(getLocalTimeZone())}>\n  <DatePickerLabel>Trip dates</DatePickerLabel>\n  <DatePickerField />\n  <DatePickerPositioner>\n    <DatePickerContent>\n      <DatePickerView view="day">\n        <DatePickerDayTable />\n      </DatePickerView>\n    </DatePickerContent>\n  </DatePickerPositioner>\n</DatePicker>'}
-  vue={'<DatePicker :default-value="[parseDate(\'2026-06-22\')]" selection-mode="range" :min="today(getLocalTimeZone())">\n  <DatePickerLabel>Trip dates</DatePickerLabel>\n  <DatePickerField />\n  <DatePickerPositioner>\n    <DatePickerContent>\n      <DatePickerView view="day">\n        <DatePickerDayTable />\n      </DatePickerView>\n    </DatePickerContent>\n  </DatePickerPositioner>\n</DatePicker>'}
-/>
-
-<PropChips
-  items={[
-    ['selectionMode', 'single, range, or multiple dates.'],
-    ['min / max', 'Earliest and latest selectable dates.'],
-    ['isDateUnavailable', 'Disables specific days, such as weekends.'],
-    ['inline', 'Shows the calendar in the page without a popup.'],
-  ]}
-/>
+<Usage />
 
 Use `DatePicker` as the root, `DatePickerField` for a standard field, and
 `DatePickerDayTable`, `DatePickerMonthTable`, and `DatePickerYearTable` for the calendar views. Each table
@@ -296,48 +284,48 @@ Ark state attributes include `data-state`, `data-disabled`, `data-readonly`, `da
 
 ## API reference
 
-| Prop | Type | Default |
-| --- | --- | --- |
-| `value` | `DateValue[]` | — |
-| `defaultValue` | `DateValue[]` | — |
-| `onValueChange` | `(details: ValueChangeDetails) => void` | — |
-| `selectionMode` | `'single' \| 'range' \| 'multiple'` | `'single'` |
-| `min` | `DateValue` | — |
-| `max` | `DateValue` | — |
-| `isDateUnavailable` | `(date: DateValue, locale: string) => boolean` | — |
-| `locale` | `string` | `'en-US'` |
-| `timeZone` | `string` | `'UTC'` |
-| `startOfWeek` | `number` | — |
-| `numOfMonths` | `number` | — |
-| `fixedWeeks` | `boolean` | `false` |
-| `showWeekNumbers` | `boolean` | `false` |
-| `closeOnSelect` | `boolean` | `true` |
-| `inline` | `boolean` | `false` |
-| `defaultView` | `'day' \| 'month' \| 'year'` | `'day'` |
-| `open` | `boolean` | — |
-| `onOpenChange` | `(details: OpenChangeDetails) => void` | — |
-| `positioning` | `PositioningOptions` | — |
-| `name` | `string` | — |
-| `disabled` | `boolean` | `false` |
-| `readOnly` | `boolean` | `false` |
-| `invalid` | `boolean` | `false` |
-| `required` | `boolean` | `false` |
-| `lazyMount` | `boolean` | `true` |
-| `unmountOnExit` | `boolean` | `true` |
-| `createCalendar` | `(identifier: CalendarIdentifier) => Calendar` | — |
-| `translations` | `IntlTranslations` | — |
-| `outsideDaySelectable` | `boolean` | `false` |
-| `openOnClick` | `boolean` | `false` |
-| `focusedValue` | `DateValue` | — |
-| `defaultFocusedValue` | `DateValue` | — |
-| `onFocusChange` | `(details: FocusChangeDetails) => void` | — |
-| `onViewChange` | `(details: ViewChangeDetails) => void` | — |
-| `onVisibleRangeChange` | `(details: VisibleRangeChangeDetails) => void` | — |
-| `maxSelectedDates` | `number` | — |
-| `format` | `(date: DateValue, details: LocaleDetails) => string` | — |
-| `parse` | `(value: string, details: LocaleDetails) => DateValue \| undefined` | — |
-| `placeholder` | `string` | — |
-| `view` | `DateView` | — |
-| `minView` | `DateView` | `'day'` |
-| `maxView` | `DateView` | `'year'` |
-| `defaultOpen` | `boolean` | — |
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `value` | `DateValue[]` | — | Selected dates for controlled use. |
+| `defaultValue` | `DateValue[]` | — | Initial selected dates. |
+| `onValueChange` | `(details: ValueChangeDetails) => void` | — | Called when the selected dates change. |
+| `selectionMode` | `'single' \| 'range' \| 'multiple'` | `'single'` | `single` date, a `range`, or `multiple` dates. |
+| `min` | `DateValue` | — | Earliest selectable date. |
+| `max` | `DateValue` | — | Latest selectable date. |
+| `isDateUnavailable` | `(date: DateValue, locale: string) => boolean` | — | Returns `true` for dates that cannot be picked. |
+| `locale` | `string` | `'en-US'` | Locale for formatting; defaults to the nearest `LocaleProvider`. |
+| `timeZone` | `string` | `'UTC'` | Time zone used for dates. |
+| `startOfWeek` | `number` | — | First day of the week, `0` for Sunday. |
+| `numOfMonths` | `number` | — | Number of months shown side by side. |
+| `fixedWeeks` | `boolean` | `false` | Always shows six weeks so the height stays the same. |
+| `showWeekNumbers` | `boolean` | `false` | Adds a week number column. |
+| `closeOnSelect` | `boolean` | `true` | Closes the popup once the selection is complete. |
+| `inline` | `boolean` | `false` | Renders the calendar in place instead of in a popup. |
+| `defaultView` | `'day' \| 'month' \| 'year'` | `'day'` | Initial view: `day`, `month`, or `year`. |
+| `open` | `boolean` | — | Open state for controlled use. |
+| `onOpenChange` | `(details: OpenChangeDetails) => void` | — | Called when it opens or closes. |
+| `positioning` | `PositioningOptions` | — | Placement, offset, and other popup positioning options. |
+| `name` | `string` | — | Form field name of the underlying input. |
+| `disabled` | `boolean` | `false` | Disables the control. |
+| `readOnly` | `boolean` | `false` | Shows the value but prevents changes. |
+| `invalid` | `boolean` | `false` | Marks the control as invalid. |
+| `required` | `boolean` | `false` | Requires a value before form submission. |
+| `lazyMount` | `boolean` | `true` | Mounts the content on first open. |
+| `unmountOnExit` | `boolean` | `true` | Unmounts the content after it closes. |
+| `createCalendar` | `(identifier: CalendarIdentifier) => Calendar` | — | Creates a non-Gregorian calendar system. |
+| `translations` | `IntlTranslations` | — | Localized strings for accessibility labels. |
+| `outsideDaySelectable` | `boolean` | `false` | Allows picking days from adjacent months. |
+| `openOnClick` | `boolean` | `false` | Opens the calendar when the input is clicked. |
+| `focusedValue` | `DateValue` | — | Focused date for controlled use. |
+| `defaultFocusedValue` | `DateValue` | — | Date focused initially; sets the visible month. |
+| `onFocusChange` | `(details: FocusChangeDetails) => void` | — | Called when the focused date changes. |
+| `onViewChange` | `(details: ViewChangeDetails) => void` | — | Called when the view changes. |
+| `onVisibleRangeChange` | `(details: VisibleRangeChangeDetails) => void` | — | Called when the visible dates change. |
+| `maxSelectedDates` | `number` | — | Limit for `multiple` selection. |
+| `format` | `(date: DateValue, details: LocaleDetails) => string` | — | Formats a date for the input. |
+| `parse` | `(value: string, details: LocaleDetails) => DateValue \| undefined` | — | Parses typed text back into a date. |
+| `placeholder` | `string` | — | Placeholder text of the input. |
+| `view` | `DateView` | — | Current view for controlled use. |
+| `minView` | `DateView` | `'day'` | Most detailed view the user can reach. |
+| `maxView` | `DateView` | `'year'` | Broadest view the user can reach. |
+| `defaultOpen` | `boolean` | — | Initial open state when it is not controlled. |

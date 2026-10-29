@@ -16,18 +16,7 @@ import * as ProgressCircularDocs from '@/components/examples/progress-circular/c
 
 ## Usage
 
-<UsageCode
-  react={'<ProgressCircular defaultValue={42}>\n  <ProgressCircularLabel>Export data</ProgressCircularLabel>\n  <ProgressCircularRing aria-label="Export data" />\n  <ProgressCircularValueText />\n</ProgressCircular>'}
-  vue={'<ProgressCircular :default-value="42">\n  <ProgressCircularLabel>Export data</ProgressCircularLabel>\n  <ProgressCircularRing aria-label="Export data" />\n  <ProgressCircularValueText />\n</ProgressCircular>'}
-/>
-
-<PropChips
-  items={[
-    ['defaultValue', 'Starting value; pass null for an indeterminate state.'],
-    ['min / max', 'Range of the value, 0 to 100 by default.'],
-    ['formatOptions', 'Intl options for the value text, percent by default.'],
-  ]}
-/>
+<Usage />
 
 Use `ProgressCircularRing` to render the standard circle with its track and range. Add
 `ProgressCircularValueText` to show the current value. The example wraps the circle and value text
@@ -165,13 +154,13 @@ Hover or focus a variable to see it in the preview.
 
 ## API reference
 
-| Prop | Type | Default |
-| --- | --- | --- |
-| `value` | `number \| null` | — |
-| `defaultValue` | `number \| null` | `50` |
-| `onValueChange` | `(details: ValueChangeDetails) => void` | — |
-| `min` | `number` | `0` |
-| `max` | `number` | `100` |
-| `formatOptions` | `Intl.NumberFormatOptions` | `{ style: 'percent' }` |
-| `locale` | `string` | — |
-| `translations` | `IntlTranslations` | — |
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `value` | `number \| null` | — | Progress value for controlled use; `null` shows an indeterminate state. |
+| `defaultValue` | `number \| null` | `50` | Initial value when it is not controlled; `null` is indeterminate. |
+| `onValueChange` | `(details: ValueChangeDetails) => void` | — | Called when the value changes. |
+| `min` | `number` | `0` | Minimum value. |
+| `max` | `number` | `100` | Maximum value. |
+| `formatOptions` | `Intl.NumberFormatOptions` | `{ style: 'percent' }` | `Intl.NumberFormat` options for the value text. |
+| `locale` | `string` | — | Locale for number formatting; defaults to the nearest `LocaleProvider`. |
+| `translations` | `IntlTranslations` | — | Localized strings for accessibility labels. |

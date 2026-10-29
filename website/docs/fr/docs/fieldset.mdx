@@ -15,17 +15,7 @@ import AnatomyScene from '@/components/examples/fieldset/basic';
 
 ## Utilisation
 
-<UsageCode
-  react={'<Fieldset invalid={!!error}>\n  <FieldsetLegend>Contact details</FieldsetLegend>\n  <Field>\n    <FieldLabel>Name</FieldLabel>\n    <Input name="name" />\n  </Field>\n  <FieldsetHelperText>We only use these details to contact you.</FieldsetHelperText>\n  <FieldsetErrorText>{error}</FieldsetErrorText>\n</Fieldset>'}
-  vue={'<Fieldset :invalid="!!error">\n  <FieldsetLegend>Contact details</FieldsetLegend>\n  <Field>\n    <FieldLabel>Name</FieldLabel>\n    <Input name="name" />\n  </Field>\n  <FieldsetHelperText>We only use these details to contact you.</FieldsetHelperText>\n  <FieldsetErrorText>{{ error }}</FieldsetErrorText>\n</Fieldset>'}
-/>
-
-<PropChips
-  items={[
-    ['invalid', 'Affiche FieldsetErrorText pour tout le groupe.'],
-    ['disabled', 'Désactive tous les contrôles, comme un fieldset natif.'],
-  ]}
-/>
+<Usage />
 
 Créez un groupe avec `Fieldset`, `FieldsetLegend`, les contrôles associés et, si nécessaire, un texte d’aide ou un message
 d’erreur. `Fieldset` est le composant racine du groupe.
@@ -138,8 +128,8 @@ la légende exposent `data-disabled` et `data-invalid` ; moduix ajoute égalemen
 
 ## Référence de l’API
 
-| Prop | Type | Défaut |
-| --- | --- | --- |
-| `invalid` | `boolean` | `false` |
-| `disabled` | `boolean` | `false` |
-| `asChild` | `boolean` | `false` |
+| Prop | Type | Défaut | Description |
+| --- | --- | --- | --- |
+| `invalid` | `boolean` | `false` | Marque le groupe invalide et affiche `FieldsetErrorText`. |
+| `disabled` | `boolean` | `false` | Désactive tous les contrôles du groupe. |
+| `asChild` | `boolean` | `false` | Rend la racine avec son unique élément enfant. |
