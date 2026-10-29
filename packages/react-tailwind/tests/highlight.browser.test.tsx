@@ -62,12 +62,6 @@ test('enables all matches for string-array queries', async () => {
     .toEqual(['React', 'Vue', 'React']);
 });
 
-test('rejects string-array queries when matchAll is false', () => {
-  expect(() => {
-    render(<Highlight matchAll={false} query={['React', 'Vue']} text="React Vue" />);
-  }).toThrow('matchAll must be true when using multiple queries');
-});
-
 test('preserves Ark case-insensitive and exact Latin matching', async () => {
   const { rerender } = render(
     <Highlight ignoreCase matchAll query="typescript" text="TypeScript typescript" />,

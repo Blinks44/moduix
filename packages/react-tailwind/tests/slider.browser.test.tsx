@@ -320,9 +320,17 @@ test('keeps the dragging indicator next to the thumb in both orientations', asyn
 
   pressThumb(horizontal!.querySelector('[data-slot="slider-thumb"]')!);
   pressThumb(vertical!.querySelector('[data-slot="slider-thumb"]')!);
+  // Ark keeps thumbs hidden until it has measured them; positions are final only after that.
   await expect
-    .poll(() => container.querySelectorAll('[data-slot="slider-dragging-indicator"]:not([hidden])'))
-    .toHaveLength(2);
+    .poll(
+      () =>
+        [
+          ...container.querySelectorAll<HTMLElement>(
+            '[data-slot="slider-dragging-indicator"]:not([hidden])',
+          ),
+        ].filter((indicator) => getComputedStyle(indicator).visibility === 'visible').length,
+    )
+    .toBe(2);
 
   const horizontalThumb = rect('[data-slot="slider-thumb"]', horizontal!);
   const horizontalIndicator = rect('[data-slot="slider-dragging-indicator"]', horizontal!);

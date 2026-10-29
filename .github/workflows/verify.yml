@@ -79,6 +79,43 @@ jobs:
       - name: Run tests
         run: pnpm run test
 
+  # The React adapters declare react ^18 || ^19; the main test job covers 19.
+  test-react-18:
+    name: Test React 18
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+
+      - name: Setup pnpm and Node.js
+        uses: pnpm/setup@a0881977cd8ea73b1ed212236c99ca10dcc80cf4 # v3
+        with:
+          cache: true
+          require-lockfile: true
+
+      - name: Cache Playwright browsers
+        id: playwright-cache
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}
+
+      - name: Install Chromium
+        if: steps.playwright-cache.outputs.cache-hit != 'true'
+        run: pnpm exec playwright install --with-deps --only-shell chromium
+
+      - name: Install Chromium system dependencies
+        if: steps.playwright-cache.outputs.cache-hit == 'true'
+        run: pnpm exec playwright install-deps chromium
+
+      - name: Install React 18
+        run: pnpm --filter './packages/react*' add -D react@^18 react-dom@^18
+
+      - name: Run React tests
+        run: pnpm --filter './packages/react*' run test
+
   typecheck:
     name: Typecheck
     runs-on: ubuntu-latest
@@ -114,6 +151,16 @@ jobs:
 
       - name: Build public packages
         run: pnpm run build:packages
+
+      # Fails when a key component exceeds its budget in .size-limit.mjs; sizes go to the job summary.
+      - name: Check component size budgets
+        run: |
+          status=0
+          pnpm exec size-limit --json > "$RUNNER_TEMP/size-limit.json" || status=$?
+          jq -r '"| Component | Size (brotli) | Limit |", "| --- | --- | --- |",
+            (.[] | "| \(.name) | \(.size / 10 | round / 100) kB | \(.sizeLimit / 1000) kB\(if .passed then "" else " ❌" end) |")' \
+            "$RUNNER_TEMP/size-limit.json" >> "$GITHUB_STEP_SUMMARY"
+          exit $status
 
       - name: Build registry and docs
         run: pnpm run build:docs
