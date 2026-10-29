@@ -7,7 +7,7 @@ import { List, ListIndicator, ListItem } from '@/components/list/List';
 const defaultItems = [
   'Use semantic list markup for grouped content.',
   'Keep spacing and typography on the library scale.',
-  'Style markers with Tailwind utilities or native ::marker selectors.',
+  'Style markers with native ::marker selectors.',
 ];
 
 const listClass = 'w-full max-w-lg';
@@ -145,7 +145,7 @@ export const CustomItemComposition: Story = {
       <ListItem
         asChild={(props) => (
           <AccentListItem {...props()}>
-            Root utilities still control spacing and indentation.
+            A class on the root still controls the indentation.
           </AccentListItem>
         )}
       />

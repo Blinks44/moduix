@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/vue3-vite';
 import { defineComponent, ref } from 'vue';
+import { Button } from '@/components/button';
 import {
   Slider,
   SliderControl,
@@ -62,7 +63,7 @@ const SliderContextStatus = defineComponent({
   `,
 });
 
-const storyComponents = { ...sliderComponents, SliderContextStatus };
+const storyComponents = { ...sliderComponents, Button, SliderContextStatus };
 
 function renderStory(template: string, setup?: () => Record<string, unknown>) {
   return () =>
@@ -324,7 +325,7 @@ const RootProviderStory = defineComponent({
   },
   template: `
     <div :class="styles.stack">
-      <button type="button" @click="slider.focus()">Focus</button>
+      <Button @click="slider.focus()">Focus</Button>
       <SliderRootProvider :value="slider">
         <SliderLabel>Volume</SliderLabel>
         <SliderValueText />

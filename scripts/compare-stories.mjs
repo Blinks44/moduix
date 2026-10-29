@@ -9,6 +9,21 @@ import { PNG } from 'pngjs';
 
 const reference = 'react';
 const maxDiffRatio = 0.001;
+// Story ids, or id prefixes for a whole component.
+const skipped = [
+  // CSS Modules style these demos through component variables and Tailwind through utilities.
+  'components-angleslider--custom-styling',
+  'components-marquee--custom-styling',
+  'components-pagination--custom-styles',
+  'components-tagsinput--custom-styling',
+  // Solid applies `multiple` after inserting options, so the first option starts selected.
+  'components-nativeselect--multiple',
+  // The sidebar converts its default width to a percentage of a container measured on mount.
+  'components-sidebar--',
+  // Ark Vue renders the key separator without the trailing space that Ark React and Solid keep.
+  'utilities-jsontreeview--basic',
+  'utilities-jsontreeview--compact-previews',
+];
 const outDir = '.stories-diff';
 const types = {
   '.html': 'text/html',
@@ -30,6 +45,7 @@ const index = JSON.parse(
 const stories = Object.values(index.entries)
   .filter((entry) => entry.type === 'story')
   .map((entry) => entry.id)
+  .filter((id) => !skipped.some((skip) => id.startsWith(skip)))
   .filter(
     (id) => !components.length || components.some((name) => id.startsWith(`components-${name}--`)),
   );
@@ -67,6 +83,8 @@ async function screenshot(page, playground, id) {
 }
 
 rmSync(outDir, { recursive: true, force: true });
+// All playgrounds share one origin, so state a story persists must not leak into the next one.
+await context.addInitScript(() => localStorage.clear());
 const pages = await Promise.all(playgrounds.map(() => context.newPage()));
 const failures = [];
 

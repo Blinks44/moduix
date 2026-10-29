@@ -152,8 +152,8 @@ export const AsChild: Story = {
         ['Monthly', 'Pay monthly'],
         ['Annual', 'Save 20%'],
       ].map(([item, description]) => (
-        <SegmentGroupItem key={item} value={item} asChild>
-          <label className={cardItemClassName}>
+        <SegmentGroupItem key={item} value={item} asChild className={cardItemClassName}>
+          <label>
             <SegmentGroupItemText className="font-semibold">{item}</SegmentGroupItemText>
             <span className={cardDescriptionClassName}>{description}</span>
             <SegmentGroupItemHiddenInput />

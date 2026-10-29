@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/vue3-vite';
-import { defineComponent, ref } from 'vue';
+import { defineComponent, shallowRef } from 'vue';
 import type { Component } from 'vue';
 import {
   ColorPicker,
@@ -174,13 +174,12 @@ export const Controlled: Story = {
     `
       <ColorPicker
         :class="styles.demoRoot"
-        :value="value"
-        @value-change="(details) => (value = details.value)"
+        v-model="value"
       >
         <ColorPickerField />
       </ColorPicker>
     `,
-    () => ({ value: ref(parseColor('#16a34a')) }),
+    () => ({ value: shallowRef(parseColor('#16a34a')) }),
   ),
 };
 

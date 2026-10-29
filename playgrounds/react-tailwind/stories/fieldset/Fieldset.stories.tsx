@@ -16,6 +16,13 @@ import {
   useFieldset,
 } from '@/components/fieldset/Fieldset';
 import { Input } from '@/components/input';
+import {
+  RadioGroup,
+  RadioGroupItem,
+  RadioGroupItemControl,
+  RadioGroupItemHiddenInput,
+  RadioGroupItemText,
+} from '@/components/radio-group';
 
 const meta = {
   title: 'Components/Fieldset',
@@ -29,8 +36,6 @@ const meta = {
 export default meta;
 
 type Story = StoryObj<typeof meta>;
-
-const optionClassName = 'flex items-center gap-2 text-sm text-foreground';
 
 export const Default: Story = {
   render: () => (
@@ -104,12 +109,15 @@ export const WithRadioGroup: Story = {
   render: () => (
     <Fieldset>
       <FieldsetLegend>Storage type</FieldsetLegend>
-      {['ssd', 'hdd'].map((value) => (
-        <label className={optionClassName} key={value}>
-          <input defaultChecked={value === 'ssd'} name="storage-type" type="radio" />
-          {value.toUpperCase()}
-        </label>
-      ))}
+      <RadioGroup defaultValue="ssd">
+        {['ssd', 'hdd'].map((value) => (
+          <RadioGroupItem key={value} value={value}>
+            <RadioGroupItemControl />
+            <RadioGroupItemText>{value.toUpperCase()}</RadioGroupItemText>
+            <RadioGroupItemHiddenInput />
+          </RadioGroupItem>
+        ))}
+      </RadioGroup>
       <FieldsetHelperText>Choose the primary storage medium.</FieldsetHelperText>
     </Fieldset>
   ),

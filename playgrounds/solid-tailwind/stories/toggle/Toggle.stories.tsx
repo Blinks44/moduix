@@ -203,7 +203,7 @@ export const CustomStyles: Story = {
     children: (
       <>
         <CheckIcon />
-        Styled with className
+        Styled with a class
       </>
     ),
   },

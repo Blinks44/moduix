@@ -234,13 +234,13 @@ export const CustomStyling: Story = {
   render: () => (
     <PinInput count={PIN_COUNT}>
       <PinInputLabel>Styled code</PinInputLabel>
-      <PinInputControl>
+      <PinInputControl class="gap-3">
         {[0, 1, 2].map((index) => (
-          <PinInputInput index={index} class="size-12 bg-muted text-xl" />
+          <PinInputInput index={index} class="size-12 rounded-lg bg-muted text-xl" />
         ))}
-        <PinInputSeparator class="size-6 text-primary" />
+        <PinInputSeparator class="text-primary" />
         {[3, 4, 5].map((index) => (
-          <PinInputInput index={index} class="size-12 bg-muted text-xl" />
+          <PinInputInput index={index} class="size-12 rounded-lg bg-muted text-xl" />
         ))}
       </PinInputControl>
     </PinInput>

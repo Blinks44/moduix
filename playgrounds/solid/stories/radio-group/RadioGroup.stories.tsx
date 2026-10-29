@@ -188,11 +188,8 @@ export const AsChild: Story = {
       {frameworks.map((item) => (
         <RadioGroupItem
           value={item}
-          asChild={(props) => (
-            <label class={styles.cardItem} {...props()}>
-              {props().children}
-            </label>
-          )}
+          class={styles.cardItem}
+          asChild={(props) => <label {...props()} />}
         >
           <>
             <RadioGroupItemControl />

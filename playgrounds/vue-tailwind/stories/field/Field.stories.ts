@@ -1,15 +1,13 @@
-import { CheckboxHiddenInput } from '@ark-ui/vue/checkbox';
-import {
-  RadioGroupItem as ArkRadioGroupItem,
-  RadioGroupItemControl as ArkRadioGroupItemControl,
-  RadioGroupItemHiddenInput as ArkRadioGroupItemHiddenInput,
-  RadioGroupItemText as ArkRadioGroupItemText,
-  RadioGroupRoot as ArkRadioGroup,
-} from '@ark-ui/vue/radio-group';
 import type { Meta, StoryObj } from '@storybook/vue3-vite';
 import { defineComponent, ref } from 'vue';
 import type { Component } from 'vue';
-import { Checkbox, CheckboxControl, CheckboxIndicator, CheckboxLabel } from '@/components/checkbox';
+import {
+  Checkbox,
+  CheckboxControl,
+  CheckboxHiddenInput,
+  CheckboxIndicator,
+  CheckboxLabel,
+} from '@/components/checkbox';
 import {
   Field,
   FieldErrorText,
@@ -22,6 +20,13 @@ import {
 } from '@/components/field';
 import { Input } from '@/components/input';
 import { NativeSelect } from '@/components/native-select';
+import {
+  RadioGroup,
+  RadioGroupItem,
+  RadioGroupItemControl,
+  RadioGroupItemHiddenInput,
+  RadioGroupItemText,
+} from '@/components/radio-group';
 import { Textarea } from '@/components/textarea';
 
 const meta = {
@@ -55,11 +60,6 @@ export const InputParity: Story = {
 };
 
 const storyComponents = {
-  ArkRadioGroup,
-  ArkRadioGroupItem,
-  ArkRadioGroupItemControl,
-  ArkRadioGroupItemHiddenInput,
-  ArkRadioGroupItemText,
   Checkbox,
   CheckboxControl,
   CheckboxHiddenInput,
@@ -74,6 +74,11 @@ const storyComponents = {
   FieldRequiredIndicator,
   FieldRootProvider,
   NativeSelect,
+  RadioGroup,
+  RadioGroupItem,
+  RadioGroupItemControl,
+  RadioGroupItemHiddenInput,
+  RadioGroupItemText,
   Textarea,
 } as Record<string, Component>;
 
@@ -143,6 +148,7 @@ export const Select: Story = {
         <option value="normal">Normal</option>
         <option value="high">High</option>
       </NativeSelect>
+      <FieldHelperText>Used for triage queues.</FieldHelperText>
     </Field>
   `),
 };
@@ -152,6 +158,7 @@ export const Disabled: Story = {
     <Field disabled>
       <FieldLabel>Organization</FieldLabel>
       <Input placeholder="Acme Inc." />
+      <FieldHelperText>This field is currently managed by your workspace.</FieldHelperText>
     </Field>
   `),
 };
@@ -161,6 +168,7 @@ export const ReadOnly: Story = {
     <Field read-only>
       <FieldLabel>Workspace key</FieldLabel>
       <Input model-value="MAPS" />
+      <FieldHelperText>Read-only state is propagated to the input.</FieldHelperText>
     </Field>
   `),
 };
@@ -173,6 +181,7 @@ export const WithCheckbox: Story = {
         <CheckboxLabel>Accept support access</CheckboxLabel>
         <CheckboxHiddenInput />
       </Checkbox>
+      <FieldHelperText>Required before the team can inspect workspace data.</FieldHelperText>
       <FieldErrorText>Support access must be enabled.</FieldErrorText>
     </Field>
   `),
@@ -182,18 +191,19 @@ export const WithRadioGroup: Story = {
   render: renderStory(`
     <Field>
       <FieldLabel>Account type</FieldLabel>
-      <ArkRadioGroup default-value="team" aria-label="Account type">
-        <ArkRadioGroupItem value="personal">
-          <ArkRadioGroupItemControl />
-          <ArkRadioGroupItemText>Personal account</ArkRadioGroupItemText>
-          <ArkRadioGroupItemHiddenInput />
-        </ArkRadioGroupItem>
-        <ArkRadioGroupItem value="team">
-          <ArkRadioGroupItemControl />
-          <ArkRadioGroupItemText>Team account</ArkRadioGroupItemText>
-          <ArkRadioGroupItemHiddenInput />
-        </ArkRadioGroupItem>
-      </ArkRadioGroup>
+      <RadioGroup default-value="team" aria-label="Account type">
+        <RadioGroupItem value="personal">
+          <RadioGroupItemControl />
+          <RadioGroupItemText>Personal account</RadioGroupItemText>
+          <RadioGroupItemHiddenInput />
+        </RadioGroupItem>
+        <RadioGroupItem value="team">
+          <RadioGroupItemControl />
+          <RadioGroupItemText>Team account</RadioGroupItemText>
+          <RadioGroupItemHiddenInput />
+        </RadioGroupItem>
+      </RadioGroup>
+      <FieldHelperText>Choose the default account context for new projects.</FieldHelperText>
     </Field>
   `),
 };
@@ -218,9 +228,11 @@ export const ItemTarget: Story = {
         <NativeSelect v-model="currency" aria-label="Currency">
           <option value="USD">USD</option>
           <option value="EUR">EUR</option>
+          <option value="GBP">GBP</option>
         </NativeSelect>
       </FieldItem>
       <FieldItem value="amount"><Input input-mode="decimal" placeholder="0.00" /></FieldItem>
+      <FieldHelperText>The root label targets the amount input.</FieldHelperText>
     </Field>
   `,
     () => ({ currency: ref('USD') }),
@@ -231,11 +243,11 @@ export const RootProvider: Story = {
   render: renderStory(
     `
       <FieldRootProvider :value="field">
-        <FieldLabel>External state <FieldRequiredIndicator /></FieldLabel>
-        <Input placeholder="Controlled by useField" />
-        <FieldErrorText>Enter a valid email address.</FieldErrorText>
+        <FieldLabel>Project key</FieldLabel>
+        <Input placeholder="MAPS" />
+        <FieldHelperText>The field state is created outside the rendered tree.</FieldHelperText>
       </FieldRootProvider>
     `,
-    () => ({ field: useField({ id: 'root-provider-field', invalid: true, required: true }) }),
+    () => ({ field: useField({ id: 'root-provider-field', required: true }) }),
   ),
 };

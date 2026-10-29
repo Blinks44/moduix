@@ -244,19 +244,19 @@ export const CustomStyling: Story = {
   render: renderStory(`
     <PinInput :count="PIN_COUNT">
       <PinInputLabel>Styled code</PinInputLabel>
-      <PinInputControl>
+      <PinInputControl class="gap-3">
         <PinInputInput
           v-for="index in firstIndexes"
           :key="index"
           :index="index"
-          class="size-12 bg-muted text-xl"
+          class="size-12 rounded-lg bg-muted text-xl"
         />
-        <PinInputSeparator class="size-6 text-primary" />
+        <PinInputSeparator class="text-primary" />
         <PinInputInput
           v-for="index in lastIndexes"
           :key="index"
           :index="index"
-          class="size-12 bg-muted text-xl"
+          class="size-12 rounded-lg bg-muted text-xl"
         />
       </PinInputControl>
     </PinInput>

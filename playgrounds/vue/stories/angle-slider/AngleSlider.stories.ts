@@ -94,7 +94,6 @@ export const Controlled: Story = {
         <AngleSliderLabel>Heading</AngleSliderLabel>
         <AngleSliderMarkedParts />
       </AngleSlider>
-      <output>Angle: {{ value }}°</output>
     `,
     () => ({ value: ref(210) }),
   ),

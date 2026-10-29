@@ -41,7 +41,7 @@ export const MediaObject: Story = {
   render: () => (
     <div class="flex w-96 items-center gap-3">
       <Skeleton boxSize={48} class="rounded-full" />
-      <div class="grid min-w-0 flex-1 gap-2">
+      <div class="flex min-w-0 flex-1 flex-col gap-2">
         <Skeleton width="46%" height={16} />
         <Skeleton height={14} />
         <Skeleton width="72%" height={14} />
@@ -55,14 +55,14 @@ export const Composition: Story = {
     <div class="grid w-96 gap-3 py-1">
       <div class="flex flex-col gap-3 md:flex-row">
         <Skeleton width={72} height={48} />
-        <div class="grid min-w-0 flex-1 gap-2">
+        <div class="flex min-w-0 flex-1 flex-col gap-2">
           <Skeleton width="62%" height={14} />
           <Skeleton height={14} />
         </div>
       </div>
       <div class="flex flex-col gap-3 md:flex-row">
         <Skeleton width={72} height={48} />
-        <div class="grid min-w-0 flex-1 gap-2">
+        <div class="flex min-w-0 flex-1 flex-col gap-2">
           <Skeleton width="48%" height={14} />
           <Skeleton height={14} />
         </div>

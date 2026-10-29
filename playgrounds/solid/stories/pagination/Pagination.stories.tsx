@@ -111,26 +111,13 @@ export const Link: Story = {
       type="link"
       getPageUrl={(details) => `?page=${details.page}`}
     >
-      <PaginationPrevTrigger
-        asChild={(props) => (
-          <a {...props()} href="#">
-            Previous
-          </a>
-        )}
-      />
+      <PaginationPrevTrigger asChild={(props) => <a {...props()}>Previous</a>} />
       <PaginationContext>
         {(pagination) => (
           <For each={pagination().pages}>
             {(page, index) =>
               page.type === 'page' ? (
-                <PaginationItem
-                  {...page}
-                  asChild={(props) => (
-                    <a {...props()} href={`?page=${page.value}`}>
-                      {page.value}
-                    </a>
-                  )}
-                />
+                <PaginationItem {...page} asChild={(props) => <a {...props()}>{page.value}</a>} />
               ) : (
                 <PaginationEllipsis index={index()} />
               )
@@ -138,13 +125,7 @@ export const Link: Story = {
           </For>
         )}
       </PaginationContext>
-      <PaginationNextTrigger
-        asChild={(props) => (
-          <a {...props()} href="#">
-            Next
-          </a>
-        )}
-      />
+      <PaginationNextTrigger asChild={(props) => <a {...props()}>Next</a>} />
     </Pagination>
   ),
 };

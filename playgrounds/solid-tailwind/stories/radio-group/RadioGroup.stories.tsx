@@ -129,7 +129,7 @@ export const Orientation: Story = {
 
 export const Sizes: Story = {
   render: () => (
-    <div class="grid gap-4">
+    <div class="flex flex-col items-start gap-2">
       {(['xs', 'sm', 'md', 'lg', 'xl'] as const).map((size) => (
         <RadioGroup size={size} defaultValue="React">
           <RadioGroupLabel>{size.toUpperCase()}</RadioGroupLabel>

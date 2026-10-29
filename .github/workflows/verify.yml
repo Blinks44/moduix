@@ -175,7 +175,7 @@ jobs:
   storybook:
     name: Storybook smoke
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 45
 
     steps:
       - name: Checkout
@@ -205,11 +205,9 @@ jobs:
         if: steps.playwright-cache.outputs.cache-hit == 'true'
         run: pnpm exec playwright install-deps chromium
 
-      # Every adapter is compared with React CSS Modules; extend the list as components stay stable.
+      # Every adapter is compared with React CSS Modules; known exceptions live in the script.
       - name: Compare stories across adapters
-        run: >-
-          pnpm run compare:stories accordion alert avatar badge button card checkbox dialog input
-          select separator switch tabs textarea tooltip
+        run: pnpm run compare:stories
 
       - name: Upload story diffs
         if: failure()

@@ -267,7 +267,7 @@ export const SelectAll: Story = {
 };
 export const CustomStyling: Story = {
   render: renderStory(
-    '<Listbox :collection="countries" :default-value="[&quot;ca&quot;]" class="w-72"><ListboxLabel class="text-primary">Styled country</ListboxLabel><ListboxContent class="shadow-sm"><ListboxItem v-for="item in countries.items" :key="item.value" :item="item" class="data-[selected]:bg-primary/10"><ListboxItemText>{{ item.label }}</ListboxItemText><ListboxItemIndicator /></ListboxItem></ListboxContent></Listbox>',
+    '<Listbox :collection="countries" :default-value="[&quot;ca&quot;]" class="w-72"><ListboxLabel class="text-primary">Styled country</ListboxLabel><ListboxContent class="border-primary bg-muted shadow-sm"><ListboxItem v-for="item in countries.items" :key="item.value" :item="item" class="data-highlighted:bg-primary data-highlighted:text-primary-foreground data-selected:text-primary"><ListboxItemText>{{ item.label }}</ListboxItemText><ListboxItemIndicator /></ListboxItem></ListboxContent></Listbox>',
     () => ({ countries }),
   ),
 };

@@ -144,16 +144,15 @@ export const RootProvider: Story = {
   render: renderStory(
     `
       <div :class="stackClass">
+        <div :class="toolbarClass">
+          <Button @click="splitter.resetSizes()">Reset</Button>
+          <Button @click="splitter.resizePanel('a', 25)">Set A to 25%</Button>
+        </div>
         <SplitterRootProvider :value="splitter" :class="demoRootClass">
           <SplitterPanel id="a" :class="panelClass">A</SplitterPanel>
           <SplitterResizeTrigger id="a:b" aria-label="Resize panels" />
           <SplitterPanel id="b" :class="panelClass">B</SplitterPanel>
         </SplitterRootProvider>
-        <output :class="statusClass">Sizes: {{ splitter.getSizes().join(' / ') }}</output>
-        <div :class="toolbarClass">
-          <Button @click="splitter.resetSizes">Reset</Button>
-          <Button @click="splitter.resizePanel('a', 25)">Set A to 25%</Button>
-        </div>
       </div>
     `,
     () => ({ splitter: useSplitter({ panels, defaultSize: [50, 50] }) }),

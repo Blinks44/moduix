@@ -11,7 +11,7 @@ const stackClass = 'flex w-full max-w-lg flex-col gap-6';
 const defaultItems = [
   'Use semantic list markup for grouped content.',
   'Keep spacing and typography on the library scale.',
-  'Style markers with Tailwind utilities or native ::marker selectors.',
+  'Style markers with native ::marker selectors.',
 ];
 
 const AccentListItem = defineComponent({
@@ -148,7 +148,7 @@ export const CustomItemComposition: Story = {
   render: renderStory(`
     <List :class="accentListClass">
       <ListItem as-child><AccentListItem>Native markers stay available for per-item styling.</AccentListItem></ListItem>
-      <ListItem as-child><AccentListItem>Root utilities still control spacing and indentation.</AccentListItem></ListItem>
+      <ListItem as-child><AccentListItem>A class on the root still controls the indentation.</AccentListItem></ListItem>
       <ListItem as-child><AccentListItem>asChild keeps the semantic li contract for a custom item.</AccentListItem></ListItem>
     </List>
   `),
