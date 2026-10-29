@@ -54,6 +54,13 @@ import AnatomyScene from '@/components/examples/json-tree-view/basic';
 
 <Example name="json-tree-view/compact-previews" />
 
+### Своя отрисовка значений
+
+Передайте `renderValue` в `JsonTreeViewTree`, чтобы заменить отрисовку значения. Верните `undefined`,
+чтобы оставить отрисовку по умолчанию. В этом примере адреса становятся ссылками.
+
+<Example name="json-tree-view/custom-value-rendering" />
+
 ## Композиция
 
 Оставляйте `JsonTreeViewTree` дочерней частью `JsonTreeView` или `JsonTreeViewRootProvider`: она отображает

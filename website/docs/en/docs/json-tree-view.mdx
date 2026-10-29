@@ -52,6 +52,13 @@ Users can expand a node to inspect its complete value.
 
 <Example name="json-tree-view/compact-previews" />
 
+### Custom value rendering
+
+Pass `renderValue` to `JsonTreeViewTree` to replace how a value is drawn. Return `undefined` to keep the
+default rendering. This example turns URLs into links.
+
+<Example name="json-tree-view/custom-value-rendering" />
+
 ## Composition
 
 Keep `JsonTreeViewTree` as the child of `JsonTreeView` or `JsonTreeViewRootProvider`; it renders the generated JSON nodes.

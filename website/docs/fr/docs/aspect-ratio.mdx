@@ -44,6 +44,13 @@ dimensions différentes.
 
 <Example name="aspect-ratio/card-grid" />
 
+### Ratios courants
+
+Passez la largeur divisée par la hauteur à `ratio` : `1` pour un avatar ou une vignette carrée, `4 / 3`
+pour les photos et `16 / 9` pour la vidéo.
+
+<Example name="aspect-ratio/common-ratios" />
+
 ### Élément personnalisé
 
 Utilisez `asChild` lorsqu’un élément sémantique, comme `figure`, doit devenir la racine rendue. Ark transmet les
@@ -64,6 +71,14 @@ Si vous migrez depuis shadcn, placez les classes de largeur et de rayon directem
 sur un conteneur extérieur. La même racine fonctionne avec `Image` de Next.js et sa propriété `fill`.
 
 <Example name="aspect-ratio/migrating-from-shadcn" />
+
+### Ratio adaptatif
+
+Définissez le ratio des petits écrans avec `ratio`, puis remplacez `aspect-ratio` dans votre propre
+classe à l’intérieur d’une media query. La classe l’emporte sur le style du composant : ce cadre est
+carré sur téléphone et en 21:9 à partir de 40rem.
+
+<Example name="aspect-ratio/responsive-ratio" />
 
 ## Composition
 

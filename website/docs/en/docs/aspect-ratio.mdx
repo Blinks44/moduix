@@ -43,6 +43,13 @@ different dimensions.
 
 <Example name="aspect-ratio/card-grid" />
 
+### Common ratios
+
+Pass the width divided by height to `ratio`: `1` for a square avatar or thumbnail, `4 / 3` for photos,
+and `16 / 9` for video.
+
+<Example name="aspect-ratio/common-ratios" />
+
 ### Custom Element
 
 Use `asChild` when another semantic element, such as `figure`, should be the rendered root. Ark merges the
@@ -62,6 +69,14 @@ If you are migrating from shadcn, put width, clipping, and radius classes on `As
 inside it explicitly. The same root setup also works with Next.js `Image` using `fill`.
 
 <Example name="aspect-ratio/migrating-from-shadcn" />
+
+### Responsive ratio
+
+Set the ratio for small screens with `ratio`, then override `aspect-ratio` in your own class inside a
+media query. The class wins over the component style, so this frame is square on phones and 21:9 from
+40rem.
+
+<Example name="aspect-ratio/responsive-ratio" />
 
 ## Composition
 

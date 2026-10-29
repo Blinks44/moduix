@@ -51,6 +51,13 @@ raccourcir les chaînes longues. L’utilisateur peut ouvrir un nœud pour consu
 
 <Example name="json-tree-view/compact-previews" />
 
+### Rendu personnalisé des valeurs
+
+Passez `renderValue` à `JsonTreeViewTree` pour remplacer l’affichage d’une valeur. Renvoyez `undefined`
+pour garder le rendu par défaut. Dans cet exemple, les URL deviennent des liens.
+
+<Example name="json-tree-view/custom-value-rendering" />
+
 ## Composition
 
 Gardez `JsonTreeViewTree` comme enfant de `JsonTreeView` ou de `JsonTreeViewRootProvider` : il affiche les nœuds JSON
