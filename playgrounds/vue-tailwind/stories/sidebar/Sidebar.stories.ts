@@ -18,9 +18,6 @@ import {
   MenuItemGroup,
   MenuItemGroupLabel,
   MenuItemText,
-  MenuItemTextContent,
-  MenuItemTextIcon,
-  MenuItemTextLabel,
   MenuPositioner,
   MenuSeparator,
   MenuTrigger,
@@ -159,9 +156,6 @@ const primitiveComponents = {
   MenuItemGroup,
   MenuItemGroupLabel,
   MenuItemText,
-  MenuItemTextContent,
-  MenuItemTextIcon,
-  MenuItemTextLabel,
   MenuPositioner,
   MenuSeparator,
   MenuTrigger,
@@ -279,30 +273,15 @@ const AccountMenu = defineComponent({
             <MenuItemGroup>
               <MenuItemGroupLabel>Acme Inc.</MenuItemGroupLabel>
               <MenuItem value="profile">
-                <MenuItemText>
-                  <MenuItemTextContent>
-                    <MenuItemTextIcon><PencilIcon /></MenuItemTextIcon>
-                    <MenuItemTextLabel>Profile</MenuItemTextLabel>
-                  </MenuItemTextContent>
-                </MenuItemText>
+                <MenuItemText><PencilIcon />Profile</MenuItemText>
               </MenuItem>
               <MenuItem value="settings">
-                <MenuItemText>
-                  <MenuItemTextContent>
-                    <MenuItemTextIcon><RestartIcon /></MenuItemTextIcon>
-                    <MenuItemTextLabel>Settings</MenuItemTextLabel>
-                  </MenuItemTextContent>
-                </MenuItemText>
+                <MenuItemText><RestartIcon />Settings</MenuItemText>
               </MenuItem>
             </MenuItemGroup>
             <MenuSeparator />
             <MenuItem value="sign-out" tone="destructive">
-              <MenuItemText>
-                <MenuItemTextContent>
-                  <MenuItemTextIcon><TrashIcon /></MenuItemTextIcon>
-                  <MenuItemTextLabel>Sign out</MenuItemTextLabel>
-                </MenuItemTextContent>
-              </MenuItemText>
+              <MenuItemText><TrashIcon />Sign out</MenuItemText>
             </MenuItem>
           </MenuViewport>
         </MenuContent>
@@ -322,7 +301,7 @@ const SidebarNavigation = defineComponent({
       <div :class="classes.headerStack">
         <div :class="classes.brand">
           <span :class="classes.brandMark" data-sidebar-icon>M</span>
-          <SidebarLabel>Moduix</SidebarLabel>
+          <SidebarLabel>moduix</SidebarLabel>
         </div>
         <SidebarInput aria-label="Search workspace" placeholder="Search" size="sm" />
       </div>
@@ -599,7 +578,7 @@ export const WithScrollArea: Story = {
         <SidebarHeader>
           <div :class="classes.brand">
             <span :class="classes.brandMark" data-sidebar-icon>M</span>
-            <SidebarLabel>Moduix</SidebarLabel>
+            <SidebarLabel>moduix</SidebarLabel>
           </div>
         </SidebarHeader>
         <SidebarContent :class="classes.scrollAreaContent">

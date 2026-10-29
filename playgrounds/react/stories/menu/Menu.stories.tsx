@@ -23,9 +23,6 @@ import {
   MenuCheckboxItem,
   MenuItemIndicator,
   MenuItemText,
-  MenuItemTextContent,
-  MenuItemTextIcon,
-  MenuItemTextLabel,
   MenuItemShortcut,
 } from '@/components/menu/Menu';
 import { InfoIcon, MapIcon } from '../../icons/demo';
@@ -240,12 +237,8 @@ export const IndicatorRightWithIcon: Story = {
             indicator="end"
           >
             <MenuItemText>
-              <MenuItemTextContent>
-                <MenuItemTextIcon>
-                  <InfoIcon />
-                </MenuItemTextIcon>
-                <MenuItemTextLabel>Minimap</MenuItemTextLabel>
-              </MenuItemTextContent>
+              <InfoIcon />
+              Minimap
             </MenuItemText>
             <MenuItemIndicator />
           </MenuCheckboxItem>
@@ -256,12 +249,8 @@ export const IndicatorRightWithIcon: Story = {
             indicator="end"
           >
             <MenuItemText>
-              <MenuItemTextContent>
-                <MenuItemTextIcon>
-                  <MapIcon />
-                </MenuItemTextIcon>
-                <MenuItemTextLabel>Search</MenuItemTextLabel>
-              </MenuItemTextContent>
+              <MapIcon />
+              Search
             </MenuItemText>
             <MenuItemIndicator />
           </MenuCheckboxItem>

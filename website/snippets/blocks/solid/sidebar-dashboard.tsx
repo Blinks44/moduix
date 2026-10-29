@@ -16,9 +16,6 @@ import {
   MenuViewport,
   MenuItem,
   MenuItemText,
-  MenuItemTextContent,
-  MenuItemTextIcon,
-  MenuItemTextLabel,
 } from '@/registry/solid/ui/menu';
 import {
   Sidebar,
@@ -51,7 +48,7 @@ export function SidebarDashboard() {
             <span class={styles.brandMark} data-sidebar-icon>
               M
             </span>
-            <SidebarLabel>Moduix</SidebarLabel>
+            <SidebarLabel>moduix</SidebarLabel>
           </a>
         </SidebarHeader>
 
@@ -191,22 +188,14 @@ export function SidebarDashboard() {
                     <MenuViewport>
                       <MenuItem value="workspace-settings">
                         <MenuItemText>
-                          <MenuItemTextContent>
-                            <MenuItemTextIcon>
-                              <Settings />
-                            </MenuItemTextIcon>
-                            <MenuItemTextLabel>Workspace settings</MenuItemTextLabel>
-                          </MenuItemTextContent>
+                          <Settings />
+                          Workspace settings
                         </MenuItemText>
                       </MenuItem>
                       <MenuItem value="manage-members">
                         <MenuItemText>
-                          <MenuItemTextContent>
-                            <MenuItemTextIcon>
-                              <Users />
-                            </MenuItemTextIcon>
-                            <MenuItemTextLabel>Manage members</MenuItemTextLabel>
-                          </MenuItemTextContent>
+                          <Users />
+                          Manage members
                         </MenuItemText>
                       </MenuItem>
                     </MenuViewport>

@@ -12,9 +12,6 @@ import ListboxItemGroup from './ListboxItemGroup.vue';
 import ListboxItemGroupLabel from './ListboxItemGroupLabel.vue';
 import ListboxItemIndicator from './ListboxItemIndicator.vue';
 import ListboxItemText from './ListboxItemText.vue';
-import ListboxItemTextContent from './ListboxItemTextContent.vue';
-import ListboxItemTextIcon from './ListboxItemTextIcon.vue';
-import ListboxItemTextLabel from './ListboxItemTextLabel.vue';
 import ListboxLabel from './ListboxLabel.vue';
 import ListboxRootProvider from './ListboxRootProvider.vue';
 import ListboxValueText from './ListboxValueText.vue';
@@ -33,9 +30,6 @@ export {
   ListboxItemGroupLabel,
   ListboxItemIndicator,
   ListboxItemText,
-  ListboxItemTextContent,
-  ListboxItemTextIcon,
-  ListboxItemTextLabel,
   ListboxLabel,
   ListboxRootProvider,
   ListboxValueText,

@@ -262,12 +262,19 @@
     }
   }
 
-  .itemText,
-  .itemTextLabel {
+  .itemText {
     min-width: 0;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+
+    & > svg {
+      display: inline-block;
+      width: var(--moduix-spacing-4);
+      height: var(--moduix-spacing-4);
+      margin-inline-end: var(--moduix-spacing-2);
+      vertical-align: middle;
+    }
   }
 
   .itemIndicator {
@@ -293,23 +300,5 @@
     color: var(--moduix-muted-foreground);
     font-size: var(--moduix-text-sm);
     line-height: var(--moduix-line-height-text-sm);
-  }
-
-  .itemTextContent {
-    display: inline-flex;
-    max-width: 100%;
-    min-width: 0;
-    align-items: center;
-    gap: var(--moduix-spacing-2);
-    vertical-align: top;
-  }
-
-  .itemTextIcon {
-    display: inline-flex;
-    width: var(--moduix-spacing-4);
-    height: var(--moduix-spacing-4);
-    flex-shrink: 0;
-    align-items: center;
-    justify-content: center;
   }
 }

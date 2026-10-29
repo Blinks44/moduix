@@ -1,4 +1,4 @@
-import { ark, type HTMLArkProps } from '@ark-ui/solid/factory';
+import type { HTMLArkProps } from '@ark-ui/solid/factory';
 import {
   Listbox as ListboxPrimitive,
   type CollectionItem,
@@ -176,7 +176,10 @@ function ListboxItemText(props: ComponentProps<typeof ListboxPrimitive.ItemText>
 
   return (
     <ListboxPrimitive.ItemText
-      class={cn('min-w-0 overflow-hidden text-ellipsis whitespace-nowrap', local.class)}
+      class={cn(
+        'min-w-0 overflow-hidden text-ellipsis whitespace-nowrap [&>svg]:me-2 [&>svg]:inline-block [&>svg]:size-4 [&>svg]:align-middle',
+        local.class,
+      )}
       {...others}
       data-slot="listbox-item-text"
     />
@@ -213,42 +216,6 @@ function ListboxValueText(props: ComponentProps<typeof ListboxPrimitive.ValueTex
   );
 }
 
-function ListboxItemTextContent(props: HTMLArkProps<'span'>) {
-  const [local, others] = splitProps(props, ['class']);
-
-  return (
-    <ark.span
-      class={cn('inline-flex max-w-full min-w-0 items-center gap-2 align-top', local.class)}
-      {...others}
-      data-slot="listbox-item-text-content"
-    />
-  );
-}
-
-function ListboxItemTextIcon(props: HTMLArkProps<'span'>) {
-  const [local, others] = splitProps(props, ['class']);
-
-  return (
-    <ark.span
-      class={cn('inline-flex size-4 shrink-0 items-center justify-center', local.class)}
-      {...others}
-      data-slot="listbox-item-text-icon"
-    />
-  );
-}
-
-function ListboxItemTextLabel(props: HTMLArkProps<'span'>) {
-  const [local, others] = splitProps(props, ['class']);
-
-  return (
-    <ark.span
-      class={cn('min-w-0 overflow-hidden text-ellipsis whitespace-nowrap', local.class)}
-      {...others}
-      data-slot="listbox-item-text-label"
-    />
-  );
-}
-
 const ListboxContext = ListboxPrimitive.Context;
 const ListboxItemContext = ListboxPrimitive.ItemContext;
 
@@ -266,9 +233,6 @@ export {
   ListboxItemGroupLabel,
   ListboxItemIndicator,
   ListboxItemText,
-  ListboxItemTextContent,
-  ListboxItemTextIcon,
-  ListboxItemTextLabel,
   ListboxLabel,
   ListboxRootProvider,
   ListboxValueText,

@@ -7,9 +7,6 @@ import {
   SelectContent,
   SelectItem,
   SelectItemText,
-  SelectItemTextContent,
-  SelectItemTextIcon,
-  SelectItemTextLabel,
   SelectItemIndicator,
 } from '@moduix/react/select';
 import { Apple as AppleIcon, Banana as BananaIcon, Cherry as CherryIcon } from 'lucide-react';
@@ -35,12 +32,8 @@ export default function SelectCustomItemLayoutDemo() {
             return (
               <SelectItem key={item.value} item={item}>
                 <SelectItemText>
-                  <SelectItemTextContent>
-                    <SelectItemTextIcon>
-                      <FruitIcon aria-hidden />
-                    </SelectItemTextIcon>
-                    <SelectItemTextLabel>{item.label}</SelectItemTextLabel>
-                  </SelectItemTextContent>
+                  <FruitIcon aria-hidden />
+                  {item.label}
                 </SelectItemText>
                 <SelectItemIndicator />
               </SelectItem>

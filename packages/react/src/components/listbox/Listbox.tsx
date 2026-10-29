@@ -219,45 +219,6 @@ const ListboxValueText = forwardRef<
   );
 });
 
-const ListboxItemTextContent = forwardRef<ComponentRef<typeof ark.span>, HTMLArkProps<'span'>>(
-  function ListboxItemTextContent({ className, ...props }, ref) {
-    return (
-      <ark.span
-        ref={ref}
-        className={clsx(styles.itemTextContent, className)}
-        {...props}
-        data-slot="listbox-item-text-content"
-      />
-    );
-  },
-);
-
-const ListboxItemTextIcon = forwardRef<ComponentRef<typeof ark.span>, HTMLArkProps<'span'>>(
-  function ListboxItemTextIcon({ className, ...props }, ref) {
-    return (
-      <ark.span
-        ref={ref}
-        className={clsx(styles.itemTextIcon, className)}
-        {...props}
-        data-slot="listbox-item-text-icon"
-      />
-    );
-  },
-);
-
-const ListboxItemTextLabel = forwardRef<ComponentRef<typeof ark.span>, HTMLArkProps<'span'>>(
-  function ListboxItemTextLabel({ className, ...props }, ref) {
-    return (
-      <ark.span
-        ref={ref}
-        className={clsx(styles.itemTextLabel, className)}
-        {...props}
-        data-slot="listbox-item-text-label"
-      />
-    );
-  },
-);
-
 const ListboxContext = ListboxPrimitive.Context;
 const ListboxItemContext = ListboxPrimitive.ItemContext;
 
@@ -275,9 +236,6 @@ export {
   ListboxItemGroupLabel,
   ListboxItemIndicator,
   ListboxItemText,
-  ListboxItemTextContent,
-  ListboxItemTextIcon,
-  ListboxItemTextLabel,
   ListboxLabel,
   ListboxRootProvider,
   ListboxValueText,

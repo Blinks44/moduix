@@ -1,5 +1,3 @@
-import type { HTMLArkProps } from '@ark-ui/solid/factory';
-import { ark } from '@ark-ui/solid/factory';
 import {
   Select as SelectPrimitive,
   type CollectionItem,
@@ -307,7 +305,10 @@ function SelectItemText(props: ComponentProps<typeof SelectPrimitive.ItemText>) 
 
   return (
     <SelectPrimitive.ItemText
-      class={cn('min-w-0 flex-1 overflow-hidden text-ellipsis whitespace-nowrap', local.class)}
+      class={cn(
+        'min-w-0 flex-1 overflow-hidden text-ellipsis whitespace-nowrap [&>svg]:me-2 [&>svg]:inline-block [&>svg]:size-4 [&>svg]:align-middle',
+        local.class,
+      )}
       {...others}
       data-slot="select-item-text"
     />
@@ -351,42 +352,6 @@ function SelectOption(props: SelectOptionProps) {
   );
 }
 
-function SelectItemTextContent(props: HTMLArkProps<'span'>) {
-  const [local, others] = splitProps(props, ['class']);
-
-  return (
-    <ark.span
-      class={cn('inline-flex max-w-full min-w-0 items-center gap-2 align-top', local.class)}
-      {...others}
-      data-slot="select-item-text-content"
-    />
-  );
-}
-
-function SelectItemTextIcon(props: HTMLArkProps<'span'>) {
-  const [local, others] = splitProps(props, ['class']);
-
-  return (
-    <ark.span
-      class={cn('inline-flex size-4 shrink-0 items-center justify-center', local.class)}
-      {...others}
-      data-slot="select-item-text-icon"
-    />
-  );
-}
-
-function SelectItemTextLabel(props: HTMLArkProps<'span'>) {
-  const [local, others] = splitProps(props, ['class']);
-
-  return (
-    <ark.span
-      class={cn('min-w-0 overflow-hidden text-ellipsis whitespace-nowrap', local.class)}
-      {...others}
-      data-slot="select-item-text-label"
-    />
-  );
-}
-
 const SelectContext = SelectPrimitive.Context;
 const SelectHiddenSelect = SelectPrimitive.HiddenSelect;
 const SelectItemContext = SelectPrimitive.ItemContext;
@@ -406,9 +371,6 @@ export {
   SelectItemGroupLabel,
   SelectItemIndicator,
   SelectItemText,
-  SelectItemTextContent,
-  SelectItemTextIcon,
-  SelectItemTextLabel,
   SelectLabel,
   SelectList,
   SelectOption,

@@ -21,8 +21,6 @@ import {
   ListboxItemGroupLabel,
   ListboxItemIndicator,
   ListboxItemText,
-  ListboxItemTextContent,
-  ListboxItemTextLabel,
   ListboxLabel,
   ListboxRootProvider,
   ListboxValueText,
@@ -149,8 +147,6 @@ const listboxComponents = {
   ListboxItemGroupLabel,
   ListboxItemIndicator,
   ListboxItemText,
-  ListboxItemTextContent,
-  ListboxItemTextLabel,
   ListboxLabel,
   ListboxRootProvider,
   ListboxValueText,
@@ -275,7 +271,7 @@ export const StandaloneInput: Story = {
 
 export const Horizontal: Story = {
   render: renderStory(
-    '<Listbox :collection="albums" orientation="horizontal" :class="styles.horizontalRoot"><ListboxLabel>Select album</ListboxLabel><ListboxContent><ListboxItem v-for="item in albums.items" :key="item.title" :item="item"><ListboxItemText><ListboxItemTextContent :class="styles.albumText"><ListboxItemTextLabel>{{ item.title }}</ListboxItemTextLabel><span :class="styles.artist">{{ item.artist }}</span></ListboxItemTextContent></ListboxItemText><ListboxItemIndicator /></ListboxItem></ListboxContent></Listbox>',
+    '<Listbox :collection="albums" orientation="horizontal" :class="styles.horizontalRoot"><ListboxLabel>Select album</ListboxLabel><ListboxContent><ListboxItem v-for="item in albums.items" :key="item.title" :item="item"><ListboxItemText>{{ item.title }}<span :class="styles.artist">{{ item.artist }}</span></ListboxItemText><ListboxItemIndicator /></ListboxItem></ListboxContent></Listbox>',
     () => ({ albums }),
   ),
 };

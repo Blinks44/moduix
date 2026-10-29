@@ -318,45 +318,6 @@ const MenuItemText = forwardRef<
   );
 });
 
-const MenuItemTextContent = forwardRef<ComponentRef<typeof ark.span>, HTMLArkProps<'span'>>(
-  function MenuItemTextContent({ className, ...props }, ref) {
-    return (
-      <ark.span
-        ref={ref}
-        className={clsx(styles.itemTextContent, className)}
-        {...props}
-        data-slot="menu-item-text-content"
-      />
-    );
-  },
-);
-
-const MenuItemTextIcon = forwardRef<ComponentRef<typeof ark.span>, HTMLArkProps<'span'>>(
-  function MenuItemTextIcon({ className, ...props }, ref) {
-    return (
-      <ark.span
-        ref={ref}
-        className={clsx(styles.itemTextIcon, className)}
-        {...props}
-        data-slot="menu-item-text-icon"
-      />
-    );
-  },
-);
-
-const MenuItemTextLabel = forwardRef<ComponentRef<typeof ark.span>, HTMLArkProps<'span'>>(
-  function MenuItemTextLabel({ className, ...props }, ref) {
-    return (
-      <ark.span
-        ref={ref}
-        className={clsx(styles.itemTextLabel, className)}
-        {...props}
-        data-slot="menu-item-text-label"
-      />
-    );
-  },
-);
-
 const MenuItemShortcut = forwardRef<ComponentRef<typeof ark.span>, HTMLArkProps<'span'>>(
   function MenuItemShortcut({ className, ...props }, ref) {
     return (
@@ -389,9 +350,6 @@ export {
   MenuItemIndicator,
   MenuItemShortcut,
   MenuItemText,
-  MenuItemTextContent,
-  MenuItemTextIcon,
-  MenuItemTextLabel,
   MenuPositioner,
   MenuRadioItem,
   MenuRadioItemGroup,

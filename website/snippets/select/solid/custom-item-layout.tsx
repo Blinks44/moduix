@@ -7,9 +7,6 @@ import {
   SelectContent,
   SelectItem,
   SelectItemText,
-  SelectItemTextContent,
-  SelectItemTextIcon,
-  SelectItemTextLabel,
   SelectItemIndicator,
 } from '@moduix/solid/select';
 import { Apple as AppleIcon, Banana as BananaIcon, Cherry as CherryIcon } from 'lucide-solid';
@@ -35,12 +32,8 @@ export default function SelectCustomItemLayoutDemo() {
             {(item) => (
               <SelectItem item={item}>
                 <SelectItemText>
-                  <SelectItemTextContent>
-                    <SelectItemTextIcon>
-                      <Dynamic component={item.icon} aria-hidden />
-                    </SelectItemTextIcon>
-                    <SelectItemTextLabel>{item.label}</SelectItemTextLabel>
-                  </SelectItemTextContent>
+                  <Dynamic component={item.icon} aria-hidden />
+                  {item.label}
                 </SelectItemText>
                 <SelectItemIndicator />
               </SelectItem>

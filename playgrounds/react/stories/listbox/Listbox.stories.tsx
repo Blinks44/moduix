@@ -19,8 +19,6 @@ import {
   ListboxItemGroupLabel,
   ListboxItemIndicator,
   ListboxItemText,
-  ListboxItemTextContent,
-  ListboxItemTextLabel,
   ListboxLabel,
   ListboxRootProvider,
   ListboxValueText,
@@ -332,10 +330,8 @@ export const Horizontal: Story = {
         {albums.items.map((item) => (
           <ListboxItem key={item.title} item={item}>
             <ListboxItemText>
-              <ListboxItemTextContent className={styles.albumText}>
-                <ListboxItemTextLabel>{item.title}</ListboxItemTextLabel>
-                <span className={styles.artist}>{item.artist}</span>
-              </ListboxItemTextContent>
+              {item.title}
+              <span className={styles.artist}>{item.artist}</span>
             </ListboxItemText>
             <ListboxItemIndicator />
           </ListboxItem>

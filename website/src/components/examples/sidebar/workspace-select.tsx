@@ -9,9 +9,6 @@ import {
   MenuItem,
   MenuSeparator,
   MenuItemText,
-  MenuItemTextContent,
-  MenuItemTextIcon,
-  MenuItemTextLabel,
 } from '@moduix/react/menu';
 import {
   Select,
@@ -216,12 +213,8 @@ export default function WorkspaceSidebar() {
                   <MenuSeparator />
                   <MenuItem value="sign-out" tone="destructive">
                     <MenuItemText>
-                      <MenuItemTextContent>
-                        <MenuItemTextIcon>
-                          <LogOut />
-                        </MenuItemTextIcon>
-                        <MenuItemTextLabel>Sign out</MenuItemTextLabel>
-                      </MenuItemTextContent>
+                      <LogOut />
+                      Sign out
                     </MenuItemText>
                   </MenuItem>
                 </MenuViewport>

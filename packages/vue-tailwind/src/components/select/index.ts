@@ -17,9 +17,6 @@ import SelectItemGroup from './SelectItemGroup.vue';
 import SelectItemGroupLabel from './SelectItemGroupLabel.vue';
 import SelectItemIndicator from './SelectItemIndicator.vue';
 import SelectItemText from './SelectItemText.vue';
-import SelectItemTextContent from './SelectItemTextContent.vue';
-import SelectItemTextIcon from './SelectItemTextIcon.vue';
-import SelectItemTextLabel from './SelectItemTextLabel.vue';
 import SelectLabel from './SelectLabel.vue';
 import SelectList from './SelectList.vue';
 import SelectOption from './SelectOption.vue';
@@ -43,9 +40,6 @@ export {
   SelectItemGroupLabel,
   SelectItemIndicator,
   SelectItemText,
-  SelectItemTextContent,
-  SelectItemTextIcon,
-  SelectItemTextLabel,
   SelectLabel,
   SelectList,
   SelectOption,

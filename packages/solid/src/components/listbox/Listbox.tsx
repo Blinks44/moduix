@@ -1,4 +1,4 @@
-import { ark, type HTMLArkProps } from '@ark-ui/solid/factory';
+import type { HTMLArkProps } from '@ark-ui/solid/factory';
 import {
   Listbox as ListboxPrimitive,
   type CollectionItem,
@@ -187,42 +187,6 @@ function ListboxValueText(props: ComponentProps<typeof ListboxPrimitive.ValueTex
   );
 }
 
-function ListboxItemTextContent(props: HTMLArkProps<'span'>) {
-  const [local, others] = splitProps(props, ['class']);
-
-  return (
-    <ark.span
-      class={clsx(styles.itemTextContent, local.class)}
-      {...others}
-      data-slot="listbox-item-text-content"
-    />
-  );
-}
-
-function ListboxItemTextIcon(props: HTMLArkProps<'span'>) {
-  const [local, others] = splitProps(props, ['class']);
-
-  return (
-    <ark.span
-      class={clsx(styles.itemTextIcon, local.class)}
-      {...others}
-      data-slot="listbox-item-text-icon"
-    />
-  );
-}
-
-function ListboxItemTextLabel(props: HTMLArkProps<'span'>) {
-  const [local, others] = splitProps(props, ['class']);
-
-  return (
-    <ark.span
-      class={clsx(styles.itemTextLabel, local.class)}
-      {...others}
-      data-slot="listbox-item-text-label"
-    />
-  );
-}
-
 const ListboxContext = ListboxPrimitive.Context;
 const ListboxItemContext = ListboxPrimitive.ItemContext;
 
@@ -240,9 +204,6 @@ export {
   ListboxItemGroupLabel,
   ListboxItemIndicator,
   ListboxItemText,
-  ListboxItemTextContent,
-  ListboxItemTextIcon,
-  ListboxItemTextLabel,
   ListboxLabel,
   ListboxRootProvider,
   ListboxValueText,

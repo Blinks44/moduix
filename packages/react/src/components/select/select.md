@@ -38,8 +38,8 @@ Upstream references (accessed 2026-10-21):
   `SelectTrigger`. The trigger button keeps phrasing content only.
 - `SelectTrigger` drops its styles under `asChild`.
 - `SelectHiddenSelect` is explicit: add it for native submission, autofill, validation, and reset.
-- `SelectItemTextContent`, `SelectItemTextIcon`, and `SelectItemTextLabel` are styled spans for an
-  icon-plus-label item layout, shared with Listbox and Menu.
+- `SelectItemText` sizes a direct SVG child as a 16px icon with a gap before the text, the same way
+  as Listbox and Menu.
 - Part props and callback detail types are re-exported from Ark. `SelectRootProps` and
   `SelectRootProviderProps` add `portalled` and `portalRef`; `SelectFieldProps` and
   `SelectOptionProps` describe the helpers.

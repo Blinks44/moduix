@@ -1230,21 +1230,6 @@
           "type": "registry:component"
         },
         {
-          "path": "src/components/listbox/ListboxItemTextContent.vue",
-          "target": "@components/ui/listbox/ListboxItemTextContent.vue",
-          "type": "registry:component"
-        },
-        {
-          "path": "src/components/listbox/ListboxItemTextIcon.vue",
-          "target": "@components/ui/listbox/ListboxItemTextIcon.vue",
-          "type": "registry:component"
-        },
-        {
-          "path": "src/components/listbox/ListboxItemTextLabel.vue",
-          "target": "@components/ui/listbox/ListboxItemTextLabel.vue",
-          "type": "registry:component"
-        },
-        {
           "path": "src/components/listbox/ListboxItemIndicator.vue",
           "target": "@components/ui/listbox/ListboxItemIndicator.vue",
           "type": "registry:component"
@@ -2474,21 +2459,6 @@
         {
           "path": "src/components/select/SelectItemIndicator.vue",
           "target": "@components/ui/select/SelectItemIndicator.vue",
-          "type": "registry:component"
-        },
-        {
-          "path": "src/components/select/SelectItemTextContent.vue",
-          "target": "@components/ui/select/SelectItemTextContent.vue",
-          "type": "registry:component"
-        },
-        {
-          "path": "src/components/select/SelectItemTextIcon.vue",
-          "target": "@components/ui/select/SelectItemTextIcon.vue",
-          "type": "registry:component"
-        },
-        {
-          "path": "src/components/select/SelectItemTextLabel.vue",
-          "target": "@components/ui/select/SelectItemTextLabel.vue",
           "type": "registry:component"
         },
         {
@@ -4474,21 +4444,6 @@
         {
           "path": "src/components/menu/MenuItemText.vue",
           "target": "@components/ui/menu/MenuItemText.vue",
-          "type": "registry:component"
-        },
-        {
-          "path": "src/components/menu/MenuItemTextContent.vue",
-          "target": "@components/ui/menu/MenuItemTextContent.vue",
-          "type": "registry:component"
-        },
-        {
-          "path": "src/components/menu/MenuItemTextIcon.vue",
-          "target": "@components/ui/menu/MenuItemTextIcon.vue",
-          "type": "registry:component"
-        },
-        {
-          "path": "src/components/menu/MenuItemTextLabel.vue",
-          "target": "@components/ui/menu/MenuItemTextLabel.vue",
           "type": "registry:component"
         },
         {

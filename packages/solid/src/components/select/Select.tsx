@@ -1,5 +1,3 @@
-import type { HTMLArkProps } from '@ark-ui/solid/factory';
-import { ark } from '@ark-ui/solid/factory';
 import {
   Select as SelectPrimitive,
   type CollectionItem,
@@ -326,42 +324,6 @@ function SelectOption(props: SelectOptionProps) {
   );
 }
 
-function SelectItemTextContent(props: HTMLArkProps<'span'>) {
-  const [local, others] = splitProps(props, ['class']);
-
-  return (
-    <ark.span
-      class={clsx(styles.itemTextContent, local.class)}
-      {...others}
-      data-slot="select-item-text-content"
-    />
-  );
-}
-
-function SelectItemTextIcon(props: HTMLArkProps<'span'>) {
-  const [local, others] = splitProps(props, ['class']);
-
-  return (
-    <ark.span
-      class={clsx(styles.itemTextIcon, local.class)}
-      {...others}
-      data-slot="select-item-text-icon"
-    />
-  );
-}
-
-function SelectItemTextLabel(props: HTMLArkProps<'span'>) {
-  const [local, others] = splitProps(props, ['class']);
-
-  return (
-    <ark.span
-      class={clsx(styles.itemTextLabel, local.class)}
-      {...others}
-      data-slot="select-item-text-label"
-    />
-  );
-}
-
 const SelectContext = SelectPrimitive.Context;
 const SelectHiddenSelect = SelectPrimitive.HiddenSelect;
 const SelectItemContext = SelectPrimitive.ItemContext;
@@ -381,9 +343,6 @@ export {
   SelectItemGroupLabel,
   SelectItemIndicator,
   SelectItemText,
-  SelectItemTextContent,
-  SelectItemTextIcon,
-  SelectItemTextLabel,
   SelectLabel,
   SelectList,
   SelectOption,

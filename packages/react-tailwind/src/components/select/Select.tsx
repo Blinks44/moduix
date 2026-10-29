@@ -1,6 +1,5 @@
 'use client';
 
-import { ark, type HTMLArkProps } from '@ark-ui/react/factory';
 import {
   Select as SelectPrimitive,
   type CollectionItem,
@@ -326,7 +325,10 @@ const SelectItemText = forwardRef<
   return (
     <SelectPrimitive.ItemText
       ref={ref}
-      className={cn('min-w-0 flex-1 overflow-hidden text-ellipsis whitespace-nowrap', className)}
+      className={cn(
+        'min-w-0 flex-1 overflow-hidden text-ellipsis whitespace-nowrap [&>svg]:me-2 [&>svg]:inline-block [&>svg]:size-4 [&>svg]:align-middle',
+        className,
+      )}
       {...props}
       data-slot="select-item-text"
     />
@@ -371,45 +373,6 @@ const SelectOption = forwardRef<ComponentRef<typeof SelectPrimitive.Item>, Selec
   },
 );
 
-const SelectItemTextContent = forwardRef<ComponentRef<typeof ark.span>, HTMLArkProps<'span'>>(
-  function SelectItemTextContent({ className, ...props }, ref) {
-    return (
-      <ark.span
-        ref={ref}
-        className={cn('inline-flex max-w-full min-w-0 items-center gap-2 align-top', className)}
-        {...props}
-        data-slot="select-item-text-content"
-      />
-    );
-  },
-);
-
-const SelectItemTextIcon = forwardRef<ComponentRef<typeof ark.span>, HTMLArkProps<'span'>>(
-  function SelectItemTextIcon({ className, ...props }, ref) {
-    return (
-      <ark.span
-        ref={ref}
-        className={cn('inline-flex size-4 shrink-0 items-center justify-center', className)}
-        {...props}
-        data-slot="select-item-text-icon"
-      />
-    );
-  },
-);
-
-const SelectItemTextLabel = forwardRef<ComponentRef<typeof ark.span>, HTMLArkProps<'span'>>(
-  function SelectItemTextLabel({ className, ...props }, ref) {
-    return (
-      <ark.span
-        ref={ref}
-        className={cn('min-w-0 overflow-hidden text-ellipsis whitespace-nowrap', className)}
-        {...props}
-        data-slot="select-item-text-label"
-      />
-    );
-  },
-);
-
 const SelectContext = SelectPrimitive.Context;
 const SelectHiddenSelect = SelectPrimitive.HiddenSelect;
 const SelectItemContext = SelectPrimitive.ItemContext;
@@ -429,9 +392,6 @@ export {
   SelectItemGroupLabel,
   SelectItemIndicator,
   SelectItemText,
-  SelectItemTextContent,
-  SelectItemTextIcon,
-  SelectItemTextLabel,
   SelectLabel,
   SelectList,
   SelectOption,

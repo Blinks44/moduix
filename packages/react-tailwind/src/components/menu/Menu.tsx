@@ -350,54 +350,15 @@ const MenuItemText = forwardRef<
   return (
     <MenuPrimitive.ItemText
       ref={ref}
-      className={cn('min-w-0 overflow-hidden', className)}
+      className={cn(
+        'min-w-0 overflow-hidden text-ellipsis whitespace-nowrap [&>svg]:me-2 [&>svg]:inline-block [&>svg]:size-4 [&>svg]:align-middle',
+        className,
+      )}
       {...props}
       data-slot="menu-item-text"
     />
   );
 });
-
-const MenuItemTextContent = forwardRef<ComponentRef<typeof ark.span>, HTMLArkProps<'span'>>(
-  function MenuItemTextContent({ className, ...props }, ref) {
-    return (
-      <ark.span
-        ref={ref}
-        className={cn('inline-flex max-w-full min-w-0 items-center gap-2 align-top', className)}
-        {...props}
-        data-slot="menu-item-text-content"
-      />
-    );
-  },
-);
-
-const MenuItemTextIcon = forwardRef<ComponentRef<typeof ark.span>, HTMLArkProps<'span'>>(
-  function MenuItemTextIcon({ className, ...props }, ref) {
-    return (
-      <ark.span
-        ref={ref}
-        className={cn(
-          'inline-flex size-4 shrink-0 items-center justify-center [&_svg]:size-full',
-          className,
-        )}
-        {...props}
-        data-slot="menu-item-text-icon"
-      />
-    );
-  },
-);
-
-const MenuItemTextLabel = forwardRef<ComponentRef<typeof ark.span>, HTMLArkProps<'span'>>(
-  function MenuItemTextLabel({ className, ...props }, ref) {
-    return (
-      <ark.span
-        ref={ref}
-        className={cn('min-w-0 overflow-hidden text-ellipsis whitespace-nowrap', className)}
-        {...props}
-        data-slot="menu-item-text-label"
-      />
-    );
-  },
-);
 
 const MenuItemShortcut = forwardRef<ComponentRef<typeof ark.span>, HTMLArkProps<'span'>>(
   function MenuItemShortcut({ className, ...props }, ref) {
@@ -431,9 +392,6 @@ export {
   MenuItemIndicator,
   MenuItemShortcut,
   MenuItemText,
-  MenuItemTextContent,
-  MenuItemTextIcon,
-  MenuItemTextLabel,
   MenuPositioner,
   MenuRadioItem,
   MenuRadioItemGroup,

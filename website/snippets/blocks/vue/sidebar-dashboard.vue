@@ -17,9 +17,6 @@ import {
   MenuViewport,
   MenuItem,
   MenuItemText,
-  MenuItemTextContent,
-  MenuItemTextIcon,
-  MenuItemTextLabel,
 } from '@/components/ui/menu';
 import {
   Sidebar,
@@ -53,7 +50,7 @@ const manageItems = [
       <SidebarHeader
         ><a :class="styles.brand" href="#overview"
           ><span :class="styles.brandMark" data-sidebar-icon>M</span
-          ><SidebarLabel>Moduix</SidebarLabel></a
+          ><SidebarLabel>moduix</SidebarLabel></a
         ></SidebarHeader
       >
       <SidebarContent>
@@ -140,24 +137,10 @@ const manageItems = [
                 ><MenuContent :class="styles.workspaceMenu"
                   ><MenuViewport>
                     <MenuItem value="workspace-settings"
-                      ><MenuItemText
-                        ><MenuItemTextContent
-                          ><MenuItemTextIcon><Settings /></MenuItemTextIcon
-                          ><MenuItemTextLabel
-                            >Workspace settings</MenuItemTextLabel
-                          ></MenuItemTextContent
-                        ></MenuItemText
-                      ></MenuItem
+                      ><MenuItemText><Settings />Workspace settings</MenuItemText></MenuItem
                     >
                     <MenuItem value="manage-members"
-                      ><MenuItemText
-                        ><MenuItemTextContent
-                          ><MenuItemTextIcon><Users /></MenuItemTextIcon
-                          ><MenuItemTextLabel
-                            >Manage members</MenuItemTextLabel
-                          ></MenuItemTextContent
-                        ></MenuItemText
-                      ></MenuItem
+                      ><MenuItemText><Users />Manage members</MenuItemText></MenuItem
                     >
                   </MenuViewport></MenuContent
                 ></MenuPositioner

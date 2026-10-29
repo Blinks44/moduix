@@ -10,7 +10,7 @@
 
 ## Public contract
 
-The flat API includes `Listbox`, `ListboxRootProvider`, `ListboxLabel`, `ListboxContent`, `ListboxItem`, `ListboxItemText`, `ListboxItemIndicator`, `ListboxItemGroup`, `ListboxItemGroupLabel`, `ListboxEmpty`, `ListboxValueText`, `ListboxInput`, `ListboxFilter`, `ListboxClearTrigger`, `ListboxItemTextContent`, `ListboxItemTextIcon`, `ListboxItemTextLabel`, `ListboxContext`, `ListboxItemContext`, `useListbox`, `useListboxContext`, and `useListboxItemContext`.
+The flat API includes `Listbox`, `ListboxRootProvider`, `ListboxLabel`, `ListboxContent`, `ListboxItem`, `ListboxItemText`, `ListboxItemIndicator`, `ListboxItemGroup`, `ListboxItemGroupLabel`, `ListboxEmpty`, `ListboxValueText`, `ListboxInput`, `ListboxFilter`, `ListboxClearTrigger`, `ListboxContext`, `ListboxItemContext`, `useListbox`, `useListboxContext`, and `useListboxItemContext`.
 
 ## Preservation notes
 

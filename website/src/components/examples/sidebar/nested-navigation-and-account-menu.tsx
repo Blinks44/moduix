@@ -15,9 +15,6 @@ import {
   MenuItem,
   MenuSeparator,
   MenuItemText,
-  MenuItemTextContent,
-  MenuItemTextIcon,
-  MenuItemTextLabel,
 } from '@moduix/react/menu';
 import {
   Sidebar,
@@ -68,7 +65,7 @@ export default function AppSidebar() {
               <strong data-sidebar-icon className={styles.brandMark}>
                 M
               </strong>
-              <SidebarLabel>Moduix</SidebarLabel>
+              <SidebarLabel>moduix</SidebarLabel>
             </div>
             <SidebarInput aria-label="Search workspace" placeholder="Search" size="sm" />
           </div>
@@ -193,33 +190,21 @@ export default function AppSidebar() {
                     <MenuViewport>
                       <MenuItem value="profile">
                         <MenuItemText>
-                          <MenuItemTextContent>
-                            <MenuItemTextIcon>
-                              <Pencil />
-                            </MenuItemTextIcon>
-                            <MenuItemTextLabel>Profile</MenuItemTextLabel>
-                          </MenuItemTextContent>
+                          <Pencil />
+                          Profile
                         </MenuItemText>
                       </MenuItem>
                       <MenuItem value="settings">
                         <MenuItemText>
-                          <MenuItemTextContent>
-                            <MenuItemTextIcon>
-                              <RotateCcw />
-                            </MenuItemTextIcon>
-                            <MenuItemTextLabel>Settings</MenuItemTextLabel>
-                          </MenuItemTextContent>
+                          <RotateCcw />
+                          Settings
                         </MenuItemText>
                       </MenuItem>
                       <MenuSeparator />
                       <MenuItem value="sign-out" tone="destructive">
                         <MenuItemText>
-                          <MenuItemTextContent>
-                            <MenuItemTextIcon>
-                              <LogOut />
-                            </MenuItemTextIcon>
-                            <MenuItemTextLabel>Sign out</MenuItemTextLabel>
-                          </MenuItemTextContent>
+                          <LogOut />
+                          Sign out
                         </MenuItemText>
                       </MenuItem>
                     </MenuViewport>

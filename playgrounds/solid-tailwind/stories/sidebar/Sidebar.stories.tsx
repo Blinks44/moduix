@@ -22,9 +22,6 @@ import {
   MenuItemGroup,
   MenuItemGroupLabel,
   MenuItemText,
-  MenuItemTextContent,
-  MenuItemTextIcon,
-  MenuItemTextLabel,
 } from '@/components/menu/Menu';
 import {
   ScrollArea,
@@ -219,34 +216,22 @@ function AccountMenu({ accentClassName }: { accentClassName?: string } = {}) {
               <MenuItemGroupLabel>Acme Inc.</MenuItemGroupLabel>
               <MenuItem value="profile">
                 <MenuItemText>
-                  <MenuItemTextContent>
-                    <MenuItemTextIcon>
-                      <PencilIcon />
-                    </MenuItemTextIcon>
-                    <MenuItemTextLabel>Profile</MenuItemTextLabel>
-                  </MenuItemTextContent>
+                  <PencilIcon />
+                  Profile
                 </MenuItemText>
               </MenuItem>
               <MenuItem value="settings">
                 <MenuItemText>
-                  <MenuItemTextContent>
-                    <MenuItemTextIcon>
-                      <RestartIcon />
-                    </MenuItemTextIcon>
-                    <MenuItemTextLabel>Settings</MenuItemTextLabel>
-                  </MenuItemTextContent>
+                  <RestartIcon />
+                  Settings
                 </MenuItemText>
               </MenuItem>
             </MenuItemGroup>
             <MenuSeparator />
             <MenuItem value="sign-out" tone="destructive">
               <MenuItemText>
-                <MenuItemTextContent>
-                  <MenuItemTextIcon>
-                    <TrashIcon />
-                  </MenuItemTextIcon>
-                  <MenuItemTextLabel>Sign out</MenuItemTextLabel>
-                </MenuItemTextContent>
+                <TrashIcon />
+                Sign out
               </MenuItemText>
             </MenuItem>
           </MenuViewport>
@@ -265,7 +250,7 @@ function SidebarNavigation({ accentClassName }: { accentClassName?: string } = {
             <span class={brandMarkClassName} data-sidebar-icon>
               M
             </span>
-            <SidebarLabel>Moduix</SidebarLabel>
+            <SidebarLabel>moduix</SidebarLabel>
           </div>
           <SidebarInput aria-label="Search workspace" placeholder="Search" size="sm" />
         </div>
@@ -626,7 +611,7 @@ export const WithScrollArea: Story = {
             <span class={brandMarkClassName} data-sidebar-icon>
               M
             </span>
-            <SidebarLabel>Moduix</SidebarLabel>
+            <SidebarLabel>moduix</SidebarLabel>
           </div>
         </SidebarHeader>
         <SidebarContent class={scrollAreaContentClassName}>

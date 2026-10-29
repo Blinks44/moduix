@@ -1,6 +1,5 @@
 'use client';
 
-import { ark, type HTMLArkProps } from '@ark-ui/react/factory';
 import {
   Select as SelectPrimitive,
   type CollectionItem,
@@ -347,45 +346,6 @@ const SelectOption = forwardRef<ComponentRef<typeof SelectPrimitive.Item>, Selec
   },
 );
 
-const SelectItemTextContent = forwardRef<ComponentRef<typeof ark.span>, HTMLArkProps<'span'>>(
-  function SelectItemTextContent({ className, ...props }, ref) {
-    return (
-      <ark.span
-        ref={ref}
-        className={clsx(styles.itemTextContent, className)}
-        {...props}
-        data-slot="select-item-text-content"
-      />
-    );
-  },
-);
-
-const SelectItemTextIcon = forwardRef<ComponentRef<typeof ark.span>, HTMLArkProps<'span'>>(
-  function SelectItemTextIcon({ className, ...props }, ref) {
-    return (
-      <ark.span
-        ref={ref}
-        className={clsx(styles.itemTextIcon, className)}
-        {...props}
-        data-slot="select-item-text-icon"
-      />
-    );
-  },
-);
-
-const SelectItemTextLabel = forwardRef<ComponentRef<typeof ark.span>, HTMLArkProps<'span'>>(
-  function SelectItemTextLabel({ className, ...props }, ref) {
-    return (
-      <ark.span
-        ref={ref}
-        className={clsx(styles.itemTextLabel, className)}
-        {...props}
-        data-slot="select-item-text-label"
-      />
-    );
-  },
-);
-
 const SelectContext = SelectPrimitive.Context;
 const SelectHiddenSelect = SelectPrimitive.HiddenSelect;
 const SelectItemContext = SelectPrimitive.ItemContext;
@@ -405,9 +365,6 @@ export {
   SelectItemGroupLabel,
   SelectItemIndicator,
   SelectItemText,
-  SelectItemTextContent,
-  SelectItemTextIcon,
-  SelectItemTextLabel,
   SelectLabel,
   SelectList,
   SelectOption,

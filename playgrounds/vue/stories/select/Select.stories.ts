@@ -13,9 +13,6 @@ import {
   SelectItemGroupLabel,
   SelectItemIndicator,
   SelectItemText,
-  SelectItemTextContent,
-  SelectItemTextIcon,
-  SelectItemTextLabel,
   SelectLabel,
   SelectPositioner,
   SelectRootProvider,
@@ -129,9 +126,6 @@ const storyComponents = {
   SelectItemGroupLabel,
   SelectItemIndicator,
   SelectItemText,
-  SelectItemTextContent,
-  SelectItemTextIcon,
-  SelectItemTextLabel,
   SelectLabel,
   SelectPopupContent,
   SelectPositioner,
@@ -227,6 +221,6 @@ export const NativeFormControl: Story = {
 };
 export const CustomItemLayout: Story = {
   render: renderStory(
-    `<Select :collection="fruits"><SelectLabel>Choose fruit</SelectLabel><SelectFieldView /><SelectPopupContent><SelectItem v-for="item in fruits.items" :key="item.value" :item="item"><SelectItemText><SelectItemTextContent><SelectItemTextIcon><InfoIcon /></SelectItemTextIcon><SelectItemTextLabel>{{ item.label }}</SelectItemTextLabel></SelectItemTextContent></SelectItemText><SelectItemIndicator /></SelectItem></SelectPopupContent></Select>`,
+    `<Select :collection="fruits"><SelectLabel>Choose fruit</SelectLabel><SelectFieldView /><SelectPopupContent><SelectItem v-for="item in fruits.items" :key="item.value" :item="item"><SelectItemText><InfoIcon />{{ item.label }}</SelectItemText><SelectItemIndicator /></SelectItem></SelectPopupContent></Select>`,
   ),
 };

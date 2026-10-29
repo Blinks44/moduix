@@ -206,7 +206,10 @@ const ListboxItemText = forwardRef<
   return (
     <ListboxPrimitive.ItemText
       ref={ref}
-      className={cn('min-w-0 overflow-hidden text-ellipsis whitespace-nowrap', className)}
+      className={cn(
+        'min-w-0 overflow-hidden text-ellipsis whitespace-nowrap [&>svg]:me-2 [&>svg]:inline-block [&>svg]:size-4 [&>svg]:align-middle',
+        className,
+      )}
       {...props}
       data-slot="listbox-item-text"
     />
@@ -246,45 +249,6 @@ const ListboxValueText = forwardRef<
   );
 });
 
-const ListboxItemTextContent = forwardRef<ComponentRef<typeof ark.span>, HTMLArkProps<'span'>>(
-  function ListboxItemTextContent({ className, ...props }, ref) {
-    return (
-      <ark.span
-        ref={ref}
-        className={cn('inline-flex max-w-full min-w-0 items-center gap-2 align-top', className)}
-        {...props}
-        data-slot="listbox-item-text-content"
-      />
-    );
-  },
-);
-
-const ListboxItemTextIcon = forwardRef<ComponentRef<typeof ark.span>, HTMLArkProps<'span'>>(
-  function ListboxItemTextIcon({ className, ...props }, ref) {
-    return (
-      <ark.span
-        ref={ref}
-        className={cn('inline-flex size-4 shrink-0 items-center justify-center', className)}
-        {...props}
-        data-slot="listbox-item-text-icon"
-      />
-    );
-  },
-);
-
-const ListboxItemTextLabel = forwardRef<ComponentRef<typeof ark.span>, HTMLArkProps<'span'>>(
-  function ListboxItemTextLabel({ className, ...props }, ref) {
-    return (
-      <ark.span
-        ref={ref}
-        className={cn('min-w-0 overflow-hidden text-ellipsis whitespace-nowrap', className)}
-        {...props}
-        data-slot="listbox-item-text-label"
-      />
-    );
-  },
-);
-
 const ListboxContext = ListboxPrimitive.Context;
 const ListboxItemContext = ListboxPrimitive.ItemContext;
 
@@ -302,9 +266,6 @@ export {
   ListboxItemGroupLabel,
   ListboxItemIndicator,
   ListboxItemText,
-  ListboxItemTextContent,
-  ListboxItemTextIcon,
-  ListboxItemTextLabel,
   ListboxLabel,
   ListboxRootProvider,
   ListboxValueText,

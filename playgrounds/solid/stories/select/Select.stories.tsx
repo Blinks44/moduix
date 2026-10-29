@@ -17,9 +17,6 @@ import {
   useSelect,
   SelectRootProvider,
   SelectHiddenSelect,
-  SelectItemTextContent,
-  SelectItemTextIcon,
-  SelectItemTextLabel,
 } from '@/components/select/Select';
 import { ChevronDownIcon } from '@/internal/icons/ui/Icons';
 import styles from './Select.stories.module.css';
@@ -384,12 +381,8 @@ export const CustomItemLayout: Story = {
         {fruits.items.map((item) => (
           <SelectItem item={item}>
             <SelectItemText>
-              <SelectItemTextContent>
-                <SelectItemTextIcon>
-                  <InfoIcon />
-                </SelectItemTextIcon>
-                <SelectItemTextLabel>{item.label}</SelectItemTextLabel>
-              </SelectItemTextContent>
+              <InfoIcon />
+              {item.label}
             </SelectItemText>
             <SelectItemIndicator />
           </SelectItem>
