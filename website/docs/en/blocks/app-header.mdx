@@ -46,7 +46,7 @@ The preview runs React. The source tabs contain React, Solid, and Vue implementa
 
 The demo uses anchors such as `#overview`, and selecting a command updates `window.location.hash`, so
 it works without a router. Replace the anchors and command-selection handler with your router's
-navigation. Place the block in the layout that owns primary navigation and account state.
+navigation. Place the block in the layout that handles primary navigation and account state.
 
 ## Customize
 
@@ -59,7 +59,7 @@ in the [Command Palette docs](/docs/command-palette).
 | Orbit and Acme Studio      | Product home link and current workspace                                |
 | Navigation anchors         | Router links; set `aria-current="page"` from the current route         |
 | Search control             | A Command Palette trigger with routes and actions for your application |
-| Account image and details  | Authenticated user data and an application-owned image URL              |
+| Account image and details  | Authenticated user data and an image URL from your application              |
 | Account menu links         | Profile, settings, help, and other routes your users actually need      |
 
 When your router provides a `Link` component, pass it through `Button asChild` or `MenuItem asChild`

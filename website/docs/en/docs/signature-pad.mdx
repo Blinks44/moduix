@@ -97,7 +97,7 @@ value, usually read from `SignaturePadContext` or `useSignaturePadContext()`, wh
 must be submitted by a native form.
 
 Use `defaultPaths` for local uncontrolled state. Use `paths` with `onDraw(details)` when the
-application owns the signature data. Use `SignaturePadRootProvider` with `useSignaturePad()` when
+application controls the signature data. Use `SignaturePadRootProvider` with `useSignaturePad()` when
 state must be created outside the rendered tree or external controls need `paths`, `clear()`, or
 `getDataUrl()`. In Vue, control the paths with `v-model:paths` and listen to
 `@draw` or `@draw-end` for drawing details.
@@ -115,7 +115,7 @@ Hover or focus a part to find it in the preview.
 
 <AnatomyInspector
   parts={[
-    ["SignaturePad", "signature-pad-root", "Owns paths, drawing options, form name, ids, and callbacks.", 0],
+    ["SignaturePad", "signature-pad-root", "Manages paths, drawing options, form name, ids, and callbacks.", 0],
     ["SignaturePadLabel", "signature-pad-label", "Associates the visible label with the drawing area and hidden input.", 1],
     ["SignaturePadCanvas", "", "Ready-made drawing surface that renders the standard parts and forwards `SignaturePadControl` props.", 1],
     ["SignaturePadControl", "signature-pad-control", "Focusable pointer and touch drawing area.", 2],

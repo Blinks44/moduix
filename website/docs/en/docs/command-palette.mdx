@@ -75,11 +75,11 @@ Ark UI does not provide a dedicated `command-palette` primitive. `CommandPalette
 search row. The wrapper follows Ark's guidance for [composition](https://ark-ui.com/docs/guides/composition),
 [styling](https://ark-ui.com/docs/guides/styling), and [refs](https://ark-ui.com/docs/guides/ref).
 
-The root owns Dialog state and automatically portals `CommandPaletteBackdrop` and `CommandPalettePositioner`. Set `portalled={false}`
+The root manages Dialog state and automatically portals `CommandPaletteBackdrop` and `CommandPalettePositioner`. Set `portalled={false}`
 to render them inline, or pass `portalRef` for a custom container. Use `CommandPalettePanel` and `CommandPaletteSearch` for the usual
 layout, and render the structural parts directly when the dialog or search controls need a different shape.
 
-Keep collection filtering with the `CommandPaletteCombobox` owner: configure `useListCollection` with `itemToString`,
+Keep collection filtering with the `CommandPaletteCombobox` that renders the list: configure `useListCollection` with `itemToString`,
 `itemToValue`, and `groupBy`, then call `filter(details.inputValue)` from `onInputValueChange`. Reset the
 filter on close when the collection is managed outside the palette. Use `closeOnSelect={false}` to keep the
 palette open after an action, or `CommandPaletteRootProvider` with `useDialog` from the matching framework package when
@@ -91,7 +91,7 @@ Hover or focus a part to find it in the preview.
 
 <AnatomyInspector
   parts={[
-    ["CommandPalette", null, "Owns Ark Dialog state and the optional global shortcut listener.", 0],
+    ["CommandPalette", null, "Manages Ark Dialog state and the optional global shortcut listener.", 0],
     ["CommandPaletteTrigger", "command-palette-trigger", "Opens the palette. It is unstyled; use `asChild` with a `Button` or your own element.", 1],
     ["CommandPaletteBackdrop", "command-palette-backdrop", "Ark Dialog backdrop with `data-state` animation state.", 1],
     ["CommandPalettePositioner", "command-palette-positioner", "Positions the dialog in the viewport and keeps its content within it.", 1],

@@ -151,7 +151,7 @@ The same component is available from `@moduix/solid/file-upload`, `@moduix/react
 Choose the package that matches your framework and styling path.
 
 `FileUpload` keeps file state internally by default. Use `defaultAcceptedFiles` for an uncontrolled initial value, or pair
-`acceptedFiles` with `onFileChange(details)` when the application owns the files. Use `useFileUpload()` with
+`acceptedFiles` with `onFileChange(details)` when the application controls the files. Use `useFileUpload()` with
 `FileUploadRootProvider` when state or methods must be created outside the rendered tree.
 
 Render `FileUploadHiddenInput` explicitly inside `FileUpload` or `FileUploadRootProvider`, even outside a form, because `FileUploadTrigger` uses it
@@ -167,7 +167,7 @@ Hover or focus a part to find it in the preview.
 
 <AnatomyInspector
   parts={[
-    ["FileUpload / FileUploadRootProvider", "file-upload-root", "Owns file state and handles validation, drag-and-drop, paste, and form integration.", 0],
+    ["FileUpload / FileUploadRootProvider", "file-upload-root", "Manages file state and handles validation, drag-and-drop, paste, and form integration.", 0],
     ["FileUploadLabel", "file-upload-label", "Accessible label for the hidden file input and upload controls.", 1],
     ["FileUploadDropzone", "file-upload-dropzone", "Drag-and-drop target. Pass `disableClick` when it contains a nested trigger.", 1],
     ["FileUploadDropzoneIcon", "file-upload-dropzone-icon", "Decorative upload icon for a `FileUploadDropzone`.", 2],

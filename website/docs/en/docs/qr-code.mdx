@@ -91,7 +91,7 @@ pass that state to `QrCodeRootProvider`. See [Share state outside the tree](/doc
 
 ## Composition
 
-Use `defaultValue` for an uncontrolled QR code. When application state owns the value, use `value`
+Use `defaultValue` for an uncontrolled QR code. When application state controls the value, use `value`
 with `onValueChange(details)` and read the new value from `details.value`. Create state with
 `useQrCode()` from the matching framework package and pass it to `QrCodeRootProvider` when it must
 be shared outside the QR tree. Do not render `QrCode` and `QrCodeRootProvider` for the same store.
@@ -106,7 +106,7 @@ Hover or focus a part to find it in the preview.
 
 <AnatomyInspector
   parts={[
-    ["QrCode", "qr-code-root", "Owns the encoded value and generation options, and provides QR state.", 0],
+    ["QrCode", "qr-code-root", "Manages the encoded value and generation options, and provides QR state.", 0],
     ["QrCodeFrame", "qr-code-frame", "SVG element that contains the generated QR code.", 1],
     ["QrCodePattern", "qr-code-pattern", "SVG path that draws the QR modules.", 2],
     ["QrCodeOverlay", "qr-code-overlay", "Centered content rendered over the QR code.", 1],

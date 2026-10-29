@@ -89,7 +89,7 @@ Create the state with `useSteps()` outside the rendered part tree, then pass it 
 
 ## Composition
 
-Use `Steps` as the state owner. Give every `StepsItem` and matching
+Let `Steps` manage the state. Give every `StepsItem` and matching
 `StepsContent` the same zero-based `index`; `count` is the total number of steps and its value
 represents completion. Use `StepsRootProvider` only with a store from `useSteps()` when
 state needs to be created outside the part tree. Do not render the root and provider for the same

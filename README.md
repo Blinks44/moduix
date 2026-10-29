@@ -38,7 +38,7 @@ source into your application with the shadcn registry to edit it directly.
   `Dialog`, `DialogTrigger`, and `DialogContent`, with framework-native props and events.
 - **Two styling paths.** Choose CSS Modules for ordinary, locally scoped component styles, or
   Tailwind CSS v4 for utility-first composition and overrides. Neither path adds a styling runtime.
-- **Two ownership models.** Keep dependencies package-managed or copy component source into your
+- **Two install methods.** Keep dependencies package-managed or copy component source into your
   application through the shadcn registry.
 
 ## Get started

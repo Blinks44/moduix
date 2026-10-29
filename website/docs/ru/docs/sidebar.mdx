@@ -103,7 +103,7 @@ import { sidebarOverrideCssProperties } from '@/components/examples/sidebar/css-
 изменение размера, сворачивание, работу с клавиатурой и доступность. Состояние и колбэки
 соответствуют контракту `Splitter`.
 
-`Sidebar` владеет состоянием раскладки Splitter, а вложенные `Collapsible`, всплывающие `Menu` и
+`Sidebar` управляет состоянием раскладки Splitter, а вложенные `Collapsible`, всплывающие `Menu` и
 `SidebarTooltip` управляют каждый своим состоянием. Оставляйте `SidebarPanel`, `SidebarResizeTrigger`, `SidebarTrigger`
 и `SidebarInset` прямыми потомками и располагайте их визуально: для левой панели сначала `SidebarPanel`, для
 правой сначала `SidebarInset`. `SidebarExpandedContent` и `SidebarCollapsedContent` только переключают видимые ветки,

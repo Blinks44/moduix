@@ -30,7 +30,7 @@ Use `AspectRatio` as the root for a responsive frame. It fills the width of its 
 Add `width` or `max-width` to the root when the frame needs a different size, then pass the width-to-height
 ratio to `ratio`. It defaults to `1`; a missing or invalid value (zero, negative, `NaN`, `Infinity`) falls back to `1`.
 
-`AspectRatio` owns only the ratio layout. Size and style its children explicitly-for example, apply full width,
+`AspectRatio` handles only the ratio layout. Size and style its children explicitly-for example, apply full width,
 full height, and `object-fit` to an image. Put clipping and border radius on the root when the composition needs
 them.
 
@@ -85,11 +85,11 @@ Import `AspectRatio` from the matching runtime and styling package: `@moduix/rea
 `@moduix/react-tailwind/aspect-ratio`, `@moduix/solid-tailwind/aspect-ratio`, or
 `@moduix/vue-tailwind/aspect-ratio` subpath for Tailwind.
 
-`AspectRatio` is presentational and owns no state. The component has one root part and
+`AspectRatio` is presentational and has no state. The component has one root part and
 no child parts to combine. Use `asChild` only when another semantic element must own the rendered root, and provide
 exactly one child in React or the Solid render-function form shown in Custom Element. Vue uses the
 `as-child` attribute with a single child element. Child sizing,
-fitting, borders, radius, and clipping remain owned by the application.
+fitting, borders, radius, and clipping remain up to the application.
 
 In Solid, assign a ref to the element created inside the `asChild` render function. A ref on
 `AspectRatio` itself is not forwarded through that composition path.

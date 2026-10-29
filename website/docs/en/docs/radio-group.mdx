@@ -138,7 +138,7 @@ attributes, and the `RadioGroupOption` convenience component. It is exported fro
 `@moduix/react/radio-group`, `@moduix/solid/radio-group`, and `@moduix/vue/radio-group`.
 
 Use `defaultValue` for an uncontrolled group. Use `value` with `onValueChange(details)` when another
-part of the application owns the selected value. When state must be created outside the rendered
+part of the application controls the selected value. When state must be created outside the rendered
 tree, use `RadioGroupRootProvider` with `useRadioGroup()` from the matching framework package. Do not render
 `RadioGroup` and `RadioGroupRootProvider` for the same state instance. React reads the store as an
 object; Solid reads its reactive state through the returned accessor; Vue exposes the reactive store directly to the
@@ -160,7 +160,7 @@ Hover or focus a part to find it in the preview.
 
 <AnatomyInspector
   parts={[
-    ["RadioGroup", "radio-group-root", "Owns value state, keyboard navigation, orientation, and forms.", 0],
+    ["RadioGroup", "radio-group-root", "Manages value state, keyboard navigation, orientation, and forms.", 0],
     ["RadioGroupLabel", "radio-group-label", "Accessible label for the group.", 1],
     ["RadioGroupIndicator", "radio-group-indicator", "Optional active-item indicator using Ark measurement variables.", 1],
     ["RadioGroupItem", "radio-group-item", "One selectable option; renders a `label` by default.", 1],

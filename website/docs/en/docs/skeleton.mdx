@@ -29,7 +29,7 @@ import * as SkeletonDocs from '@/components/examples/skeleton/css-properties';
   ]}
 />
 
-Use `Skeleton` for text lines, cards, avatars, and media placeholders. The surrounding layout owns spacing and
+Use `Skeleton` for text lines, cards, avatars, and media placeholders. The surrounding layout sets spacing and
 responsive composition. See [Quick Start](/docs/quick-start) for package setup, registry configuration, and
 choosing a styling track.
 
@@ -73,7 +73,7 @@ Use `asChild` when a semantic element such as `section` should become the DOM ro
 
 ## Composition
 
-`Skeleton` does not own loading state. The data or page region that owns the request passes `loading` and should
+`Skeleton` does not own loading state. The data or page region that makes the request passes `loading` and should
 carry `aria-busy`; the placeholder itself is decorative. Set `loading={false}` (`:loading="false"` in Vue) to reveal children through the
 same root element.
 

@@ -160,7 +160,7 @@ Le même composant est disponible depuis `@moduix/solid/file-upload`, `@moduix/r
 Choisissez le paquet correspondant à votre framework et à votre solution de styles.
 
 `FileUpload` conserve l’état des fichiers en interne par défaut. Utilisez `defaultAcceptedFiles` pour une valeur initiale
-non contrôlée, ou associez `acceptedFiles` à `onFileChange(details)` lorsque l’application possède cet état. Utilisez
+non contrôlée, ou associez `acceptedFiles` à `onFileChange(details)` lorsque l’application contrôle cet état. Utilisez
 `useFileUpload()` avec `FileUploadRootProvider` lorsque l’état ou les méthodes doivent être créés en dehors de l’arbre rendu.
 
 Ajoutez explicitement `FileUploadHiddenInput` dans `FileUpload` ou `FileUploadRootProvider`, même hors d’un formulaire, car `FileUploadTrigger` l’utilise

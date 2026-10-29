@@ -81,7 +81,7 @@ Use `collapsedWidth` when a horizontal preview is more useful than a height-limi
 
 ### Controlled
 
-Use `open` with the Ark `onOpenChange(details)` callback when another part of your UI owns the state. See [Control state from the application](/docs/composition-patterns#controlled-state).
+Use `open` with the Ark `onOpenChange(details)` callback when another part of your UI controls the state. See [Control state from the application](/docs/composition-patterns#controlled-state).
 
 <Example name="collapsible/controlled" />
 
@@ -116,8 +116,8 @@ element inside `CollapsibleContent`. Start here when a design changes the icon o
 
 ## Composition
 
-`Collapsible` owns state inside the root. Use `defaultOpen` for an uncontrolled disclosure; use
-`open` with `onOpenChange(details)` when another part of the application owns it. In Vue, use
+`Collapsible` manages state inside the root. Use `defaultOpen` for an uncontrolled disclosure; use
+`open` with `onOpenChange(details)` when another part of the application controls it. In Vue, use
 `v-model:open` for the same controlled contract. The callback keeps Ark's details object, so
 controlled state reads `details.open`.
 
@@ -129,7 +129,7 @@ Keep padding and surface styles on `CollapsibleBody`, not `CollapsibleContent`, 
 the animated content part correctly. `CollapsibleIndicator` is optional and defaults to the moduix
 chevron.
 
-Use `asChild` only when a consumer-owned semantic element should receive the trigger behavior; it
+Use `asChild` only when your own semantic element should receive the trigger behavior; it
 must remain a keyboard-accessible button. In Solid, pass a render function such as
 `asChild={(props) => <button {...props()} />}`.
 
@@ -139,7 +139,7 @@ Hover or focus a part to find it in the preview.
 
 <AnatomyInspector
   parts={[
-    ["Collapsible", "collapsible-root", "Owns the open state for one disclosure.", 0],
+    ["Collapsible", "collapsible-root", "Manages the open state for one disclosure.", 0],
     ["CollapsibleTrigger", "collapsible-trigger", "Accessible button that opens or closes the content.", 1],
     ["CollapsibleIndicator", "collapsible-indicator", "Optional state indicator that renders a moduix chevron by default.", 2],
     ["CollapsibleContent", "collapsible-content", "Animated region whose dimensions Ark measures.", 1],

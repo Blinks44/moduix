@@ -113,7 +113,7 @@ conteneur de mise en page sémantique.
 suit les recommandations d’Ark pour la [composition](https://ark-ui.com/docs/guides/composition), les
 [styles](https://ark-ui.com/docs/guides/styling) et la [transmission des refs](https://ark-ui.com/docs/guides/ref).
 
-Conservez un seul `InputGroupInput` dans chaque groupe. Le champ imbriqué possède la valeur, le
+Conservez un seul `InputGroupInput` dans chaque groupe. Le champ imbriqué contient la valeur, le
 comportement du formulaire, l’état de validation et la `ref` ; les props contrôlées ou non contrôlées
 se placent donc sur ce champ, tandis que le libellé et les messages de validation vont dans `Field`.
 La taille de la racine est héritée par `InputGroupInput` et `InputGroupButton` ; les boutons ont
@@ -138,7 +138,7 @@ Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
   parts={[
     ["InputGroup", "input-group-root", "Conteneur passif avec styles et contexte de taille partagés.", 0],
     ["InputGroupAddon", "input-group-addon", "Préfixe ou suffixe avec un fond.", 1],
-    ["InputGroupInput", "", "Élément `<input>` natif qui possède la valeur et l’état du champ.", 1],
+    ["InputGroupInput", "", "Élément `<input>` natif qui contient la valeur et l’état du champ.", 1],
     ["InputGroupText", "input-group-text", "Texte intégré sans fond.", 1],
     ["InputGroupTextarea", "", "Élément `<textarea>` natif pour une valeur sur plusieurs lignes ; remplace `InputGroupInput`.", 2],
     ["InputGroupButton", "input-group-button", "Bouton d’action associé au champ.", 1],

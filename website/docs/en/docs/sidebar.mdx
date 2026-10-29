@@ -46,7 +46,7 @@ buttons in `SidebarTooltip` so their labels remain available after collapse.
 ### Nested navigation
 
 Use `SidebarExpandedContent` for inline nested links and `SidebarCollapsedContent` for the same links in a popup
-menu. Both branches remain application-owned compositions.
+menu. Both branches remain compositions in your application.
 
 <Example name="sidebar/nested-navigation" />
 
@@ -100,7 +100,7 @@ styled scrollbar or edge fade, and make its viewport the only scroll container.
 state, keyboard interaction, and accessibility. The exposed state and callbacks follow the Splitter
 contract.
 
-`Sidebar` owns the Splitter layout state, while nested `Collapsible`, popup `Menu`, and
+`Sidebar` manages the Splitter layout state, while nested `Collapsible`, popup `Menu`, and
 `SidebarTooltip` instances own their own state. Keep `SidebarPanel`, `SidebarResizeTrigger`, `SidebarTrigger`, and
 `SidebarInset` as direct children in visual order: `SidebarPanel` first for a left sidebar, and `SidebarInset` first for
 a right sidebar. `SidebarExpandedContent` and `SidebarCollapsedContent` only switch which composition is visible;

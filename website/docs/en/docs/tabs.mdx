@@ -40,7 +40,7 @@ content panel and hides the other panels.
 
 - Choose **`Tabs`** when each tab should reveal one associated content panel.
 - Choose **`Accordion`** when sections should stay stacked and open independently.
-- Choose **`ToggleGroup`** when the control changes a state or mode without owning panel content.
+- Choose **`ToggleGroup`** when the control changes a state or mode without showing panel content.
 
 ## Examples
 
@@ -120,7 +120,7 @@ adjacent UI needs to read the selected value.
 
 ## Composition
 
-Use `defaultValue` for an uncontrolled component. When another part of the application owns the
+Use `defaultValue` for an uncontrolled component. When another part of the application controls the
 selection, pass `value` and `onValueChange(details)` and read the selected value from
 `details.value`.
 
@@ -138,7 +138,7 @@ Hover or focus a part to find it in the preview.
 
 <AnatomyInspector
   parts={[
-    ["Tabs", "tabs-root", "Root that owns the selected value, focus, orientation, and mode.", 0],
+    ["Tabs", "tabs-root", "Root that manages the selected value, focus, orientation, and mode.", 0],
     ["TabsList", "tabs-list", "Groups triggers and manages focus movement between them.", 1],
     ["TabsTrigger", "tabs-trigger", "Interactive tab button, or an `asChild` host, with a required value.", 2],
     ["TabsIndicator", "tabs-indicator", "Optional indicator for the selected tab.", 2],
@@ -176,7 +176,7 @@ Hover or focus a variable to see it in the preview.
 | `TabsIndicator` | `tabs-indicator` |
 | `TabsContent` | `tabs-content` |
 
-Target the part that owns the visual concern:
+Target the part that renders the element you want to style:
 
 - `Tabs` for layout width, overall gap, orientation, and variant-level overrides
 - `TabsList` for list chrome, borders, background, and indicator-container spacing

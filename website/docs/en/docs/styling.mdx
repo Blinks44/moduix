@@ -12,7 +12,7 @@ import vueBrandButton from '../../../snippets/styling/vue/brand-button.vue?raw';
 # Styling
 
 moduix ships separate CSS Modules and Tailwind packages for every current framework adapter. Choose
-the styling track your application already uses, then make each change at the highest layer that owns
+the styling track your application already uses, then make each change at the highest layer that controls
 the decision.
 
 This guide assumes the matching package and stylesheet are already configured through
@@ -30,7 +30,7 @@ Use the package that matches both your framework and styling track.
 
 ## Choose where to make a change
 
-Make each change at the highest layer that owns the decision. Moving down the list affects fewer
+Make each change at the highest layer that controls the decision. Moving down the list affects fewer
 components and needs more code.
 
 | Goal | Where to change it |
@@ -150,7 +150,7 @@ markup, install the component through the registry and edit the copied source.
 
 ## Style exported parts
 
-Apply the consumer class to the part that owns the visual change. Combine it with Ark state attributes
+Apply the consumer class to the part that renders the visual change. Combine it with Ark state attributes
 such as `data-state` or `data-disabled` for stateful styles. Do not depend on generated class names or
 DOM order.
 
@@ -300,7 +300,7 @@ Keep Tailwind's `@source` entry for the selected package so its shipped classes 
 | A class loses to component styles | Check that your stylesheet is not wrapped in an earlier `@layer`; unlayered CSS always wins. |
 | A popup ignores a wrapper-scoped value | Put the value on the portalled part, root, or portal container. |
 | A state selector never matches | Inspect the exact Ark state attribute on that part. |
-| A class reaches the root but not an inner part | Apply it to the exported part that owns the property. |
+| A class reaches the root but not an inner part | Apply it to the exported part that renders the property. |
 | Tailwind utilities are missing | Check the package stylesheet, `@source` path, and consumer class order. |
 
 Inspect the rendered part, `data-slot`, state attributes, and computed values before increasing

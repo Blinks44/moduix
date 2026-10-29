@@ -94,7 +94,7 @@ need to coordinate with it, then render `AvatarRootProvider` instead of `Avatar`
 ## Composition
 
 Keep `AvatarFallback` and `AvatarImage` under the same root so Ark can switch their visibility.
-When another part of the application owns the state, create it with `useAvatar()` from the matching
+When another part of the application controls the state, create it with `useAvatar()` from the matching
 framework package and pass it directly to `AvatarRootProvider`; do not render another root for the
 same store. React receives the store as an object, while Solid receives a reactive accessor. In Vue,
 pass the return value from `useAvatar()` directly to `AvatarRootProvider`. For custom image
@@ -112,7 +112,7 @@ Hover or focus a part to find it in the preview.
 
 <AnatomyInspector
   parts={[
-    ["Avatar", "avatar-root", "Creates and owns the Ark UI avatar state.", 0],
+    ["Avatar", "avatar-root", "Creates and manages the Ark UI avatar state.", 0],
     ["AvatarFallback", "avatar-fallback", "Shows consumer-provided content until the image loads.", 1],
     ["AvatarImage", "avatar-image", "Shows the image after it loads successfully.", 1],
     ["AvatarRootProvider", "avatar-root-provider", "Renders an avatar from Ark UI state created outside the component.", 0],

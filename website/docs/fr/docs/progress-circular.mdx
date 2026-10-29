@@ -100,8 +100,8 @@ lorsque le cercle standard suffit : il combine `ProgressCircularCircle`, `Progre
 rend pas et ne centre pas `ProgressCircularValueText`. Gardez la composition du libellé, du cercle et du texte de
 valeur explicite lorsque la valeur doit apparaître au centre.
 
-Utilisez `defaultValue` lorsque le composant possède l’état de progression. Utilisez `value` avec
-`onValueChange(details)` lorsque l’application le possède. Définissez `defaultValue={null}` ou
+Utilisez `defaultValue` lorsque le composant gère l’état de progression. Utilisez `value` avec
+`onValueChange(details)` lorsque l’application le contrôle. Définissez `defaultValue={null}` ou
 `value={null}` pour une progression indéterminée. Lorsque l’état doit être créé en dehors de l’arbre
 rendu, créez-le avec `useProgress()` et passez le store à
 `ProgressCircularRootProvider` au lieu de rendre une autre racine pour le même store.

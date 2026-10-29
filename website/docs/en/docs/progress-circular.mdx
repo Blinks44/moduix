@@ -97,8 +97,8 @@ standard circle is enough: it combines `ProgressCircularCircle`, `ProgressCircul
 render or center `ProgressCircularValueText`. Keep the label, circle, and value text composition explicit when the
 value should appear in the center.
 
-Use `defaultValue` when the component owns progress state. Use `value` with
-`onValueChange(details)` when the application owns it. Set `defaultValue={null}` or `value={null}`
+Use `defaultValue` when the component manages progress state. Use `value` with
+`onValueChange(details)` when the application controls it. Set `defaultValue={null}` or `value={null}`
 for indeterminate progress. When state must be created outside the rendered tree, create it with
 `useProgress()` and pass the store to `ProgressCircularRootProvider` instead of
 rendering another root for the same store.
@@ -109,7 +109,7 @@ Hover or focus a part to find it in the preview.
 
 <AnatomyInspector
   parts={[
-    ["ProgressCircular", "progress-circular-root", "Owns progress state, formatting, and generated ids.", 0],
+    ["ProgressCircular", "progress-circular-root", "Manages progress state, formatting, and generated ids.", 0],
     ["ProgressCircularLabel", "progress-circular-label", "Provides visible context for the progress indicator.", 1],
     ["ProgressCircularCircle", "progress-circular-circle", "SVG progressbar element with Ark's role and ARIA value attributes.", 1],
     ["ProgressCircularCircleTrack", "progress-circular-circle-track", "Background circle.", 2],

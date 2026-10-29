@@ -1,6 +1,6 @@
 ---
 title: Presence
-description: Control when application-owned content mounts, stays hidden, animates, and unmounts in React, Solid, or Vue.
+description: Control when application content mounts, stays hidden, animates, and unmounts in React, Solid, or Vue.
 ark: https://ark-ui.com/docs/utilities/presence
 ---
 
@@ -45,7 +45,7 @@ import { Presence } from '@ark-ui/vue/presence';
 
 ## Basic lifecycle
 
-`Presence` is an Ark UI utility for application-owned content. It renders one child subtree while
+`Presence` is an Ark UI utility for application content. It renders one child subtree while
 `present` is `true`, and adds `data-state="open"` or `data-state="closed"` for state-based styles.
 
 Use `unmountOnExit` when the subtree should be removed after its exit animation. Without it, the root stays mounted
@@ -123,7 +123,7 @@ The shared lifecycle options have the same meaning in React, Solid, and Vue. In 
 
 ## Composition and accessibility
 
-Use `Presence` when the application owns the lifecycle of a panel, notice, card, or other subtree. It does not add
+Use `Presence` when the application controls the lifecycle of a panel, notice, card, or other subtree. It does not add
 focus management, dismissal, positioning, or dialog semantics. For Dialog, Drawer, Menu, Popover, Tooltip, Tour, and
 other interactive roots, use that component's own presence options so its interaction model stays coordinated.
 

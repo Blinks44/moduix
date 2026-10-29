@@ -118,7 +118,7 @@ ajoute `TooltipArrow`.
 
 Utilisez `TooltipBody` pour la composition standard du `Trigger` et du contenu. Il réunit
 `TooltipPositioner` et `TooltipContent` ; utilisez ces parties explicitement lorsqu’elles doivent
-avoir un style ou une structure indépendants. La racine possède l’état : utilisez `defaultOpen`
+avoir un style ou une structure indépendants. La racine gère l’état : utilisez `defaultOpen`
 pour une infobulle non contrôlée, ou `open` avec `onOpenChange(details)` lorsqu’une autre partie de
 l’application en est responsable. Utilisez `TooltipRootProvider` avec `useTooltip()` lorsque le
 store est créé en dehors de l’arbre rendu, et `TooltipContext` ou `useTooltipContext()` lorsqu’un

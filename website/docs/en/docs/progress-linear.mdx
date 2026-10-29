@@ -96,7 +96,7 @@ to the rendered parts with `ProgressLinearRootProvider`.
 ## Composition
 
 Use `defaultValue` for uncontrolled progress. Use `value` with `onValueChange(details)` when your
-application owns the current value, and use `defaultValue={null}` or `value={null}` when progress is
+application controls the current value, and use `defaultValue={null}` or `value={null}` when progress is
 unknown. If state is created with `useProgress()`, render the parts inside
 `ProgressLinearRootProvider` instead of `ProgressLinear`. Use
 `ProgressLinearView` for state-specific content and `ProgressLinearContext` when custom visible text
@@ -109,7 +109,7 @@ Hover or focus a part to find it in the preview.
 
 <AnatomyInspector
   parts={[
-    ["ProgressLinear", "progress-linear-root", "Owns progress state and passes formatting, IDs, and other props to Ark.", 0],
+    ["ProgressLinear", "progress-linear-root", "Manages progress state and passes formatting, IDs, and other props to Ark.", 0],
     ["ProgressLinearLabel", "progress-linear-label", "Visible task label. It is not automatically used as `ProgressLinearTrack`'s accessible name.", 1],
     ["ProgressLinearValueText", "progress-linear-value-text", "Displays the formatted percentage and announces changes. Use `ProgressLinearContext` for custom text.", 1],
     ["ProgressLinearTrack", "progress-linear-track", "Progressbar surface. Ark adds the role and ARIA value attributes.", 1],

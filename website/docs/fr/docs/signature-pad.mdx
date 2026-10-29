@@ -100,7 +100,7 @@ une valeur sérialisée, généralement lue avec `SignaturePadContext` ou
 `useSignaturePadContext()`, lorsque la signature doit être envoyée par un formulaire natif.
 
 Utilisez `defaultPaths` pour un état local non contrôlé. Utilisez `paths` avec
-`onDraw(details)` lorsque l’application possède les données de la signature. Utilisez
+`onDraw(details)` lorsque l’application contrôle les données de la signature. Utilisez
 `SignaturePadRootProvider` avec `useSignaturePad()` lorsque l’état doit être créé en dehors de l’arborescence
 rendue ou que des contrôles externes doivent accéder à `paths`, `clear()` ou `getDataUrl()`.
 Dans Vue, contrôlez les tracés avec `v-model:paths` et utilisez `@draw` ou `@draw-end`

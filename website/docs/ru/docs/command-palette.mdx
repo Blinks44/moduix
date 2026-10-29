@@ -78,12 +78,12 @@ import * as CommandPaletteDocs from '@/components/examples/command-palette/css-p
 строку поиска. Компонент следует рекомендациям Ark по [композиции](https://ark-ui.com/docs/guides/composition),
 [стилизации](https://ark-ui.com/docs/guides/styling) и [работе с ref](https://ark-ui.com/docs/guides/ref).
 
-Корневой компонент владеет состоянием Dialog и автоматически помещает `CommandPaletteBackdrop` и `CommandPalettePositioner` в портал.
+Корневой компонент управляет состоянием Dialog и автоматически помещает `CommandPaletteBackdrop` и `CommandPalettePositioner` в портал.
 Чтобы отрисовать их в текущем дереве, задайте `portalled={false}`, а для собственного контейнера передайте
 `portalRef`. Для обычной структуры используйте `CommandPalettePanel` и `CommandPaletteSearch`, а при нестандартной разметке диалога или
 поиска рендерите структурные части напрямую.
 
-Храните фильтрацию коллекции рядом с владельцем `CommandPaletteCombobox`: настройте `useListCollection` с помощью
+Храните фильтрацию коллекции рядом с `CommandPaletteCombobox`, который отрисовывает список: настройте `useListCollection` с помощью
 `itemToString`, `itemToValue` и `groupBy`, а в `onInputValueChange` вызывайте `filter(details.inputValue)`.
 Если коллекция хранится вне палитры, сбрасывайте фильтр при закрытии. Задайте `closeOnSelect={false}`, чтобы
 палитра оставалась открытой после действия, или используйте `CommandPaletteRootProvider` с `useDialog` из соответствующего

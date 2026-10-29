@@ -117,8 +117,8 @@ explicit. Start here when a design styles the positioner and the bubble separate
 
 Use `TooltipBody` for the standard `Trigger` plus content composition. It combines
 `TooltipPositioner` and `TooltipContent`; use those parts explicitly when they need independent
-styling or structure. The root owns state, so use `defaultOpen` for an uncontrolled tooltip or
-`open` with `onOpenChange(details)` when another part of the application owns it. Use
+styling or structure. The root manages state, so use `defaultOpen` for an uncontrolled tooltip or
+`open` with `onOpenChange(details)` when another part of the application controls it. Use
 `TooltipRootProvider` with `useTooltip()` when the store is created outside the rendered tree, and
 use `TooltipContext` or `useTooltipContext()` when a descendant needs that state. `asChild` requires
 one focusable child; Solid uses a render function. `TooltipDisabledTrigger` is for one disabled
@@ -140,7 +140,7 @@ Hover or focus a part to find it in the preview.
 
 <AnatomyInspector
   parts={[
-    ["Tooltip", null, "Owns tooltip state, opening and closing, delays, positioning, and lifecycle.", 0],
+    ["Tooltip", null, "Manages tooltip state, opening and closing, delays, positioning, and lifecycle.", 0],
     ["TooltipTrigger", "tooltip-trigger", "Interactive element that opens the tooltip on hover or focus.", 1],
     ["TooltipDisabledTrigger", "tooltip-disabled-trigger", "Focusable wrapper for one disabled native control that still needs an explanation.", 1],
     ["TooltipPositioner", "tooltip-positioner", "Positions the content and exposes Ark positioning variables.", 1],

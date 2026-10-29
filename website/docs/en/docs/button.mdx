@@ -82,10 +82,10 @@ rendered root, which is the semantic child when using `asChild`.
 `Button` is a single-part root built with the [Ark factory](https://ark-ui.com/docs/guides/composition#the-ark-factory).
 Use `asChild` when another semantic element should own the rendered DOM node: React passes exactly one child,
 Solid uses an `asChild` render function, and Vue supplies its semantic element as the default slot child. When an
-Ark part composes Button, the parent keeps ownership of `data-scope` and `data-part`; Button keeps its recipe
+Ark part composes Button, the parent keeps its own `data-scope` and `data-part`; Button keeps its recipe
 classes and stable `data-slot`.
 
-The `loading` prop owns only busy and disabled state; your application owns the spinner, label, and async
+The `loading` prop sets only busy and disabled state; your application controls the spinner, label, and async
 lifecycle. Native roots default to `type="button"`, while `asChild` targets do not receive that default.
 
 ## Anatomy

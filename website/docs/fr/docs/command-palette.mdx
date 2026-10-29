@@ -81,7 +81,7 @@ La racine gère l'état de Dialog et place automatiquement `CommandPaletteBackdr
 personnalisé. Utilisez `CommandPalettePanel` et `CommandPaletteSearch` pour la structure habituelle, puis rendez directement les parties
 structurelles lorsque le dialogue ou les contrôles de recherche doivent suivre une autre organisation.
 
-Conservez le filtrage de la collection auprès du propriétaire du `CommandPaletteCombobox` : configurez `useListCollection` avec
+Conservez le filtrage de la collection auprès du `CommandPaletteCombobox` qui affiche la liste : configurez `useListCollection` avec
 `itemToString`, `itemToValue` et `groupBy`, puis appelez `filter(details.inputValue)` dans `onInputValueChange`.
 Réinitialisez le filtre à la fermeture lorsque la collection est gérée en dehors de la palette. Définissez
 `closeOnSelect={false}` pour garder la palette ouverte après une action, ou utilisez `CommandPaletteRootProvider` avec `useDialog`

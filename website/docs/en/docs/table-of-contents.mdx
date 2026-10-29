@@ -66,7 +66,7 @@ Use `useToc()` when another control needs to read the active headings or scroll 
 
 Pass one item for every tracked heading. Keep `item.value`, the heading `id`, and the `TocLink`
 fragment identical, and use the heading's semantic level for `depth`. Omit `scrollEl` when the page
-viewport owns scrolling; pass the reading pane when the content has its own scroll container.
+viewport handles scrolling; pass the reading pane when the content has its own scroll container.
 
 Unlike Ark UI, `autoScroll` defaults to `false` for both `Toc` and `useToc()`. Pass `autoScroll` to
 opt in only when automatically revealing the active navigation item cannot scroll an ancestor
@@ -93,7 +93,7 @@ Hover or focus a part to find it in the preview.
 
 <AnatomyInspector
   parts={[
-    ["Toc", "toc-root", "Root part that owns tracking state from the item list.", 0],
+    ["Toc", "toc-root", "Root part that manages tracking state from the item list.", 0],
     ["TocContent", "toc-content", "Article containing headings whose IDs match item values.", 1],
     ["TocNav", "toc-nav", "Navigation region connected to the table of contents title.", 1],
     ["TocTitle", "toc-title", "Accessible name and visible heading for the navigation.", 2],

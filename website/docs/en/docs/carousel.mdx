@@ -147,8 +147,8 @@ needs custom content.
 
 ## Composition
 
-`Carousel` owns state inside the root. Use `defaultPage` for an uncontrolled carousel; use `page`
-with `onPageChange(details)` when routing, filters, or another part of the application owns the
+`Carousel` manages state inside the root. Use `defaultPage` for an uncontrolled carousel; use `page`
+with `onPageChange(details)` when routing, filters, or another part of the application controls the
 current page. `slideCount` is required and must stay in sync with rendered items when the collection
 changes.
 
@@ -173,7 +173,7 @@ Hover or focus a part to find it in the preview.
 
 <AnatomyInspector
   parts={[
-    ["Carousel", "carousel-root", "Owns carousel state, navigation, and the slide collection.", 0],
+    ["Carousel", "carousel-root", "Manages carousel state, navigation, and the slide collection.", 0],
     ["CarouselItemGroup", "carousel-item-group", "Slide track that contains `CarouselItem` parts.", 1],
     ["CarouselItem", "carousel-item", "A single slide with a stable `index`.", 2],
     ["CarouselControl", "carousel-control", "Container for navigation buttons and other controls.", 1],

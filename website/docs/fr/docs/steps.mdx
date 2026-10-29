@@ -90,7 +90,7 @@ Créez l’état avec `useSteps()` en dehors de l’arbre des parties rendues, p
 
 ## Composition
 
-Utilisez `Steps` comme propriétaire de l’état. Chaque `StepsItem` et le
+Laissez `Steps` gérer l’état. Chaque `StepsItem` et le
 `StepsContent` correspondant doivent partager le même `index` commençant à zéro ; `count` définit
 le nombre total d’étapes et sa valeur représente la fin du parcours. Utilisez `StepsRootProvider`
 uniquement avec un store créé par `useSteps()` lorsque l’état doit être créé en dehors de

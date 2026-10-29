@@ -158,8 +158,8 @@ custom rows.
 
 Keep selection in `value` when other UI needs it. When state is created outside the rendered tree,
 pass `useCombobox` to `ComboboxRootProvider`. In multiple mode, tags and other value summaries are
-application-owned; compose with `TagsInput` when they should share one field. `ComboboxStatus` is
-also an application-owned message container and does not manage loading or error state.
+up to the application; compose with `TagsInput` when they should share one field. `ComboboxStatus` is
+also a message container filled by the application and does not manage loading or error state.
 
 ## Anatomy
 
@@ -167,14 +167,14 @@ Hover or focus a part to find it in the preview.
 
 <AnatomyInspector
   parts={[
-    ["Combobox", "combobox-root", "Owns combobox state, filtering, highlighting, and selected values.", 0],
+    ["Combobox", "combobox-root", "Manages combobox state, filtering, highlighting, and selected values.", 0],
     ["ComboboxControl", "combobox-control", "Wrapper for input and trigger controls.", 1],
     ["ComboboxInput", "combobox-input", "Text input that drives search and selection.", 2],
     ["ComboboxClearTrigger", "combobox-clear-trigger", "Clears current value and/or input.", 2],
     ["ComboboxTrigger", "combobox-trigger", "Opens and closes the popup list.", 2],
     ["ComboboxPositioner", "combobox-positioner", "Floating positioner for popup content.", 1],
     ["ComboboxContent", "combobox-content", "Popup content container.", 2],
-    ["ComboboxStatus", "combobox-status", "Styled consumer-owned loading, error, or guidance message.", 3],
+    ["ComboboxStatus", "combobox-status", "Styled container for your loading, error, or guidance message.", 3],
     ["ComboboxList", "combobox-list", "Option list wrapper.", 3],
     ["ComboboxOption", "", "Convenience row for simple options with text and an indicator.", 4],
     ["ComboboxItem", "combobox-item", "Selectable option row.", 4],

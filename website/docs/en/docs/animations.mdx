@@ -9,7 +9,7 @@ import * as AnimationDocs from '@/components/examples/animations';
 
 Use motion to explain a state change, not to decorate every interaction. Start with the motion shipped
 by moduix, change a shared rule only when the whole product needs it, and keep one-off adjustments on
-the visual component part that owns the animation.
+the component part that renders the animation.
 
 Ark exposes entry and exit state through `data-state` attributes and keeps closing content mounted
 until its exit animation finishes. The foundation also reduces shared motion when the operating system
@@ -20,7 +20,7 @@ requests `prefers-reduced-motion`.
 | Styling track | Recommended path |
 | --- | --- |
 | CSS Modules | Override the documented shared or component-level motion variables. |
-| Tailwind CSS | Use the motion utilities shipped by the Tailwind component, then override consumer classes or source-owned registry code for a deliberate exception. |
+| Tailwind CSS | Use the motion utilities shipped by the Tailwind component, then override consumer classes or copied registry source for a deliberate exception. |
 
 The CSS variables below belong to the CSS Modules packages for every shipped framework. React, Solid, and
 Vue use the same variable names, so the stylesheet stays framework-neutral. Tailwind popup content uses
@@ -83,7 +83,7 @@ contract.
 | Component | Why it stays separate |
 | --- | --- |
 | Accordion and Collapsible | Content height and disclosure state own the transition. |
-| Drawer | Drag direction owns the content transform. |
+| Drawer | Drag direction controls the content transform. |
 | Swap | Entering and leaving indicators animate independently. |
 | Tree View | Branch disclosure uses its own content timing. |
 | Toast | Ark runtime variables coordinate stacking and dismissal. |

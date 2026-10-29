@@ -93,7 +93,7 @@ dehors de l’arbre QR, puis transmettez cet état à `QrCodeRootProvider`. Voir
 
 ## Composition
 
-Utilisez `defaultValue` pour un code QR non contrôlé. Lorsque l’état de l’application possède la
+Utilisez `defaultValue` pour un code QR non contrôlé. Lorsque l’état de l’application contrôle la
 valeur, utilisez `value` avec `onValueChange(details)` et lisez la nouvelle valeur dans
 `details.value`. Créez l’état avec `useQrCode()` depuis le package du framework correspondant, puis
 transmettez-le à `QrCodeRootProvider` lorsqu’il doit être partagé en dehors de l’arbre QR. Ne
@@ -109,7 +109,7 @@ Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
 
 <AnatomyInspector
   parts={[
-    ["QrCode", "qr-code-root", "Possède la valeur encodée et les options de génération, et fournit l’état du code QR.", 0],
+    ["QrCode", "qr-code-root", "Gère la valeur encodée et les options de génération, et fournit l’état du code QR.", 0],
     ["QrCodeFrame", "qr-code-frame", "Élément SVG qui contient le code QR généré.", 1],
     ["QrCodePattern", "qr-code-pattern", "Chemin SVG qui dessine les modules du code QR.", 2],
     ["QrCodeOverlay", "qr-code-overlay", "Contenu affiché au centre du code QR.", 1],

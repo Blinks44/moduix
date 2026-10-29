@@ -109,7 +109,7 @@ scroll area API. `TableScrollArea` is a simpler bordered horizontal-overflow wra
 
 ### Custom wrapper
 
-Use your own wrapper instead of `TableScrollArea` when the surrounding layout already owns the
+Use your own wrapper instead of `TableScrollArea` when the surrounding layout already handles the
 surface or scrolling behavior. This keeps the native table composition explicit while giving your
 layout full control of the shell.
 
@@ -123,12 +123,12 @@ Each part renders its corresponding native HTML element by default, accepts nati
 one-element composition: its `asChild` replaces only the generated `td`.
 
 Use `TableScrollArea` when the table needs a bordered horizontal-scroll shell. Skip it when the
-parent layout already owns scrolling, padding, borders, or surface styling, and keep the native
+parent layout already handles scrolling, padding, borders, or surface styling, and keep the native
 table parts inside your own wrapper.
 
-`TableEmpty` owns a full empty row inside `TableBody`, so its required `colSpan` must match the
+`TableEmpty` renders a full empty row inside `TableBody`, so its required `colSpan` must match the
 current body column count. Its `asChild` replaces only the generated `td`; compose `TableRow` and
-`TableCell` directly when the row itself needs customization. `Table` owns presentation only:
+`TableCell` directly when the row itself needs customization. `Table` handles presentation only:
 sorting, filtering, selection, pagination, virtualization, and row action state belong to a
 higher-level table composition such as [Data Table](/blocks/data-table).
 
@@ -148,7 +148,7 @@ Hover or focus a part to find it in the preview.
 <AnatomyInspector
   parts={[
     ["TableScrollArea", "table-scroll-area", "Optional bordered container with horizontal overflow for the table.", 0],
-    ["Table", "table-root", "Native `table` root. Owns typography, dividers, and state attributes.", 1],
+    ["Table", "table-root", "Native `table` root. Sets typography, dividers, and state attributes.", 1],
     ["TableColumnGroup", "table-column-group", "Native `colgroup` wrapper for column width distribution.", 2],
     ["TableColumn", "table-column", "Native `col` wrapper. Use the native `width` attribute.", 3],
     ["TableCaption", "table-caption", "Optional table caption above or below the table via `side`.", 2],
@@ -196,7 +196,7 @@ Hover or focus a variable to see it in the preview.
 | `TableCell` | `table-cell` |
 | `TableEmpty` | `table-empty` |
 
-Use the part that owns the visual concern:
+Use the part that renders the element you want to style:
 
 - `className` on `TableScrollArea` for shell-wide border, radius, and surface overrides
 - `className` on `Table` for table typography and width constraints

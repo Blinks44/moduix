@@ -37,7 +37,7 @@ composition and do not register a second hidden input for the same value.
 Use `rules` for local field validation and a resolver for schema or cross-field rules. Pass
 `fieldState.invalid` to `Field`, and render `fieldState.error?.message` with `FieldErrorText`.
 
-Add `noValidate` only when React Hook Form owns the visible error flow. Call its `reset()` API for
+Add `noValidate` only when React Hook Form renders the visible errors. Call its `reset()` API for
 controlled fields so the library state and moduix values reset together.
 
 ## Complete form

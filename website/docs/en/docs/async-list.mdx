@@ -179,6 +179,6 @@ descriptor uses an item key for `column` and either `'ascending'` or `'descendin
   keeps its current items visible.
 - Add debouncing in the application when filtering should wait until the user pauses typing.
 
-The hook owns data and request state only. CSS Modules can use your application stylesheet, while
+The hook manages only data and request state. CSS Modules can use your application stylesheet, while
 Tailwind can use native utilities and consumer class overrides. There are no `async-list` CSS
 variables, moduix component exports, or registry commands to configure.

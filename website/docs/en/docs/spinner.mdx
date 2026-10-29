@@ -83,8 +83,8 @@ Ark UI does not provide a dedicated Spinner component. moduix builds `Spinner` w
 [composition](https://ark-ui.com/docs/guides/composition), [styling](https://ark-ui.com/docs/guides/styling), and
 [ref](https://ark-ui.com/docs/guides/ref) guidance.
 
-`Spinner` represents an app-owned loading state; it does not start, stop, or otherwise manage the
-operation being represented. Render it from the state that already owns that operation.
+`Spinner` represents a loading state from your application; it does not start, stop, or otherwise manage the
+operation being represented. Render it from the state that already tracks that operation.
 
 Pass custom `children` to replace the default ring while keeping the standard root, sizing, and
 rotating indicator wrapper. Use `asChild` only when another component must own the root element: the
@@ -103,7 +103,7 @@ Hover or focus a part to find it in the preview.
 <AnatomyInspector
   parts={[
     ["Spinner", "spinner-ring", "Public root. Accepts `size`, `decorative`, `asChild`, `children`, and native `span` props.", 0],
-    ["indicator", "", "Internal rotating wrapper that owns the indicator's size and animation.", 1],
+    ["indicator", "", "Internal rotating wrapper that sets the indicator's size and animation.", 1],
     ["ring", "", "Internal default ring. It is omitted when custom `children` are provided.", 2],
   ]}
 >

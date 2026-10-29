@@ -118,7 +118,7 @@ The same cropper as Basic, without `ImageCropperCropArea`: `ImageCropperSelectio
 
 ## Composition
 
-Use `ImageCropperCropArea` for the standard selection. It owns the two grids and all resize handles,
+Use `ImageCropperCropArea` for the standard selection. It renders the two grids and all resize handles,
 so do not pass `children` or `asChild`. Use `className`, `gridClassName`, and `handleClassName` to
 style the selection and its generated parts.
 
@@ -128,7 +128,7 @@ the component tree. For one state instance, render either `ImageCropper` or
 `ImageCropperRootProvider`.
 
 Use controlled `zoom`, `rotation`, or `flip` with the matching change callback when another part of
-the application owns that state. Ark passes the updated value in the callback's `details` object. The Vue examples use native SFC syntax with the same parts, events, and controlled state.
+the application controls that state. Ark passes the updated value in the callback's `details` object. The Vue examples use native SFC syntax with the same parts, events, and controlled state.
 `fixedCropArea` keeps the selection fixed and makes the viewport the panning surface.
 
 ## Anatomy
@@ -146,7 +146,7 @@ Hover or focus a part to find it in the preview.
 
 <AnatomyInspector
   parts={[
-    ["ImageCropper", "image-cropper-root", "Root component that owns crop and transform state, ARIA attributes, and runtime CSS variables.", 0],
+    ["ImageCropper", "image-cropper-root", "Root component that manages crop and transform state, ARIA attributes, and runtime CSS variables.", 0],
     ["ImageCropperViewport", "image-cropper-viewport", "Viewport that clips overflow and provides the surface for panning the image.", 1],
     ["ImageCropperImage", "image-cropper-image", "Image element that Ark transforms as the user edits the crop.", 1],
     ["ImageCropperSelection", "image-cropper-selection", "Focusable crop area and keyboard target. With `fixedCropArea` it stays focusable and arrow keys pan the image.", 1],

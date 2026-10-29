@@ -119,7 +119,7 @@ import AnatomyScene from '@/components/examples/tooltip/anatomy';
 
 Для стандартной композиции `Trigger` и содержимого используйте `TooltipBody`: он объединяет
 `TooltipPositioner` и `TooltipContent`. Используйте эти части явно, если им нужны независимые
-стили или структура. Корневой компонент владеет состоянием: `defaultOpen` подходит для
+стили или структура. Корневой компонент управляет состоянием: `defaultOpen` подходит для
 неконтролируемой подсказки, а `open` вместе с `onOpenChange(details)` используется, когда состояние
 хранится в другой части приложения. Используйте `TooltipRootProvider` с `useTooltip()`, если
 хранилище создаётся за пределами дерева, а `TooltipContext` или `useTooltipContext()`, если

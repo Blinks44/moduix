@@ -5,7 +5,7 @@ ark: https://ark-ui.com/docs/utilities/hotkeys
 ---
 
 `Hotkeys` is Ark UI's utility for registering keyboard commands. It listens on a document or another
-target, while your application owns the command action and the visible controls.
+target, while your application controls the command action and the visible controls.
 
 ## Import
 
@@ -113,5 +113,5 @@ shortcut can be committed with `stop`, discarded with `cancel`, or removed with 
 state is a ref: read `.value` in script, while top-level refs unwrap automatically in templates.
 
 Hotkeys manages registration, matching, formatting, scopes, and recorder state. Your application
-still owns side effects, navigation, persistence, command-palette UI, focus management, and an
+still handles side effects, navigation, persistence, command-palette UI, focus management, and an
 accessible non-keyboard path for every important action.

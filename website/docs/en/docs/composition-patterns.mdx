@@ -1,6 +1,6 @@
 ---
 title: Composition Patterns
-description: Compose moduix parts across framework adapters without hiding Ark behavior or product ownership.
+description: Compose moduix parts across framework adapters without hiding Ark behavior or product decisions.
 ---
 
 import reactAsChild from '../../../snippets/composition-patterns/react/as-child.tsx?raw';
@@ -19,16 +19,16 @@ moduix keeps Ark's part-based composition visible. Start with the shipped parts,
 your application needs stable local imports, and add a wrapper only when it represents a repeated
 product decision.
 
-The same ownership model applies to every shipped framework adapter, whether components come from an npm package or
+The same approach applies to every shipped framework adapter, whether components come from an npm package or
 the shadcn registry. Framework tabs below show only the mechanics that actually differ.
 
-## Choose an ownership level
+## Choose a wrapping level
 
 | Need | Start with |
 | --- | --- |
 | Standard component behavior | Shipped moduix parts |
-| Product-owned import paths | Direct re-exports |
-| Repeated visual or layout rule | A focused wrapper around the part that owns it |
+| Import paths specific to your product | Direct re-exports |
+| Repeated visual or layout rule | A focused wrapper around the part that renders it |
 | State outside the rendered tree | `use<Component>()` with `<Family>RootProvider` |
 
 Choose the lowest level that solves the repeated need. A one-off class or callback does not justify a
@@ -37,7 +37,7 @@ new component API.
 ## Start with the part tree
 
 Read the anatomy on the component page before writing a wrapper. Keep structural parts visible so
-placement, scrolling, focus, and styling ownership remain easy to find.
+placement, scrolling, focus, and styling remain easy to find.
 
 ```text
 Dialog
@@ -117,11 +117,11 @@ export { Dialog, DialogTrigger, DialogContent };
   </Tab>
 </Tabs>
 
-This keeps a later move between package imports and source-owned registry imports straightforward.
+This keeps a later move between package imports and copied registry imports straightforward.
 
 ## Add a product contract
 
-Wrap only the part that owns the product decision. In this example, `DialogContent` adds a `tone`
+Wrap only the part that the product decision affects. In this example, `DialogContent` adds a `tone`
 prop and maps it to public Dialog variables. The rest of the part tree remains unchanged.
 
 <div className="docs-reference">

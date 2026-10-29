@@ -110,7 +110,7 @@ outside the component tree.
 
 `PinInputInputs` renders one indexed input for every item in the Ark context. Use explicit `PinInputInput` parts with
 continuous zero-based indexes and `PinInputSeparator` when the code needs groups. Values are string arrays. Use
-`PinInputRootProvider` with `usePinInput` when state or imperative methods must be owned outside the rendered tree; React
+`PinInputRootProvider` with `usePinInput` when state or imperative methods must live outside the rendered tree; React
 receives a store object, Solid receives an accessor, and Vue exposes the reactive store directly to the template.
 
 Ark manages focus transfer, paste distribution, keyboard editing, and one-time-code autocomplete; add
@@ -123,7 +123,7 @@ Hover or focus a part to find it in the preview.
 
 <AnatomyInspector
   parts={[
-    ["PinInput", "pin-input-root", "Owns input count, value state, validation, and form options.", 0],
+    ["PinInput", "pin-input-root", "Manages input count, value state, validation, and form options.", 0],
     ["PinInputLabel", "pin-input-label", "Labels the PIN or code input group.", 1],
     ["PinInputControl", "pin-input-control", "Container for the visible indexed inputs.", 1],
     ["PinInputInput", "pin-input-input", "One visible character input. Pass a zero-based `index`.", 2],

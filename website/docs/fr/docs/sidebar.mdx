@@ -104,8 +104,8 @@ parties de navigation au composant [Ark UI Splitter](https://ark-ui.com/docs/com
 qui fournit le redimensionnement, l’état replié, les interactions au clavier et l’accessibilité.
 L’état et les callbacks exposés suivent le contrat de `Splitter`.
 
-`Sidebar` possède l’état de mise en page du Splitter, tandis que `Collapsible`, `Menu` et
-`SidebarTooltip` possèdent chacun leur propre état. Gardez `SidebarPanel`, `SidebarResizeTrigger`, `SidebarTrigger` et
+`Sidebar` gère l’état de mise en page du Splitter, tandis que `Collapsible`, `Menu` et
+`SidebarTooltip` gèrent chacun leur propre état. Gardez `SidebarPanel`, `SidebarResizeTrigger`, `SidebarTrigger` et
 `SidebarInset` comme enfants directs, dans l’ordre visuel: `SidebarPanel` en premier à gauche, `SidebarInset` en premier
 à droite. `SidebarExpandedContent` et `SidebarCollapsedContent` ne font que changer la branche visible. Ils servent
 à associer des liens `Collapsible` dans la vue étendue et un `Menu` dans la barre repliée, sans

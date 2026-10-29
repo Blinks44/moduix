@@ -109,7 +109,7 @@ or restart playback.
 Use `Marquee` with its explicit `MarqueeViewport`, `MarqueeContent`, and `MarqueeItem` parts. Add `MarqueeEdge` inside the
 same root when the content should fade into the page background; each edge needs a `side`.
 
-Use `defaultPaused` for an uncontrolled initial state. If another part of the application owns playback,
+Use `defaultPaused` for an uncontrolled initial state. If another part of the application controls playback,
 use `paused` with `onPauseChange(details)`. For controls outside the marquee tree, create state with
 `useMarquee()` and pass it to `MarqueeRootProvider`; do not render `Marquee` and `MarqueeRootProvider` for the
 same state. Controls inside the tree can read the current API from `MarqueeContext` or

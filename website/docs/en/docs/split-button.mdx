@@ -99,7 +99,7 @@ provide the defaults for both button parts. The root renders a semantic `role="g
 `aria-labelledby` when the surrounding context does not already identify the group.
 
 Menu state is internal by default. Pass `open` with `onOpenChange(details)` when another part of the application
-owns the open state. For advanced state access, use the shared `Menu` API instead of adding a split-button-specific
+controls the open state. For advanced state access, use the shared `Menu` API instead of adding a split-button-specific
 state wrapper. Use `SplitButtonAction asChild` for a link; custom trigger content goes through `SplitButtonTrigger` `children` so Ark's
 menu trigger and the moduix Button remain on one element.
 
@@ -113,7 +113,7 @@ Hover or focus a part to find it in the preview.
 
 <AnatomyInspector
   parts={[
-    ["SplitButton", "split-button-root", "Root that owns menu state and the semantic group around both buttons.", 0],
+    ["SplitButton", "split-button-root", "Root that manages menu state and the semantic group around both buttons.", 0],
     ["SplitButtonAction", "split-button-action", "Primary Button action.", 1],
     ["SplitButtonTrigger", "split-button-trigger", "Ark Menu trigger rendered as a moduix Button with a chevron by default.", 1],
     ["SplitButtonPositioner", "split-button-positioner", "Positions the Ark Menu popup.", 1],

@@ -78,7 +78,7 @@ The same timer as Basic, without `TimerSegments`: `TimerArea` holds one `TimerIt
 
 ## Composition
 
-`Timer` owns the timer state. `TimerSegments` creates its own `TimerArea`,
+`Timer` manages the timer state. `TimerSegments` creates its own `TimerArea`,
 `TimerItem`, and `TimerSeparator` parts, so use the full `TimerArea` composition when you need unit labels,
 custom separators, or per-item layout.
 
@@ -97,7 +97,7 @@ Hover or focus a part to find it in the preview.
 
 <AnatomyInspector
   parts={[
-    ["Timer", "timer-root", "Owns the Ark timer state, ids, interval, and callbacks.", 0],
+    ["Timer", "timer-root", "Manages the Ark timer state, ids, interval, and callbacks.", 0],
     ["TimerArea", "timer-area", "Groups the visible time parts.", 1],
     ["TimerItem", "timer-item", "Displays one formatted time unit such as `hours`, `minutes`, or `seconds`.", 2],
     ["TimerSeparator", "timer-separator", "Displays a separator between time units.", 2],

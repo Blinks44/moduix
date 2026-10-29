@@ -1,6 +1,6 @@
 ---
 title: Migrate from shadcn
-description: Move an existing shadcn app to moduix one component at a time, with guidance for source ownership, imports, styles, and Ark state.
+description: Move an existing shadcn app to moduix one component at a time, with guidance for copied source, imports, styles, and Ark state.
 ---
 
 # Migrate from shadcn
@@ -57,7 +57,7 @@ import { Dialog } from '@moduix/vue/dialog';
   </Tab>
 </Tabs>
 
-For the copy-owned workflow, finish the [shadcn CLI setup](/docs/quick-start#install-with-the-shadcn-cli),
+For the copied-source workflow, finish the [shadcn CLI setup](/docs/quick-start#install-with-the-shadcn-cli),
 then add one registry item at a time:
 
 <Tabs groupId="framework">
@@ -158,7 +158,7 @@ Vue uses native SFCs with `script setup`, template props, and `v-model` for cont
 
 <CodeBlockRuntime lang="vue" code={vueAccordion} />
 
-For a copy-owned install, keep the composition and change only the import source:
+For a copied-source install, keep the composition and change only the import source:
 
 ```tsx
 import { Accordion, AccordionItem, AccordionItemContent, AccordionItemTrigger } from '@/components/ui/accordion';

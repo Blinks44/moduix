@@ -71,7 +71,7 @@ changes.
 
 Wrap the rating group in `Field` when helper or validation text should be associated with its
 `RatingGroupHiddenInput`. Ark inherits `disabled`, `readOnly`, and `required` from the field;
-validation state remains owned by `Field` and application code.
+validation state stays with `Field` and application code.
 
 <Example name="rating-group/field" />
 
@@ -122,7 +122,7 @@ Hover or focus a part to find it in the preview.
 
 <AnatomyInspector
   parts={[
-    ["RatingGroup", "rating-group-root", "Owns rating state, keyboard navigation, focus, and form integration.", 0],
+    ["RatingGroup", "rating-group-root", "Manages rating state, keyboard navigation, focus, and form integration.", 0],
     ["RatingGroupLabel", "rating-group-label", "Accessible label for the rating group.", 1],
     ["RatingGroupControl", "rating-group-control", "Groups the interactive rating items.", 1],
     ["RatingGroupItems", "", "Creates one item for each value and supplies the default star.", 2],

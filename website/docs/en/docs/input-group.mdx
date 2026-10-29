@@ -109,7 +109,7 @@ with the Ark-backed moduix `Input` and `Button` components. The composition foll
 on [composition](https://ark-ui.com/docs/guides/composition), [styling](https://ark-ui.com/docs/guides/styling),
 and [refs](https://ark-ui.com/docs/guides/ref).
 
-Keep exactly one `InputGroupInput` in each group. The nested input owns the value, form behavior,
+Keep exactly one `InputGroupInput` in each group. The nested input holds the value, form behavior,
 validation state, and input ref, so controlled or uncontrolled props belong there, while labels and
 validation messages belong on `Field`. The root `size` is inherited by `InputGroupInput` and
 `InputGroupButton`; grouped buttons default to `type="button"` and do not inherit `disabled` from
@@ -134,7 +134,7 @@ Hover or focus a part to find it in the preview.
   parts={[
     ["InputGroup", "input-group-root", "Passive layout wrapper with shared styling and size context.", 0],
     ["InputGroupAddon", "input-group-addon", "Filled prefix or suffix.", 1],
-    ["InputGroupInput", "", "Native `<input>` that owns the form value and field state.", 1],
+    ["InputGroupInput", "", "Native `<input>` that holds the form value and field state.", 1],
     ["InputGroupText", "input-group-text", "Inline text without a fill.", 1],
     ["InputGroupTextarea", "", "Native `<textarea>` for multi-line values; use it instead of `InputGroupInput`.", 2],
     ["InputGroupButton", "input-group-button", "Action button associated with the input.", 1],
@@ -178,7 +178,7 @@ Hover or focus a variable to see it in the preview.
 - `data-slot="textarea-root"` plus Ark Field textarea state attributes on `InputGroupTextarea`
 - Nested `data-invalid`, `aria-invalid="true"`, and `data-disabled`/`:disabled` states are reflected through `:has(...)` on the root
 
-Component-owned `data-slot`, `data-scope`, `data-part`, and root `data-size` hooks stay stable when
+Component-defined `data-slot`, `data-scope`, `data-part`, and root `data-size` hooks stay stable when
 consumer props are supplied. `className` in React and `class` in Solid and Vue merge with the component
 styles.
 

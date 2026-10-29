@@ -143,7 +143,7 @@ quand le design modifie la mise en page de l’option ou ajoute du contenu à c�
 `@moduix/react/radio-group`, `@moduix/solid/radio-group` et `@moduix/vue/radio-group`.
 
 Utilisez `defaultValue` pour un groupe non contrôlé. Utilisez `value` avec `onValueChange(details)`
-lorsqu’une autre partie de l’application possède la valeur sélectionnée. Lorsque l’état doit être
+lorsqu’une autre partie de l’application contrôle la valeur sélectionnée. Lorsque l’état doit être
 créé en dehors de l’arbre rendu, utilisez `RadioGroupRootProvider` avec `useRadioGroup()` depuis le package du
 framework correspondant. Ne rendez pas `RadioGroup` et `RadioGroupRootProvider` pour la même instance
 d’état. React lit le store comme un objet ; Solid lit son état réactif via l’accessor retourné ; Vue expose le store

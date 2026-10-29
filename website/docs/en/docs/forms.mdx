@@ -76,7 +76,7 @@ on the root and does not need an additional hidden part.
 ## Native form
 
 The example combines native inputs with Ark-backed `Select`, `Combobox`, and `Checkbox` controls.
-The browser owns validation and `FormData`; moduix owns the visible controls and their native form
+The browser handles validation and `FormData`; moduix renders the visible controls and their native form
 parts. The live preview uses React because the documentation application runs React.
 
 <Example name="forms/native-form" />
@@ -84,7 +84,7 @@ parts. The live preview uses React because the documentation application runs Re
 ## Validation and reset
 
 Keep native constraints such as `required`, `minLength`, `pattern`, `min`, and `max` when browser
-validation owns the flow. When a library owns visible errors, add `noValidate`, pass its result to
+validation controls the flow. When a library renders visible errors, add `noValidate`, pass its result to
 `Field invalid`, and render a clear `FieldErrorText` only after the chosen validation lifecycle has
 found a problem.
 
@@ -92,8 +92,8 @@ Native `type="reset"` and `form.reset()` restore uncontrolled controls. For libr
 fields, use the library's reset API so its state and the moduix values stay synchronized.
 
 Move invalid-submit focus to the real focusable element: `Input`, `Textarea`, `SelectTrigger`, or
-`ComboboxInput`. The integration guide for each library describes whether focus is automatic or
-application-owned.
+`ComboboxInput`. The integration guide for each library describes whether focus moves automatically or
+your application must move it.
 
 ## Submission and server errors
 

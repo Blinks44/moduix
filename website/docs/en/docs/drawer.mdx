@@ -101,7 +101,7 @@ an inset instead of extending visually past the edge where it opens.
 ### Non-modal
 
 Set `modal={false}` when the page must remain interactive while the drawer is open. This example
-keeps the drawer draggable from its grabber while `ScrollArea` owns the long content viewport.
+keeps the drawer draggable from its grabber while `ScrollArea` scrolls the long content viewport.
 
 <Example name="drawer/non-modal" />
 
@@ -142,7 +142,7 @@ explicit icon. Start here when a design changes the layout or the close control.
 
 ## Composition
 
-`Drawer` owns its state by default and renders `DrawerBackdrop` and `DrawerPositioner` through a portal. Keep
+`Drawer` manages its state by default and renders `DrawerBackdrop` and `DrawerPositioner` through a portal. Keep
 those structural parts explicit. Set `portalled={false}` to render them inline, or pass `portalRef`
 to use a custom container.
 
@@ -162,7 +162,7 @@ Hover or focus a part to find it in the preview.
 
 <AnatomyInspector
   parts={[
-    ["Drawer", null, "Root part that owns open state, snap points, and swipe behavior.", 0],
+    ["Drawer", null, "Root part that manages open state, snap points, and swipe behavior.", 0],
     ["DrawerTrigger", "drawer-trigger", "Opens the drawer.", 1],
     ["DrawerSwipeArea", "drawer-swipe-area", "Optional edge region that opens the drawer on swipe.", 1],
     ["DrawerBackdrop", "drawer-backdrop", "Modal backdrop layer.", 1],

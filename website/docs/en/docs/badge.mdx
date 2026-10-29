@@ -94,7 +94,7 @@ a small adjustment.
 
 ## Composition
 
-`Badge` is presentational and owns no state. Direct text remains unchanged; use `BadgeLabel`
+`Badge` is presentational and has no state. Direct text remains unchanged; use `BadgeLabel`
 explicitly when a constrained label must truncate or when combining text with `BadgeDot` or an
 icon. For a semantic link or button, use `asChild` with exactly one child in React. In Solid, pass
 a render function to `asChild`; the rendered child keeps its native semantics.
@@ -149,7 +149,7 @@ Hover or focus a variable to see it in the preview.
 
 - `Badge` also exposes `data-scope="badge"` and `data-part="root"`. `BadgeLabel` and `BadgeDot` expose `data-part="label"` and `data-part="dot"`.
 - `Badge` writes the selected variant to `data-variant` and the selected size to `data-size`.
-- Focusable hosts rendered through `Badge asChild` receive the root focus-visible styling. Anchor roots also receive the variant hover and pointer-cursor styles; button-specific interaction styles remain application-owned.
+- Focusable hosts rendered through `Badge asChild` receive the root focus-visible styling. Anchor roots also receive the variant hover and pointer-cursor styles; button-specific interaction styles remain up to the application.
 - Direct child `svg` icons inherit `currentColor`, do not receive pointer events, and are 12px unless a class on the icon sets another size.
 - Badge has no dedicated Ark primitive or behavior machine, so it does not expose Ark-managed states or runtime CSS variables.
 

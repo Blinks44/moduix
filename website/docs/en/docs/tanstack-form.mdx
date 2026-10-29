@@ -63,7 +63,7 @@ Use field validators for local rules and form validators for schema or cross-fie
 `!field.state.meta.isValid` to `Field invalid` and render the errors with `FieldErrorText` after the
 chosen validation lifecycle runs.
 
-Add `noValidate` only when TanStack Form owns the visible errors. Call `form.reset()` for controlled
+Add `noValidate` only when TanStack Form renders the visible errors. Call `form.reset()` for controlled
 fields so form state and moduix controls reset together.
 
 ## Complete form

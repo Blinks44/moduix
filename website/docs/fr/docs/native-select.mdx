@@ -78,7 +78,7 @@ et de la validation.
 En React, construisez un select non contrôlé avec la prop native `defaultValue`. En Solid et en Vue, transmettez
 l’attribut natif `selected` à l’`<option>` qui doit être présélectionnée : une prop `defaultValue` sur le
 `NativeSelect` Solid ou Vue n’a aucun effet. Utilisez `value` avec `onChange` en React et en Solid, ou `v-model` en Vue,
-lorsque l’état de l’application possède la valeur courante. Placez `NativeSelect` dans `Field` lorsque le libellé, le texte
+lorsque l’état de l’application contrôle la valeur courante. Placez `NativeSelect` dans `Field` lorsque le libellé, le texte
 associé, la validation ou l’état `disabled` doivent être partagés avec le contrôle. Les éléments de `Field` relient ce
 contenu au select natif, tandis que le navigateur continue de gérer la sélection des options. Avec `multiple` ou
 `size > 1`, le navigateur gère l’interaction avec la liste et l’indicateur décoratif est masqué. `asChild` peut remplacer

@@ -103,7 +103,7 @@ défaut des deux boutons. La racine rend un `role="group"` sémantique ; fournis
 lorsque le contexte environnant n’identifie pas déjà le groupe.
 
 Le menu gère son état en interne par défaut. Passez `open` et `onOpenChange(details)` lorsqu’une autre partie de
-l’application doit en être propriétaire. Pour un accès avancé à l’état, utilisez l’API `Menu` partagée plutôt
+l’application doit le contrôler. Pour un accès avancé à l’état, utilisez l’API `Menu` partagée plutôt
 qu’une nouvelle enveloppe d’état propre à SplitButton. Utilisez `SplitButtonAction asChild` pour un lien ; le contenu visuel
 personnalisé du déclencheur passe par `children`, afin que le déclencheur Ark et le Button moduix restent sur un seul
 élément.

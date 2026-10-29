@@ -84,7 +84,7 @@ content should stay mounted while its effects pause when hidden.
 ### With Slider
 
 Accordion content can contain another Ark-based composite widget, such as `Slider`. Keep each
-primitive's part tree explicit so the right component owns keyboard handling and hidden form inputs.
+primitive's part tree explicit so the right component handles keyboard input and hidden form inputs.
 
 <Example name="accordion/with-slider" />
 
@@ -108,7 +108,7 @@ spacing.
 ## Composition
 
 Use `defaultValue` for an uncontrolled accordion. Use `value` with `onValueChange(details)` when
-another part of the application owns the state. Both props use `string[]`, even when only one item
+another part of the application controls the state. Both props use `string[]`, even when only one item
 can be open.
 
 Use `AccordionRootProvider` with `useAccordion()` from the matching framework package when the
@@ -122,7 +122,7 @@ Hover or focus a part to find it in the preview.
 
 <AnatomyInspector
   parts={[
-    ["Accordion", "accordion-root", "Root part that owns accordion state and keyboard navigation.", 0],
+    ["Accordion", "accordion-root", "Root part that manages accordion state and keyboard navigation.", 0],
     ["AccordionItem", "accordion-item", "A collapsible item with a required, stable `value`.", 1],
     ["AccordionItemTrigger", "accordion-item-trigger", "The button that opens or closes the item.", 2],
     ["AccordionItemIndicator", "accordion-item-indicator", "Optional state indicator. Defaults to a chevron when no children are provided.", 3],

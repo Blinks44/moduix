@@ -1,6 +1,6 @@
 ---
 title: AI
-description: Give AI assistants focused moduix context and make package and registry ownership explicit.
+description: Give AI assistants focused moduix context and make it clear whether code comes from a package or a registry.
 ---
 
 # AI
@@ -19,7 +19,7 @@ Give the assistant only the documentation needed for the task.
 | Work with one component or guide | Use **Copy Markdown** on that page, or add `.md` to its URL |
 | Review several related areas | [llms-full.txt](/llms-full.txt) |
 
-State the framework, styling system, ownership model, and expected change in the prompt:
+State the framework, styling system, install method (package or registry), and expected change in the prompt:
 
 ```text
 Read https://moduix.dev/docs/button.md. Add a destructive action to our React application.
@@ -29,7 +29,7 @@ proposed diff before changing files.
 
 ## Install the moduix skill
 
-moduix publishes the consumer-facing Agent Skill `moduix` from the repository's `skills/moduix` directory. It helps compatible agents identify the project's framework, styling track, and ownership model before changing code. The Skill provides instructions only; it does not install moduix packages or copy registry components.
+moduix publishes the consumer-facing Agent Skill `moduix` from the repository's `skills/moduix` directory. It helps compatible agents identify the project's framework, styling track, and install method before changing code. The Skill provides instructions only; it does not install moduix packages or copy registry components.
 
 Install only the `moduix` Skill from the repository:
 
@@ -42,10 +42,10 @@ agents let you invoke a skill explicitly, for example by its `$moduix` handle.
 
 ## State how moduix is managed
 
-moduix supports two ownership models:
+moduix supports two install methods:
 
 - **Package-managed:** the project imports a public `@moduix/*` package. Updates come through the package manager.
-- **Copy-owned:** the shadcn CLI copies an item from a moduix registry into the project. The project owns and maintains the generated files.
+- **Copied source:** the shadcn CLI copies an item from a moduix registry into the project. The project maintains the generated files.
 
 Use the package and registry that match the project:
 
@@ -58,7 +58,7 @@ Use the package and registry that match the project:
 | Solid with Tailwind CSS | `@moduix/solid-tailwind/<component>` | `@moduix-solid-tailwind/<name>` |
 | Vue with Tailwind CSS | `@moduix/vue-tailwind/<component>` | `@moduix-vue-tailwind/<name>` |
 
-See [Quick Start](./quick-start) for package installation and registry configuration. Do not ask an assistant to copy registry source into a package-managed project unless you intend to change the ownership model.
+See [Quick Start](./quick-start) for package installation and registry configuration. Do not ask an assistant to copy registry source into a package-managed project unless you intend to switch install methods.
 
 ## Connect the shadcn MCP server
 
@@ -78,10 +78,10 @@ Restart Codex after changing the configuration. For other clients, follow the [s
 
 Before accepting a change, check that the assistant:
 
-- selected the correct framework, styling system, and ownership model
+- selected the correct framework, styling system, and install method
 - used documented public imports and APIs
 - did not overwrite local changes
-- kept accessibility behavior and application-owned state intact
+- kept accessibility behavior and application state intact
 - ran the project's focused type checks, lint checks, and tests
 
-Documentation and registry metadata provide context, but the application still owns its data, routing, handlers, and final review.
+Documentation and registry metadata provide context, but the application is still responsible for its data, routing, handlers, and final review.

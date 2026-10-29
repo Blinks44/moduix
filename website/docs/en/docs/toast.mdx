@@ -112,8 +112,8 @@ moduix exports `Toast`, `ToastToaster`, `createToaster`, and `useToastContext` f
 the complete store and part API.
 
 Create the toaster once and pass the same store to `ToastToaster`. In Vue, create it inside
-`<script setup>` so each component instance owns its store; an application-wide store can live in a
-separate module. Keep server-rendered stores isolated per request. The store owns placement,
+`<script setup>` so each component instance creates its own store; an application-wide store can live in a
+separate module. Keep server-rendered stores isolated per request. The store manages placement,
 stacking, queue size, timing, and focus behavior. `ToastToaster`
 portals the group to `document.body` by default; use `portalled={false}` or `portalRef` when it must
 stay in another container. A separate `Portal` wrapper is not needed.

@@ -71,11 +71,11 @@ current page. Start here when items need router links, extra markup, or differen
 
 ## Composition
 
-`Breadcrumbs` owns no interactive or form state, so it has no controlled props, callbacks, context
+`Breadcrumbs` has no interactive or form state, so it has no controlled props, callbacks, context
 hooks, or `RootProvider`. State for a collapsed path belongs to the composed `Menu`, while router
-navigation remains owned by the app's link component.
+navigation stays with the app's link component.
 
-Use `BreadcrumbsPath` for an anchor-based path. It owns the generated list children, renders every
+Use `BreadcrumbsPath` for an anchor-based path. It generates the list children, renders every
 `links` entry as an anchor, renders `page` as the current page, and does not accept `children` or
 `asChild`. Use the explicit parts when a path
 needs router links, hidden middle segments, or different markup. For a router link, pass one semantic
@@ -85,7 +85,7 @@ In Solid, assign a ref to the element created inside the `asChild` render functi
 
 For collapsed paths, put `BreadcrumbsEllipsis` inside the `MenuTrigger`, then keep the menu's
 `Positioner`, `Content`, and `Item asChild` parts explicit. `BreadcrumbsEllipsis` is presentational;
-the trigger owns the accessible label and interaction. A native `button` that directly wraps
+the trigger provides the accessible label and interaction. A native `button` that directly wraps
 `BreadcrumbsEllipsis` gets the trigger styles (reset, pointer cursor, hover color, and focus ring), so it
 needs no styles of its own.
 

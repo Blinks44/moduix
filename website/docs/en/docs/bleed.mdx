@@ -65,7 +65,7 @@ Use [Container](/docs/container) to keep the main content at a readable width. P
 only a media block, background, divider, or banner should extend beyond the container.
 
 
-`Bleed` is presentational and owns no state. It has one root part, so there are no child parts to coordinate.
+`Bleed` is presentational and has no state. It has one root part, so there are no child parts to coordinate.
 The defaults are `inline="full"`, `block="none"`, and `asChild={false}`.
 When `asChild` should give the rendered root to one semantic element, provide exactly one child that accepts DOM
 props and a ref in React, or use the Solid render-function form. React refs target the rendered root or child;

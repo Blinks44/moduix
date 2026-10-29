@@ -34,7 +34,7 @@ are present. Your application still needs to verify the code on the server.
 
 ## Add the block to a route
 
-Import the installed `VerificationCode` block into the route that owns email verification. Show
+Import the installed `VerificationCode` block into the route that handles email verification. Show
 the form after your application sends the code. `onSubmit` receives the native form event. If you
 submit the code from the browser, call `event.preventDefault()`, read
 `new FormData(event.currentTarget).get('code')`, and send that value to your server. Replace the

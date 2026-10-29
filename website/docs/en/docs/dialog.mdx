@@ -138,8 +138,8 @@ layout or the close control.
 
 ## Composition
 
-Dialog owns its open state by default. Use `open` with `onOpenChange(details)` when another part of
-the application owns that state. When state must live outside the dialog tree, create one
+Dialog manages its open state by default. Use `open` with `onOpenChange(details)` when another part of
+the application controls that state. When state must live outside the dialog tree, create one
 `useDialog()` store and pass it to `DialogRootProvider`; do not render another root for the same
 store.
 
@@ -154,7 +154,7 @@ Hover or focus a part to find it in the preview.
 
 <AnatomyInspector
   parts={[
-    ["Dialog", null, "Owns open state, focus management, and dismissal behavior.", 0],
+    ["Dialog", null, "Manages open state, focus management, and dismissal behavior.", 0],
     ["DialogTrigger", "dialog-trigger", "Opens the dialog.", 1],
     ["DialogBackdrop", "dialog-backdrop", "Optional background layer for a modal dialog.", 1],
     ["DialogPositioner", "dialog-positioner", "Positions the dialog content.", 1],

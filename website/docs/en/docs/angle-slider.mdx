@@ -110,7 +110,7 @@ and `AngleSliderThumb`. `AngleSliderMarks` from With Marks is an `AngleSliderMar
 ## Composition
 
 Use `defaultValue` for an uncontrolled slider and `value` with `onValueChange(details)` when
-another part of the application owns the angle. Use `AngleSliderRootProvider` with
+another part of the application controls the angle. Use `AngleSliderRootProvider` with
 `useAngleSlider()` from the matching framework package only when the store must be created outside
 the rendered slider tree; do not render the root and `AngleSliderRootProvider` for the same
 state instance. In
@@ -128,7 +128,7 @@ Hover or focus a part to find it in the preview.
 
 <AnatomyInspector
   parts={[
-    ["AngleSlider", "angle-slider-root", "Styled root that owns controlled or uncontrolled slider state.", 0],
+    ["AngleSlider", "angle-slider-root", "Styled root that manages controlled or uncontrolled slider state.", 0],
     ["AngleSliderLabel", "angle-slider-label", "Associates a visible label with the slider.", 1],
     ["AngleSliderDial", "", "Convenience composition of `Control`, the centered `ValueText`, and `Thumb`.", 1],
     ["AngleSliderMarks", "", "Convenience composition that creates markers from a `values` array.", 2],

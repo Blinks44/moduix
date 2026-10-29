@@ -105,7 +105,7 @@ need to read or update its state. See [Share state outside the tree](/docs/compo
 
 ## Composition
 
-`HoverCard` owns the state and portals `HoverCardPositioner` by default. Set `portalled={false}`
+`HoverCard` manages the state and portals `HoverCardPositioner` by default. Set `portalled={false}`
 inside another overlay, or pass `portalRef` for a custom container. Use `HoverCardRootProvider`
 with `useHoverCard()` when state belongs outside the card tree; React reads the store as an object,
 while Solid reads it through its accessor, and Vue exposes the reactive store directly to the template.
@@ -122,7 +122,7 @@ Hover or focus a part to find it in the preview.
 
 <AnatomyInspector
   parts={[
-    ["HoverCard", null, "Owns state, lifecycle, delays, positioning, ids, and outside interaction.", 0],
+    ["HoverCard", null, "Manages state, lifecycle, delays, positioning, ids, and outside interaction.", 0],
     ["HoverCardTrigger", "hover-card-trigger", "Interactive element that opens the card on hover or focus. Use `asChild` for a link or another semantic element.", 1],
     ["HoverCardPositioner", "hover-card-positioner", "Positions the floating layer and exposes Ark positioning variables.", 1],
     ["HoverCardContent", "hover-card-content", "Visible card surface that closes on outside interaction.", 2],

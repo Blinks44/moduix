@@ -100,7 +100,7 @@ import * as ProgressCircularDocs from '@/components/examples/progress-circular/c
 в центре, явно соберите композицию из метки, круга и текста значения.
 
 Используйте `defaultValue`, когда состояние прогресса принадлежит компоненту. Используйте `value`
-с `onValueChange(details)`, когда состоянием владеет приложение. Установите `defaultValue={null}`
+с `onValueChange(details)`, когда состоянием управляет приложение. Установите `defaultValue={null}`
 или `value={null}` для неопределённого прогресса. Если состояние нужно создать за пределами
 отрисованного дерева, вызовите `useProgress()` и передайте хранилище состояния в
 `ProgressCircularRootProvider`, не создавая для того же хранилища ещё один корень.

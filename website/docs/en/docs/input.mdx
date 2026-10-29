@@ -91,7 +91,7 @@ needs to keep selected files in state, show a dropzone, or manage an upload flow
 
 ### Controlled value
 
-Use this pattern when the surrounding component owns the current value. In React, read the next
+Use this pattern when the surrounding component controls the current value. In React, read the next
 value from native `onChange(event)`; in Solid, use `onInput`; in Vue, use `v-model`. Pass the current
 value back through `value` when the framework uses separate input and value bindings.
 
@@ -114,7 +114,7 @@ native event API.
 
 Use `Field` when the control needs a label, helper or error text, generated ids, or shared state.
 
-Use `Field` as the owner of the label, helper or error text, generated ids, and shared `disabled`,
+Use `Field` to provide the label, helper or error text, generated ids, and shared `disabled`,
 `invalid`, `required`, or `readOnly` state. `Input` remains the native control: use `value` with
 `onChange(event)` for controlled React state, `v-model` for controlled Vue state, or `defaultValue`
 for an uncontrolled input. It does not manage validation, focus, or keyboard navigation.

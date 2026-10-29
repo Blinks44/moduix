@@ -114,7 +114,7 @@ Set `invalid` on the group when validation applies to the selection as a whole.
 
 ### Controlled
 
-Use a controlled checkbox when another part of your UI owns its value. See [Control state from the application](/docs/composition-patterns#controlled-state).
+Use a controlled checkbox when another part of your UI controls its value. See [Control state from the application](/docs/composition-patterns#controlled-state).
 
 <Example name="checkbox/controlled" />
 
@@ -162,11 +162,11 @@ box or its icons.
 ## Composition
 
 `CheckboxHiddenInput` is Ark's native input. Render it explicitly inside `Checkbox` or
-`CheckboxRootProvider`, even outside a form: it owns native focus, keyboard interaction,
+`CheckboxRootProvider`, even outside a form: it handles native focus, keyboard interaction,
 accessibility, and form participation. Put `name` and `value` on the root for a standalone field;
 for a group, put `name` on `CheckboxGroup` and `value` on each `Checkbox`.
 
-`CheckboxGroup` owns an array of selected values, and each child is a `Checkbox` with its own
+`CheckboxGroup` holds an array of selected values, and each child is a `Checkbox` with its own
 `value`. Leave `CheckboxControl` empty for moduix's built-in icons. Add `CheckboxIndicator` inside
 `CheckboxControl` only for a custom indicator.
 

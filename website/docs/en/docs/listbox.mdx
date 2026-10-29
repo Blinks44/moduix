@@ -126,7 +126,7 @@ only when it has no children. Start here when a design replaces the selection ma
 
 ## Composition
 
-Use `defaultValue` for uncontrolled selection. When another part of the application owns the
+Use `defaultValue` for uncontrolled selection. When another part of the application controls the
 selection, pass `value` and update it from `onValueChange(details.value)`. For filtering, set
 `typeahead={false}`, keep the query in application state, and call the `filter` function returned by
 `useListCollection` from the input handler. `ListboxFilter` only provides the joined search-field appearance, so a

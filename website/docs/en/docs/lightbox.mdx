@@ -131,7 +131,7 @@ Ark UI does not provide a dedicated `lightbox` primitive. moduix builds this com
 [styling](https://ark-ui.com/docs/guides/styling), and
 [refs](https://ark-ui.com/docs/guides/ref), and uses `Dialog` as the source of truth for behavior.
 
-`Lightbox` owns Dialog state, while `LightboxBackdrop`, `LightboxPositioner`, and `LightboxContent` stay explicit. The
+`Lightbox` manages Dialog state, while `LightboxBackdrop`, `LightboxPositioner`, and `LightboxContent` stay explicit. The
 overlay parts are portalled by default. Use `portalled={false}` to keep them in place or `portalRef`
 to target a custom container. Render `LightboxCloseIcon` inside `LightboxContent`, outside `LightboxBody`,
 so it remains accessible and part of the focus trap. Content fades; Body scales and translates while

@@ -69,7 +69,7 @@ The output below shows the value of the open item. See [Control state from the a
 
 ## Composition
 
-Use `defaultValue` for an uncontrolled menu. When another part of the application owns the open
+Use `defaultValue` for an uncontrolled menu. When another part of the application controls the open
 item, pass `value` with `onValueChange(details)` or use Vue's `v-model:value`; `details.value` is the
 open item's value or an empty string when all panels are closed. Create the store with
 `useNavigationMenu()` and pass it to `NavigationMenuRootProvider` when it must live outside the
@@ -90,7 +90,7 @@ Hover or focus a part to find it in the preview.
 
 <AnatomyInspector
   parts={[
-    ["NavigationMenu", "navigation-menu-root", "Root `nav` element that owns the open value, delays, focus behavior, and orientation.", 0],
+    ["NavigationMenu", "navigation-menu-root", "Root `nav` element that manages the open value, delays, focus behavior, and orientation.", 0],
     ["NavigationMenuList", "navigation-menu-list", "Groups top-level navigation items.", 1],
     ["NavigationMenuItem", "navigation-menu-item", "Requires a unique `value` and connects an item's trigger, content, and links.", 2],
     ["NavigationMenuLink", "navigation-menu-link", "Anchor for a direct destination or a link inside a disclosure panel.", 3],
@@ -142,7 +142,7 @@ Hover or focus a variable to see it in the preview.
 | `NavigationMenuViewportPositioner` | `navigation-menu-viewport-positioner` |
 | `NavigationMenuViewport` | `navigation-menu-viewport` |
 
-Target the part that owns the visual concern:
+Target the part that renders the element you want to style:
 
 - `NavigationMenu` for root width, text color, and layout position.
 - `NavigationMenuList` for top-level spacing and orientation.

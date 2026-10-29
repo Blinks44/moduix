@@ -96,7 +96,7 @@ grip or adds content to the handle.
 
 ## Composition
 
-Use `size` with `onResize(details)` when the application owns the current panel sizes. Use
+Use `size` with `onResize(details)` when the application controls the current panel sizes. Use
 `SplitterRootProvider` with `useSplitter()` when the store or its controls must live outside the
 rendered panel tree, and choose one root for each store. For nested splitters that should resize
 together at handle intersections, create one `createSplitterRegistry()` and pass it to every root.

@@ -108,7 +108,7 @@ turns each cell's level into a theme-aware paint value.
 Use TanStack's `interactiveColorLegend` instead of a separate `ChartLegend` when readers need to
 hide series. With v1, `hover: 'series'` also applies mark states on pointer hover and keyboard
 focus. The `source: 'legend'` states highlight the series without opening a tooltip or changing
-plot focus. Keep the visible series in framework state through `controlledSignal`; TanStack owns
+plot focus. Keep the visible series in framework state through `controlledSignal`; TanStack handles
 the buttons, filtering, and keyboard interaction.
 
 <Example name="chart/interactive-legend" />
@@ -128,14 +128,14 @@ to a pinned tooltip.
 
 ## Composition
 
-`Chart` is a presentational shell. TanStack's `definition` owns marks, scales, interactions, and
+`Chart` is a presentational shell. TanStack's `definition` defines marks, scales, interactions, and
 callbacks, so keep it at module scope or memoize the complete definition when it depends on props
 or state. Compose `ChartHeader`, `ChartPlot`, and `ChartLegend` under the root; `ChartPlot`
 continues to own rendering, focus, and tooltip state through TanStack.
 
 Use `renderTooltipBody` only when you need to wrap or extend the native tooltip: render the supplied
 `defaultBody` and add interactive controls only while `pinned` is true. `Chart` and
-`ChartHeader` support `asChild` when the semantic wrapper or layout needs to be owned by your
+`ChartHeader` support `asChild` when the semantic wrapper or layout needs to come from your
 application.
 
 ## Anatomy

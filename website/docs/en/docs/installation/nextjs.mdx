@@ -42,7 +42,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 ```
 
 Components that only render markup can stay in a Server Component. Add the `'use client'` directive to your own
-component when it owns state, effects, browser APIs, or event handlers:
+component when it uses state, effects, browser APIs, or event handlers:
 
 ```tsx title="app/continue-button.tsx"
 'use client';
@@ -107,7 +107,7 @@ and import that application stylesheet at the same entry point. Use the generate
 
 With `rsc: true`, the shadcn CLI preserves an existing `'use client'` directive in a registry
 component's source file. It does not infer whether a copied component or your own wrapper needs one.
-Add the directive to your wrapper when it owns state, effects, browser APIs, or event handlers.
+Add the directive to your wrapper when it uses state, effects, browser APIs, or event handlers.
 
 ## Verify
 

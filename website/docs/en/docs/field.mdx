@@ -45,7 +45,7 @@ Use `Field` when one form control needs an accessible label, helper text, an err
 ### Invalid
 
 Set `invalid` on the root when application state or a form library controls validation. Pass it to a
-compound child root as well when that component owns its invalid state.
+compound child root as well when that component manages its own invalid state.
 
 <Example name="field/invalid" />
 
@@ -71,7 +71,7 @@ connections.
 ### Select
 
 Use the composed `Select` when a native select is not enough and you need a custom option list or
-selection UI. Because `Select` owns its state, pass `required`, `invalid`, `disabled`, or `readOnly`
+selection UI. Because `Select` manages its own state, pass `required`, `invalid`, `disabled`, or `readOnly`
 to `Select` when needed.
 
 <Example name="field/select" />

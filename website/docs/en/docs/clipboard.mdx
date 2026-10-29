@@ -100,13 +100,13 @@ needs to be shared or created separately from the rendered component tree. See [
 
 ## Composition
 
-`Clipboard` owns the value and copied state. Keep one value surface (`ClipboardInput` or
+`Clipboard` manages the value and copied state. Keep one value surface (`ClipboardInput` or
 `ClipboardValueText`) and `ClipboardTrigger` inside `ClipboardControl`; `ClipboardIndicator` is
 optional in the trigger. It follows the same copied state, and moduix supplies the default
 copy/check icons when its content is omitted. Pass `copied="Copied"` and children for text labels
 in React and Solid; in Vue, use the default and named `copied` slots.
 
-Use `defaultValue` for an uncontrolled value. When another part of the application owns the value
+Use `defaultValue` for an uncontrolled value. When another part of the application controls the value
 or needs to react to copying, use `value` with `onValueChange(details)` and
 `onStatusChange(details)`; `timeout` controls how long the copied state remains active.
 
@@ -125,7 +125,7 @@ Hover or focus a part to find it in the preview.
 
 <AnatomyInspector
   parts={[
-    ["Clipboard", "clipboard-root", "Owns the value and the temporary copied state.", 0],
+    ["Clipboard", "clipboard-root", "Manages the value and the temporary copied state.", 0],
     ["ClipboardLabel", "clipboard-label", "Provides an accessible label for the value.", 1],
     ["ClipboardControl", "clipboard-control", "Groups the value surface and the copy button.", 1],
     ["ClipboardInput", "clipboard-input", "Renders the value in a read-only input. Use controlled state or `ClipboardContext.setValue()` to change it.", 2],

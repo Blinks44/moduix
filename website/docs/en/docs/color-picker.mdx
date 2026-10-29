@@ -126,7 +126,7 @@ Use controlled state when the selected color must stay in sync with application 
 
 ### Open controlled
 
-Use controlled `open` state when another control or workflow owns the popup's visibility. See [Control state from the application](/docs/composition-patterns#controlled-state).
+Use controlled `open` state when another control or workflow controls the popup's visibility. See [Control state from the application](/docs/composition-patterns#controlled-state).
 
 <Example name="color-picker/open-controlled" />
 
@@ -155,7 +155,7 @@ indicator receive explicit icons. Start here when a design rearranges the popup.
 
 ## Composition
 
-Use `defaultValue` for local state. When application state owns the selected color or popup, pass `value` with `onValueChange(details)` or `open` with `onOpenChange(details)`. In Vue, bind the same state with `v-model`, `v-model:open`, and `v-model:format`. For state created outside the rendered tree, pass `useColorPicker()` to `ColorPickerRootProvider`; do not render `ColorPicker` and `ColorPickerRootProvider` for the same store.
+Use `defaultValue` for local state. When application state controls the selected color or popup, pass `value` with `onValueChange(details)` or `open` with `onOpenChange(details)`. In Vue, bind the same state with `v-model`, `v-model:open`, and `v-model:format`. For state created outside the rendered tree, pass `useColorPicker()` to `ColorPickerRootProvider`; do not render `ColorPicker` and `ColorPickerRootProvider` for the same store.
 
 `ColorPickerPositioner` is portalled by default. Set `portalled={false}` for an overlay inside another stacking context. To submit the color with a native form, set `name` on the root and render `ColorPickerHiddenInput` explicitly. Parts such as `ColorPickerArea`, `ColorPickerChannelSlider`, and `ColorPickerSwatchTrigger` provide default visual children; pass children only when changing their structure.
 
@@ -169,7 +169,7 @@ Hover or focus a part to find it in the preview.
 
 <AnatomyInspector
   parts={[
-    ["ColorPicker", "color-picker-root", "Owns color value, format, popup state, and form integration.", 0],
+    ["ColorPicker", "color-picker-root", "Manages color value, format, popup state, and form integration.", 0],
     ["ColorPickerLabel", "color-picker-label", "Accessible label for the visible picker controls.", 1],
     ["ColorPickerControl", "color-picker-control", "Groups visible inputs and trigger.", 1],
     ["ColorPickerChannelInput", "color-picker-channel-input", "Text or numeric input for a specific color channel.", 2],
@@ -240,7 +240,7 @@ Hover or focus a variable to see it in the preview.
 | `ColorPickerValueText` | `color-picker-value-text` |
 | `ColorPickerView` | `color-picker-view` |
 
-Use the part that owns the visual concern:
+Use the part that renders the element you want to style:
 
 - `ColorPicker` for width, gap, shared color, and disabled opacity
 - `ColorPickerControl`, `ColorPickerChannelInput`, `ColorPickerTrigger`, `ColorPickerFormatSelect`, and `ColorPickerFormatTrigger` for the

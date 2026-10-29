@@ -92,7 +92,7 @@ Use `PaginationContext` to place custom controls next to the page list and call 
 ### Root provider
 
 Create state with `usePagination()` and pass it to `PaginationRootProvider` when the
-state owner lives outside the rendered pagination tree. See [Share state outside the tree](/docs/composition-patterns#root-provider).
+state lives outside the rendered pagination tree. See [Share state outside the tree](/docs/composition-patterns#root-provider).
 
 <Example name="pagination/root-provider" />
 
@@ -108,7 +108,7 @@ and next triggers keep their default chevrons: passing children turns them into 
 ## Composition
 
 Use `defaultPage` and `defaultPageSize` for internal state, or pass `page`, `pageSize`, and the
-matching change callbacks when another part of the application owns it. Set `count` to the total
+matching change callbacks when another part of the application controls it. Set `count` to the total
 number of data items, not the number of pages, and pair it with a page-size prop so Ark can calculate
 `totalPages`.
 

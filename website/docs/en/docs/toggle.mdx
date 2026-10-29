@@ -98,7 +98,7 @@ can merge its interaction props and accessibility state into that element.
 Import it from `@moduix/react/toggle`, `@moduix/solid/toggle`, or `@moduix/vue/toggle`.
 
 Use `defaultPressed` for an uncontrolled toggle, or pass `pressed` with `onPressedChange` when
-application state owns the value. Use `ToggleIndicator` when
+application state controls the value. Use `ToggleIndicator` when
 the button content changes with its pressed state. For custom descendants that need the state, use
 `ToggleContext` or `useToggleContext()` from the matching package. Use `asChild` when another button
 should host the toggle behavior. In Solid, `asChild` takes a render function; in React, it takes one
@@ -113,7 +113,7 @@ Hover or focus a part to find it in the preview.
 
 <AnatomyInspector
   parts={[
-    ["Toggle", "toggle-root", "Root part that owns pressed state, focus, disabled state, and `asChild` composition.", 0],
+    ["Toggle", "toggle-root", "Root part that manages pressed state, focus, disabled state, and `asChild` composition.", 0],
     ["ToggleIndicator", "toggle-indicator", "Optional part that renders pressed content and its `fallback` when the toggle is off.", 1],
     ["ToggleContext", null, "Reads the nearest toggle state for custom descendants; it does not render a DOM part.", 0],
   ]}

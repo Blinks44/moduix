@@ -29,7 +29,7 @@ proposed diff before changing files.
 
 ## Installer le Skill moduix
 
-moduix publie le Skill destiné aux utilisateurs `moduix` depuis le dossier `skills/moduix` du dépôt. Il aide les agents compatibles à identifier le framework, la variante de styles et le modèle de propriété du projet avant de modifier le code. Le Skill fournit uniquement des instructions : il n'installe aucun package moduix et ne copie aucun composant depuis un registry.
+moduix publie le Skill destiné aux utilisateurs `moduix` depuis le dossier `skills/moduix` du dépôt. Il aide les agents compatibles à identifier le framework, la variante de styles et le mode d’installation du projet avant de modifier le code. Le Skill fournit uniquement des instructions : il n'installe aucun package moduix et ne copie aucun composant depuis un registry.
 
 Installez uniquement le Skill `moduix` depuis le dépôt :
 
@@ -42,7 +42,7 @@ par exemple via son handle `$moduix`.
 
 ## Indiquer comment moduix est intégré
 
-moduix propose deux modèles de propriété du code :
+moduix propose deux modes d’installation :
 
 - **Géré par un package :** le projet importe un package public `@moduix/*`. Les mises à jour passent par le gestionnaire de packages.
 - **Copié dans le projet :** la CLI shadcn copie un élément d'un registry moduix. Le projet devient responsable des fichiers générés et de leur maintenance.
@@ -58,7 +58,7 @@ Choisissez le package et le registry qui correspondent au projet :
 | Solid avec Tailwind CSS | `@moduix/solid-tailwind/<component>` | `@moduix-solid-tailwind/<name>` |
 | Vue avec Tailwind CSS | `@moduix/vue-tailwind/<component>` | `@moduix-vue-tailwind/<name>` |
 
-Consultez le [Quick Start](./quick-start) pour installer les packages et configurer les registries. Ne demandez pas à l'assistant de copier le code d'un registry dans un projet géré par package sans vouloir changer de modèle de propriété.
+Consultez le [Quick Start](./quick-start) pour installer les packages et configurer les registries. Ne demandez pas à l'assistant de copier le code d'un registry dans un projet géré par package sans vouloir changer de mode d’installation.
 
 ## Connecter le serveur MCP de shadcn
 
@@ -78,7 +78,7 @@ Redémarrez Codex après avoir modifié la configuration. Pour les autres client
 
 Avant d'accepter une modification, vérifiez que l'assistant :
 
-- a choisi le bon framework, le bon système de styles et le bon modèle de propriété
+- a choisi le bon framework, le bon système de styles et le bon mode d’installation
 - utilise uniquement les imports publics et les API documentées
 - n'a pas écrasé les modifications locales
 - préserve l'accessibilité et l'état géré par l'application

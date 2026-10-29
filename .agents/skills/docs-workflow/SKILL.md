@@ -36,6 +36,7 @@ or component-index pages, read [the framework-support contract](references/frame
   package exports and registries. The documentation application runs React; do not silently present
   its live preview as a different runtime or styling variant.
 - Keep prose and snippets consumer-facing, complete, and production-like. Do not hide required setup, callbacks, collection data, or Ark composition behind docs-only helpers.
+- Write the brand as lowercase `moduix`. In public docs, avoid contract wording such as "owns", "owned", and "ownership" (ru "владеет", fr "possède"): say what the part does (manages, controls, renders, handles), and call package versus copied registry source the install method.
 - Render every reader-facing package installation, dependency update, executable package, registry CLI, or skill installation command with Rspress `PackageManagerTabs`. Pass a manager-neutral command such as `install <package>` and set `dlx` for temporary executables. Do not hardcode npm, pnpm, Yarn, Bun, or Deno commands in MDX unless manager-specific behavior is the subject of the page.
 - Prefer a small local helper to repeated visible ceremony, but never a page builder, hidden DSL, or abstraction that hides the documented composition.
 - Keep demo-only styling in the docs app or example CSS module, separate from library styling.
