@@ -225,6 +225,8 @@ Survolez ou sélectionnez une variable pour la voir dans l’aperçu.
 | `ComboboxItemText` | `combobox-item-text` |
 | `ComboboxItemIndicator` | `combobox-item-indicator` |
 
+- Sélecteurs d'état Ark : `data-readonly` sur la racine, le libellé et le déclencheur ; `data-required` sur le libellé.
+
 - Les parties Ark conservent `data-scope="combobox"` et leurs valeurs `data-part`. moduix ajoute des points d’accroche
   `data-slot` stables aux parties stylisées.
 - `ComboboxOption` réutilise les slots de l’élément sans ajouter de point d’accroche.
@@ -270,3 +272,23 @@ Survolez ou sélectionnez une variable pour la voir dans l’aperçu.
 | `required` | `boolean` | `false` |
 | `lazyMount` | `boolean` | `true` |
 | `unmountOnExit` | `boolean` | `true` |
+| `defaultOpen` | `boolean` | — |
+| `defaultInputValue` | `string` | `''` |
+| `form` | `string` | — |
+| `defaultHighlightedValue` | `string \| null` | — |
+| `highlightedValue` | `string \| null` | — |
+| `autoFocus` | `boolean` | — |
+| `openOnChange` | `boolean \| ((details: InputValueChangeDetails) => boolean)` | `true` |
+| `alwaysSubmitOnEnter` | `boolean` | `false` |
+| `loopFocus` | `boolean` | `true` |
+| `onHighlightChange` | `(details: HighlightChangeDetails<T>) => void` | — |
+| `onSelect` | `(details: SelectionDetails) => void` | — |
+| `translations` | `IntlTranslations` | — |
+| `openOnKeyPress` | `boolean` | `true` |
+| `scrollToIndexFn` | `(details: ScrollToIndexDetails) => void` | — |
+| `composite` | `boolean` | `true` |
+| `disableLayer` | `boolean` | — |
+| `navigate` | `((details: NavigateDetails) => void) \| null` | — |
+| `onPointerDownOutside` | `(event: PointerDownOutsideEvent) => void` | — |
+| `onFocusOutside` | `(event: FocusOutsideEvent) => void` | — |
+| `onInteractOutside` | `(event: InteractOutsideEvent) => void` | — |

@@ -167,6 +167,8 @@ Vue сохранял экземпляр класса.
 | `TreeViewNodeCheckboxIndicator` | `tree-view-node-checkbox-indicator` |
 | `TreeViewNodeRenameInput` | `tree-view-node-rename-input` |
 
+- Селекторы состояния Ark: `data-state="open|closed"` и `data-loading` на ветках; `data-selected`, `data-focus`, `data-disabled`, `data-checked`, `data-indeterminate`, `data-renaming` и `data-depth` на узлах и кнопках веток.
+
 ## Клавиатура
 
 | Клавиша | Действие |
@@ -199,3 +201,14 @@ Vue сохранял экземпляр класса.
 | `typeahead` | `boolean` | `true` |
 | `loadChildren` | `(details: LoadChildrenDetails) => Promise<T[]>` | — |
 | `canRename` | `(node: T, indexPath: IndexPath) => boolean` | — |
+| `translations` | `IntlTranslations` | — |
+| `defaultCheckedValue` | `string[]` | — |
+| `defaultFocusedValue` | `string \| null` | — |
+| `focusedValue` | `string \| null` | — |
+| `onFocusChange` | `(details: FocusChangeDetails<T>) => void` | — |
+| `onRenameStart` | `(details: RenameStartDetails<T>) => void` | — |
+| `onBeforeRename` | `(details: RenameCompleteDetails) => boolean` | — |
+| `onRenameComplete` | `(details: RenameCompleteDetails) => void` | — |
+| `onLoadChildrenComplete` | `(details: LoadChildrenCompleteDetails<T>) => void` | — |
+| `onLoadChildrenError` | `(details: LoadChildrenErrorDetails<T>) => void` | — |
+| `scrollToIndexFn` | `(details: ScrollToIndexDetails<T>) => void` | — |

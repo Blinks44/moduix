@@ -198,6 +198,8 @@ Survolez ou sélectionnez une variable pour la voir dans l’aperçu.
 | `NumberInputIncrementTrigger` | `number-input-increment-trigger` |
 | `NumberInputValueText` | `number-input-value-text` |
 
+- Sélecteurs d'état Ark : `data-required` sur le libellé.
+
 - Attributs d’état Ark : `data-disabled`, `data-invalid`, `data-focus` et `data-scrubbing`.
 - Attributs des parties Ark : `data-scope="number-input"` et valeurs de `data-part` correspondant à l’anatomie Ark.
 
@@ -224,7 +226,7 @@ Survolez ou sélectionnez une variable pour la voir dans l’aperçu.
 | `step` | `number` | `1` |
 | `largeStep` | `number` | `10 * step` |
 | `formatOptions` | `Intl.NumberFormatOptions` | — |
-| `locale` | `string` | — |
+| `locale` | `string` | `'en-US'` |
 | `allowMouseWheel` | `boolean` | `false` |
 | `clampValueOnBlur` | `boolean` | `true` |
 | `spinOnPress` | `boolean` | `true` |
@@ -234,3 +236,12 @@ Survolez ou sélectionnez une variable pour la voir dans l’aperçu.
 | `readOnly` | `boolean` | `false` |
 | `invalid` | `boolean` | `false` |
 | `required` | `boolean` | `false` |
+| `form` | `string` | — |
+| `pattern` | `string` | `'-?[0-9]*(.[0-9]+)?'` |
+| `smallStep` | `number` | `step / 10` |
+| `allowOverflow` | `boolean` | `true` |
+| `focusInputOnChange` | `boolean` | `true` |
+| `translations` | `IntlTranslations` | — |
+| `inputMode` | `InputMode` | `'decimal'` |
+| `onValueInvalid` | `(details: ValueInvalidDetails) => void` | — |
+| `onFocusChange` | `(details: FocusChangeDetails) => void` | — |

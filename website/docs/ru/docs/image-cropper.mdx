@@ -187,6 +187,8 @@ foundation и не имеют переменных компонента: кла�
 | `ImageCropperGrid` | `image-cropper-grid` |
 | `ImageCropperHandle` | `image-cropper-handle` |
 
+- Селекторы состояния Ark: `data-flip-horizontal` и `data-flip-vertical` на `ImageCropperImage`.
+
 Ark также предоставляет
 `data-scope="image-cropper"`, `data-part` и атрибуты состояния на соответствующих частях, включая
 `data-fixed`, `data-shape`, `data-pinch`, `data-ready`, `data-disabled`, `data-measured`,
@@ -228,3 +230,10 @@ Ark записывает в корневой элемент `--crop-width`, `--c
 | `onCropChange` | `(details: CropChangeDetails) => void` | — |
 | `onZoomChange` | `(details: ZoomChangeDetails) => void` | — |
 | `onRotationChange` | `(details: RotationChangeDetails) => void` | — |
+| `translations` | `IntlTranslations` | — |
+| `defaultFlip` | `FlipState` | `{ horizontal: false, vertical: false }` |
+| `zoomSensitivity` | `number` | `2` |
+| `nudgeStep` | `number` | `1` |
+| `nudgeStepShift` | `number` | `10` |
+| `nudgeStepCtrl` | `number` | `50` |
+| `onFlipChange` | `(details: FlipChangeDetails) => void` | — |

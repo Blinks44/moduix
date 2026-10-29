@@ -170,6 +170,8 @@ Survolez ou sélectionnez une variable pour la voir dans l’aperçu.
 | `TreeViewNodeCheckboxIndicator` | `tree-view-node-checkbox-indicator` |
 | `TreeViewNodeRenameInput` | `tree-view-node-rename-input` |
 
+- Sélecteurs d'état Ark : `data-state="open|closed"` et `data-loading` sur les branches ; `data-selected`, `data-focus`, `data-disabled`, `data-checked`, `data-indeterminate`, `data-renaming` et `data-depth` sur les nœuds et les contrôles de branche.
+
 ## Clavier
 
 | Touche | Action |
@@ -202,3 +204,14 @@ Survolez ou sélectionnez une variable pour la voir dans l’aperçu.
 | `typeahead` | `boolean` | `true` |
 | `loadChildren` | `(details: LoadChildrenDetails) => Promise<T[]>` | — |
 | `canRename` | `(node: T, indexPath: IndexPath) => boolean` | — |
+| `translations` | `IntlTranslations` | — |
+| `defaultCheckedValue` | `string[]` | — |
+| `defaultFocusedValue` | `string \| null` | — |
+| `focusedValue` | `string \| null` | — |
+| `onFocusChange` | `(details: FocusChangeDetails<T>) => void` | — |
+| `onRenameStart` | `(details: RenameStartDetails<T>) => void` | — |
+| `onBeforeRename` | `(details: RenameCompleteDetails) => boolean` | — |
+| `onRenameComplete` | `(details: RenameCompleteDetails) => void` | — |
+| `onLoadChildrenComplete` | `(details: LoadChildrenCompleteDetails<T>) => void` | — |
+| `onLoadChildrenError` | `(details: LoadChildrenErrorDetails<T>) => void` | — |
+| `scrollToIndexFn` | `(details: ScrollToIndexDetails<T>) => void` | — |

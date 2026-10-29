@@ -165,6 +165,8 @@ and consumer `className` or `class` overrides.
 | `PinInputInput` | `pin-input-input` |
 | `PinInputSeparator` | `pin-input-separator` |
 
+- Ark state selectors: `data-required` on the label.
+
 - Ark parts use `data-scope="pin-input"` and `data-part="root" | "label" | "control" | "input"`.
 - Root state styling uses `data-disabled`, `data-invalid`, `data-complete`, and `data-readonly`.
 - Input state styling uses `data-disabled`, `data-invalid`, `data-complete`, `data-filled`, and `data-index`.
@@ -201,3 +203,10 @@ and consumer `className` or `class` overrides.
 | `readOnly` | `boolean` | `false` |
 | `invalid` | `boolean` | `false` |
 | `required` | `boolean` | `false` |
+| `form` | `string` | — |
+| `pattern` | `string` | — |
+| `onValueInvalid` | `(details: ValueInvalidDetails) => void` | — |
+| `autoSubmit` | `boolean` | — |
+| `selectOnFocus` | `boolean` | — |
+| `sanitizeValue` | `(value: string) => string` | — |
+| `translations` | `IntlTranslations` | — |

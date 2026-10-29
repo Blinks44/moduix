@@ -199,6 +199,8 @@ Hover or focus a variable to see it in the preview.
 | `NumberInputIncrementTrigger` | `number-input-increment-trigger` |
 | `NumberInputValueText` | `number-input-value-text` |
 
+- Ark state selectors: `data-required` on the label.
+
 - Ark state hooks: `data-disabled`, `data-invalid`, `data-focus`, and `data-scrubbing`.
 - Ark part hooks: `data-scope="number-input"` and `data-part` values matching the Ark anatomy.
 
@@ -225,7 +227,7 @@ Hover or focus a variable to see it in the preview.
 | `step` | `number` | `1` |
 | `largeStep` | `number` | `10 * step` |
 | `formatOptions` | `Intl.NumberFormatOptions` | — |
-| `locale` | `string` | — |
+| `locale` | `string` | `'en-US'` |
 | `allowMouseWheel` | `boolean` | `false` |
 | `clampValueOnBlur` | `boolean` | `true` |
 | `spinOnPress` | `boolean` | `true` |
@@ -235,3 +237,12 @@ Hover or focus a variable to see it in the preview.
 | `readOnly` | `boolean` | `false` |
 | `invalid` | `boolean` | `false` |
 | `required` | `boolean` | `false` |
+| `form` | `string` | — |
+| `pattern` | `string` | `'-?[0-9]*(.[0-9]+)?'` |
+| `smallStep` | `number` | `step / 10` |
+| `allowOverflow` | `boolean` | `true` |
+| `focusInputOnChange` | `boolean` | `true` |
+| `translations` | `IntlTranslations` | — |
+| `inputMode` | `InputMode` | `'decimal'` |
+| `onValueInvalid` | `(details: ValueInvalidDetails) => void` | — |
+| `onFocusChange` | `(details: FocusChangeDetails) => void` | — |

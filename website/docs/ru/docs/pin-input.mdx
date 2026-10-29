@@ -169,6 +169,8 @@ Ark управляет переводом фокуса, распределени
 | `PinInputInput` | `pin-input-input` |
 | `PinInputSeparator` | `pin-input-separator` |
 
+- Селекторы состояния Ark: `data-required` на подписи.
+
 - Части Ark используют `data-scope="pin-input"` и `data-part="root" | "label" | "control" | "input"`.
 - Для стилей состояния корня используются `data-disabled`, `data-invalid`, `data-complete` и `data-readonly`.
 - Для стилей состояния ячейки используются `data-disabled`, `data-invalid`, `data-complete`, `data-filled` и
@@ -206,3 +208,10 @@ Ark управляет переводом фокуса, распределени
 | `readOnly` | `boolean` | `false` |
 | `invalid` | `boolean` | `false` |
 | `required` | `boolean` | `false` |
+| `form` | `string` | — |
+| `pattern` | `string` | — |
+| `onValueInvalid` | `(details: ValueInvalidDetails) => void` | — |
+| `autoSubmit` | `boolean` | — |
+| `selectOnFocus` | `boolean` | — |
+| `sanitizeValue` | `(value: string) => string` | — |
+| `translations` | `IntlTranslations` | — |

@@ -219,8 +219,8 @@ Tailwind используют обычные utility-классы и класс�
 | `isDateUnavailable` | `(date: DateValue, locale: string) => boolean` | — |
 | `granularity` | `'day' \| 'hour' \| 'minute' \| 'second'` | `'day'` |
 | `selectionMode` | `'single' \| 'range'` | `'single'` |
-| `locale` | `string` | — |
-| `timeZone` | `string` | — |
+| `locale` | `string` | `'en-US'` |
+| `timeZone` | `string` | `'UTC'` |
 | `hourCycle` | `12 \| 24` | — |
 | `shouldForceLeadingZeros` | `boolean` | `false` |
 | `name` | `string` | — |
@@ -228,3 +228,14 @@ Tailwind используют обычные utility-классы и класс�
 | `readOnly` | `boolean` | `false` |
 | `invalid` | `boolean` | `false` |
 | `required` | `boolean` | `false` |
+| `createCalendar` | `(identifier: CalendarIdentifier) => Calendar` | — |
+| `translations` | `IntlTranslations` | — |
+| `form` | `string` | — |
+| `placeholderValue` | `DateValue` | — |
+| `defaultPlaceholderValue` | `DateValue` | — |
+| `onPlaceholderChange` | `(details: PlaceholderChangeDetails) => void` | — |
+| `onFocusChange` | `(details: FocusChangeDetails) => void` | — |
+| `hideTimeZone` | `boolean` | `false` |
+| `formatter` | `DateFormatter` | — |
+| `allSegments` | `Segments` | — |
+| `format` | `(date: DateValue, details: FormatDateDetails) => string` | — |

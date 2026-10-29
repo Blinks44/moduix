@@ -168,6 +168,8 @@ Tailwind utilisent des classes utilitaires natives et les remplacements de l’u
 | `PinInputInput` | `pin-input-input` |
 | `PinInputSeparator` | `pin-input-separator` |
 
+- Sélecteurs d'état Ark : `data-required` sur le libellé.
+
 - Les parties Ark utilisent `data-scope="pin-input"` et `data-part="root" | "label" | "control" | "input"`.
 - Les styles de l’état racine utilisent `data-disabled`, `data-invalid`, `data-complete` et `data-readonly`.
 - Les styles d’état des cases utilisent `data-disabled`, `data-invalid`, `data-complete`, `data-filled` et
@@ -205,3 +207,10 @@ Tailwind utilisent des classes utilitaires natives et les remplacements de l’u
 | `readOnly` | `boolean` | `false` |
 | `invalid` | `boolean` | `false` |
 | `required` | `boolean` | `false` |
+| `form` | `string` | — |
+| `pattern` | `string` | — |
+| `onValueInvalid` | `(details: ValueInvalidDetails) => void` | — |
+| `autoSubmit` | `boolean` | — |
+| `selectOnFocus` | `boolean` | — |
+| `sanitizeValue` | `(value: string) => string` | — |
+| `translations` | `IntlTranslations` | — |

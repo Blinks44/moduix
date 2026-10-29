@@ -183,6 +183,8 @@ tracks.
 | `ImageCropperGrid` | `image-cropper-grid` |
 | `ImageCropperHandle` | `image-cropper-handle` |
 
+- Ark state selectors: `data-flip-horizontal` and `data-flip-vertical` on `ImageCropperImage`.
+
 Ark also exposes `data-scope="image-cropper"`,
 `data-part`, and state attributes such as `data-fixed`, `data-shape`, `data-pinch`, `data-ready`,
 `data-disabled`, `data-measured`, `data-dragging`, `data-panning`, `data-axis`, and `data-position`
@@ -223,3 +225,10 @@ runtime values for synchronizing custom UI. Do not override them.
 | `onCropChange` | `(details: CropChangeDetails) => void` | — |
 | `onZoomChange` | `(details: ZoomChangeDetails) => void` | — |
 | `onRotationChange` | `(details: RotationChangeDetails) => void` | — |
+| `translations` | `IntlTranslations` | — |
+| `defaultFlip` | `FlipState` | `{ horizontal: false, vertical: false }` |
+| `zoomSensitivity` | `number` | `2` |
+| `nudgeStep` | `number` | `1` |
+| `nudgeStepShift` | `number` | `10` |
+| `nudgeStepCtrl` | `number` | `50` |
+| `onFlipChange` | `(details: FlipChangeDetails) => void` | — |

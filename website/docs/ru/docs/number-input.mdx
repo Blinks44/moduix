@@ -197,6 +197,8 @@ import * as NumberInputDocs from '@/components/examples/number-input/css-propert
 | `NumberInputIncrementTrigger` | `number-input-increment-trigger` |
 | `NumberInputValueText` | `number-input-value-text` |
 
+- Селекторы состояния Ark: `data-required` на подписи.
+
 - Атрибуты состояния Ark: `data-disabled`, `data-invalid`, `data-focus` и `data-scrubbing`.
 - Атрибуты частей Ark: `data-scope="number-input"` и значения `data-part`, соответствующие анатомии Ark.
 
@@ -223,7 +225,7 @@ import * as NumberInputDocs from '@/components/examples/number-input/css-propert
 | `step` | `number` | `1` |
 | `largeStep` | `number` | `10 * step` |
 | `formatOptions` | `Intl.NumberFormatOptions` | — |
-| `locale` | `string` | — |
+| `locale` | `string` | `'en-US'` |
 | `allowMouseWheel` | `boolean` | `false` |
 | `clampValueOnBlur` | `boolean` | `true` |
 | `spinOnPress` | `boolean` | `true` |
@@ -233,3 +235,12 @@ import * as NumberInputDocs from '@/components/examples/number-input/css-propert
 | `readOnly` | `boolean` | `false` |
 | `invalid` | `boolean` | `false` |
 | `required` | `boolean` | `false` |
+| `form` | `string` | — |
+| `pattern` | `string` | `'-?[0-9]*(.[0-9]+)?'` |
+| `smallStep` | `number` | `step / 10` |
+| `allowOverflow` | `boolean` | `true` |
+| `focusInputOnChange` | `boolean` | `true` |
+| `translations` | `IntlTranslations` | — |
+| `inputMode` | `InputMode` | `'decimal'` |
+| `onValueInvalid` | `(details: ValueInvalidDetails) => void` | — |
+| `onFocusChange` | `(details: FocusChangeDetails) => void` | — |

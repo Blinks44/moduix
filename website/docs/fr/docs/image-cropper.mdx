@@ -190,6 +190,8 @@ communs aux deux approches.
 | `ImageCropperGrid` | `image-cropper-grid` |
 | `ImageCropperHandle` | `image-cropper-handle` |
 
+- Sélecteurs d'état Ark : `data-flip-horizontal` et `data-flip-vertical` sur `ImageCropperImage`.
+
 Ark expose également `data-scope="image-cropper"`,
 `data-part` et des attributs d’état tels que `data-fixed`, `data-shape`, `data-pinch`, `data-ready`,
 `data-disabled`, `data-measured`, `data-dragging`, `data-panning`, `data-axis` et `data-position`
@@ -231,3 +233,10 @@ redéfinissez pas.
 | `onCropChange` | `(details: CropChangeDetails) => void` | — |
 | `onZoomChange` | `(details: ZoomChangeDetails) => void` | — |
 | `onRotationChange` | `(details: RotationChangeDetails) => void` | — |
+| `translations` | `IntlTranslations` | — |
+| `defaultFlip` | `FlipState` | `{ horizontal: false, vertical: false }` |
+| `zoomSensitivity` | `number` | `2` |
+| `nudgeStep` | `number` | `1` |
+| `nudgeStepShift` | `number` | `10` |
+| `nudgeStepCtrl` | `number` | `50` |
+| `onFlipChange` | `(details: FlipChangeDetails) => void` | — |

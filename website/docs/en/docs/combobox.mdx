@@ -227,6 +227,8 @@ Hover or focus a variable to see it in the preview.
 | `ComboboxItemText` | `combobox-item-text` |
 | `ComboboxItemIndicator` | `combobox-item-indicator` |
 
+- Ark state selectors: `data-readonly` on the root, label, and trigger; `data-required` on the label.
+
 - Ark parts keep `data-scope="combobox"` and their `data-part` values. moduix adds stable `data-slot`
   hooks to the styled parts.
 - `ComboboxOption` reuses the item slots instead of adding its own styling hook.
@@ -273,3 +275,23 @@ Hover or focus a variable to see it in the preview.
 | `required` | `boolean` | `false` |
 | `lazyMount` | `boolean` | `true` |
 | `unmountOnExit` | `boolean` | `true` |
+| `defaultOpen` | `boolean` | — |
+| `defaultInputValue` | `string` | `''` |
+| `form` | `string` | — |
+| `defaultHighlightedValue` | `string \| null` | — |
+| `highlightedValue` | `string \| null` | — |
+| `autoFocus` | `boolean` | — |
+| `openOnChange` | `boolean \| ((details: InputValueChangeDetails) => boolean)` | `true` |
+| `alwaysSubmitOnEnter` | `boolean` | `false` |
+| `loopFocus` | `boolean` | `true` |
+| `onHighlightChange` | `(details: HighlightChangeDetails<T>) => void` | — |
+| `onSelect` | `(details: SelectionDetails) => void` | — |
+| `translations` | `IntlTranslations` | — |
+| `openOnKeyPress` | `boolean` | `true` |
+| `scrollToIndexFn` | `(details: ScrollToIndexDetails) => void` | — |
+| `composite` | `boolean` | `true` |
+| `disableLayer` | `boolean` | — |
+| `navigate` | `((details: NavigateDetails) => void) \| null` | — |
+| `onPointerDownOutside` | `(event: PointerDownOutsideEvent) => void` | — |
+| `onFocusOutside` | `(event: FocusOutsideEvent) => void` | — |
+| `onInteractOutside` | `(event: InteractOutsideEvent) => void` | — |

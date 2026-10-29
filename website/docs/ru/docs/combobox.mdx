@@ -226,6 +226,8 @@ import * as ComboboxDocs from '@/components/examples/combobox/css-properties';
 | `ComboboxItemText` | `combobox-item-text` |
 | `ComboboxItemIndicator` | `combobox-item-indicator` |
 
+- Селекторы состояния Ark: `data-readonly` на корне, подписи и кнопке; `data-required` на подписи.
+
 - Части Ark сохраняют `data-scope="combobox"` и значения `data-part`. moduix добавляет к стилизованным
   частям стабильные хуки `data-slot`.
 - `ComboboxOption` переиспользует слоты элемента, не добавляя собственного
@@ -272,3 +274,23 @@ import * as ComboboxDocs from '@/components/examples/combobox/css-properties';
 | `required` | `boolean` | `false` |
 | `lazyMount` | `boolean` | `true` |
 | `unmountOnExit` | `boolean` | `true` |
+| `defaultOpen` | `boolean` | — |
+| `defaultInputValue` | `string` | `''` |
+| `form` | `string` | — |
+| `defaultHighlightedValue` | `string \| null` | — |
+| `highlightedValue` | `string \| null` | — |
+| `autoFocus` | `boolean` | — |
+| `openOnChange` | `boolean \| ((details: InputValueChangeDetails) => boolean)` | `true` |
+| `alwaysSubmitOnEnter` | `boolean` | `false` |
+| `loopFocus` | `boolean` | `true` |
+| `onHighlightChange` | `(details: HighlightChangeDetails<T>) => void` | — |
+| `onSelect` | `(details: SelectionDetails) => void` | — |
+| `translations` | `IntlTranslations` | — |
+| `openOnKeyPress` | `boolean` | `true` |
+| `scrollToIndexFn` | `(details: ScrollToIndexDetails) => void` | — |
+| `composite` | `boolean` | `true` |
+| `disableLayer` | `boolean` | — |
+| `navigate` | `((details: NavigateDetails) => void) \| null` | — |
+| `onPointerDownOutside` | `(event: PointerDownOutsideEvent) => void` | — |
+| `onFocusOutside` | `(event: FocusOutsideEvent) => void` | — |
+| `onInteractOutside` | `(event: InteractOutsideEvent) => void` | — |

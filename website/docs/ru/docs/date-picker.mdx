@@ -283,6 +283,8 @@ moduix.
 | `DatePickerPresetTrigger` | `date-picker-preset-trigger` |
 | `DatePickerValueText` | `date-picker-value-text` |
 
+- Селекторы состояния Ark: `data-weekend` на кнопках дней и `data-placeholder-shown` на полях ввода.
+
 Атрибуты состояния Ark включают `data-state`, `data-disabled`, `data-readonly`, `data-invalid`,
 `data-focus`, `data-selected`, `data-today`, `data-unavailable`, `data-outside-range`,
 `data-in-range`, `data-range-start`, `data-range-end`, `data-in-hover-range`,
@@ -328,3 +330,20 @@ moduix.
 | `required` | `boolean` | `false` |
 | `lazyMount` | `boolean` | `true` |
 | `unmountOnExit` | `boolean` | `true` |
+| `createCalendar` | `(identifier: CalendarIdentifier) => Calendar` | — |
+| `translations` | `IntlTranslations` | — |
+| `outsideDaySelectable` | `boolean` | `false` |
+| `openOnClick` | `boolean` | `false` |
+| `focusedValue` | `DateValue` | — |
+| `defaultFocusedValue` | `DateValue` | — |
+| `onFocusChange` | `(details: FocusChangeDetails) => void` | — |
+| `onViewChange` | `(details: ViewChangeDetails) => void` | — |
+| `onVisibleRangeChange` | `(details: VisibleRangeChangeDetails) => void` | — |
+| `maxSelectedDates` | `number` | — |
+| `format` | `(date: DateValue, details: LocaleDetails) => string` | — |
+| `parse` | `(value: string, details: LocaleDetails) => DateValue \| undefined` | — |
+| `placeholder` | `string` | — |
+| `view` | `DateView` | — |
+| `minView` | `DateView` | `'day'` |
+| `maxView` | `DateView` | `'year'` |
+| `defaultOpen` | `boolean` | — |
