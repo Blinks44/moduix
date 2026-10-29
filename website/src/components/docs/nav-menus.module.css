@@ -116,7 +116,7 @@
   flex-shrink: 0;
   box-sizing: border-box;
   border-radius: 8px;
-  background: #18181b;
+  background: #1d1d25;
 
   &[data-preset='dense'] {
     border-radius: 5px;
@@ -135,7 +135,7 @@
   }
 
   :global(.dark) & {
-    background: #fafafa;
+    background: #e3e3e8;
 
     &[data-preset='dense'] {
       background: #76b4ff;
