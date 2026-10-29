@@ -422,11 +422,11 @@
   --moduix-spinner-size: initial; /* size-specific, md: var(--moduix-spacing-5) */
 
   /* Switch */
-  --moduix-switch-bg: initial; /* var(--moduix-muted) */
+  --moduix-switch-bg: initial; /* color-mix(in oklab, var(--moduix-input) 40%, var(--moduix-background)) */
   --moduix-switch-bg-checked: initial; /* var(--moduix-primary) */
-  --moduix-switch-border-color: initial; /* var(--moduix-border) */
+  --moduix-switch-border-color: initial; /* transparent */
   --moduix-switch-gap: initial; /* var(--moduix-spacing-2) */
-  --moduix-switch-thumb-bg: initial; /* var(--moduix-input), checked var(--moduix-primary-foreground) */
+  --moduix-switch-thumb-bg: initial; /* white, checked var(--moduix-primary-foreground) */
 
   /* Swap */
   --moduix-swap-transition: initial; /* var(--moduix-transition-slow) */

@@ -23,10 +23,12 @@
     flex: none;
     width: 2.75rem;
     height: var(--moduix-size-xs);
-    border: var(--moduix-border-width-sm) solid
-      var(--moduix-switch-border-color, var(--moduix-input));
+    border: var(--moduix-border-width-sm) solid var(--moduix-switch-border-color, transparent);
     border-radius: var(--moduix-radius-full);
-    background-color: var(--moduix-switch-bg, var(--moduix-muted));
+    background-color: var(
+      --moduix-switch-bg,
+      color-mix(in oklab, var(--moduix-input) 40%, var(--moduix-background))
+    );
     user-select: none;
     transition:
       background-color var(--moduix-transition-default),
@@ -49,7 +51,7 @@
 
     @media (hover: hover) {
       &[data-state='unchecked'][data-hover]:not([data-readonly], [data-disabled]) {
-        background-color: var(--moduix-accent);
+        background-color: color-mix(in oklab, var(--moduix-input) 55%, var(--moduix-background));
       }
     }
   }
@@ -85,25 +87,21 @@
     height: calc(100% - var(--moduix-spacing-0-5) * 2);
     aspect-ratio: 1;
     border-radius: var(--moduix-radius-full);
-    background-color: var(--moduix-switch-thumb-bg, var(--moduix-input));
-    color: var(--moduix-muted);
+    background-color: var(--moduix-switch-thumb-bg, white);
+    color: var(--moduix-muted-foreground);
+    box-shadow: var(--moduix-shadow-sm);
     translate: 0 -50%;
-    scale: 0.75;
     transition:
       inset-inline-start var(--moduix-transition-default),
       translate var(--moduix-transition-default),
-      scale var(--moduix-transition-default),
       background-color var(--moduix-transition-default),
-      box-shadow var(--moduix-transition-default),
       color var(--moduix-transition-default);
 
     &[data-state='checked'] {
       inset-inline-start: calc(100% - var(--moduix-spacing-0-5));
       background-color: var(--moduix-switch-thumb-bg, var(--moduix-primary-foreground));
       color: var(--moduix-primary);
-      box-shadow: var(--moduix-shadow-sm);
       translate: -100% -50%;
-      scale: 1;
 
       &[dir='rtl'] {
         translate: 100% -50%;
