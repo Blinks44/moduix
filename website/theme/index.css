@@ -7,6 +7,7 @@
 :root {
   --rp-font-family-base: 'Noto Sans Variable', system-ui, sans-serif;
   --rp-font-family-mono: 'JetBrains Mono Variable', ui-monospace, monospace;
+  --moduix-font-sans: var(--rp-font-family-base);
 
   --rp-c-bg: #ffffff;
   --rp-c-bg-soft: #fafafa;
