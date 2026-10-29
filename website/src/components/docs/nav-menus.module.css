@@ -7,6 +7,13 @@
   }
 }
 
+/* Up to 1280px the Rspress nav menu has its own Language row, so the header drops the duplicate. */
+@media (width <= 1280px) {
+  .language {
+    display: none;
+  }
+}
+
 .screen {
   display: none;
 

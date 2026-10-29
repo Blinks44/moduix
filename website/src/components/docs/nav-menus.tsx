@@ -170,7 +170,7 @@ export function NavMenus() {
       <li className={styles.desktop}>
         <PresetMenu />
       </li>
-      <li className={styles.desktop}>
+      <li className={`${styles.desktop} ${styles.language}`}>
         <LanguageMenu />
       </li>
       <li className={styles.screen}>

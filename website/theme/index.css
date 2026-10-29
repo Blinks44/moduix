@@ -234,12 +234,23 @@
     --rp-sidebar-margin-left: var(--moduix-doc-frame-offset);
     --rp-outline-margin-right: 0px;
   }
+
+  /* The outline text column (inside its 14px padding) ends on the nav's 36px padding line. */
+  .rp-doc-layout__outline {
+    margin-right: calc(var(--moduix-doc-frame-offset) + 22px);
+    margin-left: auto;
+  }
 }
 
-/* Catalog pages without an outline fill the frame up to its right edge: 1440 − 280 sidebar. */
+/* Catalog pages without an outline fill the frame up to its right edge: 1440 − 280 sidebar.
+   Their content ends on the nav's right padding line, so the last nav control aligns with it. */
 @media (width >= 1280px) {
   .rp-doc-layout__doc--wide {
     max-width: 1160px;
+  }
+
+  .rp-doc-layout__doc--wide .rp-doc-layout__doc-container {
+    padding-right: 36px;
   }
 }
 
@@ -271,8 +282,11 @@ body {
   isolation: isolate;
 }
 
-/* Nav/Desktop symbol: wordmark and links on the left, controls on the right. */
+/* Nav/Desktop symbol: wordmark and links on the left, controls on the right. Below the 1440 frame
+   the nav and the doc bar share the content padding, so their edges line up with the content. */
 .rp-nav {
+  --rp-nav-padding-x: var(--rp-content-padding-x);
+  gap: 24px;
   border-bottom-color: var(--rp-c-divider-light);
   background-color: color-mix(in srgb, var(--rp-c-bg) 85%, transparent);
   -webkit-backdrop-filter: saturate(140%) blur(12px);
@@ -331,6 +345,8 @@ body {
    afterRightNavItems), divider, theme toggle, GitHub. Every control is a 36px ghost button. */
 .rp-nav__right {
   gap: 12px;
+  /* Lets the search field give up width before the nav overflows on tablets. */
+  min-width: 0;
 }
 
 .rp-nav-menu--right {
@@ -406,9 +422,15 @@ body {
   }
 }
 
+.rp-search-button__content {
+  min-width: 0;
+}
+
 .rp-search-button__word {
+  overflow: hidden;
   color: var(--rp-c-text-3);
   font-weight: 400;
+  text-overflow: ellipsis;
 }
 
 .rp-search-button__icon {
@@ -1097,6 +1119,10 @@ body .rp-doc {
 }
 
 /* Doc bar (below 1280px): "On this page" is a muted label without the reading progress ring. */
+.rp-sidebar-menu {
+  padding-inline: var(--rp-content-padding-x);
+}
+
 .rp-sidebar-menu__right {
   color: var(--rp-c-text-2);
   font-weight: 400;
