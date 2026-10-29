@@ -102,8 +102,21 @@
       height: 100%;
     }
 
-    &[data-state='open'] {
+    &[data-orientation='vertical'][data-state='open'] {
       transform: rotate(180deg);
+    }
+
+    &[data-orientation='horizontal'] {
+      transform: rotate(-90deg);
+
+      &[data-state='open'],
+      &[dir='rtl'] {
+        transform: rotate(90deg);
+      }
+
+      &[dir='rtl'][data-state='open'] {
+        transform: rotate(-90deg);
+      }
     }
   }
 

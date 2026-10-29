@@ -86,7 +86,7 @@ const AccordionItemIndicator = forwardRef<
     <AccordionPrimitive.ItemIndicator
       ref={ref}
       className={cn(
-        'inline-flex size-3 shrink-0 items-center justify-center transition-transform duration-normal data-[state=open]:rotate-180 [&_svg]:size-full',
+        'inline-flex size-3 shrink-0 items-center justify-center transition-transform duration-normal data-[orientation=horizontal]:-rotate-90 data-[orientation=horizontal]:data-[state=open]:rotate-90 data-[orientation=vertical]:data-[state=open]:rotate-180 [&_svg]:size-full [&[data-orientation=horizontal][dir=rtl]]:rotate-90 [&[data-orientation=horizontal][dir=rtl][data-state=open]]:-rotate-90',
         className,
       )}
       {...props}

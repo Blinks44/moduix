@@ -34,7 +34,8 @@ variables, and stable `data-slot` hooks.
 - Uses Ark content animation measurement via `--height` for vertical accordions and `--width`
   for horizontal accordions.
 - `AccordionItemIndicator` renders `ChevronDownIcon` by default when no children are passed and
-  rotates it 180deg while the item is open.
+  rotates it 180deg while the item is open. In horizontal accordions the chevron points toward the
+  inline end while closed and back toward the trigger while open, mirrored for `dir="rtl"`.
 - `AccordionItemBody` provides the default inner spacing wrapper for panel content.
 
 ## Anatomy and exported parts
