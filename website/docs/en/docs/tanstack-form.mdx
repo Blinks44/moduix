@@ -1,12 +1,12 @@
 ---
 title: TanStack Form
-description: Connect Moduix controls to native TanStack Form adapters across supported frameworks.
+description: Connect moduix controls to native TanStack Form adapters across supported frameworks.
 ---
 
 # TanStack Form
 
 [TanStack Form](https://tanstack.com/form/latest) provides typed, headless form state with
-framework-native adapters. This guide focuses on mapping that state to Moduix controls.
+framework-native adapters. This guide focuses on mapping that state to moduix controls.
 
 ## Framework support
 
@@ -44,7 +44,7 @@ Vue uses `useForm` and the `{ field, state }` scoped slot of `form.Field`. Read 
 
 ## Connect controls
 
-TanStack fields use controlled values. Read the current value, pass it to the Moduix control, and send
+TanStack fields use controlled values. Read the current value, pass it to the moduix control, and send
 the next value to `field.handleChange`.
 
 | Control             | Mapping                                                               |
@@ -55,7 +55,7 @@ the next value to `field.handleChange`.
 | `Checkbox`          | Map `details.checked === true` to the boolean field value.            |
 
 Define every field in `defaultValues`. Forward `handleBlur` from the real interaction boundary and
-keep the required `HiddenSelect` or `HiddenInput` in the Moduix composition.
+keep the required `HiddenSelect` or `HiddenInput` in the moduix composition.
 
 ## Validation and reset
 
@@ -64,7 +64,7 @@ Use field validators for local rules and form validators for schema or cross-fie
 chosen validation lifecycle runs.
 
 Add `noValidate` only when TanStack Form owns the visible errors. Call `form.reset()` for controlled
-fields so form state and Moduix controls reset together.
+fields so form state and moduix controls reset together.
 
 ## Complete form
 

@@ -31,11 +31,17 @@ import * as ButtonDocs from '@/components/examples/button/css-properties';
 
 ## Exemples
 
-### État désactivé
+### Variantes
 
-Utilisez `disabled` avec les boutons natifs et les éléments utilisés avec `asChild`.
+Utilisez les variantes pour exprimer la priorité et l’intention de l’action.
 
-<Example name="button/disabled" />
+<Example name="button/variants" />
+
+### Tailles
+
+Les boutons avec texte et les boutons composés uniquement d’une icône utilisent la même API racine.
+
+<Example name="button/sizes" />
 
 ### Icônes
 
@@ -43,12 +49,11 @@ Les icônes peuvent se placer avant ou après le texte. Leur ordre dans le JSX e
 
 <Example name="button/icons" />
 
-### Lien avec `asChild`
+### État désactivé
 
-Utilisez `asChild` pour la navigation afin que l’élément `<a>` conserve sa sémantique de lien tout en
-recevant les styles du bouton.
+Utilisez `disabled` avec les boutons natifs et les éléments utilisés avec `asChild`.
 
-<Example name="button/as-child-link" />
+<Example name="button/disabled" />
 
 ### État de chargement
 
@@ -58,23 +63,18 @@ l’activation au clic.
 
 <Example name="button/pending-state" />
 
+### Lien avec `asChild`
+
+Utilisez `asChild` pour la navigation afin que l’élément `<a>` conserve sa sémantique de lien tout en
+recevant les styles du bouton.
+
+<Example name="button/as-child-link" />
+
 ### Ref
 
 La ref transmise pointe vers l’élément racine rendu ; vous pouvez l’utiliser pour lui donner le focus par programmation ou le mesurer. Dans Solid, attribuez la ref à l’élément créé dans la fonction de rendu `asChild` : une ref placée sur `Button` n’est pas transmise dans ce cas. Dans Vue, une ref de template pointe vers l’instance du composant ; utilisez `$el` pour accéder à la racine rendue, qui est l’élément sémantique enfant avec `asChild`.
 
 <Example name="button/ref" />
-
-### Tailles
-
-Les boutons avec texte et les boutons composés uniquement d’une icône utilisent la même API racine.
-
-<Example name="button/sizes" />
-
-### Variantes
-
-Utilisez les variantes pour exprimer la priorité et l’intention de l’action.
-
-<Example name="button/variants" />
 
 ## Composition
 
@@ -132,14 +132,8 @@ animations désactivent ce déplacement.
 
 ## Clavier
 
-Les boutons natifs conservent le comportement clavier du navigateur. Donnez un nom accessible aux boutons
-composés uniquement d’une icône.
-
-| Touche              | Action                                                    |
-| ------------------- | --------------------------------------------------------- |
-| `Tab` / `Shift+Tab` | Déplace le focus entre les contrôles actifs.              |
-| `Enter` / `Space`   | Active le bouton qui a le focus.                          |
-| Lien avec `asChild` | Suit le comportement clavier de l’élément rendu.          |
+Les boutons natifs conservent le comportement clavier du navigateur, et un lien avec `asChild` suit
+celui de l’élément rendu. Donnez un nom accessible aux boutons composés uniquement d’une icône.
 
 ## Référence de l’API
 

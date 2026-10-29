@@ -31,11 +31,17 @@ import * as ButtonDocs from '@/components/examples/button/css-properties';
 
 ## Examples
 
-### Disabled
+### Variants
 
-Use `disabled` with native buttons and elements used with `asChild`.
+Use variants to communicate an action's priority and intent.
 
-<Example name="button/disabled" />
+<Example name="button/variants" />
+
+### Sizes
+
+Text and icon-only buttons use the same root API.
+
+<Example name="button/sizes" />
 
 ### Icons
 
@@ -43,18 +49,24 @@ Icons can appear before or after the label. Their order in JSX and the Button ro
 
 <Example name="button/icons" />
 
-### Link with `asChild`
+### Disabled
 
-Use `asChild` for navigation so the anchor keeps its link semantics while using button styles.
+Use `disabled` with native buttons and elements used with `asChild`.
 
-<Example name="button/as-child-link" />
+<Example name="button/disabled" />
 
-### Loading State
+### Loading state
 
 Use `loading` to expose the busy state while keeping the label, spinner, and async lifecycle explicit in your
 application code. It also prevents click activation on elements used with `asChild`.
 
 <Example name="button/pending-state" />
+
+### Link with `asChild`
+
+Use `asChild` for navigation so the anchor keeps its link semantics while using button styles.
+
+<Example name="button/as-child-link" />
 
 ### Ref
 
@@ -64,18 +76,6 @@ forwarded through that composition path. In Vue, a template ref points to the co
 rendered root, which is the semantic child when using `asChild`.
 
 <Example name="button/ref" />
-
-### Sizes
-
-Text and icon-only buttons use the same root API.
-
-<Example name="button/sizes" />
-
-### Variants
-
-Use variants to communicate an action's priority and intent.
-
-<Example name="button/variants" />
 
 ## Composition
 
@@ -130,13 +130,8 @@ composed parts with another `data-slot`, and reduced-motion preferences omit thi
 
 ## Keyboard
 
-Native buttons keep browser keyboard behavior. Give icon-only buttons an accessible name.
-
-| Key                 | Action                                                |
-| ------------------- | ----------------------------------------------------- |
-| `Tab` / `Shift+Tab` | Moves focus between enabled controls.                 |
-| `Enter` / `Space`   | Activates the focused button.                         |
-| `asChild` link      | Follows the keyboard behavior of the rendered element. |
+Native buttons keep browser keyboard behavior, and an `asChild` link keeps the behavior of the
+rendered element. Give icon-only buttons an accessible name.
 
 ## API reference
 

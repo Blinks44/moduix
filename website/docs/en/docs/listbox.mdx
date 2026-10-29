@@ -41,43 +41,23 @@ searching or entering a value.
 
 ## Examples
 
-### Controlled
+### Multiple
 
-Keep the selected string array in application state and update it from `details.value`.
+Set `selectionMode="multiple"` to toggle multiple values without modifier keys.
 
-<Example name="listbox/controlled" />
-
-### Disabled Item
-
-Disable an individual item with its collection item's `disabled` field.
-
-<Example name="listbox/disabled-item" />
-
-### Extended Selection
-
-Use `selectionMode="extended"` when users need modifier keys to select multiple items.
-
-<Example name="listbox/extended-selection" />
-
-### Filtering
-
-Use `ListboxFilter` with `useListCollection`. It adds the default search icon and joins the filter
-with `ListboxContent`; turn off typeahead when the input handles search.
-
-<Example name="listbox/filtering" />
-
-### Grid
-
-Pass a collection created with `createGridCollection` to enable grid keyboard navigation. Ark adds
-`data-layout="grid"` and the `--column-count` CSS variable to `ListboxContent`.
-
-<Example name="listbox/grid" />
+<Example name="listbox/multiple" />
 
 ### Grouping
 
 Set `groupBy` when creating the collection and render `ListboxItemGroup` with `ListboxItemGroupLabel`.
 
 <Example name="listbox/grouping" />
+
+### Disabled item
+
+Disable an individual item with its collection item's `disabled` field.
+
+<Example name="listbox/disabled-item" />
 
 ### Horizontal
 
@@ -86,36 +66,56 @@ navigation.
 
 <Example name="listbox/horizontal" />
 
-### Multiple
+### Grid
 
-Set `selectionMode="multiple"` to toggle multiple values without modifier keys.
+Pass a collection created with `createGridCollection` to enable grid keyboard navigation. Ark adds
+`data-layout="grid"` and the `--column-count` CSS variable to `ListboxContent`.
 
-<Example name="listbox/multiple" />
+<Example name="listbox/grid" />
 
-### Root Provider
+### Value text
 
-Use `useListbox()` from the matching framework package with `ListboxRootProvider` when controls
-outside the listbox need direct access to its store.
+Render `ListboxValueText` when the selected-value summary should stay visible beside the list.
 
-<Example name="listbox/root-provider" />
+<Example name="listbox/value-text" />
 
-### Select All
+### Filtering
 
-Use `useListboxContext` inside a child component to add a button that updates the listbox selection.
+Use `ListboxFilter` with `useListCollection`. It adds the default search icon and joins the filter
+with `ListboxContent`; turn off typeahead when the input handles search.
 
-<Example name="listbox/select-all" />
+<Example name="listbox/filtering" />
 
-### Standalone Filter Input
+### Standalone filter input
 
 Render `ListboxInput` directly when the filter and results should remain separate surfaces.
 
 <Example name="listbox/standalone-filter-input" />
 
-### Value Text
+### Select all
 
-Render `ListboxValueText` when the selected-value summary should stay visible beside the list.
+Use `useListboxContext` inside a child component to add a button that updates the listbox selection.
 
-<Example name="listbox/value-text" />
+<Example name="listbox/select-all" />
+
+### Extended selection
+
+Use `selectionMode="extended"` when users need modifier keys to select multiple items.
+
+<Example name="listbox/extended-selection" />
+
+### Controlled
+
+Keep the selected string array in application state and update it from `details.value`. See [Control state from the application](/docs/composition-patterns#controlled-state).
+
+<Example name="listbox/controlled" />
+
+### Root provider
+
+Use `useListbox()` from the matching framework package with `ListboxRootProvider` when controls
+outside the listbox need direct access to its store. See [Share state outside the tree](/docs/composition-patterns#root-provider).
+
+<Example name="listbox/root-provider" />
 
 ### Build from parts
 
@@ -156,9 +156,6 @@ Hover or focus a part to find it in the preview.
     ["ListboxItem", "listbox-item", "Selectable item. Pass its collection item through `item`.", 3],
     ["ListboxItemText", "listbox-item-text", "Text used for display and accessibility.", 4],
     ["ListboxItemIndicator", "listbox-item-indicator", "Selection indicator with the default moduix check icon.", 4],
-    ["ListboxItemTextContent", "listbox-item-text-content", "Optional wrapper for laying out an icon and text inside `ListboxItemText`.", 2],
-    ["ListboxItemTextIcon", "listbox-item-text-icon", "Optional icon wrapper inside `ListboxItemTextContent`.", 3],
-    ["ListboxItemTextLabel", "listbox-item-text-label", "Text wrapper inside `ListboxItemTextContent` that can truncate long labels without breaking layout.", 3],
     ["ListboxValueText", "listbox-value-text", "Summary of the selected values.", 1],
     ["ListboxRootProvider", "listbox-root-provider", "Renders the listbox tree from state returned by `useListbox`.", 0],
   ]}
@@ -202,9 +199,6 @@ Hover or focus a variable to see it in the preview.
 | `ListboxItemText` | `listbox-item-text` |
 | `ListboxItemIndicator` | `listbox-item-indicator` |
 | `ListboxValueText` | `listbox-value-text` |
-| `ListboxItemTextContent` | `listbox-item-text-content` |
-| `ListboxItemTextIcon` | `listbox-item-text-icon` |
-| `ListboxItemTextLabel` | `listbox-item-text-label` |
 
 - Ark anatomy hooks: `data-scope="listbox"` and `data-part` on root, label, input, content, item
   group, item group label, item, item text, item indicator, value text, and empty.

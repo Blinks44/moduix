@@ -36,19 +36,12 @@ ids. When you omit the trigger's children, moduix renders a resize indicator for
 
 ## Examples
 
-### Collapsible panels
+### Vertical
 
-Set `collapsible: true` and choose a `collapsedSize` for a panel that can turn into a narrow rail. Set
-`minSize` to the same value when pointer resizing should remain continuous to the collapsed size. If
-`minSize` is larger, the splitter snaps between the expanded minimum and the collapsed rail.
+Set `orientation="vertical"` and give the root a stable height so stacked panels have room to
+resize.
 
-<Example name="splitter/collapsible-panels" />
-
-### Controlled
-
-Keep panel sizes in application state and update that state from `details.size` in `onResize`.
-
-<Example name="splitter/controlled" />
+<Example name="splitter/vertical" />
 
 ### Multiple panels
 
@@ -57,12 +50,13 @@ matching entry in `panels`, and every trigger id must connect its two neighbors.
 
 <Example name="splitter/multiple-panels" />
 
-### Nested
+### Collapsible panels
 
-Pass the same registry to nested splitters to support multi-drag at intersections between horizontal
-and vertical handles.
+Set `collapsible: true` and choose a `collapsedSize` for a panel that can turn into a narrow rail. Set
+`minSize` to the same value when pointer resizing should remain continuous to the collapsed size. If
+`minSize` is larger, the splitter snaps between the expanded minimum and the collapsed rail.
 
-<Example name="splitter/nested" />
+<Example name="splitter/collapsible-panels" />
 
 ### Responsive collapse
 
@@ -71,20 +65,26 @@ by the application.
 
 <Example name="splitter/dynamic-collapsible" />
 
-### SplitterRootProvider
+### Nested
+
+Pass the same registry to nested splitters to support multi-drag at intersections between horizontal
+and vertical handles.
+
+<Example name="splitter/nested" />
+
+### Controlled
+
+Keep panel sizes in application state and update that state from `details.size` in `onResize`. See [Control state from the application](/docs/composition-patterns#controlled-state).
+
+<Example name="splitter/controlled" />
+
+### Root provider
 
 Use `useSplitter()` with `SplitterRootProvider` when state or controls need to live outside the
 rendered splitter parts. The returned API includes methods such as `getSizes()`, `setSizes()`,
-`resizePanel()`, `collapsePanel()`, `expandPanel()`, and `resetSizes()`.
+`resizePanel()`, `collapsePanel()`, `expandPanel()`, and `resetSizes()`. See [Share state outside the tree](/docs/composition-patterns#root-provider).
 
 <Example name="splitter/root-provider" />
-
-### Vertical
-
-Set `orientation="vertical"` and give the root a stable height so stacked panels have room to
-resize.
-
-<Example name="splitter/vertical" />
 
 ### Build from parts
 

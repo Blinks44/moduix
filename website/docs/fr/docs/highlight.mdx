@@ -44,22 +44,6 @@ conteneur.
 
 ## Exemples
 
-### Requête dynamique
-
-Contrôlez `query` avec l’état du framework pour mettre en évidence le terme saisi pendant une
-recherche ou un filtrage du texte affiché.
-
-<Example name="highlight/dynamic-query" />
-
-### Correspondance exacte
-
-Activez `exactMatch` lorsque les correspondances partielles sont trop larges. Dans cet exemple,
-`box` correspond au mot isolé, mais pas à `checkbox` ni à `combobox`. La recherche suit les limites
-de mots de JavaScript, fiables pour le texte latin, mais qui ne reconnaissent pas le cyrillique ni
-certaines autres écritures comme des mots entiers.
-
-<Example name="highlight/exact-match" />
-
 ### Casse ignorée
 
 Activez `ignoreCase` lorsque la casse du texte source ne doit pas influencer le résultat.
@@ -72,6 +56,15 @@ Activez `matchAll` pour mettre en évidence chaque occurrence au lieu de la prem
 
 <Example name="highlight/match-all" />
 
+### Correspondance exacte
+
+Activez `exactMatch` lorsque les correspondances partielles sont trop larges. Dans cet exemple,
+`box` correspond au mot isolé, mais pas à `checkbox` ni à `combobox`. La recherche suit les limites
+de mots de JavaScript, fiables pour le texte latin, mais qui ne reconnaissent pas le cyrillique ni
+certaines autres écritures comme des mots entiers.
+
+<Example name="highlight/exact-match" />
+
 ### Plusieurs requêtes
 
 Transmettez un tableau de chaînes lorsque plusieurs termes doivent être mis en évidence dans le même
@@ -79,6 +72,13 @@ texte. Pour un tableau, `matchAll` vaut `true` par défaut ; définir `matchAll=
 erreur.
 
 <Example name="highlight/multiple-queries" />
+
+### Requête dynamique
+
+Contrôlez `query` avec l’état du framework pour mettre en évidence le terme saisi pendant une
+recherche ou un filtrage du texte affiché.
+
+<Example name="highlight/dynamic-query" />
 
 ## Composition
 

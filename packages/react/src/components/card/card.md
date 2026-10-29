@@ -2,7 +2,7 @@
 
 ## Upstream reference
 
-Ark UI has no dedicated Card primitive. Moduix builds the parts with the
+Ark UI has no dedicated Card primitive. moduix builds the parts with the
 [Ark factory](https://ark-ui.com/docs/guides/composition) and follows the anatomy of
 [Chakra Card](https://chakra-ui.com/docs/components/card) and
 [shadcn Card](https://ui.shadcn.com/docs/components/card) (`CardContent` is `CardBody` here).

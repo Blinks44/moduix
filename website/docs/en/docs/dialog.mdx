@@ -42,7 +42,15 @@ support dragging.
 
 ## Examples
 
-### Alert Dialog
+### Sizes
+
+Set `size` on `DialogContent` to `sm`, `md` (default), `lg`, `xl`, or `full`. Use `placement="top"`
+or `placement="bottom"` to move the surface away from the center, and `scrollBehavior="inside"` to
+cap the dialog at the viewport height and scroll `DialogBody` instead of the positioner.
+
+<Example name="dialog/sizes" />
+
+### Alert dialog
 
 Use `role="alertdialog"` for decisions with serious consequences. Include a clear cancel action
 and a separate action that confirms the decision.
@@ -56,14 +64,7 @@ user wants to discard them.
 
 <Example name="dialog/confirmation" />
 
-### Controlled
-
-Keep `open` in React state, a Solid signal, or a Vue ref and read `details.open` from
-`onOpenChange` (or bind `v-model:open`) to synchronize the dialog with the rest of the application.
-
-<Example name="dialog/controlled" />
-
-### Inside Scroll
+### Inside scroll
 
 Make only the main content scrollable when the title and actions should remain visible. Set
 `scrollBehavior="inside"` on `DialogContent`: the dialog stops at the viewport height and
@@ -71,19 +72,19 @@ Make only the main content scrollable when the title and actions should remain v
 
 <Example name="dialog/inside-scroll" />
 
-### Mounting and Focus Lifecycle
+### Outside scroll
 
-Use `lazyMount` and `unmountOnExit` for the presence lifecycle. Use `initialFocusEl` and
-`finalFocusEl` when focus should move to specific elements on open and close.
+Let `DialogPositioner` scroll the whole dialog when long content should keep its natural height.
+This is the default `scrollBehavior`; `placement="top"` starts the dialog at the top of the viewport.
 
-<Example name="dialog/mounting-and-focus-lifecycle" />
+<Example name="dialog/outside-scroll" />
 
-### Multiple Triggers
+### Non-modal
 
-Share one dialog between several triggers by giving each trigger a `value` and handling
-`onTriggerValueChange(details)`.
+Set `modal={false}` and omit the backdrop when users should still be able to interact with the page
+outside the dialog.
 
-<Example name="dialog/multiple-triggers" />
+<Example name="dialog/non-modal" />
 
 ### Nested
 
@@ -92,41 +93,40 @@ uses the resulting state to make the parent recede while the nested dialog is op
 
 <Example name="dialog/nested" />
 
-### Non-Modal
+### Multiple triggers
 
-Set `modal={false}` and omit the backdrop when users should still be able to interact with the page
-outside the dialog.
+Share one dialog between several triggers by giving each trigger a `value` and handling
+`onTriggerValueChange(details)`.
 
-<Example name="dialog/non-modal" />
+<Example name="dialog/multiple-triggers" />
 
-### Open from Menu
+### Open from menu
 
 Control `open` from a menu item when a contextual action should open a confirmation dialog.
 
 <Example name="dialog/open-from-menu" />
 
-### Outside Scroll
+### Controlled
 
-Let `DialogPositioner` scroll the whole dialog when long content should keep its natural height.
-This is the default `scrollBehavior`; `placement="top"` starts the dialog at the top of the viewport.
+Pass `open` and `onOpenChange` (`v-model:open` in Vue) and read `details.open` to keep the dialog in
+sync with the rest of the application. See [Control state from the application](/docs/composition-patterns#controlled-state).
 
-<Example name="dialog/outside-scroll" />
+<Example name="dialog/controlled" />
 
-### Root Provider
+### Mounting and focus lifecycle
+
+Use `lazyMount` and `unmountOnExit` for the presence lifecycle. Use `initialFocusEl` and
+`finalFocusEl` when focus should move to specific elements on open and close.
+
+<Example name="dialog/mounting-and-focus-lifecycle" />
+
+### Root provider
 
 Create the state with `useDialog()` when controls live outside the dialog. Connect it with
 `DialogRootProvider`, then read it with `DialogContext` or `useDialogContext()` in reusable
-components.
+components. See [Share state outside the tree](/docs/composition-patterns#root-provider).
 
 <Example name="dialog/root-provider-and-ark-context-hooks" />
-
-### Sizes
-
-Set `size` on `DialogContent` to `sm`, `md` (default), `lg`, `xl`, or `full`. Use `placement="top"`
-or `placement="bottom"` to move the surface away from the center, and `scrollBehavior="inside"` to
-cap the dialog at the viewport height and scroll `DialogBody` instead of the positioner.
-
-<Example name="dialog/sizes" />
 
 ### Build from parts
 
@@ -159,12 +159,12 @@ Hover or focus a part to find it in the preview.
     ["DialogBackdrop", "dialog-backdrop", "Optional background layer for a modal dialog.", 1],
     ["DialogPositioner", "dialog-positioner", "Positions the dialog content.", 1],
     ["DialogContent", "dialog-content", "Contains the visible dialog surface.", 2],
-    ["DialogHeader", "dialog-header", "Moduix layout helper for the header.", 3],
+    ["DialogHeader", "dialog-header", "moduix layout helper for the header.", 3],
     ["DialogTitle", "dialog-title", "Gives the dialog an accessible title.", 4],
-    ["DialogCloseIcon", "dialog-close-icon", "Moduix close-button helper that also closes the dialog.", 4],
+    ["DialogCloseIcon", "dialog-close-icon", "moduix close-button helper that also closes the dialog.", 4],
     ["DialogDescription", "dialog-description", "Provides supporting accessible text.", 4],
-    ["DialogBody", "dialog-body", "Moduix layout helper for the main content.", 3],
-    ["DialogFooter", "dialog-footer", "Moduix layout helper for actions.", 3],
+    ["DialogBody", "dialog-body", "moduix layout helper for the main content.", 3],
+    ["DialogFooter", "dialog-footer", "moduix layout helper for actions.", 3],
     ["DialogCloseTrigger", "dialog-close-trigger", "Closes the dialog.", 4],
     ["DialogRootProvider", null, "Connects parts to state created with `useDialog()`.", 0],
     ["DialogContext", null, "Renders children with current state and dialog methods.", 0],

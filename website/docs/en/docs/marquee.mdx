@@ -38,7 +38,27 @@ frame. The example styles its items and limits the root width separately.
 
 ## Examples
 
-### Auto Fill
+### Speed
+
+Control motion with `speed`, measured in pixels per second. Lower values are easier to read.
+
+<Example name="marquee/speed" />
+
+### Reverse
+
+Use `reverse` when the content should move opposite the configured side without changing
+orientation.
+
+<Example name="marquee/reverse" />
+
+### Vertical
+
+Set `side="top"` or `side="bottom"` for vertical marquees. A vertical root is `15rem` tall by
+default so the viewport has a stable block size; set `height` with a class to change it.
+
+<Example name="marquee/vertical" />
+
+### Auto fill
 
 Use `autoFill` when the available content is shorter than the viewport. `spacing` controls the gap
 between duplicated content instances.
@@ -52,14 +72,7 @@ decorative and does not receive pointer events.
 
 <Example name="marquee/edges" />
 
-### Finite Loops
-
-Set `loopCount` for finite playback. `onLoopComplete` fires after each loop and `onComplete` fires
-after the final loop.
-
-<Example name="marquee/finite-loops" />
-
-### Pause on Interaction
+### Pause on interaction
 
 Use `pauseOnInteraction` to pause while the user hovers the marquee or focuses content inside it.
 
@@ -70,19 +83,12 @@ and resume controls), and never put critical information only inside a marquee.
 
 <Example name="marquee/pause-on-interaction" />
 
-### Root Provider
+### Finite loops
 
-Use moduix `useMarquee()` with `MarqueeRootProvider` when external controls need to pause, resume,
-or restart playback.
+Set `loopCount` for finite playback. `onLoopComplete` fires after each loop and `onComplete` fires
+after the final loop.
 
-<Example name="marquee/programmatic-control" />
-
-### Reverse
-
-Use `reverse` when the content should move opposite the configured side without changing
-orientation.
-
-<Example name="marquee/reverse" />
+<Example name="marquee/finite-loops" />
 
 ### Right to left
 
@@ -91,18 +97,12 @@ the configured direction.
 
 <Example name="marquee/rtl" />
 
-### Speed
+### Root provider
 
-Control motion with `speed`, measured in pixels per second. Lower values are easier to read.
+Use moduix `useMarquee()` with `MarqueeRootProvider` when external controls need to pause, resume,
+or restart playback.
 
-<Example name="marquee/speed" />
-
-### Vertical
-
-Set `side="top"` or `side="bottom"` for vertical marquees. A vertical root is `15rem` tall by
-default so the viewport has a stable block size; set `height` with a class to change it.
-
-<Example name="marquee/vertical" />
+<Example name="marquee/programmatic-control" />
 
 ## Composition
 

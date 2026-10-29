@@ -45,6 +45,15 @@ Utilisez `NavigationMenu` pour la navigation principale d’un site ou d’un pr
 
 ## Exemples
 
+### Viewport partagé
+
+Utilisez une zone `NavigationMenuViewport` partagée lorsque les panneaux ont des tailles différentes, mais doivent
+s’animer dans une même surface. Cet exemple utilise un panneau à deux colonnes et des panneaux de
+largeurs différentes, afin de rendre visibles les animations de largeur et de hauteur de `NavigationMenuViewport`
+lors du passage d’un déclencheur à l’autre.
+
+<Example name="navigation-menu/viewport" />
+
 ### Ouverture au clic
 
 Définissez `disableHoverTrigger` lorsque les panneaux doivent s’ouvrir uniquement au clic ou au
@@ -55,20 +64,10 @@ ouvrirait les panneaux par accident.
 
 ### Valeur contrôlée
 
-Contrôlez la valeur ouverte avec un état React, un signal Solid ou une ref Vue lorsque le panneau actif
-doit également piloter une partie voisine de l’interface. La sortie sous l’exemple affiche la valeur de
-l’élément ouvert.
+Passez `value` et `onValueChange` (`v-model:value` en Vue) lorsque le panneau ouvert pilote aussi
+l’interface voisine. La sortie sous l’exemple affiche la valeur de l’élément ouvert. Voir [Contrôler l’état depuis l’application](/docs/composition-patterns#controlled-state).
 
 <Example name="navigation-menu/controlled-value" />
-
-### Viewport partagé
-
-Utilisez une zone `NavigationMenuViewport` partagée lorsque les panneaux ont des tailles différentes, mais doivent
-s’animer dans une même surface. Cet exemple utilise un panneau à deux colonnes et des panneaux de
-largeurs différentes, afin de rendre visibles les animations de largeur et de hauteur de `NavigationMenuViewport`
-lors du passage d’un déclencheur à l’autre.
-
-<Example name="navigation-menu/viewport" />
 
 ## Composition
 

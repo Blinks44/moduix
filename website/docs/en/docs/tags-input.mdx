@@ -45,39 +45,47 @@ control.
 
 ## Examples
 
-### Allow Duplicates
-
-Set `allowDuplicates` when the same string may appear more than once.
-
-<Example name="tags-input/allow-duplicates" />
-
-### Controlled
-
-Keep the tag array in component state when another part of the screen depends on it or you need to
-reset it programmatically.
-
-<Example name="tags-input/controlled" />
-
-### Controlled Input Value
-
-Control `inputValue` separately when another control should prefill or clear the entry input.
-
-<Example name="tags-input/controlled-input-value" />
-
-### Delimiter and Paste
+### Delimiter and paste
 
 Use `delimiter` with `addOnPaste` when pasted text should create multiple tags. This example accepts
 commas, semicolons, and spaces as separators.
 
 <Example name="tags-input/delimiter-and-paste" />
 
-### Disable Editing
+### Validation and max
+
+Use `validate`, `max`, and `onValueInvalid` to reject invalid values and observe why an addition was
+rejected. Add `maxLength` when the entry input should stop accepting long values before validation.
+
+<Example name="tags-input/validation-and-max" />
+
+### Max with overflow
+
+Use `allowOverflow` with `max` when users may temporarily exceed the limit while the control reports
+an invalid state.
+
+<Example name="tags-input/max-with-overflow" />
+
+### Allow duplicates
+
+Set `allowDuplicates` when the same string may appear more than once.
+
+<Example name="tags-input/allow-duplicates" />
+
+### Sanitize and blur
+
+Use `sanitizeValue` to normalize incoming tags and `blurBehavior="add"` to commit the current input
+when focus leaves the control.
+
+<Example name="tags-input/sanitize-and-blur" />
+
+### Disable editing
 
 Set `editable={false}` when existing tags should remain removable but not editable in place.
 
 <Example name="tags-input/disable-editing" />
 
-### Disabled and Read-only
+### Disabled and read-only
 
 Use `disabled` for a non-interactive control. Use `readOnly` when tags should remain visible but
 users must not add, remove, or edit them.
@@ -97,33 +105,18 @@ Pass `name` to the root and add `TagsInputHiddenInput` to include the tag list i
 
 <Example name="tags-input/form" />
 
-### Max With Overflow
+### Controlled
 
-Use `allowOverflow` with `max` when users may temporarily exceed the limit while the control reports
-an invalid state.
+Keep the tag array in component state when another part of the screen depends on it or you need to
+reset it programmatically. See [Control state from the application](/docs/composition-patterns#controlled-state).
 
-<Example name="tags-input/max-with-overflow" />
+<Example name="tags-input/controlled" />
 
-### TagsInputRootProvider
+### Controlled input value
 
-Use `useTagsInput` with `TagsInputRootProvider` when state and imperative methods need to be used outside the
-rendered tags input tree.
+Control `inputValue` separately when another control should prefill or clear the entry input. See [Control state from the application](/docs/composition-patterns#controlled-state).
 
-<Example name="tags-input/root-provider" />
-
-### Sanitize and Blur
-
-Use `sanitizeValue` to normalize incoming tags and `blurBehavior="add"` to commit the current input
-when focus leaves the control.
-
-<Example name="tags-input/sanitize-and-blur" />
-
-### Validation and Max
-
-Use `validate`, `max`, and `onValueInvalid` to reject invalid values and observe why an addition was
-rejected. Add `maxLength` when the entry input should stop accepting long values before validation.
-
-<Example name="tags-input/validation-and-max" />
+<Example name="tags-input/controlled-input-value" />
 
 ### With Combobox
 
@@ -131,6 +124,13 @@ Compose `TagsInput` with `Combobox` when typed input should offer known options 
 custom tags. Share the input and control IDs and compose the inputs with `asChild`.
 
 <Example name="combobox/with-tags-input" />
+
+### Root provider
+
+Use `useTagsInput` with `TagsInputRootProvider` when state and imperative methods need to be used outside the
+rendered tags input tree. See [Share state outside the tree](/docs/composition-patterns#root-provider).
+
+<Example name="tags-input/root-provider" />
 
 ### Build from parts
 

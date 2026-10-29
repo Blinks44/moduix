@@ -37,73 +37,7 @@ for the default pager.
 
 ## Examples
 
-### Autoplay
-
-Use autoplay for galleries that advance on their own, and keep visible controls available. In this
-example, autoplay pauses when the pointer enters the carousel or focus moves inside it. Users can
-start it again with `CarouselAutoplayTrigger`.
-
-<Example name="carousel/autoplay" />
-
-For a complete gallery with side navigation, slide text, and progress indicators that fill as the
-gallery advances, see the [Autoplay gallery block](/blocks/autoplay-gallery).
-
-### Cards
-
-Carousel items can contain any content. Use your own styles to center a card when it should be
-narrower than the slide.
-
-<Example name="carousel/cards" />
-
-### Controlled
-
-Use controlled state when the current page needs to stay in sync with external navigation, filters,
-or analytics.
-
-<Example name="carousel/controlled" />
-
-### Dynamic
-
-If the number of slides changes after the initial render, update `slideCount` whenever you update
-the rendered items.
-
-<Example name="carousel/dynamic" />
-
-### Loop
-
-Set `loop` to make the carousel wrap from the last slide back to the first.
-
-<Example name="carousel/loop" />
-
-### Mouse Dragging
-
-Enable mouse dragging so desktop users can move through slides with the same gesture they use on
-touch screens.
-
-<Example name="carousel/mouse-drag" />
-
-### Pause on Hover
-
-Use this pattern when autoplay should pause while the pointer is over the carousel. The example
-uses `CarouselContext` with `api.pause()` and `api.play()`, and also pauses while the carousel has
-focus.
-
-<Example name="carousel/pause-on-hover" />
-
-### Root Provider
-
-Use `CarouselRootProvider` when carousel state must be created outside the rendered subtree and
-shared across composition boundaries.
-
-<Example name="carousel/root-provider" />
-
-### Scroll to Slide
-
-Use the carousel API from context when another control needs to jump directly to a slide.
-
-<Example name="carousel/scroll-to-slide" />
-
-### Slides Per Page
+### Slides per page
 
 Increase `slidesPerPage` to show several items at once instead of one full-width panel.
 
@@ -116,25 +50,91 @@ branded interfaces.
 
 <Example name="carousel/spacing" />
 
-### Thumbnail Indicators
-
-Render custom indicator content when the pager should preview the slides with thumbnails instead of
-plain dots.
-
-<Example name="carousel/thumbnail-indicators" />
-
-### Variable Sizes
-
-Enable `autoSize` to size slides to their content instead of a fixed page grid.
-
-<Example name="carousel/variable-sizes" />
-
 ### Vertical
 
 Switch to a vertical orientation when the carousel and its controls should work along the vertical
 axis.
 
 <Example name="carousel/vertical" />
+
+### Loop
+
+Set `loop` to make the carousel wrap from the last slide back to the first.
+
+<Example name="carousel/loop" />
+
+### Autoplay
+
+Use autoplay for galleries that advance on their own, and keep visible controls available. In this
+example, autoplay pauses when the pointer enters the carousel or focus moves inside it. Users can
+start it again with `CarouselAutoplayTrigger`.
+
+<Example name="carousel/autoplay" />
+
+For a complete gallery with side navigation, slide text, and progress indicators that fill as the
+gallery advances, see the [Autoplay gallery block](/blocks/autoplay-gallery).
+
+### Pause on hover
+
+Use this pattern when autoplay should pause while the pointer is over the carousel. The example
+uses `CarouselContext` with `api.pause()` and `api.play()`, and also pauses while the carousel has
+focus.
+
+<Example name="carousel/pause-on-hover" />
+
+### Mouse dragging
+
+Enable mouse dragging so desktop users can move through slides with the same gesture they use on
+touch screens.
+
+<Example name="carousel/mouse-drag" />
+
+### Thumbnail indicators
+
+Render custom indicator content when the pager should preview the slides with thumbnails instead of
+plain dots.
+
+<Example name="carousel/thumbnail-indicators" />
+
+### Cards
+
+Carousel items can contain any content. Use your own styles to center a card when it should be
+narrower than the slide.
+
+<Example name="carousel/cards" />
+
+### Variable sizes
+
+Enable `autoSize` to size slides to their content instead of a fixed page grid.
+
+<Example name="carousel/variable-sizes" />
+
+### Dynamic
+
+If the number of slides changes after the initial render, update `slideCount` whenever you update
+the rendered items.
+
+<Example name="carousel/dynamic" />
+
+### Controlled
+
+Use controlled state when the current page needs to stay in sync with external navigation, filters,
+or analytics. See [Control state from the application](/docs/composition-patterns#controlled-state).
+
+<Example name="carousel/controlled" />
+
+### Scroll to slide
+
+Use the carousel API from context when another control needs to jump directly to a slide.
+
+<Example name="carousel/scroll-to-slide" />
+
+### Root provider
+
+Use `CarouselRootProvider` when carousel state must be created outside the rendered subtree and
+shared across composition boundaries. See [Share state outside the tree](/docs/composition-patterns#root-provider).
+
+<Example name="carousel/root-provider" />
 
 ### Build from parts
 

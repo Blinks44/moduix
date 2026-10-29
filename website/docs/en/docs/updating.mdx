@@ -1,19 +1,19 @@
 ---
 title: Update and migration
-description: Update Moduix packages or merge registry changes across every shipped framework and styling adapter.
+description: Update moduix packages or merge registry changes across every shipped framework and styling adapter.
 ---
 
 # Update and migration
 
-Update Moduix according to where the component source lives. Package consumers update dependencies;
+Update moduix according to where the component source lives. Package consumers update dependencies;
 registry consumers review and merge source changes into their application.
 
 | Distribution | Source location | Update method |
 | --- | --- | --- |
-| npm package | `node_modules` | Update the matching Moduix and Ark UI packages. |
+| npm package | `node_modules` | Update the matching moduix and Ark UI packages. |
 | shadcn registry | Application repository | Preview the registry diff, then merge it with local changes. |
 
-If you are moving an existing shadcn application to Moduix, start with
+If you are moving an existing shadcn application to moduix, start with
 [Migrate from shadcn](/docs/migrate-from-shadcn).
 
 ## Versioning and stability
@@ -25,10 +25,12 @@ and styling adapter.
 | Release | What can change | What you need to do |
 | --- | --- | --- |
 | Patch | Bug fixes, accessibility fixes, and documentation. | Update. |
-| Minor | New components, parts, props, tokens, and blocks. Existing code keeps working. | Update and read [What's new](/docs/changelog). |
+| Minor | New components, parts, props, tokens, and blocks. While 3.x is young, also breaking changes marked **Breaking**. | Read [What's new](/docs/changelog), then update. |
 | Major | Renamed or removed components, parts, props, or tokens. | Follow the migration section in [What's new](/docs/changelog). |
 
-Breaking changes ship only in major versions, and every major version includes a migration section.
+While moduix has few users, a breaking change can ship in a minor version instead of waiting for a
+major one. Such a change is marked **Breaking** in [What's new](/docs/changelog) and describes the
+migration. Pin a minor range (`~3.1.0`) if the application cannot take that risk.
 Deprecated APIs stay available until the next major version and are marked in the documentation and
 the changelog. Changes to the supported Ark UI range are listed in the release notes.
 

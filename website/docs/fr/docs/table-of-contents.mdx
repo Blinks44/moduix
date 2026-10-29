@@ -40,13 +40,6 @@ navigation par lien restent dans l’aperçu.
 
 ## Exemples
 
-### Root Provider
-
-Utilisez `useToc()` lorsqu’un autre contrôle doit lire les titres actifs ou faire défiler la zone de
-lecture.
-
-<Example name="table-of-contents/root-provider" />
-
 ### Rail
 
 Placez `TocRail` dans chaque lien pour tracer un connecteur SVG entre les niveaux de titres voisins.
@@ -63,6 +56,13 @@ complet. `TocContext` fournit le titre de l’élément actif au bouton et à l�
 tandis que les liens ciblent toujours la même zone de lecture.
 
 <Example name="table-of-contents/with-collapsible" />
+
+### Root Provider
+
+Utilisez `useToc()` lorsqu’un autre contrôle doit lire les titres actifs ou faire défiler la zone de
+lecture. Voir [Partager l’état hors de l’arbre](/docs/composition-patterns#root-provider).
+
+<Example name="table-of-contents/root-provider" />
 
 ## Composition
 

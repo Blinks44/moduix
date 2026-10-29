@@ -45,6 +45,14 @@ import * as NavigationMenuDocs from '@/components/examples/navigation-menu/css-p
 
 ## Примеры
 
+### Общая область Viewport
+
+Используйте общую область `NavigationMenuViewport`, если панели имеют разный размер, но должны анимироваться в одной
+области. В примере одна панель содержит две колонки, а у разных панелей разная ширина, поэтому при
+переключении триггеров заметно анимируются ширина и высота `NavigationMenuViewport`.
+
+<Example name="navigation-menu/viewport" />
+
 ### Открытие по клику
 
 Задайте `disableHoverTrigger`, если панели должны открываться только по клику или с клавиатуры, а не
@@ -55,18 +63,10 @@ import * as NavigationMenuDocs from '@/components/examples/navigation-menu/css-p
 
 ### Управляемое значение
 
-Управляйте открытым значением через состояние React, сигналы Solid или ref во Vue, если активная
-панель должна менять соседнюю часть интерфейса. Под примером показано значение текущего открытого элемента.
+Передайте `value` и `onValueChange` (`v-model:value` во Vue), если открытая панель управляет соседним
+интерфейсом. Под примером показано значение открытого элемента. Подробнее в разделе [Управляйте состоянием из приложения](/docs/composition-patterns#controlled-state).
 
 <Example name="navigation-menu/controlled-value" />
-
-### Общая область Viewport
-
-Используйте общую область `NavigationMenuViewport`, если панели имеют разный размер, но должны анимироваться в одной
-области. В примере одна панель содержит две колонки, а у разных панелей разная ширина, поэтому при
-переключении триггеров заметно анимируются ширина и высота `NavigationMenuViewport`.
-
-<Example name="navigation-menu/viewport" />
 
 ## Композиция
 

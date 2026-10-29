@@ -2,7 +2,7 @@
 
 ## Upstream reference
 
-Ark UI has no dedicated Badge primitive. Moduix uses the
+Ark UI has no dedicated Badge primitive. moduix uses the
 [Ark factory](https://ark-ui.com/docs/guides/composition), with visual direction from
 [Chakra Badge](https://chakra-ui.com/docs/components/badge) and
 [shadcn Badge](https://ui.shadcn.com/docs/components/badge).
@@ -50,5 +50,5 @@ use utilities and consumer class overrides instead.
 
 ## Differences from upstream
 
-Moduix adds `BadgeLabel`, `BadgeDot`, stable Ark-style hooks, sizes, and a `link` visual variant while
+moduix adds `BadgeLabel`, `BadgeDot`, stable Ark-style hooks, sizes, and a `link` visual variant while
 keeping the root composition explicit.

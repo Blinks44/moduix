@@ -155,7 +155,7 @@ rendered `CloseButton`.
 Native `DialogTrigger` and `DialogCloseTrigger` buttons are unstyled. Compose them with `asChild`
 and `Button`, as every example does.
 
-Moduix supplies visual defaults for the backdrop, centered positioner, content surface, typography,
+moduix supplies visual defaults for the backdrop, centered positioner, content surface, typography,
 layout helpers, motion, and close icon. Every value comes from a foundation token, so presets retune
 the dialog without component variables. The only public variable is `--moduix-dialog-width`, which
 overrides the width of every `size` except `full`. Change anything else for one dialog with a class

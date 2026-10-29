@@ -41,11 +41,32 @@ import * as NumberInputDocs from '@/components/examples/number-input/css-propert
 
 ## Примеры
 
-### Управляемое состояние
+### Размеры
 
-Храните управляемое состояние в виде строки и используйте `details.value` в `onValueChange`.
+Проп `size` на корне задаёт высоту и размер текста, как у `Input`. По умолчанию `md`.
 
-<Example name="number-input/controlled" />
+<Example name="number-input/sizes" />
+
+### Минимум и максимум
+
+Используйте `min`, `max` и `step`, чтобы задать диапазон и шаг изменений с клавиатуры, кнопками и скраббером. По
+умолчанию значение ограничивается при потере фокуса. Установите `clampValueOnBlur={false}`, если введённое значение
+за пределами диапазона должно оставаться видимым после потери фокуса.
+
+<Example name="number-input/min-and-max" />
+
+### Форматирование
+
+Передайте `formatOptions`, чтобы форматировать отображаемое значение с помощью `Intl.NumberFormat`.
+
+<Example name="number-input/formatting" />
+
+### Точность
+
+Используйте `formatOptions` с `Intl.NumberFormatOptions`, если для отображаемого значения нужно фиксированное число
+знаков после запятой.
+
+<Example name="number-input/precision" />
 
 ### Собственные значки
 
@@ -53,6 +74,18 @@ import * as NumberInputDocs from '@/components/examples/number-input/css-propert
 содержимому кнопок нужны локализованные доступные названия, передайте `translations`.
 
 <Example name="number-input/custom-icons" />
+
+### Изменение перетаскиванием
+
+Перетаскивайте `NumberInputScrubber` влево или вправо, чтобы изменить значение.
+
+<Example name="number-input/scrubbing" />
+
+### Колесо мыши
+
+Включайте `allowMouseWheel`, если изменение значения колёсиком мыши подходит вашему сценарию.
+
+<Example name="number-input/mouse-wheel" />
 
 ### Отключённое состояние и только для чтения
 
@@ -68,26 +101,6 @@ import * as NumberInputDocs from '@/components/examples/number-input/css-propert
 
 <Example name="number-input/field" />
 
-### Форматирование
-
-Передайте `formatOptions`, чтобы форматировать отображаемое значение с помощью `Intl.NumberFormat`.
-
-<Example name="number-input/formatting" />
-
-### Минимум и максимум
-
-Используйте `min`, `max` и `step`, чтобы задать диапазон и шаг изменений с клавиатуры, кнопками и скраббером. По
-умолчанию значение ограничивается при потере фокуса. Установите `clampValueOnBlur={false}`, если введённое значение
-за пределами диапазона должно оставаться видимым после потери фокуса.
-
-<Example name="number-input/min-and-max" />
-
-### Колесо мыши
-
-Включайте `allowMouseWheel`, если изменение значения колёсиком мыши подходит вашему сценарию.
-
-<Example name="number-input/mouse-wheel" />
-
 ### Нативная отправка формы
 
 Задайте `name`, чтобы включить видимое текстовое поле со смыслом `spinbutton` в отправку нативной формы. `NumberInput`
@@ -96,36 +109,23 @@ import * as NumberInputDocs from '@/components/examples/number-input/css-propert
 
 <Example name="number-input/form-submission" />
 
-### Точность
-
-Используйте `formatOptions` с `Intl.NumberFormatOptions`, если для отображаемого значения нужно фиксированное число
-знаков после запятой.
-
-<Example name="number-input/precision" />
-
-### Root Provider
-
-Используйте `useNumberInput()` с `NumberInputRootProvider`, если состояние нужно создать вне дерева отображаемых частей.
-
-<Example name="number-input/root-provider" />
-
-### Изменение перетаскиванием
-
-Перетаскивайте `NumberInputScrubber` влево или вправо, чтобы изменить значение.
-
-<Example name="number-input/scrubbing" />
-
-### Размеры
-
-Проп `size` на корне задаёт высоту и размер текста, как у `Input`. По умолчанию `md`.
-
-<Example name="number-input/sizes" />
-
 ### Текст значения
 
 Используйте `NumberInputValueText`, если форматированное значение нужно показывать не только в редактируемом поле.
 
 <Example name="number-input/value-text" />
+
+### Управляемое состояние
+
+Храните управляемое состояние в виде строки и используйте `details.value` в `onValueChange`. Подробнее в разделе [Управляйте состоянием из приложения](/docs/composition-patterns#controlled-state).
+
+<Example name="number-input/controlled" />
+
+### Root Provider
+
+Используйте `useNumberInput()` с `NumberInputRootProvider`, если состояние нужно создать вне дерева отображаемых частей. Подробнее в разделе [Выносите состояние за пределы дерева](/docs/composition-patterns#root-provider).
+
+<Example name="number-input/root-provider" />
 
 ### Сборка из частей
 

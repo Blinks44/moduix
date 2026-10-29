@@ -43,11 +43,47 @@ de produit persistante, et `Dialog` pour les flux qui exigent toute l’attentio
 
 ## Exemples
 
+### Regroupement
+
+Utilisez `MenuItemGroup` et `MenuItemGroupLabel` pour organiser les éléments associés, et `MenuSeparator` pour séparer les groupes.
+
+<Example name="menu/grouping" />
+
 ### Options avec case à cocher
 
 Utilisez ces éléments pour des options indépendantes qui peuvent être activées ou désactivées. Définissez `closeOnSelect={false}` si l’utilisateur doit modifier plusieurs options avant de fermer le menu.
 
 <Example name="menu/checkbox-items" />
+
+### Options à choix unique
+
+Utilisez `MenuRadioItemGroup` lorsque l’utilisateur doit choisir une seule valeur parmi plusieurs options. Définissez `closeOnSelect={false}` si le menu doit rester ouvert pendant la sélection.
+
+<Example name="menu/radio-items" />
+
+### Placement des indicateurs
+
+Définissez `indicator="start"`, `"end"` ou `"none"` sur les éléments avec case à cocher et les options radio pour choisir la position de l’indicateur.
+
+<Example name="menu/indicator-placement" />
+
+### Liens
+
+Utilisez `MenuItem asChild` et faites de l’ancre l’élément de menu lui-même. Elle recevra ainsi les attributs ARIA, le comportement clavier et la gestion du focus de l’élément de menu.
+
+<Example name="menu/links" />
+
+### Menu imbriqué
+
+Rendez un `Menu` enfant dans le contenu du menu parent et ouvrez-le avec `MenuTriggerItem`.
+
+<Example name="menu/nested" />
+
+### Avec flèche
+
+Ajoutez `MenuArrow` et `MenuArrowTip` directement dans `MenuContent` lorsque la fenêtre contextuelle doit être visuellement reliée à son déclencheur.
+
+<Example name="menu/with-arrow" />
 
 ### Menu contextuel
 
@@ -55,23 +91,29 @@ Utilisez `MenuContextTrigger` lorsque les actions doivent apparaître après un 
 
 <Example name="menu/context-menu" />
 
+### Plusieurs déclencheurs
+
+Partagez un même menu entre plusieurs déclencheurs en attribuant une valeur `value` distincte à chaque `MenuTrigger`. Le menu se repositionne par rapport au déclencheur qui l’a ouvert.
+
+<Example name="menu/multiple-triggers" />
+
+### Menu dans une boîte de dialogue
+
+Définissez `portalled={false}` pour garder la fenêtre contextuelle dans une boîte de dialogue ou un conteneur défilant. Si le conteneur peut défiler, utilisez un positionnement fixe avec `hideWhenDetached` afin de masquer le menu lorsqu’il sort de la zone visible.
+
+<Example name="menu/menu-in-dialog" />
+
+### Événement de sélection
+
+Utilisez `onSelect(details)` sur la racine lorsqu’un seul gestionnaire doit réagir à chaque sélection. Lisez la valeur sélectionnée dans `details.value`.
+
+<Example name="menu/select-event" />
+
 ### État contrôlé
 
-Contrôlez `open` avec l’état React lorsqu’un autre contrôle doit ouvrir ou fermer le menu.
+Contrôlez `open` avec l’état React lorsqu’un autre contrôle doit ouvrir ou fermer le menu. Voir [Contrôler l’état depuis l’application](/docs/composition-patterns#controlled-state).
 
 <Example name="menu/controlled" />
-
-### Regroupement
-
-Utilisez `MenuItemGroup` et `MenuItemGroupLabel` pour organiser les éléments associés, et `MenuSeparator` pour séparer les groupes.
-
-<Example name="menu/grouping" />
-
-### Placement des indicateurs
-
-Définissez `indicator="start"`, `"end"` ou `"none"` sur les éléments avec case à cocher et les options radio pour choisir la position de l’indicateur.
-
-<Example name="menu/indicator-placement" />
 
 ### Contexte de l’élément
 
@@ -85,53 +127,11 @@ Par défaut, le contenu du menu contextuel est monté à la première ouverture 
 
 <Example name="menu/lazy-mounted-context-menu" />
 
-### Liens
+### Root Provider
 
-Utilisez `MenuItem asChild` et faites de l’ancre l’élément de menu lui-même. Elle recevra ainsi les attributs ARIA, le comportement clavier et la gestion du focus de l’élément de menu.
-
-<Example name="menu/links" />
-
-### Menu dans une boîte de dialogue
-
-Définissez `portalled={false}` pour garder la fenêtre contextuelle dans une boîte de dialogue ou un conteneur défilant. Si le conteneur peut défiler, utilisez un positionnement fixe avec `hideWhenDetached` afin de masquer le menu lorsqu’il sort de la zone visible.
-
-<Example name="menu/menu-in-dialog" />
-
-### Plusieurs déclencheurs
-
-Partagez un même menu entre plusieurs déclencheurs en attribuant une valeur `value` distincte à chaque `MenuTrigger`. Le menu se repositionne par rapport au déclencheur qui l’a ouvert.
-
-<Example name="menu/multiple-triggers" />
-
-### Menu imbriqué
-
-Rendez un `Menu` enfant dans le contenu du menu parent et ouvrez-le avec `MenuTriggerItem`.
-
-<Example name="menu/nested" />
-
-### Options à choix unique
-
-Utilisez `MenuRadioItemGroup` lorsque l’utilisateur doit choisir une seule valeur parmi plusieurs options. Définissez `closeOnSelect={false}` si le menu doit rester ouvert pendant la sélection.
-
-<Example name="menu/radio-items" />
-
-### Utiliser `RootProvider`
-
-Utilisez `useMenu` et `MenuRootProvider` lorsque du code situé en dehors de l’arbre rendu doit lire ou modifier l’état du menu.
+Utilisez `useMenu` et `MenuRootProvider` lorsque du code situé en dehors de l’arbre rendu doit lire ou modifier l’état du menu. Voir [Partager l’état hors de l’arbre](/docs/composition-patterns#root-provider).
 
 <Example name="menu/root-provider" />
-
-### Événement de sélection
-
-Utilisez `onSelect(details)` sur la racine lorsqu’un seul gestionnaire doit réagir à chaque sélection. Lisez la valeur sélectionnée dans `details.value`.
-
-<Example name="menu/select-event" />
-
-### Avec flèche
-
-Ajoutez `MenuArrow` et `MenuArrowTip` directement dans `MenuContent` lorsque la fenêtre contextuelle doit être visuellement reliée à son déclencheur.
-
-<Example name="menu/with-arrow" />
 
 ### Assembler à partir des parties
 
@@ -220,9 +220,6 @@ Survolez ou sélectionnez une variable pour la voir dans l’aperçu.
 | `MenuCheckboxItem` | `menu-checkbox-item` |
 | `MenuItemIndicator` | `menu-item-indicator` |
 | `MenuItemText` | `menu-item-text` |
-| `MenuItemTextContent` | `menu-item-text-content` |
-| `MenuItemTextIcon` | `menu-item-text-icon` |
-| `MenuItemTextLabel` | `menu-item-text-label` |
 | `MenuItemShortcut` | `menu-item-shortcut` |
 
 Utilisez les attributs d’état d’Ark pour styliser le menu et ses éléments :

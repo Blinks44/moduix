@@ -41,12 +41,23 @@ sont au même niveau et qu’aucune ne doit être prioritaire.
 
 ## Exemples
 
-### État contrôlé du menu
+### Variantes
 
-Utilisez le même contrat d’état contrôlé qu’Ark Menu lorsque l’ouverture du menu doit être gérée par le composant
-parent.
+Utilisez la propriété racine `variant` lorsque les deux boutons doivent partager le même style visuel.
 
-<Example name="split-button/controlled-menu-state" />
+<Example name="split-button/variants" />
+
+### Tailles
+
+Utilisez la propriété racine `size` lorsque les deux boutons doivent être redimensionnés ensemble.
+
+<Example name="split-button/sizes" />
+
+### Avec des icônes
+
+Ajoutez une icône à l’action principale lorsqu’elle clarifie l’action sans remplacer son libellé textuel.
+
+<Example name="split-button/with-icons" />
 
 ### Action désactivée
 
@@ -75,23 +86,12 @@ parties structurelles explicites.
 
 <Example name="split-button/positioning" />
 
-### Tailles
+### État contrôlé du menu
 
-Utilisez la propriété racine `size` lorsque les deux boutons doivent être redimensionnés ensemble.
+Utilisez le même contrat d’état contrôlé qu’Ark Menu lorsque l’ouverture du menu doit être gérée par le composant
+parent. Voir [Contrôler l’état depuis l’application](/docs/composition-patterns#controlled-state).
 
-<Example name="split-button/sizes" />
-
-### Variantes
-
-Utilisez la propriété racine `variant` lorsque les deux boutons doivent partager le même style visuel.
-
-<Example name="split-button/variants" />
-
-### Avec des icônes
-
-Ajoutez une icône à l’action principale lorsqu’elle clarifie l’action sans remplacer son libellé textuel.
-
-<Example name="split-button/with-icons" />
+<Example name="split-button/controlled-menu-state" />
 
 ## Composition
 
@@ -167,7 +167,6 @@ Survolez ou sélectionnez une variable pour la voir dans l’aperçu.
 
 | Touche | Action |
 | --- | --- |
-| `Tab` / `Shift+Tab` | Déplace le focus entre l’action et le déclencheur du menu. |
 | `Enter` / `Space` | Lance l’action ou ouvre le menu depuis le déclencheur. |
 | `ArrowDown` / `ArrowUp` | Ouvre le menu depuis le déclencheur et passe d’un élément à l’autre. |
 | `Escape` | Ferme le menu et rend le focus au déclencheur. |

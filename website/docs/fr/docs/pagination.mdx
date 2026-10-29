@@ -35,33 +35,6 @@ points de suspension correspondant à la plage courante.
 
 ## Exemples
 
-### État contrôlé
-
-Passez la page active avec `page` et mettez-la à jour dans `onPageChange(details)`.
-
-<Example name="pagination/controlled" />
-
-### Contexte
-
-Utilisez `PaginationContext` pour placer des contrôles personnalisés à côté de la liste et appeler des
-méthodes de navigation telles que `goToFirstPage()` ou `goToLastPage()`.
-
-<Example name="pagination/context" />
-
-### Données côté client
-
-Utilisez `pagination.slice(data)` dans le contexte pour n’afficher que la partie du tableau déjà chargé
-correspondant à la page courante.
-
-<Example name="pagination/data-slicing" />
-
-### Navigation par liens
-
-Utilisez `type="link"`, `getPageUrl(details)` et des ancres `asChild` lorsque le changement de page doit
-naviguer vers une URL réelle.
-
-<Example name="pagination/link" />
-
 ### Plage d’éléments
 
 Utilisez `pagination.pageRange` pour indiquer quels éléments sont visibles sur la page courante.
@@ -75,12 +48,26 @@ nombre d’éléments par page.
 
 <Example name="pagination/page-size-control" />
 
-### Root Provider
+### Boutons de première et de dernière page
 
-Créez l’état avec `usePagination()` et transmettez-le à `PaginationRootProvider` lorsque
-l’état est géré en dehors de l’arborescence qui affiche la pagination.
+Ajoutez `PaginationFirstTrigger` et `PaginationLastTrigger` lorsque les utilisateurs ont besoin d’un
+accès rapide à la première et à la dernière page.
 
-<Example name="pagination/root-provider" />
+<Example name="pagination/with-edges" />
+
+### Navigation par liens
+
+Utilisez `type="link"`, `getPageUrl(details)` et des ancres `asChild` lorsque le changement de page doit
+naviguer vers une URL réelle.
+
+<Example name="pagination/link" />
+
+### Données côté client
+
+Utilisez `pagination.slice(data)` dans le contexte pour n’afficher que la partie du tableau déjà chargé
+correspondant à la page courante.
+
+<Example name="pagination/data-slicing" />
 
 ### Traductions
 
@@ -89,12 +76,25 @@ visible avec `siblingCount`, `boundaryCount` et les propriétés liées au nombr
 
 <Example name="pagination/customized" />
 
-### Boutons de première et de dernière page
+### État contrôlé
 
-Ajoutez `PaginationFirstTrigger` et `PaginationLastTrigger` lorsque les utilisateurs ont besoin d’un
-accès rapide à la première et à la dernière page.
+Passez la page active avec `page` et mettez-la à jour dans `onPageChange(details)`. Voir [Contrôler l’état depuis l’application](/docs/composition-patterns#controlled-state).
 
-<Example name="pagination/with-edges" />
+<Example name="pagination/controlled" />
+
+### Contexte
+
+Utilisez `PaginationContext` pour placer des contrôles personnalisés à côté de la liste et appeler des
+méthodes de navigation telles que `goToFirstPage()` ou `goToLastPage()`.
+
+<Example name="pagination/context" />
+
+### Root Provider
+
+Créez l’état avec `usePagination()` et transmettez-le à `PaginationRootProvider` lorsque
+l’état est géré en dehors de l’arborescence qui affiche la pagination. Voir [Partager l’état hors de l’arbre](/docs/composition-patterns#root-provider).
+
+<Example name="pagination/root-provider" />
 
 ### Assembler à partir des parties
 

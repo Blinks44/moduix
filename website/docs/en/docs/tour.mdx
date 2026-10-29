@@ -35,12 +35,12 @@ you can adjust the composition when needed. `TourBody` keeps long copy scrollabl
 
 ## Examples
 
-### Events
+### With arrow
 
-Use the detail objects from Ark callbacks to update surrounding UI or record analytics. Start the tour, choose Next,
-then Done. The status output shows the latest step or final status event.
+Add `TourArrow` to a tooltip step when it needs a visual connection to its target, and enable the step's `arrow`
+option so Ark can position it.
 
-<Example name="tour/events" />
+<Example name="tour/with-arrow" />
 
 ### Wait for input
 
@@ -50,12 +50,12 @@ exported from `@moduix/react/tour`, `@moduix/solid/tour`, and `@moduix/vue/tour`
 
 <Example name="tour/wait-for-input" />
 
-### With Arrow
+### Events
 
-Add `TourArrow` to a tooltip step when it needs a visual connection to its target, and enable the step's `arrow`
-option so Ark can position it.
+Use the detail objects from Ark callbacks to update surrounding UI or record analytics. Start the tour, choose Next,
+then Done. The status output shows the latest step or final status event.
 
-<Example name="tour/with-arrow" />
+<Example name="tour/events" />
 
 ### Build from parts
 
@@ -144,7 +144,6 @@ variables.
 | Key | Action |
 | --- | --- |
 | `ArrowRight` / `ArrowLeft` | Goes to the next or previous step when keyboardNavigation is on. |
-| `Tab` / `Shift+Tab` | Moves between the step actions. |
 | `Esc` | Ends the tour. |
 
 ## API reference

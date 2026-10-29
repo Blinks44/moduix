@@ -43,36 +43,29 @@ suivre l’échelle typographique de moduix.
 
 ## Exemples
 
-### Alignement
-
-Utilisez `align` lorsque l’alignement appartient au texte lui-même et non à son conteneur.
-
-<Example name="text/alignment" />
-
-### Élément personnalisé
-
-Utilisez `asChild` lorsque la racine doit être un élément personnalisé existant plutôt que l’une des valeurs prises en
-charge par `as`. L’enfant doit être un élément unique capable d’accepter les propriétés transmises et la `ref`.
-
-<Example name="text/custom-element" />
-
-### Sémantique
-
-Utilisez `as` pour choisir une balise HTML sémantique tout en conservant le style typographique de `Text`.
-
-<Example name="text/semantics" />
-
 ### Taille
 
 Utilisez `size` pour modifier la hiérarchie visuelle sans changer de composant typographique.
 
 <Example name="text/size" />
 
+### Graisse
+
+Utilisez `weight` lorsque l’emphase doit rester dans le même élément sémantique.
+
+<Example name="text/weight" />
+
 ### Tonalité
 
 Utilisez `tone` pour indiquer le rôle du texte sans ajouter de classe de couleur locale.
 
 <Example name="text/tone" />
+
+### Alignement
+
+Utilisez `align` lorsque l’alignement appartient au texte lui-même et non à son conteneur.
+
+<Example name="text/alignment" />
 
 ### Troncature
 
@@ -82,11 +75,18 @@ pas sur la troncature sur une ligne. Ajoutez le comportement de dépliage dans l
 
 <Example name="text/truncation" />
 
-### Graisse
+### Sémantique
 
-Utilisez `weight` lorsque l’emphase doit rester dans le même élément sémantique.
+Utilisez `as` pour choisir une balise HTML sémantique tout en conservant le style typographique de `Text`.
 
-<Example name="text/weight" />
+<Example name="text/semantics" />
+
+### Élément personnalisé
+
+Utilisez `asChild` lorsque la racine doit être un élément personnalisé existant plutôt que l’une des valeurs prises en
+charge par `as`. L’enfant doit être un élément unique capable d’accepter les propriétés transmises et la `ref`.
+
+<Example name="text/custom-element" />
 
 ## Composition
 

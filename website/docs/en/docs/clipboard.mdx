@@ -41,15 +41,13 @@ input or as ordinary text, depending on which parts you use.
 
 ## Examples
 
-### Context
+### Value text
 
-Read clipboard state from nested content with `ClipboardContext`, or use
-`useClipboardContext()` in a child component. The context exposes `copied`, `value`, `setValue`, and
-`copy`.
+Use `ClipboardValueText` when the value should appear as text instead of inside an input field.
 
-<Example name="clipboard/context" />
+<Example name="clipboard/value-text" />
 
-### Copy Status
+### Copy status
 
 Use `onStatusChange(details)` when another part of the interface should react to a successful copy.
 The example keeps a count based on `details.copied`.
@@ -63,13 +61,12 @@ that match your product.
 
 <Example name="clipboard/custom-copy-text" />
 
-### Custom Elements
+### Timeout
 
-Use `asChild` to let your own input and button elements render the Clipboard parts while preserving
-the component's state and behavior. With `asChild`, `ClipboardInput` and `ClipboardTrigger` drop their
-own styles, so the child component keeps its look.
+Set `timeout` when the copied state should remain visible for longer or shorter than the default
+three seconds.
 
-<Example name="clipboard/custom-elements" />
+<Example name="clipboard/timeout" />
 
 ### Disabled
 
@@ -78,25 +75,28 @@ copy it.
 
 <Example name="clipboard/disabled" />
 
-### Root Provider
+### Custom elements
+
+Use `asChild` to let your own input and button elements render the Clipboard parts while preserving
+the component's state and behavior. With `asChild`, `ClipboardInput` and `ClipboardTrigger` drop their
+own styles, so the child component keeps its look.
+
+<Example name="clipboard/custom-elements" />
+
+### Context
+
+Read clipboard state from nested content with `ClipboardContext`, or use
+`useClipboardContext()` in a child component. The context exposes `copied`, `value`, `setValue`, and
+`copy`.
+
+<Example name="clipboard/context" />
+
+### Root provider
 
 Create the store with `useClipboard()` and pass it to `ClipboardRootProvider` when state
-needs to be shared or created separately from the rendered component tree.
+needs to be shared or created separately from the rendered component tree. See [Share state outside the tree](/docs/composition-patterns#root-provider).
 
 <Example name="clipboard/root-provider" />
-
-### Timeout
-
-Set `timeout` when the copied state should remain visible for longer or shorter than the default
-three seconds.
-
-<Example name="clipboard/timeout" />
-
-### Value Text
-
-Use `ClipboardValueText` when the value should appear as text instead of inside an input field.
-
-<Example name="clipboard/value-text" />
 
 ## Composition
 
@@ -175,7 +175,6 @@ Hover or focus a variable to see it in the preview.
 
 | Key | Action |
 | --- | --- |
-| `Tab` / `Shift+Tab` | Moves focus between the input and the trigger. |
 | `Enter` / `Space` | Copies the value when the trigger has focus. |
 
 ## API reference

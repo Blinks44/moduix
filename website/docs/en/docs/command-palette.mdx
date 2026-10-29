@@ -37,26 +37,26 @@ appears once the user enters a query.
 
 ## Examples
 
-### Controlled Open State
-
-Use a controlled `open` prop when surrounding UI also needs to decide whether the palette is visible. The
-example resets the external collection filter when the palette closes.
-
-<Example name="command-palette/controlled-open-state" />
-
-### Enable the Global Shortcut
+### Enable the global shortcut
 
 Set `shortcut="alt+k"` on `CommandPalette` or `CommandPaletteRootProvider` to register a global toggle. This is the only preview on the page that registers
 `Alt+K`.
 
 <Example name="command-palette/enable-the-global-shortcut" />
 
-### Item Actions
+### Item actions
 
 Handle `onSelect(details)` to run a command. With the default `closeOnSelect` value, the palette closes
 after the selected action runs.
 
 <Example name="command-palette/item-actions" />
+
+### Controlled open state
+
+Use a controlled `open` prop when surrounding UI also needs to decide whether the palette is visible. The
+example resets the external collection filter when the palette closes. See [Control state from the application](/docs/composition-patterns#controlled-state).
+
+<Example name="command-palette/controlled-open-state" />
 
 ### Build from parts
 

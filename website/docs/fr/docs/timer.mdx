@@ -45,13 +45,6 @@ Définissez `countdown` et `startMs` si l’affichage doit décompter jusqu’à
 
 <Example name="timer/countdown" />
 
-### Événements
-
-Utilisez `onTick` et `onComplete` pour les effets de bord liés au cycle de vie du minuteur. En Vue, écoutez les
-événements avec `@tick` et `@complete`.
-
-<Example name="timer/events" />
-
 ### Intervalle
 
 Utilisez une valeur plus petite pour `interval` avec un élément `milliseconds` si l’interface doit être actualisée
@@ -65,10 +58,17 @@ Utilisez `onComplete` (`@complete` en Vue) pour passer du travail à la pause et
 
 <Example name="timer/pomodoro" />
 
+### Événements
+
+Utilisez `onTick` et `onComplete` pour les effets de bord liés au cycle de vie du minuteur. En Vue, écoutez les
+événements avec `@tick` et `@complete`.
+
+<Example name="timer/events" />
+
 ### Root Provider
 
 Utilisez `useTimer()` avec `TimerRootProvider` lorsque l’état et les méthodes du minuteur doivent aussi
-être disponibles en dehors de l’arbre de parties rendu.
+être disponibles en dehors de l’arbre de parties rendu. Voir [Partager l’état hors de l’arbre](/docs/composition-patterns#root-provider).
 
 <Example name="timer/root-provider" />
 

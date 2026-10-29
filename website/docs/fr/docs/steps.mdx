@@ -44,20 +44,12 @@ dehors de l’arbre rendu.
 
 ## Exemples
 
-### État contrôlé
+### Orientation verticale
 
-Contrôlez `step` depuis l’état de votre framework lorsque l’étape active doit rester synchronisée
-avec le routage, la validation ou une autre partie de l’interface.
+Définissez `orientation="vertical"` lorsque la liste des étapes doit se trouver à côté du panneau
+actif sur les écrans larges, puis au-dessus sur les écrans étroits.
 
-<Example name="steps/controlled" />
-
-### Déclencheurs-liens
-
-Utilisez `asChild` lorsqu’un déclencheur doit être rendu comme une ancre ou un lien de routeur plutôt
-que comme un bouton par défaut. Gardez un seul enfant sémantique afin qu’il reçoive le comportement
-ARIA, le clavier et le focus gérés par Ark.
-
-<Example name="steps/link-triggers" />
+<Example name="steps/vertical" />
 
 ### Validation
 
@@ -74,19 +66,27 @@ pourcentage courant ; donnez-lui un `aria-label` qui nomme le parcours.
 
 <Example name="steps/progress" />
 
-### RootProvider
+### Déclencheurs-liens
+
+Utilisez `asChild` lorsqu’un déclencheur doit être rendu comme une ancre ou un lien de routeur plutôt
+que comme un bouton par défaut. Gardez un seul enfant sémantique afin qu’il reçoive le comportement
+ARIA, le clavier et le focus gérés par Ark.
+
+<Example name="steps/link-triggers" />
+
+### État contrôlé
+
+Contrôlez `step` depuis l’état de votre framework lorsque l’étape active doit rester synchronisée
+avec le routage, la validation ou une autre partie de l’interface. Voir [Contrôler l’état depuis l’application](/docs/composition-patterns#controlled-state).
+
+<Example name="steps/controlled" />
+
+### Root Provider
 
 Créez l’état avec `useSteps()` en dehors de l’arbre des parties rendues, puis transmettez-le à
-`StepsRootProvider` lorsque des contrôles externes doivent utiliser ce même état.
+`StepsRootProvider` lorsque des contrôles externes doivent utiliser ce même état. Voir [Partager l’état hors de l’arbre](/docs/composition-patterns#root-provider).
 
 <Example name="steps/root-provider" />
-
-### Orientation verticale
-
-Définissez `orientation="vertical"` lorsque la liste des étapes doit se trouver à côté du panneau
-actif sur les écrans larges, puis au-dessus sur les écrans étroits.
-
-<Example name="steps/vertical" />
 
 ## Composition
 
@@ -179,7 +179,6 @@ Les hooks publics utiles sont les suivants :
 
 | Touche | Action |
 | --- | --- |
-| `Tab` / `Shift+Tab` | Passe d’une étape aux boutons Back et Next. |
 | `Enter` / `Space` | Ouvre l’étape ayant le focus ou active Back et Next. |
 
 ## Référence de l’API

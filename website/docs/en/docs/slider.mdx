@@ -45,58 +45,12 @@ keyboard.
 
 ## Examples
 
-### Center Origin
+### Range
 
-Set `origin="center"` when the value represents a positive or negative offset, such as balance
-around zero.
+Pass an array with one value per thumb. `SliderThumbs` creates the matching thumbs and their native
+form inputs.
 
-<Example name="slider/center-origin" width="sm" />
-
-### Change Events
-
-Use `onValueChange` (or Vue's `value-change` event) for updates during interaction and
-`onValueChangeEnd` (or `value-change-end`) when the drag or keyboard interaction ends.
-
-<Example name="slider/change-events" width="sm" />
-
-### Context
-
-Use moduix `useSliderContext` inside a child component when it needs to read slider state such as
-`value`, `dragging`, or focus state.
-
-<Example name="slider/context" width="sm" />
-
-### Controlled
-
-Control the slider from framework state by storing Ark's `details.value`; in Vue, bind `v-model` to
-a ref for the same controlled contract.
-
-<Example name="slider/controlled" width="sm" />
-
-### Disabled
-
-Use `disabled` to keep the value visible while preventing interaction.
-
-<Example name="slider/disabled" width="sm" />
-
-### Dragging Indicator
-
-Place `SliderDraggingIndicator` inside a thumb to show its active value while dragging.
-
-<Example name="slider/dragging-indicator" width="sm" />
-
-### Form
-
-Set `name` and nest `SliderHiddenInput` inside each explicit thumb to submit the current value.
-
-<Example name="slider/form" width="sm" />
-
-### Invalid
-
-Use `invalid` when the selected value fails validation. The track, range, and thumb expose the
-invalid state while remaining interactive.
-
-<Example name="slider/invalid" width="sm" />
+<Example name="slider/range" width="sm" />
 
 ### Marks
 
@@ -105,60 +59,17 @@ Use `SliderMarkerGroup` and `SliderMarker` to render tick marks. Ark marks expos
 
 <Example name="slider/marks" width="sm" />
 
-### Min and Max
-
-Use `min` and `max` when the slider's range does not start at `0` or end at `100`.
-
-<Example name="slider/min-and-max" width="sm" />
-
-### Range
-
-Pass an array with one value per thumb. `SliderThumbs` creates the matching thumbs and their native
-form inputs.
-
-<Example name="slider/range" width="sm" />
-
-### Read Only
-
-Use `readOnly` when the value should remain visible and focusable but must not change. moduix uses a
-default cursor in this state so the slider does not look interactive.
-
-<Example name="slider/read-only" width="sm" />
-
-### Root Provider
-
-Use moduix `useSlider` with `SliderRootProvider` when state needs to be created outside the tree
-that renders the slider parts. Render the parts under `SliderRootProvider`; do not render a second root
-for the same slider state.
-
-<Example name="slider/root-provider" width="sm" />
-
 ### Step
 
 Use `step` for fractional or finer-grained increments.
 
 <Example name="slider/step" width="sm" />
 
-### Thumb Alignment
+### Min and max
 
-Use `thumbAlignment="center"` when the thumb should extend beyond the track edges.
+Use `min` and `max` when the slider's range does not start at `0` or end at `100`.
 
-<Example name="slider/thumb-alignment" width="sm" />
-
-### Thumb Collision
-
-Use `thumbCollisionBehavior` to control what happens when range thumbs meet. `none` (the default)
-keeps one thumb from moving past the other, `push` moves the other thumb, and `swap` exchanges
-their positions.
-
-<Example name="slider/thumb-collision" width="sm" />
-
-### Thumb Overlap
-
-Use `minStepsBetweenThumbs` to keep a minimum gap between range thumbs. The gap is calculated as
-`minStepsBetweenThumbs * step`.
-
-<Example name="slider/thumb-overlap" width="sm" />
+<Example name="slider/min-and-max" width="sm" />
 
 ### Vertical
 
@@ -166,11 +77,100 @@ Set `orientation="vertical"` and give the root an explicit height.
 
 <Example name="slider/vertical" />
 
-### Vertical with Marks
+### Vertical with marks
 
 Marks stay aligned with the track in vertical orientation and expose the same marker state attributes.
 
 <Example name="slider/vertical-with-marks" />
+
+### Center origin
+
+Set `origin="center"` when the value represents a positive or negative offset, such as balance
+around zero.
+
+<Example name="slider/center-origin" width="sm" />
+
+### Disabled
+
+Use `disabled` to keep the value visible while preventing interaction.
+
+<Example name="slider/disabled" width="sm" />
+
+### Read only
+
+Use `readOnly` when the value should remain visible and focusable but must not change. moduix uses a
+default cursor in this state so the slider does not look interactive.
+
+<Example name="slider/read-only" width="sm" />
+
+### Invalid
+
+Use `invalid` when the selected value fails validation. The track, range, and thumb expose the
+invalid state while remaining interactive.
+
+<Example name="slider/invalid" width="sm" />
+
+### Form
+
+Set `name` and nest `SliderHiddenInput` inside each explicit thumb to submit the current value.
+
+<Example name="slider/form" width="sm" />
+
+### Thumb alignment
+
+Use `thumbAlignment="center"` when the thumb should extend beyond the track edges.
+
+<Example name="slider/thumb-alignment" width="sm" />
+
+### Thumb collision
+
+Use `thumbCollisionBehavior` to control what happens when range thumbs meet. `none` (the default)
+keeps one thumb from moving past the other, `push` moves the other thumb, and `swap` exchanges
+their positions.
+
+<Example name="slider/thumb-collision" width="sm" />
+
+### Thumb overlap
+
+Use `minStepsBetweenThumbs` to keep a minimum gap between range thumbs. The gap is calculated as
+`minStepsBetweenThumbs * step`.
+
+<Example name="slider/thumb-overlap" width="sm" />
+
+### Dragging indicator
+
+Place `SliderDraggingIndicator` inside a thumb to show its active value while dragging.
+
+<Example name="slider/dragging-indicator" width="sm" />
+
+### Change events
+
+Use `onValueChange` (or Vue's `value-change` event) for updates during interaction and
+`onValueChangeEnd` (or `value-change-end`) when the drag or keyboard interaction ends.
+
+<Example name="slider/change-events" width="sm" />
+
+### Controlled
+
+Control the slider from framework state by storing Ark's `details.value`; in Vue, bind `v-model` to
+a ref for the same controlled contract.
+
+<Example name="slider/controlled" width="sm" />
+
+### Context
+
+Use moduix `useSliderContext` inside a child component when it needs to read slider state such as
+`value`, `dragging`, or focus state.
+
+<Example name="slider/context" width="sm" />
+
+### Root provider
+
+Use moduix `useSlider` with `SliderRootProvider` when state needs to be created outside the tree
+that renders the slider parts. Render the parts under `SliderRootProvider`; do not render a second root
+for the same slider state.
+
+<Example name="slider/root-provider" width="sm" />
 
 ## Composition
 

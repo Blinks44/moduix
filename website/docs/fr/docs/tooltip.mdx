@@ -45,17 +45,19 @@ l’élément déclencheur reçoit le focus.
 
 ## Exemples
 
-### Contexte
+### Avec une flèche
 
-Utilisez `useTooltipContext()` dans un descendant qui doit lire l’état courant.
+Ajoutez `TooltipArrow` comme premier enfant du contenu lorsque l’infobulle doit pointer vers son
+déclencheur. Avec `TooltipBody`, placez-la directement à l’intérieur de `TooltipBody` ;
+l’enveloppe fournit `TooltipArrowTip` par défaut.
 
-<Example name="tooltip/context" />
+<Example name="tooltip/with-arrow" />
 
-### État contrôlé
+### Positionnement
 
-Contrôlez l’ouverture de l’infobulle avec `open` et `onOpenChange(details)`.
+Passez les options de positionnement d’Ark à `Tooltip`, notamment le placement et le décalage.
 
-<Example name="tooltip/controlled" />
+<Example name="tooltip/positioning" />
 
 ### Délai
 
@@ -77,27 +79,6 @@ une seule infobulle entre plusieurs déclencheurs.
 
 <Example name="tooltip/multiple-triggers" />
 
-### Positionnement
-
-Passez les options de positionnement d’Ark à `Tooltip`, notamment le placement et le décalage.
-
-<Example name="tooltip/positioning" />
-
-### Root Provider
-
-Utilisez `useTooltip()` avec `TooltipRootProvider` lorsque l’état de l’infobulle est créé en dehors
-de l’arbre rendu.
-
-<Example name="tooltip/root-provider" />
-
-### Avec une flèche
-
-Ajoutez `TooltipArrow` comme premier enfant du contenu lorsque l’infobulle doit pointer vers son
-déclencheur. Avec `TooltipBody`, placez-la directement à l’intérieur de `TooltipBody` ;
-l’enveloppe fournit `TooltipArrowTip` par défaut.
-
-<Example name="tooltip/with-arrow" />
-
 ### Dans des conteneurs à position fixe
 
 Utilisez `positioning.strategy: "fixed"` lorsque le déclencheur se trouve dans une zone fixe ou
@@ -105,6 +86,25 @@ collante de l’interface. Cet exemple définit `closeOnScroll={false}` pour vou
 focaliser le déclencheur, de faire défiler le panneau et de vérifier l’alignement de l’infobulle.
 
 <Example name="tooltip/within-fixed-containers" />
+
+### État contrôlé
+
+Contrôlez l’ouverture de l’infobulle avec `open` et `onOpenChange(details)`. Voir [Contrôler l’état depuis l’application](/docs/composition-patterns#controlled-state).
+
+<Example name="tooltip/controlled" />
+
+### Contexte
+
+Utilisez `useTooltipContext()` dans un descendant qui doit lire l’état courant.
+
+<Example name="tooltip/context" />
+
+### Root Provider
+
+Utilisez `useTooltip()` avec `TooltipRootProvider` lorsque l’état de l’infobulle est créé en dehors
+de l’arbre rendu. Voir [Partager l’état hors de l’arbre](/docs/composition-patterns#root-provider).
+
+<Example name="tooltip/root-provider" />
 
 ### Assembler à partir des parties
 

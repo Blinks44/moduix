@@ -42,56 +42,18 @@ should take effect immediately.
 
 ## Examples
 
-### Controlled
+### Sizes
 
-Use a controlled checkbox when another part of your UI owns its value.
+Use moduix `size` to match the checkbox density to the surrounding form or settings screen.
 
-<Example name="checkbox/controlled" />
+<Example name="checkbox/sizes" />
 
-### Controlled Group
-
-Use a controlled group when selected options drive filters, summaries, or actions.
-
-<Example name="checkbox/controlled-group" />
-
-### Custom Indicator
-
-Replace the built-in checkmark with your own icon while keeping Ark's checkbox behavior and
-accessibility semantics.
-
-<Example name="checkbox/custom-indicator" />
-
-### Default Checked
+### Default checked
 
 Use `defaultChecked` when the checkbox needs an initial value and can manage its own state after
 rendering.
 
 <Example name="checkbox/default-checked" />
-
-### Disabled
-
-Use `disabled` when an option is unavailable and must not be interactive.
-
-<Example name="checkbox/disabled" />
-
-### Group
-
-Use `CheckboxGroup` when several checkboxes share an array of selected values.
-
-<Example name="checkbox/group" />
-
-### Group With Fieldset
-
-Use `Fieldset` when the group represents one form field and needs a shared legend.
-
-<Example name="checkbox/group-with-fieldset" />
-
-### Group With Form
-
-Put `CheckboxGroup` inside a form when you need all selected values in `FormData`. Read them with
-`FormData.getAll(name)`.
-
-<Example name="checkbox/group-with-form" />
 
 ### Indeterminate
 
@@ -100,43 +62,17 @@ Select all control.
 
 <Example name="checkbox/indeterminate" />
 
-### Invalid Group
+### Disabled
 
-Set `invalid` on the group when validation applies to the selection as a whole.
+Use `disabled` when an option is unavailable and must not be interactive.
 
-<Example name="checkbox/invalid-group" />
+<Example name="checkbox/disabled" />
 
-### Max Selected
-
-Use `maxSelectedValues` to limit how many options can be selected at once.
-
-<Example name="checkbox/max-selected" />
-
-### Read Only
+### Read only
 
 Use `readOnly` to show a value without allowing users to change it.
 
 <Example name="checkbox/read-only" />
-
-### Root Provider
-
-Use `CheckboxRootProvider` when checkbox state needs to live outside the rendered tree. Import
-`useCheckbox` from the matching framework package.
-
-<Example name="checkbox/root-provider" />
-
-### Select All
-
-Combine a parent checkbox with a controlled group when one control should select or clear every
-option.
-
-<Example name="checkbox/select-all" />
-
-### Sizes
-
-Use moduix `size` to match the checkbox density to the surrounding form or settings screen.
-
-<Example name="checkbox/sizes" />
 
 ### With Field
 
@@ -144,12 +80,76 @@ Use `Field` when a checkbox needs helper text, validation messages, or shared fi
 
 <Example name="checkbox/with-field" />
 
-### With Form
+### With form
 
 Pass `name` and `value` to `Checkbox` and render `CheckboxHiddenInput` to include it in
 `FormData`.
 
 <Example name="checkbox/with-form" />
+
+### Group
+
+Use `CheckboxGroup` when several checkboxes share an array of selected values.
+
+<Example name="checkbox/group" />
+
+### Group with Fieldset
+
+Use `Fieldset` when the group represents one form field and needs a shared legend.
+
+<Example name="checkbox/group-with-fieldset" />
+
+### Group with form
+
+Put `CheckboxGroup` inside a form when you need all selected values in `FormData`. Read them with
+`FormData.getAll(name)`.
+
+<Example name="checkbox/group-with-form" />
+
+### Invalid group
+
+Set `invalid` on the group when validation applies to the selection as a whole.
+
+<Example name="checkbox/invalid-group" />
+
+### Controlled
+
+Use a controlled checkbox when another part of your UI owns its value. See [Control state from the application](/docs/composition-patterns#controlled-state).
+
+<Example name="checkbox/controlled" />
+
+### Controlled group
+
+Use a controlled group when selected options drive filters, summaries, or actions. See [Control state from the application](/docs/composition-patterns#controlled-state).
+
+<Example name="checkbox/controlled-group" />
+
+### Select all
+
+Combine a parent checkbox with a controlled group when one control should select or clear every
+option.
+
+<Example name="checkbox/select-all" />
+
+### Max selected
+
+Use `maxSelectedValues` to limit how many options can be selected at once.
+
+<Example name="checkbox/max-selected" />
+
+### Custom indicator
+
+Replace the built-in checkmark with your own icon while keeping Ark's checkbox behavior and
+accessibility semantics.
+
+<Example name="checkbox/custom-indicator" />
+
+### Root provider
+
+Use `CheckboxRootProvider` when checkbox state needs to live outside the rendered tree. Import
+`useCheckbox` from the matching framework package. See [Share state outside the tree](/docs/composition-patterns#root-provider).
+
+<Example name="checkbox/root-provider" />
 
 ### Build from parts
 
@@ -226,7 +226,6 @@ Hover or focus a variable to see it in the preview.
 | Key | Action |
 | --- | --- |
 | `Space` | Toggles the focused checkbox. |
-| `Tab` | Moves to the next checkbox. |
 
 ## API reference
 

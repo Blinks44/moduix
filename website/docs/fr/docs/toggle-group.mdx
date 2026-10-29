@@ -45,6 +45,51 @@ clavier. Le groupe peut autoriser une seule valeur sélectionnée ou plusieurs.
 
 ## Exemples
 
+### Variantes
+
+Définissez `variant` sur le groupe lorsque tous les éléments doivent partager le même style visuel.
+
+<Example name="toggle-group/variants" />
+
+### Tailles
+
+Définissez `size` sur `ToggleGroup` : `xs`, `sm`, `md` ou `lg`. Tous les éléments du groupe prennent la même taille.
+
+<Example name="toggle-group/sizes" />
+
+### Icônes
+
+Passez les icônes comme des enfants ordinaires. Les éléments qui n’affichent qu’une icône doivent toujours
+avoir un libellé accessible.
+
+<Example name="toggle-group/icons" />
+
+### Sélection multiple
+
+Utilisez `multiple` lorsque plusieurs choix peuvent rester actifs en même temps.
+
+<Example name="toggle-group/multiple-selection" />
+
+### Orientation verticale
+
+Définissez `orientation="vertical"` lorsque les choix doivent être disposés en colonne.
+
+<Example name="toggle-group/vertical" />
+
+### Groupe et élément désactivés
+
+Utilisez `disabled` sur le groupe ou sur un élément précis pour empêcher les interactions.
+
+<Example name="toggle-group/disabled" />
+
+### Valeur contrôlée
+
+Contrôlez `value` dans React et Solid, ou utilisez `v-model` dans Vue, lorsque les éléments sélectionnés
+doivent rester synchronisés avec l’état du reste de
+l’application. Voir [Contrôler l’état depuis l’application](/docs/composition-patterns#controlled-state).
+
+<Example name="toggle-group/controlled" />
+
 ### asChild
 
 Utilisez `asChild` sur un élément lorsqu’un bouton personnalisé doit porter l’élément rendu. Conservez
@@ -61,57 +106,12 @@ Solid, ou un slot avec portée dans Vue.
 
 <Example name="toggle-group/context" />
 
-### Valeur contrôlée
-
-Contrôlez `value` dans React et Solid, ou utilisez `v-model` dans Vue, lorsque les éléments sélectionnés
-doivent rester synchronisés avec l’état du reste de
-l’application.
-
-<Example name="toggle-group/controlled" />
-
-### Groupe et élément désactivés
-
-Utilisez `disabled` sur le groupe ou sur un élément précis pour empêcher les interactions.
-
-<Example name="toggle-group/disabled" />
-
-### Icônes
-
-Passez les icônes comme des enfants ordinaires. Les éléments qui n’affichent qu’une icône doivent toujours
-avoir un libellé accessible.
-
-<Example name="toggle-group/icons" />
-
-### Sélection multiple
-
-Utilisez `multiple` lorsque plusieurs choix peuvent rester actifs en même temps.
-
-<Example name="toggle-group/multiple-selection" />
-
 ### Root Provider
 
 Utilisez `ToggleGroupRootProvider` avec `useToggleGroup()` lorsque l’instance d’état doit être créée
-en dehors de l’arbre rendu du groupe.
+en dehors de l’arbre rendu du groupe. Voir [Partager l’état hors de l’arbre](/docs/composition-patterns#root-provider).
 
 <Example name="toggle-group/root-provider" />
-
-### Tailles
-
-Définissez `size` sur `ToggleGroup` : `xs`, `sm`, `md` ou `lg`. Tous les éléments du groupe prennent la même taille.
-
-<Example name="toggle-group/sizes" />
-
-### Variantes
-
-Définissez `variant` sur le groupe lorsque tous les éléments doivent partager le même style visuel.
-
-<Example name="toggle-group/variants" />
-
-### Orientation verticale
-
-Définissez `orientation="vertical"` lorsque les choix doivent être disposés en colonne.
-
-<Example name="toggle-group/vertical" />
 
 ## Composition
 

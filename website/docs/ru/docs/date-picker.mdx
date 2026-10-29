@@ -43,54 +43,41 @@ import * as DatePickerDocs from '@/components/examples/date-picker/css-propertie
 
 ## Примеры
 
-### Управляемое состояние
+### Диапазон
 
-Управляйте выбранным `DateValue[]`, обновляя его через `details.value`. В Vue для управляемого
-значения используйте `v-model`.
+Используйте `selectionMode="range"` с двумя значениями. Ark управляет наведением, началом и концом
+диапазона, а также форматированием ввода. Для диапазона нужны два индексированных ввода.
 
-<Example name="date-picker/controlled" />
+<Example name="date-picker/range" />
 
-### Представление по умолчанию и фиксированное число недель
+### Несколько дат
 
-Используйте `defaultView`, чтобы открыть другое представление. Добавьте `fixedWeeks`, чтобы высота
-представления дней оставалась постоянной в шесть строк при переходе между месяцами.
+Используйте `selectionMode="multiple"` и при необходимости ограничьте число выбранных дат через
+`maxSelectedDates`. Выводите выбранные даты через `DatePickerContext` и вызывайте
+`datePicker.setValue()` при удалении даты.
 
-<Example name="date-picker/default-view-and-fixed-weeks" />
+<Example name="date-picker/multiple" />
 
-### Состояние поля
+### Предустановки
 
-`DatePicker` получает состояние поля из Ark. Если компонент не вложен в `Field`, задайте на корне
-`invalid`, `disabled`, `readOnly` и `required`.
+`DatePickerPresetTrigger` принимает имена готовых диапазонов, например `last7Days`, или собственный
+`DateValue[]`. Используйте режим диапазона и два индексированных ввода, чтобы показать обе даты.
 
-<Example name="date-picker/field-state" />
+<Example name="date-picker/presets" />
 
-### Форма
+### Дата и время
 
-Передайте `name`, чтобы включить выбранную дату в отправку нативной формы. `DatePickerField`
-добавляет локализованный шаблон ввода и подписи действий, если их не переопределить.
+Храните время в выбранном значении через объекты `CalendarDateTime`. Объедините календарь с
+`DateInput`, настроенным на ввод минут, чтобы оба элемента редактировали одно значение.
 
-<Example name="date-picker/form" />
+<Example name="date-picker/with-time" />
 
-### Встроенный календарь и номера недель
+### Выбрать сегодня
 
-Задайте `inline`, чтобы календарь остался в потоке документа. Встроенный календарь отображает
-`DatePickerContent` напрямую, без `DatePickerPositioner`. Номера недель включаются свойством
-`showWeekNumbers` на корне: `DatePickerDayTable` читает его и добавляет столбец.
+Используйте `DatePickerContext`, когда соседнему элементу нужно вызвать вспомогательный метод,
+например `selectToday()`.
 
-<Example name="date-picker/inline-and-week-numbers" />
-
-### Локаль и формат
-
-Параметры `locale`, `startOfWeek`, `format` и `parse` передаются в Ark.
-
-<Example name="date-picker/locale-and-format" />
-
-### Минимальная, максимальная и недоступные даты
-
-Используйте `min`, `max` и `isDateUnavailable` для правил валидации, которые должны влиять и на
-ввод, и на ячейки календаря.
-
-<Example name="date-picker/min-max-and-unavailable" />
+<Example name="date-picker/select-today" />
 
 ### Выбор месяца и года
 
@@ -107,13 +94,13 @@ import * as DatePickerDocs from '@/components/examples/date-picker/css-propertie
 
 <Example name="date-picker/month-picker" />
 
-### Несколько дат
+### Выбор года
 
-Используйте `selectionMode="multiple"` и при необходимости ограничьте число выбранных дат через
-`maxSelectedDates`. Выводите выбранные даты через `DatePickerContext` и вызывайте
-`datePicker.setValue()` при удалении даты.
+Задайте `defaultView="year"`, `minView="year"` и `maxView="year"`, чтобы пользователь выбирал
+только год. Используйте `DatePickerRangeText` в заголовке, поскольку у представления года нет более высокого
+уровня для переключения.
 
-<Example name="date-picker/multiple" />
+<Example name="date-picker/year-picker" />
 
 ### Несколько месяцев
 
@@ -122,48 +109,61 @@ import * as DatePickerDocs from '@/components/examples/date-picker/css-propertie
 
 <Example name="date-picker/multiple-months" />
 
-### Предустановки
+### Встроенный календарь и номера недель
 
-`DatePickerPresetTrigger` принимает имена готовых диапазонов, например `last7Days`, или собственный
-`DateValue[]`. Используйте режим диапазона и два индексированных ввода, чтобы показать обе даты.
+Задайте `inline`, чтобы календарь остался в потоке документа. Встроенный календарь отображает
+`DatePickerContent` напрямую, без `DatePickerPositioner`. Номера недель включаются свойством
+`showWeekNumbers` на корне: `DatePickerDayTable` читает его и добавляет столбец.
 
-<Example name="date-picker/presets" />
+<Example name="date-picker/inline-and-week-numbers" />
 
-### Диапазон
+### Представление по умолчанию и фиксированное число недель
 
-Используйте `selectionMode="range"` с двумя значениями. Ark управляет наведением, началом и концом
-диапазона, а также форматированием ввода. Для диапазона нужны два индексированных ввода.
+Используйте `defaultView`, чтобы открыть другое представление. Добавьте `fixedWeeks`, чтобы высота
+представления дней оставалась постоянной в шесть строк при переходе между месяцами.
 
-<Example name="date-picker/range" />
+<Example name="date-picker/default-view-and-fixed-weeks" />
+
+### Локаль и формат
+
+Параметры `locale`, `startOfWeek`, `format` и `parse` передаются в Ark.
+
+<Example name="date-picker/locale-and-format" />
+
+### Минимальная, максимальная и недоступные даты
+
+Используйте `min`, `max` и `isDateUnavailable` для правил валидации, которые должны влиять и на
+ввод, и на ячейки календаря.
+
+<Example name="date-picker/min-max-and-unavailable" />
+
+### Состояние поля
+
+`DatePicker` получает состояние поля из Ark. Если компонент не вложен в `Field`, задайте на корне
+`invalid`, `disabled`, `readOnly` и `required`.
+
+<Example name="date-picker/field-state" />
+
+### Форма
+
+Передайте `name`, чтобы включить выбранную дату в отправку нативной формы. `DatePickerField`
+добавляет локализованный шаблон ввода и подписи действий, если их не переопределить.
+
+<Example name="date-picker/form" />
+
+### Управляемое состояние
+
+Управляйте выбранным `DateValue[]`, обновляя его через `details.value`. В Vue для управляемого
+значения используйте `v-model`. Подробнее в разделе [Управляйте состоянием из приложения](/docs/composition-patterns#controlled-state).
+
+<Example name="date-picker/controlled" />
 
 ### Root Provider
 
 Используйте `useDatePicker()` из пакета выбранного фреймворка вместе с `DatePickerRootProvider`,
-когда состояние календаря нужно разделить с элементами вне дерева корня.
+когда состояние календаря нужно разделить с элементами вне дерева корня. Подробнее в разделе [Выносите состояние за пределы дерева](/docs/composition-patterns#root-provider).
 
 <Example name="date-picker/root-provider" />
-
-### Выбрать сегодня
-
-Используйте `DatePickerContext`, когда соседнему элементу нужно вызвать вспомогательный метод,
-например `selectToday()`.
-
-<Example name="date-picker/select-today" />
-
-### Дата и время
-
-Храните время в выбранном значении через объекты `CalendarDateTime`. Объедините календарь с
-`DateInput`, настроенным на ввод минут, чтобы оба элемента редактировали одно значение.
-
-<Example name="date-picker/with-time" />
-
-### Выбор года
-
-Задайте `defaultView="year"`, `minView="year"` и `maxView="year"`, чтобы пользователь выбирал
-только год. Используйте `DatePickerRangeText` в заголовке, поскольку у представления года нет более высокого
-уровня для переключения.
-
-<Example name="date-picker/year-picker" />
 
 ### Сборка из частей
 

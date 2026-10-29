@@ -46,26 +46,26 @@ Les mêmes exports sont disponibles depuis `@moduix/solid/alert` pour Solid et d
 
 ## Exemples
 
-### Titre personnalisé
-
-Utilisez `asChild` sur `AlertTitle` lorsque le titre de l’alerte doit s’inscrire dans la hiérarchie
-des titres de la page.
-
-<Example name="alert/custom-heading" />
-
-### Erreur
-
-Définissez `status="error"` pour un accent visuel plus marqué. Ajoutez `role="alert"` uniquement
-lorsque le message doit être annoncé de façon assertive.
-
-<Example name="alert/error" />
-
 ### Statuts
 
 Utilisez les quatre statuts pour distinguer les messages d’information, de réussite, d’avertissement et
 d’erreur. Ajoutez `AlertIndicator` avec l’icône de votre choix lorsque ce repère visuel est utile.
 
 <Example name="alert/statuses" />
+
+### Avec icône
+
+Placez une icône moduix ou un SVG personnalisé dans `AlertIndicator`. Une classe de taille sur l’icône
+remplace la taille par défaut.
+
+<Example name="alert/with-icon" />
+
+### Titre personnalisé
+
+Utilisez `asChild` sur `AlertTitle` lorsque le titre de l’alerte doit s’inscrire dans la hiérarchie
+des titres de la page.
+
+<Example name="alert/custom-heading" />
 
 ### Avec des actions
 
@@ -75,12 +75,12 @@ l’alerte si vous devez pouvoir la masquer localement.
 
 <Example name="alert/with-actions" />
 
-### Avec icône
+### Erreur
 
-Placez une icône moduix ou un SVG personnalisé dans `AlertIndicator`. Une classe de taille sur l’icône
-remplace la taille par défaut.
+Définissez `status="error"` pour un accent visuel plus marqué. Ajoutez `role="alert"` uniquement
+lorsque le message doit être annoncé de façon assertive.
 
-<Example name="alert/with-icon" />
+<Example name="alert/error" />
 
 ## Composition
 

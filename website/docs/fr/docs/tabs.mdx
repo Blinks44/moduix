@@ -45,12 +45,36 @@ onglet affiche le panneau correspondant et masque les autres panneaux.
 
 ## Exemples
 
-### Valeur contrôlée
+### Variante ligne
 
-Contrôlez l’onglet sélectionné avec l’état de l’application lorsque le panneau actif doit se synchroniser avec
-d’autres éléments de l’interface.
+Utilisez `variant="line"` lorsque l’indicateur doit se placer sur le bord actif au lieu de remplir
+l’onglet sélectionné. Les onglets horizontaux tracent la ligne sous la liste, les onglets verticaux
+sur le bord de la liste côté panneau.
 
-<Example name="tabs/controlled-value" width="lg" />
+<Example name="tabs/line" width="lg" />
+
+### Tailles
+
+Définissez `size` sur `Tabs` ou `TabsRootProvider` : `sm`, `md` (par défaut) ou `lg`. La liste
+d’onglets a alors la hauteur d’un `Button` ou d’un `Input` de même taille, comme `SegmentGroup`.
+
+<Example name="tabs/sizes" width="lg" />
+
+### Onglets étirés
+
+Ajoutez `fitted` à `Tabs` ou `TabsRootProvider` pour étirer une liste d’onglets horizontale sur toute
+la largeur de la racine et la répartir également entre les déclencheurs. Les onglets verticaux
+l’ignorent.
+
+<Example name="tabs/fitted" width="lg" />
+
+### Vertical
+
+Utilisez `orientation="vertical"` lorsque la liste des onglets doit se trouver à côté du panneau
+actif. La liste occupe jusqu’à `12rem`, et au plus 40 % de la largeur de la racine dans un conteneur
+étroit.
+
+<Example name="tabs/vertical" width="lg" />
 
 ### Icônes personnalisées
 
@@ -63,29 +87,6 @@ Placez directement les icônes et les libellés dans `TabsTrigger`.
 Désactivez un onglet qui doit rester visible, mais qui n’est pas encore disponible.
 
 <Example name="tabs/disabled-tab" width="lg" />
-
-### Onglets étirés
-
-Ajoutez `fitted` à `Tabs` ou `TabsRootProvider` pour étirer une liste d’onglets horizontale sur toute
-la largeur de la racine et la répartir également entre les déclencheurs. Les onglets verticaux
-l’ignorent.
-
-<Example name="tabs/fitted" width="lg" />
-
-### Montage différé
-
-Utilisez `lazyMount` lorsque les panneaux inactifs ne doivent être montés qu’après leur sélection.
-Ajoutez `unmountOnExit` pour les retirer à nouveau du DOM lorsque l’utilisateur les quitte.
-
-<Example name="tabs/lazy-mount" width="lg" />
-
-### Variante ligne
-
-Utilisez `variant="line"` lorsque l’indicateur doit se placer sur le bord actif au lieu de remplir
-l’onglet sélectionné. Les onglets horizontaux tracent la ligne sous la liste, les onglets verticaux
-sur le bord de la liste côté panneau.
-
-<Example name="tabs/line" width="lg" />
 
 ### Liens
 
@@ -101,27 +102,26 @@ l’onglet sélectionné. Activez-le avec un clic, Entrée ou Espace.
 
 <Example name="tabs/manual-activation" width="lg" />
 
+### Montage différé
+
+Utilisez `lazyMount` lorsque les panneaux inactifs ne doivent être montés qu’après leur sélection.
+Ajoutez `unmountOnExit` pour les retirer à nouveau du DOM lorsque l’utilisateur les quitte.
+
+<Example name="tabs/lazy-mount" width="lg" />
+
+### Valeur contrôlée
+
+Contrôlez l’onglet sélectionné avec l’état de l’application lorsque le panneau actif doit se synchroniser avec
+d’autres éléments de l’interface.
+
+<Example name="tabs/controlled-value" width="lg" />
+
 ### Root Provider
 
 Créez l’état des onglets avec `useTabs()` lorsqu’il doit exister avant le rendu de l’arbre de parties
 ou lorsque l’interface voisine doit lire la valeur sélectionnée.
 
 <Example name="tabs/root-provider" width="lg" />
-
-### Tailles
-
-Définissez `size` sur `Tabs` ou `TabsRootProvider` : `sm`, `md` (par défaut) ou `lg`. La liste
-d’onglets a alors la hauteur d’un `Button` ou d’un `Input` de même taille, comme `SegmentGroup`.
-
-<Example name="tabs/sizes" width="lg" />
-
-### Vertical
-
-Utilisez `orientation="vertical"` lorsque la liste des onglets doit se trouver à côté du panneau
-actif. La liste occupe jusqu’à `12rem`, et au plus 40 % de la largeur de la racine dans un conteneur
-étroit.
-
-<Example name="tabs/vertical" width="lg" />
 
 ## Composition
 

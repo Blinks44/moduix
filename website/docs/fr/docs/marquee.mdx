@@ -38,6 +38,27 @@ des éléments ni celui du cadre. Dans l’exemple, le style des éléments et l
 
 ## Exemples
 
+### Vitesse
+
+Réglez le mouvement avec `speed`, exprimé en pixels par seconde. Une vitesse plus faible facilite la lecture.
+
+<Example name="marquee/speed" />
+
+### Sens inverse
+
+Utilisez `reverse` lorsque le contenu doit se déplacer dans le sens opposé à celui indiqué par `side`, sans modifier
+l’orientation.
+
+<Example name="marquee/reverse" />
+
+### Orientation verticale
+
+Définissez `side="top"` ou `side="bottom"` pour faire défiler le contenu verticalement. Par défaut, une racine
+verticale mesure `15rem` de haut, ce qui donne à la zone d’affichage une hauteur stable ; définissez `height` avec une
+classe pour la modifier.
+
+<Example name="marquee/vertical" />
+
 ### Remplissage automatique
 
 Utilisez `autoFill` lorsque le contenu ne suffit pas à remplir la zone d’affichage. `spacing` définit l’espace entre
@@ -52,13 +73,6 @@ décorative et n’intercepte pas les événements de pointeur.
 
 <Example name="marquee/edges" />
 
-### Boucles limitées
-
-Définissez `loopCount` pour limiter le nombre de boucles. `onLoopComplete` est appelé après chaque boucle et
-`onComplete` après la dernière.
-
-<Example name="marquee/finite-loops" />
-
 ### Pause lors des interactions
 
 Utilisez `pauseOnInteraction` pour mettre le composant en pause lorsque l’utilisateur le survole ou place le focus
@@ -71,19 +85,12 @@ jamais d’informations critiques uniquement dans un marquee.
 
 <Example name="marquee/pause-on-interaction" />
 
-### Root Provider
+### Boucles limitées
 
-Utilisez `useMarquee()` de moduix avec `MarqueeRootProvider` lorsque des commandes externes doivent mettre le
-défilement en pause, le reprendre ou le relancer.
+Définissez `loopCount` pour limiter le nombre de boucles. `onLoopComplete` est appelé après chaque boucle et
+`onComplete` après la dernière.
 
-<Example name="marquee/programmatic-control" />
-
-### Sens inverse
-
-Utilisez `reverse` lorsque le contenu doit se déplacer dans le sens opposé à celui indiqué par `side`, sans modifier
-l’orientation.
-
-<Example name="marquee/reverse" />
+<Example name="marquee/finite-loops" />
 
 ### De droite à gauche
 
@@ -92,19 +99,12 @@ suivent alors la direction du texte.
 
 <Example name="marquee/rtl" />
 
-### Vitesse
+### Root Provider
 
-Réglez le mouvement avec `speed`, exprimé en pixels par seconde. Une vitesse plus faible facilite la lecture.
+Utilisez `useMarquee()` de moduix avec `MarqueeRootProvider` lorsque des commandes externes doivent mettre le
+défilement en pause, le reprendre ou le relancer.
 
-<Example name="marquee/speed" />
-
-### Orientation verticale
-
-Définissez `side="top"` ou `side="bottom"` pour faire défiler le contenu verticalement. Par défaut, une racine
-verticale mesure `15rem` de haut, ce qui donne à la zone d’affichage une hauteur stable ; définissez `height` avec une
-classe pour la modifier.
-
-<Example name="marquee/vertical" />
+<Example name="marquee/programmatic-control" />
 
 ## Composition
 

@@ -34,14 +34,31 @@ as `CardHeader` and `CardTitle`. The same names work with npm packages and shadc
 
 ## Examples
 
-### Custom Media
+### Variants
 
-Leave out `CardMedia` when you need custom media framing and want to style the card with lower-level
-hooks.
+Use the variants to communicate the hierarchy between surfaces.
 
-<Example name="card/custom-media" />
+<Example name="card/variants" />
 
-### Header Action
+### Sizes
+
+Choose `sm`, `md`, or `lg` to change the card's padding and title scale.
+
+<Example name="card/sizes" />
+
+### With Image
+
+Use `CardMedia` for leading media that should span the card width with consistent clipping.
+
+<Example name="card/with-image" />
+
+### With Avatar
+
+Place profile media in the header when the card represents a person or entity.
+
+<Example name="card/with-avatar" />
+
+### Header action
 
 Use `CardAction` for a compact status or control at the end of the header.
 
@@ -54,50 +71,33 @@ for this layout.
 
 <Example name="card/horizontal" />
 
-### Overlay Link
+### Custom media
 
-Use `CardLink` when the card needs navigation and separate actions.
+Leave out `CardMedia` when you need custom media framing and want to style the card with lower-level
+hooks.
 
-<Example name="card/overlay-link" />
+<Example name="card/custom-media" />
 
-### Root as Link
-
-Use `asChild` when the entire card is one link and contains no nested controls.
-
-<Example name="card/root-as-link" />
-
-### Sizes
-
-Choose `sm`, `md`, or `lg` to change the card's padding and title scale.
-
-<Example name="card/sizes" />
-
-### Variants
-
-Use the variants to communicate the hierarchy between surfaces.
-
-<Example name="card/variants" />
-
-### With Avatar
-
-Place profile media in the header when the card represents a person or entity.
-
-<Example name="card/with-avatar" />
-
-### With Background
+### With background
 
 Use `CardBackground` for decorative media behind the whole card. Add the overlay and text-contrast
 styles in your application.
 
 <Example name="card/with-background" />
 
-### With Image
+### Overlay link
 
-Use `CardMedia` for leading media that should span the card width with consistent clipping.
+Use `CardLink` when the card needs navigation and separate actions.
 
-<Example name="card/with-image" />
+<Example name="card/overlay-link" />
 
-### Within Form
+### Root as link
+
+Use `asChild` when the entire card is one link and contains no nested controls.
+
+<Example name="card/root-as-link" />
+
+### Within form
 
 Use the root as a form when the card groups related fields and actions.
 

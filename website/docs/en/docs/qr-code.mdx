@@ -35,21 +35,21 @@ name when the QR code conveys information.
 
 ## Examples
 
-### Controlled
+### Fill
 
-Control `value` when the QR code should follow a selected destination or another piece of application
-state.
+The QR modules use `currentColor` by default. Change the SVG fill with `style` or a class on
+`QrCodeFrame`, or set the text color of a parent.
 
-<Example name="qr-code/controlled" />
+<Example name="qr-code/fill" />
 
-### Download
+### Overlay
 
-Add `QrCodeDownloadTrigger` when users need to save the generated code as an image. Set both
-`fileName` and `mimeType` on the trigger.
+Use `QrCodeOverlay` for a compact logo or text mark. Set a high error-correction level and keep the
+overlay small enough that scanners can still read the code.
 
-<Example name="qr-code/download" />
+<Example name="qr-code/overlay" />
 
-### Error Correction
+### Error correction
 
 Use `encoding.ecc` to choose how much damaged data the QR code can recover. Higher levels help when
 an overlay covers part of the code or when the code may be scratched or distorted.
@@ -61,12 +61,12 @@ an overlay covers part of the code or when the code may be scratched or distorte
 
 <Example name="qr-code/error-correction" />
 
-### Fill
+### Download
 
-The QR modules use `currentColor` by default. Change the SVG fill with `style` or a class on
-`QrCodeFrame`, or set the text color of a parent.
+Add `QrCodeDownloadTrigger` when users need to save the generated code as an image. Set both
+`fileName` and `mimeType` on the trigger.
 
-<Example name="qr-code/fill" />
+<Example name="qr-code/download" />
 
 ### Input
 
@@ -75,17 +75,17 @@ Give the frame an accessible name that explains what the code represents.
 
 <Example name="qr-code/input" />
 
-### Overlay
+### Controlled
 
-Use `QrCodeOverlay` for a compact logo or text mark. Set a high error-correction level and keep the
-overlay small enough that scanners can still read the code.
+Control `value` when the QR code should follow a selected destination or another piece of application
+state. See [Control state from the application](/docs/composition-patterns#controlled-state).
 
-<Example name="qr-code/overlay" />
+<Example name="qr-code/controlled" />
 
-### Root Provider
+### Root provider
 
 Create QR state with `useQrCode()` when it must be shared with controls outside the QR tree, then
-pass that state to `QrCodeRootProvider`.
+pass that state to `QrCodeRootProvider`. See [Share state outside the tree](/docs/composition-patterns#root-provider).
 
 <Example name="qr-code/root-provider" />
 

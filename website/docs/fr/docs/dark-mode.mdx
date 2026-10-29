@@ -1,6 +1,6 @@
 ---
 title: Mode sombre
-description: Appliquez les tokens sombres de Moduix à toute l’application ou à une seule surface dans chaque framework pris en charge.
+description: Appliquez les tokens sombres de moduix à toute l’application ou à une seule surface dans chaque framework pris en charge.
 ---
 
 import reactScopedSurface from '../../../snippets/dark-mode/react/scoped-surface.tsx?raw';
@@ -9,9 +9,9 @@ import VueScopedSurface from '../../../snippets/dark-mode/vue/scoped-surface.vue
 
 # Mode sombre
 
-Moduix fournit des tokens sémantiques clairs et sombres. Chargez la feuille de styles correspondant au
+moduix fournit des tokens sémantiques clairs et sombres. Chargez la feuille de styles correspondant au
 framework et à la méthode de style choisis, puis placez `data-moduix-color-scheme` sur l’élément qui
-porte le schéma. Aucun provider de thème ni état Moduix n’est nécessaire.
+porte le schéma. Aucun provider de thème ni état moduix n’est nécessaire.
 
 ## Choisir la portée
 
@@ -32,7 +32,7 @@ Utilisez l’attribut natif comme source de vérité :
 <html data-moduix-color-scheme="dark"></html>
 ```
 
-Les valeurs possibles sont `dark` et `light`. Moduix ne lit pas la préférence du système, ne conserve
+Les valeurs possibles sont `dark` et `light`. moduix ne lit pas la préférence du système, ne conserve
 pas le choix et ne synchronise pas l’état du navigateur. L’application garde cette responsabilité.
 
 Avec un rendu serveur, résolvez le schéma avant le premier affichage grâce au mécanisme précoce du

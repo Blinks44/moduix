@@ -40,25 +40,19 @@ import * as SelectDocs from '@/components/examples/select/css-properties';
 
 ## Примеры
 
-### Управляемое состояние
+### Множественный выбор
 
-Управляйте массивом выбранных строк через состояние React, сигнал Solid или ref Vue и обновляйте его из `details.value`.
+Установите `multiple`, чтобы разрешить несколько выбранных значений. `ValueText` выводит подписи
+выбранных элементов из коллекции.
 
-<Example name="select/controlled" />
+<Example name="select/multiple" />
 
-### Пользовательская разметка элемента
+### Группировка
 
-Используйте `SelectItemTextContent`, `SelectItemTextIcon` и `SelectItemTextLabel` внутри
-`ItemText`, когда элементу нужны иконка и подпись с обрезанием по ширине.
+Задайте `groupBy` для коллекции и отрендерите `collection.group()` с помощью `ItemGroup` и
+`ItemGroupLabel`.
 
-<Example name="select/custom-item-layout" />
-
-### Динамические элементы
-
-Обновляйте коллекцию, когда меняется список доступных элементов. Композиция Select при этом
-остаётся прежней.
-
-<Example name="select/dynamic-items" />
+<Example name="select/grouping" />
 
 ### Поле формы
 
@@ -74,19 +68,12 @@ import * as SelectDocs from '@/components/examples/select/css-properties';
 
 <Example name="select/form-usage" />
 
-### Группировка
+### Управляемое состояние
 
-Задайте `groupBy` для коллекции и отрендерите `collection.group()` с помощью `ItemGroup` и
-`ItemGroupLabel`.
+Передайте `value` и `onValueChange` (`v-model` во Vue). Значение всегда массив строк, даже без
+`multiple`. Подробнее в разделе [Управляйте состоянием из приложения](/docs/composition-patterns#controlled-state).
 
-<Example name="select/grouping" />
-
-### Ленивое монтирование
-
-Используйте `lazyMount` и `unmountOnExit`, если содержимое всплывающего окна нужно монтировать
-только на время работы с Select.
-
-<Example name="select/lazy-mount" />
+<Example name="select/controlled" />
 
 ### Максимальное число выбранных элементов
 
@@ -95,26 +82,26 @@ import * as SelectDocs from '@/components/examples/select/css-properties';
 
 <Example name="select/max-selection" />
 
-### Множественный выбор
+### Выбрать все
 
-Установите `multiple`, чтобы разрешить несколько выбранных значений. `ValueText` выводит подписи
-выбранных элементов из коллекции.
+Разместите массовые действия за пределами listbox. `useSelect` позволяет использовать их и
+Select с одним экземпляром состояния Ark.
 
-<Example name="select/multiple" />
+<Example name="select/select-all" />
 
-### Переполнение
+### Динамические элементы
 
-Для длинных списков используйте `positioning.fitViewport`. Содержимое уже ограничивает высоту с
-помощью переменной Ark `--available-height` и остаётся прокручиваемым.
+Обновляйте коллекцию, когда меняется список доступных элементов. Композиция Select при этом
+остаётся прежней.
 
-<Example name="select/overflow" />
+<Example name="select/dynamic-items" />
 
-### Root Provider
+### Пользовательская разметка элемента
 
-Используйте `useSelect` вместе с `SelectRootProvider`, когда состояние нужно читать или
-контролировать за пределами отрендеренного дерева Select.
+Поместите иконку прямо в `SelectItemText` перед подписью. Иконка получает фиксированный размер и
+отступ, а длинная подпись обрезается многоточием.
 
-<Example name="select/root-provider" />
+<Example name="select/custom-item-layout" />
 
 ### Поиск во всплывающем окне
 
@@ -123,18 +110,32 @@ import * as SelectDocs from '@/components/examples/select/css-properties';
 
 <Example name="select/search-in-popup" />
 
-### Выбрать все
+### Переполнение
 
-Разместите массовые действия за пределами listbox. `useSelect` позволяет использовать их и
-Select с одним экземпляром состояния Ark.
+Для длинных списков используйте `positioning.fitViewport`. Содержимое уже ограничивает высоту с
+помощью переменной Ark `--available-height` и остаётся прокручиваемым.
 
-<Example name="select/select-all" />
+<Example name="select/overflow" />
+
+### Ленивое монтирование
+
+Используйте `lazyMount` и `unmountOnExit`, если содержимое всплывающего окна нужно монтировать
+только на время работы с Select.
+
+<Example name="select/lazy-mount" />
 
 ### Выбор при перемещении по вариантам
 
 Используйте `onHighlightChange(details)`, если переход по вариантам должен сразу обновлять выбор.
 
 <Example name="select/select-on-highlight" />
+
+### Root Provider
+
+Создайте состояние через `useSelect` и передайте его в `SelectRootProvider`. Подробнее в разделе
+[Выносите состояние за пределы дерева](/docs/composition-patterns#root-provider).
+
+<Example name="select/root-provider" />
 
 ### Сборка из частей
 
@@ -173,9 +174,6 @@ Select с одним экземпляром состояния Ark.
     ["SelectOption", "", "Готовая строка для простых пунктов с текстом и индикатором.", 4],
     ["SelectItem", "select-item", "Выбираемая строка. Передайте элемент коллекции через `item`.", 4],
     ["SelectItemText", "select-item-text", "Текст для отображения и доступности.", 5],
-    ["SelectItemTextContent", "select-item-text-content", "Вспомогательный компонент для разметки сложного текста элемента.", 6],
-    ["SelectItemTextIcon", "select-item-text-icon", "Обёртка для иконки в тексте элемента.", 7],
-    ["SelectItemTextLabel", "select-item-text-label", "Обёртка для подписи в тексте элемента.", 7],
     ["SelectItemIndicator", "select-item-indicator", "Индикатор выбранного состояния со стандартной иконкой галочки moduix.", 5],
     ["SelectHiddenSelect", "", "Нативное поле Ark; правила явной композиции описаны ниже.", 1],
     ["SelectField", "", "Вспомогательный компонент moduix для стандартного поля, триггера и действий.", 1],
@@ -219,9 +217,6 @@ Select с одним экземпляром состояния Ark.
 | `SelectItem` | `select-item` |
 | `SelectItemText` | `select-item-text` |
 | `SelectItemIndicator` | `select-item-indicator` |
-| `SelectItemTextContent` | `select-item-text-content` |
-| `SelectItemTextIcon` | `select-item-text-icon` |
-| `SelectItemTextLabel` | `select-item-text-label` |
 
 Его свойство `indicator` передаёт
 дочерний элемент в существующий слот индикатора. `SelectOption` использует слоты пункта и не

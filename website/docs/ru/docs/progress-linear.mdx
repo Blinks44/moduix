@@ -42,46 +42,11 @@ React, Solid и Vue используют одинаковые плоские и�
 
 ## Примеры
 
-### Управляемое состояние
-
-Храните `value` в состоянии, если прогресс должен синхронно меняться вместе с другим элементом
-управления или внешней задачей.
-
-<Example name="progress-linear/controlled" width="sm" />
-
-### Неопределённый прогресс
-
-Установите `defaultValue={null}` или `value={null}`, когда задача выполняется, но пока нельзя
-определить, сколько уже сделано.
-
-<Example name="progress-linear/indeterminate" width="sm" />
-
 ### Начальное значение
 
 Используйте `defaultValue`, чтобы задать начальное значение неуправляемого прогресса.
 
 <Example name="progress-linear/initial-value" width="sm" />
-
-### Минимум и максимум
-
-Используйте `min` и `max`, если диапазон прогресса отличается от стандартного диапазона от `0` до
-`100`.
-
-<Example name="progress-linear/min-max" width="sm" />
-
-### Root Provider
-
-Создайте состояние прогресса с помощью `useProgress()` в родительском компоненте,
-а затем подключите его к частям через `ProgressLinearRootProvider`.
-
-<Example name="progress-linear/root-provider" width="sm" />
-
-### Представления состояния
-
-Используйте `ProgressLinearView`, если вспомогательный текст или интерфейс должен меняться вместе
-с состоянием прогресса Ark.
-
-<Example name="progress-linear/state-views" width="sm" />
 
 ### Текст значения
 
@@ -90,6 +55,20 @@ React, Solid и Vue используют одинаковые плоские и�
 
 <Example name="progress-linear/value-text" width="sm" />
 
+### Минимум и максимум
+
+Используйте `min` и `max`, если диапазон прогресса отличается от стандартного диапазона от `0` до
+`100`.
+
+<Example name="progress-linear/min-max" width="sm" />
+
+### Неопределённый прогресс
+
+Установите `defaultValue={null}` или `value={null}`, когда задача выполняется, но пока нельзя
+определить, сколько уже сделано.
+
+<Example name="progress-linear/indeterminate" width="sm" />
+
 ### Вертикальная ориентация
 
 Установите `orientation="vertical"`, когда заполненная часть должна расти снизу вверх. В
@@ -97,6 +76,27 @@ React, Solid и Vue используют одинаковые плоские и�
 задайте `height` на корневой части.
 
 <Example name="progress-linear/vertical" />
+
+### Представления состояния
+
+Используйте `ProgressLinearView`, если вспомогательный текст или интерфейс должен меняться вместе
+с состоянием прогресса Ark.
+
+<Example name="progress-linear/state-views" width="sm" />
+
+### Управляемое состояние
+
+Храните `value` в состоянии, если прогресс должен синхронно меняться вместе с другим элементом
+управления или внешней задачей.
+
+<Example name="progress-linear/controlled" width="sm" />
+
+### Root Provider
+
+Создайте состояние прогресса с помощью `useProgress()` в родительском компоненте,
+а затем подключите его к частям через `ProgressLinearRootProvider`.
+
+<Example name="progress-linear/root-provider" width="sm" />
 
 ## Композиция
 

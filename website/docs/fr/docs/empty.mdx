@@ -34,6 +34,18 @@ Commencez par `<Empty />` et ajoutez les parties du composant dont vous avez bes
 
 ## Exemples
 
+### Sans icône
+
+L’icône est facultative : un état vide composé uniquement de texte peut donc rester compact.
+
+<Example name="empty/without-icon" />
+
+### Sans actions
+
+N’ajoutez pas `EmptyActions` lorsque l’état est informatif et ne nécessite aucune action immédiate.
+
+<Example name="empty/without-actions" />
+
 ### Élément personnalisé
 
 Utilisez la propriété `asChild` sur `Empty` lorsque l’état vide doit être rendu dans un conteneur
@@ -42,18 +54,6 @@ Comme `EmptyDescription` est rendu sous la forme d’un `div`, il peut contenir 
 et d’autres éléments de type bloc.
 
 <Example name="empty/custom-element" />
-
-### Sans actions
-
-N’ajoutez pas `EmptyActions` lorsque l’état est informatif et ne nécessite aucune action immédiate.
-
-<Example name="empty/without-actions" />
-
-### Sans icône
-
-L’icône est facultative : un état vide composé uniquement de texte peut donc rester compact.
-
-<Example name="empty/without-icon" />
 
 ## Composition
 

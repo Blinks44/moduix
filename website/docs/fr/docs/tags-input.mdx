@@ -45,32 +45,40 @@ dans un même contrôle de formulaire.
 
 ## Exemples
 
-### Autoriser les doublons
-
-Activez `allowDuplicates` lorsqu’une même chaîne peut apparaître plusieurs fois.
-
-<Example name="tags-input/allow-duplicates" />
-
-### Valeur contrôlée
-
-Conservez le tableau de tags dans l’état du composant lorsqu’une autre partie de l’écran en dépend ou
-qu’une réinitialisation programmatique est nécessaire.
-
-<Example name="tags-input/controlled" />
-
-### Valeur de saisie contrôlée
-
-Contrôlez `inputValue` séparément lorsqu’un autre contrôle doit préremplir ou effacer le champ de
-saisie.
-
-<Example name="tags-input/controlled-input-value" />
-
 ### Séparateur et collage
 
 Utilisez `delimiter` avec `addOnPaste` lorsque le texte collé doit créer plusieurs tags. Cet exemple
 accepte la virgule, le point-virgule et l’espace comme séparateurs.
 
 <Example name="tags-input/delimiter-and-paste" />
+
+### Validation et nombre maximal
+
+Utilisez `validate`, `max` et `onValueInvalid` pour rejeter les valeurs invalides et comprendre
+pourquoi un ajout a été refusé. Ajoutez `maxLength` lorsque le champ ne doit plus accepter les valeurs
+trop longues avant l’exécution de la validation.
+
+<Example name="tags-input/validation-and-max" />
+
+### Dépassement du nombre maximal
+
+Utilisez `allowOverflow` avec `max` lorsque l’utilisateur peut dépasser temporairement la limite, mais
+que le contrôle doit signaler un état invalide.
+
+<Example name="tags-input/max-with-overflow" />
+
+### Autoriser les doublons
+
+Activez `allowDuplicates` lorsqu’une même chaîne peut apparaître plusieurs fois.
+
+<Example name="tags-input/allow-duplicates" />
+
+### Normalisation et perte du focus
+
+Utilisez `sanitizeValue` pour normaliser les tags saisis et `blurBehavior="add"` pour ajouter la
+valeur courante lorsque le focus quitte le contrôle.
+
+<Example name="tags-input/sanitize-and-blur" />
 
 ### Désactiver la modification
 
@@ -100,34 +108,19 @@ Transmettez `name` à la racine et ajoutez `TagsInputHiddenInput` pour inclure l
 
 <Example name="tags-input/form" />
 
-### Dépassement du nombre maximal
+### Valeur contrôlée
 
-Utilisez `allowOverflow` avec `max` lorsque l’utilisateur peut dépasser temporairement la limite, mais
-que le contrôle doit signaler un état invalide.
+Conservez le tableau de tags dans l’état du composant lorsqu’une autre partie de l’écran en dépend ou
+qu’une réinitialisation programmatique est nécessaire. Voir [Contrôler l’état depuis l’application](/docs/composition-patterns#controlled-state).
 
-<Example name="tags-input/max-with-overflow" />
+<Example name="tags-input/controlled" />
 
-### TagsInputRootProvider
+### Valeur de saisie contrôlée
 
-Utilisez `useTagsInput` avec `TagsInputRootProvider` lorsque l’état et les méthodes impératives doivent être
-utilisés en dehors de l’arbre rendu du champ.
+Contrôlez `inputValue` séparément lorsqu’un autre contrôle doit préremplir ou effacer le champ de
+saisie. Voir [Contrôler l’état depuis l’application](/docs/composition-patterns#controlled-state).
 
-<Example name="tags-input/root-provider" />
-
-### Normalisation et perte du focus
-
-Utilisez `sanitizeValue` pour normaliser les tags saisis et `blurBehavior="add"` pour ajouter la
-valeur courante lorsque le focus quitte le contrôle.
-
-<Example name="tags-input/sanitize-and-blur" />
-
-### Validation et nombre maximal
-
-Utilisez `validate`, `max` et `onValueInvalid` pour rejeter les valeurs invalides et comprendre
-pourquoi un ajout a été refusé. Ajoutez `maxLength` lorsque le champ ne doit plus accepter les valeurs
-trop longues avant l’exécution de la validation.
-
-<Example name="tags-input/validation-and-max" />
+<Example name="tags-input/controlled-input-value" />
 
 ### Avec Combobox
 
@@ -136,6 +129,13 @@ autorisant des tags personnalisés. Partagez les identifiants du champ et du con
 les champs avec `asChild`.
 
 <Example name="combobox/with-tags-input" />
+
+### Root Provider
+
+Utilisez `useTagsInput` avec `TagsInputRootProvider` lorsque l’état et les méthodes impératives doivent être
+utilisés en dehors de l’arbre rendu du champ. Voir [Partager l’état hors de l’arbre](/docs/composition-patterns#root-provider).
+
+<Example name="tags-input/root-provider" />
 
 ### Assembler à partir des parties
 

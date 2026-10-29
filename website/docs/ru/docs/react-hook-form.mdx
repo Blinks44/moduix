@@ -1,6 +1,6 @@
 ---
 title: React Hook Form
-description: Подключайте React-компоненты Moduix к React Hook Form для валидации, сброса, массивов и серверных ошибок.
+description: Подключайте React-компоненты moduix к React Hook Form для валидации, сброса, массивов и серверных ошибок.
 ---
 
 import ProjectForm from '@/components/examples/react-hook-form/complete-form.tsx';
@@ -22,14 +22,14 @@ import ProjectForm from '@/components/examples/react-hook-form/complete-form.tsx
 Используйте `register` для нативных элементов и `Controller` для составных компонентов, значение
 которых передается через свойства и объекты деталей в callback-функциях.
 
-| Компонент Moduix                     | Подключение React Hook Form                              |
+| Компонент moduix                     | Подключение React Hook Form                              |
 | ------------------------------------ | -------------------------------------------------------- |
 | `Input`, `Textarea`, нативные select | Передайте элементу `register(name, rules)`.              |
 | `Select`, `Combobox`                 | Через `Controller` преобразуйте скаляр в `string[]`.     |
 | `Checkbox`                           | Преобразуйте `details.checked === true` в boolean.       |
 | Другие управляемые компоненты        | Через `Controller` свяжите их публичный контракт значения. |
 
-Задайте каждому управляемому полю значение в `defaultValues`. Оставьте нативную часть формы Moduix
+Задайте каждому управляемому полю значение в `defaultValues`. Оставьте нативную часть формы moduix
 в композиции и не регистрируйте второй скрытый input для того же значения.
 
 ## Валидация и сброс
@@ -39,7 +39,7 @@ import ProjectForm from '@/components/examples/react-hook-form/complete-form.tsx
 `FieldErrorText`.
 
 Добавляйте `noValidate`, только если отображением ошибок управляет React Hook Form. Для управляемых
-полей вызывайте `reset()`, чтобы состояние библиотеки и значения Moduix сбрасывались вместе.
+полей вызывайте `reset()`, чтобы состояние библиотеки и значения moduix сбрасывались вместе.
 
 ## Полная форма
 

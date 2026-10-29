@@ -1,6 +1,6 @@
 ---
 title: Стилизация
-description: Выбор подходящего уровня стилизации компонентов Moduix в любом поддерживаемом фреймворке.
+description: Выбор подходящего уровня стилизации компонентов moduix в любом поддерживаемом фреймворке.
 ---
 
 import { ProjectChecklist } from '@/components/examples/styling/project-checklist';
@@ -11,7 +11,7 @@ import vueBrandButton from '../../../snippets/styling/vue/brand-button.vue?raw';
 
 # Стилизация
 
-Moduix выпускает отдельные CSS Modules- и Tailwind-пакеты для каждого текущего фреймворка. Выберите
+moduix выпускает отдельные CSS Modules- и Tailwind-пакеты для каждого текущего фреймворка. Выберите
 способ, который уже используется в приложении, и вносите изменения на самом верхнем уровне, которому
 принадлежит решение.
 
@@ -45,7 +45,7 @@ CSS Modules и Tailwind являются равноправными вариан
 
 ## Почему ваши стили побеждают
 
-Стили Moduix лежат в каскадных слоях CSS, объявленных в таком порядке:
+Стили moduix лежат в каскадных слоях CSS, объявленных в таком порядке:
 
 ```css
 @layer theme, base, moduix.reset, moduix.tokens, moduix.base, components, moduix.components, utilities;
@@ -215,7 +215,7 @@ CSS-переменные наследуются, поэтому значения
 ## Стилизуйте с помощью Panda CSS
 
 Panda CSS может генерировать классы потребителя для каждого поддерживаемого фреймворка. Имена токенов в таком коде
-принадлежат теме Panda, а не Moduix. Передавайте готовую строку через `className` в React или `class` в
+принадлежат теме Panda, а не moduix. Передавайте готовую строку через `className` в React или `class` в
 Solid.
 
 ```ts

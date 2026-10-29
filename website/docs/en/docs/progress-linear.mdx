@@ -41,11 +41,24 @@ compact status indicator in a card, toolbar, or other space-constrained surface.
 
 ## Examples
 
-### Controlled
+### Initial value
 
-Keep `value` in state when progress needs to stay in sync with another control or an external task.
+Use `defaultValue` to set the initial value for uncontrolled progress.
 
-<Example name="progress-linear/controlled" width="sm" />
+<Example name="progress-linear/initial-value" width="sm" />
+
+### Value text
+
+Use `ProgressLinearContext` with `translations.value(details)` when visible value text needs
+task-specific wording.
+
+<Example name="progress-linear/value-text" width="sm" />
+
+### Min and max
+
+Use `min` and `max` when the progress range is different from the default range of `0` to `100`.
+
+<Example name="progress-linear/min-max" width="sm" />
 
 ### Indeterminate
 
@@ -54,44 +67,31 @@ measured yet.
 
 <Example name="progress-linear/indeterminate" width="sm" />
 
-### Initial Value
-
-Use `defaultValue` to set the initial value for uncontrolled progress.
-
-<Example name="progress-linear/initial-value" width="sm" />
-
-### Min and Max
-
-Use `min` and `max` when the progress range is different from the default range of `0` to `100`.
-
-<Example name="progress-linear/min-max" width="sm" />
-
-### Root Provider
-
-Create the progress state with `useProgress()` in a parent component, then connect it
-to the rendered parts with `ProgressLinearRootProvider`.
-
-<Example name="progress-linear/root-provider" width="sm" />
-
-### State Views
-
-Use `ProgressLinearView` when supporting text or UI should change with the Ark progress state.
-
-<Example name="progress-linear/state-views" width="sm" />
-
-### Value Text
-
-Use `ProgressLinearContext` with `translations.value(details)` when visible value text needs
-task-specific wording.
-
-<Example name="progress-linear/value-text" width="sm" />
-
 ### Vertical
 
 Set `orientation="vertical"` when the range should fill from bottom to top. Vertical progress uses
 a default height of `12rem`; set `height` on the root when your layout needs a different height.
 
 <Example name="progress-linear/vertical" />
+
+### State views
+
+Use `ProgressLinearView` when supporting text or UI should change with the Ark progress state.
+
+<Example name="progress-linear/state-views" width="sm" />
+
+### Controlled
+
+Keep `value` in state when progress needs to stay in sync with another control or an external task.
+
+<Example name="progress-linear/controlled" width="sm" />
+
+### Root provider
+
+Create the progress state with `useProgress()` in a parent component, then connect it
+to the rendered parts with `ProgressLinearRootProvider`.
+
+<Example name="progress-linear/root-provider" width="sm" />
 
 ## Composition
 

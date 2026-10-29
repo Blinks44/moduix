@@ -40,27 +40,6 @@ import * as CollapsibleDocs from '@/components/examples/collapsible/css-properti
 
 ## Примеры
 
-### Контекст
-
-Используйте `useCollapsibleContext()` внутри дочернего компонента, которому нужно получить состояние
-или программно закрыть область.
-
-<Example name="collapsible/context" />
-
-### Управляемое состояние
-
-Используйте `open` с колбэком Ark `onOpenChange(details)`, когда состояние хранится в другой части
-интерфейса.
-
-<Example name="collapsible/controlled" />
-
-### Свой триггер
-
-Используйте `asChild`, чтобы передать поведение триггера кнопке, которую стилизует ваше приложение.
-Стилизация `CollapsibleTrigger` по умолчанию не применяется, но поведение Ark и атрибуты состояния сохраняются.
-
-<Example name="collapsible/custom-trigger" />
-
 ### Открыт по умолчанию
 
 Задайте `defaultOpen`, чтобы неуправляемый компонент изначально был открыт.
@@ -73,12 +52,12 @@ import * as CollapsibleDocs from '@/components/examples/collapsible/css-properti
 
 <Example name="collapsible/disabled" />
 
-### Отложенное монтирование
+### Свой триггер
 
-Установите `lazyMount`, чтобы монтировать содержимое только после первого открытия. Добавьте
-`unmountOnExit`, чтобы удалять его из DOM после закрытия.
+Используйте `asChild`, чтобы передать поведение триггера кнопке, которую стилизует ваше приложение.
+Стилизация `CollapsibleTrigger` по умолчанию не применяется, но поведение Ark и атрибуты состояния сохраняются.
 
-<Example name="collapsible/lazy-mount" />
+<Example name="collapsible/custom-trigger" />
 
 ### Вложенные компоненты
 
@@ -101,10 +80,31 @@ import * as CollapsibleDocs from '@/components/examples/collapsible/css-properti
 
 <Example name="collapsible/partial-collapse-width" />
 
+### Управляемое состояние
+
+Используйте `open` с колбэком Ark `onOpenChange(details)`, когда состояние хранится в другой части
+интерфейса. Подробнее в разделе [Управляйте состоянием из приложения](/docs/composition-patterns#controlled-state).
+
+<Example name="collapsible/controlled" />
+
+### Отложенное монтирование
+
+Установите `lazyMount`, чтобы монтировать содержимое только после первого открытия. Добавьте
+`unmountOnExit`, чтобы удалять его из DOM после закрытия.
+
+<Example name="collapsible/lazy-mount" />
+
+### Контекст
+
+Используйте `useCollapsibleContext()` внутри дочернего компонента, которому нужно получить состояние
+или программно закрыть область.
+
+<Example name="collapsible/context" />
+
 ### Root Provider
 
 Создайте состояние через `useCollapsible()` и передайте его в `CollapsibleRootProvider`, если код за
-пределами дерева отрисованных компонентов должен обращаться к этому состоянию.
+пределами дерева отрисованных компонентов должен обращаться к этому состоянию. Подробнее в разделе [Выносите состояние за пределы дерева](/docs/composition-patterns#root-provider).
 
 <Example name="collapsible/root-provider" />
 

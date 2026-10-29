@@ -44,47 +44,6 @@ Utilisez `Lightbox` lorsque vous voulez principalement afficher des images ou d�
 
 ## Exemples
 
-### Contenu provenant d’un CMS
-
-Utilisez `LightboxBind` lorsque les images proviennent d’un CMS ou d’un balisage tiers que vous ne
-rendez pas directement avec `LightboxTrigger`. Indiquez le conteneur avec `rootRef` ou `rootSelector`,
-choisissez un `selector`, puis traitez `{ src, alt, element }` dans `onImageSelect`. `LightboxBind` ouvre la
-Lightbox parente sans rendre l’arrière-plan, le contenu ni les contrôles de fermeture. La source est
-recherchée dans `data-lightbox-src`, puis `currentSrc` et `src`, et l’image est préchargée au survol ou
-au focus clavier. Utilisez un bouton ou un lien sémantique pour `selector` afin que l’ouverture fonctionne
-au clavier. Pour un tableau d’images structuré, utilisez la composition `LightboxGallery + Carousel`.
-
-<Example name="lightbox/bind-cms-content" />
-
-### Fermer en cliquant sur l’image
-
-Utilisez `LightboxImage closeOnClick` si un clic sur l’image doit fermer la fenêtre. L’icône de
-fermeture reste disponible et conserve la sémantique de fermeture d’Ark UI.
-
-<Example name="lightbox/click-to-close-image" />
-
-### État contrôlé
-
-Utilisez le callback `onOpenChange(details)` d’Ark lorsque l’état de la Lightbox doit rester synchronisé
-avec l’état de l’application en React ou en Solid. En Vue, utilisez `v-model:open`.
-
-<Example name="lightbox/controlled" />
-
-### Styles personnalisés
-
-Passez des classes à l’arrière-plan, au contenu et au bouton de fermeture et remplacez leurs tokens
-lorsque la zone média a besoin de son propre style.
-
-<Example name="lightbox/custom-styling" />
-
-### Focus et identifiants
-
-Utilisez `initialFocusEl`, `finalFocusEl` et `ids` lorsque la lightbox nécessite des cibles de focus
-explicites ou des identifiants stables pour des relations d’accessibilité externes. La cible de retour
-est mise en évidence après la fermeture afin de rendre le passage du focus visible.
-
-<Example name="lightbox/focus-and-ids" />
-
 ### Galerie
 
 Si un CMS ou une API fournit un tableau d’images structuré, conservez l’image sélectionnée et la page
@@ -101,6 +60,13 @@ Le composant ne maintient pas de registre d’images caché.
 
 <Example name="lightbox/multiple-triggers" />
 
+### Fermer en cliquant sur l’image
+
+Utilisez `LightboxImage closeOnClick` si un clic sur l’image doit fermer la fenêtre. L’icône de
+fermeture reste disponible et conserve la sémantique de fermeture d’Ark UI.
+
+<Example name="lightbox/click-to-close-image" />
+
 ### Mode non modal
 
 Définissez `modal={false}` lorsque la page doit rester interactive pendant l’aperçu. Ark désactive
@@ -109,11 +75,45 @@ arrière-plan restent accessibles pendant l’affichage de l’image.
 
 <Example name="lightbox/non-modal" />
 
+### Contenu provenant d’un CMS
+
+Utilisez `LightboxBind` lorsque les images proviennent d’un CMS ou d’un balisage tiers que vous ne
+rendez pas directement avec `LightboxTrigger`. Indiquez le conteneur avec `rootRef` ou `rootSelector`,
+choisissez un `selector`, puis traitez `{ src, alt, element }` dans `onImageSelect`. `LightboxBind` ouvre la
+Lightbox parente sans rendre l’arrière-plan, le contenu ni les contrôles de fermeture. La source est
+recherchée dans `data-lightbox-src`, puis `currentSrc` et `src`, et l’image est préchargée au survol ou
+au focus clavier. Utilisez un bouton ou un lien sémantique pour `selector` afin que l’ouverture fonctionne
+au clavier. Pour un tableau d’images structuré, utilisez la composition `LightboxGallery + Carousel`.
+
+<Example name="lightbox/bind-cms-content" />
+
+### Styles personnalisés
+
+Passez des classes à l’arrière-plan, au contenu et au bouton de fermeture et remplacez leurs tokens
+lorsque la zone média a besoin de son propre style.
+
+<Example name="lightbox/custom-styling" />
+
+### État contrôlé
+
+Utilisez le callback `onOpenChange(details)` d’Ark lorsque l’état de la Lightbox doit rester synchronisé
+avec l’état de l’application en React ou en Solid. En Vue, utilisez `v-model:open`. Voir [Contrôler l’état depuis l’application](/docs/composition-patterns#controlled-state).
+
+<Example name="lightbox/controlled" />
+
+### Focus et identifiants
+
+Utilisez `initialFocusEl`, `finalFocusEl` et `ids` lorsque la lightbox nécessite des cibles de focus
+explicites ou des identifiants stables pour des relations d’accessibilité externes. La cible de retour
+est mise en évidence après la fermeture afin de rendre le passage du focus visible.
+
+<Example name="lightbox/focus-and-ids" />
+
 ### Root Provider
 
 Créez l’état avec `useLightbox()` lorsque le bouton d’ouverture se trouve en dehors de la racine.
 Dans un composant enfant, lisez l’état avec `useLightboxContext()`. Le bouton externe reste un
-`Button` moduix ordinaire.
+`Button` moduix ordinaire. Voir [Partager l’état hors de l’arbre](/docs/composition-patterns#root-provider).
 
 <Example name="lightbox/root-provider-and-context" />
 

@@ -38,6 +38,13 @@ libellé, texte d’aide et message de validation.
 
 ## Exemples
 
+### Field
+
+Imbriquez des composants `Field` lorsque chaque contrôle a besoin de son propre libellé, texte d’aide ou message d’erreur, en
+plus de la légende commune.
+
+<Example name="fieldset/field" />
+
 ### Checkbox
 
 Utilisez la légende du fieldset pour donner un nom à un groupe de cases à cocher associées. Ajoutez
@@ -46,26 +53,19 @@ réinitialisation du formulaire.
 
 <Example name="fieldset/checkbox" />
 
-### État désactivé
-
-Définissez `disabled` sur la racine. Le navigateur désactive les contrôles natifs, et les contrôles compatibles avec Ark récupèrent
-le même état depuis le contexte du fieldset.
-
-<Example name="fieldset/disabled" />
-
-### Field
-
-Imbriquez des composants `Field` lorsque chaque contrôle a besoin de son propre libellé, texte d’aide ou message d’erreur, en
-plus de la légende commune.
-
-<Example name="fieldset/field" />
-
 ### Input avec Select
 
 Associez un `Select` pour le code pays et un `Input` pour le numéro de téléphone sous une même légende lorsqu’ils forment
 ensemble un seul numéro de téléphone.
 
 <Example name="fieldset/input-with-select" />
+
+### État désactivé
+
+Définissez `disabled` sur la racine. Le navigateur désactive les contrôles natifs, et les contrôles compatibles avec Ark récupèrent
+le même état depuis le contexte du fieldset.
+
+<Example name="fieldset/disabled" />
 
 ### État invalide
 
@@ -77,7 +77,7 @@ composants `Field` imbriqués lorsque des contrôles individuels doivent affiche
 ### Root Provider
 
 Utilisez `useFieldset` avec `FieldsetRootProvider` pour créer l’état du fieldset en dehors de l’arbre JSX et le partager avec
-des contrôles voisins ou des descendants réutilisables.
+des contrôles voisins ou des descendants réutilisables. Voir [Partager l’état hors de l’arbre](/docs/composition-patterns#root-provider).
 
 <Example name="fieldset/root-provider" />
 

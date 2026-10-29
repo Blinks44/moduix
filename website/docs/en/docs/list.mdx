@@ -44,20 +44,13 @@ If users need to navigate with the keyboard and select one or more options, use 
 
 ## Examples
 
-### Custom Element
+### Ordered
 
-Use `ListItem asChild` when a custom component must render the `<li>` itself. It must forward the received
-props and ref and preserve the semantic `<li>` element. In other cases, use `ListItem className` or `class` directly.
+Use `as="ol"` to render an ordered list while keeping the styling applied by the moduix root. Native props such
+as `start` and `reversed` are forwarded to the ordered-list root. Markers come from `marker`, so the native `type`
+attribute does not change them; set `list-style-type` with a class for letters or roman numerals.
 
-<Example name="list/custom-element" />
-
-### Custom Root
-
-Use `List asChild` when a component from your application must render the semantic list element. It must
-forward the received props and ref to one `<ul>` or `<ol>` in React, use the render-function form in Solid, or pass
-one semantic child in Vue.
-
-<Example name="list/root-as-child" />
+<Example name="list/ordered" />
 
 ### Markerless
 
@@ -66,19 +59,13 @@ in this mode unless you provide another `role`.
 
 <Example name="list/markerless" />
 
-### Native Items
+### With indicator
 
-Use native `li` elements when you do not need the exported `ListItem` part.
+Use `ListIndicator` to show an icon instead of a native marker, and set `marker="none"` on the root. An item
+with an indicator becomes a flex row: the icon is sized to `1em`, aligned with the first line, and long text wraps
+next to it instead of under it.
 
-<Example name="list/native-items" />
-
-### Ordered
-
-Use `as="ol"` to render an ordered list while keeping the styling applied by the moduix root. Native props such
-as `start` and `reversed` are forwarded to the ordered-list root. Markers come from `marker`, so the native `type`
-attribute does not change them; set `list-style-type` with a class for letters or roman numerals.
-
-<Example name="list/ordered" />
+<Example name="list/with-indicator" />
 
 ### Tone
 
@@ -93,13 +80,26 @@ Put a nested `List` inside a `ListItem`. The nested list starts one `gap` below 
 
 <Example name="list/nested" />
 
-### With Indicator
+### Native items
 
-Use `ListIndicator` to show an icon instead of a native marker, and set `marker="none"` on the root. An item
-with an indicator becomes a flex row: the icon is sized to `1em`, aligned with the first line, and long text wraps
-next to it instead of under it.
+Use native `li` elements when you do not need the exported `ListItem` part.
 
-<Example name="list/with-indicator" />
+<Example name="list/native-items" />
+
+### Custom element
+
+Use `ListItem asChild` when a custom component must render the `<li>` itself. It must forward the received
+props and ref and preserve the semantic `<li>` element. In other cases, use `ListItem className` or `class` directly.
+
+<Example name="list/custom-element" />
+
+### Custom root
+
+Use `List asChild` when a component from your application must render the semantic list element. It must
+forward the received props and ref to one `<ul>` or `<ol>` in React, use the render-function form in Solid, or pass
+one semantic child in Vue.
+
+<Example name="list/root-as-child" />
 
 ## Composition
 

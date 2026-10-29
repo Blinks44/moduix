@@ -44,23 +44,17 @@ boolean value.
 
 ## Examples
 
-### Context
+### Sizes
 
-Use `useSwitchContext` from the matching framework package when nearby UI needs to read the current switch state.
+Use moduix `size` to match different form densities without changing the Ark part tree.
 
-<Example name="switch/context" />
+<Example name="switch/sizes" />
 
-### Controlled
+### Initial checked
 
-Use controlled mode when the switch needs to stay in sync with other UI or application state.
+Use `defaultChecked` when the switch should start enabled and manage its own state afterward.
 
-<Example name="switch/controlled" />
-
-### Custom Thumb
-
-Pass children to `SwitchThumb` when the thumb needs an icon or other custom content.
-
-<Example name="switch/custom-thumb" />
+<Example name="switch/initial-checked" />
 
 ### Disabled
 
@@ -68,37 +62,43 @@ Use `disabled` to prevent interaction while keeping the current visual state.
 
 <Example name="switch/disabled" />
 
-### Form Integration
+### Read only
+
+Use `readOnly` when the current state should remain visible but users must not be able to change it.
+
+<Example name="switch/read-only" />
+
+### Form integration
 
 Use `Field` when the switch needs form labeling, validation, or submission. This example displays an
 error after the form is submitted while the switch is still off.
 
 <Example name="switch/form-integration" />
 
-### Initial Checked
+### Custom thumb
 
-Use `defaultChecked` when the switch should start enabled and manage its own state afterward.
+Pass children to `SwitchThumb` when the thumb needs an icon or other custom content.
 
-<Example name="switch/initial-checked" />
+<Example name="switch/custom-thumb" />
 
-### Read Only
+### Controlled
 
-Use `readOnly` when the current state should remain visible but users must not be able to change it.
+Use controlled mode when the switch needs to stay in sync with other UI or application state. See [Control state from the application](/docs/composition-patterns#controlled-state).
 
-<Example name="switch/read-only" />
+<Example name="switch/controlled" />
 
-### Root Provider
+### Context
+
+Use `useSwitchContext` from the matching framework package when nearby UI needs to read the current switch state.
+
+<Example name="switch/context" />
+
+### Root provider
 
 Import `useSwitch` from the matching framework package and pair it with `SwitchRootProvider` when
-you need to create and control the state outside the rendered switch tree.
+you need to create and control the state outside the rendered switch tree. See [Share state outside the tree](/docs/composition-patterns#root-provider).
 
 <Example name="switch/root-provider" />
-
-### Sizes
-
-Use moduix `size` to match different form densities without changing the Ark part tree.
-
-<Example name="switch/sizes" />
 
 ### Build from parts
 

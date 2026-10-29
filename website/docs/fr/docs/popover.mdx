@@ -42,6 +42,25 @@ requièrent toute l’attention de l’utilisateur.
 
 ## Exemples
 
+### Positionnement
+
+Transmettez les options de positionnement d’Ark via la propriété `positioning` de la racine.
+
+<Example name="popover/placement" />
+
+### Avec une flèche
+
+Ajoutez `PopoverArrow` lorsque la fenêtre doit pointer visuellement vers son élément de référence.
+L’enveloppe rend par défaut l’élément `PopoverArrowTip` stylisé par moduix.
+
+<Example name="popover/with-arrow" />
+
+### Même largeur
+
+Définissez `positioning.sameWidth` lorsque le contenu doit avoir la même largeur que son déclencheur.
+
+<Example name="popover/same-width" />
+
 ### Ancre
 
 Utilisez `PopoverAnchor` lorsqu’un autre élément doit fournir la référence de positionnement.
@@ -55,17 +74,33 @@ parcours prévoit une action de fermeture explicite.
 
 <Example name="popover/close-behavior" />
 
-### Contexte
+### Mode modal
 
-Utilisez `usePopoverContext()` dans un descendant qui a besoin de l’état courant de la fenêtre.
-Utilisez `PopoverContext` lorsqu’une fonction de rendu rend la composition plus claire.
+Utilisez le mode modal lorsque l’interaction doit garder l’utilisateur dans la fenêtre. Il piège le
+focus et masque le contenu extérieur aux technologies d’assistance. Utilisez `initialFocusEl` pour
+choisir la première cible du focus.
 
-<Example name="popover/context" />
+<Example name="popover/modal" />
+
+### Popover imbriqué
+
+Les Popover imbriqués ont chacun leur propre état. Rendez le Popover imbriqué avec
+`portalled={false}` afin qu’il reste dans la superposition parente et participe à sa structure de
+calques.
+
+<Example name="popover/nested" />
+
+### Plusieurs déclencheurs
+
+Partagez une même zone de contenu entre plusieurs déclencheurs en attribuant une `value` à chacun
+et en réagissant à la valeur active.
+
+<Example name="popover/multiple-triggers" />
 
 ### État contrôlé
 
 Conservez `open` dans l’état du framework et lisez `details.open` dans `onOpenChange` pour
-synchroniser la fenêtre avec le reste de l’application.
+synchroniser la fenêtre avec le reste de l’application. Voir [Contrôler l’état depuis l’application](/docs/composition-patterns#controlled-state).
 
 <Example name="popover/controlled" />
 
@@ -76,54 +111,19 @@ l’utilisation de la fenêtre.
 
 <Example name="popover/lazy-mount" />
 
-### Mode modal
+### Contexte
 
-Utilisez le mode modal lorsque l’interaction doit garder l’utilisateur dans la fenêtre. Il piège le
-focus et masque le contenu extérieur aux technologies d’assistance. Utilisez `initialFocusEl` pour
-choisir la première cible du focus.
+Utilisez `usePopoverContext()` dans un descendant qui a besoin de l’état courant de la fenêtre.
+Utilisez `PopoverContext` lorsqu’une fonction de rendu rend la composition plus claire.
 
-<Example name="popover/modal" />
-
-### Plusieurs déclencheurs
-
-Partagez une même zone de contenu entre plusieurs déclencheurs en attribuant une `value` à chacun
-et en réagissant à la valeur active.
-
-<Example name="popover/multiple-triggers" />
-
-### Popover imbriqué
-
-Les Popover imbriqués ont chacun leur propre état. Rendez le Popover imbriqué avec
-`portalled={false}` afin qu’il reste dans la superposition parente et participe à sa structure de
-calques.
-
-<Example name="popover/nested" />
-
-### Positionnement
-
-Transmettez les options de positionnement d’Ark via la propriété `positioning` de la racine.
-
-<Example name="popover/placement" />
+<Example name="popover/context" />
 
 ### Root Provider
 
 Utilisez `usePopover()` avec `PopoverRootProvider` lorsque des contrôles situés en dehors de
-l’arborescence du Popover doivent lire ou modifier son état.
+l’arborescence du Popover doivent lire ou modifier son état. Voir [Partager l’état hors de l’arbre](/docs/composition-patterns#root-provider).
 
 <Example name="popover/root-provider" />
-
-### Même largeur
-
-Définissez `positioning.sameWidth` lorsque le contenu doit avoir la même largeur que son déclencheur.
-
-<Example name="popover/same-width" />
-
-### Avec une flèche
-
-Ajoutez `PopoverArrow` lorsque la fenêtre doit pointer visuellement vers son élément de référence.
-L’enveloppe rend par défaut l’élément `PopoverArrowTip` stylisé par moduix.
-
-<Example name="popover/with-arrow" />
 
 ### Assembler à partir des parties
 

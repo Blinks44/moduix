@@ -41,20 +41,19 @@ Use `Accordion` when several related sections should share keyboard navigation a
 
 ## Examples
 
+### Multiple
+
+Set `multiple` when several sections should stay open at the same time.
+
+<Example name="accordion/multiple" />
+
 ### Collapsible
 
 Set `collapsible` when the open item should be able to close without opening another item.
 
 <Example name="accordion/collapsible" />
 
-### Controlled
-
-Manage `value` with `useState` in React, `createSignal` in Solid, or `ref` and `v-model` in Vue when
-open items need to stay in sync with routing, filters, or surrounding UI.
-
-<Example name="accordion/controlled" />
-
-### Disabled Item
+### Disabled item
 
 Set `disabled` on an item when it should remain visible in the list but unavailable for interaction.
 
@@ -67,7 +66,14 @@ navigation.
 
 <Example name="accordion/horizontal" />
 
-### Lazy Mount
+### Controlled
+
+Pass `value` and `onValueChange` (`v-model` in Vue) when open items follow routing, filters, or
+surrounding UI. `value` is an array of item values, also without `multiple`. See [Control state from the application](/docs/composition-patterns#controlled-state).
+
+<Example name="accordion/controlled" />
+
+### Lazy mount
 
 Combine `lazyMount` and `unmountOnExit` when hidden panel content is expensive to render and should
 be removed from the DOM after it closes. In React 19, use `hideMode="activity"` instead when the
@@ -75,26 +81,20 @@ content should stay mounted while its effects pause when hidden.
 
 <Example name="accordion/lazy-mount" />
 
-### Multiple
-
-Set `multiple` when several sections should stay open at the same time.
-
-<Example name="accordion/multiple" />
-
-### Root Provider
-
-Use `useAccordion()` from the matching framework package with `AccordionRootProvider` when the
-state store must be created outside the rendered accordion tree. Do not render `Accordion` for the
-same store.
-
-<Example name="accordion/root-provider" />
-
 ### With Slider
 
 Accordion content can contain another Ark-based composite widget, such as `Slider`. Keep each
 primitive's part tree explicit so the right component owns keyboard handling and hidden form inputs.
 
 <Example name="accordion/with-slider" />
+
+### Root provider
+
+Use `useAccordion()` from the matching framework package with `AccordionRootProvider` when the
+state store must be created outside the rendered accordion tree. Do not render `Accordion` for the
+same store. See [Share state outside the tree](/docs/composition-patterns#root-provider).
+
+<Example name="accordion/root-provider" />
 
 ### Build from parts
 

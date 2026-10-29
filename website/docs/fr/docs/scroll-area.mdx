@@ -38,12 +38,11 @@ défiler.
 
 ## Exemples
 
-### Barre toujours visible
+### Défilement horizontal
 
-Définissez `variant="always"` lorsqu’une barre associée à un contenu qui déborde doit rester visible
-et interactive au repos.
+Utilisez une barre horizontale lorsque le contenu est volontairement plus large que le cadre.
 
-<Example name="scroll-area/always-visible" />
+<Example name="scroll-area/horizontal" />
 
 ### Les deux axes
 
@@ -51,18 +50,19 @@ Affichez des barres verticale et horizontale lorsque le contenu peut déborder s
 
 <Example name="scroll-area/both-directions" />
 
+### Barre toujours visible
+
+Définissez `variant="always"` lorsqu’une barre associée à un contenu qui déborde doit rester visible
+et interactive au repos.
+
+<Example name="scroll-area/always-visible" />
+
 ### Fondu
 
 Définissez `fade` pour signaler qu’un long contenu vertical se poursuit au-dessus et au-dessous de
 la zone visible.
 
 <Example name="scroll-area/fade" />
-
-### Défilement horizontal
-
-Utilisez une barre horizontale lorsque le contenu est volontairement plus large que le cadre.
-
-<Example name="scroll-area/horizontal" />
 
 ### Zones imbriquées
 
@@ -74,7 +74,7 @@ imbriquée afin qu’Ark puisse les mesurer indépendamment.
 ### Root Provider
 
 Utilisez `useScrollArea()` avec `ScrollAreaRootProvider` lorsque des contrôles externes
-doivent accéder à l’API de défilement.
+doivent accéder à l’API de défilement. Voir [Partager l’état hors de l’arbre](/docs/composition-patterns#root-provider).
 
 <Example name="scroll-area/root-provider" />
 

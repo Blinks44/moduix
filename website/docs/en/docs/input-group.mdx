@@ -43,55 +43,20 @@ Use `InputGroup` as the root and compose exactly one `InputGroupInput` with any 
 
 ## Examples
 
-### Disabled
-
-Set `disabled` on the native input. Disable related buttons separately when they should be
-unavailable too.
-
-<Example name="input-group/disabled" />
-
-### Custom Element
-
-Use `asChild` when the root must render a custom container instead of the default `div`. The group
-keeps its styling and size context, and the child must remain a semantic layout container.
-
-<Example name="input-group/custom-element" />
-
-### Field State
-
-Set `invalid` on `Field` when validation fails. Ark passes the state and required ARIA attributes to
-`InputGroupInput`, and the group reflects the input state.
-
-<Example name="input-group/field-state" />
-
-### Prefix and Suffix
+### Prefix and suffix
 
 Use `InputGroupAddon` for a filled prefix or suffix and `InputGroupText` for inline text without a fill.
 
 <Example name="input-group/prefix-and-suffix" />
 
-### Sizes
-
-Set `size` once on the root to keep the input, addon, text, and button aligned.
-
-<Example name="input-group/sizes" />
-
-### With Action
+### With action
 
 Use `InputGroupButton` for an action tied to the input value. This example keeps the input
 controlled and enables `Send` only after a value is entered.
 
 <Example name="input-group/with-action" />
 
-### Textarea
-
-Use `InputGroupTextarea` for multi-line input, such as a message composer. It renders the moduix
-`Textarea` without its border, inherits the group size unless it gets its own `size`, and keeps
-Ark Field state and `autoresize`. Add a toolbar with `InputGroupAddon align="block"` and a regular `Button`.
-
-<Example name="input-group/textarea" />
-
-### Clear Trigger
+### Clear trigger
 
 Use `InputGroupClearTrigger` for a clear action with a default close icon and accessible label.
 It inherits the group size and defaults to `type="button"`. Handle value clearing and focus in
@@ -101,6 +66,41 @@ for your language, or use `aria-labelledby`; children replace the default icon.
 The compact hover surface matches the clear buttons in Select and Combobox.
 
 <Example name="input-group/clear-trigger" />
+
+### Sizes
+
+Set `size` once on the root to keep the input, addon, text, and button aligned.
+
+<Example name="input-group/sizes" />
+
+### Textarea
+
+Use `InputGroupTextarea` for multi-line input, such as a message composer. It renders the moduix
+`Textarea` without its border, inherits the group size unless it gets its own `size`, and keeps
+Ark Field state and `autoresize`. Add a toolbar with `InputGroupAddon align="block"` and a regular `Button`.
+
+<Example name="input-group/textarea" />
+
+### Disabled
+
+Set `disabled` on the native input. Disable related buttons separately when they should be
+unavailable too.
+
+<Example name="input-group/disabled" />
+
+### Field state
+
+Set `invalid` on `Field` when validation fails. Ark passes the state and required ARIA attributes to
+`InputGroupInput`, and the group reflects the input state.
+
+<Example name="input-group/field-state" />
+
+### Custom element
+
+Use `asChild` when the root must render a custom container instead of the default `div`. The group
+keeps its styling and size context, and the child must remain a semantic layout container.
+
+<Example name="input-group/custom-element" />
 
 ## Composition
 

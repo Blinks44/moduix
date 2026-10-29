@@ -45,26 +45,6 @@ that need the user's full attention.
 
 ## Examples
 
-### Checkbox Items
-
-Use checkbox items for independent boolean options. Set `closeOnSelect={false}` when users should
-change several options before closing the menu.
-
-<Example name="menu/checkbox-items" />
-
-### Context Menu
-
-Use `MenuContextTrigger` when actions should appear after a right-click. On touch and pen input, a
-long press opens the menu as well.
-
-<Example name="menu/context-menu" />
-
-### Controlled
-
-Control `open` with framework state when another control needs to open or close the menu.
-
-<Example name="menu/controlled" />
-
 ### Grouping
 
 Use `MenuItemGroup` and `MenuItemGroupLabel` to organize related items, and `MenuSeparator` to
@@ -72,26 +52,26 @@ separate groups.
 
 <Example name="menu/grouping" />
 
-### Indicator Placement
+### Checkbox items
+
+Use checkbox items for independent boolean options. Set `closeOnSelect={false}` when users should
+change several options before closing the menu.
+
+<Example name="menu/checkbox-items" />
+
+### Radio items
+
+Use `MenuRadioItemGroup` when users must choose one value from a set of options. Set
+`closeOnSelect={false}` if the menu should stay open while they change the selection.
+
+<Example name="menu/radio-items" />
+
+### Indicator placement
 
 Set `indicator="start"`, `"end"`, or `"none"` on checkbox and radio items to choose the indicator
 position.
 
 <Example name="menu/indicator-placement" />
-
-### Item Context
-
-Use `MenuItemContext` when the content of an item needs to react to its state, such as whether it is
-highlighted.
-
-<Example name="menu/item-context" />
-
-### Lazy Mounted Context Menu
-
-By default, context-menu content mounts on first open and unmounts after the exit animation. Set
-`unmountOnExit={false}` when the subtree must remain mounted after the menu closes.
-
-<Example name="menu/lazy-mounted-context-menu" />
 
 ### Links
 
@@ -99,6 +79,33 @@ Use `MenuItem asChild` and make the anchor the item itself. This lets the link r
 item's ARIA attributes, keyboard behavior, and focus handling.
 
 <Example name="menu/links" />
+
+### Nested
+
+Render a child `Menu` inside the parent content and open it with `MenuTriggerItem`.
+
+<Example name="menu/nested" />
+
+### With arrow
+
+Add `MenuArrow` and `MenuArrowTip` directly inside `MenuContent` when the popup needs a visual
+connection to its trigger.
+
+<Example name="menu/with-arrow" />
+
+### Context menu
+
+Use `MenuContextTrigger` when actions should appear after a right-click. On touch and pen input, a
+long press opens the menu as well.
+
+<Example name="menu/context-menu" />
+
+### Multiple triggers
+
+Share one menu across several triggers by giving each `MenuTrigger` a distinct `value`. The menu
+repositions itself relative to the trigger that opened it.
+
+<Example name="menu/multiple-triggers" />
 
 ### Menu in Dialog
 
@@ -108,46 +115,39 @@ visible area.
 
 <Example name="menu/menu-in-dialog" />
 
-### Multiple Triggers
-
-Share one menu across several triggers by giving each `MenuTrigger` a distinct `value`. The menu
-repositions itself relative to the trigger that opened it.
-
-<Example name="menu/multiple-triggers" />
-
-### Nested
-
-Render a child `Menu` inside the parent content and open it with `MenuTriggerItem`.
-
-<Example name="menu/nested" />
-
-### Radio Items
-
-Use `MenuRadioItemGroup` when users must choose one value from a set of options. Set
-`closeOnSelect={false}` if the menu should stay open while they change the selection.
-
-<Example name="menu/radio-items" />
-
-### Root Provider
-
-Use `useMenu` and `MenuRootProvider` when code outside the rendered tree needs to read or update
-the menu state.
-
-<Example name="menu/root-provider" />
-
-### Select Event
+### Select event
 
 Use `onSelect(details)` on the root when one handler should respond to every item selection. Read the
 selected item's `value` from `details.value`.
 
 <Example name="menu/select-event" />
 
-### With Arrow
+### Controlled
 
-Add `MenuArrow` and `MenuArrowTip` directly inside `MenuContent` when the popup needs a visual
-connection to its trigger.
+Control `open` with framework state when another control needs to open or close the menu. See [Control state from the application](/docs/composition-patterns#controlled-state).
 
-<Example name="menu/with-arrow" />
+<Example name="menu/controlled" />
+
+### Item context
+
+Use `MenuItemContext` when the content of an item needs to react to its state, such as whether it is
+highlighted.
+
+<Example name="menu/item-context" />
+
+### Lazy mounted context menu
+
+By default, context-menu content mounts on first open and unmounts after the exit animation. Set
+`unmountOnExit={false}` when the subtree must remain mounted after the menu closes.
+
+<Example name="menu/lazy-mounted-context-menu" />
+
+### Root provider
+
+Use `useMenu` and `MenuRootProvider` when code outside the rendered tree needs to read or update
+the menu state. See [Share state outside the tree](/docs/composition-patterns#root-provider).
+
+<Example name="menu/root-provider" />
 
 ### Build from parts
 
@@ -247,9 +247,6 @@ Hover or focus a variable to see it in the preview.
 | `MenuCheckboxItem` | `menu-checkbox-item` |
 | `MenuItemIndicator` | `menu-item-indicator` |
 | `MenuItemText` | `menu-item-text` |
-| `MenuItemTextContent` | `menu-item-text-content` |
-| `MenuItemTextIcon` | `menu-item-text-icon` |
-| `MenuItemTextLabel` | `menu-item-text-label` |
 | `MenuItemShortcut` | `menu-item-shortcut` |
 
 - Ark attributes: `[data-scope='menu']`, `[data-part='trigger']`, `[data-part='indicator']`,

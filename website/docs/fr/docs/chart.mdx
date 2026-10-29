@@ -44,13 +44,6 @@ personnes qui utilisent des technologies d’assistance.
 
 ## Exemples
 
-### Zone animée
-
-La zone, la ligne, les points, le focus groupé et l’animation de l’info-bulle restent natifs de
-TanStack.
-
-<Example name="chart/animated-area" />
-
 ### Couleurs du graphique
 
 Utilisez les tokens de couleur de moduix dans l’échelle de couleurs TanStack. Les propriétés CSS
@@ -58,29 +51,34 @@ fonctionnent comme des valeurs de peinture SVG et suivent automatiquement le th�
 
 <Example name="chart/line-colors" />
 
-### Mise en page de tableau de bord
+### Zone animée
 
-Les parties de la factory Ark acceptent `asChild` et peuvent donc appliquer leurs styles à des
-éléments sémantiques de votre mise en page. Cet exemple de tableau de bord combine Chart et Button,
-remplace `figure` et `figcaption` par un `section` et un `header` identifiés, puis place la légende
-dans l’en-tête.
+La zone, la ligne, les points, le focus groupé et l’animation de l’info-bulle restent natifs de
+TanStack.
 
-`ChartPlot` reste l’hôte TanStack, pas un slot. Utilisez `class` ou `className` et `style` sur
-l’élément externe, et `renderTooltipBody` pour étendre l’info-bulle. Rendez `defaultBody` dans votre
-propre enveloppe pendant que TanStack continue de gérer le positionnement et le portail. N’ajoutez
-des contrôles interactifs que dans une info-bulle épinglée.
+<Example name="chart/animated-area" />
 
-<Example name="chart/dashboard-layout" />
+### Barres empilées
 
-### Légende interactive
+Utilisez un canal de couleur TanStack et la disposition `stack()` pour les barres multi-séries.
+`focus: 'group-x'` regroupe l’info-bulle et le focus clavier par trimestre.
 
-Utilisez `interactiveColorLegend` de TanStack plutôt qu’un `ChartLegend` séparé pour permettre de
-masquer des séries. Avec la v1, `hover: 'series'` applique aussi les états des éléments au survol
-et au focus clavier. Les états avec `source: 'legend'` mettent la série en évidence sans ouvrir
-d’info-bulle ni modifier le focus du graphique. Gardez les séries visibles dans l’état du framework
-via `controlledSignal` ; TanStack gère les boutons, le filtrage et les interactions au clavier.
+<Example name="chart/stacked-bars" />
 
-<Example name="chart/interactive-legend" />
+### Barres horizontales
+
+Utilisez `barX` lorsque les libellés de catégories sont longs ou que le classement doit se lire de
+haut en bas. La valeur numérique se place sur x et la catégorie sur y.
+
+<Example name="chart/horizontal-bars" />
+
+### Graphique en anneau
+
+Combinez les primitives TanStack optionnelles `pie`, `polar` et `radialArc` pour représenter des
+parts d’un ensemble. La même composition de `ChartPlot`, de l’animation, du focus, de l’info-bulle
+et de la légende fonctionne aussi hors des graphiques cartésiens.
+
+<Example name="chart/donut" />
 
 ### Graphique radar
 
@@ -96,13 +94,12 @@ Cet exemple nécessite aussi `d3-shape` et ses types TypeScript :
 
 <Example name="chart/radar" />
 
-### Graphique en anneau
+### Nuage de points
 
-Combinez les primitives TanStack optionnelles `pie`, `polar` et `radialArc` pour représenter des
-parts d’un ensemble. La même composition de `ChartPlot`, de l’animation, du focus, de l’info-bulle
-et de la légende fonctionne aussi hors des graphiques cartésiens.
+Utilisez `dot` pour comparer deux valeurs quantitatives. La couleur peut porter une dimension
+catégorielle supplémentaire sans modifier la relation entre x et y.
 
-<Example name="chart/donut" />
+<Example name="chart/scatter" />
 
 ### Carte thermique
 
@@ -111,26 +108,29 @@ compacte. Un canal de couleur transforme le niveau de chaque cellule en une vale
 
 <Example name="chart/heatmap" />
 
-### Barres horizontales
+### Légende interactive
 
-Utilisez `barX` lorsque les libellés de catégories sont longs ou que le classement doit se lire de
-haut en bas. La valeur numérique se place sur x et la catégorie sur y.
+Utilisez `interactiveColorLegend` de TanStack plutôt qu’un `ChartLegend` séparé pour permettre de
+masquer des séries. Avec la v1, `hover: 'series'` applique aussi les états des éléments au survol
+et au focus clavier. Les états avec `source: 'legend'` mettent la série en évidence sans ouvrir
+d’info-bulle ni modifier le focus du graphique. Gardez les séries visibles dans l’état du framework
+via `controlledSignal` ; TanStack gère les boutons, le filtrage et les interactions au clavier.
 
-<Example name="chart/horizontal-bars" />
+<Example name="chart/interactive-legend" />
 
-### Nuage de points
+### Mise en page de tableau de bord
 
-Utilisez `dot` pour comparer deux valeurs quantitatives. La couleur peut porter une dimension
-catégorielle supplémentaire sans modifier la relation entre x et y.
+Les parties de la factory Ark acceptent `asChild` et peuvent donc appliquer leurs styles à des
+éléments sémantiques de votre mise en page. Cet exemple de tableau de bord combine Chart et Button,
+remplace `figure` et `figcaption` par un `section` et un `header` identifiés, puis place la légende
+dans l’en-tête.
 
-<Example name="chart/scatter" />
+`ChartPlot` reste l’hôte TanStack, pas un slot. Utilisez `class` ou `className` et `style` sur
+l’élément externe, et `renderTooltipBody` pour étendre l’info-bulle. Rendez `defaultBody` dans votre
+propre enveloppe pendant que TanStack continue de gérer le positionnement et le portail. N’ajoutez
+des contrôles interactifs que dans une info-bulle épinglée.
 
-### Barres empilées
-
-Utilisez un canal de couleur TanStack et la disposition `stack()` pour les barres multi-séries.
-`focus: 'group-x'` regroupe l’info-bulle et le focus clavier par trimestre.
-
-<Example name="chart/stacked-bars" />
+<Example name="chart/dashboard-layout" />
 
 ## Composition
 

@@ -49,19 +49,19 @@ import { CssPropertiesSection } from '@/components/mdx/Components';
 
 ## Примеры
 
-### Условное монтирование
+### Размеры
 
-Группу сегментов можно монтировать условно. Когда она появляется, Ark заново рассчитывает
-геометрию элементов, необходимую индикатору.
+Задайте `size` на `SegmentGroup` или `SegmentGroupRootProvider`: `sm`, `md` (по умолчанию) или `lg`.
+Тогда вся группа получает высоту `Button` или `Input` того же размера.
 
-<Example name="segment-group/conditional-mount" />
+<Example name="segment-group/sizes" />
 
-### Управляемое состояние
+### Вертикальная ориентация
 
-Храните выбранное значение в состоянии React и обновляйте его из `details.value` в обработчике
-`onValueChange`.
+Укажите `orientation="vertical"`, если группе нужны вертикальная раскладка и навигация стрелками
+вверх и вниз.
 
-<Example name="segment-group/controlled" />
+<Example name="segment-group/vertical-orientation" />
 
 ### Пользовательская разметка элемента
 
@@ -78,6 +78,13 @@ import { CssPropertiesSection } from '@/components/mdx/Components';
 
 <Example name="segment-group/disabled" />
 
+### Недопустимое состояние
+
+Задайте `invalid` на корневом элементе, если проверка завершилась ошибкой. Сочетайте его с
+`required` и `name`, когда группа участвует в нативной проверке формы.
+
+<Example name="segment-group/invalid" />
+
 ### Field
 
 Оберните группу в `Field`, если нативные поля должны сопровождаться поясняющим
@@ -93,33 +100,26 @@ import { CssPropertiesSection } from '@/components/mdx/Components';
 
 <Example name="segment-group/form-submission" />
 
-### Недопустимое состояние
+### Управляемое состояние
 
-Задайте `invalid` на корневом элементе, если проверка завершилась ошибкой. Сочетайте его с
-`required` и `name`, когда группа участвует в нативной проверке формы.
+Храните выбранное значение в состоянии React и обновляйте его из `details.value` в обработчике
+`onValueChange`. Подробнее в разделе [Управляйте состоянием из приложения](/docs/composition-patterns#controlled-state).
 
-<Example name="segment-group/invalid" />
+<Example name="segment-group/controlled" />
+
+### Условное монтирование
+
+Группу сегментов можно монтировать условно. Когда она появляется, Ark заново рассчитывает
+геометрию элементов, необходимую индикатору.
+
+<Example name="segment-group/conditional-mount" />
 
 ### Root Provider
 
 Используйте `useSegmentGroup()` вместе с `SegmentGroupRootProvider`, если элементам управления за пределами
-дерева сегментов нужен доступ к тому же состоянию.
+дерева сегментов нужен доступ к тому же состоянию. Подробнее в разделе [Выносите состояние за пределы дерева](/docs/composition-patterns#root-provider).
 
 <Example name="segment-group/root-provider" />
-
-### Размеры
-
-Задайте `size` на `SegmentGroup` или `SegmentGroupRootProvider`: `sm`, `md` (по умолчанию) или `lg`.
-Тогда вся группа получает высоту `Button` или `Input` того же размера.
-
-<Example name="segment-group/sizes" />
-
-### Вертикальная ориентация
-
-Укажите `orientation="vertical"`, если группе нужны вертикальная раскладка и навигация стрелками
-вверх и вниз.
-
-<Example name="segment-group/vertical-orientation" />
 
 ### Сборка из частей
 

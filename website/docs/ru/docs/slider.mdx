@@ -44,58 +44,12 @@ import * as SliderDocs from '@/components/examples/slider/css-properties';
 
 ## Примеры
 
-### Центр как точка отсчёта
+### Диапазон
 
-Задайте `origin="center"`, если значение представляет положительное или отрицательное смещение, например баланс относительно нуля.
+Передайте массив, содержащий по одному значению на каждый ползунок. `SliderThumbs` создаст соответствующие ползунки
+и скрытые поля ввода для формы.
 
-<Example name="slider/center-origin" width="sm" />
-
-### События изменения
-
-Используйте `onValueChange` (или событие Vue `value-change`), чтобы обновлять интерфейс во время
-взаимодействия, а `onValueChangeEnd` (или `value-change-end`) - когда перетаскивание или
-взаимодействие с клавиатурой завершено.
-
-<Example name="slider/change-events" width="sm" />
-
-### Контекст
-
-Используйте `useSliderContext` из moduix внутри дочернего компонента, если ему нужно читать состояние слайдера, например
-`value`, `dragging` или состояние фокуса.
-
-<Example name="slider/context" width="sm" />
-
-### Управляемое состояние
-
-Управляйте слайдером из состояния выбранного фреймворка, сохраняя массив из `details.value`; во
-Vue для управляемого контракта можно связать `v-model` с ref.
-
-<Example name="slider/controlled" width="sm" />
-
-### Отключённый
-
-Используйте `disabled`, чтобы оставить значение видимым, но отключить взаимодействие.
-
-<Example name="slider/disabled" width="sm" />
-
-### Индикатор перетаскивания
-
-Поместите `SliderDraggingIndicator` внутрь ползунка, чтобы показывать его текущее значение при перетаскивании.
-
-<Example name="slider/dragging-indicator" width="sm" />
-
-### Форма
-
-Задайте `name` и вложите `SliderHiddenInput` в каждый явный ползунок, чтобы отправлять текущее значение.
-
-<Example name="slider/form" width="sm" />
-
-### Некорректное значение
-
-Используйте `invalid`, если выбранное значение не проходит проверку. Дорожка, диапазон и ползунок получают состояние
-ошибки, но остаются интерактивными.
-
-<Example name="slider/invalid" width="sm" />
+<Example name="slider/range" width="sm" />
 
 ### Деления
 
@@ -104,18 +58,41 @@ Vue для управляемого контракта можно связать
 
 <Example name="slider/marks" width="sm" />
 
+### Шаг
+
+Используйте `step` для дробного или более точного шага.
+
+<Example name="slider/step" width="sm" />
+
 ### Минимум и максимум
 
 Задайте `min` и `max`, если диапазон слайдера не начинается с `0` или не заканчивается на `100`.
 
 <Example name="slider/min-and-max" width="sm" />
 
-### Диапазон
+### Вертикальный
 
-Передайте массив, содержащий по одному значению на каждый ползунок. `SliderThumbs` создаст соответствующие ползунки
-и скрытые поля ввода для формы.
+Задайте `orientation="vertical"` и явно задайте корневому элементу высоту.
 
-<Example name="slider/range" width="sm" />
+<Example name="slider/vertical" />
+
+### Вертикальный с делениями
+
+В вертикальной ориентации отметки выравниваются по дорожке и используют те же атрибуты состояния.
+
+<Example name="slider/vertical-with-marks" />
+
+### Центр как точка отсчёта
+
+Задайте `origin="center"`, если значение представляет положительное или отрицательное смещение, например баланс относительно нуля.
+
+<Example name="slider/center-origin" width="sm" />
+
+### Отключённый
+
+Используйте `disabled`, чтобы оставить значение видимым, но отключить взаимодействие.
+
+<Example name="slider/disabled" width="sm" />
 
 ### Только для чтения
 
@@ -124,18 +101,18 @@ Vue для управляемого контракта можно связать
 
 <Example name="slider/read-only" width="sm" />
 
-### Root Provider
+### Некорректное значение
 
-Используйте `useSlider` из moduix с `SliderRootProvider`, если состояние нужно создать вне дерева, в котором отображаются
-части слайдера. Рендерьте эти части внутри `SliderRootProvider` и не добавляйте второй корень для того же состояния.
+Используйте `invalid`, если выбранное значение не проходит проверку. Дорожка, диапазон и ползунок получают состояние
+ошибки, но остаются интерактивными.
 
-<Example name="slider/root-provider" width="sm" />
+<Example name="slider/invalid" width="sm" />
 
-### Шаг
+### Форма
 
-Используйте `step` для дробного или более точного шага.
+Задайте `name` и вложите `SliderHiddenInput` в каждый явный ползунок, чтобы отправлять текущее значение.
 
-<Example name="slider/step" width="sm" />
+<Example name="slider/form" width="sm" />
 
 ### Выравнивание ползунка
 
@@ -157,17 +134,40 @@ Vue для управляемого контракта можно связать
 
 <Example name="slider/thumb-overlap" width="sm" />
 
-### Вертикальный
+### Индикатор перетаскивания
 
-Задайте `orientation="vertical"` и явно задайте корневому элементу высоту.
+Поместите `SliderDraggingIndicator` внутрь ползунка, чтобы показывать его текущее значение при перетаскивании.
 
-<Example name="slider/vertical" />
+<Example name="slider/dragging-indicator" width="sm" />
 
-### Вертикальный с делениями
+### События изменения
 
-В вертикальной ориентации отметки выравниваются по дорожке и используют те же атрибуты состояния.
+Используйте `onValueChange` (или событие Vue `value-change`), чтобы обновлять интерфейс во время
+взаимодействия, а `onValueChangeEnd` (или `value-change-end`) - когда перетаскивание или
+взаимодействие с клавиатурой завершено.
 
-<Example name="slider/vertical-with-marks" />
+<Example name="slider/change-events" width="sm" />
+
+### Управляемое состояние
+
+Управляйте слайдером из состояния выбранного фреймворка, сохраняя массив из `details.value`; во
+Vue для управляемого контракта можно связать `v-model` с ref.
+
+<Example name="slider/controlled" width="sm" />
+
+### Контекст
+
+Используйте `useSliderContext` из moduix внутри дочернего компонента, если ему нужно читать состояние слайдера, например
+`value`, `dragging` или состояние фокуса.
+
+<Example name="slider/context" width="sm" />
+
+### Root Provider
+
+Используйте `useSlider` из moduix с `SliderRootProvider`, если состояние нужно создать вне дерева, в котором отображаются
+части слайдера. Рендерьте эти части внутри `SliderRootProvider` и не добавляйте второй корень для того же состояния.
+
+<Example name="slider/root-provider" width="sm" />
 
 ## Композиция
 

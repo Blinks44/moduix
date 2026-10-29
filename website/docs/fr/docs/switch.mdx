@@ -44,30 +44,29 @@ valeur booléenne.
 
 ## Exemples
 
-### Contexte
+### Tailles
 
-Utilisez `useSwitchContext` depuis le paquet du framework utilisé lorsque l’interface voisine doit
-lire l’état actuel du switch.
+Utilisez `size` de moduix pour adapter la densité du formulaire sans modifier l’arbre des parties Ark.
 
-<Example name="switch/context" />
+<Example name="switch/sizes" />
 
-### État contrôlé
+### État initial activé
 
-Utilisez le mode contrôlé lorsque le switch doit rester synchronisé avec une autre partie de l’interface ou avec l’état de l’application.
+Utilisez `defaultChecked` lorsque le switch doit être activé au premier rendu, puis gérer lui-même son état.
 
-<Example name="switch/controlled" />
-
-### Thumb personnalisé
-
-Passez des enfants à `SwitchThumb` lorsque le thumb a besoin d’une icône ou d’un autre contenu.
-
-<Example name="switch/custom-thumb" />
+<Example name="switch/initial-checked" />
 
 ### Désactivé
 
 Utilisez `disabled` pour empêcher les interactions tout en conservant l’état visuel actuel.
 
 <Example name="switch/disabled" />
+
+### Lecture seule
+
+Utilisez `readOnly` lorsque l’état actuel doit rester visible sans que l’utilisateur puisse le modifier.
+
+<Example name="switch/read-only" />
 
 ### Intégration au formulaire
 
@@ -76,30 +75,31 @@ erreur après l’envoi du formulaire si le switch est toujours désactivé.
 
 <Example name="switch/form-integration" />
 
-### État initial activé
+### Thumb personnalisé
 
-Utilisez `defaultChecked` lorsque le switch doit être activé au premier rendu, puis gérer lui-même son état.
+Passez des enfants à `SwitchThumb` lorsque le thumb a besoin d’une icône ou d’un autre contenu.
 
-<Example name="switch/initial-checked" />
+<Example name="switch/custom-thumb" />
 
-### Lecture seule
+### État contrôlé
 
-Utilisez `readOnly` lorsque l’état actuel doit rester visible sans que l’utilisateur puisse le modifier.
+Utilisez le mode contrôlé lorsque le switch doit rester synchronisé avec une autre partie de l’interface ou avec l’état de l’application. Voir [Contrôler l’état depuis l’application](/docs/composition-patterns#controlled-state).
 
-<Example name="switch/read-only" />
+<Example name="switch/controlled" />
+
+### Contexte
+
+Utilisez `useSwitchContext` depuis le paquet du framework utilisé lorsque l’interface voisine doit
+lire l’état actuel du switch.
+
+<Example name="switch/context" />
 
 ### Root Provider
 
 Importez `useSwitch` depuis le paquet du framework utilisé et associez-le à
-`SwitchRootProvider` lorsque l’état doit être créé et contrôlé en dehors de l’arbre rendu du switch.
+`SwitchRootProvider` lorsque l’état doit être créé et contrôlé en dehors de l’arbre rendu du switch. Voir [Partager l’état hors de l’arbre](/docs/composition-patterns#root-provider).
 
 <Example name="switch/root-provider" />
-
-### Tailles
-
-Utilisez `size` de moduix pour adapter la densité du formulaire sans modifier l’arbre des parties Ark.
-
-<Example name="switch/sizes" />
 
 ### Assembler à partir des parties
 

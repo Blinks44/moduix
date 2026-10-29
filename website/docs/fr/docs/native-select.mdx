@@ -40,20 +40,6 @@ les API de collection, des options riches, une action d’effacement ou le contr
 
 ## Exemples
 
-### État contrôlé
-
-Utilisez `value` et `onChange` lorsque l’application contrôle la valeur courante. Lisez la nouvelle valeur dans l’événement
-natif et transmettez-la via `value`.
-
-<Example name="native-select/controlled" />
-
-### Champ de formulaire
-
-Utilisez `Field` lorsque le select a besoin d’un libellé visible, d’un texte d’aide, d’un message d’erreur ou d’un état
-de champ partagé. `Field` relie ces éléments au contrôle natif.
-
-<Example name="native-select/field-integration" />
-
 ### Regroupement
 
 Regroupez les options liées dans des éléments natifs `optgroup`. Le navigateur affiche les libellés des
@@ -67,6 +53,20 @@ Passez les propriétés natives `multiple` et `size` pour afficher une liste à 
 les options sélectionnées et les interactions au clavier.
 
 <Example name="native-select/multiple-selection" />
+
+### Champ de formulaire
+
+Utilisez `Field` lorsque le select a besoin d’un libellé visible, d’un texte d’aide, d’un message d’erreur ou d’un état
+de champ partagé. `Field` relie ces éléments au contrôle natif.
+
+<Example name="native-select/field-integration" />
+
+### État contrôlé
+
+Utilisez `value` et `onChange` lorsque l’application contrôle la valeur courante. Lisez la nouvelle valeur dans l’événement
+natif et transmettez-la via `value`.
+
+<Example name="native-select/controlled" />
 
 ## Composition
 

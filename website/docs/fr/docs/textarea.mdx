@@ -46,13 +46,6 @@ comportement natif d’une zone de texte dans le navigateur.
 
 ## Exemples
 
-### Redimensionnement automatique
-
-Définissez `autoresize` lorsque la zone de texte doit grandir au fil de la saisie. Ark désactive le
-redimensionnement manuel lorsque cette option est active.
-
-<Example name="textarea/auto-resize" />
-
 ### Tailles
 
 La propriété `size` définit les espacements et la typographie. L’espacement horizontal et la taille
@@ -61,11 +54,12 @@ de l’attribut natif `rows` et suit donc la taille de police.
 
 <Example name="textarea/sizes" />
 
-### Valeur contrôlée
+### Redimensionnement automatique
 
-Utilisez `value` et le gestionnaire natif `onChange` lorsque l’état de l’application doit piloter le contenu.
+Définissez `autoresize` lorsque la zone de texte doit grandir au fil de la saisie. Ark désactive le
+redimensionnement manuel lorsque cette option est active.
 
-<Example name="textarea/controlled" />
+<Example name="textarea/auto-resize" />
 
 ### Désactivé et en lecture seule
 
@@ -88,6 +82,12 @@ comportement du navigateur. Cet exemple soumet également le formulaire et lit l
 `FormData`.
 
 <Example name="textarea/native-attributes" />
+
+### Valeur contrôlée
+
+Utilisez `value` et le gestionnaire natif `onChange` lorsque l’état de l’application doit piloter le contenu.
+
+<Example name="textarea/controlled" />
 
 ## Composition
 

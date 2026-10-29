@@ -44,52 +44,7 @@ Use `Tooltip` for short, non-essential information that appears on hover or focu
 
 ## Examples
 
-### Context
-
-Use `useTooltipContext()` inside a descendant that needs the current tooltip state.
-
-<Example name="tooltip/context" />
-
-### Controlled
-
-Control whether the tooltip is open with `open` and `onOpenChange(details)`.
-
-<Example name="tooltip/controlled" />
-
-### Delay
-
-Set `openDelay` and `closeDelay` on the root to adjust hover and focus timing.
-
-<Example name="tooltip/delay" />
-
-### Disabled Trigger
-
-Use `TooltipDisabledTrigger` when a disabled native control still needs a short explanation. It
-keeps a focusable wrapper around the disabled child without changing its disabled state.
-
-<Example name="tooltip/disabled-trigger" />
-
-### Multiple Triggers
-
-Give each trigger a `value` and use `onTriggerValueChange(details)` to share one tooltip across
-several triggers.
-
-<Example name="tooltip/multiple-triggers" />
-
-### Positioning
-
-Pass Ark positioning options to `Tooltip`, including placement and offset values.
-
-<Example name="tooltip/positioning" />
-
-### Root Provider
-
-Use `useTooltip()` with `TooltipRootProvider` when the tooltip state is created outside the
-rendered tooltip tree.
-
-<Example name="tooltip/root-provider" />
-
-### With Arrow
+### With arrow
 
 Add `TooltipArrow` as the first child of the tooltip content when it needs a visual pointer. With
 `TooltipBody`, place it directly inside `TooltipBody`; the wrapper supplies the default
@@ -97,13 +52,58 @@ Add `TooltipArrow` as the first child of the tooltip content when it needs a vis
 
 <Example name="tooltip/with-arrow" />
 
-### Within Fixed Containers
+### Positioning
+
+Pass Ark positioning options to `Tooltip`, including placement and offset values.
+
+<Example name="tooltip/positioning" />
+
+### Delay
+
+Set `openDelay` and `closeDelay` on the root to adjust hover and focus timing.
+
+<Example name="tooltip/delay" />
+
+### Disabled trigger
+
+Use `TooltipDisabledTrigger` when a disabled native control still needs a short explanation. It
+keeps a focusable wrapper around the disabled child without changing its disabled state.
+
+<Example name="tooltip/disabled-trigger" />
+
+### Multiple triggers
+
+Give each trigger a `value` and use `onTriggerValueChange(details)` to share one tooltip across
+several triggers.
+
+<Example name="tooltip/multiple-triggers" />
+
+### Within fixed containers
 
 Use `positioning.strategy: "fixed"` when the trigger is inside a fixed or sticky interface region.
 This example sets `closeOnScroll={false}` so you can focus the trigger and scroll the panel while
 checking the tooltip's alignment.
 
 <Example name="tooltip/within-fixed-containers" />
+
+### Controlled
+
+Control whether the tooltip is open with `open` and `onOpenChange(details)`. See [Control state from the application](/docs/composition-patterns#controlled-state).
+
+<Example name="tooltip/controlled" />
+
+### Context
+
+Use `useTooltipContext()` inside a descendant that needs the current tooltip state.
+
+<Example name="tooltip/context" />
+
+### Root provider
+
+Use `useTooltip()` with `TooltipRootProvider` when the tooltip state is created outside the
+rendered tooltip tree. See [Share state outside the tree](/docs/composition-patterns#root-provider).
+
+<Example name="tooltip/root-provider" />
 
 ### Build from parts
 

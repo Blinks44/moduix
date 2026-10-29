@@ -31,14 +31,14 @@ React host.
 props, `asChild`, `className`, `style`, and an `HTMLElement` ref.
 
 `ChartPlot` accepts the TanStack `RendererChartProps` contract from
-`@tanstack/charts/react/tooltip`, except that `renderer` is optional. It defaults to the Moduix
+`@tanstack/charts/react/tooltip`, except that `renderer` is optional. It defaults to the moduix
 `motion()` preset. Set `motion={false}` to use TanStack's static SVG renderer; an explicit
 `renderer` always takes precedence. Definitions, responsiveness, accessibility props, and callbacks
 pass through unchanged, including TanStack's optional `renderTooltipBody`.
 
-By default, `ChartPlot` uses a compact Moduix tooltip layout, so rows without a swatch do not
+By default, `ChartPlot` uses a compact moduix tooltip layout, so rows without a swatch do not
 reserve an empty column. Rows that TanStack marks as `active` get `data-active` and a muted highlight. When you provide `renderTooltipBody`, its
-`defaultBody` is the same compact Moduix body.
+`defaultBody` is the same compact moduix body.
 
 `ChartHeader` renders `figcaption`. `ChartTitle`, `ChartDescription`, `ChartLegend`, and
 `ChartLegendItem` provide the standard figure context. `ChartLegendItem` accepts an optional
@@ -49,7 +49,7 @@ reserve an empty column. Rows that TanStack marks as `active` get `data-active` 
 - Create `areaY`, `barX`, `barY`, `cell`, `dot`, `lineY`, `pie`, `polar`, `radialArc`, scales, axes,
   layouts, focus behavior, and interactions with `@tanstack/charts`; moduix does not mirror the mark
   API or add a second definition DSL.
-- The default Moduix `motion()` preset animates initial geometry, keyed updates, focus guides, and the
+- The default moduix `motion()` preset animates initial geometry, keyed updates, focus guides, and the
   native tooltip. It respects `prefers-reduced-motion` by default. `motion={false}` disables the
   renderer animation entirely.
 - `renderTooltipBody` is an upstream escape hatch for React-owned tooltip content. moduix replaces

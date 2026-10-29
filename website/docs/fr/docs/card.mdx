@@ -35,12 +35,30 @@ paquets npm et la source du registre shadcn.
 
 ## Exemples
 
-### Média personnalisé
+### Variantes
 
-Laissez `CardMedia` de côté si vous devez contrôler entièrement la présentation du média et styliser la carte
-avec des points d’extension bas niveau.
+Utilisez les variantes pour exprimer la hiérarchie visuelle des surfaces.
 
-<Example name="card/custom-media" />
+<Example name="card/variants" />
+
+### Tailles
+
+Choisissez `sm`, `md` ou `lg` pour modifier l’espacement intérieur de la carte et la taille du titre.
+
+<Example name="card/sizes" />
+
+### Avec une image
+
+Utilisez `CardMedia` pour un média placé en tête qui doit occuper toute la largeur de la carte avec un arrondi
+uniforme des angles supérieurs.
+
+<Example name="card/with-image" />
+
+### Avec un avatar
+
+Placez un avatar ou un autre élément de profil dans l’en-tête lorsque la carte représente une personne ou une autre entité.
+
+<Example name="card/with-avatar" />
 
 ### Action dans l’en-tête
 
@@ -55,6 +73,20 @@ mise en page.
 
 <Example name="card/horizontal" />
 
+### Média personnalisé
+
+Laissez `CardMedia` de côté si vous devez contrôler entièrement la présentation du média et styliser la carte
+avec des points d’extension bas niveau.
+
+<Example name="card/custom-media" />
+
+### Avec une image de fond
+
+Utilisez `CardBackground` pour un média décoratif placé derrière le contenu de la carte. Ajoutez le calque et les
+styles de contraste du texte dans votre application.
+
+<Example name="card/with-background" />
+
 ### Lien à zone cliquable étendue
 
 Utilisez `CardLink` lorsque la carte doit proposer une navigation et des actions distinctes.
@@ -66,38 +98,6 @@ Utilisez `CardLink` lorsque la carte doit proposer une navigation et des actions
 Utilisez `asChild` lorsque toute la carte doit être un seul lien et ne contient aucun contrôle imbriqué.
 
 <Example name="card/root-as-link" />
-
-### Tailles
-
-Choisissez `sm`, `md` ou `lg` pour modifier l’espacement intérieur de la carte et la taille du titre.
-
-<Example name="card/sizes" />
-
-### Variantes
-
-Utilisez les variantes pour exprimer la hiérarchie visuelle des surfaces.
-
-<Example name="card/variants" />
-
-### Avec un avatar
-
-Placez un avatar ou un autre élément de profil dans l’en-tête lorsque la carte représente une personne ou une autre entité.
-
-<Example name="card/with-avatar" />
-
-### Avec une image de fond
-
-Utilisez `CardBackground` pour un média décoratif placé derrière le contenu de la carte. Ajoutez le calque et les
-styles de contraste du texte dans votre application.
-
-<Example name="card/with-background" />
-
-### Avec une image
-
-Utilisez `CardMedia` pour un média placé en tête qui doit occuper toute la largeur de la carte avec un arrondi
-uniforme des angles supérieurs.
-
-<Example name="card/with-image" />
 
 ### Dans un formulaire
 

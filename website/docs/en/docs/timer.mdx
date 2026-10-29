@@ -44,12 +44,6 @@ Set `countdown` and `startMs` when the display should count down to zero.
 
 <Example name="timer/countdown" />
 
-### Events
-
-Use `onTick` and `onComplete` for side effects tied to the timer lifecycle. In Vue, listen with `@tick` and `@complete`.
-
-<Example name="timer/events" />
-
 ### Interval
 
 Use a shorter `interval` with a `milliseconds` item when the UI needs sub-second updates.
@@ -62,10 +56,16 @@ Use `onComplete` (`@complete` in Vue) to switch between work and break durations
 
 <Example name="timer/pomodoro" />
 
-### Root Provider
+### Events
+
+Use `onTick` and `onComplete` for side effects tied to the timer lifecycle. In Vue, listen with `@tick` and `@complete`.
+
+<Example name="timer/events" />
+
+### Root provider
 
 Use `useTimer()` with `TimerRootProvider` when the timer state and methods must also be available
-outside the rendered part tree.
+outside the rendered part tree. See [Share state outside the tree](/docs/composition-patterns#root-provider).
 
 <Example name="timer/root-provider" />
 

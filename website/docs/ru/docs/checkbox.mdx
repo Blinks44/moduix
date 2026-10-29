@@ -42,23 +42,11 @@ import * as CheckboxDocs from '@/components/examples/checkbox/css-properties';
 
 ## Примеры
 
-### Управляемое состояние
+### Размеры
 
-Используйте управляемый флажок, если его значение хранится в другой части интерфейса.
+Используйте `size`, чтобы согласовать плотность флажка с окружающей формой или экраном настроек.
 
-<Example name="checkbox/controlled" />
-
-### Управляемая группа
-
-Используйте управляемую группу, если выбранные варианты влияют на фильтры, сводки или действия.
-
-<Example name="checkbox/controlled-group" />
-
-### Пользовательский индикатор
-
-Замените встроенную галочку собственной иконкой, сохранив поведение Checkbox и доступность Ark.
-
-<Example name="checkbox/custom-indicator" />
+<Example name="checkbox/sizes" />
 
 ### Выбрано по умолчанию
 
@@ -67,11 +55,38 @@ import * as CheckboxDocs from '@/components/examples/checkbox/css-properties';
 
 <Example name="checkbox/default-checked" />
 
+### Неопределённое состояние
+
+Используйте `checked="indeterminate"`, когда флажок обозначает частичный выбор. Это часто нужно
+для управления «Выбрать все».
+
+<Example name="checkbox/indeterminate" />
+
 ### Отключённый вариант
 
 Используйте `disabled`, когда вариант недоступен и не должен реагировать на взаимодействие.
 
 <Example name="checkbox/disabled" />
+
+### Только для чтения
+
+Используйте `readOnly`, чтобы показать значение без возможности его изменить.
+
+<Example name="checkbox/read-only" />
+
+### С Field
+
+Используйте `Field`, когда флажку нужны вспомогательный текст, сообщения проверки или общее
+состояние поля.
+
+<Example name="checkbox/with-field" />
+
+### С формой
+
+Передайте `name` и `value` в `Checkbox` и отрисуйте `CheckboxHiddenInput`, чтобы включить
+флажок в `FormData`.
+
+<Example name="checkbox/with-form" />
 
 ### Группа
 
@@ -92,37 +107,23 @@ import * as CheckboxDocs from '@/components/examples/checkbox/css-properties';
 
 <Example name="checkbox/group-with-form" />
 
-### Неопределённое состояние
-
-Используйте `checked="indeterminate"`, когда флажок обозначает частичный выбор. Это часто нужно
-для управления «Выбрать все».
-
-<Example name="checkbox/indeterminate" />
-
 ### Некорректная группа
 
 Задайте `invalid` на группе, если проверка относится ко всему выбору.
 
 <Example name="checkbox/invalid-group" />
 
-### Ограничение выбора
+### Управляемое состояние
 
-Используйте `maxSelectedValues`, чтобы ограничить количество одновременно выбранных вариантов.
+Используйте управляемый флажок, если его значение хранится в другой части интерфейса. Подробнее в разделе [Управляйте состоянием из приложения](/docs/composition-patterns#controlled-state).
 
-<Example name="checkbox/max-selected" />
+<Example name="checkbox/controlled" />
 
-### Только для чтения
+### Управляемая группа
 
-Используйте `readOnly`, чтобы показать значение без возможности его изменить.
+Используйте управляемую группу, если выбранные варианты влияют на фильтры, сводки или действия. Подробнее в разделе [Управляйте состоянием из приложения](/docs/composition-patterns#controlled-state).
 
-<Example name="checkbox/read-only" />
-
-### Root Provider
-
-Используйте `CheckboxRootProvider`, когда состояние флажка нужно хранить вне дерева компонентов.
-Импортируйте `useCheckbox` из пакета выбранного фреймворка.
-
-<Example name="checkbox/root-provider" />
+<Example name="checkbox/controlled-group" />
 
 ### Выбрать все
 
@@ -131,25 +132,24 @@ import * as CheckboxDocs from '@/components/examples/checkbox/css-properties';
 
 <Example name="checkbox/select-all" />
 
-### Размеры
+### Ограничение выбора
 
-Используйте `size`, чтобы согласовать плотность флажка с окружающей формой или экраном настроек.
+Используйте `maxSelectedValues`, чтобы ограничить количество одновременно выбранных вариантов.
 
-<Example name="checkbox/sizes" />
+<Example name="checkbox/max-selected" />
 
-### С Field
+### Пользовательский индикатор
 
-Используйте `Field`, когда флажку нужны вспомогательный текст, сообщения проверки или общее
-состояние поля.
+Замените встроенную галочку собственной иконкой, сохранив поведение Checkbox и доступность Ark.
 
-<Example name="checkbox/with-field" />
+<Example name="checkbox/custom-indicator" />
 
-### С формой
+### Root Provider
 
-Передайте `name` и `value` в `Checkbox` и отрисуйте `CheckboxHiddenInput`, чтобы включить
-флажок в `FormData`.
+Используйте `CheckboxRootProvider`, когда состояние флажка нужно хранить вне дерева компонентов.
+Импортируйте `useCheckbox` из пакета выбранного фреймворка. Подробнее в разделе [Выносите состояние за пределы дерева](/docs/composition-patterns#root-provider).
 
-<Example name="checkbox/with-form" />
+<Example name="checkbox/root-provider" />
 
 ### Сборка из частей
 
@@ -228,7 +228,6 @@ import * as CheckboxDocs from '@/components/examples/checkbox/css-properties';
 | Клавиша | Действие |
 | --- | --- |
 | `Space` | Переключает чекбокс в фокусе. |
-| `Tab` | Переходит к следующему чекбоксу. |
 
 ## Справочник API
 

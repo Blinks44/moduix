@@ -32,11 +32,25 @@ d’atteindre les bords de la fenêtre tout en restant dans le flux normal du do
 
 ## Exemples
 
+### Débordement sur l’axe en ligne
+
+Utilisez `inline` pour contrôler le dépassement du contenu sur l’axe en ligne. L’exemple compare les valeurs fixes
+`sm` et `lg` avec `full`, qui s’étend jusqu’à la fenêtre.
+
+<Example name="bleed/inline-amounts" />
+
 ### Débordement sur l’axe de bloc
 
 Ajoutez `block` lorsque la surface doit dépasser l’espacement intérieur du conteneur également sur l’axe de bloc.
 
 <Example name="bleed/block-bleed" />
+
+### Élément sémantique
+
+Utilisez `asChild` lorsque le contenu doit utiliser un élément sémantique plus précis. Dans cet exemple, l’élément
+`figure` devient la racine de `Bleed`.
+
+<Example name="bleed/semantic-element" />
 
 ### Styles personnalisés
 
@@ -45,20 +59,6 @@ sa propre zone de contenu plutôt qu’à la fenêtre. Les styles moduix sont da
 ordinaire l’emporte.
 
 <Example name="bleed/custom-styling" />
-
-### Débordement sur l’axe en ligne
-
-Utilisez `inline` pour contrôler le dépassement du contenu sur l’axe en ligne. L’exemple compare les valeurs fixes
-`sm` et `lg` avec `full`, qui s’étend jusqu’à la fenêtre.
-
-<Example name="bleed/inline-amounts" />
-
-### Élément sémantique
-
-Utilisez `asChild` lorsque le contenu doit utiliser un élément sémantique plus précis. Dans cet exemple, l’élément
-`figure` devient la racine de `Bleed`.
-
-<Example name="bleed/semantic-element" />
 
 ## Composition
 

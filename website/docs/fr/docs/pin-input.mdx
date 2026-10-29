@@ -44,37 +44,12 @@ Utilisez `PinInput` lorsqu’un code court de longueur fixe doit être saisi car
 
 ## Exemples
 
-### Retirer le focus à la fin
+### Tailles
 
-Définissez `blurOnComplete` lorsque le focus doit quitter le dernier champ une fois toutes les cases remplies.
+Utilisez la prop `size` sur la racine pour aligner la taille des cases sur la hauteur des contrôles `Input`
+et `Button`. La valeur par défaut est `md` ; le texte des cases suit la taille.
 
-<Example name="pin-input/blur-on-complete" />
-
-### Événements de changement
-
-Conservez le tableau de valeurs dans l’état et lisez `details.value` ou `details.valueAsString` dans les callbacks Ark.
-
-<Example name="pin-input/change-events" />
-
-### Field
-
-Placez `PinInput` dans `Field` lorsque le libellé, le texte d’aide, le message d’erreur et l’état du champ doivent
-être associés aux cases visibles par les mécanismes d’accessibilité des formulaires d’Ark.
-
-<Example name="pin-input/field" />
-
-### Disposition groupée
-
-Utilisez des parties `PinInputInput` indexées explicites et `PinInputSeparator` lorsqu’un séparateur doit diviser le code en groupes.
-Gardez des index continus dans toute la composition.
-
-<Example name="pin-input/grouped-layout" />
-
-### Masquage
-
-Définissez `mask` lorsque le code saisi est sensible et ne doit pas être affiché en clair.
-
-<Example name="pin-input/masking" />
+<Example name="pin-input/sizes" />
 
 ### Mode OTP
 
@@ -83,25 +58,50 @@ codes à usage unique sur les navigateurs mobiles compatibles.
 
 <Example name="pin-input/otp-mode" />
 
+### Masquage
+
+Définissez `mask` lorsque le code saisi est sensible et ne doit pas être affiché en clair.
+
+<Example name="pin-input/masking" />
+
 ### Placeholder
 
 Passez `placeholder` pour afficher un caractère dans chaque case vide. Par défaut, moduix laisse le placeholder vide.
 
 <Example name="pin-input/placeholder" />
 
+### Disposition groupée
+
+Utilisez des parties `PinInputInput` indexées explicites et `PinInputSeparator` lorsqu’un séparateur doit diviser le code en groupes.
+Gardez des index continus dans toute la composition.
+
+<Example name="pin-input/grouped-layout" />
+
+### Retirer le focus à la fin
+
+Définissez `blurOnComplete` lorsque le focus doit quitter le dernier champ une fois toutes les cases remplies.
+
+<Example name="pin-input/blur-on-complete" />
+
+### Field
+
+Placez `PinInput` dans `Field` lorsque le libellé, le texte d’aide, le message d’erreur et l’état du champ doivent
+être associés aux cases visibles par les mécanismes d’accessibilité des formulaires d’Ark.
+
+<Example name="pin-input/field" />
+
+### Événements de changement
+
+Conservez le tableau de valeurs dans l’état et lisez `details.value` ou `details.valueAsString` dans les callbacks Ark.
+
+<Example name="pin-input/change-events" />
+
 ### Root Provider
 
 Utilisez `usePinInput` avec `PinInputRootProvider` lorsque l’état et les méthodes impératives doivent être gérés en dehors
-de l’arbre rendu. Cet exemple remplace `PinInputInputs` par des parties `PinInputInput` indexées explicites.
+de l’arbre rendu. Cet exemple remplace `PinInputInputs` par des parties `PinInputInput` indexées explicites. Voir [Partager l’état hors de l’arbre](/docs/composition-patterns#root-provider).
 
 <Example name="pin-input/root-provider" />
-
-### Tailles
-
-Utilisez la prop `size` sur la racine pour aligner la taille des cases sur la hauteur des contrôles `Input`
-et `Button`. La valeur par défaut est `md` ; le texte des cases suit la taille.
-
-<Example name="pin-input/sizes" />
 
 ## Composition
 

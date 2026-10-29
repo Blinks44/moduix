@@ -70,7 +70,7 @@ export default function PersistedSidebar() {
       <SidebarPanel>
         <SidebarHeader>
           <strong data-sidebar-icon>M</strong>
-          <SidebarLabel>Moduix</SidebarLabel>
+          <SidebarLabel>moduix</SidebarLabel>
         </SidebarHeader>
         <SidebarContent>
           <SidebarGroup>

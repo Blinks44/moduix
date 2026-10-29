@@ -40,38 +40,26 @@ that takes effect immediately.
 
 ## Examples
 
-### asChild
+### Sizes
 
-Use `RadioGroupItem asChild` when a custom card or label layout should own the item DOM node. Keep a
-semantic `label` as the direct child.
+Set the moduix `size` prop on `RadioGroup` or `RadioGroupRootProvider` to change the diameter of every radio
+control in the group. Supported values are `xs`, `sm`, `md` (default), `lg`, and `xl`.
 
-<Example name="radio-group/aschild" />
+<Example name="radio-group/sizes" />
 
-### Controlled
+### Orientation
 
-Manage `value` with `useState` in React, `createSignal` in Solid, or `ref` and `v-model` in Vue when the selected value
-needs to stay in sync with routing, filters, or surrounding UI.
+Set `orientation="horizontal"` when arrow-key behavior should follow a horizontal group. Arrange
+the items in a row with an inline wrapper when the visual layout should be horizontal too.
 
-<Example name="radio-group/controlled" />
+<Example name="radio-group/orientation" />
 
-### Disabled
+### Initial value
 
-Set `disabled` on the root to make every item unavailable while keeping the selected value visible.
+Set `defaultValue` when the initial checked item is known and the group should manage later changes
+itself.
 
-<Example name="radio-group/disabled" />
-
-### Disabled Item
-
-Set `disabled` on an individual `RadioGroupItem` or `RadioGroupOption` when only that choice is unavailable.
-
-<Example name="radio-group/item-disabled" />
-
-### Form
-
-Pass `name` to the root when the selected value should be submitted. `RadioGroupOption` already
-contains the input; add `RadioGroupItemHiddenInput` to every custom item.
-
-<Example name="radio-group/form" />
+<Example name="radio-group/initial-value" />
 
 ### RadioGroupIndicator
 
@@ -81,33 +69,17 @@ geometry.
 
 <Example name="radio-group/indicator" />
 
-### Initial Value
+### Disabled
 
-Set `defaultValue` when the initial checked item is known and the group should manage later changes
-itself.
+Set `disabled` on the root to make every item unavailable while keeping the selected value visible.
 
-<Example name="radio-group/initial-value" />
+<Example name="radio-group/disabled" />
 
-### Orientation
+### Disabled item
 
-Set `orientation="horizontal"` when arrow-key behavior should follow a horizontal group. Arrange
-the items in a row with an inline wrapper when the visual layout should be horizontal too.
+Set `disabled` on an individual `RadioGroupItem` or `RadioGroupOption` when only that choice is unavailable.
 
-<Example name="radio-group/orientation" />
-
-### Root Provider
-
-Use `RadioGroupRootProvider` when a `useRadioGroup()` store needs to be shared with controls outside the radio
-group tree. The example also shows how to update the selected value from outside the group.
-
-<Example name="radio-group/root-provider" />
-
-### Sizes
-
-Set the moduix `size` prop on `RadioGroup` or `RadioGroupRootProvider` to change the diameter of every radio
-control in the group. Supported values are `xs`, `sm`, `md` (default), `lg`, and `xl`.
-
-<Example name="radio-group/sizes" />
+<Example name="radio-group/item-disabled" />
 
 ### With Field
 
@@ -122,6 +94,34 @@ Wrap the group in `Fieldset` when several radio items share a legend and belong 
 section. `Fieldset` can also provide its disabled and invalid state to the nested group.
 
 <Example name="radio-group/with-fieldset" />
+
+### Form
+
+Pass `name` to the root when the selected value should be submitted. `RadioGroupOption` already
+contains the input; add `RadioGroupItemHiddenInput` to every custom item.
+
+<Example name="radio-group/form" />
+
+### Controlled
+
+Pass `value` and `onValueChange` (`v-model` in Vue) when the selected value follows routing, filters,
+or surrounding UI. See [Control state from the application](/docs/composition-patterns#controlled-state).
+
+<Example name="radio-group/controlled" />
+
+### asChild
+
+Use `RadioGroupItem asChild` when a custom card or label layout should own the item DOM node. Keep a
+semantic `label` as the direct child.
+
+<Example name="radio-group/aschild" />
+
+### Root provider
+
+Use `RadioGroupRootProvider` when a `useRadioGroup()` store needs to be shared with controls outside the radio
+group tree. The example also shows how to update the selected value from outside the group. See [Share state outside the tree](/docs/composition-patterns#root-provider).
+
+<Example name="radio-group/root-provider" />
 
 ### Build from parts
 

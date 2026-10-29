@@ -36,13 +36,12 @@ classes utilitaires.
 
 ## Exemples
 
-### Exclure des éléments d’interface
+### Rythme de lecture
 
-Excluez un sous-arbre lorsqu’il a sa propre mise en forme, par exemple un contrôle intégré ou une
-carte. `.not-typeset` comme `data-not-typeset` excluent l’élément marqué et tout son contenu, y
-compris une racine `Typeset` imbriquée.
+Réglez les variables CSS lorsqu’une section demande un rythme de lecture plus aéré ou plus dense,
+sans ajouter de propriétés au composant.
 
-<Example name="typeset/excluded-subtree" />
+<Example name="typeset/reading-rhythm" />
 
 ### Extensions Markdown
 
@@ -51,13 +50,6 @@ utilisent les mêmes tokens et espacements entre blocs que les principaux élém
 
 <Example name="typeset/markdown-extensions" />
 
-### Rythme de lecture
-
-Réglez les variables CSS lorsqu’une section demande un rythme de lecture plus aéré ou plus dense,
-sans ajouter de propriétés au composant.
-
-<Example name="typeset/reading-rhythm" />
-
 ### Tableau défilant
 
 Placez une table créée par votre moteur de rendu dans `TypesetScroll` lorsqu’elle doit conserver sa
@@ -65,6 +57,14 @@ largeur et défiler dans un conteneur étroit. Donnez à la zone de défilement 
 identifie la table qu’elle contient.
 
 <Example name="typeset/scrollable-table" />
+
+### Exclure des éléments d’interface
+
+Excluez un sous-arbre lorsqu’il a sa propre mise en forme, par exemple un contrôle intégré ou une
+carte. `.not-typeset` comme `data-not-typeset` excluent l’élément marqué et tout son contenu, y
+compris une racine `Typeset` imbriquée.
+
+<Example name="typeset/excluded-subtree" />
 
 ### Contenu diffusé en continu
 

@@ -40,13 +40,6 @@ import AnatomyScene from '@/components/examples/table-of-contents/basic';
 
 ## Примеры
 
-### Root Provider
-
-Используйте `useToc()`, если другому элементу интерфейса нужно читать активные заголовки или
-прокручивать область чтения.
-
-<Example name="table-of-contents/root-provider" />
-
 ### Rail
 
 Поместите `TocRail` внутрь каждой ссылки, чтобы нарисовать SVG-соединитель между соседними
@@ -63,6 +56,13 @@ import AnatomyScene from '@/components/examples/table-of-contents/basic';
 ведут в ту же область чтения.
 
 <Example name="table-of-contents/with-collapsible" />
+
+### Root Provider
+
+Используйте `useToc()`, если другому элементу интерфейса нужно читать активные заголовки или
+прокручивать область чтения. Подробнее в разделе [Выносите состояние за пределы дерева](/docs/composition-patterns#root-provider).
+
+<Example name="table-of-contents/root-provider" />
 
 ## Композиция
 

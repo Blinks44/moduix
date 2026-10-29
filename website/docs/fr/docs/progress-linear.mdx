@@ -42,46 +42,11 @@ espace limité.
 
 ## Exemples
 
-### État contrôlé
-
-Conservez `value` dans l’état lorsque la progression doit rester synchronisée avec un autre contrôle
-ou une tâche externe.
-
-<Example name="progress-linear/controlled" width="sm" />
-
-### Progression indéterminée
-
-Définissez `defaultValue={null}` ou `value={null}` lorsque la tâche est en cours mais que son
-achèvement ne peut pas encore être mesuré.
-
-<Example name="progress-linear/indeterminate" width="sm" />
-
 ### Valeur initiale
 
 Utilisez `defaultValue` pour définir la valeur initiale d’une progression non contrôlée.
 
 <Example name="progress-linear/initial-value" width="sm" />
-
-### Minimum et maximum
-
-Utilisez `min` et `max` lorsque la plage de progression diffère de la plage par défaut, de `0` à
-`100`.
-
-<Example name="progress-linear/min-max" width="sm" />
-
-### Root Provider
-
-Créez l’état de progression avec `useProgress()` dans un composant parent, puis
-reliez-le aux parties rendues avec `ProgressLinearRootProvider`.
-
-<Example name="progress-linear/root-provider" width="sm" />
-
-### Vues d’état
-
-Utilisez `ProgressLinearView` lorsque le texte ou l’interface d’accompagnement doit changer avec
-l’état de progression Ark.
-
-<Example name="progress-linear/state-views" width="sm" />
 
 ### Texte de la valeur
 
@@ -90,6 +55,20 @@ valeur doit être formulé pour une tâche précise.
 
 <Example name="progress-linear/value-text" width="sm" />
 
+### Minimum et maximum
+
+Utilisez `min` et `max` lorsque la plage de progression diffère de la plage par défaut, de `0` à
+`100`.
+
+<Example name="progress-linear/min-max" width="sm" />
+
+### Progression indéterminée
+
+Définissez `defaultValue={null}` ou `value={null}` lorsque la tâche est en cours mais que son
+achèvement ne peut pas encore être mesuré.
+
+<Example name="progress-linear/indeterminate" width="sm" />
+
 ### Orientation verticale
 
 Définissez `orientation="vertical"` lorsque la partie remplie doit progresser du bas vers le haut.
@@ -97,6 +76,27 @@ En mode vertical, la hauteur par défaut est de `12rem`. Si votre mise en page n
 hauteur, définissez `height` sur la racine.
 
 <Example name="progress-linear/vertical" />
+
+### Vues d’état
+
+Utilisez `ProgressLinearView` lorsque le texte ou l’interface d’accompagnement doit changer avec
+l’état de progression Ark.
+
+<Example name="progress-linear/state-views" width="sm" />
+
+### État contrôlé
+
+Conservez `value` dans l’état lorsque la progression doit rester synchronisée avec un autre contrôle
+ou une tâche externe.
+
+<Example name="progress-linear/controlled" width="sm" />
+
+### Root Provider
+
+Créez l’état de progression avec `useProgress()` dans un composant parent, puis
+reliez-le aux parties rendues avec `ProgressLinearRootProvider`.
+
+<Example name="progress-linear/root-provider" width="sm" />
 
 ## Composition
 

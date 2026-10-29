@@ -42,12 +42,28 @@ connue doit simplement être saisie, sans modifier directement la couleur, utili
 
 ## Exemples
 
-### Zone et curseurs
+### Affichage en ligne
 
-Utilisez cette composition compacte lorsque les utilisateurs ont besoin de la zone de couleur et des curseurs de canaux,
-mais pas de champs pour saisir les canaux au clavier.
+Utilisez `inline` dans les panneaux de réglages lorsque les outils de couleur doivent rester visibles sans bouton
+d’ouverture de fenêtre contextuelle.
 
-<Example name="color-picker/slider-only" />
+<Example name="color-picker/inline" />
+
+### Palette prédéfinie
+
+Ajoutez des pastilles dans la fenêtre contextuelle lorsque le sélecteur doit proposer une palette prédéfinie en plus de la
+sélection libre. `closeOnSelect` conserve le comportement d’Ark et ferme la fenêtre après la sélection d’une pastille.
+
+<Example name="color-picker/swatches" />
+
+### Vues selon le format
+
+Utilisez `format`, `onFormatChange`, `ColorPickerFormatSelect` et `ColorPickerView` lorsque les utilisateurs doivent passer d’un groupe de
+champs de canaux à un autre sans modifier la structure du sélecteur. `ColorPickerFormatSelect` conserve le sélecteur de format natif
+d’Ark, tandis que son affichage replié reprend le style du champ `Select` de moduix et présente uniformément les formats
+RGBA, HSLA et HSBA. Le navigateur gère la liste des options.
+
+<Example name="color-picker/format-views" />
 
 ### Bouton d’ouverture compact
 
@@ -56,11 +72,33 @@ former une pastille carrée. Ce format convient par exemple pour remplacer un ch
 
 <Example name="color-picker/compact-trigger" />
 
-### Valeur contrôlée
+### Saisie directe
 
-Utilisez une valeur contrôlée lorsque la couleur sélectionnée doit rester synchronisée avec l’état de l’application.
+Utilisez des champs de canaux avec une pastille passive lorsque la saisie au clavier est importante et qu’une fenêtre
+contextuelle ajouterait une complexité inutile à l’interface.
 
-<Example name="color-picker/controlled" />
+<Example name="color-picker/input-only" />
+
+### Zone et curseurs
+
+Utilisez cette composition compacte lorsque les utilisateurs ont besoin de la zone de couleur et des curseurs de canaux,
+mais pas de champs pour saisir les canaux au clavier.
+
+<Example name="color-picker/slider-only" />
+
+### Pastilles uniquement
+
+Utilisez une composition limitée aux pastilles lorsque la palette prédéfinie suffit et que la zone, les curseurs et les
+champs sont inutiles.
+
+<Example name="color-picker/swatch-only" />
+
+### Valeur actuelle
+
+Utilisez `ColorPickerValueSwatch` et `ColorPickerValueText` lorsque l’interface voisine doit afficher la couleur choisie sans ouvrir le
+sélecteur complet.
+
+<Example name="color-picker/value-swatch" />
 
 ### Composant désactivé
 
@@ -82,28 +120,17 @@ Définissez `name` sur `ColorPicker` et ajoutez explicitement `ColorPickerHidden
 
 <Example name="color-picker/form-usage" />
 
-### Vues selon le format
+### Valeur contrôlée
 
-Utilisez `format`, `onFormatChange`, `ColorPickerFormatSelect` et `ColorPickerView` lorsque les utilisateurs doivent passer d’un groupe de
-champs de canaux à un autre sans modifier la structure du sélecteur. `ColorPickerFormatSelect` conserve le sélecteur de format natif
-d’Ark, tandis que son affichage replié reprend le style du champ `Select` de moduix et présente uniformément les formats
-RGBA, HSLA et HSBA. Le navigateur gère la liste des options.
+Utilisez une valeur contrôlée lorsque la couleur sélectionnée doit rester synchronisée avec l’état de l’application. Voir [Contrôler l’état depuis l’application](/docs/composition-patterns#controlled-state).
 
-<Example name="color-picker/format-views" />
+<Example name="color-picker/controlled" />
 
-### Affichage en ligne
+### Ouverture contrôlée
 
-Utilisez `inline` dans les panneaux de réglages lorsque les outils de couleur doivent rester visibles sans bouton
-d’ouverture de fenêtre contextuelle.
+Utilisez l’état contrôlé `open` lorsqu’un autre contrôle ou un autre flux détermine la visibilité de la fenêtre contextuelle. Voir [Contrôler l’état depuis l’application](/docs/composition-patterns#controlled-state).
 
-<Example name="color-picker/inline" />
-
-### Saisie directe
-
-Utilisez des champs de canaux avec une pastille passive lorsque la saisie au clavier est importante et qu’une fenêtre
-contextuelle ajouterait une complexité inutile à l’interface.
-
-<Example name="color-picker/input-only" />
+<Example name="color-picker/open-controlled" />
 
 ### Dans un Dialog
 
@@ -112,39 +139,12 @@ dans le même contexte d’empilement que le dialogue et demeure interactive au-
 
 <Example name="color-picker/inside-dialog" />
 
-### Ouverture contrôlée
-
-Utilisez l’état contrôlé `open` lorsqu’un autre contrôle ou un autre flux détermine la visibilité de la fenêtre contextuelle.
-
-<Example name="color-picker/open-controlled" />
-
 ### Root Provider
 
 Utilisez `useColorPicker` de moduix avec `ColorPickerRootProvider` lorsque l’état du sélecteur doit être créé en dehors de l’arbre
-rendu et partagé avec des contrôles voisins.
+rendu et partagé avec des contrôles voisins. Voir [Partager l’état hors de l’arbre](/docs/composition-patterns#root-provider).
 
 <Example name="color-picker/root-provider" />
-
-### Pastilles uniquement
-
-Utilisez une composition limitée aux pastilles lorsque la palette prédéfinie suffit et que la zone, les curseurs et les
-champs sont inutiles.
-
-<Example name="color-picker/swatch-only" />
-
-### Palette prédéfinie
-
-Ajoutez des pastilles dans la fenêtre contextuelle lorsque le sélecteur doit proposer une palette prédéfinie en plus de la
-sélection libre. `closeOnSelect` conserve le comportement d’Ark et ferme la fenêtre après la sélection d’une pastille.
-
-<Example name="color-picker/swatches" />
-
-### Valeur actuelle
-
-Utilisez `ColorPickerValueSwatch` et `ColorPickerValueText` lorsque l’interface voisine doit afficher la couleur choisie sans ouvrir le
-sélecteur complet.
-
-<Example name="color-picker/value-swatch" />
 
 ### Assembler à partir des parties
 

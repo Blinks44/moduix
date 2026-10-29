@@ -44,38 +44,6 @@ content panel and hides the other panels.
 
 ## Examples
 
-### Controlled Value
-
-Control the selected tab from application state when the active panel needs to coordinate with other UI.
-
-<Example name="tabs/controlled-value" width="lg" />
-
-### Custom Icons
-
-Place icons and labels directly inside `TabsTrigger`.
-
-<Example name="tabs/custom-icons" width="lg" />
-
-### Disabled Tab
-
-Disable a tab that should remain visible but is not currently available.
-
-<Example name="tabs/disabled-tab" width="lg" />
-
-### Fitted
-
-Set `fitted` on `Tabs` or `TabsRootProvider` to stretch a horizontal tab list across the root and
-share its width equally between the triggers. Vertical tabs ignore it.
-
-<Example name="tabs/fitted" width="lg" />
-
-### Lazy Mount
-
-Use `lazyMount` when inactive panels should not mount until selected. Add `unmountOnExit` to
-remove them from the DOM again after the user leaves them.
-
-<Example name="tabs/lazy-mount" width="lg" />
-
 ### Line
 
 Use `variant="line"` when the indicator should sit on the active edge instead of filling the
@@ -84,26 +52,6 @@ edge of the list.
 
 <Example name="tabs/line" width="lg" />
 
-### Links
-
-Use `asChild` when tab triggers should render anchors or links managed by your router.
-
-<Example name="tabs/links" width="lg" />
-
-### Manual Activation
-
-Set `activationMode="manual"` when arrow keys should move focus without changing the selected
-tab. Activate it with a click, Enter, or Space.
-
-<Example name="tabs/manual-activation" width="lg" />
-
-### Root Provider
-
-Create the tab state with `useTabs()` when it must exist before the part tree renders or when
-adjacent UI needs to read the selected value.
-
-<Example name="tabs/root-provider" width="lg" />
-
 ### Sizes
 
 Set `size` on `Tabs` or `TabsRootProvider` to `sm`, `md` (default), or `lg`. The tab list then has
@@ -111,12 +59,64 @@ the height of a `Button` or `Input` of the same size, like `SegmentGroup`.
 
 <Example name="tabs/sizes" width="lg" />
 
+### Fitted
+
+Set `fitted` on `Tabs` or `TabsRootProvider` to stretch a horizontal tab list across the root and
+share its width equally between the triggers. Vertical tabs ignore it.
+
+<Example name="tabs/fitted" width="lg" />
+
 ### Vertical
 
 Use `orientation="vertical"` when the tab list should sit beside the active panel. The list takes
 up to `12rem`, and at most 40% of the root width in narrow containers.
 
 <Example name="tabs/vertical" width="lg" />
+
+### Custom icons
+
+Place icons and labels directly inside `TabsTrigger`.
+
+<Example name="tabs/custom-icons" width="lg" />
+
+### Disabled tab
+
+Disable a tab that should remain visible but is not currently available.
+
+<Example name="tabs/disabled-tab" width="lg" />
+
+### Links
+
+Use `asChild` when tab triggers should render anchors or links managed by your router.
+
+<Example name="tabs/links" width="lg" />
+
+### Manual activation
+
+Set `activationMode="manual"` when arrow keys should move focus without changing the selected
+tab. Activate it with a click, Enter, or Space.
+
+<Example name="tabs/manual-activation" width="lg" />
+
+### Lazy mount
+
+Use `lazyMount` when inactive panels should not mount until selected. Add `unmountOnExit` to
+remove them from the DOM again after the user leaves them.
+
+<Example name="tabs/lazy-mount" width="lg" />
+
+### Controlled value
+
+Control the selected tab from application state when the active panel needs to coordinate with other UI.
+
+<Example name="tabs/controlled-value" width="lg" />
+
+### Root provider
+
+Create the tab state with `useTabs()` when it must exist before the part tree renders or when
+adjacent UI needs to read the selected value.
+
+<Example name="tabs/root-provider" width="lg" />
 
 ## Composition
 

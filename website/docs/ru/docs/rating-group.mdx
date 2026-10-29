@@ -39,13 +39,18 @@ import * as RatingGroupDocs from '@/components/examples/rating-group/css-propert
 
 ## Примеры
 
-### Управляемое состояние
+### Размеры
 
-Используйте `value` вместе с `useState` в React, `createSignal` в Solid или `ref` и `v-model` в Vue,
-когда оценка зависит от другого состояния, влияет на соседний интерфейс или должна сбрасываться
-родителем.
+Используйте свойство `size` moduix, если рейтинг должен сохранять поведение Ark при другой
+визуальной плотности.
 
-<Example name="rating-group/controlled" />
+<Example name="rating-group/sizes" />
+
+### Оценка с половинами
+
+Установите `allowHalf`, чтобы включить выбор с шагом в половину и отображение половины звезды.
+
+<Example name="rating-group/half-rating" />
 
 ### Пользовательский значок
 
@@ -77,25 +82,19 @@ import * as RatingGroupDocs from '@/components/examples/rating-group/css-propert
 
 <Example name="rating-group/forms" />
 
-### Оценка с половинами
+### Управляемое состояние
 
-Установите `allowHalf`, чтобы включить выбор с шагом в половину и отображение половины звезды.
+Передайте `value` и `onValueChange` (`v-model` во Vue), если оценка зависит от другого состояния или
+сбрасывается родителем. Подробнее в разделе [Управляйте состоянием из приложения](/docs/composition-patterns#controlled-state).
 
-<Example name="rating-group/half-rating" />
+<Example name="rating-group/controlled" />
 
 ### Root Provider
 
 Используйте `RatingGroupRootProvider` с `useRatingGroup()`, если состояние рейтинга нужно создать вне
-отрисованного дерева, например чтобы задавать значение отдельной кнопкой.
+отрисованного дерева, например чтобы задавать значение отдельной кнопкой. Подробнее в разделе [Выносите состояние за пределы дерева](/docs/composition-patterns#root-provider).
 
 <Example name="rating-group/root-provider" />
-
-### Размеры
-
-Используйте свойство `size` moduix, если рейтинг должен сохранять поведение Ark при другой
-визуальной плотности.
-
-<Example name="rating-group/sizes" />
 
 ### Сборка из частей
 

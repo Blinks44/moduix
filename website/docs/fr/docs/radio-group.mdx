@@ -40,19 +40,34 @@ choix indépendants et `Switch` pour un réglage qui s’applique immédiatement
 
 ## Exemples
 
-### asChild
+### Tailles
 
-Utilisez `RadioGroupItem asChild` lorsqu’une carte ou une mise en page personnalisée doit posséder le
-nœud DOM de l’option. Gardez un `label` sémantique comme enfant direct.
+Passez la prop moduix `size` à `RadioGroup` ou `RadioGroupRootProvider` pour changer le diamètre de tous les
+contrôles radio du groupe. Les valeurs prises en charge sont `xs`, `sm`, `md` (par défaut), `lg` et `xl`.
 
-<Example name="radio-group/aschild" />
+<Example name="radio-group/sizes" />
 
-### État contrôlé
+### Orientation
 
-Gérez `value` avec `useState` dans React, `createSignal` dans Solid ou `ref` et `v-model` dans Vue lorsque la valeur sélectionnée
-doit rester synchronisée avec le routage, les filtres ou l’interface environnante.
+Définissez `orientation="horizontal"` lorsque la navigation avec les flèches doit suivre un groupe
+horizontal. Placez les options dans un conteneur en ligne pour obtenir la même disposition visuelle.
 
-<Example name="radio-group/controlled" />
+<Example name="radio-group/orientation" />
+
+### Valeur initiale
+
+Définissez `defaultValue` lorsque l’option initialement sélectionnée est connue et que le groupe doit
+gérer seul les changements suivants.
+
+<Example name="radio-group/initial-value" />
+
+### Indicateur
+
+Rendez `RadioGroupIndicator` lorsqu’un surlignage supplémentaire et mesuré est nécessaire pour
+l’option active. Gardez l’indicateur et les boutons radio dans le même contexte de positionnement afin
+qu’il suive la géométrie des options.
+
+<Example name="radio-group/indicator" />
 
 ### Groupe désactivé
 
@@ -67,50 +82,6 @@ Définissez `disabled` sur un `RadioGroupItem` ou un `RadioGroupOption` individu
 indisponible.
 
 <Example name="radio-group/item-disabled" />
-
-### Formulaire
-
-Passez `name` à la racine lorsque la valeur sélectionnée doit être envoyée dans un formulaire.
-`RadioGroupOption` contient déjà le champ ; ajoutez `RadioGroupItemHiddenInput` à chaque `RadioGroupItem` personnalisé.
-
-<Example name="radio-group/form" />
-
-### Indicateur
-
-Rendez `RadioGroupIndicator` lorsqu’un surlignage supplémentaire et mesuré est nécessaire pour
-l’option active. Gardez l’indicateur et les boutons radio dans le même contexte de positionnement afin
-qu’il suive la géométrie des options.
-
-<Example name="radio-group/indicator" />
-
-### Valeur initiale
-
-Définissez `defaultValue` lorsque l’option initialement sélectionnée est connue et que le groupe doit
-gérer seul les changements suivants.
-
-<Example name="radio-group/initial-value" />
-
-### Orientation
-
-Définissez `orientation="horizontal"` lorsque la navigation avec les flèches doit suivre un groupe
-horizontal. Placez les options dans un conteneur en ligne pour obtenir la même disposition visuelle.
-
-<Example name="radio-group/orientation" />
-
-### Root Provider
-
-Utilisez `RadioGroupRootProvider` lorsqu’un store `useRadioGroup()` doit être partagé avec des contrôles situés
-en dehors de l’arbre du groupe. L’exemple montre aussi comment modifier la valeur sélectionnée depuis
-l’extérieur du groupe.
-
-<Example name="radio-group/root-provider" />
-
-### Tailles
-
-Passez la prop moduix `size` à `RadioGroup` ou `RadioGroupRootProvider` pour changer le diamètre de tous les
-contrôles radio du groupe. Les valeurs prises en charge sont `xs`, `sm`, `md` (par défaut), `lg` et `xl`.
-
-<Example name="radio-group/sizes" />
 
 ### Avec Field
 
@@ -127,6 +98,35 @@ même formulaire. `Fieldset` peut également transmettre les états `disabled` e
 imbriqué.
 
 <Example name="radio-group/with-fieldset" />
+
+### Formulaire
+
+Passez `name` à la racine lorsque la valeur sélectionnée doit être envoyée dans un formulaire.
+`RadioGroupOption` contient déjà le champ ; ajoutez `RadioGroupItemHiddenInput` à chaque `RadioGroupItem` personnalisé.
+
+<Example name="radio-group/form" />
+
+### État contrôlé
+
+Passez `value` et `onValueChange` (`v-model` en Vue) lorsque la valeur sélectionnée suit le routage,
+les filtres ou l’interface voisine. Voir [Contrôler l’état depuis l’application](/docs/composition-patterns#controlled-state).
+
+<Example name="radio-group/controlled" />
+
+### asChild
+
+Utilisez `RadioGroupItem asChild` lorsqu’une carte ou une mise en page personnalisée doit posséder le
+nœud DOM de l’option. Gardez un `label` sémantique comme enfant direct.
+
+<Example name="radio-group/aschild" />
+
+### Root Provider
+
+Utilisez `RadioGroupRootProvider` lorsqu’un store `useRadioGroup()` doit être partagé avec des contrôles situés
+en dehors de l’arbre du groupe. L’exemple montre aussi comment modifier la valeur sélectionnée depuis
+l’extérieur du groupe. Voir [Partager l’état hors de l’arbre](/docs/composition-patterns#root-provider).
+
+<Example name="radio-group/root-provider" />
 
 ### Assembler à partir des parties
 

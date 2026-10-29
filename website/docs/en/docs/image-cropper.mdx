@@ -39,33 +39,60 @@ and resize handles for you.
 
 ## Examples
 
-### Aspect Ratio
+### Aspect ratio
 
 Set `aspectRatio` to keep the selection at a fixed width-to-height ratio. Change it from React state
 when users choose an output format.
 
 <Example name="image-cropper/aspect-ratio" />
 
-### Circle Crop
+### Circle crop
 
 Use `cropShape="circle"` with `aspectRatio={1}` for avatars and profile images.
 
 <Example name="image-cropper/circle-crop" />
 
-### Controlled Zoom
+### Initial crop
 
-Use controlled `zoom` with `onZoomChange` when buttons or another part of the UI needs to change or
-display the current zoom. Set `minZoom` and `maxZoom` to constrain the range.
+Set `initialCrop` to open the cropper with a predefined crop rectangle in viewport coordinates and
+pixels.
 
-<Example name="image-cropper/controlled-zoom" />
+<Example name="image-cropper/initial-crop" />
 
-### Crop Preview
+### Fixed crop area
+
+Set `fixedCropArea` when the crop area must keep the same size and position while users pan the image
+behind it.
+
+<Example name="image-cropper/fixed-crop-area" />
+
+### Min and max size
+
+Constrain the selection with `minWidth`, `minHeight`, `maxWidth`, and `maxHeight`.
+
+<Example name="image-cropper/min-and-max-size" />
+
+### Rotation, flip, and reset
+
+Use `ImageCropperContext` to connect toolbar actions for zooming, rotating, flipping, and resetting
+the cropper. The example keeps rotation and flip state controlled.
+
+<Example name="image-cropper/rotation-flip-and-reset" />
+
+### Crop preview
 
 Call `getCroppedImage()` on a `useImageCropper` instance to create a rendered result. With
 `{ output: 'dataUrl' }`, the method returns a data URL that you can use as an `img` source. Use
 `getCropData()` when you only need the crop coordinates and transform data.
 
 <Example name="image-cropper/crop-preview" />
+
+### Controlled zoom
+
+Use controlled `zoom` with `onZoomChange` when buttons or another part of the UI needs to change or
+display the current zoom. Set `minZoom` and `maxZoom` to constrain the range. See [Control state from the application](/docs/composition-patterns#controlled-state).
+
+<Example name="image-cropper/controlled-zoom" />
 
 ### Events
 
@@ -74,39 +101,12 @@ with other UI.
 
 <Example name="image-cropper/events" />
 
-### Fixed Crop Area
-
-Set `fixedCropArea` when the crop area must keep the same size and position while users pan the image
-behind it.
-
-<Example name="image-cropper/fixed-crop-area" />
-
-### Initial Crop
-
-Set `initialCrop` to open the cropper with a predefined crop rectangle in viewport coordinates and
-pixels.
-
-<Example name="image-cropper/initial-crop" />
-
-### Min And Max Size
-
-Constrain the selection with `minWidth`, `minHeight`, `maxWidth`, and `maxHeight`.
-
-<Example name="image-cropper/min-and-max-size" />
-
-### Root Provider
+### Root provider
 
 Use `ImageCropperRootProvider` with a `useImageCropper` instance when a toolbar or workflow needs to
-control the cropper from outside its component tree.
+control the cropper from outside its component tree. See [Share state outside the tree](/docs/composition-patterns#root-provider).
 
 <Example name="image-cropper/root-provider" />
-
-### Rotation, Flip, And Reset
-
-Use `ImageCropperContext` to connect toolbar actions for zooming, rotating, flipping, and resetting
-the cropper. The example keeps rotation and flip state controlled.
-
-<Example name="image-cropper/rotation-flip-and-reset" />
 
 ### Build from parts
 

@@ -42,13 +42,12 @@ Solid его `children` и `copied` принимают текст и иконк�
 
 ## Примеры
 
-### Контекст
+### Текст значения
 
-Читайте состояние буфера обмена из вложенного контента через `ClipboardContext` или используйте
-`useClipboardContext()` во вложенном компоненте. Контекст предоставляет `copied`, `value`, `setValue`
-и `copy`.
+Используйте `ClipboardValueText`, если значение должно отображаться как текст, а не внутри поля
+ввода.
 
-<Example name="clipboard/context" />
+<Example name="clipboard/value-text" />
 
 ### Статус копирования
 
@@ -64,13 +63,12 @@ Solid его `children` и `copied` принимают текст и иконк�
 
 <Example name="clipboard/custom-copy-text" />
 
-### Свои элементы
+### Задержка
 
-Используйте `asChild`, чтобы передать свои элементы поля и кнопки для отрисовки частей Clipboard,
-сохранив состояние и поведение компонента. С `asChild` части `ClipboardInput` и `ClipboardTrigger`
-не добавляют свои стили, и дочерний компонент сохраняет свой вид.
+Укажите `timeout`, если состояние после копирования должно отображаться дольше или меньше стандартных
+трёх секунд.
 
-<Example name="clipboard/custom-elements" />
+<Example name="clipboard/timeout" />
 
 ### Отключённое состояние
 
@@ -79,27 +77,29 @@ Solid его `children` и `copied` принимают текст и иконк�
 
 <Example name="clipboard/disabled" />
 
+### Свои элементы
+
+Используйте `asChild`, чтобы передать свои элементы поля и кнопки для отрисовки частей Clipboard,
+сохранив состояние и поведение компонента. С `asChild` части `ClipboardInput` и `ClipboardTrigger`
+не добавляют свои стили, и дочерний компонент сохраняет свой вид.
+
+<Example name="clipboard/custom-elements" />
+
+### Контекст
+
+Читайте состояние буфера обмена из вложенного контента через `ClipboardContext` или используйте
+`useClipboardContext()` во вложенном компоненте. Контекст предоставляет `copied`, `value`, `setValue`
+и `copy`.
+
+<Example name="clipboard/context" />
+
 ### Root Provider
 
 Создайте состояние с помощью `useClipboard()` и передайте его в
 `ClipboardRootProvider`, если состояние нужно разделить между компонентами или создать отдельно от
-дерева компонентов.
+дерева компонентов. Подробнее в разделе [Выносите состояние за пределы дерева](/docs/composition-patterns#root-provider).
 
 <Example name="clipboard/root-provider" />
-
-### Задержка
-
-Укажите `timeout`, если состояние после копирования должно отображаться дольше или меньше стандартных
-трёх секунд.
-
-<Example name="clipboard/timeout" />
-
-### Текст значения
-
-Используйте `ClipboardValueText`, если значение должно отображаться как текст, а не внутри поля
-ввода.
-
-<Example name="clipboard/value-text" />
 
 ## Композиция
 
@@ -180,7 +180,6 @@ Solid его `children` и `copied` принимают текст и иконк�
 
 | Клавиша | Действие |
 | --- | --- |
-| `Tab` / `Shift+Tab` | Перемещает фокус между полем и кнопкой. |
 | `Enter` / `Space` | Копирует значение, когда фокус на кнопке. |
 
 ## Справочник API

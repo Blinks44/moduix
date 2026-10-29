@@ -43,6 +43,14 @@ import * as DialogDocs from '@/components/examples/dialog/css-properties';
 
 ## Примеры
 
+### Размеры
+
+Задайте `size` у `DialogContent`: `sm`, `md` (по умолчанию), `lg`, `xl` или `full`. `placement="top"`
+и `placement="bottom"` смещают окно от центра, а `scrollBehavior="inside"` ограничивает диалог высотой
+экрана и прокручивает `DialogBody` вместо позиционера.
+
+<Example name="dialog/sizes" />
+
 ### Alert Dialog
 
 Используйте `role="alertdialog"` для решений с серьёзными последствиями. Добавьте понятное действие
@@ -57,13 +65,6 @@ import * as DialogDocs from '@/components/examples/dialog/css-properties';
 
 <Example name="dialog/confirmation" />
 
-### Управляемое состояние
-
-Храните `open` в состоянии React, сигнале Solid или ref Vue и читайте `details.open` из
-`onOpenChange` (либо используйте `v-model:open`), чтобы синхронизировать диалог с остальным приложением.
-
-<Example name="dialog/controlled" />
-
 ### Прокрутка содержимого
 
 Сделайте прокручиваемым только основное содержимое, если заголовок и действия должны оставаться
@@ -71,41 +72,6 @@ import * as DialogDocs from '@/components/examples/dialog/css-properties';
 а прокручиваться будет `DialogBody`.
 
 <Example name="dialog/inside-scroll" />
-
-### Жизненный цикл монтирования и фокуса
-
-Используйте `lazyMount` и `unmountOnExit` для управления жизненным циклом присутствия. Укажите
-`initialFocusEl` и `finalFocusEl`, если при открытии или закрытии фокус должен переходить на
-определённые элементы.
-
-<Example name="dialog/mounting-and-focus-lifecycle" />
-
-### Несколько триггеров
-
-Свяжите один диалог с несколькими триггерами: задайте каждому `value` и обработайте
-`onTriggerValueChange(details)`.
-
-<Example name="dialog/multiple-triggers" />
-
-### Вложенные диалоги
-
-Используйте отдельные хранилища `useDialog()` для вложенных диалогов. Ark UI управляет слоями, а
-moduix использует это состояние, чтобы отодвинуть родительский диалог, пока открыт вложенный.
-
-<Example name="dialog/nested" />
-
-### Немодальный диалог
-
-Укажите `modal={false}` и не добавляйте backdrop, если пользователь должен взаимодействовать со
-страницей за пределами диалога.
-
-<Example name="dialog/non-modal" />
-
-### Открытие из меню
-
-Управляйте `open` из пункта меню, если контекстное действие должно открыть диалог подтверждения.
-
-<Example name="dialog/open-from-menu" />
 
 ### Прокрутка позиционера
 
@@ -115,21 +81,55 @@ moduix использует это состояние, чтобы отодвин
 
 <Example name="dialog/outside-scroll" />
 
+### Немодальный диалог
+
+Укажите `modal={false}` и не добавляйте backdrop, если пользователь должен взаимодействовать со
+страницей за пределами диалога.
+
+<Example name="dialog/non-modal" />
+
+### Вложенные диалоги
+
+Используйте отдельные хранилища `useDialog()` для вложенных диалогов. Ark UI управляет слоями, а
+moduix использует это состояние, чтобы отодвинуть родительский диалог, пока открыт вложенный.
+
+<Example name="dialog/nested" />
+
+### Несколько триггеров
+
+Свяжите один диалог с несколькими триггерами: задайте каждому `value` и обработайте
+`onTriggerValueChange(details)`.
+
+<Example name="dialog/multiple-triggers" />
+
+### Открытие из меню
+
+Управляйте `open` из пункта меню, если контекстное действие должно открыть диалог подтверждения.
+
+<Example name="dialog/open-from-menu" />
+
+### Управляемое состояние
+
+Передайте `open` и `onOpenChange` (`v-model:open` во Vue) и читайте `details.open`, чтобы
+синхронизировать диалог с остальным приложением. Подробнее в разделе [Управляйте состоянием из приложения](/docs/composition-patterns#controlled-state).
+
+<Example name="dialog/controlled" />
+
+### Жизненный цикл монтирования и фокуса
+
+Используйте `lazyMount` и `unmountOnExit` для управления жизненным циклом присутствия. Укажите
+`initialFocusEl` и `finalFocusEl`, если при открытии или закрытии фокус должен переходить на
+определённые элементы.
+
+<Example name="dialog/mounting-and-focus-lifecycle" />
+
 ### Root Provider
 
 Создайте состояние через `useDialog()`, если элементы управления находятся за пределами диалога.
 Подключите его с помощью `DialogRootProvider`, а затем читайте через `DialogContext` или
-`useDialogContext()` в переиспользуемых компонентах.
+`useDialogContext()` в переиспользуемых компонентах. Подробнее в разделе [Выносите состояние за пределы дерева](/docs/composition-patterns#root-provider).
 
 <Example name="dialog/root-provider-and-ark-context-hooks" />
-
-### Размеры
-
-Задайте `size` у `DialogContent`: `sm`, `md` (по умолчанию), `lg`, `xl` или `full`. `placement="top"`
-и `placement="bottom"` смещают окно от центра, а `scrollBehavior="inside"` ограничивает диалог высотой
-экрана и прокручивает `DialogBody` вместо позиционера.
-
-<Example name="dialog/sizes" />
 
 ### Сборка из частей
 

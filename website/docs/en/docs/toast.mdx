@@ -34,18 +34,33 @@ with `ToastToaster`.
 
 ## Examples
 
+### Types
+
+Use the typed toaster helpers for status-specific variants. moduix styles `info`, `success`,
+`warning`, and `error` through `data-type`.
+
+<Example name="toast/types" />
+
 ### Action
 
 Add `action: { label, onClick }` when the notification should offer one direct follow-up action.
 
 <Example name="toast/action" />
 
-### Custom Composition
+### Promise
 
-Use the render prop to bypass the default `ToastToaster` renderer, add an icon, replace the close icon,
-and apply component-specific CSS variables.
+Use `toaster.promise()` to move one notification from loading to success or error as an asynchronous
+operation settles. While the toast has the `loading` type, the default renderer shows a decorative
+`Spinner` before the title.
 
-<Example name="toast/custom-composition" />
+<Example name="toast/promise-toast" />
+
+### Update
+
+Keep the id returned when a toast is created and pass it to `toaster.update()` when the existing
+notification should change in place.
+
+<Example name="toast/update" />
 
 ### Duration
 
@@ -53,6 +68,13 @@ Set `duration` in milliseconds when a notification should disappear sooner, stay
 remain until the user dismisses it with `Infinity`.
 
 <Example name="toast/duration" />
+
+### Placement
+
+Choose one of Ark's six placements when the notification group should appear at a specific edge of
+the viewport.
+
+<Example name="toast/placement" />
 
 ### Maximum visible
 
@@ -67,34 +89,12 @@ separate component mode.
 
 <Example name="toast/always-expanded" />
 
-### Placement
+### Custom composition
 
-Choose one of Ark's six placements when the notification group should appear at a specific edge of
-the viewport.
+Use the render prop to bypass the default `ToastToaster` renderer, add an icon, replace the close icon,
+and apply component-specific CSS variables.
 
-<Example name="toast/placement" />
-
-### Promise
-
-Use `toaster.promise()` to move one notification from loading to success or error as an asynchronous
-operation settles. While the toast has the `loading` type, the default renderer shows a decorative
-`Spinner` before the title.
-
-<Example name="toast/promise-toast" />
-
-### Types
-
-Use the typed toaster helpers for status-specific variants. Moduix styles `info`, `success`,
-`warning`, and `error` through `data-type`.
-
-<Example name="toast/types" />
-
-### Update
-
-Keep the id returned when a toast is created and pass it to `toaster.update()` when the existing
-notification should change in place.
-
-<Example name="toast/update" />
+<Example name="toast/custom-composition" />
 
 ### Build from parts
 
@@ -107,7 +107,7 @@ an action. Start here when toasts need icons or a different layout.
 
 ## Composition
 
-Moduix exports `Toast`, `ToastToaster`, `createToaster`, and `useToastContext` from
+moduix exports `Toast`, `ToastToaster`, `createToaster`, and `useToastContext` from
 `@moduix/react/toast`, `@moduix/solid/toast`, and `@moduix/vue/toast`. The Ark reference contains
 the complete store and part API.
 
@@ -197,7 +197,6 @@ At viewport widths up to `40rem`, every placement is centered horizontally. Toas
 | Key | Action |
 | --- | --- |
 | `Alt+T` | Moves focus to the toast region. Change it with the hotkey option. |
-| `Tab` / `Shift+Tab` | Moves between actions and close buttons in the toasts. |
 | `Esc` | Dismisses the focused toast. |
 
 ## API reference

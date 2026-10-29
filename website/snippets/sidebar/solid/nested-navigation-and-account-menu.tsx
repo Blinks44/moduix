@@ -55,7 +55,7 @@ export default function AppSidebar() {
               <strong data-sidebar-icon class={styles.brandMark}>
                 M
               </strong>
-              <SidebarLabel>Moduix</SidebarLabel>
+              <SidebarLabel>moduix</SidebarLabel>
             </div>
             <SidebarInput aria-label="Search workspace" placeholder="Search" size="sm" />
           </div>

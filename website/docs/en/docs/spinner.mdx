@@ -43,12 +43,11 @@ Set `decorative` when visible text already describes the loading state: the root
 
 ## Examples
 
-### Custom Indicator
+### Sizes
 
-Pass custom `children` when the default ring should be replaced but the size and status behavior
-should stay the same.
+Use smaller sizes inside compact controls and larger sizes for standalone loading states.
 
-<Example name="spinner/custom-indicator" />
+<Example name="spinner/sizes" />
 
 ### In a Button
 
@@ -57,19 +56,20 @@ Keep the spinner decorative when the button text already describes the action. T
 
 <Example name="spinner/button" />
 
-### Inline Loading Text
+### Inline loading text
 
 Use `decorative` when visible text next to the spinner already explains what is happening.
 
 <Example name="spinner/inline-loading-text" />
 
-### Sizes
+### Custom indicator
 
-Use smaller sizes inside compact controls and larger sizes for standalone loading states.
+Pass custom `children` when the default ring should be replaced but the size and status behavior
+should stay the same.
 
-<Example name="spinner/sizes" />
+<Example name="spinner/custom-indicator" />
 
-### Custom Root
+### Custom root
 
 Use `asChild` when another component must own the root element. The child receives Spinner's root
 attributes and class name, and must render the visual indicator itself.

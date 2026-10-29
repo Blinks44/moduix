@@ -46,13 +46,12 @@ utilisées, cette valeur peut être affichée dans un champ en lecture seule ou 
 
 ## Exemples
 
-### Contexte
+### Texte de la valeur
 
-Lisez l’état du presse-papiers depuis un contenu imbriqué avec `ClipboardContext`, ou utilisez
-`useClipboardContext()` dans un composant enfant. Le contexte expose `copied`, `value`, `setValue` et
-`copy`.
+Utilisez `ClipboardValueText` lorsque la valeur doit apparaître comme du texte plutôt que dans un
+champ de saisie.
 
-<Example name="clipboard/context" />
+<Example name="clipboard/value-text" />
 
 ### État de la copie
 
@@ -68,13 +67,12 @@ doit utiliser des libellés adaptés à votre produit.
 
 <Example name="clipboard/custom-copy-text" />
 
-### Éléments personnalisés
+### Délai
 
-Utilisez `asChild` pour que vos propres éléments de champ et de bouton rendent les parties Clipboard,
-tout en conservant l’état et le comportement du composant. Avec `asChild`, `ClipboardInput` et
-`ClipboardTrigger` n’ajoutent pas leurs propres styles : le composant enfant garde son apparence.
+Définissez `timeout` lorsque l’état copié doit rester visible plus ou moins longtemps que les trois
+secondes par défaut.
 
-<Example name="clipboard/custom-elements" />
+<Example name="clipboard/timeout" />
 
 ### État désactivé
 
@@ -83,26 +81,28 @@ doivent ni la modifier ni la copier.
 
 <Example name="clipboard/disabled" />
 
+### Éléments personnalisés
+
+Utilisez `asChild` pour que vos propres éléments de champ et de bouton rendent les parties Clipboard,
+tout en conservant l’état et le comportement du composant. Avec `asChild`, `ClipboardInput` et
+`ClipboardTrigger` n’ajoutent pas leurs propres styles : le composant enfant garde son apparence.
+
+<Example name="clipboard/custom-elements" />
+
+### Contexte
+
+Lisez l’état du presse-papiers depuis un contenu imbriqué avec `ClipboardContext`, ou utilisez
+`useClipboardContext()` dans un composant enfant. Le contexte expose `copied`, `value`, `setValue` et
+`copy`.
+
+<Example name="clipboard/context" />
+
 ### Root Provider
 
 Créez le store avec `useClipboard()` et transmettez-le à `ClipboardRootProvider` lorsque
-l’état doit être partagé ou créé indépendamment de l’arbre de composants rendu.
+l’état doit être partagé ou créé indépendamment de l’arbre de composants rendu. Voir [Partager l’état hors de l’arbre](/docs/composition-patterns#root-provider).
 
 <Example name="clipboard/root-provider" />
-
-### Délai
-
-Définissez `timeout` lorsque l’état copié doit rester visible plus ou moins longtemps que les trois
-secondes par défaut.
-
-<Example name="clipboard/timeout" />
-
-### Texte de la valeur
-
-Utilisez `ClipboardValueText` lorsque la valeur doit apparaître comme du texte plutôt que dans un
-champ de saisie.
-
-<Example name="clipboard/value-text" />
 
 ## Composition
 
@@ -182,7 +182,6 @@ Survolez ou sélectionnez une variable pour la voir dans l’aperçu.
 
 | Touche | Action |
 | --- | --- |
-| `Tab` / `Shift+Tab` | Déplace le focus entre le champ et le bouton. |
 | `Enter` / `Space` | Copie la valeur lorsque le bouton a le focus. |
 
 ## Référence de l’API

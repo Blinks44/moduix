@@ -39,38 +39,12 @@ Use `Select` when users choose from a fixed collection and the trigger stays rea
 
 ## Examples
 
-### Controlled
+### Multiple
 
-Control the selected string array from React state, a Solid signal, or a Vue ref and update it from `details.value`.
+Set `multiple` to allow several selected values. `ValueText` renders selected labels from the
+collection.
 
-<Example name="select/controlled" />
-
-### Custom Item Layout
-
-Use `SelectItemTextContent`, `SelectItemTextIcon`, and `SelectItemTextLabel` inside `ItemText`
-when an item needs a stable icon and an ellipsized label.
-
-<Example name="select/custom-item-layout" />
-
-### Dynamic Items
-
-Update the collection when available items change; the existing Select composition stays the same.
-
-<Example name="select/dynamic-items" />
-
-### Field
-
-Wrap Select in `Field` when label, helper text, invalid, required, or disabled state belongs
-to a form field.
-
-<Example name="select/field" />
-
-### Form Usage
-
-The explicitly composed `SelectHiddenSelect` keeps native form submission working. Read submitted values from
-`FormData`.
-
-<Example name="select/form-usage" />
+<Example name="select/multiple" />
 
 ### Grouping
 
@@ -79,24 +53,59 @@ Use `groupBy` on the collection and render `collection.group()` with `ItemGroup`
 
 <Example name="select/grouping" />
 
-### Lazy Mount
+### Field
 
-Use `lazyMount` and `unmountOnExit` when popup content should exist only while the Select is used.
+Wrap Select in `Field` when label, helper text, invalid, required, or disabled state belongs
+to a form field.
 
-<Example name="select/lazy-mount" />
+<Example name="select/field" />
 
-### Max Selection
+### Form usage
+
+The explicitly composed `SelectHiddenSelect` keeps native form submission working. Read submitted values from
+`FormData`.
+
+<Example name="select/form-usage" />
+
+### Controlled
+
+Pass `value` and `onValueChange` (`v-model` in Vue). The value is always a string array, also
+without `multiple`. See [Control state from the application](/docs/composition-patterns#controlled-state).
+
+<Example name="select/controlled" />
+
+### Max selection
 
 Limit multiple selection by rejecting oversized value arrays and disabling the remaining items.
 
 <Example name="select/max-selection" />
 
-### Multiple
+### Select all
 
-Set `multiple` to allow several selected values. `ValueText` renders selected labels from the
-collection.
+Keep bulk actions outside the listbox. `useSelect` keeps the action and the Select backed by
+the same Ark state instance.
 
-<Example name="select/multiple" />
+<Example name="select/select-all" />
+
+### Dynamic items
+
+Update the collection when available items change; the existing Select composition stays the same.
+
+<Example name="select/dynamic-items" />
+
+### Custom item layout
+
+Put an icon directly inside `SelectItemText`, before the label. The icon gets a fixed size and
+a gap, and a long label is truncated with an ellipsis.
+
+<Example name="select/custom-item-layout" />
+
+### Search in popup
+
+Place a filter control beside the listbox inside the popup. Keep the query state and filtered
+collection in your component rather than extending the Select API.
+
+<Example name="select/search-in-popup" />
 
 ### Overflow
 
@@ -105,32 +114,24 @@ Use `positioning.fitViewport` for long lists. The content already limits its hei
 
 <Example name="select/overflow" />
 
-### Root Provider
+### Lazy mount
 
-Use `useSelect` with `SelectRootProvider` when state is read or controlled outside the
-rendered Select tree.
+Use `lazyMount` and `unmountOnExit` when popup content should exist only while the Select is used.
 
-<Example name="select/root-provider" />
+<Example name="select/lazy-mount" />
 
-### Search in Popup
-
-Place a filter control beside the listbox inside the popup. Keep the query state and filtered
-collection in your component rather than extending the Select API.
-
-<Example name="select/search-in-popup" />
-
-### Select All
-
-Keep bulk actions outside the listbox. `useSelect` keeps the action and the Select backed by
-the same Ark state instance.
-
-<Example name="select/select-all" />
-
-### Select On Highlight
+### Select on highlight
 
 Use `onHighlightChange(details)` when moving through options should immediately update selection.
 
 <Example name="select/select-on-highlight" />
+
+### Root provider
+
+Create the state with `useSelect` and pass it to `SelectRootProvider`. See
+[Share state outside the tree](/docs/composition-patterns#root-provider).
+
+<Example name="select/root-provider" />
 
 ### Build from parts
 
@@ -169,9 +170,6 @@ Hover or focus a part to find it in the preview.
     ["SelectOption", "", "Convenience row for simple options with text and an indicator.", 4],
     ["SelectItem", "select-item", "Selectable row. Pass the collection item through `item`.", 4],
     ["SelectItemText", "select-item-text", "Text used for display and accessibility.", 5],
-    ["SelectItemTextContent", "select-item-text-content", "Layout helper for rich item text.", 6],
-    ["SelectItemTextIcon", "select-item-text-icon", "Icon wrapper for rich item text.", 7],
-    ["SelectItemTextLabel", "select-item-text-label", "Label wrapper for rich item text.", 7],
     ["SelectItemIndicator", "select-item-indicator", "Selected-state indicator with the moduix default check icon.", 5],
     ["SelectHiddenSelect", "", "Native Ark form control; compose explicitly as described below.", 1],
     ["SelectField", "", "moduix helper that renders the standard control, trigger, and actions.", 1],
@@ -215,9 +213,6 @@ Hover or focus a variable to see it in the preview.
 | `SelectItem` | `select-item` |
 | `SelectItemText` | `select-item-text` |
 | `SelectItemIndicator` | `select-item-indicator` |
-| `SelectItemTextContent` | `select-item-text-content` |
-| `SelectItemTextIcon` | `select-item-text-icon` |
-| `SelectItemTextLabel` | `select-item-text-label` |
 
 Its `indicator` prop supplies the
 child of the existing indicator slot. `SelectOption` reuses the item slots

@@ -41,26 +41,6 @@ small dashboards. Use `ProgressLinear` when progress is easier to compare on a h
 
 ## Examples
 
-### Controlled
-
-Keep `value` in application state when progress needs to stay synchronized with another control or
-an external task.
-
-<Example name="progress-circular/controlled" />
-
-### Indeterminate
-
-Set `defaultValue={null}` or `value={null}` when the task is running but its progress cannot be
-measured yet.
-
-<Example name="progress-circular/indeterminate" />
-
-### Min and max
-
-Use `min` and `max` to map values to a range other than the default `0` to `100`.
-
-<Example name="progress-circular/min-max" />
-
 ### Value text
 
 Use `ProgressCircularContext` with `translations.value(details)` when visible value text needs task-specific wording.
@@ -69,18 +49,38 @@ value string.
 
 <Example name="progress-circular/value-text" />
 
-### Root Provider
+### Min and max
 
-Create the store with `useProgress()` and pass it to `ProgressCircularRootProvider` when another
-component needs to read or update progress outside the rendered tree.
+Use `min` and `max` to map values to a range other than the default `0` to `100`.
 
-<Example name="progress-circular/root-provider" />
+<Example name="progress-circular/min-max" />
+
+### Indeterminate
+
+Set `defaultValue={null}` or `value={null}` when the task is running but its progress cannot be
+measured yet.
+
+<Example name="progress-circular/indeterminate" />
 
 ### State views
 
 Use `ProgressCircularView` when supporting text or UI should change with the Ark progress state.
 
 <Example name="progress-circular/state-views" />
+
+### Controlled
+
+Keep `value` in application state when progress needs to stay synchronized with another control or
+an external task. See [Control state from the application](/docs/composition-patterns#controlled-state).
+
+<Example name="progress-circular/controlled" />
+
+### Root provider
+
+Create the store with `useProgress()` and pass it to `ProgressCircularRootProvider` when another
+component needs to read or update progress outside the rendered tree. See [Share state outside the tree](/docs/composition-patterns#root-provider).
+
+<Example name="progress-circular/root-provider" />
 
 ### Build from parts
 

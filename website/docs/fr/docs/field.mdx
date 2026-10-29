@@ -43,26 +43,6 @@ d’un message d’erreur ou d’un état partagé `disabled`, `invalid`, `requi
 
 ## Exemples
 
-### Checkbox
-
-Utilisez `Field` autour d’une case à cocher lorsqu’elle a besoin d’un texte d’aide ou d’un message d’erreur
-au niveau du champ. Transmettez à `Checkbox` ses propres propriétés d’état et de formulaire.
-
-<Example name="field/checkbox" />
-
-### État `invalid` contrôlé
-
-Calculez `invalid` à partir de l’état local lorsque la validation doit se mettre à jour pendant la saisie.
-Le message d’erreur n’apparaît que lorsque le champ est invalide.
-
-<Example name="field/controlled-invalid" />
-
-### État désactivé
-
-Définissez `disabled` sur la racine pour transmettre cet état aux parties Ark du champ qui le prennent en charge.
-
-<Example name="field/disabled" />
-
 ### État invalide
 
 Définissez `invalid` sur la racine lorsque l’état de l’application ou une bibliothèque de formulaires gère
@@ -70,26 +50,11 @@ la validation. Transmettez également cette prop à la racine d’un contrôle c
 
 <Example name="field/invalid" />
 
-### Cible de `FieldItem`
+### État désactivé
 
-Utilisez `FieldItem` avec la prop `target` de la racine lorsqu’un seul libellé doit cibler un contrôle
-à l’intérieur d’un groupe.
+Définissez `disabled` sur la racine pour transmettre cet état aux parties Ark du champ qui le prennent en charge.
 
-<Example name="field/item-target" />
-
-### Select natif
-
-Utilisez `NativeSelect` pour un select natif du navigateur. `Field` le relie au libellé, à l’état et à la
-description du champ.
-
-<Example name="field/native-select" />
-
-### RadioGroup
-
-Utilisez `Field` avec `RadioGroup` lorsqu’un seul libellé, texte d’aide ou message d’erreur doit décrire
-l’ensemble des choix plutôt que chaque option. Transmettez à `RadioGroup` ses propres propriétés d’état.
-
-<Example name="field/radiogroup" />
+<Example name="field/disabled" />
 
 ### Lecture seule
 
@@ -97,11 +62,12 @@ Définissez `readOnly` sur la racine lorsque l’utilisateur peut copier la vale
 
 <Example name="field/read-only" />
 
-### Root Provider
+### Textarea
 
-Utilisez `useField` avec `FieldRootProvider` lorsque l’état du champ doit être créé en dehors de l’arbre rendu.
+Utilisez `Textarea` pour une saisie multiligne tout en conservant les liens du champ avec son libellé,
+sa description et son état.
 
-<Example name="field/root-provider" />
+<Example name="field/textarea" />
 
 ### Select
 
@@ -111,12 +77,46 @@ d’options ou d’une interface de sélection personnalisée. Puisque `Select` 
 
 <Example name="field/select" />
 
-### Textarea
+### Select natif
 
-Utilisez `Textarea` pour une saisie multiligne tout en conservant les liens du champ avec son libellé,
-sa description et son état.
+Utilisez `NativeSelect` pour un select natif du navigateur. `Field` le relie au libellé, à l’état et à la
+description du champ.
 
-<Example name="field/textarea" />
+<Example name="field/native-select" />
+
+### Checkbox
+
+Utilisez `Field` autour d’une case à cocher lorsqu’elle a besoin d’un texte d’aide ou d’un message d’erreur
+au niveau du champ. Transmettez à `Checkbox` ses propres propriétés d’état et de formulaire.
+
+<Example name="field/checkbox" />
+
+### RadioGroup
+
+Utilisez `Field` avec `RadioGroup` lorsqu’un seul libellé, texte d’aide ou message d’erreur doit décrire
+l’ensemble des choix plutôt que chaque option. Transmettez à `RadioGroup` ses propres propriétés d’état.
+
+<Example name="field/radiogroup" />
+
+### État `invalid` contrôlé
+
+Calculez `invalid` à partir de l’état local lorsque la validation doit se mettre à jour pendant la saisie.
+Le message d’erreur n’apparaît que lorsque le champ est invalide.
+
+<Example name="field/controlled-invalid" />
+
+### Cible de `FieldItem`
+
+Utilisez `FieldItem` avec la prop `target` de la racine lorsqu’un seul libellé doit cibler un contrôle
+à l’intérieur d’un groupe.
+
+<Example name="field/item-target" />
+
+### Root Provider
+
+Utilisez `useField` avec `FieldRootProvider` lorsque l’état du champ doit être créé en dehors de l’arbre rendu.
+
+<Example name="field/root-provider" />
 
 ## Composition
 

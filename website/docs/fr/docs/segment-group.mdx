@@ -47,19 +47,19 @@ même temps.
 
 ## Exemples
 
-### Montage conditionnel
+### Tailles
 
-Les groupes de segments peuvent être montés conditionnellement. Lorsqu’il apparaît, Ark recalcule la
-géométrie des éléments utilisée par l’indicateur.
+Définissez `size` sur `SegmentGroup` ou `SegmentGroupRootProvider` : `sm`, `md` (par défaut) ou `lg`.
+Le groupe entier prend alors la hauteur d'un `Button` ou d'un `Input` de même taille.
 
-<Example name="segment-group/conditional-mount" />
+<Example name="segment-group/sizes" />
 
-### État contrôlé
+### Orientation verticale
 
-Conservez la valeur sélectionnée dans l’état React et mettez-la à jour avec `details.value` dans
-`onValueChange`.
+Définissez `orientation="vertical"` lorsque le groupe doit utiliser une disposition verticale et
+une navigation verticale avec les touches fléchées.
 
-<Example name="segment-group/controlled" />
+<Example name="segment-group/vertical-orientation" />
 
 ### Disposition personnalisée des éléments
 
@@ -76,6 +76,13 @@ l’opacité du groupe, sans la cumuler avec celle de chaque élément.
 
 <Example name="segment-group/disabled" />
 
+### État invalide
+
+Définissez `invalid` sur la racine lorsque la validation échoue. Associez-le à `required` et `name`
+lorsque le groupe participe à la validation native du formulaire.
+
+<Example name="segment-group/invalid" />
+
 ### Field
 
 Enveloppez le groupe dans `Field` lorsque ses champs natifs doivent être accompagnés d’un texte
@@ -91,33 +98,26 @@ natif. `SegmentGroupItems` ajoute un champ de formulaire natif à chaque éléme
 
 <Example name="segment-group/form-submission" />
 
-### État invalide
+### État contrôlé
 
-Définissez `invalid` sur la racine lorsque la validation échoue. Associez-le à `required` et `name`
-lorsque le groupe participe à la validation native du formulaire.
+Conservez la valeur sélectionnée dans l’état React et mettez-la à jour avec `details.value` dans
+`onValueChange`. Voir [Contrôler l’état depuis l’application](/docs/composition-patterns#controlled-state).
 
-<Example name="segment-group/invalid" />
+<Example name="segment-group/controlled" />
+
+### Montage conditionnel
+
+Les groupes de segments peuvent être montés conditionnellement. Lorsqu’il apparaît, Ark recalcule la
+géométrie des éléments utilisée par l’indicateur.
+
+<Example name="segment-group/conditional-mount" />
 
 ### Root Provider
 
 Utilisez `useSegmentGroup()` avec `SegmentGroupRootProvider` lorsque des contrôles situés en dehors de
-l’arborescence des segments doivent accéder au même état.
+l’arborescence des segments doivent accéder au même état. Voir [Partager l’état hors de l’arbre](/docs/composition-patterns#root-provider).
 
 <Example name="segment-group/root-provider" />
-
-### Tailles
-
-Définissez `size` sur `SegmentGroup` ou `SegmentGroupRootProvider` : `sm`, `md` (par défaut) ou `lg`.
-Le groupe entier prend alors la hauteur d'un `Button` ou d'un `Input` de même taille.
-
-<Example name="segment-group/sizes" />
-
-### Orientation verticale
-
-Définissez `orientation="vertical"` lorsque le groupe doit utiliser une disposition verticale et
-une navigation verticale avec les touches fléchées.
-
-<Example name="segment-group/vertical-orientation" />
 
 ### Assembler à partir des parties
 

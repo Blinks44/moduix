@@ -38,6 +38,14 @@ fonctionnent avec les paquets npm et les sources du registre shadcn.
 
 ## Exemples
 
+### Tailles et avatar sans image
+
+La propriété `size` de moduix permet de choisir l’une des tailles courantes des tokens de design pour l’un ou
+l’autre composant racine. Un avatar avec uniquement un contenu de remplacement convient lorsqu’aucune source
+d’image n’est disponible.
+
+<Example name="avatar/sizes-and-fallback-only" />
+
 ### Contenu de remplacement personnalisé
 
 Le contenu de remplacement peut être une icône ou un autre élément compact qui représente l’utilisateur. Ajoutez
@@ -53,34 +61,13 @@ moteur de rendu personnalisé doit s’intégrer au cycle de chargement géré p
 
 <Example name="avatar/custom-image" />
 
-### Événements
+### Indicateur de statut
 
-Utilisez `onStatusChange(details)` lorsque l’interface voisine doit réagir au résultat du chargement de l’image.
+La racine de l’avatar ne rogne pas ses enfants : un élément positionné en absolu dans `Avatar` peut
+signaler une présence ou un badge. Donnez-lui un nom accessible si le statut n’est pas indiqué dans le
+texte voisin.
 
-<Example name="avatar/events" />
-
-### Utiliser `RootProvider`
-
-Créez l’état avec `useAvatar` depuis moduix lorsque des contrôles situés en dehors de l’avatar doivent
-interagir avec lui. Transmettez-le à `AvatarRootProvider` à la place de `Avatar`.
-
-<Example name="avatar/root-provider" />
-
-### Avatar interactif
-
-Utilisez `asChild` lorsque l’avatar est lui-même un élément interactif, par exemple un lien. Le composant
-n’ajoute alors pas son nœud DOM racine par défaut, tout en conservant l’état Ark, le comportement du contenu
-de remplacement et la composition explicite des parties.
-
-<Example name="avatar/interactive" />
-
-### Tailles et avatar sans image
-
-La propriété `size` de moduix permet de choisir l’une des tailles courantes des tokens de design pour l’un ou
-l’autre composant racine. Un avatar avec uniquement un contenu de remplacement convient lorsqu’aucune source
-d’image n’est disponible.
-
-<Example name="avatar/sizes-and-fallback-only" />
+<Example name="avatar/status" />
 
 ### Groupe
 
@@ -90,13 +77,26 @@ page. Rendez vous-même l’avatar `+N` lorsque la liste est tronquée.
 
 <Example name="avatar/group" />
 
-### Indicateur de statut
+### Avatar interactif
 
-La racine de l’avatar ne rogne pas ses enfants : un élément positionné en absolu dans `Avatar` peut
-signaler une présence ou un badge. Donnez-lui un nom accessible si le statut n’est pas indiqué dans le
-texte voisin.
+Utilisez `asChild` lorsque l’avatar est lui-même un élément interactif, par exemple un lien. Le composant
+n’ajoute alors pas son nœud DOM racine par défaut, tout en conservant l’état Ark, le comportement du contenu
+de remplacement et la composition explicite des parties.
 
-<Example name="avatar/status" />
+<Example name="avatar/interactive" />
+
+### Événements
+
+Utilisez `onStatusChange(details)` lorsque l’interface voisine doit réagir au résultat du chargement de l’image.
+
+<Example name="avatar/events" />
+
+### Root Provider
+
+Créez l’état avec `useAvatar` depuis moduix lorsque des contrôles situés en dehors de l’avatar doivent
+interagir avec lui. Transmettez-le à `AvatarRootProvider` à la place de `Avatar`. Voir [Partager l’état hors de l’arbre](/docs/composition-patterns#root-provider).
+
+<Example name="avatar/root-provider" />
 
 ## Composition
 

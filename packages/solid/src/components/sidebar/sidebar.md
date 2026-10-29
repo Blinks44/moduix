@@ -50,7 +50,7 @@ collapsed-label tooltips. `useSidebar()` returns accessors, and the package expo
     <SidebarHeader>
       <div>
         <Logo data-sidebar-icon />
-        <SidebarLabel>Moduix</SidebarLabel>
+        <SidebarLabel>moduix</SidebarLabel>
       </div>
       <SidebarInput placeholder="Search" />
     </SidebarHeader>

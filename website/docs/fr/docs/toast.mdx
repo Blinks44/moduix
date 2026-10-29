@@ -34,18 +34,33 @@ notifications, puis affichez-la avec `ToastToaster`.
 
 ## Exemples
 
+### Types
+
+Utilisez les helpers typés du toaster pour les variantes liées au statut. moduix applique les styles
+`info`, `success`, `warning` et `error` via `data-type`.
+
+<Example name="toast/types" />
+
 ### Action
 
 Ajoutez `action: { label, onClick }` lorsque la notification doit proposer une action directe.
 
 <Example name="toast/action" />
 
-### Composition personnalisée
+### Promise
 
-Utilisez la render prop pour remplacer le rendu standard de `ToastToaster`, ajouter une icône, remplacer
-l’icône de fermeture et appliquer des variables CSS propres au composant.
+Utilisez `toaster.promise()` pour faire passer une même notification du chargement au succès ou à
+l’erreur lorsque l’opération asynchrone se termine. Tant que le toast a le type `loading`, le rendu par
+défaut affiche un `Spinner` décoratif avant le titre.
 
-<Example name="toast/custom-composition" />
+<Example name="toast/promise-toast" />
+
+### Mise à jour
+
+Conservez l’identifiant renvoyé lors de la création d’une notification et transmettez-le à
+`toaster.update()` lorsque la notification existante doit être modifiée sur place.
+
+<Example name="toast/update" />
 
 ### Durée
 
@@ -53,6 +68,13 @@ Définissez `duration` en millisecondes lorsqu’une notification doit disparaî
 visible plus longtemps ou rester affichée jusqu’à sa fermeture manuelle avec `Infinity`.
 
 <Example name="toast/duration" />
+
+### Placement
+
+Choisissez l’un des six placements d’Ark lorsque le groupe de notifications doit apparaître près d’un
+bord précis de la fenêtre.
+
+<Example name="toast/placement" />
 
 ### Nombre maximal visible
 
@@ -68,34 +90,12 @@ réglage du toaster, pas d’un mode distinct du composant.
 
 <Example name="toast/always-expanded" />
 
-### Placement
+### Composition personnalisée
 
-Choisissez l’un des six placements d’Ark lorsque le groupe de notifications doit apparaître près d’un
-bord précis de la fenêtre.
+Utilisez la render prop pour remplacer le rendu standard de `ToastToaster`, ajouter une icône, remplacer
+l’icône de fermeture et appliquer des variables CSS propres au composant.
 
-<Example name="toast/placement" />
-
-### Promise
-
-Utilisez `toaster.promise()` pour faire passer une même notification du chargement au succès ou à
-l’erreur lorsque l’opération asynchrone se termine. Tant que le toast a le type `loading`, le rendu par
-défaut affiche un `Spinner` décoratif avant le titre.
-
-<Example name="toast/promise-toast" />
-
-### Types
-
-Utilisez les helpers typés du toaster pour les variantes liées au statut. Moduix applique les styles
-`info`, `success`, `warning` et `error` via `data-type`.
-
-<Example name="toast/types" />
-
-### Mise à jour
-
-Conservez l’identifiant renvoyé lors de la création d’une notification et transmettez-le à
-`toaster.update()` lorsque la notification existante doit être modifiée sur place.
-
-<Example name="toast/update" />
+<Example name="toast/custom-composition" />
 
 ### Assembler à partir des parties
 
@@ -109,7 +109,7 @@ page.
 
 ## Composition
 
-Moduix exporte `Toast`, `ToastToaster`, `createToaster` et `useToastContext` depuis
+moduix exporte `Toast`, `ToastToaster`, `createToaster` et `useToastContext` depuis
 `@moduix/react/toast`, `@moduix/solid/toast` et `@moduix/vue/toast`. La référence Ark décrit l’API
 complète du store et de ses parties.
 
@@ -202,7 +202,6 @@ horizontales de l’écran.
 | Touche | Action |
 | --- | --- |
 | `Alt+T` | Déplace le focus vers la zone des toasts. Modifiable avec l’option hotkey. |
-| `Tab` / `Shift+Tab` | Passe d’une action ou d’un bouton de fermeture à l’autre. |
 | `Esc` | Ferme le toast ayant le focus. |
 
 ## Référence de l’API

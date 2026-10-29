@@ -32,32 +32,32 @@ remaining in the normal document flow.
 
 ## Examples
 
-### Block Bleed
-
-Add `block` when a surface should extend through the container's block-axis padding as well as its inline-axis padding.
-
-<Example name="bleed/block-bleed" />
-
-### Custom Styling
-
-Set `margin-inline` and `inline-size` in your own class when a nested shell should size the bleed to its own
-content area instead of the viewport. moduix styles live in a cascade layer, so a plain class wins.
-
-<Example name="bleed/custom-styling" />
-
-### Inline Amounts
+### Inline amounts
 
 Set `inline` to control how far content extends along the inline axis. This example compares the fixed
 `sm` and `lg` values with `full`, which reaches the viewport.
 
 <Example name="bleed/inline-amounts" />
 
-### Semantic Element
+### Block bleed
+
+Add `block` when a surface should extend through the container's block-axis padding as well as its inline-axis padding.
+
+<Example name="bleed/block-bleed" />
+
+### Semantic element
 
 Use `asChild` when the content should use a more specific semantic element. In this example, the `figure`
 element becomes the `Bleed` root.
 
 <Example name="bleed/semantic-element" />
+
+### Custom styling
+
+Set `margin-inline` and `inline-size` in your own class when a nested shell should size the bleed to its own
+content area instead of the viewport. moduix styles live in a cascade layer, so a plain class wins.
+
+<Example name="bleed/custom-styling" />
 
 ## Composition
 

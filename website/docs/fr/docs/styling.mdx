@@ -1,6 +1,6 @@
 ---
 title: Styles
-description: Choisissez la bonne couche de style pour les composants Moduix dans chaque framework pris en charge.
+description: Choisissez la bonne couche de style pour les composants moduix dans chaque framework pris en charge.
 ---
 
 import { ProjectChecklist } from '@/components/examples/styling/project-checklist';
@@ -11,7 +11,7 @@ import vueBrandButton from '../../../snippets/styling/vue/brand-button.vue?raw';
 
 # Styles
 
-Moduix publie des packages CSS Modules et Tailwind distincts pour chaque framework actuel. Choisissez
+moduix publie des packages CSS Modules et Tailwind distincts pour chaque framework actuel. Choisissez
 la méthode déjà utilisée par l’application, puis placez chaque modification au niveau le plus élevé
 qui porte la décision.
 
@@ -45,7 +45,7 @@ liste, moins de composants sont touchés et plus il faut de code.
 
 ## Pourquoi vos styles l’emportent
 
-Les styles Moduix sont placés dans des couches de cascade CSS, déclarées dans cet ordre :
+Les styles moduix sont placés dans des couches de cascade CSS, déclarées dans cet ordre :
 
 ```css
 @layer theme, base, moduix.reset, moduix.tokens, moduix.base, components, moduix.components, utilities;
@@ -218,7 +218,7 @@ sur les parties rendues dans un portail ou sur leur conteneur de portail.
 ## Styliser avec Panda CSS
 
 Panda CSS peut générer des classes du consommateur pour chaque framework pris en charge. Ses noms de tokens
-appartiennent au thème Panda, pas à Moduix. Transmettez la chaîne générée avec `className` en React ou
+appartiennent au thème Panda, pas à moduix. Transmettez la chaîne générée avec `className` en React ou
 `class` en Solid.
 
 ```ts

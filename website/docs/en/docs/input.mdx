@@ -44,20 +44,20 @@ connects that content to the control, generates the necessary ids, and provides 
 
 ## Examples
 
-### Controlled value
+### Sizes
 
-Use this pattern when the surrounding component owns the current value. In React, read the next
-value from native `onChange(event)`; in Solid, use `onInput`; in Vue, use `v-model`. Pass the current
-value back through `value` when the framework uses separate input and value bindings.
+The moduix `size` prop controls visual density. It is separate from `htmlSize`, which controls the
+native character-based width.
 
-<Example name="input/controlled" />
+<Example name="input/sizes" />
 
-### Custom Element
+### Standalone input
 
-Use `asChild` only when another DOM node must be rendered as the input. Keep one semantic,
-focusable input element that can receive the merged props and `ref`.
+`Field` is optional. When `Input` is used on its own, provide an accessible name with an HTML
+`<label>`, `aria-label`, or `aria-labelledby`. Native props still work, but without `Field` context,
+ids are not generated automatically and helper or error text is not connected to the control.
 
-<Example name="input/custom-element" />
+<Example name="input/standalone-input" />
 
 ### Disabled and read-only
 
@@ -74,13 +74,6 @@ input and connects it to the error text.
 
 <Example name="input/field-state" />
 
-### File input
-
-`Input` is enough for a native file chooser in a simple form. Use `FileUpload` when the application
-needs to keep selected files in state, show a dropzone, or manage an upload flow.
-
-<Example name="input/file-input" />
-
 ### Native attributes
 
 Use native attributes for browser behavior such as validation, input mode, autocomplete, and form
@@ -89,20 +82,27 @@ and Vue.
 
 <Example name="input/native-attributes" />
 
-### Sizes
+### File input
 
-The moduix `size` prop controls visual density. It is separate from `htmlSize`, which controls the
-native character-based width.
+`Input` is enough for a native file chooser in a simple form. Use `FileUpload` when the application
+needs to keep selected files in state, show a dropzone, or manage an upload flow.
 
-<Example name="input/sizes" />
+<Example name="input/file-input" />
 
-### Standalone input
+### Controlled value
 
-`Field` is optional. When `Input` is used on its own, provide an accessible name with an HTML
-`<label>`, `aria-label`, or `aria-labelledby`. Native props still work, but without `Field` context,
-ids are not generated automatically and helper or error text is not connected to the control.
+Use this pattern when the surrounding component owns the current value. In React, read the next
+value from native `onChange(event)`; in Solid, use `onInput`; in Vue, use `v-model`. Pass the current
+value back through `value` when the framework uses separate input and value bindings.
 
-<Example name="input/standalone-input" />
+<Example name="input/controlled" />
+
+### Custom element
+
+Use `asChild` only when another DOM node must be rendered as the input. Keep one semantic,
+focusable input element that can receive the merged props and `ref`.
+
+<Example name="input/custom-element" />
 
 ## Composition
 

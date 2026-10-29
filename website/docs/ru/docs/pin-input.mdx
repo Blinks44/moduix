@@ -44,37 +44,12 @@ import * as PinInputDocs from '@/components/examples/pin-input/css-properties';
 
 ## Примеры
 
-### Снять фокус после завершения ввода
+### Размеры
 
-Укажите `blurOnComplete`, если после заполнения всех ячеек фокус должен покинуть последнее поле.
+Проп `size` на корне подгоняет размер ячеек под высоту контролов `Input` и `Button`. По умолчанию `md`;
+текст в ячейках масштабируется вместе с ним.
 
-<Example name="pin-input/blur-on-complete" />
-
-### События изменения
-
-Храните массив значений в состоянии и читайте `details.value` или `details.valueAsString` из колбэков Ark.
-
-<Example name="pin-input/change-events" />
-
-### Field
-
-Поместите `PinInput` внутрь `Field`, если подпись, вспомогательный текст, сообщение об ошибке и состояние поля
-должны быть связаны с видимыми ячейками механизмами доступности Ark для форм.
-
-<Example name="pin-input/field" />
-
-### Сгруппированная раскладка
-
-Используйте явные части `PinInputInput` с `PinInputSeparator`, если разделитель должен разделить код на группы. Индексы должны
-идти непрерывно во всей композиции.
-
-<Example name="pin-input/grouped-layout" />
-
-### Маскирование
-
-Включите `mask`, если введённый код нельзя показывать открыто.
-
-<Example name="pin-input/masking" />
+<Example name="pin-input/sizes" />
 
 ### Режим OTP
 
@@ -83,6 +58,12 @@ import * as PinInputDocs from '@/components/examples/pin-input/css-properties';
 
 <Example name="pin-input/otp-mode" />
 
+### Маскирование
+
+Включите `mask`, если введённый код нельзя показывать открыто.
+
+<Example name="pin-input/masking" />
+
 ### Символ-заполнитель
 
 Передайте `placeholder`, чтобы показывать символ в каждой пустой ячейке. По умолчанию moduix оставляет заполнитель
@@ -90,19 +71,38 @@ import * as PinInputDocs from '@/components/examples/pin-input/css-properties';
 
 <Example name="pin-input/placeholder" />
 
+### Сгруппированная раскладка
+
+Используйте явные части `PinInputInput` с `PinInputSeparator`, если разделитель должен разделить код на группы. Индексы должны
+идти непрерывно во всей композиции.
+
+<Example name="pin-input/grouped-layout" />
+
+### Снять фокус после завершения ввода
+
+Укажите `blurOnComplete`, если после заполнения всех ячеек фокус должен покинуть последнее поле.
+
+<Example name="pin-input/blur-on-complete" />
+
+### Field
+
+Поместите `PinInput` внутрь `Field`, если подпись, вспомогательный текст, сообщение об ошибке и состояние поля
+должны быть связаны с видимыми ячейками механизмами доступности Ark для форм.
+
+<Example name="pin-input/field" />
+
+### События изменения
+
+Храните массив значений в состоянии и читайте `details.value` или `details.valueAsString` из колбэков Ark.
+
+<Example name="pin-input/change-events" />
+
 ### Root Provider
 
 Используйте `usePinInput` с `PinInputRootProvider`, когда состоянием и императивными методами нужно управлять за пределами
-дерева компонентов. В этом примере `PinInputInputs` заменён явными частями `PinInputInput` с индексами.
+дерева компонентов. В этом примере `PinInputInputs` заменён явными частями `PinInputInput` с индексами. Подробнее в разделе [Выносите состояние за пределы дерева](/docs/composition-patterns#root-provider).
 
 <Example name="pin-input/root-provider" />
-
-### Размеры
-
-Проп `size` на корне подгоняет размер ячеек под высоту контролов `Input` и `Button`. По умолчанию `md`;
-текст в ячейках масштабируется вместе с ним.
-
-<Example name="pin-input/sizes" />
 
 ## Композиция
 

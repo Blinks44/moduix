@@ -45,6 +45,49 @@ can allow one selected value or several selected values.
 
 ## Examples
 
+### Variants
+
+Set `variant` on the group when every item should share the same visual treatment.
+
+<Example name="toggle-group/variants" />
+
+### Sizes
+
+Set `size` on `ToggleGroup` to `xs`, `sm`, `md`, or `lg`. Every item in the group takes the same size.
+
+<Example name="toggle-group/sizes" />
+
+### Icons
+
+Pass icons as regular children. Icon-only items should always include an accessible label.
+
+<Example name="toggle-group/icons" />
+
+### Multiple selection
+
+Set `multiple` when several options can stay pressed at the same time.
+
+<Example name="toggle-group/multiple-selection" />
+
+### Vertical
+
+Set `orientation="vertical"` when the choices should stack in a column.
+
+<Example name="toggle-group/vertical" />
+
+### Disabled
+
+Set `disabled` on the group or on a specific item to prevent interaction.
+
+<Example name="toggle-group/disabled" />
+
+### Controlled
+
+Control `value` in React and Solid, or use `v-model` in Vue, when the selected items must stay in sync
+with surrounding application state. See [Control state from the application](/docs/composition-patterns#controlled-state).
+
+<Example name="toggle-group/controlled" />
+
 ### asChild
 
 Use `asChild` on an item when a custom button must host the rendered element. Keep exactly one
@@ -60,55 +103,12 @@ slot in Vue.
 
 <Example name="toggle-group/context" />
 
-### Controlled
-
-Control `value` in React and Solid, or use `v-model` in Vue, when the selected items must stay in sync
-with surrounding application state.
-
-<Example name="toggle-group/controlled" />
-
-### Disabled
-
-Set `disabled` on the group or on a specific item to prevent interaction.
-
-<Example name="toggle-group/disabled" />
-
-### Icons
-
-Pass icons as regular children. Icon-only items should always include an accessible label.
-
-<Example name="toggle-group/icons" />
-
-### Multiple Selection
-
-Set `multiple` when several options can stay pressed at the same time.
-
-<Example name="toggle-group/multiple-selection" />
-
-### Root Provider
+### Root provider
 
 Use `ToggleGroupRootProvider` with `useToggleGroup()` when the state instance must be created
-outside the rendered group tree.
+outside the rendered group tree. See [Share state outside the tree](/docs/composition-patterns#root-provider).
 
 <Example name="toggle-group/root-provider" />
-
-### Sizes
-
-Set `size` on `ToggleGroup` to `xs`, `sm`, `md`, or `lg`. Every item in the group takes the same size.
-
-<Example name="toggle-group/sizes" />
-
-### Variants
-
-Set `variant` on the group when every item should share the same visual treatment.
-
-<Example name="toggle-group/variants" />
-
-### Vertical
-
-Set `orientation="vertical"` when the choices should stack in a column.
-
-<Example name="toggle-group/vertical" />
 
 ## Composition
 

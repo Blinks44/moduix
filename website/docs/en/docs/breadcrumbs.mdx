@@ -34,7 +34,20 @@ items, links, current page, and separators from required `links` and `page` prop
 
 ## Examples
 
-### Collapsed Path
+### Custom separator
+
+Use `BreadcrumbsPath` when every visible gap should use the same custom icon or symbol instead of the
+default chevron.
+
+<Example name="breadcrumbs/custom-separator" />
+
+### Framework link
+
+Use Ark `asChild` to render a link provided by the app's framework router.
+
+<Example name="breadcrumbs/framework-link" />
+
+### Collapsed path
 
 Use the explicit Breadcrumbs parts with `Menu` when hidden middle segments should be revealed on
 demand. The trigger and menu content own the interaction, so this example uses explicit parts instead
@@ -42,20 +55,7 @@ of `BreadcrumbsPath`.
 
 <Example name="breadcrumbs/collapsed-path" />
 
-### Custom Separator
-
-Use `BreadcrumbsPath` when every visible gap should use the same custom icon or symbol instead of the
-default chevron.
-
-<Example name="breadcrumbs/custom-separator" />
-
-### Framework Link
-
-Use Ark `asChild` to render a link provided by the app's framework router.
-
-<Example name="breadcrumbs/framework-link" />
-
-### Long Current Label
+### Long current label
 
 Pass a node as the `page` prop when the current page needs extra attributes, such as `title`. Ancestor items can shrink too, so long middle labels are less likely to make the trail overflow.
 

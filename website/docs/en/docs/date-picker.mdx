@@ -43,54 +43,40 @@ renders its own header, so the view trigger can switch between them. Render `Dat
 
 ## Examples
 
-### Controlled
+### Range
 
-Control the selected `DateValue[]` by updating it with `details.value`. In Vue, use `v-model` for
-the controlled value.
+Use `selectionMode="range"` with two values. Ark manages range hover, the first and last day in
+the range, and input formatting. A range uses two indexed inputs, one for each date.
 
-<Example name="date-picker/controlled" />
+<Example name="date-picker/range" />
 
-### Default view and fixed weeks
+### Multiple dates
 
-Use `defaultView` to open a different panel. Add `fixedWeeks` to keep the day view at a stable
-six-row height while users navigate between months.
+Use `selectionMode="multiple"` and optionally cap the number of selections with
+`maxSelectedDates`. Render selected-date chips through `DatePickerContext` and call
+`datePicker.setValue()` when a chip is removed.
 
-<Example name="date-picker/default-view-and-fixed-weeks" />
+<Example name="date-picker/multiple" />
 
-### Field state
+### Presets
 
-`DatePicker` reads field state from Ark. Set `invalid`, `disabled`, `readOnly`, and `required` on
-the root when you are not composing it through `Field`.
+`DatePickerPresetTrigger` accepts built-in range preset names such as `last7Days`, or a custom
+`DateValue[]`. Use range mode with two indexed inputs so the selected preset displays both dates.
 
-<Example name="date-picker/field-state" />
+<Example name="date-picker/presets" />
 
-### Form
+### Date and time
 
-Pass `name` to include the selected date in native form submission. `DatePickerField` provides
-the locale-aware placeholder and translated action labels unless you override them.
+Keep the time in the selected value by storing `CalendarDateTime` objects. Pair the calendar with
+a `DateInput` configured for minute input so both controls edit the same value.
 
-<Example name="date-picker/form" />
+<Example name="date-picker/with-time" />
 
-### Inline calendar and week numbers
+### Select today
 
-Set `inline` when the calendar should stay in the document flow. An inline calendar renders
-`DatePickerContent` directly, without `DatePickerPositioner`. Set `showWeekNumbers` on the root;
-`DatePickerDayTable` reads it and adds the week-number column.
+Use `DatePickerContext` when a nearby control needs to call helpers such as `selectToday()`.
 
-<Example name="date-picker/inline-and-week-numbers" />
-
-### Locale and format
-
-`locale`, `startOfWeek`, `format`, and `parse` are passed through to Ark.
-
-<Example name="date-picker/locale-and-format" />
-
-### Minimum, maximum, and unavailable dates
-
-Use `min`, `max`, and `isDateUnavailable` for validation rules that should affect both the input
-and calendar cells.
-
-<Example name="date-picker/min-max-and-unavailable" />
+<Example name="date-picker/select-today" />
 
 ### Month and year selects
 
@@ -106,13 +92,12 @@ and `parse` when the input should accept a month and year string.
 
 <Example name="date-picker/month-picker" />
 
-### Multiple dates
+### Year picker
 
-Use `selectionMode="multiple"` and optionally cap the number of selections with
-`maxSelectedDates`. Render selected-date chips through `DatePickerContext` and call
-`datePicker.setValue()` when a chip is removed.
+Set `defaultView="year"`, `minView="year"`, and `maxView="year"` to let users select a year only.
+Use `DatePickerRangeText` in the header because the year view has no higher view to switch to.
 
-<Example name="date-picker/multiple" />
+<Example name="date-picker/year-picker" />
 
 ### Multiple months
 
@@ -121,46 +106,61 @@ Set `numOfMonths` when users need to see more than one month while choosing date
 
 <Example name="date-picker/multiple-months" />
 
-### Presets
+### Inline calendar and week numbers
 
-`DatePickerPresetTrigger` accepts built-in range preset names such as `last7Days`, or a custom
-`DateValue[]`. Use range mode with two indexed inputs so the selected preset displays both dates.
+Set `inline` when the calendar should stay in the document flow. An inline calendar renders
+`DatePickerContent` directly, without `DatePickerPositioner`. Set `showWeekNumbers` on the root;
+`DatePickerDayTable` reads it and adds the week-number column.
 
-<Example name="date-picker/presets" />
+<Example name="date-picker/inline-and-week-numbers" />
 
-### Range
+### Default view and fixed weeks
 
-Use `selectionMode="range"` with two values. Ark manages range hover, the first and last day in
-the range, and input formatting. A range uses two indexed inputs, one for each date.
+Use `defaultView` to open a different panel. Add `fixedWeeks` to keep the day view at a stable
+six-row height while users navigate between months.
 
-<Example name="date-picker/range" />
+<Example name="date-picker/default-view-and-fixed-weeks" />
 
-### Root Provider
+### Locale and format
+
+`locale`, `startOfWeek`, `format`, and `parse` are passed through to Ark.
+
+<Example name="date-picker/locale-and-format" />
+
+### Minimum, maximum, and unavailable dates
+
+Use `min`, `max`, and `isDateUnavailable` for validation rules that should affect both the input
+and calendar cells.
+
+<Example name="date-picker/min-max-and-unavailable" />
+
+### Field state
+
+`DatePicker` reads field state from Ark. Set `invalid`, `disabled`, `readOnly`, and `required` on
+the root when you are not composing it through `Field`.
+
+<Example name="date-picker/field-state" />
+
+### Form
+
+Pass `name` to include the selected date in native form submission. `DatePickerField` provides
+the locale-aware placeholder and translated action labels unless you override them.
+
+<Example name="date-picker/form" />
+
+### Controlled
+
+Control the selected `DateValue[]` by updating it with `details.value`. In Vue, use `v-model` for
+the controlled value. See [Control state from the application](/docs/composition-patterns#controlled-state).
+
+<Example name="date-picker/controlled" />
+
+### Root provider
 
 Use `useDatePicker()` from the matching framework package with `DatePickerRootProvider` when
-calendar state must be shared with controls outside the root tree.
+calendar state must be shared with controls outside the root tree. See [Share state outside the tree](/docs/composition-patterns#root-provider).
 
 <Example name="date-picker/root-provider" />
-
-### Select today
-
-Use `DatePickerContext` when a nearby control needs to call helpers such as `selectToday()`.
-
-<Example name="date-picker/select-today" />
-
-### Date and time
-
-Keep the time in the selected value by storing `CalendarDateTime` objects. Pair the calendar with
-a `DateInput` configured for minute input so both controls edit the same value.
-
-<Example name="date-picker/with-time" />
-
-### Year picker
-
-Set `defaultView="year"`, `minView="year"`, and `maxView="year"` to let users select a year only.
-Use `DatePickerRangeText` in the header because the year view has no higher view to switch to.
-
-<Example name="date-picker/year-picker" />
 
 ### Build from parts
 

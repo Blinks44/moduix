@@ -27,7 +27,7 @@ and a stable `data-slot` hook. `FieldItem` wraps Ark's provider-only `Item` with
 `useFieldContext` are exported for state access, and the barrel re-exports the Ark prop, context,
 and hook types for the exported parts.
 
-`Field` renders no control of its own. Moduix controls (`Input`, `Textarea`, `NativeSelect`,
+`Field` renders no control of its own. moduix controls (`Input`, `Textarea`, `NativeSelect`,
 `Checkbox`, `Select`, and others) read the field context. Ark's `Field.Input`, `Field.Textarea`, and
 `Field.Select` are not re-exported as styled parts: `Input`, `Textarea`, and `NativeSelect` are
 those parts with moduix styling.

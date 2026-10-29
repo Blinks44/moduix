@@ -38,26 +38,19 @@ text, and validation message.
 
 ## Examples
 
-### Checkbox
-
-Use the legend to name a group of related checkbox controls. Add `CheckboxHiddenInput` to each
-checkbox that needs native focus, form submission, and form reset behavior.
-
-<Example name="fieldset/checkbox" />
-
-### Disabled
-
-Set `disabled` on the root. The browser disables native controls, and Ark-aware controls read the same
-state from the fieldset context.
-
-<Example name="fieldset/disabled" />
-
 ### Field
 
 Nest `Field` components when each control needs its own label, helper text, or error message in addition
 to the shared legend.
 
 <Example name="fieldset/field" />
+
+### Checkbox
+
+Use the legend to name a group of related checkbox controls. Add `CheckboxHiddenInput` to each
+checkbox that needs native focus, form submission, and form reset behavior.
+
+<Example name="fieldset/checkbox" />
 
 ### Input with Select
 
@@ -66,6 +59,13 @@ one phone number.
 
 <Example name="fieldset/input-with-select" />
 
+### Disabled
+
+Set `disabled` on the root. The browser disables native controls, and Ark-aware controls read the same
+state from the fieldset context.
+
+<Example name="fieldset/disabled" />
+
 ### Invalid
 
 Set `invalid` on `Fieldset` to mark the group as invalid and show its group-level error. Set `invalid`
@@ -73,10 +73,10 @@ on nested `Field` components as well when individual controls need their own inv
 
 <Example name="fieldset/invalid" />
 
-### Root Provider
+### Root provider
 
 Use `useFieldset` with `FieldsetRootProvider` to create fieldset state outside the JSX tree and share
-it with sibling controls or reusable descendants.
+it with sibling controls or reusable descendants. See [Share state outside the tree](/docs/composition-patterns#root-provider).
 
 <Example name="fieldset/root-provider" />
 

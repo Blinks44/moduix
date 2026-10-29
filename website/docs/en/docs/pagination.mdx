@@ -35,9 +35,50 @@ the current page range.
 
 ## Examples
 
+### Page range
+
+Use `pagination.pageRange` to show which items are visible on the current page.
+
+<Example name="pagination/page-range" />
+
+### Items per page
+
+Call `pagination.setPageSize(nextSize)` from context when a separate control changes the number of
+items per page.
+
+<Example name="pagination/page-size-control" />
+
+### First and last page controls
+
+Add `PaginationFirstTrigger` and `PaginationLastTrigger` when users need shortcuts to the first
+and last page.
+
+<Example name="pagination/with-edges" />
+
+### Link navigation
+
+Use `type="link"` with `getPageUrl(details)` and `asChild` anchors when changing pages should
+navigate to a real URL.
+
+<Example name="pagination/link" />
+
+### Client-side data
+
+Use `pagination.slice(data)` from context to render only the part of an already-loaded array that
+belongs to the current page.
+
+<Example name="pagination/data-slicing" />
+
+### Translations
+
+Use `translations` to customize accessible labels. Adjust the visible page window with
+`siblingCount`, `boundaryCount`, and the page-size props.
+
+<Example name="pagination/customized" />
+
 ### Controlled
 
-Pass the active page with `page` and update it in `onPageChange(details)`.
+Pass the active page with `page` and update it in `onPageChange(details)`. See [Control state from the application](/docs/composition-patterns#controlled-state).
 
 <Example name="pagination/controlled" />
 
@@ -48,53 +89,12 @@ Use `PaginationContext` to place custom controls next to the page list and call 
 
 <Example name="pagination/context" />
 
-### Client-Side Data
-
-Use `pagination.slice(data)` from context to render only the part of an already-loaded array that
-belongs to the current page.
-
-<Example name="pagination/data-slicing" />
-
-### Link Navigation
-
-Use `type="link"` with `getPageUrl(details)` and `asChild` anchors when changing pages should
-navigate to a real URL.
-
-<Example name="pagination/link" />
-
-### Page Range
-
-Use `pagination.pageRange` to show which items are visible on the current page.
-
-<Example name="pagination/page-range" />
-
-### Items Per Page
-
-Call `pagination.setPageSize(nextSize)` from context when a separate control changes the number of
-items per page.
-
-<Example name="pagination/page-size-control" />
-
-### Root Provider
+### Root provider
 
 Create state with `usePagination()` and pass it to `PaginationRootProvider` when the
-state owner lives outside the rendered pagination tree.
+state owner lives outside the rendered pagination tree. See [Share state outside the tree](/docs/composition-patterns#root-provider).
 
 <Example name="pagination/root-provider" />
-
-### Translations
-
-Use `translations` to customize accessible labels. Adjust the visible page window with
-`siblingCount`, `boundaryCount`, and the page-size props.
-
-<Example name="pagination/customized" />
-
-### First and Last Page Controls
-
-Add `PaginationFirstTrigger` and `PaginationLastTrigger` when users need shortcuts to the first
-and last page.
-
-<Example name="pagination/with-edges" />
 
 ### Build from parts
 

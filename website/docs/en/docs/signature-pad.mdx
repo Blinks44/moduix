@@ -35,13 +35,6 @@ Ark's `SignaturePadControl`, `SignaturePadSegment`, `SignaturePadClearTrigger`, 
 
 ## Examples
 
-### Controlled
-
-Use controlled `paths` to keep the signature in application state and coordinate it with reset
-controls or autosave logic.
-
-<Example name="signature-pad/controlled" />
-
 ### Drawing
 
 Pass `drawing` when stroke width, stroke color, or pressure behavior needs to differ from the
@@ -50,6 +43,12 @@ page shows `simulatePressure: true`), so pressure simulation is opt-in.
 
 <Example name="signature-pad/drawing" />
 
+### Image preview
+
+Use `onDrawEnd` to export the signature and show a preview before saving it.
+
+<Example name="signature-pad/image-preview" />
+
 ### Field
 
 Use `Field` around the signature pad when helper text, error text, required state, or invalid
@@ -57,23 +56,24 @@ messaging belongs to the same form control.
 
 <Example name="signature-pad/field" />
 
-### Form Serialization
+### Form serialization
 
 Serialize the value passed to `SignaturePadHiddenInput` in the consumer when the server needs a
 different representation. This example sends a JSON array.
 
 <Example name="signature-pad/form-serialization" />
 
-### Image Preview
+### Controlled
 
-Use `onDrawEnd` to export the signature and show a preview before saving it.
+Use controlled `paths` to keep the signature in application state and coordinate it with reset
+controls or autosave logic. See [Control state from the application](/docs/composition-patterns#controlled-state).
 
-<Example name="signature-pad/image-preview" />
+<Example name="signature-pad/controlled" />
 
-### Root Provider
+### Root provider
 
 Create state with `useSignaturePad()` and pass it to `SignaturePadRootProvider` when controls outside the
-rendered tree need direct access to `paths`, `clear()`, or `getDataUrl()`.
+rendered tree need direct access to `paths`, `clear()`, or `getDataUrl()`. See [Share state outside the tree](/docs/composition-patterns#root-provider).
 
 <Example name="signature-pad/root-provider" />
 

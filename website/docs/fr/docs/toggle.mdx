@@ -42,44 +42,11 @@ Utilisez `Toggle` lorsque le contrôle doit se comporter comme un bouton et indi
 
 ## Exemples
 
-### asChild
+### Variantes
 
-Utilisez `asChild` lorsqu’un autre bouton doit porter le comportement du toggle. Gardez un seul enfant compatible
-avec un bouton afin qu’Ark puisse lui transmettre les propriétés d’interaction et l’état d’accessibilité.
+Définissez `variant` sur `default`, `outline` ou `ghost` pour l’adapter à la surface environnante.
 
-<Example name="toggle/aschild" />
-
-### État contrôlé
-
-Contrôlez `pressed` lorsque le toggle fait partie de l’état de l’application, de l’analytique ou d’une autre interaction.
-
-<Example name="toggle/controlled" />
-
-### État désactivé
-
-Utilisez `disabled` pour bloquer les interactions tout en conservant l’état activé actuel.
-
-<Example name="toggle/disabled" />
-
-### Icônes
-
-Passez les icônes comme des enfants ordinaires. Les toggles avec une icône seule doivent avoir un nom accessible,
-par exemple avec `aria-label`.
-
-<Example name="toggle/icons" />
-
-### Indicateur
-
-Utilisez `ToggleIndicator` lorsque le contenu intégré doit différer selon que le toggle est activé ou non.
-
-<Example name="toggle/indicator" />
-
-### État pressé
-
-Utilisez le hook de contexte ou le slot avec paramètres lorsqu’un descendant personnalisé doit connaître l’état activé, sans modifier le contenu
-du bouton avec `ToggleIndicator`.
-
-<Example name="toggle/pressed-state" />
+<Example name="toggle/variants" />
 
 ### Tailles
 
@@ -88,11 +55,44 @@ lorsque l’espace est limité.
 
 <Example name="toggle/sizes" />
 
-### Variantes
+### Icônes
 
-Définissez `variant` sur `default`, `outline` ou `ghost` pour l’adapter à la surface environnante.
+Passez les icônes comme des enfants ordinaires. Les toggles avec une icône seule doivent avoir un nom accessible,
+par exemple avec `aria-label`.
 
-<Example name="toggle/variants" />
+<Example name="toggle/icons" />
+
+### État pressé
+
+Utilisez le hook de contexte ou le slot avec paramètres lorsqu’un descendant personnalisé doit connaître l’état activé, sans modifier le contenu
+du bouton avec `ToggleIndicator`.
+
+<Example name="toggle/pressed-state" />
+
+### Indicateur
+
+Utilisez `ToggleIndicator` lorsque le contenu intégré doit différer selon que le toggle est activé ou non.
+
+<Example name="toggle/indicator" />
+
+### État désactivé
+
+Utilisez `disabled` pour bloquer les interactions tout en conservant l’état activé actuel.
+
+<Example name="toggle/disabled" />
+
+### État contrôlé
+
+Contrôlez `pressed` lorsque le toggle fait partie de l’état de l’application, de l’analytique ou d’une autre interaction. Voir [Contrôler l’état depuis l’application](/docs/composition-patterns#controlled-state).
+
+<Example name="toggle/controlled" />
+
+### asChild
+
+Utilisez `asChild` lorsqu’un autre bouton doit porter le comportement du toggle. Gardez un seul enfant compatible
+avec un bouton afin qu’Ark puisse lui transmettre les propriétés d’interaction et l’état d’accessibilité.
+
+<Example name="toggle/aschild" />
 
 ## Composition
 

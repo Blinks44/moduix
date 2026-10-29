@@ -37,13 +37,6 @@ ajoute une icône de recherche, le champ de saisie et un bouton d'effacement, vi
 
 ## Exemples
 
-### État d'ouverture contrôlé
-
-Utilisez la prop contrôlée `open` lorsque le reste de l'interface doit également décider si la palette est visible.
-L'exemple réinitialise le filtre externe de la collection à la fermeture de la palette.
-
-<Example name="command-palette/controlled-open-state" />
-
 ### Activation du raccourci global
 
 Définissez `shortcut="alt+k"` sur `CommandPalette` ou `CommandPaletteRootProvider` pour enregistrer un raccourci global qui ouvre et ferme la palette. C'est le seul
@@ -57,6 +50,13 @@ Gérez `onSelect(details)` pour exécuter une commande. Avec la valeur par défa
 ferme après l'exécution de l'action sélectionnée.
 
 <Example name="command-palette/item-actions" />
+
+### État d'ouverture contrôlé
+
+Utilisez la prop contrôlée `open` lorsque le reste de l'interface doit également décider si la palette est visible.
+L'exemple réinitialise le filtre externe de la collection à la fermeture de la palette. Voir [Contrôler l’état depuis l’application](/docs/composition-patterns#controlled-state).
+
+<Example name="command-palette/controlled-open-state" />
 
 ### Assembler à partir des parties
 

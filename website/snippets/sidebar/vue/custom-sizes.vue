@@ -31,7 +31,7 @@ import styles from '@/components/examples/sidebar/sidebar-custom-sizes.module.cs
   <Sidebar :default-size="['14rem']" :class="styles.root">
     <SidebarPanel>
       <SidebarHeader
-        ><strong data-sidebar-icon>M</strong><SidebarLabel>Moduix</SidebarLabel></SidebarHeader
+        ><strong data-sidebar-icon>M</strong><SidebarLabel>moduix</SidebarLabel></SidebarHeader
       >
       <SidebarContent>
         <SidebarGroup>

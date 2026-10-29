@@ -37,21 +37,12 @@ poignée, moduix génère automatiquement l'indicateur de redimensionnement.
 
 ## Exemples
 
-### Panneaux réductibles
+### Orientation verticale
 
-Définissez `collapsible: true` et choisissez `collapsedSize` pour transformer un panneau en bandeau
-étroit. Donnez à `minSize` la même valeur lorsque le redimensionnement à la souris doit rester continu
-jusqu'à la taille réduite. Si `minSize` est supérieur, le splitter alterne entre la taille minimale
-déployée et le bandeau réduit.
+Définissez `orientation="vertical"` et donnez une hauteur stable à la racine afin que les panneaux
+empilés disposent de l'espace nécessaire pour être redimensionnés.
 
-<Example name="splitter/collapsible-panels" />
-
-### État contrôlé
-
-Conservez les tailles des panneaux dans l'état de l'application et mettez-le à jour avec `details.size`
-dans `onResize`.
-
-<Example name="splitter/controlled" />
+<Example name="splitter/vertical" />
 
 ### Plusieurs panneaux
 
@@ -61,12 +52,14 @@ relier ses deux voisins.
 
 <Example name="splitter/multiple-panels" />
 
-### Splitters imbriqués
+### Panneaux réductibles
 
-Transmettez le même registre aux splitters imbriqués pour déplacer plusieurs poignées ensemble aux
-intersections des poignées horizontales et verticales.
+Définissez `collapsible: true` et choisissez `collapsedSize` pour transformer un panneau en bandeau
+étroit. Donnez à `minSize` la même valeur lorsque le redimensionnement à la souris doit rester continu
+jusqu'à la taille réduite. Si `minSize` est supérieur, le splitter alterne entre la taille minimale
+déployée et le bandeau réduit.
 
-<Example name="splitter/nested" />
+<Example name="splitter/collapsible-panels" />
 
 ### Réduction adaptative
 
@@ -75,20 +68,27 @@ disponible mesurée par l'application.
 
 <Example name="splitter/dynamic-collapsible" />
 
-### SplitterRootProvider
+### Splitters imbriqués
+
+Transmettez le même registre aux splitters imbriqués pour déplacer plusieurs poignées ensemble aux
+intersections des poignées horizontales et verticales.
+
+<Example name="splitter/nested" />
+
+### État contrôlé
+
+Conservez les tailles des panneaux dans l'état de l'application et mettez-le à jour avec `details.size`
+dans `onResize`. Voir [Contrôler l’état depuis l’application](/docs/composition-patterns#controlled-state).
+
+<Example name="splitter/controlled" />
+
+### Root Provider
 
 Utilisez `useSplitter()` avec `SplitterRootProvider` lorsque l'état ou les contrôles doivent se
 trouver en dehors des parties rendues du splitter. L'API renvoyée fournit notamment `getSizes()`,
-`setSizes()`, `resizePanel()`, `collapsePanel()`, `expandPanel()` et `resetSizes()`.
+`setSizes()`, `resizePanel()`, `collapsePanel()`, `expandPanel()` et `resetSizes()`. Voir [Partager l’état hors de l’arbre](/docs/composition-patterns#root-provider).
 
 <Example name="splitter/root-provider" />
-
-### Orientation verticale
-
-Définissez `orientation="vertical"` et donnez une hauteur stable à la racine afin que les panneaux
-empilés disposent de l'espace nécessaire pour être redimensionnés.
-
-<Example name="splitter/vertical" />
 
 ### Assembler à partir des parties
 

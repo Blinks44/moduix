@@ -41,20 +41,6 @@ of the popup.
 
 ## Examples
 
-### Controlled
-
-Use `value` and `onChange` when the application owns the current value. Read the new value from the
-native event and pass it back through `value`.
-
-<Example name="native-select/controlled" />
-
-### Field
-
-Use `Field` when the select needs a visible label, helper text, error message, or shared field
-state. Field connects that content to the native control.
-
-<Example name="native-select/field-integration" />
-
 ### Grouping
 
 Wrap related options in native `optgroup` elements. The browser renders the group labels and keeps
@@ -68,6 +54,20 @@ Pass the native `multiple` and `size` props to render a multi-select list. The b
 selected options and their keyboard interaction.
 
 <Example name="native-select/multiple-selection" />
+
+### Field
+
+Use `Field` when the select needs a visible label, helper text, error message, or shared field
+state. Field connects that content to the native control.
+
+<Example name="native-select/field-integration" />
+
+### Controlled
+
+Use `value` and `onChange` when the application owns the current value. Read the new value from the
+native event and pass it back through `value`.
+
+<Example name="native-select/controlled" />
 
 ## Composition
 

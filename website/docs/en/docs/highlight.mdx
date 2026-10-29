@@ -43,14 +43,19 @@ renders the matched ranges, but does not add a layout wrapper of its own.
 
 ## Examples
 
-### Dynamic Query
+### Ignore case
 
-Control `query` from framework state to highlight the current term while a user searches or filters
-visible text.
+Set `ignoreCase` when the capitalization of the source text should not affect the result.
 
-<Example name="highlight/dynamic-query" />
+<Example name="highlight/ignore-case" />
 
-### Exact Match
+### Match all
+
+Set `matchAll` when every occurrence should be highlighted instead of only the first one.
+
+<Example name="highlight/match-all" />
+
+### Exact match
 
 Set `exactMatch` when partial-word matches are too broad. In this example, `box` matches the
 standalone word but not `checkbox` or `combobox`. Matching follows JavaScript word boundaries,
@@ -58,24 +63,19 @@ which are reliable for Latin text but do not treat Cyrillic and some other scrip
 
 <Example name="highlight/exact-match" />
 
-### Ignore Case
-
-Set `ignoreCase` when the capitalization of the source text should not affect the result.
-
-<Example name="highlight/ignore-case" />
-
-### Match All
-
-Set `matchAll` when every occurrence should be highlighted instead of only the first one.
-
-<Example name="highlight/match-all" />
-
-### Multiple Queries
+### Multiple queries
 
 Pass a string array when several terms should be highlighted in the same text. For an array,
 `matchAll` defaults to `true`; setting `matchAll={false}` throws an error.
 
 <Example name="highlight/multiple-queries" />
+
+### Dynamic query
+
+Control `query` from framework state to highlight the current term while a user searches or filters
+visible text.
+
+<Example name="highlight/dynamic-query" />
 
 ## Composition
 

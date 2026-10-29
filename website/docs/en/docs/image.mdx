@@ -42,14 +42,6 @@ attributes override these defaults.
 
 ## Examples
 
-### Art Direction
-
-Use `ImageSource` to show a wider office view on larger screens and a portrait fallback on smaller
-screens. The first large-screen source requests AVIF; the next source provides a fallback for
-browsers that do not support AVIF. `ImageSource` must stay inside a native `<picture>` element.
-
-<Example name="image/art-direction" />
-
 ### Fixed
 
 Use `layout="fixed"` when the image must keep exact dimensions in CSS pixels. Make sure its parent
@@ -57,12 +49,20 @@ has enough room, since fixed images do not shrink to fit a narrower container.
 
 <Example name="image/fixed" />
 
-### Full Width
+### Full width
 
 Use `layout="fullWidth"` for a hero image or media strip that should fill its container's width.
 Supply `height` when the crop height must remain fixed.
 
 <Example name="image/full-width" />
+
+### Art direction
+
+Use `ImageSource` to show a wider office view on larger screens and a portrait fallback on smaller
+screens. The first large-screen source requests AVIF; the next source provides a fallback for
+browsers that do not support AVIF. `ImageSource` must stay inside a native `<picture>` element.
+
+<Example name="image/art-direction" />
 
 ## Composition
 

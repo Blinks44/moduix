@@ -45,32 +45,40 @@ import * as TagsInputDocs from '@/components/examples/tags-input/css-properties'
 
 ## Примеры
 
-### Разрешить дубликаты
-
-Включите `allowDuplicates`, если одна и та же строка может появляться несколько раз.
-
-<Example name="tags-input/allow-duplicates" />
-
-### Управляемое состояние
-
-Храните массив тегов в состоянии компонента, если от него зависит другая часть экрана или его нужно
-сбрасывать программно.
-
-<Example name="tags-input/controlled" />
-
-### Управляемое значение поля ввода
-
-Управляйте `inputValue` отдельно, если другой элемент интерфейса должен заранее заполнить или
-очистить поле ввода.
-
-<Example name="tags-input/controlled-input-value" />
-
 ### Разделитель и вставка
 
 Используйте `delimiter` вместе с `addOnPaste`, если вставленный текст должен превратиться в несколько
 тегов. В этом примере разделителями служат запятая, точка с запятой и пробел.
 
 <Example name="tags-input/delimiter-and-paste" />
+
+### Проверка и максимум
+
+Используйте `validate`, `max` и `onValueInvalid`, чтобы отклонять недопустимые значения и понимать
+причину отказа. Добавьте `maxLength`, если поле не должно принимать слишком длинные значения до
+запуска проверки.
+
+<Example name="tags-input/validation-and-max" />
+
+### Максимум с превышением
+
+Используйте `allowOverflow` вместе с `max`, если пользователь может временно превысить лимит, а поле
+должно сообщить о невалидном состоянии.
+
+<Example name="tags-input/max-with-overflow" />
+
+### Разрешить дубликаты
+
+Включите `allowDuplicates`, если одна и та же строка может появляться несколько раз.
+
+<Example name="tags-input/allow-duplicates" />
+
+### Нормализация и потеря фокуса
+
+Используйте `sanitizeValue`, чтобы нормализовать вводимые теги, а `blurBehavior="add"`, чтобы добавить
+текущее значение при потере фокуса.
+
+<Example name="tags-input/sanitize-and-blur" />
 
 ### Запретить редактирование
 
@@ -98,34 +106,19 @@ import * as TagsInputDocs from '@/components/examples/tags-input/css-properties'
 
 <Example name="tags-input/form" />
 
-### Максимум с превышением
+### Управляемое состояние
 
-Используйте `allowOverflow` вместе с `max`, если пользователь может временно превысить лимит, а поле
-должно сообщить о невалидном состоянии.
+Храните массив тегов в состоянии компонента, если от него зависит другая часть экрана или его нужно
+сбрасывать программно. Подробнее в разделе [Управляйте состоянием из приложения](/docs/composition-patterns#controlled-state).
 
-<Example name="tags-input/max-with-overflow" />
+<Example name="tags-input/controlled" />
 
-### TagsInputRootProvider
+### Управляемое значение поля ввода
 
-Используйте `useTagsInput` с `TagsInputRootProvider`, когда состояние и императивные методы нужны за пределами
-дерева отрисованного поля.
+Управляйте `inputValue` отдельно, если другой элемент интерфейса должен заранее заполнить или
+очистить поле ввода. Подробнее в разделе [Управляйте состоянием из приложения](/docs/composition-patterns#controlled-state).
 
-<Example name="tags-input/root-provider" />
-
-### Нормализация и потеря фокуса
-
-Используйте `sanitizeValue`, чтобы нормализовать вводимые теги, а `blurBehavior="add"`, чтобы добавить
-текущее значение при потере фокуса.
-
-<Example name="tags-input/sanitize-and-blur" />
-
-### Проверка и максимум
-
-Используйте `validate`, `max` и `onValueInvalid`, чтобы отклонять недопустимые значения и понимать
-причину отказа. Добавьте `maxLength`, если поле не должно принимать слишком длинные значения до
-запуска проверки.
-
-<Example name="tags-input/validation-and-max" />
+<Example name="tags-input/controlled-input-value" />
 
 ### Вместе с Combobox
 
@@ -134,6 +127,13 @@ import * as TagsInputDocs from '@/components/examples/tags-input/css-properties'
 управления и объединяйте поля через `asChild`.
 
 <Example name="combobox/with-tags-input" />
+
+### Root Provider
+
+Используйте `useTagsInput` с `TagsInputRootProvider`, когда состояние и императивные методы нужны за пределами
+дерева отрисованного поля. Подробнее в разделе [Выносите состояние за пределы дерева](/docs/composition-patterns#root-provider).
+
+<Example name="tags-input/root-provider" />
 
 ### Сборка из частей
 

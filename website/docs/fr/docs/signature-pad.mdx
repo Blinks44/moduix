@@ -36,13 +36,6 @@ d’effacement par défaut de moduix.
 
 ## Exemples
 
-### État contrôlé
-
-Utilisez `paths` en mode contrôlé pour conserver la signature dans l’état de l’application et la
-coordonner avec des contrôles de réinitialisation ou une logique d’enregistrement automatique.
-
-<Example name="signature-pad/controlled" />
-
 ### Dessin
 
 Transmettez `drawing` lorsque l’épaisseur, la couleur du trait ou le comportement de la pression
@@ -51,6 +44,12 @@ doivent différer des valeurs par défaut. La valeur par défaut à l’exécuti
 `simulatePressure: true`), la simulation de pression est donc à activer explicitement.
 
 <Example name="signature-pad/drawing" />
+
+### Aperçu de l’image
+
+Utilisez `onDrawEnd` pour exporter la signature et l’afficher avant son enregistrement.
+
+<Example name="signature-pad/image-preview" />
 
 ### Champ de formulaire
 
@@ -66,17 +65,18 @@ attend un autre format. Cet exemple envoie un tableau JSON.
 
 <Example name="signature-pad/form-serialization" />
 
-### Aperçu de l’image
+### État contrôlé
 
-Utilisez `onDrawEnd` pour exporter la signature et l’afficher avant son enregistrement.
+Utilisez `paths` en mode contrôlé pour conserver la signature dans l’état de l’application et la
+coordonner avec des contrôles de réinitialisation ou une logique d’enregistrement automatique. Voir [Contrôler l’état depuis l’application](/docs/composition-patterns#controlled-state).
 
-<Example name="signature-pad/image-preview" />
+<Example name="signature-pad/controlled" />
 
 ### Root Provider
 
 Créez l’état avec `useSignaturePad()` et transmettez-le à `SignaturePadRootProvider` lorsque des contrôles
 situés en dehors de l’arborescence rendue doivent accéder directement à `paths`, `clear()` ou
-`getDataUrl()`.
+`getDataUrl()`. Voir [Partager l’état hors de l’arbre](/docs/composition-patterns#root-provider).
 
 <Example name="signature-pad/root-provider" />
 

@@ -58,38 +58,30 @@ React, Solid и Vue используют одинаковые плоские и�
 
 <Example name="floating-panel/boundary" />
 
-### Контекст
-
-Используйте `FloatingPanelContext` или `useFloatingPanelContext`, чтобы читать состояние и методы
-панели внутри дерева компонентов. Vue получает значение контекста через scoped slot, а Solid
-предоставляет его как accessor-функцию.
-
-<Example name="floating-panel/context" />
-
-### Управляемое открытие
-
-Используйте `open` вместе с `onOpenChange`, если состояние приложения должно управлять видимостью панели.
-
-<Example name="floating-panel/controlled-open" />
-
-### Управляемая позиция
-
-Управляйте `position`, если другой части приложения нужны текущие координаты панели.
-
-<Example name="floating-panel/controlled-position" />
-
-### Управляемый размер
-
-Управляйте `size`, если интерфейсу нужно сохранять или показывать текущие размеры панели.
-
-<Example name="floating-panel/controlled-size" />
-
 ### Закрытие по Escape
 
 `closeOnEscape` включён по умолчанию. Добавьте `autoFocus` к `FloatingPanelContent`, чтобы Escape работал сразу
 после открытия немодальной панели.
 
 <Example name="floating-panel/escape-dismiss" />
+
+### Управляемое открытие
+
+Используйте `open` вместе с `onOpenChange`, если состояние приложения должно управлять видимостью панели. Подробнее в разделе [Управляйте состоянием из приложения](/docs/composition-patterns#controlled-state).
+
+<Example name="floating-panel/controlled-open" />
+
+### Управляемая позиция
+
+Управляйте `position`, если другой части приложения нужны текущие координаты панели. Подробнее в разделе [Управляйте состоянием из приложения](/docs/composition-patterns#controlled-state).
+
+<Example name="floating-panel/controlled-position" />
+
+### Управляемый размер
+
+Управляйте `size`, если интерфейсу нужно сохранять или показывать текущие размеры панели. Подробнее в разделе [Управляйте состоянием из приложения](/docs/composition-patterns#controlled-state).
+
+<Example name="floating-panel/controlled-size" />
 
 ### Ленивое монтирование
 
@@ -98,11 +90,19 @@ React, Solid и Vue используют одинаковые плоские и�
 
 <Example name="floating-panel/lazy-mount" />
 
-### FloatingPanelRootProvider
+### Контекст
+
+Используйте `FloatingPanelContext` или `useFloatingPanelContext`, чтобы читать состояние и методы
+панели внутри дерева компонентов. Vue получает значение контекста через scoped slot, а Solid
+предоставляет его как accessor-функцию.
+
+<Example name="floating-panel/context" />
+
+### Root Provider
 
 Используйте `useFloatingPanel` вместе с `FloatingPanelRootProvider`, если элементам управления за
 пределами дерева панели нужны методы `minimize`, `maximize` и `setOpen`. В Solid состояние хранилища
-читается через accessor-функцию.
+читается через accessor-функцию. Подробнее в разделе [Выносите состояние за пределы дерева](/docs/composition-patterns#root-provider).
 
 <Example name="floating-panel/root-provider" />
 
@@ -201,7 +201,6 @@ React, Solid и Vue используют одинаковые плоские и�
 | Клавиша | Действие |
 | --- | --- |
 | `Enter` / `Space` | Открывает с кнопки в фокусе. |
-| `Tab` / `Shift+Tab` | Перемещает фокус между элементами панели. |
 | `Esc` | Закрывает панель. |
 
 ## Справочник API

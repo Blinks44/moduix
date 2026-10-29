@@ -43,75 +43,12 @@ centrée qui n'a pas besoin d'être déplacée.
 
 ## Exemples
 
-### État contrôlé
+### Direction du balayage
 
-Lisez `details.open` dans le callback Ark. Le callback reçoit un objet de détails, pas directement un booléen.
+Utilisez les valeurs logiques `start` et `end` pour les panneaux latéraux afin que le même code
+fonctionne en LTR et en RTL. Utilisez `up` pour un panneau supérieur et `down` pour un panneau inférieur.
 
-<Example name="drawer/controlled" />
-
-### Contrôles du déplacement
-
-Ajoutez `data-no-drag` aux zones interactives qui ne doivent pas lancer un déplacement. Définissez
-`draggable={false}` sur `DrawerContent` si le panneau doit se déplacer uniquement depuis la poignée.
-
-<Example name="drawer/drag-controls" />
-
-### Poignée flottante
-
-Placez `DrawerGrabber` au-dessus de la surface lorsque la poignée doit apparaître comme un contrôle
-distinct. Le style de cet exemple laisse un espace de 10px entre la poignée et le bord du panneau.
-
-<Example name="drawer/floating-grabber" />
-
-### Arrière-plan décalé
-
-`DrawerStack` utilise l'état de la pile et la progression du balayage d'Ark pour déplacer
-`DrawerIndentBackground` et `DrawerIndent` ensemble.
-
-<Example name="drawer/indent-background" />
-
-### Îlot
-
-Définissez `variant="island"` sur `DrawerContent` lorsqu'un panneau compact doit rester à
-l'intérieur de la fenêtre avec un retrait, plutôt que de dépasser visuellement du bord d'ouverture.
-
-<Example name="drawer/island" />
-
-### Plusieurs triggers
-
-Donnez un `value` à chaque trigger pour réutiliser un seul panneau pour une liste. Le callback
-indique quel trigger est actif.
-
-<Example name="drawer/multiple-triggers" />
-
-### Panneaux imbriqués
-
-Utilisez des instances Ark `useDrawer` et des arborescences moduix `DrawerRootProvider` distinctes
-pour les panneaux imbriqués. Chaque panneau conserve ainsi son propre état d'ouverture et son cycle
-de vie du focus.
-
-<Example name="drawer/nested" />
-
-### Non modal
-
-Définissez `modal={false}` lorsque la page doit rester interactive pendant l'ouverture du panneau.
-Cet exemple garde le déplacement sur la poignée et confie le contenu long à `ScrollArea`.
-
-<Example name="drawer/non-modal" />
-
-### Root Provider
-
-Utilisez l'export moduix `useDrawer` lorsque des boutons situés en dehors de l'arborescence du panneau
-doivent l'ouvrir ou modifier ses points d'ancrage.
-
-<Example name="drawer/root-provider" />
-
-### Contenu défilant
-
-Placez le contenu long dans `DrawerBody`. Utilisez `ScrollArea` lorsque le panneau doit disposer
-d'une zone de défilement dédiée tandis que la poignée et l'en-tête restent fixes.
-
-<Example name="drawer/scrollable" />
+<Example name="drawer/swipe-direction" />
 
 ### Tailles
 
@@ -129,12 +66,75 @@ Définissez des positions intermédiaires sur la racine et choisissez la positio
 
 <Example name="drawer/snap-points" />
 
-### Direction du balayage
+### Contenu défilant
 
-Utilisez les valeurs logiques `start` et `end` pour les panneaux latéraux afin que le même code
-fonctionne en LTR et en RTL. Utilisez `up` pour un panneau supérieur et `down` pour un panneau inférieur.
+Placez le contenu long dans `DrawerBody`. Utilisez `ScrollArea` lorsque le panneau doit disposer
+d'une zone de défilement dédiée tandis que la poignée et l'en-tête restent fixes.
 
-<Example name="drawer/swipe-direction" />
+<Example name="drawer/scrollable" />
+
+### Poignée flottante
+
+Placez `DrawerGrabber` au-dessus de la surface lorsque la poignée doit apparaître comme un contrôle
+distinct. Le style de cet exemple laisse un espace de 10px entre la poignée et le bord du panneau.
+
+<Example name="drawer/floating-grabber" />
+
+### Contrôles du déplacement
+
+Ajoutez `data-no-drag` aux zones interactives qui ne doivent pas lancer un déplacement. Définissez
+`draggable={false}` sur `DrawerContent` si le panneau doit se déplacer uniquement depuis la poignée.
+
+<Example name="drawer/drag-controls" />
+
+### Arrière-plan décalé
+
+`DrawerStack` utilise l'état de la pile et la progression du balayage d'Ark pour déplacer
+`DrawerIndentBackground` et `DrawerIndent` ensemble.
+
+<Example name="drawer/indent-background" />
+
+### Îlot
+
+Définissez `variant="island"` sur `DrawerContent` lorsqu'un panneau compact doit rester à
+l'intérieur de la fenêtre avec un retrait, plutôt que de dépasser visuellement du bord d'ouverture.
+
+<Example name="drawer/island" />
+
+### Non modal
+
+Définissez `modal={false}` lorsque la page doit rester interactive pendant l'ouverture du panneau.
+Cet exemple garde le déplacement sur la poignée et confie le contenu long à `ScrollArea`.
+
+<Example name="drawer/non-modal" />
+
+### Panneaux imbriqués
+
+Utilisez des instances Ark `useDrawer` et des arborescences moduix `DrawerRootProvider` distinctes
+pour les panneaux imbriqués. Chaque panneau conserve ainsi son propre état d'ouverture et son cycle
+de vie du focus.
+
+<Example name="drawer/nested" />
+
+### Plusieurs triggers
+
+Donnez un `value` à chaque trigger pour réutiliser un seul panneau pour une liste. Le callback
+indique quel trigger est actif.
+
+<Example name="drawer/multiple-triggers" />
+
+### État contrôlé
+
+Lisez `details.open` dans le callback Ark. Le callback reçoit un objet de détails, pas directement un booléen. Voir [Contrôler l’état depuis l’application](/docs/composition-patterns#controlled-state).
+
+<Example name="drawer/controlled" />
+
+### Root Provider
+
+Utilisez l'export moduix `useDrawer` lorsque des boutons situés en dehors de l'arborescence du panneau
+doivent l'ouvrir ou modifier ses points d'ancrage. Voir [Partager l’état hors de l’arbre](/docs/composition-patterns#root-provider).
+
+<Example name="drawer/root-provider" />
 
 ### Assembler à partir des parties
 

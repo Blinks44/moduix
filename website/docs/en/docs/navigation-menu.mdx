@@ -45,20 +45,6 @@ related destinations.
 
 ## Examples
 
-### Click to Open
-
-Set `disableHoverTrigger` when panels should open only on click or keyboard, not on hover. This suits
-touch-first layouts and dense headers where hover would open panels by accident.
-
-<Example name="navigation-menu/click-to-open" />
-
-### Controlled Value
-
-Control the open value from React state, Solid signals, or a Vue ref when the active panel also needs
-to drive nearby application UI. The output below shows the value of the currently open item.
-
-<Example name="navigation-menu/controlled-value" />
-
 ### Shared viewport
 
 Use a shared `NavigationMenuViewport` when panels have different sizes but should animate inside one surface. This
@@ -66,6 +52,20 @@ example uses a two-column panel and panels with different widths, so switching t
 animates the viewport's measured width and height.
 
 <Example name="navigation-menu/viewport" />
+
+### Click to open
+
+Set `disableHoverTrigger` when panels should open only on click or keyboard, not on hover. This suits
+touch-first layouts and dense headers where hover would open panels by accident.
+
+<Example name="navigation-menu/click-to-open" />
+
+### Controlled value
+
+Pass `value` and `onValueChange` (`v-model:value` in Vue) when the open panel also drives nearby UI.
+The output below shows the value of the open item. See [Control state from the application](/docs/composition-patterns#controlled-state).
+
+<Example name="navigation-menu/controlled-value" />
 
 ## Composition
 

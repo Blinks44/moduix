@@ -42,33 +42,26 @@ import AnatomyScene from '@/components/examples/hover-card/anatomy';
 
 ## Примеры
 
-### Контекст
+### Со стрелкой
 
-Используйте `HoverCardContext`, чтобы читать состояние внутри дерева карточки, не меняя его
-видимую структуру.
+Добавьте `HoverCardArrow` внутрь `HoverCardContent`, если нужно визуально связать всплывающее
+окно с триггером. Обёртка по умолчанию выводит `HoverCardArrowTip`; помещайте предпросмотр в
+`HoverCardBody`, чтобы стрелка оставалась частью поверхности с границей, а содержимое могло
+прокручиваться.
 
-<Example name="hover-card/context" />
+<Example name="hover-card/with-arrow" />
 
-### Управляемое состояние
+### Позиционирование
 
-Управляйте открытием карточки с помощью `open` и `onOpenChange(details)`.
+Передавайте параметры позиционирования Ark через свойство `positioning`.
 
-<Example name="hover-card/controlled" />
+<Example name="hover-card/positioning" />
 
 ### Задержка
 
 Настройте время открытия и закрытия с помощью `openDelay` и `closeDelay` у корневого компонента.
 
 <Example name="hover-card/delay" />
-
-### Диалог
-
-Размещайте Hover Card непосредственно внутри диалога, если карточка должна оставаться в его
-слое оверлея. При открытии диалог может установить начальный фокус на триггере Hover Card, и
-карточка откроется после `openDelay`. Укажите в `initialFocusEl` другой элемент, если предпросмотр
-должен оставаться закрытым до наведения или получения фокуса.
-
-<Example name="hover-card/dialog" />
 
 ### Отключённое состояние
 
@@ -84,27 +77,34 @@ import AnatomyScene from '@/components/examples/hover-card/anatomy';
 
 <Example name="hover-card/multiple-triggers" />
 
-### Позиционирование
+### Диалог
 
-Передавайте параметры позиционирования Ark через свойство `positioning`.
+Размещайте Hover Card непосредственно внутри диалога, если карточка должна оставаться в его
+слое оверлея. При открытии диалог может установить начальный фокус на триггере Hover Card, и
+карточка откроется после `openDelay`. Укажите в `initialFocusEl` другой элемент, если предпросмотр
+должен оставаться закрытым до наведения или получения фокуса.
 
-<Example name="hover-card/positioning" />
+<Example name="hover-card/dialog" />
+
+### Управляемое состояние
+
+Управляйте открытием карточки с помощью `open` и `onOpenChange(details)`. Подробнее в разделе [Управляйте состоянием из приложения](/docs/composition-patterns#controlled-state).
+
+<Example name="hover-card/controlled" />
+
+### Контекст
+
+Используйте `HoverCardContext`, чтобы читать состояние внутри дерева карточки, не меняя его
+видимую структуру.
+
+<Example name="hover-card/context" />
 
 ### Root Provider
 
 Используйте `useHoverCard()` с `HoverCardRootProvider`, когда элементам управления или другим
-частям интерфейса за пределами дерева карточки нужно читать её состояние или изменять его.
+частям интерфейса за пределами дерева карточки нужно читать её состояние или изменять его. Подробнее в разделе [Выносите состояние за пределы дерева](/docs/composition-patterns#root-provider).
 
 <Example name="hover-card/root-provider" />
-
-### Со стрелкой
-
-Добавьте `HoverCardArrow` внутрь `HoverCardContent`, если нужно визуально связать всплывающее
-окно с триггером. Обёртка по умолчанию выводит `HoverCardArrowTip`; помещайте предпросмотр в
-`HoverCardBody`, чтобы стрелка оставалась частью поверхности с границей, а содержимое могло
-прокручиваться.
-
-<Example name="hover-card/with-arrow" />
 
 ## Композиция
 
@@ -166,7 +166,7 @@ foundation и не имеют переменных компонента: кла�
 | `HoverCardArrowTip` | `hover-card-arrow-tip` |
 | `HoverCardBody` | `hover-card-body` |
 
-Moduix добавляет атрибуты `data-slot="hover-card-*"` к триггеру, позиционеру, содержимому, стрелке,
+moduix добавляет атрибуты `data-slot="hover-card-*"` к триггеру, позиционеру, содержимому, стрелке,
 наконечнику стрелки и области содержимого. `HoverCard` и `HoverCardRootProvider` только
 предоставляют состояние и не создают DOM-элементы, поэтому у них нет собственных точек стилизации. Ark добавляет к своим частям `data-scope="hover-card"`
 и `data-part`. Для стилизации с учётом состояния используйте `data-state="open|closed"`,

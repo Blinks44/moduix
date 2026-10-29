@@ -42,19 +42,17 @@ et le même état. Pour une seule section indépendante, préférez `Collapsible
 
 ## Exemples
 
+### Plusieurs éléments ouverts
+
+Définissez `multiple` lorsque plusieurs sections doivent rester ouvertes simultanément.
+
+<Example name="accordion/multiple" />
+
 ### Repliable
 
 Activez `collapsible` pour permettre de refermer l'élément ouvert sans en ouvrir un autre.
 
 <Example name="accordion/collapsible" />
-
-### État contrôlé
-
-Gérez `value` avec `useState` en React, `createSignal` en Solid, ou `ref` et `v-model` en Vue lorsque
-les éléments ouverts doivent rester synchronisés avec le routage, les filtres ou le reste de
-l’interface.
-
-<Example name="accordion/controlled" />
 
 ### Élément désactivé
 
@@ -69,6 +67,13 @@ au clavier horizontale.
 
 <Example name="accordion/horizontal" />
 
+### État contrôlé
+
+Passez `value` et `onValueChange` (`v-model` en Vue) lorsque les éléments ouverts suivent le routage,
+les filtres ou l’interface voisine. `value` est toujours un tableau de valeurs, même sans `multiple`. Voir [Contrôler l’état depuis l’application](/docs/composition-patterns#controlled-state).
+
+<Example name="accordion/controlled" />
+
 ### Montage différé
 
 Combinez `lazyMount` et `unmountOnExit` lorsque le contenu masqué est coûteux à rendre et doit être
@@ -77,20 +82,6 @@ doit rester monté tout en suspendant ses effets lorsqu’il est masqué.
 
 <Example name="accordion/lazy-mount" />
 
-### Plusieurs éléments ouverts
-
-Définissez `multiple` lorsque plusieurs sections doivent rester ouvertes simultanément.
-
-<Example name="accordion/multiple" />
-
-### Root Provider
-
-Utilisez `useAccordion()` du paquet correspondant au framework avec `AccordionRootProvider` lorsque
-l’état doit être créé en dehors de l’arbre de l’accordéon. Ne rendez pas `Accordion` pour le même
-état.
-
-<Example name="accordion/root-provider" />
-
 ### Avec un slider
 
 Le contenu d'un accordéon peut accueillir un autre widget composite basé sur Ark, comme `Slider`.
@@ -98,6 +89,14 @@ Gardez la structure des parties de chaque primitive explicite afin que le bon co
 et les champs de formulaire masqués.
 
 <Example name="accordion/with-slider" />
+
+### Root Provider
+
+Utilisez `useAccordion()` du paquet correspondant au framework avec `AccordionRootProvider` lorsque
+l’état doit être créé en dehors de l’arbre de l’accordéon. Ne rendez pas `Accordion` pour le même
+état. Voir [Partager l’état hors de l’arbre](/docs/composition-patterns#root-provider).
+
+<Example name="accordion/root-provider" />
 
 ### Assembler à partir des parties
 

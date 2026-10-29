@@ -36,39 +36,12 @@ them.
 
 ## Examples
 
-### Card layouts
-
-Use the same aspect ratio for card media to keep repeated cards aligned, even when the source images have
-different dimensions.
-
-<Example name="aspect-ratio/card-grid" />
-
 ### Common ratios
 
 Pass the width divided by height to `ratio`: `1` for a square avatar or thumbnail, `4 / 3` for photos,
 and `16 / 9` for video.
 
 <Example name="aspect-ratio/common-ratios" />
-
-### Custom Element
-
-Use `asChild` when another semantic element, such as `figure`, should be the rendered root. Ark merges the
-component props into its only child element.
-
-<Example name="aspect-ratio/custom-element" />
-
-### Embedded content
-
-Wrap a video or another embed in `AspectRatio` to keep the frame stable while external content loads.
-
-<Example name="aspect-ratio/embedded-content" />
-
-### Migrating from shadcn
-
-If you are migrating from shadcn, put width, clipping, and radius classes on `AspectRatio`, and size the media
-inside it explicitly. The same root setup also works with Next.js `Image` using `fill`.
-
-<Example name="aspect-ratio/migrating-from-shadcn" />
 
 ### Responsive ratio
 
@@ -77,6 +50,33 @@ media query. The class wins over the component style, so this frame is square on
 40rem.
 
 <Example name="aspect-ratio/responsive-ratio" />
+
+### Card layouts
+
+Use the same aspect ratio for card media to keep repeated cards aligned, even when the source images have
+different dimensions.
+
+<Example name="aspect-ratio/card-grid" />
+
+### Embedded content
+
+Wrap a video or another embed in `AspectRatio` to keep the frame stable while external content loads.
+
+<Example name="aspect-ratio/embedded-content" />
+
+### Custom element
+
+Use `asChild` when another semantic element, such as `figure`, should be the rendered root. Ark merges the
+component props into its only child element.
+
+<Example name="aspect-ratio/custom-element" />
+
+### Migrating from shadcn
+
+If you are migrating from shadcn, put width, clipping, and radius classes on `AspectRatio`, and size the media
+inside it explicitly. The same root setup also works with Next.js `Image` using `fill`.
+
+<Example name="aspect-ratio/migrating-from-shadcn" />
 
 ## Composition
 

@@ -42,15 +42,6 @@ fixer `decoding`. Les attributs natifs définis explicitement remplacent ces val
 
 ## Exemples
 
-### Cadrage selon l’écran
-
-Utilisez `ImageSource` pour afficher une vue plus large d’un bureau sur les grands écrans et une image
-au format portrait sur les petits écrans. La première source destinée aux grands écrans demande le format
-AVIF. La suivante sert de solution de remplacement aux navigateurs qui ne prennent pas l’AVIF en charge.
-`ImageSource` doit rester dans un élément natif `<picture>`.
-
-<Example name="image/art-direction" />
-
 ### Taille fixe
 
 Utilisez `layout="fixed"` lorsque l’image doit conserver des dimensions exactes en pixels CSS.
@@ -65,6 +56,15 @@ Utilisez `layout="fullWidth"` pour une image principale ou une section média qu
 la largeur de son conteneur. Indiquez `height` si la hauteur du cadrage doit rester fixe.
 
 <Example name="image/full-width" />
+
+### Cadrage selon l’écran
+
+Utilisez `ImageSource` pour afficher une vue plus large d’un bureau sur les grands écrans et une image
+au format portrait sur les petits écrans. La première source destinée aux grands écrans demande le format
+AVIF. La suivante sert de solution de remplacement aux navigateurs qui ne prennent pas l’AVIF en charge.
+`ImageSource` doit rester dans un élément natif `<picture>`.
+
+<Example name="image/art-direction" />
 
 ## Composition
 

@@ -47,6 +47,49 @@ import { CssPropertiesSection } from '@/components/mdx/Components';
 
 ## Примеры
 
+### Варианты
+
+Установите `variant` на группе, если все элементы должны использовать одинаковое оформление.
+
+<Example name="toggle-group/variants" />
+
+### Размеры
+
+Задайте `size` у `ToggleGroup`: `xs`, `sm`, `md` или `lg`. Все пункты группы получают один размер.
+
+<Example name="toggle-group/sizes" />
+
+### Иконки
+
+Передавайте иконки как обычные дочерние элементы. Элементам только с иконками всегда нужно доступное имя.
+
+<Example name="toggle-group/icons" />
+
+### Множественный выбор
+
+Используйте `multiple`, если несколько вариантов могут оставаться выбранными одновременно.
+
+<Example name="toggle-group/multiple-selection" />
+
+### Вертикальная ориентация
+
+Установите `orientation="vertical"`, если варианты должны располагаться столбцом.
+
+<Example name="toggle-group/vertical" />
+
+### Отключённая группа и элемент
+
+Используйте `disabled` на группе или отдельном элементе, чтобы запретить взаимодействие.
+
+<Example name="toggle-group/disabled" />
+
+### Управляемое состояние
+
+Управляйте `value` в React и Solid или используйте `v-model` во Vue, если выбранные элементы должны
+оставаться синхронизированными с состоянием остального приложения. Подробнее в разделе [Управляйте состоянием из приложения](/docs/composition-patterns#controlled-state).
+
+<Example name="toggle-group/controlled" />
+
 ### asChild
 
 Используйте `asChild` на элементе, если отрисовываемым элементом должна управлять пользовательская
@@ -63,55 +106,12 @@ Solid или scoped slot во Vue.
 
 <Example name="toggle-group/context" />
 
-### Управляемое состояние
-
-Управляйте `value` в React и Solid или используйте `v-model` во Vue, если выбранные элементы должны
-оставаться синхронизированными с состоянием остального приложения.
-
-<Example name="toggle-group/controlled" />
-
-### Отключённая группа и элемент
-
-Используйте `disabled` на группе или отдельном элементе, чтобы запретить взаимодействие.
-
-<Example name="toggle-group/disabled" />
-
-### Иконки
-
-Передавайте иконки как обычные дочерние элементы. Элементам только с иконками всегда нужно доступное имя.
-
-<Example name="toggle-group/icons" />
-
-### Множественный выбор
-
-Используйте `multiple`, если несколько вариантов могут оставаться выбранными одновременно.
-
-<Example name="toggle-group/multiple-selection" />
-
 ### Root Provider
 
 Используйте `ToggleGroupRootProvider` с `useToggleGroup()`, если экземпляр состояния нужно создать
-вне дерева отрисованной группы.
+вне дерева отрисованной группы. Подробнее в разделе [Выносите состояние за пределы дерева](/docs/composition-patterns#root-provider).
 
 <Example name="toggle-group/root-provider" />
-
-### Размеры
-
-Задайте `size` у `ToggleGroup`: `xs`, `sm`, `md` или `lg`. Все пункты группы получают один размер.
-
-<Example name="toggle-group/sizes" />
-
-### Варианты
-
-Установите `variant` на группе, если все элементы должны использовать одинаковое оформление.
-
-<Example name="toggle-group/variants" />
-
-### Вертикальная ориентация
-
-Установите `orientation="vertical"`, если варианты должны располагаться столбцом.
-
-<Example name="toggle-group/vertical" />
 
 ## Композиция
 

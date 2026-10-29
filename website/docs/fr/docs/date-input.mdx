@@ -42,18 +42,52 @@ import * as DateInputDocs from '@/components/examples/date-input/css-properties'
 
 ## Exemples
 
-### État contrôlé
+### Granularité
 
-Passez le tableau de dates sélectionnées à `value` et mettez-le à jour avec `details.value` dans `onValueChange`.
+Définissez `granularity` pour ajouter les segments horaires au champ.
 
-<Example name="date-input/controlled" />
+<Example name="date-input/granularity" />
 
-### Segments personnalisés
+### Heure uniquement
 
-Stylisez chaque segment selon ses données Ark avec `DateInputSegmentContext`. Dans cet exemple, le
-segment du jour reçoit sa propre classe.
+Utilisez un formateur configuré pour l’heure seule avec une granularité en minutes ou en secondes lorsque la date
+ne fait pas partie de la valeur modifiée par l’utilisateur.
 
-<Example name="date-input/custom-segments" />
+<Example name="date-input/time-only" />
+
+### Plage
+
+Utilisez `selectionMode="range"`, passez `index` à chaque groupe de segments et ajoutez les
+`DateInputHiddenInput` indexés correspondants lorsque les valeurs sont envoyées avec un formulaire.
+
+<Example name="date-input/range" />
+
+### Locale
+
+Définissez `locale`, `timeZone`, `hourCycle` ou `granularity` sur la racine lorsque l’ordre et les libellés des
+segments doivent suivre les conventions régionales.
+
+<Example name="date-input/locale" />
+
+### Zéros initiaux
+
+Définissez `shouldForceLeadingZeros={false}` lorsque les segments numériques ne doivent pas avoir de zéros
+initiaux.
+
+<Example name="date-input/leading-zeros" />
+
+### De droite à gauche
+
+Définissez `dir="rtl"` avec une locale RTL pour conserver la direction et l’ordre des segments de la locale.
+
+<Example name="date-input/right-to-left" />
+
+### Date minimale, date maximale et dates indisponibles
+
+Utilisez `min`, `max` et `isDateUnavailable` pour appliquer les règles métier et marquer les dates saisies
+comme non valides lorsqu’elles sont en dehors des limites.
+
+<Example name="date-input/min-max-and-unavailable-dates" />
 
 ### Désactivé et en lecture seule
 
@@ -69,59 +103,25 @@ Entourez `DateInput` avec `Field` pour ajouter le texte d’aide du formulaire. 
 
 <Example name="date-input/field-state" />
 
-### Granularité
+### Segments personnalisés
 
-Définissez `granularity` pour ajouter les segments horaires au champ.
+Stylisez chaque segment selon ses données Ark avec `DateInputSegmentContext`. Dans cet exemple, le
+segment du jour reçoit sa propre classe.
 
-<Example name="date-input/granularity" />
+<Example name="date-input/custom-segments" />
 
-### Zéros initiaux
+### État contrôlé
 
-Définissez `shouldForceLeadingZeros={false}` lorsque les segments numériques ne doivent pas avoir de zéros
-initiaux.
+Passez le tableau de dates sélectionnées à `value` et mettez-le à jour avec `details.value` dans `onValueChange`. Voir [Contrôler l’état depuis l’application](/docs/composition-patterns#controlled-state).
 
-<Example name="date-input/leading-zeros" />
-
-### Locale
-
-Définissez `locale`, `timeZone`, `hourCycle` ou `granularity` sur la racine lorsque l’ordre et les libellés des
-segments doivent suivre les conventions régionales.
-
-<Example name="date-input/locale" />
-
-### Date minimale, date maximale et dates indisponibles
-
-Utilisez `min`, `max` et `isDateUnavailable` pour appliquer les règles métier et marquer les dates saisies
-comme non valides lorsqu’elles sont en dehors des limites.
-
-<Example name="date-input/min-max-and-unavailable-dates" />
-
-### Plage
-
-Utilisez `selectionMode="range"`, passez `index` à chaque groupe de segments et ajoutez les
-`DateInputHiddenInput` indexés correspondants lorsque les valeurs sont envoyées avec un formulaire.
-
-<Example name="date-input/range" />
-
-### De droite à gauche
-
-Définissez `dir="rtl"` avec une locale RTL pour conserver la direction et l’ordre des segments de la locale.
-
-<Example name="date-input/right-to-left" />
+<Example name="date-input/controlled" />
 
 ### Root Provider
 
 Utilisez `useDateInput()` depuis `@moduix/react`, `@moduix/solid` ou `@moduix/vue` avec `DateInputRootProvider` lorsque les
-actions sur l’état doivent être accessibles en dehors de l’arborescence racine rendue.
+actions sur l’état doivent être accessibles en dehors de l’arborescence racine rendue. Voir [Partager l’état hors de l’arbre](/docs/composition-patterns#root-provider).
 
 <Example name="date-input/root-provider" />
-
-### Heure uniquement
-
-Utilisez un formateur configuré pour l’heure seule avec une granularité en minutes ou en secondes lorsque la date
-ne fait pas partie de la valeur modifiée par l’utilisateur.
-
-<Example name="date-input/time-only" />
 
 ### Assembler à partir des parties
 

@@ -36,29 +36,57 @@ recommended setup for invoices, summaries, and admin-style read-only datasets.
 
 ## Examples
 
-### Caption and Footer
+### Sizes
+
+Use `size` for density. It changes cell padding and font size. For an outer border without
+`TableScrollArea`, add a border class to `Table`.
+
+<Example name="table/sizes" />
+
+### Striped rows
+
+Use `striped` when long read-only bodies need stronger row separation without switching to a more
+opinionated table abstraction.
+
+<Example name="table/striped-rows" />
+
+### Caption and footer
 
 Use `TableCaption side="top"` when the label reads better before the data, and `TableFooter` for
 totals or summaries.
 
 <Example name="table/caption-and-footer" />
 
-### Column Group and Borders
+### Numeric columns
+
+Use `numeric` on both the header and the cells for aligned amounts, counts, percentages, and other
+numeric metrics.
+
+<Example name="table/numeric-columns" />
+
+### Column group and borders
 
 Use `TableColumnGroup` and `TableColumn` for native column widths, and `showColumnBorder` when
 column separation needs to be visible.
 
 <Example name="table/column-group-and-borders" />
 
-### Custom Wrapper
+### Sticky header and column
 
-Use your own wrapper instead of `TableScrollArea` when the surrounding layout already owns the
-surface or scrolling behavior. This keeps the native table composition explicit while giving your
-layout full control of the shell.
+Use `stickyHeader` on the root and `data-sticky="start" | "end"` on cells when a horizontally or
+vertically scrolling table needs persistent context. Sticky cells keep the striped, hover, and
+focus row colors.
 
-<Example name="table/custom-wrapper" />
+<Example name="table/sticky-header-and-column" />
 
-### Empty State
+### Row actions with Menu
+
+Use the last column for row-specific actions when the dataset needs lightweight overflow commands.
+`Menu` fits this case cleanly without changing the native table structure.
+
+<Example name="table/row-actions-with-menu" />
+
+### Empty state
 
 Use `TableEmpty` when a body would otherwise render no rows. Set `colSpan` to the current number of
 columns.
@@ -71,42 +99,6 @@ columns.
 
 <Example name="table/inside-card" />
 
-### Numeric Columns
-
-Use `numeric` on both the header and the cells for aligned amounts, counts, percentages, and other
-numeric metrics.
-
-<Example name="table/numeric-columns" />
-
-### Row Actions With Menu
-
-Use the last column for row-specific actions when the dataset needs lightweight overflow commands.
-`Menu` fits this case cleanly without changing the native table structure.
-
-<Example name="table/row-actions-with-menu" />
-
-### Sizes
-
-Use `size` for density. It changes cell padding and font size. For an outer border without
-`TableScrollArea`, add a border class to `Table`.
-
-<Example name="table/sizes" />
-
-### Sticky Header and Column
-
-Use `stickyHeader` on the root and `data-sticky="start" | "end"` on cells when a horizontally or
-vertically scrolling table needs persistent context. Sticky cells keep the striped, hover, and
-focus row colors.
-
-<Example name="table/sticky-header-and-column" />
-
-### Striped Rows
-
-Use `striped` when long read-only bodies need stronger row separation without switching to a more
-opinionated table abstraction.
-
-<Example name="table/striped-rows" />
-
 ### With ScrollArea
 
 Use `ScrollArea` directly when the table needs styled scrollbars on both axes, fade behavior, or the
@@ -114,6 +106,14 @@ scroll area API. `TableScrollArea` is a simpler bordered horizontal-overflow wra
 `ScrollArea` structure explicit so the table stays native and lightweight.
 
 <Example name="table/with-scrollarea" />
+
+### Custom wrapper
+
+Use your own wrapper instead of `TableScrollArea` when the surrounding layout already owns the
+surface or scrolling behavior. This keeps the native table composition explicit while giving your
+layout full control of the shell.
+
+<Example name="table/custom-wrapper" />
 
 ## Composition
 

@@ -44,11 +44,20 @@ Use `AngleSlider` when users need to set a direction or rotation on a circular d
 
 ## Examples
 
-### Controlled
+### With marks
 
-Use controlled state when the angle needs to stay synchronized with application state.
+Use `AngleSliderMarks` when the dial should show common reference angles without repeating the
+`AngleSliderMarkerGroup` and `AngleSliderMarker` boilerplate. `AngleSliderDial` keeps the
+`AngleSliderControl` and `AngleSliderThumb`
+composition together.
 
-<Example name="angle-slider/controlled" />
+<Example name="angle-slider/with-marks" />
+
+### Steps
+
+Use `step` to snap pointer and keyboard interaction to fixed angular increments.
+
+<Example name="angle-slider/steps" />
 
 ### Disabled
 
@@ -56,12 +65,11 @@ Use `disabled` when the control should be unavailable and excluded from focus an
 
 <Example name="angle-slider/disabled" />
 
-### In a Form
+### Read only
 
-Add `AngleSliderHiddenInput` and `name` to include the angle in native form submission. Set `form`
-on `AngleSliderHiddenInput` when the form is not an ancestor of the slider.
+Use `readOnly` when the current value should remain focusable and visible but not editable.
 
-<Example name="angle-slider/form" />
+<Example name="angle-slider/read-only" />
 
 ### Invalid
 
@@ -70,34 +78,26 @@ corresponding ARIA state without changing its interaction model.
 
 <Example name="angle-slider/invalid" />
 
-### Read Only
+### In a form
 
-Use `readOnly` when the current value should remain focusable and visible but not editable.
+Add `AngleSliderHiddenInput` and `name` to include the angle in native form submission. Set `form`
+on `AngleSliderHiddenInput` when the form is not an ancestor of the slider.
 
-<Example name="angle-slider/read-only" />
+<Example name="angle-slider/form" />
 
-### Root Provider
+### Controlled
+
+Use controlled state when the angle needs to stay synchronized with application state. See [Control state from the application](/docs/composition-patterns#controlled-state).
+
+<Example name="angle-slider/controlled" />
+
+### Root provider
 
 Use `useAngleSlider()` from the matching framework package with `AngleSliderRootProvider` when
 another component needs direct access to the same state machine. The external state can then drive
-surrounding UI.
+surrounding UI. See [Share state outside the tree](/docs/composition-patterns#root-provider).
 
 <Example name="angle-slider/root-provider" />
-
-### Steps
-
-Use `step` to snap pointer and keyboard interaction to fixed angular increments.
-
-<Example name="angle-slider/steps" />
-
-### With Marks
-
-Use `AngleSliderMarks` when the dial should show common reference angles without repeating the
-`AngleSliderMarkerGroup` and `AngleSliderMarker` boilerplate. `AngleSliderDial` keeps the
-`AngleSliderControl` and `AngleSliderThumb`
-composition together.
-
-<Example name="angle-slider/with-marks" />
 
 ### Build from parts
 

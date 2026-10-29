@@ -44,61 +44,19 @@ Use `Select` when the same predefined choice does not need an editable input.
 
 ## Examples
 
-### Async Search
+### Multiple
 
-Replace collection items with async results and render `ComboboxStatus` while a request is pending.
-Use `details.reason` to distinguish typed input from machine-driven updates. When the query is empty,
-show a `Start typing to search…` status so the popup remains informative.
+Enable `multiple` and render selected objects from controlled `value`. Tags belong to the application;
+when they must live inside the same field shell, compose `Combobox` with `TagsInput`.
 
-<Example name="combobox/async-search" />
+<Example name="combobox/multiple" />
 
-### Auto Highlight
-
-Set `inputBehavior="autohighlight"` to highlight the first matching item while the user types, so
-Enter can select it without an extra arrow-key press.
-
-<Example name="combobox/auto-highlight" />
-
-### Controlled
-
-Control the selected string array and read the next value from `details.value`.
-
-<Example name="combobox/controlled" />
-
-### Creatable
-
-Combine `allowCustomValue` with collection mutation to expose a temporary “Create” item, then
-replace that sentinel value with the user-entered value after selection.
-
-<Example name="combobox/creatable" />
-
-### Custom Objects and Grouping
+### Custom objects and grouping
 
 Map object labels and values on the collection, then render Ark item groups from
 `collection.group()`. Group labels stick to the top edge of the popup while its results scroll.
 
 <Example name="combobox/custom-objects-and-grouping" />
-
-### Dynamic
-
-Build the collection from the current input when suggestions do not exist until the user starts
-typing. Check `details.reason` to avoid rebuilding it after selection-driven input changes.
-
-<Example name="combobox/dynamic" />
-
-### Inline Autocomplete
-
-Set `inputBehavior="autocomplete"` and filter with `startsWith` to complete the input from the
-first matching item while preserving Ark keyboard navigation.
-
-<Example name="combobox/inline-autocomplete" />
-
-### Limit Results
-
-Set `limit` on `useListCollection` when the full matching set is unnecessary or would make the
-popup harder to scan. Filtering still runs against the complete initial collection.
-
-<Example name="combobox/limit-results" />
 
 ### Links
 
@@ -107,20 +65,48 @@ Render each result as a link with `ComboboxItem asChild` when choosing an item s
 
 <Example name="combobox/links" />
 
-### Multiple
+### Auto highlight
 
-Enable `multiple` and render selected objects from controlled `value`. Tags belong to the application;
-when they must live inside the same field shell, compose `Combobox` with `TagsInput`.
+Set `inputBehavior="autohighlight"` to highlight the first matching item while the user types, so
+Enter can select it without an extra arrow-key press.
 
-<Example name="combobox/multiple" />
+<Example name="combobox/auto-highlight" />
 
-### Root Provider
+### Inline autocomplete
 
-Create the state with moduix's `useCombobox` when external controls need imperative methods or shared
-state before the root renders. `ComboboxRootProvider` preserves the moduix root styling and portal
-configuration.
+Set `inputBehavior="autocomplete"` and filter with `startsWith` to complete the input from the
+first matching item while preserving Ark keyboard navigation.
 
-<Example name="combobox/root-provider" />
+<Example name="combobox/inline-autocomplete" />
+
+### Limit results
+
+Set `limit` on `useListCollection` when the full matching set is unnecessary or would make the
+popup harder to scan. Filtering still runs against the complete initial collection.
+
+<Example name="combobox/limit-results" />
+
+### Creatable
+
+Combine `allowCustomValue` with collection mutation to expose a temporary “Create” item, then
+replace that sentinel value with the user-entered value after selection.
+
+<Example name="combobox/creatable" />
+
+### Async search
+
+Replace collection items with async results and render `ComboboxStatus` while a request is pending.
+Use `details.reason` to distinguish typed input from machine-driven updates. When the query is empty,
+show a `Start typing to search…` status so the popup remains informative.
+
+<Example name="combobox/async-search" />
+
+### Dynamic
+
+Build the collection from the current input when suggestions do not exist until the user starts
+typing. Check `details.reason` to avoid rebuilding it after selection-driven input changes.
+
+<Example name="combobox/dynamic" />
 
 ### Virtualized
 
@@ -137,6 +123,20 @@ Use `Combobox` with `TagsInput` when users need filtered suggestions but the sel
 live inside one editable chip field.
 
 <Example name="combobox/with-tags-input" />
+
+### Controlled
+
+Control the selected string array and read the next value from `details.value`. See [Control state from the application](/docs/composition-patterns#controlled-state).
+
+<Example name="combobox/controlled" />
+
+### Root provider
+
+Create the state with moduix's `useCombobox` when external controls need imperative methods or shared
+state before the root renders. `ComboboxRootProvider` preserves the moduix root styling and portal
+configuration. See [Share state outside the tree](/docs/composition-patterns#root-provider).
+
+<Example name="combobox/root-provider" />
 
 ### Build from parts
 

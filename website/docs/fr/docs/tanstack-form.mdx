@@ -1,12 +1,12 @@
 ---
 title: TanStack Form
-description: Reliez les composants Moduix aux adaptateurs TanStack Form natifs des frameworks pris en charge.
+description: Reliez les composants moduix aux adaptateurs TanStack Form natifs des frameworks pris en charge.
 ---
 
 # TanStack Form
 
 [TanStack Form](https://tanstack.com/form/latest) fournit un état de formulaire typé et sans interface,
-avec des adaptateurs natifs pour chaque framework pris en charge. Ce guide relie cet état aux composants Moduix.
+avec des adaptateurs natifs pour chaque framework pris en charge. Ce guide relie cet état aux composants moduix.
 
 ## Prise en charge des frameworks
 
@@ -37,7 +37,7 @@ Vue utilise `useForm` et le slot de portée `{ field, state }` de `form.Field`. 
 ## Relier les composants
 
 Les champs TanStack Form utilisent des valeurs contrôlées. Lisez la valeur courante, transmettez-la au
-composant Moduix, puis envoyez la suivante à `field.handleChange`.
+composant moduix, puis envoyez la suivante à `field.handleChange`.
 
 | Composant           | Correspondance                                                        |
 | ------------------- | --------------------------------------------------------------------- |
@@ -47,7 +47,7 @@ composant Moduix, puis envoyez la suivante à `field.handleChange`.
 | `Checkbox`          | Convertissez `details.checked === true` en valeur booléenne.          |
 
 Définissez tous les champs dans `defaultValues`. Transmettez `handleBlur` depuis la véritable limite
-d’interaction et conservez le `HiddenSelect` ou `HiddenInput` requis dans la composition Moduix.
+d’interaction et conservez le `HiddenSelect` ou `HiddenInput` requis dans la composition moduix.
 
 ## Validation et réinitialisation
 
@@ -56,7 +56,7 @@ les règles entre champs. Transmettez `!field.state.meta.isValid` à `Field inva
 erreurs avec `FieldErrorText` après le cycle de validation choisi.
 
 Ajoutez `noValidate` uniquement lorsque TanStack Form gère les erreurs visibles. Appelez
-`form.reset()` afin de réinitialiser ensemble l’état et les contrôles Moduix.
+`form.reset()` afin de réinitialiser ensemble l’état et les contrôles moduix.
 
 ## Formulaire complet
 

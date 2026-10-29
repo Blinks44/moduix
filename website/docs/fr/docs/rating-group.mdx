@@ -39,12 +39,18 @@ Utilisez `RatingGroup` lorsque l’utilisateur doit choisir une note numérique 
 
 ## Exemples
 
-### État contrôlé
+### Tailles
 
-Gérez `value` avec `useState` en React, `createSignal` en Solid, ou `ref` et `v-model` en Vue lorsque
-la note dépend d’un autre état, pilote l’interface voisine ou doit être réinitialisée par le parent.
+Utilisez la propriété `size` de moduix lorsque la notation doit conserver le comportement d’Ark avec
+une densité visuelle différente.
 
-<Example name="rating-group/controlled" />
+<Example name="rating-group/sizes" />
+
+### Notation par demi-pas
+
+Définissez `allowHalf` pour activer la sélection et l’affichage par demi-pas.
+
+<Example name="rating-group/half-rating" />
 
 ### Icône personnalisée
 
@@ -76,25 +82,19 @@ Passez `name` et rendez `RatingGroupHiddenInput` lorsque la note sélectionnée 
 
 <Example name="rating-group/forms" />
 
-### Notation par demi-pas
+### État contrôlé
 
-Définissez `allowHalf` pour activer la sélection et l’affichage par demi-pas.
+Passez `value` et `onValueChange` (`v-model` en Vue) lorsque la note dépend d’un autre état ou est
+réinitialisée par le parent. Voir [Contrôler l’état depuis l’application](/docs/composition-patterns#controlled-state).
 
-<Example name="rating-group/half-rating" />
+<Example name="rating-group/controlled" />
 
 ### Root Provider
 
 Utilisez `RatingGroupRootProvider` avec `useRatingGroup()` lorsque l’état de la notation doit être créé
-en dehors de l’arbre rendu, par exemple pour définir la valeur depuis un bouton séparé.
+en dehors de l’arbre rendu, par exemple pour définir la valeur depuis un bouton séparé. Voir [Partager l’état hors de l’arbre](/docs/composition-patterns#root-provider).
 
 <Example name="rating-group/root-provider" />
-
-### Tailles
-
-Utilisez la propriété `size` de moduix lorsque la notation doit conserver le comportement d’Ark avec
-une densité visuelle différente.
-
-<Example name="rating-group/sizes" />
 
 ### Assembler à partir des parties
 

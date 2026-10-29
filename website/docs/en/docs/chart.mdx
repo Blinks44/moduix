@@ -42,12 +42,6 @@ legend around the plot, then provide a concise `ariaLabel` for assistive technol
 
 ## Examples
 
-### Animated area
-
-Area, line, points, grouped focus, and tooltip motion all remain native TanStack behavior.
-
-<Example name="chart/animated-area" />
-
 ### Chart colors
 
 Use moduix chart tokens in the TanStack color scale. CSS custom properties work as SVG paint values
@@ -55,28 +49,32 @@ and automatically follow the active theme.
 
 <Example name="chart/line-colors" />
 
-### Dashboard Layout
+### Animated area
 
-The Ark factory parts accept `asChild`, so they can apply their styles to semantic elements in your
-layout. This dashboard example combines Chart with Button, replaces the default `figure` and
-`figcaption` with a labelled `section` and `header`, and places the legend in the header.
+Area, line, points, grouped focus, and tooltip motion all remain native TanStack behavior.
 
-`ChartPlot` is still the TanStack host, not a slot. Use its `class` or `className` and `style` on
-the outer element, and use `renderTooltipBody` to extend the tooltip. Render `defaultBody` inside
-your own wrapper while TanStack continues to position and portal it. Add interactive controls only
-to a pinned tooltip.
+<Example name="chart/animated-area" />
 
-<Example name="chart/dashboard-layout" />
+### Stacked bars
 
-### Interactive legend
+Use a TanStack color channel and the `stack()` layout for multi-series bars. `focus: 'group-x'`
+keeps the tooltip and keyboard focus grouped by quarter.
 
-Use TanStack's `interactiveColorLegend` instead of a separate `ChartLegend` when readers need to
-hide series. With v1, `hover: 'series'` also applies mark states on pointer hover and keyboard
-focus. The `source: 'legend'` states highlight the series without opening a tooltip or changing
-plot focus. Keep the visible series in framework state through `controlledSignal`; TanStack owns
-the buttons, filtering, and keyboard interaction.
+<Example name="chart/stacked-bars" />
 
-<Example name="chart/interactive-legend" />
+### Horizontal bars
+
+Use `barX` when category labels are long or the ranking should read from top to bottom. The numeric
+value belongs on x and the category belongs on y.
+
+<Example name="chart/horizontal-bars" />
+
+### Donut chart
+
+Compose TanStack's opt-in `pie`, `polar`, and `radialArc` primitives for part-to-whole data. The
+same composition of `ChartPlot`, motion, focus, tooltip, and legend works outside Cartesian charts.
+
+<Example name="chart/donut" />
 
 ### Radar chart
 
@@ -91,12 +89,12 @@ This example also needs `d3-shape` and its TypeScript types:
 
 <Example name="chart/radar" />
 
-### Donut chart
+### Scatter plot
 
-Compose TanStack's opt-in `pie`, `polar`, and `radialArc` primitives for part-to-whole data. The
-same composition of `ChartPlot`, motion, focus, tooltip, and legend works outside Cartesian charts.
+Use `dot` to compare two quantitative values. Color can carry one additional categorical dimension
+without changing the x and y relationship.
 
-<Example name="chart/donut" />
+<Example name="chart/scatter" />
 
 ### Heatmap
 
@@ -105,26 +103,28 @@ turns each cell's level into a theme-aware paint value.
 
 <Example name="chart/heatmap" />
 
-### Horizontal bars
+### Interactive legend
 
-Use `barX` when category labels are long or the ranking should read from top to bottom. The numeric
-value belongs on x and the category belongs on y.
+Use TanStack's `interactiveColorLegend` instead of a separate `ChartLegend` when readers need to
+hide series. With v1, `hover: 'series'` also applies mark states on pointer hover and keyboard
+focus. The `source: 'legend'` states highlight the series without opening a tooltip or changing
+plot focus. Keep the visible series in framework state through `controlledSignal`; TanStack owns
+the buttons, filtering, and keyboard interaction.
 
-<Example name="chart/horizontal-bars" />
+<Example name="chart/interactive-legend" />
 
-### Scatter plot
+### Dashboard layout
 
-Use `dot` to compare two quantitative values. Color can carry one additional categorical dimension
-without changing the x and y relationship.
+The Ark factory parts accept `asChild`, so they can apply their styles to semantic elements in your
+layout. This dashboard example combines Chart with Button, replaces the default `figure` and
+`figcaption` with a labelled `section` and `header`, and places the legend in the header.
 
-<Example name="chart/scatter" />
+`ChartPlot` is still the TanStack host, not a slot. Use its `class` or `className` and `style` on
+the outer element, and use `renderTooltipBody` to extend the tooltip. Render `defaultBody` inside
+your own wrapper while TanStack continues to position and portal it. Add interactive controls only
+to a pinned tooltip.
 
-### Stacked bars
-
-Use a TanStack color channel and the `stack()` layout for multi-series bars. `focus: 'group-x'`
-keeps the tooltip and keyboard focus grouped by quarter.
-
-<Example name="chart/stacked-bars" />
+<Example name="chart/dashboard-layout" />
 
 ## Composition
 

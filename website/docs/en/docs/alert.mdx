@@ -42,19 +42,6 @@ flow.
 
 ## Examples
 
-### Custom Heading
-
-Use `asChild` on `AlertTitle` when the alert title needs to participate in the page's heading hierarchy.
-
-<Example name="alert/custom-heading" />
-
-### Error
-
-Set `status="error"` for stronger visual emphasis. Add `role="alert"` only when the message needs an
-assertive announcement.
-
-<Example name="alert/error" />
-
 ### Statuses
 
 Use the four statuses to distinguish informational, successful, warning, and error messages. Add
@@ -62,19 +49,32 @@ Use the four statuses to distinguish informational, successful, warning, and err
 
 <Example name="alert/statuses" />
 
-### With Actions
+### With icon
+
+Place a moduix icon or custom SVG inside `AlertIndicator`. A size class on the icon overrides the
+default icon size.
+
+<Example name="alert/with-icon" />
+
+### Custom heading
+
+Use `asChild` on `AlertTitle` when the alert title needs to participate in the page's heading hierarchy.
+
+<Example name="alert/custom-heading" />
+
+### With actions
 
 Use `AlertContent` and `AlertActions` when the message needs recovery or follow-up controls. Keep
 dismissal state in the component that renders the alert when a local alert should be hidden.
 
 <Example name="alert/with-actions" />
 
-### With Icon
+### Error
 
-Place a moduix icon or custom SVG inside `AlertIndicator`. A size class on the icon overrides the
-default icon size.
+Set `status="error"` for stronger visual emphasis. Add `role="alert"` only when the message needs an
+assertive announcement.
 
-<Example name="alert/with-icon" />
+<Example name="alert/error" />
 
 ## Composition
 

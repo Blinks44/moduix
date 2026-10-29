@@ -43,19 +43,17 @@ import * as AccordionDocs from '@/components/examples/accordion/css-properties';
 
 ## Примеры
 
+### Несколько открытых элементов
+
+Установите `multiple`, если одновременно должны оставаться открытыми несколько разделов.
+
+<Example name="accordion/multiple" />
+
 ### Сворачиваемый режим
 
 Включите `collapsible`, чтобы открытый элемент можно было закрыть, не открывая другой.
 
 <Example name="accordion/collapsible" />
-
-### Управляемое состояние
-
-Управляйте `value` через `useState` в React, `createSignal` в Solid или `ref` и `v-model` во Vue, если
-открытые элементы должны синхронизироваться с маршрутизацией, фильтрами или другими частями
-интерфейса.
-
-<Example name="accordion/controlled" />
 
 ### Отключённый элемент
 
@@ -70,6 +68,13 @@ import * as AccordionDocs from '@/components/examples/accordion/css-properties';
 
 <Example name="accordion/horizontal" />
 
+### Управляемое состояние
+
+Передайте `value` и `onValueChange` (`v-model` во Vue), если открытые элементы зависят от маршрута,
+фильтров или соседнего интерфейса. `value` всегда массив значений элементов, даже без `multiple`. Подробнее в разделе [Управляйте состоянием из приложения](/docs/composition-patterns#controlled-state).
+
+<Example name="accordion/controlled" />
+
 ### Ленивое монтирование
 
 Сочетайте `lazyMount` и `unmountOnExit`, если скрытое содержимое панели дорого рендерить и его нужно
@@ -78,19 +83,6 @@ import * as AccordionDocs from '@/components/examples/accordion/css-properties';
 
 <Example name="accordion/lazy-mount" />
 
-### Несколько открытых элементов
-
-Установите `multiple`, если одновременно должны оставаться открытыми несколько разделов.
-
-<Example name="accordion/multiple" />
-
-### Root Provider
-
-Используйте `useAccordion()` из пакета выбранного фреймворка вместе с `AccordionRootProvider`, если
-состояние нужно создать вне дерева аккордеона. Не добавляйте `Accordion` для того же состояния.
-
-<Example name="accordion/root-provider" />
-
 ### Со слайдером
 
 В содержимое аккордеона можно поместить другой составной виджет на базе Ark, например `Slider`.
@@ -98,6 +90,13 @@ import * as AccordionDocs from '@/components/examples/accordion/css-properties';
 и управлял скрытыми полями формы.
 
 <Example name="accordion/with-slider" />
+
+### Root Provider
+
+Используйте `useAccordion()` из пакета выбранного фреймворка вместе с `AccordionRootProvider`, если
+состояние нужно создать вне дерева аккордеона. Не добавляйте `Accordion` для того же состояния. Подробнее в разделе [Выносите состояние за пределы дерева](/docs/composition-patterns#root-provider).
+
+<Example name="accordion/root-provider" />
 
 ### Сборка из частей
 

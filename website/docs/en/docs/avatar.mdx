@@ -34,14 +34,21 @@ Ark UI can switch between the fallback and the image as the loading state change
 
 ## Examples
 
-### Custom Fallback
+### Sizes and fallback only
+
+The moduix `size` shortcut maps common design-token sizes onto either root component. A fallback-only
+avatar is valid when no image source exists.
+
+<Example name="avatar/sizes-and-fallback-only" />
+
+### Custom fallback
 
 Fallback content can be an icon or another compact identity marker. Add an accessible name when
 the fallback itself conveys information that is not available in nearby text.
 
 <Example name="avatar/custom-fallback" />
 
-### Custom Image
+### Custom image
 
 Use `useAvatarContext()` from the matching moduix package in React and Solid when a framework image
 component or custom renderer needs to participate in Ark's loading lifecycle. In Vue, use the
@@ -49,32 +56,12 @@ component or custom renderer needs to participate in Ark's loading lifecycle. In
 
 <Example name="avatar/custom-image" />
 
-### Events
+### Status indicator
 
-Use `onStatusChange(details)` when surrounding UI needs to react to the image lifecycle.
+The avatar root does not clip its children, so an absolutely positioned element inside `Avatar` can
+mark presence or a badge. Give it an accessible name when the status is not stated in nearby text.
 
-<Example name="avatar/events" />
-
-### Root Provider
-
-Create state with `useAvatar` from the matching framework package when controls outside the avatar
-need to coordinate with it, then render `AvatarRootProvider` instead of `Avatar`.
-
-<Example name="avatar/root-provider" />
-
-### Interactive Avatar
-
-Use `asChild` when the avatar itself is the interactive element. This replaces the default root DOM
-node while keeping Ark state, fallback behavior, and part composition explicit.
-
-<Example name="avatar/interactive" />
-
-### Sizes and Fallback Only
-
-The moduix `size` shortcut maps common design-token sizes onto either root component. A fallback-only
-avatar is valid when no image source exists.
-
-<Example name="avatar/sizes-and-fallback-only" />
+<Example name="avatar/status" />
 
 ### Group
 
@@ -84,12 +71,25 @@ avatar yourself when the list is truncated.
 
 <Example name="avatar/group" />
 
-### Status Indicator
+### Interactive avatar
 
-The avatar root does not clip its children, so an absolutely positioned element inside `Avatar` can
-mark presence or a badge. Give it an accessible name when the status is not stated in nearby text.
+Use `asChild` when the avatar itself is the interactive element. This replaces the default root DOM
+node while keeping Ark state, fallback behavior, and part composition explicit.
 
-<Example name="avatar/status" />
+<Example name="avatar/interactive" />
+
+### Events
+
+Use `onStatusChange(details)` when surrounding UI needs to react to the image lifecycle.
+
+<Example name="avatar/events" />
+
+### Root provider
+
+Create state with `useAvatar` from the matching framework package when controls outside the avatar
+need to coordinate with it, then render `AvatarRootProvider` instead of `Avatar`. See [Share state outside the tree](/docs/composition-patterns#root-provider).
+
+<Example name="avatar/root-provider" />
 
 ## Composition
 

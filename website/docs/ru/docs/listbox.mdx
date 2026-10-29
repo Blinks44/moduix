@@ -45,43 +45,23 @@ import * as ListboxDocs from '@/components/examples/listbox/css-properties';
 
 ## Примеры
 
-### Управляемое состояние
+### Несколько значений
 
-Храните массив выбранных строк в состоянии приложения и обновляйте его из `details.value`.
+Задайте `selectionMode="multiple"`, чтобы переключать несколько значений без клавиш-модификаторов.
 
-<Example name="listbox/controlled" />
-
-### Отключённый элемент
-
-Отключите отдельный элемент через поле `disabled` в элементе коллекции.
-
-<Example name="listbox/disabled-item" />
-
-### Расширенное выделение
-
-Используйте `selectionMode="extended"`, когда для выбора нескольких элементов нужны клавиши-модификаторы.
-
-<Example name="listbox/extended-selection" />
-
-### Фильтрация
-
-Используйте `ListboxFilter` вместе с `useListCollection`. Он добавляет иконку поиска и объединяет
-поле с `ListboxContent`; отключите typeahead, когда текст вводится в поле поиска.
-
-<Example name="listbox/filtering" />
-
-### Сетка
-
-Передайте коллекцию, созданную через `createGridCollection`, чтобы включить навигацию по сетке с
-клавиатуры. Ark добавляет `data-layout="grid"` и CSS-переменную `--column-count` в `ListboxContent`.
-
-<Example name="listbox/grid" />
+<Example name="listbox/multiple" />
 
 ### Группировка
 
 Задайте `groupBy` при создании коллекции и отрисуйте `ListboxItemGroup` с `ListboxItemGroupLabel`.
 
 <Example name="listbox/grouping" />
+
+### Отключённый элемент
+
+Отключите отдельный элемент через поле `disabled` в элементе коллекции.
+
+<Example name="listbox/disabled-item" />
 
 ### Горизонтальный вариант
 
@@ -90,25 +70,26 @@ import * as ListboxDocs from '@/components/examples/listbox/css-properties';
 
 <Example name="listbox/horizontal" />
 
-### Несколько значений
+### Сетка
 
-Задайте `selectionMode="multiple"`, чтобы переключать несколько значений без клавиш-модификаторов.
+Передайте коллекцию, созданную через `createGridCollection`, чтобы включить навигацию по сетке с
+клавиатуры. Ark добавляет `data-layout="grid"` и CSS-переменную `--column-count` в `ListboxContent`.
 
-<Example name="listbox/multiple" />
+<Example name="listbox/grid" />
 
-### Root Provider
+### Текст выбранного значения
 
-Используйте `useListbox()` из пакета выбранного фреймворка вместе с `ListboxRootProvider`, если
-внешним элементам управления нужен прямой доступ к хранилищу listbox.
+Отрисуйте `ListboxValueText`, если сводка выбранных значений должна оставаться видимой рядом со
+списком.
 
-<Example name="listbox/root-provider" />
+<Example name="listbox/value-text" />
 
-### Выбрать всё
+### Фильтрация
 
-Используйте `useListboxContext` во внутреннем компоненте, чтобы добавить кнопку, изменяющую выбор
-listbox.
+Используйте `ListboxFilter` вместе с `useListCollection`. Он добавляет иконку поиска и объединяет
+поле с `ListboxContent`; отключите typeahead, когда текст вводится в поле поиска.
 
-<Example name="listbox/select-all" />
+<Example name="listbox/filtering" />
 
 ### Отдельное поле фильтра
 
@@ -117,12 +98,31 @@ listbox.
 
 <Example name="listbox/standalone-filter-input" />
 
-### Текст выбранного значения
+### Выбрать всё
 
-Отрисуйте `ListboxValueText`, если сводка выбранных значений должна оставаться видимой рядом со
-списком.
+Используйте `useListboxContext` во внутреннем компоненте, чтобы добавить кнопку, изменяющую выбор
+listbox.
 
-<Example name="listbox/value-text" />
+<Example name="listbox/select-all" />
+
+### Расширенное выделение
+
+Используйте `selectionMode="extended"`, когда для выбора нескольких элементов нужны клавиши-модификаторы.
+
+<Example name="listbox/extended-selection" />
+
+### Управляемое состояние
+
+Храните массив выбранных строк в состоянии приложения и обновляйте его из `details.value`. Подробнее в разделе [Управляйте состоянием из приложения](/docs/composition-patterns#controlled-state).
+
+<Example name="listbox/controlled" />
+
+### Root Provider
+
+Используйте `useListbox()` из пакета выбранного фреймворка вместе с `ListboxRootProvider`, если
+внешним элементам управления нужен прямой доступ к хранилищу listbox. Подробнее в разделе [Выносите состояние за пределы дерева](/docs/composition-patterns#root-provider).
+
+<Example name="listbox/root-provider" />
 
 ### Сборка из частей
 
@@ -163,9 +163,6 @@ listbox.
     ["ListboxItem", "listbox-item", "Выбираемый элемент. Передайте его элемент коллекции через `item`.", 3],
     ["ListboxItemText", "listbox-item-text", "Текст для отображения и доступности.", 4],
     ["ListboxItemIndicator", "listbox-item-indicator", "Индикатор выбора с иконкой галочки moduix по умолчанию.", 4],
-    ["ListboxItemTextContent", "listbox-item-text-content", "Необязательная обёртка для размещения иконки и текста внутри `ListboxItemText`.", 2],
-    ["ListboxItemTextIcon", "listbox-item-text-icon", "Необязательная обёртка для иконки внутри `ListboxItemTextContent`.", 3],
-    ["ListboxItemTextLabel", "listbox-item-text-label", "Обёртка текста внутри `ListboxItemTextContent`, которая позволяет обрезать длинные подписи без нарушения разметки.", 3],
     ["ListboxValueText", "listbox-value-text", "Сводка выбранных значений.", 1],
     ["ListboxRootProvider", "listbox-root-provider", "Отрисовывает дерево listbox из состояния, возвращённого `useListbox`.", 0],
   ]}
@@ -209,9 +206,6 @@ listbox.
 | `ListboxItemText` | `listbox-item-text` |
 | `ListboxItemIndicator` | `listbox-item-indicator` |
 | `ListboxValueText` | `listbox-value-text` |
-| `ListboxItemTextContent` | `listbox-item-text-content` |
-| `ListboxItemTextIcon` | `listbox-item-text-icon` |
-| `ListboxItemTextLabel` | `listbox-item-text-label` |
 
 - Хуки анатомии Ark: `data-scope="listbox"` и `data-part` на корне, подписи, поле, содержимом,
   группе элементов, подписи группы, элементе, тексте элемента, индикаторе, тексте выбранного

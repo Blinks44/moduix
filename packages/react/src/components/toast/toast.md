@@ -158,7 +158,7 @@ close trigger styles come from foundation tokens; override them with a class on 
 close trigger is a `CloseButton`, so `--moduix-close-button-*` variables apply to it.
 
 The CSS keeps Ark `data-scope` and `data-part` attributes intact, styles state through root
-`data-state` and `data-type`, and consumes Ark runtime variables. Moduix `data-slot` hooks are
+`data-state` and `data-type`, and consumes Ark runtime variables. moduix `data-slot` hooks are
 layered on top for stable consumer selectors.
 
 On viewports up to and including `40rem`, every `top-*` placement is centered at the top and

@@ -42,34 +42,6 @@ import AnatomyScene from '@/components/examples/file-upload/basic';
 
 ## Примеры
 
-### Допустимые типы файлов
-
-С помощью `accept` ограничьте типы файлов и в системном окне выбора, и при перетаскивании. Можно указать MIME-типы или
-расширения файлов.
-
-<Example name="file-upload/accepted-file-types" />
-
-### Очистка списка файлов
-
-Используйте `FileUploadClearTrigger`, чтобы одним действием удалить все принятые файлы.
-
-<Example name="file-upload/clear-trigger" />
-
-### Управляемое состояние
-
-Управляйте `acceptedFiles`, когда выбранные файлы должны быть синхронизированы с состоянием приложения или
-многошаговым сценарием. Обновляйте значение из `onFileChange(details)`.
-
-<Example name="file-upload/controlled" />
-
-### Загрузка папки
-
-Используйте `directory`, чтобы пользователь мог выбрать папку. В поддерживающих эту возможность браузерах относительный
-путь каждого файла доступен через `file.webkitRelativePath`. Укажите достаточно большое значение `maxFiles` или не
-задавайте его, если количество файлов в папке заранее неизвестно.
-
-<Example name="file-upload/directory-upload" />
-
 ### Dropzone
 
 Используйте `FileUploadDropzone` для загрузки перетаскиванием. Оставьте вложенный `FileUploadTrigger`, чтобы пользователь мог открыть окно
@@ -77,13 +49,12 @@ import AnatomyScene from '@/components/examples/file-upload/basic';
 
 <Example name="file-upload/dropzone" />
 
-### Обработка ошибок
+### Допустимые типы файлов
 
-Используйте `onFileReject(details)`, чтобы показать сообщение, зависящее от логики приложения. Встроенные ограничения
-задавайте на корневом компоненте, например с помощью `accept`, `maxFiles` и `maxFileSize`. Для дополнительной проверки
-используйте `validate(file, details)`.
+С помощью `accept` ограничьте типы файлов и в системном окне выбора, и при перетаскивании. Можно указать MIME-типы или
+расширения файлов.
 
-<Example name="file-upload/error-handling" />
+<Example name="file-upload/accepted-file-types" />
 
 ### Превью файлов
 
@@ -93,18 +64,25 @@ import AnatomyScene from '@/components/examples/file-upload/basic';
 
 <Example name="file-upload/file-previews" />
 
-### Использование в форме
-
-Передайте `name` корневому компоненту и добавьте `FileUploadHiddenInput`; выбранные файлы будут
-участвовать в обычной отправке и сбросе формы.
-
-<Example name="file-upload/form-usage" />
-
 ### Начальные файлы
 
 Используйте `defaultAcceptedFiles`, чтобы заранее добавить файлы, а затем передать управление выбором компоненту.
 
 <Example name="file-upload/initial-files" />
+
+### Очистка списка файлов
+
+Используйте `FileUploadClearTrigger`, чтобы одним действием удалить все принятые файлы.
+
+<Example name="file-upload/clear-trigger" />
+
+### Загрузка папки
+
+Используйте `directory`, чтобы пользователь мог выбрать папку. В поддерживающих эту возможность браузерах относительный
+путь каждого файла доступен через `file.webkitRelativePath`. Укажите достаточно большое значение `maxFiles` или не
+задавайте его, если количество файлов в папке заранее неизвестно.
+
+<Example name="file-upload/directory-upload" />
 
 ### Съёмка с камеры
 
@@ -121,12 +99,13 @@ import AnatomyScene from '@/components/examples/file-upload/basic';
 
 <Example name="file-upload/rejected-files" />
 
-### Root Provider и вставка файлов
+### Обработка ошибок
 
-Используйте `useFileUpload` вместе с `FileUploadRootProvider`, если состояние или методы должны находиться за пределами
-дерева загрузки. В этом примере `setClipboardFiles` передаёт файлы, вставленные в текстовое поле, в состояние загрузки.
+Используйте `onFileReject(details)`, чтобы показать сообщение, зависящее от логики приложения. Встроенные ограничения
+задавайте на корневом компоненте, например с помощью `accept`, `maxFiles` и `maxFileSize`. Для дополнительной проверки
+используйте `validate(file, details)`.
 
-<Example name="file-upload/root-provider-and-paste" />
+<Example name="file-upload/error-handling" />
 
 ### Преобразование файлов
 
@@ -140,6 +119,27 @@ import AnatomyScene from '@/components/examples/file-upload/basic';
 показать, что поле обязательное или содержит ошибку.
 
 <Example name="file-upload/with-field" />
+
+### Использование в форме
+
+Передайте `name` корневому компоненту и добавьте `FileUploadHiddenInput`; выбранные файлы будут
+участвовать в обычной отправке и сбросе формы.
+
+<Example name="file-upload/form-usage" />
+
+### Управляемое состояние
+
+Управляйте `acceptedFiles`, когда выбранные файлы должны быть синхронизированы с состоянием приложения или
+многошаговым сценарием. Обновляйте значение из `onFileChange(details)`. Подробнее в разделе [Управляйте состоянием из приложения](/docs/composition-patterns#controlled-state).
+
+<Example name="file-upload/controlled" />
+
+### Root Provider и вставка файлов
+
+Используйте `useFileUpload` вместе с `FileUploadRootProvider`, если состояние или методы должны находиться за пределами
+дерева загрузки. В этом примере `setClipboardFiles` передаёт файлы, вставленные в текстовое поле, в состояние загрузки. Подробнее в разделе [Выносите состояние за пределы дерева](/docs/composition-patterns#root-provider).
+
+<Example name="file-upload/root-provider-and-paste" />
 
 ### Сборка из частей
 
@@ -238,7 +238,6 @@ Ark также предоставляет `data-scope="file-upload"`, `data-part
 | Клавиша | Действие |
 | --- | --- |
 | `Enter` / `Space` | Открывает выбор файлов с кнопки или зоны перетаскивания. |
-| `Tab` | Перемещает между зоной, кнопкой и действиями с файлами. |
 
 ## Справочник API
 

@@ -35,19 +35,20 @@ explicitement `QrCodeFrame` et `QrCodePattern` pour rendre le SVG généré. Don
 
 ## Exemples
 
-### Valeur contrôlée
+### Remplissage
 
-Contrôlez `value` lorsque le code QR doit suivre une destination sélectionnée ou un autre état de
-l’application.
+Par défaut, les modules du code QR utilisent `currentColor`. Modifiez le remplissage du SVG avec
+`style` ou une classe sur `QrCodeFrame`, ou définissez la couleur du texte d'un parent.
 
-<Example name="qr-code/controlled" />
+<Example name="qr-code/fill" />
 
-### Téléchargement
+### Superposition
 
-Ajoutez `QrCodeDownloadTrigger` lorsque les utilisateurs doivent enregistrer le code généré comme
-image. Définissez `fileName` et `mimeType` sur le trigger.
+Utilisez `QrCodeOverlay` pour un logo compact ou une marque textuelle. Définissez un niveau élevé
+de correction d’erreurs et gardez la superposition assez petite pour que les scanners puissent
+encore lire le code.
 
-<Example name="qr-code/download" />
+<Example name="qr-code/overlay" />
 
 ### Correction d’erreurs
 
@@ -62,12 +63,12 @@ qu’il peut être rayé ou déformé.
 
 <Example name="qr-code/error-correction" />
 
-### Remplissage
+### Téléchargement
 
-Par défaut, les modules du code QR utilisent `currentColor`. Modifiez le remplissage du SVG avec
-`style` ou une classe sur `QrCodeFrame`, ou définissez la couleur du texte d'un parent.
+Ajoutez `QrCodeDownloadTrigger` lorsque les utilisateurs doivent enregistrer le code généré comme
+image. Définissez `fileName` et `mimeType` sur le trigger.
 
-<Example name="qr-code/fill" />
+<Example name="qr-code/download" />
 
 ### Champ de saisie
 
@@ -76,18 +77,17 @@ encodé dans le code QR. Donnez à la frame un nom accessible qui explique ce qu
 
 <Example name="qr-code/input" />
 
-### Superposition
+### Valeur contrôlée
 
-Utilisez `QrCodeOverlay` pour un logo compact ou une marque textuelle. Définissez un niveau élevé
-de correction d’erreurs et gardez la superposition assez petite pour que les scanners puissent
-encore lire le code.
+Contrôlez `value` lorsque le code QR doit suivre une destination sélectionnée ou un autre état de
+l’application. Voir [Contrôler l’état depuis l’application](/docs/composition-patterns#controlled-state).
 
-<Example name="qr-code/overlay" />
+<Example name="qr-code/controlled" />
 
 ### Root Provider
 
 Créez l’état du code QR avec `useQrCode()` lorsqu’il doit être partagé avec des contrôles situés en
-dehors de l’arbre QR, puis transmettez cet état à `QrCodeRootProvider`.
+dehors de l’arbre QR, puis transmettez cet état à `QrCodeRootProvider`. Voir [Partager l’état hors de l’arbre](/docs/composition-patterns#root-provider).
 
 <Example name="qr-code/root-provider" />
 

@@ -43,12 +43,19 @@ need a local action, such as removal.
 
 ## Examples
 
-### Closable
+### Variants
 
-The parent component owns the list of values and removes an item after its close trigger is clicked.
-Give each trigger a label that includes the value being removed.
+Use the built-in variants for common moduix color roles while keeping the same part structure.
 
-<Example name="tag/closable" />
+<Example name="tag/variants" />
+
+### Sizes
+
+Use `size="sm"` for dense token rows. Keep the default `md` size for standalone tokens and more
+comfortable spacing. Use `size="lg"` for tags next to larger text or in roomy filter bars; it is
+28px tall with 14px text.
+
+<Example name="tag/sizes" />
 
 ### Icon
 
@@ -57,7 +64,14 @@ truncation boundary and action sizing stays independent.
 
 <Example name="tag/icon" />
 
-### Interactive Tag
+### Closable
+
+The parent component owns the list of values and removes an item after its close trigger is clicked.
+Give each trigger a label that includes the value being removed.
+
+<Example name="tag/closable" />
+
+### Interactive tag
 
 Use `asChild` when the whole token is an action. This replaces the default `span`; the single child
 becomes the semantic and interactive host, so it must provide the behavior expected from a button or link. A `button` or `a`
@@ -71,20 +85,6 @@ Constrain the root when long values need to fit a narrow area. `TagLabel` become
 boundary and shows an ellipsis; add `title` when the full value should remain discoverable.
 
 <Example name="tag/overflow" />
-
-### Sizes
-
-Use `size="sm"` for dense token rows. Keep the default `md` size for standalone tokens and more
-comfortable spacing. Use `size="lg"` for tags next to larger text or in roomy filter bars; it is
-28px tall with 14px text.
-
-<Example name="tag/sizes" />
-
-### Variants
-
-Use the built-in variants for common moduix color roles while keeping the same part structure.
-
-<Example name="tag/variants" />
 
 ## Composition
 

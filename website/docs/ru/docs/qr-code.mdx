@@ -35,19 +35,20 @@ import * as QrCodeDocs from '@/components/examples/qr-code/css-properties';
 
 ## Примеры
 
-### Управляемое значение
+### Заливка
 
-Управляйте `value`, если QR-код должен следовать выбранному адресу или другой части состояния
-приложения.
+По умолчанию модули QR-кода используют `currentColor`. Измените заливку SVG через `style` или класс
+на `QrCodeFrame` либо задайте цвет текста родителю.
 
-<Example name="qr-code/controlled" />
+<Example name="qr-code/fill" />
 
-### Скачивание
+### Наложение
 
-Добавьте `QrCodeDownloadTrigger`, если пользователям нужно сохранить QR-код как изображение.
-Укажите в триггере и `fileName`, и `mimeType`.
+Используйте `QrCodeOverlay` для компактного логотипа или текстовой отметки. Задайте высокий
+уровень коррекции ошибок и оставьте наложение достаточно маленьким, чтобы сканеры продолжали
+распознавать код.
 
-<Example name="qr-code/download" />
+<Example name="qr-code/overlay" />
 
 ### Коррекция ошибок
 
@@ -62,12 +63,12 @@ import * as QrCodeDocs from '@/components/examples/qr-code/css-properties';
 
 <Example name="qr-code/error-correction" />
 
-### Заливка
+### Скачивание
 
-По умолчанию модули QR-кода используют `currentColor`. Измените заливку SVG через `style` или класс
-на `QrCodeFrame` либо задайте цвет текста родителю.
+Добавьте `QrCodeDownloadTrigger`, если пользователям нужно сохранить QR-код как изображение.
+Укажите в триггере и `fileName`, и `mimeType`.
 
-<Example name="qr-code/fill" />
+<Example name="qr-code/download" />
 
 ### Поле ввода
 
@@ -76,18 +77,17 @@ import * as QrCodeDocs from '@/components/examples/qr-code/css-properties';
 
 <Example name="qr-code/input" />
 
-### Наложение
+### Управляемое значение
 
-Используйте `QrCodeOverlay` для компактного логотипа или текстовой отметки. Задайте высокий
-уровень коррекции ошибок и оставьте наложение достаточно маленьким, чтобы сканеры продолжали
-распознавать код.
+Управляйте `value`, если QR-код должен следовать выбранному адресу или другой части состояния
+приложения. Подробнее в разделе [Управляйте состоянием из приложения](/docs/composition-patterns#controlled-state).
 
-<Example name="qr-code/overlay" />
+<Example name="qr-code/controlled" />
 
 ### Root Provider
 
 Создайте состояние QR-кода через `useQrCode()`, если его нужно разделить с контролами за пределами
-дерева QR-кода, затем передайте состояние в `QrCodeRootProvider`.
+дерева QR-кода, затем передайте состояние в `QrCodeRootProvider`. Подробнее в разделе [Выносите состояние за пределы дерева](/docs/composition-patterns#root-provider).
 
 <Example name="qr-code/root-provider" />
 

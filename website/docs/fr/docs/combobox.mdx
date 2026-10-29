@@ -43,33 +43,12 @@ Utilisez `Select` lorsque la liste est prédéfinie et qu’un champ modifiable 
 
 ## Exemples
 
-### Recherche asynchrone
+### Sélection multiple
 
-Remplacez les éléments de la collection par les résultats d’une requête asynchrone et affichez `ComboboxStatus` pendant
-l’attente. Utilisez `details.reason` pour distinguer la saisie de l’utilisateur d’une mise à jour déclenchée par le code.
-Si le champ est vide, affichez `Start typing to search…` pour que la liste reste informative.
+Activez `multiple` et affichez les objets sélectionnés depuis la valeur contrôlée `value`. Les tags sont gérés par l’application.
+Pour les placer dans le même conteneur de champ, composez `Combobox` avec `TagsInput`.
 
-<Example name="combobox/async-search" />
-
-### Mise en évidence automatique
-
-Définissez `inputBehavior="autohighlight"` pour mettre en évidence le premier résultat pendant la saisie et le
-sélectionner avec la touche Entrée sans appuyer d’abord sur une flèche.
-
-<Example name="combobox/auto-highlight" />
-
-### État contrôlé
-
-Contrôlez le tableau des chaînes sélectionnées et lisez la nouvelle valeur dans `details.value`.
-
-<Example name="combobox/controlled" />
-
-### Création d’une valeur
-
-Associez `allowCustomValue` à une modification de la collection pour afficher un élément temporaire « Créer », puis
-remplacez cette valeur temporaire par le texte saisi par l’utilisateur après la sélection.
-
-<Example name="combobox/creatable" />
+<Example name="combobox/multiple" />
 
 ### Objets personnalisés et regroupement
 
@@ -78,12 +57,19 @@ Indiquez dans la collection comment extraire les libellés et les valeurs des ob
 
 <Example name="combobox/custom-objects-and-grouping" />
 
-### Mise à jour dynamique
+### Liens
 
-Construisez la collection à partir de la saisie actuelle lorsque les suggestions n’apparaissent qu’après le début de la saisie.
-Vérifiez `details.reason` pour ne pas la reconstruire après une modification du champ provoquée par une sélection.
+Affichez chaque résultat comme un lien avec `ComboboxItem asChild` lorsque le choix d’un élément doit
+naviguer. `selectionBehavior="preserve"` conserve le texte saisi après un choix.
 
-<Example name="combobox/dynamic" />
+<Example name="combobox/links" />
+
+### Mise en évidence automatique
+
+Définissez `inputBehavior="autohighlight"` pour mettre en évidence le premier résultat pendant la saisie et le
+sélectionner avec la touche Entrée sans appuyer d’abord sur une flèche.
+
+<Example name="combobox/auto-highlight" />
 
 ### Autocomplétion intégrée
 
@@ -99,26 +85,27 @@ Définissez `limit` dans `useListCollection` lorsque tous les résultats ne sont
 
 <Example name="combobox/limit-results" />
 
-### Liens
+### Création d’une valeur
 
-Affichez chaque résultat comme un lien avec `ComboboxItem asChild` lorsque le choix d’un élément doit
-naviguer. `selectionBehavior="preserve"` conserve le texte saisi après un choix.
+Associez `allowCustomValue` à une modification de la collection pour afficher un élément temporaire « Créer », puis
+remplacez cette valeur temporaire par le texte saisi par l’utilisateur après la sélection.
 
-<Example name="combobox/links" />
+<Example name="combobox/creatable" />
 
-### Sélection multiple
+### Recherche asynchrone
 
-Activez `multiple` et affichez les objets sélectionnés depuis la valeur contrôlée `value`. Les tags sont gérés par l’application.
-Pour les placer dans le même conteneur de champ, composez `Combobox` avec `TagsInput`.
+Remplacez les éléments de la collection par les résultats d’une requête asynchrone et affichez `ComboboxStatus` pendant
+l’attente. Utilisez `details.reason` pour distinguer la saisie de l’utilisateur d’une mise à jour déclenchée par le code.
+Si le champ est vide, affichez `Start typing to search…` pour que la liste reste informative.
 
-<Example name="combobox/multiple" />
+<Example name="combobox/async-search" />
 
-### Root Provider
+### Mise à jour dynamique
 
-Créez l’état avec `useCombobox` de moduix lorsque des contrôles externes ont besoin de méthodes impératives ou d’un état
-partagé avant l’affichage de la racine. `ComboboxRootProvider` conserve les styles racine moduix et les réglages du portail.
+Construisez la collection à partir de la saisie actuelle lorsque les suggestions n’apparaissent qu’après le début de la saisie.
+Vérifiez `details.reason` pour ne pas la reconstruire après une modification du champ provoquée par une sélection.
 
-<Example name="combobox/root-provider" />
+<Example name="combobox/dynamic" />
 
 ### Virtualisation
 
@@ -135,6 +122,19 @@ Utilisez `Combobox` avec `TagsInput` lorsque l’utilisateur a besoin de suggest
 doivent apparaître dans le même champ éditable que les tags.
 
 <Example name="combobox/with-tags-input" />
+
+### État contrôlé
+
+Contrôlez le tableau des chaînes sélectionnées et lisez la nouvelle valeur dans `details.value`. Voir [Contrôler l’état depuis l’application](/docs/composition-patterns#controlled-state).
+
+<Example name="combobox/controlled" />
+
+### Root Provider
+
+Créez l’état avec `useCombobox` de moduix lorsque des contrôles externes ont besoin de méthodes impératives ou d’un état
+partagé avant l’affichage de la racine. `ComboboxRootProvider` conserve les styles racine moduix et les réglages du portail. Voir [Partager l’état hors de l’arbre](/docs/composition-patterns#root-provider).
+
+<Example name="combobox/root-provider" />
 
 ### Assembler à partir des parties
 

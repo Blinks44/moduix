@@ -40,27 +40,7 @@ need shared keyboard navigation or coordinated state.
 
 ## Examples
 
-### Context
-
-Use `useCollapsibleContext()` inside a descendant when it needs to read state or close the disclosure
-programmatically.
-
-<Example name="collapsible/context" />
-
-### Controlled
-
-Use `open` with the Ark `onOpenChange(details)` callback when another part of your UI owns the state.
-
-<Example name="collapsible/controlled" />
-
-### Custom Trigger
-
-Use `asChild` to apply the trigger behavior to a button you own. This skips the default
-`CollapsibleTrigger` styling while preserving Ark behavior and state attributes.
-
-<Example name="collapsible/custom-trigger" />
-
-### Default Open
+### Default open
 
 Set `defaultOpen` to start an uncontrolled disclosure in the open state.
 
@@ -72,12 +52,12 @@ Set `disabled` on the root to prevent users from opening or closing the disclosu
 
 <Example name="collapsible/disabled" />
 
-### Lazy Mount
+### Custom trigger
 
-Set `lazyMount` to mount content only after its first opening. Add `unmountOnExit` to remove it from
-the DOM after it closes.
+Use `asChild` to apply the trigger behavior to a button you own. This skips the default
+`CollapsibleTrigger` styling while preserving Ark behavior and state attributes.
 
-<Example name="collapsible/lazy-mount" />
+<Example name="collapsible/custom-trigger" />
 
 ### Nested
 
@@ -85,7 +65,7 @@ Nest independent roots when a revealed section contains another optional detail.
 
 <Example name="collapsible/nested" />
 
-### Partial Collapse
+### Partial collapse
 
 Use `collapsedHeight` or `collapsedWidth` to keep part of the content visible while closed.
 Interactive elements in that area become inert until the disclosure opens, so keep actions that must
@@ -93,16 +73,36 @@ stay available outside `CollapsibleContent`.
 
 <Example name="collapsible/partial-collapse" />
 
-### Partial Width
+### Partial width
 
 Use `collapsedWidth` when a horizontal preview is more useful than a height-limited preview.
 
 <Example name="collapsible/partial-collapse-width" />
 
-### Root Provider
+### Controlled
+
+Use `open` with the Ark `onOpenChange(details)` callback when another part of your UI owns the state. See [Control state from the application](/docs/composition-patterns#controlled-state).
+
+<Example name="collapsible/controlled" />
+
+### Lazy mount
+
+Set `lazyMount` to mount content only after its first opening. Add `unmountOnExit` to remove it from
+the DOM after it closes.
+
+<Example name="collapsible/lazy-mount" />
+
+### Context
+
+Use `useCollapsibleContext()` inside a descendant when it needs to read state or close the disclosure
+programmatically.
+
+<Example name="collapsible/context" />
+
+### Root provider
 
 Create the state with `useCollapsible()` and pass it to `CollapsibleRootProvider` when code outside
-the rendered component tree needs access to the state.
+the rendered component tree needs access to the state. See [Share state outside the tree](/docs/composition-patterns#root-provider).
 
 <Example name="collapsible/root-provider" />
 

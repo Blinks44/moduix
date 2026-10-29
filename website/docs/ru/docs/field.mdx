@@ -42,26 +42,6 @@ import AnatomyScene from '@/components/examples/field/basic';
 
 ## Примеры
 
-### Checkbox
-
-Используйте `Field` вокруг флажка, если ему нужны поясняющий текст или сообщение об ошибке на уровне
-поля. Передавайте в `Checkbox` его собственные свойства состояния и формы.
-
-<Example name="field/checkbox" />
-
-### Управляемое состояние `invalid`
-
-Вычисляйте `invalid` из локального состояния, если валидация должна обновляться во время ввода. Текст
-ошибки появляется только пока поле находится в невалидном состоянии.
-
-<Example name="field/controlled-invalid" />
-
-### Отключённое состояние
-
-Установите `disabled` у корня, чтобы передать это состояние поддерживаемым частям поля Ark.
-
-<Example name="field/disabled" />
-
 ### Невалидное состояние
 
 Устанавливайте `invalid` у корня, когда валидацией управляет состояние приложения или библиотека форм.
@@ -69,27 +49,11 @@ import AnatomyScene from '@/components/examples/field/basic';
 
 <Example name="field/invalid" />
 
-### Целевой элемент
+### Отключённое состояние
 
-Используйте `FieldItem` вместе с пропом `target` у корня, когда одна метка должна указывать на элемент
-управления внутри группы.
+Установите `disabled` у корня, чтобы передать это состояние поддерживаемым частям поля Ark.
 
-<Example name="field/item-target" />
-
-### Нативный Select
-
-Используйте `NativeSelect` для нативного select браузера. `Field` связывает его с меткой поля,
-состоянием и описанием.
-
-<Example name="field/native-select" />
-
-### RadioGroup
-
-Используйте `Field` с `RadioGroup`, когда одна метка поля, поясняющий текст или сообщение об ошибке
-должны описывать весь набор вариантов, а не отдельные radio. Передавайте в `RadioGroup` его собственные
-свойства состояния.
-
-<Example name="field/radiogroup" />
+<Example name="field/disabled" />
 
 ### Только для чтения
 
@@ -97,12 +61,11 @@ import AnatomyScene from '@/components/examples/field/basic';
 
 <Example name="field/read-only" />
 
-### Root Provider
+### Textarea
 
-Используйте `useField` вместе с `FieldRootProvider`, когда состояние поля нужно создать вне дерева
-рендера.
+Используйте `Textarea` для многострочного ввода, сохраняя связи поля с меткой, описанием и состоянием.
 
-<Example name="field/root-provider" />
+<Example name="field/textarea" />
 
 ### Select
 
@@ -112,11 +75,48 @@ import AnatomyScene from '@/components/examples/field/basic';
 
 <Example name="field/select" />
 
-### Textarea
+### Нативный Select
 
-Используйте `Textarea` для многострочного ввода, сохраняя связи поля с меткой, описанием и состоянием.
+Используйте `NativeSelect` для нативного select браузера. `Field` связывает его с меткой поля,
+состоянием и описанием.
 
-<Example name="field/textarea" />
+<Example name="field/native-select" />
+
+### Checkbox
+
+Используйте `Field` вокруг флажка, если ему нужны поясняющий текст или сообщение об ошибке на уровне
+поля. Передавайте в `Checkbox` его собственные свойства состояния и формы.
+
+<Example name="field/checkbox" />
+
+### RadioGroup
+
+Используйте `Field` с `RadioGroup`, когда одна метка поля, поясняющий текст или сообщение об ошибке
+должны описывать весь набор вариантов, а не отдельные radio. Передавайте в `RadioGroup` его собственные
+свойства состояния.
+
+<Example name="field/radiogroup" />
+
+### Управляемое состояние `invalid`
+
+Вычисляйте `invalid` из локального состояния, если валидация должна обновляться во время ввода. Текст
+ошибки появляется только пока поле находится в невалидном состоянии.
+
+<Example name="field/controlled-invalid" />
+
+### Целевой элемент
+
+Используйте `FieldItem` вместе с пропом `target` у корня, когда одна метка должна указывать на элемент
+управления внутри группы.
+
+<Example name="field/item-target" />
+
+### Root Provider
+
+Используйте `useField` вместе с `FieldRootProvider`, когда состояние поля нужно создать вне дерева
+рендера.
+
+<Example name="field/root-provider" />
 
 ## Композиция
 

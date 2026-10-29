@@ -42,43 +42,11 @@ Use `Toggle` when the control should behave like a button and expose whether it 
 
 ## Examples
 
-### asChild
+### Variants
 
-Use `asChild` when another button should host the toggle behavior. Keep one button-like child so Ark
-can merge its interaction props and accessibility state into that element.
+Set `variant` to `default`, `outline`, or `ghost` to match the surrounding surface.
 
-<Example name="toggle/aschild" />
-
-### Controlled
-
-Control `pressed` when the toggle is part of application state, analytics, or another interaction.
-
-<Example name="toggle/controlled" />
-
-### Disabled
-
-Set `disabled` to prevent interaction while preserving the current pressed state.
-
-<Example name="toggle/disabled" />
-
-### Icons
-
-Pass icons as regular children. Icon-only toggles need an accessible name such as `aria-label`.
-
-<Example name="toggle/icons" />
-
-### Indicator
-
-Use `ToggleIndicator` when pressed and unpressed states need different inline content.
-
-<Example name="toggle/indicator" />
-
-### Pressed State
-
-Use the context hook or scoped slot when a custom descendant needs the pressed state instead of changing the
-button content with `ToggleIndicator`.
-
-<Example name="toggle/pressed-state" />
+<Example name="toggle/variants" />
 
 ### Sizes
 
@@ -86,11 +54,43 @@ Use text sizes for labeled toggles and icon-only sizes for denser action rows.
 
 <Example name="toggle/sizes" />
 
-### Variants
+### Icons
 
-Set `variant` to `default`, `outline`, or `ghost` to match the surrounding surface.
+Pass icons as regular children. Icon-only toggles need an accessible name such as `aria-label`.
 
-<Example name="toggle/variants" />
+<Example name="toggle/icons" />
+
+### Pressed state
+
+Use the context hook or scoped slot when a custom descendant needs the pressed state instead of changing the
+button content with `ToggleIndicator`.
+
+<Example name="toggle/pressed-state" />
+
+### Indicator
+
+Use `ToggleIndicator` when pressed and unpressed states need different inline content.
+
+<Example name="toggle/indicator" />
+
+### Disabled
+
+Set `disabled` to prevent interaction while preserving the current pressed state.
+
+<Example name="toggle/disabled" />
+
+### Controlled
+
+Control `pressed` when the toggle is part of application state, analytics, or another interaction. See [Control state from the application](/docs/composition-patterns#controlled-state).
+
+<Example name="toggle/controlled" />
+
+### asChild
+
+Use `asChild` when another button should host the toggle behavior. Keep one button-like child so Ark
+can merge its interaction props and accessibility state into that element.
+
+<Example name="toggle/aschild" />
 
 ## Composition
 

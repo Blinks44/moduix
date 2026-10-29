@@ -51,27 +51,13 @@ import { sidebarOverrideCssProperties } from '@/components/examples/sidebar/css-
 
 <Example name="sidebar/nested-navigation" />
 
-### Собственная область прокрутки
+### Выбор рабочего пространства
 
-Нативная прокрутка используется по умолчанию. Поместите `ScrollArea` внутрь `SidebarContent`, если
-нужны стилизованный скроллбар или затухание у края, и оставьте его viewport единственным контейнером
-прокрутки.
+Используйте `SelectTrigger asChild` вместе с `SidebarNavigationButton`. Поместите выбранное
+значение в `SidebarLabel`, оставьте `SelectIndicator` прямым потомком триггера и отметьте
+компактный визуальный якорь атрибутом `data-sidebar-icon`.
 
-<Example name="sidebar/custom-scroll-area" />
-
-### Свои размеры
-
-Задайте начальный размер явно и добавьте другие примитивы в оболочку, если стандартной начальной
-ширины недостаточно.
-
-<Example name="sidebar/custom-sizes" />
-
-### Сохраняемый макет для десктопа
-
-Храните ширину десктопной панели в состоянии приложения или в storage. Управляйте `size` во время
-изменения размера и сохраняйте итоговое значение из `onResizeEnd(details)`.
-
-<Example name="sidebar/persisted-layout" />
+<Example name="sidebar/workspace-select" />
 
 ### Полная оболочка приложения
 
@@ -88,13 +74,27 @@ import { sidebarOverrideCssProperties } from '@/components/examples/sidebar/css-
 
 <Example name="sidebar/right-sidebar" />
 
-### Выбор рабочего пространства
+### Свои размеры
 
-Используйте `SelectTrigger asChild` вместе с `SidebarNavigationButton`. Поместите выбранное
-значение в `SidebarLabel`, оставьте `SelectIndicator` прямым потомком триггера и отметьте
-компактный визуальный якорь атрибутом `data-sidebar-icon`.
+Задайте начальный размер явно и добавьте другие примитивы в оболочку, если стандартной начальной
+ширины недостаточно.
 
-<Example name="sidebar/workspace-select" />
+<Example name="sidebar/custom-sizes" />
+
+### Сохраняемый макет для десктопа
+
+Храните ширину десктопной панели в состоянии приложения или в storage. Управляйте `size` во время
+изменения размера и сохраняйте итоговое значение из `onResizeEnd(details)`.
+
+<Example name="sidebar/persisted-layout" />
+
+### Собственная область прокрутки
+
+Нативная прокрутка используется по умолчанию. Поместите `ScrollArea` внутрь `SidebarContent`, если
+нужны стилизованный скроллбар или затухание у края, и оставьте его viewport единственным контейнером
+прокрутки.
+
+<Example name="sidebar/custom-scroll-area" />
 
 ## Композиция
 

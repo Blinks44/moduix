@@ -38,6 +38,27 @@ import * as MarqueeDocs from '@/components/examples/marquee/css-properties';
 
 ## Примеры
 
+### Скорость
+
+Задайте скорость через `speed`, указав число пикселей в секунду. При меньшей скорости содержимое легче читать.
+
+<Example name="marquee/speed" />
+
+### Обратное направление
+
+Используйте `reverse`, когда содержимое должно двигаться в обратном направлении относительно `side`, не меняя
+ориентацию.
+
+<Example name="marquee/reverse" />
+
+### Вертикальная ориентация
+
+Задайте `side="top"` или `side="bottom"`, чтобы прокручивать содержимое вертикально. По умолчанию высота
+вертикального корневого элемента — `15rem`, поэтому область просмотра получает стабильную высоту; чтобы изменить её,
+задайте `height` классом.
+
+<Example name="marquee/vertical" />
+
 ### Автозаполнение
 
 Используйте `autoFill`, если содержимое короче области просмотра. Параметр `spacing` задаёт расстояние между
@@ -52,13 +73,6 @@ import * as MarqueeDocs from '@/components/examples/marquee/css-properties';
 
 <Example name="marquee/edges" />
 
-### Ограниченное число циклов
-
-Задайте `loopCount`, чтобы ограничить число повторов. `onLoopComplete` вызывается после каждого цикла, а
-`onComplete` после последнего.
-
-<Example name="marquee/finite-loops" />
-
 ### Пауза при взаимодействии
 
 Используйте `pauseOnInteraction`, чтобы приостанавливать прокрутку, когда пользователь наводит указатель на компонент
@@ -71,19 +85,12 @@ import * as MarqueeDocs from '@/components/examples/marquee/css-properties';
 
 <Example name="marquee/pause-on-interaction" />
 
-### Root Provider
+### Ограниченное число циклов
 
-Используйте `useMarquee()` из moduix вместе с `MarqueeRootProvider`, когда внешним элементам управления нужно
-приостанавливать, возобновлять или перезапускать прокрутку.
+Задайте `loopCount`, чтобы ограничить число повторов. `onLoopComplete` вызывается после каждого цикла, а
+`onComplete` после последнего.
 
-<Example name="marquee/programmatic-control" />
-
-### Обратное направление
-
-Используйте `reverse`, когда содержимое должно двигаться в обратном направлении относительно `side`, не меняя
-ориентацию.
-
-<Example name="marquee/reverse" />
+<Example name="marquee/finite-loops" />
 
 ### Справа налево
 
@@ -92,19 +99,12 @@ import * as MarqueeDocs from '@/components/examples/marquee/css-properties';
 
 <Example name="marquee/rtl" />
 
-### Скорость
+### Root Provider
 
-Задайте скорость через `speed`, указав число пикселей в секунду. При меньшей скорости содержимое легче читать.
+Используйте `useMarquee()` из moduix вместе с `MarqueeRootProvider`, когда внешним элементам управления нужно
+приостанавливать, возобновлять или перезапускать прокрутку.
 
-<Example name="marquee/speed" />
-
-### Вертикальная ориентация
-
-Задайте `side="top"` или `side="bottom"`, чтобы прокручивать содержимое вертикально. По умолчанию высота
-вертикального корневого элемента — `15rem`, поэтому область просмотра получает стабильную высоту; чтобы изменить её,
-задайте `height` классом.
-
-<Example name="marquee/vertical" />
+<Example name="marquee/programmatic-control" />
 
 ## Композиция
 

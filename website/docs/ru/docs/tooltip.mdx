@@ -45,17 +45,19 @@ import AnatomyScene from '@/components/examples/tooltip/anatomy';
 
 ## Примеры
 
-### Контекст
+### Со стрелкой
 
-Используйте `useTooltipContext()` внутри потомка, которому нужно текущее состояние подсказки.
+Добавьте `TooltipArrow` первым потомком содержимого, если подсказка должна визуально указывать на
+триггер. При использовании `TooltipBody` разместите его непосредственно внутри `TooltipBody`,
+обёртка сама добавит стандартный `TooltipArrowTip`.
 
-<Example name="tooltip/context" />
+<Example name="tooltip/with-arrow" />
 
-### Управляемое состояние
+### Позиционирование
 
-Управляйте открытием подсказки с помощью `open` и `onOpenChange(details)`.
+Передавайте в `Tooltip` параметры позиционирования Ark, включая размещение и значения отступов.
 
-<Example name="tooltip/controlled" />
+<Example name="tooltip/positioning" />
 
 ### Задержка
 
@@ -78,27 +80,6 @@ import AnatomyScene from '@/components/examples/tooltip/anatomy';
 
 <Example name="tooltip/multiple-triggers" />
 
-### Позиционирование
-
-Передавайте в `Tooltip` параметры позиционирования Ark, включая размещение и значения отступов.
-
-<Example name="tooltip/positioning" />
-
-### Root Provider
-
-Используйте `useTooltip()` вместе с `TooltipRootProvider`, если состояние подсказки создаётся за
-пределами дерева, в котором она отображается.
-
-<Example name="tooltip/root-provider" />
-
-### Со стрелкой
-
-Добавьте `TooltipArrow` первым потомком содержимого, если подсказка должна визуально указывать на
-триггер. При использовании `TooltipBody` разместите его непосредственно внутри `TooltipBody`,
-обёртка сама добавит стандартный `TooltipArrowTip`.
-
-<Example name="tooltip/with-arrow" />
-
 ### В фиксированных контейнерах
 
 Используйте `positioning.strategy: "fixed"`, если триггер находится в фиксированной или липкой
@@ -106,6 +87,25 @@ import AnatomyScene from '@/components/examples/tooltip/anatomy';
 триггер, прокрутить панель и проверить выравнивание подсказки.
 
 <Example name="tooltip/within-fixed-containers" />
+
+### Управляемое состояние
+
+Управляйте открытием подсказки с помощью `open` и `onOpenChange(details)`. Подробнее в разделе [Управляйте состоянием из приложения](/docs/composition-patterns#controlled-state).
+
+<Example name="tooltip/controlled" />
+
+### Контекст
+
+Используйте `useTooltipContext()` внутри потомка, которому нужно текущее состояние подсказки.
+
+<Example name="tooltip/context" />
+
+### Root Provider
+
+Используйте `useTooltip()` вместе с `TooltipRootProvider`, если состояние подсказки создаётся за
+пределами дерева, в котором она отображается. Подробнее в разделе [Выносите состояние за пределы дерева](/docs/composition-patterns#root-provider).
+
+<Example name="tooltip/root-provider" />
 
 ### Сборка из частей
 

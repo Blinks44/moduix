@@ -46,12 +46,54 @@ import * as MenuDocs from '@/components/examples/menu/css-properties';
 
 ## Примеры
 
+### Группировка
+
+Используйте `MenuItemGroup` и `MenuItemGroupLabel`, чтобы объединить связанные пункты, а
+`MenuSeparator` - чтобы разделить группы.
+
+<Example name="menu/grouping" />
+
 ### Пункты с флажками
 
 Используйте пункты с флажками для независимых параметров. Установите `closeOnSelect={false}`, если
 пользователь должен изменить несколько настроек до закрытия меню.
 
 <Example name="menu/checkbox-items" />
+
+### Пункты с выбором одного варианта
+
+Используйте `MenuRadioItemGroup`, если пользователь должен выбрать одно значение из нескольких
+вариантов. Установите `closeOnSelect={false}`, если меню должно оставаться открытым во время выбора.
+
+<Example name="menu/radio-items" />
+
+### Размещение индикатора
+
+Задайте для пунктов с флажками и вариантами с единственным выбором `indicator="start"`, `"end"`
+или `"none"`, чтобы выбрать положение индикатора.
+
+<Example name="menu/indicator-placement" />
+
+### Ссылки
+
+Используйте `MenuItem asChild` и сделайте саму ссылку пунктом меню. Тогда ссылка получит
+ARIA-атрибуты, клавиатурное поведение и обработку фокуса пункта.
+
+<Example name="menu/links" />
+
+### Вложенное меню
+
+Разместите дочерний `Menu` внутри содержимого родительского меню и открывайте его с помощью
+`MenuTriggerItem`.
+
+<Example name="menu/nested" />
+
+### Со стрелкой
+
+Добавьте `MenuArrow` и `MenuArrowTip` непосредственно внутрь `MenuContent`, если нужно визуально
+связать всплывающее меню с триггером.
+
+<Example name="menu/with-arrow" />
 
 ### Контекстное меню
 
@@ -60,26 +102,34 @@ import * as MenuDocs from '@/components/examples/menu/css-properties';
 
 <Example name="menu/context-menu" />
 
+### Несколько триггеров
+
+Чтобы использовать одно меню с несколькими триггерами, передайте каждому `MenuTrigger` своё
+значение `value`. Меню будет позиционироваться относительно триггера, который его открыл.
+
+<Example name="menu/multiple-triggers" />
+
+### Меню в диалоге
+
+Установите `portalled={false}`, чтобы оставить всплывающее меню внутри диалога или прокручиваемого
+контейнера. Если контейнер может прокручиваться, используйте фиксированное позиционирование и
+`hideWhenDetached`, чтобы скрывать меню после выхода за видимую область.
+
+<Example name="menu/menu-in-dialog" />
+
+### Событие выбора
+
+Используйте `onSelect(details)` на корневом компоненте, если один обработчик должен реагировать на
+выбор любого пункта. Выбранное значение находится в `details.value`.
+
+<Example name="menu/select-event" />
+
 ### Управляемое состояние
 
 Управляйте `open` через состояние выбранного фреймворка, если меню должно открываться или закрываться
-другим элементом управления.
+другим элементом управления. Подробнее в разделе [Управляйте состоянием из приложения](/docs/composition-patterns#controlled-state).
 
 <Example name="menu/controlled" />
-
-### Группировка
-
-Используйте `MenuItemGroup` и `MenuItemGroupLabel`, чтобы объединить связанные пункты, а
-`MenuSeparator` - чтобы разделить группы.
-
-<Example name="menu/grouping" />
-
-### Размещение индикатора
-
-Задайте для пунктов с флажками и вариантами с единственным выбором `indicator="start"`, `"end"`
-или `"none"`, чтобы выбрать положение индикатора.
-
-<Example name="menu/indicator-placement" />
 
 ### Контекст элемента
 
@@ -96,62 +146,12 @@ import * as MenuDocs from '@/components/examples/menu/css-properties';
 
 <Example name="menu/lazy-mounted-context-menu" />
 
-### Ссылки
-
-Используйте `MenuItem asChild` и сделайте саму ссылку пунктом меню. Тогда ссылка получит
-ARIA-атрибуты, клавиатурное поведение и обработку фокуса пункта.
-
-<Example name="menu/links" />
-
-### Меню в диалоге
-
-Установите `portalled={false}`, чтобы оставить всплывающее меню внутри диалога или прокручиваемого
-контейнера. Если контейнер может прокручиваться, используйте фиксированное позиционирование и
-`hideWhenDetached`, чтобы скрывать меню после выхода за видимую область.
-
-<Example name="menu/menu-in-dialog" />
-
-### Несколько триггеров
-
-Чтобы использовать одно меню с несколькими триггерами, передайте каждому `MenuTrigger` своё
-значение `value`. Меню будет позиционироваться относительно триггера, который его открыл.
-
-<Example name="menu/multiple-triggers" />
-
-### Вложенное меню
-
-Разместите дочерний `Menu` внутри содержимого родительского меню и открывайте его с помощью
-`MenuTriggerItem`.
-
-<Example name="menu/nested" />
-
-### Пункты с выбором одного варианта
-
-Используйте `MenuRadioItemGroup`, если пользователь должен выбрать одно значение из нескольких
-вариантов. Установите `closeOnSelect={false}`, если меню должно оставаться открытым во время выбора.
-
-<Example name="menu/radio-items" />
-
 ### Root Provider
 
 Используйте `useMenu` и `MenuRootProvider`, если коду за пределами дерева компонентов нужно читать
-состояние меню или изменять его.
+состояние меню или изменять его. Подробнее в разделе [Выносите состояние за пределы дерева](/docs/composition-patterns#root-provider).
 
 <Example name="menu/root-provider" />
-
-### Событие выбора
-
-Используйте `onSelect(details)` на корневом компоненте, если один обработчик должен реагировать на
-выбор любого пункта. Выбранное значение находится в `details.value`.
-
-<Example name="menu/select-event" />
-
-### Со стрелкой
-
-Добавьте `MenuArrow` и `MenuArrowTip` непосредственно внутрь `MenuContent`, если нужно визуально
-связать всплывающее меню с триггером.
-
-<Example name="menu/with-arrow" />
 
 ### Сборка из частей
 
@@ -251,9 +251,6 @@ render-функции `asChild`: ref на самой части `Menu` чере�
 | `MenuCheckboxItem` | `menu-checkbox-item` |
 | `MenuItemIndicator` | `menu-item-indicator` |
 | `MenuItemText` | `menu-item-text` |
-| `MenuItemTextContent` | `menu-item-text-content` |
-| `MenuItemTextIcon` | `menu-item-text-icon` |
-| `MenuItemTextLabel` | `menu-item-text-label` |
 | `MenuItemShortcut` | `menu-item-shortcut` |
 
 - Атрибуты Ark: `[data-scope='menu']`, `[data-part='trigger']`, `[data-part='indicator']`,

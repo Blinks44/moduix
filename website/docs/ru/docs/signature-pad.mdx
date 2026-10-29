@@ -36,13 +36,6 @@ import * as SignaturePadDocs from '@/components/examples/signature-pad/css-prope
 
 ## Примеры
 
-### Управляемое состояние
-
-Используйте управляемый `paths`, чтобы хранить подпись в состоянии приложения и связывать её с
-кнопками сброса или логикой автосохранения.
-
-<Example name="signature-pad/controlled" />
-
 ### Рисование
 
 Передайте `drawing`, если нужно изменить толщину или цвет штриха либо поведение имитации давления.
@@ -50,6 +43,12 @@ import * as SignaturePadDocs from '@/components/examples/signature-pad/css-prope
 Ark показано `simulatePressure: true`), поэтому имитация давления включается явно.
 
 <Example name="signature-pad/drawing" />
+
+### Предпросмотр изображения
+
+Используйте `onDrawEnd`, чтобы экспортировать подпись и показать её перед сохранением.
+
+<Example name="signature-pad/image-preview" />
 
 ### Поле формы
 
@@ -65,16 +64,17 @@ Ark показано `simulatePressure: true`), поэтому имитация 
 
 <Example name="signature-pad/form-serialization" />
 
-### Предпросмотр изображения
+### Управляемое состояние
 
-Используйте `onDrawEnd`, чтобы экспортировать подпись и показать её перед сохранением.
+Используйте управляемый `paths`, чтобы хранить подпись в состоянии приложения и связывать её с
+кнопками сброса или логикой автосохранения. Подробнее в разделе [Управляйте состоянием из приложения](/docs/composition-patterns#controlled-state).
 
-<Example name="signature-pad/image-preview" />
+<Example name="signature-pad/controlled" />
 
 ### Root Provider
 
 Создайте состояние с помощью `useSignaturePad()` и передайте его в `SignaturePadRootProvider`, когда элементам
-вне выводимого дерева нужен прямой доступ к `paths`, `clear()` или `getDataUrl()`.
+вне выводимого дерева нужен прямой доступ к `paths`, `clear()` или `getDataUrl()`. Подробнее в разделе [Выносите состояние за пределы дерева](/docs/composition-patterns#root-provider).
 
 <Example name="signature-pad/root-provider" />
 

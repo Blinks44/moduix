@@ -51,27 +51,13 @@ pour les mêmes liens dans un menu contextuel. Les deux branches restent compos�
 
 <Example name="sidebar/nested-navigation" />
 
-### Zone de défilement personnalisée
+### Sélection d’un espace de travail
 
-Le défilement natif est utilisé par défaut. Placez `ScrollArea` dans `SidebarContent` pour ajouter
-une barre de défilement stylisée ou un fondu sur le bord, et faites de son viewport le seul conteneur
-de défilement.
+Utilisez `SelectTrigger asChild` avec `SidebarNavigationButton`. Placez la valeur sélectionnée
+dans `SidebarLabel`, gardez `SelectIndicator` comme enfant direct du trigger et marquez l’ancre
+visuelle compacte avec `data-sidebar-icon`.
 
-<Example name="sidebar/custom-scroll-area" />
-
-### Tailles personnalisées
-
-Définissez une taille initiale explicite et composez d’autres primitives dans la structure lorsque
-la largeur initiale par défaut ne convient pas.
-
-<Example name="sidebar/custom-sizes" />
-
-### Mise en page persistante sur ordinateur
-
-Conservez la largeur de la barre latérale dans l’état de l’application ou dans le stockage. Contrôlez
-`size` pendant le redimensionnement et enregistrez la valeur finale dans `onResizeEnd(details)`.
-
-<Example name="sidebar/persisted-layout" />
+<Example name="sidebar/workspace-select" />
 
 ### Structure complète de l’application
 
@@ -89,13 +75,27 @@ direction du chevron.
 
 <Example name="sidebar/right-sidebar" />
 
-### Sélection d’un espace de travail
+### Tailles personnalisées
 
-Utilisez `SelectTrigger asChild` avec `SidebarNavigationButton`. Placez la valeur sélectionnée
-dans `SidebarLabel`, gardez `SelectIndicator` comme enfant direct du trigger et marquez l’ancre
-visuelle compacte avec `data-sidebar-icon`.
+Définissez une taille initiale explicite et composez d’autres primitives dans la structure lorsque
+la largeur initiale par défaut ne convient pas.
 
-<Example name="sidebar/workspace-select" />
+<Example name="sidebar/custom-sizes" />
+
+### Mise en page persistante sur ordinateur
+
+Conservez la largeur de la barre latérale dans l’état de l’application ou dans le stockage. Contrôlez
+`size` pendant le redimensionnement et enregistrez la valeur finale dans `onResizeEnd(details)`.
+
+<Example name="sidebar/persisted-layout" />
+
+### Zone de défilement personnalisée
+
+Le défilement natif est utilisé par défaut. Placez `ScrollArea` dans `SidebarContent` pour ajouter
+une barre de défilement stylisée ou un fondu sur le bord, et faites de son viewport le seul conteneur
+de défilement.
+
+<Example name="sidebar/custom-scroll-area" />
 
 ## Composition
 

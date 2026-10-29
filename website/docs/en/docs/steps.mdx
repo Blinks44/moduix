@@ -44,19 +44,12 @@ rendered part tree.
 
 ## Examples
 
-### Controlled
+### Vertical
 
-Control `step` from framework state when the active step must stay synchronized with routing,
-validation, or another part of the interface.
+Set `orientation="vertical"` when the step list should sit beside the active content panel on
+wide layouts and stack above it on narrow screens.
 
-<Example name="steps/controlled" />
-
-### Link Triggers
-
-Use `asChild` when a trigger must render as an anchor or router link instead of the default button.
-Keep one semantic child so it receives Ark's ARIA, keyboard, and focus behavior.
-
-<Example name="steps/link-triggers" />
+<Example name="steps/vertical" />
 
 ### Validation
 
@@ -73,19 +66,26 @@ names the flow.
 
 <Example name="steps/progress" />
 
-### RootProvider
+### Link triggers
+
+Use `asChild` when a trigger must render as an anchor or router link instead of the default button.
+Keep one semantic child so it receives Ark's ARIA, keyboard, and focus behavior.
+
+<Example name="steps/link-triggers" />
+
+### Controlled
+
+Control `step` from framework state when the active step must stay synchronized with routing,
+validation, or another part of the interface. See [Control state from the application](/docs/composition-patterns#controlled-state).
+
+<Example name="steps/controlled" />
+
+### Root provider
 
 Create the state with `useSteps()` outside the rendered part tree, then pass it to
-`StepsRootProvider` when external controls need to work with the same state.
+`StepsRootProvider` when external controls need to work with the same state. See [Share state outside the tree](/docs/composition-patterns#root-provider).
 
 <Example name="steps/root-provider" />
-
-### Vertical
-
-Set `orientation="vertical"` when the step list should sit beside the active content panel on
-wide layouts and stack above it on narrow screens.
-
-<Example name="steps/vertical" />
 
 ## Composition
 
@@ -176,7 +176,6 @@ The useful public hooks are:
 
 | Key | Action |
 | --- | --- |
-| `Tab` / `Shift+Tab` | Moves between step triggers and the Back and Next buttons. |
 | `Enter` / `Space` | Opens the focused step or runs Back and Next. |
 
 ## API reference

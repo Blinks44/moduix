@@ -45,11 +45,20 @@ import * as AngleSliderDocs from '@/components/examples/angle-slider/css-propert
 
 ## Примеры
 
-### Управляемое состояние
+### С маркерами
 
-Используйте управляемое состояние, когда угол должен синхронизироваться с состоянием приложения.
+Используйте `AngleSliderMarks`, когда на диске нужны основные угловые отметки и не хочется
+повторять `AngleSliderMarkerGroup` и `AngleSliderMarker`. `AngleSliderDial` сохраняет вместе композицию `AngleSliderControl` и
+`AngleSliderThumb`.
 
-<Example name="angle-slider/controlled" />
+<Example name="angle-slider/with-marks" />
+
+### Шаги
+
+Используйте `step`, чтобы привязать взаимодействие указателем и клавиатурой к фиксированным угловым
+интервалам.
+
+<Example name="angle-slider/steps" />
 
 ### Отключённый режим
 
@@ -57,6 +66,20 @@ import * as AngleSliderDocs from '@/components/examples/angle-slider/css-propert
 реагировать на взаимодействие.
 
 <Example name="angle-slider/disabled" />
+
+### Только для чтения
+
+Используйте `readOnly`, когда текущее значение должно оставаться видимым и доступным для фокуса,
+но не должно изменяться.
+
+<Example name="angle-slider/read-only" />
+
+### Недопустимое значение
+
+Используйте `invalid`, когда выбранный угол не проходит проверку. Диск получит стили ошибки и
+соответствующее состояние ARIA, не меняя модель взаимодействия.
+
+<Example name="angle-slider/invalid" />
 
 ### В форме
 
@@ -66,42 +89,19 @@ Reset показывает встроенный в Ark сброс формы. У
 
 <Example name="angle-slider/form" />
 
-### Недопустимое значение
+### Управляемое состояние
 
-Используйте `invalid`, когда выбранный угол не проходит проверку. Диск получит стили ошибки и
-соответствующее состояние ARIA, не меняя модель взаимодействия.
+Используйте управляемое состояние, когда угол должен синхронизироваться с состоянием приложения. Подробнее в разделе [Управляйте состоянием из приложения](/docs/composition-patterns#controlled-state).
 
-<Example name="angle-slider/invalid" />
-
-### Только для чтения
-
-Используйте `readOnly`, когда текущее значение должно оставаться видимым и доступным для фокуса,
-но не должно изменяться.
-
-<Example name="angle-slider/read-only" />
+<Example name="angle-slider/controlled" />
 
 ### Root Provider
 
 Используйте `useAngleSlider()` из соответствующего пакета вместе с `AngleSliderRootProvider`, если
 другому компоненту нужен прямой доступ к тому же автомату состояний. Внешнее состояние можно
-использовать для управления соседним интерфейсом.
+использовать для управления соседним интерфейсом. Подробнее в разделе [Выносите состояние за пределы дерева](/docs/composition-patterns#root-provider).
 
 <Example name="angle-slider/root-provider" />
-
-### Шаги
-
-Используйте `step`, чтобы привязать взаимодействие указателем и клавиатурой к фиксированным угловым
-интервалам.
-
-<Example name="angle-slider/steps" />
-
-### С маркерами
-
-Используйте `AngleSliderMarks`, когда на диске нужны основные угловые отметки и не хочется
-повторять `AngleSliderMarkerGroup` и `AngleSliderMarker`. `AngleSliderDial` сохраняет вместе композицию `AngleSliderControl` и
-`AngleSliderThumb`.
-
-<Example name="angle-slider/with-marks" />
 
 ### Сборка из частей
 

@@ -40,13 +40,6 @@ import * as CommandPaletteDocs from '@/components/examples/command-palette/css-p
 
 ## Примеры
 
-### Управляемое состояние открытия
-
-Используйте управляемое свойство `open`, если остальному интерфейсу тоже нужно управлять видимостью палитры.
-В этом примере внешний фильтр коллекции сбрасывается при закрытии палитры.
-
-<Example name="command-palette/controlled-open-state" />
-
 ### Включение глобального сочетания клавиш
 
 Задайте `shortcut="alt+k"` у `CommandPalette` или `CommandPaletteRootProvider`, чтобы зарегистрировать глобальное переключение палитры. Это единственный просмотр
@@ -60,6 +53,13 @@ import * as CommandPaletteDocs from '@/components/examples/command-palette/css-p
 закрывается после выполнения выбранного действия.
 
 <Example name="command-palette/item-actions" />
+
+### Управляемое состояние открытия
+
+Используйте управляемое свойство `open`, если остальному интерфейсу тоже нужно управлять видимостью палитры.
+В этом примере внешний фильтр коллекции сбрасывается при закрытии палитры. Подробнее в разделе [Управляйте состоянием из приложения](/docs/composition-patterns#controlled-state).
+
+<Example name="command-palette/controlled-open-state" />
 
 ### Сборка из частей
 

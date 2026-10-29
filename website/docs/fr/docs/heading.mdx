@@ -34,20 +34,18 @@ visuelle doit différer du niveau sémantique.
 
 ## Exemples
 
-### Élément personnalisé
-
-Utilisez `asChild` lorsqu’un autre élément sémantique de titre doit porter le nœud DOM rendu. Pour les cas
-courants avec `h1` à `h6`, utilisez plutôt `as`. La taille par défaut suit `as` et non l’élément enfant :
-définissez donc `size` selon l’enfant.
-
-<Example name="heading/custom-element" />
-
 ### Niveaux de titre
 
 Utilisez `as` pour choisir un niveau de `h2` à `h6`. Lorsque `size` n’est pas défini, la taille visuelle
 suit `as`.
 
 <Example name="heading/heading-levels" />
+
+### Tailles visuelles
+
+Utilisez `size` lorsque plusieurs titres partagent le même niveau sémantique mais doivent avoir une importance visuelle différente.
+
+<Example name="heading/visual-sizes" />
 
 ### Niveau sémantique et taille visuelle
 
@@ -56,17 +54,19 @@ Séparez la hiérarchie du document de l’importance visuelle. Utilisez `as` po
 
 <Example name="heading/semantic-level-and-visual-size" />
 
-### Tailles visuelles
-
-Utilisez `size` lorsque plusieurs titres partagent le même niveau sémantique mais doivent avoir une importance visuelle différente.
-
-<Example name="heading/visual-sizes" />
-
 ### Graisse
 
 Utilisez `weight` pour choisir l’une des graisses typographiques intégrées.
 
 <Example name="heading/weights" />
+
+### Élément personnalisé
+
+Utilisez `asChild` lorsqu’un autre élément sémantique de titre doit porter le nœud DOM rendu. Pour les cas
+courants avec `h1` à `h6`, utilisez plutôt `as`. La taille par défaut suit `as` et non l’élément enfant :
+définissez donc `size` selon l’enfant.
+
+<Example name="heading/custom-element" />
 
 ## Composition
 

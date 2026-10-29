@@ -42,18 +42,50 @@ import * as DateInputDocs from '@/components/examples/date-input/css-properties'
 
 ## Examples
 
-### Controlled
+### Granularity
 
-Pass the selected date array to `value` and update it from `details.value` in `onValueChange`.
+Set `granularity` to include time segments in the input.
 
-<Example name="date-input/controlled" />
+<Example name="date-input/granularity" />
 
-### Custom Segments
+### Time only
 
-Style each segment from its Ark data with `DateInputSegmentContext`. This example gives the day
-segment its own class.
+Use a formatter configured for time only with minute or second granularity when the date is not part
+of the value users edit.
 
-<Example name="date-input/custom-segments" />
+<Example name="date-input/time-only" />
+
+### Range
+
+Use `selectionMode="range"`, pass `index` to each segment group, and add matching indexed
+`DateInputHiddenInput` parts when the values belong to a form.
+
+<Example name="date-input/range" />
+
+### Locale
+
+Set `locale`, `timeZone`, `hourCycle`, or `granularity` on the root when segment order and labels
+should follow regional conventions.
+
+<Example name="date-input/locale" />
+
+### Leading zeros
+
+Set `shouldForceLeadingZeros={false}` when numeric segments should not include leading zeros.
+
+<Example name="date-input/leading-zeros" />
+
+### Right to left
+
+Set `dir="rtl"` with an RTL locale to keep the locale's segment order and direction.
+
+<Example name="date-input/right-to-left" />
+
+### Minimum, maximum, and unavailable dates
+
+Use `min`, `max`, and `isDateUnavailable` to mark entered dates outside business rules as invalid.
+
+<Example name="date-input/min-max-and-unavailable-dates" />
 
 ### Disabled and read-only
 
@@ -69,57 +101,25 @@ Wrap `DateInput` in `Field` to provide surrounding form text. Pass `required`, `
 
 <Example name="date-input/field-state" />
 
-### Granularity
+### Custom segments
 
-Set `granularity` to include time segments in the input.
+Style each segment from its Ark data with `DateInputSegmentContext`. This example gives the day
+segment its own class.
 
-<Example name="date-input/granularity" />
+<Example name="date-input/custom-segments" />
 
-### Leading zeros
+### Controlled
 
-Set `shouldForceLeadingZeros={false}` when numeric segments should not include leading zeros.
+Pass the selected date array to `value` and update it from `details.value` in `onValueChange`. See [Control state from the application](/docs/composition-patterns#controlled-state).
 
-<Example name="date-input/leading-zeros" />
+<Example name="date-input/controlled" />
 
-### Locale
-
-Set `locale`, `timeZone`, `hourCycle`, or `granularity` on the root when segment order and labels
-should follow regional conventions.
-
-<Example name="date-input/locale" />
-
-### Minimum, maximum, and unavailable dates
-
-Use `min`, `max`, and `isDateUnavailable` to mark entered dates outside business rules as invalid.
-
-<Example name="date-input/min-max-and-unavailable-dates" />
-
-### Range
-
-Use `selectionMode="range"`, pass `index` to each segment group, and add matching indexed
-`DateInputHiddenInput` parts when the values belong to a form.
-
-<Example name="date-input/range" />
-
-### Right to left
-
-Set `dir="rtl"` with an RTL locale to keep the locale's segment order and direction.
-
-<Example name="date-input/right-to-left" />
-
-### Root Provider
+### Root provider
 
 Use `useDateInput()` from `@moduix/react`, `@moduix/solid`, or `@moduix/vue` with
-`DateInputRootProvider` when state actions need to be available outside the rendered root tree.
+`DateInputRootProvider` when state actions need to be available outside the rendered root tree. See [Share state outside the tree](/docs/composition-patterns#root-provider).
 
 <Example name="date-input/root-provider" />
-
-### Time only
-
-Use a formatter configured for time only with minute or second granularity when the date is not part
-of the value users edit.
-
-<Example name="date-input/time-only" />
 
 ### Build from parts
 

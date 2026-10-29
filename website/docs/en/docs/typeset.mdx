@@ -35,13 +35,12 @@ container needs to be semantic, such as an `article` or `section`. Keep lists as
 
 ## Examples
 
-### Excluding application surfaces
+### Reading rhythm
 
-Exclude a nested subtree when it has its own visual treatment, such as an embedded control or card.
-Both `.not-typeset` and `data-not-typeset` exclude the marked element and everything inside it,
-including a nested `Typeset` root.
+Set CSS variables when a section needs a roomier or denser reading rhythm without adding component
+props.
 
-<Example name="typeset/excluded-subtree" />
+<Example name="typeset/reading-rhythm" />
 
 ### Markdown extensions
 
@@ -50,19 +49,20 @@ block spacing as the core HTML elements.
 
 <Example name="typeset/markdown-extensions" />
 
-### Reading rhythm
-
-Set CSS variables when a section needs a roomier or denser reading rhythm without adding component
-props.
-
-<Example name="typeset/reading-rhythm" />
-
 ### Scrollable table
 
 Wrap a table produced by your renderer in `TypesetScroll` when it should remain wide and scroll in a
 narrow container. Give the scroller an accessible name that identifies the table it contains.
 
 <Example name="typeset/scrollable-table" />
+
+### Excluding application surfaces
+
+Exclude a nested subtree when it has its own visual treatment, such as an embedded control or card.
+Both `.not-typeset` and `data-not-typeset` exclude the marked element and everything inside it,
+including a nested `Typeset` root.
+
+<Example name="typeset/excluded-subtree" />
 
 ### Streaming content
 

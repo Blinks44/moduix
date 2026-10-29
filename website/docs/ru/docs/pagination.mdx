@@ -35,33 +35,6 @@ import * as PaginationDocs from '@/components/examples/pagination/css-properties
 
 ## Примеры
 
-### Управляемое состояние
-
-Передайте текущую страницу через `page` и обновляйте её в `onPageChange(details)`.
-
-<Example name="pagination/controlled" />
-
-### Контекст
-
-Используйте `PaginationContext`, чтобы разместить собственные элементы управления рядом со списком
-страниц и вызывать методы навигации, например `goToFirstPage()` или `goToLastPage()`.
-
-<Example name="pagination/context" />
-
-### Постраничный вывод данных на клиенте
-
-Используйте `pagination.slice(data)` из контекста, чтобы на текущей странице показывать только нужную
-часть уже загруженного массива.
-
-<Example name="pagination/data-slicing" />
-
-### Навигация по ссылкам
-
-Используйте `type="link"`, `getPageUrl(details)` и якоря с `asChild`, если переход между страницами
-должен менять URL и выполнять настоящую навигацию.
-
-<Example name="pagination/link" />
-
 ### Диапазон элементов
 
 Используйте `pagination.pageRange`, чтобы показать, какие элементы видны на текущей странице.
@@ -75,12 +48,26 @@ import * as PaginationDocs from '@/components/examples/pagination/css-properties
 
 <Example name="pagination/page-size-control" />
 
-### Root Provider
+### Кнопки первой и последней страницы
 
-Создайте состояние через `usePagination()` и передайте его в `PaginationRootProvider`,
-если это состояние нужно использовать за пределами дерева с пагинацией.
+Добавьте `PaginationFirstTrigger` и `PaginationLastTrigger`, если пользователям нужны быстрые
+переходы к первой и последней странице.
 
-<Example name="pagination/root-provider" />
+<Example name="pagination/with-edges" />
+
+### Навигация по ссылкам
+
+Используйте `type="link"`, `getPageUrl(details)` и якоря с `asChild`, если переход между страницами
+должен менять URL и выполнять настоящую навигацию.
+
+<Example name="pagination/link" />
+
+### Постраничный вывод данных на клиенте
+
+Используйте `pagination.slice(data)` из контекста, чтобы на текущей странице показывать только нужную
+часть уже загруженного массива.
+
+<Example name="pagination/data-slicing" />
 
 ### Локализация
 
@@ -89,12 +76,25 @@ import * as PaginationDocs from '@/components/examples/pagination/css-properties
 
 <Example name="pagination/customized" />
 
-### Кнопки первой и последней страницы
+### Управляемое состояние
 
-Добавьте `PaginationFirstTrigger` и `PaginationLastTrigger`, если пользователям нужны быстрые
-переходы к первой и последней странице.
+Передайте текущую страницу через `page` и обновляйте её в `onPageChange(details)`. Подробнее в разделе [Управляйте состоянием из приложения](/docs/composition-patterns#controlled-state).
 
-<Example name="pagination/with-edges" />
+<Example name="pagination/controlled" />
+
+### Контекст
+
+Используйте `PaginationContext`, чтобы разместить собственные элементы управления рядом со списком
+страниц и вызывать методы навигации, например `goToFirstPage()` или `goToLastPage()`.
+
+<Example name="pagination/context" />
+
+### Root Provider
+
+Создайте состояние через `usePagination()` и передайте его в `PaginationRootProvider`,
+если это состояние нужно использовать за пределами дерева с пагинацией. Подробнее в разделе [Выносите состояние за пределы дерева](/docs/composition-patterns#root-provider).
+
+<Example name="pagination/root-provider" />
 
 ### Сборка из частей
 

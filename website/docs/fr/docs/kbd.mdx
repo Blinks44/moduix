@@ -32,24 +32,6 @@ Utilisez `Kbd` pour afficher une touche. Pour un raccourci composé de plusieurs
 
 ## Exemples
 
-### Format compact
-
-Utilisez des variables CSS locales lorsque vous souhaitez réduire les touches dans une zone précise de l’interface, sans ajouter de props au composant.
-
-<Example name="kbd/compact-density" />
-
-### Élément personnalisé
-
-Utilisez `asChild` lorsqu’un autre composant rend déjà l’élément sémantique `<kbd>` et que vous souhaitez lui appliquer les styles de Kbd.
-
-<Example name="kbd/custom-element" />
-
-### Liste de raccourcis
-
-Associez `KbdGroup` à un texte explicatif pour présenter plusieurs raccourcis disponibles.
-
-<Example name="kbd/shortcut-list" />
-
 ### Touche unique
 
 Utilisez `Kbd` directement pour afficher une seule touche, par exemple `Esc`.
@@ -61,6 +43,24 @@ Utilisez `Kbd` directement pour afficher une seule touche, par exemple `Esc`.
 Placez une icône directement dans `Kbd` ; elle prend la taille du texte de la touche, sauf si l’icône a sa propre classe de taille. Donnez un `aria-label` au groupe pour que le raccourci ait un nom vocalisé.
 
 <Example name="kbd/with-icon" />
+
+### Liste de raccourcis
+
+Associez `KbdGroup` à un texte explicatif pour présenter plusieurs raccourcis disponibles.
+
+<Example name="kbd/shortcut-list" />
+
+### Format compact
+
+Utilisez des variables CSS locales lorsque vous souhaitez réduire les touches dans une zone précise de l’interface, sans ajouter de props au composant.
+
+<Example name="kbd/compact-density" />
+
+### Élément personnalisé
+
+Utilisez `asChild` lorsqu’un autre composant rend déjà l’élément sémantique `<kbd>` et que vous souhaitez lui appliquer les styles de Kbd.
+
+<Example name="kbd/custom-element" />
 
 ## Composition
 

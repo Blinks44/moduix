@@ -43,55 +43,55 @@ buttons in `SidebarTooltip` so their labels remain available after collapse.
 
 ## Examples
 
-### Nested Navigation
+### Nested navigation
 
 Use `SidebarExpandedContent` for inline nested links and `SidebarCollapsedContent` for the same links in a popup
 menu. Both branches remain application-owned compositions.
 
 <Example name="sidebar/nested-navigation" />
 
-### Custom Scroll Area
-
-Native scrolling is the default. Put `ScrollArea` inside `SidebarContent` when the sidebar needs a
-styled scrollbar or edge fade, and make its viewport the only scroll container.
-
-<Example name="sidebar/custom-scroll-area" />
-
-### Custom Sizes
-
-Set an explicit initial size and compose other primitives in the shell when the default layout needs
-a different starting point.
-
-<Example name="sidebar/custom-sizes" />
-
-### Persisted Desktop Layout
-
-Keep the desktop width in application state or storage. Control `size` while resizing and persist
-the final value from `onResizeEnd(details)`.
-
-<Example name="sidebar/persisted-layout" />
-
-### Complete App Shell
-
-Combine search, group actions, badges, nested navigation, a collapsed popup, and an account menu
-inside one application shell. Each nested primitive keeps its own state and focus behavior.
-
-<Example name="sidebar/nested-navigation-and-account-menu" />
-
-### Right Sidebar
-
-Pass `side="right"` and render `SidebarInset`, `SidebarTrigger`, `SidebarResizeTrigger`, and `SidebarPanel` in that order.
-Sidebar adjusts panel setup, trigger ids, placement, and chevron direction automatically.
-
-<Example name="sidebar/right-sidebar" />
-
-### Workspace Select
+### Workspace select
 
 Use `SelectTrigger asChild` with `SidebarNavigationButton`. Keep the selected value in
 `SidebarLabel`, keep `SelectIndicator` as a direct child of the trigger, and mark a compact
 visual anchor with `data-sidebar-icon`.
 
 <Example name="sidebar/workspace-select" />
+
+### Complete app shell
+
+Combine search, group actions, badges, nested navigation, a collapsed popup, and an account menu
+inside one application shell. Each nested primitive keeps its own state and focus behavior.
+
+<Example name="sidebar/nested-navigation-and-account-menu" />
+
+### Right sidebar
+
+Pass `side="right"` and render `SidebarInset`, `SidebarTrigger`, `SidebarResizeTrigger`, and `SidebarPanel` in that order.
+Sidebar adjusts panel setup, trigger ids, placement, and chevron direction automatically.
+
+<Example name="sidebar/right-sidebar" />
+
+### Custom sizes
+
+Set an explicit initial size and compose other primitives in the shell when the default layout needs
+a different starting point.
+
+<Example name="sidebar/custom-sizes" />
+
+### Persisted desktop layout
+
+Keep the desktop width in application state or storage. Control `size` while resizing and persist
+the final value from `onResizeEnd(details)`.
+
+<Example name="sidebar/persisted-layout" />
+
+### Custom scroll area
+
+Native scrolling is the default. Put `ScrollArea` inside `SidebarContent` when the sidebar needs a
+styled scrollbar or edge fade, and make its viewport the only scroll container.
+
+<Example name="sidebar/custom-scroll-area" />
 
 ## Composition
 

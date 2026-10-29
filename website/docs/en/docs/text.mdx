@@ -43,36 +43,29 @@ on moduix's typography scale.
 
 ## Examples
 
-### Alignment
-
-Use `align` when alignment belongs to the text rather than its surrounding layout container.
-
-<Example name="text/alignment" />
-
-### Custom Element
-
-Use `asChild` when the root should be an existing custom element instead of one of the supported
-intrinsic `as` values. The child must be a single element that accepts the forwarded props and ref.
-
-<Example name="text/custom-element" />
-
-### Semantics
-
-Use `as` to choose a semantic HTML element while keeping `Text`'s typography styles.
-
-<Example name="text/semantics" />
-
 ### Size
 
 Use `size` to change the visual hierarchy without switching to a different typography component.
 
 <Example name="text/size" />
 
+### Weight
+
+Use `weight` when the emphasis should stay within the same semantic element.
+
+<Example name="text/weight" />
+
 ### Tone
 
 Use `tone` to express the role of the copy without adding local color classes.
 
 <Example name="text/tone" />
+
+### Alignment
+
+Use `align` when alignment belongs to the text rather than its surrounding layout container.
+
+<Example name="text/alignment" />
 
 ### Truncation
 
@@ -82,11 +75,18 @@ expansion or disclosure behavior in the surrounding UI.
 
 <Example name="text/truncation" />
 
-### Weight
+### Semantics
 
-Use `weight` when the emphasis should stay within the same semantic element.
+Use `as` to choose a semantic HTML element while keeping `Text`'s typography styles.
 
-<Example name="text/weight" />
+<Example name="text/semantics" />
+
+### Custom element
+
+Use `asChild` when the root should be an existing custom element instead of one of the supported
+intrinsic `as` values. The child must be a single element that accepts the forwarded props and ref.
+
+<Example name="text/custom-element" />
 
 ## Composition
 

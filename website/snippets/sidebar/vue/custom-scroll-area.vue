@@ -49,7 +49,7 @@ const projects = [
     <SidebarPanel>
       <SidebarHeader>
         <strong data-sidebar-icon>M</strong>
-        <SidebarLabel>Moduix</SidebarLabel>
+        <SidebarLabel>moduix</SidebarLabel>
       </SidebarHeader>
       <SidebarContent :class="styles.sidebarContent">
         <ScrollArea fade>

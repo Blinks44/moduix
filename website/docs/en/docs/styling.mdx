@@ -1,6 +1,6 @@
 ---
 title: Styling
-description: Choose the right styling layer for Moduix components across framework adapters.
+description: Choose the right styling layer for moduix components across framework adapters.
 ---
 
 import { ProjectChecklist } from '@/components/examples/styling/project-checklist';
@@ -11,7 +11,7 @@ import vueBrandButton from '../../../snippets/styling/vue/brand-button.vue?raw';
 
 # Styling
 
-Moduix ships separate CSS Modules and Tailwind packages for every current framework adapter. Choose
+moduix ships separate CSS Modules and Tailwind packages for every current framework adapter. Choose
 the styling track your application already uses, then make each change at the highest layer that owns
 the decision.
 
@@ -45,7 +45,7 @@ components and needs more code.
 
 ## How overrides win
 
-Moduix styles live in CSS cascade layers, declared in this order:
+moduix styles live in CSS cascade layers, declared in this order:
 
 ```css
 @layer theme, base, moduix.reset, moduix.tokens, moduix.base, components, moduix.components, utilities;
@@ -215,7 +215,7 @@ portalled parts themselves, or scope them to the portal container.
 ## Style with Panda CSS
 
 Panda CSS can generate consumer classes for every supported framework. Its token names come from your Panda
-theme, not from Moduix. Generate class strings once, then attach them to exported parts with
+theme, not from moduix. Generate class strings once, then attach them to exported parts with
 `className` in React or `class` in Solid or Vue.
 
 ```ts

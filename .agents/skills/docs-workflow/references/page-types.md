@@ -93,7 +93,7 @@ Use this structure for Ark collection APIs that manage data without owning the c
 5. `API essentials` only when a compact configuration, state, or action summary helps readers choose the right API;
 6. integration and accessibility guidance that clearly separates collection-owned data behavior from application-owned or component-owned interaction.
 
-Prefer the Ark UI collection entry point when documenting an API that consumers use directly. If Moduix re-exports a helper as part of a component contract, explain that relationship and let component-based examples use the matching Moduix entry point.
+Prefer the Ark UI collection entry point when documenting an API that consumers use directly. If moduix re-exports a helper as part of a component contract, explain that relationship and let component-based examples use the matching moduix entry point.
 
 Do not reproduce every upstream method or example. Teach the basic data model, the operations needed for common integration, and the state or lifecycle constraints that are easy to misuse. Keep framework differences next to the code or API shape they affect.
 
@@ -116,14 +116,14 @@ The Forms overview uses this order:
 A form-library integration guide uses this order:
 
 1. framework availability and installation through `PackageManagerTabs`;
-2. the smallest complete mapping between library field state and Moduix controls;
+2. the smallest complete mapping between library field state and moduix controls;
 3. validation and reset behavior;
-4. one complete form with native source for every framework supported by both the library and Moduix;
+4. one complete form with native source for every framework supported by both the library and moduix;
 5. concise guidance for repeated fields, server errors, focus, and behavioral constraints.
 
 Keep framework support truthful. A framework-specific library page must state that constraint near the beginning and must not show empty or fictional tabs for other adapters. Link readers to a real alternative when another shipped framework needs the same capability.
 
-Keep responsibilities explicit: the form library owns application state, validation timing, and submission lifecycle; Moduix owns the visible controls, field semantics, and required native form parts. Do not register or render a second hidden input for a value already supplied by a Moduix component.
+Keep responsibilities explicit: the form library owns application state, validation timing, and submission lifecycle; moduix owns the visible controls, field semantics, and required native form parts. Do not register or render a second hidden input for a value already supplied by a moduix component.
 
 Use `groupId="framework"` for framework installation and source tabs. Put shared prose and shared styles outside those tabs. The documentation preview may render the React source, but say so and provide native source for every other supported shipped framework.
 

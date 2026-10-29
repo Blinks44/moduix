@@ -43,11 +43,21 @@ with a double-click, which helps prevent accidental changes.
 
 ## Examples
 
-### Controlled
+### Textarea
 
-Use `value` and `onValueChange` when application state should be the source of truth for the value.
+Use `EditableInput asChild` with a native `<textarea>` for multiline content. The textarea gets a
+minimum height, the preview keeps line breaks, and the controls stay at the top. Press Cmd/Ctrl +
+Enter to save; Enter inserts a new line.
 
-<Example name="editable/controlled" />
+<Example name="editable/textarea" />
+
+### Custom triggers
+
+Render your own `Button` in each trigger with `asChild`. `EditableContext` switches between the edit
+trigger and the submit and cancel triggers, and `translations` keeps the accessible names in line with
+the visible text.
+
+<Example name="editable/custom-triggers" />
 
 ### Disabled and read-only
 
@@ -55,14 +65,6 @@ Use `disabled` when the field should be unavailable for interaction. Use `readOn
 should remain visible but must not be editable.
 
 <Example name="editable/disabled-and-read-only" />
-
-### Custom Triggers
-
-Render your own `Button` in each trigger with `asChild`. `EditableContext` switches between the edit
-trigger and the submit and cancel triggers, and `translations` keeps the accessible names in line with
-the visible text.
-
-<Example name="editable/custom-triggers" />
 
 ### Field
 
@@ -76,7 +78,7 @@ Pass `name` to include the current value in a native form submission.
 
 <Example name="editable/form" />
 
-### Click to Edit
+### Click to edit
 
 The root accepts common Ark options such as activation mode, auto-resize, maximum length,
 mode-specific placeholders, and localized control labels. This example sets `activationMode` to
@@ -84,22 +86,20 @@ mode-specific placeholders, and localized control labels. This example sets `act
 
 <Example name="editable/guides" />
 
-### Root Provider
+### Controlled
+
+Use `value` and `onValueChange` when application state should be the source of truth for the value. See [Control state from the application](/docs/composition-patterns#controlled-state).
+
+<Example name="editable/controlled" />
+
+### Root provider
 
 Use moduix `useEditable()` and `EditableRootProvider` when controls outside the component tree
 need access to `Editable` state and methods. Pass `activationMode: 'dblclick'` to the hook to match
 the root component's default activation behavior. The provider replaces `Editable` for this
-state instance.
+state instance. See [Share state outside the tree](/docs/composition-patterns#root-provider).
 
 <Example name="editable/root-provider" />
-
-### Textarea
-
-Use `EditableInput asChild` with a native `<textarea>` for multiline content. The textarea gets a
-minimum height, the preview keeps line breaks, and the controls stay at the top. Press Cmd/Ctrl +
-Enter to save; Enter inserts a new line.
-
-<Example name="editable/textarea" />
 
 ### Build from parts
 

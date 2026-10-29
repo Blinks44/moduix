@@ -45,7 +45,7 @@ and `Drawer` for a panel attached to an edge of the viewport with gesture or sna
 
 ## Examples
 
-### Anchor Position
+### Anchor position
 
 Use `getAnchorPosition` to calculate the panel's initial position from the trigger rectangle.
 
@@ -58,6 +58,38 @@ it is being dragged.
 
 <Example name="floating-panel/boundary" />
 
+### Escape dismiss
+
+`closeOnEscape` is enabled by default. Add `autoFocus` to `FloatingPanelContent` when Escape should work
+immediately after the non-modal panel opens.
+
+<Example name="floating-panel/escape-dismiss" />
+
+### Controlled open
+
+Use `open` with `onOpenChange` when application state should control the panel's visibility. See [Control state from the application](/docs/composition-patterns#controlled-state).
+
+<Example name="floating-panel/controlled-open" />
+
+### Controlled position
+
+Control `position` when another part of the application needs the panel's current coordinates. See [Control state from the application](/docs/composition-patterns#controlled-state).
+
+<Example name="floating-panel/controlled-position" />
+
+### Controlled size
+
+Control `size` when the surrounding UI needs to store or display the panel's current dimensions. See [Control state from the application](/docs/composition-patterns#controlled-state).
+
+<Example name="floating-panel/controlled-size" />
+
+### Lazy mount
+
+Use `lazyMount` and `unmountOnExit` when content should mount on first open and be removed after the
+exit animation.
+
+<Example name="floating-panel/lazy-mount" />
+
 ### Context
 
 Use `FloatingPanelContext` or `useFloatingPanelContext` to read panel state and methods inside the
@@ -66,42 +98,10 @@ an accessor.
 
 <Example name="floating-panel/context" />
 
-### Controlled Open
-
-Use `open` with `onOpenChange` when application state should control the panel's visibility.
-
-<Example name="floating-panel/controlled-open" />
-
-### Controlled Position
-
-Control `position` when another part of the application needs the panel's current coordinates.
-
-<Example name="floating-panel/controlled-position" />
-
-### Controlled Size
-
-Control `size` when the surrounding UI needs to store or display the panel's current dimensions.
-
-<Example name="floating-panel/controlled-size" />
-
-### Escape Dismiss
-
-`closeOnEscape` is enabled by default. Add `autoFocus` to `FloatingPanelContent` when Escape should work
-immediately after the non-modal panel opens.
-
-<Example name="floating-panel/escape-dismiss" />
-
-### Lazy Mount
-
-Use `lazyMount` and `unmountOnExit` when content should mount on first open and be removed after the
-exit animation.
-
-<Example name="floating-panel/lazy-mount" />
-
-### FloatingPanelRootProvider
+### Root provider
 
 Use `useFloatingPanel` with `FloatingPanelRootProvider` when controls outside the panel tree need
-methods such as `minimize`, `maximize`, and `setOpen`. The Solid store is read through an accessor.
+methods such as `minimize`, `maximize`, and `setOpen`. The Solid store is read through an accessor. See [Share state outside the tree](/docs/composition-patterns#root-provider).
 
 <Example name="floating-panel/root-provider" />
 
@@ -199,7 +199,6 @@ mirrors `data-minimized` from the content.
 | Key | Action |
 | --- | --- |
 | `Enter` / `Space` | Opens it from the focused trigger. |
-| `Tab` / `Shift+Tab` | Moves focus between the controls in the panel. |
 | `Esc` | Closes the panel. |
 
 ## API reference

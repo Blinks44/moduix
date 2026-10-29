@@ -88,7 +88,7 @@ export function Example() {
 
 Covered Ark examples: basic composition, controlled `open` with `onOpenChange(details)`,
 `HoverCardRootProvider` with moduix `useHoverCard`, `openDelay`/`closeDelay`, `disabled`, `positioning`, and
-multiple triggers through `Trigger value` plus `onTriggerValueChange(details)`. Moduix re-exports
+multiple triggers through `Trigger value` plus `onTriggerValueChange(details)`. moduix re-exports
 `useHoverCard` and `useHoverCardContext`, exposes Ark `Context` as `HoverCardContext`, and
 re-exports the Ark part prop, event, detail, and hook types.
 
@@ -104,7 +104,7 @@ advanced state reads or external state ownership, use `HoverCardContext`, `useHo
 
 ## Defaults and styling
 
-Moduix adds default visual styling to `Trigger`, `Positioner`, `Content`, `Arrow`, `ArrowTip`, and
+moduix adds default visual styling to `Trigger`, `Positioner`, `Content`, `Arrow`, `ArrowTip`, and
 `Body`. A trigger without `asChild` is a link-like inline button in the primary color; its underline
 follows `currentColor`. Ark does not mark the trigger with `data-disabled` when the root is
 `disabled`, so only a native `disabled` trigger gets the disabled style.

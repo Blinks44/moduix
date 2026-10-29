@@ -40,28 +40,6 @@ sections liées doivent partager la navigation au clavier ou un état coordonné
 
 ## Exemples
 
-### Contexte
-
-Utilisez `useCollapsibleContext()` dans un composant descendant lorsqu’il doit lire l’état ou fermer
-la zone par programmation.
-
-<Example name="collapsible/context" />
-
-### État contrôlé
-
-Utilisez `open` avec le callback Ark `onOpenChange(details)` lorsqu’une autre partie de l’interface
-gère l’état.
-
-<Example name="collapsible/controlled" />
-
-### Déclencheur personnalisé
-
-Utilisez `asChild` pour appliquer le comportement du déclencheur à un bouton défini par votre application.
-Les styles par défaut de `CollapsibleTrigger` ne sont alors pas appliqués, mais le comportement Ark et
-les attributs d’état sont conservés.
-
-<Example name="collapsible/custom-trigger" />
-
 ### Ouvert par défaut
 
 Définissez `defaultOpen` pour qu’un composant non contrôlé soit ouvert dès son rendu initial.
@@ -74,12 +52,13 @@ Ajoutez `disabled` à la racine pour empêcher l’utilisateur d’ouvrir ou de 
 
 <Example name="collapsible/disabled" />
 
-### Montage différé
+### Déclencheur personnalisé
 
-Activez `lazyMount` pour ne monter le contenu qu’à sa première ouverture. Ajoutez `unmountOnExit` pour
-le retirer du DOM après sa fermeture.
+Utilisez `asChild` pour appliquer le comportement du déclencheur à un bouton défini par votre application.
+Les styles par défaut de `CollapsibleTrigger` ne sont alors pas appliqués, mais le comportement Ark et
+les attributs d’état sont conservés.
 
-<Example name="collapsible/lazy-mount" />
+<Example name="collapsible/custom-trigger" />
 
 ### Imbriqué
 
@@ -101,10 +80,31 @@ Utilisez `collapsedWidth` lorsqu’un aperçu horizontal est plus utile qu’un 
 
 <Example name="collapsible/partial-collapse-width" />
 
+### État contrôlé
+
+Utilisez `open` avec le callback Ark `onOpenChange(details)` lorsqu’une autre partie de l’interface
+gère l’état. Voir [Contrôler l’état depuis l’application](/docs/composition-patterns#controlled-state).
+
+<Example name="collapsible/controlled" />
+
+### Montage différé
+
+Activez `lazyMount` pour ne monter le contenu qu’à sa première ouverture. Ajoutez `unmountOnExit` pour
+le retirer du DOM après sa fermeture.
+
+<Example name="collapsible/lazy-mount" />
+
+### Contexte
+
+Utilisez `useCollapsibleContext()` dans un composant descendant lorsqu’il doit lire l’état ou fermer
+la zone par programmation.
+
+<Example name="collapsible/context" />
+
 ### Root Provider
 
 Créez l’état avec `useCollapsible()` et transmettez-le à `CollapsibleRootProvider` lorsque du code
-extérieur à l’arborescence rendue doit y accéder.
+extérieur à l’arborescence rendue doit y accéder. Voir [Partager l’état hors de l’arbre](/docs/composition-patterns#root-provider).
 
 <Example name="collapsible/root-provider" />
 

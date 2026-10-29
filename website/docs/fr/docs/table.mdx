@@ -37,12 +37,33 @@ interfaces d’administration.
 
 ## Exemples
 
+### Tailles
+
+Utilisez `size` pour la densité : il modifie l’espacement des cellules et la taille du texte. Pour une bordure
+extérieure sans `TableScrollArea`, ajoutez une classe de bordure à `Table`.
+
+<Example name="table/sizes" />
+
+### Lignes alternées
+
+Utilisez `striped` lorsque de longues listes en lecture seule nécessitent une séparation plus marquée des lignes,
+sans passer à une abstraction de tableau plus directive.
+
+<Example name="table/striped-rows" />
+
 ### Légende et totaux
 
 Utilisez `TableCaption side="top"` lorsque la légende se lit mieux avant les données, et `TableFooter` pour les
 totaux ou les synthèses.
 
 <Example name="table/caption-and-footer" />
+
+### Colonnes numériques
+
+Utilisez `numeric` sur l’en-tête et les cellules pour aligner les montants, les quantités, les pourcentages et
+autres valeurs numériques.
+
+<Example name="table/numeric-columns" />
 
 ### Groupe de colonnes et bordures
 
@@ -51,13 +72,20 @@ Utilisez `TableColumnGroup` et `TableColumn` pour définir les largeurs natives 
 
 <Example name="table/column-group-and-borders" />
 
-### Conteneur personnalisé
+### En-tête et colonne fixes
 
-Utilisez votre propre conteneur à la place de `TableScrollArea` lorsque la mise en page environnante gère déjà la
-surface ou le défilement. La composition native du tableau reste explicite et votre mise en page garde le contrôle du
-conteneur.
+Utilisez `stickyHeader` sur la racine et `data-sticky="start" | "end"` sur les cellules lorsqu’un tableau qui défile
+horizontalement ou verticalement doit conserver son en-tête ou une colonne importante à l’écran. Les cellules fixes
+conservent la couleur de la ligne alternée, survolée ou focalisée.
 
-<Example name="table/custom-wrapper" />
+<Example name="table/sticky-header-and-column" />
+
+### Actions de ligne avec Menu
+
+Utilisez la dernière colonne pour les actions propres à chaque ligne lorsque le tableau nécessite quelques commandes
+secondaires. `Menu` convient à ce cas sans modifier la structure native du tableau.
+
+<Example name="table/row-actions-with-menu" />
 
 ### État vide
 
@@ -73,42 +101,6 @@ carte.
 
 <Example name="table/inside-card" />
 
-### Colonnes numériques
-
-Utilisez `numeric` sur l’en-tête et les cellules pour aligner les montants, les quantités, les pourcentages et
-autres valeurs numériques.
-
-<Example name="table/numeric-columns" />
-
-### Actions de ligne avec Menu
-
-Utilisez la dernière colonne pour les actions propres à chaque ligne lorsque le tableau nécessite quelques commandes
-secondaires. `Menu` convient à ce cas sans modifier la structure native du tableau.
-
-<Example name="table/row-actions-with-menu" />
-
-### Tailles
-
-Utilisez `size` pour la densité : il modifie l’espacement des cellules et la taille du texte. Pour une bordure
-extérieure sans `TableScrollArea`, ajoutez une classe de bordure à `Table`.
-
-<Example name="table/sizes" />
-
-### En-tête et colonne fixes
-
-Utilisez `stickyHeader` sur la racine et `data-sticky="start" | "end"` sur les cellules lorsqu’un tableau qui défile
-horizontalement ou verticalement doit conserver son en-tête ou une colonne importante à l’écran. Les cellules fixes
-conservent la couleur de la ligne alternée, survolée ou focalisée.
-
-<Example name="table/sticky-header-and-column" />
-
-### Lignes alternées
-
-Utilisez `striped` lorsque de longues listes en lecture seule nécessitent une séparation plus marquée des lignes,
-sans passer à une abstraction de tableau plus directive.
-
-<Example name="table/striped-rows" />
-
 ### Avec le composant ScrollArea
 
 Utilisez directement `ScrollArea` lorsque le tableau nécessite des barres de défilement stylisées sur les deux axes,
@@ -116,6 +108,14 @@ un effet de fondu ou l’API de la zone de défilement. `TableScrollArea` est un
 défilement horizontal. Gardez la structure de `ScrollArea` explicite afin que le tableau reste natif et léger.
 
 <Example name="table/with-scrollarea" />
+
+### Conteneur personnalisé
+
+Utilisez votre propre conteneur à la place de `TableScrollArea` lorsque la mise en page environnante gère déjà la
+surface ou le défilement. La composition native du tableau reste explicite et votre mise en page garde le contrôle du
+conteneur.
+
+<Example name="table/custom-wrapper" />
 
 ## Composition
 

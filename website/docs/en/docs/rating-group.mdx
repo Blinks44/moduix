@@ -39,14 +39,20 @@ Use `RatingGroup` when people need to choose a numeric score from a row of stars
 
 ## Examples
 
-### Controlled
+### Sizes
 
-Manage `value` with `useState` in React, `createSignal` in Solid, or `ref` and `v-model` in Vue when
-the score depends on other state, drives nearby UI, or must be reset by a parent.
+Use the moduix `size` prop when the rating needs to keep the same Ark behavior at a different visual
+density.
 
-<Example name="rating-group/controlled" />
+<Example name="rating-group/sizes" />
 
-### Custom Icon
+### Half rating
+
+Set `allowHalf` to enable half-step selection and rendering.
+
+<Example name="rating-group/half-rating" />
+
+### Custom icon
 
 Pass a custom `RatingGroupItemIndicator` as the child of `RatingGroupItems` when every item should
 use the same icon. The indicator still receives Ark-driven `data-highlighted` and `data-half`
@@ -54,7 +60,7 @@ attributes for styling.
 
 <Example name="rating-group/custom-icon" />
 
-### Disabled and Readonly
+### Disabled and readonly
 
 Use `disabled` to remove interaction. Use `readOnly` to keep the score visible while preventing
 changes.
@@ -76,25 +82,19 @@ Pass `name` and render `RatingGroupHiddenInput` when the selected score should b
 
 <Example name="rating-group/forms" />
 
-### Half Rating
+### Controlled
 
-Set `allowHalf` to enable half-step selection and rendering.
+Pass `value` and `onValueChange` (`v-model` in Vue) when the score depends on other state or a parent
+resets it. See [Control state from the application](/docs/composition-patterns#controlled-state).
 
-<Example name="rating-group/half-rating" />
+<Example name="rating-group/controlled" />
 
-### Root Provider
+### Root provider
 
 Use `RatingGroupRootProvider` with `useRatingGroup()` when the rating state must be created outside
-the rendered rating tree, for example to set the value from a separate button.
+the rendered rating tree, for example to set the value from a separate button. See [Share state outside the tree](/docs/composition-patterns#root-provider).
 
 <Example name="rating-group/root-provider" />
-
-### Sizes
-
-Use the moduix `size` prop when the rating needs to keep the same Ark behavior at a different visual
-density.
-
-<Example name="rating-group/sizes" />
 
 ### Build from parts
 

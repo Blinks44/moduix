@@ -54,7 +54,7 @@ import styles from '@/components/examples/sidebar/sidebar-nested-navigation-and-
         <div :class="styles.headerContent">
           <div :class="styles.brand">
             <strong data-sidebar-icon :class="styles.brandMark">M</strong>
-            <SidebarLabel>Moduix</SidebarLabel>
+            <SidebarLabel>moduix</SidebarLabel>
           </div>
           <SidebarInput aria-label="Search workspace" placeholder="Search" size="sm" />
         </div>

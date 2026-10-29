@@ -40,25 +40,19 @@ créer une valeur.
 
 ## Exemples
 
-### État contrôlé
+### Sélection multiple
 
-Contrôlez le tableau de chaînes sélectionnées avec l’état React, un signal Solid ou une ref Vue, puis mettez-le à jour avec `details.value`.
+Définissez `multiple` pour autoriser plusieurs valeurs sélectionnées. `ValueText` affiche les
+libellés des éléments sélectionnés à partir de la collection.
 
-<Example name="select/controlled" />
+<Example name="select/multiple" />
 
-### Disposition personnalisée des éléments
+### Regroupement
 
-Utilisez `SelectItemTextContent`, `SelectItemTextIcon` et `SelectItemTextLabel` dans `ItemText`
-lorsqu’un élément doit afficher une icône stable et un libellé tronqué.
+Définissez `groupBy` dans la collection et affichez `collection.group()` avec `ItemGroup` et
+`ItemGroupLabel`.
 
-<Example name="select/custom-item-layout" />
-
-### Éléments dynamiques
-
-Mettez à jour la collection lorsque les éléments disponibles changent. La composition Select reste
-identique.
-
-<Example name="select/dynamic-items" />
+<Example name="select/grouping" />
 
 ### Champ de formulaire
 
@@ -74,19 +68,12 @@ valeurs envoyées depuis `FormData`.
 
 <Example name="select/form-usage" />
 
-### Regroupement
+### État contrôlé
 
-Définissez `groupBy` dans la collection et affichez `collection.group()` avec `ItemGroup` et
-`ItemGroupLabel`.
+Passez `value` et `onValueChange` (`v-model` en Vue). La valeur est toujours un tableau de chaînes,
+même sans `multiple`. Voir [Contrôler l’état depuis l’application](/docs/composition-patterns#controlled-state).
 
-<Example name="select/grouping" />
-
-### Montage différé
-
-Utilisez `lazyMount` et `unmountOnExit` lorsque le contenu de la fenêtre contextuelle ne doit être
-monté que pendant l’utilisation de Select.
-
-<Example name="select/lazy-mount" />
+<Example name="select/controlled" />
 
 ### Nombre maximal d’éléments sélectionnés
 
@@ -95,26 +82,26 @@ Limitez le nombre d’éléments sélectionnés en rejetant les tableaux trop lo
 
 <Example name="select/max-selection" />
 
-### Sélection multiple
+### Tout sélectionner
 
-Définissez `multiple` pour autoriser plusieurs valeurs sélectionnées. `ValueText` affiche les
-libellés des éléments sélectionnés à partir de la collection.
+Placez les actions groupées en dehors de la listbox. `useSelect` permet d’utiliser l’action et
+Select avec la même instance d’état Ark.
 
-<Example name="select/multiple" />
+<Example name="select/select-all" />
 
-### Débordement
+### Éléments dynamiques
 
-Pour les longues listes, utilisez `positioning.fitViewport`. Le contenu limite déjà sa hauteur avec
-la variable Ark `--available-height` et reste défilable.
+Mettez à jour la collection lorsque les éléments disponibles changent. La composition Select reste
+identique.
 
-<Example name="select/overflow" />
+<Example name="select/dynamic-items" />
 
-### Root Provider
+### Disposition personnalisée des éléments
 
-Utilisez `useSelect` avec `SelectRootProvider` lorsque l’état doit être lu ou contrôlé en
-dehors de l’arborescence Select rendue.
+Placez l’icône directement dans `SelectItemText`, avant le libellé. L’icône reçoit une taille fixe
+et un espacement, et un libellé long est tronqué avec des points de suspension.
 
-<Example name="select/root-provider" />
+<Example name="select/custom-item-layout" />
 
 ### Recherche dans la fenêtre contextuelle
 
@@ -123,12 +110,19 @@ la requête et la collection filtrée dans votre composant, sans étendre l’AP
 
 <Example name="select/search-in-popup" />
 
-### Tout sélectionner
+### Débordement
 
-Placez les actions groupées en dehors de la listbox. `useSelect` permet d’utiliser l’action et
-Select avec la même instance d’état Ark.
+Pour les longues listes, utilisez `positioning.fitViewport`. Le contenu limite déjà sa hauteur avec
+la variable Ark `--available-height` et reste défilable.
 
-<Example name="select/select-all" />
+<Example name="select/overflow" />
+
+### Montage différé
+
+Utilisez `lazyMount` et `unmountOnExit` lorsque le contenu de la fenêtre contextuelle ne doit être
+monté que pendant l’utilisation de Select.
+
+<Example name="select/lazy-mount" />
 
 ### Sélection lors du déplacement dans la liste
 
@@ -136,6 +130,13 @@ Utilisez `onHighlightChange(details)` lorsque le déplacement entre les options 
 immédiatement à jour la sélection.
 
 <Example name="select/select-on-highlight" />
+
+### Root Provider
+
+Créez l’état avec `useSelect` et passez-le à `SelectRootProvider`. Voir
+[Partager l’état hors de l’arbre](/docs/composition-patterns#root-provider).
+
+<Example name="select/root-provider" />
 
 ### Assembler à partir des parties
 
@@ -175,9 +176,6 @@ Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
     ["SelectOption", "", "Ligne prête à l’emploi pour les options simples avec texte et indicateur.", 4],
     ["SelectItem", "select-item", "Ligne sélectionnable. Passez l’élément de collection avec `item`.", 4],
     ["SelectItemText", "select-item-text", "Texte utilisé pour l’affichage et l’accessibilité.", 5],
-    ["SelectItemTextContent", "select-item-text-content", "Composant de mise en page pour du texte d’élément enrichi.", 6],
-    ["SelectItemTextIcon", "select-item-text-icon", "Conteneur d’icône pour du texte d’élément enrichi.", 7],
-    ["SelectItemTextLabel", "select-item-text-label", "Conteneur de libellé pour du texte d’élément enrichi.", 7],
     ["SelectItemIndicator", "select-item-indicator", "Indicateur de sélection avec l’icône de coche moduix par défaut.", 5],
     ["SelectHiddenSelect", "", "Champ natif d’Ark ; composition explicite décrite ci-dessous.", 1],
     ["SelectField", "", "Composant utilitaire moduix pour le champ, le déclencheur et les actions standard.", 1],
@@ -221,9 +219,6 @@ Survolez ou sélectionnez une variable pour la voir dans l’aperçu.
 | `SelectItem` | `select-item` |
 | `SelectItemText` | `select-item-text` |
 | `SelectItemIndicator` | `select-item-indicator` |
-| `SelectItemTextContent` | `select-item-text-content` |
-| `SelectItemTextIcon` | `select-item-text-icon` |
-| `SelectItemTextLabel` | `select-item-text-label` |
 
 Sa propriété `indicator` fournit
 l’enfant du slot d’indicateur existant. `SelectOption` réutilise les slots de l’élément

@@ -1,6 +1,6 @@
 ---
 title: Composition Patterns
-description: Compose Moduix parts across framework adapters without hiding Ark behavior or product ownership.
+description: Compose moduix parts across framework adapters without hiding Ark behavior or product ownership.
 ---
 
 import reactAsChild from '../../../snippets/composition-patterns/react/as-child.tsx?raw';
@@ -15,7 +15,7 @@ import VueProductDialogHelper from '../../../snippets/composition-patterns/vue/p
 
 # Composition Patterns
 
-Moduix keeps Ark's part-based composition visible. Start with the shipped parts, re-export them when
+moduix keeps Ark's part-based composition visible. Start with the shipped parts, re-export them when
 your application needs stable local imports, and add a wrapper only when it represents a repeated
 product decision.
 
@@ -26,7 +26,7 @@ the shadcn registry. Framework tabs below show only the mechanics that actually 
 
 | Need | Start with |
 | --- | --- |
-| Standard component behavior | Shipped Moduix parts |
+| Standard component behavior | Shipped moduix parts |
 | Product-owned import paths | Direct re-exports |
 | Repeated visual or layout rule | A focused wrapper around the part that owns it |
 | State outside the rendered tree | `use<Component>()` with `<Family>RootProvider` |
@@ -56,7 +56,7 @@ supports those props. Use `DialogRootProvider` only when dialog state was create
 
 ## Compose a semantic child
 
-Use `asChild` when an existing element should remain the DOM node and a Moduix part should add only
+Use `asChild` when an existing element should remain the DOM node and a moduix part should add only
 its behavior. React accepts a single child element. Solid accepts a render function and requires Ark
 props to be spread onto the returned element. Vue uses `as-child` with exactly one element or component
 in the default slot.
@@ -158,7 +158,23 @@ prop and maps it to public Dialog variables. The rest of the part tree remains u
 Preserve the original props, ref behavior, consumer class, and part names. A product data attribute is
 a useful local styling hook; copied component CSS is not.
 
-## Move state only when ownership changes
+## Control state from the application {#controlled-state}
+
+Stateful components manage their own state by default. Pass the state prop and its change callback
+when the application needs to read or set that state, for example from filters, routing, or another
+component.
+
+| Framework | Pattern |
+| --- | --- |
+| React | Keep the state in `useState`, pass `value={value}` and `onValueChange={(details) => setValue(details.value)}`. |
+| Solid | Keep the state in `createSignal`, pass `value={value()}` and `onValueChange={(details) => setValue(details.value)}`. |
+| Vue | Bind `v-model` for `value`, or `v-model:open`, `v-model:checked`, and similar for other state props. |
+
+The callback name follows the prop: `value` and `onValueChange`, `open` and `onOpenChange`, `checked`
+and `onCheckedChange`. Read the new state from the details object (`details.value`, `details.open`).
+The API reference on each component page lists its state props.
+
+## Share state outside the tree {#root-provider}
 
 Use `DialogContext` for a one-off read inside the tree. Use `useDialogContext()` in reusable descendants.
 Create state with `useDialog()` and connect it through `DialogRootProvider` only when controls outside

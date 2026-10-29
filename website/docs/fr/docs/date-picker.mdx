@@ -44,54 +44,43 @@ fenêtre contextuelle.
 
 ## Exemples
 
-### État contrôlé
+### Plage
 
-Contrôlez le `DateValue[]` sélectionné en le mettant à jour avec `details.value`. En Vue, utilisez
-`v-model` pour la valeur contrôlée.
+Utilisez `selectionMode="range"` avec deux valeurs. Ark gère le survol, le début et la fin de la
+plage ainsi que le format de saisie. Une plage utilise deux saisies indexées.
 
-<Example name="date-picker/controlled" />
+<Example name="date-picker/range" />
 
-### Vue initiale et semaines fixes
+### Plusieurs dates
 
-Utilisez `defaultView` pour ouvrir une autre vue. Ajoutez `fixedWeeks` pour conserver une hauteur
-de six lignes dans la vue des jours pendant la navigation entre les mois.
+Utilisez `selectionMode="multiple"` et limitez si nécessaire le nombre de sélections avec
+`maxSelectedDates`. Affichez les dates sélectionnées via `DatePickerContext` et appelez
+`datePicker.setValue()` lorsqu’une date est supprimée.
 
-<Example name="date-picker/default-view-and-fixed-weeks" />
+<Example name="date-picker/multiple" />
 
-### État du champ
+### Préréglages
 
-`DatePicker` récupère l’état du champ depuis Ark. Si le composant n’est pas composé avec `Field`,
-définissez `invalid`, `disabled`, `readOnly` et `required` sur la racine.
+`DatePickerPresetTrigger` accepte des noms de plages intégrés tels que `last7Days`, ou un
+`DateValue[]` personnalisé. Utilisez le mode plage avec deux saisies indexées pour afficher les
+deux dates du préréglage.
 
-<Example name="date-picker/field-state" />
+<Example name="date-picker/presets" />
 
-### Formulaire
+### Date et heure
 
-Passez `name` pour inclure la date sélectionnée dans l’envoi natif du formulaire. `DatePickerField`
-fournit le modèle de saisie localisé et les libellés d’action traduits si vous ne les remplacez pas.
+Conservez l’heure dans la valeur sélectionnée en stockant des objets `CalendarDateTime`. Associez
+le calendrier à un `DateInput` configuré pour saisir les minutes afin que les deux contrôles
+modifient la même valeur.
 
-<Example name="date-picker/form" />
+<Example name="date-picker/with-time" />
 
-### Calendrier intégré et numéros de semaine
+### Sélectionner aujourd’hui
 
-Définissez `inline` pour conserver le calendrier dans le flux du document. Un calendrier intégré
-rend `DatePickerContent` directement, sans `DatePickerPositioner`. Définissez `showWeekNumbers` sur
-la racine : `DatePickerDayTable` le lit et ajoute la colonne des numéros de semaine.
+Utilisez `DatePickerContext` lorsqu’un contrôle voisin doit appeler une fonction telle que
+`selectToday()`.
 
-<Example name="date-picker/inline-and-week-numbers" />
-
-### Locale et format
-
-`locale`, `startOfWeek`, `format` et `parse` sont transmis à Ark.
-
-<Example name="date-picker/locale-and-format" />
-
-### Dates minimale, maximale et indisponibles
-
-Utilisez `min`, `max` et `isDateUnavailable` pour des règles de validation qui doivent s’appliquer
-à la saisie comme aux cellules du calendrier.
-
-<Example name="date-picker/min-max-and-unavailable" />
+<Example name="date-picker/select-today" />
 
 ### Sélecteurs de mois et d’année
 
@@ -108,13 +97,13 @@ uniquement. Utilisez `format` et `parse` si la saisie doit accepter une chaîne 
 
 <Example name="date-picker/month-picker" />
 
-### Plusieurs dates
+### Sélecteur d’année
 
-Utilisez `selectionMode="multiple"` et limitez si nécessaire le nombre de sélections avec
-`maxSelectedDates`. Affichez les dates sélectionnées via `DatePickerContext` et appelez
-`datePicker.setValue()` lorsqu’une date est supprimée.
+Définissez `defaultView="year"`, `minView="year"` et `maxView="year"` pour permettre la sélection
+d’une année uniquement. Utilisez `DatePickerRangeText` dans l’en-tête, car la vue de l’année n’a pas de vue
+supérieure vers laquelle basculer.
 
-<Example name="date-picker/multiple" />
+<Example name="date-picker/year-picker" />
 
 ### Plusieurs mois
 
@@ -123,50 +112,61 @@ Affichez un `DatePickerDayTable` par mois et passez `offset={1}` au second.
 
 <Example name="date-picker/multiple-months" />
 
-### Préréglages
+### Calendrier intégré et numéros de semaine
 
-`DatePickerPresetTrigger` accepte des noms de plages intégrés tels que `last7Days`, ou un
-`DateValue[]` personnalisé. Utilisez le mode plage avec deux saisies indexées pour afficher les
-deux dates du préréglage.
+Définissez `inline` pour conserver le calendrier dans le flux du document. Un calendrier intégré
+rend `DatePickerContent` directement, sans `DatePickerPositioner`. Définissez `showWeekNumbers` sur
+la racine : `DatePickerDayTable` le lit et ajoute la colonne des numéros de semaine.
 
-<Example name="date-picker/presets" />
+<Example name="date-picker/inline-and-week-numbers" />
 
-### Plage
+### Vue initiale et semaines fixes
 
-Utilisez `selectionMode="range"` avec deux valeurs. Ark gère le survol, le début et la fin de la
-plage ainsi que le format de saisie. Une plage utilise deux saisies indexées.
+Utilisez `defaultView` pour ouvrir une autre vue. Ajoutez `fixedWeeks` pour conserver une hauteur
+de six lignes dans la vue des jours pendant la navigation entre les mois.
 
-<Example name="date-picker/range" />
+<Example name="date-picker/default-view-and-fixed-weeks" />
+
+### Locale et format
+
+`locale`, `startOfWeek`, `format` et `parse` sont transmis à Ark.
+
+<Example name="date-picker/locale-and-format" />
+
+### Dates minimale, maximale et indisponibles
+
+Utilisez `min`, `max` et `isDateUnavailable` pour des règles de validation qui doivent s’appliquer
+à la saisie comme aux cellules du calendrier.
+
+<Example name="date-picker/min-max-and-unavailable" />
+
+### État du champ
+
+`DatePicker` récupère l’état du champ depuis Ark. Si le composant n’est pas composé avec `Field`,
+définissez `invalid`, `disabled`, `readOnly` et `required` sur la racine.
+
+<Example name="date-picker/field-state" />
+
+### Formulaire
+
+Passez `name` pour inclure la date sélectionnée dans l’envoi natif du formulaire. `DatePickerField`
+fournit le modèle de saisie localisé et les libellés d’action traduits si vous ne les remplacez pas.
+
+<Example name="date-picker/form" />
+
+### État contrôlé
+
+Contrôlez le `DateValue[]` sélectionné en le mettant à jour avec `details.value`. En Vue, utilisez
+`v-model` pour la valeur contrôlée. Voir [Contrôler l’état depuis l’application](/docs/composition-patterns#controlled-state).
+
+<Example name="date-picker/controlled" />
 
 ### Root Provider
 
 Utilisez `useDatePicker()` depuis le paquet correspondant au framework avec `DatePickerRootProvider`
-lorsque l’état du calendrier doit être partagé avec des contrôles hors de l’arbre racine.
+lorsque l’état du calendrier doit être partagé avec des contrôles hors de l’arbre racine. Voir [Partager l’état hors de l’arbre](/docs/composition-patterns#root-provider).
 
 <Example name="date-picker/root-provider" />
-
-### Sélectionner aujourd’hui
-
-Utilisez `DatePickerContext` lorsqu’un contrôle voisin doit appeler une fonction telle que
-`selectToday()`.
-
-<Example name="date-picker/select-today" />
-
-### Date et heure
-
-Conservez l’heure dans la valeur sélectionnée en stockant des objets `CalendarDateTime`. Associez
-le calendrier à un `DateInput` configuré pour saisir les minutes afin que les deux contrôles
-modifient la même valeur.
-
-<Example name="date-picker/with-time" />
-
-### Sélecteur d’année
-
-Définissez `defaultView="year"`, `minView="year"` et `maxView="year"` pour permettre la sélection
-d’une année uniquement. Utilisez `DatePickerRangeText` dans l’en-tête, car la vue de l’année n’a pas de vue
-supérieure vers laquelle basculer.
-
-<Example name="date-picker/year-picker" />
 
 ### Assembler à partir des parties
 

@@ -33,6 +33,33 @@ l’alignement.
 
 ## Exemples
 
+### Mise en page en ligne
+
+Utilisez `direction="row"` et les propriétés d’alignement pour disposer le contenu sur une ligne.
+
+<Example name="stack/row-layout" />
+
+### Direction responsive
+
+Utilisez une `direction` responsive pour passer simplement d’une colonne sur mobile à une ligne sur ordinateur. La
+valeur `desktop` s’applique à partir de `640px`. Les valeurs responsive suivent l’approche mobile-first : sans `mobile`,
+la direction reste `column`, et sans `desktop`, la direction mobile est conservée.
+
+<Example name="stack/responsive-direction" />
+
+### Retour à la ligne des éléments
+
+Utilisez `wrap="wrap"` lorsque les éléments doivent passer à la ligne suivante.
+
+<Example name="stack/wrapped-items" />
+
+### Séparateur
+
+Ajoutez directement `Separator` lorsqu’un `Stack` horizontal ou vertical nécessite un séparateur visuel répété entre
+ses enfants. `gap` s’applique à chaque enfant, y compris aux séparateurs.
+
+<Example name="stack/separator" />
+
 ### Stack enfant extensible
 
 Utilisez `fill` lorsqu’un `Stack` imbriqué doit occuper l’espace restant dans une ligne flex.
@@ -45,38 +72,11 @@ Associez `Stack` et `Skeleton` pour un état de chargement qui ne nécessite qu�
 
 <Example name="stack/loading-layout" />
 
-### Direction responsive
-
-Utilisez une `direction` responsive pour passer simplement d’une colonne sur mobile à une ligne sur ordinateur. La
-valeur `desktop` s’applique à partir de `640px`. Les valeurs responsive suivent l’approche mobile-first : sans `mobile`,
-la direction reste `column`, et sans `desktop`, la direction mobile est conservée.
-
-<Example name="stack/responsive-direction" />
-
-### Mise en page en ligne
-
-Utilisez `direction="row"` et les propriétés d’alignement pour disposer le contenu sur une ligne.
-
-<Example name="stack/row-layout" />
-
 ### Élément sémantique
 
 Utilisez `asChild` d’Ark lorsque l’enveloppe de mise en page doit également exprimer la structure du document.
 
 <Example name="stack/semantic-element" />
-
-### Séparateur
-
-Ajoutez directement `Separator` lorsqu’un `Stack` horizontal ou vertical nécessite un séparateur visuel répété entre
-ses enfants. `gap` s’applique à chaque enfant, y compris aux séparateurs.
-
-<Example name="stack/separator" />
-
-### Retour à la ligne des éléments
-
-Utilisez `wrap="wrap"` lorsque les éléments doivent passer à la ligne suivante.
-
-<Example name="stack/wrapped-items" />
 
 ## Composition
 

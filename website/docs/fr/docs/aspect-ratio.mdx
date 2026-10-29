@@ -37,40 +37,12 @@ débordements et le rayon à la racine uniquement lorsque la composition en a be
 
 ## Exemples
 
-### Dispositions de cartes
-
-Utilisez le même rapport pour les médias de cartes afin de les aligner, même si les images sources ont des
-dimensions différentes.
-
-<Example name="aspect-ratio/card-grid" />
-
 ### Ratios courants
 
 Passez la largeur divisée par la hauteur à `ratio` : `1` pour un avatar ou une vignette carrée, `4 / 3`
 pour les photos et `16 / 9` pour la vidéo.
 
 <Example name="aspect-ratio/common-ratios" />
-
-### Élément personnalisé
-
-Utilisez `asChild` lorsqu’un élément sémantique, comme `figure`, doit devenir la racine rendue. Ark transmet les
-propriétés du composant à son unique enfant.
-
-<Example name="aspect-ratio/custom-element" />
-
-### Contenu intégré
-
-Entourez une vidéo ou un autre contenu intégré avec `AspectRatio` pour conserver un cadre stable pendant le
-chargement du contenu externe.
-
-<Example name="aspect-ratio/embedded-content" />
-
-### Migration depuis shadcn
-
-Si vous migrez depuis shadcn, placez les classes de largeur et de rayon directement sur `AspectRatio` plutôt que
-sur un conteneur extérieur. La même racine fonctionne avec `Image` de Next.js et sa propriété `fill`.
-
-<Example name="aspect-ratio/migrating-from-shadcn" />
 
 ### Ratio adaptatif
 
@@ -79,6 +51,34 @@ classe à l’intérieur d’une media query. La classe l’emporte sur le style
 carré sur téléphone et en 21:9 à partir de 40rem.
 
 <Example name="aspect-ratio/responsive-ratio" />
+
+### Dispositions de cartes
+
+Utilisez le même rapport pour les médias de cartes afin de les aligner, même si les images sources ont des
+dimensions différentes.
+
+<Example name="aspect-ratio/card-grid" />
+
+### Contenu intégré
+
+Entourez une vidéo ou un autre contenu intégré avec `AspectRatio` pour conserver un cadre stable pendant le
+chargement du contenu externe.
+
+<Example name="aspect-ratio/embedded-content" />
+
+### Élément personnalisé
+
+Utilisez `asChild` lorsqu’un élément sémantique, comme `figure`, doit devenir la racine rendue. Ark transmet les
+propriétés du composant à son unique enfant.
+
+<Example name="aspect-ratio/custom-element" />
+
+### Migration depuis shadcn
+
+Si vous migrez depuis shadcn, placez les classes de largeur et de rayon directement sur `AspectRatio` plutôt que
+sur un conteneur extérieur. La même racine fonctionne avec `Image` de Next.js et sa propriété `fill`.
+
+<Example name="aspect-ratio/migrating-from-shadcn" />
 
 ## Composition
 

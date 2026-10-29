@@ -42,27 +42,6 @@ lorsque la progression se compare plus facilement sur une barre horizontale.
 
 ## Exemples
 
-### État contrôlé
-
-Conservez `value` dans l’état de l’application lorsque la progression doit rester synchronisée avec
-un autre contrôle ou une tâche externe.
-
-<Example name="progress-circular/controlled" />
-
-### Progression indéterminée
-
-Définissez `defaultValue={null}` ou `value={null}` lorsque la tâche est en cours, mais que sa
-progression ne peut pas encore être mesurée.
-
-<Example name="progress-circular/indeterminate" />
-
-### Minimum et maximum
-
-Utilisez `min` et `max` pour représenter des valeurs dans une plage autre que la plage par défaut de
-`0` à `100`.
-
-<Example name="progress-circular/min-max" />
-
 ### Texte de la valeur
 
 Utilisez `ProgressCircularContext` avec `translations.value(details)` lorsque le texte visible de la valeur doit
@@ -71,12 +50,19 @@ afin que le texte visible corresponde à la chaîne de valeur accessible.
 
 <Example name="progress-circular/value-text" />
 
-### Root Provider
+### Minimum et maximum
 
-Créez le store avec `useProgress()` et passez-le à `ProgressCircularRootProvider` lorsqu’un autre
-composant doit lire ou mettre à jour la progression en dehors de l’arbre rendu.
+Utilisez `min` et `max` pour représenter des valeurs dans une plage autre que la plage par défaut de
+`0` à `100`.
 
-<Example name="progress-circular/root-provider" />
+<Example name="progress-circular/min-max" />
+
+### Progression indéterminée
+
+Définissez `defaultValue={null}` ou `value={null}` lorsque la tâche est en cours, mais que sa
+progression ne peut pas encore être mesurée.
+
+<Example name="progress-circular/indeterminate" />
 
 ### Vues d’état
 
@@ -84,6 +70,20 @@ Utilisez `ProgressCircularView` lorsque le texte ou l’interface d’accompagne
 l’état de progression Ark.
 
 <Example name="progress-circular/state-views" />
+
+### État contrôlé
+
+Conservez `value` dans l’état de l’application lorsque la progression doit rester synchronisée avec
+un autre contrôle ou une tâche externe. Voir [Contrôler l’état depuis l’application](/docs/composition-patterns#controlled-state).
+
+<Example name="progress-circular/controlled" />
+
+### Root Provider
+
+Créez le store avec `useProgress()` et passez-le à `ProgressCircularRootProvider` lorsqu’un autre
+composant doit lire ou mettre à jour la progression en dehors de l’arbre rendu. Voir [Partager l’état hors de l’arbre](/docs/composition-patterns#root-provider).
+
+<Example name="progress-circular/root-provider" />
 
 ### Assembler à partir des parties
 

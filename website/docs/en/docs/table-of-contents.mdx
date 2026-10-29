@@ -40,12 +40,6 @@ tracking and link navigation inside the preview.
 
 ## Examples
 
-### Root Provider
-
-Use `useToc()` when another control needs to read the active headings or scroll the reading pane.
-
-<Example name="table-of-contents/root-provider" />
-
 ### Rail
 
 Place `TocRail` inside each link to draw an SVG connector between neighbouring heading depths.
@@ -61,6 +55,12 @@ of contents. `TocContext` supplies the active item for the trigger label and pro
 the links continue to target the same reading pane.
 
 <Example name="table-of-contents/with-collapsible" />
+
+### Root provider
+
+Use `useToc()` when another control needs to read the active headings or scroll the reading pane. See [Share state outside the tree](/docs/composition-patterns#root-provider).
+
+<Example name="table-of-contents/root-provider" />
 
 ## Composition
 

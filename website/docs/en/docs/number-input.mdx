@@ -41,18 +41,51 @@ Use `NumberInput` when users enter numeric values that need stepping, clamping, 
 
 ## Examples
 
-### Controlled
+### Sizes
 
-Keep controlled state as a string and use `details.value` in `onValueChange`.
+Use the `size` prop on the root to match the height and text size of `Input`. The default is `md`.
 
-<Example name="number-input/controlled" />
+<Example name="number-input/sizes" />
 
-### Custom Icons
+### Min and max
+
+Use `min`, `max`, and `step` to define the range and increment for keyboard, trigger, and scrubber
+changes. The value is clamped on blur by default. Set `clampValueOnBlur={false}` when an out-of-range
+typed value should remain visible after the input loses focus.
+
+<Example name="number-input/min-and-max" />
+
+### Formatting
+
+Pass `formatOptions` to format the visible value with `Intl.NumberFormat`.
+
+<Example name="number-input/formatting" />
+
+### Precision
+
+Use `formatOptions` with `Intl.NumberFormatOptions` when the visible value needs a fixed number of
+fraction digits.
+
+<Example name="number-input/precision" />
+
+### Custom icons
 
 Pass your own icons to `NumberInputDecrementTrigger` and `NumberInputIncrementTrigger`. Pass
 `translations` when custom trigger content needs localized accessible labels.
 
 <Example name="number-input/custom-icons" />
+
+### Scrubbing
+
+Drag `NumberInputScrubber` left or right to change the value.
+
+<Example name="number-input/scrubbing" />
+
+### Mouse wheel
+
+Set `allowMouseWheel` when changing the value with the mouse wheel is intentional for the workflow.
+
+<Example name="number-input/mouse-wheel" />
 
 ### Disabled and read-only
 
@@ -67,26 +100,6 @@ Use `Field` when form state, helper text, error text, and accessibility metadata
 
 <Example name="number-input/field" />
 
-### Formatting
-
-Pass `formatOptions` to format the visible value with `Intl.NumberFormat`.
-
-<Example name="number-input/formatting" />
-
-### Min and Max
-
-Use `min`, `max`, and `step` to define the range and increment for keyboard, trigger, and scrubber
-changes. The value is clamped on blur by default. Set `clampValueOnBlur={false}` when an out-of-range
-typed value should remain visible after the input loses focus.
-
-<Example name="number-input/min-and-max" />
-
-### Mouse Wheel
-
-Set `allowMouseWheel` when changing the value with the mouse wheel is intentional for the workflow.
-
-<Example name="number-input/mouse-wheel" />
-
 ### Native form submission
 
 Set `name` to submit the visible text spinbutton through a native form. `NumberInput` submits its
@@ -95,38 +108,25 @@ the parsed numeric representation.
 
 <Example name="number-input/form-submission" />
 
-### Precision
-
-Use `formatOptions` with `Intl.NumberFormatOptions` when the visible value needs a fixed number of
-fraction digits.
-
-<Example name="number-input/precision" />
-
-### Root Provider
-
-Use `useNumberInput()` with `NumberInputRootProvider` when state must be created outside the rendered
-part tree.
-
-<Example name="number-input/root-provider" />
-
-### Scrubbing
-
-Drag `NumberInputScrubber` left or right to change the value.
-
-<Example name="number-input/scrubbing" />
-
-### Sizes
-
-Use the `size` prop on the root to match the height and text size of `Input`. The default is `md`.
-
-<Example name="number-input/sizes" />
-
 ### Value text
 
 Use `NumberInputValueText` when the formatted value should also be visible outside the editable
 input.
 
 <Example name="number-input/value-text" />
+
+### Controlled
+
+Keep controlled state as a string and use `details.value` in `onValueChange`. See [Control state from the application](/docs/composition-patterns#controlled-state).
+
+<Example name="number-input/controlled" />
+
+### Root provider
+
+Use `useNumberInput()` with `NumberInputRootProvider` when state must be created outside the rendered
+part tree. See [Share state outside the tree](/docs/composition-patterns#root-provider).
+
+<Example name="number-input/root-provider" />
 
 ### Build from parts
 

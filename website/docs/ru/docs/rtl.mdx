@@ -10,7 +10,7 @@ import VueSection from '../../../snippets/rtl/vue/section.vue?raw';
 # Справа налево (RTL)
 
 RTL-интерфейсу нужны две согласованные настройки: нативные атрибуты `lang` и `dir` для браузерной
-раскладки и Moduix `LocaleProvider` для поведения Ark с учетом локали. Задавайте их на самом верхнем
+раскладки и moduix `LocaleProvider` для поведения Ark с учетом локали. Задавайте их на самом верхнем
 уровне, которому принадлежит язык.
 
 ## Настройте документ
@@ -62,7 +62,7 @@ import { LocaleProvider } from '@moduix/vue/locale';
 
 ## Ограничьте RTL отдельной областью
 
-Для RTL-области внутри LTR-приложения задайте `lang` и `dir` на ее корне и оберните компоненты Moduix
+Для RTL-области внутри LTR-приложения задайте `lang` и `dir` на ее корне и оберните компоненты moduix
 в `LocaleProvider`.
 
 <Tabs groupId="framework">
@@ -85,7 +85,7 @@ import { LocaleProvider } from '@moduix/vue/locale';
 </Tabs>
 
 Пример собирает коллекцию через `createListCollection` из `@ark-ui/react/collection` или
-`@ark-ui/solid/collection`, `@ark-ui/vue/collection`. Select, Button и LocaleProvider приходят из соответствующего адаптера Moduix.
+`@ark-ui/solid/collection`, `@ark-ui/vue/collection`. Select, Button и LocaleProvider приходят из соответствующего адаптера moduix.
 Компоненты читают направление из контекста локали, и отдельное RTL-свойство им не требуется.
 
 ## Учтите порталы и смешанное направление

@@ -45,13 +45,6 @@ import AnatomyScene from '@/components/examples/timer/basic';
 
 <Example name="timer/countdown" />
 
-### События
-
-Используйте `onTick` и `onComplete` для побочных эффектов, связанных с жизненным циклом таймера. В Vue события
-подключаются через `@tick` и `@complete`.
-
-<Example name="timer/events" />
-
 ### Интервал
 
 Уменьшите `interval` и добавьте элемент `milliseconds`, если UI должен обновляться несколько раз в секунду.
@@ -64,10 +57,17 @@ import AnatomyScene from '@/components/examples/timer/basic';
 
 <Example name="timer/pomodoro" />
 
+### События
+
+Используйте `onTick` и `onComplete` для побочных эффектов, связанных с жизненным циклом таймера. В Vue события
+подключаются через `@tick` и `@complete`.
+
+<Example name="timer/events" />
+
 ### Root Provider
 
 Используйте `useTimer()` с `TimerRootProvider`, если состояние и методы таймера нужны и вне
-отрисованного дерева частей.
+отрисованного дерева частей. Подробнее в разделе [Выносите состояние за пределы дерева](/docs/composition-patterns#root-provider).
 
 <Example name="timer/root-provider" />
 

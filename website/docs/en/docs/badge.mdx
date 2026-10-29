@@ -45,12 +45,30 @@ The Vue exports are available from `@moduix/vue/badge` for CSS Modules and `@mod
 
 ## Examples
 
-### Custom Styling
+### Variants
 
-Use a class or inline CSS variables when a built-in variant is close to what you need but still needs
-a small adjustment.
+Use the built-in variants for common styles.
 
-<Example name="badge/custom-styling" />
+<Example name="badge/variants" />
+
+### Sizes
+
+Set `size` to `sm`, `md`, or `lg`. The default is `md`.
+
+<Example name="badge/sizes" />
+
+### With icon
+
+Place a direct child SVG icon next to the label when the metadata needs another visual cue.
+
+<Example name="badge/with-icon" />
+
+### With dot
+
+Add `BadgeDot` when the label needs a status indicator that stays visually connected to it. Keep the
+status meaning in the visible text because the dot is decorative.
+
+<Example name="badge/with-dot" />
 
 ### Link
 
@@ -59,7 +77,7 @@ element remains a real link and keeps its native semantics.
 
 <Example name="badge/link" />
 
-### Long Labels
+### Long labels
 
 Wrap a long value in `BadgeLabel` to truncate it inside a constrained badge. Add `title` to expose
 the full label on pointer hover. On touch-first interfaces, choose a label that fits the available
@@ -67,30 +85,12 @@ space.
 
 <Example name="badge/long-labels" />
 
-### Sizes
+### Custom styling
 
-Set `size` to `sm`, `md`, or `lg`. The default is `md`.
+Use a class or inline CSS variables when a built-in variant is close to what you need but still needs
+a small adjustment.
 
-<Example name="badge/sizes" />
-
-### Variants
-
-Use the built-in variants for common styles.
-
-<Example name="badge/variants" />
-
-### With Dot
-
-Add `BadgeDot` when the label needs a status indicator that stays visually connected to it. Keep the
-status meaning in the visible text because the dot is decorative.
-
-<Example name="badge/with-dot" />
-
-### With Icon
-
-Place a direct child SVG icon next to the label when the metadata needs another visual cue.
-
-<Example name="badge/with-icon" />
+<Example name="badge/custom-styling" />
 
 ## Composition
 

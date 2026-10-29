@@ -42,25 +42,11 @@ seul choix est possible, et `Switch` lorsqu’un réglage doit s’appliquer imm
 
 ## Exemples
 
-### État contrôlé
+### Tailles
 
-Utilisez une case à cocher contrôlée lorsqu’une autre partie de l’interface gère sa valeur.
+Utilisez `size` pour adapter la densité de la case à cocher au formulaire ou à l’écran de réglages.
 
-<Example name="checkbox/controlled" />
-
-### Groupe contrôlé
-
-Utilisez un groupe contrôlé lorsque les options sélectionnées pilotent des filtres, des récapitulatifs
-ou des actions.
-
-<Example name="checkbox/controlled-group" />
-
-### Indicateur personnalisé
-
-Remplacez la coche intégrée par votre propre icône tout en conservant le comportement de Checkbox et
-les sémantiques d’accessibilité d’Ark.
-
-<Example name="checkbox/custom-indicator" />
+<Example name="checkbox/sizes" />
 
 ### Cochée par défaut
 
@@ -69,11 +55,38 @@ son état.
 
 <Example name="checkbox/default-checked" />
 
+### État indéterminé
+
+Utilisez `checked="indeterminate"` lorsqu’une case représente une sélection partielle. C’est courant
+pour un contrôle « Tout sélectionner ».
+
+<Example name="checkbox/indeterminate" />
+
 ### Désactivée
 
 Utilisez `disabled` lorsqu’une option est indisponible et ne doit pas être interactive.
 
 <Example name="checkbox/disabled" />
+
+### Lecture seule
+
+Utilisez `readOnly` pour afficher une valeur sans permettre sa modification.
+
+<Example name="checkbox/read-only" />
+
+### Avec Field
+
+Utilisez `Field` lorsqu’une case à cocher a besoin d’un texte d’aide, de messages de validation ou
+d’un état de champ partagé.
+
+<Example name="checkbox/with-field" />
+
+### Avec un formulaire
+
+Transmettez `name` et `value` à `Checkbox` et rendez `CheckboxHiddenInput` pour inclure la
+case à cocher dans `FormData`.
+
+<Example name="checkbox/with-form" />
 
 ### Groupe
 
@@ -95,37 +108,24 @@ Placez `CheckboxGroup` dans un formulaire pour récupérer toutes les valeurs s�
 
 <Example name="checkbox/group-with-form" />
 
-### État indéterminé
-
-Utilisez `checked="indeterminate"` lorsqu’une case représente une sélection partielle. C’est courant
-pour un contrôle « Tout sélectionner ».
-
-<Example name="checkbox/indeterminate" />
-
 ### Groupe invalide
 
 Définissez `invalid` sur le groupe lorsque la validation porte sur l’ensemble de la sélection.
 
 <Example name="checkbox/invalid-group" />
 
-### Nombre maximal
+### État contrôlé
 
-Utilisez `maxSelectedValues` pour limiter le nombre d’options sélectionnées simultanément.
+Utilisez une case à cocher contrôlée lorsqu’une autre partie de l’interface gère sa valeur. Voir [Contrôler l’état depuis l’application](/docs/composition-patterns#controlled-state).
 
-<Example name="checkbox/max-selected" />
+<Example name="checkbox/controlled" />
 
-### Lecture seule
+### Groupe contrôlé
 
-Utilisez `readOnly` pour afficher une valeur sans permettre sa modification.
+Utilisez un groupe contrôlé lorsque les options sélectionnées pilotent des filtres, des récapitulatifs
+ou des actions. Voir [Contrôler l’état depuis l’application](/docs/composition-patterns#controlled-state).
 
-<Example name="checkbox/read-only" />
-
-### Root Provider
-
-Utilisez `CheckboxRootProvider` lorsque l’état de la case doit vivre en dehors de l’arbre rendu.
-Importez `useCheckbox` depuis le paquet correspondant au framework.
-
-<Example name="checkbox/root-provider" />
+<Example name="checkbox/controlled-group" />
 
 ### Tout sélectionner
 
@@ -134,25 +134,25 @@ toutes les options.
 
 <Example name="checkbox/select-all" />
 
-### Tailles
+### Nombre maximal
 
-Utilisez `size` pour adapter la densité de la case à cocher au formulaire ou à l’écran de réglages.
+Utilisez `maxSelectedValues` pour limiter le nombre d’options sélectionnées simultanément.
 
-<Example name="checkbox/sizes" />
+<Example name="checkbox/max-selected" />
 
-### Avec Field
+### Indicateur personnalisé
 
-Utilisez `Field` lorsqu’une case à cocher a besoin d’un texte d’aide, de messages de validation ou
-d’un état de champ partagé.
+Remplacez la coche intégrée par votre propre icône tout en conservant le comportement de Checkbox et
+les sémantiques d’accessibilité d’Ark.
 
-<Example name="checkbox/with-field" />
+<Example name="checkbox/custom-indicator" />
 
-### Avec un formulaire
+### Root Provider
 
-Transmettez `name` et `value` à `Checkbox` et rendez `CheckboxHiddenInput` pour inclure la
-case à cocher dans `FormData`.
+Utilisez `CheckboxRootProvider` lorsque l’état de la case doit vivre en dehors de l’arbre rendu.
+Importez `useCheckbox` depuis le paquet correspondant au framework. Voir [Partager l’état hors de l’arbre](/docs/composition-patterns#root-provider).
 
-<Example name="checkbox/with-form" />
+<Example name="checkbox/root-provider" />
 
 ### Assembler à partir des parties
 
@@ -231,7 +231,6 @@ Survolez ou sélectionnez une variable pour la voir dans l’aperçu.
 | Touche | Action |
 | --- | --- |
 | `Space` | Bascule la case ayant le focus. |
-| `Tab` | Passe à la case suivante. |
 
 ## Référence de l’API
 

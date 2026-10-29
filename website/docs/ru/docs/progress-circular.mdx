@@ -42,27 +42,6 @@ import * as ProgressCircularDocs from '@/components/examples/progress-circular/c
 
 ## Примеры
 
-### Управляемое состояние
-
-Храните `value` в состоянии приложения, когда прогресс должен синхронизироваться с другим
-элементом управления или внешней задачей.
-
-<Example name="progress-circular/controlled" />
-
-### Неопределённый прогресс
-
-Установите `defaultValue={null}` или `value={null}`, когда задача выполняется, но её прогресс пока
-нельзя измерить.
-
-<Example name="progress-circular/indeterminate" />
-
-### Минимум и максимум
-
-Используйте `min` и `max`, чтобы отображать значения в диапазоне, отличном от стандартного диапазона
-от `0` до `100`.
-
-<Example name="progress-circular/min-max" />
-
 ### Текст значения
 
 Используйте `ProgressCircularContext` вместе с `translations.value(details)`, если видимому значению нужна
@@ -71,12 +50,19 @@ import * as ProgressCircularDocs from '@/components/examples/progress-circular/c
 
 <Example name="progress-circular/value-text" />
 
-### Root Provider
+### Минимум и максимум
 
-Создайте хранилище состояния через `useProgress()` и передайте его в `ProgressCircularRootProvider`, если
-другому компоненту нужно читать или изменять прогресс за пределами отрисованного дерева.
+Используйте `min` и `max`, чтобы отображать значения в диапазоне, отличном от стандартного диапазона
+от `0` до `100`.
 
-<Example name="progress-circular/root-provider" />
+<Example name="progress-circular/min-max" />
+
+### Неопределённый прогресс
+
+Установите `defaultValue={null}` или `value={null}`, когда задача выполняется, но её прогресс пока
+нельзя измерить.
+
+<Example name="progress-circular/indeterminate" />
 
 ### Представления состояния
 
@@ -84,6 +70,20 @@ import * as ProgressCircularDocs from '@/components/examples/progress-circular/c
 вместе с состоянием прогресса Ark.
 
 <Example name="progress-circular/state-views" />
+
+### Управляемое состояние
+
+Храните `value` в состоянии приложения, когда прогресс должен синхронизироваться с другим
+элементом управления или внешней задачей. Подробнее в разделе [Управляйте состоянием из приложения](/docs/composition-patterns#controlled-state).
+
+<Example name="progress-circular/controlled" />
+
+### Root Provider
+
+Создайте хранилище состояния через `useProgress()` и передайте его в `ProgressCircularRootProvider`, если
+другому компоненту нужно читать или изменять прогресс за пределами отрисованного дерева. Подробнее в разделе [Выносите состояние за пределы дерева](/docs/composition-patterns#root-provider).
+
+<Example name="progress-circular/root-provider" />
 
 ### Сборка из частей
 

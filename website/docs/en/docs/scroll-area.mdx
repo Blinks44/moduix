@@ -37,29 +37,29 @@ block size so the content has room to scroll.
 
 ## Examples
 
-### Always Visible
+### Horizontal
 
-Set `variant="always"` when an overflowing scrollbar should remain visible and interactive at rest.
+Use a horizontal scrollbar when the content is intentionally wider than the frame.
 
-<Example name="scroll-area/always-visible" />
+<Example name="scroll-area/horizontal" />
 
-### Both Directions
+### Both directions
 
 Render vertical and horizontal scrollbars when content can overflow on both axes.
 
 <Example name="scroll-area/both-directions" />
+
+### Always visible
+
+Set `variant="always"` when an overflowing scrollbar should remain visible and interactive at rest.
+
+<Example name="scroll-area/always-visible" />
 
 ### Fade
 
 Set `fade` to hint that long vertical content continues above and below the current viewport.
 
 <Example name="scroll-area/fade" />
-
-### Horizontal
-
-Use a horizontal scrollbar when the content is intentionally wider than the frame.
-
-<Example name="scroll-area/horizontal" />
 
 ### Nested
 
@@ -68,10 +68,10 @@ measure each area independently.
 
 <Example name="scroll-area/nested" />
 
-### Root Provider
+### Root provider
 
 Use `useScrollArea()` with `ScrollAreaRootProvider` when external controls need access
-to the scrolling API.
+to the scrolling API. See [Share state outside the tree](/docs/composition-patterns#root-provider).
 
 <Example name="scroll-area/root-provider" />
 

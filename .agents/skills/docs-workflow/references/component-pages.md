@@ -43,10 +43,17 @@ the precise Ark guide when no primitive exists), Report issue, and the Copy page
 8. `Styling` - `CSS variables` table, then `Styling hooks`: a `Part | data-slot` table that matches
    the React source (internal elements marked as such), followed by short prose for state attributes
    and runtime variables. A single-part component may use `Attribute | Present when` instead
-9. `Keyboard` - a `Key | Action` table when the component has keyboard interaction
+9. `Keyboard` - a `Key | Action` table when the component has keyboard interaction. Skip rows that only
+   repeat browser behavior (`Tab` between controls, `Enter`/`Space` on a native button); a component that
+   renders a native element gets one sentence instead of a table
 10. `API reference` - a `Prop | Type | Default` table
 
-`Basic` is the recommended happy path and must not be repeated without a clear structural reason. Every example heading has a short lead-in. Order feature examples alphabetically.
+`Basic` is the recommended happy path and must not be repeated without a clear structural reason. Every example heading has a short lead-in in sentence case (`Form usage`, not `Form Usage`). Order
+feature examples by task, not alphabetically: appearance first (variants, sizes), then common scenarios
+and states (disabled, invalid, field, form), then controlled state and narrower cases, and last
+`Context`, `Root provider`, and `Build from parts`. A `Controlled` or `Root provider` lead-in names only
+what is specific to the component and links the shared guide:
+`/docs/composition-patterns#controlled-state` or `/docs/composition-patterns#root-provider`.
 
 When moduix helpers hide Ark parts (composite helpers such as `SelectField` and `SelectOption`,
 `*CloseIcon`, layout wrappers such as `DialogHeader`, or default indicator icons), end Examples with
@@ -57,8 +64,8 @@ for X, Check, chevrons, Plus, and Minus; 2.5 for Calendar and Pipette), layout w
 elements with classes from the example CSS module. Keep a wrapper whose behavior a plain element
 would lose (the `LightboxBody` animation) and say so in the lead-in. The lead-in names the skipped
 helpers. Components without such helpers have no `Build from parts` section; Dialog and Select are the
-reference. Other examples get headings by what they show (`Custom Element` for `asChild` hosts,
-`Root Provider`), never `Advanced Customization`.
+reference. Other examples get headings by what they show (`Custom element` for `asChild` hosts,
+`Root provider`), never `Advanced customization`.
 
 ## Section intent
 

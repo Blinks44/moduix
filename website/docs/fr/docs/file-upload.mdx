@@ -42,34 +42,6 @@ sélecteur natif dans un formulaire simple.
 
 ## Exemples
 
-### Types de fichiers acceptés
-
-Utilisez `accept` pour restreindre à la fois le sélecteur de fichiers natif et la validation du glisser-déposer. Vous pouvez
-indiquer des types MIME ou des extensions de fichiers.
-
-<Example name="file-upload/accepted-file-types" />
-
-### Effacer la liste de fichiers
-
-Utilisez `FileUploadClearTrigger` pour supprimer tous les fichiers acceptés en une seule action.
-
-<Example name="file-upload/clear-trigger" />
-
-### État contrôlé
-
-Contrôlez `acceptedFiles` lorsque les fichiers sélectionnés doivent rester synchronisés avec l’état de l’application ou un
-parcours en plusieurs étapes. Mettez la valeur à jour depuis `onFileChange(details)`.
-
-<Example name="file-upload/controlled" />
-
-### Téléversement d’un dossier
-
-Utilisez `directory` pour laisser l’utilisateur sélectionner un dossier. Dans les navigateurs compatibles, le chemin relatif
-de chaque fichier est disponible via `file.webkitRelativePath`. Définissez `maxFiles` à une valeur suffisamment élevée, ou
-omettez-la si le nombre de fichiers est inconnu.
-
-<Example name="file-upload/directory-upload" />
-
 ### Dropzone
 
 Utilisez `FileUploadDropzone` pour le téléversement par glisser-déposer. Gardez un `FileUploadTrigger` imbriqué afin que les utilisateurs puissent
@@ -77,12 +49,12 @@ aussi ouvrir le sélecteur au clavier.
 
 <Example name="file-upload/dropzone" />
 
-### Gestion des erreurs
+### Types de fichiers acceptés
 
-Utilisez `onFileReject(details)` pour afficher un message adapté à l’application. Définissez les contraintes intégrées,
-comme `accept`, `maxFiles` et `maxFileSize`, sur le composant racine. Ajoutez `validate(file, details)` pour vos propres contrôles.
+Utilisez `accept` pour restreindre à la fois le sélecteur de fichiers natif et la validation du glisser-déposer. Vous pouvez
+indiquer des types MIME ou des extensions de fichiers.
 
-<Example name="file-upload/error-handling" />
+<Example name="file-upload/accepted-file-types" />
 
 ### Aperçus des fichiers
 
@@ -92,18 +64,25 @@ l’un des éléments ou ajoutez vos propres fichiers pour tester ces deux prés
 
 <Example name="file-upload/file-previews" />
 
-### Utilisation dans un formulaire
-
-Passez `name` au composant racine et ajoutez `FileUploadHiddenInput` ; les fichiers sélectionnés
-participent alors à la soumission et à la réinitialisation du formulaire.
-
-<Example name="file-upload/form-usage" />
-
 ### Fichiers initiaux
 
 Utilisez `defaultAcceptedFiles` pour précharger des fichiers, puis laissez le composant gérer la sélection.
 
 <Example name="file-upload/initial-files" />
+
+### Effacer la liste de fichiers
+
+Utilisez `FileUploadClearTrigger` pour supprimer tous les fichiers acceptés en une seule action.
+
+<Example name="file-upload/clear-trigger" />
+
+### Téléversement d’un dossier
+
+Utilisez `directory` pour laisser l’utilisateur sélectionner un dossier. Dans les navigateurs compatibles, le chemin relatif
+de chaque fichier est disponible via `file.webkitRelativePath`. Définissez `maxFiles` à une valeur suffisamment élevée, ou
+omettez-la si le nombre de fichiers est inconnu.
+
+<Example name="file-upload/directory-upload" />
 
 ### Capture avec l’appareil photo
 
@@ -120,13 +99,12 @@ la validation a échoué.
 
 <Example name="file-upload/rejected-files" />
 
-### Root Provider et collage de fichiers
+### Gestion des erreurs
 
-Utilisez `useFileUpload` avec `FileUploadRootProvider` lorsque l’état ou les méthodes doivent être gérés en dehors de l’arbre de
-téléversement affiché. Dans cet exemple, `setClipboardFiles` transmet à l’état du composant les fichiers collés dans une
-zone de texte.
+Utilisez `onFileReject(details)` pour afficher un message adapté à l’application. Définissez les contraintes intégrées,
+comme `accept`, `maxFiles` et `maxFileSize`, sur le composant racine. Ajoutez `validate(file, details)` pour vos propres contrôles.
 
-<Example name="file-upload/root-provider-and-paste" />
+<Example name="file-upload/error-handling" />
 
 ### Transformation des fichiers
 
@@ -140,6 +118,28 @@ Placez le téléversement dans `Field` lorsque le champ de formulaire doit inclu
 ou indiquer qu’il est obligatoire ou invalide.
 
 <Example name="file-upload/with-field" />
+
+### Utilisation dans un formulaire
+
+Passez `name` au composant racine et ajoutez `FileUploadHiddenInput` ; les fichiers sélectionnés
+participent alors à la soumission et à la réinitialisation du formulaire.
+
+<Example name="file-upload/form-usage" />
+
+### État contrôlé
+
+Contrôlez `acceptedFiles` lorsque les fichiers sélectionnés doivent rester synchronisés avec l’état de l’application ou un
+parcours en plusieurs étapes. Mettez la valeur à jour depuis `onFileChange(details)`. Voir [Contrôler l’état depuis l’application](/docs/composition-patterns#controlled-state).
+
+<Example name="file-upload/controlled" />
+
+### Root Provider et collage de fichiers
+
+Utilisez `useFileUpload` avec `FileUploadRootProvider` lorsque l’état ou les méthodes doivent être gérés en dehors de l’arbre de
+téléversement affiché. Dans cet exemple, `setClipboardFiles` transmet à l’état du composant les fichiers collés dans une
+zone de texte. Voir [Partager l’état hors de l’arbre](/docs/composition-patterns#root-provider).
+
+<Example name="file-upload/root-provider-and-paste" />
 
 ### Assembler à partir des parties
 
@@ -239,7 +239,6 @@ Ark expose également `data-scope="file-upload"`, `data-part` pour les parties e
 | Touche | Action |
 | --- | --- |
 | `Enter` / `Space` | Ouvre le sélecteur depuis le déclencheur ou la zone de dépôt. |
-| `Tab` | Passe de la zone au déclencheur et aux actions sur les fichiers. |
 
 ## Référence de l’API
 

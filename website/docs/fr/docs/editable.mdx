@@ -44,18 +44,13 @@ modification, ce qui limite les changements accidentels.
 
 ## Exemples
 
-### Valeur contrôlée
+### Textarea
 
-Utilisez `value` et `onValueChange` lorsque l’état de l’application doit piloter la valeur.
+Utilisez `EditableInput asChild` avec un élément natif `<textarea>` pour le contenu multiligne. La
+textarea a une hauteur minimale, l’aperçu conserve les retours à la ligne et les commandes restent en
+haut. Cmd/Ctrl + Entrée enregistre ; Entrée insère une nouvelle ligne.
 
-<Example name="editable/controlled" />
-
-### Désactivé et en lecture seule
-
-Utilisez `disabled` lorsque le champ doit être indisponible. Utilisez `readOnly` lorsque la valeur doit
-rester visible sans pouvoir être modifiée.
-
-<Example name="editable/disabled-and-read-only" />
+<Example name="editable/textarea" />
 
 ### Déclencheurs personnalisés
 
@@ -64,6 +59,13 @@ le déclencheur d’édition et les déclencheurs de validation et d’annulatio
 noms accessibles sur le texte visible.
 
 <Example name="editable/custom-triggers" />
+
+### Désactivé et en lecture seule
+
+Utilisez `disabled` lorsque le champ doit être indisponible. Utilisez `readOnly` lorsque la valeur doit
+rester visible sans pouvoir être modifiée.
+
+<Example name="editable/disabled-and-read-only" />
 
 ### Field
 
@@ -87,22 +89,20 @@ utilisé par défaut dans moduix.
 
 <Example name="editable/guides" />
 
+### Valeur contrôlée
+
+Utilisez `value` et `onValueChange` lorsque l’état de l’application doit piloter la valeur. Voir [Contrôler l’état depuis l’application](/docs/composition-patterns#controlled-state).
+
+<Example name="editable/controlled" />
+
 ### Root Provider
 
 Utilisez `useEditable()` de moduix et `EditableRootProvider` lorsque des commandes placées en dehors
 de l’arbre du composant doivent accéder à l’état et aux méthodes d’`Editable`. Passez
 `activationMode: 'dblclick'` au hook pour conserver le comportement par défaut de la racine moduix.
-Pour cette instance d’état, le provider remplace `Editable`.
+Pour cette instance d’état, le provider remplace `Editable`. Voir [Partager l’état hors de l’arbre](/docs/composition-patterns#root-provider).
 
 <Example name="editable/root-provider" />
-
-### Textarea
-
-Utilisez `EditableInput asChild` avec un élément natif `<textarea>` pour le contenu multiligne. La
-textarea a une hauteur minimale, l’aperçu conserve les retours à la ligne et les commandes restent en
-haut. Cmd/Ctrl + Entrée enregistre ; Entrée insère une nouvelle ligne.
-
-<Example name="editable/textarea" />
 
 ### Assembler à partir des parties
 

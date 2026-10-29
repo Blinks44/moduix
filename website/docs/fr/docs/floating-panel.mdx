@@ -59,38 +59,30 @@ conteneur précis pendant son déplacement.
 
 <Example name="floating-panel/boundary" />
 
-### Contexte
-
-Utilisez `FloatingPanelContext` ou `useFloatingPanelContext` pour lire l'état et les méthodes de la
-fenêtre dans l'arbre des composants. Vue reçoit la valeur du contexte via son slot nommé, tandis que
-Solid l'expose comme un accessor.
-
-<Example name="floating-panel/context" />
-
-### Ouverture contrôlée
-
-Utilisez `open` avec `onOpenChange` lorsque l'état de l'application doit contrôler la visibilité de la fenêtre.
-
-<Example name="floating-panel/controlled-open" />
-
-### Position contrôlée
-
-Contrôlez `position` lorsqu'une autre partie de l'application doit connaître les coordonnées actuelles de la fenêtre.
-
-<Example name="floating-panel/controlled-position" />
-
-### Taille contrôlée
-
-Contrôlez `size` lorsque l'interface doit conserver ou afficher les dimensions actuelles de la fenêtre.
-
-<Example name="floating-panel/controlled-size" />
-
 ### Fermeture par Escape
 
 `closeOnEscape` est activé par défaut. Ajoutez `autoFocus` à `FloatingPanelContent` pour que la touche Escape
 fonctionne dès l'ouverture de la fenêtre non modale.
 
 <Example name="floating-panel/escape-dismiss" />
+
+### Ouverture contrôlée
+
+Utilisez `open` avec `onOpenChange` lorsque l'état de l'application doit contrôler la visibilité de la fenêtre. Voir [Contrôler l’état depuis l’application](/docs/composition-patterns#controlled-state).
+
+<Example name="floating-panel/controlled-open" />
+
+### Position contrôlée
+
+Contrôlez `position` lorsqu'une autre partie de l'application doit connaître les coordonnées actuelles de la fenêtre. Voir [Contrôler l’état depuis l’application](/docs/composition-patterns#controlled-state).
+
+<Example name="floating-panel/controlled-position" />
+
+### Taille contrôlée
+
+Contrôlez `size` lorsque l'interface doit conserver ou afficher les dimensions actuelles de la fenêtre. Voir [Contrôler l’état depuis l’application](/docs/composition-patterns#controlled-state).
+
+<Example name="floating-panel/controlled-size" />
 
 ### Montage différé
 
@@ -99,11 +91,19 @@ puis retiré après l'animation de sortie.
 
 <Example name="floating-panel/lazy-mount" />
 
-### FloatingPanelRootProvider
+### Contexte
+
+Utilisez `FloatingPanelContext` ou `useFloatingPanelContext` pour lire l'état et les méthodes de la
+fenêtre dans l'arbre des composants. Vue reçoit la valeur du contexte via son slot nommé, tandis que
+Solid l'expose comme un accessor.
+
+<Example name="floating-panel/context" />
+
+### Root Provider
 
 Utilisez `useFloatingPanel` avec `FloatingPanelRootProvider` lorsque des commandes situées en dehors
 de l'arbre du panneau doivent appeler `minimize`, `maximize` et `setOpen`. Dans Solid, le store se lit
-via un accessor.
+via un accessor. Voir [Partager l’état hors de l’arbre](/docs/composition-patterns#root-provider).
 
 <Example name="floating-panel/root-provider" />
 
@@ -204,7 +204,6 @@ Les parties Ark UI conservent `data-scope="floating-panel"` et leurs valeurs `da
 | Touche | Action |
 | --- | --- |
 | `Enter` / `Space` | Ouvre depuis le déclencheur ayant le focus. |
-| `Tab` / `Shift+Tab` | Déplace le focus entre les contrôles du panneau. |
 | `Esc` | Ferme le panneau. |
 
 ## Référence de l’API

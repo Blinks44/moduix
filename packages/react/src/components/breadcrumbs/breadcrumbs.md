@@ -124,7 +124,7 @@ Public CSS variables (CSS Modules):
 
 ## Intentional sugar and differences from upstream
 
-- Moduix provides the part family because Ark UI has no Breadcrumb primitive.
+- moduix provides the part family because Ark UI has no Breadcrumb primitive.
 - `BreadcrumbsPath` is narrow shorthand for anchor-based trails and generates separators; explicit composition keeps
   separators explicit.
 - Collapsing is not built in; compose `Menu` explicitly for hidden path items.

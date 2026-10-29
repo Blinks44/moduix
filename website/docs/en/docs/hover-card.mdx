@@ -42,24 +42,38 @@ hover card.
 
 ## Examples
 
-### Context
+### With arrow
 
-Use `HoverCardContext` to read state inside the card tree without changing its visible part
-structure.
+Add `HoverCardArrow` inside `HoverCardContent` when the popup needs a visual pointer to its
+trigger. The wrapper renders `HoverCardArrowTip` by default; keep the preview in
+`HoverCardBody` so the arrow remains part of the bordered surface while the preview can scroll.
 
-<Example name="hover-card/context" />
+<Example name="hover-card/with-arrow" />
 
-### Controlled
+### Positioning
 
-Control whether the card is open with `open` and `onOpenChange(details)`.
+Pass Ark positioning options through the `positioning` prop.
 
-<Example name="hover-card/controlled" />
+<Example name="hover-card/positioning" />
 
 ### Delay
 
 Set `openDelay` and `closeDelay` on the root to adjust hover and focus timing.
 
 <Example name="hover-card/delay" />
+
+### Disabled
+
+Set `disabled` to prevent the card from opening while keeping the trigger visible.
+
+<Example name="hover-card/disabled" />
+
+### Multiple triggers
+
+Give each trigger a `value` and use `onTriggerValueChange(details)` to share one content area
+across several triggers.
+
+<Example name="hover-card/multiple-triggers" />
 
 ### Dialog
 
@@ -69,39 +83,25 @@ dialog's initial focus can land on the Hover Card trigger and open the card afte
 
 <Example name="hover-card/dialog" />
 
-### Disabled
+### Controlled
 
-Set `disabled` to prevent the card from opening while keeping the trigger visible.
+Control whether the card is open with `open` and `onOpenChange(details)`. See [Control state from the application](/docs/composition-patterns#controlled-state).
 
-<Example name="hover-card/disabled" />
+<Example name="hover-card/controlled" />
 
-### Multiple Triggers
+### Context
 
-Give each trigger a `value` and use `onTriggerValueChange(details)` to share one content area
-across several triggers.
+Use `HoverCardContext` to read state inside the card tree without changing its visible part
+structure.
 
-<Example name="hover-card/multiple-triggers" />
+<Example name="hover-card/context" />
 
-### Positioning
-
-Pass Ark positioning options through the `positioning` prop.
-
-<Example name="hover-card/positioning" />
-
-### Root Provider
+### Root provider
 
 Use `useHoverCard()` with `HoverCardRootProvider` when controls or other UI outside the card tree
-need to read or update its state.
+need to read or update its state. See [Share state outside the tree](/docs/composition-patterns#root-provider).
 
 <Example name="hover-card/root-provider" />
-
-### With Arrow
-
-Add `HoverCardArrow` inside `HoverCardContent` when the popup needs a visual pointer to its
-trigger. The wrapper renders `HoverCardArrowTip` by default; keep the preview in
-`HoverCardBody` so the arrow remains part of the bordered surface while the preview can scroll.
-
-<Example name="hover-card/with-arrow" />
 
 ## Composition
 
@@ -161,7 +161,7 @@ variables: a class on the part overrides the layered component styles. Data attr
 | `HoverCardArrowTip` | `hover-card-arrow-tip` |
 | `HoverCardBody` | `hover-card-body` |
 
-Moduix adds `data-slot="hover-card-*"` hooks to the trigger, positioner, content, arrow, arrow tip,
+moduix adds `data-slot="hover-card-*"` hooks to the trigger, positioner, content, arrow, arrow tip,
 and body. `HoverCard` and `HoverCardRootProvider` only provide state and do not render DOM elements, so they have no styling hooks. Ark adds
 `data-scope="hover-card"` and `data-part` to its parts. For state-aware styling, target
 `data-state="open|closed"`, `data-placement`, `data-side`, `data-value`, `data-current`,

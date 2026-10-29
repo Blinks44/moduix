@@ -45,13 +45,6 @@ Use `Textarea` for plain text that can span multiple lines and should behave lik
 
 ## Examples
 
-### Auto-resize
-
-Set `autoresize` when the textarea should grow as the user types. Ark disables manual resizing while
-this option is enabled.
-
-<Example name="textarea/auto-resize" />
-
 ### Sizes
 
 The `size` prop sets padding and type for a denser or roomier field. Inline padding and font size
@@ -60,11 +53,12 @@ attribute, so it scales with the font size.
 
 <Example name="textarea/sizes" />
 
-### Controlled value
+### Auto-resize
 
-Use `value` and native `onChange` when application state should control the content.
+Set `autoresize` when the textarea should grow as the user types. Ark disables manual resizing while
+this option is enabled.
 
-<Example name="textarea/controlled" />
+<Example name="textarea/auto-resize" />
 
 ### Disabled and read-only
 
@@ -86,6 +80,12 @@ Use native textarea props such as `rows`, `maxLength`, and `spellCheck` for brow
 example also submits the form and reads the current value from `FormData`.
 
 <Example name="textarea/native-attributes" />
+
+### Controlled value
+
+Use `value` and native `onChange` when application state should control the content.
+
+<Example name="textarea/controlled" />
 
 ## Composition
 

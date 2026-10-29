@@ -36,6 +36,13 @@ mais il ne gère pas lui-même l’état de la surface.
 
 ## Exemples
 
+### État désactivé
+
+Utilisez l’attribut natif `disabled` lorsque le bouton ne doit pas recevoir le focus. Utilisez `aria-disabled="true"`
+lorsqu’il doit rester focusable sans pouvoir être activé.
+
+<Example name="close-button/disabled-state" />
+
 ### Contenu personnalisé
 
 Passez votre propre contenu à `children` pour remplacer l’icône par défaut tout en conservant le contrat du bouton
@@ -43,13 +50,6 @@ racine. Lorsque le nom accessible vient du libellé du bouton, rendez l’icône
 `aria-hidden="true"`.
 
 <Example name="close-button/custom-children" />
-
-### État désactivé
-
-Utilisez l’attribut natif `disabled` lorsque le bouton ne doit pas recevoir le focus. Utilisez `aria-disabled="true"`
-lorsqu’il doit rester focusable sans pouvoir être activé.
-
-<Example name="close-button/disabled-state" />
 
 ### Utiliser `asChild`
 
@@ -118,10 +118,8 @@ Survolez ou sélectionnez une variable pour la voir dans l’aperçu.
 
 ## Clavier
 
-| Touche | Action |
-| --- | --- |
-| `Tab` / `Shift+Tab` | Place ou retire le focus du bouton. |
-| `Enter` / `Space` | Active le bouton qui a le focus. |
+`CloseButton` rend un bouton natif : le navigateur gère le focus et l’activation. Donnez-lui un nom
+accessible lorsque le libellé par défaut ne convient pas.
 
 ## Référence de l’API
 

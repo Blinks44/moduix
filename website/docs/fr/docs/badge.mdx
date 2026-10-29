@@ -45,12 +45,30 @@ Les exports Vue sont disponibles depuis `@moduix/vue/badge` pour CSS Modules et 
 
 ## Exemples
 
-### Styles personnalisés
+### Variantes
 
-Lorsqu’une variante intégrée est proche du résultat souhaité mais nécessite encore un léger ajustement, utilisez une classe
-ou définissez des variables CSS directement sur le badge.
+Utilisez les variantes intégrées pour les styles courants.
 
-<Example name="badge/custom-styling" />
+<Example name="badge/variants" />
+
+### Tailles
+
+Définissez `size` sur `sm`, `md` ou `lg`. La valeur par défaut est `md`.
+
+<Example name="badge/sizes" />
+
+### Avec une icône
+
+Placez une icône SVG enfant directe à côté du libellé lorsque les métadonnées ont besoin d’un repère visuel supplémentaire.
+
+<Example name="badge/with-icon" />
+
+### Avec un point
+
+Ajoutez `BadgeDot` lorsque le libellé a besoin d’un indicateur d’état qui reste visuellement associé. Le texte visible doit
+porter le sens du statut, car le point est décoratif.
+
+<Example name="badge/with-dot" />
 
 ### Lien
 
@@ -66,30 +84,12 @@ rendre le libellé complet visible au survol. Dans les interfaces tactiles, choi
 
 <Example name="badge/long-labels" />
 
-### Tailles
+### Styles personnalisés
 
-Définissez `size` sur `sm`, `md` ou `lg`. La valeur par défaut est `md`.
+Lorsqu’une variante intégrée est proche du résultat souhaité mais nécessite encore un léger ajustement, utilisez une classe
+ou définissez des variables CSS directement sur le badge.
 
-<Example name="badge/sizes" />
-
-### Variantes
-
-Utilisez les variantes intégrées pour les styles courants.
-
-<Example name="badge/variants" />
-
-### Avec un point
-
-Ajoutez `BadgeDot` lorsque le libellé a besoin d’un indicateur d’état qui reste visuellement associé. Le texte visible doit
-porter le sens du statut, car le point est décoratif.
-
-<Example name="badge/with-dot" />
-
-### Avec une icône
-
-Placez une icône SVG enfant directe à côté du libellé lorsque les métadonnées ont besoin d’un repère visuel supplémentaire.
-
-<Example name="badge/with-icon" />
+<Example name="badge/custom-styling" />
 
 ## Composition
 

@@ -46,21 +46,21 @@ Use `SegmentGroup` when users choose one value from a small set that is visible 
 
 ## Examples
 
-### Conditional Mount
+### Sizes
 
-Segment groups can be mounted conditionally. When the group appears, Ark recalculates the item
-geometry used by the indicator.
+Set `size` on `SegmentGroup` or `SegmentGroupRootProvider` to `sm`, `md` (default), or `lg`. The
+whole group then has the height of a `Button` or `Input` of the same size.
 
-<Example name="segment-group/conditional-mount" />
+<Example name="segment-group/sizes" />
 
-### Controlled
+### Vertical orientation
 
-Keep the selected value in application state and update it from `details.value` in
-`onValueChange`.
+Set `orientation="vertical"` when the group should use a vertical layout and vertical arrow-key
+navigation.
 
-<Example name="segment-group/controlled" />
+<Example name="segment-group/vertical-orientation" />
 
-### Custom Item Layout
+### Custom item layout
 
 Use `SegmentGroupItem asChild` instead of `SegmentGroupItems` when a custom label layout should
 own the item's DOM node.
@@ -74,6 +74,13 @@ disable the whole group.
 
 <Example name="segment-group/disabled" />
 
+### Invalid
+
+Set `invalid` on the root when validation fails. Combine it with `required` and `name` when the
+group participates in native form validation.
+
+<Example name="segment-group/invalid" />
+
 ### Field
 
 Wrap the group in `Field` when its native inputs should be accompanied by helper or error text.
@@ -82,40 +89,33 @@ on `SegmentGroup` as well.
 
 <Example name="segment-group/field" />
 
-### Form Submission
+### Form submission
 
 Pass `name` to the root to include the selected value in native form data. `SegmentGroupItems`
 adds a native form input to every generated item.
 
 <Example name="segment-group/form-submission" />
 
-### Invalid
+### Controlled
 
-Set `invalid` on the root when validation fails. Combine it with `required` and `name` when the
-group participates in native form validation.
+Keep the selected value in application state and update it from `details.value` in
+`onValueChange`. See [Control state from the application](/docs/composition-patterns#controlled-state).
 
-<Example name="segment-group/invalid" />
+<Example name="segment-group/controlled" />
 
-### Root Provider
+### Conditional mount
+
+Segment groups can be mounted conditionally. When the group appears, Ark recalculates the item
+geometry used by the indicator.
+
+<Example name="segment-group/conditional-mount" />
+
+### Root provider
 
 Use `useSegmentGroup()` with `SegmentGroupRootProvider` when controls outside the segment tree need access
-to the same state.
+to the same state. See [Share state outside the tree](/docs/composition-patterns#root-provider).
 
 <Example name="segment-group/root-provider" />
-
-### Sizes
-
-Set `size` on `SegmentGroup` or `SegmentGroupRootProvider` to `sm`, `md` (default), or `lg`. The
-whole group then has the height of a `Button` or `Input` of the same size.
-
-<Example name="segment-group/sizes" />
-
-### Vertical Orientation
-
-Set `orientation="vertical"` when the group should use a vertical layout and vertical arrow-key
-navigation.
-
-<Example name="segment-group/vertical-orientation" />
 
 ### Build from parts
 

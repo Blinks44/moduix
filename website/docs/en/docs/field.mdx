@@ -42,26 +42,6 @@ Use `Field` when one form control needs an accessible label, helper text, an err
 
 ## Examples
 
-### Checkbox
-
-Use `Field` around a checkbox when it needs field-level helper or error text. Pass the checkbox's own
-state and form props to `Checkbox`.
-
-<Example name="field/checkbox" />
-
-### Controlled invalid state
-
-Derive `invalid` from local state when validation should update as the user types. The error text
-appears only while the field is invalid.
-
-<Example name="field/controlled-invalid" />
-
-### Disabled
-
-Set `disabled` on the root to pass the disabled state to the supported Ark field parts.
-
-<Example name="field/disabled" />
-
 ### Invalid
 
 Set `invalid` on the root when application state or a form library controls validation. Pass it to a
@@ -69,39 +49,24 @@ compound child root as well when that component owns its invalid state.
 
 <Example name="field/invalid" />
 
-### Item target
+### Disabled
 
-Use `FieldItem` with the root `target` prop when one label should target a control inside a group.
+Set `disabled` on the root to pass the disabled state to the supported Ark field parts.
 
-<Example name="field/item-target" />
+<Example name="field/disabled" />
 
-### Native Select
-
-Use `NativeSelect` for a browser-native select. `Field` connects it to the field label, state, and
-description.
-
-<Example name="field/native-select" />
-
-### RadioGroup
-
-Use `Field` with `RadioGroup` when one field-level label, helper text, or error message should describe
-the whole set of choices rather than individual radio items. Pass the group's own state props to
-`RadioGroup`.
-
-<Example name="field/radiogroup" />
-
-### Read Only
+### Read only
 
 Set `readOnly` on the root when users can copy the control's value but cannot edit it.
 
 <Example name="field/read-only" />
 
-### Root Provider
+### Textarea
 
-Use `useField` with `FieldRootProvider` when the field state must be created outside the rendered
-tree.
+Use `Textarea` for multi-line input while keeping the field's label, description, and state
+connections.
 
-<Example name="field/root-provider" />
+<Example name="field/textarea" />
 
 ### Select
 
@@ -111,12 +76,47 @@ to `Select` when needed.
 
 <Example name="field/select" />
 
-### Textarea
+### Native select
 
-Use `Textarea` for multi-line input while keeping the field's label, description, and state
-connections.
+Use `NativeSelect` for a browser-native select. `Field` connects it to the field label, state, and
+description.
 
-<Example name="field/textarea" />
+<Example name="field/native-select" />
+
+### Checkbox
+
+Use `Field` around a checkbox when it needs field-level helper or error text. Pass the checkbox's own
+state and form props to `Checkbox`.
+
+<Example name="field/checkbox" />
+
+### RadioGroup
+
+Use `Field` with `RadioGroup` when one field-level label, helper text, or error message should describe
+the whole set of choices rather than individual radio items. Pass the group's own state props to
+`RadioGroup`.
+
+<Example name="field/radiogroup" />
+
+### Controlled invalid state
+
+Derive `invalid` from local state when validation should update as the user types. The error text
+appears only while the field is invalid.
+
+<Example name="field/controlled-invalid" />
+
+### Item target
+
+Use `FieldItem` with the root `target` prop when one label should target a control inside a group.
+
+<Example name="field/item-target" />
+
+### Root provider
+
+Use `useField` with `FieldRootProvider` when the field state must be created outside the rendered
+tree.
+
+<Example name="field/root-provider" />
 
 ## Composition
 

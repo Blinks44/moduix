@@ -43,7 +43,7 @@ event handlers and render functions belong in a client composition.
 
 ## Upstream comparison
 
-| Source    | Relevant difference                                                                          | Moduix decision                                                                                                         |
+| Source    | Relevant difference                                                                          | moduix decision                                                                                                         |
 | --------- | -------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- |
 | Ark UI    | No dedicated close-button primitive; the factory supplies composition, refs, and data hooks. | **Required correctness:** preserve the factory root, one semantic child for `asChild`, and ref/data-attribute behavior. |
 | Chakra UI | Provides a dedicated close-button recipe.                                                    | **Intentional difference:** retain a root-only API and CSS-variable theming instead of recipe variants.                 |

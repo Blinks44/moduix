@@ -43,39 +43,11 @@ valeur dans une liste contextuelle.
 
 ## Exemples
 
-### État contrôlé
+### Plusieurs sélections
 
-Conservez le tableau de chaînes sélectionnées dans l’état de l’application et mettez-le à jour avec
-`details.value`.
+Définissez `selectionMode="multiple"` pour activer plusieurs valeurs sans touches modificatrices.
 
-<Example name="listbox/controlled" />
-
-### Élément désactivé
-
-Désactivez un élément individuel avec le champ `disabled` de l’élément de la collection.
-
-<Example name="listbox/disabled-item" />
-
-### Sélection étendue
-
-Utilisez `selectionMode="extended"` lorsque plusieurs éléments doivent être sélectionnés avec des
-touches modificatrices.
-
-<Example name="listbox/extended-selection" />
-
-### Filtrage
-
-Utilisez `ListboxFilter` avec `useListCollection`. Il ajoute l’icône de recherche par défaut et
-relie visuellement le filtre à `ListboxContent` ; désactivez le typeahead lorsque le champ gère la recherche.
-
-<Example name="listbox/filtering" />
-
-### Grille
-
-Passez une collection créée avec `createGridCollection` pour activer la navigation au clavier dans
-une grille. Ark ajoute `data-layout="grid"` et la variable CSS `--column-count` à `ListboxContent`.
-
-<Example name="listbox/grid" />
+<Example name="listbox/multiple" />
 
 ### Groupement
 
@@ -84,6 +56,12 @@ Définissez `groupBy` lors de la création de la collection et rendez `ListboxIt
 
 <Example name="listbox/grouping" />
 
+### Élément désactivé
+
+Désactivez un élément individuel avec le champ `disabled` de l’élément de la collection.
+
+<Example name="listbox/disabled-item" />
+
 ### Horizontal
 
 Définissez `orientation="horizontal"` pour disposer les éléments horizontalement et activer la
@@ -91,25 +69,26 @@ navigation avec les flèches gauche et droite.
 
 <Example name="listbox/horizontal" />
 
-### Plusieurs sélections
+### Grille
 
-Définissez `selectionMode="multiple"` pour activer plusieurs valeurs sans touches modificatrices.
+Passez une collection créée avec `createGridCollection` pour activer la navigation au clavier dans
+une grille. Ark ajoute `data-layout="grid"` et la variable CSS `--column-count` à `ListboxContent`.
 
-<Example name="listbox/multiple" />
+<Example name="listbox/grid" />
 
-### Root Provider
+### Texte de valeur
 
-Utilisez `useListbox()` du paquet correspondant au framework avec `ListboxRootProvider` lorsque des
-contrôles externes doivent accéder directement au store de la listbox.
+Rendez `ListboxValueText` lorsque le résumé des valeurs sélectionnées doit rester visible à côté de
+la liste.
 
-<Example name="listbox/root-provider" />
+<Example name="listbox/value-text" />
 
-### Tout sélectionner
+### Filtrage
 
-Utilisez `useListboxContext` dans un composant enfant pour ajouter un bouton qui met à jour la
-sélection de la listbox.
+Utilisez `ListboxFilter` avec `useListCollection`. Il ajoute l’icône de recherche par défaut et
+relie visuellement le filtre à `ListboxContent` ; désactivez le typeahead lorsque le champ gère la recherche.
 
-<Example name="listbox/select-all" />
+<Example name="listbox/filtering" />
 
 ### Champ de filtre indépendant
 
@@ -118,12 +97,33 @@ des surfaces distinctes.
 
 <Example name="listbox/standalone-filter-input" />
 
-### Texte de valeur
+### Tout sélectionner
 
-Rendez `ListboxValueText` lorsque le résumé des valeurs sélectionnées doit rester visible à côté de
-la liste.
+Utilisez `useListboxContext` dans un composant enfant pour ajouter un bouton qui met à jour la
+sélection de la listbox.
 
-<Example name="listbox/value-text" />
+<Example name="listbox/select-all" />
+
+### Sélection étendue
+
+Utilisez `selectionMode="extended"` lorsque plusieurs éléments doivent être sélectionnés avec des
+touches modificatrices.
+
+<Example name="listbox/extended-selection" />
+
+### État contrôlé
+
+Conservez le tableau de chaînes sélectionnées dans l’état de l’application et mettez-le à jour avec
+`details.value`. Voir [Contrôler l’état depuis l’application](/docs/composition-patterns#controlled-state).
+
+<Example name="listbox/controlled" />
+
+### Root Provider
+
+Utilisez `useListbox()` du paquet correspondant au framework avec `ListboxRootProvider` lorsque des
+contrôles externes doivent accéder directement au store de la listbox. Voir [Partager l’état hors de l’arbre](/docs/composition-patterns#root-provider).
+
+<Example name="listbox/root-provider" />
 
 ### Assembler à partir des parties
 
@@ -166,9 +166,6 @@ Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
     ["ListboxItem", "listbox-item", "Élément sélectionnable. Transmettez-lui l’élément de la collection via `item`.", 3],
     ["ListboxItemText", "listbox-item-text", "Texte utilisé pour l’affichage et l’accessibilité.", 4],
     ["ListboxItemIndicator", "listbox-item-indicator", "Indicateur de sélection avec l’icône de coche moduix par défaut.", 4],
-    ["ListboxItemTextContent", "listbox-item-text-content", "Conteneur facultatif pour organiser une icône et du texte dans `ListboxItemText`.", 2],
-    ["ListboxItemTextIcon", "listbox-item-text-icon", "Conteneur facultatif pour une icône dans `ListboxItemTextContent`.", 3],
-    ["ListboxItemTextLabel", "listbox-item-text-label", "Conteneur du texte dans `ListboxItemTextContent`, qui peut tronquer les libellés longs sans perturber la mise en page.", 3],
     ["ListboxValueText", "listbox-value-text", "Résumé des valeurs sélectionnées.", 1],
     ["ListboxRootProvider", "listbox-root-provider", "Rend l’arbre de la listbox à partir de l’état renvoyé par `useListbox`.", 0],
   ]}
@@ -213,9 +210,6 @@ Survolez ou sélectionnez une variable pour la voir dans l’aperçu.
 | `ListboxItemText` | `listbox-item-text` |
 | `ListboxItemIndicator` | `listbox-item-indicator` |
 | `ListboxValueText` | `listbox-value-text` |
-| `ListboxItemTextContent` | `listbox-item-text-content` |
-| `ListboxItemTextIcon` | `listbox-item-text-icon` |
-| `ListboxItemTextLabel` | `listbox-item-text-label` |
 
 - Points d’anatomie Ark : `data-scope="listbox"` et `data-part` sur la racine, le libellé, le champ,
   le contenu, le groupe d’éléments, le libellé du groupe, l’élément, son texte, son indicateur, le

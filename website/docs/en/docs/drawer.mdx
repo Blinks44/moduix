@@ -42,27 +42,50 @@ points. Choose `Dialog` for a centered surface that does not need to be dragged.
 
 ## Examples
 
-### Controlled
+### Swipe direction
 
-Read `details.open` from the Ark callback. The callback receives a details object, not a boolean directly.
+Use logical `start` and `end` values for side drawers so the same code works in LTR and RTL. Use `up`
+for a top drawer and `down` for a bottom drawer.
 
-<Example name="drawer/controlled" />
+<Example name="drawer/swipe-direction" />
 
-### Drag Controls
+### Sizes
 
-Add `data-no-drag` to interactive regions that must not start a drag. Set `draggable={false}` on
-`DrawerContent` when the drawer should move only from the grabber.
+Set `size` on `DrawerContent` to `sm`, `md` (default), `lg`, or `xl` to choose the width of a
+`start` or `end` drawer: 18rem, 22rem, 28rem, or 36rem. On narrow screens the drawer still leaves
+a gap at the opposite edge. Top and bottom drawers take the full width, and their height comes from
+snap points.
 
-<Example name="drawer/drag-controls" />
+<Example name="drawer/sizes" />
 
-### Floating Grabber
+### Snap points
+
+Set intermediate positions on the root and choose the initial position with `defaultSnapPoint`.
+
+<Example name="drawer/snap-points" />
+
+### Scrollable
+
+Put long content in `DrawerBody`. Use `ScrollArea` when the drawer should have a dedicated scroll
+container while the grabber and header stay fixed.
+
+<Example name="drawer/scrollable" />
+
+### Floating grabber
 
 Place `DrawerGrabber` above the surface when the handle should appear as a separate control. The
 styling in this example leaves a 10px gap between the handle and the drawer edge.
 
 <Example name="drawer/floating-grabber" />
 
-### Indent Background
+### Drag controls
+
+Add `data-no-drag` to interactive regions that must not start a drag. Set `draggable={false}` on
+`DrawerContent` when the drawer should move only from the grabber.
+
+<Example name="drawer/drag-controls" />
+
+### Indent background
 
 `DrawerStack` uses Ark stack state and swipe progress to move `DrawerIndentBackground` and `DrawerIndent` together.
 
@@ -75,12 +98,12 @@ an inset instead of extending visually past the edge where it opens.
 
 <Example name="drawer/island" />
 
-### Multiple Triggers
+### Non-modal
 
-Give each trigger a `value` to reuse one drawer for a list. The callback tells you which trigger is
-active.
+Set `modal={false}` when the page must remain interactive while the drawer is open. This example
+keeps the drawer draggable from its grabber while `ScrollArea` owns the long content viewport.
 
-<Example name="drawer/multiple-triggers" />
+<Example name="drawer/non-modal" />
 
 ### Nested
 
@@ -89,48 +112,25 @@ drawers. Each drawer then keeps its own open state and focus lifecycle.
 
 <Example name="drawer/nested" />
 
-### Non-Modal
+### Multiple triggers
 
-Set `modal={false}` when the page must remain interactive while the drawer is open. This example
-keeps the drawer draggable from its grabber while `ScrollArea` owns the long content viewport.
+Give each trigger a `value` to reuse one drawer for a list. The callback tells you which trigger is
+active.
 
-<Example name="drawer/non-modal" />
+<Example name="drawer/multiple-triggers" />
 
-### Root Provider
+### Controlled
+
+Read `details.open` from the Ark callback. The callback receives a details object, not a boolean directly. See [Control state from the application](/docs/composition-patterns#controlled-state).
+
+<Example name="drawer/controlled" />
+
+### Root provider
 
 Use the moduix `useDrawer` export when buttons outside the drawer tree need to open it or change its
-snap points.
+snap points. See [Share state outside the tree](/docs/composition-patterns#root-provider).
 
 <Example name="drawer/root-provider" />
-
-### Scrollable
-
-Put long content in `DrawerBody`. Use `ScrollArea` when the drawer should have a dedicated scroll
-container while the grabber and header stay fixed.
-
-<Example name="drawer/scrollable" />
-
-### Sizes
-
-Set `size` on `DrawerContent` to `sm`, `md` (default), `lg`, or `xl` to choose the width of a
-`start` or `end` drawer: 18rem, 22rem, 28rem, or 36rem. On narrow screens the drawer still leaves
-a gap at the opposite edge. Top and bottom drawers take the full width, and their height comes from
-snap points.
-
-<Example name="drawer/sizes" />
-
-### Snap Points
-
-Set intermediate positions on the root and choose the initial position with `defaultSnapPoint`.
-
-<Example name="drawer/snap-points" />
-
-### Swipe Direction
-
-Use logical `start` and `end` values for side drawers so the same code works in LTR and RTL. Use `up`
-for a top drawer and `down` for a bottom drawer.
-
-<Example name="drawer/swipe-direction" />
 
 ### Build from parts
 
@@ -172,7 +172,7 @@ Hover or focus a part to find it in the preview.
     ["DrawerGrabberIndicator", "drawer-grabber-indicator", "Visual indicator inside the drag handle.", 4],
     ["DrawerHeader, DrawerBody, DrawerFooter", "drawer-header", "Optional layout helpers with no state of their own.", 3],
     ["DrawerTitle", "drawer-title", "Accessible title for the drawer.", 4],
-    ["DrawerCloseIcon", "drawer-close-icon", "Moduix close control composed from `DrawerCloseTrigger`.", 4],
+    ["DrawerCloseIcon", "drawer-close-icon", "moduix close control composed from `DrawerCloseTrigger`.", 4],
     ["DrawerDescription", "drawer-description", "Accessible description for the drawer.", 4],
     ["DrawerCloseTrigger", "drawer-close-trigger", "Closes the drawer.", 3],
     ["DrawerStack", "", "Coordinates nested drawers and indented surfaces.", 0],

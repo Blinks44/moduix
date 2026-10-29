@@ -43,17 +43,44 @@ Use `PinInput` when a short, fixed-length code should be entered one character a
 
 ## Examples
 
-### Blur on Complete
+### Sizes
+
+Use the `size` prop on the root to match the cell size to the control heights of `Input` and
+`Button`. The default is `md`; the cell text scales with it.
+
+<Example name="pin-input/sizes" />
+
+### OTP mode
+
+Set `otp` to add `autocomplete="one-time-code"` to the visible inputs and enable one-time-code suggestions on
+supported mobile browsers.
+
+<Example name="pin-input/otp-mode" />
+
+### Masking
+
+Set `mask` when the entered code is sensitive and should not be shown in plain text.
+
+<Example name="pin-input/masking" />
+
+### Placeholder
+
+Pass `placeholder` to show a character in each empty cell. moduix leaves the placeholder empty by default.
+
+<Example name="pin-input/placeholder" />
+
+### Grouped layout
+
+Use explicit indexed `PinInputInput` parts and `PinInputSeparator` when a divider should split the code into groups. Keep indexes
+continuous across the entire composition.
+
+<Example name="pin-input/grouped-layout" />
+
+### Blur on complete
 
 Set `blurOnComplete` when focus should leave the final input after all cells are filled.
 
 <Example name="pin-input/blur-on-complete" />
-
-### Change Events
-
-Keep the value array in state and read `details.value` or `details.valueAsString` from the Ark callbacks.
-
-<Example name="pin-input/change-events" />
 
 ### Field
 
@@ -62,45 +89,18 @@ visible inputs through Ark's form accessibility behavior.
 
 <Example name="pin-input/field" />
 
-### Grouped Layout
+### Change events
 
-Use explicit indexed `PinInputInput` parts and `PinInputSeparator` when a divider should split the code into groups. Keep indexes
-continuous across the entire composition.
+Keep the value array in state and read `details.value` or `details.valueAsString` from the Ark callbacks.
 
-<Example name="pin-input/grouped-layout" />
+<Example name="pin-input/change-events" />
 
-### Masking
-
-Set `mask` when the entered code is sensitive and should not be shown in plain text.
-
-<Example name="pin-input/masking" />
-
-### OTP Mode
-
-Set `otp` to add `autocomplete="one-time-code"` to the visible inputs and enable one-time-code suggestions on
-supported mobile browsers.
-
-<Example name="pin-input/otp-mode" />
-
-### Placeholder
-
-Pass `placeholder` to show a character in each empty cell. moduix leaves the placeholder empty by default.
-
-<Example name="pin-input/placeholder" />
-
-### Root Provider
+### Root provider
 
 Use `usePinInput` with `PinInputRootProvider` when state and imperative methods must be managed outside the rendered tree.
-This example replaces `PinInputInputs` with explicit indexed `PinInputInput` parts.
+This example replaces `PinInputInputs` with explicit indexed `PinInputInput` parts. See [Share state outside the tree](/docs/composition-patterns#root-provider).
 
 <Example name="pin-input/root-provider" />
-
-### Sizes
-
-Use the `size` prop on the root to match the cell size to the control heights of `Input` and
-`Button`. The default is `md`; the cell text scales with it.
-
-<Example name="pin-input/sizes" />
 
 ## Composition
 

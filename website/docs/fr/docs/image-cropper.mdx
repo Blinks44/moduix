@@ -53,13 +53,33 @@ Utilisez `cropShape="circle"` avec `aspectRatio={1}` pour les avatars et les ima
 
 <Example name="image-cropper/circle-crop" />
 
-### Zoom contrôlé
+### Recadrage initial
 
-Utilisez `zoom` en mode contrôlé avec `onZoomChange` lorsque des boutons ou une autre partie de
-l’interface doivent modifier ou afficher le niveau de zoom. Limitez la plage avec `minZoom` et
-`maxZoom`.
+Définissez `initialCrop` pour ouvrir le composant avec un rectangle de recadrage prédéfini, exprimé
+en coordonnées de la zone d’affichage et en pixels.
 
-<Example name="image-cropper/controlled-zoom" />
+<Example name="image-cropper/initial-crop" />
+
+### Zone de recadrage fixe
+
+Activez `fixedCropArea` lorsque la zone doit conserver la même taille et la même position pendant que
+l’utilisateur déplace l’image derrière elle.
+
+<Example name="image-cropper/fixed-crop-area" />
+
+### Taille minimale et maximale
+
+Limitez la taille de la zone avec `minWidth`, `minHeight`, `maxWidth` et `maxHeight`.
+
+<Example name="image-cropper/min-and-max-size" />
+
+### Rotation, retournement et réinitialisation
+
+Utilisez `ImageCropperContext` pour relier une barre d’outils aux actions de zoom, de rotation, de
+retournement et de réinitialisation. Dans cet exemple, la rotation et le retournement sont contrôlés
+depuis l’état React, Solid ou Vue.
+
+<Example name="image-cropper/rotation-flip-and-reset" />
 
 ### Aperçu du recadrage
 
@@ -70,6 +90,14 @@ et des données de transformation.
 
 <Example name="image-cropper/crop-preview" />
 
+### Zoom contrôlé
+
+Utilisez `zoom` en mode contrôlé avec `onZoomChange` lorsque des boutons ou une autre partie de
+l’interface doivent modifier ou afficher le niveau de zoom. Limitez la plage avec `minZoom` et
+`maxZoom`. Voir [Contrôler l’état depuis l’application](/docs/composition-patterns#controlled-state).
+
+<Example name="image-cropper/controlled-zoom" />
+
 ### Événements
 
 Abonnez-vous à `onCropChange` et `onZoomChange` pour afficher les données actuelles du recadrage ou
@@ -77,40 +105,12 @@ les synchroniser avec d’autres éléments de l’interface.
 
 <Example name="image-cropper/events" />
 
-### Zone de recadrage fixe
-
-Activez `fixedCropArea` lorsque la zone doit conserver la même taille et la même position pendant que
-l’utilisateur déplace l’image derrière elle.
-
-<Example name="image-cropper/fixed-crop-area" />
-
-### Recadrage initial
-
-Définissez `initialCrop` pour ouvrir le composant avec un rectangle de recadrage prédéfini, exprimé
-en coordonnées de la zone d’affichage et en pixels.
-
-<Example name="image-cropper/initial-crop" />
-
-### Taille minimale et maximale
-
-Limitez la taille de la zone avec `minWidth`, `minHeight`, `maxWidth` et `maxHeight`.
-
-<Example name="image-cropper/min-and-max-size" />
-
 ### Root Provider
 
 Utilisez `ImageCropperRootProvider` avec une instance de `useImageCropper` lorsqu’une barre d’outils
-ou un autre élément de l’interface doit piloter le recadrage en dehors de son arbre de composants.
+ou un autre élément de l’interface doit piloter le recadrage en dehors de son arbre de composants. Voir [Partager l’état hors de l’arbre](/docs/composition-patterns#root-provider).
 
 <Example name="image-cropper/root-provider" />
-
-### Rotation, retournement et réinitialisation
-
-Utilisez `ImageCropperContext` pour relier une barre d’outils aux actions de zoom, de rotation, de
-retournement et de réinitialisation. Dans cet exemple, la rotation et le retournement sont contrôlés
-depuis l’état React, Solid ou Vue.
-
-<Example name="image-cropper/rotation-flip-and-reset" />
 
 ### Assembler à partir des parties
 

@@ -25,7 +25,7 @@ import styles from '@/components/examples/sidebar/sidebar-basic.module.css';
     <SidebarPanel>
       <SidebarHeader>
         <strong data-sidebar-icon>M</strong>
-        <SidebarLabel>Moduix</SidebarLabel>
+        <SidebarLabel>moduix</SidebarLabel>
       </SidebarHeader>
       <SidebarContent>
         <SidebarGroup>

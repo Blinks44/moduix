@@ -43,6 +43,14 @@ attaché au bord de la fenêtre ou pouvoir être déplacé.
 
 ## Exemples
 
+### Tailles
+
+Définissez `size` sur `DialogContent` : `sm`, `md` (par défaut), `lg`, `xl` ou `full`. Utilisez
+`placement="top"` ou `placement="bottom"` pour éloigner la surface du centre, et
+`scrollBehavior="inside"` pour limiter le dialogue à la hauteur de l’écran et faire défiler `DialogBody`.
+
+<Example name="dialog/sizes" />
+
 ### Alert Dialog
 
 Utilisez `role="alertdialog"` pour les décisions aux conséquences importantes. Ajoutez une action
@@ -57,13 +65,6 @@ modifications non enregistrées et demandez à l’utilisateur s’il souhaite l
 
 <Example name="dialog/confirmation" />
 
-### État contrôlé
-
-Conservez `open` dans l’état React, un signal Solid ou une ref Vue, puis lisez `details.open` dans
-`onOpenChange` (ou utilisez `v-model:open`) pour synchroniser le dialogue avec le reste de l’application.
-
-<Example name="dialog/controlled" />
-
 ### Défilement interne
 
 Rendez uniquement le contenu principal défilable lorsque le titre et les actions doivent rester
@@ -71,42 +72,6 @@ visibles. Définissez `scrollBehavior="inside"` sur `DialogContent` : le dialogu
 hauteur de l’écran et `DialogBody` défile.
 
 <Example name="dialog/inside-scroll" />
-
-### Cycle de montage et de focus
-
-Utilisez `lazyMount` et `unmountOnExit` pour gérer le cycle de présence. Utilisez `initialFocusEl`
-et `finalFocusEl` lorsque le focus doit aller vers des éléments précis à l’ouverture ou à la
-fermeture.
-
-<Example name="dialog/mounting-and-focus-lifecycle" />
-
-### Plusieurs déclencheurs
-
-Partagez un même dialogue entre plusieurs déclencheurs en attribuant une `value` à chacun et en
-gérant `onTriggerValueChange(details)`.
-
-<Example name="dialog/multiple-triggers" />
-
-### Dialogues imbriqués
-
-Utilisez des stores `useDialog()` distincts pour les dialogues imbriqués. Ark UI gère la pile des
-calques, et moduix s’appuie sur cet état pour faire reculer le parent lorsque l’enfant est ouvert.
-
-<Example name="dialog/nested" />
-
-### Dialogue non modal
-
-Définissez `modal={false}` et omettez l’arrière-plan lorsque l’utilisateur doit pouvoir interagir
-avec la page en dehors du dialogue.
-
-<Example name="dialog/non-modal" />
-
-### Ouverture depuis un menu
-
-Contrôlez `open` depuis un élément de menu lorsqu’une action contextuelle doit ouvrir un dialogue de
-confirmation.
-
-<Example name="dialog/open-from-menu" />
 
 ### Défilement externe
 
@@ -116,21 +81,56 @@ le dialogue en haut de l’écran.
 
 <Example name="dialog/outside-scroll" />
 
+### Dialogue non modal
+
+Définissez `modal={false}` et omettez l’arrière-plan lorsque l’utilisateur doit pouvoir interagir
+avec la page en dehors du dialogue.
+
+<Example name="dialog/non-modal" />
+
+### Dialogues imbriqués
+
+Utilisez des stores `useDialog()` distincts pour les dialogues imbriqués. Ark UI gère la pile des
+calques, et moduix s’appuie sur cet état pour faire reculer le parent lorsque l’enfant est ouvert.
+
+<Example name="dialog/nested" />
+
+### Plusieurs déclencheurs
+
+Partagez un même dialogue entre plusieurs déclencheurs en attribuant une `value` à chacun et en
+gérant `onTriggerValueChange(details)`.
+
+<Example name="dialog/multiple-triggers" />
+
+### Ouverture depuis un menu
+
+Contrôlez `open` depuis un élément de menu lorsqu’une action contextuelle doit ouvrir un dialogue de
+confirmation.
+
+<Example name="dialog/open-from-menu" />
+
+### État contrôlé
+
+Passez `open` et `onOpenChange` (`v-model:open` en Vue) et lisez `details.open` pour synchroniser le
+dialogue avec le reste de l’application. Voir [Contrôler l’état depuis l’application](/docs/composition-patterns#controlled-state).
+
+<Example name="dialog/controlled" />
+
+### Cycle de montage et de focus
+
+Utilisez `lazyMount` et `unmountOnExit` pour gérer le cycle de présence. Utilisez `initialFocusEl`
+et `finalFocusEl` lorsque le focus doit aller vers des éléments précis à l’ouverture ou à la
+fermeture.
+
+<Example name="dialog/mounting-and-focus-lifecycle" />
+
 ### Root Provider
 
 Créez l’état avec `useDialog()` lorsque les contrôles se trouvent en dehors du dialogue. Reliez-le
 avec `DialogRootProvider`, puis lisez-le avec `DialogContext` ou `useDialogContext()` dans des
-composants réutilisables.
+composants réutilisables. Voir [Partager l’état hors de l’arbre](/docs/composition-patterns#root-provider).
 
 <Example name="dialog/root-provider-and-ark-context-hooks" />
-
-### Tailles
-
-Définissez `size` sur `DialogContent` : `sm`, `md` (par défaut), `lg`, `xl` ou `full`. Utilisez
-`placement="top"` ou `placement="bottom"` pour éloigner la surface du centre, et
-`scrollBehavior="inside"` pour limiter le dialogue à la hauteur de l’écran et faire défiler `DialogBody`.
-
-<Example name="dialog/sizes" />
 
 ### Assembler à partir des parties
 

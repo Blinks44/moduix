@@ -34,12 +34,23 @@ Use `Separator` to make the boundary between related sections visible. The defau
 
 ## Examples
 
-### Custom Element
+### Variants
 
-Use `asChild` when a specific host element needs to receive the separator role, styling hooks, and
-forwarded ref. Otherwise, use `<Separator />` directly.
+Use `variant` to choose a solid, dashed, or dotted line.
 
-<Example name="separator/custom-element" />
+<Example name="separator/variants" />
+
+### Sizes
+
+Use `size` to choose the separator thickness, then override it with CSS properties when needed.
+
+<Example name="separator/sizes" />
+
+### Vertical
+
+Use `orientation="vertical"` for inline groups such as navigation links.
+
+<Example name="separator/vertical" />
 
 ### Decorative
 
@@ -48,23 +59,12 @@ assistive technology.
 
 <Example name="separator/decorative" />
 
-### Sizes
+### Custom element
 
-Use `size` to choose the separator thickness, then override it with CSS properties when needed.
+Use `asChild` when a specific host element needs to receive the separator role, styling hooks, and
+forwarded ref. Otherwise, use `<Separator />` directly.
 
-<Example name="separator/sizes" />
-
-### Variants
-
-Use `variant` to choose a solid, dashed, or dotted line.
-
-<Example name="separator/variants" />
-
-### Vertical
-
-Use `orientation="vertical"` for inline groups such as navigation links.
-
-<Example name="separator/vertical" />
+<Example name="separator/custom-element" />
 
 ## Composition
 

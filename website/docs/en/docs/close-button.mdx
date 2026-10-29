@@ -35,19 +35,19 @@ a default accessible name, and shows a `CloseIcon`, but it does not manage the s
 
 ## Examples
 
-### Custom content
-
-Pass custom content through `children` to replace the default icon while keeping the root button contract. Keep a
-custom icon decorative with `aria-hidden="true"` when the button's accessible name comes from its label.
-
-<Example name="close-button/custom-children" />
-
 ### Disabled state
 
 Use native `disabled` when the button should not be focusable. Use `aria-disabled="true"` when it should remain
 focusable but must not activate.
 
 <Example name="close-button/disabled-state" />
+
+### Custom content
+
+Pass custom content through `children` to replace the default icon while keeping the root button contract. Keep a
+custom icon decorative with `aria-hidden="true"` when the button's accessible name comes from its label.
+
+<Example name="close-button/custom-children" />
 
 ### Using `asChild`
 
@@ -108,10 +108,8 @@ Hover or focus a variable to see it in the preview.
 
 ## Keyboard
 
-| Key | Action |
-| --- | --- |
-| `Tab` / `Shift+Tab` | Moves focus to and from the button. |
-| `Enter` / `Space` | Activates the focused button. |
+`CloseButton` renders a native button, so the browser handles focus and activation. Give it an
+accessible name when the default label does not fit.
 
 ## API reference
 

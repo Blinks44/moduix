@@ -32,19 +32,13 @@ Use `Stack` when a single flex container is enough and you only need to control 
 
 ## Examples
 
-### Growing Child Stack
+### Row layout
 
-Use `fill` when a nested `Stack` should take the remaining space in a flex row.
+Use `direction="row"` with alignment props for inline content.
 
-<Example name="stack/growing-child-stack" />
+<Example name="stack/row-layout" />
 
-### Loading Layout
-
-Combine `Stack` and `Skeleton` for a loading layout that only needs flex composition and spacing.
-
-<Example name="stack/loading-layout" />
-
-### Responsive Direction
+### Responsive direction
 
 Use responsive `direction` for a simple column-on-mobile, row-on-desktop layout. The desktop value starts at `640px`.
 Responsive values are mobile-first: an omitted `mobile` value stays `column`, and an omitted `desktop` value keeps the
@@ -52,17 +46,11 @@ mobile direction.
 
 <Example name="stack/responsive-direction" />
 
-### Row Layout
+### Wrapped items
 
-Use `direction="row"` with alignment props for inline content.
+Use `wrap="wrap"` when items should flow onto the next line.
 
-<Example name="stack/row-layout" />
-
-### Semantic Element
-
-Use Ark's `asChild` when the layout wrapper should also express document structure.
-
-<Example name="stack/semantic-element" />
+<Example name="stack/wrapped-items" />
 
 ### Separator
 
@@ -71,11 +59,23 @@ applies to every child, including dividers.
 
 <Example name="stack/separator" />
 
-### Wrapped Items
+### Growing child stack
 
-Use `wrap="wrap"` when items should flow onto the next line.
+Use `fill` when a nested `Stack` should take the remaining space in a flex row.
 
-<Example name="stack/wrapped-items" />
+<Example name="stack/growing-child-stack" />
+
+### Loading layout
+
+Combine `Stack` and `Skeleton` for a loading layout that only needs flex composition and spacing.
+
+<Example name="stack/loading-layout" />
+
+### Semantic element
+
+Use Ark's `asChild` when the layout wrapper should also express document structure.
+
+<Example name="stack/semantic-element" />
 
 ## Composition
 

@@ -40,26 +40,37 @@ Use `Button` for a single action. Use `Menu` when the available actions are peer
 
 ## Examples
 
-### Controlled Menu State
+### Variants
 
-Use the same controlled open-state contract as Ark Menu when the dropdown state should be managed outside the
-component.
+Use the root `variant` when both buttons should share the same visual style.
 
-<Example name="split-button/controlled-menu-state" />
+<Example name="split-button/variants" />
 
-### Disabled Action
+### Sizes
+
+Use the root `size` when both sides should scale together.
+
+<Example name="split-button/sizes" />
+
+### With icons
+
+Add an icon to the primary action when it clarifies the default action without replacing the text label.
+
+<Example name="split-button/with-icons" />
+
+### Disabled action
 
 Disable the primary action while keeping the alternate-actions menu available when it still offers a useful path.
 
 <Example name="split-button/disabled-action" />
 
-### Link Action
+### Link action
 
 Use `asChild` on `SplitButtonAction` when the primary action should render as a link.
 
 <Example name="split-button/link-action" />
 
-### Menu Composition
+### Menu composition
 
 Use `MenuItemGroup`, `MenuItemGroupLabel`, `MenuItem`, and `MenuSeparator` inside `SplitButtonContent` when alternate actions need groups, separators, or grouped
 rows.
@@ -72,23 +83,12 @@ Configure popup placement with the Ark `positioning` root prop while keeping the
 
 <Example name="split-button/positioning" />
 
-### Sizes
+### Controlled menu state
 
-Use the root `size` when both sides should scale together.
+Use the same controlled open-state contract as Ark Menu when the dropdown state should be managed outside the
+component. See [Control state from the application](/docs/composition-patterns#controlled-state).
 
-<Example name="split-button/sizes" />
-
-### Variants
-
-Use the root `variant` when both buttons should share the same visual style.
-
-<Example name="split-button/variants" />
-
-### With Icons
-
-Add an icon to the primary action when it clarifies the default action without replacing the text label.
-
-<Example name="split-button/with-icons" />
+<Example name="split-button/controlled-menu-state" />
 
 ## Composition
 
@@ -161,7 +161,6 @@ Hover or focus a variable to see it in the preview.
 
 | Key | Action |
 | --- | --- |
-| `Tab` / `Shift+Tab` | Moves focus between the action and the menu trigger. |
 | `Enter` / `Space` | Runs the action, or opens the menu from the trigger. |
 | `ArrowDown` / `ArrowUp` | Opens the menu from the trigger and moves between items. |
 | `Escape` | Closes the menu and returns focus to the trigger. |

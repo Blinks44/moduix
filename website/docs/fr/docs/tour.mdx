@@ -36,13 +36,12 @@ un texte long de défiler dans le panneau.
 
 ## Exemples
 
-### Événements
+### Avec une flèche
 
-Utilisez les objets transmis aux fonctions de rappel d’Ark pour mettre à jour une autre partie de l’interface ou
-enregistrer des données d’analyse. Lancez le tour, cliquez sur Next puis sur Done. La sortie affiche le dernier
-événement de changement d’étape ou de statut.
+Ajoutez `TourArrow` à une étape de type infobulle lorsqu’elle doit pointer visuellement vers sa cible, puis activez
+l’option `arrow` de l’étape pour qu’Ark positionne la flèche.
 
-<Example name="tour/events" />
+<Example name="tour/with-arrow" />
 
 ### Attendre une saisie
 
@@ -52,12 +51,13 @@ aussi exportés depuis `@moduix/react/tour`, `@moduix/solid/tour` et `@moduix/vu
 
 <Example name="tour/wait-for-input" />
 
-### Avec une flèche
+### Événements
 
-Ajoutez `TourArrow` à une étape de type infobulle lorsqu’elle doit pointer visuellement vers sa cible, puis activez
-l’option `arrow` de l’étape pour qu’Ark positionne la flèche.
+Utilisez les objets transmis aux fonctions de rappel d’Ark pour mettre à jour une autre partie de l’interface ou
+enregistrer des données d’analyse. Lancez le tour, cliquez sur Next puis sur Done. La sortie affiche le dernier
+événement de changement d’étape ou de statut.
 
-<Example name="tour/with-arrow" />
+<Example name="tour/events" />
 
 ### Assembler à partir des parties
 
@@ -150,7 +150,6 @@ aussi `data-scope="tour"`, `data-part`, `data-state`, `data-type`, `data-placeme
 | Touche | Action |
 | --- | --- |
 | `ArrowRight` / `ArrowLeft` | Passe à l’étape suivante ou précédente si keyboardNavigation est actif. |
-| `Tab` / `Shift+Tab` | Passe d’une action de l’étape à l’autre. |
 | `Esc` | Termine la visite. |
 
 ## Référence de l’API

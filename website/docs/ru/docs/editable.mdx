@@ -44,18 +44,13 @@ import * as EditableDocs from '@/components/examples/editable/css-properties';
 
 ## Примеры
 
-### Управляемое значение
+### Textarea
 
-Используйте `value` и `onValueChange`, если источником значения должно быть состояние приложения.
+Используйте `EditableInput asChild` с нативным `<textarea>` для многострочного текста. У textarea есть
+минимальная высота, предпросмотр сохраняет переносы строк, а кнопки остаются у верхнего края.
+Сохранение по Cmd/Ctrl + Enter, Enter добавляет новую строку.
 
-<Example name="editable/controlled" />
-
-### Отключённое состояние и режим только для чтения
-
-Используйте `disabled`, когда поле должно быть недоступно для взаимодействия. Используйте `readOnly`,
-если значение должно оставаться видимым, но недоступным для редактирования.
-
-<Example name="editable/disabled-and-read-only" />
+<Example name="editable/textarea" />
 
 ### Свои кнопки
 
@@ -64,6 +59,13 @@ import * as EditableDocs from '@/components/examples/editable/css-properties';
 видимым текстом.
 
 <Example name="editable/custom-triggers" />
+
+### Отключённое состояние и режим только для чтения
+
+Используйте `disabled`, когда поле должно быть недоступно для взаимодействия. Используйте `readOnly`,
+если значение должно оставаться видимым, но недоступным для редактирования.
+
+<Example name="editable/disabled-and-read-only" />
 
 ### Field
 
@@ -87,22 +89,20 @@ import * as EditableDocs from '@/components/examples/editable/css-properties';
 
 <Example name="editable/guides" />
 
+### Управляемое значение
+
+Используйте `value` и `onValueChange`, если источником значения должно быть состояние приложения. Подробнее в разделе [Управляйте состоянием из приложения](/docs/composition-patterns#controlled-state).
+
+<Example name="editable/controlled" />
+
 ### Root Provider
 
 Используйте `useEditable()` и `EditableRootProvider` из moduix, когда элементам управления за пределами
 дерева компонента нужен доступ к состоянию и методам `Editable`. Передайте в хук
 `activationMode: 'dblclick'`, чтобы сохранить режим активации, установленный по умолчанию у корневого
-компонента. Для этого экземпляра состояния provider заменяет `Editable`.
+компонента. Для этого экземпляра состояния provider заменяет `Editable`. Подробнее в разделе [Выносите состояние за пределы дерева](/docs/composition-patterns#root-provider).
 
 <Example name="editable/root-provider" />
-
-### Textarea
-
-Используйте `EditableInput asChild` с нативным `<textarea>` для многострочного текста. У textarea есть
-минимальная высота, предпросмотр сохраняет переносы строк, а кнопки остаются у верхнего края.
-Сохранение по Cmd/Ctrl + Enter, Enter добавляет новую строку.
-
-<Example name="editable/textarea" />
 
 ### Сборка из частей
 

@@ -43,58 +43,12 @@ Utilisez `Slider` lorsque l’utilisateur doit ajuster une valeur numérique dan
 
 ## Exemples
 
-### Centre comme origine
+### Plage
 
-Définissez `origin="center"` lorsque la valeur représente un décalage positif ou négatif, par exemple un équilibre autour de zéro.
+Transmettez un tableau contenant une valeur par poignée. `SliderThumbs` génère les poignées correspondantes et leurs
+champs natifs.
 
-<Example name="slider/center-origin" width="sm" />
-
-### Événements de modification
-
-Utilisez `onValueChange` (ou l’événement Vue `value-change`) pour mettre à jour l’interface pendant
-l’interaction et `onValueChangeEnd` (ou `value-change-end`) lorsque le glissement ou l’interaction
-au clavier est terminé.
-
-<Example name="slider/change-events" width="sm" />
-
-### Contexte
-
-Utilisez `useSliderContext` de moduix dans un composant enfant lorsque celui-ci doit lire l’état du slider, par exemple
-`value`, `dragging` ou l’état du focus.
-
-<Example name="slider/context" width="sm" />
-
-### État contrôlé
-
-Contrôlez le slider depuis l’état du framework en conservant le tableau fourni par `details.value` ;
-dans Vue, liez `v-model` à une ref pour le même contrat contrôlé.
-
-<Example name="slider/controlled" width="sm" />
-
-### Désactivé
-
-Utilisez `disabled` pour garder la valeur visible tout en désactivant les interactions.
-
-<Example name="slider/disabled" width="sm" />
-
-### Indicateur de glissement
-
-Placez `SliderDraggingIndicator` dans une poignée pour afficher sa valeur active pendant le glissement.
-
-<Example name="slider/dragging-indicator" width="sm" />
-
-### Formulaire
-
-Définissez `name` et placez `SliderHiddenInput` dans chaque poignée explicite pour envoyer la valeur actuelle.
-
-<Example name="slider/form" width="sm" />
-
-### Valeur non valide
-
-Utilisez `invalid` lorsque la valeur sélectionnée ne passe pas la validation. La piste, la plage et la poignée exposent
-l’état invalide tout en restant interactives.
-
-<Example name="slider/invalid" width="sm" />
+<Example name="slider/range" width="sm" />
 
 ### Repères
 
@@ -103,18 +57,41 @@ Utilisez `SliderMarkerGroup` et `SliderMarker` pour afficher des repères. Les r
 
 <Example name="slider/marks" width="sm" />
 
+### Incrément
+
+Utilisez `step` pour des incréments fractionnaires ou plus fins.
+
+<Example name="slider/step" width="sm" />
+
 ### Minimum et maximum
 
 Utilisez `min` et `max` lorsque l’intervalle du slider ne commence pas à `0` ou ne se termine pas à `100`.
 
 <Example name="slider/min-and-max" width="sm" />
 
-### Plage
+### Orientation verticale
 
-Transmettez un tableau contenant une valeur par poignée. `SliderThumbs` génère les poignées correspondantes et leurs
-champs natifs.
+Définissez `orientation="vertical"` et donnez une hauteur explicite à la racine.
 
-<Example name="slider/range" width="sm" />
+<Example name="slider/vertical" />
+
+### Orientation verticale avec repères
+
+En orientation verticale, les repères restent alignés sur la piste et exposent les mêmes attributs d’état.
+
+<Example name="slider/vertical-with-marks" />
+
+### Centre comme origine
+
+Définissez `origin="center"` lorsque la valeur représente un décalage positif ou négatif, par exemple un équilibre autour de zéro.
+
+<Example name="slider/center-origin" width="sm" />
+
+### Désactivé
+
+Utilisez `disabled` pour garder la valeur visible tout en désactivant les interactions.
+
+<Example name="slider/disabled" width="sm" />
 
 ### Lecture seule
 
@@ -123,18 +100,18 @@ curseur système par défaut dans cet état afin que le slider ne paraisse pas i
 
 <Example name="slider/read-only" width="sm" />
 
-### Root Provider
+### Valeur non valide
 
-Utilisez `useSlider` de moduix avec `SliderRootProvider` lorsque l’état doit être créé en dehors de l’arbre qui affiche
-les parties du slider. Placez ces parties dans `SliderRootProvider` et n’utilisez pas une seconde racine pour le même état.
+Utilisez `invalid` lorsque la valeur sélectionnée ne passe pas la validation. La piste, la plage et la poignée exposent
+l’état invalide tout en restant interactives.
 
-<Example name="slider/root-provider" width="sm" />
+<Example name="slider/invalid" width="sm" />
 
-### Incrément
+### Formulaire
 
-Utilisez `step` pour des incréments fractionnaires ou plus fins.
+Définissez `name` et placez `SliderHiddenInput` dans chaque poignée explicite pour envoyer la valeur actuelle.
 
-<Example name="slider/step" width="sm" />
+<Example name="slider/form" width="sm" />
 
 ### Alignement de la poignée
 
@@ -156,17 +133,40 @@ Utilisez `minStepsBetweenThumbs` pour imposer un écart minimal entre les poign�
 
 <Example name="slider/thumb-overlap" width="sm" />
 
-### Orientation verticale
+### Indicateur de glissement
 
-Définissez `orientation="vertical"` et donnez une hauteur explicite à la racine.
+Placez `SliderDraggingIndicator` dans une poignée pour afficher sa valeur active pendant le glissement.
 
-<Example name="slider/vertical" />
+<Example name="slider/dragging-indicator" width="sm" />
 
-### Orientation verticale avec repères
+### Événements de modification
 
-En orientation verticale, les repères restent alignés sur la piste et exposent les mêmes attributs d’état.
+Utilisez `onValueChange` (ou l’événement Vue `value-change`) pour mettre à jour l’interface pendant
+l’interaction et `onValueChangeEnd` (ou `value-change-end`) lorsque le glissement ou l’interaction
+au clavier est terminé.
 
-<Example name="slider/vertical-with-marks" />
+<Example name="slider/change-events" width="sm" />
+
+### État contrôlé
+
+Contrôlez le slider depuis l’état du framework en conservant le tableau fourni par `details.value` ;
+dans Vue, liez `v-model` à une ref pour le même contrat contrôlé.
+
+<Example name="slider/controlled" width="sm" />
+
+### Contexte
+
+Utilisez `useSliderContext` de moduix dans un composant enfant lorsque celui-ci doit lire l’état du slider, par exemple
+`value`, `dragging` ou l’état du focus.
+
+<Example name="slider/context" width="sm" />
+
+### Root Provider
+
+Utilisez `useSlider` de moduix avec `SliderRootProvider` lorsque l’état doit être créé en dehors de l’arbre qui affiche
+les parties du slider. Placez ces parties dans `SliderRootProvider` et n’utilisez pas une seconde racine pour le même état.
+
+<Example name="slider/root-provider" width="sm" />
 
 ## Composition
 

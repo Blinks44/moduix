@@ -42,18 +42,51 @@ import * as DateInputDocs from '@/components/examples/date-input/css-properties'
 
 ## Примеры
 
-### Управляемое состояние
+### Гранулярность
 
-Передавайте массив значений через `value` и обновляйте его из `details.value` в `onValueChange`.
+Укажите `granularity`, чтобы добавить в поле сегменты времени.
 
-<Example name="date-input/controlled" />
+<Example name="date-input/granularity" />
 
-### Свои сегменты
+### Только время
 
-Стилизуйте каждый сегмент по его данным Ark через `DateInputSegmentContext`. В этом примере у сегмента
-дня свой класс.
+Используйте форматтер, настроенный только на время, с гранулярностью минут или секунд, если дата не входит в
+значение, которое редактирует пользователь.
 
-<Example name="date-input/custom-segments" />
+<Example name="date-input/time-only" />
+
+### Диапазон
+
+Используйте `selectionMode="range"`, передайте `index` каждой группе сегментов и добавьте соответствующие
+индексированные `DateInputHiddenInput`, если значения отправляются вместе с формой.
+
+<Example name="date-input/range" />
+
+### Локаль
+
+Укажите на корневом компоненте `locale`, `timeZone`, `hourCycle` или `granularity`, если порядок сегментов и
+их подписи должны соответствовать региональным правилам.
+
+<Example name="date-input/locale" />
+
+### Ведущие нули
+
+Укажите `shouldForceLeadingZeros={false}`, если числовые сегменты не должны дополняться ведущими нулями.
+
+<Example name="date-input/leading-zeros" />
+
+### Справа налево
+
+Укажите `dir="rtl"` вместе с RTL-локалью, чтобы сохранить направление и порядок сегментов локали.
+
+<Example name="date-input/right-to-left" />
+
+### Минимальная, максимальная и недоступные даты
+
+Используйте `min`, `max` и `isDateUnavailable`, чтобы ограничить даты правилами приложения и отмечать
+недопустимые значения.
+
+<Example name="date-input/min-max-and-unavailable-dates" />
 
 ### Отключённое состояние и только для чтения
 
@@ -69,58 +102,25 @@ import * as DateInputDocs from '@/components/examples/date-input/css-properties'
 
 <Example name="date-input/field-state" />
 
-### Гранулярность
+### Свои сегменты
 
-Укажите `granularity`, чтобы добавить в поле сегменты времени.
+Стилизуйте каждый сегмент по его данным Ark через `DateInputSegmentContext`. В этом примере у сегмента
+дня свой класс.
 
-<Example name="date-input/granularity" />
+<Example name="date-input/custom-segments" />
 
-### Ведущие нули
+### Управляемое состояние
 
-Укажите `shouldForceLeadingZeros={false}`, если числовые сегменты не должны дополняться ведущими нулями.
+Передавайте массив значений через `value` и обновляйте его из `details.value` в `onValueChange`. Подробнее в разделе [Управляйте состоянием из приложения](/docs/composition-patterns#controlled-state).
 
-<Example name="date-input/leading-zeros" />
-
-### Локаль
-
-Укажите на корневом компоненте `locale`, `timeZone`, `hourCycle` или `granularity`, если порядок сегментов и
-их подписи должны соответствовать региональным правилам.
-
-<Example name="date-input/locale" />
-
-### Минимальная, максимальная и недоступные даты
-
-Используйте `min`, `max` и `isDateUnavailable`, чтобы ограничить даты правилами приложения и отмечать
-недопустимые значения.
-
-<Example name="date-input/min-max-and-unavailable-dates" />
-
-### Диапазон
-
-Используйте `selectionMode="range"`, передайте `index` каждой группе сегментов и добавьте соответствующие
-индексированные `DateInputHiddenInput`, если значения отправляются вместе с формой.
-
-<Example name="date-input/range" />
-
-### Справа налево
-
-Укажите `dir="rtl"` вместе с RTL-локалью, чтобы сохранить направление и порядок сегментов локали.
-
-<Example name="date-input/right-to-left" />
+<Example name="date-input/controlled" />
 
 ### Root Provider
 
 Используйте `useDateInput()` из `@moduix/react`, `@moduix/solid` или `@moduix/vue` вместе с `DateInputRootProvider`, когда
-методы управления состоянием нужны за пределами дерева корневого компонента.
+методы управления состоянием нужны за пределами дерева корневого компонента. Подробнее в разделе [Выносите состояние за пределы дерева](/docs/composition-patterns#root-provider).
 
 <Example name="date-input/root-provider" />
-
-### Только время
-
-Используйте форматтер, настроенный только на время, с гранулярностью минут или секунд, если дата не входит в
-значение, которое редактирует пользователь.
-
-<Example name="date-input/time-only" />
 
 ### Сборка из частей
 

@@ -42,20 +42,6 @@ import * as AlertDocs from '@/components/examples/alert/css-properties';
 
 ## Примеры
 
-### Другой уровень заголовка
-
-Используйте `asChild` в `AlertTitle`, если заголовок сообщения должен занять определённый уровень
-в иерархии заголовков страницы.
-
-<Example name="alert/custom-heading" />
-
-### Ошибка
-
-Задайте `status="error"`, чтобы визуально выделить сообщение сильнее. Добавляйте `role="alert"`, только
-если сообщение нужно объявить немедленно.
-
-<Example name="alert/error" />
-
 ### Статусы
 
 Используйте четыре статуса, чтобы различать информационные сообщения, сообщения об успехе,
@@ -63,6 +49,20 @@ import * as AlertDocs from '@/components/examples/alert/css-properties';
 помогает быстрее понять сообщение.
 
 <Example name="alert/statuses" />
+
+### С иконкой
+
+Поместите иконку moduix или собственную SVG-иконку внутрь `AlertIndicator`. Класс размера на самой
+иконке переопределяет размер по умолчанию.
+
+<Example name="alert/with-icon" />
+
+### Другой уровень заголовка
+
+Используйте `asChild` в `AlertTitle`, если заголовок сообщения должен занять определённый уровень
+в иерархии заголовков страницы.
+
+<Example name="alert/custom-heading" />
 
 ### С действиями
 
@@ -72,12 +72,12 @@ import * as AlertDocs from '@/components/examples/alert/css-properties';
 
 <Example name="alert/with-actions" />
 
-### С иконкой
+### Ошибка
 
-Поместите иконку moduix или собственную SVG-иконку внутрь `AlertIndicator`. Класс размера на самой
-иконке переопределяет размер по умолчанию.
+Задайте `status="error"`, чтобы визуально выделить сообщение сильнее. Добавляйте `role="alert"`, только
+если сообщение нужно объявить немедленно.
 
-<Example name="alert/with-icon" />
+<Example name="alert/error" />
 
 ## Композиция
 

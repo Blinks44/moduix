@@ -46,6 +46,49 @@ Si l’utilisateur doit parcourir la liste au clavier et sélectionner une ou pl
 
 ## Exemples
 
+### Liste ordonnée
+
+Utilisez `as="ol"` pour rendre une liste ordonnée tout en conservant les styles appliqués par la racine moduix.
+Les propriétés natives `start` et `reversed` sont transmises à la racine de la liste ordonnée. Les marqueurs viennent
+de `marker` : l’attribut natif `type` ne les modifie pas ; pour des lettres ou des chiffres romains, définissez
+`list-style-type` avec une classe.
+
+<Example name="list/ordered" />
+
+### Sans marqueurs
+
+Utilisez `marker="none"` si vous avez besoin de la sémantique d’une liste sans marqueurs visibles. Dans ce mode,
+`List` ajoute `role="list"` par défaut, sauf si vous fournissez une autre valeur pour `role`.
+
+<Example name="list/markerless" />
+
+### Avec indicateur
+
+Utilisez `ListIndicator` pour afficher une icône à la place du marqueur natif, et définissez `marker="none"` sur la
+racine. Un élément avec indicateur devient une ligne flex : l’icône mesure `1em`, s’aligne sur la première ligne, et
+le texte long revient à la ligne à côté d’elle plutôt qu’en dessous.
+
+<Example name="list/with-indicator" />
+
+### Tonalité
+
+Utilisez `tone` pour appliquer une couleur sémantique au texte et aux marqueurs de la liste.
+
+<Example name="list/tone" />
+
+### Liste imbriquée
+
+Placez une `List` imbriquée dans un `ListItem`. La liste imbriquée commence un `gap` sous le texte de l’élément,
+avec son propre `gap` : aucune marge supplémentaire n’est nécessaire.
+
+<Example name="list/nested" />
+
+### Éléments natifs
+
+Utilisez des éléments `li` natifs si vous n’avez pas besoin de la partie exportée `ListItem`.
+
+<Example name="list/native-items" />
+
 ### Élément personnalisé
 
 Utilisez `ListItem asChild` lorsqu’un composant personnalisé doit rendre lui-même l’élément `<li>`. Il doit
@@ -61,49 +104,6 @@ En React, il doit transmettre les props et la ref reçues à un seul `<ul>` ou `
 fonction de rendu ; en Vue, passez un seul enfant sémantique.
 
 <Example name="list/root-as-child" />
-
-### Sans marqueurs
-
-Utilisez `marker="none"` si vous avez besoin de la sémantique d’une liste sans marqueurs visibles. Dans ce mode,
-`List` ajoute `role="list"` par défaut, sauf si vous fournissez une autre valeur pour `role`.
-
-<Example name="list/markerless" />
-
-### Éléments natifs
-
-Utilisez des éléments `li` natifs si vous n’avez pas besoin de la partie exportée `ListItem`.
-
-<Example name="list/native-items" />
-
-### Liste ordonnée
-
-Utilisez `as="ol"` pour rendre une liste ordonnée tout en conservant les styles appliqués par la racine moduix.
-Les propriétés natives `start` et `reversed` sont transmises à la racine de la liste ordonnée. Les marqueurs viennent
-de `marker` : l’attribut natif `type` ne les modifie pas ; pour des lettres ou des chiffres romains, définissez
-`list-style-type` avec une classe.
-
-<Example name="list/ordered" />
-
-### Tonalité
-
-Utilisez `tone` pour appliquer une couleur sémantique au texte et aux marqueurs de la liste.
-
-<Example name="list/tone" />
-
-### Liste imbriquée
-
-Placez une `List` imbriquée dans un `ListItem`. La liste imbriquée commence un `gap` sous le texte de l’élément,
-avec son propre `gap` : aucune marge supplémentaire n’est nécessaire.
-
-<Example name="list/nested" />
-
-### Avec indicateur
-
-Utilisez `ListIndicator` pour afficher une icône à la place du marqueur natif, et définissez `marker="none"` sur la
-racine. Un élément avec indicateur devient une ligne flex : l’icône mesure `1em`, s’aligne sur la première ligne, et
-le texte long revient à la ligne à côté d’elle plutôt qu’en dessous.
-
-<Example name="list/with-indicator" />
 
 ## Composition
 

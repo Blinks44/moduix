@@ -52,12 +52,32 @@ import AnatomyScene from '@/components/examples/image-cropper/basic';
 
 <Example name="image-cropper/circle-crop" />
 
-### Управляемый масштаб
+### Начальная область кадрирования
 
-Используйте управляемые `zoom` и `onZoomChange`, если кнопки или другая часть интерфейса должны
-изменять или показывать текущий масштаб. Ограничьте диапазон с помощью `minZoom` и `maxZoom`.
+Передайте `initialCrop`, чтобы открыть компонент с заранее заданным прямоугольником кадрирования в
+координатах области просмотра и пикселях.
 
-<Example name="image-cropper/controlled-zoom" />
+<Example name="image-cropper/initial-crop" />
+
+### Фиксированная область кадрирования
+
+Включите `fixedCropArea`, если область кадрирования должна сохранять размер и положение, пока
+пользователь панорамирует изображение под ней.
+
+<Example name="image-cropper/fixed-crop-area" />
+
+### Минимальный и максимальный размер
+
+Ограничьте размер области кадрирования с помощью `minWidth`, `minHeight`, `maxWidth` и `maxHeight`.
+
+<Example name="image-cropper/min-and-max-size" />
+
+### Поворот, отражение и сброс
+
+Используйте `ImageCropperContext`, чтобы подключить к панели инструментов действия масштабирования,
+поворота, отражения и сброса. В этом примере состояние поворота и отражения контролируется из React, Solid или Vue.
+
+<Example name="image-cropper/rotation-flip-and-reset" />
 
 ### Предварительный просмотр кадра
 
@@ -68,6 +88,13 @@ import AnatomyScene from '@/components/examples/image-cropper/basic';
 
 <Example name="image-cropper/crop-preview" />
 
+### Управляемый масштаб
+
+Используйте управляемые `zoom` и `onZoomChange`, если кнопки или другая часть интерфейса должны
+изменять или показывать текущий масштаб. Ограничьте диапазон с помощью `minZoom` и `maxZoom`. Подробнее в разделе [Управляйте состоянием из приложения](/docs/composition-patterns#controlled-state).
+
+<Example name="image-cropper/controlled-zoom" />
+
 ### События
 
 Подпишитесь на `onCropChange` и `onZoomChange`, чтобы показывать текущие данные кадрирования или
@@ -75,39 +102,12 @@ import AnatomyScene from '@/components/examples/image-cropper/basic';
 
 <Example name="image-cropper/events" />
 
-### Фиксированная область кадрирования
-
-Включите `fixedCropArea`, если область кадрирования должна сохранять размер и положение, пока
-пользователь панорамирует изображение под ней.
-
-<Example name="image-cropper/fixed-crop-area" />
-
-### Начальная область кадрирования
-
-Передайте `initialCrop`, чтобы открыть компонент с заранее заданным прямоугольником кадрирования в
-координатах области просмотра и пикселях.
-
-<Example name="image-cropper/initial-crop" />
-
-### Минимальный и максимальный размер
-
-Ограничьте размер области кадрирования с помощью `minWidth`, `minHeight`, `maxWidth` и `maxHeight`.
-
-<Example name="image-cropper/min-and-max-size" />
-
 ### Root Provider
 
 Используйте `ImageCropperRootProvider` с экземпляром `useImageCropper`, если панель инструментов или
-другой сценарий должны управлять кадрированием за пределами дерева его компонентов.
+другой сценарий должны управлять кадрированием за пределами дерева его компонентов. Подробнее в разделе [Выносите состояние за пределы дерева](/docs/composition-patterns#root-provider).
 
 <Example name="image-cropper/root-provider" />
-
-### Поворот, отражение и сброс
-
-Используйте `ImageCropperContext`, чтобы подключить к панели инструментов действия масштабирования,
-поворота, отражения и сброса. В этом примере состояние поворота и отражения контролируется из React, Solid или Vue.
-
-<Example name="image-cropper/rotation-flip-and-reset" />
 
 ### Сборка из частей
 

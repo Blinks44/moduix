@@ -41,94 +41,11 @@ to enter a known value and do not need to manipulate the color directly.
 
 ## Examples
 
-### Color Area and Sliders
-
-Use this compact composition when users need the color area and channel sliders but do not need
-typed channel input.
-
-<Example name="color-picker/slider-only" />
-
-### Compact Trigger
-
-Use `data-fit-content` on `ColorPickerTrigger` when a content-sized button is more useful than a
-square swatch, such as when replacing a button-based color field.
-
-<Example name="color-picker/compact-trigger" />
-
-### Controlled
-
-Use controlled state when the selected color must stay in sync with application state.
-
-<Example name="color-picker/controlled" />
-
-### Disabled
-
-Use `disabled` on the root when every color picker part should become non-interactive while keeping
-the current color visible.
-
-<Example name="color-picker/disabled" />
-
-### Field State
-
-Use root form-state props such as `required` and `invalid` when the picker is rendered inside a
-field container and should expose the same state through Ark data attributes.
-
-<Example name="color-picker/field-state" />
-
-### Form Usage
-
-Use `name` on `ColorPicker` and add `ColorPickerHiddenInput` explicitly.
-
-<Example name="color-picker/form-usage" />
-
-### Format Views
-
-Use `format`, `onFormatChange`, `ColorPickerFormatSelect`, and `ColorPickerView` when users need to switch between channel
-input groups without changing the picker structure. `ColorPickerFormatSelect` keeps Ark's native format
-control, while its collapsed trigger is styled like the moduix Select field and consistently
-presents the RGBA, HSLA, and HSBA options. The browser controls the options popup.
-
-<Example name="color-picker/format-views" />
-
 ### Inline
 
 Use `inline` in settings panels where the color tools should stay visible without a popup trigger.
 
 <Example name="color-picker/inline" />
-
-### Input Only
-
-Use channel inputs with a passive swatch when typed color entry is important and a popup would add
-unnecessary complexity to the interface.
-
-<Example name="color-picker/input-only" />
-
-### Inside Dialog
-
-When a picker appears inside a modal dialog, render its popup without a portal so it shares the
-dialog's stacking context and stays interactive above the dialog surface.
-
-<Example name="color-picker/inside-dialog" />
-
-### Open Controlled
-
-Use controlled `open` state when another control or workflow owns the popup's visibility.
-
-<Example name="color-picker/open-controlled" />
-
-### Root Provider
-
-Use moduix `useColorPicker` with `ColorPickerRootProvider` when the color picker state must be created outside
-the rendered tree and shared with nearby controls.
-
-<Example name="color-picker/root-provider" />
-
-### Swatch Only
-
-Use swatch-only composition when a preset palette is enough and the area, sliders, and inputs are
-unnecessary.
-
-<Example name="color-picker/swatch-only" />
 
 ### Swatches
 
@@ -137,12 +54,95 @@ Use popup swatches when the picker should offer a curated set of colors alongsid
 
 <Example name="color-picker/swatches" />
 
-### Value Swatch
+### Format views
+
+Use `format`, `onFormatChange`, `ColorPickerFormatSelect`, and `ColorPickerView` when users need to switch between channel
+input groups without changing the picker structure. `ColorPickerFormatSelect` keeps Ark's native format
+control, while its collapsed trigger is styled like the moduix Select field and consistently
+presents the RGBA, HSLA, and HSBA options. The browser controls the options popup.
+
+<Example name="color-picker/format-views" />
+
+### Compact trigger
+
+Use `data-fit-content` on `ColorPickerTrigger` when a content-sized button is more useful than a
+square swatch, such as when replacing a button-based color field.
+
+<Example name="color-picker/compact-trigger" />
+
+### Input only
+
+Use channel inputs with a passive swatch when typed color entry is important and a popup would add
+unnecessary complexity to the interface.
+
+<Example name="color-picker/input-only" />
+
+### Color area and sliders
+
+Use this compact composition when users need the color area and channel sliders but do not need
+typed channel input.
+
+<Example name="color-picker/slider-only" />
+
+### Swatch only
+
+Use swatch-only composition when a preset palette is enough and the area, sliders, and inputs are
+unnecessary.
+
+<Example name="color-picker/swatch-only" />
+
+### Value swatch
 
 Use `ColorPickerValueSwatch` and `ColorPickerValueText` when nearby UI needs to show the selected color without opening
 the full picker.
 
 <Example name="color-picker/value-swatch" />
+
+### Disabled
+
+Use `disabled` on the root when every color picker part should become non-interactive while keeping
+the current color visible.
+
+<Example name="color-picker/disabled" />
+
+### Field state
+
+Use root form-state props such as `required` and `invalid` when the picker is rendered inside a
+field container and should expose the same state through Ark data attributes.
+
+<Example name="color-picker/field-state" />
+
+### Form usage
+
+Use `name` on `ColorPicker` and add `ColorPickerHiddenInput` explicitly.
+
+<Example name="color-picker/form-usage" />
+
+### Controlled
+
+Use controlled state when the selected color must stay in sync with application state. See [Control state from the application](/docs/composition-patterns#controlled-state).
+
+<Example name="color-picker/controlled" />
+
+### Open controlled
+
+Use controlled `open` state when another control or workflow owns the popup's visibility. See [Control state from the application](/docs/composition-patterns#controlled-state).
+
+<Example name="color-picker/open-controlled" />
+
+### Inside Dialog
+
+When a picker appears inside a modal dialog, render its popup without a portal so it shares the
+dialog's stacking context and stays interactive above the dialog surface.
+
+<Example name="color-picker/inside-dialog" />
+
+### Root provider
+
+Use moduix `useColorPicker` with `ColorPickerRootProvider` when the color picker state must be created outside
+the rendered tree and shared with nearby controls. See [Share state outside the tree](/docs/composition-patterns#root-provider).
+
+<Example name="color-picker/root-provider" />
 
 ### Build from parts
 

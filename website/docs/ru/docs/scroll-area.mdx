@@ -38,12 +38,11 @@ import * as ScrollAreaDocs from '@/components/examples/scroll-area/css-propertie
 
 ## Примеры
 
-### Всегда видимая полоса
+### Горизонтальная прокрутка
 
-Установите `variant="always"`, если переполняющаяся полоса должна оставаться видимой и
-интерактивной в состоянии покоя.
+Используйте горизонтальную полосу, если содержимое намеренно шире области просмотра.
 
-<Example name="scroll-area/always-visible" />
+<Example name="scroll-area/horizontal" />
 
 ### Обе оси
 
@@ -52,18 +51,19 @@ import * as ScrollAreaDocs from '@/components/examples/scroll-area/css-propertie
 
 <Example name="scroll-area/both-directions" />
 
+### Всегда видимая полоса
+
+Установите `variant="always"`, если переполняющаяся полоса должна оставаться видимой и
+интерактивной в состоянии покоя.
+
+<Example name="scroll-area/always-visible" />
+
 ### Затухание
 
 Установите `fade`, чтобы показать, что длинное вертикальное содержимое продолжается выше и ниже
 текущей области просмотра.
 
 <Example name="scroll-area/fade" />
-
-### Горизонтальная прокрутка
-
-Используйте горизонтальную полосу, если содержимое намеренно шире области просмотра.
-
-<Example name="scroll-area/horizontal" />
 
 ### Вложенные области
 
@@ -75,7 +75,7 @@ Ark мог измерять их независимо.
 ### Root Provider
 
 Используйте `useScrollArea()` вместе с `ScrollAreaRootProvider`, если внешним элементам
-управления нужен доступ к API прокрутки.
+управления нужен доступ к API прокрутки. Подробнее в разделе [Выносите состояние за пределы дерева](/docs/composition-patterns#root-provider).
 
 <Example name="scroll-area/root-provider" />
 

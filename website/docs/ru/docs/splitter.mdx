@@ -37,6 +37,20 @@ import { splitterOverrideCssProperties } from '@/components/examples/splitter/cs
 
 ## Примеры
 
+### Вертикальная ориентация
+
+Задайте `orientation="vertical"` и укажите корню стабильную высоту, чтобы вертикальным панелям было
+достаточно места для изменения размера.
+
+<Example name="splitter/vertical" />
+
+### Несколько панелей
+
+Добавьте ещё одну `SplitterPanel` и соседний `SplitterResizeTrigger`, чтобы получить раскладку из трёх панелей. Для
+каждой панели нужна запись в `panels`, а идентификатор каждой ручки должен связывать двух её соседей.
+
+<Example name="splitter/multiple-panels" />
+
 ### Сворачиваемые панели
 
 Задайте `collapsible: true` и `collapsedSize`, если панель должна превращаться в узкую боковую полосу.
@@ -46,19 +60,12 @@ import { splitterOverrideCssProperties } from '@/components/examples/splitter/cs
 
 <Example name="splitter/collapsible-panels" />
 
-### Управляемое состояние
+### Адаптивное сворачивание
 
-Храните размеры панелей в состоянии приложения и обновляйте его значением `details.size` из
-`onResize`.
+Используйте `collapsePanel()` и `expandPanel()`, если боковая панель должна реагировать на доступную
+ширину, измеренную приложением.
 
-<Example name="splitter/controlled" />
-
-### Несколько панелей
-
-Добавьте ещё одну `SplitterPanel` и соседний `SplitterResizeTrigger`, чтобы получить раскладку из трёх панелей. Для
-каждой панели нужна запись в `panels`, а идентификатор каждой ручки должен связывать двух её соседей.
-
-<Example name="splitter/multiple-panels" />
+<Example name="splitter/dynamic-collapsible" />
 
 ### Вложенные Splitter
 
@@ -67,27 +74,20 @@ import { splitterOverrideCssProperties } from '@/components/examples/splitter/cs
 
 <Example name="splitter/nested" />
 
-### Адаптивное сворачивание
+### Управляемое состояние
 
-Используйте `collapsePanel()` и `expandPanel()`, если боковая панель должна реагировать на доступную
-ширину, измеренную приложением.
+Храните размеры панелей в состоянии приложения и обновляйте его значением `details.size` из
+`onResize`. Подробнее в разделе [Управляйте состоянием из приложения](/docs/composition-patterns#controlled-state).
 
-<Example name="splitter/dynamic-collapsible" />
+<Example name="splitter/controlled" />
 
-### SplitterRootProvider
+### Root Provider
 
 Используйте `useSplitter()` с `SplitterRootProvider`, если состояние или элементы управления должны
 находиться за пределами отрисованных частей Splitter. Возвращаемый API включает, например,
-`getSizes()`, `setSizes()`, `resizePanel()`, `collapsePanel()`, `expandPanel()` и `resetSizes()`.
+`getSizes()`, `setSizes()`, `resizePanel()`, `collapsePanel()`, `expandPanel()` и `resetSizes()`. Подробнее в разделе [Выносите состояние за пределы дерева](/docs/composition-patterns#root-provider).
 
 <Example name="splitter/root-provider" />
-
-### Вертикальная ориентация
-
-Задайте `orientation="vertical"` и укажите корню стабильную высоту, чтобы вертикальным панелям было
-достаточно места для изменения размера.
-
-<Example name="splitter/vertical" />
 
 ### Сборка из частей
 

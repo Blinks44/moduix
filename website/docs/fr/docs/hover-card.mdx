@@ -43,33 +43,26 @@ article.
 
 ## Exemples
 
-### Contexte
+### Avec une flèche
 
-Utilisez `HoverCardContext` pour lire l’état dans l’arborescence de la carte sans modifier sa
-structure visible.
+Ajoutez `HoverCardArrow` dans `HoverCardContent` lorsque la fenêtre flottante doit pointer
+visuellement vers son déclencheur. L’enveloppe rend `HoverCardArrowTip` par défaut ; gardez
+l’aperçu dans `HoverCardBody` afin que la flèche reste intégrée à la surface avec bordure tout en
+permettant au contenu de défiler.
 
-<Example name="hover-card/context" />
+<Example name="hover-card/with-arrow" />
 
-### État contrôlé
+### Positionnement
 
-Contrôlez l’ouverture de la carte avec `open` et `onOpenChange(details)`.
+Transmettez les options de positionnement d’Ark via la propriété `positioning`.
 
-<Example name="hover-card/controlled" />
+<Example name="hover-card/positioning" />
 
 ### Délai
 
 Ajustez les délais d’ouverture et de fermeture avec `openDelay` et `closeDelay` sur la racine.
 
 <Example name="hover-card/delay" />
-
-### Dialogue
-
-Rendez la carte directement dans un dialogue lorsqu’elle doit rester dans sa couche de superposition.
-Le focus initial du dialogue peut se placer sur son déclencheur et ouvrir la carte après `openDelay`.
-Définissez `initialFocusEl` sur un autre élément si l’aperçu doit rester
-fermé jusqu’au survol ou à la réception du focus.
-
-<Example name="hover-card/dialog" />
 
 ### État désactivé
 
@@ -85,27 +78,34 @@ un même contenu entre plusieurs déclencheurs.
 
 <Example name="hover-card/multiple-triggers" />
 
-### Positionnement
+### Dialogue
 
-Transmettez les options de positionnement d’Ark via la propriété `positioning`.
+Rendez la carte directement dans un dialogue lorsqu’elle doit rester dans sa couche de superposition.
+Le focus initial du dialogue peut se placer sur son déclencheur et ouvrir la carte après `openDelay`.
+Définissez `initialFocusEl` sur un autre élément si l’aperçu doit rester
+fermé jusqu’au survol ou à la réception du focus.
 
-<Example name="hover-card/positioning" />
+<Example name="hover-card/dialog" />
+
+### État contrôlé
+
+Contrôlez l’ouverture de la carte avec `open` et `onOpenChange(details)`. Voir [Contrôler l’état depuis l’application](/docs/composition-patterns#controlled-state).
+
+<Example name="hover-card/controlled" />
+
+### Contexte
+
+Utilisez `HoverCardContext` pour lire l’état dans l’arborescence de la carte sans modifier sa
+structure visible.
+
+<Example name="hover-card/context" />
 
 ### Root Provider
 
 Utilisez `useHoverCard()` avec `HoverCardRootProvider` lorsque des contrôles ou d’autres éléments
-de l’interface situés en dehors de l’arborescence de la carte doivent lire son état ou le modifier.
+de l’interface situés en dehors de l’arborescence de la carte doivent lire son état ou le modifier. Voir [Partager l’état hors de l’arbre](/docs/composition-patterns#root-provider).
 
 <Example name="hover-card/root-provider" />
-
-### Avec une flèche
-
-Ajoutez `HoverCardArrow` dans `HoverCardContent` lorsque la fenêtre flottante doit pointer
-visuellement vers son déclencheur. L’enveloppe rend `HoverCardArrowTip` par défaut ; gardez
-l’aperçu dans `HoverCardBody` afin que la flèche reste intégrée à la surface avec bordure tout en
-permettant au contenu de défiler.
-
-<Example name="hover-card/with-arrow" />
 
 ## Composition
 
@@ -168,7 +168,7 @@ aux deux modes de style.
 | `HoverCardArrowTip` | `hover-card-arrow-tip` |
 | `HoverCardBody` | `hover-card-body` |
 
-Moduix ajoute également des attributs `data-slot="hover-card-*"` au déclencheur, à `HoverCardPositioner`, au contenu, à la
+moduix ajoute également des attributs `data-slot="hover-card-*"` au déclencheur, à `HoverCardPositioner`, au contenu, à la
 flèche, à sa pointe et à la région de contenu. `HoverCard` et `HoverCardRootProvider` fournissent
 uniquement l’état et ne rendent aucun élément DOM : ils n’ont donc pas de point d’accroche CSS propre. Ark ajoute `data-scope="hover-card"` et
 `data-part` à ses parties. Pour adapter les styles à l’état, ciblez `data-state="open|closed"`,

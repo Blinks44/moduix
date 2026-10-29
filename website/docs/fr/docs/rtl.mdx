@@ -10,7 +10,7 @@ import VueSection from '../../../snippets/rtl/vue/section.vue?raw';
 # De droite à gauche (RTL)
 
 Une interface RTL demande deux réglages coordonnés : les attributs natifs `lang` et `dir` pour le
-navigateur, et le `LocaleProvider` de Moduix pour le comportement localisé d’Ark. Placez-les au niveau
+navigateur, et le `LocaleProvider` de moduix pour le comportement localisé d’Ark. Placez-les au niveau
 le plus élevé qui porte la langue.
 
 ## Configurer le document
@@ -64,7 +64,7 @@ ensemble.
 ## Limiter le RTL à une section
 
 Pour une zone RTL dans une application LTR, placez `lang` et `dir` sur sa racine et entourez les
-composants Moduix avec `LocaleProvider`.
+composants moduix avec `LocaleProvider`.
 
 <Tabs groupId="framework">
   <Tab label="React" value="react">
@@ -86,7 +86,7 @@ composants Moduix avec `LocaleProvider`.
 </Tabs>
 
 L’exemple construit sa collection avec `createListCollection` depuis `@ark-ui/react/collection` ou
-`@ark-ui/solid/collection`, `@ark-ui/vue/collection`. Select, Button et LocaleProvider viennent de l’adaptateur Moduix
+`@ark-ui/solid/collection`, `@ark-ui/vue/collection`. Select, Button et LocaleProvider viennent de l’adaptateur moduix
 correspondant. Aucun prop RTL supplémentaire n’est nécessaire.
 
 ## Gérer les portails et les directions mixtes

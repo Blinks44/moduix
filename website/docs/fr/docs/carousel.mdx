@@ -37,72 +37,6 @@ placez les boutons précédent et suivant dans `CarouselControl`, puis utilisez 
 
 ## Exemples
 
-### Lecture automatique
-
-Utilisez la lecture automatique pour les galeries dont les diapositives doivent avancer seules, tout en gardant
-des contrôles visibles. Dans cet exemple, elle s’interrompt lorsque le pointeur entre dans le carrousel ou
-qu’un élément reçoit le focus. L’utilisateur peut la relancer avec `CarouselAutoplayTrigger`.
-
-<Example name="carousel/autoplay" />
-
-Pour voir une galerie complète avec navigation latérale, texte sur les diapositives et indicateurs de progression
-qui se remplissent au fil du défilement, consultez le [bloc de galerie en lecture automatique](/blocks/autoplay-gallery).
-
-### Cartes
-
-Les éléments du carrousel peuvent contenir n’importe quel contenu. Si une carte doit être plus étroite que la
-diapositive, utilisez vos propres styles et centrez-la.
-
-<Example name="carousel/cards" />
-
-### État contrôlé
-
-Utilisez un état contrôlé lorsque la page actuelle doit rester synchronisée avec une navigation externe, des
-filtres ou des données analytiques.
-
-<Example name="carousel/controlled" />
-
-### Mise à jour dynamique
-
-Si le nombre de diapositives change après le rendu initial, mettez `slideCount` à jour en même temps que la
-liste des éléments affichés.
-
-<Example name="carousel/dynamic" />
-
-### Boucle
-
-Définissez `loop` pour que le carrousel revienne à la première diapositive après la dernière.
-
-<Example name="carousel/loop" />
-
-### Glissement à la souris
-
-Activez le glissement à la souris pour permettre aux utilisateurs sur ordinateur de parcourir les diapositives
-avec le même geste que sur un écran tactile.
-
-<Example name="carousel/mouse-drag" />
-
-### Pause au survol
-
-Utilisez ce modèle lorsque la lecture automatique doit s’arrêter tant que le pointeur se trouve au-dessus du
-carrousel. L’exemple utilise `CarouselContext` avec `api.pause()` et `api.play()`. Il met également la lecture
-en pause lorsque le carrousel reçoit le focus.
-
-<Example name="carousel/pause-on-hover" />
-
-### Utiliser `CarouselRootProvider`
-
-Utilisez `CarouselRootProvider` lorsque l’état du carrousel doit être créé en dehors du sous-arbre rendu et
-partagé entre plusieurs parties de la composition.
-
-<Example name="carousel/root-provider" />
-
-### Accéder directement à une diapositive
-
-Utilisez l’API du carrousel via le contexte lorsqu’un autre contrôle doit accéder directement à une diapositive.
-
-<Example name="carousel/scroll-to-slide" />
-
 ### Diapositives par page
 
 Augmentez `slidesPerPage` pour afficher plusieurs éléments à la fois au lieu d’un seul panneau pleine largeur.
@@ -116,6 +50,44 @@ des galeries de produits ou des interfaces personnalisées.
 
 <Example name="carousel/spacing" />
 
+### Orientation verticale
+
+Passez à l’orientation verticale lorsque le carrousel et ses contrôles doivent fonctionner sur l’axe vertical.
+
+<Example name="carousel/vertical" />
+
+### Boucle
+
+Définissez `loop` pour que le carrousel revienne à la première diapositive après la dernière.
+
+<Example name="carousel/loop" />
+
+### Lecture automatique
+
+Utilisez la lecture automatique pour les galeries dont les diapositives doivent avancer seules, tout en gardant
+des contrôles visibles. Dans cet exemple, elle s’interrompt lorsque le pointeur entre dans le carrousel ou
+qu’un élément reçoit le focus. L’utilisateur peut la relancer avec `CarouselAutoplayTrigger`.
+
+<Example name="carousel/autoplay" />
+
+Pour voir une galerie complète avec navigation latérale, texte sur les diapositives et indicateurs de progression
+qui se remplissent au fil du défilement, consultez le [bloc de galerie en lecture automatique](/blocks/autoplay-gallery).
+
+### Pause au survol
+
+Utilisez ce modèle lorsque la lecture automatique doit s’arrêter tant que le pointeur se trouve au-dessus du
+carrousel. L’exemple utilise `CarouselContext` avec `api.pause()` et `api.play()`. Il met également la lecture
+en pause lorsque le carrousel reçoit le focus.
+
+<Example name="carousel/pause-on-hover" />
+
+### Glissement à la souris
+
+Activez le glissement à la souris pour permettre aux utilisateurs sur ordinateur de parcourir les diapositives
+avec le même geste que sur un écran tactile.
+
+<Example name="carousel/mouse-drag" />
+
 ### Indicateurs sous forme de miniatures
 
 Affichez un contenu personnalisé dans les indicateurs lorsque la pagination doit montrer un aperçu des diapositives
@@ -123,17 +95,45 @@ sous forme de miniatures plutôt que de simples points.
 
 <Example name="carousel/thumbnail-indicators" />
 
+### Cartes
+
+Les éléments du carrousel peuvent contenir n’importe quel contenu. Si une carte doit être plus étroite que la
+diapositive, utilisez vos propres styles et centrez-la.
+
+<Example name="carousel/cards" />
+
 ### Tailles variables
 
 Activez `autoSize` lorsque la largeur des diapositives doit suivre leur contenu plutôt qu’une grille de page fixe.
 
 <Example name="carousel/variable-sizes" />
 
-### Orientation verticale
+### Mise à jour dynamique
 
-Passez à l’orientation verticale lorsque le carrousel et ses contrôles doivent fonctionner sur l’axe vertical.
+Si le nombre de diapositives change après le rendu initial, mettez `slideCount` à jour en même temps que la
+liste des éléments affichés.
 
-<Example name="carousel/vertical" />
+<Example name="carousel/dynamic" />
+
+### État contrôlé
+
+Utilisez un état contrôlé lorsque la page actuelle doit rester synchronisée avec une navigation externe, des
+filtres ou des données analytiques. Voir [Contrôler l’état depuis l’application](/docs/composition-patterns#controlled-state).
+
+<Example name="carousel/controlled" />
+
+### Accéder directement à une diapositive
+
+Utilisez l’API du carrousel via le contexte lorsqu’un autre contrôle doit accéder directement à une diapositive.
+
+<Example name="carousel/scroll-to-slide" />
+
+### Root Provider
+
+Utilisez `CarouselRootProvider` lorsque l’état du carrousel doit être créé en dehors du sous-arbre rendu et
+partagé entre plusieurs parties de la composition. Voir [Partager l’état hors de l’arbre](/docs/composition-patterns#root-provider).
+
+<Example name="carousel/root-provider" />
 
 ### Assembler à partir des parties
 

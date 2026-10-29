@@ -36,13 +36,12 @@ import * as TypesetDocs from '@/components/examples/typeset/css-properties';
 
 ## Примеры
 
-### Исключение элементов интерфейса
+### Ритм чтения
 
-Исключите вложенный фрагмент, если у него свой визуальный стиль, например встроенный элемент
-управления или карточка. И `.not-typeset`, и `data-not-typeset` исключают отмеченный элемент со всем
-содержимым, включая вложенный корень `Typeset`.
+Настройте CSS-переменные, когда для раздела нужен более свободный или плотный ритм чтения без новых
+свойств компонента.
 
-<Example name="typeset/excluded-subtree" />
+<Example name="typeset/reading-rhythm" />
 
 ### Расширения Markdown
 
@@ -51,13 +50,6 @@ import * as TypesetDocs from '@/components/examples/typeset/css-properties';
 
 <Example name="typeset/markdown-extensions" />
 
-### Ритм чтения
-
-Настройте CSS-переменные, когда для раздела нужен более свободный или плотный ритм чтения без новых
-свойств компонента.
-
-<Example name="typeset/reading-rhythm" />
-
 ### Прокручиваемая таблица
 
 Оберните таблицу, созданную вашим рендерером, в `TypesetScroll`, если она должна сохранить ширину и
@@ -65,6 +57,14 @@ import * as TypesetDocs from '@/components/examples/typeset/css-properties';
 внутри неё.
 
 <Example name="typeset/scrollable-table" />
+
+### Исключение элементов интерфейса
+
+Исключите вложенный фрагмент, если у него свой визуальный стиль, например встроенный элемент
+управления или карточка. И `.not-typeset`, и `data-not-typeset` исключают отмеченный элемент со всем
+содержимым, включая вложенный корень `Typeset`.
+
+<Example name="typeset/excluded-subtree" />
 
 ### Потоковое содержимое
 

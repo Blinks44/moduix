@@ -39,6 +39,23 @@ React, Solid, and Vue use the same flat TreeView names; the examples below keep 
 
 ## Examples
 
+### File icons
+
+Put decorative file and folder icons inside `TreeViewBranchText` and `TreeViewItemText`. Keep `TreeViewBranchIndicator`
+separate so it remains the only expand and collapse affordance.
+
+<Example name="tree-view/file-icons" />
+
+### Checkbox tree
+
+Place `TreeViewNodeCheckbox` in both branch controls and leaf items. Its default indicator already covers
+the checked and indeterminate states.
+
+Vue uses the default slot for the checked icon and the named `indeterminate` and `fallback`
+slots for the mixed and unchecked states. These states are customized through slots, not props.
+
+<Example name="tree-view/checkboxes" />
+
 ### Links
 
 Use `asChild` on `TreeViewItem` when a leaf should be one semantic element, such as a link. The
@@ -53,27 +70,10 @@ For a branch with a known `childrenCount`, load its children with `loadChildren`
 
 <Example name="tree-view/async-loading" />
 
-### Checkbox tree
-
-Place `TreeViewNodeCheckbox` in both branch controls and leaf items. Its default indicator already covers
-the checked and indeterminate states.
-
-Vue uses the default slot for the checked icon and the named `indeterminate` and `fallback`
-slots for the mixed and unchecked states. These states are customized through slots, not props.
-
-<Example name="tree-view/checkboxes" />
-
-### File icons
-
-Put decorative file and folder icons inside `TreeViewBranchText` and `TreeViewItemText`. Keep `TreeViewBranchIndicator`
-separate so it remains the only expand and collapse affordance.
-
-<Example name="tree-view/file-icons" />
-
 ### Multiple selection
 
 Set `selectionMode="multiple"`. Use Ctrl or ⌘ to add or remove individual items, and Shift to
-extend a selection range. The example keeps the selected values in application state.
+extend a selection range. The example keeps the selected values in application state. See [Control state from the application](/docs/composition-patterns#controlled-state).
 
 <Example name="tree-view/controlled-selection" />
 
@@ -82,7 +82,7 @@ extend a selection range. The example keeps the selected values in application s
 Create tree state with `useTreeView` when controls outside the tree need methods such as `expand()`
 or `collapse()`. Pass that state to `TreeViewRootProvider` instead of rendering a second `TreeView`.
 This example also shows the low-level node composition: each node uses `TreeViewNodeProvider` and
-reads its state from `TreeViewNodeContext` instead of the `TreeViewNode` shortcut.
+reads its state from `TreeViewNodeContext` instead of the `TreeViewNode` shortcut. See [Share state outside the tree](/docs/composition-patterns#root-provider).
 
 <Example name="tree-view/root-provider" />
 
