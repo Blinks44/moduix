@@ -20,8 +20,10 @@
     min-width: 0;
   }
 
+  /* A vertical control keeps its trigger width next to wide slides. */
   .control[data-orientation='vertical'] {
     flex-direction: column;
+    flex-shrink: 0;
     justify-content: space-between;
   }
 
@@ -34,7 +36,7 @@
     outline: 0;
 
     &:focus-visible {
-      outline: var(--moduix-focus-ring-inset-width) solid var(--moduix-color-ring);
+      outline: var(--moduix-focus-ring-inset-width) solid var(--moduix-ring);
       outline-offset: var(--moduix-focus-ring-inset-offset);
     }
 
@@ -62,11 +64,11 @@
     width: var(--moduix-carousel-control-size, var(--moduix-size-md));
     height: var(--moduix-carousel-control-size, var(--moduix-size-md));
     border: var(--moduix-border-width-sm) solid
-      var(--moduix-carousel-control-border-color, var(--moduix-color-border));
+      var(--moduix-carousel-control-border-color, var(--moduix-border));
     border-radius: var(--moduix-radius-full);
-    background-color: var(--moduix-carousel-control-bg, var(--moduix-color-card));
+    background-color: var(--moduix-carousel-control-bg, var(--moduix-card));
     box-shadow: var(--moduix-shadow-sm);
-    color: var(--moduix-carousel-control-color, var(--moduix-color-foreground));
+    color: var(--moduix-carousel-control-color, var(--moduix-foreground));
     cursor: pointer;
     transition:
       background-color var(--moduix-transition-fast),
@@ -79,18 +81,18 @@
 
     @media (hover: hover) {
       &:not(:disabled, [data-disabled]):hover {
-        background-color: var(--moduix-color-accent);
-        color: var(--moduix-color-accent-foreground);
+        background-color: var(--moduix-accent);
+        color: var(--moduix-accent-foreground);
       }
     }
 
     &[data-pressed] {
-      background-color: var(--moduix-color-accent);
-      color: var(--moduix-color-accent-foreground);
+      background-color: var(--moduix-accent);
+      color: var(--moduix-accent-foreground);
     }
 
     &:focus-visible {
-      outline: var(--moduix-focus-ring-width) solid var(--moduix-color-ring);
+      outline: var(--moduix-focus-ring-width) solid var(--moduix-ring);
       outline-offset: var(--moduix-focus-ring-offset);
     }
 
@@ -135,7 +137,7 @@
     border-radius: var(--moduix-radius-full);
     background-color: var(
       --moduix-carousel-indicator-bg,
-      color-mix(in oklab, var(--moduix-color-muted-foreground) 50%, transparent)
+      color-mix(in oklab, var(--moduix-muted-foreground) 50%, transparent)
     );
     cursor: pointer;
     transition:
@@ -145,18 +147,18 @@
 
     @media (hover: hover) {
       &:not(:disabled, [data-disabled], [data-readonly], [data-current]):hover {
-        background-color: var(--moduix-color-muted-foreground);
+        background-color: var(--moduix-muted-foreground);
       }
     }
 
     &:focus-visible {
-      outline: var(--moduix-focus-ring-width) solid var(--moduix-color-ring);
+      outline: var(--moduix-focus-ring-width) solid var(--moduix-ring);
       outline-offset: var(--moduix-focus-ring-offset);
     }
 
     &[data-current] {
       width: calc(var(--moduix-carousel-indicator-size, var(--moduix-spacing-2)) * 3);
-      background-color: var(--moduix-carousel-indicator-bg-current, var(--moduix-color-primary));
+      background-color: var(--moduix-carousel-indicator-bg-current, var(--moduix-primary));
     }
 
     &[data-orientation='vertical'][data-current] {
@@ -178,7 +180,7 @@
 
   /* Keeps "current / total" in reading order inside RTL carousels. */
   .progressText {
-    color: var(--moduix-color-muted-foreground);
+    color: var(--moduix-muted-foreground);
     direction: ltr;
     font-size: var(--moduix-text-sm);
     line-height: var(--moduix-line-height-text-sm);
