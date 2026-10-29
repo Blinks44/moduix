@@ -422,10 +422,13 @@ body {
   padding: 0 6px;
   background: var(--rp-c-bg);
   color: var(--rp-c-text-3);
-  font-family: var(--rp-font-family-mono);
-  font-size: 11px;
+  /* JetBrains Mono has no ⌘, so the fallback glyph came out larger than K; one sans stack for both. */
+  font-family: var(--rp-font-family-base);
+  font-size: 12px;
   font-weight: 400;
+  line-height: 20px;
   display: flex;
+  align-items: center;
   gap: 4px;
 }
 
@@ -485,9 +488,9 @@ svg.rp-search-panel__close {
   overflow: auto;
 }
 
-/* Mobile search trigger: a 16px icon in a 36px target, like the hamburger next to it. */
+/* Mobile search trigger: a 16px icon in a 36px target, like the hamburger next to it. Rspress
+   toggles its display at 768px, so no display here. */
 .rp-search-button--mobile {
-  display: inline-flex;
   width: 36px;
   height: 36px;
   align-items: center;
@@ -738,8 +741,9 @@ body .rp-doc {
   line-height: 16px;
 }
 
+/* 2px between items keeps hover and active backgrounds of neighbors apart. */
 .rp-sidebar-item {
-  margin-top: 0;
+  margin-top: 2px;
   border: 1px solid transparent;
   padding: 5px 12px;
   color: var(--rp-c-text-2);
@@ -772,8 +776,16 @@ body .rp-doc {
   color: var(--rp-c-text-3);
 }
 
+/* Sidebar/Sub Item: guide at 18px, background from 24px, label at 36px. Rspress sets the padding
+   inline, so it is overridden to start the label 12px into the shifted background. */
+.rp-sidebar-item--group-item[data-depth='1'] {
+  margin-left: 24px;
+  padding-left: 12px !important;
+}
+
 .rp-sidebar-item--group-item::before {
-  left: 6px;
+  top: -2px;
+  left: -7px;
   background-color: var(--rp-c-divider);
 }
 
@@ -1410,6 +1422,11 @@ body .rp-doc :not(:where(.rp-not-doc, .rp-not-doc *)):where(table) {
   > .rp-tabs__content > .rp-tabs__content__item {
     background: none;
   }
+
+  /* The labels already leave 12px; a first card of several would add its own 16px on top. */
+  > .rp-tabs__content > .rp-tabs__content__item > :first-child {
+    margin-top: 0;
+  }
 }
 
 .moduix-tabs[data-group='framework'][data-values='react-solid vue']
@@ -1462,6 +1479,11 @@ body .rp-doc :not(:where(.rp-not-doc, .rp-not-doc *)):where(table) {
   > .rp-tabs__content > .rp-tabs__content__item {
     padding: 0;
     background: none;
+  }
+
+  /* A card right under the labels, with no text between them, needs its own gap. */
+  > .rp-tabs__content > .rp-tabs__content__item > :is(.rp-codeblock, .rp-tabs):first-child {
+    margin-top: 12px;
   }
 }
 

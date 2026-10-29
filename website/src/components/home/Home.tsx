@@ -272,7 +272,11 @@ function FrameworkDot({ framework }: { framework: Framework }) {
   return <span className={styles.dot} data-framework={framework} aria-hidden="true" />;
 }
 
+const formatHour = (hour: number) => `${String(hour % 24).padStart(2, '0')}:00`;
+
 function NotificationsDemo({ t }: { t: T }) {
+  const [quietHours, setQuietHours] = useState([22, 31]);
+
   return (
     <div className={styles.notifications}>
       <div>
@@ -294,14 +298,15 @@ function NotificationsDemo({ t }: { t: T }) {
       ))}
       <Slider
         className={styles.quietHours}
-        defaultValue={[22, 31]}
+        value={quietHours}
+        onValueChange={(details) => setQuietHours(details.value)}
         min={18}
         max={34}
-        getAriaValueText={({ value }) => `${String(value % 24).padStart(2, '0')}:00`}
+        getAriaValueText={({ value }) => formatHour(value)}
       >
         <div className={styles.sliderHeader}>
           <SliderLabel>{t('homeDemoQuiet')}</SliderLabel>
-          <SliderValueText>22:00 – 07:00</SliderValueText>
+          <SliderValueText>{quietHours.map(formatHour).join(' – ')}</SliderValueText>
         </div>
         <SliderControl>
           <SliderTrack>

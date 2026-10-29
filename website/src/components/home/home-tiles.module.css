@@ -341,7 +341,7 @@
   height: 130px;
   box-shadow: none;
 
-  svg {
+  > svg {
     position: absolute;
     top: 22px;
     left: 34px;
@@ -355,26 +355,26 @@
 
 .signatureLine {
   position: absolute;
-  right: 18px;
-  bottom: 34px;
-  left: 18px;
-  border-bottom: 1px solid var(--rp-c-divider);
-
-  svg {
-    position: absolute;
-    top: -14px;
-    left: 0;
-    width: 10px;
-    color: var(--rp-c-text-3);
-  }
+  right: 24px;
+  bottom: 32px;
+  left: 24px;
+  border-bottom: 1px dashed var(--rp-c-divider);
 }
 
+/* Clear trigger in the top-right corner, as in SignaturePadCanvas. */
 .signatureClear {
   position: absolute;
-  right: 12px;
-  bottom: 10px;
-  color: var(--rp-c-text-3);
-  font-size: 10px;
+  top: 8px;
+  right: 8px;
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  color: var(--rp-c-text-2);
+
+  svg {
+    width: 14px;
+  }
 }
 
 .upload {
@@ -478,6 +478,7 @@
 .tagsBox {
   display: flex;
   flex-wrap: wrap;
+  align-items: center;
   gap: 4px;
   border: 1px solid var(--rp-c-divider);
   border-radius: 8px;

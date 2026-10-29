@@ -4,6 +4,7 @@ import {
   ChevronLeft,
   ChevronRight,
   CircleCheck,
+  RotateCcw,
   Upload,
   X,
 } from 'lucide-react';
@@ -128,10 +129,10 @@ function SignaturePadTile() {
       <svg viewBox="0 0 160 60" aria-hidden="true">
         <path d="M6 44c8-10 12-34 20-34s6 40 14 40 10-46 18-46 6 44 14 44 8-26 16-26 6 22 14 22 10-14 18-16 12 0 20-6" />
       </svg>
-      <span className={styles.signatureLine}>
-        <X aria-hidden="true" />
+      <span className={styles.signatureLine} />
+      <span className={styles.signatureClear}>
+        <RotateCcw aria-hidden="true" />
       </span>
-      <span className={styles.signatureClear}>Clear</span>
     </div>
   );
 }

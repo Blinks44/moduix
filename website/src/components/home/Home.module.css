@@ -334,7 +334,6 @@
 .demoCodeToggle,
 .apiTabs,
 .tileDots,
-.moreMobile,
 .footerPhone,
 .footerPhoneCopy {
   display: none;
@@ -569,6 +568,10 @@
     width: 16px;
     height: 16px;
   }
+}
+
+.moreMobile {
+  display: none;
 }
 
 .tiles {

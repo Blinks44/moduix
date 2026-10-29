@@ -477,10 +477,13 @@
   {
     "type": "custom-link",
     "label": "Formulaires",
-    "link": "/docs/forms",
     "collapsible": true,
     "collapsed": true,
     "items": [
+      {
+        "label": "Vue d’ensemble",
+        "link": "/docs/forms"
+      },
       {
         "label": "Formisch",
         "link": "/docs/formisch"
@@ -518,10 +521,13 @@
   {
     "type": "custom-link",
     "label": "Collections",
-    "link": "/docs/collections",
     "collapsible": true,
     "collapsed": true,
     "items": [
+      {
+        "label": "Vue d’ensemble",
+        "link": "/docs/collections"
+      },
       {
         "label": "Async List",
         "link": "/docs/async-list"
@@ -543,10 +549,13 @@
   {
     "type": "custom-link",
     "label": "Utilitaires",
-    "link": "/docs/utilities",
     "collapsible": true,
     "collapsed": true,
     "items": [
+      {
+        "label": "Vue d’ensemble",
+        "link": "/docs/utilities"
+      },
       {
         "label": "Client Only",
         "link": "/docs/client-only"

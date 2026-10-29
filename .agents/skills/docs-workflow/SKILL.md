@@ -102,6 +102,8 @@ Guides, Ark UI, AI. Entries have no `tag` icons and no counts.
 - Components lists All components, then one collapsible `custom-link` group per category in
   `website/src/components/docs/component-gallery.tsx`, in the same order. Each component belongs to
   exactly one category; add a new component to the gallery and to its sidebar group together.
+- A collapsible group has no `link` of its own: Rspress would then both navigate and toggle on
+  click. Put an overview page first inside the group as Overview / Обзор / Vue d’ensemble.
 - Links inside `custom-link` groups are absolute and locale-neutral (`/docs/button` in every
   locale): Rspress drops the route prefix of nested relative links but adds the locale prefix itself.
 - Keep the three locales structurally identical; only labels differ.
