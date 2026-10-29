@@ -190,7 +190,6 @@ function AccountMenu({ accentClassName }: { accentClassName?: string } = {}) {
       <MenuTrigger asChild>
         <SidebarNavigationButton
           size="lg"
-          aria-label="Open account menu"
           title="Account"
           className={[accountButtonClassName, accentClassName].filter(Boolean).join(' ')}
         >

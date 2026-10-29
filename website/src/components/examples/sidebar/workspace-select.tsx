@@ -198,7 +198,7 @@ export default function WorkspaceSidebar() {
             }}
           >
             <MenuTrigger asChild>
-              <SidebarNavigationButton size="lg" aria-label="Open account menu">
+              <SidebarNavigationButton size="lg">
                 <Avatar size="sm" data-sidebar-icon>
                   <AvatarFallback>AM</AvatarFallback>
                 </Avatar>

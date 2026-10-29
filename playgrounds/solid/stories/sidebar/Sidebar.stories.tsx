@@ -175,7 +175,6 @@ function AccountMenu() {
           <SidebarNavigationButton
             {...props()}
             size="lg"
-            aria-label="Open account menu"
             title="Account"
             class={styles.accountButton}
           >

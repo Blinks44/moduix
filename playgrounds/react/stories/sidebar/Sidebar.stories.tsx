@@ -163,12 +163,7 @@ function AccountMenu() {
   return (
     <Menu positioning={{ placement: 'right-end', gutter: 8, flip: false }}>
       <MenuTrigger asChild>
-        <SidebarNavigationButton
-          size="lg"
-          aria-label="Open account menu"
-          title="Account"
-          className={styles.accountButton}
-        >
+        <SidebarNavigationButton size="lg" title="Account" className={styles.accountButton}>
           <Avatar size="sm" data-sidebar-icon>
             <AvatarFallback>AM</AvatarFallback>
           </Avatar>

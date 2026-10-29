@@ -173,7 +173,6 @@ export default function AppSidebar() {
                 <MenuTrigger asChild>
                   <SidebarNavigationButton
                     size="lg"
-                    aria-label="Open account menu"
                     className={styles.accountButton}
                     title="Account"
                   >

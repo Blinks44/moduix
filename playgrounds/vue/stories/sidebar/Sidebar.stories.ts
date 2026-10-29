@@ -232,7 +232,6 @@ const AccountMenu = defineComponent({
       <MenuTrigger as-child>
         <SidebarNavigationButton
           size="lg"
-          aria-label="Open account menu"
           title="Account"
           :class="styles.accountButton"
         >

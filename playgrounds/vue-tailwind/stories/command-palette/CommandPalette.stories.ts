@@ -207,7 +207,7 @@ export const Basic: Story = {
   render: renderStory(
     `
       <CommandPaletteShell :collection="collection" :filter="filter" label="Command palette" placeholder="Search commands, pages, and settings..." shortcut="alt+k">
-        <template #trigger>Open palette <span class="text-muted-foreground">Alt+K</span></template>
+        <template #trigger>Open palette <span class="opacity-70">Alt+K</span></template>
         <CommandPaletteItems :collection="collection" />
         <CommandPaletteFooter>
           <span class="inline-flex min-w-0 items-center gap-1"><CommandPaletteKbd>Enter</CommandPaletteKbd> run</span>

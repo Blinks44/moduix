@@ -196,7 +196,6 @@ function AccountMenu({ accentClassName }: { accentClassName?: string } = {}) {
           <SidebarNavigationButton
             {...props()}
             size="lg"
-            aria-label="Open account menu"
             title="Account"
             class={[accountButtonClassName, accentClassName].filter(Boolean).join(' ')}
           >

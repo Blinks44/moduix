@@ -80,7 +80,7 @@ const BasicMarquee = defineComponent({
     return { className: toRef(props, 'class'), cn, rootClass };
   },
   template: `
-    <Marquee v-bind="$attrs" aria-label="Partner logos" :class="cn(rootClass, className)">
+    <Marquee aria-label="Partner logos" v-bind="$attrs" :class="cn(rootClass, className)">
       <MarqueeViewport><MarqueeContent><MarqueeItems /></MarqueeContent></MarqueeViewport>
     </Marquee>
   `,
@@ -204,8 +204,8 @@ export const Vertical: Story = {
 export const Speed: Story = {
   render: renderStory(`
     <div :class="providerStackClass">
-      <BasicMarquee :speed="25" />
-      <BasicMarquee :speed="100" />
+      <BasicMarquee aria-label="Slow partner logos" :speed="25" />
+      <BasicMarquee aria-label="Fast partner logos" :speed="100" />
     </div>
   `),
 };

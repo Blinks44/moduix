@@ -20,7 +20,7 @@ export default function PositioningTooltipDemo() {
           },
         }}
       >
-        <TooltipTrigger asChild aria-label={`Tooltip placement: ${placement}`}>
+        <TooltipTrigger asChild>
           <Button>Hover or focus</Button>
         </TooltipTrigger>
         <TooltipBody>Placement: {placement}</TooltipBody>
