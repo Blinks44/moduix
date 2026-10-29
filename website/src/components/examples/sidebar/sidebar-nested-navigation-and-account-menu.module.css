@@ -8,11 +8,6 @@
   margin-inline: auto;
 }
 
-.headerContent {
-  display: grid;
-  gap: 0.75rem;
-}
-
 .brand {
   display: flex;
   align-items: center;

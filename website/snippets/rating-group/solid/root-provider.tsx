@@ -8,8 +8,8 @@ import {
   RatingGroupRootProvider,
   useRatingGroup,
 } from '@moduix/solid/rating-group';
+import { Stack } from '@moduix/solid/stack';
 import { For } from 'solid-js';
-import styles from '@/components/examples/rating-group/component-root-provider.module.css';
 
 export default function RootProviderRatingGroupDemo() {
   const ratingGroup = useRatingGroup({
@@ -18,7 +18,7 @@ export default function RootProviderRatingGroupDemo() {
   });
 
   return (
-    <div class={styles.stack}>
+    <Stack align="center" gap="3">
       <RatingGroupRootProvider value={ratingGroup}>
         <RatingGroupLabel>Product quality</RatingGroupLabel>
         <RatingGroupControl>
@@ -39,6 +39,6 @@ export default function RootProviderRatingGroupDemo() {
       <Button type="button" size="sm" onClick={() => ratingGroup().setValue(5)}>
         Set to 5
       </Button>
-    </div>
+    </Stack>
   );
 }

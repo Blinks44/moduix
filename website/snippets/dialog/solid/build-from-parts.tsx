@@ -10,6 +10,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@moduix/solid/dialog';
+import { Stack } from '@moduix/solid/stack';
 import { X as XIcon } from 'lucide-solid';
 import styles from '@/components/examples/dialog/dialog-build-from-parts.module.css';
 
@@ -20,7 +21,7 @@ export default function BuildFromPartsDialogDemo() {
       <DialogBackdrop />
       <DialogPositioner>
         <DialogContent>
-          <div class={styles.header}>
+          <Stack gap="1">
             <DialogTitle class={styles.title}>Notifications</DialogTitle>
             <DialogCloseTrigger
               asChild={(props) => (
@@ -30,7 +31,7 @@ export default function BuildFromPartsDialogDemo() {
               )}
             />
             <DialogDescription>You are all caught up. Good job!</DialogDescription>
-          </div>
+          </Stack>
         </DialogContent>
       </DialogPositioner>
     </Dialog>

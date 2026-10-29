@@ -14,7 +14,7 @@ import {
   ColorPickerSwatchTrigger,
   ColorPickerSliders,
 } from '@moduix/solid/color-picker';
-import styles from '@/components/examples/color-picker/color-picker-basic.module.css';
+import { Stack } from '@moduix/solid/stack';
 
 const swatches = ['#0f172a', '#2563eb', '#16a34a', '#f97316'];
 
@@ -30,10 +30,10 @@ export default function ColorPickerDemo() {
       <ColorPickerPositioner>
         <ColorPickerContent>
           <ColorPickerArea />
-          <div class={styles.sliderGroup}>
+          <Stack direction="row" align="center" gap="3">
             <ColorPickerEyeDropperTrigger aria-label="Pick color from screen" />
             <ColorPickerSliders />
-          </div>
+          </Stack>
           <ColorPickerSwatchGroup>
             {swatches.map((color) => (
               <ColorPickerSwatchTrigger value={color} />

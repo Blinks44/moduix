@@ -1,5 +1,5 @@
 import { Button } from '@moduix/solid/button';
-import styles from '@/components/examples/button/button-variants.module.css';
+import { Stack } from '@moduix/solid/stack';
 
 const variants = [
   'default',
@@ -13,10 +13,10 @@ const variants = [
 
 export default function ButtonVariantsDemo() {
   return (
-    <div class={styles.root}>
+    <Stack direction="row" align="center" justify="center" wrap="wrap" gap="3">
       {variants.map((variant) => (
         <Button variant={variant}>{variant}</Button>
       ))}
-    </div>
+    </Stack>
   );
 }

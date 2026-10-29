@@ -4,7 +4,7 @@ import {
   SignaturePadRootProvider,
   useSignaturePad,
 } from '@moduix/solid/signature-pad';
-import styles from '@/components/examples/signature-pad/signature-pad-root-provider.module.css';
+import { Stack } from '@moduix/solid/stack';
 
 const signaturePadTranslations = {
   control: 'Signature drawing area',
@@ -17,12 +17,12 @@ export default function RootProviderSignaturePadDemo() {
   });
 
   return (
-    <div class={styles.root}>
+    <Stack align="center" gap="3">
       <SignaturePadRootProvider value={signaturePad}>
         <SignaturePadLabel>Sign below</SignaturePadLabel>
         <SignaturePadCanvas />
       </SignaturePadRootProvider>
       <output>Paths: {signaturePad().paths.length}</output>
-    </div>
+    </Stack>
   );
 }

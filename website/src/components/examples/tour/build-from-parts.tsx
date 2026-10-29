@@ -1,6 +1,7 @@
 import type { TourStepDetails } from '@ark-ui/react/tour';
 import { Button } from '@moduix/react/button';
 import { CloseButton } from '@moduix/react/close-button';
+import { Stack } from '@moduix/react/stack';
 import {
   Tour,
   TourBackdrop,
@@ -60,7 +61,7 @@ export default function BuildFromPartsTourDemo() {
   });
 
   return (
-    <div className={styles.root}>
+    <Stack align="center" gap="3">
       <Button id="tour-parts-upload" variant="outline">
         Upload files
       </Button>
@@ -99,6 +100,6 @@ export default function BuildFromPartsTourDemo() {
         <output>Tour: {status}</output>
         <Button onClick={() => tour.start()}>Start tour</Button>
       </PreviewMeta>
-    </div>
+    </Stack>
   );
 }

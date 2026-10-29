@@ -1,6 +1,7 @@
 import type { TourStepDetails } from '@ark-ui/react/tour';
 import { Button } from '@moduix/react/button';
 import { Input } from '@moduix/react/input';
+import { Stack } from '@moduix/react/stack';
 import {
   Tour,
   TourBackdrop,
@@ -17,7 +18,6 @@ import {
 } from '@moduix/react/tour';
 import { useState } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';
-import styles from '@/components/examples/tour/tour-wait-for-input.module.css';
 
 const steps = [
   {
@@ -44,7 +44,7 @@ export default function TourWaitForInputDemo() {
     onStatusChange: (details) => setStatus(details.status),
   });
   return (
-    <div className={styles.root}>
+    <Stack align="center" gap="3">
       <Input
         id="tour-wait-name"
         aria-label="Workspace name"
@@ -77,6 +77,6 @@ export default function TourWaitForInputDemo() {
         <output>Tour: {status}</output>
         <Button onClick={() => tour.start()}>Start input tour</Button>
       </PreviewMeta>
-    </div>
+    </Stack>
   );
 }

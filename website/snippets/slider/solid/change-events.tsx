@@ -7,15 +7,15 @@ import {
   SliderTrack,
   SliderValueText,
 } from '@moduix/solid/slider';
+import { Stack } from '@moduix/solid/stack';
 import { createSignal } from 'solid-js';
-import styles from '@/components/examples/slider/slider-change-events.module.css';
 
 export default function EventsSliderDemo() {
   const [liveValue, setLiveValue] = createSignal([40]);
   const [committedValue, setCommittedValue] = createSignal([40]);
 
   return (
-    <div class={styles.stack}>
+    <Stack align="center" gap="4">
       <Slider
         defaultValue={[40]}
         onValueChange={(details) => setLiveValue(details.value)}
@@ -33,6 +33,6 @@ export default function EventsSliderDemo() {
       <output>
         Live: {liveValue().join(', ')} / Committed: {committedValue().join(', ')}
       </output>
-    </div>
+    </Stack>
   );
 }

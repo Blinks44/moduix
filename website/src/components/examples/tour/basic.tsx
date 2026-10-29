@@ -1,5 +1,6 @@
 import type { TourStepDetails } from '@ark-ui/react/tour';
 import { Button } from '@moduix/react/button';
+import { Stack } from '@moduix/react/stack';
 import {
   Tour,
   TourBackdrop,
@@ -17,7 +18,6 @@ import {
 } from '@moduix/react/tour';
 import { useState } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';
-import styles from '@/components/examples/tour/tour-basic.module.css';
 
 const steps = [
   {
@@ -58,7 +58,7 @@ export default function TourDemo() {
   });
 
   return (
-    <div className={styles.root}>
+    <Stack align="center" gap="3">
       <Button id="tour-basic-upload" variant="outline">
         Upload files
       </Button>
@@ -85,6 +85,6 @@ export default function TourDemo() {
         <output>Tour: {status}</output>
         <Button onClick={() => tour.start()}>Start tour</Button>
       </PreviewMeta>
-    </div>
+    </Stack>
   );
 }

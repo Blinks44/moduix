@@ -24,6 +24,7 @@ import {
   ColorPickerTrigger,
   ColorPickerValueSwatch,
 } from '@moduix/vue/color-picker';
+import { Stack } from '@moduix/vue/stack';
 import styles from '@/components/examples/color-picker/color-picker-build-from-parts.module.css';
 
 const swatches = ['#0f172a', '#2563eb', '#16a34a', '#f97316'];
@@ -45,7 +46,7 @@ const swatches = ['#0f172a', '#2563eb', '#16a34a', '#f97316'];
           <ColorPickerAreaBackground />
           <ColorPickerAreaThumb />
         </ColorPickerArea>
-        <div :class="styles.sliderGroup">
+        <Stack direction="row" align="center" gap="3">
           <ColorPickerEyeDropperTrigger aria-label="Pick color from screen">
             <PipetteIcon :stroke-width="2.5" />
           </ColorPickerEyeDropperTrigger>
@@ -60,7 +61,7 @@ const swatches = ['#0f172a', '#2563eb', '#16a34a', '#f97316'];
               <ColorPickerChannelSliderThumb />
             </ColorPickerChannelSlider>
           </div>
-        </div>
+        </Stack>
         <ColorPickerSwatchGroup>
           <ColorPickerSwatchTrigger v-for="color in swatches" :key="color" :value="color">
             <ColorPickerSwatch :value="color">

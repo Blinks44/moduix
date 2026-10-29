@@ -5,8 +5,8 @@ import {
   CheckboxHiddenInput,
   CheckboxLabel,
 } from '@moduix/react/checkbox';
+import { Stack } from '@moduix/react/stack';
 import { useState } from 'react';
-import styles from '@/components/examples/checkbox/checkbox-select-all.module.css';
 
 const options = [
   { value: 'react', label: 'React' },
@@ -21,7 +21,7 @@ export default function CheckboxSelectAllDemo() {
   const indeterminate = value.length > 0 && value.length < allValues.length;
 
   return (
-    <div className={styles.root}>
+    <Stack gap="2">
       <Checkbox
         checked={indeterminate ? 'indeterminate' : allSelected}
         onCheckedChange={(details) => setValue(details.checked === true ? allValues : [])}
@@ -39,6 +39,6 @@ export default function CheckboxSelectAllDemo() {
           </Checkbox>
         ))}
       </CheckboxGroup>
-    </div>
+    </Stack>
   );
 }

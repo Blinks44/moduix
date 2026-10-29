@@ -1,6 +1,6 @@
 import { Button } from '@moduix/solid/button';
+import { Stack } from '@moduix/solid/stack';
 import { ToastToaster, createToaster } from '@moduix/solid/toast';
-import styles from '@/components/examples/toast/toast-duration.module.css';
 
 const durations = [
   { label: '1s', value: 1000 },
@@ -13,7 +13,7 @@ const toaster = createToaster({ placement: 'bottom-end', overlap: true, gap: 16 
 
 export default function ToastDuration() {
   return (
-    <div class={styles.root}>
+    <Stack align="center" gap="3">
       <ToastToaster toaster={toaster} />
       {durations.map((duration) => (
         <Button
@@ -31,6 +31,6 @@ export default function ToastDuration() {
           {duration.label}
         </Button>
       ))}
-    </div>
+    </Stack>
   );
 }

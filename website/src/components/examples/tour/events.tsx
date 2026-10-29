@@ -1,5 +1,6 @@
 import type { TourStepDetails } from '@ark-ui/react/tour';
 import { Button } from '@moduix/react/button';
+import { Stack } from '@moduix/react/stack';
 import {
   Tour,
   TourBackdrop,
@@ -15,7 +16,6 @@ import {
 } from '@moduix/react/tour';
 import { useState } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';
-import styles from '@/components/examples/tour/tour-events.module.css';
 
 const steps = [
   {
@@ -49,7 +49,7 @@ export default function TourEventsDemo() {
   });
 
   return (
-    <div className={styles.root}>
+    <Stack align="center" gap="3">
       <Tour tour={tour}>
         <TourBackdrop />
         <TourPositioner>
@@ -70,6 +70,6 @@ export default function TourEventsDemo() {
         <output>{result}</output>
         <Button onClick={() => tour.start()}>Start event tour</Button>
       </PreviewMeta>
-    </div>
+    </Stack>
   );
 }

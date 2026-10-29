@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { Button } from '@moduix/vue/button';
+import { Stack } from '@moduix/vue/stack';
 import { ToastToaster, createToaster } from '@moduix/vue/toast';
-import styles from '@/components/examples/toast/toast-promise-toast.module.css';
 
 const uploadFile = () =>
   new Promise<void>((resolve, reject) => {
@@ -30,8 +30,8 @@ const upload = () =>
 </script>
 
 <template>
-  <div :class="styles.root">
+  <Stack align="center" gap="3">
     <ToastToaster :toaster="toaster" />
     <Button @click="upload">Upload file</Button>
-  </div>
+  </Stack>
 </template>

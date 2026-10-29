@@ -1,6 +1,6 @@
+import { Stack } from '@moduix/react/stack';
 import { Tag, TagCloseTrigger, TagEndElement, TagLabel } from '@moduix/react/tag';
 import { useState, type ComponentProps } from 'react';
-import styles from '@/components/examples/tag/tag-closable.module.css';
 
 type DemoTag = {
   label: string;
@@ -28,7 +28,7 @@ export default function RemovableTagDemo() {
   const [visibleTags, setVisibleTags] = useState(tags);
 
   return (
-    <div className={styles.row}>
+    <Stack direction="row" align="center" wrap="wrap" gap="3">
       {visibleTags.map((tag) => (
         <Tag key={tag.label} variant={tag.variant}>
           <TagLabel>{tag.label}</TagLabel>
@@ -43,6 +43,6 @@ export default function RemovableTagDemo() {
           </TagEndElement>
         </Tag>
       ))}
-    </div>
+    </Stack>
   );
 }

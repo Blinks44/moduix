@@ -15,6 +15,7 @@ import {
   SliderTrack,
   SliderValueText,
 } from '@moduix/vue/slider';
+import { Stack } from '@moduix/vue/stack';
 import { ref } from 'vue';
 import styles from '@/components/examples/progress-circular/component-controlled.module.css';
 
@@ -22,7 +23,7 @@ const value = ref<number | null>(42);
 </script>
 
 <template>
-  <div :class="styles.stack">
+  <Stack align="center" gap="4">
     <ProgressCircular v-model="value">
       <ProgressCircularLabel>Upload status</ProgressCircularLabel>
       <div :class="styles.circleContainer">
@@ -51,5 +52,5 @@ const value = ref<number | null>(42);
         </SliderControl>
       </Slider>
     </div>
-  </div>
+  </Stack>
 </template>

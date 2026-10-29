@@ -1,6 +1,6 @@
+import { Stack } from '@moduix/solid/stack';
 import { ToggleGroup, ToggleGroupItem } from '@moduix/solid/toggle-group';
 import { For } from 'solid-js';
-import styles from '@/components/examples/toggle-group/toggle-group-sizes.module.css';
 
 const sizes = ['xs', 'sm', 'md', 'lg'] as const;
 const alignmentItems = [
@@ -11,7 +11,7 @@ const alignmentItems = [
 
 export default function SizesToggleGroupDemo() {
   return (
-    <div class={styles.stack}>
+    <Stack align="center" gap="3">
       <For each={sizes}>
         {(size) => (
           <ToggleGroup size={size} defaultValue={['left']} aria-label={`Text alignment, ${size}`}>
@@ -21,6 +21,6 @@ export default function SizesToggleGroupDemo() {
           </ToggleGroup>
         )}
       </For>
-    </div>
+    </Stack>
   );
 }

@@ -44,6 +44,7 @@ import {
   SidebarTooltip,
   SidebarTrigger,
 } from '@moduix/vue/sidebar';
+import { Stack } from '@moduix/vue/stack';
 import styles from '@/components/examples/sidebar/sidebar-nested-navigation-and-account-menu.module.css';
 </script>
 
@@ -51,13 +52,13 @@ import styles from '@/components/examples/sidebar/sidebar-nested-navigation-and-
   <Sidebar :class="styles.root">
     <SidebarPanel>
       <SidebarHeader>
-        <div :class="styles.headerContent">
+        <Stack gap="0.75rem">
           <div :class="styles.brand">
             <strong data-sidebar-icon :class="styles.brandMark">M</strong>
             <SidebarLabel>moduix</SidebarLabel>
           </div>
           <SidebarInput aria-label="Search workspace" placeholder="Search" size="sm" />
-        </div>
+        </Stack>
       </SidebarHeader>
       <SidebarContent>
         <SidebarGroup>

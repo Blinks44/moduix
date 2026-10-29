@@ -9,12 +9,6 @@
   height: 28rem;
 }
 
-.toolbar {
-  display: grid;
-  gap: var(--moduix-spacing-2);
-  justify-items: center;
-}
-
 .status {
   color: var(--moduix-muted-foreground);
   font-size: var(--moduix-text-sm);

@@ -5,6 +5,7 @@ import {
   HoverCardPositioner,
   HoverCardTrigger,
 } from '@moduix/react/hover-card';
+import { Stack } from '@moduix/react/stack';
 import { useState } from 'react';
 import styles from '@/components/examples/hover-card/hover-card-multiple-triggers.module.css';
 
@@ -50,10 +51,10 @@ export default function MultipleTriggersHoverCard() {
                 src="https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=640&q=80"
                 className={styles.image}
               />
-              <div className={styles.details}>
+              <Stack gap="1">
                 <strong>{activeProfile.name}</strong>
                 <p className={styles.description}>{activeProfile.description}</p>
-              </div>
+              </Stack>
             </div>
           </HoverCardBody>
         </HoverCardContent>

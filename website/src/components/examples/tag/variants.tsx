@@ -1,16 +1,16 @@
+import { Stack } from '@moduix/react/stack';
 import { Tag, TagLabel } from '@moduix/react/tag';
-import styles from '@/components/examples/tag/tag-variants.module.css';
 
 const variants = ['default', 'secondary', 'outline', 'ghost', 'destructive'] as const;
 
 export default function TagVariantsDemo() {
   return (
-    <div className={styles.row}>
+    <Stack direction="row" align="center" wrap="wrap" gap="3">
       {variants.map((variant) => (
         <Tag key={variant} variant={variant}>
           <TagLabel>{variant}</TagLabel>
         </Tag>
       ))}
-    </div>
+    </Stack>
   );
 }

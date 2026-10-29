@@ -1,4 +1,5 @@
 import { Button } from '@moduix/react/button';
+import { Stack } from '@moduix/react/stack';
 import {
   Toast,
   ToastCloseTrigger,
@@ -17,17 +18,17 @@ export default function App() {
   const [event, setEvent] = useState('No toast created');
 
   return (
-    <div className={styles.root}>
+    <Stack align="center" gap="3">
       <ToastToaster toaster={toaster}>
         {(toast) => (
           <Toast key={toast.id} className={styles.toast}>
-            <div className={styles.content}>
+            <Stack direction="row" align="flex-start" gap="2">
               <span aria-hidden="true">ⓘ</span>
               <div>
                 <ToastTitle />
                 <ToastDescription />
               </div>
-            </div>
+            </Stack>
             <ToastCloseTrigger aria-label="Close custom toast">×</ToastCloseTrigger>
           </Toast>
         )}
@@ -46,6 +47,6 @@ export default function App() {
           Create custom toast
         </Button>
       </PreviewMeta>
-    </div>
+    </Stack>
   );
 }

@@ -12,6 +12,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@moduix/vue/dialog';
+import { Stack } from '@moduix/vue/stack';
 import styles from '@/components/examples/dialog/dialog-build-from-parts.module.css';
 </script>
 
@@ -21,7 +22,7 @@ import styles from '@/components/examples/dialog/dialog-build-from-parts.module.
     <DialogBackdrop />
     <DialogPositioner>
       <DialogContent>
-        <div :class="styles.header">
+        <Stack gap="1">
           <DialogTitle :class="styles.title">Notifications</DialogTitle>
           <DialogCloseTrigger as-child>
             <CloseButton aria-label="Close dialog" :class="styles.closeButton">
@@ -29,7 +30,7 @@ import styles from '@/components/examples/dialog/dialog-build-from-parts.module.
             </CloseButton>
           </DialogCloseTrigger>
           <DialogDescription>You are all caught up. Good job!</DialogDescription>
-        </div>
+        </Stack>
       </DialogContent>
     </DialogPositioner>
   </Dialog>

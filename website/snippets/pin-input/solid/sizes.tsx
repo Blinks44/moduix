@@ -1,6 +1,6 @@
 import { PinInput, PinInputControl, PinInputInputs, PinInputLabel } from '@moduix/solid/pin-input';
+import { Stack } from '@moduix/solid/stack';
 import { For } from 'solid-js';
-import styles from '@/components/examples/pin-input/pin-input-sizes.module.css';
 
 const sizes = [
   ['xs', 'Extra small'],
@@ -12,7 +12,7 @@ const sizes = [
 
 export default function PinInputSizesDemo() {
   return (
-    <div class={styles.root}>
+    <Stack gap="3">
       <For each={sizes}>
         {([size, label]) => (
           <PinInput count={4} size={size}>
@@ -23,6 +23,6 @@ export default function PinInputSizesDemo() {
           </PinInput>
         )}
       </For>
-    </div>
+    </Stack>
   );
 }

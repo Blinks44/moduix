@@ -1,13 +1,13 @@
 import { QrCodeFrame, QrCodePattern, QrCodeRootProvider, useQrCode } from '@moduix/react/qr-code';
+import { Stack } from '@moduix/react/stack';
 import { PreviewMeta } from '@/components/mdx/Components';
-import styles from '@/components/examples/qr-code/component-controlled.module.css';
 
 export default function RootProviderQrCodeDemo() {
   const qrCode = useQrCode({
     value: 'https://moduix.dev/docs/qr-code',
   });
   return (
-    <div className={styles.stack}>
+    <Stack align="center" gap="3">
       <QrCodeRootProvider value={qrCode}>
         <QrCodeFrame>
           <QrCodePattern />
@@ -16,6 +16,6 @@ export default function RootProviderQrCodeDemo() {
       <PreviewMeta>
         <output>Encoded URL: {qrCode.value}</output>
       </PreviewMeta>
-    </div>
+    </Stack>
   );
 }

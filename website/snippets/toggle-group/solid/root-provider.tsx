@@ -1,9 +1,9 @@
+import { Stack } from '@moduix/solid/stack';
 import {
   ToggleGroupItem,
   ToggleGroupRootProvider,
   useToggleGroup,
 } from '@moduix/solid/toggle-group';
-import styles from '@/components/examples/toggle-group/toggle-group-controlled.module.css';
 
 const alignmentItems = [
   {
@@ -26,7 +26,7 @@ export default function RootProviderToggleGroupDemo() {
   });
 
   return (
-    <div class={styles.stack}>
+    <Stack align="center" gap="3">
       <ToggleGroupRootProvider value={toggleGroup} aria-label="Text alignment">
         {alignmentItems.map((item) => (
           <ToggleGroupItem value={item.value}>{item.label}</ToggleGroupItem>
@@ -35,6 +35,6 @@ export default function RootProviderToggleGroupDemo() {
       <div data-preview-meta>
         <output>Selected: {toggleGroup().value.join(', ') || 'empty'}</output>
       </div>
-    </div>
+    </Stack>
   );
 }

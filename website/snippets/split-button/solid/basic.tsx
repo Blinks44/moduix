@@ -6,8 +6,8 @@ import {
   SplitButtonPositioner,
   SplitButtonTrigger,
 } from '@moduix/solid/split-button';
+import { Stack } from '@moduix/solid/stack';
 import { createSignal } from 'solid-js';
-import styles from '@/components/examples/split-button/split-button-basic.module.css';
 
 const items = [
   {
@@ -28,7 +28,7 @@ export default function SplitButtonDemo() {
   const [status, setStatus] = createSignal('Ready to save.');
 
   return (
-    <div class={styles.stack}>
+    <Stack align="center" gap="4">
       <SplitButton aria-label="Save actions">
         <SplitButtonAction onClick={() => setStatus('Changes saved.')}>
           Save Changes
@@ -45,6 +45,6 @@ export default function SplitButtonDemo() {
         </SplitButtonPositioner>
       </SplitButton>
       <output aria-live="polite">{status()}</output>
-    </div>
+    </Stack>
   );
 }

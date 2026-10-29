@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { Input } from '@moduix/vue/input';
+import { Stack } from '@moduix/vue/stack';
 import {
   Steps,
   StepsCompletedContent,
@@ -60,10 +61,10 @@ const handleStepChange = () => {
       <StepsContent :index="1">Your profile can now be completed.</StepsContent>
       <StepsCompletedContent>Steps complete.</StepsCompletedContent>
 
-      <div :class="styles.actions">
+      <Stack direction="row" justify="flex-end" gap="2">
         <StepsPrevTrigger>Back</StepsPrevTrigger>
         <StepsNextTrigger>Next</StepsNextTrigger>
-      </div>
+      </Stack>
     </Steps>
     <output>{{ message }}</output>
   </div>

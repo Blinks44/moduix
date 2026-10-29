@@ -8,6 +8,7 @@ import {
   ColorPickerFormatSelect,
   ColorPickerView,
 } from '@moduix/vue/color-picker';
+import { Stack } from '@moduix/vue/stack';
 import { ref } from 'vue';
 import styles from '@/components/examples/color-picker/color-picker-format-views.module.css';
 
@@ -16,10 +17,10 @@ const format = ref<'rgba' | 'hsla' | 'hsba'>('rgba');
 
 <template>
   <ColorPicker inline :default-value="parseColor('#9333ea')" v-model:format="format">
-    <div :class="styles.valueRow">
+    <Stack direction="row" align="center" justify="space-between" gap="3">
       <ColorPickerLabel>Format</ColorPickerLabel>
       <ColorPickerFormatSelect aria-label="Color format" />
-    </div>
+    </Stack>
     <ColorPickerArea />
     <ColorPickerView format="rgba">
       <div :class="styles.inputRow">

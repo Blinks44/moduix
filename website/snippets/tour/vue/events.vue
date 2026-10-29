@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type { TourStepDetails } from '@ark-ui/vue/tour';
 import { Button } from '@moduix/vue/button';
+import { Stack } from '@moduix/vue/stack';
 import {
   Tour,
   TourActionList,
@@ -15,7 +16,6 @@ import {
   useTour,
 } from '@moduix/vue/tour';
 import { ref } from 'vue';
-import styles from '@/components/examples/tour/tour-events.module.css';
 
 const steps = [
   {
@@ -49,7 +49,7 @@ const tour = useTour({
 </script>
 
 <template>
-  <div :class="styles.root">
+  <Stack align="center" gap="3">
     <Tour :tour="tour">
       <TourBackdrop />
       <TourPositioner>
@@ -68,5 +68,5 @@ const tour = useTour({
 
     <output>{{ result }}</output>
     <Button @click="tour.start()">Start event tour</Button>
-  </div>
+  </Stack>
 </template>

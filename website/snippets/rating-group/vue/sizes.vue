@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { RatingGroup, RatingGroupControl, RatingGroupItems } from '@moduix/vue/rating-group';
-import styles from '@/components/examples/rating-group/component-sizes.module.css';
+import { Stack } from '@moduix/vue/stack';
 </script>
 
 <template>
-  <div :class="styles.stack">
+  <Stack align="center" gap="3">
     <RatingGroup size="xs" :default-value="3" aria-label="Extra-small rating">
       <RatingGroupControl><RatingGroupItems /></RatingGroupControl>
     </RatingGroup>
@@ -20,5 +20,5 @@ import styles from '@/components/examples/rating-group/component-sizes.module.cs
     <RatingGroup size="xl" :default-value="3" aria-label="Extra-large rating">
       <RatingGroupControl><RatingGroupItems /></RatingGroupControl>
     </RatingGroup>
-  </div>
+  </Stack>
 </template>

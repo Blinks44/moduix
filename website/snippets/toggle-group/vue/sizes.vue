@@ -1,6 +1,6 @@
 <script setup lang="ts">
+import { Stack } from '@moduix/vue/stack';
 import { ToggleGroup, ToggleGroupItem } from '@moduix/vue/toggle-group';
-import styles from '@/components/examples/toggle-group/toggle-group-sizes.module.css';
 
 const sizes = ['xs', 'sm', 'md', 'lg'] as const;
 const alignmentItems = [
@@ -11,7 +11,7 @@ const alignmentItems = [
 </script>
 
 <template>
-  <div :class="styles.stack">
+  <Stack align="center" gap="3">
     <ToggleGroup
       v-for="size in sizes"
       :key="size"
@@ -23,5 +23,5 @@ const alignmentItems = [
         {{ item.label }}
       </ToggleGroupItem>
     </ToggleGroup>
-  </div>
+  </Stack>
 </template>

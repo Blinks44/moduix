@@ -1,3 +1,4 @@
+import { Stack } from '@moduix/solid/stack';
 import {
   Table,
   TableBody,
@@ -8,7 +9,6 @@ import {
   TableRow,
   TableScrollArea,
 } from '@moduix/solid/table';
-import styles from '@/components/examples/table/table-sizes.module.css';
 
 const projects = [
   {
@@ -23,7 +23,7 @@ const projects = [
 
 export default function TableSizesDemo() {
   return (
-    <div class={styles.root}>
+    <Stack gap="4">
       {(['sm', 'md', 'lg'] as const).map((size) => (
         <TableScrollArea>
           <Table size={size}>
@@ -47,6 +47,6 @@ export default function TableSizesDemo() {
           </Table>
         </TableScrollArea>
       ))}
-    </div>
+    </Stack>
   );
 }

@@ -1,13 +1,13 @@
+import { Stack } from '@moduix/react/stack';
 import { Text } from '@moduix/react/text';
-import styles from '@/components/examples/text/text-weight.module.css';
 
 export default function TextWeightsDemo() {
   return (
-    <div className={styles.stack}>
+    <Stack gap="3">
       <Text weight="regular">Regular weight</Text>
       <Text weight="medium">Medium weight</Text>
       <Text weight="semibold">Semibold weight</Text>
       <Text weight="bold">Bold weight</Text>
-    </div>
+    </Stack>
   );
 }

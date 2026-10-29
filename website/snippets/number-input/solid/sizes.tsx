@@ -1,6 +1,6 @@
 import { NumberInput, NumberInputField, NumberInputLabel } from '@moduix/solid/number-input';
+import { Stack } from '@moduix/solid/stack';
 import { For } from 'solid-js';
-import styles from '@/components/examples/number-input/number-input-sizes.module.css';
 
 const sizes = [
   ['xs', 'Extra small'],
@@ -12,7 +12,7 @@ const sizes = [
 
 export default function NumberInputSizesDemo() {
   return (
-    <div class={styles.root}>
+    <Stack align="flex-start" gap="3">
       <For each={sizes}>
         {([size, label]) => (
           <NumberInput size={size} defaultValue="8">
@@ -21,6 +21,6 @@ export default function NumberInputSizesDemo() {
           </NumberInput>
         )}
       </For>
-    </div>
+    </Stack>
   );
 }

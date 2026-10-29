@@ -1,6 +1,6 @@
+import { Stack } from '@moduix/solid/stack';
 import { Tag, TagCloseTrigger, TagEndElement, TagLabel } from '@moduix/solid/tag';
 import { createSignal } from 'solid-js';
-import styles from '@/components/examples/tag/tag-closable.module.css';
 
 type TagVariant = 'default' | 'secondary' | 'outline';
 type DemoTag = {
@@ -29,7 +29,7 @@ export default function RemovableTagDemo() {
   const [visibleTags, setVisibleTags] = createSignal(tags);
 
   return (
-    <div class={styles.row}>
+    <Stack direction="row" align="center" wrap="wrap" gap="3">
       {visibleTags().map((tag) => (
         <Tag variant={tag.variant}>
           <TagLabel>{tag.label}</TagLabel>
@@ -46,6 +46,6 @@ export default function RemovableTagDemo() {
           </TagEndElement>
         </Tag>
       ))}
-    </div>
+    </Stack>
   );
 }

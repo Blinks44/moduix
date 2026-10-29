@@ -12,11 +12,6 @@
   width: 100%;
 }
 
-.details {
-  display: grid;
-  gap: var(--moduix-spacing-1);
-}
-
 .description {
   color: var(--moduix-muted-foreground);
   margin: 0;

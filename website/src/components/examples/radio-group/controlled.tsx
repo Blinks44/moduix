@@ -1,14 +1,14 @@
 import { RadioGroup, RadioGroupLabel, RadioGroupOption } from '@moduix/react/radio-group';
+import { Stack } from '@moduix/react/stack';
 import { useState } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';
-import styles from '@/components/examples/radio-group/radio-group-controlled.module.css';
 
 const frameworks = ['React', 'Solid', 'Vue'];
 
 export default function ControlledRadioGroupDemo() {
   const [value, setValue] = useState(null as string | null);
   return (
-    <div className={styles.stack}>
+    <Stack align="center" gap="2">
       <RadioGroup value={value} onValueChange={(details) => setValue(details.value)}>
         <RadioGroupLabel>Framework</RadioGroupLabel>
         {frameworks.map((framework) => (
@@ -20,6 +20,6 @@ export default function ControlledRadioGroupDemo() {
       <PreviewMeta>
         <output>Selected: {value ?? 'none'}</output>
       </PreviewMeta>
-    </div>
+    </Stack>
   );
 }

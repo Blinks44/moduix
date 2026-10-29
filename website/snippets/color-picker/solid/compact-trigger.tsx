@@ -12,6 +12,7 @@ import {
   ColorPickerValueText,
   ColorPickerSliders,
 } from '@moduix/solid/color-picker';
+import { Stack } from '@moduix/solid/stack';
 import styles from '@/components/examples/color-picker/color-picker-compact-trigger.module.css';
 
 export default function CompactTriggerColorPickerDemo() {
@@ -27,10 +28,10 @@ export default function CompactTriggerColorPickerDemo() {
       <ColorPickerPositioner>
         <ColorPickerContent>
           <ColorPickerArea />
-          <div class={styles.sliderGroup}>
+          <Stack direction="row" align="center" gap="3">
             <ColorPickerEyeDropperTrigger aria-label="Pick color from screen" />
             <ColorPickerSliders />
-          </div>
+          </Stack>
         </ColorPickerContent>
       </ColorPickerPositioner>
     </ColorPicker>

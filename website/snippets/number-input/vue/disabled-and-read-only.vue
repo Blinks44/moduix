@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { NumberInput, NumberInputField, NumberInputLabel } from '@moduix/vue/number-input';
-import styles from '@/components/examples/number-input/number-input-disabled-and-read-only.module.css';
+import { Stack } from '@moduix/vue/stack';
 </script>
 
 <template>
-  <div :class="styles.root">
+  <Stack align="flex-start" gap="0.75rem">
     <NumberInput default-value="4" disabled>
       <NumberInputLabel>Disabled quantity</NumberInputLabel>
       <NumberInputField />
@@ -13,5 +13,5 @@ import styles from '@/components/examples/number-input/number-input-disabled-and
       <NumberInputLabel>Read-only quantity</NumberInputLabel>
       <NumberInputField />
     </NumberInput>
-  </div>
+  </Stack>
 </template>

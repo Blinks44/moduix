@@ -13,6 +13,7 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from '@moduix/vue/drawer';
+import { Stack } from '@moduix/vue/stack';
 import { ref } from 'vue';
 import styles from '@/components/examples/drawer/drawer-multiple-triggers.module.css';
 
@@ -28,11 +29,11 @@ const activeUser = ref<(typeof users)[number] | null>(null);
   <Drawer
     swipe-direction="end"
     @trigger-value-change="activeUser = users.find((user) => user.id === $event.value) ?? null"
-    ><div :class="styles.triggers">
+    ><Stack align="center" gap="2">
       <DrawerTrigger v-for="user in users" :key="user.id" :value="user.id" as-child
         ><Button variant="outline">Edit {{ user.name }}</Button></DrawerTrigger
       >
-    </div>
+    </Stack>
     <DrawerBackdrop /><DrawerPositioner
       ><DrawerContent
         ><DrawerHeader

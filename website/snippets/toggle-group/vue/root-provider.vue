@@ -1,6 +1,6 @@
 <script setup lang="ts">
+import { Stack } from '@moduix/vue/stack';
 import { ToggleGroupItem, ToggleGroupRootProvider, useToggleGroup } from '@moduix/vue/toggle-group';
-import styles from '@/components/examples/toggle-group/toggle-group-controlled.module.css';
 
 const toggleGroup = useToggleGroup({ defaultValue: ['left'] });
 const alignmentItems = [
@@ -11,7 +11,7 @@ const alignmentItems = [
 </script>
 
 <template>
-  <div :class="styles.stack">
+  <Stack align="center" gap="3">
     <ToggleGroupRootProvider :value="toggleGroup" aria-label="Text alignment">
       <ToggleGroupItem v-for="item in alignmentItems" :key="item.value" :value="item.value">
         {{ item.label }}
@@ -20,5 +20,5 @@ const alignmentItems = [
     <div data-preview-meta>
       <output>Selected: {{ toggleGroup.value.join(', ') || 'empty' }}</output>
     </div>
-  </div>
+  </Stack>
 </template>

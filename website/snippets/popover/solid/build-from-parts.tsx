@@ -8,6 +8,7 @@ import {
   PopoverTitle,
   PopoverTrigger,
 } from '@moduix/solid/popover';
+import { Stack } from '@moduix/solid/stack';
 import { Bell as BellIcon } from 'lucide-solid';
 import styles from '@/components/examples/popover/popover-build-from-parts.module.css';
 
@@ -24,10 +25,10 @@ export default function BuildFromPartsPopoverDemo() {
       />
       <PopoverPositioner>
         <PopoverContent>
-          <div class={styles.header}>
+          <Stack gap="1">
             <PopoverTitle>Notifications</PopoverTitle>
             <PopoverDescription>You are all caught up. Good job!</PopoverDescription>
-          </div>
+          </Stack>
           <div class={styles.footer}>
             <PopoverCloseTrigger>Close</PopoverCloseTrigger>
           </div>

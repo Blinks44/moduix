@@ -8,6 +8,7 @@ import {
   ChartPlot,
   ChartTitle,
 } from '@moduix/solid/chart';
+import { Stack } from '@moduix/solid/stack';
 import { barY, defineChart } from '@tanstack/charts';
 import { scaleBand } from '@tanstack/charts/scales/band';
 import { scaleLinear } from '@tanstack/charts/scales/linear';
@@ -61,14 +62,14 @@ export default function DashboardLayoutChartDemo() {
         height={320}
         ariaLabel="Monthly revenue"
         renderTooltipBody={({ defaultBody, dismiss, pinned }) => (
-          <div class={styles.tooltip}>
+          <Stack gap="3">
             {defaultBody}
             {pinned ? (
               <Button size="sm" variant="outline" onClick={dismiss}>
                 Close
               </Button>
             ) : null}
-          </div>
+          </Stack>
         )}
       />
     </Chart>

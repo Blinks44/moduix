@@ -1,16 +1,16 @@
 import { Button } from '@moduix/solid/button';
+import { Stack } from '@moduix/solid/stack';
 import { SwapIndicator, SwapRootProvider, useSwap } from '@moduix/solid/swap';
 import CheckIcon from 'lucide-solid/icons/check';
 import DownloadIcon from 'lucide-solid/icons/download';
 import { createSignal } from 'solid-js';
-import styles from '@/components/examples/swap/swap-root-provider.module.css';
 
 export default function SwapRootProviderDemo() {
   const [downloaded, setDownloaded] = createSignal(false);
   const swap = useSwap(() => ({ swap: downloaded() }));
 
   return (
-    <div class={styles.root}>
+    <Stack align="center" gap="4">
       <SwapRootProvider
         value={swap}
         asChild={(props) => (
@@ -29,6 +29,6 @@ export default function SwapRootProviderDemo() {
         )}
       />
       <output>Visible indicator: {downloaded() ? 'Downloaded' : 'Download'}</output>
-    </div>
+    </Stack>
   );
 }

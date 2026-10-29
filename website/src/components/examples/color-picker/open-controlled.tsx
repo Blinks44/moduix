@@ -10,15 +10,15 @@ import {
   ColorPickerArea,
   ColorPickerChannelInput,
 } from '@moduix/react/color-picker';
+import { Stack } from '@moduix/react/stack';
 import { useState } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';
-import styles from '@/components/examples/color-picker/color-picker-open-controlled.module.css';
 
 export default function OpenControlledColorPickerDemo() {
   const [open, setOpen] = useState(false);
 
   return (
-    <div className={styles.root}>
+    <Stack align="center" gap="2">
       <ColorPicker
         defaultValue={parseColor('#14b8a6')}
         open={open}
@@ -41,6 +41,6 @@ export default function OpenControlledColorPickerDemo() {
           {open ? 'Close' : 'Open'}
         </Button>
       </PreviewMeta>
-    </div>
+    </Stack>
   );
 }

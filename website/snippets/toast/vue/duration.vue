@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { Button } from '@moduix/vue/button';
+import { Stack } from '@moduix/vue/stack';
 import { ToastToaster, createToaster } from '@moduix/vue/toast';
-import styles from '@/components/examples/toast/toast-duration.module.css';
 
 const durations = [
   { label: '1s', value: 1000 },
@@ -13,7 +13,7 @@ const toaster = createToaster({ placement: 'bottom-end', overlap: true, gap: 16 
 </script>
 
 <template>
-  <div :class="styles.root">
+  <Stack align="center" gap="3">
     <ToastToaster :toaster="toaster" />
     <Button
       v-for="duration in durations"
@@ -31,5 +31,5 @@ const toaster = createToaster({ placement: 'bottom-end', overlap: true, gap: 16 
     >
       {{ duration.label }}
     </Button>
-  </div>
+  </Stack>
 </template>

@@ -11,17 +11,17 @@ import {
   ColorPickerChannelInput,
   ColorPickerValueText,
 } from '@moduix/solid/color-picker';
-import styles from '@/components/examples/color-picker/color-picker-root-provider.module.css';
+import { Stack } from '@moduix/solid/stack';
 
 export default function RootProviderColorPickerDemo() {
   const colorPicker = useColorPicker({ defaultValue: parseColor('#9333ea') });
 
   return (
     <ColorPickerRootProvider value={colorPicker}>
-      <div class={styles.valueRow}>
+      <Stack direction="row" align="center" justify="space-between" gap="3">
         <ColorPickerLabel>Provider color</ColorPickerLabel>
         <ColorPickerValueText format="hex" />
-      </div>
+      </Stack>
       <ColorPickerControl>
         <ColorPickerChannelInput channel="hex" />
         <ColorPickerTrigger aria-label="Open color picker" />

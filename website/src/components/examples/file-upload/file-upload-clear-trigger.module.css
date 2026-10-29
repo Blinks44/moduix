@@ -5,9 +5,3 @@
   padding: var(--moduix-spacing-4);
   background-color: color-mix(in oklab, var(--moduix-muted) 32%, var(--moduix-background));
 }
-
-.actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--moduix-spacing-2);
-}

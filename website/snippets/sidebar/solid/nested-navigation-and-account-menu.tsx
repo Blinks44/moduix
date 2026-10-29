@@ -42,6 +42,7 @@ import {
   SidebarNavigationSubItem,
   SidebarNavigationSubButton,
 } from '@moduix/solid/sidebar';
+import { Stack } from '@moduix/solid/stack';
 import { ChevronsUpDown, FileText, FolderOpen, Gauge, LogOut, Plus, Users } from 'lucide-solid';
 import styles from '@/components/examples/sidebar/sidebar-nested-navigation-and-account-menu.module.css';
 
@@ -50,7 +51,7 @@ export default function AppSidebar() {
     <Sidebar class={styles.root}>
       <SidebarPanel>
         <SidebarHeader>
-          <div class={styles.headerContent}>
+          <Stack gap="0.75rem">
             <div class={styles.brand}>
               <strong data-sidebar-icon class={styles.brandMark}>
                 M
@@ -58,7 +59,7 @@ export default function AppSidebar() {
               <SidebarLabel>moduix</SidebarLabel>
             </div>
             <SidebarInput aria-label="Search workspace" placeholder="Search" size="sm" />
-          </div>
+          </Stack>
         </SidebarHeader>
         <SidebarContent>
           <SidebarGroup>

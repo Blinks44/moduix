@@ -12,13 +12,13 @@ import {
   DrawerTrigger,
   type DrawerSize,
 } from '@moduix/vue/drawer';
-import styles from '@/components/examples/drawer/drawer-sizes.module.css';
+import { Stack } from '@moduix/vue/stack';
 
 const sizes: DrawerSize[] = ['sm', 'md', 'lg', 'xl'];
 </script>
 
 <template>
-  <div :class="styles.row">
+  <Stack direction="row" wrap="wrap" gap="2">
     <Drawer v-for="size in sizes" :key="size" swipe-direction="end">
       <DrawerTrigger as-child
         ><Button variant="outline">Open {{ size }}</Button></DrawerTrigger
@@ -37,5 +37,5 @@ const sizes: DrawerSize[] = ['sm', 'md', 'lg', 'xl'];
         </DrawerContent>
       </DrawerPositioner>
     </Drawer>
-  </div>
+  </Stack>
 </template>

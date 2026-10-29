@@ -4,6 +4,7 @@ import {
   RatingGroupItems,
   RatingGroupLabel,
 } from '@moduix/react/rating-group';
+import { Stack } from '@moduix/react/stack';
 import { useState } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';
 import styles from '@/components/examples/rating-group/component-controlled.module.css';
@@ -11,7 +12,7 @@ import styles from '@/components/examples/rating-group/component-controlled.modu
 export default function ControlledRatingGroupDemo() {
   const [value, setValue] = useState(3);
   return (
-    <div className={styles.stack}>
+    <Stack align="center" gap="3">
       <RatingGroup value={value} onValueChange={(details) => setValue(details.value)}>
         <RatingGroupLabel>Support quality</RatingGroupLabel>
         <RatingGroupControl>
@@ -21,6 +22,6 @@ export default function ControlledRatingGroupDemo() {
       <PreviewMeta>
         <output className={styles.hint}>Current value: {value}</output>
       </PreviewMeta>
-    </div>
+    </Stack>
   );
 }

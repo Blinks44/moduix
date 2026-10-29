@@ -16,9 +16,3 @@
   align-content: start;
   gap: var(--moduix-spacing-4);
 }
-
-.actions {
-  display: flex;
-  gap: var(--moduix-spacing-2);
-  justify-content: flex-end;
-}

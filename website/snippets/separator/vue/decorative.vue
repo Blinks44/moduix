@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { Separator } from '@moduix/vue/separator';
+import { Stack } from '@moduix/vue/stack';
 import styles from '@/components/examples/separator/separator-decorative.module.css';
 
 const sections = ['Personal details', 'Notifications'];
@@ -7,10 +8,10 @@ const sections = ['Personal details', 'Notifications'];
 
 <template>
   <div :class="styles.root">
-    <div :class="styles.stack">
+    <Stack gap="4">
       <span>{{ sections[0] }}</span>
       <Separator role="presentation" />
       <span>{{ sections[1] }}</span>
-    </div>
+    </Stack>
   </div>
 </template>

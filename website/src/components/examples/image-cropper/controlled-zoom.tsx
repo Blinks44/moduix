@@ -5,10 +5,10 @@ import {
   ImageCropperImage,
   ImageCropperViewport,
 } from '@moduix/react/image-cropper';
+import { Stack } from '@moduix/react/stack';
 import { ZoomIn as ZoomInIcon, ZoomOut as ZoomOutIcon } from 'lucide-react';
 import { useState } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';
-import styles from '@/components/examples/image-cropper/image-cropper-controlled-zoom.module.css';
 
 const sampleImage =
   'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=640&h=400&q=90';
@@ -20,7 +20,7 @@ const maxZoom = 3;
 export default function ControlledZoomImageCropperDemo() {
   const [zoom, setZoom] = useState(1);
   return (
-    <div className={styles.stack}>
+    <Stack align="center" gap="3">
       <ImageCropper
         zoom={zoom}
         minZoom={minZoom}
@@ -52,6 +52,6 @@ export default function ControlledZoomImageCropperDemo() {
           <ZoomInIcon />
         </Button>
       </PreviewMeta>
-    </div>
+    </Stack>
   );
 }

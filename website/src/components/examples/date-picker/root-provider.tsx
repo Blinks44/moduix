@@ -12,15 +12,15 @@ import {
   DatePickerMonthTable,
   DatePickerYearTable,
 } from '@moduix/react/date-picker';
+import { Stack } from '@moduix/react/stack';
 import { PreviewMeta } from '@/components/mdx/Components';
-import styles from '@/components/examples/date-picker/date-picker-root-provider.module.css';
 
 export default function RootProviderDatePickerDemo() {
   const datePicker = useDatePicker({
     defaultValue: [today('UTC')],
   });
   return (
-    <div className={styles.root}>
+    <Stack align="center">
       <DatePickerRootProvider value={datePicker}>
         <DatePickerLabel>Report date</DatePickerLabel>
         <DatePickerField />
@@ -43,6 +43,6 @@ export default function RootProviderDatePickerDemo() {
           Clear
         </Button>
       </PreviewMeta>
-    </div>
+    </Stack>
   );
 }

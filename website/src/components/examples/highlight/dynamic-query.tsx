@@ -1,14 +1,14 @@
 import { Highlight } from '@moduix/react/highlight';
 import { Input } from '@moduix/react/input';
+import { Stack } from '@moduix/react/stack';
 import { Text } from '@moduix/react/text';
 import { useState } from 'react';
-import styles from '@/components/examples/highlight/highlight-dynamic-query.module.css';
 
 export default function HighlightDynamicQueryDemo() {
   const [query, setQuery] = useState('component');
 
   return (
-    <div className={styles.stack}>
+    <Stack gap="4">
       <Input
         aria-label="Search text"
         value={query}
@@ -21,6 +21,6 @@ export default function HighlightDynamicQueryDemo() {
           text="Choose a component from the list. Open its documentation to see examples, props, and keyboard controls."
         />
       </Text>
-    </div>
+    </Stack>
   );
 }

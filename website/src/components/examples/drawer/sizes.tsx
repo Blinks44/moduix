@@ -11,13 +11,13 @@ import {
   DrawerTrigger,
   type DrawerSize,
 } from '@moduix/react/drawer';
-import styles from '@/components/examples/drawer/drawer-sizes.module.css';
+import { Stack } from '@moduix/react/stack';
 
 const sizes: DrawerSize[] = ['sm', 'md', 'lg', 'xl'];
 
 export default function DrawerSizesDemo() {
   return (
-    <div className={styles.row}>
+    <Stack direction="row" wrap="wrap" gap="2">
       {sizes.map((size) => (
         <Drawer key={size} swipeDirection="end">
           <DrawerTrigger asChild>
@@ -38,6 +38,6 @@ export default function DrawerSizesDemo() {
           </DrawerPositioner>
         </Drawer>
       ))}
-    </div>
+    </Stack>
   );
 }

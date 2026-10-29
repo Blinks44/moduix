@@ -1,5 +1,5 @@
 import { NumberInput, NumberInputField, NumberInputLabel } from '@moduix/react/number-input';
-import styles from '@/components/examples/number-input/number-input-sizes.module.css';
+import { Stack } from '@moduix/react/stack';
 
 const sizes = [
   ['xs', 'Extra small'],
@@ -11,13 +11,13 @@ const sizes = [
 
 export default function NumberInputSizesDemo() {
   return (
-    <div className={styles.root}>
+    <Stack align="flex-start" gap="3">
       {sizes.map(([size, label]) => (
         <NumberInput key={size} size={size} defaultValue="8">
           <NumberInputLabel>{label}</NumberInputLabel>
           <NumberInputField />
         </NumberInput>
       ))}
-    </div>
+    </Stack>
   );
 }

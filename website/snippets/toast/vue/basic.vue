@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import { Button } from '@moduix/vue/button';
+import { Stack } from '@moduix/vue/stack';
 import { ToastToaster, createToaster } from '@moduix/vue/toast';
-import styles from '@/components/examples/toast/toast-basic.module.css';
 
 const toaster = createToaster({ placement: 'bottom-end', overlap: true, gap: 24 });
 </script>
 
 <template>
-  <div :class="styles.root">
+  <Stack align="center" gap="3">
     <ToastToaster :toaster="toaster" />
     <Button
       @click="
@@ -20,5 +20,5 @@ const toaster = createToaster({ placement: 'bottom-end', overlap: true, gap: 24 
     >
       Schedule meeting
     </Button>
-  </div>
+  </Stack>
 </template>

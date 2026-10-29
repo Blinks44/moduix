@@ -11,6 +11,7 @@ import {
   FileUploadLabel,
   FileUploadTrigger,
 } from '@moduix/solid/file-upload';
+import { Stack } from '@moduix/solid/stack';
 import { For } from 'solid-js';
 import styles from '@/components/examples/file-upload/file-upload-clear-trigger.module.css';
 
@@ -20,7 +21,7 @@ export default function ClearTriggerFileUploadDemo() {
   return (
     <FileUpload class={styles.root} maxFiles={maxFiles}>
       <FileUploadLabel>Attachments</FileUploadLabel>
-      <div class={styles.actions}>
+      <Stack direction="row" wrap="wrap" gap="2">
         <FileUploadTrigger asChild={(props) => <Button {...props()}>Choose files</Button>} />
         <FileUploadClearTrigger
           asChild={(props) => (
@@ -29,7 +30,7 @@ export default function ClearTriggerFileUploadDemo() {
             </Button>
           )}
         />
-      </div>
+      </Stack>
       <FileUploadItemGroup>
         <FileUploadContext>
           {(fileUpload) => (

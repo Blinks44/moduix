@@ -1,4 +1,5 @@
 import { Input } from '@moduix/react/input';
+import { Stack } from '@moduix/react/stack';
 import {
   Steps,
   StepsCompletedContent,
@@ -53,10 +54,10 @@ export default function StepsValidationDemo() {
         <StepsContent index={1}>Your profile can now be completed.</StepsContent>
         <StepsCompletedContent>Steps complete.</StepsCompletedContent>
 
-        <div className={styles.actions}>
+        <Stack direction="row" justify="flex-end" gap="2">
           <StepsPrevTrigger>Back</StepsPrevTrigger>
           <StepsNextTrigger>Next</StepsNextTrigger>
-        </div>
+        </Stack>
       </Steps>
       <PreviewMeta>
         <output>{message}</output>

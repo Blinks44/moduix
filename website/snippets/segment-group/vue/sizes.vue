@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import { SegmentGroup, SegmentGroupIndicator, SegmentGroupItems } from '@moduix/vue/segment-group';
-import styles from '@/components/examples/segment-group/segment-group-sizes.module.css';
+import { Stack } from '@moduix/vue/stack';
 
 const sizes = ['sm', 'md', 'lg'] as const;
 const frameworks = ['React', 'Solid', 'Vue'];
 </script>
 
 <template>
-  <div :class="styles.root">
+  <Stack align="center" gap="3">
     <SegmentGroup
       v-for="size in sizes"
       :key="size"
@@ -18,5 +18,5 @@ const frameworks = ['React', 'Solid', 'Vue'];
       <SegmentGroupIndicator />
       <SegmentGroupItems :items="frameworks" />
     </SegmentGroup>
-  </div>
+  </Stack>
 </template>

@@ -10,6 +10,7 @@ import {
   PopoverTitle,
   PopoverTrigger,
 } from '@moduix/vue/popover';
+import { Stack } from '@moduix/vue/stack';
 import styles from '@/components/examples/popover/popover-build-from-parts.module.css';
 </script>
 
@@ -20,10 +21,10 @@ import styles from '@/components/examples/popover/popover-build-from-parts.modul
     </PopoverTrigger>
     <PopoverPositioner>
       <PopoverContent>
-        <div :class="styles.header">
+        <Stack gap="1">
           <PopoverTitle>Notifications</PopoverTitle>
           <PopoverDescription>You are all caught up. Good job!</PopoverDescription>
-        </div>
+        </Stack>
         <div :class="styles.footer"><PopoverCloseTrigger>Close</PopoverCloseTrigger></div>
       </PopoverContent>
     </PopoverPositioner>

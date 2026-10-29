@@ -1,5 +1,5 @@
 import { Button } from '@moduix/solid/button';
-import styles from '@/components/examples/button/button-disabled.module.css';
+import { Stack } from '@moduix/solid/stack';
 
 const labels = {
   button: 'Disabled',
@@ -8,7 +8,7 @@ const labels = {
 
 export default function ButtonDisabledDemo() {
   return (
-    <div class={styles.root}>
+    <Stack direction="row" align="center" wrap="wrap" gap="3">
       <Button disabled>{labels.button}</Button>
       <Button
         asChild={(props) => (
@@ -19,6 +19,6 @@ export default function ButtonDisabledDemo() {
         disabled
         variant="outline"
       />
-    </div>
+    </Stack>
   );
 }

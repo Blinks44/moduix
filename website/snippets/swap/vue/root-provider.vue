@@ -1,16 +1,16 @@
 <script setup lang="ts">
 import { Check as CheckIcon, Download as DownloadIcon } from '@lucide/vue';
 import { Button } from '@moduix/vue/button';
+import { Stack } from '@moduix/vue/stack';
 import { SwapIndicator, SwapRootProvider, useSwap } from '@moduix/vue/swap';
 import { computed, ref } from 'vue';
-import styles from '@/components/examples/swap/swap-root-provider.module.css';
 
 const downloaded = ref(false);
 const swap = useSwap(computed(() => ({ swap: downloaded.value })));
 </script>
 
 <template>
-  <div :class="styles.root">
+  <Stack align="center" gap="4">
     <SwapRootProvider :value="swap" as-child>
       <Button
         :aria-label="downloaded ? 'Downloaded' : 'Download'"
@@ -21,5 +21,5 @@ const swap = useSwap(computed(() => ({ swap: downloaded.value })));
       </Button>
     </SwapRootProvider>
     <output>Visible indicator: {{ downloaded ? 'Downloaded' : 'Download' }}</output>
-  </div>
+  </Stack>
 </template>

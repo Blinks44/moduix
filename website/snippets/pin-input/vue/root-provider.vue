@@ -7,14 +7,14 @@ import {
   PinInputRootProvider,
   usePinInput,
 } from '@moduix/vue/pin-input';
-import styles from '@/components/examples/pin-input/pin-input-root-provider.module.css';
+import { Stack } from '@moduix/vue/stack';
 
 const pinInput = usePinInput({ count: 6 });
 const indexes = [0, 1, 2, 3, 4, 5];
 </script>
 
 <template>
-  <div :class="styles.root">
+  <Stack align="center" gap="4">
     <PinInputRootProvider :value="pinInput">
       <PinInputLabel>Verification code</PinInputLabel>
       <PinInputControl>
@@ -28,5 +28,5 @@ const indexes = [0, 1, 2, 3, 4, 5];
         Clear
       </Button>
     </div>
-  </div>
+  </Stack>
 </template>

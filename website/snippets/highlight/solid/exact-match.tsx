@@ -1,10 +1,11 @@
 import { Highlight } from '@moduix/solid/highlight';
+import { Stack } from '@moduix/solid/stack';
 import { Text } from '@moduix/solid/text';
 import styles from '@/components/examples/highlight/highlight-exact-match.module.css';
 
 export default function HighlightExactMatchDemo() {
   return (
-    <div class={styles.comparison}>
+    <Stack gap="4">
       <div>
         <div class={styles.label}>Partial match</div>
         <Text>
@@ -26,6 +27,6 @@ export default function HighlightExactMatchDemo() {
           />
         </Text>
       </div>
-    </div>
+    </Stack>
   );
 }

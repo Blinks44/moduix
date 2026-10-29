@@ -22,6 +22,7 @@ import {
   ColorPickerTrigger,
   ColorPickerValueSwatch,
 } from '@moduix/react/color-picker';
+import { Stack } from '@moduix/react/stack';
 import { Check as CheckIcon, Pipette as PipetteIcon } from 'lucide-react';
 import styles from '@/components/examples/color-picker/color-picker-build-from-parts.module.css';
 
@@ -44,7 +45,7 @@ export default function BuildFromPartsColorPickerDemo() {
             <ColorPickerAreaBackground />
             <ColorPickerAreaThumb />
           </ColorPickerArea>
-          <div className={styles.sliderGroup}>
+          <Stack direction="row" align="center" gap="3">
             <ColorPickerEyeDropperTrigger aria-label="Pick color from screen">
               <PipetteIcon strokeWidth={2.5} />
             </ColorPickerEyeDropperTrigger>
@@ -59,7 +60,7 @@ export default function BuildFromPartsColorPickerDemo() {
                 <ColorPickerChannelSliderThumb />
               </ColorPickerChannelSlider>
             </div>
-          </div>
+          </Stack>
           <ColorPickerSwatchGroup>
             {swatches.map((color) => (
               <ColorPickerSwatchTrigger key={color} value={color}>

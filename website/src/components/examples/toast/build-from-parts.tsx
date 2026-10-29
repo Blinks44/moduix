@@ -1,4 +1,5 @@
 import { Button } from '@moduix/react/button';
+import { Stack } from '@moduix/react/stack';
 import {
   Toast,
   ToastCloseTrigger,
@@ -10,7 +11,6 @@ import {
 import { X as XIcon } from 'lucide-react';
 import { useState } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';
-import styles from '@/components/examples/toast/toast-basic.module.css';
 
 const toaster = createToaster({ placement: 'bottom-end', overlap: true, gap: 24 });
 
@@ -18,7 +18,7 @@ export default function BuildFromPartsToastDemo() {
   const [event, setEvent] = useState('No toast created');
 
   return (
-    <div className={styles.root}>
+    <Stack align="center" gap="3">
       <ToastToaster toaster={toaster}>
         {(toast) => (
           <Toast key={toast.id}>
@@ -45,6 +45,6 @@ export default function BuildFromPartsToastDemo() {
           Schedule meeting
         </Button>
       </PreviewMeta>
-    </div>
+    </Stack>
   );
 }

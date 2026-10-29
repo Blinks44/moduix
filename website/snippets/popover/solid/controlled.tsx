@@ -10,14 +10,14 @@ import {
   PopoverTitle,
   PopoverTrigger,
 } from '@moduix/solid/popover';
+import { Stack } from '@moduix/solid/stack';
 import { createSignal } from 'solid-js';
-import styles from '@/components/examples/popover/popover-controlled.module.css';
 
 export default function ControlledPopoverDemo() {
   const [open, setOpen] = createSignal(false);
 
   return (
-    <div class={styles.root}>
+    <Stack align="center" gap="3">
       <Popover open={open()} onOpenChange={(details) => setOpen(details.open)}>
         <PopoverTrigger
           asChild={(props) => <Button {...props()}>Open controlled popover</Button>}
@@ -37,6 +37,6 @@ export default function ControlledPopoverDemo() {
         </PopoverPositioner>
       </Popover>
       <output>Open: {open() ? 'yes' : 'no'}</output>
-    </div>
+    </Stack>
   );
 }

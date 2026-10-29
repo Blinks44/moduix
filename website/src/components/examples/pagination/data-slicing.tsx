@@ -6,6 +6,7 @@ import {
   PaginationNextTrigger,
   PaginationPrevTrigger,
 } from '@moduix/react/pagination';
+import { Stack } from '@moduix/react/stack';
 import styles from '@/components/examples/pagination/pagination-data-slicing.module.css';
 
 const users = [
@@ -76,7 +77,7 @@ export default function PaginationDataSlicingDemo() {
     <Pagination count={users.length} pageSize={4}>
       <PaginationContext>
         {(pagination) => (
-          <div className={styles.stack}>
+          <Stack align="flex-start" gap="3">
             <div className={styles.users}>
               {pagination.slice(users).map((user) => (
                 <div key={user.id} className={styles.user}>
@@ -85,7 +86,7 @@ export default function PaginationDataSlicingDemo() {
                 </div>
               ))}
             </div>
-            <div className={styles.row}>
+            <Stack direction="row" align="center" wrap="wrap" gap="3">
               <PaginationPrevTrigger />
               {pagination.pages.map((page, index) =>
                 page.type === 'page' ? (
@@ -97,8 +98,8 @@ export default function PaginationDataSlicingDemo() {
                 ),
               )}
               <PaginationNextTrigger />
-            </div>
-          </div>
+            </Stack>
+          </Stack>
         )}
       </PaginationContext>
     </Pagination>

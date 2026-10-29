@@ -9,8 +9,8 @@ import {
   ListboxRootProvider,
   useListbox,
 } from '@moduix/react/listbox';
+import { Stack } from '@moduix/react/stack';
 import { PreviewMeta } from '@/components/mdx/Components';
-import styles from '@/components/examples/listbox/listbox-root-provider.module.css';
 
 const priorities = createListCollection({
   items: [
@@ -38,7 +38,7 @@ export default function RootProviderListboxDemo() {
     collection: priorities,
   });
   return (
-    <div className={styles.stack}>
+    <Stack gap="3">
       <ListboxRootProvider value={listbox}>
         <ListboxLabel>Select priority</ListboxLabel>
         <ListboxContent>
@@ -54,6 +54,6 @@ export default function RootProviderListboxDemo() {
         <output>Selected: {listbox.value[0] ?? 'none'}</output>
         <Button onClick={() => listbox.setValue(['high'])}>Set to high</Button>
       </PreviewMeta>
-    </div>
+    </Stack>
   );
 }

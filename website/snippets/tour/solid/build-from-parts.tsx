@@ -1,6 +1,7 @@
 import type { TourStepDetails } from '@ark-ui/solid/tour';
 import { Button } from '@moduix/solid/button';
 import { CloseButton } from '@moduix/solid/close-button';
+import { Stack } from '@moduix/solid/stack';
 import {
   Tour,
   TourBackdrop,
@@ -59,7 +60,7 @@ export default function BuildFromPartsTourDemo() {
   });
 
   return (
-    <div class={styles.root}>
+    <Stack align="center" gap="3">
       <Button id="tour-parts-upload" variant="outline">
         Upload files
       </Button>
@@ -96,6 +97,6 @@ export default function BuildFromPartsTourDemo() {
 
       <output>Tour: {status()}</output>
       <Button onClick={() => tour().start()}>Start tour</Button>
-    </div>
+    </Stack>
   );
 }

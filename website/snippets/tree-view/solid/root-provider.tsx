@@ -1,4 +1,5 @@
 import { Button } from '@moduix/solid/button';
+import { Stack } from '@moduix/solid/stack';
 import {
   TreeViewBranch,
   TreeViewBranchContent,
@@ -18,7 +19,6 @@ import {
   useTreeView,
 } from '@moduix/solid/tree-view';
 import { For, Show } from 'solid-js';
-import styles from '@/components/examples/tree-view/tree-view-root-provider.module.css';
 
 type FileNode = { children?: FileNode[]; id: string; name: string };
 
@@ -86,7 +86,7 @@ export default function RootProviderTreeViewDemo() {
   const treeView = useTreeView({ collection, defaultExpandedValue: ['src'] });
 
   return (
-    <div class={styles.root}>
+    <Stack align="center" gap="3">
       <TreeViewRootProvider value={treeView}>
         <TreeViewLabel>Project files</TreeViewLabel>
         <TreeViewTree>
@@ -96,14 +96,14 @@ export default function RootProviderTreeViewDemo() {
         </TreeViewTree>
       </TreeViewRootProvider>
       <output aria-live="polite">Expanded: {treeView().expandedValue.join(', ') || 'none'}</output>
-      <div class={styles.actions}>
+      <Stack direction="row" gap="2">
         <Button variant="outline" onClick={() => treeView().expand()}>
           Expand all
         </Button>
         <Button variant="outline" onClick={() => treeView().collapse()}>
           Collapse all
         </Button>
-      </div>
-    </div>
+      </Stack>
+    </Stack>
   );
 }

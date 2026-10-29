@@ -1,4 +1,5 @@
 import { Button } from '@moduix/react/button';
+import { Stack } from '@moduix/react/stack';
 import {
   SwitchControl,
   SwitchHiddenInput,
@@ -7,13 +8,12 @@ import {
   useSwitch,
 } from '@moduix/react/switch';
 import { PreviewMeta } from '@/components/mdx/Components';
-import styles from '@/components/examples/switch/switch-root-provider.module.css';
 
 export default function SwitchRootProviderDemo() {
   const switchApi = useSwitch({ defaultChecked: true });
 
   return (
-    <div className={styles.stack}>
+    <Stack align="center" gap="3">
       <SwitchRootProvider value={switchApi}>
         <SwitchControl />
         <SwitchLabel>External state owner</SwitchLabel>
@@ -25,6 +25,6 @@ export default function SwitchRootProviderDemo() {
           Toggle externally
         </Button>
       </PreviewMeta>
-    </div>
+    </Stack>
   );
 }

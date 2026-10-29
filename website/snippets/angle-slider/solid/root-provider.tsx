@@ -5,7 +5,7 @@ import {
   AngleSliderRootProvider,
   useAngleSlider,
 } from '@moduix/solid/angle-slider';
-import styles from '@/components/examples/angle-slider/angle-slider-root-provider.module.css';
+import { Stack } from '@moduix/solid/stack';
 
 const initialValue = 45;
 const markerValues = [0, 45, 90, 135, 180, 225, 270, 315];
@@ -16,7 +16,7 @@ export default function RootProviderAngleSliderDemo() {
   });
 
   return (
-    <div class={styles.layout}>
+    <Stack align="center" gap="3">
       <AngleSliderRootProvider value={angleSlider}>
         <AngleSliderLabel>Rotation</AngleSliderLabel>
         <AngleSliderDial>
@@ -24,6 +24,6 @@ export default function RootProviderAngleSliderDemo() {
         </AngleSliderDial>
       </AngleSliderRootProvider>
       <output>Current angle: {angleSlider().value}°</output>
-    </div>
+    </Stack>
   );
 }

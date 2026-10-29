@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { Stack } from '@moduix/vue/stack';
 import {
   Steps,
   StepsCompletedContent,
@@ -55,10 +56,10 @@ const items = [
 
       <StepsCompletedContent>Steps complete. The workspace is ready.</StepsCompletedContent>
 
-      <div :class="styles.actions">
+      <Stack direction="row" justify="flex-end" gap="2">
         <StepsPrevTrigger>Back</StepsPrevTrigger>
         <StepsNextTrigger>Next</StepsNextTrigger>
-      </div>
+      </Stack>
     </div>
   </Steps>
 </template>

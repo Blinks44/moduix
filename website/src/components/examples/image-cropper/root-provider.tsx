@@ -6,10 +6,10 @@ import {
   ImageCropperViewport,
   useImageCropper,
 } from '@moduix/react/image-cropper';
+import { Stack } from '@moduix/react/stack';
 import { RotateCcw as RestartIcon } from 'lucide-react';
 import { useState } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';
-import styles from '@/components/examples/image-cropper/image-cropper-root-provider.module.css';
 
 const sampleImage =
   'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=640&h=400&q=90';
@@ -26,7 +26,7 @@ export default function RootProviderImageCropperDemo() {
   };
 
   return (
-    <div className={styles.stack}>
+    <Stack align="center" gap="3">
       <ImageCropperRootProvider value={imageCropper} aria-label="Image cropper">
         <ImageCropperViewport>
           <ImageCropperImage src={sampleImage} alt="Landscape" crossOrigin="anonymous" />
@@ -39,6 +39,6 @@ export default function RootProviderImageCropperDemo() {
           <RestartIcon />
         </Button>
       </PreviewMeta>
-    </div>
+    </Stack>
   );
 }

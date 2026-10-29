@@ -6,6 +6,7 @@ import {
   HoverCardPositioner,
   HoverCardTrigger,
 } from '@moduix/vue/hover-card';
+import { Stack } from '@moduix/vue/stack';
 import { ref } from 'vue';
 import styles from '@/components/examples/hover-card/hover-card-multiple-triggers.module.css';
 
@@ -51,10 +52,10 @@ const activeProfile = ref(profiles[0]);
               src="https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=640&q=80"
               :class="styles.image"
             />
-            <div :class="styles.details">
+            <Stack gap="1">
               <strong>{{ activeProfile.name }}</strong>
               <p :class="styles.description">{{ activeProfile.description }}</p>
-            </div>
+            </Stack>
           </div>
         </HoverCardBody>
       </HoverCardContent>

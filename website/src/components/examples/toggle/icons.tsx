@@ -1,10 +1,10 @@
+import { Stack } from '@moduix/react/stack';
 import { Toggle } from '@moduix/react/toggle';
 import { Bell as BellIcon, Check as CheckIcon, Star as StarIcon } from 'lucide-react';
-import styles from '@/components/examples/toggle/toggle-icons.module.css';
 
 export default function ToggleIconsDemo() {
   return (
-    <div className={styles.row}>
+    <Stack direction="row" align="center" justify="center" wrap="wrap" gap="3">
       <Toggle variant="outline">
         <BellIcon />
         Alerts
@@ -15,6 +15,6 @@ export default function ToggleIconsDemo() {
       <Toggle size="icon-md" variant="ghost" aria-label="Enabled" defaultPressed>
         <CheckIcon />
       </Toggle>
-    </div>
+    </Stack>
   );
 }

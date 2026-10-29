@@ -9,8 +9,8 @@ import {
   SliderTrack,
   SliderValueText,
 } from '@moduix/vue/slider';
+import { Stack } from '@moduix/vue/stack';
 import { ref } from 'vue';
-import styles from '@/components/examples/slider/slider-change-events.module.css';
 
 const liveValue = ref([40]);
 const committedValue = ref([40]);
@@ -25,7 +25,7 @@ const handleValueChangeEnd = (details: SliderValueChangeDetails) => {
 </script>
 
 <template>
-  <div :class="styles.stack">
+  <Stack align="center" gap="4">
     <Slider
       :default-value="[40]"
       @value-change="handleValueChange"
@@ -41,5 +41,5 @@ const handleValueChangeEnd = (details: SliderValueChangeDetails) => {
       </SliderControl>
     </Slider>
     <output>Live: {{ liveValue.join(', ') }} / Committed: {{ committedValue.join(', ') }}</output>
-  </div>
+  </Stack>
 </template>

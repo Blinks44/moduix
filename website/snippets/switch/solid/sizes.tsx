@@ -1,5 +1,5 @@
+import { Stack } from '@moduix/solid/stack';
 import { Switch, SwitchControl, SwitchHiddenInput, SwitchLabel } from '@moduix/solid/switch';
-import styles from '@/components/examples/switch/switch-sizes.module.css';
 
 const switchSizeOptions = [
   { label: 'Extra-small', value: 'xs' },
@@ -11,7 +11,7 @@ const switchSizeOptions = [
 
 export default function SwitchSizesDemo() {
   return (
-    <div class={styles.column}>
+    <Stack align="flex-start" gap="3">
       {switchSizeOptions.map((item) => (
         <Switch size={item.value} defaultChecked>
           <SwitchControl />
@@ -19,6 +19,6 @@ export default function SwitchSizesDemo() {
           <SwitchHiddenInput />
         </Switch>
       ))}
-    </div>
+    </Stack>
   );
 }

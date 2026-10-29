@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { Stack } from '@moduix/vue/stack';
 import {
   TabsContent,
   TabsIndicator,
@@ -7,7 +8,6 @@ import {
   TabsTrigger,
   useTabs,
 } from '@moduix/vue/tabs';
-import styles from '@/components/examples/tabs/tabs-root-provider.module.css';
 
 const items = [
   {
@@ -33,7 +33,7 @@ const tabs = useTabs({ defaultValue: 'overview' });
 </script>
 
 <template>
-  <div :class="styles.root">
+  <Stack align="center" gap="3">
     <TabsRootProvider :value="tabs">
       <TabsList>
         <TabsTrigger v-for="item in items" :key="item.value" :value="item.value">
@@ -46,5 +46,5 @@ const tabs = useTabs({ defaultValue: 'overview' });
       </TabsContent>
     </TabsRootProvider>
     <output>Selected: {{ tabs.value ?? 'none' }}</output>
-  </div>
+  </Stack>
 </template>

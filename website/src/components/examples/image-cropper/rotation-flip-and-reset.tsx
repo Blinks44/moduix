@@ -6,6 +6,7 @@ import {
   ImageCropperImage,
   ImageCropperViewport,
 } from '@moduix/react/image-cropper';
+import { Stack } from '@moduix/react/stack';
 import {
   FlipHorizontal as FlipHorizontalIcon,
   RotateCcw as RestartIcon,
@@ -16,7 +17,6 @@ import {
 } from 'lucide-react';
 import { useState } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';
-import styles from '@/components/examples/image-cropper/image-cropper-rotation-flip-and-reset.module.css';
 
 const sampleImage =
   'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=640&h=400&q=90';
@@ -28,7 +28,7 @@ export default function TransformImageCropperDemo() {
     vertical: false,
   });
   return (
-    <div className={styles.stack}>
+    <Stack align="center" gap="3">
       <ImageCropper
         aria-label="Image cropper"
         rotation={rotation}
@@ -38,7 +38,7 @@ export default function TransformImageCropperDemo() {
       >
         <ImageCropperContext>
           {(context) => (
-            <div className={styles.toolbar}>
+            <Stack direction="row" wrap="wrap" gap="1">
               <Button
                 size="sm"
                 type="button"
@@ -87,7 +87,7 @@ export default function TransformImageCropperDemo() {
               >
                 <RestartIcon />
               </Button>
-            </div>
+            </Stack>
           )}
         </ImageCropperContext>
         <ImageCropperViewport>
@@ -100,6 +100,6 @@ export default function TransformImageCropperDemo() {
           Rotation: {rotation}deg, horizontal flip: {String(flip.horizontal)}
         </output>
       </PreviewMeta>
-    </div>
+    </Stack>
   );
 }

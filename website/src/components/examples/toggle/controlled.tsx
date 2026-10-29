@@ -1,13 +1,13 @@
+import { Stack } from '@moduix/react/stack';
 import { Toggle } from '@moduix/react/toggle';
 import { Bell as BellIcon } from 'lucide-react';
 import { useState } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';
-import styles from '@/components/examples/toggle/toggle-controlled.module.css';
 
 export default function ControlledToggleDemo() {
   const [pressed, setPressed] = useState(false);
   return (
-    <div className={styles.stack}>
+    <Stack align="center" gap="3">
       <Toggle pressed={pressed} onPressedChange={setPressed}>
         <BellIcon />
         {pressed ? 'Notifications on' : 'Notifications off'}
@@ -15,6 +15,6 @@ export default function ControlledToggleDemo() {
       <PreviewMeta>
         <output>Notifications: {pressed ? 'on' : 'off'}</output>
       </PreviewMeta>
-    </div>
+    </Stack>
   );
 }

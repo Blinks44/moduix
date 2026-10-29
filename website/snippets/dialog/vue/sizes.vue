@@ -12,13 +12,13 @@ import {
   DialogTrigger,
   type DialogSize,
 } from '@moduix/vue/dialog';
-import styles from '@/components/examples/dialog/dialog-sizes.module.css';
+import { Stack } from '@moduix/vue/stack';
 
 const sizes: DialogSize[] = ['sm', 'md', 'lg', 'xl', 'full'];
 </script>
 
 <template>
-  <div :class="styles.row">
+  <Stack direction="row" wrap="wrap" gap="2">
     <Dialog v-for="size in sizes" :key="size">
       <DialogTrigger as-child
         ><Button variant="outline">Open {{ size }}</Button></DialogTrigger
@@ -36,5 +36,5 @@ const sizes: DialogSize[] = ['sm', 'md', 'lg', 'xl', 'full'];
         </DialogContent>
       </DialogPositioner>
     </Dialog>
-  </div>
+  </Stack>
 </template>

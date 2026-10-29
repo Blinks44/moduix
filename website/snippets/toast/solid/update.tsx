@@ -1,7 +1,7 @@
 import { Button } from '@moduix/solid/button';
+import { Stack } from '@moduix/solid/stack';
 import { ToastToaster, createToaster } from '@moduix/solid/toast';
 import { createSignal } from 'solid-js';
-import styles from '@/components/examples/toast/toast-update.module.css';
 
 const toaster = createToaster({ placement: 'bottom-end', overlap: true, gap: 24 });
 
@@ -9,7 +9,7 @@ export default function ToastUpdate() {
   const [toastId, setToastId] = createSignal<string>();
 
   return (
-    <div class={styles.root}>
+    <Stack align="center" gap="3">
       <ToastToaster toaster={toaster} />
       <Button
         onClick={() =>
@@ -38,6 +38,6 @@ export default function ToastUpdate() {
       >
         Mark as sent
       </Button>
-    </div>
+    </Stack>
   );
 }

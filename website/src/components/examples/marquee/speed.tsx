@@ -1,4 +1,5 @@
 import { Marquee, MarqueeContent, MarqueeItem, MarqueeViewport } from '@moduix/react/marquee';
+import { Stack } from '@moduix/react/stack';
 import styles from '@/components/examples/marquee/marquee-speed.module.css';
 
 const partners = [
@@ -30,7 +31,7 @@ const partners = [
 
 export default function SpeedMarqueeDemo() {
   return (
-    <div className={styles.stack}>
+    <Stack align="center" gap="3">
       <Marquee aria-label="Slow partner logos" speed={25} className={styles.root}>
         <MarqueeViewport>
           <MarqueeContent>
@@ -55,6 +56,6 @@ export default function SpeedMarqueeDemo() {
           </MarqueeContent>
         </MarqueeViewport>
       </Marquee>
-    </div>
+    </Stack>
   );
 }

@@ -2,6 +2,7 @@
 import type { TourStepDetails } from '@ark-ui/vue/tour';
 import { Button } from '@moduix/vue/button';
 import { Input } from '@moduix/vue/input';
+import { Stack } from '@moduix/vue/stack';
 import {
   Tour,
   TourActionList,
@@ -17,7 +18,6 @@ import {
   useTour,
 } from '@moduix/vue/tour';
 import { ref } from 'vue';
-import styles from '@/components/examples/tour/tour-wait-for-input.module.css';
 
 const steps = [
   {
@@ -54,7 +54,7 @@ const handleInput = (nextValue: string) => {
 </script>
 
 <template>
-  <div :class="styles.root">
+  <Stack align="center" gap="3">
     <Input
       id="tour-wait-name"
       v-model="value"
@@ -82,5 +82,5 @@ const handleInput = (nextValue: string) => {
 
     <output>Tour: {{ status }}</output>
     <Button @click="tour.start()">Start input tour</Button>
-  </div>
+  </Stack>
 </template>

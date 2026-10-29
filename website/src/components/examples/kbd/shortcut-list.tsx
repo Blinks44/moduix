@@ -1,4 +1,5 @@
 import { Kbd, KbdGroup } from '@moduix/react/kbd';
+import { Stack } from '@moduix/react/stack';
 import { Fragment } from 'react';
 import styles from '@/components/examples/kbd/kbd-shortcut-list.module.css';
 
@@ -22,7 +23,7 @@ const shortcuts = [
 
 export default function KbdShortcutListDemo() {
   return (
-    <div className={styles.root}>
+    <Stack gap="3">
       {shortcuts.map((shortcut) => (
         <div key={shortcut.label} className={styles.row}>
           <KbdGroup aria-label={shortcut.label}>
@@ -36,6 +37,6 @@ export default function KbdShortcutListDemo() {
           {shortcut.description}
         </div>
       ))}
-    </div>
+    </Stack>
   );
 }

@@ -6,13 +6,13 @@ import {
   PinInputControl,
   PinInputInput,
 } from '@moduix/solid/pin-input';
-import styles from '@/components/examples/pin-input/pin-input-root-provider.module.css';
+import { Stack } from '@moduix/solid/stack';
 
 export default function RootProviderPinInput() {
   const pinInput = usePinInput({ count: 6 });
 
   return (
-    <div class={styles.root}>
+    <Stack align="center" gap="4">
       <PinInputRootProvider value={pinInput}>
         <PinInputLabel>Verification code</PinInputLabel>
         <PinInputControl>
@@ -30,6 +30,6 @@ export default function RootProviderPinInput() {
           Clear
         </Button>
       </div>
-    </div>
+    </Stack>
   );
 }

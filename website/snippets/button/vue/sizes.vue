@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { Star as StarIcon } from '@lucide/vue';
 import { Button } from '@moduix/vue/button';
-import styles from '@/components/examples/button/button-sizes.module.css';
+import { Stack } from '@moduix/vue/stack';
 
 const sizes = ['xs', 'sm', 'md', 'lg', 'xl'] as const;
 const iconSizes = [
@@ -12,7 +12,7 @@ const iconSizes = [
 </script>
 
 <template>
-  <div :class="styles.root">
+  <Stack direction="row" align="center" wrap="wrap" gap="3">
     <Button v-for="size in sizes" :key="size" :size="size">{{ size }}</Button>
     <Button
       v-for="item in iconSizes"
@@ -23,5 +23,5 @@ const iconSizes = [
     >
       <StarIcon />
     </Button>
-  </div>
+  </Stack>
 </template>

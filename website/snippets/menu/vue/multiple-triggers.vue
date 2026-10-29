@@ -9,7 +9,7 @@ import {
   MenuTrigger,
   MenuViewport,
 } from '@moduix/vue/menu';
-import styles from '@/components/examples/menu/menu-multiple-triggers.module.css';
+import { Stack } from '@moduix/vue/stack';
 
 const messages = [
   { id: '1', sender: 'Alice Johnson', preview: 'Hey, can you review the latest PR?' },
@@ -20,13 +20,13 @@ const messages = [
 
 <template>
   <Menu>
-    <div :class="styles.triggers">
+    <Stack direction="row" gap="0.5rem">
       <MenuTrigger v-for="message in messages" :key="message.id" :value="message.id" as-child>
         <Button variant="outline" size="icon-md" :aria-label="`Open actions for ${message.sender}`">
           <Map />
         </Button>
       </MenuTrigger>
-    </div>
+    </Stack>
     <MenuPositioner>
       <MenuContent>
         <MenuViewport>

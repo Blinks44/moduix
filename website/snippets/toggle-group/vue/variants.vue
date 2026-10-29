@@ -1,6 +1,6 @@
 <script setup lang="ts">
+import { Stack } from '@moduix/vue/stack';
 import { ToggleGroup, ToggleGroupItem } from '@moduix/vue/toggle-group';
-import styles from '@/components/examples/toggle-group/toggle-group-variants.module.css';
 
 const items = [
   { value: 'one', label: 'One' },
@@ -10,7 +10,7 @@ const items = [
 </script>
 
 <template>
-  <div :class="styles.stack">
+  <Stack align="center" gap="3">
     <ToggleGroup :default-value="['one']" aria-label="Default variant">
       <ToggleGroupItem v-for="item in items" :key="item.value" :value="item.value">{{
         item.label
@@ -26,5 +26,5 @@ const items = [
         item.label
       }}</ToggleGroupItem>
     </ToggleGroup>
-  </div>
+  </Stack>
 </template>

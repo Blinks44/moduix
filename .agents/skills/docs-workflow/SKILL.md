@@ -40,6 +40,7 @@ or component-index pages, read [the framework-support contract](references/frame
 - Render every reader-facing package installation, dependency update, executable package, registry CLI, or skill installation command with Rspress `PackageManagerTabs`. Pass a manager-neutral command such as `install <package>` and set `dlx` for temporary executables. Do not hardcode npm, pnpm, Yarn, Bun, or Deno commands in MDX unless manager-specific behavior is the subject of the page.
 - Prefer a small local helper to repeated visible ceremony, but never a page builder, hidden DSL, or abstraction that hides the documented composition.
 - Keep demo-only styling in the docs app or example CSS module, separate from library styling.
+- Write a plain flex or grid demo wrapper as `Stack` with a spacing step (`gap="2"`, which follows the preset) instead of a CSS module class; keep CSS modules for widths, surfaces, and rules that target child parts.
 - A component page `description` is one task-first sentence of 50 to 90 characters ("Trigger an
   action or follow a link…"), not a list of frameworks or packages. The same text feeds the
   components index cards, search, and meta tags. Other pages follow `rspress-description-generator`.

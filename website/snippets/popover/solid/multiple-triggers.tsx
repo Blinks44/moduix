@@ -6,8 +6,8 @@ import {
   PopoverTitle,
   PopoverTrigger,
 } from '@moduix/solid/popover';
+import { Stack } from '@moduix/solid/stack';
 import { For, createSignal } from 'solid-js';
-import styles from '@/components/examples/popover/popover-multiple-triggers.module.css';
 
 const actions = [
   { id: 'share', label: 'Share', detail: 'Share this item by link or email.' },
@@ -24,11 +24,11 @@ export default function MultipleTriggersDemo() {
         setActiveItem(actions.find((item) => item.id === details.value) ?? null);
       }}
     >
-      <div class={styles.root}>
+      <Stack direction="row" justify="center" wrap="wrap" gap="2">
         <For each={actions}>
           {(item) => <PopoverTrigger value={item.id}>{item.label}</PopoverTrigger>}
         </For>
-      </div>
+      </Stack>
       <PopoverPositioner>
         <PopoverContent>
           <PopoverTitle>{activeItem()?.label ?? 'Select an action'}</PopoverTitle>

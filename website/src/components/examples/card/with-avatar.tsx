@@ -7,6 +7,7 @@ import {
   CardHeader,
   CardTitle,
 } from '@moduix/react/card';
+import { Stack } from '@moduix/react/stack';
 import styles from '@/components/examples/card/card-with-avatar.module.css';
 
 const person = {
@@ -20,7 +21,7 @@ export default function CardAvatarDemo() {
   return (
     <Card className={styles.root}>
       <CardHeader>
-        <div className={styles.profile}>
+        <Stack direction="row" align="center" gap="3">
           <span aria-hidden="true" className={styles.avatar}>
             {person.initials}
           </span>
@@ -28,7 +29,7 @@ export default function CardAvatarDemo() {
             <CardTitle>{person.name}</CardTitle>
             <CardDescription>{person.handle}</CardDescription>
           </div>
-        </div>
+        </Stack>
       </CardHeader>
       <CardBody>{person.message}</CardBody>
       <CardFooter>

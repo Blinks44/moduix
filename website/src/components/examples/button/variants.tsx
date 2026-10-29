@@ -1,5 +1,5 @@
 import { Button } from '@moduix/react/button';
-import styles from '@/components/examples/button/button-variants.module.css';
+import { Stack } from '@moduix/react/stack';
 
 const variants = [
   'default',
@@ -13,12 +13,12 @@ const variants = [
 
 export default function ButtonVariantsDemo() {
   return (
-    <div className={styles.root}>
+    <Stack direction="row" align="center" justify="center" wrap="wrap" gap="3">
       {variants.map((variant) => (
         <Button key={variant} variant={variant}>
           {variant}
         </Button>
       ))}
-    </div>
+    </Stack>
   );
 }

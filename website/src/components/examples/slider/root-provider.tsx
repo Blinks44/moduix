@@ -9,15 +9,15 @@ import {
   SliderValueText,
   useSlider,
 } from '@moduix/react/slider';
+import { Stack } from '@moduix/react/stack';
 import { PreviewMeta } from '@/components/mdx/Components';
-import styles from '@/components/examples/slider/slider-root-provider.module.css';
 
 export default function RootProviderSliderDemo() {
   const slider = useSlider({
     defaultValue: [40],
   });
   return (
-    <div className={styles.stack}>
+    <Stack align="center" gap="4">
       <SliderRootProvider value={slider}>
         <SliderLabel>Volume</SliderLabel>
         <SliderValueText />
@@ -34,6 +34,6 @@ export default function RootProviderSliderDemo() {
           Focus
         </Button>
       </PreviewMeta>
-    </div>
+    </Stack>
   );
 }

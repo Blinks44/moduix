@@ -1,6 +1,6 @@
 import { Button } from '@moduix/solid/button';
+import { Stack } from '@moduix/solid/stack';
 import { ToastToaster, createToaster } from '@moduix/solid/toast';
-import styles from '@/components/examples/toast/toast-max-toasts.module.css';
 
 const toaster = createToaster({ placement: 'bottom-end', overlap: true, gap: 16, max: 3 });
 const descriptions = [
@@ -13,7 +13,7 @@ const descriptions = [
 
 export default function ToastMaximumVisible() {
   return (
-    <div class={styles.root}>
+    <Stack align="center" gap="3">
       <ToastToaster toaster={toaster} />
       <Button
         onClick={() =>
@@ -34,6 +34,6 @@ export default function ToastMaximumVisible() {
       >
         Add 5 notifications
       </Button>
-    </div>
+    </Stack>
   );
 }

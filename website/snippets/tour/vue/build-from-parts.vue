@@ -3,6 +3,7 @@ import type { TourStepDetails } from '@ark-ui/vue/tour';
 import { X as XIcon } from '@lucide/vue';
 import { Button } from '@moduix/vue/button';
 import { CloseButton } from '@moduix/vue/close-button';
+import { Stack } from '@moduix/vue/stack';
 import {
   Tour,
   TourActions,
@@ -62,7 +63,7 @@ const tour = useTour({
 </script>
 
 <template>
-  <div :class="styles.root">
+  <Stack align="center" gap="3">
     <Button id="tour-parts-upload" variant="outline">Upload files</Button>
 
     <Tour :tour="tour">
@@ -93,5 +94,5 @@ const tour = useTour({
 
     <output>Tour: {{ status }}</output>
     <Button @click="tour.start()">Start tour</Button>
-  </div>
+  </Stack>
 </template>

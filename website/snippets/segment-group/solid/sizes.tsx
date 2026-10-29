@@ -3,15 +3,15 @@ import {
   SegmentGroupIndicator,
   SegmentGroupItems,
 } from '@moduix/solid/segment-group';
+import { Stack } from '@moduix/solid/stack';
 import { For } from 'solid-js';
-import styles from '@/components/examples/segment-group/segment-group-sizes.module.css';
 
 const sizes = ['sm', 'md', 'lg'] as const;
 const frameworks = ['React', 'Solid', 'Vue'];
 
 export default function SegmentGroupSizesDemo() {
   return (
-    <div class={styles.root}>
+    <Stack align="center" gap="3">
       <For each={sizes}>
         {(size) => (
           <SegmentGroup size={size} aria-label={`Framework, ${size}`} defaultValue="React">
@@ -20,6 +20,6 @@ export default function SegmentGroupSizesDemo() {
           </SegmentGroup>
         )}
       </For>
-    </div>
+    </Stack>
   );
 }

@@ -1,4 +1,5 @@
 import { SignaturePad, SignaturePadCanvas, SignaturePadLabel } from '@moduix/react/signature-pad';
+import { Stack } from '@moduix/react/stack';
 import { useState } from 'react';
 import styles from '@/components/examples/signature-pad/signature-pad-image-preview.module.css';
 
@@ -7,7 +8,7 @@ const imageType = 'image/png';
 export default function ImagePreviewSignaturePadDemo() {
   const [imageUrl, setImageUrl] = useState('');
   return (
-    <div className={styles.root}>
+    <Stack align="center" gap="3">
       <SignaturePad
         onDrawEnd={(details) => {
           void details.getDataUrl(imageType).then(setImageUrl);
@@ -21,6 +22,6 @@ export default function ImagePreviewSignaturePadDemo() {
       ) : (
         <div className={styles.placeholder}>Preview appears after signing</div>
       )}
-    </div>
+    </Stack>
   );
 }

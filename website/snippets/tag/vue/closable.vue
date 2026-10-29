@@ -1,7 +1,7 @@
 <script setup lang="ts">
+import { Stack } from '@moduix/vue/stack';
 import { Tag, TagCloseTrigger, TagEndElement, TagLabel } from '@moduix/vue/tag';
 import { ref } from 'vue';
-import styles from '@/components/examples/tag/tag-closable.module.css';
 
 type TagVariant = 'default' | 'secondary' | 'outline';
 type DemoTag = {
@@ -23,7 +23,7 @@ const removeTag = (label: string) => {
 </script>
 
 <template>
-  <div :class="styles.row">
+  <Stack direction="row" align="center" wrap="wrap" gap="3">
     <Tag v-for="tag in visibleTags" :key="tag.label" :variant="tag.variant">
       <TagLabel>{{ tag.label }}</TagLabel>
       <TagEndElement>
@@ -34,5 +34,5 @@ const removeTag = (label: string) => {
         />
       </TagEndElement>
     </Tag>
-  </div>
+  </Stack>
 </template>

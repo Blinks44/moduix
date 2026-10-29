@@ -1,11 +1,12 @@
 <script setup lang="ts">
 import { Highlight } from '@moduix/vue/highlight';
+import { Stack } from '@moduix/vue/stack';
 import { Text } from '@moduix/vue/text';
 import styles from '@/components/examples/highlight/highlight-match-all.module.css';
 </script>
 
 <template>
-  <div :class="styles.comparison">
+  <Stack gap="4">
     <div>
       <div :class="styles.label">Match all</div>
       <Text>
@@ -26,5 +27,5 @@ import styles from '@/components/examples/highlight/highlight-match-all.module.c
         />
       </Text>
     </div>
-  </div>
+  </Stack>
 </template>

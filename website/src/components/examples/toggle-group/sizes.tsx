@@ -1,5 +1,5 @@
+import { Stack } from '@moduix/react/stack';
 import { ToggleGroup, ToggleGroupItem } from '@moduix/react/toggle-group';
-import styles from '@/components/examples/toggle-group/toggle-group-sizes.module.css';
 
 const sizes = ['xs', 'sm', 'md', 'lg'] as const;
 const alignmentItems = [
@@ -10,7 +10,7 @@ const alignmentItems = [
 
 export default function SizesToggleGroupDemo() {
   return (
-    <div className={styles.stack}>
+    <Stack align="center" gap="3">
       {sizes.map((size) => (
         <ToggleGroup
           key={size}
@@ -25,6 +25,6 @@ export default function SizesToggleGroupDemo() {
           ))}
         </ToggleGroup>
       ))}
-    </div>
+    </Stack>
   );
 }

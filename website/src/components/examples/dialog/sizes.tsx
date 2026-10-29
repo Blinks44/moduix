@@ -11,13 +11,13 @@ import {
   DialogTrigger,
   type DialogSize,
 } from '@moduix/react/dialog';
-import styles from '@/components/examples/dialog/dialog-sizes.module.css';
+import { Stack } from '@moduix/react/stack';
 
 const sizes: DialogSize[] = ['sm', 'md', 'lg', 'xl', 'full'];
 
 export default function DialogSizesDemo() {
   return (
-    <div className={styles.row}>
+    <Stack direction="row" wrap="wrap" gap="2">
       {sizes.map((size) => (
         <Dialog key={size}>
           <DialogTrigger asChild>
@@ -37,6 +37,6 @@ export default function DialogSizesDemo() {
           </DialogPositioner>
         </Dialog>
       ))}
-    </div>
+    </Stack>
   );
 }

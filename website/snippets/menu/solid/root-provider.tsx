@@ -9,14 +9,14 @@ import {
   MenuViewport,
   MenuItem,
 } from '@moduix/solid/menu';
-import styles from '@/components/examples/menu/menu-root-provider.module.css';
+import { Stack } from '@moduix/solid/stack';
 
 export default function RootProviderMenuDemo() {
   const menu = useMenu();
 
   return (
     <div>
-      <div class={styles.triggerRow}>
+      <Stack direction="row" justify="center">
         <MenuRootProvider value={menu}>
           <MenuTrigger asChild={(props) => <Button {...props()} />}>
             Edit
@@ -35,7 +35,7 @@ export default function RootProviderMenuDemo() {
             </MenuContent>
           </MenuPositioner>
         </MenuRootProvider>
-      </div>
+      </Stack>
       <Button size="sm" onClick={() => menu.api().setHighlightedValue('copy')}>
         Highlight Copy
       </Button>

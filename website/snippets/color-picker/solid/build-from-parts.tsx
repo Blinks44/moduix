@@ -22,6 +22,7 @@ import {
   ColorPickerTrigger,
   ColorPickerValueSwatch,
 } from '@moduix/solid/color-picker';
+import { Stack } from '@moduix/solid/stack';
 import { Check as CheckIcon, Pipette as PipetteIcon } from 'lucide-solid';
 import { For } from 'solid-js';
 import styles from '@/components/examples/color-picker/color-picker-build-from-parts.module.css';
@@ -45,7 +46,7 @@ export default function BuildFromPartsColorPickerDemo() {
             <ColorPickerAreaBackground />
             <ColorPickerAreaThumb />
           </ColorPickerArea>
-          <div class={styles.sliderGroup}>
+          <Stack direction="row" align="center" gap="3">
             <ColorPickerEyeDropperTrigger aria-label="Pick color from screen">
               <PipetteIcon strokeWidth={2.5} />
             </ColorPickerEyeDropperTrigger>
@@ -60,7 +61,7 @@ export default function BuildFromPartsColorPickerDemo() {
                 <ColorPickerChannelSliderThumb />
               </ColorPickerChannelSlider>
             </div>
-          </div>
+          </Stack>
           <ColorPickerSwatchGroup>
             <For each={swatches}>
               {(color) => (

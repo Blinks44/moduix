@@ -1,13 +1,13 @@
+import { Stack } from '@moduix/react/stack';
 import { Toggle } from '@moduix/react/toggle';
-import styles from '@/components/examples/toggle/toggle-sizes.module.css';
 
 export default function ToggleSizesDemo() {
   return (
-    <div className={styles.row}>
+    <Stack direction="row" align="center" justify="center" wrap="wrap" gap="3">
       <Toggle size="xs">Extra-small</Toggle>
       <Toggle size="sm">Small</Toggle>
       <Toggle size="md">Medium</Toggle>
       <Toggle size="lg">Large</Toggle>
-    </div>
+    </Stack>
   );
 }

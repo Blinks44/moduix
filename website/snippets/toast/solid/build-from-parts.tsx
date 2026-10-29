@@ -1,4 +1,5 @@
 import { Button } from '@moduix/solid/button';
+import { Stack } from '@moduix/solid/stack';
 import {
   Toast,
   ToastCloseTrigger,
@@ -8,13 +9,12 @@ import {
   createToaster,
 } from '@moduix/solid/toast';
 import { X as XIcon } from 'lucide-solid';
-import styles from '@/components/examples/toast/toast-basic.module.css';
 
 const toaster = createToaster({ placement: 'bottom-end', overlap: true, gap: 24 });
 
 export default function BuildFromPartsToastDemo() {
   return (
-    <div class={styles.root}>
+    <Stack align="center" gap="3">
       <ToastToaster toaster={toaster}>
         {() => (
           <Toast>
@@ -37,6 +37,6 @@ export default function BuildFromPartsToastDemo() {
       >
         Schedule meeting
       </Button>
-    </div>
+    </Stack>
   );
 }

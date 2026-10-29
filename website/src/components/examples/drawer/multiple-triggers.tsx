@@ -13,6 +13,7 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from '@moduix/react/drawer';
+import { Stack } from '@moduix/react/stack';
 import { useState } from 'react';
 import styles from '@/components/examples/drawer/drawer-multiple-triggers.module.css';
 
@@ -40,13 +41,13 @@ export default function MultipleTriggersDrawerDemo() {
   };
   return (
     <Drawer swipeDirection="end" onTriggerValueChange={handleTriggerValueChange}>
-      <div className={styles.triggers}>
+      <Stack align="center" gap="2">
         {users.map((user) => (
           <DrawerTrigger key={user.id} value={user.id} asChild>
             <Button variant="outline">Edit {user.name}</Button>
           </DrawerTrigger>
         ))}
-      </div>
+      </Stack>
       <DrawerBackdrop />
       <DrawerPositioner>
         <DrawerContent>

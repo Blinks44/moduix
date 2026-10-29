@@ -17,8 +17,8 @@ import {
   DatePickerMonthTable,
   DatePickerYearTable,
 } from '@moduix/react/date-picker';
+import { Stack } from '@moduix/react/stack';
 import { useState } from 'react';
-import styles from '@/components/examples/date-picker/date-picker-with-time.module.css';
 
 const timeFormatter = new DateFormatter('en-US', {
   hour: '2-digit',
@@ -44,7 +44,7 @@ export default function DatePickerWithTimeDemo() {
     ]);
   };
   return (
-    <div className={styles.root}>
+    <Stack direction="row" align="flex-end" wrap="wrap" gap="3">
       <DatePicker value={value} onValueChange={handleDateChange}>
         <DatePickerLabel>Appointment</DatePickerLabel>
         <DatePickerField />
@@ -90,6 +90,6 @@ export default function DatePickerWithTimeDemo() {
           <DateInputSegments />
         </DateInputControl>
       </DateInput>
-    </div>
+    </Stack>
   );
 }

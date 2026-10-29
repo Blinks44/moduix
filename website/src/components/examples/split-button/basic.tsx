@@ -6,9 +6,9 @@ import {
   SplitButtonPositioner,
   SplitButtonTrigger,
 } from '@moduix/react/split-button';
+import { Stack } from '@moduix/react/stack';
 import { useState } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';
-import styles from '@/components/examples/split-button/split-button-basic.module.css';
 
 const items = [
   {
@@ -29,7 +29,7 @@ export default function SplitButtonDemo() {
   const [status, setStatus] = useState('Ready to save.');
 
   return (
-    <div className={styles.stack}>
+    <Stack align="center" gap="4">
       <SplitButton aria-label="Save actions">
         <SplitButtonAction onClick={() => setStatus('Changes saved.')}>
           Save Changes
@@ -50,6 +50,6 @@ export default function SplitButtonDemo() {
       <PreviewMeta>
         <output aria-live="polite">{status}</output>
       </PreviewMeta>
-    </div>
+    </Stack>
   );
 }

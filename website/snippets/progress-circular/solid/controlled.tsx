@@ -14,6 +14,7 @@ import {
   SliderTrack,
   SliderValueText,
 } from '@moduix/solid/slider';
+import { Stack } from '@moduix/solid/stack';
 import { createSignal } from 'solid-js';
 import styles from '@/components/examples/progress-circular/component-controlled.module.css';
 
@@ -21,7 +22,7 @@ export default function ControlledProgressCircularDemo() {
   const [value, setValue] = createSignal<number | null>(42);
 
   return (
-    <div class={styles.stack}>
+    <Stack align="center" gap="4">
       <ProgressCircular value={value()} onValueChange={(details) => setValue(details.value)}>
         <ProgressCircularLabel>Upload status</ProgressCircularLabel>
         <div class={styles.circleContainer}>
@@ -50,6 +51,6 @@ export default function ControlledProgressCircularDemo() {
           </SliderControl>
         </Slider>
       </div>
-    </div>
+    </Stack>
   );
 }

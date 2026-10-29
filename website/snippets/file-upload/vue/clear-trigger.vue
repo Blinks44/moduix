@@ -12,18 +12,19 @@ import {
   FileUploadLabel,
   FileUploadTrigger,
 } from '@moduix/vue/file-upload';
+import { Stack } from '@moduix/vue/stack';
 import styles from '@/components/examples/file-upload/file-upload-clear-trigger.module.css';
 const maxFiles = 3;
 </script>
 <template>
   <FileUpload :class="styles.root" :max-files="maxFiles"
     ><FileUploadLabel>Attachments</FileUploadLabel>
-    <div :class="styles.actions">
+    <Stack direction="row" wrap="wrap" gap="2">
       <FileUploadTrigger as-child><Button>Choose files</Button></FileUploadTrigger
       ><FileUploadClearTrigger as-child
         ><Button variant="outline">Clear files</Button></FileUploadClearTrigger
       >
-    </div>
+    </Stack>
     <FileUploadItemGroup
       ><FileUploadContext v-slot="{ acceptedFiles }"
         ><FileUploadItem v-for="file in acceptedFiles" :key="file.name + file.size" :file="file"

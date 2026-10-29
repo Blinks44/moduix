@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Button } from '@moduix/vue/button';
-import styles from '@/components/examples/button/button-disabled.module.css';
+import { Stack } from '@moduix/vue/stack';
 
 const labels = {
   button: 'Disabled',
@@ -9,10 +9,10 @@ const labels = {
 </script>
 
 <template>
-  <div :class="styles.root">
+  <Stack direction="row" align="center" wrap="wrap" gap="3">
     <Button disabled>{{ labels.button }}</Button>
     <Button as-child disabled variant="outline">
       <a href="#button">{{ labels.link }}</a>
     </Button>
-  </div>
+  </Stack>
 </template>

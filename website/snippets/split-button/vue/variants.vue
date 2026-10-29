@@ -7,7 +7,7 @@ import {
   SplitButtonPositioner,
   SplitButtonContent,
 } from '@moduix/vue/split-button';
-import styles from '@/components/examples/split-button/split-button-variants.module.css';
+import { Stack } from '@moduix/vue/stack';
 const variants = [
   'default',
   'outline',
@@ -19,7 +19,7 @@ const variants = [
 </script>
 
 <template>
-  <div :class="styles.row">
+  <Stack direction="row" align="center" justify="center" wrap="wrap" gap="3">
     <SplitButton
       v-for="variant in variants"
       :key="variant"
@@ -35,5 +35,5 @@ const variants = [
         </SplitButtonContent></SplitButtonPositioner
       >
     </SplitButton>
-  </div>
+  </Stack>
 </template>

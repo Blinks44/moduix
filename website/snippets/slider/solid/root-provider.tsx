@@ -8,7 +8,7 @@ import {
   SliderValueText,
   useSlider,
 } from '@moduix/solid/slider';
-import styles from '@/components/examples/slider/slider-root-provider.module.css';
+import { Stack } from '@moduix/solid/stack';
 
 export default function RootProviderSliderDemo() {
   const slider = useSlider({
@@ -16,7 +16,7 @@ export default function RootProviderSliderDemo() {
   });
 
   return (
-    <div class={styles.stack}>
+    <Stack align="center" gap="4">
       <SliderRootProvider value={slider}>
         <SliderLabel>Volume</SliderLabel>
         <SliderValueText />
@@ -31,6 +31,6 @@ export default function RootProviderSliderDemo() {
       <button type="button" onClick={() => slider().focus()}>
         Focus
       </button>
-    </div>
+    </Stack>
   );
 }

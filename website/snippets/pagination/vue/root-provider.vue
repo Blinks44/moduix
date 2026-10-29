@@ -6,7 +6,7 @@ import {
   PaginationRootProvider,
   usePagination,
 } from '@moduix/vue/pagination';
-import styles from '@/components/examples/pagination/pagination-root-provider.module.css';
+import { Stack } from '@moduix/vue/stack';
 
 const pagination = usePagination({
   count: 200,
@@ -16,12 +16,12 @@ const pagination = usePagination({
 </script>
 
 <template>
-  <div :class="styles.stack">
+  <Stack align="flex-start" gap="3">
     <button type="button" @click="pagination.goToNextPage()">Next page</button>
     <PaginationRootProvider :value="pagination">
       <PaginationPrevTrigger />
       <PaginationItems />
       <PaginationNextTrigger />
     </PaginationRootProvider>
-  </div>
+  </Stack>
 </template>

@@ -1,14 +1,14 @@
 <script setup lang="ts">
+import { Stack } from '@moduix/vue/stack';
 import { Tag, TagLabel } from '@moduix/vue/tag';
-import styles from '@/components/examples/tag/tag-variants.module.css';
 
 const variants = ['default', 'secondary', 'outline', 'ghost', 'destructive'] as const;
 </script>
 
 <template>
-  <div :class="styles.row">
+  <Stack direction="row" align="center" wrap="wrap" gap="3">
     <Tag v-for="variant in variants" :key="variant" :variant="variant">
       <TagLabel>{{ variant }}</TagLabel>
     </Tag>
-  </div>
+  </Stack>
 </template>

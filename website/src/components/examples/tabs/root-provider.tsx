@@ -1,3 +1,4 @@
+import { Stack } from '@moduix/react/stack';
 import {
   TabsContent,
   TabsIndicator,
@@ -7,7 +8,6 @@ import {
   useTabs,
 } from '@moduix/react/tabs';
 import { PreviewMeta } from '@/components/mdx/Components';
-import styles from '@/components/examples/tabs/tabs-root-provider.module.css';
 
 const items = [
   {
@@ -34,7 +34,7 @@ export default function RootProviderTabsDemo() {
     defaultValue: 'overview',
   });
   return (
-    <div className={styles.root}>
+    <Stack align="center" gap="3">
       <TabsRootProvider value={tabs}>
         <TabsList>
           {items.map((item) => (
@@ -54,6 +54,6 @@ export default function RootProviderTabsDemo() {
       <PreviewMeta>
         <output>Selected: {tabs.value ?? 'none'}</output>
       </PreviewMeta>
-    </div>
+    </Stack>
   );
 }

@@ -42,6 +42,7 @@ import {
   SidebarNavigationSubItem,
   SidebarNavigationSubButton,
 } from '@moduix/react/sidebar';
+import { Stack } from '@moduix/react/stack';
 import {
   ChevronsUpDown,
   FileText,
@@ -60,7 +61,7 @@ export default function AppSidebar() {
     <Sidebar className={styles.root}>
       <SidebarPanel>
         <SidebarHeader>
-          <div className={styles.headerContent}>
+          <Stack gap="0.75rem">
             <div className={styles.brand}>
               <strong data-sidebar-icon className={styles.brandMark}>
                 M
@@ -68,7 +69,7 @@ export default function AppSidebar() {
               <SidebarLabel>moduix</SidebarLabel>
             </div>
             <SidebarInput aria-label="Search workspace" placeholder="Search" size="sm" />
-          </div>
+          </Stack>
         </SidebarHeader>
         <SidebarContent>
           <SidebarGroup>

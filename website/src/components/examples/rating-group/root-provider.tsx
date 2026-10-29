@@ -8,6 +8,7 @@ import {
   RatingGroupRootProvider,
   useRatingGroup,
 } from '@moduix/react/rating-group';
+import { Stack } from '@moduix/react/stack';
 import { PreviewMeta } from '@/components/mdx/Components';
 import styles from '@/components/examples/rating-group/component-root-provider.module.css';
 
@@ -18,7 +19,7 @@ export default function RootProviderRatingGroupDemo() {
   });
 
   return (
-    <div className={styles.stack}>
+    <Stack align="center" gap="3">
       <RatingGroupRootProvider value={ratingGroup}>
         <RatingGroupLabel>Product quality</RatingGroupLabel>
         <RatingGroupControl>
@@ -39,6 +40,6 @@ export default function RootProviderRatingGroupDemo() {
           Set to 5
         </Button>
       </PreviewMeta>
-    </div>
+    </Stack>
   );
 }

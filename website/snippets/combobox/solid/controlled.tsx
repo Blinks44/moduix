@@ -13,8 +13,8 @@ import {
   ComboboxPositioner,
   ComboboxTrigger,
 } from '@moduix/solid/combobox';
+import { Stack } from '@moduix/solid/stack';
 import { createSignal, For } from 'solid-js';
-import styles from '@/components/examples/combobox/component-controlled.module.css';
 
 const fruits = [
   { label: 'Apple', value: 'apple' },
@@ -32,7 +32,7 @@ export default function ControlledComboboxDemo() {
   const [value, setValue] = createSignal(['mango']);
 
   return (
-    <div class={styles.stack}>
+    <Stack align="center" gap="3">
       <Combobox
         collection={collection()}
         value={value()}
@@ -57,6 +57,6 @@ export default function ControlledComboboxDemo() {
         </ComboboxPositioner>
       </Combobox>
       <output>Selected: {value()[0] ?? 'none'}</output>
-    </div>
+    </Stack>
   );
 }

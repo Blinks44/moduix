@@ -1,10 +1,10 @@
 <script setup lang="ts">
+import { Stack } from '@moduix/vue/stack';
 import { Switch, SwitchControl, SwitchHiddenInput, SwitchLabel } from '@moduix/vue/switch';
-import styles from '@/components/examples/switch/switch-disabled.module.css';
 </script>
 
 <template>
-  <div :class="styles.stack">
+  <Stack align="center" gap="3">
     <Switch disabled>
       <SwitchControl />
       <SwitchLabel>Enable dark mode</SwitchLabel>
@@ -15,5 +15,5 @@ import styles from '@/components/examples/switch/switch-disabled.module.css';
       <SwitchLabel>Keep me signed in</SwitchLabel>
       <SwitchHiddenInput />
     </Switch>
-  </div>
+  </Stack>
 </template>
