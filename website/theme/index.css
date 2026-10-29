@@ -1302,11 +1302,35 @@ body .rp-doc :not(:where(.rp-not-doc, .rp-not-doc *)):where(table) {
     font-weight: 500;
   }
 
-  code {
+  /* :is(td, th) outweighs the inline code fill from `body .rp-doc :not(pre) > code`. */
+  :is(td, th) code {
     border: 0;
     padding: 0;
     background: none;
     font-size: 12px;
+  }
+}
+
+/* Long tables (API reference reaches 40+ props) scroll inside a 600px frame under a sticky header.
+   The frame takes over the border so it stays put while rows scroll. */
+body .rp-doc .rp-table-scroll-container:has(> table > tbody > tr:nth-child(15)) {
+  max-height: 600px;
+  overflow-y: auto;
+  overscroll-behavior-y: auto;
+  border: var(--rp-code-block-border);
+  border-radius: var(--rp-radius);
+
+  > table {
+    overflow: visible;
+    border: 0;
+    border-radius: 0;
+  }
+
+  th {
+    position: sticky;
+    z-index: 1;
+    top: 0;
+    background: var(--rp-code-title-bg);
   }
 }
 
