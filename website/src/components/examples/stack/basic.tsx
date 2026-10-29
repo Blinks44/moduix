@@ -4,7 +4,7 @@ import { Text } from '@moduix/react/text';
 
 export default function StackDemo() {
   return (
-    <Stack gap={12}>
+    <Stack gap="3">
       <Heading as="h3" size="md">
         Project updates
       </Heading>

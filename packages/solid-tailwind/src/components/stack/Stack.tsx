@@ -6,10 +6,26 @@ import { splitProps } from 'solid-js';
 import { cn } from '@/lib/moduix/cn';
 
 type StackDirection = 'row' | 'row-reverse' | 'column' | 'column-reverse';
+type StackSpacing =
+  | '0'
+  | '0.5'
+  | '1'
+  | '1.5'
+  | '2'
+  | '2.5'
+  | '3'
+  | '3.5'
+  | '4'
+  | '4.5'
+  | '5'
+  | '6'
+  | '7'
+  | '8'
+  | '10';
 
 type StackRootProps = HTMLArkProps<'div'> & {
   direction?: StackDirection | { mobile?: StackDirection; desktop?: StackDirection };
-  gap?: number | string;
+  gap?: number | StackSpacing | (string & {});
   align?: JSX.CSSProperties['align-items'];
   justify?: JSX.CSSProperties['justify-content'];
   wrap?: JSX.CSSProperties['flex-wrap'];
@@ -39,8 +55,13 @@ const stackVariants = cva('flex', {
   },
 });
 
-function toCssLength(value: number | string | undefined) {
-  return typeof value === 'number' ? `${value}px` : value;
+// A spacing step such as `'2'` or `'1.5'` reads `--moduix-spacing-*`, so presets rescale the gap;
+// numbers are pixels and other strings are CSS lengths.
+function toGap(value: number | string | undefined) {
+  if (typeof value === 'number') return `${value}px`;
+  return value && /^\d+(\.5)?$/.test(value)
+    ? `var(--moduix-spacing-${value.replace('.', '-')})`
+    : value;
 }
 
 function Stack(props: StackRootProps) {
@@ -60,7 +81,7 @@ function Stack(props: StackRootProps) {
 
   const style = (): JSX.CSSProperties | string => {
     const layoutStyle: JSX.CSSProperties = {
-      gap: toCssLength(local.gap),
+      gap: toGap(local.gap),
       'align-items': local.align,
       'justify-content': local.justify,
       'flex-wrap': local.wrap,
@@ -98,4 +119,4 @@ function Stack(props: StackRootProps) {
 }
 
 export { Stack };
-export type { StackDirection, StackRootProps };
+export type { StackDirection, StackRootProps, StackSpacing };

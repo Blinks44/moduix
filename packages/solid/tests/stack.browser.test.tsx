@@ -58,6 +58,20 @@ test('writes flex props and reverse directions as root styles', () => {
   });
 });
 
+test('reads spacing steps from the spacing tokens', () => {
+  render(() => (
+    <>
+      <Stack gap="2" data-testid="step" />
+      <Stack gap="1.5" data-testid="half-step" />
+      <Stack gap="2rem" data-testid="length" />
+    </>
+  ));
+
+  expect(screen.getByTestId('step').style.gap).toBe('var(--moduix-spacing-2)');
+  expect(screen.getByTestId('half-step').style.gap).toBe('var(--moduix-spacing-1-5)');
+  expect(screen.getByTestId('length').style.gap).toBe('2rem');
+});
+
 test('resolves responsive directions mobile-first', () => {
   render(() => (
     <>

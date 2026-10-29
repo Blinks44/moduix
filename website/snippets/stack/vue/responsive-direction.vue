@@ -5,7 +5,7 @@ import { Stack } from '@moduix/vue/stack';
 <template>
   <Stack
     :direction="{ mobile: 'column', desktop: 'row' }"
-    :gap="12"
+    gap="3"
     justify="center"
     style="inline-size: 100%"
   >

@@ -3,7 +3,7 @@ import { Stack } from '@moduix/vue/stack';
 </script>
 
 <template>
-  <Stack direction="row" :gap="8" wrap="wrap">
+  <Stack direction="row" gap="2" wrap="wrap">
     <span style="border-radius: 9999px; background: var(--moduix-muted); padding: 8px 12px"
       >Design</span
     >

@@ -116,7 +116,7 @@ Also accepts the native props of its element and `asChild`.
 | Prop | Type | Default | Description |
 | --- | --- | --- | --- |
 | `direction` | `StackDirection \| { mobile?: StackDirection; desktop?: StackDirection }` | `'column'` | `column` or `row`, or separate values for mobile and desktop. |
-| `gap` | `number \| string` | — | Gap between children; numbers are pixels. |
+| `gap` | `number \| StackSpacing \| string` | — | Gap between children: a spacing step such as `'2'` or `'1.5'` follows the preset, numbers are pixels, other strings are CSS lengths. |
 | `align` | `CSSProperties['alignItems']` | — | CSS `align-items`. |
 | `justify` | `CSSProperties['justifyContent']` | — | CSS `justify-content`. |
 | `wrap` | `CSSProperties['flexWrap']` | — | CSS `flex-wrap`. |

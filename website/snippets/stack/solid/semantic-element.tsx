@@ -4,7 +4,7 @@ import { Text } from '@moduix/solid/text';
 
 export default function StackSemanticDemo() {
   return (
-    <Stack asChild={(props) => <section {...props()} />} gap={12}>
+    <Stack asChild={(props) => <section {...props()} />} gap="3">
       <Heading as="h3" size="md">
         Rendered as section
       </Heading>

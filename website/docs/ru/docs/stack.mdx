@@ -120,7 +120,7 @@ import AnatomyScene from '@/components/examples/stack/basic';
 | Проп | Тип | По умолчанию | Описание |
 | --- | --- | --- | --- |
 | `direction` | `StackDirection \| { mobile?: StackDirection; desktop?: StackDirection }` | `'column'` | `column` или `row`, либо отдельные значения для мобильных и десктопа. |
-| `gap` | `number \| string` | — | Расстояние между элементами; числа в пикселях. |
+| `gap` | `number \| StackSpacing \| string` | — | Расстояние между элементами: шаг шкалы вроде `'2'` или `'1.5'` следует пресету, числа в пикселях, другие строки как CSS-длина. |
 | `align` | `CSSProperties['alignItems']` | — | CSS `align-items`. |
 | `justify` | `CSSProperties['justifyContent']` | — | CSS `justify-content`. |
 | `wrap` | `CSSProperties['flexWrap']` | — | CSS `flex-wrap`. |

@@ -26,7 +26,8 @@ and `wrap` props without `HStack`, `VStack`, the `separator` prop, or a default 
   redeclares, so nested stacks never inherit a parent's direction.
 - `fill` adds a class with `flex: 1 1 0%` (`flex-1` in Tailwind) so the stack grows as a flex item.
 - `gap`, `align`, `justify`, and `wrap` write inline styles only when passed. Numbers in `gap` are
-  pixels. `style` is merged last and is the final per-instance override.
+  pixels, spacing steps such as `'2'` or `'1.5'` read `--moduix-spacing-2` or
+  `--moduix-spacing-1-5` so presets rescale them, and other strings are CSS lengths. `style` is merged last and is the final per-instance override.
 - There are no public CSS variables, state attributes, or item wrappers.
 
 ## Anatomy

@@ -46,6 +46,9 @@ test.each([false, true])(
     await nextTick();
     expect(stack.style.gap).toBe('0px');
     expect(getComputedStyle(stack).flexGrow).toBe('1');
+    gap.value = '1.5';
+    await nextTick();
+    expect(stack.style.gap).toBe('var(--moduix-spacing-1-5)');
     gap.value = '1rem';
     fill.value = false;
     style.value = ['color:red', { gap: '2rem' }];
