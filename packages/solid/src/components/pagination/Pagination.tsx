@@ -78,7 +78,11 @@ function PaginationPrevTrigger(props: ComponentProps<typeof PaginationPrimitive.
   return (
     <PaginationPrimitive.PrevTrigger
       asChild={local.asChild}
-      class={clsx(styles.trigger, resolvedChildren() == null && styles.iconTrigger, local.class)}
+      class={clsx(
+        styles.trigger,
+        resolvedChildren() == null && !local.asChild && styles.iconTrigger,
+        local.class,
+      )}
       {...others}
       data-slot="pagination-prev-trigger"
     >
@@ -94,7 +98,11 @@ function PaginationNextTrigger(props: ComponentProps<typeof PaginationPrimitive.
   return (
     <PaginationPrimitive.NextTrigger
       asChild={local.asChild}
-      class={clsx(styles.trigger, resolvedChildren() == null && styles.iconTrigger, local.class)}
+      class={clsx(
+        styles.trigger,
+        resolvedChildren() == null && !local.asChild && styles.iconTrigger,
+        local.class,
+      )}
       {...others}
       data-slot="pagination-next-trigger"
     >
@@ -110,7 +118,11 @@ function PaginationFirstTrigger(props: ComponentProps<typeof PaginationPrimitive
   return (
     <PaginationPrimitive.FirstTrigger
       asChild={local.asChild}
-      class={clsx(styles.trigger, resolvedChildren() == null && styles.iconTrigger, local.class)}
+      class={clsx(
+        styles.trigger,
+        resolvedChildren() == null && !local.asChild && styles.iconTrigger,
+        local.class,
+      )}
       {...others}
       data-slot="pagination-first-trigger"
     >
@@ -126,7 +138,11 @@ function PaginationLastTrigger(props: ComponentProps<typeof PaginationPrimitive.
   return (
     <PaginationPrimitive.LastTrigger
       asChild={local.asChild}
-      class={clsx(styles.trigger, resolvedChildren() == null && styles.iconTrigger, local.class)}
+      class={clsx(
+        styles.trigger,
+        resolvedChildren() == null && !local.asChild && styles.iconTrigger,
+        local.class,
+      )}
       {...others}
       data-slot="pagination-last-trigger"
     >

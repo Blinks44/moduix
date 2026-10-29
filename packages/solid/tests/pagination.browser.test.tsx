@@ -144,7 +144,7 @@ test('keeps controlled page changes and Ark callback details intact', async () =
     .toHaveAttribute('data-selected');
 });
 
-test('renders Ark link mode with generated page URLs', async () => {
+test('renders Ark link mode with generated page URLs and text triggers', async () => {
   render(() => (
     <Pagination
       count={30}
@@ -192,6 +192,10 @@ test('renders Ark link mode with generated page URLs', async () => {
   await expect
     .element(page.getByRole('link', { name: /page 2/i, exact: true }))
     .toHaveAttribute('href', '?page=2');
+
+  // Only the default icon trigger is square; asChild content keeps its text padding.
+  const previous = document.querySelector('[data-slot="pagination-prev-trigger"]')!;
+  expect(getComputedStyle(previous).paddingInlineStart).not.toBe('0px');
 });
 
 test('exposes usePagination state through RootProvider and context', async () => {
