@@ -5,7 +5,7 @@
     min-width: 0;
     grid-template-columns: minmax(0, 1fr) minmax(12rem, 16rem);
     gap: var(--moduix-spacing-6);
-    color: var(--moduix-color-foreground);
+    color: var(--moduix-foreground);
     /* Read Ark measurements here: parents of the list, such as Collapsible, redefine --top and --height. */
     --_toc-indicator-top: var(--top);
     --_toc-indicator-height: var(--height);
@@ -33,10 +33,10 @@
     max-height: calc(100dvh - 2rem);
     overflow: auto;
     padding: var(--moduix-spacing-4);
-    border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
+    border: var(--moduix-border-width-sm) solid var(--moduix-border);
     border-radius: var(--moduix-radius-lg);
-    background-color: var(--moduix-color-card);
-    color: var(--moduix-color-card-foreground);
+    background-color: var(--moduix-card);
+    color: var(--moduix-card-foreground);
 
     /* The content takes the next free cell, so only the nav needs explicit placement. */
     &[data-placement='left'] {
@@ -51,7 +51,7 @@
 
   .title {
     margin: 0 0 var(--moduix-spacing-2);
-    color: var(--moduix-color-foreground);
+    color: var(--moduix-foreground);
     font-size: var(--moduix-text-sm);
     font-weight: var(--moduix-weight-semibold);
     line-height: var(--moduix-line-height-text-sm);
@@ -72,7 +72,7 @@
       inset-inline-start: 0;
       width: var(--moduix-border-width-md);
       border-radius: var(--moduix-radius-full);
-      background-color: var(--moduix-color-border);
+      background-color: var(--moduix-border);
       content: '';
       pointer-events: none;
     }
@@ -94,7 +94,7 @@
     /* Clip only horizontally so TocRail can reach the neighbouring items. */
     overflow-x: clip;
     border-radius: var(--moduix-radius-sm);
-    color: var(--moduix-color-muted-foreground);
+    color: var(--moduix-muted-foreground);
     font-size: var(--moduix-text-sm);
     line-height: var(--moduix-line-height-text-sm);
     text-decoration: none;
@@ -105,20 +105,20 @@
 
     @media (hover: hover) {
       &:hover {
-        color: var(--moduix-color-foreground);
+        color: var(--moduix-foreground);
       }
     }
 
     &:focus-visible {
-      box-shadow: 0 0 0 var(--moduix-focus-ring-inset-width) var(--moduix-color-ring);
+      box-shadow: 0 0 0 var(--moduix-focus-ring-inset-width) var(--moduix-ring);
     }
 
     &[data-active] {
-      color: var(--moduix-color-foreground);
+      color: var(--moduix-foreground);
       font-weight: var(--moduix-weight-medium);
 
       .rail {
-        color: var(--moduix-color-muted-foreground);
+        color: var(--moduix-muted-foreground);
         opacity: 0.7;
         translate: 0 var(--moduix-spacing-0-5);
       }
@@ -132,7 +132,7 @@
     width: var(--moduix-border-width-md);
     height: calc(var(--_toc-indicator-height) - var(--moduix-spacing-1));
     border-radius: var(--moduix-radius-full);
-    background-color: var(--moduix-color-muted-foreground);
+    background-color: var(--moduix-muted-foreground);
     opacity: 0.7;
     pointer-events: none;
     transition:
@@ -145,7 +145,7 @@
     top: calc(-1 * var(--moduix-spacing-1-5));
     inset-inline-start: 0;
     overflow: visible;
-    color: var(--moduix-color-border);
+    color: var(--moduix-border);
     pointer-events: none;
 
     & :is(line, path) {

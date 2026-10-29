@@ -7,7 +7,7 @@
   }
 
   .backdrop {
-    background-color: var(--moduix-backdrop-bg, var(--moduix-color-overlay));
+    background-color: var(--moduix-backdrop-bg, var(--moduix-overlay));
     backdrop-filter: var(--moduix-backdrop-filter, blur(4px));
 
     &[data-state='open'] {
@@ -20,7 +20,7 @@
   }
 
   .spotlight {
-    box-shadow: 0 0 0 2px var(--moduix-color-ring);
+    box-shadow: 0 0 0 2px var(--moduix-ring);
   }
 
   .positioner {
@@ -108,10 +108,10 @@
     max-width: min(calc(100vw - var(--moduix-spacing-8)), var(--available-width, 100vw));
     max-height: min(24rem, var(--available-height, 100dvh));
     padding: var(--moduix-spacing-5);
-    border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
+    border: var(--moduix-border-width-sm) solid var(--moduix-border);
     border-radius: var(--moduix-radius-lg);
-    background-color: var(--moduix-color-popover);
-    color: var(--moduix-color-popover-foreground);
+    background-color: var(--moduix-popover);
+    color: var(--moduix-popover-foreground);
     box-shadow: var(--moduix-shadow-lg);
     outline: 0;
     transform-origin: var(--transform-origin);
@@ -141,12 +141,12 @@
 
   .arrow {
     --arrow-size: var(--moduix-spacing-2-5);
-    --arrow-background: var(--moduix-color-popover);
+    --arrow-background: var(--moduix-popover);
   }
 
   .arrowTip {
-    border-top: var(--moduix-border-width-sm) solid var(--moduix-color-border);
-    border-left: var(--moduix-border-width-sm) solid var(--moduix-color-border);
+    border-top: var(--moduix-border-width-sm) solid var(--moduix-border);
+    border-left: var(--moduix-border-width-sm) solid var(--moduix-border);
   }
 
   .title {
@@ -160,14 +160,14 @@
 
   .description {
     margin: 0;
-    color: var(--moduix-color-muted-foreground);
+    color: var(--moduix-muted-foreground);
     font-size: var(--moduix-text-sm);
     line-height: var(--moduix-line-height-text-sm);
   }
 
   .progressText {
     margin-block-start: var(--moduix-spacing-2);
-    color: var(--moduix-color-muted-foreground);
+    color: var(--moduix-muted-foreground);
     font-size: var(--moduix-text-xs);
     line-height: var(--moduix-line-height-text-xs);
   }
@@ -183,8 +183,8 @@
 
   .closeIcon {
     --moduix-close-button-radius: var(--moduix-radius-md);
-    --moduix-close-button-bg-hover: var(--moduix-color-accent);
-    --moduix-close-button-color-hover: var(--moduix-color-popover-foreground);
+    --moduix-close-button-bg-hover: var(--moduix-accent);
+    --moduix-close-button-color-hover: var(--moduix-popover-foreground);
     position: absolute;
     inset-block-start: var(--moduix-spacing-4);
     inset-inline-end: var(--moduix-spacing-4);
@@ -199,17 +199,17 @@
   }
 
   .actionTrigger {
-    --_tour-action-bg-hover: var(--moduix-color-accent);
+    --_tour-action-bg-hover: var(--moduix-accent);
     display: inline-flex;
     min-height: var(--moduix-size-sm);
     align-items: center;
     justify-content: center;
     gap: var(--moduix-spacing-2);
     padding: var(--moduix-spacing-1-5) var(--moduix-spacing-3);
-    border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
+    border: var(--moduix-border-width-sm) solid var(--moduix-border);
     border-radius: var(--moduix-radius-md);
-    background-color: var(--moduix-color-background);
-    color: var(--moduix-color-foreground);
+    background-color: var(--moduix-background);
+    color: var(--moduix-foreground);
     font: inherit;
     font-size: var(--moduix-text-sm);
     font-weight: var(--moduix-weight-medium);
@@ -221,10 +221,10 @@
       color var(--moduix-transition-default);
 
     &:is([data-type='next'], [data-type='close']) {
-      --_tour-action-bg-hover: color-mix(in oklab, var(--moduix-color-primary), black 12%);
+      --_tour-action-bg-hover: color-mix(in oklab, var(--moduix-primary), black 12%);
       border-color: transparent;
-      background-color: var(--moduix-color-primary);
-      color: var(--moduix-color-primary-foreground);
+      background-color: var(--moduix-primary);
+      color: var(--moduix-primary-foreground);
     }
 
     @media (hover: hover) {
@@ -234,7 +234,7 @@
     }
 
     &:focus-visible {
-      outline: var(--moduix-focus-ring-inset-width) solid var(--moduix-color-ring);
+      outline: var(--moduix-focus-ring-inset-width) solid var(--moduix-ring);
       outline-offset: var(--moduix-focus-ring-inset-offset);
     }
 

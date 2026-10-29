@@ -2,8 +2,8 @@
 import { QrCode, QrCodeFrame, QrCodePattern } from '@moduix/vue/qr-code';
 
 const fills = [
-  { label: 'Primary', color: 'var(--moduix-color-primary)' },
-  { label: 'Danger', color: 'var(--moduix-color-destructive)' },
+  { label: 'Primary', color: 'var(--moduix-primary)' },
+  { label: 'Danger', color: 'var(--moduix-destructive)' },
 ];
 </script>
 

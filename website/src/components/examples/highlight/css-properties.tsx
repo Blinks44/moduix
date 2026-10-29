@@ -3,12 +3,12 @@ import type { CssPropertyInput } from '../../mdx/reference';
 export const highlightCssProperties: CssPropertyInput[] = [
   [
     '--moduix-highlight-bg',
-    'color-mix(in oklab, var(--moduix-color-warning) 40%, var(--moduix-color-accent))',
+    'color-mix(in oklab, var(--moduix-warning) 40%, var(--moduix-accent))',
     'Controls the highlight background color for each matched mark.',
   ],
   [
     '--moduix-highlight-color',
-    'var(--moduix-color-foreground)',
+    'var(--moduix-foreground)',
     'Controls the text color inside each matched mark.',
   ],
   [

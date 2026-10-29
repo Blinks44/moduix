@@ -12,22 +12,22 @@
 }
 
 .hint {
-  color: var(--moduix-color-muted-foreground);
+  color: var(--moduix-muted-foreground);
   font-size: var(--moduix-text-xs);
   line-height: var(--moduix-line-height-text-xs);
 }
 
 .customToggle {
-  --moduix-toggle-bg: color-mix(in oklab, var(--moduix-color-primary) 8%, transparent);
-  --moduix-toggle-bg-hover: color-mix(in oklab, var(--moduix-color-primary) 14%, transparent);
+  --moduix-toggle-bg: color-mix(in oklab, var(--moduix-primary) 8%, transparent);
+  --moduix-toggle-bg-hover: color-mix(in oklab, var(--moduix-primary) 14%, transparent);
   --moduix-toggle-border-color: color-mix(
     in oklab,
-    var(--moduix-color-primary) 45%,
-    var(--moduix-color-border)
+    var(--moduix-primary) 45%,
+    var(--moduix-border)
   );
-  --moduix-toggle-color: var(--moduix-color-primary);
-  --moduix-toggle-bg-pressed: var(--moduix-color-primary);
-  --moduix-toggle-color-pressed: var(--moduix-color-primary-foreground);
+  --moduix-toggle-color: var(--moduix-primary);
+  --moduix-toggle-bg-pressed: var(--moduix-primary);
+  --moduix-toggle-color-pressed: var(--moduix-primary-foreground);
 }
 
 .customButton {

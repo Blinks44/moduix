@@ -12,7 +12,7 @@
 }
 
 .muted {
-  color: var(--moduix-color-muted-foreground);
+  color: var(--moduix-muted-foreground);
   font-size: var(--moduix-text-sm);
   line-height: var(--moduix-line-height-text-sm);
 }
@@ -28,8 +28,8 @@
   display: flex;
   justify-content: space-between;
   gap: var(--moduix-spacing-3);
-  border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
+  border: var(--moduix-border-width-sm) solid var(--moduix-border);
   border-radius: var(--moduix-radius-md);
   padding: var(--moduix-spacing-3);
-  background: var(--moduix-color-muted);
+  background: var(--moduix-muted);
 }

@@ -128,7 +128,7 @@ The copied CSS module is intentionally equivalent to React. Stable hooks include
 exposes `data-state="expanded" | "collapsed"`; side-aware layout parts expose `data-side`.
 
 Every styled part accepts `class`, merged with moduix defaults. Colors come from the foundation
-sidebar tokens (`--moduix-color-sidebar*`); the only public variables are `--moduix-sidebar-width`,
+sidebar tokens (`--moduix-sidebar*`); the only public variables are `--moduix-sidebar-width`,
 `--moduix-sidebar-height`, and `--moduix-sidebar-trigger-offset-y`. Collapsed styling visually hides
 labels, group labels, nested sublists, input, actions, and badges while keeping label text available
 to assistive technology. Mark non-SVG compact anchors with `data-sidebar-icon` so the icon rail can

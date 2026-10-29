@@ -1,6 +1,6 @@
 .surface {
-  background: var(--moduix-color-muted);
-  border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
+  background: var(--moduix-muted);
+  border: var(--moduix-border-width-sm) solid var(--moduix-border);
   border-radius: var(--moduix-radius-md);
   padding: var(--moduix-spacing-4);
 }

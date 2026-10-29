@@ -3,7 +3,7 @@ import type { CssPropertyInput } from '../../mdx/reference';
 export const badgeCssProperties: CssPropertyInput[] = [
   [
     '--moduix-badge-bg',
-    'var(--moduix-color-primary)',
+    'var(--moduix-primary)',
     'Overrides badge background color. Each `variant` sets its own default.',
   ],
   [
@@ -13,7 +13,7 @@ export const badgeCssProperties: CssPropertyInput[] = [
   ],
   [
     '--moduix-badge-color',
-    'var(--moduix-color-primary-foreground)',
+    'var(--moduix-primary-foreground)',
     'Overrides badge text and icon color. Each `variant` sets its own default.',
   ],
 ];

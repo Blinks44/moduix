@@ -3,7 +3,7 @@
   isolation: isolate;
   min-height: 22rem;
   overflow: hidden;
-  background: var(--moduix-color-foreground);
+  background: var(--moduix-foreground);
 }
 
 .indent {
@@ -11,7 +11,7 @@
   min-height: 22rem;
   place-items: center;
   padding: var(--moduix-spacing-6);
-  background: var(--moduix-color-background);
+  background: var(--moduix-background);
 }
 
 .backdrop,
@@ -30,5 +30,5 @@
 
 .card {
   flex: 1;
-  background-color: var(--moduix-color-muted);
+  background-color: var(--moduix-muted);
 }

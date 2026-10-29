@@ -8,7 +8,7 @@
   grid-template-columns: max-content 1fr;
   align-items: center;
   gap: var(--moduix-spacing-3);
-  color: var(--moduix-color-muted-foreground);
+  color: var(--moduix-muted-foreground);
   font-size: var(--moduix-text-sm);
   line-height: var(--moduix-line-height-text-sm);
 }

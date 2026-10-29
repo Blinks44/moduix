@@ -6,7 +6,7 @@ export const collapsibleOverrideCssProperties: CssPropertyInput[] = [
   ['--moduix-collapsible-indicator-size', 'var(--moduix-spacing-3)', 'Controls indicator size.'],
   [
     '--moduix-collapsible-content-color',
-    'var(--moduix-color-muted-foreground)',
+    'var(--moduix-muted-foreground)',
     'Controls content color.',
   ],
   [

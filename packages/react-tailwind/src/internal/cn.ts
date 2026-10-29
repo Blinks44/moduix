@@ -4,23 +4,10 @@ import { extendTailwindMerge } from 'tailwind-merge';
 const twMerge = extendTailwindMerge({
   extend: {
     theme: {
-      spacing: [
-        'space-xs',
-        'space-sm',
-        'space-md',
-        'space-lg',
-        'space-xl',
-        'space-2xl',
-        'control-xs',
-        'control-sm',
-        'control-md',
-        'control-lg',
-        'control-xl',
-      ],
+      spacing: ['control-xs', 'control-sm', 'control-md', 'control-lg', 'control-xl'],
       text: ['md'],
       'font-weight': ['regular'],
-      tracking: ['text-xs', 'text-sm'],
-      ease: ['standard', 'spring', 'emphasized'],
+      ease: ['spring'],
     },
     classGroups: {
       duration: [{ duration: ['fast', 'normal', 'slow', 'slower'] }],

@@ -7,9 +7,9 @@
 }
 
 .primary {
-  fill: var(--moduix-color-primary);
+  fill: var(--moduix-primary);
 }
 
 .danger {
-  fill: var(--moduix-color-destructive);
+  fill: var(--moduix-destructive);
 }

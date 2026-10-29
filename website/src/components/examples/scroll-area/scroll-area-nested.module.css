@@ -1,7 +1,7 @@
 .root {
   width: min(24rem, 100%);
   height: 13rem;
-  border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
+  border: var(--moduix-border-width-sm) solid var(--moduix-border);
   border-radius: var(--moduix-radius-lg);
 }
 
@@ -18,7 +18,7 @@
 
 .nested {
   height: 8rem;
-  border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
+  border: var(--moduix-border-width-sm) solid var(--moduix-border);
   border-radius: var(--moduix-radius-md);
 }
 

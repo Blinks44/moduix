@@ -5,9 +5,9 @@
     border-radius: var(--moduix-highlight-radius, var(--moduix-radius-xs));
     background-color: var(
       --moduix-highlight-bg,
-      color-mix(in oklab, var(--moduix-color-warning) 40%, var(--moduix-color-accent))
+      color-mix(in oklab, var(--moduix-warning) 40%, var(--moduix-accent))
     );
-    color: var(--moduix-highlight-color, var(--moduix-color-foreground));
+    color: var(--moduix-highlight-color, var(--moduix-foreground));
     font-weight: var(--moduix-highlight-font-weight, var(--moduix-weight-medium));
     -webkit-box-decoration-break: clone;
     box-decoration-break: clone;

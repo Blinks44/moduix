@@ -4,14 +4,14 @@
   margin-inline: auto;
   padding: var(--moduix-spacing-3);
   border-radius: var(--moduix-radius-xl);
-  background-color: var(--moduix-color-muted);
+  background-color: var(--moduix-muted);
 }
 
 .metric {
   min-width: 0;
   padding: var(--moduix-spacing-3);
-  border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
+  border: var(--moduix-border-width-sm) solid var(--moduix-border);
   border-radius: var(--moduix-radius-lg);
-  background-color: var(--moduix-color-background);
+  background-color: var(--moduix-background);
   text-align: center;
 }

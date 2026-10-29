@@ -1,8 +1,8 @@
 @layer moduix.components {
   .root {
-    --_toggle-group-bg: var(--moduix-color-muted);
-    --_toggle-group-border-color: var(--moduix-color-border);
-    --moduix-toggle-color: var(--moduix-color-foreground);
+    --_toggle-group-bg: var(--moduix-muted);
+    --_toggle-group-border-color: var(--moduix-border);
+    --moduix-toggle-color: var(--moduix-foreground);
 
     display: inline-flex;
     align-items: center;
@@ -13,7 +13,7 @@
       var(--moduix-toggle-group-border-color, var(--_toggle-group-border-color));
     border-radius: var(--moduix-radius-lg);
     background-color: var(--moduix-toggle-group-bg, var(--_toggle-group-bg));
-    color: var(--moduix-color-foreground);
+    color: var(--moduix-foreground);
     overflow-x: auto;
     overscroll-behavior-inline: contain;
     scrollbar-width: none;
@@ -33,7 +33,7 @@
     }
 
     &[data-variant='outline'] {
-      --_toggle-group-bg: var(--moduix-color-background);
+      --_toggle-group-bg: var(--moduix-background);
     }
 
     &[data-variant='ghost'] {

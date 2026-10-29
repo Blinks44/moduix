@@ -14,6 +14,6 @@
   height: 3rem;
   place-items: center;
   border-radius: var(--moduix-radius-full);
-  background: var(--moduix-color-primary);
-  color: var(--moduix-color-primary-foreground);
+  background: var(--moduix-primary);
+  color: var(--moduix-primary-foreground);
 }

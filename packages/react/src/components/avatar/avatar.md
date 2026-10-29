@@ -130,7 +130,7 @@ positioned absolutely inside `Avatar` and stick out of the circle.
 
 `AvatarGroup` is a flex row: every child after the first gets a negative inline-start margin of
 `--moduix-spacing-2`, and direct avatar roots get a ring of `--moduix-border-width-md` in
-`--moduix-color-background`. It has no state and no Ark counterpart.
+`--moduix-background`. It has no state and no Ark counterpart.
 
 ## Intentional sugar and differences from upstream
 

@@ -8,7 +8,7 @@
     min-width: 0;
     flex-direction: column;
     gap: var(--_listbox-gap);
-    color: var(--moduix-color-foreground);
+    color: var(--moduix-foreground);
 
     &[data-disabled] {
       opacity: var(--moduix-opacity-disabled);
@@ -41,10 +41,10 @@
     width: 100%;
     min-height: var(--moduix-size-md);
     margin: 0;
-    border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
+    border: var(--moduix-border-width-sm) solid var(--moduix-border);
     border-radius: var(--moduix-radius-md);
     padding: var(--moduix-spacing-1) var(--moduix-spacing-3);
-    background-color: var(--moduix-color-background);
+    background-color: var(--moduix-background);
     color: inherit;
     font: inherit;
     font-size: var(--moduix-text-md);
@@ -57,11 +57,11 @@
       opacity var(--moduix-transition-default);
 
     &::placeholder {
-      color: var(--moduix-color-muted-foreground);
+      color: var(--moduix-muted-foreground);
     }
 
     &:focus-visible {
-      outline-color: var(--moduix-color-ring);
+      outline-color: var(--moduix-ring);
     }
 
     &:disabled {
@@ -81,7 +81,7 @@
     inset-inline-start: var(--moduix-spacing-3);
     width: var(--moduix-spacing-4);
     height: var(--moduix-spacing-4);
-    color: var(--moduix-color-muted-foreground);
+    color: var(--moduix-muted-foreground);
     pointer-events: none;
     transform: translateY(-50%);
   }
@@ -126,12 +126,12 @@
 
   .filter:has(.input:focus-visible, + .content:focus-visible) {
     .input {
-      border-color: var(--moduix-color-ring);
+      border-color: var(--moduix-ring);
     }
 
     + .content {
-      border-inline-color: var(--moduix-color-ring);
-      border-bottom-color: var(--moduix-color-ring);
+      border-inline-color: var(--moduix-ring);
+      border-bottom-color: var(--moduix-ring);
     }
   }
 
@@ -142,10 +142,10 @@
     flex-direction: column;
     overflow-x: hidden;
     overflow-y: auto;
-    border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
+    border: var(--moduix-border-width-sm) solid var(--moduix-border);
     border-radius: var(--moduix-radius-md);
     padding-block: var(--moduix-popup-list-padding-y, var(--moduix-spacing-1));
-    background-color: var(--moduix-color-background);
+    background-color: var(--moduix-background);
     outline: var(--moduix-focus-ring-inset-width) solid transparent;
     outline-offset: var(--moduix-focus-ring-inset-offset);
     scrollbar-gutter: stable;
@@ -155,7 +155,7 @@
       outline-color var(--moduix-transition-default);
 
     &:focus-visible {
-      outline-color: var(--moduix-color-ring);
+      outline-color: var(--moduix-ring);
     }
 
     &[data-layout='grid'] {
@@ -178,7 +178,7 @@
   .empty {
     padding-block: var(--moduix-spacing-1);
     padding-inline: var(--moduix-spacing-3);
-    color: var(--moduix-color-muted-foreground);
+    color: var(--moduix-muted-foreground);
     font-size: var(--moduix-text-sm);
     line-height: var(--moduix-line-height-text-sm);
     text-align: center;
@@ -196,7 +196,7 @@
   .itemGroupLabel {
     padding-block: var(--moduix-popup-group-label-padding-y, var(--moduix-spacing-1));
     padding-inline: var(--moduix-spacing-2);
-    color: var(--moduix-popup-group-label-color, var(--moduix-color-muted-foreground));
+    color: var(--moduix-popup-group-label-color, var(--moduix-muted-foreground));
     font-size: var(--moduix-popup-group-label-font-size, var(--moduix-text-xs));
     font-weight: var(--moduix-popup-group-label-font-weight, var(--moduix-weight-regular));
     line-height: var(--moduix-popup-group-label-line-height, var(--moduix-line-height-text-xs));
@@ -225,14 +225,14 @@
 
     @media (hover: hover) {
       &:where(:not([data-disabled]):hover) {
-        background-color: var(--moduix-color-accent);
-        color: var(--moduix-color-accent-foreground);
+        background-color: var(--moduix-accent);
+        color: var(--moduix-accent-foreground);
       }
     }
 
     &[data-highlighted] {
-      background-color: var(--moduix-color-accent);
-      color: var(--moduix-color-accent-foreground);
+      background-color: var(--moduix-accent);
+      color: var(--moduix-accent-foreground);
     }
 
     &[data-disabled] {
@@ -250,8 +250,8 @@
       text-align: center;
 
       &[data-selected] {
-        background-color: var(--moduix-color-muted);
-        color: var(--moduix-color-foreground);
+        background-color: var(--moduix-muted);
+        color: var(--moduix-foreground);
       }
     }
 
@@ -290,7 +290,7 @@
   }
 
   .valueText {
-    color: var(--moduix-color-muted-foreground);
+    color: var(--moduix-muted-foreground);
     font-size: var(--moduix-text-sm);
     line-height: var(--moduix-line-height-text-sm);
   }

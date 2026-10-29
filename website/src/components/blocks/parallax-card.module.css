@@ -7,7 +7,7 @@
   min-height: 24rem;
   overflow: hidden;
   border: 0;
-  background: var(--moduix-color-muted);
+  background: var(--moduix-muted);
   box-shadow: var(--moduix-shadow-lg);
   transform: rotateX(var(--parallax-rotate-x, 0deg)) rotateY(var(--parallax-rotate-y, 0deg));
   transform-style: preserve-3d;

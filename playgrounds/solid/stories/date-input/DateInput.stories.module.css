@@ -4,21 +4,21 @@
 }
 
 .hint {
-  color: var(--moduix-color-muted-foreground);
+  color: var(--moduix-muted-foreground);
   font-size: var(--moduix-text-sm);
   line-height: var(--moduix-line-height-text-sm);
 }
 
 .customControl {
-  border-color: var(--moduix-color-primary);
-  background-color: var(--moduix-color-muted);
+  border-color: var(--moduix-primary);
+  background-color: var(--moduix-muted);
 
   &[data-focus] {
-    outline-color: var(--moduix-color-primary);
+    outline-color: var(--moduix-primary);
   }
 }
 
 .customSegment:focus-visible {
-  background-color: var(--moduix-color-primary);
-  color: var(--moduix-color-primary-foreground);
+  background-color: var(--moduix-primary);
+  color: var(--moduix-primary-foreground);
 }

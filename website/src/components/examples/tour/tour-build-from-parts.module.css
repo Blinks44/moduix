@@ -6,8 +6,8 @@
 
 .closeButton {
   --moduix-close-button-radius: var(--moduix-radius-md);
-  --moduix-close-button-bg-hover: var(--moduix-color-accent);
-  --moduix-close-button-color-hover: var(--moduix-color-popover-foreground);
+  --moduix-close-button-bg-hover: var(--moduix-accent);
+  --moduix-close-button-color-hover: var(--moduix-popover-foreground);
   position: absolute;
   inset-block-start: var(--moduix-spacing-4);
   inset-inline-end: var(--moduix-spacing-4);

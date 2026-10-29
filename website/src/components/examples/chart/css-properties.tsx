@@ -3,12 +3,12 @@ import type { CssProperty } from '../../mdx/reference';
 export const chartCssProperties: CssProperty[] = [
   {
     name: '--moduix-chart-bg',
-    defaultValue: 'var(--moduix-color-card)',
+    defaultValue: 'var(--moduix-card)',
     description: 'Controls `Chart` background color.',
   },
   {
     name: '--moduix-chart-border-color',
-    defaultValue: 'var(--moduix-color-border)',
+    defaultValue: 'var(--moduix-border)',
     description: 'Controls `Chart` border color.',
   },
   {
@@ -18,7 +18,7 @@ export const chartCssProperties: CssProperty[] = [
   },
   {
     name: '--moduix-chart-legend-indicator-color',
-    defaultValue: 'var(--moduix-color-muted-foreground)',
+    defaultValue: 'var(--moduix-muted-foreground)',
     description: 'Controls the `ChartLegendItem` indicator color.',
   },
   {

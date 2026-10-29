@@ -28,7 +28,7 @@
 }
 
 .status {
-  color: var(--moduix-color-muted-foreground);
+  color: var(--moduix-muted-foreground);
   font-size: var(--moduix-text-sm);
   line-height: var(--moduix-line-height-text-sm);
 }
@@ -36,24 +36,20 @@
 .custom {
   --moduix-splitter-resize-trigger-line-color: color-mix(
     in oklab,
-    var(--moduix-color-foreground) 24%,
+    var(--moduix-foreground) 24%,
     transparent
   );
 
   width: min(56rem, calc(100vw - var(--moduix-spacing-8)));
   height: 28rem;
-  border-color: color-mix(in oklab, var(--moduix-color-foreground) 16%, var(--moduix-color-border));
-  background-color: color-mix(in oklab, var(--moduix-color-primary) 3%, var(--moduix-color-card));
+  border-color: color-mix(in oklab, var(--moduix-foreground) 16%, var(--moduix-border));
+  background-color: color-mix(in oklab, var(--moduix-primary) 3%, var(--moduix-card));
 }
 
 .custom > .panel {
-  background-color: color-mix(
-    in oklab,
-    var(--moduix-color-primary) 4%,
-    var(--moduix-color-background)
-  );
+  background-color: color-mix(in oklab, var(--moduix-primary) 4%, var(--moduix-background));
 }
 
 .custom [data-slot='splitter-resize-trigger-indicator'] {
-  border-color: color-mix(in oklab, var(--moduix-color-foreground) 24%, var(--moduix-color-border));
+  border-color: color-mix(in oklab, var(--moduix-foreground) 24%, var(--moduix-border));
 }

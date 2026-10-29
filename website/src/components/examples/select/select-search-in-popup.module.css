@@ -2,15 +2,15 @@
   width: var(--reference-width);
   max-width: var(--available-width);
   overflow: hidden;
-  border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
+  border: var(--moduix-border-width-sm) solid var(--moduix-border);
   border-radius: var(--moduix-radius-md);
-  background-color: var(--moduix-color-popover);
+  background-color: var(--moduix-popover);
   box-shadow: var(--moduix-shadow-lg);
 }
 
 .popupHeader {
   padding: var(--moduix-spacing-2);
-  border-block-end: var(--moduix-border-width-sm) solid var(--moduix-color-border);
+  border-block-end: var(--moduix-border-width-sm) solid var(--moduix-border);
 }
 
 .popupContent {
@@ -23,6 +23,6 @@
 
 .popupEmpty {
   padding: var(--moduix-spacing-3);
-  color: var(--moduix-color-muted-foreground);
+  color: var(--moduix-muted-foreground);
   font-size: var(--moduix-text-sm);
 }

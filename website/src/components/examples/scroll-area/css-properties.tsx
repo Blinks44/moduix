@@ -11,9 +11,5 @@ export const scrollAreaOverrideCssProperties: CssPropertyInput[] = [
     'var(--moduix-spacing-1)',
     'Controls the scrollbar track thickness; the track grows by 2px on hover and drag.',
   ],
-  [
-    '--moduix-scroll-area-thumb-bg',
-    'var(--moduix-color-border)',
-    'Controls the draggable thumb color.',
-  ],
+  ['--moduix-scroll-area-thumb-bg', 'var(--moduix-border)', 'Controls the draggable thumb color.'],
 ];

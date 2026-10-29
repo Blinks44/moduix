@@ -7,7 +7,7 @@
   }
 
   .state {
-    color: var(--moduix-color-muted-foreground);
+    color: var(--moduix-muted-foreground);
     font-size: var(--moduix-text-sm);
     line-height: var(--moduix-line-height-text-sm);
   }
@@ -17,11 +17,11 @@
     align-items: center;
     justify-content: center;
     min-height: 2rem;
-    border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
+    border: var(--moduix-border-width-sm) solid var(--moduix-border);
     border-radius: var(--moduix-radius-md);
     padding-inline: var(--moduix-spacing-3);
-    background: var(--moduix-color-background);
-    color: var(--moduix-color-foreground);
+    background: var(--moduix-background);
+    color: var(--moduix-foreground);
     font: inherit;
     cursor: pointer;
     transition:
@@ -29,11 +29,11 @@
       border-color var(--moduix-transition-default);
 
     &:hover {
-      background-color: var(--moduix-color-accent);
+      background-color: var(--moduix-accent);
     }
 
     &:focus-visible {
-      outline: var(--moduix-border-width-sm) solid var(--moduix-color-ring);
+      outline: var(--moduix-border-width-sm) solid var(--moduix-ring);
       outline-offset: var(--moduix-border-width-sm);
     }
   }
@@ -49,7 +49,7 @@
   }
 
   .artist {
-    color: var(--moduix-color-muted-foreground);
+    color: var(--moduix-muted-foreground);
     font-size: var(--moduix-text-xs);
     line-height: var(--moduix-line-height-text-xs);
   }
@@ -59,24 +59,24 @@
   }
 
   .customLabel {
-    color: var(--moduix-color-primary);
+    color: var(--moduix-primary);
   }
 
   .customContent {
-    border-color: var(--moduix-color-primary);
-    background-color: var(--moduix-color-muted);
+    border-color: var(--moduix-primary);
+    background-color: var(--moduix-muted);
     box-shadow: var(--moduix-shadow-sm);
   }
 
   .customItem {
     &[data-highlighted] {
-      background-color: var(--moduix-color-primary);
-      color: var(--moduix-color-primary-foreground);
+      background-color: var(--moduix-primary);
+      color: var(--moduix-primary-foreground);
     }
 
     &[data-selected] {
-      color: var(--moduix-color-primary);
-      background-color: color-mix(in oklab, var(--moduix-color-primary), transparent 90%);
+      color: var(--moduix-primary);
+      background-color: color-mix(in oklab, var(--moduix-primary), transparent 90%);
     }
   }
 }

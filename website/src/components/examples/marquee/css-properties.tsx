@@ -11,11 +11,7 @@ export const marqueeCssProperties: CssPropertyInput[] = [
     'computed from content size and `speed` (default `50`)',
     'Runtime value from Ark that controls animation duration.',
   ],
-  [
-    '--moduix-marquee-edge-color',
-    'var(--moduix-color-background)',
-    'Controls edge fade start color.',
-  ],
+  ['--moduix-marquee-edge-color', 'var(--moduix-background)', 'Controls edge fade start color.'],
   ['--moduix-marquee-edge-size', '20%', 'Controls edge fade width or height.'],
   [
     '--marquee-loop-count',

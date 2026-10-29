@@ -1,9 +1,9 @@
 .button {
   border: 0;
   border-radius: var(--moduix-radius-md);
-  background: var(--moduix-color-muted);
+  background: var(--moduix-muted);
   padding: var(--moduix-spacing-3) var(--moduix-spacing-4);
-  color: var(--moduix-color-foreground);
+  color: var(--moduix-foreground);
   font: inherit;
 }
 
@@ -21,7 +21,7 @@
 }
 
 .customClose {
-  --moduix-close-button-bg: var(--moduix-color-muted);
-  --moduix-close-button-bg-hover: var(--moduix-color-accent);
+  --moduix-close-button-bg: var(--moduix-muted);
+  --moduix-close-button-bg-hover: var(--moduix-accent);
   --moduix-close-button-radius: var(--moduix-radius-md);
 }

@@ -4,7 +4,7 @@
   gap: var(--moduix-spacing-4);
 
   & [data-slot='table-row'][data-selected] {
-    background-color: var(--moduix-color-muted);
+    background-color: var(--moduix-muted);
   }
 }
 
@@ -27,7 +27,7 @@
   gap: var(--moduix-spacing-3);
 
   & > span {
-    color: var(--moduix-color-muted-foreground);
+    color: var(--moduix-muted-foreground);
     font-size: var(--moduix-text-sm);
   }
 }

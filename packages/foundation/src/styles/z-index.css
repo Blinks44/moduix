@@ -1,11 +1,4 @@
 :root {
-  --moduix-z-default: 1;
-  --moduix-z-xs: 5;
-  --moduix-z-sm: 10;
-  --moduix-z-md: 20;
-  --moduix-z-lg: 30;
-  --moduix-z-xl: 40;
-
   --moduix-z-backdrop: 40;
   --moduix-z-modal: 50;
   --moduix-z-popup: 60;

@@ -7,7 +7,7 @@
   }
 
   .hint {
-    color: var(--moduix-color-muted-foreground);
+    color: var(--moduix-muted-foreground);
     font-size: var(--moduix-text-xs);
     line-height: var(--moduix-line-height-text-xs);
   }
@@ -17,11 +17,11 @@
     align-items: center;
     justify-content: center;
     min-height: 2rem;
-    border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
+    border: var(--moduix-border-width-sm) solid var(--moduix-border);
     border-radius: var(--moduix-radius-md);
     padding-inline: var(--moduix-spacing-3);
-    background: var(--moduix-color-background);
-    color: var(--moduix-color-foreground);
+    background: var(--moduix-background);
+    color: var(--moduix-foreground);
     font: inherit;
     cursor: pointer;
     transition:
@@ -29,11 +29,11 @@
       border-color var(--moduix-transition-default);
 
     &:hover {
-      background-color: var(--moduix-color-accent);
+      background-color: var(--moduix-accent);
     }
 
     &:focus-visible {
-      outline: var(--moduix-border-width-sm) solid var(--moduix-color-ring);
+      outline: var(--moduix-border-width-sm) solid var(--moduix-ring);
       outline-offset: var(--moduix-border-width-sm);
     }
   }
@@ -46,7 +46,7 @@
 
   .customRoot {
     gap: var(--moduix-spacing-3);
-    color: var(--moduix-color-primary);
+    color: var(--moduix-primary);
   }
 
   .customItem {
@@ -54,10 +54,10 @@
   }
 
   .customControl {
-    border-color: var(--moduix-color-primary);
+    border-color: var(--moduix-primary);
 
     &[data-state='checked'] {
-      background-color: var(--moduix-color-primary);
+      background-color: var(--moduix-primary);
     }
   }
 
@@ -66,14 +66,14 @@
     grid-template-columns: auto 1fr;
     align-items: center;
     width: 14rem;
-    border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
+    border: var(--moduix-border-width-sm) solid var(--moduix-border);
     border-radius: var(--moduix-radius-md);
     padding: var(--moduix-spacing-3);
     gap: var(--moduix-spacing-2);
 
     &[data-state='checked'] {
-      border-color: var(--moduix-color-primary);
-      background-color: var(--moduix-color-accent);
+      border-color: var(--moduix-primary);
+      background-color: var(--moduix-accent);
     }
   }
 

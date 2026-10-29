@@ -141,7 +141,7 @@ the heading adds no visual change.
 
 ## Defaults and styling
 
-- Triggers are transparent and use `--moduix-color-muted` on hover and while pressed; items are
+- Triggers are transparent and use `--moduix-muted` on hover and while pressed; items are
   separated by borders.
 - A disabled item dims its trigger through the native `disabled` attribute. Ark sets
   `data-disabled` on the item, indicator, and content, but not on the trigger, so trigger styles
@@ -153,13 +153,13 @@ the heading adds no visual change.
 
 CSS variables (the full list lives in `packages/foundation/src/styles/variables-moduix.css`):
 
-| Variable                                | Default                                |
-| --------------------------------------- | -------------------------------------- |
-| `--moduix-accordion-item-border-color`  | `var(--moduix-color-border)`           |
-| `--moduix-accordion-trigger-bg-hover`   | `var(--moduix-color-muted)`            |
-| `--moduix-accordion-item-body-gap`      | `var(--moduix-spacing-3)`              |
-| `--moduix-accordion-item-body-padding`  | `var(--moduix-spacing-3)`              |
-| `--moduix-accordion-item-content-color` | `var(--moduix-color-muted-foreground)` |
+| Variable                                | Default                          |
+| --------------------------------------- | -------------------------------- |
+| `--moduix-accordion-item-border-color`  | `var(--moduix-border)`           |
+| `--moduix-accordion-trigger-bg-hover`   | `var(--moduix-muted)`            |
+| `--moduix-accordion-item-body-gap`      | `var(--moduix-spacing-3)`        |
+| `--moduix-accordion-item-body-padding`  | `var(--moduix-spacing-3)`        |
+| `--moduix-accordion-item-content-color` | `var(--moduix-muted-foreground)` |
 
 Root color, separator width, focus ring, disabled opacity, and the open indicator rotation come
 straight from foundation tokens; override them with a class on the part.

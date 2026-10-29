@@ -11,7 +11,7 @@
     border: none;
     background-color: var(--moduix-close-button-bg, transparent);
     border-radius: var(--moduix-close-button-radius, var(--moduix-radius-sm));
-    color: var(--moduix-close-button-color, var(--moduix-color-muted-foreground));
+    color: var(--moduix-close-button-color, var(--moduix-muted-foreground));
     appearance: none;
     font: inherit;
     user-select: none;
@@ -29,14 +29,14 @@
 
     @media (hover: hover) {
       &:hover:not([data-disabled]) {
-        background-color: var(--moduix-close-button-bg-hover, var(--moduix-color-muted));
-        color: var(--moduix-close-button-color-hover, var(--moduix-color-foreground));
+        background-color: var(--moduix-close-button-bg-hover, var(--moduix-muted));
+        color: var(--moduix-close-button-color-hover, var(--moduix-foreground));
       }
     }
 
     &:focus-visible {
       outline: var(--moduix-close-button-focus-ring-width, var(--moduix-focus-ring-width)) solid
-        var(--moduix-close-button-focus-ring-color, var(--moduix-color-ring));
+        var(--moduix-close-button-focus-ring-color, var(--moduix-ring));
       outline-offset: var(--moduix-close-button-focus-ring-offset, var(--moduix-focus-ring-offset));
     }
 

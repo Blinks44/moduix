@@ -1,12 +1,12 @@
 @layer moduix.components {
   .root {
-    --moduix-splitter-resize-trigger-line-color: var(--moduix-color-sidebar-border);
+    --moduix-splitter-resize-trigger-line-color: var(--moduix-sidebar-border);
     --moduix-splitter-resize-trigger-size: var(--moduix-spacing-3);
 
     min-height: 24rem;
-    border-color: var(--moduix-color-sidebar-border);
+    border-color: var(--moduix-sidebar-border);
     border-radius: 0;
-    background-color: var(--moduix-color-background);
+    background-color: var(--moduix-background);
     box-shadow: none;
     isolation: isolate;
   }
@@ -18,8 +18,8 @@
     flex-direction: column;
     overflow: hidden;
     container-type: inline-size;
-    background-color: var(--moduix-color-sidebar);
-    color: var(--moduix-color-sidebar-foreground);
+    background-color: var(--moduix-sidebar);
+    color: var(--moduix-sidebar-foreground);
 
     &[data-state='collapsed'] {
       .header,
@@ -75,8 +75,8 @@
   .inset {
     position: relative;
     padding: 0;
-    background-color: var(--moduix-color-background);
-    color: var(--moduix-color-foreground);
+    background-color: var(--moduix-background);
+    color: var(--moduix-foreground);
   }
 
   .resizeTrigger {
@@ -94,10 +94,10 @@
     height: var(--moduix-spacing-7);
     margin-inline: calc(var(--moduix-spacing-7) * -0.5);
     padding: 0;
-    border: var(--moduix-border-width-sm) solid var(--moduix-color-sidebar-border);
+    border: var(--moduix-border-width-sm) solid var(--moduix-sidebar-border);
     border-radius: var(--moduix-radius-full);
-    background-color: var(--moduix-color-background);
-    color: var(--moduix-color-muted-foreground);
+    background-color: var(--moduix-background);
+    color: var(--moduix-muted-foreground);
     cursor: pointer;
     translate: 0 var(--moduix-sidebar-trigger-offset-y, 40px);
     box-shadow: var(--moduix-shadow-sm);
@@ -124,8 +124,8 @@
 
     @media (hover: hover) {
       &:hover {
-        background-color: var(--moduix-color-sidebar-accent);
-        color: var(--moduix-color-sidebar-accent-foreground);
+        background-color: var(--moduix-sidebar-accent);
+        color: var(--moduix-sidebar-accent-foreground);
       }
     }
   }
@@ -172,7 +172,7 @@
     flex: 1;
     margin: 0;
     padding-inline: var(--moduix-spacing-2);
-    color: var(--moduix-color-muted-foreground);
+    color: var(--moduix-muted-foreground);
     font-size: var(--moduix-text-xs);
     font-weight: var(--moduix-weight-medium);
     line-height: var(--moduix-line-height-text-xs);
@@ -197,7 +197,7 @@
     border: 0;
     border-radius: var(--moduix-radius-md);
     background-color: transparent;
-    color: var(--moduix-color-muted-foreground);
+    color: var(--moduix-muted-foreground);
     cursor: pointer;
     transition:
       background-color var(--moduix-transition-default),
@@ -210,8 +210,8 @@
 
     @media (hover: hover) {
       &:hover {
-        background-color: var(--moduix-color-sidebar-accent);
-        color: var(--moduix-color-sidebar-accent-foreground);
+        background-color: var(--moduix-sidebar-accent);
+        color: var(--moduix-sidebar-accent-foreground);
       }
     }
   }
@@ -249,8 +249,8 @@
     width: var(--moduix-spacing-5);
     height: var(--moduix-spacing-5);
     border-radius: var(--moduix-radius-full);
-    background-color: var(--moduix-color-primary);
-    color: var(--moduix-color-primary-foreground);
+    background-color: var(--moduix-primary);
+    color: var(--moduix-primary-foreground);
     font-size: 0.5625rem;
     font-weight: var(--moduix-weight-medium);
     font-variant-numeric: tabular-nums;
@@ -271,7 +271,7 @@
     border: 0;
     border-radius: var(--moduix-radius-md);
     background-color: transparent;
-    color: var(--moduix-color-sidebar-foreground);
+    color: var(--moduix-sidebar-foreground);
     font: inherit;
     font-size: var(--moduix-text-sm);
     line-height: var(--moduix-line-height-text-sm);
@@ -307,15 +307,15 @@
     }
 
     &[data-active] {
-      background-color: var(--moduix-color-sidebar-accent);
-      color: var(--moduix-color-sidebar-accent-foreground);
+      background-color: var(--moduix-sidebar-accent);
+      color: var(--moduix-sidebar-accent-foreground);
       font-weight: var(--moduix-weight-medium);
     }
 
     @media (hover: hover) {
       &:hover:not(:disabled, [aria-disabled='true']) {
-        background-color: var(--moduix-color-sidebar-accent);
-        color: var(--moduix-color-sidebar-accent-foreground);
+        background-color: var(--moduix-sidebar-accent);
+        color: var(--moduix-sidebar-accent-foreground);
       }
     }
   }
@@ -359,7 +359,7 @@
     }
 
     > [data-slot='menu-indicator'] {
-      color: var(--moduix-color-muted-foreground);
+      color: var(--moduix-muted-foreground);
       line-height: 0;
 
       > svg {
@@ -374,7 +374,7 @@
   .groupAction:focus-visible,
   .menuButton:focus-visible,
   .menuSubButton:focus-visible {
-    outline: var(--moduix-focus-ring-width) solid var(--moduix-color-sidebar-ring);
+    outline: var(--moduix-focus-ring-width) solid var(--moduix-sidebar-ring);
     outline-offset: var(--moduix-focus-ring-offset);
   }
 
@@ -383,7 +383,7 @@
     margin-block-start: var(--moduix-spacing-1);
     margin-inline-start: var(--moduix-spacing-4);
     padding-inline-start: var(--moduix-spacing-2);
-    border-inline-start: var(--moduix-border-width-sm) solid var(--moduix-color-sidebar-border);
+    border-inline-start: var(--moduix-border-width-sm) solid var(--moduix-sidebar-border);
   }
 
   .menuSubButton {
@@ -411,6 +411,6 @@
   }
 
   .separator {
-    --moduix-separator-color: var(--moduix-color-sidebar-border);
+    --moduix-separator-color: var(--moduix-sidebar-border);
   }
 }

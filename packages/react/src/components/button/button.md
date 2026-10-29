@@ -144,11 +144,11 @@ Public CSS variables (CSS Modules packages):
 
 | Variable                       | Default/fallback                                                               |
 | ------------------------------ | ------------------------------------------------------------------------------ |
-| `--moduix-button-bg`           | Variant-specific; `var(--moduix-color-primary)` for `default`                  |
+| `--moduix-button-bg`           | Variant-specific; `var(--moduix-primary)` for `default`                        |
 | `--moduix-button-bg-hover`     | Variant-specific; filled variants mix `--moduix-button-bg` 88% with black      |
 | `--moduix-button-border-color` | Variant-specific; filled variants follow `--moduix-button-bg`                  |
 | `--moduix-button-border-width` | `var(--moduix-border-width-sm)`                                                |
-| `--moduix-button-color`        | Variant-specific; `var(--moduix-color-primary-foreground)` for `default`       |
+| `--moduix-button-color`        | Variant-specific; `var(--moduix-primary-foreground)` for `default`             |
 | `--moduix-button-content-gap`  | `var(--moduix-spacing-2)`                                                      |
 | `--moduix-button-font-size`    | Size-specific; `var(--moduix-text-sm)` for `md`                                |
 | `--moduix-button-font-weight`  | `var(--moduix-weight-medium)`                                                  |

@@ -1,7 +1,7 @@
 @layer moduix.components {
   .root {
-    --_button-bg: var(--moduix-color-primary);
-    --_button-color: var(--moduix-color-primary-foreground);
+    --_button-bg: var(--moduix-primary);
+    --_button-color: var(--moduix-primary-foreground);
     --_button-border-color: var(--moduix-button-bg, var(--_button-bg));
     --_button-bg-hover: color-mix(in srgb, var(--moduix-button-bg, var(--_button-bg)) 88%, black);
     --_button-color-hover: var(--moduix-button-color, var(--_button-color));
@@ -34,7 +34,7 @@
       transform var(--moduix-transition-fast);
 
     &:focus-visible {
-      outline: var(--moduix-focus-ring-width) solid var(--moduix-color-ring);
+      outline: var(--moduix-focus-ring-width) solid var(--moduix-ring);
       outline-offset: calc(var(--moduix-button-border-width, var(--moduix-border-width-sm)) * -1);
     }
 
@@ -69,44 +69,44 @@
     }
 
     &[data-variant='outline'] {
-      --_button-bg: var(--moduix-color-background);
-      --_button-color: var(--moduix-color-foreground);
-      --_button-border-color: var(--moduix-color-border);
-      --_button-bg-hover: var(--moduix-color-accent);
+      --_button-bg: var(--moduix-background);
+      --_button-color: var(--moduix-foreground);
+      --_button-border-color: var(--moduix-border);
+      --_button-bg-hover: var(--moduix-accent);
     }
 
     &[data-variant='secondary'] {
-      --_button-bg: var(--moduix-color-secondary);
-      --_button-color: var(--moduix-color-secondary-foreground);
-      --_button-bg-hover: var(--moduix-color-accent);
+      --_button-bg: var(--moduix-secondary);
+      --_button-color: var(--moduix-secondary-foreground);
+      --_button-bg-hover: var(--moduix-accent);
     }
 
     &[data-variant='destructive'] {
-      --_button-bg: var(--moduix-color-destructive);
-      --_button-color: var(--moduix-color-destructive-foreground);
+      --_button-bg: var(--moduix-destructive);
+      --_button-color: var(--moduix-destructive-foreground);
     }
 
     &[data-variant='destructive-outline'] {
-      --_button-bg: var(--moduix-color-background);
-      --_button-color: var(--moduix-color-destructive);
-      --_button-border-color: var(--moduix-color-destructive);
-      --_button-bg-hover: var(--moduix-color-destructive);
-      --_button-color-hover: var(--moduix-color-destructive-foreground);
+      --_button-bg: var(--moduix-background);
+      --_button-color: var(--moduix-destructive);
+      --_button-border-color: var(--moduix-destructive);
+      --_button-bg-hover: var(--moduix-destructive);
+      --_button-color-hover: var(--moduix-destructive-foreground);
     }
 
     &[data-variant='ghost'] {
       --_button-bg: transparent;
-      --_button-color: var(--moduix-color-foreground);
+      --_button-color: var(--moduix-foreground);
       --_button-border-color: transparent;
-      --_button-bg-hover: var(--moduix-color-accent);
+      --_button-bg-hover: var(--moduix-accent);
     }
 
     &[data-variant='link'] {
       --_button-bg: transparent;
-      --_button-color: var(--moduix-color-primary);
+      --_button-color: var(--moduix-primary);
       --_button-border-color: transparent;
       --_button-bg-hover: transparent;
-      --_button-color-hover: var(--moduix-color-foreground);
+      --_button-color-hover: var(--moduix-foreground);
 
       text-decoration: underline;
       text-underline-offset: 0.25em;

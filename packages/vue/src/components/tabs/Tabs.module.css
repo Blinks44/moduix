@@ -10,7 +10,7 @@
     min-width: 0;
     flex-direction: column;
     gap: var(--moduix-spacing-3);
-    color: var(--moduix-color-foreground);
+    color: var(--moduix-foreground);
 
     &[data-size='sm'] {
       --_tabs-size: var(--moduix-size-sm);
@@ -38,9 +38,9 @@
     gap: var(--moduix-spacing-1);
     padding: var(--moduix-spacing-1);
     border: var(--moduix-border-width-sm) solid
-      var(--moduix-tabs-list-border-color, var(--moduix-color-border));
+      var(--moduix-tabs-list-border-color, var(--moduix-border));
     border-radius: var(--moduix-radius-lg);
-    background-color: var(--moduix-tabs-list-bg, var(--moduix-color-muted));
+    background-color: var(--moduix-tabs-list-bg, var(--moduix-muted));
 
     &[data-orientation='horizontal'] {
       overflow-x: auto;
@@ -86,7 +86,7 @@
     border-radius: var(--moduix-radius-md);
     padding-inline: var(--_tabs-trigger-padding-x);
     background: none;
-    color: var(--moduix-tabs-tab-color, var(--moduix-color-muted-foreground));
+    color: var(--moduix-tabs-tab-color, var(--moduix-muted-foreground));
     font: inherit;
     font-size: var(--_tabs-font-size);
     font-weight: var(--moduix-weight-medium);
@@ -99,7 +99,7 @@
     transition: color var(--moduix-transition-default);
 
     &[data-selected] {
-      color: var(--moduix-tabs-tab-color-active, var(--moduix-color-foreground));
+      color: var(--moduix-tabs-tab-color-active, var(--moduix-foreground));
     }
 
     .root[data-fitted] &[data-orientation='horizontal'] {
@@ -108,12 +108,12 @@
 
     @media (hover: hover) {
       &:hover {
-        color: var(--moduix-tabs-tab-color-active, var(--moduix-color-foreground));
+        color: var(--moduix-tabs-tab-color-active, var(--moduix-foreground));
       }
     }
 
     &:focus-visible {
-      outline: var(--moduix-focus-ring-inset-width) solid var(--moduix-color-ring);
+      outline: var(--moduix-focus-ring-inset-width) solid var(--moduix-ring);
       outline-offset: var(--moduix-focus-ring-inset-offset);
     }
 
@@ -140,13 +140,13 @@
     width: var(--width);
     height: var(--height);
     border-radius: var(--moduix-radius-md);
-    background-color: var(--moduix-tabs-indicator-bg, var(--moduix-color-background));
+    background-color: var(--moduix-tabs-indicator-bg, var(--moduix-background));
     box-shadow: var(--moduix-shadow-sm);
     pointer-events: none;
 
     .root[data-variant='line'] & {
       border-radius: var(--moduix-radius-full);
-      background-color: var(--moduix-tabs-tab-color-active, var(--moduix-color-foreground));
+      background-color: var(--moduix-tabs-tab-color-active, var(--moduix-foreground));
       box-shadow: none;
 
       &[data-orientation='horizontal'] {
@@ -167,16 +167,16 @@
     flex: 1;
     min-width: 0;
     border: var(--moduix-border-width-sm) solid
-      var(--moduix-tabs-border-color, var(--moduix-color-border));
+      var(--moduix-tabs-border-color, var(--moduix-border));
     border-radius: var(--moduix-radius-lg);
-    background-color: var(--moduix-tabs-bg, var(--moduix-color-background));
+    background-color: var(--moduix-tabs-bg, var(--moduix-background));
     padding: var(--moduix-spacing-4);
     font-size: var(--moduix-text-sm);
     line-height: var(--moduix-line-height-text-sm);
     outline: 0;
 
     &:focus-visible {
-      outline: var(--moduix-focus-ring-inset-width) solid var(--moduix-color-ring);
+      outline: var(--moduix-focus-ring-inset-width) solid var(--moduix-ring);
       outline-offset: var(--moduix-focus-ring-inset-offset);
     }
   }

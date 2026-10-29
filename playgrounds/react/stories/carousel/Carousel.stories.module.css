@@ -41,7 +41,7 @@
   .statusText,
   .output {
     margin: 0;
-    color: var(--moduix-color-muted-foreground);
+    color: var(--moduix-muted-foreground);
     font-size: var(--moduix-text-sm);
     line-height: var(--moduix-line-height-text-sm);
     font-variant-numeric: tabular-nums;
@@ -54,13 +54,9 @@
     height: 21rem;
     margin: 0;
     border: var(--moduix-border-width-sm) solid
-      color-mix(in oklab, var(--moduix-color-border) 88%, black 12%);
+      color-mix(in oklab, var(--moduix-border) 88%, black 12%);
     border-radius: var(--moduix-radius-xl);
-    background: color-mix(
-      in oklab,
-      var(--moduix-color-secondary) 30%,
-      var(--moduix-color-card) 70%
-    );
+    background: color-mix(in oklab, var(--moduix-secondary) 30%, var(--moduix-card) 70%);
     box-shadow: var(--moduix-shadow-sm);
   }
 
@@ -106,7 +102,7 @@
     }
 
     &[data-current] {
-      border-color: var(--moduix-color-primary);
+      border-color: var(--moduix-primary);
       opacity: 1;
       transform: translateY(-1px);
     }

@@ -3,12 +3,12 @@ import type { CssProperty } from '../../mdx/reference';
 export const cardOverrideCssProperties: CssProperty[] = [
   {
     name: '--moduix-card-bg',
-    defaultValue: 'var(--moduix-color-card)',
+    defaultValue: 'var(--moduix-card)',
     description: 'Controls card background color for every variant.',
   },
   {
     name: '--moduix-card-border-color',
-    defaultValue: 'var(--moduix-color-border)',
+    defaultValue: 'var(--moduix-border)',
     description: 'Controls card border color.',
   },
   {
@@ -18,7 +18,7 @@ export const cardOverrideCssProperties: CssProperty[] = [
   },
   {
     name: '--moduix-card-color',
-    defaultValue: 'var(--moduix-color-card-foreground)',
+    defaultValue: 'var(--moduix-card-foreground)',
     description: 'Controls card foreground color.',
   },
   {

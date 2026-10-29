@@ -3,7 +3,7 @@ import type { CssPropertyInput } from '../../mdx/reference';
 export const angleSliderCssProperties: CssPropertyInput[] = [
   [
     '--moduix-angle-slider-indicator-bg',
-    'var(--moduix-color-primary)',
+    'var(--moduix-primary)',
     'Controls the filled arc and the markers below the current value.',
   ],
   [
@@ -17,9 +17,5 @@ export const angleSliderCssProperties: CssPropertyInput[] = [
     'var(--moduix-spacing-4)',
     'Controls the thumb circle size.',
   ],
-  [
-    '--moduix-angle-slider-track-bg',
-    'var(--moduix-color-muted)',
-    'Controls the unfilled track color.',
-  ],
+  ['--moduix-angle-slider-track-bg', 'var(--moduix-muted)', 'Controls the unfilled track color.'],
 ];

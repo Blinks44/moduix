@@ -70,7 +70,7 @@ const EditableArea = forwardRef<
     <EditablePrimitive.Area
       ref={ref}
       className={cn(
-        'flex min-h-control-md min-w-0 items-center rounded-md border border-border bg-background px-3.5 py-1 text-md leading-6 outline-focus-inset outline-offset-focus-inset outline-transparent transition-[border-color,outline-color] duration-normal ease-in-out has-focus-visible:outline-ring has-data-invalid:border-destructive has-data-invalid:has-focus-visible:outline-destructive data-disabled:pointer-events-none data-focus:outline-ring has-data-invalid:data-focus:outline-destructive',
+        'flex min-h-control-md min-w-0 items-center rounded-md border border-input bg-background px-3.5 py-1 text-md leading-6 outline-focus-inset outline-offset-focus-inset outline-transparent transition-[border-color,outline-color] duration-normal ease-in-out has-focus-visible:outline-ring has-data-invalid:border-destructive has-data-invalid:has-focus-visible:outline-destructive data-disabled:pointer-events-none data-focus:outline-ring has-data-invalid:data-focus:outline-destructive',
         className,
       )}
       {...props}

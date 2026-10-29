@@ -3,7 +3,7 @@
     cursor: zoom-in;
 
     &:focus-visible {
-      outline: var(--moduix-focus-ring-width) solid var(--moduix-color-ring);
+      outline: var(--moduix-focus-ring-width) solid var(--moduix-ring);
       outline-offset: var(--moduix-focus-ring-offset);
     }
   }
@@ -12,7 +12,7 @@
     position: fixed;
     z-index: calc(var(--z-index, var(--moduix-z-popup)) - 1);
     inset: 0;
-    background-color: var(--moduix-backdrop-bg, var(--moduix-color-overlay));
+    background-color: var(--moduix-backdrop-bg, var(--moduix-overlay));
     backdrop-filter: var(--moduix-backdrop-filter, blur(4px));
 
     &[data-state='open'] {
@@ -67,7 +67,7 @@
 
   .title {
     margin: 0;
-    color: var(--moduix-color-foreground);
+    color: var(--moduix-foreground);
     font-size: var(--moduix-text-md);
     font-weight: var(--moduix-weight-semibold);
     line-height: var(--moduix-line-height-text-md);
@@ -75,7 +75,7 @@
 
   .description {
     margin: 0;
-    color: var(--moduix-color-muted-foreground);
+    color: var(--moduix-muted-foreground);
     font-size: var(--moduix-text-sm);
     line-height: var(--moduix-line-height-text-sm);
   }
@@ -106,7 +106,7 @@
     align-items: center;
     justify-content: flex-end;
     gap: var(--moduix-spacing-2);
-    color: var(--moduix-color-muted-foreground);
+    color: var(--moduix-muted-foreground);
     font-size: var(--moduix-text-sm);
     line-height: var(--moduix-line-height-text-sm);
   }
@@ -183,7 +183,7 @@
       }
 
       &[data-current] {
-        border-color: var(--moduix-color-primary);
+        border-color: var(--moduix-primary);
         opacity: 1;
         translate: 0 calc(0px - var(--moduix-border-width-sm));
       }
@@ -199,8 +199,8 @@
 
   .closeIcon {
     --moduix-close-button-size: var(--moduix-spacing-8);
-    --moduix-close-button-color: var(--moduix-color-foreground);
-    --moduix-close-button-bg: var(--moduix-color-background);
+    --moduix-close-button-color: var(--moduix-foreground);
+    --moduix-close-button-bg: var(--moduix-background);
     position: fixed;
     z-index: calc(var(--moduix-z-popup) + var(--layer-index, 0) + 1);
     inset-block-start: var(--moduix-spacing-4);

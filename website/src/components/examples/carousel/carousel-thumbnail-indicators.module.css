@@ -34,7 +34,7 @@
 
   &[data-current] {
     inline-size: 5rem;
-    border-color: var(--moduix-color-primary);
+    border-color: var(--moduix-primary);
     background: transparent;
     opacity: 1;
     transform: translateY(-1px);

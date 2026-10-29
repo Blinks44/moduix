@@ -10,9 +10,9 @@
   }
 
   .customTextarea {
-    border-color: color-mix(in srgb, var(--moduix-color-primary) 45%, transparent);
-    background-color: color-mix(in srgb, var(--moduix-color-primary) 5%, transparent);
-    color: var(--moduix-color-primary);
+    border-color: color-mix(in srgb, var(--moduix-primary) 45%, transparent);
+    background-color: color-mix(in srgb, var(--moduix-primary) 5%, transparent);
+    color: var(--moduix-primary);
     resize: none;
   }
 }

@@ -19,18 +19,14 @@ export const clipboardOverrideCssProperties: CssPropertyInput[] = [
   ],
   [
     '--moduix-clipboard-border-color',
-    'var(--moduix-color-border)',
+    'var(--moduix-border)',
     'Controls input and trigger border color.',
   ],
-  ['--moduix-clipboard-input-bg', 'var(--moduix-color-background)', 'Controls input background.'],
-  [
-    '--moduix-clipboard-trigger-bg',
-    'var(--moduix-color-background)',
-    'Controls trigger background.',
-  ],
+  ['--moduix-clipboard-input-bg', 'var(--moduix-background)', 'Controls input background.'],
+  ['--moduix-clipboard-trigger-bg', 'var(--moduix-background)', 'Controls trigger background.'],
   [
     '--moduix-clipboard-trigger-bg-hover',
-    'var(--moduix-color-accent)',
+    'var(--moduix-accent)',
     'Controls trigger background on hover.',
   ],
   ['--moduix-clipboard-icon-size', 'var(--moduix-spacing-4)', 'Controls trigger icon size.'],

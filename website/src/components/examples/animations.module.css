@@ -12,19 +12,19 @@
   gap: var(--moduix-spacing-3);
   justify-items: center;
   padding: var(--moduix-spacing-4);
-  border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
+  border: var(--moduix-border-width-sm) solid var(--moduix-border);
   border-radius: var(--moduix-radius-lg);
   background: linear-gradient(
     180deg,
-    color-mix(in oklab, var(--moduix-color-muted) 72%, white 28%),
-    var(--moduix-color-background)
+    color-mix(in oklab, var(--moduix-muted) 72%, white 28%),
+    var(--moduix-background)
   );
   text-align: center;
 }
 
 .recipeTitle {
   margin: 0;
-  color: var(--moduix-color-foreground);
+  color: var(--moduix-foreground);
   font-size: var(--moduix-text-sm);
   line-height: var(--moduix-line-height-text-sm);
   font-weight: var(--moduix-weight-semibold);
@@ -32,7 +32,7 @@
 
 .recipeDescription {
   margin: 0;
-  color: var(--moduix-color-muted-foreground);
+  color: var(--moduix-muted-foreground);
   font-size: var(--moduix-text-xs);
   line-height: var(--moduix-line-height-text-xs);
 }
@@ -50,7 +50,7 @@
 
 .label {
   margin: 0;
-  color: var(--moduix-color-foreground);
+  color: var(--moduix-foreground);
   font-size: var(--moduix-text-sm);
   line-height: var(--moduix-line-height-text-sm);
   font-weight: var(--moduix-weight-semibold);
@@ -58,7 +58,7 @@
 
 .caption {
   margin: 0;
-  color: var(--moduix-color-muted-foreground);
+  color: var(--moduix-muted-foreground);
   font-size: var(--moduix-text-xs);
   line-height: var(--moduix-line-height-text-xs);
 }

@@ -5,7 +5,7 @@
     gap: var(--moduix-spacing-1);
     width: var(--moduix-tags-input-width, 24rem);
     max-width: 100%;
-    color: var(--moduix-color-foreground);
+    color: var(--moduix-foreground);
 
     &[data-disabled] {
       opacity: var(--moduix-opacity-disabled);
@@ -38,11 +38,11 @@
     align-items: center;
     gap: var(--moduix-spacing-1);
     width: 100%;
-    border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
+    border: var(--moduix-border-width-sm) solid var(--moduix-input);
     border-radius: var(--moduix-tags-input-radius, var(--moduix-radius-md));
     /* 5px keeps a one-line control at 36px around 24px tags and the 1px border. */
     padding: 0.3125rem var(--moduix-spacing-2);
-    background-color: var(--moduix-color-background);
+    background-color: var(--moduix-background);
     outline: var(--moduix-focus-ring-inset-width) solid transparent;
     outline-offset: var(--moduix-focus-ring-inset-offset);
     transition:
@@ -50,14 +50,14 @@
       outline-color var(--moduix-transition-default);
 
     &[data-focus] {
-      outline-color: var(--moduix-color-ring);
+      outline-color: var(--moduix-ring);
     }
 
     &[data-invalid] {
-      border-color: var(--moduix-color-destructive);
+      border-color: var(--moduix-destructive);
 
       &[data-focus] {
-        outline-color: var(--moduix-color-destructive);
+        outline-color: var(--moduix-destructive);
       }
     }
 
@@ -80,15 +80,15 @@
     border: var(--moduix-border-width-sm) solid transparent;
     border-radius: var(--moduix-radius-full);
     padding: var(--moduix-spacing-0-5) var(--moduix-spacing-2);
-    background-color: var(--moduix-color-secondary);
-    color: var(--moduix-color-secondary-foreground);
+    background-color: var(--moduix-secondary);
+    color: var(--moduix-secondary-foreground);
     font-size: var(--moduix-text-xs);
     font-weight: var(--moduix-weight-medium);
     line-height: var(--moduix-line-height-text-xs);
     transition: box-shadow var(--moduix-transition-default);
 
     &[data-highlighted] {
-      box-shadow: 0 0 0 var(--moduix-border-width-sm) var(--moduix-color-ring);
+      box-shadow: 0 0 0 var(--moduix-border-width-sm) var(--moduix-ring);
     }
   }
 
@@ -114,7 +114,7 @@
     outline: 0;
 
     &::placeholder {
-      color: var(--moduix-color-muted-foreground);
+      color: var(--moduix-muted-foreground);
     }
   }
 
@@ -159,7 +159,7 @@
     }
 
     &:focus-visible {
-      box-shadow: 0 0 0 var(--moduix-focus-ring-inset-width) var(--moduix-color-ring);
+      box-shadow: 0 0 0 var(--moduix-focus-ring-inset-width) var(--moduix-ring);
     }
 
     /* An item can be disabled on its own; a disabled root already dims the whole field. */

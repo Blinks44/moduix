@@ -8,13 +8,13 @@ import { Stack } from '@moduix/vue/stack';
     <span
       role="separator"
       aria-hidden="true"
-      style="inline-size: 1px; align-self: stretch; background: var(--moduix-color-border)"
+      style="inline-size: 1px; align-self: stretch; background: var(--moduix-border)"
     />
     <span>Engineering</span>
     <span
       role="separator"
       aria-hidden="true"
-      style="inline-size: 1px; align-self: stretch; background: var(--moduix-color-border)"
+      style="inline-size: 1px; align-self: stretch; background: var(--moduix-border)"
     />
     <span>Docs</span>
   </Stack>

@@ -18,7 +18,7 @@
     align-items: center;
     justify-content: space-between;
     gap: var(--moduix-spacing-4);
-    color: var(--moduix-color-foreground);
+    color: var(--moduix-foreground);
 
     @media (min-width: 32rem) {
       width: 32rem;
@@ -41,7 +41,7 @@
     gap: var(--moduix-spacing-3);
 
     & output {
-      color: var(--moduix-color-muted-foreground);
+      color: var(--moduix-muted-foreground);
       font-size: var(--moduix-text-sm);
       line-height: var(--moduix-line-height-text-sm);
     }
@@ -56,7 +56,7 @@
     bottom: 0;
     height: var(--moduix-border-width-md);
     border-radius: var(--moduix-radius-full);
-    background: var(--moduix-color-foreground);
+    background: var(--moduix-foreground);
     box-shadow: none;
   }
 
@@ -71,11 +71,11 @@
   .inlineInput {
     width: 100%;
     height: var(--moduix-size-md);
-    border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
+    border: var(--moduix-border-width-sm) solid var(--moduix-border);
     border-radius: var(--moduix-radius-sm);
     padding-inline: var(--moduix-spacing-2);
-    background: var(--moduix-color-background);
-    color: var(--moduix-color-foreground);
+    background: var(--moduix-background);
+    color: var(--moduix-foreground);
     font: inherit;
     font-size: var(--moduix-text-sm);
   }

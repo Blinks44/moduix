@@ -18,7 +18,7 @@
   }
 
   .status {
-    color: var(--moduix-color-muted-foreground);
+    color: var(--moduix-muted-foreground);
     font-size: var(--moduix-text-sm);
     line-height: var(--moduix-line-height-text-sm);
   }
@@ -29,11 +29,7 @@
   }
 
   .custom {
-    --moduix-signature-pad-stroke-color: var(--moduix-color-primary);
-    --moduix-signature-pad-guide-color: color-mix(
-      in srgb,
-      var(--moduix-color-primary) 45%,
-      transparent
-    );
+    --moduix-signature-pad-stroke-color: var(--moduix-primary);
+    --moduix-signature-pad-guide-color: color-mix(in srgb, var(--moduix-primary) 45%, transparent);
   }
 }

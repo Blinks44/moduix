@@ -4,7 +4,7 @@ export const accordionOverrideCssProperties: CssPropertyInput[] = [
   ['--moduix-accordion-icon-size', 'var(--moduix-spacing-3)', 'Controls indicator icon size.'],
   [
     '--moduix-accordion-item-border-color',
-    'var(--moduix-color-border)',
+    'var(--moduix-border)',
     'Controls the separator color between accordion items.',
   ],
   [
@@ -19,7 +19,7 @@ export const accordionOverrideCssProperties: CssPropertyInput[] = [
   ],
   [
     '--moduix-accordion-item-content-color',
-    'var(--moduix-color-muted-foreground)',
+    'var(--moduix-muted-foreground)',
     'Controls item content text color.',
   ],
   [
@@ -29,7 +29,7 @@ export const accordionOverrideCssProperties: CssPropertyInput[] = [
   ],
   [
     '--moduix-accordion-trigger-bg-hover',
-    'var(--moduix-color-muted)',
+    'var(--moduix-muted)',
     'Controls trigger background color on hover and while pressed.',
   ],
   [

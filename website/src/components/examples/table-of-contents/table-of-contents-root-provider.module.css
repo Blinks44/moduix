@@ -4,7 +4,7 @@
 }
 
 .status {
-  color: var(--moduix-color-muted-foreground);
+  color: var(--moduix-muted-foreground);
   font-size: var(--moduix-text-sm);
 }
 
@@ -30,7 +30,7 @@
   overflow-y: auto;
   overscroll-behavior: contain;
   padding: var(--moduix-spacing-3);
-  border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
+  border: var(--moduix-border-width-sm) solid var(--moduix-border);
   border-radius: var(--moduix-radius-md);
   scrollbar-gutter: stable;
   scroll-behavior: smooth;
@@ -38,9 +38,9 @@
 
 .scrollArea > section {
   padding: var(--moduix-spacing-3);
-  border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
+  border: var(--moduix-border-width-sm) solid var(--moduix-border);
   border-radius: var(--moduix-radius-md);
-  background: var(--moduix-color-background);
+  background: var(--moduix-background);
 }
 
 .scrollArea :is(h2, h3) {
@@ -51,7 +51,7 @@
 
 .scrollArea p {
   margin: var(--moduix-spacing-1) 0 0;
-  color: var(--moduix-color-muted-foreground);
+  color: var(--moduix-muted-foreground);
   font-size: var(--moduix-text-sm);
   line-height: var(--moduix-line-height-text-sm);
 }

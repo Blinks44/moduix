@@ -557,8 +557,8 @@ test.each([false, true])(
       components,
       setup: () => ({ portal, content, portalled }),
       template: `
-      <div ref="portal" data-testid="tooltip-target" style="--moduix-color-popover: rgb(11, 22, 33)" />
-      <Sidebar style="width: 800px; height: 400px; --moduix-color-popover: rgb(44, 55, 66)">
+      <div ref="portal" data-testid="tooltip-target" style="--moduix-popover: rgb(11, 22, 33)" />
+      <Sidebar style="width: 800px; height: 400px; --moduix-popover: rgb(44, 55, 66)">
         <SidebarPanel>
           <SidebarTooltip content="Unused fallback" :portalled="portalled" :portal-ref="portal" :open-delay="0">
             <SidebarNavigationButton aria-label="Overview">Overview</SidebarNavigationButton>

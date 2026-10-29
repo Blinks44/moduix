@@ -14,17 +14,17 @@ export const carouselOverrideCssProperties: CssPropertyInput[] = [
   ],
   [
     '--moduix-carousel-control-bg',
-    'var(--moduix-color-card)',
+    'var(--moduix-card)',
     'Controls the previous, next, and autoplay button background.',
   ],
   [
     '--moduix-carousel-control-border-color',
-    'var(--moduix-color-border)',
+    'var(--moduix-border)',
     'Controls the previous, next, and autoplay button border color.',
   ],
   [
     '--moduix-carousel-control-color',
-    'var(--moduix-color-foreground)',
+    'var(--moduix-foreground)',
     'Controls the previous, next, and autoplay button icon and text color.',
   ],
   [
@@ -34,12 +34,12 @@ export const carouselOverrideCssProperties: CssPropertyInput[] = [
   ],
   [
     '--moduix-carousel-indicator-bg',
-    'color-mix(in oklab, var(--moduix-color-muted-foreground) 50%, transparent)',
+    'color-mix(in oklab, var(--moduix-muted-foreground) 50%, transparent)',
     'Controls the idle indicator color.',
   ],
   [
     '--moduix-carousel-indicator-bg-current',
-    'var(--moduix-color-primary)',
+    'var(--moduix-primary)',
     'Controls the current indicator color.',
   ],
 ];

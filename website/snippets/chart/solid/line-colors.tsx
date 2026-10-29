@@ -45,7 +45,7 @@ const definition = defineChart({
   },
   color: {
     domain: ['Actual', 'Planned'],
-    range: ['var(--moduix-color-chart-1)', 'var(--moduix-color-chart-2)'],
+    range: ['var(--moduix-chart-1)', 'var(--moduix-chart-2)'],
   },
   focus: 'group-x',
   tooltip,
@@ -64,8 +64,8 @@ export default function ChartColorsDemo() {
         ariaLabel="Planned and actual monthly revenue"
       />
       <ChartLegend aria-label="Revenue series">
-        <ChartLegendItem color="var(--moduix-color-chart-1)">Actual</ChartLegendItem>
-        <ChartLegendItem color="var(--moduix-color-chart-2)">Planned</ChartLegendItem>
+        <ChartLegendItem color="var(--moduix-chart-1)">Actual</ChartLegendItem>
+        <ChartLegendItem color="var(--moduix-chart-2)">Planned</ChartLegendItem>
       </ChartLegend>
     </Chart>
   );

@@ -3,9 +3,9 @@
   gap: var(--moduix-spacing-4);
   padding: clamp(1rem, 2vw, 1.5rem);
   border: var(--moduix-border-width-sm) solid
-    color-mix(in oklab, var(--moduix-color-border) 82%, transparent);
+    color-mix(in oklab, var(--moduix-border) 82%, transparent);
   border-radius: var(--moduix-radius-lg);
-  background: color-mix(in oklab, var(--moduix-color-card) 76%, transparent);
+  background: color-mix(in oklab, var(--moduix-card) 76%, transparent);
   box-shadow: var(--moduix-shadow-lg);
   backdrop-filter: blur(24px);
 }
@@ -37,7 +37,7 @@
 
 .selectionSummary,
 .pageSummary {
-  color: var(--moduix-color-muted-foreground);
+  color: var(--moduix-muted-foreground);
   font-size: var(--moduix-text-xs);
   line-height: var(--moduix-line-height-text-xs);
   white-space: nowrap;
@@ -52,7 +52,7 @@
   table-layout: fixed;
 
   [data-slot='table-row'][data-selected] {
-    background: color-mix(in oklab, var(--moduix-color-primary) 7%, var(--moduix-color-background));
+    background: color-mix(in oklab, var(--moduix-primary) 7%, var(--moduix-background));
   }
 
   [data-slot='table-column-header'] > button {
@@ -68,8 +68,8 @@
 .rowActionsTrigger {
   --moduix-button-bg-hover: color-mix(
     in oklab,
-    var(--moduix-color-foreground) 10%,
-    var(--moduix-color-background)
+    var(--moduix-foreground) 10%,
+    var(--moduix-background)
   );
 }
 
@@ -78,12 +78,12 @@
   gap: 0.18rem;
 
   & strong {
-    color: var(--moduix-color-foreground);
+    color: var(--moduix-foreground);
     font-weight: var(--moduix-weight-semibold);
   }
 
   & span {
-    color: var(--moduix-color-muted-foreground);
+    color: var(--moduix-muted-foreground);
     font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
     font-size: var(--moduix-text-xs);
   }

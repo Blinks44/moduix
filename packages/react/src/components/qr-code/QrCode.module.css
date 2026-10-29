@@ -24,8 +24,8 @@
     aspect-ratio: 1;
     padding: var(--moduix-spacing-1);
     border-radius: var(--moduix-radius-sm);
-    background-color: var(--moduix-color-background);
-    color: var(--moduix-color-foreground);
+    background-color: var(--moduix-background);
+    color: var(--moduix-foreground);
 
     & :where(img, svg) {
       width: 100%;
@@ -41,10 +41,10 @@
     gap: var(--moduix-spacing-2);
     min-height: var(--moduix-size-md);
     padding-inline: var(--moduix-spacing-4);
-    border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
+    border: var(--moduix-border-width-sm) solid var(--moduix-border);
     border-radius: var(--moduix-radius-md);
-    background-color: var(--moduix-color-background);
-    color: var(--moduix-color-foreground);
+    background-color: var(--moduix-background);
+    color: var(--moduix-foreground);
     appearance: none;
     font: inherit;
     font-size: var(--moduix-text-sm);
@@ -65,12 +65,12 @@
 
     @media (hover: hover) {
       &:hover:not(:disabled) {
-        background-color: var(--moduix-color-accent);
+        background-color: var(--moduix-accent);
       }
     }
 
     &:focus-visible {
-      outline: var(--moduix-focus-ring-width) solid var(--moduix-color-ring);
+      outline: var(--moduix-focus-ring-width) solid var(--moduix-ring);
       outline-offset: calc(var(--moduix-border-width-sm) * -1);
     }
 

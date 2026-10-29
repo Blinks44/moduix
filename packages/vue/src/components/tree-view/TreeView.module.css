@@ -6,7 +6,7 @@
     min-width: 0;
     flex-direction: column;
     gap: var(--moduix-spacing-2);
-    color: var(--moduix-color-foreground);
+    color: var(--moduix-foreground);
   }
 
   .label {
@@ -76,24 +76,24 @@
 
     @media (hover: hover) {
       &:not([data-disabled]):hover {
-        color: var(--moduix-color-accent-foreground);
+        color: var(--moduix-accent-foreground);
 
         &::before {
-          background-color: var(--moduix-color-accent);
+          background-color: var(--moduix-accent);
         }
       }
     }
 
     &:focus-visible::before,
     &[data-focus]::before {
-      box-shadow: inset 0 0 0 var(--moduix-focus-ring-inset-width) var(--moduix-color-ring);
+      box-shadow: inset 0 0 0 var(--moduix-focus-ring-inset-width) var(--moduix-ring);
     }
 
     &[data-selected] {
-      color: var(--moduix-color-accent-foreground);
+      color: var(--moduix-accent-foreground);
 
       &::before {
-        background-color: var(--moduix-color-accent);
+        background-color: var(--moduix-accent);
       }
     }
 
@@ -181,7 +181,7 @@
         var(--moduix-spacing-4)
     );
     width: var(--moduix-border-width-sm);
-    background-color: var(--moduix-color-border);
+    background-color: var(--moduix-border);
     pointer-events: none;
   }
 
@@ -192,10 +192,10 @@
     flex-shrink: 0;
     align-items: center;
     justify-content: center;
-    border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
+    border: var(--moduix-border-width-sm) solid var(--moduix-border);
     border-radius: var(--moduix-radius-xs);
-    background-color: var(--moduix-color-background);
-    color: var(--moduix-color-primary-foreground);
+    background-color: var(--moduix-background);
+    color: var(--moduix-primary-foreground);
     outline: var(--moduix-focus-ring-inset-width) solid transparent;
     outline-offset: var(--moduix-border-width-sm);
     transition:
@@ -205,12 +205,12 @@
 
     &[data-state='checked'],
     &[data-state='indeterminate'] {
-      border-color: var(--moduix-color-primary);
-      background-color: var(--moduix-color-primary);
+      border-color: var(--moduix-primary);
+      background-color: var(--moduix-primary);
     }
 
     &:focus-visible {
-      outline-color: var(--moduix-color-ring);
+      outline-color: var(--moduix-ring);
     }
 
     &[data-disabled] {
@@ -238,18 +238,18 @@
   .nodeRenameInput {
     min-width: 0;
     flex: 1;
-    border: var(--moduix-border-width-sm) solid var(--moduix-color-ring);
+    border: var(--moduix-border-width-sm) solid var(--moduix-ring);
     border-radius: var(--moduix-radius-xs);
     padding-block: 0;
     padding-inline: var(--moduix-spacing-1);
-    background-color: var(--moduix-color-background);
-    color: var(--moduix-color-foreground);
+    background-color: var(--moduix-background);
+    color: var(--moduix-foreground);
     font: inherit;
     outline: var(--moduix-focus-ring-inset-width) solid transparent;
     outline-offset: calc(var(--moduix-focus-ring-inset-width) * -1);
 
     &:focus-visible {
-      outline-color: var(--moduix-color-ring);
+      outline-color: var(--moduix-ring);
     }
   }
 }

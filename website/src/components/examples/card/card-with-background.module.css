@@ -2,7 +2,7 @@
   width: min(28rem, 100%);
   min-height: 20rem;
   border: 0;
-  background: var(--moduix-color-muted);
+  background: var(--moduix-muted);
   color: #fff;
 }
 

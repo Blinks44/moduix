@@ -10,16 +10,12 @@
 }
 
 .customSoft {
-  --moduix-tag-bg: color-mix(
-    in oklab,
-    var(--moduix-color-primary) 16%,
-    var(--moduix-color-background)
-  );
-  --moduix-tag-border-color: color-mix(in oklab, var(--moduix-color-primary) 35%, transparent);
-  --moduix-tag-color: var(--moduix-color-primary);
+  --moduix-tag-bg: color-mix(in oklab, var(--moduix-primary) 16%, var(--moduix-background));
+  --moduix-tag-border-color: color-mix(in oklab, var(--moduix-primary) 35%, transparent);
+  --moduix-tag-color: var(--moduix-primary);
 }
 
 .customOutline {
-  --moduix-tag-border-color: color-mix(in oklab, var(--moduix-color-foreground) 18%, transparent);
-  --moduix-tag-color: var(--moduix-color-primary);
+  --moduix-tag-border-color: color-mix(in oklab, var(--moduix-foreground) 18%, transparent);
+  --moduix-tag-color: var(--moduix-primary);
 }

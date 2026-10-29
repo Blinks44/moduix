@@ -5,13 +5,9 @@
 }
 
 .customAlert {
-  --moduix-alert-bg: color-mix(
-    in oklab,
-    var(--moduix-color-primary) 12%,
-    var(--moduix-color-background)
-  );
-  --moduix-alert-border-color: color-mix(in oklab, var(--moduix-color-primary) 38%, transparent);
-  --moduix-alert-indicator-color: var(--moduix-color-primary);
+  --moduix-alert-bg: color-mix(in oklab, var(--moduix-primary) 12%, var(--moduix-background));
+  --moduix-alert-border-color: color-mix(in oklab, var(--moduix-primary) 38%, transparent);
+  --moduix-alert-indicator-color: var(--moduix-primary);
   border-radius: var(--moduix-radius-md);
   box-shadow: var(--moduix-shadow-sm);
 

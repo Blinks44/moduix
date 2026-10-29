@@ -150,17 +150,17 @@ Controlled callbacks keep the Ark details object:
 
 Primary CSS variables:
 
-| Variable                                 | Default                                |
-| ---------------------------------------- | -------------------------------------- |
-| `--moduix-collapsible-body-gap`          | `var(--moduix-spacing-2)`              |
-| `--moduix-collapsible-body-padding`      | `0`                                    |
-| `--moduix-collapsible-content-color`     | `var(--moduix-color-muted-foreground)` |
-| `--moduix-collapsible-content-font-size` | `var(--moduix-text-sm)`                |
-| `--moduix-collapsible-indicator-size`    | `var(--moduix-spacing-3)`              |
-| `--moduix-collapsible-trigger-font-size` | `var(--moduix-text-sm)`                |
-| `--moduix-collapsible-trigger-gap`       | `var(--moduix-spacing-2)`              |
-| `--moduix-collapsible-trigger-padding-x` | `0`                                    |
-| `--moduix-collapsible-trigger-padding-y` | `var(--moduix-spacing-1)`              |
+| Variable                                 | Default                          |
+| ---------------------------------------- | -------------------------------- |
+| `--moduix-collapsible-body-gap`          | `var(--moduix-spacing-2)`        |
+| `--moduix-collapsible-body-padding`      | `0`                              |
+| `--moduix-collapsible-content-color`     | `var(--moduix-muted-foreground)` |
+| `--moduix-collapsible-content-font-size` | `var(--moduix-text-sm)`          |
+| `--moduix-collapsible-indicator-size`    | `var(--moduix-spacing-3)`        |
+| `--moduix-collapsible-trigger-font-size` | `var(--moduix-text-sm)`          |
+| `--moduix-collapsible-trigger-gap`       | `var(--moduix-spacing-2)`        |
+| `--moduix-collapsible-trigger-padding-x` | `0`                              |
+| `--moduix-collapsible-trigger-padding-y` | `var(--moduix-spacing-1)`        |
 
 Other defaults (root width and color, trigger color and background, focus ring, disabled opacity,
 motion) use foundation tokens directly. Override them with a class on the part; it wins over the

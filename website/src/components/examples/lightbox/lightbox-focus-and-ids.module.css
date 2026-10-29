@@ -1,9 +1,9 @@
 .button {
   border: 0;
   border-radius: var(--moduix-radius-md);
-  background: var(--moduix-color-muted);
+  background: var(--moduix-muted);
   padding: var(--moduix-spacing-3) var(--moduix-spacing-4);
-  color: var(--moduix-color-foreground);
+  color: var(--moduix-foreground);
   font: inherit;
 }
 
@@ -20,7 +20,7 @@
 }
 
 .focusTarget[data-focus-returned] {
-  box-shadow: 0 0 0 var(--moduix-spacing-1) var(--moduix-color-ring);
+  box-shadow: 0 0 0 var(--moduix-spacing-1) var(--moduix-ring);
 }
 
 @media (prefers-reduced-motion: no-preference) {

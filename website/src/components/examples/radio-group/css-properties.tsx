@@ -1,19 +1,15 @@
 import type { CssPropertyInput } from '../../mdx/reference';
 
 export const radioGroupOverrideCssProperties: CssPropertyInput[] = [
-  [
-    '--moduix-radio-bg',
-    'var(--moduix-color-background)',
-    'Controls unchecked item control background.',
-  ],
+  ['--moduix-radio-bg', 'var(--moduix-background)', 'Controls unchecked item control background.'],
   [
     '--moduix-radio-bg-checked',
-    'var(--moduix-color-primary)',
+    'var(--moduix-primary)',
     'Controls checked item control background and border.',
   ],
   [
     '--moduix-radio-border-color',
-    'var(--moduix-color-border)',
+    'var(--moduix-border)',
     'Controls unchecked item control border color.',
   ],
   [
@@ -23,7 +19,7 @@ export const radioGroupOverrideCssProperties: CssPropertyInput[] = [
   ],
   [
     '--moduix-radio-indicator-color',
-    'var(--moduix-color-primary-foreground)',
+    'var(--moduix-primary-foreground)',
     'Controls checked dot color.',
   ],
   [

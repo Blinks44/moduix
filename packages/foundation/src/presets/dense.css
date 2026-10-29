@@ -14,17 +14,11 @@
   --moduix-accent: light-dark(oklch(0.925 0.02 255), oklch(0.31 0.03 255));
   --moduix-accent-foreground: light-dark(oklch(0.22 0.025 255), oklch(0.97 0.003 255));
   --moduix-border: light-dark(oklch(0.88 0.015 255), oklch(0.72 0.02 255 / 0.25));
-  --moduix-input: light-dark(oklch(0.84 0.018 255), oklch(0.76 0.02 255 / 0.32));
+  --moduix-input: light-dark(oklch(0.645 0.018 255), oklch(0.76 0.02 255 / 0.52));
   --moduix-ring: light-dark(oklch(0.56 0.14 255), oklch(0.7 0.12 255));
   --moduix-overlay: light-dark(oklch(0.16 0.02 255 / 0.24), oklch(0.1 0.02 255 / 0.78));
-  --moduix-overlay-foreground: light-dark(
-    oklch(0.16 0.02 255 / 0.08),
-    oklch(0.97 0.003 255 / 0.09)
-  );
   --moduix-sidebar: light-dark(oklch(0.972 0.007 255), oklch(0.19 0.016 255));
   --moduix-sidebar-foreground: light-dark(oklch(0.185 0.014 255), oklch(0.97 0.003 255));
-  --moduix-sidebar-primary: light-dark(oklch(0.48 0.16 255), oklch(0.76 0.13 255));
-  --moduix-sidebar-primary-foreground: light-dark(oklch(0.99 0.002 255), oklch(0.17 0.018 255));
   --moduix-sidebar-accent: light-dark(oklch(0.925 0.02 255), oklch(0.31 0.03 255));
   --moduix-sidebar-accent-foreground: light-dark(oklch(0.22 0.025 255), oklch(0.97 0.003 255));
   --moduix-sidebar-border: light-dark(oklch(0.88 0.015 255), oklch(0.72 0.02 255 / 0.25));

@@ -3,7 +3,7 @@ import type { CssPropertyInput } from '../../mdx/reference';
 export const breadcrumbsCssProperties: CssPropertyInput[] = [
   [
     '--moduix-breadcrumbs-color',
-    'var(--moduix-color-muted-foreground)',
+    'var(--moduix-muted-foreground)',
     'Controls the text color of links, separators, and the ellipsis.',
   ],
   ['--moduix-breadcrumbs-font-size', 'var(--moduix-text-sm)', 'Controls breadcrumbs font size.'],
@@ -29,12 +29,12 @@ export const breadcrumbsCssProperties: CssPropertyInput[] = [
   ],
   [
     '--moduix-breadcrumbs-link-color-hover',
-    'var(--moduix-color-foreground)',
+    'var(--moduix-foreground)',
     'Controls breadcrumb link hover color.',
   ],
   [
     '--moduix-breadcrumbs-page-color',
-    'var(--moduix-color-foreground)',
+    'var(--moduix-foreground)',
     'Controls current page breadcrumb color.',
   ],
   [

@@ -12,11 +12,11 @@
   min-height: 4.5rem;
   gap: var(--moduix-spacing-1);
   padding: var(--moduix-spacing-4);
-  border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
+  border: var(--moduix-border-width-sm) solid var(--moduix-border);
 }
 
 .role {
-  color: var(--moduix-color-muted-foreground);
+  color: var(--moduix-muted-foreground);
   font-size: var(--moduix-text-sm);
   line-height: var(--moduix-line-height-text-sm);
 }

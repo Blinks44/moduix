@@ -6,8 +6,8 @@
   .item {
     min-width: 0;
     padding: var(--moduix-spacing-4);
-    border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
+    border: var(--moduix-border-width-sm) solid var(--moduix-border);
     border-radius: var(--moduix-radius-lg);
-    background-color: var(--moduix-color-background);
+    background-color: var(--moduix-background);
   }
 }

@@ -15,12 +15,9 @@
   .viewport {
     width: 100%;
     aspect-ratio: 8 / 5;
-    border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
+    border: var(--moduix-border-width-sm) solid var(--moduix-border);
     border-radius: var(--moduix-radius-lg);
-    background: repeating-conic-gradient(
-        var(--moduix-color-muted) 0 25%,
-        var(--moduix-color-background) 0 50%
-      )
+    background: repeating-conic-gradient(var(--moduix-muted) 0 25%, var(--moduix-background) 0 50%)
       0 0 / 1rem 1rem;
 
     &[data-disabled] {
@@ -40,7 +37,7 @@
   }
 
   .selection {
-    border: var(--moduix-border-width-md) solid var(--moduix-color-primary);
+    border: var(--moduix-border-width-md) solid var(--moduix-primary);
     border-radius: var(--moduix-radius-md);
     box-shadow:
       0 0 0 9999px rgb(0 0 0 / 45%),
@@ -53,7 +50,7 @@
     }
 
     &:focus-visible {
-      outline: var(--moduix-focus-ring-width) solid var(--moduix-color-ring);
+      outline: var(--moduix-focus-ring-width) solid var(--moduix-ring);
       outline-offset: var(--moduix-focus-ring-offset);
     }
 

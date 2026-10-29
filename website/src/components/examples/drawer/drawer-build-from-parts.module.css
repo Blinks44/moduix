@@ -11,8 +11,8 @@
 
 .closeButton {
   --moduix-close-button-radius: var(--moduix-radius-md);
-  --moduix-close-button-color-hover: var(--moduix-color-popover-foreground);
-  --moduix-close-button-bg-hover: var(--moduix-color-accent);
+  --moduix-close-button-color-hover: var(--moduix-popover-foreground);
+  --moduix-close-button-bg-hover: var(--moduix-accent);
 }
 
 .body {
@@ -25,7 +25,7 @@
 
 .card {
   flex: 1;
-  background-color: var(--moduix-color-muted);
+  background-color: var(--moduix-muted);
 }
 
 .footer {

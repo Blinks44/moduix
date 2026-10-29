@@ -18,8 +18,8 @@
 }
 .closeButton {
   --moduix-close-button-size: var(--moduix-spacing-8);
-  --moduix-close-button-color: var(--moduix-color-foreground);
-  --moduix-close-button-bg: var(--moduix-color-background);
+  --moduix-close-button-color: var(--moduix-foreground);
+  --moduix-close-button-bg: var(--moduix-background);
   position: fixed;
   z-index: calc(var(--moduix-z-popup) + var(--layer-index, 0) + 1);
   inset-block-start: var(--moduix-spacing-4);

@@ -61,7 +61,7 @@
   }
 
   .label {
-    color: var(--moduix-color-foreground);
+    color: var(--moduix-foreground);
     font-size: var(--moduix-text-sm);
     font-weight: var(--moduix-weight-medium);
     line-height: var(--moduix-line-height-text-sm);
@@ -71,7 +71,7 @@
     display: inline-flex;
     align-items: center;
     gap: var(--moduix-spacing-2);
-    color: var(--moduix-color-foreground);
+    color: var(--moduix-foreground);
     user-select: none;
     cursor: ew-resize;
 
@@ -89,22 +89,22 @@
   .incrementTrigger {
     height: var(--moduix-number-input-control-height, var(--_number-input-height));
     margin: 0;
-    border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
-    background-color: var(--moduix-color-background);
-    color: var(--moduix-color-foreground);
+    border: var(--moduix-border-width-sm) solid var(--moduix-input);
+    background-color: var(--moduix-background);
+    color: var(--moduix-foreground);
     outline: var(--moduix-focus-ring-inset-width) solid transparent;
     outline-offset: var(--moduix-focus-ring-inset-offset);
 
     &:focus-visible {
       z-index: 1;
-      outline-color: var(--moduix-color-ring);
+      outline-color: var(--moduix-ring);
     }
 
     .root[data-invalid] & {
-      border-color: var(--moduix-color-destructive);
+      border-color: var(--moduix-destructive);
 
       &:focus-visible {
-        outline-color: var(--moduix-color-destructive);
+        outline-color: var(--moduix-destructive);
       }
     }
   }
@@ -126,17 +126,17 @@
 
     @media (hover: hover) {
       &:hover {
-        background-color: var(--moduix-color-accent);
+        background-color: var(--moduix-accent);
       }
     }
 
     &:active {
-      background-color: var(--moduix-color-accent);
+      background-color: var(--moduix-accent);
     }
 
     /* Ark disables a trigger at the min or max value and in read-only mode. */
     &[data-disabled] {
-      color: var(--moduix-color-muted-foreground);
+      color: var(--moduix-muted-foreground);
       pointer-events: none;
     }
 
@@ -174,7 +174,7 @@
   }
 
   .valueText {
-    color: var(--moduix-color-muted-foreground);
+    color: var(--moduix-muted-foreground);
     font-size: var(--moduix-text-sm);
     line-height: var(--moduix-line-height-text-sm);
     font-variant-numeric: tabular-nums;

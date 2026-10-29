@@ -1,21 +1,21 @@
 .control {
-  border-color: var(--moduix-color-primary);
-  background-color: var(--moduix-color-muted);
+  border-color: var(--moduix-primary);
+  background-color: var(--moduix-muted);
 
   &[data-focus] {
-    outline-color: var(--moduix-color-primary);
+    outline-color: var(--moduix-primary);
   }
 }
 
 .segment:focus-visible {
-  background-color: color-mix(in oklab, var(--moduix-color-primary) 14%, transparent);
+  background-color: color-mix(in oklab, var(--moduix-primary) 14%, transparent);
 }
 
 .daySegment {
   font-weight: var(--moduix-weight-semibold);
 
   &:focus-visible {
-    background-color: color-mix(in oklab, var(--moduix-color-primary) 18%, transparent);
-    color: var(--moduix-color-primary);
+    background-color: color-mix(in oklab, var(--moduix-primary) 18%, transparent);
+    color: var(--moduix-primary);
   }
 }

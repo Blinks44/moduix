@@ -1,9 +1,9 @@
 .content {
   &[data-dialog-tone='danger'] {
-    border-color: var(--moduix-color-destructive);
+    border-color: var(--moduix-destructive);
 
     & [data-slot='dialog-title'] {
-      color: var(--moduix-color-destructive);
+      color: var(--moduix-destructive);
     }
   }
 }

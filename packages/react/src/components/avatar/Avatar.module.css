@@ -8,8 +8,8 @@
     justify-content: center;
     position: relative;
     border-radius: var(--moduix-avatar-radius, var(--moduix-radius-full));
-    background-color: var(--moduix-avatar-bg, var(--moduix-color-muted));
-    color: var(--moduix-avatar-color, var(--moduix-color-foreground));
+    background-color: var(--moduix-avatar-bg, var(--moduix-muted));
+    color: var(--moduix-avatar-color, var(--moduix-foreground));
     font-size: var(--moduix-avatar-font-size, var(--moduix-text-md));
     font-weight: var(--moduix-avatar-font-weight, var(--moduix-weight-medium));
     line-height: 1;
@@ -72,7 +72,7 @@
     }
 
     & > [data-scope='avatar'] {
-      box-shadow: 0 0 0 var(--moduix-border-width-md) var(--moduix-color-background);
+      box-shadow: 0 0 0 var(--moduix-border-width-md) var(--moduix-background);
     }
   }
 }

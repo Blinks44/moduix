@@ -56,7 +56,7 @@ const radarDefinition = defineChart({
   scales: { x: null, y: null },
   color: {
     domain: ['Product A', 'Product B'],
-    range: ['var(--moduix-color-chart-1)', 'var(--moduix-color-chart-2)'],
+    range: ['var(--moduix-chart-1)', 'var(--moduix-chart-2)'],
   },
   focus: focusGroupAngle,
   tooltip,
@@ -73,8 +73,8 @@ const radarDefinition = defineChart({
     </ChartHeader>
     <ChartPlot :definition="radarDefinition" :height="360" ariaLabel="Product scores by metric" />
     <ChartLegend aria-label="Products">
-      <ChartLegendItem color="var(--moduix-color-chart-1)">Product A</ChartLegendItem>
-      <ChartLegendItem color="var(--moduix-color-chart-2)">Product B</ChartLegendItem>
+      <ChartLegendItem color="var(--moduix-chart-1)">Product A</ChartLegendItem>
+      <ChartLegendItem color="var(--moduix-chart-2)">Product B</ChartLegendItem>
     </ChartLegend>
   </Chart>
 </template>

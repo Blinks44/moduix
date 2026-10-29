@@ -1,6 +1,6 @@
 .root {
   width: min(24rem, 100%);
-  border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
+  border: var(--moduix-border-width-sm) solid var(--moduix-border);
   border-radius: var(--moduix-radius-lg);
 }
 

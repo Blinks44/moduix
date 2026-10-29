@@ -5,9 +5,9 @@
     min-width: 0;
     overflow-x: auto;
     border: var(--moduix-border-width-sm) solid
-      var(--moduix-table-border-color, var(--moduix-color-border));
+      var(--moduix-table-border-color, var(--moduix-border));
     border-radius: var(--moduix-radius-lg);
-    background-color: var(--moduix-table-bg, var(--moduix-color-card));
+    background-color: var(--moduix-table-bg, var(--moduix-card));
   }
 
   .root {
@@ -16,7 +16,7 @@
 
     width: 100%;
     border-collapse: collapse;
-    color: var(--moduix-color-foreground);
+    color: var(--moduix-foreground);
     font-size: var(--moduix-text-sm);
     line-height: var(--moduix-line-height-text-sm);
     text-align: start;
@@ -39,7 +39,7 @@
 
   .caption {
     padding-inline: var(--_table-cell-padding-x);
-    color: var(--moduix-color-muted-foreground);
+    color: var(--moduix-muted-foreground);
     font-size: var(--moduix-text-sm);
     line-height: var(--moduix-line-height-text-sm);
     text-align: start;
@@ -60,13 +60,13 @@
     position: sticky;
     inset-block-start: 0;
     z-index: 3;
-    background-color: var(--moduix-table-bg, var(--moduix-color-card));
+    background-color: var(--moduix-table-bg, var(--moduix-card));
   }
 
   .footer {
     border-top: var(--moduix-border-width-sm) solid
-      var(--moduix-table-border-color, var(--moduix-color-border));
-    background-color: var(--moduix-color-muted);
+      var(--moduix-table-border-color, var(--moduix-border));
+    background-color: var(--moduix-muted);
     font-weight: var(--moduix-weight-medium);
   }
 
@@ -80,24 +80,24 @@
   .header .row,
   .body .row:not(:last-child) {
     border-bottom: var(--moduix-border-width-sm) solid
-      var(--moduix-table-border-color, var(--moduix-color-border));
+      var(--moduix-table-border-color, var(--moduix-border));
   }
 
   .root[data-striped] .body .row:nth-child(even):not([data-empty]) {
     --_table-row-bg: var(
       --moduix-table-row-bg-striped,
-      color-mix(in oklab, var(--moduix-color-muted) 35%, transparent)
+      color-mix(in oklab, var(--moduix-muted) 35%, transparent)
     );
   }
 
   @media (hover: hover) {
     .root[data-interactive] .body .row:not([data-empty]):hover {
-      --_table-row-bg: var(--moduix-table-row-bg-hover, var(--moduix-color-muted));
+      --_table-row-bg: var(--moduix-table-row-bg-hover, var(--moduix-muted));
     }
   }
 
   .root[data-interactive] .body .row:not([data-empty]):focus-within {
-    --_table-row-bg: var(--moduix-table-row-bg-hover, var(--moduix-color-muted));
+    --_table-row-bg: var(--moduix-table-row-bg-hover, var(--moduix-muted));
   }
 
   .columnHeader,
@@ -110,7 +110,7 @@
     &[data-sticky] {
       position: sticky;
       z-index: 2;
-      background-color: var(--moduix-table-bg, var(--moduix-color-card));
+      background-color: var(--moduix-table-bg, var(--moduix-card));
       background-image: linear-gradient(var(--_table-row-bg), var(--_table-row-bg));
     }
 
@@ -125,11 +125,11 @@
 
   .root[data-show-column-border] :is(.columnHeader, .cell):not(:last-child) {
     border-inline-end: var(--moduix-border-width-sm) solid
-      var(--moduix-table-border-color, var(--moduix-color-border));
+      var(--moduix-table-border-color, var(--moduix-border));
   }
 
   .columnHeader {
-    color: var(--moduix-color-muted-foreground);
+    color: var(--moduix-muted-foreground);
     font-weight: var(--moduix-weight-medium);
     text-align: inherit;
     white-space: nowrap;
@@ -143,7 +143,7 @@
 
   .empty {
     padding-block: calc(var(--_table-cell-padding-y) * 2);
-    color: var(--moduix-color-muted-foreground);
+    color: var(--moduix-muted-foreground);
     text-align: center;
   }
 }

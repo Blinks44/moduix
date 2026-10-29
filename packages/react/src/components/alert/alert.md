@@ -153,20 +153,20 @@ Extends Ark `div` props and supports `asChild`.
 
 ### Public CSS variables
 
-| Variable                           | Default/fallback                                                   |
-| ---------------------------------- | ------------------------------------------------------------------ |
-| `--moduix-alert-bg`                | Status-dependent; info uses `var(--moduix-color-card)`             |
-| `--moduix-alert-border-color`      | Status-dependent; info uses `var(--moduix-color-border)`           |
-| `--moduix-alert-color`             | Status-dependent; info uses `var(--moduix-color-card-foreground)`  |
-| `--moduix-alert-description-color` | `var(--moduix-color-muted-foreground)`                             |
-| `--moduix-alert-indicator-color`   | Status-dependent; info uses `var(--moduix-color-muted-foreground)` |
+| Variable                           | Default/fallback                                             |
+| ---------------------------------- | ------------------------------------------------------------ |
+| `--moduix-alert-bg`                | Status-dependent; info uses `var(--moduix-card)`             |
+| `--moduix-alert-border-color`      | Status-dependent; info uses `var(--moduix-border)`           |
+| `--moduix-alert-color`             | Status-dependent; info uses `var(--moduix-card-foreground)`  |
+| `--moduix-alert-description-color` | `var(--moduix-muted-foreground)`                             |
+| `--moduix-alert-indicator-color`   | Status-dependent; info uses `var(--moduix-muted-foreground)` |
 
 Built-in statuses derive their accents from shared palette tokens:
 
 - `info` -> card surface tokens
-- `success` -> `--moduix-color-success`
-- `warning` -> `--moduix-color-warning`
-- `error` -> `--moduix-color-destructive`
+- `success` -> `--moduix-success`
+- `warning` -> `--moduix-warning`
+- `error` -> `--moduix-destructive`
 
 The four color variables override every status. Scope them with `[data-status='success']` and
 similar selectors to retheme one status. Spacing, radius, shadow, and typography use foundation

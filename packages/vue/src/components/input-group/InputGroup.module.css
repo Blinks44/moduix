@@ -43,10 +43,10 @@
     min-height: var(--moduix-input-group-height, var(--_input-group-height));
     align-items: stretch;
     overflow: hidden;
-    border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
+    border: var(--moduix-border-width-sm) solid var(--moduix-input);
     border-radius: var(--moduix-input-group-radius, var(--moduix-radius-md));
-    background-color: var(--moduix-color-background);
-    color: var(--moduix-color-foreground);
+    background-color: var(--moduix-background);
+    color: var(--moduix-foreground);
     font-size: var(--_input-group-font-size);
     line-height: var(--_input-group-line-height);
     outline: var(--moduix-focus-ring-inset-width) solid transparent;
@@ -61,7 +61,7 @@
     }
 
     &:focus-within {
-      outline-color: var(--moduix-color-ring);
+      outline-color: var(--moduix-ring);
     }
 
     &:has(
@@ -70,10 +70,10 @@
         [aria-invalid='true']
       )
     ) {
-      border-color: var(--moduix-color-destructive);
+      border-color: var(--moduix-destructive);
 
       &:focus-within {
-        outline-color: var(--moduix-color-destructive);
+        outline-color: var(--moduix-destructive);
       }
     }
 
@@ -129,7 +129,7 @@
     justify-content: center;
     gap: var(--moduix-spacing-2);
     padding-inline: var(--_input-group-padding-x);
-    color: var(--moduix-color-muted-foreground);
+    color: var(--moduix-muted-foreground);
     overflow: hidden;
     white-space: nowrap;
 
@@ -146,8 +146,8 @@
   }
 
   .addon {
-    border-inline: var(--moduix-border-width-sm) solid var(--moduix-color-border);
-    background-color: var(--moduix-color-muted);
+    border-inline: var(--moduix-border-width-sm) solid var(--moduix-border);
+    background-color: var(--moduix-muted);
 
     &:first-child {
       border-inline-start: 0;
@@ -159,7 +159,7 @@
 
     &[data-align='block'] {
       border-inline: 0;
-      border-block: var(--moduix-border-width-sm) solid var(--moduix-color-border);
+      border-block: var(--moduix-border-width-sm) solid var(--moduix-border);
 
       &:first-child {
         border-block-start: 0;

@@ -24,7 +24,7 @@
 
   .content {
     --arrow-size: var(--moduix-spacing-2-5);
-    --arrow-background: var(--moduix-color-popover);
+    --arrow-background: var(--moduix-popover);
 
     position: relative;
     z-index: calc(var(--moduix-z-popup) + var(--layer-index, 0));
@@ -37,10 +37,10 @@
     max-width: min(var(--moduix-menu-popup-max-width, 20rem), var(--available-width, 100vw));
     padding-block: var(--moduix-popup-list-padding-y, var(--moduix-spacing-1));
     border-radius: var(--moduix-radius-md);
-    background-color: var(--moduix-color-popover);
-    color: var(--moduix-color-popover-foreground);
+    background-color: var(--moduix-popover);
+    color: var(--moduix-popover-foreground);
     /* An outline instead of a border lets MenuArrow paint over the edge and join it. */
-    outline: var(--moduix-border-width-sm) solid var(--moduix-color-border);
+    outline: var(--moduix-border-width-sm) solid var(--moduix-border);
     box-shadow: var(--moduix-shadow-lg);
     transform-origin: var(--transform-origin);
 
@@ -65,8 +65,8 @@
   }
 
   .arrowTip {
-    border-block-start: var(--moduix-border-width-sm) solid var(--moduix-color-border);
-    border-inline-start: var(--moduix-border-width-sm) solid var(--moduix-color-border);
+    border-block-start: var(--moduix-border-width-sm) solid var(--moduix-border);
+    border-inline-start: var(--moduix-border-width-sm) solid var(--moduix-border);
   }
 
   .item,
@@ -93,7 +93,7 @@
     /* The highlight is inset from the row, so the whole row stays clickable. */
     &:is([data-highlighted], [data-state='open']) {
       z-index: 0;
-      color: var(--moduix-color-accent-foreground);
+      color: var(--moduix-accent-foreground);
 
       &::before {
         content: '';
@@ -102,22 +102,22 @@
         inset-block: 0;
         inset-inline: var(--moduix-popup-highlight-inset-x, var(--moduix-spacing-1));
         border-radius: var(--moduix-popup-highlight-radius, var(--moduix-radius-sm));
-        background-color: var(--moduix-color-accent);
+        background-color: var(--moduix-accent);
       }
     }
 
     &[data-tone='destructive'] {
-      color: var(--moduix-color-destructive);
+      color: var(--moduix-destructive);
 
       &[data-highlighted]::before {
-        background-color: color-mix(in oklab, var(--moduix-color-destructive) 12%, transparent);
+        background-color: color-mix(in oklab, var(--moduix-destructive) 12%, transparent);
       }
     }
 
     /* After the tone, so a disabled destructive item is muted too. */
     &[data-disabled] {
       pointer-events: none;
-      color: var(--moduix-color-muted-foreground);
+      color: var(--moduix-muted-foreground);
     }
   }
 
@@ -153,7 +153,7 @@
     padding-block: var(--moduix-popup-group-label-padding-y, var(--moduix-spacing-1));
     padding-inline: var(--moduix-popup-group-label-padding-x-start, var(--moduix-spacing-2-5))
       var(--moduix-popup-group-label-padding-x-end, var(--moduix-spacing-3));
-    color: var(--moduix-popup-group-label-color, var(--moduix-color-muted-foreground));
+    color: var(--moduix-popup-group-label-color, var(--moduix-muted-foreground));
     font-size: var(--moduix-popup-group-label-font-size, var(--moduix-text-xs));
     font-weight: var(--moduix-popup-group-label-font-weight, var(--moduix-weight-regular));
     line-height: var(--moduix-popup-group-label-line-height, var(--moduix-line-height-text-xs));
@@ -238,7 +238,7 @@
   .itemShortcut {
     margin-inline-start: auto;
     padding-inline-start: var(--moduix-spacing-4);
-    color: var(--moduix-color-muted-foreground);
+    color: var(--moduix-muted-foreground);
     font-size: var(--moduix-text-xs);
     line-height: var(--moduix-line-height-text-xs);
     white-space: nowrap;
@@ -250,7 +250,7 @@
     margin-inline: var(--moduix-popup-separator-margin-x-start, var(--moduix-spacing-3))
       var(--moduix-popup-separator-margin-x-end, var(--moduix-spacing-3));
     border: 0;
-    background-color: var(--moduix-color-border);
+    background-color: var(--moduix-border);
   }
 
   @media (prefers-reduced-motion: reduce) {

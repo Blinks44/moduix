@@ -145,12 +145,12 @@ export function ToastExample() {
 
 CSS Modules read four public variables:
 
-| Variable                           | Default                                |
-| ---------------------------------- | -------------------------------------- |
-| `--moduix-toast-bg`                | type-specific                          |
-| `--moduix-toast-border-color`      | type-specific                          |
-| `--moduix-toast-color`             | type-specific                          |
-| `--moduix-toast-description-color` | `var(--moduix-color-muted-foreground)` |
+| Variable                           | Default                          |
+| ---------------------------------- | -------------------------------- |
+| `--moduix-toast-bg`                | type-specific                    |
+| `--moduix-toast-border-color`      | type-specific                    |
+| `--moduix-toast-color`             | type-specific                    |
+| `--moduix-toast-description-color` | `var(--moduix-muted-foreground)` |
 
 The first three override every type. To theme one type, set them inside a `[data-type='success']`
 (or `warning`, `error`, `info`) selector. Size, spacing, typography, motion, and the action and

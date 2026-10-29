@@ -20,6 +20,6 @@
 }
 
 .accentItem::marker {
-  color: var(--moduix-color-primary);
+  color: var(--moduix-primary);
   font-weight: var(--moduix-weight-semibold);
 }

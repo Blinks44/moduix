@@ -24,7 +24,7 @@
   }
 
   .label {
-    color: var(--moduix-color-foreground);
+    color: var(--moduix-foreground);
     font-size: var(--moduix-text-sm);
     font-weight: var(--moduix-weight-semibold);
     line-height: var(--moduix-line-height-text-sm);
@@ -56,7 +56,7 @@
     }
 
     &:focus-visible {
-      outline: var(--moduix-focus-ring-inset-width) solid var(--moduix-color-ring);
+      outline: var(--moduix-focus-ring-inset-width) solid var(--moduix-ring);
       outline-offset: var(--moduix-border-width-sm);
     }
   }
@@ -68,7 +68,7 @@
     justify-content: center;
     width: var(--moduix-rating-group-icon-size, var(--_rating-group-icon-size));
     height: var(--moduix-rating-group-icon-size, var(--_rating-group-icon-size));
-    color: var(--moduix-rating-group-active-color, var(--moduix-color-primary));
+    color: var(--moduix-rating-group-active-color, var(--moduix-primary));
 
     & > svg {
       flex: none;
@@ -84,7 +84,7 @@
   .iconBg {
     position: absolute;
     inset: 0;
-    color: var(--moduix-rating-group-color, var(--moduix-color-muted-foreground));
+    color: var(--moduix-rating-group-color, var(--moduix-muted-foreground));
     fill: transparent;
     stroke: currentColor;
   }

@@ -24,7 +24,7 @@
 }
 
 .metricValue {
-  color: var(--moduix-color-foreground);
+  color: var(--moduix-foreground);
   font-size: var(--moduix-text-2xl);
   font-weight: var(--moduix-weight-semibold);
   line-height: var(--moduix-line-height-text-2xl);
@@ -32,7 +32,7 @@
 
 .metricLabel,
 .statLabel {
-  color: var(--moduix-color-muted-foreground);
+  color: var(--moduix-muted-foreground);
   font-size: var(--moduix-text-sm);
   line-height: var(--moduix-line-height-text-sm);
 }
@@ -45,7 +45,7 @@
 
 .statValue {
   display: block;
-  color: var(--moduix-color-foreground);
+  color: var(--moduix-foreground);
   font-size: var(--moduix-text-xl);
   font-weight: var(--moduix-weight-semibold);
   line-height: var(--moduix-line-height-text-xl);
@@ -60,7 +60,7 @@
 .backgroundCard {
   min-height: 24rem;
   border: 0;
-  background: var(--moduix-color-muted);
+  background: var(--moduix-muted);
   color: #fff;
 }
 
@@ -112,7 +112,7 @@
   & label {
     display: grid;
     gap: var(--moduix-spacing-1);
-    color: var(--moduix-color-foreground);
+    color: var(--moduix-foreground);
     font-weight: var(--moduix-weight-medium);
   }
 
@@ -134,18 +134,14 @@
   flex: none;
   place-items: center;
   border-radius: var(--moduix-radius-full);
-  background: var(--moduix-color-primary);
-  color: var(--moduix-color-primary-foreground);
+  background: var(--moduix-primary);
+  color: var(--moduix-primary-foreground);
   font-weight: var(--moduix-weight-semibold);
 }
 
 .customCard {
-  --moduix-card-bg: color-mix(in oklab, var(--moduix-color-card) 94%, var(--moduix-color-primary));
-  --moduix-card-border-color: color-mix(
-    in oklab,
-    var(--moduix-color-primary) 35%,
-    var(--moduix-color-border)
-  );
+  --moduix-card-bg: color-mix(in oklab, var(--moduix-card) 94%, var(--moduix-primary));
+  --moduix-card-border-color: color-mix(in oklab, var(--moduix-primary) 35%, var(--moduix-border));
   --moduix-card-radius: var(--moduix-radius-md);
   --moduix-card-shadow: var(--moduix-shadow-md);
   width: min(24rem, calc(100vw - var(--moduix-spacing-8)));
@@ -163,7 +159,7 @@
 .capacity {
   display: grid;
   gap: var(--moduix-spacing-2);
-  color: var(--moduix-color-foreground);
+  color: var(--moduix-foreground);
   font-size: var(--moduix-text-2xl);
   font-weight: var(--moduix-weight-semibold);
   line-height: var(--moduix-line-height-text-2xl);
@@ -173,14 +169,14 @@
   height: 0.5rem;
   overflow: hidden;
   border-radius: var(--moduix-radius-full);
-  background-color: var(--moduix-color-muted);
+  background-color: var(--moduix-muted);
 }
 
 .capacityBar > div {
   width: 72%;
   height: 100%;
   border-radius: inherit;
-  background-color: var(--moduix-color-primary);
+  background-color: var(--moduix-primary);
 }
 
 @media (width < 36rem) {

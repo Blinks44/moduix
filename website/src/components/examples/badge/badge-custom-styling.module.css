@@ -13,7 +13,7 @@
 }
 
 .priority {
-  --moduix-badge-bg: color-mix(in oklab, var(--moduix-color-warning) 15%, transparent);
-  --moduix-badge-border-color: color-mix(in oklab, var(--moduix-color-warning) 45%, transparent);
-  --moduix-badge-color: var(--moduix-color-warning);
+  --moduix-badge-bg: color-mix(in oklab, var(--moduix-warning) 15%, transparent);
+  --moduix-badge-border-color: color-mix(in oklab, var(--moduix-warning) 45%, transparent);
+  --moduix-badge-color: var(--moduix-warning);
 }

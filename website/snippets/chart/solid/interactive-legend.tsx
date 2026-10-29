@@ -41,7 +41,7 @@ export default function InteractiveLegendChartDemo() {
       },
       color: {
         domain: ['Revenue', 'Target'],
-        range: ['var(--moduix-color-chart-1)', 'var(--moduix-color-chart-2)'],
+        range: ['var(--moduix-chart-1)', 'var(--moduix-chart-2)'],
         legend: interactiveColorLegend({
           hover: 'series',
           visible: controlledSignal(visible(), setVisible),

@@ -14,11 +14,11 @@
 }
 
 .description {
-  color: var(--moduix-color-muted-foreground);
+  color: var(--moduix-muted-foreground);
   font-size: var(--moduix-text-xs);
   line-height: var(--moduix-line-height-text-xs);
 }
 
 .item[data-state='checked'] .description {
-  color: var(--moduix-segment-group-item-color-checked, var(--moduix-color-foreground));
+  color: var(--moduix-segment-group-item-color-checked, var(--moduix-foreground));
 }

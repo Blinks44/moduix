@@ -10,7 +10,7 @@
   place-items: center;
   margin: 0;
   padding: 0;
-  border: 2px solid var(--moduix-color-card);
+  border: 2px solid var(--moduix-card);
   border-radius: var(--moduix-radius-full);
   background: transparent;
   cursor: pointer;
@@ -26,7 +26,7 @@
   &:hover,
   &:focus-visible {
     z-index: 1;
-    box-shadow: 0 0 0 3px var(--moduix-color-background);
+    box-shadow: 0 0 0 3px var(--moduix-background);
     outline: none;
     transform: translateY(calc(-1 * var(--moduix-spacing-1))) scale(1.08);
   }
@@ -49,7 +49,7 @@
   }
 
   span {
-    color: var(--moduix-color-muted-foreground);
+    color: var(--moduix-muted-foreground);
     font-size: var(--moduix-text-xs);
   }
 }

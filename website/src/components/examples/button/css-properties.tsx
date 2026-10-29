@@ -3,7 +3,7 @@ import type { CssPropertyInput } from '../../mdx/reference';
 export const buttonCssProperties: CssPropertyInput[] = [
   [
     '--moduix-button-bg',
-    'var(--moduix-color-primary)',
+    'var(--moduix-primary)',
     'Overrides button background color. Each `variant` sets its own default.',
   ],
   [
@@ -23,7 +23,7 @@ export const buttonCssProperties: CssPropertyInput[] = [
   ],
   [
     '--moduix-button-color',
-    'var(--moduix-color-primary-foreground)',
+    'var(--moduix-primary-foreground)',
     'Overrides button text and icon color. Each `variant` sets its own default.',
   ],
   [

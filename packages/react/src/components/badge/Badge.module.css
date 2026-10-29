@@ -11,8 +11,8 @@
     border: var(--moduix-border-width-sm) solid var(--moduix-badge-border-color, transparent);
     border-radius: var(--moduix-radius-full);
     padding-inline: var(--moduix-spacing-2-5);
-    background-color: var(--moduix-badge-bg, var(--moduix-color-primary));
-    color: var(--moduix-badge-color, var(--moduix-color-primary-foreground));
+    background-color: var(--moduix-badge-bg, var(--moduix-primary));
+    color: var(--moduix-badge-color, var(--moduix-primary-foreground));
     font-size: var(--moduix-text-xs);
     font-weight: var(--moduix-weight-medium);
     font-variant-numeric: tabular-nums;
@@ -29,7 +29,7 @@
       opacity var(--moduix-transition-default);
 
     &:focus-visible {
-      outline: var(--moduix-focus-ring-width) solid var(--moduix-color-ring);
+      outline: var(--moduix-focus-ring-width) solid var(--moduix-ring);
       outline-offset: var(--moduix-focus-ring-offset);
     }
 
@@ -46,12 +46,12 @@
         }
 
         &[data-variant='outline']:hover {
-          border-color: var(--moduix-badge-border-color, var(--moduix-color-primary));
-          color: var(--moduix-badge-color, var(--moduix-color-primary));
+          border-color: var(--moduix-badge-border-color, var(--moduix-primary));
+          color: var(--moduix-badge-color, var(--moduix-primary));
         }
 
         &[data-variant='ghost']:hover {
-          color: var(--moduix-badge-color, var(--moduix-color-primary));
+          color: var(--moduix-badge-color, var(--moduix-primary));
         }
 
         &[data-variant='link']:hover {
@@ -82,24 +82,24 @@
     }
 
     &[data-variant='secondary'] {
-      background-color: var(--moduix-badge-bg, var(--moduix-color-secondary));
-      color: var(--moduix-badge-color, var(--moduix-color-secondary-foreground));
+      background-color: var(--moduix-badge-bg, var(--moduix-secondary));
+      color: var(--moduix-badge-color, var(--moduix-secondary-foreground));
     }
 
     &[data-variant='destructive'] {
-      background-color: var(--moduix-badge-bg, var(--moduix-color-destructive));
-      color: var(--moduix-badge-color, var(--moduix-color-destructive-foreground));
+      background-color: var(--moduix-badge-bg, var(--moduix-destructive));
+      color: var(--moduix-badge-color, var(--moduix-destructive-foreground));
     }
 
     &[data-variant='outline'] {
-      border-color: var(--moduix-badge-border-color, var(--moduix-color-border));
+      border-color: var(--moduix-badge-border-color, var(--moduix-border));
       background-color: var(--moduix-badge-bg, transparent);
-      color: var(--moduix-badge-color, var(--moduix-color-foreground));
+      color: var(--moduix-badge-color, var(--moduix-foreground));
     }
 
     &[data-variant='ghost'] {
       background-color: var(--moduix-badge-bg, transparent);
-      color: var(--moduix-badge-color, var(--moduix-color-foreground));
+      color: var(--moduix-badge-color, var(--moduix-foreground));
     }
 
     /* Placed after the sizes so the link keeps its own height and padding at every size. */
@@ -109,7 +109,7 @@
       padding-block: 0.125em;
       padding-inline: 0;
       background-color: var(--moduix-badge-bg, transparent);
-      color: var(--moduix-badge-color, var(--moduix-color-primary));
+      color: var(--moduix-badge-color, var(--moduix-primary));
       text-decoration: underline;
       text-decoration-color: color-mix(in oklab, currentColor 55%, transparent);
       text-underline-offset: 0.15em;

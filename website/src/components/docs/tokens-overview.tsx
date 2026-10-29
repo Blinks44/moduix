@@ -4,7 +4,6 @@ import styles from './tokens-overview.module.css';
 
 type ColorToken = {
   name: string;
-  alias: string;
   labelKey: keyof typeof import('i18n');
   light: string;
   dark: string;
@@ -13,199 +12,165 @@ type ColorToken = {
 const colorTokens = [
   {
     name: '--moduix-background',
-    alias: '--moduix-color-background',
     labelKey: 'tokensOverviewColorCanvas',
     light: 'oklch(0.982 0.003 285)',
     dark: 'oklch(0.155 0.008 285)',
   },
   {
     name: '--moduix-foreground',
-    alias: '--moduix-color-foreground',
     labelKey: 'tokensOverviewColorCanvasText',
     light: 'oklch(0.175 0.01 285)',
     dark: 'oklch(0.968 0.003 285)',
   },
   {
     name: '--moduix-card',
-    alias: '--moduix-color-card',
     labelKey: 'tokensOverviewColorRaisedSurface',
     light: 'oklch(0.995 0.002 285)',
     dark: 'oklch(0.2 0.011 285)',
   },
   {
     name: '--moduix-card-foreground',
-    alias: '--moduix-color-card-foreground',
     labelKey: 'tokensOverviewColorRaisedText',
     light: 'oklch(0.175 0.01 285)',
     dark: 'oklch(0.968 0.003 285)',
   },
   {
     name: '--moduix-popover',
-    alias: '--moduix-color-popover',
     labelKey: 'tokensOverviewColorLayerSurface',
     light: 'oklch(0.995 0.002 285)',
     dark: 'oklch(0.2 0.011 285)',
   },
   {
     name: '--moduix-popover-foreground',
-    alias: '--moduix-color-popover-foreground',
     labelKey: 'tokensOverviewColorLayerText',
     light: 'oklch(0.175 0.01 285)',
     dark: 'oklch(0.968 0.003 285)',
   },
   {
     name: '--moduix-primary',
-    alias: '--moduix-color-primary',
     labelKey: 'tokensOverviewColorPrimaryAction',
     light: 'oklch(0.235 0.016 285)',
     dark: 'oklch(0.918 0.007 285)',
   },
   {
     name: '--moduix-primary-foreground',
-    alias: '--moduix-color-primary-foreground',
     labelKey: 'tokensOverviewColorPrimaryText',
     light: 'oklch(0.982 0.003 285)',
     dark: 'oklch(0.2 0.011 285)',
   },
   {
     name: '--moduix-secondary',
-    alias: '--moduix-color-secondary',
     labelKey: 'tokensOverviewColorSecondaryFill',
     light: 'oklch(0.96 0.006 285)',
     dark: 'oklch(0.255 0.012 285)',
   },
   {
     name: '--moduix-secondary-foreground',
-    alias: '--moduix-color-secondary-foreground',
     labelKey: 'tokensOverviewColorSecondaryText',
     light: 'oklch(0.235 0.016 285)',
     dark: 'oklch(0.968 0.003 285)',
   },
   {
     name: '--moduix-muted',
-    alias: '--moduix-color-muted',
     labelKey: 'tokensOverviewColorSubtleFill',
     light: 'oklch(0.955 0.006 285)',
     dark: 'oklch(0.255 0.012 285)',
   },
   {
     name: '--moduix-muted-foreground',
-    alias: '--moduix-color-muted-foreground',
     labelKey: 'tokensOverviewColorSubtleText',
     light: 'oklch(0.485 0.015 285)',
     dark: 'oklch(0.705 0.016 285)',
   },
   {
     name: '--moduix-accent',
-    alias: '--moduix-color-accent',
     labelKey: 'tokensOverviewColorHoverFill',
     light: 'oklch(0.95 0.01 285)',
     dark: 'oklch(0.29 0.015 285)',
   },
   {
     name: '--moduix-accent-foreground',
-    alias: '--moduix-color-accent-foreground',
     labelKey: 'tokensOverviewColorHoverText',
     light: 'oklch(0.235 0.016 285)',
     dark: 'oklch(0.968 0.003 285)',
   },
   {
     name: '--moduix-destructive',
-    alias: '--moduix-color-destructive',
     labelKey: 'tokensOverviewColorDanger',
     light: 'oklch(0.565 0.235 22)',
     dark: 'oklch(0.69 0.185 18)',
   },
   {
     name: '--moduix-destructive-foreground',
-    alias: '--moduix-color-destructive-foreground',
     labelKey: 'tokensOverviewColorDangerText',
     light: 'oklch(0.982 0.003 285)',
     dark: 'oklch(0.2 0.011 285)',
   },
   {
     name: '--moduix-success',
-    alias: '--moduix-color-success',
     labelKey: 'tokensOverviewColorSuccess',
     light: 'oklch(0.627 0.194 149.214)',
     dark: 'oklch(0.627 0.194 149.214)',
   },
   {
     name: '--moduix-warning',
-    alias: '--moduix-color-warning',
     labelKey: 'tokensOverviewColorWarning',
     light: 'oklch(0.795 0.184 86.047)',
     dark: 'oklch(0.795 0.184 86.047)',
   },
   {
     name: '--moduix-border',
-    alias: '--moduix-color-border',
     labelKey: 'tokensOverviewColorBorders',
     light: 'oklch(0.905 0.008 285)',
     dark: 'oklch(1 0.004 285 / 13%)',
   },
   {
     name: '--moduix-input',
-    alias: '--moduix-color-input',
     labelKey: 'tokensOverviewColorInputBorder',
     light: 'oklch(0.905 0.008 285)',
     dark: 'oklch(1 0.004 285 / 17%)',
   },
   {
     name: '--moduix-ring',
-    alias: '--moduix-color-ring',
     labelKey: 'tokensOverviewColorFocusRing',
     light: 'oklch(0.62 0.035 285)',
     dark: 'oklch(0.585 0.038 285)',
   },
   {
     name: '--moduix-overlay',
-    alias: '--moduix-color-overlay',
     labelKey: 'tokensOverviewColorBackdropBase',
     light: 'oklch(0.175 0.014 285 / 0.2)',
     dark: 'oklch(0.105 0.012 285 / 0.74)',
-  },
-  {
-    name: '--moduix-overlay-foreground',
-    alias: '--moduix-color-overlay-foreground',
-    labelKey: 'tokensOverviewColorSoftOverlay',
-    light: 'oklch(0.175 0.014 285 / 0.07)',
-    dark: 'oklch(0.968 0.003 285 / 0.09)',
   },
 ] satisfies ColorToken[];
 
 const chartTokens = [
   {
     name: '--moduix-chart-1',
-    alias: '--moduix-color-chart-1',
     labelKey: 'tokensOverviewColorChart1',
     light: 'oklch(0.65 0.18 295)',
     dark: 'oklch(0.72 0.17 295)',
   },
   {
     name: '--moduix-chart-2',
-    alias: '--moduix-color-chart-2',
     labelKey: 'tokensOverviewColorChart2',
     light: 'oklch(0.7 0.14 175)',
     dark: 'oklch(0.76 0.13 175)',
   },
   {
     name: '--moduix-chart-3',
-    alias: '--moduix-color-chart-3',
     labelKey: 'tokensOverviewColorChart3',
     light: 'oklch(0.72 0.16 55)',
     dark: 'oklch(0.78 0.15 55)',
   },
   {
     name: '--moduix-chart-4',
-    alias: '--moduix-color-chart-4',
     labelKey: 'tokensOverviewColorChart4',
     light: 'oklch(0.6 0.2 350)',
     dark: 'oklch(0.67 0.19 350)',
   },
   {
     name: '--moduix-chart-5',
-    alias: '--moduix-color-chart-5',
     labelKey: 'tokensOverviewColorChart5',
     light: 'oklch(0.68 0.13 130)',
     dark: 'oklch(0.74 0.12 130)',
@@ -215,56 +180,36 @@ const chartTokens = [
 const sidebarTokens = [
   {
     name: '--moduix-sidebar',
-    alias: '--moduix-color-sidebar',
     labelKey: 'tokensOverviewColorSidebarSurface',
     light: 'oklch(0.975 0.005 285)',
     dark: 'oklch(0.2 0.011 285)',
   },
   {
     name: '--moduix-sidebar-foreground',
-    alias: '--moduix-color-sidebar-foreground',
     labelKey: 'tokensOverviewColorSidebarText',
     light: 'oklch(0.175 0.01 285)',
     dark: 'oklch(0.968 0.003 285)',
   },
   {
-    name: '--moduix-sidebar-primary',
-    alias: '--moduix-color-sidebar-primary',
-    labelKey: 'tokensOverviewColorSidebarPrimary',
-    light: 'oklch(0.235 0.016 285)',
-    dark: 'oklch(0.72 0.17 295)',
-  },
-  {
-    name: '--moduix-sidebar-primary-foreground',
-    alias: '--moduix-color-sidebar-primary-foreground',
-    labelKey: 'tokensOverviewColorSidebarPrimaryText',
-    light: 'oklch(0.982 0.003 285)',
-    dark: 'oklch(0.155 0.008 285)',
-  },
-  {
     name: '--moduix-sidebar-accent',
-    alias: '--moduix-color-sidebar-accent',
     labelKey: 'tokensOverviewColorSidebarAccent',
     light: 'oklch(0.95 0.01 285)',
     dark: 'oklch(0.29 0.015 285)',
   },
   {
     name: '--moduix-sidebar-accent-foreground',
-    alias: '--moduix-color-sidebar-accent-foreground',
     labelKey: 'tokensOverviewColorSidebarAccentText',
     light: 'oklch(0.235 0.016 285)',
     dark: 'oklch(0.968 0.003 285)',
   },
   {
     name: '--moduix-sidebar-border',
-    alias: '--moduix-color-sidebar-border',
     labelKey: 'tokensOverviewColorSidebarBorder',
     light: 'oklch(0.905 0.008 285)',
     dark: 'oklch(1 0.004 285 / 13%)',
   },
   {
     name: '--moduix-sidebar-ring',
-    alias: '--moduix-color-sidebar-ring',
     labelKey: 'tokensOverviewColorSidebarFocusRing',
     light: 'oklch(0.62 0.035 285)',
     dark: 'oklch(0.585 0.038 285)',
@@ -289,15 +234,6 @@ const spacingTokens = [
   ['--moduix-spacing-7', 'calc((var(--moduix-spacing-6) + var(--moduix-spacing-8)) / 2)'],
   ['--moduix-spacing-8', '32px'],
   ['--moduix-spacing-10', '40px'],
-];
-
-const semanticSpacingTokens = [
-  ['--moduix-spacing-xs', 'var(--moduix-spacing-1)', '4px'],
-  ['--moduix-spacing-sm', 'var(--moduix-spacing-2)', '8px'],
-  ['--moduix-spacing-md', 'var(--moduix-spacing-3)', '12px'],
-  ['--moduix-spacing-lg', 'var(--moduix-spacing-4)', '16px'],
-  ['--moduix-spacing-xl', 'var(--moduix-spacing-5)', '20px'],
-  ['--moduix-spacing-2xl', 'var(--moduix-spacing-6)', '24px'],
 ];
 
 const sizeTokens = [
@@ -347,11 +283,6 @@ const fontFamilyTokens = [
   ],
 ];
 
-const trackingTokens = [
-  ['--moduix-tracking-text-sm', '-0.01em'],
-  ['--moduix-tracking-text-xs', '-0.016em'],
-];
-
 const borderTokens = [
   ['--moduix-border-width-sm', '1px'],
   ['--moduix-border-width-md', '2px'],
@@ -364,7 +295,6 @@ const borderTokens = [
 
 const opacityTokens = [
   ['--moduix-opacity-disabled', '0.5'],
-  ['--moduix-opacity-loading', '0.85'],
   ['--moduix-opacity-hover', '0.9'],
 ];
 
@@ -377,14 +307,11 @@ const motionTokens = [
   ['--moduix-ease-out', 'cubic-bezier(0, 0, 0.2, 1)'],
   ['--moduix-ease-in-out', 'cubic-bezier(0.4, 0, 0.2, 1)'],
   ['--moduix-ease-spring', 'cubic-bezier(0.32, 0.72, 0, 1)'],
-  ['--moduix-ease-standard', 'ease'],
-  ['--moduix-ease-emphasized', 'cubic-bezier(0.22, 1, 0.36, 1)'],
   ['--moduix-transition-default', 'var(--moduix-duration-normal) var(--moduix-ease-in-out)'],
   ['--moduix-transition-fast', 'var(--moduix-duration-fast) var(--moduix-ease-in-out)'],
   ['--moduix-transition-slow', 'var(--moduix-duration-slow) var(--moduix-ease-in-out)'],
   ['--moduix-transition-slower', 'var(--moduix-duration-slower) var(--moduix-ease-in-out)'],
   ['--moduix-transition-spring', 'var(--moduix-duration-slower) var(--moduix-ease-spring)'],
-  ['--moduix-transition-emphasized', 'var(--moduix-duration-slower) var(--moduix-ease-emphasized)'],
 ];
 
 const animationTokens = [
@@ -420,12 +347,6 @@ const transformTokens = [
 ];
 
 const zIndexTokens = [
-  ['--moduix-z-default', '1'],
-  ['--moduix-z-xs', '5'],
-  ['--moduix-z-sm', '10'],
-  ['--moduix-z-md', '20'],
-  ['--moduix-z-lg', '30'],
-  ['--moduix-z-xl', '40'],
   ['--moduix-z-backdrop', '40'],
   ['--moduix-z-modal', '50'],
   ['--moduix-z-popup', '60'],
@@ -434,11 +355,7 @@ const zIndexTokens = [
 ];
 
 const sharedBackdropTokens = [
-  [
-    '--moduix-backdrop-bg',
-    'var(--moduix-color-overlay)',
-    'tokensOverviewGlobalBackdropColorFallback',
-  ],
+  ['--moduix-backdrop-bg', 'var(--moduix-overlay)', 'tokensOverviewGlobalBackdropColorFallback'],
   ['--moduix-backdrop-filter', 'blur(4px)', 'tokensOverviewGlobalBackdropFilterFallback'],
 ];
 
@@ -538,8 +455,8 @@ export function TokensOverview() {
             </div>
             <div className={styles.mapNode} data-active="true">
               <span>02</span>
-              <strong>{t('tokensOverviewSemanticAliases')}</strong>
-              <code>--moduix-color-primary</code>
+              <strong>{t('tokensOverviewSharedFallbacks')}</strong>
+              <code>--moduix-popup-item-min-height</code>
             </div>
             <div className={styles.mapNode}>
               <span>03</span>
@@ -553,7 +470,7 @@ export function TokensOverview() {
               {t('tokensOverviewColorTokens')}
             </span>
             <span>
-              <strong>{spacingTokens.length + semanticSpacingTokens.length}</strong>
+              <strong>{spacingTokens.length}</strong>
               {t('tokensOverviewSpacingSteps')}
             </span>
             <span>
@@ -567,11 +484,6 @@ export function TokensOverview() {
           </div>
         </div>
         <div className={styles.stackPanel}>
-          <TokenCallout
-            title={t('tokensOverviewSemanticAliases')}
-            code="--moduix-color-primary: var(--moduix-primary)"
-            body={t('tokensOverviewSemanticVariables')}
-          />
           <TokenCallout
             title={t('tokensOverviewSharedFallbacks')}
             code="Dialog, Drawer, Tour -> --moduix-backdrop-bg / --moduix-backdrop-filter"
@@ -610,7 +522,6 @@ export function TokensOverview() {
                 <div className={styles.tokenMeta}>
                   <strong>{t(token.labelKey)}</strong>
                   <code>{token.name}</code>
-                  <small>{token.alias}</small>
                 </div>
                 <div className={styles.swatches}>
                   <div className={styles.swatchBlock}>
@@ -641,11 +552,6 @@ export function TokensOverview() {
             title={t('tokensOverviewPrimitiveSpacing')}
             tokens={spacingTokens}
             variant="bars"
-          />
-          <TokenScale
-            title={t('tokensOverviewSemanticSpacing')}
-            tokens={semanticSpacingTokens}
-            variant="semantic"
           />
           <TokenScale title={t('tokensOverviewControlSize')} tokens={sizeTokens} variant="blocks" />
         </div>
@@ -680,12 +586,6 @@ export function TokensOverview() {
         </div>
         <div className={styles.pillGrid}>
           {weightTokens.map(([name, value]) => (
-            <span className={styles.tokenPill} key={name}>
-              <code>{name}</code>
-              <strong>{value}</strong>
-            </span>
-          ))}
-          {trackingTokens.map(([name, value]) => (
             <span className={styles.tokenPill} key={name}>
               <code>{name}</code>
               <strong>{value}</strong>
@@ -799,7 +699,6 @@ function ColorCard({ token }: { token: ColorToken }) {
       <div className={styles.tokenMeta}>
         <strong>{t(token.labelKey)}</strong>
         <code>{token.name}</code>
-        <small>{token.alias}</small>
       </div>
       <div className={styles.swatches}>
         <div className={styles.swatchBlock}>
@@ -824,7 +723,7 @@ function TokenScale({
 }: {
   title: string;
   tokens: string[][];
-  variant: 'bars' | 'semantic' | 'blocks' | 'lines' | 'opacity';
+  variant: 'bars' | 'blocks' | 'lines' | 'opacity';
 }) {
   return (
     <div className={styles.scaleCard} data-variant={variant}>

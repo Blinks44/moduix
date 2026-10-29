@@ -19,7 +19,7 @@
     overflow-wrap: anywhere;
     margin: 0;
     padding: 0 0 var(--moduix-spacing-3);
-    color: var(--moduix-color-foreground);
+    color: var(--moduix-foreground);
     font-size: var(--moduix-text-lg);
     font-weight: var(--moduix-weight-semibold);
     line-height: var(--moduix-line-height-text-lg);
@@ -34,11 +34,11 @@
   }
 
   .helperText {
-    color: var(--moduix-color-muted-foreground);
+    color: var(--moduix-muted-foreground);
   }
 
   .errorText {
-    color: var(--moduix-color-destructive);
+    color: var(--moduix-destructive);
     font-weight: var(--moduix-weight-medium);
   }
 }

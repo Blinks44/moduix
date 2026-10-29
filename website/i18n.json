@@ -321,11 +321,6 @@
     "ru": "Исходные значения",
     "fr": "Valeurs brutes"
   },
-  "tokensOverviewSemanticAliases": {
-    "en": "Semantic aliases",
-    "ru": "Семантические алиасы",
-    "fr": "Alias sémantiques"
-  },
   "tokensOverviewComponentVariables": {
     "en": "Component variables",
     "ru": "Переменные компонентов",
@@ -375,11 +370,6 @@
     "en": "Primitive spacing",
     "ru": "Примитивные интервалы",
     "fr": "Espacement primitif"
-  },
-  "tokensOverviewSemanticSpacing": {
-    "en": "Semantic spacing",
-    "ru": "Семантические интервалы",
-    "fr": "Espacement sémantique"
   },
   "tokensOverviewControlSize": {
     "en": "Control size",
@@ -576,11 +566,6 @@
     "ru": "Базовый фон оверлея",
     "fr": "Fond de superposition"
   },
-  "tokensOverviewColorSoftOverlay": {
-    "en": "Soft overlay",
-    "ru": "Мягкий оверлей",
-    "fr": "Superposition légère"
-  },
   "tokensOverviewColorChart1": {
     "en": "Chart 1",
     "ru": "График 1",
@@ -615,16 +600,6 @@
     "en": "Sidebar text",
     "ru": "Текст боковой панели",
     "fr": "Texte de la barre latérale"
-  },
-  "tokensOverviewColorSidebarPrimary": {
-    "en": "Sidebar primary",
-    "ru": "Основной цвет боковой панели",
-    "fr": "Couleur principale de la barre latérale"
-  },
-  "tokensOverviewColorSidebarPrimaryText": {
-    "en": "Sidebar primary text",
-    "ru": "Текст основного цвета боковой панели",
-    "fr": "Texte principal de la barre latérale"
   },
   "tokensOverviewColorSidebarAccent": {
     "en": "Sidebar accent",
@@ -771,11 +746,6 @@
     "ru": "Вертикальное смещение при скрытии",
     "fr": "Décalage vertical à la sortie"
   },
-  "tokensOverviewSemanticVariables": {
-    "en": "Components read semantic variables while themes override the raw palette.",
-    "ru": "Компоненты используют семантические переменные, а темы переопределяют исходную палитру.",
-    "fr": "Les composants utilisent les variables sémantiques, tandis que les thèmes redéfinissent la palette de base."
-  },
   "tokensOverviewCentralizedBackdrop": {
     "en": "Global backdrop color and blur stay centralized: every overlay backdrop reads the same two variables.",
     "ru": "Цвет и размытие фона задаются централизованно: фон каждого оверлея читает одни и те же две переменные.",
@@ -787,9 +757,9 @@
     "fr": "Un conteneur parent peut modifier la densité, les animations ou les couleurs de la zone qu’il contient."
   },
   "tokensOverviewColorThemeValues": {
-    "en": "Light and dark theme values plus semantic aliases.",
-    "ru": "Значения светлой и тёмной темы вместе с семантическими алиасами.",
-    "fr": "Valeurs des thèmes clair et sombre, avec leurs alias sémantiques."
+    "en": "Light and dark values of each color token.",
+    "ru": "Светлое и тёмное значение каждого цветового токена.",
+    "fr": "Valeurs claire et sombre de chaque token de couleur."
   },
   "tokensOverviewSizingScale": {
     "en": "Primitive steps, semantic spacing, and control heights.",

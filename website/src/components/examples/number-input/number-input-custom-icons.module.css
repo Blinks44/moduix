@@ -1,5 +1,5 @@
 .button {
-  background-color: var(--moduix-color-muted);
+  background-color: var(--moduix-muted);
 
   & > svg {
     width: 1rem;
@@ -7,7 +7,7 @@
   }
 
   &:hover {
-    background-color: var(--moduix-color-accent);
+    background-color: var(--moduix-accent);
   }
 }
 

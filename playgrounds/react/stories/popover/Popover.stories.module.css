@@ -35,10 +35,10 @@
     min-width: 16rem;
     min-height: var(--moduix-size-lg);
     padding: 0 var(--moduix-spacing-3);
-    border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
+    border: var(--moduix-border-width-sm) solid var(--moduix-border);
     border-radius: var(--moduix-radius-md);
-    background: var(--moduix-color-background);
-    color: var(--moduix-color-foreground);
+    background: var(--moduix-background);
+    color: var(--moduix-foreground);
     font: inherit;
   }
 

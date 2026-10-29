@@ -69,7 +69,7 @@ Use `asChild` only when a custom semantic heading host must own the DOM node:
 | `className` | -          | Applied to the rendered heading root    |
 
 CSS Modules use foundation typography tokens directly (`--moduix-text-*`,
-`--moduix-line-height-text-*`, `--moduix-weight-*`, `--moduix-color-foreground`) and have no
+`--moduix-line-height-text-*`, `--moduix-weight-*`, `--moduix-foreground`) and have no
 component variables; a consumer class overrides the layered styles. The root sets `margin: 0`,
 `letter-spacing: 0`, `text-wrap: balance`, and `overflow-wrap: anywhere`. Tailwind adapters apply the
 same values through utilities.

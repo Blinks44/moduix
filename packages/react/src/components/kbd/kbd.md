@@ -58,10 +58,10 @@ Public CSS variables (CSS Modules only), all on `Kbd`:
 
 | Variable                    | Default                                                             |
 | --------------------------- | ------------------------------------------------------------------- |
-| `--moduix-kbd-bg`           | `var(--moduix-color-muted)`                                         |
-| `--moduix-kbd-border-color` | `var(--moduix-color-border)`                                        |
+| `--moduix-kbd-bg`           | `var(--moduix-muted)`                                               |
+| `--moduix-kbd-border-color` | `var(--moduix-border)`                                              |
 | `--moduix-kbd-border-width` | `var(--moduix-border-width-sm)`                                     |
-| `--moduix-kbd-color`        | `var(--moduix-color-foreground)`                                    |
+| `--moduix-kbd-color`        | `var(--moduix-foreground)`                                          |
 | `--moduix-kbd-height`       | `var(--moduix-size-xs)`; also the minimum width                     |
 | `--moduix-kbd-padding-x`    | `var(--moduix-spacing-2)`                                           |
 | `--moduix-kbd-radius`       | `var(--moduix-radius-sm)`                                           |

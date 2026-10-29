@@ -8,7 +8,7 @@
     flex-direction: column;
     align-items: flex-start;
     gap: var(--moduix-spacing-2);
-    color: var(--moduix-color-foreground);
+    color: var(--moduix-foreground);
 
     &[data-disabled] {
       opacity: var(--moduix-opacity-disabled);
@@ -66,10 +66,10 @@
     width: var(--moduix-pin-input-input-size, var(--_pin-input-input-size));
     height: var(--moduix-pin-input-input-size, var(--_pin-input-input-size));
     margin: 0;
-    border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
+    border: var(--moduix-border-width-sm) solid var(--moduix-input);
     border-radius: var(--moduix-pin-input-radius, var(--moduix-radius-md));
     padding: 0;
-    background-color: var(--moduix-color-background);
+    background-color: var(--moduix-background);
     color: inherit;
     font: inherit;
     font-size: var(--_pin-input-font-size);
@@ -84,18 +84,18 @@
       outline-color var(--moduix-transition-default);
 
     &::placeholder {
-      color: var(--moduix-color-muted-foreground);
+      color: var(--moduix-muted-foreground);
     }
 
     &:focus-visible {
-      outline-color: var(--moduix-color-ring);
+      outline-color: var(--moduix-ring);
     }
 
     &[data-invalid] {
-      border-color: var(--moduix-color-destructive);
+      border-color: var(--moduix-destructive);
 
       &:focus-visible {
-        outline-color: var(--moduix-color-destructive);
+        outline-color: var(--moduix-destructive);
       }
     }
   }
@@ -105,7 +105,7 @@
     flex: none;
     width: var(--moduix-spacing-4);
     height: var(--moduix-spacing-4);
-    color: var(--moduix-color-muted-foreground);
+    color: var(--moduix-muted-foreground);
 
     & > svg {
       width: 100%;

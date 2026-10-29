@@ -33,7 +33,7 @@ Separator
   native border styles. Horizontal lines are `100%` wide; vertical lines are `1em` tall.
 - The root has `margin: 0`, so an `asChild` `hr` matches the default span.
 - CSS Modules expose two variables: `--moduix-separator-color` (default
-  `var(--moduix-color-border)`) and `--moduix-separator-thickness` (default: the active size). To
+  `var(--moduix-border)`) and `--moduix-separator-thickness` (default: the active size). To
   theme one size, set the thickness on `[data-slot='separator-root'][data-size='<size>']`. Change
   length or border style with a plain class.
 - Tailwind variants map the same values to utilities; consumer classes merge through `cn`.

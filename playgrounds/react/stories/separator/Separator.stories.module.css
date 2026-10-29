@@ -2,9 +2,9 @@
   .card {
     width: 18rem;
     padding: var(--moduix-spacing-4);
-    border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
+    border: var(--moduix-border-width-sm) solid var(--moduix-border);
     border-radius: var(--moduix-radius-md);
-    background-color: var(--moduix-color-background);
+    background-color: var(--moduix-background);
   }
 
   .stack {
@@ -25,14 +25,14 @@
   }
 
   .link {
-    color: var(--moduix-color-foreground);
+    color: var(--moduix-foreground);
     font-size: var(--moduix-text-sm);
     line-height: var(--moduix-line-height-text-sm);
     text-decoration: none;
   }
 
   .customSeparator {
-    --moduix-separator-color: var(--moduix-color-primary);
+    --moduix-separator-color: var(--moduix-primary);
     --moduix-separator-thickness: 2px;
 
     width: 8rem;

@@ -44,10 +44,10 @@ const definition = defineChart({
   color: {
     domain: revenue.map(({ channel }) => channel),
     range: [
-      'var(--moduix-color-chart-1)',
-      'var(--moduix-color-chart-2)',
-      'var(--moduix-color-chart-3)',
-      'var(--moduix-color-chart-4)',
+      'var(--moduix-chart-1)',
+      'var(--moduix-chart-2)',
+      'var(--moduix-chart-3)',
+      'var(--moduix-chart-4)',
     ],
   },
   tooltip: {
@@ -73,7 +73,7 @@ export default function DonutChartDemo() {
       />
       <ChartLegend aria-label="Acquisition channels">
         {revenue.map(({ channel }, index) => (
-          <ChartLegendItem key={channel} color={`var(--moduix-color-chart-${index + 1})`}>
+          <ChartLegendItem key={channel} color={`var(--moduix-chart-${index + 1})`}>
             {channel}
           </ChartLegendItem>
         ))}

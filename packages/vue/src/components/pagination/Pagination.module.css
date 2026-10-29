@@ -5,7 +5,7 @@
     max-inline-size: 100%;
     gap: var(--moduix-spacing-1);
     overflow-x: auto;
-    color: var(--moduix-color-foreground);
+    color: var(--moduix-foreground);
   }
 
   .item,
@@ -34,22 +34,22 @@
   .trigger {
     cursor: pointer;
     gap: var(--moduix-spacing-2);
-    border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
+    border: var(--moduix-border-width-sm) solid var(--moduix-border);
     padding-inline: var(--moduix-spacing-2);
-    background-color: var(--moduix-color-background);
-    color: var(--moduix-color-foreground);
+    background-color: var(--moduix-background);
+    color: var(--moduix-foreground);
     font-family: inherit;
     text-decoration: none;
     white-space: nowrap;
 
     @media (hover: hover) {
       &:hover {
-        background-color: var(--moduix-color-accent);
+        background-color: var(--moduix-accent);
       }
     }
 
     &:focus-visible {
-      outline: var(--moduix-focus-ring-width) solid var(--moduix-color-ring);
+      outline: var(--moduix-focus-ring-width) solid var(--moduix-ring);
       outline-offset: var(--moduix-focus-ring-inset-offset);
     }
 
@@ -60,9 +60,9 @@
   }
 
   .item[data-selected] {
-    border-color: var(--moduix-color-foreground);
-    background-color: var(--moduix-color-foreground);
-    color: var(--moduix-color-background);
+    border-color: var(--moduix-foreground);
+    background-color: var(--moduix-foreground);
+    color: var(--moduix-background);
   }
 
   .trigger {
@@ -78,7 +78,7 @@
   }
 
   .ellipsis {
-    color: var(--moduix-color-muted-foreground);
+    color: var(--moduix-muted-foreground);
   }
 
   .edgeIcon {

@@ -7,8 +7,8 @@
   &:hover,
   &:focus-visible {
     box-shadow:
-      0 0 0 2px var(--moduix-color-background),
-      0 0 0 4px var(--moduix-color-primary);
+      0 0 0 2px var(--moduix-background),
+      0 0 0 4px var(--moduix-primary);
     transform: translateY(-1px);
     outline: none;
   }
@@ -19,6 +19,6 @@
 }
 
 .fallback {
-  background-color: var(--moduix-color-primary);
-  color: var(--moduix-color-primary-foreground);
+  background-color: var(--moduix-primary);
+  color: var(--moduix-primary-foreground);
 }

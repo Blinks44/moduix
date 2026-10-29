@@ -4,7 +4,7 @@
     z-index: calc(var(--z-index, var(--moduix-z-popup)) - 1);
     inset: 0;
     min-height: 100dvh;
-    background-color: var(--moduix-backdrop-bg, var(--moduix-color-overlay));
+    background-color: var(--moduix-backdrop-bg, var(--moduix-overlay));
     backdrop-filter: var(--moduix-backdrop-filter, blur(4px));
     transition:
       opacity calc(var(--drawer-swipe-strength, 1) * var(--moduix-duration-slower))
@@ -84,11 +84,11 @@
     max-height: 80dvh;
     padding: var(--moduix-spacing-3) var(--moduix-spacing-6)
       calc(var(--moduix-spacing-4) + env(safe-area-inset-bottom, 0px));
-    border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
+    border: var(--moduix-border-width-sm) solid var(--moduix-border);
     border-radius: var(--moduix-radius-xl) var(--moduix-radius-xl) 0 0;
     outline: 0;
-    background-color: var(--moduix-color-popover);
-    color: var(--moduix-color-popover-foreground);
+    background-color: var(--moduix-popover);
+    color: var(--moduix-popover-foreground);
     box-shadow: var(--moduix-shadow-lg);
     overscroll-behavior: contain;
     transform-origin: center bottom;
@@ -276,7 +276,7 @@
     width: 3rem;
     height: 0.25rem;
     border-radius: var(--moduix-radius-full);
-    background-color: var(--moduix-color-muted-foreground);
+    background-color: var(--moduix-muted-foreground);
     opacity: 0.45;
     transition: opacity var(--moduix-transition-default);
 
@@ -316,7 +316,7 @@
 
   .description {
     margin: 0;
-    color: var(--moduix-color-muted-foreground);
+    color: var(--moduix-muted-foreground);
     font-size: var(--moduix-text-md);
     line-height: var(--moduix-line-height-text-md);
   }
@@ -340,8 +340,8 @@
 
   .closeIcon {
     --moduix-close-button-radius: var(--moduix-radius-md);
-    --moduix-close-button-color-hover: var(--moduix-color-popover-foreground);
-    --moduix-close-button-bg-hover: var(--moduix-color-accent);
+    --moduix-close-button-color-hover: var(--moduix-popover-foreground);
+    --moduix-close-button-bg-hover: var(--moduix-accent);
   }
 
   /* `data-swipe-direction` is the physical opening direction, so the edges stay physical. */
@@ -403,7 +403,7 @@
   .indentBackground {
     position: absolute;
     inset: 0;
-    background-color: var(--moduix-color-foreground);
+    background-color: var(--moduix-foreground);
     opacity: 0;
     pointer-events: none;
     transition: opacity var(--moduix-transition-spring);

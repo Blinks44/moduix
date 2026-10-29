@@ -5,7 +5,7 @@
     gap: var(--moduix-spacing-3);
     width: max-content;
     max-inline-size: 100%;
-    color: var(--moduix-color-foreground);
+    color: var(--moduix-foreground);
   }
 
   .area {
@@ -28,7 +28,7 @@
   }
 
   .separator {
-    color: var(--moduix-color-muted-foreground);
+    color: var(--moduix-muted-foreground);
   }
 
   .control {
@@ -45,11 +45,11 @@
     gap: var(--moduix-spacing-2);
     min-height: var(--moduix-size-md);
     margin: 0;
-    border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
+    border: var(--moduix-border-width-sm) solid var(--moduix-border);
     border-radius: var(--moduix-radius-md);
     padding: var(--moduix-spacing-1-5) var(--moduix-spacing-3);
-    background-color: var(--moduix-color-background);
-    color: var(--moduix-color-foreground);
+    background-color: var(--moduix-background);
+    color: var(--moduix-foreground);
     appearance: none;
     font: inherit;
     font-size: var(--moduix-text-sm);
@@ -61,12 +61,12 @@
 
     @media (hover: hover) {
       &:hover {
-        background-color: var(--moduix-color-accent);
+        background-color: var(--moduix-accent);
       }
     }
 
     &:focus-visible {
-      outline: var(--moduix-focus-ring-width) solid var(--moduix-color-ring);
+      outline: var(--moduix-focus-ring-width) solid var(--moduix-ring);
       outline-offset: var(--moduix-focus-ring-inset-offset);
     }
 

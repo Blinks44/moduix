@@ -30,7 +30,7 @@
   }
 
   .status {
-    color: var(--moduix-color-muted-foreground);
+    color: var(--moduix-muted-foreground);
     font-size: var(--moduix-text-sm);
     line-height: var(--moduix-line-height-text-sm);
   }
@@ -45,13 +45,13 @@
     display: grid;
     gap: var(--moduix-spacing-1);
     padding: var(--moduix-spacing-3);
-    border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
+    border: var(--moduix-border-width-sm) solid var(--moduix-border);
     border-radius: var(--moduix-radius-md);
-    background: var(--moduix-color-background);
+    background: var(--moduix-background);
   }
 
   .metric span {
-    color: var(--moduix-color-muted-foreground);
+    color: var(--moduix-muted-foreground);
     font-size: var(--moduix-text-xs);
   }
 
@@ -60,14 +60,14 @@
   }
 
   .customPanel {
-    border-color: color-mix(in oklab, var(--moduix-color-primary), black 18%);
+    border-color: color-mix(in oklab, var(--moduix-primary), black 18%);
     border-radius: var(--moduix-radius-lg);
-    background-color: var(--moduix-color-primary);
-    color: var(--moduix-color-primary-foreground);
+    background-color: var(--moduix-primary);
+    color: var(--moduix-primary-foreground);
 
     & [data-slot='floating-panel-header'] {
       border-bottom-color: inherit;
-      background-color: color-mix(in oklab, var(--moduix-color-primary), white 12%);
+      background-color: color-mix(in oklab, var(--moduix-primary), white 12%);
     }
 
     & [data-slot='floating-panel-drag-indicator'] {
@@ -75,12 +75,12 @@
     }
 
     & :is([data-slot='floating-panel-stage-trigger'], [data-slot='floating-panel-close-icon']) {
-      border-color: color-mix(in oklab, var(--moduix-color-primary), white 22%);
-      background-color: color-mix(in oklab, var(--moduix-color-primary), white 8%);
+      border-color: color-mix(in oklab, var(--moduix-primary), white 22%);
+      background-color: color-mix(in oklab, var(--moduix-primary), white 8%);
       color: inherit;
 
       &:hover {
-        background-color: color-mix(in oklab, var(--moduix-color-primary), white 18%);
+        background-color: color-mix(in oklab, var(--moduix-primary), white 18%);
       }
     }
   }

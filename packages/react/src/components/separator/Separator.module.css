@@ -5,7 +5,7 @@
     display: block;
     flex-shrink: 0;
     margin: 0;
-    border: 0 solid var(--moduix-separator-color, var(--moduix-color-border));
+    border: 0 solid var(--moduix-separator-color, var(--moduix-border));
 
     &[data-size='xs'] {
       --_separator-thickness: 0.5px;

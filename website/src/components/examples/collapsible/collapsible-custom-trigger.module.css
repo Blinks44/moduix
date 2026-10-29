@@ -12,18 +12,18 @@
   padding: var(--moduix-spacing-2) var(--moduix-spacing-3);
   border: 0;
   border-radius: var(--moduix-radius-md);
-  background-color: var(--moduix-color-muted);
-  color: var(--moduix-color-foreground);
+  background-color: var(--moduix-muted);
+  color: var(--moduix-foreground);
 }
 
 @media (hover: hover) {
   .customTrigger:hover {
-    background-color: var(--moduix-color-accent);
+    background-color: var(--moduix-accent);
   }
 }
 
 .customIndicator {
-  color: var(--moduix-color-primary);
+  color: var(--moduix-primary);
 }
 
 .customContentBody {
@@ -31,8 +31,8 @@
   --moduix-collapsible-body-padding: var(--moduix-spacing-2) var(--moduix-spacing-3);
 
   border-radius: var(--moduix-radius-md);
-  background-color: var(--moduix-color-muted);
-  color: var(--moduix-color-muted-foreground);
+  background-color: var(--moduix-muted);
+  color: var(--moduix-muted-foreground);
 }
 
 .keysList {

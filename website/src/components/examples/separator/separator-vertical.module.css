@@ -6,6 +6,6 @@
 }
 
 .link {
-  color: var(--moduix-color-foreground);
+  color: var(--moduix-foreground);
   text-decoration: none;
 }

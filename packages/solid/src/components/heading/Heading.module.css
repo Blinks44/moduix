@@ -1,7 +1,7 @@
 @layer moduix.components {
   .root {
     margin: 0;
-    color: var(--moduix-color-foreground);
+    color: var(--moduix-foreground);
     font-size: var(--moduix-text-3xl);
     font-weight: var(--moduix-weight-semibold);
     line-height: var(--moduix-line-height-text-3xl);
