@@ -58,5 +58,12 @@
     "vue": "catalog:",
     "vue-tsc": "catalog:",
     "wrangler": "^4.151.1"
-  }
+  },
+  "browserslist": [
+    "chrome >= 123",
+    "edge >= 123",
+    "firefox >= 120",
+    "safari >= 17.5",
+    "ios_saf >= 17.5"
+  ]
 }
