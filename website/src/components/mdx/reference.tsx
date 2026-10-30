@@ -1,6 +1,6 @@
 import { BrowserOnly } from '@rspress/core/runtime';
 import * as React from 'react';
-import styles from './Reference.module.css';
+import styles from './reference.module.css';
 
 type CssProperty = {
   name: `--${string}`;
