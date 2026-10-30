@@ -12,7 +12,7 @@ export default function HoverCardAnatomy() {
   return (
     <div
       style={{
-        minHeight: 240,
+        minHeight: 152,
         width: '100%',
         display: 'flex',
         alignItems: 'flex-start',

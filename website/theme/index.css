@@ -243,6 +243,14 @@
   }
 }
 
+/* Rspress scrolls the doc column with overflow-x: auto, which makes it the scroll container for
+   sticky content (the Anatomy and CSS variables scenes). clip keeps wide content from widening
+   the page without becoming a scroll container; wide tables and examples scroll on their own. */
+/* html raises specificity over the Rspress rule, which loads after the theme in some builds. */
+html .rp-doc-layout__doc {
+  overflow-x: clip;
+}
+
 /* Catalog pages without an outline fill the frame up to its right edge: 1440 − 280 sidebar.
    Their content ends on the nav's right padding line, so the last nav control aligns with it. */
 @media (width >= 1280px) {

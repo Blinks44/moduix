@@ -23,7 +23,7 @@ export default function ColorPickerAnatomy() {
   return (
     <div
       style={{
-        minHeight: 460,
+        minHeight: 388,
         width: '100%',
         display: 'flex',
         alignItems: 'flex-start',

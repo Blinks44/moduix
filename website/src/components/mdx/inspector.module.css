@@ -3,7 +3,8 @@
   --inspector-active: color-mix(in srgb, var(--rp-c-link) 8%, transparent);
 
   margin-block: 1rem 1.5rem;
-  overflow: hidden;
+  /* clip, not hidden: a hidden overflow would become the scroll container and stop the sticky scene. */
+  overflow: clip;
   border: 1px solid var(--rp-c-divider);
   border-radius: 12px;
   background: var(--rp-c-bg);
@@ -13,6 +14,12 @@
   position: relative;
   border-bottom: 1px solid var(--rp-c-divider);
   background: var(--rp-c-bg-soft);
+
+  &[data-sticky] {
+    position: sticky;
+    top: calc(var(--rp-nav-height) + var(--rp-banner-height, 0px) + var(--rp-sidebar-menu-height));
+    z-index: 1;
+  }
 }
 
 .stage {

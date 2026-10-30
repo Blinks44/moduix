@@ -31,16 +31,19 @@ export const breadcrumbsCssProperties: CssPropertyInput[] = [
     '--moduix-breadcrumbs-link-color-hover',
     'var(--moduix-foreground)',
     'Controls breadcrumb link hover color.',
+    'breadcrumbs-link',
   ],
   [
     '--moduix-breadcrumbs-page-color',
     'var(--moduix-foreground)',
     'Controls current page breadcrumb color.',
+    'breadcrumbs-page',
   ],
   [
     '--moduix-breadcrumbs-page-font-weight',
     'var(--moduix-weight-medium)',
     'Controls current page breadcrumb font weight.',
+    'breadcrumbs-page',
   ],
   ['--moduix-breadcrumbs-separator-icon-size', '1em', 'Controls separator icon size.'],
 ];

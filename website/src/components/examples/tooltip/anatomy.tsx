@@ -12,7 +12,7 @@ export default function TooltipAnatomy() {
   return (
     <div
       style={{
-        minHeight: 140,
+        minHeight: 92,
         width: '100%',
         display: 'flex',
         alignItems: 'flex-start',

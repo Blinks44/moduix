@@ -31,7 +31,7 @@ export default function ComboboxAnatomy() {
   return (
     <div
       style={{
-        minHeight: 380,
+        minHeight: 200,
         width: '100%',
         display: 'flex',
         alignItems: 'flex-start',

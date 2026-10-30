@@ -21,7 +21,7 @@ export default function PopoverAnatomy() {
   return (
     <div
       style={{
-        minHeight: 300,
+        minHeight: 244,
         width: '100%',
         display: 'flex',
         alignItems: 'flex-start',

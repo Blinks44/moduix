@@ -1,5 +1,12 @@
 import { useI18n } from '@rspress/core/runtime';
-import { type CSSProperties, type ReactNode, useLayoutEffect, useRef, useState } from 'react';
+import {
+  type CSSProperties,
+  type ReactNode,
+  type RefObject,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from 'react';
 import { type CssControls, CustomizePanel, type Overrides } from './customize';
 import styles from './inspector.module.css';
 import { type CssPropertyInput, normalizeCssProperties, renderInlineCode } from './reference';
@@ -22,10 +29,34 @@ type Box = { top: number; left: number; width: number; height: number };
 const outlineGap = 5.5;
 const rulerGap = 20;
 
-type Overlay = Box & { label: string; measure?: Measure; padding: [number, number] };
+type Overlay = Box & {
+  label: string;
+  measure?: Measure;
+  padding: [number, number];
+  sceneHeight: number;
+};
 
 function findElement(scene: HTMLElement, slot?: string) {
   return scene.querySelector<HTMLElement>(slot ? `[data-slot="${slot}"]` : '[data-slot]');
+}
+
+// The scene sticks under the header while the reader moves through a long table, unless it is
+// too tall to leave room for the rows.
+function useSticky(scene: RefObject<HTMLDivElement | null>) {
+  const [sticky, setSticky] = useState(false);
+  useLayoutEffect(() => {
+    const element = scene.current;
+    if (!element) return;
+    const update = () => setSticky(element.offsetHeight <= window.innerHeight * 0.6);
+    const observer = new ResizeObserver(update);
+    observer.observe(element);
+    window.addEventListener('resize', update);
+    return () => {
+      observer.disconnect();
+      window.removeEventListener('resize', update);
+    };
+  }, []);
+  return sticky;
 }
 
 function Scene({
@@ -39,6 +70,7 @@ function Scene({
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const [overlay, setOverlay] = useState<Overlay | null>(null);
+  const sticky = useSticky(ref);
 
   // Overlays settle after the row is activated (popover positioning, panel animations, scrolling),
   // so the box is measured every frame while a row is active and stored only when it changes.
@@ -56,6 +88,7 @@ function Scene({
         const style = getComputedStyle(element);
         const vertical = target.measure === 'padding-y';
         next = {
+          sceneHeight: sceneRect.height,
           top: rect.top - sceneRect.top,
           left: rect.left - sceneRect.left,
           width: rect.width,
@@ -80,7 +113,7 @@ function Scene({
   }, [target?.slot, target?.label, target?.measure]);
 
   return (
-    <div ref={ref} className={styles.scene}>
+    <div ref={ref} className={styles.scene} data-sticky={sticky ? '' : undefined}>
       {/* A static picture of the live example above: inert keeps open overlays from taking focus. */}
       <div className={styles.stage} inert style={style}>
         {children}
@@ -91,7 +124,7 @@ function Scene({
 }
 
 function SceneOverlay({ overlay }: { overlay: Overlay }) {
-  const { top, left, width, height, label, measure, padding } = overlay;
+  const { top, left, width, height, label, measure, padding, sceneHeight } = overlay;
 
   if (measure === 'padding-x' || measure === 'padding-y') {
     const vertical = measure === 'padding-y';
@@ -163,7 +196,10 @@ function SceneOverlay({ overlay }: { overlay: Overlay }) {
         style={
           measure === 'width'
             ? { top: top - rulerGap - 11, left: left + width / 2 }
-            : { top: Math.max(top - 32, 4), left }
+            : measure === 'height' && top + height + outlineGap + 32 < sceneHeight
+              ? // Below: popups whose height is measured sit right under their trigger.
+                { top: top + height + outlineGap + 6, left }
+              : { top: Math.max(top - 32, 4), left }
         }
         data-align={measure === 'width' ? 'center' : undefined}
       >

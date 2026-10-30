@@ -5,6 +5,7 @@ export const switchOverrideCssProperties: CssPropertyInput[] = [
     '--moduix-switch-bg',
     'color-mix(in oklab, var(--moduix-input) 40%, var(--moduix-background))',
     'Controls unchecked track background.',
+    'switch-control',
   ],
   [
     '--moduix-switch-bg-checked',

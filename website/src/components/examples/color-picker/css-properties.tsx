@@ -7,11 +7,17 @@ export const colorPickerOverrideCssProperties: CssPropertyInput[] = [
     'var(--moduix-spacing-3)',
     'Controls channel slider thickness, including the default track.',
   ],
-  ['--moduix-color-picker-content-width', '16rem', 'Controls the popup content width.'],
+  [
+    '--moduix-color-picker-content-width',
+    '16rem',
+    'Controls the popup content width.',
+    'color-picker-content',
+  ],
   [
     '--moduix-color-picker-radius',
     'var(--moduix-radius-md)',
     'Controls the radius of the trigger, inputs, actions, and popup content.',
+    'color-picker-content',
   ],
   [
     '--moduix-color-picker-swatch-size',
@@ -28,5 +34,5 @@ export const colorPickerOverrideCssProperties: CssPropertyInput[] = [
     'var(--moduix-size-md)',
     'Controls the square trigger size and the minimum width of a fit-content trigger.',
   ],
-  ['--moduix-color-picker-width', '16rem', 'Controls the root width.'],
+  ['--moduix-color-picker-width', '16rem', 'Controls the root width.', 'color-picker-root'],
 ];

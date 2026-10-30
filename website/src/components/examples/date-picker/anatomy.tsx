@@ -16,7 +16,7 @@ export default function DatePickerAnatomy() {
   return (
     <div
       style={{
-        minHeight: 480,
+        minHeight: 372,
         width: '100%',
         display: 'flex',
         alignItems: 'flex-start',

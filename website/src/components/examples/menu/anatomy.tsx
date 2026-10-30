@@ -25,7 +25,7 @@ export default function MenuAnatomy() {
   return (
     <div
       style={{
-        minHeight: 440,
+        minHeight: 316,
         width: '100%',
         display: 'flex',
         alignItems: 'flex-start',

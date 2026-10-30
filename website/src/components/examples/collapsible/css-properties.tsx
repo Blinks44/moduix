@@ -1,18 +1,25 @@
 import type { CssPropertyInput } from '../../mdx/reference';
 
 export const collapsibleOverrideCssProperties: CssPropertyInput[] = [
-  ['--moduix-collapsible-body-gap', 'var(--moduix-spacing-2)', 'Controls body content gap.'],
-  ['--moduix-collapsible-body-padding', '0', 'Controls body padding.'],
+  [
+    '--moduix-collapsible-body-gap',
+    'var(--moduix-spacing-2)',
+    'Controls body content gap.',
+    'collapsible-body',
+  ],
+  ['--moduix-collapsible-body-padding', '0', 'Controls body padding.', 'collapsible-body'],
   ['--moduix-collapsible-indicator-size', 'var(--moduix-spacing-3)', 'Controls indicator size.'],
   [
     '--moduix-collapsible-content-color',
     'var(--moduix-muted-foreground)',
     'Controls content color.',
+    'collapsible-content',
   ],
   [
     '--moduix-collapsible-content-font-size',
     'var(--moduix-text-sm)',
     'Controls content font size.',
+    'collapsible-content',
   ],
   [
     '--moduix-collapsible-trigger-font-size',

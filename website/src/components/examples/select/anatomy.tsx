@@ -33,7 +33,7 @@ export default function SelectAnatomy() {
   return (
     <div
       style={{
-        minHeight: 360,
+        minHeight: 220,
         width: '100%',
         display: 'flex',
         alignItems: 'flex-start',

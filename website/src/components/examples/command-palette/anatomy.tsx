@@ -104,7 +104,7 @@ export default function CommandPaletteAnatomy() {
   return (
     <div
       style={{
-        minHeight: 520,
+        minHeight: 592,
         width: '100%',
         display: 'flex',
         alignItems: 'flex-start',

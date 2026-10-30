@@ -12,7 +12,7 @@ export default function SplitButtonAnatomy() {
   return (
     <div
       style={{
-        minHeight: 220,
+        minHeight: 176,
         width: '100%',
         display: 'flex',
         alignItems: 'flex-start',
