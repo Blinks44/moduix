@@ -1065,6 +1065,11 @@ body .rp-doc {
   }
 }
 
+/* Tablet · Nav menu: align the popup with the hamburger instead of the window edge. */
+.rp-nav-hamburger__md {
+  position: relative;
+}
+
 @media (width <= 768px) {
   .rp-nav-hamburger__sm {
     display: inline-flex;
