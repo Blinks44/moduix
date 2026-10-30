@@ -54,19 +54,14 @@ jobs:
           require-lockfile: true
 
       - name: Cache Playwright browsers
-        id: playwright-cache
         uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6
         with:
           path: ~/.cache/ms-playwright
           key: playwright-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}
 
+      # Skips the download when the cached browser matches; system dependencies always install.
       - name: Install Chromium
-        if: steps.playwright-cache.outputs.cache-hit != 'true'
         run: pnpm exec playwright install --with-deps --only-shell chromium
-
-      - name: Install Chromium system dependencies
-        if: steps.playwright-cache.outputs.cache-hit == 'true'
-        run: pnpm exec playwright install-deps chromium
 
       # Turborepo skips test tasks whose package, foundation, and dependency inputs are unchanged.
       - name: Cache Turborepo
@@ -96,19 +91,14 @@ jobs:
           require-lockfile: true
 
       - name: Cache Playwright browsers
-        id: playwright-cache
         uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6
         with:
           path: ~/.cache/ms-playwright
           key: playwright-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}
 
+      # Skips the download when the cached browser matches; system dependencies always install.
       - name: Install Chromium
-        if: steps.playwright-cache.outputs.cache-hit != 'true'
         run: pnpm exec playwright install --with-deps --only-shell chromium
-
-      - name: Install Chromium system dependencies
-        if: steps.playwright-cache.outputs.cache-hit == 'true'
-        run: pnpm exec playwright install-deps chromium
 
       - name: Install React 18
         run: pnpm --filter './packages/react*' add -D react@^18 react-dom@^18
@@ -187,19 +177,14 @@ jobs:
 
       - name: Cache Playwright browsers
         if: github.event_name == 'push'
-        id: playwright-cache
         uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6
         with:
           path: ~/.cache/ms-playwright
           key: playwright-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}
 
       - name: Install Chromium
-        if: github.event_name == 'push' && steps.playwright-cache.outputs.cache-hit != 'true'
+        if: github.event_name == 'push'
         run: pnpm exec playwright install --with-deps --only-shell chromium
-
-      - name: Install Chromium system dependencies
-        if: github.event_name == 'push' && steps.playwright-cache.outputs.cache-hit == 'true'
-        run: pnpm exec playwright install-deps chromium
 
       # Every adapter is compared with React CSS Modules; known exceptions live in the script.
       - name: Compare stories across adapters
