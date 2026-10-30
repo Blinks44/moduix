@@ -40,7 +40,7 @@ function Swatch({ preset }: { preset: string }) {
 
 function PresetMenu() {
   const t = useI18n<typeof import('i18n')>();
-  const themesPath = useLocalizedPath('/docs/themes');
+  const builderPath = useLocalizedPath('/docs/theme-builder');
   const [preset, setPreset] = usePreset();
 
   return (
@@ -72,7 +72,7 @@ function PresetMenu() {
             </Menu.RadioItemGroup>
             <Menu.Separator className={styles.separator} />
             <Menu.Item value="themes" asChild className={styles.footerLink}>
-              <a href={themesPath}>
+              <a href={builderPath}>
                 {t('presetMenuCustomize')}
                 <ArrowRight aria-hidden="true" />
               </a>

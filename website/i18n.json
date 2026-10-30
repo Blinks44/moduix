@@ -1285,5 +1285,125 @@
     "en": "Reset",
     "ru": "Сбросить",
     "fr": "Réinitialiser"
+  },
+  "themeBuilderImport": {
+    "en": "Import shadcn theme",
+    "ru": "Импорт темы shadcn",
+    "fr": "Importer un thème shadcn"
+  },
+  "themeBuilderCopy": {
+    "en": "Copy CSS",
+    "ru": "Скопировать CSS",
+    "fr": "Copier le CSS"
+  },
+  "themeBuilderCopied": {
+    "en": "Copied",
+    "ru": "Скопировано",
+    "fr": "Copié"
+  },
+  "themeBuilderBase": {
+    "en": "Base preset",
+    "ru": "Базовый пресет",
+    "fr": "Préréglage de base"
+  },
+  "themeBuilderPrimary": {
+    "en": "Primary",
+    "ru": "Основной цвет",
+    "fr": "Couleur principale"
+  },
+  "themeBuilderHue": {
+    "en": "Neutral hue",
+    "ru": "Оттенок нейтральных",
+    "fr": "Teinte des neutres"
+  },
+  "themeBuilderRadius": {
+    "en": "Radius",
+    "ru": "Радиус",
+    "fr": "Rayon"
+  },
+  "themeBuilderDensity": {
+    "en": "Density",
+    "ru": "Плотность",
+    "fr": "Densité"
+  },
+  "themeBuilderDensity_compact": {
+    "en": "Compact",
+    "ru": "Компактная",
+    "fr": "Compacte"
+  },
+  "themeBuilderDensity_default": {
+    "en": "Default",
+    "ru": "Обычная",
+    "fr": "Normale"
+  },
+  "themeBuilderDensity_comfortable": {
+    "en": "Comfortable",
+    "ru": "Свободная",
+    "fr": "Confortable"
+  },
+  "themeBuilderPreview": {
+    "en": "Preview",
+    "ru": "Превью",
+    "fr": "Aperçu"
+  },
+  "themeBuilderPreviewLabel": {
+    "en": "Theme preview",
+    "ru": "Превью темы",
+    "fr": "Aperçu du thème"
+  },
+  "themeBuilderLight": {
+    "en": "Light",
+    "ru": "Светлая",
+    "fr": "Clair"
+  },
+  "themeBuilderDark": {
+    "en": "Dark",
+    "ru": "Тёмная",
+    "fr": "Sombre"
+  },
+  "themeBuilderSignIn": {
+    "en": "Sign in",
+    "ru": "Вход",
+    "fr": "Connexion"
+  },
+  "themeBuilderSignInText": {
+    "en": "Use your work email",
+    "ru": "Используйте рабочую почту",
+    "fr": "Utilisez votre e-mail professionnel"
+  },
+  "themeBuilderCssTitle": {
+    "en": "CSS",
+    "ru": "CSS",
+    "fr": "CSS"
+  },
+  "themeBuilderCssText": {
+    "en": "Load it after the foundation styles and set data-moduix-theme=\"brand\" on html. Colors keep a light and a dark value in light-dark().",
+    "ru": "Подключите его после стилей foundation и задайте data-moduix-theme=\"brand\" на html. У цветов светлое и тёмное значение в light-dark().",
+    "fr": "Chargez-le après les styles de la fondation et définissez data-moduix-theme=\"brand\" sur html. Les couleurs gardent une valeur claire et une valeur sombre dans light-dark()."
+  },
+  "themeBuilderImportTitle": {
+    "en": "Import a shadcn theme",
+    "ru": "Импорт темы shadcn",
+    "fr": "Importer un thème shadcn"
+  },
+  "themeBuilderImportText": {
+    "en": "Paste CSS from shadcn/ui or tweakcn. Its light and dark values are merged into moduix tokens.",
+    "ru": "Вставьте CSS из shadcn/ui или tweakcn. Его светлые и тёмные значения станут токенами moduix.",
+    "fr": "Collez le CSS de shadcn/ui ou tweakcn. Ses valeurs claires et sombres sont fusionnées dans les jetons moduix."
+  },
+  "themeBuilderImportLabel": {
+    "en": "Theme CSS",
+    "ru": "CSS темы",
+    "fr": "CSS du thème"
+  },
+  "themeBuilderImportFound": {
+    "en": "Variables found: {count}",
+    "ru": "Найдено переменных: {count}",
+    "fr": "Variables trouvées : {count}"
+  },
+  "themeBuilderImportAction": {
+    "en": "Import",
+    "ru": "Импортировать",
+    "fr": "Importer"
   }
 }

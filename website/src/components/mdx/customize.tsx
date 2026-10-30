@@ -64,6 +64,83 @@ function readValue(element: HTMLElement, name: string, control: CssControl, fall
   return result;
 }
 
+// Controls shared by the Customize panel and the theme builder.
+function ColorControl({
+  label,
+  name,
+  value,
+  onChange,
+}: {
+  label: string;
+  name: string;
+  value: string;
+  onChange: (value: string) => void;
+}) {
+  const color = parseColor(value);
+  // Opaque colors stay six-digit hex; translucent ones keep their alpha.
+  const format = (c: typeof color) => (c.getChannelValue('alpha') < 1 ? 'hexa' : 'hex');
+  return (
+    <ColorPicker
+      className={styles.color}
+      value={color}
+      onValueChange={(details) => onChange(details.value.toString(format(details.value)))}
+    >
+      <ColorPickerLabel>{label}</ColorPickerLabel>
+      <ColorPickerControl>
+        <ColorPickerTrigger aria-label={name} data-fit-content>
+          <ColorPickerValueSwatch />
+          <ColorPickerValueText format={format(color)} />
+        </ColorPickerTrigger>
+      </ColorPickerControl>
+      <ColorPickerPositioner>
+        <ColorPickerContent>
+          <ColorPickerArea />
+          <ColorPickerSliders />
+        </ColorPickerContent>
+      </ColorPickerPositioner>
+    </ColorPicker>
+  );
+}
+
+function RangeControl({
+  label,
+  name,
+  min,
+  max,
+  step,
+  unit,
+  value,
+  onChange,
+}: {
+  label: string;
+  name: string;
+  min: number;
+  max: number;
+  step: number;
+  unit: string;
+  value: number;
+  onChange: (value: number) => void;
+}) {
+  return (
+    <Slider
+      min={min}
+      max={max}
+      step={step}
+      value={[value]}
+      onValueChange={(details) => onChange(details.value[0])}
+    >
+      <SliderLabel>{label}</SliderLabel>
+      <SliderValueText>{`${value}${unit}`}</SliderValueText>
+      <SliderControl>
+        <SliderTrack>
+          <SliderRange />
+        </SliderTrack>
+        <SliderThumb index={0} aria-label={name} />
+      </SliderControl>
+    </Slider>
+  );
+}
+
 function CustomizePanel({
   controls,
   fallbacks,
@@ -114,53 +191,29 @@ function CustomizePanel({
         {entries.map(([name, control]) => {
           const label = name.slice(prefix.length);
           if (control === 'color') {
-            const color = parseColor(overrides[name] ?? defaults[name] ?? '#000000');
-            const format = color.getChannelValue('alpha') < 1 ? 'hexa' : 'hex';
             return (
-              <ColorPicker
+              <ColorControl
                 key={name}
-                className={styles.color}
-                value={color}
-                onValueChange={({ value }) =>
-                  set(name, value.toString(value.getChannelValue('alpha') < 1 ? 'hexa' : 'hex'))
-                }
-              >
-                <ColorPickerLabel>{label}</ColorPickerLabel>
-                <ColorPickerControl>
-                  <ColorPickerTrigger aria-label={name} data-fit-content>
-                    <ColorPickerValueSwatch />
-                    <ColorPickerValueText format={format} />
-                  </ColorPickerTrigger>
-                </ColorPickerControl>
-                <ColorPickerPositioner>
-                  <ColorPickerContent>
-                    <ColorPickerArea />
-                    <ColorPickerSliders />
-                  </ColorPickerContent>
-                </ColorPickerPositioner>
-              </ColorPicker>
+                label={label}
+                name={name}
+                value={overrides[name] ?? defaults[name] ?? '#000000'}
+                onChange={(value) => set(name, value)}
+              />
             );
           }
           const [min, max, step, unit] = control;
-          const current = parseFloat(overrides[name] ?? defaults[name] ?? String(min));
           return (
-            <Slider
+            <RangeControl
               key={name}
+              label={label}
+              name={name}
               min={min}
               max={max}
               step={step}
-              value={[current]}
-              onValueChange={({ value }) => set(name, `${value[0]}${unit}`)}
-            >
-              <SliderLabel>{label}</SliderLabel>
-              <SliderValueText>{`${current}${unit}`}</SliderValueText>
-              <SliderControl>
-                <SliderTrack>
-                  <SliderRange />
-                </SliderTrack>
-                <SliderThumb index={0} aria-label={name} />
-              </SliderControl>
-            </Slider>
+              unit={unit}
+              value={parseFloat(overrides[name] ?? defaults[name] ?? String(min))}
+              onChange={(value) => set(name, `${value}${unit}`)}
+            />
           );
         })}
       </div>
@@ -176,5 +229,5 @@ function CustomizePanel({
   );
 }
 
-export { CustomizePanel };
+export { ColorControl, CustomizePanel, RangeControl, toHex };
 export type { CssControls, Overrides };

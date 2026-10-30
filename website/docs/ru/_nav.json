@@ -3,13 +3,13 @@
     "text": "navDocs",
     "link": "/docs/",
     "position": "left",
-    "activeMatch": "^/ru/docs/(?:(?:index|ai|animations|async-list|changelog|client-only|collections|comparison|composition-patterns|dark-mode|download-trigger|environment|focus-trap|format-byte|format-number|format-relative-time|format-time|formisch|forms|frame|hotkeys|installation|list-collection|list-selection|locale|migrate-from-shadcn|presence|quick-start|react-hook-form|rtl|styling|tanstack-form|themes|tokens|tree-collection|updating|utilities)(?:/|$)|$)"
+    "activeMatch": "^/ru/docs/(?:(?:index|ai|animations|async-list|changelog|client-only|collections|comparison|composition-patterns|dark-mode|download-trigger|environment|focus-trap|format-byte|format-number|format-relative-time|format-time|formisch|forms|frame|hotkeys|installation|list-collection|list-selection|locale|migrate-from-shadcn|presence|quick-start|react-hook-form|rtl|styling|tanstack-form|theme-builder|themes|tokens|tree-collection|updating|utilities)(?:/|$)|$)"
   },
   {
     "text": "navComponents",
     "link": "/docs/components",
     "position": "left",
-    "activeMatch": "^/ru/docs/(?!(?:index|ai|animations|async-list|changelog|client-only|collections|comparison|composition-patterns|dark-mode|download-trigger|environment|focus-trap|format-byte|format-number|format-relative-time|format-time|formisch|forms|frame|hotkeys|installation|list-collection|list-selection|locale|migrate-from-shadcn|presence|quick-start|react-hook-form|rtl|styling|tanstack-form|themes|tokens|tree-collection|updating|utilities)(?:/|$)|$)"
+    "activeMatch": "^/ru/docs/(?!(?:index|ai|animations|async-list|changelog|client-only|collections|comparison|composition-patterns|dark-mode|download-trigger|environment|focus-trap|format-byte|format-number|format-relative-time|format-time|formisch|forms|frame|hotkeys|installation|list-collection|list-selection|locale|migrate-from-shadcn|presence|quick-start|react-hook-form|rtl|styling|tanstack-form|theme-builder|themes|tokens|tree-collection|updating|utilities)(?:/|$)|$)"
   },
   {
     "text": "navBlocks",

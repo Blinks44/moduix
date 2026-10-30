@@ -46,6 +46,10 @@
   },
   {
     "type": "file",
+    "name": "theme-builder"
+  },
+  {
+    "type": "file",
     "name": "tokens",
     "label": "Tokens"
   },
