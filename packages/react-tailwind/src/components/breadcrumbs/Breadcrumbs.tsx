@@ -146,7 +146,7 @@ const BreadcrumbsEllipsis = forwardRef<ComponentRef<typeof ark.span>, HTMLArkPro
         data-slot="breadcrumbs-ellipsis"
         aria-hidden="true"
         className={cn(
-          'inline-flex min-h-4 min-w-4 items-center justify-center rounded-sm px-1 transition-[color] duration-normal ease-in-out [:where(button:has(>&))]:cursor-pointer [:where(button:has(>&))]:outline-none [button:focus-visible>&]:ring-(length:--moduix-focus-ring-inset-width) [button:focus-visible>&]:ring-ring [@media(hover:hover)]:[button:hover>&]:text-foreground',
+          'inline-flex min-h-4 min-w-4 items-center justify-center rounded-sm px-1 transition-[color] duration-normal ease-in-out [:where(button:has(>&))]:inline-flex [:where(button:has(>&))]:cursor-pointer [:where(button:has(>&))]:items-center [:where(button:has(>&))]:outline-none [button:focus-visible>&]:ring-(length:--moduix-focus-ring-inset-width) [button:focus-visible>&]:ring-ring [@media(hover:hover)]:[button:hover>&]:text-foreground',
           className,
         )}
       >
