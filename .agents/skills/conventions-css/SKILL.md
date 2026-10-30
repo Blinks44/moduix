@@ -26,6 +26,9 @@ Use this skill for CSS, CSS Modules, and styling work in this repo.
 - Prefer Ark `data-*` hooks and local class names over deep or structure-dependent selector chains.
 - If a selector is difficult to explain in one sentence, simplify it.
 - In CSS Modules, use design tokens and public CSS variables instead of hardcoded one-off values when a token already exists.
+- Do not write `light-dark()` in component CSS: Rslib lowers it to a polyfill built on `--lightningcss-*`
+  variables that the package never defines, so the value becomes invalid. Theme colors already resolve
+  `light-dark()` in the foundation tokens; components read those tokens.
 - Keep component CSS and demo CSS separate. Library styling belongs in its package; demo-only layout belongs in stories or docs examples.
 - When a component exists in several variants, preserve the same visual and state contract. Keep
   CSS Modules byte-identical across framework adapters (`pnpm run check:css-modules` enforces it in
