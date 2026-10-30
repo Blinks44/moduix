@@ -40,6 +40,17 @@ For headed tests, omit `--only-shell`. Linux CI also passes `--with-deps`.
 | `pnpm run tsc:check`                       | Typecheck every package                                              |
 | `pnpm run build:registry`                  | Validate and build the hosted shadcn registry (not committed)        |
 | `pnpm run check:packages`                  | `publint` and `@arethetypeswrong` validation for all public packages |
+| `pnpm run check:css-modules`               | Check that CSS Modules are identical across adapters                 |
+| `pnpm run size`                            | Check component size budgets (after `build:packages`)                |
+| `pnpm run compare:stories [component…]`    | Compare built playground stories with React CSS Modules              |
+| `pnpm run check:a11y [component…]`         | Run axe on built playground stories                                  |
+
+`compare:stories` and `check:a11y` read the built storybooks, so run
+`pnpm --filter './playgrounds/*' run build:storybook` first. CI compares stories on pushes to
+`main`; `check:a11y` runs only by hand.
+
+Behavior tests for a framework live in its CSS Modules package (`packages/<framework>/tests`), and
+the Tailwind package runs the same files. Style-specific tests live in `tests/styles` of each package.
 
 ## Before opening a pull request
 
@@ -71,22 +82,8 @@ Publishing authenticates through npm [trusted publishing](https://docs.npmjs.com
 every published package lists this repository and workflow as a trusted publisher, and the release
 workflow attaches a provenance attestation. No npm token is stored in the repository.
 
-Before releasing, stop `dev:docs` and run:
-
-```bash
-pnpm install --frozen-lockfile --no-runtime
-pnpm run fmt:check
-pnpm run lint:check
-pnpm run test
-pnpm run tsc:check
-pnpm run build:packages
-pnpm run check:packages
-pnpm run build:docs
-pnpm --filter './playgrounds/*' run build:storybook
-```
-
-Require a green Verify run for the release commit.
-Review skipped regressions before publishing; passing tests do not mean those contracts are fixed.
+Verify runs the full validation on every pull request and push, so a green Verify run on the
+release commit is the release gate.
 
 ## Reporting issues
 

@@ -48,7 +48,7 @@ Use project skills from [`.agents/skills/`](.agents/skills/README.md). Apply onl
 - **Framework-specific implementation:** use the matching native convention skill. Add a focused
   convention skill when a new adapter enters development instead of expanding another framework's
   instructions into generic pseudocode.
-- **Temporary repository migrations:** follow the applicable local file in `.local/plans/`. Plans own
+- **Temporary repository migrations:** follow the applicable local plan in `.local/`. Plans own
   finite rollout order, progress, concurrency, and deletion conditions; permanent framework and
   component mechanics stay in skills. Plans must not be included in commits.
 - **Component styles or shared tokens:** `conventions-css`; synchronize existing CSS Modules and Tailwind counterparts through `component-workflow`.

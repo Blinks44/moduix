@@ -16,7 +16,7 @@ Skills are intentionally narrow and composable:
 - Conditional details live in `references/`, not in every task's initial context.
 - Framework-specific convention skills stay narrow. Add a native skill when a new adapter enters
   development; keep future Svelte mechanics out of existing framework convention skills.
-- Finite repository migrations live in the gitignored `.local/plans/` directory, reference permanent
+- Finite repository migrations live in the gitignored `.local/` directory, reference permanent
   skills for implementation, and are deleted after their completion condition is met. Plans are not
   repository documentation and must not be committed.
 

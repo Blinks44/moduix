@@ -1,13 +1,13 @@
 ---
 name: moduix
-description: Build or modify applications with shipped moduix framework adapters and CSS Modules or Tailwind components. Use when discovering, installing, composing, updating, or reviewing package-managed or shadcn copy-owned moduix UI.
+description: Build or modify applications with shipped moduix framework adapters and CSS Modules or Tailwind components. Use when discovering, installing, composing, updating, or reviewing moduix UI installed from npm packages or from the shadcn registry.
 ---
 
 # moduix
 
 Use the public moduix documentation as the source of truth. Preserve the project's framework,
-styling track, and ownership model. Do not migrate between framework adapters, CSS Modules and
-Tailwind, or package-managed and copy-owned code unless the user asks.
+styling track, and install method. Do not migrate between framework adapters, CSS Modules and
+Tailwind, or packages and registry source unless the user asks.
 
 moduix is multi-framework by design. React, Solid, and Vue adapters ship today; Svelte is planned.
 Never present a planned adapter as available. Discover the current package or registry before choosing
@@ -18,29 +18,29 @@ commands, imports, or examples.
 Inspect the package manager, existing imports, application stylesheet, and `components.json` before
 changing code. Select the matching package or registry:
 
-| Runtime | Ownership | CSS Modules     | Tailwind CSS v4          |
-| ------- | --------- | --------------- | ------------------------ |
-| React   | package   | `@moduix/react` | `@moduix/react-tailwind` |
-| React   | registry  | `@moduix-react` | `@moduix-react-tailwind` |
-| Solid   | package   | `@moduix/solid` | `@moduix/solid-tailwind` |
-| Solid   | registry  | `@moduix-solid` | `@moduix-solid-tailwind` |
-| Vue     | package   | `@moduix/vue`   | `@moduix/vue-tailwind`   |
-| Vue     | registry  | `@moduix-vue`   | `@moduix-vue-tailwind`   |
+| Runtime | Install  | CSS Modules     | Tailwind CSS v4          |
+| ------- | -------- | --------------- | ------------------------ |
+| React   | package  | `@moduix/react` | `@moduix/react-tailwind` |
+| React   | registry | `@moduix-react` | `@moduix-react-tailwind` |
+| Solid   | package  | `@moduix/solid` | `@moduix/solid-tailwind` |
+| Solid   | registry | `@moduix-solid` | `@moduix-solid-tailwind` |
+| Vue     | package  | `@moduix/vue`   | `@moduix/vue-tailwind`   |
+| Vue     | registry | `@moduix-vue`   | `@moduix-vue-tailwind`   |
 
 Assume the application is already configured for its framework. For a Tailwind track, also confirm
 that Tailwind CSS v4 is already configured. Do not scaffold a framework, install Tailwind, or
-initialize shadcn only to use a package. If no ownership model is established, ask the user to
-choose between package-managed and copy-owned components.
+initialize shadcn only to use a package. If no install method is established, ask the user to
+choose between npm packages and registry source.
 
 ## Discover before installing
 
 Read [references/discovery.md](references/discovery.md), then:
 
-1. Read the canonical moduix page for the component, recipe, or setup task.
+1. Read the canonical moduix page for the component, block, or setup task.
 2. Confirm that the component exists in the selected package or registry. React, Solid, and Vue
    provide the same component catalog in both styling variants; discover future adapters separately.
-3. Prefer a documented component or recipe to custom UI when it fits. Recipes are documentation,
-   not registry items; install their listed components and keep application behavior in the app.
+3. Prefer a documented component or block to custom UI when it fits. Blocks install through the
+   registry as source in the app; keep routes, API calls, and data in the application.
 
 ## Use package-managed components
 
@@ -66,7 +66,7 @@ Read [references/discovery.md](references/discovery.md), then:
 
 Replace `react-tailwind` with `solid-tailwind` for Solid or `vue-tailwind` for Vue.
 
-## Use copy-owned components
+## Use registry components
 
 1. Run `shadcn@latest info --json` with the project's package runner. Confirm the matching registry
    namespace, aliases, installed items, and resolved file paths.
@@ -98,7 +98,7 @@ files and preserve local changes. Never use `--overwrite` without explicit user 
   behavior, and accessibility contract.
 - Use native framework patterns. Do not transliterate one adapter's composition into another
   framework's shape or invent shadcn-style aliases that moduix does not export.
-- Keep package imports and copy-owned imports separate.
+- Keep package imports and registry source imports separate.
 - Customize CSS Modules through documented variables, classes, slots, and state attributes.
   Customize Tailwind components with consumer utilities; avoid recreating component-specific
   moduix variable systems.
