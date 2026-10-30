@@ -43,21 +43,21 @@
     /* 5px keeps a one-line control at 36px around 24px tags and the 1px border. */
     padding: 0.3125rem var(--moduix-spacing-2);
     background-color: var(--moduix-background);
-    outline: var(--moduix-focus-ring-inset-width) solid transparent;
-    outline-offset: var(--moduix-focus-ring-inset-offset);
+    outline: var(--moduix-focus-ring-halo-width) solid transparent;
     transition:
       border-color var(--moduix-transition-default),
       outline-color var(--moduix-transition-default);
 
     &[data-focus] {
-      outline-color: var(--moduix-ring);
+      border-color: var(--moduix-ring);
+      outline-color: color-mix(in oklab, var(--moduix-ring) 50%, transparent);
     }
 
     &[data-invalid] {
       border-color: var(--moduix-destructive);
 
       &[data-focus] {
-        outline-color: var(--moduix-destructive);
+        outline-color: color-mix(in oklab, var(--moduix-destructive) 20%, transparent);
       }
     }
 

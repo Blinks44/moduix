@@ -73,7 +73,7 @@ const tableHeaderClass =
   'h-7 w-control-sm text-center text-xs leading-4 font-medium text-muted-foreground tabular-nums';
 const selectControlClass = 'relative grid min-w-0';
 const selectClass =
-  'peer/date-picker-select h-control-sm w-full min-w-0 cursor-pointer appearance-none rounded-md border border-input bg-background py-1 ps-3.5 pe-[calc(var(--moduix-spacing-2)+var(--moduix-size-xs)+var(--moduix-spacing-3-5))] text-sm leading-5 text-foreground outline-focus-inset outline-offset-focus-inset outline-transparent transition-[border-color,outline-color] duration-normal ease-in-out focus-visible:border-ring focus-visible:outline-ring disabled:cursor-default disabled:opacity-disabled forced-colors:appearance-auto forced-colors:pe-3.5';
+  'peer/date-picker-select h-control-sm w-full min-w-0 cursor-pointer appearance-none rounded-md border border-input bg-background py-1 ps-3.5 pe-[calc(var(--moduix-spacing-2)+var(--moduix-size-xs)+var(--moduix-spacing-3-5))] text-sm leading-5 text-foreground outline-focus-halo outline-transparent transition-[border-color,outline-color] duration-normal ease-in-out focus-visible:border-ring focus-visible:outline-ring/50 disabled:cursor-default disabled:opacity-disabled forced-colors:appearance-auto forced-colors:pe-3.5';
 const selectIndicatorClass =
   'pointer-events-none absolute end-2 top-1/2 inline-flex size-control-xs -translate-y-1/2 items-center justify-center text-muted-foreground peer-disabled/date-picker-select:opacity-disabled forced-colors:hidden [&>svg]:block [&>svg]:size-4';
 
@@ -215,7 +215,7 @@ const DatePickerInput = forwardRef<
     <DatePickerPrimitive.Input
       ref={ref}
       className={cn(
-        "h-control-md w-full min-w-30 flex-1 rounded-md border border-input bg-background py-1 ps-3.5 pe-17 text-md leading-6 text-current outline-focus-inset outline-offset-focus-inset outline-transparent transition-[border-color,outline-color] duration-normal ease-in-out group-has-[input[data-index='1']]/date-picker:pe-3.5 placeholder:text-muted-foreground read-only:cursor-default focus:border-ring focus:outline-ring disabled:cursor-default data-invalid:border-destructive data-invalid:outline-destructive data-[index='1']:pe-17",
+        "h-control-md w-full min-w-30 flex-1 rounded-md border border-input bg-background py-1 ps-3.5 pe-17 text-md leading-6 text-current outline-focus-halo outline-transparent transition-[border-color,outline-color] duration-normal ease-in-out group-has-[input[data-index='1']]/date-picker:pe-3.5 placeholder:text-muted-foreground read-only:cursor-default focus:border-ring focus:outline-ring/50 disabled:cursor-default data-invalid:border-destructive data-invalid:focus:outline-destructive/20 data-[index='1']:pe-17",
         className,
       )}
       {...props}

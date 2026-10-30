@@ -41,7 +41,7 @@
     width: 100%;
     min-height: var(--moduix-size-md);
     margin: 0;
-    border: var(--moduix-border-width-sm) solid var(--moduix-border);
+    border: var(--moduix-border-width-sm) solid var(--moduix-input);
     border-radius: var(--moduix-radius-md);
     padding: var(--moduix-spacing-1) var(--moduix-spacing-3);
     background-color: var(--moduix-background);
@@ -49,8 +49,7 @@
     font: inherit;
     font-size: var(--moduix-text-md);
     line-height: var(--moduix-line-height-text-md);
-    outline: var(--moduix-focus-ring-inset-width) solid transparent;
-    outline-offset: var(--moduix-focus-ring-inset-offset);
+    outline: var(--moduix-focus-ring-halo-width) solid transparent;
     transition:
       border-color var(--moduix-transition-default),
       outline-color var(--moduix-transition-default),
@@ -61,7 +60,8 @@
     }
 
     &:focus-visible {
-      outline-color: var(--moduix-ring);
+      border-color: var(--moduix-ring);
+      outline-color: color-mix(in oklab, var(--moduix-ring) 50%, transparent);
     }
 
     &:disabled {
@@ -75,8 +75,10 @@
     width: 100%;
   }
 
+  /* Above the input, whose clip-path gives it its own stacking context. */
   .filterIcon {
     position: absolute;
+    z-index: 1;
     top: 50%;
     inset-inline-start: var(--moduix-spacing-3);
     width: var(--moduix-spacing-4);
@@ -92,10 +94,6 @@
         var(--moduix-spacing-3) + var(--moduix-spacing-4) + var(--moduix-spacing-2)
       )
       calc(var(--moduix-spacing-3) + var(--moduix-size-xs) + var(--moduix-spacing-2));
-
-    &:focus-visible {
-      outline-color: transparent;
-    }
   }
 
   .clearTrigger {
@@ -107,31 +105,42 @@
     transform: translateY(-50%);
   }
 
-  /* A filter right before the content joins it into one surface with a neutral divider. */
+  /* A filter right before the content joins it into one surface with a neutral divider.
+     Each part clips its halo at the divider, so the two halves read as one ring. */
   .filter:has(+ .content) .input {
     border-bottom: 0;
     border-bottom-right-radius: 0;
     border-bottom-left-radius: 0;
+    clip-path: inset(
+      calc(var(--moduix-focus-ring-halo-width) * -1) calc(var(--moduix-focus-ring-halo-width) * -1)
+        0
+    );
   }
 
   .filter + .content {
     margin-block-start: calc(-1 * var(--_listbox-gap));
     border-top-left-radius: 0;
     border-top-right-radius: 0;
+    clip-path: inset(
+      0 calc(var(--moduix-focus-ring-halo-width) * -1)
+        calc(var(--moduix-focus-ring-halo-width) * -1)
+    );
 
     &:focus-visible {
-      outline-color: transparent;
+      border-top-color: var(--moduix-input);
     }
   }
 
-  .filter:has(.input:focus-visible, + .content:focus-visible) {
+  .filter:has(+ .content):has(.input:focus-visible, + .content:focus-visible) {
     .input {
       border-color: var(--moduix-ring);
+      outline-color: color-mix(in oklab, var(--moduix-ring) 50%, transparent);
     }
 
     + .content {
       border-inline-color: var(--moduix-ring);
       border-bottom-color: var(--moduix-ring);
+      outline-color: color-mix(in oklab, var(--moduix-ring) 50%, transparent);
     }
   }
 
@@ -142,12 +151,11 @@
     flex-direction: column;
     overflow-x: hidden;
     overflow-y: auto;
-    border: var(--moduix-border-width-sm) solid var(--moduix-border);
+    border: var(--moduix-border-width-sm) solid var(--moduix-input);
     border-radius: var(--moduix-radius-md);
     padding-block: var(--moduix-popup-list-padding-y, var(--moduix-spacing-1));
     background-color: var(--moduix-background);
-    outline: var(--moduix-focus-ring-inset-width) solid transparent;
-    outline-offset: var(--moduix-focus-ring-inset-offset);
+    outline: var(--moduix-focus-ring-halo-width) solid transparent;
     scrollbar-gutter: stable;
     scroll-padding-block: var(--moduix-popup-list-padding-y, var(--moduix-spacing-1));
     transition:
@@ -155,7 +163,8 @@
       outline-color var(--moduix-transition-default);
 
     &:focus-visible {
-      outline-color: var(--moduix-ring);
+      border-color: var(--moduix-ring);
+      outline-color: color-mix(in oklab, var(--moduix-ring) 50%, transparent);
     }
 
     &[data-layout='grid'] {

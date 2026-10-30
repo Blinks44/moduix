@@ -20,7 +20,7 @@ const rootClass =
   'group/number-input flex flex-col items-start gap-1 data-disabled:opacity-disabled [:is([data-slot=field-root][data-disabled],[data-slot=field-root-provider][data-disabled],[data-slot=fieldset-root][data-disabled],[data-slot=fieldset-root-provider][data-disabled])_&]:opacity-100';
 
 const triggerClass =
-  'inline-flex size-control-md shrink-0 cursor-pointer items-center justify-center border border-input bg-background p-0 text-foreground outline-focus-inset outline-offset-focus-inset outline-transparent transition-[background-color,border-color,color] duration-normal ease-in-out select-none group-data-invalid/number-input:border-destructive group-data-[size=lg]/number-input:size-control-lg group-data-[size=sm]/number-input:size-control-sm group-data-[size=xl]/number-input:size-control-xl group-data-[size=xs]/number-input:size-control-xs focus-visible:z-1 focus-visible:outline-ring group-data-invalid/number-input:focus-visible:outline-destructive active:bg-accent data-disabled:pointer-events-none data-disabled:text-muted-foreground [&>svg]:size-3.5 group-data-[size=lg]/number-input:[&>svg]:size-4 group-data-[size=sm]/number-input:[&>svg]:size-3 group-data-[size=xl]/number-input:[&>svg]:size-4 group-data-[size=xs]/number-input:[&>svg]:size-3 [@media(hover:hover)]:hover:bg-accent';
+  'inline-flex size-control-md shrink-0 cursor-pointer items-center justify-center border border-input bg-background p-0 text-foreground transition-[background-color,border-color,color] duration-normal ease-in-out select-none group-data-invalid/number-input:border-destructive group-data-[size=lg]/number-input:size-control-lg group-data-[size=sm]/number-input:size-control-sm group-data-[size=xl]/number-input:size-control-xl group-data-[size=xs]/number-input:size-control-xs active:bg-accent data-disabled:pointer-events-none data-disabled:text-muted-foreground [&>svg]:size-3.5 group-data-[size=lg]/number-input:[&>svg]:size-4 group-data-[size=sm]/number-input:[&>svg]:size-3 group-data-[size=xl]/number-input:[&>svg]:size-4 group-data-[size=xs]/number-input:[&>svg]:size-3 [@media(hover:hover)]:hover:bg-accent group-focus-within/number-input-control:border-ring outline-none';
 
 function NumberInput(props: NumberInputRootProps) {
   const [local, others] = splitProps(props, ['children', 'class', 'size']);
@@ -84,7 +84,10 @@ function NumberInputControl(props: ComponentProps<typeof NumberInputPrimitive.Co
 
   return (
     <NumberInputPrimitive.Control
-      class={cn('inline-flex', local.class)}
+      class={cn(
+        'group/number-input-control inline-flex rounded-md outline-focus-halo outline-transparent transition-[outline-color] duration-normal ease-in-out focus-within:outline-ring/50 group-data-invalid/number-input:focus-within:outline-destructive/20',
+        local.class,
+      )}
       {...others}
       data-slot="number-input-control"
     />
@@ -114,7 +117,7 @@ function NumberInputInput(props: ComponentProps<typeof NumberInputPrimitive.Inpu
   return (
     <NumberInputPrimitive.Input
       class={cn(
-        'h-control-md w-24 rounded-none border-x-0 border-y border-input bg-background px-3 py-1 text-center text-md leading-6 text-foreground tabular-nums outline-focus-inset outline-offset-focus-inset outline-transparent transition-[border-color,outline-color] duration-normal ease-in-out group-data-invalid/number-input:border-destructive group-data-[size=lg]/number-input:h-control-lg group-data-[size=lg]/number-input:px-4 group-data-[size=lg]/number-input:text-lg group-data-[size=lg]/number-input:leading-7 group-data-[size=sm]/number-input:h-control-sm group-data-[size=sm]/number-input:px-2 group-data-[size=sm]/number-input:text-sm group-data-[size=sm]/number-input:leading-5 group-data-[size=xl]/number-input:h-control-xl group-data-[size=xl]/number-input:px-4 group-data-[size=xl]/number-input:py-2 group-data-[size=xl]/number-input:text-lg group-data-[size=xl]/number-input:leading-7 group-data-[size=xs]/number-input:h-control-xs group-data-[size=xs]/number-input:px-2 group-data-[size=xs]/number-input:py-0.5 group-data-[size=xs]/number-input:text-xs group-data-[size=xs]/number-input:leading-4 focus-visible:z-1 focus-visible:outline-ring group-data-invalid/number-input:focus-visible:outline-destructive',
+        'h-control-md w-24 rounded-none border-x-0 border-y border-input bg-background px-3 py-1 text-center text-md leading-6 text-foreground tabular-nums transition-[border-color] duration-normal ease-in-out outline-none group-focus-within/number-input-control:border-ring group-data-invalid/number-input:border-destructive group-data-[size=lg]/number-input:h-control-lg group-data-[size=lg]/number-input:px-4 group-data-[size=lg]/number-input:text-lg group-data-[size=lg]/number-input:leading-7 group-data-[size=sm]/number-input:h-control-sm group-data-[size=sm]/number-input:px-2 group-data-[size=sm]/number-input:text-sm group-data-[size=sm]/number-input:leading-5 group-data-[size=xl]/number-input:h-control-xl group-data-[size=xl]/number-input:px-4 group-data-[size=xl]/number-input:py-2 group-data-[size=xl]/number-input:text-lg group-data-[size=xl]/number-input:leading-7 group-data-[size=xs]/number-input:h-control-xs group-data-[size=xs]/number-input:px-2 group-data-[size=xs]/number-input:py-0.5 group-data-[size=xs]/number-input:text-xs group-data-[size=xs]/number-input:leading-4',
         local.class,
       )}
       {...others}

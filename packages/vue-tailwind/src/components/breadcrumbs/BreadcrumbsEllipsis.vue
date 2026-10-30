@@ -25,7 +25,7 @@ const attrs = useAttrs();
     aria-hidden="true"
     :class="
       cn(
-        'inline-flex min-h-4 min-w-4 items-center justify-center rounded-sm px-1 transition-[color] duration-normal ease-in-out [:where(button:has(>&))]:cursor-pointer [:where(button:has(>&))]:outline-none [button:focus-visible>&]:ring-1 [button:focus-visible>&]:ring-ring [@media(hover:hover)]:[button:hover>&]:text-foreground',
+        'inline-flex min-h-4 min-w-4 items-center justify-center rounded-sm px-1 transition-[color] duration-normal ease-in-out [:where(button:has(>&))]:cursor-pointer [:where(button:has(>&))]:outline-none [button:focus-visible>&]:ring-(length:--moduix-focus-ring-inset-width) [button:focus-visible>&]:ring-ring [@media(hover:hover)]:[button:hover>&]:text-foreground',
         className,
       )
     "

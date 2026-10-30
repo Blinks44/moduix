@@ -92,7 +92,7 @@
     gap: var(--moduix-spacing-2);
     min-height: var(--moduix-size-md);
     margin: var(--moduix-spacing-3) var(--moduix-spacing-3) 0;
-    border: var(--moduix-border-width-sm) solid var(--moduix-border);
+    border: var(--moduix-border-width-sm) solid var(--moduix-input);
     border-radius: var(--moduix-radius-md);
     padding: var(--moduix-spacing-1) var(--moduix-spacing-3);
     background-color: var(--moduix-background);

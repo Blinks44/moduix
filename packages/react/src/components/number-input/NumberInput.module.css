@@ -80,8 +80,20 @@
     }
   }
 
+  /* Ark keeps the steppers out of the tab order, so the whole group shows the input's focus. */
   .control {
     display: inline-flex;
+    border-radius: var(--moduix-number-input-radius, var(--moduix-radius-md));
+    outline: var(--moduix-focus-ring-halo-width) solid transparent;
+    transition: outline-color var(--moduix-transition-default);
+
+    &:focus-within {
+      outline-color: color-mix(in oklab, var(--moduix-ring) 50%, transparent);
+    }
+
+    .root[data-invalid] &:focus-within {
+      outline-color: color-mix(in oklab, var(--moduix-destructive) 20%, transparent);
+    }
   }
 
   .decrementTrigger,
@@ -92,20 +104,14 @@
     border: var(--moduix-border-width-sm) solid var(--moduix-input);
     background-color: var(--moduix-background);
     color: var(--moduix-foreground);
-    outline: var(--moduix-focus-ring-inset-width) solid transparent;
-    outline-offset: var(--moduix-focus-ring-inset-offset);
+    outline: 0;
 
-    &:focus-visible {
-      z-index: 1;
-      outline-color: var(--moduix-ring);
+    .control:focus-within > & {
+      border-color: var(--moduix-ring);
     }
 
     .root[data-invalid] & {
       border-color: var(--moduix-destructive);
-
-      &:focus-visible {
-        outline-color: var(--moduix-destructive);
-      }
     }
   }
 
@@ -168,9 +174,7 @@
     line-height: var(--_number-input-line-height);
     font-variant-numeric: tabular-nums;
     text-align: center;
-    transition:
-      border-color var(--moduix-transition-default),
-      outline-color var(--moduix-transition-default);
+    transition: border-color var(--moduix-transition-default);
   }
 
   .valueText {

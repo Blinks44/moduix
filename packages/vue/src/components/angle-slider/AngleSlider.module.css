@@ -76,7 +76,8 @@
     &:active:not([data-disabled], [data-readonly]) .thumb::before {
       border-color: var(--moduix-ring);
       box-shadow:
-        0 0 0 var(--moduix-focus-ring-inset-width) var(--moduix-ring),
+        0 0 0 var(--moduix-focus-ring-halo-width)
+          color-mix(in oklab, var(--moduix-ring) 50%, transparent),
         var(--moduix-shadow-md);
     }
 
@@ -104,7 +105,7 @@
       left: 0;
       width: var(--moduix-angle-slider-thumb-size, var(--moduix-spacing-4));
       height: var(--moduix-angle-slider-thumb-size, var(--moduix-spacing-4));
-      border: var(--moduix-border-width-sm) solid var(--moduix-border);
+      border: var(--moduix-border-width-sm) solid var(--moduix-input);
       border-radius: var(--moduix-radius-full);
       background: var(--moduix-background);
       box-shadow: var(--moduix-shadow-sm);
@@ -117,7 +118,8 @@
 
     &:focus-visible::before {
       border-color: var(--moduix-ring);
-      box-shadow: 0 0 0 var(--moduix-focus-ring-inset-width) var(--moduix-ring);
+      box-shadow: 0 0 0 var(--moduix-focus-ring-halo-width)
+        color-mix(in oklab, var(--moduix-ring) 50%, transparent);
     }
 
     &[data-invalid] {
@@ -126,7 +128,8 @@
       }
 
       &:focus-visible::before {
-        box-shadow: 0 0 0 var(--moduix-focus-ring-inset-width) var(--moduix-destructive);
+        box-shadow: 0 0 0 var(--moduix-focus-ring-halo-width)
+          color-mix(in oklab, var(--moduix-destructive) 20%, transparent);
       }
     }
 

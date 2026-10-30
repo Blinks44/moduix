@@ -15,8 +15,7 @@
     font: inherit;
     font-size: var(--_textarea-font-size);
     line-height: var(--_textarea-line-height);
-    outline: var(--moduix-focus-ring-inset-width) solid transparent;
-    outline-offset: var(--moduix-focus-ring-inset-offset);
+    outline: var(--moduix-focus-ring-halo-width) solid transparent;
     resize: vertical;
     transition:
       border-color var(--moduix-transition-default),
@@ -28,14 +27,15 @@
     }
 
     &:focus-visible {
-      outline-color: var(--moduix-ring);
+      border-color: var(--moduix-ring);
+      outline-color: color-mix(in oklab, var(--moduix-ring) 50%, transparent);
     }
 
     &:is([data-invalid], [aria-invalid='true']) {
       border-color: var(--moduix-destructive);
 
       &:focus-visible {
-        outline-color: var(--moduix-destructive);
+        outline-color: color-mix(in oklab, var(--moduix-destructive) 20%, transparent);
       }
     }
 

@@ -192,7 +192,7 @@
     flex-shrink: 0;
     align-items: center;
     justify-content: center;
-    border: var(--moduix-border-width-sm) solid var(--moduix-border);
+    border: var(--moduix-border-width-sm) solid var(--moduix-input);
     border-radius: var(--moduix-radius-xs);
     background-color: var(--moduix-background);
     color: var(--moduix-primary-foreground);

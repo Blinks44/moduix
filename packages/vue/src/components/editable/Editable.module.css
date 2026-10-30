@@ -53,21 +53,21 @@
     background-color: var(--moduix-background);
     font-size: var(--moduix-text-md);
     line-height: var(--moduix-line-height-text-md);
-    outline: var(--moduix-focus-ring-inset-width) solid transparent;
-    outline-offset: var(--moduix-focus-ring-inset-offset);
+    outline: var(--moduix-focus-ring-halo-width) solid transparent;
     transition:
       border-color var(--moduix-transition-default),
       outline-color var(--moduix-transition-default);
 
     &:is([data-focus], :has(:focus-visible)) {
-      outline-color: var(--moduix-ring);
+      border-color: var(--moduix-ring);
+      outline-color: color-mix(in oklab, var(--moduix-ring) 50%, transparent);
     }
 
     &:has([data-invalid]) {
       border-color: var(--moduix-destructive);
 
       &:is([data-focus], :has(:focus-visible)) {
-        outline-color: var(--moduix-destructive);
+        outline-color: color-mix(in oklab, var(--moduix-destructive) 20%, transparent);
       }
     }
 

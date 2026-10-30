@@ -77,8 +77,7 @@
     line-height: var(--_pin-input-line-height);
     text-align: center;
     font-variant-numeric: tabular-nums;
-    outline: var(--moduix-focus-ring-inset-width) solid transparent;
-    outline-offset: var(--moduix-focus-ring-inset-offset);
+    outline: var(--moduix-focus-ring-halo-width) solid transparent;
     transition:
       border-color var(--moduix-transition-default),
       outline-color var(--moduix-transition-default);
@@ -88,14 +87,15 @@
     }
 
     &:focus-visible {
-      outline-color: var(--moduix-ring);
+      border-color: var(--moduix-ring);
+      outline-color: color-mix(in oklab, var(--moduix-ring) 50%, transparent);
     }
 
     &[data-invalid] {
       border-color: var(--moduix-destructive);
 
       &:focus-visible {
-        outline-color: var(--moduix-destructive);
+        outline-color: color-mix(in oklab, var(--moduix-destructive) 20%, transparent);
       }
     }
   }

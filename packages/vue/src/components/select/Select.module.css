@@ -52,8 +52,7 @@
     color: inherit;
     font: inherit;
     text-align: start;
-    outline: var(--moduix-focus-ring-inset-width) solid transparent;
-    outline-offset: var(--moduix-focus-ring-inset-offset);
+    outline: var(--moduix-focus-ring-halo-width) solid transparent;
     cursor: pointer;
     user-select: none;
     transition:
@@ -79,12 +78,15 @@
     &[data-state='open'],
     &:focus-visible {
       border-color: var(--moduix-ring);
-      outline-color: var(--moduix-ring);
+      outline-color: color-mix(in oklab, var(--moduix-ring) 50%, transparent);
     }
 
     .control[data-invalid] & {
       border-color: var(--moduix-destructive);
-      outline-color: var(--moduix-destructive);
+
+      &:is([data-state='open'], :focus-visible) {
+        outline-color: color-mix(in oklab, var(--moduix-destructive) 20%, transparent);
+      }
     }
   }
 

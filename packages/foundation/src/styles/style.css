@@ -71,6 +71,7 @@
   --opacity-hover: var(--moduix-opacity-hover);
   --outline-width-focus: var(--moduix-focus-ring-width);
   --outline-width-focus-inset: var(--moduix-focus-ring-inset-width);
+  --outline-width-focus-halo: var(--moduix-focus-ring-halo-width);
   --outline-offset-focus: var(--moduix-focus-ring-offset);
   --outline-offset-focus-inset: var(--moduix-focus-ring-inset-offset);
   --default-border-width: var(--moduix-border-width-sm);

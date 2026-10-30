@@ -59,8 +59,7 @@
     font: inherit;
     font-size: var(--moduix-text-md);
     line-height: var(--moduix-line-height-text-md);
-    outline: var(--moduix-focus-ring-inset-width) solid transparent;
-    outline-offset: var(--moduix-focus-ring-inset-offset);
+    outline: var(--moduix-focus-ring-halo-width) solid transparent;
     transition:
       border-color var(--moduix-transition-default),
       outline-color var(--moduix-transition-default);
@@ -72,12 +71,15 @@
 
     &:focus {
       border-color: var(--moduix-ring);
-      outline-color: var(--moduix-ring);
+      outline-color: color-mix(in oklab, var(--moduix-ring) 50%, transparent);
     }
 
     &[data-invalid] {
       border-color: var(--moduix-destructive);
-      outline-color: var(--moduix-destructive);
+
+      &:focus {
+        outline-color: color-mix(in oklab, var(--moduix-destructive) 20%, transparent);
+      }
     }
 
     &:is(:disabled, :read-only) {
@@ -359,8 +361,7 @@
     font: inherit;
     font-size: var(--moduix-text-sm);
     line-height: var(--moduix-line-height-text-sm);
-    outline: var(--moduix-focus-ring-inset-width) solid transparent;
-    outline-offset: var(--moduix-focus-ring-inset-offset);
+    outline: var(--moduix-focus-ring-halo-width) solid transparent;
     cursor: pointer;
     transition:
       border-color var(--moduix-transition-default),
@@ -368,7 +369,7 @@
 
     &:focus-visible {
       border-color: var(--moduix-ring);
-      outline-color: var(--moduix-ring);
+      outline-color: color-mix(in oklab, var(--moduix-ring) 50%, transparent);
     }
 
     &:disabled {

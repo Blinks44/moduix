@@ -12,7 +12,7 @@ const twMerge = extendTailwindMerge({
     classGroups: {
       duration: [{ duration: ['fast', 'normal', 'slow', 'slower'] }],
       opacity: [{ opacity: ['disabled', 'hover'] }],
-      'outline-w': [{ outline: ['focus', 'focus-inset'] }],
+      'outline-w': [{ outline: ['focus', 'focus-inset', 'focus-halo'] }],
       'outline-offset': [{ 'outline-offset': ['focus', 'focus-inset'] }],
     },
   },

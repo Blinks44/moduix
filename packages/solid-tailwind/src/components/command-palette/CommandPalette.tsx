@@ -263,7 +263,7 @@ function CommandPaletteControl(props: ComponentProps<typeof ComboboxPrimitive.Co
   return (
     <ComboboxPrimitive.Control
       class={cn(
-        'mx-3 mt-3 flex min-h-control-md flex-none items-center gap-2 rounded-md border border-border bg-background px-3 py-1 text-foreground transition-[border-color] duration-normal ease-in-out data-invalid:border-destructive',
+        'mx-3 mt-3 flex min-h-control-md flex-none items-center gap-2 rounded-md border border-input bg-background px-3 py-1 text-foreground transition-[border-color] duration-normal ease-in-out data-invalid:border-destructive',
         local.class,
       )}
       {...others}

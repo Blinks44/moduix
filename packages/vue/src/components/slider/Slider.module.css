@@ -117,13 +117,15 @@
 
     &:focus-visible {
       border-color: var(--moduix-ring);
-      box-shadow: 0 0 0 var(--moduix-focus-ring-inset-width) var(--moduix-ring);
+      box-shadow: 0 0 0 var(--moduix-focus-ring-halo-width)
+        color-mix(in oklab, var(--moduix-ring) 50%, transparent);
     }
 
     &[data-dragging] {
       border-color: var(--moduix-ring);
       box-shadow:
-        0 0 0 var(--moduix-focus-ring-inset-width) var(--moduix-ring),
+        0 0 0 var(--moduix-focus-ring-halo-width)
+          color-mix(in oklab, var(--moduix-ring) 50%, transparent),
         var(--moduix-shadow-md);
     }
 
@@ -131,7 +133,8 @@
       border-color: var(--moduix-destructive);
 
       &:focus-visible {
-        box-shadow: 0 0 0 var(--moduix-focus-ring-inset-width) var(--moduix-destructive);
+        box-shadow: 0 0 0 var(--moduix-focus-ring-halo-width)
+          color-mix(in oklab, var(--moduix-destructive) 20%, transparent);
       }
     }
   }

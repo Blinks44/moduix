@@ -34,8 +34,7 @@
     border: var(--moduix-border-width-sm) solid var(--moduix-input);
     border-radius: var(--moduix-combobox-radius, var(--moduix-radius-md));
     background-color: var(--moduix-background);
-    outline: var(--moduix-focus-ring-inset-width) solid transparent;
-    outline-offset: var(--moduix-focus-ring-inset-offset);
+    outline: var(--moduix-focus-ring-halo-width) solid transparent;
     transition:
       border-color var(--moduix-transition-default),
       outline-color var(--moduix-transition-default);
@@ -43,12 +42,15 @@
     &[data-state='open'],
     &[data-focus] {
       border-color: var(--moduix-ring);
-      outline-color: var(--moduix-ring);
+      outline-color: color-mix(in oklab, var(--moduix-ring) 50%, transparent);
     }
 
     &[data-invalid] {
       border-color: var(--moduix-destructive);
-      outline-color: var(--moduix-destructive);
+
+      &:is([data-state='open'], [data-focus]) {
+        outline-color: color-mix(in oklab, var(--moduix-destructive) 20%, transparent);
+      }
     }
 
     &[data-disabled] {

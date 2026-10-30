@@ -215,6 +215,7 @@ const borderTokens = [
   '--moduix-focus-ring-inset-width',
   '--moduix-focus-ring-offset',
   '--moduix-focus-ring-inset-offset',
+  '--moduix-focus-ring-halo-width',
 ];
 
 const opacityTokens = ['--moduix-opacity-disabled', '--moduix-opacity-hover'];

@@ -63,7 +63,7 @@ function PasswordInputControl(props: ComponentProps<typeof PasswordInputPrimitiv
   return (
     <PasswordInputPrimitive.Control
       class={cn(
-        'flex min-h-control-md items-center rounded-md border border-input bg-background pe-2 outline-focus-inset outline-offset-focus-inset outline-transparent transition-[border-color,outline-color] duration-normal ease-in-out group-data-[size=lg]/password-input:min-h-control-lg group-data-[size=lg]/password-input:pe-3 group-data-[size=sm]/password-input:min-h-control-sm group-data-[size=sm]/password-input:pe-1.5 group-data-[size=xl]/password-input:min-h-control-xl group-data-[size=xl]/password-input:pe-2.5 group-data-[size=xs]/password-input:min-h-control-xs focus-within:outline-ring data-invalid:border-destructive data-invalid:focus-within:outline-destructive',
+        'flex min-h-control-md items-center rounded-md border border-input bg-background pe-2 outline-focus-halo outline-transparent transition-[border-color,outline-color] duration-normal ease-in-out group-data-[size=lg]/password-input:min-h-control-lg group-data-[size=lg]/password-input:pe-3 group-data-[size=sm]/password-input:min-h-control-sm group-data-[size=sm]/password-input:pe-1.5 group-data-[size=xl]/password-input:min-h-control-xl group-data-[size=xl]/password-input:pe-2.5 group-data-[size=xs]/password-input:min-h-control-xs focus-within:border-ring focus-within:outline-ring/50 data-invalid:border-destructive data-invalid:focus-within:outline-destructive/20',
         local.class,
       )}
       {...others}
