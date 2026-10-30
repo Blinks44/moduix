@@ -44,6 +44,8 @@ import contrastCss from '../../../../packages/foundation/src/presets/contrast.cs
 import denseCss from '../../../../packages/foundation/src/presets/dense.css?raw';
 import softCss from '../../../../packages/foundation/src/presets/soft.css?raw';
 import colorsCss from '../../../../packages/foundation/src/styles/colors.css?raw';
+import sizingCss from '../../../../packages/foundation/src/styles/sizing.css?raw';
+import spacingCss from '../../../../packages/foundation/src/styles/spacing.css?raw';
 import { ColorControl, RangeControl, toHex } from '../mdx/customize';
 import styles from './theme-builder.module.css';
 
@@ -65,22 +67,6 @@ const presets = {
 } satisfies Record<string, { title: string; hue: number; density: Density; tokens: Tokens }>;
 type Preset = keyof typeof presets;
 
-// Spacing steps 1-10 and control sizes xs-xl of Dense, Calm and Soft.
-const densities: Record<Density, [number[], number[]]> = {
-  compact: [
-    [3, 6, 10, 14, 18, 22, 28, 36],
-    [22, 30, 34, 38, 44],
-  ],
-  default: [
-    [4, 8, 12, 16, 20, 24, 32, 40],
-    [24, 32, 36, 40, 48],
-  ],
-  comfortable: [
-    [4, 9, 14, 18, 22, 28, 36, 44],
-    [26, 34, 40, 44, 52],
-  ],
-};
-
 const calmColors = declarations(colorsCss);
 
 // Calm neutrals all use hue 285, so a new hue keeps their lightness and chroma.
@@ -91,13 +77,25 @@ const neutrals = (hue: number): Tokens =>
       .map(([name, value]) => [name, value.replace(/ 285(?=[ )])/g, ` ${hue}`)]),
   );
 
-const densityTokens = (density: Density): Tokens => {
-  const [spacing, sizes] = densities[density];
-  return Object.fromEntries([
-    ...[1, 2, 3, 4, 5, 6, 8, 10].map((step, i) => [`--moduix-spacing-${step}`, `${spacing[i]}px`]),
-    ...['xs', 'sm', 'md', 'lg', 'xl'].map((size, i) => [`--moduix-size-${size}`, `${sizes[i]}px`]),
-  ]);
+// Density takes the spacing and control sizes of Dense, Calm or Soft; Soft keeps the Calm steps it skips.
+const scale = (css: string): Tokens =>
+  Object.fromEntries(
+    Object.entries(declarations(css)).filter(([name]) => /^--moduix-(spacing|size)-/.test(name)),
+  );
+const calmScale = scale(spacingCss + sizingCss);
+const densities: Record<Density, Tokens> = {
+  compact: scale(denseCss),
+  default: calmScale,
+  comfortable: scale(softCss),
 };
+
+const densityTokens = (density: Density): Tokens =>
+  Object.fromEntries(
+    Object.keys(densities.compact).map((name) => [
+      name,
+      densities[density][name] ?? calmScale[name],
+    ]),
+  );
 
 function hexToOklch(hex: string) {
   const [r, g, b] = [1, 3, 5].map((i) => {
