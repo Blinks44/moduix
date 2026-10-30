@@ -239,7 +239,7 @@ export const StandaloneInput: Story = {
 };
 export const Horizontal: Story = {
   render: renderStory(
-    '<Listbox :collection="albums" orientation="horizontal" class="w-full max-w-[34rem]"><ListboxLabel>Select album</ListboxLabel><ListboxContent><ListboxItem v-for="item in albums.items" :key="item.title" :item="item" class="w-40 min-w-40"><ListboxItemText>{{ item.title }}<span class="text-xs leading-4 text-muted-foreground">{{ item.artist }}</span></ListboxItemText><ListboxItemIndicator /></ListboxItem></ListboxContent></Listbox>',
+    '<Listbox :collection="albums" orientation="horizontal" class="w-full max-w-[34rem]"><ListboxLabel>Select album</ListboxLabel><ListboxContent><ListboxItem v-for="item in albums.items" :key="item.title" :item="item" class="w-40 min-w-40"><ListboxItemText>{{ item.title }}<span class="mt-1 block truncate text-xs leading-4 text-muted-foreground">{{ item.artist }}</span></ListboxItemText><ListboxItemIndicator /></ListboxItem></ListboxContent></Listbox>',
     () => ({ albums }),
   ),
 };

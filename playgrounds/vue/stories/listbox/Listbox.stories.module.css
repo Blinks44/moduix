@@ -42,10 +42,15 @@
     --moduix-listbox-width: min(100%, 34rem);
   }
 
+  /* A second line under the title; ItemText truncates only its own first line. */
   .artist {
+    display: block;
+    overflow: hidden;
+    margin-block-start: var(--moduix-spacing-1);
     color: var(--moduix-muted-foreground);
     font-size: var(--moduix-text-xs);
     line-height: var(--moduix-line-height-text-xs);
+    text-overflow: ellipsis;
   }
 
   .customRoot {

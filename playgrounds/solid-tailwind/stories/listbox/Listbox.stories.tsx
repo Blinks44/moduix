@@ -345,7 +345,9 @@ export const Horizontal: Story = {
             <ListboxItem item={item} class="w-40 min-w-40">
               <ListboxItemText>
                 {item.title}
-                <span class="text-xs leading-4 text-muted-foreground">{item.artist}</span>
+                <span class="mt-1 block truncate text-xs leading-4 text-muted-foreground">
+                  {item.artist}
+                </span>
               </ListboxItemText>
               <ListboxItemIndicator />
             </ListboxItem>
