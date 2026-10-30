@@ -48,13 +48,13 @@ const items = [
       <AccordionItemContent>
         <AccordionItemBody>
           <span>{{ item.description }}</span>
-          <Slider :class="styles.sliderRoot" :default-value="[40]">
-            <SliderLabel :class="styles.sliderLabel">{{ item.title }} priority</SliderLabel>
-            <SliderControl :class="styles.sliderControl">
-              <SliderTrack :class="styles.sliderTrack">
-                <SliderRange :class="styles.sliderRange" />
+          <Slider :default-value="[40]">
+            <SliderLabel>{{ item.title }} priority</SliderLabel>
+            <SliderControl>
+              <SliderTrack>
+                <SliderRange />
               </SliderTrack>
-              <SliderThumb :class="styles.sliderThumb" :index="0">
+              <SliderThumb :index="0">
                 <SliderHiddenInput />
               </SliderThumb>
             </SliderControl>
