@@ -793,6 +793,12 @@ body .rp-doc {
     color: var(--rp-c-text-0);
     font-weight: 500;
   }
+
+  /* The site ring, drawn inside: collapsible groups clip overflow for their animation. */
+  &:focus-visible {
+    outline: 2px solid var(--rp-c-brand);
+    outline-offset: -2px;
+  }
 }
 
 .rp-sidebar-group {
