@@ -1,3 +1,4 @@
+import type { CssControls } from '../../mdx/customize';
 import type { CssPropertyInput } from '../../mdx/reference';
 
 export const tabsOverrideCssProperties: CssPropertyInput[] = [
@@ -25,3 +26,10 @@ export const tabsOverrideCssProperties: CssPropertyInput[] = [
     'Controls selected and hovered trigger text color and the line indicator color.',
   ],
 ];
+
+export const tabsControls: CssControls = {
+  '--moduix-tabs-list-bg': 'color',
+  '--moduix-tabs-indicator-bg': 'color',
+  '--moduix-tabs-tab-color': 'color',
+  '--moduix-tabs-tab-color-active': 'color',
+};

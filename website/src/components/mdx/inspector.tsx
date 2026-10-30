@@ -1,5 +1,6 @@
 import { useI18n } from '@rspress/core/runtime';
-import { type ReactNode, useLayoutEffect, useRef, useState } from 'react';
+import { type CSSProperties, type ReactNode, useLayoutEffect, useRef, useState } from 'react';
+import { type CssControls, CustomizePanel, type Overrides } from './customize';
 import styles from './inspector.module.css';
 import { type CssPropertyInput, normalizeCssProperties, renderInlineCode } from './reference';
 
@@ -27,7 +28,15 @@ function findElement(scene: HTMLElement, slot?: string) {
   return scene.querySelector<HTMLElement>(slot ? `[data-slot="${slot}"]` : '[data-slot]');
 }
 
-function Scene({ children, target }: { children: ReactNode; target: Target | null }) {
+function Scene({
+  children,
+  target,
+  style,
+}: {
+  children: ReactNode;
+  target: Target | null;
+  style?: CSSProperties;
+}) {
   const ref = useRef<HTMLDivElement>(null);
   const [overlay, setOverlay] = useState<Overlay | null>(null);
 
@@ -73,7 +82,7 @@ function Scene({ children, target }: { children: ReactNode; target: Target | nul
   return (
     <div ref={ref} className={styles.scene}>
       {/* A static picture of the live example above: inert keeps open overlays from taking focus. */}
-      <div className={styles.stage} inert>
+      <div className={styles.stage} inert style={style}>
         {children}
       </div>
       {overlay ? <SceneOverlay overlay={overlay} /> : null}
@@ -348,14 +357,17 @@ function slotFor(scene: HTMLElement, name: string, prefix: string) {
 function CssVariablesInspector({
   children,
   properties,
+  controls,
 }: {
   children?: ReactNode;
   properties: CssPropertyInput[];
+  controls?: CssControls;
 }) {
   const t = useI18n<typeof import('i18n')>();
   const rootRef = useRef<HTMLDivElement>(null);
   const [active, setActive] = useState<string | null>(null);
   const [resolved, setResolved] = useState<Resolved>({});
+  const [overrides, setOverrides] = useState<Overrides>({});
   const rows = normalizeCssProperties(properties);
   const prefix = commonPrefix(rows.map((row) => row.name));
   const groups = new Map<Group, typeof rows>();
@@ -386,7 +398,10 @@ function CssVariablesInspector({
     for (const row of rows) {
       const slot = row.part ?? slotFor(scene, row.name, prefix);
       const element = findElement(scene, slot);
-      if (element && !row.defaultValue.includes('`')) {
+      // Customized variables keep the value read before the change.
+      if (row.name in overrides && resolved[row.name]) {
+        next[row.name] = resolved[row.name];
+      } else if (element && !row.defaultValue.includes('`')) {
         next[row.name] = { ...resolveValue(element, row.name, row.defaultValue), slot };
       } else {
         next[row.name] = { value: '', slot };
@@ -415,7 +430,20 @@ function CssVariablesInspector({
       onMouseEnter={resolve}
       onMouseLeave={() => setActive(null)}
     >
-      {children ? <Scene target={target}>{children}</Scene> : null}
+      {children ? (
+        <Scene target={target} style={overrides as CSSProperties}>
+          {children}
+        </Scene>
+      ) : null}
+      {children && controls ? (
+        <CustomizePanel
+          controls={controls}
+          fallbacks={Object.fromEntries(rows.map((row) => [row.name, row.defaultValue]))}
+          prefix={prefix}
+          overrides={overrides}
+          onChange={setOverrides}
+        />
+      ) : null}
       <table className={styles.table} data-variables="">
         <thead>
           <tr>

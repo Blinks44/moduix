@@ -10,6 +10,7 @@ import { Code2 } from 'lucide-react';
 import type { ComponentProps, ReactNode } from 'react';
 import { useLocalizedPath } from '@/utils/localized-path';
 import styles from './Components.module.css';
+import type { CssControls } from './customize';
 import { AnatomyInspector, CssVariablesInspector } from './inspector';
 import { ExampleFrame, PreviewFrame, type CssPropertyInput } from './reference';
 
@@ -118,14 +119,21 @@ function ShadcnInstallOptions({ options }: { options: ShadcnInstallOption[] }) {
 }
 
 // Children render the inspector scene: a live preview where hovered variables are measured.
+// `controls` adds the Customize panel for the listed variables.
 function CssPropertiesSection({
   children,
   properties,
+  controls,
 }: {
   children?: ReactNode;
   properties: CssPropertyInput[];
+  controls?: CssControls;
 }) {
-  return <CssVariablesInspector properties={properties}>{children}</CssVariablesInspector>;
+  return (
+    <CssVariablesInspector properties={properties} controls={controls}>
+      {children}
+    </CssVariablesInspector>
+  );
 }
 
 function Cards({ children }: { children: ReactNode }) {

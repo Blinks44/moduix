@@ -1,3 +1,4 @@
+import type { CssControls } from '../../mdx/customize';
 import type { CssPropertyInput } from '../../mdx/reference';
 
 export const badgeCssProperties: CssPropertyInput[] = [
@@ -17,3 +18,8 @@ export const badgeCssProperties: CssPropertyInput[] = [
     'Overrides badge text and icon color. Each `variant` sets its own default.',
   ],
 ];
+
+export const badgeControls: CssControls = {
+  '--moduix-badge-bg': 'color',
+  '--moduix-badge-color': 'color',
+};

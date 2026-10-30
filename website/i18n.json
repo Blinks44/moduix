@@ -1280,5 +1280,10 @@
     "en": "per size",
     "ru": "у каждого size",
     "fr": "selon size"
+  },
+  "cssReset": {
+    "en": "Reset",
+    "ru": "Сбросить",
+    "fr": "Réinitialiser"
   }
 }
