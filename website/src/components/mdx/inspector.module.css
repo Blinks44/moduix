@@ -157,6 +157,25 @@
     background: var(--inspector-active);
     box-shadow: inset 2px 0 var(--inspector-accent);
   }
+
+  /* Long part names must wrap instead of pushing the role column outside the inspector. */
+  &:not([data-variables]) {
+    table-layout: fixed;
+
+    thead th:first-child {
+      width: 55%;
+    }
+
+    .name {
+      min-width: 0;
+      overflow-wrap: anywhere;
+      white-space: normal;
+    }
+
+    .branch {
+      flex-shrink: 0;
+    }
+  }
 }
 
 .group th {
