@@ -193,7 +193,16 @@ test('hydrates stable hosts and ids and opens content', async () => {
     await expect
       .element(page.getByRole('button', { name: 'Products', exact: true }))
       .toHaveAttribute('data-state', 'closed');
-    // Keep keyboard activation independent of delayed pointer hover while hydration settles.
+    // A click also hovers the trigger. Settle that transition before testing click-to-close.
+    await page.getByRole('button', { name: 'Products', exact: true }).hover();
+    await expect.element(page.getByRole('link', { name: 'Analytics', exact: true })).toBeVisible();
+    await page.getByRole('button', { name: 'Products', exact: true }).click();
+    await expect
+      .element(page.getByRole('button', { name: 'Products', exact: true }))
+      .toHaveAttribute('data-state', 'closed');
+    await expect
+      .element(page.getByRole('link', { name: 'Analytics', exact: true }))
+      .not.toBeVisible();
     await page.getByRole('button', { name: 'Products', exact: true }).press('Enter');
     await expect.element(page.getByRole('link', { name: 'Analytics', exact: true })).toBeVisible();
     expect(warn).not.toHaveBeenCalled();
