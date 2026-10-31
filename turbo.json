@@ -3,12 +3,12 @@
   "tasks": {
     "build": {
       "dependsOn": ["^build"],
-      "inputs": ["$TURBO_DEFAULT$", ".env*"],
+      "inputs": ["$TURBO_DEFAULT$", ".env*", "$TURBO_ROOT$/packages/foundation/src/**"],
       "outputs": ["dist/**", "doc_build/**", ".wrangler/deploy/**"]
     },
     "build:dev": {
       "dependsOn": ["^build:dev"],
-      "inputs": ["$TURBO_DEFAULT$", ".env*"],
+      "inputs": ["$TURBO_DEFAULT$", ".env*", "$TURBO_ROOT$/packages/foundation/src/**"],
       "outputs": ["dist/**"]
     },
     "dev": {

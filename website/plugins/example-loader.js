@@ -1,5 +1,6 @@
 import { existsSync, readFileSync } from 'node:fs';
 import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 
 // Expands `<Example name="button/basic" />` in MDX into an `ExamplePanel` with the live React
 // preview and the raw React, Solid, Vue, and CSS sources, and `<Usage />` into the raw sources of the
@@ -7,7 +8,7 @@ import path from 'node:path';
 // not a remark plugin, because Rspress skips custom remark plugins when it renders the Markdown pages
 // used by llms.txt.
 
-const websiteRoot = path.dirname(path.dirname(new URL(import.meta.url).pathname));
+const websiteRoot = fileURLToPath(new URL('../', import.meta.url));
 const examplePattern = /^<Example name="([^"]+)"([^>]*?)\s*\/>$/gm;
 const usagePattern = /^<Usage \/>$/gm;
 

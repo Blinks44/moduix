@@ -1,11 +1,12 @@
 import type { RspressPlugin } from '@rspress/core';
 import { execFileSync } from 'node:child_process';
 import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 
 // Adds `lastUpdatedDate` (YYYY-MM-DD of the last commit) to page data. The built-in Rspress option
 // only exposes a preformatted `toLocaleString` value, while the page footer shows a long date.
 
-const docsRoot = path.join(path.dirname(path.dirname(new URL(import.meta.url).pathname)), 'docs');
+const docsRoot = fileURLToPath(new URL('../docs/', import.meta.url));
 
 function collectDates() {
   const dates = new Map<string, string>();
