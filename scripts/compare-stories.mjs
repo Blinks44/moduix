@@ -19,7 +19,7 @@ const skipped = new Set([
   'utilities-jsontreeview--basic',
   'utilities-jsontreeview--compact-previews',
 ]);
-const outDir = '.stories-diff';
+const outDir = '.local/story-diffs';
 const stories = storyIds(reference, process.argv.slice(2)).filter((id) => !skipped.has(id));
 const server = await servePlaygrounds();
 
