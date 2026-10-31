@@ -13,34 +13,61 @@ const types = {
   '.png': 'image/png',
 };
 
-export const playgrounds = readdirSync('playgrounds').filter((name) =>
-  existsSync(join('playgrounds', name, 'storybook-static/index.json')),
+export const playgrounds = readdirSync('playgrounds').filter((name) => {
+  const manifest = join('playgrounds', name, 'package.json');
+  return (
+    existsSync(manifest) && JSON.parse(readFileSync(manifest, 'utf8')).scripts?.['build:storybook']
+  );
+});
+
+const missing = playgrounds.filter(
+  (name) => !existsSync(join('playgrounds', name, 'storybook-static/index.json')),
 );
+if (!playgrounds.length || missing.length) {
+  throw new Error(
+    `Build all playground storybooks before checking stories. Missing: ${missing.join(', ') || 'all playgrounds'}.`,
+  );
+}
 
 // Story ids of a playground, optionally limited to the given component names.
 export function storyIds(playground, components = []) {
   const index = JSON.parse(
     readFileSync(`playgrounds/${playground}/storybook-static/index.json`, 'utf8'),
   );
-  return Object.values(index.entries)
-    .filter((entry) => entry.type === 'story')
-    .map((entry) => entry.id)
-    .filter(
-      (id) =>
-        !components.length || components.some((name) => id.startsWith(`components-${name}--`)),
-    );
+  const entries = Object.values(index.entries).filter((entry) => entry.type === 'story');
+  const normalizeName = (name) => name.toLowerCase().replace(/[-\s]/g, '');
+  const matches = (entry, name) =>
+    normalizeName(entry.title.split('/').at(-1)) === normalizeName(name);
+  for (const name of components) {
+    if (!entries.some((entry) => matches(entry, name))) {
+      throw new Error(`${playground}: no stories found for ${name}.`);
+    }
+  }
+  const ids = entries
+    .filter((entry) => !components.length || components.some((name) => matches(entry, name)))
+    .map((entry) => entry.id);
+  if (!ids.length) throw new Error(`${playground}: no stories found.`);
+  return ids;
 }
 
 export async function servePlaygrounds() {
   const server = createServer((request, response) => {
-    const path = normalize(decodeURIComponent(new URL(request.url, 'http://x').pathname)).replace(
-      /^(\.\.[/\\])+/,
-      '',
-    );
+    let path;
+    try {
+      path = normalize(decodeURIComponent(new URL(request.url, 'http://x').pathname));
+    } catch {
+      return response.writeHead(400).end();
+    }
     const file = join('playgrounds', path);
-    if (!existsSync(file)) return response.writeHead(404).end();
-    response.writeHead(200, { 'content-type': types[extname(file)] ?? 'application/octet-stream' });
-    response.end(readFileSync(file));
+    try {
+      const content = readFileSync(file);
+      response.writeHead(200, {
+        'content-type': types[extname(file)] ?? 'application/octet-stream',
+      });
+      response.end(content);
+    } catch {
+      response.writeHead(404).end();
+    }
   });
   await new Promise((resolve) => server.listen(0, resolve));
   return {
