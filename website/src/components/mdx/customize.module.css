@@ -1,5 +1,7 @@
 /* Customize panel between the CSS variables scene and the table. */
 .panel {
+  /* Keep code highlighting and controls below the sticky preview. */
+  isolation: isolate;
   display: flex;
   flex-direction: column;
   gap: 16px;
