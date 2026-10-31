@@ -193,7 +193,8 @@ test('hydrates stable hosts and ids and opens content', async () => {
     await expect
       .element(page.getByRole('button', { name: 'Products', exact: true }))
       .toHaveAttribute('data-state', 'closed');
-    await page.getByRole('button', { name: 'Products', exact: true }).click();
+    // Keep keyboard activation independent of delayed pointer hover while hydration settles.
+    await page.getByRole('button', { name: 'Products', exact: true }).press('Enter');
     await expect.element(page.getByRole('link', { name: 'Analytics', exact: true })).toBeVisible();
     expect(warn).not.toHaveBeenCalled();
     expect(error).not.toHaveBeenCalled();
