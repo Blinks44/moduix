@@ -3,8 +3,8 @@ import { DatePickerClearTrigger as ArkDatePickerClearTrigger } from '@ark-ui/vue
 import type { DatePickerClearTriggerProps } from '@ark-ui/vue/date-picker';
 import { computed, useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
-import CloseButton from '@/components/close-button/CloseButton.vue';
 import { cn } from '@/lib/moduix/cn';
+import CloseButton from '../close-button/CloseButton.vue';
 
 defineOptions({ inheritAttrs: false });
 

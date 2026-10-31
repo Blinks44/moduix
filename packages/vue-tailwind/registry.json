@@ -2081,7 +2081,9 @@
       "registryDependencies": [
         "@moduix-vue-tailwind/foundation",
         "@moduix-vue-tailwind/cn",
-        "@moduix-vue-tailwind/icons"
+        "@moduix-vue-tailwind/icons",
+        "@moduix-vue-tailwind/overlay-portal",
+        "@moduix-vue-tailwind/close-button"
       ],
       "files": [
         {
@@ -4750,7 +4752,8 @@
       "registryDependencies": [
         "@moduix-vue-tailwind/foundation",
         "@moduix-vue-tailwind/cn",
-        "@moduix-vue-tailwind/icons"
+        "@moduix-vue-tailwind/icons",
+        "@moduix-vue-tailwind/a11y-labels"
       ],
       "files": [
         {

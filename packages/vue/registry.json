@@ -162,7 +162,7 @@
       "title": "Clipboard",
       "description": "moduix Vue Clipboard component.",
       "dependencies": ["@ark-ui/vue", "clsx"],
-      "registryDependencies": ["@moduix-vue/foundation"],
+      "registryDependencies": ["@moduix-vue/foundation", "@moduix-vue/icons"],
       "files": [
         {
           "path": "src/components/clipboard/Clipboard.vue",
@@ -2164,7 +2164,12 @@
       "title": "DatePicker",
       "description": "moduix Vue DatePicker component.",
       "dependencies": ["@ark-ui/vue", "clsx"],
-      "registryDependencies": ["@moduix-vue/foundation", "@moduix-vue/icons"],
+      "registryDependencies": [
+        "@moduix-vue/foundation",
+        "@moduix-vue/icons",
+        "@moduix-vue/overlay-portal",
+        "@moduix-vue/close-button"
+      ],
       "files": [
         {
           "path": "src/components/date-picker/DatePicker.vue",
@@ -3558,7 +3563,8 @@
       "registryDependencies": [
         "@moduix-vue/close-button",
         "@moduix-vue/foundation",
-        "@moduix-vue/overlay-portal"
+        "@moduix-vue/overlay-portal",
+        "@moduix-vue/a11y-labels"
       ],
       "files": [
         {
@@ -4979,7 +4985,11 @@
       "title": "CloseButton",
       "description": "moduix Vue CloseButton component.",
       "dependencies": ["@ark-ui/vue", "clsx"],
-      "registryDependencies": ["@moduix-vue/foundation", "@moduix-vue/icons"],
+      "registryDependencies": [
+        "@moduix-vue/foundation",
+        "@moduix-vue/icons",
+        "@moduix-vue/a11y-labels"
+      ],
       "files": [
         {
           "path": "src/components/close-button/CloseButton.vue",
