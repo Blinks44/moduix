@@ -1460,5 +1460,10 @@
     "en": "Toast with undo after delete",
     "ru": "Toast с отменой удаления",
     "fr": "Toast avec annulation après suppression"
+  },
+  "exampleOpenStackBlitz": {
+    "en": "Open in StackBlitz",
+    "ru": "Открыть в StackBlitz",
+    "fr": "Ouvrir dans StackBlitz"
   }
 }

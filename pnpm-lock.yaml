@@ -1129,6 +1129,9 @@ importers:
       '@rspress/core':
         specifier: ^2.0.23
         version: 2.0.23(@rspack/core@2.2.9(@swc/helpers@0.5.23))(micromark-util-types@2.0.2)(micromark@4.0.2(supports-color@10.2.2))(supports-color@10.2.2)
+      '@stackblitz/sdk':
+        specifier: ^1.11.1
+        version: 1.11.1
       '@tanstack/charts':
         specifier: 'catalog:'
         version: 1.1.0(react-dom@19.3.1(react@19.3.1))(react@19.3.1)(solid-js@1.9.17)(vue@3.5.44(typescript@6.0.3))
@@ -3488,6 +3491,9 @@ packages:
 
   '@speed-highlight/core@1.2.24':
     resolution: {integrity: sha512-qeW2e1l78afw8VhRPfPQ1Gjj+KU5XFQ/OFV5ti6eTa9bruO7mJyZtA4vw0ofqmA3tKCkROE9xLk3VZoeRc98nw==}
+
+  '@stackblitz/sdk@1.11.1':
+    resolution: {integrity: sha512-5wl1j3IhtmE7POTl2W9VGQdbQyBQrRsF3jcYBK+0V353AuO8H2GFZkiFNyTRxL+TDY3HIFCHc3G983Osmg76Lg==}
 
   '@storybook/builder-vite@10.6.0':
     resolution: {integrity: sha512-7zt8tYB6dnSO8fbjUz91MHexGDpf9HrLlA3FAmlVb+2ZL3eWUs499L3I6BDUymcWu7oW5WCBJlB8ERj8ZLLzig==}
@@ -10458,6 +10464,8 @@ snapshots:
       solid-js: 1.9.17
 
   '@speed-highlight/core@1.2.24': {}
+
+  '@stackblitz/sdk@1.11.1': {}
 
   '@storybook/builder-vite@10.6.0(storybook@10.6.3(@types/react@19.3.0)(prettier@2.8.8)(react@19.3.1))(vite@8.3.5(@types/node@24.19.2)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.50.0)(yaml@2.9.1))':
     dependencies:
