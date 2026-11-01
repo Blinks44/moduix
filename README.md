@@ -46,6 +46,25 @@ source into your application with the shadcn registry to edit it directly.
 The example below uses React with CSS Modules. [Quick start](https://moduix.dev/docs/quick-start)
 covers every shipped framework, both styling tracks, and package or registry installation.
 
+### Start a new app
+
+Use a standalone Vite starter with TypeScript and CSS Modules:
+
+| Framework | Starter                           | Online playground                                                                                 |
+| --------- | --------------------------------- | ------------------------------------------------------------------------------------------------- |
+| React     | [react-vite](starters/react-vite) | [Open in StackBlitz](https://stackblitz.com/github/Blinks44/moduix/tree/main/starters/react-vite) |
+| Solid     | [solid-vite](starters/solid-vite) | [Open in StackBlitz](https://stackblitz.com/github/Blinks44/moduix/tree/main/starters/solid-vite) |
+| Vue       | [vue-vite](starters/vue-vite)     | [Open in StackBlitz](https://stackblitz.com/github/Blinks44/moduix/tree/main/starters/vue-vite)   |
+
+```bash
+pnpm dlx giget@latest gh:Blinks44/moduix/starters/react-vite my-app
+cd my-app
+pnpm install --frozen-lockfile
+pnpm dev
+```
+
+Replace `react-vite` with `solid-vite` or `vue-vite` for another framework.
+
 ### Use the published package
 
 Install moduix and its Ark UI peer dependency:

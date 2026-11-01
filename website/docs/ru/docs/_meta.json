@@ -14,6 +14,10 @@
     "label": "Быстрый старт"
   },
   {
+    "type": "file",
+    "name": "starters"
+  },
+  {
     "type": "dir",
     "name": "installation",
     "label": "Настройка фреймворков",

@@ -3,6 +3,7 @@ title: Démarrage rapide
 description: Choisissez React, Solid ou Vue, CSS Modules ou Tailwind, puis installez moduix comme paquet ou copiez son code source avec la CLI shadcn.
 ---
 
+import { StarterEntry } from '@/components/docs/starters';
 import { Steps } from '@rspress/core/theme';
 import { Card, Cards } from '@/components/mdx/Components';
 import componentsCssModules from '../../../snippets/quick-start/components-css-modules.json?raw';
@@ -16,24 +17,32 @@ import VueCssModules from '../../../snippets/quick-start/vue-css-modules.vue?raw
 import solidTailwind from '../../../snippets/quick-start/solid-tailwind.tsx?raw';
 import VueTailwind from '../../../snippets/quick-start/vue-tailwind.vue?raw';
 
+import styles from '@/components/docs/starters.module.css';
+
 # Démarrage rapide
 
-Les deux méthodes utilisent les mêmes composants natifs, les mêmes contrats Ark UI et les mêmes tokens. Choisissez selon l’endroit où le code source doit vivre et la façon dont vous le mettrez à jour.
+<div className={`${styles.page} ${styles.quickStart}`}>
+
+<p className={styles.intro}>Les deux méthodes utilisent les mêmes composants natifs, les mêmes contrats Ark UI et les mêmes tokens. Choisissez selon l’endroit où le code source doit vivre et la façon dont vous le mettrez à jour.</p>
 
 ## Choisir où conserver le code source
 
 <Cards>
   <Card
+    compact
     title="Installer le paquet"
     description="Gardez moduix dans node_modules et recevez les mises à jour via votre gestionnaire de paquets."
     href="#installer-le-paquet"
   />
   <Card
+    compact
     title="Installer avec la CLI shadcn"
     description="Copiez le code source et les styles des composants dans votre application pour les modifier directement."
     href="#installer-avec-la-cli-shadcn"
   />
 </Cards>
+
+<StarterEntry />
 
 :::info Avant de commencer
 Partez d’une application React 18 ou 19, Solid 1.9+ ou Vue 3.5+ existante. Les paquets et registres Tailwind exigent Tailwind CSS v4 déjà configuré.
@@ -396,3 +405,5 @@ fonds et fenêtres contextuelles restent au-dessus de la page sans entrer en con
 ## Étapes suivantes
 
 [Parcourir les composants →](/docs/components)  [Thèmes →](/docs/themes)  [Configurer le framework →](/docs/installation/vite)
+
+</div>

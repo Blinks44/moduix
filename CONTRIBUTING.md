@@ -5,13 +5,14 @@ contracts themselves are described in [AGENTS.md](./AGENTS.md) and the shipped p
 
 ## Repository layout
 
-| Path                            | Purpose                                                                 |
-| ------------------------------- | ----------------------------------------------------------------------- |
-| `packages/<framework>`          | Published framework-native CSS Modules adapters.                        |
-| `packages/<framework>-tailwind` | Published framework-native Tailwind adapters.                           |
-| `packages/foundation`           | Shared framework-neutral tokens, resets, presets, and animations.       |
-| `playgrounds/<framework>*`      | Adapter playgrounds used for parity checks.                             |
-| `website`                       | Documentation site, runnable examples, and registry sources for blocks. |
+| Path                            | Purpose                                                                    |
+| ------------------------------- | -------------------------------------------------------------------------- |
+| `packages/<framework>`          | Published framework-native CSS Modules adapters.                           |
+| `packages/<framework>-tailwind` | Published framework-native Tailwind adapters.                              |
+| `packages/foundation`           | Shared framework-neutral tokens, resets, presets, and animations.          |
+| `playgrounds/<framework>*`      | Adapter playgrounds used for parity checks.                                |
+| `starters/<framework>-vite`     | Standalone Vite apps using published npm packages (outside the workspace). |
+| `website`                       | Documentation site, runnable examples, and registry sources for blocks.    |
 
 ## Prerequisites
 
@@ -51,6 +52,10 @@ For headed tests, omit `--only-shell`. Linux CI also passes `--with-deps`.
 
 Behavior tests for a framework live in its CSS Modules package (`packages/<framework>/tests`), and
 the Tailwind package runs the same files. Style-specific tests live in `tests/styles` of each package.
+
+Starters have separate lockfiles and install from npm. Run `pnpm run check:starters` to install,
+typecheck, and build every starter. They are intentionally outside the workspace so local package
+builds cannot hide publishing problems. CI runs this check in a separate job.
 
 ## Before opening a pull request
 

@@ -159,6 +159,25 @@ jobs:
       - name: Publish preview packages
         run: pnpm exec pkg-pr-new publish --pnpm --packageManager=pnpm './packages/*'
 
+  starters:
+    name: Build starters from npm
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+
+      - name: Setup pnpm and Node.js
+        uses: pnpm/setup@a0881977cd8ea73b1ed212236c99ca10dcc80cf4 # v3
+        with:
+          cache: true
+          require-lockfile: true
+
+      # Starters are standalone: no workspace links or local package builds.
+      - name: Install, typecheck, and build every starter
+        run: pnpm run check:starters
+
   storybook:
     name: Storybook smoke
     runs-on: ubuntu-latest

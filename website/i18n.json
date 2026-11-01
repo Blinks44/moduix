@@ -1405,5 +1405,60 @@
     "en": "Import",
     "ru": "Импортировать",
     "fr": "Importer"
+  },
+  "starterEntryTitle": {
+    "en": "Starting a new app?",
+    "ru": "Создаёте новое приложение?",
+    "fr": "Une nouvelle application ?"
+  },
+  "starterEntryDescription": {
+    "en": "Open a React, Solid or Vue starter in StackBlitz, or copy it with giget.",
+    "ru": "Откройте проект на React, Solid или Vue в StackBlitz или скопируйте его через giget.",
+    "fr": "Ouvrez un projet React, Solid ou Vue dans StackBlitz, ou copiez-le avec giget."
+  },
+  "starterBrowse": {
+    "en": "Browse starters",
+    "ru": "Готовые проекты",
+    "fr": "Voir les projets"
+  },
+  "starterOpen": {
+    "en": "Open in StackBlitz",
+    "ru": "Открыть в StackBlitz",
+    "fr": "Ouvrir dans StackBlitz"
+  },
+  "starterIncluded": {
+    "en": "Included",
+    "ru": "Что включено",
+    "fr": "Inclus"
+  },
+  "starterFeatureTheme": {
+    "en": "Light and dark from the system",
+    "ru": "Светлая и тёмная тема по настройкам системы",
+    "fr": "Thème clair ou sombre selon le système"
+  },
+  "starterFeatureIsolation": {
+    "en": "Isolated application root for portals",
+    "ru": "Изолированный корневой элемент для порталов",
+    "fr": "Racine de l’application isolée pour les portails"
+  },
+  "starterFeatureShell": {
+    "en": "App shell with sidebar and topbar",
+    "ru": "Каркас с боковой и верхней панелями",
+    "fr": "Structure avec barre latérale et barre supérieure"
+  },
+  "starterFeatureTable": {
+    "en": "Filterable table with pagination",
+    "ru": "Таблица с поиском, фильтрами и пагинацией",
+    "fr": "Tableau filtrable avec pagination"
+  },
+  "starterFeatureDialog": {
+    "en": "Create and edit in a Dialog",
+    "ru": "Создание и редактирование в Dialog",
+    "fr": "Création et modification dans un Dialog"
+  },
+  "starterFeatureUndo": {
+    "en": "Toast with undo after delete",
+    "ru": "Toast с отменой удаления",
+    "fr": "Toast avec annulation après suppression"
   }
 }

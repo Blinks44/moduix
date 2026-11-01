@@ -10,11 +10,16 @@
   },
   "overrides": [
     {
-      "files": ["packages/react*/**", "playgrounds/react*/**", "website/**"],
+      "files": ["packages/react*/**", "playgrounds/react*/**", "starters/react-*/**", "website/**"],
       "plugins": ["typescript", "unicorn", "oxc", "react"]
     },
     {
-      "files": ["packages/vue*/**", "playgrounds/vue*/**", "website/snippets/**/*.vue"],
+      "files": [
+        "packages/vue*/**",
+        "playgrounds/vue*/**",
+        "starters/vue-*/**",
+        "website/snippets/**/*.vue"
+      ],
       "plugins": ["typescript", "unicorn", "oxc", "vue"]
     },
     {

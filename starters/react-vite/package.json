@@ -1,0 +1,30 @@
+{
+  "name": "moduix-react-vite-starter",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "pnpm run tsc:check && vite build",
+    "preview": "vite preview",
+    "tsc:check": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@ark-ui/react": "^5.39.3",
+    "@fontsource-variable/noto-sans": "^5.3.0",
+    "@moduix/react": "^3.2.0",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1"
+  },
+  "devDependencies": {
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "@vitejs/plugin-react": "^6.1.2",
+    "typescript": "~6.0.3",
+    "vite": "^8.3.4"
+  },
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "packageManager": "pnpm@12.14.0"
+}

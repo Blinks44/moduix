@@ -7,6 +7,8 @@
 - `packages/<framework>`: public framework-native CSS Modules adapters, tests, and component-local docs. The current adapters are `react`, `solid`, and `vue`.
 - `packages/<framework>-tailwind`: public Tailwind variants kept behaviorally aligned with the CSS Modules adapter for that framework. The current variants are `react-tailwind`, `solid-tailwind`, and `vue-tailwind`.
 - `playgrounds/<framework>` and `playgrounds/<framework>-tailwind`: private playgrounds for parity checks when that adapter ships.
+- `starters/<framework>-vite`: standalone consumer apps using published npm packages; intentionally
+  outside the workspace, each with its own lockfile. Validate with `pnpm run check:starters`.
 - `website` - the Rspress documentation site, runnable component examples, and generated registry artifacts.
 - `packages/foundation/registry.json` and each public package's `registry.json` - source manifests for the hosted registries; each manifest owns files within its package.
 - Root `.oxlintrc.json` and `.oxfmtrc.json` - shared linting and formatting configuration (oxlint and oxfmt are root devDependencies).
@@ -21,7 +23,13 @@ links may still identify the registry where a package is published.
 
 - Commit messages follow Conventional Commits: `feat: ...`, `fix: ...`, `docs: ...`.
 - Temporary files (plans, reviews, audit scripts, screenshots, logs) go to the gitignored `.local/`.
-  Anything there may be deleted at any time, so never put something others need there.
+  Keep durable project artifacts outside `.local/`.
+- Clean up after every task: delete temporary scripts, logs, screenshots, downloads, test projects,
+  and build output created for one-off verification once they are no longer needed, including
+  files in `.local/` and system temporary directories. Stop servers and other processes you started.
+- Before handing off, inspect your temporary files and remove obsolete artifacts. Keep only material
+  needed for unfinished work; record its path, purpose, and deletion condition in the active plan.
+  Preserve active plans and unrelated in-progress work; do not delete files merely by extension.
 
 ## Public component API
 

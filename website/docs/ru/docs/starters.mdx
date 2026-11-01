@@ -1,0 +1,79 @@
+---
+title: Готовые проекты
+description: Готовые приложения Vite с панелью Projects на компонентах moduix. Откройте проект в браузере или скопируйте его в новую папку.
+---
+
+import { Steps } from '@rspress/core/theme';
+import { StarterCards, StarterContents, StarterInstall } from '@/components/docs/starters';
+import { Card, Cards } from '@/components/mdx/Components';
+
+import styles from '@/components/docs/starters.module.css';
+
+# Готовые проекты
+
+<div className={styles.page}>
+
+<p className={styles.intro}>Каждый проект устанавливает опубликованные npm-пакеты, использует тему Calm, следует цветовой схеме системы и хранит примеры данных в src/data.ts.</p>
+
+## Выберите проект
+
+<StarterCards />
+
+## Запуск локально
+
+Предпочитаете свой редактор? giget скопирует папку проекта без клонирования монорепозитория и его истории.
+
+<Steps>
+
+### Скопируйте проект
+
+Выберите фреймворк. Команда создаст папку `my-app` с теми же файлами, что и в StackBlitz.
+
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+<PackageManagerTabs command="giget@latest gh:Blinks44/moduix/starters/react-vite my-app" dlx />
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<PackageManagerTabs command="giget@latest gh:Blinks44/moduix/starters/solid-vite my-app" dlx />
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+<PackageManagerTabs command="giget@latest gh:Blinks44/moduix/starters/vue-vite my-app" dlx />
+
+  </Tab>
+</Tabs>
+
+### Установите зависимости и запустите
+
+Проекты используют опубликованные пакеты, поэтому подойдёт любой менеджер пакетов.
+
+<StarterInstall />
+
+### Настройте под себя
+
+Подключите свой API вместо примеров данных в `src/data.ts` и удалите ненужные страницы.
+
+</Steps>
+
+## Что внутри
+
+Небольшое приложение для каждого фреймворка. Любой исходный файл можно изменить или удалить.
+
+<StarterContents />
+
+:::info Используете Tailwind?
+В готовых проектах подключены CSS Modules. Выберите соответствующий пакет `-tailwind` и настройте Tailwind CSS v4 и его стили по [инструкции для Vite](/docs/installation/vite).
+:::
+
+## Что дальше
+
+<Cards>
+  <Card compact title="Настройка фреймворка" description="Подключите moduix к существующему приложению на React, Solid или Vue с CSS Modules или Tailwind." href="/docs/installation/vite" />
+  <Card compact title="Каталог компонентов" description="Посмотрите работающие примеры компонентов и справочник API." href="/docs/components" />
+</Cards>
+
+</div>

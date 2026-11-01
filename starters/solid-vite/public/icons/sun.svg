@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="16px" height="16px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>sun</title>
+    <defs>
+        <path d="M10.6666667,8 C10.6666667,9.47275933 9.47275933,10.6666667 8,10.6666667 C6.52724067,10.6666667 5.33333333,9.47275933 5.33333333,8 C5.33333333,6.52724067 6.52724067,5.33333333 8,5.33333333 C9.47275933,5.33333333 10.6666667,6.52724067 10.6666667,8 Z" id="path-1"></path>
+    </defs>
+    <g id="Icon/sun" stroke="none" fill="none" xlink:href="#path-1" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round" stroke-width="1">
+        <g id="Group" stroke="#09090B" transform="translate(1.3333, 1.3333)">
+            <circle id="Oval" stroke-width="1.33333333" cx="6.66666667" cy="6.66666667" r="2.66666667"></circle>
+            <line x1="6.66666667" y1="-6.66133815e-16" x2="6.66666667" y2="1.33333333" id="Path" stroke-width="1.33333333"></line>
+            <line x1="6.66666667" y1="12" x2="6.66666667" y2="13.3333333" id="Path" stroke-width="1.33333333"></line>
+            <line x1="1.95333333" y1="1.95333333" x2="2.89333333" y2="2.89333333" id="Path" stroke-width="1.33333333"></line>
+            <line x1="10.44" y1="10.44" x2="11.38" y2="11.38" id="Path" stroke-width="1.33333333"></line>
+            <line x1="-6.66133815e-16" y1="6.66666667" x2="1.33333333" y2="6.66666667" id="Path" stroke-width="1.33333333"></line>
+            <line x1="12" y1="6.66666667" x2="13.3333333" y2="6.66666667" id="Path" stroke-width="1.33333333"></line>
+            <line x1="2.89333333" y1="10.44" x2="1.95333333" y2="11.38" id="Path" stroke-width="1.33333333"></line>
+            <line x1="11.38" y1="1.95333333" x2="10.44" y2="2.89333333" id="Path" stroke-width="1.33333333"></line>
+        </g>
+    </g>
+</svg>
