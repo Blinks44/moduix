@@ -9,7 +9,7 @@ import {
   SliderThumbs,
   SliderTrack,
   SliderValueText,
-} from '../../src/components/slider';
+} from '@/components/slider';
 </script>
 
 <template>

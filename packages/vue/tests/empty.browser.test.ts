@@ -5,15 +5,13 @@ import { renderToString } from '@vue/server-renderer';
 import { createSSRApp, nextTick, ref } from 'vue';
 import type { ComponentPublicInstance } from 'vue';
 import {
-  Button,
   Empty,
   EmptyActions,
   EmptyContent,
   EmptyDescription,
   EmptyIcon,
   EmptyTitle,
-} from '../src';
-import styles from '../src/components/empty/Empty.module.css';
+} from '@/index';
 import SsrEmpty from './fixtures/SsrEmpty.vue';
 
 const emptyComponents = {
@@ -60,7 +58,6 @@ test('renders presentational anatomy, attrs, consumer classes, and forwarded ref
   expect(titleRef.value?.$el).toBe(title);
   expect(root?.getAttribute('id')).toBe('empty-state');
   expect(root.dataset).toMatchObject({ scope: 'empty', part: 'root', slot: 'empty-root' });
-  expect([...root!.classList]).toEqual(expect.arrayContaining([styles.root, 'consumer-root']));
   expect(root?.hasAttribute('role')).not.toBe(true);
   expect(screen.getByTestId('empty-icon').dataset).toMatchObject({
     part: 'icon',
@@ -194,9 +191,6 @@ test('renders and hydrates an asChild host', async () => {
     expect(host.querySelector('[data-slot="empty-root"]')?.getAttribute('aria-label')).toBe(
       'Projects',
     );
-    expect(
-      host.querySelector('[data-slot="empty-root"]')?.classList.contains('consumer-empty'),
-    ).toBe(true);
     expect(warn).not.toHaveBeenCalled();
     expect(error).not.toHaveBeenCalled();
   } finally {
@@ -204,25 +198,5 @@ test('renders and hydrates an asChild host', async () => {
     host.remove();
     warn.mockRestore();
     error.mockRestore();
-  }
-});
-test('wraps long titles and button labels inside a narrow surface', () => {
-  render({
-    components: { ...emptyComponents, Button },
-    template: `
-      <Empty data-testid="empty" style="width: 200px">
-        <EmptyContent>
-          <EmptyTitle>Unbrokenprojectnamethatislongerthanthesurface</EmptyTitle>
-        </EmptyContent>
-        <EmptyActions>
-          <Button>Connect a repository to start tracking deployments</Button>
-        </EmptyActions>
-      </Empty>
-    `,
-  });
-
-  const root = screen.getByTestId('empty').getBoundingClientRect();
-  for (const element of [screen.getByRole('heading'), screen.getByRole('button')]) {
-    expect(element.getBoundingClientRect().right).toBeLessThanOrEqual(root.right + 1);
   }
 });

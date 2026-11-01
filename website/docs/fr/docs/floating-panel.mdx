@@ -1,22 +1,21 @@
 ---
 title: Floating Panel
 component: floating-panel
-description: Une fenêtre non modale Ark UI que l'utilisateur peut déplacer, redimensionner, réduire et agrandir.
+description: Ouvrir une fenêtre déplaçable, redimensionnable, réductible et agrandissable.
+ark: https://ark-ui.com/docs/components/floating-panel
 ---
 
-## Référence API
+import AnatomyScene from '@/components/examples/floating-panel/anatomy';
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/floating-panel" />
+<Example name="floating-panel/basic" />
 
-## Choisir le bon composant
+## Installation
 
-Utilisez `FloatingPanel` pour un espace de travail flottant et non modal, par exemple un inspecteur,
-un panneau de propriétés ou une fenêtre utilitaire. Utilisez `Popover` pour un contenu compact ancré
-à un déclencheur, `Dialog` pour les tâches modales et `Drawer` pour un panneau fixé au bord de la
-fenêtre avec des gestes ou des points d'ancrage.
+<ComponentInstall />
 
-## Exemple de base
+## Utilisation
 
+<Usage />
 
 Conservez les parties Ark UI explicites. `FloatingPanelPositioner` applique la position et la taille
 calculées par Ark, tandis que `FloatingPanelContent` représente la surface visible de la fenêtre.
@@ -25,99 +24,12 @@ L'en-tête sert de poignée de déplacement et `FloatingPanelResizeTriggerGroup`
 React, Solid et Vue utilisent les mêmes noms de composants plats. En Vue, composez les parties avec
 des slots et utilisez `v-model` lorsque l'ouverture, la position ou la taille sont contrôlées.
 
-<Example name="floating-panel/basic" />
+## Choisir le bon composant
 
-## Installation avec shadcn
-
-Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration complète du paquet, du registre et des styles.
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/floating-panel' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/floating-panel' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/floating-panel' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/floating-panel' },
-  ]}
-/>
-
-  </Tab>
-
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/floating-panel' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/floating-panel' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-```text
-FloatingPanel
-├─ FloatingPanelTrigger
-└─ Sous-arbre de l'overlay (placé automatiquement dans un portail)
-   └─ FloatingPanelPositioner
-      └─ FloatingPanelContent
-         ├─ FloatingPanelDragTrigger
-         │  └─ FloatingPanelHeader
-         │     ├─ FloatingPanelTitle
-         │     │  └─ FloatingPanelDragIndicator (facultatif)
-         │     └─ FloatingPanelControl
-         │        ├─ FloatingPanelStageTrigger
-         │        └─ FloatingPanelCloseTrigger / FloatingPanelCloseIcon
-         ├─ FloatingPanelBody
-         ├─ FloatingPanelFooter
-         └─ FloatingPanelResizeTrigger / FloatingPanelResizeTriggerGroup
-```
-
-| Partie                                      | Rôle                                                                    |
-| ------------------------------------------- | ----------------------------------------------------------------------- |
-| `FloatingPanel`                            | Gère l'ouverture, la position, la taille, le déplacement, le redimensionnement et le mode de la fenêtre. |
-| `FloatingPanelTrigger`                     | Ouvre la fenêtre ou inverse son état.                                   |
-| `FloatingPanelPositioner`                  | Applique les valeurs de position, de taille, de transformation et de z-index calculées par Ark. |
-| `FloatingPanelContent`                     | Surface visible de la fenêtre flottante.                               |
-| `FloatingPanelDragTrigger`                 | Définit la zone déplaçable, généralement l'en-tête.                     |
-| `FloatingPanelHeader`                      | Partie d'en-tête Ark et conteneur de la poignée de déplacement.          |
-| `FloatingPanelTitle`                       | Définit le nom accessible de la fenêtre.                                |
-| `FloatingPanelControl`                     | Regroupe les commandes de mode et de fermeture.                         |
-| `FloatingPanelStageTrigger`                | Passe entre les modes `default`, `minimized` et `maximized`.             |
-| `FloatingPanelCloseTrigger` / `FloatingPanelCloseIcon` | Ferme la fenêtre.                                             |
-| `FloatingPanelBody`                        | Zone principale du contenu, avec défilement.                            |
-| `FloatingPanelFooter`                      | Zone facultative pour les actions ou le statut.                         |
-| `FloatingPanelResizeTrigger`               | Poignée de redimensionnement pour un axe Ark.                           |
-| `FloatingPanelResizeTriggerGroup`          | Affiche toutes les poignées ou seulement celles qui sont sélectionnées.  |
-| `FloatingPanelRootProvider`                | Relie les parties à l'état créé avec `useFloatingPanel()`. |
-
-`FloatingPanelDragIndicator`, `FloatingPanelCloseIcon`, `FloatingPanelFooter` et
-`FloatingPanelResizeTriggerGroup` sont des utilitaires moduix. Ils complètent les parties
-structurelles d'Ark UI sans les remplacer.
-
-## Composition
-
-Utilisez `FloatingPanel` pour l'état local. Gardez `FloatingPanelPositioner` et `FloatingPanelContent` explicites, entourez
-l'en-tête avec `FloatingPanelDragTrigger` et ajoutez `FloatingPanelTitle` pour un nom accessible. `FloatingPanelPositioner` est placé dans
-un portail par défaut. Définissez `portalled={false}` ou transmettez `portalRef` lorsque le panneau
-doit se trouver dans un autre conteneur.
-
-Si l'état doit être créé en dehors de l'arbre du panneau, créez-le avec
-`useFloatingPanel()` et transmettez-le à `FloatingPanelRootProvider`. N'utilisez pas `FloatingPanel`
-et `FloatingPanelRootProvider` pour la même instance d'état. `position` et `size` se contrôlent séparément. Utilisez
-`FloatingPanelResizeTriggerGroup axes` ou des parties `FloatingPanelResizeTrigger` individuelles uniquement lorsque l'ensemble
-de poignées par défaut ne convient pas. Avec `asChild`, transmettez un seul enfant sémantique. Vue
-utilise le slot enfant, tandis que Solid utilise la forme avec fonction de rendu de cette propriété.
+Utilisez `FloatingPanel` pour un espace de travail flottant et non modal, par exemple un inspecteur,
+un panneau de propriétés ou une fenêtre utilitaire. Utilisez `Popover` pour un contenu compact ancré
+à un déclencheur, `Dialog` pour les tâches modales et `Drawer` pour un panneau fixé au bord de la
+fenêtre avec des gestes ou des points d'ancrage.
 
 ## Exemples
 
@@ -134,38 +46,30 @@ conteneur précis pendant son déplacement.
 
 <Example name="floating-panel/boundary" />
 
-### Contexte
-
-Utilisez `FloatingPanelContext` ou `useFloatingPanelContext` pour lire l'état et les méthodes de la
-fenêtre dans l'arbre des composants. Vue reçoit la valeur du contexte via son slot nommé, tandis que
-Solid l'expose comme un accessor.
-
-<Example name="floating-panel/context" />
-
-### Ouverture contrôlée
-
-Utilisez `open` avec `onOpenChange` lorsque l'état de l'application doit contrôler la visibilité de la fenêtre.
-
-<Example name="floating-panel/controlled-open" />
-
-### Position contrôlée
-
-Contrôlez `position` lorsqu'une autre partie de l'application doit connaître les coordonnées actuelles de la fenêtre.
-
-<Example name="floating-panel/controlled-position" />
-
-### Taille contrôlée
-
-Contrôlez `size` lorsque l'interface doit conserver ou afficher les dimensions actuelles de la fenêtre.
-
-<Example name="floating-panel/controlled-size" />
-
 ### Fermeture par Escape
 
 `closeOnEscape` est activé par défaut. Ajoutez `autoFocus` à `FloatingPanelContent` pour que la touche Escape
 fonctionne dès l'ouverture de la fenêtre non modale.
 
 <Example name="floating-panel/escape-dismiss" />
+
+### Ouverture contrôlée
+
+Utilisez `open` avec `onOpenChange` lorsque l'état de l'application doit contrôler la visibilité de la fenêtre. Voir [Contrôler l’état depuis l’application](/docs/composition-patterns#controlled-state).
+
+<Example name="floating-panel/controlled-open" />
+
+### Position contrôlée
+
+Contrôlez `position` lorsqu'une autre partie de l'application doit connaître les coordonnées actuelles de la fenêtre. Voir [Contrôler l’état depuis l’application](/docs/composition-patterns#controlled-state).
+
+<Example name="floating-panel/controlled-position" />
+
+### Taille contrôlée
+
+Contrôlez `size` lorsque l'interface doit conserver ou afficher les dimensions actuelles de la fenêtre. Voir [Contrôler l’état depuis l’application](/docs/composition-patterns#controlled-state).
+
+<Example name="floating-panel/controlled-size" />
 
 ### Montage différé
 
@@ -174,20 +78,75 @@ puis retiré après l'animation de sortie.
 
 <Example name="floating-panel/lazy-mount" />
 
-### FloatingPanelRootProvider
+### Contexte
+
+Utilisez `FloatingPanelContext` ou `useFloatingPanelContext` pour lire l'état et les méthodes de la
+fenêtre dans l'arbre des composants. Vue reçoit la valeur du contexte via son slot nommé, tandis que
+Solid l'expose comme un accessor.
+
+<Example name="floating-panel/context" />
+
+### Root Provider
 
 Utilisez `useFloatingPanel` avec `FloatingPanelRootProvider` lorsque des commandes situées en dehors
 de l'arbre du panneau doivent appeler `minimize`, `maximize` et `setOpen`. Dans Solid, le store se lit
-via un accessor.
+via un accessor. Voir [Partager l’état hors de l’arbre](/docs/composition-patterns#root-provider).
 
 <Example name="floating-panel/root-provider" />
 
-### Personnalisation avancée
+### Assembler à partir des parties
 
-Utilisez des parties `FloatingPanelResizeTrigger` distinctes lorsque chaque axe de redimensionnement doit avoir
-son propre emplacement ou style.
+Le même panneau que Basic, sans `FloatingPanelCloseIcon`, `FloatingPanelDragIndicator`,
+`FloatingPanelFooter` ni `FloatingPanelResizeTriggerGroup` : les déclencheurs d’état et de fermeture
+reçoivent des icônes explicites, le pied de page est un simple élément et chaque axe de
+redimensionnement est un `FloatingPanelResizeTrigger`. Partez de cet exemple quand le design modifie
+les contrôles de l’en-tête ou ne garde qu’une partie des poignées.
 
-<Example name="floating-panel/advanced-customization" />
+<Example name="floating-panel/build-from-parts" />
+
+## Composition
+
+Utilisez `FloatingPanel` pour l'état local. Gardez `FloatingPanelPositioner` et `FloatingPanelContent` explicites, entourez
+l'en-tête avec `FloatingPanelDragTrigger` et ajoutez `FloatingPanelTitle` pour un nom accessible. `FloatingPanelPositioner` est placé dans
+un portail par défaut. Définissez `portalled={false}` ou transmettez `portalRef` lorsque le panneau
+doit se trouver dans un autre conteneur.
+
+Si l'état doit être créé en dehors de l'arbre du panneau, créez-le avec
+`useFloatingPanel()` et transmettez-le à `FloatingPanelRootProvider`. N'utilisez pas `FloatingPanel`
+et `FloatingPanelRootProvider` pour la même instance d'état. `position` et `size` se contrôlent séparément. Utilisez
+`FloatingPanelResizeTriggerGroup axes` ou des parties `FloatingPanelResizeTrigger` individuelles uniquement lorsque l'ensemble
+de poignées par défaut ne convient pas. Avec `asChild`, transmettez un seul enfant sémantique. Vue
+utilise le slot enfant, tandis que Solid utilise la forme avec fonction de rendu de cette propriété.
+
+## Anatomie
+
+Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
+
+<AnatomyInspector
+  parts={[
+    ["FloatingPanel", null, "Gère l'ouverture, la position, la taille, le déplacement, le redimensionnement et le mode de la fenêtre.", 0],
+    ["FloatingPanelTrigger", "floating-panel-trigger", "Ouvre la fenêtre ou inverse son état.", 1],
+    ["FloatingPanelPositioner", "floating-panel-positioner", "Applique les valeurs de position, de taille, de transformation et de z-index calculées par Ark.", 1],
+    ["FloatingPanelContent", "floating-panel-content", "Surface visible de la fenêtre flottante.", 2],
+    ["FloatingPanelDragTrigger", "floating-panel-drag-trigger", "Définit la zone déplaçable, généralement l'en-tête.", 3],
+    ["FloatingPanelHeader", "floating-panel-header", "Partie d'en-tête Ark et conteneur de la poignée de déplacement.", 4],
+    ["FloatingPanelTitle", "floating-panel-title", "Définit le nom accessible de la fenêtre.", 5],
+    ["FloatingPanelControl", "floating-panel-control", "Regroupe les commandes de mode et de fermeture.", 5],
+    ["FloatingPanelStageTrigger", "floating-panel-stage-trigger", "Passe entre les modes `default`, `minimized` et `maximized`.", 6],
+    ["FloatingPanelCloseTrigger / FloatingPanelCloseIcon", "floating-panel-close-trigger", "Ferme la fenêtre.", 6],
+    ["FloatingPanelBody", "floating-panel-body", "Zone principale du contenu, avec défilement.", 3],
+    ["FloatingPanelFooter", "floating-panel-footer", "Zone facultative pour les actions ou le statut.", 3],
+    ["FloatingPanelResizeTrigger", "floating-panel-resize-trigger", "Poignée de redimensionnement pour un axe Ark.", 3],
+    ["FloatingPanelResizeTriggerGroup", "", "Affiche toutes les poignées ou seulement celles qui sont sélectionnées.", 4],
+    ["FloatingPanelRootProvider", null, "Relie les parties à l'état créé avec `useFloatingPanel()`.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
+
+`FloatingPanelDragIndicator`, `FloatingPanelCloseIcon`, `FloatingPanelFooter` et
+`FloatingPanelResizeTriggerGroup` sont des utilitaires moduix. Ils complètent les parties
+structurelles d'Ark UI sans les remplacer.
 
 ## Styles
 
@@ -201,12 +160,71 @@ utilisent les utilitaires natifs et les classes du consommateur. Les variantes C
 les jetons de foundation et n’ont pas de variables de composant : une classe sur la partie remplace les
 styles du composant définis dans la couche.
 
-### Points d'accroche pour les styles
+### Points d’accroche CSS
+
+| Partie | `data-slot` |
+| --- | --- |
+| `FloatingPanelTrigger` | `floating-panel-trigger` |
+| `FloatingPanelPositioner` | `floating-panel-positioner` |
+| `FloatingPanelContent` | `floating-panel-content` |
+| `FloatingPanelDragTrigger` | `floating-panel-drag-trigger` |
+| `FloatingPanelHeader` | `floating-panel-header` |
+| `FloatingPanelTitle` | `floating-panel-title` |
+| `FloatingPanelControl` | `floating-panel-control` |
+| `FloatingPanelStageTrigger` | `floating-panel-stage-trigger` |
+| `FloatingPanelCloseTrigger` | `floating-panel-close-trigger` |
+| `FloatingPanelCloseIcon` | `floating-panel-close-icon` |
+| `FloatingPanelBody` | `floating-panel-body` |
+| `FloatingPanelFooter` | `floating-panel-footer` |
+| `FloatingPanelResizeTrigger` | `floating-panel-resize-trigger` |
+| `FloatingPanelDragIndicator` | `floating-panel-drag-indicator` |
 
 Les parties Ark UI conservent `data-scope="floating-panel"` et leurs valeurs `data-part`. moduix ajoute
 `data-slot="floating-panel-*"` aux conteneurs rendus. Utilisez `data-state="open|closed"`, `data-dragging`,
 `data-disabled`, `data-stage`, `data-topmost`, `data-behind`, `data-minimized`, `data-maximized`,
-`data-staged` et `data-axis` sur les parties concernées pour appliquer des styles selon l'état.
-`FloatingPanelFooter` reprend `data-minimized` du contenu.
+`data-staged` et `data-axis` sur les parties concernées pour appliquer des styles selon l'état. `FloatingPanelFooter` reprend `data-minimized` du contenu.
 
 `FloatingPanelPositioner` expose les variables d’Ark `--width`, `--height`, `--x`, `--y` et `--z-index`.
+
+## Clavier
+
+| Touche | Action |
+| --- | --- |
+| `Enter` / `Space` | Ouvre depuis le déclencheur ayant le focus. |
+| `Esc` | Ferme le panneau. |
+
+## Référence de l’API
+
+| Prop | Type | Défaut | Description |
+| --- | --- | --- | --- |
+| `open` | `boolean` | — | État d’ouverture en mode contrôlé. |
+| `defaultOpen` | `boolean` | `false` | État d’ouverture initial lorsqu’il n’est pas contrôlé. |
+| `onOpenChange` | `(details: OpenChangeDetails) => void` | — | Appelé à l’ouverture et à la fermeture. |
+| `size` | `{ width: number; height: number }` | — | Taille du panneau en mode contrôlé. |
+| `defaultSize` | `{ width: number; height: number }` | — | Taille initiale du panneau. |
+| `minSize` | `{ width: number; height: number }` | — | Taille minimale au redimensionnement. |
+| `maxSize` | `{ width: number; height: number }` | — | Taille maximale au redimensionnement. |
+| `position` | `{ x: number; y: number }` | — | Position du panneau en mode contrôlé. |
+| `defaultPosition` | `{ x: number; y: number }` | — | Position initiale du panneau. |
+| `getAnchorPosition` | `(details: AnchorPositionDetails) => Point` | — | Renvoie l’emplacement d’ouverture, par exemple près du déclencheur. |
+| `draggable` | `boolean` | `true` | Permet de déplacer le panneau. |
+| `resizable` | `boolean` | `true` | Permet de redimensionner le panneau. |
+| `lockAspectRatio` | `boolean` | `false` | Conserve les proportions au redimensionnement. |
+| `getBoundaryEl` | `() => HTMLElement \| null` | — | Renvoie l’élément dans lequel le panneau doit rester. |
+| `closeOnEscape` | `boolean` | `true` | Se ferme avec Échap. |
+| `persistRect` | `boolean` | `true` | Conserve la taille et la position après fermeture. |
+| `gridSize` | `number` | `1` | Grille d’accrochage en pixels pour déplacer et redimensionner. |
+| `lazyMount` | `boolean` | `true` | Monte le contenu à la première ouverture. |
+| `unmountOnExit` | `boolean` | `true` | Démonte le contenu après la fermeture. |
+| `translations` | `IntlTranslations` | — | Textes localisés des libellés d’accessibilité. |
+| `strategy` | `'absolute' \| 'fixed'` | `'fixed'` | Positionnement CSS : `fixed` ou `absolute`. |
+| `allowOverflow` | `boolean` | `true` | Permet de faire sortir le panneau en partie de la limite. |
+| `initialFocusEl` | `() => HTMLElement \| null \| false` | — | Renvoie l’élément qui reçoit le focus à l’ouverture. |
+| `finalFocusEl` | `() => HTMLElement \| null` | — | Renvoie l’élément qui reçoit le focus à la fermeture. |
+| `restoreFocus` | `boolean` | `true` | Rend le focus à l’élément précédent à la fermeture. |
+| `disabled` | `boolean` | — | Désactive le contrôle. |
+| `onPositionChange` | `(details: PositionChangeDetails) => void` | — | Appelé pendant le déplacement. |
+| `onPositionChangeEnd` | `(details: PositionChangeDetails) => void` | — | Appelé à la fin du déplacement. |
+| `onSizeChange` | `(details: SizeChangeDetails) => void` | — | Appelé pendant le redimensionnement. |
+| `onSizeChangeEnd` | `(details: SizeChangeDetails) => void` | — | Appelé à la fin du redimensionnement. |
+| `onStageChange` | `(details: StageChangeDetails) => void` | — | Appelé lorsque le panneau est réduit, agrandi ou restauré. |

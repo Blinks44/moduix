@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Empty, EmptyTitle } from '../../src';
+import { Empty, EmptyTitle } from '@/index';
 </script>
 
 <template>

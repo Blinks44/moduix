@@ -4,16 +4,16 @@
   margin: 0 auto;
   padding: var(--moduix-spacing-3);
   border-radius: var(--moduix-radius-xl);
-  background-color: var(--moduix-color-muted);
+  background-color: var(--moduix-muted);
   list-style: none;
 }
 
 .item {
   min-width: 0;
   overflow: hidden;
-  border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
+  border: var(--moduix-border-width-sm) solid var(--moduix-border);
   border-radius: var(--moduix-radius-lg);
-  background-color: var(--moduix-color-background);
+  background-color: var(--moduix-background);
 }
 
 .image {

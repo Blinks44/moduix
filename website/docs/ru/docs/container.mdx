@@ -1,79 +1,52 @@
 ---
 title: Container
 component: container
-description: Адаптивный примитив разметки для читабельной ширины содержимого и гибких горизонтальных отступов.
+description: Центрирует контент страницы по удобной ширине с адаптивными отступами.
+ark: https://ark-ui.com/docs/guides/composition#the-ark-factory
 ---
 
+import AnatomyScene from '@/components/examples/container/basic';
 import * as ContainerDocs from '@/components/examples/container/css-properties';
 
-## Справочник API
+<Example name="container/basic" />
 
-В Ark UI нет отдельного примитива `container`. В moduix `Container` создан с помощью официальной
-[фабрики Ark](https://ark-ui.com/docs/guides/composition#the-ark-factory), поэтому для него действуют рекомендации Ark по
-[композиции](https://ark-ui.com/docs/guides/composition), [стилизации](https://ark-ui.com/docs/guides/styling) и
-[передаче ref](https://ark-ui.com/docs/guides/ref).
+## Установка
 
-## Базовый пример
+<ComponentInstall />
 
+## Использование
 
-Импортируйте `Container` из подходящего пакета: `@moduix/react/container`, `@moduix/solid/container` или
-`@moduix/vue/container` для CSS Modules, а для Tailwind CSS используйте `@moduix/react-tailwind/container`,
-`@moduix/solid-tailwind/container` или `@moduix/vue-tailwind/container`.
+<Usage />
+
 
 Используйте `Container` для центрированной колонки с читабельной шириной. Компонент добавляет адаптивные
 горизонтальные отступы, а вертикальные интервалы остаются задачей внешней разметки.
 
-<Example name="container/basic" />
+## Примеры
 
-## Установка через shadcn
+### Отступы по краям
 
-Полную настройку пакета, реестра и стилей см. в разделе [Быстрый старт](/docs/quick-start).
+Используйте `gutter`, чтобы выбрать размер адаптивных горизонтальных отступов.
 
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
+<Example name="container/gutters" />
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/container' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/container' },
-  ]}
-/>
+### На всю ширину
 
-  </Tab>
-  <Tab label="Solid" value="solid">
+Используйте `size="full"`, чтобы широкая секция заняла ширину родителя и сохранила адаптивный отступ по краям.
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/container' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/container' },
-  ]}
-/>
+<Example name="container/full-width" />
 
-  </Tab>
-  <Tab label="Vue" value="vue">
+### С Bleed
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/container' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/container' },
-  ]}
-/>
+Сохраните ограниченную ширину текста и позвольте только более широкому дочернему блоку выйти за пределы колонки.
 
-  </Tab>
-</Tabs>
+<Example name="container/with-bleed" />
 
-## Анатомия
+### Семантический элемент
 
-`Container` выводит один корневой элемент и не добавляет дополнительных обёрток.
+Используйте `asChild`, когда оболочка разметки также должна описывать структуру документа.
 
-```text
-Container
-└─ дочерние элементы
-```
-
-| Часть       | Назначение                                               |
-| ----------- | -------------------------------------------------------- |
-| `Container` | Корневой элемент разметки. Центрирует содержимое и задаёт его ширину и горизонтальные отступы. |
+<Example name="container/semantic-element" />
 
 ## Композиция
 
@@ -87,31 +60,19 @@ ref на самом `Container` через `asChild` не передаётся; 
 компонента. Размещайте `Bleed` внутри `Container`, если только один дочерний блок должен выйти за пределы ограниченной
 текстовой колонки.
 
-## Примеры
+## Анатомия
 
-### На всю ширину
+`Container` выводит один корневой элемент и не добавляет дополнительных обёрток.
 
-Используйте `size="full"`, чтобы широкая секция заняла ширину родителя и сохранила адаптивный отступ по краям.
+Наведите на часть или выберите её, чтобы найти её в превью.
 
-<Example name="container/full-width" />
-
-### Отступы по краям
-
-Используйте `gutter`, чтобы выбрать размер адаптивных горизонтальных отступов.
-
-<Example name="container/gutters" />
-
-### Семантический элемент
-
-Используйте `asChild`, когда оболочка разметки также должна описывать структуру документа.
-
-<Example name="container/semantic-element" />
-
-### С Bleed
-
-Сохраните ограниченную ширину текста и позвольте только более широкому дочернему блоку выйти за пределы колонки.
-
-<Example name="container/with-bleed" />
+<AnatomyInspector
+  parts={[
+    ["Container", "container-root", "Корневой элемент разметки. Центрирует содержимое и задаёт его ширину и горизонтальные отступы.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Стилизация
 
@@ -120,18 +81,33 @@ ref на самом `Container` через `asChild` не передаётся; 
 Для локальных стилей блока, например фона, границ или внутренних отступов, используйте `className` в React, `class` в
 Solid и `class` в Vue.
 
-### CSS-свойства
+### CSS-переменные
 
-<CssPropertiesSection properties={ContainerDocs.containerOverrideCssProperties} />
+Наведите на переменную или выберите её, чтобы увидеть её в превью.
+
+<CssPropertiesSection properties={ContainerDocs.containerOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 Эти переменные относятся к пакетам CSS Modules. В пакетах Tailwind те же варианты `size` и `gutter` задаются через
 utility-классы.
 
 ### Хуки стилизации
 
-- `Container` добавляет `data-slot="container-root"` на корневой элемент.
+| Часть | `data-slot` |
+| --- | --- |
+| `Container` | `container-root` |
+
 - `data-scope="container"` и `data-part="root"` соответствуют соглашениям Ark по стилизации.
 - `data-size` выбирает предустановку ширины: `xs`, `sm`, `md`, `lg`, `xl`, `full`.
 - `data-gutter` выбирает предустановку отступов: `none`, `sm`, `md`, `lg`.
-- Переменные `--moduix-container-*` управляют горизонтальными отступами и расчётом `max-width` в CSS Modules.
-  Вертикальные интервалы и расположение дочерних элементов задаются внешними стилями.
+- Переменные `--moduix-container-*` управляют горизонтальными отступами и расчётом `max-width` в CSS Modules. Вертикальные интервалы и расположение дочерних элементов задаются внешними стилями.
+
+## Справочник API
+
+Также принимает нативные пропсы своего элемента и `asChild`.
+
+| Проп | Тип | По умолчанию | Описание |
+| --- | --- | --- | --- |
+| `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl' \| 'full'` | `'lg'` | Максимальная ширина: от `xs` до `xl` или `full`. |
+| `gutter` | `'none' \| 'sm' \| 'md' \| 'lg'` | `'md'` | Горизонтальные отступы: `none`, `sm`, `md` или `lg`. |

@@ -8,8 +8,8 @@ import {
   SelectContent,
   SelectOption,
 } from '@moduix/solid/select';
+import { Stack } from '@moduix/solid/stack';
 import { createMemo, createSignal, For } from 'solid-js';
-import styles from '@/components/examples/select/select-dynamic-items.module.css';
 
 const fruits = [
   { label: 'Apple', value: 'apple' },
@@ -33,7 +33,7 @@ export default function SelectDynamicItemsDemo() {
   );
 
   return (
-    <div class={styles.root}>
+    <Stack gap="3">
       <Input
         aria-label="Filter fruits"
         value={query()}
@@ -51,6 +51,6 @@ export default function SelectDynamicItemsDemo() {
           </SelectContent>
         </SelectPositioner>
       </Select>
-    </div>
+    </Stack>
   );
 }

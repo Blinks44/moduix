@@ -146,8 +146,8 @@ export const Vertical: Story = {
 export const Speed: Story = {
   render: () => (
     <div className={styles.providerStack}>
-      <BasicMarquee speed={25} />
-      <BasicMarquee speed={100} />
+      <BasicMarquee aria-label="Slow partner logos" speed={25} />
+      <BasicMarquee aria-label="Fast partner logos" speed={100} />
     </div>
   ),
 };

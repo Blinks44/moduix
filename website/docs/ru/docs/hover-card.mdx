@@ -1,22 +1,21 @@
 ---
 title: Hover Card
 component: hover-card
-description: Компонент Hover Card на базе Ark UI для дополнительных предпросмотров, открывающихся при наведении или получении фокуса.
+description: Превью профиля или ссылки в карточке при наведении на триггер.
+ark: https://ark-ui.com/docs/components/hover-card
 ---
 
+import AnatomyScene from '@/components/examples/hover-card/anatomy';
 
-## Справочник API
+<Example name="hover-card/basic" />
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/hover-card" />
+## Установка
 
-## Выбор подходящего компонента
+<ComponentInstall />
 
-Используйте `Tooltip` для коротких неинтерактивных подсказок. Выбирайте `Popover`, если во
-всплывающем окне нужны более подробные сведения или действия. Используйте `HoverCard`, когда
-триггер должен показывать дополнительный предпросмотр, например профиля или статьи.
+## Использование
 
-## Базовый пример
-
+<Usage />
 
 Соберите карточку из явных частей Ark. `HoverCardTrigger` открывает карточку, а
 `HoverCardPositioner` и `HoverCardContent` задают её всплывающее содержимое. В базовой
@@ -24,120 +23,34 @@ description: Компонент Hover Card на базе Ark UI для допо�
 превысить доступную высоту: оно будет прокручиваться, а `HoverCardContent` останется
 необрезанным для дополнительной стрелки.
 
-<Example name="hover-card/basic" />
+## Выбор подходящего компонента
 
-## Установка через shadcn
-
-Полную настройку пакета, реестра и стилей см. в разделе [Быстрый старт](/docs/quick-start).
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/hover-card' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/hover-card' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/hover-card' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/hover-card' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/hover-card' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/hover-card' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Анатомия
-
-```text
-HoverCard
-├─ HoverCardTrigger
-└─ Всплывающий слой (автоматически выводится через портал)
-   └─ HoverCardPositioner
-      └─ HoverCardContent
-         ├─ HoverCardArrow
-         │  └─ HoverCardArrowTip
-         └─ HoverCardBody
-            └─ содержимое
-
-HoverCardRootProvider
-└─ то же дерево частей, связанное с состоянием moduix useHoverCard()
-```
-
-| Часть                          | Назначение                                                                    |
-| ------------------------------ | ----------------------------------------------------------------------------- |
-| `HoverCard`                 | Управляет состоянием, жизненным циклом, задержками, позиционированием, идентификаторами и взаимодействием за пределами карточки. |
-| `HoverCardRootProvider`       | Подключает части к состоянию, созданному через `useHoverCard()`.              |
-| `HoverCardContext`            | Передаёт потомкам текущее состояние через render prop.                       |
-| `HoverCardTrigger`            | Интерактивный элемент, открывающий карточку при наведении или фокусе. Используйте `asChild`, чтобы передать роль триггера ссылке или другому семантическому элементу. |
-| `HoverCardPositioner`         | Позиционирует всплывающий слой и предоставляет CSS-переменные Ark.           |
-| `HoverCardContent`            | Видимая область карточки, которая закрывается при взаимодействии за её пределами. |
-| `HoverCardArrow`              | Необязательная обёртка позиционируемой стрелки, по умолчанию выводящая `HoverCardArrowTip`. |
-| `HoverCardArrowTip`           | Наконечник стрелки, оформляемый с помощью переменных Ark.                     |
-| `HoverCardBody`               | Необязательная прокручиваемая область содержимого для ограниченных предпросмотров. |
-
-`HoverCard` - единственное публичное имя корневого компонента. Используйте его вместе с частями
-с префиксом семейства в коде приложения.
-
-## Композиция
-
-`HoverCard` управляет состоянием и по умолчанию выводит `HoverCardPositioner` через портал.
-Передайте `portalled={false}` внутри другого слоя или укажите `portalRef` для собственного
-контейнера. Используйте `HoverCardRootProvider` с `useHoverCard()`, если состояние должно жить
-за пределами дерева карточки: React читает его как объект, Solid через accessor, а Vue напрямую
-предоставляет реактивное состояние шаблону.
-
-Оставляйте `HoverCardArrow` внутри `HoverCardContent`, а длинный предпросмотр помещайте в
-`HoverCardBody`: `Content` сохраняет видимость стрелки, а `Body` становится областью прокрутки.
-Используйте `asChild` с одним фокусируемым потомком, если триггером должна быть ссылка или другой
-семантический элемент. Если несколько триггеров используют одно содержимое, задайте каждому
-`value` и обновляйте внешнее содержимое через `onTriggerValueChange(details)`.
+Используйте `Tooltip` для коротких неинтерактивных подсказок. Выбирайте `Popover`, если во
+всплывающем окне нужны более подробные сведения или действия. Используйте `HoverCard`, когда
+триггер должен показывать дополнительный предпросмотр, например профиля или статьи.
 
 ## Примеры
 
-### Контекст
+### Со стрелкой
 
-Используйте `HoverCardContext`, чтобы читать состояние внутри дерева карточки, не меняя его
-видимую структуру.
+Добавьте `HoverCardArrow` внутрь `HoverCardContent`, если нужно визуально связать всплывающее
+окно с триггером. Обёртка по умолчанию выводит `HoverCardArrowTip`; помещайте предпросмотр в
+`HoverCardBody`, чтобы стрелка оставалась частью поверхности с границей, а содержимое могло
+прокручиваться.
 
-<Example name="hover-card/context" />
+<Example name="hover-card/with-arrow" />
 
-### Управляемое состояние
+### Позиционирование
 
-Управляйте открытием карточки с помощью `open` и `onOpenChange(details)`.
+Передавайте параметры позиционирования Ark через свойство `positioning`.
 
-<Example name="hover-card/controlled" />
+<Example name="hover-card/positioning" />
 
 ### Задержка
 
 Настройте время открытия и закрытия с помощью `openDelay` и `closeDelay` у корневого компонента.
 
 <Example name="hover-card/delay" />
-
-### Диалог
-
-Размещайте Hover Card непосредственно внутри диалога, если карточка должна оставаться в его
-слое оверлея. При открытии диалог может установить начальный фокус на триггере Hover Card, и
-карточка откроется после `openDelay`. Укажите в `initialFocusEl` другой элемент, если предпросмотр
-должен оставаться закрытым до наведения или получения фокуса.
-
-<Example name="hover-card/dialog" />
 
 ### Отключённое состояние
 
@@ -153,27 +66,71 @@ HoverCardRootProvider
 
 <Example name="hover-card/multiple-triggers" />
 
-### Позиционирование
+### Диалог
 
-Передавайте параметры позиционирования Ark через свойство `positioning`.
+Размещайте Hover Card непосредственно внутри диалога, если карточка должна оставаться в его
+слое оверлея. При открытии диалог может установить начальный фокус на триггере Hover Card, и
+карточка откроется после `openDelay`. Укажите в `initialFocusEl` другой элемент, если предпросмотр
+должен оставаться закрытым до наведения или получения фокуса.
 
-<Example name="hover-card/positioning" />
+<Example name="hover-card/dialog" />
+
+### Управляемое состояние
+
+Управляйте открытием карточки с помощью `open` и `onOpenChange(details)`. Подробнее в разделе [Управляйте состоянием из приложения](/docs/composition-patterns#controlled-state).
+
+<Example name="hover-card/controlled" />
+
+### Контекст
+
+Используйте `HoverCardContext`, чтобы читать состояние внутри дерева карточки, не меняя его
+видимую структуру.
+
+<Example name="hover-card/context" />
 
 ### Root Provider
 
 Используйте `useHoverCard()` с `HoverCardRootProvider`, когда элементам управления или другим
-частям интерфейса за пределами дерева карточки нужно читать её состояние или изменять его.
+частям интерфейса за пределами дерева карточки нужно читать её состояние или изменять его. Подробнее в разделе [Выносите состояние за пределы дерева](/docs/composition-patterns#root-provider).
 
 <Example name="hover-card/root-provider" />
 
-### Со стрелкой
+## Композиция
 
-Добавьте `HoverCardArrow` внутрь `HoverCardContent`, если нужно визуально связать всплывающее
-окно с триггером. Обёртка по умолчанию выводит `HoverCardArrowTip`; помещайте предпросмотр в
-`HoverCardBody`, чтобы стрелка оставалась частью поверхности с границей, а содержимое могло
-прокручиваться.
+`HoverCard` управляет состоянием и по умолчанию выводит `HoverCardPositioner` через портал.
+Передайте `portalled={false}` внутри другого слоя или укажите `portalRef` для собственного
+контейнера. Используйте `HoverCardRootProvider` с `useHoverCard()`, если состояние должно жить
+за пределами дерева карточки: React читает его как объект, Solid через accessor, а Vue напрямую
+предоставляет реактивное состояние шаблону.
 
-<Example name="hover-card/with-arrow" />
+Оставляйте `HoverCardArrow` внутри `HoverCardContent`, а длинный предпросмотр помещайте в
+`HoverCardBody`: `Content` сохраняет видимость стрелки, а `Body` становится областью прокрутки.
+Используйте `asChild` с одним фокусируемым потомком, если триггером должна быть ссылка или другой
+семантический элемент. Если несколько триггеров используют одно содержимое, задайте каждому
+`value` и обновляйте внешнее содержимое через `onTriggerValueChange(details)`.
+
+## Анатомия
+
+Наведите на часть или выберите её, чтобы найти её в превью.
+
+<AnatomyInspector
+  parts={[
+    ["HoverCard", null, "Управляет состоянием, жизненным циклом, задержками, позиционированием, идентификаторами и взаимодействием за пределами карточки.", 0],
+    ["HoverCardTrigger", "hover-card-trigger", "Интерактивный элемент, открывающий карточку при наведении или фокусе. Используйте `asChild`, чтобы передать роль триггера ссылке или другому семантическому элементу.", 1],
+    ["HoverCardPositioner", "hover-card-positioner", "Позиционирует всплывающий слой и предоставляет CSS-переменные Ark.", 1],
+    ["HoverCardContent", "hover-card-content", "Видимая область карточки, которая закрывается при взаимодействии за её пределами.", 2],
+    ["HoverCardArrow", "hover-card-arrow", "Необязательная обёртка позиционируемой стрелки, по умолчанию выводящая `HoverCardArrowTip`.", 3],
+    ["HoverCardArrowTip", "hover-card-arrow-tip", "Наконечник стрелки, оформляемый с помощью переменных Ark.", 4],
+    ["HoverCardBody", "hover-card-body", "Необязательная прокручиваемая область содержимого для ограниченных предпросмотров.", 3],
+    ["HoverCardRootProvider", null, "Подключает части к состоянию, созданному через `useHoverCard()`.", 0],
+    ["HoverCardContext", null, "Передаёт потомкам текущее состояние через render prop.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
+
+`HoverCard` - единственное публичное имя корневого компонента. Используйте его вместе с частями
+с префиксом семейства в коде приложения.
 
 ## Стилизация
 
@@ -187,12 +144,20 @@ HoverCardRootProvider
 foundation и не имеют переменных компонента: класс на части переопределяет стили компонента из слоя.
 Атрибуты состояния и хуки `data-slot` общие для обоих вариантов стилизации.
 
-### Точки для стилизации
+### Хуки стилизации
 
-Moduix добавляет атрибуты `data-slot="hover-card-*"` к триггеру, позиционеру, содержимому, стрелке,
+| Часть | `data-slot` |
+| --- | --- |
+| `HoverCardTrigger` | `hover-card-trigger` |
+| `HoverCardPositioner` | `hover-card-positioner` |
+| `HoverCardContent` | `hover-card-content` |
+| `HoverCardArrow` | `hover-card-arrow` |
+| `HoverCardArrowTip` | `hover-card-arrow-tip` |
+| `HoverCardBody` | `hover-card-body` |
+
+moduix добавляет атрибуты `data-slot="hover-card-*"` к триггеру, позиционеру, содержимому, стрелке,
 наконечнику стрелки и области содержимого. `HoverCard` и `HoverCardRootProvider` только
-предоставляют состояние и не создают DOM-элементы, поэтому у них нет собственных точек стилизации.
-Ark добавляет к своим частям `data-scope="hover-card"`
+предоставляют состояние и не создают DOM-элементы, поэтому у них нет собственных точек стилизации. Ark добавляет к своим частям `data-scope="hover-card"`
 и `data-part`. Для стилизации с учётом состояния используйте `data-state="open|closed"`,
 `data-placement`, `data-side`, `data-value`, `data-current`, `data-nested` и `data-has-nested`.
 
@@ -200,3 +165,30 @@ Ark добавляет к своим частям `data-scope="hover-card"`
 `--available-height`, `--x`, `--y`, `--z-index` и `--transform-origin`. `HoverCardContent`
 предоставляет `--layer-index` и `--nested-layer-count`. `HoverCardArrow` предоставляет
 `--arrow-size`, `--arrow-size-half`, `--arrow-background` и `--arrow-offset`.
+
+## Клавиатура
+
+| Клавиша | Действие |
+| --- | --- |
+| `Tab` | Фокус на триггере открывает карточку после задержки. |
+| `Esc` | Закрывает карточку. |
+
+## Справочник API
+
+| Проп | Тип | По умолчанию | Описание |
+| --- | --- | --- | --- |
+| `open` | `boolean` | — | Состояние открытия в управляемом режиме. |
+| `defaultOpen` | `boolean` | `false` | Начальное состояние открытия, если оно не управляется извне. |
+| `onOpenChange` | `(details: OpenChangeDetails) => void` | — | Вызывается при открытии и закрытии. |
+| `openDelay` | `number` | `600` | Задержка перед открытием по наведению, в миллисекундах. |
+| `closeDelay` | `number` | `300` | Задержка перед закрытием после ухода указателя, в миллисекундах. |
+| `positioning` | `PositioningOptions` | — | Расположение, отступ и другие настройки позиции всплывающего окна. |
+| `disabled` | `boolean` | `false` | Отключает элемент управления. |
+| `lazyMount` | `boolean` | `true` | Монтирует содержимое при первом открытии. |
+| `unmountOnExit` | `boolean` | `true` | Удаляет содержимое после закрытия. |
+| `triggerValue` | `string \| null` | — | Активный триггер в управляемом режиме, если у окна несколько триггеров. |
+| `defaultTriggerValue` | `string \| null` | — | Изначально активный триггер. |
+| `onTriggerValueChange` | `(details: TriggerValueChangeDetails) => void` | — | Вызывается, когда активным становится другой триггер. |
+| `onPointerDownOutside` | `(event: PointerDownOutsideEvent) => void` | — | Вызывается при нажатии указателя вне всплывающего окна. |
+| `onFocusOutside` | `(event: FocusOutsideEvent) => void` | — | Вызывается, когда фокус уходит из всплывающего окна. |
+| `onInteractOutside` | `(event: InteractOutsideEvent) => void` | — | Вызывается при любом взаимодействии вне всплывающего окна. |

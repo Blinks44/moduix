@@ -7,15 +7,15 @@ import {
   SliderTrack,
   SliderValueText,
 } from '@moduix/react/slider';
+import { Stack } from '@moduix/react/stack';
 import { useState } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';
-import styles from '@/components/examples/slider/slider-change-events.module.css';
 
 export default function EventsSliderDemo() {
   const [liveValue, setLiveValue] = useState([40]);
   const [committedValue, setCommittedValue] = useState([40]);
   return (
-    <div className={styles.stack}>
+    <Stack align="center" gap="4">
       <Slider
         defaultValue={[40]}
         onValueChange={(details) => setLiveValue(details.value)}
@@ -35,6 +35,6 @@ export default function EventsSliderDemo() {
           Live: {liveValue.join(', ')} / Committed: {committedValue.join(', ')}
         </output>
       </PreviewMeta>
-    </div>
+    </Stack>
   );
 }

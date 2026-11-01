@@ -1,90 +1,36 @@
 ---
 title: Close Button
 component: close-button
-description: Un bouton sans libellé, représenté par une icône, pour fermer des notifications, des cartes, des panneaux superposés et d’autres surfaces d’interface.
+description: Fermer une notification, une carte ou un panneau avec un bouton icône accessible.
+ark: https://ark-ui.com/docs/guides/composition
 ---
 
+import AnatomyScene from '@/components/examples/close-button/basic';
 import * as CloseButtonDocs from '@/components/examples/close-button/css-properties';
 
-## Référence de l’API
+<Example name="close-button/basic" />
 
-Ark UI ne fournit pas de primitive dédiée à la fermeture. moduix construit `CloseButton` à partir de l’[Ark factory][ark-factory]
-officielle et suit les recommandations d’Ark pour la
-[composition](https://ark-ui.com/docs/guides/composition), les [styles](https://ark-ui.com/docs/guides/styling) et
-les [refs](https://ark-ui.com/docs/guides/ref).
+## Installation
 
-## Exemple de base
+<ComponentInstall />
 
+## Utilisation
+
+<Usage />
 
 Utilisez `CloseButton` pour ajouter un bouton de fermeture à une notification, une carte, un panneau superposé
 ou une autre surface d’interface. Reliez son gestionnaire `onClick` à l’état qui masque ou supprime cette surface.
 Le composant rend un bouton sémantique, lui attribue un nom accessible par défaut et affiche l’icône `CloseIcon`,
 mais il ne gère pas lui-même l’état de la surface.
 
-<Example name="close-button/basic" />
-
-## Installation avec shadcn
-
-Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration complète du paquet, du registre et des styles.
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-  <ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/close-button' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/close-button' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/close-button' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/close-button' },
-  ]}
-  />
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/close-button' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/close-button' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Anatomie
-
-`CloseButton` expose une seule partie racine, suivant le modèle d’Ark.
-
-```text
-CloseButton
-└─ root[data-scope="close-button"][data-part="root"][data-slot="close-button-root"]
-   └─ CloseIcon (par défaut) | enfants personnalisés
-```
-
-| Partie        | Rôle                                                                          |
-| ------------ | ----------------------------------------------------------------------------- |
-| `CloseButton` | Contrôle interactif de fermeture fondé sur la sémantique et l’accessibilité d’un bouton. |
-
-## Composition
-
-`CloseButton` ne gère pas l’état de la surface qu’il ferme. Reliez `onClick` à l’état qui masque ou supprime cette
-surface. Si un Dialog, un Drawer ou un autre panneau superposé fournit déjà un bouton de fermeture, utilisez ce
-bouton afin que le composant parent conserve la gestion de la fermeture et du retour du focus.
-
-Utilisez `asChild` lorsqu’un bouton sémantique fourni par un autre composant doit posséder le nœud DOM. L’enfant doit
-rendre l’icône ; définissez-y `type="button"` si nécessaire, notamment dans un formulaire. En Vue, placez ce bouton
-dans le slot par défaut. Avec Solid, passez une fonction de rendu à `asChild` et propagez `props()` à l’enfant.
-
 ## Exemples
+
+### État désactivé
+
+Utilisez l’attribut natif `disabled` lorsque le bouton ne doit pas recevoir le focus. Utilisez `aria-disabled="true"`
+lorsqu’il doit rester focusable sans pouvoir être activé.
+
+<Example name="close-button/disabled-state" />
 
 ### Contenu personnalisé
 
@@ -94,19 +40,41 @@ racine. Lorsque le nom accessible vient du libellé du bouton, rendez l’icône
 
 <Example name="close-button/custom-children" />
 
-### État désactivé
-
-Utilisez l’attribut natif `disabled` lorsque le bouton ne doit pas recevoir le focus. Utilisez `aria-disabled="true"`
-lorsqu’il doit rester focusable sans pouvoir être activé.
-
-<Example name="close-button/disabled-state" />
-
 ### Utiliser `asChild`
 
 Utilisez `asChild` pour conserver un bouton sémantique existant comme élément rendu, tout en lui appliquant les styles
 et les attributs `data-*` de `CloseButton`. Placez l’icône dans cet enfant et définissez explicitement son type.
 
 <Example name="close-button/as-child" />
+
+## Composition
+
+Ark UI ne fournit pas de primitive dédiée à la fermeture. moduix construit `CloseButton` à partir de l’[Ark factory][ark-factory]
+officielle et suit les recommandations d’Ark pour la
+[composition](https://ark-ui.com/docs/guides/composition), les [styles](https://ark-ui.com/docs/guides/styling) et
+les [refs](https://ark-ui.com/docs/guides/ref).
+
+`CloseButton` ne gère pas l’état de la surface qu’il ferme. Reliez `onClick` à l’état qui masque ou supprime cette
+surface. Si un Dialog, un Drawer ou un autre panneau superposé fournit déjà un bouton de fermeture, utilisez ce
+bouton afin que le composant parent conserve la gestion de la fermeture et du retour du focus.
+
+Utilisez `asChild` lorsqu’un bouton sémantique fourni par un autre composant doit posséder le nœud DOM. L’enfant doit
+rendre l’icône ; définissez-y `type="button"` si nécessaire, notamment dans un formulaire. En Vue, placez ce bouton
+dans le slot par défaut. Avec Solid, passez une fonction de rendu à `asChild` et propagez `props()` à l’enfant.
+
+## Anatomie
+
+`CloseButton` expose une seule partie racine, suivant le modèle d’Ark.
+
+Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
+
+<AnatomyInspector
+  parts={[
+    ["CloseButton", "close-button-root", "Contrôle interactif de fermeture fondé sur la sémantique et l’accessibilité d’un bouton.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styles
 
@@ -115,17 +83,38 @@ Tailwind utilisent des classes utilitaires natives et les classes de l’applica
 s’appliquent aux variantes CSS Modules. Les attributs d’état et les hooks `data-slot` sont communs aux deux solutions
 de styles.
 
-### Propriétés CSS
+### Variables CSS
 
-<CssPropertiesSection properties={CloseButtonDocs.closeButtonOverrideCssProperties} />
+Survolez ou sélectionnez une variable pour la voir dans l’aperçu.
+
+<CssPropertiesSection properties={CloseButtonDocs.closeButtonOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Points d’accroche CSS
 
+| Partie | `data-slot` |
+| --- | --- |
+| `CloseButton` | `close-button-root` |
+
 - `data-scope="close-button"` identifie la famille du composant.
 - `data-part="root"` identifie l’unique partie exportée.
-- `data-slot="close-button-root"` fournit le hook de slot de moduix.
 - `data-disabled` expose l’état désactivé normalisé de `disabled` et `aria-disabled="true"`.
 - `className`/`class` est combiné avec les styles par défaut du composant sur la racine.
 - Dans les variantes CSS Modules, les éléments SVG enfants directs utilisent `--moduix-close-button-icon-size` pour leur largeur et leur hauteur.
 
 [ark-factory]: https://ark-ui.com/docs/guides/composition#the-ark-factory
+
+## Clavier
+
+`CloseButton` rend un bouton natif : le navigateur gère le focus et l’activation. Donnez-lui un nom
+accessible lorsque le libellé par défaut ne convient pas.
+
+## Référence de l’API
+
+| Prop | Type | Défaut | Description |
+| --- | --- | --- | --- |
+| `aria-label` | `string` | `'Close'` | Nom accessible ; traduisez-le dans votre langue. |
+| `children` | `ReactNode` | `CloseIcon` | Remplace l’icône de fermeture par défaut. |
+| `asChild` | `boolean` | `false` | Applique les styles et propriétés du bouton à son unique enfant. |
+| `disabled` | `boolean` | `false` | Désactive le bouton. |

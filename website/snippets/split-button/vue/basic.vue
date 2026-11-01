@@ -7,13 +7,13 @@ import {
   SplitButtonPositioner,
   SplitButtonContent,
 } from '@moduix/vue/split-button';
+import { Stack } from '@moduix/vue/stack';
 import { ref } from 'vue';
 const status = ref('Ready to save.');
-import styles from '@/components/examples/split-button/split-button-basic.module.css';
 </script>
 
 <template>
-  <div :class="styles.stack">
+  <Stack align="center" gap="4">
     <SplitButton aria-label="Save actions">
       <SplitButtonAction @click="status = 'Changes saved.'">Save Changes</SplitButtonAction>
       <SplitButtonTrigger />
@@ -27,5 +27,5 @@ import styles from '@/components/examples/split-button/split-button-basic.module
       >
     </SplitButton>
     <output aria-live="polite">{{ status }}</output>
-  </div>
+  </Stack>
 </template>

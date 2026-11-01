@@ -1,13 +1,13 @@
 import { Button } from '@moduix/solid/button';
+import { Stack } from '@moduix/solid/stack';
 import { ToastToaster, createToaster } from '@moduix/solid/toast';
-import styles from '@/components/examples/toast/toast-types.module.css';
 
 const types = ['info', 'success', 'warning', 'error'] as const;
 const toaster = createToaster({ placement: 'bottom-end', overlap: true, gap: 16 });
 
 export default function ToastTypes() {
   return (
-    <div class={styles.root}>
+    <Stack align="center" gap="3">
       <ToastToaster toaster={toaster} />
       {types.map((type) => (
         <Button
@@ -22,6 +22,6 @@ export default function ToastTypes() {
           {type}
         </Button>
       ))}
-    </div>
+    </Stack>
   );
 }

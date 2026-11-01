@@ -1,8 +1,8 @@
 .root {
   height: 16rem;
-  border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
+  border: var(--moduix-border-width-sm) solid var(--moduix-border);
   border-radius: var(--moduix-radius-lg);
-  background-color: var(--moduix-color-card);
+  background-color: var(--moduix-card);
 }
 
 .table {

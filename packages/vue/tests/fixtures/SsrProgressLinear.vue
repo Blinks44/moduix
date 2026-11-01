@@ -5,7 +5,7 @@ import {
   ProgressLinearValueText,
   ProgressLinearTrack,
   ProgressLinearRange,
-} from '../../src';
+} from '@/index';
 </script>
 
 <template>

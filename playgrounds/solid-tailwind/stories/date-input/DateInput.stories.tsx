@@ -15,6 +15,7 @@ import {
   type DateInputDateValue,
   useDateInput,
 } from '@/components/date-input/DateInput';
+import { Field, FieldErrorText } from '@/components/field/Field';
 
 const meta = {
   title: 'Components/DateInput',
@@ -136,7 +137,7 @@ export const Granularity: Story = {
 
 export const WithFieldValidation: Story = {
   render: () => (
-    <div class="grid gap-2">
+    <Field invalid>
       <DateInput required invalid name="deadline">
         <DateInputLabel>Deadline</DateInputLabel>
         <DateInputControl>
@@ -144,8 +145,8 @@ export const WithFieldValidation: Story = {
         </DateInputControl>
         <DateInputHiddenInput />
       </DateInput>
-      <span class="text-sm leading-5 text-destructive">Enter a valid deadline.</span>
-    </div>
+      <FieldErrorText>Enter a valid deadline.</FieldErrorText>
+    </Field>
   ),
 };
 

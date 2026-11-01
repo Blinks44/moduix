@@ -1,90 +1,26 @@
 ---
 title: Swap
 component: swap
-description: Анимируйте переход между двумя визуальными состояниями с готовыми пресетами moduix на базе Ark UI.
+description: Анимированная смена двух значков или подписей при смене состояния.
+ark: https://ark-ui.com/docs/utilities/swap
 ---
 
+import AnatomyScene from '@/components/examples/swap/basic';
 import * as SwapDocs from '@/components/examples/swap/css-properties';
 
-## Справочник API
+<Example name="swap/basic" />
 
-<PrimitiveReference href="https://ark-ui.com/docs/utilities/swap" />
+## Установка
 
-## Базовый пример
+<ComponentInstall />
 
+## Использование
+
+<Usage />
 
 Используйте `Swap`, когда элемент интерфейса должен переключаться между двумя визуальными состояниями,
 например когда иконка меняется после действия. Передайте текущее логическое значение в `swap`: при
 `false` отображается индикатор `off`, а при `true` индикатор `on`.
-
-<Example name="swap/basic" />
-
-## Установка через shadcn
-
-Полную настройку пакета, реестра и стилей см. в разделе [Быстрый старт](/docs/quick-start).
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/swap' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/swap' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/swap' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/swap' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/swap' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/swap' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Анатомия
-
-```text
-Swap
-├─ SwapIndicator type="off"
-└─ SwapIndicator type="on"
-
-SwapRootProvider
-└─ то же дерево индикаторов, подключённое к состоянию из useSwap()
-```
-
-| Часть                | Назначение                                                        |
-| -------------------- | ----------------------------------------------------------------- |
-| `Swap` | Передаёт состояние `swap` и размещает оба визуальных состояния.  |
-| `SwapRootProvider`  | Подключает части к состоянию, созданному через `useSwap()`. |
-| `SwapIndicator`     | Отрисовывает состояние `on` или `off`, выбранное свойством `type`. |
-
-## Композиция
-
-`Swap` отвечает только за визуальное представление. Состояние, взаимодействие, фокус и доступное имя
-оставьте у окружающего семантического элемента. Для индикаторов, содержащих только иконки, добавьте
-`aria-hidden="true"`. Размещайте оба индикатора непосредственными дочерними элементами, чтобы они
-использовали одну ячейку сетки, а встроенные рецепты оставались в пределах этого экземпляра `Swap`.
-
-По умолчанию `Swap` использует анимацию `scale`. Передайте в `animation` `fade`, `scale`, `rotate` или
-`flip`, либо задайте пользовательское имя и опишите CSS через `data-animation` корня и атрибуты
-`data-state` индикаторов от Ark. Если состояние нужно создать вне дерева, передайте результат
-`useSwap()` в `SwapRootProvider` и не создавайте для этого состояния ещё один корень. При
-использовании `asChild` передавайте ровно один семантический дочерний элемент.
 
 ## Примеры
 
@@ -108,9 +44,36 @@ SwapRootProvider
 
 Создайте состояние отдельно с помощью `useSwap()`, затем передайте его в `SwapRootProvider`
 через свойство `value`. В этом примере используется `asChild`, поэтому семантическая кнопка становится
-отрисованным корнем `Swap`.
+отрисованным корнем `Swap`. Подробнее в разделе [Выносите состояние за пределы дерева](/docs/composition-patterns#root-provider).
 
 <Example name="swap/root-provider" />
+
+## Композиция
+
+`Swap` отвечает только за визуальное представление. Состояние, взаимодействие, фокус и доступное имя
+оставьте у окружающего семантического элемента. Для индикаторов, содержащих только иконки, добавьте
+`aria-hidden="true"`. Размещайте оба индикатора непосредственными дочерними элементами, чтобы они
+использовали одну ячейку сетки, а встроенные рецепты оставались в пределах этого экземпляра `Swap`.
+
+По умолчанию `Swap` использует анимацию `scale`. Передайте в `animation` `fade`, `scale`, `rotate` или
+`flip`, либо задайте пользовательское имя и опишите CSS через `data-animation` корня и атрибуты
+`data-state` индикаторов от Ark. Если состояние нужно создать вне дерева, передайте результат
+`useSwap()` в `SwapRootProvider` и не создавайте для этого состояния ещё один корень. При
+использовании `asChild` передавайте ровно один семантический дочерний элемент.
+
+## Анатомия
+
+Наведите на часть или выберите её, чтобы найти её в превью.
+
+<AnatomyInspector
+  parts={[
+    ["Swap", "swap-root", "Передаёт состояние `swap` и размещает оба визуальных состояния.", 0],
+    ["SwapIndicator", "swap-indicator", "Отрисовывает состояние `on` или `off`, выбранное свойством `type`.", 1],
+    ["SwapRootProvider", "swap-root-provider", "Подключает части к состоянию, созданному через `useSwap()`.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Стилизация
 
@@ -129,15 +92,22 @@ Ark закрепляет раскладку inline-стилями: корень 
 его переопределить, повторите тот же задокументированный вариант (например,
 `data-[animation=flip]:[perspective:32rem]`).
 
-### CSS-свойства
+### CSS-переменные
 
-<CssPropertiesSection properties={SwapDocs.swapOverrideCssProperties} />
+Наведите на переменную или выберите её, чтобы увидеть её в превью.
+
+<CssPropertiesSection properties={SwapDocs.swapOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Хуки стилизации
 
-- `Swap` использует `data-slot="swap-root"`.
-- `SwapRootProvider` использует `data-slot="swap-root-provider"`.
-- `SwapIndicator` использует `data-slot="swap-indicator"`.
+| Часть | `data-slot` |
+| --- | --- |
+| `Swap` | `swap-root` |
+| `SwapRootProvider` | `swap-root-provider` |
+| `SwapIndicator` | `swap-indicator` |
+
 - `animation` доступно как `data-animation` на `Swap` и `SwapRootProvider`.
 - В CSS Modules встроенные рецепты нацелены только на непосредственных потомков `SwapIndicator` своего
   корня. Рецепты Tailwind читают ближайшего предка `group/swap`, поэтому не вкладывайте один `Swap` в
@@ -145,3 +115,13 @@ Ark закрепляет раскладку inline-стилями: корень 
 - Ark добавляет `data-scope="swap"` и `data-part="root" | "indicator"`.
 - Ark добавляет индикаторам `data-state="open" | "closed"`. moduix использует эти атрибуты во
   встроенных и пользовательских рецептах анимации.
+
+## Справочник API
+
+`Swap` не обрабатывает ввод: клавиатура и клики остаются за окружающим элементом управления.
+
+| Проп | Тип | По умолчанию | Описание |
+| --- | --- | --- | --- |
+| `swap` | `boolean` | `false` | При `true` показывает индикатор `on`, иначе `off`. |
+| `animation` | `SwapAnimation` | `'scale'` | Переход между индикаторами: `fade`, `scale`, `rotate` или `flip`. |
+| `type` (SwapIndicator) | `'on'` / `'off'` | — | Какой это индикатор: `on` или `off`. |

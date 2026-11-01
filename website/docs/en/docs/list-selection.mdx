@@ -1,25 +1,17 @@
 ---
 title: List Selection
 description: Manage single, multiple, deselectable, and range selection in custom list interfaces.
+ark: https://ark-ui.com/docs/collections/list-selection
 ---
-
-import ListSelectionBasic from '@/components/examples/list-selection/basic.tsx';
-import ListSelectionMultiple from '@/components/examples/list-selection/multiple.tsx';
-import listSelectionSolidBasic from '../../../snippets/list-selection/solid/basic.tsx?raw';
-import listSelectionVueBasic from '../../../snippets/list-selection/vue/basic.vue?raw';
-import listSelectionSolidMultiple from '../../../snippets/list-selection/solid/multiple.tsx?raw';
-import listSelectionVueMultiple from '../../../snippets/list-selection/vue/multiple.vue?raw';
 
 # List Selection
 
-`useListSelection` manages selected values in a `ListCollection` while your application owns the
+`useListSelection` manages selected values in a `ListCollection` while your application controls the
 markup and interaction model.
 
-## API Reference
+## Import
 
-<PrimitiveReference href="https://ark-ui.com/docs/collections/list-selection" />
-
-The hook is provided by Ark UI, not re-exported by Moduix. Import it from the collection entry point
+The hook is provided by Ark UI, not re-exported by moduix. Import it from the collection entry point
 for the framework in your application:
 
 <Tabs
@@ -54,52 +46,13 @@ import { createListCollection, useListSelection } from '@ark-ui/vue/collection';
   </Tab>
 </Tabs>
 
-There is no `list-selection` export or registry item in `@moduix/react`, `@moduix/solid`,
-`@moduix/react-tailwind`, or `@moduix/solid-tailwind`. This page documents the Ark UI hook that can
-be used alongside any of those packages.
-
 ## Basic selection
 
 The hook stores selection state. The example supplies a labelled section, native buttons with
 `aria-pressed`, and a live status message. The preview runs the React source; the Solid and Vue tabs
 contain equivalent native implementations.
 
-<ExampleFrame variant="component">
-  <PreviewFrame maxWidth="sm">
-    <ListSelectionBasic />
-  </PreviewFrame>
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/list-selection/basic.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={listSelectionSolidBasic} />
-
-    </Tab>
-  <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={listSelectionVueBasic} />
-
-    </Tab>
-  </Tabs>
-</div>
-</ExampleCode>
+<Example name="list-selection/basic" />
 
 `deselectable` is `true` by default, so selecting the current value again clears it. The hook does
 not render controls or disable them. Derive `disabled` from the collection item in your markup, as
@@ -110,42 +63,7 @@ the example does.
 Use `selectionMode: 'multiple'` when users can select several values without modifier keys. The
 example also uses `isAllSelected`, `setSelectedValues`, and `clear` for a select-all action.
 
-<ExampleFrame variant="component">
-  <PreviewFrame maxWidth="sm">
-    <ListSelectionMultiple />
-  </PreviewFrame>
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/list-selection/multiple.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={listSelectionSolidMultiple} />
-
-    </Tab>
-  <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={listSelectionVueMultiple} />
-
-    </Tab>
-  </Tabs>
-</div>
-</ExampleCode>
+<Example name="list-selection/multiple" />
 
 ## API essentials
 

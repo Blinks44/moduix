@@ -1,87 +1,105 @@
 ---
 title: Toast
 component: toast
-description: Временные уведомления о действиях, изменениях статуса и событиях в интерфейсе.
+description: Короткие уведомления, которые складываются в стопку и скрываются сами.
+ark: https://ark-ui.com/docs/components/toast
 ---
 
+import AnatomyScene from '@/components/examples/toast/anatomy';
 import * as ToastDocs from '@/components/examples/toast/css-properties';
 
-## Справочник API
+<Example name="toast/basic" />
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/toast" />
+## Установка
 
-Moduix экспортирует `Toast`, `ToastToaster`, `createToaster` и `useToastContext` из
-`@moduix/react/toast`, `@moduix/solid/toast` и `@moduix/vue/toast`. Полный API хранилища и его
-частей приведён в справочнике Ark.
+<ComponentInstall />
 
-## Базовый пример
+## Использование
 
+<Usage />
 
 Один раз создайте toaster через `createToaster()`, добавляйте уведомления его методами и выведите
 их с помощью `ToastToaster`.
 
-<Example name="toast/basic" />
+## Примеры
 
-## Установка через shadcn
+### Типы
 
-Полную настройку пакета, реестра и стилей см. в разделе [Быстрый старт](/docs/quick-start).
+Используйте типизированные методы toaster для вариантов, зависящих от статуса. moduix оформляет
+`info`, `success`, `warning` и `error` через `data-type`.
 
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
+<Example name="toast/types" />
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/toast' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/toast' },
-  ]}
-/>
+### Действие
 
-  </Tab>
-  <Tab label="Solid" value="solid">
+Добавьте `action: { label, onClick }`, если уведомление должно предложить одно прямое действие.
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/toast' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/toast' },
-  ]}
-/>
+<Example name="toast/action" />
 
-  </Tab>
-  <Tab label="Vue" value="vue">
+### Promise
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/toast' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/toast' },
-  ]}
-/>
+Используйте `toaster.promise()`, чтобы одно уведомление переходило из состояния загрузки в состояние
+успеха или ошибки после завершения асинхронной операции. Пока у уведомления тип `loading`, стандартная
+разметка показывает декоративный `Spinner` перед заголовком.
 
-  </Tab>
-</Tabs>
+<Example name="toast/promise-toast" />
 
-## Анатомия
+### Обновление
 
-```text
-createToaster()
-└─ ToastToaster (portalled to document.body by default)
-   └─ Toast
-      ├─ ToastTitle
-      ├─ ToastDescription
-      ├─ ToastActionTrigger
-      └─ ToastCloseTrigger
-```
+Сохраните идентификатор, который возвращает создание уведомления, и передайте его в
+`toaster.update()`, если существующее уведомление нужно изменить на месте.
 
-| Часть                          | Назначение                                                                            |
-| ------------------------------ | ------------------------------------------------------------------------------------- |
-| `Toast`               | Корень видимого уведомления.                                      |
-| `ToastToaster`        | Выводит хранилище toaster и управляет группой уведомлений.       |
-| `ToastTitle`          | Заголовок. Если дочерние элементы не переданы, использует `title` текущего уведомления. |
-| `ToastDescription`    | Описание. Если дочерние элементы не переданы, использует `description` текущего уведомления. |
-| `ToastActionTrigger`  | Кнопка действия, связанная с `toast.action.onClick`.             |
-| `ToastCloseTrigger`   | Кнопка закрытия. По умолчанию использует `CloseButton`.          |
-| `ToastContext`        | Контекстная часть для собственной композиции и прямого доступа к состоянию уведомления. |
+<Example name="toast/update" />
+
+### Длительность
+
+Задайте `duration` в миллисекундах, если уведомление должно исчезнуть раньше, оставаться дольше или
+ждать ручного закрытия. Для последнего варианта используйте `Infinity`.
+
+<Example name="toast/duration" />
+
+### Размещение
+
+Выберите один из шести вариантов Ark, если группа уведомлений должна появляться у определённого
+края окна.
+
+<Example name="toast/placement" />
+
+### Максимум видимых
+
+Установите `max` на toaster, если всплески уведомлений должны вставать в очередь, а не заполнять
+экран.
+
+<Example name="toast/max-toasts" />
+
+### Стек без перекрытия
+
+Задайте `overlap: false`, если каждое уведомление должно оставаться полностью видимым. Это настройка
+toaster, а не отдельный режим компонента.
+
+<Example name="toast/always-expanded" />
+
+### Своя композиция
+
+Используйте render prop, чтобы заменить стандартную разметку `ToastToaster`, добавить иконку, изменить
+иконку закрытия и применить CSS-переменные компонента.
+
+<Example name="toast/custom-composition" />
+
+### Сборка из частей
+
+То же уведомление, что в Basic, но с явной отрисовкой: функция в `ToastToaster` возвращает `Toast` с
+`ToastTitle`, `ToastDescription` и `ToastCloseTrigger` с явной иконкой. Встроенная отрисовка ещё
+добавляет спиннер в заголовок загрузки и `ToastActionTrigger`, если у уведомления есть действие. Начинайте с
+него, если уведомлениям нужны иконки или другая раскладка.
+
+<Example name="toast/build-from-parts" />
 
 ## Композиция
+
+moduix экспортирует `Toast`, `ToastToaster`, `createToaster` и `useToastContext` из
+`@moduix/react/toast`, `@moduix/solid/toast` и `@moduix/vue/toast`. Полный API хранилища и его
+частей приведён в справочнике Ark.
 
 Создайте toaster один раз и передайте тот же экземпляр в `ToastToaster`. В Vue создавайте его внутри
 `<script setup>`, чтобы у каждого экземпляра компонента было своё хранилище; общее для приложения
@@ -104,70 +122,23 @@ computed ref. Для `asChild` у кнопок действия и закрыт�
 до исправления этих вариантов композиции в upstream. Композиция с `asChild` у заголовка,
 описания, кнопки действия и кнопки закрытия поддерживается.
 
-## Примеры
+## Анатомия
 
-### Действие
+Наведите на часть или выберите её, чтобы найти её в превью.
 
-Добавьте `action: { label, onClick }`, если уведомление должно предложить одно прямое действие.
-
-<Example name="toast/action" />
-
-### Длительность
-
-Задайте `duration` в миллисекундах, если уведомление должно исчезнуть раньше, оставаться дольше или
-ждать ручного закрытия. Для последнего варианта используйте `Infinity`.
-
-<Example name="toast/duration" />
-
-### Максимум видимых
-
-Установите `max` на toaster, если всплески уведомлений должны вставать в очередь, а не заполнять
-экран.
-
-<Example name="toast/max-toasts" />
-
-### Стек без перекрытия
-
-Задайте `overlap: false`, если каждое уведомление должно оставаться полностью видимым. Это настройка
-toaster, а не отдельный режим компонента.
-
-<Example name="toast/always-expanded" />
-
-### Размещение
-
-Выберите один из шести вариантов Ark, если группа уведомлений должна появляться у определённого
-края окна.
-
-<Example name="toast/placement" />
-
-### Promise
-
-Используйте `toaster.promise()`, чтобы одно уведомление переходило из состояния загрузки в состояние
-успеха или ошибки после завершения асинхронной операции. Пока у уведомления тип `loading`, стандартная
-разметка показывает декоративный `Spinner` перед заголовком.
-
-<Example name="toast/promise-toast" />
-
-### Типы
-
-Используйте типизированные методы toaster для вариантов, зависящих от статуса. Moduix оформляет
-`info`, `success`, `warning` и `error` через `data-type`.
-
-<Example name="toast/types" />
-
-### Обновление
-
-Сохраните идентификатор, который возвращает создание уведомления, и передайте его в
-`toaster.update()`, если существующее уведомление нужно изменить на месте.
-
-<Example name="toast/update" />
-
-### Расширенная настройка
-
-Используйте render prop, чтобы заменить стандартную разметку `ToastToaster`, добавить иконку, изменить
-иконку закрытия и применить CSS-переменные компонента.
-
-<Example name="toast/custom-composition" />
+<AnatomyInspector
+  parts={[
+    ["ToastToaster", "toast-toaster", "Выводит хранилище toaster и управляет группой уведомлений.", 0],
+    ["Toast", "toast-root", "Корень видимого уведомления.", 1],
+    ["ToastTitle", "toast-title", "Заголовок. Если дочерние элементы не переданы, использует `title` текущего уведомления.", 2],
+    ["ToastDescription", "toast-description", "Описание. Если дочерние элементы не переданы, использует `description` текущего уведомления.", 2],
+    ["ToastActionTrigger", "toast-action-trigger", "Кнопка действия, связанная с `toast.action.onClick`.", 2],
+    ["ToastCloseTrigger", "toast-close-trigger", "Кнопка закрытия. По умолчанию использует `CloseButton`.", 2],
+    ["ToastContext", null, "Контекстная часть для собственной композиции и прямого доступа к состоянию уведомления.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Стилизация
 
@@ -179,9 +150,24 @@ CSS Modules также читают четыре переменные ниже; 
 
 ### CSS-переменные
 
-<CssPropertiesSection properties={ToastDocs.toastCssProperties} />
+Наведите на переменную или выберите её, чтобы увидеть её в превью.
+
+<CssPropertiesSection properties={ToastDocs.toastCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Хуки стилизации
+
+| Часть | `data-slot` |
+| --- | --- |
+| `ToastToaster` | `toast-toaster` |
+| `Toast` | `toast-root` |
+| `ToastTitle` | `toast-title` |
+| `ToastDescription` | `toast-description` |
+| `ToastActionTrigger` | `toast-action-trigger` |
+| `ToastCloseTrigger` | `toast-close-trigger` |
+
+- Селекторы состояния Ark: `data-type`, `data-state="open|closed"`, `data-placement`, `data-paused`, `data-first` и `data-overlap` на `Toast`.
 
 На корневом элементе задавайте стили поверхности, границы, анимации и вариантов по типу. Для
 внутренней типографики и элементов управления используйте `ToastTitle`, `ToastDescription`,
@@ -197,9 +183,28 @@ CSS Modules также читают четыре переменные ниже; 
 - `[data-scope='toast'][data-part='close-trigger']` на `ToastCloseTrigger`
 - `--x`, `--y`, `--scale`, `--z-index`, `--height`, `--opacity` и `--gap` на `Toast`
 
-Moduix также добавляет стабильные хуки: `data-slot="toast-toaster"`, `data-slot="toast-root"`,
-`data-slot="toast-title"`, `data-slot="toast-description"`, `data-slot="toast-action-trigger"`
-и `data-slot="toast-close-trigger"`.
-
 При ширине окна до `40rem` любое размещение центрируется по горизонтали. Уведомления сохраняют ширину
 `20rem` и сужаются, чтобы поместиться между `offsets` Ark и горизонтальными безопасными зонами экрана.
+
+## Клавиатура
+
+| Клавиша | Действие |
+| --- | --- |
+| `Alt+T` | Переводит фокус в область уведомлений. Меняется опцией hotkey. |
+| `Esc` | Закрывает уведомление в фокусе. |
+
+## Справочник API
+
+Опции `createToaster()`. Каждый вызов `toaster.create()` также принимает `title`, `description`, `type`, `duration`, `action` и `closable`.
+
+| Проп | Тип | По умолчанию | Описание |
+| --- | --- | --- | --- |
+| `placement` | `'top-start' \| 'top' \| 'top-end' \| 'bottom-start' \| 'bottom' \| 'bottom-end'` | `'bottom'` | Край экрана, у которого появляются уведомления. |
+| `max` | `number` | `24` | Максимум одновременно видимых уведомлений. |
+| `overlap` | `boolean` | `false` | Складывает уведомления стопкой до наведения. |
+| `duration` | `number` | — | Время показа по умолчанию в миллисекундах. |
+| `gap` | `number` | `16` | Расстояние между уведомлениями в пикселях. |
+| `offsets` | `string \| Record<Side, string>` | — | Отступ от краёв окна. |
+| `hotkey` | `string[]` | `['altKey', 'KeyT']` | Клавиши, которые переводят фокус в область уведомлений. |
+| `removeDelay` | `number` | `200` | Задержка перед удалением закрытого уведомления, для анимации выхода. |
+| `pauseOnPageIdle` | `boolean` | `true` | Останавливает таймеры, пока страница скрыта. |

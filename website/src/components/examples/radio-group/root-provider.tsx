@@ -5,8 +5,8 @@ import {
   RadioGroupRootProvider,
   useRadioGroup,
 } from '@moduix/react/radio-group';
+import { Stack } from '@moduix/react/stack';
 import { PreviewMeta } from '@/components/mdx/Components';
-import styles from '@/components/examples/radio-group/radio-group-root-provider.module.css';
 
 const frameworks = ['React', 'Solid', 'Vue'];
 
@@ -15,7 +15,7 @@ export default function RadioGroupRootProviderDemo() {
     defaultValue: 'React',
   });
   return (
-    <div className={styles.stack}>
+    <Stack align="center" gap="2">
       <RadioGroupRootProvider value={radioGroup}>
         <RadioGroupLabel>Framework</RadioGroupLabel>
         {frameworks.map((framework) => (
@@ -30,6 +30,6 @@ export default function RadioGroupRootProviderDemo() {
           Set to Solid
         </Button>
       </PreviewMeta>
-    </div>
+    </Stack>
   );
 }

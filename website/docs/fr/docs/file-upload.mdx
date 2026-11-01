@@ -1,19 +1,26 @@
 ---
 title: File Upload
 component: file-upload
-description: Composant Ark UI pour sélectionner, valider et prévisualiser des fichiers, avec prise en charge du glisser-déposer.
+description: Choisir ou déposer des fichiers avec contrôle du type, de la taille et du nombre.
+ark: https://ark-ui.com/docs/components/file-upload
 ---
 
-## Référence de l’API
+import AnatomyScene from '@/components/examples/file-upload/basic';
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/file-upload" />
+<Example name="file-upload/basic" />
 
-`FileUpload` est disponible depuis `@moduix/react/file-upload` et `@moduix/vue/file-upload`. Le composant ainsi que les hooks `useFileUpload` et
-`useFileUploadContext` sont également exportés par `@moduix/react`.
+## Installation
 
-Le même composant est disponible depuis `@moduix/solid/file-upload`, `@moduix/react-tailwind/file-upload`,
-`@moduix/solid-tailwind/file-upload` et `@moduix/vue-tailwind/file-upload`. Les six variantes exposent les mêmes parties et le même modèle d’état.
-Choisissez le paquet correspondant à votre framework et à votre solution de styles.
+<ComponentInstall />
+
+## Utilisation
+
+<Usage />
+
+Commencez par utiliser `FileUpload` comme composant racine. Ajoutez un `FileUploadLabel`, puis enveloppez un `Button` dans `FileUploadTrigger asChild` pour un contrôle
+compact ou `FileUploadDropzone` pour le glisser-déposer. Ajoutez explicitement `FileUploadHiddenInput` pour
+ouvrir le sélecteur natif. Placez `FileUploadItems` dans `FileUploadItemGroup` pour afficher les fichiers acceptés. `FileUploadItems` affiche une vignette uniquement lorsque le fichier
+possède un type MIME `image/*` ; les autres fichiers utilisent un aperçu générique.
 
 ## Choisir le bon composant
 
@@ -21,141 +28,7 @@ Utilisez `FileUpload` lorsque l’application doit conserver les fichiers sélec
 afficher une zone de dépôt ou gérer un flux d’envoi. Un `Input` avec `type="file"` suffit pour un
 sélecteur natif dans un formulaire simple.
 
-## Exemple de base
-
-
-Commencez par utiliser `FileUpload` comme composant racine. Ajoutez un `FileUploadLabel`, puis enveloppez un `Button` dans `FileUploadTrigger asChild` pour un contrôle
-compact ou `FileUploadDropzone` pour le glisser-déposer. Ajoutez explicitement `FileUploadHiddenInput` pour
-ouvrir le sélecteur natif. Placez `FileUploadItems` dans `FileUploadItemGroup` pour afficher les fichiers acceptés. `FileUploadItems` affiche une vignette uniquement lorsque le fichier
-possède un type MIME `image/*` ; les autres fichiers utilisent un aperçu générique.
-
-<Example name="file-upload/basic" />
-
-## Installation avec shadcn
-
-Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration complète du paquet, du registre et des styles.
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/file-upload' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/file-upload' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/file-upload' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/file-upload' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/file-upload' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/file-upload' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Anatomie
-
-```text
-FileUpload / FileUploadRootProvider
-├─ FileUploadLabel
-├─ FileUploadDropzone (facultatif)
-│  ├─ FileUploadDropzoneIcon
-│  └─ FileUploadTrigger
-├─ FileUploadTrigger (sans `FileUploadDropzone`)
-├─ FileUploadItemGroup[type]
-│  ├─ FileUploadItems
-│  └─ FileUploadContext
-│     └─ FileUploadItem[file]
-│        ├─ FileUploadItemPreview[type]
-│        │  ├─ FileUploadItemPreviewImage
-│        │  └─ FileUploadItemPreviewIcon
-│        ├─ FileUploadItemName
-│        ├─ FileUploadItemMetadata[file]
-│        ├─ FileUploadItemSizeText
-│        └─ FileUploadItemDeleteTrigger
-├─ FileUploadClearTrigger
-└─ FileUploadHiddenInput (explicite)
-```
-
-| Partie | Rôle |
-| -------------------------------- | ------------------------------------------------------------------------ |
-| `FileUpload` / `FileUploadRootProvider` | Gère l’état des fichiers, la validation, le glisser-déposer, le collage et l’intégration aux formulaires. |
-| `FileUploadHiddenInput` | Champ natif d’Ark ; composition explicite décrite ci-dessous. |
-| `FileUploadRootProvider` | Relie l’arbre du composant à l’état renvoyé par le hook `useFileUpload`. |
-| `FileUploadLabel` | Libellé accessible pour le champ de fichier masqué et les contrôles de téléversement. |
-| `FileUploadDropzone` | Zone de dépôt. Passez `disableClick` si elle contient un `FileUploadTrigger` imbriqué, afin de ne pas ouvrir deux fois le sélecteur. |
-| `FileUploadDropzoneIcon` | Icône de téléversement décorative pour une `FileUploadDropzone`. |
-| `FileUploadTrigger` | Bouton sans style qui ouvre le sélecteur de fichiers natif. Composez-le avec un `Button` via `asChild`. |
-| `FileUploadItemGroup` | Liste des fichiers acceptés ou rejetés. |
-| `FileUploadItems` | Composant prêt à l’emploi qui affiche des cartes pour les images et des lignes pour les autres fichiers, avec aperçu, métadonnées et suppression. |
-| `FileUploadContext` | Contexte compatible avec Ark et basé sur une fonction de rendu pour créer des lignes personnalisées. |
-| `FileUploadItem` | Ligne de fichier. Transmettez-lui l’objet `file` courant. |
-| `FileUploadItemPreview` | Emplacement d’aperçu affiché selon le type MIME du fichier. |
-| `FileUploadItemPreviewImage` | Aperçu d’image à l’intérieur de `FileUploadItemPreview`. |
-| `FileUploadItemPreviewIcon` | Icône de fichier générique pour un aperçu de secours dans `FileUploadItemPreview`. |
-| `FileUploadItemName` | Nom du fichier. |
-| `FileUploadItemMetadata` | Type du fichier et taille formatée selon la locale. Passez-lui l’objet `file` courant. |
-| `FileUploadItemSizeText` | Taille du fichier formatée selon la locale. |
-| `FileUploadItemDeleteTrigger` | Supprime un fichier. Utilise par défaut l’icône de corbeille moduix ; son nom vient de `translations.deleteFile` d’Ark. |
-| `FileUploadClearTrigger` | Bouton sans style qui efface les fichiers acceptés ; masqué tant que la liste est vide. Composez-le avec un `Button` via `asChild`. |
-
-## Composition
-
-`FileUpload` conserve l’état des fichiers en interne par défaut. Utilisez `defaultAcceptedFiles` pour une valeur initiale
-non contrôlée, ou associez `acceptedFiles` à `onFileChange(details)` lorsque l’application possède cet état. Utilisez
-`useFileUpload()` avec `FileUploadRootProvider` lorsque l’état ou les méthodes doivent être créés en dehors de l’arbre rendu.
-
-Ajoutez explicitement `FileUploadHiddenInput` dans `FileUpload` ou `FileUploadRootProvider`, même hors d’un formulaire, car `FileUploadTrigger` l’utilise
-pour ouvrir le sélecteur natif. Définissez `name` sur la racine pour la soumission native du formulaire. Si `FileUploadTrigger` est imbriqué
-dans `FileUploadDropzone`, passez `disableClick` afin que le sélecteur ne s’ouvre qu’une seule fois.
-
-Utilisez `FileUploadItems` dans `FileUploadItemGroup` pour les lignes de fichiers par défaut. Pour créer vos propres lignes, rendez
-`FileUploadContext` et choisissez un seul aperçu par fichier depuis `acceptedFiles` ou `rejectedFiles`.
-
 ## Exemples
-
-### Types de fichiers acceptés
-
-Utilisez `accept` pour restreindre à la fois le sélecteur de fichiers natif et la validation du glisser-déposer. Vous pouvez
-indiquer des types MIME ou des extensions de fichiers.
-
-<Example name="file-upload/accepted-file-types" />
-
-### Effacer la liste de fichiers
-
-Utilisez `FileUploadClearTrigger` pour supprimer tous les fichiers acceptés en une seule action.
-
-<Example name="file-upload/clear-trigger" />
-
-### État contrôlé
-
-Contrôlez `acceptedFiles` lorsque les fichiers sélectionnés doivent rester synchronisés avec l’état de l’application ou un
-parcours en plusieurs étapes. Mettez la valeur à jour depuis `onFileChange(details)`.
-
-<Example name="file-upload/controlled" />
-
-### Téléversement d’un dossier
-
-Utilisez `directory` pour laisser l’utilisateur sélectionner un dossier. Dans les navigateurs compatibles, le chemin relatif
-de chaque fichier est disponible via `file.webkitRelativePath`. Définissez `maxFiles` à une valeur suffisamment élevée, ou
-omettez-la si le nombre de fichiers est inconnu.
-
-<Example name="file-upload/directory-upload" />
 
 ### Dropzone
 
@@ -164,12 +37,12 @@ aussi ouvrir le sélecteur au clavier.
 
 <Example name="file-upload/dropzone" />
 
-### Gestion des erreurs
+### Types de fichiers acceptés
 
-Utilisez `onFileReject(details)` pour afficher un message adapté à l’application. Définissez les contraintes intégrées,
-comme `accept`, `maxFiles` et `maxFileSize`, sur le composant racine. Ajoutez `validate(file, details)` pour vos propres contrôles.
+Utilisez `accept` pour restreindre à la fois le sélecteur de fichiers natif et la validation du glisser-déposer. Vous pouvez
+indiquer des types MIME ou des extensions de fichiers.
 
-<Example name="file-upload/error-handling" />
+<Example name="file-upload/accepted-file-types" />
 
 ### Aperçus des fichiers
 
@@ -179,18 +52,25 @@ l’un des éléments ou ajoutez vos propres fichiers pour tester ces deux prés
 
 <Example name="file-upload/file-previews" />
 
-### Utilisation dans un formulaire
-
-Passez `name` au composant racine et ajoutez `FileUploadHiddenInput` ; les fichiers sélectionnés
-participent alors à la soumission et à la réinitialisation du formulaire.
-
-<Example name="file-upload/form-usage" />
-
 ### Fichiers initiaux
 
 Utilisez `defaultAcceptedFiles` pour précharger des fichiers, puis laissez le composant gérer la sélection.
 
 <Example name="file-upload/initial-files" />
+
+### Effacer la liste de fichiers
+
+Utilisez `FileUploadClearTrigger` pour supprimer tous les fichiers acceptés en une seule action.
+
+<Example name="file-upload/clear-trigger" />
+
+### Téléversement d’un dossier
+
+Utilisez `directory` pour laisser l’utilisateur sélectionner un dossier. Dans les navigateurs compatibles, le chemin relatif
+de chaque fichier est disponible via `file.webkitRelativePath`. Définissez `maxFiles` à une valeur suffisamment élevée, ou
+omettez-la si le nombre de fichiers est inconnu.
+
+<Example name="file-upload/directory-upload" />
 
 ### Capture avec l’appareil photo
 
@@ -207,13 +87,12 @@ la validation a échoué.
 
 <Example name="file-upload/rejected-files" />
 
-### Root Provider et collage de fichiers
+### Gestion des erreurs
 
-Utilisez `useFileUpload` avec `FileUploadRootProvider` lorsque l’état ou les méthodes doivent être gérés en dehors de l’arbre de
-téléversement affiché. Dans cet exemple, `setClipboardFiles` transmet à l’état du composant les fichiers collés dans une
-zone de texte.
+Utilisez `onFileReject(details)` pour afficher un message adapté à l’application. Définissez les contraintes intégrées,
+comme `accept`, `maxFiles` et `maxFileSize`, sur le composant racine. Ajoutez `validate(file, details)` pour vos propres contrôles.
 
-<Example name="file-upload/root-provider-and-paste" />
+<Example name="file-upload/error-handling" />
 
 ### Transformation des fichiers
 
@@ -228,13 +107,86 @@ ou indiquer qu’il est obligatoire ou invalide.
 
 <Example name="file-upload/with-field" />
 
-### Personnalisation avancée
+### Utilisation dans un formulaire
 
-Remplacez `FileUploadItems` par vos propres lignes lorsque vous avez besoin d’aperçus selon le type MIME, de métadonnées supplémentaires
-ou d’une autre disposition. La composition explicite avec `FileUploadContext` vous permet de conserver l’accès à l’état Ark
-et de choisir un aperçu d’image ou un aperçu de secours pour chaque fichier.
+Passez `name` au composant racine et ajoutez `FileUploadHiddenInput` ; les fichiers sélectionnés
+participent alors à la soumission et à la réinitialisation du formulaire.
 
-<Example name="file-upload/advanced-customization" />
+<Example name="file-upload/form-usage" />
+
+### État contrôlé
+
+Contrôlez `acceptedFiles` lorsque les fichiers sélectionnés doivent rester synchronisés avec l’état de l’application ou un
+parcours en plusieurs étapes. Mettez la valeur à jour depuis `onFileChange(details)`. Voir [Contrôler l’état depuis l’application](/docs/composition-patterns#controlled-state).
+
+<Example name="file-upload/controlled" />
+
+### Root Provider et collage de fichiers
+
+Utilisez `useFileUpload` avec `FileUploadRootProvider` lorsque l’état ou les méthodes doivent être gérés en dehors de l’arbre de
+téléversement affiché. Dans cet exemple, `setClipboardFiles` transmet à l’état du composant les fichiers collés dans une
+zone de texte. Voir [Partager l’état hors de l’arbre](/docs/composition-patterns#root-provider).
+
+<Example name="file-upload/root-provider-and-paste" />
+
+### Assembler à partir des parties
+
+Le même envoi que Basic, sans `FileUploadItems` : `FileUploadContext` fournit les fichiers acceptés,
+et chaque `FileUploadItem` contient l’aperçu, le nom, les métadonnées et un déclencheur de suppression
+avec une icône explicite. Partez de cet exemple quand les lignes ont besoin d’aperçus selon le type
+MIME, de métadonnées supplémentaires ou d’une autre mise en page.
+
+<Example name="file-upload/build-from-parts" />
+
+## Composition
+
+`FileUpload` est disponible depuis `@moduix/react/file-upload` et `@moduix/vue/file-upload`. Le composant ainsi que les hooks `useFileUpload` et
+`useFileUploadContext` sont également exportés par `@moduix/react`.
+
+Le même composant est disponible depuis `@moduix/solid/file-upload`, `@moduix/react-tailwind/file-upload`,
+`@moduix/solid-tailwind/file-upload` et `@moduix/vue-tailwind/file-upload`. Les six variantes exposent les mêmes parties et le même modèle d’état.
+Choisissez le paquet correspondant à votre framework et à votre solution de styles.
+
+`FileUpload` conserve l’état des fichiers en interne par défaut. Utilisez `defaultAcceptedFiles` pour une valeur initiale
+non contrôlée, ou associez `acceptedFiles` à `onFileChange(details)` lorsque l’application contrôle cet état. Utilisez
+`useFileUpload()` avec `FileUploadRootProvider` lorsque l’état ou les méthodes doivent être créés en dehors de l’arbre rendu.
+
+Ajoutez explicitement `FileUploadHiddenInput` dans `FileUpload` ou `FileUploadRootProvider`, même hors d’un formulaire, car `FileUploadTrigger` l’utilise
+pour ouvrir le sélecteur natif. Définissez `name` sur la racine pour la soumission native du formulaire. Si `FileUploadTrigger` est imbriqué
+dans `FileUploadDropzone`, passez `disableClick` afin que le sélecteur ne s’ouvre qu’une seule fois.
+
+Utilisez `FileUploadItems` dans `FileUploadItemGroup` pour les lignes de fichiers par défaut. Pour créer vos propres lignes, rendez
+`FileUploadContext` et choisissez un seul aperçu par fichier depuis `acceptedFiles` ou `rejectedFiles`.
+
+## Anatomie
+
+Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
+
+<AnatomyInspector
+  parts={[
+    ["FileUpload / FileUploadRootProvider", "file-upload-root", "Gère l’état des fichiers, la validation, le glisser-déposer, le collage et l’intégration aux formulaires.", 0],
+    ["FileUploadLabel", "file-upload-label", "Libellé accessible pour le champ de fichier masqué et les contrôles de téléversement.", 1],
+    ["FileUploadDropzone", "file-upload-dropzone", "Zone de dépôt. Passez `disableClick` si elle contient un `FileUploadTrigger` imbriqué, afin de ne pas ouvrir deux fois le sélecteur.", 1],
+    ["FileUploadDropzoneIcon", "file-upload-dropzone-icon", "Icône de téléversement décorative pour une `FileUploadDropzone`.", 2],
+    ["FileUploadTrigger", "file-upload-trigger", "Bouton sans style qui ouvre le sélecteur de fichiers natif. Composez-le avec un `Button` via `asChild`.", 2],
+    ["FileUploadItemGroup", "file-upload-item-group", "Liste des fichiers acceptés ou rejetés.", 1],
+    ["FileUploadItems", "", "Composant prêt à l’emploi qui affiche des cartes pour les images et des lignes pour les autres fichiers, avec aperçu, métadonnées et suppression.", 2],
+    ["FileUploadContext", null, "Contexte compatible avec Ark et basé sur une fonction de rendu pour créer des lignes personnalisées.", 2],
+    ["FileUploadItem", "file-upload-item", "Ligne de fichier. Transmettez-lui l’objet `file` courant.", 3],
+    ["FileUploadItemPreview", "file-upload-item-preview", "Emplacement d’aperçu affiché selon le type MIME du fichier.", 4],
+    ["FileUploadItemPreviewImage", "file-upload-item-preview-image", "Aperçu d’image à l’intérieur de `FileUploadItemPreview`.", 5],
+    ["FileUploadItemPreviewIcon", "file-upload-item-preview-icon", "Icône de fichier générique pour un aperçu de secours dans `FileUploadItemPreview`.", 5],
+    ["FileUploadItemName", "file-upload-item-name", "Nom du fichier.", 4],
+    ["FileUploadItemMetadata", "file-upload-item-metadata", "Type du fichier et taille formatée selon la locale. Passez-lui l’objet `file` courant.", 4],
+    ["FileUploadItemSizeText", "file-upload-item-size-text", "Taille du fichier formatée selon la locale.", 4],
+    ["FileUploadItemDeleteTrigger", "file-upload-item-delete-trigger", "Supprime un fichier. Utilise par défaut l’icône de corbeille moduix ; son nom vient de `translations.deleteFile` d’Ark.", 4],
+    ["FileUploadClearTrigger", "file-upload-clear-trigger", "Bouton sans style qui efface les fichiers acceptés ; masqué tant que la liste est vide. Composez-le avec un `Button` via `asChild`.", 1],
+    ["FileUploadHiddenInput", "", "Champ natif d’Ark ; composition explicite décrite ci-dessous.", 1],
+    ["FileUploadRootProvider", "file-upload-root-provider", "Relie l’arbre du composant à l’état renvoyé par le hook `useFileUpload`.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styles
 
@@ -248,7 +200,57 @@ grille aux zones nommées `preview`, `name`, `meta` et `delete` : un enfant pers
 
 ### Points d’accroche CSS
 
-Utilisez des slots moduix stables, comme `[data-slot="file-upload-dropzone"]`,
-`[data-slot="file-upload-item"]` et `[data-slot="file-upload-item-delete-trigger"]`.
+| Partie | `data-slot` |
+| --- | --- |
+| `FileUpload` | `file-upload-root` |
+| `FileUploadRootProvider` | `file-upload-root-provider` |
+| `FileUploadLabel` | `file-upload-label` |
+| `FileUploadDropzone` | `file-upload-dropzone` |
+| `FileUploadDropzoneIcon` | `file-upload-dropzone-icon` |
+| `FileUploadTrigger` | `file-upload-trigger` |
+| `FileUploadItemGroup` | `file-upload-item-group` |
+| `FileUploadItem` | `file-upload-item` |
+| `FileUploadItemPreview` | `file-upload-item-preview` |
+| `FileUploadItemPreviewImage` | `file-upload-item-preview-image` |
+| `FileUploadItemPreviewIcon` | `file-upload-item-preview-icon` |
+| `FileUploadItemName` | `file-upload-item-name` |
+| `FileUploadItemSizeText` | `file-upload-item-size-text` |
+| `FileUploadItemMetadata` | `file-upload-item-metadata` |
+| `FileUploadItemDeleteTrigger` | `file-upload-item-delete-trigger` |
+| `FileUploadClearTrigger` | `file-upload-clear-trigger` |
+
 Ark expose également `data-scope="file-upload"`, `data-part` pour les parties et les attributs d’état tels que
 `data-disabled`, `data-readonly`, `data-invalid`, `data-required`, `data-dragging` et `data-type`.
+
+## Clavier
+
+| Touche | Action |
+| --- | --- |
+| `Enter` / `Space` | Ouvre le sélecteur depuis le déclencheur ou la zone de dépôt. |
+
+## Référence de l’API
+
+| Prop | Type | Défaut | Description |
+| --- | --- | --- | --- |
+| `accept` | `string \| string[] \| Record<string, string[]>` | — | Types de fichiers acceptés, en types MIME ou extensions. |
+| `maxFiles` | `number` | `1` | Nombre maximal de fichiers. |
+| `maxFileSize` | `number` | `Infinity` | Taille maximale d’un fichier en octets. |
+| `minFileSize` | `number` | `0` | Taille minimale d’un fichier en octets. |
+| `acceptedFiles` | `File[]` | — | Fichiers acceptés en mode contrôlé. |
+| `defaultAcceptedFiles` | `File[]` | — | Fichiers acceptés initiaux. |
+| `onFileChange` | `(details: FileChangeDetails) => void` | — | Appelé avec les fichiers acceptés et refusés après chaque changement. |
+| `onFileAccept` | `(details: FileAcceptDetails) => void` | — | Appelé avec les nouveaux fichiers acceptés. |
+| `onFileReject` | `(details: FileRejectDetails) => void` | — | Appelé avec les fichiers refusés et leurs erreurs. |
+| `validate` | `(file: File, details: FileValidateDetails) => FileError[] \| null` | — | Vérification personnalisée qui renvoie des erreurs, ou `null`. |
+| `allowDrop` | `boolean` | `true` | Accepte les fichiers déposés dans la zone. |
+| `directory` | `boolean` | `false` | Permet de choisir un dossier (navigateurs WebKit seulement). |
+| `capture` | `'user' \| 'environment'` | — | Caméra à utiliser sur mobile : `user` ou `environment`. |
+| `transformFiles` | `(files: File[]) => Promise<File[]>` | — | Transforme les fichiers acceptés avant leur stockage, par exemple pour compresser des images. |
+| `name` | `string` | — | Nom du champ de formulaire de l’input sous-jacent. |
+| `disabled` | `boolean` | `false` | Désactive le contrôle. |
+| `readOnly` | `boolean` | `false` | Affiche la valeur sans permettre de la modifier. |
+| `invalid` | `boolean` | `false` | Marque le champ comme invalide. |
+| `required` | `boolean` | `false` | Exige une valeur avant l’envoi du formulaire. |
+| `translations` | `IntlTranslations` | — | Textes localisés des libellés d’accessibilité. |
+| `preventDocumentDrop` | `boolean` | `true` | Empêche le navigateur d’ouvrir un fichier déposé hors de la zone. |
+| `locale` | `string` | `'en-US'` | Locale du formatage ; par défaut celle du `LocaleProvider` le plus proche. |

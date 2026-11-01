@@ -7,6 +7,7 @@ import {
   ClipboardTrigger,
   ClipboardValueText,
 } from '@moduix/vue/clipboard';
+import { Stack } from '@moduix/vue/stack';
 import styles from '@/components/examples/clipboard/component-context.module.css';
 </script>
 
@@ -19,9 +20,9 @@ import styles from '@/components/examples/clipboard/component-context.module.css
       </ClipboardTrigger>
     </ClipboardControl>
     <ClipboardContext v-slot="clipboard">
-      <div :class="styles.stack">
+      <Stack align="center" gap="2">
         <output>Copied: {{ String(clipboard.copied) }}</output>
-      </div>
+      </Stack>
     </ClipboardContext>
   </Clipboard>
 </template>

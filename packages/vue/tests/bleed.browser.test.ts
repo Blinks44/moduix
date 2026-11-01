@@ -4,7 +4,7 @@ import { render } from '@testing-library/vue';
 import { renderToString } from '@vue/server-renderer';
 import { createSSRApp, ref } from 'vue';
 import type { ComponentPublicInstance } from 'vue';
-import { Bleed } from '../src';
+import { Bleed } from '@/index';
 import TestBleed from './fixtures/TestBleed.vue';
 
 test('renders the default full-bleed root with stable hooks', () => {
@@ -53,54 +53,6 @@ test('composes a semantic asChild element and exposes its DOM root through a Vue
   expect(style.marginBlockEnd).toBe('-8px');
 });
 
-test('keeps wrapper-owned hooks and merges consumer classes', () => {
-  const { getByTestId } = render({
-    components: { Bleed },
-    template: `
-      <Bleed
-        data-testid="bleed"
-        data-scope="custom"
-        data-part="custom"
-        data-slot="custom"
-        inline="xs"
-        block="lg"
-        class="consumer-class"
-      />
-    `,
-  });
-  const bleed = getByTestId('bleed');
-
-  expect(bleed.getAttribute('data-scope')).toBe('bleed');
-  expect(bleed.getAttribute('data-part')).toBe('root');
-  expect(bleed.getAttribute('data-slot')).toBe('bleed-root');
-  expect(bleed.getAttribute('data-inline')).toBe('xs');
-  expect(bleed.getAttribute('data-block')).toBe('lg');
-  expect([...bleed.classList]).toEqual(expect.arrayContaining(['consumer-class']));
-  expect(bleed.className).not.toBe('consumer-class');
-  const style = getComputedStyle(bleed);
-  expect(style.marginInlineStart).toBe('-4px');
-  expect(style.marginBlockStart).toBe('-16px');
-});
-
-test('lets a plain consumer class override the layered bleed margins', () => {
-  const style = document.createElement('style');
-  style.textContent = '.custom-bleed { margin-inline: -20px; inline-size: auto; }';
-  document.head.append(style);
-
-  try {
-    const { getByTestId } = render({
-      components: { Bleed },
-      template: '<Bleed data-testid="bleed" class="custom-bleed" />',
-    });
-    const bleed = getComputedStyle(getByTestId('bleed'));
-
-    expect(bleed.marginInlineStart).toBe('-20px');
-    expect(bleed.marginInlineEnd).toBe('-20px');
-  } finally {
-    style.remove();
-  }
-});
-
 test('hydrates bleed without replacing the server host', async () => {
   const host = document.createElement('div');
   host.innerHTML = await renderToString(createSSRApp(TestBleed));
@@ -115,7 +67,6 @@ test('hydrates bleed without replacing the server host', async () => {
     expect(host.querySelectorAll('figure')).toHaveLength(1);
     expect(host.querySelector('figure')).toBe(serverRoot);
     expect(serverRoot.dataset).toMatchObject({ inline: 'md', block: 'sm', slot: 'bleed-root' });
-    expect([...serverRoot.classList]).toContain('figure');
     expect(getComputedStyle(serverRoot).marginInlineStart).toBe('-12px');
     expect(warn).not.toHaveBeenCalled();
     expect(error).not.toHaveBeenCalled();

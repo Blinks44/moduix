@@ -6,9 +6,9 @@ import {
   PinInputControl,
   PinInputInput,
 } from '@moduix/react/pin-input';
+import { Stack } from '@moduix/react/stack';
 import { useId } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';
-import styles from '@/components/examples/pin-input/pin-input-root-provider.module.css';
 
 export default function RootProviderPinInput() {
   const id = useId();
@@ -17,7 +17,7 @@ export default function RootProviderPinInput() {
     count: 6,
   });
   return (
-    <div className={styles.root}>
+    <Stack align="center" gap="4">
       <PinInputRootProvider value={pinInput}>
         <PinInputLabel>Verification code</PinInputLabel>
         <PinInputControl>
@@ -40,6 +40,6 @@ export default function RootProviderPinInput() {
           Clear
         </Button>
       </PreviewMeta>
-    </div>
+    </Stack>
   );
 }

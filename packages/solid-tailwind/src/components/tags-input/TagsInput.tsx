@@ -55,7 +55,7 @@ function TagsInputControl(props: ComponentProps<typeof TagsInputPrimitive.Contro
   return (
     <TagsInputPrimitive.Control
       class={cn(
-        'group flex min-h-control-md w-full flex-wrap items-center gap-1 rounded-md border border-border bg-background px-2 py-[0.3125rem] outline-focus-inset outline-offset-focus-inset outline-transparent transition-[border-color,outline-color] duration-normal ease-in-out data-disabled:pointer-events-none data-focus:outline-ring data-invalid:border-destructive data-invalid:data-focus:outline-destructive',
+        'group flex min-h-control-md w-full flex-wrap items-center gap-1 rounded-md border border-input bg-background px-2 py-[0.3125rem] outline-focus-halo outline-transparent transition-[border-color,outline-color] duration-normal ease-in-out data-disabled:pointer-events-none data-focus:border-ring data-focus:outline-ring/50 data-invalid:border-destructive data-invalid:data-focus:outline-destructive/20',
         local.class,
       )}
       {...others}
@@ -112,7 +112,7 @@ function TagsInputItemDeleteTrigger(
   return (
     <TagsInputPrimitive.ItemDeleteTrigger
       class={cn(
-        'inline-flex size-4 shrink-0 cursor-pointer items-center justify-center rounded-full border-0 bg-transparent p-0 text-inherit outline-0 transition-[background-color,box-shadow] duration-normal ease-in-out group-data-readonly:hidden focus-visible:ring-1 focus-visible:ring-ring data-disabled:pointer-events-none data-disabled:opacity-disabled [&>svg]:pointer-events-none [&>svg]:size-3 [&>svg]:shrink-0 [:is([data-slot=tags-input-root],[data-slot=tags-input-root-provider])[data-disabled]_&]:opacity-100 [@media(hover:hover)]:hover:bg-current/12',
+        'inline-flex size-4 shrink-0 cursor-pointer items-center justify-center rounded-full border-0 bg-transparent p-0 text-inherit outline-0 transition-[background-color,box-shadow] duration-normal ease-in-out group-data-readonly:hidden focus-visible:ring-(length:--moduix-focus-ring-inset-width) focus-visible:ring-ring data-disabled:pointer-events-none data-disabled:opacity-disabled [&>svg]:pointer-events-none [&>svg]:size-3 [&>svg]:shrink-0 [:is([data-slot=tags-input-root],[data-slot=tags-input-root-provider])[data-disabled]_&]:opacity-100 [@media(hover:hover)]:hover:bg-current/12',
         local.class,
       )}
       {...others}

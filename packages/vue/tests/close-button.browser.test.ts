@@ -3,7 +3,7 @@ import { expect, rs, test } from '@rstest/core';
 import { render, screen } from '@testing-library/vue';
 import { nextTick, ref } from 'vue';
 import type { ComponentPublicInstance } from 'vue';
-import { CloseButton } from '../src';
+import { CloseButton } from '@/index';
 
 test('respects stopImmediatePropagation from a consumer capture listener', async () => {
   const handleClick = rs.fn();

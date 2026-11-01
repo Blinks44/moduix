@@ -1,21 +1,21 @@
 ---
 title: Simple Grid
 component: simple-grid
-description: Build responsive equal-column grids in React, Solid, or Vue with package and shadcn installation options.
+description: Lay out cards and tiles in equal columns that adapt to the width.
+ark: https://ark-ui.com/docs/guides/composition
 ---
 
+import AnatomyScene from '@/components/examples/simple-grid/basic';
 
-## API Reference
+<Example name="simple-grid/basic" />
 
-`SimpleGrid` is not an Ark UI primitive. moduix provides it as a small layout wrapper built with
-Ark's factory. It follows Ark's guidance for [composition](https://ark-ui.com/docs/guides/composition),
-[styling](https://ark-ui.com/docs/guides/styling), and [refs](https://ark-ui.com/docs/guides/ref).
-Its `columns` and `minChildWidth` props borrow the layout model from Chakra UI
-[SimpleGrid](https://chakra-ui.com/docs/components/simple-grid), but moduix does not include Chakra's
-responsive style props.
+## Installation
 
-## Basic
+<ComponentInstall />
 
+## Usage
+
+<Usage />
 
 Use `minChildWidth` when the number of equal columns should follow the available width. The component
 uses CSS Grid `auto-fit` and `minmax()`; numeric values are treated as pixels, while strings can
@@ -24,60 +24,29 @@ contain any valid CSS length.
 The number of columns changes with the root width, and the children remain direct grid items. If a
 child contains unbreakable content, add `min-width: 0` or an appropriate overflow rule to that child.
 
-<Example name="simple-grid/basic" />
+## Examples
 
-## Install with shadcn
+### Fixed columns
 
-See [Quick Start](/docs/quick-start) for full package setup, registry configuration, and styling guidance.
+Use `columns` when the number of equal columns should stay fixed, such as in a compact metrics grid.
 
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
+<Example name="simple-grid/fixed-columns" />
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/simple-grid' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/simple-grid' },
-  ]}
-/>
+### Media gallery
 
-  </Tab>
-  <Tab label="Solid" value="solid">
+Use `asChild` when the grid itself should carry list semantics. This example renders the root as a
+`ul` and keeps each image in a direct `li` child.
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/simple-grid' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/simple-grid' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/simple-grid' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/simple-grid' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Anatomy
-
-`SimpleGrid` renders one CSS Grid root and does not add wrappers around its children.
-
-```text
-SimpleGrid
-└─ root[data-scope="simple-grid"][data-part="root"][data-slot="simple-grid-root"]
-   └─ children
-```
-
-| Part         | Role                                                   |
-| ------------ | ------------------------------------------------------ |
-| `SimpleGrid` | Root wrapper that creates equal-width CSS Grid columns. |
+<Example name="simple-grid/media-gallery" />
 
 ## Composition
+
+`SimpleGrid` is not an Ark UI primitive. moduix provides it as a small layout wrapper built with
+Ark's factory. It follows Ark's guidance for [composition](https://ark-ui.com/docs/guides/composition),
+[styling](https://ark-ui.com/docs/guides/styling), and [refs](https://ark-ui.com/docs/guides/ref).
+Its `columns` and `minChildWidth` props borrow the layout model from Chakra UI
+[SimpleGrid](https://chakra-ui.com/docs/components/simple-grid), but moduix does not include Chakra's
+responsive style props.
 
 Use `<SimpleGrid>` as the root. Choose either `minChildWidth` for an intrinsic column count or
 `columns` for a fixed count. If both are provided, `minChildWidth` takes priority.
@@ -89,20 +58,19 @@ form to return that element. For named grid areas,
 unequal tracks, or items that span tracks, omit both layout props and define the grid template in
 your own class, including responsive templates in media queries.
 
-## Examples
+## Anatomy
 
-### Fixed Columns
+`SimpleGrid` renders one CSS Grid root and does not add wrappers around its children.
 
-Use `columns` when the number of equal columns should stay fixed, such as in a compact metrics grid.
+Hover or focus a part to find it in the preview.
 
-<Example name="simple-grid/fixed-columns" />
-
-### Media Gallery
-
-Use `asChild` when the grid itself should carry list semantics. This example renders the root as a
-`ul` and keeps each image in a direct `li` child.
-
-<Example name="simple-grid/media-gallery" />
+<AnatomyInspector
+  parts={[
+    ["SimpleGrid", "simple-grid-root", "Root wrapper that creates equal-width CSS Grid columns.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styling
 
@@ -117,11 +85,26 @@ both styling tracks.
 
 ### Styling hooks
 
+| Part | `data-slot` |
+| --- | --- |
+| `SimpleGrid` | `simple-grid-root` |
+
 - `className` or `class` styles the rendered root, including `display` and a responsive
   `grid-template-columns` when both layout props are omitted.
 - `data-scope="simple-grid"` and `data-part="root"` follow Ark's styling conventions.
-- `data-slot="simple-grid-root"` is the stable moduix selector for local CSS.
 - `columns`, `minChildWidth`, `gap`, `rowGap`, and `columnGap` write inline styles and take priority
   over declarations from consumer classes.
 - `style` is merged after those props and is the final per-instance override.
 - The component exposes no state or animation styling hooks.
+
+## API reference
+
+Also accepts the native props of its element and `asChild`.
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `minChildWidth` | `number \| string` | — | Minimum column width; columns fit the available space. |
+| `columns` | `number` | — | Fixed number of columns. |
+| `gap` | `number \| string` | — | Gap between cells; numbers are pixels. |
+| `rowGap` | `number \| string` | — | Gap between rows. |
+| `columnGap` | `number \| string` | — | Gap between columns. |

@@ -7,8 +7,8 @@ import {
   SliderThumbs,
   SliderTrack,
 } from '@moduix/solid/slider';
+import { Stack } from '@moduix/solid/stack';
 import { createSignal } from 'solid-js';
-import styles from '@/components/examples/slider/slider-vertical-with-marks.module.css';
 
 const marks = [0, 25, 50, 75, 100];
 
@@ -16,7 +16,7 @@ export default function VerticalMarksSliderDemo() {
   const [value, setValue] = createSignal([50]);
 
   return (
-    <div class={styles.stack}>
+    <Stack align="center" gap="3">
       <Slider
         aria-label={['Output']}
         orientation="vertical"
@@ -36,6 +36,6 @@ export default function VerticalMarksSliderDemo() {
         </SliderMarkerGroup>
       </Slider>
       <output>Output: {value().join(', ')}</output>
-    </div>
+    </Stack>
   );
 }

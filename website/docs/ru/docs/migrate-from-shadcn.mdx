@@ -203,14 +203,32 @@ import '@moduix/vue/style.css';
 import '@/lib/moduix/styles/style.css';
 ```
 
-Семантические токены можно настроить в собственном CSS:
+Цветовые токены moduix называются так же, как в shadcn/ui, но с префиксом `--moduix-`. Свяжите их
+с вашими значениями, и на время переноса у обеих библиотек будет одна палитра:
 
 ```css title="app.css"
 :root {
-  --moduix-color-accent: oklch(58% 0.18 260deg);
-  --moduix-radius-md: 0.625rem;
+  --moduix-background: var(--background);
+  --moduix-foreground: var(--foreground);
+  --moduix-primary: var(--primary);
+  --moduix-primary-foreground: var(--primary-foreground);
+  --moduix-muted: var(--muted);
+  --moduix-muted-foreground: var(--muted-foreground);
+  --moduix-accent: var(--accent);
+  --moduix-accent-foreground: var(--accent-foreground);
+  --moduix-destructive: var(--destructive);
+  --moduix-border: var(--border);
+  --moduix-ring: var(--ring);
+  --moduix-radius: var(--radius);
+}
+
+.dark {
+  color-scheme: dark;
 }
 ```
+
+Связанные токены переключаются вашими правилами `.dark`. Правило `color-scheme` переключает все
+остальные токены; подробнее в разделе [Тёмный режим](/docs/dark-mode#подключите-существующий-переключатель-темы).
 
 Tailwind можно оставить в приложении для раскладки и отдельных утилитарных классов при переходе на
 пакеты с CSS Modules. Если стили компонентов должны остаться на Tailwind, используйте отдельный

@@ -16,11 +16,12 @@ import {
   CommandPaletteSearch,
   CommandPaletteTitle,
   useDialog,
-} from '../src';
+} from '@/index';
 
 const commands = createListCollection({
   items: [{ label: 'Open settings', value: 'settings' }],
 });
+
 const longLabel =
   'A long command label that has to be truncated before the trailing shortcut. '.repeat(3);
 

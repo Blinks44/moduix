@@ -14,7 +14,20 @@ import {
   ProgressCircularValueText,
   ProgressCircularView,
   useProgress,
-} from '../src';
+} from '@/index';
+
+function RootProviderProgress() {
+  const progress = useProgress({ defaultValue: 58 });
+
+  return (
+    <ProgressCircularRootProvider value={progress} data-testid="progress-provider">
+      <ProgressCircularRing aria-label="Team rollout" />
+      <ProgressCircularContext>
+        {(state) => <output>{state().value}</output>}
+      </ProgressCircularContext>
+    </ProgressCircularRootProvider>
+  );
+}
 
 test('renders the circular Ark anatomy with stable hooks and an accessible name', async () => {
   let rootRef!: HTMLDivElement;
@@ -149,19 +162,6 @@ test('synchronizes custom circular composition with controlled values and state 
   await expect.element(page.getByText('Import in progress')).not.toBeVisible();
   await expect.element(page.getByText('Import complete')).toBeVisible();
 });
-
-function RootProviderProgress() {
-  const progress = useProgress({ defaultValue: 58 });
-
-  return (
-    <ProgressCircularRootProvider value={progress} data-testid="progress-provider">
-      <ProgressCircularRing aria-label="Team rollout" />
-      <ProgressCircularContext>
-        {(state) => <output>{state().value}</output>}
-      </ProgressCircularContext>
-    </ProgressCircularRootProvider>
-  );
-}
 
 test('keeps flat provider, context, and hook exports', async () => {
   render(() => <RootProviderProgress />);

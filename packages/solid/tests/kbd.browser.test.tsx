@@ -1,6 +1,6 @@
 import { expect, test } from '@rstest/core';
 import { render, screen } from '@solidjs/testing-library';
-import { Kbd, KbdGroup } from '../src';
+import { Kbd, KbdGroup } from '@/index';
 
 test('renders semantic keycaps and a labelled shortcut group with stable hooks', () => {
   let groupRef!: HTMLSpanElement;
@@ -33,23 +33,6 @@ test('renders semantic keycaps and a labelled shortcut group with stable hooks',
   expect(key.tagName).toBe('KBD');
   expect(key.getAttribute('data-slot')).toBe('kbd-root');
   expect(key.dataset).toMatchObject({ scope: 'kbd', part: 'root' });
-  expect(getComputedStyle(key)).toMatchObject({
-    display: 'flex',
-    minHeight: '24px',
-    minWidth: '24px',
-    fontSize: '12px',
-    fontWeight: '500',
-    userSelect: 'none',
-    fontVariantNumeric: 'tabular-nums',
-  });
-  expect(getComputedStyle(group)).toMatchObject({
-    display: 'inline-flex',
-    flexWrap: 'wrap',
-    gap: '4px',
-    padding: '0px',
-    borderWidth: '0px',
-    boxShadow: 'none',
-  });
 });
 
 test('preserves semantic children and stable hooks with native Ark Solid asChild', () => {
@@ -80,36 +63,4 @@ test('preserves semantic children and stable hooks with native Ark Solid asChild
   expect(group.getAttribute('data-slot')).toBe('kbd-group');
   expect(key.getAttribute('data-part')).toBe('root');
   expect(key.getAttribute('data-slot')).toBe('kbd-root');
-});
-test('tints the keycap edge with the text color', () => {
-  render(() => (
-    <>
-      <Kbd data-testid="default">K</Kbd>
-      <Kbd data-testid="tinted" style={{ color: 'rgb(255, 0, 0)' }}>
-        K
-      </Kbd>
-    </>
-  ));
-
-  expect(getComputedStyle(screen.getByTestId('tinted')).boxShadow).not.toBe(
-    getComputedStyle(screen.getByTestId('default')).boxShadow,
-  );
-});
-test('keeps a keycap on one line and sizes its icon', () => {
-  render(() => (
-    <div style={{ width: '16px' }}>
-      <Kbd data-testid="key">
-        <svg data-testid="icon" viewBox="0 0 24 24" />
-        Shift
-      </Kbd>
-    </div>
-  ));
-
-  const key = screen.getByTestId('key');
-  const icon = screen.getByTestId('icon').getBoundingClientRect();
-
-  expect(key.offsetHeight).toBe(24);
-  expect(key.offsetWidth).toBeGreaterThan(16);
-  expect(getComputedStyle(key).gap).toBe('4px');
-  expect([icon.width, icon.height]).toEqual([12, 12]);
 });

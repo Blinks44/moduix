@@ -140,24 +140,7 @@ the movement. This keeps InputGroupButton, SplitButton, and trigger compositions
 | `asChild`   | `false`   | Ark factory composition                                                                  |
 | `className` | -         | Applied to the root                                                                      |
 
-Public CSS variables (CSS Modules packages):
-
-| Variable                       | Default/fallback                                                               |
-| ------------------------------ | ------------------------------------------------------------------------------ |
-| `--moduix-button-bg`           | Variant-specific; `var(--moduix-color-primary)` for `default`                  |
-| `--moduix-button-bg-hover`     | Variant-specific; filled variants mix `--moduix-button-bg` 88% with black      |
-| `--moduix-button-border-color` | Variant-specific; filled variants follow `--moduix-button-bg`                  |
-| `--moduix-button-border-width` | `var(--moduix-border-width-sm)`                                                |
-| `--moduix-button-color`        | Variant-specific; `var(--moduix-color-primary-foreground)` for `default`       |
-| `--moduix-button-content-gap`  | `var(--moduix-spacing-2)`                                                      |
-| `--moduix-button-font-size`    | Size-specific; `var(--moduix-text-sm)` for `md`                                |
-| `--moduix-button-font-weight`  | `var(--moduix-weight-medium)`                                                  |
-| `--moduix-button-height`       | Size-specific; `var(--moduix-size-md)` for `md`; also the `icon-*` square side |
-| `--moduix-button-icon-size`    | `var(--moduix-spacing-4)`                                                      |
-| `--moduix-button-line-height`  | Size-specific; `var(--moduix-line-height-text-sm)` for `md`                    |
-| `--moduix-button-padding-x`    | Size-specific; `var(--moduix-spacing-4)` for `md`                              |
-| `--moduix-button-padding-y`    | Size-specific; `var(--moduix-spacing-1)` for `md`                              |
-| `--moduix-button-radius`       | `var(--moduix-radius-md)`                                                      |
+Public CSS variables (CSS Modules packages) are listed in `website/src/components/examples/button/css-properties.tsx`.
 
 Variant and size defaults live in private `--_button-*` properties. To theme one variant across the
 application, set the public variables on `[data-slot='button-root'][data-variant='<variant>']`. Focus

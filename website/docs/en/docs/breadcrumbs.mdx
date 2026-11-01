@@ -1,99 +1,70 @@
 ---
 title: Breadcrumbs
 component: breadcrumbs
-description: Accessible breadcrumb navigation for React, Solid, and Vue with explicit parts and a compact shorthand for short paths.
+description: Show where a page sits in the site hierarchy with links back up.
+ark: https://ark-ui.com/docs/guides/composition#the-ark-factory
 ---
 
+import AnatomyScene from '@/components/examples/breadcrumbs/basic';
 import * as BreadcrumbsDocs from '@/components/examples/breadcrumbs/css-properties';
 
-## API Reference
+<Example name="breadcrumbs/basic" />
 
-Ark UI does not provide a dedicated breadcrumbs primitive. moduix builds this component with the official
-[Ark factory](https://ark-ui.com/docs/guides/composition#the-ark-factory) and follows Ark's guidance for
-[composition](https://ark-ui.com/docs/guides/composition), [styling](https://ark-ui.com/docs/guides/styling), and
-[refs](https://ark-ui.com/docs/guides/ref).
+## Installation
 
-## Basic
+<ComponentInstall />
 
+## Usage
+
+<Usage />
 
 Use `BreadcrumbsPath` when you already have the path segments to display. It builds the ordered list,
 items, links, current page, and separators from required `links` and `page` props.
 
-React, Solid, and Vue use the same flat value names. Import `Breadcrumbs` as the root and import each
-additional part directly, such as `BreadcrumbsPath` and `BreadcrumbsLink`. The same names work
-with npm packages and shadcn registry source.
+## Examples
 
-<Example name="breadcrumbs/basic" />
+### Custom separator
 
-## Install with shadcn
+Use `BreadcrumbsPath` when every visible gap should use the same custom icon or symbol instead of the
+default chevron.
 
-See [Quick Start](/docs/quick-start) for full package setup, registry configuration, and styling guidance.
+<Example name="breadcrumbs/custom-separator" />
 
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
+### Framework link
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/breadcrumbs' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/breadcrumbs' },
-  ]}
-/>
+Use Ark `asChild` to render a link provided by the app's framework router.
 
-  </Tab>
-  <Tab label="Solid" value="solid">
+<Example name="breadcrumbs/framework-link" />
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/breadcrumbs' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/breadcrumbs' },
-  ]}
-/>
+### Collapsed path
 
-  </Tab>
-  <Tab label="Vue" value="vue">
+Use the explicit Breadcrumbs parts with `Menu` when hidden middle segments should be revealed on
+demand. The trigger and menu content own the interaction, so this example uses explicit parts instead
+of `BreadcrumbsPath`.
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/breadcrumbs' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/breadcrumbs' },
-  ]}
-/>
+<Example name="breadcrumbs/collapsed-path" />
 
-  </Tab>
-</Tabs>
+### Long current label
 
-## Anatomy
+Pass a node as the `page` prop when the current page needs extra attributes, such as `title`. Ancestor items can shrink too, so long middle labels are less likely to make the trail overflow.
 
-```text
-Breadcrumbs
-└─ BreadcrumbsList
-   ├─ BreadcrumbsItem
-   │  └─ BreadcrumbsLink
-   ├─ BreadcrumbsSeparator
-   └─ BreadcrumbsItem
-      └─ BreadcrumbsPage
-```
+<Example name="breadcrumbs/long-current-label" />
 
-| Part                  | Role                                                              |
-| --------------------- | ----------------------------------------------------------------- |
-| `Breadcrumbs`         | Root navigation landmark with a default `aria-label`.             |
-| `BreadcrumbsList`     | Ordered list of breadcrumb segments.                              |
-| `BreadcrumbsItem`     | List item wrapper for a segment.                                  |
-| `BreadcrumbsLink`     | Styled anchor for navigable segments; supports `asChild`.         |
-| `BreadcrumbsPage`     | Current page text with `aria-current="page"`.                     |
-| `BreadcrumbsSeparator`| Visual delimiter hidden from assistive technology.                |
-| `BreadcrumbsEllipsis` | Compact marker for a menu trigger that reveals hidden segments.   |
+### Build from parts
 
-`BreadcrumbsPath` is a moduix shorthand that builds `BreadcrumbsList`, `BreadcrumbsItem`,
-`BreadcrumbsLink`, `BreadcrumbsPage`, and `BreadcrumbsSeparator` from `links` and `page` props.
+The same trail as Basic, without `BreadcrumbsPath`: `BreadcrumbsList` holds one `BreadcrumbsItem` per
+link, a `BreadcrumbsSeparator` with an explicit icon between them, and `BreadcrumbsPage` for the
+current page. Start here when items need router links, extra markup, or different separators.
+
+<Example name="breadcrumbs/build-from-parts" />
 
 ## Composition
 
-`Breadcrumbs` owns no interactive or form state, so it has no controlled props, callbacks, context
+`Breadcrumbs` has no interactive or form state, so it has no controlled props, callbacks, context
 hooks, or `RootProvider`. State for a collapsed path belongs to the composed `Menu`, while router
-navigation remains owned by the app's link component.
+navigation stays with the app's link component.
 
-Use `BreadcrumbsPath` for an anchor-based path. It owns the generated list children, renders every
+Use `BreadcrumbsPath` for an anchor-based path. It generates the list children, renders every
 `links` entry as an anchor, renders `page` as the current page, and does not accept `children` or
 `asChild`. Use the explicit parts when a path
 needs router links, hidden middle segments, or different markup. For a router link, pass one semantic
@@ -103,45 +74,30 @@ In Solid, assign a ref to the element created inside the `asChild` render functi
 
 For collapsed paths, put `BreadcrumbsEllipsis` inside the `MenuTrigger`, then keep the menu's
 `Positioner`, `Content`, and `Item asChild` parts explicit. `BreadcrumbsEllipsis` is presentational;
-the trigger owns the accessible label and interaction. A native `button` that directly wraps
+the trigger provides the accessible label and interaction. A native `button` that directly wraps
 `BreadcrumbsEllipsis` gets the trigger styles (reset, pointer cursor, hover color, and focus ring), so it
 needs no styles of its own.
 
-## Examples
+## Anatomy
 
-### Collapsed Path
+Hover or focus a part to find it in the preview.
 
-Use the explicit Breadcrumbs parts with `Menu` when hidden middle segments should be revealed on
-demand. The trigger and menu content own the interaction, so this example uses explicit parts instead
-of `BreadcrumbsPath`.
+<AnatomyInspector
+  parts={[
+    ["Breadcrumbs", "breadcrumbs-root", "Root navigation landmark with a default `aria-label`.", 0],
+    ["BreadcrumbsList", "breadcrumbs-list", "Ordered list of breadcrumb segments.", 1],
+    ["BreadcrumbsItem", "breadcrumbs-item", "List item wrapper for a segment.", 2],
+    ["BreadcrumbsLink", "breadcrumbs-link", "Styled anchor for navigable segments; supports `asChild`.", 3],
+    ["BreadcrumbsSeparator", "breadcrumbs-separator", "Visual delimiter hidden from assistive technology.", 2],
+    ["BreadcrumbsPage", "breadcrumbs-page", "Current page text with `aria-current=\"page\"`.", 2],
+    ["BreadcrumbsEllipsis", "breadcrumbs-ellipsis", "Compact marker for a menu trigger that reveals hidden segments.", 1],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
-<Example name="breadcrumbs/collapsed-path" />
-
-### Custom Separator
-
-Use `BreadcrumbsPath` when every visible gap should use the same custom icon or symbol instead of the
-default chevron.
-
-<Example name="breadcrumbs/custom-separator" />
-
-### Framework Link
-
-Use Ark `asChild` to render a link provided by the app's framework router.
-
-<Example name="breadcrumbs/framework-link" />
-
-### Long Current Label
-
-Pass a node as the `page` prop when the current page needs extra attributes, such as `title`. Ancestor items can shrink too, so long middle labels are less likely to make the trail overflow.
-
-<Example name="breadcrumbs/long-current-label" />
-
-### Advanced Customization
-
-Use the explicit parts instead of `BreadcrumbsPath` when a trail combines framework links, a custom
-separator, and a current-page label with extra markup.
-
-<Example name="breadcrumbs/advanced-customization" />
+`BreadcrumbsPath` is a moduix shorthand that builds `BreadcrumbsList`, `BreadcrumbsItem`,
+`BreadcrumbsLink`, `BreadcrumbsPage`, and `BreadcrumbsSeparator` from `links` and `page` props.
 
 ## Styling
 
@@ -149,17 +105,39 @@ Use `className` in React or `class` in Solid and Vue on exported parts for struc
 use native utility classes and consumer classes; the CSS Variables reference below applies to CSS Modules
 variants. For state-based styles, prefer Ark data attributes together with moduix `data-slot` selectors.
 
-### CSS Properties
+### CSS variables
 
-<CssPropertiesSection properties={BreadcrumbsDocs.breadcrumbsCssProperties} />
+Hover or focus a variable to see it in the preview.
+
+<CssPropertiesSection properties={BreadcrumbsDocs.breadcrumbsCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Styling hooks
 
-- `data-slot="breadcrumbs-root"`, `breadcrumbs-list`, `breadcrumbs-item`, `breadcrumbs-link`,
-  `breadcrumbs-page`, `breadcrumbs-separator`, and `breadcrumbs-ellipsis` remain stable moduix selectors.
+| Part | `data-slot` |
+| --- | --- |
+| `Breadcrumbs` | `breadcrumbs-root` |
+| `BreadcrumbsList` | `breadcrumbs-list` |
+| `BreadcrumbsItem` | `breadcrumbs-item` |
+| `BreadcrumbsLink` | `breadcrumbs-link` |
+| `BreadcrumbsPage` | `breadcrumbs-page` |
+| `BreadcrumbsSeparator` | `breadcrumbs-separator` |
+| `BreadcrumbsEllipsis` | `breadcrumbs-ellipsis` |
+
 - `BreadcrumbsLink`, `BreadcrumbsPage`, and `BreadcrumbsEllipsis` share the horizontal padding from
   `--moduix-breadcrumbs-item-padding-x` in CSS Modules variants.
 - Visible `BreadcrumbsItem` parts can shrink to keep the trail in one line. The last visible item
   remains the primary truncation target and uses `--moduix-breadcrumbs-item-max-width` in CSS Modules variants.
 - Links, separators, and the ellipsis inherit the root text color. Set `color` on `Breadcrumbs` (or
   `--moduix-breadcrumbs-color` in CSS Modules variants) to recolor the whole trail; the current page keeps its own color.
+
+## API reference
+
+Props of `BreadcrumbsPath`. The explicit parts accept the native props of their elements.
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `links` | `readonly { href: string; label: ReactNode }[]` | — | Ancestor pages for `BreadcrumbsPath`, each with `href` and `label`. |
+| `page` | `ReactNode` | — | Label of the current page, rendered last. |
+| `separator` | `ReactNode` | chevron | Content between items. |

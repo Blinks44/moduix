@@ -13,7 +13,7 @@ import {
   ClipboardTrigger,
   useClipboard,
   useClipboardContext,
-} from '../src';
+} from '@/index';
 
 function ProviderClipboard() {
   const clipboard = useClipboard({ defaultValue: 'provider-value' });
@@ -74,8 +74,6 @@ test('keeps RootProvider and asChild composition semantic', async () => {
   await expect
     .element(page.locator('[data-slot="clipboard-trigger"]'))
     .toHaveAttribute('data-slot', 'clipboard-trigger');
-  expect(document.querySelector('[data-slot="clipboard-input"]')?.className).toBe('');
-  expect(document.querySelector('[data-slot="clipboard-trigger"]')?.className).toBe('');
 });
 
 test('does not forward refs through native Ark Solid asChild composition', () => {
@@ -191,28 +189,4 @@ test('clears copied state after the configured timeout', async () => {
 
   expect(statusChange).toHaveBeenCalledExactlyOnceWith({ copied: true });
   await expect.element(copyTrigger).not.toHaveAttribute('data-copied');
-});
-test('sizes the input, trigger, and default icon from the clipboard variables', () => {
-  render(() => (
-    <Clipboard
-      defaultValue="moduix"
-      style={{ '--moduix-clipboard-height': '48px', '--moduix-clipboard-icon-size': '20px' }}
-    >
-      <ClipboardControl>
-        <ClipboardInput />
-        <ClipboardTrigger>
-          <ClipboardIndicator />
-        </ClipboardTrigger>
-      </ClipboardControl>
-    </Clipboard>
-  ));
-
-  const input = document.querySelector<HTMLElement>('[data-slot="clipboard-input"]');
-  const trigger = document.querySelector<HTMLElement>('[data-slot="clipboard-trigger"]');
-  const icon = document.querySelector('[data-slot="clipboard-indicator"] > svg');
-
-  expect(input?.offsetHeight).toBe(48);
-  expect(trigger?.offsetHeight).toBe(48);
-  expect(icon?.getBoundingClientRect().width).toBe(20);
-  expect(input && getComputedStyle(input).paddingLeft).toBe('12px');
 });

@@ -14,10 +14,10 @@
 
   .segment {
     min-height: var(--moduix-size-sm);
-    border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
+    border: var(--moduix-border-width-sm) solid var(--moduix-border);
     border-radius: var(--moduix-radius-sm);
-    background: var(--moduix-color-background);
-    color: var(--moduix-color-foreground);
+    background: var(--moduix-background);
+    color: var(--moduix-foreground);
     padding: 0.25rem 0.5rem;
     font: inherit;
     font-size: var(--moduix-text-xs);
@@ -26,9 +26,9 @@
   }
 
   .segment[data-active] {
-    border-color: var(--moduix-color-foreground);
-    background: var(--moduix-color-foreground);
-    color: var(--moduix-color-background);
+    border-color: var(--moduix-foreground);
+    background: var(--moduix-foreground);
+    color: var(--moduix-background);
   }
 
   .typedActions {
@@ -39,19 +39,19 @@
   }
 
   .customToast {
-    --moduix-toast-bg: var(--moduix-color-primary);
-    --moduix-toast-color: var(--moduix-color-primary-foreground);
-    --moduix-toast-border-color: var(--moduix-color-primary);
+    --moduix-toast-bg: var(--moduix-primary);
+    --moduix-toast-color: var(--moduix-primary-foreground);
+    --moduix-toast-border-color: var(--moduix-primary);
     --moduix-toast-description-color: color-mix(
       in srgb,
-      var(--moduix-color-primary-foreground) 72%,
+      var(--moduix-primary-foreground) 72%,
       transparent
     );
-    --moduix-close-button-color: var(--moduix-color-primary-foreground);
-    --moduix-close-button-color-hover: var(--moduix-color-primary-foreground);
+    --moduix-close-button-color: var(--moduix-primary-foreground);
+    --moduix-close-button-color-hover: var(--moduix-primary-foreground);
     --moduix-close-button-bg-hover: color-mix(
       in srgb,
-      var(--moduix-color-primary-foreground) 14%,
+      var(--moduix-primary-foreground) 14%,
       transparent
     );
   }

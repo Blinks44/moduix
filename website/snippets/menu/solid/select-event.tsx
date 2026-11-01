@@ -8,15 +8,15 @@ import {
   MenuViewport,
   MenuItem,
 } from '@moduix/solid/menu';
+import { Stack } from '@moduix/solid/stack';
 import { createSignal } from 'solid-js';
-import styles from '@/components/examples/menu/menu-select-event.module.css';
 
 export default function SelectEventMenuDemo() {
   const [selected, setSelected] = createSignal('Nothing selected');
 
   return (
     <div>
-      <div class={styles.triggerRow}>
+      <Stack direction="row" justify="center">
         <Menu onSelect={(details) => setSelected(details.value)}>
           <MenuTrigger asChild={(props) => <Button {...props()} />}>
             Actions
@@ -35,7 +35,7 @@ export default function SelectEventMenuDemo() {
             </MenuContent>
           </MenuPositioner>
         </Menu>
-      </div>
+      </Stack>
       <output>Selected: {selected()}</output>
     </div>
   );

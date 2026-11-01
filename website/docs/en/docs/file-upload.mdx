@@ -1,158 +1,33 @@
 ---
 title: File Upload
 component: file-upload
-description: Ark UI file upload component for file selection, drag-and-drop, validation, and previews.
+description: Pick or drop files with type, size, and count checks.
+ark: https://ark-ui.com/docs/components/file-upload
 ---
 
-## API Reference
+import AnatomyScene from '@/components/examples/file-upload/basic';
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/file-upload" />
+<Example name="file-upload/basic" />
 
-`FileUpload` is available from `@moduix/react/file-upload` and `@moduix/vue/file-upload`. `FileUpload`, `useFileUpload`, and
-`useFileUploadContext` are also exported from `@moduix/react`.
+## Installation
 
-The same component is available from `@moduix/solid/file-upload`, `@moduix/react-tailwind/file-upload`,
-`@moduix/solid-tailwind/file-upload`, and `@moduix/vue-tailwind/file-upload`. The six package variants expose the same component parts and state model.
-Choose the package that matches your framework and styling path.
+<ComponentInstall />
 
-## Choosing the right component
+## Usage
 
-Use `FileUpload` when the application needs to keep selected files in state, show a dropzone, or
-manage an upload flow. `Input` with `type="file"` is enough for a native chooser in a simple form.
-
-## Basic
-
+<Usage />
 
 Start with `FileUpload` as the root. Add a `FileUploadLabel`, then wrap a `Button` in `FileUploadTrigger asChild` for a compact control or `FileUploadDropzone` for
 drag-and-drop. Add `FileUploadHiddenInput` explicitly to open the native picker. Put `FileUploadItems` inside
 `FileUploadItemGroup` to show accepted files. `FileUploadItems` uses an image thumbnail only when the file has an `image/*` MIME type; otherwise it uses the
 generic file preview.
 
-<Example name="file-upload/basic" />
+## Choosing the right component
 
-## Install with shadcn
-
-See [Quick Start](/docs/quick-start) for full package setup, registry configuration, and styling guidance.
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/file-upload' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/file-upload' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/file-upload' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/file-upload' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/file-upload' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/file-upload' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Anatomy
-
-```text
-FileUpload / FileUploadRootProvider
-├─ FileUploadLabel
-├─ FileUploadDropzone (optional)
-│  ├─ FileUploadDropzoneIcon
-│  └─ FileUploadTrigger
-├─ FileUploadTrigger (when no dropzone is used)
-├─ FileUploadItemGroup[type]
-│  ├─ FileUploadItems
-│  └─ FileUploadContext
-│     └─ FileUploadItem[file]
-│        ├─ FileUploadItemPreview[type]
-│        │  ├─ FileUploadItemPreviewImage
-│        │  └─ FileUploadItemPreviewIcon
-│        ├─ FileUploadItemName
-│        ├─ FileUploadItemMetadata[file]
-│        ├─ FileUploadItemSizeText
-│        └─ FileUploadItemDeleteTrigger
-├─ FileUploadClearTrigger
-└─ FileUploadHiddenInput (explicit)
-```
-
-| Part                             | Role                                                                   |
-| -------------------------------- | ---------------------------------------------------------------------- |
-| `FileUpload` / `FileUploadRootProvider` | Owns file state and handles validation, drag-and-drop, paste, and form integration. |
-| `FileUploadHiddenInput` | Native Ark form control; compose explicitly as described below. |
-| `FileUploadRootProvider`        | Connects the upload tree to state returned by the `useFileUpload` hook.              |
-| `FileUploadLabel`               | Accessible label for the hidden file input and upload controls.                     |
-| `FileUploadDropzone`            | Drag-and-drop target. Pass `disableClick` when it contains a nested trigger.        |
-| `FileUploadDropzoneIcon`        | Decorative upload icon for a `FileUploadDropzone`.                                            |
-| `FileUploadTrigger`             | Unstyled button that opens the native file picker. Compose it with a `Button` through `asChild`.                                           |
-| `FileUploadItemGroup`           | List for accepted or rejected files.                                                 |
-| `FileUploadItems`               | Convenience component that renders image cards and file rows with previews, metadata, and delete controls. |
-| `FileUploadContext`             | Ark-compatible render-prop context for custom file rows.                             |
-| `FileUploadItem`                | File row. Pass it the current `file` object.                                         |
-| `FileUploadItemPreview`         | Preview slot that matches a file by MIME type.                                       |
-| `FileUploadItemPreviewImage`    | Image preview inside `FileUploadItemPreview`.                                                  |
-| `FileUploadItemPreviewIcon`     | Generic file icon for a fallback preview inside `FileUploadItemPreview`.                      |
-| `FileUploadItemName`            | File name text.                                                                      |
-| `FileUploadItemMetadata`        | File type and localized size. Pass it the current `file` object.                    |
-| `FileUploadItemSizeText`        | Localized file-size text.                                                            |
-| `FileUploadItemDeleteTrigger`   | Removes one file. Defaults to the moduix trash icon; Ark `translations.deleteFile` names it.                                |
-| `FileUploadClearTrigger`        | Unstyled button that clears accepted files; hidden while the list is empty. Compose it with a `Button` through `asChild`.                           |
-
-## Composition
-
-`FileUpload` keeps file state internally by default. Use `defaultAcceptedFiles` for an uncontrolled initial value, or pair
-`acceptedFiles` with `onFileChange(details)` when the application owns the files. Use `useFileUpload()` with
-`FileUploadRootProvider` when state or methods must be created outside the rendered tree.
-
-Render `FileUploadHiddenInput` explicitly inside `FileUpload` or `FileUploadRootProvider`, even outside a form, because `FileUploadTrigger` uses it
-to open the native picker. Set `name` on the root for native form submission. For a dropzone with a nested `FileUploadTrigger`, pass
-`disableClick` so the picker opens only once.
-
-Use `FileUploadItems` inside `FileUploadItemGroup` for the default file rows. For custom rows, render `FileUploadContext` and
-choose one preview per file from `acceptedFiles` or `rejectedFiles`.
+Use `FileUpload` when the application needs to keep selected files in state, show a dropzone, or
+manage an upload flow. `Input` with `type="file"` is enough for a native chooser in a simple form.
 
 ## Examples
-
-### Accepted File Types
-
-Use `accept` to restrict both the native file picker and drop validation. Pass MIME types or file extensions.
-
-<Example name="file-upload/accepted-file-types" />
-
-### Clear Trigger
-
-Use `FileUploadClearTrigger` to remove all accepted files at once.
-
-<Example name="file-upload/clear-trigger" />
-
-### Controlled
-
-Control `acceptedFiles` when selected files need to stay in sync with external state or a multi-step flow. Update the
-value from `onFileChange(details)`.
-
-<Example name="file-upload/controlled" />
-
-### Directory Upload
-
-Use `directory` to let users select a folder. Supported browsers expose each file's relative path through
-`file.webkitRelativePath`. Set `maxFiles` high enough for the folder or omit it when the number of files is unknown.
-
-<Example name="file-upload/directory-upload" />
 
 ### Dropzone
 
@@ -160,14 +35,13 @@ Use `FileUploadDropzone` for drag-and-drop uploads. Keep a nested `FileUploadTri
 
 <Example name="file-upload/dropzone" />
 
-### Error Handling
+### Accepted file types
 
-Use `onFileReject(details)` to show application-specific feedback. Keep built-in constraints such as `accept`,
-`maxFiles`, and `maxFileSize` on the root. Add `validate(file, details)` for application-specific checks.
+Use `accept` to restrict both the native file picker and drop validation. Pass MIME types or file extensions.
 
-<Example name="file-upload/error-handling" />
+<Example name="file-upload/accepted-file-types" />
 
-### File Previews
+### File previews
 
 This example starts with an SVG image and a PDF, so you can see both layouts immediately. File-row preview boxes are
 2.5rem square by default, and long names stay on one line. Remove either item or add files from your device to try
@@ -175,19 +49,26 @@ the same layouts with your own files.
 
 <Example name="file-upload/file-previews" />
 
-### Form Usage
-
-Pass `name` to the root and render `FileUploadHiddenInput`; native form submission and reset then include the selected files.
-
-<Example name="file-upload/form-usage" />
-
-### Initial Files
+### Initial files
 
 Use `defaultAcceptedFiles` to preload files and then let the component manage the selection.
 
 <Example name="file-upload/initial-files" />
 
-### Media Capture
+### Clear trigger
+
+Use `FileUploadClearTrigger` to remove all accepted files at once.
+
+<Example name="file-upload/clear-trigger" />
+
+### Directory upload
+
+Use `directory` to let users select a folder. Supported browsers expose each file's relative path through
+`file.webkitRelativePath`. Set `maxFiles` high enough for the folder or omit it when the number of files is unknown.
+
+<Example name="file-upload/directory-upload" />
+
+### Media capture
 
 Use `capture` with an image or video `accept` value to suggest opening the camera on mobile devices. Set it to
 `"user"` or `"environment"` to suggest the front or rear camera. This is a hint to the browser, not a guarantee that
@@ -195,20 +76,20 @@ the camera will open.
 
 <Example name="file-upload/media-capture" />
 
-### Rejected Files
+### Rejected files
 
 Render `rejectedFiles` in a separate `FileUploadItemGroup type="rejected"` when users need to see why files were rejected.
 
 <Example name="file-upload/rejected-files" />
 
-### Root Provider and Pasting Files
+### Error handling
 
-Use `useFileUpload` with `FileUploadRootProvider` when state or methods need to live outside the rendered upload tree. In this
-example, `setClipboardFiles` forwards files pasted into a text area to the upload state.
+Use `onFileReject(details)` to show application-specific feedback. Keep built-in constraints such as `accept`,
+`maxFiles`, and `maxFileSize` on the root. Add `validate(file, details)` for application-specific checks.
 
-<Example name="file-upload/root-provider-and-paste" />
+<Example name="file-upload/error-handling" />
 
-### Transform Files
+### Transform files
 
 Use `transformFiles(files)` to process files asynchronously before adding them to accepted state.
 
@@ -220,13 +101,83 @@ Wrap the upload in `Field` when helper text, an error message, required state, o
 
 <Example name="file-upload/with-field" />
 
-### Advanced Customization
+### Form usage
 
-Use custom rows instead of `FileUploadItems` when you need MIME-specific previews, extra metadata, or a different layout. The
-explicit `FileUploadContext` composition keeps Ark state visible and lets you choose one image or fallback preview
-for each file.
+Pass `name` to the root and render `FileUploadHiddenInput`; native form submission and reset then include the selected files.
 
-<Example name="file-upload/advanced-customization" />
+<Example name="file-upload/form-usage" />
+
+### Controlled
+
+Control `acceptedFiles` when selected files need to stay in sync with external state or a multi-step flow. Update the
+value from `onFileChange(details)`. See [Control state from the application](/docs/composition-patterns#controlled-state).
+
+<Example name="file-upload/controlled" />
+
+### Root provider and pasting files
+
+Use `useFileUpload` with `FileUploadRootProvider` when state or methods need to live outside the rendered upload tree. In this
+example, `setClipboardFiles` forwards files pasted into a text area to the upload state. See [Share state outside the tree](/docs/composition-patterns#root-provider).
+
+<Example name="file-upload/root-provider-and-paste" />
+
+### Build from parts
+
+The same upload as Basic, without `FileUploadItems`: `FileUploadContext` provides the accepted files,
+and each `FileUploadItem` holds the preview, name, metadata, and a delete trigger with an explicit
+icon. Start here when rows need MIME-specific previews, extra metadata, or a different layout.
+
+<Example name="file-upload/build-from-parts" />
+
+## Composition
+
+`FileUpload` is available from `@moduix/react/file-upload` and `@moduix/vue/file-upload`. `FileUpload`, `useFileUpload`, and
+`useFileUploadContext` are also exported from `@moduix/react`.
+
+The same component is available from `@moduix/solid/file-upload`, `@moduix/react-tailwind/file-upload`,
+`@moduix/solid-tailwind/file-upload`, and `@moduix/vue-tailwind/file-upload`. The six package variants expose the same component parts and state model.
+Choose the package that matches your framework and styling path.
+
+`FileUpload` keeps file state internally by default. Use `defaultAcceptedFiles` for an uncontrolled initial value, or pair
+`acceptedFiles` with `onFileChange(details)` when the application controls the files. Use `useFileUpload()` with
+`FileUploadRootProvider` when state or methods must be created outside the rendered tree.
+
+Render `FileUploadHiddenInput` explicitly inside `FileUpload` or `FileUploadRootProvider`, even outside a form, because `FileUploadTrigger` uses it
+to open the native picker. Set `name` on the root for native form submission. For a dropzone with a nested `FileUploadTrigger`, pass
+`disableClick` so the picker opens only once.
+
+Use `FileUploadItems` inside `FileUploadItemGroup` for the default file rows. For custom rows, render `FileUploadContext` and
+choose one preview per file from `acceptedFiles` or `rejectedFiles`.
+
+## Anatomy
+
+Hover or focus a part to find it in the preview.
+
+<AnatomyInspector
+  parts={[
+    ["FileUpload / FileUploadRootProvider", "file-upload-root", "Manages file state and handles validation, drag-and-drop, paste, and form integration.", 0],
+    ["FileUploadLabel", "file-upload-label", "Accessible label for the hidden file input and upload controls.", 1],
+    ["FileUploadDropzone", "file-upload-dropzone", "Drag-and-drop target. Pass `disableClick` when it contains a nested trigger.", 1],
+    ["FileUploadDropzoneIcon", "file-upload-dropzone-icon", "Decorative upload icon for a `FileUploadDropzone`.", 2],
+    ["FileUploadTrigger", "file-upload-trigger", "Unstyled button that opens the native file picker. Compose it with a `Button` through `asChild`.", 2],
+    ["FileUploadItemGroup", "file-upload-item-group", "List for accepted or rejected files.", 1],
+    ["FileUploadItems", "", "Convenience component that renders image cards and file rows with previews, metadata, and delete controls.", 2],
+    ["FileUploadContext", null, "Ark-compatible render-prop context for custom file rows.", 2],
+    ["FileUploadItem", "file-upload-item", "File row. Pass it the current `file` object.", 3],
+    ["FileUploadItemPreview", "file-upload-item-preview", "Preview slot that matches a file by MIME type.", 4],
+    ["FileUploadItemPreviewImage", "file-upload-item-preview-image", "Image preview inside `FileUploadItemPreview`.", 5],
+    ["FileUploadItemPreviewIcon", "file-upload-item-preview-icon", "Generic file icon for a fallback preview inside `FileUploadItemPreview`.", 5],
+    ["FileUploadItemName", "file-upload-item-name", "File name text.", 4],
+    ["FileUploadItemMetadata", "file-upload-item-metadata", "File type and localized size. Pass it the current `file` object.", 4],
+    ["FileUploadItemSizeText", "file-upload-item-size-text", "Localized file-size text.", 4],
+    ["FileUploadItemDeleteTrigger", "file-upload-item-delete-trigger", "Removes one file. Defaults to the moduix trash icon; Ark `translations.deleteFile` names it.", 4],
+    ["FileUploadClearTrigger", "file-upload-clear-trigger", "Unstyled button that clears accepted files; hidden while the list is empty. Compose it with a `Button` through `asChild`.", 1],
+    ["FileUploadHiddenInput", "", "Native Ark form control; compose explicitly as described below.", 1],
+    ["FileUploadRootProvider", "file-upload-root-provider", "Connects the upload tree to state returned by the `useFileUpload` hook.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styling
 
@@ -240,7 +191,57 @@ named areas `preview`, `name`, `meta`, and `delete`, so a custom child without a
 
 ### Styling hooks
 
-Target stable moduix slots such as `[data-slot="file-upload-dropzone"]`,
-`[data-slot="file-upload-item"]`, and `[data-slot="file-upload-item-delete-trigger"]`.
+| Part | `data-slot` |
+| --- | --- |
+| `FileUpload` | `file-upload-root` |
+| `FileUploadRootProvider` | `file-upload-root-provider` |
+| `FileUploadLabel` | `file-upload-label` |
+| `FileUploadDropzone` | `file-upload-dropzone` |
+| `FileUploadDropzoneIcon` | `file-upload-dropzone-icon` |
+| `FileUploadTrigger` | `file-upload-trigger` |
+| `FileUploadItemGroup` | `file-upload-item-group` |
+| `FileUploadItem` | `file-upload-item` |
+| `FileUploadItemPreview` | `file-upload-item-preview` |
+| `FileUploadItemPreviewImage` | `file-upload-item-preview-image` |
+| `FileUploadItemPreviewIcon` | `file-upload-item-preview-icon` |
+| `FileUploadItemName` | `file-upload-item-name` |
+| `FileUploadItemSizeText` | `file-upload-item-size-text` |
+| `FileUploadItemMetadata` | `file-upload-item-metadata` |
+| `FileUploadItemDeleteTrigger` | `file-upload-item-delete-trigger` |
+| `FileUploadClearTrigger` | `file-upload-clear-trigger` |
+
 Ark also exposes `data-scope="file-upload"`, part-specific `data-part`, and state attributes such as
 `data-disabled`, `data-readonly`, `data-invalid`, `data-required`, `data-dragging`, and `data-type`.
+
+## Keyboard
+
+| Key | Action |
+| --- | --- |
+| `Enter` / `Space` | Opens the file picker from the trigger or dropzone. |
+
+## API reference
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `accept` | `string \| string[] \| Record<string, string[]>` | — | Accepted file types, as MIME types or extensions. |
+| `maxFiles` | `number` | `1` | Maximum number of files. |
+| `maxFileSize` | `number` | `Infinity` | Maximum file size in bytes. |
+| `minFileSize` | `number` | `0` | Minimum file size in bytes. |
+| `acceptedFiles` | `File[]` | — | Accepted files for controlled use. |
+| `defaultAcceptedFiles` | `File[]` | — | Initial accepted files. |
+| `onFileChange` | `(details: FileChangeDetails) => void` | — | Called with accepted and rejected files after each change. |
+| `onFileAccept` | `(details: FileAcceptDetails) => void` | — | Called with newly accepted files. |
+| `onFileReject` | `(details: FileRejectDetails) => void` | — | Called with rejected files and their errors. |
+| `validate` | `(file: File, details: FileValidateDetails) => FileError[] \| null` | — | Custom check that returns errors for a file, or `null`. |
+| `allowDrop` | `boolean` | `true` | Accepts files dropped on the dropzone. |
+| `directory` | `boolean` | `false` | Lets the user pick a folder (WebKit browsers only). |
+| `capture` | `'user' \| 'environment'` | — | Camera to use on mobile: `user` or `environment`. |
+| `transformFiles` | `(files: File[]) => Promise<File[]>` | — | Transforms accepted files before they are stored, for example to compress images. |
+| `name` | `string` | — | Form field name of the underlying input. |
+| `disabled` | `boolean` | `false` | Disables the control. |
+| `readOnly` | `boolean` | `false` | Shows the value but prevents changes. |
+| `invalid` | `boolean` | `false` | Marks the control as invalid. |
+| `required` | `boolean` | `false` | Requires a value before form submission. |
+| `translations` | `IntlTranslations` | — | Localized strings for accessibility labels. |
+| `preventDocumentDrop` | `boolean` | `true` | Stops files dropped outside the dropzone from opening in the browser. |
+| `locale` | `string` | `'en-US'` | Locale for formatting; defaults to the nearest `LocaleProvider`. |

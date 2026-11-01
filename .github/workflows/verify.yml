@@ -35,6 +35,9 @@ jobs:
       - name: Check lint
         run: pnpm run lint:check
 
+      - name: Check CSS Modules parity
+        run: pnpm run check:css-modules
+
   test:
     name: Test
     runs-on: ubuntu-latest
@@ -50,11 +53,58 @@ jobs:
           cache: true
           require-lockfile: true
 
+      - name: Cache Playwright browsers
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}
+
+      # Skips the download when the cached browser matches; system dependencies always install.
       - name: Install Chromium
         run: pnpm exec playwright install --with-deps --only-shell chromium
 
+      # Turborepo skips test tasks whose package, foundation, and dependency inputs are unchanged.
+      - name: Cache Turborepo
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6
+        with:
+          path: .turbo/cache
+          key: turbo-test-${{ runner.os }}-${{ github.sha }}
+          restore-keys: turbo-test-${{ runner.os }}-
+
       - name: Run tests
         run: pnpm run test
+
+  # The React adapters declare react ^18 || ^19; the main test job covers 19.
+  test-react-18:
+    name: Test React 18
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+
+      - name: Setup pnpm and Node.js
+        uses: pnpm/setup@a0881977cd8ea73b1ed212236c99ca10dcc80cf4 # v3
+        with:
+          cache: true
+          require-lockfile: true
+
+      - name: Cache Playwright browsers
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}
+
+      # Skips the download when the cached browser matches; system dependencies always install.
+      - name: Install Chromium
+        run: pnpm exec playwright install --with-deps --only-shell chromium
+
+      - name: Install React 18
+        run: pnpm --filter './packages/react*' add -D react@^18 react-dom@^18
+
+      - name: Run React tests
+        run: pnpm --filter './packages/react*' run test
 
   typecheck:
     name: Typecheck
@@ -82,6 +132,9 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          # The docs footer reads each page's last commit date.
+          fetch-depth: 0
 
       - name: Setup pnpm and Node.js
         uses: pnpm/setup@a0881977cd8ea73b1ed212236c99ca10dcc80cf4 # v3
@@ -92,16 +145,25 @@ jobs:
       - name: Build public packages
         run: pnpm run build:packages
 
+      # Fails when a key component exceeds its budget in .size-limit.mjs.
+      - name: Check component size budgets
+        run: pnpm run size
+
       - name: Build registry and docs
         run: pnpm run build:docs
 
       - name: Check public package contracts
         run: pnpm run check:packages
 
+      # Preview builds on pkg.pr.new; pnpm pack resolves catalog: versions.
+      - name: Publish preview packages
+        run: pnpm exec pkg-pr-new publish --pnpm --packageManager=pnpm './packages/*'
+
   storybook:
     name: Storybook smoke
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    # Pull requests only build the storybooks; pushes to main also compare every story.
+    timeout-minutes: 45
 
     steps:
       - name: Checkout
@@ -115,3 +177,27 @@ jobs:
 
       - name: Build shipped playground storybooks
         run: pnpm --filter './playgrounds/*' run build:storybook
+
+      - name: Cache Playwright browsers
+        if: github.event_name == 'push'
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}
+
+      - name: Install Chromium
+        if: github.event_name == 'push'
+        run: pnpm exec playwright install --with-deps --only-shell chromium
+
+      # Every adapter is compared with React CSS Modules; known exceptions live in the script.
+      - name: Compare stories across adapters
+        if: github.event_name == 'push'
+        run: pnpm run compare:stories
+
+      - name: Upload story diffs
+        if: failure()
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7
+        with:
+          name: story-diffs
+          path: .local/story-diffs/
+          include-hidden-files: true

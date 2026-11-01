@@ -1,23 +1,26 @@
 ---
 title: Lightbox
 component: lightbox
-description: Build a modal image viewer with gallery navigation and controlled state in React, Solid, or Vue.
+description: View images in a modal viewer, one at a time or as a gallery.
+ark: https://ark-ui.com/docs/components/dialog
 ---
 
+import AnatomyScene from '@/components/examples/lightbox/anatomy';
 import * as LightboxDocs from '@/components/examples/lightbox/css-properties';
-import LightboxRootProviderAndContext from '@/components/examples/lightbox/root-provider-and-context.tsx';
-import lightboxSolidRootProviderAndContext from '../../../snippets/lightbox/solid/root-provider-and-context.tsx?raw';
-import lightboxVueRootProviderAndContext from '../../../snippets/lightbox/vue/root-provider-and-context.vue?raw';
-import lightboxVueRootProviderAndContextPart from '../../../snippets/lightbox/vue/LightboxStatus.vue?raw';
 
-## API Reference
+<Example name="lightbox/basic" />
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/dialog" />
+## Installation
 
-Ark UI does not provide a dedicated `lightbox` primitive. moduix builds this component on top of
-`Dialog`, follows Ark's guidance for [composition](https://ark-ui.com/docs/guides/composition),
-[styling](https://ark-ui.com/docs/guides/styling), and
-[refs](https://ark-ui.com/docs/guides/ref), and uses `Dialog` as the source of truth for behavior.
+<ComponentInstall />
+
+## Usage
+
+<Usage />
+
+Build the explicit Ark UI dialog structure with `Lightbox`, `LightboxTrigger`,
+`LightboxBackdrop`, `LightboxPositioner`, and `LightboxContent`. Use `asChild` with a single
+semantic trigger element.
 
 ## Choosing the right component
 
@@ -27,95 +30,96 @@ Use `Lightbox` when you primarily need to view images or other media in a modal 
 - Choose **`Dialog`** for general application UI such as forms, actions, or mixed content.
 - Compose **`Carousel` inside `LightboxGallery`** when the preview needs slides or navigation arrows.
 
-## Basic
+## Examples
 
+### Gallery
 
-Build the explicit Ark UI dialog structure with `Lightbox`, `LightboxTrigger`,
-`LightboxBackdrop`, `LightboxPositioner`, and `LightboxContent`. Use `asChild` with a single
-semantic trigger element.
+When a CMS or API returns a structured array of images, keep the selected image and Carousel page in
+React, Solid, or Vue state, then compose `Carousel` inside `LightboxGallery`. Use `LightboxTrigger.value`
+to choose the initial slide and keep the Carousel page in sync as the user navigates.
 
-<Example name="lightbox/basic" />
+<Example name="lightbox/gallery" />
 
-## Install with shadcn
+### Multiple triggers
 
-See [Quick Start](/docs/quick-start) for full package setup, registry configuration, and styling guidance.
+Use `LightboxTrigger.value` and `onTriggerValueChange(details)` for gallery thumbnails. The
+component does not maintain a hidden image registry.
 
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
+<Example name="lightbox/multiple-triggers" />
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/lightbox' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/lightbox' },
-  ]}
-/>
+### Click to close image
 
-  </Tab>
-  <Tab label="Solid" value="solid">
+Use `LightboxImage closeOnClick` when clicking the previewed image should dismiss the overlay. The
+close icon remains available and keeps the same Ark close semantics.
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/lightbox' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/lightbox' },
-  ]}
-/>
+<Example name="lightbox/click-to-close-image" />
 
-  </Tab>
-  <Tab label="Vue" value="vue">
+### Non-modal
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/lightbox' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/lightbox' },
-  ]}
-/>
+Set `modal={false}` for rare previews that should leave the page interactive. Ark disables focus
+trapping and scroll prevention in this mode. Omit `LightboxBackdrop` so background actions remain available
+while the image is open.
 
-  </Tab>
-</Tabs>
+<Example name="lightbox/non-modal" />
 
-## Anatomy
+### Bind CMS content
 
-```text
-Lightbox
-├─ LightboxTrigger
-├─ LightboxBind
-└─ Overlay subtree (automatically portalled)
-   ├─ LightboxBackdrop
-   └─ LightboxPositioner
-      └─ LightboxContent
-         ├─ LightboxCloseTrigger or LightboxCloseIcon
-         ├─ LightboxHeader (optional)
-         │  ├─ LightboxTitle
-         │  └─ LightboxDescription
-         ├─ LightboxBody
-         │  └─ LightboxImage
-         └─ LightboxFooter (optional)
+Use `LightboxBind` when preview images come from a CMS or third-party markup that you cannot render
+directly with `LightboxTrigger`. Point it at a container with `rootRef` or `rootSelector`, choose a
+`selector`, and handle the resolved `{ src, alt, element }` through `onImageSelect`. `LightboxBind` opens its
+parent Lightbox but renders no overlay structure, so the backdrop, content, close controls, and image
+layout remain yours to compose. It reads the source from `data-lightbox-src`, then `currentSrc`, then
+`src`, and preloads it on pointer hover or keyboard focus. Use a semantic button or link for the
+matched `selector` so native keyboard activation produces the click that opens the Lightbox. If your
+server already returns a structured image array, prefer the `LightboxGallery + Carousel` composition.
 
-LightboxRootProvider
-└─ the same part tree connected to useLightbox()
-```
+<Example name="lightbox/bind-cms-content" />
 
-| Part                         | Role                                                                           |
-| ---------------------------- | ------------------------------------------------------------------------------ |
-| `Lightbox`                  | Ark Dialog root that manages open state, focus lifecycle, dismissal, and accessibility. |
-| `LightboxRootProvider`      | Provides state created with `useLightbox()`.                                   |
-| `LightboxTrigger`           | Ark trigger. Use `asChild` for custom semantic buttons or links.               |
-| `LightboxBackdrop`          | Modal backdrop with Ark `data-state` and layer variables.                      |
-| `LightboxPositioner`        | Fixed, centered overlay container.                                             |
-| `LightboxContent`           | The actual Ark dialog content node.                                            |
-| `LightboxTitle`             | Optional accessible title.                                                      |
-| `LightboxDescription`       | Optional accessible description.                                               |
-| `LightboxCloseTrigger`      | Low-level Ark close trigger.                                                   |
-| `LightboxCloseIcon`         | Convenience wrapper that combines `CloseButton` with the Ark close trigger. |
-| `LightboxHeader` / `LightboxBody` | Optional layout helpers for text and media regions inside the content.         |
-| `LightboxFooter`            | Optional layout helper for actions or status below the media.                  |
-| `LightboxImage`             | Styled native image that forwards an `HTMLImageElement` ref.                   |
-| `LightboxGallery`           | Layout and styling boundary for a composed `Carousel`.                         |
-| `LightboxBind`              | Renderless behavior part that connects external image markup to the root.       |
+### Custom styling
+
+Pass classes to the backdrop, content, and close button and override their tokens when the media
+surface needs its own look.
+
+<Example name="lightbox/custom-styling" />
+
+### Controlled
+
+Use Ark's `onOpenChange(details)` callback when synchronizing lightbox state with React or Solid, or
+use `v-model:open` in Vue. See [Control state from the application](/docs/composition-patterns#controlled-state).
+
+<Example name="lightbox/controlled" />
+
+### Focus and IDs
+
+Use Ark's `initialFocusEl`, `finalFocusEl`, and `ids` when a lightbox needs explicit focus targets
+or stable element IDs for external accessibility relationships. The return target is highlighted
+after close so the focus handoff is visible.
+
+<Example name="lightbox/focus-and-ids" />
+
+### Root provider
+
+Create state with `useLightbox()` when the opener is outside the root. Read the state inside a child
+component with `useLightboxContext()`. The external opener is a regular moduix `Button`. See [Share state outside the tree](/docs/composition-patterns#root-provider).
+
+<Example name="lightbox/root-provider-and-context" />
+
+### Build from parts
+
+The same lightbox as Basic, without `LightboxCloseIcon`: `LightboxCloseTrigger` wraps `CloseButton`
+with an explicit icon and a class that pins it to the corner. `LightboxBody` stays because it carries
+the image open and close animation.
+
+<Example name="lightbox/build-from-parts" />
 
 ## Composition
 
-`Lightbox` owns Dialog state, while `LightboxBackdrop`, `LightboxPositioner`, and `LightboxContent` stay explicit. The
+Ark UI does not provide a dedicated `lightbox` primitive. moduix builds this component on top of
+`Dialog`, follows Ark's guidance for [composition](https://ark-ui.com/docs/guides/composition),
+[styling](https://ark-ui.com/docs/guides/styling), and
+[refs](https://ark-ui.com/docs/guides/ref), and uses `Dialog` as the source of truth for behavior.
+
+`Lightbox` manages Dialog state, while `LightboxBackdrop`, `LightboxPositioner`, and `LightboxContent` stay explicit. The
 overlay parts are portalled by default. Use `portalled={false}` to keep them in place or `portalRef`
 to target a custom container. Render `LightboxCloseIcon` inside `LightboxContent`, outside `LightboxBody`,
 so it remains accessible and part of the focus trap. Content fades; Body scales and translates while
@@ -130,133 +134,60 @@ outside the root, and read child state with `useLightboxContext()`. `LightboxBin
 selects an image from external markup, so the surrounding Lightbox still needs its explicit overlay
 parts. `LightboxImage closeOnClick` is the shortcut for closing after an image click.
 
-## Examples
+## Anatomy
 
-### Bind CMS Content
+Hover or focus a part to find it in the preview.
 
-Use `LightboxBind` when preview images come from a CMS or third-party markup that you cannot render
-directly with `LightboxTrigger`. Point it at a container with `rootRef` or `rootSelector`, choose a
-`selector`, and handle the resolved `{ src, alt, element }` through `onImageSelect`. `LightboxBind` opens its
-parent Lightbox but renders no overlay structure, so the backdrop, content, close controls, and image
-layout remain yours to compose. It reads the source from `data-lightbox-src`, then `currentSrc`, then
-`src`, and preloads it on pointer hover or keyboard focus. Use a semantic button or link for the
-matched `selector` so native keyboard activation produces the click that opens the Lightbox. If your
-server already returns a structured image array, prefer the `LightboxGallery + Carousel` composition.
-
-<Example name="lightbox/bind-cms-content" />
-
-### Click to Close Image
-
-Use `LightboxImage closeOnClick` when clicking the previewed image should dismiss the overlay. The
-close icon remains available and keeps the same Ark close semantics.
-
-<Example name="lightbox/click-to-close-image" />
-
-### Controlled
-
-Use Ark's `onOpenChange(details)` callback when synchronizing lightbox state with React or Solid, or
-use `v-model:open` in Vue.
-
-<Example name="lightbox/controlled" />
-
-### Focus and IDs
-
-Use Ark's `initialFocusEl`, `finalFocusEl`, and `ids` when a lightbox needs explicit focus targets
-or stable element IDs for external accessibility relationships. The return target is highlighted
-after close so the focus handoff is visible.
-
-<Example name="lightbox/focus-and-ids" />
-
-### Gallery
-
-When a CMS or API returns a structured array of images, keep the selected image and Carousel page in
-React, Solid, or Vue state, then compose `Carousel` inside `LightboxGallery`. Use `LightboxTrigger.value`
-to choose the initial slide and keep the Carousel page in sync as the user navigates.
-
-<Example name="lightbox/gallery" />
-
-### Multiple Triggers
-
-Use `LightboxTrigger.value` and `onTriggerValueChange(details)` for gallery thumbnails. The
-component does not maintain a hidden image registry.
-
-<Example name="lightbox/multiple-triggers" />
-
-### Non-modal
-
-Set `modal={false}` for rare previews that should leave the page interactive. Ark disables focus
-trapping and scroll prevention in this mode. Omit `LightboxBackdrop` so background actions remain available
-while the image is open.
-
-<Example name="lightbox/non-modal" />
-
-### Root Provider
-
-Create state with `useLightbox()` when the opener is outside the root. Read the state inside a child
-component with `useLightboxContext()`. The external opener is a regular moduix `Button`.
-
-<ExampleFrame variant="component">
-  <LightboxRootProviderAndContext />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/lightbox/root-provider-and-context.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={lightboxSolidRootProviderAndContext} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={lightboxVueRootProviderAndContext} />
-
-<CodeBlockRuntime lang="vue" code={lightboxVueRootProviderAndContextPart} title="LightboxStatus.vue" />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/lightbox/lightbox-root-provider-and-context.module.css"
-```
-</div>
-
-</ExampleCode>
-
-### Advanced Customization
-
-Skip the optional layout helpers when the media surface needs custom slot classes and token
-overrides. `LightboxBackdrop`, `LightboxPositioner`, and `LightboxContent` remain explicit.
-
-<Example name="lightbox/advanced-customization" />
+<AnatomyInspector
+  parts={[
+    ["Lightbox", null, "Ark Dialog root that manages open state, focus lifecycle, dismissal, and accessibility.", 0],
+    ["LightboxTrigger", "lightbox-trigger", "Ark trigger. Use `asChild` for custom semantic buttons or links.", 1],
+    ["LightboxBind", "", "Renderless behavior part that connects external image markup to the root.", 1],
+    ["LightboxBackdrop", "lightbox-backdrop", "Modal backdrop with Ark `data-state` and layer variables.", 1],
+    ["LightboxPositioner", "lightbox-positioner", "Fixed, centered overlay container.", 1],
+    ["LightboxContent", "lightbox-content", "The actual Ark dialog content node.", 2],
+    ["LightboxCloseTrigger", "lightbox-close-trigger", "Low-level Ark close trigger.", 3],
+    ["LightboxHeader / LightboxBody", "lightbox-header", "Optional layout helpers for text and media regions inside the content.", 3],
+    ["LightboxTitle", "lightbox-title", "Optional accessible title.", 4],
+    ["LightboxDescription", "lightbox-description", "Optional accessible description.", 4],
+    ["LightboxImage", "lightbox-image", "Styled native image that forwards an `HTMLImageElement` ref.", 3],
+    ["LightboxFooter", "lightbox-footer", "Optional layout helper for actions or status below the media.", 3],
+    ["LightboxCloseIcon", "lightbox-close-icon", "Convenience wrapper that combines `CloseButton` with the Ark close trigger.", 1],
+    ["LightboxGallery", "lightbox-gallery", "Layout and styling boundary for a composed `Carousel`.", 1],
+    ["LightboxRootProvider", null, "Provides state created with `useLightbox()`.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styling
 
-### CSS Properties
+### CSS variables
 
-<CssPropertiesSection properties={LightboxDocs.lightboxOverrideCssProperties} />
+Hover or focus a variable to see it in the preview.
+
+<CssPropertiesSection properties={LightboxDocs.lightboxOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Styling hooks
 
-- moduix slots: `lightbox-trigger`, `lightbox-backdrop`, `lightbox-positioner`,
-  `lightbox-content`, `lightbox-title`, `lightbox-description`, `lightbox-close-trigger`,
-  `lightbox-close-icon`, `lightbox-header`, `lightbox-body`, `lightbox-footer`, `lightbox-image`,
-  and `lightbox-gallery`.
+| Part | `data-slot` |
+| --- | --- |
+| `LightboxTrigger` | `lightbox-trigger` |
+| `LightboxBackdrop` | `lightbox-backdrop` |
+| `LightboxPositioner` | `lightbox-positioner` |
+| `LightboxContent` | `lightbox-content` |
+| `LightboxTitle` | `lightbox-title` |
+| `LightboxDescription` | `lightbox-description` |
+| `LightboxCloseTrigger` | `lightbox-close-trigger` |
+| `LightboxCloseIcon` | `lightbox-close-icon` |
+| `LightboxImage` | `lightbox-image` |
+| `LightboxGallery` | `lightbox-gallery` |
+| `LightboxHeader` | `lightbox-header` |
+| `LightboxBody` | `lightbox-body` |
+| `LightboxFooter` | `lightbox-footer` |
+
 - Ark state and anatomy hooks: `data-scope="dialog"`, `data-part`, `data-state="open|closed"`,
   `data-nested`, `data-has-nested`, `--layer-index`, and `--nested-layer-count`.
 - Local hooks: `LightboxImage` exposes `data-slot="lightbox-image"` and optional
@@ -270,3 +201,32 @@ overrides. `LightboxBackdrop`, `LightboxPositioner`, and `LightboxContent` remai
   class on the part. The backdrop reads the shared `--moduix-backdrop-bg` and
   `--moduix-backdrop-filter`, content motion reads `--moduix-popup-motion-*` on `LightboxContent`,
   and `LightboxCloseIcon` reads the `--moduix-close-button-*` variables.
+
+## Keyboard
+
+| Key | Action |
+| --- | --- |
+| `Enter` / `Space` | Opens it from the focused trigger. |
+| `Tab` / `Shift+Tab` | Moves focus between controls; focus stays inside while open. |
+| `Esc` | Closes it and returns focus to the trigger. |
+
+## API reference
+
+`Lightbox` takes the same props as `Dialog`. `LightboxImage` adds `closeOnClick` (`boolean`, default `false`).
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `open` | `boolean` | — | Open state for controlled use. |
+| `defaultOpen` | `boolean` | `false` | Initial open state when it is not controlled. |
+| `onOpenChange` | `(details: OpenChangeDetails) => void` | — | Called when it opens or closes. |
+| `modal` | `boolean` | `true` | Blocks interaction outside and hides the rest of the page from assistive technology. |
+| `role` | `'dialog' \| 'alertdialog'` | `'dialog'` | `dialog`, or `alertdialog` for urgent confirmations. |
+| `closeOnEscape` | `boolean` | `true` | Closes on Escape. |
+| `closeOnInteractOutside` | `boolean` | `true` | Closes on a click outside. |
+| `trapFocus` | `boolean` | `true` | Keeps keyboard focus inside while open. |
+| `preventScroll` | `boolean` | `true` | Locks page scroll while open. |
+| `initialFocusEl` | `() => HTMLElement \| null \| false` | — | Returns the element to focus on open. |
+| `finalFocusEl` | `() => HTMLElement \| null` | — | Returns the element to focus on close. |
+| `lazyMount` | `boolean` | `true` | Mounts the content on first open. |
+| `unmountOnExit` | `boolean` | `true` | Unmounts the content after it closes. |
+| `portalled` | `boolean` | `true` | Renders the popup in a portal at the end of `body`. |

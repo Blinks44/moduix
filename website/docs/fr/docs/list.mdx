@@ -1,16 +1,27 @@
 ---
 title: List
 component: list
-description: Liste sémantique avec espacement, typographie, tonalité et marqueurs natifs personnalisables.
+description: Afficher des listes à puces ou numérotées avec un espacement cohérent.
+ark: https://ark-ui.com/docs/guides/composition#the-ark-factory
 ---
 
+import AnatomyScene from '@/components/examples/list/basic';
 
-## Référence de l’API
+<Example name="list/basic" />
 
-Ark UI ne fournit pas de primitive dédiée pour les listes. moduix s’appuie sur l’[Ark factory](https://ark-ui.com/docs/guides/composition#the-ark-factory)
-pour composer des éléments natifs `ul`, `ol` et `li`. Consultez les guides d’Ark sur la
-[composition](https://ark-ui.com/docs/guides/composition), les [styles](https://ark-ui.com/docs/guides/styling) et
-la [transmission des refs](https://ark-ui.com/docs/guides/ref) pour connaître le modèle sous-jacent.
+## Installation
+
+<ComponentInstall />
+
+## Utilisation
+
+<Usage />
+
+`List` rend un élément `<ul>` sémantique par défaut. Utilisez `ListItem` si vous avez besoin de sa partie stable et
+de ses points d’accroche CSS, ou passez directement des éléments `<li>` natifs si ce wrapper ne vous est pas utile.
+La racine `List` gère l’espacement, la typographie, la tonalité et les marqueurs. Par défaut, `ul` reçoit des
+marqueurs `disc` et `ol` des marqueurs `decimal` ; définissez `marker` sur `disc`, `decimal` ou `none` pour choisir
+explicitement. Avec `asChild`, passez le `marker` qui correspond à l’enfant.
 
 ## Choisir le bon composant
 
@@ -21,100 +32,7 @@ et les marqueurs.
 Si l’utilisateur doit parcourir la liste au clavier et sélectionner une ou plusieurs options, utilisez
 [Listbox](/docs/listbox). `Listbox` gère le focus, la collection et la sélection.
 
-## Exemple de base
-
-
-`List` rend un élément `<ul>` sémantique par défaut. Utilisez `ListItem` si vous avez besoin de sa partie stable et
-de ses points d’accroche CSS, ou passez directement des éléments `<li>` natifs si ce wrapper ne vous est pas utile.
-La racine `List` gère l’espacement, la typographie, la tonalité et les marqueurs. Par défaut, `ul` reçoit des
-marqueurs `disc` et `ol` des marqueurs `decimal` ; définissez `marker` sur `disc`, `decimal` ou `none` pour choisir
-explicitement. Avec `asChild`, passez le `marker` qui correspond à l’enfant.
-
-<Example name="list/basic" />
-
-## Installation avec shadcn
-
-Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration complète du paquet, du registre et des styles.
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/list' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/list' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/list' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/list' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/list' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/list' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Anatomie
-
-```text
-List
-└─ ListItem | li
-   └─ ListIndicator
-```
-
-| Partie               | Rôle                                                                                                  |
-| -------------------- | ----------------------------------------------------------------------------------------------------- |
-| `List`     | Racine sémantique de la liste, qui rend `ul` ou `ol` et contrôle les marqueurs, l’espacement, la taille et la tonalité. |
-| `ListItem` | Partie facultative qui rend `li`, transmet les attributs natifs et la ref, et prend en charge `asChild`.             |
-| `ListIndicator` | `span` facultatif placé en tête d’un élément pour une icône à la place du marqueur natif. |
-
-## Composition
-
-Utilisez `List` comme racine. Ses enfants directs doivent être `ListItem` ou des éléments `li` natifs,
-car l’espacement de la racine et le style des marqueurs ciblent les éléments directs de la liste. Utilisez `ListItem`
-si vous avez besoin de sa partie stable, de `className`/`class` ou de `asChild` ; sinon, de simples éléments `li`
-suffisent. Utilisez `asChild` uniquement lorsqu’un composant de l’application rend un seul élément sémantique `ul`,
-`ol` ou `li` et transmet les props et la ref reçues. En Solid, utilisez la forme d’`asChild` avec une fonction de rendu ;
-en Vue, passez l’élément sémantique dans le slot du composant. `List` ne fournit ni machine à états ni callbacks : la
-sélection au clavier relève de `Listbox`.
-
 ## Exemples
-
-### Racine personnalisée
-
-Utilisez `List asChild` lorsqu’un composant de votre application doit rendre lui-même l’élément sémantique de la liste.
-En React, il doit transmettre les props et la ref reçues à un seul `<ul>` ou `<ol>` ; en Solid, utilisez la forme avec
-fonction de rendu ; en Vue, passez un seul enfant sémantique.
-
-<Example name="list/root-as-child" />
-
-### Sans marqueurs
-
-Utilisez `marker="none"` si vous avez besoin de la sémantique d’une liste sans marqueurs visibles. Dans ce mode,
-`List` ajoute `role="list"` par défaut, sauf si vous fournissez une autre valeur pour `role`.
-
-<Example name="list/markerless" />
-
-### Éléments natifs
-
-Utilisez des éléments `li` natifs si vous n’avez pas besoin de la partie exportée `ListItem`.
-
-<Example name="list/native-items" />
 
 ### Liste ordonnée
 
@@ -124,6 +42,21 @@ de `marker` : l’attribut natif `type` ne les modifie pas ; pour des lettres ou
 `list-style-type` avec une classe.
 
 <Example name="list/ordered" />
+
+### Sans marqueurs
+
+Utilisez `marker="none"` si vous avez besoin de la sémantique d’une liste sans marqueurs visibles. Dans ce mode,
+`List` ajoute `role="list"` par défaut, sauf si vous fournissez une autre valeur pour `role`.
+
+<Example name="list/markerless" />
+
+### Avec indicateur
+
+Utilisez `ListIndicator` pour afficher une icône à la place du marqueur natif, et définissez `marker="none"` sur la
+racine. Un élément avec indicateur devient une ligne flex : l’icône mesure `1em`, s’aligne sur la première ligne, et
+le texte long revient à la ligne à côté d’elle plutôt qu’en dessous.
+
+<Example name="list/with-indicator" />
 
 ### Tonalité
 
@@ -138,21 +71,51 @@ avec son propre `gap` : aucune marge supplémentaire n’est nécessaire.
 
 <Example name="list/nested" />
 
-### Avec indicateur
+### Éléments natifs
 
-Utilisez `ListIndicator` pour afficher une icône à la place du marqueur natif, et définissez `marker="none"` sur la
-racine. Un élément avec indicateur devient une ligne flex : l’icône mesure `1em`, s’aligne sur la première ligne, et
-le texte long revient à la ligne à côté d’elle plutôt qu’en dessous.
+Utilisez des éléments `li` natifs si vous n’avez pas besoin de la partie exportée `ListItem`.
 
-<Example name="list/with-indicator" />
+<Example name="list/native-items" />
 
-### Personnalisation avancée
+### Élément personnalisé
 
 Utilisez `ListItem asChild` lorsqu’un composant personnalisé doit rendre lui-même l’élément `<li>`. Il doit
 transmettre les props et la ref reçues et conserver l’élément sémantique `<li>`. Dans les autres cas, utilisez
 directement `ListItem className` ou `class`.
 
-<Example name="list/custom-composition" />
+<Example name="list/custom-element" />
+
+### Racine personnalisée
+
+Utilisez `List asChild` lorsqu’un composant de votre application doit rendre lui-même l’élément sémantique de la liste.
+En React, il doit transmettre les props et la ref reçues à un seul `<ul>` ou `<ol>` ; en Solid, utilisez la forme avec
+fonction de rendu ; en Vue, passez un seul enfant sémantique.
+
+<Example name="list/root-as-child" />
+
+## Composition
+
+Utilisez `List` comme racine. Ses enfants directs doivent être `ListItem` ou des éléments `li` natifs,
+car l’espacement de la racine et le style des marqueurs ciblent les éléments directs de la liste. Utilisez `ListItem`
+si vous avez besoin de sa partie stable, de `className`/`class` ou de `asChild` ; sinon, de simples éléments `li`
+suffisent. Utilisez `asChild` uniquement lorsqu’un composant de l’application rend un seul élément sémantique `ul`,
+`ol` ou `li` et transmet les props et la ref reçues. En Solid, utilisez la forme d’`asChild` avec une fonction de rendu ;
+en Vue, passez l’élément sémantique dans le slot du composant. `List` ne fournit ni machine à états ni callbacks : la
+sélection au clavier relève de `Listbox`.
+
+## Anatomie
+
+Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
+
+<AnatomyInspector
+  parts={[
+    ["List", "list-root", "Racine sémantique de la liste, qui rend `ul` ou `ol` et contrôle les marqueurs, l’espacement, la taille et la tonalité.", 0],
+    ["ListItem", "list-item", "Partie facultative qui rend `li`, transmet les attributs natifs et la ref, et prend en charge `asChild`.", 1],
+    ["ListIndicator", "list-indicator", "`span` facultatif placé en tête d’un élément pour une icône à la place du marqueur natif.", 2],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styles
 
@@ -162,6 +125,12 @@ foundation et n’ont pas de variables de composant : une classe sur la racine r
 composants.
 
 ### Points d’accroche CSS
+
+| Partie | `data-slot` |
+| --- | --- |
+| `List` | `list-root` |
+| `ListItem` | `list-item` |
+| `ListIndicator` | `list-indicator` |
 
 `List` expose les points d’accroche CSS publics suivants :
 
@@ -173,3 +142,15 @@ composants.
 - `data-size="xs" | "sm" | "md" | "lg" | "xl"` pour cibler les styles liés à la taille typographique
 - `data-tone="default" | "muted" | "primary" | "destructive"` pour les couleurs sémantiques
 - le sélecteur natif `li::marker` pour remplacer la couleur ou l’épaisseur du marqueur
+
+## Référence de l’API
+
+Accepte aussi les props natives de son élément et `asChild`.
+
+| Prop | Type | Défaut | Description |
+| --- | --- | --- | --- |
+| `as` | `'ul' \| 'ol'` | `'ul'` | Élément de liste : `ul` ou `ol`. |
+| `marker` | `'disc' \| 'decimal' \| 'none'` | by `as` | Puce : `disc`, `decimal` ou `none` ; dépend de `as` par défaut. |
+| `gap` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl' \| '2xl'` | `'sm'` | Espace entre les éléments, de `xs` à `2xl`. |
+| `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'` | `'md'` | Taille du texte, de `xs` à `xl`. |
+| `tone` | `'default' \| 'muted' \| 'primary' \| 'destructive'` | `'default'` | Couleur du texte : `default`, `muted`, `primary` ou `destructive`. |

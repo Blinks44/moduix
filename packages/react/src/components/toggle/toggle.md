@@ -38,10 +38,10 @@ The root renders a `button`. `ToggleIndicator` renders inline pressed/fallback c
   - `variant?: 'default' | 'outline' | 'ghost'`
   - `size?: 'xs' | 'sm' | 'md' | 'lg' | 'icon-sm' | 'icon-md' | 'icon-lg'`
 - `variant` defaults to `default`. `size` defaults to `md`.
-- The default variant uses `var(--moduix-color-secondary)` while off; `outline` uses
-  `var(--moduix-color-background)` plus `var(--moduix-color-border)`; `ghost` is transparent. Pressed
-  `default` and `outline` use `var(--moduix-color-primary)`; pressed `ghost` uses
-  `var(--moduix-color-accent)`.
+- The default variant uses `var(--moduix-secondary)` while off; `outline` uses
+  `var(--moduix-background)` plus `var(--moduix-border)`; `ghost` is transparent. Pressed
+  `default` and `outline` use `var(--moduix-primary)`; pressed `ghost` uses
+  `var(--moduix-accent)`.
 - The root writes `data-slot="toggle-root"`, `data-variant`, and `data-size`.
 - The indicator writes `data-slot="toggle-indicator"`.
 
@@ -165,14 +165,14 @@ The CSS Modules packages expose six color variables. Set them on a toggle, on
 `ToggleGroup` (which sets `--moduix-toggle-color` for its items). Variant defaults stay private in
 `--_toggle-*` properties.
 
-| Variable                        | Default                                    | Notes                                    |
-| ------------------------------- | ------------------------------------------ | ---------------------------------------- |
-| `--moduix-toggle-bg`            | `var(--moduix-color-secondary)`            | Outline: background; ghost: transparent. |
-| `--moduix-toggle-bg-hover`      | `var(--moduix-color-accent)`               | Unpressed hover and `:active`.           |
-| `--moduix-toggle-bg-pressed`    | `var(--moduix-color-primary)`              | Also the pressed border; ghost: accent.  |
-| `--moduix-toggle-border-color`  | `var(--moduix-color-secondary)`            | Outline: border; ghost: transparent.     |
-| `--moduix-toggle-color`         | `var(--moduix-color-secondary-foreground)` | Outline and ghost: foreground.           |
-| `--moduix-toggle-color-pressed` | `var(--moduix-color-primary-foreground)`   | Ghost: foreground.                       |
+| Variable                        | Default                              | Notes                                    |
+| ------------------------------- | ------------------------------------ | ---------------------------------------- |
+| `--moduix-toggle-bg`            | `var(--moduix-secondary)`            | Outline: background; ghost: transparent. |
+| `--moduix-toggle-bg-hover`      | `var(--moduix-accent)`               | Unpressed hover and `:active`.           |
+| `--moduix-toggle-bg-pressed`    | `var(--moduix-primary)`              | Also the pressed border; ghost: accent.  |
+| `--moduix-toggle-border-color`  | `var(--moduix-secondary)`            | Outline: border; ghost: transparent.     |
+| `--moduix-toggle-color`         | `var(--moduix-secondary-foreground)` | Outline and ghost: foreground.           |
+| `--moduix-toggle-color-pressed` | `var(--moduix-primary-foreground)`   | Ghost: foreground.                       |
 
 Size, spacing, radius, typography, focus ring, transition, and disabled opacity use foundation tokens
 directly; override them with a class. Tailwind packages use the same tokens through utilities.

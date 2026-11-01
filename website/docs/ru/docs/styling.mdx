@@ -1,6 +1,6 @@
 ---
 title: Стилизация
-description: Выбор подходящего уровня стилизации компонентов Moduix в любом поддерживаемом фреймворке.
+description: Выбор подходящего уровня стилизации компонентов moduix в любом поддерживаемом фреймворке.
 ---
 
 import { ProjectChecklist } from '@/components/examples/styling/project-checklist';
@@ -11,7 +11,7 @@ import vueBrandButton from '../../../snippets/styling/vue/brand-button.vue?raw';
 
 # Стилизация
 
-Moduix выпускает отдельные CSS Modules- и Tailwind-пакеты для каждого текущего фреймворка. Выберите
+moduix выпускает отдельные CSS Modules- и Tailwind-пакеты для каждого текущего фреймворка. Выберите
 способ, который уже используется в приложении, и вносите изменения на самом верхнем уровне, которому
 принадлежит решение.
 
@@ -45,7 +45,7 @@ CSS Modules и Tailwind являются равноправными вариан
 
 ## Почему ваши стили побеждают
 
-Стили Moduix лежат в каскадных слоях CSS, объявленных в таком порядке:
+Стили moduix лежат в каскадных слоях CSS, объявленных в таком порядке:
 
 ```css
 @layer theme, base, moduix.reset, moduix.tokens, moduix.base, components, moduix.components, utilities;
@@ -61,7 +61,7 @@ CSS Modules и Tailwind являются равноправными вариан
 
 ## Настройте компонент
 
-На странице каждого CSS Modules-компонента в разделе **CSS-свойства** перечислены его публичные
+На странице каждого CSS Modules-компонента в разделе **CSS-переменные** перечислены его публичные
 переменные. Они намеренно общие: у Button есть `--moduix-button-bg`, `--moduix-button-height` и
 `--moduix-button-padding-x`, а не отдельная переменная на каждый вариант и размер. Значения вариантов
 и размеров по умолчанию скрыты, а публичная переменная перебивает их там, где вы её задали. Насколько
@@ -73,7 +73,7 @@ CSS Modules и Tailwind являются равноправными вариан
 
 ```css
 .save {
-  --moduix-button-bg: var(--moduix-color-success);
+  --moduix-button-bg: var(--moduix-success);
   --moduix-button-radius: var(--moduix-radius-full);
 }
 ```
@@ -87,8 +87,8 @@ CSS Modules и Tailwind являются равноправными вариан
 
 ```css
 [data-slot='button-root'][data-variant='outline'] {
-  --moduix-button-border-color: var(--moduix-color-primary);
-  --moduix-button-bg-hover: color-mix(in oklab, var(--moduix-color-primary) 12%, transparent);
+  --moduix-button-border-color: var(--moduix-primary);
+  --moduix-button-bg-hover: color-mix(in oklab, var(--moduix-primary) 12%, transparent);
 }
 ```
 
@@ -203,7 +203,7 @@ CSS-переменные наследуются, поэтому значения
     padding-inline: var(--moduix-spacing-4);
 
     &[data-state='open'] {
-      color: var(--moduix-color-primary);
+      color: var(--moduix-primary);
     }
   }
 }
@@ -215,7 +215,7 @@ CSS-переменные наследуются, поэтому значения
 ## Стилизуйте с помощью Panda CSS
 
 Panda CSS может генерировать классы потребителя для каждого поддерживаемого фреймворка. Имена токенов в таком коде
-принадлежат теме Panda, а не Moduix. Передавайте готовую строку через `className` в React или `class` в
+принадлежат теме Panda, а не moduix. Передавайте готовую строку через `className` в React или `class` в
 Solid.
 
 ```ts
@@ -296,7 +296,7 @@ stylesheet описана в [Быстром старте](/docs/quick-start).
 
 | Симптом | Что проверить |
 | --- | --- |
-| Переменная не действует | Есть ли она в разделе CSS-свойства страницы компонента и задана ли на самом компоненте или его предке. |
+| Переменная не действует | Есть ли она в разделе CSS-переменные страницы компонента и задана ли на самом компоненте или его предке. |
 | Класс проигрывает стилям компонента | Не обёрнут ли ваш файл стилей в более ранний `@layer`: CSS вне слоя побеждает всегда. |
 | Popup игнорирует значение контейнера | Задайте значение портальной части, корню или portal-контейнеру. |
 | Селектор состояния не срабатывает | Проверьте точный атрибут Ark на нужной части. |

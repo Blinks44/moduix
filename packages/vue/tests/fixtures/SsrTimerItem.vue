@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { TimerItem as ArkTimerItem, TimerRoot as ArkTimerRoot } from '@ark-ui/vue/timer';
-import { Timer, TimerItem } from '../../src/components/timer';
+import { Timer, TimerItem } from '@/components/timer';
 const { native = false } = defineProps<{ native?: boolean }>();
 const Root = native ? ArkTimerRoot : Timer;
 const Item = native ? ArkTimerItem : TimerItem;

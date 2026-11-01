@@ -6,7 +6,7 @@
     min-width: 0;
     flex-direction: column;
     gap: var(--moduix-spacing-1-5);
-    color: var(--moduix-color-foreground);
+    color: var(--moduix-foreground);
   }
 
   .label {
@@ -44,16 +44,15 @@
     height: var(--moduix-select-control-height, var(--moduix-size-md));
     align-items: center;
     margin: 0;
-    border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
+    border: var(--moduix-border-width-sm) solid var(--moduix-input);
     border-radius: var(--moduix-select-radius, var(--moduix-radius-md));
     padding-inline: var(--moduix-spacing-3-5)
       calc(var(--_select-action-offset) + var(--_select-action-size) + var(--moduix-spacing-3-5));
-    background-color: var(--moduix-color-background);
+    background-color: var(--moduix-background);
     color: inherit;
     font: inherit;
     text-align: start;
-    outline: var(--moduix-focus-ring-inset-width) solid transparent;
-    outline-offset: var(--moduix-focus-ring-inset-offset);
+    outline: var(--moduix-focus-ring-halo-width) solid transparent;
     cursor: pointer;
     user-select: none;
     transition:
@@ -61,7 +60,7 @@
       outline-color var(--moduix-transition-default);
 
     &[data-placeholder-shown] {
-      color: var(--moduix-color-muted-foreground);
+      color: var(--moduix-muted-foreground);
     }
 
     /* Reserve room for the clear action too; the text keeps a 10px gap before it. */
@@ -78,13 +77,16 @@
 
     &[data-state='open'],
     &:focus-visible {
-      border-color: var(--moduix-color-ring);
-      outline-color: var(--moduix-color-ring);
+      border-color: var(--moduix-ring);
+      outline-color: color-mix(in oklab, var(--moduix-ring) 50%, transparent);
     }
 
     .control[data-invalid] & {
-      border-color: var(--moduix-color-destructive);
-      outline-color: var(--moduix-color-destructive);
+      border-color: var(--moduix-destructive);
+
+      &:is([data-state='open'], :focus-visible) {
+        outline-color: color-mix(in oklab, var(--moduix-destructive) 20%, transparent);
+      }
     }
   }
 
@@ -95,6 +97,14 @@
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+
+    & > svg {
+      display: inline-block;
+      width: var(--moduix-spacing-4);
+      height: var(--moduix-spacing-4);
+      margin-inline-end: var(--moduix-spacing-2);
+      vertical-align: middle;
+    }
   }
 
   .indicator,
@@ -112,7 +122,7 @@
     align-items: center;
     justify-content: center;
     border-radius: var(--moduix-radius-sm);
-    color: var(--moduix-color-muted-foreground);
+    color: var(--moduix-muted-foreground);
     pointer-events: none;
     transition:
       background-color var(--moduix-transition-default),
@@ -125,8 +135,8 @@
 
     .trigger:enabled:hover ~ & {
       @media (hover: hover) {
-        background-color: var(--moduix-color-muted);
-        color: var(--moduix-color-foreground);
+        background-color: var(--moduix-muted);
+        color: var(--moduix-foreground);
       }
     }
   }
@@ -151,12 +161,12 @@
     max-height: min(var(--moduix-select-content-max-height, 24rem), var(--available-height));
     flex-direction: column;
     overflow: auto;
-    border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
+    border: var(--moduix-border-width-sm) solid var(--moduix-border);
     border-radius: var(--moduix-select-radius, var(--moduix-radius-md));
     padding-block: var(--moduix-popup-list-padding-y, var(--moduix-spacing-1));
-    background-color: var(--moduix-color-popover);
+    background-color: var(--moduix-popover);
     box-shadow: var(--moduix-shadow-lg);
-    color: var(--moduix-color-popover-foreground);
+    color: var(--moduix-popover-foreground);
     transform-origin: var(--transform-origin);
     outline: 0;
     overscroll-behavior: contain;
@@ -199,7 +209,7 @@
   .itemGroupLabel {
     padding-block: var(--moduix-popup-group-label-padding-y, var(--moduix-spacing-1));
     padding-inline: var(--moduix-spacing-2-5);
-    color: var(--moduix-popup-group-label-color, var(--moduix-color-muted-foreground));
+    color: var(--moduix-popup-group-label-color, var(--moduix-muted-foreground));
     font-size: var(--moduix-popup-group-label-font-size, var(--moduix-text-xs));
     font-weight: var(--moduix-popup-group-label-font-weight, var(--moduix-weight-regular));
     line-height: var(--moduix-popup-group-label-line-height, var(--moduix-line-height-text-xs));
@@ -223,8 +233,8 @@
     user-select: none;
 
     &[data-highlighted] {
-      background-color: var(--moduix-color-accent);
-      color: var(--moduix-color-accent-foreground);
+      background-color: var(--moduix-accent);
+      color: var(--moduix-accent-foreground);
     }
 
     &[data-disabled] {
@@ -245,31 +255,6 @@
       width: var(--moduix-spacing-3);
       height: var(--moduix-spacing-3);
     }
-  }
-
-  .itemTextContent {
-    display: inline-flex;
-    max-width: 100%;
-    min-width: 0;
-    align-items: center;
-    gap: var(--moduix-spacing-2);
-    vertical-align: top;
-  }
-
-  .itemTextIcon {
-    display: inline-flex;
-    width: var(--moduix-spacing-4);
-    height: var(--moduix-spacing-4);
-    flex-shrink: 0;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .itemTextLabel {
-    min-width: 0;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
   }
 
   @media (prefers-reduced-motion: reduce) {

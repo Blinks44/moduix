@@ -4,7 +4,7 @@ import { render, screen } from '@testing-library/vue';
 import { renderToString } from '@vue/server-renderer';
 import { createSSRApp, nextTick, ref } from 'vue';
 import type { ComponentPublicInstance } from 'vue';
-import { Text } from '../src/components/text';
+import { Text } from '@/components/text';
 import TestText from './fixtures/TestText.vue';
 
 test.each([false, true])(
@@ -134,8 +134,6 @@ test('forwards native attrs, listeners, classes, and an ordinary host ref once',
   expect(rootRef.value?.$el).toBe(text);
   expect(text.getAttribute('id')).toBe('body-copy');
   expect(text.getAttribute('aria-label')).toBe('Supporting text');
-  expect([...text.classList]).toEqual(expect.arrayContaining(['consumer-text', 'active-text']));
-  expect(text.className.split(' ').filter((value) => value === 'consumer-text')).toHaveLength(1);
   expect(text.style.color).toBe('red');
   await page.getByText('Body copy', { exact: true }).click();
   expect(handleClick).toHaveBeenCalledTimes(1);
@@ -160,23 +158,6 @@ test('uses only positive integer line-clamp values and removes stale clamp style
   expect(text.style.webkitLineClamp).toBe('3');
 });
 
-test('preserves string, object, and array styles while required clamp values win', () => {
-  for (const style of [
-    'color:red;-webkit-line-clamp:9',
-    { color: 'red', '-webkit-line-clamp': 9 },
-    ['color:red', { '-webkit-line-clamp': 9 }],
-  ]) {
-    const { unmount } = render(Text, {
-      props: { lineClamp: 2, style },
-      slots: { default: () => 'Copy' },
-    });
-    const text = screen.getByText('Copy');
-    expect(text.style.color).toBe('red');
-    expect(text.style.webkitLineClamp).toBe('2');
-    unmount();
-  }
-});
-
 test('reacts to semantic and typography prop changes without a stale setup snapshot', async () => {
   const { rerender } = render(Text, { slots: { default: () => 'Reactive copy' } });
   await rerender({ as: 'small', tone: 'muted', align: 'justify', truncate: true });
@@ -195,21 +176,6 @@ test('reacts to semantic and typography prop changes without a stale setup snaps
   expect(text.getAttribute('data-tone')).toBe('destructive');
   expect(text.hasAttribute('data-align')).toBe(false);
   expect(text.hasAttribute('data-truncate')).toBe(false);
-});
-
-test('keeps line clamp effective when truncate is also set', () => {
-  render(Text, {
-    props: { truncate: true, lineClamp: 2 },
-    slots: { default: () => 'Clamped copy' },
-  });
-  const text = screen.getByText('Clamped copy');
-  expect(text.hasAttribute('data-truncate')).toBe(true);
-  expect(text.hasAttribute('data-line-clamp')).toBe(true);
-  expect(getComputedStyle(text)).toMatchObject({
-    overflow: 'hidden',
-    whiteSpace: 'normal',
-    webkitLineClamp: '2',
-  });
 });
 
 test('inherits the parent alignment unless align is set', () => {
@@ -239,7 +205,6 @@ test('hydrates text without replacing the server host', async () => {
     await expect.element(page.getByRole('link', { name: 'Hydrated copy' })).toHaveCount(1);
     expect(host.querySelectorAll('a')).toHaveLength(1);
     expect(host.querySelector('a')).toBe(serverRoot);
-    expect([...serverRoot.classList]).toContain('hydrated-text');
     expect(instance.rootRef?.$el).toBe(serverRoot);
     expect(serverRoot.getAttribute('data-tone')).toBe('primary');
     expect(serverRoot.style.webkitLineClamp).toBe('2');

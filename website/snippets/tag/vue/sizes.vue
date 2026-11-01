@@ -1,6 +1,6 @@
 <script setup lang="ts">
+import { Stack } from '@moduix/vue/stack';
 import { Tag, TagLabel } from '@moduix/vue/tag';
-import styles from '@/components/examples/tag/tag-sizes.module.css';
 
 const sizes = [
   { label: 'Compact', size: 'sm' },
@@ -10,9 +10,9 @@ const sizes = [
 </script>
 
 <template>
-  <div :class="styles.row">
+  <Stack direction="row" align="center" wrap="wrap" gap="3">
     <Tag v-for="tag in sizes" :key="tag.size" :size="tag.size">
       <TagLabel>{{ tag.label }}</TagLabel>
     </Tag>
-  </div>
+  </Stack>
 </template>

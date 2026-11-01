@@ -1,5 +1,4 @@
 import { parseDate, type DateValue } from '@ark-ui/solid/date-picker';
-import { Field as FieldPrimitive } from '@ark-ui/solid/field';
 import { today } from '@internationalized/date';
 import { createSignal } from 'solid-js';
 import type { Meta, StoryObj } from 'storybook-solidjs-vite';
@@ -38,6 +37,7 @@ import {
   DatePickerPresetTrigger,
   DatePickerYearSelect,
 } from '@/components/date-picker/DatePicker';
+import { Field, FieldErrorText } from '@/components/field/Field';
 
 const meta = {
   title: 'Components/DatePicker',
@@ -335,14 +335,14 @@ export const Presets: Story = {
 
 export const WithFieldValidation: Story = {
   render: () => (
-    <FieldPrimitive.Root invalid required>
+    <Field invalid required>
       <DatePicker>
         <DatePickerLabel>Deadline</DatePickerLabel>
         <DatePickerField />
         <DatePickerPopup />
       </DatePicker>
-      <FieldPrimitive.ErrorText>Choose a valid deadline.</FieldPrimitive.ErrorText>
-    </FieldPrimitive.Root>
+      <FieldErrorText>Choose a valid deadline.</FieldErrorText>
+    </Field>
   ),
 };
 

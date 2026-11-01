@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Highlight } from '../../src/components/highlight';
+import { Highlight } from '@/components/highlight';
 </script>
 
 <template>

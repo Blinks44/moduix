@@ -1,6 +1,6 @@
+import { Stack } from '@moduix/react/stack';
 import { Tag, TagCloseTrigger, TagEndElement, TagLabel, TagStartElement } from '@moduix/react/tag';
 import { Check as CheckIcon } from 'lucide-react';
-import styles from '@/components/examples/tag/tag-icon.module.css';
 
 const tags = [
   {
@@ -17,7 +17,7 @@ const tags = [
 
 export default function TagWithIconDemo() {
   return (
-    <div className={styles.row}>
+    <Stack direction="row" align="center" wrap="wrap" gap="3">
       {tags.map((tag) => (
         <Tag key={tag.label} variant={tag.variant}>
           <TagStartElement>
@@ -31,6 +31,6 @@ export default function TagWithIconDemo() {
           ) : null}
         </Tag>
       ))}
-    </div>
+    </Stack>
   );
 }

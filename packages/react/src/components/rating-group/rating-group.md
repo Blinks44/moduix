@@ -68,6 +68,6 @@ RatingGroup[size]
 
 ## Agent notes
 
-- Keep `RatingGroupItems` as the only sugar; the "Advanced customization" docs example builds items
+- Keep `RatingGroupItems` as the only sugar; the "Build from parts" docs example builds items
   from `RatingGroupContext` and `RatingGroupItem`.
 - Do not add item arrays, `max`, raw-number callbacks, or the old `Rating` aliases.

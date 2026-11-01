@@ -1,11 +1,9 @@
 ---
 title: Async List
 description: Gérez les données asynchrones d'une liste avec useAsyncList - chargement, filtrage, tri, pagination, annulation des requêtes et nouvelles tentatives.
+ark: https://ark-ui.com/docs/collections/async-list
 ---
 
-import AsyncListBasic from '@/components/examples/async-list/basic.tsx';
-import asyncListSolidBasic from '../../../snippets/async-list/solid/basic.tsx?raw';
-import asyncListVueBasic from '../../../snippets/async-list/vue/basic.vue?raw';
 import asyncListSolidServerDriven from '../../../snippets/async-list/solid/server-driven.tsx?raw';
 import asyncListVueServerDriven from '../../../snippets/async-list/vue/server-driven.vue?raw';
 
@@ -15,11 +13,9 @@ import asyncListVueServerDriven from '../../../snippets/async-list/vue/server-dr
 marquage. Il regroupe les éléments, le filtrage, le tri, la pagination, les chargements et les
 erreurs, tandis que votre composant choisit la structure de la liste et l’affichage de ses états.
 
-## Référence de l’API
+## Importation
 
-<PrimitiveReference href="https://ark-ui.com/docs/collections/async-list" />
-
-Ce hook est fourni par Ark UI et n’est pas réexporté par Moduix. Utilisez le point d’entrée du
+Ce hook est fourni par Ark UI et n’est pas réexporté par moduix. Utilisez le point d’entrée du
 framework de votre application :
 
 <Tabs
@@ -54,11 +50,9 @@ import { useAsyncList } from '@ark-ui/vue/collection';
   </Tab>
 </Tabs>
 
-`useAsyncList` est un hook de comportement, pas un composant Moduix. Il n’existe pas dans les
-exports ni dans les manifests de registry de `@moduix/react`, `@moduix/solid`,
-`@moduix/react-tailwind` ou `@moduix/solid-tailwind`. CSS Modules et Tailwind ne modifient donc
-pas son API. Stylisez le marquage autour du hook avec le choix adapté à votre application, ou
-utilisez les éléments natifs comme dans les exemples ci-dessous.
+`useAsyncList` ne produit aucun balisage : CSS Modules et Tailwind ne modifient donc pas son API.
+Stylisez le balisage autour du hook avec l’approche choisie, ou utilisez des éléments natifs comme dans
+les exemples ci-dessous.
 
 ## Liste de base
 
@@ -67,42 +61,7 @@ des états distincts pour le chargement, la liste vide et l’erreur, puis utili
 actualiser la liste ou réessayer après une erreur. Le hook ne fournit aucune sémantique de liste :
 l’exemple ajoute lui-même une section nommée, une liste et les rôles des messages d’état.
 
-<ExampleFrame clientOnly variant="component">
-  <PreviewFrame maxWidth="sm">
-    <AsyncListBasic />
-  </PreviewFrame>
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/async-list/basic.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={asyncListSolidBasic} />
-
-    </Tab>
-  <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={asyncListVueBasic} />
-
-    </Tab>
-  </Tabs>
-</div>
-</ExampleCode>
+<Example name="async-list/basic" clientOnly />
 
 ## Liste alimentée par un serveur
 
@@ -227,4 +186,4 @@ disponible. Dans un descripteur, `column` est une clé du type des éléments et
 
 Le hook ne gère que les données et l’état des requêtes. Avec CSS Modules, utilisez la feuille de
 style de votre application ; avec Tailwind, utilisez les native utilities et les classes du
-consommateur. `async-list` ne fournit ni variables CSS, ni export Moduix, ni commande de registry.
+consommateur. `async-list` ne fournit ni variables CSS, ni export moduix, ni commande de registry.

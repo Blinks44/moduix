@@ -6,6 +6,7 @@ import {
   HoverCardPositioner,
   HoverCardTrigger,
 } from '@moduix/vue/hover-card';
+import { Stack } from '@moduix/vue/stack';
 import styles from '@/components/examples/hover-card/hover-card-delay.module.css';
 </script>
 
@@ -21,12 +22,12 @@ import styles from '@/components/examples/hover-card/hover-card-delay.module.css
               src="https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=640&q=80"
               :class="styles.image"
             />
-            <div :class="styles.details">
+            <Stack gap="1">
               <strong>Design systems that scale</strong>
               <p :class="styles.description">
                 A practical guide to building clear, consistent product experiences.
               </p>
-            </div>
+            </Stack>
           </div>
         </HoverCardBody>
       </HoverCardContent>

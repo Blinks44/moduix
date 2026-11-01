@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Tabs, TabsList, TabsTrigger, TabsIndicator, TabsContent } from '../../src/components/tabs';
+import { Tabs, TabsList, TabsTrigger, TabsIndicator, TabsContent } from '@/components/tabs';
 </script>
 
 <template>

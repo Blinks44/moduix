@@ -10,7 +10,7 @@ import {
   ListboxRootProvider,
   useListbox,
 } from '@moduix/vue/listbox';
-import styles from '@/components/examples/listbox/listbox-root-provider.module.css';
+import { Stack } from '@moduix/vue/stack';
 
 const priorities = createListCollection({
   items: [
@@ -24,7 +24,7 @@ const listbox = useListbox({ collection: priorities });
 </script>
 
 <template>
-  <div :class="styles.stack">
+  <Stack gap="3">
     <ListboxRootProvider :value="listbox">
       <ListboxLabel>Select priority</ListboxLabel>
       <ListboxContent>
@@ -38,5 +38,5 @@ const listbox = useListbox({ collection: priorities });
       <output>Selected: {{ listbox.value[0] ?? 'none' }}</output>
       <Button type="button" @click="listbox.setValue(['high'])">Set to high</Button>
     </div>
-  </div>
+  </Stack>
 </template>

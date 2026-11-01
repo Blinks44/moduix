@@ -9,7 +9,7 @@ import {
   SliderValueText,
   useSlider,
 } from '@moduix/vue/slider';
-import styles from '@/components/examples/slider/slider-root-provider.module.css';
+import { Stack } from '@moduix/vue/stack';
 
 const slider = useSlider({
   defaultValue: [40],
@@ -17,7 +17,7 @@ const slider = useSlider({
 </script>
 
 <template>
-  <div :class="styles.stack">
+  <Stack align="center" gap="4">
     <SliderRootProvider :value="slider">
       <SliderLabel>Volume</SliderLabel>
       <SliderValueText />
@@ -30,5 +30,5 @@ const slider = useSlider({
     </SliderRootProvider>
     <output>Current: {{ slider.value.join(', ') }}</output>
     <button type="button" @click="slider.focus()">Focus</button>
-  </div>
+  </Stack>
 </template>

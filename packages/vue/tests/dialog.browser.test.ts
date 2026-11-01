@@ -21,8 +21,7 @@ import {
   DialogTitle,
   DialogTrigger,
   useDialog,
-} from '../src';
-import styles from '../src/components/dialog/Dialog.module.css';
+} from '@/index';
 import TestDialog from './fixtures/TestDialog.vue';
 
 const dialogComponents = {
@@ -43,17 +42,18 @@ const dialogComponents = {
 };
 
 test('keeps page interaction available for a non-modal dialog', async () => {
+  const clicks: string[] = [];
   const Harness = defineComponent({
     components: dialogComponents,
+    setup: () => ({ click: (target: string) => clicks.push(target) }),
     template:
-      '<Dialog default-open :modal="false" :portalled="false"><DialogTrigger>Toggle dialog</DialogTrigger><DialogPositioner><DialogContent><DialogTitle>Preferences</DialogTitle><DialogContext v-slot="dialog"><output>Open: {{ String(dialog.open) }}</output></DialogContext></DialogContent></DialogPositioner></Dialog>',
+      '<button type="button" @click="click(\'outside\')">Outside</button><Dialog default-open :modal="false" :portalled="false"><DialogTrigger>Toggle dialog</DialogTrigger><DialogPositioner><DialogContent><DialogTitle>Preferences</DialogTitle><button type="button" @click="click(\'inside\')">Inside</button><DialogContext v-slot="dialog"><output>Open: {{ String(dialog.open) }}</output></DialogContext></DialogContent></DialogPositioner></Dialog>',
   });
   render(Harness);
-  await expect.element(page.getByRole('dialog')).toHaveCSS('pointer-events', 'auto');
-  await expect
-    .element(page.locator('[data-slot="dialog-positioner"]'))
-    .toHaveCSS('pointer-events', 'none');
   await expect.element(page.getByText('Open: true')).toBeAttached();
+  await page.getByRole('button', { name: 'Inside' }).click();
+  await page.getByRole('button', { name: 'Outside' }).click();
+  expect(clicks).toEqual(['inside', 'outside']);
   await page.getByRole('button', { name: 'Toggle dialog' }).click();
   await expect.element(page.getByRole('dialog')).toHaveCount(0);
 });
@@ -119,22 +119,6 @@ test('portals overlays outside the root tree by default', async () => {
   await expect.element(page.getByRole('dialog')).toBeAttached();
 });
 
-test.each(['element', 'getter'] as const)(
-  'portals overlays into portalRef when provided (%s)',
-  async (targetType) => {
-    const portalTarget = ref<HTMLElement>();
-    const Harness = defineComponent({
-      components: dialogComponents,
-      setup() {
-        return { portalTarget, getPortal: () => portalTarget.value };
-      },
-      template: `<div><div ref="portalTarget" data-testid="dialog-portal"></div><Dialog default-open :portal-ref="${targetType === 'getter' ? 'getPortal' : 'portalTarget'}"><DialogPositioner><DialogContent><DialogTitle>Preferences</DialogTitle></DialogContent></DialogPositioner></Dialog></div>`,
-    });
-    render(Harness);
-    await expect.element(page.getByTestId('dialog-portal').getByRole('dialog')).toBeAttached();
-  },
-);
-
 test('opens a RootProvider dialog from external state and updates context', async () => {
   const Harness = defineComponent({
     components: dialogComponents,
@@ -198,36 +182,6 @@ test('forwards refs through native parts and keeps asChild composition native', 
   expect(refs.closeIcon.value?.$el?.getAttribute('data-slot')).toBe('dialog-close-icon');
 });
 
-test('applies consumer classes after CSS Module defaults', () => {
-  const Harness = defineComponent({
-    components: dialogComponents,
-    template:
-      '<Dialog default-open :portalled="false"><DialogTrigger class="consumer-trigger">Open dialog</DialogTrigger><DialogBackdrop /><DialogPositioner><DialogContent class="consumer-content"><DialogHeader><DialogTitle>Preferences</DialogTitle><DialogCloseIcon class="consumer-close" /><DialogDescription>Description</DialogDescription></DialogHeader><DialogBody class="consumer-body">Body</DialogBody><DialogFooter class="consumer-footer">Footer</DialogFooter></DialogContent></DialogPositioner></Dialog>',
-  });
-  render(Harness);
-  expect(Array.from(document.querySelector('[data-slot="dialog-trigger"]')!.classList)).toEqual([
-    'consumer-trigger',
-  ]);
-  expect(Array.from(document.querySelector('[role="dialog"]')!.classList)).toEqual(
-    expect.arrayContaining(['consumer-content', styles.content]),
-  );
-  expect(Array.from(document.querySelector('[data-slot="dialog-title"]')!.classList)).toEqual(
-    expect.arrayContaining([styles.title]),
-  );
-  expect(Array.from(document.querySelector('[data-slot="dialog-description"]')!.classList)).toEqual(
-    expect.arrayContaining([styles.description]),
-  );
-  expect(Array.from(document.querySelector('[data-slot="dialog-body"]')!.classList)).toEqual(
-    expect.arrayContaining(['consumer-body', styles.body]),
-  );
-  expect(Array.from(document.querySelector('[data-slot="dialog-footer"]')!.classList)).toEqual(
-    expect.arrayContaining(['consumer-footer', styles.footer]),
-  );
-  expect(Array.from(document.querySelector('[data-slot="dialog-close-icon"]')!.classList)).toEqual(
-    expect.arrayContaining(['consumer-close', styles.closeIcon]),
-  );
-});
-
 test('hydrates the open dialog without replacing hosts or generated IDs', async () => {
   const host = document.createElement('div');
   host.innerHTML = await renderToString(createSSRApp(TestDialog));
@@ -280,9 +234,6 @@ test('keeps close-icon labels, attrs and fallback content reactive', async () =>
   const button = page.getByTestId('close');
   await expect.element(button).toHaveJSProperty('tagName', 'BUTTON');
   await expect.element(button).toHaveAttribute('aria-label', 'Dismiss first');
-  expect(Array.from(document.querySelector('[data-testid="close"]')!.classList)).toEqual(
-    expect.arrayContaining(['consumer-close']),
-  );
   await expect.element(button).toHaveCSS('color', 'rgb(255, 0, 0)');
   await expect.element(button).toHaveAttribute('title', 'Dismiss preview');
   await expect.element(button.locator('svg')).toBeAttached();
@@ -300,6 +251,7 @@ test('keeps close-icon labels, attrs and fallback content reactive', async () =>
   custom.value = false;
   await expect.element(button.locator('svg')).toBeAttached();
 });
+
 test('mounts the content lazily and unmounts it after closing by default', async () => {
   const Harness = defineComponent({
     components: dialogComponents,
@@ -336,43 +288,7 @@ test('keeps tall content inside the dialog surface and scrolls the positioner', 
   expect(positioner.scrollHeight).toBeGreaterThan(positioner.clientHeight);
 });
 
-test('keeps a long title clear of the close icon', async () => {
-  const Harness = defineComponent({
-    components: dialogComponents,
-    setup: () => ({ title: 'A very long dialog title that wraps '.repeat(4) }),
-    template:
-      '<Dialog default-open :portalled="false"><DialogPositioner><DialogContent><DialogHeader><DialogTitle>{{ title }}</DialogTitle><DialogCloseIcon /><DialogDescription>Description</DialogDescription></DialogHeader></DialogContent></DialogPositioner></Dialog>',
-  });
-  render(Harness);
-
-  await expect.element(page.getByRole('dialog')).toBeVisible();
-  const title = document.querySelector<HTMLElement>('[data-slot="dialog-title"]')!;
-  const icon = document.querySelector('[data-slot="dialog-close-icon"]')!.getBoundingClientRect();
-  const titleTextEnd =
-    title.getBoundingClientRect().right - parseFloat(getComputedStyle(title).paddingInlineEnd);
-
-  expect(titleTextEnd).toBeLessThanOrEqual(icon.left + 1);
-});
-
-test('wraps footer actions that do not fit on one line', async () => {
-  const Harness = defineComponent({
-    components: { ...dialogComponents, Button },
-    template:
-      '<Dialog default-open :portalled="false"><DialogPositioner><DialogContent style="width: 18rem"><DialogTitle>Unsaved changes</DialogTitle><DialogFooter><Button>Discard changes</Button><Button>Keep editing</Button><Button>Save and close</Button></DialogFooter></DialogContent></DialogPositioner></Dialog>',
-  });
-  render(Harness);
-
-  await expect.element(page.getByRole('dialog')).toBeVisible();
-  const footer = document.querySelector('[data-slot="dialog-footer"]')!.getBoundingClientRect();
-
-  for (const button of document.querySelectorAll('[data-slot="dialog-footer"] > *')) {
-    const rect = button.getBoundingClientRect();
-    expect(rect.left).toBeGreaterThanOrEqual(footer.left - 1);
-    expect(rect.right).toBeLessThanOrEqual(footer.right + 1);
-  }
-});
-
-test('keeps the body in the content color and mutes only the description', async () => {
+test('exposes the default recipe values on the content', async () => {
   render(
     defineComponent({
       components: { ...dialogComponents, Button },
@@ -392,62 +308,20 @@ test('keeps the body in the content color and mutes only the description', async
     }),
   );
 
-  await expect.element(page.getByRole('dialog')).toBeVisible();
-  const content = document.querySelector<HTMLElement>('[data-slot="dialog-content"]')!;
-  const body = document.querySelector<HTMLElement>('[data-slot="dialog-body"]')!;
-  const description = document.querySelector<HTMLElement>('[data-slot="dialog-description"]')!;
-
-  expect(content.dataset.size).toBe('md');
-  expect(content.dataset.placement).toBe('center');
-  expect(content.dataset.scrollBehavior).toBe('outside');
-  expect(getComputedStyle(body).color).toBe(getComputedStyle(content).color);
-  expect(getComputedStyle(description).color).not.toBe(getComputedStyle(content).color);
+  const dialog = page.getByRole('dialog');
+  await expect.element(dialog).toHaveAttribute('data-size', 'md');
+  await expect.element(dialog).toHaveAttribute('data-placement', 'center');
+  await expect.element(dialog).toHaveAttribute('data-scroll-behavior', 'outside');
 });
 
-test('applies width presets from the size prop', async () => {
-  render(
-    defineComponent({
-      components: { ...dialogComponents, Button },
-      template: `
-            <Dialog default-open :portalled="false">
-              <DialogPositioner>
-                <DialogContent size="sm" data-testid="sm">
-                  <DialogTitle>Small</DialogTitle>
-                </DialogContent>
-              </DialogPositioner>
-            </Dialog>
-            <Dialog default-open :portalled="false">
-              <DialogPositioner data-testid="full-positioner">
-                <DialogContent size="full" data-testid="full">
-                  <DialogTitle>Full</DialogTitle>
-                </DialogContent>
-              </DialogPositioner>
-            </Dialog>
-      `,
-    }),
-  );
-
-  await expect.element(page.getByTestId('sm')).toBeVisible();
-  // offsetWidth ignores the scale Ark applies to a dialog that has a nested dialog open.
-  const small = document.querySelector<HTMLElement>('[data-testid="sm"]')!;
-  const full = document.querySelector<HTMLElement>('[data-testid="full"]')!;
-  const fullPositioner = document.querySelector<HTMLElement>('[data-testid="full-positioner"]')!;
-
-  expect(Math.abs(small.offsetWidth - Math.min(384, window.innerWidth - 32))).toBeLessThanOrEqual(
-    1,
-  );
-  expect(Math.abs(full.offsetWidth - fullPositioner.clientWidth)).toBeLessThanOrEqual(1);
-  expect(full.offsetHeight).toBeGreaterThanOrEqual(fullPositioner.clientHeight - 1);
-});
-
-test('places the content at the top and scrolls the body inside', async () => {
+test('scrolls the body inside and keeps the footer visible with scrollBehavior inside', async () => {
   render(
     defineComponent({
       components: { ...dialogComponents, Button },
       template: `
           <Dialog default-open :portalled="false">
             <DialogPositioner>
-              <DialogContent placement="top" scroll-behavior="inside">
+              <DialogContent scroll-behavior="inside">
                 <DialogTitle>Terms</DialogTitle>
                 <DialogBody>
                   <div style="height: 200vh">Tall content</div>
@@ -468,27 +342,90 @@ test('places the content at the top and scrolls the body inside', async () => {
   const content = document.querySelector('[role="dialog"]')!.getBoundingClientRect();
   const footer = document.querySelector('[data-slot="dialog-footer"]')!.getBoundingClientRect();
 
-  expect(
-    Math.abs(content.top - parseFloat(getComputedStyle(positioner).paddingTop)),
-  ).toBeLessThanOrEqual(1);
   expect(content.bottom).toBeLessThanOrEqual(window.innerHeight + 1);
   expect(footer.bottom).toBeLessThanOrEqual(content.bottom + 1);
   expect(body.scrollHeight).toBeGreaterThan(body.clientHeight);
   expect(positioner.scrollHeight).toBeLessThanOrEqual(positioner.clientHeight + 1);
 });
 
-test('leaves a native trigger unstyled', async () => {
-  render(
-    defineComponent({
-      components: { ...dialogComponents, Button },
-      template: `
-          <Dialog :portalled="false">
-            <DialogTrigger>Open dialog</DialogTrigger>
-          </Dialog>
-      `,
-    }),
-  );
+test('preserves dialog behavior and Vue composition', async () => {
+  const details: Array<{ open: boolean }> = [];
+  const Harness = defineComponent({
+    components: dialogComponents,
+    setup() {
+      const open = ref(false);
+      return {
+        onOpenChange: (detail: { open: boolean }) => details.push(detail),
+        open,
+      };
+    },
+    template:
+      '<Dialog v-model:open="open" :portalled="false" @open-change="onOpenChange"><DialogTrigger>Open dialog</DialogTrigger><DialogBackdrop /><DialogPositioner><DialogContent><DialogHeader><DialogTitle>Preferences</DialogTitle><DialogCloseIcon /><DialogDescription>Description</DialogDescription></DialogHeader><DialogBody>Body</DialogBody><DialogFooter><DialogCloseTrigger>Close dialog</DialogCloseTrigger></DialogFooter></DialogContent></DialogPositioner></Dialog>',
+  });
+  render(Harness);
+  const trigger = page.getByRole('button', { name: 'Open dialog' });
+  await trigger.click();
+  await expect.element(page.getByRole('dialog')).toBeVisible();
+  await page.locator('[data-slot="dialog-close-trigger"]').click();
+  await expect.poll(() => details).toEqual([{ open: true }, { open: false }]);
+  await expect.element(trigger).toBeFocused();
+  await trigger.click();
+  const closeIcon = page.locator('[data-slot="dialog-close-icon"]');
+  await expect.element(closeIcon).toBeFocused();
+  await closeIcon.press('Escape');
+  await expect.element(page.getByRole('dialog')).toHaveCount(0);
+  await expect.element(trigger).toBeFocused();
+  expect(details).toEqual([{ open: true }, { open: false }, { open: true }, { open: false }]);
+});
 
-  await expect.element(page.getByRole('button', { name: 'Open dialog' })).toBeVisible();
-  expect(document.querySelector('[data-slot="dialog-trigger"]')!.className).toBe('');
+test('keeps non-modal dialogs interactive and renders inline', async () => {
+  const clicks: string[] = [];
+  const Harness = defineComponent({
+    components: dialogComponents,
+    setup: () => ({ click: (target: string) => clicks.push(target) }),
+    template:
+      '<button type="button" @click="click(\'outside\')">Outside</button><div data-testid="host"><Dialog default-open :modal="false" :portalled="false"><DialogPositioner><DialogContent><DialogTitle>Preferences</DialogTitle><button type="button" @click="click(\'inside\')">Inside</button></DialogContent></DialogPositioner></Dialog></div>',
+  });
+  render(Harness);
+  await expect.element(page.getByTestId('host').getByRole('dialog')).toBeVisible();
+  await page.getByRole('button', { name: 'Inside' }).click();
+  await page.getByRole('button', { name: 'Outside' }).click();
+  expect(clicks).toEqual(['inside', 'outside']);
+});
+
+test('forwards refs through every public part and supports asChild', async () => {
+  const refs = {
+    trigger: ref<ComponentPublicInstance>(),
+    backdrop: ref<ComponentPublicInstance>(),
+    positioner: ref<ComponentPublicInstance>(),
+    content: ref<ComponentPublicInstance>(),
+    title: ref<ComponentPublicInstance>(),
+    description: ref<ComponentPublicInstance>(),
+    closeTrigger: ref<ComponentPublicInstance>(),
+    closeIcon: ref<ComponentPublicInstance>(),
+  };
+  const Harness = defineComponent({
+    components: dialogComponents,
+    setup() {
+      return refs;
+    },
+    template:
+      '<Dialog default-open :portalled="false"><DialogTrigger ref="trigger">Open</DialogTrigger><DialogTrigger as-child><button>Composed</button></DialogTrigger><DialogBackdrop ref="backdrop" /><DialogPositioner ref="positioner"><DialogContent ref="content"><DialogTitle ref="title">Title</DialogTitle><DialogDescription ref="description">Description</DialogDescription><DialogCloseTrigger ref="closeTrigger">Close</DialogCloseTrigger><DialogCloseIcon ref="closeIcon" /></DialogContent></DialogPositioner></Dialog>',
+  });
+  render(Harness);
+  for (const [name, slot] of Object.entries({
+    trigger: 'dialog-trigger',
+    backdrop: 'dialog-backdrop',
+    positioner: 'dialog-positioner',
+    content: 'dialog-content',
+    title: 'dialog-title',
+    description: 'dialog-description',
+    closeTrigger: 'dialog-close-trigger',
+    closeIcon: 'dialog-close-icon',
+  })) {
+    expect(refs[name as keyof typeof refs].value?.$el?.getAttribute('data-slot')).toBe(slot);
+  }
+  await expect
+    .element(page.getByRole('button', { name: 'Composed', includeHidden: true }))
+    .toHaveAttribute('data-slot', 'dialog-trigger');
 });

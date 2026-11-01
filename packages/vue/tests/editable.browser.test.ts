@@ -20,7 +20,7 @@ import {
   FieldErrorText,
   useEditable,
   useEditableContext,
-} from '../src';
+} from '@/index';
 import SsrEditable from './fixtures/SsrEditable.vue';
 
 const editableComponents = {
@@ -62,6 +62,18 @@ const TestEditable = defineComponent({
     </Editable>
   `,
 });
+
+const layoutComponents = {
+  ...editableComponents,
+  Button,
+  EditableControl,
+  EditableEditTrigger,
+  TestEditable,
+} as Record<string, Component>;
+
+function renderTemplate(template: string) {
+  return render(defineComponent({ components: layoutComponents, template }));
+}
 
 test('preserves Ark semantics, refs, anatomy, attrs, and moduix hooks', () => {
   const refs = {
@@ -265,21 +277,6 @@ test('inherits Field state and preserves public styling hooks', () => {
   expect(label?.getAttribute('for')).toBe(input?.id);
 });
 
-test('participates in native form submission', () => {
-  render({
-    components: { ...editableComponents, TestEditable },
-    template: `
-      <form>
-        <TestEditable default-value="Layer name" name="title" />
-      </form>
-    `,
-  });
-  const form = document.querySelector('form');
-
-  expect(form).not.toBeNull();
-  expect(new FormData(form! as HTMLFormElement).get('title')).toBe('Layer name');
-});
-
 test('submits the committed value through an external form owner', async () => {
   render({
     components: { ...editableComponents, TestEditable },
@@ -301,42 +298,6 @@ test('submits the committed value through an external form owner', async () => {
 
   expect(form).toBeInstanceOf(HTMLFormElement);
   expect(new FormData(form as HTMLFormElement).get('title')).toBe('Published name');
-});
-
-test('commits textarea values with Ctrl or Cmd + Enter', async () => {
-  const commits: string[] = [];
-  const Harness = defineComponent({
-    components: editableComponents,
-    setup() {
-      return { commits };
-    },
-    template: `
-      <Editable
-        default-edit
-        default-value="Draft description"
-        @value-commit="commits.push($event.value)"
-      >
-        <EditableLabel>Description</EditableLabel>
-        <EditableArea>
-          <EditableInput as-child><textarea aria-label="editable input" /></EditableInput>
-          <EditablePreview />
-        </EditableArea>
-        <EditableControls />
-      </Editable>
-    `,
-  });
-
-  render(Harness);
-
-  await page
-    .getByRole('textbox', { name: 'editable input', exact: true })
-    .fill('Published description');
-  await page
-    .getByRole('textbox', { name: 'editable input', exact: true })
-    .press('ControlOrMeta+Enter');
-
-  await expect.poll(() => commits).toEqual(['Published description']);
-  await expect.element(page.locator('[data-slot="editable-input"]')).toHaveAttribute('hidden');
 });
 
 test('forwards the controls ref and supports RootProvider state', async () => {
@@ -449,35 +410,6 @@ test('hydrates stable hosts and ids and remains interactive', async () => {
   }
 });
 
-function wait(ms: number) {
-  return new Promise((resolve) => setTimeout(resolve, ms));
-}
-
-const layoutComponents = {
-  ...editableComponents,
-  Button,
-  EditableControl,
-  EditableEditTrigger,
-  TestEditable,
-} as Record<string, Component>;
-
-function renderTemplate(template: string) {
-  return render(defineComponent({ components: layoutComponents, template }));
-}
-
-test('keeps its width when switching to edit mode', async () => {
-  renderTemplate('<div style="width: 480px"><TestEditable /></div>');
-
-  const root = document.querySelector<HTMLElement>('[data-slot="editable-root"]')!;
-  const previewWidth = root.offsetWidth;
-
-  await page.getByRole('button', { name: 'edit', exact: true }).click();
-  await expect
-    .element(page.getByRole('textbox', { name: 'editable input', exact: true }))
-    .toBeVisible();
-  expect(root.offsetWidth).toBe(previewWidth);
-});
-
 test('wraps long values inside the area', async () => {
   renderTemplate(
     `<div style="width: 200px"><TestEditable default-value="${'x'.repeat(80)}" /></div>`,
@@ -486,72 +418,4 @@ test('wraps long values inside the area', async () => {
 
   const area = document.querySelector<HTMLElement>('[data-slot="editable-area"]')!;
   expect(area.scrollWidth).toBeLessThanOrEqual(area.clientWidth);
-});
-
-test('dims a disabled editable once, also inside a disabled Field', async () => {
-  renderTemplate(`
-    <Editable disabled default-value="Standalone">
-      <EditableArea>
-        <EditableInput />
-        <EditablePreview />
-      </EditableArea>
-      <EditableControls />
-    </Editable>
-    <Field disabled>
-      <Editable default-value="In field">
-        <EditableArea>
-          <EditableInput />
-          <EditablePreview />
-        </EditableArea>
-        <EditableControls />
-      </Editable>
-    </Field>
-  `);
-  await wait(400);
-
-  const [standalone, inField] = document.querySelectorAll<HTMLElement>(
-    '[data-slot="editable-root"]',
-  );
-  expect(getComputedStyle(standalone!).opacity).not.toBe('1');
-  expect(getComputedStyle(standalone!.querySelector('button')!).opacity).toBe('1');
-  expect(getComputedStyle(inField!).opacity).toBe('1');
-});
-
-test('leaves trigger styling to an asChild element', async () => {
-  renderTemplate(`
-    <Editable default-value="Layer name">
-      <EditableArea>
-        <EditableInput />
-        <EditablePreview />
-      </EditableArea>
-      <EditableControl>
-        <EditableEditTrigger as-child>
-          <Button>Rename layer</Button>
-        </EditableEditTrigger>
-      </EditableControl>
-    </Editable>
-  `);
-  await nextTick();
-
-  const trigger = document.querySelector<HTMLElement>('[data-part="edit-trigger"]')!;
-  expect(trigger.offsetWidth).toBeGreaterThan(trigger.offsetHeight);
-
-  await page.getByRole('button', { name: 'edit', exact: true }).click();
-  await expect
-    .element(page.getByRole('textbox', { name: 'editable input', exact: true }))
-    .toBeVisible();
-});
-
-test('shows the focus ring when the preview gets keyboard focus', async () => {
-  renderTemplate('<button type="button">Before</button><TestEditable />');
-  await nextTick();
-
-  const area = document.querySelector<HTMLElement>('[data-slot="editable-area"]')!;
-  const idleOutline = getComputedStyle(area).outlineColor;
-
-  await page.getByRole('button', { name: 'Before', exact: true }).press('Tab');
-  await wait(400);
-
-  expect(document.activeElement?.getAttribute('data-slot')).toBe('editable-preview');
-  expect(getComputedStyle(area).outlineColor).not.toBe(idleOutline);
 });

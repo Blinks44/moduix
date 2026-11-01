@@ -1,79 +1,57 @@
 ---
 title: Kbd
 component: kbd
-description: A compact component for keyboard shortcuts, command hints, and inline key labels.
+description: Show a keyboard key or a shortcut inline with the surrounding text.
+ark: https://ark-ui.com/docs/guides/composition#the-ark-factory
 ---
 
+import AnatomyScene from '@/components/examples/kbd/basic';
 import * as KbdDocs from '@/components/examples/kbd/css-properties';
 
-## API Reference
+<Example name="kbd/basic" />
 
-Ark UI does not ship a dedicated primitive for displaying keyboard keys. moduix builds `Kbd` with the official
-[Ark factory](https://ark-ui.com/docs/guides/composition#the-ark-factory), so it follows Ark's familiar composition,
-styling, and ref patterns. See the Ark guides for [composition](https://ark-ui.com/docs/guides/composition),
-[styling](https://ark-ui.com/docs/guides/styling), and [refs](https://ark-ui.com/docs/guides/ref) when you need to
-customize the rendered elements.
+## Installation
 
-## Basic
+<ComponentInstall />
 
+## Usage
+
+<Usage />
 
 Use `Kbd` to show one key. For a shortcut made of several keys, place the keycaps and their text separators inside
 `KbdGroup`.
 
-<Example name="kbd/basic" />
+## Examples
 
-## Install with shadcn
+### Single key
 
-See [Quick Start](/docs/quick-start) for full package setup, registry configuration, and styling guidance.
+Use `Kbd` directly when you need to show one key, such as `Esc`.
 
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
+<Example name="kbd/single-key" />
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/kbd' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/kbd' },
-  ]}
-/>
+### With icon
 
-  </Tab>
-  <Tab label="Solid" value="solid">
+Place an icon directly inside `Kbd`; it is sized to the keycap text unless the icon has its own size class. Give the group an `aria-label` so the shortcut has a spoken name.
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/kbd' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/kbd' },
-  ]}
-/>
+<Example name="kbd/with-icon" />
 
-  </Tab>
-  <Tab label="Vue" value="vue">
+### Shortcut list
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/kbd' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/kbd' },
-  ]}
-/>
+Combine `KbdGroup` with explanatory text to present a list of available shortcuts.
 
-  </Tab>
-</Tabs>
+<Example name="kbd/shortcut-list" />
 
-## Anatomy
+### Compact density
 
-The structure of a shortcut is simple. The `+` in this example is ordinary text, not a component part.
+Use local CSS variables when one part of your interface needs more compact keycaps, without adding component props.
 
-```text
-KbdGroup
-├─ Kbd
-├─ +
-└─ Kbd
-```
+<Example name="kbd/compact-density" />
 
-| Part               | Role                                                                          |
-| ------------------ | ----------------------------------------------------------------------------- |
-| `Kbd`              | Root keycap; renders a `<kbd>` element by default.                            |
-| `KbdGroup`         | Inline wrapper for related keycaps; uses the `group` role by default.         |
+### Custom element
+
+Use `asChild` when another component renders the semantic `<kbd>` element and you need to apply Kbd's styles to it.
+
+<Example name="kbd/custom-element" />
 
 ## Composition
 
@@ -81,40 +59,23 @@ Use `Kbd` when you need an individual key, and use `KbdGroup` to combine related
 `+` as plain text inside the group, and give the group an `aria-label` when visual
 symbols or abbreviations need a clearer accessible name.
 
-Kbd is static and owns no state or keyboard interaction. Use `asChild` only when another component must render the
+Kbd is static and has no state or keyboard interaction. Use `asChild` only when another component must render the
 semantic `<kbd>` element, and pass exactly one child.
 
-## Examples
+## Anatomy
 
-### Compact Density
+A shortcut is a `KbdGroup` of `Kbd` keycaps. A `+` between keys is ordinary text, not a component part.
 
-Use local CSS variables when one part of your interface needs more compact keycaps, without adding component props.
+Hover or focus a part to find it in the preview.
 
-<Example name="kbd/compact-density" />
-
-### Custom Element
-
-Use `asChild` when another component renders the semantic `<kbd>` element and you need to apply Kbd's styles to it.
-
-<Example name="kbd/custom-element" />
-
-### Shortcut List
-
-Combine `KbdGroup` with explanatory text to present a list of available shortcuts.
-
-<Example name="kbd/shortcut-list" />
-
-### Single Key
-
-Use `Kbd` directly when you need to show one key, such as `Esc`.
-
-<Example name="kbd/single-key" />
-
-### With Icon
-
-Place an icon directly inside `Kbd`; it is sized to the keycap text unless the icon has its own size class. Give the group an `aria-label` so the shortcut has a spoken name.
-
-<Example name="kbd/with-icon" />
+<AnatomyInspector
+  parts={[
+    ["KbdGroup", "kbd-group", "Inline wrapper for related keycaps; uses the `group` role by default.", 0],
+    ["Kbd", "kbd-root", "Root keycap; renders a `<kbd>` element by default.", 1],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styling
 
@@ -122,13 +83,28 @@ Customize `Kbd` and `KbdGroup` with `className` in React, `class` in Solid and V
 `data-slot` hooks, and the public `--moduix-kbd-*` CSS variables listed below. Tailwind variants use native utility
 classes, while CSS Modules variants use the component variables and consumer CSS.
 
-### CSS Properties
+### CSS variables
 
-<CssPropertiesSection properties={KbdDocs.kbdOverrideCssProperties} />
+Hover or focus a variable to see it in the preview.
+
+<CssPropertiesSection properties={KbdDocs.kbdOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Styling hooks
 
-- `data-slot="kbd-root"` targets each keycap element
-- `data-slot="kbd-group"` targets the inline wrapper for grouped shortcuts
+| Part | `data-slot` |
+| --- | --- |
+| `Kbd` | `kbd-root` |
+| `KbdGroup` | `kbd-group` |
+
 - `[data-scope="kbd"][data-part="root"]` and `[data-part="group"]` expose Ark-style anatomy selectors
 - Separators in `KbdGroup` inherit the group's text color. To change it, set `color` on `KbdGroup` with your own class
+
+## API reference
+
+`Kbd` renders a `kbd` element and `KbdGroup` a `span`. Both accept their native props and `asChild`.
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `asChild` | `boolean` | `false` | Renders the key styles on its single child element. |

@@ -1,88 +1,78 @@
 ---
 title: Signature Pad
 component: signature-pad
-description: A signature pad for capturing handwritten input from a pointer or touch device.
+description: Capture a handwritten signature with a mouse, pen, or finger.
+ark: https://ark-ui.com/docs/components/signature-pad
 ---
 
+import AnatomyScene from '@/components/examples/signature-pad/basic';
 import * as SignaturePadDocs from '@/components/examples/signature-pad/css-properties';
 
-## API Reference
+<Example name="signature-pad/basic" />
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/signature-pad" />
+## Installation
 
-## Basic
+<ComponentInstall />
 
+## Usage
+
+<Usage />
 
 For most use cases, start with `SignaturePadCanvas`. It provides the standard drawing surface with
 Ark's `SignaturePadControl`, `SignaturePadSegment`, `SignaturePadClearTrigger`, and
 `SignaturePadGuide` parts, plus moduix's default clear icon.
 
-<Example name="signature-pad/basic" />
+## Examples
 
-## Install with shadcn
+### Drawing
 
-See [Quick Start](/docs/quick-start) for full package setup, registry configuration, and styling guidance.
+Pass `drawing` when stroke width, stroke color, or pressure behavior needs to differ from the
+defaults. The runtime default is `{ size: 2, simulatePressure: false }` (the Ark documentation
+page shows `simulatePressure: true`), so pressure simulation is opt-in.
 
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
+<Example name="signature-pad/drawing" />
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/signature-pad' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/signature-pad' },
-  ]}
-/>
+### Image preview
 
-  </Tab>
-  <Tab label="Solid" value="solid">
+Use `onDrawEnd` to export the signature and show a preview before saving it.
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/signature-pad' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/signature-pad' },
-  ]}
-/>
+<Example name="signature-pad/image-preview" />
 
-  </Tab>
-  <Tab label="Vue" value="vue">
+### Field
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/signature-pad' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/signature-pad' },
-  ]}
-/>
+Use `Field` around the signature pad when helper text, error text, required state, or invalid
+messaging belongs to the same form control.
 
-  </Tab>
-</Tabs>
+<Example name="signature-pad/field" />
 
-## Anatomy
+### Form serialization
 
-```text
-SignaturePad
-├─ SignaturePadLabel
-├─ SignaturePadCanvas (moduix ready-made composition)
-│  └─ SignaturePadControl
-│     ├─ SignaturePadSegment
-│     ├─ SignaturePadClearTrigger
-│     └─ SignaturePadGuide
-└─ SignaturePadHiddenInput value={serializedPaths} (explicit)
+Serialize the value passed to `SignaturePadHiddenInput` in the consumer when the server needs a
+different representation. This example sends a JSON array.
 
-SignaturePadRootProvider
-└─ same part tree connected to useSignaturePad()
-```
+<Example name="signature-pad/form-serialization" />
 
-| Part                                 | Role                                                                    |
-| ------------------------------------ | ----------------------------------------------------------------------- |
-| `SignaturePad`             | Owns paths, drawing options, form name, ids, and callbacks.              |
-| `SignaturePadHiddenInput`  | Native Ark form control that you compose explicitly.                    |
-| `SignaturePadRootProvider` | Renders the same part tree from state created with `useSignaturePad()`. |
-| `SignaturePadLabel`        | Associates the visible label with the drawing area and hidden input.    |
-| `SignaturePadCanvas`       | Ready-made drawing surface that renders the standard parts and forwards `SignaturePadControl` props. |
-| `SignaturePadControl`      | Focusable pointer and touch drawing area.                               |
-| `SignaturePadSegment`      | SVG layer for saved strokes and the current in-progress stroke.         |
-| `SignaturePadClearTrigger` | Native button that clears paths.                                        |
-| `SignaturePadGuide`        | Non-interactive baseline inside the drawing area.                       |
+### Controlled
+
+Use controlled `paths` to keep the signature in application state and coordinate it with reset
+controls or autosave logic. See [Control state from the application](/docs/composition-patterns#controlled-state).
+
+<Example name="signature-pad/controlled" />
+
+### Root provider
+
+Create state with `useSignaturePad()` and pass it to `SignaturePadRootProvider` when controls outside the
+rendered tree need direct access to `paths`, `clear()`, or `getDataUrl()`. See [Share state outside the tree](/docs/composition-patterns#root-provider).
+
+<Example name="signature-pad/root-provider" />
+
+### Build from parts
+
+The same pad as Basic, without `SignaturePadCanvas`: `SignaturePadControl` holds
+`SignaturePadSegment`, `SignaturePadClearTrigger` with an explicit icon, and `SignaturePadGuide`. Start
+here when a design changes the clear control or removes the guide.
+
+<Example name="signature-pad/build-from-parts" />
 
 ## Composition
 
@@ -96,7 +86,7 @@ value, usually read from `SignaturePadContext` or `useSignaturePadContext()`, wh
 must be submitted by a native form.
 
 Use `defaultPaths` for local uncontrolled state. Use `paths` with `onDraw(details)` when the
-application owns the signature data. Use `SignaturePadRootProvider` with `useSignaturePad()` when
+application controls the signature data. Use `SignaturePadRootProvider` with `useSignaturePad()` when
 state must be created outside the rendered tree or external controls need `paths`, `clear()`, or
 `getDataUrl()`. In Vue, control the paths with `v-model:paths` and listen to
 `@draw` or `@draw-end` for drawing details.
@@ -108,64 +98,47 @@ Unlike Ark, moduix hides `SignaturePadClearTrigger` when `readOnly` comes from t
 surrounding `Field`, or `useSignaturePad()`, preventing an irreversible clear while programmatic
 `clear()` stays available.
 
-## Examples
+## Anatomy
 
-### Controlled
+Hover or focus a part to find it in the preview.
 
-Use controlled `paths` to keep the signature in application state and coordinate it with reset
-controls or autosave logic.
-
-<Example name="signature-pad/controlled" />
-
-### Drawing
-
-Pass `drawing` when stroke width, stroke color, or pressure behavior needs to differ from the
-defaults. The runtime default is `{ size: 2, simulatePressure: false }` (the Ark documentation
-page shows `simulatePressure: true`), so pressure simulation is opt-in.
-
-<Example name="signature-pad/drawing" />
-
-### Field
-
-Use `Field` around the signature pad when helper text, error text, required state, or invalid
-messaging belongs to the same form control.
-
-<Example name="signature-pad/field" />
-
-### Form Serialization
-
-Serialize the value passed to `SignaturePadHiddenInput` in the consumer when the server needs a
-different representation. This example sends a JSON array.
-
-<Example name="signature-pad/form-serialization" />
-
-### Image Preview
-
-Use `onDrawEnd` to export the signature and show a preview before saving it.
-
-<Example name="signature-pad/image-preview" />
-
-### Root Provider
-
-Create state with `useSignaturePad()` and pass it to `SignaturePadRootProvider` when controls outside the
-rendered tree need direct access to `paths`, `clear()`, or `getDataUrl()`.
-
-<Example name="signature-pad/root-provider" />
-
-### Advanced Customization
-
-Use the explicit parts instead of `SignaturePadCanvas` when you need to control the drawing-part tree or
-provide a custom clear trigger.
-
-<Example name="signature-pad/advanced-customization" />
+<AnatomyInspector
+  parts={[
+    ["SignaturePad", "signature-pad-root", "Manages paths, drawing options, form name, ids, and callbacks.", 0],
+    ["SignaturePadLabel", "signature-pad-label", "Associates the visible label with the drawing area and hidden input.", 1],
+    ["SignaturePadCanvas", "", "Ready-made drawing surface that renders the standard parts and forwards `SignaturePadControl` props.", 1],
+    ["SignaturePadControl", "signature-pad-control", "Focusable pointer and touch drawing area.", 2],
+    ["SignaturePadSegment", "signature-pad-segment", "SVG layer for saved strokes and the current in-progress stroke.", 3],
+    ["SignaturePadClearTrigger", "signature-pad-clear-trigger", "Native button that clears paths.", 3],
+    ["SignaturePadGuide", "signature-pad-guide", "Non-interactive baseline inside the drawing area.", 3],
+    ["SignaturePadHiddenInput", "", "Native Ark form control that you compose explicitly.", 1],
+    ["SignaturePadRootProvider", "signature-pad-root-provider", "Renders the same part tree from state created with `useSignaturePad()`.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styling
 
-### CSS Properties
+### CSS variables
 
-<CssPropertiesSection properties={SignaturePadDocs.signaturePadCssProperties} />
+Hover or focus a variable to see it in the preview.
+
+<CssPropertiesSection properties={SignaturePadDocs.signaturePadCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Styling hooks
+
+| Part | `data-slot` |
+| --- | --- |
+| `SignaturePad` | `signature-pad-root` |
+| `SignaturePadRootProvider` | `signature-pad-root-provider` |
+| `SignaturePadLabel` | `signature-pad-label` |
+| `SignaturePadControl` | `signature-pad-control` |
+| `SignaturePadSegment` | `signature-pad-segment` |
+| `SignaturePadGuide` | `signature-pad-guide` |
+| `SignaturePadClearTrigger` | `signature-pad-clear-trigger` |
 
 Use `className` in React or `class` in Solid and Vue on any exported part for local styling. moduix also
 adds stable `data-slot` attributes:
@@ -185,3 +158,18 @@ Ark attributes remain available for targeted styles. `SignaturePad`, `SignatureP
 the internal segment paths expose `data-scope="signature-pad"` and
 `data-part`; `data-disabled` appears on root, label, control, and guide, while `data-required`
 appears on label.
+
+## API reference
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `paths` | `string[]` | — | SVG paths of the signature, for controlled use. |
+| `defaultPaths` | `string[]` | — | Initial SVG paths. |
+| `onDraw` | `(details: DrawDetails) => void` | — | Called while drawing and when the paths change. |
+| `onDrawEnd` | `(details: DrawEndDetails) => void` | — | Called when a stroke ends; read the image with `getDataUrl`. |
+| `drawing` | `DrawingOptions` | `{ size: 2, simulatePressure: true }` | Stroke options: size, color, and pressure simulation. |
+| `name` | `string` | — | Form field name of the underlying input. |
+| `disabled` | `boolean` | `false` | Disables the control. |
+| `readOnly` | `boolean` | `false` | Shows the value but prevents changes. |
+| `required` | `boolean` | `false` | Requires a value before form submission. |
+| `translations` | `IntlTranslations` | — | Localized strings for accessibility labels. |

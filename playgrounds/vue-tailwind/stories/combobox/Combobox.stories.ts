@@ -71,11 +71,10 @@ const ComboboxPopup = defineComponent({
 });
 
 const storyComponents = { ...comboboxComponents, ComboboxPopup };
-const tagClass = 'rounded-sm bg-muted px-2 py-1 text-xs text-foreground';
-const placeholderClass = 'rounded-sm bg-muted px-2 py-1 text-xs text-muted-foreground';
+const tagClass = 'inline-flex items-center rounded-sm bg-muted px-2 py-1 text-xs';
+const placeholderClass =
+  'inline-flex items-center rounded-sm px-2 py-1 text-xs text-muted-foreground';
 const providerLayoutClass = 'flex items-start gap-4';
-const providerButtonClass =
-  'rounded-md border border-border bg-background px-3 py-2 text-foreground';
 
 function renderStory(template: string, setup?: () => Record<string, unknown>) {
   return () =>
@@ -181,7 +180,7 @@ export const Multiple: Story = {
     `
       <Combobox v-model="value" multiple :collection="collection" @input-value-change="filter($event.inputValue)">
         <ComboboxLabel>Fruits</ComboboxLabel>
-        <div class="my-2 flex flex-wrap gap-1">
+        <div class="flex min-h-6 flex-wrap gap-1">
           <span v-if="selectedItems.length === 0" :class="placeholderClass">None selected</span>
           <span v-for="item in selectedItems" :key="item.value" :class="tagClass">{{ item.label }}</span>
         </div>
@@ -267,7 +266,7 @@ export const RootProvider: Story = {
   render: renderStory(
     `
       <div :class="providerLayoutClass">
-        <button type="button" :class="providerButtonClass" @click="focusCombobox">Focus combobox</button>
+        <button type="button" @click="focusCombobox">Focus combobox</button>
         <ComboboxRootProvider :value="combobox">
           <ComboboxLabel>Job title</ComboboxLabel>
           <ComboboxControl>
@@ -285,7 +284,6 @@ export const RootProvider: Story = {
         combobox,
         focusCombobox: () => combobox.value.focus(),
         jobTitles,
-        providerButtonClass,
         providerLayoutClass,
       };
     },

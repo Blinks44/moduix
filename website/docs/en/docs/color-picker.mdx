@@ -1,219 +1,39 @@
 ---
 title: Color Picker
 component: color-picker
-description: An Ark UI-based color picker for choosing colors, editing color channels, and selecting swatches in React, Solid, or Vue.
+description: Choose a color with an area, channel sliders, inputs, and swatches.
+ark: https://ark-ui.com/docs/components/color-picker
 ---
 
+import AnatomyScene from '@/components/examples/color-picker/anatomy';
 import * as ColorPickerDocs from '@/components/examples/color-picker/css-properties';
 
-## API Reference
+<Example name="color-picker/basic" />
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/color-picker" />
+## Installation
+
+<ComponentInstall />
+
+## Usage
+
+<Usage />
+
+Start with a compact field that combines a root, one channel input, the trigger's default swatch,
+explicit popup content, and the picker's default internal parts. Add `ColorPickerHiddenInput`
+explicitly when the color should be submitted with a form.
 
 ## Choosing the right component
 
 Choose `ColorPicker` when users need to pick or fine-tune a color. Choose `Input` when they only need
 to enter a known value and do not need to manipulate the color directly.
 
-## Basic
-
-Start with a compact field that combines a root, one channel input, the trigger's default swatch,
-explicit popup content, and the picker's default internal parts. Add `ColorPickerHiddenInput`
-explicitly when the color should be submitted with a form.
-
-<Example name="color-picker/basic" />
-
-## Install with shadcn
-
-See [Quick Start](/docs/quick-start) for full package setup, registry configuration, and styling guidance.
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/color-picker' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/color-picker' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/color-picker' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/color-picker' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/color-picker' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/color-picker' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Anatomy
-
-```text
-ColorPicker
-├─ ColorPickerLabel
-├─ ColorPickerControl
-│  ├─ ColorPickerChannelInput[channel]
-│  └─ ColorPickerTrigger
-│     └─ ColorPickerValueSwatch
-├─ Overlay subtree (automatically portalled)
-│  └─ ColorPickerPositioner
-│     └─ ColorPickerContent
-│        ├─ ColorPickerArea
-│        │  ├─ ColorPickerAreaBackground
-│        │  └─ ColorPickerAreaThumb
-│        ├─ ColorPickerEyeDropperTrigger
-│        ├─ ColorPickerChannelSlider[channel]
-│        │  ├─ ColorPickerTransparencyGrid
-│        │  ├─ ColorPickerChannelSliderTrack
-│        │  └─ ColorPickerChannelSliderThumb
-│        ├─ ColorPickerSwatchGroup
-│        │  └─ ColorPickerSwatchTrigger[value]
-│        │     └─ ColorPickerSwatch[value]
-│        │        └─ ColorPickerSwatchIndicator
-│        └─ ColorPickerView[format]
-│           └─ ColorPickerChannelInput[channel]
-└─ ColorPickerHiddenInput (explicit)
-```
-
-| Part                               | Role                                                                   |
-| ---------------------------------- | ---------------------------------------------------------------------- |
-| `ColorPicker` | Owns color value, format, popup state, and form integration.           |
-| `ColorPickerHiddenInput` | Native Ark form control; compose explicitly as described below. |
-| `ColorPickerLabel` | Accessible label for the visible picker controls. |
-| `ColorPickerControl`              | Groups visible inputs and trigger.                                     |
-| `ColorPickerTrigger`              | Button that opens the popup and renders the current swatch by default. |
-| `ColorPickerPositioner` | Floating layer that positions the popup and exposes Ark positioning CSS variables. |
-| `ColorPickerContent`              | Actual Ark popup content part.                                         |
-| `ColorPickerArea`                 | Two-dimensional color interaction surface.                             |
-| `ColorPickerAreaBackground` | Background layer that captures pointer input for the color area. |
-| `ColorPickerEyeDropperTrigger` | Samples a color from the screen; rendered only where the browser supports the EyeDropper API. |
-| `ColorPickerChannelSlider`        | One-dimensional channel control for hue, alpha, or other channels.     |
-| `ColorPickerTransparencyGrid` | Checkerboard backdrop that makes alpha visible behind a channel slider track. Swatches draw their own checkerboard. |
-| `ColorPickerSliders`              | Styled hue and alpha slider pair.                                      |
-| `ColorPickerChannelInput`         | Text or numeric input for a specific color channel.                    |
-| `ColorPickerSwatchTrigger`        | Selectable preset color button.                                        |
-| `ColorPickerSwatch` | Colored surface rendered inside a swatch trigger or value swatch. |
-| `ColorPickerSwatchIndicator` | Optional marker inside a swatch, such as a check for the selected preset. |
-| `ColorPickerValueSwatch`          | Visual swatch for the current value.                                   |
-| `ColorPickerValueText` | Read-only text of the formatted value. |
-
-`ColorPickerRootProvider`, `parseColor`, `useColorPicker`, and `useColorPickerContext` cover the
-normal advanced state path.
-
-## Composition
-
-Use `defaultValue` for local state. When application state owns the selected color or popup, pass `value` with `onValueChange(details)` or `open` with `onOpenChange(details)`. In Vue, bind the same state with `v-model`, `v-model:open`, and `v-model:format`. For state created outside the rendered tree, pass `useColorPicker()` to `ColorPickerRootProvider`; do not render `ColorPicker` and `ColorPickerRootProvider` for the same store.
-
-`ColorPickerPositioner` is portalled by default. Set `portalled={false}` for an overlay inside another stacking context. To submit the color with a native form, set `name` on the root and render `ColorPickerHiddenInput` explicitly. Parts such as `ColorPickerArea`, `ColorPickerChannelSlider`, and `ColorPickerSwatchTrigger` provide default visual children; pass children only when changing their structure.
-
-In Solid, assign a ref to the element created inside the `asChild` render function. A ref on a
-ColorPicker part itself is not forwarded through that composition path. In Vue, use the ordinary
-template `ref` on a part and read the rendered element through `$el`.
-
 ## Examples
-
-### Color Area and Sliders
-
-Use this compact composition when users need the color area and channel sliders but do not need
-typed channel input.
-
-<Example name="color-picker/slider-only" />
-
-### Compact Trigger
-
-Use `data-fit-content` on `ColorPickerTrigger` when a content-sized button is more useful than a
-square swatch, such as when replacing a button-based color field.
-
-<Example name="color-picker/compact-trigger" />
-
-### Controlled
-
-Use controlled state when the selected color must stay in sync with application state.
-
-<Example name="color-picker/controlled" />
-
-### Disabled
-
-Use `disabled` on the root when every color picker part should become non-interactive while keeping
-the current color visible.
-
-<Example name="color-picker/disabled" />
-
-### Field State
-
-Use root form-state props such as `required` and `invalid` when the picker is rendered inside a
-field container and should expose the same state through Ark data attributes.
-
-<Example name="color-picker/field-state" />
-
-### Form Usage
-
-Use `name` on `ColorPicker` and add `ColorPickerHiddenInput` explicitly.
-
-<Example name="color-picker/form-usage" />
-
-### Format Views
-
-Use `format`, `onFormatChange`, `ColorPickerFormatSelect`, and `ColorPickerView` when users need to switch between channel
-input groups without changing the picker structure. `ColorPickerFormatSelect` keeps Ark's native format
-control, while its collapsed trigger is styled like the moduix Select field and consistently
-presents the RGBA, HSLA, and HSBA options. The browser controls the options popup.
-
-<Example name="color-picker/format-views" />
 
 ### Inline
 
 Use `inline` in settings panels where the color tools should stay visible without a popup trigger.
 
 <Example name="color-picker/inline" />
-
-### Input Only
-
-Use channel inputs with a passive swatch when typed color entry is important and a popup would add
-unnecessary complexity to the interface.
-
-<Example name="color-picker/input-only" />
-
-### Inside Dialog
-
-When a picker appears inside a modal dialog, render its popup without a portal so it shares the
-dialog's stacking context and stays interactive above the dialog surface.
-
-<Example name="color-picker/inside-dialog" />
-
-### Open Controlled
-
-Use controlled `open` state when another control or workflow owns the popup's visibility.
-
-<Example name="color-picker/open-controlled" />
-
-### Root Provider
-
-Use moduix `useColorPicker` with `ColorPickerRootProvider` when the color picker state must be created outside
-the rendered tree and shared with nearby controls.
-
-<Example name="color-picker/root-provider" />
-
-### Swatch Only
-
-Use swatch-only composition when a preset palette is enough and the area, sliders, and inputs are
-unnecessary.
-
-<Example name="color-picker/swatch-only" />
 
 ### Swatches
 
@@ -222,29 +42,193 @@ Use popup swatches when the picker should offer a curated set of colors alongsid
 
 <Example name="color-picker/swatches" />
 
-### Value Swatch
+### Format views
+
+Use `format`, `onFormatChange`, `ColorPickerFormatSelect`, and `ColorPickerView` when users need to switch between channel
+input groups without changing the picker structure. `ColorPickerFormatSelect` keeps Ark's native format
+control, while its collapsed trigger is styled like the moduix Select field and consistently
+presents the RGBA, HSLA, and HSBA options. The browser controls the options popup.
+
+<Example name="color-picker/format-views" />
+
+### Compact trigger
+
+Use `data-fit-content` on `ColorPickerTrigger` when a content-sized button is more useful than a
+square swatch, such as when replacing a button-based color field.
+
+<Example name="color-picker/compact-trigger" />
+
+### Input only
+
+Use channel inputs with a passive swatch when typed color entry is important and a popup would add
+unnecessary complexity to the interface.
+
+<Example name="color-picker/input-only" />
+
+### Color area and sliders
+
+Use this compact composition when users need the color area and channel sliders but do not need
+typed channel input.
+
+<Example name="color-picker/slider-only" />
+
+### Swatch only
+
+Use swatch-only composition when a preset palette is enough and the area, sliders, and inputs are
+unnecessary.
+
+<Example name="color-picker/swatch-only" />
+
+### Value swatch
 
 Use `ColorPickerValueSwatch` and `ColorPickerValueText` when nearby UI needs to show the selected color without opening
 the full picker.
 
 <Example name="color-picker/value-swatch" />
 
-### Advanced Customization
+### Disabled
 
-Use explicit parts and children when the default composition needs a different visual arrangement.
+Use `disabled` on the root when every color picker part should become non-interactive while keeping
+the current color visible.
 
-<Example name="color-picker/advanced-customization" />
+<Example name="color-picker/disabled" />
+
+### Field state
+
+Use root form-state props such as `required` and `invalid` when the picker is rendered inside a
+field container and should expose the same state through Ark data attributes.
+
+<Example name="color-picker/field-state" />
+
+### Form usage
+
+Use `name` on `ColorPicker` and add `ColorPickerHiddenInput` explicitly.
+
+<Example name="color-picker/form-usage" />
+
+### Controlled
+
+Use controlled state when the selected color must stay in sync with application state. See [Control state from the application](/docs/composition-patterns#controlled-state).
+
+<Example name="color-picker/controlled" />
+
+### Open controlled
+
+Use controlled `open` state when another control or workflow controls the popup's visibility. See [Control state from the application](/docs/composition-patterns#controlled-state).
+
+<Example name="color-picker/open-controlled" />
+
+### Inside Dialog
+
+When a picker appears inside a modal dialog, render its popup without a portal so it shares the
+dialog's stacking context and stays interactive above the dialog surface.
+
+<Example name="color-picker/inside-dialog" />
+
+### Root provider
+
+Use moduix `useColorPicker` with `ColorPickerRootProvider` when the color picker state must be created outside
+the rendered tree and shared with nearby controls. See [Share state outside the tree](/docs/composition-patterns#root-provider).
+
+<Example name="color-picker/root-provider" />
+
+### Build from parts
+
+The same picker as Basic with every default child written out: `ColorPickerValueSwatch` in the
+trigger, the area background and thumb, one `ColorPickerChannelSlider` per channel instead of
+`ColorPickerSliders`, and swatches with `ColorPickerSwatchIndicator`. The eye dropper and swatch
+indicator receive explicit icons. Start here when a design rearranges the popup.
+
+<Example name="color-picker/build-from-parts" />
+
+## Composition
+
+Use `defaultValue` for local state. When application state controls the selected color or popup, pass `value` with `onValueChange(details)` or `open` with `onOpenChange(details)`. In Vue, bind the same state with `v-model`, `v-model:open`, and `v-model:format`. For state created outside the rendered tree, pass `useColorPicker()` to `ColorPickerRootProvider`; do not render `ColorPicker` and `ColorPickerRootProvider` for the same store.
+
+`ColorPickerPositioner` is portalled by default. Set `portalled={false}` for an overlay inside another stacking context. To submit the color with a native form, set `name` on the root and render `ColorPickerHiddenInput` explicitly. Parts such as `ColorPickerArea`, `ColorPickerChannelSlider`, and `ColorPickerSwatchTrigger` provide default visual children; pass children only when changing their structure.
+
+In Solid, assign a ref to the element created inside the `asChild` render function. A ref on a
+ColorPicker part itself is not forwarded through that composition path. In Vue, use the ordinary
+template `ref` on a part and read the rendered element through `$el`.
+
+## Anatomy
+
+Hover or focus a part to find it in the preview.
+
+<AnatomyInspector
+  parts={[
+    ["ColorPicker", "color-picker-root", "Manages color value, format, popup state, and form integration.", 0],
+    ["ColorPickerLabel", "color-picker-label", "Accessible label for the visible picker controls.", 1],
+    ["ColorPickerControl", "color-picker-control", "Groups visible inputs and trigger.", 1],
+    ["ColorPickerChannelInput", "color-picker-channel-input", "Text or numeric input for a specific color channel.", 2],
+    ["ColorPickerTrigger", "color-picker-trigger", "Button that opens the popup and renders the current swatch by default.", 2],
+    ["ColorPickerValueSwatch", "color-picker-value-swatch", "Visual swatch for the current value.", 3],
+    ["ColorPickerPositioner", "color-picker-positioner", "Floating layer that positions the popup and exposes Ark positioning CSS variables.", 1],
+    ["ColorPickerContent", "color-picker-content", "Actual Ark popup content part.", 2],
+    ["ColorPickerArea", "color-picker-area", "Two-dimensional color interaction surface.", 3],
+    ["ColorPickerAreaBackground", "color-picker-area-background", "Background layer that captures pointer input for the color area.", 4],
+    ["ColorPickerEyeDropperTrigger", "color-picker-eye-dropper-trigger", "Samples a color from the screen; rendered only where the browser supports the EyeDropper API.", 3],
+    ["ColorPickerChannelSlider", "color-picker-channel-slider", "One-dimensional channel control for hue, alpha, or other channels.", 3],
+    ["ColorPickerTransparencyGrid", "color-picker-transparency-grid", "Checkerboard backdrop that makes alpha visible behind a channel slider track. Swatches draw their own checkerboard.", 4],
+    ["ColorPickerSwatchTrigger", "color-picker-swatch-trigger", "Selectable preset color button.", 3],
+    ["ColorPickerSwatch", "color-picker-swatch", "Colored surface rendered inside a swatch trigger or value swatch.", 4],
+    ["ColorPickerSwatchIndicator", "color-picker-swatch-indicator", "Optional marker inside a swatch, such as a check for the selected preset.", 5],
+    ["ColorPickerHiddenInput", "", "Native Ark form control; compose explicitly as described below.", 1],
+    ["ColorPickerSliders", "color-picker-sliders", "Styled hue and alpha slider pair.", 1],
+    ["ColorPickerValueText", "color-picker-value-text", "Read-only text of the formatted value.", 1],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
+
+`ColorPickerRootProvider`, `parseColor`, `useColorPicker`, and `useColorPickerContext` cover the
+normal advanced state path.
 
 ## Styling
 
 Use `className` in React or `class` in Solid and Vue on exported parts. Tailwind variants use native utilities and consumer classes; CSS Modules variants expose a short list of `--moduix-color-picker-*` variables for sizes that several parts or default children share; colors, spacing, and typography follow foundation tokens, so change them with a class on the part. Both styling tracks expose stable `data-slot="color-picker-*"` hooks and Ark `data-scope` / `data-part` attributes.
-### CSS Properties
+### CSS variables
 
-<CssPropertiesSection properties={ColorPickerDocs.colorPickerOverrideCssProperties} />
+Hover or focus a variable to see it in the preview.
+
+<CssPropertiesSection properties={ColorPickerDocs.colorPickerOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Styling hooks
 
-Use the part that owns the visual concern:
+| Part | `data-slot` |
+| --- | --- |
+| `ColorPicker` | `color-picker-root` |
+| `ColorPickerRootProvider` | `color-picker-root-provider` |
+| `ColorPickerLabel` | `color-picker-label` |
+| `ColorPickerControl` | `color-picker-control` |
+| `ColorPickerTrigger` | `color-picker-trigger` |
+| `ColorPickerPositioner` | `color-picker-positioner` |
+| `ColorPickerContent` | `color-picker-content` |
+| `ColorPickerArea` | `color-picker-area` |
+| `ColorPickerAreaBackground` | `color-picker-area-background` |
+| `ColorPickerAreaThumb` | `color-picker-area-thumb` |
+| `ColorPickerChannelSlider` | `color-picker-channel-slider` |
+| `ColorPickerSliders` | `color-picker-sliders` |
+| `ColorPickerChannelSliderTrack` | `color-picker-channel-slider-track` |
+| `ColorPickerChannelSliderThumb` | `color-picker-channel-slider-thumb` |
+| `ColorPickerChannelSliderLabel` | `color-picker-channel-slider-label` |
+| `ColorPickerChannelSliderValueText` | `color-picker-channel-slider-value-text` |
+| `ColorPickerChannelInput` | `color-picker-channel-input` |
+| `ColorPickerEyeDropperTrigger` | `color-picker-eye-dropper-trigger` |
+| `ColorPickerFormatSelect` | `color-picker-format-select` |
+| `ColorPickerFormatTrigger` | `color-picker-format-trigger` |
+| `ColorPickerSwatchGroup` | `color-picker-swatch-group` |
+| `ColorPickerSwatchTrigger` | `color-picker-swatch-trigger` |
+| `ColorPickerSwatch` | `color-picker-swatch` |
+| `ColorPickerSwatchIndicator` | `color-picker-swatch-indicator` |
+| `ColorPickerTransparencyGrid` | `color-picker-transparency-grid` |
+| `ColorPickerValueSwatch` | `color-picker-value-swatch` |
+| `ColorPickerValueText` | `color-picker-value-text` |
+| `ColorPickerView` | `color-picker-view` |
+
+Use the part that renders the element you want to style:
 
 - `ColorPicker` for width, gap, shared color, and disabled opacity
 - `ColorPickerControl`, `ColorPickerChannelInput`, `ColorPickerTrigger`, `ColorPickerFormatSelect`, and `ColorPickerFormatTrigger` for the
@@ -266,3 +250,41 @@ The main state hooks are `data-state`, `data-focus`, `data-invalid`, `data-disab
 
 When `prefers-reduced-motion` is enabled, popup entry and exit animations are disabled; Ark still
 completes its exit lifecycle.
+
+## Keyboard
+
+| Key | Action |
+| --- | --- |
+| `Enter` / `Space` | Opens the picker from the trigger. |
+| `ArrowUp` / `ArrowDown` / `ArrowLeft` / `ArrowRight` | Moves the thumb of the focused area or slider. |
+| `Esc` | Closes the picker. |
+
+## API reference
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `value` | `Color` | — | Color for controlled use; create it with `parseColor()`. |
+| `defaultValue` | `Color` | `#000000` | Initial color when it is not controlled. |
+| `onValueChange` | `(details: ValueChangeDetails) => void` | — | Called while the color changes, including during drags. |
+| `onValueChangeEnd` | `(details: ValueChangeDetails) => void` | — | Called when the user stops dragging. |
+| `format` | `'rgba' \| 'hsla' \| 'hsba'` | — | Color format for controlled use: `rgba`, `hsla`, or `hsba`. |
+| `defaultFormat` | `'rgba' \| 'hsla' \| 'hsba'` | `'rgba'` | Initial color format. |
+| `open` | `boolean` | — | Open state for controlled use. |
+| `defaultOpen` | `boolean` | `false` | Initial open state when it is not controlled. |
+| `onOpenChange` | `(details: OpenChangeDetails) => void` | — | Called when it opens or closes. |
+| `inline` | `boolean` | `false` | Renders the picker in place instead of in a popup. |
+| `closeOnSelect` | `boolean` | `false` | Closes the popup when a swatch is picked. |
+| `positioning` | `PositioningOptions` | — | Placement, offset, and other popup positioning options. |
+| `name` | `string` | — | Form field name of the underlying input. |
+| `disabled` | `boolean` | `false` | Disables the control. |
+| `readOnly` | `boolean` | `false` | Shows the value but prevents changes. |
+| `invalid` | `boolean` | `false` | Marks the control as invalid. |
+| `required` | `boolean` | `false` | Requires a value before form submission. |
+| `lazyMount` | `boolean` | `true` | Mounts the content on first open. |
+| `unmountOnExit` | `boolean` | `true` | Unmounts the content after it closes. |
+| `initialFocusEl` | `() => HTMLElement \| null \| false` | — | Element to focus when the popup opens. |
+| `onFormatChange` | `(details: FormatChangeDetails) => void` | — | Called when the color format changes. |
+| `openAutoFocus` | `boolean` | `true` | Moves focus into the popup when it opens. |
+| `onPointerDownOutside` | `(event: PointerDownOutsideEvent) => void` | — | Called when the pointer is pressed outside the popup. |
+| `onFocusOutside` | `(event: FocusOutsideEvent) => void` | — | Called when focus moves outside the popup. |
+| `onInteractOutside` | `(event: InteractOutsideEvent) => void` | — | Called on any interaction outside the popup. |

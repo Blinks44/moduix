@@ -1,12 +1,16 @@
 import { existsSync, readFileSync } from 'node:fs';
 import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 
-// Expands `<Example name="button/basic" />` in MDX into the preview frame and the React, Solid,
-// Vue, and CSS sources. It runs as a loader, not a remark plugin, because Rspress skips custom
-// remark plugins when it renders the Markdown pages used by llms.txt.
+// Expands `<Example name="button/basic" />` in MDX into an `ExamplePanel` with the live React
+// preview and the raw React, Solid, Vue, and CSS sources, and `<Usage />` into the raw sources of the
+// Basic example named after the page file (`button.mdx` uses `button/basic`). It runs as a loader,
+// not a remark plugin, because Rspress skips custom remark plugins when it renders the Markdown pages
+// used by llms.txt.
 
-const websiteRoot = path.dirname(path.dirname(new URL(import.meta.url).pathname));
+const websiteRoot = fileURLToPath(new URL('../', import.meta.url));
 const examplePattern = /^<Example name="([^"]+)"([^>]*?)\s*\/>$/gm;
+const usagePattern = /^<Usage \/>$/gm;
 
 function toIdentifier(name) {
   return name.replace(/(^|[/-])(\w)/g, (_, __, letter) => letter.toUpperCase());
@@ -22,12 +26,13 @@ function cssImports(reactFile) {
 }
 
 export default function exampleLoader(source) {
-  if (!source.includes('<Example ')) return source;
+  if (!source.includes('<Example ') && !source.includes('<Usage ')) return source;
 
   const relative = (file) => path.relative(path.dirname(this.resourcePath), file);
   const imports = new Set();
 
-  const content = source.replace(examplePattern, (_, name, attributes) => {
+  // Imports the raw framework sources of an example and returns the identifier they share.
+  const addSources = (name) => {
     const dir = path.dirname(name);
     const base = path.basename(name);
     const reactFile = path.join(websiteRoot, 'src/components/examples', dir, `${base}.tsx`);
@@ -39,52 +44,32 @@ export default function exampleLoader(source) {
     }
 
     const identifier = `Example${toIdentifier(name)}`;
-    imports.add(`import ${identifier} from '@/components/examples/${dir}/${base}.tsx';`);
+    imports.add(`import ${identifier}React from '${relative(reactFile)}?raw';`);
     imports.add(`import ${identifier}Solid from '${relative(solidFile)}?raw';`);
     imports.add(`import ${identifier}Vue from '${relative(vueFile)}?raw';`);
+    return { identifier, reactFile, dir, base };
+  };
+  const sources = (identifier) =>
+    `{{ react: ${identifier}React, solid: ${identifier}Solid, vue: ${identifier}Vue }}`;
 
-    const styles = cssImports(reactFile).map(
-      (file) => `\`\`\`css title="${path.basename(file)}" file="${relative(file)}"\n\`\`\``,
-    );
+  const page = path.basename(this.resourcePath, '.mdx');
+  const content = source
+    .replace(
+      usagePattern,
+      () => `<UsageCode sources=${sources(addSources(`${page}/basic`).identifier)} />`,
+    )
+    .replace(examplePattern, (_, name, attributes) => {
+      const { identifier, reactFile, dir, base } = addSources(name);
+      imports.add(`import ${identifier} from '@/components/examples/${dir}/${base}.tsx';`);
+      const files = cssImports(reactFile).map((file, index) => {
+        imports.add(`import ${identifier}Css${index} from '${relative(file)}?raw';`);
+        return `{ name: '${path.basename(file)}', code: ${identifier}Css${index} }`;
+      });
 
-    return `<ExampleFrame variant="component"${attributes}>
+      return `<ExamplePanel${attributes} sources=${sources(identifier)} files={[${files.join(', ')}]}>
   <${identifier} />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-\`\`\`tsx pure file="${relative(reactFile)}"
-\`\`\`
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={${identifier}Solid} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={${identifier}Vue} />
-
-    </Tab>
-  </Tabs>
-
-${styles.join('\n\n')}
-</div>
-
-</ExampleCode>`;
-  });
+</ExamplePanel>`;
+    });
 
   const frontmatter = content.match(/^---\n[\s\S]*?\n---\n/)?.[0] ?? '';
   return `${frontmatter}\n${[...imports].join('\n')}\n${content.slice(frontmatter.length)}`;

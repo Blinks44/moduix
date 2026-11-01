@@ -4,7 +4,7 @@ import type { DatePickerClearTriggerProps } from '@ark-ui/vue/date-picker';
 import { clsx } from 'clsx';
 import { computed, useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
-import CloseButton from '@/components/close-button/CloseButton.vue';
+import CloseButton from '../close-button/CloseButton.vue';
 import styles from './DatePicker.module.css';
 
 defineOptions({ inheritAttrs: false });

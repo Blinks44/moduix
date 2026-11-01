@@ -4,9 +4,9 @@
   min-height: 10rem;
   align-items: center;
   justify-content: center;
-  border: var(--moduix-border-width-sm) dashed var(--moduix-color-border);
+  border: var(--moduix-border-width-sm) dashed var(--moduix-border);
   border-radius: var(--moduix-radius-md);
-  color: var(--moduix-color-muted-foreground);
+  color: var(--moduix-muted-foreground);
   font-size: var(--moduix-text-sm);
   user-select: none;
 }

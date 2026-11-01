@@ -8,7 +8,7 @@ import {
   FileUploadItemGroup,
   FileUploadItems,
   FileUploadLabel,
-} from '../../src';
+} from '@/index';
 const file = new File(['moduix'], 'moduix.txt', { type: 'text/plain' });
 </script>
 

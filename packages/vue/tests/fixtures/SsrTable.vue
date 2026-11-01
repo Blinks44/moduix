@@ -11,7 +11,7 @@ import {
   TableEmpty,
   TableFooter,
   TableCell,
-} from '../../src';
+} from '@/index';
 </script>
 
 <template>

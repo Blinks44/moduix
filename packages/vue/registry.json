@@ -162,7 +162,7 @@
       "title": "Clipboard",
       "description": "moduix Vue Clipboard component.",
       "dependencies": ["@ark-ui/vue", "clsx"],
-      "registryDependencies": ["@moduix-vue/foundation"],
+      "registryDependencies": ["@moduix-vue/foundation", "@moduix-vue/icons"],
       "files": [
         {
           "path": "src/components/clipboard/Clipboard.vue",
@@ -1266,21 +1266,6 @@
           "type": "registry:component"
         },
         {
-          "path": "src/components/listbox/ListboxItemTextContent.vue",
-          "target": "@components/ui/listbox/ListboxItemTextContent.vue",
-          "type": "registry:component"
-        },
-        {
-          "path": "src/components/listbox/ListboxItemTextIcon.vue",
-          "target": "@components/ui/listbox/ListboxItemTextIcon.vue",
-          "type": "registry:component"
-        },
-        {
-          "path": "src/components/listbox/ListboxItemTextLabel.vue",
-          "target": "@components/ui/listbox/ListboxItemTextLabel.vue",
-          "type": "registry:component"
-        },
-        {
           "path": "src/components/listbox/ListboxItemIndicator.vue",
           "target": "@components/ui/listbox/ListboxItemIndicator.vue",
           "type": "registry:component"
@@ -2179,7 +2164,12 @@
       "title": "DatePicker",
       "description": "moduix Vue DatePicker component.",
       "dependencies": ["@ark-ui/vue", "clsx"],
-      "registryDependencies": ["@moduix-vue/foundation", "@moduix-vue/icons"],
+      "registryDependencies": [
+        "@moduix-vue/foundation",
+        "@moduix-vue/icons",
+        "@moduix-vue/overlay-portal",
+        "@moduix-vue/close-button"
+      ],
       "files": [
         {
           "path": "src/components/date-picker/DatePicker.vue",
@@ -2565,21 +2555,6 @@
         {
           "path": "src/components/select/SelectItemIndicator.vue",
           "target": "@components/ui/select/SelectItemIndicator.vue",
-          "type": "registry:component"
-        },
-        {
-          "path": "src/components/select/SelectItemTextContent.vue",
-          "target": "@components/ui/select/SelectItemTextContent.vue",
-          "type": "registry:component"
-        },
-        {
-          "path": "src/components/select/SelectItemTextIcon.vue",
-          "target": "@components/ui/select/SelectItemTextIcon.vue",
-          "type": "registry:component"
-        },
-        {
-          "path": "src/components/select/SelectItemTextLabel.vue",
-          "target": "@components/ui/select/SelectItemTextLabel.vue",
           "type": "registry:component"
         },
         {
@@ -3588,7 +3563,8 @@
       "registryDependencies": [
         "@moduix-vue/close-button",
         "@moduix-vue/foundation",
-        "@moduix-vue/overlay-portal"
+        "@moduix-vue/overlay-portal",
+        "@moduix-vue/a11y-labels"
       ],
       "files": [
         {
@@ -4694,21 +4670,6 @@
           "type": "registry:component"
         },
         {
-          "path": "src/components/menu/MenuItemTextContent.vue",
-          "target": "@components/ui/menu/MenuItemTextContent.vue",
-          "type": "registry:component"
-        },
-        {
-          "path": "src/components/menu/MenuItemTextIcon.vue",
-          "target": "@components/ui/menu/MenuItemTextIcon.vue",
-          "type": "registry:component"
-        },
-        {
-          "path": "src/components/menu/MenuItemTextLabel.vue",
-          "target": "@components/ui/menu/MenuItemTextLabel.vue",
-          "type": "registry:component"
-        },
-        {
           "path": "src/components/menu/MenuPositioner.vue",
           "target": "@components/ui/menu/MenuPositioner.vue",
           "type": "registry:component"
@@ -5024,7 +4985,11 @@
       "title": "CloseButton",
       "description": "moduix Vue CloseButton component.",
       "dependencies": ["@ark-ui/vue", "clsx"],
-      "registryDependencies": ["@moduix-vue/foundation", "@moduix-vue/icons"],
+      "registryDependencies": [
+        "@moduix-vue/foundation",
+        "@moduix-vue/icons",
+        "@moduix-vue/a11y-labels"
+      ],
       "files": [
         {
           "path": "src/components/close-button/CloseButton.vue",

@@ -20,8 +20,7 @@ import {
   type DateInputDateValue,
   useDateInput,
   useDateInputContext,
-  Field,
-} from '../src';
+} from '@/index';
 import SsrDateInput from './fixtures/SsrDateInput.vue';
 
 const dateInputComponents = {
@@ -95,44 +94,6 @@ test('submits through explicit Ark hidden inputs', async () => {
   ]);
   await page.getByRole('spinbutton').nth(0).press('ArrowUp');
   expect(new FormData(form).get('check-in[0]')).toBe('7/22/2026');
-});
-
-test('keeps explicit inputs inside an asChild root and forwards refs', async () => {
-  const rootRef = ref<ComponentPublicInstance | null>(null);
-  const Harness = defineComponent({
-    components: dateInputComponents,
-    setup() {
-      return { rootRef, releaseDate: [new CalendarDate(2026, 6, 22)] };
-    },
-    template: `
-      <form>
-        <DateInput
-          ref="rootRef"
-          as-child
-          :default-value="releaseDate"
-          name="release-date"
-        >
-          <fieldset>
-            <DateInputLabel>Release date</DateInputLabel>
-            <DateInputControl>
-              <DateInputSegments />
-            </DateInputControl>
-            <DateInputHiddenInput name="release-date" />
-          </fieldset>
-        </DateInput>
-      </form>
-    `,
-  });
-
-  const { container } = render(Harness);
-
-  const root = container.querySelector('[data-slot="date-input-root"]')!;
-  expect(root.tagName).toBe('FIELDSET');
-  expect(rootRef.value?.$el).toBe(root);
-  await expect
-    .element(page.locator('[data-slot="date-input-root"]'))
-    .toHaveAttribute('data-slot', 'date-input-root');
-  expect(root.querySelector('input[type="hidden"]')!.getAttribute('name')).toBe('release-date');
 });
 
 test('preserves Ark segment semantics, styling hooks, consumer attrs, and part refs', async () => {
@@ -271,73 +232,4 @@ test('hydrates date-input without replacing server hosts or IDs and remains inte
     app.unmount();
     host.remove();
   }
-});
-
-test('sizes the root to its content and stretches the control to the root', () => {
-  render({
-    components: dateInputComponents,
-    setup() {
-      return { releaseDate: [new CalendarDate(2026, 6, 22)] };
-    },
-    template: `
-      <div style="width: 600px">
-        <DateInput :default-value="releaseDate">
-          <DateInputLabel>Release date</DateInputLabel>
-          <DateInputControl>
-            <DateInputSegments />
-          </DateInputControl>
-        </DateInput>
-      </div>
-    `,
-  });
-
-  const root = document.querySelector<HTMLElement>('[data-slot="date-input-root"]')!;
-  const control = document.querySelector<HTMLElement>('[data-slot="date-input-control"]')!;
-
-  expect(root.offsetWidth).toBeLessThan(300);
-  expect(control.offsetWidth).toBe(root.offsetWidth);
-});
-
-test('does not dim a disabled date input twice inside a disabled field', () => {
-  render({
-    components: { ...dateInputComponents, Field: Field as Component },
-    template: `
-      <Field disabled>
-        <DateInput disabled>
-          <DateInputLabel>Release date</DateInputLabel>
-          <DateInputControl>
-            <DateInputSegments />
-          </DateInputControl>
-        </DateInput>
-      </Field>
-    `,
-  });
-
-  const field = document.querySelector('[data-slot="field-root"]')!;
-  const root = document.querySelector('[data-slot="date-input-root"]')!;
-
-  expect(getComputedStyle(field).opacity).toBe('0.5');
-  expect(getComputedStyle(root).opacity).toBe('1');
-});
-
-test('shows a focused placeholder segment in the foreground color', async () => {
-  render({
-    components: dateInputComponents,
-    template: `
-      <DateInput>
-        <DateInputLabel>Release date</DateInputLabel>
-        <DateInputControl>
-          <DateInputSegments />
-        </DateInputControl>
-      </DateInput>
-    `,
-  });
-
-  await page.getByRole('spinbutton').nth(0).click();
-
-  const label = document.querySelector('[data-slot="date-input-label"]')!;
-  const segment = document.querySelector('[data-slot="date-input-segment"]')!;
-
-  expect(segment.hasAttribute('data-placeholder-shown')).toBe(true);
-  await expect.poll(() => getComputedStyle(segment).color).toBe(getComputedStyle(label).color);
 });

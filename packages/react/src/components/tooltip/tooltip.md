@@ -73,7 +73,7 @@ export function TooltipDemo() {
 }
 ```
 
-The docs "Advanced customization" example uses explicit `TooltipPositioner` and `TooltipContent`
+The docs "Build from parts" example uses explicit `TooltipPositioner` and `TooltipContent`
 instead of `TooltipBody`.
 
 ## Accessibility and state

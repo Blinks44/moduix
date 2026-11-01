@@ -108,14 +108,7 @@ overridden by accident.
 | `lg`   | `--moduix-size-lg` | `--moduix-text-lg` |
 | `xl`   | `--moduix-size-xl` | `--moduix-text-lg` |
 
-Public CSS variables:
-
-- `--moduix-avatar-bg`
-- `--moduix-avatar-color`
-- `--moduix-avatar-font-size`
-- `--moduix-avatar-font-weight`
-- `--moduix-avatar-radius`
-- `--moduix-avatar-size`
+Public CSS variables (CSS Modules packages) are listed in `website/src/components/examples/avatar/css-properties.tsx`.
 
 State-dependent styling should target Ark `data-state`; local visual hooks should use `data-slot`
 or the public CSS variables.
@@ -130,7 +123,7 @@ positioned absolutely inside `Avatar` and stick out of the circle.
 
 `AvatarGroup` is a flex row: every child after the first gets a negative inline-start margin of
 `--moduix-spacing-2`, and direct avatar roots get a ring of `--moduix-border-width-md` in
-`--moduix-color-background`. It has no state and no Ark counterpart.
+`--moduix-background`. It has no state and no Ark counterpart.
 
 ## Intentional sugar and differences from upstream
 

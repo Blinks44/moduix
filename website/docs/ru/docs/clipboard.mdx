@@ -1,21 +1,22 @@
 ---
 title: Clipboard
 component: clipboard
-description: Доступный Clipboard для React, Solid и Vue с установкой через пакет или shadcn CLI.
+description: Копирование значения в буфер обмена с подтверждением на кнопке.
+ark: https://ark-ui.com/docs/components/clipboard
 ---
 
+import AnatomyScene from '@/components/examples/clipboard/basic';
 import * as ClipboardDocs from '@/components/examples/clipboard/css-properties';
 
-## Справочник API
+<Example name="clipboard/basic" />
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/clipboard" />
+## Установка
 
-## Выбор подходящего компонента
+<ComponentInstall />
 
-Используйте `Clipboard`, когда пользователю нужно скопировать текст. В зависимости от выбранных
-частей значение можно показать в поле только для чтения или вывести как обычный текст.
+## Использование
 
-## Базовый пример
+<Usage />
 
 Используйте `Clipboard` как корневой компонент. Внутри `ClipboardControl` разместите одну
 поверхность значения - `ClipboardInput` или `ClipboardValueText` - и `ClipboardTrigger`.
@@ -23,74 +24,75 @@ import * as ClipboardDocs from '@/components/examples/clipboard/css-properties';
 Solid его `children` и `copied` принимают текст и иконки, а в Vue для этого используются обычный
 слот и именованный слот `copied`.
 
-React, Solid и Vue используют одинаковые плоские имена. Импортируйте `Clipboard` как корневой
-компонент, а каждую дополнительную часть - напрямую, например `ClipboardInput` и
-`ClipboardTrigger`. Эти имена одинаково работают в npm-пакетах и исходниках shadcn-реестра.
+## Выбор подходящего компонента
 
-<Example name="clipboard/basic" />
+Используйте `Clipboard`, когда пользователю нужно скопировать текст. В зависимости от выбранных
+частей значение можно показать в поле только для чтения или вывести как обычный текст.
 
-## Установка через shadcn
+## Примеры
 
-Полную настройку пакета, реестра и стилей см. в разделе [Быстрый старт](/docs/quick-start).
+### Текст значения
 
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
+Используйте `ClipboardValueText`, если значение должно отображаться как текст, а не внутри поля
+ввода.
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/clipboard' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/clipboard' },
-  ]}
-/>
+<Example name="clipboard/value-text" />
 
-  </Tab>
-  <Tab label="Solid" value="solid">
+### Статус копирования
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/clipboard' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/clipboard' },
-  ]}
-/>
+Используйте `onStatusChange(details)`, если другая часть интерфейса должна реагировать на успешное
+копирование. В примере счётчик увеличивается на основе `details.copied`.
 
-  </Tab>
-  <Tab label="Vue" value="vue">
+<Example name="clipboard/copy-status" />
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/clipboard' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/clipboard' },
-  ]}
-/>
+### Свой текст копирования
 
-  </Tab>
-</Tabs>
+Передайте собственное содержимое или значение `copied` в `ClipboardIndicator`, если кнопке нужны
+подписи, соответствующие вашему продукту.
 
-## Анатомия
+<Example name="clipboard/custom-copy-text" />
 
-```text
-Clipboard | ClipboardRootProvider
-├─ ClipboardLabel (необязательно)
-├─ ClipboardControl
-│  ├─ ClipboardInput или ClipboardValueText
-│  └─ ClipboardTrigger
-│     └─ ClipboardIndicator (необязательно)
-```
+### Задержка
 
-| Часть | Назначение |
-| --- | --- |
-| `Clipboard` | Хранит значение и управляет временным состоянием после копирования. |
-| `ClipboardRootProvider` | Связывает части с состоянием, созданным через `useClipboard()`. |
-| `ClipboardLabel` | Задаёт доступную подпись для значения. |
-| `ClipboardControl` | Объединяет отображение значения и кнопку копирования. |
-| `ClipboardInput` | Показывает значение в поле только для чтения. Для изменения используйте контролируемое состояние или `ClipboardContext.setValue()`. |
-| `ClipboardTrigger` | Копирует текущее значение при активации. По умолчанию отображается как кнопка. |
-| `ClipboardIndicator` | Показывает разное содержимое до и после копирования. По умолчанию это иконки копирования и подтверждения; в React и Solid передайте `copied="Copied"` и `children`, а в Vue используйте соответствующие слоты. |
-| `ClipboardValueText` | Выводит значение как текст, когда поле ввода не подходит. |
+Укажите `timeout`, если состояние после копирования должно отображаться дольше или меньше стандартных
+трёх секунд.
+
+<Example name="clipboard/timeout" />
+
+### Отключённое состояние
+
+Передайте `disabled` и полю, и кнопке, если пользователь может видеть значение, но не должен его
+изменять или копировать.
+
+<Example name="clipboard/disabled" />
+
+### Свои элементы
+
+Используйте `asChild`, чтобы передать свои элементы поля и кнопки для отрисовки частей Clipboard,
+сохранив состояние и поведение компонента. С `asChild` части `ClipboardInput` и `ClipboardTrigger`
+не добавляют свои стили, и дочерний компонент сохраняет свой вид.
+
+<Example name="clipboard/custom-elements" />
+
+### Контекст
+
+Читайте состояние буфера обмена из вложенного контента через `ClipboardContext` или используйте
+`useClipboardContext()` во вложенном компоненте. Контекст предоставляет `copied`, `value`, `setValue`
+и `copy`.
+
+<Example name="clipboard/context" />
+
+### Root Provider
+
+Создайте состояние с помощью `useClipboard()` и передайте его в
+`ClipboardRootProvider`, если состояние нужно разделить между компонентами или создать отдельно от
+дерева компонентов. Подробнее в разделе [Выносите состояние за пределы дерева](/docs/composition-patterns#root-provider).
+
+<Example name="clipboard/root-provider" />
 
 ## Композиция
 
-`Clipboard` владеет значением и состоянием после копирования. Внутри `ClipboardControl` размещайте
+`Clipboard` управляет значением и состоянием после копирования. Внутри `ClipboardControl` размещайте
 одну поверхность значения (`ClipboardInput` или `ClipboardValueText`) и `ClipboardTrigger`;
 `ClipboardIndicator` необязателен внутри триггера. Он следует состоянию копирования, а moduix
 подставляет стандартные иконки копирования и подтверждения, если содержимое не задано. Для
@@ -111,66 +113,24 @@ Clipboard | ClipboardRootProvider
 `disabled` и `ClipboardInput`, и `ClipboardTrigger`. Используйте `asChild` для этих частей только
 если другой семантический элемент должен отрисовать узел DOM.
 
-## Примеры
+## Анатомия
 
-### Контекст
+Наведите на часть или выберите её, чтобы найти её в превью.
 
-Читайте состояние буфера обмена из вложенного контента через `ClipboardContext` или используйте
-`useClipboardContext()` во вложенном компоненте. Контекст предоставляет `copied`, `value`, `setValue`
-и `copy`.
-
-<Example name="clipboard/context" />
-
-### Статус копирования
-
-Используйте `onStatusChange(details)`, если другая часть интерфейса должна реагировать на успешное
-копирование. В примере счётчик увеличивается на основе `details.copied`.
-
-<Example name="clipboard/copy-status" />
-
-### Свой текст копирования
-
-Передайте собственное содержимое или значение `copied` в `ClipboardIndicator`, если кнопке нужны
-подписи, соответствующие вашему продукту.
-
-<Example name="clipboard/custom-copy-text" />
-
-### Отключённое состояние
-
-Передайте `disabled` и полю, и кнопке, если пользователь может видеть значение, но не должен его
-изменять или копировать.
-
-<Example name="clipboard/disabled" />
-
-### Root Provider
-
-Создайте состояние с помощью `useClipboard()` и передайте его в
-`ClipboardRootProvider`, если состояние нужно разделить между компонентами или создать отдельно от
-дерева компонентов.
-
-<Example name="clipboard/root-provider" />
-
-### Задержка
-
-Укажите `timeout`, если состояние после копирования должно отображаться дольше или меньше стандартных
-трёх секунд.
-
-<Example name="clipboard/timeout" />
-
-### Текст значения
-
-Используйте `ClipboardValueText`, если значение должно отображаться как текст, а не внутри поля
-ввода.
-
-<Example name="clipboard/value-text" />
-
-### Расширенная настройка
-
-Используйте `asChild`, чтобы передать свои элементы поля и кнопки для отрисовки частей Clipboard,
-сохранив состояние и поведение компонента. С `asChild` части `ClipboardInput` и `ClipboardTrigger`
-не добавляют свои стили, и дочерний компонент сохраняет свой вид.
-
-<Example name="clipboard/as-child" />
+<AnatomyInspector
+  parts={[
+    ["Clipboard", "clipboard-root", "Хранит значение и управляет временным состоянием после копирования.", 0],
+    ["ClipboardLabel", "clipboard-label", "Задаёт доступную подпись для значения.", 1],
+    ["ClipboardControl", "clipboard-control", "Объединяет отображение значения и кнопку копирования.", 1],
+    ["ClipboardInput", "clipboard-input", "Показывает значение в поле только для чтения. Для изменения используйте контролируемое состояние или `ClipboardContext.setValue()`.", 2],
+    ["ClipboardTrigger", "clipboard-trigger", "Копирует текущее значение при активации. По умолчанию отображается как кнопка.", 2],
+    ["ClipboardIndicator", "clipboard-indicator", "Показывает разное содержимое до и после копирования. По умолчанию это иконки копирования и подтверждения; в React и Solid передайте `copied=\"Copied\"` и `children`, а в Vue используйте соответствующие слоты.", 3],
+    ["ClipboardValueText", "clipboard-value-text", "Выводит значение как текст, когда поле ввода не подходит.", 1],
+    ["ClipboardRootProvider", "clipboard-root-provider", "Связывает части с состоянием, созданным через `useClipboard()`.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Стилизация
 
@@ -179,21 +139,45 @@ Clipboard | ClipboardRootProvider
 приведённые ниже CSS-переменные. Для стилей состояния после копирования используйте атрибут Ark
 `data-copied` вместе с хуками moduix `data-slot`.
 
-### CSS-свойства
+### CSS-переменные
 
-<CssPropertiesSection properties={ClipboardDocs.clipboardOverrideCssProperties} />
+Наведите на переменную или выберите её, чтобы увидеть её в превью.
+
+<CssPropertiesSection properties={ClipboardDocs.clipboardOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Хуки стилизации
 
-- `Clipboard` -> `data-slot="clipboard-root"`
-- `ClipboardRootProvider` -> `data-slot="clipboard-root-provider"`
-- `ClipboardLabel` -> `data-slot="clipboard-label"`
-- `ClipboardControl` -> `data-slot="clipboard-control"`
-- `ClipboardInput` -> `data-slot="clipboard-input"`
-- `ClipboardTrigger` -> `data-slot="clipboard-trigger"`
-- `ClipboardIndicator` -> `data-slot="clipboard-indicator"`
-- `ClipboardValueText` -> `data-slot="clipboard-value-text"`
+| Часть | `data-slot` |
+| --- | --- |
+| `Clipboard` | `clipboard-root` |
+| `ClipboardRootProvider` | `clipboard-root-provider` |
+| `ClipboardLabel` | `clipboard-label` |
+| `ClipboardControl` | `clipboard-control` |
+| `ClipboardInput` | `clipboard-input` |
+| `ClipboardTrigger` | `clipboard-trigger` |
+| `ClipboardIndicator` | `clipboard-indicator` |
+| `ClipboardValueText` | `clipboard-value-text` |
+
 - Пока активно состояние копирования, Ark добавляет `data-copied` к `Clipboard`, `ClipboardLabel`,
   `ClipboardControl`, `ClipboardInput` и `ClipboardTrigger`.
 - Ark делает `ClipboardInput` доступным только для чтения и добавляет к нему `data-readonly`.
 - `ClipboardIndicator` рендерит стандартную иконку прямым дочерним `svg`.
+
+## Клавиатура
+
+| Клавиша | Действие |
+| --- | --- |
+| `Enter` / `Space` | Копирует значение, когда фокус на кнопке. |
+
+## Справочник API
+
+| Проп | Тип | По умолчанию | Описание |
+| --- | --- | --- | --- |
+| `value` | `string` | — | Текст для копирования в управляемом режиме. |
+| `defaultValue` | `string` | — | Начальный текст для копирования, если значение не управляется извне. |
+| `onValueChange` | `(details: ValueChangeDetails) => void` | — | Вызывается при изменении значения. |
+| `timeout` | `number` | `3000` | Сколько миллисекунд держится состояние «скопировано». |
+| `onStatusChange` | `(details: CopyStatusDetails) => void` | — | Вызывается после каждого копирования с `{ copied }`. |
+| `translations` | `IntlTranslations` | — | Переведённые строки для подписей доступности. |

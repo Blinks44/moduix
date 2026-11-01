@@ -4,7 +4,7 @@
   flex-direction: column;
   gap: var(--moduix-spacing-4);
   padding: var(--moduix-spacing-4);
-  border: var(--moduix-border-width-sm) dashed var(--moduix-color-border);
+  border: var(--moduix-border-width-sm) dashed var(--moduix-border);
 }
 
 .figure {
@@ -13,7 +13,7 @@
   align-items: center;
   gap: var(--moduix-spacing-3);
   padding: var(--moduix-spacing-4);
-  background-color: var(--moduix-color-muted);
+  background-color: var(--moduix-muted);
   text-align: center;
 }
 
@@ -21,6 +21,5 @@
   inline-size: 100%;
   min-height: 8rem;
   border-radius: var(--moduix-radius-md);
-  background:
-    linear-gradient(135deg, rgb(0 0 0 / 0.14), transparent 45%), var(--moduix-color-accent);
+  background: linear-gradient(135deg, rgb(0 0 0 / 0.14), transparent 45%), var(--moduix-accent);
 }

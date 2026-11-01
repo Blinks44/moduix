@@ -1,12 +1,12 @@
 import { PinInput, PinInputLabel, PinInputControl, PinInputInputs } from '@moduix/solid/pin-input';
+import { Stack } from '@moduix/solid/stack';
 import { createSignal } from 'solid-js';
-import styles from '@/components/examples/pin-input/pin-input-change-events.module.css';
 
 export default function ChangeEventsPinInput() {
   const [value, setValue] = createSignal<string[]>([]);
 
   return (
-    <div class={styles.root}>
+    <Stack align="center" gap="4">
       <PinInput
         count={6}
         type="alphanumeric"
@@ -19,6 +19,6 @@ export default function ChangeEventsPinInput() {
         </PinInputControl>
       </PinInput>
       <output>Current value: {value().join('') || 'empty'}</output>
-    </div>
+    </Stack>
   );
 }

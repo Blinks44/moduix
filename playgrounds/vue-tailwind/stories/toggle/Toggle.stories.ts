@@ -189,7 +189,7 @@ export const CustomStyles: Story = {
       default-pressed
     >
       <CheckIcon />
-      Styled with class
+      Styled with a class
     </Toggle>
   `),
 };

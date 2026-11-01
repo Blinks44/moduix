@@ -9,8 +9,8 @@ import {
   FieldRequiredIndicator,
   FieldRootProvider,
   useField,
-} from '../src/components/field';
-import { Input } from '../src/components/input';
+} from '@/components/field';
+import { Input } from '@/components/input';
 
 const value = ref('');
 const field = useField({ required: true });

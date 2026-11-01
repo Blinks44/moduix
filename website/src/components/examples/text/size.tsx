@@ -1,14 +1,14 @@
+import { Stack } from '@moduix/react/stack';
 import { Text } from '@moduix/react/text';
-import styles from '@/components/examples/text/text-size.module.css';
 
 export default function TextSizesDemo() {
   return (
-    <div className={styles.stack}>
+    <Stack gap="3">
       <Text size="xl">Extra-large text</Text>
       <Text size="lg">Large text</Text>
       <Text size="md">Medium text</Text>
       <Text size="sm">Small text</Text>
       <Text size="xs">Extra-small text</Text>
-    </div>
+    </Stack>
   );
 }

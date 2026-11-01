@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Card, CardBody, CardHeader, CardTitle } from '../../src';
+import { Card, CardBody, CardHeader, CardTitle } from '@/index';
 </script>
 
 <template>

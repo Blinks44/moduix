@@ -1,14 +1,8 @@
 ---
 title: List Collection
 description: Créez, consultez, filtrez et mettez à jour des collections basées sur des tableaux pour Select, Combobox, Listbox et vos interfaces personnalisées.
+ark: https://ark-ui.com/docs/collections/list-collection
 ---
-
-import ListCollectionBasic from '@/components/examples/list-collection/basic.tsx';
-import ListCollectionFiltering from '@/components/examples/listbox/standalone-filter-input.tsx';
-import listCollectionSolidBasic from '../../../snippets/select/solid/basic.tsx?raw';
-import listCollectionVueBasic from '../../../snippets/select/vue/basic.vue?raw';
-import listCollectionSolidFiltering from '../../../snippets/listbox/solid/standalone-filter-input.tsx?raw';
-import listCollectionVueFiltering from '../../../snippets/listbox/vue/standalone-filter-input.vue?raw';
 
 # List Collection
 
@@ -18,11 +12,9 @@ recherche, de parcours, de filtrage, de regroupement et de mise à jour immuable
 élément et ne gère ni la sélection ni les interactions au clavier. `Select`, `Combobox` et `Listbox`
 l'utilisent comme source de données.
 
-## Référence de l’API
+## Importation
 
-<PrimitiveReference href="https://ark-ui.com/docs/collections/list-collection" />
-
-`ListCollection` n'est pas un composant Moduix et n'est réexporté par aucun package Moduix.
+`ListCollection` n'est pas un composant moduix et n'est réexporté par aucun package moduix.
 Importez les utilitaires depuis le point d'entrée Ark UI correspondant à votre framework :
 
 <Tabs
@@ -67,42 +59,7 @@ L'aperçu utilise React avec la variante de styles CSS Modules. Les onglets cont
 React, Solid et Vue du même exemple. Le code Solid est affiché comme du code, car l'aperçu de la
 documentation s'exécute avec React.
 
-<ExampleFrame variant="component">
-  <PreviewFrame maxWidth="sm">
-    <ListCollectionBasic />
-  </PreviewFrame>
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/list-collection/basic.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={listCollectionSolidBasic} />
-
-    </Tab>
-  <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={listCollectionVueBasic} />
-
-    </Tab>
-  </Tabs>
-</div>
-</ExampleCode>
+<Example name="select/basic" />
 
 Conservez une collection statique en dehors du composant. Lorsque les éléments viennent des props,
 de l'état ou d'une requête, ne recréez la collection que lorsque les données sources changent.
@@ -207,42 +164,7 @@ L'exemple utilise `Listbox` avec un champ de filtre séparément étiqueté. Dé
 `typeahead={false}` lorsque ce champ gère le filtrage, et affichez un état vide lorsqu'aucun élément
 ne correspond.
 
-<ExampleFrame variant="component">
-  <PreviewFrame maxWidth="sm">
-    <ListCollectionFiltering />
-  </PreviewFrame>
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/listbox/standalone-filter-input.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={listCollectionSolidFiltering} />
-
-    </Tab>
-  <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={listCollectionVueFiltering} />
-
-    </Tab>
-  </Tabs>
-</div>
-</ExampleCode>
+<Example name="listbox/standalone-filter-input" />
 
 Dans React, `collection` est une `ListCollection`. Dans Solid, c'est un accessor : appelez donc
 `collection()` pour le passer à un composant ou lisez `collection().items` dans une boucle `<For>`.

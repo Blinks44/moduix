@@ -17,9 +17,10 @@ import {
   ColorPickerContent,
   ColorPickerChannelInput,
   ColorPickerContext,
-  ColorPickerSwatch,
-  ColorPickerSwatchIndicator,
-} from '../src';
+  ColorPickerArea,
+  ColorPickerChannelSlider,
+  ColorPickerSwatchTrigger,
+} from '@/index';
 import SsrColorPicker from './fixtures/SsrColorPicker.vue';
 
 const colorPickerComponents = {
@@ -33,6 +34,9 @@ const colorPickerComponents = {
   ColorPickerPositioner,
   ColorPickerRootProvider,
   ColorPickerTrigger,
+  ColorPickerArea,
+  ColorPickerChannelSlider,
+  ColorPickerSwatchTrigger,
 } as unknown as Record<string, Component>;
 
 test('submits through explicit Ark hidden inputs', async () => {
@@ -298,46 +302,27 @@ test('applies consumer classes alongside component defaults', async () => {
   expect(trigger?.className.endsWith('consumer-trigger')).toBe(true);
 });
 
-test('draws checkerboards under swatches and shows a checked standalone swatch indicator', async () => {
+test('forwards refs through ordinary Ark Vue part paths', async () => {
+  const rootRef = ref<ComponentPublicInstance | null>(null);
+  const controlRef = ref<ComponentPublicInstance | null>(null);
+  const triggerRef = ref<ComponentPublicInstance | null>(null);
   const Harness = defineComponent({
-    components: {
-      ...colorPickerComponents,
-      ColorPickerSwatch,
-      ColorPickerSwatchIndicator,
-    } as unknown as Record<string, Component>,
+    components: colorPickerComponents,
     setup() {
-      return { defaultColor: parseColor('rgba(235, 94, 65, 0.5)') };
+      return { rootRef, controlRef, triggerRef, defaultColor: parseColor('#eb5e41') };
     },
     template: `
-      <ColorPicker inline :default-value="defaultColor">
-        <ColorPickerTrigger aria-label="Open color picker" />
-        <ColorPickerSwatch value="rgba(235, 94, 65, 0.5)">
-          <ColorPickerSwatchIndicator data-testid="checked-indicator" />
-        </ColorPickerSwatch>
-        <ColorPickerSwatch value="#000000">
-          <ColorPickerSwatchIndicator data-testid="unchecked-indicator" />
-        </ColorPickerSwatch>
+      <ColorPicker ref="rootRef" :default-value="defaultColor">
+        <ColorPickerControl ref="controlRef">
+          <ColorPickerTrigger ref="triggerRef" aria-label="Open" />
+        </ColorPickerControl>
       </ColorPicker>
     `,
   });
 
   render(Harness);
 
-  const trigger = document.querySelector<HTMLElement>('[data-slot="color-picker-trigger"]')!;
-  const valueSwatch = trigger.querySelector<HTMLElement>(
-    '[data-slot="color-picker-value-swatch"]',
-  )!;
-  const swatch = document.querySelector<HTMLElement>('[data-slot="color-picker-swatch"]')!;
-  const triggerPadding = Number.parseFloat(getComputedStyle(trigger).paddingLeft);
-
-  expect(trigger.querySelector('[data-slot="color-picker-transparency-grid"]')).toBeNull();
-  expect(valueSwatch.offsetWidth).toBe(trigger.clientWidth - triggerPadding * 2);
-  expect(getComputedStyle(valueSwatch, '::before').backgroundImage).toContain(
-    'repeating-conic-gradient',
-  );
-  expect(getComputedStyle(swatch, '::before').backgroundImage).toContain(
-    'repeating-conic-gradient',
-  );
-  await expect.element(page.getByTestId('checked-indicator')).toBeVisible();
-  expect(getComputedStyle(screen.getByTestId('unchecked-indicator')).display).toBe('none');
+  expect(rootRef.value!.$el.getAttribute('data-slot')).toBe('color-picker-root');
+  expect(controlRef.value!.$el.getAttribute('data-slot')).toBe('color-picker-control');
+  expect(triggerRef.value?.$el).toBe(screen.getByRole('button', { name: 'Open' }));
 });

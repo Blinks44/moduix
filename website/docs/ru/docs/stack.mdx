@@ -1,87 +1,55 @@
 ---
 title: Stack
 component: stack
-description: Небольшой flex-компонент для вертикальной и горизонтальной раскладки в React, Solid и Vue.
+description: Размещает элементы в строку или колонку с равными отступами.
+ark: https://ark-ui.com/docs/guides/composition#the-ark-factory
 ---
 
+import AnatomyScene from '@/components/examples/stack/basic';
 
-## Справочник API
+<Example name="stack/basic" />
 
-В Ark UI нет отдельного примитива `Stack`. В moduix этот компонент реализован на основе официальной
-[фабрики Ark](https://ark-ui.com/docs/guides/composition#the-ark-factory) и следует рекомендациям Ark по
-[композиции](https://ark-ui.com/docs/guides/composition), [стилизации](https://ark-ui.com/docs/guides/styling) и
-[работе с ref](https://ark-ui.com/docs/guides/ref). Названия свойств раскладки взяты из документации
-[Stack](https://chakra-ui.com/docs/components/stack) в Chakra UI.
+## Установка
 
-## Базовый пример
+<ComponentInstall />
+
+## Использование
+
+<Usage />
 
 Интерактивное
 
 Используйте `Stack`, когда достаточно одного flex-контейнера и нужно настроить направление, промежуток и
 выравнивание.
 
-<Example name="stack/basic" />
-
-## Установка через shadcn
-
-Полную настройку пакета, реестра и стилей см. в разделе [Быстрый старт](/docs/quick-start).
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/stack' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/stack' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/stack' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/stack' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/stack' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/stack' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Анатомия
-
-`Stack` отрисовывает один корневой flex-контейнер по модели фабрики Ark. Компонент управляет направлением,
-промежутком, выравниванием, переносом элементов и простым адаптивным переключением направления. Остальные правила
-раскладки задавайте в локальном CSS.
-
-```text
-Stack
-└─ root[data-scope="stack"][data-part="root"][data-slot="stack-root"]
-   └─ children
-```
-
-| Часть                  | Назначение                                                               |
-| ---------------------- | ------------------------------------------------------------------------ |
-| `Stack`                | Корневая flex-обёртка для направления, промежутка, выравнивания и расстояния между дочерними элементами. |
-
-## Композиция
-
-`Stack` не владеет управляемым состоянием и предоставляет один корневой элемент. Для обычного вывода `div` используйте
-`<Stack>`. Свойство `fill` влияет на `Stack` как на flex-элемент, а не на его дочерние элементы. Добавляйте `Separator`
-напрямую, если нужен разделитель, и используйте `asChild`, когда корневой элемент должен иметь семантический тег.
-
 ## Примеры
+
+### Горизонтальная раскладка
+
+Используйте `direction="row"` и свойства выравнивания, чтобы расположить содержимое в одну строку.
+
+<Example name="stack/row-layout" />
+
+### Адаптивное направление
+
+Используйте адаптивный `direction`, чтобы переключать раскладку с колонки на мобильных экранах на строку на больших.
+Значение `desktop` начинает действовать с `640px`. Адаптивные значения работают по принципу mobile-first: без `mobile`
+используется `column`, а без `desktop` сохраняется мобильное направление.
+
+<Example name="stack/responsive-direction" />
+
+### Перенос элементов
+
+Используйте `wrap="wrap"`, когда элементы должны переходить на следующую строку.
+
+<Example name="stack/wrapped-items" />
+
+### Разделитель
+
+Добавляйте `Separator` напрямую, когда горизонтальному или вертикальному `Stack` нужен повторяющийся визуальный
+разделитель между дочерними элементами. `gap` применяется к каждому дочернему элементу, включая разделители.
+
+<Example name="stack/separator" />
 
 ### Вложенный Stack, занимающий свободное место
 
@@ -95,38 +63,33 @@ Stack
 
 <Example name="stack/loading-layout" />
 
-### Адаптивное направление
-
-Используйте адаптивный `direction`, чтобы переключать раскладку с колонки на мобильных экранах на строку на больших.
-Значение `desktop` начинает действовать с `640px`. Адаптивные значения работают по принципу mobile-first: без `mobile`
-используется `column`, а без `desktop` сохраняется мобильное направление.
-
-<Example name="stack/responsive-direction" />
-
-### Горизонтальная раскладка
-
-Используйте `direction="row"` и свойства выравнивания, чтобы расположить содержимое в одну строку.
-
-<Example name="stack/row-layout" />
-
 ### Семантический элемент
 
 Используйте `asChild` от Ark, когда корневая обёртка раскладки должна также описывать структуру документа.
 
 <Example name="stack/semantic-element" />
 
-### Разделитель
+## Композиция
 
-Добавляйте `Separator` напрямую, когда горизонтальному или вертикальному `Stack` нужен повторяющийся визуальный
-разделитель между дочерними элементами. `gap` применяется к каждому дочернему элементу, включая разделители.
+`Stack` не хранит состояние и предоставляет один корневой элемент. Для обычного вывода `div` используйте
+`<Stack>`. Свойство `fill` влияет на `Stack` как на flex-элемент, а не на его дочерние элементы. Добавляйте `Separator`
+напрямую, если нужен разделитель, и используйте `asChild`, когда корневой элемент должен иметь семантический тег.
 
-<Example name="stack/separator" />
+## Анатомия
 
-### Перенос элементов
+`Stack` отрисовывает один корневой flex-контейнер по модели фабрики Ark. Компонент управляет направлением,
+промежутком, выравниванием, переносом элементов и простым адаптивным переключением направления. Остальные правила
+раскладки задавайте в локальном CSS.
 
-Используйте `wrap="wrap"`, когда элементы должны переходить на следующую строку.
+Наведите на часть или выберите её, чтобы найти её в превью.
 
-<Example name="stack/wrapped-items" />
+<AnatomyInspector
+  parts={[
+    ["Stack", "stack-root", "Корневая flex-обёртка для направления, промежутка, выравнивания и расстояния между дочерними элементами.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Стилизация
 
@@ -139,10 +102,26 @@ Stack
 
 ### Хуки стилизации
 
+| Часть | `data-slot` |
+| --- | --- |
+| `Stack` | `stack-root` |
+
 - `className` или `class` задаёт стили единственному корневому элементу: ширину, внутренние отступы, границы, фон и другие свойства оформления.
 - `data-scope="stack"` и `data-part="root"` соответствуют соглашениям Ark для стилизации.
-- `data-slot="stack-root"` - стабильный селектор moduix для корневого элемента в локальном CSS.
 - `direction` и `fill` применяются через таблицу стилей компонента или утилиты, поэтому классы потребителя могут их
   переопределить. `gap`, `align`, `justify` и `wrap` записываются встроенными стилями.
 - `style` применяется последним и может переопределить встроенные `gap`, `alignItems`, `justifyContent` и `flexWrap`.
 - В публичном контракте нет атрибутов состояния, CSS-переменных для анимации или объекта `slotProps`.
+
+## Справочник API
+
+Также принимает нативные пропсы своего элемента и `asChild`.
+
+| Проп | Тип | По умолчанию | Описание |
+| --- | --- | --- | --- |
+| `direction` | `StackDirection \| { mobile?: StackDirection; desktop?: StackDirection }` | `'column'` | `column` или `row`, либо отдельные значения для мобильных и десктопа. |
+| `gap` | `number \| StackSpacing \| string` | — | Расстояние между элементами: шаг шкалы вроде `'2'` или `'1.5'` следует пресету, числа в пикселях, другие строки как CSS-длина. |
+| `align` | `CSSProperties['alignItems']` | — | CSS `align-items`. |
+| `justify` | `CSSProperties['justifyContent']` | — | CSS `justify-content`. |
+| `wrap` | `CSSProperties['flexWrap']` | — | CSS `flex-wrap`. |
+| `fill` | `boolean` | `false` | Растягивает стек на всю ширину и высоту родителя. |

@@ -6,8 +6,8 @@ import {
   CheckboxHiddenInput,
   CheckboxLabel,
 } from '@moduix/vue/checkbox';
+import { Stack } from '@moduix/vue/stack';
 import { computed, ref } from 'vue';
-import styles from '@/components/examples/checkbox/checkbox-select-all.module.css';
 
 const options = [
   { value: 'react', label: 'React' },
@@ -23,7 +23,7 @@ const indeterminate = computed(
 </script>
 
 <template>
-  <div :class="styles.root">
+  <Stack gap="2">
     <Checkbox
       :checked="indeterminate ? 'indeterminate' : allSelected"
       @checked-change="value = $event.checked === true ? allValues : []"
@@ -39,5 +39,5 @@ const indeterminate = computed(
         <CheckboxHiddenInput />
       </Checkbox>
     </CheckboxGroup>
-  </div>
+  </Stack>
 </template>

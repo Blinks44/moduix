@@ -12,6 +12,8 @@
           theme === 'dark' ||
           (theme === 'auto' && window.matchMedia('(prefers-color-scheme: dark)').matches);
         document.documentElement.dataset.moduixColorScheme = dark ? 'dark' : 'light';
+        const preset = localStorage.getItem('moduix.preset');
+        if (preset && preset !== 'calm') document.documentElement.dataset.moduixTheme = preset;
       }
     </script>
     <!--<?- GENERATOR ?>-->

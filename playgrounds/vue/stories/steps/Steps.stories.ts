@@ -234,7 +234,7 @@ export const LinkComposition: Story = {
 export const Progress: Story = {
   render: renderStory(`
     <Steps :count="items.length" :default-step="1">
-      <StepsProgress />
+      <StepsProgress aria-label="Workspace setup progress" />
       <StepsNavigation />
       <StepsPanels />
       <StepsActions />

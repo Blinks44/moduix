@@ -9,9 +9,6 @@ import {
   MenuItem,
   MenuSeparator,
   MenuItemText,
-  MenuItemTextContent,
-  MenuItemTextIcon,
-  MenuItemTextLabel,
 } from '@moduix/react/menu';
 import {
   Select,
@@ -198,7 +195,7 @@ export default function WorkspaceSidebar() {
             }}
           >
             <MenuTrigger asChild>
-              <SidebarNavigationButton size="lg" aria-label="Open account menu">
+              <SidebarNavigationButton size="lg">
                 <Avatar size="sm" data-sidebar-icon>
                   <AvatarFallback>AM</AvatarFallback>
                 </Avatar>
@@ -216,12 +213,8 @@ export default function WorkspaceSidebar() {
                   <MenuSeparator />
                   <MenuItem value="sign-out" tone="destructive">
                     <MenuItemText>
-                      <MenuItemTextContent>
-                        <MenuItemTextIcon>
-                          <LogOut />
-                        </MenuItemTextIcon>
-                        <MenuItemTextLabel>Sign out</MenuItemTextLabel>
-                      </MenuItemTextContent>
+                      <LogOut />
+                      Sign out
                     </MenuItemText>
                   </MenuItem>
                 </MenuViewport>

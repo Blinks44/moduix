@@ -5,12 +5,12 @@ export const signaturePadCssProperties: CssPropertyInput[] = [
   ['--moduix-signature-pad-height', '10rem', 'Controls the drawing area height.'],
   [
     '--moduix-signature-pad-bg',
-    'var(--moduix-color-background)',
+    'var(--moduix-background)',
     'Controls the drawing area background.',
   ],
   [
     '--moduix-signature-pad-border-color',
-    'var(--moduix-color-border)',
+    'var(--moduix-border)',
     'Controls the drawing area border color.',
   ],
   ['--moduix-signature-pad-radius', 'var(--moduix-radius-md)', 'Controls the drawing area radius.'],
@@ -19,9 +19,5 @@ export const signaturePadCssProperties: CssPropertyInput[] = [
     'currentColor',
     'Controls the default stroke color when drawing.fill is not set.',
   ],
-  [
-    '--moduix-signature-pad-guide-color',
-    'var(--moduix-color-border)',
-    'Controls the guide line color.',
-  ],
+  ['--moduix-signature-pad-guide-color', 'var(--moduix-border)', 'Controls the guide line color.'],
 ];

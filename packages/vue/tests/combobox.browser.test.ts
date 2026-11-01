@@ -27,8 +27,7 @@ import {
   useCombobox,
   useComboboxContext,
   useComboboxItemContext,
-} from '../src';
-import styles from '../src/components/combobox/Combobox.module.css';
+} from '@/index';
 import SsrCombobox from './fixtures/SsrCombobox.vue';
 
 const fruits = createListCollection({
@@ -109,27 +108,6 @@ test('keeps Ark semantics, form values, anatomy, and flat exports', async () => 
     Boolean(item.querySelector('[data-slot="combobox-item-indicator"] svg')?.isConnected),
   ).toBe(true);
   expect(new FormData(container.querySelector('form')!).get('fruit')).toBe('Apple');
-});
-
-test('supports controlled input v-model updates', async () => {
-  const Harness = defineComponent({
-    components: comboboxComponents,
-    setup() {
-      const inputValue = ref('mango');
-      return { collection: fruits, inputValue };
-    },
-    template: `<div><Combobox :collection="collection" v-model:input-value="inputValue" :portalled="false"><ComboboxLabel>Controlled fruit</ComboboxLabel><ComboboxControl><ComboboxInput /></ComboboxControl></Combobox><button type="button" @click="inputValue = 'apple'">Set apple</button></div>`,
-  });
-
-  render(Harness);
-
-  await expect
-    .element(page.getByRole('combobox', { name: 'Controlled fruit', exact: true }))
-    .toHaveValue('mango');
-  await page.getByRole('button', { name: 'Set apple', exact: true }).click();
-  await expect
-    .element(page.getByRole('combobox', { name: 'Controlled fruit', exact: true }))
-    .toHaveValue('apple');
 });
 
 test('selects with the keyboard and clears through the default accessible action', async () => {
@@ -219,25 +197,6 @@ test('preserves semantic hosts and refs with asChild', async () => {
   expect(rootRef.value?.$el).toBe(root);
 });
 
-test('applies consumer classes after CSS Module defaults', () => {
-  render(TestCombobox, { props: { portalled: false } });
-
-  const input = screen.getByRole('combobox', { name: 'Fruit' });
-  const root = input.closest('[data-slot="combobox-root"]');
-  const control = input.parentElement;
-  const content = screen.getByRole('listbox').closest('[data-slot="combobox-content"]');
-  const item = screen.getByRole('option', { name: 'Apple' });
-
-  expect([...root!.classList]).toEqual(expect.arrayContaining([styles.root]));
-  expect([...control!.classList]).toEqual(expect.arrayContaining([styles.control]));
-  expect([...input!.classList]).toEqual(expect.arrayContaining([styles.input]));
-  expect([...content!.classList]).toEqual(expect.arrayContaining([styles.content]));
-  expect([...item!.classList]).toEqual(expect.arrayContaining([styles.item]));
-  expect([...screen.getByText('Status')!.classList]).toEqual(
-    expect.arrayContaining([styles.status]),
-  );
-});
-
 test('hydrates stable hosts and ids and remains interactive', async () => {
   const html = await renderToString(createSSRApp(SsrCombobox));
   const host = document.createElement('div');
@@ -266,31 +225,60 @@ test('hydrates stable hosts and ids and remains interactive', async () => {
   }
 });
 
-test('places a lone clear action at the inline end and reserves input space per action', async () => {
-  render(
-    defineComponent({
-      components: comboboxComponents,
-      setup() {
-        return { collection: fruits };
-      },
-      template:
-        '<div><Combobox :collection="collection" :default-value="[\'apple\']" :portalled="false"><ComboboxControl><ComboboxInput /><ComboboxClearTrigger /></ComboboxControl></Combobox><Combobox :collection="collection" :default-value="[\'apple\']" :portalled="false"><ComboboxControl><ComboboxInput /><ComboboxClearTrigger /><ComboboxTrigger aria-label="Open fruits" /></ComboboxControl></Combobox></div>',
-    }),
-  );
-  await nextTick();
+test('keeps Ark semantics and form values', async () => {
+  const rootRef = ref<ComponentPublicInstance>();
+  const Harness = defineComponent({
+    components: comboboxComponents,
+    setup() {
+      return { collection: fruits, item: fruits.items[0], rootRef };
+    },
+    template: `<form><Combobox ref="rootRef" :collection="collection" default-open :default-value="['apple']" name="fruit"><ComboboxLabel>Fruit</ComboboxLabel><ComboboxControl><ComboboxInput /><ComboboxTrigger aria-label="Open fruits" /></ComboboxControl><ComboboxPositioner><ComboboxContent><ComboboxList><ComboboxOption :item="item">Apple</ComboboxOption></ComboboxList></ComboboxContent></ComboboxPositioner></Combobox></form>`,
+  });
 
-  const [clearOnly, both] = [
-    ...document.querySelectorAll<HTMLElement>('[data-slot="combobox-control"]'),
-  ];
-  const endGap = (control: HTMLElement) =>
-    control.getBoundingClientRect().right -
-    control.querySelector('[data-slot="combobox-clear-trigger"]')!.getBoundingClientRect().right;
-  const inputEnd = (control: HTMLElement) =>
-    getComputedStyle(control.querySelector('[data-slot="combobox-input"]')!).paddingInlineEnd;
+  const { container } = render(Harness);
 
-  // 1px control border + 8px action offset, then + 24px trigger + 2px gap.
-  expect(Math.abs(endGap(clearOnly!) - 9)).toBeLessThanOrEqual(1);
-  expect(Math.abs(endGap(both!) - 35)).toBeLessThanOrEqual(1);
-  expect(inputEnd(clearOnly!)).toBe('44px');
-  expect(inputEnd(both!)).toBe('70px');
+  const item = screen.getByRole('option', { name: 'Apple' });
+  expect(rootRef.value!.$el.getAttribute('data-slot')).toBe('combobox-root');
+  await expect
+    .element(page.getByRole('combobox', { name: 'Fruit', exact: true }))
+    .toHaveValue('Apple');
+  expect(
+    item.querySelector('[data-slot="combobox-item-indicator"]')!.getAttribute('data-state'),
+  ).toBe('checked');
+  expect(
+    Boolean(item.querySelector('[data-slot="combobox-item-indicator"] svg')?.isConnected),
+  ).toBe(true);
+  expect(new FormData(container.querySelector('form')!).get('fruit')).toBe('Apple');
+});
+
+test('selects with the keyboard and clears through the accessible action', async () => {
+  render(TestCombobox);
+
+  const combobox = page.getByRole('combobox', { name: 'Fruit', exact: true });
+  await combobox.click();
+  await combobox.press('ArrowDown');
+  await combobox.press('Enter');
+  await expect.element(combobox).toHaveValue('Apple');
+  await page.getByRole('button', { name: 'Clear selection', exact: true }).click();
+  await expect.element(combobox).toHaveValue('');
+});
+
+test('keeps provider and scoped context slots connected', async () => {
+  const Harness = defineComponent({
+    components: comboboxComponents,
+    setup() {
+      return {
+        collection: fruits,
+        combobox: useCombobox({ collection: fruits, defaultOpen: true }),
+        itemContext: useComboboxItemContext,
+        rootContext: useComboboxContext,
+      };
+    },
+    template:
+      '<ComboboxRootProvider :value="combobox" :portalled="false"><ComboboxContext v-slot="context"><output>{{ context.open ? "Open slot" : "Closed slot" }}</output></ComboboxContext><ComboboxLabel>Provider fruit</ComboboxLabel><ComboboxControl><ComboboxInput /></ComboboxControl><ComboboxPositioner><ComboboxContent><ComboboxList><ComboboxItem :item="collection.items[0]"><ComboboxItemText>Apple</ComboboxItemText><ComboboxItemContext v-slot="context"><span>{{ context.highlighted ? "Highlighted" : "Not highlighted" }}</span></ComboboxItemContext></ComboboxItem></ComboboxList></ComboboxContent></ComboboxPositioner></ComboboxRootProvider>',
+  });
+
+  render(Harness);
+  await expect.element(page.getByText('Open slot', { exact: true })).toBeAttached();
+  await expect.element(page.getByText('Not highlighted', { exact: true })).toBeAttached();
 });

@@ -20,20 +20,25 @@ follow the matching native convention skill. `component-workflow` owns adapter p
   prop is not a Vue select contract; native option selected/reset behavior is. Distinguish wrapper
   declarations from Ark declarations before attributing a failure upstream. In Vue passthrough attrs,
   bind DOM properties with their actual camelCase names rather than hyphenated lookalike attributes.
-- Check public styling hooks and consumer overrides where they are contracts. Avoid snapshots of
-  full markup, generated IDs, CSS hashes, or long class strings.
-  Assert each conflicting utility is absent; a negated multi-class matcher may only mean that
-  the complete set is not present. Preserve unrelated defaults such as min-height when overriding padding.
-- Do not remove a meaningful scenario merely to reduce line count or make a test pass.
+- A test answers "does the component work for the user": state, ARIA, keyboard, focus, refs,
+  callbacks, native forms, SSR. Do not test pixels, computed colors, sizes, animation timing,
+  or class strings; visual parity is checked by comparing playground stories, not by unit tests.
+- Use `getComputedStyle`, `toHaveCSS`, or `getBoundingClientRect` only when the style is itself the
+  public contract: a consumer `className`/`class` really overrides a Tailwind default, a documented
+  CSS variable takes effect, or a layout fix that users depended on (for example content no longer
+  overflowing a dialog). Name that contract in the test title.
+- Check public styling hooks (`data-slot`, state attributes) as attributes. Avoid snapshots of full
+  markup, generated IDs, CSS hashes, or class strings.
+- Do not remove a meaningful behavior scenario merely to reduce line count or make a test pass.
 
 ## Choose the Environment
 
 - Target Node for pure helpers, filesystem checks, and actual server rendering; target Browser Mode
   for component behavior, layout, focus, and hydration. Browser tests use `*.browser.test.ts(x)`.
   Rendering server HTML inside a browser does not prove the component is safe without browser globals.
-- The migration is complete: component tests run in Browser Mode; pure helpers, compiler checks,
-  and SSR run in Node. Do not reintroduce a DOM project, happy-dom, user-event, or jest-dom setup.
-  Add a Node project only when the package has Node tests.
+- Component tests run in Browser Mode; pure helpers and SSR run in Node. Do not reintroduce a DOM
+  project, happy-dom, user-event, or jest-dom setup. Add a Node project only when the package has
+  Node tests.
 - Reuse Rslib transforms through the official adapter. Do not build a separate compiler pipeline.
 - Use each framework's installed Testing Library for rendering, prop updates, and cleanup in both
   styling adapters. Register cleanup explicitly through Rstest. Do not add a second renderer,
@@ -43,8 +48,18 @@ follow the matching native convention skill. `component-workflow` owns adapter p
   uses Preflight instead; do not layer the foundation reset on top of it.
   Keep the Node and browser projects' file sets disjoint. Move tests rather than duplicate them.
 - Tailwind browser projects use the official Rsbuild Tailwind plugin and a CSS entry scanning their
-  own components/tests. Check computed CSS where layout, cascade or utility overrides matter;
-  class presence alone does not prove the rendered result. Pure compiler checks stay in Node.
+  own components/tests, so the override contracts above can be checked on real CSS. Do not add
+  tests that compile utilities and compare class or CSS strings.
+- Browser behavior tests are shared per framework. They live once in the CSS Modules package
+  (`packages/<framework>/tests/*.browser.test.*`) and import components, fixtures, and consumers
+  through `@/`, so the Tailwind package's browser project (which includes
+  `../<framework>/tests/*.browser.test.*`) runs the same scenarios against its own source. Put
+  checks of one package's styling contract (CSS variables, Tailwind utility overrides, measured
+  styles) or a genuinely adapter-specific harness in that package's `tests/styles/`. A shared test
+  must not use Tailwind utilities: the Tailwind entry does not scan the CSS Modules package.
+- Node SSR coverage lives in one `tests/ssr.test.*` per package: it loads every component without
+  browser globals and renders open overlays (React, Solid) or every Vue fixture. Do not add
+  per-component SSR files; add a focused Node test only for a server-specific regression.
 - For Vue SSR/hydration, reuse a small compiled SFC fixture. Node SSR must run without browser globals;
   browser hydration must preserve hosts/IDs and still support interaction. HTML rendered inside the
   browser is not a server-to-browser E2E pipeline. Always unmount/remove manually mounted hosts.
@@ -65,8 +80,8 @@ follow the matching native convention skill. `component-workflow` owns adapter p
   Focus may enter a nested tabbable part, such as SelectList; inspect the actual composition
   instead of assuming the popup's outer host receives focus. Native focus can also set initial
   highlighting, so choose a deterministic starting point for navigation.
-  Browser `toHaveClass` compares the whole class attribute; use native `classList` for individual
-  utility membership and `toHaveCSS` for the rendered result.
+  Browser `toHaveClass` compares the whole class attribute; when a consumer class must be present,
+  check it through native `classList`.
 - When timing is itself the contract (such as synchronous focus during pointerdown), dispatch
   the precise native event and assert immediately after dispatch. Retrying assertions can hide
   deferred behavior; synthetic dispatch does not verify trusted gestures or CSS `:active`.
@@ -97,8 +112,9 @@ follow the matching native convention skill. `component-workflow` owns adapter p
   For short-lived states, avoid duplicating a DOM check that another scenario already protects:
   capture the public callback and check the settled DOM state rather than racing browser polling
   against a short timer. Keep the configured timeout and independent rendering coverage intact.
-- Give layout fixtures explicit dimensions/overflow so the intended interaction is possible.
-  Assert actual measurements and scroll targets, not zero-valued artifacts of a simulated DOM.
+- Give layout fixtures explicit dimensions/overflow so the intended interaction (scrolling,
+  resizing, dragging) is possible. Assert the behavioral result, such as the reached scroll target
+  or the reported size callback, not incidental pixel values.
 
 ## Configuration and CI
 
@@ -110,7 +126,7 @@ follow the matching native convention skill. `component-workflow` owns adapter p
   shared CSS/token changes must invalidate browser/CSS results without a prerequisite library build.
 - Preserve isolation and default timeouts unless a measured problem justifies changing them.
   Do not add retries, suppress build warnings/errors, or skip regressions merely to obtain a green run.
-- Browser migration can expose bugs hidden by emulated event timing. Reproduce suspected upstream
+- A real browser can expose bugs that emulated event timing hid. Reproduce suspected upstream
   failures with the bare primitive before changing wrappers. Only with explicit user approval,
   isolate the failing contract in a runnable skipped test, document the cause and re-enable condition,
   and keep independent behavior active; do not replace the failing assertion with a weaker one.

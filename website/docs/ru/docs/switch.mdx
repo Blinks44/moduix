@@ -1,14 +1,25 @@
 ---
 title: Switch
 component: switch
-description: Компонуемый переключатель Ark UI для настроек, которые применяются сразу после изменения.
+description: Включает или выключает настройку сразу, без сохранения.
+ark: https://ark-ui.com/docs/components/switch
 ---
 
+import AnatomyScene from '@/components/examples/switch/basic';
 import * as SwitchDocs from '@/components/examples/switch/css-properties';
 
-## Справочник API
+<Example name="switch/basic" />
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/switch" />
+## Установка
+
+<ComponentInstall />
+
+## Использование
+
+<Usage />
+
+Базовый переключатель состоит из корня, визуальной дорожки, подписи и явного `SwitchHiddenInput` для нативного
+взаимодействия и работы с формой. Если у дорожки нет дочерних элементов, она получает стандартный бегунок.
 
 ## Выбор подходящего компонента
 
@@ -20,74 +31,72 @@ import * as SwitchDocs from '@/components/examples/switch/css-properties';
   а не применить сразу как настройку.
 - Выбирайте **`RadioGroup`**, когда пользователь должен выбрать один вариант из нескольких взаимоисключающих значений.
 
-## Базовый пример
+## Примеры
 
+### Размеры
 
-Базовый переключатель состоит из корня, визуальной дорожки, подписи и явного `SwitchHiddenInput` для нативного
-взаимодействия и работы с формой. Если у дорожки нет дочерних элементов, она получает стандартный бегунок.
+Используйте `size` от moduix, чтобы подобрать размер под плотность формы, не меняя дерево частей Ark.
 
-<Example name="switch/basic" />
+<Example name="switch/sizes" />
 
-## Установка через shadcn
+### Начальное состояние
 
-Полную настройку пакета, реестра и стилей см. в разделе [Быстрый старт](/docs/quick-start).
+Используйте `defaultChecked`, когда переключатель должен быть включён при первом рендере, а затем самостоятельно управлять своим состоянием.
 
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
+<Example name="switch/initial-checked" />
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/switch' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/switch' },
-  ]}
-/>
+### Отключённое состояние
 
-  </Tab>
-  <Tab label="Solid" value="solid">
+Используйте `disabled`, чтобы запретить взаимодействие и сохранить текущее визуальное состояние.
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/switch' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/switch' },
-  ]}
-/>
+<Example name="switch/disabled" />
 
-  </Tab>
-  <Tab label="Vue" value="vue">
+### Только для чтения
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/switch' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/switch' },
-  ]}
-/>
+Используйте `readOnly`, когда текущее состояние должно оставаться видимым, но пользователь не должен иметь возможности его изменить.
 
-  </Tab>
-</Tabs>
+<Example name="switch/read-only" />
 
-## Анатомия
+### Интеграция с формой
 
-```text
-Switch
-├─ SwitchControl
-│  └─ SwitchThumb
-├─ SwitchLabel
-└─ SwitchHiddenInput (explicit)
-```
+Используйте `Field`, когда переключателю нужны подпись, валидация или отправка вместе с формой. В этом примере ошибка
+появляется после отправки формы, если переключатель остался выключенным.
 
-| Часть                         | Назначение                                                              |
-| ----------------------------- | ----------------------------------------------------------------------- |
-| `Switch`                 | Корневой элемент `label`. Хранит состояние, ID, свойства формы и `size`. |
-| `SwitchHiddenInput`          | Нативное поле Ark; правила явной композиции описаны ниже.               |
-| `SwitchRootProvider`         | Корневой элемент с состоянием, созданным через `useSwitch()`.            |
-| `SwitchControl`              | Визуальная дорожка и цель для кольца фокуса. По умолчанию добавляет бегунок. |
-| `SwitchThumb`                | Подвижный бегунок для стандартного вида или пользовательского содержимого. |
-| `SwitchLabel`                | Подпись, связанная с переключателем через Ark.                         |
+<Example name="switch/form-integration" />
 
-`Switch` - корневой компонент. `SwitchContext`, `useSwitchContext` и `useSwitch` экспортируются
-из `@moduix/react` вместе с компонентом. Экспорты Vue доступны из `@moduix/vue` и
-`@moduix/vue/switch`.
-Соответствующие экспорты Solid доступны из `@moduix/solid` и `@moduix/solid/switch`.
+### Свой бегунок
+
+Передайте дочерние элементы в `SwitchThumb`, если бегунку нужна иконка или другое содержимое.
+
+<Example name="switch/custom-thumb" />
+
+### Управляемое состояние
+
+Используйте управляемый режим, когда переключатель должен синхронизироваться с остальным интерфейсом или состоянием приложения. Подробнее в разделе [Управляйте состоянием из приложения](/docs/composition-patterns#controlled-state).
+
+<Example name="switch/controlled" />
+
+### Контекст
+
+Импортируйте `useSwitchContext` из пакета выбранного фреймворка, когда соседнему интерфейсу нужно
+читать текущее состояние переключателя.
+
+<Example name="switch/context" />
+
+### Root Provider
+
+Импортируйте `useSwitch` из пакета выбранного фреймворка и передайте созданное состояние в
+`SwitchRootProvider`, когда нужно создать и управлять состоянием вне дерева переключателя. Подробнее в разделе [Выносите состояние за пределы дерева](/docs/composition-patterns#root-provider).
+
+<Example name="switch/root-provider" />
+
+### Сборка из частей
+
+Тот же переключатель, что в Basic, но с явным `SwitchThumb`: `SwitchControl` добавляет его, только
+когда у него нет дочерних элементов. Начинайте с него, если дизайн стилизует дорожку и бегунок по
+отдельности.
+
+<Example name="switch/build-from-parts" />
 
 ## Композиция
 
@@ -105,64 +114,27 @@ Switch
 При использовании `asChild` передавайте один семантический элемент, совместимый с `label`, чтобы Ark сохранял
 доступность переключателя.
 
-## Примеры
+## Анатомия
 
-### Контекст
+Наведите на часть или выберите её, чтобы найти её в превью.
 
-Импортируйте `useSwitchContext` из пакета выбранного фреймворка, когда соседнему интерфейсу нужно
-читать текущее состояние переключателя.
+<AnatomyInspector
+  parts={[
+    ["Switch", "switch-root", "Корневой элемент `label`. Хранит состояние, ID, свойства формы и `size`.", 0],
+    ["SwitchControl", "switch-control", "Визуальная дорожка и цель для кольца фокуса. По умолчанию добавляет бегунок.", 1],
+    ["SwitchThumb", "switch-thumb", "Подвижный бегунок для стандартного вида или пользовательского содержимого.", 2],
+    ["SwitchLabel", "switch-label", "Подпись, связанная с переключателем через Ark.", 1],
+    ["SwitchHiddenInput", "", "Нативное поле Ark; правила явной композиции описаны ниже.", 1],
+    ["SwitchRootProvider", "switch-root-provider", "Корневой элемент с состоянием, созданным через `useSwitch()`.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
-<Example name="switch/context" />
-
-### Управляемое состояние
-
-Используйте управляемый режим, когда переключатель должен синхронизироваться с остальным интерфейсом или состоянием приложения.
-
-<Example name="switch/controlled" />
-
-### Отключённое состояние
-
-Используйте `disabled`, чтобы запретить взаимодействие и сохранить текущее визуальное состояние.
-
-<Example name="switch/disabled" />
-
-### Интеграция с формой
-
-Используйте `Field`, когда переключателю нужны подпись, валидация или отправка вместе с формой. В этом примере ошибка
-появляется после отправки формы, если переключатель остался выключенным.
-
-<Example name="switch/form-integration" />
-
-### Начальное состояние
-
-Используйте `defaultChecked`, когда переключатель должен быть включён при первом рендере, а затем самостоятельно управлять своим состоянием.
-
-<Example name="switch/initial-checked" />
-
-### Только для чтения
-
-Используйте `readOnly`, когда текущее состояние должно оставаться видимым, но пользователь не должен иметь возможности его изменить.
-
-<Example name="switch/read-only" />
-
-### Состояние через RootProvider
-
-Импортируйте `useSwitch` из пакета выбранного фреймворка и передайте созданное состояние в
-`SwitchRootProvider`, когда нужно создать и управлять состоянием вне дерева переключателя.
-
-<Example name="switch/root-provider" />
-
-### Размеры
-
-Используйте `size` от moduix, чтобы подобрать размер под плотность формы, не меняя дерево частей Ark.
-
-<Example name="switch/sizes" />
-
-### Расширенная настройка
-
-Добавьте `SwitchThumb` явно, когда бегунку нужны пользовательское содержимое или собственная стилизация.
-
-<Example name="switch/advanced-customization" />
+`Switch` - корневой компонент. `SwitchContext`, `useSwitchContext` и `useSwitch` экспортируются
+из `@moduix/react` вместе с компонентом. Экспорты Vue доступны из `@moduix/vue` и
+`@moduix/vue/switch`.
+Соответствующие экспорты Solid доступны из `@moduix/solid` и `@moduix/solid/switch`.
 
 ## Стилизация
 
@@ -176,17 +148,49 @@ Switch
 и прижатым к обоим краям. Направление справа налево задаёт Ark: внутри RTL [`LocaleProvider`](/docs/rtl)
 Ark ставит `dir` на каждую часть, и ползунок в состоянии checked уходит к концу строки.
 
-### CSS-свойства
+### CSS-переменные
 
-<CssPropertiesSection properties={SwitchDocs.switchOverrideCssProperties} />
+Наведите на переменную или выберите её, чтобы увидеть её в превью.
+
+<CssPropertiesSection properties={SwitchDocs.switchOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Хуки стилизации
+
+| Часть | `data-slot` |
+| --- | --- |
+| `Switch` | `switch-root` |
+| `SwitchRootProvider` | `switch-root-provider` |
+| `SwitchControl` | `switch-control` |
+| `SwitchThumb` | `switch-thumb` |
+| `SwitchLabel` | `switch-label` |
 
 - `Switch` и `SwitchRootProvider` предоставляют `data-slot="switch-root"` /
   `data-slot="switch-root-provider"` и добавляют атрибут `data-size` от moduix.
 - `SwitchControl` предоставляет `data-slot="switch-control"` и получает атрибуты состояния Ark, включая
-  `data-state`, `data-focus-visible`, `data-hover`, `data-active`, `data-disabled`, `data-readonly`,
+  `data-state`, `data-focus`, `data-focus-visible`, `data-hover`, `data-active`, `data-disabled`, `data-readonly`,
   `data-invalid` и `data-required`.
-- `SwitchThumb` предоставляет `data-slot="switch-thumb"` и получает те же атрибуты состояния Ark для
-  движения бегунка и стилизации пользовательского содержимого.
-- `SwitchLabel` предоставляет `data-slot="switch-label"` для переопределения типографики.
+
+## Клавиатура
+
+| Клавиша | Действие |
+| --- | --- |
+| `Space` | Переключает переключатель в фокусе. |
+
+## Справочник API
+
+| Проп | Тип | По умолчанию | Описание |
+| --- | --- | --- | --- |
+| `checked` | `boolean` | — | Состояние в управляемом режиме. |
+| `defaultChecked` | `boolean` | `false` | Начальное состояние. |
+| `onCheckedChange` | `(details: CheckedChangeDetails) => void` | — | Вызывается при переключении. |
+| `value` | `string \| number` | `'on'` | Значение, которое отправляется с формой во включённом состоянии. |
+| `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'` | `'md'` | Размер: `xs`, `sm`, `md`, `lg` или `xl`. |
+| `name` | `string` | — | Имя поля формы у внутреннего input. |
+| `disabled` | `boolean` | `false` | Отключает элемент управления. |
+| `readOnly` | `boolean` | `false` | Показывает значение, но не даёт его менять. |
+| `invalid` | `boolean` | `false` | Помечает поле как невалидное. |
+| `required` | `boolean` | `false` | Требует значение перед отправкой формы. |
+| `label` | `string` | — | Доступное имя, если нет видимой подписи. |
+| `form` | `string` | — | Id формы, к которой относится внутренний input. |

@@ -1,18 +1,25 @@
 ---
 title: Radio Group
 component: radio-group
-description: A radio group for choosing exactly one option from a visible set.
+description: Choose exactly one option from a short visible list.
+ark: https://ark-ui.com/docs/components/radio-group
 ---
 
+import AnatomyScene from '@/components/examples/radio-group/basic';
 import * as RadioGroupDocs from '@/components/examples/radio-group/css-properties';
 
-## API Reference
+<Example name="radio-group/basic" />
 
-`RadioGroup` follows the Ark UI radio-group primitive and adds moduix styling, stable `data-slot`
-attributes, and the `RadioGroupOption` convenience component. It is exported from
-`@moduix/react/radio-group`, `@moduix/solid/radio-group`, and `@moduix/vue/radio-group`.
+## Installation
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/radio-group" />
+<ComponentInstall />
+
+## Usage
+
+<Usage />
+
+Use `RadioGroup` as the root and give every option a value. `RadioGroupOption` renders a labelled
+item with its control, text, and native input.
 
 ## Choosing the right component
 
@@ -20,134 +27,28 @@ Use `RadioGroup` when people need to choose exactly one option from a visible se
 framework, plan, or account type. Use `Checkbox` for independent choices and `Switch` for a setting
 that takes effect immediately.
 
-## Basic
-
-
-Use `RadioGroup` as the root and give every option a value. `RadioGroupOption` renders a labelled
-item with its control, text, and native input.
-
-<Example name="radio-group/basic" />
-
-## Install with shadcn
-
-See [Quick Start](/docs/quick-start) for full package setup, registry configuration, and styling guidance.
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/radio-group' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/radio-group' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/radio-group' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/radio-group' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/radio-group' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/radio-group' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Anatomy
-
-```text
-RadioGroup
-├─ RadioGroupLabel
-├─ RadioGroupIndicator (optional)
-└─ RadioGroupItem[value]
-   ├─ RadioGroupItemControl
-   ├─ RadioGroupItemText
-   └─ RadioGroupItemHiddenInput (explicit)
-
-RadioGroupRootProvider
-└─ the same item tree connected to useRadioGroup()
-
-RadioGroupOption
-└─ RadioGroupItem + RadioGroupItemControl + RadioGroupItemText + RadioGroupItemHiddenInput (fixed composition)
-```
-
-| Part                         | Role                                                            |
-| ---------------------------- | --------------------------------------------------------------- |
-| `RadioGroup`       | Owns value state, keyboard navigation, orientation, and forms. |
-| `RadioGroupRootProvider`    | Connects parts to state created with `useRadioGroup()`.         |
-| `RadioGroupLabel`           | Accessible label for the group.                                 |
-| `RadioGroupItem`            | One selectable option; renders a `label` by default.            |
-| `RadioGroupOption`          | Convenience item with a control, text, and hidden input.        |
-| `RadioGroupItemControl`     | Visual radio control; its size comes from the root `size`.      |
-| `RadioGroupItemText`        | Visible option text.                                             |
-| `RadioGroupItemHiddenInput` | Native form control for explicit `RadioGroupItem` composition.             |
-| `RadioGroupIndicator`       | Optional active-item indicator using Ark measurement variables.  |
-
-## Composition
-
-Use `defaultValue` for an uncontrolled group. Use `value` with `onValueChange(details)` when another
-part of the application owns the selected value. When state must be created outside the rendered
-tree, use `RadioGroupRootProvider` with `useRadioGroup()` from the matching framework package. Do not render
-`RadioGroup` and `RadioGroupRootProvider` for the same state instance. React reads the store as an
-object; Solid reads its reactive state through the returned accessor; Vue exposes the reactive store directly to the
-template.
-
-`RadioGroupOption` includes `RadioGroupItemHiddenInput` in its fixed composition. When composing
-`RadioGroupItem` directly, add `RadioGroupItemHiddenInput` yourself. Use the explicit item tree
-when nested parts need custom placement or when `asChild` should let another element own the item
-DOM node. In Solid, `asChild` uses a render function; in Vue, use `as-child`. In both cases the
-direct child must remain a semantic `label`.
-
-`Field` provides a visible label, helper text, and error text, but it does not pass its state to
-the group. Pass `disabled`, `invalid`, `readOnly`, and `required` to `RadioGroup` itself.
-`Fieldset` passes its Ark `disabled` and `invalid` state to nested radio groups.
-
 ## Examples
 
-### asChild
+### Sizes
 
-Use `RadioGroupItem asChild` when a custom card or label layout should own the item DOM node. Keep a
-semantic `label` as the direct child.
+Set the moduix `size` prop on `RadioGroup` or `RadioGroupRootProvider` to change the diameter of every radio
+control in the group. Supported values are `xs`, `sm`, `md` (default), `lg`, and `xl`.
 
-<Example name="radio-group/aschild" />
+<Example name="radio-group/sizes" />
 
-### Controlled
+### Orientation
 
-Manage `value` with `useState` in React, `createSignal` in Solid, or `ref` and `v-model` in Vue when the selected value
-needs to stay in sync with routing, filters, or surrounding UI.
+Set `orientation="horizontal"` when arrow-key behavior should follow a horizontal group. Arrange
+the items in a row with an inline wrapper when the visual layout should be horizontal too.
 
-<Example name="radio-group/controlled" />
+<Example name="radio-group/orientation" />
 
-### Disabled
+### Initial value
 
-Set `disabled` on the root to make every item unavailable while keeping the selected value visible.
+Set `defaultValue` when the initial checked item is known and the group should manage later changes
+itself.
 
-<Example name="radio-group/disabled" />
-
-### Disabled Item
-
-Set `disabled` on an individual `RadioGroupItem` or `RadioGroupOption` when only that choice is unavailable.
-
-<Example name="radio-group/item-disabled" />
-
-### Form
-
-Pass `name` to the root when the selected value should be submitted. `RadioGroupOption` already
-contains the input; add `RadioGroupItemHiddenInput` to every custom item.
-
-<Example name="radio-group/form" />
+<Example name="radio-group/initial-value" />
 
 ### RadioGroupIndicator
 
@@ -157,33 +58,17 @@ geometry.
 
 <Example name="radio-group/indicator" />
 
-### Initial Value
+### Disabled
 
-Set `defaultValue` when the initial checked item is known and the group should manage later changes
-itself.
+Set `disabled` on the root to make every item unavailable while keeping the selected value visible.
 
-<Example name="radio-group/initial-value" />
+<Example name="radio-group/disabled" />
 
-### Orientation
+### Disabled item
 
-Set `orientation="horizontal"` when arrow-key behavior should follow a horizontal group. Arrange
-the items in a row with an inline wrapper when the visual layout should be horizontal too.
+Set `disabled` on an individual `RadioGroupItem` or `RadioGroupOption` when only that choice is unavailable.
 
-<Example name="radio-group/orientation" />
-
-### Root Provider
-
-Use `RadioGroupRootProvider` when a `useRadioGroup()` store needs to be shared with controls outside the radio
-group tree. The example also shows how to update the selected value from outside the group.
-
-<Example name="radio-group/root-provider" />
-
-### Sizes
-
-Set the moduix `size` prop on `RadioGroup` or `RadioGroupRootProvider` to change the diameter of every radio
-control in the group. Supported values are `xs`, `sm`, `md` (default), `lg`, and `xl`.
-
-<Example name="radio-group/sizes" />
+<Example name="radio-group/item-disabled" />
 
 ### With Field
 
@@ -199,12 +84,84 @@ section. `Fieldset` can also provide its disabled and invalid state to the neste
 
 <Example name="radio-group/with-fieldset" />
 
-### Advanced Customization
+### Form
 
-Bypass `RadioGroupOption` and use the full `RadioGroupItem` tree when each nested part needs custom placement, props, or
-styling.
+Pass `name` to the root when the selected value should be submitted. `RadioGroupOption` already
+contains the input; add `RadioGroupItemHiddenInput` to every custom item.
 
-<Example name="radio-group/advanced-customization" />
+<Example name="radio-group/form" />
+
+### Controlled
+
+Pass `value` and `onValueChange` (`v-model` in Vue) when the selected value follows routing, filters,
+or surrounding UI. See [Control state from the application](/docs/composition-patterns#controlled-state).
+
+<Example name="radio-group/controlled" />
+
+### asChild
+
+Use `RadioGroupItem asChild` when a custom card or label layout should own the item DOM node. Keep a
+semantic `label` as the direct child.
+
+<Example name="radio-group/aschild" />
+
+### Root provider
+
+Use `RadioGroupRootProvider` when a `useRadioGroup()` store needs to be shared with controls outside the radio
+group tree. The example also shows how to update the selected value from outside the group. See [Share state outside the tree](/docs/composition-patterns#root-provider).
+
+<Example name="radio-group/root-provider" />
+
+### Build from parts
+
+The same group as Basic, without `RadioGroupOption`: each `RadioGroupItem` holds
+`RadioGroupItemControl`, `RadioGroupItemText`, and `RadioGroupItemHiddenInput`. Start here when a
+design changes the item layout or adds content next to the label.
+
+<Example name="radio-group/build-from-parts" />
+
+## Composition
+
+`RadioGroup` follows the Ark UI radio-group primitive and adds moduix styling, stable `data-slot`
+attributes, and the `RadioGroupOption` convenience component. It is exported from
+`@moduix/react/radio-group`, `@moduix/solid/radio-group`, and `@moduix/vue/radio-group`.
+
+Use `defaultValue` for an uncontrolled group. Use `value` with `onValueChange(details)` when another
+part of the application controls the selected value. When state must be created outside the rendered
+tree, use `RadioGroupRootProvider` with `useRadioGroup()` from the matching framework package. Do not render
+`RadioGroup` and `RadioGroupRootProvider` for the same state instance. React reads the store as an
+object; Solid reads its reactive state through the returned accessor; Vue exposes the reactive store directly to the
+template.
+
+`RadioGroupOption` includes `RadioGroupItemHiddenInput` in its fixed composition. When composing
+`RadioGroupItem` directly, add `RadioGroupItemHiddenInput` yourself. Use the explicit item tree
+when nested parts need custom placement or when `asChild` should let another element own the item
+DOM node. In Solid, `asChild` uses a render function; in Vue, use `as-child`. In both cases the
+direct child must remain a semantic `label`.
+
+`Field` provides a visible label, helper text, and error text, but it does not pass its state to
+the group. Pass `disabled`, `invalid`, `readOnly`, and `required` to `RadioGroup` itself.
+`Fieldset` passes its Ark `disabled` and `invalid` state to nested radio groups.
+
+## Anatomy
+
+Hover or focus a part to find it in the preview.
+
+<AnatomyInspector
+  parts={[
+    ["RadioGroup", "radio-group-root", "Manages value state, keyboard navigation, orientation, and forms.", 0],
+    ["RadioGroupLabel", "radio-group-label", "Accessible label for the group.", 1],
+    ["RadioGroupIndicator", "radio-group-indicator", "Optional active-item indicator using Ark measurement variables.", 1],
+    ["RadioGroupItem", "radio-group-item", "One selectable option; renders a `label` by default.", 1],
+    ["RadioGroupItemControl", "radio-group-item-control", "Visual radio control; its size comes from the root `size`.", 2],
+    ["RadioGroupItemText", "radio-group-item-text", "Visible option text.", 2],
+    ["RadioGroupItemHiddenInput", "", "Native form control for explicit `RadioGroupItem` composition.", 2],
+    ["RadioGroupRootProvider", "radio-group-root-provider", "Connects parts to state created with `useRadioGroup()`.", 0],
+    ["RadioGroupOption", "", "Convenience item with a control, text, and hidden input.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styling
 
@@ -214,11 +171,25 @@ together with moduix `data-slot` selectors. Tailwind variants use native utiliti
 classes; the component variables below customize the CSS Modules variants. Data attributes and
 `data-slot` hooks are shared by both styling tracks.
 
-### CSS Properties
+### CSS variables
 
-<CssPropertiesSection properties={RadioGroupDocs.radioGroupOverrideCssProperties} />
+Hover or focus a variable to see it in the preview.
+
+<CssPropertiesSection properties={RadioGroupDocs.radioGroupOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Styling hooks
+
+| Part | `data-slot` |
+| --- | --- |
+| `RadioGroup` | `radio-group-root` |
+| `RadioGroupRootProvider` | `radio-group-root-provider` |
+| `RadioGroupLabel` | `radio-group-label` |
+| `RadioGroupItem` | `radio-group-item` |
+| `RadioGroupItemControl` | `radio-group-item-control` |
+| `RadioGroupItemText` | `radio-group-item-text` |
+| `RadioGroupIndicator` | `radio-group-indicator` |
 
 - Ark anatomy hooks: `data-scope="radio-group"` and `data-part` on the root, label, item,
   item-control, item-text, item-hidden-input, and indicator.
@@ -226,6 +197,27 @@ classes; the component variables below customize the CSS Modules variants. Data 
   `data-invalid`, `data-required`, `data-focus`, `data-focus-visible`, `data-hover`,
   `data-active`, and `data-orientation`.
 - Ark indicator variables: `--transition-property`, `--left`, `--top`, `--width`, and `--height`.
-- moduix hooks: `data-slot="radio-group-root"`, `radio-group-root-provider`,
-  `radio-group-label`, `radio-group-item`, `radio-group-item-control`, `radio-group-item-text`,
-  and `radio-group-indicator`, plus `data-size` on the root and `RadioGroupRootProvider`.
+
+## Keyboard
+
+| Key | Action |
+| --- | --- |
+| `Tab` | Moves focus into the group, to the selected option. |
+| `ArrowDown` / `ArrowUp` / `ArrowLeft` / `ArrowRight` | Moves to the next or previous option and selects it. |
+| `Space` | Selects the focused option. |
+
+## API reference
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `value` | `string \| null` | — | Checked value for controlled use. |
+| `defaultValue` | `string \| null` | — | Initially checked value. |
+| `onValueChange` | `(details: ValueChangeDetails) => void` | — | Called when another option is checked. |
+| `orientation` | `'horizontal' \| 'vertical'` | `'vertical'` | Layout and arrow-key direction: `horizontal` or `vertical`. |
+| `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'` | `'md'` | Control size: `xs`, `sm`, `md`, `lg`, or `xl`. |
+| `name` | `string` | — | Form field name shared by the radio inputs. |
+| `disabled` | `boolean` | `false` | Disables the control. |
+| `readOnly` | `boolean` | `false` | Shows the value but prevents changes. |
+| `invalid` | `boolean` | `false` | Marks the control as invalid. |
+| `required` | `boolean` | `false` | Requires a value before form submission. |
+| `form` | `string` | — | Id of the form the underlying input belongs to. |

@@ -9,8 +9,8 @@ import {
   MenuTrigger,
   MenuViewport,
 } from '@moduix/vue/menu';
+import { Stack } from '@moduix/vue/stack';
 import { ref } from 'vue';
-import styles from '@/components/examples/menu/menu-select-event.module.css';
 
 const selected = ref('Nothing selected');
 function handleSelect(details: { value: string }) {
@@ -20,7 +20,7 @@ function handleSelect(details: { value: string }) {
 
 <template>
   <div>
-    <div :class="styles.triggerRow">
+    <Stack direction="row" justify="center">
       <Menu @select="handleSelect">
         <MenuTrigger as-child>
           <Button>Actions <MenuIndicator /></Button>
@@ -36,7 +36,7 @@ function handleSelect(details: { value: string }) {
           </MenuContent>
         </MenuPositioner>
       </Menu>
-    </div>
+    </Stack>
     <output>Selected: {{ selected }}</output>
   </div>
 </template>

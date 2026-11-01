@@ -1,24 +1,16 @@
 ---
 title: Локаль
 description: Передавайте локаль и направление текста форматтерам Ark и локализованному содержимому в React, Solid и Vue.
+ark: https://ark-ui.com/docs/utilities/locale
 ---
 
-import LocaleBasic from '@/components/examples/locale/basic.tsx';
-import LocaleContext from '@/components/examples/locale/context.tsx';
-import localeSolidBasic from '../../../snippets/locale/solid/basic.tsx?raw';
-import localeVueBasic from '../../../snippets/locale/vue/basic.vue?raw';
-import localeSolidContext from '../../../snippets/locale/solid/context.tsx?raw';
-import localeVueContext from '../../../snippets/locale/vue/context.vue?raw';
-import localeVueContextHelper from '../../../snippets/locale/vue/LocaleSection.vue?raw';
 import localeSolidDocument from '../../../snippets/locale/solid/document.tsx?raw';
 import localeVueDocument from '../../../snippets/locale/vue/document.vue?raw';
 
 `LocaleProvider` передаёт локаль и направление текста всему поддереву. Форматтеры Ark и локализованное содержимое
 читают этот контекст.
 
-## Справочник API
-
-<PrimitiveReference href="https://ark-ui.com/docs/utilities/locale" />
+## Импорт
 
 Импортируйте утилиту из соответствующего пакета moduix: он реэкспортирует провайдер локали Ark UI:
 
@@ -62,42 +54,7 @@ import { LocaleProvider, useLocaleContext } from '@moduix/vue/locale';
 Оберните часть интерфейса, в которой используется одна локаль. Форматтеры и компоненты, учитывающие локаль, ниже
 провайдера будут читать общий контекст.
 
-<ExampleFrame variant="component">
-  <PreviewFrame maxWidth="sm">
-    <LocaleBasic />
-  </PreviewFrame>
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/locale/basic.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={localeSolidBasic} />
-
-    </Tab>
-  <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={localeVueBasic} />
-
-    </Tab>
-  </Tabs>
-</div>
-</ExampleCode>
+<Example name="locale/basic" />
 
 `LocaleProvider` принимает строку локали в формате BCP 47, например `fr-FR`. Без провайдера Ark использует `en-US` и
 `ltr`.
@@ -109,44 +66,7 @@ import { LocaleProvider, useLocaleContext } from '@moduix/vue/locale';
 напрямую, а в Solid доступны через accessor-функцию. Vue возвращает computed ref: в setup используйте
 `.value`, а шаблон автоматически раскрывает ref.
 
-<ExampleFrame variant="component">
-  <PreviewFrame maxWidth="sm">
-    <LocaleContext />
-  </PreviewFrame>
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/locale/context.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={localeSolidContext} />
-
-    </Tab>
-  <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={localeVueContext} title="context.vue" />
-
-<CodeBlockRuntime lang="vue" code={localeVueContextHelper} title="LocaleSection.vue" />
-
-    </Tab>
-  </Tabs>
-</div>
-</ExampleCode>
+<Example name="locale/context" />
 
 ## Задайте язык и направление документа
 

@@ -36,6 +36,7 @@ export default function TocRailDemo() {
       <TocContent>
         <div
           ref={scrollRef}
+          role="region"
           aria-label="Scrollable document preview"
           className={styles.scrollArea}
           tabIndex={0}

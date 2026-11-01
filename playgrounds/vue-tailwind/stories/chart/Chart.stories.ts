@@ -79,7 +79,7 @@ const barDefinition = defineChart({
   },
   color: {
     domain: ['Revenue'],
-    range: ['var(--moduix-color-chart-1)'],
+    range: ['var(--moduix-chart-1)'],
   },
   tooltip,
 });
@@ -115,7 +115,7 @@ const areaDefinition = defineChart({
   },
   color: {
     domain: ['Revenue', 'Target'],
-    range: ['var(--moduix-color-chart-1)', 'var(--moduix-color-chart-2)'],
+    range: ['var(--moduix-chart-1)', 'var(--moduix-chart-2)'],
   },
   focus: 'group-x',
   tooltip,
@@ -145,7 +145,7 @@ const stackedDefinition = defineChart({
   },
   color: {
     domain: ['Product', 'Services'],
-    range: ['var(--moduix-color-chart-1)', 'var(--moduix-color-chart-2)'],
+    range: ['var(--moduix-chart-1)', 'var(--moduix-chart-2)'],
   },
   focus: 'group-x',
   tooltip,
@@ -177,10 +177,10 @@ const donutDefinition = defineChart({
   color: {
     domain: revenueByChannel.map(({ channel }) => channel),
     range: [
-      'var(--moduix-color-chart-1)',
-      'var(--moduix-color-chart-2)',
-      'var(--moduix-color-chart-3)',
-      'var(--moduix-color-chart-4)',
+      'var(--moduix-chart-1)',
+      'var(--moduix-chart-2)',
+      'var(--moduix-chart-3)',
+      'var(--moduix-chart-4)',
     ],
   },
   tooltip: {
@@ -244,7 +244,7 @@ const radarDefinition = defineChart({
   scales: { x: null, y: null },
   color: {
     domain: ['Product A', 'Product B'],
-    range: ['var(--moduix-color-chart-1)', 'var(--moduix-color-chart-2)'],
+    range: ['var(--moduix-chart-1)', 'var(--moduix-chart-2)'],
   },
   focus: focusGroupAngle,
   tooltip,
@@ -313,7 +313,7 @@ export const Basic: Story = {
       </ChartHeader>
       <ChartPlot v-bind="args" />
       <ChartLegend aria-label="Revenue series">
-        <ChartLegendItem color="var(--moduix-color-chart-1)">Revenue</ChartLegendItem>
+        <ChartLegendItem color="var(--moduix-chart-1)">Revenue</ChartLegendItem>
       </ChartLegend>
     </Chart>
   `),
@@ -332,8 +332,8 @@ export const AnimatedArea: Story = {
       </ChartHeader>
       <ChartPlot v-bind="args" />
       <ChartLegend aria-label="Revenue series">
-        <ChartLegendItem color="var(--moduix-color-chart-1)">Revenue</ChartLegendItem>
-        <ChartLegendItem color="var(--moduix-color-chart-2)">Target</ChartLegendItem>
+        <ChartLegendItem color="var(--moduix-chart-1)">Revenue</ChartLegendItem>
+        <ChartLegendItem color="var(--moduix-chart-2)">Target</ChartLegendItem>
       </ChartLegend>
     </Chart>
   `),
@@ -349,7 +349,7 @@ export const CustomTooltip: Story = {
         </ChartHeader>
         <ChartPlot v-bind="args" :render-tooltip-body="renderTooltipBody" />
         <ChartLegend aria-label="Revenue series">
-          <ChartLegendItem color="var(--moduix-color-chart-1)">Revenue</ChartLegendItem>
+          <ChartLegendItem color="var(--moduix-chart-1)">Revenue</ChartLegendItem>
         </ChartLegend>
       </Chart>
     `,
@@ -374,7 +374,7 @@ export const Donut: Story = {
           <ChartLegendItem
             v-for="({ channel }, index) in revenueByChannel"
             :key="channel"
-            :color="\`var(--moduix-color-chart-\${index + 1})\`"
+            :color="\`var(--moduix-chart-\${index + 1})\`"
           >
             {{ channel }}
           </ChartLegendItem>
@@ -419,7 +419,7 @@ export const InteractiveLegend: Story = {
           },
           color: {
             domain: ['Revenue', 'Target'],
-            range: ['var(--moduix-color-chart-1)', 'var(--moduix-color-chart-2)'],
+            range: ['var(--moduix-chart-1)', 'var(--moduix-chart-2)'],
             legend: interactiveColorLegend({
               hover: 'series',
               visible: controlledSignal(visible.value, (next) => {
@@ -447,8 +447,8 @@ export const Radar: Story = {
         </ChartHeader>
         <ChartPlot :definition="radarDefinition" :height="360" aria-label="Product scores by metric" />
         <ChartLegend aria-label="Products">
-          <ChartLegendItem color="var(--moduix-color-chart-1)">Product A</ChartLegendItem>
-          <ChartLegendItem color="var(--moduix-color-chart-2)">Product B</ChartLegendItem>
+          <ChartLegendItem color="var(--moduix-chart-1)">Product A</ChartLegendItem>
+          <ChartLegendItem color="var(--moduix-chart-2)">Product B</ChartLegendItem>
         </ChartLegend>
       </Chart>
     `,
@@ -469,8 +469,8 @@ export const StackedBars: Story = {
       </ChartHeader>
       <ChartPlot v-bind="args" />
       <ChartLegend aria-label="Revenue segments">
-        <ChartLegendItem color="var(--moduix-color-chart-1)">Product</ChartLegendItem>
-        <ChartLegendItem color="var(--moduix-color-chart-2)">Services</ChartLegendItem>
+        <ChartLegendItem color="var(--moduix-chart-1)">Product</ChartLegendItem>
+        <ChartLegendItem color="var(--moduix-chart-2)">Services</ChartLegendItem>
       </ChartLegend>
     </Chart>
   `),

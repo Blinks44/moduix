@@ -1,18 +1,25 @@
 ---
 title: Slider
 component: slider
-description: Доступный слайдер для React, Solid и Vue, позволяющий выбирать одно значение или диапазон в заданных границах.
+description: Выбор значения или диапазона перетаскиванием по шкале.
+ark: https://ark-ui.com/docs/components/slider
 ---
 
+import AnatomyScene from '@/components/examples/slider/basic';
 import * as SliderDocs from '@/components/examples/slider/css-properties';
-import SliderContext from '@/components/examples/slider/context.tsx';
-import sliderSolidContext from '../../../snippets/slider/solid/context.tsx?raw';
-import sliderVueContext from '../../../snippets/slider/vue/context.vue?raw';
-import sliderVueContextPart from '../../../snippets/slider/vue/SliderStatus.vue?raw';
 
-## Справочник API
+<Example name="slider/basic" width="sm" />
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/slider" />
+## Установка
+
+<ComponentInstall />
+
+## Использование
+
+<Usage />
+
+`SliderThumbs` создаёт по одному ползунку с нативным полем на значение. Для своего содержимого ползунка
+используйте `SliderThumb` явно и вложите в него `SliderHiddenInput`.
 
 ## Выбор подходящего компонента
 
@@ -23,201 +30,7 @@ import sliderVueContextPart from '../../../snippets/slider/vue/SliderStatus.vue?
 - Выберите **`Input`** или **`NumberInput`**, если значение нужно точно ввести с клавиатуры, а не выбирать перетаскиванием.
 - Выберите **`ProgressLinear`** или **`ProgressCircular`**, если значение нужно только показать.
 
-## Базовый пример
-
-
-`SliderThumbs` создаёт по одному ползунку с нативным полем на значение. Для своего содержимого ползунка
-используйте `SliderThumb` явно и вложите в него `SliderHiddenInput`.
-
-<Example name="slider/basic" width="sm" />
-
-## Установка через shadcn
-
-Полную настройку пакета, реестра и стилей см. в разделе [Быстрый старт](/docs/quick-start).
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/slider' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/slider' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/slider' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/slider' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/slider' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/slider' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Анатомия
-
-```text
-Slider
-├─ SliderLabel
-├─ SliderValueText
-├─ SliderControl
-│  ├─ SliderTrack
-│  │  └─ SliderRange
-│  └─ SliderThumb[index]
-│     ├─ SliderDraggingIndicator
-│     └─ SliderHiddenInput
-└─ SliderMarkerGroup
-   └─ SliderMarker[value]
-```
-
-| Часть                                  | Назначение                                                       |
-| -------------------------------------- | ---------------------------------------------------------------- |
-| `Slider`               | Стилизованный корневой элемент Ark для управляемого и неуправляемого состояния. |
-| `SliderHiddenInput` | Нативное поле Ark; правила явной композиции описаны ниже. |
-| `SliderRootProvider`                  | Корневой элемент, подключённый к состоянию `useSlider`, созданному отдельно.    |
-| `SliderLabel`                         | Видимая подпись группы.                                                        |
-| `SliderValueText`                     | Текст текущего значения, который формирует Ark.                               |
-| `SliderControl`                       | Область взаимодействия с указателем.                                          |
-| `SliderTrack`                         | Полная визуальная дорожка.                                                     |
-| `SliderRange`                         | Заполненная часть от точки отсчёта до текущего значения.                       |
-| `SliderThumb`                         | Ползунок, который можно сфокусировать.                                        |
-| `SliderThumbs`                        | Вспомогательный компонент moduix, создающий ползунок для каждого значения.      |
-| `SliderMarkerGroup` / `SliderMarker` | Необязательная группа отметок и отдельная отметка.                             |
-| `SliderDraggingIndicator`             | Необязательное всплывающее значение во время перетаскивания.                   |
-
-## Композиция
-
-Используйте `SliderThumbs` для стандартной композиции с одним ползунком на каждое значение:
-компонент также добавляет по одному `SliderHiddenInput` на каждый ползунок. Если ползунку
-нужны своё содержимое, доступное имя или определённый порядок, используйте `SliderThumb`
-явно и вложите в него один `SliderHiddenInput`. Для отправки формы задайте `name` на корневом
-компоненте.
-
-Для управляемого состояния сохраняйте `details.value` из `onValueChange` или
-`onValueChangeEnd`; во Vue для того же контракта можно связать `v-model` с ref. Используйте
-`useSliderContext` во вложенных компонентах, чтобы читать состояние. Если состояние нужно создать
-вне дерева, создайте его через `useSlider` и передайте в `SliderRootProvider`; не создавайте
-второй корневой компонент для того же store. В React store читается как объект, в Solid через
-возвращённый реактивный accessor, а во Vue реактивный store доступен прямо в шаблоне.
-
 ## Примеры
-
-### Центр как точка отсчёта
-
-Задайте `origin="center"`, если значение представляет положительное или отрицательное смещение, например баланс относительно нуля.
-
-<Example name="slider/center-origin" width="sm" />
-
-### События изменения
-
-Используйте `onValueChange` (или событие Vue `value-change`), чтобы обновлять интерфейс во время
-взаимодействия, а `onValueChangeEnd` (или `value-change-end`) - когда перетаскивание или
-взаимодействие с клавиатурой завершено.
-
-<Example name="slider/change-events" width="sm" />
-
-### Контекст
-
-Используйте `useSliderContext` из moduix внутри дочернего компонента, если ему нужно читать состояние слайдера, например
-`value`, `dragging` или состояние фокуса.
-
-<ExampleFrame variant="component" width="sm">
-  <SliderContext />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/slider/context.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={sliderSolidContext} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={sliderVueContext} />
-
-<CodeBlockRuntime lang="vue" code={sliderVueContextPart} title="SliderStatus.vue" />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
-
-### Управляемое состояние
-
-Управляйте слайдером из состояния выбранного фреймворка, сохраняя массив из `details.value`; во
-Vue для управляемого контракта можно связать `v-model` с ref.
-
-<Example name="slider/controlled" width="sm" />
-
-### Отключённый
-
-Используйте `disabled`, чтобы оставить значение видимым, но отключить взаимодействие.
-
-<Example name="slider/disabled" width="sm" />
-
-### Индикатор перетаскивания
-
-Поместите `SliderDraggingIndicator` внутрь ползунка, чтобы показывать его текущее значение при перетаскивании.
-
-<Example name="slider/dragging-indicator" width="sm" />
-
-
-### Форма
-
-Задайте `name` и вложите `SliderHiddenInput` в каждый явный ползунок, чтобы отправлять текущее значение.
-
-<Example name="slider/form" width="sm" />
-
-### Некорректное значение
-
-Используйте `invalid`, если выбранное значение не проходит проверку. Дорожка, диапазон и ползунок получают состояние
-ошибки, но остаются интерактивными.
-
-<Example name="slider/invalid" width="sm" />
-
-### Деления
-
-Используйте `SliderMarkerGroup` и `SliderMarker`, чтобы добавить отметки на дорожку. Ark добавляет к отметкам
-`data-state="under-value | at-value | over-value"`, который можно использовать в стилях.
-
-<Example name="slider/marks" width="sm" />
-
-### Минимум и максимум
-
-Задайте `min` и `max`, если диапазон слайдера не начинается с `0` или не заканчивается на `100`.
-
-<Example name="slider/min-and-max" width="sm" />
 
 ### Диапазон
 
@@ -226,6 +39,49 @@ Vue для управляемого контракта можно связать
 
 <Example name="slider/range" width="sm" />
 
+### Деления
+
+Используйте `SliderMarkerGroup` и `SliderMarker`, чтобы добавить отметки на дорожку. Ark добавляет к отметкам
+`data-state="under-value | at-value | over-value"`, который можно использовать в стилях.
+
+<Example name="slider/marks" width="sm" />
+
+### Шаг
+
+Используйте `step` для дробного или более точного шага.
+
+<Example name="slider/step" width="sm" />
+
+### Минимум и максимум
+
+Задайте `min` и `max`, если диапазон слайдера не начинается с `0` или не заканчивается на `100`.
+
+<Example name="slider/min-and-max" width="sm" />
+
+### Вертикальный
+
+Задайте `orientation="vertical"` и явно задайте корневому элементу высоту.
+
+<Example name="slider/vertical" />
+
+### Вертикальный с делениями
+
+В вертикальной ориентации отметки выравниваются по дорожке и используют те же атрибуты состояния.
+
+<Example name="slider/vertical-with-marks" />
+
+### Центр как точка отсчёта
+
+Задайте `origin="center"`, если значение представляет положительное или отрицательное смещение, например баланс относительно нуля.
+
+<Example name="slider/center-origin" width="sm" />
+
+### Отключённый
+
+Используйте `disabled`, чтобы оставить значение видимым, но отключить взаимодействие.
+
+<Example name="slider/disabled" width="sm" />
+
 ### Только для чтения
 
 Используйте `readOnly`, если значение должно оставаться видимым, а ползунок - доступным для фокуса, но изменять его нельзя.
@@ -233,18 +89,18 @@ Vue для управляемого контракта можно связать
 
 <Example name="slider/read-only" width="sm" />
 
-### Root Provider
+### Некорректное значение
 
-Используйте `useSlider` из moduix с `SliderRootProvider`, если состояние нужно создать вне дерева, в котором отображаются
-части слайдера. Рендерьте эти части внутри `SliderRootProvider` и не добавляйте второй корень для того же состояния.
+Используйте `invalid`, если выбранное значение не проходит проверку. Дорожка, диапазон и ползунок получают состояние
+ошибки, но остаются интерактивными.
 
-<Example name="slider/root-provider" width="sm" />
+<Example name="slider/invalid" width="sm" />
 
-### Шаг
+### Форма
 
-Используйте `step` для дробного или более точного шага.
+Задайте `name` и вложите `SliderHiddenInput` в каждый явный ползунок, чтобы отправлять текущее значение.
 
-<Example name="slider/step" width="sm" />
+<Example name="slider/form" width="sm" />
 
 ### Выравнивание ползунка
 
@@ -266,40 +122,109 @@ Vue для управляемого контракта можно связать
 
 <Example name="slider/thumb-overlap" width="sm" />
 
-### Вертикальный
+### Индикатор перетаскивания
 
-Задайте `orientation="vertical"` и явно задайте корневому элементу высоту.
+Поместите `SliderDraggingIndicator` внутрь ползунка, чтобы показывать его текущее значение при перетаскивании.
 
-<Example name="slider/vertical" />
+<Example name="slider/dragging-indicator" width="sm" />
 
-### Вертикальный с делениями
+### События изменения
 
-В вертикальной ориентации отметки выравниваются по дорожке и используют те же атрибуты состояния.
+Используйте `onValueChange` (или событие Vue `value-change`), чтобы обновлять интерфейс во время
+взаимодействия, а `onValueChangeEnd` (или `value-change-end`) - когда перетаскивание или
+взаимодействие с клавиатурой завершено.
 
-<Example name="slider/vertical-with-marks" />
+<Example name="slider/change-events" width="sm" />
 
-### Расширенная настройка
+### Управляемое состояние
 
-Используйте отдельные `SliderThumb` вместо `SliderThumbs`, если каждому ползунку нужны свои дочерние элементы, доступное
-имя или определённый порядок.
+Управляйте слайдером из состояния выбранного фреймворка, сохраняя массив из `details.value`; во
+Vue для управляемого контракта можно связать `v-model` с ref.
 
-<Example name="slider/advanced-customization" width="sm" />
+<Example name="slider/controlled" width="sm" />
+
+### Контекст
+
+Используйте `useSliderContext` из moduix внутри дочернего компонента, если ему нужно читать состояние слайдера, например
+`value`, `dragging` или состояние фокуса.
+
+<Example name="slider/context" width="sm" />
+
+### Root Provider
+
+Используйте `useSlider` из moduix с `SliderRootProvider`, если состояние нужно создать вне дерева, в котором отображаются
+части слайдера. Рендерьте эти части внутри `SliderRootProvider` и не добавляйте второй корень для того же состояния.
+
+<Example name="slider/root-provider" width="sm" />
+
+## Композиция
+
+Используйте `SliderThumbs` для стандартной композиции с одним ползунком на каждое значение:
+компонент также добавляет по одному `SliderHiddenInput` на каждый ползунок. Если ползунку
+нужны своё содержимое, доступное имя или определённый порядок, используйте `SliderThumb`
+явно и вложите в него один `SliderHiddenInput`. Для отправки формы задайте `name` на корневом
+компоненте.
+
+Для управляемого состояния сохраняйте `details.value` из `onValueChange` или
+`onValueChangeEnd`; во Vue для того же контракта можно связать `v-model` с ref. Используйте
+`useSliderContext` во вложенных компонентах, чтобы читать состояние. Если состояние нужно создать
+вне дерева, создайте его через `useSlider` и передайте в `SliderRootProvider`; не создавайте
+второй корневой компонент для того же store. В React store читается как объект, в Solid через
+возвращённый реактивный accessor, а во Vue реактивный store доступен прямо в шаблоне.
+
+## Анатомия
+
+Наведите на часть или выберите её, чтобы найти её в превью.
+
+<AnatomyInspector
+  parts={[
+    ["Slider", "slider-root", "Стилизованный корневой элемент Ark для управляемого и неуправляемого состояния.", 0],
+    ["SliderLabel", "slider-label", "Видимая подпись группы.", 1],
+    ["SliderValueText", "slider-value-text", "Текст текущего значения, который формирует Ark.", 1],
+    ["SliderControl", "slider-control", "Область взаимодействия с указателем.", 1],
+    ["SliderTrack", "slider-track", "Полная визуальная дорожка.", 2],
+    ["SliderRange", "slider-range", "Заполненная часть от точки отсчёта до текущего значения.", 3],
+    ["SliderThumb", "slider-thumb", "Ползунок, который можно сфокусировать.", 2],
+    ["SliderDraggingIndicator", "slider-dragging-indicator", "Необязательное всплывающее значение во время перетаскивания.", 3],
+    ["SliderHiddenInput", "", "Нативное поле Ark; правила явной композиции описаны ниже.", 3],
+    ["SliderThumbs", "", "Вспомогательный компонент moduix, создающий ползунок для каждого значения.", 3],
+    ["SliderMarkerGroup / SliderMarker", "slider-marker-group", "Необязательная группа отметок и отдельная отметка.", 1],
+    ["SliderRootProvider", "slider-root-provider", "Корневой элемент, подключённый к состоянию `useSlider`, созданному отдельно.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Стилизация
 
 Настраивайте внешний вид `Slider` через `className` (или `class` во Vue), атрибуты Ark, стабильные точки настройки `data-slot="slider-*"`,
 CSS-переменные Ark и публичные CSS-переменные moduix ниже.
 
-### CSS-свойства
+### CSS-переменные
 
-<CssPropertiesSection properties={SliderDocs.sliderCssProperties} />
+Наведите на переменную или выберите её, чтобы увидеть её в превью.
+
+<CssPropertiesSection properties={SliderDocs.sliderCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Хуки стилизации
 
-Ark добавляет `data-scope="slider"` и `data-part` ко всем отрендеренным частям. moduix также добавляет
-значения `data-slot`: `slider-root`, `slider-root-provider`, `slider-label`, `slider-value-text`,
-`slider-control`, `slider-track`, `slider-range`, `slider-thumb`,
-`slider-marker-group`, `slider-marker` и `slider-dragging-indicator`.
+| Часть | `data-slot` |
+| --- | --- |
+| `Slider` | `slider-root` |
+| `SliderRootProvider` | `slider-root-provider` |
+| `SliderLabel` | `slider-label` |
+| `SliderValueText` | `slider-value-text` |
+| `SliderControl` | `slider-control` |
+| `SliderTrack` | `slider-track` |
+| `SliderRange` | `slider-range` |
+| `SliderThumb` | `slider-thumb` |
+| `SliderMarkerGroup` | `slider-marker-group` |
+| `SliderMarker` | `slider-marker` |
+| `SliderDraggingIndicator` | `slider-dragging-indicator` |
+
+Ark добавляет `data-scope="slider"` и `data-part` ко всем отрендеренным частям.
 
 К важным атрибутам состояния Ark относятся `data-orientation`, `data-disabled`, `data-invalid`,
 `data-focus`, `data-dragging`, `data-state` у отметок и `data-state="open | closed"` индикатора
@@ -315,3 +240,41 @@ moduix добавляет `data-readonly` к `Slider`, когда задано �
 
 Стандартное кольцо фокуса ползунка использует `:focus-visible` при навигации с клавиатуры и `data-dragging` Ark
 во время перетаскивания. После отпускания указателя оно исчезает.
+
+## Клавиатура
+
+| Клавиша | Действие |
+| --- | --- |
+| `ArrowRight` / `ArrowUp` | Увеличивает значение на шаг. |
+| `ArrowLeft` / `ArrowDown` | Уменьшает значение на шаг. |
+| `PageUp` / `PageDown`, `Shift` + стрелки | Меняет значение на большой шаг. |
+| `Home` / `End` | Ставит минимум или максимум. |
+
+## Справочник API
+
+| Проп | Тип | По умолчанию | Описание |
+| --- | --- | --- | --- |
+| `value` | `number[]` | — | Значения бегунков в управляемом режиме, по числу на бегунок. |
+| `defaultValue` | `number[]` | — | Начальные значения бегунков. |
+| `onValueChange` | `(details: ValueChangeDetails) => void` | — | Вызывается при изменении значения. |
+| `onValueChangeEnd` | `(details: ValueChangeDetails) => void` | — | Вызывается, когда пользователь закончил менять значение. |
+| `min` | `number` | `0` | Минимальное значение. |
+| `max` | `number` | `100` | Максимальное значение. |
+| `step` | `number` | `1` | Шаг между значениями. |
+| `largeStep` | `number` | `10 * step` | Шаг для Shift со стрелками и Page Up или Page Down. |
+| `minStepsBetweenThumbs` | `number` | `0` | Минимальное расстояние между бегунками, в шагах. |
+| `orientation` | `'horizontal' \| 'vertical'` | `'horizontal'` | Направление: `horizontal` или `vertical`. |
+| `origin` | `'start' \| 'center' \| 'end'` | `'start'` | Откуда начинается заливка: `start`, `center` или `end`. |
+| `thumbCollisionBehavior` | `'none' \| 'push' \| 'swap'` | `'none'` | Что делают бегунки при встрече: `none`, `push` или `swap`. |
+| `getAriaValueText` | `(details: ValueTextDetails) => string` | — | Возвращает понятный текст значения для экранных дикторов. |
+| `name` | `string` | — | Имя поля формы для бегунков. |
+| `disabled` | `boolean` | `false` | Отключает элемент управления. |
+| `readOnly` | `boolean` | `false` | Показывает значение, но не даёт его менять. |
+| `invalid` | `boolean` | `false` | Помечает поле как невалидное. |
+| `required` | `boolean` | `false` | Требует значение перед отправкой формы. |
+| `aria-label` | `string[]` | — | Доступное имя каждого бегунка. |
+| `aria-labelledby` | `string[]` | — | Id элементов, подписывающих каждый бегунок. |
+| `form` | `string` | — | Id формы, к которой относится внутренний input. |
+| `onFocusChange` | `(details: FocusChangeDetails) => void` | — | Вызывается, когда фокус переходит на другой бегунок. |
+| `thumbAlignment` | `'contain' \| 'center'` | `'contain'` | Держит бегунки внутри дорожки (`contain`) или по центру значения (`center`). |
+| `thumbSize` | `{ width: number; height: number }` | — | Размер бегунка, нужен для выравнивания `contain` при серверном рендеринге. |

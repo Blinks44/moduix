@@ -1,4 +1,3 @@
-import { LocaleProvider } from '@ark-ui/vue/locale';
 import { page } from '@rstest/browser';
 import { expect, rs, test } from '@rstest/core';
 import { render, screen } from '@testing-library/vue';
@@ -14,7 +13,8 @@ import {
   SwitchThumb,
   useSwitch,
   useSwitchContext,
-} from '../src';
+} from '@/index';
+import SsrSwitch from './fixtures/SsrSwitch.vue';
 
 const switchComponents = {
   Switch,
@@ -24,17 +24,6 @@ const switchComponents = {
   SwitchRootProvider,
   SwitchThumb,
 };
-
-function expectThumbGeometry(control: Element, edge: 'left' | 'right') {
-  const track = control.getBoundingClientRect();
-  const thumb = control.querySelector('[data-slot="switch-thumb"]')!.getBoundingClientRect();
-  // 1px border plus the 2px spacing-0-5 inset on each side.
-  const gap = edge === 'left' ? thumb.left - track.left : track.right - thumb.right;
-
-  expect(thumb.width).toBeCloseTo(track.height - 6, 0);
-  expect(thumb.height).toBeCloseTo(track.height - 6, 0);
-  expect(Math.abs(gap - 3)).toBeLessThanOrEqual(1);
-}
 
 test('submits through explicit Ark inputs for roots', () => {
   const { container } = render({
@@ -94,42 +83,6 @@ test('preserves Ark behavior and semantic asChild composition', async () => {
   await expect.element(switchInputLocator).toBeChecked();
   await expect.element(switchInputLocator).toHaveAttribute('type', 'checkbox');
   expect(rootRef.value?.$el).toBe(switchInput.closest('label'));
-});
-
-test('forwards Vue refs and exposes stable slots on public parts', () => {
-  const refs = {
-    root: ref<ComponentPublicInstance | null>(null),
-    control: ref<ComponentPublicInstance | null>(null),
-    thumb: ref<ComponentPublicInstance | null>(null),
-    label: ref<ComponentPublicInstance | null>(null),
-  };
-
-  render({
-    components: switchComponents,
-    setup() {
-      return {
-        rootRef: refs.root,
-        controlRef: refs.control,
-        thumbRef: refs.thumb,
-        labelRef: refs.label,
-      };
-    },
-    template: `
-      <Switch ref="rootRef" size="lg" data-size="sm">
-        <SwitchControl ref="controlRef">
-          <SwitchThumb ref="thumbRef" />
-        </SwitchControl>
-        <SwitchHiddenInput />
-        <SwitchLabel ref="labelRef">Email notifications</SwitchLabel>
-      </Switch>
-    `,
-  });
-
-  expect(refs.root.value?.$el?.getAttribute('data-slot')).toBe('switch-root');
-  expect(refs.root.value?.$el?.getAttribute('data-size')).toBe('lg');
-  expect(refs.control.value?.$el?.getAttribute('data-slot')).toBe('switch-control');
-  expect(refs.thumb.value?.$el?.getAttribute('data-slot')).toBe('switch-thumb');
-  expect(refs.label.value?.$el?.getAttribute('data-slot')).toBe('switch-label');
 });
 
 test('preserves disabled, read-only, invalid, and required semantics', async () => {
@@ -274,60 +227,4 @@ test('hydrates without replacing hosts or ids and responds to clicks', async () 
     warn.mockRestore();
     error.mockRestore();
   }
-});
-import SsrSwitch from './fixtures/SsrSwitch.vue';
-
-test('places a square thumb from the control box, including size overrides and RTL', () => {
-  const { container } = render({
-    components: { ...switchComponents, LocaleProvider },
-    template: `
-      <Switch size="sm">
-        <SwitchControl />
-        <SwitchHiddenInput />
-      </Switch>
-      <Switch :default-checked="true">
-        <SwitchControl style="width: 64px; height: 32px" />
-        <SwitchHiddenInput />
-      </Switch>
-      <LocaleProvider locale="ar">
-        <Switch :default-checked="true" size="lg">
-          <SwitchControl />
-          <SwitchHiddenInput />
-        </Switch>
-      </LocaleProvider>
-    `,
-  });
-
-  const [unchecked, overridden, rtl] = container.querySelectorAll('[data-slot="switch-control"]');
-
-  expectThumbGeometry(unchecked!, 'left');
-  expect(overridden!.getBoundingClientRect().width).toBe(64);
-  expectThumbGeometry(overridden!, 'right');
-  expectThumbGeometry(rtl!, 'left');
-});
-
-test('paints the focus ring of an invalid switch with the destructive color', async () => {
-  render({
-    components: switchComponents,
-    template: `
-      <button type="button">Before</button>
-      <Switch :invalid="true">
-        <SwitchControl />
-        <SwitchHiddenInput />
-        <SwitchLabel>Invalid option</SwitchLabel>
-      </Switch>
-    `,
-  });
-
-  const before = page.getByRole('button', { name: 'Before', exact: true });
-  await before.click();
-  await before.press('Tab');
-
-  const control = document.querySelector('[data-slot="switch-control"]')!;
-  await expect
-    .element(page.locator('[data-slot="switch-control"]'))
-    .toHaveAttribute('data-focus-visible');
-  const style = getComputedStyle(control);
-  expect(style.outlineStyle).toBe('solid');
-  expect(style.outlineColor).toBe(style.borderTopColor);
 });

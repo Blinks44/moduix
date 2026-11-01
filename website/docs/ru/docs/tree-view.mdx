@@ -1,41 +1,22 @@
 ---
 title: Tree View
 component: tree-view
-description: Доступное дерево на базе Ark UI для папок, файлов и любых вложенных данных.
+description: Папки, файлы и другие вложенные данные в раскрывающемся дереве.
+ark: https://ark-ui.com/docs/components/tree-view
 ---
 
+import AnatomyScene from '@/components/examples/tree-view/basic';
 import * as TreeViewDocs from '@/components/examples/tree-view/css-properties';
-import AsyncTreeView from '@/components/examples/tree-view/async-loading.tsx';
-import CheckboxTreeView from '@/components/examples/tree-view/checkboxes.tsx';
-import FileIconsTreeView from '@/components/examples/tree-view/file-icons.tsx';
-import LinkedTreeView from '@/components/examples/tree-view/links.tsx';
-import RootProviderTreeView from '@/components/examples/tree-view/root-provider.tsx';
-import TreeViewBasic from '@/components/examples/tree-view/basic.tsx';
-import treeViewSolidAsyncLoading from '../../../snippets/tree-view/solid/async-loading.tsx?raw';
-import treeViewSolidBasic from '../../../snippets/tree-view/solid/basic.tsx?raw';
-import treeViewSolidCheckboxes from '../../../snippets/tree-view/solid/checkboxes.tsx?raw';
-import treeViewSolidFileIcons from '../../../snippets/tree-view/solid/file-icons.tsx?raw';
-import treeViewSolidLinks from '../../../snippets/tree-view/solid/links.tsx?raw';
-import treeViewSolidRootProvider from '../../../snippets/tree-view/solid/root-provider.tsx?raw';
-import treeViewVueAsyncLoading from '../../../snippets/tree-view/vue/async-loading.vue?raw';
-import treeViewVueAsyncLoadingNode from '../../../snippets/tree-view/vue/AsyncLoadingTreeNode.vue?raw';
-import treeViewVueBasic from '../../../snippets/tree-view/vue/basic.vue?raw';
-import treeViewVueBasicNode from '../../../snippets/tree-view/vue/BasicTreeNode.vue?raw';
-import treeViewVueCheckboxes from '../../../snippets/tree-view/vue/checkboxes.vue?raw';
-import treeViewVueCheckboxesNode from '../../../snippets/tree-view/vue/CheckboxesTreeNode.vue?raw';
-import treeViewVueFileIcons from '../../../snippets/tree-view/vue/file-icons.vue?raw';
-import treeViewVueFileIconsNode from '../../../snippets/tree-view/vue/FileIconsTreeNode.vue?raw';
-import treeViewVueLinks from '../../../snippets/tree-view/vue/links.vue?raw';
-import treeViewVueLinksNode from '../../../snippets/tree-view/vue/LinksTreeNode.vue?raw';
-import treeViewVueRootProvider from '../../../snippets/tree-view/vue/root-provider.vue?raw';
-import treeViewVueRootProviderNode from '../../../snippets/tree-view/vue/RootProviderTreeNode.vue?raw';
 
-## Справочник API
+<Example name="tree-view/basic" />
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/tree-view" />
+## Установка
 
-## Базовый пример
+<ComponentInstall />
 
+## Использование
+
+<Usage />
 
 Создайте коллекцию данных с помощью `createTreeCollection`, затем передайте её в `TreeView`.
 `TreeViewNode` передаёт в рекурсивный рендерер текущие `node`, `indexPath` и `state`, поэтому можно
@@ -43,112 +24,57 @@ import treeViewVueRootProviderNode from '../../../snippets/tree-view/vue/RootPro
 
 React, Solid и Vue используют одинаковые плоские имена TreeView; вкладки ниже сохраняют нативную композицию каждого фреймворка.
 
-<ExampleFrame variant="component">
-  <TreeViewBasic />
-</ExampleFrame>
+## Примеры
 
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
+### Значки файлов
 
-```tsx pure file="../../../src/components/examples/tree-view/basic.tsx"
-```
+Помещайте декоративные значки файлов и папок внутрь `TreeViewBranchText` и `TreeViewItemText`. Оставьте
+`TreeViewBranchIndicator` отдельным элементом, чтобы он отвечал только за раскрытие и сворачивание.
 
-    </Tab>
-    <Tab value="solid">
+<Example name="tree-view/file-icons" />
 
-<CodeBlockRuntime lang="tsx" code={treeViewSolidBasic} />
+### Дерево с флажками
 
-    </Tab>
-    <Tab value="vue">
+Разместите `TreeViewNodeCheckbox` и в элементах управления ветками, и в конечных узлах. Индикатор по
+умолчанию уже отображает отмеченное и частично отмеченное состояния.
 
-<CodeBlockRuntime lang="vue" code={treeViewVueBasic} />
+В Vue слот по умолчанию задаёт значок отмеченного состояния, а именованные слоты
+`indeterminate` и `fallback` задают значки частично отмеченного и неотмеченного состояний. Для настройки
+этих состояний используются слоты, а не props.
 
-<CodeBlockRuntime lang="vue" code={treeViewVueBasicNode} title="BasicTreeNode.vue" />
+<Example name="tree-view/checkboxes" />
 
-    </Tab>
-  </Tabs>
-</div>
+### Ссылки
 
-</ExampleCode>
+Используйте `asChild` у `TreeViewItem`, когда конечный узел должен быть одним семантическим
+элементом, например ссылкой. Этот элемент должен принимать props Ark, чтобы сохранить фокус и
+клавиатурное управление.
 
-## Установка через shadcn
+<Example name="tree-view/links" />
 
-Полную настройку пакета, реестра и стилей см. в разделе [Быстрый старт](/docs/quick-start).
+### Асинхронная загрузка
 
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
+Если у ветки известно значение `childrenCount`, загрузите дочерние узлы через `loadChildren`. В
+`onLoadChildrenComplete` замените коллекцию в состоянии приложения значением `details.collection`.
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/tree-view' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/tree-view' },
-  ]}
-/>
+<Example name="tree-view/async-loading" />
 
-  </Tab>
-  <Tab label="Solid" value="solid">
+### Множественный выбор
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/tree-view' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/tree-view' },
-  ]}
-/>
+Задайте `selectionMode="multiple"`. Используйте Ctrl или ⌘, чтобы добавлять и убирать отдельные
+элементы, и Shift, чтобы расширять диапазон выбора. В примере выбранные значения хранятся в состоянии
+приложения. Подробнее в разделе [Управляйте состоянием из приложения](/docs/composition-patterns#controlled-state).
 
-  </Tab>
-  <Tab label="Vue" value="vue">
+<Example name="tree-view/controlled-selection" />
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/tree-view' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/tree-view' },
-  ]}
-/>
+### Root Provider
 
-  </Tab>
-</Tabs>
+Создайте состояние дерева через `useTreeView`, если кнопкам и другим элементам вне дерева нужны
+методы вроде `expand()` или `collapse()`. Передайте состояние в `TreeViewRootProvider`, а не создавайте второй
+`TreeView`. Пример также показывает низкоуровневую композицию узла: каждый узел использует
+`TreeViewNodeProvider` и читает состояние из `TreeViewNodeContext` вместо сокращения `TreeViewNode`. Подробнее в разделе [Выносите состояние за пределы дерева](/docs/composition-patterns#root-provider).
 
-## Анатомия
-
-```text
-TreeView
-├─ TreeViewLabel
-└─ TreeViewTree
-   └─ TreeViewNode или TreeViewNodeProvider
-      ├─ TreeViewBranch
-      │  ├─ TreeViewBranchControl
-      │  │  ├─ TreeViewBranchIndicator
-      │  │  └─ TreeViewBranchText
-      │  ├─ TreeViewBranchTrigger (опционально, отдельный триггер)
-      │  └─ TreeViewBranchContent
-      │     ├─ TreeViewBranchIndentGuide
-      │     └─ вложенные узлы
-      └─ TreeViewItem
-         └─ TreeViewItemText
-```
-
-| Часть                            | Назначение                                                            |
-| -------------------------------- | --------------------------------------------------------------------- |
-| `TreeView`                  | Хранит коллекцию и управляет раскрытием, выбором, фокусом, флажками и переименованием. |
-| `TreeViewRootProvider`          | Связывает части дерева с экземпляром, созданным через `useTreeView`. |
-| `TreeViewLabel`                 | Задаёт доступное имя дерева.                                         |
-| `TreeViewTree`                  | Создаёт контейнер дерева с ARIA-разметкой.                           |
-| `TreeViewNode`                  | Упрощённый провайдер с `{ node, indexPath, state }`.                 |
-| `TreeViewNodeProvider`          | Низкоуровневая граница контекста Ark для нестандартной композиции.   |
-| `TreeViewBranch*`               | Раскрываемый узел, его элемент управления, индикатор, текст и содержимое. |
-| `TreeViewItem*`                 | Конечный узел и необязательный индикатор выбранного состояния.       |
-| `TreeViewNodeCheckbox*`         | Флажок и индикатор отмеченного или частично отмеченного состояния.   |
-| `TreeViewNodeRenameInput`       | Поле ввода, которое появляется при переименовании узла.              |
+<Example name="tree-view/root-provider" />
 
 ## Композиция
 
@@ -164,242 +90,26 @@ TreeView
 объекты с подробностями Ark. Если коллекция может заменяться, храните её в `shallowRef`, чтобы
 Vue сохранял экземпляр класса.
 
-## Примеры
-
-### Ссылки
-
-Используйте `asChild` у `TreeViewItem`, когда конечный узел должен быть одним семантическим
-элементом, например ссылкой. Этот элемент должен принимать props Ark, чтобы сохранить фокус и
-клавиатурное управление.
-
-<ExampleFrame variant="component">
-  <LinkedTreeView />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/tree-view/links.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={treeViewSolidLinks} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={treeViewVueLinks} />
-
-<CodeBlockRuntime lang="vue" code={treeViewVueLinksNode} title="LinksTreeNode.vue" />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
-
-### Асинхронная загрузка
-
-Если у ветки известно значение `childrenCount`, загрузите дочерние узлы через `loadChildren`. В
-`onLoadChildrenComplete` замените коллекцию в состоянии приложения значением `details.collection`.
-
-<ExampleFrame variant="component">
-  <AsyncTreeView />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/tree-view/async-loading.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={treeViewSolidAsyncLoading} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={treeViewVueAsyncLoading} />
-
-<CodeBlockRuntime lang="vue" code={treeViewVueAsyncLoadingNode} title="AsyncLoadingTreeNode.vue" />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
-
-### Дерево с флажками
-
-Разместите `TreeViewNodeCheckbox` и в элементах управления ветками, и в конечных узлах. Индикатор по
-умолчанию уже отображает отмеченное и частично отмеченное состояния.
-
-В Vue слот по умолчанию задаёт значок отмеченного состояния, а именованные слоты
-`indeterminate` и `fallback` задают значки частично отмеченного и неотмеченного состояний. Для настройки
-этих состояний используются слоты, а не props.
-
-<ExampleFrame variant="component">
-  <CheckboxTreeView />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/tree-view/checkboxes.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={treeViewSolidCheckboxes} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={treeViewVueCheckboxes} />
-
-<CodeBlockRuntime lang="vue" code={treeViewVueCheckboxesNode} title="CheckboxesTreeNode.vue" />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
-
-### Значки файлов
-
-Помещайте декоративные значки файлов и папок внутрь `TreeViewBranchText` и `TreeViewItemText`. Оставьте
-`TreeViewBranchIndicator` отдельным элементом, чтобы он отвечал только за раскрытие и сворачивание.
-
-<ExampleFrame variant="component">
-  <FileIconsTreeView />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/tree-view/file-icons.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={treeViewSolidFileIcons} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={treeViewVueFileIcons} />
-
-<CodeBlockRuntime lang="vue" code={treeViewVueFileIconsNode} title="FileIconsTreeNode.vue" />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
-
-### Множественный выбор
-
-Задайте `selectionMode="multiple"`. Используйте Ctrl или ⌘, чтобы добавлять и убирать отдельные
-элементы, и Shift, чтобы расширять диапазон выбора. В примере выбранные значения хранятся в состоянии
-приложения.
-
-<Example name="tree-view/controlled-selection" />
-
-### Root provider
-
-Создайте состояние дерева через `useTreeView`, если кнопкам и другим элементам вне дерева нужны
-методы вроде `expand()` или `collapse()`. Передайте состояние в `TreeViewRootProvider`, а не создавайте второй
-`TreeView`. Пример также показывает низкоуровневую композицию узла: каждый узел использует
-`TreeViewNodeProvider` и читает состояние из `TreeViewNodeContext` вместо сокращения `TreeViewNode`.
-
-<ExampleFrame variant="component">
-  <RootProviderTreeView />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/tree-view/root-provider.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={treeViewSolidRootProvider} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={treeViewVueRootProvider} />
-
-<CodeBlockRuntime lang="vue" code={treeViewVueRootProviderNode} title="RootProviderTreeNode.vue" />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/tree-view/tree-view-root-provider.module.css"
-```
-</div>
-
-</ExampleCode>
+## Анатомия
+
+Наведите на часть или выберите её, чтобы найти её в превью.
+
+<AnatomyInspector
+  parts={[
+    ["TreeView", "tree-view-root", "Хранит коллекцию и управляет раскрытием, выбором, фокусом, флажками и переименованием.", 0],
+    ["TreeViewLabel", "tree-view-label", "Задаёт доступное имя дерева.", 1],
+    ["TreeViewTree", "tree-view-tree", "Создаёт контейнер дерева с ARIA-разметкой.", 1],
+    ["TreeViewNode", "", "Упрощённый провайдер с `{ node, indexPath, state }`.", 2],
+    ["TreeViewBranch*", "tree-view-branch", "Раскрываемый узел, его элемент управления, индикатор, текст и содержимое.", 3],
+    ["TreeViewItem*", "tree-view-item", "Конечный узел и необязательный индикатор выбранного состояния.", 3],
+    ["TreeViewNodeCheckbox*", "tree-view-node-checkbox", "Флажок и индикатор отмеченного или частично отмеченного состояния.", 3],
+    ["TreeViewNodeRenameInput", "tree-view-node-rename-input", "Поле ввода, которое появляется при переименовании узла.", 3],
+    ["TreeViewRootProvider", "tree-view-root-provider", "Связывает части дерева с экземпляром, созданным через `useTreeView`.", 0],
+    ["TreeViewNodeProvider", null, "Низкоуровневая граница контекста Ark для нестандартной композиции.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Стилизация
 
@@ -414,15 +124,78 @@ Vue сохранял экземпляр класса.
 цвета, отступы и типографику из токенов foundation и выносят в CSS-переменные только ширину корня и шаг
 отступа вложенности; остальное переопределяйте классом на части.
 
-### CSS-свойства
+### CSS-переменные
 
-<CssPropertiesSection properties={TreeViewDocs.treeViewOverrideCssProperties} />
+Наведите на переменную или выберите её, чтобы увидеть её в превью.
 
-### Точки для стилизации
+<CssPropertiesSection properties={TreeViewDocs.treeViewOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
-- `data-slot="tree-view-root"`, `tree-view-root-provider`, `tree-view-label`, `tree-view-tree`,
-  `tree-view-branch`, `tree-view-branch-control`, `tree-view-branch-trigger`,
-  `tree-view-branch-indicator`, `tree-view-branch-text`, `tree-view-branch-content`,
-  `tree-view-branch-indent-guide`, `tree-view-item`, `tree-view-item-text`,
-  `tree-view-item-indicator`, `tree-view-node-checkbox`, `tree-view-node-checkbox-indicator` и
-  `tree-view-node-rename-input`.
+### Хуки стилизации
+
+| Часть | `data-slot` |
+| --- | --- |
+| `TreeView` | `tree-view-root` |
+| `TreeViewRootProvider` | `tree-view-root-provider` |
+| `TreeViewLabel` | `tree-view-label` |
+| `TreeViewTree` | `tree-view-tree` |
+| `TreeViewBranch` | `tree-view-branch` |
+| `TreeViewBranchControl` | `tree-view-branch-control` |
+| `TreeViewBranchTrigger` | `tree-view-branch-trigger` |
+| `TreeViewBranchIndicator` | `tree-view-branch-indicator` |
+| `TreeViewBranchText` | `tree-view-branch-text` |
+| `TreeViewBranchContent` | `tree-view-branch-content` |
+| `TreeViewBranchIndentGuide` | `tree-view-branch-indent-guide` |
+| `TreeViewItem` | `tree-view-item` |
+| `TreeViewItemText` | `tree-view-item-text` |
+| `TreeViewItemIndicator` | `tree-view-item-indicator` |
+| `TreeViewNodeCheckbox` | `tree-view-node-checkbox` |
+| `TreeViewNodeCheckboxIndicator` | `tree-view-node-checkbox-indicator` |
+| `TreeViewNodeRenameInput` | `tree-view-node-rename-input` |
+
+- Селекторы состояния Ark: `data-state="open|closed"` и `data-loading` на ветках; `data-selected`, `data-focus`, `data-disabled`, `data-checked`, `data-indeterminate`, `data-renaming` и `data-depth` на узлах и кнопках веток.
+
+## Клавиатура
+
+| Клавиша | Действие |
+| --- | --- |
+| `ArrowDown` / `ArrowUp` | Переводит фокус на следующий или предыдущий видимый узел. |
+| `ArrowRight` | Открывает закрытую ветку или переходит внутрь открытой. |
+| `ArrowLeft` | Закрывает открытую ветку или переходит к родителю. |
+| `Home` / `End` | Переводит фокус на первый или последний узел. |
+| `Enter` / `Space` | Выбирает узел или переключает ветку. |
+| `*` | Открывает все соседние ветки. |
+| Буквы | Переводит фокус на следующий видимый узел, который начинается с введённого текста. |
+| `Ctrl+A` / `Cmd+A` | Выбирает все узлы, если selectionMode равен multiple. |
+| `F2` | Начинает переименование, если это разрешает canRename. |
+
+## Справочник API
+
+| Проп | Тип | По умолчанию | Описание |
+| --- | --- | --- | --- |
+| `collection` | `TreeCollection<T>` | — | Узлы из `createTreeCollection()`. |
+| `expandedValue` | `string[]` | — | Id раскрытых узлов в управляемом режиме. |
+| `defaultExpandedValue` | `string[]` | — | Изначально раскрытые узлы. |
+| `onExpandedChange` | `(details: ExpandedChangeDetails) => void` | — | Вызывается при раскрытии и сворачивании веток. |
+| `selectedValue` | `string[]` | — | Id выбранных узлов в управляемом режиме. |
+| `defaultSelectedValue` | `string[]` | — | Изначально выбранные узлы. |
+| `onSelectionChange` | `(details: SelectionChangeDetails) => void` | — | Вызывается при изменении выбора. |
+| `selectionMode` | `'single' \| 'multiple'` | `'single'` | Одиночный (`single`) или множественный (`multiple`) выбор. |
+| `checkedValue` | `string[]` | — | Id отмеченных узлов в управляемом режиме. |
+| `onCheckedChange` | `(details: CheckedChangeDetails) => void` | — | Вызывается при изменении отметок. |
+| `expandOnClick` | `boolean` | `true` | Клик по ветке раскрывает её. |
+| `typeahead` | `boolean` | `true` | Ввод букв переводит фокус на подходящий узел. |
+| `loadChildren` | `(details: LoadChildrenDetails) => Promise<T[]>` | — | Асинхронно загружает дочерние узлы ветки. |
+| `canRename` | `(node: T, indexPath: IndexPath) => boolean` | — | Возвращает `true` для узлов, которые можно переименовать. |
+| `translations` | `IntlTranslations` | — | Переведённые строки для подписей доступности. |
+| `defaultCheckedValue` | `string[]` | — | Изначально отмеченные узлы. |
+| `defaultFocusedValue` | `string \| null` | — | Узел в фокусе изначально. |
+| `focusedValue` | `string \| null` | — | Узел в фокусе в управляемом режиме. |
+| `onFocusChange` | `(details: FocusChangeDetails<T>) => void` | — | Вызывается, когда фокус переходит на другой узел. |
+| `onRenameStart` | `(details: RenameStartDetails<T>) => void` | — | Вызывается в начале переименования. |
+| `onBeforeRename` | `(details: RenameCompleteDetails) => boolean` | — | Возвращает `false`, чтобы отклонить новое имя. |
+| `onRenameComplete` | `(details: RenameCompleteDetails) => void` | — | Вызывается с новым именем; здесь обновите коллекцию. |
+| `onLoadChildrenComplete` | `(details: LoadChildrenCompleteDetails<T>) => void` | — | Вызывается после загрузки дочерних узлов. |
+| `onLoadChildrenError` | `(details: LoadChildrenErrorDetails<T>) => void` | — | Вызывается при ошибке загрузки дочерних узлов. |
+| `scrollToIndexFn` | `(details: ScrollToIndexDetails<T>) => void` | — | Прокручивает виртуализированный список к индексу элемента. |

@@ -2,27 +2,15 @@ import type { CssPropertyInput } from '../../mdx/reference';
 
 export const closeButtonOverrideCssProperties: CssPropertyInput[] = [
   ['--moduix-close-button-bg', 'transparent', 'Controls close button background.'],
-  [
-    '--moduix-close-button-bg-hover',
-    'var(--moduix-color-muted)',
-    'Controls hover background color.',
-  ],
-  ['--moduix-close-button-color', 'var(--moduix-color-muted-foreground)', 'Controls icon color.'],
-  [
-    '--moduix-close-button-color-hover',
-    'var(--moduix-color-foreground)',
-    'Controls hover icon color.',
-  ],
+  ['--moduix-close-button-bg-hover', 'var(--moduix-muted)', 'Controls hover background color.'],
+  ['--moduix-close-button-color', 'var(--moduix-muted-foreground)', 'Controls icon color.'],
+  ['--moduix-close-button-color-hover', 'var(--moduix-foreground)', 'Controls hover icon color.'],
   [
     '--moduix-close-button-disabled-opacity',
     'var(--moduix-opacity-disabled)',
     'Controls disabled opacity.',
   ],
-  [
-    '--moduix-close-button-focus-ring-color',
-    'var(--moduix-color-ring)',
-    'Controls focus ring color.',
-  ],
+  ['--moduix-close-button-focus-ring-color', 'var(--moduix-ring)', 'Controls focus ring color.'],
   [
     '--moduix-close-button-focus-ring-offset',
     'var(--moduix-focus-ring-offset)',

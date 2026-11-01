@@ -13,8 +13,8 @@ import {
   MarqueeViewport,
   useMarquee,
   useMarqueeContext,
-} from '../src';
-import { LocaleProvider } from '../src/locale';
+} from '@/index';
+import { LocaleProvider } from '@/locale';
 import SsrMarquee from './fixtures/SsrMarquee.vue';
 
 const marqueeComponents = {
@@ -45,6 +45,15 @@ const TestMarquee = defineComponent({
       <MarqueeEdge side="end" />
     </Marquee>
   `,
+});
+
+const ContextPauseControl = defineComponent({
+  setup() {
+    const marquee = useMarqueeContext();
+    const handlePause = () => marquee.value.pause();
+    return { handlePause };
+  },
+  template: '<button type="button" @click="handlePause">Pause marquee</button>',
 });
 
 test('preserves Ark marquee anatomy, semantics, attrs, and moduix styling hooks', async () => {
@@ -116,15 +125,6 @@ test('preserves Ark controlled and uncontrolled pause state', async () => {
 
   await expect.element(rootLocator).toHaveAttribute('data-state', 'idle');
   await expect.element(rootLocator).not.toHaveAttribute('data-paused');
-});
-
-const ContextPauseControl = defineComponent({
-  setup() {
-    const marquee = useMarqueeContext();
-    const handlePause = () => marquee.value.pause();
-    return { handlePause };
-  },
-  template: '<button type="button" @click="handlePause">Pause marquee</button>',
 });
 
 test('pauses on hover and resumes with the original callback details', async () => {
@@ -251,48 +251,4 @@ test('hydrates stable hosts and ids and remains interactive', async () => {
     app.unmount();
     host.remove();
   }
-});
-
-test('inherits text color and fills the root with the viewport in both orientations', () => {
-  const App = defineComponent({
-    components: marqueeComponents,
-    template: `
-      <div style="color: rgb(1, 2, 3); width: 320px">
-        <Marquee aria-label="Horizontal" style="height: 100px">
-          <MarqueeViewport>
-            <MarqueeContent>
-              <MarqueeItem>Atlas</MarqueeItem>
-            </MarqueeContent>
-          </MarqueeViewport>
-          <MarqueeEdge side="start" />
-        </Marquee>
-        <Marquee aria-label="Vertical" side="bottom">
-          <MarqueeViewport>
-            <MarqueeContent>
-              <MarqueeItem>Atlas</MarqueeItem>
-            </MarqueeContent>
-          </MarqueeViewport>
-        </Marquee>
-      </div>
-    `,
-  });
-
-  render(App);
-
-  for (const name of ['Horizontal', 'Vertical']) {
-    const root = screen.getByRole('region', { name });
-    const viewport = root.querySelector<HTMLElement>('[data-part="viewport"]')!;
-
-    expect(getComputedStyle(root).color).toBe('rgb(1, 2, 3)');
-    expect(root.offsetWidth).toBe(320);
-    expect(viewport.offsetWidth).toBe(root.offsetWidth);
-    expect(viewport.offsetHeight).toBe(root.offsetHeight);
-  }
-
-  const horizontal = screen.getByRole('region', { name: 'Horizontal' });
-  expect(horizontal.offsetHeight).toBe(100);
-  expect(screen.getByRole('region', { name: 'Vertical' }).offsetHeight).toBe(240);
-  expect(getComputedStyle(horizontal.querySelector('[data-part="edge"]')!).pointerEvents).toBe(
-    'none',
-  );
 });

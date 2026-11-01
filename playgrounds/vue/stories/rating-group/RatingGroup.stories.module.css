@@ -9,18 +9,14 @@
   }
 
   .hint {
-    color: var(--moduix-color-muted-foreground);
+    color: var(--moduix-muted-foreground);
     font-size: var(--moduix-text-xs);
     line-height: var(--moduix-line-height-text-xs);
   }
 
   .customRatingGroup {
     --moduix-rating-group-active-color: #f59e0b;
-    --moduix-rating-group-color: color-mix(
-      in srgb,
-      #f59e0b 35%,
-      var(--moduix-color-muted-foreground)
-    );
+    --moduix-rating-group-color: color-mix(in srgb, #f59e0b 35%, var(--moduix-muted-foreground));
     --moduix-rating-group-gap: var(--moduix-spacing-2);
   }
 
@@ -36,7 +32,7 @@
     }
 
     &:not([data-highlighted]) {
-      color: var(--moduix-rating-group-color, var(--moduix-color-muted-foreground));
+      color: var(--moduix-rating-group-color, var(--moduix-muted-foreground));
     }
   }
 }

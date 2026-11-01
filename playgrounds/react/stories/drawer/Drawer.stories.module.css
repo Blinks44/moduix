@@ -7,9 +7,9 @@
 
   .noDragArea {
     padding: var(--moduix-spacing-4);
-    border: var(--moduix-border-width-sm) dashed var(--moduix-color-border);
+    border: var(--moduix-border-width-sm) dashed var(--moduix-border);
     border-radius: var(--moduix-radius-md);
-    background: var(--moduix-color-muted);
+    background: var(--moduix-muted);
   }
 
   .nonModalContent {
@@ -73,10 +73,10 @@
     & input {
       min-height: var(--moduix-size-lg);
       padding: 0 var(--moduix-spacing-3);
-      border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
+      border: var(--moduix-border-width-sm) solid var(--moduix-border);
       border-radius: var(--moduix-radius-md);
-      background: var(--moduix-color-background);
-      color: var(--moduix-color-foreground);
+      background: var(--moduix-background);
+      color: var(--moduix-foreground);
       font: inherit;
     }
   }
@@ -85,7 +85,7 @@
     position: relative;
     min-height: 360px;
     overflow: hidden;
-    background: var(--moduix-color-foreground);
+    background: var(--moduix-foreground);
   }
 
   .indentSurface {
@@ -93,6 +93,6 @@
     min-height: 360px;
     place-items: center;
     padding: var(--moduix-spacing-6);
-    background: var(--moduix-color-background);
+    background: var(--moduix-background);
   }
 }

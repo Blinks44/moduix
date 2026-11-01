@@ -19,10 +19,4 @@
   --moduix-spacing-3-5: calc((var(--moduix-spacing-3) + var(--moduix-spacing-4)) / 2);
   --moduix-spacing-4-5: calc((var(--moduix-spacing-4) + var(--moduix-spacing-5)) / 2);
   --moduix-spacing-7: calc((var(--moduix-spacing-6) + var(--moduix-spacing-8)) / 2);
-  --moduix-spacing-xs: var(--moduix-spacing-1); /*  4px */
-  --moduix-spacing-sm: var(--moduix-spacing-2); /*  8px */
-  --moduix-spacing-md: var(--moduix-spacing-3); /* 12px */
-  --moduix-spacing-lg: var(--moduix-spacing-4); /* 16px */
-  --moduix-spacing-xl: var(--moduix-spacing-5); /* 20px */
-  --moduix-spacing-2xl: var(--moduix-spacing-6); /* 24px */
 }

@@ -7,7 +7,7 @@
     align-items: center;
     gap: var(--moduix-checkbox-gap, var(--moduix-spacing-2));
     vertical-align: middle;
-    color: var(--moduix-color-foreground);
+    color: var(--moduix-foreground);
     cursor: pointer;
 
     &[data-disabled],
@@ -48,10 +48,10 @@
     width: var(--moduix-checkbox-size, var(--_checkbox-size));
     height: var(--moduix-checkbox-size, var(--_checkbox-size));
     border: var(--moduix-border-width-sm) solid
-      var(--moduix-checkbox-border-color, var(--moduix-color-border));
+      var(--moduix-checkbox-border-color, var(--moduix-input));
     border-radius: var(--moduix-checkbox-radius, var(--moduix-radius-xs));
-    background-color: var(--moduix-checkbox-bg, var(--moduix-color-background));
-    color: var(--moduix-checkbox-color, var(--moduix-color-primary-foreground));
+    background-color: var(--moduix-checkbox-bg, var(--moduix-background));
+    color: var(--moduix-checkbox-color, var(--moduix-primary-foreground));
     user-select: none;
     transition:
       background-color var(--moduix-transition-default),
@@ -60,29 +60,29 @@
 
     &[data-state='checked'],
     &[data-state='indeterminate'] {
-      border-color: var(--moduix-checkbox-bg-checked, var(--moduix-color-primary));
-      background-color: var(--moduix-checkbox-bg-checked, var(--moduix-color-primary));
+      border-color: var(--moduix-checkbox-bg-checked, var(--moduix-primary));
+      background-color: var(--moduix-checkbox-bg-checked, var(--moduix-primary));
     }
 
     &[data-focus-visible] {
-      outline: var(--moduix-focus-ring-inset-width) solid var(--moduix-color-ring);
+      outline: var(--moduix-focus-ring-inset-width) solid var(--moduix-ring);
       outline-offset: var(--moduix-border-width-sm);
     }
 
     &[data-invalid] {
-      border-color: var(--moduix-color-destructive);
-      color: var(--moduix-color-destructive-foreground);
-      outline-color: var(--moduix-color-destructive);
+      border-color: var(--moduix-destructive);
+      color: var(--moduix-destructive-foreground);
+      outline-color: var(--moduix-destructive);
 
       &[data-state='checked'],
       &[data-state='indeterminate'] {
-        background-color: var(--moduix-color-destructive);
+        background-color: var(--moduix-destructive);
       }
     }
 
     @media (hover: hover) {
       &[data-state='unchecked'][data-hover]:not([data-readonly], [data-disabled]) {
-        background-color: var(--moduix-color-accent);
+        background-color: var(--moduix-accent);
       }
     }
   }

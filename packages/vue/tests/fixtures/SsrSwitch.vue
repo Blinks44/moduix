@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Switch, SwitchControl, SwitchLabel, SwitchHiddenInput } from '../../src';
+import { Switch, SwitchControl, SwitchLabel, SwitchHiddenInput } from '@/index';
 </script>
 
 <template>

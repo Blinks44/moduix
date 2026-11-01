@@ -5,7 +5,7 @@
     align-items: flex-start;
     gap: var(--moduix-spacing-1);
     width: 100%;
-    color: var(--moduix-color-foreground);
+    color: var(--moduix-foreground);
 
     &[data-disabled] {
       opacity: var(--moduix-opacity-disabled);
@@ -32,7 +32,7 @@
     align-items: center;
     gap: var(--moduix-spacing-2);
     overflow-wrap: anywhere;
-    color: var(--moduix-color-foreground);
+    color: var(--moduix-foreground);
     font-size: var(--moduix-text-sm);
     font-weight: var(--moduix-weight-medium);
     line-height: var(--moduix-line-height-text-sm);
@@ -47,15 +47,15 @@
   }
 
   .helperText {
-    color: var(--moduix-color-muted-foreground);
+    color: var(--moduix-muted-foreground);
   }
 
   .errorText {
-    color: var(--moduix-color-destructive);
+    color: var(--moduix-destructive);
     font-weight: var(--moduix-weight-medium);
   }
 
   .requiredIndicator {
-    color: var(--moduix-color-destructive);
+    color: var(--moduix-destructive);
   }
 }

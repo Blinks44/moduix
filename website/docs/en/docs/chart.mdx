@@ -1,12 +1,17 @@
 ---
 title: Chart
 component: chart
-description: Build accessible, responsive charts with TanStack Charts and moduix's figure, tooltip, legend, and motion defaults.
+description: Plot data with TanStack Charts inside an accessible titled figure.
 ---
 
+import AnatomyScene from '@/components/examples/chart/basic';
 import * as ChartDocs from '@/components/examples/chart/css-properties';
 
-## API Reference
+<Example name="chart/basic" />
+
+## Installation
+
+<ComponentInstall />
 
 Chart does not map to an Ark UI primitive. moduix adds a semantic `figure`, title, description,
 legend, and compact tooltip body around the [TanStack Charts chart
@@ -17,93 +22,14 @@ around them.
 `@tanstack/charts` is an optional peer dependency of moduix. The React, Solid, and Vue packages
 expose the same chart definition API; the Solid and Vue packages use TanStack's renderer adapter.
 
-## Basic
+## Usage
 
+<Usage />
 
 Create a TanStack definition and pass it to `ChartPlot`. Add a visible title, description, and
 legend around the plot, then provide a concise `ariaLabel` for assistive technology.
 
-<Example name="chart/basic" />
-
-## Install with shadcn
-
-See [Quick Start](/docs/quick-start) for full package setup, registry configuration, and styling guidance.
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/chart' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/chart' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/chart' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/chart' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/chart' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/chart' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Anatomy
-
-```text
-Chart
-├─ ChartHeader (optional figcaption)
-│  ├─ ChartTitle
-│  └─ ChartDescription
-├─ ChartPlot
-│  └─ TanStack chart surface (SVG by default)
-└─ ChartLegend (optional)
-   └─ ChartLegendItem
-```
-
-| Part | Role |
-| --- | --- |
-| `Chart` | Composed `figure` root. Accepts native props, `asChild`, and an `HTMLElement` ref (`$el` of the component ref in Vue). |
-| `ChartPlot` | TanStack Charts host. Requires `definition` and `ariaLabel`; uses the moduix motion preset by default and accepts `motion={false}`. |
-| `ChartHeader` | `figcaption` layout for the title and description. |
-| `ChartTitle` | Chart heading; renders `h3` by default. |
-| `ChartDescription` | Supporting visible context. |
-| `ChartLegend` | Semantic list of visible series. |
-| `ChartLegendItem` | Legend item with an optional indicator `color`. |
-
-## Composition
-
-`Chart` is a presentational shell. TanStack's `definition` owns marks, scales, interactions, and
-callbacks, so keep it at module scope or memoize the complete definition when it depends on props
-or state. Compose `ChartHeader`, `ChartPlot`, and `ChartLegend` under the root; `ChartPlot`
-continues to own rendering, focus, and tooltip state through TanStack.
-
-Use `renderTooltipBody` only when you need to wrap or extend the native tooltip: render the supplied
-`defaultBody` and add interactive controls only while `pinned` is true. `Chart` and
-`ChartHeader` support `asChild` when the semantic wrapper or layout needs to be owned by your
-application.
-
 ## Examples
-
-### Animated area
-
-Area, line, points, grouped focus, and tooltip motion all remain native TanStack behavior.
-
-<Example name="chart/animated-area" />
 
 ### Chart colors
 
@@ -112,15 +38,32 @@ and automatically follow the active theme.
 
 <Example name="chart/line-colors" />
 
-### Interactive legend
+### Animated area
 
-Use TanStack's `interactiveColorLegend` instead of a separate `ChartLegend` when readers need to
-hide series. With v1, `hover: 'series'` also applies mark states on pointer hover and keyboard
-focus. The `source: 'legend'` states highlight the series without opening a tooltip or changing
-plot focus. Keep the visible series in framework state through `controlledSignal`; TanStack owns
-the buttons, filtering, and keyboard interaction.
+Area, line, points, grouped focus, and tooltip motion all remain native TanStack behavior.
 
-<Example name="chart/interactive-legend" />
+<Example name="chart/animated-area" />
+
+### Stacked bars
+
+Use a TanStack color channel and the `stack()` layout for multi-series bars. `focus: 'group-x'`
+keeps the tooltip and keyboard focus grouped by quarter.
+
+<Example name="chart/stacked-bars" />
+
+### Horizontal bars
+
+Use `barX` when category labels are long or the ranking should read from top to bottom. The numeric
+value belongs on x and the category belongs on y.
+
+<Example name="chart/horizontal-bars" />
+
+### Donut chart
+
+Compose TanStack's opt-in `pie`, `polar`, and `radialArc` primitives for part-to-whole data. The
+same composition of `ChartPlot`, motion, focus, tooltip, and legend works outside Cartesian charts.
+
+<Example name="chart/donut" />
 
 ### Radar chart
 
@@ -135,12 +78,12 @@ This example also needs `d3-shape` and its TypeScript types:
 
 <Example name="chart/radar" />
 
-### Donut chart
+### Scatter plot
 
-Compose TanStack's opt-in `pie`, `polar`, and `radialArc` primitives for part-to-whole data. The
-same composition of `ChartPlot`, motion, focus, tooltip, and legend works outside Cartesian charts.
+Use `dot` to compare two quantitative values. Color can carry one additional categorical dimension
+without changing the x and y relationship.
 
-<Example name="chart/donut" />
+<Example name="chart/scatter" />
 
 ### Heatmap
 
@@ -149,28 +92,17 @@ turns each cell's level into a theme-aware paint value.
 
 <Example name="chart/heatmap" />
 
-### Horizontal bars
+### Interactive legend
 
-Use `barX` when category labels are long or the ranking should read from top to bottom. The numeric
-value belongs on x and the category belongs on y.
+Use TanStack's `interactiveColorLegend` instead of a separate `ChartLegend` when readers need to
+hide series. With v1, `hover: 'series'` also applies mark states on pointer hover and keyboard
+focus. The `source: 'legend'` states highlight the series without opening a tooltip or changing
+plot focus. Keep the visible series in framework state through `controlledSignal`; TanStack handles
+the buttons, filtering, and keyboard interaction.
 
-<Example name="chart/horizontal-bars" />
+<Example name="chart/interactive-legend" />
 
-### Scatter plot
-
-Use `dot` to compare two quantitative values. Color can carry one additional categorical dimension
-without changing the x and y relationship.
-
-<Example name="chart/scatter" />
-
-### Stacked bars
-
-Use a TanStack color channel and the `stack()` layout for multi-series bars. `focus: 'group-x'`
-keeps the tooltip and keyboard focus grouped by quarter.
-
-<Example name="chart/stacked-bars" />
-
-### Advanced Customization
+### Dashboard layout
 
 The Ark factory parts accept `asChild`, so they can apply their styles to semantic elements in your
 layout. This dashboard example combines Chart with Button, replaces the default `figure` and
@@ -181,7 +113,37 @@ the outer element, and use `renderTooltipBody` to extend the tooltip. Render `de
 your own wrapper while TanStack continues to position and portal it. Add interactive controls only
 to a pinned tooltip.
 
-<Example name="chart/advanced-customization" />
+<Example name="chart/dashboard-layout" />
+
+## Composition
+
+`Chart` is a presentational shell. TanStack's `definition` defines marks, scales, interactions, and
+callbacks, so keep it at module scope or memoize the complete definition when it depends on props
+or state. Compose `ChartHeader`, `ChartPlot`, and `ChartLegend` under the root; `ChartPlot`
+continues to own rendering, focus, and tooltip state through TanStack.
+
+Use `renderTooltipBody` only when you need to wrap or extend the native tooltip: render the supplied
+`defaultBody` and add interactive controls only while `pinned` is true. `Chart` and
+`ChartHeader` support `asChild` when the semantic wrapper or layout needs to come from your
+application.
+
+## Anatomy
+
+Hover or focus a part to find it in the preview.
+
+<AnatomyInspector
+  parts={[
+    ["Chart", "chart-tooltip-value", "Composed `figure` root. Accepts native props, `asChild`, and an `HTMLElement` ref (`$el` of the component ref in Vue).", 0],
+    ["ChartHeader", "chart-header", "`figcaption` layout for the title and description.", 1],
+    ["ChartTitle", "chart-title", "Chart heading; renders `h3` by default.", 2],
+    ["ChartDescription", "chart-description", "Supporting visible context.", 2],
+    ["ChartPlot", "", "TanStack Charts host. Requires `definition` and `ariaLabel`; uses the moduix motion preset by default and accepts `motion={false}`.", 1],
+    ["ChartLegend", "chart-legend", "Semantic list of visible series.", 1],
+    ["ChartLegendItem", "chart-legend-item", "Legend item with an optional indicator `color`.", 2],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styling
 
@@ -198,26 +160,56 @@ React or `class` in Solid and Vue):
 
 ```css
 .sales-plot {
-  --ts-chart-tooltip-background: var(--moduix-color-card);
+  --ts-chart-tooltip-background: var(--moduix-card);
   --ts-chart-tooltip-font: var(--moduix-weight-medium) var(--moduix-text-sm) /
     var(--moduix-line-height-text-sm) var(--moduix-font-sans);
 }
 ```
 
-### CSS Properties
+### CSS variables
 
-<CssPropertiesSection properties={ChartDocs.chartCssProperties} />
+Hover or focus a variable to see it in the preview.
+
+<CssPropertiesSection properties={ChartDocs.chartCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Styling hooks
+
+| Part | `data-slot` |
+| --- | --- |
+| `Chart` | `chart-root` |
+| `Chart`, inner element | `chart-tooltip-text` |
+| `Chart`, inner element | `chart-tooltip-body` |
+| `Chart`, inner element | `chart-tooltip-title` |
+| `Chart`, inner element | `chart-tooltip-swatch` |
+| `Chart`, inner element | `chart-tooltip-rows` |
+| `Chart`, inner element | `chart-tooltip-row` |
+| `Chart`, inner element | `chart-tooltip-label` |
+| `Chart`, inner element | `chart-tooltip-value` |
+| `ChartHeader` | `chart-header` |
+| `ChartTitle` | `chart-title` |
+| `ChartDescription` | `chart-description` |
+| `ChartLegend` | `chart-legend` |
+| `ChartLegendItem` | `chart-legend-item` |
 
 - `Chart`, `ChartHeader`, `ChartTitle`, `ChartDescription`, `ChartLegend`, and
   `ChartLegendItem` expose `data-scope="chart"`, `data-part`, and `data-slot`.
 - `className` in React and `class` in Solid and Vue on `ChartPlot` reach the outer `.ts-chart-host` element.
-- The default tooltip uses `chart-tooltip-body`, `chart-tooltip-title`, `chart-tooltip-rows`,
-  `chart-tooltip-row`, `chart-tooltip-swatch`, `chart-tooltip-label`, `chart-tooltip-value`, and
-  `chart-tooltip-text` data slots.
-- Use `--moduix-color-chart-1` through `--moduix-color-chart-5` in TanStack color scales.
+- Use `--moduix-chart-1` through `--moduix-chart-5` in TanStack color scales.
 - Tooltip rows that TanStack marks as `active` get `data-active`.
 - The tooltip shell reads TanStack's `--ts-chart-tooltip-*` variables from the `ChartPlot` host. Use
   TanStack's `tooltip.className` for custom selectors, or `renderTooltipBody` when you need custom
   content around the moduix `defaultBody`.
+
+## API reference
+
+Props of `ChartPlot`. The other TanStack chart props, such as `height` and `renderTooltipBody`, pass through.
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `definition` | `ChartDefinition` | — | TanStack Charts definition with data, marks, and scales. |
+| `ariaLabel` | `string` | — | Short name of the plot for assistive technology. |
+| `height` | `number` | — | Plot height in pixels. |
+| `motion` | `boolean` | `true` | Uses the animated renderer; `false` renders static SVG. |
+| `renderer` | `ChartRenderer` | — | Custom TanStack renderer; overrides `motion`. |

@@ -43,7 +43,7 @@ export default function CropPreviewImageCropperDemo() {
       </ImageCropperRootProvider>
       <output>{status()}</output>
       <Show when={preview()}>
-        {(src) => <img src={src()} alt="Cropped image preview" width="128" height="128" />}
+        {(src) => <img src={src()} alt="Cropped preview" width="128" height="128" />}
       </Show>
       <Button type="button" onClick={handleCrop}>
         Create crop preview

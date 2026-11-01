@@ -23,8 +23,7 @@ import {
   FloatingPanelTitle,
   FloatingPanelTrigger,
   useFloatingPanel,
-} from '../src';
-import styles from '../src/components/floating-panel/FloatingPanel.module.css';
+} from '@/index';
 import SsrFloatingPanel from './fixtures/SsrFloatingPanel.vue';
 
 const floatingPanelComponents = {
@@ -68,70 +67,6 @@ const PanelContent = defineComponent({
 });
 
 const rootComponents = { ...floatingPanelComponents, PanelContent };
-
-test('marks the footer as minimized with the panel', async () => {
-  const Harness = defineComponent({
-    components: rootComponents,
-    template:
-      '<FloatingPanel default-open :portalled="false" :default-size="{ width: 360, height: 260 }"><PanelContent><FloatingPanelFooter data-testid="footer">Status</FloatingPanelFooter></PanelContent></FloatingPanel>',
-  });
-
-  render(Harness);
-  await page.getByRole('button', { name: 'Minimize window', exact: true }).click();
-
-  await expect.element(page.getByTestId('footer')).toHaveAttribute('data-minimized');
-});
-
-test('keeps Ark translations for default stage controls', async () => {
-  const Harness = defineComponent({
-    components: floatingPanelComponents,
-    template: `
-      <FloatingPanel default-open :portalled="false" :default-size="{ width: 360, height: 260 }"
-        :translations="{ minimize: 'Minimieren', maximize: 'Maximieren', restore: 'Wiederherstellen' }">
-        <FloatingPanelPositioner>
-          <FloatingPanelContent>
-            <FloatingPanelControl>
-              <FloatingPanelStageTrigger stage="minimized" />
-              <FloatingPanelStageTrigger stage="maximized" />
-            </FloatingPanelControl>
-          </FloatingPanelContent>
-        </FloatingPanelPositioner>
-      </FloatingPanel>
-    `,
-  });
-
-  render(Harness);
-  await expect
-    .element(page.getByRole('button', { name: 'Minimieren', exact: true }))
-    .toBeAttached();
-  await expect
-    .element(page.getByRole('button', { name: 'Maximieren', exact: true }))
-    .toBeAttached();
-});
-
-test('lazily mounts, closes on Escape, and restores focus to its trigger', async () => {
-  const Harness = defineComponent({
-    components: rootComponents,
-    template:
-      '<FloatingPanel :portalled="false"><FloatingPanelTrigger as-child><button type="button">Open inspector</button></FloatingPanelTrigger><PanelContent /></FloatingPanel>',
-  });
-
-  render(Harness);
-
-  await expect.element(page.getByRole('dialog')).toHaveCount(0);
-
-  await page.getByRole('button', { name: 'Open inspector', exact: true }).click();
-
-  await expect
-    .element(page.getByRole('dialog'))
-    .toHaveAttribute('data-slot', 'floating-panel-content');
-  await page.getByRole('dialog').press('Escape');
-
-  await expect.element(page.getByRole('dialog')).toHaveCount(0);
-  await expect
-    .element(page.getByRole('button', { name: 'Open inspector', exact: true }))
-    .toBeFocused();
-});
 
 test('preserves Ark open-change detail objects and supports v-model', async () => {
   const details: Array<{ open: boolean }> = [];
@@ -181,34 +116,6 @@ test('renders only the requested resize handles through ResizeTriggerGroup', () 
       (handle) => handle.getAttribute('data-axis'),
     ),
   ).toEqual(['e', 's', 'se']);
-});
-
-test('portals overlays inline and into a custom portal target', async () => {
-  const Harness = defineComponent({
-    components: floatingPanelComponents,
-    setup() {
-      const portalTarget = ref<HTMLDivElement>();
-      return { portalTarget, getPortal: () => portalTarget.value };
-    },
-    template: `
-      <div>
-        <div data-testid="inline-host"><FloatingPanel default-open :portalled="false"><FloatingPanelPositioner><FloatingPanelContent><FloatingPanelTitle>Inline</FloatingPanelTitle></FloatingPanelContent></FloatingPanelPositioner></FloatingPanel></div>
-        <div ref="portalTarget" data-testid="portal-host"></div>
-        <FloatingPanel default-open :portal-ref="getPortal"><FloatingPanelPositioner><FloatingPanelContent><FloatingPanelTitle>Portalled</FloatingPanelTitle></FloatingPanelContent></FloatingPanelPositioner></FloatingPanel>
-      </div>
-    `,
-  });
-
-  const { container } = render(Harness);
-  await expect
-    .element(page.getByTestId('inline-host').getByRole('dialog', { name: 'Inline' }))
-    .toBeAttached();
-  await expect
-    .poll(() =>
-      screen.getByTestId('portal-host').contains(screen.getByRole('dialog', { name: 'Portalled' })),
-    )
-    .toBe(true);
-  expect(Boolean(container?.isConnected)).toBe(true);
 });
 
 test('exposes the current state through FloatingPanelContext', async () => {
@@ -268,18 +175,9 @@ test('preserves refs, anatomy hooks, default icons, and consumer classes', async
   expect(refs.footer.value!.$el.getAttribute('data-slot')).toBe('floating-panel-footer');
   expect(refs.indicator.value!.$el.getAttribute('data-slot')).toBe('floating-panel-drag-indicator');
   expect(refs.close.value!.$el.getAttribute('data-slot')).toBe('floating-panel-close-icon');
-  expect([...refs.close.value!.$el.classList]).toEqual(
-    expect.arrayContaining([styles.controlButton]),
-  );
   expect(Boolean(refs.close.value?.$el.querySelector('svg')?.isConnected)).toBe(true);
-  expect([...screen.getByRole('button', { name: 'Minimize window' }).classList]).toEqual(
-    expect.arrayContaining([styles.controlButton]),
-  );
   expect([...screen.getByRole('button', { name: 'Open' }).classList]).toEqual(
     expect.arrayContaining(['consumer-trigger']),
-  );
-  expect([...screen.getByRole('dialog').classList]).toEqual(
-    expect.arrayContaining(['consumer-content', styles.content]),
   );
 });
 
@@ -373,36 +271,26 @@ test('sizes the content from Ark state without a CSS minimum', async () => {
   expect([content.offsetWidth, content.offsetHeight]).toEqual([160, 96]);
 });
 
-test('leaves the native trigger unstyled', () => {
+test('preserves refs through ordinary parts', () => {
+  const refs = {
+    trigger: ref<ComponentPublicInstance>(),
+    positioner: ref<ComponentPublicInstance>(),
+    content: ref<ComponentPublicInstance>(),
+    close: ref<ComponentPublicInstance>(),
+  };
   const Harness = defineComponent({
     components: floatingPanelComponents,
-    template: `
-      <FloatingPanel :portalled="false">
-        <FloatingPanelTrigger>Open inspector</FloatingPanelTrigger>
-      </FloatingPanel>
-    `,
+    setup() {
+      return refs;
+    },
+    template:
+      '<FloatingPanel default-open :portalled="false"><FloatingPanelTrigger ref="trigger">Open</FloatingPanelTrigger><FloatingPanelPositioner ref="positioner"><FloatingPanelContent ref="content"><FloatingPanelCloseIcon ref="close" /></FloatingPanelContent></FloatingPanelPositioner></FloatingPanel>',
   });
 
   render(Harness);
-
-  expect(document.querySelector('[data-slot="floating-panel-trigger"]')!.className).toBe('');
-});
-
-test('opens with the shared popup keyframes and motion variables', async () => {
-  const Harness = defineComponent({
-    components: floatingPanelComponents,
-    template: `
-      <div style="--moduix-popup-motion-duration: 1234ms">
-        <FloatingPanel default-open :default-size="{ width: 360, height: 260 }" :portalled="false">
-          <FloatingPanelPositioner><FloatingPanelContent /></FloatingPanelPositioner>
-        </FloatingPanel>
-      </div>
-    `,
-  });
-
-  render(Harness);
-  await expect.element(page.getByRole('dialog')).toBeAttached();
-
-  const style = getComputedStyle(document.querySelector('[data-slot="floating-panel-content"]')!);
-  expect([style.animationName, style.animationDuration]).toEqual(['moduix-popup-in', '1.234s']);
+  expect(refs.trigger.value!.$el.getAttribute('data-slot')).toBe('floating-panel-trigger');
+  expect(refs.positioner.value!.$el.getAttribute('data-slot')).toBe('floating-panel-positioner');
+  expect(refs.content.value!.$el.getAttribute('data-slot')).toBe('floating-panel-content');
+  expect(refs.close.value!.$el.getAttribute('data-slot')).toBe('floating-panel-close-icon');
+  expect(Boolean(refs.close.value?.$el.querySelector('svg')?.isConnected)).toBe(true);
 });

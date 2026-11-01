@@ -1,8 +1,3 @@
-.stack {
-  display: grid;
-  gap: var(--moduix-spacing-2);
-}
-
 .root {
   padding: var(--moduix-spacing-1);
 }

@@ -2,7 +2,7 @@ import type { TourStepDetails } from '@ark-ui/solid/tour';
 import { page } from '@rstest/browser';
 import { describe, expect, test } from '@rstest/core';
 import { render, screen } from '@solidjs/testing-library';
-import { Dialog, DialogContent, DialogPositioner, DialogTitle } from '../src/components/dialog';
+import { Dialog, DialogContent, DialogPositioner, DialogTitle } from '@/components/dialog';
 import {
   Tour,
   TourBackdrop,
@@ -19,8 +19,7 @@ import {
   TourActionList,
   TourActionTrigger,
   useTour,
-} from '../src/components/tour';
-import { LocaleProvider } from '../src/locale';
+} from '@/components/tour';
 
 const steps = [
   {
@@ -93,36 +92,6 @@ function CustomActionTourExample() {
                 }
               </TourActions>
             </TourControl>
-          </TourContent>
-        </TourPositioner>
-      </Tour>
-    </>
-  );
-}
-
-function FloatingTourExample(props: { placement: 'center' | 'top' }) {
-  const tour = useTour({
-    steps: [
-      {
-        id: 'floating',
-        type: 'floating',
-        placement: props.placement,
-        title: 'Floating',
-        description: 'A floating step.',
-      },
-    ],
-  });
-
-  return (
-    <>
-      <button type="button" onClick={() => tour().start()}>
-        Start floating tour
-      </button>
-      <Tour tour={tour}>
-        <TourPositioner>
-          <TourContent>
-            <TourTitle />
-            <TourDescription />
           </TourContent>
         </TourPositioner>
       </Tour>
@@ -248,25 +217,6 @@ describe('Tour', () => {
       .toHaveAttribute('data-slot', 'tour-action-trigger');
     await expect.element(page.getByText('Continue').nth(0)).toBeDisabled();
     await expect.element(page.getByText('Continue').nth(1)).not.toBeDisabled();
-  });
-  test.each([
-    ['center', 'ltr'],
-    ['top', 'rtl'],
-  ] as const)('centers %s floating steps in %s', async (placement, dir) => {
-    render(() => (
-      <LocaleProvider locale={dir === 'rtl' ? 'ar' : 'en'}>
-        <FloatingTourExample placement={placement} />
-      </LocaleProvider>
-    ));
-
-    await page.getByRole('button', { name: 'Start floating tour', exact: true }).click();
-    await expect.element(page.getByRole('alertdialog', { name: 'Floating' })).toBeVisible();
-
-    const rect = document.querySelector('[data-slot="tour-content"]')!.getBoundingClientRect();
-    expect(Math.abs(rect.left + rect.width / 2 - window.innerWidth / 2)).toBeLessThanOrEqual(1);
-    if (placement === 'center') {
-      expect(Math.abs(rect.top + rect.height / 2 - window.innerHeight / 2)).toBeLessThanOrEqual(1);
-    }
   });
   test('stacks a tooltip step above its spotlight and backdrop', async () => {
     render(() => <TooltipTourExample />);

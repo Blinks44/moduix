@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import { Field, FieldLabel, FieldHelperText, Input } from '../../src';
+import { Field, FieldLabel, FieldHelperText, Input } from '@/index';
 
 const name = ref('Initial name');
 </script>

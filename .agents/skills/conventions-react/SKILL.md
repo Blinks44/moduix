@@ -26,11 +26,8 @@ Use this skill for JS/TS React work in this repo.
 - Keep APIs consistent across semantically similar components. If two controls solve the same kind of
   problem, prefer the same prop names, controlled/uncontrolled contracts, event names, and ref
   behavior unless there is a documented, defensible reason to differ.
-- Export component values through the shared flat contract. Name the root with the family name and
-  prefix every other part, for example `Accordion`, `AccordionItem`, `AccordionItemTrigger`, and
-  `AccordionRootProvider`. Export hooks directly as `useAccordion` and similar names. Do not use
-  `Object.assign`, static component properties, namespace objects, `Accordion.Root`, or a duplicate
-  `AccordionRoot` public alias.
+- Export values through the flat public API defined in `AGENTS.md`. Do not use `Object.assign` or
+  static component properties to attach parts.
 - Do not add `memo` by default.
 - Do not add `forwardRef` unless the ref is part of the real consumer API or required by the primitive.
 - When `forwardRef` is needed, type it against the real rendered contract.

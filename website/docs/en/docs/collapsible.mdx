@@ -1,125 +1,35 @@
 ---
 title: Collapsible
 component: collapsible
-description: An accessible disclosure control for showing and hiding one content region in React, Solid, or Vue.
+description: Show and hide one region of content with a trigger.
+ark: https://ark-ui.com/docs/components/collapsible
 ---
 
+import AnatomyScene from '@/components/examples/collapsible/anatomy';
 import * as CollapsibleDocs from '@/components/examples/collapsible/css-properties';
 
-## API Reference
+<Example name="collapsible/basic" />
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/collapsible" />
+## Installation
+
+<ComponentInstall />
+
+## Usage
+
+<Usage />
+
+Use `Collapsible` with `CollapsibleTrigger`, the optional `CollapsibleIndicator`, and `CollapsibleContent` to show and hide one
+content region. Put the content inside `CollapsibleBody` when you need the recommended inner
+wrapper for spacing and layout.
 
 ## Choosing the right component
 
 Use `Collapsible` for one independent disclosure. Use `Accordion` when several related sections
 need shared keyboard navigation or coordinated state.
 
-## Basic
-
-
-Use `Collapsible` with `CollapsibleTrigger`, the optional `CollapsibleIndicator`, and `CollapsibleContent` to show and hide one
-content region. Put the content inside `CollapsibleBody` when you need the recommended inner
-wrapper for spacing and layout.
-
-<Example name="collapsible/basic" />
-
-## Install with shadcn
-
-See [Quick Start](/docs/quick-start) for full package setup, registry configuration, and styling guidance.
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/collapsible' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/collapsible' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/collapsible' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/collapsible' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/collapsible' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/collapsible' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Anatomy
-
-```text
-Collapsible
-├─ CollapsibleTrigger
-│  ├─ label
-│  └─ CollapsibleIndicator (optional)
-└─ CollapsibleContent
-   └─ CollapsibleBody
-      └─ content
-
-CollapsibleRootProvider
-└─ same part tree connected to a useCollapsible() store
-```
-
-| Part                      | Role                                                               |
-| ------------------------- | ------------------------------------------------------------------ |
-| `Collapsible`             | Owns the open state for one disclosure.                            |
-| `CollapsibleRootProvider` | Connects the parts to state created with `useCollapsible`.         |
-| `CollapsibleTrigger`      | Accessible button that opens or closes the content.                 |
-| `CollapsibleIndicator`    | Optional state indicator that renders a moduix chevron by default. |
-| `CollapsibleContent`      | Animated region whose dimensions Ark measures.                     |
-| `CollapsibleBody`         | Inner wrapper for spacing and content layout.                       |
-
-## Composition
-
-`Collapsible` owns state inside the root. Use `defaultOpen` for an uncontrolled disclosure; use
-`open` with `onOpenChange(details)` when another part of the application owns it. In Vue, use
-`v-model:open` for the same controlled contract. The callback keeps Ark's details object, so
-controlled state reads `details.open`.
-
-Use `CollapsibleRootProvider` with `useCollapsible()` from the matching framework package when the
-store must be created outside the rendered tree or shared across composition boundaries. Pass that
-store to `CollapsibleRootProvider` and do not render a second `Collapsible` root for the same store.
-
-Keep padding and surface styles on `CollapsibleBody`, not `CollapsibleContent`, so Ark can measure
-the animated content part correctly. `CollapsibleIndicator` is optional and defaults to the moduix
-chevron.
-
-Use `asChild` only when a consumer-owned semantic element should receive the trigger behavior; it
-must remain a keyboard-accessible button. In Solid, pass a render function such as
-`asChild={(props) => <button {...props()} />}`.
-
 ## Examples
 
-### Context
-
-Use `useCollapsibleContext()` inside a descendant when it needs to read state or close the disclosure
-programmatically.
-
-<Example name="collapsible/context" />
-
-### Controlled
-
-Use `open` with the Ark `onOpenChange(details)` callback when another part of your UI owns the state.
-
-<Example name="collapsible/controlled" />
-
-### Default Open
+### Default open
 
 Set `defaultOpen` to start an uncontrolled disclosure in the open state.
 
@@ -131,12 +41,12 @@ Set `disabled` on the root to prevent users from opening or closing the disclosu
 
 <Example name="collapsible/disabled" />
 
-### Lazy Mount
+### Custom trigger
 
-Set `lazyMount` to mount content only after its first opening. Add `unmountOnExit` to remove it from
-the DOM after it closes.
+Use `asChild` to apply the trigger behavior to a button you own. This skips the default
+`CollapsibleTrigger` styling while preserving Ark behavior and state attributes.
 
-<Example name="collapsible/lazy-mount" />
+<Example name="collapsible/custom-trigger" />
 
 ### Nested
 
@@ -144,7 +54,7 @@ Nest independent roots when a revealed section contains another optional detail.
 
 <Example name="collapsible/nested" />
 
-### Partial Collapse
+### Partial collapse
 
 Use `collapsedHeight` or `collapsedWidth` to keep part of the content visible while closed.
 Interactive elements in that area become inert until the disclosure opens, so keep actions that must
@@ -152,25 +62,82 @@ stay available outside `CollapsibleContent`.
 
 <Example name="collapsible/partial-collapse" />
 
-### Partial Width
+### Partial width
 
 Use `collapsedWidth` when a horizontal preview is more useful than a height-limited preview.
 
 <Example name="collapsible/partial-collapse-width" />
 
-### Root Provider
+### Controlled
+
+Use `open` with the Ark `onOpenChange(details)` callback when another part of your UI controls the state. See [Control state from the application](/docs/composition-patterns#controlled-state).
+
+<Example name="collapsible/controlled" />
+
+### Lazy mount
+
+Set `lazyMount` to mount content only after its first opening. Add `unmountOnExit` to remove it from
+the DOM after it closes.
+
+<Example name="collapsible/lazy-mount" />
+
+### Context
+
+Use `useCollapsibleContext()` inside a descendant when it needs to read state or close the disclosure
+programmatically.
+
+<Example name="collapsible/context" />
+
+### Root provider
 
 Create the state with `useCollapsible()` and pass it to `CollapsibleRootProvider` when code outside
-the rendered component tree needs access to the state.
+the rendered component tree needs access to the state. See [Share state outside the tree](/docs/composition-patterns#root-provider).
 
 <Example name="collapsible/root-provider" />
 
-### Advanced Customization
+### Build from parts
 
-Use `asChild` to apply the trigger behavior to a button you own. This skips the default
-`CollapsibleTrigger` styling while preserving Ark behavior and state attributes.
+The same collapsible as Basic, without `CollapsibleBody` and with the indicator icon written out:
+`CollapsibleIndicator` renders a default chevron only when it has no children, and the body is a plain
+element inside `CollapsibleContent`. Start here when a design changes the icon or the content spacing.
 
-<Example name="collapsible/custom-composition" />
+<Example name="collapsible/build-from-parts" />
+
+## Composition
+
+`Collapsible` manages state inside the root. Use `defaultOpen` for an uncontrolled disclosure; use
+`open` with `onOpenChange(details)` when another part of the application controls it. In Vue, use
+`v-model:open` for the same controlled contract. The callback keeps Ark's details object, so
+controlled state reads `details.open`.
+
+Use `CollapsibleRootProvider` with `useCollapsible()` from the matching framework package when the
+store must be created outside the rendered tree or shared across composition boundaries. Pass that
+store to `CollapsibleRootProvider` and do not render a second `Collapsible` root for the same store.
+
+Keep padding and surface styles on `CollapsibleBody`, not `CollapsibleContent`, so Ark can measure
+the animated content part correctly. `CollapsibleIndicator` is optional and defaults to the moduix
+chevron.
+
+Use `asChild` only when your own semantic element should receive the trigger behavior; it
+must remain a keyboard-accessible button. In Solid, pass a render function such as
+`asChild={(props) => <button {...props()} />}`.
+
+## Anatomy
+
+Hover or focus a part to find it in the preview.
+
+<AnatomyInspector
+  parts={[
+    ["Collapsible", "collapsible-root", "Manages the open state for one disclosure.", 0],
+    ["CollapsibleTrigger", "collapsible-trigger", "Accessible button that opens or closes the content.", 1],
+    ["CollapsibleIndicator", "collapsible-indicator", "Optional state indicator that renders a moduix chevron by default.", 2],
+    ["CollapsibleContent", "collapsible-content", "Animated region whose dimensions Ark measures.", 1],
+    ["CollapsibleBody", "collapsible-body", "Inner wrapper for spacing and content layout.", 2],
+    ["CollapsibleRootProvider", "collapsible-root-provider", "Connects the parts to state created with `useCollapsible`.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styling
 
@@ -183,14 +150,25 @@ by both styling tracks.
 Put spacing on `CollapsibleBody`, not `CollapsibleContent`, so Ark can measure and animate the
 content correctly.
 
-### CSS Properties
+### CSS variables
 
-<CssPropertiesSection properties={CollapsibleDocs.collapsibleOverrideCssProperties} />
+Hover or focus a variable to see it in the preview.
+
+<CssPropertiesSection properties={CollapsibleDocs.collapsibleOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Styling hooks
 
-- DOM parts expose `data-slot="collapsible-root"`, `collapsible-root-provider`,
-  `collapsible-trigger`, `collapsible-indicator`, `collapsible-content`, and `collapsible-body`.
+| Part | `data-slot` |
+| --- | --- |
+| `Collapsible` | `collapsible-root` |
+| `CollapsibleRootProvider` | `collapsible-root-provider` |
+| `CollapsibleTrigger` | `collapsible-trigger` |
+| `CollapsibleIndicator` | `collapsible-indicator` |
+| `CollapsibleContent` | `collapsible-content` |
+| `CollapsibleBody` | `collapsible-body` |
+
 - Ark parts expose `data-scope="collapsible"` and `data-part` values for the root, trigger, indicator,
   and content.
 - Ark exposes `data-state="open" | "closed"` on root, trigger, indicator, and content.
@@ -198,3 +176,23 @@ content correctly.
 - `data-disabled` marks disabled trigger, indicator, and content parts.
 - `data-has-collapsed-size` marks content configured with `collapsedHeight` or `collapsedWidth`.
 - Content animation uses Ark `--height`, `--width`, `--collapsed-height`, and `--collapsed-width`.
+
+## Keyboard
+
+| Key | Action |
+| --- | --- |
+| `Enter` / `Space` | Opens or closes the content from the trigger. |
+
+## API reference
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `open` | `boolean` | — | Open state for controlled use. |
+| `defaultOpen` | `boolean` | `false` | Initially open. |
+| `onOpenChange` | `(details: OpenChangeDetails) => void` | — | Called when it opens or closes. |
+| `onExitComplete` | `() => void` | — | Called after the close animation ends. |
+| `disabled` | `boolean` | `false` | Disables the control. |
+| `collapsedHeight` | `number \| string` | — | Height left visible when collapsed, for a preview. |
+| `collapsedWidth` | `number \| string` | — | Width left visible when collapsed. |
+| `lazyMount` | `boolean` | `false` | Mounts the content on first open. |
+| `unmountOnExit` | `boolean` | `false` | Unmounts the content after it closes. |

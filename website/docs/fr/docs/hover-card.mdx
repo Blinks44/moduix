@@ -1,13 +1,27 @@
 ---
 title: Hover Card
 component: hover-card
-description: Composant Hover Card basé sur Ark UI qui affiche des aperçus complémentaires au survol ou lorsque le déclencheur reçoit le focus.
+description: Prévisualiser un profil ou un lien dans une carte au survol.
+ark: https://ark-ui.com/docs/components/hover-card
 ---
 
+import AnatomyScene from '@/components/examples/hover-card/anatomy';
 
-## Référence de l’API
+<Example name="hover-card/basic" />
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/hover-card" />
+## Installation
+
+<ComponentInstall />
+
+## Utilisation
+
+<Usage />
+
+Composez la carte à partir des parties Ark explicites. `HoverCardTrigger` ouvre la carte, tandis
+que `HoverCardPositioner` et `HoverCardContent` définissent son contenu flottant. La composition
+de base n’inclut pas de flèche. Placez le contenu long dans `HoverCardBody` pour qu’il puisse
+défiler dans la hauteur disponible, tandis que `HoverCardContent` reste visible pour accueillir
+une flèche facultative.
 
 ## Choisir le bon composant
 
@@ -16,129 +30,28 @@ la fenêtre flottante doit contenir davantage d’informations ou des actions. U
 si le déclencheur doit afficher un aperçu complémentaire, par exemple celui d’un profil ou d’un
 article.
 
-## Exemple de base
-
-
-Composez la carte à partir des parties Ark explicites. `HoverCardTrigger` ouvre la carte, tandis
-que `HoverCardPositioner` et `HoverCardContent` définissent son contenu flottant. La composition
-de base n’inclut pas de flèche. Placez le contenu long dans `HoverCardBody` pour qu’il puisse
-défiler dans la hauteur disponible, tandis que `HoverCardContent` reste visible pour accueillir
-une flèche facultative.
-
-<Example name="hover-card/basic" />
-
-## Installation avec shadcn
-
-Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration complète du paquet, du registre et des styles.
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/hover-card' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/hover-card' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/hover-card' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/hover-card' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/hover-card' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/hover-card' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Anatomie
-
-```text
-HoverCard
-├─ HoverCardTrigger
-└─ Sous-arbre flottant (rendu automatiquement dans un portail)
-   └─ HoverCardPositioner
-      └─ HoverCardContent
-         ├─ HoverCardArrow
-         │  └─ HoverCardArrowTip
-         └─ HoverCardBody
-            └─ contenu
-
-HoverCardRootProvider
-└─ même arborescence reliée à l’état useHoverCard() de moduix
-```
-
-| Partie                         | Rôle                                                                            |
-| ------------------------------ | ------------------------------------------------------------------------------- |
-| `HoverCard`                  | Gère l’état, le cycle de vie, les délais, le positionnement, les identifiants et les interactions extérieures. |
-| `HoverCardRootProvider`       | Relie les parties à l’état créé avec `useHoverCard()`.                         |
-| `HoverCardContext`            | Expose l’état courant aux descendants via une fonction de rendu.               |
-| `HoverCardTrigger`            | Élément interactif qui ouvre la carte au survol ou au focus. Utilisez `asChild` pour en faire un lien ou un autre élément sémantique. |
-| `HoverCardPositioner`         | Élément de positionnement flottant qui expose les variables CSS de positionnement d’Ark. |
-| `HoverCardContent`            | Surface visible de la carte, qui se ferme lors d’une interaction extérieure.   |
-| `HoverCardArrow`              | Enveloppe facultative de la flèche positionnée, qui rend `HoverCardArrowTip` par défaut. |
-| `HoverCardArrowTip`           | Pointe de la flèche, stylée avec les variables de flèche d’Ark.                |
-| `HoverCardBody`               | Région facultative et défilable pour le contenu des aperçus contraints.         |
-
-`HoverCard` est l’unique valeur publique de la racine. Utilisez-la avec les parties préfixées par
-le nom de la famille dans le code de l’application.
-
-## Composition
-
-`HoverCard` gère l’état et place `HoverCardPositioner` dans un portail par défaut. Définissez
-`portalled={false}` dans une autre fenêtre flottante, ou passez `portalRef` pour choisir un conteneur
-personnalisé. Utilisez `HoverCardRootProvider` avec `useHoverCard()` lorsque l’état doit vivre en
-dehors de l’arborescence de la carte : React lit le store comme un objet, tandis que Solid le lit
-via son accessor, et Vue expose directement l’état réactif dans le template.
-
-Gardez `HoverCardArrow` dans `HoverCardContent` et placez les aperçus longs dans
-`HoverCardBody` : `Content` laisse la flèche visible et `Body` devient la région défilable. Utilisez
-`asChild` avec un seul enfant pouvant recevoir le focus lorsque le déclencheur doit être un lien ou
-un autre élément sémantique. Si plusieurs déclencheurs partagent un même contenu, donnez une
-`value` à chacun et mettez à jour le contenu externe avec `onTriggerValueChange(details)`.
-
 ## Exemples
 
-### Contexte
+### Avec une flèche
 
-Utilisez `HoverCardContext` pour lire l’état dans l’arborescence de la carte sans modifier sa
-structure visible.
+Ajoutez `HoverCardArrow` dans `HoverCardContent` lorsque la fenêtre flottante doit pointer
+visuellement vers son déclencheur. L’enveloppe rend `HoverCardArrowTip` par défaut ; gardez
+l’aperçu dans `HoverCardBody` afin que la flèche reste intégrée à la surface avec bordure tout en
+permettant au contenu de défiler.
 
-<Example name="hover-card/context" />
+<Example name="hover-card/with-arrow" />
 
-### État contrôlé
+### Positionnement
 
-Contrôlez l’ouverture de la carte avec `open` et `onOpenChange(details)`.
+Transmettez les options de positionnement d’Ark via la propriété `positioning`.
 
-<Example name="hover-card/controlled" />
+<Example name="hover-card/positioning" />
 
 ### Délai
 
 Ajustez les délais d’ouverture et de fermeture avec `openDelay` et `closeDelay` sur la racine.
 
 <Example name="hover-card/delay" />
-
-### Dialogue
-
-Rendez la carte directement dans un dialogue lorsqu’elle doit rester dans sa couche de superposition.
-Le focus initial du dialogue peut se placer sur son déclencheur et ouvrir la carte après `openDelay`.
-Définissez `initialFocusEl` sur un autre élément si l’aperçu doit rester
-fermé jusqu’au survol ou à la réception du focus.
-
-<Example name="hover-card/dialog" />
 
 ### État désactivé
 
@@ -154,27 +67,71 @@ un même contenu entre plusieurs déclencheurs.
 
 <Example name="hover-card/multiple-triggers" />
 
-### Positionnement
+### Dialogue
 
-Transmettez les options de positionnement d’Ark via la propriété `positioning`.
+Rendez la carte directement dans un dialogue lorsqu’elle doit rester dans sa couche de superposition.
+Le focus initial du dialogue peut se placer sur son déclencheur et ouvrir la carte après `openDelay`.
+Définissez `initialFocusEl` sur un autre élément si l’aperçu doit rester
+fermé jusqu’au survol ou à la réception du focus.
 
-<Example name="hover-card/positioning" />
+<Example name="hover-card/dialog" />
+
+### État contrôlé
+
+Contrôlez l’ouverture de la carte avec `open` et `onOpenChange(details)`. Voir [Contrôler l’état depuis l’application](/docs/composition-patterns#controlled-state).
+
+<Example name="hover-card/controlled" />
+
+### Contexte
+
+Utilisez `HoverCardContext` pour lire l’état dans l’arborescence de la carte sans modifier sa
+structure visible.
+
+<Example name="hover-card/context" />
 
 ### Root Provider
 
 Utilisez `useHoverCard()` avec `HoverCardRootProvider` lorsque des contrôles ou d’autres éléments
-de l’interface situés en dehors de l’arborescence de la carte doivent lire son état ou le modifier.
+de l’interface situés en dehors de l’arborescence de la carte doivent lire son état ou le modifier. Voir [Partager l’état hors de l’arbre](/docs/composition-patterns#root-provider).
 
 <Example name="hover-card/root-provider" />
 
-### Avec une flèche
+## Composition
 
-Ajoutez `HoverCardArrow` dans `HoverCardContent` lorsque la fenêtre flottante doit pointer
-visuellement vers son déclencheur. L’enveloppe rend `HoverCardArrowTip` par défaut ; gardez
-l’aperçu dans `HoverCardBody` afin que la flèche reste intégrée à la surface avec bordure tout en
-permettant au contenu de défiler.
+`HoverCard` gère l’état et place `HoverCardPositioner` dans un portail par défaut. Définissez
+`portalled={false}` dans une autre fenêtre flottante, ou passez `portalRef` pour choisir un conteneur
+personnalisé. Utilisez `HoverCardRootProvider` avec `useHoverCard()` lorsque l’état doit vivre en
+dehors de l’arborescence de la carte : React lit le store comme un objet, tandis que Solid le lit
+via son accessor, et Vue expose directement l’état réactif dans le template.
 
-<Example name="hover-card/with-arrow" />
+Gardez `HoverCardArrow` dans `HoverCardContent` et placez les aperçus longs dans
+`HoverCardBody` : `Content` laisse la flèche visible et `Body` devient la région défilable. Utilisez
+`asChild` avec un seul enfant pouvant recevoir le focus lorsque le déclencheur doit être un lien ou
+un autre élément sémantique. Si plusieurs déclencheurs partagent un même contenu, donnez une
+`value` à chacun et mettez à jour le contenu externe avec `onTriggerValueChange(details)`.
+
+## Anatomie
+
+Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
+
+<AnatomyInspector
+  parts={[
+    ["HoverCard", null, "Gère l’état, le cycle de vie, les délais, le positionnement, les identifiants et les interactions extérieures.", 0],
+    ["HoverCardTrigger", "hover-card-trigger", "Élément interactif qui ouvre la carte au survol ou au focus. Utilisez `asChild` pour en faire un lien ou un autre élément sémantique.", 1],
+    ["HoverCardPositioner", "hover-card-positioner", "Élément de positionnement flottant qui expose les variables CSS de positionnement d’Ark.", 1],
+    ["HoverCardContent", "hover-card-content", "Surface visible de la carte, qui se ferme lors d’une interaction extérieure.", 2],
+    ["HoverCardArrow", "hover-card-arrow", "Enveloppe facultative de la flèche positionnée, qui rend `HoverCardArrowTip` par défaut.", 3],
+    ["HoverCardArrowTip", "hover-card-arrow-tip", "Pointe de la flèche, stylée avec les variables de flèche d’Ark.", 4],
+    ["HoverCardBody", "hover-card-body", "Région facultative et défilable pour le contenu des aperçus contraints.", 3],
+    ["HoverCardRootProvider", null, "Relie les parties à l’état créé avec `useHoverCard()`.", 0],
+    ["HoverCardContext", null, "Expose l’état courant aux descendants via une fonction de rendu.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
+
+`HoverCard` est l’unique valeur publique de la racine. Utilisez-la avec les parties préfixées par
+le nom de la famille dans le code de l’application.
 
 ## Styles
 
@@ -189,12 +146,20 @@ reposent sur les jetons de foundation et n’ont pas de variables de composant :
 remplace les styles du composant en couche. Les attributs d’état et les hooks `data-slot` sont communs
 aux deux modes de style.
 
-### Ciblage des styles
+### Points d’accroche CSS
 
-Moduix ajoute également des attributs `data-slot="hover-card-*"` au déclencheur, à `HoverCardPositioner`, au contenu, à la
+| Partie | `data-slot` |
+| --- | --- |
+| `HoverCardTrigger` | `hover-card-trigger` |
+| `HoverCardPositioner` | `hover-card-positioner` |
+| `HoverCardContent` | `hover-card-content` |
+| `HoverCardArrow` | `hover-card-arrow` |
+| `HoverCardArrowTip` | `hover-card-arrow-tip` |
+| `HoverCardBody` | `hover-card-body` |
+
+moduix ajoute également des attributs `data-slot="hover-card-*"` au déclencheur, à `HoverCardPositioner`, au contenu, à la
 flèche, à sa pointe et à la région de contenu. `HoverCard` et `HoverCardRootProvider` fournissent
-uniquement l’état et ne rendent aucun élément DOM : ils n’ont donc pas de point d’accroche CSS propre.
-Ark ajoute `data-scope="hover-card"` et
+uniquement l’état et ne rendent aucun élément DOM : ils n’ont donc pas de point d’accroche CSS propre. Ark ajoute `data-scope="hover-card"` et
 `data-part` à ses parties. Pour adapter les styles à l’état, ciblez `data-state="open|closed"`,
 `data-placement`, `data-side`, `data-value`, `data-current`, `data-nested` et `data-has-nested`.
 
@@ -202,3 +167,30 @@ Ark ajoute `data-scope="hover-card"` et
 `--available-height`, `--x`, `--y`, `--z-index` et `--transform-origin`. `HoverCardContent`
 expose `--layer-index` et `--nested-layer-count`. `HoverCardArrow` expose `--arrow-size`,
 `--arrow-size-half`, `--arrow-background` et `--arrow-offset`.
+
+## Clavier
+
+| Touche | Action |
+| --- | --- |
+| `Tab` | Le focus sur le déclencheur ouvre la carte après le délai. |
+| `Esc` | Ferme la carte. |
+
+## Référence de l’API
+
+| Prop | Type | Défaut | Description |
+| --- | --- | --- | --- |
+| `open` | `boolean` | — | État d’ouverture en mode contrôlé. |
+| `defaultOpen` | `boolean` | `false` | État d’ouverture initial lorsqu’il n’est pas contrôlé. |
+| `onOpenChange` | `(details: OpenChangeDetails) => void` | — | Appelé à l’ouverture et à la fermeture. |
+| `openDelay` | `number` | `600` | Délai avant l’ouverture au survol, en millisecondes. |
+| `closeDelay` | `number` | `300` | Délai avant la fermeture après le départ du pointeur, en millisecondes. |
+| `positioning` | `PositioningOptions` | — | Placement, décalage et autres options de positionnement de la fenêtre. |
+| `disabled` | `boolean` | `false` | Désactive le contrôle. |
+| `lazyMount` | `boolean` | `true` | Monte le contenu à la première ouverture. |
+| `unmountOnExit` | `boolean` | `true` | Démonte le contenu après la fermeture. |
+| `triggerValue` | `string \| null` | — | Déclencheur actif en mode contrôlé lorsque plusieurs déclencheurs partagent la fenêtre. |
+| `defaultTriggerValue` | `string \| null` | — | Déclencheur actif au départ. |
+| `onTriggerValueChange` | `(details: TriggerValueChangeDetails) => void` | — | Appelé lorsqu’un autre déclencheur devient actif. |
+| `onPointerDownOutside` | `(event: PointerDownOutsideEvent) => void` | — | Appelé lors d’un appui du pointeur en dehors de la fenêtre. |
+| `onFocusOutside` | `(event: FocusOutsideEvent) => void` | — | Appelé lorsque le focus quitte la fenêtre. |
+| `onInteractOutside` | `(event: InteractOutsideEvent) => void` | — | Appelé lors de toute interaction en dehors de la fenêtre. |

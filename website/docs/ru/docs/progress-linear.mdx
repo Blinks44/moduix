@@ -1,14 +1,26 @@
 ---
 title: Progress Linear
 component: progress-linear
-description: Линейный индикатор прогресса для задач, ход выполнения которых известен или неизвестен.
+description: Прогресс задачи на полосе, с известным или неизвестным концом.
+ark: https://ark-ui.com/docs/components/progress-linear
 ---
 
+import AnatomyScene from '@/components/examples/progress-linear/basic';
 import * as ProgressLinearDocs from '@/components/examples/progress-linear/css-properties';
 
-## Справочник API
+<Example name="progress-linear/basic" width="sm" />
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/progress-linear" />
+## Установка
+
+<ComponentInstall />
+
+## Использование
+
+<Usage />
+
+Соберите индикатор из явных частей `ProgressLinearLabel`, `ProgressLinearValueText`, `ProgressLinearTrack` и `ProgressLinearRange`. Задайте для `ProgressLinearTrack`
+доступное имя, которое описывает задачу.
+React, Solid и Vue используют одинаковые плоские имена частей; во Vue применяются нативные `class`, слоты и `v-model`, когда они нужны.
 
 ## Выбор подходящего компонента
 
@@ -16,76 +28,63 @@ import * as ProgressLinearDocs from '@/components/examples/progress-linear/css-p
 Для компактного индикатора в карточке, на панели инструментов или в другом ограниченном пространстве
 подойдёт `ProgressCircular`.
 
-## Базовый пример
+## Примеры
 
+### Начальное значение
 
-Соберите индикатор из явных частей `ProgressLinearLabel`, `ProgressLinearValueText`, `ProgressLinearTrack` и `ProgressLinearRange`. Задайте для `ProgressLinearTrack`
-доступное имя, которое описывает задачу.
-React, Solid и Vue используют одинаковые плоские имена частей; во Vue применяются нативные `class`, слоты и `v-model`, когда они нужны.
+Используйте `defaultValue`, чтобы задать начальное значение неуправляемого прогресса.
 
-<Example name="progress-linear/basic" width="sm" />
+<Example name="progress-linear/initial-value" width="sm" />
 
-## Установка через shadcn
+### Текст значения
 
-Полную настройку пакета, реестра и стилей см. в разделе [Быстрый старт](/docs/quick-start).
+Используйте `ProgressLinearContext` с `translations.value(details)`, если отображаемому значению
+нужна формулировка, связанная с конкретной задачей.
 
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
+<Example name="progress-linear/value-text" width="sm" />
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/progress-linear' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/progress-linear' },
-  ]}
-/>
+### Минимум и максимум
 
-  </Tab>
-  <Tab label="Solid" value="solid">
+Используйте `min` и `max`, если диапазон прогресса отличается от стандартного диапазона от `0` до
+`100`.
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/progress-linear' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/progress-linear' },
-  ]}
-/>
+<Example name="progress-linear/min-max" width="sm" />
 
-  </Tab>
-  <Tab label="Vue" value="vue">
+### Неопределённый прогресс
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/progress-linear' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/progress-linear' },
-  ]}
-/>
+Установите `defaultValue={null}` или `value={null}`, когда задача выполняется, но пока нельзя
+определить, сколько уже сделано.
 
-  </Tab>
-</Tabs>
+<Example name="progress-linear/indeterminate" width="sm" />
 
-## Анатомия
+### Вертикальная ориентация
 
-```text
-ProgressLinear
-├─ ProgressLinearLabel
-├─ ProgressLinearValueText
-├─ ProgressLinearTrack
-│  └─ ProgressLinearRange
-└─ ProgressLinearView
+Установите `orientation="vertical"`, когда заполненная часть должна расти снизу вверх. В
+вертикальном режиме высота по умолчанию составляет `12rem`. Если макету нужна другая высота,
+задайте `height` на корневой части.
 
-ProgressLinearRootProvider
-└─ та же структура частей, подключённая к useProgress()
-```
+<Example name="progress-linear/vertical" />
 
-| Часть                                      | Назначение                                                                    |
-| ------------------------------------------ | ----------------------------------------------------------------------------- |
-| `ProgressLinear`   | Хранит состояние прогресса и передаёт Ark форматирование, идентификаторы и другие свойства. |
-| `ProgressLinearRootProvider`              | Подключает части к хранилищу, которое возвращает `useProgress()`. |
-| `ProgressLinearContext`                   | Передаёт текущее состояние прогресса функции, переданной как дочерний элемент. |
-| `ProgressLinearLabel`                     | Видимая подпись задачи. Она автоматически не становится доступным именем `ProgressLinearTrack`. |
-| `ProgressLinearValueText`                 | Показывает отформатированный процент и сообщает об изменениях. Через `ProgressLinearContext` можно вывести свой текст. |
-| `ProgressLinearTrack`                     | Основа полосы прогресса. Ark добавляет ей роль и ARIA-атрибуты значения.       |
-| `ProgressLinearRange`                     | Заполненная часть, отражающая текущий прогресс.                               |
-| `ProgressLinearView`                      | Показывает содержимое, только когда его `state` совпадает с текущим состоянием прогресса. |
+### Представления состояния
+
+Используйте `ProgressLinearView`, если вспомогательный текст или интерфейс должен меняться вместе
+с состоянием прогресса Ark.
+
+<Example name="progress-linear/state-views" width="sm" />
+
+### Управляемое состояние
+
+Храните `value` в состоянии, если прогресс должен синхронно меняться вместе с другим элементом
+управления или внешней задачей.
+
+<Example name="progress-linear/controlled" width="sm" />
+
+### Root Provider
+
+Создайте состояние прогресса с помощью `useProgress()` в родительском компоненте,
+а затем подключите его к частям через `ProgressLinearRootProvider`.
+
+<Example name="progress-linear/root-provider" width="sm" />
 
 ## Композиция
 
@@ -98,63 +97,24 @@ ProgressLinearRootProvider
 состояние.
 Во Vue для того же управляемого значения используйте `v-model`.
 
-## Примеры
+## Анатомия
 
-### Управляемое состояние
+Наведите на часть или выберите её, чтобы найти её в превью.
 
-Храните `value` в состоянии, если прогресс должен синхронно меняться вместе с другим элементом
-управления или внешней задачей.
-
-<Example name="progress-linear/controlled" width="sm" />
-
-### Неопределённый прогресс
-
-Установите `defaultValue={null}` или `value={null}`, когда задача выполняется, но пока нельзя
-определить, сколько уже сделано.
-
-<Example name="progress-linear/indeterminate" width="sm" />
-
-### Начальное значение
-
-Используйте `defaultValue`, чтобы задать начальное значение неуправляемого прогресса.
-
-<Example name="progress-linear/initial-value" width="sm" />
-
-### Минимум и максимум
-
-Используйте `min` и `max`, если диапазон прогресса отличается от стандартного диапазона от `0` до
-`100`.
-
-<Example name="progress-linear/min-max" width="sm" />
-
-### Представления состояния
-
-Используйте `ProgressLinearView`, если вспомогательный текст или интерфейс должен меняться вместе
-с состоянием прогресса Ark.
-
-<Example name="progress-linear/state-views" width="sm" />
-
-### Текст значения
-
-Используйте `ProgressLinearContext` с `translations.value(details)`, если отображаемому значению
-нужна формулировка, связанная с конкретной задачей.
-
-<Example name="progress-linear/value-text" width="sm" />
-
-### Вертикальная ориентация
-
-Установите `orientation="vertical"`, когда заполненная часть должна расти снизу вверх. В
-вертикальном режиме высота по умолчанию составляет `12rem`. Если макету нужна другая высота,
-задайте `height` на корневой части.
-
-<Example name="progress-linear/vertical" />
-
-### Расширенная настройка
-
-Создайте состояние прогресса с помощью `useProgress()` в родительском компоненте,
-а затем подключите его к частям через `ProgressLinearRootProvider`.
-
-<Example name="progress-linear/root-provider" width="sm" />
+<AnatomyInspector
+  parts={[
+    ["ProgressLinear", "progress-linear-root", "Хранит состояние прогресса и передаёт Ark форматирование, идентификаторы и другие свойства.", 0],
+    ["ProgressLinearLabel", "progress-linear-label", "Видимая подпись задачи. Она автоматически не становится доступным именем `ProgressLinearTrack`.", 1],
+    ["ProgressLinearValueText", "progress-linear-value-text", "Показывает отформатированный процент и сообщает об изменениях. Через `ProgressLinearContext` можно вывести свой текст.", 1],
+    ["ProgressLinearTrack", "progress-linear-track", "Основа полосы прогресса. Ark добавляет ей роль и ARIA-атрибуты значения.", 1],
+    ["ProgressLinearRange", "progress-linear-range", "Заполненная часть, отражающая текущий прогресс.", 2],
+    ["ProgressLinearView", "progress-linear-view", "Показывает содержимое, только когда его `state` совпадает с текущим состоянием прогресса.", 1],
+    ["ProgressLinearRootProvider", "progress-linear-root-provider", "Подключает части к хранилищу, которое возвращает `useProgress()`.", 0],
+    ["ProgressLinearContext", null, "Передаёт текущее состояние прогресса функции, переданной как дочерний элемент.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Стилизация
 
@@ -170,14 +130,39 @@ moduix. Варианты Tailwind используют нативные утил
 прогресс проводит диапазон шириной 35% от начального края к конечному (в RTL справа налево); при
 предпочтении уменьшенного движения диапазон стоит у начального края.
 
-### CSS-свойства
+### CSS-переменные
 
-<CssPropertiesSection properties={ProgressLinearDocs.progressLinearCssProperties} />
+Наведите на переменную или выберите её, чтобы увидеть её в превью.
+
+<CssPropertiesSection properties={ProgressLinearDocs.progressLinearCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Хуки стилизации
 
-- `data-slot="progress-linear-root"`, `progress-linear-root-provider`, `progress-linear-label`,
-  `progress-linear-value-text`, `progress-linear-track`, `progress-linear-range` и
-  `progress-linear-view`.
+| Часть | `data-slot` |
+| --- | --- |
+| `ProgressLinear` | `progress-linear-root` |
+| `ProgressLinearRootProvider` | `progress-linear-root-provider` |
+| `ProgressLinearLabel` | `progress-linear-label` |
+| `ProgressLinearValueText` | `progress-linear-value-text` |
+| `ProgressLinearTrack` | `progress-linear-track` |
+| `ProgressLinearRange` | `progress-linear-range` |
+| `ProgressLinearView` | `progress-linear-view` |
+
 - Атрибуты Ark: `data-scope="progress"`, `data-part`, `data-state="indeterminate|loading|complete"`,
   `data-orientation="horizontal|vertical"`, `data-value` и `data-max`.
+
+## Справочник API
+
+| Проп | Тип | По умолчанию | Описание |
+| --- | --- | --- | --- |
+| `value` | `number \| null` | — | Значение прогресса в управляемом режиме; `null` включает неопределённое состояние. |
+| `defaultValue` | `number \| null` | `50` | Начальное значение, если оно не управляется извне; `null` означает неопределённое. |
+| `onValueChange` | `(details: ValueChangeDetails) => void` | — | Вызывается при изменении значения. |
+| `min` | `number` | `0` | Минимальное значение. |
+| `max` | `number` | `100` | Максимальное значение. |
+| `formatOptions` | `Intl.NumberFormatOptions` | `{ style: 'percent' }` | Параметры `Intl.NumberFormat` для текста значения. |
+| `locale` | `string` | — | Локаль для форматирования; по умолчанию из ближайшего `LocaleProvider`. |
+| `translations` | `IntlTranslations` | — | Переведённые строки для подписей доступности. |
+| `orientation` | `'horizontal' \| 'vertical'` | `'horizontal'` | Направление полосы: `horizontal` или `vertical`. |

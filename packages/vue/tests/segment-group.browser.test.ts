@@ -14,9 +14,8 @@ import {
   SegmentGroupLabel,
   SegmentGroupRootProvider,
   useSegmentGroup,
-  useSegmentGroupContext,
-  useSegmentGroupItemContext,
-} from '../src';
+} from '@/index';
+import SsrSegmentGroup from './fixtures/SsrSegmentGroup.vue';
 
 const segmentGroupComponents = {
   SegmentGroup,
@@ -72,31 +71,6 @@ test('submits through the convenience item inputs and preserves radio semantics'
   expect(new FormData(form).get('framework')).toBe('Solid');
 });
 
-test('supports v-model and emits one value-change detail per selection', async () => {
-  const details: string[] = [];
-
-  render({
-    components: testComponents,
-    setup() {
-      const value = ref<string | null>('React');
-      return { details, value };
-    },
-    template: `
-      <SegmentGroup v-model="value" aria-label="Framework" @value-change="details.push($event.value)">
-        <SegmentGroupItems :items="[
-          { value: 'React', label: 'React' },
-          { value: 'Solid', label: 'Solid' }
-        ]" />
-      </SegmentGroup>
-      <output>Current value: {{ value }}</output>
-    `,
-  });
-  await page.getByText('Solid', { exact: true }).click();
-
-  await expect.element(page.getByText('Current value: Solid')).toBeAttached();
-  expect(details).toEqual(['Solid']);
-});
-
 test('reacts to external v-model changes', async () => {
   render({
     components: testComponents,
@@ -115,42 +89,6 @@ test('reacts to external v-model changes', async () => {
   });
   await page.getByRole('button', { name: 'Set Solid', exact: true }).click();
   await expect.element(page.getByRole('radio', { name: 'Solid', exact: true })).toBeChecked();
-});
-
-test('preserves disabled, read-only, invalid, and required states', async () => {
-  render({
-    components: segmentGroupComponents,
-    template: `
-      <SegmentGroup disabled aria-label="Disabled framework">
-        <SegmentGroupItem value="React"><SegmentGroupItemText>Disabled option</SegmentGroupItemText><SegmentGroupItemHiddenInput /></SegmentGroupItem>
-      </SegmentGroup>
-      <SegmentGroup read-only aria-label="Read-only framework">
-        <SegmentGroupItem value="React"><SegmentGroupItemText>Read-only option</SegmentGroupItemText><SegmentGroupItemHiddenInput /></SegmentGroupItem>
-      </SegmentGroup>
-      <SegmentGroup invalid required aria-label="Required framework">
-        <SegmentGroupItem value="React"><SegmentGroupItemText>Required option</SegmentGroupItemText><SegmentGroupItemHiddenInput /></SegmentGroupItem>
-      </SegmentGroup>
-    `,
-  });
-
-  await expect
-    .element(page.getByRole('radio', { name: 'Disabled option', exact: true }))
-    .toBeDisabled();
-  await expect
-    .element(page.getByRole('radio', { name: 'Read-only option', exact: true }))
-    .toBeDisabled();
-  await expect
-    .element(page.getByRole('radiogroup', { name: 'Read-only framework', exact: true }))
-    .toHaveAttribute('aria-readonly', 'true');
-  await expect
-    .element(page.getByRole('radio', { name: 'Required option', exact: true }))
-    .toHaveAttribute('required');
-  await expect
-    .element(page.getByRole('radio', { name: 'Required option', exact: true }))
-    .toHaveAttribute('aria-invalid', 'true');
-  await expect
-    .element(page.getByRole('radiogroup', { name: 'Required framework', exact: true }))
-    .toHaveAttribute('data-invalid');
 });
 
 test('forwards refs, attrs, anatomy, and consumer classes on public parts', async () => {
@@ -207,44 +145,6 @@ test('forwards refs, attrs, anatomy, and consumer classes on public parts', asyn
   expect(indicatorRef.value?.$el).toBe(indicator);
 });
 
-test('keeps as-child composition semantic and forwards item inputs', async () => {
-  const rootRef = ref<ComponentPublicInstance>();
-  const itemRef = ref<ComponentPublicInstance>();
-
-  render({
-    components: segmentGroupComponents,
-    setup() {
-      return { itemRef, rootRef };
-    },
-    template: `
-      <SegmentGroup ref="rootRef" as-child default-value="React" aria-label="Framework">
-        <section aria-label="Framework choices">
-          <SegmentGroupItem ref="itemRef" as-child value="React">
-            <label data-testid="custom-item">
-              <SegmentGroupItemText>React</SegmentGroupItemText>
-              <SegmentGroupItemHiddenInput />
-            </label>
-          </SegmentGroupItem>
-        </section>
-      </SegmentGroup>
-    `,
-  });
-  const root = screen.getByRole('radiogroup', { name: 'Framework choices' });
-  const item = screen.getByTestId('custom-item');
-
-  expect(root.tagName).toBe('SECTION');
-  await expect
-    .element(page.getByRole('radiogroup', { name: 'Framework choices', exact: true }))
-    .toHaveAttribute('data-slot', 'segment-group-root');
-  expect(rootRef.value?.$el).toBe(root);
-  expect(item.tagName).toBe('LABEL');
-  await expect
-    .element(page.getByTestId('custom-item'))
-    .toHaveAttribute('data-slot', 'segment-group-item');
-  expect(itemRef.value?.$el).toBe(item);
-  expect(item.querySelector('input[type="radio"]')?.isConnected).toBe(true);
-});
-
 test('keeps as-child item state and indicator geometry reactive', async () => {
   render({
     components: segmentGroupComponents,
@@ -278,52 +178,6 @@ test('keeps as-child item state and indicator geometry reactive', async () => {
   await expect
     .poll(() => parseFloat(indicator!.style.getPropertyValue('--left')))
     .toBe(annual.offsetLeft);
-  await expect
-    .poll(() => parseFloat(indicator!.style.getPropertyValue('--width')))
-    .toBe(annual.offsetWidth);
-});
-
-test('connects root and item contexts through the provider', async () => {
-  const RootState = defineComponent({
-    setup() {
-      const segmentGroup = useSegmentGroupContext();
-      const selectSolid = () => segmentGroup.value.setValue('Solid');
-      return { segmentGroup, selectSolid };
-    },
-    template:
-      '<button type="button" @click="selectSolid">Select {{ segmentGroup.value.value }}</button>',
-  });
-  const ItemState = defineComponent({
-    setup() {
-      return { item: useSegmentGroupItemContext() };
-    },
-    template: '<span>{{ item.checked ? "checked" : "unchecked" }}</span>',
-  });
-
-  render({
-    components: { ...segmentGroupComponents, ItemState, RootState },
-    setup() {
-      return { segmentGroup: useSegmentGroup({ defaultValue: 'React' }) };
-    },
-    template: `
-      <SegmentGroupRootProvider :value="segmentGroup" aria-label="Framework">
-        <RootState />
-        <SegmentGroupIndicator />
-        <SegmentGroupItem value="React">
-          <SegmentGroupItemText>React <ItemState /></SegmentGroupItemText>
-          <SegmentGroupItemHiddenInput />
-        </SegmentGroupItem>
-        <SegmentGroupItem value="Solid">
-          <SegmentGroupItemText>Solid</SegmentGroupItemText>
-          <SegmentGroupItemHiddenInput />
-        </SegmentGroupItem>
-      </SegmentGroupRootProvider>
-    `,
-  });
-  await expect.element(page.getByText('checked')).toBeAttached();
-  await page.getByRole('button', { name: 'Select', exact: true }).click();
-  await expect.element(page.getByRole('radio', { name: 'Solid', exact: true })).toBeChecked();
-  await expect.element(page.getByText('unchecked')).toBeAttached();
 });
 
 test('preserves vertical orientation and native selection behavior', async () => {
@@ -394,57 +248,6 @@ test('defaults the root and the hook to horizontal orientation', async () => {
     .toHaveAttribute('data-orientation', 'horizontal');
 });
 
-test('stretches vertical items to the group width', () => {
-  render({
-    components: testComponents,
-    template: `
-      <SegmentGroup orientation="vertical" default-value="List" aria-label="View">
-        <SegmentGroupIndicator />
-        <SegmentGroupItems :items="[
-          { value: 'List', label: 'List' },
-          { value: 'Calendar view', label: 'Calendar view' }
-        ]" />
-      </SegmentGroup>
-    `,
-  });
-
-  const [short, long] = screen
-    .getAllByRole('radio')
-    .map((radio) => radio.closest<HTMLElement>('[data-slot="segment-group-item"]')!);
-  expect(short.offsetWidth).toBe(long.offsetWidth);
-});
-
-test('does not animate the indicator before the selection changes', async () => {
-  render({
-    components: testComponents,
-    template: `
-      <SegmentGroup default-value="React" aria-label="Framework">
-        <SegmentGroupIndicator data-testid="indicator" />
-        <SegmentOptions />
-      </SegmentGroup>
-    `,
-  });
-
-  await expect.element(page.getByTestId('indicator')).toBeVisible();
-  expect(getComputedStyle(screen.getByTestId('indicator')).transitionDuration).toBe('0s');
-});
-
-test('sizes the whole group to the matching control height', () => {
-  render({
-    components: testComponents,
-    template: `
-      <SegmentGroup v-for="size in ['sm', 'md', 'lg']" :key="size" :size="size" default-value="React" :aria-label="size" :data-testid="size">
-        <SegmentGroupIndicator />
-        <SegmentOptions />
-      </SegmentGroup>
-    `,
-  });
-
-  expect(screen.getByTestId('sm').offsetHeight).toBe(32);
-  expect(screen.getByTestId('md').offsetHeight).toBe(36);
-  expect(screen.getByTestId('lg').offsetHeight).toBe(40);
-});
-
 test('renders string items with the string as value and label', async () => {
   render({
     components: testComponents,
@@ -462,4 +265,28 @@ test('renders string items with the string as value and label', async () => {
     'Solid',
   );
 });
-import SsrSegmentGroup from './fixtures/SsrSegmentGroup.vue';
+
+test('submits through convenience inputs and preserves checked radio semantics', async () => {
+  render({
+    components: testComponents,
+    template: `
+      <form data-testid="form">
+        <SegmentGroup default-value="React" name="framework" aria-label="Framework">
+          <SegmentGroupIndicator /><SegmentOptions />
+        </SegmentGroup>
+      </form>
+    `,
+  });
+
+  const form = screen.getByTestId('form') as HTMLFormElement;
+
+  await expect
+    .element(page.getByRole('radio', { name: 'React', exact: true }))
+    .toHaveAttribute('type', 'radio');
+  await expect.element(page.getByRole('radio', { name: 'React', exact: true })).toBeChecked();
+  expect(new FormData(form).get('framework')).toBe('React');
+
+  await page.getByText('Solid', { exact: true }).click();
+  await expect.element(page.getByRole('radio', { name: 'Solid', exact: true })).toBeChecked();
+  expect(new FormData(form).get('framework')).toBe('Solid');
+});

@@ -175,7 +175,7 @@ function TreeNode({ node, indexPath }) {
 
 ## Defaults and styling
 
-- Moduix styling is applied through CSS Modules plus stable `data-slot` hooks.
+- moduix styling is applied through CSS Modules plus stable `data-slot` hooks.
 - CSS Modules expose only `--moduix-tree-view-width` (default `20rem`) and
   `--moduix-tree-view-indent` (default `var(--moduix-spacing-4)`); everything else comes from
   foundation tokens. Override a part with a class or a `data-slot` selector.

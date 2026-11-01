@@ -6,9 +6,9 @@ import {
   ImageCropperViewport,
   useImageCropper,
 } from '@moduix/react/image-cropper';
+import { Stack } from '@moduix/react/stack';
 import { useState } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';
-import styles from '@/components/examples/image-cropper/image-cropper-crop-preview.module.css';
 
 const sampleImage =
   'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=640&h=400&q=90';
@@ -41,7 +41,7 @@ export default function CropPreviewImageCropperDemo() {
   };
 
   return (
-    <div className={styles.stack}>
+    <Stack align="center" gap="3">
       <ImageCropperRootProvider value={imageCropper} aria-label="Image cropper">
         <ImageCropperViewport>
           <ImageCropperImage src={sampleImage} alt="Landscape" crossOrigin="anonymous" />
@@ -50,13 +50,11 @@ export default function CropPreviewImageCropperDemo() {
       </ImageCropperRootProvider>
       <PreviewMeta>
         <output>{status}</output>
-        {preview ? (
-          <img src={preview} alt="Cropped image preview" width={128} height={128} />
-        ) : null}
+        {preview ? <img src={preview} alt="Cropped preview" width={128} height={128} /> : null}
         <Button type="button" onClick={handleCrop}>
           Create crop preview
         </Button>
       </PreviewMeta>
-    </div>
+    </Stack>
   );
 }

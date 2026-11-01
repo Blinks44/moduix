@@ -8,7 +8,7 @@ export default function StackResponsiveDirectionDemo() {
         mobile: 'column',
         desktop: 'row',
       }}
-      gap={12}
+      gap="3"
       justify="center"
       style={{ inlineSize: '100%' }}
     >

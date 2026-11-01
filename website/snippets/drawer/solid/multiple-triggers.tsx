@@ -13,6 +13,7 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from '@moduix/solid/drawer';
+import { Stack } from '@moduix/solid/stack';
 import { For, Show, createSignal } from 'solid-js';
 import styles from '@/components/examples/drawer/drawer-multiple-triggers.module.css';
 
@@ -42,7 +43,7 @@ export default function MultipleTriggersDrawerDemo() {
 
   return (
     <Drawer swipeDirection="end" onTriggerValueChange={handleTriggerValueChange}>
-      <div class={styles.triggers}>
+      <Stack align="center" gap="2">
         <For each={users}>
           {(user) => (
             <DrawerTrigger
@@ -55,7 +56,7 @@ export default function MultipleTriggersDrawerDemo() {
             />
           )}
         </For>
-      </div>
+      </Stack>
       <DrawerBackdrop />
       <DrawerPositioner>
         <DrawerContent>

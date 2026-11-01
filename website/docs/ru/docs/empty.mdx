@@ -1,88 +1,52 @@
 ---
 title: Empty
 component: empty
-description: Компонент для экранов без результатов или данных, а также для первого запуска.
+description: "Пустой список или первый запуск: сообщение и следующие шаги."
+ark: https://ark-ui.com/docs/guides/composition#the-ark-factory
 ---
 
+import AnatomyScene from '@/components/examples/empty/basic';
 import * as EmptyDocs from '@/components/examples/empty/css-properties';
 
-## Справочник API
+<Example name="empty/basic" />
 
-В Ark UI нет отдельного примитива для пустых состояний. `moduix` создаёт `Empty` с помощью официальной
-[фабрики Ark](https://ark-ui.com/react/docs/guides/composition#the-ark-factory) и следует рекомендациям
-Ark по [композиции](https://ark-ui.com/react/docs/guides/composition),
-[стилизации](https://ark-ui.com/react/docs/guides/styling) и [работе с ref](https://ark-ui.com/react/docs/guides/ref).
-Структура компонента также опирается на [Empty State в Chakra UI](https://chakra-ui.com/docs/components/empty-state).
-В отличие от Chakra UI, `moduix` предоставляет `EmptyIcon` и `EmptyActions` как части, размещаемые
-непосредственно в корневом компоненте рядом с `EmptyContent`. Поэтому их можно располагать в нужном
-для экрана порядке.
+## Установка
 
-## Базовый пример
+<ComponentInstall />
 
+## Использование
+
+<Usage />
 
 Начните с `<Empty />` и добавьте нужные части компонента. Добавляйте `EmptyIcon` и `EmptyActions`
 только если к пустому состоянию нужна визуальная подсказка или понятное действие.
 
-<Example name="empty/basic" />
+## Примеры
 
-## Установка через shadcn
+### Без иконки
 
-Полную настройку пакета, реестра и стилей см. в разделе [Быстрый старт](/docs/quick-start).
+Иконка необязательна, поэтому состояние только с текстом остаётся компактным.
 
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
+<Example name="empty/without-icon" />
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/empty' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/empty' },
-  ]}
-/>
+### Без действий
 
-  </Tab>
-  <Tab label="Solid" value="solid">
+Не добавляйте `EmptyActions`, если состояние носит информационный характер и не требует немедленного действия.
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/empty' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/empty' },
-  ]}
-/>
+<Example name="empty/without-actions" />
 
-  </Tab>
-  <Tab label="Vue" value="vue">
+### Пользовательский элемент
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/empty' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/empty' },
-  ]}
-/>
+Используйте свойство `asChild` у `Empty`, если пустое состояние должно отрисовываться семантическим
+контейнером, например `section`. Если нужен другой уровень заголовка, используйте `asChild` у
+`EmptyTitle`. Компонент рендерит `EmptyDescription` как `div`, поэтому в нём можно размещать абзацы,
+ссылки и другую блочную разметку.
 
-  </Tab>
-</Tabs>
-
-## Анатомия
-
-```text
-Empty
-├─ EmptyIcon (необязательно)
-├─ EmptyContent
-│  ├─ EmptyTitle
-│  └─ EmptyDescription
-└─ EmptyActions (необязательно)
-```
-
-| Часть                  | Назначение                                                                            |
-| ---------------------- | ------------------------------------------------------------------------------------- |
-| `Empty`               | Корневой контейнер с отступами, границей, фоном и выравниванием.                       |
-| `EmptyIcon`           | Необязательный контейнер для иконки или другого небольшого визуального элемента.      |
-| `EmptyContent`        | Объединяет заголовок и описание с небольшими расстояниями между ними.                 |
-| `EmptyTitle`          | Основной заголовок пустого состояния.                                                 |
-| `EmptyDescription`    | Дополнительное содержимое под заголовком. Может включать абзацы, ссылки и другую блочную разметку. |
-| `EmptyActions`        | Необязательный ряд действий. Элементы переносятся, если не помещаются в одну строку.    |
+<Example name="empty/custom-element" />
 
 ## Композиция
+
+`EmptyIcon` и `EmptyActions` необязательны и находятся на одном уровне с `EmptyContent`, поэтому их можно расположить в нужном экрану порядке.
 
 Собирайте `Empty` из частей, расположенных непосредственно внутри корневого компонента.
 `EmptyContent` объединяет заголовок и описание, а `EmptyIcon` и `EmptyActions` являются
@@ -95,28 +59,22 @@ Empty
 свои свойства и `ref`. В Vue ref компонента предоставляет отрисованный host через `$el`. Нужную
 роль, область, управление фокусом или `aria-live` добавляйте в окружающем интерфейсе.
 
-## Примеры
+## Анатомия
 
-### Без действий
+Наведите на часть или выберите её, чтобы найти её в превью.
 
-Не добавляйте `EmptyActions`, если состояние носит информационный характер и не требует немедленного действия.
-
-<Example name="empty/without-actions" />
-
-### Без иконки
-
-Иконка необязательна, поэтому состояние только с текстом остаётся компактным.
-
-<Example name="empty/without-icon" />
-
-### Расширенная настройка
-
-Используйте свойство `asChild` у `Empty`, если пустое состояние должно отрисовываться семантическим
-контейнером, например `section`. Если нужен другой уровень заголовка, используйте `asChild` у
-`EmptyTitle`. Компонент рендерит `EmptyDescription` как `div`, поэтому в нём можно размещать абзацы,
-ссылки и другую блочную разметку.
-
-<Example name="empty/advanced-customization" />
+<AnatomyInspector
+  parts={[
+    ["Empty", "empty-root", "Корневой контейнер с отступами, границей, фоном и выравниванием.", 0],
+    ["EmptyIcon", "empty-icon", "Необязательный контейнер для иконки или другого небольшого визуального элемента.", 1],
+    ["EmptyContent", "empty-content", "Объединяет заголовок и описание с небольшими расстояниями между ними.", 1],
+    ["EmptyTitle", "empty-title", "Основной заголовок пустого состояния.", 2],
+    ["EmptyDescription", "empty-description", "Дополнительное содержимое под заголовком. Может включать абзацы, ссылки и другую блочную разметку.", 2],
+    ["EmptyActions", "empty-actions", "Необязательный ряд действий. Элементы переносятся, если не помещаются в одну строку.", 1],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Стилизация
 
@@ -126,11 +84,24 @@ Ark по атрибутам `data-scope="empty"` / `data-part` и стабиль
 могла перенастроить все пустые состояния сразу. Остальные части стилизуйте классом: он перекрывает
 слоистые стили компонента.
 
-### CSS-свойства
+### CSS-переменные
 
-<CssPropertiesSection properties={EmptyDocs.emptyOverrideCssProperties} />
+Наведите на переменную или выберите её, чтобы увидеть её в превью.
 
-### Точки для стилизации
+<CssPropertiesSection properties={EmptyDocs.emptyOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
+
+### Хуки стилизации
+
+| Часть | `data-slot` |
+| --- | --- |
+| `Empty` | `empty-root` |
+| `EmptyIcon` | `empty-icon` |
+| `EmptyContent` | `empty-content` |
+| `EmptyTitle` | `empty-title` |
+| `EmptyDescription` | `empty-description` |
+| `EmptyActions` | `empty-actions` |
 
 Выбирайте часть, которая отвечает за нужное визуальное свойство:
 
@@ -144,3 +115,11 @@ Ark по атрибутам `data-scope="empty"` / `data-part` и стабиль
   `[data-scope="empty"][data-part="description"]` или `[data-slot="empty-description"]` для типографики
 - `[data-scope="empty"][data-part="actions"]` или `[data-slot="empty-actions"]` для расстояний
   и выравнивания ряда действий
+
+## Справочник API
+
+Каждая часть принимает нативные пропсы своего элемента и `asChild`.
+
+| Проп | Тип | По умолчанию | Описание |
+| --- | --- | --- | --- |
+| `asChild` | `boolean` | `false` | Отрисовывает корень через единственный дочерний элемент, например ячейку таблицы. |

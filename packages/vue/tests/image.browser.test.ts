@@ -1,13 +1,13 @@
-import { page } from '@rstest/browser';
 import { expect, rs, test } from '@rstest/core';
 import { render, screen } from '@testing-library/vue';
 import { renderToString } from '@vue/server-renderer';
 import { createSSRApp, ref } from 'vue';
 import type { ComponentPublicInstance } from 'vue';
-import { Image, ImageSource } from '../src';
+import { Image, ImageSource } from '@/index';
 import SsrImage from './fixtures/SsrImage.vue';
 
 const imageUrl = 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4';
+
 const imageComponents = { Image, ImageSource };
 
 test('preserves native refs, attrs, generated sources, and invariant moduix hooks', () => {
@@ -115,22 +115,15 @@ test('leaves layout styles to the consumer when unstyled is set', () => {
   expect(screen.getByAltText('Mountain landscape').hasAttribute('style')).toBe(false);
 });
 
-test('preserves consumer classes and styles', async () => {
-  render(Image, {
-    props: {
-      src: imageUrl,
-      alt: 'Mountain landscape',
-      width: 800,
-      height: 520,
-      class: 'consumer-image',
-      style: { objectFit: 'contain' },
-    },
+test('casts bare unstyled and priority template attributes to true', () => {
+  render({
+    components: imageComponents,
+    template: `<Image :src="'${imageUrl}'" alt="Mountain landscape" :width="800" :height="520" unstyled priority />`,
   });
-
   const image = screen.getByAltText('Mountain landscape');
 
-  expect([...image.classList]).toEqual(expect.arrayContaining(['consumer-image']));
-  await expect.element(page.getByAltText('Mountain landscape')).toHaveCSS('object-fit', 'contain');
+  expect(image.hasAttribute('style')).toBe(false);
+  expect(image.getAttribute('loading')).toBe('eager');
 });
 
 test('hydrates picture composition without replacing native hosts', async () => {
@@ -164,6 +157,7 @@ test('hydrates picture composition without replacing native hosts', async () => 
     error.mockRestore();
   }
 });
+
 test('defaults local images to lazy loading and async decoding', () => {
   render(Image, {
     props: { src: '/__info-new/assets/photo.webp', alt: 'Local photo', width: 800, height: 520 },

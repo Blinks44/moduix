@@ -1,7 +1,7 @@
 @layer moduix.components {
   .root {
     margin: 0;
-    color: var(--moduix-color-foreground);
+    color: var(--moduix-foreground);
     font-size: var(--moduix-text-md);
     font-weight: var(--moduix-weight-regular);
     line-height: var(--moduix-line-height-text-md);
@@ -41,15 +41,15 @@
     }
 
     &[data-tone='muted'] {
-      color: var(--moduix-color-muted-foreground);
+      color: var(--moduix-muted-foreground);
     }
 
     &[data-tone='primary'] {
-      color: var(--moduix-color-primary);
+      color: var(--moduix-primary);
     }
 
     &[data-tone='destructive'] {
-      color: var(--moduix-color-destructive);
+      color: var(--moduix-destructive);
     }
 
     &[data-align='start'] {

@@ -8,9 +8,6 @@ import {
   SelectItem,
   SelectItemIndicator,
   SelectItemText,
-  SelectItemTextContent,
-  SelectItemTextIcon,
-  SelectItemTextLabel,
   SelectLabel,
   SelectPositioner,
 } from '@moduix/vue/select';
@@ -31,12 +28,7 @@ const fruits = createListCollection({
     <SelectPositioner>
       <SelectContent>
         <SelectItem v-for="item in fruits.items" :key="item.value" :item="item">
-          <SelectItemText>
-            <SelectItemTextContent>
-              <SelectItemTextIcon><Info aria-hidden="true" /></SelectItemTextIcon>
-              <SelectItemTextLabel>{{ item.label }}</SelectItemTextLabel>
-            </SelectItemTextContent>
-          </SelectItemText>
+          <SelectItemText><Info aria-hidden="true" />{{ item.label }}</SelectItemText>
           <SelectItemIndicator />
         </SelectItem>
       </SelectContent>

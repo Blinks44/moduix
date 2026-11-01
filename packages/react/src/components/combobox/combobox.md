@@ -204,7 +204,7 @@ Public CSS Modules variables are limited to sizes that several parts depend on:
 `--moduix-combobox-control-height`, `--moduix-combobox-action-size` (trigger, clear action, and the
 input space reserved for them), and `--moduix-combobox-content-max-height` (capped by
 `--available-height`). Everything else comes from foundation tokens or a class on the part. They are
-declared in `packages/foundation/src/styles/variables-moduix.css`. Popup variables must be set on
+declared in `website/src/components/examples/combobox/css-properties.tsx`. Popup variables must be set on
 `:root` or `ComboboxContent` because the content is portalled.
 
 - Content motion uses the shared `--moduix-popup-motion-*` tokens.

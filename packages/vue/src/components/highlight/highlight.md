@@ -48,14 +48,14 @@ Every matched `<mark>` receives:
 
 The CSS Modules track applies the component defaults through these public variables:
 
-| Variable                         | Default fallback                                                                   |
-| -------------------------------- | ---------------------------------------------------------------------------------- |
-| `--moduix-highlight-bg`          | `color-mix(in oklab, var(--moduix-color-warning) 40%, var(--moduix-color-accent))` |
-| `--moduix-highlight-color`       | `var(--moduix-color-foreground)`                                                   |
-| `--moduix-highlight-font-weight` | `var(--moduix-weight-medium)`                                                      |
-| `--moduix-highlight-padding-x`   | `var(--moduix-spacing-1)`                                                          |
-| `--moduix-highlight-padding-y`   | `0.0625rem`                                                                        |
-| `--moduix-highlight-radius`      | `var(--moduix-radius-xs)`                                                          |
+| Variable                         | Default fallback                                                       |
+| -------------------------------- | ---------------------------------------------------------------------- |
+| `--moduix-highlight-bg`          | `color-mix(in oklab, var(--moduix-warning) 40%, var(--moduix-accent))` |
+| `--moduix-highlight-color`       | `var(--moduix-foreground)`                                             |
+| `--moduix-highlight-font-weight` | `var(--moduix-weight-medium)`                                          |
+| `--moduix-highlight-padding-x`   | `var(--moduix-spacing-1)`                                              |
+| `--moduix-highlight-padding-y`   | `0.0625rem`                                                            |
+| `--moduix-highlight-radius`      | `var(--moduix-radius-xs)`                                              |
 
 ## Canonical Vue composition
 

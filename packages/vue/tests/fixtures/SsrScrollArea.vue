@@ -6,7 +6,7 @@ import {
   ScrollAreaScrollbar,
   ScrollAreaThumb,
   ScrollAreaCorner,
-} from '../../src/components/scroll-area';
+} from '@/components/scroll-area';
 </script>
 <template>
   <ScrollArea style="width: 240px; height: 120px">

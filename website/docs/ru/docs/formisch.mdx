@@ -1,16 +1,12 @@
 ---
 title: Formisch
-description: Подключайте компоненты Moduix к Formisch и Valibot во всех поддерживаемых фреймворках.
+description: Подключайте компоненты moduix к Formisch и Valibot во всех поддерживаемых фреймворках.
 ---
-
-import ProjectForm from '@/components/examples/formisch/complete-form.tsx';
-import formischSolidCompleteForm from '../../../snippets/formisch/solid/complete-form.tsx?raw';
-import formischVueCompleteForm from '../../../snippets/formisch/vue/complete-form.vue?raw';
 
 # Formisch
 
 [Formisch](https://formisch.dev) представляет собой библиотеку форм с нативными адаптерами и
-валидацией по схемам. Здесь показано, как связать ее состояние на базе Valibot с компонентами Moduix.
+валидацией по схемам. Здесь показано, как связать ее состояние на базе Valibot с компонентами moduix.
 
 ## Поддержка фреймворков
 
@@ -42,8 +38,8 @@ Vue использует `useForm` и scoped slot компонента `Field`. 
 
 ## Подключение компонентов
 
-Задайте псевдоним для Formisch `Field`, чтобы отличать его от Moduix `Field`. Компонент Formisch
-связывает путь схемы с состоянием, а компонент Moduix выводит подпись, ошибку и состояние доступности.
+Задайте псевдоним для Formisch `Field`, чтобы отличать его от moduix `Field`. Компонент Formisch
+связывает путь схемы с состоянием, а компонент moduix выводит подпись, ошибку и состояние доступности.
 
 | Компонент           | Подключение                                                          |
 | ------------------- | -------------------------------------------------------------------- |
@@ -52,7 +48,7 @@ Vue использует `useForm` и scoped slot компонента `Field`. 
 | `Combobox`          | Отдельно свяжите выбор, фильтрацию и фокус.                           |
 | `Checkbox`          | Преобразуйте `details.checked === true` в логическое значение.       |
 
-Передавайте `field.props.name` корневому компоненту Moduix. Оставляйте `HiddenSelect` или
+Передавайте `field.props.name` корневому компоненту moduix. Оставляйте `HiddenSelect` или
 `HiddenInput` в композиции, но не добавляйте еще один input для того же значения.
 
 ## Валидация и сброс
@@ -68,41 +64,9 @@ Vue использует `useForm` и scoped slot компонента `Field`. 
 ## Полная форма
 
 В примере объединены `Input`, `Select`, `Combobox`, `Textarea` и `Checkbox`. Каждый поддерживаемый адаптер использует
-одну схему, одинаковое поведение, композицию Moduix и стили. Интерактивный пример работает на React.
+одну схему, одинаковое поведение, композицию moduix и стили. Интерактивный пример работает на React.
 
-<ExampleFrame variant="component">
-  <PreviewFrame maxWidth="sm">
-    <ProjectForm />
-  </PreviewFrame>
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/formisch/complete-form.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={formischSolidCompleteForm} />
-
-    </Tab>
-  <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={formischVueCompleteForm} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/formisch/formisch-complete-form.module.css"
-```
-</div>
-</ExampleCode>
+<Example name="formisch/complete-form" />
 
 ## Повторяющиеся поля и серверные ошибки
 

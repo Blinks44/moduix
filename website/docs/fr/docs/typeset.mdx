@@ -1,21 +1,72 @@
 ---
 title: Typeset
 component: typeset
-description: Appliquez un rythme de lecture au HTML sémantique, au Markdown rendu et au contenu diffusé en continu.
+description: Mettre en forme le Markdown rendu, le contenu CMS et les réponses d’IA.
+ark: https://ark-ui.com/docs/guides/composition#the-ark-factory
 ---
 
+import AnatomyScene from '@/components/examples/typeset/basic';
 import * as TypesetDocs from '@/components/examples/typeset/css-properties';
 
-## Référence de l’API
+<Example name="typeset/basic" />
+
+## Installation
+
+<ComponentInstall />
+
+## Utilisation
+
+<Usage />
+
+Placez le HTML déjà produit par votre moteur de rendu dans `<Typeset>`. Utilisez `asChild` seulement
+lorsque le conteneur extérieur doit être un élément sémantique, comme `article` ou `section`. Gardez
+les listes en `<ul>` et `<ol>` natifs : Typeset leur apporte les marqueurs et les espacements sans
+classes utilitaires.
+
+## Exemples
+
+### Rythme de lecture
+
+Réglez les variables CSS lorsqu’une section demande un rythme de lecture plus aéré ou plus dense,
+sans ajouter de propriétés au composant.
+
+<Example name="typeset/reading-rhythm" />
+
+### Extensions Markdown
+
+Les listes de tâches, blocs dépliables `details`, listes de définitions et notes de bas de page GFM
+utilisent les mêmes tokens et espacements entre blocs que les principaux éléments HTML.
+
+<Example name="typeset/markdown-extensions" />
+
+### Tableau défilant
+
+Placez une table créée par votre moteur de rendu dans `TypesetScroll` lorsqu’elle doit conserver sa
+largeur et défiler dans un conteneur étroit. Donnez à la zone de défilement un nom accessible qui
+identifie la table qu’elle contient.
+
+<Example name="typeset/scrollable-table" />
+
+### Exclure des éléments d’interface
+
+Excluez un sous-arbre lorsqu’il a sa propre mise en forme, par exemple un contrôle intégré ou une
+carte. `.not-typeset` comme `data-not-typeset` excluent l’élément marqué et tout son contenu, y
+compris une racine `Typeset` imbriquée.
+
+<Example name="typeset/excluded-subtree" />
+
+### Contenu diffusé en continu
+
+Pour un flux de messages, utilisez un rythme plus dense. Chaque nouveau bloc apporte son propre
+espacement, ainsi le contenu déjà affiché reste en place à mesure que le flux grandit.
+
+<Example name="typeset/streaming-content" />
+
+## Composition
 
 `Typeset` applique un rythme de lecture cohérent au HTML sémantique contenu dans son périmètre. Il ne
 rend ni n’analyse le Markdown, ne filtre pas le contenu non fiable et ne définit pas la largeur du
 texte. Ces choix restent du ressort de l’application.
-
-moduix construit `Typeset` avec la
-[factory d’Ark](https://ark-ui.com/docs/guides/composition#the-ark-factory). `Typeset` et
-`TypesetScroll` acceptent donc les attributs natifs d’un `div`, les refs et la composition via
-`asChild`.
 
 Dans Vue, utilisez l’attribut natif `tabindex` pour modifier l’ordre de tabulation de la zone de
 défilement. L’élément rendu est accessible via `$el` sur la ref du composant.
@@ -26,66 +77,6 @@ contrôlent le rythme, tandis que le rendu du contenu et sa largeur restent à l
 l’application ; moduix ajoute des composants natifs pour React, Solid et Vue ainsi que
 `TypesetScroll`.
 
-## Exemple de base
-
-Placez le HTML déjà produit par votre moteur de rendu dans `<Typeset>`. Utilisez `asChild` seulement
-lorsque le conteneur extérieur doit être un élément sémantique, comme `article` ou `section`. Gardez
-les listes en `<ul>` et `<ol>` natifs : Typeset leur apporte les marqueurs et les espacements sans
-classes utilitaires.
-
-<Example name="typeset/basic" />
-
-## Installation avec shadcn
-
-Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration complète du paquet, du registre et des styles.
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/typeset' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/typeset' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/typeset' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/typeset' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/typeset' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/typeset' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Anatomie
-
-```text
-Typeset
-└─ TypesetScroll (facultatif)
-```
-
-| Partie | Rôle |
-| --- | --- |
-| `Typeset` | Conteneur racine qui applique les styles aux descendants sémantiques. |
-| `TypesetScroll` | Zone de défilement horizontal focusable pour un bloc rendu large. |
-
-## Composition
-
 `Typeset` ne gère aucun état, n’analyse ni ne filtre le contenu et n’en définit pas la largeur.
 Gardez les éléments sémantiques rendus dans la racine, utilisez `asChild` lorsque celle-ci doit être
 un `article` ou une `section`, et composez `TypesetScroll` autour d’un bloc large qui doit défiler
@@ -95,50 +86,28 @@ de flux et l’élargissement des tableaux du bloc enveloppé proviennent des r�
 mise en forme. Une zone de défilement destinée aux utilisateurs doit avoir un nom accessible ;
 `TypesetScroll` peut recevoir le focus au clavier par défaut.
 
-## Exemples
+## Anatomie
 
-### Exclure des éléments d’interface
+Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
 
-Excluez un sous-arbre lorsqu’il a sa propre mise en forme, par exemple un contrôle intégré ou une
-carte. `.not-typeset` comme `data-not-typeset` excluent l’élément marqué et tout son contenu, y
-compris une racine `Typeset` imbriquée.
-
-<Example name="typeset/excluded-subtree" />
-
-### Extensions Markdown
-
-Les listes de tâches, blocs dépliables `details`, listes de définitions et notes de bas de page GFM
-utilisent les mêmes tokens et espacements entre blocs que les principaux éléments HTML.
-
-<Example name="typeset/markdown-extensions" />
-
-### Rythme de lecture
-
-Réglez les variables CSS lorsqu’une section demande un rythme de lecture plus aéré ou plus dense,
-sans ajouter de propriétés au composant.
-
-<Example name="typeset/reading-rhythm" />
-
-### Tableau défilant
-
-Placez une table créée par votre moteur de rendu dans `TypesetScroll` lorsqu’elle doit conserver sa
-largeur et défiler dans un conteneur étroit. Donnez à la zone de défilement un nom accessible qui
-identifie la table qu’elle contient.
-
-<Example name="typeset/scrollable-table" />
-
-### Contenu diffusé en continu
-
-Pour un flux de messages, utilisez un rythme plus dense. Chaque nouveau bloc apporte son propre
-espacement, ainsi le contenu déjà affiché reste en place à mesure que le flux grandit.
-
-<Example name="typeset/streaming-content" />
+<AnatomyInspector
+  parts={[
+    ["Typeset", "typeset", "Conteneur racine qui applique les styles aux descendants sémantiques.", 0],
+    ["TypesetScroll", "typeset-scroll", "Zone de défilement horizontal focusable pour un bloc rendu large.", 1],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styles
 
-### Propriétés CSS
+### Variables CSS
 
-<CssPropertiesSection properties={TypesetDocs.typesetOverrideCssProperties} />
+Survolez ou sélectionnez une variable pour la voir dans l’aperçu.
+
+<CssPropertiesSection properties={TypesetDocs.typesetOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 Utilisez `--moduix-typeset-size`, `--moduix-typeset-leading` et `--moduix-typeset-flow` pour régler
 le rythme de lecture. Les variables de police sont facultatives ; les couleurs, bordures et rayons
@@ -154,7 +123,18 @@ dernier ; les six variables CSS personnalisent donc les deux variantes.
 
 ### Points d’accroche CSS
 
-- `data-slot="typeset"` cible le conteneur racine.
-- `data-slot="typeset-scroll"` cible la zone de débordement facultative et son état au focus.
+| Partie | `data-slot` |
+| --- | --- |
+| `Typeset` | `typeset` |
+| `TypesetScroll` | `typeset-scroll` |
+
 - `[data-scope="typeset"][data-part="root"]` et `[data-part="scroll"]` fournissent des points
   d’accroche stables pour les parties du composant.
+
+## Référence de l’API
+
+Accepte aussi les props natives de son élément et `asChild`.
+
+| Prop | Type | Défaut | Description |
+| --- | --- | --- | --- |
+| `asChild` | `boolean` | `false` | Applique les styles de lecture à son unique enfant, par exemple `article`. |

@@ -1,13 +1,24 @@
 ---
 title: En-tête d’application
 description: En-tête d’application responsive avec navigation principale, espace de travail actif, recherche et actions liées au compte.
+block: app-header
 ---
 
 import { AppHeader } from '@/components/blocks/app-header';
 import appHeaderSolid from '../../../snippets/blocks/solid/app-header.tsx?raw';
 import appHeaderVue from '../../../snippets/blocks/vue/app-header.vue?raw';
+import appHeaderReact from '../../../src/components/blocks/app-header.tsx?raw';
+import appHeaderCss from '../../../src/components/blocks/app-header.module.css?raw';
 
 # En-tête d’application
+
+<ExamplePanel
+  clientOnly
+  sources={{ react: appHeaderReact, solid: appHeaderSolid, vue: appHeaderVue }}
+  files={[{ name: 'app-header.module.css', code: appHeaderCss }]}
+>
+  <AppHeader />
+</ExamplePanel>
 
 Cette composition montre comment composer un en-tête d’application responsive avec `Avatar`, `Button`,
 `CommandPalette` et `Menu`. Elle réunit le lien vers le produit, l’espace de travail actif, la
@@ -26,51 +37,6 @@ dépendances, puis remplacez la navigation et les données de compte d’exemple
 - Des noms accessibles pour les contrôles composés uniquement d’une icône et un affichage de secours pour l’avatar.
 
 L’aperçu utilise React. Les onglets présentent le code React, Solid et Vue avec une feuille de style commune.
-
-
-
-<ExampleFrame variant="block" clientOnly>
-  <AppHeader />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/blocks/app-header.tsx"
-
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={appHeaderSolid} />
-
-    </Tab>
-  <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={appHeaderVue} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/blocks/app-header.module.css"
-
-```
-</div>
-
-</ExampleCode>
 
 ## Installation
 

@@ -1,16 +1,24 @@
 ---
 title: Text
 component: text
-description: Un composant typographique pour le texte courant ou en ligne, l’emphase sémantique et les aperçus tronqués.
+description: Composer le texte courant, les légendes et le texte en ligne.
+ark: https://ark-ui.com/docs/guides/composition#the-ark-factory
 ---
 
+import AnatomyScene from '@/components/examples/text/basic';
 
-## Référence de l’API
+<Example name="text/basic" />
 
-Ark UI ne propose pas de composant `Text` dédié. moduix propose ce composant typographique, construit avec la
-[fabrique Ark](https://ark-ui.com/docs/guides/composition#the-ark-factory) officielle, et suit les recommandations
-d’Ark concernant la [composition](https://ark-ui.com/docs/guides/composition), les
-[styles](https://ark-ui.com/docs/guides/styling) et les [refs](https://ark-ui.com/docs/guides/ref).
+## Installation
+
+<ComponentInstall />
+
+## Utilisation
+
+<Usage />
+
+Utilisez l’élément `p` par défaut pour un paragraphe. Passez `as` lorsque le contenu doit utiliser une autre balise HTML
+sémantique tout en conservant le style typographique de `Text`.
 
 ## Choisir le bon composant
 
@@ -21,84 +29,7 @@ suivre l’échelle typographique de moduix.
 - Choisissez **`Text`** lorsque le contenu doit conserver la sémantique d’un paragraphe ou d’un texte en ligne tout en utilisant les styles du texte courant.
 - Utilisez du CSS local lorsque le besoin concerne la mise en page du texte enrichi, l’espacement ou le dépliage d’un texte tronqué.
 
-## Exemple de base
-
-
-Utilisez l’élément `p` par défaut pour un paragraphe. Passez `as` lorsque le contenu doit utiliser une autre balise HTML
-sémantique tout en conservant le style typographique de `Text`.
-
-<Example name="text/basic" />
-
-## Installation avec shadcn
-
-Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration complète du paquet, du registre et des styles.
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/text' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/text' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/text' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/text' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/text' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/text' },
-  ]}
-/>
-
-  </Tab>
-  </Tabs>
-
-## Anatomie
-
-`Text` rend un seul élément racine avec la fabrique Ark via l’export racine plat.
-
-```text
-Text
-└─ texte ou contenu en ligne
-```
-
-| Partie                | Rôle                                                                  |
-| --------------------- | --------------------------------------------------------------------- |
-| `Text`              | Racine typographique avec sémantique HTML et attributs `data-*` stables. |
-
-## Composition
-
-`Text` se limite à un élément racine et ne possède ni état ni sous-parties. Utilisez `<Text>` pour l’élément racine,
-`as` pour une balise sémantique prise en charge et `asChild` seulement lorsqu’un élément
-existant doit recevoir les propriétés et la `ref` du texte. La troncature ne fait que limiter l’affichage ; l’état et le
-contrôle du dépliage restent dans l’interface environnante.
-
 ## Exemples
-
-### Alignement
-
-Utilisez `align` lorsque l’alignement appartient au texte lui-même et non à son conteneur.
-
-<Example name="text/alignment" />
-
-### Sémantique
-
-Utilisez `as` pour choisir une balise HTML sémantique tout en conservant le style typographique de `Text`.
-
-<Example name="text/semantics" />
 
 ### Taille
 
@@ -106,11 +37,23 @@ Utilisez `size` pour modifier la hiérarchie visuelle sans changer de composant 
 
 <Example name="text/size" />
 
+### Graisse
+
+Utilisez `weight` lorsque l’emphase doit rester dans le même élément sémantique.
+
+<Example name="text/weight" />
+
 ### Tonalité
 
 Utilisez `tone` pour indiquer le rôle du texte sans ajouter de classe de couleur locale.
 
 <Example name="text/tone" />
+
+### Alignement
+
+Utilisez `align` lorsque l’alignement appartient au texte lui-même et non à son conteneur.
+
+<Example name="text/alignment" />
 
 ### Troncature
 
@@ -120,18 +63,39 @@ pas sur la troncature sur une ligne. Ajoutez le comportement de dépliage dans l
 
 <Example name="text/truncation" />
 
-### Graisse
+### Sémantique
 
-Utilisez `weight` lorsque l’emphase doit rester dans le même élément sémantique.
+Utilisez `as` pour choisir une balise HTML sémantique tout en conservant le style typographique de `Text`.
 
-<Example name="text/weight" />
+<Example name="text/semantics" />
 
-### Personnalisation avancée
+### Élément personnalisé
 
 Utilisez `asChild` lorsque la racine doit être un élément personnalisé existant plutôt que l’une des valeurs prises en
 charge par `as`. L’enfant doit être un élément unique capable d’accepter les propriétés transmises et la `ref`.
 
-<Example name="text/custom-composition" />
+<Example name="text/custom-element" />
+
+## Composition
+
+`Text` se limite à un élément racine et ne possède ni état ni sous-parties. Utilisez `<Text>` pour l’élément racine,
+`as` pour une balise sémantique prise en charge et `asChild` seulement lorsqu’un élément
+existant doit recevoir les propriétés et la `ref` du texte. La troncature ne fait que limiter l’affichage ; l’état et le
+contrôle du dépliage restent dans l’interface environnante.
+
+## Anatomie
+
+`Text` rend un seul élément racine avec la fabrique Ark via l’export racine plat.
+
+Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
+
+<AnatomyInspector
+  parts={[
+    ["Text", "text-root", "Racine typographique avec sémantique HTML et attributs `data-*` stables.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styles
 
@@ -142,8 +106,11 @@ remplace les styles du composant.
 
 ### Points d’accroche CSS
 
+| Partie | `data-slot` |
+| --- | --- |
+| `Text` | `text-root` |
+
 - `data-scope="text"` et `data-part="root"` identifient la racine utilisée par Ark.
-- `data-slot="text-root"` est le sélecteur moduix stable de la racine exportée.
 - `data-size` reflète la taille visuelle calculée : `xs`, `sm`, `md`, `lg` ou `xl`.
 - `data-weight` reflète la graisse calculée : `regular`, `medium`, `semibold` ou `bold`.
 - `data-tone` reflète la tonalité active : `default`, `muted`, `primary` ou `destructive`.
@@ -151,3 +118,17 @@ remplace les styles du composant.
 - `data-truncate` apparaît lorsque la troncature sur une ligne avec points de suspension est active.
 - `data-line-clamp` apparaît lorsque `lineClamp` est un entier positif ; le nombre de lignes est défini en
   style en ligne via `-webkit-line-clamp`.
+
+## Référence de l’API
+
+Accepte aussi les props natives de son élément et `asChild`.
+
+| Prop | Type | Défaut | Description |
+| --- | --- | --- | --- |
+| `as` | `'p' \| 'span' \| 'small' \| 'strong' \| 'em' \| 'div'` | `'p'` | Élément rendu : `p`, `span`, `small`, `strong`, `em` ou `div`. |
+| `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'` | — | Taille du texte, de `xs` à `xl`. |
+| `weight` | `'regular' \| 'medium' \| 'semibold' \| 'bold'` | — | Graisse : `regular`, `medium`, `semibold` ou `bold`. |
+| `tone` | `'default' \| 'muted' \| 'primary' \| 'destructive'` | `'default'` | Couleur du texte : `default`, `muted`, `primary` ou `destructive`. |
+| `align` | `'start' \| 'center' \| 'end' \| 'left' \| 'right' \| 'justify'` | — | Alignement du texte. |
+| `truncate` | `boolean` | `false` | Garde le texte sur une ligne avec des points de suspension. |
+| `lineClamp` | `number` | — | Limite le texte à ce nombre de lignes. |

@@ -28,7 +28,7 @@ const contentStyle = {
   'overflow-y': 'auto',
   'overscroll-behavior': 'contain',
   padding: 'var(--moduix-spacing-3)',
-  border: 'var(--moduix-border-width-sm) solid var(--moduix-color-border)',
+  border: 'var(--moduix-border-width-sm) solid var(--moduix-border)',
   'border-radius': 'var(--moduix-radius-md)',
 } as const satisfies JSX.CSSProperties;
 
@@ -54,7 +54,7 @@ function TocExample(props: { withRail?: boolean }) {
             <section
               style={{
                 padding: 'var(--moduix-spacing-3)',
-                border: 'var(--moduix-border-width-sm) solid var(--moduix-color-border)',
+                border: 'var(--moduix-border-width-sm) solid var(--moduix-border)',
                 'border-radius': 'var(--moduix-radius-md)',
               }}
             >

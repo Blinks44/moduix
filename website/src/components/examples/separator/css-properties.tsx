@@ -1,7 +1,7 @@
 import type { CssPropertyInput } from '../../mdx/reference';
 
 export const separatorOverrideCssProperties: CssPropertyInput[] = [
-  ['--moduix-separator-color', 'var(--moduix-color-border)', 'Controls the separator color.'],
+  ['--moduix-separator-color', 'var(--moduix-border)', 'Controls the separator color.'],
   [
     '--moduix-separator-thickness',
     'active size thickness',

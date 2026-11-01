@@ -10,47 +10,39 @@
   }
 
   .currency {
-    color: var(--moduix-color-foreground);
+    color: var(--moduix-foreground);
     font-weight: var(--moduix-weight-medium);
   }
 
   .customGroup {
     --moduix-input-group-radius: var(--moduix-radius-lg);
 
-    border-color: color-mix(in oklab, var(--moduix-color-primary) 35%, transparent);
+    border-color: color-mix(in oklab, var(--moduix-primary) 35%, transparent);
 
     &:focus-within {
-      outline-color: color-mix(in oklab, var(--moduix-color-primary) 50%, transparent);
+      outline-color: color-mix(in oklab, var(--moduix-primary) 50%, transparent);
     }
   }
 
   .customAddon {
-    background-color: color-mix(
-      in oklab,
-      var(--moduix-color-primary) 14%,
-      var(--moduix-color-background)
-    );
-    color: var(--moduix-color-primary);
+    background-color: color-mix(in oklab, var(--moduix-primary) 14%, var(--moduix-background));
+    color: var(--moduix-primary);
     font-weight: var(--moduix-weight-semibold);
   }
 
   .customButton {
     --moduix-button-bg-hover: color-mix(
       in oklab,
-      var(--moduix-color-primary) 18%,
-      var(--moduix-color-background)
+      var(--moduix-primary) 18%,
+      var(--moduix-background)
     );
 
     margin: var(--moduix-spacing-1);
     border: var(--moduix-border-width-sm) solid
-      color-mix(in oklab, var(--moduix-color-primary) 28%, transparent);
+      color-mix(in oklab, var(--moduix-primary) 28%, transparent);
     border-radius: var(--moduix-radius-sm);
-    background-color: color-mix(
-      in oklab,
-      var(--moduix-color-primary) 10%,
-      var(--moduix-color-background)
-    );
-    color: var(--moduix-color-primary);
+    background-color: color-mix(in oklab, var(--moduix-primary) 10%, var(--moduix-background));
+    color: var(--moduix-primary);
     font-weight: var(--moduix-weight-semibold);
   }
 

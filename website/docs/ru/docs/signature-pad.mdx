@@ -1,89 +1,79 @@
 ---
 title: Signature Pad
 component: signature-pad
-description: Поле для рисования рукописной подписи указателем или касанием.
+description: Рукописная подпись мышью, пером или пальцем прямо на странице.
+ark: https://ark-ui.com/docs/components/signature-pad
 ---
 
+import AnatomyScene from '@/components/examples/signature-pad/basic';
 import * as SignaturePadDocs from '@/components/examples/signature-pad/css-properties';
 
-## Справочник API
+<Example name="signature-pad/basic" />
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/signature-pad" />
+## Установка
 
-## Базовый пример
+<ComponentInstall />
 
+## Использование
+
+<Usage />
 
 Для большинства случаев начните с `SignaturePadCanvas`. Он выводит стандартную область рисования
 с частями Ark `SignaturePadControl`, `SignaturePadSegment`, `SignaturePadClearTrigger` и
 `SignaturePadGuide`, а также со стандартной кнопкой
 очистки moduix.
 
-<Example name="signature-pad/basic" />
+## Примеры
 
-## Установка через shadcn
+### Рисование
 
-Полную настройку пакета, реестра и стилей см. в разделе [Быстрый старт](/docs/quick-start).
+Передайте `drawing`, если нужно изменить толщину или цвет штриха либо поведение имитации давления.
+Значение по умолчанию в рантайме - `{ size: 2, simulatePressure: false }` (на странице документации
+Ark показано `simulatePressure: true`), поэтому имитация давления включается явно.
 
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
+<Example name="signature-pad/drawing" />
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/signature-pad' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/signature-pad' },
-  ]}
-/>
+### Предпросмотр изображения
 
-  </Tab>
-  <Tab label="Solid" value="solid">
+Используйте `onDrawEnd`, чтобы экспортировать подпись и показать её перед сохранением.
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/signature-pad' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/signature-pad' },
-  ]}
-/>
+<Example name="signature-pad/image-preview" />
 
-  </Tab>
-  <Tab label="Vue" value="vue">
+### Поле формы
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/signature-pad' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/signature-pad' },
-  ]}
-/>
+Используйте `Field` вокруг `SignaturePad`, когда текст-подсказка, текст ошибки, обязательность или
+сообщение о некорректном значении относятся к одному элементу формы.
 
-  </Tab>
-</Tabs>
+<Example name="signature-pad/field" />
 
-## Анатомия
+### Сериализация формы
 
-```text
-SignaturePad
-├─ SignaturePadLabel
-├─ SignaturePadCanvas (готовая композиция moduix)
-│  └─ SignaturePadControl
-│     ├─ SignaturePadSegment
-│     ├─ SignaturePadClearTrigger
-│     └─ SignaturePadGuide
-└─ SignaturePadHiddenInput value={serializedPaths} (явно)
+Сериализуйте в потребителе значение для `SignaturePadHiddenInput`, когда серверу нужен другой
+формат. В этом примере отправляется JSON-массив.
 
-SignaturePadRootProvider
-└─ то же дерево частей, подключённое к состоянию useSignaturePad()
-```
+<Example name="signature-pad/form-serialization" />
 
-| Часть                                | Назначение                                                                    |
-| ------------------------------------ | ----------------------------------------------------------------------------- |
-| `SignaturePad`             | Хранит пути, параметры рисования, имя поля формы, идентификаторы и колбэки.    |
-| `SignaturePadHiddenInput`  | Нативное поле Ark, которое нужно добавлять явно.                              |
-| `SignaturePadRootProvider` | Выводит то же дерево частей из состояния, созданного через `useSignaturePad()`. |
-| `SignaturePadLabel`        | Связывает видимую подпись с областью рисования и скрытым полем формы.         |
-| `SignaturePadCanvas`       | Готовая область рисования со стандартными частями; передаёт свойства `SignaturePadControl`. |
-| `SignaturePadControl`      | Область рисования указателем или касанием, доступная для фокуса.              |
-| `SignaturePadSegment`      | SVG-слой для сохранённых штрихов и текущего незавершённого штриха.            |
-| `SignaturePadClearTrigger` | Нативная кнопка очистки путей.                                                |
-| `SignaturePadGuide`        | Неинтерактивная линия для подписи внутри области рисования.                  |
+### Управляемое состояние
+
+Используйте управляемый `paths`, чтобы хранить подпись в состоянии приложения и связывать её с
+кнопками сброса или логикой автосохранения. Подробнее в разделе [Управляйте состоянием из приложения](/docs/composition-patterns#controlled-state).
+
+<Example name="signature-pad/controlled" />
+
+### Root Provider
+
+Создайте состояние с помощью `useSignaturePad()` и передайте его в `SignaturePadRootProvider`, когда элементам
+вне выводимого дерева нужен прямой доступ к `paths`, `clear()` или `getDataUrl()`. Подробнее в разделе [Выносите состояние за пределы дерева](/docs/composition-patterns#root-provider).
+
+<Example name="signature-pad/root-provider" />
+
+### Сборка из частей
+
+То же поле подписи, что в Basic, но без `SignaturePadCanvas`: `SignaturePadControl` содержит
+`SignaturePadSegment`, `SignaturePadClearTrigger` с явной иконкой и `SignaturePadGuide`. Начинайте с
+него, если дизайн меняет кнопку очистки или убирает направляющую.
+
+<Example name="signature-pad/build-from-parts" />
 
 ## Композиция
 
@@ -109,64 +99,47 @@ SignaturePadRootProvider
 `Field` или `useSignaturePad()`, предотвращая необратимую очистку, тогда как программный `clear()`
 остаётся доступным.
 
-## Примеры
+## Анатомия
 
-### Управляемое состояние
+Наведите на часть или выберите её, чтобы найти её в превью.
 
-Используйте управляемый `paths`, чтобы хранить подпись в состоянии приложения и связывать её с
-кнопками сброса или логикой автосохранения.
-
-<Example name="signature-pad/controlled" />
-
-### Рисование
-
-Передайте `drawing`, если нужно изменить толщину или цвет штриха либо поведение имитации давления.
-Значение по умолчанию в рантайме - `{ size: 2, simulatePressure: false }` (на странице документации
-Ark показано `simulatePressure: true`), поэтому имитация давления включается явно.
-
-<Example name="signature-pad/drawing" />
-
-### Поле формы
-
-Используйте `Field` вокруг `SignaturePad`, когда текст-подсказка, текст ошибки, обязательность или
-сообщение о некорректном значении относятся к одному элементу формы.
-
-<Example name="signature-pad/field" />
-
-### Сериализация формы
-
-Сериализуйте в потребителе значение для `SignaturePadHiddenInput`, когда серверу нужен другой
-формат. В этом примере отправляется JSON-массив.
-
-<Example name="signature-pad/form-serialization" />
-
-### Предпросмотр изображения
-
-Используйте `onDrawEnd`, чтобы экспортировать подпись и показать её перед сохранением.
-
-<Example name="signature-pad/image-preview" />
-
-### Root Provider
-
-Создайте состояние с помощью `useSignaturePad()` и передайте его в `SignaturePadRootProvider`, когда элементам
-вне выводимого дерева нужен прямой доступ к `paths`, `clear()` или `getDataUrl()`.
-
-<Example name="signature-pad/root-provider" />
-
-### Расширенная настройка
-
-Используйте отдельные части вместо `SignaturePadCanvas`, если нужно управлять деревом частей рисования или
-предоставить собственную кнопку очистки.
-
-<Example name="signature-pad/advanced-customization" />
+<AnatomyInspector
+  parts={[
+    ["SignaturePad", "signature-pad-root", "Хранит пути, параметры рисования, имя поля формы, идентификаторы и колбэки.", 0],
+    ["SignaturePadLabel", "signature-pad-label", "Связывает видимую подпись с областью рисования и скрытым полем формы.", 1],
+    ["SignaturePadCanvas", "", "Готовая область рисования со стандартными частями; передаёт свойства `SignaturePadControl`.", 1],
+    ["SignaturePadControl", "signature-pad-control", "Область рисования указателем или касанием, доступная для фокуса.", 2],
+    ["SignaturePadSegment", "signature-pad-segment", "SVG-слой для сохранённых штрихов и текущего незавершённого штриха.", 3],
+    ["SignaturePadClearTrigger", "signature-pad-clear-trigger", "Нативная кнопка очистки путей.", 3],
+    ["SignaturePadGuide", "signature-pad-guide", "Неинтерактивная линия для подписи внутри области рисования.", 3],
+    ["SignaturePadHiddenInput", "", "Нативное поле Ark, которое нужно добавлять явно.", 1],
+    ["SignaturePadRootProvider", "signature-pad-root-provider", "Выводит то же дерево частей из состояния, созданного через `useSignaturePad()`.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Стилизация
 
-### CSS-свойства
+### CSS-переменные
 
-<CssPropertiesSection properties={SignaturePadDocs.signaturePadCssProperties} />
+Наведите на переменную или выберите её, чтобы увидеть её в превью.
+
+<CssPropertiesSection properties={SignaturePadDocs.signaturePadCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Хуки стилизации
+
+| Часть | `data-slot` |
+| --- | --- |
+| `SignaturePad` | `signature-pad-root` |
+| `SignaturePadRootProvider` | `signature-pad-root-provider` |
+| `SignaturePadLabel` | `signature-pad-label` |
+| `SignaturePadControl` | `signature-pad-control` |
+| `SignaturePadSegment` | `signature-pad-segment` |
+| `SignaturePadGuide` | `signature-pad-guide` |
+| `SignaturePadClearTrigger` | `signature-pad-clear-trigger` |
 
 Используйте `className` в React или `class` в Solid и Vue на любой экспортируемой части для локальной
 стилизации. moduix также добавляет стабильные атрибуты `data-slot`:
@@ -186,3 +159,18 @@ Ark показано `simulatePressure: true`), поэтому имитация 
 внутренние пути сегмента предоставляют `data-scope="signature-pad"` и
 `data-part`; атрибут `data-disabled` появляется на корне, подписи, области рисования и линии
 ориентира, а `data-required` появляется на подписи.
+
+## Справочник API
+
+| Проп | Тип | По умолчанию | Описание |
+| --- | --- | --- | --- |
+| `paths` | `string[]` | — | SVG-пути подписи в управляемом режиме. |
+| `defaultPaths` | `string[]` | — | Начальные SVG-пути. |
+| `onDraw` | `(details: DrawDetails) => void` | — | Вызывается во время рисования и при изменении путей. |
+| `onDrawEnd` | `(details: DrawEndDetails) => void` | — | Вызывается в конце штриха; изображение получите через `getDataUrl`. |
+| `drawing` | `DrawingOptions` | `{ size: 2, simulatePressure: true }` | Параметры штриха: толщина, цвет и имитация нажима. |
+| `name` | `string` | — | Имя поля формы у внутреннего input. |
+| `disabled` | `boolean` | `false` | Отключает элемент управления. |
+| `readOnly` | `boolean` | `false` | Показывает значение, но не даёт его менять. |
+| `required` | `boolean` | `false` | Требует значение перед отправкой формы. |
+| `translations` | `IntlTranslations` | — | Переведённые строки для подписей доступности. |

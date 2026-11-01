@@ -11,14 +11,14 @@ import {
   DrawerTrigger,
   type DrawerSize,
 } from '@moduix/solid/drawer';
+import { Stack } from '@moduix/solid/stack';
 import { For } from 'solid-js';
-import styles from '@/components/examples/drawer/drawer-sizes.module.css';
 
 const sizes: DrawerSize[] = ['sm', 'md', 'lg', 'xl'];
 
 export default function DrawerSizesDemo() {
   return (
-    <div class={styles.row}>
+    <Stack direction="row" wrap="wrap" gap="2">
       <For each={sizes}>
         {(size) => (
           <Drawer swipeDirection="end">
@@ -45,6 +45,6 @@ export default function DrawerSizesDemo() {
           </Drawer>
         )}
       </For>
-    </div>
+    </Stack>
   );
 }

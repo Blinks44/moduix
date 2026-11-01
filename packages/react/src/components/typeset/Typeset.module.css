@@ -19,7 +19,7 @@
     font-family: var(--moduix-typeset-font-body);
     font-size: calc(var(--moduix-typeset-size) * 1.125);
     line-height: var(--moduix-typeset-leading);
-    color: var(--moduix-color-foreground);
+    color: var(--moduix-foreground);
     overflow-wrap: break-word;
 
     @media (min-width: 48rem), print {
@@ -44,7 +44,7 @@
 
     /* Headings. */
     &:where(h1, h2, h3, h4, h5, h6) {
-      color: var(--moduix-color-foreground);
+      color: var(--moduix-foreground);
       font-family: var(--moduix-typeset-font-heading);
       font-weight: 600;
       margin-block-end: 0;
@@ -73,7 +73,7 @@
       font-size: 0.875em;
       line-height: 1.5;
       font-weight: 500;
-      color: var(--moduix-color-muted-foreground);
+      color: var(--moduix-muted-foreground);
       margin-block-start: calc(var(--moduix-typeset-flow) / 0.875);
     }
     &:where(h6) {
@@ -82,7 +82,7 @@
       font-weight: 500;
       letter-spacing: 0.08em;
       text-transform: uppercase;
-      color: var(--moduix-color-muted-foreground);
+      color: var(--moduix-muted-foreground);
       margin-block-start: calc(var(--moduix-typeset-flow) / 0.8125);
     }
     /* Anchors. */
@@ -111,7 +111,7 @@
       }
     }
     &:where(a:focus-visible) {
-      outline: var(--moduix-focus-ring-width) solid var(--moduix-color-ring);
+      outline: var(--moduix-focus-ring-width) solid var(--moduix-ring);
       outline-offset: var(--moduix-focus-ring-offset);
       border-radius: 0.125em;
     }
@@ -124,7 +124,7 @@
       font-weight: 600;
     }
     &:where(mark) {
-      background-color: color-mix(in oklab, var(--moduix-color-warning) 40%, transparent);
+      background-color: color-mix(in oklab, var(--moduix-warning) 40%, transparent);
       color: inherit;
       padding: 0.05em 0.15em;
       border-radius: 0.2em;
@@ -136,7 +136,7 @@
       cursor: help;
     }
     &:where(del, s) {
-      color: var(--moduix-color-muted-foreground);
+      color: var(--moduix-muted-foreground);
       text-decoration-line: line-through;
     }
     &:where(sup, sub) {
@@ -193,7 +193,7 @@
       margin-block-start: 0.5em;
     }
     &:where(li)::marker {
-      color: var(--moduix-color-muted-foreground);
+      color: var(--moduix-muted-foreground);
     }
 
     /* GFM task lists. */
@@ -204,7 +204,7 @@
     &:where(li:global(.task-list-item) > input[type='checkbox']) {
       margin-inline-end: 0.5em;
       vertical-align: -0.1em;
-      accent-color: var(--moduix-color-primary);
+      accent-color: var(--moduix-primary);
     }
 
     /* Disclosures. */
@@ -217,7 +217,7 @@
       font-weight: 500;
     }
     &:where(summary)::marker {
-      color: var(--moduix-color-muted-foreground);
+      color: var(--moduix-muted-foreground);
     }
 
     /* Keyboard keys. */
@@ -225,7 +225,7 @@
       font-family: inherit;
       font-size: 0.85em;
       font-weight: 500;
-      border: 1px solid var(--moduix-color-border);
+      border: 1px solid var(--moduix-border);
       border-block-end-width: 2px;
       border-radius: min(var(--moduix-radius-sm), 0.35em);
       padding: 0.0625em 0.35em;
@@ -247,12 +247,12 @@
       margin-block-start: 0.25em;
       margin-inline-start: 0;
       padding-inline-start: 1em;
-      color: var(--moduix-color-muted-foreground);
+      color: var(--moduix-muted-foreground);
     }
 
     /* Inline code. */
     &:where(:not(pre) > code) {
-      background-color: var(--moduix-color-muted);
+      background-color: var(--moduix-muted);
       font-family: var(--moduix-typeset-font-mono);
       font-size: 0.85em;
       border-radius: min(var(--moduix-radius-sm), 0.35em);
@@ -261,7 +261,7 @@
 
     /* Code blocks. */
     &:where(pre) {
-      background-color: var(--moduix-color-muted);
+      background-color: var(--moduix-muted);
       font-family: var(--moduix-typeset-font-mono);
       font-size: 0.875em;
       line-height: 1.5;
@@ -283,7 +283,7 @@
 
     /* Blockquote. */
     &:where(blockquote) {
-      border-inline-start: 2px solid var(--moduix-color-border);
+      border-inline-start: 2px solid var(--moduix-border);
       padding-inline-start: 1em;
       margin-block-start: var(--moduix-typeset-flow);
       margin-block-end: 0;
@@ -293,7 +293,7 @@
     /* Dividers. */
     &:where(hr) {
       border: 0;
-      border-block-start: 1px solid var(--moduix-color-border);
+      border-block-start: 1px solid var(--moduix-border);
       margin-block-start: calc(var(--moduix-typeset-flow) * 2.4);
       margin-block-end: 0;
     }
@@ -304,10 +304,10 @@
     /* GFM footnotes. */
     &:where(:global(.footnotes), [data-footnotes]) {
       margin-block-start: calc(var(--moduix-typeset-flow) * 2);
-      border-block-start: 1px solid var(--moduix-color-border);
+      border-block-start: 1px solid var(--moduix-border);
       padding-block-start: var(--moduix-typeset-flow);
       font-size: 0.875em;
-      color: var(--moduix-color-muted-foreground);
+      color: var(--moduix-muted-foreground);
     }
 
     /* Math. */
@@ -336,7 +336,7 @@
       margin-inline: 0;
     }
     &:where(figcaption, caption) {
-      color: var(--moduix-color-muted-foreground);
+      color: var(--moduix-muted-foreground);
       font-size: 0.875em;
       text-align: center;
       margin-block-start: calc(0.75em / 0.875);
@@ -354,7 +354,7 @@
       font-variant-numeric: tabular-nums;
       border-collapse: separate;
       border-spacing: 0;
-      border-block-end: 1px solid var(--moduix-color-border);
+      border-block-end: 1px solid var(--moduix-border);
       margin-block-start: var(--moduix-typeset-flow);
       margin-block-end: 0;
     }
@@ -382,7 +382,7 @@
       padding: 0.75em 1em;
       text-align: start;
       vertical-align: top;
-      border-block-start: 1px solid var(--moduix-color-border);
+      border-block-start: 1px solid var(--moduix-border);
     }
     &:where(tbody th, tfoot th) {
       font-weight: 500;
@@ -472,7 +472,7 @@
   }
 
   .scroll:focus-visible {
-    outline: var(--moduix-focus-ring-width) solid var(--moduix-color-ring);
+    outline: var(--moduix-focus-ring-width) solid var(--moduix-ring);
     outline-offset: var(--moduix-focus-ring-inset-offset);
   }
 }

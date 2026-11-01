@@ -6,10 +6,26 @@ import { forwardRef } from 'react';
 import { cn } from '@/lib/moduix/cn';
 
 type StackDirection = 'row' | 'row-reverse' | 'column' | 'column-reverse';
+type StackSpacing =
+  | '0'
+  | '0.5'
+  | '1'
+  | '1.5'
+  | '2'
+  | '2.5'
+  | '3'
+  | '3.5'
+  | '4'
+  | '4.5'
+  | '5'
+  | '6'
+  | '7'
+  | '8'
+  | '10';
 
 type StackRootProps = HTMLArkProps<'div'> & {
   direction?: StackDirection | { mobile?: StackDirection; desktop?: StackDirection };
-  gap?: number | string;
+  gap?: number | StackSpacing | (string & {});
   align?: CSSProperties['alignItems'];
   justify?: CSSProperties['justifyContent'];
   wrap?: CSSProperties['flexWrap'];
@@ -39,6 +55,15 @@ const stackVariants = cva('flex', {
   },
 });
 
+// A spacing step such as `'2'` or `'1.5'` reads `--moduix-spacing-*`, so presets rescale the gap;
+// numbers are pixels and other strings are CSS lengths.
+function toGap(value: number | string | undefined) {
+  if (typeof value === 'number') return `${value}px`;
+  return value && /^\d+(\.5)?$/.test(value)
+    ? `var(--moduix-spacing-${value.replace('.', '-')})`
+    : value;
+}
+
 const Stack = forwardRef<HTMLElement, StackRootProps>(function Stack(
   { className, style, direction, gap, align, justify, wrap, fill, ...props },
   ref,
@@ -61,7 +86,7 @@ const Stack = forwardRef<HTMLElement, StackRootProps>(function Stack(
         className,
       )}
       style={{
-        gap,
+        gap: toGap(gap),
         alignItems: align,
         justifyContent: justify,
         flexWrap: wrap,
@@ -72,4 +97,4 @@ const Stack = forwardRef<HTMLElement, StackRootProps>(function Stack(
 });
 
 export { Stack };
-export type { StackDirection, StackRootProps };
+export type { StackDirection, StackRootProps, StackSpacing };

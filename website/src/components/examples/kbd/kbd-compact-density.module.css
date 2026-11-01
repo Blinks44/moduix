@@ -1,10 +1,3 @@
-.root {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: var(--moduix-spacing-2);
-}
-
 .dense {
   --moduix-kbd-height: 1.25rem;
   --moduix-kbd-padding-x: var(--moduix-spacing-1);

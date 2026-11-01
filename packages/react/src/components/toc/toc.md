@@ -11,7 +11,7 @@
 
 ## Public contract
 
-`Toc` is the root of the flat public API. It preserves Ark's `Content`, `Nav`, `Title`, `List`, `Item`, `Link`, `Indicator`, `RootProvider`, and `Context` parts under the names `TocContent`, `TocNav`, `TocTitle`, `TocList`, `TocItem`, `TocLink`, `TocIndicator`, `TocRootProvider`, and `TocContext`. Moduix adds `TocRail`, an optional SVG helper for visualising depth transitions. Every framework exports the Ark part prop types, `TocItemData`, `TocActiveChangeDetails`, `UseTocProps`, `UseTocReturn`, `UseTocContext`, and `TocRailProps`.
+`Toc` is the root of the flat public API. It preserves Ark's `Content`, `Nav`, `Title`, `List`, `Item`, `Link`, `Indicator`, `RootProvider`, and `Context` parts under the names `TocContent`, `TocNav`, `TocTitle`, `TocList`, `TocItem`, `TocLink`, `TocIndicator`, `TocRootProvider`, and `TocContext`. moduix adds `TocRail`, an optional SVG helper for visualising depth transitions. Every framework exports the Ark part prop types, `TocItemData`, `TocActiveChangeDetails`, `UseTocProps`, `UseTocReturn`, `UseTocContext`, and `TocRailProps`.
 
 The root receives an `items` array with heading `value` and `depth`. Render matching heading IDs in `TocContent`, then pass the same item to `TocItem` and link to `#${item.value}` with `TocLink`.
 
@@ -36,4 +36,4 @@ The root copies Ark's `--top` and `--height` into private `--_toc-indicator-*` v
 
 ## Differences from upstream
 
-The public component and hooks use the concise Ark-shaped names `Toc`, `useToc`, and `useTocContext`. The part model, state, callbacks, and behavior remain Ark-shaped. Moduix adds default styling, responsive layout, `data-slot` hooks, and a safe `autoScroll={false}` default.
+The public component and hooks use the concise Ark-shaped names `Toc`, `useToc`, and `useTocContext`. The part model, state, callbacks, and behavior remain Ark-shaped. moduix adds default styling, responsive layout, `data-slot` hooks, and a safe `autoScroll={false}` default.

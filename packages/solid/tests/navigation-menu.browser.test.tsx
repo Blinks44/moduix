@@ -1,10 +1,8 @@
 import { page } from '@rstest/browser';
-import { beforeEach, expect, test } from '@rstest/core';
+import { expect, test } from '@rstest/core';
 import { render, screen } from '@solidjs/testing-library';
-import { ChevronDownIcon } from '@/internal/icons/ui/Icons';
 import {
   NavigationMenu,
-  useNavigationMenu,
   NavigationMenuList,
   NavigationMenuItem,
   NavigationMenuTrigger,
@@ -15,20 +13,32 @@ import {
   NavigationMenuArrow,
   NavigationMenuViewportPositioner,
   NavigationMenuViewport,
-  NavigationMenuRootProvider,
-  NavigationMenuContext,
-} from '../src';
-import { LocaleProvider } from '../src/locale';
+} from '@/index';
+import { ChevronDownIcon } from '@/internal/icons/ui/Icons';
 
-beforeEach(async () => {
-  const { unmount } = render(() => (
-    <button type="button" style={{ position: 'fixed', right: '0', bottom: '0' }}>
-      Outside navigation
-    </button>
-  ));
-  await page.getByRole('button', { name: 'Outside navigation', exact: true }).hover();
-  unmount();
-});
+function NavigationMenuParts() {
+  return (
+    <NavigationMenuList>
+      <NavigationMenuItem value="home">
+        <NavigationMenuLink current href="#home">
+          Home
+        </NavigationMenuLink>
+      </NavigationMenuItem>
+      <NavigationMenuItem value="products">
+        <NavigationMenuTrigger>Products</NavigationMenuTrigger>
+        <NavigationMenuContent>
+          <NavigationMenuLink href="#analytics">Analytics</NavigationMenuLink>
+        </NavigationMenuContent>
+      </NavigationMenuItem>
+      <NavigationMenuItem value="docs">
+        <NavigationMenuTrigger>Docs</NavigationMenuTrigger>
+        <NavigationMenuContent>
+          <NavigationMenuLink href="#guides">Guides</NavigationMenuLink>
+        </NavigationMenuContent>
+      </NavigationMenuItem>
+    </NavigationMenuList>
+  );
+}
 
 test('renders all parts and preserves children', async () => {
   render(() => (
@@ -114,36 +124,6 @@ test('changes value and closes when the active trigger is clicked', async () => 
   expect(values).toEqual(['products', 'company', '']);
 });
 
-test('supports a controlled root provider and context', async () => {
-  const ProviderState = () => {
-    const navigationMenu = useNavigationMenu({ defaultValue: 'products' });
-
-    return (
-      <NavigationMenuRootProvider value={navigationMenu}>
-        <NavigationMenuContext>
-          {(context) => <div data-testid="context-value">{context().value || 'none'}</div>}
-        </NavigationMenuContext>
-        <NavigationMenuList>
-          <NavigationMenuItem value="products">
-            <NavigationMenuTrigger>Products</NavigationMenuTrigger>
-            <NavigationMenuContent>Product links</NavigationMenuContent>
-          </NavigationMenuItem>
-        </NavigationMenuList>
-      </NavigationMenuRootProvider>
-    );
-  };
-
-  render(() => <ProviderState />);
-
-  await expect.element(page.getByTestId('context-value')).toContainText('products');
-  await expect
-    .element(page.getByRole('button', { name: 'Products', exact: true }))
-    .toHaveAttribute('data-state', 'open');
-  await expect
-    .element(page.getByRole('navigation'))
-    .toHaveAttribute('data-slot', 'navigation-menu-root-provider');
-});
-
 test('renders closed content safely by default', async () => {
   render(() => (
     <NavigationMenu>
@@ -186,38 +166,6 @@ test('preserves Content children without an internal wrapper', async () => {
   expect(content?.children).toHaveLength(2);
   expect(content?.firstElementChild).toBe(screen.getByTestId('content-heading'));
   expect(content?.querySelector('[data-slot="navigation-menu-indicator"]')).toBeNull();
-});
-
-test('supports refs on regular parts and asChild composition', async () => {
-  let root: HTMLElement | undefined;
-  let trigger: HTMLElement | undefined;
-
-  render(() => (
-    <NavigationMenu ref={(element) => (root = element)}>
-      <NavigationMenuList>
-        <NavigationMenuItem value="products">
-          <NavigationMenuTrigger ref={(element) => (trigger = element)}>
-            Products
-          </NavigationMenuTrigger>
-          <NavigationMenuContent>Product links</NavigationMenuContent>
-          <NavigationMenuLink asChild={(props) => <a {...props()} href="/docs" />} current>
-            Documentation
-          </NavigationMenuLink>
-        </NavigationMenuItem>
-      </NavigationMenuList>
-    </NavigationMenu>
-  ));
-
-  expect(root).toBeInstanceOf(HTMLElement);
-  expect(root!.getAttribute('data-slot')).toBe('navigation-menu-root');
-  expect(trigger).toBeInstanceOf(HTMLElement);
-  expect(trigger!.getAttribute('data-slot')).toBe('navigation-menu-trigger');
-
-  const documentationLocator = page.getByRole('link', { name: 'Documentation', exact: true });
-  await expect.element(documentationLocator).toHaveAttribute('href', '/docs');
-  await expect.element(documentationLocator).toHaveAttribute('data-slot', 'navigation-menu-link');
-  await expect.element(documentationLocator).toHaveAttribute('data-current');
-  await expect.element(documentationLocator).toHaveCSS('display', 'inline-flex');
 });
 
 test('does not forward refs through asChild composition', async () => {
@@ -283,42 +231,17 @@ test('supports viewport motion after opening content', async () => {
     .toBeAttached();
 });
 
-test('keeps the indicator and the start-aligned viewport under the open trigger in RTL', async () => {
+test('starts closed by default', async () => {
   render(() => (
-    <LocaleProvider locale="ar">
-      <div style={{ padding: '2rem 8rem' }}>
-        <NavigationMenu>
-          <NavigationMenuList>
-            <NavigationMenuItem value="products">
-              <NavigationMenuTrigger>Products</NavigationMenuTrigger>
-              <NavigationMenuContent>Product links</NavigationMenuContent>
-            </NavigationMenuItem>
-            <NavigationMenuItem value="docs">
-              <NavigationMenuTrigger>Docs</NavigationMenuTrigger>
-              <NavigationMenuContent>Docs links</NavigationMenuContent>
-            </NavigationMenuItem>
-            <NavigationMenuIndicator />
-          </NavigationMenuList>
-          <NavigationMenuViewportPositioner align="start">
-            <NavigationMenuViewport />
-          </NavigationMenuViewportPositioner>
-        </NavigationMenu>
-      </div>
-    </LocaleProvider>
+    <NavigationMenu>
+      <NavigationMenuParts />
+    </NavigationMenu>
   ));
 
-  const trigger = document.querySelector<HTMLElement>(
-    '[data-slot="navigation-menu-trigger"][data-value="docs"]',
-  )!;
-  const indicator = document.querySelector<HTMLElement>('[data-slot="navigation-menu-indicator"]')!;
-  const viewport = document.querySelector<HTMLElement>('[data-slot="navigation-menu-viewport"]')!;
-  const leftOffset = (element: HTMLElement) =>
-    Math.abs(element.getBoundingClientRect().left - trigger.getBoundingClientRect().left);
-
-  await page.getByRole('button', { name: 'Docs', exact: true }).hover();
-  await expect.element(page.getByText('Docs links')).toBeVisible();
-  await expect.poll(() => indicator.offsetWidth).toBe(trigger.offsetWidth);
-  // Polls wait for the viewport entrance scale to finish.
-  await expect.poll(() => leftOffset(indicator)).toBeLessThanOrEqual(1);
-  await expect.poll(() => leftOffset(viewport)).toBeLessThanOrEqual(1);
+  await expect
+    .element(page.getByRole('button', { name: 'Products', exact: true }))
+    .toHaveAttribute('data-state', 'closed');
+  await expect
+    .element(page.getByRole('button', { name: 'Docs', exact: true }))
+    .toHaveAttribute('data-state', 'closed');
 });

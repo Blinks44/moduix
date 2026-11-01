@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { NativeSelect } from '../../src';
+import { NativeSelect } from '@/index';
 </script>
 
 <template>

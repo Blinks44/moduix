@@ -1,14 +1,26 @@
 ---
 title: Pin Input
 component: pin-input
-description: Un champ segmenté pour saisir des codes PIN et des codes de vérification courts, avec gestion automatique du focus et prise en charge des codes OTP.
+description: Saisir un code PIN ou un code à usage unique, un caractère par case.
+ark: https://ark-ui.com/docs/components/pin-input
 ---
 
+import AnatomyScene from '@/components/examples/pin-input/basic';
 import * as PinInputDocs from '@/components/examples/pin-input/css-properties';
 
-## Référence de l’API
+<Example name="pin-input/basic" />
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/pin-input" />
+## Installation
+
+<ComponentInstall />
+
+## Utilisation
+
+<Usage />
+
+Utilisez `PinInput` comme racine et définissez explicitement `count`. Ajoutez `PinInputLabel` pour donner un nom accessible
+au groupe, placez `PinInputInputs` dans `PinInputControl` et composez `PinInputHiddenInput` lorsque la valeur doit participer au comportement
+d’un formulaire natif.
 
 ## Choisir le bon composant
 
@@ -18,79 +30,66 @@ Utilisez `PinInput` lorsqu’un code court de longueur fixe doit être saisi car
 - Choisissez **`Input`** lorsqu’un seul champ de texte suffit.
 - Choisissez **`PasswordInput`** lorsque la valeur est une chaîne secrète unique avec un bouton d’affichage.
 
-## Exemple de base
+## Exemples
 
-Utilisez `PinInput` comme racine et définissez explicitement `count`. Ajoutez `PinInputLabel` pour donner un nom accessible
-au groupe, placez `PinInputInputs` dans `PinInputControl` et composez `PinInputHiddenInput` lorsque la valeur doit participer au comportement
-d’un formulaire natif.
+### Tailles
 
-<Example name="pin-input/basic" />
+Utilisez la prop `size` sur la racine pour aligner la taille des cases sur la hauteur des contrôles `Input`
+et `Button`. La valeur par défaut est `md` ; le texte des cases suit la taille.
 
-## Installation avec shadcn
+<Example name="pin-input/sizes" />
 
-Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration complète du paquet, du registre et des styles.
+### Mode OTP
 
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
+Définissez `otp` pour ajouter `autocomplete="one-time-code"` aux champs visibles et activer les suggestions de
+codes à usage unique sur les navigateurs mobiles compatibles.
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/pin-input' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/pin-input' },
-  ]}
-/>
+<Example name="pin-input/otp-mode" />
 
-  </Tab>
-  <Tab label="Solid" value="solid">
+### Masquage
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/pin-input' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/pin-input' },
-  ]}
-/>
+Définissez `mask` lorsque le code saisi est sensible et ne doit pas être affiché en clair.
 
-  </Tab>
-  <Tab label="Vue" value="vue">
+<Example name="pin-input/masking" />
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/pin-input' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/pin-input' },
-  ]}
-/>
+### Placeholder
 
-  </Tab>
-</Tabs>
+Passez `placeholder` pour afficher un caractère dans chaque case vide. Par défaut, moduix laisse le placeholder vide.
 
-## Anatomie
+<Example name="pin-input/placeholder" />
 
-```text
-PinInput
-├─ PinInputLabel
-├─ PinInputControl
-│  ├─ PinInputInput[index=0]
-│  ├─ PinInputInput[index=1]
-│  └─ PinInputInput[index=2]
-└─ PinInputHiddenInput (explicite)
+### Disposition groupée
 
-PinInputRootProvider
-└─ même arbre de parties relié à un store usePinInput()
-```
+Utilisez des parties `PinInputInput` indexées explicites et `PinInputSeparator` lorsqu’un séparateur doit diviser le code en groupes.
+Gardez des index continus dans toute la composition.
 
-| Partie | Rôle |
-| --- | --- |
-| `PinInput` | Gère le nombre de cases, l’état de la valeur, la validation et les options du formulaire. |
-| `PinInputHiddenInput` | Contrôle de formulaire natif Ark à composer explicitement. |
-| `PinInputRootProvider` | Relie les parties à l’état créé avec `usePinInput()`. |
-| `PinInputContext` | Expose l’état de la racine aux descendants via une render prop. |
-| `PinInputLabel` | Donne un libellé au groupe de saisie du code PIN ou de vérification. |
-| `PinInputControl` | Conteneur des cases visibles indexées. |
-| `PinInputInput` | Une case visible pour un caractère. Utilisez un `index` commençant à zéro. |
-| `PinInputInputs` | Génère une partie `PinInputInput` indexée pour chaque élément du contexte Ark. |
-| `PinInputSeparator` | Aide décorative de moduix pour les groupes, et non une partie du primitif Ark. |
-| `usePinInput` | Crée l’état à utiliser avec `PinInputRootProvider`. |
-| `usePinInputContext` | Lit l’état courant de Pin Input dans l’arbre du composant. |
+<Example name="pin-input/grouped-layout" />
+
+### Retirer le focus à la fin
+
+Définissez `blurOnComplete` lorsque le focus doit quitter le dernier champ une fois toutes les cases remplies.
+
+<Example name="pin-input/blur-on-complete" />
+
+### Field
+
+Placez `PinInput` dans `Field` lorsque le libellé, le texte d’aide, le message d’erreur et l’état du champ doivent
+être associés aux cases visibles par les mécanismes d’accessibilité des formulaires d’Ark.
+
+<Example name="pin-input/field" />
+
+### Événements de changement
+
+Conservez le tableau de valeurs dans l’état et lisez `details.value` ou `details.valueAsString` dans les callbacks Ark.
+
+<Example name="pin-input/change-events" />
+
+### Root Provider
+
+Utilisez `usePinInput` avec `PinInputRootProvider` lorsque l’état et les méthodes impératives doivent être gérés en dehors
+de l’arbre rendu. Cet exemple remplace `PinInputInputs` par des parties `PinInputInput` indexées explicites. Voir [Partager l’état hors de l’arbre](/docs/composition-patterns#root-provider).
+
+<Example name="pin-input/root-provider" />
 
 ## Composition
 
@@ -109,72 +108,37 @@ des codes à usage unique ; ajoutez `PinInputLabel` pour donner un nom accessibl
 est décoratif et rend `aria-hidden` ; placez tout texte porteur de sens en dehors
 du séparateur.
 
-## Exemples
+## Anatomie
 
-### Retirer le focus à la fin
+Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
 
-Définissez `blurOnComplete` lorsque le focus doit quitter le dernier champ une fois toutes les cases remplies.
-
-<Example name="pin-input/blur-on-complete" />
-
-### Événements de changement
-
-Conservez le tableau de valeurs dans l’état et lisez `details.value` ou `details.valueAsString` dans les callbacks Ark.
-
-<Example name="pin-input/change-events" />
-
-### Field
-
-Placez `PinInput` dans `Field` lorsque le libellé, le texte d’aide, le message d’erreur et l’état du champ doivent
-être associés aux cases visibles par les mécanismes d’accessibilité des formulaires d’Ark.
-
-<Example name="pin-input/field" />
-
-### Disposition groupée
-
-Utilisez des parties `PinInputInput` indexées explicites et `PinInputSeparator` lorsqu’un séparateur doit diviser le code en groupes.
-Gardez des index continus dans toute la composition.
-
-<Example name="pin-input/grouped-layout" />
-
-### Masquage
-
-Définissez `mask` lorsque le code saisi est sensible et ne doit pas être affiché en clair.
-
-<Example name="pin-input/masking" />
-
-### Mode OTP
-
-Définissez `otp` pour ajouter `autocomplete="one-time-code"` aux champs visibles et activer les suggestions de
-codes à usage unique sur les navigateurs mobiles compatibles.
-
-<Example name="pin-input/otp-mode" />
-
-### Placeholder
-
-Passez `placeholder` pour afficher un caractère dans chaque case vide. Par défaut, moduix laisse le placeholder vide.
-
-<Example name="pin-input/placeholder" />
-
-### Root Provider
-
-Utilisez `usePinInput` avec `PinInputRootProvider` lorsque l’état et les méthodes impératives doivent être gérés en dehors
-de l’arbre rendu. Cet exemple remplace `PinInputInputs` par des parties `PinInputInput` indexées explicites.
-
-<Example name="pin-input/root-provider" />
-
-### Tailles
-
-Utilisez la prop `size` sur la racine pour aligner la taille des cases sur la hauteur des contrôles `Input`
-et `Button`. La valeur par défaut est `md` ; le texte des cases suit la taille.
-
-<Example name="pin-input/sizes" />
+<AnatomyInspector
+  parts={[
+    ["PinInput", "pin-input-root", "Gère le nombre de cases, l’état de la valeur, la validation et les options du formulaire.", 0],
+    ["PinInputLabel", "pin-input-label", "Donne un libellé au groupe de saisie du code PIN ou de vérification.", 1],
+    ["PinInputControl", "pin-input-control", "Conteneur des cases visibles indexées.", 1],
+    ["PinInputInput", "pin-input-input", "Une case visible pour un caractère. Utilisez un `index` commençant à zéro.", 2],
+    ["PinInputInputs", "", "Génère une partie `PinInputInput` indexée pour chaque élément du contexte Ark.", 3],
+    ["PinInputHiddenInput", "", "Contrôle de formulaire natif Ark à composer explicitement.", 1],
+    ["PinInputSeparator", "pin-input-separator", "Aide décorative de moduix pour les groupes, et non une partie du primitif Ark.", 1],
+    ["PinInputRootProvider", "pin-input-root-provider", "Relie les parties à l’état créé avec `usePinInput()`.", 0],
+    ["PinInputContext", null, "Expose l’état de la racine aux descendants via une render prop.", 0],
+    ["usePinInput", null, "Crée l’état à utiliser avec `PinInputRootProvider`.", 0],
+    ["usePinInputContext", null, "Lit l’état courant de Pin Input dans l’arbre du composant.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styles
 
-### Propriétés CSS
+### Variables CSS
 
-<CssPropertiesSection properties={PinInputDocs.pinInputOverrideCssProperties} />
+Survolez ou sélectionnez une variable pour la voir dans l’aperçu.
+
+<CssPropertiesSection properties={PinInputDocs.pinInputOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 Les paquets CSS Modules exposent trois variables : `--moduix-pin-input-input-size` (valable pour toutes les
 tailles), `--moduix-pin-input-gap` et `--moduix-pin-input-radius`. Les couleurs, bordures, la typographie et
@@ -183,13 +147,58 @@ Tailwind utilisent des classes utilitaires natives et les remplacements de l’u
 
 ### Points d’accroche CSS
 
-- La racine et `PinInputRootProvider` exposent `data-slot="pin-input-root"` et `data-slot="pin-input-root-provider"`.
-- `PinInputLabel`, `PinInputControl` et `PinInputInput` exposent `data-slot="pin-input-label"`, `data-slot="pin-input-control"` et
-  `data-slot="pin-input-input"`.
+| Partie | `data-slot` |
+| --- | --- |
+| `PinInput` | `pin-input-root` |
+| `PinInputRootProvider` | `pin-input-root-provider` |
+| `PinInputLabel` | `pin-input-label` |
+| `PinInputControl` | `pin-input-control` |
+| `PinInputInput` | `pin-input-input` |
+| `PinInputSeparator` | `pin-input-separator` |
+
+- Sélecteurs d'état Ark : `data-required` sur le libellé.
+
 - Les parties Ark utilisent `data-scope="pin-input"` et `data-part="root" | "label" | "control" | "input"`.
 - Les styles de l’état racine utilisent `data-disabled`, `data-invalid`, `data-complete` et `data-readonly`.
 - Les styles d’état des cases utilisent `data-disabled`, `data-invalid`, `data-complete`, `data-filled` et
   `data-index`.
-- `PinInputSeparator` expose `data-slot="pin-input-separator"` et est décoratif par défaut.
 - La racine reflète `size` dans `data-size`. Un `PinInput` désactivé dans un `Field` ou un `Fieldset` désactivé
   n’est pas assombri une seconde fois.
+
+## Clavier
+
+| Touche | Action |
+| --- | --- |
+| Caractères | Remplissent la case et passent à la suivante. |
+| `Backspace` | Vide la case et revient à la précédente. |
+| `ArrowLeft` / `ArrowRight` | Passe d’une case à l’autre. |
+| `Ctrl+V` | Colle un code entier dans les cases. |
+
+## Référence de l’API
+
+| Prop | Type | Défaut | Description |
+| --- | --- | --- | --- |
+| `count` | `number` | — | Nombre de champs ; à définir pour un ARIA correct au rendu serveur. |
+| `value` | `string[]` | — | Valeurs de chaque champ en mode contrôlé. |
+| `defaultValue` | `string[]` | — | Valeurs initiales de chaque champ. |
+| `onValueChange` | `(details: ValueChangeDetails) => void` | — | Appelé lorsqu’un champ change. |
+| `onValueComplete` | `(details: ValueChangeDetails) => void` | — | Appelé lorsque tous les champs sont remplis. |
+| `type` | `'numeric' \| 'alphanumeric' \| 'alphabetic'` | `'numeric'` | Caractères autorisés : `numeric`, `alphanumeric` ou `alphabetic`. |
+| `otp` | `boolean` | `false` | Active l’auto-remplissage des codes à usage unique. |
+| `mask` | `boolean` | `false` | Masque les caractères comme un mot de passe. |
+| `placeholder` | `string` | `''` | Texte indicatif de chaque champ. |
+| `blurOnComplete` | `boolean` | `false` | Retire le focus une fois le code complet. |
+| `autoFocus` | `boolean` | `false` | Place le focus dans le premier champ au montage. |
+| `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'` | `'md'` | Taille : `xs`, `sm`, `md`, `lg` ou `xl`. |
+| `name` | `string` | — | Nom du champ de formulaire de l’input sous-jacent. |
+| `disabled` | `boolean` | `false` | Désactive le contrôle. |
+| `readOnly` | `boolean` | `false` | Affiche la valeur sans permettre de la modifier. |
+| `invalid` | `boolean` | `false` | Marque le champ comme invalide. |
+| `required` | `boolean` | `false` | Exige une valeur avant l’envoi du formulaire. |
+| `form` | `string` | — | Id du formulaire auquel l’input sous-jacent est rattaché. |
+| `pattern` | `string` | — | Expression régulière que chaque caractère doit respecter. |
+| `onValueInvalid` | `(details: ValueInvalidDetails) => void` | — | Appelé lorsqu’un caractère ne respecte pas `type` ou `pattern`. |
+| `autoSubmit` | `boolean` | — | Envoie le formulaire lorsque tous les champs sont remplis. |
+| `selectOnFocus` | `boolean` | — | Sélectionne le caractère au focus d’un champ. |
+| `sanitizeValue` | `(value: string) => string` | — | Nettoie le texte collé avant validation. |
+| `translations` | `IntlTranslations` | — | Textes localisés des libellés d’accessibilité. |

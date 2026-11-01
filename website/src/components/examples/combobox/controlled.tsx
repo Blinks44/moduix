@@ -13,9 +13,9 @@ import {
   ComboboxPositioner,
   ComboboxTrigger,
 } from '@moduix/react/combobox';
+import { Stack } from '@moduix/react/stack';
 import { useState } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';
-import styles from '@/components/examples/combobox/component-controlled.module.css';
 
 const fruits = [
   { label: 'Apple', value: 'apple' },
@@ -33,7 +33,7 @@ export default function ControlledComboboxDemo() {
   const [value, setValue] = useState(['mango']);
 
   return (
-    <div className={styles.stack}>
+    <Stack align="center" gap="3">
       <Combobox
         collection={collection}
         value={value}
@@ -62,6 +62,6 @@ export default function ControlledComboboxDemo() {
       <PreviewMeta>
         <output>Selected: {value[0] ?? 'none'}</output>
       </PreviewMeta>
-    </div>
+    </Stack>
   );
 }

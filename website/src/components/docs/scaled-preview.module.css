@@ -1,0 +1,16 @@
+/* Frame for live, non-interactive previews in catalog cards and home tiles. */
+.frame {
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  pointer-events: none;
+  user-select: none;
+}
+
+.box {
+  overflow: hidden;
+}
+
+.stage {
+  transform-origin: top left;
+}

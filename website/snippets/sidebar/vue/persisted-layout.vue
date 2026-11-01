@@ -57,7 +57,7 @@ const handleReset = () => {
   <Sidebar :class="styles.root" :size="size" @resize="handleResize" @resize-end="handleResizeEnd">
     <SidebarPanel>
       <SidebarHeader
-        ><strong data-sidebar-icon>M</strong><SidebarLabel>Moduix</SidebarLabel></SidebarHeader
+        ><strong data-sidebar-icon>M</strong><SidebarLabel>moduix</SidebarLabel></SidebarHeader
       >
       <SidebarContent>
         <SidebarGroup>

@@ -1,18 +1,11 @@
 ---
 title: Image Cropper
 component: image-cropper
-description: Компонент для кадрирования и преобразования изображений с поддержкой масштабирования, поворота и соотношения сторон.
+description: Обрезка, масштаб, поворот и отражение изображения перед загрузкой.
+ark: https://ark-ui.com/docs/components/image-cropper
 ---
 
-## Справочник API
-
-<PrimitiveReference href="https://ark-ui.com/docs/components/image-cropper" />
-
-## Базовый пример
-
-Используйте `ImageCropper` вместе с `ImageCropperViewport`, `ImageCropperImage` и
-`ImageCropperCropArea`. Передайте URL изображения в `ImageCropperImage`. Компонент
-`ImageCropperCropArea` сам добавит область кадрирования, линии сетки и маркеры изменения размера.
+import AnatomyScene from '@/components/examples/image-cropper/basic';
 
 <Example name="image-cropper/basic" />
 
@@ -20,80 +13,17 @@ description: Компонент для кадрирования и преобр�
 разрешать CORS, а в `ImageCropperImage` нужно передать `crossOrigin="anonymous"`. В примерах это
 уже настроено для изображения с Unsplash.
 
-## Установка через shadcn
+## Установка
 
-Полную настройку пакета, реестра и стилей см. в разделе [Быстрый старт](/docs/quick-start).
+<ComponentInstall />
 
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
+## Использование
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/image-cropper' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/image-cropper' },
-  ]}
-/>
+<Usage />
 
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/image-cropper' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/image-cropper' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/image-cropper' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/image-cropper' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Анатомия
-
-```tsx
-<ImageCropper>
-  <ImageCropperViewport>
-    <ImageCropperImage />
-    <ImageCropperCropArea />
-  </ImageCropperViewport>
-</ImageCropper>
-```
-
-| Часть                                | Назначение                                                                                  |
-| ------------------------------------ | ------------------------------------------------------------------------------------------- |
-| `ImageCropper`                    | Корневой компонент, который управляет состоянием кадрирования и преобразований, ARIA-атрибутами и CSS-переменными, обновляемыми во время работы. |
-| `ImageCropperRootProvider`          | Корневой компонент, связанный с экземпляром `useImageCropper`, созданным вне дерева компонентов. |
-| `ImageCropperViewport`              | Область просмотра, в которой можно панорамировать изображение; всё за её границами скрывается. |
-| `ImageCropperImage`                 | Элемент изображения, к которому Ark применяет преобразования.                              |
-| `ImageCropperSelection`             | Фокусируемая область кадрирования и цель для управления с клавиатуры. При `fixedCropArea` она остаётся в фокусе, а стрелки сдвигают изображение. |
-| `ImageCropperGrid`                  | Неинтерактивная горизонтальная или вертикальная линия сетки. Требуется `axis`.              |
-| `ImageCropperHandle`                | Маркер изменения размера для позиции из `ImageCropperHandles`. Требуется `position`.       |
-| `ImageCropperCropArea`              | Готовая область кадрирования с обеими сетками и всеми маркерами изменения размера. Не принимает `children` и `asChild`. |
-
-## Композиция
-
-Используйте `ImageCropperCropArea` для стандартной области кадрирования. Она сама создаёт две сетки
-и все маркеры изменения размера, поэтому не принимает `children` и `asChild`. Для стилизации
-области и созданных частей используйте `className`, `gridClassName` и `handleClassName`.
-
-Для элементов управления внутри корневого компонента используйте `ImageCropperContext`. Создайте
-`useImageCropper()` и передайте его в `ImageCropperRootProvider`, если панели инструментов,
-предварительному просмотру или логике формы нужен экземпляр кадрирования за пределами дерева
-компонентов. Для одного экземпляра состояния выбирайте либо `ImageCropper`, либо
-`ImageCropperRootProvider`. Примеры Vue используют нативные SFC с теми же частями, событиями и управляемым состоянием.
-
-Используйте управляемые `zoom`, `rotation` или `flip` с соответствующим обратным вызовом, если
-состоянием владеет другая часть приложения. Ark передаёт новое значение в объекте `details`.
-`fixedCropArea` фиксирует область, а область просмотра становится поверхностью для панорамирования.
+Используйте `ImageCropper` вместе с `ImageCropperViewport`, `ImageCropperImage` и
+`ImageCropperCropArea`. Передайте URL изображения в `ImageCropperImage`. Компонент
+`ImageCropperCropArea` сам добавит область кадрирования, линии сетки и маркеры изменения размера.
 
 ## Примеры
 
@@ -110,12 +40,32 @@ description: Компонент для кадрирования и преобр�
 
 <Example name="image-cropper/circle-crop" />
 
-### Управляемый масштаб
+### Начальная область кадрирования
 
-Используйте управляемые `zoom` и `onZoomChange`, если кнопки или другая часть интерфейса должны
-изменять или показывать текущий масштаб. Ограничьте диапазон с помощью `minZoom` и `maxZoom`.
+Передайте `initialCrop`, чтобы открыть компонент с заранее заданным прямоугольником кадрирования в
+координатах области просмотра и пикселях.
 
-<Example name="image-cropper/controlled-zoom" />
+<Example name="image-cropper/initial-crop" />
+
+### Фиксированная область кадрирования
+
+Включите `fixedCropArea`, если область кадрирования должна сохранять размер и положение, пока
+пользователь панорамирует изображение под ней.
+
+<Example name="image-cropper/fixed-crop-area" />
+
+### Минимальный и максимальный размер
+
+Ограничьте размер области кадрирования с помощью `minWidth`, `minHeight`, `maxWidth` и `maxHeight`.
+
+<Example name="image-cropper/min-and-max-size" />
+
+### Поворот, отражение и сброс
+
+Используйте `ImageCropperContext`, чтобы подключить к панели инструментов действия масштабирования,
+поворота, отражения и сброса. В этом примере состояние поворота и отражения контролируется из React, Solid или Vue.
+
+<Example name="image-cropper/rotation-flip-and-reset" />
 
 ### Предварительный просмотр кадра
 
@@ -126,6 +76,13 @@ description: Компонент для кадрирования и преобр�
 
 <Example name="image-cropper/crop-preview" />
 
+### Управляемый масштаб
+
+Используйте управляемые `zoom` и `onZoomChange`, если кнопки или другая часть интерфейса должны
+изменять или показывать текущий масштаб. Ограничьте диапазон с помощью `minZoom` и `maxZoom`. Подробнее в разделе [Управляйте состоянием из приложения](/docs/composition-patterns#controlled-state).
+
+<Example name="image-cropper/controlled-zoom" />
+
 ### События
 
 Подпишитесь на `onCropChange` и `onZoomChange`, чтобы показывать текущие данные кадрирования или
@@ -133,47 +90,65 @@ description: Компонент для кадрирования и преобр�
 
 <Example name="image-cropper/events" />
 
-### Фиксированная область кадрирования
-
-Включите `fixedCropArea`, если область кадрирования должна сохранять размер и положение, пока
-пользователь панорамирует изображение под ней.
-
-<Example name="image-cropper/fixed-crop-area" />
-
-### Начальная область кадрирования
-
-Передайте `initialCrop`, чтобы открыть компонент с заранее заданным прямоугольником кадрирования в
-координатах области просмотра и пикселях.
-
-<Example name="image-cropper/initial-crop" />
-
-### Минимальный и максимальный размер
-
-Ограничьте размер области кадрирования с помощью `minWidth`, `minHeight`, `maxWidth` и `maxHeight`.
-
-<Example name="image-cropper/min-and-max-size" />
-
 ### Root Provider
 
 Используйте `ImageCropperRootProvider` с экземпляром `useImageCropper`, если панель инструментов или
-другой сценарий должны управлять кадрированием за пределами дерева его компонентов.
+другой сценарий должны управлять кадрированием за пределами дерева его компонентов. Подробнее в разделе [Выносите состояние за пределы дерева](/docs/composition-patterns#root-provider).
 
 <Example name="image-cropper/root-provider" />
 
-### Поворот, отражение и сброс
+### Сборка из частей
 
-Используйте `ImageCropperContext`, чтобы подключить к панели инструментов действия масштабирования,
-поворота, отражения и сброса. В этом примере состояние поворота и отражения контролируется из React, Solid или Vue.
+Тот же редактор кадрирования, что в Basic, но без `ImageCropperCropArea`: `ImageCropperSelection`
+содержит две линии `ImageCropperGrid` с `axis` и по одному `ImageCropperHandle` на каждую `position` из
+`ImageCropperHandles`. Начинайте с него, если области кадрирования нужно меньше ручек или свои
+дочерние элементы.
 
-<Example name="image-cropper/rotation-flip-and-reset" />
+<Example name="image-cropper/build-from-parts" />
 
-### Расширенная настройка
+## Композиция
 
-Замените `ImageCropperCropArea` на отдельные части `ImageCropperSelection`, `ImageCropperGrid` и
-`ImageCropperHandle`, если области кадрирования нужна другая структура или собственные дочерние
-элементы. Для `ImageCropperGrid` требуется `axis`, а для `ImageCropperHandle` требуется `position`.
+Используйте `ImageCropperCropArea` для стандартной области кадрирования. Она сама создаёт две сетки
+и все маркеры изменения размера, поэтому не принимает `children` и `asChild`. Для стилизации
+области и созданных частей используйте `className`, `gridClassName` и `handleClassName`.
 
-<Example name="image-cropper/advanced-customization" />
+Для элементов управления внутри корневого компонента используйте `ImageCropperContext`. Создайте
+`useImageCropper()` и передайте его в `ImageCropperRootProvider`, если панели инструментов,
+предварительному просмотру или логике формы нужен экземпляр кадрирования за пределами дерева
+компонентов. Для одного экземпляра состояния выбирайте либо `ImageCropper`, либо
+`ImageCropperRootProvider`. Примеры Vue используют нативные SFC с теми же частями, событиями и управляемым состоянием.
+
+Используйте управляемые `zoom`, `rotation` или `flip` с соответствующим обратным вызовом, если
+состоянием управляет другая часть приложения. Ark передаёт новое значение в объекте `details`.
+`fixedCropArea` фиксирует область, а область просмотра становится поверхностью для панорамирования.
+
+## Анатомия
+
+```tsx
+<ImageCropper>
+  <ImageCropperViewport>
+    <ImageCropperImage />
+    <ImageCropperCropArea />
+  </ImageCropperViewport>
+</ImageCropper>
+```
+
+Наведите на часть или выберите её, чтобы найти её в превью.
+
+<AnatomyInspector
+  parts={[
+    ["ImageCropper", "image-cropper-root", "Корневой компонент, который управляет состоянием кадрирования и преобразований, ARIA-атрибутами и CSS-переменными, обновляемыми во время работы.", 0],
+    ["ImageCropperViewport", "image-cropper-viewport", "Область просмотра, в которой можно панорамировать изображение; всё за её границами скрывается.", 1],
+    ["ImageCropperImage", "image-cropper-image", "Элемент изображения, к которому Ark применяет преобразования.", 1],
+    ["ImageCropperSelection", "image-cropper-selection", "Фокусируемая область кадрирования и цель для управления с клавиатуры. При `fixedCropArea` она остаётся в фокусе, а стрелки сдвигают изображение.", 1],
+    ["ImageCropperGrid", "image-cropper-grid", "Неинтерактивная горизонтальная или вертикальная линия сетки. Требуется `axis`.", 1],
+    ["ImageCropperHandle", "image-cropper-handle", "Маркер изменения размера для позиции из `ImageCropperHandles`. Требуется `position`.", 1],
+    ["ImageCropperCropArea", "", "Готовая область кадрирования с обеими сетками и всеми маркерами изменения размера. Не принимает `children` и `asChild`.", 1],
+    ["ImageCropperRootProvider", "image-cropper-root-provider", "Корневой компонент, связанный с экземпляром `useImageCropper`, созданным вне дерева компонентов.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Стилизация
 
@@ -188,11 +163,21 @@ foundation и не имеют переменных компонента: кла�
 например другие `aspect-ratio` или `height` области просмотра. Data-атрибуты и значения `data-slot`
 общие для обоих способов стилизации.
 
-### Селекторы для стилизации
+### Хуки стилизации
 
-Для локальной стилизации используйте стабильные значения `data-slot`: `image-cropper-root`,
-`image-cropper-root-provider`, `image-cropper-viewport`, `image-cropper-image`,
-`image-cropper-selection`, `image-cropper-grid` и `image-cropper-handle`. Ark также предоставляет
+| Часть | `data-slot` |
+| --- | --- |
+| `ImageCropper` | `image-cropper-root` |
+| `ImageCropperRootProvider` | `image-cropper-root-provider` |
+| `ImageCropperViewport` | `image-cropper-viewport` |
+| `ImageCropperImage` | `image-cropper-image` |
+| `ImageCropperSelection` | `image-cropper-selection` |
+| `ImageCropperGrid` | `image-cropper-grid` |
+| `ImageCropperHandle` | `image-cropper-handle` |
+
+- Селекторы состояния Ark: `data-flip-horizontal` и `data-flip-vertical` на `ImageCropperImage`.
+
+Ark также предоставляет
 `data-scope="image-cropper"`, `data-part` и атрибуты состояния на соответствующих частях, включая
 `data-fixed`, `data-shape`, `data-pinch`, `data-ready`, `data-disabled`, `data-measured`,
 `data-dragging`, `data-panning`, `data-axis` и `data-position`.
@@ -201,3 +186,42 @@ Ark записывает в корневой элемент `--crop-width`, `--c
 `--image-zoom`, `--image-rotation`, `--image-offset-x` и `--image-offset-y`. Это значения только
 для чтения, отражающие текущее состояние и подходящие для синхронизации собственного
 интерфейса. Не переопределяйте их.
+
+## Клавиатура
+
+| Клавиша | Действие |
+| --- | --- |
+| `ArrowUp` / `ArrowDown` / `ArrowLeft` / `ArrowRight` | Двигает область обрезки; с Shift и Ctrl шаг больше. |
+| `Alt` + стрелки | Меняет размер области обрезки. |
+| `+` / `-` | Увеличивает или уменьшает масштаб. |
+
+## Справочник API
+
+| Проп | Тип | По умолчанию | Описание |
+| --- | --- | --- | --- |
+| `aspectRatio` | `number` | — | Фиксирует соотношение ширины и высоты области обрезки. |
+| `cropShape` | `'rectangle' \| 'circle'` | `'rectangle'` | Форма области обрезки: `rectangle` или `circle`. |
+| `initialCrop` | `Rect` | — | Начальный прямоугольник обрезки. |
+| `fixedCropArea` | `boolean` | `false` | Фиксирует область обрезки; изображение двигается и масштабируется под ней. |
+| `minWidth` | `number` | `40` | Минимальная ширина области в пикселях. |
+| `minHeight` | `number` | `40` | Минимальная высота области в пикселях. |
+| `maxWidth` | `number` | `Infinity` | Максимальная ширина области в пикселях. |
+| `maxHeight` | `number` | `Infinity` | Максимальная высота области в пикселях. |
+| `zoom` | `number` | — | Масштаб в управляемом режиме. |
+| `defaultZoom` | `number` | `1` | Начальный масштаб, если он не управляется извне. |
+| `minZoom` | `number` | `1` | Минимальный масштаб. |
+| `maxZoom` | `number` | `5` | Максимальный масштаб. |
+| `zoomStep` | `number` | `0.1` | Изменение масштаба за один шаг колеса. |
+| `rotation` | `number` | — | Поворот в градусах в управляемом режиме. |
+| `defaultRotation` | `number` | `0` | Начальный поворот в градусах. |
+| `flip` | `{ horizontal: boolean; vertical: boolean }` | — | Отражение по горизонтали и вертикали в управляемом режиме. |
+| `onCropChange` | `(details: CropChangeDetails) => void` | — | Вызывается с прямоугольником обрезки при каждом изменении. |
+| `onZoomChange` | `(details: ZoomChangeDetails) => void` | — | Вызывается при изменении масштаба. |
+| `onRotationChange` | `(details: RotationChangeDetails) => void` | — | Вызывается при изменении поворота. |
+| `translations` | `IntlTranslations` | — | Переведённые строки для подписей доступности. |
+| `defaultFlip` | `FlipState` | `{ horizontal: false, vertical: false }` | Начальное отражение. |
+| `zoomSensitivity` | `number` | `2` | Чувствительность масштабирования щипком. |
+| `nudgeStep` | `number` | `1` | Шаг сдвига стрелками в пикселях. |
+| `nudgeStepShift` | `number` | `10` | Шаг стрелками с зажатым Shift, в пикселях. |
+| `nudgeStepCtrl` | `number` | `50` | Шаг стрелками с зажатым Ctrl или Cmd, в пикселях. |
+| `onFlipChange` | `(details: FlipChangeDetails) => void` | — | Вызывается при изменении отражения. |

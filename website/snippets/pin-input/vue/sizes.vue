@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { PinInput, PinInputControl, PinInputInputs, PinInputLabel } from '@moduix/vue/pin-input';
-import styles from '@/components/examples/pin-input/pin-input-sizes.module.css';
+import { Stack } from '@moduix/vue/stack';
 
 const sizes = [
   ['xs', 'Extra small'],
@@ -12,12 +12,12 @@ const sizes = [
 </script>
 
 <template>
-  <div :class="styles.root">
+  <Stack gap="3">
     <PinInput v-for="[size, label] in sizes" :key="size" :count="4" :size="size">
       <PinInputLabel>{{ label }}</PinInputLabel>
       <PinInputControl>
         <PinInputInputs />
       </PinInputControl>
     </PinInput>
-  </div>
+  </Stack>
 </template>

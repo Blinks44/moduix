@@ -67,7 +67,7 @@ Apply these rules when writing or reviewing Rspress (v2) sites.
 ## Plugins And Integration
 
 - Prefer official Rspress plugins for search, preview, and API-doc scenarios before building custom solutions
-- For component or library docs, use `@rspress/plugin-preview` and `@rspress/plugin-api-docgen` when interactive demos or API tables are needed
+- For component or library docs, use `@rspress/plugin-preview` for interactive demos. moduix builds API tables from Ark/Zag reference data for every framework instead of `@rspress/plugin-api-docgen`
 - Keep plugin usage explicit in config and remove unused plugins to reduce maintenance cost
 
 ## Build, Deploy, And Debugging

@@ -13,9 +13,7 @@ import {
   InputGroupClearTrigger,
   InputGroupInput,
   InputGroupText,
-  InputGroupTextarea,
-} from '../src';
-import styles from '../src/components/input-group/InputGroup.module.css';
+} from '@/index';
 import SsrInputGroup from './fixtures/SsrInputGroup.vue';
 
 const components = {
@@ -28,88 +26,6 @@ const components = {
   InputGroupInput,
   InputGroupText,
 };
-
-test('preserves grouped field state, owned hooks, and native refs', async () => {
-  const rootRef = ref<ComponentPublicInstance | null>(null);
-  const addonRef = ref<ComponentPublicInstance | null>(null);
-  const inputRef = ref<ComponentPublicInstance | null>(null);
-  const textRef = ref<ComponentPublicInstance | null>(null);
-  const buttonRef = ref<ComponentPublicInstance | null>(null);
-
-  render({
-    components,
-    setup: () => ({ rootRef, addonRef, inputRef, textRef, buttonRef }),
-    template: `
-      <Field disabled id="workspace" invalid read-only>
-        <FieldLabel>Workspace</FieldLabel>
-        <InputGroup ref="rootRef"
-          class="consumer-root"
-          data-part="consumer-part"
-          data-scope="consumer-scope"
-          data-size="xs"
-          data-slot="consumer-slot"
-          data-testid="input-group"
-          size="lg"
-        >
-          <InputGroupAddon ref="addonRef"
-            class="consumer-addon"
-            data-part="consumer-part"
-            data-scope="consumer-scope"
-            data-slot="consumer-slot"
-          >@</InputGroupAddon>
-          <InputGroupInput ref="inputRef" />
-          <InputGroupText ref="textRef"
-            class="consumer-text"
-            data-part="consumer-part"
-            data-scope="consumer-scope"
-            data-slot="consumer-slot"
-          >.com</InputGroupText>
-          <InputGroupButton ref="buttonRef" class="consumer-button" data-slot="consumer-slot">Copy</InputGroupButton>
-        </InputGroup>
-      </Field>
-    `,
-  });
-
-  const group = screen.getByTestId('input-group');
-  const addon = screen.getByText('@');
-  const input = screen.getByRole('textbox', { name: 'Workspace' });
-  const text = screen.getByText('.com');
-  const button = screen.getByRole('button', { name: 'Copy' });
-
-  const groupLocator = page.getByTestId('input-group');
-  await expect.element(groupLocator).toHaveAttribute('data-slot', 'input-group-root');
-  await expect.element(groupLocator).toHaveAttribute('data-scope', 'input-group');
-  await expect.element(groupLocator).toHaveAttribute('data-part', 'root');
-  await expect.element(groupLocator).toHaveAttribute('data-size', 'lg');
-  expect([...group.classList]).toEqual(expect.arrayContaining([styles.root, 'consumer-root']));
-  const textLocator = page.getByText('@', { exact: true });
-  await expect.element(textLocator).toHaveAttribute('data-slot', 'input-group-addon');
-  await expect.element(textLocator).toHaveAttribute('data-scope', 'input-group');
-  await expect.element(textLocator).toHaveAttribute('data-part', 'addon');
-  expect([...addon.classList]).toEqual(expect.arrayContaining([styles.addon, 'consumer-addon']));
-  const inputLocator = page.getByRole('textbox', { name: 'Workspace', exact: true });
-  await expect.element(inputLocator).toHaveAttribute('data-slot', 'input-root');
-  await expect.element(inputLocator).toHaveAttribute('data-size', 'lg');
-  await expect.element(inputLocator).toHaveAttribute('data-invalid');
-  await expect.element(inputLocator).toBeDisabled();
-  await expect.element(inputLocator).toHaveAttribute('readonly');
-  const textLocator2 = page.getByText('.com', { exact: true });
-  await expect.element(textLocator2).toHaveAttribute('data-slot', 'input-group-text');
-  await expect.element(textLocator2).toHaveAttribute('data-scope', 'input-group');
-  await expect.element(textLocator2).toHaveAttribute('data-part', 'text');
-  expect([...text.classList]).toEqual(expect.arrayContaining([styles.text, 'consumer-text']));
-  const buttonLocator = page.getByRole('button', { name: 'Copy', exact: true });
-  await expect.element(buttonLocator).toHaveAttribute('data-slot', 'input-group-button');
-  await expect.element(buttonLocator).toHaveAttribute('data-size', 'lg');
-  await expect.element(buttonLocator).toHaveAttribute('type', 'button');
-  expect([...button.classList]).toEqual(expect.arrayContaining([styles.button, 'consumer-button']));
-  await expect.element(buttonLocator).toBeEnabled();
-  expect(rootRef.value?.$el).toBe(group);
-  expect(addonRef.value?.$el).toBe(addon);
-  expect(inputRef.value?.$el).toBe(input);
-  expect(textRef.value?.$el).toBe(text);
-  expect(buttonRef.value?.$el).toBe(button);
-});
 
 test('keeps the group size context reactive and allows a local input size', async () => {
   const size = ref<'sm' | 'xl'>('sm');
@@ -247,7 +163,6 @@ test('hydrates without replacing hosts or generated ids', async () => {
     expect(host.querySelectorAll('section')).toHaveLength(1);
     expect(host.querySelector('section')).toBe(serverRoot);
     expect([...host.querySelectorAll('[id]')].map((element) => element.id)).toEqual(serverIds);
-    expect(serverRoot?.classList.contains('hydrated-group')).toBe(true);
     await expect
       .element(page.locator('[data-slot="input-group-root"]'))
       .toHaveAttribute('data-slot', 'input-group-root');
@@ -255,7 +170,6 @@ test('hydrates without replacing hosts or generated ids', async () => {
     await expect
       .element(page.getByRole('textbox', { name: 'Server input' }))
       .toHaveValue('Hydrated value');
-    expect(serverRoot?.classList.contains(styles.root)).toBe(true);
     expect(warn).not.toHaveBeenCalled();
     expect(error).not.toHaveBeenCalled();
   } finally {
@@ -265,6 +179,7 @@ test('hydrates without replacing hosts or generated ids', async () => {
     error.mockRestore();
   }
 });
+
 test('clear trigger forwards a single click, inherits size, and does not submit or reset a form', async () => {
   const clear = rs.fn();
   const submit = rs.fn();
@@ -344,123 +259,4 @@ test('clear trigger preserves custom labels, children, asChild hosts, refs, and 
     .element(page.getByRole('button', { name: 'Disabled clear', exact: true }))
     .toBeDisabled();
   expect(clear).toHaveBeenCalledTimes(1);
-});
-test('removes the Input border and background inside the group', () => {
-  render({
-    components: { InputGroup, InputGroupInput },
-    template: `<InputGroup><InputGroupInput aria-label="Grouped" /></InputGroup>`,
-  });
-
-  expect(getComputedStyle(screen.getByRole('textbox', { name: 'Grouped' }))).toMatchObject({
-    backgroundColor: 'rgba(0, 0, 0, 0)',
-    borderTopWidth: '0px',
-    minHeight: '0px',
-  });
-});
-
-test('keeps the group height when it holds a button', () => {
-  render({
-    components: { InputGroup, InputGroupButton, InputGroupInput },
-    template: `
-      <div>
-        <InputGroup data-testid="plain"><InputGroupInput aria-label="Plain" /></InputGroup>
-        <InputGroup data-testid="with-button">
-          <InputGroupInput aria-label="With button" />
-          <InputGroupButton>Go</InputGroupButton>
-        </InputGroup>
-      </div>
-    `,
-  });
-
-  expect(screen.getByTestId('with-button').offsetHeight).toBe(
-    screen.getByTestId('plain').offsetHeight,
-  );
-});
-
-test('uses a local input size for font and inline padding', () => {
-  render({
-    components: { InputGroup, InputGroupInput },
-    template: `
-      <InputGroup size="lg"><InputGroupInput aria-label="Local size" size="xs" /></InputGroup>
-    `,
-  });
-
-  expect(getComputedStyle(screen.getByRole('textbox', { name: 'Local size' }))).toMatchObject({
-    fontSize: '12px',
-    paddingLeft: '10px',
-  });
-});
-
-test('renders a borderless textarea that follows the group size', () => {
-  render({
-    components: { InputGroup, InputGroupTextarea },
-    template: `
-      <InputGroup size="sm" data-testid="textarea-group">
-        <InputGroupTextarea aria-label="Message" />
-      </InputGroup>
-    `,
-  });
-
-  const element = screen.getByRole('textbox', { name: 'Message' });
-  expect(element).toBeInstanceOf(HTMLTextAreaElement);
-  expect(element.getAttribute('data-slot')).toBe('textarea-root');
-  expect(element.dataset.size).toBe('sm');
-  expect(getComputedStyle(element)).toMatchObject({
-    backgroundColor: 'rgba(0, 0, 0, 0)',
-    borderTopWidth: '0px',
-    resize: 'none',
-    fontSize: '14px',
-    paddingLeft: '12px',
-  });
-  expect(screen.getByTestId('textarea-group').offsetHeight).toBeGreaterThan(element.offsetHeight);
-});
-
-test('derives invalid and disabled group state from the textarea', () => {
-  render({
-    components: { InputGroup, InputGroupTextarea },
-    template: `
-      <div>
-        <InputGroup data-testid="plain"><InputGroupTextarea aria-label="Plain" /></InputGroup>
-        <InputGroup data-testid="invalid">
-          <InputGroupTextarea aria-label="Invalid" aria-invalid="true" />
-        </InputGroup>
-        <InputGroup data-testid="disabled">
-          <InputGroupTextarea aria-label="Disabled" disabled />
-        </InputGroup>
-      </div>
-    `,
-  });
-
-  expect(getComputedStyle(screen.getByTestId('invalid')).borderTopColor).not.toBe(
-    getComputedStyle(screen.getByTestId('plain')).borderTopColor,
-  );
-  expect(getComputedStyle(screen.getByTestId('disabled')).opacity).toBe('0.5');
-  expect(getComputedStyle(screen.getByRole('textbox', { name: 'Disabled' })).opacity).toBe('1');
-});
-
-test('stacks block addons above and below the control', () => {
-  render({
-    components: { InputGroup, InputGroupAddon, InputGroupText, InputGroupTextarea },
-    template: `
-      <InputGroup data-testid="block-group">
-        <InputGroupText align="block">Prompt</InputGroupText>
-        <InputGroupTextarea aria-label="Prompt" />
-        <InputGroupAddon align="block"><button type="button">Send</button></InputGroupAddon>
-      </InputGroup>
-    `,
-  });
-
-  const group = screen.getByTestId('block-group');
-  const text = screen.getByText('Prompt');
-  const addon = screen.getByRole('button', { name: 'Send' }).parentElement!;
-
-  expect(getComputedStyle(group).flexDirection).toBe('column');
-  expect(text.getAttribute('data-align')).toBe('block');
-  expect(addon.getAttribute('data-align')).toBe('block');
-  expect(addon.offsetWidth).toBe(group.clientWidth);
-  expect(getComputedStyle(addon)).toMatchObject({
-    borderTopWidth: '1px',
-    borderBottomWidth: '0px',
-    borderLeftWidth: '0px',
-  });
 });

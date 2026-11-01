@@ -1,17 +1,26 @@
 ---
 title: Tags Input
 component: tags-input
-description: An editable list of string tags with validation, form submission, and optional suggestions.
+description: Enter a list of short values as tags that users can edit or remove.
+ark: https://ark-ui.com/docs/components/tags-input
 ---
 
+import AnatomyScene from '@/components/examples/tags-input/basic';
 import * as TagsInputDocs from '@/components/examples/tags-input/css-properties';
-import TagsInputWithCombobox from '@/components/examples/tags-input/with-combobox.tsx';
-import tagsInputSolidWithCombobox from '../../../snippets/combobox/solid/with-tags-input.tsx?raw';
-import tagsInputVueWithCombobox from '../../../snippets/combobox/vue/with-tags-input.vue?raw';
 
-## API Reference
+<Example name="tags-input/basic" />
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/tags-input" />
+## Installation
+
+<ComponentInstall />
+
+## Usage
+
+<Usage />
+
+Start with `TagsInput`, `TagsInputLabel`, `TagsInputControl`, `TagsInputItems`,
+`TagsInputInput`, and `TagsInputClearTrigger`. Add an explicit `TagsInputHiddenInput` when the
+tags should be submitted with a form.
 
 ## Choosing the right component
 
@@ -22,140 +31,49 @@ control.
 - Choose **`Tag`** when the interface only displays an existing token and may offer a separate remove action.
 - Choose **`Combobox`** when users should select from a known collection and filtering is the main interaction.
 
-## Basic
-
-
-Start with `TagsInput`, `TagsInputLabel`, `TagsInputControl`, `TagsInputItems`,
-`TagsInputInput`, and `TagsInputClearTrigger`. Add an explicit `TagsInputHiddenInput` when the
-tags should be submitted with a form.
-
-<Example name="tags-input/basic" />
-
-## Install with shadcn
-
-See [Quick Start](/docs/quick-start) for full package setup, registry configuration, and styling guidance.
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/tags-input' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/tags-input' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/tags-input' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/tags-input' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/tags-input' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/tags-input' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Anatomy
-
-```text
-TagsInput
-├─ TagsInputLabel
-├─ TagsInputControl
-│  ├─ TagsInputItems
-│  └─ TagsInputItem[index, value]
-│     ├─ TagsInputItemPreview
-│     │  ├─ TagsInputItemText
-│     │  └─ TagsInputItemDeleteTrigger
-│     └─ TagsInputItemInput
-│  ├─ TagsInputInput
-│  └─ TagsInputClearTrigger
-└─ TagsInputHiddenInput (explicit)
-
-TagsInputRootProvider
-└─ same part tree connected to a useTagsInput() store
-```
-
-| Part | Role |
-| --- | --- |
-| `TagsInput` | Root state, tag values, entry input, validation, and form integration. |
-| `TagsInputRootProvider` | Connects the parts to state returned by `useTagsInput()`. |
-| `TagsInputLabel` | Accessible label for the tags input. |
-| `TagsInputControl` | Visible shell containing tags, the entry input, and the clear trigger. |
-| `TagsInputItems` | Standard editable tag renderer for the current root values. |
-| `TagsInputItem` | One tag. Pass `index` and `value` when rendering custom items. |
-| `TagsInputItemContext` | Render-prop access to the state of the current item inside the component tree. |
-| `TagsInputItemPreview` | Visible tag content outside edit mode. |
-| `TagsInputItemText` | Visible tag text. |
-| `TagsInputItemDeleteTrigger` | Removes one tag and provides a compact close icon by default. |
-| `TagsInputItemInput` | Input used when a tag is edited in place. |
-| `TagsInputInput` | Entry input for new tags. |
-| `TagsInputClearTrigger` | Clears all tags and uses the shared close-button visual by default. |
-| `TagsInputHiddenInput` | Explicit native input for form submission. |
-| `TagsInputContext` | Render-prop access to the root state inside the component tree. |
-
-## Composition
-
-Use the short `<TagsInput>` form for the standard composition. Keep `TagsInputItems`,
-`TagsInputInput`, and `TagsInputClearTrigger` inside `TagsInputControl`. Add
-`TagsInputHiddenInput` explicitly and pass `name` to the root when the tags must be submitted with
-a form. Use `form` when the associated form is outside the component tree.
-
-For custom tag content or actions, use `TagsInputContext` and map its values to
-`TagsInputItem` with `index` and `value`. Keep `TagsInputItemInput` inside each item when inline
-editing should remain available. Use `TagsInputRootProvider` with `useTagsInput()` only when state
-or methods such as `addValue`, `clearValue`, or `focus` must be used outside the component tree.
-In Solid, the store is an accessor, so read `tagsInput().value` and call `tagsInput().addValue()`.
-When combining `TagsInput` with `Combobox`, share the input and control IDs and compose the inputs
-with `asChild`.
-
 ## Examples
 
-### Allow Duplicates
-
-Set `allowDuplicates` when the same string may appear more than once.
-
-<Example name="tags-input/allow-duplicates" />
-
-### Controlled
-
-Keep the tag array in component state when another part of the screen depends on it or you need to
-reset it programmatically.
-
-<Example name="tags-input/controlled" />
-
-### Controlled Input Value
-
-Control `inputValue` separately when another control should prefill or clear the entry input.
-
-<Example name="tags-input/controlled-input-value" />
-
-### Delimiter and Paste
+### Delimiter and paste
 
 Use `delimiter` with `addOnPaste` when pasted text should create multiple tags. This example accepts
 commas, semicolons, and spaces as separators.
 
 <Example name="tags-input/delimiter-and-paste" />
 
-### Disable Editing
+### Validation and max
+
+Use `validate`, `max`, and `onValueInvalid` to reject invalid values and observe why an addition was
+rejected. Add `maxLength` when the entry input should stop accepting long values before validation.
+
+<Example name="tags-input/validation-and-max" />
+
+### Max with overflow
+
+Use `allowOverflow` with `max` when users may temporarily exceed the limit while the control reports
+an invalid state.
+
+<Example name="tags-input/max-with-overflow" />
+
+### Allow duplicates
+
+Set `allowDuplicates` when the same string may appear more than once.
+
+<Example name="tags-input/allow-duplicates" />
+
+### Sanitize and blur
+
+Use `sanitizeValue` to normalize incoming tags and `blurBehavior="add"` to commit the current input
+when focus leaves the control.
+
+<Example name="tags-input/sanitize-and-blur" />
+
+### Disable editing
 
 Set `editable={false}` when existing tags should remain removable but not editable in place.
 
 <Example name="tags-input/disable-editing" />
 
-### Disabled and Read-only
+### Disabled and read-only
 
 Use `disabled` for a non-interactive control. Use `readOnly` when tags should remain visible but
 users must not add, remove, or edit them.
@@ -175,79 +93,109 @@ Pass `name` to the root and add `TagsInputHiddenInput` to include the tag list i
 
 <Example name="tags-input/form" />
 
-### Max With Overflow
+### Controlled
 
-Use `allowOverflow` with `max` when users may temporarily exceed the limit while the control reports
-an invalid state.
+Keep the tag array in component state when another part of the screen depends on it or you need to
+reset it programmatically. See [Control state from the application](/docs/composition-patterns#controlled-state).
 
-<Example name="tags-input/max-with-overflow" />
+<Example name="tags-input/controlled" />
 
-### TagsInputRootProvider
+### Controlled input value
 
-Use `useTagsInput` with `TagsInputRootProvider` when state and imperative methods need to be used outside the
-rendered tags input tree.
+Control `inputValue` separately when another control should prefill or clear the entry input. See [Control state from the application](/docs/composition-patterns#controlled-state).
 
-<Example name="tags-input/root-provider" />
-
-### Sanitize and Blur
-
-Use `sanitizeValue` to normalize incoming tags and `blurBehavior="add"` to commit the current input
-when focus leaves the control.
-
-<Example name="tags-input/sanitize-and-blur" />
-
-### Validation and Max
-
-Use `validate`, `max`, and `onValueInvalid` to reject invalid values and observe why an addition was
-rejected. Add `maxLength` when the entry input should stop accepting long values before validation.
-
-<Example name="tags-input/validation-and-max" />
+<Example name="tags-input/controlled-input-value" />
 
 ### With Combobox
 
 Compose `TagsInput` with `Combobox` when typed input should offer known options while still allowing
 custom tags. Share the input and control IDs and compose the inputs with `asChild`.
 
-<ExampleFrame variant="component">
-  <TagsInputWithCombobox />
-</ExampleFrame>
+<Example name="combobox/with-tags-input" />
 
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
+### Root provider
 
-```tsx pure file="../../../src/components/examples/tags-input/with-combobox.tsx"
-```
+Use `useTagsInput` with `TagsInputRootProvider` when state and imperative methods need to be used outside the
+rendered tags input tree. See [Share state outside the tree](/docs/composition-patterns#root-provider).
 
-    </Tab>
-    <Tab value="solid"><CodeBlockRuntime lang="tsx" code={tagsInputSolidWithCombobox} /></Tab>
-    <Tab value="vue"><CodeBlockRuntime lang="vue" code={tagsInputVueWithCombobox} /></Tab>
-  </Tabs>
+<Example name="tags-input/root-provider" />
 
-**Styles**
+### Build from parts
 
-```css file="../../../src/components/examples/tags-input/tags-input-with-combobox.module.css"
-```
-</div>
-</ExampleCode>
+The same field as Basic, without `TagsInputItems`: `TagsInputContext` provides the values, and each
+`TagsInputItem` holds the preview with its text and delete trigger plus `TagsInputItemInput` for inline
+editing. The delete and clear triggers receive explicit icons. Start here when tags need custom
+content or actions.
 
-### Advanced Customization
+<Example name="tags-input/build-from-parts" />
 
-Bypass `TagsInputItems` when each tag needs custom content or actions. Map the root values to the full item
-tree and keep `TagsInputItemInput` in each item if inline editing is still needed.
+## Composition
 
-<Example name="tags-input/advanced-customization" />
+Use the short `<TagsInput>` form for the standard composition. Keep `TagsInputItems`,
+`TagsInputInput`, and `TagsInputClearTrigger` inside `TagsInputControl`. Add
+`TagsInputHiddenInput` explicitly and pass `name` to the root when the tags must be submitted with
+a form. Use `form` when the associated form is outside the component tree.
+
+For custom tag content or actions, use `TagsInputContext` and map its values to
+`TagsInputItem` with `index` and `value`. Keep `TagsInputItemInput` inside each item when inline
+editing should remain available. Use `TagsInputRootProvider` with `useTagsInput()` only when state
+or methods such as `addValue`, `clearValue`, or `focus` must be used outside the component tree.
+In Solid, the store is an accessor, so read `tagsInput().value` and call `tagsInput().addValue()`.
+When combining `TagsInput` with `Combobox`, share the input and control IDs and compose the inputs
+with `asChild`.
+
+## Anatomy
+
+Hover or focus a part to find it in the preview.
+
+<AnatomyInspector
+  parts={[
+    ["TagsInput", "tags-input-root", "Root state, tag values, entry input, validation, and form integration.", 0],
+    ["TagsInputLabel", "tags-input-label", "Accessible label for the tags input.", 1],
+    ["TagsInputControl", "tags-input-control", "Visible shell containing tags, the entry input, and the clear trigger.", 1],
+    ["TagsInputItems", "", "Standard editable tag renderer for the current root values.", 2],
+    ["TagsInputItem", "tags-input-item", "One tag. Pass `index` and `value` when rendering custom items.", 2],
+    ["TagsInputItemPreview", "tags-input-item-preview", "Visible tag content outside edit mode.", 3],
+    ["TagsInputItemText", "tags-input-item-text", "Visible tag text.", 4],
+    ["TagsInputItemDeleteTrigger", "tags-input-item-delete-trigger", "Removes one tag and provides a compact close icon by default.", 4],
+    ["TagsInputItemInput", "tags-input-item-input", "Input used when a tag is edited in place.", 3],
+    ["TagsInputInput", "tags-input-input", "Entry input for new tags.", 2],
+    ["TagsInputClearTrigger", "tags-input-clear-trigger", "Clears all tags and uses the shared close-button visual by default.", 2],
+    ["TagsInputHiddenInput", "", "Explicit native input for form submission.", 1],
+    ["TagsInputRootProvider", "tags-input-root-provider", "Connects the parts to state returned by `useTagsInput()`.", 0],
+    ["TagsInputItemContext", null, "Render-prop access to the state of the current item inside the component tree.", 0],
+    ["TagsInputContext", null, "Render-prop access to the root state inside the component tree.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styling
 
-### CSS Properties
+### CSS variables
 
-<CssPropertiesSection properties={TagsInputDocs.tagsInputCssProperties} />
+Hover or focus a variable to see it in the preview.
+
+<CssPropertiesSection properties={TagsInputDocs.tagsInputCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Styling hooks
 
-- The root and root provider expose `data-slot="tags-input-root"` and `data-slot="tags-input-root-provider"`.
+| Part | `data-slot` |
+| --- | --- |
+| `TagsInput` | `tags-input-root` |
+| `TagsInputRootProvider` | `tags-input-root-provider` |
+| `TagsInputLabel` | `tags-input-label` |
+| `TagsInputControl` | `tags-input-control` |
+| `TagsInputItem` | `tags-input-item` |
+| `TagsInputItemPreview` | `tags-input-item-preview` |
+| `TagsInputItemText` | `tags-input-item-text` |
+| `TagsInputItemDeleteTrigger` | `tags-input-item-delete-trigger` |
+| `TagsInputItemInput` | `tags-input-item-input` |
+| `TagsInputInput` | `tags-input-input` |
+| `TagsInputClearTrigger` | `tags-input-clear-trigger` |
+
 - Ark parts keep `data-scope="tags-input"` and their `data-part` values from the anatomy.
 - State styling can use `data-disabled`, `data-readonly`, `data-invalid`, `data-focus`, `data-empty`, `data-required`, `data-value`, and `data-highlighted` where Ark emits them.
 - Delete and clear triggers expose stable `data-slot` hooks. Item deletion uses a compact close icon; clear-all uses the shared close-button styling.
@@ -267,3 +215,48 @@ when needed, `form` to associate it with a form.
 - When the entry input is empty or the caret is at its start, `ArrowLeft` and `ArrowRight` move visual focus between tags.
 - `Backspace` and `Delete` remove the highlighted tag. `Backspace` also removes the last tag when the entry input is empty.
 - With `addOnPaste`, `Control+V` adds pasted values after splitting them with `delimiter`.
+
+## Keyboard
+
+| Key | Action |
+| --- | --- |
+| `Enter` | Adds the typed text as a tag. |
+| `ArrowLeft` / `ArrowRight` | Moves between tags when the input is empty. |
+| `Backspace` / `Delete` | Highlights and then removes a tag. |
+| `Enter` on a tag | Edits the highlighted tag when editable is on. |
+| `Ctrl+V` | Adds pasted values as tags when addOnPaste is on. |
+
+## API reference
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `value` | `string[]` | — | Tags for controlled use. |
+| `defaultValue` | `string[]` | — | Initial tags. |
+| `onValueChange` | `(details: ValueChangeDetails) => void` | — | Called when tags are added, edited, or removed. |
+| `inputValue` | `string` | — | Input text for controlled use. |
+| `onInputValueChange` | `(details: InputValueChangeDetails) => void` | — | Called when the input text changes. |
+| `max` | `number` | `Infinity` | Maximum number of tags. |
+| `maxLength` | `number` | — | Maximum length of a tag. |
+| `delimiter` | `string \| RegExp` | `','` | Character or pattern that adds a tag while typing. |
+| `validate` | `(details: ValidateArgs) => boolean` | — | Returns `false` to reject a tag. |
+| `onValueInvalid` | `(details: ValidityChangeDetails) => void` | — | Called when `max` is reached or `validate` rejects a tag. |
+| `allowDuplicates` | `boolean` | `false` | Allows the same tag twice. |
+| `addOnPaste` | `boolean` | `false` | Splits pasted text into tags. |
+| `editable` | `boolean` | `true` | Lets users edit a tag with Enter or a double click. |
+| `blurBehavior` | `'clear' \| 'add'` | — | Input text on blur: `add` it as a tag or `clear` it. |
+| `placeholder` | `string` | — | Placeholder text of the input. |
+| `name` | `string` | — | Form field name of the underlying input. |
+| `disabled` | `boolean` | `false` | Disables the control. |
+| `readOnly` | `boolean` | `false` | Shows the value but prevents changes. |
+| `invalid` | `boolean` | `false` | Marks the control as invalid. |
+| `required` | `boolean` | `false` | Requires a value before form submission. |
+| `translations` | `IntlTranslations` | — | Localized strings for accessibility labels. |
+| `autoFocus` | `boolean` | — | Focuses the input on mount. |
+| `defaultInputValue` | `string` | — | Initial input text. |
+| `onHighlightChange` | `(details: HighlightChangeDetails) => void` | — | Called when a tag is highlighted. |
+| `allowOverflow` | `boolean` | — | Allows more tags than `max` and marks the field invalid. |
+| `sanitizeValue` | `(value: string) => string` | `(value) => value.trim()` | Cleans a tag before it is added. |
+| `form` | `string` | — | Id of the form the underlying input belongs to. |
+| `onPointerDownOutside` | `(event: PointerDownOutsideEvent) => void` | — | Called when the pointer is pressed outside the popup. |
+| `onFocusOutside` | `(event: FocusOutsideEvent) => void` | — | Called when focus moves outside the popup. |
+| `onInteractOutside` | `(event: InteractOutsideEvent) => void` | — | Called on any interaction outside the popup. |

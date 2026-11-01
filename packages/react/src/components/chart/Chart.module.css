@@ -7,25 +7,25 @@
     margin: 0;
     padding: var(--moduix-chart-padding, var(--moduix-spacing-5));
     border: var(--moduix-border-width-sm) solid
-      var(--moduix-chart-border-color, var(--moduix-color-border));
+      var(--moduix-chart-border-color, var(--moduix-border));
     border-radius: var(--moduix-chart-radius, var(--moduix-radius-lg));
-    background-color: var(--moduix-chart-bg, var(--moduix-color-card));
+    background-color: var(--moduix-chart-bg, var(--moduix-card));
     box-shadow: var(--moduix-chart-shadow, var(--moduix-shadow-sm));
-    color: var(--moduix-color-card-foreground);
+    color: var(--moduix-card-foreground);
   }
 
   .plot {
-    --ts-chart-tooltip-background: var(--moduix-color-popover);
-    --ts-chart-tooltip-border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
+    --ts-chart-tooltip-background: var(--moduix-popover);
+    --ts-chart-tooltip-border: var(--moduix-border-width-sm) solid var(--moduix-border);
     --ts-chart-tooltip-border-radius: var(--moduix-radius-md);
-    --ts-chart-tooltip-color: var(--moduix-color-popover-foreground);
+    --ts-chart-tooltip-color: var(--moduix-popover-foreground);
     --ts-chart-tooltip-font: var(--moduix-weight-medium) var(--moduix-text-xs) /
       var(--moduix-line-height-text-xs) var(--moduix-font-sans);
     --ts-chart-tooltip-padding: var(--moduix-spacing-3);
     --ts-chart-tooltip-shadow: var(--moduix-shadow-lg);
 
     min-width: 0;
-    color: var(--moduix-color-muted-foreground);
+    color: var(--moduix-muted-foreground);
 
     & :global(.ts-chart) {
       border-radius: var(--moduix-radius-md);
@@ -33,7 +33,7 @@
     }
 
     & :global(.ts-chart:focus-visible) {
-      outline: var(--moduix-focus-ring-width) solid var(--moduix-color-ring);
+      outline: var(--moduix-focus-ring-width) solid var(--moduix-ring);
       outline-offset: var(--moduix-focus-ring-offset);
     }
   }
@@ -52,7 +52,7 @@
 
   .description {
     margin: 0;
-    color: var(--moduix-color-muted-foreground);
+    color: var(--moduix-muted-foreground);
     font-size: var(--moduix-text-sm);
     line-height: var(--moduix-line-height-text-sm);
   }
@@ -70,7 +70,7 @@
     display: inline-flex;
     align-items: center;
     gap: var(--moduix-spacing-2);
-    color: var(--moduix-color-muted-foreground);
+    color: var(--moduix-muted-foreground);
     font-size: var(--moduix-text-sm);
     line-height: var(--moduix-line-height-text-sm);
 
@@ -79,10 +79,7 @@
       height: var(--moduix-spacing-2-5);
       flex: none;
       border-radius: var(--moduix-radius-full);
-      background-color: var(
-        --moduix-chart-legend-indicator-color,
-        var(--moduix-color-muted-foreground)
-      );
+      background-color: var(--moduix-chart-legend-indicator-color, var(--moduix-muted-foreground));
       box-shadow: inset 0 0 0 var(--moduix-border-width-sm) rgb(0 0 0 / 8%);
       content: '';
     }
@@ -98,7 +95,7 @@
     display: flex;
     align-items: center;
     gap: var(--moduix-spacing-2);
-    color: var(--moduix-color-popover-foreground);
+    color: var(--moduix-popover-foreground);
     font-weight: var(--moduix-weight-semibold);
   }
 
@@ -114,8 +111,8 @@
 
     &[data-active] {
       border-radius: var(--moduix-radius-sm);
-      background-color: var(--moduix-color-muted);
-      box-shadow: 0 0 0 var(--moduix-spacing-1) var(--moduix-color-muted);
+      background-color: var(--moduix-muted);
+      box-shadow: 0 0 0 var(--moduix-spacing-1) var(--moduix-muted);
     }
   }
 
@@ -128,11 +125,11 @@
 
   .tooltipLabel {
     min-width: 0;
-    color: var(--moduix-color-muted-foreground);
+    color: var(--moduix-muted-foreground);
   }
 
   .tooltipValue {
-    color: var(--moduix-color-popover-foreground);
+    color: var(--moduix-popover-foreground);
     font-weight: var(--moduix-weight-semibold);
     font-variant-numeric: tabular-nums;
     text-align: end;

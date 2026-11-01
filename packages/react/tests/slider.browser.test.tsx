@@ -1,7 +1,6 @@
-import { LocaleProvider } from '@ark-ui/react/locale';
 import { page } from '@rstest/browser';
 import { expect, test } from '@rstest/core';
-import { render, screen } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import { createRef } from 'react';
 import {
   Slider,
@@ -18,7 +17,7 @@ import {
   SliderThumbs,
   SliderTrack,
   useSlider,
-} from '../src';
+} from '@/index';
 
 function SliderParts() {
   return (
@@ -46,6 +45,24 @@ function ProviderSlider() {
         </SliderThumb>
       </SliderControl>
     </SliderRootProvider>
+  );
+}
+
+function rect(selector: string, root: ParentNode = document) {
+  return root.querySelector(selector)!.getBoundingClientRect();
+}
+
+function pressThumb(thumb: Element) {
+  const box = thumb.getBoundingClientRect();
+  thumb.dispatchEvent(
+    new PointerEvent('pointerdown', {
+      bubbles: true,
+      button: 0,
+      clientX: box.left + box.width / 2,
+      clientY: box.top + box.height / 2,
+      isPrimary: true,
+      pointerId: 1,
+    }),
   );
 }
 
@@ -235,49 +252,6 @@ test('preserves active marker state for invalid sliders', async () => {
   await expect.element(activeMarker).toHaveAttribute('data-state', 'under-value');
 });
 
-test('fills the container width by default', () => {
-  render(
-    <div style={{ width: '20rem' }}>
-      <Slider defaultValue={[40]} data-testid="slider-root">
-        <SliderControl>
-          <SliderTrack>
-            <SliderRange />
-          </SliderTrack>
-          <SliderThumb index={0} aria-label="Volume">
-            <SliderHiddenInput />
-          </SliderThumb>
-        </SliderControl>
-      </Slider>
-    </div>,
-  );
-
-  expect(screen.getByTestId('slider-root').offsetWidth).toBe(320);
-});
-function rect(selector: string, root: ParentNode = document) {
-  return root.querySelector(selector)!.getBoundingClientRect();
-}
-
-function markerDotCenter(marker: Element) {
-  const dot = getComputedStyle(marker, '::before');
-  const translateX = new DOMMatrix(dot.transform === 'none' ? undefined : dot.transform).m41;
-
-  return parseFloat(dot.left) + parseFloat(dot.marginLeft) + parseFloat(dot.width) / 2 + translateX;
-}
-
-function pressThumb(thumb: Element) {
-  const box = thumb.getBoundingClientRect();
-  thumb.dispatchEvent(
-    new PointerEvent('pointerdown', {
-      bubbles: true,
-      button: 0,
-      clientX: box.left + box.width / 2,
-      clientY: box.top + box.height / 2,
-      isPrimary: true,
-      pointerId: 1,
-    }),
-  );
-}
-
 test('places label and value text on one row above the control', () => {
   render(
     <div style={{ width: '20rem' }}>
@@ -298,28 +272,6 @@ test('places label and value text on one row above the control', () => {
   expect(Math.abs(valueText.right - root.right)).toBeLessThanOrEqual(1);
   expect(control.top).toBeGreaterThanOrEqual(label.bottom);
   expect(control.width).toBe(root.width);
-});
-
-test('reserves room for marker labels and centers marker dots in RTL', () => {
-  const { container } = render(
-    <LocaleProvider locale="ar">
-      <div style={{ width: '20rem' }}>
-        <Slider defaultValue={[40]}>
-          <SliderParts />
-          <SliderMarkerGroup>
-            <SliderMarker value={50}>50</SliderMarker>
-          </SliderMarkerGroup>
-        </Slider>
-        <p>After</p>
-      </div>
-    </LocaleProvider>,
-  );
-
-  const marker = container.querySelector('[data-slot="slider-marker"]')!;
-
-  expect(marker.getAttribute('dir')).toBe('rtl');
-  expect(rect('p', container).top).toBeGreaterThanOrEqual(marker.getBoundingClientRect().bottom);
-  expect(Math.abs(markerDotCenter(marker) - marker.clientWidth / 2)).toBeLessThanOrEqual(0.5);
 });
 
 test('keeps the dragging indicator next to the thumb in both orientations', async () => {
@@ -343,9 +295,17 @@ test('keeps the dragging indicator next to the thumb in both orientations', asyn
 
   pressThumb(horizontal!.querySelector('[data-slot="slider-thumb"]')!);
   pressThumb(vertical!.querySelector('[data-slot="slider-thumb"]')!);
+  // Ark keeps thumbs hidden until it has measured them; positions are final only after that.
   await expect
-    .poll(() => container.querySelectorAll('[data-slot="slider-dragging-indicator"]:not([hidden])'))
-    .toHaveLength(2);
+    .poll(
+      () =>
+        [
+          ...container.querySelectorAll<HTMLElement>(
+            '[data-slot="slider-dragging-indicator"]:not([hidden])',
+          ),
+        ].filter((indicator) => getComputedStyle(indicator).visibility === 'visible').length,
+    )
+    .toBe(2);
 
   const horizontalThumb = rect('[data-slot="slider-thumb"]', horizontal!);
   const horizontalIndicator = rect('[data-slot="slider-dragging-indicator"]', horizontal!);

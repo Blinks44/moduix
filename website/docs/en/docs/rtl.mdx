@@ -10,7 +10,7 @@ import VueSection from '../../../snippets/rtl/vue/section.vue?raw';
 # Right-to-left (RTL)
 
 An RTL interface needs two coordinated settings: native `lang` and `dir` attributes for browser layout,
-and Moduix `LocaleProvider` for Ark's locale-aware behavior. Set both at the highest scope that owns
+and moduix `LocaleProvider` for Ark's locale-aware behavior. Set both at the highest scope that controls
 the language.
 
 ## Configure the document
@@ -63,7 +63,7 @@ reloading.
 
 ## Scope an RTL section
 
-For one RTL area inside an LTR application, put `lang` and `dir` on that area's root and wrap its Moduix
+For one RTL area inside an LTR application, put `lang` and `dir` on that area's root and wrap its moduix
 components with `LocaleProvider`.
 
 <Tabs groupId="framework">
@@ -86,7 +86,7 @@ components with `LocaleProvider`.
 </Tabs>
 
 The example builds its collection with `createListCollection` from `@ark-ui/react/collection` or
-`@ark-ui/solid/collection`, `@ark-ui/vue/collection`. Select, Button, and LocaleProvider come from the matching Moduix
+`@ark-ui/solid/collection`, `@ark-ui/vue/collection`. Select, Button, and LocaleProvider come from the matching moduix
 adapter. Components read direction from the locale context and do not need a separate RTL prop.
 
 ## Handle portals and mixed direction
@@ -108,7 +108,7 @@ Prefer logical properties when a rule follows reading direction:
 ```css
 .item {
   padding-inline: var(--moduix-spacing-4);
-  border-inline-start: var(--moduix-border-width-sm) solid var(--moduix-color-border);
+  border-inline-start: var(--moduix-border-width-sm) solid var(--moduix-border);
   text-align: start;
 }
 ```

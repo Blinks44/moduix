@@ -1,16 +1,13 @@
 ---
 title: Tree Collection
 description: "Создавайте, находите, обходите, фильтруйте и обновляйте иерархические данные для Tree View и своих древовидных интерфейсов."
+ark: https://ark-ui.com/docs/collections/tree-collection
 ---
 
-import TreeCollectionBasic from '@/components/examples/tree-collection/basic.tsx';
 import treeCollectionSolidCustomNodes from '../../../snippets/tree-collection/solid/custom-nodes.tsx?raw';
 import treeCollectionVueCustomNodes from '../../../snippets/tree-collection/vue/custom-nodes.ts?raw';
 import treeCollectionSolidFilePaths from '../../../snippets/tree-collection/solid/file-paths.tsx?raw';
 import treeCollectionVueFilePaths from '../../../snippets/tree-collection/vue/file-paths.ts?raw';
-import treeCollectionSolidBasic from '../../../snippets/tree-collection/solid/basic.tsx?raw';
-import treeCollectionVueBasic from '../../../snippets/tree-collection/vue/basic.vue?raw';
-import treeCollectionVueBasicHelper from '../../../snippets/tree-collection/vue/FileTreeNode.vue?raw';
 
 # Tree Collection
 
@@ -19,9 +16,7 @@ import treeCollectionVueBasicHelper from '../../../snippets/tree-collection/vue/
 Используйте её, чтобы создать типизированную иерархию, находить связи между узлами, обходить и
 фильтровать дерево и получать новые версии коллекции без изменения исходной.
 
-## Справочник API
-
-<PrimitiveReference href="https://ark-ui.com/docs/collections/tree-collection" />
+## Импорт
 
 Импортируйте функции коллекции из точки входа Ark UI для нужного фреймворка:
 
@@ -57,7 +52,7 @@ import { createFileTreeCollection, createTreeCollection } from '@ark-ui/vue/coll
   </Tab>
 </Tabs>
 
-Moduix также реэкспортирует обе функции из каждой точки входа `tree-view`. В примерах с компонентом
+moduix также реэкспортирует обе функции из каждой точки входа `tree-view`. В примерах с компонентом
 используется этот путь, поэтому `TreeView` и функции коллекции импортируются из одного пакета.
 
 ## Базовый пример
@@ -69,45 +64,7 @@ Moduix также реэкспортирует обе функции из каж
 Используйте коллекцию как источник данных для `TreeView`. Отрисовывайте
 `collection.rootNode.children` и передавайте каждой ветви её числовую позицию как `indexPath`.
 
-<ExampleFrame variant="component">
-  <PreviewFrame maxWidth="sm">
-    <TreeCollectionBasic />
-  </PreviewFrame>
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/tree-collection/basic.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={treeCollectionSolidBasic} />
-
-    </Tab>
-  <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={treeCollectionVueBasic} title="basic.vue" />
-
-<CodeBlockRuntime lang="vue" code={treeCollectionVueBasicHelper} title="FileTreeNode.vue" />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="tree-collection/basic" />
 
 `TreeViewLabel` задаёт доступное имя дерева, а `TreeView` управляет фокусом, клавиатурной
 навигацией, раскрытием и выбором. Полную анатомию и поведение компонента смотрите на странице
@@ -292,7 +249,7 @@ const moved = collection.move([readmePath], srcPath);
 | `filter(predicate)`         | Вернуть отфильтрованное дерево.               |
 
 Если коллекция отрисовывается через `TreeView`, сохраните результат обновления в состоянии, которое
-владеет деревом, и отрисуйте его новый `rootNode`.
+хранит дерево, и отрисуйте его новый `rootNode`.
 
 ## Дерево из путей файлов
 

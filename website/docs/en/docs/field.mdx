@@ -1,12 +1,24 @@
 ---
 title: Field
 component: field
-description: Accessible form field context for React, Solid, and Vue with CSS Modules and Tailwind package options.
+description: Connect a label, helper text, and error message to one form control.
+ark: https://ark-ui.com/docs/components/field
 ---
 
-## API Reference
+import AnatomyScene from '@/components/examples/field/basic';
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/field" />
+<Example name="field/basic" />
+
+## Installation
+
+<ComponentInstall />
+
+## Usage
+
+<Usage />
+
+Use `Field` as the wrapper for one form control. Put `FieldLabel` before the control, then add
+`FieldHelperText` or `FieldErrorText` when the user needs more information.
 
 ## Choosing the right component
 
@@ -17,79 +29,83 @@ Use `Field` when one form control needs an accessible label, helper text, an err
 - Choose **`Fieldset`** when several related controls need one shared legend.
 - Use a control on its own when field-level ARIA relationships or shared state are not needed.
 
-## Basic
+## Examples
 
+### Invalid
 
-Use `Field` as the wrapper for one form control. Put `FieldLabel` before the control, then add
-`FieldHelperText` or `FieldErrorText` when the user needs more information.
+Set `invalid` on the root when application state or a form library controls validation. Pass it to a
+compound child root as well when that component manages its own invalid state.
 
-<Example name="field/basic" />
+<Example name="field/invalid" />
 
-## Install with shadcn
+### Disabled
 
-See [Quick Start](/docs/quick-start) for full package setup, registry configuration, and styling guidance.
+Set `disabled` on the root to pass the disabled state to the supported Ark field parts.
 
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
+<Example name="field/disabled" />
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/field' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/field' },
-  ]}
-/>
+### Read only
 
-  </Tab>
-  <Tab label="Solid" value="solid">
+Set `readOnly` on the root when users can copy the control's value but cannot edit it.
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/field' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/field' },
-  ]}
-/>
+<Example name="field/read-only" />
 
-  </Tab>
-  <Tab label="Vue" value="vue">
+### Textarea
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/field' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/field' },
-  ]}
-/>
+Use `Textarea` for multi-line input while keeping the field's label, description, and state
+connections.
 
-  </Tab>
-</Tabs>
+<Example name="field/textarea" />
 
-## Anatomy
+### Select
 
-The public `Field` API uses flat, family-prefixed values. `Field` does not render its own control: put
-an `Input`, `Textarea`, `NativeSelect`, or another moduix form control inside it, and the control reads
-the field context.
+Use the composed `Select` when a native select is not enough and you need a custom option list or
+selection UI. Because `Select` manages its own state, pass `required`, `invalid`, `disabled`, or `readOnly`
+to `Select` when needed.
 
-```text
-Field
-├─ FieldLabel
-├─ Input | Textarea | NativeSelect | another form control
-├─ FieldHelperText
-├─ FieldErrorText
-└─ FieldRequiredIndicator
+<Example name="field/select" />
 
-FieldRootProvider
-└─ same part tree connected to a useField() store
-```
+### Native select
 
-| Part                      | Role                                                                                          |
-| ------------------------- | --------------------------------------------------------------------------------------------- |
-| `Field`                  | Root context. It renders a `<div role="group">` by default.                                |
-| `FieldRootProvider`      | Root that uses a `useField()` state object created outside the tree.                          |
-| `FieldContext`           | Reads the current field state without adding an element to the DOM.                          |
-| `FieldLabel`             | Accessible label associated with the current control.                                         |
-| `FieldHelperText`        | Helper text associated with the control through `aria-describedby`.                           |
-| `FieldErrorText`         | Error text rendered when the root is `invalid`.                                               |
-| `FieldRequiredIndicator` | Visual marker for a required field. Use `fallback` to replace its default marker.              |
-| `FieldItem`              | Nested context for a grouped control identified by `value`; its ref points to the local row wrapper. |
+Use `NativeSelect` for a browser-native select. `Field` connects it to the field label, state, and
+description.
+
+<Example name="field/native-select" />
+
+### Checkbox
+
+Use `Field` around a checkbox when it needs field-level helper or error text. Pass the checkbox's own
+state and form props to `Checkbox`.
+
+<Example name="field/checkbox" />
+
+### RadioGroup
+
+Use `Field` with `RadioGroup` when one field-level label, helper text, or error message should describe
+the whole set of choices rather than individual radio items. Pass the group's own state props to
+`RadioGroup`.
+
+<Example name="field/radiogroup" />
+
+### Controlled invalid state
+
+Derive `invalid` from local state when validation should update as the user types. The error text
+appears only while the field is invalid.
+
+<Example name="field/controlled-invalid" />
+
+### Item target
+
+Use `FieldItem` with the root `target` prop when one label should target a control inside a group.
+
+<Example name="field/item-target" />
+
+### Root provider
+
+Use `useField` with `FieldRootProvider` when the field state must be created outside the rendered
+tree.
+
+<Example name="field/root-provider" />
 
 ## Composition
 
@@ -104,83 +120,28 @@ In Vue, initialize native controls with `v-model` and reset the bound refs in th
 Vue `Input` and `NativeSelect` do not provide React's `defaultValue` prop. Ark currently clears native
 uncontrolled defaults on these controls; use `v-model` until that upstream behavior is fixed.
 
-## Examples
+## Anatomy
 
-### Checkbox
+The public `Field` API uses flat, family-prefixed values. `Field` does not render its own control: put
+an `Input`, `Textarea`, `NativeSelect`, or another moduix form control inside it, and the control reads
+the field context.
 
-Use `Field` around a checkbox when it needs field-level helper or error text. Pass the checkbox's own
-state and form props to `Checkbox`.
+Hover or focus a part to find it in the preview.
 
-<Example name="field/checkbox" />
-
-### Controlled invalid state
-
-Derive `invalid` from local state when validation should update as the user types. The error text
-appears only while the field is invalid.
-
-<Example name="field/controlled-invalid" />
-
-### Disabled
-
-Set `disabled` on the root to pass the disabled state to the supported Ark field parts.
-
-<Example name="field/disabled" />
-
-### Invalid
-
-Set `invalid` on the root when application state or a form library controls validation. Pass it to a
-compound child root as well when that component owns its invalid state.
-
-<Example name="field/invalid" />
-
-### Item target
-
-Use `FieldItem` with the root `target` prop when one label should target a control inside a group.
-
-<Example name="field/item-target" />
-
-### Native Select
-
-Use `NativeSelect` for a browser-native select. `Field` connects it to the field label, state, and
-description.
-
-<Example name="field/native-select" />
-
-### RadioGroup
-
-Use `Field` with `RadioGroup` when one field-level label, helper text, or error message should describe
-the whole set of choices rather than individual radio items. Pass the group's own state props to
-`RadioGroup`.
-
-<Example name="field/radiogroup" />
-
-### Read Only
-
-Set `readOnly` on the root when users can copy the control's value but cannot edit it.
-
-<Example name="field/read-only" />
-
-### Root Provider
-
-Use `useField` with `FieldRootProvider` when the field state must be created outside the rendered
-tree.
-
-<Example name="field/root-provider" />
-
-### Select
-
-Use the composed `Select` when a native select is not enough and you need a custom option list or
-selection UI. Because `Select` owns its state, pass `required`, `invalid`, `disabled`, or `readOnly`
-to `Select` when needed.
-
-<Example name="field/select" />
-
-### Textarea
-
-Use `Textarea` for multi-line input while keeping the field's label, description, and state
-connections.
-
-<Example name="field/textarea" />
+<AnatomyInspector
+  parts={[
+    ["Field", "field-root", "Root context. It renders a `<div role=\"group\">` by default.", 0],
+    ["FieldLabel", "field-label", "Accessible label associated with the current control.", 1],
+    ["FieldHelperText", "field-helper-text", "Helper text associated with the control through `aria-describedby`.", 1],
+    ["FieldErrorText", "field-error-text", "Error text rendered when the root is `invalid`.", 1],
+    ["FieldRequiredIndicator", "field-required-indicator", "Visual marker for a required field. Use `fallback` to replace its default marker.", 1],
+    ["FieldItem", "field-item", "Nested context for a grouped control identified by `value`; its ref points to the local row wrapper.", 1],
+    ["FieldRootProvider", "field-root-provider", "Root that uses a `useField()` state object created outside the tree.", 0],
+    ["FieldContext", null, "Reads the current field state without adding an element to the DOM.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styling
 
@@ -195,7 +156,25 @@ class on the part overrides the layered component styles. The root fills the wid
 
 ### Styling hooks
 
-Ark adds `data-disabled`, `data-invalid`, `data-readonly`, and `data-required` to the relevant parts.
-`FieldErrorText` exists only while the current field context is invalid. The helper text id and the
-active error text id are included in the control's `aria-describedby`.
-Every DOM part also keeps a stable `data-slot="field-*"` hook.
+| Part | `data-slot` |
+| --- | --- |
+| `Field` | `field-root` |
+| `FieldRootProvider` | `field-root-provider` |
+| `FieldItem` | `field-item` |
+| `FieldLabel` | `field-label` |
+| `FieldHelperText` | `field-helper-text` |
+| `FieldErrorText` | `field-error-text` |
+| `FieldRequiredIndicator` | `field-required-indicator` |
+
+Ark adds `data-disabled`, `data-invalid`, `data-readonly`, and `data-required` to the relevant parts. `FieldErrorText` exists only while the current field context is invalid. The helper text id and the
+active error text id are included in the control's `aria-describedby`. Every DOM part also keeps a stable `data-slot="field-*"` hook.
+
+## API reference
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `disabled` | `boolean` | `false` | Disables the nested control and dims the label. |
+| `readOnly` | `boolean` | `false` | Makes the nested control read-only. |
+| `invalid` | `boolean` | `false` | Marks the field invalid and shows `FieldErrorText`. |
+| `required` | `boolean` | `false` | Marks the nested control as required and shows the indicator. |
+| `asChild` | `boolean` | `false` | Renders the root as its single child element. |

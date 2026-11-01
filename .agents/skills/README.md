@@ -6,13 +6,8 @@ The library is Ark-backed and actively developed. Skills should preserve current
 documented target public contract, keep package/docs/registry output aligned, and remove stale
 instructions when behavior changes.
 
-The target public value API is flat in every framework and styling track. Export the root as the
-family name, other parts with the family prefix, and hooks as top-level functions. For example:
-`Accordion`, `AccordionItem`, `AccordionItemTrigger`, `AccordionRootProvider`, `AccordionContext`,
-and `useAccordion`. Skills must not introduce compound `Component.Part` APIs, namespace objects,
-`Object.assign` assembly, or duplicate `ComponentRoot` aliases.
-
-React, Solid, and Vue implement the flat public API. Flat names are the existing repository contract.
+The flat public value API is defined once in `AGENTS.md`. Skills follow it and do not restate it;
+they must not introduce compound `Component.Part` APIs, namespace objects, or `ComponentRoot` aliases.
 
 Skills are intentionally narrow and composable:
 
@@ -21,7 +16,7 @@ Skills are intentionally narrow and composable:
 - Conditional details live in `references/`, not in every task's initial context.
 - Framework-specific convention skills stay narrow. Add a native skill when a new adapter enters
   development; keep future Svelte mechanics out of existing framework convention skills.
-- Finite repository migrations live in the gitignored local `plans/` directory, reference permanent
+- Finite repository migrations live in the gitignored `.local/` directory, reference permanent
   skills for implementation, and are deleted after their completion condition is met. Plans are not
   repository documentation and must not be committed.
 
@@ -44,6 +39,17 @@ Skills are intentionally narrow and composable:
 - `rspress-custom-theme`: the Rspress visual shell, theme variables, slots, wrappers, and ejection.
 - `rspress-description-generator`: description frontmatter and search/AI metadata.
 - `rspress-localization`: locale structure, translated MDX, runtime text, parity, and localization review.
+- `sketch-design-to-code`: implement UI from a Sketch document through the Sketch MCP server (vendored from `sketch-hq/agents`).
+- `sketch-design-from-reference`: build or refine a Sketch design from a URL, screenshot, or code (vendored from `sketch-hq/agents`).
+
+Claude Code discovers skills only in `.claude/skills/`, so each skill there is a symlink to its
+folder in `.agents/skills/`. Add the symlink when adding a skill.
+
+The `rslib-*`, `rspress-*` and `rstest-*` skills come from `rstackjs/agent-skills` (pinned in
+`skills-lock.json`) and carry moduix notes added locally; the `sketch-*` skills come from
+`sketch-hq/agents` (pinned in `skills-lock.json`, kept byte-identical to upstream and excluded from
+oxfmt). Updating any of them from upstream overwrites local edits: diff the result and
+re-apply the moduix notes.
 
 ## Source Of Truth
 

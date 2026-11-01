@@ -1,91 +1,98 @@
 ---
 title: Pagination
 component: pagination
-description: Navigation accessible entre les pages pour les listes, les tableaux, les résultats de recherche et les autres contenus paginés.
+description: Parcourir les pages d’une liste, d’un tableau ou de résultats.
+ark: https://ark-ui.com/docs/components/pagination
 ---
 
+import AnatomyScene from '@/components/examples/pagination/basic';
 import * as PaginationDocs from '@/components/examples/pagination/css-properties';
 
-## Référence de l’API
+<Example name="pagination/basic" />
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/pagination" />
+## Installation
 
-## Exemple de base
+<ComponentInstall />
 
+## Utilisation
+
+<Usage />
 
 Utilisez `Pagination` comme composant racine. `PaginationItems` affiche les boutons de page et les
 points de suspension correspondant à la plage courante.
 
-<Example name="pagination/basic" />
+## Exemples
 
-## Installation avec shadcn
+### Plage d’éléments
 
-Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration complète du paquet, du registre et des styles.
+Utilisez `pagination.pageRange` pour indiquer quels éléments sont visibles sur la page courante.
 
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
+<Example name="pagination/page-range" />
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/pagination' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/pagination' },
-  ]}
-/>
+### Nombre d’éléments par page
 
-  </Tab>
-  <Tab label="Solid" value="solid">
+Appelez `pagination.setPageSize(nextSize)` depuis le contexte lorsqu’un contrôle distinct modifie le
+nombre d’éléments par page.
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/pagination' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/pagination' },
-  ]}
-/>
+<Example name="pagination/page-size-control" />
 
-  </Tab>
-  <Tab label="Vue" value="vue">
+### Boutons de première et de dernière page
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/pagination' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/pagination' },
-  ]}
-/>
+Ajoutez `PaginationFirstTrigger` et `PaginationLastTrigger` lorsque les utilisateurs ont besoin d’un
+accès rapide à la première et à la dernière page.
 
-  </Tab>
-</Tabs>
+<Example name="pagination/with-edges" />
 
-## Anatomie
+### Navigation par liens
 
-```text
-Pagination
-├─ PaginationFirstTrigger (facultatif)
-├─ PaginationPrevTrigger
-├─ PaginationItems (recommandé)
-├─ PaginationContext (accès avancé à l’état par fonction de rendu)
-│  ├─ PaginationItem
-│  └─ PaginationEllipsis
-├─ PaginationNextTrigger
-└─ PaginationLastTrigger (facultatif)
+Utilisez `type="link"`, `getPageUrl(details)` et des ancres `asChild` lorsque le changement de page doit
+naviguer vers une URL réelle.
 
-PaginationRootProvider
-└─ même arborescence de déclencheurs, d’éléments, de points de suspension et de contexte, reliée à usePagination()
-```
+<Example name="pagination/link" />
 
-| Partie                            | Rôle                                                                    |
-| --------------------------------- | ----------------------------------------------------------------------- |
-| `Pagination`                      | Racine de navigation qui gère la page active et le nombre d’éléments par page.                |
-| `PaginationRootProvider`         | Relie les sous-composants à l’état créé avec `usePagination()`.                    |
-| `PaginationItems`                | Affiche les éléments de page et les points de suspension calculés par Ark.                    |
-| `PaginationContext`              | Expose l’état de la racine et les méthodes de navigation via une render prop Ark UI.          |
-| `usePagination`        | Crée l’état de pagination en dehors de l’arborescence rendue.                                 |
-| `usePaginationContext` | Donne accès à l’état de pagination depuis un composant descendant.                             |
-| `PaginationItem`                 | Contrôle de page interactif. Transmettez-lui l’objet de page avec `{...page}`.                 |
-| `PaginationEllipsis`             | Marqueur décoratif d’une partie masquée de la plage, masqué aux technologies d’assistance. `index` est obligatoire.            |
-| `PaginationPrevTrigger`          | Passe à la page précédente et se désactive sur la première page.                              |
-| `PaginationNextTrigger`          | Passe à la page suivante et se désactive sur la dernière page.                                |
-| `PaginationFirstTrigger`         | Passe à la première page et se désactive lorsqu’elle est déjà sélectionnée.                   |
-| `PaginationLastTrigger`          | Passe à la dernière page et se désactive lorsqu’elle est déjà sélectionnée.                   |
+### Données côté client
+
+Utilisez `pagination.slice(data)` dans le contexte pour n’afficher que la partie du tableau déjà chargé
+correspondant à la page courante.
+
+<Example name="pagination/data-slicing" />
+
+### Traductions
+
+Utilisez `translations` pour personnaliser les libellés d’accessibilité. Ajustez la fenêtre de pages
+visible avec `siblingCount`, `boundaryCount` et les propriétés liées au nombre d’éléments par page.
+
+<Example name="pagination/customized" />
+
+### État contrôlé
+
+Passez la page active avec `page` et mettez-la à jour dans `onPageChange(details)`. Voir [Contrôler l’état depuis l’application](/docs/composition-patterns#controlled-state).
+
+<Example name="pagination/controlled" />
+
+### Contexte
+
+Utilisez `PaginationContext` pour placer des contrôles personnalisés à côté de la liste et appeler des
+méthodes de navigation telles que `goToFirstPage()` ou `goToLastPage()`.
+
+<Example name="pagination/context" />
+
+### Root Provider
+
+Créez l’état avec `usePagination()` et transmettez-le à `PaginationRootProvider` lorsque
+l’état est géré en dehors de l’arborescence qui affiche la pagination. Voir [Partager l’état hors de l’arbre](/docs/composition-patterns#root-provider).
+
+<Example name="pagination/root-provider" />
+
+### Assembler à partir des parties
+
+La même pagination que Basic, sans `PaginationItems` : `PaginationContext` fournit les pages, et
+chaque entrée affiche un `PaginationItem` ou un `PaginationEllipsis` avec une icône explicite. Passez
+chaque objet de page à `PaginationItem` sans le modifier pour qu’Ark conserve son état et son
+accessibilité. Les déclencheurs précédent et suivant gardent leurs chevrons par défaut : avec des
+enfants, ils deviennent des boutons texte.
+
+<Example name="pagination/build-from-parts" />
 
 ## Composition
 
@@ -103,76 +110,28 @@ l’arborescence rendue, créez-le avec `usePagination()` et transmettez-le à
 Dans Vue, utilisez `v-model:page` et `v-model:page-size` pour contrôler l’état. Les événements
 `pageChange` et `pageSizeChange` sont exposés sous `@page-change` et `@page-size-change`.
 
-## Exemples
+## Anatomie
 
-### État contrôlé
+Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
 
-Passez la page active avec `page` et mettez-la à jour dans `onPageChange(details)`.
-
-<Example name="pagination/controlled" />
-
-### Contexte
-
-Utilisez `PaginationContext` pour placer des contrôles personnalisés à côté de la liste et appeler des
-méthodes de navigation telles que `goToFirstPage()` ou `goToLastPage()`.
-
-<Example name="pagination/context" />
-
-### Données côté client
-
-Utilisez `pagination.slice(data)` dans le contexte pour n’afficher que la partie du tableau déjà chargé
-correspondant à la page courante.
-
-<Example name="pagination/data-slicing" />
-
-### Navigation par liens
-
-Utilisez `type="link"`, `getPageUrl(details)` et des ancres `asChild` lorsque le changement de page doit
-naviguer vers une URL réelle.
-
-<Example name="pagination/link" />
-
-### Plage d’éléments
-
-Utilisez `pagination.pageRange` pour indiquer quels éléments sont visibles sur la page courante.
-
-<Example name="pagination/page-range" />
-
-### Nombre d’éléments par page
-
-Appelez `pagination.setPageSize(nextSize)` depuis le contexte lorsqu’un contrôle distinct modifie le
-nombre d’éléments par page.
-
-<Example name="pagination/page-size-control" />
-
-### Root Provider
-
-Créez l’état avec `usePagination()` et transmettez-le à `PaginationRootProvider` lorsque
-l’état est géré en dehors de l’arborescence qui affiche la pagination.
-
-<Example name="pagination/root-provider" />
-
-### Traductions
-
-Utilisez `translations` pour personnaliser les libellés d’accessibilité. Ajustez la fenêtre de pages
-visible avec `siblingCount`, `boundaryCount` et les propriétés liées au nombre d’éléments par page.
-
-<Example name="pagination/customized" />
-
-### Boutons de première et de dernière page
-
-Ajoutez `PaginationFirstTrigger` et `PaginationLastTrigger` lorsque les utilisateurs ont besoin d’un
-accès rapide à la première et à la dernière page.
-
-<Example name="pagination/with-edges" />
-
-### Personnalisation avancée
-
-Utilisez `PaginationContext` à la place de `PaginationItems` lorsque les boutons de page ou les points
-de suspension doivent afficher un contenu personnalisé. Transmettez chaque objet de page tel quel à
-`PaginationItem` afin qu’Ark conserve son état et son comportement accessible.
-
-<Example name="pagination/advanced-customization" />
+<AnatomyInspector
+  parts={[
+    ["Pagination", "pagination-root", "Racine de navigation qui gère la page active et le nombre d’éléments par page.", 0],
+    ["PaginationFirstTrigger", "pagination-first-trigger", "Passe à la première page et se désactive lorsqu’elle est déjà sélectionnée.", 1],
+    ["PaginationPrevTrigger", "pagination-prev-trigger", "Passe à la page précédente et se désactive sur la première page.", 1],
+    ["PaginationItems", "", "Affiche les éléments de page et les points de suspension calculés par Ark.", 1],
+    ["PaginationContext", null, "Expose l’état de la racine et les méthodes de navigation via une render prop Ark UI.", 1],
+    ["PaginationItem", "pagination-item", "Contrôle de page interactif. Transmettez-lui l’objet de page avec `{...page}`.", 2],
+    ["PaginationEllipsis", "pagination-ellipsis", "Marqueur décoratif d’une partie masquée de la plage, masqué aux technologies d’assistance. `index` est obligatoire.", 2],
+    ["PaginationNextTrigger", "pagination-next-trigger", "Passe à la page suivante et se désactive sur la dernière page.", 1],
+    ["PaginationLastTrigger", "pagination-last-trigger", "Passe à la dernière page et se désactive lorsqu’elle est déjà sélectionnée.", 1],
+    ["PaginationRootProvider", "pagination-root-provider", "Relie les sous-composants à l’état créé avec `usePagination()`.", 0],
+    ["usePagination", null, "Crée l’état de pagination en dehors de l’arborescence rendue.", 0],
+    ["usePaginationContext", null, "Donne accès à l’état de pagination depuis un composant descendant.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styles
 
@@ -186,11 +145,26 @@ Les couleurs, bordures, arrondis et la typographie proviennent des jetons de fou
 `PaginationItem` pour la page courante. La variable CSS ci-dessous définit la taille commune des éléments,
 des ellipses et des déclencheurs dans les variantes CSS Modules.
 
-### Propriétés CSS
+### Variables CSS
 
-<CssPropertiesSection properties={PaginationDocs.paginationOverrideCssProperties} />
+Survolez ou sélectionnez une variable pour la voir dans l’aperçu.
+
+<CssPropertiesSection properties={PaginationDocs.paginationOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Points d’accroche CSS
+
+| Partie | `data-slot` |
+| --- | --- |
+| `Pagination` | `pagination-root` |
+| `PaginationRootProvider` | `pagination-root-provider` |
+| `PaginationItem` | `pagination-item` |
+| `PaginationEllipsis` | `pagination-ellipsis` |
+| `PaginationPrevTrigger` | `pagination-prev-trigger` |
+| `PaginationNextTrigger` | `pagination-next-trigger` |
+| `PaginationFirstTrigger` | `pagination-first-trigger` |
+| `PaginationLastTrigger` | `pagination-last-trigger` |
 
 - `data-scope="pagination"` et `data-part="item"` sur `PaginationItem`
 - `data-scope="pagination"` et `data-part="prev-trigger"` sur `PaginationPrevTrigger`
@@ -198,6 +172,20 @@ des ellipses et des déclencheurs dans les variantes CSS Modules.
 - `data-scope="pagination"` avec `data-part="first-trigger"` ou `data-part="last-trigger"` sur les contrôles de début et de fin
 - `data-selected` sur l’élément de page actif
 - `data-disabled` sur les déclencheurs indisponibles
-- `data-slot="pagination-root"`, `pagination-root-provider`, `pagination-item`,
-  `pagination-ellipsis`, `pagination-prev-trigger`, `pagination-next-trigger`,
-  `pagination-first-trigger` et `pagination-last-trigger` pour personnaliser les styles moduix
+
+## Référence de l’API
+
+| Prop | Type | Défaut | Description |
+| --- | --- | --- | --- |
+| `count` | `number` | — | Nombre total d’éléments, pas de pages. |
+| `page` | `number` | — | Page courante en mode contrôlé. |
+| `defaultPage` | `number` | `1` | Page initiale. |
+| `onPageChange` | `(details: PageChangeDetails) => void` | — | Appelé lorsque la page change. |
+| `pageSize` | `number` | — | Éléments par page en mode contrôlé. |
+| `defaultPageSize` | `number` | `10` | Nombre initial d’éléments par page. |
+| `onPageSizeChange` | `(details: PageSizeChangeDetails) => void` | — | Appelé lorsque la taille de page change. |
+| `siblingCount` | `number` | `1` | Pages affichées de chaque côté de la page courante. |
+| `boundaryCount` | `number` | `1` | Pages toujours affichées au début et à la fin. |
+| `type` | `'button' \| 'link'` | `'button'` | Rend les pages en `button` ou en `link`. |
+| `getPageUrl` | `(details: PageUrlDetails) => string` | — | Construit le `href` de chaque page lorsque `type` vaut `link`. |
+| `translations` | `IntlTranslations` | — | Textes localisés des libellés d’accessibilité. |

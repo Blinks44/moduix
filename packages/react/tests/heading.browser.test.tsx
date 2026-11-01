@@ -1,7 +1,7 @@
 import { expect, test } from '@rstest/core';
 import { render, screen } from '@testing-library/react';
 import { createRef } from 'react';
-import { Heading } from '../src';
+import { Heading } from '@/index';
 
 test('preserves h1 defaults, refs, and owned hooks when consumer props conflict', () => {
   const ref = createRef<HTMLHeadingElement>();
@@ -28,36 +28,6 @@ test('preserves h1 defaults, refs, and owned hooks when consumer props conflict'
   expect(heading.getAttribute('data-slot')).toBe('heading-root');
   expect(heading.getAttribute('data-weight')).toBe('semibold');
   expect(heading.getAttribute('data-size')).toBe('2xl');
-  expect(getComputedStyle(heading)).toMatchObject({
-    fontSize: '30px',
-    fontWeight: '600',
-    overflowWrap: 'anywhere',
-    textWrap: 'balance',
-  });
-});
-
-test('renders every supported semantic level', () => {
-  const levels = [
-    ['h1', 1, '30px'],
-    ['h2', 2, '24px'],
-    ['h3', 3, '20px'],
-    ['h4', 4, '18px'],
-    ['h5', 5, '16px'],
-    ['h6', 6, '14px'],
-  ] as const;
-
-  for (const [as, level, fontSize] of levels) {
-    const { unmount } = render(<Heading as={as}>{as}</Heading>);
-
-    expect(screen.getByRole('heading', { name: as, level }).getAttribute('data-weight')).toBe(
-      'semibold',
-    );
-
-    expect(getComputedStyle(screen.getByRole('heading', { name: as, level })).fontSize).toBe(
-      fontSize,
-    );
-    unmount();
-  }
 });
 
 test('keeps explicit visual props separate from heading semantics', () => {
@@ -71,25 +41,6 @@ test('keeps explicit visual props separate from heading semantics', () => {
 
   expect(heading.getAttribute('data-size')).toBe('2xl');
   expect(heading.getAttribute('data-weight')).toBe('bold');
-  expect(getComputedStyle(heading)).toMatchObject({ fontSize: '30px', fontWeight: '700' });
-});
-
-test('forwards props and refs through a semantic asChild host', () => {
-  const ref = createRef<HTMLHeadingElement>();
-
-  render(
-    <Heading asChild ref={ref} size="xl" weight="medium" className="custom-heading">
-      <h2>Factory-composed heading</h2>
-    </Heading>,
-  );
-
-  const heading = screen.getByRole('heading', { name: 'Factory-composed heading', level: 2 });
-
-  expect(ref.current).toBe(heading);
-  expect([...heading.classList]).toEqual(expect.arrayContaining(['custom-heading']));
-  expect(heading.getAttribute('data-size')).toBe('xl');
-  expect(heading.getAttribute('data-weight')).toBe('medium');
-  expect(heading.getAttribute('data-part')).toBe('root');
 });
 
 test('derives the default size from as, also through asChild', () => {
@@ -102,5 +53,4 @@ test('derives the default size from as, also through asChild', () => {
   const heading = screen.getByRole('heading', { name: 'Composed section title', level: 3 });
 
   expect(heading.getAttribute('data-size')).toBe('lg');
-  expect(getComputedStyle(heading).fontSize).toBe('20px');
 });

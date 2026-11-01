@@ -8,7 +8,7 @@ import {
   CarouselNextTrigger,
   CarouselPrevTrigger,
   CarouselProgressText,
-} from '../../src';
+} from '@/index';
 
 defineProps<{ dir?: 'ltr' | 'rtl' }>();
 defineEmits<{ pageChange: [details: { page: number }] }>();

@@ -8,7 +8,7 @@ export default function StackSeparatorDemo() {
       direction="row"
       align="center"
       justify="center"
-      gap={10}
+      gap="2.5"
       style={{ 'inline-size': '100%' }}
     >
       <Text weight="semibold">Design</Text>

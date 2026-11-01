@@ -231,7 +231,7 @@ export const Basic: Story = {
         shortcut="alt+k"
         trigger={
           <>
-            Open palette <span class="text-muted-foreground">Alt+K</span>
+            Open palette <span class="opacity-70">Alt+K</span>
           </>
         }
       >

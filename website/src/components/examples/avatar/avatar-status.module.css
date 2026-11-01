@@ -5,6 +5,6 @@
   width: 25%;
   height: 25%;
   border-radius: var(--moduix-radius-full);
-  background-color: var(--moduix-color-success);
-  box-shadow: 0 0 0 var(--moduix-border-width-md) var(--moduix-color-background);
+  background-color: var(--moduix-success);
+  box-shadow: 0 0 0 var(--moduix-border-width-md) var(--moduix-background);
 }

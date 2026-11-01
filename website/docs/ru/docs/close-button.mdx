@@ -1,78 +1,51 @@
 ---
 title: Close Button
 component: close-button
-description: Кнопка только со значком для закрытия уведомлений, карточек, оверлеев и других элементов интерфейса.
+description: Закрытие уведомления, карточки или оверлея доступной кнопкой-значком.
+ark: https://ark-ui.com/docs/guides/composition#the-ark-factory
 ---
 
+import AnatomyScene from '@/components/examples/close-button/basic';
 import * as CloseButtonDocs from '@/components/examples/close-button/css-properties';
 
-## Справочник API
+<Example name="close-button/basic" />
 
-В Ark UI нет отдельного примитива для кнопки закрытия. `moduix` создаёт `CloseButton` с помощью официальной
-[фабрики Ark](https://ark-ui.com/docs/guides/composition#the-ark-factory) и следует рекомендациям Ark по
-[композиции](https://ark-ui.com/docs/guides/composition), [стилизации](https://ark-ui.com/docs/guides/styling) и
-работе с [ref](https://ark-ui.com/docs/guides/ref).
+## Установка
 
-## Базовый пример
+<ComponentInstall />
 
+## Использование
+
+<Usage />
 
 Используйте `CloseButton`, чтобы добавить кнопку закрытия к уведомлению, карточке, оверлею или другой области
 интерфейса. Свяжите обработчик `onClick` с состоянием, которое скрывает или удаляет эту область. Компонент
 рендерит семантическую кнопку, задаёт доступное имя по умолчанию и показывает иконку `CloseIcon`, но не управляет
 состоянием закрываемого элемента.
 
-<Example name="close-button/basic" />
+## Примеры
 
-## Установка через shadcn
+### Отключённое состояние
 
-Полную настройку пакета, реестра и стилей см. в разделе [Быстрый старт](/docs/quick-start).
+Используйте нативное `disabled`, если кнопка не должна получать фокус. Применяйте `aria-disabled="true"`, если
+кнопка должна оставаться доступной для фокуса, но не должна активироваться.
 
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
+<Example name="close-button/disabled-state" />
 
-  <ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/close-button' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/close-button' },
-  ]}
-/>
+### Пользовательское содержимое
 
-  </Tab>
-  <Tab label="Solid" value="solid">
+Передайте содержимое через `children`, чтобы заменить стандартную иконку и сохранить контракт корневой кнопки.
+Если имя кнопки задаётся отдельной подписью, сделайте пользовательскую иконку декоративной с помощью
+`aria-hidden="true"`.
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/close-button' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/close-button' },
-  ]}
-  />
+<Example name="close-button/custom-children" />
 
-  </Tab>
-  <Tab label="Vue" value="vue">
+### Использование `asChild`
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/close-button' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/close-button' },
-  ]}
-/>
+Используйте `asChild`, если существующая семантическая кнопка должна остаться итоговым DOM-элементом и получить стили
+и `data-*`-атрибуты `CloseButton`. Поместите иконку в дочерний элемент и явно укажите его тип.
 
-  </Tab>
-</Tabs>
-
-## Анатомия
-
-У `CloseButton` одна корневая часть, построенная по модели Ark.
-
-```text
-CloseButton
-└─ root[data-scope="close-button"][data-part="root"][data-slot="close-button-root"]
-   └─ CloseIcon (стандартная) | пользовательские дочерние элементы
-```
-
-| Часть         | Назначение                                                              |
-| ------------- | ------------------------------------------------------------------------ |
-| `CloseButton` | Интерактивный элемент закрытия на основе семантики кнопки с поддержкой доступности. |
+<Example name="close-button/as-child" />
 
 ## Композиция
 
@@ -85,29 +58,19 @@ CloseButton
 поместите кнопку в слот по умолчанию. В Solid `asChild` принимает функцию рендера: передайте её результат в дочерний
 элемент через `props()`.
 
-## Примеры
+## Анатомия
 
-### Пользовательское содержимое
+У `CloseButton` одна корневая часть, построенная по модели Ark.
 
-Передайте содержимое через `children`, чтобы заменить стандартную иконку и сохранить контракт корневой кнопки.
-Если имя кнопки задаётся отдельной подписью, сделайте пользовательскую иконку декоративной с помощью
-`aria-hidden="true"`.
+Наведите на часть или выберите её, чтобы найти её в превью.
 
-<Example name="close-button/custom-children" />
-
-### Отключённое состояние
-
-Используйте нативное `disabled`, если кнопка не должна получать фокус. Применяйте `aria-disabled="true"`, если
-кнопка должна оставаться доступной для фокуса, но не должна активироваться.
-
-<Example name="close-button/disabled-state" />
-
-### Использование `asChild`
-
-Используйте `asChild`, если существующая семантическая кнопка должна остаться итоговым DOM-элементом и получить стили
-и `data-*`-атрибуты `CloseButton`. Поместите иконку в дочерний элемент и явно укажите его тип.
-
-<Example name="close-button/as-child" />
+<AnatomyInspector
+  parts={[
+    ["CloseButton", "close-button-root", "Интерактивный элемент закрытия на основе семантики кнопки с поддержкой доступности.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Стилизация
 
@@ -115,15 +78,36 @@ CloseButton
 Tailwind используют обычные utility-классы и классы приложения; переменные ниже относятся к вариантам с CSS Modules.
 Атрибуты состояния и хуки `data-slot` общие для обоих вариантов стилизации.
 
-### CSS-свойства
+### CSS-переменные
 
-<CssPropertiesSection properties={CloseButtonDocs.closeButtonOverrideCssProperties} />
+Наведите на переменную или выберите её, чтобы увидеть её в превью.
+
+<CssPropertiesSection properties={CloseButtonDocs.closeButtonOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Хуки стилизации
 
+| Часть | `data-slot` |
+| --- | --- |
+| `CloseButton` | `close-button-root` |
+
 - `data-scope="close-button"` определяет семейство компонента.
 - `data-part="root"` определяет единственную экспортируемую часть.
-- `data-slot="close-button-root"` служит хуком слота moduix.
 - `data-disabled` указывает на нормализованное отключённое состояние для `disabled` и `aria-disabled="true"`.
 - `className`/`class` объединяется со стандартными стилями компонента на корневом элементе.
 - В вариантах с CSS Modules размер непосредственно вложенных SVG задаётся через `--moduix-close-button-icon-size`.
+
+## Клавиатура
+
+`CloseButton` отрисовывает нативную кнопку, поэтому фокус и нажатие обрабатывает браузер. Задайте
+доступное имя, если подпись по умолчанию не подходит.
+
+## Справочник API
+
+| Проп | Тип | По умолчанию | Описание |
+| --- | --- | --- | --- |
+| `aria-label` | `string` | `'Close'` | Доступное имя кнопки; переведите его под свою локаль. |
+| `children` | `ReactNode` | `CloseIcon` | Заменяет иконку закрытия по умолчанию. |
+| `asChild` | `boolean` | `false` | Переносит стили и свойства кнопки на единственный дочерний элемент. |
+| `disabled` | `boolean` | `false` | Отключает кнопку. |

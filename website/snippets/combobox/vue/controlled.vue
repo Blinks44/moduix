@@ -14,8 +14,8 @@ import {
   ComboboxPositioner,
   ComboboxTrigger,
 } from '@moduix/vue/combobox';
+import { Stack } from '@moduix/vue/stack';
 import { ref } from 'vue';
-import styles from '@/components/examples/combobox/component-controlled.module.css';
 
 const fruits = [
   { label: 'Apple', value: 'apple' },
@@ -32,7 +32,7 @@ const value = ref<string[]>(['mango']);
 </script>
 
 <template>
-  <div :class="styles.stack">
+  <Stack align="center" gap="3">
     <Combobox
       v-model="value"
       :collection="collection"
@@ -56,5 +56,5 @@ const value = ref<string[]>(['mango']);
       </ComboboxPositioner>
     </Combobox>
     <output>Selected: {{ value[0] ?? 'none' }}</output>
-  </div>
+  </Stack>
 </template>

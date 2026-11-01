@@ -1,17 +1,26 @@
 ---
 title: Textarea
 component: textarea
-description: Zone de texte native multiligne, compatible avec Field et stylée par moduix.
+description: Saisir plusieurs lignes de texte, avec hauteur automatique en option.
+ark: https://ark-ui.com/docs/components/field
 ---
 
+import AnatomyScene from '@/components/examples/textarea/basic';
 import * as TextareaDocs from '@/components/examples/textarea/css-properties';
 
-## Référence de l’API
+<Example name="textarea/basic" />
 
-Ark UI ne fournit pas de primitive `Textarea` autonome. Dans moduix, le composant s’appuie sur
-[`FieldTextarea` d’Ark UI](https://ark-ui.com/docs/components/field) et conserve l’API native de
-`textarea`. Il prend en charge `autoresize` et `asChild`, transfère la ref vers l’élément natif et
-hérite de l’état de `Field`.
+## Installation
+
+<ComponentInstall />
+
+## Utilisation
+
+<Usage />
+
+Placez `Textarea` dans `Field` lorsqu’il faut fournir au champ un libellé accessible ou un texte
+complémentaire. C’est la configuration recommandée pour les commentaires, notes, descriptions de
+tâches et contenus similaires.
 
 ## Choisir le bon composant
 
@@ -24,92 +33,7 @@ comportement natif d’une zone de texte dans le navigateur.
 - Choisissez **`Field` + `Textarea`** lorsque le champ doit exposer de façon déclarative un libellé, une
   description, son caractère obligatoire ou sa validation.
 
-## Utilisation de base
-
-Placez `Textarea` dans `Field` lorsqu’il faut fournir au champ un libellé accessible ou un texte
-complémentaire. C’est la configuration recommandée pour les commentaires, notes, descriptions de
-tâches et contenus similaires.
-
-<Example name="textarea/basic" />
-
-## Installation avec shadcn
-
-Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration complète du paquet, du registre et des styles.
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/textarea' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/textarea' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/textarea' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/textarea' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/textarea' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/textarea' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Anatomie
-
-La structure publique se limite à une seule partie :
-
-```text
-Field (optional wrapper)
-└─ Textarea
-```
-
-| Partie     | Rôle                                                                  |
-| ---------- | --------------------------------------------------------------------- |
-| `Textarea` | Élément `textarea` natif avec les styles moduix et l’état de `Field`. |
-
-`Textarea` n’exporte ni conteneur supplémentaire, ni sous-composant, ni provider ou hook de contexte,
-ni champ masqué, ni libellé ou compteur de caractères.
-
-## Composition
-
-Utilisez `defaultValue` pour une zone de texte non contrôlée. Lorsque l’application gère la valeur,
-utilisez `value` avec le gestionnaire natif `onChange` dans React et Solid, ou `v-model` dans Vue,
-avec le mécanisme d’état du framework utilisé.
-
-Dans Vue, liez la propriété DOM native avec `:defaultValue="initialValue"`, et non `default-value`.
-Avec `v-model`, réinitialisez l’état lié dans le gestionnaire de réinitialisation du formulaire : la réinitialisation native ne déclenche pas d’événement de saisie.
-
-Placez `Textarea` dans `Field`, avec `FieldLabel`, `FieldHelperText` et `FieldErrorText`, lorsque
-le contrôle doit fournir un libellé, un texte complémentaire ou une validation. En dehors de `Field`,
-donnez-lui un nom accessible avec un `<label>` natif ou `aria-label`.
-
-Activez `autoresize` seulement lorsque le contrôle doit grandir avec son contenu. Dans ce mode, Ark
-désactive le redimensionnement manuel. Avec `asChild`, fournissez un seul élément textarea sémantique
-capable de recevoir les propriétés fusionnées et la ref.
-
 ## Exemples
-
-### Redimensionnement automatique
-
-Définissez `autoresize` lorsque la zone de texte doit grandir au fil de la saisie. Ark désactive le
-redimensionnement manuel lorsque cette option est active.
-
-<Example name="textarea/auto-resize" />
 
 ### Tailles
 
@@ -119,11 +43,12 @@ de l’attribut natif `rows` et suit donc la taille de police.
 
 <Example name="textarea/sizes" />
 
-### Valeur contrôlée
+### Redimensionnement automatique
 
-Utilisez `value` et le gestionnaire natif `onChange` lorsque l’état de l’application doit piloter le contenu.
+Définissez `autoresize` lorsque la zone de texte doit grandir au fil de la saisie. Ark désactive le
+redimensionnement manuel lorsque cette option est active.
 
-<Example name="textarea/controlled" />
+<Example name="textarea/auto-resize" />
 
 ### Désactivé et en lecture seule
 
@@ -147,6 +72,51 @@ comportement du navigateur. Cet exemple soumet également le formulaire et lit l
 
 <Example name="textarea/native-attributes" />
 
+### Valeur contrôlée
+
+Utilisez `value` et le gestionnaire natif `onChange` lorsque l’état de l’application doit piloter le contenu.
+
+<Example name="textarea/controlled" />
+
+## Composition
+
+Ark UI ne fournit pas de primitive `Textarea` autonome. Dans moduix, le composant s’appuie sur
+[`FieldTextarea` d’Ark UI](https://ark-ui.com/docs/components/field) et conserve l’API native de
+`textarea`. Il prend en charge `autoresize` et `asChild`, transfère la ref vers l’élément natif et
+hérite de l’état de `Field`.
+
+Utilisez `defaultValue` pour une zone de texte non contrôlée. Lorsque l’application gère la valeur,
+utilisez `value` avec le gestionnaire natif `onChange` dans React et Solid, ou `v-model` dans Vue,
+avec le mécanisme d’état du framework utilisé.
+
+Dans Vue, liez la propriété DOM native avec `:defaultValue="initialValue"`, et non `default-value`.
+Avec `v-model`, réinitialisez l’état lié dans le gestionnaire de réinitialisation du formulaire : la réinitialisation native ne déclenche pas d’événement de saisie.
+
+Placez `Textarea` dans `Field`, avec `FieldLabel`, `FieldHelperText` et `FieldErrorText`, lorsque
+le contrôle doit fournir un libellé, un texte complémentaire ou une validation. En dehors de `Field`,
+donnez-lui un nom accessible avec un `<label>` natif ou `aria-label`.
+
+Activez `autoresize` seulement lorsque le contrôle doit grandir avec son contenu. Dans ce mode, Ark
+désactive le redimensionnement manuel. Avec `asChild`, fournissez un seul élément textarea sémantique
+capable de recevoir les propriétés fusionnées et la ref.
+
+## Anatomie
+
+La structure publique se limite à une seule partie :
+
+Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
+
+<AnatomyInspector
+  parts={[
+    ["Textarea", "textarea-root", "Élément `textarea` natif avec les styles moduix et l’état de `Field`.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
+
+`Textarea` n’exporte ni conteneur supplémentaire, ni sous-composant, ni provider ou hook de contexte,
+ni champ masqué, ni libellé ou compteur de caractères.
+
 ## Styles
 
 Dans un `Field`, `FieldRootProvider` ou `Fieldset` moduix désactivé, seule la racine applique
@@ -158,14 +128,31 @@ reposent sur les tokens de la fondation et n’exposent que les deux variables c
 les couleurs, les espacements, la typographie, la hauteur et `resize` avec une simple classe, qui l’emporte sur
 les styles du composant placés dans une couche.
 
-### Propriétés CSS
+### Variables CSS
 
-<CssPropertiesSection properties={TextareaDocs.textareaCssProperties} />
+Survolez ou sélectionnez une variable pour la voir dans l’aperçu.
+
+<CssPropertiesSection properties={TextareaDocs.textareaCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Points d’accroche CSS
 
-- `data-slot="textarea-root"`
+| Partie | `data-slot` |
+| --- | --- |
+| `Textarea` | `textarea-root` |
+
 - `data-size="xs" | "sm" | "md" | "lg" | "xl"`
 - `data-scope="field"` et `data-part="textarea"`
 - `data-invalid`, `data-required`, `data-disabled` et `data-readonly` d’Ark dans `Field`
 - les sélecteurs natifs `:disabled`, `:read-only`, `:focus-visible` et `[aria-invalid="true"]`
+
+## Référence de l’API
+
+Accepte aussi les props natives de `textarea`.
+
+| Prop | Type | Défaut | Description |
+| --- | --- | --- | --- |
+| `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'` | `'md'` | Taille : `xs`, `sm`, `md`, `lg` ou `xl`. |
+| `autoresize` | `boolean` | `false` | Agrandit la hauteur selon le contenu. |
+| `asChild` | `boolean` | `false` | Applique les styles du champ à son unique enfant. |

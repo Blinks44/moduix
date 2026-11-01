@@ -1,21 +1,13 @@
 ---
 title: Download Trigger
 description: Trigger browser downloads from strings, Blobs, Files, or data generated on demand with Ark UI.
+ark: https://ark-ui.com/docs/utilities/download-trigger
 ---
-
-import DownloadTriggerBasic from '@/components/examples/download-trigger/basic.tsx';
-import DownloadTriggerAsyncData from '@/components/examples/download-trigger/async-data.tsx';
-import downloadTriggerSolidBasic from '../../../snippets/download-trigger/solid/basic.tsx?raw';
-import downloadTriggerVueBasic from '../../../snippets/download-trigger/vue/basic.vue?raw';
-import downloadTriggerSolidAsyncData from '../../../snippets/download-trigger/solid/async-data.tsx?raw';
-import downloadTriggerVueAsyncData from '../../../snippets/download-trigger/vue/async-data.vue?raw';
 
 Use Ark UI's `DownloadTrigger` to turn file data into a browser download. Pair it with a moduix `Button` when the
 action should match the rest of your interface.
 
-## API Reference
-
-<PrimitiveReference href="https://ark-ui.com/docs/utilities/download-trigger" />
+## Import
 
 Import the utility from the matching Ark UI package:
 
@@ -58,86 +50,14 @@ file saved by the browser.
 
 The preview uses React. The source tabs contain native React, Solid, and Vue examples with the same behavior.
 
-<ExampleFrame clientOnly variant="component">
-  <PreviewFrame maxWidth="sm">
-    <DownloadTriggerBasic />
-  </PreviewFrame>
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/download-trigger/basic.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={downloadTriggerSolidBasic} />
-
-    </Tab>
-  <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={downloadTriggerVueBasic} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="download-trigger/basic" clientOnly />
 
 ## Generate data on demand
 
 Pass a function when the file should be created after the user activates the trigger. Ark calls the function on
 activation and waits for a returned promise before saving the result.
 
-<ExampleFrame clientOnly variant="component">
-  <PreviewFrame maxWidth="sm">
-    <DownloadTriggerAsyncData />
-  </PreviewFrame>
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/download-trigger/async-data.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={downloadTriggerSolidAsyncData} />
-
-    </Tab>
-  <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={downloadTriggerVueAsyncData} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="download-trigger/async-data" clientOnly />
 
 There is no built-in loading state or error callback. If generation can take time, manage that state in your
 application, disable or replace the trigger while it runs, and handle failures in the function passed to `data`. To

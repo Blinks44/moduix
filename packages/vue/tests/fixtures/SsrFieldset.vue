@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Fieldset, FieldsetLegend, FieldsetHelperText, FieldsetErrorText } from '../../src';
+import { Fieldset, FieldsetLegend, FieldsetHelperText, FieldsetErrorText } from '@/index';
 </script>
 
 <template>

@@ -5,13 +5,13 @@
 }
 
 .hint {
-  color: var(--moduix-color-muted-foreground);
+  color: var(--moduix-muted-foreground);
   font-size: var(--moduix-text-xs);
   line-height: var(--moduix-line-height-text-xs);
 }
 
 .customButton {
-  background-color: var(--moduix-color-muted);
+  background-color: var(--moduix-muted);
 
   & > svg {
     width: 1rem;
@@ -19,7 +19,7 @@
   }
 
   &:hover {
-    background-color: var(--moduix-color-accent);
+    background-color: var(--moduix-accent);
   }
 }
 

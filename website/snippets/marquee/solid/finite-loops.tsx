@@ -1,4 +1,5 @@
 import { Marquee, MarqueeContent, MarqueeItem, MarqueeViewport } from '@moduix/solid/marquee';
+import { Stack } from '@moduix/solid/stack';
 import { createSignal } from 'solid-js';
 import styles from '@/components/examples/marquee/marquee-finite-loops.module.css';
 
@@ -16,7 +17,7 @@ export default function FiniteLoopsMarqueeDemo() {
   const [completed, setCompleted] = createSignal(0);
 
   return (
-    <div class={styles.stack}>
+    <Stack align="center" gap="3">
       <Marquee
         aria-label="Partner logos"
         loopCount={3}
@@ -39,6 +40,6 @@ export default function FiniteLoopsMarqueeDemo() {
         <span>Loops: {loops()}</span>
         <span>Completed: {completed()}</span>
       </div>
-    </div>
+    </Stack>
   );
 }

@@ -1,16 +1,12 @@
 ---
 title: Formisch
-description: Reliez les composants Moduix à Formisch et Valibot dans chaque framework pris en charge.
+description: Reliez les composants moduix à Formisch et Valibot dans chaque framework pris en charge.
 ---
-
-import ProjectForm from '@/components/examples/formisch/complete-form.tsx';
-import formischSolidCompleteForm from '../../../snippets/formisch/solid/complete-form.tsx?raw';
-import formischVueCompleteForm from '../../../snippets/formisch/vue/complete-form.vue?raw';
 
 # Formisch
 
 [Formisch](https://formisch.dev) est une bibliothèque de formulaires fondée sur des schémas et
-dotée d’adaptateurs natifs. Ce guide relie son état validé par Valibot aux composants Moduix.
+dotée d’adaptateurs natifs. Ce guide relie son état validé par Valibot aux composants moduix.
 
 ## Prise en charge des frameworks
 
@@ -40,8 +36,8 @@ Vue utilise `useForm` et le slot de portée de `Field`. Affectez les valeurs à 
 
 ## Relier les composants
 
-Donnez un alias au `Field` de Formisch pour le distinguer du `Field` de Moduix. Le composant Formisch
-relie un chemin du schéma à l’état du champ, tandis que le composant Moduix rend le libellé, l’erreur
+Donnez un alias au `Field` de Formisch pour le distinguer du `Field` de moduix. Le composant Formisch
+relie un chemin du schéma à l’état du champ, tandis que le composant moduix rend le libellé, l’erreur
 et l’état d’accessibilité.
 
 | Composant           | Correspondance                                                        |
@@ -51,7 +47,7 @@ et l’état d’accessibilité.
 | `Combobox`          | Reliez séparément la sélection, le filtrage et le focus.              |
 | `Checkbox`          | Convertissez `details.checked === true` en valeur booléenne.          |
 
-Transmettez `field.props.name` à la racine Moduix. Conservez `HiddenSelect` ou `HiddenInput` dans la
+Transmettez `field.props.name` à la racine moduix. Conservez `HiddenSelect` ou `HiddenInput` dans la
 composition, sans ajouter un autre élément input enregistré pour la même valeur.
 
 ## Validation et réinitialisation
@@ -67,41 +63,9 @@ ne remplace pas le store du champ.
 ## Formulaire complet
 
 L’exemple intègre `Input`, `Select`, `Combobox`, `Textarea` et `Checkbox`. Chaque adaptateur pris en charge partage le
-même schéma, le même comportement, la même composition Moduix et les mêmes styles. L’aperçu utilise React.
+même schéma, le même comportement, la même composition moduix et les mêmes styles. L’aperçu utilise React.
 
-<ExampleFrame variant="component">
-  <PreviewFrame maxWidth="sm">
-    <ProjectForm />
-  </PreviewFrame>
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/formisch/complete-form.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={formischSolidCompleteForm} />
-
-    </Tab>
-  <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={formischVueCompleteForm} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/formisch/formisch-complete-form.module.css"
-```
-</div>
-</ExampleCode>
+<Example name="formisch/complete-form" />
 
 ## Champs répétés et erreurs du serveur
 

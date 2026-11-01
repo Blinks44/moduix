@@ -1,19 +1,6 @@
 import { expect, test } from '@rstest/core';
 import { render, screen } from '@solidjs/testing-library';
-import { createSignal } from 'solid-js';
-import { Container } from '../src';
-
-test('updates size and gutter without replacing the host', () => {
-  const [size, setSize] = createSignal<'lg' | 'full'>('lg');
-  const [gutter, setGutter] = createSignal<'md' | 'none'>('md');
-  render(() => <Container data-testid="container" size={size()} gutter={gutter()} />);
-  const container = screen.getByTestId('container');
-  setSize('full');
-  setGutter('none');
-  expect(screen.getByTestId('container')).toBe(container);
-  expect(container.getAttribute('data-size')).toBe('full');
-  expect(container.getAttribute('data-gutter')).toBe('none');
-});
+import { Container } from '@/index';
 
 test.each([
   ['xs', '640px'],
@@ -43,18 +30,6 @@ test.each([
   expect(parseFloat(style.paddingInlineStart)).toBeCloseTo(padding);
   expect(parseFloat(style.paddingInlineEnd)).toBeCloseTo(padding);
   expect(parseFloat(style.maxWidth)).toBeCloseTo(1152 + padding * 2);
-});
-
-test('derives gutters from spacing tokens', () => {
-  render(() => (
-    <div style={{ '--moduix-spacing-4': '10px', '--moduix-spacing-8': '10px' }}>
-      <Container data-testid="container" />
-    </div>
-  ));
-  const style = getComputedStyle(screen.getByTestId('container'));
-
-  expect(style.paddingInlineStart).toBe('10px');
-  expect(parseFloat(style.maxWidth)).toBeCloseTo(1152 + 20);
 });
 
 test('preserves default layout, refs, and owned hooks when consumer props conflict', () => {

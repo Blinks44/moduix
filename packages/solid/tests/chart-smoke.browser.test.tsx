@@ -7,7 +7,7 @@ import { interactiveColorLegend } from '@tanstack/charts/legend';
 import { scaleBand } from '@tanstack/charts/scales/band';
 import { scaleLinear } from '@tanstack/charts/scales/linear';
 import { createMemo, createSignal } from 'solid-js';
-import { ChartPlot } from '../src';
+import { ChartPlot } from '@/index';
 
 const rows = [
   { month: 'Jan', series: 'Revenue', value: 42 },

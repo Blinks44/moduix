@@ -1,20 +1,13 @@
 ---
 title: Format Relative Time
 description: Formatez des dates par rapport à maintenant avec Ark UI dans React, Solid et Vue, avec une locale et des formats compacts.
+ark: https://ark-ui.com/docs/utilities/format-relative-time
 ---
 
-import FormatRelativeTimeBasic from '@/components/examples/format-relative-time/basic.tsx';
-import FormatRelativeTimeShort from '@/components/examples/format-relative-time/short.tsx';
-import formatRelativeTimeSolidBasic from '../../../snippets/format-relative-time/solid/basic.tsx?raw';
-import formatRelativeTimeVueBasic from '../../../snippets/format-relative-time/vue/basic.vue?raw';
 import formatRelativeTimeSolidLocale from '../../../snippets/format-relative-time/solid/locale.tsx?raw';
 import formatRelativeTimeVueLocale from '../../../snippets/format-relative-time/vue/locale.vue?raw';
-import formatRelativeTimeSolidShort from '../../../snippets/format-relative-time/solid/short.tsx?raw';
-import formatRelativeTimeVueShort from '../../../snippets/format-relative-time/vue/short.vue?raw';
 
-## Référence de l’API
-
-<PrimitiveReference href="https://ark-ui.com/docs/utilities/format-relative-time" />
+## Importation
 
 Importez l’utilitaire depuis le paquet Ark UI correspondant à votre framework :
 
@@ -66,42 +59,7 @@ Définissez `numeric="auto"` lorsque les dates proches peuvent être exprimées 
 « hier ». L’aperçu de la documentation est rendu avec React ; les onglets Solid et Vue contiennent les équivalents natifs pour la même
 composition.
 
-<ExampleFrame variant="component">
-  <PreviewFrame maxWidth="sm">
-    <FormatRelativeTimeBasic />
-  </PreviewFrame>
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/format-relative-time/basic.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={formatRelativeTimeSolidBasic} />
-
-    </Tab>
-  <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={formatRelativeTimeVueBasic} />
-
-    </Tab>
-  </Tabs>
-</div>
-</ExampleCode>
+<Example name="format-relative-time/basic" />
 
 ## Format court
 
@@ -109,42 +67,7 @@ Définissez `style="short"` lorsque l’espace est limité, par exemple dans une
 `style="narrow"` produit la forme la plus courte lorsque la structure environnante rend déjà le sens évident.
 Conservez l’horodatage exact dans `dateTime` si la personne doit pouvoir le vérifier.
 
-<ExampleFrame variant="component">
-  <PreviewFrame maxWidth="sm">
-    <FormatRelativeTimeShort />
-  </PreviewFrame>
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/format-relative-time/short.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={formatRelativeTimeSolidShort} />
-
-    </Tab>
-  <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={formatRelativeTimeVueShort} />
-
-    </Tab>
-  </Tabs>
-</div>
-</ExampleCode>
+<Example name="format-relative-time/short" />
 
 `Format.RelativeTime` accepte toutes les options standard de `Intl.RelativeTimeFormat`, en plus de `value` :
 

@@ -1,91 +1,140 @@
 ---
 title: Carousel
 component: carousel
-description: Карусель с постраничной навигацией на базе Ark UI. Поддерживает автопрокрутку, внешнее управление состоянием и слайды разной ширины.
+description: Листание слайдов кнопками, индикаторами, свайпом или автоматически.
+ark: https://ark-ui.com/docs/components/carousel
 ---
 
+import AnatomyScene from '@/components/examples/carousel/basic';
 import * as CarouselDocs from '@/components/examples/carousel/css-properties';
 
-## Справочник API
+<Example name="carousel/basic" />
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/carousel" />
+## Установка
 
-## Базовый пример
+<ComponentInstall />
+
+## Использование
+
+<Usage />
 
 Начните с `Carousel` в качестве корневого компонента. Добавьте `CarouselItemGroup` для ленты слайдов,
 поместите кнопки перехода в `CarouselControl`, а стандартный пейджер выведите с помощью
 `CarouselIndicators` и `CarouselProgressText`.
 
+## Примеры
 
-<Example name="carousel/basic" />
+### Слайдов на странице
 
-## Установка через shadcn
+Увеличьте `slidesPerPage`, чтобы одновременно показывать несколько элементов вместо одной панели на
+всю ширину.
 
-Полную настройку пакета, реестра и стилей см. в разделе [Быстрый старт](/docs/quick-start).
+<Example name="carousel/slides-per-page" />
 
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
+### Интервал
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/carousel' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/carousel' },
-  ]}
-/>
+Увеличьте `spacing`, чтобы добавить расстояние между соседними слайдами в редакционных макетах,
+товарных лентах или фирменных интерфейсах.
 
-  </Tab>
-  <Tab label="Solid" value="solid">
+<Example name="carousel/spacing" />
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/carousel' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/carousel' },
-  ]}
-/>
+### Вертикальная ориентация
 
-  </Tab>
-  <Tab label="Vue" value="vue">
+Переключите карусель в вертикальную ориентацию, если сама карусель и её элементы управления должны
+работать вдоль вертикальной оси.
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/carousel' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/carousel' },
-  ]}
-/>
+<Example name="carousel/vertical" />
 
-  </Tab>
-</Tabs>
+### Зацикливание
 
-## Анатомия
+Установите `loop`, чтобы после последнего слайда карусель возвращалась к первому.
 
-```text
-Carousel
-├─ CarouselItemGroup
-│  └─ CarouselItem[index]
-├─ CarouselControl
-│  ├─ CarouselPrevTrigger
-│  └─ CarouselNextTrigger
-├─ CarouselIndicatorGroup
-│  └─ CarouselIndicator[index]
-└─ CarouselProgressText
+<Example name="carousel/loop" />
 
-CarouselRootProvider
-└─ та же структура частей, подключённая к хранилищу useCarousel()
-```
+### Автопрокрутка
 
-| Элемент                   | Назначение                                                        |
-| ------------------------- | ----------------------------------------------------------------- |
-| `Carousel`                | Управляет состоянием, навигацией и коллекцией слайдов.            |
-| `CarouselRootProvider`    | Подключает части к состоянию, созданному через `useCarousel()`.   |
-| `CarouselControl`           | Контейнер для кнопок навигации и других элементов управления.    |
-| `CarouselItemGroup`         | Лента слайдов, содержащая части `CarouselItem`.                 |
-| `CarouselItem`              | Отдельный слайд со стабильным `index`.                            |
-| `CarouselPrevTrigger`       | Кнопка перехода на предыдущую страницу.                          |
-| `CarouselNextTrigger`       | Кнопка перехода на следующую страницу.                           |
-| `CarouselIndicators`        | Компонент moduix для стандартных точек страниц.                  |
-| `CarouselIndicatorGroup`    | Контейнер для пользовательских индикаторов страниц.              |
-| `CarouselIndicator`         | Кнопка перехода на страницу с указанным индексом.                |
-| `CarouselProgressText`      | Текст с номером текущей страницы и общим числом страниц.          |
+Используйте автопрокрутку для галерей, в которых слайды переключаются сами, но оставляйте видимые
+элементы управления. В этом примере автопрокрутка останавливается при наведении указателя на карусель
+или при переходе фокуса внутрь неё. Пользователь может запустить её снова через
+`CarouselAutoplayTrigger`.
+
+<Example name="carousel/autoplay" />
+
+Полный пример галереи с боковой навигацией, текстом на слайдах и индикаторами прогресса, которые
+заполняются по мере переключения, смотрите в [блоке галереи с автопрокруткой](/blocks/autoplay-gallery).
+
+### Пауза при наведении
+
+Используйте этот вариант, если автопрокрутка должна останавливаться, пока указатель находится над
+каруселью. В примере `CarouselContext` вызывает `api.pause()` и `api.play()`, а фокус внутри карусели
+также приостанавливает прокрутку.
+
+<Example name="carousel/pause-on-hover" />
+
+### Перетаскивание мышью
+
+Включите перетаскивание мышью, чтобы на компьютере пользователи могли листать слайды тем же жестом,
+что и на сенсорном экране.
+
+<Example name="carousel/mouse-drag" />
+
+### Индикаторы-миниатюры
+
+Выведите собственное содержимое индикаторов, если пейджер должен показывать миниатюры слайдов вместо
+обычных точек.
+
+<Example name="carousel/thumbnail-indicators" />
+
+### Карточки
+
+Внутри элементов карусели можно размещать любой контент. Если карточка должна быть уже области слайда,
+задайте ей собственные стили и выровняйте её по центру.
+
+<Example name="carousel/cards" />
+
+### Разные размеры
+
+Включите `autoSize`, чтобы размеры слайдов определялись их содержимым, а не фиксированной сеткой
+страницы.
+
+<Example name="carousel/variable-sizes" />
+
+### Динамические слайды
+
+Если число слайдов меняется после первого рендера, обновляйте `slideCount` одновременно с
+отрисовываемыми элементами.
+
+<Example name="carousel/dynamic" />
+
+### Управляемое состояние
+
+Используйте управляемое состояние, если текущая страница должна синхронизироваться с внешней
+навигацией, фильтрами или аналитикой. Подробнее в разделе [Управляйте состоянием из приложения](/docs/composition-patterns#controlled-state).
+
+<Example name="carousel/controlled" />
+
+### Переход к слайду
+
+Используйте API карусели из контекста, когда другой элемент управления должен сразу перейти к нужному
+слайду.
+
+<Example name="carousel/scroll-to-slide" />
+
+### Провайдер корня
+
+Используйте `CarouselRootProvider`, когда состояние карусели нужно создать вне отрисовываемого дерева
+и разделить между границами композиции. Подробнее в разделе [Выносите состояние за пределы дерева](/docs/composition-patterns#root-provider).
+
+<Example name="carousel/root-provider" />
+
+### Сборка из частей
+
+Та же карусель, что в Basic, но без `CarouselIndicators`: `CarouselContext` отдаёт `pageSnapPoints`, а
+`CarouselIndicatorGroup` рисует по одному `CarouselIndicator` на страницу. Кнопки «назад» и «вперёд»
+получают явные иконки. Начинайте с него, если переключатель страниц стоит рядом с другими элементами
+управления или требует своего содержимого.
+
+<Example name="carousel/build-from-parts" />
 
 ## Композиция
 
@@ -109,117 +158,27 @@ Carousel не пробрасывается через этот путь комп
 Во Vue template-ref на части указывает на её отрисованный хост через `$el`, включая замещающий
 хост, созданный при использовании `asChild`.
 
-## Примеры
+## Анатомия
 
-### Автопрокрутка
+Наведите на часть или выберите её, чтобы найти её в превью.
 
-Используйте автопрокрутку для галерей, в которых слайды переключаются сами, но оставляйте видимые
-элементы управления. В этом примере автопрокрутка останавливается при наведении указателя на карусель
-или при переходе фокуса внутрь неё. Пользователь может запустить её снова через
-`CarouselAutoplayTrigger`.
-
-<Example name="carousel/autoplay" />
-
-Полный пример галереи с боковой навигацией, текстом на слайдах и индикаторами прогресса, которые
-заполняются по мере переключения, смотрите в [блоке галереи с автопрокруткой](/blocks/autoplay-gallery).
-
-### Карточки
-
-Внутри элементов карусели можно размещать любой контент. Если карточка должна быть уже области слайда,
-задайте ей собственные стили и выровняйте её по центру.
-
-<Example name="carousel/cards" />
-
-### Управляемое состояние
-
-Используйте управляемое состояние, если текущая страница должна синхронизироваться с внешней
-навигацией, фильтрами или аналитикой.
-
-<Example name="carousel/controlled" />
-
-### Динамические слайды
-
-Если число слайдов меняется после первого рендера, обновляйте `slideCount` одновременно с
-отрисовываемыми элементами.
-
-<Example name="carousel/dynamic" />
-
-### Зацикливание
-
-Установите `loop`, чтобы после последнего слайда карусель возвращалась к первому.
-
-<Example name="carousel/loop" />
-
-### Перетаскивание мышью
-
-Включите перетаскивание мышью, чтобы на компьютере пользователи могли листать слайды тем же жестом,
-что и на сенсорном экране.
-
-<Example name="carousel/mouse-drag" />
-
-### Пауза при наведении
-
-Используйте этот вариант, если автопрокрутка должна останавливаться, пока указатель находится над
-каруселью. В примере `CarouselContext` вызывает `api.pause()` и `api.play()`, а фокус внутри карусели
-также приостанавливает прокрутку.
-
-<Example name="carousel/pause-on-hover" />
-
-### Провайдер корня
-
-Используйте `CarouselRootProvider`, когда состояние карусели нужно создать вне отрисовываемого дерева
-и разделить между границами композиции.
-
-<Example name="carousel/root-provider" />
-
-### Переход к слайду
-
-Используйте API карусели из контекста, когда другой элемент управления должен сразу перейти к нужному
-слайду.
-
-<Example name="carousel/scroll-to-slide" />
-
-### Слайдов на странице
-
-Увеличьте `slidesPerPage`, чтобы одновременно показывать несколько элементов вместо одной панели на
-всю ширину.
-
-<Example name="carousel/slides-per-page" />
-
-### Интервал
-
-Увеличьте `spacing`, чтобы добавить расстояние между соседними слайдами в редакционных макетах,
-товарных лентах или фирменных интерфейсах.
-
-<Example name="carousel/spacing" />
-
-### Индикаторы-миниатюры
-
-Выведите собственное содержимое индикаторов, если пейджер должен показывать миниатюры слайдов вместо
-обычных точек.
-
-<Example name="carousel/thumbnail-indicators" />
-
-### Разные размеры
-
-Включите `autoSize`, чтобы размеры слайдов определялись их содержимым, а не фиксированной сеткой
-страницы.
-
-<Example name="carousel/variable-sizes" />
-
-### Вертикальная ориентация
-
-Переключите карусель в вертикальную ориентацию, если сама карусель и её элементы управления должны
-работать вдоль вертикальной оси.
-
-<Example name="carousel/vertical" />
-
-### Расширенная настройка
-
-Не используйте `CarouselIndicators`, если нужно самостоятельно отрисовать `pageSnapPoints` или
-разместить элементы управления пейджером рядом с другими элементами, работающими через контекст.
-
-<Example name="carousel/advanced-customization" />
+<AnatomyInspector
+  parts={[
+    ["Carousel", "carousel-root", "Управляет состоянием, навигацией и коллекцией слайдов.", 0],
+    ["CarouselItemGroup", "carousel-item-group", "Лента слайдов, содержащая части `CarouselItem`.", 1],
+    ["CarouselItem", "carousel-item", "Отдельный слайд со стабильным `index`.", 2],
+    ["CarouselControl", "carousel-control", "Контейнер для кнопок навигации и других элементов управления.", 1],
+    ["CarouselPrevTrigger", "carousel-prev-trigger", "Кнопка перехода на предыдущую страницу.", 2],
+    ["CarouselNextTrigger", "carousel-next-trigger", "Кнопка перехода на следующую страницу.", 2],
+    ["CarouselIndicatorGroup", "carousel-indicator-group", "Контейнер для пользовательских индикаторов страниц.", 1],
+    ["CarouselIndicator", "carousel-indicator", "Кнопка перехода на страницу с указанным индексом.", 2],
+    ["CarouselIndicators", "", "Компонент moduix для стандартных точек страниц.", 3],
+    ["CarouselProgressText", "carousel-progress-text", "Текст с номером текущей страницы и общим числом страниц.", 1],
+    ["CarouselRootProvider", "carousel-root-provider", "Подключает части к состоянию, созданному через `useCarousel()`.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Стилизация
 
@@ -229,18 +188,64 @@ Carousel не пробрасывается через этот путь комп
 utility-классы и переопределения через классы потребителя; приведённый ниже справочник CSS-свойств
 относится к пакетам CSS Modules.
 
-### CSS-свойства
+### CSS-переменные
 
-<CssPropertiesSection properties={CarouselDocs.carouselOverrideCssProperties} />
+Наведите на переменную или выберите её, чтобы увидеть её в превью.
+
+<CssPropertiesSection properties={CarouselDocs.carouselOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Хуки стилизации
 
-- `data-slot="carousel-root"`, `carousel-root-provider`, `carousel-control`, `carousel-item-group`,
-  `carousel-item`, `carousel-prev-trigger`, `carousel-next-trigger`, `carousel-indicator-group`,
-  `carousel-indicator`, `carousel-autoplay-trigger`, `carousel-autoplay-indicator` и
-  `carousel-progress-text` - стабильные селекторы экспортируемых частей.
+| Часть | `data-slot` |
+| --- | --- |
+| `Carousel` | `carousel-root` |
+| `CarouselRootProvider` | `carousel-root-provider` |
+| `CarouselControl` | `carousel-control` |
+| `CarouselItemGroup` | `carousel-item-group` |
+| `CarouselItem` | `carousel-item` |
+| `CarouselPrevTrigger` | `carousel-prev-trigger` |
+| `CarouselNextTrigger` | `carousel-next-trigger` |
+| `CarouselIndicatorGroup` | `carousel-indicator-group` |
+| `CarouselIndicator` | `carousel-indicator` |
+| `CarouselAutoplayTrigger` | `carousel-autoplay-trigger` |
+| `CarouselAutoplayIndicator` | `carousel-autoplay-indicator` |
+| `CarouselProgressText` | `carousel-progress-text` |
+
 - Ark UI также добавляет к отрисованным узлам `data-scope="carousel"` и имена `data-part`.
 - `data-orientation="horizontal" | "vertical"` доступен на корневом и структурных элементах.
 - `CarouselItemGroup` получает `data-dragging` во время перетаскивания.
 - `CarouselIndicator` получает `data-current`, а `CarouselItem` - `data-index` и `data-inview`.
 - `CarouselIndicator` получает `data-readonly`, а `CarouselAutoplayTrigger` - `data-pressed`.
+
+## Клавиатура
+
+| Клавиша | Действие |
+| --- | --- |
+| `ArrowLeft` / `ArrowRight` | Перемещает между индикаторами и страницами; ArrowUp и ArrowDown в вертикальном режиме. |
+| `Home` / `End` | Переходит на первую или последнюю страницу с индикаторов. |
+| `Enter` / `Space` | Нажимает кнопку назад, вперёд или автопрокрутки в фокусе. |
+
+## Справочник API
+
+| Проп | Тип | По умолчанию | Описание |
+| --- | --- | --- | --- |
+| `slideCount` | `number` | — | Общее число слайдов. Обязательный проп. |
+| `page` | `number` | — | Текущая страница в управляемом режиме. |
+| `defaultPage` | `number` | `0` | Начальная страница, если она не управляется извне. |
+| `onPageChange` | `(details: PageChangeDetails) => void` | — | Вызывается при смене страницы. |
+| `slidesPerPage` | `number` | `1` | Сколько слайдов видно одновременно. |
+| `slidesPerMove` | `number \| 'auto'` | `'auto'` | На сколько слайдов прокручивать за шаг, или `auto`. |
+| `spacing` | `string` | `'0px'` | Расстояние между слайдами, CSS-длина. |
+| `padding` | `string` | — | Дополнительный отступ вокруг области прокрутки, чтобы были видны соседние слайды. |
+| `loop` | `boolean` | `false` | После последнего слайда переходит к первому. |
+| `autoplay` | `boolean \| { delay: number }` | `false` | Листает сам; передайте `{ delay }` в миллисекундах, чтобы задать интервал. |
+| `allowMouseDrag` | `boolean` | `false` | Разрешает перетаскивать слайды мышью. |
+| `autoSize` | `boolean` | `false` | Разрешает слайды разной ширины. |
+| `orientation` | `'horizontal' \| 'vertical'` | `'horizontal'` | Направление прокрутки: `horizontal` или `vertical`. |
+| `snapType` | `'proximity' \| 'mandatory'` | `'mandatory'` | Режим CSS scroll snap: `mandatory` или `proximity`. |
+| `translations` | `IntlTranslations` | — | Переведённые строки для подписей доступности. |
+| `inViewThreshold` | `number \| number[]` | `0.6` | Какая видимая доля слайда считается показом. |
+| `onDragStatusChange` | `(details: DragStatusDetails) => void` | — | Вызывается в начале и в конце перетаскивания. |
+| `onAutoplayStatusChange` | `(details: AutoplayStatusDetails) => void` | — | Вызывается, когда автопрокрутка запускается, ставится на паузу или останавливается. |

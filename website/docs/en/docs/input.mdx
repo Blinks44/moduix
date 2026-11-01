@@ -1,20 +1,25 @@
 ---
 title: Input
 component: input
-description: A styled native single-line input built on Ark FieldInput, with native events and moduix styling.
+description: Collect a single line of text with native input behavior.
+ark: https://ark-ui.com/docs/components/field
 ---
 
+import AnatomyScene from '@/components/examples/input/basic';
 import * as InputDocs from '@/components/examples/input/css-properties';
 
-## API Reference
+<Example name="input/basic" />
 
-`Input` is a styled wrapper around [Ark's `FieldInput`](https://ark-ui.com/docs/components/field).
-It follows Ark's guidance for [composition](https://ark-ui.com/docs/guides/composition),
-[styling](https://ark-ui.com/docs/guides/styling), and [ref forwarding](https://ark-ui.com/docs/guides/ref).
-It renders a native single-line `<input>` and preserves browser form behavior and each framework's
-native event API.
+## Installation
 
-Use `Field` when the control needs a label, helper or error text, generated ids, or shared state.
+<ComponentInstall />
+
+## Usage
+
+<Usage />
+
+Place `Input` inside `Field` when you need a label, helper text, or an error message. `Field`
+connects that content to the control, generates the necessary ids, and provides its state.
 
 ## Choosing the right component
 
@@ -25,116 +30,7 @@ Use `Field` when the control needs a label, helper or error text, generated ids,
 - Use **`Textarea`** for multi-line content.
 - Use **`Editable`** when text should appear as a value first and switch into edit mode on demand.
 
-## Basic
-
-
-Place `Input` inside `Field` when you need a label, helper text, or an error message. `Field`
-connects that content to the control, generates the necessary ids, and provides its state.
-
-<Example name="input/basic" />
-
-## Install with shadcn
-
-See [Quick Start](/docs/quick-start) for full package setup, registry configuration, and styling guidance.
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/input' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/input' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/input' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/input' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/input' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/input' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Anatomy
-
-```text
-Field (optional wrapper)
-└─ Input
-```
-
-| Part                   | Role                                                                  |
-| ---------------------- | --------------------------------------------------------------------- |
-| `Input`                | Styled version of Ark's `FieldInput` that renders a native single-line `<input>`. |
-
-## Composition
-
-Use `Field` as the owner of the label, helper or error text, generated ids, and shared `disabled`,
-`invalid`, `required`, or `readOnly` state. `Input` remains the native control: use `value` with
-`onChange(event)` for controlled React state, `v-model` for controlled Vue state, or `defaultValue`
-for an uncontrolled input. It does not manage validation, focus, or keyboard navigation.
-
-In Vue, initialize the input through `v-model` and reset the bound state in the form's reset handler:
-native reset does not emit an input event. Ark currently clears the native `defaultValue` when no
-model is supplied, so use `v-model` for initial values until that upstream behavior is fixed.
-
-For a standalone control, provide its accessible name yourself. Use `asChild` only with one
-focusable, input-compatible child; Ark merges the `Input` and `Field` props, class, and ref into
-that DOM node.
-
 ## Examples
-
-### Controlled value
-
-Use this pattern when the surrounding component owns the current value. In React, read the next
-value from native `onChange(event)`; in Solid, use `onInput`; in Vue, use `v-model`. Pass the current
-value back through `value` when the framework uses separate input and value bindings.
-
-<Example name="input/controlled" />
-
-### Disabled and read-only
-
-Use `disabled` when the user must not interact with the control. Use `readOnly` when they can read
-and select the value but must not edit it. Set them directly on `Input` for one control, or on
-`Field` when the label, supporting text, and input should share the same state.
-
-<Example name="input/disabled-and-readonly" />
-
-### Field validation
-
-Set `invalid` on `Field` when validation fails. Ark adds `aria-invalid` and `data-invalid` to the
-input and connects it to the error text.
-
-<Example name="input/field-state" />
-
-### File input
-
-`Input` is enough for a native file chooser in a simple form. Use `FileUpload` when the application
-needs to keep selected files in state, show a dropzone, or manage an upload flow.
-
-<Example name="input/file-input" />
-
-### Native attributes
-
-Use native attributes for browser behavior such as validation, input mode, autocomplete, and form
-submission. Use `htmlSize` for a character-based width and `size` for visual density in React, Solid,
-and Vue.
-
-<Example name="input/native-attributes" />
 
 ### Sizes
 
@@ -151,12 +47,85 @@ ids are not generated automatically and helper or error text is not connected to
 
 <Example name="input/standalone-input" />
 
-### Advanced Customization
+### Disabled and read-only
+
+Use `disabled` when the user must not interact with the control. Use `readOnly` when they can read
+and select the value but must not edit it. Set them directly on `Input` for one control, or on
+`Field` when the label, supporting text, and input should share the same state.
+
+<Example name="input/disabled-and-readonly" />
+
+### Field validation
+
+Set `invalid` on `Field` when validation fails. Ark adds `aria-invalid` and `data-invalid` to the
+input and connects it to the error text.
+
+<Example name="input/field-state" />
+
+### Native attributes
+
+Use native attributes for browser behavior such as validation, input mode, autocomplete, and form
+submission. Use `htmlSize` for a character-based width and `size` for visual density in React, Solid,
+and Vue.
+
+<Example name="input/native-attributes" />
+
+### File input
+
+`Input` is enough for a native file chooser in a simple form. Use `FileUpload` when the application
+needs to keep selected files in state, show a dropzone, or manage an upload flow.
+
+<Example name="input/file-input" />
+
+### Controlled value
+
+Use this pattern when the surrounding component controls the current value. In React, read the next
+value from native `onChange(event)`; in Solid, use `onInput`; in Vue, use `v-model`. Pass the current
+value back through `value` when the framework uses separate input and value bindings.
+
+<Example name="input/controlled" />
+
+### Custom element
 
 Use `asChild` only when another DOM node must be rendered as the input. Keep one semantic,
 focusable input element that can receive the merged props and `ref`.
 
-<Example name="input/as-child" />
+<Example name="input/custom-element" />
+
+## Composition
+
+`Input` is a styled wrapper around [Ark's `FieldInput`](https://ark-ui.com/docs/components/field).
+It follows Ark's guidance for [composition](https://ark-ui.com/docs/guides/composition),
+[styling](https://ark-ui.com/docs/guides/styling), and [ref forwarding](https://ark-ui.com/docs/guides/ref).
+It renders a native single-line `<input>` and preserves browser form behavior and each framework's
+native event API.
+
+Use `Field` when the control needs a label, helper or error text, generated ids, or shared state.
+
+Use `Field` to provide the label, helper or error text, generated ids, and shared `disabled`,
+`invalid`, `required`, or `readOnly` state. `Input` remains the native control: use `value` with
+`onChange(event)` for controlled React state, `v-model` for controlled Vue state, or `defaultValue`
+for an uncontrolled input. It does not manage validation, focus, or keyboard navigation.
+
+In Vue, initialize the input through `v-model` and reset the bound state in the form's reset handler:
+native reset does not emit an input event. Ark currently clears the native `defaultValue` when no
+model is supplied, so use `v-model` for initial values until that upstream behavior is fixed.
+
+For a standalone control, provide its accessible name yourself. Use `asChild` only with one
+focusable, input-compatible child; Ark merges the `Input` and `Field` props, class, and ref into
+that DOM node.
+
+## Anatomy
+
+Hover or focus a part to find it in the preview.
+
+<AnatomyInspector
+  parts={[
+    ["Input", "input-root", "Styled version of Ark's `FieldInput` that renders a native single-line `<input>`.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styling
 
@@ -169,14 +138,31 @@ three variables below; override colors, padding, and typography with a plain cla
 the layered component styles. Use the shared data attributes and native state selectors when styling
 field state.
 
-### CSS Properties
+### CSS variables
 
-<CssPropertiesSection properties={InputDocs.inputOverrideCssProperties} />
+Hover or focus a variable to see it in the preview.
+
+<CssPropertiesSection properties={InputDocs.inputOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Styling hooks
 
-- `data-slot="input-root"`
+| Part | `data-slot` |
+| --- | --- |
+| `Input` | `input-root` |
+
 - `data-size="xs" | "sm" | "md" | "lg" | "xl"`
 - `data-scope="field"` and `data-part="input"`
 - Ark `data-invalid`, `data-required`, and `data-readonly` inside `Field`
 - native `:disabled`, `:read-only`, `:focus-visible`, and `[aria-invalid="true"]`
+
+## API reference
+
+Also accepts the native props of its element.
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'` | `'md'` | Control size: `xs`, `sm`, `md`, `lg`, or `xl`. |
+| `htmlSize` | `number` | — | Native `size` attribute: visible width in characters. |
+| `asChild` | `boolean` | `false` | Applies the input styles to its single child, such as a custom input. |

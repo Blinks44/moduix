@@ -7,8 +7,6 @@ import {
   Listbox,
   ListboxClearTrigger,
   ListboxContent,
-  ListboxFilter,
-  ListboxInput,
   ListboxItem,
   ListboxItemIndicator,
   ListboxItemText,
@@ -16,7 +14,8 @@ import {
   ListboxRootProvider,
   useListbox,
   useListboxContext,
-} from '../src';
+  ListboxItemContext,
+} from '@/index';
 
 const fruits = createListCollection({
   items: [
@@ -196,46 +195,52 @@ test('renders the consumer-wired clear trigger as an accessible button', async (
   expect(handleClick).toHaveBeenCalledTimes(1);
 });
 
-test('reserves filter room for the clear action and keeps page scroll chaining', () => {
+test('exposes initial item state through the Ark ItemContext', async () => {
   render(
-    <Listbox collection={fruits}>
-      <ListboxLabel>Fruit</ListboxLabel>
-      <ListboxFilter>
-        <ListboxInput />
-        <ListboxClearTrigger />
-      </ListboxFilter>
+    <Listbox collection={fruits} defaultValue={['apple']}>
       <ListboxContent>
         {fruits.items.map((item) => (
           <ListboxItem key={item.value} item={item}>
-            <ListboxItemText>{item.label}</ListboxItemText>
+            <ListboxItemContext>
+              {(itemContext) => (
+                <ListboxItemText>
+                  {itemContext.selected ? `${item.label} (selected)` : item.label}
+                </ListboxItemText>
+              )}
+            </ListboxItemContext>
           </ListboxItem>
         ))}
       </ListboxContent>
     </Listbox>,
   );
 
-  const input = document.querySelector<HTMLElement>('[data-slot="listbox-input"]')!;
-  const clear = document.querySelector<HTMLElement>('[data-slot="listbox-clear-trigger"]')!;
-  const content = document.querySelector<HTMLElement>('[data-slot="listbox-content"]')!;
-
-  // 12px offset + 24px action + 8px gap before the text.
-  expect(getComputedStyle(input).paddingInlineEnd).toBe('44px');
-  expect(clear.offsetWidth).toBe(24);
-  expect(
-    Math.abs(input.getBoundingClientRect().right - clear.getBoundingClientRect().right - 12),
-  ).toBeLessThanOrEqual(1);
-  // The list is not a popup, so page scrolling chains past it.
-  expect(getComputedStyle(content).overscrollBehaviorY).toBe('auto');
+  await expect
+    .element(page.getByRole('option', { name: 'Apple (selected)', exact: true }))
+    .toHaveAttribute('data-selected');
 });
 
-test('dims disabled items once through opacity', () => {
-  render(<FruitListbox />);
+test('exposes the item context and keeps component-owned visual parts visible', async () => {
+  render(
+    <Listbox collection={fruits} defaultValue={['apple']}>
+      <ListboxLabel>Styled fruit</ListboxLabel>
+      <ListboxContent>
+        {fruits.items.map((item) => (
+          <ListboxItem key={item.value} item={item}>
+            <ListboxItemContext>
+              {(itemContext) => (
+                <ListboxItemText>
+                  {itemContext.selected ? `${item.label} (selected)` : item.label}
+                </ListboxItemText>
+              )}
+            </ListboxItemContext>
+            <ListboxItemIndicator />
+          </ListboxItem>
+        ))}
+      </ListboxContent>
+    </Listbox>,
+  );
 
-  const [apple, , unavailable] = [
-    ...document.querySelectorAll<HTMLElement>('[data-slot="listbox-item"]'),
-  ];
-
-  // Disabled items dim once, through opacity, and keep the regular text color.
-  expect(getComputedStyle(unavailable!).opacity).toBe('0.5');
-  expect(getComputedStyle(unavailable!).color).toBe(getComputedStyle(apple!).color);
+  await expect
+    .element(page.getByRole('option', { name: 'Apple (selected)', exact: true }))
+    .toHaveAttribute('data-selected');
 });

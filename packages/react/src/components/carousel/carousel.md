@@ -40,17 +40,17 @@ provider, and context behavior unchanged and adds styled parts, a few CSS variab
 Parts live in `@layer moduix.components`, so a plain class on any part overrides them. Public
 variables are kept for values people retheme as a set:
 
-| Variable                                 | Default                          | Notes                              |
-| ---------------------------------------- | -------------------------------- | ---------------------------------- |
-| `--moduix-carousel-gap`                  | `var(--moduix-spacing-3)`        | Gap between root and control parts |
-| `--moduix-carousel-height`               | `24rem`                          | Vertical root height only          |
-| `--moduix-carousel-control-size`         | `var(--moduix-size-md)`          | Trigger size                       |
-| `--moduix-carousel-control-bg`           | `var(--moduix-color-card)`       | Trigger background                 |
-| `--moduix-carousel-control-border-color` | `var(--moduix-color-border)`     | Trigger border                     |
-| `--moduix-carousel-control-color`        | `var(--moduix-color-foreground)` | Trigger icon and text              |
-| `--moduix-carousel-indicator-size`       | `var(--moduix-spacing-2)`        | Dot size; current is 3x longer     |
-| `--moduix-carousel-indicator-bg`         | `muted-foreground` at 50%        | Idle indicator                     |
-| `--moduix-carousel-indicator-bg-current` | `var(--moduix-color-primary)`    | Current indicator                  |
+| Variable                                 | Default                    | Notes                              |
+| ---------------------------------------- | -------------------------- | ---------------------------------- |
+| `--moduix-carousel-gap`                  | `var(--moduix-spacing-3)`  | Gap between root and control parts |
+| `--moduix-carousel-height`               | `24rem`                    | Vertical root height only          |
+| `--moduix-carousel-control-size`         | `var(--moduix-size-md)`    | Trigger size                       |
+| `--moduix-carousel-control-bg`           | `var(--moduix-card)`       | Trigger background                 |
+| `--moduix-carousel-control-border-color` | `var(--moduix-border)`     | Trigger border                     |
+| `--moduix-carousel-control-color`        | `var(--moduix-foreground)` | Trigger icon and text              |
+| `--moduix-carousel-indicator-size`       | `var(--moduix-spacing-2)`  | Dot size; current is 3x longer     |
+| `--moduix-carousel-indicator-bg`         | `muted-foreground` at 50%  | Idle indicator                     |
+| `--moduix-carousel-indicator-bg-current` | `var(--moduix-primary)`    | Current indicator                  |
 
 Hover styles apply only on devices with hover. Forced-colors mode keeps idle and current indicators
 distinguishable, and reduced motion turns off trigger and indicator transitions. Ark scrolls pages

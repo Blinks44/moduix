@@ -1,0 +1,84 @@
+.demo {
+  margin-block: 1.5rem;
+  display: flex;
+  min-height: 18.75rem;
+  align-items: center;
+  overflow: hidden;
+  border: 1px solid var(--rp-c-divider-light);
+  border-radius: var(--rp-radius);
+  background: var(--moduix-doc-card);
+  padding: 1.5rem;
+}
+
+.component {
+  background: var(--moduix-doc-preview-bg);
+
+  .demoContent {
+    flex-direction: column;
+    /* Wide examples (Steps, Listbox, Breadcrumbs) scroll sideways on narrow screens instead of being cut. */
+    overflow: auto hidden;
+    padding-block: 0.5rem;
+
+    > * {
+      align-self: center;
+    }
+
+    output {
+      border: var(--moduix-border-width-sm) solid var(--moduix-border);
+      border-radius: var(--moduix-radius-sm);
+      padding: var(--moduix-spacing-2) var(--moduix-spacing-3);
+      overflow-wrap: anywhere;
+      background: var(--moduix-muted);
+      color: var(--moduix-muted-foreground);
+    }
+  }
+
+  [data-preview-meta] {
+    margin-top: var(--moduix-spacing-4);
+    display: grid;
+    inline-size: fit-content;
+    max-inline-size: 100%;
+    gap: var(--moduix-spacing-2);
+    padding: var(--moduix-spacing-4);
+    border: var(--moduix-border-width-sm) solid
+      color-mix(in oklab, var(--moduix-border) 75%, transparent);
+    border-radius: var(--moduix-radius-md);
+    background: color-mix(in oklab, var(--moduix-doc-preview-bg) 88%, transparent);
+    font-size: 0.8rem;
+
+    > * {
+      max-inline-size: 100%;
+    }
+
+    > output {
+      padding: var(--moduix-spacing-2);
+      font-size: inherit;
+      line-height: 1.2;
+      text-align: start;
+    }
+
+    > [data-scope='button'] {
+      font-size: inherit;
+      white-space: nowrap;
+    }
+  }
+}
+
+.demoContent {
+  display: flex;
+  width: 100%;
+  min-width: 0;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+}
+
+.demoContent > * {
+  max-inline-size: min(var(--moduix-doc-preview-max-inline-size, 100%), 100%);
+  min-width: 0;
+}
+
+.demoContent[data-example-width] > :not([data-preview-meta]) {
+  inline-size: min(var(--moduix-doc-example-inline-size), 100%);
+}

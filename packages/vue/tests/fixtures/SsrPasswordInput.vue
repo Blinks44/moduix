@@ -1,9 +1,5 @@
 <script setup lang="ts">
-import {
-  PasswordInput,
-  PasswordInputLabel,
-  PasswordInputField,
-} from '../../src/components/password-input';
+import { PasswordInput, PasswordInputLabel, PasswordInputField } from '@/components/password-input';
 </script>
 
 <template>

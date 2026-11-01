@@ -1,7 +1,0 @@
-.header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--moduix-spacing-3);
-  margin-block-end: var(--moduix-spacing-1);
-}

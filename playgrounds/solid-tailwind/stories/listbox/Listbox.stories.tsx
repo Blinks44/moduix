@@ -19,8 +19,6 @@ import {
   ListboxItemGroupLabel,
   ListboxItemIndicator,
   ListboxItemText,
-  ListboxItemTextContent,
-  ListboxItemTextLabel,
   ListboxLabel,
   ListboxRootProvider,
   ListboxValueText,
@@ -346,10 +344,10 @@ export const Horizontal: Story = {
           {(item) => (
             <ListboxItem item={item} class="w-40 min-w-40">
               <ListboxItemText>
-                <ListboxItemTextContent class="flex-col items-start gap-1">
-                  <ListboxItemTextLabel>{item.title}</ListboxItemTextLabel>
-                  <span class="text-xs leading-4 text-muted-foreground">{item.artist}</span>
-                </ListboxItemTextContent>
+                {item.title}
+                <span class="mt-1 block truncate text-xs leading-4 text-muted-foreground">
+                  {item.artist}
+                </span>
               </ListboxItemText>
               <ListboxItemIndicator />
             </ListboxItem>

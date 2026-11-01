@@ -5,14 +5,14 @@ import {
   SliderThumbs,
   SliderTrack,
 } from '@moduix/solid/slider';
+import { Stack } from '@moduix/solid/stack';
 import { createSignal } from 'solid-js';
-import styles from '@/components/examples/slider/slider-vertical.module.css';
 
 export default function VerticalSliderDemo() {
   const [value, setValue] = createSignal([60]);
 
   return (
-    <div class={styles.stack}>
+    <Stack align="center" gap="3">
       <Slider
         aria-label={['Output']}
         orientation="vertical"
@@ -27,6 +27,6 @@ export default function VerticalSliderDemo() {
         </SliderControl>
       </Slider>
       <output>Output: {value().join(', ')}</output>
-    </div>
+    </Stack>
   );
 }

@@ -74,4 +74,4 @@ QrCode / QrCodeRootProvider  data-slot="qr-code-root[-provider]"
 
 Keep `QrCodeFrame` and `QrCodePattern` explicit; do not add a closed single-component render path.
 Do not remap Ark callback details or wrap Ark state. When changing styling hooks or CSS variables,
-update docs examples, this file, `variables-moduix.css`, and the registry output.
+update docs examples, this file, `css-properties.tsx`, and the registry output.

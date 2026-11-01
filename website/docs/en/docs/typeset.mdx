@@ -1,98 +1,49 @@
 ---
 title: Typeset
 component: typeset
-description: Style semantic HTML, rendered Markdown, and streaming content with a scoped reading rhythm.
+description: Style rendered Markdown, CMS content, and AI answers for reading.
+ark: https://ark-ui.com/docs/guides/composition#the-ark-factory
 ---
 
+import AnatomyScene from '@/components/examples/typeset/basic';
 import * as TypesetDocs from '@/components/examples/typeset/css-properties';
 
-## API Reference
+<Example name="typeset/basic" />
 
-`Typeset` applies a consistent reading rhythm to the semantic HTML inside its boundary. It does not
-render or parse Markdown, sanitize content, or decide the content width. Your application remains
-responsible for those decisions.
+## Installation
 
-moduix builds `Typeset` with the
-[Ark factory](https://ark-ui.com/docs/guides/composition#the-ark-factory). `Typeset` and
-`TypesetScroll` therefore accept native `div` props, refs, and `asChild` composition.
+<ComponentInstall />
 
-In Vue, bind the native `tabindex` attribute to change a scroller’s tab order and access the rendered
-element through a component ref’s `$el`.
+## Usage
 
-The CSS-first contract follows the approach documented in
-[shadcn/typeset](https://ui.shadcn.com/docs/typeset). It uses the same three rhythm controls while
-leaving content rendering and reading width to the application; moduix adds framework-native
-components for React, Solid, and Vue, plus `TypesetScroll`.
-
-## Basic
+<Usage />
 
 Wrap HTML that your renderer has already produced in `<Typeset>`. Use `asChild` only when the outer
 container needs to be semantic, such as an `article` or `section`. Keep lists as native `<ul>` and
 `<ol>` elements: Typeset provides their markers and spacing without utility classes.
 
-<Example name="typeset/basic" />
-
-## Install with shadcn
-
-See [Quick Start](/docs/quick-start) for full package setup, registry configuration, and styling guidance.
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/typeset' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/typeset' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/typeset' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/typeset' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/typeset' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/typeset' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Anatomy
-
-```text
-Typeset
-└─ TypesetScroll (optional)
-```
-
-| Part | Role |
-| --- | --- |
-| `Typeset` | Scoped root that styles semantic descendants. |
-| `TypesetScroll` | Focusable horizontal scroller for a wide rendered block. |
-
-## Composition
-
-`Typeset` owns no state and does not parse, sanitize, or size content. Keep rendered semantic
-elements inside the root, use `asChild` when the root must be an `article` or `section`, and compose
-`TypesetScroll` around a wide block that should scroll instead of compressing. Keep `TypesetScroll`
-inside a `Typeset` boundary: the flow spacing and table widening for the wrapped block come from
-the Typeset element rules. Mark an application-owned
-subtree with `.not-typeset` or `data-not-typeset` when it needs its own visual treatment. A
-user-facing scroll region should have an accessible name; `TypesetScroll` is keyboard-focusable by
-default.
-
 ## Examples
+
+### Reading rhythm
+
+Set CSS variables when a section needs a roomier or denser reading rhythm without adding component
+props.
+
+<Example name="typeset/reading-rhythm" />
+
+### Markdown extensions
+
+Task lists, expandable `details` blocks, definition lists, and GFM footnotes use the same tokens and
+block spacing as the core HTML elements.
+
+<Example name="typeset/markdown-extensions" />
+
+### Scrollable table
+
+Wrap a table produced by your renderer in `TypesetScroll` when it should remain wide and scroll in a
+narrow container. Give the scroller an accessible name that identifies the table it contains.
+
+<Example name="typeset/scrollable-table" />
 
 ### Excluding application surfaces
 
@@ -102,27 +53,6 @@ including a nested `Typeset` root.
 
 <Example name="typeset/excluded-subtree" />
 
-### Markdown extensions
-
-Task lists, expandable `details` blocks, definition lists, and GFM footnotes use the same tokens and
-block spacing as the core HTML elements.
-
-<Example name="typeset/markdown-extensions" />
-
-### Reading rhythm
-
-Set CSS variables when a section needs a roomier or denser reading rhythm without adding component
-props.
-
-<Example name="typeset/reading-rhythm" />
-
-### Scrollable table
-
-Wrap a table produced by your renderer in `TypesetScroll` when it should remain wide and scroll in a
-narrow container. Give the scroller an accessible name that identifies the table it contains.
-
-<Example name="typeset/scrollable-table" />
-
 ### Streaming content
 
 Use a tighter rhythm for chat-like streams. Each new block contributes its own spacing, so existing
@@ -130,11 +60,51 @@ content stays in place as the stream grows.
 
 <Example name="typeset/streaming-content" />
 
+## Composition
+
+`Typeset` applies a consistent reading rhythm to the semantic HTML inside its boundary. It does not
+render or parse Markdown, sanitize content, or decide the content width. Your application remains
+responsible for those decisions.
+
+In Vue, bind the native `tabindex` attribute to change a scroller’s tab order and access the rendered
+element through a component ref’s `$el`.
+
+The CSS-first contract follows the approach documented in
+[shadcn/typeset](https://ui.shadcn.com/docs/typeset). It uses the same three rhythm controls while
+leaving content rendering and reading width to the application; moduix adds framework-native
+components for React, Solid, and Vue, plus `TypesetScroll`.
+
+`Typeset` has no state and does not parse, sanitize, or size content. Keep rendered semantic
+elements inside the root, use `asChild` when the root must be an `article` or `section`, and compose
+`TypesetScroll` around a wide block that should scroll instead of compressing. Keep `TypesetScroll`
+inside a `Typeset` boundary: the flow spacing and table widening for the wrapped block come from
+the Typeset element rules. Mark a
+subtree with `.not-typeset` or `data-not-typeset` when it needs its own visual treatment. A
+user-facing scroll region should have an accessible name; `TypesetScroll` is keyboard-focusable by
+default.
+
+## Anatomy
+
+Hover or focus a part to find it in the preview.
+
+<AnatomyInspector
+  parts={[
+    ["Typeset", "typeset", "Scoped root that styles semantic descendants.", 0],
+    ["TypesetScroll", "typeset-scroll", "Focusable horizontal scroller for a wide rendered block.", 1],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
+
 ## Styling
 
-### CSS Properties
+### CSS variables
 
-<CssPropertiesSection properties={TypesetDocs.typesetOverrideCssProperties} />
+Hover or focus a variable to see it in the preview.
+
+<CssPropertiesSection properties={TypesetDocs.typesetOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 Use `--moduix-typeset-size`, `--moduix-typeset-leading`, and `--moduix-typeset-flow` to control the
 reading rhythm. Font variables are optional; colors, borders, and radius come from the active moduix
@@ -148,7 +118,18 @@ with `cn` last, so the six CSS variables customize both styling tracks.
 
 ### Styling hooks
 
-- `data-slot="typeset"` targets the root container.
-- `data-slot="typeset-scroll"` targets the optional overflow wrapper and its focus-visible state.
+| Part | `data-slot` |
+| --- | --- |
+| `Typeset` | `typeset` |
+| `TypesetScroll` | `typeset-scroll` |
+
 - `[data-scope="typeset"][data-part="root"]` and `[data-part="scroll"]` expose stable anatomy
   hooks.
+
+## API reference
+
+Also accepts the native props of its element and `asChild`.
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `asChild` | `boolean` | `false` | Applies the reading styles to its single child, such as `article`. |

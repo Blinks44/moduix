@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { Kbd, KbdGroup } from '@moduix/vue/kbd';
+import { Stack } from '@moduix/vue/stack';
 import styles from '@/components/examples/kbd/kbd-shortcut-list.module.css';
 
 const shortcuts = [
@@ -22,7 +23,7 @@ const shortcuts = [
 </script>
 
 <template>
-  <div :class="styles.root">
+  <Stack gap="3">
     <div v-for="shortcut in shortcuts" :key="shortcut.label" :class="styles.row">
       <KbdGroup :aria-label="shortcut.label">
         <template v-for="(key, index) in shortcut.keys" :key="key">
@@ -32,5 +33,5 @@ const shortcuts = [
       </KbdGroup>
       {{ shortcut.description }}
     </div>
-  </div>
+  </Stack>
 </template>

@@ -4,7 +4,7 @@
     width: 100%;
     min-width: 0;
     flex-direction: column;
-    color: var(--moduix-color-foreground);
+    color: var(--moduix-foreground);
   }
 
   .trigger {
@@ -28,7 +28,7 @@
     cursor: pointer;
 
     &:focus-visible {
-      outline: var(--moduix-focus-ring-width) solid var(--moduix-color-ring);
+      outline: var(--moduix-focus-ring-width) solid var(--moduix-ring);
       outline-offset: var(--moduix-focus-ring-inset-offset);
     }
 
@@ -59,7 +59,7 @@
 
   .content {
     overflow: hidden;
-    color: var(--moduix-collapsible-content-color, var(--moduix-color-muted-foreground));
+    color: var(--moduix-collapsible-content-color, var(--moduix-muted-foreground));
     font-size: var(--moduix-collapsible-content-font-size, var(--moduix-text-sm));
     line-height: var(--moduix-line-height-text-sm);
 

@@ -8,15 +8,15 @@
     justify-content: center;
     gap: var(--moduix-spacing-1);
     border: var(--moduix-kbd-border-width, var(--moduix-border-width-sm)) solid
-      var(--moduix-kbd-border-color, var(--moduix-color-border));
+      var(--moduix-kbd-border-color, var(--moduix-border));
     border-radius: var(--moduix-kbd-radius, var(--moduix-radius-sm));
     padding-inline: var(--moduix-kbd-padding-x, var(--moduix-spacing-2));
-    background-color: var(--moduix-kbd-bg, var(--moduix-color-muted));
+    background-color: var(--moduix-kbd-bg, var(--moduix-muted));
     box-shadow: var(
       --moduix-kbd-shadow,
       inset 0 -1px 0 color-mix(in oklab, currentColor 12%, transparent)
     );
-    color: var(--moduix-kbd-color, var(--moduix-color-foreground));
+    color: var(--moduix-kbd-color, var(--moduix-foreground));
     font-family: var(--moduix-font-mono);
     font-size: var(--moduix-text-xs);
     font-weight: var(--moduix-weight-medium);
@@ -40,7 +40,7 @@
     align-items: center;
     flex-wrap: wrap;
     gap: var(--moduix-spacing-1);
-    color: var(--moduix-color-muted-foreground);
+    color: var(--moduix-muted-foreground);
     vertical-align: middle;
   }
 }

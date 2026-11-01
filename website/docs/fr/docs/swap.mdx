@@ -1,90 +1,26 @@
 ---
 title: Swap
 component: swap
-description: Animez la transition entre deux états visuels avec les préréglages moduix fondés sur Ark UI.
+description: Animer le passage entre deux icônes ou libellés quand un contrôle change d’état.
+ark: https://ark-ui.com/docs/utilities/swap
 ---
 
+import AnatomyScene from '@/components/examples/swap/basic';
 import * as SwapDocs from '@/components/examples/swap/css-properties';
 
-## Référence de l’API
+<Example name="swap/basic" />
 
-<PrimitiveReference href="https://ark-ui.com/docs/utilities/swap" />
+## Installation
 
-## Exemple de base
+<ComponentInstall />
 
+## Utilisation
+
+<Usage />
 
 Utilisez `Swap` lorsqu’un élément de l’interface doit basculer entre deux états visuels, par exemple
 une icône qui change après une action. Passez la valeur booléenne courante à `swap` : `false` affiche
 l’indicateur `off` et `true` affiche l’indicateur `on`.
-
-<Example name="swap/basic" />
-
-## Installation avec shadcn
-
-Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration complète du paquet, du registre et des styles.
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/swap' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/swap' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/swap' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/swap' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/swap' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/swap' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Anatomie
-
-```text
-Swap
-├─ SwapIndicator type="off"
-└─ SwapIndicator type="on"
-
-SwapRootProvider
-└─ même arbre d’indicateurs relié à un état créé avec useSwap()
-```
-
-| Partie               | Rôle                                                               |
-| -------------------- | ------------------------------------------------------------------ |
-| `Swap` | Fournit l’état `swap` et superpose les deux états visuels.         |
-| `SwapRootProvider`  | Relie les parties à l’état créé avec `useSwap()`.             |
-| `SwapIndicator`     | Affiche l’état `on` ou `off` sélectionné par la propriété `type`.  |
-
-## Composition
-
-`Swap` est purement visuel. L’état, l’interaction, le focus et le nom accessible doivent rester sur
-le contrôle sémantique environnant. Pour les indicateurs composés uniquement d’icônes, utilisez
-`aria-hidden="true"`. Placez les deux indicateurs directement dans la racine afin qu’ils partagent une
-cellule de grille et que les préréglages intégrés restent limités à cette instance de `Swap`.
-
-Par défaut, `Swap` utilise l’animation `scale`. Passez `fade`, `scale`, `rotate` ou `flip` à
-`animation`, ou utilisez un nom personnalisé et définissez son CSS avec `data-animation` sur la racine
-et les attributs `data-state` d’Ark sur les indicateurs. Lorsque l’état doit être créé en dehors de
-l’arbre rendu, passez `useSwap()` à `SwapRootProvider` et ne rendez pas une autre racine pour ce
-même état. Avec `asChild`, fournissez exactement un enfant sémantique.
 
 ## Exemples
 
@@ -108,9 +44,36 @@ pour la réduction des mouvements.
 
 Créez l’état de `Swap` séparément avec `useSwap()`, puis transmettez-le à `SwapRootProvider`
 via la propriété `value`. Cet exemple utilise également `asChild`, de sorte que le bouton sémantique
-devient la racine rendue de `Swap`.
+devient la racine rendue de `Swap`. Voir [Partager l’état hors de l’arbre](/docs/composition-patterns#root-provider).
 
 <Example name="swap/root-provider" />
+
+## Composition
+
+`Swap` est purement visuel. L’état, l’interaction, le focus et le nom accessible doivent rester sur
+le contrôle sémantique environnant. Pour les indicateurs composés uniquement d’icônes, utilisez
+`aria-hidden="true"`. Placez les deux indicateurs directement dans la racine afin qu’ils partagent une
+cellule de grille et que les préréglages intégrés restent limités à cette instance de `Swap`.
+
+Par défaut, `Swap` utilise l’animation `scale`. Passez `fade`, `scale`, `rotate` ou `flip` à
+`animation`, ou utilisez un nom personnalisé et définissez son CSS avec `data-animation` sur la racine
+et les attributs `data-state` d’Ark sur les indicateurs. Lorsque l’état doit être créé en dehors de
+l’arbre rendu, passez `useSwap()` à `SwapRootProvider` et ne rendez pas une autre racine pour ce
+même état. Avec `asChild`, fournissez exactement un enfant sémantique.
+
+## Anatomie
+
+Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
+
+<AnatomyInspector
+  parts={[
+    ["Swap", "swap-root", "Fournit l’état `swap` et superpose les deux états visuels.", 0],
+    ["SwapIndicator", "swap-indicator", "Affiche l’état `on` ou `off` sélectionné par la propriété `type`.", 1],
+    ["SwapRootProvider", "swap-root-provider", "Relie les parties à l’état créé avec `useSwap()`.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styles
 
@@ -128,15 +91,22 @@ Dans les variantes Tailwind, le préréglage flip applique `data-[animation=flip
 sur la racine, qui l’emporte sur un simple utilitaire `perspective` du consommateur ; répétez donc ce
 variant documenté (par exemple `data-[animation=flip]:[perspective:32rem]`) pour le remplacer.
 
-### Propriétés CSS
+### Variables CSS
 
-<CssPropertiesSection properties={SwapDocs.swapOverrideCssProperties} />
+Survolez ou sélectionnez une variable pour la voir dans l’aperçu.
+
+<CssPropertiesSection properties={SwapDocs.swapOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Points d’accroche CSS
 
-- `Swap` utilise `data-slot="swap-root"`.
-- `SwapRootProvider` utilise `data-slot="swap-root-provider"`.
-- `SwapIndicator` utilise `data-slot="swap-indicator"`.
+| Partie | `data-slot` |
+| --- | --- |
+| `Swap` | `swap-root` |
+| `SwapRootProvider` | `swap-root-provider` |
+| `SwapIndicator` | `swap-indicator` |
+
 - `animation` est exposée sous forme de `data-animation` sur `Swap` et `SwapRootProvider`.
 - Avec CSS Modules, les préréglages intégrés ciblent uniquement les enfants directs `SwapIndicator` de
   leur racine. Les préréglages Tailwind lisent l’ancêtre `group/swap` le plus proche : n’imbriquez pas
@@ -144,3 +114,13 @@ variant documenté (par exemple `data-[animation=flip]:[perspective:32rem]`) pou
 - Ark ajoute `data-scope="swap"` et `data-part="root" | "indicator"`.
 - Ark ajoute `data-state="open" | "closed"` aux indicateurs. moduix utilise ces attributs pour ses
   animations intégrées et personnalisées.
+
+## Référence de l’API
+
+`Swap` ne gère pas les interactions : le contrôle qui l’entoure reste responsable du clavier et des clics.
+
+| Prop | Type | Défaut | Description |
+| --- | --- | --- | --- |
+| `swap` | `boolean` | `false` | Affiche l’indicateur `on` si `true`, sinon l’indicateur `off`. |
+| `animation` | `SwapAnimation` | `'scale'` | Transition entre les indicateurs : `fade`, `scale`, `rotate` ou `flip`. |
+| `type` (SwapIndicator) | `'on'` / `'off'` | — | Indicateur concerné : `on` ou `off`. |

@@ -1,9 +1,9 @@
+import { Stack } from '@moduix/react/stack';
 import { ToggleGroup, ToggleGroupItem } from '@moduix/react/toggle-group';
-import styles from '@/components/examples/toggle-group/toggle-group-disabled.module.css';
 
 export default function DisabledToggleGroupDemo() {
   return (
-    <div className={styles.row}>
+    <Stack direction="row" align="center" justify="center" wrap="wrap" gap="3">
       <ToggleGroup defaultValue={['one']} aria-label="Disabled group" disabled>
         <ToggleGroupItem value="one">One</ToggleGroupItem>
         <ToggleGroupItem value="two">Two</ToggleGroupItem>
@@ -14,6 +14,6 @@ export default function DisabledToggleGroupDemo() {
           Two
         </ToggleGroupItem>
       </ToggleGroup>
-    </div>
+    </Stack>
   );
 }

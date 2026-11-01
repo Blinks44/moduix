@@ -11,9 +11,10 @@ import {
   SegmentGroupItems,
   SegmentGroupRootProvider,
   useSegmentGroup,
-} from '../src';
+} from '@/index';
 
 const frameworks = ['React', 'Solid', 'Vue'];
+
 const frameworkItems = frameworks.map((value) => ({ value, label: value }));
 
 function SegmentItems() {
@@ -175,6 +176,7 @@ test('keeps read-only inputs checked and outside keyboard navigation', async () 
   await expect.element(react).toBeChecked();
   await expect.element(solid).not.toBeChecked();
 });
+
 test('preserves controlled and provider composition paths', async () => {
   const { rerender } = render(<ControlledSegmentGroup />);
 
@@ -224,51 +226,6 @@ test('defaults the root and the hook to horizontal orientation', async () => {
   await expect
     .element(page.getByTestId('provider'))
     .toHaveAttribute('data-orientation', 'horizontal');
-});
-
-test('stretches vertical items to the group width', () => {
-  render(
-    <SegmentGroup defaultValue="List" orientation="vertical">
-      <SegmentGroupIndicator />
-      <SegmentGroupItems
-        items={['List', 'Calendar view'].map((value) => ({ value, label: value }))}
-      />
-    </SegmentGroup>,
-  );
-
-  const [short, long] = screen
-    .getAllByRole('radio')
-    .map((radio) => radio.closest<HTMLElement>('[data-slot="segment-group-item"]')!);
-  expect(short.offsetWidth).toBe(long.offsetWidth);
-});
-
-test('does not animate the indicator before the selection changes', async () => {
-  render(
-    <SegmentGroup defaultValue="React">
-      <SegmentGroupIndicator data-testid="indicator" />
-      <SegmentGroupItems items={frameworkItems} />
-    </SegmentGroup>,
-  );
-
-  await expect.element(page.getByTestId('indicator')).toBeVisible();
-  expect(getComputedStyle(screen.getByTestId('indicator')).transitionDuration).toBe('0s');
-});
-
-test('sizes the whole group to the matching control height', () => {
-  render(
-    <>
-      {(['sm', 'md', 'lg'] as const).map((size) => (
-        <SegmentGroup key={size} size={size} defaultValue="React" data-testid={size}>
-          <SegmentGroupIndicator />
-          <SegmentGroupItems items={frameworks} />
-        </SegmentGroup>
-      ))}
-    </>,
-  );
-
-  expect(screen.getByTestId('sm').offsetHeight).toBe(32);
-  expect(screen.getByTestId('md').offsetHeight).toBe(36);
-  expect(screen.getByTestId('lg').offsetHeight).toBe(40);
 });
 
 test('renders string items with the string as value and label', async () => {

@@ -8,15 +8,15 @@ import {
   SliderThumbs,
   SliderTrack,
 } from '@moduix/vue/slider';
+import { Stack } from '@moduix/vue/stack';
 import { ref } from 'vue';
-import styles from '@/components/examples/slider/slider-vertical-with-marks.module.css';
 
 const marks = [0, 25, 50, 75, 100];
 const value = ref([50]);
 </script>
 
 <template>
-  <div :class="styles.stack">
+  <Stack align="center" gap="3">
     <Slider v-model="value" :aria-label="['Output']" orientation="vertical">
       <SliderControl>
         <SliderTrack>
@@ -29,5 +29,5 @@ const value = ref([50]);
       </SliderMarkerGroup>
     </Slider>
     <output>Output: {{ value.join(', ') }}</output>
-  </div>
+  </Stack>
 </template>

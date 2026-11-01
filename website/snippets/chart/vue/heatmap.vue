@@ -52,11 +52,7 @@ const definition = defineChart({
   },
   color: {
     domain: ['Low', 'Medium', 'High'],
-    range: [
-      'var(--moduix-color-chart-3)',
-      'var(--moduix-color-chart-2)',
-      'var(--moduix-color-chart-1)',
-    ],
+    range: ['var(--moduix-chart-3)', 'var(--moduix-chart-2)', 'var(--moduix-chart-1)'],
   },
   tooltip: {
     use: tooltip,
@@ -78,9 +74,9 @@ const definition = defineChart({
     </ChartHeader>
     <ChartPlot :definition="definition" :height="320" ariaLabel="Weekly session activity heatmap" />
     <ChartLegend aria-label="Activity levels">
-      <ChartLegendItem color="var(--moduix-color-chart-3)">Low</ChartLegendItem>
-      <ChartLegendItem color="var(--moduix-color-chart-2)">Medium</ChartLegendItem>
-      <ChartLegendItem color="var(--moduix-color-chart-1)">High</ChartLegendItem>
+      <ChartLegendItem color="var(--moduix-chart-3)">Low</ChartLegendItem>
+      <ChartLegendItem color="var(--moduix-chart-2)">Medium</ChartLegendItem>
+      <ChartLegendItem color="var(--moduix-chart-1)">High</ChartLegendItem>
     </ChartLegend>
   </Chart>
 </template>

@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import { RadioGroup, RadioGroupOption } from '@moduix/vue/radio-group';
-import styles from '@/components/examples/radio-group/radio-group-sizes.module.css';
+import { Stack } from '@moduix/vue/stack';
 
 const sizes = ['xs', 'sm', 'md', 'lg', 'xl'] as const;
 </script>
 
 <template>
-  <div :class="styles.row">
+  <Stack direction="row" align="center" wrap="wrap" gap="4">
     <RadioGroup
       v-for="size in sizes"
       :key="size"
@@ -16,5 +16,5 @@ const sizes = ['xs', 'sm', 'md', 'lg', 'xl'] as const;
     >
       <RadioGroupOption :value="size">{{ size.toUpperCase() }}</RadioGroupOption>
     </RadioGroup>
-  </div>
+  </Stack>
 </template>

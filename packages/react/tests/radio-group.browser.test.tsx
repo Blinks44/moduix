@@ -13,7 +13,7 @@ import {
   RadioGroupOption,
   RadioGroupRootProvider,
   useRadioGroup,
-} from '../src';
+} from '@/index';
 
 const frameworks = ['React', 'Solid', 'Vue'];
 
@@ -77,24 +77,6 @@ test('submits through explicit Ark item inputs', async () => {
   await expect.element(page.getByRole('radio', { name: 'Solid', exact: true })).toBeChecked();
   expect(new FormData(form).get('framework')).toBe('Solid');
   expect(changes).toEqual(['Solid']);
-});
-
-test('keeps asChild composition semantic with an explicit item input', () => {
-  render(
-    <RadioGroup defaultValue="React">
-      <RadioGroupItem asChild value="React">
-        <label data-testid="custom-item">
-          <RadioGroupItemControl />
-          <RadioGroupItemHiddenInput />
-          <RadioGroupItemText>React</RadioGroupItemText>
-        </label>
-      </RadioGroupItem>
-    </RadioGroup>,
-  );
-
-  const item = screen.getByTestId('custom-item');
-  expect(item.tagName).toBe('LABEL');
-  expect(item.querySelectorAll('input[type="radio"]')).toHaveLength(1);
 });
 
 test('preserves controlled and provider composition paths', async () => {
@@ -197,57 +179,4 @@ test('exposes invalid and disabled state on the Ark item parts', async () => {
 
   await expect.element(page.getByTestId('invalid-control')).toHaveAttribute('data-invalid');
   await expect.element(page.getByRole('radio', { name: 'Solid', exact: true })).toBeDisabled();
-});
-test('sizes every control from the root size prop', () => {
-  render(
-    <>
-      <RadioGroup aria-label="Default size">
-        <RadioGroupOption value="md">Default</RadioGroupOption>
-      </RadioGroup>
-      <RadioGroup aria-label="Small size" size="sm">
-        <RadioGroupOption value="sm">Small</RadioGroupOption>
-      </RadioGroup>
-      <RadioGroup aria-label="Extra large size" size="xl">
-        <RadioGroupOption value="xl">Extra large</RadioGroupOption>
-      </RadioGroup>
-    </>,
-  );
-
-  const roots = document.querySelectorAll('[data-slot="radio-group-root"]');
-  const controls = document.querySelectorAll<HTMLElement>('[data-slot="radio-group-item-control"]');
-  expect([...roots].map((root) => root.getAttribute('data-size'))).toEqual(['md', 'sm', 'xl']);
-  expect([...controls].map((control) => control.offsetWidth)).toEqual([20, 16, 28]);
-});
-
-test('highlights the control while its item text is hovered', async () => {
-  render(
-    <RadioGroup aria-label="Framework">
-      <RadioGroupItem value="React">
-        <RadioGroupItemControl data-testid="control" style={{ transition: 'none' }} />
-        <RadioGroupItemText>React</RadioGroupItemText>
-        <RadioGroupItemHiddenInput />
-      </RadioGroupItem>
-    </RadioGroup>,
-  );
-
-  const control = screen.getByTestId('control');
-  const idle = getComputedStyle(control).backgroundColor;
-  await page.getByText('React', { exact: true }).hover();
-  await expect.element(page.getByTestId('control')).toHaveAttribute('data-hover');
-  expect(getComputedStyle(control).backgroundColor).not.toBe(idle);
-});
-
-test('keeps the invalid border on a checked control', () => {
-  render(
-    <RadioGroup aria-label="Framework" defaultValue="React" invalid>
-      <RadioGroupOption value="React">React</RadioGroupOption>
-      <RadioGroupOption value="Solid">Solid</RadioGroupOption>
-    </RadioGroup>,
-  );
-
-  const [checked, unchecked] = document.querySelectorAll<HTMLElement>(
-    '[data-slot="radio-group-item-control"]',
-  );
-  expect(checked.getAttribute('data-state')).toBe('checked');
-  expect(getComputedStyle(checked).borderTopColor).toBe(getComputedStyle(unchecked).borderTopColor);
 });

@@ -159,7 +159,7 @@ per-marker props, custom ordering, or no centered value text.
 - Every rendered wrapper accepts `className` and preserves Ark `data-scope` / `data-part`.
 - Five public variables cover the pseudo-element geometry and colors that a class on a part cannot
   reach directly: `size`, `ring-thickness`, `thumb-size`, `indicator-bg`, and `track-bg`
-  (`--moduix-angle-slider-*`, registered in `packages/foundation/src/styles/variables-moduix.css`).
+  (`--moduix-angle-slider-*`, registered in `website/src/components/examples/angle-slider/css-properties.tsx`).
   Text, spacing, thumb border, shadow, and marker look are styled with a class on the part, like
   the linear `Slider`.
 - Focus styling follows `Thumb:focus-visible` and mirrors the linear `Slider` thumb: ring-colored

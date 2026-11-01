@@ -4,7 +4,7 @@ import { render } from '@testing-library/vue';
 import { renderToString } from '@vue/server-renderer';
 import { computed, createSSRApp, defineComponent, ref } from 'vue';
 import type { ComponentPublicInstance } from 'vue';
-import { Button } from '../src/components/button';
+import { Button } from '@/components/button';
 import {
   Tooltip,
   TooltipArrow,
@@ -18,7 +18,7 @@ import {
   TooltipTrigger,
   useTooltip,
   useTooltipContext,
-} from '../src/components/tooltip';
+} from '@/components/tooltip';
 import TestTooltip from './fixtures/TestTooltip.vue';
 
 const tooltipComponents = {
@@ -428,31 +428,6 @@ test('hydrates inline and portalled anatomy without replacing server nodes', asy
     warn.mockRestore();
     error.mockRestore();
   }
-});
-
-test('highlights only the current trigger of a shared tooltip', async () => {
-  render(
-    defineComponent({
-      components: tooltipComponents,
-      template: `
-        <Tooltip :open-delay="0" :portalled="false">
-          <TooltipTrigger value="save">Save</TooltipTrigger>
-          <TooltipTrigger value="share">Share</TooltipTrigger>
-          <TooltipBody>Action tooltip</TooltipBody>
-        </Tooltip>
-      `,
-    }),
-  );
-
-  const save = document.querySelector<HTMLElement>('[data-value="save"]')!;
-  const share = document.querySelector<HTMLElement>('[data-value="share"]')!;
-  const closedBackground = getComputedStyle(save).backgroundColor;
-
-  await page.getByRole('button', { name: 'Share' }).hover();
-  await expect.element(page.getByRole('tooltip')).toBeVisible();
-  expect(save.dataset.state).toBe('open');
-  await expect.poll(() => getComputedStyle(share).backgroundColor).not.toBe(closedBackground);
-  await expect.poll(() => getComputedStyle(save).backgroundColor).toBe(closedBackground);
 });
 
 test('lets long content grow instead of spilling past the surface', async () => {

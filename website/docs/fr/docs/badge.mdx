@@ -1,17 +1,26 @@
 ---
 title: Badge
 component: badge
-description: Un badge compact pour afficher de brèves informations comme un statut, une catégorie, une version ou un nombre.
+description: Étiqueter un statut, une catégorie, une version ou un compteur.
+ark: https://ark-ui.com/docs/guides/composition#the-ark-factory
 ---
 
+import AnatomyScene from '@/components/examples/badge/basic';
 import * as BadgeDocs from '@/components/examples/badge/css-properties';
 
+<Example name="badge/basic" />
 
-## Référence de l’API
+## Installation
 
-Ark UI ne fournit pas de primitive `Badge` dédiée. moduix construit `Badge` avec la [factory Ark](https://ark-ui.com/docs/guides/composition#the-ark-factory)
-officielle et suit les recommandations d’Ark pour la [composition](https://ark-ui.com/docs/guides/composition), les
-[styles](https://ark-ui.com/docs/guides/styling) et les [références](https://ark-ui.com/docs/guides/ref).
+<ComponentInstall />
+
+## Utilisation
+
+<Usage />
+
+Commencez par un `<Badge>` simple. Par défaut, le composant rend un `span` de présentation. Définissez `variant` pour
+choisir un style intégré, `size` pour choisir `sm`, `md` ou `lg`, et ajoutez `BadgeDot` uniquement lorsqu’un statut
+a besoin d’un indicateur visuel.
 
 ## Choisir le bon composant
 
@@ -21,84 +30,34 @@ pas un contrôle qui permet à l’utilisateur de sélectionner ou de modifier u
 - Choisissez **`Badge`** pour de courtes métadonnées comme un statut, une catégorie, une version ou un nombre.
 - Choisissez **`Tag`** pour des valeurs sélectionnées, des filtres, des affectations ou des libellés qui font partie de l’état actuel de l’interface.
 
-
 Les exports Vue sont disponibles depuis `@moduix/vue/badge` pour CSS Modules et `@moduix/vue-tailwind/badge` pour Tailwind CSS. Les exports Solid restent disponibles depuis `@moduix/solid/badge`.
-## Exemple de base
 
-Commencez par un `<Badge>` simple. Par défaut, le composant rend un `span` de présentation. Définissez `variant` pour
-choisir un style intégré, `size` pour choisir `sm`, `md` ou `lg`, et ajoutez `BadgeDot` uniquement lorsqu’un statut
-a besoin d’un indicateur visuel.
-
-
-<Example name="badge/basic" />
-
-## Installation avec shadcn
-
-Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration complète du paquet, du registre et des styles.
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/badge' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/badge' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/badge' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/badge' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/badge' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/badge' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Anatomie
-
-`Badge` est le composant racine. Son API publique reste volontairement réduite aux parties visibles.
-
-```text
-Badge
-├─ BadgeLabel (facultatif ; à utiliser explicitement pour la troncature)
-├─ BadgeDot (facultatif)
-└─ icône svg (facultative)
-```
-
-| Partie      | Rôle                                                                                  |
-| ----------- | ------------------------------------------------------------------------------------- |
-| `Badge`     | Partie racine. Applique la variante, la bordure et les espacements.                    |
-| `BadgeLabel` | Partie de texte explicite. Permet de tronquer correctement un badge composé.          |
-| `BadgeDot`  | Partie décorative. Affiche un marqueur circulaire qui reprend la couleur du texte.    |
-
-## Composition
-
-`Badge` est un composant de présentation et ne gère aucun état. Le texte direct reste inchangé ; utilisez `BadgeLabel` lorsqu’un libellé contraint doit être tronqué ou lorsqu’il est combiné avec `BadgeDot` ou une icône. Pour un lien ou un bouton sémantique, utilisez `asChild` avec exactement un enfant en React. En Solid, passez une fonction de rendu à `asChild` ; l’enfant rendu conserve ses sémantiques natives.
-
-En Vue, placez exactement un enfant dans le slot par défaut avec `as-child` ; l’enfant conserve ses sémantiques natives.
 ## Exemples
 
-### Styles personnalisés
+### Variantes
 
-Lorsqu’une variante intégrée est proche du résultat souhaité mais nécessite encore un léger ajustement, utilisez une classe
-ou définissez des variables CSS directement sur le badge.
+Utilisez les variantes intégrées pour les styles courants.
 
-<Example name="badge/custom-styling" />
+<Example name="badge/variants" />
+
+### Tailles
+
+Définissez `size` sur `sm`, `md` ou `lg`. La valeur par défaut est `md`.
+
+<Example name="badge/sizes" />
+
+### Avec une icône
+
+Placez une icône SVG enfant directe à côté du libellé lorsque les métadonnées ont besoin d’un repère visuel supplémentaire.
+
+<Example name="badge/with-icon" />
+
+### Avec un point
+
+Ajoutez `BadgeDot` lorsque le libellé a besoin d’un indicateur d’état qui reste visuellement associé. Le texte visible doit
+porter le sens du statut, car le point est décoratif.
+
+<Example name="badge/with-dot" />
 
 ### Lien
 
@@ -114,30 +73,34 @@ rendre le libellé complet visible au survol. Dans les interfaces tactiles, choi
 
 <Example name="badge/long-labels" />
 
-### Tailles
+### Styles personnalisés
 
-Définissez `size` sur `sm`, `md` ou `lg`. La valeur par défaut est `md`.
+Lorsqu’une variante intégrée est proche du résultat souhaité mais nécessite encore un léger ajustement, utilisez une classe
+ou définissez des variables CSS directement sur le badge.
 
-<Example name="badge/sizes" />
+<Example name="badge/custom-styling" />
 
-### Variantes
+## Composition
 
-Utilisez les variantes intégrées pour les styles courants.
+`Badge` est un composant de présentation et ne gère aucun état. Le texte direct reste inchangé ; utilisez `BadgeLabel` lorsqu’un libellé contraint doit être tronqué ou lorsqu’il est combiné avec `BadgeDot` ou une icône. Pour un lien ou un bouton sémantique, utilisez `asChild` avec exactement un enfant en React. En Solid, passez une fonction de rendu à `asChild` ; l’enfant rendu conserve ses sémantiques natives.
 
-<Example name="badge/variants" />
+En Vue, placez exactement un enfant dans le slot par défaut avec `as-child` ; l’enfant conserve ses sémantiques natives.
 
-### Avec un point
+## Anatomie
 
-Ajoutez `BadgeDot` lorsque le libellé a besoin d’un indicateur d’état qui reste visuellement associé. Le texte visible doit
-porter le sens du statut, car le point est décoratif.
+`Badge` est le composant racine. Son API publique reste volontairement réduite aux parties visibles.
 
-<Example name="badge/with-dot" />
+Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
 
-### Avec une icône
-
-Placez une icône SVG enfant directe à côté du libellé lorsque les métadonnées ont besoin d’un repère visuel supplémentaire.
-
-<Example name="badge/with-icon" />
+<AnatomyInspector
+  parts={[
+    ["Badge", "badge-root", "Partie racine. Applique la variante, la bordure et les espacements.", 0],
+    ["BadgeLabel", "badge-label", "Partie de texte explicite. Permet de tronquer correctement un badge composé.", 1],
+    ["BadgeDot", "badge-dot", "Partie décorative. Affiche un marqueur circulaire qui reprend la couleur du texte.", 1],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styles
 
@@ -149,15 +112,36 @@ foundation ; modifiez-les avec une classe sur la partie.
 
 Ces variables CSS s’appliquent aux packages CSS Modules ; les packages Tailwind utilisent des utilitaires natifs et les classes du consommateur. Utilisez `className` en React ou `class` en Solid et Vue sur les parties exportées. Les hooks `data-slot` et les attributs Ark sont communs aux deux approches de style et aux trois frameworks.
 
-### Propriétés CSS
+### Variables CSS
 
-<CssPropertiesSection properties={BadgeDocs.badgeCssProperties} />
+Survolez ou sélectionnez une variable pour la voir dans l’aperçu. Essayez des valeurs avec les contrôles et copiez le CSS obtenu.
+
+<CssPropertiesSection
+  properties={BadgeDocs.badgeCssProperties}
+  controls={BadgeDocs.badgeControls}
+>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Points d’accroche CSS
 
-- `data-slot="badge-root"`, `data-slot="badge-label"` et `data-slot="badge-dot"` sont des sélecteurs stables pour cibler les parties exportées en CSS.
+| Partie | `data-slot` |
+| --- | --- |
+| `Badge` | `badge-root` |
+| `BadgeLabel` | `badge-label` |
+| `BadgeDot` | `badge-dot` |
+
 - `Badge` expose également `data-scope="badge"` et `data-part="root"`. `BadgeLabel` et `BadgeDot` exposent `data-part="label"` et `data-part="dot"`.
 - `Badge` indique la variante sélectionnée dans l’attribut `data-variant` et la taille dans `data-size`.
 - Les hôtes focalisables rendus avec `Badge asChild` reçoivent le style de focus visible. Les racines de type lien reçoivent aussi le survol de la variante et le curseur pointeur ; les styles propres aux boutons restent gérés par l’application.
 - Les icônes `svg` placées directement comme enfants héritent de `currentColor`, ne capturent pas les événements du pointeur et mesurent 12px sauf si une classe sur l’icône définit une autre taille.
 - `Badge` ne dispose ni d’une primitive Ark dédiée ni d’une machine de comportement ; il n’expose donc aucun état géré par Ark ni aucune variable CSS d’exécution.
+
+## Référence de l’API
+
+Accepte aussi les props natives de son élément et `asChild`.
+
+| Prop | Type | Défaut | Description |
+| --- | --- | --- | --- |
+| `variant` | `'default' \| 'secondary' \| 'destructive' \| 'outline' \| 'ghost' \| 'link'` | `'default'` | Style visuel : `default`, `secondary`, `destructive`, `outline`, `ghost` ou `link`. |
+| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` | Taille du badge : `sm`, `md` ou `lg`. |

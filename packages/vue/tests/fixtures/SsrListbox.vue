@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { createListCollection } from '@ark-ui/vue/collection';
-import { Listbox, ListboxLabel, ListboxContent, ListboxItem } from '../../src/components/listbox';
+import { Listbox, ListboxLabel, ListboxContent, ListboxItem } from '@/components/listbox';
 const collection = createListCollection({
   items: [
     { label: 'Apple', value: 'apple' },

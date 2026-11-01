@@ -124,4 +124,4 @@ export type { Props as DatePickerYearTableProps } from './DatePickerYearTable.vu
 export type { Props as DatePickerFieldProps } from './DatePickerField.vue';
 export type { Props as DatePickerRangeFieldProps } from './DatePickerRangeField.vue';
 
-export type { PortalRef } from '@/internal/overlayPortal/context';
+export type { PortalRef } from '@/lib/moduix/overlayPortal/context';

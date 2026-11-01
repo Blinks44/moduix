@@ -6,7 +6,7 @@
   }
 
   .hint {
-    color: var(--moduix-color-muted-foreground);
+    color: var(--moduix-muted-foreground);
     font-size: var(--moduix-text-xs);
     line-height: var(--moduix-line-height-text-xs);
   }
@@ -16,11 +16,11 @@
     align-items: center;
     justify-content: center;
     min-height: 2rem;
-    border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
+    border: var(--moduix-border-width-sm) solid var(--moduix-border);
     border-radius: var(--moduix-radius-md);
     padding-inline: var(--moduix-spacing-3);
-    background: var(--moduix-color-background);
-    color: var(--moduix-color-foreground);
+    background: var(--moduix-background);
+    color: var(--moduix-foreground);
     font: inherit;
     cursor: pointer;
     transition:
@@ -28,11 +28,11 @@
       border-color var(--moduix-transition-default);
 
     &:hover {
-      background-color: var(--moduix-color-accent);
+      background-color: var(--moduix-accent);
     }
 
     &:focus-visible {
-      outline: var(--moduix-border-width-sm) solid var(--moduix-color-ring);
+      outline: var(--moduix-border-width-sm) solid var(--moduix-ring);
       outline-offset: var(--moduix-border-width-sm);
     }
   }
@@ -42,13 +42,13 @@
   }
 
   .customRoot {
-    --moduix-segment-group-bg: var(--moduix-color-background);
-    --moduix-segment-group-border-color: var(--moduix-color-primary);
-    --moduix-segment-group-indicator-bg: var(--moduix-color-primary);
+    --moduix-segment-group-bg: var(--moduix-background);
+    --moduix-segment-group-border-color: var(--moduix-primary);
+    --moduix-segment-group-indicator-bg: var(--moduix-primary);
   }
 
   .customItem {
-    --moduix-segment-group-item-color-checked: var(--moduix-color-primary-foreground);
+    --moduix-segment-group-item-color-checked: var(--moduix-primary-foreground);
   }
 
   .cardItem {
@@ -67,12 +67,12 @@
   }
 
   .cardDescription {
-    color: var(--moduix-color-muted-foreground);
+    color: var(--moduix-muted-foreground);
     font-size: var(--moduix-text-xs);
     line-height: var(--moduix-line-height-text-xs);
 
     .cardItem[data-state='checked'] & {
-      color: var(--moduix-segment-group-item-color-checked, var(--moduix-color-foreground));
+      color: var(--moduix-segment-group-item-color-checked, var(--moduix-foreground));
     }
   }
 }

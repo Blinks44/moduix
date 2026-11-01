@@ -1,13 +1,13 @@
+import { Stack } from '@moduix/react/stack';
 import { Text } from '@moduix/react/text';
-import styles from '@/components/examples/text/text-basic.module.css';
 
 export default function TextDemo() {
   return (
-    <div className={styles.stack}>
+    <Stack gap="3">
       <Text>Use text to describe interface state and supporting details.</Text>
       <Text as="small" tone="muted">
         Last updated 2 minutes ago
       </Text>
-    </div>
+    </Stack>
   );
 }

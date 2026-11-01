@@ -1,13 +1,13 @@
+import { Stack } from '@moduix/solid/stack';
 import { Toggle } from '@moduix/solid/toggle';
-import styles from '@/components/examples/toggle/toggle-disabled.module.css';
 
 export default function DisabledToggleDemo() {
   return (
-    <div class={styles.row}>
+    <Stack direction="row" align="center" justify="center" wrap="wrap" gap="3">
       <Toggle disabled>Disabled</Toggle>
       <Toggle defaultPressed disabled>
         Pressed
       </Toggle>
-    </div>
+    </Stack>
   );
 }

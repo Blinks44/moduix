@@ -1,124 +1,33 @@
 ---
 title: Collapsible
 component: collapsible
-description: Доступный компонент для раскрытия и сворачивания одной области содержимого в React, Solid и Vue.
+description: Показывает и скрывает одну область контента по кнопке.
+ark: https://ark-ui.com/docs/components/collapsible
 ---
 
+import AnatomyScene from '@/components/examples/collapsible/anatomy';
 import * as CollapsibleDocs from '@/components/examples/collapsible/css-properties';
 
-## Справочник API
+<Example name="collapsible/basic" />
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/collapsible" />
+## Установка
+
+<ComponentInstall />
+
+## Использование
+
+<Usage />
+
+Используйте `Collapsible` с частями `CollapsibleTrigger`, необязательным `CollapsibleIndicator` и `CollapsibleContent`, чтобы
+раскрывать и сворачивать одну область содержимого. Размещайте содержимое внутри `CollapsibleBody`,
+если нужна рекомендуемая внутренняя обёртка для отступов и размещения.
 
 ## Какой компонент выбрать
 
 Используйте `Collapsible` для одного независимого раскрывающегося блока. Если несколько связанных
 секций должны использовать общую навигацию с клавиатуры или общее состояние, выбирайте `Accordion`.
 
-## Базовый пример
-
-
-Используйте `Collapsible` с частями `CollapsibleTrigger`, необязательным `CollapsibleIndicator` и `CollapsibleContent`, чтобы
-раскрывать и сворачивать одну область содержимого. Размещайте содержимое внутри `CollapsibleBody`,
-если нужна рекомендуемая внутренняя обёртка для отступов и размещения.
-
-<Example name="collapsible/basic" />
-
-## Установка через shadcn
-
-Полную настройку пакета, реестра и стилей см. в разделе [Быстрый старт](/docs/quick-start).
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/collapsible' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/collapsible' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/collapsible' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/collapsible' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/collapsible' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/collapsible' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Анатомия
-
-```text
-Collapsible
-├─ CollapsibleTrigger
-│  ├─ метка
-│  └─ CollapsibleIndicator (необязательно)
-└─ CollapsibleContent
-   └─ CollapsibleBody
-       └─ содержимое
-
-CollapsibleRootProvider
-└─ то же дерево частей, подключённое к состоянию из useCollapsible()
-```
-
-| Часть                     | Назначение                                                               |
-| ------------------------- | ------------------------------------------------------------------------ |
-| `Collapsible`             | Управляет состоянием одного раскрывающегося блока.                       |
-| `CollapsibleRootProvider` | Подключает части к состоянию, созданному через `useCollapsible`.          |
-| `CollapsibleTrigger`      | Доступная кнопка для раскрытия и сворачивания содержимого.                |
-| `CollapsibleIndicator`    | Необязательный индикатор состояния с шевроном moduix по умолчанию.        |
-| `CollapsibleContent`      | Анимируемая область, размер которой измеряет Ark.                        |
-| `CollapsibleBody`         | Внутренняя обёртка для отступов и размещения содержимого.                 |
-
-## Композиция
-
-`Collapsible` хранит состояние в корневом компоненте. Используйте `defaultOpen` для неконтролируемого
-раскрытия, а `open` с `onOpenChange(details)`, если состоянием управляет другая часть приложения. В
-Vue для того же управляемого контракта используйте `v-model:open`. Колбэк сохраняет объект `details`
-из Ark, поэтому управляемое состояние нужно брать из `details.open`.
-
-Используйте `CollapsibleRootProvider` вместе с `useCollapsible()` из пакета нужного фреймворка, если
-хранилище нужно создать вне дерева или разделить между границами композиции. Передайте это хранилище
-в `CollapsibleRootProvider` и не рендерите второй корневой `Collapsible` для того же состояния.
-
-Размещайте отступы и стили поверхности на `CollapsibleBody`, а не на `CollapsibleContent`, чтобы Ark
-корректно измерял анимируемую область. `CollapsibleIndicator` необязателен и по умолчанию показывает
-шеврон moduix.
-
-Используйте `asChild`, только если поведение триггера должен получить семантический элемент приложения.
-Он должен оставаться доступной с клавиатуры кнопкой. В Solid передайте функцию рендера, например
-`asChild={(props) => <button {...props()} />}`.
-
 ## Примеры
-
-### Контекст
-
-Используйте `useCollapsibleContext()` внутри дочернего компонента, которому нужно получить состояние
-или программно закрыть область.
-
-<Example name="collapsible/context" />
-
-### Управляемое состояние
-
-Используйте `open` с колбэком Ark `onOpenChange(details)`, когда состояние хранится в другой части
-интерфейса.
-
-<Example name="collapsible/controlled" />
 
 ### Открыт по умолчанию
 
@@ -132,12 +41,12 @@ Vue для того же управляемого контракта испол�
 
 <Example name="collapsible/disabled" />
 
-### Отложенное монтирование
+### Свой триггер
 
-Установите `lazyMount`, чтобы монтировать содержимое только после первого открытия. Добавьте
-`unmountOnExit`, чтобы удалять его из DOM после закрытия.
+Используйте `asChild`, чтобы передать поведение триггера кнопке, которую стилизует ваше приложение.
+Стилизация `CollapsibleTrigger` по умолчанию не применяется, но поведение Ark и атрибуты состояния сохраняются.
 
-<Example name="collapsible/lazy-mount" />
+<Example name="collapsible/custom-trigger" />
 
 ### Вложенные компоненты
 
@@ -160,19 +69,78 @@ Vue для того же управляемого контракта испол�
 
 <Example name="collapsible/partial-collapse-width" />
 
+### Управляемое состояние
+
+Используйте `open` с колбэком Ark `onOpenChange(details)`, когда состояние хранится в другой части
+интерфейса. Подробнее в разделе [Управляйте состоянием из приложения](/docs/composition-patterns#controlled-state).
+
+<Example name="collapsible/controlled" />
+
+### Отложенное монтирование
+
+Установите `lazyMount`, чтобы монтировать содержимое только после первого открытия. Добавьте
+`unmountOnExit`, чтобы удалять его из DOM после закрытия.
+
+<Example name="collapsible/lazy-mount" />
+
+### Контекст
+
+Используйте `useCollapsibleContext()` внутри дочернего компонента, которому нужно получить состояние
+или программно закрыть область.
+
+<Example name="collapsible/context" />
+
 ### Root Provider
 
 Создайте состояние через `useCollapsible()` и передайте его в `CollapsibleRootProvider`, если код за
-пределами дерева отрисованных компонентов должен обращаться к этому состоянию.
+пределами дерева отрисованных компонентов должен обращаться к этому состоянию. Подробнее в разделе [Выносите состояние за пределы дерева](/docs/composition-patterns#root-provider).
 
 <Example name="collapsible/root-provider" />
 
-### Расширенная настройка
+### Сборка из частей
 
-Используйте `asChild`, чтобы передать поведение триггера кнопке, которую стилизует ваше приложение.
-Стилизация `CollapsibleTrigger` по умолчанию не применяется, но поведение Ark и атрибуты состояния сохраняются.
+Тот же раскрывающийся блок, что в Basic, но без `CollapsibleBody` и с явной иконкой индикатора:
+`CollapsibleIndicator` рисует шеврон по умолчанию, только когда у него нет дочерних элементов, а тело
+стало обычным элементом внутри `CollapsibleContent`. Начинайте с него, если дизайн меняет иконку или
+отступы содержимого.
 
-<Example name="collapsible/custom-composition" />
+<Example name="collapsible/build-from-parts" />
+
+## Композиция
+
+`Collapsible` хранит состояние в корневом компоненте. Используйте `defaultOpen` для неконтролируемого
+раскрытия, а `open` с `onOpenChange(details)`, если состоянием управляет другая часть приложения. В
+Vue для того же управляемого контракта используйте `v-model:open`. Колбэк сохраняет объект `details`
+из Ark, поэтому управляемое состояние нужно брать из `details.open`.
+
+Используйте `CollapsibleRootProvider` вместе с `useCollapsible()` из пакета нужного фреймворка, если
+хранилище нужно создать вне дерева или разделить между границами композиции. Передайте это хранилище
+в `CollapsibleRootProvider` и не рендерите второй корневой `Collapsible` для того же состояния.
+
+Размещайте отступы и стили поверхности на `CollapsibleBody`, а не на `CollapsibleContent`, чтобы Ark
+корректно измерял анимируемую область. `CollapsibleIndicator` необязателен и по умолчанию показывает
+шеврон moduix.
+
+Используйте `asChild`, только если поведение триггера должен получить семантический элемент приложения.
+Он должен оставаться доступной с клавиатуры кнопкой. В Solid передайте функцию рендера, например
+`asChild={(props) => <button {...props()} />}`.
+
+## Анатомия
+
+Наведите на часть или выберите её, чтобы найти её в превью.
+
+<AnatomyInspector
+  parts={[
+    ["Collapsible", "collapsible-root", "Управляет состоянием одного раскрывающегося блока.", 0],
+    ["CollapsibleTrigger", "collapsible-trigger", "Доступная кнопка для раскрытия и сворачивания содержимого.", 1],
+    ["CollapsibleIndicator", "collapsible-indicator", "Необязательный индикатор состояния с шевроном moduix по умолчанию.", 2],
+    ["CollapsibleContent", "collapsible-content", "Анимируемая область, размер которой измеряет Ark.", 1],
+    ["CollapsibleBody", "collapsible-body", "Внутренняя обёртка для отступов и размещения содержимого.", 2],
+    ["CollapsibleRootProvider", "collapsible-root-provider", "Подключает части к состоянию, созданному через `useCollapsible`.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Стилизация
 
@@ -185,14 +153,25 @@ Vue для того же управляемого контракта испол�
 Размещайте отступы на `CollapsibleBody`, а не на `CollapsibleContent`, чтобы Ark мог корректно
 измерять и анимировать содержимое.
 
-### CSS-свойства
+### CSS-переменные
 
-<CssPropertiesSection properties={CollapsibleDocs.collapsibleOverrideCssProperties} />
+Наведите на переменную или выберите её, чтобы увидеть её в превью.
+
+<CssPropertiesSection properties={CollapsibleDocs.collapsibleOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Хуки стилизации
 
-- Части DOM предоставляют `data-slot="collapsible-root"`, `collapsible-root-provider`,
-  `collapsible-trigger`, `collapsible-indicator`, `collapsible-content` и `collapsible-body`.
+| Часть | `data-slot` |
+| --- | --- |
+| `Collapsible` | `collapsible-root` |
+| `CollapsibleRootProvider` | `collapsible-root-provider` |
+| `CollapsibleTrigger` | `collapsible-trigger` |
+| `CollapsibleIndicator` | `collapsible-indicator` |
+| `CollapsibleContent` | `collapsible-content` |
+| `CollapsibleBody` | `collapsible-body` |
+
 - Части Ark предоставляют `data-scope="collapsible"` и значения `data-part` для корня, триггера,
   индикатора и содержимого.
 - Ark добавляет `data-state="open" | "closed"` к корневому компоненту, триггеру, индикатору и содержимому.
@@ -200,3 +179,23 @@ Vue для того же управляемого контракта испол�
 - `data-disabled` помечает триггер, индикатор и содержимое, если они отключены.
 - `data-has-collapsed-size` помечает содержимое, настроенное через `collapsedHeight` или `collapsedWidth`.
 - Для анимации содержимого используются переменные Ark `--height`, `--width`, `--collapsed-height` и `--collapsed-width`.
+
+## Клавиатура
+
+| Клавиша | Действие |
+| --- | --- |
+| `Enter` / `Space` | Открывает или закрывает контент с кнопки. |
+
+## Справочник API
+
+| Проп | Тип | По умолчанию | Описание |
+| --- | --- | --- | --- |
+| `open` | `boolean` | — | Состояние раскрытия в управляемом режиме. |
+| `defaultOpen` | `boolean` | `false` | Раскрыт изначально. |
+| `onOpenChange` | `(details: OpenChangeDetails) => void` | — | Вызывается при раскрытии и сворачивании. |
+| `onExitComplete` | `() => void` | — | Вызывается после окончания анимации закрытия. |
+| `disabled` | `boolean` | `false` | Отключает элемент управления. |
+| `collapsedHeight` | `number \| string` | — | Высота, видимая в свёрнутом виде, для превью. |
+| `collapsedWidth` | `number \| string` | — | Ширина, видимая в свёрнутом виде. |
+| `lazyMount` | `boolean` | `false` | Монтирует содержимое при первом открытии. |
+| `unmountOnExit` | `boolean` | `false` | Удаляет содержимое после закрытия. |

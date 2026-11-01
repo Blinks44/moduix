@@ -1,6 +1,6 @@
 ---
 title: Mise à jour et migration
-description: Mettez à jour les packages Moduix ou fusionnez les changements du registre pour chaque framework et méthode de style publiés.
+description: Mettez à jour les packages moduix ou fusionnez les changements du registre pour chaque framework et méthode de style publiés.
 ---
 
 # Mise à jour et migration
@@ -11,7 +11,7 @@ l’application.
 
 | Distribution | Emplacement du code | Méthode de mise à jour |
 | --- | --- | --- |
-| Package npm | `node_modules` | Mettre à jour les packages Moduix et Ark UI correspondants. |
+| Package npm | `node_modules` | Mettre à jour les packages moduix et Ark UI correspondants. |
 | Registre shadcn | Dépôt de l’application | Examiner le diff du registre, puis le fusionner avec les changements locaux. |
 
 Pour migrer une application shadcn existante, commencez par
@@ -26,13 +26,12 @@ framework et chaque adaptateur de style.
 | Version | Ce qui peut changer | Ce que vous devez faire |
 | --- | --- | --- |
 | Correctif | Corrections de bugs, d’accessibilité et de documentation. | Mettre à jour. |
-| Mineure | Nouveaux composants, parties, props, tokens et blocs. Le code existant continue de fonctionner. | Mettre à jour et lire les [Nouveautés](/docs/changelog). |
+| Mineure | Nouveaux composants, parties, props, tokens et blocs. | Lire les [Nouveautés](/docs/changelog), puis mettre à jour. |
 | Majeure | Composants, parties, props ou tokens renommés ou supprimés. | Suivre la section de migration des [Nouveautés](/docs/changelog). |
 
-Les changements incompatibles ne sont publiés que dans les versions majeures, et chaque version majeure
-comprend une section de migration. Les API dépréciées restent disponibles jusqu’à la version majeure
-suivante et sont signalées dans la documentation et le changelog. Les changements de la plage Ark UI
-prise en charge figurent dans les notes de version.
+Les changements incompatibles ne sont publiés que dans les versions majeures. Les API dépréciées
+restent disponibles jusqu’à la version majeure suivante et sont signalées dans la documentation et le
+changelog. Les changements de la plage Ark UI prise en charge figurent dans les notes de version.
 
 ## Identifier l’adaptateur installé
 

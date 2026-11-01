@@ -1,15 +1,21 @@
 ---
 title: Timer
 component: timer
-description: A timer for tracking elapsed or remaining time with explicit controls in React, Solid, or Vue.
+description: Count elapsed or remaining time with start, pause, and reset.
+ark: https://ark-ui.com/docs/components/timer
 ---
 
-## API Reference
+import AnatomyScene from '@/components/examples/timer/basic';
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/timer" />
+<Example name="timer/basic" />
 
-## Basic
+## Installation
 
+<ComponentInstall />
+
+## Usage
+
+<Usage />
 
 `TimerSegments` is the quickest way to render a conventional time display separated by colons. By default, it shows
 hours, minutes, and seconds. Pass `types` to choose a different set of units. Use the individual parts when you need
@@ -19,88 +25,6 @@ unit labels, custom separators, or per-item styling.
 it creates the items and separators itself, use `TimerArea` when you need to replace its host element or provide
 custom children.
 
-<Example name="timer/basic" />
-
-## Install with shadcn
-
-See [Quick Start](/docs/quick-start) for full package setup, registry configuration, and styling guidance.
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/timer' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/timer' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/timer' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/timer' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/timer' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/timer' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Anatomy
-
-```text
-Timer
-├─ TimerArea
-│  ├─ TimerItem
-│  └─ TimerSeparator
-└─ TimerControl
-   └─ TimerActionTrigger
-
-TimerRootProvider
-└─ same part tree connected to state from `useTimer()`
-
-TimerSegments
-└─ TimerArea with TimerItem and TimerSeparator
-```
-
-| Part                   | Role                                                                    |
-| ---------------------- | ----------------------------------------------------------------------- |
-| `Timer` | Owns the Ark timer state, ids, interval, and callbacks.                 |
-| `TimerRootProvider`   | Connects parts to timer state created with Ark `useTimer()`.            |
-| `TimerSegments`       | Builds standard time units and separators.                              |
-| `TimerArea`           | Groups the visible time parts.                                          |
-| `TimerItem`           | Displays one formatted time unit such as `hours`, `minutes`, or `seconds`. |
-| `TimerSeparator`      | Displays a separator between time units.                                |
-| `TimerControl`        | Groups action triggers.                                                 |
-| `TimerActionTrigger`  | Dispatches the `start`, `pause`, `resume`, `reset`, or `restart` action. |
-
-## Composition
-
-`Timer` owns the timer state. `TimerSegments` creates its own `TimerArea`,
-`TimerItem`, and `TimerSeparator` parts, so use the full `TimerArea` composition when you need unit labels,
-custom separators, or per-item layout.
-
-Use `TimerRootProvider` with `useTimer()` when the state must be created outside the rendered part tree. Use
-`TimerContext` or `useTimerContext()` when other UI needs the timer state or methods. In Solid, the store and context
-are accessors, so read them as `timer()` and `api()`. In Vue, refs are unwrapped in templates, while script logic
-uses the usual `.value` access.
-
-In the installed Ark UI version, `TimerItem` replaces child content with the formatted value before `asChild`
-composition. Its replacement host is therefore lost in Vue and React. Use the default `TimerItem` host until
-upstream fixes this behavior; the examples above use that supported composition.
-
 ## Examples
 
 ### Countdown
@@ -108,12 +32,6 @@ upstream fixes this behavior; the examples above use that supported composition.
 Set `countdown` and `startMs` when the display should count down to zero.
 
 <Example name="timer/countdown" />
-
-### Events
-
-Use `onTick` and `onComplete` for side effects tied to the timer lifecycle. In Vue, listen with `@tick` and `@complete`.
-
-<Example name="timer/events" />
 
 ### Interval
 
@@ -127,12 +45,59 @@ Use `onComplete` (`@complete` in Vue) to switch between work and break durations
 
 <Example name="timer/pomodoro" />
 
-### Advanced Customization
+### Events
 
-Use `useTimer()` when the timer state and methods must also be available outside the rendered part tree. This is
-also the right composition for unit labels and other custom item layouts.
+Use `onTick` and `onComplete` for side effects tied to the timer lifecycle. In Vue, listen with `@tick` and `@complete`.
+
+<Example name="timer/events" />
+
+### Root provider
+
+Use `useTimer()` with `TimerRootProvider` when the timer state and methods must also be available
+outside the rendered part tree. See [Share state outside the tree](/docs/composition-patterns#root-provider).
 
 <Example name="timer/root-provider" />
+
+### Build from parts
+
+The same timer as Basic, without `TimerSegments`: `TimerArea` holds one `TimerItem` per unit with a
+`TimerSeparator` between them. Start here when units need labels or a custom layout.
+
+<Example name="timer/build-from-parts" />
+
+## Composition
+
+`Timer` manages the timer state. `TimerSegments` creates its own `TimerArea`,
+`TimerItem`, and `TimerSeparator` parts, so use the full `TimerArea` composition when you need unit labels,
+custom separators, or per-item layout.
+
+Use `TimerRootProvider` with `useTimer()` when the state must be created outside the rendered part tree. Use
+`TimerContext` or `useTimerContext()` when other UI needs the timer state or methods. In Solid, the store and context
+are accessors, so read them as `timer()` and `api()`. In Vue, refs are unwrapped in templates, while script logic
+uses the usual `.value` access.
+
+In the installed Ark UI version, `TimerItem` replaces child content with the formatted value before `asChild`
+composition. Its replacement host is therefore lost in Vue and React. Use the default `TimerItem` host until
+upstream fixes this behavior; the examples above use that supported composition.
+
+## Anatomy
+
+Hover or focus a part to find it in the preview.
+
+<AnatomyInspector
+  parts={[
+    ["Timer", "timer-root", "Manages the Ark timer state, ids, interval, and callbacks.", 0],
+    ["TimerArea", "timer-area", "Groups the visible time parts.", 1],
+    ["TimerItem", "timer-item", "Displays one formatted time unit such as `hours`, `minutes`, or `seconds`.", 2],
+    ["TimerSeparator", "timer-separator", "Displays a separator between time units.", 2],
+    ["TimerControl", "timer-control", "Groups action triggers.", 1],
+    ["TimerActionTrigger", "timer-action-trigger", "Dispatches the `start`, `pause`, `resume`, `reset`, or `restart` action.", 2],
+    ["TimerRootProvider", "timer-root-provider", "Connects parts to timer state created with Ark `useTimer()`.", 0],
+    ["TimerSegments", "", "Builds standard time units and separators.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styling
 
@@ -142,9 +107,30 @@ variables: a class on a part, or a `data-slot` selector, overrides the layered c
 
 ### Styling hooks
 
-- `data-slot="timer-root"`, `timer-root-provider`, `timer-area`, `timer-item`,
-  `timer-separator`, `timer-control`, and `timer-action-trigger`.
+| Part | `data-slot` |
+| --- | --- |
+| `Timer` | `timer-root` |
+| `TimerRootProvider` | `timer-root-provider` |
+| `TimerArea` | `timer-area` |
+| `TimerItem` | `timer-item` |
+| `TimerSeparator` | `timer-separator` |
+| `TimerControl` | `timer-control` |
+| `TimerActionTrigger` | `timer-action-trigger` |
+
 - Ark anatomy attributes: `data-scope="timer"` and
   `data-part="root|area|item|separator|control|action-trigger"`.
 - `TimerItem` exposes `data-type` and Ark's `--value` runtime variable.
 - Ark adds `hidden` to action triggers that are unavailable in the current timer state.
+
+## API reference
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `countdown` | `boolean` | `false` | Counts down instead of up. |
+| `startMs` | `number` | — | Starting time in milliseconds. |
+| `targetMs` | `number` | — | Time at which the timer completes, in milliseconds. |
+| `autoStart` | `boolean` | `false` | Starts the timer on mount. |
+| `interval` | `number` | `1000` | Update interval in milliseconds. |
+| `onTick` | `(details: TickDetails) => void` | — | Called on every update. |
+| `onComplete` | `() => void` | — | Called when the timer reaches `targetMs`. |
+| `translations` | `IntlTranslations` | — | Localized strings for accessibility labels. |

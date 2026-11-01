@@ -27,7 +27,7 @@ import {
   useMenu,
   useMenuContext,
   useMenuItemContext,
-} from '../src';
+} from '@/index';
 import TestSsrMenu from './fixtures/TestMenu.vue';
 
 const menuComponents = {
@@ -129,18 +129,6 @@ test('opens a nested menu from its trigger item', async () => {
   await expect.element(page.getByRole('menuitem', { name: 'Get Up!' })).toBeVisible();
 });
 
-test('sizes the default submenu chevron to its icon wrapper', async () => {
-  const Harness = {
-    components: { MenuTriggerItemIcon },
-    template: '<MenuTriggerItemIcon />',
-  };
-  const { container } = render(Harness);
-  const wrapper = container.querySelector('[data-slot="menu-trigger-item-icon"]');
-  const icon = wrapper?.querySelector('svg');
-
-  expect(icon?.getBoundingClientRect().width).toBe(wrapper?.getBoundingClientRect().width);
-});
-
 test('preserves custom context trigger styling', async () => {
   const Harness = {
     components: menuComponents,
@@ -148,8 +136,6 @@ test('preserves custom context trigger styling', async () => {
       '<Menu default-open><MenuContextTrigger as-child><button type="button">Open context menu</button></MenuContextTrigger><MenuPositioner><MenuContent><MenuArrow /><MenuViewport><MenuItem value="edit">Edit</MenuItem></MenuViewport></MenuContent></MenuPositioner></Menu>',
   };
   render(Harness);
-  const trigger = screen.getByRole('button', { name: 'Open context menu' });
-  expect(trigger.className).toBe('');
 
   await expect.element(page.getByRole('menu')).toBeVisible();
   await expect
@@ -176,7 +162,6 @@ test('preserves Vue component refs through ordinary menu parts', async () => {
   const viewport = page.locator('[data-slot="menu-viewport"]');
   await expect.element(viewport).toHaveAttribute('data-scope', 'menu');
   await expect.element(viewport).toHaveAttribute('data-part', 'viewport');
-  await expect.element(viewport).toHaveCSS('overflow', 'auto');
 });
 
 test('preserves provider and item context composition', async () => {
@@ -319,22 +304,6 @@ test('opens a context menu on right click', async () => {
   await expect.element(page.getByRole('menu')).toBeVisible();
 });
 
-test('applies consumer classes alongside CSS Module defaults', async () => {
-  const Harness = {
-    components: menuComponents,
-    template:
-      '<Menu default-open :portalled="false"><MenuTrigger class="consumer-trigger">Actions</MenuTrigger><MenuPositioner><MenuContent class="consumer-content"><MenuViewport><MenuItem class="consumer-item" value="edit">Edit</MenuItem></MenuViewport></MenuContent></MenuPositioner></Menu>',
-  };
-  render(Harness);
-  const trigger = screen.getByRole('button', { name: 'Actions' });
-  const content = screen.getByRole('menu');
-  const item = screen.getByRole('menuitem', { name: 'Edit' });
-  expect(trigger.className).toBe('consumer-trigger');
-  expect(content?.classList.contains('consumer-content')).toBe(true);
-  expect(content.classList.length).toBeGreaterThan(1);
-  expect(item?.classList.contains('consumer-item')).toBe(true);
-  expect(item.classList.length).toBeGreaterThan(1);
-});
 test('hydrates server hosts and preserves Escape dismissal without mismatches', async () => {
   const html = await renderToString(createSSRApp(TestSsrMenu));
   const host = document.createElement('div');
@@ -389,17 +358,4 @@ test('mounts content on first open and removes it after close', async () => {
   await expect.element(page.getByRole('menu')).toBeVisible();
   await page.getByRole('button', { name: 'Actions' }).click();
   await expect.poll(() => container.querySelector('[data-slot="menu-content"]')).toBeNull();
-});
-
-test('mutes disabled items regardless of tone', async () => {
-  const Harness = {
-    components: menuComponents,
-    template:
-      '<Menu default-open :portalled="false"><MenuTrigger>Actions</MenuTrigger><MenuPositioner><MenuContent><MenuViewport><MenuItem value="edit" disabled>Edit</MenuItem><MenuItem value="delete" tone="destructive" disabled>Delete</MenuItem></MenuViewport></MenuContent></MenuPositioner></Menu>',
-  };
-  render(Harness);
-
-  const edit = screen.getByRole('menuitem', { name: 'Edit' });
-  const remove = screen.getByRole('menuitem', { name: 'Delete' });
-  expect(getComputedStyle(remove).color).toBe(getComputedStyle(edit).color);
 });

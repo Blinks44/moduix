@@ -1,11 +1,9 @@
 ---
 title: Async List
 description: Manage asynchronous list data with useAsyncList, including loading, filtering, sorting, pagination, cancellation, and retry handling.
+ark: https://ark-ui.com/docs/collections/async-list
 ---
 
-import AsyncListBasic from '@/components/examples/async-list/basic.tsx';
-import asyncListSolidBasic from '../../../snippets/async-list/solid/basic.tsx?raw';
-import asyncListVueBasic from '../../../snippets/async-list/vue/basic.vue?raw';
 import asyncListSolidServerDriven from '../../../snippets/async-list/solid/server-driven.tsx?raw';
 import asyncListVueServerDriven from '../../../snippets/async-list/vue/server-driven.vue?raw';
 
@@ -15,11 +13,9 @@ import asyncListVueServerDriven from '../../../snippets/async-list/vue/server-dr
 keeps items, filtering, sorting, pagination, loading, and errors together while your component
 chooses the list structure and status UI.
 
-## API Reference
+## Import
 
-<PrimitiveReference href="https://ark-ui.com/docs/collections/async-list" />
-
-This hook is provided by Ark UI, not re-exported by Moduix. Use the collection entry point for the
+This hook is provided by Ark UI, not re-exported by moduix. Use the collection entry point for the
 framework in your application:
 
 <Tabs
@@ -54,10 +50,8 @@ import { useAsyncList } from '@ark-ui/vue/collection';
   </Tab>
 </Tabs>
 
-`useAsyncList` is a behavior hook, not a Moduix component. It is not present in the exports or
-registry manifests of `@moduix/react`, `@moduix/solid`, `@moduix/react-tailwind`, or
-`@moduix/solid-tailwind`. CSS Modules and Tailwind therefore do not change its API. Style the
-markup around the hook with your chosen path, or use native elements as in the examples below.
+`useAsyncList` renders no markup, so CSS Modules and Tailwind do not change its API. Style the
+surrounding markup with your chosen styling path, or use native elements as in the examples below.
 
 ## Basic list
 
@@ -65,42 +59,7 @@ Set `autoReload: true` to load the initial items when the component mounts. Rend
 empty, and error states, and use `reload()` for refresh and retry actions. The hook does not create
 any list semantics, so the example supplies a labelled section, a list, and status roles itself.
 
-<ExampleFrame clientOnly variant="component">
-  <PreviewFrame maxWidth="sm">
-    <AsyncListBasic />
-  </PreviewFrame>
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/async-list/basic.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={asyncListSolidBasic} />
-
-    </Tab>
-  <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={asyncListVueBasic} />
-
-    </Tab>
-  </Tabs>
-</div>
-</ExampleCode>
+<Example name="async-list/basic" clientOnly />
 
 ## Server-driven list
 
@@ -220,6 +179,6 @@ descriptor uses an item key for `column` and either `'ascending'` or `'descendin
   keeps its current items visible.
 - Add debouncing in the application when filtering should wait until the user pauses typing.
 
-The hook owns data and request state only. CSS Modules can use your application stylesheet, while
+The hook manages only data and request state. CSS Modules can use your application stylesheet, while
 Tailwind can use native utilities and consumer class overrides. There are no `async-list` CSS
-variables, Moduix component exports, or registry commands to configure.
+variables, moduix component exports, or registry commands to configure.

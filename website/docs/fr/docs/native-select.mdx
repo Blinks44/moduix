@@ -1,17 +1,24 @@
 ---
 title: Native Select
 component: native-select
-description: Un élément `<select>` natif stylisé pour les listes d’options simples en React, Solid ou Vue, dont la sélection est gérée par le navigateur.
+description: Choisir dans une courte liste avec le select natif du navigateur.
+ark: https://ark-ui.com/docs/components/field
 ---
 
+import AnatomyScene from '@/components/examples/native-select/basic';
 import * as NativeSelectDocs from '@/components/examples/native-select/css-properties';
 
-## Référence de l’API
+<Example name="native-select/basic" />
 
-`NativeSelect` est un composant stylisé basé sur [`FieldSelect` d’Ark UI](https://ark-ui.com/docs/components/field).
-Il rend un véritable élément HTML `<select>` : le navigateur reste donc responsable de l’affichage des options,
-de la navigation au clavier, de la soumission et de la réinitialisation du formulaire, du remplissage automatique
-et de la validation.
+## Installation
+
+<ComponentInstall />
+
+## Utilisation
+
+<Usage />
+
+Ajoutez des éléments natifs `option` ou `optgroup` comme enfants et passez les mêmes propriétés qu’à un élément HTML `<select>`.
 
 ## Choisir le bon composant
 
@@ -20,95 +27,14 @@ notamment le remplissage automatique, la réinitialisation du formulaire, la nav
 propre à la plateforme sur mobile. Préférez [`Select`](/docs/select) lorsqu’il vous faut une fenêtre contextuelle personnalisée,
 les API de collection, des options riches, une action d’effacement ou le contrôle programmatique de la fenêtre.
 
-## Exemple de base
-
-
-Ajoutez des éléments natifs `option` ou `optgroup` comme enfants et passez les mêmes propriétés qu’à un élément HTML `<select>`.
-
-<Example name="native-select/basic" />
-
-## Installation avec shadcn
-
-Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration complète du paquet, du registre et des styles.
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/native-select' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/native-select' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/native-select' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/native-select' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/native-select' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/native-select' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Anatomie
-
-`NativeSelect` rend le véritable `<select>` dans un conteneur externe `<span>`. En mode sélection unique et fenêtre fermée,
-il ajoute l’icône décorative `ChevronDownIcon`. Elle est masquée avec `multiple` ou `size > 1`, lorsque le navigateur affiche une liste.
-
-```text
-NativeSelect
-└─ span[data-scope="native-select"][data-part="control"][data-slot="native-select-control"]
-   ├─ select[data-scope="field"][data-part="select"][data-slot="native-select-root"]
-   │  ├─ option
-   │  └─ optgroup
-   └─ span[data-scope="native-select"][data-part="indicator"][data-slot="native-select-indicator"]
-      └─ ChevronDownIcon
-```
-
-| Partie | Rôle |
-| ------ | ---- |
-| `NativeSelect` | Composant racine public. Rend le `<select>` natif et l’indicateur décoratif. |
-
-## Composition
-
-En React, construisez un select non contrôlé avec la prop native `defaultValue`. En Solid et en Vue, transmettez
-l’attribut natif `selected` à l’`<option>` qui doit être présélectionnée : une prop `defaultValue` sur le
-`NativeSelect` Solid ou Vue n’a aucun effet. Utilisez `value` avec `onChange` en React et en Solid, ou `v-model` en Vue,
-lorsque l’état de l’application possède la valeur courante. Placez `NativeSelect` dans `Field` lorsque le libellé, le texte
-associé, la validation ou l’état `disabled` doivent être partagés avec le contrôle. Les éléments de `Field` relient ce
-contenu au select natif, tandis que le navigateur continue de gérer la sélection des options. Avec `multiple` ou
-`size > 1`, le navigateur gère l’interaction avec la liste et l’indicateur décoratif est masqué. `asChild` peut remplacer
-le select rendu, mais l’enfant doit rester un seul élément HTML `<select>` sémantique.
-
 ## Exemples
 
-### État contrôlé
+### Regroupement
 
-Utilisez `value` et `onChange` lorsque l’application contrôle la valeur courante. Lisez la nouvelle valeur dans l’événement
-natif et transmettez-la via `value`.
+Regroupez les options liées dans des éléments natifs `optgroup`. Le navigateur affiche les libellés des
+groupes et conserve la navigation au clavier.
 
-<Example name="native-select/controlled" />
-
-### Champ de formulaire
-
-Utilisez `Field` lorsque le select a besoin d’un libellé visible, d’un texte d’aide, d’un message d’erreur ou d’un état
-de champ partagé. `Field` relie ces éléments au contrôle natif.
-
-<Example name="native-select/field-integration" />
+<Example name="native-select/grouping" />
 
 ### Sélection multiple
 
@@ -117,6 +43,51 @@ les options sélectionnées et les interactions au clavier.
 
 <Example name="native-select/multiple-selection" />
 
+### Champ de formulaire
+
+Utilisez `Field` lorsque le select a besoin d’un libellé visible, d’un texte d’aide, d’un message d’erreur ou d’un état
+de champ partagé. `Field` relie ces éléments au contrôle natif.
+
+<Example name="native-select/field-integration" />
+
+### État contrôlé
+
+Utilisez `value` et `onChange` lorsque l’application contrôle la valeur courante. Lisez la nouvelle valeur dans l’événement
+natif et transmettez-la via `value`.
+
+<Example name="native-select/controlled" />
+
+## Composition
+
+`NativeSelect` est un composant stylisé basé sur [`FieldSelect` d’Ark UI](https://ark-ui.com/docs/components/field).
+Il rend un véritable élément HTML `<select>` : le navigateur reste donc responsable de l’affichage des options,
+de la navigation au clavier, de la soumission et de la réinitialisation du formulaire, du remplissage automatique
+et de la validation.
+
+En React, construisez un select non contrôlé avec la prop native `defaultValue`. En Solid et en Vue, transmettez
+l’attribut natif `selected` à l’`<option>` qui doit être présélectionnée : une prop `defaultValue` sur le
+`NativeSelect` Solid ou Vue n’a aucun effet. Utilisez `value` avec `onChange` en React et en Solid, ou `v-model` en Vue,
+lorsque l’état de l’application contrôle la valeur courante. Placez `NativeSelect` dans `Field` lorsque le libellé, le texte
+associé, la validation ou l’état `disabled` doivent être partagés avec le contrôle. Les éléments de `Field` relient ce
+contenu au select natif, tandis que le navigateur continue de gérer la sélection des options. Avec `multiple` ou
+`size > 1`, le navigateur gère l’interaction avec la liste et l’indicateur décoratif est masqué. `asChild` peut remplacer
+le select rendu, mais l’enfant doit rester un seul élément HTML `<select>` sémantique.
+
+## Anatomie
+
+`NativeSelect` rend le véritable `<select>` dans un conteneur externe `<span>`. En mode sélection unique et fenêtre fermée,
+il ajoute l’icône décorative `ChevronDownIcon`. Elle est masquée avec `multiple` ou `size > 1`, lorsque le navigateur affiche une liste.
+
+Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
+
+<AnatomyInspector
+  parts={[
+    ["NativeSelect", "native-select-indicator", "Composant racine public. Rend le `<select>` natif et l’indicateur décoratif.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
+
 ## Styles
 
 `NativeSelect` lit les mêmes variables de largeur, de hauteur, de rayon et de taille d’indicateur que les variantes
@@ -124,14 +95,24 @@ CSS Modules de `Select`, ce qui permet de redimensionner les deux sélecteurs en
 l’anneau de focus et l’animation proviennent des tokens de foundation ; remplacez-les avec une classe. Les variantes
 Tailwind utilisent des classes utilitaires natives et les classes transmises par l’utilisateur.
 
-### Propriétés CSS
+### Variables CSS
 
 Les variables suivantes sont disponibles dans les variantes CSS Modules. L’espacement interne par défaut et la géométrie de
 l’indicateur suivent l’échelle commune de 4 px.
 
-<CssPropertiesSection properties={NativeSelectDocs.nativeSelectCssProperties} />
+Survolez ou sélectionnez une variable pour la voir dans l’aperçu.
+
+<CssPropertiesSection properties={NativeSelectDocs.nativeSelectCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Points d’accroche CSS
+
+| Partie | `data-slot` |
+| --- | --- |
+| `NativeSelect`, élément interne | `native-select-control` |
+| `NativeSelect` | `native-select-root` |
+| `NativeSelect`, élément interne | `native-select-indicator` |
 
 - En React, utilisez `className` sur le select et, en Solid ou en Vue, `class`. Utilisez `controlProps.className` ou
   `controlProps.class` pour le conteneur externe `<span>`.
@@ -139,6 +120,23 @@ l’indicateur suivent l’échelle commune de 4 px.
   du `<select>` et l’indicateur la suivent.
 - `data-scope="field"` et `data-part="select"` préservent le contrat de styles d’Ark Field.
 - `data-slot="native-select-root"` est le sélecteur moduix stable de l’élément `<select>`.
-- `data-slot="native-select-control"` et `data-slot="native-select-indicator"` ciblent le conteneur interne et l’icône.
 - Les pseudo-classes et attributs natifs `:focus-visible`, `:disabled`, `[aria-invalid="true"]`, `[multiple]` et `[size]`
   gèrent les états visuels.
+
+## Clavier
+
+Le navigateur gère le clavier, comme pour tout select natif.
+
+| Touche | Action |
+| --- | --- |
+| `ArrowDown` / `ArrowUp` | Change l’option sélectionnée. |
+| `Space` / `Alt+ArrowDown` | Ouvre la liste des options. |
+
+## Référence de l’API
+
+Accepte aussi les props natives de `select`.
+
+| Prop | Type | Défaut | Description |
+| --- | --- | --- | --- |
+| `controlProps` | `ComponentProps<'span'>` | — | Propriétés de l’enveloppe du select et de son indicateur. |
+| `multiple` | `boolean` | `false` | Sélection multiple native ; masque l’indicateur. |

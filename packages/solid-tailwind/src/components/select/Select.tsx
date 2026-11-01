@@ -1,5 +1,3 @@
-import type { HTMLArkProps } from '@ark-ui/solid/factory';
-import { ark } from '@ark-ui/solid/factory';
 import {
   Select as SelectPrimitive,
   type CollectionItem,
@@ -115,7 +113,7 @@ function SelectTrigger(props: ComponentProps<typeof SelectPrimitive.Trigger>) {
       asChild={local.asChild}
       class={cn(
         !local.asChild &&
-          'peer/select-trigger inline-flex h-control-md w-full min-w-0 cursor-pointer items-center rounded-md border border-border bg-background px-3.5 pe-[2.875rem] text-start text-inherit outline-focus-inset outline-offset-focus-inset outline-transparent transition-[border-color,outline-color] duration-normal ease-in-out select-none [font:inherit] group-has-[>[data-slot=select-clear-trigger]:not([hidden])]/select-control:pe-[4.25rem] group-data-invalid/select-control:border-destructive group-data-invalid/select-control:outline-destructive focus-visible:border-ring focus-visible:outline-ring disabled:cursor-default data-placeholder-shown:text-muted-foreground data-[state=open]:border-ring data-[state=open]:outline-ring',
+          'peer/select-trigger inline-flex h-control-md w-full min-w-0 cursor-pointer items-center rounded-md border border-input bg-background px-3.5 pe-[2.875rem] text-start text-inherit outline-focus-halo outline-transparent transition-[border-color,outline-color] duration-normal ease-in-out select-none [font:inherit] group-has-[>[data-slot=select-clear-trigger]:not([hidden])]/select-control:pe-[4.25rem] group-data-invalid/select-control:border-destructive focus-visible:border-ring focus-visible:outline-ring/50 group-data-invalid/select-control:focus-visible:outline-destructive/20 disabled:cursor-default data-placeholder-shown:text-muted-foreground data-[state=open]:border-ring data-[state=open]:outline-ring/50 group-data-invalid/select-control:data-[state=open]:outline-destructive/20',
         local.class,
       )}
       {...others}
@@ -307,7 +305,10 @@ function SelectItemText(props: ComponentProps<typeof SelectPrimitive.ItemText>) 
 
   return (
     <SelectPrimitive.ItemText
-      class={cn('min-w-0 flex-1 overflow-hidden text-ellipsis whitespace-nowrap', local.class)}
+      class={cn(
+        'min-w-0 flex-1 overflow-hidden text-ellipsis whitespace-nowrap [&>svg]:me-2 [&>svg]:inline-block [&>svg]:size-4 [&>svg]:align-middle',
+        local.class,
+      )}
       {...others}
       data-slot="select-item-text"
     />
@@ -351,42 +352,6 @@ function SelectOption(props: SelectOptionProps) {
   );
 }
 
-function SelectItemTextContent(props: HTMLArkProps<'span'>) {
-  const [local, others] = splitProps(props, ['class']);
-
-  return (
-    <ark.span
-      class={cn('inline-flex max-w-full min-w-0 items-center gap-2 align-top', local.class)}
-      {...others}
-      data-slot="select-item-text-content"
-    />
-  );
-}
-
-function SelectItemTextIcon(props: HTMLArkProps<'span'>) {
-  const [local, others] = splitProps(props, ['class']);
-
-  return (
-    <ark.span
-      class={cn('inline-flex size-4 shrink-0 items-center justify-center', local.class)}
-      {...others}
-      data-slot="select-item-text-icon"
-    />
-  );
-}
-
-function SelectItemTextLabel(props: HTMLArkProps<'span'>) {
-  const [local, others] = splitProps(props, ['class']);
-
-  return (
-    <ark.span
-      class={cn('min-w-0 overflow-hidden text-ellipsis whitespace-nowrap', local.class)}
-      {...others}
-      data-slot="select-item-text-label"
-    />
-  );
-}
-
 const SelectContext = SelectPrimitive.Context;
 const SelectHiddenSelect = SelectPrimitive.HiddenSelect;
 const SelectItemContext = SelectPrimitive.ItemContext;
@@ -406,9 +371,6 @@ export {
   SelectItemGroupLabel,
   SelectItemIndicator,
   SelectItemText,
-  SelectItemTextContent,
-  SelectItemTextIcon,
-  SelectItemTextLabel,
   SelectLabel,
   SelectList,
   SelectOption,

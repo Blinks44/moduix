@@ -1,87 +1,94 @@
 ---
 title: Splitter
 component: splitter
-description: Доступная раскладка с изменяемыми панелями для React, Solid и Vue с вариантами установки через пакет и shadcn.
+description: Делит раскладку на панели, размер которых меняют перетаскиванием.
+ark: https://ark-ui.com/docs/components/splitter
 ---
 
+import AnatomyScene from '@/components/examples/splitter/basic';
 import { CssPropertiesSection } from '@/components/mdx/Components';
 import { splitterOverrideCssProperties } from '@/components/examples/splitter/css-properties';
 
-## Справочник API
+<Example name="splitter/basic" />
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/splitter" />
+## Установка
 
-## Базовый пример
+<ComponentInstall />
 
+## Использование
+
+<Usage />
 
 Соберите Splitter из `Splitter`, `SplitterPanel` и `SplitterResizeTrigger`. Свойство `panels`
 содержит идентификаторы панелей и ограничения их размеров. У каждой отрисованной `SplitterPanel`
 должен быть один из этих идентификаторов. Если не передавать триггеру дочерние элементы, moduix
 добавит индикатор изменения размера автоматически.
 
-<Example name="splitter/basic" />
+## Примеры
 
-## Установка через shadcn
+### Вертикальная ориентация
 
-Полную настройку пакета, реестра и стилей см. в разделе [Быстрый старт](/docs/quick-start).
+Задайте `orientation="vertical"` и укажите корню стабильную высоту, чтобы вертикальным панелям было
+достаточно места для изменения размера.
 
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
+<Example name="splitter/vertical" />
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/splitter' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/splitter' },
-  ]}
-/>
+### Несколько панелей
 
-  </Tab>
-  <Tab label="Solid" value="solid">
+Добавьте ещё одну `SplitterPanel` и соседний `SplitterResizeTrigger`, чтобы получить раскладку из трёх панелей. Для
+каждой панели нужна запись в `panels`, а идентификатор каждой ручки должен связывать двух её соседей.
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/splitter' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/splitter' },
-  ]}
-/>
+<Example name="splitter/multiple-panels" />
 
-  </Tab>
-  <Tab label="Vue" value="vue">
+### Сворачиваемые панели
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/splitter' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/splitter' },
-  ]}
-/>
+Задайте `collapsible: true` и `collapsedSize`, если панель должна превращаться в узкую боковую полосу.
+Чтобы изменение размера указателем оставалось плавным до самого свёрнутого состояния, задайте для
+`minSize` то же значение. Если `minSize` больше, Splitter переключается между минимальным
+развёрнутым размером и свёрнутой полосой.
 
-  </Tab>
-</Tabs>
+<Example name="splitter/collapsible-panels" />
 
-## Анатомия
+### Адаптивное сворачивание
 
-```text
-Splitter
-├─ SplitterPanel[id]
-├─ SplitterResizeTrigger[id="panel-a:panel-b"]
-│  └─ SplitterResizeTriggerIndicator (по умолчанию, настраивается)
-└─ SplitterPanel[id]
+Используйте `collapsePanel()` и `expandPanel()`, если боковая панель должна реагировать на доступную
+ширину, измеренную приложением.
 
-SplitterRootProvider
-└─ то же дерево панелей, подключённое к состоянию useSplitter()
-```
+<Example name="splitter/dynamic-collapsible" />
 
-| Часть                              | Назначение                                                                     |
-| ---------------------------------- | ------------------------------------------------------------------------------ |
-| `Splitter`                    | Управляет панелями, их размерами, ориентацией, колбэками и состоянием.          |
-| `SplitterPanel`                   | Область с изменяемым размером. Её `id` должен совпадать с записью в `panels`.  |
-| `SplitterResizeTrigger`           | Доступная кнопка для изменения размера двух соседних панелей.                  |
-| `SplitterResizeTriggerIndicator`  | Стандартная визуальная ручка. Дочерние элементы триггера заменяют её.           |
-| `SplitterRootProvider`            | Отображает те же части, используя состояние из `useSplitter()`.                |
+### Вложенные Splitter
+
+Передайте один и тот же реестр вложенным Splitter, чтобы одновременно перетаскивать несколько ручек
+на пересечениях горизонтальных и вертикальных разделителей.
+
+<Example name="splitter/nested" />
+
+### Управляемое состояние
+
+Храните размеры панелей в состоянии приложения и обновляйте его значением `details.size` из
+`onResize`. Подробнее в разделе [Управляйте состоянием из приложения](/docs/composition-patterns#controlled-state).
+
+<Example name="splitter/controlled" />
+
+### Root Provider
+
+Используйте `useSplitter()` с `SplitterRootProvider`, если состояние или элементы управления должны
+находиться за пределами отрисованных частей Splitter. Возвращаемый API включает, например,
+`getSizes()`, `setSizes()`, `resizePanel()`, `collapsePanel()`, `expandPanel()` и `resetSizes()`. Подробнее в разделе [Выносите состояние за пределы дерева](/docs/composition-patterns#root-provider).
+
+<Example name="splitter/root-provider" />
+
+### Сборка из частей
+
+Тот же разделитель, что в Basic, но с явной ручкой: `SplitterResizeTrigger` добавляет
+`SplitterResizeTriggerIndicator`, только когда у него нет дочерних элементов. Начинайте с него, если
+дизайн заменяет ручку или добавляет в неё содержимое.
+
+<Example name="splitter/build-from-parts" />
 
 ## Композиция
 
-Используйте `size` вместе с `onResize(details)`, если приложение владеет текущими размерами панелей.
+Используйте `size` вместе с `onResize(details)`, если приложение управляет текущими размерами панелей.
 Выбирайте `SplitterRootProvider` с `useSplitter()`, если состояние или элементы управления должны
 находиться за пределами дерева панелей, и используйте только один корень для каждого состояния. Для
 вложенных Splitter, которые должны изменять размер одновременно на пересечениях ручек, создайте один
@@ -98,70 +105,21 @@ SplitterRootProvider
 реактивное состояние, которое можно напрямую передать в `SplitterRootProvider`; вызывайте его методы
 в шаблоне и не создавайте второй контейнер состояния.
 
-## Примеры
+## Анатомия
 
-### Сворачиваемые панели
+Наведите на часть или выберите её, чтобы найти её в превью.
 
-Задайте `collapsible: true` и `collapsedSize`, если панель должна превращаться в узкую боковую полосу.
-Чтобы изменение размера указателем оставалось плавным до самого свёрнутого состояния, задайте для
-`minSize` то же значение. Если `minSize` больше, Splitter переключается между минимальным
-развёрнутым размером и свёрнутой полосой.
-
-<Example name="splitter/collapsible-panels" />
-
-### Управляемое состояние
-
-Храните размеры панелей в состоянии приложения и обновляйте его значением `details.size` из
-`onResize`.
-
-<Example name="splitter/controlled" />
-
-### Несколько панелей
-
-Добавьте ещё одну `SplitterPanel` и соседний `SplitterResizeTrigger`, чтобы получить раскладку из трёх панелей. Для
-каждой панели нужна запись в `panels`, а идентификатор каждой ручки должен связывать двух её соседей.
-
-<Example name="splitter/multiple-panels" />
-
-### Вложенные Splitter
-
-Передайте один и тот же реестр вложенным Splitter, чтобы одновременно перетаскивать несколько ручек
-на пересечениях горизонтальных и вертикальных разделителей.
-
-<Example name="splitter/nested" />
-
-### Адаптивное сворачивание
-
-Используйте `collapsePanel()` и `expandPanel()`, если боковая панель должна реагировать на доступную
-ширину, измеренную приложением.
-
-<Example name="splitter/dynamic-collapsible" />
-
-### SplitterRootProvider
-
-Используйте `useSplitter()` с `SplitterRootProvider`, если состояние или элементы управления должны
-находиться за пределами отрисованных частей Splitter. Возвращаемый API включает, например,
-`getSizes()`, `setSizes()`, `resizePanel()`, `collapsePanel()`, `expandPanel()` и `resetSizes()`.
-
-<Example name="splitter/root-provider" />
-
-### Вертикальная ориентация
-
-Задайте `orientation="vertical"` и укажите корню стабильную высоту, чтобы вертикальным панелям было
-достаточно места для изменения размера.
-
-<Example name="splitter/vertical" />
-
-## Доступность
-
-`SplitterResizeTrigger` создаёт кнопку с `type="button"`, поэтому она не отправляет окружающую форму, и поддерживает изменение размера указателем и клавиатурой в соответствии
-с паттерном WAI-ARIA Window Splitter. Задайте каждой ручке доступное имя, например через
-`aria-label="Resize panels"`, если на визуальной ручке нет текстовой подписи. При использовании
-`asChild` пользовательский элемент должен сохранять семантику кнопки, работу фокуса и управление с
-клавиатуры.
-
-Ark сообщает о состоянии через атрибуты `data-orientation`, `data-dragging`, `data-focus` и
-`data-disabled`. Используйте их для стилизации состояний взаимодействия.
+<AnatomyInspector
+  parts={[
+    ["Splitter", "splitter-root", "Управляет панелями, их размерами, ориентацией, колбэками и состоянием.", 0],
+    ["SplitterPanel", "splitter-panel", "Область с изменяемым размером. Её `id` должен совпадать с записью в `panels`.", 1],
+    ["SplitterResizeTrigger", "splitter-resize-trigger", "Доступная кнопка для изменения размера двух соседних панелей.", 1],
+    ["SplitterResizeTriggerIndicator", "splitter-resize-trigger-indicator", "Стандартная визуальная ручка. Дочерние элементы триггера заменяют её.", 2],
+    ["SplitterRootProvider", "splitter-root-provider", "Отображает те же части, используя состояние из `useSplitter()`.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Стилизация
 
@@ -179,15 +137,62 @@ Ark ставит каждой панели inline `overflow: hidden`, чтобы
 индикатора усиливается. Линия и область нажатия нарисованы псевдоэлементами, поэтому в вариантах
 с CSS Modules для них есть переменные ниже.
 
-### CSS-свойства
+### CSS-переменные
 
-<CssPropertiesSection properties={splitterOverrideCssProperties} />
+Наведите на переменную или выберите её, чтобы увидеть её в превью.
 
-### Точки привязки для стилей
+<CssPropertiesSection properties={splitterOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
-Ark записывает `data-scope="splitter"` и `data-part` в отрисованные части. moduix также добавляет
-значения `data-slot`: `splitter-root`, `splitter-root-provider`, `splitter-panel`,
-`splitter-resize-trigger` и `splitter-resize-trigger-indicator`.
+### Хуки стилизации
+
+| Часть | `data-slot` |
+| --- | --- |
+| `Splitter` | `splitter-root` |
+| `SplitterRootProvider` | `splitter-root-provider` |
+| `SplitterPanel` | `splitter-panel` |
+| `SplitterResizeTriggerIndicator` | `splitter-resize-trigger-indicator` |
+| `SplitterResizeTrigger` | `splitter-resize-trigger` |
+
+Ark записывает `data-scope="splitter"` и `data-part` в отрисованные части.
 
 Полезные атрибуты отдельных частей включают `data-id` и `data-index` у панелей, а также
 `data-orientation`, `data-dragging`, `data-focus` и `data-disabled` у соответствующих элементов.
+
+## Доступность
+
+`SplitterResizeTrigger` создаёт кнопку с `type="button"`, поэтому она не отправляет окружающую форму, и поддерживает изменение размера указателем и клавиатурой в соответствии
+с паттерном WAI-ARIA Window Splitter. Задайте каждой ручке доступное имя, например через
+`aria-label="Resize panels"`, если на визуальной ручке нет текстовой подписи. При использовании
+`asChild` пользовательский элемент должен сохранять семантику кнопки, работу фокуса и управление с
+клавиатуры.
+
+Ark сообщает о состоянии через атрибуты `data-orientation`, `data-dragging`, `data-focus` и
+`data-disabled`. Используйте их для стилизации состояний взаимодействия.
+
+## Клавиатура
+
+| Клавиша | Действие |
+| --- | --- |
+| `ArrowLeft` / `ArrowRight` | Меняет размер панелей с ручки в фокусе; ArrowUp и ArrowDown в вертикальном режиме. |
+| `Home` / `End` | Сдвигает ручку к минимуму или максимуму. |
+| `Enter` | Сворачивает или разворачивает сворачиваемую панель. |
+| `F6` | Переводит фокус на следующую ручку. |
+
+## Справочник API
+
+| Проп | Тип | По умолчанию | Описание |
+| --- | --- | --- | --- |
+| `panels` | `PanelData[]` | — | Id панелей и ограничения размеров, например `minSize` и `collapsible`. |
+| `size` | `PanelSize[]` | — | Размеры панелей в управляемом режиме. |
+| `defaultSize` | `PanelSize[]` | — | Начальные размеры панелей. |
+| `orientation` | `'horizontal' \| 'vertical'` | `'horizontal'` | Направление панелей: `horizontal` или `vertical`. |
+| `onResize` | `(details: ResizeDetails) => void` | — | Вызывается при изменении размеров. |
+| `onResizeStart` | `() => void` | — | Вызывается в начале изменения размера. |
+| `onResizeEnd` | `(details: ResizeEndDetails) => void` | — | Вызывается в конце изменения размера. |
+| `onCollapse` | `(details: ExpandCollapseDetails) => void` | — | Вызывается при сворачивании панели. |
+| `onExpand` | `(details: ExpandCollapseDetails) => void` | — | Вызывается при разворачивании панели. |
+| `keyboardResizeBy` | `number \| null` | — | Пикселей за нажатие стрелки; по умолчанию шаг в процентах. |
+| `nonce` | `string` | — | CSP nonce для внедряемых стилей курсора. |
+| `registry` | `SplitterRegistry` | — | Общий реестр, чтобы вложенные splitter перетаскивались вместе. |

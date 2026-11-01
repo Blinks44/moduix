@@ -1,13 +1,26 @@
 ---
 title: Verification code
 description: A six-digit email verification form built with moduix components.
+block: verification-code
 ---
 
 import { VerificationCode } from '@/components/blocks/verification-code/verification-code';
 import verificationCodeSolid from '../../../snippets/blocks/solid/verification-code.tsx?raw';
 import verificationCodeVue from '../../../snippets/blocks/vue/verification-code.vue?raw';
+import verificationCodeReact from '../../../src/components/blocks/verification-code/verification-code.tsx?raw';
+import verificationCodeCss from '../../../src/components/blocks/verification-code/verification-code-form.module.css?raw';
 
 # Verification code
+
+<ExamplePanel
+  clientOnly
+  sources={{ react: verificationCodeReact, solid: verificationCodeSolid, vue: verificationCodeVue }}
+  files={[{ name: 'verification-code-form.module.css', code: verificationCodeCss }]}
+>
+  <PreviewFrame maxWidth="sm">
+    <VerificationCode onSubmit={(event) => event.preventDefault()} />
+  </PreviewFrame>
+</ExamplePanel>
 
 Use this block when your application sends a one-time code to a user's email address. It combines
 `Card`, `Field`, `Button`, and `PinInput` into a complete form. `PinInput` keeps the value in a hidden
@@ -15,62 +28,13 @@ native form input, handles keyboard navigation and paste, and enables OTP autofi
 with fewer than six digits to see the built-in field error. This check only confirms that all six digits
 are present. Your application still needs to verify the code on the server.
 
-The preview runs React. The source tabs contain React, Solid, and Vue implementations with a shared stylesheet.
-
-
-
-<ExampleFrame variant="block" clientOnly>
-  <PreviewFrame maxWidth="sm">
-  <VerificationCode onSubmit={(event) => event.preventDefault()} />
-  </PreviewFrame>
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/blocks/verification-code/verification-code.tsx"
-
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={verificationCodeSolid} />
-
-    </Tab>
-  <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={verificationCodeVue} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/blocks/verification-code/verification-code-form.module.css"
-
-```
-</div>
-
-</ExampleCode>
-
 ## Install
 
 <BlockInstall name="verification-code" />
 
 ## Add the block to a route
 
-Import the installed `VerificationCode` block into the route that owns email verification. Show
+Import the installed `VerificationCode` block into the route that handles email verification. Show
 the form after your application sends the code. `onSubmit` receives the native form event. If you
 submit the code from the browser, call `event.preventDefault()`, read
 `new FormData(event.currentTarget).get('code')`, and send that value to your server. Replace the

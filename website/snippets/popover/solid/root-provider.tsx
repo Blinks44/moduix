@@ -11,13 +11,13 @@ import {
   PopoverTrigger,
   usePopover,
 } from '@moduix/solid/popover';
-import styles from '@/components/examples/popover/popover-root-provider.module.css';
+import { Stack } from '@moduix/solid/stack';
 
 export default function RootProviderDemo() {
   const popover = usePopover({ positioning: { placement: 'bottom-start', gutter: 8 } });
 
   return (
-    <div class={styles.root}>
+    <Stack align="center" gap="3">
       <PopoverRootProvider value={popover}>
         <PopoverTrigger asChild={(props) => <Button {...props()}>Open from trigger</Button>} />
         <PopoverPositioner>
@@ -36,6 +36,6 @@ export default function RootProviderDemo() {
       <Button size="sm" onClick={() => popover().setOpen(!popover().open)}>
         Toggle externally
       </Button>
-    </div>
+    </Stack>
   );
 }

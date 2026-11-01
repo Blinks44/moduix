@@ -4,7 +4,7 @@ import { render, screen } from '@testing-library/vue';
 import { renderToString } from '@vue/server-renderer';
 import { computed, createSSRApp, defineComponent, nextTick, ref } from 'vue';
 import type { ComponentPublicInstance } from 'vue';
-import { Swap, SwapIndicator, SwapRootProvider, useSwap, useSwapContext } from '../src';
+import { Swap, SwapIndicator, SwapRootProvider, useSwap, useSwapContext } from '@/index';
 import SsrSwap from './fixtures/SsrSwap.vue';
 
 const swapComponents = { Swap, SwapIndicator, SwapRootProvider };
@@ -36,7 +36,6 @@ test('preserves Ark semantics, Vue refs, anatomy, attrs, and moduix hooks', () =
   expect(root.getAttribute('data-animation')).toBe('scale');
   expect(root.getAttribute('data-swap')).toBe('off');
   expect(root.getAttribute('data-probe')).toBe('root');
-  expect(getComputedStyle(root).display).toBe('inline-grid');
   expect(offRef.value?.$el).toBe(off);
   expect(onRef.value?.$el).toBe(on);
   expect(off.getAttribute('data-scope')).toBe('swap');

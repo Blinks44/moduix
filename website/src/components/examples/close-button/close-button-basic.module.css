@@ -2,10 +2,10 @@
   position: relative;
   inline-size: min(24rem, 100%);
   padding: var(--moduix-spacing-4);
-  border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
+  border: var(--moduix-border-width-sm) solid var(--moduix-border);
   border-radius: var(--moduix-radius-lg);
-  background-color: var(--moduix-color-popover);
-  color: var(--moduix-color-popover-foreground);
+  background-color: var(--moduix-popover);
+  color: var(--moduix-popover-foreground);
   box-shadow: var(--moduix-shadow-sm);
 }
 

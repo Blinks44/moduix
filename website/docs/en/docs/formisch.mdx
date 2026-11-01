@@ -1,16 +1,12 @@
 ---
 title: Formisch
-description: Connect Moduix controls to Formisch and Valibot across supported framework adapters.
+description: Connect moduix controls to Formisch and Valibot across supported framework adapters.
 ---
-
-import ProjectForm from '@/components/examples/formisch/complete-form.tsx';
-import formischSolidCompleteForm from '../../../snippets/formisch/solid/complete-form.tsx?raw';
-import formischVueCompleteForm from '../../../snippets/formisch/vue/complete-form.vue?raw';
 
 # Formisch
 
 [Formisch](https://formisch.dev) is a schema-first form library with native framework adapters.
-This guide focuses on connecting its Valibot-backed field state to Moduix controls.
+This guide focuses on connecting its Valibot-backed field state to moduix controls.
 
 ## Framework support
 
@@ -50,8 +46,8 @@ Vue uses `useForm` and the scoped slot of `Field`. Assign compound values to `fi
 
 ## Connect controls
 
-Alias Formisch `Field` so it remains distinct from Moduix `Field`. The Formisch component connects a
-schema path to field state; the Moduix component renders the label, error message, and accessible
+Alias Formisch `Field` so it remains distinct from moduix `Field`. The Formisch component connects a
+schema path to field state; the moduix component renders the label, error message, and accessible
 state.
 
 | Control             | Mapping                                                               |
@@ -61,7 +57,7 @@ state.
 | `Combobox`          | Map the selected value, keep filtering separate, and forward focus.   |
 | `Checkbox`          | Map `details.checked === true` to the boolean input.                  |
 
-Pass `field.props.name` to the Moduix root. Keep `HiddenSelect` or `HiddenInput` inside the component
+Pass `field.props.name` to the moduix root. Keep `HiddenSelect` or `HiddenInput` inside the component
 composition, but do not add another registered input for the same value.
 
 ## Validation and reset
@@ -77,49 +73,9 @@ the field store.
 ## Complete form
 
 The example integrates `Input`, `Select`, `Combobox`, `Textarea`, and `Checkbox`. Each supported adapter uses
-the same schema, behavior, Moduix composition, and stylesheet. The live preview renders React.
+the same schema, behavior, moduix composition, and stylesheet. The live preview renders React.
 
-<ExampleFrame variant="component">
-  <PreviewFrame maxWidth="sm">
-    <ProjectForm />
-  </PreviewFrame>
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/formisch/complete-form.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={formischSolidCompleteForm} />
-
-    </Tab>
-  <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={formischVueCompleteForm} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/formisch/formisch-complete-form.module.css"
-```
-</div>
-</ExampleCode>
+<Example name="formisch/complete-form" />
 
 ## Repeated fields and server errors
 

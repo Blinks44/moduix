@@ -6,7 +6,7 @@ import {
   SplitButtonPositioner,
   SplitButtonTrigger,
 } from '@moduix/solid/split-button';
-import styles from '@/components/examples/split-button/split-button-variants.module.css';
+import { Stack } from '@moduix/solid/stack';
 
 const variants = [
   'default',
@@ -19,7 +19,7 @@ const variants = [
 
 export default function SplitButtonVariantsDemo() {
   return (
-    <div class={styles.row}>
+    <Stack direction="row" align="center" justify="center" wrap="wrap" gap="3">
       {variants.map((variant) => (
         <SplitButton aria-label={`${variant} actions`} variant={variant}>
           <SplitButtonAction>{variant}</SplitButtonAction>
@@ -32,6 +32,6 @@ export default function SplitButtonVariantsDemo() {
           </SplitButtonPositioner>
         </SplitButton>
       ))}
-    </div>
+    </Stack>
   );
 }

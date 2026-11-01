@@ -1,4 +1,3 @@
-import { Field as FieldPrimitive } from '@ark-ui/solid/field';
 import { createSignal, Show } from 'solid-js';
 import type { Meta, StoryObj } from 'storybook-solidjs-vite';
 import {
@@ -12,6 +11,7 @@ import {
   EditableRootProvider,
   useEditable,
 } from '@/components/editable/Editable';
+import { Field, FieldErrorText } from '@/components/field/Field';
 
 const meta = {
   title: 'Components/Editable',
@@ -116,7 +116,7 @@ export const Textarea: Story = {
 
 export const WithField: Story = {
   render: () => (
-    <FieldPrimitive.Root invalid>
+    <Field invalid>
       <Editable defaultValue="" placeholder="Click to edit your bio" required>
         <EditableLabel>Bio</EditableLabel>
         <EditableArea>
@@ -125,8 +125,8 @@ export const WithField: Story = {
         </EditableArea>
         <EditableControls />
       </Editable>
-      <FieldPrimitive.ErrorText class={hintClass}>Bio is required.</FieldPrimitive.ErrorText>
-    </FieldPrimitive.Root>
+      <FieldErrorText>Bio is required.</FieldErrorText>
+    </Field>
   ),
 };
 

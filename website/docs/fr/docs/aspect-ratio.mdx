@@ -1,24 +1,21 @@
 ---
 title: Aspect Ratio
 component: aspect-ratio
-description: Place les médias et les contenus intégrés dans un cadre adaptatif dont le rapport hauteur/largeur reste fixe.
+description: Garder images, vidéos et intégrations à un rapport largeur/hauteur fixe.
+ark: https://ark-ui.com/docs/guides/composition#the-ark-factory
 ---
 
+import AnatomyScene from '@/components/examples/aspect-ratio/basic';
 
+<Example name="aspect-ratio/basic" />
 
+## Installation
 
-## Référence de l’API
+<ComponentInstall />
 
-Ark UI ne propose pas de primitive `aspect-ratio` dédiée. moduix construit ce composant avec la
-[fabrique officielle d’Ark](https://ark-ui.com/docs/guides/composition#the-ark-factory) et suit ses recommandations pour la
-[composition](https://ark-ui.com/docs/guides/composition), les [styles](https://ark-ui.com/docs/guides/styling) et la
-[gestion des refs](https://ark-ui.com/docs/guides/ref).
+## Utilisation
 
-
-Les exports CSS Modules sont disponibles depuis `@moduix/react/aspect-ratio`, `@moduix/solid/aspect-ratio`
-et `@moduix/vue/aspect-ratio`. Pour Tailwind, utilisez respectivement `@moduix/react-tailwind/aspect-ratio`,
-`@moduix/solid-tailwind/aspect-ratio` ou `@moduix/vue-tailwind/aspect-ratio`.
-## Exemple de base
+<Usage />
 
 Utilisez `AspectRatio` comme racine du cadre adaptatif. Par défaut, il occupe toute la largeur disponible dans
 son conteneur parent. Ajoutez `width` ou `max-width` à la racine si le cadre doit avoir une autre largeur, puis
@@ -29,63 +26,22 @@ transmettez à `ratio` le rapport largeur/hauteur. Sa valeur par défaut est `1`
 par exemple une largeur et une hauteur complètes ainsi que `object-fit` à une image. Ajoutez le masquage des
 débordements et le rayon à la racine uniquement lorsque la composition en a besoin.
 
-
-<Example name="aspect-ratio/basic" />
-
-## Installation avec shadcn
-
-Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration complète du paquet, du registre et des styles.
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/aspect-ratio' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/aspect-ratio' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/aspect-ratio' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/aspect-ratio' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/aspect-ratio' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/aspect-ratio' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Anatomie
-
-```text
-AspectRatio
-└─ media | iframe | canvas | svg | custom content
-```
-
-| Partie         | Rôle                                       |
-| -------------- | ------------------------------------------ |
-| `AspectRatio` | Conteneur adaptatif avec un rapport fixe. |
-
-## Composition
-
-`AspectRatio` est un composant de présentation et ne gère aucun état. Le composant ne possède qu’une racine et aucune partie enfant à combiner. Utilisez `asChild` uniquement lorsqu’un autre élément sémantique doit porter la racine rendue, avec exactement un enfant en React ou la fonction de rendu Solid présentée dans l’exemple de personnalisation avancée. En Vue, utilisez l’attribut `as-child` avec un seul élément enfant. Le dimensionnement, l’ajustement, les bordures, les rayons et le masquage du contenu restent sous la responsabilité de l’application.
-En Solid, affectez le `ref` à l’élément créé dans la fonction de rendu utilisée avec `asChild`. Le `ref` placé sur `AspectRatio` n’est pas transmis dans cette composition.
-
 ## Exemples
+
+### Ratios courants
+
+Passez la largeur divisée par la hauteur à `ratio` : `1` pour un avatar ou une vignette carrée, `4 / 3`
+pour les photos et `16 / 9` pour la vidéo.
+
+<Example name="aspect-ratio/common-ratios" />
+
+### Ratio adaptatif
+
+Définissez le ratio des petits écrans avec `ratio`, puis remplacez `aspect-ratio` dans votre propre
+classe à l’intérieur d’une media query. La classe l’emporte sur le style du composant : ce cadre est
+carré sur téléphone et en 21:9 à partir de 40rem.
+
+<Example name="aspect-ratio/responsive-ratio" />
 
 ### Dispositions de cartes
 
@@ -101,6 +57,13 @@ chargement du contenu externe.
 
 <Example name="aspect-ratio/embedded-content" />
 
+### Élément personnalisé
+
+Utilisez `asChild` lorsqu’un élément sémantique, comme `figure`, doit devenir la racine rendue. Ark transmet les
+propriétés du composant à son unique enfant.
+
+<Example name="aspect-ratio/custom-element" />
+
 ### Migration depuis shadcn
 
 Si vous migrez depuis shadcn, placez les classes de largeur et de rayon directement sur `AspectRatio` plutôt que
@@ -108,21 +71,46 @@ sur un conteneur extérieur. La même racine fonctionne avec `Image` de Next.js 
 
 <Example name="aspect-ratio/migrating-from-shadcn" />
 
-### Personnalisation avancée
+## Composition
 
-Utilisez `asChild` lorsqu’un élément sémantique, comme `figure`, doit devenir la racine rendue. Ark transmet les
-propriétés du composant à son unique enfant.
+Les exports CSS Modules sont disponibles depuis `@moduix/react/aspect-ratio`, `@moduix/solid/aspect-ratio`
+et `@moduix/vue/aspect-ratio`. Pour Tailwind, utilisez respectivement `@moduix/react-tailwind/aspect-ratio`,
+`@moduix/solid-tailwind/aspect-ratio` ou `@moduix/vue-tailwind/aspect-ratio`.
 
-<Example name="aspect-ratio/advanced-customization" />
+`AspectRatio` est un composant de présentation et ne gère aucun état. Le composant ne possède qu’une racine et aucune partie enfant à combiner. Utilisez `asChild` uniquement lorsqu’un autre élément sémantique doit porter la racine rendue, avec exactement un enfant en React ou la fonction de rendu Solid présentée dans l’exemple « Élément personnalisé ». En Vue, utilisez l’attribut `as-child` avec un seul élément enfant. Le dimensionnement, l’ajustement, les bordures, les rayons et le masquage du contenu restent sous la responsabilité de l’application.
+En Solid, affectez le `ref` à l’élément créé dans la fonction de rendu utilisée avec `asChild`. Le `ref` placé sur `AspectRatio` n’est pas transmis dans cette composition.
+
+## Anatomie
+
+Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
+
+<AnatomyInspector
+  parts={[
+    ["AspectRatio", "aspect-ratio-root", "Conteneur adaptatif avec un rapport fixe.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styles
 
-### Sélecteurs utiles pour le style
+### Points d’accroche CSS
+
+| Partie | `data-slot` |
+| --- | --- |
+| `AspectRatio` | `aspect-ratio-root` |
 
 - `data-scope="aspect-ratio"` et `data-part="root"` sont disponibles sur la racine et servent de sélecteurs compatibles avec Ark.
-- `data-slot="aspect-ratio-root"` est le sélecteur stable de la racine moduix.
 - Placez les styles de largeur, de largeur maximale et de mise en page sur la racine. Si le rapport doit changer
   selon la largeur de l’écran, redéfinissez `aspect-ratio` dans votre CSS.
 - Le composant ne style pas ses enfants. Appliquez directement au média sa taille et son `object-fit`.
 - Un contenu plus haut que le cadre ne l’agrandit pas : il déborde. Ajoutez `overflow: hidden` et un rayon à la
   racine lorsque la composition doit rogner son contenu.
+
+## Référence de l’API
+
+Accepte aussi les props natives de son élément et `asChild`.
+
+| Prop | Type | Défaut | Description |
+| --- | --- | --- | --- |
+| `ratio` | `number` | `1` | Largeur divisée par la hauteur, par exemple `16 / 9`. |

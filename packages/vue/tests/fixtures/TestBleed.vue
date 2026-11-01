@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Bleed } from '../../src';
+import { Bleed } from '@/index';
 </script>
 
 <template>

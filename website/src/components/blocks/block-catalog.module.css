@@ -1,0 +1,87 @@
+/* Docs · Blocks in Moduix.sketch: two columns of cards with a tinted preview and a footer. */
+.note {
+  margin: 8px 0 0;
+  color: var(--rp-c-text-3);
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+  margin: 2rem 0 1rem;
+  padding: 0;
+  list-style: none;
+}
+
+.card {
+  display: flex;
+  margin: 0;
+  flex-direction: column;
+  border: 1px solid var(--rp-c-divider);
+  border-radius: 12px;
+  padding: 6px;
+  background: var(--rp-c-bg);
+}
+
+.preview {
+  display: grid;
+  height: 212px;
+  border-radius: 8px;
+  background: var(--rp-c-bg-soft);
+}
+
+.footer {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 16px 10px 14px;
+}
+
+.title {
+  color: var(--rp-c-text-0);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.description {
+  margin: 2px 0 0;
+  color: var(--rp-c-text-2);
+  font-size: 13px;
+  line-height: 18px;
+}
+
+.open {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  gap: 4px;
+  margin-top: 10px;
+  color: var(--rp-c-text-0);
+  font-size: 13px;
+  font-weight: 500;
+  text-decoration: none;
+
+  svg {
+    width: 14px;
+    height: 14px;
+  }
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+@media (width <= 768px) {
+  .grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

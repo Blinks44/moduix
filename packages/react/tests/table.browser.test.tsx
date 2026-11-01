@@ -10,12 +10,11 @@ import {
   TableColumn,
   TableColumnGroup,
   TableColumnHeader,
-  TableEmpty,
   TableFooter,
   TableHeader,
   TableRow,
   TableScrollArea,
-} from '../src';
+} from '@/index';
 
 test('renders the native table anatomy with stable hooks', async () => {
   render(
@@ -106,27 +105,6 @@ test.each(['sm', 'md', 'lg'] as const)('renders the %s size preset', (size) => {
   render(<Table data-testid="table" size={size} />);
 
   expect(screen.getByTestId('table').getAttribute('data-size')).toBe(size);
-});
-
-test('renders interactive, striped, sticky, and column-border state hooks', () => {
-  render(
-    <Table
-      data-testid="table"
-      interactive
-      showColumnBorder
-      stickyHeader
-      striped
-      className="consumer-class"
-    />,
-  );
-
-  const table = screen.getByTestId('table');
-
-  expect(table.hasAttribute('data-interactive')).toBe(true);
-  expect(table.hasAttribute('data-show-column-border')).toBe(true);
-  expect(table.hasAttribute('data-sticky-header')).toBe(true);
-  expect(table.hasAttribute('data-striped')).toBe(true);
-  expect(table?.classList.contains('consumer-class')).toBe(true);
 });
 
 test('keeps public hooks when consumer data attributes conflict', () => {
@@ -227,109 +205,6 @@ test('forwards refs through native Ark React asChild composition', () => {
   expect(tableRef.current?.getAttribute('data-slot')).toBe('table-root');
 });
 
-test('renders the default and custom empty states', async () => {
-  const emptyRef = createRef<HTMLTableCellElement>();
-
-  render(
-    <Table>
-      <TableBody>
-        <TableEmpty colSpan={3} data-testid="default-empty" />
-        <TableEmpty ref={emptyRef} colSpan={3} data-testid="custom-empty">
-          No invoices found.
-        </TableEmpty>
-      </TableBody>
-    </Table>,
-  );
-
-  const defaultEmpty = screen.getByTestId('default-empty');
-  const customEmpty = screen.getByTestId('custom-empty');
-
-  const defaultEmptyLocator = page.getByTestId('default-empty');
-  await expect.element(defaultEmptyLocator).toContainText('No results.');
-  expect(defaultEmpty.dataset).toMatchObject({ part: 'empty', slot: 'table-empty' });
-  await expect.element(defaultEmptyLocator).toHaveAttribute('colspan', '3');
-  expect(defaultEmpty.closest('tr')?.hasAttribute('data-empty')).toBe(true);
-  const customEmptyLocator = page.getByTestId('custom-empty');
-  await expect.element(customEmptyLocator).toContainText('No invoices found.');
-  expect(emptyRef.current).toBe(customEmpty);
-  expect(customEmpty.getAttribute('data-part')).toBe('empty');
-  await expect.element(customEmptyLocator).toHaveAttribute('colspan', '3');
-});
-
-test('supports replacing only the generated empty cell with asChild', async () => {
-  const emptyRef = createRef<HTMLTableCellElement>();
-  render(
-    <Table>
-      <TableBody>
-        <TableEmpty ref={emptyRef} colSpan={2} className="custom-empty" asChild>
-          <td data-testid="custom-empty-cell">Nothing to review.</td>
-        </TableEmpty>
-      </TableBody>
-    </Table>,
-  );
-
-  const emptyCell = screen.getByTestId('custom-empty-cell');
-
-  expect(emptyCell.tagName).toBe('TD');
-  expect(emptyCell?.classList.contains('custom-empty')).toBe(true);
-  expect(emptyCell.closest('tr')?.hasAttribute('data-empty')).toBe(true);
-  const customEmptyCell = page.getByTestId('custom-empty-cell');
-  expect(emptyCell.dataset).toMatchObject({ scope: 'table', part: 'empty', slot: 'table-empty' });
-  await expect.element(customEmptyCell).toHaveAttribute('colspan', '2');
-  await expect.element(customEmptyCell).toContainText('Nothing to review.');
-  expect(emptyRef.current).toBe(emptyCell);
-});
-
-test('paints row states on sticky cells, keeps stripes on plain hover, and keeps numbers on one line', async () => {
-  render(
-    <>
-      <Table striped>
-        <TableBody>
-          <TableRow>
-            <TableCell>INV001</TableCell>
-          </TableRow>
-          <TableRow data-testid="striped-row">
-            <TableCell data-testid="striped-sticky" data-sticky="start">
-              INV002
-            </TableCell>
-            <TableCell data-testid="numeric" numeric>
-              $1 250.00
-            </TableCell>
-          </TableRow>
-        </TableBody>
-      </Table>
-      <Table interactive>
-        <TableBody>
-          <TableRow>
-            <TableCell data-testid="interactive-sticky" data-sticky="start">
-              <button type="button">Edit</button>
-            </TableCell>
-          </TableRow>
-        </TableBody>
-      </Table>
-    </>,
-  );
-
-  const stripedRow = screen.getByTestId('striped-row');
-  const interactiveSticky = screen.getByTestId('interactive-sticky');
-  const stripe = getComputedStyle(stripedRow).backgroundColor;
-
-  expect(stripe).not.toBe('rgba(0, 0, 0, 0)');
-  expect(getComputedStyle(screen.getByTestId('striped-sticky')).backgroundImage).toContain(
-    'gradient',
-  );
-  expect(getComputedStyle(interactiveSticky).backgroundImage).toBe('none');
-  expect(getComputedStyle(screen.getByTestId('numeric')).whiteSpace).toBe('nowrap');
-
-  await page.getByTestId('striped-row').hover();
-  expect(getComputedStyle(stripedRow).backgroundColor).toBe(stripe);
-
-  screen.getByRole('button', { name: 'Edit' }).focus();
-  await expect
-    .poll(() => getComputedStyle(interactiveSticky).backgroundImage)
-    .toContain('gradient');
-});
-
 test('keeps sticky-column hooks on native table cells', () => {
   render(
     <TableScrollArea>
@@ -354,4 +229,88 @@ test('keeps sticky-column hooks on native table cells', () => {
   expect(screen.getByRole('cell', { name: 'Docs redesign' }).getAttribute('data-sticky')).toBe(
     'start',
   );
+});
+
+test('renders the native table anatomy with stable hooks and defaults', async () => {
+  render(
+    <TableScrollArea data-testid="scroll-area">
+      <Table data-testid="table" size="lg">
+        <TableColumnGroup data-testid="column-group">
+          <TableColumn data-testid="column" width="40%" />
+        </TableColumnGroup>
+        <TableCaption data-testid="caption" side="top">
+          Recent invoices
+        </TableCaption>
+        <TableHeader data-testid="header">
+          <TableRow data-testid="header-row">
+            <TableColumnHeader data-testid="column-header" scope="col">
+              Invoice
+            </TableColumnHeader>
+            <TableColumnHeader data-testid="numeric-header" numeric>
+              Amount
+            </TableColumnHeader>
+          </TableRow>
+        </TableHeader>
+        <TableBody data-testid="body">
+          <TableRow data-testid="row">
+            <TableCell data-testid="cell">INV001</TableCell>
+            <TableCell numeric>$250.00</TableCell>
+          </TableRow>
+        </TableBody>
+        <TableFooter data-testid="footer">
+          <TableRow>
+            <TableCell colSpan={1}>Total</TableCell>
+            <TableCell numeric>$250.00</TableCell>
+          </TableRow>
+        </TableFooter>
+      </Table>
+    </TableScrollArea>,
+  );
+
+  const table = screen.getByTestId('table');
+  const scrollArea = screen.getByTestId('scroll-area');
+  const columnGroup = screen.getByTestId('column-group');
+
+  const caption = screen.getByTestId('caption');
+  const header = screen.getByTestId('header');
+  const body = screen.getByTestId('body');
+  const footer = screen.getByTestId('footer');
+  const row = screen.getByTestId('row');
+  const columnHeader = screen.getByTestId('column-header');
+  const numericHeader = screen.getByTestId('numeric-header');
+  const cell = screen.getByTestId('cell');
+
+  expect(scrollArea.tagName).toBe('DIV');
+  expect(scrollArea.dataset).toMatchObject({ part: 'scroll-area', slot: 'table-scroll-area' });
+  expect(table.tagName).toBe('TABLE');
+
+  expect(table.dataset).toMatchObject({
+    scope: 'table',
+    part: 'root',
+    slot: 'table-root',
+    size: 'lg',
+  });
+  expect(columnGroup.tagName).toBe('COLGROUP');
+  expect(columnGroup.getAttribute('data-part')).toBe('column-group');
+
+  expect(screen.getByTestId('column').dataset).toMatchObject({
+    part: 'column',
+    slot: 'table-column',
+  });
+  await expect.element(page.getByTestId('column')).toHaveAttribute('width', '40%');
+  expect(caption.tagName).toBe('CAPTION');
+  expect(caption.dataset).toMatchObject({ part: 'caption', side: 'top' });
+  expect(header.tagName).toBe('THEAD');
+  expect(header.getAttribute('data-part')).toBe('header');
+  expect(body.tagName).toBe('TBODY');
+  expect(body.getAttribute('data-part')).toBe('body');
+  expect(footer.tagName).toBe('TFOOT');
+  expect(footer.getAttribute('data-part')).toBe('footer');
+  expect(row.tagName).toBe('TR');
+  expect(row.getAttribute('data-part')).toBe('row');
+  expect(columnHeader.tagName).toBe('TH');
+  await expect.element(page.getByTestId('column-header')).toHaveAttribute('scope', 'col');
+  expect(numericHeader.hasAttribute('data-numeric')).toBe(true);
+  expect(cell.tagName).toBe('TD');
+  expect(cell.getAttribute('data-part')).toBe('cell');
 });

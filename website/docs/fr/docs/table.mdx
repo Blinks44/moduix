@@ -1,105 +1,116 @@
 ---
 title: Table
 component: table
-description: Un composant de tableau natif avec un conteneur de défilement facultatif, des colonnes numériques, des légendes et un état vide pour React, Solid et Vue.
+description: Présenter des lignes de données avec en-têtes, légende et colonnes numériques.
+ark: https://ark-ui.com/docs/guides/composition#the-ark-factory
 ---
 
+import AnatomyScene from '@/components/examples/table/basic';
 import * as TableDocs from '@/components/examples/table/css-properties';
 
-## Référence de l’API
+<Example name="table/basic" />
 
-Ark UI ne fournit pas de primitive dédiée aux tableaux. moduix construit `Table` avec la
-[fabrique Ark](https://ark-ui.com/docs/guides/composition#the-ark-factory) officielle et suit les recommandations
-d’Ark concernant la [composition](https://ark-ui.com/docs/guides/composition), les
-[styles](https://ark-ui.com/docs/guides/styling) et les [refs](https://ark-ui.com/docs/guides/ref).
+## Installation
 
-Chaque partie rend par défaut l’élément HTML natif correspondant, accepte ses propriétés, `className`
-en React ou `class` en Solid et Vue, transmet sa ref et prend en charge `asChild`. Avec `asChild`, fournissez
-un seul élément sémantique. `TableEmpty` fait exception à cette composition habituelle : `asChild` y
-remplace uniquement la cellule `td` générée.
+<ComponentInstall />
 
-## Exemple de base
+## Utilisation
+
+<Usage />
 
 Si le tableau risque de dépasser la largeur de son conteneur, enveloppez-le dans `TableScrollArea`. Composez
 ensuite `Table` avec `TableHeader`, `TableBody`, `TableRow` et les parties correspondantes pour les en-têtes et
 les cellules. Cette approche convient aux factures, aux synthèses et aux jeux de données en lecture seule des
 interfaces d’administration.
 
-<Example name="table/basic" />
+## Exemples
 
-## Installation avec shadcn
+### Tailles
 
-Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration complète du paquet, du registre et des styles.
+Utilisez `size` pour la densité : il modifie l’espacement des cellules et la taille du texte. Pour une bordure
+extérieure sans `TableScrollArea`, ajoutez une classe de bordure à `Table`.
 
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
+<Example name="table/sizes" />
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/table' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/table' },
-  ]}
-/>
+### Lignes alternées
 
-  </Tab>
-  <Tab label="Solid" value="solid">
+Utilisez `striped` lorsque de longues listes en lecture seule nécessitent une séparation plus marquée des lignes,
+sans passer à une abstraction de tableau plus directive.
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/table' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/table' },
-  ]}
-/>
+<Example name="table/striped-rows" />
 
-  </Tab>
-  <Tab label="Vue" value="vue">
+### Légende et totaux
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/table' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/table' },
-  ]}
-/>
+Utilisez `TableCaption side="top"` lorsque la légende se lit mieux avant les données, et `TableFooter` pour les
+totaux ou les synthèses.
 
-  </Tab>
-</Tabs>
+<Example name="table/caption-and-footer" />
 
-## Anatomie
+### Colonnes numériques
 
-La composition recommandée reste proche du balisage natif des tableaux :
+Utilisez `numeric` sur l’en-tête et les cellules pour aligner les montants, les quantités, les pourcentages et
+autres valeurs numériques.
 
-```text
-TableScrollArea (optional)
-└─ Table
-   ├─ TableColumnGroup (optional)
-   │  └─ TableColumn
-   ├─ TableCaption (optional)
-   ├─ TableHeader
-   │  └─ TableRow
-   │     └─ TableColumnHeader
-   ├─ TableBody
-   │  ├─ TableRow
-   │  │  └─ TableCell
-   │  └─ TableEmpty (optional)
-   └─ TableFooter (optional)
-```
+<Example name="table/numeric-columns" />
 
-| Partie                  | Rôle                                                                            |
-| ----------------------- | ------------------------------------------------------------------------------- |
-| `Table`            | Racine native `table`. Gère la typographie, les séparateurs et les attributs d’état. |
-| `TableScrollArea`      | Conteneur facultatif avec bordure et défilement horizontal.                    |
-| `TableColumnGroup`     | Élément natif `colgroup` pour définir la largeur des colonnes.                 |
-| `TableColumn`          | Élément natif `col`. Utilisez l’attribut natif `width`.                        |
-| `TableCaption`         | Légende facultative au-dessus ou au-dessous du tableau via `side`.             |
-| `TableHeader`          | Élément natif `thead` pour les en-têtes de colonne.                             |
-| `TableBody`            | Élément natif `tbody` pour les lignes de données.                               |
-| `TableFooter`          | Élément natif `tfoot` pour les lignes de synthèse.                              |
-| `TableRow`             | Élément natif `tr` avec des séparateurs.                                        |
-| `TableColumnHeader`    | Élément natif `th`. Accepte `numeric`.                                          |
-| `TableCell`            | Élément natif `td`. Accepte `numeric`.                                          |
-| `TableEmpty`           | Ligne et cellule d’état vide pratiques dans `TableBody`.                      |
+### Groupe de colonnes et bordures
+
+Utilisez `TableColumnGroup` et `TableColumn` pour définir les largeurs natives des colonnes, et
+`showColumnBorder` lorsque la séparation des colonnes doit être visible.
+
+<Example name="table/column-group-and-borders" />
+
+### En-tête et colonne fixes
+
+Utilisez `stickyHeader` sur la racine et `data-sticky="start" | "end"` sur les cellules lorsqu’un tableau qui défile
+horizontalement ou verticalement doit conserver son en-tête ou une colonne importante à l’écran. Les cellules fixes
+conservent la couleur de la ligne alternée, survolée ou focalisée.
+
+<Example name="table/sticky-header-and-column" />
+
+### Actions de ligne avec Menu
+
+Utilisez la dernière colonne pour les actions propres à chaque ligne lorsque le tableau nécessite quelques commandes
+secondaires. `Menu` convient à ce cas sans modifier la structure native du tableau.
+
+<Example name="table/row-actions-with-menu" />
+
+### État vide
+
+Utilisez `TableEmpty` lorsque le corps n’afficherait aucune ligne. Définissez `colSpan` sur le nombre actuel de
+colonnes.
+
+<Example name="table/empty-state" />
+
+### Dans Card
+
+`TableScrollArea` s’intègre naturellement à `CardBody` lorsque le tableau doit se trouver sur une surface de
+carte.
+
+<Example name="table/inside-card" />
+
+### Avec le composant ScrollArea
+
+Utilisez directement `ScrollArea` lorsque le tableau nécessite des barres de défilement stylisées sur les deux axes,
+un effet de fondu ou l’API de la zone de défilement. `TableScrollArea` est un conteneur plus simple, avec bordure et
+défilement horizontal. Gardez la structure de `ScrollArea` explicite afin que le tableau reste natif et léger.
+
+<Example name="table/with-scrollarea" />
+
+### Conteneur personnalisé
+
+Utilisez votre propre conteneur à la place de `TableScrollArea` lorsque la mise en page environnante gère déjà la
+surface ou le défilement. La composition native du tableau reste explicite et votre mise en page garde le contrôle du
+conteneur.
+
+<Example name="table/custom-wrapper" />
 
 ## Composition
+
+Chaque partie rend par défaut l’élément HTML natif correspondant, accepte ses propriétés, `className`
+en React ou `class` en Solid et Vue, transmet sa ref et prend en charge `asChild`. Avec `asChild`, fournissez
+un seul élément sémantique. `TableEmpty` fait exception à cette composition habituelle : `asChild` y
+remplace uniquement la cellule `td` générée.
 
 Utilisez `TableScrollArea` lorsque le tableau a besoin d’un conteneur bordé avec défilement horizontal.
 Ne l’utilisez pas si la mise en page parente gère déjà le défilement, les espacements, la bordure ou
@@ -119,87 +130,30 @@ relations entre les en-têtes et les cellules. Ajoutez `scope="col"` aux en-têt
 complexe nécessite des associations explicites. `Table` n’ajoute ni navigation au clavier, ni sélection, ni gestion
 particulière du focus.
 
-## Exemples
+## Anatomie
 
-### Légende et totaux
+La composition recommandée reste proche du balisage natif des tableaux :
 
-Utilisez `TableCaption side="top"` lorsque la légende se lit mieux avant les données, et `TableFooter` pour les
-totaux ou les synthèses.
+Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
 
-<Example name="table/caption-and-footer" />
-
-### Groupe de colonnes et bordures
-
-Utilisez `TableColumnGroup` et `TableColumn` pour définir les largeurs natives des colonnes, et
-`showColumnBorder` lorsque la séparation des colonnes doit être visible.
-
-<Example name="table/column-group-and-borders" />
-
-### État vide
-
-Utilisez `TableEmpty` lorsque le corps n’afficherait aucune ligne. Définissez `colSpan` sur le nombre actuel de
-colonnes.
-
-<Example name="table/empty-state" />
-
-### Dans Card
-
-`TableScrollArea` s’intègre naturellement à `CardBody` lorsque le tableau doit se trouver sur une surface de
-carte.
-
-<Example name="table/inside-card" />
-
-### Colonnes numériques
-
-Utilisez `numeric` sur l’en-tête et les cellules pour aligner les montants, les quantités, les pourcentages et
-autres valeurs numériques.
-
-<Example name="table/numeric-columns" />
-
-### Actions de ligne avec Menu
-
-Utilisez la dernière colonne pour les actions propres à chaque ligne lorsque le tableau nécessite quelques commandes
-secondaires. `Menu` convient à ce cas sans modifier la structure native du tableau.
-
-<Example name="table/row-actions-with-menu" />
-
-### Tailles
-
-Utilisez `size` pour la densité : il modifie l’espacement des cellules et la taille du texte. Pour une bordure
-extérieure sans `TableScrollArea`, ajoutez une classe de bordure à `Table`.
-
-<Example name="table/sizes" />
-
-### En-tête et colonne fixes
-
-Utilisez `stickyHeader` sur la racine et `data-sticky="start" | "end"` sur les cellules lorsqu’un tableau qui défile
-horizontalement ou verticalement doit conserver son en-tête ou une colonne importante à l’écran. Les cellules fixes
-conservent la couleur de la ligne alternée, survolée ou focalisée.
-
-<Example name="table/sticky-header-and-column" />
-
-### Lignes alternées
-
-Utilisez `striped` lorsque de longues listes en lecture seule nécessitent une séparation plus marquée des lignes,
-sans passer à une abstraction de tableau plus directive.
-
-<Example name="table/striped-rows" />
-
-### Avec le composant ScrollArea
-
-Utilisez directement `ScrollArea` lorsque le tableau nécessite des barres de défilement stylisées sur les deux axes,
-un effet de fondu ou l’API de la zone de défilement. `TableScrollArea` est un conteneur plus simple, avec bordure et
-défilement horizontal. Gardez la structure de `ScrollArea` explicite afin que le tableau reste natif et léger.
-
-<Example name="table/with-scrollarea" />
-
-### Personnalisation avancée
-
-Utilisez votre propre conteneur à la place de `TableScrollArea` lorsque la mise en page environnante gère déjà la
-surface ou le défilement. La composition native du tableau reste explicite et votre mise en page garde le contrôle du
-conteneur.
-
-<Example name="table/custom-composition" />
+<AnatomyInspector
+  parts={[
+    ["TableScrollArea", "table-scroll-area", "Conteneur facultatif avec bordure et défilement horizontal.", 0],
+    ["Table", "table-root", "Racine native `table`. Gère la typographie, les séparateurs et les attributs d’état.", 1],
+    ["TableColumnGroup", "table-column-group", "Élément natif `colgroup` pour définir la largeur des colonnes.", 2],
+    ["TableColumn", "table-column", "Élément natif `col`. Utilisez l’attribut natif `width`.", 3],
+    ["TableCaption", "table-caption", "Légende facultative au-dessus ou au-dessous du tableau via `side`.", 2],
+    ["TableHeader", "table-header", "Élément natif `thead` pour les en-têtes de colonne.", 2],
+    ["TableRow", "table-row", "Élément natif `tr` avec des séparateurs.", 3],
+    ["TableColumnHeader", "table-column-header", "Élément natif `th`. Accepte `numeric`.", 4],
+    ["TableBody", "table-body", "Élément natif `tbody` pour les lignes de données.", 2],
+    ["TableCell", "table-cell", "Élément natif `td`. Accepte `numeric`.", 3],
+    ["TableEmpty", "table-empty", "Ligne et cellule d’état vide pratiques dans `TableBody`.", 3],
+    ["TableFooter", "table-footer", "Élément natif `tfoot` pour les lignes de synthèse.", 2],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styles
 
@@ -210,20 +164,48 @@ natives et les classes du consommateur ; les variables ci-dessous s’appliquent
 
 ### Variables CSS
 
-<CssPropertiesSection properties={TableDocs.tableOverrideCssProperties} />
+Survolez ou sélectionnez une variable pour la voir dans l’aperçu.
+
+<CssPropertiesSection properties={TableDocs.tableOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Points d’accroche CSS
+
+| Partie | `data-slot` |
+| --- | --- |
+| `Table` | `table-root` |
+| `TableScrollArea` | `table-scroll-area` |
+| `TableCaption` | `table-caption` |
+| `TableColumnGroup` | `table-column-group` |
+| `TableColumn` | `table-column` |
+| `TableHeader` | `table-header` |
+| `TableBody` | `table-body` |
+| `TableFooter` | `table-footer` |
+| `TableRow` | `table-row` |
+| `TableColumnHeader` | `table-column-header` |
+| `TableCell` | `table-cell` |
+| `TableEmpty` | `table-empty` |
 
 Utilisez la partie ou l’attribut qui contrôle l’aspect visuel concerné :
 
 - `className` sur `TableScrollArea` pour remplacer la bordure, le rayon et le fond du conteneur
 - `className` sur `Table` pour la typographie du tableau et les contraintes de largeur
-- `data-slot="table-root"`, `table-scroll-area`, `table-column-group`, `table-column`, `table-caption`,
-  `table-header`, `table-body`, `table-footer`, `table-row`, `table-column-header`, `table-cell` et `table-empty` pour
-  cibler chaque partie
 - `data-side="top" | "bottom"` sur `TableCaption` pour styliser la position de la légende
 - `data-numeric` sur `TableColumnHeader` et `TableCell` pour cibler les colonnes numériques
 - `data-empty` sur la ligne générée par `TableEmpty` pour cibler la ligne vide
 - `data-size`, `data-striped`, `data-interactive`, `data-sticky-header` et
   `data-show-column-border` sur `Table` pour les styles d’état au niveau de la racine
 - `data-sticky="start" | "end"` sur `TableColumnHeader` et `TableCell` pour les colonnes fixes
+
+## Référence de l’API
+
+Props de `Table`. `numeric` se place sur `TableColumnHeader` et `TableCell` ; `side` (`'top' | 'bottom'`) sur `TableCaption`.
+
+| Prop | Type | Défaut | Description |
+| --- | --- | --- | --- |
+| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` | Espacement des cellules et taille du texte : `sm`, `md` ou `lg`. |
+| `striped` | `boolean` | `false` | Colore une ligne sur deux. |
+| `interactive` | `boolean` | `false` | Met en évidence la ligne survolée. |
+| `stickyHeader` | `boolean` | `false` | Garde l’en-tête visible pendant le défilement. |
+| `showColumnBorder` | `boolean` | `false` | Trace des bordures entre les colonnes. |

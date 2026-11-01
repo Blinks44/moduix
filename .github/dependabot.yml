@@ -17,6 +17,10 @@ updates:
       # Vue SFC tooling does not support TypeScript 7 yet; React and Solid packages opt in directly.
       - dependency-name: 'typescript'
         update-types: ['version-update:semver-major']
+      # Vue language tools are pinned until https://github.com/vuejs/language-tools/issues/6240 is fixed.
+      - dependency-name: '@vue/language-core'
+      - dependency-name: '@vue/language-server'
+      - dependency-name: 'vue-tsc'
     groups:
       minor-and-patch:
         update-types:

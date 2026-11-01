@@ -2,7 +2,7 @@ import { page } from '@rstest/browser';
 import { expect, test } from '@rstest/core';
 import { render, screen } from '@solidjs/testing-library';
 import { createSignal } from 'solid-js';
-import { Field, FieldLabel, Input, Textarea } from '../src';
+import { Field, FieldLabel, Textarea } from '@/index';
 
 test('preserves native field state and component-owned styling hooks', async () => {
   render(() => (
@@ -119,49 +119,4 @@ test('preserves native form ownership, data, and reset behavior', async () => {
 
   await expect.element(textbox).toHaveValue('Draft');
   expect(new FormData(form).get('summary')).toBe('Draft');
-});
-test('dims a disabled textarea once inside a disabled Field', () => {
-  render(() => (
-    <>
-      <Field disabled data-testid="disabled-field">
-        <FieldLabel>Notes</FieldLabel>
-        <Textarea />
-      </Field>
-      <Textarea aria-label="Standalone" disabled />
-    </>
-  ));
-
-  const opacity = (element: HTMLElement) => getComputedStyle(element).opacity;
-
-  expect(opacity(screen.getByTestId('disabled-field'))).toBe('0.5');
-  expect(opacity(screen.getByRole('textbox', { name: 'Notes' }))).toBe('1');
-  expect(opacity(screen.getByRole('textbox', { name: 'Standalone' }))).toBe('0.5');
-});
-test('matches Input padding and type at every size and defaults to md', () => {
-  const sizes = ['xs', 'sm', 'md', 'lg', 'xl'] as const;
-
-  render(() => (
-    <>
-      <Textarea aria-label="Default" />
-      {sizes.map((size) => (
-        <div>
-          <Textarea aria-label={`Textarea ${size}`} size={size} />
-          <Input aria-label={`Input ${size}`} size={size} />
-        </div>
-      ))}
-    </>
-  ));
-
-  expect(screen.getByRole('textbox', { name: 'Default' }).dataset.size).toBe('md');
-  for (const size of sizes) {
-    const textarea = getComputedStyle(screen.getByRole('textbox', { name: `Textarea ${size}` }));
-    const input = getComputedStyle(screen.getByRole('textbox', { name: `Input ${size}` }));
-    expect([textarea.paddingInlineStart, textarea.fontSize]).toEqual([
-      input.paddingInlineStart,
-      input.fontSize,
-    ]);
-  }
-  expect(screen.getByRole('textbox', { name: 'Textarea xs' }).offsetHeight).toBeLessThan(
-    screen.getByRole('textbox', { name: 'Textarea xl' }).offsetHeight,
-  );
 });

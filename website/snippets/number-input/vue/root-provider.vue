@@ -6,7 +6,7 @@ import {
   NumberInputRootProvider,
   useNumberInput,
 } from '@moduix/vue/number-input';
-import styles from '@/components/examples/number-input/number-input-root-provider.module.css';
+import { Stack } from '@moduix/vue/stack';
 
 const numberInput = useNumberInput({
   defaultValue: '3',
@@ -19,7 +19,7 @@ const setToMax = () => numberInput.value.setToMax();
 </script>
 
 <template>
-  <div :class="styles.root">
+  <Stack align="center">
     <NumberInputRootProvider :value="numberInput">
       <NumberInputLabel>Guests</NumberInputLabel>
       <NumberInputField />
@@ -27,5 +27,5 @@ const setToMax = () => numberInput.value.setToMax();
     <output>Value: {{ numberInput.value }}</output>
     <Button type="button" size="sm" variant="outline" @click="setToMin">Min</Button>
     <Button type="button" size="sm" variant="outline" @click="setToMax">Max</Button>
-  </div>
+  </Stack>
 </template>

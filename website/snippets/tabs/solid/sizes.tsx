@@ -1,13 +1,13 @@
+import { Stack } from '@moduix/solid/stack';
 import { Tabs, TabsIndicator, TabsList, TabsTrigger } from '@moduix/solid/tabs';
 import { For } from 'solid-js';
-import styles from '@/components/examples/tabs/tabs-sizes.module.css';
 
 const sizes = ['sm', 'md', 'lg'] as const;
 const tabs = ['Overview', 'Projects', 'Account'];
 
 export default function TabsSizesDemo() {
   return (
-    <div class={styles.root}>
+    <Stack align="flex-start" gap="3">
       <For each={sizes}>
         {(size) => (
           <Tabs defaultValue="Overview" size={size}>
@@ -18,6 +18,6 @@ export default function TabsSizesDemo() {
           </Tabs>
         )}
       </For>
-    </div>
+    </Stack>
   );
 }

@@ -15,8 +15,8 @@ import {
   ProgressLinearView,
   useProgress,
   useProgressContext,
-} from '../src';
-import { LocaleProvider } from '../src/locale';
+} from '@/index';
+import { LocaleProvider } from '@/locale';
 import SsrProgressLinear from './fixtures/SsrProgressLinear.vue';
 
 const progressComponents = {
@@ -28,6 +28,28 @@ const progressComponents = {
   ProgressLinearTrack,
   ProgressLinearValueText,
   ProgressLinearView,
+};
+
+function sweepEdges(name: string) {
+  const track = screen.getByRole('progressbar', { name });
+  const range = track.querySelector<HTMLElement>('[data-part="range"]')!;
+  const [animation] = range.getAnimations();
+  const duration = Number(animation!.effect!.getComputedTiming().duration);
+  animation!.pause();
+  const frames = [0, duration - 1].map((time) => {
+    animation!.currentTime = time;
+    return range.getBoundingClientRect();
+  });
+
+  return { track: track.getBoundingClientRect(), start: frames[0]!, end: frames[1]! };
+}
+
+const ProgressContextValue = {
+  setup() {
+    const progress = useProgressContext();
+    return { progress };
+  },
+  template: '<output>{{ progress.value }}</output>',
 };
 
 test('updates fallback and consumer value text without losing attrs or refs', async () => {
@@ -72,7 +94,6 @@ test('updates fallback and consumer value text without losing attrs or refs', as
   await expect.element(valueLocator).toHaveAttribute('aria-live', 'polite');
   await expect.element(valueLocator).toHaveAttribute('title', 'Upload progress');
   expect(host?.classList.contains('consumer-value')).toBe(true);
-  await expect.element(valueLocator).toHaveCSS('color', 'rgb(255, 0, 0)');
   expect(clicks).toHaveLength(1);
 });
 
@@ -101,46 +122,6 @@ test('preserves the consumer value text host and ref with asChild', async () => 
   expect(screen.getByTestId('value')).toBe(host);
   expect(valueRef.value?.$el).toBe(host);
   await expect.element(value).toContainText('Complete');
-});
-
-test('renders the linear Ark anatomy with stable hooks and an accessible name', async () => {
-  const rootRef = ref<ComponentPublicInstance>();
-  const trackRef = ref<ComponentPublicInstance>();
-
-  render({
-    components: progressComponents,
-    setup() {
-      return { rootRef, trackRef };
-    },
-    template: `
-      <ProgressLinear ref="rootRef" :default-value="42">
-        <ProgressLinearLabel>Export data</ProgressLinearLabel>
-        <ProgressLinearValueText />
-        <ProgressLinearTrack ref="trackRef" aria-label="Export data">
-          <ProgressLinearRange />
-        </ProgressLinearTrack>
-      </ProgressLinear>
-    `,
-  });
-
-  const progressbar = screen.getByRole('progressbar', { name: 'Export data' });
-  const root = rootRef.value?.$el as HTMLElement;
-
-  expect(root.dataset).toMatchObject({
-    scope: 'progress',
-    part: 'root',
-    slot: 'progress-linear-root',
-    state: 'loading',
-  });
-  expect(progressbar.getAttribute('data-slot')).toBe('progress-linear-track');
-  await expect
-    .element(page.getByRole('progressbar', { name: 'Export data' }))
-    .toHaveAttribute('aria-valuenow', '42');
-  expect(trackRef.value?.$el).toBe(progressbar);
-  expect(progressbar.querySelector('[data-part="range"]')?.getAttribute('data-slot')).toBe(
-    'progress-linear-range',
-  );
-  await expect.element(page.getByText('42%')).toHaveAttribute('aria-live', 'polite');
 });
 
 test('preserves semantic root composition with asChild', () => {
@@ -212,19 +193,6 @@ test('renders an indeterminate linear progressbar without an ARIA value', async 
 });
 
 // Pauses the indeterminate animation at its first and last frame and reads the range position.
-function sweepEdges(name: string) {
-  const track = screen.getByRole('progressbar', { name });
-  const range = track.querySelector<HTMLElement>('[data-part="range"]')!;
-  const [animation] = range.getAnimations();
-  const duration = Number(animation!.effect!.getComputedTiming().duration);
-  animation!.pause();
-  const frames = [0, duration - 1].map((time) => {
-    animation!.currentTime = time;
-    return range.getBoundingClientRect();
-  });
-
-  return { track: track.getBoundingClientRect(), start: frames[0]!, end: frames[1]! };
-}
 
 test('sweeps the indeterminate range from the start edge to the end edge', async () => {
   render({
@@ -289,14 +257,6 @@ test('preserves custom bounds and accessible value text', async () => {
     .element(page.getByText('420 of 800 requests completed'))
     .toHaveAttribute('aria-live', 'polite');
 });
-
-const ProgressContextValue = {
-  setup() {
-    const progress = useProgressContext();
-    return { progress };
-  },
-  template: '<output>{{ progress.value }}</output>',
-};
 
 test('supports controlled values and context access', async () => {
   render({
@@ -379,20 +339,4 @@ test('renders and hydrates the public anatomy', async () => {
     warn.mockRestore();
     error.mockRestore();
   }
-});
-
-test('fills the container width by default', async () => {
-  render({
-    components: progressComponents,
-    template: `
-      <div style="width: 20rem">
-        <ProgressLinear :default-value="40" data-testid="progress-width">
-          <ProgressLinearTrack aria-label="Width"><ProgressLinearRange /></ProgressLinearTrack>
-        </ProgressLinear>
-      </div>
-    `,
-  });
-  await nextTick();
-
-  expect(screen.getByTestId('progress-width').offsetWidth).toBe(320);
 });

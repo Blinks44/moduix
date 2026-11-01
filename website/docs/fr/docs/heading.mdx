@@ -1,84 +1,25 @@
 ---
 title: Heading
 component: heading
-description: Composant sémantique pour les titres, basé sur la fabrique Ark et les tokens typographiques de moduix pour React, Solid et Vue.
+description: Titrer une page ou une section avec le bon niveau et la bonne taille.
+ark: https://ark-ui.com/docs/guides/composition#the-ark-factory
 ---
 
+import AnatomyScene from '@/components/examples/heading/basic';
 
-## Référence de l’API
+<Example name="heading/basic" />
 
-Ark UI ne propose pas de primitive dédiée aux titres. moduix implémente `Heading` avec la
-[fabrique Ark](https://ark-ui.com/docs/guides/composition#the-ark-factory) officielle et suit les recommandations
-d’Ark pour la [composition](https://ark-ui.com/docs/guides/composition), la [mise en forme](https://ark-ui.com/docs/guides/styling)
-et le [transfert de ref](https://ark-ui.com/docs/guides/ref).
+## Installation
 
-## Exemple de base
+<ComponentInstall />
 
+## Utilisation
+
+<Usage />
 
 Par défaut, `Heading` rend un `h1`. Utilisez-le pour les titres du document et choisissez la valeur de `as`
 en fonction de sa place dans la structure du document. Définissez `size` séparément lorsque l’importance
 visuelle doit différer du niveau sémantique.
-
-<Example name="heading/basic" />
-
-## Installation avec shadcn
-
-Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration complète du paquet, du registre et des styles.
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/heading' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/heading' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/heading' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/heading' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/heading' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/heading' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Anatomie
-
-`Heading` rend un seul élément de titre natif.
-
-```text
-Heading
-└─ texte ou contenu en ligne
-```
-
-| Partie                     | Rôle                                                               |
-| -------------------------- | ------------------------------------------------------------------ |
-| `Heading` | Titre sémantique natif avec la mise en forme typographique de moduix. |
-
-## Composition
-
-`Heading` est un composant sans état limité à sa racine : il n’a donc besoin ni de provider ni de parties
-coordonnées. Utilisez `<Heading>`, transmettez `as` pour choisir le niveau sémantique de `h1` à `h6`,
-et définissez `size` séparément si l’importance visuelle doit différer.
-Sans `size` explicite, `as` choisit l’échelle de `2xl` pour `h1` à `xs` pour `h6`, et `weight`
-vaut `semibold` par défaut. Utilisez `asChild` uniquement lorsqu’un autre élément sémantique de titre doit
-porter le nœud DOM rendu.
 
 ## Exemples
 
@@ -89,6 +30,12 @@ suit `as`.
 
 <Example name="heading/heading-levels" />
 
+### Tailles visuelles
+
+Utilisez `size` lorsque plusieurs titres partagent le même niveau sémantique mais doivent avoir une importance visuelle différente.
+
+<Example name="heading/visual-sizes" />
+
 ### Niveau sémantique et taille visuelle
 
 Séparez la hiérarchie du document de l’importance visuelle. Utilisez `as` pour le niveau sémantique et
@@ -96,25 +43,42 @@ Séparez la hiérarchie du document de l’importance visuelle. Utilisez `as` po
 
 <Example name="heading/semantic-level-and-visual-size" />
 
-### Tailles visuelles
-
-Utilisez `size` lorsque plusieurs titres partagent le même niveau sémantique mais doivent avoir une importance visuelle différente.
-
-<Example name="heading/visual-sizes" />
-
 ### Graisse
 
 Utilisez `weight` pour choisir l’une des graisses typographiques intégrées.
 
 <Example name="heading/weights" />
 
-### Personnalisation avancée
+### Élément personnalisé
 
 Utilisez `asChild` lorsqu’un autre élément sémantique de titre doit porter le nœud DOM rendu. Pour les cas
 courants avec `h1` à `h6`, utilisez plutôt `as`. La taille par défaut suit `as` et non l’élément enfant :
 définissez donc `size` selon l’enfant.
 
-<Example name="heading/custom-host" />
+<Example name="heading/custom-element" />
+
+## Composition
+
+`Heading` est un composant sans état limité à sa racine : il n’a donc besoin ni de provider ni de parties
+coordonnées. Utilisez `<Heading>`, transmettez `as` pour choisir le niveau sémantique de `h1` à `h6`,
+et définissez `size` séparément si l’importance visuelle doit différer.
+Sans `size` explicite, `as` choisit l’échelle de `2xl` pour `h1` à `xs` pour `h6`, et `weight`
+vaut `semibold` par défaut. Utilisez `asChild` uniquement lorsqu’un autre élément sémantique de titre doit
+porter le nœud DOM rendu.
+
+## Anatomie
+
+`Heading` rend un seul élément de titre natif.
+
+Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
+
+<AnatomyInspector
+  parts={[
+    ["Heading", "heading-root", "Titre sémantique natif avec la mise en forme typographique de moduix.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styles
 
@@ -123,12 +87,24 @@ des utilitaires natifs et les classes de l’application. Les variantes CSS Modu
 typographiques de foundation et n’ont pas de variables de composant : une classe sur la racine remplace les
 styles du composant déclarés dans leur couche.
 
-
 ### Points d’accroche CSS
 
+| Partie | `data-slot` |
+| --- | --- |
+| `Heading` | `heading-root` |
+
 - `data-scope="heading"` et `data-part="root"` identifient la racine selon les conventions d’Ark.
-- `data-slot="heading-root"` est un sélecteur moduix stable.
 - `data-size` indique la taille résolue : la valeur explicite de `size` ou la taille par défaut de `as`.
 - `data-weight` indique la graisse choisie : `regular`, `medium`, `semibold` ou `bold`.
 - `Heading` définit lui-même ces attributs. Les propriétés `data-*` correspondantes ne peuvent pas remplacer le contrat de style du composant.
 - Utilisez `className` ou `class` pour les classes utilitaires de l’application et les ajustements de style locaux.
+
+## Référence de l’API
+
+Accepte aussi les props natives de son élément et `asChild`.
+
+| Prop | Type | Défaut | Description |
+| --- | --- | --- | --- |
+| `as` | `'h1' \| 'h2' \| 'h3' \| 'h4' \| 'h5' \| 'h6'` | `'h1'` | Niveau sémantique du titre, de `h1` à `h6`. |
+| `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl' \| '2xl'` | — | Taille visuelle de `xs` à `2xl`, indépendante du niveau. |
+| `weight` | `'regular' \| 'medium' \| 'semibold' \| 'bold'` | `'semibold'` | Graisse : `regular`, `medium`, `semibold` ou `bold`. |

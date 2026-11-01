@@ -27,11 +27,11 @@
   }
 
   .circleTrack {
-    stroke: var(--moduix-progress-circular-track-bg, var(--moduix-color-muted));
+    stroke: var(--moduix-progress-circular-track-bg, var(--moduix-muted));
   }
 
   .circleRange {
-    stroke: var(--moduix-progress-circular-range-bg, var(--moduix-color-primary));
+    stroke: var(--moduix-progress-circular-range-bg, var(--moduix-primary));
     stroke-linecap: round;
     transition: stroke-dashoffset var(--moduix-transition-default);
 

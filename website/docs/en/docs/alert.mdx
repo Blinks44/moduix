@@ -1,17 +1,71 @@
 ---
 title: Alert
 component: alert
-description: Inline messages for status updates, validation results, and system feedback.
+description: Show an inline status message with a title, description, and actions.
+ark: https://ark-ui.com/docs/guides/composition#the-ark-factory
 ---
 
+import AnatomyScene from '@/components/examples/alert/basic';
 import * as AlertDocs from '@/components/examples/alert/css-properties';
 
-## API Reference
+<Example name="alert/basic" />
 
-Ark UI does not provide a dedicated `alert` primitive. moduix builds `Alert` with Ark's official
-[factory](https://ark-ui.com/docs/guides/composition#the-ark-factory), following Ark's guidance on
-[composition](https://ark-ui.com/docs/guides/composition), [styling](https://ark-ui.com/docs/guides/styling), and
-[refs](https://ark-ui.com/docs/guides/ref).
+## Installation
+
+<ComponentInstall />
+
+## Usage
+
+<Usage />
+
+For a standard inline message, place `AlertTitle` and `AlertDescription` inside `AlertContent`.
+Add `AlertIndicator` when an icon helps people scan the message.
+
+## Choosing the right component
+
+Use `Alert` when a message belongs in the page layout and should take up space in the normal document
+flow.
+
+- Use **`Alert`** for inline status updates, validation results, and system feedback in forms, panels, or page content.
+- Use **`Toast`** for temporary notifications that appear outside the document flow and dismiss themselves.
+
+## Examples
+
+### Statuses
+
+Use the four statuses to distinguish informational, successful, warning, and error messages. Add
+`AlertIndicator` with the icon of your choice when the visual cue is useful.
+
+<Example name="alert/statuses" />
+
+### With icon
+
+Place a moduix icon or custom SVG inside `AlertIndicator`. A size class on the icon overrides the
+default icon size.
+
+<Example name="alert/with-icon" />
+
+### Custom heading
+
+Use `asChild` on `AlertTitle` when the alert title needs to participate in the page's heading hierarchy.
+
+<Example name="alert/custom-heading" />
+
+### With actions
+
+Use `AlertContent` and `AlertActions` when the message needs recovery or follow-up controls. Keep
+dismissal state in the component that renders the alert when a local alert should be hidden.
+
+<Example name="alert/with-actions" />
+
+### Error
+
+Set `status="error"` for stronger visual emphasis. Add `role="alert"` only when the message needs an
+assertive announcement.
+
+<Example name="alert/error" />
+
+## Composition
 
 Import `Alert` from `@moduix/react/alert`, `@moduix/solid/alert`, or `@moduix/vue/alert`. `Alert` is
 the root part, and the other public parts are `AlertIndicator`, `AlertContent`, `AlertTitle`,
@@ -23,86 +77,7 @@ styling only. Add `role="status"` or `role="alert"` when a dynamically added or 
 live region. `AlertIndicator` is hidden from assistive technology, so keep the essential meaning in the
 title or description.
 
-## Choosing the right component
-
-Use `Alert` when a message belongs in the page layout and should take up space in the normal document
-flow.
-
-- Use **`Alert`** for inline status updates, validation results, and system feedback in forms, panels, or page content.
-- Use **`Toast`** for temporary notifications that appear outside the document flow and dismiss themselves.
-
-## Basic
-
-
-For a standard inline message, place `AlertTitle` and `AlertDescription` inside `AlertContent`.
-Add `AlertIndicator` when an icon helps people scan the message.
-
-<Example name="alert/basic" />
-
-## Install with shadcn
-
-See [Quick Start](/docs/quick-start) for full package setup, registry configuration, and styling guidance.
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/alert' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/alert' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/alert' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/alert' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/alert' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/alert' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Anatomy
-
-Place message content inside `AlertContent`. `AlertIndicator` is optional and sits beside that
-content when it helps people scan the message.
-
-```text
-Alert
-├─ AlertIndicator (optional)
-└─ AlertContent
-   ├─ AlertTitle
-   ├─ AlertDescription
-   ├─ AlertActions (optional)
-   └─ Extra custom blocks
-```
-
-| Part               | Role                                                               | `data-part`   |
-| ------------------ | ------------------------------------------------------------------ | ------------- |
-| `Alert`            | Root element. Applies status styles.                               | `root`        |
-| `AlertIndicator`   | Optional visual cue. Child SVG icons receive a consistent size.   | `indicator`   |
-| `AlertContent`     | Required column wrapper for message content and actions.           | `content`     |
-| `AlertTitle`       | Alert title. Renders a `p` by default.                              | `title`       |
-| `AlertDescription` | Supporting message text.                                           | `description` |
-| `AlertActions`     | Optional wrapped row for actions inside `Content`.                 | `actions`     |
-
-## Composition
-
-`Alert` is presentational: the component that renders it owns visibility and dismissal state. It does
+`Alert` is presentational: the component that renders it controls visibility and dismissal state. It does
 not manage focus or keyboard behavior for buttons and links placed inside it. `AlertContent` is
 required and contains the title, description, controls, and other message content. Put controls inside
 `AlertActions` when they need the default wrapped action-row styling.
@@ -111,41 +86,25 @@ When the title needs a different semantic element, use `AlertTitle asChild` with
 child. Solid uses Ark's render-function form of `asChild` as shown in the Custom Heading example. Vue
 uses the `as-child` attribute with a single child element.
 
-## Examples
+## Anatomy
 
-### Custom Heading
+Place message content inside `AlertContent`. `AlertIndicator` is optional and sits beside that
+content when it helps people scan the message.
 
-Use `asChild` on `AlertTitle` when the alert title needs to participate in the page's heading hierarchy.
+Hover or focus a part to find it in the preview.
 
-<Example name="alert/custom-heading" />
-
-### Error
-
-Set `status="error"` for stronger visual emphasis. Add `role="alert"` only when the message needs an
-assertive announcement.
-
-<Example name="alert/error" />
-
-### Statuses
-
-Use the four statuses to distinguish informational, successful, warning, and error messages. Add
-`AlertIndicator` with the icon of your choice when the visual cue is useful.
-
-<Example name="alert/statuses" />
-
-### With Icon
-
-Place a moduix icon or custom SVG inside `AlertIndicator`. A size class on the icon overrides the
-default icon size.
-
-<Example name="alert/with-icon" />
-
-### Advanced Customization
-
-Use `AlertContent` and `AlertActions` when the message needs recovery or follow-up controls. Keep
-dismissal state in the component that renders the alert when a local alert should be hidden.
-
-<Example name="alert/custom-composition" />
+<AnatomyInspector
+  parts={[
+    ["Alert", "alert-root", "Root element. Applies status styles.", 0],
+    ["AlertIndicator", "alert-indicator", "Optional visual cue. Child SVG icons receive a consistent size.", 1],
+    ["AlertContent", "alert-content", "Required column wrapper for message content and actions.", 1],
+    ["AlertTitle", "alert-title", "Alert title. Renders a `p` by default.", 2],
+    ["AlertDescription", "alert-description", "Supporting message text.", 2],
+    ["AlertActions", "alert-actions", "Optional wrapped row for actions inside `Content`.", 2],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styling
 
@@ -162,17 +121,36 @@ Built-in statuses also read shared palette tokens:
 
 | Status    | Shared token                 | Default                      |
 | --------- | ---------------------------- | ---------------------------- |
-| `info`    | `--moduix-color-card`        | theme card                   |
-| `success` | `--moduix-color-success`     | `oklch(0.627 0.194 149.214)` |
-| `warning` | `--moduix-color-warning`     | `oklch(0.795 0.184 86.047)`  |
-| `error`   | `--moduix-color-destructive` | theme destructive            |
+| `info`    | `--moduix-card`        | theme card                   |
+| `success` | `--moduix-success`     | `oklch(0.627 0.194 149.214)` |
+| `warning` | `--moduix-warning`     | `oklch(0.795 0.184 86.047)`  |
+| `error`   | `--moduix-destructive` | theme destructive            |
 
-### CSS Properties
+### CSS variables
 
-<CssPropertiesSection properties={AlertDocs.alertCssProperties} />
+Hover or focus a variable to see it in the preview.
+
+<CssPropertiesSection properties={AlertDocs.alertCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Styling hooks
 
-- Stable `data-slot` selectors: `alert-root`, `alert-indicator`, `alert-content`, `alert-title`, `alert-description`, and `alert-actions`
+| Part | `data-slot` |
+| --- | --- |
+| `Alert` | `alert-root` |
+| `AlertIndicator` | `alert-indicator` |
+| `AlertContent` | `alert-content` |
+| `AlertTitle` | `alert-title` |
+| `AlertDescription` | `alert-description` |
+| `AlertActions` | `alert-actions` |
+
 - Ark-style selectors: `data-scope="alert"` with `data-part="root"`, `indicator`, `content`, `title`, `description`, or `actions`
 - `Alert` writes the selected status to `data-status`
+
+## API reference
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `status` | `'info' \| 'success' \| 'warning' \| 'error'` | `'info'` | Meaning and color: `info`, `success`, `warning`, or `error`. |
+| `asChild` | `boolean` | `false` | Renders the root as its single child element. |

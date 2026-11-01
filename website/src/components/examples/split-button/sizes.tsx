@@ -6,13 +6,13 @@ import {
   SplitButtonPositioner,
   SplitButtonTrigger,
 } from '@moduix/react/split-button';
-import styles from '@/components/examples/split-button/split-button-sizes.module.css';
+import { Stack } from '@moduix/react/stack';
 
 const sizes = ['xs', 'sm', 'md', 'lg', 'xl'] as const;
 
 export default function SplitButtonSizesDemo() {
   return (
-    <div className={styles.row}>
+    <Stack direction="row" align="center" justify="center" wrap="wrap" gap="3">
       {sizes.map((size) => (
         <SplitButton key={size} aria-label={`${size} create actions`} size={size} variant="outline">
           <SplitButtonAction>{size}</SplitButtonAction>
@@ -25,6 +25,6 @@ export default function SplitButtonSizesDemo() {
           </SplitButtonPositioner>
         </SplitButton>
       ))}
-    </div>
+    </Stack>
   );
 }

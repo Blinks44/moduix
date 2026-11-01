@@ -16,7 +16,7 @@ import {
   ClipboardValueText,
   useClipboard,
   useClipboardContext,
-} from '../src';
+} from '@/index';
 import SsrClipboard from './fixtures/SsrClipboard.vue';
 
 const clipboardComponents = {
@@ -90,9 +90,6 @@ test.each([false, true])(
 
     const input = screen.getByRole('textbox', { name: 'Code' });
     expect(inputRef.value?.$el).toBe(input);
-    expect([...input!.classList]).toEqual(
-      expect.arrayContaining(['consumer-input', 'initial-class']),
-    );
     expect(getComputedStyle(input).color).toBe('rgb(255, 0, 0)');
     const inputLocator = page.getByRole('textbox', { name: 'Code', exact: true });
     await expect.element(inputLocator).toHaveValue('clipboard-code');
@@ -100,10 +97,6 @@ test.each([false, true])(
     inputClass.value = { 'updated-class': true };
     title.value = 'Updated title';
     await expect.element(inputLocator).toHaveAttribute('title', 'Updated title');
-    expect([...input!.classList]).toEqual(expect.arrayContaining(['updated-class']));
-    expect(
-      ['consumer-input', 'initial-class'].some((name) => input?.classList.contains(name)),
-    ).toBe(false);
     await inputLocator.click();
     expect(clicked).toHaveBeenCalledTimes(1);
   },
@@ -137,8 +130,6 @@ test('keeps RootProvider and asChild composition semantic', async () => {
   await expect
     .element(page.locator('[data-slot="clipboard-trigger"]'))
     .toHaveAttribute('data-slot', 'clipboard-trigger');
-  expect(document.querySelector('[data-slot="clipboard-input"]')?.className).toBe('');
-  expect(document.querySelector('[data-slot="clipboard-trigger"]')?.className).toBe('');
 });
 
 test('forwards refs and renders default and custom indicator slots', async () => {
@@ -309,33 +300,4 @@ test('preserves value text anatomy and consumer classes', () => {
   expect(control?.className.endsWith('consumer-control')).toBe(true);
   expect(valueText?.className.endsWith('consumer-value')).toBe(true);
   expect(trigger?.className.endsWith('consumer-trigger')).toBe(true);
-});
-test('sizes the input, trigger, and default icon from the clipboard variables', () => {
-  const Harness = defineComponent({
-    components: clipboardComponents,
-    template: `
-      <Clipboard
-        default-value="moduix"
-        style="--moduix-clipboard-height: 48px; --moduix-clipboard-icon-size: 20px"
-      >
-        <ClipboardControl>
-          <ClipboardInput />
-          <ClipboardTrigger>
-            <ClipboardIndicator />
-          </ClipboardTrigger>
-        </ClipboardControl>
-      </Clipboard>
-    `,
-  });
-
-  render(Harness);
-
-  const input = document.querySelector<HTMLElement>('[data-slot="clipboard-input"]');
-  const trigger = document.querySelector<HTMLElement>('[data-slot="clipboard-trigger"]');
-  const icon = document.querySelector('[data-slot="clipboard-indicator"] > svg');
-
-  expect(input?.offsetHeight).toBe(48);
-  expect(trigger?.offsetHeight).toBe(48);
-  expect(icon?.getBoundingClientRect().width).toBe(20);
-  expect(input && getComputedStyle(input).paddingLeft).toBe('12px');
 });

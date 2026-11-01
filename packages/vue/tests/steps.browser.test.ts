@@ -22,8 +22,8 @@ import {
   useSteps,
   useStepsContext,
   useStepsItemContext,
-} from '../src';
-import type { StepChangeDetails } from '../src';
+} from '@/index';
+import type { StepChangeDetails } from '@/index';
 import SsrSteps from './fixtures/SsrSteps.vue';
 
 const stepsComponents = {
@@ -377,34 +377,74 @@ test('hydrates stable hosts and ids and remains interactive', async () => {
     error.mockRestore();
   }
 });
-test('fills its container and keeps the vertical separator clear of both indicators', () => {
+
+test('preserves Ark semantics, refs, anatomy, classes, and default indicators', async () => {
+  const rootRef = ref<ComponentPublicInstance>();
+  const triggerRef = ref<ComponentPublicInstance>();
+  const changes: number[] = [];
   const Harness = defineComponent({
     components: stepsComponents,
-    setup: () => ({ items }),
+    setup: () => ({
+      changes,
+      handleStepChange: (details: StepChangeDetails) => changes.push(details.step),
+      rootRef,
+      triggerRef,
+    }),
     template: `
-      <div style="width: 1200px">
-        <Steps :count="items.length" orientation="vertical">
-          <StepsList>
-            <StepsItem v-for="(item, index) in items" :key="item.title" :index="index">
-              <StepsTrigger><StepsIndicator />{{ item.title }}</StepsTrigger>
-              <StepsSeparator />
-            </StepsItem>
-          </StepsList>
-        </Steps>
-      </div>
+      <Steps
+        ref="rootRef"
+        :count="2"
+        class="consumer-root"
+        data-probe="root"
+        @step-change="handleStepChange"
+      >
+        <StepsList>
+          <StepsItem :index="0">
+            <StepsTrigger ref="triggerRef" class="consumer-trigger">
+              <StepsIndicator />
+              Account
+            </StepsTrigger>
+            <StepsSeparator />
+          </StepsItem>
+          <StepsItem :index="1">
+            <StepsTrigger><StepsIndicator />Profile</StepsTrigger>
+            <StepsSeparator />
+          </StepsItem>
+        </StepsList>
+        <StepsContent :index="0">Account content</StepsContent>
+        <StepsContent :index="1">Profile content</StepsContent>
+        <StepsPrevTrigger>Back</StepsPrevTrigger>
+        <StepsNextTrigger>Next</StepsNextTrigger>
+      </Steps>
     `,
   });
 
-  const { container } = render(Harness);
-  const root = container.querySelector<HTMLElement>('[data-slot="steps-root"]')!;
-  const [first, next] = [...container.querySelectorAll('[data-slot="steps-indicator"]')].map(
-    (indicator) => indicator.getBoundingClientRect(),
-  );
-  const separator = container
-    .querySelector('[data-slot="steps-separator"]')!
-    .getBoundingClientRect();
+  render(Harness);
 
-  expect(root.offsetWidth).toBe(1200);
-  expect(Math.round(separator.top - first!.bottom)).toBe(8);
-  expect(Math.round(next!.top - separator.bottom)).toBe(8);
+  const account = screen.getByRole('tab', { name: /Account/ });
+
+  const indicators = document.querySelectorAll('[data-slot="steps-indicator"]');
+  const root = rootRef.value?.$el as HTMLElement;
+
+  expect(root!.getAttribute('data-slot')).toBe('steps-root');
+  expect(root!.getAttribute('data-scope')).toBe('steps');
+  expect(root!.getAttribute('data-part')).toBe('root');
+  expect(root!.getAttribute('data-probe')).toBe('root');
+  expect([...root!.classList]).toEqual(expect.arrayContaining(['consumer-root']));
+  expect([...account!.classList]).toEqual(expect.arrayContaining(['consumer-trigger']));
+  await expect
+    .element(page.getByRole('tab', { name: /Account/, exact: true }))
+    .toHaveAttribute('aria-controls');
+  await expect
+    .element(page.getByRole('tab', { name: /Profile/, exact: true }))
+    .toHaveAttribute('aria-controls');
+  expect(triggerRef.value?.$el).toBe(account);
+  expect(indicators[0]!.textContent).toContain('1');
+  await expect.element(page.getByRole('button', { name: 'Back', exact: true })).toBeDisabled();
+
+  await page.getByRole('button', { name: 'Next', exact: true }).click();
+
+  await expect.poll(() => changes).toEqual([1]);
+  expect(indicators[0]!.hasAttribute('data-complete')).toBe(true);
+  expect(Boolean(indicators[0]?.querySelector('svg')?.isConnected)).toBe(true);
 });

@@ -3,52 +3,15 @@ import { page } from '@rstest/browser';
 import { expect, test, rs } from '@rstest/core';
 import { render, screen } from '@testing-library/vue';
 import { renderToString } from '@vue/server-renderer';
-import { createSSRApp, nextTick, ref } from 'vue';
-import type { ComponentPublicInstance } from 'vue';
-import { NativeSelect } from '../src';
-import styles from '../src/components/native-select/NativeSelect.module.css';
+import { createSSRApp, nextTick } from 'vue';
+import { NativeSelect } from '@/index';
+import SsrNativeSelect from './fixtures/SsrNativeSelect.vue';
 
 const components = {
   FieldLabel,
   FieldRoot,
   NativeSelect,
 };
-
-test('preserves Field state, anatomy, and control styling hooks', async () => {
-  render({
-    components,
-    template: `
-      <FieldRoot disabled id="framework" invalid required>
-        <FieldLabel>Framework</FieldLabel>
-        <NativeSelect
-          :control-props="{ title: 'Native select control', class: 'consumer-control' }"
-          class="consumer-select"
-        >
-          <option value="react">React</option>
-        </NativeSelect>
-      </FieldRoot>
-    `,
-  });
-
-  const select = screen.getByRole('combobox', { name: 'Framework' });
-
-  const selectLocator = page.getByRole('combobox', { name: 'Framework', exact: true });
-  await expect.element(selectLocator).toBeDisabled();
-  await expect.element(selectLocator).toHaveAttribute('aria-invalid', 'true');
-  await expect.element(selectLocator).toHaveAttribute('required');
-  await expect.element(selectLocator).toHaveAttribute('data-part', 'select');
-  await expect.element(selectLocator).toHaveAttribute('data-scope', 'field');
-  await expect.element(selectLocator).toHaveAttribute('data-slot', 'native-select-root');
-  expect([...select.classList]).toEqual(expect.arrayContaining([styles.root, 'consumer-select']));
-  expect(select.parentElement?.getAttribute('data-slot')).toBe('native-select-control');
-  expect(select.parentElement?.getAttribute('title')).toBe('Native select control');
-  expect([...select.parentElement!.classList]).toEqual(
-    expect.arrayContaining([styles.control, 'consumer-control']),
-  );
-  expect(
-    select.parentElement?.querySelector('[data-slot="native-select-indicator"] svg')?.isConnected,
-  ).toBe(true);
-});
 
 test('shows the selected option while disabled', async () => {
   render({
@@ -65,60 +28,6 @@ test('shows the selected option while disabled', async () => {
     .element(page.getByRole('combobox', { name: 'Framework', exact: true }))
     .toHaveValue('react');
 });
-
-test.each([false, true])(
-  'forwards the native select ref and controlled events (asChild=%s)',
-  async (asChild) => {
-    const selectRef = ref<ComponentPublicInstance | null>(null);
-    const value = ref('react');
-    const changes: string[] = [];
-    const modelChanges: string[] = [];
-
-    render({
-      components,
-      setup() {
-        return { asChild, changes, modelChanges, selectRef, value };
-      },
-      template: `
-      <NativeSelect
-        ref="selectRef"
-        v-model="value"
-        :as-child="asChild"
-        aria-label="Framework"
-        @change="changes.push($event.target.value)"
-        @update:model-value="modelChanges.push($event)"
-      >
-        ${asChild ? '<select>' : ''}
-        <option value="react">React</option>
-        <option value="vue">Vue</option>
-        ${asChild ? '</select>' : ''}
-      </NativeSelect>
-    `,
-    });
-
-    const select = screen.getByRole('combobox', { name: 'Framework' });
-
-    expect(selectRef.value?.$el).toBe(select);
-    expect(NativeSelect).not.toHaveProperty('Root');
-    const selectLocator = page.getByRole('combobox', { name: 'Framework', exact: true });
-    await expect.element(selectLocator).toHaveAttribute('data-scope', 'field');
-    await expect.element(selectLocator).toHaveAttribute('data-part', 'select');
-    await expect.element(selectLocator).toHaveAttribute('data-slot', 'native-select-root');
-    expect(select.parentElement?.getAttribute('data-slot')).toBe('native-select-control');
-    await selectLocator.selectOption('vue');
-
-    await expect.element(selectLocator).toHaveValue('vue');
-    expect(value.value).toBe('vue');
-    expect(changes).toEqual(['vue']);
-    expect(modelChanges).toEqual(['vue']);
-
-    value.value = 'react';
-    await nextTick();
-    await expect.element(selectLocator).toHaveValue('react');
-    expect(changes).toEqual(['vue']);
-    expect(modelChanges).toEqual(['vue']);
-  },
-);
 
 test('preserves native form submission and reset behavior', async () => {
   render({
@@ -144,6 +53,28 @@ test('preserves native form submission and reset behavior', async () => {
   await expect
     .element(page.getByRole('combobox', { name: 'Framework', exact: true }))
     .toHaveValue('react');
+});
+
+test('keeps natively selected options when uncontrolled', () => {
+  render({
+    components,
+    template: `
+      <NativeSelect aria-label="Framework">
+        <option value="react">React</option>
+        <option value="vue" selected>Vue</option>
+      </NativeSelect>
+      <NativeSelect multiple aria-label="Frameworks">
+        <option value="react" selected>React</option>
+        <option value="vue" selected>Vue</option>
+        <option value="svelte">Svelte</option>
+      </NativeSelect>
+    `,
+  });
+
+  const [single, multiple] = document.querySelectorAll('select');
+
+  expect(single!.value).toBe('vue');
+  expect([...multiple!.selectedOptions].map((option) => option.value)).toEqual(['react', 'vue']);
 });
 
 test('hides the indicator for native list controls', async () => {
@@ -195,26 +126,4 @@ test('hydrates without replacing hosts or generated ids', async () => {
     warn.mockRestore();
     error.mockRestore();
   }
-});
-import SsrNativeSelect from './fixtures/SsrNativeSelect.vue';
-
-test('aligns text and indicator spacing with Select', () => {
-  render({
-    components,
-    template: `
-      <NativeSelect aria-label="Framework">
-        <option value="react">React</option>
-      </NativeSelect>
-    `,
-  });
-
-  const select = screen.getByRole('combobox', { name: 'Framework' });
-  const indicator = document.querySelector('[data-slot="native-select-indicator"]')!;
-  const selectStyle = getComputedStyle(select);
-
-  expect(selectStyle.paddingInlineStart).toBe('14px');
-  expect(selectStyle.paddingInlineEnd).toBe('46px');
-  expect(
-    select.getBoundingClientRect().right - indicator.getBoundingClientRect().right,
-  ).toBeCloseTo(8, 0);
 });

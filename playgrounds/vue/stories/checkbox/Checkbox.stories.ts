@@ -11,6 +11,7 @@ import {
   CheckboxRootProvider,
   useCheckbox,
 } from '@/components/checkbox';
+import { Fieldset, FieldsetLegend } from '@/components/fieldset';
 import styles from './Checkbox.stories.module.css';
 
 const meta = {
@@ -89,7 +90,7 @@ const CheckboxItem = defineComponent({
   `,
 });
 
-const storyComponents = { ...checkboxComponents, CheckboxItem };
+const storyComponents = { ...checkboxComponents, CheckboxItem, Fieldset, FieldsetLegend };
 
 function renderStory(template: string, setup?: () => Record<string, unknown>) {
   return () =>
@@ -253,14 +254,14 @@ export const GroupControlled: Story = {
 export const GroupWithFieldset: Story = {
   render: renderStory(
     `
-    <fieldset :class="styles.wrapper">
-      <legend :class="styles.groupHeading">Frameworks</legend>
+    <Fieldset>
+      <FieldsetLegend>Frameworks</FieldsetLegend>
       <CheckboxGroup :default-value="['react']" name="frameworks">
         <CheckboxItem v-for="option in frameworkOptions" :key="option.value" :value="option.value">
           {{ option.label }}
         </CheckboxItem>
       </CheckboxGroup>
-    </fieldset>
+    </Fieldset>
   `,
     () => ({ frameworkOptions }),
   ),
@@ -346,7 +347,7 @@ export const InvalidGroup: Story = {
           {{ option.label }}
         </CheckboxItem>
       </CheckboxGroup>
-      <span :class="styles.hint">Use invalid on the group when selection is required.</span>
+      <span :class="styles.hint">Use \`invalid\` on the group when selection is required.</span>
     </div>
   `,
     () => ({ notificationOptions }),

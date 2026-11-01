@@ -1,6 +1,6 @@
 import { Button } from '@moduix/solid/button';
+import { Stack } from '@moduix/solid/stack';
 import { Star as StarIcon } from 'lucide-solid';
-import styles from '@/components/examples/button/button-sizes.module.css';
 
 const sizes = ['xs', 'sm', 'md', 'lg', 'xl'] as const;
 const iconSizes = [
@@ -11,7 +11,7 @@ const iconSizes = [
 
 export default function ButtonSizesDemo() {
   return (
-    <div class={styles.root}>
+    <Stack direction="row" align="center" wrap="wrap" gap="3">
       {sizes.map((size) => (
         <Button size={size}>{size}</Button>
       ))}
@@ -20,6 +20,6 @@ export default function ButtonSizesDemo() {
           <StarIcon />
         </Button>
       ))}
-    </div>
+    </Stack>
   );
 }

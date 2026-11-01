@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import type { ComponentPublicInstance } from 'vue';
-import { SimpleGrid } from '../../src';
+import { SimpleGrid } from '@/index';
 const rootRef = ref<ComponentPublicInstance>();
 defineExpose({ rootRef });
 </script>

@@ -1,15 +1,28 @@
 ---
 title: Segment Group
 component: segment-group
-description: A compact segmented control based on Ark UI for choosing one value from a small visible set.
+description: Switch between a few options in a compact segmented control.
+ark: https://ark-ui.com/docs/components/segment-group
 ---
 
+import AnatomyScene from '@/components/examples/segment-group/basic';
 import * as SegmentGroupDocs from '@/components/examples/segment-group/css-properties';
 import { CssPropertiesSection } from '@/components/mdx/Components';
 
-## API Reference
+<Example name="segment-group/basic" />
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/segment-group" />
+## Installation
+
+<ComponentInstall />
+
+## Usage
+
+<Usage />
+
+Use `SegmentGroup` as the root, place `SegmentGroupIndicator` before the items, and use
+`SegmentGroupItems` when every segment only needs a text label. `SegmentGroupItems` creates the item,
+text, and one native form input for every entry. Pass strings when the value and the label are
+the same, or `{ value, label, disabled }` objects.
 
 ## Choosing the right component
 
@@ -20,80 +33,86 @@ Use `SegmentGroup` when users choose one value from a small set that is visible 
 - Choose **`RadioGroup`** when the control should keep the familiar visual appearance of radio buttons.
 - Choose **`SegmentGroup`** when the interaction is radio-like but the UI should use a compact segmented control.
 
-## Basic
+## Examples
 
+### Sizes
 
-Use `SegmentGroup` as the root, place `SegmentGroupIndicator` before the items, and use
-`SegmentGroupItems` when every segment only needs a text label. `SegmentGroupItems` creates the item,
-text, and one native form input for every entry. Pass strings when the value and the label are
-the same, or `{ value, label, disabled }` objects.
+Set `size` on `SegmentGroup` or `SegmentGroupRootProvider` to `sm`, `md` (default), or `lg`. The
+whole group then has the height of a `Button` or `Input` of the same size.
 
-<Example name="segment-group/basic" />
+<Example name="segment-group/sizes" />
 
-## Install with shadcn
+### Vertical orientation
 
-See [Quick Start](/docs/quick-start) for full package setup, registry configuration, and styling guidance.
+Set `orientation="vertical"` when the group should use a vertical layout and vertical arrow-key
+navigation.
 
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
+<Example name="segment-group/vertical-orientation" />
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/segment-group' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/segment-group' },
-  ]}
-/>
+### Custom item layout
 
-  </Tab>
-  <Tab label="Solid" value="solid">
+Use `SegmentGroupItem asChild` instead of `SegmentGroupItems` when a custom label layout should
+own the item's DOM node.
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/segment-group' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/segment-group' },
-  ]}
-/>
+<Example name="segment-group/custom-item-layout" />
 
-  </Tab>
+### Disabled
 
-  <Tab label="Vue" value="vue">
+Set `disabled` on an item when only that segment should be unavailable. Set it on the root to
+disable the whole group.
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/segment-group' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/segment-group' },
-  ]}
-/>
+<Example name="segment-group/disabled" />
 
-  </Tab>
-</Tabs>
+### Invalid
 
-## Anatomy
+Set `invalid` on the root when validation fails. Combine it with `required` and `name` when the
+group participates in native form validation.
 
-```text
-SegmentGroup
-├─ SegmentGroupLabel (optional)
-├─ SegmentGroupIndicator
-└─ SegmentGroupItem[value]
-   ├─ SegmentGroupItemText
-   └─ the native form input
+<Example name="segment-group/invalid" />
 
-SegmentGroupRootProvider
-└─ the same item tree connected to a useSegmentGroup() store
-```
+### Field
 
-| Part | Role |
-| ---- | ---- |
-| `SegmentGroup` | Root part that owns the selected value, keyboard navigation, and form integration. |
-| `SegmentGroupRootProvider` | Connects the parts to state created with `useSegmentGroup()`. |
-| `SegmentGroupContext` | Render-prop access to the root state for advanced composition. |
-| `SegmentGroupItemContext` | Render-prop access to the item state for advanced composition. |
-| `SegmentGroupItem` | One selectable segment with a required `value`. |
-| `SegmentGroupItemHiddenInput` | Native Ark form control for an explicit item composition. |
-| `SegmentGroupItemText` | Visible text for a segment. |
-| `SegmentGroupItems` | Renderer for standard text segments with the native input included. |
-| `SegmentGroupIndicator` | Positions the active-item highlight using Ark CSS variables. |
-| `SegmentGroupLabel` | Optional accessible label for the group. |
+Wrap the group in `Field` when its native inputs should be accompanied by helper or error text.
+`Field` does not pass its state to the group, so set `invalid`, `required`, `disabled`, or `readOnly`
+on `SegmentGroup` as well.
+
+<Example name="segment-group/field" />
+
+### Form submission
+
+Pass `name` to the root to include the selected value in native form data. `SegmentGroupItems`
+adds a native form input to every generated item.
+
+<Example name="segment-group/form-submission" />
+
+### Controlled
+
+Keep the selected value in application state and update it from `details.value` in
+`onValueChange`. See [Control state from the application](/docs/composition-patterns#controlled-state).
+
+<Example name="segment-group/controlled" />
+
+### Conditional mount
+
+Segment groups can be mounted conditionally. When the group appears, Ark recalculates the item
+geometry used by the indicator.
+
+<Example name="segment-group/conditional-mount" />
+
+### Root provider
+
+Use `useSegmentGroup()` with `SegmentGroupRootProvider` when controls outside the segment tree need access
+to the same state. See [Share state outside the tree](/docs/composition-patterns#root-provider).
+
+<Example name="segment-group/root-provider" />
+
+### Build from parts
+
+The same group as Basic, without `SegmentGroupItems`: each `SegmentGroupItem` holds
+`SegmentGroupItemText` and `SegmentGroupItemHiddenInput`. Start here when items need different
+content or props.
+
+<Example name="segment-group/build-from-parts" />
 
 ## Composition
 
@@ -107,78 +126,26 @@ Use `SegmentGroupRootProvider` with `useSegmentGroup()` when the state must be c
 the rendered tree or controlled by another part of the application. React and Vue read the store as
 an object, while Solid reads its reactive state through the returned accessor.
 
-## Examples
+## Anatomy
 
-### Conditional Mount
+Hover or focus a part to find it in the preview.
 
-Segment groups can be mounted conditionally. When the group appears, Ark recalculates the item
-geometry used by the indicator.
-
-<Example name="segment-group/conditional-mount" />
-
-### Controlled
-
-Keep the selected value in application state and update it from `details.value` in
-`onValueChange`.
-
-<Example name="segment-group/controlled" />
-
-### Disabled
-
-Set `disabled` on an item when only that segment should be unavailable. Set it on the root to
-disable the whole group.
-
-<Example name="segment-group/disabled" />
-
-### Field
-
-Wrap the group in `Field` when its native inputs should be accompanied by helper or error text.
-`Field` does not pass its state to the group, so set `invalid`, `required`, `disabled`, or `readOnly`
-on `SegmentGroup` as well.
-
-<Example name="segment-group/field" />
-
-### Form Submission
-
-Pass `name` to the root to include the selected value in native form data. `SegmentGroupItems`
-adds a native form input to every generated item.
-
-<Example name="segment-group/form-submission" />
-
-### Invalid
-
-Set `invalid` on the root when validation fails. Combine it with `required` and `name` when the
-group participates in native form validation.
-
-<Example name="segment-group/invalid" />
-
-### Root Provider
-
-Use `useSegmentGroup()` with `SegmentGroupRootProvider` when controls outside the segment tree need access
-to the same state.
-
-<Example name="segment-group/root-provider" />
-
-### Sizes
-
-Set `size` on `SegmentGroup` or `SegmentGroupRootProvider` to `sm`, `md` (default), or `lg`. The
-whole group then has the height of a `Button` or `Input` of the same size.
-
-<Example name="segment-group/sizes" />
-
-### Vertical Orientation
-
-Set `orientation="vertical"` when the group should use a vertical layout and vertical arrow-key
-navigation.
-
-<Example name="segment-group/vertical-orientation" />
-
-### Advanced Customization
-
-Use `SegmentGroupItem asChild` instead of `SegmentGroupItems` when a custom label layout should
-own the item's DOM node.
-
-<Example name="segment-group/aschild" />
+<AnatomyInspector
+  parts={[
+    ["SegmentGroup", "segment-group-root", "Root part that manages the selected value, keyboard navigation, and form integration.", 0],
+    ["SegmentGroupLabel", "segment-group-label", "Optional accessible label for the group.", 1],
+    ["SegmentGroupIndicator", "segment-group-indicator", "Positions the active-item highlight using Ark CSS variables.", 1],
+    ["SegmentGroupItem", "segment-group-item", "One selectable segment with a required `value`.", 1],
+    ["SegmentGroupItemText", "segment-group-item-text", "Visible text for a segment.", 2],
+    ["SegmentGroupItemHiddenInput", "", "Native Ark form control for an explicit item composition.", 2],
+    ["SegmentGroupItems", "", "Renderer for standard text segments with the native input included.", 2],
+    ["SegmentGroupRootProvider", "segment-group-root-provider", "Connects the parts to state created with `useSegmentGroup()`.", 0],
+    ["SegmentGroupContext", null, "Render-prop access to the root state for advanced composition.", 0],
+    ["SegmentGroupItemContext", null, "Render-prop access to the item state for advanced composition.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styling
 
@@ -188,15 +155,25 @@ together with moduix `data-slot` selectors. Tailwind variants use native utiliti
 classes; the component variables below customize the CSS Modules variants. Data attributes and
 `data-slot` hooks are shared by both styling tracks.
 
-### CSS Properties
+### CSS variables
 
-<CssPropertiesSection properties={SegmentGroupDocs.segmentGroupOverrideCssProperties} />
+Hover or focus a variable to see it in the preview.
+
+<CssPropertiesSection properties={SegmentGroupDocs.segmentGroupOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Styling hooks
 
-- Stable `data-slot` selectors: `segment-group-root`, `segment-group-root-provider`,
-  `segment-group-label`, `segment-group-indicator`, `segment-group-item`,
-  and `segment-group-item-text`.
+| Part | `data-slot` |
+| --- | --- |
+| `SegmentGroup` | `segment-group-root` |
+| `SegmentGroupRootProvider` | `segment-group-root-provider` |
+| `SegmentGroupLabel` | `segment-group-label` |
+| `SegmentGroupItem` | `segment-group-item` |
+| `SegmentGroupItemText` | `segment-group-item-text` |
+| `SegmentGroupIndicator` | `segment-group-indicator` |
+
 - Ark part selectors: `data-scope="segment-group"` and `data-part` on the root, label, indicator,
   item, item text, and hidden input.
 - Ark state selectors: `data-state="checked|unchecked"`, `data-orientation`, `data-disabled`,
@@ -206,3 +183,25 @@ classes; the component variables below customize the CSS Modules variants. Data 
   `--moduix-duration-normal` and `--moduix-ease-in-out`. Set them with a class on
   `SegmentGroupIndicator` (in Tailwind, `[--transition-duration:300ms]`); `duration-*` utilities lose
   to the inline transition that Ark writes.
+
+## Keyboard
+
+| Key | Action |
+| --- | --- |
+| `ArrowDown` / `ArrowUp` / `ArrowLeft` / `ArrowRight` | Moves to the next or previous option and selects it. |
+| `Tab` | Moves focus in and out of the group. |
+
+## API reference
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `value` | `string \| null` | — | Selected segment for controlled use. |
+| `defaultValue` | `string \| null` | — | Initially selected segment. |
+| `onValueChange` | `(details: ValueChangeDetails) => void` | — | Called when another segment is selected. |
+| `orientation` | `'horizontal' \| 'vertical'` | `'horizontal'` | Layout and arrow-key direction: `horizontal` or `vertical`. |
+| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` | Size: `sm`, `md`, or `lg`. |
+| `name` | `string` | — | Form field name of the underlying input. |
+| `disabled` | `boolean` | `false` | Disables the control. |
+| `readOnly` | `boolean` | `false` | Shows the value but prevents changes. |
+| `invalid` | `boolean` | `false` | Marks the control as invalid. |
+| `required` | `boolean` | `false` | Requires a value before form submission. |

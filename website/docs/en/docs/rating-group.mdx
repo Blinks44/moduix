@@ -1,95 +1,97 @@
 ---
 title: Rating Group
 component: rating-group
-description: A star rating control built on the Ark UI rating-group primitive for React, Solid, and Vue.
+description: Rate something on a scale of stars, including half-star steps.
+ark: https://ark-ui.com/docs/components/rating-group
 ---
 
+import AnatomyScene from '@/components/examples/rating-group/basic';
 import * as RatingGroupDocs from '@/components/examples/rating-group/css-properties';
 
-## API Reference
+<Example name="rating-group/basic" />
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/rating-group" />
+## Installation
 
-## Choosing the right component
+<ComponentInstall />
 
-Use `RatingGroup` when people need to choose a numeric score from a row of stars or another repeated icon.
+## Usage
 
-## Basic
-
+<Usage />
 
 Use `RatingGroup` as the root and add `RatingGroupLabel`, `RatingGroupControl`, and
 `RatingGroupItems` for the standard star rating. Render `RatingGroupHiddenInput` explicitly when
 the value should participate in native form submission.
 
-<Example name="rating-group/basic" />
+## Choosing the right component
 
-## Install with shadcn
+Use `RatingGroup` when people need to choose a numeric score from a row of stars or another repeated icon.
 
-See [Quick Start](/docs/quick-start) for full package setup, registry configuration, and styling guidance.
+## Examples
 
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
+### Sizes
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/rating-group' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/rating-group' },
-  ]}
-/>
+Use the moduix `size` prop when the rating needs to keep the same Ark behavior at a different visual
+density.
 
-  </Tab>
-  <Tab label="Solid" value="solid">
+<Example name="rating-group/sizes" />
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/rating-group' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/rating-group' },
-  ]}
-/>
+### Half rating
 
-  </Tab>
-  <Tab label="Vue" value="vue">
+Set `allowHalf` to enable half-step selection and rendering.
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/rating-group' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/rating-group' },
-  ]}
-/>
+<Example name="rating-group/half-rating" />
 
-  </Tab>
-</Tabs>
+### Custom icon
 
-## Anatomy
+Pass a custom `RatingGroupItemIndicator` as the child of `RatingGroupItems` when every item should
+use the same icon. The indicator still receives Ark-driven `data-highlighted` and `data-half`
+attributes for styling.
 
-```text
-RatingGroup
-├─ RatingGroupLabel
-└─ RatingGroupControl
-   ├─ RatingGroupItems
-   │  └─ RatingGroupItem[index]
-   │     └─ RatingGroupItemIndicator
-   ├─ RatingGroupContext
-   │  └─ RatingGroupItem[index]
-   │     └─ RatingGroupItemIndicator
-   └─ RatingGroupHiddenInput (explicit)
+<Example name="rating-group/custom-icon" />
 
-RatingGroupRootProvider
-└─ same part tree connected to a moduix useRatingGroup() store
-```
+### Disabled and readonly
 
-| Part                               | Role                                                               |
-| ---------------------------------- | ------------------------------------------------------------------ |
-| `RatingGroup`                    | Owns rating state, keyboard navigation, focus, and form integration. |
-| `RatingGroupHiddenInput`          | Native Ark form control that must be composed explicitly.          |
-| `RatingGroupRootProvider`          | Connects the parts to state created with `useRatingGroup()`.       |
-| `RatingGroupContext`               | Render-prop access to the current root state.                      |
-| `RatingGroupItemContext`           | Render-prop access to the current item state.                      |
-| `RatingGroupLabel`                 | Accessible label for the rating group.                             |
-| `RatingGroupControl`               | Groups the interactive rating items.                               |
-| `RatingGroupItems`                 | Creates one item for each value and supplies the default star.     |
-| `RatingGroupItem`                  | One selectable rating item; requires a numeric `index`.            |
-| `RatingGroupItemIndicator`         | The default moduix star visual for an item.                        |
+Use `disabled` to remove interaction. Use `readOnly` to keep the score visible while preventing
+changes.
+
+<Example name="rating-group/disabled-and-readonly" />
+
+### Field
+
+Wrap the rating group in `Field` when helper or validation text should be associated with its
+`RatingGroupHiddenInput`. Ark inherits `disabled`, `readOnly`, and `required` from the field;
+validation state stays with `Field` and application code.
+
+<Example name="rating-group/field" />
+
+### Forms
+
+Pass `name` and render `RatingGroupHiddenInput` when the selected score should be included in
+`FormData`.
+
+<Example name="rating-group/forms" />
+
+### Controlled
+
+Pass `value` and `onValueChange` (`v-model` in Vue) when the score depends on other state or a parent
+resets it. See [Control state from the application](/docs/composition-patterns#controlled-state).
+
+<Example name="rating-group/controlled" />
+
+### Root provider
+
+Use `RatingGroupRootProvider` with `useRatingGroup()` when the rating state must be created outside
+the rendered rating tree, for example to set the value from a separate button. See [Share state outside the tree](/docs/composition-patterns#root-provider).
+
+<Example name="rating-group/root-provider" />
+
+### Build from parts
+
+The same rating as Basic, without `RatingGroupItems`: `RatingGroupContext` provides the item indexes,
+and each `RatingGroupItem` renders a `RatingGroupItemIndicator`. Start here when items need their own
+markup; to change only the star, pass an icon as shown in Custom Icon.
+
+<Example name="rating-group/build-from-parts" />
 
 ## Composition
 
@@ -103,65 +105,26 @@ For a custom item tree, use `RatingGroupContext` with `RatingGroupItem`; use
 rendered tree. React reads the store as an object, Solid reads its reactive state through the
 returned accessor, and Vue exposes the reactive store directly to the template.
 
-## Examples
+## Anatomy
 
-### Controlled
+Hover or focus a part to find it in the preview.
 
-Manage `value` with `useState` in React, `createSignal` in Solid, or `ref` and `v-model` in Vue when
-the score depends on other state, drives nearby UI, or must be reset by a parent.
-
-<Example name="rating-group/controlled" />
-
-### Custom Icon
-
-Pass a custom `RatingGroupItemIndicator` as the child of `RatingGroupItems` when every item should
-use the same icon. The indicator still receives Ark-driven `data-highlighted` and `data-half`
-attributes for styling.
-
-<Example name="rating-group/custom-icon" />
-
-### Disabled and Readonly
-
-Use `disabled` to remove interaction. Use `readOnly` to keep the score visible while preventing
-changes.
-
-<Example name="rating-group/disabled-and-readonly" />
-
-### Field
-
-Wrap the rating group in `Field` when helper or validation text should be associated with its
-`RatingGroupHiddenInput`. Ark inherits `disabled`, `readOnly`, and `required` from the field;
-validation state remains owned by `Field` and application code.
-
-<Example name="rating-group/field" />
-
-### Forms
-
-Pass `name` and render `RatingGroupHiddenInput` when the selected score should be included in
-`FormData`.
-
-<Example name="rating-group/forms" />
-
-### Half Rating
-
-Set `allowHalf` to enable half-step selection and rendering.
-
-<Example name="rating-group/half-rating" />
-
-### Sizes
-
-Use the moduix `size` prop when the rating needs to keep the same Ark behavior at a different visual
-density.
-
-<Example name="rating-group/sizes" />
-
-### Advanced Customization
-
-Use `RatingGroupRootProvider` with `useRatingGroup()` when the rating state must be created outside
-the rendered rating tree. Use `RatingGroupContext` when `RatingGroupItems` is not enough and you
-need to render each item yourself.
-
-<Example name="rating-group/advanced-customization" />
+<AnatomyInspector
+  parts={[
+    ["RatingGroup", "rating-group-root", "Manages rating state, keyboard navigation, focus, and form integration.", 0],
+    ["RatingGroupLabel", "rating-group-label", "Accessible label for the rating group.", 1],
+    ["RatingGroupControl", "rating-group-control", "Groups the interactive rating items.", 1],
+    ["RatingGroupItems", "", "Creates one item for each value and supplies the default star.", 2],
+    ["RatingGroupItem", "rating-group-item", "One selectable rating item; requires a numeric `index`.", 3],
+    ["RatingGroupItemIndicator", "rating-group-item-indicator-fg", "The default moduix star visual for an item.", 4],
+    ["RatingGroupContext", null, "Render-prop access to the current root state.", 2],
+    ["RatingGroupHiddenInput", "", "Native Ark form control that must be composed explicitly.", 2],
+    ["RatingGroupRootProvider", "rating-group-root-provider", "Connects the parts to state created with `useRatingGroup()`.", 0],
+    ["RatingGroupItemContext", null, "Render-prop access to the current item state.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styling
 
@@ -171,19 +134,55 @@ Use `className` in React or `class` in Solid and Vue on exported parts for struc
 native utilities and consumer classes; the CSS Modules variants also expose the registered
 `--moduix-rating-group-*` variables.
 
-### CSS Properties
+### CSS variables
 
-<CssPropertiesSection properties={RatingGroupDocs.ratingGroupOverrideCssProperties} />
+Hover or focus a variable to see it in the preview.
+
+<CssPropertiesSection properties={RatingGroupDocs.ratingGroupOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Styling hooks
 
-- `data-slot="rating-group-root"` and `data-slot="rating-group-root-provider"`
-- `data-slot="rating-group-label"`
-- `data-slot="rating-group-control"`
-- `data-slot="rating-group-item"`
-- `data-slot="rating-group-item-indicator"`
-- `data-slot="rating-group-item-indicator-bg"` and `data-slot="rating-group-item-indicator-fg"`
+| Part | `data-slot` |
+| --- | --- |
+| `RatingGroup` | `rating-group-root` |
+| `RatingGroupRootProvider` | `rating-group-root-provider` |
+| `RatingGroupLabel` | `rating-group-label` |
+| `RatingGroupControl` | `rating-group-control` |
+| `RatingGroupItem` | `rating-group-item` |
+| `RatingGroupItemIndicator` | `rating-group-item-indicator` |
+| `RatingGroupItemIndicator`, inner element | `rating-group-item-indicator-bg` |
+| `RatingGroupItemIndicator`, inner element | `rating-group-item-indicator-fg` |
+
 - `data-size="xs" | "sm" | "md" | "lg" | "xl"` on the root or root provider
 - Ark label attributes: `data-disabled` and `data-required`
 - Ark control attributes: `data-disabled` and `data-readonly`
 - Ark item attributes: `data-checked`, `data-highlighted`, `data-half`, `data-disabled`, and `data-readonly`
+
+## Keyboard
+
+| Key | Action |
+| --- | --- |
+| `ArrowRight` / `ArrowLeft` | Raises or lowers the rating. |
+| `Home` / `End` | Sets the lowest or highest rating. |
+
+## API reference
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `value` | `number` | — | Rating for controlled use. |
+| `defaultValue` | `number` | — | Initial rating. |
+| `onValueChange` | `(details: ValueChangeDetails) => void` | — | Called when the rating changes. |
+| `onHoverChange` | `(details: HoverChangeDetails) => void` | — | Called with the hovered rating. |
+| `count` | `number` | `5` | Number of items. |
+| `allowHalf` | `boolean` | `false` | Allows half ratings. |
+| `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'` | `'md'` | Control size: `xs`, `sm`, `md`, `lg`, or `xl`. |
+| `name` | `string` | — | Form field name of the underlying input. |
+| `disabled` | `boolean` | `false` | Disables the control. |
+| `readOnly` | `boolean` | `false` | Shows the value but prevents changes. |
+| `invalid` | `boolean` | `false` | Marks the control as invalid. |
+| `required` | `boolean` | `false` | Requires a value before form submission. |
+| `translations` | `IntlTranslations` | — | Localized strings for accessibility labels. |
+| `form` | `string` | — | Id of the form the underlying input belongs to. |
+| `autoFocus` | `boolean` | — | Focuses the rating on mount. |

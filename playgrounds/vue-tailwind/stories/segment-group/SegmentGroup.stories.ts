@@ -171,8 +171,9 @@ export const AsChild: Story = {
         :key="item"
         :value="item"
         as-child
+        :class="cardItemClass"
       >
-        <label :class="cardItemClass">
+        <label>
           <SegmentGroupItemText class="font-semibold">{{ item }}</SegmentGroupItemText>
           <span :class="cardDescriptionClass">{{ description }}</span>
           <SegmentGroupItemHiddenInput />

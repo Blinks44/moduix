@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { SegmentGroup, SegmentGroupItems } from '../../src';
+import { SegmentGroup, SegmentGroupItems } from '@/index';
 </script>
 
 <template>

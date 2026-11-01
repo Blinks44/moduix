@@ -15,18 +15,18 @@
 }
 
 .link {
-  color: var(--moduix-color-primary);
+  color: var(--moduix-primary);
   font-size: var(--moduix-text-sm);
   font-weight: var(--moduix-weight-medium);
   text-underline-offset: 0.2em;
 
   &:hover {
-    color: var(--moduix-color-foreground);
+    color: var(--moduix-foreground);
     text-decoration: underline;
   }
 
   &:focus-visible {
-    outline: var(--moduix-border-width-md) solid var(--moduix-color-ring);
+    outline: var(--moduix-border-width-md) solid var(--moduix-ring);
     outline-offset: var(--moduix-border-width-sm);
     border-radius: var(--moduix-radius-xs);
   }
@@ -43,6 +43,6 @@
 
 .footer p {
   margin: 0;
-  color: var(--moduix-color-muted-foreground);
+  color: var(--moduix-muted-foreground);
   font-size: var(--moduix-text-sm);
 }

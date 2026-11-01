@@ -7,8 +7,8 @@ import {
   MenuViewport,
   MenuItem,
 } from '@moduix/react/menu';
+import { Stack } from '@moduix/react/stack';
 import { Map as MapIcon } from 'lucide-react';
-import styles from '@/components/examples/menu/menu-multiple-triggers.module.css';
 
 const messages = [
   {
@@ -31,7 +31,7 @@ const messages = [
 export default function MultipleTriggersMenuDemo() {
   return (
     <Menu>
-      <div className={styles.triggers}>
+      <Stack direction="row" gap="0.5rem">
         {messages.map((message) => (
           <MenuTrigger key={message.id} value={message.id} asChild>
             <Button
@@ -43,7 +43,7 @@ export default function MultipleTriggersMenuDemo() {
             </Button>
           </MenuTrigger>
         ))}
-      </div>
+      </Stack>
       <MenuPositioner>
         <MenuContent>
           <MenuViewport>

@@ -6,8 +6,6 @@ import {
   ListboxItem,
   ListboxItemIndicator,
   ListboxItemText,
-  ListboxItemTextContent,
-  ListboxItemTextLabel,
   ListboxLabel,
 } from '@moduix/vue/listbox';
 import styles from '@/components/examples/listbox/listbox-horizontal.module.css';
@@ -30,12 +28,9 @@ const albums = createListCollection({
     <ListboxLabel>Select album</ListboxLabel>
     <ListboxContent>
       <ListboxItem v-for="item in albums.items" :key="item.title" :item="item">
-        <ListboxItemText>
-          <ListboxItemTextContent :class="styles.albumText">
-            <ListboxItemTextLabel>{{ item.title }}</ListboxItemTextLabel>
-            <span :class="styles.artist">{{ item.artist }}</span>
-          </ListboxItemTextContent>
-        </ListboxItemText>
+        <ListboxItemText
+          >{{ item.title }}<span :class="styles.artist">{{ item.artist }}</span></ListboxItemText
+        >
         <ListboxItemIndicator />
       </ListboxItem>
     </ListboxContent>

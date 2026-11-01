@@ -153,20 +153,17 @@ Extends Ark `div` props and supports `asChild`.
 
 ### Public CSS variables
 
-| Variable                           | Default/fallback                                                   |
-| ---------------------------------- | ------------------------------------------------------------------ |
-| `--moduix-alert-bg`                | Status-dependent; info uses `var(--moduix-color-card)`             |
-| `--moduix-alert-border-color`      | Status-dependent; info uses `var(--moduix-color-border)`           |
-| `--moduix-alert-color`             | Status-dependent; info uses `var(--moduix-color-card-foreground)`  |
-| `--moduix-alert-description-color` | `var(--moduix-color-muted-foreground)`                             |
-| `--moduix-alert-indicator-color`   | Status-dependent; info uses `var(--moduix-color-muted-foreground)` |
+Public CSS variables (CSS Modules packages) are listed in `website/src/components/examples/alert/css-properties.tsx`.
 
 Built-in statuses derive their accents from shared palette tokens:
 
 - `info` -> card surface tokens
-- `success` -> `--moduix-color-success`
-- `warning` -> `--moduix-color-warning`
-- `error` -> `--moduix-color-destructive`
+- `success` -> `--moduix-success`
+- `warning` -> `--moduix-warning`
+- `error` -> `--moduix-destructive`
+
+The `success` and `warning` icons mix the token 70% with `--moduix-foreground`, so they keep at
+least 3:1 contrast while the status surface stays bright.
 
 The four color variables override every status. Scope them with `[data-status='success']` and
 similar selectors to retheme one status. Spacing, radius, shadow, and typography use foundation

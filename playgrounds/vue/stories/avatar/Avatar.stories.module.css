@@ -13,8 +13,8 @@
 
     &:hover {
       box-shadow:
-        0 0 0 2px var(--moduix-color-background),
-        0 0 0 4px var(--moduix-color-primary);
+        0 0 0 2px var(--moduix-background),
+        0 0 0 4px var(--moduix-primary);
       transform: translateY(-1px);
     }
   }
@@ -24,13 +24,13 @@
   }
 
   .linkAvatarFallback {
-    background-color: var(--moduix-color-primary);
-    color: var(--moduix-color-primary-foreground);
+    background-color: var(--moduix-primary);
+    color: var(--moduix-primary-foreground);
   }
 
   .iconAvatar {
-    --moduix-avatar-bg: var(--moduix-color-accent);
-    --moduix-avatar-color: var(--moduix-color-accent-foreground);
+    --moduix-avatar-bg: var(--moduix-accent);
+    --moduix-avatar-color: var(--moduix-accent-foreground);
   }
 
   .iconAvatarGlyph {
@@ -45,7 +45,7 @@
   }
 
   .statusLabel {
-    color: var(--moduix-color-muted-foreground);
+    color: var(--moduix-muted-foreground);
     font-size: var(--moduix-text-sm);
     line-height: var(--moduix-line-height-text-sm);
   }

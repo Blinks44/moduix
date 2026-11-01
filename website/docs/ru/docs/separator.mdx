@@ -1,96 +1,33 @@
 ---
 title: Separator
 component: separator
-description: Доступные горизонтальные и вертикальные разделители для React, Solid и Vue.
+description: Линия между связанными разделами, горизонтальная или вертикальная.
+ark: https://ark-ui.com/docs/guides/composition#the-ark-factory
 ---
 
+import AnatomyScene from '@/components/examples/separator/basic';
 import * as SeparatorDocs from '@/components/examples/separator/css-properties';
 
-## Справочник API
+<Example name="separator/basic" />
 
-В Ark UI нет отдельного примитива для разделителей. moduix создаёт этот компонент с помощью официальной
-[фабрики Ark](https://ark-ui.com/docs/guides/composition#the-ark-factory) и следует рекомендациям Ark по
-[композиции](https://ark-ui.com/docs/guides/composition), [стилизации](https://ark-ui.com/docs/guides/styling) и
-[ref](https://ark-ui.com/docs/guides/ref).
+## Установка
 
-Свойства `orientation`, `variant` и `size` соответствуют привычной модели `Separator` из Chakra UI. См. [документацию
-Chakra UI по компоненту Separator](https://chakra-ui.com/docs/components/separator), которая послужила основой для этого API.
+<ComponentInstall />
 
-## Базовый пример
+## Использование
 
+<Usage />
 
 Используйте `Separator`, чтобы визуально обозначить границу между связанными разделами. По умолчанию
 используются `orientation="horizontal"`, `variant="solid"` и `size="sm"`.
 
-<Example name="separator/basic" />
-
-## Установка через shadcn
-
-Полную настройку пакета, реестра и стилей см. в разделе [Быстрый старт](/docs/quick-start).
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/separator' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/separator' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/separator' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/separator' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/separator' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/separator' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Анатомия
-
-У `Separator` одна корневая часть.
-
-```text
-Separator
-└─ root[data-scope="separator"][data-part="root"][data-slot="separator-root"]
-```
-
-| Часть       | Назначение                                                                 |
-| ----------- | -------------------------------------------------------------------------- |
-| `Separator` | Корневой элемент-разделитель. Задаёт ориентацию, доступность и визуальный стиль. |
-
-## Композиция
-
-`Separator` состоит только из корневого элемента, поэтому не владеет состоянием и не требует
-провайдера. Для обычного разделителя используйте `<Separator />`. Если разделитель должен
-размещаться на другом элементе, используйте
-`asChild` с одним дочерним элементом, который принимает объединённые свойства `role`, ARIA,
-`data-*`, class и ref. В React и Vue дочерний элемент передаётся напрямую, а в Solid используется форма
-`asChild={(props) => <hr {...props()} />}`.
-
 ## Примеры
 
-### Декоративный
+### Варианты
 
-Используйте `role="presentation"` для линии, которая нужна только для оформления и не сообщает
-вспомогательным технологиям о структуре.
+Используйте `variant`, чтобы выбрать сплошную, пунктирную или точечную линию.
 
-<Example name="separator/decorative" />
+<Example name="separator/variants" />
 
 ### Размеры
 
@@ -99,24 +36,51 @@ CSS-свойствами.
 
 <Example name="separator/sizes" />
 
-### Варианты
-
-Используйте `variant`, чтобы выбрать сплошную, пунктирную или точечную линию.
-
-<Example name="separator/variants" />
-
 ### Вертикальный
 
 Используйте `orientation="vertical"` для групп элементов в строке, например навигационных ссылок.
 
 <Example name="separator/vertical" />
 
-### Расширенная настройка
+### Декоративный
+
+Используйте `role="presentation"` для линии, которая нужна только для оформления и не сообщает
+вспомогательным технологиям о структуре.
+
+<Example name="separator/decorative" />
+
+### Пользовательский элемент
 
 Используйте `asChild`, если конкретный элемент должен получить роль разделителя, хуки стилизации и
 переданный `ref`. В остальных случаях используйте `<Separator />` напрямую.
 
-<Example name="separator/as-child" />
+<Example name="separator/custom-element" />
+
+## Композиция
+
+Свойства `orientation`, `variant` и `size` соответствуют привычной модели `Separator` из Chakra UI. См. [документацию
+Chakra UI по компоненту Separator](https://chakra-ui.com/docs/components/separator), которая послужила основой для этого API.
+
+`Separator` состоит только из корневого элемента, поэтому не хранит состояние и не требует
+провайдера. Для обычного разделителя используйте `<Separator />`. Если разделитель должен
+размещаться на другом элементе, используйте
+`asChild` с одним дочерним элементом, который принимает объединённые свойства `role`, ARIA,
+`data-*`, class и ref. В React и Vue дочерний элемент передаётся напрямую, а в Solid используется форма
+`asChild={(props) => <hr {...props()} />}`.
+
+## Анатомия
+
+У `Separator` одна корневая часть.
+
+Наведите на часть или выберите её, чтобы найти её в превью.
+
+<AnatomyInspector
+  parts={[
+    ["Separator", "separator-root", "Корневой элемент-разделитель. Задаёт ориентацию, доступность и визуальный стиль.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Стилизация
 
@@ -124,14 +88,31 @@ CSS-свойствами.
 Tailwind применяйте нативные utility-классы и классы потребителя, а CSS-свойства ниже относятся к
 вариантам с CSS Modules. Атрибуты данных и хуки `data-slot` общие для обоих способов стилизации.
 
-### CSS-свойства
+### CSS-переменные
 
-<CssPropertiesSection properties={SeparatorDocs.separatorOverrideCssProperties} />
+Наведите на переменную или выберите её, чтобы увидеть её в превью.
+
+<CssPropertiesSection properties={SeparatorDocs.separatorOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Хуки стилизации
 
+| Часть | `data-slot` |
+| --- | --- |
+| `Separator` | `separator-root` |
+
 - `data-scope="separator"` и `data-part="root"` определяют корневую часть в стиле Ark.
-- `data-slot="separator-root"` является стабильным селектором moduix.
 - `data-orientation="horizontal"` и `data-orientation="vertical"` позволяют настраивать стили для каждой оси.
 - `data-size="xs|sm|md|lg"` и `data-variant="solid|dashed|dotted"` раскрывают визуальные настройки.
 - `className` или `class`, а также `style` применяются непосредственно к корневому элементу.
+
+## Справочник API
+
+Также принимает нативные пропсы своего элемента и `asChild`.
+
+| Проп | Тип | По умолчанию | Описание |
+| --- | --- | --- | --- |
+| `orientation` | `'horizontal' \| 'vertical'` | `'horizontal'` | Направление линии: `horizontal` или `vertical`. |
+| `variant` | `'solid' \| 'dashed' \| 'dotted'` | `'solid'` | Стиль линии: `solid`, `dashed` или `dotted`. |
+| `size` | `'xs' \| 'sm' \| 'md' \| 'lg'` | `'sm'` | Толщина линии, от `xs` до `lg`. |

@@ -1,17 +1,9 @@
-import { useI18n } from '@rspress/core/runtime';
 import { ChangelogHero } from './hero';
 import styles from './hero.module.css';
 
 export function VueReleaseHero() {
-  const t = useI18n<typeof import('i18n')>();
   return (
-    <ChangelogHero
-      id="vue"
-      category={t('changelogNewFramework')}
-      title="Vue"
-      summary={t('vueReleaseHeroSummary')}
-      tone="green"
-    >
+    <ChangelogHero>
       <div className={`${styles.previewSurface} ${styles.solidPreview}`}>
         <div className={styles.solidTabs}>
           <span className={`${styles.solidTab} ${styles.solidTabIdle}`}>React</span>

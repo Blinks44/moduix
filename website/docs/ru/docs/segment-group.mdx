@@ -1,15 +1,30 @@
 ---
 title: Segment Group
 component: segment-group
-description: Компактный сегментированный элемент управления на базе Ark UI для выбора одного значения из небольшого набора.
+description: Переключение между несколькими опциями в компактном сегментном контроле.
+ark: https://ark-ui.com/docs/components/segment-group
 ---
 
+import AnatomyScene from '@/components/examples/segment-group/basic';
 import * as SegmentGroupDocs from '@/components/examples/segment-group/css-properties';
 import { CssPropertiesSection } from '@/components/mdx/Components';
 
-## Справочник API
+<Example name="segment-group/basic" />
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/segment-group" />
+## Установка
+
+<ComponentInstall />
+
+## Использование
+
+<Usage />
+
+Интерактивные
+
+Используйте `SegmentGroup` как корневой компонент, разместите `SegmentGroupIndicator` перед
+элементами и выберите `SegmentGroupItems`, если каждому сегменту нужна только текстовая подпись.
+`SegmentGroupItems` создаёт для каждого элемента части item и text, а также одно нативное поле формы. Передайте строки, если значение и подпись
+совпадают, или объекты `{ value, label, disabled }`.
 
 ## Как выбрать подходящий компонент
 
@@ -21,113 +36,28 @@ import { CssPropertiesSection } from '@/components/mdx/Components';
 - Выбирайте **`RadioGroup`**, когда элемент управления должен выглядеть как обычная группа радиокнопок.
 - Выбирайте **`SegmentGroup`**, когда по поведению компонент похож на радиогруппу, но интерфейсу нужен компактный сегментированный вид.
 
-## Базовый пример
-
-Интерактивные
-
-Используйте `SegmentGroup` как корневой компонент, разместите `SegmentGroupIndicator` перед
-элементами и выберите `SegmentGroupItems`, если каждому сегменту нужна только текстовая подпись.
-`SegmentGroupItems` создаёт для каждого элемента части item и text, а также одно нативное поле формы. Передайте строки, если значение и подпись
-совпадают, или объекты `{ value, label, disabled }`.
-
-<Example name="segment-group/basic" />
-
-## Установка через shadcn
-
-Полную настройку пакета, реестра и стилей см. в разделе [Быстрый старт](/docs/quick-start).
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/segment-group' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/segment-group' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/segment-group' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/segment-group' },
-  ]}
-/>
-
-  </Tab>
-
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/segment-group' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/segment-group' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Анатомия
-
-```text
-SegmentGroup
-├─ SegmentGroupLabel (необязательно)
-├─ SegmentGroupIndicator
-└─ SegmentGroupItem[value]
-   ├─ SegmentGroupItemText
-   └─ нативное поле формы
-
-SegmentGroupRootProvider
-└─ то же дерево элементов, подключённое к хранилищу moduix useSegmentGroup()
-
-SegmentGroupContext / SegmentGroupItemContext
-└─ расширенный доступ к состоянию Ark через render prop
-```
-
-| Часть                                 | Назначение                                                               |
-| ------------------------------------ | ------------------------------------------------------------------------ |
-| `SegmentGroup` | Управляет выбранным значением, навигацией с клавиатуры и формами.        |
-| `SegmentGroupItemHiddenInput` | Нативное поле Ark; правила явной композиции описаны ниже. |
-| `SegmentGroupRootProvider`          | Подключает части к состоянию, созданному хуком `useSegmentGroup()` из moduix. |
-| `SegmentGroupContext`               | Даёт расширенный доступ к состоянию корневого элемента через render prop. |
-| `SegmentGroupItemContext`           | Даёт расширенный доступ к состоянию текущего элемента через render prop. |
-| `SegmentGroupLabel`                 | Необязательная доступная подпись группы.                                 |
-| `SegmentGroupIndicator`             | Размещает выделение активного элемента с помощью CSS-переменных Ark.     |
-| `SegmentGroupItems`                 | Рекомендуемый способ отрисовать стандартные текстовые сегменты.         |
-| `SegmentGroupItem`                  | Один выбираемый сегмент; по умолчанию создаёт элемент `label`.           |
-| `SegmentGroupItemText`              | Видимая подпись сегмента.                                                  |
-
-## Композиция
-
-Для обычной композиции используйте `SegmentGroup` с `SegmentGroupIndicator` перед
-`SegmentGroupItems`. `SegmentGroupItems` добавляет к каждому элементу `SegmentGroupItemText`
-и ровно одно `SegmentGroupItemHiddenInput`. Если вы собираете
-`SegmentGroupItem` напрямую, добавьте эти части самостоятельно и оставьте внутри каждого элемента
-ровно одно `SegmentGroupItemHiddenInput`. Прямой дочерний элемент
-`asChild` должен оставаться одним семантическим `label`.
-
-Используйте `SegmentGroupRootProvider` вместе с `useSegmentGroup()`, если состояние нужно создать
-вне дерева компонента или передать управление другой части приложения. React и Vue читают хранилище как
-объект, а Solid получает реактивное состояние через возвращаемую функцию доступа.
-
 ## Примеры
 
-### Условное монтирование
+### Размеры
 
-Группу сегментов можно монтировать условно. Когда она появляется, Ark заново рассчитывает
-геометрию элементов, необходимую индикатору.
+Задайте `size` на `SegmentGroup` или `SegmentGroupRootProvider`: `sm`, `md` (по умолчанию) или `lg`.
+Тогда вся группа получает высоту `Button` или `Input` того же размера.
 
-<Example name="segment-group/conditional-mount" />
+<Example name="segment-group/sizes" />
 
-### Управляемое состояние
+### Вертикальная ориентация
 
-Храните выбранное значение в состоянии React и обновляйте его из `details.value` в обработчике
-`onValueChange`.
+Укажите `orientation="vertical"`, если группе нужны вертикальная раскладка и навигация стрелками
+вверх и вниз.
 
-<Example name="segment-group/controlled" />
+<Example name="segment-group/vertical-orientation" />
+
+### Пользовательская разметка элемента
+
+Используйте `SegmentGroupItem asChild` вместо `SegmentGroupItems`, если собственная разметка
+подписи должна стать DOM-узлом элемента.
+
+<Example name="segment-group/custom-item-layout" />
 
 ### Отключённый элемент и группа
 
@@ -136,6 +66,13 @@ SegmentGroupContext / SegmentGroupItemContext
 её непрозрачность один раз, не складывая её с прозрачностью отдельных элементов.
 
 <Example name="segment-group/disabled" />
+
+### Недопустимое состояние
+
+Задайте `invalid` на корневом элементе, если проверка завершилась ошибкой. Сочетайте его с
+`required` и `name`, когда группа участвует в нативной проверке формы.
+
+<Example name="segment-group/invalid" />
 
 ### Field
 
@@ -152,40 +89,68 @@ SegmentGroupContext / SegmentGroupItemContext
 
 <Example name="segment-group/form-submission" />
 
-### Недопустимое состояние
+### Управляемое состояние
 
-Задайте `invalid` на корневом элементе, если проверка завершилась ошибкой. Сочетайте его с
-`required` и `name`, когда группа участвует в нативной проверке формы.
+Храните выбранное значение в состоянии React и обновляйте его из `details.value` в обработчике
+`onValueChange`. Подробнее в разделе [Управляйте состоянием из приложения](/docs/composition-patterns#controlled-state).
 
-<Example name="segment-group/invalid" />
+<Example name="segment-group/controlled" />
+
+### Условное монтирование
+
+Группу сегментов можно монтировать условно. Когда она появляется, Ark заново рассчитывает
+геометрию элементов, необходимую индикатору.
+
+<Example name="segment-group/conditional-mount" />
 
 ### Root Provider
 
 Используйте `useSegmentGroup()` вместе с `SegmentGroupRootProvider`, если элементам управления за пределами
-дерева сегментов нужен доступ к тому же состоянию.
+дерева сегментов нужен доступ к тому же состоянию. Подробнее в разделе [Выносите состояние за пределы дерева](/docs/composition-patterns#root-provider).
 
 <Example name="segment-group/root-provider" />
 
-### Размеры
+### Сборка из частей
 
-Задайте `size` на `SegmentGroup` или `SegmentGroupRootProvider`: `sm`, `md` (по умолчанию) или `lg`.
-Тогда вся группа получает высоту `Button` или `Input` того же размера.
+Та же группа, что в Basic, но без `SegmentGroupItems`: каждый `SegmentGroupItem` содержит
+`SegmentGroupItemText` и `SegmentGroupItemHiddenInput`. Начинайте с него, если пунктам нужно разное
+содержимое или пропсы.
 
-<Example name="segment-group/sizes" />
+<Example name="segment-group/build-from-parts" />
 
-### Вертикальная ориентация
+## Композиция
 
-Укажите `orientation="vertical"`, если группе нужны вертикальная раскладка и навигация стрелками
-вверх и вниз.
+Для обычной композиции используйте `SegmentGroup` с `SegmentGroupIndicator` перед
+`SegmentGroupItems`. `SegmentGroupItems` добавляет к каждому элементу `SegmentGroupItemText`
+и ровно одно `SegmentGroupItemHiddenInput`. Если вы собираете
+`SegmentGroupItem` напрямую, добавьте эти части самостоятельно и оставьте внутри каждого элемента
+ровно одно `SegmentGroupItemHiddenInput`. Прямой дочерний элемент
+`asChild` должен оставаться одним семантическим `label`.
 
-<Example name="segment-group/vertical-orientation" />
+Используйте `SegmentGroupRootProvider` вместе с `useSegmentGroup()`, если состояние нужно создать
+вне дерева компонента или передать управление другой части приложения. React и Vue читают хранилище как
+объект, а Solid получает реактивное состояние через возвращаемую функцию доступа.
 
-### Расширенная настройка
+## Анатомия
 
-Используйте `SegmentGroupItem asChild` вместо `SegmentGroupItems`, если собственная разметка
-подписи должна владеть DOM-узлом элемента.
+Наведите на часть или выберите её, чтобы найти её в превью.
 
-<Example name="segment-group/aschild" />
+<AnatomyInspector
+  parts={[
+    ["SegmentGroup", "segment-group-root", "Управляет выбранным значением, навигацией с клавиатуры и формами.", 0],
+    ["SegmentGroupLabel", "segment-group-label", "Необязательная доступная подпись группы.", 1],
+    ["SegmentGroupIndicator", "segment-group-indicator", "Размещает выделение активного элемента с помощью CSS-переменных Ark.", 1],
+    ["SegmentGroupItem", "segment-group-item", "Один выбираемый сегмент; по умолчанию создаёт элемент `label`.", 1],
+    ["SegmentGroupItemText", "segment-group-item-text", "Видимая подпись сегмента.", 2],
+    ["SegmentGroupItemHiddenInput", "", "Нативное поле Ark; правила явной композиции описаны ниже.", 2],
+    ["SegmentGroupItems", "", "Рекомендуемый способ отрисовать стандартные текстовые сегменты.", 2],
+    ["SegmentGroupRootProvider", "segment-group-root-provider", "Подключает части к состоянию, созданному хуком `useSegmentGroup()` из moduix.", 0],
+    ["SegmentGroupContext", null, "Даёт расширенный доступ к состоянию корневого элемента через render prop.", 0],
+    ["SegmentGroupItemContext", null, "Даёт расширенный доступ к состоянию текущего элемента через render prop.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Стилизация
 
@@ -195,21 +160,52 @@ SegmentGroupContext / SegmentGroupItemContext
 utility-классы и классы потребителя, а переменные ниже настраивают варианты CSS Modules. Атрибуты
 состояния и хуки data-slot общие для обоих способов стилизации.
 
-### CSS-свойства
+### CSS-переменные
 
-<CssPropertiesSection properties={SegmentGroupDocs.segmentGroupOverrideCssProperties} />
+Наведите на переменную или выберите её, чтобы увидеть её в превью.
+
+<CssPropertiesSection properties={SegmentGroupDocs.segmentGroupOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Хуки стилизации
 
-- Стабильные селекторы `data-slot`: `segment-group-root`, `segment-group-root-provider`,
-  `segment-group-label`, `segment-group-indicator`, `segment-group-item`
-  и `segment-group-item-text`.
+| Часть | `data-slot` |
+| --- | --- |
+| `SegmentGroup` | `segment-group-root` |
+| `SegmentGroupRootProvider` | `segment-group-root-provider` |
+| `SegmentGroupLabel` | `segment-group-label` |
+| `SegmentGroupItem` | `segment-group-item` |
+| `SegmentGroupItemText` | `segment-group-item-text` |
+| `SegmentGroupIndicator` | `segment-group-indicator` |
+
 - Селекторы частей Ark: `data-scope="segment-group"` и `data-part` на корневом элементе, подписи,
   индикаторе, элементе, тексте элемента и скрытом поле.
 - Селекторы состояний Ark: `data-state="checked|unchecked"`, `data-orientation`, `data-disabled`,
   `data-readonly`, `data-invalid`, `data-required` и `data-focus-visible`.
 - Индикатор использует переменные Ark `--left`, `--top`, `--width` и `--height` для определения
   размера. Для анимации используются переменные Ark `--transition-duration` и
-  `--transition-timing-function`, по умолчанию `--moduix-duration-normal` и `--moduix-ease-in-out`.
-  Задайте их классом на `SegmentGroupIndicator` (в Tailwind `[--transition-duration:300ms]`);
+  `--transition-timing-function`, по умолчанию `--moduix-duration-normal` и `--moduix-ease-in-out`. Задайте их классом на `SegmentGroupIndicator` (в Tailwind `[--transition-duration:300ms]`);
   утилиты `duration-*` проигрывают инлайн-переходу, который пишет Ark.
+
+## Клавиатура
+
+| Клавиша | Действие |
+| --- | --- |
+| `ArrowDown` / `ArrowUp` / `ArrowLeft` / `ArrowRight` | Переходит к следующей или предыдущей опции и выбирает её. |
+| `Tab` | Переводит фокус в группу и из неё. |
+
+## Справочник API
+
+| Проп | Тип | По умолчанию | Описание |
+| --- | --- | --- | --- |
+| `value` | `string \| null` | — | Выбранный сегмент в управляемом режиме. |
+| `defaultValue` | `string \| null` | — | Изначально выбранный сегмент. |
+| `onValueChange` | `(details: ValueChangeDetails) => void` | — | Вызывается при выборе другого сегмента. |
+| `orientation` | `'horizontal' \| 'vertical'` | `'horizontal'` | Раскладка и направление стрелок: `horizontal` или `vertical`. |
+| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` | Размер: `sm`, `md` или `lg`. |
+| `name` | `string` | — | Имя поля формы у внутреннего input. |
+| `disabled` | `boolean` | `false` | Отключает элемент управления. |
+| `readOnly` | `boolean` | `false` | Показывает значение, но не даёт его менять. |
+| `invalid` | `boolean` | `false` | Помечает поле как невалидное. |
+| `required` | `boolean` | `false` | Требует значение перед отправкой формы. |

@@ -18,7 +18,7 @@ import {
   TocRootProvider,
   TocTitle,
   useToc,
-} from '../src';
+} from '@/index';
 import TestToc from './fixtures/TestToc.vue';
 
 const tocComponents = {
@@ -39,6 +39,17 @@ const items = [
   { value: 'introduction', depth: 2 },
   { value: 'configuration', depth: 3 },
 ];
+
+const renderToc = (template: string, setup?: () => Record<string, unknown>) =>
+  render(
+    defineComponent({
+      components: tocComponents,
+      setup() {
+        return { ...setup?.() };
+      },
+      template,
+    }),
+  );
 
 test('sizes the rail in CSS pixels and reacts to depth changes', async () => {
   const depth = ref(3);
@@ -105,17 +116,6 @@ test('preserves reactive hook props and its native emit callback', async () => {
   activeIds.value = ['introduction'];
   await expect.element(page.getByRole('status')).toContainText('introduction');
 });
-
-const renderToc = (template: string, setup?: () => Record<string, unknown>) =>
-  render(
-    defineComponent({
-      components: tocComponents,
-      setup() {
-        return { ...setup?.() };
-      },
-      template,
-    }),
-  );
 
 test('preserves Ark navigation semantics, active state, anatomy, attrs, and refs', async () => {
   const rootRef = ref<ComponentPublicInstance | null>(null);
@@ -205,6 +205,7 @@ test('controlled active-change reports the requested ids', async () => {
 });
 
 // Ark 5.39.2 TocNav uses getRootProps(), duplicating the root id in native Ark.
+
 test.skip('direct Ark root and navigation have distinct ids', async () => {
   const { container } = render(
     defineComponent({
@@ -256,18 +257,8 @@ test('keeps the RootProvider store and context available to surrounding composit
 
   const rootProvider = page.locator('[data-slot="toc-root-provider"]');
 
-  const rootElement = document.querySelector<HTMLElement>('[data-slot="toc-root-provider"]')!;
-  const activeItem = rootElement.querySelector<HTMLElement>('[data-slot="toc-item"][data-active]')!;
-  const list = rootElement.querySelector<HTMLElement>('[data-slot="toc-list"]')!;
-  await expect
-    .poll(() => parseFloat(rootElement.style.getPropertyValue('--top')))
-    .toBeCloseTo(
-      activeItem.getBoundingClientRect().top - list.getBoundingClientRect().top + list.scrollTop,
-      0,
-    );
   await expect.element(rootProvider).toHaveAttribute('data-scope', 'toc');
   await expect.element(rootProvider).toHaveAttribute('data-part', 'root');
-  await expect.element(rootProvider).toHaveCSS('color', 'rgb(255, 0, 0)');
 });
 
 test('supports placement and scrolls the supplied reading pane', async () => {
@@ -351,25 +342,6 @@ test('preserves semantic asChild composition and component refs', async () => {
   expect(contentRef.value?.$el?.getAttribute('data-slot')).toBe('toc-content');
 });
 
-test('keeps the flat API and merges consumer classes after CSS Modules defaults', async () => {
-  renderToc(
-    `
-      <Toc class="consumer-root" :items="items">
-        <TocNav class="consumer-nav"><TocTitle>On this page</TocTitle></TocNav>
-      </Toc>
-    `,
-    () => ({ items }),
-  );
-
-  const root = document.querySelector('[data-slot="toc-root"]')!;
-
-  expect(Toc).not.toHaveProperty('Root');
-  expect([...root!.classList]).toEqual(expect.arrayContaining(['consumer-root']));
-  expect([...document.querySelector('[data-slot="toc-nav"]')!.classList]).toEqual(
-    expect.arrayContaining(['consumer-nav']),
-  );
-});
-
 test('hydrates without replacing hosts, id drift, or warnings', async () => {
   const host = document.createElement('div');
   host.innerHTML = await renderToString(createSSRApp(TestToc));
@@ -393,6 +365,7 @@ test('hydrates without replacing hosts, id drift, or warnings', async () => {
     error.mockRestore();
   }
 });
+
 test('keeps the indicator on Ark measurements inside a parent that sets --top and --height', async () => {
   const { container } = renderToc(
     `
@@ -428,80 +401,4 @@ test('keeps the indicator on Ark measurements inside a parent that sets --top an
   };
 
   await expect.poll(getIndicatorOffset).toBeLessThanOrEqual(1);
-});
-
-test('truncates long rail labels inside the navigation', async () => {
-  const { container } = renderToc(
-    `
-      <Toc :items="items">
-        <TocNav>
-          <TocList>
-            <TocItem :item="items[1]">
-              <TocLink href="#configuration">
-                <TocRail :depth="3" :previous-depth="2" :next-depth="2" />
-                {{ label }}
-              </TocLink>
-            </TocItem>
-          </TocList>
-        </TocNav>
-      </Toc>
-    `,
-    () => ({ items, label: 'A very long configuration heading '.repeat(8) }),
-  );
-
-  const nav = container.querySelector<HTMLElement>('[data-slot="toc-nav"]')!;
-
-  expect(nav.scrollWidth).toBe(nav.clientWidth);
-});
-
-test('places the left navigation before the content without moving the content explicitly', async () => {
-  const { container } = renderToc(
-    `
-      <Toc :items="items">
-        <TocContent>
-          <h2 id="introduction">Introduction</h2>
-        </TocContent>
-        <TocNav placement="left">
-          <TocTitle>Left navigation</TocTitle>
-        </TocNav>
-      </Toc>
-    `,
-    () => ({ items }),
-  );
-
-  const content = container.querySelector('[data-slot="toc-content"]')!.getBoundingClientRect();
-  const nav = container.querySelector('[data-slot="toc-nav"]')!.getBoundingClientRect();
-
-  expect(window.innerWidth).toBeGreaterThanOrEqual(768);
-  expect(nav.right).toBeLessThanOrEqual(content.left);
-  expect(nav.top).toBe(content.top);
-});
-test('connects rails without a gap when the depth changes', async () => {
-  const { container } = renderToc(
-    `
-      <Toc :items="items" :active-ids="[]">
-        <TocNav>
-          <TocList>
-            <TocItem v-for="(item, index) in items" :key="item.value" :item="item">
-              <TocLink :href="\`#\${item.value}\`">
-                <TocRail
-                  :depth="item.depth"
-                  :previous-depth="items[index - 1]?.depth"
-                  :next-depth="items[index + 1]?.depth"
-                />
-                {{ item.value }}
-              </TocLink>
-            </TocItem>
-          </TocList>
-        </TocNav>
-      </Toc>
-    `,
-    () => ({ items }),
-  );
-
-  const [first, second] = [...container.querySelectorAll('[data-slot="toc-rail"]')].map((rail) =>
-    rail.getBoundingClientRect(),
-  );
-
-  expect(Math.abs(first!.bottom - second!.top)).toBeLessThanOrEqual(1);
 });

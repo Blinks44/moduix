@@ -8,7 +8,7 @@
     min-width: 0;
     flex-direction: column;
     gap: var(--_listbox-gap);
-    color: var(--moduix-color-foreground);
+    color: var(--moduix-foreground);
 
     &[data-disabled] {
       opacity: var(--moduix-opacity-disabled);
@@ -41,27 +41,27 @@
     width: 100%;
     min-height: var(--moduix-size-md);
     margin: 0;
-    border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
+    border: var(--moduix-border-width-sm) solid var(--moduix-input);
     border-radius: var(--moduix-radius-md);
     padding: var(--moduix-spacing-1) var(--moduix-spacing-3);
-    background-color: var(--moduix-color-background);
+    background-color: var(--moduix-background);
     color: inherit;
     font: inherit;
     font-size: var(--moduix-text-md);
     line-height: var(--moduix-line-height-text-md);
-    outline: var(--moduix-focus-ring-inset-width) solid transparent;
-    outline-offset: var(--moduix-focus-ring-inset-offset);
+    outline: var(--moduix-focus-ring-halo-width) solid transparent;
     transition:
       border-color var(--moduix-transition-default),
       outline-color var(--moduix-transition-default),
       opacity var(--moduix-transition-default);
 
     &::placeholder {
-      color: var(--moduix-color-muted-foreground);
+      color: var(--moduix-muted-foreground);
     }
 
     &:focus-visible {
-      outline-color: var(--moduix-color-ring);
+      border-color: var(--moduix-ring);
+      outline-color: color-mix(in oklab, var(--moduix-ring) 50%, transparent);
     }
 
     &:disabled {
@@ -75,13 +75,15 @@
     width: 100%;
   }
 
+  /* Above the input, whose clip-path gives it its own stacking context. */
   .filterIcon {
     position: absolute;
+    z-index: 1;
     top: 50%;
     inset-inline-start: var(--moduix-spacing-3);
     width: var(--moduix-spacing-4);
     height: var(--moduix-spacing-4);
-    color: var(--moduix-color-muted-foreground);
+    color: var(--moduix-muted-foreground);
     pointer-events: none;
     transform: translateY(-50%);
   }
@@ -92,10 +94,6 @@
         var(--moduix-spacing-3) + var(--moduix-spacing-4) + var(--moduix-spacing-2)
       )
       calc(var(--moduix-spacing-3) + var(--moduix-size-xs) + var(--moduix-spacing-2));
-
-    &:focus-visible {
-      outline-color: transparent;
-    }
   }
 
   .clearTrigger {
@@ -107,31 +105,42 @@
     transform: translateY(-50%);
   }
 
-  /* A filter right before the content joins it into one surface with a neutral divider. */
+  /* A filter right before the content joins it into one surface with a neutral divider.
+     Each part clips its halo at the divider, so the two halves read as one ring. */
   .filter:has(+ .content) .input {
     border-bottom: 0;
     border-bottom-right-radius: 0;
     border-bottom-left-radius: 0;
+    clip-path: inset(
+      calc(var(--moduix-focus-ring-halo-width) * -1) calc(var(--moduix-focus-ring-halo-width) * -1)
+        0
+    );
   }
 
   .filter + .content {
     margin-block-start: calc(-1 * var(--_listbox-gap));
     border-top-left-radius: 0;
     border-top-right-radius: 0;
+    clip-path: inset(
+      0 calc(var(--moduix-focus-ring-halo-width) * -1)
+        calc(var(--moduix-focus-ring-halo-width) * -1)
+    );
 
     &:focus-visible {
-      outline-color: transparent;
+      border-top-color: var(--moduix-input);
     }
   }
 
-  .filter:has(.input:focus-visible, + .content:focus-visible) {
+  .filter:has(+ .content):has(.input:focus-visible, + .content:focus-visible) {
     .input {
-      border-color: var(--moduix-color-ring);
+      border-color: var(--moduix-ring);
+      outline-color: color-mix(in oklab, var(--moduix-ring) 50%, transparent);
     }
 
     + .content {
-      border-inline-color: var(--moduix-color-ring);
-      border-bottom-color: var(--moduix-color-ring);
+      border-inline-color: var(--moduix-ring);
+      border-bottom-color: var(--moduix-ring);
+      outline-color: color-mix(in oklab, var(--moduix-ring) 50%, transparent);
     }
   }
 
@@ -142,12 +151,11 @@
     flex-direction: column;
     overflow-x: hidden;
     overflow-y: auto;
-    border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
+    border: var(--moduix-border-width-sm) solid var(--moduix-input);
     border-radius: var(--moduix-radius-md);
     padding-block: var(--moduix-popup-list-padding-y, var(--moduix-spacing-1));
-    background-color: var(--moduix-color-background);
-    outline: var(--moduix-focus-ring-inset-width) solid transparent;
-    outline-offset: var(--moduix-focus-ring-inset-offset);
+    background-color: var(--moduix-background);
+    outline: var(--moduix-focus-ring-halo-width) solid transparent;
     scrollbar-gutter: stable;
     scroll-padding-block: var(--moduix-popup-list-padding-y, var(--moduix-spacing-1));
     transition:
@@ -155,7 +163,8 @@
       outline-color var(--moduix-transition-default);
 
     &:focus-visible {
-      outline-color: var(--moduix-color-ring);
+      border-color: var(--moduix-ring);
+      outline-color: color-mix(in oklab, var(--moduix-ring) 50%, transparent);
     }
 
     &[data-layout='grid'] {
@@ -178,7 +187,7 @@
   .empty {
     padding-block: var(--moduix-spacing-1);
     padding-inline: var(--moduix-spacing-3);
-    color: var(--moduix-color-muted-foreground);
+    color: var(--moduix-muted-foreground);
     font-size: var(--moduix-text-sm);
     line-height: var(--moduix-line-height-text-sm);
     text-align: center;
@@ -196,7 +205,7 @@
   .itemGroupLabel {
     padding-block: var(--moduix-popup-group-label-padding-y, var(--moduix-spacing-1));
     padding-inline: var(--moduix-spacing-2);
-    color: var(--moduix-popup-group-label-color, var(--moduix-color-muted-foreground));
+    color: var(--moduix-popup-group-label-color, var(--moduix-muted-foreground));
     font-size: var(--moduix-popup-group-label-font-size, var(--moduix-text-xs));
     font-weight: var(--moduix-popup-group-label-font-weight, var(--moduix-weight-regular));
     line-height: var(--moduix-popup-group-label-line-height, var(--moduix-line-height-text-xs));
@@ -225,14 +234,14 @@
 
     @media (hover: hover) {
       &:where(:not([data-disabled]):hover) {
-        background-color: var(--moduix-color-accent);
-        color: var(--moduix-color-accent-foreground);
+        background-color: var(--moduix-accent);
+        color: var(--moduix-accent-foreground);
       }
     }
 
     &[data-highlighted] {
-      background-color: var(--moduix-color-accent);
-      color: var(--moduix-color-accent-foreground);
+      background-color: var(--moduix-accent);
+      color: var(--moduix-accent-foreground);
     }
 
     &[data-disabled] {
@@ -250,8 +259,8 @@
       text-align: center;
 
       &[data-selected] {
-        background-color: var(--moduix-color-muted);
-        color: var(--moduix-color-foreground);
+        background-color: var(--moduix-muted);
+        color: var(--moduix-foreground);
       }
     }
 
@@ -262,12 +271,19 @@
     }
   }
 
-  .itemText,
-  .itemTextLabel {
+  .itemText {
     min-width: 0;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+
+    & > svg {
+      display: inline-block;
+      width: var(--moduix-spacing-4);
+      height: var(--moduix-spacing-4);
+      margin-inline-end: var(--moduix-spacing-2);
+      vertical-align: middle;
+    }
   }
 
   .itemIndicator {
@@ -290,26 +306,8 @@
   }
 
   .valueText {
-    color: var(--moduix-color-muted-foreground);
+    color: var(--moduix-muted-foreground);
     font-size: var(--moduix-text-sm);
     line-height: var(--moduix-line-height-text-sm);
-  }
-
-  .itemTextContent {
-    display: inline-flex;
-    max-width: 100%;
-    min-width: 0;
-    align-items: center;
-    gap: var(--moduix-spacing-2);
-    vertical-align: top;
-  }
-
-  .itemTextIcon {
-    display: inline-flex;
-    width: var(--moduix-spacing-4);
-    height: var(--moduix-spacing-4);
-    flex-shrink: 0;
-    align-items: center;
-    justify-content: center;
   }
 }

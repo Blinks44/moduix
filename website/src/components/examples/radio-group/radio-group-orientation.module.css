@@ -1,5 +1,0 @@
-.items {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--moduix-spacing-2);
-}

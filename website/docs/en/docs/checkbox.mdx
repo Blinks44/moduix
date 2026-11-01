@@ -1,14 +1,26 @@
 ---
 title: Checkbox
 component: checkbox
-description: A composable checkbox for individual options and multi-select groups.
+description: Turn an option on or off, alone or as part of a group.
+ark: https://ark-ui.com/docs/components/checkbox
 ---
 
+import AnatomyScene from '@/components/examples/checkbox/basic';
 import * as CheckboxDocs from '@/components/examples/checkbox/css-properties';
 
-## API Reference
+<Example name="checkbox/basic" />
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/checkbox" />
+## Installation
+
+<ComponentInstall />
+
+## Usage
+
+<Usage />
+
+Compose a checkbox from Ark's parts. Leave `CheckboxControl` empty to use moduix's built-in checked
+and indeterminate icons. Add `CheckboxLabel` for the visible text and `CheckboxHiddenInput` for
+native interaction and form behavior.
 
 ## Choosing the right component
 
@@ -16,148 +28,20 @@ Use `Checkbox` when people need to select one or more independent options in a f
 or filter list. Use `RadioGroup` when only one option can be selected. Use `Switch` when a setting
 should take effect immediately.
 
-## Basic
-
-
-Compose a checkbox from Ark's parts. Leave `CheckboxControl` empty to use moduix's built-in checked
-and indeterminate icons. Add `CheckboxLabel` for the visible text and `CheckboxHiddenInput` for
-native interaction and form behavior.
-
-<Example name="checkbox/basic" />
-
-## Install with shadcn
-
-See [Quick Start](/docs/quick-start) for full package setup, registry configuration, and styling guidance.
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/checkbox' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/checkbox' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/checkbox' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/checkbox' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/checkbox' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/checkbox' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Anatomy
-
-```text
-Checkbox
-├─ CheckboxControl
-│  ├─ CheckboxIndicator
-│  └─ CheckboxIndicator[indeterminate] (optional)
-├─ CheckboxLabel
-└─ CheckboxHiddenInput (explicit)
-
-CheckboxRootProvider
-└─ same part tree connected to useCheckbox()
-
-CheckboxGroup
-└─ Checkbox[value]
-   ├─ CheckboxControl
-   ├─ CheckboxLabel
-   └─ CheckboxHiddenInput
-```
-
-| Part                         | Role                                                                                  |
-| ---------------------------- | ------------------------------------------------------------------------------------- |
-| `Checkbox`                   | Holds the state for one checkbox and renders its wrapping label.                      |
-| `CheckboxHiddenInput`        | Native Ark form control; compose it explicitly inside the root.                       |
-| `CheckboxRootProvider`       | Connects the parts to Ark state created outside the rendered tree.                    |
-| `CheckboxControl`            | The visible checkbox; empty, it renders the built-in state icons.                     |
-| `CheckboxIndicator`          | Optional slot for a custom icon. Pass `indeterminate` for that state.                 |
-| `CheckboxLabel`              | The visible label for the checkbox.                                                   |
-| `CheckboxGroup`              | Manages the selected values for several checkboxes.                                   |
-
-## Composition
-
-`CheckboxHiddenInput` is Ark's native input. Render it explicitly inside `Checkbox` or
-`CheckboxRootProvider`, even outside a form: it owns native focus, keyboard interaction,
-accessibility, and form participation. Put `name` and `value` on the root for a standalone field;
-for a group, put `name` on `CheckboxGroup` and `value` on each `Checkbox`.
-
-`CheckboxGroup` owns an array of selected values, and each child is a `Checkbox` with its own
-`value`. Leave `CheckboxControl` empty for moduix's built-in icons. Add `CheckboxIndicator` inside
-`CheckboxControl` only for a custom indicator.
-
-When state must be created outside the rendered tree, create it with `useCheckbox()` and pass the
-store to `CheckboxRootProvider`. Do not render `Checkbox` or `CheckboxRootProvider` for the same store.
-
 ## Examples
 
-### Controlled
+### Sizes
 
-Use a controlled checkbox when another part of your UI owns its value.
+Use moduix `size` to match the checkbox density to the surrounding form or settings screen.
 
-<Example name="checkbox/controlled" />
+<Example name="checkbox/sizes" />
 
-### Controlled Group
-
-Use a controlled group when selected options drive filters, summaries, or actions.
-
-<Example name="checkbox/controlled-group" />
-
-### Custom Indicator
-
-Replace the built-in checkmark with your own icon while keeping Ark's checkbox behavior and
-accessibility semantics.
-
-<Example name="checkbox/custom-indicator" />
-
-### Default Checked
+### Default checked
 
 Use `defaultChecked` when the checkbox needs an initial value and can manage its own state after
 rendering.
 
 <Example name="checkbox/default-checked" />
-
-### Disabled
-
-Use `disabled` when an option is unavailable and must not be interactive.
-
-<Example name="checkbox/disabled" />
-
-### Group
-
-Use `CheckboxGroup` when several checkboxes share an array of selected values.
-
-<Example name="checkbox/group" />
-
-### Group With Fieldset
-
-Use `Fieldset` when the group represents one form field and needs a shared legend.
-
-<Example name="checkbox/group-with-fieldset" />
-
-### Group With Form
-
-Put `CheckboxGroup` inside a form when you need all selected values in `FormData`. Read them with
-`FormData.getAll(name)`.
-
-<Example name="checkbox/group-with-form" />
 
 ### Indeterminate
 
@@ -166,43 +50,17 @@ Select all control.
 
 <Example name="checkbox/indeterminate" />
 
-### Invalid Group
+### Disabled
 
-Set `invalid` on the group when validation applies to the selection as a whole.
+Use `disabled` when an option is unavailable and must not be interactive.
 
-<Example name="checkbox/invalid-group" />
+<Example name="checkbox/disabled" />
 
-### Max Selected
-
-Use `maxSelectedValues` to limit how many options can be selected at once.
-
-<Example name="checkbox/max-selected" />
-
-### Read Only
+### Read only
 
 Use `readOnly` to show a value without allowing users to change it.
 
 <Example name="checkbox/read-only" />
-
-### Root Provider
-
-Use `CheckboxRootProvider` when checkbox state needs to live outside the rendered tree. Import
-`useCheckbox` from the matching framework package.
-
-<Example name="checkbox/root-provider" />
-
-### Select All
-
-Combine a parent checkbox with a controlled group when one control should select or clear every
-option.
-
-<Example name="checkbox/select-all" />
-
-### Sizes
-
-Use moduix `size` to match the checkbox density to the surrounding form or settings screen.
-
-<Example name="checkbox/sizes" />
 
 ### With Field
 
@@ -210,12 +68,116 @@ Use `Field` when a checkbox needs helper text, validation messages, or shared fi
 
 <Example name="checkbox/with-field" />
 
-### With Form
+### With form
 
 Pass `name` and `value` to `Checkbox` and render `CheckboxHiddenInput` to include it in
 `FormData`.
 
 <Example name="checkbox/with-form" />
+
+### Group
+
+Use `CheckboxGroup` when several checkboxes share an array of selected values.
+
+<Example name="checkbox/group" />
+
+### Group with Fieldset
+
+Use `Fieldset` when the group represents one form field and needs a shared legend.
+
+<Example name="checkbox/group-with-fieldset" />
+
+### Group with form
+
+Put `CheckboxGroup` inside a form when you need all selected values in `FormData`. Read them with
+`FormData.getAll(name)`.
+
+<Example name="checkbox/group-with-form" />
+
+### Invalid group
+
+Set `invalid` on the group when validation applies to the selection as a whole.
+
+<Example name="checkbox/invalid-group" />
+
+### Controlled
+
+Use a controlled checkbox when another part of your UI controls its value. See [Control state from the application](/docs/composition-patterns#controlled-state).
+
+<Example name="checkbox/controlled" />
+
+### Controlled group
+
+Use a controlled group when selected options drive filters, summaries, or actions. See [Control state from the application](/docs/composition-patterns#controlled-state).
+
+<Example name="checkbox/controlled-group" />
+
+### Select all
+
+Combine a parent checkbox with a controlled group when one control should select or clear every
+option.
+
+<Example name="checkbox/select-all" />
+
+### Max selected
+
+Use `maxSelectedValues` to limit how many options can be selected at once.
+
+<Example name="checkbox/max-selected" />
+
+### Custom indicator
+
+Replace the built-in checkmark with your own icon while keeping Ark's checkbox behavior and
+accessibility semantics.
+
+<Example name="checkbox/custom-indicator" />
+
+### Root provider
+
+Use `CheckboxRootProvider` when checkbox state needs to live outside the rendered tree. Import
+`useCheckbox` from the matching framework package. See [Share state outside the tree](/docs/composition-patterns#root-provider).
+
+<Example name="checkbox/root-provider" />
+
+### Build from parts
+
+The same checkbox as Basic with the indicators written out: `CheckboxControl` renders a check and an
+indeterminate `CheckboxIndicator` only when it has no children. Start here when a design changes the
+box or its icons.
+
+<Example name="checkbox/build-from-parts" />
+
+## Composition
+
+`CheckboxHiddenInput` is Ark's native input. Render it explicitly inside `Checkbox` or
+`CheckboxRootProvider`, even outside a form: it handles native focus, keyboard interaction,
+accessibility, and form participation. Put `name` and `value` on the root for a standalone field;
+for a group, put `name` on `CheckboxGroup` and `value` on each `Checkbox`.
+
+`CheckboxGroup` holds an array of selected values, and each child is a `Checkbox` with its own
+`value`. Leave `CheckboxControl` empty for moduix's built-in icons. Add `CheckboxIndicator` inside
+`CheckboxControl` only for a custom indicator.
+
+When state must be created outside the rendered tree, create it with `useCheckbox()` and pass the
+store to `CheckboxRootProvider`. Do not render `Checkbox` or `CheckboxRootProvider` for the same store.
+
+## Anatomy
+
+Hover or focus a part to find it in the preview.
+
+<AnatomyInspector
+  parts={[
+    ["Checkbox", "checkbox-root", "Holds the state for one checkbox and renders its wrapping label.", 0],
+    ["CheckboxControl", "checkbox-control", "The visible checkbox; empty, it renders the built-in state icons.", 1],
+    ["CheckboxIndicator", "checkbox-indicator", "Optional slot for a custom icon. Pass `indeterminate` for that state.", 2],
+    ["CheckboxLabel", "checkbox-label", "The visible label for the checkbox.", 1],
+    ["CheckboxHiddenInput", "", "Native Ark form control; compose it explicitly inside the root.", 1],
+    ["CheckboxRootProvider", "checkbox-root-provider", "Connects the parts to Ark state created outside the rendered tree.", 0],
+    ["CheckboxGroup", "checkbox-group", "Manages the selected values for several checkboxes.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styling
 
@@ -225,15 +187,46 @@ together with moduix `data-slot` selectors. Tailwind variants use native utiliti
 classes; the variables below customize the CSS Modules variants. Data attributes and `data-slot`
 hooks are shared by both styling tracks.
 
-### CSS Properties
+### CSS variables
 
-<CssPropertiesSection properties={CheckboxDocs.checkboxOverrideCssProperties} />
+Hover or focus a variable to see it in the preview.
+
+<CssPropertiesSection properties={CheckboxDocs.checkboxOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Styling hooks
 
+| Part | `data-slot` |
+| --- | --- |
+| `Checkbox` | `checkbox-root` |
+| `CheckboxRootProvider` | `checkbox-root-provider` |
+| `CheckboxIndicator` | `checkbox-indicator` |
+| `CheckboxControl` | `checkbox-control` |
+| `CheckboxLabel` | `checkbox-label` |
+| `CheckboxGroup` | `checkbox-group` |
+
 - `Checkbox` exposes `data-slot="checkbox-root"`, `data-size`, and Ark state attributes such as `data-state`, `data-active`, `data-disabled`, `data-readonly`, `data-invalid`, `data-required`, `data-hover`, `data-focus`, and `data-focus-visible`.
-- `CheckboxRootProvider` exposes `data-slot="checkbox-root-provider"` and the same root styling contract.
 - `CheckboxControl` exposes `data-slot="checkbox-control"` and Ark state attributes including `data-state="checked" | "indeterminate" | "unchecked"` and `data-active`.
-- `CheckboxIndicator` exposes `data-slot="checkbox-indicator"` and inherits Ark checkbox state attributes.
-- `CheckboxLabel` exposes `data-slot="checkbox-label"` and Ark checkbox state attributes.
-- `CheckboxGroup` exposes `data-slot="checkbox-group"`.
+
+## Keyboard
+
+| Key | Action |
+| --- | --- |
+| `Space` | Toggles the focused checkbox. |
+
+## API reference
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `checked` | `boolean \| 'indeterminate'` | — | Checked state for controlled use; `indeterminate` shows a dash. |
+| `defaultChecked` | `boolean \| 'indeterminate'` | `false` | Initial checked state when it is not controlled. |
+| `onCheckedChange` | `(details: CheckedChangeDetails) => void` | — | Called when the checked state changes. |
+| `value` | `string` | `'on'` | Value submitted with the form when checked. |
+| `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'` | `'md'` | Checkbox size: `xs`, `sm`, `md`, `lg`, or `xl`. |
+| `name` | `string` | — | Form field name of the underlying input. |
+| `disabled` | `boolean` | `false` | Disables the control. |
+| `readOnly` | `boolean` | `false` | Shows the value but prevents changes. |
+| `invalid` | `boolean` | `false` | Marks the control as invalid. |
+| `required` | `boolean` | `false` | Requires a value before form submission. |
+| `form` | `string` | — | Id of the form the underlying input belongs to. |

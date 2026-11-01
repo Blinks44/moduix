@@ -1,6 +1,7 @@
 import type { TourStepDetails } from '@ark-ui/solid/tour';
 import { Button } from '@moduix/solid/button';
 import { Input } from '@moduix/solid/input';
+import { Stack } from '@moduix/solid/stack';
 import {
   Tour,
   TourBackdrop,
@@ -16,7 +17,6 @@ import {
   useTour,
 } from '@moduix/solid/tour';
 import { createSignal } from 'solid-js';
-import styles from '@/components/examples/tour/tour-wait-for-input.module.css';
 
 const steps = [
   {
@@ -44,7 +44,7 @@ export default function TourWaitForInputDemo() {
   });
 
   return (
-    <div class={styles.root}>
+    <Stack align="center" gap="3">
       <Input
         id="tour-wait-name"
         aria-label="Workspace name"
@@ -75,6 +75,6 @@ export default function TourWaitForInputDemo() {
 
       <output>Tour: {status()}</output>
       <Button onClick={() => tour().start()}>Start input tour</Button>
-    </div>
+    </Stack>
   );
 }

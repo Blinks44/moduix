@@ -17,6 +17,12 @@ GitHub Markdown does not provide the interactive package-manager tabs used by Rs
 for installation, CLI, and repository commands in the root and package README files. npm badges and
 links may still identify the registry where a package is published.
 
+## Git and local files
+
+- Commit messages follow Conventional Commits: `feat: ...`, `fix: ...`, `docs: ...`.
+- Temporary files (plans, reviews, audit scripts, screenshots, logs) go to the gitignored `.local/`.
+  Anything there may be deleted at any time, so never put something others need there.
+
 ## Public component API
 
 All framework adapters use one flat public value-export shape. The family name is the root component,
@@ -42,9 +48,9 @@ Use project skills from [`.agents/skills/`](.agents/skills/README.md). Apply onl
 - **Framework-specific implementation:** use the matching native convention skill. Add a focused
   convention skill when a new adapter enters development instead of expanding another framework's
   instructions into generic pseudocode.
-- **Temporary repository migrations:** follow the applicable local file in `plans/`. Plans own finite
-  rollout order, progress, concurrency, and deletion conditions; permanent framework and component
-  mechanics stay in skills. The directory is gitignored and plans must not be included in commits.
+- **Temporary repository migrations:** follow the applicable local plan in `.local/`. Plans own
+  finite rollout order, progress, concurrency, and deletion conditions; permanent framework and
+  component mechanics stay in skills. Plans must not be included in commits.
 - **Component styles or shared tokens:** `conventions-css`; synchronize existing CSS Modules and Tailwind counterparts through `component-workflow`.
 - **Component-local markdown:** `component-contract-docs`.
 - **Rspress pages, examples, framework synchronization, or CSS-variable documentation in `website`:** `docs-workflow`; additionally use
@@ -52,6 +58,9 @@ Use project skills from [`.agents/skills/`](.agents/skills/README.md). Apply onl
   Rspress configuration, navigation, build, deployment, or debugging, `rspress-localization` for any localization
   work, and `rspress-custom-theme` for theme
   or layout changes.
+- **Docs site visuals:** the `Moduix.sketch` design file is the source of truth for the site's look,
+  layout, and page structure. Use `sketch-design-to-code` when implementing from it and
+  `sketch-design-from-reference` when changing the design; both need the Sketch MCP server.
 - **Tests:** `conventions-tests` and `rstest-best-practices`.
 - **Rslib configuration or library build issues:** `rslib-best-practices`.
 - **Changesets:** `changeset-workflow`, only when the user explicitly requests one.

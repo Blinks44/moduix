@@ -11,14 +11,14 @@ import {
   DialogTrigger,
   type DialogSize,
 } from '@moduix/solid/dialog';
+import { Stack } from '@moduix/solid/stack';
 import { For } from 'solid-js';
-import styles from '@/components/examples/dialog/dialog-sizes.module.css';
 
 const sizes: DialogSize[] = ['sm', 'md', 'lg', 'xl', 'full'];
 
 export default function DialogSizesDemo() {
   return (
-    <div class={styles.row}>
+    <Stack direction="row" wrap="wrap" gap="2">
       <For each={sizes}>
         {(size) => (
           <Dialog>
@@ -44,6 +44,6 @@ export default function DialogSizesDemo() {
           </Dialog>
         )}
       </For>
-    </div>
+    </Stack>
   );
 }

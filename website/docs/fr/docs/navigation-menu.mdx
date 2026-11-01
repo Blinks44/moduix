@@ -1,14 +1,27 @@
 ---
 title: Navigation Menu
 component: navigation-menu
-description: Barre de navigation pour les liens directs et les panneaux dépliables, avec la possibilité d’utiliser une zone `NavigationMenuViewport` partagée pour les transitions animées.
+description: Créer un en-tête où les éléments mènent à un lien ou ouvrent un panneau.
+ark: https://ark-ui.com/docs/components/navigation-menu
 ---
 
+import AnatomyScene from '@/components/examples/navigation-menu/anatomy';
 import * as NavigationMenuDocs from '@/components/examples/navigation-menu/css-properties';
 
-## Référence de l’API
+<Example name="navigation-menu/basic" />
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/navigation-menu" />
+## Installation
+
+<ComponentInstall />
+
+## Utilisation
+
+<Usage />
+
+Utilisez `NavigationMenu` avec `NavigationMenuList` et `NavigationMenuItem`. Attribuez une valeur
+`value` unique à chaque élément. Pour un groupe de liens, placez `NavigationMenuTrigger` et
+`NavigationMenuContent` dans le même élément. Utilisez `NavigationMenuLink` pour les destinations
+directes du premier niveau et pour les liens à l’intérieur d’un panneau.
 
 ## Choisir le bon composant
 
@@ -19,95 +32,31 @@ Utilisez `NavigationMenu` pour la navigation principale d’un site ou d’un pr
 - Choisissez **`Menu`** pour les actions contextuelles plutôt que pour la navigation.
 - Choisissez **`Tabs`** lorsque chaque contrôle sélectionné change le contenu affiché dans une zone de la page courante.
 
-## Exemple de base
+## Exemples
 
+### Viewport partagé
 
-Importez-le depuis le sous-chemin du package adapté : `@moduix/react/navigation-menu`,
-`@moduix/solid/navigation-menu`, `@moduix/vue/navigation-menu`,
-`@moduix/react-tailwind/navigation-menu`, `@moduix/solid-tailwind/navigation-menu` ou
-`@moduix/vue-tailwind/navigation-menu`.
+Utilisez une zone `NavigationMenuViewport` partagée lorsque les panneaux ont des tailles différentes, mais doivent
+s’animer dans une même surface. Cet exemple utilise un panneau à deux colonnes et des panneaux de
+largeurs différentes, afin de rendre visibles les animations de largeur et de hauteur de `NavigationMenuViewport`
+lors du passage d’un déclencheur à l’autre.
 
-Utilisez `NavigationMenu` avec `NavigationMenuList` et `NavigationMenuItem`. Attribuez une valeur
-`value` unique à chaque élément. Pour un groupe de liens, placez `NavigationMenuTrigger` et
-`NavigationMenuContent` dans le même élément. Utilisez `NavigationMenuLink` pour les destinations
-directes du premier niveau et pour les liens à l’intérieur d’un panneau.
+<Example name="navigation-menu/viewport" />
 
-<Example name="navigation-menu/basic" />
+### Ouverture au clic
 
-## Installation avec shadcn
+Définissez `disableHoverTrigger` lorsque les panneaux doivent s’ouvrir uniquement au clic ou au
+clavier, et non au survol. Cela convient aux interfaces tactiles et aux en-têtes denses où le survol
+ouvrirait les panneaux par accident.
 
-Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration complète du paquet, du registre et des styles.
+<Example name="navigation-menu/click-to-open" />
 
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
+### Valeur contrôlée
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/navigation-menu' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/navigation-menu' },
-  ]}
-/>
+Passez `value` et `onValueChange` (`v-model:value` en Vue) lorsque le panneau ouvert pilote aussi
+l’interface voisine. La sortie sous l’exemple affiche la valeur de l’élément ouvert. Voir [Contrôler l’état depuis l’application](/docs/composition-patterns#controlled-state).
 
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/navigation-menu' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/navigation-menu' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/navigation-menu' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/navigation-menu' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Anatomie
-
-```text
-NavigationMenu
-├─ NavigationMenuList
-│  ├─ NavigationMenuItem[value]
-│  │  └─ NavigationMenuLink
-│  └─ NavigationMenuItem[value]
-│     ├─ NavigationMenuTrigger
-│     ├─ NavigationMenuItemIndicator (facultatif)
-│     └─ NavigationMenuContent
-│        └─ NavigationMenuLink
-│  └─ NavigationMenuIndicator > NavigationMenuArrow (facultatif)
-└─ NavigationMenuViewportPositioner (facultatif)
-   └─ NavigationMenuViewport
-
-NavigationMenuRootProvider
-└─ même arbre de parties relié à l’état créé avec useNavigationMenu()
-
-NavigationMenuContext
-└─ accès avancé à l’état courant de la navigation via une fonction de rendu
-```
-
-| Partie | Rôle |
-| --- | --- |
-| `NavigationMenu` | Élément `nav` racine qui gère l’élément ouvert, les délais, le focus et l’orientation. |
-| `NavigationMenuRootProvider` | Relie les parties à l’état créé avec `useNavigationMenu()`. |
-| `NavigationMenuContext` | Expose l’état courant de la navigation via une fonction de rendu. |
-| `NavigationMenuList` | Regroupe les éléments de navigation de premier niveau. |
-| `NavigationMenuItem` | Requiert une valeur `value` unique et relie le déclencheur, le contenu et les liens de l’élément. |
-| `NavigationMenuTrigger` | Bouton qui ouvre ou ferme le panneau dépliable de l’élément. |
-| `NavigationMenuContent` | Panneau dépliable de l’élément. Il peut s’afficher à côté de l’élément ou dans une zone `NavigationMenuViewport` partagée. |
-| `NavigationMenuLink` | Lien vers une destination directe ou lien à l’intérieur d’un panneau dépliable. |
-| `NavigationMenuItemIndicator` | Marqueur visuel facultatif de l’élément courant. |
-| `NavigationMenuIndicator` | Repère facultatif du déclencheur actif ; placez-le dans `NavigationMenuList`. Utilisez `NavigationMenuArrow` avec une zone `NavigationMenuViewport` partagée. |
-| `NavigationMenuViewportPositioner` | Positionne une zone `NavigationMenuViewport` partagée. |
-| `NavigationMenuViewport` | Zone animée partagée pour le contenu actuellement ouvert. |
+<Example name="navigation-menu/controlled-value" />
 
 ## Composition
 
@@ -128,24 +77,28 @@ partager une même surface animée ; la prop `align` du positioner (`"start" | "
 pour les liens de routeur ou les déclencheurs personnalisés uniquement si l’enfant reste un seul élément
 interactif pouvant recevoir le focus.
 
-## Exemples
+## Anatomie
 
-### Valeur contrôlée
+Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
 
-Contrôlez la valeur ouverte avec un état React, un signal Solid ou une ref Vue lorsque le panneau actif
-doit également piloter une partie voisine de l’interface. La sortie sous l’exemple affiche la valeur de
-l’élément ouvert.
-
-<Example name="navigation-menu/controlled-value" />
-
-### Viewport partagé
-
-Utilisez une zone `NavigationMenuViewport` partagée lorsque les panneaux ont des tailles différentes, mais doivent
-s’animer dans une même surface. Cet exemple utilise un panneau à deux colonnes et des panneaux de
-largeurs différentes, afin de rendre visibles les animations de largeur et de hauteur de `NavigationMenuViewport`
-lors du passage d’un déclencheur à l’autre.
-
-<Example name="navigation-menu/viewport" />
+<AnatomyInspector
+  parts={[
+    ["NavigationMenu", "navigation-menu-root", "Élément `nav` racine qui gère l’élément ouvert, les délais, le focus et l’orientation.", 0],
+    ["NavigationMenuList", "navigation-menu-list", "Regroupe les éléments de navigation de premier niveau.", 1],
+    ["NavigationMenuItem", "navigation-menu-item", "Requiert une valeur `value` unique et relie le déclencheur, le contenu et les liens de l’élément.", 2],
+    ["NavigationMenuLink", "navigation-menu-link", "Lien vers une destination directe ou lien à l’intérieur d’un panneau dépliable.", 3],
+    ["NavigationMenuTrigger", "navigation-menu-trigger", "Bouton qui ouvre ou ferme le panneau dépliable de l’élément.", 2],
+    ["NavigationMenuItemIndicator", "navigation-menu-item-indicator", "Marqueur visuel facultatif de l’élément courant.", 2],
+    ["NavigationMenuContent", "navigation-menu-content", "Panneau dépliable de l’élément. Il peut s’afficher à côté de l’élément ou dans une zone `NavigationMenuViewport` partagée.", 2],
+    ["NavigationMenuIndicator", "navigation-menu-indicator", "Repère facultatif du déclencheur actif ; placez-le dans `NavigationMenuList`. Utilisez `NavigationMenuArrow` avec une zone `NavigationMenuViewport` partagée.", 2],
+    ["NavigationMenuViewportPositioner", "navigation-menu-viewport-positioner", "Positionne une zone `NavigationMenuViewport` partagée.", 1],
+    ["NavigationMenuViewport", "navigation-menu-viewport", "Zone animée partagée pour le contenu actuellement ouvert.", 2],
+    ["NavigationMenuRootProvider", "navigation-menu-root-provider", "Relie les parties à l’état créé avec `useNavigationMenu()`.", 0],
+    ["NavigationMenuContext", null, "Expose l’état courant de la navigation via une fonction de rendu.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styles
 
@@ -158,11 +111,30 @@ que les limites de taille du panneau et du viewport ; remplacez le reste avec un
 L’animation du panneau et du viewport suit les variables partagées `--moduix-popup-motion-*`. Les attributs de données et les points d’accroche `data-slot` sont communs
 aux deux modes de style.
 
-### Propriétés CSS
+### Variables CSS
 
-<CssPropertiesSection properties={NavigationMenuDocs.navigationMenuOverrideCssProperties} />
+Survolez ou sélectionnez une variable pour la voir dans l’aperçu.
+
+<CssPropertiesSection properties={NavigationMenuDocs.navigationMenuOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Points d’accroche CSS
+
+| Partie | `data-slot` |
+| --- | --- |
+| `NavigationMenu` | `navigation-menu-root` |
+| `NavigationMenuRootProvider` | `navigation-menu-root-provider` |
+| `NavigationMenuList` | `navigation-menu-list` |
+| `NavigationMenuItem` | `navigation-menu-item` |
+| `NavigationMenuTrigger` | `navigation-menu-trigger` |
+| `NavigationMenuContent` | `navigation-menu-content` |
+| `NavigationMenuLink` | `navigation-menu-link` |
+| `NavigationMenuIndicator` | `navigation-menu-indicator` |
+| `NavigationMenuItemIndicator` | `navigation-menu-item-indicator` |
+| `NavigationMenuArrow` | `navigation-menu-arrow` |
+| `NavigationMenuViewportPositioner` | `navigation-menu-viewport-positioner` |
+| `NavigationMenuViewport` | `navigation-menu-viewport` |
 
 Ciblez la partie responsable de l’aspect que vous souhaitez modifier :
 
@@ -173,15 +145,32 @@ Ciblez la partie responsable de l’aspect que vous souhaitez modifier :
 - `NavigationMenuIndicator` et `NavigationMenuItemIndicator` pour les décorations facultatives de l’état actif ; utilisez `NavigationMenuArrow` avec une zone `NavigationMenuViewport` partagée
 - `NavigationMenuViewportPositioner` et `NavigationMenuViewport` pour une zone de panneau partagée et animée
 
-Les principaux points d’accroche publics sont `data-slot="navigation-menu-root"`,
-`data-slot="navigation-menu-root-provider"`, `data-slot="navigation-menu-list"`,
-`data-slot="navigation-menu-item"`, `data-slot="navigation-menu-trigger"`,
-`data-slot="navigation-menu-content"`, `data-slot="navigation-menu-link"`,
-`data-slot="navigation-menu-indicator"`, `data-slot="navigation-menu-item-indicator"`,
-`data-slot="navigation-menu-arrow"`, `data-slot="navigation-menu-viewport-positioner"` et
-`data-slot="navigation-menu-viewport"`.
-
 Parmi les attributs Ark utiles figurent `data-scope="navigation-menu"`, `data-part`, `data-state`,
 `data-current`, `data-disabled`, `data-orientation` et `data-motion`. À l’exécution, Ark définit les
 variables `--trigger-x`, `--trigger-y`, `--trigger-width`, `--trigger-height`, `--viewport-x`,
 `--viewport-y`, `--viewport-width` et `--viewport-height`.
+
+## Clavier
+
+| Touche | Action |
+| --- | --- |
+| `Tab` / `Shift+Tab` | Passe d’un déclencheur ou lien de premier niveau à l’autre. |
+| `Enter` / `Space` | Ouvre ou ferme le panneau du déclencheur ayant le focus. |
+| `ArrowLeft` / `ArrowRight` | Passe au déclencheur précédent ou suivant, ou d’un lien à l’autre dans un panneau ouvert ; ArrowUp et ArrowDown en orientation verticale. |
+| `Home` / `End` | Passe au premier ou au dernier déclencheur ou lien. |
+| `Esc` | Ferme le panneau ouvert et rend le focus à son déclencheur. |
+
+## Référence de l’API
+
+| Prop | Type | Défaut | Description |
+| --- | --- | --- | --- |
+| `value` | `string` | — | Élément ouvert en mode contrôlé. |
+| `defaultValue` | `string` | — | Élément ouvert au départ. |
+| `onValueChange` | `(details: ValueChangeDetails) => void` | — | Appelé lorsqu’un autre élément s’ouvre ou que le menu se ferme. |
+| `openDelay` | `number` | `200` | Délai avant l’ouverture au survol, en millisecondes. |
+| `closeDelay` | `number` | `300` | Délai avant la fermeture après le départ du pointeur, en millisecondes. |
+| `disableClickTrigger` | `boolean` | `false` | Désactive l’ouverture au clic. |
+| `disableHoverTrigger` | `boolean` | `false` | Désactive l’ouverture au survol. |
+| `disablePointerLeaveClose` | `boolean` | `false` | Garde le menu ouvert lorsque le pointeur s’éloigne. |
+| `translations` | `IntlTranslations` | — | Textes localisés des libellés d’accessibilité. |
+| `orientation` | `'horizontal' \| 'vertical'` | `'horizontal'` | Disposition et sens des flèches : `horizontal` ou `vertical`. |

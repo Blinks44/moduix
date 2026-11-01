@@ -10,9 +10,9 @@
   }
 
   .customInput {
-    border-color: color-mix(in srgb, var(--moduix-color-primary) 40%, transparent);
-    background-color: color-mix(in srgb, var(--moduix-color-primary) 5%, transparent);
-    color: var(--moduix-color-primary);
+    border-color: color-mix(in srgb, var(--moduix-primary) 40%, transparent);
+    background-color: color-mix(in srgb, var(--moduix-primary) 5%, transparent);
+    color: var(--moduix-primary);
     text-transform: uppercase;
     letter-spacing: 0;
 
@@ -21,7 +21,7 @@
     }
 
     &:focus-visible {
-      outline-color: var(--moduix-color-primary);
+      outline-color: var(--moduix-primary);
     }
   }
 }

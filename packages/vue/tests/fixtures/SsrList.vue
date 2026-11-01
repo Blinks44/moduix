@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { List, ListItem } from '../../src';
+import { List, ListItem } from '@/index';
 </script>
 
 <template>

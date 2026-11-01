@@ -7,13 +7,13 @@
     gap: var(--moduix-spacing-4);
     padding: var(--moduix-empty-padding, var(--moduix-spacing-8));
     border: var(--moduix-empty-border-width, var(--moduix-border-width-sm)) solid
-      var(--moduix-empty-border-color, var(--moduix-color-border));
+      var(--moduix-empty-border-color, var(--moduix-border));
     border-radius: var(--moduix-empty-radius, var(--moduix-radius-xl));
     background-color: var(
       --moduix-empty-bg,
-      color-mix(in oklab, var(--moduix-color-card) 92%, var(--moduix-color-muted))
+      color-mix(in oklab, var(--moduix-card) 92%, var(--moduix-muted))
     );
-    color: var(--moduix-empty-color, var(--moduix-color-card-foreground));
+    color: var(--moduix-empty-color, var(--moduix-card-foreground));
     text-align: center;
   }
 
@@ -23,8 +23,8 @@
     justify-content: center;
     padding: var(--moduix-spacing-3);
     border-radius: var(--moduix-radius-full);
-    background-color: var(--moduix-color-muted);
-    color: var(--moduix-color-muted-foreground);
+    background-color: var(--moduix-muted);
+    color: var(--moduix-muted-foreground);
 
     & :where(svg) {
       width: var(--moduix-spacing-6);
@@ -51,7 +51,7 @@
   }
 
   .description {
-    color: var(--moduix-color-muted-foreground);
+    color: var(--moduix-muted-foreground);
     font-size: var(--moduix-text-sm);
     line-height: var(--moduix-line-height-text-sm);
     overflow-wrap: anywhere;

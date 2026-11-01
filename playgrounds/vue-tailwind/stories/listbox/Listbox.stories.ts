@@ -21,8 +21,6 @@ import {
   ListboxItemGroupLabel,
   ListboxItemIndicator,
   ListboxItemText,
-  ListboxItemTextContent,
-  ListboxItemTextLabel,
   ListboxLabel,
   ListboxRootProvider,
   ListboxValueText,
@@ -126,8 +124,6 @@ const listboxComponents = {
   ListboxItemGroupLabel,
   ListboxItemIndicator,
   ListboxItemText,
-  ListboxItemTextContent,
-  ListboxItemTextLabel,
   ListboxLabel,
   ListboxRootProvider,
   ListboxValueText,
@@ -243,7 +239,7 @@ export const StandaloneInput: Story = {
 };
 export const Horizontal: Story = {
   render: renderStory(
-    '<Listbox :collection="albums" orientation="horizontal" class="w-full max-w-[34rem]"><ListboxLabel>Select album</ListboxLabel><ListboxContent><ListboxItem v-for="item in albums.items" :key="item.title" :item="item" class="w-40 min-w-40"><ListboxItemText><ListboxItemTextContent class="flex-col items-start gap-1"><ListboxItemTextLabel>{{ item.title }}</ListboxItemTextLabel><span class="text-xs leading-4 text-muted-foreground">{{ item.artist }}</span></ListboxItemTextContent></ListboxItemText><ListboxItemIndicator /></ListboxItem></ListboxContent></Listbox>',
+    '<Listbox :collection="albums" orientation="horizontal" class="w-full max-w-[34rem]"><ListboxLabel>Select album</ListboxLabel><ListboxContent><ListboxItem v-for="item in albums.items" :key="item.title" :item="item" class="w-40 min-w-40"><ListboxItemText>{{ item.title }}<span class="mt-1 block truncate text-xs leading-4 text-muted-foreground">{{ item.artist }}</span></ListboxItemText><ListboxItemIndicator /></ListboxItem></ListboxContent></Listbox>',
     () => ({ albums }),
   ),
 };
@@ -267,7 +263,7 @@ export const SelectAll: Story = {
 };
 export const CustomStyling: Story = {
   render: renderStory(
-    '<Listbox :collection="countries" :default-value="[&quot;ca&quot;]" class="w-72"><ListboxLabel class="text-primary">Styled country</ListboxLabel><ListboxContent class="shadow-sm"><ListboxItem v-for="item in countries.items" :key="item.value" :item="item" class="data-[selected]:bg-primary/10"><ListboxItemText>{{ item.label }}</ListboxItemText><ListboxItemIndicator /></ListboxItem></ListboxContent></Listbox>',
+    '<Listbox :collection="countries" :default-value="[&quot;ca&quot;]" class="w-72"><ListboxLabel class="text-primary">Styled country</ListboxLabel><ListboxContent class="border-primary bg-muted shadow-sm"><ListboxItem v-for="item in countries.items" :key="item.value" :item="item" class="data-highlighted:bg-primary data-highlighted:text-primary-foreground data-selected:text-primary"><ListboxItemText>{{ item.label }}</ListboxItemText><ListboxItemIndicator /></ListboxItem></ListboxContent></Listbox>',
     () => ({ countries }),
   ),
 };

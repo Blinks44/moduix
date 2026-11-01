@@ -1,6 +1,6 @@
 ---
-title: Что нового
-description: Заметные изменения в moduix.
+title: Журнал изменений
+description: Релизы, несовместимые изменения и новые компоненты, от новых к старым. Каждая запись ведёт на изменённые страницы.
 ---
 
 import { LocalizationHero } from '@/components/changelog/localization-hero';
@@ -13,10 +13,13 @@ import { TailwindReleaseHero } from '@/components/changelog/tailwind-release-her
 import { ChangelogNewsItem } from '@/components/changelog/hero';
 import { VueReleaseHero } from '@/components/changelog/vue-release-hero';
 
-# Что нового
+# Журнал изменений
 
-<ChangelogNewsItem>
-  <VueReleaseHero />
+<ChangelogNewsItem version="v3.0" dateTime="2026-10-13">
+
+## Vue присоединяется к React и Solid
+
+<VueReleaseHero />
 
 Vue стал нативным адаптером moduix наряду с React и Solid. [`@moduix/vue`](/docs/quick-start) и
 `@moduix/vue-tailwind` предоставляют полный каталог компонентов с общими токенами и темами.
@@ -61,13 +64,14 @@ Vue стал нативным адаптером moduix наряду с React и
 Команды для Solid, Vue и Tailwind приведены в секции установки каждого блока.
 </ChangelogNewsItem>
 
-<ChangelogNewsItem>
-  <TailwindReleaseHero />
+<ChangelogNewsItem version="Tailwind 1.0" dateTime="2026-09-20">
+
+## Tailwind для всего каталога
+
+<TailwindReleaseHero />
 
 Полный каталог moduix теперь доступен в варианте Tailwind. [`@moduix/react-tailwind`](/docs/quick-start)
 и `@moduix/solid-tailwind` содержат те же компоненты, что и пакеты на CSS Modules.
-
-### Tailwind для всего каталога
 
 Публичный API и поведение компонентов не меняются, поэтому выбор Tailwind не влияет на их
 композицию.
@@ -77,13 +81,14 @@ Vue стал нативным адаптером moduix наряду с React и
 содержат базовый файл стилей, поэтому установленные файлы можно сразу настраивать.
 </ChangelogNewsItem>
 
-<ChangelogNewsItem>
-  <SolidReleaseHero />
+<ChangelogNewsItem version="Solid 1.0" dateTime="2026-09-13">
+
+## Полный каталог для Solid
+
+<SolidReleaseHero />
 
 Полный каталог moduix теперь доступен для Solid. [`@moduix/solid`](/docs/quick-start) и
 `@moduix/solid-tailwind` используют нативные API Solid и примитивы Ark UI.
-
-### Полный каталог для Solid
 
 Компоненты Solid используют `class` и нативную композицию Solid. Их публичные контракты совпадают с
 React-пакетами, а реализация учитывает модель рендеринга Solid.
@@ -92,14 +97,15 @@ React-пакетами, а реализация учитывает модель 
 пространства имён реестра `@moduix-solid` и `@moduix-solid-tailwind`.
 </ChangelogNewsItem>
 
-<ChangelogNewsItem>
-  <TableOfContentsHero />
+<ChangelogNewsItem version="v2.5" dateTime="2026-08-27">
+
+## Оглавление для длинных страниц
+
+<TableOfContentsHero />
 
 [Table of Contents](/docs/table-of-contents) следит за заголовками в области просмотра и выделяет
 текущий раздел. Передайте ему нужные заголовки, и каждый пункт будет связан с соответствующим
 заголовком.
-
-### Оглавление для длинных страниц
 
 Используйте `TocContent` для области чтения и `TocNav` для списка заголовков. Активный пункт
 будет меняться по мере прокрутки страницы.
@@ -108,13 +114,14 @@ React-пакетами, а реализация учитывает модель 
 внешним элементам нужно использовать состояние оглавления.
 </ChangelogNewsItem>
 
-<ChangelogNewsItem>
-  <NavigationMenuHero />
+<ChangelogNewsItem version="v2.4" dateTime="2026-08-25">
+
+## Группы ссылок без скрытых переходов
+
+<NavigationMenuHero />
 
 [Navigation Menu](/docs/navigation-menu) разделяет прямые переходы и группы связанных ссылок. Это
 удобно для верхнего уровня навигации сайта или продукта.
-
-### Группы ссылок без скрытых переходов
 
 Для прямого перехода используйте `NavigationMenuLink`. Для группы ссылок соедините
 `NavigationMenuTrigger` и `NavigationMenuContent`.
@@ -123,13 +130,14 @@ React-пакетами, а реализация учитывает модель 
 Ark UI отвечает за клавиатурное взаимодействие, фокус и открытый пункт. `NavigationMenuArrow` необязателен.
 </ChangelogNewsItem>
 
-<ChangelogNewsItem>
-  <ChartHero />
+<ChangelogNewsItem version="v2.3" dateTime="2026-08-20">
+
+## Единая оболочка для графиков
+
+<ChartHero />
 
 [Chart](/docs/chart) добавляет доступную HTML-оболочку `figure` вокруг TanStack Charts. Опишите график
 через TanStack, а затем добавьте заголовок, легенду, компактную подсказку и настройки анимации moduix.
-
-### Единая оболочка для графиков
 
 TanStack по-прежнему отвечает за метки, шкалы, взаимодействия и колбэки. Соберите график с
 `ChartHeader`, `ChartPlot` и `ChartLegend`, чтобы получить единую структуру `figure`.
@@ -138,26 +146,28 @@ TanStack также управляет клавиатурной навигаци
 учитывает настройку «Уменьшение движения», а `motion={false}` отключает её.
 </ChangelogNewsItem>
 
-<ChangelogNewsItem>
-  <LocalizationHero />
+<ChangelogNewsItem version="Документация" dateTime="2026-08-10">
+
+## Документация на французском и русском языках
+
+<LocalizationHero />
 
 Документация теперь доступна на английском, русском и французском языках. Страницы компонентов,
 примеры и блоки переведены целиком.
-
-### Документация на французском и русском языках
 
 Навигация, метаданные страниц, локализованные маршруты и копируемые примеры синхронизированы во всех
 трёх версиях сайта.
 </ChangelogNewsItem>
 
-<ChangelogNewsItem>
-  <V2MigrationHero />
+<ChangelogNewsItem version="v2.0" dateTime="2026-07-19">
+
+## Ark UI отвечает за поведение компонентов
+
+<V2MigrationHero />
 
 Система компонентов теперь использует Ark UI для состояния, взаимодействия и доступности, если для
 компонента есть соответствующий примитив. moduix сохраняет CSS Modules, дизайн-токены и оба способа
 установки.
-
-### Ark UI отвечает за поведение компонентов
 
 Компоненты с примитивом Ark UI используют его для состояния и взаимодействия. Вместе с этим они
 получают готовое поведение для доступных интерфейсов.

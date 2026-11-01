@@ -3,6 +3,9 @@ import { defineComponent, ref } from 'vue';
 import type { Component } from 'vue';
 import {
   ProgressCircular,
+  ProgressCircularCircle,
+  ProgressCircularCircleRange,
+  ProgressCircularCircleTrack,
   ProgressCircularContext,
   ProgressCircularLabel,
   ProgressCircularRing,
@@ -53,6 +56,9 @@ const CircularParts = defineComponent({
 const storyComponents = {
   CircularParts,
   ProgressCircular,
+  ProgressCircularCircle,
+  ProgressCircularCircleRange,
+  ProgressCircularCircleTrack,
   ProgressCircularContext,
   ProgressCircularLabel,
   ProgressCircularRing,
@@ -96,7 +102,7 @@ export const Controlled: Story = {
           <ProgressCircularLabel>Upload status</ProgressCircularLabel>
           <CircularParts aria-label="Upload status" />
         </ProgressCircular>
-        <Slider :model-value="[value ?? 0]" :min="0" :max="100" @value-change="value = $event.value[0] ?? 0">
+        <Slider class="w-48" :model-value="[value ?? 0]" :min="0" :max="100" @value-change="value = $event.value[0] ?? 0">
           <SliderLabel>Progress value</SliderLabel>
           <SliderValueText />
           <SliderControl>
@@ -167,9 +173,15 @@ export const RootProvider: Story = {
 
 export const CustomStyles: Story = {
   render: renderStory(`
-    <ProgressCircular :default-value="72" class="[--size:4rem] [&_[data-slot=progress-circular-circle-track]]:stroke-accent [&_[data-slot=progress-circular-circle-range]]:stroke-chart-2">
+    <ProgressCircular :default-value="72">
       <ProgressCircularLabel>Monthly quota</ProgressCircularLabel>
-      <CircularParts aria-label="Monthly quota" />
+      <div class="relative inline-grid place-items-center">
+        <ProgressCircularCircle class="col-start-1 row-start-1 [--size:4rem] [--thickness:0.4rem]" aria-label="Monthly quota">
+          <ProgressCircularCircleTrack class="stroke-primary/25" />
+          <ProgressCircularCircleRange class="stroke-chart-2 drop-shadow-[0_0_0.25rem_color-mix(in_oklab,var(--color-chart-2),transparent_45%)]" />
+        </ProgressCircularCircle>
+        <ProgressCircularValueText class="col-start-1 row-start-1" />
+      </div>
     </ProgressCircular>
   `),
 };

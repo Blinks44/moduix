@@ -1,11 +1,13 @@
 {
   "languagesText": {
-    "fr": "Langues",
-    "ru": "Языки"
+    "en": "Language",
+    "fr": "Langue",
+    "ru": "Язык"
   },
   "themeText": {
-    "fr": "Thème",
-    "ru": "Тема"
+    "en": "Appearance",
+    "fr": "Apparence",
+    "ru": "Оформление"
   },
   "versionsText": {
     "fr": "Versions",
@@ -24,28 +26,32 @@
     "ru": "автор"
   },
   "prevPageText": {
-    "fr": "Page précédente",
-    "ru": "Предыдущая страница"
+    "en": "Previous",
+    "ru": "Назад",
+    "fr": "Précédent"
   },
   "sourceCodeText": {
     "fr": "Code source",
     "ru": "Исходный код"
   },
   "searchPlaceholderText": {
-    "fr": "Rechercher",
-    "ru": "Поиск"
+    "en": "Search docs…",
+    "fr": "Rechercher…",
+    "ru": "Поиск по документации…"
   },
   "searchPanelCancelText": {
     "fr": "Annuler",
     "ru": "Отмена"
   },
   "searchNoResultsText": {
-    "fr": "Aucun résultat correspondant",
-    "ru": "Совпадений не найдено"
+    "en": "No results for",
+    "ru": "Ничего не найдено по запросу",
+    "fr": "Aucun résultat pour"
   },
   "searchSuggestedQueryText": {
-    "fr": "Essayez d’autres mots-clés",
-    "ru": "Попробуйте другие ключевые слова"
+    "en": "Try a component name or a shorter search.",
+    "ru": "Попробуйте название компонента или запрос короче.",
+    "fr": "Essayez le nom d’un composant ou une recherche plus courte."
   },
   "overview.filterNameText": {
     "fr": "Filtrer",
@@ -110,425 +116,165 @@
     "ru": "Блоки",
     "fr": "Blocs"
   },
-  "navGitHub": {
-    "en": "GitHub",
-    "ru": "GitHub",
-    "fr": "GitHub"
-  },
-  "homeReleaseBadge": {
-    "en": "New: Vue and installable blocks",
-    "ru": "Новое: Vue и установка блоков",
-    "fr": "Nouveau : Vue et blocs installables"
-  },
-  "homeTitle": {
-    "en": "Accessible UI components for <strong>React, Solid, and&nbsp;Vue</strong>",
-    "ru": "Доступные UI-компоненты для <strong>React, Solid и&nbsp;Vue</strong>",
-    "fr": "Composants UI accessibles pour <strong>React, Solid et&nbsp;Vue</strong>"
-  },
-  "homeLead": {
-    "en": "80+ components and blocks on <a href='https://ark-ui.com/'>Ark UI</a>. One API in every framework, styled with CSS Modules or <a href='https://tailwindcss.com/'>Tailwind</a>, installed from npm or copied with the <a href='https://ui.shadcn.com/'>shadcn</a> CLI.",
-    "ru": "Более 80 компонентов и блоков на <a href='https://ark-ui.com/'>Ark UI</a>. Один API во всех фреймворках, стили на CSS Modules или <a href='https://tailwindcss.com/'>Tailwind</a>, установка из npm или копирование через CLI <a href='https://ui.shadcn.com/'>shadcn</a>.",
-    "fr": "Plus de 80 composants et blocs basés sur <a href='https://ark-ui.com/'>Ark UI</a>. Une même API dans chaque framework, stylée avec CSS Modules ou <a href='https://tailwindcss.com/'>Tailwind</a>, installée depuis npm ou copiée avec la CLI <a href='https://ui.shadcn.com/'>shadcn</a>."
-  },
-  "homeFrameworkStatus": {
-    "en": "React, Solid, and Vue are available today. Svelte is planned.",
-    "ru": "React, Solid и Vue доступны сейчас. Svelte запланирован.",
-    "fr": "React, Solid et Vue sont disponibles dès maintenant. Svelte est prévu."
-  },
   "homeGetStarted": {
     "en": "Get started",
-    "ru": "Начать работу",
-    "fr": "Démarrer"
+    "ru": "Начать",
+    "fr": "Commencer"
   },
   "docViewAsMarkdown": {
     "en": "View as Markdown",
     "ru": "Открыть в формате Markdown",
     "fr": "Voir au format Markdown"
   },
-  "homeDocumentationEyebrow": {
-    "en": "Documentation",
-    "ru": "Документация",
-    "fr": "Documentation"
-  },
-  "homeDocumentationTitle": {
-    "en": "Components, guides, and examples",
-    "ru": "Компоненты, руководства и примеры",
-    "fr": "Composants, guides et exemples"
-  },
-  "homeDocumentationDescription": {
-    "en": "Browse component APIs, setup guides, and examples for React, Solid, and Vue.",
-    "ru": "Здесь собраны API компонентов, инструкции по настройке и примеры для React, Solid и Vue.",
-    "fr": "Consultez les API des composants, les guides de configuration et les exemples pour React, Solid et Vue."
-  },
-  "homeAreaComponents": {
-    "en": "Components",
-    "ru": "Компоненты",
-    "fr": "Composants"
-  },
-  "homeAreaComponentsDescription": {
-    "en": "Browse components, try examples, and copy the code for your framework.",
-    "ru": "Выберите компонент, попробуйте примеры и скопируйте код для своего фреймворка.",
-    "fr": "Parcourez les composants, essayez les exemples et copiez le code pour votre framework."
-  },
-  "homeAreaCollections": {
-    "en": "Ark Collections",
-    "ru": "Ark Collections",
-    "fr": "Ark Collections"
-  },
-  "homeAreaCollectionsDescription": {
-    "en": "Data models for lists, trees, selection, and asynchronous sources.",
-    "ru": "Модели данных для списков, деревьев, выбора и асинхронных источников.",
-    "fr": "Des modèles de données pour les listes, les arbres, la sélection et les sources asynchrones."
-  },
-  "homeAreaUtilities": {
-    "en": "Ark Utilities",
-    "ru": "Ark Utilities",
-    "fr": "Ark Utilities"
-  },
-  "homeAreaUtilitiesDescription": {
-    "en": "Ark helpers for rendering, focus, formatting, locale, and mount transitions.",
-    "ru": "Инструменты Ark для рендеринга, фокуса, форматирования, локали и анимации появления и скрытия.",
-    "fr": "Des outils Ark pour le rendu, le focus, le formatage, la locale et les transitions de montage."
-  },
-  "homeAreaForms": {
+  "categoryForms": {
     "en": "Forms",
     "ru": "Формы",
     "fr": "Formulaires"
   },
-  "homeAreaFormsDescription": {
-    "en": "Integration guides for Formisch, React Hook Form, and TanStack Form.",
-    "ru": "Руководства по интеграции с Formisch, React Hook Form и TanStack Form.",
-    "fr": "Des guides d’intégration pour Formisch, React Hook Form et TanStack Form."
+  "categoryLayout": {
+    "en": "Layout",
+    "ru": "Макет",
+    "fr": "Mise en page"
   },
-  "homeAreaGuides": {
-    "en": "Guides",
-    "ru": "Руководства",
-    "fr": "Guides"
+  "categoryNavigation": {
+    "en": "Navigation",
+    "ru": "Навигация",
+    "fr": "Navigation"
   },
-  "homeAreaGuidesDescription": {
-    "en": "Practical guidance for styling, composition, motion, RTL, and updates.",
-    "ru": "Практические рекомендации по стилям, композиции, анимации, RTL и обновлениям.",
-    "fr": "Des conseils pratiques sur les styles, la composition, les animations, le RTL et les mises à jour."
+  "categoryOverlays": {
+    "en": "Overlays",
+    "ru": "Оверлеи",
+    "fr": "Superpositions"
   },
-  "homeAreaBlocks": {
-    "en": "Blocks",
-    "ru": "Блоки",
-    "fr": "Blocs"
+  "categoryFeedback": {
+    "en": "Feedback",
+    "ru": "Обратная связь",
+    "fr": "Retours"
   },
-  "homeAreaBlocksDescription": {
-    "en": "Forms, navigation, tables, and galleries you can install into your app.",
-    "ru": "Формы, навигация, таблицы и галереи, которые можно установить в приложение.",
-    "fr": "Des formulaires, de la navigation, des tableaux et des galeries à installer dans votre application."
+  "categoryDisplay": {
+    "en": "Display",
+    "ru": "Отображение",
+    "fr": "Affichage"
   },
-  "homeCompositionInPractice": {
-    "en": "Composition in practice",
-    "ru": "Композиция в деле",
-    "fr": "La composition en action"
-  },
-  "homeComponentsTogether": {
-    "en": "Components that work together.",
-    "ru": "Компоненты, которые работают вместе",
-    "fr": "Des composants qui s’assemblent naturellement"
-  },
-  "homeCompositionDescription": {
-    "en": "Try forms, tables, and navigation built from moduix components, then copy the source into your app.",
-    "ru": "Попробуйте формы, таблицы и навигацию из компонентов moduix, затем скопируйте исходный код в приложение.",
-    "fr": "Essayez les formulaires, les tableaux et la navigation construits avec moduix, puis copiez le code dans votre application."
-  },
-  "homeExploreBlocks": {
-    "en": "Explore all blocks",
-    "ru": "Открыть все блоки",
-    "fr": "Voir tous les blocs"
-  },
-  "homeWorkspaceDesignSystem": {
-    "en": "Design system",
-    "ru": "Дизайн-система",
-    "fr": "Système de design"
-  },
-  "homeWorkspaceCheckoutFlow": {
-    "en": "Checkout flow",
-    "ru": "Оформление заказа",
-    "fr": "Parcours de paiement"
-  },
-  "homeWorkspaceMapsWidgets": {
-    "en": "Maps widgets",
-    "ru": "Виджеты карт",
-    "fr": "Widgets cartographiques"
-  },
-  "homeSelectWorkspace": {
-    "en": "Select a workspace",
-    "ru": "Выберите рабочую область",
-    "fr": "Choisir un espace de travail"
-  },
-  "homeShowcaseActions": {
+  "categoryActions": {
     "en": "Actions",
     "ru": "Действия",
     "fr": "Actions"
   },
-  "homeShowcaseStatus": {
-    "en": "Status",
-    "ru": "Статус",
-    "fr": "Statut"
+  "componentSource": {
+    "en": "Source",
+    "ru": "Исходники",
+    "fr": "Source"
   },
-  "homeReleaseControls": {
-    "en": "Release controls",
-    "ru": "Управление релизом",
-    "fr": "Contrôles de publication"
+  "componentReportIssue": {
+    "en": "Report issue",
+    "ru": "Сообщить о проблеме",
+    "fr": "Signaler un problème"
   },
-  "homeFastActions": {
-    "en": "Buttons and their variants",
-    "ru": "Кнопки и их варианты",
-    "fr": "Boutons et variantes"
+  "installPackage": {
+    "en": "Package",
+    "ru": "Пакет",
+    "fr": "Paquet"
   },
-  "homePublishUpdate": {
-    "en": "Publish update",
-    "ru": "Опубликовать обновление",
-    "fr": "Publier la mise à jour"
+  "installSubpathNote": {
+    "en": "Import components from subpaths such as {subpath}.",
+    "ru": "Импортируйте компоненты из подпутей, например {subpath}.",
+    "fr": "Importez les composants depuis des sous-chemins, par exemple {subpath}."
   },
-  "homePreview": {
+  "installRegistryNote": {
+    "en": "The CLI copies the component source and its styles into your project.",
+    "ru": "CLI копирует исходники компонента и его стили в ваш проект.",
+    "fr": "La CLI copie le code source du composant et ses styles dans votre projet."
+  },
+  "installQuickStartNote": {
+    "en": "See {link} for the stylesheet imports and registry setup.",
+    "ru": "Подключение стилей и настройка registry описаны в разделе {link}.",
+    "fr": "Les imports de feuilles de style et la configuration du registry sont décrits dans {link}."
+  },
+  "installQuickStartLabel": {
+    "en": "Quick start",
+    "ru": "Быстрый старт",
+    "fr": "Démarrage rapide"
+  },
+  "notFoundTitle": {
+    "en": "This page is not here",
+    "ru": "Такой страницы нет",
+    "fr": "Cette page n’existe pas"
+  },
+  "notFoundDescription": {
+    "en": "It may have moved when the docs were reorganized. Try search, or start from one of these.",
+    "ru": "Возможно, она переехала, когда мы перестраивали документацию. Воспользуйтесь поиском или начните отсюда.",
+    "fr": "Elle a peut-être été déplacée lors de la réorganisation de la documentation. Utilisez la recherche ou partez de l’une de ces pages."
+  },
+  "notFoundQuickStart": {
+    "en": "Quick start",
+    "ru": "Быстрый старт",
+    "fr": "Démarrage rapide"
+  },
+  "notFoundHome": {
+    "en": "Home",
+    "ru": "Главная",
+    "fr": "Accueil"
+  },
+  "examplePreview": {
     "en": "Preview",
-    "ru": "Предпросмотр",
+    "ru": "Превью",
     "fr": "Aperçu"
   },
-  "homeShare": {
-    "en": "Share",
-    "ru": "Поделиться",
-    "fr": "Partager"
+  "exampleCode": {
+    "en": "Code",
+    "ru": "Код",
+    "fr": "Code"
   },
-  "homePrimaryAction": {
-    "en": "Primary CTA",
-    "ru": "Основное действие",
-    "fr": "Action principale"
+  "exampleFramework": {
+    "en": "Framework",
+    "ru": "Фреймворк",
+    "fr": "Framework"
   },
-  "homeDefaultVariant": {
-    "en": "Default variant",
-    "ru": "Вариант по умолчанию",
-    "fr": "Variante par défaut"
+  "exampleStyling": {
+    "en": "Styling",
+    "ru": "Стили",
+    "fr": "Styles"
   },
-  "homeSecondaryAction": {
-    "en": "Secondary path",
-    "ru": "Дополнительный сценарий",
-    "fr": "Parcours secondaire"
+  "exampleReload": {
+    "en": "Reload preview",
+    "ru": "Перезапустить превью",
+    "fr": "Relancer l’aperçu"
   },
-  "homeOutlineAndGhost": {
-    "en": "Outline and ghost",
-    "ru": "Контурный и прозрачный",
-    "fr": "Contour et transparent"
+  "exampleCopy": {
+    "en": "Copy code",
+    "ru": "Скопировать код",
+    "fr": "Copier le code"
   },
-  "homeFlowHealth": {
-    "en": "Flow health",
-    "ru": "Состояние сценария",
-    "fr": "État du parcours"
+  "exampleCopied": {
+    "en": "Copied",
+    "ru": "Скопировано",
+    "fr": "Copié"
   },
-  "homeToggleAndProgress": {
-    "en": "Toggle and progress, side by side",
-    "ru": "Переключатель и прогресс рядом",
-    "fr": "Interrupteur et progression côte à côte"
-  },
-  "homeAutoReview": {
-    "en": "Auto-review before release",
-    "ru": "Автопроверка перед релизом",
-    "fr": "Validation automatique avant publication"
-  },
-  "homeReleaseReadiness": {
-    "en": "Release readiness",
-    "ru": "Готовность к релизу",
-    "fr": "Prêt pour la publication"
-  },
-  "homeChecksEnabled": {
-    "en": "Checks enabled",
-    "ru": "Проверки включены",
-    "fr": "Vérifications activées"
-  },
-  "homeManualReview": {
-    "en": "Manual review only",
-    "ru": "Только ручная проверка",
-    "fr": "Révision manuelle uniquement"
-  },
-  "homeAdvance": {
-    "en": "Next step",
-    "ru": "Следующий шаг",
-    "fr": "Étape suivante"
-  },
-  "homeApprovalFlow": {
-    "en": "Approval flow",
-    "ru": "Согласование изменений",
-    "fr": "Validation"
-  },
-  "homeOpenModal": {
-    "en": "Open a modal right here",
-    "ru": "Откройте модальное окно прямо здесь",
-    "fr": "Ouvrez une modale ici"
-  },
-  "homeDialogPreviewDescription": {
-    "en": "Open the dialog to try keyboard navigation and focus management.",
-    "ru": "Откройте диалог, чтобы проверить навигацию с клавиатуры и управление фокусом.",
-    "fr": "Ouvrez la boîte de dialogue pour tester la navigation au clavier et la gestion du focus."
-  },
-  "homeReviewChanges": {
-    "en": "Review changes",
-    "ru": "Проверить изменения",
-    "fr": "Examiner les modifications"
-  },
-  "homePublishRelease": {
-    "en": "Publish release?",
-    "ru": "Опубликовать релиз?",
-    "fr": "Publier la version ?"
-  },
-  "homePublishReleaseDescription": {
-    "en": "Push the updated components and docs to the shared workspace.",
-    "ru": "Опубликуйте обновлённые компоненты и документацию в общем рабочем пространстве.",
-    "fr": "Envoyez les composants et la documentation mis à jour dans l’espace de travail partagé."
-  },
-  "homeBack": {
-    "en": "Back",
-    "ru": "Назад",
-    "fr": "Retour"
-  },
-  "homeApprove": {
-    "en": "Approve",
-    "ru": "Подтвердить",
-    "fr": "Approuver"
-  },
-  "homeInspectApi": {
-    "en": "View the API",
-    "ru": "Посмотреть API",
-    "fr": "Voir l’API"
-  },
-  "homeFocusManagement": {
-    "en": "Focus management",
-    "ru": "Управление фокусом",
-    "fr": "Gestion du focus"
-  },
-  "homeBuiltIn": {
-    "en": "Included",
-    "ru": "Встроено",
-    "fr": "Intégré"
-  },
-  "homeShowcaseComposition": {
-    "en": "Composition",
-    "ru": "Композиция",
-    "fr": "Composition"
-  },
-  "homeTriggerContentFooter": {
-    "en": "Trigger, content, footer",
-    "ru": "Триггер, содержимое, подвал",
-    "fr": "Déclencheur, contenu, pied de page"
-  },
-  "homeWorkspacePicker": {
-    "en": "Workspace picker",
-    "ru": "Выбор рабочей области",
-    "fr": "Sélecteur d’espace de travail"
-  },
-  "homeInteractiveSelect": {
-    "en": "Interactive select with a live value",
-    "ru": "Интерактивный Select с текущим значением",
-    "fr": "Select interactif avec valeur actuelle"
-  },
-  "homeActiveWorkspace": {
-    "en": "Active workspace",
-    "ru": "Текущая рабочая область",
-    "fr": "Espace de travail actif"
-  },
-  "homeSelected": {
-    "en": "Selected",
-    "ru": "Выбрано",
-    "fr": "Sélection"
-  },
-  "homePattern": {
-    "en": "Composition",
-    "ru": "Состав",
-    "fr": "Composition"
-  },
-  "homeFieldTriggerList": {
-    "en": "Field, trigger, list",
-    "ru": "Поле, триггер, список",
-    "fr": "Champ, déclencheur, liste"
-  },
-  "primitiveReferenceTitle": {
-    "en": "Ark UI API reference",
-    "ru": "Документация Ark UI",
-    "fr": "Référence de l’API Ark UI"
+  "exampleRenderer": {
+    "en": "Preview runs React · CSS Modules",
+    "ru": "Превью работает на React · CSS Modules",
+    "fr": "L’aperçu utilise React · CSS Modules"
   },
   "showCode": {
     "en": "Show code",
     "ru": "Показать код",
     "fr": "Afficher le code"
   },
-  "primitiveReferenceDescription": {
-    "en": "For behavior, accessibility guidance, and low-level props, see the Ark UI reference.",
-    "ru": "Описание поведения, требований доступности и низкоуровневых свойств смотрите в документации Ark UI.",
-    "fr": "La documentation Ark UI décrit le comportement, l’accessibilité et les propriétés de bas niveau."
-  },
-  "primitiveReferenceLink": {
-    "en": "Open",
-    "ru": "Открыть",
-    "fr": "Ouvrir"
-  },
-  "blockInstallDescription": {
-    "en": "Run one command to add the block source, styles, and required components to your project. Choose the framework and component styling track:",
-    "ru": "Одна команда добавит в проект исходники блока, стили и нужные компоненты. Выберите фреймворк и вариант стилизации компонентов:",
-    "fr": "Une seule commande ajoute le code du bloc, ses styles et les composants nécessaires à votre projet. Choisissez le framework et les styles des composants :"
-  },
-  "blockInstallStyles": {
-    "en": "Both tracks use the same CSS Module for the block layout. Tailwind selects utility-based UI components; it does not convert the block layout into utilities.",
-    "ru": "В обоих вариантах раскладка блока использует общий CSS Module. Вариант Tailwind устанавливает UI-компоненты на utility-классах, но не переводит в них стили самого блока.",
-    "fr": "Les deux variantes utilisent le même CSS Module pour la mise en page du bloc. La variante Tailwind installe des composants UI utilisant les classes utilitaires, sans convertir les styles du bloc."
-  },
-  "blockInstallSetup": {
-    "en": "Complete Quick Start registry setup first. Files are installed under your configured components directory in blocks/<name>. Import the block into your screen; routes and API calls stay in your application.",
-    "ru": "Сначала настройте registry по руководству Quick Start. Файлы появятся в настроенной папке компонентов, в blocks/<name>. Импортируйте блок на свою страницу; маршруты и обращения к API остаются в вашем приложении.",
-    "fr": "Configurez d’abord le registre en suivant le guide de démarrage. Les fichiers sont ajoutés dans blocks/<name>, sous votre dossier de composants configuré. Importez le bloc dans votre page ; les routes et les appels API restent dans votre application."
-  },
-  "blockQuickStart": {
-    "en": "Registry setup",
-    "ru": "Настройка registry",
-    "fr": "Configurer le registre"
-  },
   "cssProperty": {
-    "en": "Property",
-    "ru": "Свойство",
-    "fr": "Propriété"
+    "en": "Variable",
+    "ru": "Переменная",
+    "fr": "Variable"
   },
   "cssDefault": {
     "en": "Default",
     "ru": "По умолчанию",
     "fr": "Par défaut"
   },
-  "themePresetPreviewLabel": {
-    "en": "Theme preset preview",
-    "ru": "Предпросмотр пресетов тем",
-    "fr": "Aperçu des préréglages de thème"
-  },
-  "themePresetListLabel": {
-    "en": "Theme presets",
-    "ru": "Пресеты тем",
-    "fr": "Préréglages de thème"
-  },
-  "themePresetCalmDescription": {
-    "en": "The default moduix theme with neutral colors and standard spacing.",
-    "ru": "Базовая тема moduix с нейтральными цветами и стандартными отступами.",
-    "fr": "Le thème moduix par défaut, avec des couleurs neutres et un espacement standard."
-  },
-  "themePresetDenseDescription": {
-    "en": "Compact spacing and blue accents for admin interfaces and data tables.",
-    "ru": "Компактные отступы и синие акценты для панелей управления и таблиц данных.",
-    "fr": "Un espacement compact et des accents bleus pour les interfaces d’administration et les tableaux de données."
-  },
-  "themePresetSoftDescription": {
-    "en": "Rounded corners and violet accents.",
-    "ru": "Закруглённые углы и фиолетовые акценты.",
-    "fr": "Des coins arrondis et des accents violets."
-  },
-  "themePresetContrastDescription": {
-    "en": "Stronger borders and higher contrast.",
-    "ru": "Более чёткие границы и повышенный контраст.",
-    "fr": "Des bordures plus marquées et un contraste renforcé."
-  },
-  "themePreviewColorModeLabel": {
-    "en": "Preview color mode",
-    "ru": "Цветовая схема предпросмотра",
-    "fr": "Mode de couleur de l’aperçu"
+  "cssDescription": {
+    "en": "Description",
+    "ru": "Описание",
+    "fr": "Description"
   },
   "themePreviewLight": {
     "en": "Light",
@@ -540,95 +286,30 @@
     "ru": "Тёмная",
     "fr": "Sombre"
   },
-  "themePreviewLabel": {
-    "en": "moduix preset",
-    "ru": "Пресет moduix",
-    "fr": "Préréglage moduix"
+  "themePresetsLabel": {
+    "en": "Theme presets",
+    "ru": "Пресеты тем",
+    "fr": "Préréglages de thème"
   },
-  "themePreviewControls": {
-    "en": "Controls",
-    "ru": "Элементы",
-    "fr": "Contrôles"
+  "themePresetsWorkspace": {
+    "en": "Workspace",
+    "ru": "Рабочее пространство",
+    "fr": "Espace de travail"
   },
-  "themePreviewPopupRows": {
-    "en": "Popup rows",
-    "ru": "Строки списка",
-    "fr": "Lignes de popup"
+  "themePresetsEmailUpdates": {
+    "en": "Email updates",
+    "ru": "Письма об обновлениях",
+    "fr": "Mises à jour par e-mail"
   },
-  "themePreviewReleaseWorkspace": {
-    "en": "Release workspace",
-    "ru": "Рабочая область выпуска",
-    "fr": "Espace de publication"
+  "themePresetsCancel": {
+    "en": "Cancel",
+    "ru": "Отмена",
+    "fr": "Annuler"
   },
-  "themePreviewOneVisualDecision": {
-    "en": "One visual decision, applied across the system.",
-    "ru": "Одно визуальное решение для всей системы.",
-    "fr": "Un choix visuel appliqué à tout le système."
-  },
-  "themePreviewReady": {
-    "en": "Ready",
-    "ru": "Готово",
-    "fr": "Prêt"
-  },
-  "themePreviewProjectName": {
-    "en": "Project name",
-    "ru": "Название проекта",
-    "fr": "Nom du projet"
-  },
-  "themePreviewSpringRelease": {
-    "en": "Spring release",
-    "ru": "Весенний релиз",
-    "fr": "Version de printemps"
-  },
-  "themePreviewStage": {
-    "en": "Stage",
-    "ru": "Этап",
-    "fr": "Étape"
-  },
-  "themePreviewSelectStage": {
-    "en": "Select a stage",
-    "ru": "Выберите этап",
-    "fr": "Sélectionner une étape"
-  },
-  "themePreviewWorkflow": {
-    "en": "Workflow",
-    "ru": "Процесс",
-    "fr": "Processus"
-  },
-  "themePreviewPlanning": {
-    "en": "Planning",
-    "ru": "Планирование",
-    "fr": "Planification"
-  },
-  "themePreviewInReview": {
-    "en": "In review",
-    "ru": "На проверке",
-    "fr": "En vérification"
-  },
-  "themePreviewReadyToShip": {
-    "en": "Ready to ship",
-    "ru": "Готово к выпуску",
-    "fr": "Prêt à publier"
-  },
-  "themePreviewTaskCount": {
-    "en": "12 tasks",
-    "ru": "12 задач",
-    "fr": "12 tâches"
-  },
-  "themePreviewReviewerCount": {
-    "en": "4 reviewers",
-    "ru": "4 проверяющих",
-    "fr": "4 relecteurs"
-  },
-  "themePreviewCreateWorkspace": {
-    "en": "Create workspace",
-    "ru": "Создать рабочую область",
-    "fr": "Créer l’espace de travail"
-  },
-  "themePreviewPreview": {
-    "en": "Preview",
-    "ru": "Предпросмотр",
-    "fr": "Aperçu"
+  "themePresetsSave": {
+    "en": "Save",
+    "ru": "Сохранить",
+    "fr": "Enregistrer"
   },
   "tokensOverviewTokenArchitecture": {
     "en": "Token architecture",
@@ -639,11 +320,6 @@
     "en": "Raw values",
     "ru": "Исходные значения",
     "fr": "Valeurs brutes"
-  },
-  "tokensOverviewSemanticAliases": {
-    "en": "Semantic aliases",
-    "ru": "Семантические алиасы",
-    "fr": "Alias sémantiques"
   },
   "tokensOverviewComponentVariables": {
     "en": "Component variables",
@@ -694,11 +370,6 @@
     "en": "Primitive spacing",
     "ru": "Примитивные интервалы",
     "fr": "Espacement primitif"
-  },
-  "tokensOverviewSemanticSpacing": {
-    "en": "Semantic spacing",
-    "ru": "Семантические интервалы",
-    "fr": "Espacement sémantique"
   },
   "tokensOverviewControlSize": {
     "en": "Control size",
@@ -895,11 +566,6 @@
     "ru": "Базовый фон оверлея",
     "fr": "Fond de superposition"
   },
-  "tokensOverviewColorSoftOverlay": {
-    "en": "Soft overlay",
-    "ru": "Мягкий оверлей",
-    "fr": "Superposition légère"
-  },
   "tokensOverviewColorChart1": {
     "en": "Chart 1",
     "ru": "График 1",
@@ -934,16 +600,6 @@
     "en": "Sidebar text",
     "ru": "Текст боковой панели",
     "fr": "Texte de la barre latérale"
-  },
-  "tokensOverviewColorSidebarPrimary": {
-    "en": "Sidebar primary",
-    "ru": "Основной цвет боковой панели",
-    "fr": "Couleur principale de la barre latérale"
-  },
-  "tokensOverviewColorSidebarPrimaryText": {
-    "en": "Sidebar primary text",
-    "ru": "Текст основного цвета боковой панели",
-    "fr": "Texte principal de la barre latérale"
   },
   "tokensOverviewColorSidebarAccent": {
     "en": "Sidebar accent",
@@ -1090,176 +746,6 @@
     "ru": "Вертикальное смещение при скрытии",
     "fr": "Décalage vertical à la sortie"
   },
-  "ownershipLayersBehavior": {
-    "en": "Behavior",
-    "ru": "Поведение",
-    "fr": "Comportement"
-  },
-  "ownershipLayersPresentation": {
-    "en": "Styling",
-    "ru": "Стилизация",
-    "fr": "Styles"
-  },
-  "ownershipLayersOwnership": {
-    "en": "Installation",
-    "ru": "Установка",
-    "fr": "Installation"
-  },
-  "ownershipLayersStyling": {
-    "en": "CSS Modules or Tailwind + tokens",
-    "ru": "CSS Modules или Tailwind + токены",
-    "fr": "CSS Modules ou Tailwind + tokens"
-  },
-  "ownershipLayersPackageSource": {
-    "en": "Package or source",
-    "ru": "Пакет или исходный код",
-    "fr": "Paquet ou code source"
-  },
-  "ownershipLayersEyebrow": {
-    "en": "How moduix works",
-    "ru": "Как устроен moduix",
-    "fr": "Comment fonctionne moduix"
-  },
-  "ownershipLayersTitle": {
-    "en": "Behavior, styles, and installation",
-    "ru": "Поведение, стили и установка",
-    "fr": "Comportement, styles et installation"
-  },
-  "ownershipLayersSummary": {
-    "en": "Ark UI handles keyboard interaction and focus. moduix adds styles and shared tokens. You choose the theme and compose the parts in your application.",
-    "ru": "Ark UI отвечает за управление с клавиатуры и фокус. moduix добавляет стили и общие токены. Вы выбираете тему и собираете компоненты из отдельных частей в своём приложении.",
-    "fr": "Ark UI gère les interactions au clavier et le focus. moduix ajoute les styles et les tokens partagés. Vous choisissez le thème et assemblez les parties dans votre application."
-  },
-  "ownershipLayersTokenFirstStyling": {
-    "en": "Token-first styling",
-    "ru": "Стилизация на основе токенов",
-    "fr": "Styles pilotés par des tokens"
-  },
-  "ownershipLayersThemeable": {
-    "en": "themeable",
-    "ru": "настраивается темой",
-    "fr": "personnalisable par thème"
-  },
-  "ownershipLayersNote": {
-    "en": "Semantic tokens set shared colors and sizes. Family tokens apply to related controls. CSS Modules also provide variables for individual components.",
-    "ru": "Семантические токены задают общие цвета и размеры. Токены семейства применяются к связанным элементам управления. В CSS Modules также есть переменные для отдельных компонентов.",
-    "fr": "Les tokens sémantiques définissent les couleurs et les dimensions communes. Les tokens de famille s’appliquent aux contrôles associés. CSS Modules fournit aussi des variables propres à chaque composant."
-  },
-  "chartHeroDate": {
-    "en": "August 20, 2026",
-    "ru": "20 августа 2026 г.",
-    "fr": "20 août 2026"
-  },
-  "changelogNewComponent": {
-    "en": "New component",
-    "ru": "Новый компонент",
-    "fr": "Nouveau composant"
-  },
-  "changelogDocumentationUpdate": {
-    "en": "Documentation update",
-    "ru": "Обновление документации",
-    "fr": "Mise à jour de la documentation"
-  },
-  "changelogMajorRelease": {
-    "en": "Major release",
-    "ru": "Мажорный релиз",
-    "fr": "Version majeure"
-  },
-  "changelogNewFramework": {
-    "en": "New framework",
-    "ru": "Новый фреймворк",
-    "fr": "Nouveau framework"
-  },
-  "changelogNewStylingTrack": {
-    "en": "Tailwind support",
-    "ru": "Поддержка Tailwind",
-    "fr": "Prise en charge de Tailwind"
-  },
-  "solidReleaseHeroDate": {
-    "en": "September 13, 2026",
-    "ru": "13 сентября 2026 г.",
-    "fr": "13 septembre 2026"
-  },
-  "solidReleaseHeroSummary": {
-    "en": "The full moduix catalog is now available for Solid, with CSS Modules and Tailwind packages.",
-    "ru": "Полный каталог moduix теперь доступен для Solid в пакетах CSS Modules и Tailwind.",
-    "fr": "Le catalogue complet de moduix est désormais disponible pour Solid, avec des paquets CSS Modules et Tailwind."
-  },
-  "tailwindReleaseHeroDate": {
-    "en": "September 20, 2026",
-    "ru": "20 сентября 2026 г.",
-    "fr": "20 septembre 2026"
-  },
-  "tailwindReleaseHeroSummary": {
-    "en": "The full moduix catalog is now available with Tailwind CSS for React, Solid, and Vue.",
-    "ru": "Полный каталог moduix теперь доступен с Tailwind CSS для React, Solid и Vue.",
-    "fr": "Le catalogue complet de moduix est désormais disponible avec Tailwind CSS pour React, Solid et Vue."
-  },
-  "chartHeroSummary": {
-    "en": "A figure wrapper for TanStack Charts with accessible defaults from moduix.",
-    "ru": "Оболочка figure для TanStack Charts с настройками доступности от moduix.",
-    "fr": "Une balise figure pour TanStack Charts, avec les réglages d'accessibilité de moduix."
-  },
-  "navigationMenuHeroDate": {
-    "en": "August 25, 2026",
-    "ru": "25 августа 2026 г.",
-    "fr": "25 août 2026"
-  },
-  "navigationMenuHeroSummary": {
-    "en": "A menu for direct links, grouped links, and animated panels.",
-    "ru": "Меню для прямых ссылок, групп ссылок и анимируемых панелей.",
-    "fr": "Un menu pour les liens directs, les groupes de liens et les panneaux animés."
-  },
-  "tableOfContentsHeroDate": {
-    "en": "August 27, 2026",
-    "ru": "27 августа 2026 г.",
-    "fr": "27 août 2026"
-  },
-  "tableOfContentsHeroSummary": {
-    "en": "A table of contents that follows the section currently in view.",
-    "ru": "Оглавление, которое следует за разделом в области просмотра.",
-    "fr": "Un sommaire qui suit la section actuellement visible."
-  },
-  "localizationHeroDate": {
-    "en": "August 10, 2026",
-    "ru": "10 августа 2026 г.",
-    "fr": "10 août 2026"
-  },
-  "localizationHeroLanguages": {
-    "en": "Russian, French",
-    "ru": "Русский, Французский",
-    "fr": "Russe, Français"
-  },
-  "localizationHeroTitle": {
-    "en": "Three languages",
-    "ru": "Три языка",
-    "fr": "Trois langues"
-  },
-  "localizationHeroSummary": {
-    "en": "The documentation is now available in English, Russian, and French.",
-    "ru": "Документация теперь доступна на английском, русском и французском.",
-    "fr": "La documentation est maintenant disponible en anglais, en français et en russe."
-  },
-  "v2MigrationHeroDate": {
-    "en": "July 19, 2026",
-    "ru": "19 июля 2026 г.",
-    "fr": "19 juillet 2026"
-  },
-  "v2MigrationHeroTitle": {
-    "en": "Ark UI support",
-    "ru": "Поддержка Ark UI",
-    "fr": "Prise en charge d'Ark UI"
-  },
-  "v2MigrationHeroSummary": {
-    "en": "Ark UI now handles state and accessibility for components that use its primitives.",
-    "ru": "Ark UI теперь отвечает за состояние и доступность компонентов с соответствующими примитивами.",
-    "fr": "Ark UI gère désormais l'état et l'accessibilité des composants qui utilisent ses primitives."
-  },
-  "tokensOverviewSemanticVariables": {
-    "en": "Components read semantic variables while themes override the raw palette.",
-    "ru": "Компоненты используют семантические переменные, а темы переопределяют исходную палитру.",
-    "fr": "Les composants utilisent les variables sémantiques, tandis que les thèmes redéfinissent la palette de base."
-  },
   "tokensOverviewCentralizedBackdrop": {
     "en": "Global backdrop color and blur stay centralized: every overlay backdrop reads the same two variables.",
     "ru": "Цвет и размытие фона задаются централизованно: фон каждого оверлея читает одни и те же две переменные.",
@@ -1271,9 +757,9 @@
     "fr": "Un conteneur parent peut modifier la densité, les animations ou les couleurs de la zone qu’il contient."
   },
   "tokensOverviewColorThemeValues": {
-    "en": "Light and dark theme values plus semantic aliases.",
-    "ru": "Значения светлой и тёмной темы вместе с семантическими алиасами.",
-    "fr": "Valeurs des thèmes clair et sombre, avec leurs alias sémantiques."
+    "en": "Light and dark values of each color token.",
+    "ru": "Светлое и тёмное значение каждого цветового токена.",
+    "fr": "Valeurs claire et sombre de chaque token de couleur."
   },
   "tokensOverviewSizingScale": {
     "en": "Primitive steps, semantic spacing, and control heights.",
@@ -1294,46 +780,6 @@
     "en": "Backdrop, popup, and popup-motion defaults are reused across overlay families, with local component tokens layered on top.",
     "ru": "Значения по умолчанию для фона, всплывающих окон и их анимации используются всеми семействами оверлеев, а отдельные компоненты могут дополнить их своими токенами.",
     "fr": "Les valeurs par défaut de l’arrière-plan, des fenêtres contextuelles et de leurs animations sont partagées par les familles de superpositions ; chaque composant peut ensuite appliquer ses tokens locaux."
-  },
-  "frameworkAstroDescription": {
-    "en": "Interactive React, Solid, and Vue islands.",
-    "ru": "Интерактивные острова на React, Solid и Vue.",
-    "fr": "Îlots interactifs en React, Solid et Vue."
-  },
-  "frameworkNextDescription": {
-    "en": "App Router and React Server Components.",
-    "ru": "App Router и React Server Components.",
-    "fr": "App Router et React Server Components."
-  },
-  "frameworkNuxtDescription": {
-    "en": "Vue apps with server rendering and hydration.",
-    "ru": "Vue-приложения с серверным рендерингом и гидратацией.",
-    "fr": "Applications Vue avec rendu serveur et hydratation."
-  },
-  "frameworkReactRouterDescription": {
-    "en": "Framework mode and data mode apps.",
-    "ru": "Приложения в режимах framework и data.",
-    "fr": "Applications en mode framework ou en mode data."
-  },
-  "frameworkRsbuildDescription": {
-    "en": "React, Solid, and Vue apps powered by Rspack.",
-    "ru": "Приложения на React, Solid и Vue на базе Rspack.",
-    "fr": "Applications React, Solid et Vue basées sur Rspack."
-  },
-  "frameworkTanStackStartDescription": {
-    "en": "Full-stack React and Solid with TanStack Router.",
-    "ru": "Full-stack-приложения на React и Solid с TanStack Router.",
-    "fr": "Applications full-stack React et Solid avec TanStack Router."
-  },
-  "frameworkSolidStartDescription": {
-    "en": "The full-stack framework for Solid.",
-    "ru": "Full-stack-фреймворк для Solid.",
-    "fr": "Le framework full-stack pour Solid."
-  },
-  "frameworkViteDescription": {
-    "en": "React, Solid, and Vue apps and SPAs.",
-    "ru": "Приложения на React, Solid и Vue, включая SPA.",
-    "fr": "Applications React, Solid et Vue, y compris les SPA."
   },
   "frameworkSupportGroupLabel": {
     "en": "Framework support",
@@ -1361,9 +807,9 @@
     "fr": "Vue est disponible"
   },
   "copyMarkdownText": {
-    "en": "Copy Markdown",
-    "ru": "Скопировать Markdown",
-    "fr": "Copier le Markdown"
+    "en": "Copy page",
+    "ru": "Скопировать страницу",
+    "fr": "Copier la page"
   },
   "copyMarkdownLinkText": {
     "en": "Copy Markdown link",
@@ -1371,9 +817,9 @@
     "fr": "Copier le lien Markdown"
   },
   "outlineTitle": {
-    "en": "ON THIS PAGE",
-    "ru": "ОГЛАВЛЕНИЕ",
-    "fr": "SUR CETTE PAGE"
+    "en": "On this page",
+    "ru": "На этой странице",
+    "fr": "Sur cette page"
   },
   "editLinkText": {
     "en": "Edit this page",
@@ -1381,19 +827,14 @@
     "fr": "Modifier cette page"
   },
   "lastUpdatedText": {
-    "en": "Last Updated",
-    "ru": "Последнее обновление",
-    "fr": "Dernière mise à jour"
+    "en": "Last updated",
+    "ru": "Обновлено",
+    "fr": "Mis à jour le"
   },
   "nextPageText": {
-    "en": "Next page",
-    "ru": "Следующая страница",
-    "fr": "Page suivante"
-  },
-  "vueReleaseHeroSummary": {
-    "en": "Native Vue components, CSS Modules and Tailwind, with SFC examples, form integrations, and installable blocks.",
-    "ru": "Нативные Vue-компоненты, CSS Modules и Tailwind, SFC-примеры, интеграции форм и устанавливаемые блоки.",
-    "fr": "Composants Vue natifs, CSS Modules et Tailwind, exemples SFC, intégrations de formulaires et blocs à installer."
+    "en": "Next",
+    "ru": "Далее",
+    "fr": "Suivant"
   },
   "seoHomeTitle": {
     "en": "moduix - Accessible UI components for React, Solid, and Vue",
@@ -1404,5 +845,565 @@
     "en": "{name} component for React, Solid, and Vue | moduix",
     "ru": "{name}: компонент для React, Solid и Vue | moduix",
     "fr": "Composant {name} pour React, Solid et Vue | moduix"
+  },
+  "presetMenuLabel": {
+    "en": "Theme preset",
+    "ru": "Пресет темы",
+    "fr": "Préréglage de thème"
+  },
+  "presetMenuCalmHint": {
+    "en": "Default · neutral",
+    "ru": "По умолчанию, нейтральный",
+    "fr": "Par défaut, neutre"
+  },
+  "presetMenuDenseHint": {
+    "en": "Compact, for admin and tables",
+    "ru": "Компактный, для админок и таблиц",
+    "fr": "Compact, pour l’admin et les tableaux"
+  },
+  "presetMenuSoftHint": {
+    "en": "Larger and rounder",
+    "ru": "Крупнее и круглее",
+    "fr": "Plus grand et plus arrondi"
+  },
+  "presetMenuContrastHint": {
+    "en": "Strong borders and focus",
+    "ru": "Чёткие границы и фокус",
+    "fr": "Bordures et focus marqués"
+  },
+  "presetMenuCustomize": {
+    "en": "Customize or create a theme",
+    "ru": "Настроить или создать тему",
+    "fr": "Personnaliser ou créer un thème"
+  },
+  "blockInstallNote": {
+    "en": "Adds {components} for the framework and styling picked in the preview, plus the block stylesheet.",
+    "ru": "Добавляет {components} для фреймворка и стилей, выбранных в превью, а также стили блока.",
+    "fr": "Ajoute {components} pour le framework et les styles choisis dans l’aperçu, ainsi que la feuille de style du bloc."
+  },
+  "catalogCategories": {
+    "en": "Component categories",
+    "ru": "Категории компонентов",
+    "fr": "Catégories de composants"
+  },
+  "catalogAll": {
+    "en": "All",
+    "ru": "Все",
+    "fr": "Tous"
+  },
+  "catalogFilter": {
+    "en": "Filter components",
+    "ru": "Фильтр компонентов",
+    "fr": "Filtrer les composants"
+  },
+  "catalogShowAll": {
+    "en": "Show all {count}",
+    "ru": "Показать все {count}",
+    "fr": "Tout afficher ({count})"
+  },
+  "catalogEmptyTitle": {
+    "en": "No matching components",
+    "ru": "Подходящих компонентов нет",
+    "fr": "Aucun composant correspondant"
+  },
+  "catalogEmptyText": {
+    "en": "Try another name or clear the active filters.",
+    "ru": "Попробуйте другое название или сбросьте фильтры.",
+    "fr": "Essayez un autre nom ou effacez les filtres actifs."
+  },
+  "catalogClear": {
+    "en": "Clear filters",
+    "ru": "Сбросить фильтры",
+    "fr": "Effacer les filtres"
+  },
+  "blockPreview": {
+    "en": "Preview",
+    "ru": "Открыть",
+    "fr": "Aperçu"
+  },
+  "homeHeroArk": {
+    "en": "built on Ark UI {version}",
+    "ru": "на Ark UI {version}",
+    "fr": "basé sur Ark UI {version}"
+  },
+  "homeHeroTitle": {
+    "en": "Accessible components\nfor every framework",
+    "ru": "Доступные компоненты\nдля любого фреймворка",
+    "fr": "Des composants accessibles\npour chaque framework"
+  },
+  "homeHeroText": {
+    "en": "{count} components and blocks built on Ark UI. One API for React, Solid and Vue, styled with CSS Modules or Tailwind CSS. Install from npm or own the source with shadcn.",
+    "ru": "{count} компонентов и блоков на Ark UI. Один API для React, Solid и Vue, стили на CSS Modules или Tailwind CSS. Установите из npm или заберите исходники через shadcn.",
+    "fr": "{count} composants et blocs basés sur Ark UI. Une seule API pour React, Solid et Vue, stylée avec CSS Modules ou Tailwind CSS. Installez depuis npm ou récupérez la source avec shadcn."
+  },
+  "homeBrowseComponents": {
+    "en": "Browse components",
+    "ru": "Все компоненты",
+    "fr": "Parcourir les composants"
+  },
+  "homeWorksWith": {
+    "en": "Works with",
+    "ru": "Работает с",
+    "fr": "Compatible avec"
+  },
+  "homeDemoTitle": {
+    "en": "Notifications",
+    "ru": "Уведомления",
+    "fr": "Notifications"
+  },
+  "homeDemoText": {
+    "en": "Choose what reaches your inbox.",
+    "ru": "Выберите, что приходит на почту.",
+    "fr": "Choisissez ce qui arrive dans votre boîte."
+  },
+  "homeDemoProduct": {
+    "en": "Product updates",
+    "ru": "Новости продукта",
+    "fr": "Nouveautés produit"
+  },
+  "homeDemoSecurity": {
+    "en": "Security alerts",
+    "ru": "Оповещения безопасности",
+    "fr": "Alertes de sécurité"
+  },
+  "homeDemoDigest": {
+    "en": "Weekly digest",
+    "ru": "Еженедельная сводка",
+    "fr": "Résumé hebdomadaire"
+  },
+  "homeDemoQuiet": {
+    "en": "Quiet hours",
+    "ru": "Тихие часы",
+    "fr": "Heures calmes"
+  },
+  "homeDemoCancel": {
+    "en": "Cancel",
+    "ru": "Отмена",
+    "fr": "Annuler"
+  },
+  "homeDemoSave": {
+    "en": "Save",
+    "ru": "Сохранить",
+    "fr": "Enregistrer"
+  },
+  "homeApiEyebrow": {
+    "en": "One API",
+    "ru": "Один API",
+    "fr": "Une seule API"
+  },
+  "homeApiTitle": {
+    "en": "Same names in React, Solid and Vue",
+    "ru": "Одинаковые имена в React, Solid и Vue",
+    "fr": "Les mêmes noms en React, Solid et Vue"
+  },
+  "homeApiText": {
+    "en": "Every component has the same parts and props in each adapter.\nOnly the syntax is native, so a team can switch frameworks without relearning the library.",
+    "ru": "У каждого компонента одни и те же части и пропсы во всех адаптерах.\nНативен только синтаксис, поэтому команда может сменить фреймворк, не изучая библиотеку заново.",
+    "fr": "Chaque composant a les mêmes parties et props dans chaque adaptateur.\nSeule la syntaxe est native : une équipe peut changer de framework sans réapprendre la bibliothèque."
+  },
+  "homeInstallEyebrow": {
+    "en": "Install",
+    "ru": "Установка",
+    "fr": "Installation"
+  },
+  "homeInstallTitle": {
+    "en": "Pick your styling,\nthen how you own it",
+    "ru": "Выберите стили,\nа затем способ владения",
+    "fr": "Choisissez le style,\npuis comment le posséder"
+  },
+  "homeInstallText": {
+    "en": "Use the npm package and get updates, or copy the source into your project with the shadcn CLI and change anything.",
+    "ru": "Используйте npm-пакет и получайте обновления или скопируйте исходники в проект через shadcn CLI и меняйте что угодно.",
+    "fr": "Utilisez le paquet npm et recevez les mises à jour, ou copiez la source dans votre projet avec la CLI shadcn et modifiez tout."
+  },
+  "homeInstallPackage": {
+    "en": "npm package",
+    "ru": "npm-пакет",
+    "fr": "Paquet npm"
+  },
+  "homeInstallPackageNote": {
+    "en": "Import and update with one bump",
+    "ru": "Импорт и обновление одной версией",
+    "fr": "Import et mise à jour en une version"
+  },
+  "homeInstallRegistry": {
+    "en": "shadcn registry",
+    "ru": "Реестр shadcn",
+    "fr": "Registre shadcn"
+  },
+  "homeInstallRegistryNote": {
+    "en": "Source lives in your repo",
+    "ru": "Исходники в вашем репозитории",
+    "fr": "La source vit dans votre dépôt"
+  },
+  "homeInstallCssNote": {
+    "en": "Plain CSS, tokens\nas variables",
+    "ru": "Обычный CSS, токены\nв переменных",
+    "fr": "CSS simple, tokens\nen variables"
+  },
+  "homeInstallTailwindNote": {
+    "en": "Utility classes,\nTailwind v4",
+    "ru": "Утилитарные классы,\nTailwind v4",
+    "fr": "Classes utilitaires,\nTailwind v4"
+  },
+  "homeInstallArk": {
+    "en": "npm packages also need the matching Ark UI package, for example @ark-ui/react. Same for Solid and Vue.",
+    "ru": "npm-пакетам нужен и соответствующий пакет Ark UI, например @ark-ui/react. Так же для Solid и Vue.",
+    "fr": "Les paquets npm ont aussi besoin du paquet Ark UI correspondant, par exemple @ark-ui/react. De même pour Solid et Vue."
+  },
+  "homeComponentsEyebrow": {
+    "en": "Components",
+    "ru": "Компоненты",
+    "fr": "Composants"
+  },
+  "homeComponentsTitle": {
+    "en": "{count} components, including the hard ones",
+    "ru": "{count} компонентов, включая сложные",
+    "fr": "{count} composants, y compris les plus difficiles"
+  },
+  "homeComponentsText": {
+    "en": "Color Picker, Date Picker, Tour, Signature Pad, Image Cropper and File Upload ship next to the basics.\nKeyboard support, focus management and ARIA come from Ark UI state machines.",
+    "ru": "Color Picker, Date Picker, Tour, Signature Pad, Image Cropper и File Upload идут вместе с базовыми компонентами.\nКлавиатура, управление фокусом и ARIA берутся из машин состояний Ark UI.",
+    "fr": "Color Picker, Date Picker, Tour, Signature Pad, Image Cropper et File Upload sont livrés avec les bases.\nLe clavier, la gestion du focus et ARIA viennent des machines à états d’Ark UI."
+  },
+  "homeBrowseAll": {
+    "en": "Browse all components",
+    "ru": "Все компоненты",
+    "fr": "Tous les composants"
+  },
+  "homeThemesEyebrow": {
+    "en": "Themes",
+    "ru": "Темы",
+    "fr": "Thèmes"
+  },
+  "homeThemesTitle": {
+    "en": "Four presets on one token contract",
+    "ru": "Четыре пресета на одном контракте токенов",
+    "fr": "Quatre préréglages sur un même contrat de tokens"
+  },
+  "homeThemesText": {
+    "en": "Calm is the default. Dense, Soft and Contrast change spacing, radius and color through CSS variables.\nSwitch the whole app with one attribute, or write your own preset.",
+    "ru": "Calm используется по умолчанию. Dense, Soft и Contrast меняют отступы, скругления и цвета через CSS-переменные.\nПереключайте всё приложение одним атрибутом или напишите свой пресет.",
+    "fr": "Calm est le préréglage par défaut. Dense, Soft et Contrast modifient espacements, rayons et couleurs via des variables CSS.\nChangez toute l’application avec un attribut, ou écrivez votre propre préréglage."
+  },
+  "homeThemeCalm": {
+    "en": "Default · neutral",
+    "ru": "По умолчанию · нейтральный",
+    "fr": "Par défaut · neutre"
+  },
+  "homeThemeDense": {
+    "en": "Admin and tables",
+    "ru": "Админки и таблицы",
+    "fr": "Admin et tableaux"
+  },
+  "homeThemeSoft": {
+    "en": "Larger and rounder",
+    "ru": "Крупнее и круглее",
+    "fr": "Plus grand et plus arrondi"
+  },
+  "homeThemeContrast": {
+    "en": "Strong borders and focus",
+    "ru": "Чёткие границы и фокус",
+    "fr": "Bordures et focus marqués"
+  },
+  "homeThemeActive": {
+    "en": "Active",
+    "ru": "Активен",
+    "fr": "Actif"
+  },
+  "homeThemeRemember": {
+    "en": "Remember me",
+    "ru": "Запомнить меня",
+    "fr": "Se souvenir de moi"
+  },
+  "homeThemeMonthly": {
+    "en": "Monthly",
+    "ru": "Ежемесячно",
+    "fr": "Mensuel"
+  },
+  "homeThemeYearly": {
+    "en": "Yearly",
+    "ru": "Ежегодно",
+    "fr": "Annuel"
+  },
+  "homeThemeContinue": {
+    "en": "Continue",
+    "ru": "Продолжить",
+    "fr": "Continuer"
+  },
+  "homeStartEyebrow": {
+    "en": "Start",
+    "ru": "Старт",
+    "fr": "Démarrer"
+  },
+  "homeStartTitle": {
+    "en": "Set up your framework",
+    "ru": "Настройте свой фреймворк",
+    "fr": "Configurez votre framework"
+  },
+  "homeStartText": {
+    "en": "Step-by-step guides with the exact config for each bundler and meta-framework.",
+    "ru": "Пошаговые руководства с точной настройкой для каждого сборщика и мета-фреймворка.",
+    "fr": "Des guides pas à pas avec la configuration exacte pour chaque bundler et méta-framework."
+  },
+  "homeQuickStart": {
+    "en": "Quick start",
+    "ru": "Быстрый старт",
+    "fr": "Démarrage rapide"
+  },
+  "homeMigrate": {
+    "en": "Migrate from shadcn",
+    "ru": "Переход с shadcn",
+    "fr": "Migrer depuis shadcn"
+  },
+  "homeStartAll": {
+    "en": "All three",
+    "ru": "Все три",
+    "fr": "Les trois"
+  },
+  "homeFooterIntroduction": {
+    "en": "Introduction",
+    "ru": "Введение",
+    "fr": "Introduction"
+  },
+  "homeFooterQuickStart": {
+    "en": "Quick start",
+    "ru": "Быстрый старт",
+    "fr": "Démarrage rapide"
+  },
+  "homeFooterThemes": {
+    "en": "Themes",
+    "ru": "Темы",
+    "fr": "Thèmes"
+  },
+  "homeFooterTokens": {
+    "en": "Tokens",
+    "ru": "Токены",
+    "fr": "Tokens"
+  },
+  "homeFooterChangelog": {
+    "en": "Changelog",
+    "ru": "Список изменений",
+    "fr": "Journal des modifications"
+  },
+  "homeFooterLibrary": {
+    "en": "Library",
+    "ru": "Библиотека",
+    "fr": "Bibliothèque"
+  },
+  "homeFooterComponents": {
+    "en": "Components",
+    "ru": "Компоненты",
+    "fr": "Composants"
+  },
+  "homeFooterBlocks": {
+    "en": "Blocks",
+    "ru": "Блоки",
+    "fr": "Blocs"
+  },
+  "homeFooterShadcn": {
+    "en": "From shadcn",
+    "ru": "С shadcn",
+    "fr": "Depuis shadcn"
+  },
+  "homeFooterCompare": {
+    "en": "Compare libraries",
+    "ru": "Сравнение библиотек",
+    "fr": "Comparer les bibliothèques"
+  },
+  "homeFooterCommunity": {
+    "en": "Community",
+    "ru": "Сообщество",
+    "fr": "Communauté"
+  },
+  "homeFooterText": {
+    "en": "Accessible components for React, Solid and Vue. MIT licensed. Built on Ark UI.",
+    "ru": "Доступные компоненты для React, Solid и Vue. Лицензия MIT. Построены на Ark UI.",
+    "fr": "Composants accessibles pour React, Solid et Vue. Licence MIT. Basés sur Ark UI."
+  },
+  "viewAsMarkdown": {
+    "en": "View as Markdown",
+    "ru": "Открыть как Markdown",
+    "fr": "Afficher en Markdown"
+  },
+  "homeAllSetups": {
+    "en": "All {count} setup guides",
+    "ru": "Все {count} руководств по настройке",
+    "fr": "Les {count} guides d’installation"
+  },
+  "anatomyPart": {
+    "en": "Part",
+    "ru": "Часть",
+    "fr": "Partie"
+  },
+  "anatomyRole": {
+    "en": "Role",
+    "ru": "Роль",
+    "fr": "Rôle"
+  },
+  "anatomyNoElement": {
+    "en": "no element",
+    "ru": "без элемента",
+    "fr": "sans élément"
+  },
+  "cssGroupColor": {
+    "en": "Color",
+    "ru": "Цвет",
+    "fr": "Couleur"
+  },
+  "cssGroupSize": {
+    "en": "Size and spacing",
+    "ru": "Размеры и отступы",
+    "fr": "Taille et espacement"
+  },
+  "cssGroupTypography": {
+    "en": "Typography",
+    "ru": "Типографика",
+    "fr": "Typographie"
+  },
+  "cssGroupShape": {
+    "en": "Shape",
+    "ru": "Форма",
+    "fr": "Forme"
+  },
+  "cssGroupOther": {
+    "en": "Other",
+    "ru": "Прочее",
+    "fr": "Autres"
+  },
+  "cssPerVariant": {
+    "en": "per variant",
+    "ru": "у каждого variant",
+    "fr": "selon variant"
+  },
+  "cssPerSize": {
+    "en": "per size",
+    "ru": "у каждого size",
+    "fr": "selon size"
+  },
+  "cssReset": {
+    "en": "Reset",
+    "ru": "Сбросить",
+    "fr": "Réinitialiser"
+  },
+  "themeBuilderImport": {
+    "en": "Import shadcn theme",
+    "ru": "Импорт темы shadcn",
+    "fr": "Importer un thème shadcn"
+  },
+  "themeBuilderCopy": {
+    "en": "Copy CSS",
+    "ru": "Скопировать CSS",
+    "fr": "Copier le CSS"
+  },
+  "themeBuilderCopied": {
+    "en": "Copied",
+    "ru": "Скопировано",
+    "fr": "Copié"
+  },
+  "themeBuilderBase": {
+    "en": "Base preset",
+    "ru": "Базовый пресет",
+    "fr": "Préréglage de base"
+  },
+  "themeBuilderPrimary": {
+    "en": "Primary",
+    "ru": "Основной цвет",
+    "fr": "Couleur principale"
+  },
+  "themeBuilderHue": {
+    "en": "Neutral hue",
+    "ru": "Оттенок нейтральных",
+    "fr": "Teinte des neutres"
+  },
+  "themeBuilderRadius": {
+    "en": "Radius",
+    "ru": "Радиус",
+    "fr": "Rayon"
+  },
+  "themeBuilderDensity": {
+    "en": "Density",
+    "ru": "Плотность",
+    "fr": "Densité"
+  },
+  "themeBuilderDensity_compact": {
+    "en": "Compact",
+    "ru": "Компактная",
+    "fr": "Compacte"
+  },
+  "themeBuilderDensity_default": {
+    "en": "Default",
+    "ru": "Обычная",
+    "fr": "Normale"
+  },
+  "themeBuilderDensity_comfortable": {
+    "en": "Comfortable",
+    "ru": "Свободная",
+    "fr": "Confortable"
+  },
+  "themeBuilderPreview": {
+    "en": "Preview",
+    "ru": "Превью",
+    "fr": "Aperçu"
+  },
+  "themeBuilderPreviewLabel": {
+    "en": "Theme preview",
+    "ru": "Превью темы",
+    "fr": "Aperçu du thème"
+  },
+  "themeBuilderLight": {
+    "en": "Light",
+    "ru": "Светлая",
+    "fr": "Clair"
+  },
+  "themeBuilderDark": {
+    "en": "Dark",
+    "ru": "Тёмная",
+    "fr": "Sombre"
+  },
+  "themeBuilderSignIn": {
+    "en": "Sign in",
+    "ru": "Вход",
+    "fr": "Connexion"
+  },
+  "themeBuilderSignInText": {
+    "en": "Use your work email",
+    "ru": "Используйте рабочую почту",
+    "fr": "Utilisez votre e-mail professionnel"
+  },
+  "themeBuilderCssTitle": {
+    "en": "CSS",
+    "ru": "CSS",
+    "fr": "CSS"
+  },
+  "themeBuilderCssText": {
+    "en": "Load it after the foundation styles and set data-moduix-theme=\"brand\" on html. Colors keep a light and a dark value in light-dark().",
+    "ru": "Подключите его после стилей foundation и задайте data-moduix-theme=\"brand\" на html. У цветов светлое и тёмное значение в light-dark().",
+    "fr": "Chargez-le après les styles de la fondation et définissez data-moduix-theme=\"brand\" sur html. Les couleurs gardent une valeur claire et une valeur sombre dans light-dark()."
+  },
+  "themeBuilderImportTitle": {
+    "en": "Import a shadcn theme",
+    "ru": "Импорт темы shadcn",
+    "fr": "Importer un thème shadcn"
+  },
+  "themeBuilderImportText": {
+    "en": "Paste CSS from shadcn/ui or tweakcn. Its light and dark values are merged into moduix tokens.",
+    "ru": "Вставьте CSS из shadcn/ui или tweakcn. Его светлые и тёмные значения станут токенами moduix.",
+    "fr": "Collez le CSS de shadcn/ui ou tweakcn. Ses valeurs claires et sombres sont fusionnées dans les jetons moduix."
+  },
+  "themeBuilderImportLabel": {
+    "en": "Theme CSS",
+    "ru": "CSS темы",
+    "fr": "CSS du thème"
+  },
+  "themeBuilderImportFound": {
+    "en": "Variables found: {count}",
+    "ru": "Найдено переменных: {count}",
+    "fr": "Variables trouvées : {count}"
+  },
+  "themeBuilderImportAction": {
+    "en": "Import",
+    "ru": "Импортировать",
+    "fr": "Importer"
   }
 }

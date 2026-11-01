@@ -20,5 +20,12 @@
     "erasableSyntaxOnly": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["src", "rslib.config.ts", "rstest.config.ts", "rstest.browser.setup.ts", "tests"]
+  "include": [
+    "src",
+    "rslib.config.ts",
+    "rstest.config.ts",
+    "rstest.browser.setup.ts",
+    "tests",
+    "../vue/tests/*.browser.test.ts"
+  ]
 }

@@ -1,21 +1,21 @@
 ---
 title: Floating Panel
 component: floating-panel
-description: A non-modal Ark UI window for content users can drag, resize, minimize, and maximize.
+description: Open a window that users can drag, resize, minimize, and maximize.
+ark: https://ark-ui.com/docs/components/floating-panel
 ---
 
-## API Reference
+import AnatomyScene from '@/components/examples/floating-panel/anatomy';
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/floating-panel" />
+<Example name="floating-panel/basic" />
 
-## Choosing the right component
+## Installation
 
-Use `FloatingPanel` for a floating, non-modal workspace such as an inspector, a property panel, or
-a utility window. Use `Popover` for compact content anchored to a trigger, `Dialog` for modal tasks,
-and `Drawer` for a panel attached to an edge of the viewport with gesture or snap-point behavior.
+<ComponentInstall />
 
-## Basic
+## Usage
 
+<Usage />
 
 Keep the Ark UI parts explicit. `FloatingPanelPositioner` applies the position and size calculated
 by Ark, while `FloatingPanelContent` is the visible window surface. The header acts as the drag
@@ -24,85 +24,82 @@ handle, and `FloatingPanelResizeTriggerGroup` adds the resize handles around the
 React, Solid, and Vue use the same flat component names. In Vue, compose the parts with slots and
 use `v-model` when the open, position, or size state is controlled.
 
-<Example name="floating-panel/basic" />
+## Choosing the right component
 
-## Install with shadcn
+Use `FloatingPanel` for a floating, non-modal workspace such as an inspector, a property panel, or
+a utility window. Use `Popover` for compact content anchored to a trigger, `Dialog` for modal tasks,
+and `Drawer` for a panel attached to an edge of the viewport with gesture or snap-point behavior.
 
-See [Quick Start](/docs/quick-start) for full package setup, registry configuration, and styling guidance.
+## Examples
 
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
+### Anchor position
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/floating-panel' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/floating-panel' },
-  ]}
-/>
+Use `getAnchorPosition` to calculate the panel's initial position from the trigger rectangle.
 
-  </Tab>
-  <Tab label="Solid" value="solid">
+<Example name="floating-panel/anchor-position" />
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/floating-panel' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/floating-panel' },
-  ]}
-/>
+### Boundary
 
-  </Tab>
+Set `allowOverflow={false}` with `getBoundaryEl` to keep the panel inside a specific container while
+it is being dragged.
 
-  <Tab label="Vue" value="vue">
+<Example name="floating-panel/boundary" />
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/floating-panel' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/floating-panel' },
-  ]}
-/>
+### Escape dismiss
 
-  </Tab>
-</Tabs>
+`closeOnEscape` is enabled by default. Add `autoFocus` to `FloatingPanelContent` when Escape should work
+immediately after the non-modal panel opens.
 
-```text
-FloatingPanel
-├─ FloatingPanelTrigger
-└─ Overlay subtree (automatically portalled)
-   └─ FloatingPanelPositioner
-      └─ FloatingPanelContent
-         ├─ FloatingPanelDragTrigger
-         │  └─ FloatingPanelHeader
-         │     ├─ FloatingPanelTitle
-         │     │  └─ FloatingPanelDragIndicator (optional)
-         │     └─ FloatingPanelControl
-         │        ├─ FloatingPanelStageTrigger
-         │        └─ FloatingPanelCloseTrigger / FloatingPanelCloseIcon
-         ├─ FloatingPanelBody
-         ├─ FloatingPanelFooter
-         └─ FloatingPanelResizeTrigger / FloatingPanelResizeTriggerGroup
-```
+<Example name="floating-panel/escape-dismiss" />
 
-| Part                                       | Role                                                                    |
-| ------------------------------------------ | ----------------------------------------------------------------------- |
-| `FloatingPanel`                           | Owns open, position, size, drag, resize, and stage state.               |
-| `FloatingPanelTrigger`                    | Opens the panel or toggles its open state.                               |
-| `FloatingPanelPositioner`                 | Applies Ark's calculated position, size, transform, and z-index values. |
-| `FloatingPanelContent`                    | Visible surface of the floating window.                                 |
-| `FloatingPanelDragTrigger`                | Defines the draggable area, usually the header.                          |
-| `FloatingPanelHeader`                     | Ark header part and wrapper for the drag handle.                         |
-| `FloatingPanelTitle`                      | Gives the panel an accessible name.                                     |
-| `FloatingPanelControl`                    | Groups stage and close controls.                                         |
-| `FloatingPanelStageTrigger`               | Switches between `default`, `minimized`, and `maximized`.               |
-| `FloatingPanelCloseTrigger` / `FloatingPanelCloseIcon` | Closes the panel.                                             |
-| `FloatingPanelBody`                       | Main scrollable content area.                                           |
-| `FloatingPanelFooter`                     | Optional bottom area for actions or status text.                         |
-| `FloatingPanelResizeTrigger`              | Resize handle for one Ark axis.                                         |
-| `FloatingPanelResizeTriggerGroup`         | Renders all or selected resize handles.                                 |
-| `FloatingPanelRootProvider`               | Connects parts to state from `useFloatingPanel()`.        |
+### Controlled open
 
-`FloatingPanelDragIndicator`, `FloatingPanelCloseIcon`, `FloatingPanelFooter`, and
-`FloatingPanelResizeTriggerGroup` are moduix helpers. They complement Ark's structural parts
-without replacing them.
+Use `open` with `onOpenChange` when application state should control the panel's visibility. See [Control state from the application](/docs/composition-patterns#controlled-state).
+
+<Example name="floating-panel/controlled-open" />
+
+### Controlled position
+
+Control `position` when another part of the application needs the panel's current coordinates. See [Control state from the application](/docs/composition-patterns#controlled-state).
+
+<Example name="floating-panel/controlled-position" />
+
+### Controlled size
+
+Control `size` when the surrounding UI needs to store or display the panel's current dimensions. See [Control state from the application](/docs/composition-patterns#controlled-state).
+
+<Example name="floating-panel/controlled-size" />
+
+### Lazy mount
+
+Use `lazyMount` and `unmountOnExit` when content should mount on first open and be removed after the
+exit animation.
+
+<Example name="floating-panel/lazy-mount" />
+
+### Context
+
+Use `FloatingPanelContext` or `useFloatingPanelContext` to read panel state and methods inside the
+component tree. Vue receives the context value through its scoped slot, while Solid exposes it as
+an accessor.
+
+<Example name="floating-panel/context" />
+
+### Root provider
+
+Use `useFloatingPanel` with `FloatingPanelRootProvider` when controls outside the panel tree need
+methods such as `minimize`, `maximize`, and `setOpen`. The Solid store is read through an accessor. See [Share state outside the tree](/docs/composition-patterns#root-provider).
+
+<Example name="floating-panel/root-provider" />
+
+### Build from parts
+
+The same panel as Basic, without `FloatingPanelCloseIcon`, `FloatingPanelDragIndicator`,
+`FloatingPanelFooter`, and `FloatingPanelResizeTriggerGroup`: the stage and close triggers receive
+explicit icons, the footer is a plain element, and each resize axis is a `FloatingPanelResizeTrigger`.
+Start here when a design changes the header controls or keeps only some resize handles.
+
+<Example name="floating-panel/build-from-parts" />
 
 ## Composition
 
@@ -117,73 +114,35 @@ individual `FloatingPanelResizeTrigger` parts only when the default set of handl
 `asChild`, pass one semantic child. Vue uses the child slot, while Solid uses the render-function
 form of this prop.
 
-## Examples
+## Anatomy
 
-### Anchor Position
+Hover or focus a part to find it in the preview.
 
-Use `getAnchorPosition` to calculate the panel's initial position from the trigger rectangle.
+<AnatomyInspector
+  parts={[
+    ["FloatingPanel", null, "Manages open, position, size, drag, resize, and stage state.", 0],
+    ["FloatingPanelTrigger", "floating-panel-trigger", "Opens the panel or toggles its open state.", 1],
+    ["FloatingPanelPositioner", "floating-panel-positioner", "Applies Ark's calculated position, size, transform, and z-index values.", 1],
+    ["FloatingPanelContent", "floating-panel-content", "Visible surface of the floating window.", 2],
+    ["FloatingPanelDragTrigger", "floating-panel-drag-trigger", "Defines the draggable area, usually the header.", 3],
+    ["FloatingPanelHeader", "floating-panel-header", "Ark header part and wrapper for the drag handle.", 4],
+    ["FloatingPanelTitle", "floating-panel-title", "Gives the panel an accessible name.", 5],
+    ["FloatingPanelControl", "floating-panel-control", "Groups stage and close controls.", 5],
+    ["FloatingPanelStageTrigger", "floating-panel-stage-trigger", "Switches between `default`, `minimized`, and `maximized`.", 6],
+    ["FloatingPanelCloseTrigger / FloatingPanelCloseIcon", "floating-panel-close-trigger", "Closes the panel.", 6],
+    ["FloatingPanelBody", "floating-panel-body", "Main scrollable content area.", 3],
+    ["FloatingPanelFooter", "floating-panel-footer", "Optional bottom area for actions or status text.", 3],
+    ["FloatingPanelResizeTrigger", "floating-panel-resize-trigger", "Resize handle for one Ark axis.", 3],
+    ["FloatingPanelResizeTriggerGroup", "", "Renders all or selected resize handles.", 4],
+    ["FloatingPanelRootProvider", null, "Connects parts to state from `useFloatingPanel()`.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
-<Example name="floating-panel/anchor-position" />
-
-### Boundary
-
-Set `allowOverflow={false}` with `getBoundaryEl` to keep the panel inside a specific container while
-it is being dragged.
-
-<Example name="floating-panel/boundary" />
-
-### Context
-
-Use `FloatingPanelContext` or `useFloatingPanelContext` to read panel state and methods inside the
-component tree. Vue receives the context value through its scoped slot, while Solid exposes it as
-an accessor.
-
-<Example name="floating-panel/context" />
-
-### Controlled Open
-
-Use `open` with `onOpenChange` when application state should control the panel's visibility.
-
-<Example name="floating-panel/controlled-open" />
-
-### Controlled Position
-
-Control `position` when another part of the application needs the panel's current coordinates.
-
-<Example name="floating-panel/controlled-position" />
-
-### Controlled Size
-
-Control `size` when the surrounding UI needs to store or display the panel's current dimensions.
-
-<Example name="floating-panel/controlled-size" />
-
-### Escape Dismiss
-
-`closeOnEscape` is enabled by default. Add `autoFocus` to `FloatingPanelContent` when Escape should work
-immediately after the non-modal panel opens.
-
-<Example name="floating-panel/escape-dismiss" />
-
-### Lazy Mount
-
-Use `lazyMount` and `unmountOnExit` when content should mount on first open and be removed after the
-exit animation.
-
-<Example name="floating-panel/lazy-mount" />
-
-### FloatingPanelRootProvider
-
-Use `useFloatingPanel` with `FloatingPanelRootProvider` when controls outside the panel tree need
-methods such as `minimize`, `maximize`, and `setOpen`. The Solid store is read through an accessor.
-
-<Example name="floating-panel/root-provider" />
-
-### Advanced Customization
-
-Use individual `FloatingPanelResizeTrigger` parts when each resize axis needs its own placement or styling.
-
-<Example name="floating-panel/advanced-customization" />
+`FloatingPanelDragIndicator`, `FloatingPanelCloseIcon`, `FloatingPanelFooter`, and
+`FloatingPanelResizeTriggerGroup` are moduix helpers. They complement Ark's structural parts
+without replacing them.
 
 ## Styling
 
@@ -197,6 +156,23 @@ variables: a class on the part overrides the layered component styles.
 
 ### Styling hooks
 
+| Part | `data-slot` |
+| --- | --- |
+| `FloatingPanelTrigger` | `floating-panel-trigger` |
+| `FloatingPanelPositioner` | `floating-panel-positioner` |
+| `FloatingPanelContent` | `floating-panel-content` |
+| `FloatingPanelDragTrigger` | `floating-panel-drag-trigger` |
+| `FloatingPanelHeader` | `floating-panel-header` |
+| `FloatingPanelTitle` | `floating-panel-title` |
+| `FloatingPanelControl` | `floating-panel-control` |
+| `FloatingPanelStageTrigger` | `floating-panel-stage-trigger` |
+| `FloatingPanelCloseTrigger` | `floating-panel-close-trigger` |
+| `FloatingPanelCloseIcon` | `floating-panel-close-icon` |
+| `FloatingPanelBody` | `floating-panel-body` |
+| `FloatingPanelFooter` | `floating-panel-footer` |
+| `FloatingPanelResizeTrigger` | `floating-panel-resize-trigger` |
+| `FloatingPanelDragIndicator` | `floating-panel-drag-indicator` |
+
 Ark parts retain `data-scope="floating-panel"` and their `data-part` values. moduix adds
 `data-slot="floating-panel-*"` to rendered wrappers. Use `data-state="open|closed"`, `data-dragging`,
 `data-disabled`, `data-stage`, `data-topmost`, `data-behind`, `data-minimized`, `data-maximized`,
@@ -204,3 +180,46 @@ Ark parts retain `data-scope="floating-panel"` and their `data-part` values. mod
 mirrors `data-minimized` from the content.
 
 `FloatingPanelPositioner` exposes Ark's `--width`, `--height`, `--x`, `--y`, and `--z-index`.
+
+## Keyboard
+
+| Key | Action |
+| --- | --- |
+| `Enter` / `Space` | Opens it from the focused trigger. |
+| `Esc` | Closes the panel. |
+
+## API reference
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `open` | `boolean` | — | Open state for controlled use. |
+| `defaultOpen` | `boolean` | `false` | Initial open state when it is not controlled. |
+| `onOpenChange` | `(details: OpenChangeDetails) => void` | — | Called when it opens or closes. |
+| `size` | `{ width: number; height: number }` | — | Panel size for controlled use. |
+| `defaultSize` | `{ width: number; height: number }` | — | Initial panel size. |
+| `minSize` | `{ width: number; height: number }` | — | Smallest size when resizing. |
+| `maxSize` | `{ width: number; height: number }` | — | Largest size when resizing. |
+| `position` | `{ x: number; y: number }` | — | Panel position for controlled use. |
+| `defaultPosition` | `{ x: number; y: number }` | — | Initial panel position. |
+| `getAnchorPosition` | `(details: AnchorPositionDetails) => Point` | — | Returns where the panel opens, for example next to the trigger. |
+| `draggable` | `boolean` | `true` | Lets the user move the panel. |
+| `resizable` | `boolean` | `true` | Lets the user resize the panel. |
+| `lockAspectRatio` | `boolean` | `false` | Keeps the width-to-height ratio while resizing. |
+| `getBoundaryEl` | `() => HTMLElement \| null` | — | Returns the element the panel must stay inside. |
+| `closeOnEscape` | `boolean` | `true` | Closes on Escape. |
+| `persistRect` | `boolean` | `true` | Keeps size and position after closing. |
+| `gridSize` | `number` | `1` | Snap grid in pixels for moving and resizing. |
+| `lazyMount` | `boolean` | `true` | Mounts the content on first open. |
+| `unmountOnExit` | `boolean` | `true` | Unmounts the content after it closes. |
+| `translations` | `IntlTranslations` | — | Localized strings for accessibility labels. |
+| `strategy` | `'absolute' \| 'fixed'` | `'fixed'` | CSS positioning: `fixed` or `absolute`. |
+| `allowOverflow` | `boolean` | `true` | Lets the panel be dragged partly outside the boundary. |
+| `initialFocusEl` | `() => HTMLElement \| null \| false` | — | Returns the element to focus on open. |
+| `finalFocusEl` | `() => HTMLElement \| null` | — | Returns the element to focus on close. |
+| `restoreFocus` | `boolean` | `true` | Returns focus to the previously focused element on close. |
+| `disabled` | `boolean` | — | Disables the control. |
+| `onPositionChange` | `(details: PositionChangeDetails) => void` | — | Called while the panel is dragged. |
+| `onPositionChangeEnd` | `(details: PositionChangeDetails) => void` | — | Called when dragging ends. |
+| `onSizeChange` | `(details: SizeChangeDetails) => void` | — | Called while the panel is resized. |
+| `onSizeChangeEnd` | `(details: SizeChangeDetails) => void` | — | Called when resizing ends. |
+| `onStageChange` | `(details: StageChangeDetails) => void` | — | Called when the panel is minimized, maximized, or restored. |

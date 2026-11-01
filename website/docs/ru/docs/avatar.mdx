@@ -1,17 +1,22 @@
 ---
 title: Avatar
 component: avatar
-description: 'Компактное представление пользователя или объекта: Ark UI управляет загрузкой изображения и показом резервного содержимого.'
+description: Фото пользователя с инициалами, пока оно грузится или если не загрузилось.
+ark: https://ark-ui.com/docs/components/avatar
 ---
 
+import AnatomyScene from '@/components/examples/avatar/basic';
 import * as AvatarDocs from '@/components/examples/avatar/css-properties';
 
-## Справочник API
+<Example name="avatar/basic" />
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/avatar" />
+## Установка
 
-## Базовый пример
+<ComponentInstall />
 
+## Использование
+
+<Usage />
 
 Используйте вместе `Avatar`, `AvatarFallback` и `AvatarImage`. Не убирайте `AvatarFallback` из
 дерева, чтобы Ark UI мог переключаться между ним и изображением при изменении состояния загрузки.
@@ -20,84 +25,14 @@ import * as AvatarDocs from '@/components/examples/avatar/css-properties';
 каждую дополнительную часть отдельно, например `AvatarImage` и `AvatarFallback`. Эти же имена
 работают и с npm-пакетами, и с исходниками из shadcn-реестра.
 
-<Example name="avatar/basic" />
-
-## Установка через shadcn
-
-Полную настройку пакета, реестра и стилей см. в разделе [Быстрый старт](/docs/quick-start).
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/avatar' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/avatar' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/avatar' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/avatar' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/avatar' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/avatar' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Анатомия
-
-```text
-Avatar
-├─ AvatarFallback
-└─ AvatarImage
-
-AvatarRootProvider
-└─ те же части, подключённые к хранилищу useAvatar()
-
-AvatarGroup
-└─ Avatar, Avatar, ...
-```
-
-| Часть                 | Назначение                                                             |
-| --------------------- | ---------------------------------------------------------------------- |
-| `Avatar`              | Создаёт корневой элемент и хранит состояние аватара Ark UI.            |
-| `AvatarRootProvider`  | Подключает состояние Ark UI, созданное за пределами компонента.        |
-| `AvatarFallback`      | Показывает переданное потребителем содержимое до загрузки изображения.  |
-| `AvatarImage`         | Показывает изображение после успешной загрузки.                        |
-| `AvatarGroup`         | Выстраивает аватары с перекрытием и кольцом цвета фона.                |
-
-## Композиция
-
-Размещайте `AvatarFallback` и `AvatarImage` внутри одного корневого компонента, чтобы Ark мог
-переключать их видимость. Если состояние должно принадлежать другой части приложения, создайте его
-с помощью `useAvatar()` из пакета нужного фреймворка и напрямую передайте в `AvatarRootProvider`;
-не добавляйте для того же хранилища ещё один корневой компонент. В React хранилище передаётся как
-объект, а Solid предоставляет реактивную функцию доступа. В Vue напрямую передавайте результат
-`useAvatar()` в `AvatarRootProvider`. В React и Solid для пользовательского изображения используйте
-`useAvatarContext()` и сохраняйте состояния `hidden` и `visible`, возвращаемые `getImageProps()`.
-В Vue `AvatarContext` предоставляет эти данные через слот. Применяйте `asChild` только с одним
-семантически подходящим дочерним элементом, если другой элемент должен владеть корневым DOM-узлом.
-
-В Solid назначайте ref элементу, который создаётся внутри функции рендеринга `asChild`: ref на самом
-`Avatar` через эту композицию не передаётся. В Vue ref указывает на экземпляр компонента; используйте
-`$el`, чтобы получить отрендеренный элемент.
-
 ## Примеры
+
+### Размеры и аватар без изображения
+
+Свойство `size` в moduix задаёт один из распространённых размеров дизайн-токенов для любого корневого
+компонента. Аватар только с резервным содержимым подходит, если источника изображения нет.
+
+<Example name="avatar/sizes-and-fallback-only" />
 
 ### Пользовательское резервное содержимое
 
@@ -114,6 +49,30 @@ AvatarGroup
 
 <Example name="avatar/custom-image" />
 
+### Индикатор статуса
+
+Корень аватара не обрезает дочерние элементы, поэтому абсолютно позиционированный элемент внутри
+`Avatar` может показывать статус или бейдж. Дайте ему доступное имя, если статус не указан в тексте
+рядом.
+
+<Example name="avatar/status" />
+
+### Группа
+
+Оберните аватары в `AvatarGroup`, чтобы выстроить их с перекрытием. Каждый аватар после первого
+заходит под соседа, а корень каждого аватара получает кольцо цвета фона страницы. Аватар `+N` для
+сокращённого списка добавьте сами.
+
+<Example name="avatar/group" />
+
+### Интерактивный аватар
+
+Используйте `asChild`, если сам аватар должен быть интерактивным элементом, например ссылкой. Это
+заменяет стандартный корневой DOM-узел, сохраняя состояние Ark, поведение резервного содержимого и
+явную композицию частей.
+
+<Example name="avatar/interactive" />
+
 ### События
 
 Используйте `onStatusChange(details)`, если интерфейсу вокруг аватара нужно реагировать на жизненный
@@ -124,40 +83,41 @@ AvatarGroup
 ### Root Provider
 
 Создайте состояние с помощью `useAvatar` из соответствующего пакета, если внешним элементам управления
-нужно работать с аватаром. Передайте его в `AvatarRootProvider` вместо `Avatar`.
+нужно работать с аватаром. Передайте его в `AvatarRootProvider` вместо `Avatar`. Подробнее в разделе [Выносите состояние за пределы дерева](/docs/composition-patterns#root-provider).
 
 <Example name="avatar/root-provider" />
 
-### Размеры и аватар без изображения
+## Композиция
 
-Свойство `size` в moduix задаёт один из распространённых размеров дизайн-токенов для любого корневого
-компонента. Аватар только с резервным содержимым подходит, если источника изображения нет.
+Размещайте `AvatarFallback` и `AvatarImage` внутри одного корневого компонента, чтобы Ark мог
+переключать их видимость. Если состояние должно принадлежать другой части приложения, создайте его
+с помощью `useAvatar()` из пакета нужного фреймворка и напрямую передайте в `AvatarRootProvider`;
+не добавляйте для того же хранилища ещё один корневой компонент. В React хранилище передаётся как
+объект, а Solid предоставляет реактивную функцию доступа. В Vue напрямую передавайте результат
+`useAvatar()` в `AvatarRootProvider`. В React и Solid для пользовательского изображения используйте
+`useAvatarContext()` и сохраняйте состояния `hidden` и `visible`, возвращаемые `getImageProps()`.
+В Vue `AvatarContext` предоставляет эти данные через слот. Применяйте `asChild` только с одним
+семантически подходящим дочерним элементом, если корневым DOM-узлом должен стать другой элемент.
 
-<Example name="avatar/sizes-and-fallback-only" />
+В Solid назначайте ref элементу, который создаётся внутри функции рендеринга `asChild`: ref на самом
+`Avatar` через эту композицию не передаётся. В Vue ref указывает на экземпляр компонента; используйте
+`$el`, чтобы получить отрендеренный элемент.
 
-### Группа
+## Анатомия
 
-Оберните аватары в `AvatarGroup`, чтобы выстроить их с перекрытием. Каждый аватар после первого
-заходит под соседа, а корень каждого аватара получает кольцо цвета фона страницы. Аватар `+N` для
-сокращённого списка добавьте сами.
+Наведите на часть или выберите её, чтобы найти её в превью.
 
-<Example name="avatar/group" />
-
-### Индикатор статуса
-
-Корень аватара не обрезает дочерние элементы, поэтому абсолютно позиционированный элемент внутри
-`Avatar` может показывать статус или бейдж. Дайте ему доступное имя, если статус не указан в тексте
-рядом.
-
-<Example name="avatar/status" />
-
-### Расширенная настройка
-
-Используйте `asChild`, если сам аватар должен быть интерактивным элементом, например ссылкой. Это
-заменяет стандартный корневой DOM-узел, сохраняя состояние Ark, поведение резервного содержимого и
-явную композицию частей.
-
-<Example name="avatar/custom-composition" />
+<AnatomyInspector
+  parts={[
+    ["Avatar", "avatar-root", "Создаёт корневой элемент и хранит состояние аватара Ark UI.", 0],
+    ["AvatarFallback", "avatar-fallback", "Показывает переданное потребителем содержимое до загрузки изображения.", 1],
+    ["AvatarImage", "avatar-image", "Показывает изображение после успешной загрузки.", 1],
+    ["AvatarRootProvider", "avatar-root-provider", "Подключает состояние Ark UI, созданное за пределами компонента.", 0],
+    ["AvatarGroup", "avatar-group", "Выстраивает аватары с перекрытием и кольцом цвета фона.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Стилизация
 
@@ -166,17 +126,35 @@ AvatarGroup
 CSS-переменных относится к вариантам с CSS Modules. Если стиль зависит от состояния изображения,
 используйте атрибуты данных Ark вместе с селекторами `data-slot` moduix.
 
-### CSS-свойства
+### CSS-переменные
 
-<CssPropertiesSection properties={AvatarDocs.avatarCssProperties} />
+Наведите на переменную или выберите её, чтобы увидеть её в превью.
+
+<CssPropertiesSection properties={AvatarDocs.avatarCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Хуки стилизации
 
-- `data-slot="avatar-root"`, `avatar-root-provider`, `avatar-image`, `avatar-fallback` и
-  `avatar-group`.
+| Часть | `data-slot` |
+| --- | --- |
+| `Avatar` | `avatar-root` |
+| `AvatarRootProvider` | `avatar-root-provider` |
+| `AvatarImage` | `avatar-image` |
+| `AvatarFallback` | `avatar-fallback` |
+| `AvatarGroup` | `avatar-group` |
+
 - Атрибуты анатомии Ark: `data-scope="avatar"` и
   `data-part="root" | "image" | "fallback"`.
 - Состояние изображения Ark: `data-state="visible" | "hidden"` на `AvatarImage` и
   `AvatarFallback`.
 - Состояние размера moduix: `data-size="xs" | "sm" | "md" | "lg" | "xl"` на
   `Avatar` и `AvatarRootProvider`, по умолчанию `md`.
+
+## Справочник API
+
+| Проп | Тип | По умолчанию | Описание |
+| --- | --- | --- | --- |
+| `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'` | `'md'` | Размер аватара: `xs`, `sm`, `md`, `lg` или `xl`. |
+| `onStatusChange` | `(details: StatusChangeDetails) => void` | — | Вызывается, когда статус изображения меняется на `loading`, `loaded` или `error`. |
+| `asChild` | `boolean` | `false` | Отрисовывает корень через единственный дочерний элемент. |

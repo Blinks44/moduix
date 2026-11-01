@@ -3,12 +3,12 @@ import type { CssPropertyInput } from '../../mdx/reference';
 export const emptyOverrideCssProperties = [
   {
     name: '--moduix-empty-bg',
-    defaultValue: 'color-mix(in oklab, var(--moduix-color-card) 92%, var(--moduix-color-muted))',
+    defaultValue: 'color-mix(in oklab, var(--moduix-card) 92%, var(--moduix-muted))',
     description: 'Controls the empty-state surface background.',
   },
   {
     name: '--moduix-empty-border-color',
-    defaultValue: 'var(--moduix-color-border)',
+    defaultValue: 'var(--moduix-border)',
     description: 'Controls the root border color.',
   },
   {
@@ -18,7 +18,7 @@ export const emptyOverrideCssProperties = [
   },
   {
     name: '--moduix-empty-color',
-    defaultValue: 'var(--moduix-color-card-foreground)',
+    defaultValue: 'var(--moduix-card-foreground)',
     description: 'Controls the root foreground color.',
   },
   {

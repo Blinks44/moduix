@@ -1,11 +1,9 @@
 ---
 title: Async List
 description: Управляйте асинхронными данными списка с помощью useAsyncList - загружайте, фильтруйте, сортируйте и постранично подгружайте данные, отменяйте запросы и повторяйте загрузку после ошибок.
+ark: https://ark-ui.com/docs/collections/async-list
 ---
 
-import AsyncListBasic from '@/components/examples/async-list/basic.tsx';
-import asyncListSolidBasic from '../../../snippets/async-list/solid/basic.tsx?raw';
-import asyncListVueBasic from '../../../snippets/async-list/vue/basic.vue?raw';
 import asyncListSolidServerDriven from '../../../snippets/async-list/solid/server-driven.tsx?raw';
 import asyncListVueServerDriven from '../../../snippets/async-list/vue/server-driven.vue?raw';
 
@@ -15,11 +13,9 @@ import asyncListVueServerDriven from '../../../snippets/async-list/vue/server-dr
 разметку. Хук хранит элементы, фильтрацию, сортировку, постраничную загрузку, состояния загрузки
 и ошибки, а компонент сам выбирает структуру списка и отображение этих состояний.
 
-## Справочник API
+## Импорт
 
-<PrimitiveReference href="https://ark-ui.com/docs/collections/async-list" />
-
-Хук предоставляет Ark UI, а Moduix его не экспортирует. Используйте точку входа для нужного
+Хук предоставляет Ark UI, а moduix его не экспортирует. Используйте точку входа для нужного
 фреймворка:
 
 <Tabs
@@ -54,10 +50,8 @@ import { useAsyncList } from '@ark-ui/vue/collection';
   </Tab>
 </Tabs>
 
-`useAsyncList` не является компонентом Moduix. Его нет среди экспортов и registry manifests пакетов
-`@moduix/react`, `@moduix/solid`, `@moduix/react-tailwind` и `@moduix/solid-tailwind`. Поэтому
-CSS Modules и Tailwind не меняют API hook. Стилизуйте окружающую разметку выбранным способом или
-используйте нативные элементы, как в примерах ниже.
+`useAsyncList` не рендерит разметку, поэтому CSS Modules и Tailwind не меняют его API. Стилизуйте
+окружающую разметку выбранным способом или используйте нативные элементы, как в примерах ниже.
 
 ## Базовый список
 
@@ -66,42 +60,7 @@ CSS Modules и Tailwind не меняют API hook. Стилизуйте окр�
 после ошибки вызывайте `reload()`. Хук не добавляет семантику списка, поэтому пример сам задаёт
 подписанную секцию, список и роли для сообщений о состоянии.
 
-<ExampleFrame clientOnly variant="component">
-  <PreviewFrame maxWidth="sm">
-    <AsyncListBasic />
-  </PreviewFrame>
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/async-list/basic.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={asyncListSolidBasic} />
-
-    </Tab>
-  <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={asyncListVueBasic} />
-
-    </Tab>
-  </Tabs>
-</div>
-</ExampleCode>
+<Example name="async-list/basic" clientOnly />
 
 ## Список с загрузкой с сервера
 
@@ -226,4 +185,4 @@ CSS Modules и Tailwind не меняют API hook. Стилизуйте окр�
 
 Хук отвечает только за данные и состояние запросов. Для CSS Modules используйте stylesheet
 приложения, а для Tailwind - native utilities и классы потребителя. У `async-list` нет CSS
-variables, экспортов Moduix или registry-команд.
+variables, экспортов moduix или registry-команд.

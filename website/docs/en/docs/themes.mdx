@@ -4,73 +4,81 @@ description: Start with a moduix preset, then adapt its CSS tokens to your produ
 ---
 
 import { ThemePresets } from '@/components/docs/theme-presets';
-import { ClientOnly } from '@ark-ui/react/client-only';
 
 # Themes
 
-moduix themes are CSS token layers. `Calm` is the default foundation theme; `Dense`, `Soft`, and
-`Contrast` are optional presets for different visual directions. A preset can change the palette,
-radii, spacing, control density, and shadows without changing component APIs or adding a theme
-provider or runtime. Every shipped adapter uses the same theme files and token contract.
+Themes are CSS token layers. `Calm` is the default; `Dense`, `Soft` and `Contrast` are optional
+presets that change palette, radii, spacing, density and shadows without touching component APIs.
 
-<ClientOnly fallback={<ThemePresets />}>
-  <ThemePresets />
-</ClientOnly>
+<ThemePresets />
 
 ## Choose a preset
 
-| Preset   | Main control / popup row | Good starting point for                                                           |
-| -------- | ------------------------ | --------------------------------------------------------------------------------- |
-| Calm     | 36px / 32px              | General application screens with neutral colors and standard spacing. |
-| Dense    | 34px / 30px              | Admin interfaces and data tables with compact spacing and blue accents. |
-| Soft     | 40px / 34px              | Interfaces with larger controls, rounded corners, and violet accents. |
-| Contrast | 36px / 32px              | Interfaces with stronger borders and more distinct focus indicators. |
+Sizes are the default heights of the main controls and popup rows in each preset.
 
-The sizes in the table are the default heights for the preset's main controls and popup rows. Use
-the preview to compare density, surfaces, and focus styles with real moduix components.
+| Preset   | Control / popup row | Good starting point for                                                  |
+| -------- | ------------------- | ------------------------------------------------------------------------ |
+| Calm     | 36px / 32px         | General application screens with neutral colors and standard spacing.    |
+| Dense    | 34px / 30px         | Admin interfaces and data tables with compact spacing and blue accents.  |
+| Soft     | 40px / 34px         | Interfaces with larger controls, rounded corners and violet accents.     |
+| Contrast | 36px / 32px         | Interfaces with stronger borders and more distinct focus indicators.     |
 
-Preset names describe a visual direction, not an accessibility guarantee. Test text contrast,
-focus visibility, zoom, and interactive target sizes with your content and application overrides
-before release.
+:::info Test with your content
+Preset names describe a visual direction, not an accessibility guarantee. Check text contrast,
+focus visibility, zoom and target sizes before release.
+:::
 
 ## How the layers work
 
-The foundation stylesheet defines the complete token contract and the default `Calm` values. A
-preset overrides selected values, and your application can then override only the decisions that
-belong to your product. Components read semantic and component-level aliases, so a palette or
-density change flows through related controls instead of becoming a collection of one-off rules.
+The foundation defines the full token contract and the `Calm` values. A preset overrides selected
+values, your app overrides only its own decisions, and components read the resulting aliases.
 
 ```text
 foundation tokens → optional preset → application overrides → component aliases
 ```
 
-Preset files contain only their overrides, so they stay easy to inspect and remove. Use
-[Tokens](/docs/tokens) to see which variables form the public theming surface.
-
 ## Use with the npm package
 
-Import the foundation once, then import a preset. If users can switch between multiple presets,
-load every preset they can choose before switching. `Calm` uses the foundation values and does not
-have a `calm.css` file.
+Import the foundation once, then a preset. Set `data-moduix-theme` on `<html>` so portalled
+content gets the same values.
 
-Set `data-moduix-theme` and the color scheme on `<html>` so the same values reach regular and
-portalled content. Omit `data-moduix-color-scheme` for the light mode.
+<Tabs groupId="styling">
+  <Tab label="CSS Modules" value="css-modules">
 
 <Tabs groupId="framework">
   <Tab label="React" value="react">
 
-<StyleTrackCards>
-  <StyleTrackCard label="CSS Modules">
-
-```tsx
+```tsx title="main.tsx"
 import '@moduix/react/style.css';
 import '@moduix/react/presets/soft.css';
 ```
 
-  </StyleTrackCard>
-  <StyleTrackCard label="Tailwind CSS">
+  </Tab>
+  <Tab label="Solid" value="solid">
 
-```css
+```tsx title="index.tsx"
+import '@moduix/solid/style.css';
+import '@moduix/solid/presets/soft.css';
+```
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+```ts title="main.ts"
+import '@moduix/vue/style.css';
+import '@moduix/vue/presets/soft.css';
+```
+
+  </Tab>
+</Tabs>
+
+  </Tab>
+  <Tab label="Tailwind CSS" value="tailwind">
+
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+```css title="app.css"
 @import '@moduix/react-tailwind/style.css';
 @import '@moduix/react-tailwind/presets/soft.css';
 @import 'tailwindcss';
@@ -78,24 +86,10 @@ import '@moduix/react/presets/soft.css';
 @source '../node_modules/@moduix/react-tailwind/dist/components';
 ```
 
-  </StyleTrackCard>
-</StyleTrackCards>
-
   </Tab>
   <Tab label="Solid" value="solid">
 
-<StyleTrackCards>
-  <StyleTrackCard label="CSS Modules">
-
-```tsx
-import '@moduix/solid/style.css';
-import '@moduix/solid/presets/soft.css';
-```
-
-  </StyleTrackCard>
-  <StyleTrackCard label="Tailwind CSS">
-
-```css
+```css title="app.css"
 @import '@moduix/solid-tailwind/style.css';
 @import '@moduix/solid-tailwind/presets/soft.css';
 @import 'tailwindcss';
@@ -103,24 +97,10 @@ import '@moduix/solid/presets/soft.css';
 @source '../node_modules/@moduix/solid-tailwind/dist/components';
 ```
 
-  </StyleTrackCard>
-</StyleTrackCards>
-
   </Tab>
   <Tab label="Vue" value="vue">
 
-<StyleTrackCards>
-  <StyleTrackCard label="CSS Modules">
-
-```ts
-import '@moduix/vue/style.css';
-import '@moduix/vue/presets/soft.css';
-```
-
-  </StyleTrackCard>
-  <StyleTrackCard label="Tailwind CSS">
-
-```css
+```css title="app.css"
 @import '@moduix/vue-tailwind/style.css';
 @import '@moduix/vue-tailwind/presets/soft.css';
 @import 'tailwindcss';
@@ -128,22 +108,16 @@ import '@moduix/vue/presets/soft.css';
 @source '../node_modules/@moduix/vue-tailwind/dist/components';
 ```
 
-  </StyleTrackCard>
-</StyleTrackCards>
+  </Tab>
+</Tabs>
 
   </Tab>
 </Tabs>
 
-```html
-<html data-moduix-theme="soft" data-moduix-color-scheme="dark"></html>
-```
-
-Replace `soft.css` with `dense.css` or `contrast.css` under the same package prefix.
-
 ## Use with the registry
 
-Presets are framework-neutral, so the same foundation registry URL works with React, Solid, or Vue and
-with either styling track. The CLI copies the CSS source into your project:
+Presets share the foundation registry across frameworks and styling tracks. Install each preset
+you want to offer.
 
 <PackageManagerTabs command="shadcn@latest add https://moduix.dev/r/foundation/theme-dense.json" dlx />
 
@@ -152,39 +126,20 @@ import '@/lib/moduix/styles/style.css';
 import '@/lib/moduix/presets/dense.css';
 ```
 
-```html
-<html data-moduix-theme="dense"></html>
-```
-
-Replace `dense` with `soft` or `contrast` for another preset. If users can switch between presets,
-install and import each preset that can be selected.
-
-For Tailwind, keep these generated imports before `@import 'tailwindcss'`, as shown in the
-[Tailwind package setup](/docs/quick-start#tailwind-package-setup). Do not add the moduix reset.
-
 ## Switch themes at runtime
 
-Theme switching only changes the `data-moduix-theme` attribute. Keep the selected name on the
-document element so regular content and portalled overlays receive the same tokens. Persist the
-name only if your product needs to remember the user's choice.
+Load selectable presets first. Apply the selection on `html` so portalled content receives the
+same tokens.
 
-```tsx
-type Theme = 'calm' | 'dense' | 'soft' | 'contrast';
-
-function setTheme(theme: Theme) {
-  document.documentElement.dataset.moduixTheme = theme;
-}
+```ts
+document.documentElement.dataset.moduixTheme = 'soft';
+document.documentElement.dataset.moduixColorScheme = 'dark';
 ```
-
-The `calm` value leaves the foundation values in place. The CSS for every other selectable preset
-must already be loaded. If your product remembers the selection, persist it and apply the saved
-value before the first paint to avoid a visible theme change during startup.
 
 ## Customize a preset
 
-A preset is only a layer of CSS variables. Load your own stylesheet after the preset and override
-the values that need to change. Prefer semantic tokens for product-wide decisions and component
-aliases for deliberate exceptions. [Styling](/docs/styling) shows where each kind of change belongs.
+Load your product overrides after the preset. Change semantic tokens for decisions shared across
+components.
 
 ```css
 [data-moduix-theme='soft'] {
@@ -195,123 +150,17 @@ aliases for deliberate exceptions. [Styling](/docs/styling) shows where each kin
 
 ## Create a custom theme
 
-If the provided presets are not a fit, create a stylesheet loaded after the foundation and use a
-new value for `data-moduix-theme`. Start with the tokens that define your visual direction. Tokens
-you leave out keep their foundation values. Add size or spacing tokens only when your theme
-intentionally changes density. Use a preset as a reference when you want to replace the complete
-palette, spacing, and shadows.
+Start with the foundation and add a named CSS layer. Omitted values keep their foundation
+defaults.
 
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<StyleTrackCards>
-  <StyleTrackCard label="CSS Modules">
-
-```tsx
-import '@moduix/react/style.css';
-import './brand.css';
-```
-
-  </StyleTrackCard>
-  <StyleTrackCard label="Tailwind CSS">
+To pick values visually or bring a shadcn theme, use the [Theme builder](/docs/theme-builder).
 
 ```css
-@import '@moduix/react-tailwind/style.css';
-@import './brand.css';
-@import 'tailwindcss';
-
-@source '../node_modules/@moduix/react-tailwind/dist/components';
-```
-
-  </StyleTrackCard>
-</StyleTrackCards>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<StyleTrackCards>
-  <StyleTrackCard label="CSS Modules">
-
-```tsx
-import '@moduix/solid/style.css';
-import './brand.css';
-```
-
-  </StyleTrackCard>
-  <StyleTrackCard label="Tailwind CSS">
-
-```css
-@import '@moduix/solid-tailwind/style.css';
-@import './brand.css';
-@import 'tailwindcss';
-
-@source '../node_modules/@moduix/solid-tailwind/dist/components';
-```
-
-  </StyleTrackCard>
-</StyleTrackCards>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<StyleTrackCards>
-  <StyleTrackCard label="CSS Modules">
-
-```ts
-import '@moduix/vue/style.css';
-import './brand.css';
-```
-
-  </StyleTrackCard>
-  <StyleTrackCard label="Tailwind CSS">
-
-```css
-@import '@moduix/vue-tailwind/style.css';
-@import './brand.css';
-@import 'tailwindcss';
-
-@source '../node_modules/@moduix/vue-tailwind/dist/components';
-```
-
-  </StyleTrackCard>
-</StyleTrackCards>
-
-  </Tab>
-</Tabs>
-
-```css
-/* brand.css */
+/* brand.css · loaded after the foundation */
 [data-moduix-theme='brand'] {
-  --moduix-background: oklch(0.98 0.01 260);
-  --moduix-foreground: oklch(0.2 0.02 260);
-  --moduix-card: oklch(1 0 0);
-  --moduix-card-foreground: oklch(0.2 0.02 260);
-  --moduix-primary: oklch(0.5 0.18 260);
-  --moduix-primary-foreground: oklch(0.99 0.002 260);
-  --moduix-border: oklch(0.86 0.02 260);
-  --moduix-input: oklch(0.82 0.025 260);
-  --moduix-ring: oklch(0.58 0.15 260);
-  --moduix-radius: 0.875rem;
-  --moduix-size-sm: 2rem;
-  --moduix-size-md: 2.25rem;
+  --moduix-primary: oklch(0.5 0.17 250);
+  --moduix-radius: 0.75rem;
 }
 
-[data-moduix-theme='brand'][data-moduix-color-scheme='dark'] {
-  --moduix-background: oklch(0.17 0.02 260);
-  --moduix-foreground: oklch(0.97 0.004 260);
-  --moduix-card: oklch(0.22 0.024 260);
-  --moduix-card-foreground: oklch(0.97 0.004 260);
-  --moduix-primary: oklch(0.78 0.13 260);
-  --moduix-primary-foreground: oklch(0.18 0.024 260);
-  --moduix-border: oklch(0.76 0.03 260 / 0.28);
-  --moduix-input: oklch(0.76 0.03 260 / 0.34);
-  --moduix-ring: oklch(0.74 0.12 260);
-}
+/* Apply to html: data-moduix-theme="brand" */
 ```
-
-```html
-<html data-moduix-theme="brand" data-moduix-color-scheme="dark"></html>
-```
-
-Use [Tokens](/docs/tokens) for the system token reference and [Dark mode](/docs/dark-mode) for
-the application-owned light and dark mode switch.

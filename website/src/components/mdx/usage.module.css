@@ -1,0 +1,4 @@
+/* Usage block of a component page in Moduix.sketch. */
+.code :global(.rp-codeblock) {
+  margin-block: 0.75rem 1rem;
+}

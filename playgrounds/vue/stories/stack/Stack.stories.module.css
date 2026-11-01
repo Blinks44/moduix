@@ -3,9 +3,9 @@
   .row {
     width: 20rem;
     padding: var(--moduix-spacing-4);
-    border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
+    border: var(--moduix-border-width-sm) solid var(--moduix-border);
     border-radius: var(--moduix-radius-lg);
-    background-color: var(--moduix-color-background);
+    background-color: var(--moduix-background);
   }
 
   .wrap {
@@ -15,10 +15,10 @@
   .pill {
     padding-inline: var(--moduix-spacing-3);
     padding-block: var(--moduix-spacing-2);
-    border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
+    border: var(--moduix-border-width-sm) solid var(--moduix-border);
     border-radius: var(--moduix-radius-full);
-    background-color: var(--moduix-color-muted);
-    color: var(--moduix-color-foreground);
+    background-color: var(--moduix-muted);
+    color: var(--moduix-foreground);
     font-size: var(--moduix-text-sm);
     line-height: var(--moduix-line-height-text-sm);
   }
@@ -31,7 +31,7 @@
     font-weight: var(--moduix-weight-regular);
     line-height: var(--moduix-line-height-text-md);
     letter-spacing: 0;
-    color: var(--moduix-color-foreground);
+    color: var(--moduix-foreground);
     text-align: start;
     overflow-wrap: anywhere;
   }
@@ -41,7 +41,7 @@
   }
 
   .muted {
-    color: var(--moduix-color-muted-foreground);
+    color: var(--moduix-muted-foreground);
   }
 
   .skeleton {
@@ -53,7 +53,7 @@
     animation: var(--moduix-skeleton-animation, var(--moduix-animation-pulse));
     background: var(
       --moduix-skeleton-bg,
-      color-mix(in oklab, var(--moduix-color-muted-foreground) 18%, var(--moduix-color-background))
+      color-mix(in oklab, var(--moduix-muted-foreground) 18%, var(--moduix-background))
     );
     pointer-events: none;
     user-select: none;
@@ -68,6 +68,6 @@
     height: 1em;
     margin: 0;
     border: 0;
-    border-inline-start: var(--moduix-border-width-sm) solid var(--moduix-color-border);
+    border-inline-start: var(--moduix-border-width-sm) solid var(--moduix-border);
   }
 }

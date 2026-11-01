@@ -7,6 +7,22 @@ import type { CSSProperties, HTMLAttributes, StyleValue } from 'vue';
 import { cn } from '@/lib/moduix/cn';
 
 export type StackDirection = 'row' | 'row-reverse' | 'column' | 'column-reverse';
+export type StackSpacing =
+  | '0'
+  | '0.5'
+  | '1'
+  | '1.5'
+  | '2'
+  | '2.5'
+  | '3'
+  | '3.5'
+  | '4'
+  | '4.5'
+  | '5'
+  | '6'
+  | '7'
+  | '8'
+  | '10';
 
 const stackVariants = cva('flex', {
   variants: {
@@ -37,7 +53,7 @@ export interface Props extends /* @vue-ignore */ HTMLArkProps<'div'> {
   class?: HTMLAttributes['class'];
   style?: StyleValue;
   direction?: StackDirection | { mobile?: StackDirection; desktop?: StackDirection };
-  gap?: number | string;
+  gap?: number | StackSpacing | (string & {});
   align?: CSSProperties['alignItems'];
   justify?: CSSProperties['justifyContent'];
   wrap?: CSSProperties['flexWrap'];
@@ -57,6 +73,15 @@ const {
 defineSlots<{ default?: () => unknown }>();
 const attrs = useAttrs();
 
+// A spacing step such as `'2'` or `'1.5'` reads `--moduix-spacing-*`, so presets rescale the gap;
+// numbers are pixels and other strings are CSS lengths.
+function toGap(value: number | string | undefined) {
+  if (typeof value === 'number') return `${value}px`;
+  return value && /^\d+(\.5)?$/.test(value)
+    ? `var(--moduix-spacing-${value.replace('.', '-')})`
+    : value;
+}
+
 const stackClass = computed(() => {
   const responsive = typeof direction === 'string' ? { mobile: direction } : direction;
   return cn(
@@ -71,7 +96,7 @@ const stackClass = computed(() => {
 
 const stackStyle = computed<StyleValue>(() => [
   {
-    gap: typeof gap === 'number' ? `${gap}px` : gap,
+    gap: toGap(gap),
     alignItems: align,
     justifyContent: justify,
     flexWrap: wrap,

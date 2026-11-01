@@ -1,16 +1,16 @@
 import { Avatar, AvatarFallback } from '@moduix/react/avatar';
-import styles from '@/components/examples/avatar/avatar-sizes-and-fallback-only.module.css';
+import { Stack } from '@moduix/react/stack';
 
 const avatarSizes = ['xs', 'sm', 'md', 'lg', 'xl'] as const;
 
 export default function AvatarSizesDemo() {
   return (
-    <div className={styles.root}>
+    <Stack direction="row" align="center" justify="center" wrap="nowrap" gap="3">
       {avatarSizes.map((size) => (
         <Avatar key={size} size={size}>
           <AvatarFallback>{size.toUpperCase()}</AvatarFallback>
         </Avatar>
       ))}
-    </div>
+    </Stack>
   );
 }

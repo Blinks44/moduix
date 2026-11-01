@@ -36,8 +36,8 @@ rendering, value arrays, highlighted value control, selection modes, callback de
 - `ListboxItemIndicator` renders the moduix `CheckIcon` when children are omitted.
 - Items reserve indicator space by default, so selecting an item does not shift item text.
 - Pointer hover and keyboard highlight share the same accent affordance by default.
-- `ListboxItemTextContent`, `ListboxItemTextIcon`, and `ListboxItemTextLabel` are moduix span
-  helpers for richer item text layout.
+- A direct SVG child of `ListboxItemText` is sized as a 16px icon with a gap before the text;
+  the text truncates with an ellipsis.
 - `useListbox`, `useListboxContext`, `useListboxItemContext`, `ListboxContext`, and
   `ListboxItemContext` are available from moduix for advanced state and context composition.
 
@@ -62,25 +62,22 @@ Listbox
 └─ ListboxValueText
 ```
 
-| Export                   | `data-slot`                 | Notes                                          |
-| ------------------------ | --------------------------- | ---------------------------------------------- |
-| `Listbox`                | `listbox-root`              | Ark root with moduix styling.                  |
-| `ListboxRootProvider`    | `listbox-root-provider`     | RootProvider styled like root.                 |
-| `ListboxLabel`           | `listbox-label`             | Accessible label.                              |
-| `ListboxFilter`          | `listbox-filter`            | Search icon and unified filter surface.        |
-| `ListboxInput`           | `listbox-input`             | Filter input, normally inside `ListboxFilter`. |
-| `ListboxClearTrigger`    | `listbox-clear-trigger`     | Consumer-wired query reset button.             |
-| `ListboxContent`         | `listbox-content`           | Focusable listbox content.                     |
-| `ListboxEmpty`           | `listbox-empty`             | Empty-state content.                           |
-| `ListboxItemGroup`       | `listbox-item-group`        | Group wrapper.                                 |
-| `ListboxItemGroupLabel`  | `listbox-item-group-label`  | Group label.                                   |
-| `ListboxItem`            | `listbox-item`              | Selectable collection item.                    |
-| `ListboxItemText`        | `listbox-item-text`         | Item label text.                               |
-| `ListboxItemIndicator`   | `listbox-item-indicator`    | Default check icon.                            |
-| `ListboxValueText`       | `listbox-value-text`        | Selected value summary.                        |
-| `ListboxItemTextContent` | `listbox-item-text-content` | Moduix span helper.                            |
-| `ListboxItemTextIcon`    | `listbox-item-text-icon`    | Moduix span helper.                            |
-| `ListboxItemTextLabel`   | `listbox-item-text-label`   | Moduix span helper.                            |
+| Export                  | `data-slot`                | Notes                                          |
+| ----------------------- | -------------------------- | ---------------------------------------------- |
+| `Listbox`               | `listbox-root`             | Ark root with moduix styling.                  |
+| `ListboxRootProvider`   | `listbox-root-provider`    | RootProvider styled like root.                 |
+| `ListboxLabel`          | `listbox-label`            | Accessible label.                              |
+| `ListboxFilter`         | `listbox-filter`           | Search icon and unified filter surface.        |
+| `ListboxInput`          | `listbox-input`            | Filter input, normally inside `ListboxFilter`. |
+| `ListboxClearTrigger`   | `listbox-clear-trigger`    | Consumer-wired query reset button.             |
+| `ListboxContent`        | `listbox-content`          | Focusable listbox content.                     |
+| `ListboxEmpty`          | `listbox-empty`            | Empty-state content.                           |
+| `ListboxItemGroup`      | `listbox-item-group`       | Group wrapper.                                 |
+| `ListboxItemGroupLabel` | `listbox-item-group-label` | Group label.                                   |
+| `ListboxItem`           | `listbox-item`             | Selectable collection item.                    |
+| `ListboxItemText`       | `listbox-item-text`        | Item label text.                               |
+| `ListboxItemIndicator`  | `listbox-item-indicator`   | Default check icon.                            |
+| `ListboxValueText`      | `listbox-value-text`       | Selected value summary.                        |
 
 ## Composition
 
@@ -188,8 +185,7 @@ results should remain visually separate or need a custom wrapper.
 - `ListboxItemIndicator` renders the moduix `CheckIcon` when children are omitted.
 - `ListboxFilter` and `ListboxClearTrigger` add search-field visuals only; filter text and
   collection updates stay explicit through Ark input and collection APIs.
-- `ListboxItemTextContent`, `ListboxItemTextIcon`, and `ListboxItemTextLabel` are leaf span helpers
-  shared in shape with Menu and Select; they do not replace Ark item composition.
+- `ListboxItemText` styles a direct SVG child as an icon, the same way as Menu and Select.
 - No convenience wrapper hides Ark parts; consumers compose content and items directly.
 - React and Solid re-export the Ark Listbox part props, callback details, and hook types.
 

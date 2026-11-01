@@ -5,8 +5,6 @@ import {
   ListboxItem,
   ListboxItemIndicator,
   ListboxItemText,
-  ListboxItemTextContent,
-  ListboxItemTextLabel,
   ListboxLabel,
 } from '@moduix/solid/listbox';
 import { For } from 'solid-js';
@@ -33,10 +31,8 @@ export default function HorizontalListboxDemo() {
           {(item) => (
             <ListboxItem item={item}>
               <ListboxItemText>
-                <ListboxItemTextContent class={styles.albumText}>
-                  <ListboxItemTextLabel>{item.title}</ListboxItemTextLabel>
-                  <span class={styles.artist}>{item.artist}</span>
-                </ListboxItemTextContent>
+                {item.title}
+                <span class={styles.artist}>{item.artist}</span>
               </ListboxItemText>
               <ListboxItemIndicator />
             </ListboxItem>

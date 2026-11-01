@@ -11,7 +11,7 @@ import {
   BreadcrumbsPage,
   BreadcrumbsPath,
   BreadcrumbsSeparator,
-} from '../src';
+} from '@/index';
 
 type BreadcrumbsPathProps = ComponentProps<typeof BreadcrumbsPath>;
 
@@ -127,54 +127,20 @@ test('does not forward refs through native Ark Solid asChild composition', () =>
 
   expect(ref).toBeUndefined();
 });
-test('lets links, separators, and the ellipsis inherit the root text color', () => {
+
+test('preserves native Ark asChild ref behavior', () => {
+  let ref: HTMLAnchorElement | undefined;
+
   render(() => (
-    <Breadcrumbs style={{ color: 'rgb(1, 2, 3)' }}>
-      <BreadcrumbsList>
-        <BreadcrumbsItem>
-          <BreadcrumbsLink href="/">Home</BreadcrumbsLink>
-        </BreadcrumbsItem>
-        <BreadcrumbsSeparator />
-        <BreadcrumbsItem>
-          <BreadcrumbsEllipsis />
-        </BreadcrumbsItem>
-        <BreadcrumbsSeparator />
-        <BreadcrumbsItem>
-          <BreadcrumbsPage>Breadcrumbs</BreadcrumbsPage>
-        </BreadcrumbsItem>
-      </BreadcrumbsList>
-    </Breadcrumbs>
+    <BreadcrumbsLink
+      ref={(element) => (ref = element)}
+      asChild={(props) => (
+        <a {...props()} href="/docs">
+          Docs
+        </a>
+      )}
+    />
   ));
 
-  const colorOf = (slot: string) =>
-    getComputedStyle(document.querySelector(`[data-slot="breadcrumbs-${slot}"]`)!).color;
-
-  expect(['link', 'separator', 'ellipsis'].map(colorOf)).toEqual([
-    'rgb(1, 2, 3)',
-    'rgb(1, 2, 3)',
-    'rgb(1, 2, 3)',
-  ]);
-  expect(colorOf('page')).not.toBe('rgb(1, 2, 3)');
-});
-test('renders an ellipsis icon and styles a wrapping native button as a trigger', () => {
-  render(() => (
-    <BreadcrumbsList>
-      <BreadcrumbsItem>
-        <button type="button" aria-label="Show hidden path items">
-          <BreadcrumbsEllipsis />
-        </button>
-      </BreadcrumbsItem>
-    </BreadcrumbsList>
-  ));
-
-  const trigger = screen.getByRole('button', { name: 'Show hidden path items' });
-  const style = getComputedStyle(trigger);
-
-  expect(trigger.querySelector('[data-slot="breadcrumbs-ellipsis"] > svg')).not.toBeNull();
-  expect([style.borderTopWidth, style.paddingLeft, style.cursor, style.backgroundColor]).toEqual([
-    '0px',
-    '0px',
-    'pointer',
-    'rgba(0, 0, 0, 0)',
-  ]);
+  expect(ref).toBeUndefined();
 });

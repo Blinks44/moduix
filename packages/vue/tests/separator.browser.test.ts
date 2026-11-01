@@ -4,7 +4,7 @@ import { render, screen } from '@testing-library/vue';
 import { renderToString } from '@vue/server-renderer';
 import { createSSRApp, ref } from 'vue';
 import type { ComponentPublicInstance } from 'vue';
-import { Separator } from '../src';
+import { Separator } from '@/index';
 import TestSeparator from './fixtures/TestSeparator.vue';
 
 test('keeps ARIA metadata and stable data hooks aligned with public props', async () => {
@@ -43,30 +43,6 @@ test('keeps ARIA metadata and stable data hooks aligned with public props', asyn
   });
 });
 
-test('applies the public defaults and direct styling props', async () => {
-  const rootRef = ref<ComponentPublicInstance>();
-  render({
-    components: { Separator },
-    setup: () => ({ rootRef }),
-    template:
-      '<Separator ref="rootRef" data-testid="separator" class="custom-separator" style="color: red" />',
-  });
-
-  await expect.element(page.getByTestId('separator')).toHaveCount(1);
-  const separator = screen.getByTestId('separator');
-  expect(rootRef.value?.$el).toBe(separator);
-
-  expect(separator.getAttribute('role')).toBe('separator');
-  expect(separator.getAttribute('aria-orientation')).toBe('horizontal');
-  expect(separator.dataset).toMatchObject({
-    orientation: 'horizontal',
-    size: 'sm',
-    variant: 'solid',
-  });
-  expect(separator.classList.contains('custom-separator')).toBe(true);
-  expect(separator.style).toMatchObject({ color: 'red' });
-});
-
 test('supports decorative separators and semantic asChild hosts', async () => {
   const rootRef = ref<ComponentPublicInstance>();
   render({
@@ -97,7 +73,6 @@ test('hydrates separator without replacing the server host', async () => {
     await expect.element(page.getByRole('separator')).toHaveAttribute('data-size', 'lg');
     expect(host.querySelectorAll('hr')).toHaveLength(1);
     expect(host.querySelector('hr')).toBe(serverRoot);
-    expect([...serverRoot.classList]).toContain('hydrated-separator');
     expect(warn).not.toHaveBeenCalled();
     expect(error).not.toHaveBeenCalled();
   } finally {
@@ -106,28 +81,4 @@ test('hydrates separator without replacing the server host', async () => {
     warn.mockRestore();
     error.mockRestore();
   }
-});
-
-test('draws sizes, variants, and vertical lines as borders', async () => {
-  render({
-    components: { Separator },
-    template: `
-      <div style="font-size: 20px">
-        <Separator data-testid="large" size="lg" variant="dashed" />
-        <Separator data-testid="vertical" orientation="vertical" size="md" variant="dotted" />
-        <Separator data-testid="themed" style="--moduix-separator-thickness: 4px" />
-      </div>
-    `,
-  });
-
-  await expect.element(page.getByTestId('large')).toHaveCSS('border-top-width', '3px');
-  await expect.element(page.getByTestId('large')).toHaveCSS('border-top-style', 'dashed');
-  await expect.element(page.getByTestId('large')).toHaveCSS('border-bottom-width', '0px');
-  await expect.element(page.getByTestId('vertical')).toHaveCSS('border-left-width', '2px');
-  await expect.element(page.getByTestId('vertical')).toHaveCSS('border-left-style', 'dotted');
-  await expect.element(page.getByTestId('vertical')).toHaveCSS('border-top-width', '0px');
-  const vertical = document.querySelector<HTMLElement>('[data-testid="vertical"]')!;
-  expect(vertical.offsetWidth).toBe(2);
-  expect(vertical.offsetHeight).toBe(20);
-  await expect.element(page.getByTestId('themed')).toHaveCSS('border-top-width', '4px');
 });

@@ -9,8 +9,8 @@ import {
   SelectOption,
   SelectPositioner,
 } from '@moduix/vue/select';
+import { Stack } from '@moduix/vue/stack';
 import { computed, ref } from 'vue';
-import styles from '@/components/examples/select/select-dynamic-items.module.css';
 
 const fruits = [
   { label: 'Apple', value: 'apple' },
@@ -33,7 +33,7 @@ const collection = computed(() =>
 </script>
 
 <template>
-  <div :class="styles.root">
+  <Stack gap="3">
     <Input v-model="query" aria-label="Filter fruits" placeholder="Filter fruits" />
     <Select :collection="collection">
       <SelectLabel>Choose fruit</SelectLabel>
@@ -46,5 +46,5 @@ const collection = computed(() =>
         </SelectContent>
       </SelectPositioner>
     </Select>
-  </div>
+  </Stack>
 </template>

@@ -1,116 +1,45 @@
 ---
 title: Rating Group
 component: rating-group
-description: Contrôle de notation par étoiles fondé sur le primitif rating-group d’Ark UI pour React, Solid et Vue.
+description: Noter sur une échelle d’étoiles, demi-étoiles comprises.
+ark: https://ark-ui.com/docs/components/rating-group
 ---
 
+import AnatomyScene from '@/components/examples/rating-group/basic';
 import * as RatingGroupDocs from '@/components/examples/rating-group/css-properties';
 
-## Référence de l’API
+<Example name="rating-group/basic" />
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/rating-group" />
+## Installation
 
-## Choisir le bon composant
+<ComponentInstall />
 
-Utilisez `RatingGroup` lorsque l’utilisateur doit choisir une note numérique parmi une série d’étoiles ou d’icônes répétées.
+## Utilisation
 
-## Exemple de base
-
+<Usage />
 
 Utilisez `RatingGroup` comme racine et ajoutez `RatingGroupLabel`, `RatingGroupControl` et
 `RatingGroupItems` pour une notation standard par étoiles. Rendez `RatingGroupHiddenInput`
 explicitement lorsque la valeur doit participer à l’envoi d’un formulaire natif.
 
-<Example name="rating-group/basic" />
+## Choisir le bon composant
 
-## Installation avec shadcn
-
-Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration complète du paquet, du registre et des styles.
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/rating-group' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/rating-group' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/rating-group' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/rating-group' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/rating-group' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/rating-group' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Anatomie
-
-```text
-RatingGroup
-├─ RatingGroupLabel
-└─ RatingGroupControl
-   ├─ RatingGroupItems
-   │  └─ RatingGroupItem[index]
-   │     └─ RatingGroupItemIndicator
-   ├─ RatingGroupContext
-   │  └─ RatingGroupItem[index]
-   │     └─ RatingGroupItemIndicator
-   └─ RatingGroupHiddenInput (explicite)
-
-RatingGroupRootProvider
-└─ même arbre de parties relié à un état moduix créé avec useRatingGroup()
-```
-
-| Partie                               | Rôle                                                                |
-| ------------------------------------ | ------------------------------------------------------------------- |
-| `RatingGroup`                    | Gère l’état de la note, la navigation au clavier, le focus et les formulaires. |
-| `RatingGroupHiddenInput`             | Champ natif d’Ark à composer explicitement.                         |
-| `RatingGroupRootProvider`            | Relie les parties à l’état créé avec `useRatingGroup()`.             |
-| `RatingGroupContext`                 | Donne accès à l’état racine actuel via une render prop.              |
-| `RatingGroupItemContext`             | Donne accès à l’état actuel de l’élément via une render prop.        |
-| `RatingGroupLabel`                   | Libellé accessible du groupe de notation.                            |
-| `RatingGroupControl`                 | Regroupe les éléments interactifs de notation.                       |
-| `RatingGroupItems`                   | Crée un élément pour chaque valeur et fournit l’étoile par défaut.   |
-| `RatingGroupItem`                    | Élément sélectionnable qui nécessite un `index` numérique.           |
-| `RatingGroupItemIndicator`           | Visuel étoilé moduix par défaut pour un élément.                     |
-
-## Composition
-
-Utilisez `RatingGroupItems` pour l’arbre standard généré. Pour remplacer le visuel répété, passez un
-`RatingGroupItemIndicator` personnalisé comme enfant. `RatingGroupHiddenInput` est indépendant de
-`Items`, ajoutez-le donc explicitement dans la racine ou `RatingGroupRootProvider` ; définissez
-`name` sur la racine lorsque la valeur doit être envoyée par un formulaire natif.
-
-Pour un arbre d’éléments personnalisé, utilisez `RatingGroupContext` avec `RatingGroupItem`.
-Utilisez `RatingGroupRootProvider` avec `useRatingGroup()` lorsque l’état doit être créé en dehors
-de l’arbre rendu. React lit le store comme un objet, Solid lit son état réactif via la fonction
-retournée, et Vue expose directement le store réactif dans le template.
+Utilisez `RatingGroup` lorsque l’utilisateur doit choisir une note numérique parmi une série d’étoiles ou d’icônes répétées.
 
 ## Exemples
 
-### État contrôlé
+### Tailles
 
-Gérez `value` avec `useState` en React, `createSignal` en Solid, ou `ref` et `v-model` en Vue lorsque
-la note dépend d’un autre état, pilote l’interface voisine ou doit être réinitialisée par le parent.
+Utilisez la propriété `size` de moduix lorsque la notation doit conserver le comportement d’Ark avec
+une densité visuelle différente.
 
-<Example name="rating-group/controlled" />
+<Example name="rating-group/sizes" />
+
+### Notation par demi-pas
+
+Définissez `allowHalf` pour activer la sélection et l’affichage par demi-pas.
+
+<Example name="rating-group/half-rating" />
 
 ### Icône personnalisée
 
@@ -142,26 +71,61 @@ Passez `name` et rendez `RatingGroupHiddenInput` lorsque la note sélectionnée 
 
 <Example name="rating-group/forms" />
 
-### Notation par demi-pas
+### État contrôlé
 
-Définissez `allowHalf` pour activer la sélection et l’affichage par demi-pas.
+Passez `value` et `onValueChange` (`v-model` en Vue) lorsque la note dépend d’un autre état ou est
+réinitialisée par le parent. Voir [Contrôler l’état depuis l’application](/docs/composition-patterns#controlled-state).
 
-<Example name="rating-group/half-rating" />
+<Example name="rating-group/controlled" />
 
-### Tailles
+### Root Provider
 
-Utilisez la propriété `size` de moduix lorsque la notation doit conserver le comportement d’Ark avec
-une densité visuelle différente.
+Utilisez `RatingGroupRootProvider` avec `useRatingGroup()` lorsque l’état de la notation doit être créé
+en dehors de l’arbre rendu, par exemple pour définir la valeur depuis un bouton séparé. Voir [Partager l’état hors de l’arbre](/docs/composition-patterns#root-provider).
 
-<Example name="rating-group/sizes" />
+<Example name="rating-group/root-provider" />
 
-### Composition avancée
+### Assembler à partir des parties
 
+La même notation que Basic, sans `RatingGroupItems` : `RatingGroupContext` fournit les index des
+éléments et chaque `RatingGroupItem` affiche un `RatingGroupItemIndicator`. Partez de cet exemple quand
+les éléments ont besoin de leur propre balisage ; pour changer seulement l’étoile, passez une icône
+comme dans l’exemple « Icône personnalisée ».
+
+<Example name="rating-group/build-from-parts" />
+
+## Composition
+
+Utilisez `RatingGroupItems` pour l’arbre standard généré. Pour remplacer le visuel répété, passez un
+`RatingGroupItemIndicator` personnalisé comme enfant. `RatingGroupHiddenInput` est indépendant de
+`Items`, ajoutez-le donc explicitement dans la racine ou `RatingGroupRootProvider` ; définissez
+`name` sur la racine lorsque la valeur doit être envoyée par un formulaire natif.
+
+Pour un arbre d’éléments personnalisé, utilisez `RatingGroupContext` avec `RatingGroupItem`.
 Utilisez `RatingGroupRootProvider` avec `useRatingGroup()` lorsque l’état doit être créé en dehors
-de l’arbre rendu. Utilisez `RatingGroupContext` lorsque `RatingGroupItems` ne suffit pas et que
-vous devez rendre chaque élément vous-même.
+de l’arbre rendu. React lit le store comme un objet, Solid lit son état réactif via la fonction
+retournée, et Vue expose directement le store réactif dans le template.
 
-<Example name="rating-group/advanced-customization" />
+## Anatomie
+
+Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
+
+<AnatomyInspector
+  parts={[
+    ["RatingGroup", "rating-group-root", "Gère l’état de la note, la navigation au clavier, le focus et les formulaires.", 0],
+    ["RatingGroupLabel", "rating-group-label", "Libellé accessible du groupe de notation.", 1],
+    ["RatingGroupControl", "rating-group-control", "Regroupe les éléments interactifs de notation.", 1],
+    ["RatingGroupItems", "", "Crée un élément pour chaque valeur et fournit l’étoile par défaut.", 2],
+    ["RatingGroupItem", "rating-group-item", "Élément sélectionnable qui nécessite un `index` numérique.", 3],
+    ["RatingGroupItemIndicator", "rating-group-item-indicator-fg", "Visuel étoilé moduix par défaut pour un élément.", 4],
+    ["RatingGroupContext", null, "Donne accès à l’état racine actuel via une render prop.", 2],
+    ["RatingGroupHiddenInput", "", "Champ natif d’Ark à composer explicitement.", 2],
+    ["RatingGroupRootProvider", "rating-group-root-provider", "Relie les parties à l’état créé avec `useRatingGroup()`.", 0],
+    ["RatingGroupItemContext", null, "Donne accès à l’état actuel de l’élément via une render prop.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styles
 
@@ -172,19 +136,55 @@ structurels. Ark expose aussi les attributs `data-scope="rating-group"` et `data
 consommateur ; les variantes CSS Modules exposent aussi les variables enregistrées
 `--moduix-rating-group-*`.
 
-### Propriétés CSS
+### Variables CSS
 
-<CssPropertiesSection properties={RatingGroupDocs.ratingGroupOverrideCssProperties} />
+Survolez ou sélectionnez une variable pour la voir dans l’aperçu.
+
+<CssPropertiesSection properties={RatingGroupDocs.ratingGroupOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Points d’accroche CSS
 
-- `data-slot="rating-group-root"` et `data-slot="rating-group-root-provider"`
-- `data-slot="rating-group-label"`
-- `data-slot="rating-group-control"`
-- `data-slot="rating-group-item"`
-- `data-slot="rating-group-item-indicator"`
-- `data-slot="rating-group-item-indicator-bg"` et `data-slot="rating-group-item-indicator-fg"`
+| Partie | `data-slot` |
+| --- | --- |
+| `RatingGroup` | `rating-group-root` |
+| `RatingGroupRootProvider` | `rating-group-root-provider` |
+| `RatingGroupLabel` | `rating-group-label` |
+| `RatingGroupControl` | `rating-group-control` |
+| `RatingGroupItem` | `rating-group-item` |
+| `RatingGroupItemIndicator` | `rating-group-item-indicator` |
+| `RatingGroupItemIndicator`, élément interne | `rating-group-item-indicator-bg` |
+| `RatingGroupItemIndicator`, élément interne | `rating-group-item-indicator-fg` |
+
 - `data-size="xs" | "sm" | "md" | "lg" | "xl"` sur la racine ou le root provider
 - Attributs du label Ark : `data-disabled` et `data-required`
 - Attributs du control Ark : `data-disabled` et `data-readonly`
 - Attributs de l’item Ark : `data-checked`, `data-highlighted`, `data-half`, `data-disabled` et `data-readonly`
+
+## Clavier
+
+| Touche | Action |
+| --- | --- |
+| `ArrowRight` / `ArrowLeft` | Augmente ou diminue la note. |
+| `Home` / `End` | Règle la note minimale ou maximale. |
+
+## Référence de l’API
+
+| Prop | Type | Défaut | Description |
+| --- | --- | --- | --- |
+| `value` | `number` | — | Note en mode contrôlé. |
+| `defaultValue` | `number` | — | Note initiale. |
+| `onValueChange` | `(details: ValueChangeDetails) => void` | — | Appelé lorsque la note change. |
+| `onHoverChange` | `(details: HoverChangeDetails) => void` | — | Appelé avec la note survolée. |
+| `count` | `number` | `5` | Nombre d’éléments. |
+| `allowHalf` | `boolean` | `false` | Autorise les demi-notes. |
+| `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'` | `'md'` | Taille : `xs`, `sm`, `md`, `lg` ou `xl`. |
+| `name` | `string` | — | Nom du champ de formulaire de l’input sous-jacent. |
+| `disabled` | `boolean` | `false` | Désactive le contrôle. |
+| `readOnly` | `boolean` | `false` | Affiche la valeur sans permettre de la modifier. |
+| `invalid` | `boolean` | `false` | Marque le champ comme invalide. |
+| `required` | `boolean` | `false` | Exige une valeur avant l’envoi du formulaire. |
+| `translations` | `IntlTranslations` | — | Textes localisés des libellés d’accessibilité. |
+| `form` | `string` | — | Id du formulaire auquel l’input sous-jacent est rattaché. |
+| `autoFocus` | `boolean` | — | Place le focus sur la note au montage. |

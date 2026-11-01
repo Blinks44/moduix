@@ -25,13 +25,13 @@ the Vue renderer adapter host, using Tailwind utilities instead of component var
 
 `ChartPlot` accepts TanStack `ChartRendererHostOptions` from the framework-independent adapter tier,
 with `className` exposed as `class`, `onTooltipBodyChange` owned by the wrapper, and `renderer`
-optional. It defaults to the Moduix `motion()` preset. Set `:motion="false"` to use TanStack's static
+optional. It defaults to the moduix `motion()` preset. Set `:motion="false"` to use TanStack's static
 SVG renderer; an explicit `renderer` always takes precedence. Definitions, responsiveness,
 accessibility props, and the remaining callbacks pass through unchanged.
 
-By default, `ChartPlot` uses a compact Moduix tooltip layout, so rows without a swatch do not
+By default, `ChartPlot` uses a compact moduix tooltip layout, so rows without a swatch do not
 reserve an empty column. Rows that TanStack marks as `active` get `data-active` and a muted highlight. When you provide `renderTooltipBody`, its `defaultBody` is the same compact
-Moduix body, exposed as a `() => VNodeChild` render function matching TanStack's Vue adapter
+moduix body, exposed as a `() => VNodeChild` render function matching TanStack's Vue adapter
 convention.
 
 `ChartHeader` renders `figcaption`. `ChartTitle`, `ChartDescription`, `ChartLegend`, and
@@ -47,7 +47,7 @@ convention.
   `@tanstack/charts/adapter/renderer` directly, mirroring the Solid adapter. This is the documented
   renderer-neutral tier for hosts that expose an application-selected `ChartRenderer`, and it keeps
   the moduix motion preset and custom renderers available.
-- The default Moduix `motion()` preset animates initial geometry, keyed updates, focus guides, and
+- The default moduix `motion()` preset animates initial geometry, keyed updates, focus guides, and
   the native tooltip. It respects `prefers-reduced-motion` by default. `motion={false}` disables the
   renderer animation entirely.
 - The adapter lifecycle follows the documented controller contract: `prerender()` at setup,

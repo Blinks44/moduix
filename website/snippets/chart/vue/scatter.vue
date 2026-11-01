@@ -30,7 +30,7 @@ const definition = defineChart({
       key: 'account',
       r: 7,
       fillOpacity: 0.8,
-      stroke: 'var(--moduix-color-card)',
+      stroke: 'var(--moduix-card)',
       strokeWidth: 2,
     }),
   ],
@@ -40,11 +40,7 @@ const definition = defineChart({
   },
   color: {
     domain: ['Starter', 'Growth', 'Scale'],
-    range: [
-      'var(--moduix-color-chart-1)',
-      'var(--moduix-color-chart-2)',
-      'var(--moduix-color-chart-3)',
-    ],
+    range: ['var(--moduix-chart-1)', 'var(--moduix-chart-2)', 'var(--moduix-chart-3)'],
   },
   tooltip,
 });
@@ -62,9 +58,9 @@ const definition = defineChart({
       ariaLabel="Account sessions and conversion rate"
     />
     <ChartLegend aria-label="Account segments">
-      <ChartLegendItem color="var(--moduix-color-chart-1)">Starter</ChartLegendItem>
-      <ChartLegendItem color="var(--moduix-color-chart-2)">Growth</ChartLegendItem>
-      <ChartLegendItem color="var(--moduix-color-chart-3)">Scale</ChartLegendItem>
+      <ChartLegendItem color="var(--moduix-chart-1)">Starter</ChartLegendItem>
+      <ChartLegendItem color="var(--moduix-chart-2)">Growth</ChartLegendItem>
+      <ChartLegendItem color="var(--moduix-chart-3)">Scale</ChartLegendItem>
     </ChartLegend>
   </Chart>
 </template>

@@ -11,7 +11,7 @@ import {
   MenuViewport,
   useMenu,
 } from '@moduix/vue/menu';
-import styles from '@/components/examples/menu/menu-root-provider.module.css';
+import { Stack } from '@moduix/vue/stack';
 
 const menu = useMenu({ defaultOpen: true });
 function highlightCopy() {
@@ -21,7 +21,7 @@ function highlightCopy() {
 
 <template>
   <div>
-    <div :class="styles.triggerRow">
+    <Stack direction="row" justify="center">
       <MenuRootProvider :value="menu">
         <MenuTrigger as-child>
           <Button>Edit <MenuIndicator /></Button>
@@ -40,7 +40,7 @@ function highlightCopy() {
           <output>{{ context.open ? 'Open' : 'Closed' }}</output>
         </MenuContext>
       </MenuRootProvider>
-    </div>
+    </Stack>
     <Button size="sm" @click="highlightCopy">Highlight Copy</Button>
   </div>
 </template>

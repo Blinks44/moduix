@@ -1,6 +1,6 @@
 ---
 title: Styling
-description: Choose the right styling layer for Moduix components across framework adapters.
+description: Choose the right styling layer for moduix components across framework adapters.
 ---
 
 import { ProjectChecklist } from '@/components/examples/styling/project-checklist';
@@ -11,8 +11,8 @@ import vueBrandButton from '../../../snippets/styling/vue/brand-button.vue?raw';
 
 # Styling
 
-Moduix ships separate CSS Modules and Tailwind packages for every current framework adapter. Choose
-the styling track your application already uses, then make each change at the highest layer that owns
+moduix ships separate CSS Modules and Tailwind packages for every current framework adapter. Choose
+the styling track your application already uses, then make each change at the highest layer that controls
 the decision.
 
 This guide assumes the matching package and stylesheet are already configured through
@@ -30,7 +30,7 @@ Use the package that matches both your framework and styling track.
 
 ## Choose where to make a change
 
-Make each change at the highest layer that owns the decision. Moving down the list affects fewer
+Make each change at the highest layer that controls the decision. Moving down the list affects fewer
 components and needs more code.
 
 | Goal | Where to change it |
@@ -45,7 +45,7 @@ components and needs more code.
 
 ## How overrides win
 
-Moduix styles live in CSS cascade layers, declared in this order:
+moduix styles live in CSS cascade layers, declared in this order:
 
 ```css
 @layer theme, base, moduix.reset, moduix.tokens, moduix.base, components, moduix.components, utilities;
@@ -61,7 +61,7 @@ Two rules follow from it:
 
 ## Customize a component
 
-Each CSS Modules component page lists its public variables under **CSS Properties**. Component
+Each CSS Modules component page lists its public variables under **CSS variables**. Component
 variables are deliberately generic: Button exposes `--moduix-button-bg`, `--moduix-button-height`,
 and `--moduix-button-padding-x`, not a separate variable for every variant and size. Variant and size
 defaults stay private, and a public variable overrides them wherever you set it. The scope of the
@@ -73,7 +73,7 @@ Set the variables in a class, or inline when the value is dynamic:
 
 ```css
 .save {
-  --moduix-button-bg: var(--moduix-color-success);
+  --moduix-button-bg: var(--moduix-success);
   --moduix-button-radius: var(--moduix-radius-full);
 }
 ```
@@ -87,8 +87,8 @@ Target the stable `data-slot` together with the variant attribute. Load the styl
 
 ```css
 [data-slot='button-root'][data-variant='outline'] {
-  --moduix-button-border-color: var(--moduix-color-primary);
-  --moduix-button-bg-hover: color-mix(in oklab, var(--moduix-color-primary) 12%, transparent);
+  --moduix-button-border-color: var(--moduix-primary);
+  --moduix-button-bg-hover: color-mix(in oklab, var(--moduix-primary) 12%, transparent);
 }
 ```
 
@@ -150,7 +150,7 @@ markup, install the component through the registry and edit the copied source.
 
 ## Style exported parts
 
-Apply the consumer class to the part that owns the visual change. Combine it with Ark state attributes
+Apply the consumer class to the part that renders the visual change. Combine it with Ark state attributes
 such as `data-state` or `data-disabled` for stateful styles. Do not depend on generated class names or
 DOM order.
 
@@ -203,7 +203,7 @@ hatch:
     padding-inline: var(--moduix-spacing-4);
 
     &[data-state='open'] {
-      color: var(--moduix-color-primary);
+      color: var(--moduix-primary);
     }
   }
 }
@@ -215,7 +215,7 @@ portalled parts themselves, or scope them to the portal container.
 ## Style with Panda CSS
 
 Panda CSS can generate consumer classes for every supported framework. Its token names come from your Panda
-theme, not from Moduix. Generate class strings once, then attach them to exported parts with
+theme, not from moduix. Generate class strings once, then attach them to exported parts with
 `className` in React or `class` in Solid or Vue.
 
 ```ts
@@ -296,11 +296,11 @@ Keep Tailwind's `@source` entry for the selected package so its shipped classes 
 
 | Symptom | Check |
 | --- | --- |
-| A variable has no effect | Confirm the component page lists it under CSS Properties and that you set it on the component or an ancestor. |
+| A variable has no effect | Confirm the component page lists it under CSS variables and that you set it on the component or an ancestor. |
 | A class loses to component styles | Check that your stylesheet is not wrapped in an earlier `@layer`; unlayered CSS always wins. |
 | A popup ignores a wrapper-scoped value | Put the value on the portalled part, root, or portal container. |
 | A state selector never matches | Inspect the exact Ark state attribute on that part. |
-| A class reaches the root but not an inner part | Apply it to the exported part that owns the property. |
+| A class reaches the root but not an inner part | Apply it to the exported part that renders the property. |
 | Tailwind utilities are missing | Check the package stylesheet, `@source` path, and consumer class order. |
 
 Inspect the rendered part, `data-slot`, state attributes, and computed values before increasing

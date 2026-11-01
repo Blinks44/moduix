@@ -7,7 +7,7 @@ import {
   AccordionItemContent,
   AccordionItemIndicator,
   AccordionItemTrigger,
-} from '../src/components/accordion';
+} from '@/components/accordion';
 
 const value = ref<string[]>(['first']);
 </script>

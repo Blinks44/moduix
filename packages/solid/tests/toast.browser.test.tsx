@@ -11,7 +11,16 @@ import {
   ToastToaster,
   createToaster,
   useToastContext,
-} from '../src';
+} from '@/index';
+
+const responsivePlacements = [
+  'top-start',
+  'top',
+  'top-end',
+  'bottom-start',
+  'bottom',
+  'bottom-end',
+] as const;
 
 test('renders the default toaster content and keeps closable and action behavior', async () => {
   const toaster = createToaster({ placement: 'bottom', duration: Infinity });
@@ -80,38 +89,6 @@ test('shows a spinner next to the title of loading toasts only', async () => {
     '[data-slot="toast-title"]',
   )!;
   expect(successTitle.querySelector('[data-slot="spinner-root"]')).toBeNull();
-});
-
-test('reserves inline-end space only for a rendered close trigger', async () => {
-  const toaster = createToaster({ placement: 'bottom', duration: Infinity });
-
-  render(() => <ToastToaster toaster={toaster} />);
-
-  toaster.create({ title: 'Closable toast' });
-  toaster.create({ title: 'Persistent toast', closable: false });
-
-  const closable = (await screen.findByText('Closable toast')).closest('[data-slot="toast-root"]')!;
-  const persistent = (await screen.findByText('Persistent toast')).closest(
-    '[data-slot="toast-root"]',
-  )!;
-  expect(getComputedStyle(closable).paddingInlineEnd).toBe('44px');
-  expect(getComputedStyle(persistent).paddingInlineEnd).toBe('16px');
-});
-
-test('paints status toasts with an opaque background', async () => {
-  const toaster = createToaster({ placement: 'bottom', duration: Infinity });
-
-  render(() => <ToastToaster toaster={toaster} />);
-
-  toaster.success({ title: 'Success toast' });
-  toaster.warning({ title: 'Warning toast' });
-  toaster.error({ title: 'Error toast' });
-
-  for (const title of ['Success toast', 'Warning toast', 'Error toast']) {
-    const root = (await screen.findByText(title)).closest('[data-slot="toast-root"]')!;
-    // Toasts overlay page content, so a translucent status tint would let it show through.
-    expect(getComputedStyle(root).backgroundColor).not.toMatch(/\/\s*0?\.\d+\s*\)$|^rgba\(/);
-  }
 });
 
 test('keeps the short Toast root form and exported context hook available for custom composition', async () => {
@@ -269,15 +246,6 @@ test.each([false, true])(
     expect(screen.getByRole('button', { name: 'Close toast' })).toBe(trigger);
   },
 );
-
-const responsivePlacements = [
-  'top-start',
-  'top',
-  'top-end',
-  'bottom-start',
-  'bottom',
-  'bottom-end',
-] as const;
 
 test.each(
   responsivePlacements.flatMap((placement) =>

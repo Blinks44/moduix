@@ -4,9 +4,9 @@ import {
   ImageCropperImage,
   ImageCropperViewport,
 } from '@moduix/react/image-cropper';
+import { Stack } from '@moduix/react/stack';
 import { useState } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';
-import styles from '@/components/examples/image-cropper/image-cropper-events.module.css';
 
 const sampleImage =
   'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=640&h=400&q=90';
@@ -20,7 +20,7 @@ export default function EventsImageCropperDemo() {
   });
   const [zoom, setZoom] = useState(1);
   return (
-    <div className={styles.stack}>
+    <Stack align="center" gap="3">
       <ImageCropper
         aria-label="Image cropper"
         onCropChange={(details) => setCrop(details.crop)}
@@ -37,6 +37,6 @@ export default function EventsImageCropperDemo() {
           {Math.round(crop.width)} x {Math.round(crop.height)}
         </output>
       </PreviewMeta>
-    </div>
+    </Stack>
   );
 }

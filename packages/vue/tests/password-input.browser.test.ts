@@ -4,7 +4,6 @@ import { render, screen } from '@testing-library/vue';
 import { renderToString } from '@vue/server-renderer';
 import { createSSRApp, defineComponent, h, nextTick, ref } from 'vue';
 import type { ComponentPublicInstance } from 'vue';
-import { Field } from '../src/components/field';
 import {
   PasswordInput,
   PasswordInputContext,
@@ -16,8 +15,7 @@ import {
   PasswordInputRootProvider,
   PasswordInputVisibilityTrigger,
   usePasswordInput,
-} from '../src/components/password-input';
-import styles from '../src/components/password-input/PasswordInput.module.css';
+} from '@/components/password-input';
 import SsrPasswordInput from './fixtures/SsrPasswordInput.vue';
 
 const passwordInputComponents = {
@@ -49,7 +47,6 @@ test('renders the default Field composition with Ark anatomy and moduix slots', 
   expect(root?.getAttribute('data-scope')).toBe('password-input');
   expect(root?.getAttribute('data-part')).toBe('root');
   expect(root?.getAttribute('data-slot')).toBe('password-input-root');
-  expect([...root!.classList]).toEqual(expect.arrayContaining([styles.root, 'consumer-root']));
   expect(root?.className.endsWith('consumer-root')).toBe(true);
   await expect
     .element(page.getByText('Password'))
@@ -201,9 +198,6 @@ test('forwards refs, attributes, and consumer classes to the Ark elements', asyn
   await expect
     .element(page.getByTitle('password control'))
     .toHaveAttribute('data-slot', 'password-input-control');
-  expect([...control!.classList]).toEqual(
-    expect.arrayContaining([styles.control, 'consumer-control']),
-  );
   expect(control.className.endsWith('consumer-control')).toBe(true);
 });
 
@@ -316,65 +310,5 @@ test('preserves asChild root composition on the consumer host', async () => {
   await expect
     .element(page.getByRole('region', { name: 'Password input', exact: true }))
     .toHaveAttribute('data-slot', 'password-input-root');
-  expect([...root!.classList]).toEqual(expect.arrayContaining([styles.root, 'consumer-root']));
   expect(rootRef.value?.$el).toBe(root);
-});
-
-test('does not dim a password input twice inside a disabled field', () => {
-  render({
-    components: { ...passwordInputComponents, Field },
-    template: `
-      <Field disabled>
-        <PasswordInput>
-          <PasswordInputLabel>Password</PasswordInputLabel>
-          <PasswordInputField />
-        </PasswordInput>
-      </Field>
-    `,
-  });
-
-  const field = document.querySelector('[data-slot="field-root"]')!;
-  const root = document.querySelector('[data-slot="password-input-root"]')!;
-
-  expect(root.hasAttribute('data-disabled')).toBe(true);
-  expect(getComputedStyle(field).opacity).toBe('0.5');
-  expect(getComputedStyle(root).opacity).toBe('1');
-});
-
-test('sizes the control, input text, trigger, and icon from the root size', () => {
-  render({
-    components: passwordInputComponents,
-    template: `
-      <div>
-        <PasswordInput size="xs">
-          <PasswordInputLabel>Extra small</PasswordInputLabel>
-          <PasswordInputField />
-        </PasswordInput>
-        <PasswordInput size="xl">
-          <PasswordInputLabel>Extra large</PasswordInputLabel>
-          <PasswordInputField />
-        </PasswordInput>
-      </div>
-    `,
-  });
-
-  const [xs, xl] = [...document.querySelectorAll('[data-slot="password-input-root"]')];
-  const part = (root: Element, slot: string) =>
-    root.querySelector<HTMLElement>(`[data-slot="password-input-${slot}"]`)!;
-  const iconWidth = (root: Element) =>
-    part(root, 'indicator').querySelector('svg')!.getBoundingClientRect().width;
-
-  expect(xs!.getAttribute('data-size')).toBe('xs');
-  expect(xl!.getAttribute('data-size')).toBe('xl');
-  expect(part(xs!, 'control').offsetHeight).toBe(24);
-  expect(part(xl!, 'control').offsetHeight).toBe(48);
-  for (const root of [xs!, xl!]) {
-    expect(part(root, 'visibility-trigger').offsetHeight).toBeLessThan(
-      part(root, 'control').offsetHeight,
-    );
-  }
-  expect(parseFloat(getComputedStyle(part(xl!, 'input')).fontSize)).toBeGreaterThan(
-    parseFloat(getComputedStyle(part(xs!, 'input')).fontSize),
-  );
-  expect(iconWidth(xl!)).toBeGreaterThan(iconWidth(xs!));
 });

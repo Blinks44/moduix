@@ -1,139 +1,80 @@
 ---
 title: Table
 component: table
-description: A native table component with an optional scroll container, numeric columns, captions, and empty-state support for React, Solid, and Vue.
+description: Present rows of data with headers, captions, and numeric columns.
+ark: https://ark-ui.com/docs/guides/composition#the-ark-factory
 ---
 
+import AnatomyScene from '@/components/examples/table/basic';
 import * as TableDocs from '@/components/examples/table/css-properties';
 
-## API Reference
+<Example name="table/basic" />
 
-Ark UI does not provide a dedicated table primitive. moduix builds `Table` with the official
-[Ark factory](https://ark-ui.com/docs/guides/composition#the-ark-factory), follows Ark's
-[composition](https://ark-ui.com/docs/guides/composition), [styling](https://ark-ui.com/docs/guides/styling), and
-[ref](https://ark-ui.com/docs/guides/ref) guidance.
+## Installation
 
-Each part renders its corresponding native HTML element by default, accepts native element props and
-`className` in React or `class` in Solid and Vue, forwards its ref, and supports Ark's `asChild`. When using
-`asChild`, pass one semantic element as the child. `TableEmpty` is the exception to the usual
-one-element composition: its `asChild` replaces only the generated `td`.
+<ComponentInstall />
 
-## Basic
+## Usage
+
+<Usage />
 
 If the table may be wider than its container, wrap it in `TableScrollArea`. Then compose `Table`
 with `TableHeader`, `TableBody`, `TableRow`, and the matching header and cell parts. This is the
 recommended setup for invoices, summaries, and admin-style read-only datasets.
 
-<Example name="table/basic" />
-
-## Install with shadcn
-
-See [Quick Start](/docs/quick-start) for full package setup, registry configuration, and styling guidance.
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/table' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/table' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/table' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/table' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/table' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/table' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Anatomy
-
-The normal consumer path stays close to native table markup:
-
-```text
-TableScrollArea (optional)
-└─ Table
-   ├─ TableColumnGroup (optional)
-   │  └─ TableColumn
-   ├─ TableCaption (optional)
-   ├─ TableHeader
-   │  └─ TableRow
-   │     └─ TableColumnHeader
-   ├─ TableBody
-   │  ├─ TableRow
-   │  │  └─ TableCell
-   │  └─ TableEmpty (optional)
-   └─ TableFooter (optional)
-```
-
-| Part                   | Role                                                                       |
-| ---------------------- | -------------------------------------------------------------------------- |
-| `Table`           | Native `table` root. Owns typography, dividers, and state attributes.      |
-| `TableScrollArea`     | Optional bordered container with horizontal overflow for the table.       |
-| `TableColumnGroup`    | Native `colgroup` wrapper for column width distribution.                   |
-| `TableColumn`         | Native `col` wrapper. Use the native `width` attribute.                    |
-| `TableCaption`        | Optional table caption above or below the table via `side`.                |
-| `TableHeader`         | Native `thead` wrapper for column headers.                                 |
-| `TableBody`           | Native `tbody` wrapper for body rows.                                      |
-| `TableFooter`         | Native `tfoot` wrapper for summary rows.                                   |
-| `TableRow`            | Native `tr` wrapper with divider behavior.                                 |
-| `TableColumnHeader`   | Native `th` wrapper. Supports `numeric`.                                   |
-| `TableCell`           | Native `td` wrapper. Supports `numeric`.                                   |
-| `TableEmpty`          | Convenience empty-state row and cell inside `TableBody`.                 |
-
-## Composition
-
-Use `TableScrollArea` when the table needs a bordered horizontal-scroll shell. Skip it when the
-parent layout already owns scrolling, padding, borders, or surface styling, and keep the native
-table parts inside your own wrapper.
-
-`TableEmpty` owns a full empty row inside `TableBody`, so its required `colSpan` must match the
-current body column count. Its `asChild` replaces only the generated `td`; compose `TableRow` and
-`TableCell` directly when the row itself needs customization. `Table` owns presentation only:
-sorting, filtering, selection, pagination, virtualization, and row action state belong to a
-higher-level table composition such as [Data Table](/blocks/data-table).
-
-### Accessibility
-
-`Table` uses native table elements, so use standard HTML table attributes for the relationships in
-your data. Add `scope="col"` to column headers, use `TableCaption` for a short accessible name or
-description, and use `id` / `headers` when a complex table needs explicit header associations.
-`Table` does not add keyboard navigation, selection behavior, or focus management.
-
 ## Examples
 
-### Caption and Footer
+### Sizes
+
+Use `size` for density. It changes cell padding and font size. For an outer border without
+`TableScrollArea`, add a border class to `Table`.
+
+<Example name="table/sizes" />
+
+### Striped rows
+
+Use `striped` when long read-only bodies need stronger row separation without switching to a more
+opinionated table abstraction.
+
+<Example name="table/striped-rows" />
+
+### Caption and footer
 
 Use `TableCaption side="top"` when the label reads better before the data, and `TableFooter` for
 totals or summaries.
 
 <Example name="table/caption-and-footer" />
 
-### Column Group and Borders
+### Numeric columns
+
+Use `numeric` on both the header and the cells for aligned amounts, counts, percentages, and other
+numeric metrics.
+
+<Example name="table/numeric-columns" />
+
+### Column group and borders
 
 Use `TableColumnGroup` and `TableColumn` for native column widths, and `showColumnBorder` when
 column separation needs to be visible.
 
 <Example name="table/column-group-and-borders" />
 
-### Empty State
+### Sticky header and column
+
+Use `stickyHeader` on the root and `data-sticky="start" | "end"` on cells when a horizontally or
+vertically scrolling table needs persistent context. Sticky cells keep the striped, hover, and
+focus row colors.
+
+<Example name="table/sticky-header-and-column" />
+
+### Row actions with Menu
+
+Use the last column for row-specific actions when the dataset needs lightweight overflow commands.
+`Menu` fits this case cleanly without changing the native table structure.
+
+<Example name="table/row-actions-with-menu" />
+
+### Empty state
 
 Use `TableEmpty` when a body would otherwise render no rows. Set `colSpan` to the current number of
 columns.
@@ -146,42 +87,6 @@ columns.
 
 <Example name="table/inside-card" />
 
-### Numeric Columns
-
-Use `numeric` on both the header and the cells for aligned amounts, counts, percentages, and other
-numeric metrics.
-
-<Example name="table/numeric-columns" />
-
-### Row Actions With Menu
-
-Use the last column for row-specific actions when the dataset needs lightweight overflow commands.
-`Menu` fits this case cleanly without changing the native table structure.
-
-<Example name="table/row-actions-with-menu" />
-
-### Sizes
-
-Use `size` for density. It changes cell padding and font size. For an outer border without
-`TableScrollArea`, add a border class to `Table`.
-
-<Example name="table/sizes" />
-
-### Sticky Header and Column
-
-Use `stickyHeader` on the root and `data-sticky="start" | "end"` on cells when a horizontally or
-vertically scrolling table needs persistent context. Sticky cells keep the striped, hover, and
-focus row colors.
-
-<Example name="table/sticky-header-and-column" />
-
-### Striped Rows
-
-Use `striped` when long read-only bodies need stronger row separation without switching to a more
-opinionated table abstraction.
-
-<Example name="table/striped-rows" />
-
 ### With ScrollArea
 
 Use `ScrollArea` directly when the table needs styled scrollbars on both axes, fade behavior, or the
@@ -190,13 +95,62 @@ scroll area API. `TableScrollArea` is a simpler bordered horizontal-overflow wra
 
 <Example name="table/with-scrollarea" />
 
-### Advanced Customization
+### Custom wrapper
 
-Use your own wrapper instead of `TableScrollArea` when the surrounding layout already owns the
+Use your own wrapper instead of `TableScrollArea` when the surrounding layout already handles the
 surface or scrolling behavior. This keeps the native table composition explicit while giving your
 layout full control of the shell.
 
-<Example name="table/custom-composition" />
+<Example name="table/custom-wrapper" />
+
+## Composition
+
+Each part renders its corresponding native HTML element by default, accepts native element props and
+`className` in React or `class` in Solid and Vue, forwards its ref, and supports Ark's `asChild`. When using
+`asChild`, pass one semantic element as the child. `TableEmpty` is the exception to the usual
+one-element composition: its `asChild` replaces only the generated `td`.
+
+Use `TableScrollArea` when the table needs a bordered horizontal-scroll shell. Skip it when the
+parent layout already handles scrolling, padding, borders, or surface styling, and keep the native
+table parts inside your own wrapper.
+
+`TableEmpty` renders a full empty row inside `TableBody`, so its required `colSpan` must match the
+current body column count. Its `asChild` replaces only the generated `td`; compose `TableRow` and
+`TableCell` directly when the row itself needs customization. `Table` handles presentation only:
+sorting, filtering, selection, pagination, virtualization, and row action state belong to a
+higher-level table composition such as [Data Table](/blocks/data-table).
+
+### Accessibility
+
+`Table` uses native table elements, so use standard HTML table attributes for the relationships in
+your data. Add `scope="col"` to column headers, use `TableCaption` for a short accessible name or
+description, and use `id` / `headers` when a complex table needs explicit header associations.
+`Table` does not add keyboard navigation, selection behavior, or focus management.
+
+## Anatomy
+
+The normal consumer path stays close to native table markup:
+
+Hover or focus a part to find it in the preview.
+
+<AnatomyInspector
+  parts={[
+    ["TableScrollArea", "table-scroll-area", "Optional bordered container with horizontal overflow for the table.", 0],
+    ["Table", "table-root", "Native `table` root. Sets typography, dividers, and state attributes.", 1],
+    ["TableColumnGroup", "table-column-group", "Native `colgroup` wrapper for column width distribution.", 2],
+    ["TableColumn", "table-column", "Native `col` wrapper. Use the native `width` attribute.", 3],
+    ["TableCaption", "table-caption", "Optional table caption above or below the table via `side`.", 2],
+    ["TableHeader", "table-header", "Native `thead` wrapper for column headers.", 2],
+    ["TableRow", "table-row", "Native `tr` wrapper with divider behavior.", 3],
+    ["TableColumnHeader", "table-column-header", "Native `th` wrapper. Supports `numeric`.", 4],
+    ["TableBody", "table-body", "Native `tbody` wrapper for body rows.", 2],
+    ["TableCell", "table-cell", "Native `td` wrapper. Supports `numeric`.", 3],
+    ["TableEmpty", "table-empty", "Convenience empty-state row and cell inside `TableBody`.", 3],
+    ["TableFooter", "table-footer", "Native `tfoot` wrapper for summary rows.", 2],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styling
 
@@ -205,22 +159,50 @@ and `data-part` hooks, the `data-side` and `data-numeric` attributes, and the `-
 CSS variables shown below. Tailwind variants use native utility classes and consumer classes; the
 variables below apply to CSS Modules variants.
 
-### CSS Variables
+### CSS variables
 
-<CssPropertiesSection properties={TableDocs.tableOverrideCssProperties} />
+Hover or focus a variable to see it in the preview.
+
+<CssPropertiesSection properties={TableDocs.tableOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Styling hooks
 
-Use the part that owns the visual concern:
+| Part | `data-slot` |
+| --- | --- |
+| `Table` | `table-root` |
+| `TableScrollArea` | `table-scroll-area` |
+| `TableCaption` | `table-caption` |
+| `TableColumnGroup` | `table-column-group` |
+| `TableColumn` | `table-column` |
+| `TableHeader` | `table-header` |
+| `TableBody` | `table-body` |
+| `TableFooter` | `table-footer` |
+| `TableRow` | `table-row` |
+| `TableColumnHeader` | `table-column-header` |
+| `TableCell` | `table-cell` |
+| `TableEmpty` | `table-empty` |
+
+Use the part that renders the element you want to style:
 
 - `className` on `TableScrollArea` for shell-wide border, radius, and surface overrides
 - `className` on `Table` for table typography and width constraints
-- `data-slot="table-root"`, `table-scroll-area`, `table-column-group`, `table-column`,
-  `table-caption`, `table-header`, `table-body`, `table-footer`, `table-row`,
-  `table-column-header`, `table-cell`, and `table-empty` for part-level targeting
 - `data-side="top" | "bottom"` on `TableCaption` for caption placement styling
 - `data-numeric` on `TableColumnHeader` and `TableCell` for numeric-column targeting
 - `data-empty` on the row generated by `TableEmpty` for empty-row targeting
 - `data-size`, `data-striped`, `data-interactive`, `data-sticky-header`, and
   `data-show-column-border` on `Table` for root-level state styling
 - `data-sticky="start" | "end"` on `TableColumnHeader` and `TableCell` for sticky columns
+
+## API reference
+
+Props of `Table`. `numeric` goes on `TableColumnHeader` and `TableCell`; `side` (`'top' | 'bottom'`) on `TableCaption`.
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` | Cell spacing and text size: `sm`, `md`, or `lg`. |
+| `striped` | `boolean` | `false` | Shades every other row. |
+| `interactive` | `boolean` | `false` | Highlights rows on hover. |
+| `stickyHeader` | `boolean` | `false` | Keeps the header visible while the body scrolls. |
+| `showColumnBorder` | `boolean` | `false` | Draws borders between columns. |

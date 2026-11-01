@@ -6,6 +6,7 @@ import {
   RadioGroupRootProvider,
   useRadioGroup,
 } from '@moduix/vue/radio-group';
+import { Stack } from '@moduix/vue/stack';
 import styles from '@/components/examples/radio-group/radio-group-root-provider.module.css';
 
 const frameworks = ['React', 'Solid', 'Vue'];
@@ -13,7 +14,7 @@ const radioGroup = useRadioGroup({ defaultValue: 'React' });
 </script>
 
 <template>
-  <div :class="styles.stack">
+  <Stack align="center" gap="2">
     <RadioGroupRootProvider :class="styles.root" :value="radioGroup">
       <RadioGroupLabel>Framework</RadioGroupLabel>
       <RadioGroupOption v-for="framework in frameworks" :key="framework" :value="framework">
@@ -22,5 +23,5 @@ const radioGroup = useRadioGroup({ defaultValue: 'React' });
     </RadioGroupRootProvider>
     <output>Selected: {{ radioGroup.value ?? 'none' }}</output>
     <Button type="button" size="sm" @click="radioGroup.setValue('Solid')">Set to Solid</Button>
-  </div>
+  </Stack>
 </template>

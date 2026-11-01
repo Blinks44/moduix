@@ -4,77 +4,82 @@ description: Начните с готового пресета moduix и нас�
 ---
 
 import { ThemePresets } from '@/components/docs/theme-presets';
-import { ClientOnly } from '@ark-ui/react/client-only';
 
 # Темы
 
-Темы moduix представляют собой слои CSS-токенов. `Calm` задаёт значения основы по умолчанию, а `Dense`,
-`Soft` и `Contrast` предлагают дополнительные визуальные направления. Пресет может изменить
-палитру, радиусы, интервалы, плотность элементов управления и тени, не меняя API компонентов и
-не требуя провайдера или отдельного механизма для работы темы.
-Все выпущенные адаптеры используют одинаковые файлы тем и общий контракт токенов.
+Темы представляют собой слои CSS-токенов. `Calm` используется по умолчанию, а `Dense`, `Soft` и
+`Contrast` подключаются по желанию и меняют палитру, радиусы, отступы, плотность и тени без
+изменения API компонентов.
 
-<ClientOnly fallback={<ThemePresets />}>
-  <ThemePresets />
-</ClientOnly>
+<ThemePresets />
 
 ## Выберите пресет
 
-| Пресет   | Основной элемент / строка списка | Подойдёт для                                                                        |
-| -------- | -------------------------------- | ----------------------------------------------------------------------------------- |
-| Calm     | 36px / 32px                      | Обычных экранов приложения с нейтральными цветами и стандартными отступами. |
-| Dense    | 34px / 30px                      | Админ-панелей и таблиц данных с компактными отступами и синими акцентами. |
-| Soft     | 40px / 34px                      | Интерфейсов с крупными элементами управления, скруглёнными углами и фиолетовыми акцентами. |
-| Contrast | 36px / 32px                      | Интерфейсов с более заметными границами и индикаторами фокуса. |
+Размеры показывают высоту основных элементов управления и строк всплывающих списков в каждом пресете.
 
-В таблице указана высота основных элементов управления и строк всплывающих списков для каждого
-пресета. Используйте предпросмотр, чтобы сравнить плотность, поверхности и стили фокуса на настоящих
-компонентах moduix.
+| Пресет   | Элемент / строка списка | Подойдёт для                                                                      |
+| -------- | ----------------------- | --------------------------------------------------------------------------------- |
+| Calm     | 36px / 32px             | Обычных экранов приложения с нейтральными цветами и стандартными отступами.       |
+| Dense    | 34px / 30px             | Админ-панелей и таблиц данных с компактными отступами и синими акцентами.         |
+| Soft     | 40px / 34px             | Интерфейсов с крупными элементами, скруглёнными углами и фиолетовыми акцентами.   |
+| Contrast | 36px / 32px             | Интерфейсов с более заметными границами и индикаторами фокуса.                    |
 
+:::info Проверьте на своём контенте
 Название пресета описывает визуальное направление, но не гарантирует доступность. Перед выпуском
-проверьте на собственном контенте и с переопределениями приложения контраст текста, видимость
-фокуса, масштабирование и размер интерактивных областей.
+проверьте контраст текста, видимость фокуса, масштабирование и размер интерактивных областей.
+:::
 
 ## Как работают слои
 
-Базовый файл стилей задаёт полный контракт токенов и значения `Calm` по умолчанию. Пресет
-переопределяет отдельные значения, а приложение затем может изменить только решения, относящиеся
-к его продукту. Компоненты используют семантические и компонентные алиасы, поэтому изменение
-палитры или плотности распространяется на связанные элементы управления, а не превращается в
-набор разовых правил.
+Основа задаёт полный контракт токенов и значения `Calm`. Пресет переопределяет отдельные значения,
+приложение меняет только свои решения, а компоненты читают получившиеся алиасы.
 
 ```text
 foundation tokens → optional preset → application overrides → component aliases
 ```
 
-Файлы пресетов содержат только свои переопределения, поэтому их легко изучить и удалить. В
-разделе [Токены](/docs/tokens) перечислены переменные, которые входят в публичный набор для
-темизации.
-
 ## Использование с npm-пакетом
 
-Один раз импортируйте основу, затем нужный пресет. Если пользователь сможет переключаться между
-несколькими пресетами, заранее загрузите CSS каждого из них. `Calm` использует значения основы,
-поэтому отдельного файла `calm.css` нет.
+Один раз импортируйте основу, затем пресет. Задайте `data-moduix-theme` на `<html>`, чтобы
+содержимое в порталах получало те же значения.
 
-Задайте `data-moduix-theme` и цветовую схему на `<html>`, чтобы они применялись к обычному содержимому
-и компонентам в порталах. Для светлого режима `data-moduix-color-scheme` можно не указывать.
+<Tabs groupId="styling">
+  <Tab label="CSS Modules" value="css-modules">
 
 <Tabs groupId="framework">
   <Tab label="React" value="react">
 
-<StyleTrackCards>
-  <StyleTrackCard label="CSS Modules">
-
-```tsx
+```tsx title="main.tsx"
 import '@moduix/react/style.css';
 import '@moduix/react/presets/soft.css';
 ```
 
-  </StyleTrackCard>
-  <StyleTrackCard label="Tailwind CSS">
+  </Tab>
+  <Tab label="Solid" value="solid">
 
-```css
+```tsx title="index.tsx"
+import '@moduix/solid/style.css';
+import '@moduix/solid/presets/soft.css';
+```
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+```ts title="main.ts"
+import '@moduix/vue/style.css';
+import '@moduix/vue/presets/soft.css';
+```
+
+  </Tab>
+</Tabs>
+
+  </Tab>
+  <Tab label="Tailwind CSS" value="tailwind">
+
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+```css title="app.css"
 @import '@moduix/react-tailwind/style.css';
 @import '@moduix/react-tailwind/presets/soft.css';
 @import 'tailwindcss';
@@ -82,24 +87,10 @@ import '@moduix/react/presets/soft.css';
 @source '../node_modules/@moduix/react-tailwind/dist/components';
 ```
 
-  </StyleTrackCard>
-</StyleTrackCards>
-
   </Tab>
   <Tab label="Solid" value="solid">
 
-<StyleTrackCards>
-  <StyleTrackCard label="CSS Modules">
-
-```tsx
-import '@moduix/solid/style.css';
-import '@moduix/solid/presets/soft.css';
-```
-
-  </StyleTrackCard>
-  <StyleTrackCard label="Tailwind CSS">
-
-```css
+```css title="app.css"
 @import '@moduix/solid-tailwind/style.css';
 @import '@moduix/solid-tailwind/presets/soft.css';
 @import 'tailwindcss';
@@ -107,24 +98,10 @@ import '@moduix/solid/presets/soft.css';
 @source '../node_modules/@moduix/solid-tailwind/dist/components';
 ```
 
-  </StyleTrackCard>
-</StyleTrackCards>
-
   </Tab>
   <Tab label="Vue" value="vue">
 
-<StyleTrackCards>
-  <StyleTrackCard label="CSS Modules">
-
-```ts
-import '@moduix/vue/style.css';
-import '@moduix/vue/presets/soft.css';
-```
-
-  </StyleTrackCard>
-  <StyleTrackCard label="Tailwind CSS">
-
-```css
+```css title="app.css"
 @import '@moduix/vue-tailwind/style.css';
 @import '@moduix/vue-tailwind/presets/soft.css';
 @import 'tailwindcss';
@@ -132,23 +109,16 @@ import '@moduix/vue/presets/soft.css';
 @source '../node_modules/@moduix/vue-tailwind/dist/components';
 ```
 
-  </StyleTrackCard>
-</StyleTrackCards>
+  </Tab>
+</Tabs>
 
   </Tab>
 </Tabs>
 
-```html
-<html data-moduix-theme="soft" data-moduix-color-scheme="dark"></html>
-```
-
-Чтобы использовать другой пресет, замените `soft.css` на `dense.css` или `contrast.css`, сохранив
-префикс выбранного пакета.
-
 ## Использование с реестром
 
-Пресеты не зависят от фреймворка, поэтому один и тот же URL общего реестра подходит для React
-и Solid с любым способом стилизации. CLI скопирует CSS-файл в проект:
+Пресеты используют общий реестр основы для всех фреймворков и способов стилизации. Установите
+каждый пресет, который хотите предложить пользователям.
 
 <PackageManagerTabs command="shadcn@latest add https://moduix.dev/r/foundation/theme-dense.json" dlx />
 
@@ -157,41 +127,20 @@ import '@/lib/moduix/styles/style.css';
 import '@/lib/moduix/presets/dense.css';
 ```
 
-```html
-<html data-moduix-theme="dense"></html>
-```
-
-Замените `dense` на `soft` или `contrast`, чтобы использовать другой пресет. Если пользователь
-может переключаться между пресетами, установите и импортируйте каждый доступный для выбора пресет.
-
-При использовании Tailwind размещайте эти импорты перед `@import 'tailwindcss'`, как показано в
-[настройке Tailwind-пакета](/docs/quick-start#tailwind-css). Сброс стилей moduix здесь
-не нужен.
-
 ## Переключение тем во время выполнения
 
-Переключение темы меняет только атрибут `data-moduix-theme`. Храните выбранное имя на элементе
-документа, чтобы обычное содержимое и оверлеи, отрисованные через портал, получали одни и те же
-токены. Сохраняйте имя, только если продукту нужно запоминать выбор пользователя.
+Сначала загрузите пресеты, между которыми можно выбирать. Применяйте выбор на `html`, чтобы
+содержимое в порталах получало те же токены.
 
-```tsx
-type Theme = 'calm' | 'dense' | 'soft' | 'contrast';
-
-function setTheme(theme: Theme) {
-  document.documentElement.dataset.moduixTheme = theme;
-}
+```ts
+document.documentElement.dataset.moduixTheme = 'soft';
+document.documentElement.dataset.moduixColorScheme = 'dark';
 ```
-
-Значение `calm` оставляет значения основы без изменений. CSS каждого другого доступного пресета
-должен быть загружен заранее. Если продукт запоминает выбор, сохраните его и примените до первого
-отображения, чтобы при запуске не было заметной смены темы.
 
 ## Настройка пресета
 
-Пресет представляет собой только слой CSS-переменных. Загрузите собственный файл стилей после пресета и
-переопределите нужные значения. Семантические токены подходят для решений уровня всего продукта,
-а алиасы компонентов используйте для осознанных исключений. Где делать какое изменение, описано в
-разделе [Стилизация](/docs/styling).
+Подключите переопределения продукта после пресета. Меняйте семантические токены для решений, общих
+для нескольких компонентов.
 
 ```css
 [data-moduix-theme='soft'] {
@@ -202,123 +151,17 @@ function setTheme(theme: Theme) {
 
 ## Создание пользовательской темы
 
-Если готовые пресеты не подходят, создайте файл стилей, который загружается после основы, и
-используйте новое значение `data-moduix-theme`. Начните с токенов, определяющих визуальное
-направление. Неуказанные токены сохранят значения основы. Добавляйте токены размеров или
-интервалов, только если тема намеренно меняет плотность. Используйте пресет как ориентир, если
-хотите полностью заменить палитру, интервалы и тени.
+Начните с основы и добавьте именованный слой CSS. Не указанные значения останутся такими же, как
+в основе.
 
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<StyleTrackCards>
-  <StyleTrackCard label="CSS Modules">
-
-```tsx
-import '@moduix/react/style.css';
-import './brand.css';
-```
-
-  </StyleTrackCard>
-  <StyleTrackCard label="Tailwind CSS">
+Чтобы подобрать значения визуально или перенести тему shadcn, откройте [конструктор темы](/docs/theme-builder).
 
 ```css
-@import '@moduix/react-tailwind/style.css';
-@import './brand.css';
-@import 'tailwindcss';
-
-@source '../node_modules/@moduix/react-tailwind/dist/components';
-```
-
-  </StyleTrackCard>
-</StyleTrackCards>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<StyleTrackCards>
-  <StyleTrackCard label="CSS Modules">
-
-```tsx
-import '@moduix/solid/style.css';
-import './brand.css';
-```
-
-  </StyleTrackCard>
-  <StyleTrackCard label="Tailwind CSS">
-
-```css
-@import '@moduix/solid-tailwind/style.css';
-@import './brand.css';
-@import 'tailwindcss';
-
-@source '../node_modules/@moduix/solid-tailwind/dist/components';
-```
-
-  </StyleTrackCard>
-</StyleTrackCards>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<StyleTrackCards>
-  <StyleTrackCard label="CSS Modules">
-
-```ts
-import '@moduix/vue/style.css';
-import './brand.css';
-```
-
-  </StyleTrackCard>
-  <StyleTrackCard label="Tailwind CSS">
-
-```css
-@import '@moduix/vue-tailwind/style.css';
-@import './brand.css';
-@import 'tailwindcss';
-
-@source '../node_modules/@moduix/vue-tailwind/dist/components';
-```
-
-  </StyleTrackCard>
-</StyleTrackCards>
-
-  </Tab>
-</Tabs>
-
-```css
-/* brand.css */
+/* brand.css · подключается после основы */
 [data-moduix-theme='brand'] {
-  --moduix-background: oklch(0.98 0.01 260);
-  --moduix-foreground: oklch(0.2 0.02 260);
-  --moduix-card: oklch(1 0 0);
-  --moduix-card-foreground: oklch(0.2 0.02 260);
-  --moduix-primary: oklch(0.5 0.18 260);
-  --moduix-primary-foreground: oklch(0.99 0.002 260);
-  --moduix-border: oklch(0.86 0.02 260);
-  --moduix-input: oklch(0.82 0.025 260);
-  --moduix-ring: oklch(0.58 0.15 260);
-  --moduix-radius: 0.875rem;
-  --moduix-size-sm: 2rem;
-  --moduix-size-md: 2.25rem;
+  --moduix-primary: oklch(0.5 0.17 250);
+  --moduix-radius: 0.75rem;
 }
 
-[data-moduix-theme='brand'][data-moduix-color-scheme='dark'] {
-  --moduix-background: oklch(0.17 0.02 260);
-  --moduix-foreground: oklch(0.97 0.004 260);
-  --moduix-card: oklch(0.22 0.024 260);
-  --moduix-card-foreground: oklch(0.97 0.004 260);
-  --moduix-primary: oklch(0.78 0.13 260);
-  --moduix-primary-foreground: oklch(0.18 0.024 260);
-  --moduix-border: oklch(0.76 0.03 260 / 0.28);
-  --moduix-input: oklch(0.76 0.03 260 / 0.34);
-  --moduix-ring: oklch(0.74 0.12 260);
-}
+/* Примените на html: data-moduix-theme="brand" */
 ```
-
-```html
-<html data-moduix-theme="brand" data-moduix-color-scheme="dark"></html>
-```
-
-Справочник системных токенов есть в разделе [Токены](/docs/tokens), а переключатель светлого и
-тёмного режима, которым управляет приложение, описан в разделе [Тёмный режим](/docs/dark-mode).

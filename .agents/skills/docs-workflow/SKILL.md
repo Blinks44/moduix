@@ -36,9 +36,14 @@ or component-index pages, read [the framework-support contract](references/frame
   package exports and registries. The documentation application runs React; do not silently present
   its live preview as a different runtime or styling variant.
 - Keep prose and snippets consumer-facing, complete, and production-like. Do not hide required setup, callbacks, collection data, or Ark composition behind docs-only helpers.
+- Write the brand as lowercase `moduix`. In public docs, avoid contract wording such as "owns", "owned", and "ownership" (ru "владеет", fr "possède"): say what the part does (manages, controls, renders, handles), and call package versus copied registry source the install method.
 - Render every reader-facing package installation, dependency update, executable package, registry CLI, or skill installation command with Rspress `PackageManagerTabs`. Pass a manager-neutral command such as `install <package>` and set `dlx` for temporary executables. Do not hardcode npm, pnpm, Yarn, Bun, or Deno commands in MDX unless manager-specific behavior is the subject of the page.
 - Prefer a small local helper to repeated visible ceremony, but never a page builder, hidden DSL, or abstraction that hides the documented composition.
 - Keep demo-only styling in the docs app or example CSS module, separate from library styling.
+- Write a plain flex or grid demo wrapper as `Stack` with a spacing step (`gap="2"`, which follows the preset) instead of a CSS module class; keep CSS modules for widths, surfaces, and rules that target child parts.
+- A component page `description` is one task-first sentence of 50 to 90 characters ("Trigger an
+  action or follow a link…"), not a list of frameworks or packages. The same text feeds the
+  components index cards, search, and meta tags. Other pages follow `rspress-description-generator`.
 - When changing reader-facing prose in a locale page, load `rspress-localization` and complete its
   target-language review before finishing. A literal but awkward translation is not complete
   documentation.
@@ -91,25 +96,35 @@ framework-selection guidance.
 
 Read [preview rules](references/previews.md) whenever adding or changing a preview frame, preview metadata, virtual-file import, or a nontrivial snippet.
 
-## Sidebar icons
+## Sidebar and top nav
 
-- Treat each `tag` in `website/docs/<locale>/docs/_meta.json` as a semantic icon for its sidebar entry.
-- Reuse an existing mapping from `website/theme/components/Tag/index.tsx` only when it accurately represents the page. Do not use an unrelated icon merely to avoid changing the shared set.
-- If the set has no suitable icon, add the appropriate named Lucide icon to the shared `Tag` mapping, then use the new tag consistently in every locale.
-- Keep tags in parity between locales. Repeated icons are appropriate for truly equivalent concepts, such as individual components, but review accidental repeats when editing a sidebar.
+`website/docs/<locale>/docs/_meta.json` follows the redesign order: Get started, Theming, Components,
+Guides, Ark UI, AI. Entries have no `tag` icons and no counts.
+
+- Components lists All components, then one collapsible `custom-link` group per category in
+  `website/src/components/docs/component-gallery.tsx`, in the same order. Each component belongs to
+  exactly one category; add a new component to the gallery and to its sidebar group together.
+- A collapsible group has no `link` of its own: Rspress would then both navigate and toggle on
+  click. Put an overview page first inside the group as Overview / Обзор / Vue d’ensemble.
+- Links inside `custom-link` groups are absolute and locale-neutral (`/docs/button` in every
+  locale): Rspress drops the route prefix of nested relative links but adds the locale prefix itself.
+- Keep the three locales structurally identical; only labels differ.
+- `website/docs/<locale>/_nav.json` lists every non-component page under `/docs/` in the Docs and
+  Components `activeMatch` patterns. Add a new guide page's slug to both patterns in every locale.
 
 ## CSS variables and registry docs
 
-- Cover a component's full public `--<component>-*` CSS Modules contract from
-  `packages/foundation/src/styles/variables-moduix.css` using the shared CSS variables reference UI;
+- Cover a component's full public `--<component>-*` CSS Modules contract (declared in its CSS Module) in
+  `css-properties.tsx` using the shared CSS variables reference UI;
   do not imply that Tailwind mirrors those variables or duplicate the table in prose.
 - Keep styling hooks limited to meaningful `className`/`class`, `data-slot`, and state attributes
   that consumers can target. Explain that Tailwind variants use native utility and consumer-class
   overrides, and keep CSS Modules variable guidance on the CSS Modules path.
-- Keep the full package and hosted-registry setup in `quick-start.mdx`; do not repeat a generic
-  `Install as a package` section on every component page because it duplicates Quick Start and adds
-  no component-specific information. Component pages show only the relevant shadcn registry commands
-  for package variants that actually ship that component. Treat each
+- Keep the full package and hosted-registry setup, including stylesheets, in `quick-start.mdx`.
+  Component pages show a compact Installation block with two tabs: Package (the install command and
+  the component's subpath import) and shadcn CLI (registry commands only for the package variants
+  that actually ship that component). Do not repeat stylesheet or registry configuration there;
+  link to Quick Start instead. Treat each
   `packages/<variant>/registry.json` as its source manifest. Shared
   styles and presets come from `packages/foundation/registry.json` through `/r/foundation` URL
   dependencies; the reset applies only to CSS Modules variants because Tailwind uses Preflight.

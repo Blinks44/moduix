@@ -20,7 +20,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@moduix/solid/dialog';
-import styles from '@/components/examples/color-picker/color-picker-inside-dialog.module.css';
+import { Stack } from '@moduix/solid/stack';
 
 export default function InsideDialogColorPickerDemo() {
   return (
@@ -34,7 +34,7 @@ export default function InsideDialogColorPickerDemo() {
           <DialogDescription>
             The color picker stays inside the dialog stacking context.
           </DialogDescription>
-          <div class={styles.dialogBody}>
+          <Stack gap="1rem">
             <ColorPicker portalled={false} defaultValue={parseColor('#eb5e41')}>
               <ColorPickerLabel>Color</ColorPickerLabel>
               <ColorPickerControl>
@@ -47,7 +47,7 @@ export default function InsideDialogColorPickerDemo() {
                 </ColorPickerContent>
               </ColorPickerPositioner>
             </ColorPicker>
-          </div>
+          </Stack>
         </DialogContent>
       </DialogPositioner>
     </Dialog>

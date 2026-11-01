@@ -1,0 +1,27 @@
+.trigger {
+  display: block;
+  margin: 0;
+  border: 0;
+  border-radius: var(--moduix-radius-md);
+  padding: 0;
+  background: transparent;
+  cursor: zoom-in;
+
+  & img {
+    display: block;
+    width: 18rem;
+    max-width: min(18rem, calc(100vw - var(--moduix-spacing-10)));
+    aspect-ratio: 16 / 10;
+    border-radius: inherit;
+    object-fit: cover;
+  }
+}
+.closeButton {
+  --moduix-close-button-size: var(--moduix-spacing-8);
+  --moduix-close-button-color: var(--moduix-foreground);
+  --moduix-close-button-bg: var(--moduix-background);
+  position: fixed;
+  z-index: calc(var(--moduix-z-popup) + var(--layer-index, 0) + 1);
+  inset-block-start: var(--moduix-spacing-4);
+  inset-inline-end: var(--moduix-spacing-4);
+}

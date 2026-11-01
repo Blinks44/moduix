@@ -1,4 +1,5 @@
 import { Button } from '@moduix/react/button';
+import { Stack } from '@moduix/react/stack';
 import type { SwapAnimation } from '@moduix/react/swap';
 import { Swap, SwapIndicator } from '@moduix/react/swap';
 import { Check as CheckIcon, Download as DownloadIcon } from 'lucide-react';
@@ -13,7 +14,7 @@ export default function SwapAnimationPresetsDemo() {
   const [downloaded, setDownloaded] = useState(false);
 
   return (
-    <div className={styles.root}>
+    <Stack align="center" gap="4">
       <Button
         aria-label={downloaded ? 'Downloaded' : 'Download'}
         onClick={() => setDownloaded((value) => !value)}
@@ -29,7 +30,7 @@ export default function SwapAnimationPresetsDemo() {
       </Button>
       <PreviewMeta className={styles.controls}>
         <output>Animation: {animation}</output>
-        <div className={styles.buttons}>
+        <Stack direction="row" justify="center" wrap="wrap" gap="0.5rem">
           {animations.map((name) => (
             <Button
               key={name}
@@ -41,8 +42,8 @@ export default function SwapAnimationPresetsDemo() {
               {name}
             </Button>
           ))}
-        </div>
+        </Stack>
       </PreviewMeta>
-    </div>
+    </Stack>
   );
 }

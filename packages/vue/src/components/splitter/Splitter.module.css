@@ -2,10 +2,10 @@
   .root {
     width: 100%;
     height: 100%;
-    border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
+    border: var(--moduix-border-width-sm) solid var(--moduix-border);
     border-radius: var(--moduix-radius-md);
-    background-color: var(--moduix-color-card);
-    color: var(--moduix-color-card-foreground);
+    background-color: var(--moduix-card);
+    color: var(--moduix-card-foreground);
     box-shadow: var(--moduix-shadow-sm);
   }
 
@@ -34,10 +34,7 @@
       position: absolute;
       width: 0.5px;
       height: 100%;
-      background-color: var(
-        --moduix-splitter-resize-trigger-line-color,
-        var(--moduix-color-border)
-      );
+      background-color: var(--moduix-splitter-resize-trigger-line-color, var(--moduix-border));
       content: '';
       transition: background-color var(--moduix-transition-default);
     }
@@ -65,7 +62,7 @@
     }
 
     &[data-dragging]::before {
-      background-color: color-mix(in oklab, var(--moduix-color-muted-foreground) 40%, transparent);
+      background-color: color-mix(in oklab, var(--moduix-muted-foreground) 40%, transparent);
     }
 
     &[data-disabled] {
@@ -73,7 +70,7 @@
     }
 
     &:focus-visible:not([data-dragging]):not(:has(.resizeTriggerIndicator))::after {
-      outline: var(--moduix-focus-ring-width) solid var(--moduix-color-ring);
+      outline: var(--moduix-focus-ring-width) solid var(--moduix-ring);
       outline-offset: var(--moduix-border-width-sm);
     }
   }
@@ -82,9 +79,9 @@
     position: absolute;
     width: var(--moduix-spacing-1-5);
     height: var(--moduix-size-xs);
-    border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
+    border: var(--moduix-border-width-sm) solid var(--moduix-border);
     border-radius: var(--moduix-radius-full);
-    background-color: var(--moduix-color-background);
+    background-color: var(--moduix-background);
     box-shadow: var(--moduix-shadow-sm);
     pointer-events: none;
     transition:
@@ -108,17 +105,17 @@
   }
 
   .resizeTrigger:focus-visible:not([data-dragging]) .resizeTriggerIndicator {
-    outline: var(--moduix-focus-ring-width) solid var(--moduix-color-ring);
+    outline: var(--moduix-focus-ring-width) solid var(--moduix-ring);
     outline-offset: var(--moduix-border-width-sm);
   }
 
   @media (hover: hover) {
     .resizeTrigger:hover::before {
-      background-color: color-mix(in oklab, var(--moduix-color-muted-foreground) 40%, transparent);
+      background-color: color-mix(in oklab, var(--moduix-muted-foreground) 40%, transparent);
     }
 
     .resizeTrigger:hover .resizeTriggerIndicator {
-      border-color: color-mix(in oklab, var(--moduix-color-muted-foreground) 40%, transparent);
+      border-color: color-mix(in oklab, var(--moduix-muted-foreground) 40%, transparent);
       box-shadow: var(--moduix-shadow-md);
     }
   }

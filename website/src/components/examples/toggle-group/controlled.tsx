@@ -1,7 +1,7 @@
+import { Stack } from '@moduix/react/stack';
 import { ToggleGroup, ToggleGroupItem } from '@moduix/react/toggle-group';
 import { useState } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';
-import styles from '@/components/examples/toggle-group/toggle-group-controlled.module.css';
 
 const alignmentItems = [
   {
@@ -21,7 +21,7 @@ const alignmentItems = [
 export default function ControlledToggleGroupDemo() {
   const [value, setValue] = useState(['left'] as string[]);
   return (
-    <div className={styles.stack}>
+    <Stack align="center" gap="3">
       <ToggleGroup
         value={value}
         onValueChange={(details) => setValue(details.value)}
@@ -36,6 +36,6 @@ export default function ControlledToggleGroupDemo() {
       <PreviewMeta>
         <output>Selected: {value.join(', ') || 'empty'}</output>
       </PreviewMeta>
-    </div>
+    </Stack>
   );
 }

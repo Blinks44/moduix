@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue';
-import { Swap, SwapIndicator, SwapRootProvider, useSwap } from '../src/components/swap';
+import { Swap, SwapIndicator, SwapRootProvider, useSwap } from '@/components/swap';
 
 const swapped = ref(false);
 const swap = useSwap(computed(() => ({ swap: swapped.value })));

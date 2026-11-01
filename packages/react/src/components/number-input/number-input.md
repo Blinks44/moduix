@@ -89,7 +89,7 @@ Use `NumberInputRootProvider` only with state created by `useNumberInput()`, and
 - Ark disables a trigger at the `min` or `max` value and in read-only mode; such a trigger shows a
   muted icon and ignores the pointer.
 - Invalid state (`invalid` prop, out-of-range value, or an invalid `Field`) colors the borders and
-  the focus ring with `--moduix-color-destructive`.
+  the focus ring with `--moduix-destructive`.
 
 CSS Modules variables: `--moduix-number-input-control-height` (input height and trigger size for
 every `size`),

@@ -1,90 +1,84 @@
 ---
 title: Split Button
 component: split-button
-description: Группа с основной кнопкой и меню связанных действий на базе частей moduix Button и Menu.
+description: Основное действие и меню связанных действий в одной кнопке.
+ark: https://ark-ui.com/docs/guides/composition#the-ark-factory
 ---
 
+import AnatomyScene from '@/components/examples/split-button/anatomy';
 import * as SplitButtonDocs from '@/components/examples/split-button/css-properties';
 
+<Example name="split-button/basic" />
 
-## Справочник API
+## Установка
 
-В Ark UI нет отдельного примитива split button. moduix собирает этот компонент с помощью
-[фабрики Ark](https://ark-ui.com/docs/guides/composition#the-ark-factory) и сохраняет поведение
-[Ark Menu](https://ark-ui.com/docs/components/menu).
+<ComponentInstall />
+
+## Использование
+
+<Usage />
+
+Используйте `<SplitButton>` как корневой компонент и оставляйте структуру меню явной:
+`SplitButtonAction`, `SplitButtonTrigger`, `SplitButtonPositioner` и `SplitButtonContent`.
+Основное действие использует тот же контракт `onClick`, что и `Button`.
 
 ## Как выбрать компонент
 
 Используйте `SplitButton`, когда одно действие должно быть доступно сразу, а связанные альтернативы можно
 поместить в меню. Для одного действия подойдёт `Button`. Если все действия равнозначны, используйте `Menu`.
 
-## Базовый пример
+## Примеры
 
+### Варианты
 
-Используйте `<SplitButton>` как корневой компонент и оставляйте структуру меню явной:
-`SplitButtonAction`, `SplitButtonTrigger`, `SplitButtonPositioner` и `SplitButtonContent`.
-Основное действие использует тот же контракт `onClick`, что и `Button`.
+Используйте корневой `variant`, когда обе кнопки должны иметь одинаковое оформление.
 
-<Example name="split-button/basic" />
+<Example name="split-button/variants" />
 
-## Установка через shadcn
+### Размеры
 
-Полную настройку пакета, реестра и стилей см. в разделе [Быстрый старт](/docs/quick-start).
+Используйте корневой `size`, когда обе кнопки должны масштабироваться одновременно.
 
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
+<Example name="split-button/sizes" />
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/split-button' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/split-button' },
-  ]}
-/>
+### С иконками
 
-  </Tab>
-  <Tab label="Solid" value="solid">
+Добавьте иконку к основному действию, если она помогает понять его назначение, но не заменяет текстовую подпись.
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/split-button' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/split-button' },
-  ]}
-/>
+<Example name="split-button/with-icons" />
 
-  </Tab>
-  <Tab label="Vue" value="vue">
+### Отключённое основное действие
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/split-button' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/split-button' },
-  ]}
-/>
+Отключите основное действие, но оставьте меню доступным, если в нём есть полезная альтернатива.
 
-  </Tab>
-</Tabs>
+<Example name="split-button/disabled-action" />
 
-## Анатомия
+### Действие-ссылка
 
-```text
-SplitButton
-├─ SplitButtonAction
-├─ SplitButtonTrigger
-└─ Ветка всплывающего меню (по умолчанию в портале)
-   └─ SplitButtonPositioner
-      └─ SplitButtonContent
-         ├─ MenuItem
-         ├─ MenuSeparator
-         └─ другие общие части Menu
-```
+Используйте `asChild` на `SplitButtonAction`, если основное действие должно быть ссылкой.
 
-| Часть                             | Назначение                                                               |
-| -------------------------------- | ------------------------------------------------------------------------ |
-| `SplitButton`                    | Корень, управляющий состоянием меню и семантической группой двух кнопок. |
-| `SplitButtonAction`             | Основное действие `Button`.                                             |
-| `SplitButtonTrigger`            | Триггер Ark Menu в виде кнопки moduix; по умолчанию показывает шеврон.  |
-| `SplitButtonPositioner`         | Размещает всплывающее меню Ark.                                          |
-| `SplitButtonContent`            | Поверхность содержимого Ark Menu для общих частей `MenuItem` и `MenuItemGroup`.              |
+<Example name="split-button/link-action" />
+
+### Состав меню
+
+Используйте `MenuItemGroup`, `MenuItemGroupLabel`, `MenuItem` и `MenuSeparator` внутри `SplitButtonContent`, если дополнительным действиям нужны группы,
+разделители или сгруппированные пункты.
+
+<Example name="split-button/menu-composition" />
+
+### Позиционирование
+
+Настройте положение всплывающего меню с помощью корневого свойства Ark `positioning`, сохранив явную структуру
+его частей.
+
+<Example name="split-button/positioning" />
+
+### Управляемое состояние меню
+
+Используйте тот же контракт управляемого состояния, что и у Ark Menu, если состоянием открытия нужно управлять
+из внешнего компонента. Подробнее в разделе [Управляйте состоянием из приложения](/docs/composition-patterns#controlled-state).
+
+<Example name="split-button/controlled-menu-state" />
 
 ## Композиция
 
@@ -104,58 +98,21 @@ SplitButton
 
 `SplitButtonPositioner` оборачивает портал, поэтому `$el` его ссылки на компонент Vue указывает на узел-якорь портала. Сам позиционируемый элемент имеет атрибут `data-slot="split-button-positioner"`.
 
-## Примеры
+## Анатомия
 
-### Управляемое состояние меню
+Наведите на часть или выберите её, чтобы найти её в превью.
 
-Используйте тот же контракт управляемого состояния, что и у Ark Menu, если состоянием открытия нужно управлять
-из внешнего компонента.
-
-<Example name="split-button/controlled-menu-state" />
-
-### Отключённое основное действие
-
-Отключите основное действие, но оставьте меню доступным, если в нём есть полезная альтернатива.
-
-<Example name="split-button/disabled-action" />
-
-### Действие-ссылка
-
-Используйте `asChild` на `SplitButtonAction`, если основное действие должно быть ссылкой.
-
-<Example name="split-button/link-action" />
-
-### Позиционирование
-
-Настройте положение всплывающего меню с помощью корневого свойства Ark `positioning`, сохранив явную структуру
-его частей.
-
-<Example name="split-button/positioning" />
-
-### Размеры
-
-Используйте корневой `size`, когда обе кнопки должны масштабироваться одновременно.
-
-<Example name="split-button/sizes" />
-
-### Варианты
-
-Используйте корневой `variant`, когда обе кнопки должны иметь одинаковое оформление.
-
-<Example name="split-button/variants" />
-
-### С иконками
-
-Добавьте иконку к основному действию, если она помогает понять его назначение, но не заменяет текстовую подпись.
-
-<Example name="split-button/with-icons" />
-
-### Расширенная настройка
-
-Используйте `MenuItemGroup`, `MenuItemGroupLabel`, `MenuItem` и `MenuSeparator` внутри `SplitButtonContent`, если дополнительным действиям нужны группы,
-разделители или сгруппированные пункты.
-
-<Example name="split-button/menu-composition" />
+<AnatomyInspector
+  parts={[
+    ["SplitButton", "split-button-root", "Корень, управляющий состоянием меню и семантической группой двух кнопок.", 0],
+    ["SplitButtonAction", "split-button-action", "Основное действие `Button`.", 1],
+    ["SplitButtonTrigger", "split-button-trigger", "Триггер Ark Menu в виде кнопки moduix; по умолчанию показывает шеврон.", 1],
+    ["SplitButtonPositioner", "split-button-positioner", "Размещает всплывающее меню Ark.", 1],
+    ["SplitButtonContent", "split-button-content", "Поверхность содержимого Ark Menu для общих частей `MenuItem` и `MenuItemGroup`.", 2],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Стилизация
 
@@ -167,18 +124,42 @@ Tailwind настраиваются обычными утилитами и по�
 разделитель в `::before` триггера, у outline-вариантов его роль играет общая рамка. Цвет разделителя задаёт
 `--moduix-split-button-separator-color`, а внутренние отступы триггера меняются классом на `SplitButtonTrigger`.
 
-### CSS-свойства
+### CSS-переменные
 
-<CssPropertiesSection properties={SplitButtonDocs.splitButtonCssProperties} />
+Наведите на переменную или выберите её, чтобы увидеть её в превью.
 
-### Селекторы для стилизации
+<CssPropertiesSection properties={SplitButtonDocs.splitButtonCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
+
+### Хуки стилизации
+
+| Часть | `data-slot` |
+| --- | --- |
+| `SplitButton` | `split-button-root` |
+| `SplitButtonAction` | `split-button-action` |
+| `SplitButtonTrigger` | `split-button-trigger` |
+| `SplitButtonPositioner` | `split-button-positioner` |
+| `SplitButtonContent` | `split-button-content` |
 
 - `data-scope="split-button"` и `data-part="root"` задают семантическую группу.
-- `data-slot="split-button-root"` выбирает обёртку группы.
-- `data-slot="split-button-action"` выбирает основное действие.
-- `data-slot="split-button-trigger"` выбирает триггер меню.
-- `data-slot="split-button-positioner"` выбирает позиционер Ark Menu.
-- `data-slot="split-button-content"` выбирает поверхность содержимого Ark Menu.
 - `SplitButtonTrigger` получает атрибуты состояния Ark Menu, включая `aria-expanded`, `aria-controls` и `data-state`.
 - `SplitButtonContent` получает атрибуты Ark Menu, включая `data-state`, `data-side`, `data-placement`,
   `data-nested` и `data-has-nested`.
+
+## Клавиатура
+
+| Клавиша | Действие |
+| --- | --- |
+| `Enter` / `Space` | Запускает действие или открывает меню с кнопки меню. |
+| `ArrowDown` / `ArrowUp` | Открывает меню с кнопки меню и перемещает между пунктами. |
+| `Escape` | Закрывает меню и возвращает фокус на кнопку меню. |
+
+## Справочник API
+
+| Проп | Тип | По умолчанию | Описание |
+| --- | --- | --- | --- |
+| `variant` | `SplitButtonVariant` | `'default'` | Общий вид обеих кнопок: `default`, `outline`, `secondary`, `destructive`, `destructive-outline` или `ghost`. |
+| `size` | `SplitButtonSize` | `'md'` | Общий размер обеих кнопок: `xs`, `sm`, `md`, `lg` или `xl`. |
+| `aria-label` | `string` | — | Доступное имя группы из двух кнопок. |
+| `open` / `onOpenChange` | `MenuRootProps` | — | Управляемое состояние меню, передаётся во внутренний `Menu`. |

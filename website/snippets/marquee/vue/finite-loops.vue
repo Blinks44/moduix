@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { Marquee, MarqueeContent, MarqueeItem, MarqueeViewport } from '@moduix/vue/marquee';
+import { Stack } from '@moduix/vue/stack';
 import { ref } from 'vue';
 import styles from '@/components/examples/marquee/marquee-finite-loops.module.css';
 
@@ -19,7 +20,7 @@ const handleComplete = () => completed.value++;
 </script>
 
 <template>
-  <div :class="styles.stack">
+  <Stack align="center" gap="3">
     <Marquee
       aria-label="Partner logos"
       :loop-count="3"
@@ -40,5 +41,5 @@ const handleComplete = () => completed.value++;
       <span>Loops: {{ loops }}</span>
       <span>Completed: {{ completed }}</span>
     </div>
-  </div>
+  </Stack>
 </template>

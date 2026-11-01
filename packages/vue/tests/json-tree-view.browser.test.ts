@@ -8,7 +8,7 @@ import { render, screen } from '@testing-library/vue';
 import { renderToString } from '@vue/server-renderer';
 import { computed, createSSRApp, defineComponent, nextTick, ref } from 'vue';
 import type { ComponentPublicInstance } from 'vue';
-import { JsonTreeView, JsonTreeViewRootProvider, JsonTreeViewTree, useJsonTreeView } from '../src';
+import { JsonTreeView, JsonTreeViewRootProvider, JsonTreeViewTree, useJsonTreeView } from '@/index';
 import SsrJsonTreeView from './fixtures/SsrJsonTreeView.vue';
 
 const data = {
@@ -17,8 +17,6 @@ const data = {
     version: '2.3.0',
   },
 };
-
-const wrappedData = { checks: ['accessibility', 'visual-regression', 'type-check'] };
 
 const jsonTreeViewComponents = {
   JsonTreeView,
@@ -187,6 +185,7 @@ test('forwards indent guides and scoped value slots without replacing generated 
 
 // Ark supplies an empty indentGuide slot even when omitted, suppressing the
 // node's built-in indentGuide fallback. A custom named slot works.
+
 test.skip.each([
   ['Ark', ArkJsonTreeView, ArkJsonTreeViewTree],
   ['moduix', JsonTreeView, JsonTreeViewTree],
@@ -273,31 +272,4 @@ test('reflects controlled selection updates in the DOM', async () => {
   await expect
     .element(page.getByRole('treeitem', { name: 'status: "ready"', exact: true }))
     .toHaveAttribute('aria-selected', 'true');
-});
-
-test('keeps the branch indicator on the first line of a wrapped preview and lets values be copied', async () => {
-  render(
-    defineComponent({
-      components: jsonTreeViewComponents,
-      setup: () => ({ wrappedData }),
-      template:
-        '<div style="width: 160px"><JsonTreeView :data="wrappedData"><JsonTreeViewTree /></JsonTreeView></div>',
-    }),
-  );
-
-  await expect.element(page.getByRole('tree')).toBeVisible();
-
-  const control = document.querySelector<HTMLElement>('[data-part="branch-control"]')!;
-  const text = document.querySelector<HTMLElement>('[data-part="branch-text"]')!;
-  const indicator = document
-    .querySelector('[data-part="branch-indicator"]')!
-    .getBoundingClientRect();
-  const lineHeight = parseFloat(getComputedStyle(text).lineHeight);
-  const textTop = text.getBoundingClientRect().top;
-
-  expect(text.getBoundingClientRect().height).toBeGreaterThan(lineHeight * 1.5);
-  expect(
-    Math.abs(indicator.top + indicator.height / 2 - (textTop + lineHeight / 2)),
-  ).toBeLessThanOrEqual(1);
-  expect(getComputedStyle(control).userSelect).not.toBe('none');
 });

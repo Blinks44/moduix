@@ -1,3 +1,4 @@
+import { Stack } from '@moduix/solid/stack';
 import {
   TreeViewItemText,
   TreeViewItem,
@@ -8,7 +9,6 @@ import {
   createTreeCollection,
 } from '@moduix/solid/tree-view';
 import { createSignal, For } from 'solid-js';
-import styles from '@/components/examples/tree-view/tree-view-controlled-selection.module.css';
 
 type FileNode = { children?: FileNode[]; id: string; name: string };
 
@@ -33,7 +33,7 @@ export default function ControlledSelectionTreeViewDemo() {
   const [selectedValue, setSelectedValue] = createSignal<string[]>(['package.json']);
 
   return (
-    <div class={styles.root}>
+    <Stack align="center" gap="3">
       <TreeView
         collection={collection}
         selectedValue={selectedValue()}
@@ -56,6 +56,6 @@ export default function ControlledSelectionTreeViewDemo() {
         </TreeViewTree>
       </TreeView>
       <output aria-live="polite">Selected: {selectedValue().join(', ') || 'none'}</output>
-    </div>
+    </Stack>
   );
 }

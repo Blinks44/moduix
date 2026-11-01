@@ -1,96 +1,102 @@
 ---
 title: Pagination
 component: pagination
-description: Accessible page navigation for lists, tables, search results, and other paginated content.
+description: Move through pages of a list, table, or search results.
+ark: https://ark-ui.com/docs/components/pagination
 ---
 
+import AnatomyScene from '@/components/examples/pagination/basic';
 import * as PaginationDocs from '@/components/examples/pagination/css-properties';
 
-## API Reference
+<Example name="pagination/basic" />
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/pagination" />
+## Installation
 
-## Basic
+<ComponentInstall />
 
+## Usage
+
+<Usage />
 
 Use `Pagination` as the root component. `PaginationItems` renders the page buttons and ellipses for
 the current page range.
 
-<Example name="pagination/basic" />
+## Examples
 
-## Install with shadcn
+### Page range
 
-See [Quick Start](/docs/quick-start) for full package setup, registry configuration, and styling guidance.
+Use `pagination.pageRange` to show which items are visible on the current page.
 
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
+<Example name="pagination/page-range" />
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/pagination' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/pagination' },
-  ]}
-/>
+### Items per page
 
-  </Tab>
-  <Tab label="Solid" value="solid">
+Call `pagination.setPageSize(nextSize)` from context when a separate control changes the number of
+items per page.
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/pagination' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/pagination' },
-  ]}
-/>
+<Example name="pagination/page-size-control" />
 
-  </Tab>
-  <Tab label="Vue" value="vue">
+### First and last page controls
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/pagination' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/pagination' },
-  ]}
-/>
+Add `PaginationFirstTrigger` and `PaginationLastTrigger` when users need shortcuts to the first
+and last page.
 
-  </Tab>
-</Tabs>
+<Example name="pagination/with-edges" />
 
-## Anatomy
+### Link navigation
 
-```text
-Pagination
-├─ PaginationFirstTrigger (optional)
-├─ PaginationPrevTrigger
-├─ PaginationItems (recommended)
-├─ PaginationContext (advanced render-prop access)
-│  ├─ PaginationItem
-│  └─ PaginationEllipsis
-├─ PaginationNextTrigger
-└─ PaginationLastTrigger (optional)
+Use `type="link"` with `getPageUrl(details)` and `asChild` anchors when changing pages should
+navigate to a real URL.
 
-PaginationRootProvider
-└─ same trigger, item, ellipsis, and context tree connected to usePagination()
-```
+<Example name="pagination/link" />
 
-| Part                              | Role                                                               |
-| --------------------------------- | ------------------------------------------------------------------ |
-| `Pagination`                      | Navigation root that manages the current page and page size.       |
-| `PaginationRootProvider`         | Connects parts to state created by `usePagination()`.   |
-| `PaginationItems`                | Renders the computed page items and ellipses.                      |
-| `PaginationContext`              | Exposes root state and navigation helpers through an Ark render prop. |
-| `usePagination`        | Creates pagination state outside the rendered tree.                |
-| `usePaginationContext` | Reads pagination state from a descendant.                          |
-| `PaginationItem`                 | Interactive page control. Pass a page object as its props.        |
-| `PaginationEllipsis`             | Decorative marker for a collapsed page range, hidden from assistive technology. Requires `index`. |
-| `PaginationPrevTrigger`          | Moves to the previous page and disables itself on the first page.  |
-| `PaginationNextTrigger`          | Moves to the next page and disables itself on the last page.      |
-| `PaginationFirstTrigger`         | Moves to the first page and disables itself when already there.    |
-| `PaginationLastTrigger`          | Moves to the last page and disables itself when already there.     |
+### Client-side data
+
+Use `pagination.slice(data)` from context to render only the part of an already-loaded array that
+belongs to the current page.
+
+<Example name="pagination/data-slicing" />
+
+### Translations
+
+Use `translations` to customize accessible labels. Adjust the visible page window with
+`siblingCount`, `boundaryCount`, and the page-size props.
+
+<Example name="pagination/customized" />
+
+### Controlled
+
+Pass the active page with `page` and update it in `onPageChange(details)`. See [Control state from the application](/docs/composition-patterns#controlled-state).
+
+<Example name="pagination/controlled" />
+
+### Context
+
+Use `PaginationContext` to place custom controls next to the page list and call helpers such as
+`goToFirstPage()` and `goToLastPage()`.
+
+<Example name="pagination/context" />
+
+### Root provider
+
+Create state with `usePagination()` and pass it to `PaginationRootProvider` when the
+state lives outside the rendered pagination tree. See [Share state outside the tree](/docs/composition-patterns#root-provider).
+
+<Example name="pagination/root-provider" />
+
+### Build from parts
+
+The same pagination as Basic, without `PaginationItems`: `PaginationContext` provides the pages, and
+each entry renders a `PaginationItem` or a `PaginationEllipsis` with an explicit icon. Pass each page
+object to `PaginationItem` unchanged so Ark keeps its state and accessibility behavior. The previous
+and next triggers keep their default chevrons: passing children turns them into text buttons.
+
+<Example name="pagination/build-from-parts" />
 
 ## Composition
 
 Use `defaultPage` and `defaultPageSize` for internal state, or pass `page`, `pageSize`, and the
-matching change callbacks when another part of the application owns it. Set `count` to the total
+matching change callbacks when another part of the application controls it. Set `count` to the total
 number of data items, not the number of pages, and pair it with a page-size prop so Ark can calculate
 `totalPages`.
 
@@ -102,76 +108,28 @@ with `usePagination()` and pass it to `PaginationRootProvider`. For URL navigati
 In Vue, use `v-model:page` and `v-model:page-size` for controlled state. The `pageChange` and
 `pageSizeChange` events are exposed as `@page-change` and `@page-size-change`.
 
-## Examples
+## Anatomy
 
-### Controlled
+Hover or focus a part to find it in the preview.
 
-Pass the active page with `page` and update it in `onPageChange(details)`.
-
-<Example name="pagination/controlled" />
-
-### Context
-
-Use `PaginationContext` to place custom controls next to the page list and call helpers such as
-`goToFirstPage()` and `goToLastPage()`.
-
-<Example name="pagination/context" />
-
-### Client-Side Data
-
-Use `pagination.slice(data)` from context to render only the part of an already-loaded array that
-belongs to the current page.
-
-<Example name="pagination/data-slicing" />
-
-### Link Navigation
-
-Use `type="link"` with `getPageUrl(details)` and `asChild` anchors when changing pages should
-navigate to a real URL.
-
-<Example name="pagination/link" />
-
-### Page Range
-
-Use `pagination.pageRange` to show which items are visible on the current page.
-
-<Example name="pagination/page-range" />
-
-### Items Per Page
-
-Call `pagination.setPageSize(nextSize)` from context when a separate control changes the number of
-items per page.
-
-<Example name="pagination/page-size-control" />
-
-### Root Provider
-
-Create state with `usePagination()` and pass it to `PaginationRootProvider` when the
-state owner lives outside the rendered pagination tree.
-
-<Example name="pagination/root-provider" />
-
-### Translations
-
-Use `translations` to customize accessible labels. Adjust the visible page window with
-`siblingCount`, `boundaryCount`, and the page-size props.
-
-<Example name="pagination/customized" />
-
-### First and Last Page Controls
-
-Add `PaginationFirstTrigger` and `PaginationLastTrigger` when users need shortcuts to the first
-and last page.
-
-<Example name="pagination/with-edges" />
-
-### Advanced Customization
-
-Use `PaginationContext` instead of `PaginationItems` when page buttons or ellipses need custom
-content. Pass each page object to `PaginationItem` unchanged so Ark can keep its state and
-accessibility behavior.
-
-<Example name="pagination/advanced-customization" />
+<AnatomyInspector
+  parts={[
+    ["Pagination", "pagination-root", "Navigation root that manages the current page and page size.", 0],
+    ["PaginationFirstTrigger", "pagination-first-trigger", "Moves to the first page and disables itself when already there.", 1],
+    ["PaginationPrevTrigger", "pagination-prev-trigger", "Moves to the previous page and disables itself on the first page.", 1],
+    ["PaginationItems", "", "Renders the computed page items and ellipses.", 1],
+    ["PaginationContext", null, "Exposes root state and navigation helpers through an Ark render prop.", 1],
+    ["PaginationItem", "pagination-item", "Interactive page control. Pass a page object as its props.", 2],
+    ["PaginationEllipsis", "pagination-ellipsis", "Decorative marker for a collapsed page range, hidden from assistive technology. Requires `index`.", 2],
+    ["PaginationNextTrigger", "pagination-next-trigger", "Moves to the next page and disables itself on the last page.", 1],
+    ["PaginationLastTrigger", "pagination-last-trigger", "Moves to the last page and disables itself when already there.", 1],
+    ["PaginationRootProvider", "pagination-root-provider", "Connects parts to state created by `usePagination()`.", 0],
+    ["usePagination", null, "Creates pagination state outside the rendered tree.", 0],
+    ["usePaginationContext", null, "Reads pagination state from a descendant.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styling
 
@@ -184,11 +142,26 @@ React or `class` in Solid and Vue on the part; target `[data-selected]` on `Pagi
 current page. The CSS variable below sets the shared size of items, ellipses, and triggers in the CSS
 Modules variants.
 
-### CSS Properties
+### CSS variables
 
-<CssPropertiesSection properties={PaginationDocs.paginationOverrideCssProperties} />
+Hover or focus a variable to see it in the preview.
+
+<CssPropertiesSection properties={PaginationDocs.paginationOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Styling hooks
+
+| Part | `data-slot` |
+| --- | --- |
+| `Pagination` | `pagination-root` |
+| `PaginationRootProvider` | `pagination-root-provider` |
+| `PaginationItem` | `pagination-item` |
+| `PaginationEllipsis` | `pagination-ellipsis` |
+| `PaginationPrevTrigger` | `pagination-prev-trigger` |
+| `PaginationNextTrigger` | `pagination-next-trigger` |
+| `PaginationFirstTrigger` | `pagination-first-trigger` |
+| `PaginationLastTrigger` | `pagination-last-trigger` |
 
 - `data-scope="pagination"` and `data-part="item"` on `PaginationItem`
 - `data-scope="pagination"` and `data-part="prev-trigger"` on `PaginationPrevTrigger`
@@ -196,6 +169,20 @@ Modules variants.
 - `data-scope="pagination"` with `data-part="first-trigger"` or `data-part="last-trigger"` on edge triggers
 - `data-selected` on the active page item
 - `data-disabled` on unavailable triggers
-- `data-slot="pagination-root"`, `pagination-root-provider`, `pagination-item`,
-  `pagination-ellipsis`, `pagination-prev-trigger`, `pagination-next-trigger`,
-  `pagination-first-trigger`, and `pagination-last-trigger` for moduix overrides
+
+## API reference
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `count` | `number` | — | Total number of items, not pages. |
+| `page` | `number` | — | Current page for controlled use. |
+| `defaultPage` | `number` | `1` | Initial page. |
+| `onPageChange` | `(details: PageChangeDetails) => void` | — | Called when the page changes. |
+| `pageSize` | `number` | — | Items per page for controlled use. |
+| `defaultPageSize` | `number` | `10` | Initial items per page. |
+| `onPageSizeChange` | `(details: PageSizeChangeDetails) => void` | — | Called when the page size changes. |
+| `siblingCount` | `number` | `1` | Pages shown on each side of the current page. |
+| `boundaryCount` | `number` | `1` | Pages always shown at the start and end. |
+| `type` | `'button' \| 'link'` | `'button'` | Renders page items as `button` or `link`. |
+| `getPageUrl` | `(details: PageUrlDetails) => string` | — | Builds the `href` of each page when `type` is `link`. |
+| `translations` | `IntlTranslations` | — | Localized strings for accessibility labels. |

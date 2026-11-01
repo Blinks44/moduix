@@ -1,4 +1,5 @@
 import { Button } from '@moduix/solid/button';
+import { Stack } from '@moduix/solid/stack';
 import {
   Toast,
   ToastCloseTrigger,
@@ -13,17 +14,17 @@ const toaster = createToaster({ placement: 'bottom-end', overlap: true, gap: 24 
 
 export default function ToastCustomComposition() {
   return (
-    <div class={styles.root}>
+    <Stack align="center" gap="3">
       <ToastToaster toaster={toaster}>
         {() => (
           <Toast class={styles.toast}>
-            <div class={styles.content}>
+            <Stack direction="row" align="flex-start" gap="2">
               <span aria-hidden="true">ⓘ</span>
               <div>
                 <ToastTitle />
                 <ToastDescription />
               </div>
-            </div>
+            </Stack>
             <ToastCloseTrigger aria-label="Close custom toast">×</ToastCloseTrigger>
           </Toast>
         )}
@@ -38,6 +39,6 @@ export default function ToastCustomComposition() {
       >
         Create custom toast
       </Button>
-    </div>
+    </Stack>
   );
 }

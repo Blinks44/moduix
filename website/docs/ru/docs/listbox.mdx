@@ -1,18 +1,28 @@
 ---
 title: Listbox
 component: listbox
-description: Видимый список для выбора одного или нескольких элементов с необязательной фильтрацией и расширенным выделением.
+description: Видимый список опций для выбора одной или нескольких.
+ark: https://ark-ui.com/docs/components/listbox
 ---
 
+import AnatomyScene from '@/components/examples/listbox/basic';
 import * as ListboxDocs from '@/components/examples/listbox/css-properties';
-import ListboxSelectAll from '@/components/examples/listbox/select-all.tsx';
-import listboxSolidSelectAll from '../../../snippets/listbox/solid/select-all.tsx?raw';
-import listboxVueSelectAll from '../../../snippets/listbox/vue/select-all.vue?raw';
-import listboxVueSelectAllPart from '../../../snippets/listbox/vue/SelectAllMeta.vue?raw';
 
-## Справочник API
+<Example name="listbox/basic" />
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/listbox" />
+## Установка
+
+<ComponentInstall />
+
+## Использование
+
+<Usage />
+
+Интерактивный
+
+Передайте `collection`, отрисуйте `ListboxContent` и передайте каждый элемент коллекции в
+`ListboxItem` через `item`. Добавьте `ListboxItemIndicator`, если строки должны показывать
+выбранное состояние.
 
 ## Какой компонент выбрать
 
@@ -21,99 +31,93 @@ import listboxVueSelectAllPart from '../../../snippets/listbox/vue/SelectAllMeta
 Используйте `Combobox`, когда пользователю нужен всплывающий список с полем для поиска или ввода
 значения.
 
-## Базовый пример
+## Примеры
 
-Интерактивный
+### Несколько значений
 
-Передайте `collection`, отрисуйте `ListboxContent` и передайте каждый элемент коллекции в
-`ListboxItem` через `item`. Добавьте `ListboxItemIndicator`, если строки должны показывать
-выбранное состояние.
+Задайте `selectionMode="multiple"`, чтобы переключать несколько значений без клавиш-модификаторов.
 
-<Example name="listbox/basic" />
+<Example name="listbox/multiple" />
 
-## Установка через shadcn
+### Группировка
 
-Полную настройку пакета, реестра и стилей см. в разделе [Быстрый старт](/docs/quick-start).
+Задайте `groupBy` при создании коллекции и отрисуйте `ListboxItemGroup` с `ListboxItemGroupLabel`.
 
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
+<Example name="listbox/grouping" />
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/listbox' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/listbox' },
-  ]}
-/>
+### Отключённый элемент
 
-  </Tab>
-  <Tab label="Solid" value="solid">
+Отключите отдельный элемент через поле `disabled` в элементе коллекции.
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/listbox' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/listbox' },
-  ]}
-/>
+<Example name="listbox/disabled-item" />
 
-  </Tab>
-  <Tab label="Vue" value="vue">
+### Горизонтальный вариант
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/listbox' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/listbox' },
-  ]}
-/>
+Задайте `orientation="horizontal"`, чтобы расположить элементы горизонтально и включить навигацию
+стрелками влево и вправо.
 
-  </Tab>
-</Tabs>
+<Example name="listbox/horizontal" />
 
-## Анатомия
+### Сетка
 
-```text
-Listbox
-├─ ListboxLabel
-├─ ListboxFilter
-│  ├─ ListboxInput
-│  └─ ListboxClearTrigger
-├─ ListboxContent
-│  ├─ ListboxEmpty
-│  ├─ ListboxItemGroup
-│  │  ├─ ListboxItemGroupLabel
-│  │  └─ ListboxItem[item]
-│  │     ├─ ListboxItemText
-│  │     └─ ListboxItemIndicator
-│  └─ ListboxItem[item]
-│     ├─ ListboxItemText
-│     │  └─ ListboxItemTextContent (необязательно)
-│     │     ├─ ListboxItemTextIcon (необязательно)
-│     │     └─ ListboxItemTextLabel (необязательно)
-│     └─ ListboxItemIndicator
-└─ ListboxValueText
+Передайте коллекцию, созданную через `createGridCollection`, чтобы включить навигацию по сетке с
+клавиатуры. Ark добавляет `data-layout="grid"` и CSS-переменную `--column-count` в `ListboxContent`.
 
-ListboxRootProvider
-└─ то же дерево элементов, подключённое к состоянию из useListbox()
-```
+<Example name="listbox/grid" />
 
-| Часть                      | Назначение                                                                                   |
-| -------------------------- | -------------------------------------------------------------------------------------------- |
-| `Listbox` | Управляет коллекцией, выбранными значениями, подсвеченным элементом и режимом выбора.        |
-| `ListboxRootProvider`     | Отрисовывает дерево listbox из состояния, возвращённого `useListbox`.                        |
-| `ListboxLabel`            | Подпись, задающая listbox доступное имя.                                                      |
-| `ListboxFilter`           | Визуальная обёртка для поля фильтра с иконкой поиска по умолчанию. Размещайте перед `ListboxContent`. |
-| `ListboxInput`            | Поле фильтра, обычно размещаемое внутри `ListboxFilter`.                                            |
-| `ListboxClearTrigger`     | Кнопка сброса запроса фильтра с иконкой закрытия по умолчанию.                               |
-| `ListboxContent`          | Фокусируемый контейнер listbox, управляющий навигацией с клавиатуры.                          |
-| `ListboxEmpty`            | Содержимое, отображаемое, когда после фильтрации не осталось элементов.                       |
-| `ListboxItemGroup`        | Обёртка для связанных элементов коллекции.                                                   |
-| `ListboxItemGroupLabel`   | Подпись группы элементов коллекции.                                                          |
-| `ListboxItem`             | Выбираемый элемент. Передайте его элемент коллекции через `item`.                            |
-| `ListboxItemText`         | Текст для отображения и доступности.                                                         |
-| `ListboxItemTextContent`  | Необязательная обёртка для размещения иконки и текста внутри `ListboxItemText`.                     |
-| `ListboxItemTextIcon`     | Необязательная обёртка для иконки внутри `ListboxItemTextContent`.                                 |
-| `ListboxItemTextLabel`    | Обёртка текста внутри `ListboxItemTextContent`, которая позволяет обрезать длинные подписи без нарушения разметки. |
-| `ListboxItemIndicator`    | Индикатор выбора с иконкой галочки moduix по умолчанию.                                      |
-| `ListboxValueText`        | Сводка выбранных значений.                                                                   |
+### Текст выбранного значения
+
+Отрисуйте `ListboxValueText`, если сводка выбранных значений должна оставаться видимой рядом со
+списком.
+
+<Example name="listbox/value-text" />
+
+### Фильтрация
+
+Используйте `ListboxFilter` вместе с `useListCollection`. Он добавляет иконку поиска и объединяет
+поле с `ListboxContent`; отключите typeahead, когда текст вводится в поле поиска.
+
+<Example name="listbox/filtering" />
+
+### Отдельное поле фильтра
+
+Отрисуйте `ListboxInput` напрямую, если поле фильтра и результаты должны оставаться отдельными
+поверхностями.
+
+<Example name="listbox/standalone-filter-input" />
+
+### Выбрать всё
+
+Используйте `useListboxContext` во внутреннем компоненте, чтобы добавить кнопку, изменяющую выбор
+listbox.
+
+<Example name="listbox/select-all" />
+
+### Расширенное выделение
+
+Используйте `selectionMode="extended"`, когда для выбора нескольких элементов нужны клавиши-модификаторы.
+
+<Example name="listbox/extended-selection" />
+
+### Управляемое состояние
+
+Храните массив выбранных строк в состоянии приложения и обновляйте его из `details.value`. Подробнее в разделе [Управляйте состоянием из приложения](/docs/composition-patterns#controlled-state).
+
+<Example name="listbox/controlled" />
+
+### Root Provider
+
+Используйте `useListbox()` из пакета выбранного фреймворка вместе с `ListboxRootProvider`, если
+внешним элементам управления нужен прямой доступ к хранилищу listbox. Подробнее в разделе [Выносите состояние за пределы дерева](/docs/composition-patterns#root-provider).
+
+<Example name="listbox/root-provider" />
+
+### Сборка из частей
+
+Тот же список, что в Basic, но с явной галочкой: `ListboxItemIndicator` рисует иконку по умолчанию,
+только когда у него нет дочерних элементов. Начинайте с него, если дизайн заменяет отметку выбора.
+
+<Example name="listbox/build-from-parts" />
 
 ## Композиция
 
@@ -129,115 +133,30 @@ ListboxRootProvider
 если фильтру нужен отдельный контейнер, а `ListboxValueText` можно разместить после `ListboxContent`,
 чтобы показывать сводку выбранных значений.
 
-## Примеры
+## Анатомия
 
-### Управляемое состояние
+Наведите на часть или выберите её, чтобы найти её в превью.
 
-Храните массив выбранных строк в состоянии приложения и обновляйте его из `details.value`.
-
-<Example name="listbox/controlled" />
-
-### Отключённый элемент
-
-Отключите отдельный элемент через поле `disabled` в элементе коллекции.
-
-<Example name="listbox/disabled-item" />
-
-### Расширенное выделение
-
-Используйте `selectionMode="extended"`, когда для выбора нескольких элементов нужны клавиши-модификаторы.
-
-<Example name="listbox/extended-selection" />
-
-### Фильтрация
-
-Используйте `ListboxFilter` вместе с `useListCollection`. Он добавляет иконку поиска и объединяет
-поле с `ListboxContent`; отключите typeahead, когда текст вводится в поле поиска.
-
-<Example name="listbox/filtering" />
-
-### Сетка
-
-Передайте коллекцию, созданную через `createGridCollection`, чтобы включить навигацию по сетке с
-клавиатуры. Ark добавляет `data-layout="grid"` и CSS-переменную `--column-count` в `ListboxContent`.
-
-<Example name="listbox/grid" />
-
-### Группировка
-
-Задайте `groupBy` при создании коллекции и отрисуйте `ListboxItemGroup` с `ListboxItemGroupLabel`.
-
-<Example name="listbox/grouping" />
-
-### Горизонтальный вариант
-
-Задайте `orientation="horizontal"`, чтобы расположить элементы горизонтально и включить навигацию
-стрелками влево и вправо.
-
-<Example name="listbox/horizontal" />
-
-### Несколько значений
-
-Задайте `selectionMode="multiple"`, чтобы переключать несколько значений без клавиш-модификаторов.
-
-<Example name="listbox/multiple" />
-
-### Root Provider
-
-Используйте `useListbox()` из пакета выбранного фреймворка вместе с `ListboxRootProvider`, если
-внешним элементам управления нужен прямой доступ к хранилищу listbox.
-
-<Example name="listbox/root-provider" />
-
-### Выбрать всё
-
-Используйте `useListboxContext` во внутреннем компоненте, чтобы добавить кнопку, изменяющую выбор
-listbox.
-
-<ExampleFrame variant="component">
-  <ListboxSelectAll />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/listbox/select-all.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={listboxSolidSelectAll} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={listboxVueSelectAll} />
-
-<CodeBlockRuntime lang="vue" code={listboxVueSelectAllPart} title="SelectAllMeta.vue" />
-
-    </Tab>
-  </Tabs>
-
-</div>
-
-</ExampleCode>
-
-### Отдельное поле фильтра
-
-Отрисуйте `ListboxInput` напрямую, если поле фильтра и результаты должны оставаться отдельными
-поверхностями.
-
-<Example name="listbox/standalone-filter-input" />
-
-### Текст выбранного значения
-
-Отрисуйте `ListboxValueText`, если сводка выбранных значений должна оставаться видимой рядом со
-списком.
-
-<Example name="listbox/value-text" />
+<AnatomyInspector
+  parts={[
+    ["Listbox", "listbox-root", "Управляет коллекцией, выбранными значениями, подсвеченным элементом и режимом выбора.", 0],
+    ["ListboxLabel", "listbox-label", "Подпись, задающая listbox доступное имя.", 1],
+    ["ListboxFilter", "listbox-filter-icon", "Визуальная обёртка для поля фильтра с иконкой поиска по умолчанию. Размещайте перед `ListboxContent`.", 1],
+    ["ListboxInput", "listbox-input", "Поле фильтра, обычно размещаемое внутри `ListboxFilter`.", 2],
+    ["ListboxClearTrigger", "listbox-clear-trigger", "Кнопка сброса запроса фильтра с иконкой закрытия по умолчанию.", 2],
+    ["ListboxContent", "listbox-content", "Фокусируемый контейнер listbox, управляющий навигацией с клавиатуры.", 1],
+    ["ListboxEmpty", "listbox-empty", "Содержимое, отображаемое, когда после фильтрации не осталось элементов.", 2],
+    ["ListboxItemGroup", "listbox-item-group", "Обёртка для связанных элементов коллекции.", 2],
+    ["ListboxItemGroupLabel", "listbox-item-group-label", "Подпись группы элементов коллекции.", 3],
+    ["ListboxItem", "listbox-item", "Выбираемый элемент. Передайте его элемент коллекции через `item`.", 3],
+    ["ListboxItemText", "listbox-item-text", "Текст для отображения и доступности.", 4],
+    ["ListboxItemIndicator", "listbox-item-indicator", "Индикатор выбора с иконкой галочки moduix по умолчанию.", 4],
+    ["ListboxValueText", "listbox-value-text", "Сводка выбранных значений.", 1],
+    ["ListboxRootProvider", "listbox-root-provider", "Отрисовывает дерево listbox из состояния, возвращённого `useListbox`.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Стилизация
 
@@ -248,19 +167,68 @@ listbox.
 отступы списка также следуют общим переменным `--moduix-popup-item-*`, `--moduix-popup-group-label-*` и
 `--moduix-popup-list-padding-y`.
 
-### CSS-свойства
+### CSS-переменные
 
-<CssPropertiesSection properties={ListboxDocs.listboxOverrideCssProperties} />
+Наведите на переменную или выберите её, чтобы увидеть её в превью.
+
+<CssPropertiesSection properties={ListboxDocs.listboxOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Хуки стилизации
+
+| Часть | `data-slot` |
+| --- | --- |
+| `Listbox` | `listbox-root` |
+| `ListboxRootProvider` | `listbox-root-provider` |
+| `ListboxLabel` | `listbox-label` |
+| `ListboxInput` | `listbox-input` |
+| `ListboxFilter` | `listbox-filter` |
+| `ListboxFilter`, внутренний элемент | `listbox-filter-icon` |
+| `ListboxClearTrigger` | `listbox-clear-trigger` |
+| `ListboxContent` | `listbox-content` |
+| `ListboxEmpty` | `listbox-empty` |
+| `ListboxItemGroup` | `listbox-item-group` |
+| `ListboxItemGroupLabel` | `listbox-item-group-label` |
+| `ListboxItem` | `listbox-item` |
+| `ListboxItemText` | `listbox-item-text` |
+| `ListboxItemIndicator` | `listbox-item-indicator` |
+| `ListboxValueText` | `listbox-value-text` |
 
 - Хуки анатомии Ark: `data-scope="listbox"` и `data-part` на корне, подписи, поле, содержимом,
   группе элементов, подписи группы, элементе, тексте элемента, индикаторе, тексте выбранного
   значения и пустом состоянии.
 - Хуки состояния: `data-orientation`, `data-disabled`, `data-empty`, `data-layout`,
   `data-activedescendant`, `data-value`, `data-selected`, `data-state` и `data-highlighted`.
-- Хуки moduix: `data-slot="listbox-root"`, `listbox-root-provider`, `listbox-label`,
-  `listbox-filter`, `listbox-filter-icon`, `listbox-input`, `listbox-clear-trigger`,
-  `listbox-content`, `listbox-empty`, `listbox-item-group`, `listbox-item-group-label`,
-  `listbox-item`, `listbox-item-text`, `listbox-item-text-content`, `listbox-item-text-icon`,
-  `listbox-item-text-label`, `listbox-item-indicator` и `listbox-value-text`.
+
+## Клавиатура
+
+| Клавиша | Действие |
+| --- | --- |
+| `ArrowDown` / `ArrowUp` | Подсвечивает следующую или предыдущую опцию. |
+| `Home` / `End` | Подсвечивает первую или последнюю опцию. |
+| `Enter` / `Space` | Выбирает подсвеченную опцию. |
+| `Ctrl+A` | Выбирает все опции в режиме multiple или extended. |
+| Буквы | Подсвечивает опцию, которая начинается с набранного текста. |
+
+## Справочник API
+
+| Проп | Тип | По умолчанию | Описание |
+| --- | --- | --- | --- |
+| `collection` | `ListCollection<T> \| GridCollection<T>` | — | Элементы из `createListCollection()` или `createGridCollection()`. |
+| `value` | `string[]` | — | Выбранные значения в управляемом режиме. |
+| `defaultValue` | `string[]` | `[]` | Начальные выбранные значения. |
+| `onValueChange` | `(details: ValueChangeDetails) => void` | — | Вызывается при изменении выбора. |
+| `selectionMode` | `'single' \| 'multiple' \| 'extended'` | `'single'` | `single`, `multiple` кликами или `extended` с Shift и Ctrl. |
+| `orientation` | `'horizontal' \| 'vertical'` | `'vertical'` | Раскладка и направление стрелок: `horizontal` или `vertical`. |
+| `loopFocus` | `boolean` | `false` | Навигация с клавиатуры переходит с последнего элемента на первый. |
+| `selectOnHighlight` | `boolean` | `false` | Выбирает элемент сразу при подсветке. |
+| `deselectable` | `boolean` | `false` | Повторный клик по выбранному элементу снимает выбор. |
+| `typeahead` | `boolean` | `true` | Ввод букв подсвечивает подходящий элемент. |
+| `disallowSelectAll` | `boolean` | `false` | Отключает выбор всего по Ctrl или Cmd + A. |
+| `onSelect` | `(details: SelectionDetails) => void` | — | Вызывается при выборе элемента. |
+| `disabled` | `boolean` | `false` | Отключает список. |
+| `onHighlightChange` | `(details: HighlightChangeDetails<T>) => void` | — | Вызывается при смене подсвеченного элемента. |
+| `highlightedValue` | `string \| null` | — | Подсвеченный элемент в управляемом режиме. |
+| `defaultHighlightedValue` | `string \| null` | — | Элемент, подсвеченный изначально. |
+| `scrollToIndexFn` | `(details: ScrollToIndexDetails) => void` | — | Прокручивает виртуализированный список к индексу элемента. |

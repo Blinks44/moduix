@@ -4,7 +4,7 @@ import {
   TreeViewLabel,
   TreeViewTree,
   createTreeCollection,
-} from '../../src/components/tree-view';
+} from '@/components/tree-view';
 import SsrTreeNode from './SsrTreeNode.vue';
 interface FileNode {
   children?: FileNode[];

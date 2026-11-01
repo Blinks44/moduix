@@ -21,12 +21,12 @@ const switchSizeOptions = [
   },
 ] as const;
 
+import { Stack } from '@moduix/react/stack';
 import { Switch, SwitchControl, SwitchHiddenInput, SwitchLabel } from '@moduix/react/switch';
-import styles from '@/components/examples/switch/switch-sizes.module.css';
 
 export default function SwitchSizesDemo() {
   return (
-    <div className={styles.column}>
+    <Stack align="flex-start" gap="3">
       {switchSizeOptions.map((item) => (
         <Switch key={item.value} size={item.value} defaultChecked>
           <SwitchControl />
@@ -34,6 +34,6 @@ export default function SwitchSizesDemo() {
           <SwitchHiddenInput />
         </Switch>
       ))}
-    </div>
+    </Stack>
   );
 }

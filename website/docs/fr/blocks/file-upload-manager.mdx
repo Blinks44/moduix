@@ -1,13 +1,24 @@
 ---
 title: Téléversement de fichiers
 description: Une interface de pièces jointes avec glisser-déposer, validation, aperçu et suppression des fichiers.
+block: file-upload-manager
 ---
 
 import { FileUploadManager } from '@/components/blocks/file-upload-manager';
 import fileUploadManagerSolid from '../../../snippets/blocks/solid/file-upload-manager.tsx?raw';
 import fileUploadManagerVue from '../../../snippets/blocks/vue/file-upload-manager.vue?raw';
+import fileUploadManagerReact from '../../../src/components/blocks/file-upload-manager.tsx?raw';
+import fileUploadManagerCss from '../../../src/components/blocks/file-upload-manager.module.css?raw';
 
 # Téléversement de fichiers
+
+<ExamplePanel
+  clientOnly
+  sources={{ react: fileUploadManagerReact, solid: fileUploadManagerSolid, vue: fileUploadManagerVue }}
+  files={[{ name: 'file-upload-manager.module.css', code: fileUploadManagerCss }]}
+>
+  <FileUploadManager />
+</ExamplePanel>
 
 Utilisez cette composition lorsqu’un formulaire ou un parcours doit permettre d’ajouter et de vérifier des pièces jointes.
 L’exemple accepte les fichiers PDF, DOC, DOCX, PNG et JPG jusqu’à 10 Mo, affiche jusqu’à cinq fichiers acceptés et
@@ -17,53 +28,6 @@ de validation.
 La composition gère uniquement la sélection et la liste locale. Elle n’envoie pas les fichiers au serveur et ne suit pas
 leur progression. Reliez `onFileChange` à votre formulaire ou à votre requête de téléversement dans la fonctionnalité
 qui gère ces données.
-
-L’aperçu utilise React. Les onglets présentent le code React, Solid et Vue avec une feuille de style commune.
-
-
-
-<ExampleFrame variant="block" clientOnly>
-  <FileUploadManager />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/blocks/file-upload-manager.tsx"
-
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={fileUploadManagerSolid} />
-
-    </Tab>
-  <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={fileUploadManagerVue} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/blocks/file-upload-manager.module.css"
-
-```
-</div>
-
-</ExampleCode>
 
 ## Installation
 

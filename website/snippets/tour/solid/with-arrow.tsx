@@ -1,5 +1,6 @@
 import type { TourStepDetails } from '@ark-ui/solid/tour';
 import { Button } from '@moduix/solid/button';
+import { Stack } from '@moduix/solid/stack';
 import {
   Tour,
   TourBackdrop,
@@ -15,7 +16,6 @@ import {
   TourActionList,
   useTour,
 } from '@moduix/solid/tour';
-import styles from '@/components/examples/tour/tour-with-arrow.module.css';
 
 const steps = [
   {
@@ -33,7 +33,7 @@ export default function TourWithArrowDemo() {
   const tour = useTour({ steps });
 
   return (
-    <div class={styles.root}>
+    <Stack align="center" gap="3">
       <Button id="tour-with-arrow-upload" variant="outline">
         Upload files
       </Button>
@@ -55,6 +55,6 @@ export default function TourWithArrowDemo() {
         </TourPositioner>
       </Tour>
       <Button onClick={() => tour().start()}>Start tour</Button>
-    </div>
+    </Stack>
   );
 }

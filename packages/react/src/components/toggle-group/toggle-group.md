@@ -171,7 +171,7 @@ export function RootProviderToggleGroupDemo() {
   value.
 - The root is a `muted` container with a border; `outline` uses the background color, `ghost`
   removes the background, border, and padding.
-- The root sets `--moduix-toggle-color` to `var(--moduix-color-foreground)`, so unpressed items use
+- The root sets `--moduix-toggle-color` to `var(--moduix-foreground)`, so unpressed items use
   the foreground color in every variant (a standalone default `Toggle` uses
   `secondary-foreground`). Tailwind items use `text-foreground` for the same result.
 - Vertical groups stretch items to the group width and align their content to the start.
@@ -179,10 +179,10 @@ export function RootProviderToggleGroupDemo() {
 The CSS Modules packages expose two root color variables. Variant defaults stay private in
 `--_toggle-group-*` properties.
 
-| Variable                             | Default                      | Notes                                    |
-| ------------------------------------ | ---------------------------- | ---------------------------------------- |
-| `--moduix-toggle-group-bg`           | `var(--moduix-color-muted)`  | Outline: background; ghost: transparent. |
-| `--moduix-toggle-group-border-color` | `var(--moduix-color-border)` | Ghost: transparent.                      |
+| Variable                             | Default                | Notes                                    |
+| ------------------------------------ | ---------------------- | ---------------------------------------- |
+| `--moduix-toggle-group-bg`           | `var(--moduix-muted)`  | Outline: background; ghost: transparent. |
+| `--moduix-toggle-group-border-color` | `var(--moduix-border)` | Ghost: transparent.                      |
 
 Gap, padding, border width, and radius use foundation tokens directly; override them with a class.
 Items support the public `--moduix-toggle-*` variables from `Toggle`: set them on the root to style

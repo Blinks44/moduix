@@ -1,18 +1,26 @@
 ---
 title: Listbox
 component: listbox
-description: Une listbox visible pour sélectionner un ou plusieurs éléments, avec filtrage et sélection étendue facultatifs.
+description: Afficher une liste visible d’options pour en choisir une ou plusieurs.
+ark: https://ark-ui.com/docs/components/listbox
 ---
 
+import AnatomyScene from '@/components/examples/listbox/basic';
 import * as ListboxDocs from '@/components/examples/listbox/css-properties';
-import ListboxSelectAll from '@/components/examples/listbox/select-all.tsx';
-import listboxSolidSelectAll from '../../../snippets/listbox/solid/select-all.tsx?raw';
-import listboxVueSelectAll from '../../../snippets/listbox/vue/select-all.vue?raw';
-import listboxVueSelectAllPart from '../../../snippets/listbox/vue/SelectAllMeta.vue?raw';
 
-## Référence de l’API
+<Example name="listbox/basic" />
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/listbox" />
+## Installation
+
+<ComponentInstall />
+
+## Utilisation
+
+<Usage />
+
+Passez une `collection`, rendez `ListboxContent` et transmettez chaque élément de la collection à
+`ListboxItem` via `item`. Ajoutez `ListboxItemIndicator` lorsque les lignes doivent afficher leur
+état sélectionné.
 
 ## Choisir le bon composant
 
@@ -21,98 +29,97 @@ Utilisez `Listbox` lorsque les options doivent rester visibles et que l’utilis
 contextuelle. Utilisez `Combobox` lorsqu’un champ doit permettre de rechercher ou de saisir une
 valeur dans une liste contextuelle.
 
-## Exemple de base
+## Exemples
 
+### Plusieurs sélections
 
-Passez une `collection`, rendez `ListboxContent` et transmettez chaque élément de la collection à
-`ListboxItem` via `item`. Ajoutez `ListboxItemIndicator` lorsque les lignes doivent afficher leur
-état sélectionné.
+Définissez `selectionMode="multiple"` pour activer plusieurs valeurs sans touches modificatrices.
 
-<Example name="listbox/basic" />
+<Example name="listbox/multiple" />
 
-## Installation avec shadcn
+### Groupement
 
-Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration complète du paquet, du registre et des styles.
+Définissez `groupBy` lors de la création de la collection et rendez `ListboxItemGroup` avec
+`ListboxItemGroupLabel`.
 
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
+<Example name="listbox/grouping" />
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/listbox' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/listbox' },
-  ]}
-/>
+### Élément désactivé
 
-  </Tab>
-  <Tab label="Solid" value="solid">
+Désactivez un élément individuel avec le champ `disabled` de l’élément de la collection.
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/listbox' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/listbox' },
-  ]}
-/>
+<Example name="listbox/disabled-item" />
 
-  </Tab>
-  <Tab label="Vue" value="vue">
+### Horizontal
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/listbox' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/listbox' },
-  ]}
-/>
+Définissez `orientation="horizontal"` pour disposer les éléments horizontalement et activer la
+navigation avec les flèches gauche et droite.
 
-  </Tab>
-</Tabs>
+<Example name="listbox/horizontal" />
 
-## Anatomie
+### Grille
 
-```text
-Listbox
-├─ ListboxLabel
-├─ ListboxFilter
-│  ├─ ListboxInput
-│  └─ ListboxClearTrigger
-├─ ListboxContent
-│  ├─ ListboxEmpty
-│  ├─ ListboxItemGroup
-│  │  ├─ ListboxItemGroupLabel
-│  │  └─ ListboxItem[item]
-│  │     ├─ ListboxItemText
-│  │     └─ ListboxItemIndicator
-│  └─ ListboxItem[item]
-│     ├─ ListboxItemText
-│     │  └─ ListboxItemTextContent (facultatif)
-│     │     ├─ ListboxItemTextIcon (facultatif)
-│     │     └─ ListboxItemTextLabel (facultatif)
-│     └─ ListboxItemIndicator
-└─ ListboxValueText
+Passez une collection créée avec `createGridCollection` pour activer la navigation au clavier dans
+une grille. Ark ajoute `data-layout="grid"` et la variable CSS `--column-count` à `ListboxContent`.
 
-ListboxRootProvider
-└─ même arbre d’éléments relié à un store useListbox()
-```
+<Example name="listbox/grid" />
 
-| Partie                     | Rôle                                                                                     |
-| ------------------------- | ---------------------------------------------------------------------------------------- |
-| `Listbox` | Gère la collection, les valeurs sélectionnées, l’élément mis en évidence et le mode de sélection. |
-| `ListboxRootProvider`     | Rend l’arbre de la listbox à partir de l’état renvoyé par `useListbox`.                   |
-| `ListboxLabel`            | Libellé qui fournit un nom accessible à la listbox.                                      |
-| `ListboxFilter`           | Conteneur visuel pour un champ de filtrage avec l’icône de recherche par défaut. Placez-le avant `ListboxContent`. |
-| `ListboxInput`            | Champ de filtrage, généralement placé dans `ListboxFilter`.                                    |
-| `ListboxClearTrigger`     | Bouton qui réinitialise la requête de filtrage, avec l’icône de fermeture par défaut.   |
-| `ListboxContent`          | Conteneur focalisable qui gère la navigation au clavier.                                |
-| `ListboxEmpty`            | Contenu affiché lorsque la collection filtrée ne contient aucun élément.                 |
-| `ListboxItemGroup`        | Conteneur pour des éléments liés de la collection.                                      |
-| `ListboxItemGroupLabel`   | Libellé d’un groupe d’éléments.                                                          |
-| `ListboxItem`             | Élément sélectionnable. Transmettez-lui l’élément de la collection via `item`.           |
-| `ListboxItemText`         | Texte utilisé pour l’affichage et l’accessibilité.                                      |
-| `ListboxItemTextContent`  | Conteneur facultatif pour organiser une icône et du texte dans `ListboxItemText`.               |
-| `ListboxItemTextIcon`     | Conteneur facultatif pour une icône dans `ListboxItemTextContent`.                              |
-| `ListboxItemTextLabel`    | Conteneur du texte dans `ListboxItemTextContent`, qui peut tronquer les libellés longs sans perturber la mise en page. |
-| `ListboxItemIndicator`    | Indicateur de sélection avec l’icône de coche moduix par défaut.                         |
-| `ListboxValueText`        | Résumé des valeurs sélectionnées.                                                        |
+### Texte de valeur
+
+Rendez `ListboxValueText` lorsque le résumé des valeurs sélectionnées doit rester visible à côté de
+la liste.
+
+<Example name="listbox/value-text" />
+
+### Filtrage
+
+Utilisez `ListboxFilter` avec `useListCollection`. Il ajoute l’icône de recherche par défaut et
+relie visuellement le filtre à `ListboxContent` ; désactivez le typeahead lorsque le champ gère la recherche.
+
+<Example name="listbox/filtering" />
+
+### Champ de filtre indépendant
+
+Rendez `ListboxInput` directement lorsque le champ de filtrage et les résultats doivent rester dans
+des surfaces distinctes.
+
+<Example name="listbox/standalone-filter-input" />
+
+### Tout sélectionner
+
+Utilisez `useListboxContext` dans un composant enfant pour ajouter un bouton qui met à jour la
+sélection de la listbox.
+
+<Example name="listbox/select-all" />
+
+### Sélection étendue
+
+Utilisez `selectionMode="extended"` lorsque plusieurs éléments doivent être sélectionnés avec des
+touches modificatrices.
+
+<Example name="listbox/extended-selection" />
+
+### État contrôlé
+
+Conservez le tableau de chaînes sélectionnées dans l’état de l’application et mettez-le à jour avec
+`details.value`. Voir [Contrôler l’état depuis l’application](/docs/composition-patterns#controlled-state).
+
+<Example name="listbox/controlled" />
+
+### Root Provider
+
+Utilisez `useListbox()` du paquet correspondant au framework avec `ListboxRootProvider` lorsque des
+contrôles externes doivent accéder directement au store de la listbox. Voir [Partager l’état hors de l’arbre](/docs/composition-patterns#root-provider).
+
+<Example name="listbox/root-provider" />
+
+### Assembler à partir des parties
+
+La même listbox que Basic avec la coche écrite explicitement : `ListboxItemIndicator` n’affiche une
+icône par défaut que s’il n’a pas d’enfants. Partez de cet exemple quand le design remplace la marque de
+sélection.
+
+<Example name="listbox/build-from-parts" />
 
 ## Composition
 
@@ -129,118 +136,30 @@ ne rendez pas `Listbox` pour ce même store. `ListboxInput` peut être rendu dir
 filtre doit avoir son propre conteneur, et `ListboxValueText` peut être placé après `ListboxContent` pour
 afficher un résumé des valeurs sélectionnées.
 
-## Exemples
+## Anatomie
 
-### État contrôlé
+Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
 
-Conservez le tableau de chaînes sélectionnées dans l’état de l’application et mettez-le à jour avec
-`details.value`.
-
-<Example name="listbox/controlled" />
-
-### Élément désactivé
-
-Désactivez un élément individuel avec le champ `disabled` de l’élément de la collection.
-
-<Example name="listbox/disabled-item" />
-
-### Sélection étendue
-
-Utilisez `selectionMode="extended"` lorsque plusieurs éléments doivent être sélectionnés avec des
-touches modificatrices.
-
-<Example name="listbox/extended-selection" />
-
-### Filtrage
-
-Utilisez `ListboxFilter` avec `useListCollection`. Il ajoute l’icône de recherche par défaut et
-relie visuellement le filtre à `ListboxContent` ; désactivez le typeahead lorsque le champ gère la recherche.
-
-<Example name="listbox/filtering" />
-
-### Grille
-
-Passez une collection créée avec `createGridCollection` pour activer la navigation au clavier dans
-une grille. Ark ajoute `data-layout="grid"` et la variable CSS `--column-count` à `ListboxContent`.
-
-<Example name="listbox/grid" />
-
-### Groupement
-
-Définissez `groupBy` lors de la création de la collection et rendez `ListboxItemGroup` avec
-`ListboxItemGroupLabel`.
-
-<Example name="listbox/grouping" />
-
-### Horizontal
-
-Définissez `orientation="horizontal"` pour disposer les éléments horizontalement et activer la
-navigation avec les flèches gauche et droite.
-
-<Example name="listbox/horizontal" />
-
-### Plusieurs sélections
-
-Définissez `selectionMode="multiple"` pour activer plusieurs valeurs sans touches modificatrices.
-
-<Example name="listbox/multiple" />
-
-### Root Provider
-
-Utilisez `useListbox()` du paquet correspondant au framework avec `ListboxRootProvider` lorsque des
-contrôles externes doivent accéder directement au store de la listbox.
-
-<Example name="listbox/root-provider" />
-
-### Tout sélectionner
-
-Utilisez `useListboxContext` dans un composant enfant pour ajouter un bouton qui met à jour la
-sélection de la listbox.
-
-<ExampleFrame variant="component">
-  <ListboxSelectAll />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/listbox/select-all.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={listboxSolidSelectAll} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={listboxVueSelectAll} />
-
-<CodeBlockRuntime lang="vue" code={listboxVueSelectAllPart} title="SelectAllMeta.vue" />
-
-    </Tab>
-  </Tabs>
-
-</div>
-
-</ExampleCode>
-
-### Champ de filtre indépendant
-
-Rendez `ListboxInput` directement lorsque le champ de filtrage et les résultats doivent rester dans
-des surfaces distinctes.
-
-<Example name="listbox/standalone-filter-input" />
-
-### Texte de valeur
-
-Rendez `ListboxValueText` lorsque le résumé des valeurs sélectionnées doit rester visible à côté de
-la liste.
-
-<Example name="listbox/value-text" />
+<AnatomyInspector
+  parts={[
+    ["Listbox", "listbox-root", "Gère la collection, les valeurs sélectionnées, l’élément mis en évidence et le mode de sélection.", 0],
+    ["ListboxLabel", "listbox-label", "Libellé qui fournit un nom accessible à la listbox.", 1],
+    ["ListboxFilter", "listbox-filter-icon", "Conteneur visuel pour un champ de filtrage avec l’icône de recherche par défaut. Placez-le avant `ListboxContent`.", 1],
+    ["ListboxInput", "listbox-input", "Champ de filtrage, généralement placé dans `ListboxFilter`.", 2],
+    ["ListboxClearTrigger", "listbox-clear-trigger", "Bouton qui réinitialise la requête de filtrage, avec l’icône de fermeture par défaut.", 2],
+    ["ListboxContent", "listbox-content", "Conteneur focalisable qui gère la navigation au clavier.", 1],
+    ["ListboxEmpty", "listbox-empty", "Contenu affiché lorsque la collection filtrée ne contient aucun élément.", 2],
+    ["ListboxItemGroup", "listbox-item-group", "Conteneur pour des éléments liés de la collection.", 2],
+    ["ListboxItemGroupLabel", "listbox-item-group-label", "Libellé d’un groupe d’éléments.", 3],
+    ["ListboxItem", "listbox-item", "Élément sélectionnable. Transmettez-lui l’élément de la collection via `item`.", 3],
+    ["ListboxItemText", "listbox-item-text", "Texte utilisé pour l’affichage et l’accessibilité.", 4],
+    ["ListboxItemIndicator", "listbox-item-indicator", "Indicateur de sélection avec l’icône de coche moduix par défaut.", 4],
+    ["ListboxValueText", "listbox-value-text", "Résumé des valeurs sélectionnées.", 1],
+    ["ListboxRootProvider", "listbox-root-provider", "Rend l’arbre de la listbox à partir de l’état renvoyé par `useListbox`.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styles
 
@@ -252,19 +171,68 @@ le reste avec une classe sur la partie. Les éléments, les libellés de groupe 
 suivent aussi les variables partagées `--moduix-popup-item-*`, `--moduix-popup-group-label-*` et
 `--moduix-popup-list-padding-y`.
 
-### Propriétés CSS
+### Variables CSS
 
-<CssPropertiesSection properties={ListboxDocs.listboxOverrideCssProperties} />
+Survolez ou sélectionnez une variable pour la voir dans l’aperçu.
+
+<CssPropertiesSection properties={ListboxDocs.listboxOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Points d’accroche CSS
+
+| Partie | `data-slot` |
+| --- | --- |
+| `Listbox` | `listbox-root` |
+| `ListboxRootProvider` | `listbox-root-provider` |
+| `ListboxLabel` | `listbox-label` |
+| `ListboxInput` | `listbox-input` |
+| `ListboxFilter` | `listbox-filter` |
+| `ListboxFilter`, élément interne | `listbox-filter-icon` |
+| `ListboxClearTrigger` | `listbox-clear-trigger` |
+| `ListboxContent` | `listbox-content` |
+| `ListboxEmpty` | `listbox-empty` |
+| `ListboxItemGroup` | `listbox-item-group` |
+| `ListboxItemGroupLabel` | `listbox-item-group-label` |
+| `ListboxItem` | `listbox-item` |
+| `ListboxItemText` | `listbox-item-text` |
+| `ListboxItemIndicator` | `listbox-item-indicator` |
+| `ListboxValueText` | `listbox-value-text` |
 
 - Points d’anatomie Ark : `data-scope="listbox"` et `data-part` sur la racine, le libellé, le champ,
   le contenu, le groupe d’éléments, le libellé du groupe, l’élément, son texte, son indicateur, le
   texte de valeur et l’état vide.
 - Points d’état : `data-orientation`, `data-disabled`, `data-empty`, `data-layout`,
   `data-activedescendant`, `data-value`, `data-selected`, `data-state` et `data-highlighted`.
-- Points moduix : `data-slot="listbox-root"`, `listbox-root-provider`, `listbox-label`,
-  `listbox-filter`, `listbox-filter-icon`, `listbox-input`, `listbox-clear-trigger`,
-  `listbox-content`, `listbox-empty`, `listbox-item-group`, `listbox-item-group-label`,
-  `listbox-item`, `listbox-item-text`, `listbox-item-text-content`, `listbox-item-text-icon`,
-  `listbox-item-text-label`, `listbox-item-indicator` et `listbox-value-text`.
+
+## Clavier
+
+| Touche | Action |
+| --- | --- |
+| `ArrowDown` / `ArrowUp` | Met en surbrillance l’option suivante ou précédente. |
+| `Home` / `End` | Met en surbrillance la première ou la dernière option. |
+| `Enter` / `Space` | Sélectionne l’option en surbrillance. |
+| `Ctrl+A` | Sélectionne toutes les options en mode multiple ou extended. |
+| Lettres | Met en surbrillance l’option qui commence par le texte saisi. |
+
+## Référence de l’API
+
+| Prop | Type | Défaut | Description |
+| --- | --- | --- | --- |
+| `collection` | `ListCollection<T> \| GridCollection<T>` | — | Éléments créés avec `createListCollection()` ou `createGridCollection()`. |
+| `value` | `string[]` | — | Valeurs sélectionnées en mode contrôlé. |
+| `defaultValue` | `string[]` | `[]` | Valeurs sélectionnées initiales. |
+| `onValueChange` | `(details: ValueChangeDetails) => void` | — | Appelé lorsque la sélection change. |
+| `selectionMode` | `'single' \| 'multiple' \| 'extended'` | `'single'` | `single`, `multiple` au clic ou `extended` avec Maj et Ctrl. |
+| `orientation` | `'horizontal' \| 'vertical'` | `'vertical'` | Disposition et sens des flèches : `horizontal` ou `vertical`. |
+| `loopFocus` | `boolean` | `false` | La navigation au clavier revient du dernier élément au premier. |
+| `selectOnHighlight` | `boolean` | `false` | Sélectionne un élément dès qu’il est mis en évidence. |
+| `deselectable` | `boolean` | `false` | Un clic sur l’élément sélectionné le désélectionne. |
+| `typeahead` | `boolean` | `true` | La saisie de lettres met en évidence un élément correspondant. |
+| `disallowSelectAll` | `boolean` | `false` | Désactive la sélection totale avec Ctrl ou Cmd + A. |
+| `onSelect` | `(details: SelectionDetails) => void` | — | Appelé lorsqu’un élément est sélectionné. |
+| `disabled` | `boolean` | `false` | Désactive la liste. |
+| `onHighlightChange` | `(details: HighlightChangeDetails<T>) => void` | — | Appelé lorsque l’élément mis en évidence change. |
+| `highlightedValue` | `string \| null` | — | Élément mis en évidence en mode contrôlé. |
+| `defaultHighlightedValue` | `string \| null` | — | Élément mis en évidence au départ. |
+| `scrollToIndexFn` | `(details: ScrollToIndexDetails) => void` | — | Fait défiler une liste virtualisée jusqu’à un index. |

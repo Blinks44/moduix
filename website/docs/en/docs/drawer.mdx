@@ -1,14 +1,26 @@
 ---
 title: Drawer
 component: drawer
-description: An accessible edge panel for navigation, forms, bottom sheets, snap points, and swipe-driven workflows in React, Solid, and Vue.
+description: Slide a panel in from a screen edge, with swipe and snap points.
+ark: https://ark-ui.com/docs/components/drawer
 ---
 
+import AnatomyScene from '@/components/examples/drawer/anatomy';
 import * as DrawerDocs from '@/components/examples/drawer/css-properties';
 
-## API Reference
+<Example name="drawer/basic" />
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/drawer" />
+## Installation
+
+<ComponentInstall />
+
+## Usage
+
+<Usage />
+
+Compose the drawer from Ark's structural parts. This example opens at a compact snap point, then lets
+the user drag it to full height. `DrawerContent` is the interactive surface, `DrawerPositioner`
+places it, and `DrawerBackdrop` provides the modal layer.
 
 ## Choosing the right component
 
@@ -16,97 +28,109 @@ Use `Drawer` for a panel that slides in from the edge of the viewport. It works 
 forms, mobile bottom sheets, and workflows where users need to drag the panel or move between snap
 points. Choose `Dialog` for a centered surface that does not need to be dragged.
 
-## Basic
+## Examples
 
+### Swipe direction
 
-Compose the drawer from Ark's structural parts. This example opens at a compact snap point, then lets
-the user drag it to full height. `DrawerContent` is the interactive surface, `DrawerPositioner`
-places it, and `DrawerBackdrop` provides the modal layer.
+Use logical `start` and `end` values for side drawers so the same code works in LTR and RTL. Use `up`
+for a top drawer and `down` for a bottom drawer.
 
-<Example name="drawer/basic" />
+<Example name="drawer/swipe-direction" />
 
-## Install with shadcn
+### Sizes
 
-See [Quick Start](/docs/quick-start) for full package setup, registry configuration, and styling guidance.
+Set `size` on `DrawerContent` to `sm`, `md` (default), `lg`, or `xl` to choose the width of a
+`start` or `end` drawer: 18rem, 22rem, 28rem, or 36rem. On narrow screens the drawer still leaves
+a gap at the opposite edge. Top and bottom drawers take the full width, and their height comes from
+snap points.
 
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
+<Example name="drawer/sizes" />
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/drawer' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/drawer' },
-  ]}
-/>
+### Snap points
 
-  </Tab>
-  <Tab label="Solid" value="solid">
+Set intermediate positions on the root and choose the initial position with `defaultSnapPoint`.
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/drawer' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/drawer' },
-  ]}
-/>
+<Example name="drawer/snap-points" />
 
-  </Tab>
-  <Tab label="Vue" value="vue">
+### Scrollable
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/drawer' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/drawer' },
-  ]}
-/>
+Put long content in `DrawerBody`. Use `ScrollArea` when the drawer should have a dedicated scroll
+container while the grabber and header stay fixed.
 
-  </Tab>
-</Tabs>
+<Example name="drawer/scrollable" />
 
-## Anatomy
+### Floating grabber
 
-```text
-Drawer
-├─ DrawerTrigger
-├─ DrawerSwipeArea (optional)
-├─ DrawerBackdrop
-└─ DrawerPositioner
-   └─ DrawerContent
-      ├─ DrawerGrabber
-      │  └─ DrawerGrabberIndicator
-      ├─ DrawerHeader (optional layout helper)
-      │  ├─ DrawerTitle
-      │  ├─ DrawerDescription
-      │  └─ DrawerCloseIcon (optional helper)
-      ├─ DrawerBody (optional layout helper)
-      └─ DrawerFooter (optional layout helper)
+Place `DrawerGrabber` above the surface when the handle should appear as a separate control. The
+styling in this example leaves a 10px gap between the handle and the drawer edge.
 
-DrawerRootProvider
-└─ same part tree connected to a useDrawer() store
-```
+<Example name="drawer/floating-grabber" />
 
-| Part | Role |
-| --- | --- |
-| `Drawer` | Root part that owns open state, snap points, and swipe behavior. |
-| `DrawerRootProvider` | Connects the parts to state created with `useDrawer()`. |
-| `DrawerTrigger` | Opens the drawer. |
-| `DrawerSwipeArea` | Optional edge region that opens the drawer on swipe. |
-| `DrawerBackdrop` | Modal backdrop layer. |
-| `DrawerPositioner` | Positions the drawer content. |
-| `DrawerContent` | Interactive surface of the drawer. |
-| `DrawerGrabber` | Container for the drag handle. |
-| `DrawerGrabberIndicator` | Visual indicator inside the drag handle. |
-| `DrawerTitle` | Accessible title for the drawer. |
-| `DrawerDescription` | Accessible description for the drawer. |
-| `DrawerCloseTrigger` | Closes the drawer. |
-| `DrawerCloseIcon` | Moduix close control composed from `DrawerCloseTrigger`. |
-| `DrawerStack` | Coordinates nested drawers and indented surfaces. |
-| `DrawerIndent` | Surface that moves back when a stacked drawer opens. |
-| `DrawerIndentBackground` | Background behind an indented surface. |
-| `DrawerHeader`, `DrawerBody`, `DrawerFooter` | Optional layout helpers with no state of their own. |
+### Drag controls
+
+Add `data-no-drag` to interactive regions that must not start a drag. Set `draggable={false}` on
+`DrawerContent` when the drawer should move only from the grabber.
+
+<Example name="drawer/drag-controls" />
+
+### Indent background
+
+`DrawerStack` uses Ark stack state and swipe progress to move `DrawerIndentBackground` and `DrawerIndent` together.
+
+<Example name="drawer/indent-background" />
+
+### Island
+
+Set `variant="island"` on `DrawerContent` when a compact drawer should sit inside the viewport with
+an inset instead of extending visually past the edge where it opens.
+
+<Example name="drawer/island" />
+
+### Non-modal
+
+Set `modal={false}` when the page must remain interactive while the drawer is open. This example
+keeps the drawer draggable from its grabber while `ScrollArea` scrolls the long content viewport.
+
+<Example name="drawer/non-modal" />
+
+### Nested
+
+Use separate Ark `useDrawer` instances and separate moduix `DrawerRootProvider` trees for nested
+drawers. Each drawer then keeps its own open state and focus lifecycle.
+
+<Example name="drawer/nested" />
+
+### Multiple triggers
+
+Give each trigger a `value` to reuse one drawer for a list. The callback tells you which trigger is
+active.
+
+<Example name="drawer/multiple-triggers" />
+
+### Controlled
+
+Read `details.open` from the Ark callback. The callback receives a details object, not a boolean directly. See [Control state from the application](/docs/composition-patterns#controlled-state).
+
+<Example name="drawer/controlled" />
+
+### Root provider
+
+Use the moduix `useDrawer` export when buttons outside the drawer tree need to open it or change its
+snap points. See [Share state outside the tree](/docs/composition-patterns#root-provider).
+
+<Example name="drawer/root-provider" />
+
+### Build from parts
+
+The same drawer as Basic, without `DrawerHeader`, `DrawerBody`, `DrawerFooter`, and
+`DrawerCloseIcon`: plain layout elements and `DrawerCloseTrigger` around `CloseButton` with an
+explicit icon. Start here when a design changes the layout or the close control.
+
+<Example name="drawer/build-from-parts" />
 
 ## Composition
 
-`Drawer` owns its state by default and renders `DrawerBackdrop` and `DrawerPositioner` through a portal. Keep
+`Drawer` manages its state by default and renders `DrawerBackdrop` and `DrawerPositioner` through a portal. Keep
 those structural parts explicit. Set `portalled={false}` to render them inline, or pass `portalRef`
 to use a custom container.
 
@@ -120,104 +144,33 @@ Solid uses a render function that spreads `props()` onto the child, and Vue uses
 attribute with a single child element. Ark callbacks receive detail
 objects, such as `details.open`, `details.snapPoint`, and `details.value`.
 
-## Examples
+## Anatomy
 
-### Controlled
+Hover or focus a part to find it in the preview.
 
-Read `details.open` from the Ark callback. The callback receives a details object, not a boolean directly.
-
-<Example name="drawer/controlled" />
-
-### Drag Controls
-
-Add `data-no-drag` to interactive regions that must not start a drag. Set `draggable={false}` on
-`DrawerContent` when the drawer should move only from the grabber.
-
-<Example name="drawer/drag-controls" />
-
-### Floating Grabber
-
-Place `DrawerGrabber` above the surface when the handle should appear as a separate control. The
-styling in this example leaves a 10px gap between the handle and the drawer edge.
-
-<Example name="drawer/floating-grabber" />
-
-### Indent Background
-
-`DrawerStack` uses Ark stack state and swipe progress to move `DrawerIndentBackground` and `DrawerIndent` together.
-
-<Example name="drawer/indent-background" />
-
-### Island
-
-Set `variant="island"` on `DrawerContent` when a compact drawer should sit inside the viewport with
-an inset instead of extending visually past the edge where it opens.
-
-<Example name="drawer/island" />
-
-### Multiple Triggers
-
-Give each trigger a `value` to reuse one drawer for a list. The callback tells you which trigger is
-active.
-
-<Example name="drawer/multiple-triggers" />
-
-### Nested
-
-Use separate Ark `useDrawer` instances and separate moduix `DrawerRootProvider` trees for nested
-drawers. Each drawer then keeps its own open state and focus lifecycle.
-
-<Example name="drawer/nested" />
-
-### Non-Modal
-
-Set `modal={false}` when the page must remain interactive while the drawer is open. This example
-keeps the drawer draggable from its grabber while `ScrollArea` owns the long content viewport.
-
-<Example name="drawer/non-modal" />
-
-### Root Provider
-
-Use the moduix `useDrawer` export when buttons outside the drawer tree need to open it or change its
-snap points.
-
-<Example name="drawer/root-provider" />
-
-### Scrollable
-
-Put long content in `DrawerBody`. Use `ScrollArea` when the drawer should have a dedicated scroll
-container while the grabber and header stay fixed.
-
-<Example name="drawer/scrollable" />
-
-### Sizes
-
-Set `size` on `DrawerContent` to `sm`, `md` (default), `lg`, or `xl` to choose the width of a
-`start` or `end` drawer: 18rem, 22rem, 28rem, or 36rem. On narrow screens the drawer still leaves
-a gap at the opposite edge. Top and bottom drawers take the full width, and their height comes from
-snap points.
-
-<Example name="drawer/sizes" />
-
-### Snap Points
-
-Set intermediate positions on the root and choose the initial position with `defaultSnapPoint`.
-
-<Example name="drawer/snap-points" />
-
-### Swipe Direction
-
-Use logical `start` and `end` values for side drawers so the same code works in LTR and RTL. Use `up`
-for a top drawer and `down` for a bottom drawer.
-
-<Example name="drawer/swipe-direction" />
-
-### Advanced Customization
-
-Skip the optional `DrawerHeader`, `DrawerBody`, `DrawerFooter`, and `DrawerCloseIcon` helpers when a custom layout needs the
-full low-level Drawer anatomy.
-
-<Example name="drawer/advanced-customization" />
+<AnatomyInspector
+  parts={[
+    ["Drawer", null, "Root part that manages open state, snap points, and swipe behavior.", 0],
+    ["DrawerTrigger", "drawer-trigger", "Opens the drawer.", 1],
+    ["DrawerSwipeArea", "drawer-swipe-area", "Optional edge region that opens the drawer on swipe.", 1],
+    ["DrawerBackdrop", "drawer-backdrop", "Modal backdrop layer.", 1],
+    ["DrawerPositioner", "drawer-positioner", "Positions the drawer content.", 1],
+    ["DrawerContent", "drawer-content", "Interactive surface of the drawer.", 2],
+    ["DrawerGrabber", "drawer-grabber", "Container for the drag handle.", 3],
+    ["DrawerGrabberIndicator", "drawer-grabber-indicator", "Visual indicator inside the drag handle.", 4],
+    ["DrawerHeader, DrawerBody, DrawerFooter", "drawer-header", "Optional layout helpers with no state of their own.", 3],
+    ["DrawerTitle", "drawer-title", "Accessible title for the drawer.", 4],
+    ["DrawerCloseIcon", "drawer-close-icon", "moduix close control composed from `DrawerCloseTrigger`.", 4],
+    ["DrawerDescription", "drawer-description", "Accessible description for the drawer.", 4],
+    ["DrawerCloseTrigger", "drawer-close-trigger", "Closes the drawer.", 3],
+    ["DrawerStack", "", "Coordinates nested drawers and indented surfaces.", 0],
+    ["DrawerIndent", "drawer-indent", "Surface that moves back when a stacked drawer opens.", 0],
+    ["DrawerIndentBackground", "drawer-indent-background", "Background behind an indented surface.", 1],
+    ["DrawerRootProvider", null, "Connects the parts to state created with `useDrawer()`.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styling
 
@@ -227,16 +180,35 @@ together with moduix `data-slot` selectors. Tailwind variants use native utiliti
 classes; the component variables below customize the CSS Modules variants. Data attributes and
 `data-slot` hooks are shared by both styling tracks.
 
-### CSS Properties
+### CSS variables
 
-<CssPropertiesSection properties={DrawerDocs.drawerOverrideCssProperties} />
+Hover or focus a variable to see it in the preview.
+
+<CssPropertiesSection properties={DrawerDocs.drawerOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Styling hooks
 
-- moduix `data-slot` values: `drawer-trigger`, `drawer-backdrop`, `drawer-positioner`, `drawer-content`,
-  `drawer-grabber`, `drawer-grabber-indicator`, `drawer-title`, `drawer-description`,
-  `drawer-close-trigger`, `drawer-close-icon`, `drawer-swipe-area`, `drawer-indent`,
-  `drawer-indent-background`, `drawer-header`, `drawer-body`, and `drawer-footer`.
+| Part | `data-slot` |
+| --- | --- |
+| `DrawerTrigger` | `drawer-trigger` |
+| `DrawerBackdrop` | `drawer-backdrop` |
+| `DrawerPositioner` | `drawer-positioner` |
+| `DrawerContent` | `drawer-content` |
+| `DrawerGrabber` | `drawer-grabber` |
+| `DrawerGrabberIndicator` | `drawer-grabber-indicator` |
+| `DrawerTitle` | `drawer-title` |
+| `DrawerDescription` | `drawer-description` |
+| `DrawerCloseTrigger` | `drawer-close-trigger` |
+| `DrawerCloseIcon` | `drawer-close-icon` |
+| `DrawerSwipeArea` | `drawer-swipe-area` |
+| `DrawerIndent` | `drawer-indent` |
+| `DrawerIndentBackground` | `drawer-indent-background` |
+| `DrawerHeader` | `drawer-header` |
+| `DrawerBody` | `drawer-body` |
+| `DrawerFooter` | `drawer-footer` |
+
 - `DrawerContent` writes `data-size` (default `md`) and `data-variant="island"` when its island
   presentation is active.
 - Ark part hooks: `data-scope="drawer"` with `data-part`.
@@ -255,3 +227,45 @@ classes; the component variables below customize the CSS Modules variants. Data 
   `--moduix-backdrop-filter`.
 - Top and bottom drawers are capped at `max-height: 80dvh`; set another `max-height` with a class on
   `DrawerContent`.
+
+## Keyboard
+
+| Key | Action |
+| --- | --- |
+| `Enter` / `Space` | Opens it from the focused trigger. |
+| `Tab` / `Shift+Tab` | Moves focus between controls; focus stays inside while open. |
+| `Esc` | Closes it and returns focus to the trigger. |
+
+## API reference
+
+Props of `Drawer`. `size` (`'sm' | 'md' | 'lg' | 'xl'`, default `'md'`) and `variant` (`'island'`) go on `DrawerContent`.
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `open` | `boolean` | — | Open state for controlled use. |
+| `defaultOpen` | `boolean` | `false` | Initial open state when it is not controlled. |
+| `onOpenChange` | `(details: OpenChangeDetails) => void` | — | Called when it opens or closes. |
+| `swipeDirection` | `'up' \| 'down' \| 'start' \| 'end'` | `'down'` | Direction that closes the drawer: `up`, `down`, `start`, or `end`. |
+| `snapPoints` | `(number \| string)[]` | `[1]` | Heights the drawer can rest at, as fractions or CSS lengths. |
+| `snapPoint` | `number \| string \| null` | — | Active snap point for controlled use. |
+| `defaultSnapPoint` | `number \| string \| null` | `1` | Initial snap point. |
+| `onSnapPointChange` | `(details: SnapPointChangeDetails) => void` | — | Called when the drawer settles on another snap point. |
+| `snapToSequentialPoints` | `boolean` | `false` | Moves one snap point at a time instead of skipping on fast swipes. |
+| `closeThreshold` | `number` | `0.25` | Share of the height a swipe must cover to close. |
+| `modal` | `boolean` | `true` | Blocks interaction outside and hides the rest of the page from assistive technology. |
+| `closeOnEscape` | `boolean` | `true` | Closes on Escape. |
+| `closeOnInteractOutside` | `boolean` | `true` | Closes on a click outside. |
+| `lazyMount` | `boolean` | `true` | Mounts the content on first open. |
+| `unmountOnExit` | `boolean` | `true` | Unmounts the content after it closes. |
+| `trapFocus` | `boolean` | `true` | Keeps keyboard focus inside while open. |
+| `preventScroll` | `boolean` | `true` | Locks page scroll while open. |
+| `initialFocusEl` | `() => MaybeElement \| false` | — | Returns the element to focus on open. |
+| `finalFocusEl` | `() => MaybeElement` | — | Returns the element to focus on close. |
+| `restoreFocus` | `boolean` | `true` | Returns focus to the previously focused element on close. |
+| `role` | `'dialog' \| 'alertdialog'` | `'dialog'` | `dialog`, or `alertdialog` for urgent confirmations. |
+| `triggerValue` | `string \| null` | — | Active trigger for controlled use when several triggers share one popup. |
+| `defaultTriggerValue` | `string \| null` | — | Initially active trigger. |
+| `onTriggerValueChange` | `(details: TriggerValueChangeDetails) => void` | — | Called when another trigger becomes active. |
+| `swipeVelocityThreshold` | `number` | `700` | Swipe speed that closes the drawer, in pixels per second. |
+| `preventDragOnScroll` | `boolean` | `true` | Scrolls inner content instead of dragging the drawer. |
+| `stack` | `DrawerStack` | — | Shared store that styles stacked drawers together. |

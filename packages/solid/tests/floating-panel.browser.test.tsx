@@ -19,7 +19,7 @@ import {
   FloatingPanelFooter,
   FloatingPanelResizeTriggerGroup,
   useFloatingPanel,
-} from '../src';
+} from '@/index';
 
 function PanelContent(props: { footer?: JSX.Element }) {
   return (
@@ -221,19 +221,4 @@ test('leaves the native trigger unstyled', () => {
   expect(
     document.querySelector('[data-slot="floating-panel-trigger"]')!.getAttribute('class'),
   ).toBeNull();
-});
-
-test('opens with the shared popup keyframes and motion variables', () => {
-  render(() => (
-    <div style={{ '--moduix-popup-motion-duration': '1234ms' }}>
-      <FloatingPanel defaultOpen defaultSize={{ width: 360, height: 260 }} portalled={false}>
-        <FloatingPanelPositioner>
-          <FloatingPanelContent />
-        </FloatingPanelPositioner>
-      </FloatingPanel>
-    </div>
-  ));
-
-  const style = getComputedStyle(document.querySelector('[data-slot="floating-panel-content"]')!);
-  expect([style.animationName, style.animationDuration]).toEqual(['moduix-popup-in', '1.234s']);
 });

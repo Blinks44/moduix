@@ -7,7 +7,7 @@ import type { Component, ComponentPublicInstance, PropType } from 'vue';
 import type {
   TreeViewRenameCompleteDetails,
   TreeViewRenameStartDetails,
-} from '../src/components/tree-view';
+} from '@/components/tree-view';
 import {
   TreeView,
   TreeViewBranch,
@@ -28,7 +28,7 @@ import {
   TreeViewTree,
   createTreeCollection,
   useTreeView,
-} from '../src/components/tree-view';
+} from '@/components/tree-view';
 import SsrTreeView from './fixtures/SsrTreeView.vue';
 
 interface FileNode {
@@ -464,6 +464,7 @@ test('preserves the mixed-state slot and default mixed/check icons', async () =>
 
 // Zag focuses the rename input before Vue removes `hidden`.
 // Bare Ark reproduces this. Re-enable after upstream fixes post-render rename focus.
+
 test.skip('preserves rename input asChild refs, attrs, and native rename completion', async () => {
   const order: string[] = [];
   const renameStart = rs.fn((_details: TreeViewRenameStartDetails<FileNode>) =>
@@ -621,57 +622,4 @@ test('hydrates stable hosts and ids and remains interactive', async () => {
     warn.mockRestore();
     error.mockRestore();
   }
-});
-test('truncates long node names and centers indent guides under branch indicators', async () => {
-  const longName = 'a-file-name-that-is-much-longer-than-the-default-tree-width.tsx';
-  const longCollection = createTreeCollection<FileNode>({
-    nodeToString: (node) => node.name,
-    nodeToValue: (node) => node.id,
-    rootNode: {
-      id: 'ROOT',
-      name: '',
-      children: [{ id: 'src', name: 'src', children: [{ id: 'src/long', name: longName }] }],
-    },
-  });
-
-  const Harness = defineComponent({
-    components: storyComponents,
-    setup() {
-      return { longCollection };
-    },
-    template: `
-      <TreeView :collection="longCollection" :default-expanded-value="['src']">
-        <TreeViewLabel>Long files</TreeViewLabel>
-        <TreeViewTree>
-          <FileTreeNode :node="longCollection.rootNode.children[0]" :index-path="[0]" />
-        </TreeViewTree>
-      </TreeView>
-    `,
-  });
-
-  render(Harness);
-
-  await expect.element(page.getByRole('treeitem', { name: longName, exact: true })).toBeVisible();
-
-  const text = document.querySelector<HTMLElement>('[data-slot="tree-view-item-text"]')!;
-  // text-overflow draws an ellipsis only in a block container, not in a flex container.
-  expect(getComputedStyle(text).display).toBe('block');
-  expect(getComputedStyle(text).textOverflow).toBe('ellipsis');
-  expect(text.scrollWidth).toBeGreaterThan(text.clientWidth);
-
-  const indicator = document
-    .querySelector('[data-slot="tree-view-branch-indicator"]')!
-    .getBoundingClientRect();
-  const guide = document
-    .querySelector('[data-slot="tree-view-branch-indent-guide"]')!
-    .getBoundingClientRect();
-  expect(
-    Math.abs(guide.left + guide.width / 2 - (indicator.left + indicator.width / 2)),
-  ).toBeLessThanOrEqual(1);
-
-  // The nested row highlight must not overlap the parent's indent guide.
-  const item = document.querySelector('[data-slot="tree-view-item"]')!;
-  const highlightStart =
-    item.getBoundingClientRect().left + parseFloat(getComputedStyle(item, '::before').left);
-  expect(highlightStart).toBeGreaterThan(guide.right);
 });

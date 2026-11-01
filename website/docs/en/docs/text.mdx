@@ -1,16 +1,24 @@
 ---
 title: Text
 component: text
-description: A typography component for body text, inline content, semantic emphasis, and truncated previews.
+description: Set body text, captions, and inline copy on the type scale.
+ark: https://ark-ui.com/docs/guides/composition#the-ark-factory
 ---
 
+import AnatomyScene from '@/components/examples/text/basic';
 
-## API Reference
+<Example name="text/basic" />
 
-Ark UI does not provide a dedicated `Text` component. moduix provides this typography component
-with the official [Ark factory](https://ark-ui.com/docs/guides/composition#the-ark-factory) and follows Ark's
-[composition](https://ark-ui.com/docs/guides/composition), [styling](https://ark-ui.com/docs/guides/styling), and
-[ref](https://ark-ui.com/docs/guides/ref) guidance.
+## Installation
+
+<ComponentInstall />
+
+## Usage
+
+<Usage />
+
+Use the default `p` root for a paragraph. Pass `as` when the content needs a different semantic HTML
+element but should keep `Text`'s typography styles.
 
 ## Choosing the right component
 
@@ -21,84 +29,7 @@ on moduix's typography scale.
 - Choose **`Text`** when content should keep paragraph or inline semantics while using body-text styles.
 - Use local CSS when the concern is rich text layout, spacing, or disclosure around clamped text.
 
-## Basic
-
-
-Use the default `p` root for a paragraph. Pass `as` when the content needs a different semantic HTML
-element but should keep `Text`'s typography styles.
-
-<Example name="text/basic" />
-
-## Install with shadcn
-
-See [Quick Start](/docs/quick-start) for full package setup, registry configuration, and styling guidance.
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/text' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/text' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/text' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/text' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/text' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/text' },
-  ]}
-/>
-
-  </Tab>
-  </Tabs>
-
-## Anatomy
-
-`Text` renders a single root element using Ark's factory through the flat root export.
-
-```text
-Text
-└─ text or inline content
-```
-
-| Part                 | Role                                                             |
-| -------------------- | ---------------------------------------------------------------- |
-| `Text`              | Typography root with semantic HTML and stable data attributes. |
-
-## Composition
-
-`Text` is root-only and owns no state or child parts. Use `<Text>` for the root,
-`as` for a supported semantic element, and `asChild` only when one existing element should receive
-the text props and ref. Truncation only constrains rendering, so disclosure state and its control stay
-in the surrounding UI.
-
 ## Examples
-
-### Alignment
-
-Use `align` when alignment belongs to the text rather than its surrounding layout container.
-
-<Example name="text/alignment" />
-
-### Semantics
-
-Use `as` to choose a semantic HTML element while keeping `Text`'s typography styles.
-
-<Example name="text/semantics" />
 
 ### Size
 
@@ -106,11 +37,23 @@ Use `size` to change the visual hierarchy without switching to a different typog
 
 <Example name="text/size" />
 
+### Weight
+
+Use `weight` when the emphasis should stay within the same semantic element.
+
+<Example name="text/weight" />
+
 ### Tone
 
 Use `tone` to express the role of the copy without adding local color classes.
 
 <Example name="text/tone" />
+
+### Alignment
+
+Use `align` when alignment belongs to the text rather than its surrounding layout container.
+
+<Example name="text/alignment" />
 
 ### Truncation
 
@@ -120,18 +63,39 @@ expansion or disclosure behavior in the surrounding UI.
 
 <Example name="text/truncation" />
 
-### Weight
+### Semantics
 
-Use `weight` when the emphasis should stay within the same semantic element.
+Use `as` to choose a semantic HTML element while keeping `Text`'s typography styles.
 
-<Example name="text/weight" />
+<Example name="text/semantics" />
 
-### Advanced Customization
+### Custom element
 
 Use `asChild` when the root should be an existing custom element instead of one of the supported
 intrinsic `as` values. The child must be a single element that accepts the forwarded props and ref.
 
-<Example name="text/custom-composition" />
+<Example name="text/custom-element" />
+
+## Composition
+
+`Text` is root-only and has no state or child parts. Use `<Text>` for the root,
+`as` for a supported semantic element, and `asChild` only when one existing element should receive
+the text props and ref. Truncation only constrains rendering, so disclosure state and its control stay
+in the surrounding UI.
+
+## Anatomy
+
+`Text` renders a single root element using Ark's factory through the flat root export.
+
+Hover or focus a part to find it in the preview.
+
+<AnatomyInspector
+  parts={[
+    ["Text", "text-root", "Typography root with semantic HTML and stable data attributes.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styling
 
@@ -141,8 +105,11 @@ component variables: a class on the root overrides the layered component styles.
 
 ### Styling hooks
 
+| Part | `data-slot` |
+| --- | --- |
+| `Text` | `text-root` |
+
 - `data-scope="text"` and `data-part="root"` identify the Ark-style root.
-- `data-slot="text-root"` is the stable moduix selector on the exported root.
 - `data-size` reflects the resolved visual size: `xs`, `sm`, `md`, `lg`, or `xl`.
 - `data-weight` reflects the resolved weight preset: `regular`, `medium`, `semibold`, or `bold`.
 - `data-tone` reflects the active tone preset: `default`, `muted`, `primary`, or
@@ -152,3 +119,17 @@ component variables: a class on the root overrides the layered component styles.
 - `data-truncate` appears when single-line ellipsis is active.
 - `data-line-clamp` appears when `lineClamp` is a positive integer; the line count is set inline as
   `-webkit-line-clamp`.
+
+## API reference
+
+Also accepts the native props of its element and `asChild`.
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `as` | `'p' \| 'span' \| 'small' \| 'strong' \| 'em' \| 'div'` | `'p'` | Rendered element: `p`, `span`, `small`, `strong`, `em`, or `div`. |
+| `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'` | — | Text size, `xs` to `xl`. |
+| `weight` | `'regular' \| 'medium' \| 'semibold' \| 'bold'` | — | Font weight: `regular`, `medium`, `semibold`, or `bold`. |
+| `tone` | `'default' \| 'muted' \| 'primary' \| 'destructive'` | `'default'` | Text color: `default`, `muted`, `primary`, or `destructive`. |
+| `align` | `'start' \| 'center' \| 'end' \| 'left' \| 'right' \| 'justify'` | — | Text alignment. |
+| `truncate` | `boolean` | `false` | Keeps the text on one line with an ellipsis. |
+| `lineClamp` | `number` | — | Limits the text to this many lines. |

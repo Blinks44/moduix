@@ -8,6 +8,7 @@ import {
   CardHeader,
   CardTitle,
 } from '@moduix/vue/card';
+import { Stack } from '@moduix/vue/stack';
 import styles from '@/components/examples/card/card-with-avatar.module.css';
 
 const person = {
@@ -21,13 +22,13 @@ const person = {
 <template>
   <Card :class="styles.root">
     <CardHeader>
-      <div :class="styles.profile">
+      <Stack direction="row" align="center" gap="3">
         <span aria-hidden="true" :class="styles.avatar">{{ person.initials }}</span>
         <div>
           <CardTitle>{{ person.name }}</CardTitle>
           <CardDescription>{{ person.handle }}</CardDescription>
         </div>
-      </div>
+      </Stack>
     </CardHeader>
     <CardBody>{{ person.message }}</CardBody>
     <CardFooter>

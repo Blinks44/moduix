@@ -1,13 +1,24 @@
 ---
 title: App header
 description: A responsive app header with one level of navigation, focused actions, and an account menu.
+block: app-header
 ---
 
 import { AppHeader } from '@/components/blocks/app-header';
 import appHeaderSolid from '../../../snippets/blocks/solid/app-header.tsx?raw';
 import appHeaderVue from '../../../snippets/blocks/vue/app-header.vue?raw';
+import appHeaderReact from '../../../src/components/blocks/app-header.tsx?raw';
+import appHeaderCss from '../../../src/components/blocks/app-header.module.css?raw';
 
 # App header
+
+<ExamplePanel
+  clientOnly
+  sources={{ react: appHeaderReact, solid: appHeaderSolid, vue: appHeaderVue }}
+  files={[{ name: 'app-header.module.css', code: appHeaderCss }]}
+>
+  <AppHeader />
+</ExamplePanel>
 
 Use this header when your application has one main navigation level and a small set of global actions.
 Its open layout keeps the product identity, current workspace, navigation, and account controls easy to
@@ -27,51 +38,6 @@ then replace the sample navigation and account data with your own.
 
 The preview runs React. The source tabs contain React, Solid, and Vue implementations with a shared stylesheet.
 
-
-
-<ExampleFrame variant="block" clientOnly>
-  <AppHeader />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/blocks/app-header.tsx"
-
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={appHeaderSolid} />
-
-    </Tab>
-  <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={appHeaderVue} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/blocks/app-header.module.css"
-
-```
-</div>
-
-</ExampleCode>
-
 ## Install
 
 <BlockInstall name="app-header" />
@@ -80,7 +46,7 @@ The preview runs React. The source tabs contain React, Solid, and Vue implementa
 
 The demo uses anchors such as `#overview`, and selecting a command updates `window.location.hash`, so
 it works without a router. Replace the anchors and command-selection handler with your router's
-navigation. Place the block in the layout that owns primary navigation and account state.
+navigation. Place the block in the layout that handles primary navigation and account state.
 
 ## Customize
 
@@ -93,7 +59,7 @@ in the [Command Palette docs](/docs/command-palette).
 | Orbit and Acme Studio      | Product home link and current workspace                                |
 | Navigation anchors         | Router links; set `aria-current="page"` from the current route         |
 | Search control             | A Command Palette trigger with routes and actions for your application |
-| Account image and details  | Authenticated user data and an application-owned image URL              |
+| Account image and details  | Authenticated user data and an image URL from your application              |
 | Account menu links         | Profile, settings, help, and other routes your users actually need      |
 
 When your router provides a `Link` component, pass it through `Button asChild` or `MenuItem asChild`

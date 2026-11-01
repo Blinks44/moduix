@@ -1,91 +1,97 @@
 ---
 title: Pagination
 component: pagination
-description: Доступная навигация по страницам для списков, таблиц, результатов поиска и других данных с пагинацией.
+description: Переход по страницам списка, таблицы или результатов поиска.
+ark: https://ark-ui.com/docs/components/pagination
 ---
 
+import AnatomyScene from '@/components/examples/pagination/basic';
 import * as PaginationDocs from '@/components/examples/pagination/css-properties';
 
-## Справочник API
+<Example name="pagination/basic" />
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/pagination" />
+## Установка
 
-## Базовый пример
+<ComponentInstall />
 
+## Использование
+
+<Usage />
 
 Используйте `Pagination` как корневой компонент. `PaginationItems` выводит кнопки страниц и многоточия
 для текущего диапазона.
 
-<Example name="pagination/basic" />
+## Примеры
 
-## Установка через shadcn
+### Диапазон элементов
 
-Полную настройку пакета, реестра и стилей см. в разделе [Быстрый старт](/docs/quick-start).
+Используйте `pagination.pageRange`, чтобы показать, какие элементы видны на текущей странице.
 
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
+<Example name="pagination/page-range" />
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/pagination' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/pagination' },
-  ]}
-/>
+### Число элементов на странице
 
-  </Tab>
-  <Tab label="Solid" value="solid">
+Вызывайте `pagination.setPageSize(nextSize)` из контекста, когда отдельный элемент управления меняет
+число элементов на странице.
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/pagination' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/pagination' },
-  ]}
-/>
+<Example name="pagination/page-size-control" />
 
-  </Tab>
-  <Tab label="Vue" value="vue">
+### Кнопки первой и последней страницы
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/pagination' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/pagination' },
-  ]}
-/>
+Добавьте `PaginationFirstTrigger` и `PaginationLastTrigger`, если пользователям нужны быстрые
+переходы к первой и последней странице.
 
-  </Tab>
-</Tabs>
+<Example name="pagination/with-edges" />
 
-## Анатомия
+### Навигация по ссылкам
 
-```text
-Pagination
-├─ PaginationFirstTrigger (необязательно)
-├─ PaginationPrevTrigger
-├─ PaginationItems (рекомендуется)
-├─ PaginationContext (расширенный доступ к состоянию через render prop)
-│  ├─ PaginationItem
-│  └─ PaginationEllipsis
-├─ PaginationNextTrigger
-└─ PaginationLastTrigger (необязательно)
+Используйте `type="link"`, `getPageUrl(details)` и якоря с `asChild`, если переход между страницами
+должен менять URL и выполнять настоящую навигацию.
 
-PaginationRootProvider
-└─ та же структура из триггеров, элементов, многоточий и контекста, подключённая к usePagination()
-```
+<Example name="pagination/link" />
 
-| Часть                             | Назначение                                                            |
-| --------------------------------- | --------------------------------------------------------------------- |
-| `Pagination`                      | Корневой компонент навигации, который управляет текущей страницей и числом элементов на странице. |
-| `PaginationRootProvider`         | Подключает части к состоянию, созданному через `usePagination()`.                     |
-| `PaginationItems`                | Выводит рассчитанные элементы страниц и многоточия.                                              |
-| `PaginationContext`              | Открывает доступ к состоянию корня и методам навигации через render prop Ark UI.                  |
-| `usePagination`        | Создаёт состояние пагинации за пределами дерева, где отображается компонент.                      |
-| `usePaginationContext` | Даёт потомку доступ к состоянию пагинации.                                                        |
-| `PaginationItem`                 | Интерактивный элемент страницы. Принимает объект страницы в качестве свойств.                    |
-| `PaginationEllipsis`             | Декоративный маркер скрытой части диапазона страниц, скрыт от вспомогательных технологий. Требует `index`.                          |
-| `PaginationPrevTrigger`          | Переходит на предыдущую страницу и отключается, когда выбрана первая страница.                    |
-| `PaginationNextTrigger`          | Переходит на следующую страницу и отключается, когда выбрана последняя страница.                  |
-| `PaginationFirstTrigger`         | Переходит на первую страницу и отключается, если она уже выбрана.                                 |
-| `PaginationLastTrigger`          | Переходит на последнюю страницу и отключается, если она уже выбрана.                              |
+### Постраничный вывод данных на клиенте
+
+Используйте `pagination.slice(data)` из контекста, чтобы на текущей странице показывать только нужную
+часть уже загруженного массива.
+
+<Example name="pagination/data-slicing" />
+
+### Локализация
+
+Передайте `translations`, чтобы настроить подписи для средств доступности. Параметры `siblingCount`,
+`boundaryCount` и параметры, задающие число элементов на странице, позволяют изменить видимый диапазон страниц.
+
+<Example name="pagination/customized" />
+
+### Управляемое состояние
+
+Передайте текущую страницу через `page` и обновляйте её в `onPageChange(details)`. Подробнее в разделе [Управляйте состоянием из приложения](/docs/composition-patterns#controlled-state).
+
+<Example name="pagination/controlled" />
+
+### Контекст
+
+Используйте `PaginationContext`, чтобы разместить собственные элементы управления рядом со списком
+страниц и вызывать методы навигации, например `goToFirstPage()` или `goToLastPage()`.
+
+<Example name="pagination/context" />
+
+### Root Provider
+
+Создайте состояние через `usePagination()` и передайте его в `PaginationRootProvider`,
+если это состояние нужно использовать за пределами дерева с пагинацией. Подробнее в разделе [Выносите состояние за пределы дерева](/docs/composition-patterns#root-provider).
+
+<Example name="pagination/root-provider" />
+
+### Сборка из частей
+
+Та же пагинация, что в Basic, но без `PaginationItems`: `PaginationContext` отдаёт страницы, и для
+каждой рисуется `PaginationItem` или `PaginationEllipsis` с явной иконкой. Передавайте объект страницы
+в `PaginationItem` без изменений, чтобы Ark сохранил состояние и доступность. Кнопки «назад» и «вперёд»
+оставляют стандартные шевроны: с дочерними элементами они становятся текстовыми кнопками.
+
+<Example name="pagination/build-from-parts" />
 
 ## Композиция
 
@@ -103,76 +109,28 @@ PaginationRootProvider
 В Vue используйте `v-model:page` и `v-model:page-size` для управляемого состояния. События
 `pageChange` и `pageSizeChange` доступны как `@page-change` и `@page-size-change`.
 
-## Примеры
+## Анатомия
 
-### Управляемое состояние
+Наведите на часть или выберите её, чтобы найти её в превью.
 
-Передайте текущую страницу через `page` и обновляйте её в `onPageChange(details)`.
-
-<Example name="pagination/controlled" />
-
-### Контекст
-
-Используйте `PaginationContext`, чтобы разместить собственные элементы управления рядом со списком
-страниц и вызывать методы навигации, например `goToFirstPage()` или `goToLastPage()`.
-
-<Example name="pagination/context" />
-
-### Постраничный вывод данных на клиенте
-
-Используйте `pagination.slice(data)` из контекста, чтобы на текущей странице показывать только нужную
-часть уже загруженного массива.
-
-<Example name="pagination/data-slicing" />
-
-### Навигация по ссылкам
-
-Используйте `type="link"`, `getPageUrl(details)` и якоря с `asChild`, если переход между страницами
-должен менять URL и выполнять настоящую навигацию.
-
-<Example name="pagination/link" />
-
-### Диапазон элементов
-
-Используйте `pagination.pageRange`, чтобы показать, какие элементы видны на текущей странице.
-
-<Example name="pagination/page-range" />
-
-### Число элементов на странице
-
-Вызывайте `pagination.setPageSize(nextSize)` из контекста, когда отдельный элемент управления меняет
-число элементов на странице.
-
-<Example name="pagination/page-size-control" />
-
-### Root Provider
-
-Создайте состояние через `usePagination()` и передайте его в `PaginationRootProvider`,
-если это состояние нужно использовать за пределами дерева с пагинацией.
-
-<Example name="pagination/root-provider" />
-
-### Локализация
-
-Передайте `translations`, чтобы настроить подписи для средств доступности. Параметры `siblingCount`,
-`boundaryCount` и параметры, задающие число элементов на странице, позволяют изменить видимый диапазон страниц.
-
-<Example name="pagination/customized" />
-
-### Кнопки первой и последней страницы
-
-Добавьте `PaginationFirstTrigger` и `PaginationLastTrigger`, если пользователям нужны быстрые
-переходы к первой и последней странице.
-
-<Example name="pagination/with-edges" />
-
-### Расширенная настройка
-
-Используйте `PaginationContext` вместо `PaginationItems`, если кнопкам страниц или многоточиям нужно
-нестандартное содержимое. Передавайте каждый объект страницы в `PaginationItem` без изменений, чтобы
-сохранить состояние и доступность Ark.
-
-<Example name="pagination/advanced-customization" />
+<AnatomyInspector
+  parts={[
+    ["Pagination", "pagination-root", "Корневой компонент навигации, который управляет текущей страницей и числом элементов на странице.", 0],
+    ["PaginationFirstTrigger", "pagination-first-trigger", "Переходит на первую страницу и отключается, если она уже выбрана.", 1],
+    ["PaginationPrevTrigger", "pagination-prev-trigger", "Переходит на предыдущую страницу и отключается, когда выбрана первая страница.", 1],
+    ["PaginationItems", "", "Выводит рассчитанные элементы страниц и многоточия.", 1],
+    ["PaginationContext", null, "Открывает доступ к состоянию корня и методам навигации через render prop Ark UI.", 1],
+    ["PaginationItem", "pagination-item", "Интерактивный элемент страницы. Принимает объект страницы в качестве свойств.", 2],
+    ["PaginationEllipsis", "pagination-ellipsis", "Декоративный маркер скрытой части диапазона страниц, скрыт от вспомогательных технологий. Требует `index`.", 2],
+    ["PaginationNextTrigger", "pagination-next-trigger", "Переходит на следующую страницу и отключается, когда выбрана последняя страница.", 1],
+    ["PaginationLastTrigger", "pagination-last-trigger", "Переходит на последнюю страницу и отключается, если она уже выбрана.", 1],
+    ["PaginationRootProvider", "pagination-root-provider", "Подключает части к состоянию, созданному через `usePagination()`.", 0],
+    ["usePagination", null, "Создаёт состояние пагинации за пределами дерева, где отображается компонент.", 0],
+    ["usePaginationContext", null, "Даёт потомку доступ к состоянию пагинации.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Стилизация
 
@@ -185,11 +143,26 @@ moduix сохраняет атрибуты состояния Ark и добав�
 `PaginationItem`. CSS-переменная ниже задаёт общий размер страниц, многоточий и кнопок в вариантах CSS
 Modules.
 
-### CSS-свойства
+### CSS-переменные
 
-<CssPropertiesSection properties={PaginationDocs.paginationOverrideCssProperties} />
+Наведите на переменную или выберите её, чтобы увидеть её в превью.
+
+<CssPropertiesSection properties={PaginationDocs.paginationOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Хуки стилизации
+
+| Часть | `data-slot` |
+| --- | --- |
+| `Pagination` | `pagination-root` |
+| `PaginationRootProvider` | `pagination-root-provider` |
+| `PaginationItem` | `pagination-item` |
+| `PaginationEllipsis` | `pagination-ellipsis` |
+| `PaginationPrevTrigger` | `pagination-prev-trigger` |
+| `PaginationNextTrigger` | `pagination-next-trigger` |
+| `PaginationFirstTrigger` | `pagination-first-trigger` |
+| `PaginationLastTrigger` | `pagination-last-trigger` |
 
 - `data-scope="pagination"` и `data-part="item"` на `PaginationItem`
 - `data-scope="pagination"` и `data-part="prev-trigger"` на `PaginationPrevTrigger`
@@ -197,6 +170,20 @@ Modules.
 - `data-scope="pagination"` и `data-part="first-trigger"` или `data-part="last-trigger"` на крайних триггерах
 - `data-selected` на активном элементе страницы
 - `data-disabled` на недоступных триггерах
-- `data-slot="pagination-root"`, `pagination-root-provider`, `pagination-item`,
-  `pagination-ellipsis`, `pagination-prev-trigger`, `pagination-next-trigger`,
-  `pagination-first-trigger` и `pagination-last-trigger` для переопределения стилей moduix
+
+## Справочник API
+
+| Проп | Тип | По умолчанию | Описание |
+| --- | --- | --- | --- |
+| `count` | `number` | — | Общее число записей, а не страниц. |
+| `page` | `number` | — | Текущая страница в управляемом режиме. |
+| `defaultPage` | `number` | `1` | Начальная страница. |
+| `onPageChange` | `(details: PageChangeDetails) => void` | — | Вызывается при смене страницы. |
+| `pageSize` | `number` | — | Записей на странице в управляемом режиме. |
+| `defaultPageSize` | `number` | `10` | Начальное число записей на странице. |
+| `onPageSizeChange` | `(details: PageSizeChangeDetails) => void` | — | Вызывается при изменении размера страницы. |
+| `siblingCount` | `number` | `1` | Сколько страниц показывать по бокам от текущей. |
+| `boundaryCount` | `number` | `1` | Сколько страниц всегда видно в начале и в конце. |
+| `type` | `'button' \| 'link'` | `'button'` | Отрисовывает страницы кнопками (`button`) или ссылками (`link`). |
+| `getPageUrl` | `(details: PageUrlDetails) => string` | — | Строит `href` каждой страницы при `type="link"`. |
+| `translations` | `IntlTranslations` | — | Переведённые строки для подписей доступности. |

@@ -3,12 +3,12 @@ import type { CssProperty } from '../../mdx/reference';
 export const avatarCssProperties = [
   {
     name: '--moduix-avatar-bg',
-    defaultValue: 'var(--moduix-color-muted)',
+    defaultValue: 'var(--moduix-muted)',
     description: 'Controls avatar background color.',
   },
   {
     name: '--moduix-avatar-color',
-    defaultValue: 'var(--moduix-color-foreground)',
+    defaultValue: 'var(--moduix-foreground)',
     description: 'Controls avatar text color.',
   },
   {

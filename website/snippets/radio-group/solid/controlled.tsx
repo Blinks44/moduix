@@ -1,6 +1,6 @@
 import { RadioGroup, RadioGroupLabel, RadioGroupOption } from '@moduix/solid/radio-group';
+import { Stack } from '@moduix/solid/stack';
 import { createSignal } from 'solid-js';
-import styles from '@/components/examples/radio-group/radio-group-controlled.module.css';
 
 const frameworks = ['React', 'Solid', 'Vue'];
 
@@ -8,7 +8,7 @@ export default function ControlledRadioGroupDemo() {
   const [value, setValue] = createSignal<string | null>(null);
 
   return (
-    <div class={styles.stack}>
+    <Stack align="center" gap="2">
       <RadioGroup value={value()} onValueChange={(details) => setValue(details.value)}>
         <RadioGroupLabel>Framework</RadioGroupLabel>
         {frameworks.map((framework) => (
@@ -16,6 +16,6 @@ export default function ControlledRadioGroupDemo() {
         ))}
       </RadioGroup>
       <output>Selected: {value() ?? 'none'}</output>
-    </div>
+    </Stack>
   );
 }

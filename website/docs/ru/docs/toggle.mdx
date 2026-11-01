@@ -1,17 +1,24 @@
 ---
 title: Toggle
 component: toggle
-description: Кнопка с двумя состояниями для компактных действий, например добавления в избранное, сохранения, форматирования и действий на панели инструментов.
+description: Кнопка, которая включает опцию нажатием и выключает повторным.
+ark: https://ark-ui.com/docs/components/toggle
 ---
 
+import AnatomyScene from '@/components/examples/toggle/basic';
 import * as ToggleDocs from '@/components/examples/toggle/css-properties';
 
-## Справочник API
+<Example name="toggle/basic" />
 
-`Toggle` оборачивает примитив Toggle из Ark UI и добавляет визуальные свойства moduix для вариантов и размеров.
-Импортируйте его из `@moduix/react/toggle`, `@moduix/solid/toggle` или `@moduix/vue/toggle`.
+## Установка
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/toggle" />
+<ComponentInstall />
+
+## Использование
+
+<Usage />
+
+Используйте `Toggle` в обычном случае, сохраняя поведение Ark для состояния нажатия.
 
 ## Выбор подходящего компонента
 
@@ -22,66 +29,63 @@ import * as ToggleDocs from '@/components/examples/toggle/css-properties';
 - Выберите **`Checkbox`** для выбора значений в списке или форме с последующей отправкой.
 - Выберите **`ToggleGroup`**, когда несколькими кнопками нужно управлять как единым набором вариантов.
 
-## Базовый пример
+## Примеры
 
+### Варианты
 
-Используйте `Toggle` в обычном случае, сохраняя поведение Ark для состояния нажатия.
+Выберите `default`, `outline` или `ghost` в свойстве `variant`, чтобы согласовать Toggle с окружающей поверхностью.
 
-<Example name="toggle/basic" />
+<Example name="toggle/variants" />
 
-## Установка через shadcn
+### Размеры
 
-Полную настройку пакета, реестра и стилей см. в разделе [Быстрый старт](/docs/quick-start).
+Для `Toggle` с подписью используйте текстовые размеры, а для плотных рядов действий размеры кнопки только с иконкой.
 
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
+<Example name="toggle/sizes" />
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/toggle' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/toggle' },
-  ]}
-/>
+### Иконки
 
-  </Tab>
-  <Tab label="Solid" value="solid">
+Передавайте иконки как обычных дочерних элементов. Для `Toggle` только с иконкой указывайте доступное имя,
+например через `aria-label`.
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/toggle' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/toggle' },
-  ]}
-/>
+<Example name="toggle/icons" />
 
-  </Tab>
-  <Tab label="Vue" value="vue">
+### Состояние нажатия
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/toggle' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/toggle' },
-  ]}
-/>
+Используйте контекстный хук или слот с параметрами, если пользовательскому потомку нужно состояние нажатия, но менять содержимое кнопки
+через `ToggleIndicator` не требуется.
 
-  </Tab>
-</Tabs>
+<Example name="toggle/pressed-state" />
 
-## Анатомия
+### Индикатор
 
-```text
-Toggle
-└─ ToggleIndicator (необязательно)
+Используйте `ToggleIndicator`, если в нажатом и ненажатом состояниях нужно показывать разное встроенное содержимое.
 
-ToggleContext (читает состояние, но не создаёт часть DOM)
-```
+<Example name="toggle/indicator" />
 
-| Часть | Назначение |
-| ----- | ---------- |
-| `Toggle` | Корневая часть, которая управляет состоянием нажатия, фокусом, отключением и композицией через `asChild`. |
-| `ToggleIndicator` | Необязательная часть, которая показывает содержимое в нажатом состоянии и `fallback`, когда кнопка не нажата. |
-| `ToggleContext` | Читает состояние ближайшего `Toggle` для пользовательских потомков, но не создаёт часть DOM. |
+### Отключённое состояние
+
+Используйте `disabled`, чтобы запретить взаимодействие и сохранить текущее состояние нажатия.
+
+<Example name="toggle/disabled" />
+
+### Управляемое состояние
+
+Управляйте `pressed`, если `Toggle` является частью состояния приложения, аналитики или другого взаимодействия. Подробнее в разделе [Управляйте состоянием из приложения](/docs/composition-patterns#controlled-state).
+
+<Example name="toggle/controlled" />
+
+### asChild
+
+Используйте `asChild`, если другая кнопка должна стать носителем поведения `Toggle`. Передавайте одного потомка,
+совместимого с кнопкой, чтобы Ark мог добавить ему свойства взаимодействия и состояние доступности.
+
+<Example name="toggle/aschild" />
 
 ## Композиция
+
+`Toggle` оборачивает примитив Toggle из Ark UI и добавляет визуальные свойства moduix для вариантов и размеров.
+Импортируйте его из `@moduix/react/toggle`, `@moduix/solid/toggle` или `@moduix/vue/toggle`.
 
 Используйте `defaultPressed` для неконтролируемого состояния или передавайте `pressed` вместе с
 `onPressedChange`, если значение хранится в состоянии приложения. Используйте `ToggleIndicator`, когда содержимое
@@ -94,58 +98,19 @@ ToggleContext (читает состояние, но не создаёт час�
 `ToggleContext`, если пользовательскому потомку нужно текущее состояние. Событие `@pressed-change`
 передаёт новое булево значение, если вы хотите обработать изменение без привязки через `v-model:pressed`.
 
-## Примеры
+## Анатомия
 
-### asChild
+Наведите на часть или выберите её, чтобы найти её в превью.
 
-Используйте `asChild`, если другая кнопка должна стать носителем поведения `Toggle`. Передавайте одного потомка,
-совместимого с кнопкой, чтобы Ark мог добавить ему свойства взаимодействия и состояние доступности.
-
-<Example name="toggle/aschild" />
-
-### Управляемое состояние
-
-Управляйте `pressed`, если `Toggle` является частью состояния приложения, аналитики или другого взаимодействия.
-
-<Example name="toggle/controlled" />
-
-### Отключённое состояние
-
-Используйте `disabled`, чтобы запретить взаимодействие и сохранить текущее состояние нажатия.
-
-<Example name="toggle/disabled" />
-
-### Иконки
-
-Передавайте иконки как обычных дочерних элементов. Для `Toggle` только с иконкой указывайте доступное имя,
-например через `aria-label`.
-
-<Example name="toggle/icons" />
-
-### Индикатор
-
-Используйте `ToggleIndicator`, если в нажатом и ненажатом состояниях нужно показывать разное встроенное содержимое.
-
-<Example name="toggle/indicator" />
-
-### Размеры
-
-Для `Toggle` с подписью используйте текстовые размеры, а для плотных рядов действий размеры кнопки только с иконкой.
-
-<Example name="toggle/sizes" />
-
-### Варианты
-
-Выберите `default`, `outline` или `ghost` в свойстве `variant`, чтобы согласовать Toggle с окружающей поверхностью.
-
-<Example name="toggle/variants" />
-
-### Расширенная настройка
-
-Используйте контекстный хук или слот с параметрами, если пользовательскому потомку нужно состояние нажатия, но менять содержимое кнопки
-через `ToggleIndicator` не требуется.
-
-<Example name="toggle/advanced-customization" />
+<AnatomyInspector
+  parts={[
+    ["Toggle", "toggle-root", "Корневая часть, которая управляет состоянием нажатия, фокусом, отключением и композицией через `asChild`.", 0],
+    ["ToggleIndicator", "toggle-indicator", "Необязательная часть, которая показывает содержимое в нажатом состоянии и `fallback`, когда кнопка не нажата.", 1],
+    ["ToggleContext", null, "Читает состояние ближайшего `Toggle` для пользовательских потомков, но не создаёт часть DOM.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Стилизация
 
@@ -154,15 +119,41 @@ ToggleContext (читает состояние, но не создаёт час�
 изменить один вариант, или на контейнере, например `ToggleGroup`. Размеры, отступы, скругление и типографика берутся из
 токенов foundation; меняйте их классом. Пакеты Tailwind вместо этого используют нативные утилиты и классы потребителя.
 
-### CSS-свойства
+### CSS-переменные
 
-<CssPropertiesSection properties={ToggleDocs.toggleOverrideCssProperties} />
+Наведите на переменную или выберите её, чтобы увидеть её в превью.
+
+<CssPropertiesSection properties={ToggleDocs.toggleOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Хуки стилизации
 
-- Стабильные селекторы `data-slot`: `toggle-root` и `toggle-indicator`.
+| Часть | `data-slot` |
+| --- | --- |
+| `Toggle` | `toggle-root` |
+| `ToggleIndicator` | `toggle-indicator` |
+
 - Селекторы частей Ark UI: `data-scope="toggle"` и `data-part="root" | "indicator"`.
 - Состояния Ark UI: `data-state="on" | "off"`, `data-pressed` и `data-disabled`.
 - Селекторы moduix: `data-variant` и `data-size`, включая `icon-sm`, `icon-md` и `icon-lg`.
 - Прямые дочерние иконки и иконки внутри `ToggleIndicator` по умолчанию 16px. Класс на иконке, например `size-5`
   в Tailwind, переопределяет этот размер.
+
+## Клавиатура
+
+| Клавиша | Действие |
+| --- | --- |
+| `Enter` / `Space` | Переключает нажатое состояние. |
+
+## Справочник API
+
+| Проп | Тип | По умолчанию | Описание |
+| --- | --- | --- | --- |
+| `pressed` | `boolean` | — | Нажатое состояние в управляемом режиме. |
+| `defaultPressed` | `boolean` | `false` | Начальное нажатое состояние. |
+| `onPressedChange` | `(pressed: boolean) => void` | — | Вызывается с новым состоянием. |
+| `variant` | `'default' \| 'outline' \| 'ghost'` | `'default'` | Вид: `default`, `outline` или `ghost`. |
+| `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'icon-sm' \| 'icon-md' \| 'icon-lg'` | `'md'` | `xs`, `sm`, `md`, `lg` или квадратные `icon-sm`, `icon-md`, `icon-lg`. |
+| `disabled` | `boolean` | `false` | Отключает переключатель. |
+| `asChild` | `boolean` | `false` | Переносит стили и поведение на единственный дочерний элемент. |

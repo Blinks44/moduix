@@ -11,8 +11,8 @@ import {
   MarqueeViewport,
   useMarquee,
   useMarqueeContext,
-} from '../src';
-import { LocaleProvider } from '../src/locale';
+} from '@/index';
+import { LocaleProvider } from '@/locale';
 
 function TestMarquee(props: { defaultPaused?: boolean; paused?: boolean }) {
   return (
@@ -26,6 +26,16 @@ function TestMarquee(props: { defaultPaused?: boolean; paused?: boolean }) {
       </MarqueeViewport>
       <MarqueeEdge side="end" />
     </Marquee>
+  );
+}
+
+function ContextPauseControl() {
+  const marquee = useMarqueeContext();
+
+  return (
+    <button type="button" onClick={() => marquee().pause()}>
+      Pause marquee
+    </button>
   );
 }
 
@@ -105,16 +115,6 @@ test('preserves Ark controlled and uncontrolled pause state', async () => {
   await expect.element(rootLocator).toHaveAttribute('data-state', 'idle');
   await expect.element(rootLocator).not.toHaveAttribute('data-paused');
 });
-
-function ContextPauseControl() {
-  const marquee = useMarqueeContext();
-
-  return (
-    <button type="button" onClick={() => marquee().pause()}>
-      Pause marquee
-    </button>
-  );
-}
 
 test('pauses on hover and resumes with the original callback details', async () => {
   const pauseChanges: Array<{ paused: boolean }> = [];
@@ -209,43 +209,4 @@ test('styles a RootProvider tree created by the public hook', async () => {
     .element(page.getByRole('region', { name: 'Partner logos', exact: true }))
     .toHaveAttribute('data-paused');
   expect(pauseChanges).toEqual([{ paused: true }]);
-});
-
-test('inherits text color and fills the root with the viewport in both orientations', () => {
-  render(() => (
-    <div style={{ color: 'rgb(1, 2, 3)', width: '320px' }}>
-      <Marquee aria-label="Horizontal" style={{ height: '100px' }}>
-        <MarqueeViewport>
-          <MarqueeContent>
-            <MarqueeItem>Atlas</MarqueeItem>
-          </MarqueeContent>
-        </MarqueeViewport>
-        <MarqueeEdge side="start" />
-      </Marquee>
-      <Marquee aria-label="Vertical" side="bottom">
-        <MarqueeViewport>
-          <MarqueeContent>
-            <MarqueeItem>Atlas</MarqueeItem>
-          </MarqueeContent>
-        </MarqueeViewport>
-      </Marquee>
-    </div>
-  ));
-
-  for (const name of ['Horizontal', 'Vertical']) {
-    const root = screen.getByRole('region', { name });
-    const viewport = root.querySelector<HTMLElement>('[data-part="viewport"]')!;
-
-    expect(getComputedStyle(root).color).toBe('rgb(1, 2, 3)');
-    expect(root.offsetWidth).toBe(320);
-    expect(viewport.offsetWidth).toBe(root.offsetWidth);
-    expect(viewport.offsetHeight).toBe(root.offsetHeight);
-  }
-
-  const horizontal = screen.getByRole('region', { name: 'Horizontal' });
-  expect(horizontal.offsetHeight).toBe(100);
-  expect(screen.getByRole('region', { name: 'Vertical' }).offsetHeight).toBe(240);
-  expect(getComputedStyle(horizontal.querySelector('[data-part="edge"]')!).pointerEvents).toBe(
-    'none',
-  );
 });

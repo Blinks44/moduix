@@ -1,21 +1,21 @@
 ---
 title: JSON Tree View
 component: json-tree-view
-description: Inspect JSON and JavaScript values in an accessible, expandable tree with JsonTreeView from moduix.
+description: Inspect JSON and JavaScript values in an expandable tree.
+ark: https://ark-ui.com/docs/utilities/json-tree-view
 ---
 
+import AnatomyScene from '@/components/examples/json-tree-view/basic';
 
-## API Reference
+<Example name="json-tree-view/basic" />
 
-<PrimitiveReference href="https://ark-ui.com/docs/utilities/json-tree-view" />
+## Installation
 
-## Choosing the right component
+<ComponentInstall />
 
-Use `JsonTreeView` when you already have a JavaScript value and need to inspect it without writing a recursive
-renderer. Choose `TreeView` when you own the node model and need custom labels, icons, links, renaming, or branch
-content.
+## Usage
 
-## Basic
+<Usage />
 
 Pass any JSON-like JavaScript value through `data`, then render `<JsonTreeViewTree />` inside the component.
 `JsonTreeView` generates the object, array, and value nodes for you. moduix styles the rows, indentation, focus
@@ -26,69 +26,11 @@ The framework adapters keep the same flat public names; the Vue example uses nat
 The example starts with two levels expanded. Use `defaultExpandedDepth` to choose how much of a response or
 configuration should be visible on the first render.
 
-<Example name="json-tree-view/basic" />
+## Choosing the right component
 
-## Install with shadcn
-
-See [Quick Start](/docs/quick-start) for full package setup, registry configuration, and styling guidance.
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/json-tree-view' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/json-tree-view' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/json-tree-view' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/json-tree-view' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/json-tree-view' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/json-tree-view' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Anatomy
-
-```text
-JsonTreeView
-└─ JsonTreeViewTree
-   └─ generated JSON branches and items
-
-JsonTreeViewRootProvider
-└─ same tree connected to a useJsonTreeView store
-```
-
-| Part | Role |
-| --- | --- |
-| `JsonTreeView` | Owns the data, generated tree collection, and Ark tree state. |
-| `JsonTreeViewRootProvider` | Connects the parts to a `useJsonTreeView` state instance created outside the tree. |
-| `JsonTreeViewTree` | Renders the generated object, array, and value nodes. |
-
-## Composition
-
-Keep `JsonTreeViewTree` as the child of `JsonTreeView` or `JsonTreeViewRootProvider`; it renders the generated JSON nodes.
-When controls outside the tree own its state, create `useJsonTreeView` from the matching framework package and pass
-the store to `JsonTreeViewRootProvider`, then render `JsonTreeViewTree` inside it. Use controlled `expandedValue`,
-`selectedValue`, `checkedValue`, or `focusedValue` only when that state belongs to the application. Do not render
-`JsonTreeView` and `JsonTreeViewRootProvider` for the same store.
+Use `JsonTreeView` when you already have a JavaScript value and need to inspect it without writing a recursive
+renderer. Choose `TreeView` when you own the node model and need custom labels, icons, links, renaming, or branch
+content.
 
 ## Examples
 
@@ -99,6 +41,35 @@ Users can expand a node to inspect its complete value.
 
 <Example name="json-tree-view/compact-previews" />
 
+### Custom value rendering
+
+Pass `renderValue` to `JsonTreeViewTree` to replace how a value is drawn. Return `undefined` to keep the
+default rendering. This example turns URLs into links.
+
+<Example name="json-tree-view/custom-value-rendering" />
+
+## Composition
+
+Keep `JsonTreeViewTree` as the child of `JsonTreeView` or `JsonTreeViewRootProvider`; it renders the generated JSON nodes.
+When controls outside the tree own its state, create `useJsonTreeView` from the matching framework package and pass
+the store to `JsonTreeViewRootProvider`, then render `JsonTreeViewTree` inside it. Use controlled `expandedValue`,
+`selectedValue`, `checkedValue`, or `focusedValue` only when that state belongs to the application. Do not render
+`JsonTreeView` and `JsonTreeViewRootProvider` for the same store.
+
+## Anatomy
+
+Hover or focus a part to find it in the preview.
+
+<AnatomyInspector
+  parts={[
+    ["JsonTreeView", "json-tree-view-root", "Manages the data, generated tree collection, and Ark tree state.", 0],
+    ["JsonTreeViewTree", "json-tree-view-tree", "Renders the generated object, array, and value nodes.", 1],
+    ["JsonTreeViewRootProvider", "json-tree-view-root-provider", "Connects the parts to a `useJsonTreeView` state instance created outside the tree.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
+
 ## Styling
 
 Use `className` in React, or `class` in Solid and Vue, on `JsonTreeView`, `JsonTreeViewRootProvider`, or `JsonTreeViewTree` for local layout changes. Tailwind
@@ -108,8 +79,7 @@ tokens.
 `JsonTreeViewTree` uses the `ChevronRightIcon` supplied by moduix when `arrow` is omitted in React or Solid. In Vue,
 provide the `#arrow` slot when the inspection surface needs a different disclosure icon.
 
-Generated nodes preserve Ark's `data-scope="json-tree-view"` and `data-part` attributes. moduix adds the stable
-`data-slot="json-tree-view-root"`, `json-tree-view-root-provider`, and `json-tree-view-tree` hooks.
+Generated nodes preserve Ark's `data-scope="json-tree-view"` and `data-part` attributes.
 
 `JsonTreeViewTree` forwards Ark's `indentGuide` prop when you opt into indentation guides. moduix does not style the
 generated `[data-part='branch-indent-guide']` elements; target that attribute with your own styles when guides are
@@ -119,3 +89,31 @@ In Vue, use the native `#indentGuide` slot to provide custom guide content.
 
 The component uses foundation tokens directly, without a separate `--moduix-json-tree-view-*` variable layer. Add a
 class or target Ark part attributes when an inspection surface needs different styling.
+
+### Styling hooks
+
+| Part | `data-slot` |
+| --- | --- |
+| `JsonTreeView` | `json-tree-view-root` |
+| `JsonTreeViewRootProvider` | `json-tree-view-root-provider` |
+| `JsonTreeViewTree` | `json-tree-view-tree` |
+
+## Keyboard
+
+| Key | Action |
+| --- | --- |
+| `ArrowDown` / `ArrowUp` | Moves focus to the next or previous row. |
+| `ArrowRight` / `ArrowLeft` | Opens or closes the focused object or array. |
+| `Home` / `End` | Moves focus to the first or last row. |
+
+## API reference
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `data` | `unknown` | — | JSON value to display. |
+| `defaultExpandedDepth` | `number` | — | How many levels are expanded initially. |
+| `quotesOnKeys` | `boolean` | `false` | Wraps object keys in quotes. |
+| `maxPreviewItems` | `number` | — | Number of items shown in a collapsed preview. |
+| `collapseStringsAfterLength` | `number` | — | Truncates longer strings after this many characters. |
+| `groupArraysAfterLength` | `number` | — | Groups longer arrays into ranges of this size. |
+| `showNonenumerable` | `boolean` | `false` | Shows non-enumerable properties. |

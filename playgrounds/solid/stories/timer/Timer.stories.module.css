@@ -2,7 +2,7 @@
   margin: 0;
   font-size: var(--moduix-text-sm);
   line-height: var(--moduix-line-height-text-sm);
-  color: var(--moduix-color-muted-foreground);
+  color: var(--moduix-muted-foreground);
 }
 
 .itemGroup {
@@ -15,7 +15,7 @@
   font-size: var(--moduix-text-xs);
   font-weight: var(--moduix-weight-regular);
   line-height: var(--moduix-line-height-text-xs);
-  color: var(--moduix-color-muted-foreground);
+  color: var(--moduix-muted-foreground);
 }
 
 .customTimer [data-slot='timer-area'] {
@@ -24,14 +24,14 @@
 }
 
 .customTimer [data-slot='timer-item'] {
-  color: var(--moduix-color-primary);
+  color: var(--moduix-primary);
 }
 
 .customTimer [data-slot='timer-separator'] {
-  color: var(--moduix-color-chart-2);
+  color: var(--moduix-chart-2);
 }
 
 .customTimer [data-slot='timer-action-trigger'] {
   border-color: transparent;
-  background-color: var(--moduix-color-muted);
+  background-color: var(--moduix-muted);
 }

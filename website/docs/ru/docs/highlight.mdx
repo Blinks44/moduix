@@ -1,14 +1,25 @@
 ---
 title: Highlight
-description: Выделяйте слова и фразы внутри существующего текста с помощью нативных элементов mark и стилей moduix в React, Solid или Vue.
+description: Выделяет слова, совпадающие с поисковым запросом, внутри текста.
 component: highlight
+ark: https://ark-ui.com/docs/utilities/highlight
 ---
 
+import AnatomyScene from '@/components/examples/highlight/basic';
 import * as HighlightDocs from '@/components/examples/highlight/css-properties';
 
-## Справочник API
+<Example name="highlight/basic" />
 
-<PrimitiveReference href="https://ark-ui.com/docs/utilities/highlight" />
+## Установка
+
+<ComponentInstall />
+
+## Использование
+
+<Usage />
+
+Передайте полный исходный текст в `text`, а искомый термин в `query`. Разместите `Highlight` внутри
+текстового компонента или HTML-элемента, который отвечает за внешнюю разметку и семантику.
 
 ## Выбор подходящего компонента
 
@@ -18,91 +29,7 @@ import * as HighlightDocs from '@/components/examples/highlight/css-properties';
 - Выбирайте **`Highlight`**, когда нужно выделить один или несколько терминов в готовом предложении, подписи или текстовом блоке.
 - Выбирайте **`Text`**, когда всей строке нужно только типографическое оформление, без поиска совпадений.
 
-## Базовый пример
-
-
-Передайте полный исходный текст в `text`, а искомый термин в `query`. Разместите `Highlight` внутри
-текстового компонента или HTML-элемента, который отвечает за внешнюю разметку и семантику.
-
-<Example name="highlight/basic" />
-
-## Установка через shadcn
-
-Полную настройку пакета, реестра и стилей см. в разделе [Быстрый старт](/docs/quick-start).
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/highlight' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/highlight' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/highlight' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/highlight' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/highlight' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/highlight' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Анатомия
-
-У `Highlight` одна публичная корневая часть. Компонент возвращает фрагмент и не добавляет отдельную
-обёртку. Каждый совпавший фрагмент становится нативным элементом `<mark>`, а текст без совпадений
-остаётся обычным текстом в окружающей разметке.
-
-```text
-Highlight
-└─ совпавшие фрагменты в отдельных элементах <mark>
-```
-
-| Часть       | Назначение                                                       |
-| ----------- | ---------------------------------------------------------------- |
-| `Highlight` | Применяет стили moduix к каждому совпадению в переданном тексте. |
-
-## Композиция
-
-`Highlight` не хранит состояние и не создаёт обёртку для внешней разметки. Размещайте его внутри
-готового текстового контейнера, например `Text`, заголовка, элемента списка или ячейки таблицы.
-Управляйте `query` из родительского компонента, если поисковый запрос меняется. Для массива строк
-`matchAll` должен оставаться равным `true`; если каждому совпадению нужен другой элемент или
-интерактивное поведение, создайте такую разметку самостоятельно.
-
 ## Примеры
-
-### Динамический запрос
-
-Управляйте `query` состоянием React, Solid или Vue, чтобы выделять текущий термин во время поиска или
-фильтрации видимого текста.
-
-<Example name="highlight/dynamic-query" />
-
-### Точное совпадение
-
-Включите `exactMatch`, если частичные совпадения дают слишком много лишних результатов. В этом
-примере `box` совпадёт с отдельным словом, но не с `checkbox` и `combobox`. Поиск использует
-границы слов JavaScript: для латинского текста они работают надёжно, но не распознают кириллицу и
-некоторые другие системы письма как целые слова.
-
-<Example name="highlight/exact-match" />
 
 ### Игнорирование регистра
 
@@ -116,6 +43,15 @@ Highlight
 
 <Example name="highlight/match-all" />
 
+### Точное совпадение
+
+Включите `exactMatch`, если частичные совпадения дают слишком много лишних результатов. В этом
+примере `box` совпадёт с отдельным словом, но не с `checkbox` и `combobox`. Поиск использует
+границы слов JavaScript: для латинского текста они работают надёжно, но не распознают кириллицу и
+некоторые другие системы письма как целые слова.
+
+<Example name="highlight/exact-match" />
+
 ### Несколько запросов
 
 Передайте массив строк, если нужно выделить несколько терминов в одном тексте. Для массива
@@ -123,19 +59,68 @@ Highlight
 
 <Example name="highlight/multiple-queries" />
 
+### Динамический запрос
+
+Управляйте `query` состоянием React, Solid или Vue, чтобы выделять текущий термин во время поиска или
+фильтрации видимого текста.
+
+<Example name="highlight/dynamic-query" />
+
+## Композиция
+
+`Highlight` не хранит состояние и не создаёт обёртку для внешней разметки. Размещайте его внутри
+готового текстового контейнера, например `Text`, заголовка, элемента списка или ячейки таблицы.
+Управляйте `query` из родительского компонента, если поисковый запрос меняется. Для массива строк
+`matchAll` должен оставаться равным `true`; если каждому совпадению нужен другой элемент или
+интерактивное поведение, создайте такую разметку самостоятельно.
+
+## Анатомия
+
+У `Highlight` одна публичная корневая часть. Компонент возвращает фрагмент и не добавляет отдельную
+обёртку. Каждый совпавший фрагмент становится нативным элементом `<mark>`, а текст без совпадений
+остаётся обычным текстом в окружающей разметке.
+
+Наведите на часть или выберите её, чтобы найти её в превью.
+
+<AnatomyInspector
+  parts={[
+    ["Highlight", "highlight-root", "Применяет стили moduix к каждому совпадению в переданном тексте.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
+
 ## Стилизация
 
 Совпавшие фрагменты получают стандартные стили moduix для `<mark>`. Для локальной правки в React
 используйте `className`, а в Solid и Vue `class`. Варианты CSS Modules также предоставляют
 переменные `--moduix-highlight-*`; для Tailwind используйте utility-классы или классы потребителя.
 
-### CSS-свойства
+### CSS-переменные
 
-<CssPropertiesSection properties={HighlightDocs.highlightCssProperties} />
+Наведите на переменную или выберите её, чтобы увидеть её в превью.
+
+<CssPropertiesSection properties={HighlightDocs.highlightCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Хуки стилизации
+
+| Часть | `data-slot` |
+| --- | --- |
+| `Highlight` | `highlight-root` |
 
 - Каждый совпавший `<mark>` получает `data-scope="highlight"` и `data-part="root"`.
 - `data-slot="highlight-root"` является стабильным селектором moduix для каждого совпавшего `mark`.
 - Такие свойства, как `className`/`class`, `style`, `title` и `data-*`, применяются к каждому совпавшему `<mark>`.
 - Компонент не создаёт обёртку, не добавляет атрибут состояния и не задаёт CSS-переменных Ark.
+
+## Справочник API
+
+| Проп | Тип | По умолчанию | Описание |
+| --- | --- | --- | --- |
+| `text` | `string` | — | Текст, в котором ищутся совпадения. |
+| `query` | `string \| string[]` | — | Слово или массив слов для выделения. |
+| `ignoreCase` | `boolean` | `false` | Ищет без учёта регистра. |
+| `matchAll` | `boolean` | `false` | Выделяет все совпадения, а не только первое. |
+| `exactMatch` | `boolean` | `false` | Ищет только целые слова. |

@@ -5,7 +5,7 @@ import {
   AccordionItemTrigger,
   AccordionItemContent,
   AccordionItemBody,
-} from '../../src/components/accordion';
+} from '@/components/accordion';
 </script>
 
 <template>

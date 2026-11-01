@@ -12,13 +12,13 @@ import {
   PopoverTrigger,
   usePopover,
 } from '@moduix/vue/popover';
-import styles from '@/components/examples/popover/popover-root-provider.module.css';
+import { Stack } from '@moduix/vue/stack';
 
 const popover = usePopover({ positioning: { placement: 'bottom-start', gutter: 8 } });
 </script>
 
 <template>
-  <div :class="styles.root">
+  <Stack align="center" gap="3">
     <PopoverRootProvider :value="popover">
       <PopoverTrigger as-child><Button>Open from trigger</Button></PopoverTrigger>
       <PopoverPositioner>
@@ -33,5 +33,5 @@ const popover = usePopover({ positioning: { placement: 'bottom-start', gutter: 8
     </PopoverRootProvider>
     <output>Open: {{ popover.open ? 'yes' : 'no' }}</output>
     <Button size="sm" @click="popover.setOpen(!popover.open)">Toggle externally</Button>
-  </div>
+  </Stack>
 </template>

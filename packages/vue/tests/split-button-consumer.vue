@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import { MenuItem } from '../src/components/menu';
+import { MenuItem } from '@/components/menu';
 import {
   SplitButton,
   SplitButtonAction,
   SplitButtonContent,
   SplitButtonPositioner,
   SplitButtonTrigger,
-} from '../src/components/split-button';
+} from '@/components/split-button';
 
 const open = ref(false);
 const selected = ref('');

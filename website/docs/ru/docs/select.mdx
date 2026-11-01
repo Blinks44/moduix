@@ -1,14 +1,24 @@
 ---
 title: Select
 component: select
-description: Композиция Select на базе Ark UI для выбора одного или нескольких значений из всплывающего списка.
+description: Выбор одного или нескольких значений из всплывающего списка.
+ark: https://ark-ui.com/docs/components/select
 ---
 
+import AnatomyScene from '@/components/examples/select/anatomy';
 import * as SelectDocs from '@/components/examples/select/css-properties';
 
-## Справочник API
+<Example name="select/basic" />
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/select" />
+## Установка
+
+<ComponentInstall />
+
+## Использование
+
+<Usage />
+
+Передайте коллекцию в `Select`, используйте `SelectField` для стандартного видимого поля и явно опишите структуру всплывающего окна. Свойство `clearLabel` добавляет доступную кнопку очистки. Явно добавьте `SelectHiddenSelect`, когда нужны нативная отправка, автозаполнение, валидация и сброс.
 
 ## Выбор подходящего компонента
 
@@ -16,131 +26,21 @@ import * as SelectDocs from '@/components/examples/select/css-properties';
 триггер нельзя редактировать. Если ввод текста помогает искать или создавать значение, используйте
 `Combobox`.
 
-## Базовый пример
-
-Передайте коллекцию в `Select`, используйте `SelectField` для стандартного видимого поля и явно опишите структуру всплывающего окна. Свойство `clearLabel` добавляет доступную кнопку очистки. Явно добавьте `SelectHiddenSelect`, когда нужны нативная отправка, автозаполнение, валидация и сброс.
-
-<Example name="select/basic" />
-
-## Установка через shadcn
-
-Полную настройку пакета, реестра и стилей см. в разделе [Быстрый старт](/docs/quick-start).
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/select' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/select' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-  <ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/select' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/select' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/select' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/select' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Анатомия
-
-```text
-Select
-├─ SelectLabel
-├─ SelectControl / SelectField
-│  ├─ SelectTrigger
-│  │  ├─ SelectValueText
-│  ├─ SelectClearTrigger
-│  └─ SelectIndicator
-├─ Поддерево оверлея (портируется автоматически)
-│  └─ SelectPositioner
-│     └─ SelectContent
-│        ├─ SelectList
-│        └─ SelectItemGroup
-│           ├─ SelectItemGroupLabel
-│           ├─ SelectOption[item]
-│           └─ SelectItem[item]
-│              ├─ SelectItemText
-│              │  └─ SelectItemTextContent
-│              │     ├─ SelectItemTextIcon
-│              │     └─ SelectItemTextLabel
-│              └─ SelectItemIndicator
-└─ SelectHiddenSelect (явно)
-```
-
-| Часть                     | Назначение                                                               |
-| ------------------------- | ------------------------------------------------------------------------ |
-| `Select`                  | Корневое состояние, коллекция, выбор, жизненный цикл всплывающего окна и данные формы. |
-| `SelectHiddenSelect`      | Нативное поле Ark; правила явной композиции описаны ниже.                       |
-| `SelectRootProvider`      | Рендерит дерево Select на основе состояния, возвращённого `useSelect`.          |
-| `SelectContext`           | Корневой контекст для чтения расширенного состояния.                             |
-| `SelectItemContext`       | Контекст элемента для чтения расширенного состояния.                            |
-| `SelectLabel`            | Доступная подпись, с которой связаны триггер и нативный элемент формы.   |
-| `SelectControl`          | Обёртка видимого поля, которая отражает состояния фокуса, ошибки и открытого списка. |
-| `SelectField`            | Вспомогательный компонент moduix для стандартного поля, триггера и действий. |
-| `SelectTrigger`          | Кнопка, открывающая всплывающее окно и обрабатывающая ввод с клавиатуры. |
-| `SelectValueText`        | Плейсхолдер или подписи выбранных элементов.                             |
-| `SelectClearTrigger`     | Кнопка, очищающая текущее значение.                                     |
-| `SelectIndicator`        | Индикатор триггера со стандартной иконкой стрелки moduix.               |
-| `SelectPositioner`       | Плавающий слой, который предоставляет CSS-переменные Ark для позиционирования. |
-| `SelectContent`           | Содержимое всплывающего окна и контейнер listbox.                       |
-| `SelectList`              | Необязательная обёртка списка для виртуализации или собственной разметки. |
-| `SelectItemGroup`         | Обёртка группы связанных элементов коллекции.                           |
-| `SelectItemGroupLabel`   | Подпись группы коллекции.                                                |
-| `SelectItem`              | Выбираемая строка. Передайте элемент коллекции через `item`.             |
-| `SelectOption` | Готовая строка для простых пунктов с текстом и индикатором. |
-| `SelectItemText`          | Текст для отображения и доступности.                                    |
-| `SelectItemTextContent`   | Вспомогательный компонент для разметки сложного текста элемента.        |
-| `SelectItemTextIcon`      | Обёртка для иконки в тексте элемента.                                   |
-| `SelectItemTextLabel`     | Обёртка для подписи в тексте элемента.                                  |
-| `SelectItemIndicator`     | Индикатор выбранного состояния со стандартной иконкой галочки moduix.    |
-
-## Композиция
-
-`SelectField` объединяет `SelectControl`, `SelectTrigger`, `SelectValueText` и стандартный `SelectIndicator`. Передайте `clearLabel`, чтобы добавить подписанную кнопку очистки, или используйте явные части, когда разметку триггера нужно стилизовать независимо. Оставляйте `SelectPositioner`, `SelectContent` и элементы коллекции в одном дереве Select. Для обычных строк используйте `SelectOption`: он рендерит `SelectItem` с `SelectItemText` и `SelectItemIndicator`. Передайте `indicator={false}`, чтобы скрыть галочку, или иконку, чтобы её заменить, а для строк с особой структурой используйте `SelectItem`.
-
-Явно добавьте `SelectHiddenSelect` внутрь `Select` или `SelectRootProvider`, если выбор должен участвовать в нативной отправке формы, валидации, автозаполнении или сбросе. Корневой компонент не создаёт его автоматически. `Positioner` по умолчанию размещается через портал: для рендера в обычном потоке укажите `portalled={false}`, а для собственного контейнера используйте `portalRef`.
-
-Используйте `useSelect` вместе с `SelectRootProvider`, когда состояние нужно разделить с элементами за пределами дерева Select. В React возвращается объект, в Solid реактивный accessor, а во Vue ref.
-
 ## Примеры
 
-### Управляемое состояние
+### Множественный выбор
 
-Управляйте массивом выбранных строк через состояние React, сигнал Solid или ref Vue и обновляйте его из `details.value`.
+Установите `multiple`, чтобы разрешить несколько выбранных значений. `ValueText` выводит подписи
+выбранных элементов из коллекции.
 
-<Example name="select/controlled" />
+<Example name="select/multiple" />
 
-### Пользовательская разметка элемента
+### Группировка
 
-Используйте `SelectItemTextContent`, `SelectItemTextIcon` и `SelectItemTextLabel` внутри
-`ItemText`, когда элементу нужны иконка и подпись с обрезанием по ширине.
+Задайте `groupBy` для коллекции и отрендерите `collection.group()` с помощью `ItemGroup` и
+`ItemGroupLabel`.
 
-<Example name="select/custom-item-layout" />
-
-### Динамические элементы
-
-Обновляйте коллекцию, когда меняется список доступных элементов. Композиция Select при этом
-остаётся прежней.
-
-<Example name="select/dynamic-items" />
+<Example name="select/grouping" />
 
 ### Поле формы
 
@@ -156,19 +56,12 @@ Select
 
 <Example name="select/form-usage" />
 
-### Группировка
+### Управляемое состояние
 
-Задайте `groupBy` для коллекции и отрендерите `collection.group()` с помощью `ItemGroup` и
-`ItemGroupLabel`.
+Передайте `value` и `onValueChange` (`v-model` во Vue). Значение всегда массив строк, даже без
+`multiple`. Подробнее в разделе [Управляйте состоянием из приложения](/docs/composition-patterns#controlled-state).
 
-<Example name="select/grouping" />
-
-### Ленивое монтирование
-
-Используйте `lazyMount` и `unmountOnExit`, если содержимое всплывающего окна нужно монтировать
-только на время работы с Select.
-
-<Example name="select/lazy-mount" />
+<Example name="select/controlled" />
 
 ### Максимальное число выбранных элементов
 
@@ -177,26 +70,26 @@ Select
 
 <Example name="select/max-selection" />
 
-### Множественный выбор
+### Выбрать все
 
-Установите `multiple`, чтобы разрешить несколько выбранных значений. `ValueText` выводит подписи
-выбранных элементов из коллекции.
+Разместите массовые действия за пределами listbox. `useSelect` позволяет использовать их и
+Select с одним экземпляром состояния Ark.
 
-<Example name="select/multiple" />
+<Example name="select/select-all" />
 
-### Переполнение
+### Динамические элементы
 
-Для длинных списков используйте `positioning.fitViewport`. Содержимое уже ограничивает высоту с
-помощью переменной Ark `--available-height` и остаётся прокручиваемым.
+Обновляйте коллекцию, когда меняется список доступных элементов. Композиция Select при этом
+остаётся прежней.
 
-<Example name="select/overflow" />
+<Example name="select/dynamic-items" />
 
-### Root Provider
+### Пользовательская разметка элемента
 
-Используйте `useSelect` вместе с `SelectRootProvider`, когда состояние нужно читать или
-контролировать за пределами отрендеренного дерева Select.
+Поместите иконку прямо в `SelectItemText` перед подписью. Иконка получает фиксированный размер и
+отступ, а длинная подпись обрезается многоточием.
 
-<Example name="select/root-provider" />
+<Example name="select/custom-item-layout" />
 
 ### Поиск во всплывающем окне
 
@@ -205,12 +98,19 @@ Select
 
 <Example name="select/search-in-popup" />
 
-### Выбрать все
+### Переполнение
 
-Разместите массовые действия за пределами listbox. `useSelect` позволяет использовать их и
-Select с одним экземпляром состояния Ark.
+Для длинных списков используйте `positioning.fitViewport`. Содержимое уже ограничивает высоту с
+помощью переменной Ark `--available-height` и остаётся прокручиваемым.
 
-<Example name="select/select-all" />
+<Example name="select/overflow" />
+
+### Ленивое монтирование
+
+Используйте `lazyMount` и `unmountOnExit`, если содержимое всплывающего окна нужно монтировать
+только на время работы с Select.
+
+<Example name="select/lazy-mount" />
 
 ### Выбор при перемещении по вариантам
 
@@ -218,33 +118,147 @@ Select с одним экземпляром состояния Ark.
 
 <Example name="select/select-on-highlight" />
 
-### Расширенная настройка
+### Root Provider
 
-Соберите триггер, текст значения и индикатор вручную, если им нужны независимые композиция и
-стилизация. В этом случае не используйте `SelectField` и `SelectOption`.
+Создайте состояние через `useSelect` и передайте его в `SelectRootProvider`. Подробнее в разделе
+[Выносите состояние за пределы дерева](/docs/composition-patterns#root-provider).
 
-<Example name="select/advanced-customization" />
+<Example name="select/root-provider" />
+
+### Сборка из частей
+
+Тот же выпадающий список, что в Basic, но без `SelectField` и `SelectOption`: все части поля и
+пунктов записаны явно, а кнопка очистки, шеврон и галочка получают иконки напрямую. Начинайте с него,
+если дизайн меняет триггер или раскладку пунктов.
+
+<Example name="select/build-from-parts" />
+
+## Композиция
+
+`SelectField` объединяет `SelectControl`, `SelectTrigger`, `SelectValueText` и стандартный `SelectIndicator`. Передайте `clearLabel`, чтобы добавить подписанную кнопку очистки, или используйте явные части, когда разметку триггера нужно стилизовать независимо. Оставляйте `SelectPositioner`, `SelectContent` и элементы коллекции в одном дереве Select. Для обычных строк используйте `SelectOption`: он рендерит `SelectItem` с `SelectItemText` и `SelectItemIndicator`. Передайте `indicator={false}`, чтобы скрыть галочку, или иконку, чтобы её заменить, а для строк с особой структурой используйте `SelectItem`.
+
+Явно добавьте `SelectHiddenSelect` внутрь `Select` или `SelectRootProvider`, если выбор должен участвовать в нативной отправке формы, валидации, автозаполнении или сбросе. Корневой компонент не создаёт его автоматически. `Positioner` по умолчанию размещается через портал: для рендера в обычном потоке укажите `portalled={false}`, а для собственного контейнера используйте `portalRef`.
+
+Используйте `useSelect` вместе с `SelectRootProvider`, когда состояние нужно разделить с элементами за пределами дерева Select. В React возвращается объект, в Solid реактивный accessor, а во Vue ref.
+
+## Анатомия
+
+Наведите на часть или выберите её, чтобы найти её в превью.
+
+<AnatomyInspector
+  parts={[
+    ["Select", "select-root", "Корневое состояние, коллекция, выбор, жизненный цикл всплывающего окна и данные формы.", 0],
+    ["SelectLabel", "select-label", "Доступная подпись, с которой связаны триггер и нативный элемент формы.", 1],
+    ["SelectControl", "select-control", "Обёртка видимого поля, которая отражает состояния фокуса, ошибки и открытого списка.", 1],
+    ["SelectTrigger", "select-trigger", "Кнопка, открывающая всплывающее окно и обрабатывающая ввод с клавиатуры.", 2],
+    ["SelectValueText", "select-value-text", "Плейсхолдер или подписи выбранных элементов.", 3],
+    ["SelectClearTrigger", "select-clear-trigger", "Кнопка, очищающая текущее значение.", 2],
+    ["SelectIndicator", "select-indicator", "Индикатор триггера со стандартной иконкой стрелки moduix.", 2],
+    ["SelectPositioner", "select-positioner", "Плавающий слой, который предоставляет CSS-переменные Ark для позиционирования.", 1],
+    ["SelectContent", "select-content", "Содержимое всплывающего окна и контейнер listbox.", 2],
+    ["SelectList", "select-list", "Необязательная обёртка списка для виртуализации или собственной разметки.", 3],
+    ["SelectItemGroup", "select-item-group", "Обёртка группы связанных элементов коллекции.", 3],
+    ["SelectItemGroupLabel", "select-item-group-label", "Подпись группы коллекции.", 4],
+    ["SelectOption", "", "Готовая строка для простых пунктов с текстом и индикатором.", 4],
+    ["SelectItem", "select-item", "Выбираемая строка. Передайте элемент коллекции через `item`.", 4],
+    ["SelectItemText", "select-item-text", "Текст для отображения и доступности.", 5],
+    ["SelectItemIndicator", "select-item-indicator", "Индикатор выбранного состояния со стандартной иконкой галочки moduix.", 5],
+    ["SelectHiddenSelect", "", "Нативное поле Ark; правила явной композиции описаны ниже.", 1],
+    ["SelectField", "", "Вспомогательный компонент moduix для стандартного поля, триггера и действий.", 1],
+    ["SelectRootProvider", "select-root-provider", "Рендерит дерево Select на основе состояния, возвращённого `useSelect`.", 0],
+    ["SelectContext", null, "Корневой контекст для чтения расширенного состояния.", 0],
+    ["SelectItemContext", null, "Контекст элемента для чтения расширенного состояния.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Стилизация
 
 Стилизуйте Select через `className` в React, `class` в Solid и Vue, стабильные хуки `data-slot="select-*"` и атрибуты Ark. Варианты Tailwind используют нативные utility-классы и классы потребителя. Варианты CSS Modules оставляют пять переменных размеров, перечисленных ниже; цвета, границы, кольцо фокуса, отступы пунктов и анимация берутся из токенов foundation и общих переменных `--moduix-popup-*`, поэтому переопределяйте их классом на нужной части.
 
-### CSS-свойства
+### CSS-переменные
 
-<CssPropertiesSection properties={SelectDocs.selectOverrideCssProperties} />
+Наведите на переменную или выберите её, чтобы увидеть её в превью.
+
+<CssPropertiesSection properties={SelectDocs.selectOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Хуки стилизации
 
-`SelectField` создаёт существующие слоты `select-control`, `select-trigger`, `select-value-text`,
-`select-indicator` и необязательный `select-clear-trigger`. Его свойство `indicator` передаёт
-дочерний элемент в существующий слот индикатора. Вспомогательные компоненты текста элемента
-предоставляют слоты `select-item-text-content`, `select-item-text-icon` и `select-item-text-label`. `SelectOption` использует слоты пункта и не
+| Часть | `data-slot` |
+| --- | --- |
+| `Select` | `select-root` |
+| `SelectRootProvider` | `select-root-provider` |
+| `SelectLabel` | `select-label` |
+| `SelectControl` | `select-control` |
+| `SelectTrigger` | `select-trigger` |
+| `SelectValueText` | `select-value-text` |
+| `SelectClearTrigger` | `select-clear-trigger` |
+| `SelectIndicator` | `select-indicator` |
+| `SelectPositioner` | `select-positioner` |
+| `SelectContent` | `select-content` |
+| `SelectList` | `select-list` |
+| `SelectItemGroup` | `select-item-group` |
+| `SelectItemGroupLabel` | `select-item-group-label` |
+| `SelectItem` | `select-item` |
+| `SelectItemText` | `select-item-text` |
+| `SelectItemIndicator` | `select-item-indicator` |
+
+Его свойство `indicator` передаёт
+дочерний элемент в существующий слот индикатора. `SelectOption` использует слоты пункта и не
 добавляет собственный хук стилизации.
 
-- Корни предоставляют `data-slot="select-root"` и `data-slot="select-root-provider"`.
 - Анатомия Ark использует `data-scope="select"` и `data-part`.
 - Для состояний доступны `data-state="open" | "closed"`, `data-focus`, `data-invalid`,
   `data-disabled`, `data-readonly`, `data-required`, `data-placeholder-shown`,
   `data-highlighted`, а для элементов списка - `data-state="checked" | "unchecked"`.
 - `SelectPositioner` предоставляет `--reference-width`, `--reference-height`, `--available-width`,
   `--available-height`, `--x`, `--y`, `--z-index` и `--transform-origin`.
+
+## Клавиатура
+
+| Клавиша | Действие |
+| --- | --- |
+| `Enter` / `Space` / `ArrowDown` | Открывает список с кнопки. |
+| `ArrowDown` / `ArrowUp` | Подсвечивает следующую или предыдущую опцию. |
+| `Enter` | Выбирает подсвеченную опцию. |
+| `Esc` | Закрывает список. |
+| Буквы | Подсвечивает опцию, которая начинается с набранного текста. |
+
+## Справочник API
+
+| Проп | Тип | По умолчанию | Описание |
+| --- | --- | --- | --- |
+| `collection` | `ListCollection<T>` | — | Элементы из `createListCollection()`. |
+| `value` | `string[]` | — | Выбранные значения в управляемом режиме. |
+| `defaultValue` | `string[]` | — | Начальные значения, если выбор не управляется извне. |
+| `onValueChange` | `(details: ValueChangeDetails) => void` | — | Вызывается при изменении выбранных значений. |
+| `multiple` | `boolean` | `false` | Разрешает выбрать несколько значений. |
+| `closeOnSelect` | `boolean` | `true` | Закрывает список после выбора элемента. |
+| `deselectable` | `boolean` | `false` | Повторный клик по выбранному элементу снимает выбор. Только для одиночного выбора. |
+| `loopFocus` | `boolean` | `false` | Навигация с клавиатуры переходит с последнего элемента на первый. |
+| `positioning` | `PositioningOptions` | — | Расположение, отступ и другие настройки позиции списка. |
+| `open` | `boolean` | — | Открыт ли список, в управляемом режиме. |
+| `onOpenChange` | `(details: OpenChangeDetails) => void` | — | Вызывается при открытии и закрытии списка. |
+| `lazyMount` | `boolean` | `true` | Монтирует содержимое списка при первом открытии. |
+| `unmountOnExit` | `boolean` | `true` | Удаляет содержимое списка после закрытия. |
+| `name` | `string` | — | Имя поля формы у скрытого нативного select. |
+| `disabled` | `boolean` | `false` | Отключает выбор. |
+| `readOnly` | `boolean` | `false` | Показывает значение, но не даёт его менять. |
+| `invalid` | `boolean` | `false` | Помечает поле как невалидное. |
+| `required` | `boolean` | `false` | Требует выбрать значение перед отправкой формы. |
+| `translations` | `IntlTranslations` | — | Переведённые строки для подписей доступности. |
+| `form` | `string` | — | Id формы, к которой относится скрытый select. |
+| `autoComplete` | `string` | — | Подсказка автозаполнения браузера для скрытого select. |
+| `onSelect` | `(details: SelectionDetails) => void` | — | Вызывается при выборе элемента. |
+| `onHighlightChange` | `(details: HighlightChangeDetails<T>) => void` | — | Вызывается при смене подсвеченного элемента. |
+| `highlightedValue` | `string \| null` | — | Подсвеченный элемент в управляемом режиме. |
+| `defaultHighlightedValue` | `string \| null` | — | Элемент, подсвеченный при открытии списка. |
+| `defaultOpen` | `boolean` | — | Начальное состояние открытия, если оно не управляется извне. |
+| `scrollToIndexFn` | `(details: ScrollToIndexDetails) => void` | — | Прокручивает виртуализированный список к индексу элемента. |
+| `composite` | `boolean` | `true` | Укажите `false`, если select находится внутри другого составного виджета, например вкладок. |
+| `onPointerDownOutside` | `(event: PointerDownOutsideEvent) => void` | — | Вызывается при нажатии указателя вне списка. |
+| `onFocusOutside` | `(event: FocusOutsideEvent) => void` | — | Вызывается, когда фокус уходит из списка. |
+| `onInteractOutside` | `(event: InteractOutsideEvent) => void` | — | Вызывается при любом взаимодействии вне списка. |

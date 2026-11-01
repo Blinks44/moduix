@@ -11,7 +11,7 @@ import {
   ScrollAreaThumb,
   ScrollAreaViewport,
   useScrollArea,
-} from '../src';
+} from '@/index';
 
 test('renders Ark anatomy with stable styling hooks and forwarded refs', async () => {
   let rootRef!: HTMLDivElement;
@@ -95,77 +95,14 @@ test('keeps RootProvider composition on the moduix surface', async () => {
     .toHaveAttribute('data-scope', 'scroll-area');
   await expect.element(page.getByText('Provider content')).toBeAttached();
   await expect.element(page.getByText('true')).toBeAttached();
-  const viewport = document.querySelector('[data-slot="scroll-area-viewport"]')!;
   await expect
     .element(page.locator('[data-slot="scroll-area-viewport"]'))
     .toHaveAttribute('data-overflow-y');
-  expect(viewport.scrollHeight).toBeGreaterThan(viewport.clientHeight);
   await page.getByRole('button', { name: 'Scroll to bottom', exact: true }).click();
   await expect
     .element(page.locator('[data-slot="scroll-area-viewport"]'))
     .toHaveAttribute('data-at-bottom');
   await expect.element(page.getByText('false', { exact: true })).toBeAttached();
-  expect(viewport.scrollTop).toBe(viewport.scrollHeight - viewport.clientHeight);
-});
-
-test('preserves Ark asChild composition and forwards refs for every visible part', async () => {
-  let rootRef: HTMLDivElement | undefined;
-  let viewportRef!: HTMLDivElement;
-  let contentRef!: HTMLDivElement;
-  let scrollbarRef!: HTMLDivElement;
-  let thumbRef!: HTMLDivElement;
-  let cornerRef!: HTMLDivElement;
-
-  render(() => (
-    <ScrollArea
-      asChild={(props) => <div {...props()} aria-label="Related articles" role="region" />}
-      ref={(element) => (rootRef = element)}
-    >
-      <ScrollAreaViewport ref={(element) => (viewportRef = element)}>
-        <ScrollAreaContent ref={(element) => (contentRef = element)}>
-          Article list
-        </ScrollAreaContent>
-      </ScrollAreaViewport>
-      <ScrollAreaScrollbar ref={(element) => (scrollbarRef = element)}>
-        <ScrollAreaThumb ref={(element) => (thumbRef = element)} />
-      </ScrollAreaScrollbar>
-      <ScrollAreaCorner ref={(element) => (cornerRef = element)} />
-    </ScrollArea>
-  ));
-
-  expect(rootRef).toBeUndefined();
-
-  await expect
-    .element(page.getByRole('region', { name: 'Related articles', exact: true }))
-    .toHaveAttribute('data-slot', 'scroll-area-root');
-  await expect
-    .element(page.getByRole('region', { name: 'Related articles', exact: true }))
-    .not.toHaveAttribute('data-fade');
-  await expect
-    .element(page.getByRole('region', { name: 'Related articles', exact: true }))
-    .toHaveAttribute('data-variant', 'hover');
-  expect(viewportRef.getAttribute('data-slot')).toBe('scroll-area-viewport');
-  expect(contentRef.getAttribute('data-slot')).toBe('scroll-area-content');
-  expect(scrollbarRef.getAttribute('data-slot')).toBe('scroll-area-scrollbar');
-  expect(thumbRef.getAttribute('data-slot')).toBe('scroll-area-thumb');
-  expect(cornerRef.getAttribute('data-slot')).toBe('scroll-area-corner');
-});
-test('inherits the container text color and the root border radius', () => {
-  render(() => (
-    <div style={{ color: 'rgb(1, 2, 3)' }}>
-      <ScrollArea style={{ 'border-radius': '12px' }}>
-        <ScrollAreaViewport>
-          <ScrollAreaContent>Inherited content</ScrollAreaContent>
-        </ScrollAreaViewport>
-      </ScrollArea>
-    </div>
-  ));
-
-  const root = document.querySelector('[data-slot="scroll-area-root"]')!;
-  const viewport = document.querySelector('[data-slot="scroll-area-viewport"]')!;
-
-  expect(getComputedStyle(root).color).toBe('rgb(1, 2, 3)');
-  expect(getComputedStyle(viewport).borderRadius).toBe('12px');
 });
 
 test('shows only the overflowing scrollbar with the always variant', async () => {

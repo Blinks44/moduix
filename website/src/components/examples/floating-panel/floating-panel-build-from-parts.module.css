@@ -1,0 +1,23 @@
+.dragIndicator {
+  display: inline-flex;
+  color: var(--moduix-muted-foreground);
+
+  & > svg {
+    width: var(--moduix-spacing-4);
+    height: var(--moduix-spacing-4);
+  }
+}
+
+.footer {
+  display: flex;
+  justify-content: flex-end;
+  padding: var(--moduix-spacing-1) var(--moduix-spacing-3);
+  border-top: var(--moduix-border-width-sm) solid var(--moduix-border);
+  color: var(--moduix-muted-foreground);
+  font-size: var(--moduix-text-xs);
+  line-height: var(--moduix-line-height-text-xs);
+
+  [data-minimized] > & {
+    display: none;
+  }
+}

@@ -4,7 +4,7 @@
     width: 100%;
     min-width: 0;
     flex-direction: column;
-    color: var(--moduix-color-foreground);
+    color: var(--moduix-foreground);
     font-family: var(--moduix-font-mono);
     font-size: var(--moduix-text-xs);
     line-height: var(--moduix-line-height-text-xs);
@@ -71,25 +71,17 @@
 
     @media (hover: hover) {
       &:hover::before {
-        background-color: color-mix(
-          in oklab,
-          var(--moduix-color-accent) 72%,
-          var(--moduix-color-background)
-        );
+        background-color: color-mix(in oklab, var(--moduix-accent) 72%, var(--moduix-background));
       }
     }
 
     &[data-selected]::before {
-      background-color: color-mix(
-        in oklab,
-        var(--moduix-color-accent) 72%,
-        var(--moduix-color-background)
-      );
+      background-color: color-mix(in oklab, var(--moduix-accent) 72%, var(--moduix-background));
     }
 
     &:focus-visible::before,
     &[data-focus]::before {
-      box-shadow: inset 0 0 0 var(--moduix-focus-ring-inset-width) var(--moduix-color-ring);
+      box-shadow: inset 0 0 0 var(--moduix-focus-ring-inset-width) var(--moduix-ring);
     }
   }
 
@@ -100,11 +92,7 @@
     flex-shrink: 0;
     align-items: center;
     justify-content: center;
-    color: color-mix(
-      in oklab,
-      var(--moduix-color-muted-foreground) 42%,
-      var(--moduix-color-foreground)
-    );
+    color: color-mix(in oklab, var(--moduix-muted-foreground) 42%, var(--moduix-foreground));
     transition: transform var(--moduix-transition-default);
 
     &[data-state='open'] {
@@ -124,7 +112,7 @@
   }
 
   .root :where([data-kind='key']) {
-    color: color-mix(in oklab, var(--moduix-color-chart-1) 72%, var(--moduix-color-foreground));
+    color: color-mix(in oklab, var(--moduix-chart-1) 72%, var(--moduix-foreground));
   }
 
   .root
@@ -134,7 +122,7 @@
       [data-kind='preview-text'],
       [data-kind='constructor']
     ) {
-    color: var(--moduix-color-muted-foreground);
+    color: var(--moduix-muted-foreground);
   }
 
   .root :where([data-kind='colon']) {
@@ -152,19 +140,19 @@
   }
 
   .root :where([data-kind='preview'][data-type='string']) {
-    color: color-mix(in oklab, var(--moduix-color-success) 78%, var(--moduix-color-foreground));
+    color: color-mix(in oklab, var(--moduix-success) 78%, var(--moduix-foreground));
   }
 
   .root :where([data-kind='preview']:is([data-type='number'], [data-type='bigint'])) {
-    color: color-mix(in oklab, var(--moduix-color-chart-3) 78%, var(--moduix-color-foreground));
+    color: color-mix(in oklab, var(--moduix-chart-3) 78%, var(--moduix-foreground));
   }
 
   .root :where([data-kind='preview'][data-type='boolean']) {
-    color: color-mix(in oklab, var(--moduix-color-chart-4) 74%, var(--moduix-color-foreground));
+    color: color-mix(in oklab, var(--moduix-chart-4) 74%, var(--moduix-foreground));
   }
 
   .root :where([data-kind='preview']:is([data-type='null'], [data-type='undefined'])) {
-    color: var(--moduix-color-muted-foreground);
+    color: var(--moduix-muted-foreground);
     font-style: italic;
   }
 
@@ -174,7 +162,7 @@
       [data-kind='error-stack'],
       [data-kind='operator']
     ) {
-    color: var(--moduix-color-destructive);
+    color: var(--moduix-destructive);
   }
 
   .root
@@ -183,7 +171,7 @@
       [data-kind='function-type'],
       [data-kind='function-body']
     ) {
-    color: color-mix(in oklab, var(--moduix-color-chart-5) 72%, var(--moduix-color-foreground));
+    color: color-mix(in oklab, var(--moduix-chart-5) 72%, var(--moduix-foreground));
     font-style: italic;
   }
 }

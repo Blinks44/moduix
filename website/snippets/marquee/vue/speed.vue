@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { Marquee, MarqueeContent, MarqueeItem, MarqueeViewport } from '@moduix/vue/marquee';
+import { Stack } from '@moduix/vue/stack';
 import styles from '@/components/examples/marquee/marquee-speed.module.css';
 
 const partners = [
@@ -13,7 +14,7 @@ const partners = [
 </script>
 
 <template>
-  <div :class="styles.stack">
+  <Stack align="center" gap="3">
     <Marquee aria-label="Slow partner logos" :speed="25" :class="styles.root">
       <MarqueeViewport>
         <MarqueeContent>
@@ -34,5 +35,5 @@ const partners = [
         </MarqueeContent>
       </MarqueeViewport>
     </Marquee>
-  </div>
+  </Stack>
 </template>

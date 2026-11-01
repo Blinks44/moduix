@@ -34,7 +34,7 @@
     border-radius: inherit;
     background: linear-gradient(
       to top,
-      color-mix(in oklab, var(--moduix-color-foreground) 68%, transparent),
+      color-mix(in oklab, var(--moduix-foreground) 68%, transparent),
       transparent
     );
     content: '';
@@ -117,23 +117,15 @@
 .indicator {
   position: relative;
   overflow: visible;
-  background-color: color-mix(
-    in oklab,
-    var(--moduix-color-muted) 90%,
-    var(--moduix-color-foreground)
-  );
+  background-color: color-mix(in oklab, var(--moduix-muted) 90%, var(--moduix-foreground));
   background-image: linear-gradient(currentColor, currentColor);
   background-repeat: no-repeat;
   background-size: 0% 100%;
-  color: var(--moduix-carousel-indicator-bg-current, var(--moduix-color-primary));
+  color: var(--moduix-carousel-indicator-bg-current, var(--moduix-primary));
   opacity: 1;
 
   &[data-current] {
-    background-color: color-mix(
-      in oklab,
-      var(--moduix-color-muted) 90%,
-      var(--moduix-color-foreground)
-    );
+    background-color: color-mix(in oklab, var(--moduix-muted) 90%, var(--moduix-foreground));
     background-size: 100% 100%;
   }
 

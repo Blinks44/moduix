@@ -1,14 +1,25 @@
 ---
 title: Switch
 component: switch
-description: A composable Ark UI switch for React, Solid, or Vue that turns an immediate boolean setting on or off.
+description: Turn a setting on or off with an immediate effect.
+ark: https://ark-ui.com/docs/components/switch
 ---
 
+import AnatomyScene from '@/components/examples/switch/basic';
 import * as SwitchDocs from '@/components/examples/switch/css-properties';
 
-## API Reference
+<Example name="switch/basic" />
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/switch" />
+## Installation
+
+<ComponentInstall />
+
+## Usage
+
+<Usage />
+
+A basic switch has a root, a visual control, a label, and an explicit `SwitchHiddenInput` for native
+interaction and form behavior. The control receives a default thumb when it has no children.
 
 ## Choosing the right component
 
@@ -20,74 +31,70 @@ boolean value.
   rather than an immediate setting change.
 - Choose **`RadioGroup`** when users must choose one option from several mutually exclusive values.
 
-## Basic
+## Examples
 
+### Sizes
 
-A basic switch has a root, a visual control, a label, and an explicit `SwitchHiddenInput` for native
-interaction and form behavior. The control receives a default thumb when it has no children.
+Use moduix `size` to match different form densities without changing the Ark part tree.
 
-<Example name="switch/basic" />
+<Example name="switch/sizes" />
 
-## Install with shadcn
+### Initial checked
 
-See [Quick Start](/docs/quick-start) for full package setup, registry configuration, and styling guidance.
+Use `defaultChecked` when the switch should start enabled and manage its own state afterward.
 
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
+<Example name="switch/initial-checked" />
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/switch' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/switch' },
-  ]}
-/>
+### Disabled
 
-  </Tab>
-  <Tab label="Solid" value="solid">
+Use `disabled` to prevent interaction while keeping the current visual state.
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/switch' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/switch' },
-  ]}
-/>
+<Example name="switch/disabled" />
 
-  </Tab>
-  <Tab label="Vue" value="vue">
+### Read only
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/switch' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/switch' },
-  ]}
-/>
+Use `readOnly` when the current state should remain visible but users must not be able to change it.
 
-  </Tab>
-</Tabs>
+<Example name="switch/read-only" />
 
-## Anatomy
+### Form integration
 
-```text
-Switch
-├─ SwitchControl
-│  └─ SwitchThumb
-├─ SwitchLabel
-└─ SwitchHiddenInput (explicit)
-```
+Use `Field` when the switch needs form labeling, validation, or submission. This example displays an
+error after the form is submitted while the switch is still off.
 
-| Part                          | Role                                                                 |
-| ----------------------------- | -------------------------------------------------------------------- |
-| `Switch`                 | Root `label` element. Owns switch state, ids, form props, and `size`. |
-| `SwitchHiddenInput`           | Native Ark form control; compose explicitly as described below.      |
-| `SwitchRootProvider`          | Root `label` driven by state created with `useSwitch()`.             |
-| `SwitchControl`               | Visual track and focus-ring target. Adds `SwitchThumb` by default.  |
-| `SwitchThumb`                 | Movable thumb for the default visuals or custom thumb content.       |
-| `SwitchLabel`                 | Ark-connected label text.                                            |
+<Example name="switch/form-integration" />
 
-`Switch` is the root component. `SwitchContext`, `useSwitchContext`, and `useSwitch` are exported
-from `@moduix/react` alongside the component. The Vue exports are available from
-`@moduix/vue` and `@moduix/vue/switch`.
-The matching Solid exports are available from `@moduix/solid` and `@moduix/solid/switch`.
+### Custom thumb
+
+Pass children to `SwitchThumb` when the thumb needs an icon or other custom content.
+
+<Example name="switch/custom-thumb" />
+
+### Controlled
+
+Use controlled mode when the switch needs to stay in sync with other UI or application state. See [Control state from the application](/docs/composition-patterns#controlled-state).
+
+<Example name="switch/controlled" />
+
+### Context
+
+Use `useSwitchContext` from the matching framework package when nearby UI needs to read the current switch state.
+
+<Example name="switch/context" />
+
+### Root provider
+
+Import `useSwitch` from the matching framework package and pair it with `SwitchRootProvider` when
+you need to create and control the state outside the rendered switch tree. See [Share state outside the tree](/docs/composition-patterns#root-provider).
+
+<Example name="switch/root-provider" />
+
+### Build from parts
+
+The same switch as Basic with `SwitchThumb` written out: `SwitchControl` renders it only when it has
+no children. Start here when a design styles the track and the thumb separately.
+
+<Example name="switch/build-from-parts" />
 
 ## Composition
 
@@ -105,63 +112,27 @@ tree. Do not render `Switch` and `SwitchRootProvider` for the same state instanc
 With `asChild`, provide one semantic element compatible with `label` so Ark can keep the switch
 accessible.
 
-## Examples
+## Anatomy
 
-### Context
+Hover or focus a part to find it in the preview.
 
-Use `useSwitchContext` from the matching framework package when nearby UI needs to read the current switch state.
+<AnatomyInspector
+  parts={[
+    ["Switch", "switch-root", "Root `label` element. Manages switch state, ids, form props, and `size`.", 0],
+    ["SwitchControl", "switch-control", "Visual track and focus-ring target. Adds `SwitchThumb` by default.", 1],
+    ["SwitchThumb", "switch-thumb", "Movable thumb for the default visuals or custom thumb content.", 2],
+    ["SwitchLabel", "switch-label", "Ark-connected label text.", 1],
+    ["SwitchHiddenInput", "", "Native Ark form control; compose explicitly as described below.", 1],
+    ["SwitchRootProvider", "switch-root-provider", "Root `label` driven by state created with `useSwitch()`.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
-<Example name="switch/context" />
-
-### Controlled
-
-Use controlled mode when the switch needs to stay in sync with other UI or application state.
-
-<Example name="switch/controlled" />
-
-### Disabled
-
-Use `disabled` to prevent interaction while keeping the current visual state.
-
-<Example name="switch/disabled" />
-
-### Form Integration
-
-Use `Field` when the switch needs form labeling, validation, or submission. This example displays an
-error after the form is submitted while the switch is still off.
-
-<Example name="switch/form-integration" />
-
-### Initial Checked
-
-Use `defaultChecked` when the switch should start enabled and manage its own state afterward.
-
-<Example name="switch/initial-checked" />
-
-### Read Only
-
-Use `readOnly` when the current state should remain visible but users must not be able to change it.
-
-<Example name="switch/read-only" />
-
-### Root Provider
-
-Import `useSwitch` from the matching framework package and pair it with `SwitchRootProvider` when
-you need to create and control the state outside the rendered switch tree.
-
-<Example name="switch/root-provider" />
-
-### Sizes
-
-Use moduix `size` to match different form densities without changing the Ark part tree.
-
-<Example name="switch/sizes" />
-
-### Advanced Customization
-
-Add `SwitchThumb` explicitly when the thumb needs custom content or styling.
-
-<Example name="switch/advanced-customization" />
+`Switch` is the root component. `SwitchContext`, `useSwitchContext`, and `useSwitch` are exported
+from `@moduix/react` alongside the component. The Vue exports are available from
+`@moduix/vue` and `@moduix/vue/switch`.
+The matching Solid exports are available from `@moduix/solid` and `@moduix/solid/switch`.
 
 ## Styling
 
@@ -175,17 +146,49 @@ The thumb is sized and placed from the control box, so a `width` or `height` ove
 flush with both ends. Right-to-left direction comes from Ark: with an RTL [`LocaleProvider`](/docs/rtl),
 Ark writes `dir` on every part and the checked thumb moves to the inline end.
 
-### CSS Properties
+### CSS variables
 
-<CssPropertiesSection properties={SwitchDocs.switchOverrideCssProperties} />
+Hover or focus a variable to see it in the preview.
+
+<CssPropertiesSection properties={SwitchDocs.switchOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Styling hooks
+
+| Part | `data-slot` |
+| --- | --- |
+| `Switch` | `switch-root` |
+| `SwitchRootProvider` | `switch-root-provider` |
+| `SwitchControl` | `switch-control` |
+| `SwitchThumb` | `switch-thumb` |
+| `SwitchLabel` | `switch-label` |
 
 - `Switch` and `SwitchRootProvider` expose `data-slot="switch-root"` /
   `data-slot="switch-root-provider"` and set the moduix `data-size` attribute.
 - `SwitchControl` exposes `data-slot="switch-control"` and receives Ark state attributes such as
-  `data-state`, `data-focus-visible`, `data-hover`, `data-active`, `data-disabled`, `data-readonly`,
+  `data-state`, `data-focus`, `data-focus-visible`, `data-hover`, `data-active`, `data-disabled`, `data-readonly`,
   `data-invalid`, and `data-required`.
-- `SwitchThumb` exposes `data-slot="switch-thumb"` and receives the same Ark state attributes for
-  thumb movement and custom content styling.
-- `SwitchLabel` exposes `data-slot="switch-label"` for typography overrides.
+
+## Keyboard
+
+| Key | Action |
+| --- | --- |
+| `Space` | Toggles the focused switch. |
+
+## API reference
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `checked` | `boolean` | — | Checked state for controlled use. |
+| `defaultChecked` | `boolean` | `false` | Initial checked state. |
+| `onCheckedChange` | `(details: CheckedChangeDetails) => void` | — | Called when the switch is toggled. |
+| `value` | `string \| number` | `'on'` | Value submitted with the form when checked. |
+| `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'` | `'md'` | Control size: `xs`, `sm`, `md`, `lg`, or `xl`. |
+| `name` | `string` | — | Form field name of the underlying input. |
+| `disabled` | `boolean` | `false` | Disables the control. |
+| `readOnly` | `boolean` | `false` | Shows the value but prevents changes. |
+| `invalid` | `boolean` | `false` | Marks the control as invalid. |
+| `required` | `boolean` | `false` | Requires a value before form submission. |
+| `label` | `string` | — | Accessible name when there is no visible label. |
+| `form` | `string` | — | Id of the form the underlying input belongs to. |

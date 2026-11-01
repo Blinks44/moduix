@@ -9,7 +9,7 @@ import {
   ColorPickerContent,
   ColorPickerHiddenInput,
   parseColor,
-} from '../../src/components/color-picker';
+} from '@/components/color-picker';
 const defaultColor = parseColor('#eb5e41');
 </script>
 

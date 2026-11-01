@@ -1,16 +1,12 @@
 ---
 title: TanStack Form
-description: Connect Moduix controls to native TanStack Form adapters across supported frameworks.
+description: Connect moduix controls to native TanStack Form adapters across supported frameworks.
 ---
-
-import ProjectForm from '@/components/examples/tanstack-form/complete-form.tsx';
-import tanStackFormSolidCompleteForm from '../../../snippets/tanstack-form/solid/complete-form.tsx?raw';
-import tanStackFormVueCompleteForm from '../../../snippets/tanstack-form/vue/complete-form.vue?raw';
 
 # TanStack Form
 
 [TanStack Form](https://tanstack.com/form/latest) provides typed, headless form state with
-framework-native adapters. This guide focuses on mapping that state to Moduix controls.
+framework-native adapters. This guide focuses on mapping that state to moduix controls.
 
 ## Framework support
 
@@ -48,7 +44,7 @@ Vue uses `useForm` and the `{ field, state }` scoped slot of `form.Field`. Read 
 
 ## Connect controls
 
-TanStack fields use controlled values. Read the current value, pass it to the Moduix control, and send
+TanStack fields use controlled values. Read the current value, pass it to the moduix control, and send
 the next value to `field.handleChange`.
 
 | Control             | Mapping                                                               |
@@ -59,7 +55,7 @@ the next value to `field.handleChange`.
 | `Checkbox`          | Map `details.checked === true` to the boolean field value.            |
 
 Define every field in `defaultValues`. Forward `handleBlur` from the real interaction boundary and
-keep the required `HiddenSelect` or `HiddenInput` in the Moduix composition.
+keep the required `HiddenSelect` or `HiddenInput` in the moduix composition.
 
 ## Validation and reset
 
@@ -67,8 +63,8 @@ Use field validators for local rules and form validators for schema or cross-fie
 `!field.state.meta.isValid` to `Field invalid` and render the errors with `FieldErrorText` after the
 chosen validation lifecycle runs.
 
-Add `noValidate` only when TanStack Form owns the visible errors. Call `form.reset()` for controlled
-fields so form state and Moduix controls reset together.
+Add `noValidate` only when TanStack Form renders the visible errors. Call `form.reset()` for controlled
+fields so form state and moduix controls reset together.
 
 ## Complete form
 
@@ -76,47 +72,7 @@ The example integrates `Input`, `Select`, `Combobox`, `Textarea`, and `Checkbox`
 and focuses the first invalid control. Supported adapters share the same behavior and stylesheet. The
 live preview renders React.
 
-<ExampleFrame variant="component">
-  <PreviewFrame maxWidth="sm">
-    <ProjectForm />
-  </PreviewFrame>
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/tanstack-form/complete-form.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={tanStackFormSolidCompleteForm} />
-
-    </Tab>
-  <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={tanStackFormVueCompleteForm} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/tanstack-form/tanstack-form-complete-form.module.css"
-```
-</div>
-</ExampleCode>
+<Example name="tanstack-form/complete-form" />
 
 ## Repeated fields and server errors
 

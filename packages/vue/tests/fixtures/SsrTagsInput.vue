@@ -6,7 +6,7 @@ import {
   TagsInputItems,
   TagsInputInput,
   TagsInputHiddenInput,
-} from '../../src/components/tags-input';
+} from '@/components/tags-input';
 </script>
 
 <template>

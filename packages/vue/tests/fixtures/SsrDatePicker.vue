@@ -7,7 +7,7 @@ import {
   DatePickerMonthSelect,
   DatePickerYearSelect,
   DatePickerValueText,
-} from '../../src/components/date-picker';
+} from '@/components/date-picker';
 const date = parseDate('2026-06-22');
 </script>
 

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Timer, TimerSegments, TimerControl, TimerActionTrigger } from '../../src/components/timer';
+import { Timer, TimerSegments, TimerControl, TimerActionTrigger } from '@/components/timer';
 </script>
 
 <template>

@@ -1,15 +1,13 @@
-import { CheckboxHiddenInput } from '@ark-ui/vue/checkbox';
-import {
-  RadioGroupItem as ArkRadioGroupItem,
-  RadioGroupItemControl as ArkRadioGroupItemControl,
-  RadioGroupItemHiddenInput as ArkRadioGroupItemHiddenInput,
-  RadioGroupItemText as ArkRadioGroupItemText,
-  RadioGroupRoot as ArkRadioGroup,
-} from '@ark-ui/vue/radio-group';
 import type { Meta, StoryObj } from '@storybook/vue3-vite';
 import { defineComponent, ref } from 'vue';
 import type { Component } from 'vue';
-import { Checkbox, CheckboxControl, CheckboxIndicator, CheckboxLabel } from '@/components/checkbox';
+import {
+  Checkbox,
+  CheckboxControl,
+  CheckboxHiddenInput,
+  CheckboxIndicator,
+  CheckboxLabel,
+} from '@/components/checkbox';
 import {
   Field,
   FieldErrorText,
@@ -22,6 +20,13 @@ import {
 } from '@/components/field';
 import { Input } from '@/components/input';
 import { NativeSelect } from '@/components/native-select';
+import {
+  RadioGroup,
+  RadioGroupItem,
+  RadioGroupItemControl,
+  RadioGroupItemHiddenInput,
+  RadioGroupItemText,
+} from '@/components/radio-group';
 import { Textarea } from '@/components/textarea';
 
 const meta = {
@@ -55,11 +60,6 @@ export const InputParity: Story = {
 };
 
 const storyComponents = {
-  ArkRadioGroup,
-  ArkRadioGroupItem,
-  ArkRadioGroupItemControl,
-  ArkRadioGroupItemHiddenInput,
-  ArkRadioGroupItemText,
   Checkbox,
   CheckboxControl,
   CheckboxHiddenInput,
@@ -74,6 +74,11 @@ const storyComponents = {
   FieldRequiredIndicator,
   FieldRootProvider,
   NativeSelect,
+  RadioGroup,
+  RadioGroupItem,
+  RadioGroupItemControl,
+  RadioGroupItemHiddenInput,
+  RadioGroupItemText,
   Textarea,
 } as Record<string, Component>;
 
@@ -186,18 +191,18 @@ export const WithRadioGroup: Story = {
   render: renderStory(`
     <Field>
       <FieldLabel>Account type</FieldLabel>
-      <ArkRadioGroup default-value="team" aria-label="Account type">
-        <ArkRadioGroupItem value="personal">
-          <ArkRadioGroupItemControl />
-          <ArkRadioGroupItemText>Personal account</ArkRadioGroupItemText>
-          <ArkRadioGroupItemHiddenInput />
-        </ArkRadioGroupItem>
-        <ArkRadioGroupItem value="team">
-          <ArkRadioGroupItemControl />
-          <ArkRadioGroupItemText>Team account</ArkRadioGroupItemText>
-          <ArkRadioGroupItemHiddenInput />
-        </ArkRadioGroupItem>
-      </ArkRadioGroup>
+      <RadioGroup default-value="team" aria-label="Account type">
+        <RadioGroupItem value="personal">
+          <RadioGroupItemControl />
+          <RadioGroupItemText>Personal account</RadioGroupItemText>
+          <RadioGroupItemHiddenInput />
+        </RadioGroupItem>
+        <RadioGroupItem value="team">
+          <RadioGroupItemControl />
+          <RadioGroupItemText>Team account</RadioGroupItemText>
+          <RadioGroupItemHiddenInput />
+        </RadioGroupItem>
+      </RadioGroup>
       <FieldHelperText>Choose the default account context for new projects.</FieldHelperText>
     </Field>
   `),

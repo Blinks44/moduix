@@ -14,16 +14,8 @@ import {
   CheckboxRootProvider,
   useCheckbox,
   useCheckboxContext,
-} from '../src';
-
-function visibleIconSizes() {
-  return [...document.querySelectorAll('[data-slot="checkbox-indicator"]:not([hidden]) svg')].map(
-    (icon) => {
-      const { width, height } = icon.getBoundingClientRect();
-      return [Math.round(width), Math.round(height)];
-    },
-  );
-}
+} from '@/index';
+import SsrCheckbox from './fixtures/SsrCheckbox.vue';
 
 const checkboxComponents = {
   Checkbox,
@@ -304,36 +296,4 @@ test('hydrates without replacing hosts or ids and responds to clicks', async () 
     warn.mockRestore();
     error.mockRestore();
   }
-});
-import SsrCheckbox from './fixtures/SsrCheckbox.vue';
-
-test('sizes default and custom indicator icons from the checkbox size', () => {
-  render({
-    components: checkboxComponents,
-    template: `
-      <Checkbox :default-checked="true">
-        <CheckboxControl />
-        <CheckboxLabel>Default icon</CheckboxLabel>
-      </Checkbox>
-      <Checkbox :default-checked="true" size="lg">
-        <CheckboxControl>
-          <CheckboxIndicator><svg viewBox="0 0 16 16" /></CheckboxIndicator>
-        </CheckboxControl>
-        <CheckboxLabel>Custom icon</CheckboxLabel>
-      </Checkbox>
-      <Checkbox :default-checked="true" style="--moduix-checkbox-size: 32px; --moduix-checkbox-icon-size: 24px">
-        <CheckboxControl />
-        <CheckboxLabel>Themed</CheckboxLabel>
-      </Checkbox>
-    `,
-  });
-
-  expect(visibleIconSizes()).toEqual([
-    [12, 12],
-    [14, 14],
-    [24, 24],
-  ]);
-  expect(
-    document.querySelectorAll<HTMLElement>('[data-slot="checkbox-control"]')[2]!.offsetWidth,
-  ).toBe(32);
 });

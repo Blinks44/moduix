@@ -1,14 +1,26 @@
 ---
 title: Highlight
-description: Mettez en évidence des mots et des expressions dans un texte existant avec des éléments mark natifs et les styles moduix dans React, Solid ou Vue.
+description: Surligner les correspondances d’une recherche dans un texte.
 component: highlight
+ark: https://ark-ui.com/docs/utilities/highlight
 ---
 
+import AnatomyScene from '@/components/examples/highlight/basic';
 import * as HighlightDocs from '@/components/examples/highlight/css-properties';
 
-## Référence de l’API
+<Example name="highlight/basic" />
 
-<PrimitiveReference href="https://ark-ui.com/docs/utilities/highlight" />
+## Installation
+
+<ComponentInstall />
+
+## Utilisation
+
+<Usage />
+
+Transmettez le texte source complet via `text` et le terme recherché via `query`. Placez `Highlight`
+dans le composant de texte ou l’élément HTML qui définit la mise en page et la sémantique autour du
+texte.
 
 ## Choisir le bon composant
 
@@ -19,92 +31,7 @@ conteneur.
 - Choisissez **`Highlight`** lorsqu’un ou plusieurs termes doivent ressortir dans une phrase, un libellé ou un bloc de texte existant.
 - Choisissez **`Text`** lorsque toute la chaîne a seulement besoin d’un style typographique, sans recherche de correspondances.
 
-## Exemple de base
-
-
-Transmettez le texte source complet via `text` et le terme recherché via `query`. Placez `Highlight`
-dans le composant de texte ou l’élément HTML qui définit la mise en page et la sémantique autour du
-texte.
-
-<Example name="highlight/basic" />
-
-## Installation avec shadcn
-
-Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration complète du paquet, du registre et des styles.
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/highlight' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/highlight' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/highlight' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/highlight' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/highlight' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/highlight' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Anatomie
-
-`Highlight` n’expose qu’une racine publique et renvoie un fragment sans ajouter de conteneur
-supplémentaire. Chaque segment correspondant devient un élément natif `<mark>`, tandis que le texte
-sans correspondance reste du texte ordinaire dans le flux environnant.
-
-```text
-Highlight
-└─ segments correspondants rendus dans des éléments <mark> successifs
-```
-
-| Partie      | Rôle                                                                |
-| ----------- | ------------------------------------------------------------------- |
-| `Highlight` | Applique les styles moduix à chaque correspondance du texte fourni. |
-
-## Composition
-
-`Highlight` est sans état et ne crée pas de conteneur de mise en page. Placez-le dans un conteneur
-de texte existant comme `Text`, un titre, un élément de liste ou une cellule de tableau. Contrôlez
-`query` depuis le composant parent lorsque la recherche change. Un tableau de chaînes exige que `matchAll` reste
-à `true` ; si chaque correspondance doit utiliser un élément différent ou un comportement interactif,
-construisez cette structure dans votre propre composant.
-
 ## Exemples
-
-### Requête dynamique
-
-Contrôlez `query` avec l’état du framework pour mettre en évidence le terme saisi pendant une
-recherche ou un filtrage du texte affiché.
-
-<Example name="highlight/dynamic-query" />
-
-### Correspondance exacte
-
-Activez `exactMatch` lorsque les correspondances partielles sont trop larges. Dans cet exemple,
-`box` correspond au mot isolé, mais pas à `checkbox` ni à `combobox`. La recherche suit les limites
-de mots de JavaScript, fiables pour le texte latin, mais qui ne reconnaissent pas le cyrillique ni
-certaines autres écritures comme des mots entiers.
-
-<Example name="highlight/exact-match" />
 
 ### Casse ignorée
 
@@ -118,6 +45,15 @@ Activez `matchAll` pour mettre en évidence chaque occurrence au lieu de la prem
 
 <Example name="highlight/match-all" />
 
+### Correspondance exacte
+
+Activez `exactMatch` lorsque les correspondances partielles sont trop larges. Dans cet exemple,
+`box` correspond au mot isolé, mais pas à `checkbox` ni à `combobox`. La recherche suit les limites
+de mots de JavaScript, fiables pour le texte latin, mais qui ne reconnaissent pas le cyrillique ni
+certaines autres écritures comme des mots entiers.
+
+<Example name="highlight/exact-match" />
+
 ### Plusieurs requêtes
 
 Transmettez un tableau de chaînes lorsque plusieurs termes doivent être mis en évidence dans le même
@@ -126,6 +62,37 @@ erreur.
 
 <Example name="highlight/multiple-queries" />
 
+### Requête dynamique
+
+Contrôlez `query` avec l’état du framework pour mettre en évidence le terme saisi pendant une
+recherche ou un filtrage du texte affiché.
+
+<Example name="highlight/dynamic-query" />
+
+## Composition
+
+`Highlight` est sans état et ne crée pas de conteneur de mise en page. Placez-le dans un conteneur
+de texte existant comme `Text`, un titre, un élément de liste ou une cellule de tableau. Contrôlez
+`query` depuis le composant parent lorsque la recherche change. Un tableau de chaînes exige que `matchAll` reste
+à `true` ; si chaque correspondance doit utiliser un élément différent ou un comportement interactif,
+construisez cette structure dans votre propre composant.
+
+## Anatomie
+
+`Highlight` n’expose qu’une racine publique et renvoie un fragment sans ajouter de conteneur
+supplémentaire. Chaque segment correspondant devient un élément natif `<mark>`, tandis que le texte
+sans correspondance reste du texte ordinaire dans le flux environnant.
+
+Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
+
+<AnatomyInspector
+  parts={[
+    ["Highlight", "highlight-root", "Applique les styles moduix à chaque correspondance du texte fourni.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
+
 ## Styles
 
 Les segments correspondants reçoivent les styles `<mark>` par défaut de moduix. Utilisez `className`
@@ -133,13 +100,31 @@ dans React ou `class` dans Solid et Vue pour une modification locale. Les varian
 exposent également les variables `--moduix-highlight-*` ; pour Tailwind, utilisez des classes
 utilitaires ou les classes du consommateur.
 
-### Propriétés CSS
+### Variables CSS
 
-<CssPropertiesSection properties={HighlightDocs.highlightCssProperties} />
+Survolez ou sélectionnez une variable pour la voir dans l’aperçu.
+
+<CssPropertiesSection properties={HighlightDocs.highlightCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Points d’accroche CSS
+
+| Partie | `data-slot` |
+| --- | --- |
+| `Highlight` | `highlight-root` |
 
 - Chaque `<mark>` correspondant porte `data-scope="highlight"` et `data-part="root"`.
 - `data-slot="highlight-root"` est le sélecteur moduix stable de chaque `mark` correspondant.
 - Les propriétés comme `className`/`class`, `style`, `title` et `data-*` s’appliquent à chaque `<mark>` correspondant.
 - Il n’y a ni conteneur supplémentaire, ni attribut d’état, ni variable CSS d’exécution Ark.
+
+## Référence de l’API
+
+| Prop | Type | Défaut | Description |
+| --- | --- | --- | --- |
+| `text` | `string` | — | Texte dans lequel chercher. |
+| `query` | `string \| string[]` | — | Terme ou tableau de termes à marquer. |
+| `ignoreCase` | `boolean` | `false` | Ignore la casse des lettres. |
+| `matchAll` | `boolean` | `false` | Marque toutes les occurrences, pas seulement la première. |
+| `exactMatch` | `boolean` | `false` | Ne marque que les mots entiers. |

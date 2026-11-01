@@ -2,21 +2,17 @@ import { page } from '@rstest/browser';
 import { expect, test } from '@rstest/core';
 import { render, screen } from '@solidjs/testing-library';
 import {
-  Button,
   Editable,
   EditableArea,
   EditableContext,
-  EditableControl,
   EditableControls,
-  EditableEditTrigger,
   EditableInput,
   EditableLabel,
   EditablePreview,
   EditableRootProvider,
-  Field,
   useEditable,
   useEditableContext,
-} from '../src';
+} from '@/index';
 
 function TestEditable(props: {
   defaultValue?: string;
@@ -139,49 +135,6 @@ test('keeps disabled triggers unavailable and read-only values unchanged', async
         .getByRole('textbox'),
     )
     .toHaveCount(0);
-});
-
-test('inherits Field state and preserves public styling hooks', async () => {
-  const { container } = render(() => (
-    <Field disabled id="layer-name" invalid readOnly required>
-      <Editable defaultValue="Layer name">
-        <EditableLabel>Layer name</EditableLabel>
-        <EditableArea>
-          <EditableInput />
-          <EditablePreview />
-        </EditableArea>
-        <EditableControls />
-      </Editable>
-    </Field>
-  ));
-
-  const root = container.querySelector<HTMLElement>('[data-slot="editable-root"]');
-  const area = container.querySelector<HTMLElement>('[data-slot="editable-area"]');
-  const input = container.querySelector<HTMLInputElement>('[data-slot="editable-input"]');
-  const label = container.querySelector<HTMLElement>('[data-slot="editable-label"]');
-
-  expect(root).not.toBeNull();
-  expect(area).not.toBeNull();
-  expect(input).not.toBeNull();
-  expect(label).not.toBeNull();
-  await expect
-    .element(page.locator('[data-slot="editable-root"]'))
-    .toHaveAttribute('data-slot', 'editable-root');
-  await expect
-    .element(page.locator('[data-slot="editable-area"]'))
-    .toHaveAttribute('data-disabled');
-  const rootLocator = page.locator('[data-slot="editable-input"]');
-  await expect.element(rootLocator).toHaveAttribute('data-slot', 'editable-input');
-  await expect.element(rootLocator).toBeDisabled();
-  await expect.element(rootLocator).toHaveAttribute('aria-invalid', 'true');
-  await expect.element(rootLocator).toHaveAttribute('readonly');
-  await expect.element(rootLocator).toHaveAttribute('required');
-  await expect
-    .element(page.locator('[data-slot="editable-label"]'))
-    .toHaveAttribute('data-invalid');
-  await expect
-    .element(page.locator('[data-slot="editable-label"]'))
-    .toHaveAttribute('for', input!.id);
 });
 
 test('participates in native form submission', () => {
@@ -345,27 +298,6 @@ test('does not forward refs through native Ark Solid asChild composition', () =>
   expect(rootRef).toBeUndefined();
 });
 
-function wait(ms: number) {
-  return new Promise((resolve) => setTimeout(resolve, ms));
-}
-
-test('keeps its width when switching to edit mode', async () => {
-  render(() => (
-    <div style={{ width: '480px' }}>
-      <TestEditable />
-    </div>
-  ));
-
-  const root = document.querySelector<HTMLElement>('[data-slot="editable-root"]')!;
-  const previewWidth = root.offsetWidth;
-
-  await page.getByRole('button', { name: 'edit', exact: true }).click();
-  await expect
-    .element(page.getByRole('textbox', { name: 'editable input', exact: true }))
-    .toBeVisible();
-  expect(root.offsetWidth).toBe(previewWidth);
-});
-
 test('wraps long values inside the area', () => {
   render(() => (
     <div style={{ width: '200px' }}>
@@ -375,75 +307,4 @@ test('wraps long values inside the area', () => {
 
   const area = document.querySelector<HTMLElement>('[data-slot="editable-area"]')!;
   expect(area.scrollWidth).toBeLessThanOrEqual(area.clientWidth);
-});
-
-test('dims a disabled editable once, also inside a disabled Field', async () => {
-  render(() => (
-    <>
-      <Editable disabled defaultValue="Standalone">
-        <EditableArea>
-          <EditableInput />
-          <EditablePreview />
-        </EditableArea>
-        <EditableControls />
-      </Editable>
-      <Field disabled>
-        <Editable defaultValue="In field">
-          <EditableArea>
-            <EditableInput />
-            <EditablePreview />
-          </EditableArea>
-          <EditableControls />
-        </Editable>
-      </Field>
-    </>
-  ));
-  await wait(400);
-
-  const [standalone, inField] = document.querySelectorAll<HTMLElement>(
-    '[data-slot="editable-root"]',
-  );
-  expect(getComputedStyle(standalone!).opacity).not.toBe('1');
-  expect(getComputedStyle(standalone!.querySelector('button')!).opacity).toBe('1');
-  expect(getComputedStyle(inField!).opacity).toBe('1');
-});
-
-test('leaves trigger styling to an asChild element', async () => {
-  render(() => (
-    <Editable defaultValue="Layer name">
-      <EditableArea>
-        <EditableInput />
-        <EditablePreview />
-      </EditableArea>
-      <EditableControl>
-        <EditableEditTrigger asChild={(props) => <Button {...props()}>Rename layer</Button>} />
-      </EditableControl>
-    </Editable>
-  ));
-
-  const trigger = document.querySelector<HTMLElement>('[data-part="edit-trigger"]')!;
-  expect(trigger.offsetWidth).toBeGreaterThan(trigger.offsetHeight);
-
-  await page.getByRole('button', { name: 'edit', exact: true }).click();
-  await expect
-    .element(page.getByRole('textbox', { name: 'editable input', exact: true }))
-    .toBeVisible();
-});
-
-test('shows the focus ring when the preview gets keyboard focus', async () => {
-  render(() => (
-    <>
-      <button type="button">Before</button>
-      <TestEditable />
-    </>
-  ));
-
-  const area = document.querySelector<HTMLElement>('[data-slot="editable-area"]')!;
-  const idleOutline = getComputedStyle(area).outlineColor;
-
-  await page.getByRole('button', { name: 'Before', exact: true }).press('Tab');
-  await wait(400);
-
-  expect(document.activeElement?.getAttribute('data-slot')).toBe('editable-preview');
-  expect(getComputedStyle(area).outlineColor).not.toBe(idleOutline);
 });

@@ -1,12 +1,17 @@
 ---
 title: Chart
 component: chart
-description: Создавайте доступные адаптивные графики с TanStack Charts и оформляйте их с помощью figure, легенды, подсказки и анимации moduix.
+description: Графики на TanStack Charts внутри доступной фигуры с заголовком.
 ---
 
+import AnatomyScene from '@/components/examples/chart/basic';
 import * as ChartDocs from '@/components/examples/chart/css-properties';
 
-## Справочник API
+<Example name="chart/basic" />
+
+## Установка
+
+<ComponentInstall />
 
 В Ark UI нет отдельного примитива для графиков. moduix добавляет семантические `figure`, заголовок,
 описание, легенду и компактное тело подсказки вокруг [API графиков TanStack
@@ -18,96 +23,15 @@ moduix предоставляет доступную оболочку компо
 используют одинаковый API определения графика; пакеты Solid и Vue работают через адаптер рендерера
 TanStack.
 
-## Базовый пример
+## Использование
 
+<Usage />
 
 Создайте определение графика в TanStack Charts и передайте его в `ChartPlot`. Добавьте вокруг
 графика видимые заголовок, описание и легенду, а для пользователей вспомогательных технологий
 задайте короткое доступное имя в `ariaLabel`.
 
-<Example name="chart/basic" />
-
-## Установка через shadcn
-
-Полную настройку пакета, реестра и стилей см. в разделе [Быстрый старт](/docs/quick-start).
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/chart' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/chart' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/chart' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/chart' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/chart' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/chart' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Анатомия
-
-```text
-Chart
-├─ ChartHeader (необязательный figcaption)
-│  ├─ ChartTitle
-│  └─ ChartDescription
-├─ ChartPlot
-│  └─ Поверхность графика TanStack (по умолчанию SVG)
-└─ ChartLegend (необязательно)
-   └─ ChartLegendItem
-```
-
-| Часть | Назначение |
-| --- | --- |
-| `Chart` | Составной корневой элемент `figure`. Принимает нативные свойства, `asChild` и ref на `HTMLElement` (у Vue это `$el` компонента). |
-| `ChartPlot` | Хост TanStack Charts. Требует `definition` и `ariaLabel`, по умолчанию использует пресет анимации moduix и принимает `motion={false}`. |
-| `ChartHeader` | Разметка `figcaption` для заголовка и описания. |
-| `ChartTitle` | Заголовок графика, по умолчанию рендерится как `h3`. |
-| `ChartDescription` | Видимое пояснение к графику. |
-| `ChartLegend` | Семантический список видимых серий. |
-| `ChartLegendItem` | Элемент легенды с необязательным цветом индикатора `color`. |
-
-## Композиция
-
-`Chart` - это презентационная оболочка. TanStack `definition` владеет графическими элементами,
-шкалами, взаимодействиями и колбэками, поэтому храните его на уровне модуля или мемоизируйте
-полностью, если он зависит от props или состояния. Собирайте `ChartHeader`, `ChartPlot` и
-`ChartLegend` внутри корневого элемента; `ChartPlot` продолжает передавать TanStack состояние
-рендеринга, фокуса и подсказки.
-
-Используйте `renderTooltipBody`, только если нужно обернуть или расширить нативную подсказку:
-отрендерите переданный `defaultBody`, а интерактивные элементы добавляйте только при `pinned=true`.
-`Chart` и `ChartHeader` поддерживают `asChild`, если семантическая оболочка или её разметка
-должны принадлежать приложению.
-
 ## Примеры
-
-### Анимированная область
-
-Область, линия, точки, группировка фокуса и анимация подсказки остаются нативным поведением
-TanStack.
-
-<Example name="chart/animated-area" />
 
 ### Цвета графика
 
@@ -116,15 +40,34 @@ TanStack.
 
 <Example name="chart/line-colors" />
 
-### Интерактивная легенда
+### Анимированная область
 
-Используйте `interactiveColorLegend` TanStack вместо отдельного `ChartLegend`, если нужно скрывать
-серии. В v1 параметр `hover: 'series'` также применяет состояния графических элементов при наведении
-и клавиатурном фокусе. Состояния с `source: 'legend'` выделяют серию, не открывая подсказку и не меняя
-фокус графика. Храните видимые серии в состоянии фреймворка через `controlledSignal`; кнопками,
-фильтрацией и клавиатурным управлением занимается TanStack.
+Область, линия, точки, группировка фокуса и анимация подсказки остаются нативным поведением
+TanStack.
 
-<Example name="chart/interactive-legend" />
+<Example name="chart/animated-area" />
+
+### Столбцы с накоплением
+
+Используйте цветовой канал TanStack и раскладку `stack()` для столбцов с несколькими сериями.
+`focus: 'group-x'` группирует подсказку и клавиатурный фокус по кварталу.
+
+<Example name="chart/stacked-bars" />
+
+### Горизонтальные столбцы
+
+Используйте `barX`, когда подписи категорий длинные или рейтинг должен читаться сверху вниз.
+Числовое значение передаётся по оси x, а категория - по оси y.
+
+<Example name="chart/horizontal-bars" />
+
+### Кольцевая диаграмма
+
+Сочетайте необязательные примитивы TanStack `pie`, `polar` и `radialArc`, чтобы показывать части
+целого. Та же композиция `ChartPlot`, анимации, фокуса, подсказки и легенды работает и за пределами
+декартовых графиков.
+
+<Example name="chart/donut" />
 
 ### Радарная диаграмма
 
@@ -140,13 +83,12 @@ TanStack.
 
 <Example name="chart/radar" />
 
-### Кольцевая диаграмма
+### Точечная диаграмма
 
-Сочетайте необязательные примитивы TanStack `pie`, `polar` и `radialArc`, чтобы показывать части
-целого. Та же композиция `ChartPlot`, анимации, фокуса, подсказки и легенды работает и за пределами
-декартовых графиков.
+Используйте `dot`, чтобы сравнить два количественных значения. Цвет может передавать дополнительное
+категориальное измерение, не меняя связь по осям x и y.
 
-<Example name="chart/donut" />
+<Example name="chart/scatter" />
 
 ### Тепловая карта
 
@@ -155,28 +97,17 @@ TanStack.
 
 <Example name="chart/heatmap" />
 
-### Горизонтальные столбцы
+### Интерактивная легенда
 
-Используйте `barX`, когда подписи категорий длинные или рейтинг должен читаться сверху вниз.
-Числовое значение передаётся по оси x, а категория - по оси y.
+Используйте `interactiveColorLegend` TanStack вместо отдельного `ChartLegend`, если нужно скрывать
+серии. В v1 параметр `hover: 'series'` также применяет состояния графических элементов при наведении
+и клавиатурном фокусе. Состояния с `source: 'legend'` выделяют серию, не открывая подсказку и не меняя
+фокус графика. Храните видимые серии в состоянии фреймворка через `controlledSignal`; кнопками,
+фильтрацией и клавиатурным управлением занимается TanStack.
 
-<Example name="chart/horizontal-bars" />
+<Example name="chart/interactive-legend" />
 
-### Точечная диаграмма
-
-Используйте `dot`, чтобы сравнить два количественных значения. Цвет может передавать дополнительное
-категориальное измерение, не меняя связь по осям x и y.
-
-<Example name="chart/scatter" />
-
-### Столбцы с накоплением
-
-Используйте цветовой канал TanStack и раскладку `stack()` для столбцов с несколькими сериями.
-`focus: 'group-x'` группирует подсказку и клавиатурный фокус по кварталу.
-
-<Example name="chart/stacked-bars" />
-
-### Расширенная настройка
+### Раскладка дашборда
 
 Части фабрики Ark принимают `asChild`, поэтому могут применять свои стили к семантическим
 элементам вашей разметки. В этом примере панели Chart и Button объединяются в один экран: стандартные
@@ -188,7 +119,38 @@ TanStack.
 внутри своей оболочки, пока TanStack продолжает управлять позиционированием и порталом. Добавляйте
 интерактивные элементы только в закреплённую подсказку.
 
-<Example name="chart/advanced-customization" />
+<Example name="chart/dashboard-layout" />
+
+## Композиция
+
+`Chart` - это презентационная оболочка. TanStack `definition` задаёт графические элементы,
+шкалами, взаимодействиями и колбэками, поэтому храните его на уровне модуля или мемоизируйте
+полностью, если он зависит от props или состояния. Собирайте `ChartHeader`, `ChartPlot` и
+`ChartLegend` внутри корневого элемента; `ChartPlot` продолжает передавать TanStack состояние
+рендеринга, фокуса и подсказки.
+
+Используйте `renderTooltipBody`, только если нужно обернуть или расширить нативную подсказку:
+отрендерите переданный `defaultBody`, а интерактивные элементы добавляйте только при `pinned=true`.
+`Chart` и `ChartHeader` поддерживают `asChild`, если семантическая оболочка или её разметка
+должны принадлежать приложению.
+
+## Анатомия
+
+Наведите на часть или выберите её, чтобы найти её в превью.
+
+<AnatomyInspector
+  parts={[
+    ["Chart", "chart-tooltip-value", "Составной корневой элемент `figure`. Принимает нативные свойства, `asChild` и ref на `HTMLElement` (у Vue это `$el` компонента).", 0],
+    ["ChartHeader", "chart-header", "Разметка `figcaption` для заголовка и описания.", 1],
+    ["ChartTitle", "chart-title", "Заголовок графика, по умолчанию рендерится как `h3`.", 2],
+    ["ChartDescription", "chart-description", "Видимое пояснение к графику.", 2],
+    ["ChartPlot", "", "Хост TanStack Charts. Требует `definition` и `ariaLabel`, по умолчанию использует пресет анимации moduix и принимает `motion={false}`.", 1],
+    ["ChartLegend", "chart-legend", "Семантический список видимых серий.", 1],
+    ["ChartLegendItem", "chart-legend-item", "Элемент легенды с необязательным цветом индикатора `color`.", 2],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Стилизация
 
@@ -205,26 +167,56 @@ CSS-свойства настраивают варианты с CSS Modules. О�
 
 ```css
 .sales-plot {
-  --ts-chart-tooltip-background: var(--moduix-color-card);
+  --ts-chart-tooltip-background: var(--moduix-card);
   --ts-chart-tooltip-font: var(--moduix-weight-medium) var(--moduix-text-sm) /
     var(--moduix-line-height-text-sm) var(--moduix-font-sans);
 }
 ```
 
-### CSS-свойства
+### CSS-переменные
 
-<CssPropertiesSection properties={ChartDocs.chartCssProperties} />
+Наведите на переменную или выберите её, чтобы увидеть её в превью.
+
+<CssPropertiesSection properties={ChartDocs.chartCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Хуки стилизации
+
+| Часть | `data-slot` |
+| --- | --- |
+| `Chart` | `chart-root` |
+| `Chart`, внутренний элемент | `chart-tooltip-text` |
+| `Chart`, внутренний элемент | `chart-tooltip-body` |
+| `Chart`, внутренний элемент | `chart-tooltip-title` |
+| `Chart`, внутренний элемент | `chart-tooltip-swatch` |
+| `Chart`, внутренний элемент | `chart-tooltip-rows` |
+| `Chart`, внутренний элемент | `chart-tooltip-row` |
+| `Chart`, внутренний элемент | `chart-tooltip-label` |
+| `Chart`, внутренний элемент | `chart-tooltip-value` |
+| `ChartHeader` | `chart-header` |
+| `ChartTitle` | `chart-title` |
+| `ChartDescription` | `chart-description` |
+| `ChartLegend` | `chart-legend` |
+| `ChartLegendItem` | `chart-legend-item` |
 
 - `Chart`, `ChartHeader`, `ChartTitle`, `ChartDescription`, `ChartLegend` и
   `ChartLegendItem` предоставляют `data-scope="chart"`, `data-part` и `data-slot`.
 - `className` в React и `class` в Solid и Vue у `ChartPlot` применяются к внешнему элементу `.ts-chart-host`.
-- Стандартная подсказка использует слоты данных `chart-tooltip-body`, `chart-tooltip-title`,
-  `chart-tooltip-rows`, `chart-tooltip-row`, `chart-tooltip-swatch`, `chart-tooltip-label`,
-  `chart-tooltip-value` и `chart-tooltip-text`.
-- Используйте `--moduix-color-chart-1` - `--moduix-color-chart-5` в цветовых шкалах TanStack.
+- Используйте `--moduix-chart-1` - `--moduix-chart-5` в цветовых шкалах TanStack.
 - Строки подсказки, которые TanStack помечает как `active`, получают `data-active`.
 - Оболочка подсказки читает переменные TanStack `--ts-chart-tooltip-*` с хоста `ChartPlot`. Для
   собственных CSS-селекторов используйте `tooltip.className`, а для собственного содержимого вокруг
   `defaultBody` от moduix - `renderTooltipBody`.
+
+## Справочник API
+
+Пропсы `ChartPlot`. Остальные пропсы чарта TanStack, например `height` и `renderTooltipBody`, передаются дальше.
+
+| Проп | Тип | По умолчанию | Описание |
+| --- | --- | --- | --- |
+| `definition` | `ChartDefinition` | — | Определение TanStack Charts: данные, графические элементы и шкалы. |
+| `ariaLabel` | `string` | — | Короткое название графика для вспомогательных технологий. |
+| `height` | `number` | — | Высота графика в пикселях. |
+| `motion` | `boolean` | `true` | Включает анимированный рендерер; `false` рисует статичный SVG. |
+| `renderer` | `ChartRenderer` | — | Свой рендерер TanStack; заменяет выбор через `motion`. |

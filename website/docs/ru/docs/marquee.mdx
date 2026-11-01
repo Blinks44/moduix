@@ -1,97 +1,50 @@
 ---
 title: Marquee
 component: marquee
-description: Компонент на базе Ark UI для непрерывной прокрутки логотипов, объявлений и другого повторяющегося содержимого.
+description: Бесконечная прокрутка логотипов или объявлений по кругу на странице.
+ark: https://ark-ui.com/docs/components/marquee
 ---
 
+import AnatomyScene from '@/components/examples/marquee/basic';
 import * as MarqueeDocs from '@/components/examples/marquee/css-properties';
 
-## Справочник API
+<Example name="marquee/basic" />
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/marquee" />
+## Установка
 
-## Базовый пример
+<ComponentInstall />
 
+## Использование
+
+<Usage />
 
 Используйте короткую форму `Marquee` и явно соберите внутри неё `MarqueeViewport`, `MarqueeContent` и `MarqueeItem`. Если движущееся
 содержимое передаёт пользователю информацию, задайте метку через `aria-label` или `translations.root`. Компонент
 `Marquee` отвечает за поведение и необходимые стили анимации, но не оформляет отдельные элементы и не добавляет
 рамку. В примере отдельно заданы стили элементов и ограничение ширины корневого элемента.
 
-<Example name="marquee/basic" />
-
-## Установка через shadcn
-
-Полную настройку пакета, реестра и стилей см. в разделе [Быстрый старт](/docs/quick-start).
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/marquee' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/marquee' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/marquee' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/marquee' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/marquee' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/marquee' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Анатомия
-
-```text
-Marquee
-├─ MarqueeEdge (необязательно)
-├─ MarqueeViewport
-│  └─ MarqueeContent
-│     └─ MarqueeItem
-└─ MarqueeEdge (необязательно)
-
-MarqueeRootProvider
-└─ то же дерево частей, подключённое к состоянию, созданному useMarquee() из moduix
-```
-
-| Часть                       | Назначение                                                                  |
-| -------------------------- | --------------------------------------------------------------------------- |
-| `Marquee` | Состояние компонента, метки, идентификаторы, ориентация, состояние паузы и CSS-переменные. |
-| `MarqueeRootProvider`     | Выводит дерево компонента на основе состояния, возвращённого `useMarquee()`.              |
-| `MarqueeViewport`         | Область просмотра, которая скрывает содержимое за своими границами.                      |
-| `MarqueeContent`          | Обёртка анимированного содержимого. При необходимости Ark клонирует её.                  |
-| `MarqueeItem`             | Отдельный элемент внутри содержимого.                                                     |
-| `MarqueeEdge`             | Необязательный градиент, создающий эффект затухания у края. Передайте `side`, чтобы выбрать край. |
-| `MarqueeContext`          | Доступ к контексту родительского компонента `Marquee` для расширенных сценариев.          |
-
-## Композиция
-
-Используйте `Marquee` с явными частями `MarqueeViewport`, `MarqueeContent` и `MarqueeItem`. Добавляйте `MarqueeEdge` внутрь того же
-корня, если содержимое должно плавно исчезать на фоне страницы; для каждой границы нужно указать `side`.
-
-Используйте `defaultPaused` для начального состояния без внешнего управления. Если воспроизведением управляет другая
-часть приложения, передавайте `paused` и `onPauseChange(details)`. Для внешних элементов управления создайте состояние
-через `useMarquee()` и передайте его в `MarqueeRootProvider`; не используйте `Marquee` и `MarqueeRootProvider` для одного
-состояния. Элементы управления внутри дерева могут получить текущий API через `MarqueeContext` или
-`useMarqueeContext()`.
 ## Примеры
+
+### Скорость
+
+Задайте скорость через `speed`, указав число пикселей в секунду. При меньшей скорости содержимое легче читать.
+
+<Example name="marquee/speed" />
+
+### Обратное направление
+
+Используйте `reverse`, когда содержимое должно двигаться в обратном направлении относительно `side`, не меняя
+ориентацию.
+
+<Example name="marquee/reverse" />
+
+### Вертикальная ориентация
+
+Задайте `side="top"` или `side="bottom"`, чтобы прокручивать содержимое вертикально. По умолчанию высота
+вертикального корневого элемента — `15rem`, поэтому область просмотра получает стабильную высоту; чтобы изменить её,
+задайте `height` классом.
+
+<Example name="marquee/vertical" />
 
 ### Автозаполнение
 
@@ -107,13 +60,6 @@ MarqueeRootProvider
 
 <Example name="marquee/edges" />
 
-### Ограниченное число циклов
-
-Задайте `loopCount`, чтобы ограничить число повторов. `onLoopComplete` вызывается после каждого цикла, а
-`onComplete` после последнего.
-
-<Example name="marquee/finite-loops" />
-
 ### Пауза при взаимодействии
 
 Используйте `pauseOnInteraction`, чтобы приостанавливать прокрутку, когда пользователь наводит указатель на компонент
@@ -126,19 +72,12 @@ MarqueeRootProvider
 
 <Example name="marquee/pause-on-interaction" />
 
-### Root Provider
+### Ограниченное число циклов
 
-Используйте `useMarquee()` из moduix вместе с `MarqueeRootProvider`, когда внешним элементам управления нужно
-приостанавливать, возобновлять или перезапускать прокрутку.
+Задайте `loopCount`, чтобы ограничить число повторов. `onLoopComplete` вызывается после каждого цикла, а
+`onComplete` после последнего.
 
-<Example name="marquee/programmatic-control" />
-
-### Обратное направление
-
-Используйте `reverse`, когда содержимое должно двигаться в обратном направлении относительно `side`, не меняя
-ориентацию.
-
-<Example name="marquee/reverse" />
+<Example name="marquee/finite-loops" />
 
 ### Справа налево
 
@@ -147,19 +86,41 @@ MarqueeRootProvider
 
 <Example name="marquee/rtl" />
 
-### Скорость
+### Root Provider
 
-Задайте скорость через `speed`, указав число пикселей в секунду. При меньшей скорости содержимое легче читать.
+Используйте `useMarquee()` из moduix вместе с `MarqueeRootProvider`, когда внешним элементам управления нужно
+приостанавливать, возобновлять или перезапускать прокрутку.
 
-<Example name="marquee/speed" />
+<Example name="marquee/programmatic-control" />
 
-### Вертикальная ориентация
+## Композиция
 
-Задайте `side="top"` или `side="bottom"`, чтобы прокручивать содержимое вертикально. По умолчанию высота
-вертикального корневого элемента — `15rem`, поэтому область просмотра получает стабильную высоту; чтобы изменить её,
-задайте `height` классом.
+Используйте `Marquee` с явными частями `MarqueeViewport`, `MarqueeContent` и `MarqueeItem`. Добавляйте `MarqueeEdge` внутрь того же
+корня, если содержимое должно плавно исчезать на фоне страницы; для каждой границы нужно указать `side`.
 
-<Example name="marquee/vertical" />
+Используйте `defaultPaused` для начального состояния без внешнего управления. Если воспроизведением управляет другая
+часть приложения, передавайте `paused` и `onPauseChange(details)`. Для внешних элементов управления создайте состояние
+через `useMarquee()` и передайте его в `MarqueeRootProvider`; не используйте `Marquee` и `MarqueeRootProvider` для одного
+состояния. Элементы управления внутри дерева могут получить текущий API через `MarqueeContext` или
+`useMarqueeContext()`.
+
+## Анатомия
+
+Наведите на часть или выберите её, чтобы найти её в превью.
+
+<AnatomyInspector
+  parts={[
+    ["Marquee", "marquee-root", "Состояние компонента, метки, идентификаторы, ориентация, состояние паузы и CSS-переменные.", 0],
+    ["MarqueeEdge", "marquee-edge", "Необязательный градиент, создающий эффект затухания у края. Передайте `side`, чтобы выбрать край.", 1],
+    ["MarqueeViewport", "marquee-viewport", "Область просмотра, которая скрывает содержимое за своими границами.", 1],
+    ["MarqueeContent", "marquee-content", "Обёртка анимированного содержимого. При необходимости Ark клонирует её.", 2],
+    ["MarqueeItem", "marquee-item", "Отдельный элемент внутри содержимого.", 3],
+    ["MarqueeRootProvider", "marquee-root-provider", "Выводит дерево компонента на основе состояния, возвращённого `useMarquee()`.", 0],
+    ["MarqueeContext", null, "Доступ к контексту родительского компонента `Marquee` для расширенных сценариев.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Стилизация
 
@@ -174,12 +135,43 @@ MarqueeRootProvider
 По умолчанию `Marquee` прозрачен, наследует цвет текста и не добавляет границу, фон, внутренние отступы или скругление. Если нужен
 контейнер с фоном или границей, задайте его оформление в CSS приложения.
 
-### CSS-свойства
+### CSS-переменные
 
-<CssPropertiesSection properties={MarqueeDocs.marqueeCssProperties} />
+Наведите на переменную или выберите её, чтобы увидеть её в превью.
+
+<CssPropertiesSection properties={MarqueeDocs.marqueeCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Хуки стилизации
 
-- `data-slot="marquee-root"`, `marquee-root-provider`, `marquee-viewport`, `marquee-content`, `marquee-item` и `marquee-edge`.
+| Часть | `data-slot` |
+| --- | --- |
+| `Marquee` | `marquee-root` |
+| `MarqueeRootProvider` | `marquee-root-provider` |
+| `MarqueeViewport` | `marquee-viewport` |
+| `MarqueeContent` | `marquee-content` |
+| `MarqueeItem` | `marquee-item` |
+| `MarqueeEdge` | `marquee-edge` |
+
 - Атрибуты Ark: `data-scope="marquee"`, `data-part="root|viewport|content|item|edge"`, `data-state="paused|idle"`, `data-orientation`, `data-side`, `data-index`, `data-paused`, `data-reverse` и `data-clone`.
 - CSS-переменные Ark: `--marquee-duration`, `--marquee-spacing`, `--marquee-delay`, `--marquee-loop-count` и `--marquee-translate`.
+
+## Справочник API
+
+| Проп | Тип | По умолчанию | Описание |
+| --- | --- | --- | --- |
+| `speed` | `number` | `50` | Скорость прокрутки в пикселях в секунду. |
+| `side` | `'start' \| 'end' \| 'top' \| 'bottom'` | `'start'` | Куда движется содержимое: `start`, `end`, `top` или `bottom`. |
+| `spacing` | `string` | `'1rem'` | Расстояние между повторами, CSS-длина. |
+| `autoFill` | `boolean` | `false` | Повторяет содержимое, пока оно не заполнит контейнер. |
+| `reverse` | `boolean` | `false` | Разворачивает направление анимации. |
+| `pauseOnInteraction` | `boolean` | `false` | Ставит на паузу при наведении и фокусе. |
+| `paused` | `boolean` | — | Состояние паузы в управляемом режиме. |
+| `defaultPaused` | `boolean` | `false` | Начальное состояние паузы, если оно не управляется извне. |
+| `delay` | `number` | `0` | Задержка перед стартом анимации, в секундах. |
+| `loopCount` | `number` | `0` | Число повторов; `0` значит бесконечно. |
+| `onPauseChange` | `(details: PauseStatusDetails) => void` | — | Вызывается при паузе и возобновлении. |
+| `onComplete` | `() => void` | — | Вызывается после последнего повтора, если задан `loopCount`. |
+| `translations` | `IntlTranslations` | — | Переведённые строки для подписей доступности. |
+| `onLoopComplete` | `() => void` | — | Вызывается после каждого повтора. |

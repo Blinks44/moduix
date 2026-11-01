@@ -30,7 +30,7 @@
 }
 
 .title {
-  color: var(--moduix-color-foreground);
+  color: var(--moduix-foreground);
   font-size: var(--moduix-text-lg);
   font-weight: var(--moduix-weight-semibold);
   line-height: var(--moduix-line-height-text-lg);
@@ -38,7 +38,7 @@
 
 .fileCount,
 .dropzoneContent span {
-  color: var(--moduix-color-muted-foreground);
+  color: var(--moduix-muted-foreground);
   font-size: var(--moduix-text-sm);
   line-height: var(--moduix-line-height-text-sm);
 }
@@ -55,20 +55,20 @@
   gap: var(--moduix-spacing-3);
   padding: var(--moduix-spacing-6);
   border: var(--moduix-border-width-sm) dashed
-    color-mix(in oklab, var(--moduix-color-border) 82%, var(--moduix-color-foreground));
+    color-mix(in oklab, var(--moduix-border) 82%, var(--moduix-foreground));
   border-radius: var(--moduix-radius-lg);
-  background: color-mix(in oklab, var(--moduix-color-muted) 45%, transparent);
+  background: color-mix(in oklab, var(--moduix-muted) 45%, transparent);
   text-align: center;
   transition: var(--moduix-transition-default);
 
   &[data-dragging] {
-    border-color: var(--moduix-color-primary);
-    background: color-mix(in oklab, var(--moduix-color-primary) 8%, var(--moduix-color-background));
+    border-color: var(--moduix-primary);
+    background: color-mix(in oklab, var(--moduix-primary) 8%, var(--moduix-background));
   }
 }
 
 .dropzoneIcon {
-  color: var(--moduix-color-primary);
+  color: var(--moduix-primary);
 }
 
 .dropzoneContent {
@@ -78,7 +78,7 @@
 
 .dropzoneContent strong,
 .listHeader > span:first-child {
-  color: var(--moduix-color-foreground);
+  color: var(--moduix-foreground);
   font-size: var(--moduix-text-sm);
   font-weight: var(--moduix-weight-semibold);
   line-height: var(--moduix-line-height-text-sm);
@@ -99,7 +99,7 @@
   gap: var(--moduix-spacing-3);
   min-width: 0;
   padding-block-start: var(--moduix-spacing-4);
-  border-block-start: var(--moduix-border-width-sm) solid var(--moduix-color-border);
+  border-block-start: var(--moduix-border-width-sm) solid var(--moduix-border);
 }
 
 .items [data-slot='file-upload-item'],
@@ -110,22 +110,18 @@
 
 .emptyState {
   margin: 0;
-  color: var(--moduix-color-muted-foreground);
+  color: var(--moduix-muted-foreground);
   font-size: var(--moduix-text-sm);
   line-height: var(--moduix-line-height-text-sm);
 }
 
 .rejectedItems [data-slot='file-upload-item'] {
-  border-color: color-mix(
-    in oklab,
-    var(--moduix-color-destructive) 36%,
-    var(--moduix-color-border)
-  );
+  border-color: color-mix(in oklab, var(--moduix-destructive) 36%, var(--moduix-border));
 }
 
 .error {
   margin: 0;
-  color: var(--moduix-color-destructive);
+  color: var(--moduix-destructive);
   font-size: var(--moduix-text-xs);
   line-height: var(--moduix-line-height-text-xs);
 }

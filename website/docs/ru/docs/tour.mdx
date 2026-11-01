@@ -1,91 +1,58 @@
 ---
 title: Tour
 component: tour
-description: Компонент для пошагового знакомства с продуктом на основе состояния Tour из Ark UI, с доступным оверлеем и готовыми действиями.
+description: Пошаговое знакомство с продуктом с привязкой шагов к элементам страницы.
+ark: https://ark-ui.com/docs/components/tour
 ---
 
+import AnatomyScene from '@/components/examples/tour/basic';
 
-## Справочник API
+<Example name="tour/basic" />
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/tour" />
+## Установка
 
-## Базовый пример
+<ComponentInstall />
 
+## Использование
+
+<Usage />
 
 Создайте состояние тура через `useTour`, опишите шаги и передайте возвращённый объект в `Tour`. В примере сначала
 открывается диалог, затем подсказка у элемента интерфейса, а в конце появляется плавающий шаг. Оставляйте части
 композиции явными, чтобы при необходимости изменить их. `TourBody` прокручивает длинный текст внутри панели.
 
-<Example name="tour/basic" />
+## Примеры
 
-## Установка через shadcn
+### Со стрелкой
 
-Полную настройку пакета, реестра и стилей см. в разделе [Быстрый старт](/docs/quick-start).
+Добавьте `TourArrow` в шаг с подсказкой, если он должен визуально указывать на целевой элемент. Включите у шага
+опцию `arrow`, и Ark сам расположит стрелку.
 
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
+<Example name="tour/with-arrow" />
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/tour' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/tour' },
-  ]}
-/>
+### Ожидание ввода
 
-  </Tab>
-  <Tab label="Solid" value="solid">
+Вызовите `tour.next()` из обработчика поля после ввода двух символов. Для шагов, которые зависят от асинхронного
+условия, из `@moduix/react/tour`, `@moduix/solid/tour` и `@moduix/vue/tour` также экспортируются `waitForElement`,
+`waitForElementValue`, `waitForEvent` и `waitForPromise`.
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/tour' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/tour' },
-  ]}
-/>
+<Example name="tour/wait-for-input" />
 
-  </Tab>
-  <Tab label="Vue" value="vue">
+### События
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/tour' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/tour' },
-  ]}
-/>
+Используйте объекты `details` из колбэков Ark, чтобы обновить другой элемент интерфейса или отправить данные в
+аналитику. Запустите тур, нажмите Next, затем Done. В выводе отображается последнее событие смены шага или статуса.
 
-  </Tab>
-</Tabs>
+<Example name="tour/events" />
 
-## Анатомия
+### Сборка из частей
 
-```text
-Tour
-└─ Поддерево оверлея (по умолчанию выводится в портал)
-   ├─ TourBackdrop
-   ├─ TourSpotlight
-   └─ TourPositioner
-      └─ TourContent
-         ├─ TourArrow
-         ├─ TourCloseIcon / TourCloseTrigger
-         ├─ TourBody
-         │  ├─ TourTitle
-         │  ├─ TourDescription
-         │  └─ TourProgressText
-         └─ TourControl
-            ├─ TourActionList
-            └─ TourActions
-               └─ TourActionTrigger[action]
-```
+Тот же тур, что в Basic, но без `TourCloseIcon`, `TourBody` и `TourActionList`: `TourCloseTrigger`
+оборачивает `CloseButton` с явной иконкой, текст лежит в обычном элементе, а `TourActions` рисует по
+одному `TourActionTrigger` на каждое действие шага. Триггер получает объект действия Ark, поэтому
+переходы и закрытие работают и после замены его содержимого своими кнопками.
 
-| Часть | Роль |
-| --- | --- |
-| `Tour` | Корневой компонент, связанный с объектом, который возвращает `useTour`. |
-| `TourBackdrop` / `TourSpotlight` | Необязательный фон и подсветка текущего целевого элемента. |
-| `TourPositioner` / `TourContent` | Позиционируют и отображают элемент `alertdialog` из Ark. |
-| `TourArrow` | По умолчанию выводит `TourArrowTip` из moduix для шагов с подсказкой. |
-| `TourCloseIcon` / `TourCloseTrigger` | Доступное закрытие по умолчанию или собственная кнопка закрытия. |
-| `TourBody` | Прокручиваемая обёртка moduix для заголовка, описания и текста прогресса. |
-| `TourControl` / `TourActionList` | Рекомендуемая строка действий и действия текущего шага. |
-| `TourActions` / `TourActionTrigger` | Позволяют отрисовать свои действия, сохранив объекты действий Ark. |
+<Example name="tour/build-from-parts" />
 
 ## Композиция
 
@@ -101,38 +68,24 @@ Tour
 событие `@exit-complete` на `Tour` сообщает о завершении анимации скрытия. Ark Vue сейчас объявляет
 другие события корня, но не отправляет их для объекта состояния, созданного вне корня.
 
-## Примеры
+## Анатомия
 
-### События
+Наведите на часть или выберите её, чтобы найти её в превью.
 
-Используйте объекты `details` из колбэков Ark, чтобы обновить другой элемент интерфейса или отправить данные в
-аналитику. Запустите тур, нажмите Next, затем Done. В выводе отображается последнее событие смены шага или статуса.
-
-<Example name="tour/events" />
-
-### Ожидание ввода
-
-Вызовите `tour.next()` из обработчика поля после ввода двух символов. Для шагов, которые зависят от асинхронного
-условия, из `@moduix/react/tour`, `@moduix/solid/tour` и `@moduix/vue/tour` также экспортируются `waitForElement`,
-`waitForElementValue`, `waitForEvent` и `waitForPromise`.
-
-<Example name="tour/wait-for-input" />
-
-### Со стрелкой
-
-Добавьте `TourArrow` в шаг с подсказкой, если он должен визуально указывать на целевой элемент. Включите у шага
-опцию `arrow`, и Ark сам расположит стрелку.
-
-<Example name="tour/with-arrow" />
-
-### Расширенная настройка
-
-Замените `TourActionList`, когда для каждого действия нужна своя разметка. В примере используются собственные
-элементы `Button` для Continue, Back и Skip tour. Каждый `TourActionTrigger` всё равно получает исходный объект
-действия Ark, поэтому навигация, закрытие и отключённое состояние продолжают работать. Пример также обходится без помощников `TourCloseIcon` и `TourBody`:
-заголовок, описание и прогресс лежат прямо в `TourContent`.
-
-<Example name="tour/advanced-customization" />
+<AnatomyInspector
+  parts={[
+    ["Tour", null, "Корневой компонент, связанный с объектом, который возвращает `useTour`.", 0],
+    ["TourBackdrop / TourSpotlight", "tour-backdrop", "Необязательный фон и подсветка текущего целевого элемента.", 1],
+    ["TourPositioner / TourContent", "tour-positioner", "Позиционируют и отображают элемент `alertdialog` из Ark.", 1],
+    ["TourArrow", "tour-arrow", "По умолчанию выводит `TourArrowTip` из moduix для шагов с подсказкой.", 2],
+    ["TourCloseIcon / TourCloseTrigger", "tour-close-icon", "Доступное закрытие по умолчанию или собственная кнопка закрытия.", 2],
+    ["TourBody", "tour-body", "Прокручиваемая обёртка moduix для заголовка, описания и текста прогресса.", 2],
+    ["TourControl / TourActionList", "tour-control", "Рекомендуемая строка действий и действия текущего шага.", 2],
+    ["TourActions / TourActionTrigger", "", "Позволяют отрисовать свои действия, сохранив объекты действий Ark.", 3],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Стилизация
 
@@ -151,9 +104,53 @@ Tour
 
 ### Хуки стилизации
 
-Основные публичные хуки: `data-slot="tour-backdrop"`, `tour-spotlight`, `tour-positioner`, `tour-content`,
-`tour-arrow`, `tour-arrow-tip`, `tour-title`, `tour-description`, `tour-progress-text`, `tour-body`,
-`tour-close-trigger`, `tour-close-icon`, `tour-control` и `tour-action-trigger`. Ark также добавляет
+| Часть | `data-slot` |
+| --- | --- |
+| `TourBackdrop` | `tour-backdrop` |
+| `TourSpotlight` | `tour-spotlight` |
+| `TourPositioner` | `tour-positioner` |
+| `TourContent` | `tour-content` |
+| `TourArrow` | `tour-arrow` |
+| `TourArrowTip` | `tour-arrow-tip` |
+| `TourTitle` | `tour-title` |
+| `TourDescription` | `tour-description` |
+| `TourProgressText` | `tour-progress-text` |
+| `TourBody` | `tour-body` |
+| `TourCloseTrigger` | `tour-close-trigger` |
+| `TourCloseIcon` | `tour-close-icon` |
+| `TourControl` | `tour-control` |
+| `TourActionTrigger` | `tour-action-trigger` |
+
+Ark также добавляет
 `data-scope="tour"`, `data-part`, `data-state`, `data-type`, `data-placement`, `data-side`, `data-step` и
 `data-disabled`, а также переменные времени выполнения, включая `--tour-layer`, `--available-width`,
 `--available-height`, `--transform-origin` и переменные стрелки.
+
+## Клавиатура
+
+| Клавиша | Действие |
+| --- | --- |
+| `ArrowRight` / `ArrowLeft` | Переходит к следующему или предыдущему шагу, если включён keyboardNavigation. |
+| `Esc` | Завершает тур. |
+
+## Справочник API
+
+Опции `useTour()`. Возвращённый объект передайте в `Tour` как `tour`.
+
+| Проп | Тип | По умолчанию | Описание |
+| --- | --- | --- | --- |
+| `steps` | `TourStepDetails[]` | — | Шаги тура: цель, заголовок и действия. |
+| `stepId` | `string \| null` | — | Id текущего шага в управляемом режиме. |
+| `onStepChange` | `(details: StepChangeDetails) => void` | — | Вызывается при смене шага. |
+| `onStatusChange` | `(details: StatusChangeDetails) => void` | — | Вызывается при запуске, остановке и завершении тура. |
+| `keyboardNavigation` | `boolean` | `true` | Стрелки влево и вправо переключают шаги. |
+| `closeOnEscape` | `boolean` | `true` | Закрывается по Escape. |
+| `closeOnInteractOutside` | `boolean` | `true` | Закрывается по клику снаружи. |
+| `preventInteraction` | `boolean` | `false` | Блокирует страницу, пока идёт тур. |
+| `spotlightOffset` | `{ x: number; y: number }` | `{ x: 10, y: 10 }` | Отступ вокруг подсвеченного элемента, в пикселях. |
+| `spotlightRadius` | `number` | `4` | Радиус углов подсветки, в пикселях. |
+| `onStepsChange` | `(details: StepsChangeDetails) => void` | — | Вызывается при добавлении и удалении шагов. |
+| `translations` | `IntlTranslations` | — | Переведённые строки для подписей доступности. |
+| `onPointerDownOutside` | `(event: PointerDownOutsideEvent) => void` | — | Вызывается при нажатии указателя вне всплывающего окна. |
+| `onFocusOutside` | `(event: FocusOutsideEvent) => void` | — | Вызывается, когда фокус уходит из всплывающего окна. |
+| `onInteractOutside` | `(event: InteractOutsideEvent) => void` | — | Вызывается при любом взаимодействии вне всплывающего окна. |

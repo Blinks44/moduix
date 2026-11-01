@@ -5,7 +5,7 @@
     align-items: start;
     gap: var(--moduix-spacing-1);
     width: 100%;
-    color: var(--moduix-color-foreground);
+    color: var(--moduix-foreground);
 
     &:has([data-autoresize]) {
       width: fit-content;
@@ -38,7 +38,7 @@
     line-height: var(--moduix-line-height-text-sm);
 
     &[data-invalid] {
-      color: var(--moduix-color-destructive);
+      color: var(--moduix-destructive);
     }
   }
 
@@ -47,27 +47,27 @@
     align-items: center;
     min-width: 0;
     min-height: var(--moduix-editable-area-height, var(--moduix-size-md));
-    border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
+    border: var(--moduix-border-width-sm) solid var(--moduix-input);
     border-radius: var(--moduix-radius-md);
     padding: var(--moduix-spacing-1) var(--moduix-spacing-3-5);
-    background-color: var(--moduix-color-background);
+    background-color: var(--moduix-background);
     font-size: var(--moduix-text-md);
     line-height: var(--moduix-line-height-text-md);
-    outline: var(--moduix-focus-ring-inset-width) solid transparent;
-    outline-offset: var(--moduix-focus-ring-inset-offset);
+    outline: var(--moduix-focus-ring-halo-width) solid transparent;
     transition:
       border-color var(--moduix-transition-default),
       outline-color var(--moduix-transition-default);
 
     &:is([data-focus], :has(:focus-visible)) {
-      outline-color: var(--moduix-color-ring);
+      border-color: var(--moduix-ring);
+      outline-color: color-mix(in oklab, var(--moduix-ring) 50%, transparent);
     }
 
     &:has([data-invalid]) {
-      border-color: var(--moduix-color-destructive);
+      border-color: var(--moduix-destructive);
 
       &:is([data-focus], :has(:focus-visible)) {
-        outline-color: var(--moduix-color-destructive);
+        outline-color: color-mix(in oklab, var(--moduix-destructive) 20%, transparent);
       }
     }
 
@@ -93,7 +93,7 @@
     appearance: none;
 
     &::placeholder {
-      color: var(--moduix-color-muted-foreground);
+      color: var(--moduix-muted-foreground);
     }
 
     &:is(textarea) {
@@ -108,7 +108,7 @@
     cursor: text;
 
     &[data-placeholder-shown] {
-      color: var(--moduix-color-muted-foreground);
+      color: var(--moduix-muted-foreground);
     }
 
     &:is([data-disabled], [aria-readonly='true']) {
@@ -130,11 +130,11 @@
     width: var(--moduix-editable-area-height, var(--moduix-size-md));
     height: var(--moduix-editable-area-height, var(--moduix-size-md));
     margin: 0;
-    border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
+    border: var(--moduix-border-width-sm) solid var(--moduix-border);
     border-radius: var(--moduix-radius-sm);
     padding: 0;
-    background-color: var(--moduix-color-background);
-    color: var(--moduix-color-foreground);
+    background-color: var(--moduix-background);
+    color: var(--moduix-foreground);
     outline: var(--moduix-focus-ring-inset-width) solid transparent;
     outline-offset: var(--moduix-focus-ring-inset-offset);
     cursor: pointer;
@@ -144,16 +144,16 @@
 
     @media (hover: hover) {
       &:hover {
-        background-color: var(--moduix-color-accent);
+        background-color: var(--moduix-accent);
       }
     }
 
     &:active {
-      background-color: var(--moduix-color-accent);
+      background-color: var(--moduix-accent);
     }
 
     &:focus-visible {
-      outline-color: var(--moduix-color-ring);
+      outline-color: var(--moduix-ring);
     }
 
     &:disabled {

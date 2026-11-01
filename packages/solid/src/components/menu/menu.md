@@ -10,7 +10,7 @@
 
 ## Public contract
 
-The flat API includes `Menu`, `MenuRootProvider`, `MenuTrigger`, `MenuContextTrigger`, `MenuPositioner`, `MenuContent`, `MenuViewport`, `MenuArrow`, `MenuArrowTip`, `MenuItem`, `MenuTriggerItem`, `MenuSeparator`, `MenuItemGroup`, `MenuItemGroupLabel`, `MenuCheckboxItem`, `MenuRadioItemGroup`, `MenuRadioItem`, `MenuIndicator`, `MenuItemIndicator`, `MenuItemText`, `MenuItemTextContent`, `MenuItemTextIcon`, `MenuItemTextLabel`, `MenuItemShortcut`, `MenuTriggerItemIcon`, `MenuContext`, `MenuItemContext`, `useMenu`, `useMenuContext`, and `useMenuItemContext`, plus the same type exports as React.
+The flat API includes `Menu`, `MenuRootProvider`, `MenuTrigger`, `MenuContextTrigger`, `MenuPositioner`, `MenuContent`, `MenuViewport`, `MenuArrow`, `MenuArrowTip`, `MenuItem`, `MenuTriggerItem`, `MenuSeparator`, `MenuItemGroup`, `MenuItemGroupLabel`, `MenuCheckboxItem`, `MenuRadioItemGroup`, `MenuRadioItem`, `MenuIndicator`, `MenuItemIndicator`, `MenuItemText`, `MenuItemShortcut`, `MenuTriggerItemIcon`, `MenuContext`, `MenuItemContext`, `useMenu`, `useMenuContext`, and `useMenuItemContext`, plus the same type exports as React.
 
 ## Preservation notes
 

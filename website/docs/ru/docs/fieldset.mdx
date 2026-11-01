@@ -1,12 +1,24 @@
 ---
 title: Fieldset
 component: fieldset
-description: Объединяйте связанные элементы формы под одним заголовком, сохраняя нативную семантику fieldset и общее состояние группы. Поясняющий текст и сообщения об ошибках связаны с группой и доступны вспомогательным технологиям.
+description: Группа связанных полей формы под одной легендой с общим состоянием.
+ark: https://ark-ui.com/docs/components/fieldset
 ---
 
-## Справочник API
+import AnatomyScene from '@/components/examples/fieldset/basic';
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/fieldset" />
+<Example name="fieldset/basic" />
+
+## Установка
+
+<ComponentInstall />
+
+## Использование
+
+<Usage />
+
+Создайте группу из `Fieldset`, `FieldsetLegend`, связанных элементов управления и, если нужно, поясняющего текста или
+сообщения об ошибке. `Fieldset` является корневым компонентом группы.
 
 ## Выбор подходящего компонента
 
@@ -14,72 +26,49 @@ description: Объединяйте связанные элементы форм
 заголовком, например для контактных данных или настроек уведомлений. `Field` подходит, когда у одного элемента
 управления должны быть собственные метка, поясняющий текст и сообщение об ошибке.
 
-## Базовый пример
+## Примеры
 
-Импортируйте `Fieldset` из `@moduix/react/fieldset`, `@moduix/solid/fieldset` или `@moduix/vue/fieldset` для CSS Modules,
-а для Tailwind CSS используйте `@moduix/react-tailwind/fieldset`, `@moduix/solid-tailwind/fieldset` или
-`@moduix/vue-tailwind/fieldset`.
+### Field
 
-Создайте группу из `Fieldset`, `FieldsetLegend`, связанных элементов управления и, если нужно, поясняющего текста или
-сообщения об ошибке. `Fieldset` является корневым компонентом группы.
+Используйте вложенные компоненты `Field`, если для каждого элемента управления нужно отдельно задать метку, поясняющий текст
+или сообщение об ошибке в дополнение к общему заголовку группы.
 
-<Example name="fieldset/basic" />
+<Example name="fieldset/field" />
 
-## Установка через shadcn
+### Checkbox
 
-Полную настройку пакета, реестра и стилей см. в разделе [Быстрый старт](/docs/quick-start).
+Используйте заголовок fieldset, чтобы задать общее имя группе связанных флажков. Добавляйте
+`CheckboxHiddenInput` в каждый флажок, которому нужны нативный фокус, отправка и сброс формы.
 
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
+<Example name="fieldset/checkbox" />
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/fieldset' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/fieldset' },
-  ]}
-/>
+### Input с Select
 
-  </Tab>
-  <Tab label="Solid" value="solid">
+Объедините `Select` с кодом страны и `Input` для номера телефона под одним заголовком, если вместе они составляют один номер.
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/fieldset' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/fieldset' },
-  ]}
-/>
+<Example name="fieldset/input-with-select" />
 
-  </Tab>
-  <Tab label="Vue" value="vue">
+### Отключённое состояние
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/fieldset' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/fieldset' },
-  ]}
-/>
+Установите `disabled` у корневого компонента. Браузер отключит нативные элементы управления, а совместимые с Ark компоненты
+получат это состояние из контекста `fieldset`.
 
-  </Tab>
-</Tabs>
+<Example name="fieldset/disabled" />
 
-## Анатомия
+### Недопустимое состояние
 
-```text
-Fieldset | FieldsetRootProvider
-├─ FieldsetLegend
-├─ grouped controls
-├─ FieldsetHelperText (optional)
-└─ FieldsetErrorText (optional)
-```
+Установите `invalid` у `Fieldset`, чтобы пометить всю группу как невалидную и показать общее сообщение об ошибке. Установите
+`invalid` также у вложенных компонентов `Field`, если отдельным элементам управления нужны собственные невалидные стили и
+ARIA-состояние.
 
-| Часть                        | Назначение                                                                                         |
-| ---------------------------- | -------------------------------------------------------------------------------------------------- |
-| `Fieldset`                   | Создаёт состояние и добавляет в DOM нативный элемент `fieldset`.                                  |
-| `FieldsetRootProvider`       | Добавляет в DOM нативный `fieldset` с состоянием, созданным через `useFieldset`.                   |
-| `FieldsetContext`            | Даёт дочерним компонентам доступ к состоянию группы и не добавляет отдельный элемент в DOM.       |
-| `FieldsetLegend`             | Нативный `legend`, задающий доступное имя группы.                                                  |
-| `FieldsetHelperText`         | Поясняющий текст, связанный с корнем через `aria-describedby`.                                     |
-| `FieldsetErrorText`          | Сообщение об ошибке, объявляемое через `aria-live="polite"`; выводится только когда `invalid` равно `true`. |
+<Example name="fieldset/invalid" />
+
+### Root Provider
+
+Создайте состояние fieldset вне JSX-дерева с помощью `useFieldset` и передайте его в `FieldsetRootProvider`, если им должны
+пользоваться соседние элементы управления или повторно используемые компоненты. Подробнее в разделе [Выносите состояние за пределы дерева](/docs/composition-patterns#root-provider).
+
+<Example name="fieldset/root-provider" />
 
 ## Композиция
 
@@ -94,49 +83,22 @@ Fieldset | FieldsetRootProvider
 `Fieldset` вместе с `FieldsetRootProvider` для одного хранилища. Чтобы заменить HTML-элемент части, используйте
 `asChild` с одним семантическим дочерним элементом.
 
-## Примеры
+## Анатомия
 
-### Checkbox
+Наведите на часть или выберите её, чтобы найти её в превью.
 
-Используйте заголовок fieldset, чтобы задать общее имя группе связанных флажков. Добавляйте
-`CheckboxHiddenInput` в каждый флажок, которому нужны нативный фокус, отправка и сброс формы.
-
-<Example name="fieldset/checkbox" />
-
-### Отключённое состояние
-
-Установите `disabled` у корневого компонента. Браузер отключит нативные элементы управления, а совместимые с Ark компоненты
-получат это состояние из контекста `fieldset`.
-
-<Example name="fieldset/disabled" />
-
-### Field
-
-Используйте вложенные компоненты `Field`, если для каждого элемента управления нужно отдельно задать метку, поясняющий текст
-или сообщение об ошибке в дополнение к общему заголовку группы.
-
-<Example name="fieldset/field" />
-
-### Input с Select
-
-Объедините `Select` с кодом страны и `Input` для номера телефона под одним заголовком, если вместе они составляют один номер.
-
-<Example name="fieldset/input-with-select" />
-
-### Недопустимое состояние
-
-Установите `invalid` у `Fieldset`, чтобы пометить всю группу как невалидную и показать общее сообщение об ошибке. Установите
-`invalid` также у вложенных компонентов `Field`, если отдельным элементам управления нужны собственные невалидные стили и
-ARIA-состояние.
-
-<Example name="fieldset/invalid" />
-
-### Расширенная настройка
-
-Создайте состояние fieldset вне JSX-дерева с помощью `useFieldset` и передайте его в `FieldsetRootProvider`, если им должны
-пользоваться соседние элементы управления или повторно используемые компоненты.
-
-<Example name="fieldset/root-provider" />
+<AnatomyInspector
+  parts={[
+    ["Fieldset", "fieldset-root", "Создаёт состояние и добавляет в DOM нативный элемент `fieldset`.", 0],
+    ["FieldsetLegend", "fieldset-legend", "Нативный `legend`, задающий доступное имя группы.", 1],
+    ["FieldsetHelperText", "fieldset-helper-text", "Поясняющий текст, связанный с корнем через `aria-describedby`.", 1],
+    ["FieldsetErrorText", "fieldset-error-text", "Сообщение об ошибке, объявляемое через `aria-live=\"polite\"`; выводится только когда `invalid` равно `true`.", 1],
+    ["FieldsetRootProvider", "fieldset-root-provider", "Добавляет в DOM нативный `fieldset` с состоянием, созданным через `useFieldset`.", 0],
+    ["FieldsetContext", null, "Даёт дочерним компонентам доступ к состоянию группы и не добавляет отдельный элемент в DOM.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Стилизация
 
@@ -151,5 +113,21 @@ ARIA-состояние.
 
 ### Хуки стилизации
 
+| Часть | `data-slot` |
+| --- | --- |
+| `Fieldset` | `fieldset-root` |
+| `FieldsetRootProvider` | `fieldset-root-provider` |
+| `FieldsetLegend` | `fieldset-legend` |
+| `FieldsetHelperText` | `fieldset-helper-text` |
+| `FieldsetErrorText` | `fieldset-error-text` |
+
 Для каждой части DOM Ark добавляет атрибуты `data-scope="fieldset"` и `data-part`, соответствующие анатомии. Корневой
 компонент и заголовок получают `data-disabled` и `data-invalid`; moduix также добавляет атрибуты `data-slot="fieldset-*"`.
+
+## Справочник API
+
+| Проп | Тип | По умолчанию | Описание |
+| --- | --- | --- | --- |
+| `invalid` | `boolean` | `false` | Помечает группу невалидной и показывает `FieldsetErrorText`. |
+| `disabled` | `boolean` | `false` | Отключает все элементы управления в группе. |
+| `asChild` | `boolean` | `false` | Отрисовывает корень через единственный дочерний элемент. |

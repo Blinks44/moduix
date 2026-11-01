@@ -1,0 +1,74 @@
+import { useListCollection } from '@ark-ui/solid/collection';
+import { useFilter } from '@ark-ui/solid/locale';
+import { CloseButton } from '@moduix/solid/close-button';
+import {
+  Combobox,
+  ComboboxClearTrigger,
+  ComboboxContent,
+  ComboboxControl,
+  ComboboxEmpty,
+  ComboboxInput,
+  ComboboxLabel,
+  ComboboxList,
+  ComboboxItem,
+  ComboboxItemIndicator,
+  ComboboxItemText,
+  ComboboxPositioner,
+  ComboboxTrigger,
+} from '@moduix/solid/combobox';
+import { Check as CheckIcon, ChevronsUpDown as ChevronsUpDownIcon, X as XIcon } from 'lucide-solid';
+import { For } from 'solid-js';
+
+const fruits = [
+  { label: 'Apple', value: 'apple' },
+  { label: 'Banana', value: 'banana' },
+  { label: 'Mango', value: 'mango' },
+];
+
+export default function BuildFromPartsComboboxDemo() {
+  const { contains } = useFilter({ sensitivity: 'base' })();
+  const { collection, filter } = useListCollection({
+    initialItems: fruits,
+    filter: contains,
+  });
+
+  return (
+    <Combobox
+      collection={collection()}
+      onInputValueChange={(details) => filter(details.inputValue)}
+    >
+      <ComboboxLabel>Choose fruit</ComboboxLabel>
+      <ComboboxControl>
+        <ComboboxInput placeholder="e.g. Mango" />
+        <ComboboxClearTrigger
+          aria-label="Clear selection"
+          asChild={(props) => (
+            <CloseButton {...props()}>
+              <XIcon strokeWidth={3} />
+            </CloseButton>
+          )}
+        />
+        <ComboboxTrigger aria-label="Open options">
+          <ChevronsUpDownIcon strokeWidth={3} />
+        </ComboboxTrigger>
+      </ComboboxControl>
+      <ComboboxPositioner>
+        <ComboboxContent>
+          <ComboboxEmpty>No fruits found.</ComboboxEmpty>
+          <ComboboxList>
+            <For each={collection().items}>
+              {(item) => (
+                <ComboboxItem item={item}>
+                  <ComboboxItemText>{item.label}</ComboboxItemText>
+                  <ComboboxItemIndicator>
+                    <CheckIcon strokeWidth={3} />
+                  </ComboboxItemIndicator>
+                </ComboboxItem>
+              )}
+            </For>
+          </ComboboxList>
+        </ComboboxContent>
+      </ComboboxPositioner>
+    </Combobox>
+  );
+}

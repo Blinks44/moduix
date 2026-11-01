@@ -1,88 +1,61 @@
 ---
 title: Bleed
 component: bleed
-description: Layout primitive that lets selected content extend beyond a constrained container.
+description: Let a banner or image extend past the padding of its container.
+ark: https://ark-ui.com/docs/guides/composition#the-ark-factory
 ---
 
+import AnatomyScene from '@/components/examples/bleed/basic';
 
-## API Reference
+<Example name="bleed/basic" />
 
-Ark UI does not include a dedicated `bleed` primitive. moduix builds `Bleed` with the official
-[Ark factory](https://ark-ui.com/docs/guides/composition#the-ark-factory) and follows Ark's guidance on
-[composition](https://ark-ui.com/docs/guides/composition), [styling](https://ark-ui.com/docs/guides/styling), and
-[refs](https://ark-ui.com/docs/guides/ref).
+## Installation
 
-Use [Container](/docs/container) to keep the main content at a readable width. Put `Bleed` inside it when
-only a media block, background, divider, or banner should extend beyond the container.
+<ComponentInstall />
 
-Import `Bleed` from the matching runtime and styling package: `@moduix/react/bleed`,
-`@moduix/solid/bleed`, or `@moduix/vue/bleed` for CSS Modules, and the corresponding
-`@moduix/react-tailwind/bleed`, `@moduix/solid-tailwind/bleed`, or `@moduix/vue-tailwind/bleed`
-subpath for Tailwind.
+## Usage
 
-## Basic
-
+<Usage />
 
 The default `inline="full"` makes media, banners, and section decorations reach the viewport edges while
 remaining in the normal document flow.
 
-<Example name="bleed/basic" />
+## Examples
 
-## Install with shadcn
+### Inline amounts
 
-See [Quick Start](/docs/quick-start) for full package setup, registry configuration, and styling guidance.
+Set `inline` to control how far content extends along the inline axis. This example compares the fixed
+`sm` and `lg` values with `full`, which reaches the viewport.
 
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
+<Example name="bleed/inline-amounts" />
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/bleed' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/bleed' },
-  ]}
-/>
+### Block bleed
 
-  </Tab>
-  <Tab label="Solid" value="solid">
+Add `block` when a surface should extend through the container's block-axis padding as well as its inline-axis padding.
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/bleed' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/bleed' },
-  ]}
-/>
+<Example name="bleed/block-bleed" />
 
-  </Tab>
-  <Tab label="Vue" value="vue">
+### Semantic element
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/bleed' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/bleed' },
-  ]}
-/>
+Use `asChild` when the content should use a more specific semantic element. In this example, the `figure`
+element becomes the `Bleed` root.
 
-  </Tab>
-</Tabs>
+<Example name="bleed/semantic-element" />
 
-## Anatomy
+### Custom styling
 
-`Bleed` renders one root element that follows Ark's conventions. It uses negative margins on the inline
-and/or block axis, without adding an inner wrapper.
+Set `margin-inline` and `inline-size` in your own class when a nested shell should size the bleed to its own
+content area instead of the viewport. moduix styles live in a cascade layer, so a plain class wins.
 
-```text
-Bleed
-└─ root[data-scope="bleed"][data-part="root"][data-slot="bleed-root"]
-   └─ children
-```
-
-| Part                   | Role                                                                   |
-| ---------------------- | ---------------------------------------------------------------------- |
-| `Bleed`                | Root component for extending content along the inline and block axes. |
+<Example name="bleed/custom-styling" />
 
 ## Composition
 
-`Bleed` is presentational and owns no state. It has one root part, so there are no child parts to coordinate.
+Use [Container](/docs/container) to keep the main content at a readable width. Put `Bleed` inside it when
+only a media block, background, divider, or banner should extend beyond the container.
+
+
+`Bleed` is presentational and has no state. It has one root part, so there are no child parts to coordinate.
 The defaults are `inline="full"`, `block="none"`, and `asChild={false}`.
 When `asChild` should give the rendered root to one semantic element, provide exactly one child that accepts DOM
 props and a ref in React, or use the Solid render-function form. React refs target the rendered root or child;
@@ -93,34 +66,20 @@ Combine `inline` and `block` when a surface should extend through padding on bot
 is viewport-relative: it assumes the constrained parent is centered in the viewport. Inside a nested or off-center
 shell, use a fixed amount that matches the shell padding, or set your own margins as shown in Custom Styling.
 
-## Examples
+## Anatomy
 
-### Block Bleed
+`Bleed` renders one root element that follows Ark's conventions. It uses negative margins on the inline
+and/or block axis, without adding an inner wrapper.
 
-Add `block` when a surface should extend through the container's block-axis padding as well as its inline-axis padding.
+Hover or focus a part to find it in the preview.
 
-<Example name="bleed/block-bleed" />
-
-### Custom Styling
-
-Set `margin-inline` and `inline-size` in your own class when a nested shell should size the bleed to its own
-content area instead of the viewport. moduix styles live in a cascade layer, so a plain class wins.
-
-<Example name="bleed/custom-styling" />
-
-### Inline Amounts
-
-Set `inline` to control how far content extends along the inline axis. This example compares the fixed
-`sm` and `lg` values with `full`, which reaches the viewport.
-
-<Example name="bleed/inline-amounts" />
-
-### Semantic Element
-
-Use `asChild` when the content should use a more specific semantic element. In this example, the `figure`
-element becomes the `Bleed` root.
-
-<Example name="bleed/semantic-element" />
+<AnatomyInspector
+  parts={[
+    ["Bleed", "bleed-root", "Root component for extending content along the inline and block axes.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styling
 
@@ -135,7 +94,19 @@ systems, add `overflow-x: clip` to the page root to avoid a horizontal scrollbar
 
 ### Styling hooks
 
+| Part | `data-slot` |
+| --- | --- |
+| `Bleed` | `bleed-root` |
+
 - `data-scope="bleed"` and `data-part="root"` provide Ark-aligned hooks on the exported root.
-- `data-slot="bleed-root"` is the stable moduix selector on the exported root.
 - `data-inline` shows the current inline bleed mode: `none`, `xs`, `sm`, `md`, `lg`, `xl`, or `full`.
 - `data-block` shows the current block bleed mode: `none`, `xs`, `sm`, `md`, `lg`, or `xl`.
+
+## API reference
+
+Also accepts the native props of its element and `asChild`.
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `inline` | `'none' \| 'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl' \| 'full'` | `'full'` | How far content extends past the inline padding: `none` to `xl`, or `full`. |
+| `block` | `'none' \| 'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'` | `'none'` | How far content extends past the block padding: `none` to `xl`. |

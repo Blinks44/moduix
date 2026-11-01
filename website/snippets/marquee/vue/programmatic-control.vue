@@ -7,6 +7,7 @@ import {
   MarqueeViewport,
   useMarquee,
 } from '@moduix/vue/marquee';
+import { Stack } from '@moduix/vue/stack';
 import { ref } from 'vue';
 import styles from '@/components/examples/marquee/marquee-programmatic-control.module.css';
 
@@ -39,7 +40,7 @@ const handleRestart = () => {
 </script>
 
 <template>
-  <div :class="styles.stack">
+  <Stack align="center" gap="3">
     <MarqueeRootProvider :value="marquee" :class="styles.root">
       <MarqueeViewport>
         <MarqueeContent>
@@ -56,5 +57,5 @@ const handleRestart = () => {
       <Button size="sm" variant="outline" @click="handleResume">Resume</Button>
       <Button size="sm" variant="outline" @click="handleRestart">Restart</Button>
     </div>
-  </div>
+  </Stack>
 </template>

@@ -8,11 +8,6 @@
   margin-inline: auto;
 }
 
-.headerContent {
-  display: grid;
-  gap: 0.75rem;
-}
-
 .brand {
   display: flex;
   align-items: center;
@@ -27,8 +22,8 @@
   width: 2rem;
   height: 2rem;
   border-radius: var(--moduix-radius-sm);
-  background-color: var(--moduix-color-primary);
-  color: var(--moduix-color-primary-foreground);
+  background-color: var(--moduix-primary);
+  color: var(--moduix-primary-foreground);
 }
 
 .footer {
@@ -58,7 +53,7 @@
 }
 
 .accountEmail {
-  color: var(--moduix-color-muted-foreground);
+  color: var(--moduix-muted-foreground);
   font-size: var(--moduix-text-xs);
 }
 
@@ -72,7 +67,7 @@
   align-items: center;
   min-height: 3.5rem;
   padding-inline: 1.5rem;
-  border-block-end: 1px solid var(--moduix-color-border);
+  border-block-end: 1px solid var(--moduix-border);
 }
 
 .content {
@@ -83,6 +78,6 @@
 
 .card {
   padding: 1rem;
-  border: 1px solid var(--moduix-color-border);
+  border: 1px solid var(--moduix-border);
   border-radius: var(--moduix-radius-md);
 }

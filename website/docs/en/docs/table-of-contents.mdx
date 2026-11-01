@@ -1,99 +1,60 @@
 ---
 title: Table of Contents
 component: toc
-description: Keep an accessible table of contents in sync with the section a reader is viewing.
+description: Highlight the section a reader is on in an “On this page” list.
+ark: https://ark-ui.com/docs/components/toc
 ---
 
-## API Reference
+import AnatomyScene from '@/components/examples/table-of-contents/basic';
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/toc" />
+<Example name="table-of-contents/basic" />
 
-## Basic
+## Installation
+
+<ComponentInstall />
+
+## Usage
+
+<Usage />
 
 `Toc` is the shorthand root component. Pass an `items` array with the headings you want to track.
 Each item needs a `value` that matches a heading's `id` and a `depth` that matches its semantic
 level, such as `2` for `<h2>`. Use the same item when rendering `TocItem`, then build the matching
 `TocLink` fragment from its `value`.
 
-
 On a regular document page, omit `scrollEl` and the component observes the page viewport. The
 preview below uses an inner scroll container, so it passes that element to `scrollEl` to keep
 tracking and link navigation inside the preview.
 
-<Example name="table-of-contents/basic" />
+## Examples
 
-## Install with shadcn
+### Rail
 
-See [Quick Start](/docs/quick-start) for full package setup, registry configuration, and styling guidance.
+Place `TocRail` inside each link to draw an SVG connector between neighbouring heading depths.
+Pass the current, previous, and next depths from the same ordered `items` array. The rail on the
+active link uses the indicator colour. Do not render `TocIndicator` in the same list.
 
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
+<Example name="table-of-contents/rail" />
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/toc' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/toc' },
-  ]}
-/>
+### With Collapsible
 
-  </Tab>
-  <Tab label="Solid" value="solid">
+Place the navigation list inside `Collapsible` when readers should be able to hide the full table
+of contents. `TocContext` supplies the active item for the trigger label and progress ring, while
+the links continue to target the same reading pane.
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/toc' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/toc' },
-  ]}
-/>
+<Example name="table-of-contents/with-collapsible" />
 
-  </Tab>
-  <Tab label="Vue" value="vue">
+### Root provider
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/toc' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/toc' },
-  ]}
-/>
+Use `useToc()` when another control needs to read the active headings or scroll the reading pane. See [Share state outside the tree](/docs/composition-patterns#root-provider).
 
-  </Tab>
-</Tabs>
-
-## Anatomy
-
-```text
-Toc
-├─ TocContent
-└─ TocNav
-   ├─ TocTitle
-   └─ TocList
-      ├─ TocIndicator (optional)
-      └─ TocItem[item]
-         └─ TocLink
-            └─ TocRail (optional)
-
-TocRootProvider
-└─ same part tree connected to useToc()
-```
-
-| Part               | Role                                                                 |
-| ------------------ | -------------------------------------------------------------------- |
-| `Toc`             | Root part that owns tracking state from the item list.               |
-| `TocContent`      | Article containing headings whose IDs match item values.             |
-| `TocNav`          | Navigation region connected to the table of contents title.          |
-| `TocTitle`        | Accessible name and visible heading for the navigation.              |
-| `TocList`         | List containing heading links and the optional indicator.             |
-| `TocItem`         | List item bound to one heading, with depth and active-state metadata. |
-| `TocLink`         | Same-page anchor that scrolls to its matching heading.               |
-| `TocIndicator`    | Subtle marker that follows the active range in the list.              |
-| `TocRootProvider` | Connects the parts to tracking state created outside the part tree.   |
-| `TocRail`         | Optional SVG branch connecting neighbouring heading depths.            |
+<Example name="table-of-contents/root-provider" />
 
 ## Composition
 
 Pass one item for every tracked heading. Keep `item.value`, the heading `id`, and the `TocLink`
 fragment identical, and use the heading's semantic level for `depth`. Omit `scrollEl` when the page
-viewport owns scrolling; pass the reading pane when the content has its own scroll container.
+viewport handles scrolling; pass the reading pane when the content has its own scroll container.
 
 Unlike Ark UI, `autoScroll` defaults to `false` for both `Toc` and `useToc()`. Pass `autoScroll` to
 opt in only when automatically revealing the active navigation item cannot scroll an ancestor
@@ -114,29 +75,26 @@ and Zag 1.45.0. `TocNav` still reuses the root ID when both parts render, produc
 This remaining limitation is tracked in [Ark #4187](https://github.com/chakra-ui/ark/issues/4187).
 :::
 
-## Examples
+## Anatomy
 
-### Root Provider
+Hover or focus a part to find it in the preview.
 
-Use `useToc()` when another control needs to read the active headings or scroll the reading pane.
-
-<Example name="table-of-contents/root-provider" />
-
-### Rail
-
-Place `TocRail` inside each link to draw an SVG connector between neighbouring heading depths.
-Pass the current, previous, and next depths from the same ordered `items` array. The rail on the
-active link uses the indicator colour. Do not render `TocIndicator` in the same list.
-
-<Example name="table-of-contents/rail" />
-
-### With Collapsible
-
-Place the navigation list inside `Collapsible` when readers should be able to hide the full table
-of contents. `TocContext` supplies the active item for the trigger label and progress ring, while
-the links continue to target the same reading pane.
-
-<Example name="table-of-contents/with-collapsible" />
+<AnatomyInspector
+  parts={[
+    ["Toc", "toc-root", "Root part that manages tracking state from the item list.", 0],
+    ["TocContent", "toc-content", "Article containing headings whose IDs match item values.", 1],
+    ["TocNav", "toc-nav", "Navigation region connected to the table of contents title.", 1],
+    ["TocTitle", "toc-title", "Accessible name and visible heading for the navigation.", 2],
+    ["TocList", "toc-list", "List containing heading links and the optional indicator.", 2],
+    ["TocIndicator", "toc-indicator", "Subtle marker that follows the active range in the list.", 3],
+    ["TocItem", "toc-item", "List item bound to one heading, with depth and active-state metadata.", 3],
+    ["TocLink", "toc-link", "Same-page anchor that scrolls to its matching heading.", 4],
+    ["TocRail", "toc-rail", "Optional SVG branch connecting neighbouring heading depths.", 5],
+    ["TocRootProvider", "toc-root-provider", "Connects the parts to tracking state created outside the part tree.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styling
 
@@ -147,9 +105,34 @@ change the navigation column, override `grid-template-columns` on `Toc`.
 
 ### Styling hooks
 
-- `data-slot="toc-root"`, `toc-root-provider`, `toc-content`, `toc-nav`, `toc-title`, `toc-list`,
-  `toc-item`, `toc-link`, `toc-indicator`, and `toc-rail`
+| Part | `data-slot` |
+| --- | --- |
+| `Toc` | `toc-root` |
+| `TocRootProvider` | `toc-root-provider` |
+| `TocContent` | `toc-content` |
+| `TocNav` | `toc-nav` |
+| `TocTitle` | `toc-title` |
+| `TocList` | `toc-list` |
+| `TocItem` | `toc-item` |
+| `TocLink` | `toc-link` |
+| `TocIndicator` | `toc-indicator` |
+| `TocRail` | `toc-rail` |
+
 - Ark `data-scope="toc"` and `data-part` attributes on primitive parts
 - `TocItem` attributes and variables: `data-value`, `data-depth`, `data-active`, `data-first`,
   `data-last`, and `--depth`; `TocLink` exposes `data-value`, `data-active`, and `aria-current`
 - Ark runtime `--top`, `--left`, `--width`, and `--height` variables on the root
+
+## API reference
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `items` | `TocItem[]` | — | Headings to track, each with `value` (the heading id) and `depth`. |
+| `scrollEl` | `() => HTMLElement \| null` | — | Returns the scroll container to observe; defaults to the page. |
+| `rootMargin` | `string` | `'-20px 0px -40% 0px'` | IntersectionObserver margin that decides when a heading is active. |
+| `threshold` | `number \| number[]` | `0` | IntersectionObserver threshold. |
+| `autoScroll` | `boolean` | `false` | Scrolls the list so the active item stays visible. |
+| `scrollBehavior` | `ScrollBehavior` | `'smooth'` | Scroll behavior for `autoScroll`. |
+| `activeIds` | `string[]` | — | Active heading ids for controlled use. |
+| `defaultActiveIds` | `string[]` | — | Initially active heading ids. |
+| `onActiveChange` | `(details: ActiveChangeDetails) => void` | — | Called when the visible headings change. |

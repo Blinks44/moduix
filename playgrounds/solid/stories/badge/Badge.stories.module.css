@@ -10,13 +10,9 @@
 }
 
 .customBadge {
-  --moduix-badge-bg: color-mix(
-    in oklab,
-    var(--moduix-color-primary) 20%,
-    var(--moduix-color-background)
-  );
-  --moduix-badge-border-color: color-mix(in oklab, var(--moduix-color-primary) 35%, transparent);
-  --moduix-badge-color: var(--moduix-color-primary);
+  --moduix-badge-bg: color-mix(in oklab, var(--moduix-primary) 20%, var(--moduix-background));
+  --moduix-badge-border-color: color-mix(in oklab, var(--moduix-primary) 35%, transparent);
+  --moduix-badge-color: var(--moduix-primary);
   min-height: 1.5rem;
   border-radius: var(--moduix-radius-sm);
   padding-inline: var(--moduix-spacing-3);

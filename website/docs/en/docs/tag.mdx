@@ -1,17 +1,26 @@
 ---
 title: Tag
 component: tag
-description: A compact token for selected values, filters, assignments, and other short interface values, with optional icons and a close action.
+description: Show a selected value, filter, or assignment as a removable token.
+ark: https://ark-ui.com/docs/guides/composition#the-ark-factory
 ---
 
+import AnatomyScene from '@/components/examples/tag/basic';
 import * as TagDocs from '@/components/examples/tag/css-properties';
 
-## API Reference
+<Example name="tag/basic" />
 
-Ark UI does not ship a dedicated `tag` primitive. moduix builds this component with the official
-[Ark factory](https://ark-ui.com/docs/guides/composition#the-ark-factory) and follows Ark's guidance for
-[composition](https://ark-ui.com/docs/guides/composition), [styling](https://ark-ui.com/docs/guides/styling), and
-[refs](https://ark-ui.com/docs/guides/ref).
+## Installation
+
+<ComponentInstall />
+
+## Usage
+
+<Usage />
+
+Start with a `Tag`
+root and `TagLabel`. Add the other parts only when the token needs an icon, supporting content,
+or an inline close action.
 
 ## Choosing the right component
 
@@ -21,70 +30,50 @@ need a local action, such as removal.
 - Choose **`Badge`** for short metadata such as status, category, version, or count.
 - Choose **`Tag`** for selected values, filters, assignments, or labels that are part of the current interface state.
 
-## Basic
+## Examples
 
-Start with a `Tag`
-root and `TagLabel`. Add the other parts only when the token needs an icon, supporting content,
-or an inline close action.
+### Variants
 
-<Example name="tag/basic" />
+Use the built-in variants for common moduix color roles while keeping the same part structure.
 
-## Install with shadcn
+<Example name="tag/variants" />
 
-See [Quick Start](/docs/quick-start) for full package setup, registry configuration, and styling guidance.
+### Sizes
 
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
+Use `size="sm"` for dense token rows. Keep the default `md` size for standalone tokens and more
+comfortable spacing. Use `size="lg"` for tags next to larger text or in roomy filter bars; it is
+28px tall with 14px text.
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/tag' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/tag' },
-  ]}
-/>
+<Example name="tag/sizes" />
 
-  </Tab>
-  <Tab label="Solid" value="solid">
+### Icon
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/tag' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/tag' },
-  ]}
-/>
+Use `TagStartElement` and `TagEndElement` for icons and actions so `TagLabel` remains the
+truncation boundary and action sizing stays independent.
 
-  </Tab>
-  <Tab label="Vue" value="vue">
+<Example name="tag/icon" />
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/tag' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/tag' },
-  ]}
-/>
+### Closable
 
-  </Tab>
-</Tabs>
+The parent component keeps the list of values and removes an item after its close trigger is clicked.
+Give each trigger a label that includes the value being removed.
 
-## Anatomy
+<Example name="tag/closable" />
 
-Use `Tag` as the root element.
+### Interactive tag
 
-```text
-Tag
-├─ TagStartElement (optional)
-├─ TagLabel
-└─ TagEndElement (optional)
-   └─ TagCloseTrigger (optional)
-```
+Use `asChild` when the whole token is an action. This replaces the default `span`; the single child
+becomes the semantic and interactive host, so it must provide the behavior expected from a button or link. A `button` or `a`
+host gets a pointer cursor.
 
-| Part               | Role                                                                                     |
-| ------------------ | ---------------------------------------------------------------------------------------- |
-| `Tag`              | Root element. Applies the token layout, border, size, variant, and `asChild` composition. |
-| `TagLabel`        | Visible value wrapper and truncation boundary.                                            |
-| `TagStartElement` | Optional leading area for an icon, avatar, or status indicator.                           |
-| `TagEndElement`   | Optional trailing area for an icon or action.                                              |
-| `TagCloseTrigger` | Optional button for removing the token.                                                   |
+<Example name="tag/interactive" />
+
+### Overflow
+
+Constrain the root when long values need to fit a narrow area. `TagLabel` becomes the truncation
+boundary and shows an ellipsis; add `title` when the full value should remain discoverable.
+
+<Example name="tag/overflow" />
 
 ## Composition
 
@@ -99,50 +88,23 @@ child becomes the DOM host and must provide the required semantics. In particula
 including with custom children or `asChild`. When several tags are shown, pass a name that includes
 the value, such as `aria-label="Remove TypeScript tag"`.
 
-## Examples
+## Anatomy
 
-### Closable
+Use `Tag` as the root element.
 
-The parent component owns the list of values and removes an item after its close trigger is clicked.
-Give each trigger a label that includes the value being removed.
+Hover or focus a part to find it in the preview.
 
-<Example name="tag/closable" />
-
-### Icon
-
-Use `TagStartElement` and `TagEndElement` for icons and actions so `TagLabel` remains the
-truncation boundary and action sizing stays independent.
-
-<Example name="tag/icon" />
-
-### Overflow
-
-Constrain the root when long values need to fit a narrow area. `TagLabel` becomes the truncation
-boundary and shows an ellipsis; add `title` when the full value should remain discoverable.
-
-<Example name="tag/overflow" />
-
-### Sizes
-
-Use `size="sm"` for dense token rows. Keep the default `md` size for standalone tokens and more
-comfortable spacing. Use `size="lg"` for tags next to larger text or in roomy filter bars; it is
-28px tall with 14px text.
-
-<Example name="tag/sizes" />
-
-### Variants
-
-Use the built-in variants for common moduix color roles while keeping the same part structure.
-
-<Example name="tag/variants" />
-
-### Advanced Customization
-
-Use `asChild` when the whole token is an action. This replaces the default `span`; the single child
-becomes the semantic and interactive host, so it must provide the behavior expected from a button or link. A `button` or `a`
-host gets a pointer cursor.
-
-<Example name="tag/render-as-button" />
+<AnatomyInspector
+  parts={[
+    ["Tag", "tag-root", "Root element. Applies the token layout, border, size, variant, and `asChild` composition.", 0],
+    ["TagStartElement", "tag-start-element", "Optional leading area for an icon, avatar, or status indicator.", 1],
+    ["TagLabel", "tag-label", "Visible value wrapper and truncation boundary.", 1],
+    ["TagEndElement", "tag-end-element", "Optional trailing area for an icon or action.", 1],
+    ["TagCloseTrigger", "tag-close-trigger", "Optional button for removing the token.", 2],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styling
 
@@ -154,13 +116,33 @@ The CSS Modules variables override the background, border, and text color of eve
 spacing, typography, radius, and close trigger geometry use foundation tokens; change them with a
 class on the part.
 
-### CSS Variables
+### CSS variables
 
-<CssPropertiesSection properties={TagDocs.tagCssProperties} />
+Hover or focus a variable to see it in the preview.
+
+<CssPropertiesSection properties={TagDocs.tagCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Styling hooks
 
+| Part | `data-slot` |
+| --- | --- |
+| `Tag` | `tag-root` |
+| `TagLabel` | `tag-label` |
+| `TagStartElement` | `tag-start-element` |
+| `TagEndElement` | `tag-end-element` |
+| `TagCloseTrigger` | `tag-close-trigger` |
+
 - Exported parts emit `data-scope="tag"` and `data-part="root" | "label" | "start-element" | "end-element" | "close-trigger"`.
-- `data-slot="tag-root"`, `data-slot="tag-label"`, `data-slot="tag-start-element"`, `data-slot="tag-end-element"`, and `data-slot="tag-close-trigger"` are stable moduix selectors.
 - `Tag` writes the selected size and variant to `data-size` and `data-variant`.
 - `TagCloseTrigger` exposes `data-disabled` for disabled or `aria-disabled` states and inherits the token color.
+
+## API reference
+
+Also accepts the native props of its element and `asChild`.
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `variant` | `'default' \| 'secondary' \| 'outline' \| 'ghost' \| 'destructive'` | `'default'` | Visual style: `default`, `secondary`, `outline`, `ghost`, or `destructive`. |
+| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` | Tag size: `sm`, `md`, or `lg`. |

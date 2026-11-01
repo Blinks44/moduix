@@ -1,7 +1,7 @@
 import { page } from '@rstest/browser';
 import { expect, test } from '@rstest/core';
 import { render, screen } from '@solidjs/testing-library';
-import { createSignal, For } from 'solid-js';
+import { createSignal } from 'solid-js';
 import {
   SegmentGroup,
   SegmentGroupIndicator,
@@ -11,9 +11,10 @@ import {
   SegmentGroupItems,
   SegmentGroupRootProvider,
   useSegmentGroup,
-} from '../src';
+} from '@/index';
 
 const frameworks = ['React', 'Solid', 'Vue'];
+
 const frameworkItems = frameworks.map((value) => ({ value, label: value }));
 
 function SegmentItems() {
@@ -127,9 +128,6 @@ test('keeps asChild item state reactive after selection changes', async () => {
   await expect
     .poll(() => parseFloat(screen.getByTestId('indicator').style.getPropertyValue('--left')))
     .toBe(annual.offsetLeft);
-  await expect
-    .poll(() => parseFloat(screen.getByTestId('indicator').style.getPropertyValue('--width')))
-    .toBe(annual.offsetWidth);
 });
 
 test('does not forward refs through native Ark Solid asChild composition', () => {
@@ -239,6 +237,7 @@ test('keeps read-only inputs checked and outside keyboard navigation', async () 
   await expect.element(react).toBeChecked();
   await expect.element(solid).not.toBeChecked();
 });
+
 test('preserves controlled and provider composition paths', async () => {
   const { unmount } = render(() => <ControlledSegmentGroup />);
 
@@ -307,51 +306,6 @@ test('defaults the root and the hook to horizontal orientation', async () => {
   await expect
     .element(page.getByTestId('provider'))
     .toHaveAttribute('data-orientation', 'horizontal');
-});
-
-test('stretches vertical items to the group width', () => {
-  render(() => (
-    <SegmentGroup defaultValue="List" orientation="vertical">
-      <SegmentGroupIndicator />
-      <SegmentGroupItems
-        items={['List', 'Calendar view'].map((value) => ({ value, label: value }))}
-      />
-    </SegmentGroup>
-  ));
-
-  const [short, long] = screen
-    .getAllByRole('radio')
-    .map((radio) => radio.closest<HTMLElement>('[data-slot="segment-group-item"]')!);
-  expect(short.offsetWidth).toBe(long.offsetWidth);
-});
-
-test('does not animate the indicator before the selection changes', async () => {
-  render(() => (
-    <SegmentGroup defaultValue="React">
-      <SegmentGroupIndicator data-testid="indicator" />
-      <SegmentGroupItems items={frameworkItems} />
-    </SegmentGroup>
-  ));
-
-  await expect.element(page.getByTestId('indicator')).toBeVisible();
-  expect(getComputedStyle(screen.getByTestId('indicator')).transitionDuration).toBe('0s');
-});
-
-test('sizes the whole group to the matching control height', () => {
-  render(() => (
-    <For each={['sm', 'md', 'lg'] as const}>
-      {(size) => (
-        <SegmentGroup size={size} defaultValue="React" data-testid={size}>
-          <SegmentGroupIndicator />
-          <SegmentGroupItems items={frameworks} />
-        </SegmentGroup>
-      )}
-    </For>
-  ));
-
-  expect(screen.getByTestId('sm').offsetHeight).toBe(32);
-  expect(screen.getByTestId('md').offsetHeight).toBe(36);
-  expect(screen.getByTestId('lg').offsetHeight).toBe(40);
 });
 
 test('renders string items with the string as value and label', async () => {

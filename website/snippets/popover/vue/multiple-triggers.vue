@@ -7,8 +7,8 @@ import {
   PopoverTitle,
   PopoverTrigger,
 } from '@moduix/vue/popover';
+import { Stack } from '@moduix/vue/stack';
 import { ref } from 'vue';
-import styles from '@/components/examples/popover/popover-multiple-triggers.module.css';
 
 const actions = [
   { id: 'share', label: 'Share', detail: 'Share this item by link or email.' },
@@ -23,11 +23,11 @@ const handleTriggerValueChange = (details: { value?: string | null }) => {
 
 <template>
   <Popover @trigger-value-change="handleTriggerValueChange">
-    <div :class="styles.root">
+    <Stack direction="row" justify="center" wrap="wrap" gap="2">
       <PopoverTrigger v-for="item in actions" :key="item.id" :value="item.id">{{
         item.label
       }}</PopoverTrigger>
-    </div>
+    </Stack>
     <PopoverPositioner>
       <PopoverContent>
         <PopoverTitle>{{ activeItem?.label ?? 'Select an action' }}</PopoverTitle>

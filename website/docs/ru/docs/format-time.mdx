@@ -1,23 +1,12 @@
 ---
 title: Format Time
 description: Форматируйте время в заданной локали в React, Solid и Vue с помощью Ark UI Format.Time.
+ark: https://ark-ui.com/docs/utilities/format-time
 ---
-
-import FormatTimeBasic from '@/components/examples/format-time/basic.tsx';
-import FormatTimeSecondsAndLabels from '@/components/examples/format-time/seconds-and-labels.tsx';
-import FormatTimeLocale from '@/components/examples/format-time/locale.tsx';
-import formatTimeSolidBasic from '../../../snippets/format-time/solid/basic.tsx?raw';
-import formatTimeVueBasic from '../../../snippets/format-time/vue/basic.vue?raw';
-import formatTimeSolidSecondsAndLabels from '../../../snippets/format-time/solid/seconds-and-labels.tsx?raw';
-import formatTimeVueSecondsAndLabels from '../../../snippets/format-time/vue/seconds-and-labels.vue?raw';
-import formatTimeSolidLocale from '../../../snippets/format-time/solid/locale.tsx?raw';
-import formatTimeVueLocale from '../../../snippets/format-time/vue/locale.vue?raw';
 
 `Format.Time` превращает значение времени в текст с учётом локали. Во всех выпущенных адаптерах используются одни и те же параметры.
 
-## Справочник API
-
-<PrimitiveReference href="https://ark-ui.com/docs/utilities/format-time" />
+## Импорт
 
 Импортируйте утилиту из пакета Ark UI для используемого фреймворка:
 
@@ -58,42 +47,7 @@ import { Format } from '@ark-ui/vue';
 Передайте строку в формате `HH:mm` или `HH:mm:ss`, если это время на циферблате, например время отправления по
 расписанию. Строка не преобразуется между часовыми поясами.
 
-<ExampleFrame variant="component">
-  <PreviewFrame maxWidth="sm">
-    <FormatTimeBasic />
-  </PreviewFrame>
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/format-time/basic.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={formatTimeSolidBasic} />
-
-    </Tab>
-  <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={formatTimeVueBasic} />
-
-    </Tab>
-  </Tabs>
-</div>
-</ExampleCode>
+<Example name="format-time/basic" />
 
 ## Параметры форматирования
 
@@ -101,42 +55,7 @@ import { Format } from '@ark-ui/vue';
 `withSeconds`, чтобы добавить секунды, а `amLabel` и `pmLabel`, чтобы заменить обозначения части суток в 12-часовом
 выводе.
 
-<ExampleFrame variant="component">
-  <PreviewFrame maxWidth="sm">
-    <FormatTimeSecondsAndLabels />
-  </PreviewFrame>
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/format-time/seconds-and-labels.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={formatTimeSolidSecondsAndLabels} />
-
-    </Tab>
-  <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={formatTimeVueSecondsAndLabels} />
-
-    </Tab>
-  </Tabs>
-</div>
-</ExampleCode>
+<Example name="format-time/seconds-and-labels" />
 
 Добавляйте секунды только тогда, когда они помогают человеку действовать. Не выводите их в расписании только потому,
 что они есть в исходных данных.
@@ -149,39 +68,4 @@ import { Format } from '@ark-ui/vue';
 
 Оставляйте время по расписанию строкой. Передавайте `Date` только тогда, когда преобразование часового пояса задумано.
 
-<ExampleFrame variant="component">
-  <PreviewFrame maxWidth="sm">
-    <FormatTimeLocale />
-  </PreviewFrame>
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/format-time/locale.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={formatTimeSolidLocale} />
-
-    </Tab>
-  <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={formatTimeVueLocale} />
-
-    </Tab>
-  </Tabs>
-</div>
-</ExampleCode>
+<Example name="format-time/locale" />

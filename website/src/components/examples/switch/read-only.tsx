@@ -1,9 +1,9 @@
+import { Stack } from '@moduix/react/stack';
 import { Switch, SwitchControl, SwitchHiddenInput, SwitchLabel } from '@moduix/react/switch';
-import styles from '@/components/examples/switch/switch-read-only.module.css';
 
 export default function ReadOnlySwitchDemo() {
   return (
-    <div className={styles.column}>
+    <Stack align="flex-start" gap="3">
       <Switch readOnly>
         <SwitchControl />
         <SwitchLabel>Managed by policy</SwitchLabel>
@@ -14,6 +14,6 @@ export default function ReadOnlySwitchDemo() {
         <SwitchLabel>Always on</SwitchLabel>
         <SwitchHiddenInput />
       </Switch>
-    </div>
+    </Stack>
   );
 }

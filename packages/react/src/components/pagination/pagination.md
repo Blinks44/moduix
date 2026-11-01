@@ -76,8 +76,8 @@ PaginationRootProvider
 | `usePaginationContext`   | -                          | Reads Ark pagination state from a descendant.                                            |
 | `PaginationItem`         | `pagination-item`          | Ark page item; pass `{...page}` from `pagination.pages`.                                 |
 | `PaginationEllipsis`     | `pagination-ellipsis`      | Ark ellipsis with a default icon; `index` is required; hidden from assistive technology. |
-| `PaginationPrevTrigger`  | `pagination-prev-trigger`  | Ark previous trigger with default Moduix chevron.                                        |
-| `PaginationNextTrigger`  | `pagination-next-trigger`  | Ark next trigger with default Moduix chevron.                                            |
+| `PaginationPrevTrigger`  | `pagination-prev-trigger`  | Ark previous trigger with default moduix chevron.                                        |
+| `PaginationNextTrigger`  | `pagination-next-trigger`  | Ark next trigger with default moduix chevron.                                            |
 | `PaginationFirstTrigger` | `pagination-first-trigger` | Ark first trigger with default double-chevron visual.                                    |
 | `PaginationLastTrigger`  | `pagination-last-trigger`  | Ark last trigger with default double-chevron visual.                                     |
 
@@ -142,7 +142,7 @@ keep the square footprint and longer labels expand. Triggers with custom content
 `--moduix-spacing-3` inline padding; triggers with the default icon drop the inline padding and stay
 square.
 
-Moduix adds visual defaults only:
+moduix adds visual defaults only:
 
 - default chevrons for previous/next triggers;
 - default double-chevron visuals for first/last triggers;
@@ -161,7 +161,7 @@ props, so the Ark types describe them exactly.
 ## Intentional sugar and differences from upstream
 
 The wrapper keeps Ark API names and exposes wrapped parts through flat family-prefixed exports.
-Moduix sugar is limited to `PaginationItems`, top-level Ark hook re-exports, default icons,
+moduix sugar is limited to `PaginationItems`, top-level Ark hook re-exports, default icons,
 default ellipsis icon, `data-slot`
 hooks, and styling tokens.
 

@@ -14,9 +14,6 @@ import {
   MenuItemIndicator,
   MenuItemShortcut,
   MenuItemText,
-  MenuItemTextContent,
-  MenuItemTextIcon,
-  MenuItemTextLabel,
   MenuPositioner,
   MenuRadioItem,
   MenuRadioItemGroup,
@@ -104,9 +101,6 @@ const storyComponents = {
   MenuItemIndicator,
   MenuItemShortcut,
   MenuItemText,
-  MenuItemTextContent,
-  MenuItemTextIcon,
-  MenuItemTextLabel,
   MenuPositioner,
   MenuRadioItem,
   MenuRadioItemGroup,
@@ -280,21 +274,11 @@ export const IndicatorRightWithIcon: Story = {
         </MenuButtonTrigger>
         <DefaultPositionedContent>
           <MenuCheckboxItem v-model:checked="showMinimap" value="minimap" indicator="end">
-            <MenuItemText>
-              <MenuItemTextContent>
-                <MenuItemTextIcon><InfoIcon /></MenuItemTextIcon>
-                <MenuItemTextLabel>Minimap</MenuItemTextLabel>
-              </MenuItemTextContent>
-            </MenuItemText>
+            <MenuItemText><InfoIcon />Minimap</MenuItemText>
             <MenuItemIndicator />
           </MenuCheckboxItem>
           <MenuCheckboxItem v-model:checked="showSearch" value="search" indicator="end">
-            <MenuItemText>
-              <MenuItemTextContent>
-                <MenuItemTextIcon><MapIcon /></MenuItemTextIcon>
-                <MenuItemTextLabel>Search</MenuItemTextLabel>
-              </MenuItemTextContent>
-            </MenuItemText>
+            <MenuItemText><MapIcon />Search</MenuItemText>
             <MenuItemIndicator />
           </MenuCheckboxItem>
         </DefaultPositionedContent>

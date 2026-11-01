@@ -1,14 +1,26 @@
 ---
 title: Highlight
-description: Highlight words and phrases inside existing text with native mark elements and moduix styles in React, Solid, or Vue.
+description: Mark the words that match a search query inside a piece of text.
 component: highlight
+ark: https://ark-ui.com/docs/utilities/highlight
 ---
 
+import AnatomyScene from '@/components/examples/highlight/basic';
 import * as HighlightDocs from '@/components/examples/highlight/css-properties';
 
-## API Reference
+<Example name="highlight/basic" />
 
-<PrimitiveReference href="https://ark-ui.com/docs/utilities/highlight" />
+## Installation
+
+<ComponentInstall />
+
+## Usage
+
+<Usage />
+
+Pass the complete source string through `text` and the term to find through `query`. Place
+`Highlight` inside the text component or HTML element that should provide the surrounding layout
+and semantics.
 
 ## Choosing the right component
 
@@ -18,84 +30,21 @@ renders the matched ranges, but does not add a layout wrapper of its own.
 - Choose **`Highlight`** when one or more terms in an existing sentence, label, or text block need emphasis.
 - Choose **`Text`** when the whole string only needs typographic styling and no query-based matching.
 
-## Basic
-
-Pass the complete source string through `text` and the term to find through `query`. Place
-`Highlight` inside the text component or HTML element that should provide the surrounding layout
-and semantics.
-
-<Example name="highlight/basic" />
-
-## Install with shadcn
-
-See [Quick Start](/docs/quick-start) for full package setup, registry configuration, and styling guidance.
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/highlight' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/highlight' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/highlight' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/highlight' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/highlight' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/highlight' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Anatomy
-
-`Highlight` has one public root and returns a fragment, not an extra wrapper element. Each matched
-range becomes a native `<mark>` element. Text that does not match stays as ordinary text in the
-surrounding flow.
-
-```text
-Highlight
-└─ matched ranges rendered as repeated <mark> elements
-```
-
-| Part        | Role                                                                |
-| ----------- | ------------------------------------------------------------------- |
-| `Highlight` | Applies moduix styling to every matched range in the provided text. |
-
-## Composition
-
-`Highlight` is stateless and owns no layout wrapper. Place it inside an existing text container such
-as `Text`, a heading, a list item, or a table cell. Control `query` from the parent when search input
-changes. A string-array `query`
-requires `matchAll` to remain `true`; use custom markup in your own component when each match needs a
-different element or interactive behavior.
-
 ## Examples
 
-### Dynamic Query
+### Ignore case
 
-Control `query` from framework state to highlight the current term while a user searches or filters
-visible text.
+Set `ignoreCase` when the capitalization of the source text should not affect the result.
 
-<Example name="highlight/dynamic-query" />
+<Example name="highlight/ignore-case" />
 
-### Exact Match
+### Match all
+
+Set `matchAll` when every occurrence should be highlighted instead of only the first one.
+
+<Example name="highlight/match-all" />
+
+### Exact match
 
 Set `exactMatch` when partial-word matches are too broad. In this example, `box` matches the
 standalone word but not `checkbox` or `combobox`. Matching follows JavaScript word boundaries,
@@ -103,24 +52,43 @@ which are reliable for Latin text but do not treat Cyrillic and some other scrip
 
 <Example name="highlight/exact-match" />
 
-### Ignore Case
-
-Set `ignoreCase` when the capitalization of the source text should not affect the result.
-
-<Example name="highlight/ignore-case" />
-
-### Match All
-
-Set `matchAll` when every occurrence should be highlighted instead of only the first one.
-
-<Example name="highlight/match-all" />
-
-### Multiple Queries
+### Multiple queries
 
 Pass a string array when several terms should be highlighted in the same text. For an array,
 `matchAll` defaults to `true`; setting `matchAll={false}` throws an error.
 
 <Example name="highlight/multiple-queries" />
+
+### Dynamic query
+
+Control `query` from framework state to highlight the current term while a user searches or filters
+visible text.
+
+<Example name="highlight/dynamic-query" />
+
+## Composition
+
+`Highlight` is stateless and adds no layout wrapper. Place it inside an existing text container such
+as `Text`, a heading, a list item, or a table cell. Control `query` from the parent when search input
+changes. A string-array `query`
+requires `matchAll` to remain `true`; use custom markup in your own component when each match needs a
+different element or interactive behavior.
+
+## Anatomy
+
+`Highlight` has one public root and returns a fragment, not an extra wrapper element. Each matched
+range becomes a native `<mark>` element. Text that does not match stays as ordinary text in the
+surrounding flow.
+
+Hover or focus a part to find it in the preview.
+
+<AnatomyInspector
+  parts={[
+    ["Highlight", "highlight-root", "Applies moduix styling to every matched range in the provided text.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styling
 
@@ -128,13 +96,30 @@ Matched ranges receive moduix's default `<mark>` styles. Use `className` in Reac
 and Vue for a local adjustment. CSS Modules variants also expose the `--moduix-highlight-*` variables;
 use Tailwind utilities or consumer classes for Tailwind variants.
 
-### CSS Properties
+### CSS variables
 
-<CssPropertiesSection properties={HighlightDocs.highlightCssProperties} />
+Hover or focus a variable to see it in the preview.
+
+<CssPropertiesSection properties={HighlightDocs.highlightCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Styling hooks
 
+| Part | `data-slot` |
+| --- | --- |
+| `Highlight` | `highlight-root` |
+
 - Every matched `<mark>` has `data-scope="highlight"` and `data-part="root"`.
-- `data-slot="highlight-root"` is the stable moduix selector for each matched mark.
 - Props such as `className`/`class`, `style`, `title`, and `data-*` are applied to every matched `<mark>`.
 - There is no wrapper element, state attribute, or Ark runtime CSS variable.
+
+## API reference
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `text` | `string` | — | Text to search in. |
+| `query` | `string \| string[]` | — | Term or array of terms to mark. |
+| `ignoreCase` | `boolean` | `false` | Matches regardless of letter case. |
+| `matchAll` | `boolean` | `false` | Marks every match, not only the first. |
+| `exactMatch` | `boolean` | `false` | Matches whole words only. |

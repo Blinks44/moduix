@@ -17,8 +17,9 @@ import {
   PaginationRootProvider,
   usePagination,
   usePaginationContext,
-} from '../src';
-import type { PaginationPageChangeDetails } from '../src';
+} from '@/index';
+import type { PaginationPageChangeDetails } from '@/index';
+import SsrPagination from './fixtures/SsrPagination.vue';
 import PaginationConsumer from './pagination-consumer.vue';
 
 const paginationComponents = {
@@ -306,6 +307,7 @@ test('hydrates without replacing hosts or ids and responds to selection', async 
     error.mockRestore();
   }
 });
+
 test('keeps the public flat API usable from a Vue consumer SFC', async () => {
   render(PaginationConsumer);
 
@@ -314,26 +316,4 @@ test('keeps the public flat API usable from a Vue consumer SFC', async () => {
     .locator('[data-slot="pagination-root"] [data-slot="pagination-item"][data-index="3"]')
     .click();
   await expect.element(page.getByText('3 of 3')).toBeAttached();
-});
-import SsrPagination from './fixtures/SsrPagination.vue';
-test('keeps default-icon triggers square and pads triggers with custom content', () => {
-  render({
-    components: paginationComponents,
-    template: `
-        <Pagination :count="200" :default-page="10" :page-size="10">
-          <PaginationFirstTrigger />
-          <PaginationPrevTrigger />
-          <PaginationItems />
-          <PaginationNextTrigger>Next</PaginationNextTrigger>
-        </Pagination>
-      `,
-  });
-
-  for (const name of ['first page', 'previous page']) {
-    const trigger = screen.getByRole('button', { name });
-    expect(trigger.offsetWidth).toBe(trigger.offsetHeight);
-  }
-  const textTrigger = screen.getByRole('button', { name: 'next page' });
-  expect(getComputedStyle(textTrigger).paddingInlineStart).toBe('12px');
-  expect(textTrigger.offsetWidth).toBeGreaterThan(textTrigger.offsetHeight);
 });

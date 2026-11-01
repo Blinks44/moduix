@@ -4,40 +4,52 @@ import { CalendarDate } from '@internationalized/date';
 import { page } from '@rstest/browser';
 import { expect, test } from '@rstest/core';
 import { render } from '@solidjs/testing-library';
-import { FileUpload, FileUploadHiddenInput, PinInput, PinInputHiddenInput } from '../src';
 import {
+  FileUpload,
+  FileUploadHiddenInput,
+  PinInput,
+  PinInputHiddenInput,
   RadioGroup,
   RadioGroupItem,
   RadioGroupItemHiddenInput,
   RadioGroupItemText,
   RadioGroupOption,
-} from '../src';
-import { RatingGroup, RatingGroupHiddenInput } from '../src';
-import { TagsInput, TagsInputHiddenInput } from '../src';
-import { AngleSlider, AngleSliderHiddenInput } from '../src';
-import { Checkbox, CheckboxControl, CheckboxHiddenInput, CheckboxLabel } from '../src';
-import { ColorPicker, ColorPickerHiddenInput } from '../src';
-import { DateInput, DateInputHiddenInput } from '../src';
-import {
+  RatingGroup,
+  RatingGroupHiddenInput,
+  TagsInput,
+  TagsInputHiddenInput,
+  AngleSlider,
+  AngleSliderHiddenInput,
+  Checkbox,
+  CheckboxControl,
+  CheckboxHiddenInput,
+  CheckboxLabel,
+  ColorPicker,
+  ColorPickerHiddenInput,
+  DateInput,
+  DateInputHiddenInput,
   SegmentGroup,
   SegmentGroupItem,
   SegmentGroupItemHiddenInput,
   SegmentGroupItemText,
   SegmentGroupItems,
-} from '../src';
-import { Select, SelectHiddenSelect } from '../src';
-import { Switch, SwitchControl, SwitchHiddenInput } from '../src';
-import { SignaturePad, SignaturePadHiddenInput } from '../src';
-import {
+  Select,
+  SelectHiddenSelect,
+  Switch,
+  SwitchControl,
+  SwitchHiddenInput,
+  SignaturePad,
+  SignaturePadHiddenInput,
   Slider,
   SliderControl,
   SliderHiddenInput,
   SliderLabel,
   SliderThumb,
   SliderThumbs,
-} from '../src';
+} from '@/index';
 
 const collection = createListCollection({ items: [{ label: 'React', value: 'react' }] });
+
 const cases = [
   {
     name: 'AngleSlider',

@@ -101,6 +101,6 @@ Relevant attributes include `data-scope="tour"`, `data-part`, `data-state`, `dat
 ## Agent notes
 
 Keep `Tour` as a required-`tour` root until Ark exposes a real `RootProvider`. Keep `TourPositioner`
-and `TourContent` explicit; only portal transport is automatic. The docs "Advanced customization"
+and `TourContent` explicit; only portal transport is automatic. The docs "Build from parts"
 example builds the tour without `TourCloseIcon`, `TourBody`, and `TourActionList`; keep it free of
 sugar.

@@ -5,6 +5,7 @@ import {
   SplitterRootProvider,
   useSplitter,
 } from '@moduix/solid/splitter';
+import { Stack } from '@moduix/solid/stack';
 import styles from '@/components/examples/splitter/splitter-root-provider.module.css';
 
 const panels = [
@@ -36,10 +37,10 @@ export default function RootProviderSplitterDemo() {
         </SplitterPanel>
       </SplitterRootProvider>
       <output class={styles.status}>Sizes: {splitter().getSizes().join(' / ')}</output>
-      <div class={styles.toolbar}>
+      <Stack align="center" gap="2">
         <Button onClick={() => splitter().resetSizes()}>Reset</Button>
         <Button onClick={() => splitter().resizePanel('a', 25)}>Set A to 25%</Button>
-      </div>
+      </Stack>
     </div>
   );
 }

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Checkbox, CheckboxControl, CheckboxLabel, CheckboxHiddenInput } from '../../src';
+import { Checkbox, CheckboxControl, CheckboxLabel, CheckboxHiddenInput } from '@/index';
 </script>
 
 <template>

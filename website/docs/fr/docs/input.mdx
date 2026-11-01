@@ -1,16 +1,24 @@
 ---
 title: Input
 component: input
-description: Champ de saisie natif sur une ligne, fondé sur FieldInput d’Ark UI, avec les événements natifs et les styles moduix.
+description: Saisir une ligne de texte avec le comportement natif.
+ark: https://ark-ui.com/docs/components/field
 ---
 
+import AnatomyScene from '@/components/examples/input/basic';
 import * as InputDocs from '@/components/examples/input/css-properties';
 
-## Référence de l’API
+<Example name="input/basic" />
 
-`Input` est un composant stylé fondé sur [`FieldInput` d’Ark UI](https://ark-ui.com/docs/components/field). Il suit les recommandations d’Ark pour la [composition](https://ark-ui.com/docs/guides/composition), le [style](https://ark-ui.com/docs/guides/styling) et le [transfert de la ref](https://ark-ui.com/docs/guides/ref). Il rend un `<input>` natif sur une seule ligne et conserve le comportement du navigateur dans les formulaires ainsi que l’API native des événements de chaque framework.
+## Installation
 
-Utilisez `Field` lorsque le champ doit être relié à un libellé, à un texte d’aide ou d’erreur, recevoir des identifiants générés ou partager un état.
+<ComponentInstall />
+
+## Utilisation
+
+<Usage />
+
+Placez `Input` dans `Field` lorsque vous avez besoin d’un libellé, d’un texte d’aide ou d’un message d’erreur. `Field` relie ces éléments au champ, génère les identifiants nécessaires et lui transmet son état.
 
 ## Choisir le bon composant
 
@@ -21,120 +29,7 @@ Utilisez `Field` lorsque le champ doit être relié à un libellé, à un texte 
 - Utilisez **`Textarea`** pour le contenu multiligne.
 - Utilisez **`Editable`** lorsque le texte doit d’abord s’afficher comme une valeur, puis passer en mode édition à la demande.
 
-## Exemple de base
-
-
-Placez `Input` dans `Field` lorsque vous avez besoin d’un libellé, d’un texte d’aide ou d’un message d’erreur. `Field` relie ces éléments au champ, génère les identifiants nécessaires et lui transmet son état.
-
-<Example name="input/basic" />
-
-## Installation avec shadcn
-
-Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration complète du paquet, du registre et des styles.
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/input' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/input' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/input' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/input' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/input' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/input' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Anatomie
-
-```text
-Field (conteneur facultatif)
-└─ Input
-```
-
-| Partie                 | Rôle                                                                                          |
-| ---------------------- | --------------------------------------------------------------------------------------------- |
-| `Input`                | Version stylée du `FieldInput` d’Ark UI, qui rend un `<input>` natif sur une seule ligne.       |
-
-## Composition
-
-`Field` prend en charge le libellé, le texte d’aide ou d’erreur, les identifiants générés et l’état
-partagé `disabled`, `invalid`, `required` ou `readOnly`. `Input` reste le contrôle natif : pour un
-champ React contrôlé, utilisez `value` avec `onChange(event)`, `v-model` pour un champ Vue contrôlé,
-ou `defaultValue` pour un champ non contrôlé. Le composant ne gère ni la validation, ni le focus, ni
-la navigation au clavier.
-
-Dans Vue, initialisez le champ avec `v-model` et réinitialisez l’état lié dans le gestionnaire de
-réinitialisation du formulaire : la réinitialisation native ne déclenche pas d’événement de saisie.
-Ark efface actuellement le `defaultValue` natif sans modèle ; utilisez donc `v-model` pour les valeurs
-initiales en attendant la correction.
-
-Pour un champ autonome, fournissez vous-même son nom accessible. Utilisez `asChild` uniquement avec
-un seul enfant focusable et compatible avec un champ de saisie ; Ark fusionne les propriétés de
-`Input` et de `Field`, la classe et la `ref` dans ce nœud DOM.
-
 ## Exemples
-
-### Valeur contrôlée
-
-Utilisez cet exemple lorsque le composant parent doit piloter la valeur courante. Dans React, lisez la
-nouvelle valeur dans l’événement natif `onChange(event)` ; dans Solid, utilisez `onInput` ; dans Vue,
-utilisez `v-model`. Transmettez la valeur courante via `value` lorsque le framework sépare les
-liaisons de l’événement et de la valeur.
-
-<Example name="input/controlled" />
-
-### Désactivé et en lecture seule
-
-Utilisez `disabled` lorsque l’utilisateur ne doit pas interagir avec le contrôle. Utilisez `readOnly`
-lorsqu’il peut consulter et sélectionner la valeur, sans pouvoir la modifier. Définissez-les
-directement sur `Input` pour un seul contrôle, ou sur `Field` lorsque le libellé, le texte associé et
-le champ doivent partager le même état.
-
-<Example name="input/disabled-and-readonly" />
-
-### Validation du champ
-
-Définissez `invalid` sur `Field` lorsque la validation échoue. Ark ajoute `aria-invalid` et
-`data-invalid` à `Input` et l’associe au message d’erreur.
-
-<Example name="input/field-state" />
-
-### Sélection de fichier
-
-Dans un formulaire simple, `Input` suffit pour proposer le sélecteur de fichiers natif. Utilisez
-`FileUpload` lorsque l’application doit conserver les fichiers sélectionnés dans son état, afficher
-une zone de dépôt ou gérer le processus de téléversement.
-
-<Example name="input/file-input" />
-
-### Attributs natifs
-
-Utilisez les attributs natifs pour les comportements du navigateur, comme la validation, le mode
-de saisie, l’autocomplétion et l’envoi du formulaire. Utilisez `htmlSize` pour définir une largeur
-en caractères et `size` pour modifier la taille visuelle dans React, Solid et Vue.
-
-<Example name="input/native-attributes" />
 
 ### Tailles
 
@@ -152,13 +47,87 @@ textes d’aide ou d’erreur ne sont pas associés au champ.
 
 <Example name="input/standalone-input" />
 
-### Personnalisation avancée
+### Désactivé et en lecture seule
+
+Utilisez `disabled` lorsque l’utilisateur ne doit pas interagir avec le contrôle. Utilisez `readOnly`
+lorsqu’il peut consulter et sélectionner la valeur, sans pouvoir la modifier. Définissez-les
+directement sur `Input` pour un seul contrôle, ou sur `Field` lorsque le libellé, le texte associé et
+le champ doivent partager le même état.
+
+<Example name="input/disabled-and-readonly" />
+
+### Validation du champ
+
+Définissez `invalid` sur `Field` lorsque la validation échoue. Ark ajoute `aria-invalid` et
+`data-invalid` à `Input` et l’associe au message d’erreur.
+
+<Example name="input/field-state" />
+
+### Attributs natifs
+
+Utilisez les attributs natifs pour les comportements du navigateur, comme la validation, le mode
+de saisie, l’autocomplétion et l’envoi du formulaire. Utilisez `htmlSize` pour définir une largeur
+en caractères et `size` pour modifier la taille visuelle dans React, Solid et Vue.
+
+<Example name="input/native-attributes" />
+
+### Sélection de fichier
+
+Dans un formulaire simple, `Input` suffit pour proposer le sélecteur de fichiers natif. Utilisez
+`FileUpload` lorsque l’application doit conserver les fichiers sélectionnés dans son état, afficher
+une zone de dépôt ou gérer le processus de téléversement.
+
+<Example name="input/file-input" />
+
+### Valeur contrôlée
+
+Utilisez cet exemple lorsque le composant parent doit piloter la valeur courante. Dans React, lisez la
+nouvelle valeur dans l’événement natif `onChange(event)` ; dans Solid, utilisez `onInput` ; dans Vue,
+utilisez `v-model`. Transmettez la valeur courante via `value` lorsque le framework sépare les
+liaisons de l’événement et de la valeur.
+
+<Example name="input/controlled" />
+
+### Élément personnalisé
 
 Utilisez `asChild` uniquement lorsqu’un autre nœud DOM doit être rendu à la place de l’élément du
 champ. Fournissez un seul élément sémantique et focusable, capable de recevoir les propriétés
 fusionnées et la `ref`.
 
-<Example name="input/as-child" />
+<Example name="input/custom-element" />
+
+## Composition
+
+`Input` est un composant stylé fondé sur [`FieldInput` d’Ark UI](https://ark-ui.com/docs/components/field). Il suit les recommandations d’Ark pour la [composition](https://ark-ui.com/docs/guides/composition), le [style](https://ark-ui.com/docs/guides/styling) et le [transfert de la ref](https://ark-ui.com/docs/guides/ref). Il rend un `<input>` natif sur une seule ligne et conserve le comportement du navigateur dans les formulaires ainsi que l’API native des événements de chaque framework.
+
+Utilisez `Field` lorsque le champ doit être relié à un libellé, à un texte d’aide ou d’erreur, recevoir des identifiants générés ou partager un état.
+
+`Field` prend en charge le libellé, le texte d’aide ou d’erreur, les identifiants générés et l’état
+partagé `disabled`, `invalid`, `required` ou `readOnly`. `Input` reste le contrôle natif : pour un
+champ React contrôlé, utilisez `value` avec `onChange(event)`, `v-model` pour un champ Vue contrôlé,
+ou `defaultValue` pour un champ non contrôlé. Le composant ne gère ni la validation, ni le focus, ni
+la navigation au clavier.
+
+Dans Vue, initialisez le champ avec `v-model` et réinitialisez l’état lié dans le gestionnaire de
+réinitialisation du formulaire : la réinitialisation native ne déclenche pas d’événement de saisie.
+Ark efface actuellement le `defaultValue` natif sans modèle ; utilisez donc `v-model` pour les valeurs
+initiales en attendant la correction.
+
+Pour un champ autonome, fournissez vous-même son nom accessible. Utilisez `asChild` uniquement avec
+un seul enfant focusable et compatible avec un champ de saisie ; Ark fusionne les propriétés de
+`Input` et de `Field`, la classe et la `ref` dans ce nœud DOM.
+
+## Anatomie
+
+Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
+
+<AnatomyInspector
+  parts={[
+    ["Input", "input-root", "Version stylée du `FieldInput` d’Ark UI, qui rend un `<input>` natif sur une seule ligne.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styles
 
@@ -173,14 +142,31 @@ les couleurs, les espacements et la typographie avec une simple classe, qui l’
 du composant placés dans une couche. Pour les états du champ, utilisez les attributs de données
 partagés et les sélecteurs d’état natifs.
 
-### Propriétés CSS
+### Variables CSS
 
-<CssPropertiesSection properties={InputDocs.inputOverrideCssProperties} />
+Survolez ou sélectionnez une variable pour la voir dans l’aperçu.
+
+<CssPropertiesSection properties={InputDocs.inputOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Points d’accroche CSS
 
-- `data-slot="input-root"`
+| Partie | `data-slot` |
+| --- | --- |
+| `Input` | `input-root` |
+
 - `data-size="xs" | "sm" | "md" | "lg" | "xl"`
 - `data-scope="field"` et `data-part="input"`
 - `data-invalid`, `data-required` et `data-readonly` d’Ark dans `Field`
 - les sélecteurs natifs `:disabled`, `:read-only`, `:focus-visible` et `[aria-invalid="true"]`
+
+## Référence de l’API
+
+Accepte aussi les props natives de son élément.
+
+| Prop | Type | Défaut | Description |
+| --- | --- | --- | --- |
+| `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'` | `'md'` | Taille : `xs`, `sm`, `md`, `lg` ou `xl`. |
+| `htmlSize` | `number` | — | Attribut natif `size` : largeur visible en caractères. |
+| `asChild` | `boolean` | `false` | Applique les styles du champ à son unique enfant, par exemple un input personnalisé. |

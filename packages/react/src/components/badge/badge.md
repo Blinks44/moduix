@@ -2,7 +2,7 @@
 
 ## Upstream reference
 
-Ark UI has no dedicated Badge primitive. Moduix uses the
+Ark UI has no dedicated Badge primitive. moduix uses the
 [Ark factory](https://ark-ui.com/docs/guides/composition), with visual direction from
 [Chakra Badge](https://chakra-ui.com/docs/components/badge) and
 [shadcn Badge](https://ui.shadcn.com/docs/components/badge).
@@ -40,7 +40,7 @@ custom interactive roles retain their native semantics, while their hover, disab
 action-specific presentation remains consumer-owned.
 
 CSS Modules expose 3 `--moduix-badge-*` variables listed in
-`packages/foundation/src/styles/variables-moduix.css`: `bg`, `border-color`, and `color` override any
+`website/src/components/examples/badge/css-properties.tsx`: `bg`, `border-color`, and `color` override any
 variant, including the anchor hover colors, and a variant is themed app-wide by setting them on
 `[data-slot='badge-root'][data-variant='<variant>']`. Size, spacing, typography, radius, icon and dot
 size, focus ring, transition, and hover use foundation tokens directly; a consumer class on the part
@@ -50,5 +50,5 @@ use utilities and consumer class overrides instead.
 
 ## Differences from upstream
 
-Moduix adds `BadgeLabel`, `BadgeDot`, stable Ark-style hooks, sizes, and a `link` visual variant while
+moduix adds `BadgeLabel`, `BadgeDot`, stable Ark-style hooks, sizes, and a `link` visual variant while
 keeping the root composition explicit.

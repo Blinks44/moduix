@@ -22,17 +22,17 @@ Apply these rules when writing or reviewing Rslib library projects.
 
 ### moduix docs integration
 
-- For docs development, use the root `npm run dev:docs` workflow rather than an independent Rslib command; it owns the `rslib --watch --no-clean` watcher.
+- For docs development, use the root `pnpm run dev:docs` workflow rather than an independent Rslib command; it owns the `rslib --watch --no-clean` watcher.
 - Treat `--no-clean` as development-only. Release, CI, `npm pack`, and final package checks use clean package builds.
 - Do not run a clean package build or `build:docs` while `dev:docs` is active; follow `docs-workflow` for the complete docs-development constraints.
 - `tsc:check` builds `dist` through each package's `build:dev` script (`rslib --no-clean`), so the required validation never deletes `dist` under a running docs server. Keep `tsc:check` turbo dependencies on `build:dev`, not on the clean `build`.
 
 ## Output
 
-- Prefer to build pure-ESM package with `"type": "module"` in `../../../package.json`
+- Prefer to build pure-ESM package with `"type": "module"` in `package.json`
 - Prefer to use bundleless mode with `output.target` set to `'web'` when building component libraries
 - Prefer to use bundle mode when building Node.js utility libraries
-- Ensure `exports` field in `../../../package.json` is correctly configured and matches the actual JavaScript output and declaration files output of different formats (ESM, CJS, etc.)
+- Ensure `exports` field in `package.json` is correctly configured and matches the actual JavaScript output and declaration files output of different formats (ESM, CJS, etc.)
 - Give every shipped public adapter package `build` and `check:package` scripts; the root
   `build:packages` and `check:packages` commands discover them through Turborepo.
 - For Solid packages, preserve the established dual output: compiled ESM for general bundlers and
@@ -59,7 +59,7 @@ Apply these rules when writing or reviewing Rslib library projects.
 ## Dependencies
 
 - Prefer to place dependencies to be bundled in `devDependencies` in bundle mode and dependencies in `dependencies` and `peerDependencies` will be automatically externalized (not bundled) by default
-- Verify the build output and dependency specifiers in `../../../package.json` carefully to ensure no missing dependency errors occur when consumers install and use this package
+- Verify the build output and dependency specifiers in `package.json` carefully to ensure no missing dependency errors occur when consumers install and use this package
 
 ## Build optimization
 
@@ -70,7 +70,7 @@ Apply these rules when writing or reviewing Rslib library projects.
 ## Toolchain integration
 
 - Prefer to use Rstest with `@rstest/adapter-rslib` for writing tests
-- Prefer to use Rspress for writing library documentation, with `@rspress/plugin-preview` and `@rspress/plugin-api-docgen` for component previews and API docs
+- Prefer to use Rspress for writing library documentation, with `@rspress/plugin-preview` for component previews. In moduix, API tables come from the Ark/Zag reference data, not `@rspress/plugin-api-docgen`, which documents only React props
 
 ## Debugging
 

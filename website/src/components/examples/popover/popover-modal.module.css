@@ -5,6 +5,6 @@
 
 .input {
   min-block-size: var(--moduix-size-md);
-  border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
+  border: var(--moduix-border-width-sm) solid var(--moduix-border);
   border-radius: var(--moduix-radius-md);
 }

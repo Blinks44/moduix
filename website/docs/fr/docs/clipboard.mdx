@@ -1,21 +1,22 @@
 ---
 title: Clipboard
 component: clipboard
-description: Créez des presse-papiers accessibles avec React, Solid ou Vue, installés par paquet ou avec shadcn.
+description: Copier une valeur dans le presse-papiers avec une confirmation sur le bouton.
+ark: https://ark-ui.com/docs/components/clipboard
 ---
 
+import AnatomyScene from '@/components/examples/clipboard/basic';
 import * as ClipboardDocs from '@/components/examples/clipboard/css-properties';
 
-## Référence de l’API
+<Example name="clipboard/basic" />
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/clipboard" />
+## Installation
 
-## Choisir le bon composant
+<ComponentInstall />
 
-Utilisez `Clipboard` lorsque les utilisateurs doivent copier une valeur textuelle. Selon les parties
-utilisées, cette valeur peut être affichée dans un champ en lecture seule ou comme texte ordinaire.
+## Utilisation
 
-## Exemple de base
+<Usage />
 
 Utilisez `Clipboard` comme racine. Placez une seule surface pour la valeur - `ClipboardInput` ou
 `ClipboardValueText` - ainsi que `ClipboardTrigger` dans `ClipboardControl`. `ClipboardLabel` est
@@ -27,66 +28,70 @@ React, Solid et Vue utilisent les mêmes noms de valeurs plats. Importez `Clipbo
 importez directement chaque partie supplémentaire, par exemple `ClipboardInput` et `ClipboardTrigger`.
 Ces mêmes noms fonctionnent avec les paquets npm et les sources du registre shadcn.
 
-<Example name="clipboard/basic" />
+## Choisir le bon composant
 
-## Installation avec shadcn
+Utilisez `Clipboard` lorsque les utilisateurs doivent copier une valeur textuelle. Selon les parties
+utilisées, cette valeur peut être affichée dans un champ en lecture seule ou comme texte ordinaire.
 
-Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration complète du paquet, du registre et des styles.
+## Exemples
 
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
+### Texte de la valeur
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/clipboard' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/clipboard' },
-  ]}
-/>
+Utilisez `ClipboardValueText` lorsque la valeur doit apparaître comme du texte plutôt que dans un
+champ de saisie.
 
-  </Tab>
-  <Tab label="Solid" value="solid">
+<Example name="clipboard/value-text" />
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/clipboard' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/clipboard' },
-  ]}
-/>
+### État de la copie
 
-  </Tab>
-  <Tab label="Vue" value="vue">
+Utilisez `onStatusChange(details)` lorsqu’une autre partie de l’interface doit réagir après une copie
+réussie. L’exemple conserve un compteur fondé sur `details.copied`.
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/clipboard' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/clipboard' },
-  ]}
-/>
+<Example name="clipboard/copy-status" />
 
-  </Tab>
-</Tabs>
+### Texte de copie personnalisé
 
-## Anatomie
+Fournissez votre propre contenu ou une valeur `copied` à `ClipboardIndicator` lorsque le bouton
+doit utiliser des libellés adaptés à votre produit.
 
-```text
-Clipboard | ClipboardRootProvider
-├─ ClipboardLabel (facultatif)
-├─ ClipboardControl
-│  ├─ ClipboardInput ou ClipboardValueText
-│  └─ ClipboardTrigger
-│     └─ ClipboardIndicator (facultatif)
-```
+<Example name="clipboard/custom-copy-text" />
 
-| Partie | Rôle |
-| --- | --- |
-| `Clipboard` | Gère la valeur et l’état temporaire qui suit la copie. |
-| `ClipboardRootProvider` | Relie les parties à un store créé avec `useClipboard()`. |
-| `ClipboardLabel` | Fournit un libellé accessible pour la valeur. |
-| `ClipboardControl` | Regroupe l’affichage de la valeur et le bouton de copie. |
-| `ClipboardInput` | Affiche la valeur dans un champ en lecture seule. Utilisez un état contrôlé ou `ClipboardContext.setValue()` pour la modifier. |
-| `ClipboardTrigger` | Copie la valeur actuelle lorsqu’il est activé. Il s’affiche comme un bouton par défaut. |
-| `ClipboardIndicator` | Affiche un contenu différent selon que la valeur a été copiée ou non. Par défaut : icônes de copie et de confirmation ; utilisez `copied="Copied"` et `children` en React/Solid, ou les slots Vue correspondants. |
-| `ClipboardValueText` | Affiche la valeur sous forme de texte lorsqu’un champ n’est pas adapté. |
+### Délai
+
+Définissez `timeout` lorsque l’état copié doit rester visible plus ou moins longtemps que les trois
+secondes par défaut.
+
+<Example name="clipboard/timeout" />
+
+### État désactivé
+
+Transmettez `disabled` au champ et au bouton lorsque les utilisateurs peuvent voir la valeur, mais ne
+doivent ni la modifier ni la copier.
+
+<Example name="clipboard/disabled" />
+
+### Éléments personnalisés
+
+Utilisez `asChild` pour que vos propres éléments de champ et de bouton rendent les parties Clipboard,
+tout en conservant l’état et le comportement du composant. Avec `asChild`, `ClipboardInput` et
+`ClipboardTrigger` n’ajoutent pas leurs propres styles : le composant enfant garde son apparence.
+
+<Example name="clipboard/custom-elements" />
+
+### Contexte
+
+Lisez l’état du presse-papiers depuis un contenu imbriqué avec `ClipboardContext`, ou utilisez
+`useClipboardContext()` dans un composant enfant. Le contexte expose `copied`, `value`, `setValue` et
+`copy`.
+
+<Example name="clipboard/context" />
+
+### Root Provider
+
+Créez le store avec `useClipboard()` et transmettez-le à `ClipboardRootProvider` lorsque
+l’état doit être partagé ou créé indépendamment de l’arbre de composants rendu. Voir [Partager l’état hors de l’arbre](/docs/composition-patterns#root-provider).
+
+<Example name="clipboard/root-provider" />
 
 ## Composition
 
@@ -110,65 +115,24 @@ avec `:value="clipboard"` et lisez `clipboard.copied` ou `clipboard.value`. La r
 `ClipboardInput` et à `ClipboardTrigger`. Utilisez `asChild` sur ces parties uniquement lorsqu’un
 autre élément sémantique doit porter le nœud DOM rendu.
 
-## Exemples
+## Anatomie
 
-### Contexte
+Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
 
-Lisez l’état du presse-papiers depuis un contenu imbriqué avec `ClipboardContext`, ou utilisez
-`useClipboardContext()` dans un composant enfant. Le contexte expose `copied`, `value`, `setValue` et
-`copy`.
-
-<Example name="clipboard/context" />
-
-### État de la copie
-
-Utilisez `onStatusChange(details)` lorsqu’une autre partie de l’interface doit réagir après une copie
-réussie. L’exemple conserve un compteur fondé sur `details.copied`.
-
-<Example name="clipboard/copy-status" />
-
-### Texte de copie personnalisé
-
-Fournissez votre propre contenu ou une valeur `copied` à `ClipboardIndicator` lorsque le bouton
-doit utiliser des libellés adaptés à votre produit.
-
-<Example name="clipboard/custom-copy-text" />
-
-### État désactivé
-
-Transmettez `disabled` au champ et au bouton lorsque les utilisateurs peuvent voir la valeur, mais ne
-doivent ni la modifier ni la copier.
-
-<Example name="clipboard/disabled" />
-
-### Root Provider
-
-Créez le store avec `useClipboard()` et transmettez-le à `ClipboardRootProvider` lorsque
-l’état doit être partagé ou créé indépendamment de l’arbre de composants rendu.
-
-<Example name="clipboard/root-provider" />
-
-### Délai
-
-Définissez `timeout` lorsque l’état copié doit rester visible plus ou moins longtemps que les trois
-secondes par défaut.
-
-<Example name="clipboard/timeout" />
-
-### Texte de la valeur
-
-Utilisez `ClipboardValueText` lorsque la valeur doit apparaître comme du texte plutôt que dans un
-champ de saisie.
-
-<Example name="clipboard/value-text" />
-
-### Personnalisation avancée
-
-Utilisez `asChild` pour que vos propres éléments de champ et de bouton rendent les parties Clipboard,
-tout en conservant l’état et le comportement du composant. Avec `asChild`, `ClipboardInput` et
-`ClipboardTrigger` n’ajoutent pas leurs propres styles : le composant enfant garde son apparence.
-
-<Example name="clipboard/as-child" />
+<AnatomyInspector
+  parts={[
+    ["Clipboard", "clipboard-root", "Gère la valeur et l’état temporaire qui suit la copie.", 0],
+    ["ClipboardLabel", "clipboard-label", "Fournit un libellé accessible pour la valeur.", 1],
+    ["ClipboardControl", "clipboard-control", "Regroupe l’affichage de la valeur et le bouton de copie.", 1],
+    ["ClipboardInput", "clipboard-input", "Affiche la valeur dans un champ en lecture seule. Utilisez un état contrôlé ou `ClipboardContext.setValue()` pour la modifier.", 2],
+    ["ClipboardTrigger", "clipboard-trigger", "Copie la valeur actuelle lorsqu’il est activé. Il s’affiche comme un bouton par défaut.", 2],
+    ["ClipboardIndicator", "clipboard-indicator", "Affiche un contenu différent selon que la valeur a été copiée ou non. Par défaut : icônes de copie et de confirmation ; utilisez `copied=\"Copied\"` et `children` en React/Solid, ou les slots Vue correspondants.", 3],
+    ["ClipboardValueText", "clipboard-value-text", "Affiche la valeur sous forme de texte lorsqu’un champ n’est pas adapté.", 1],
+    ["ClipboardRootProvider", "clipboard-root-provider", "Relie les parties à un store créé avec `useClipboard()`.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styles
 
@@ -177,21 +141,45 @@ structurels. Les variantes Tailwind utilisent les utilitaires natifs et les clas
 les variantes CSS Modules utilisent les variables CSS ci-dessous. Pour les styles liés à la copie,
 utilisez l’attribut Ark `data-copied` avec les hooks `data-slot` de moduix.
 
-### Propriétés CSS
+### Variables CSS
 
-<CssPropertiesSection properties={ClipboardDocs.clipboardOverrideCssProperties} />
+Survolez ou sélectionnez une variable pour la voir dans l’aperçu.
+
+<CssPropertiesSection properties={ClipboardDocs.clipboardOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Points d’accroche CSS
 
-- `Clipboard` -> `data-slot="clipboard-root"`
-- `ClipboardRootProvider` -> `data-slot="clipboard-root-provider"`
-- `ClipboardLabel` -> `data-slot="clipboard-label"`
-- `ClipboardControl` -> `data-slot="clipboard-control"`
-- `ClipboardInput` -> `data-slot="clipboard-input"`
-- `ClipboardTrigger` -> `data-slot="clipboard-trigger"`
-- `ClipboardIndicator` -> `data-slot="clipboard-indicator"`
-- `ClipboardValueText` -> `data-slot="clipboard-value-text"`
+| Partie | `data-slot` |
+| --- | --- |
+| `Clipboard` | `clipboard-root` |
+| `ClipboardRootProvider` | `clipboard-root-provider` |
+| `ClipboardLabel` | `clipboard-label` |
+| `ClipboardControl` | `clipboard-control` |
+| `ClipboardInput` | `clipboard-input` |
+| `ClipboardTrigger` | `clipboard-trigger` |
+| `ClipboardIndicator` | `clipboard-indicator` |
+| `ClipboardValueText` | `clipboard-value-text` |
+
 - Ark ajoute `data-copied` à `Clipboard`, `ClipboardLabel`, `ClipboardControl`, `ClipboardInput` et
   `ClipboardTrigger` tant que l’état copié est actif.
 - Ark rend `ClipboardInput` en lecture seule et lui ajoute `data-readonly`.
 - `ClipboardIndicator` rend son icône par défaut comme enfant `svg` direct.
+
+## Clavier
+
+| Touche | Action |
+| --- | --- |
+| `Enter` / `Space` | Copie la valeur lorsque le bouton a le focus. |
+
+## Référence de l’API
+
+| Prop | Type | Défaut | Description |
+| --- | --- | --- | --- |
+| `value` | `string` | — | Texte à copier en mode contrôlé. |
+| `defaultValue` | `string` | — | Texte initial à copier lorsque la valeur n’est pas contrôlée. |
+| `onValueChange` | `(details: ValueChangeDetails) => void` | — | Appelé lorsque la valeur change. |
+| `timeout` | `number` | `3000` | Durée de l’état copié, en millisecondes. |
+| `onStatusChange` | `(details: CopyStatusDetails) => void` | — | Appelé après chaque copie avec `{ copied }`. |
+| `translations` | `IntlTranslations` | — | Textes localisés des libellés d’accessibilité. |

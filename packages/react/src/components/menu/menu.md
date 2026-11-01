@@ -57,9 +57,6 @@ Menu
          └─ MenuViewport
             ├─ MenuItem
             │  ├─ MenuItemText
-            │  │  └─ MenuItemTextContent
-            │  │     ├─ MenuItemTextIcon
-            │  │     └─ MenuItemTextLabel
             │  └─ MenuItemShortcut
             ├─ MenuCheckboxItem / MenuRadioItem (in MenuRadioItemGroup)
             │  ├─ MenuItemIndicator
@@ -73,7 +70,7 @@ Menu
                └─ MenuPositioner → MenuContent → MenuViewport
 ```
 
-Every rendered part exposes a kebab-case `data-slot` (`menu-trigger`, `menu-item-text-label`, and
+Every rendered part exposes a kebab-case `data-slot` (`menu-trigger`, `menu-item-text`, and
 so on). Checkbox and radio items also expose `data-indicator-position`.
 
 ## Composition
@@ -125,8 +122,9 @@ outside the tree, and never render a second root for the same store.
 - `tone="destructive"` on `MenuItem`, mirrored as `data-tone`.
 - `indicator="start" | "end" | "none"` on checkbox and radio items, default `start`, mirrored as
   `data-indicator-position`. The indicator column stays reserved, so selection does not move text.
-- `MenuItemShortcut` and the row helpers `MenuItemTextContent`, `MenuItemTextIcon`, and
-  `MenuItemTextLabel`: the icon does not shrink and only the label gets the ellipsis.
+- `MenuItemShortcut` for a trailing hint.
+- `MenuItemText` keeps one line with an ellipsis and sizes a direct SVG child as a 16px icon with
+  a gap before the text.
 
 ## Styling
 

@@ -11,10 +11,10 @@
     align-items: center;
     width: fit-content;
     gap: var(--moduix-spacing-1);
-    border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
+    border: var(--moduix-border-width-sm) solid var(--moduix-border);
     border-radius: var(--moduix-radius-lg);
     padding: var(--moduix-spacing-1);
-    background: var(--moduix-color-muted);
+    background: var(--moduix-muted);
   }
 
   .button {
@@ -27,7 +27,7 @@
     border-radius: var(--moduix-radius-md);
     padding-inline: var(--moduix-spacing-3);
     background: transparent;
-    color: var(--moduix-color-muted-foreground);
+    color: var(--moduix-muted-foreground);
     font: inherit;
     cursor: pointer;
     transition:
@@ -37,17 +37,17 @@
       color var(--moduix-transition-default);
 
     &:hover {
-      color: var(--moduix-color-foreground);
+      color: var(--moduix-foreground);
     }
 
     &[data-state='checked'] {
-      background: var(--moduix-color-background);
-      color: var(--moduix-color-foreground);
+      background: var(--moduix-background);
+      color: var(--moduix-foreground);
       box-shadow: var(--moduix-shadow-sm);
     }
 
     &:focus-visible {
-      outline: var(--moduix-border-width-md) solid var(--moduix-color-ring);
+      outline: var(--moduix-border-width-md) solid var(--moduix-ring);
       outline-offset: var(--moduix-border-width-sm);
     }
   }
@@ -63,7 +63,7 @@
   }
 
   .output {
-    color: var(--moduix-color-muted-foreground);
+    color: var(--moduix-muted-foreground);
     font-size: var(--moduix-text-xs);
     line-height: var(--moduix-line-height-text-xs);
   }
@@ -74,9 +74,9 @@
     height: 8rem;
     place-items: center;
     overflow: hidden;
-    border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
+    border: var(--moduix-border-width-sm) solid var(--moduix-border);
     border-radius: var(--moduix-radius-md);
-    background: var(--moduix-color-muted);
+    background: var(--moduix-muted);
 
     & img {
       width: 100%;
@@ -86,7 +86,7 @@
   }
 
   .customRoot [data-slot='image-cropper-selection'] {
-    border-color: var(--moduix-color-destructive);
+    border-color: var(--moduix-destructive);
     box-shadow:
       0 0 0 9999px rgb(15 23 42 / 55%),
       inset 0 0 0 var(--moduix-border-width-sm) rgb(255 255 255 / 64%);

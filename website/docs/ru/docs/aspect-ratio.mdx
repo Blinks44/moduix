@@ -1,25 +1,21 @@
 ---
 title: Aspect Ratio
 component: aspect-ratio
-description: Помещает медиаконтент и встроенное содержимое в адаптивный контейнер с фиксированным соотношением сторон.
+description: Сохраняет пропорции изображений, видео и встроенного контента.
+ark: https://ark-ui.com/docs/guides/composition#the-ark-factory
 ---
 
+import AnatomyScene from '@/components/examples/aspect-ratio/basic';
 
+<Example name="aspect-ratio/basic" />
 
-## Справочник API
+## Установка
 
-В Ark UI нет отдельного примитива `aspect-ratio`. В moduix этот компонент построен на официальной
-[фабрике Ark](https://ark-ui.com/docs/guides/composition#the-ark-factory) и следует рекомендациям Ark по
-[композиции](https://ark-ui.com/docs/guides/composition), [стилизации](https://ark-ui.com/docs/guides/styling) и
-[работе с ref](https://ark-ui.com/docs/guides/ref).
+<ComponentInstall />
 
-Импортируйте `AspectRatio` из пакета, соответствующего фреймворку и способу стилизации: для CSS Modules это
-`@moduix/react/aspect-ratio`, `@moduix/solid/aspect-ratio` или `@moduix/vue/aspect-ratio`, а для Tailwind - по
-соответствующему пути `@moduix/react-tailwind/aspect-ratio`, `@moduix/solid-tailwind/aspect-ratio` или
-`@moduix/vue-tailwind/aspect-ratio`.
+## Использование
 
-## Базовый пример
-
+<Usage />
 
 Используйте `AspectRatio` как корневой элемент адаптивного контейнера. По умолчанию он занимает всю доступную
 ширину родительского контейнера. Если размер нужно ограничить или изменить, задайте корневому элементу `width`
@@ -30,69 +26,22 @@ description: Помещает медиаконтент и встроенное �
 например, укажите изображению полную ширину и высоту вместе с `object-fit`. Обрезку и радиус добавляйте корневому
 элементу только там, где они нужны композиции.
 
-<Example name="aspect-ratio/basic" />
-
-## Установка через shadcn
-
-Полную настройку пакета, реестра и стилей см. в разделе [Быстрый старт](/docs/quick-start).
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/aspect-ratio' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/aspect-ratio' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/aspect-ratio' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/aspect-ratio' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/aspect-ratio' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/aspect-ratio' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Анатомия
-
-```text
-AspectRatio
-└─ media | iframe | canvas | svg | custom content
-```
-
-| Часть         | Назначение                                           |
-| ------------- | ---------------------------------------------------- |
-| `AspectRatio` | Адаптивный контейнер с заданным соотношением сторон. |
-
-## Композиция
-
-`AspectRatio` отвечает только за раскладку и не владеет состоянием. У
-компонента одна корневая часть, и дополнительные части не нужно комбинировать. Используйте `asChild` только если
-отрисованным корневым элементом должен владеть другой семантический элемент: передайте ровно одного дочернего
-элемента в React или используйте показанную в примере «Расширенная настройка» функцию рендера Solid. Во Vue
-используйте атрибут `as-child` с одним дочерним элементом. Размеры,
-вписывание, границы, радиус и обрезка дочернего содержимого остаются ответственностью приложения.
-
-В Solid передавайте `ref` элементу, созданному внутри функции рендера для `asChild`. Сам компонент
-`AspectRatio` не передаёт `ref` по этому пути композиции.
-
 ## Примеры
+
+### Распространённые пропорции
+
+Передайте в `ratio` ширину, делённую на высоту: `1` для квадратного аватара или превью, `4 / 3` для
+фотографий и `16 / 9` для видео.
+
+<Example name="aspect-ratio/common-ratios" />
+
+### Адаптивная пропорция
+
+Задайте пропорцию для маленьких экранов через `ratio`, а затем переопределите `aspect-ratio` в своём
+классе внутри медиазапроса. Класс сильнее стиля компонента, поэтому эта рамка квадратная на телефоне и
+21:9 начиная с 40rem.
+
+<Example name="aspect-ratio/responsive-ratio" />
 
 ### Карточки
 
@@ -108,6 +57,13 @@ AspectRatio
 
 <Example name="aspect-ratio/embedded-content" />
 
+### Пользовательский элемент
+
+Используйте `asChild`, если корневым элементом должен быть семантический тег, например `figure`. Фабрика Ark
+передаёт свойства компонента его единственному дочернему элементу.
+
+<Example name="aspect-ratio/custom-element" />
+
 ### Миграция с shadcn
 
 При переходе с shadcn задайте `AspectRatio` ширину, обрезку и радиус, а размер вложенного медиаконтента укажите явно.
@@ -115,22 +71,55 @@ AspectRatio
 
 <Example name="aspect-ratio/migrating-from-shadcn" />
 
-### Расширенная настройка
+## Композиция
 
-Используйте `asChild`, если корневым элементом должен быть семантический тег, например `figure`. Фабрика Ark
-передаёт свойства компонента его единственному дочернему элементу.
+Импортируйте `AspectRatio` из пакета, соответствующего фреймворку и способу стилизации: для CSS Modules это
+`@moduix/react/aspect-ratio`, `@moduix/solid/aspect-ratio` или `@moduix/vue/aspect-ratio`, а для Tailwind - по
+соответствующему пути `@moduix/react-tailwind/aspect-ratio`, `@moduix/solid-tailwind/aspect-ratio` или
+`@moduix/vue-tailwind/aspect-ratio`.
 
-<Example name="aspect-ratio/advanced-customization" />
+`AspectRatio` отвечает только за раскладку и не хранит состояние. У
+компонента одна корневая часть, и дополнительные части не нужно комбинировать. Используйте `asChild` только если
+корневым элементом должен стать другой семантический элемент: передайте ровно одного дочернего
+элемента в React или используйте показанную в примере «Пользовательский элемент» функцию рендера Solid. Во Vue
+используйте атрибут `as-child` с одним дочерним элементом. Размеры,
+вписывание, границы, радиус и обрезка дочернего содержимого остаются ответственностью приложения.
+
+В Solid передавайте `ref` элементу, созданному внутри функции рендера для `asChild`. Сам компонент
+`AspectRatio` не передаёт `ref` по этому пути композиции.
+
+## Анатомия
+
+Наведите на часть или выберите её, чтобы найти её в превью.
+
+<AnatomyInspector
+  parts={[
+    ["AspectRatio", "aspect-ratio-root", "Адаптивный контейнер с заданным соотношением сторон.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Стилизация
 
-### Атрибуты для стилизации
+### Хуки стилизации
+
+| Часть | `data-slot` |
+| --- | --- |
+| `AspectRatio` | `aspect-ratio-root` |
 
 - `data-scope="aspect-ratio"` и `data-part="root"` служат согласованными с Ark селекторами для корневого элемента.
-- `data-slot="aspect-ratio-root"` - стабильный селектор moduix для корневого элемента.
 - Задавайте ширину, максимальную ширину и стили раскладки на корневом элементе. Если при определённой ширине экрана
   нужно другое соотношение сторон, переопределите `aspect-ratio` в своём CSS.
 - Компонент не оформляет дочернее содержимое. Задавайте размеры медиаконтента и `object-fit` непосредственно
   дочернему элементу.
 - Содержимое выше рамки не растягивает её, а выходит за её пределы. Добавляйте `overflow: hidden` и радиус
   корневому элементу там, где содержимое нужно обрезать.
+
+## Справочник API
+
+Также принимает нативные пропсы своего элемента и `asChild`.
+
+| Проп | Тип | По умолчанию | Описание |
+| --- | --- | --- | --- |
+| `ratio` | `number` | `1` | Ширина, делённая на высоту, например `16 / 9`. |

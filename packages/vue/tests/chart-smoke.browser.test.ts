@@ -1,5 +1,5 @@
 import { page } from '@rstest/browser';
-import { afterEach, expect, rs, test } from '@rstest/core';
+import { expect, rs, test } from '@rstest/core';
 import { barY, defineChart, group } from '@tanstack/charts';
 import { controlledSignal } from '@tanstack/charts/interaction/signal';
 import { interactiveColorLegend } from '@tanstack/charts/legend';
@@ -8,14 +8,9 @@ import { scaleLinear } from '@tanstack/charts/scales/linear';
 import { svgChartRenderer } from '@tanstack/charts/svg/renderer';
 import { render, screen } from '@testing-library/vue';
 import { renderToString } from '@vue/server-renderer';
-import { createSSRApp } from 'vue';
-import { computed, ref } from 'vue';
-import { ChartPlot } from '../src';
+import { createSSRApp, computed, ref } from 'vue';
+import { ChartPlot } from '@/index';
 import SsrChart from './fixtures/SsrChart.vue';
-
-afterEach(() => {
-  rs.restoreAllMocks();
-});
 
 test('updates a real motion chart through its controlled legend and preserves keyboard focus', async () => {
   const rows = [

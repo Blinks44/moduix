@@ -12,12 +12,13 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from '@moduix/react/drawer';
+import { Stack } from '@moduix/react/stack';
 import styles from '@/components/examples/drawer/drawer-swipe-direction.module.css';
 
 const direction = 'end' as const;
 export default function SwipeDirectionDrawerDemo() {
   return (
-    <div className={styles.root}>
+    <Stack direction="row" wrap="wrap" gap="2">
       <Drawer swipeDirection={direction}>
         <DrawerTrigger asChild>
           <Button>Open right drawer</Button>
@@ -59,6 +60,6 @@ export default function SwipeDirectionDrawerDemo() {
           </DrawerContent>
         </DrawerPositioner>
       </Drawer>
-    </div>
+    </Stack>
   );
 }

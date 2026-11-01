@@ -1,0 +1,19 @@
+.searchIcon {
+  flex: none;
+  width: var(--moduix-spacing-4);
+  height: var(--moduix-spacing-4);
+  color: var(--moduix-muted-foreground);
+  pointer-events: none;
+}
+
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--moduix-spacing-3);
+  padding: var(--moduix-spacing-2) var(--moduix-spacing-4);
+  border-top: var(--moduix-border-width-sm) solid var(--moduix-border);
+  color: var(--moduix-muted-foreground);
+  font-size: var(--moduix-text-xs);
+  line-height: var(--moduix-line-height-text-xs);
+}

@@ -1,17 +1,26 @@
 ---
 title: Tooltip
 component: tooltip
-description: Une brève information complémentaire affichée lorsque l’élément déclencheur est survolé ou reçoit le focus.
+description: Ajouter une courte info-bulle à un contrôle au survol ou au focus.
+ark: https://ark-ui.com/docs/components/tooltip
 ---
 
-import TooltipContext from '@/components/examples/tooltip/context.tsx';
-import tooltipSolidContext from '../../../snippets/tooltip/solid/context.tsx?raw';
-import tooltipVueContext from '../../../snippets/tooltip/vue/context.vue?raw';
-import tooltipVueContextPart from '../../../snippets/tooltip/vue/TooltipStateContent.vue?raw';
+import AnatomyScene from '@/components/examples/tooltip/anatomy';
 
-## Référence de l’API
+<Example name="tooltip/basic" />
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/tooltip" />
+## Installation
+
+<ComponentInstall />
+
+## Utilisation
+
+<Usage />
+
+Utilisez `TooltipTrigger` pour l’élément qui ouvre l’infobulle et `TooltipBody` pour son contenu.
+`TooltipBody` réunit `TooltipPositioner` et `TooltipContent`. Donnez au déclencheur son propre
+nom accessible. Le contenu de l’infobulle est complémentaire et ne remplace ni le texte visible ni
+`aria-label`.
 
 ## Choisir le bon composant
 
@@ -22,159 +31,21 @@ l’élément déclencheur reçoit le focus.
 - Choisissez **`Popover`** si la fenêtre flottante doit contenir davantage d’informations, des actions ou des contrôles de formulaire.
 - Choisissez **`HoverCard`** si elle doit présenter un aperçu complémentaire associé à son élément déclencheur.
 
-## Exemple de base
-
-
-Utilisez `TooltipTrigger` pour l’élément qui ouvre l’infobulle et `TooltipBody` pour son contenu.
-`TooltipBody` réunit `TooltipPositioner` et `TooltipContent`. Donnez au déclencheur son propre
-nom accessible. Le contenu de l’infobulle est complémentaire et ne remplace ni le texte visible ni
-`aria-label`.
-
-<Example name="tooltip/basic" />
-
-## Installation avec shadcn
-
-Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration complète du paquet, du registre et des styles.
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/tooltip' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/tooltip' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/tooltip' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/tooltip' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/tooltip' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/tooltip' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Anatomie
-
-```text
-Tooltip
-├─ TooltipTrigger
-└─ Sous-arbre flottant (rendu automatiquement dans un portail)
-   └─ TooltipPositioner
-      └─ TooltipContent
-         └─ contenu
-```
-
-Ajoutez `TooltipArrow` comme premier enfant du contenu lorsque la fenêtre flottante doit pointer
-vers son élément déclencheur. `TooltipArrow` rend `TooltipArrowTip` par défaut.
-
-```text
-Tooltip
-├─ TooltipTrigger
-└─ Sous-arbre flottant (rendu automatiquement dans un portail)
-   └─ TooltipPositioner
-      └─ TooltipContent
-         ├─ TooltipArrow
-         │  └─ TooltipArrowTip
-         └─ contenu
-```
-
-| Partie | Rôle |
-| --- | --- |
-| `Tooltip` | Gère l’état, l’ouverture et la fermeture, les délais, le positionnement et le cycle de vie de l’infobulle. |
-| `TooltipRootProvider` | Affiche une infobulle à partir d’un objet d’état `useTooltip()` créé en dehors de l’arbre. |
-| `TooltipContext` | Expose l’état courant aux descendants personnalisés via une fonction de rendu ou un slot avec portée en Vue. |
-| `TooltipBody` | Raccourci qui rend `TooltipPositioner` et `TooltipContent` ensemble. |
-| `TooltipTrigger` | Élément interactif qui ouvre l’infobulle au survol ou au focus. |
-| `TooltipDisabledTrigger` | Enveloppe pouvant recevoir le focus autour d’un unique contrôle natif désactivé qui nécessite une explication. |
-| `TooltipPositioner` | Positionne le contenu et expose les variables de positionnement d’Ark. |
-| `TooltipContent` | Surface visible de l’infobulle. |
-| `TooltipArrow` | Enveloppe facultative de la flèche, positionnée automatiquement, qui rend `TooltipArrowTip` par défaut. |
-| `TooltipArrowTip` | Pointe visible de la flèche. |
-
-## Composition
-
-Utilisez `TooltipBody` pour la composition standard du `Trigger` et du contenu. Il réunit
-`TooltipPositioner` et `TooltipContent` ; utilisez ces parties explicitement lorsqu’elles doivent
-avoir un style ou une structure indépendants. La racine possède l’état : utilisez `defaultOpen`
-pour une infobulle non contrôlée, ou `open` avec `onOpenChange(details)` lorsqu’une autre partie de
-l’application en est responsable. Utilisez `TooltipRootProvider` avec `useTooltip()` lorsque le
-store est créé en dehors de l’arbre rendu, et `TooltipContext` ou `useTooltipContext()` lorsqu’un
-descendant doit lire cet état. `asChild` attend un unique enfant pouvant recevoir le focus ; Solid
-utilise une fonction de rendu. `TooltipDisabledTrigger` est prévu pour un seul contrôle natif
-désactivé. Le portail est activé par défaut : définissez `portalled={false}` ou passez `portalRef`
-uniquement lorsque l’infobulle doit rester dans une limite DOM précise. En Vue, utilisez
-`v-model:open` pour l’état contrôlé et les événements Vue en kebab-case, comme `@open-change`.
-
-Par défaut, le contenu est monté à la première ouverture et retiré après l’animation de fermeture.
-Définissez `unmountOnExit` sur `false` pour le conserver après la première ouverture ;
-définissez aussi `lazyMount` sur `false` pour le monter dès le départ. En Vue, passez ces
-options avec `:unmount-on-exit="false"` et `:lazy-mount="false"`.
-
 ## Exemples
 
-### Contexte
+### Avec une flèche
 
-Utilisez `useTooltipContext()` dans un descendant qui doit lire l’état courant.
+Ajoutez `TooltipArrow` comme premier enfant du contenu lorsque l’infobulle doit pointer vers son
+déclencheur. Avec `TooltipBody`, placez-la directement à l’intérieur de `TooltipBody` ;
+l’enveloppe fournit `TooltipArrowTip` par défaut.
 
-<ExampleFrame variant="component">
-  <TooltipContext />
-</ExampleFrame>
+<Example name="tooltip/with-arrow" />
 
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
+### Positionnement
 
-```tsx pure file="../../../src/components/examples/tooltip/context.tsx"
-```
+Passez les options de positionnement d’Ark à `Tooltip`, notamment le placement et le décalage.
 
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={tooltipSolidContext} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={tooltipVueContext} />
-
-<CodeBlockRuntime lang="vue" code={tooltipVueContextPart} title="TooltipStateContent.vue" />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
-
-### État contrôlé
-
-Contrôlez l’ouverture de l’infobulle avec `open` et `onOpenChange(details)`.
-
-<Example name="tooltip/controlled" />
+<Example name="tooltip/positioning" />
 
 ### Délai
 
@@ -196,27 +67,6 @@ une seule infobulle entre plusieurs déclencheurs.
 
 <Example name="tooltip/multiple-triggers" />
 
-### Positionnement
-
-Passez les options de positionnement d’Ark à `Tooltip`, notamment le placement et le décalage.
-
-<Example name="tooltip/positioning" />
-
-### Root Provider
-
-Utilisez `useTooltip()` avec `TooltipRootProvider` lorsque l’état de l’infobulle est créé en dehors
-de l’arbre rendu.
-
-<Example name="tooltip/root-provider" />
-
-### Avec une flèche
-
-Ajoutez `TooltipArrow` comme premier enfant du contenu lorsque l’infobulle doit pointer vers son
-déclencheur. Avec `TooltipBody`, placez-la directement à l’intérieur de `TooltipBody` ;
-l’enveloppe fournit `TooltipArrowTip` par défaut.
-
-<Example name="tooltip/with-arrow" />
-
 ### Dans des conteneurs à position fixe
 
 Utilisez `positioning.strategy: "fixed"` lorsque le déclencheur se trouve dans une zone fixe ou
@@ -225,12 +75,75 @@ focaliser le déclencheur, de faire défiler le panneau et de vérifier l’alig
 
 <Example name="tooltip/within-fixed-containers" />
 
-### Personnalisation avancée
+### État contrôlé
 
-Utilisez directement les parties `TooltipPositioner` et `TooltipContent` lorsqu’elles doivent
-avoir une composition ou une mise en forme indépendantes.
+Contrôlez l’ouverture de l’infobulle avec `open` et `onOpenChange(details)`. Voir [Contrôler l’état depuis l’application](/docs/composition-patterns#controlled-state).
 
-<Example name="tooltip/advanced-customization" />
+<Example name="tooltip/controlled" />
+
+### Contexte
+
+Utilisez `useTooltipContext()` dans un descendant qui doit lire l’état courant.
+
+<Example name="tooltip/context" />
+
+### Root Provider
+
+Utilisez `useTooltip()` avec `TooltipRootProvider` lorsque l’état de l’infobulle est créé en dehors
+de l’arbre rendu. Voir [Partager l’état hors de l’arbre](/docs/composition-patterns#root-provider).
+
+<Example name="tooltip/root-provider" />
+
+### Assembler à partir des parties
+
+Le même tooltip que Basic, sans `TooltipBody` : `TooltipPositioner` et `TooltipContent` sont
+explicites. Partez de cet exemple quand le design stylise séparément le positionneur et la bulle ou
+ajoute `TooltipArrow`.
+
+<Example name="tooltip/build-from-parts" />
+
+## Composition
+
+Utilisez `TooltipBody` pour la composition standard du `Trigger` et du contenu. Il réunit
+`TooltipPositioner` et `TooltipContent` ; utilisez ces parties explicitement lorsqu’elles doivent
+avoir un style ou une structure indépendants. La racine gère l’état : utilisez `defaultOpen`
+pour une infobulle non contrôlée, ou `open` avec `onOpenChange(details)` lorsqu’une autre partie de
+l’application en est responsable. Utilisez `TooltipRootProvider` avec `useTooltip()` lorsque le
+store est créé en dehors de l’arbre rendu, et `TooltipContext` ou `useTooltipContext()` lorsqu’un
+descendant doit lire cet état. `asChild` attend un unique enfant pouvant recevoir le focus ; Solid
+utilise une fonction de rendu. `TooltipDisabledTrigger` est prévu pour un seul contrôle natif
+désactivé. Le portail est activé par défaut : définissez `portalled={false}` ou passez `portalRef`
+uniquement lorsque l’infobulle doit rester dans une limite DOM précise. En Vue, utilisez
+`v-model:open` pour l’état contrôlé et les événements Vue en kebab-case, comme `@open-change`.
+
+Par défaut, le contenu est monté à la première ouverture et retiré après l’animation de fermeture.
+Définissez `unmountOnExit` sur `false` pour le conserver après la première ouverture ;
+définissez aussi `lazyMount` sur `false` pour le monter dès le départ. En Vue, passez ces
+options avec `:unmount-on-exit="false"` et `:lazy-mount="false"`.
+
+## Anatomie
+
+Ajoutez `TooltipArrow` comme premier enfant du contenu lorsque la fenêtre flottante doit pointer
+vers son élément déclencheur. `TooltipArrow` rend `TooltipArrowTip` par défaut.
+
+Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
+
+<AnatomyInspector
+  parts={[
+    ["Tooltip", null, "Gère l’état, l’ouverture et la fermeture, les délais, le positionnement et le cycle de vie de l’infobulle.", 0],
+    ["TooltipTrigger", "tooltip-trigger", "Élément interactif qui ouvre l’infobulle au survol ou au focus.", 1],
+    ["TooltipDisabledTrigger", "tooltip-disabled-trigger", "Enveloppe pouvant recevoir le focus autour d’un unique contrôle natif désactivé qui nécessite une explication.", 1],
+    ["TooltipPositioner", "tooltip-positioner", "Positionne le contenu et expose les variables de positionnement d’Ark.", 1],
+    ["TooltipContent", "tooltip-content", "Surface visible de l’infobulle.", 2],
+    ["TooltipArrow", "tooltip-arrow", "Enveloppe facultative de la flèche, positionnée automatiquement, qui rend `TooltipArrowTip` par défaut.", 3],
+    ["TooltipArrowTip", "tooltip-arrow-tip", "Pointe visible de la flèche.", 4],
+    ["TooltipBody", "", "Raccourci qui rend `TooltipPositioner` et `TooltipContent` ensemble.", 1],
+    ["TooltipRootProvider", null, "Affiche une infobulle à partir d’un objet d’état `useTooltip()` créé en dehors de l’arbre.", 0],
+    ["TooltipContext", null, "Expose l’état courant aux descendants personnalisés via une fonction de rendu ou un slot avec portée en Vue.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styles
 
@@ -247,7 +160,16 @@ reposent sur les jetons de foundation et n’ont pas de variables de composant :
 remplace les styles du composant en couche. Les attributs d’état et les hooks `data-slot` sont communs
 aux deux modes de style.
 
-### Ciblage des styles
+### Points d’accroche CSS
+
+| Partie | `data-slot` |
+| --- | --- |
+| `TooltipTrigger` | `tooltip-trigger` |
+| `TooltipDisabledTrigger` | `tooltip-disabled-trigger` |
+| `TooltipPositioner` | `tooltip-positioner` |
+| `TooltipContent` | `tooltip-content` |
+| `TooltipArrow` | `tooltip-arrow` |
+| `TooltipArrowTip` | `tooltip-arrow-tip` |
 
 - `TooltipBody` ne crée aucun nœud DOM. Avec la composition explicite, stylez séparément
   `TooltipPositioner` et `TooltipContent`.
@@ -258,13 +180,38 @@ aux deux modes de style.
 - `TooltipContent` contrôle la surface de la fenêtre flottante.
 - `TooltipArrow` et `TooltipArrowTip` contrôlent la taille, l’arrière-plan et le contour de la flèche.
 
-Les principaux points de ciblage publics sont `data-slot="tooltip-trigger"`,
-`data-slot="tooltip-positioner"`, `data-slot="tooltip-content"`,
-`data-slot="tooltip-disabled-trigger"`, `data-slot="tooltip-arrow"` et
-`data-slot="tooltip-arrow-tip"`.
-
 Ark ajoute également `data-scope="tooltip"`, `data-part`, `data-state="open" | "closed"`,
 `data-value`, `data-current`, `data-expanded`, `data-instant`, `data-placement` et `data-side` aux
 parties concernées. La partie `TooltipPositioner` expose notamment les variables CSS d’exécution
 `--available-width`, `--available-height`, `--reference-width`, `--reference-height`, `--x`, `--y`,
 `--z-index` et `--transform-origin`.
+
+## Clavier
+
+| Touche | Action |
+| --- | --- |
+| `Tab` | Le focus sur le déclencheur affiche l’info-bulle. |
+| `Esc` | Masque l’info-bulle. |
+
+## Référence de l’API
+
+| Prop | Type | Défaut | Description |
+| --- | --- | --- | --- |
+| `open` | `boolean` | — | État d’ouverture en mode contrôlé. |
+| `defaultOpen` | `boolean` | `false` | État d’ouverture initial lorsqu’il n’est pas contrôlé. |
+| `onOpenChange` | `(details: OpenChangeDetails) => void` | — | Appelé à l’ouverture et à la fermeture. |
+| `openDelay` | `number` | `400` | Délai avant l’ouverture, en millisecondes. |
+| `closeDelay` | `number` | `150` | Délai avant la fermeture, en millisecondes. |
+| `positioning` | `PositioningOptions` | — | Placement, décalage et autres options de positionnement de la fenêtre. |
+| `disabled` | `boolean` | `false` | Désactive le contrôle. |
+| `interactive` | `boolean` | `false` | Garde l’infobulle ouverte tant que le pointeur la survole. |
+| `closeOnPointerDown` | `boolean` | `true` | Se ferme lorsque le déclencheur est pressé. |
+| `closeOnScroll` | `boolean` | `true` | Se ferme au défilement de la page. |
+| `closeOnClick` | `boolean` | `true` | Se ferme au clic sur le déclencheur. |
+| `closeOnEscape` | `boolean` | `true` | Se ferme avec Échap. |
+| `lazyMount` | `boolean` | `true` | Monte le contenu à la première ouverture. |
+| `unmountOnExit` | `boolean` | `true` | Démonte le contenu après la fermeture. |
+| `aria-label` | `string` | — | Texte accessible lorsque le contenu n’est pas du texte simple. |
+| `triggerValue` | `string \| null` | — | Déclencheur actif en mode contrôlé lorsque plusieurs déclencheurs partagent la fenêtre. |
+| `defaultTriggerValue` | `string \| null` | — | Déclencheur actif au départ. |
+| `onTriggerValueChange` | `(details: TriggerValueChangeDetails) => void` | — | Appelé lorsqu’un autre déclencheur devient actif. |

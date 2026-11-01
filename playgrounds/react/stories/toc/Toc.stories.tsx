@@ -28,7 +28,7 @@ const contentStyle = {
   overflowY: 'auto',
   overscrollBehavior: 'contain',
   padding: 'var(--moduix-spacing-3)',
-  border: 'var(--moduix-border-width-sm) solid var(--moduix-color-border)',
+  border: 'var(--moduix-border-width-sm) solid var(--moduix-border)',
   borderRadius: 'var(--moduix-radius-md)',
 } as const;
 
@@ -55,7 +55,7 @@ function TocExample({ withRail = false }: { withRail?: boolean }) {
               key={item.value}
               style={{
                 padding: 'var(--moduix-spacing-3)',
-                border: 'var(--moduix-border-width-sm) solid var(--moduix-color-border)',
+                border: 'var(--moduix-border-width-sm) solid var(--moduix-border)',
                 borderRadius: 'var(--moduix-radius-md)',
               }}
             >

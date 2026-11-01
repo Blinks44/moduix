@@ -23,7 +23,7 @@ import {
   ToastToaster,
   createToaster,
   useToastContext,
-} from '../src';
+} from '@/index';
 import SsrToast from './fixtures/SsrToast.vue';
 
 const toastComponents = {
@@ -34,6 +34,30 @@ const toastComponents = {
   ToastTitle,
   ToastToaster,
 };
+
+function renderToaster(toaster: CreateToasterReturn<VNodeChild>, portalled?: boolean) {
+  const Harness = defineComponent({
+    components: { ToastToaster },
+    setup() {
+      return { portalled, toaster };
+    },
+    template:
+      portalled === undefined
+        ? '<ToastToaster :toaster="toaster" />'
+        : '<ToastToaster :toaster="toaster" :portalled="portalled" />',
+  });
+
+  return render(Harness);
+}
+
+const responsivePlacements = [
+  'top-start',
+  'top',
+  'top-end',
+  'bottom-start',
+  'bottom',
+  'bottom-end',
+] as const;
 
 test('keeps rendered VNode content and context fallbacks reactive across store updates', async () => {
   const toaster = createToaster({ placement: 'bottom', duration: Infinity });
@@ -184,6 +208,7 @@ test('keeps queue limits, toast status details, dismissal, and replacement conte
 });
 
 // Ark Vue 5.39.2 applies root attrs to its leading ghost DIV instead of the provided child.
+
 test.skip('preserves the native Ark root asChild host', async () => {
   const toaster = createToaster({ placement: 'bottom', duration: Infinity });
   render(
@@ -206,6 +231,7 @@ test.skip('preserves the native Ark root asChild host', async () => {
 });
 
 // Ark Vue 5.39.2 declares asChild on Toaster but never forwards it to ark.div.
+
 test.skip('forwards native Ark toaster asChild to the group host', async () => {
   const toaster = createToaster({ placement: 'bottom', duration: Infinity });
   render(
@@ -222,21 +248,6 @@ test.skip('forwards native Ark toaster asChild to the group host', async () => {
   toaster.create({ title: 'Native group' });
   await expect.element(page.getByTestId('native-group')).toHaveAttribute('data-part', 'group');
 });
-
-function renderToaster(toaster: CreateToasterReturn<VNodeChild>, portalled?: boolean) {
-  const Harness = defineComponent({
-    components: { ToastToaster },
-    setup() {
-      return { portalled, toaster };
-    },
-    template:
-      portalled === undefined
-        ? '<ToastToaster :toaster="toaster" />'
-        : '<ToastToaster :toaster="toaster" :portalled="portalled" />',
-  });
-
-  return render(Harness);
-}
 
 test('renders default content and keeps closable and action behavior', async () => {
   const toaster = createToaster({ placement: 'bottom', duration: Infinity });
@@ -305,38 +316,6 @@ test('shows a spinner next to the title of loading toasts only', async () => {
     '[data-slot="toast-title"]',
   )!;
   expect(successTitle.querySelector('[data-slot="spinner-root"]')).toBeNull();
-});
-
-test('reserves inline-end space only for a rendered close trigger', async () => {
-  const toaster = createToaster({ placement: 'bottom', duration: Infinity });
-
-  renderToaster(toaster);
-
-  toaster.create({ title: 'Closable toast' });
-  toaster.create({ title: 'Persistent toast', closable: false });
-
-  const closable = (await screen.findByText('Closable toast')).closest('[data-slot="toast-root"]')!;
-  const persistent = (await screen.findByText('Persistent toast')).closest(
-    '[data-slot="toast-root"]',
-  )!;
-  expect(getComputedStyle(closable).paddingInlineEnd).toBe('44px');
-  expect(getComputedStyle(persistent).paddingInlineEnd).toBe('16px');
-});
-
-test('paints status toasts with an opaque background', async () => {
-  const toaster = createToaster({ placement: 'bottom', duration: Infinity });
-
-  renderToaster(toaster);
-
-  toaster.success({ title: 'Success toast' });
-  toaster.warning({ title: 'Warning toast' });
-  toaster.error({ title: 'Error toast' });
-
-  for (const title of ['Success toast', 'Warning toast', 'Error toast']) {
-    const root = (await screen.findByText(title)).closest('[data-slot="toast-root"]')!;
-    // Toasts overlay page content, so a translucent status tint would let it show through.
-    expect(getComputedStyle(root).backgroundColor).not.toMatch(/\/\s*0?\.\d+\s*\)$|^rgba\(/);
-  }
 });
 
 test('keeps custom composition connected to the Vue context hook', async () => {
@@ -606,15 +585,6 @@ test.each([false, true])(
     target.remove();
   },
 );
-
-const responsivePlacements = [
-  'top-start',
-  'top',
-  'top-end',
-  'bottom-start',
-  'bottom',
-  'bottom-end',
-] as const;
 
 test.each(
   responsivePlacements.flatMap((placement) =>

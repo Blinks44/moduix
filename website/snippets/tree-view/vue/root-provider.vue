@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { Button } from '@moduix/vue/button';
+import { Stack } from '@moduix/vue/stack';
 import {
   TreeViewLabel,
   TreeViewRootProvider,
@@ -8,7 +9,6 @@ import {
   useTreeView,
 } from '@moduix/vue/tree-view';
 import FileTreeNode from './RootProviderTreeNode.vue';
-import styles from '@/components/examples/tree-view/tree-view-root-provider.module.css';
 
 type FileNode = { children?: FileNode[]; id: string; name: string };
 
@@ -42,7 +42,7 @@ const treeView = useTreeView({ collection, defaultExpandedValue: ['src'] });
 </script>
 
 <template>
-  <div :class="styles.root">
+  <Stack align="center" gap="3">
     <TreeViewRootProvider :value="treeView">
       <TreeViewLabel>Project files</TreeViewLabel>
       <TreeViewTree>
@@ -57,9 +57,9 @@ const treeView = useTreeView({ collection, defaultExpandedValue: ['src'] });
     <output aria-live="polite">
       Expanded: {{ treeView.expandedValue.join(', ') || 'none' }}
     </output>
-    <div :class="styles.actions">
+    <Stack direction="row" gap="2">
       <Button variant="outline" @click="treeView.expand()">Expand all</Button>
       <Button variant="outline" @click="treeView.collapse()">Collapse all</Button>
-    </div>
-  </div>
+    </Stack>
+  </Stack>
 </template>

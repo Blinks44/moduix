@@ -1,13 +1,26 @@
 ---
 title: Hover Card
 component: hover-card
-description: An Ark UI hover card for supplementary previews opened when its trigger is hovered or focused.
+description: Preview a profile or link in a card when its trigger is hovered.
+ark: https://ark-ui.com/docs/components/hover-card
 ---
 
+import AnatomyScene from '@/components/examples/hover-card/anatomy';
 
-## API Reference
+<Example name="hover-card/basic" />
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/hover-card" />
+## Installation
+
+<ComponentInstall />
+
+## Usage
+
+<Usage />
+
+Compose the card from explicit Ark parts. `HoverCardTrigger` opens the card, while
+`HoverCardPositioner` and `HoverCardContent` define its floating content. The basic composition
+does not include an arrow. Put long content in `HoverCardBody` so it can scroll within the
+available height while `HoverCardContent` stays overflow-visible for an optional arrow.
 
 ## Choosing the right component
 
@@ -16,87 +29,72 @@ content or actions. Use `HoverCard` when you need a supplementary preview tied t
 a profile or article summary. Keep essential information and its accessible alternative outside the
 hover card.
 
-## Basic
+## Examples
 
+### With arrow
 
-Compose the card from explicit Ark parts. `HoverCardTrigger` opens the card, while
-`HoverCardPositioner` and `HoverCardContent` define its floating content. The basic composition
-does not include an arrow. Put long content in `HoverCardBody` so it can scroll within the
-available height while `HoverCardContent` stays overflow-visible for an optional arrow.
+Add `HoverCardArrow` inside `HoverCardContent` when the popup needs a visual pointer to its
+trigger. The wrapper renders `HoverCardArrowTip` by default; keep the preview in
+`HoverCardBody` so the arrow remains part of the bordered surface while the preview can scroll.
 
-<Example name="hover-card/basic" />
+<Example name="hover-card/with-arrow" />
 
-## Install with shadcn
+### Positioning
 
-See [Quick Start](/docs/quick-start) for full package setup, registry configuration, and styling guidance.
+Pass Ark positioning options through the `positioning` prop.
 
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
+<Example name="hover-card/positioning" />
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/hover-card' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/hover-card' },
-  ]}
-/>
+### Delay
 
-  </Tab>
-  <Tab label="Solid" value="solid">
+Set `openDelay` and `closeDelay` on the root to adjust hover and focus timing.
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/hover-card' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/hover-card' },
-  ]}
-/>
+<Example name="hover-card/delay" />
 
-  </Tab>
-  <Tab label="Vue" value="vue">
+### Disabled
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/hover-card' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/hover-card' },
-  ]}
-/>
+Set `disabled` to prevent the card from opening while keeping the trigger visible.
 
-  </Tab>
-</Tabs>
+<Example name="hover-card/disabled" />
 
-## Anatomy
+### Multiple triggers
 
-```text
-HoverCard
-├─ HoverCardTrigger
-└─ Overlay subtree (automatically rendered in a portal)
-   └─ HoverCardPositioner
-      └─ HoverCardContent
-         ├─ HoverCardArrow
-         │  └─ HoverCardArrowTip
-         └─ HoverCardBody
-            └─ content
+Give each trigger a `value` and use `onTriggerValueChange(details)` to share one content area
+across several triggers.
 
-HoverCardRootProvider
-└─ same part tree connected to a moduix useHoverCard() store
-```
+<Example name="hover-card/multiple-triggers" />
 
-| Part                           | Role                                                                  |
-| ------------------------------ | --------------------------------------------------------------------- |
-| `HoverCard`                    | Owns state, lifecycle, delays, positioning, ids, and outside interaction. |
-| `HoverCardRootProvider`        | Connects the parts to state created with `useHoverCard()`.            |
-| `HoverCardContext`             | Exposes current state through a render prop for descendants.         |
-| `HoverCardTrigger`             | Interactive element that opens the card on hover or focus. Use `asChild` for a link or another semantic element. |
-| `HoverCardPositioner`          | Positions the floating layer and exposes Ark positioning variables.  |
-| `HoverCardContent`             | Visible card surface that closes on outside interaction.              |
-| `HoverCardArrow`               | Optional positioned arrow wrapper that renders `HoverCardArrowTip` by default. |
-| `HoverCardArrowTip`             | Arrow tip element styled through Ark arrow variables.                 |
-| `HoverCardBody`                | Optional scrollable content region for constrained previews.          |
+### Dialog
 
-`HoverCard` is the only public root value. Use it with the family-prefixed parts in application code.
+Render a hover card inline inside a dialog when it must stay in the dialog's overlay layer. The
+dialog's initial focus can land on the Hover Card trigger and open the card after `openDelay`; set
+`initialFocusEl` to another element when the preview should remain closed until hover or focus.
+
+<Example name="hover-card/dialog" />
+
+### Controlled
+
+Control whether the card is open with `open` and `onOpenChange(details)`. See [Control state from the application](/docs/composition-patterns#controlled-state).
+
+<Example name="hover-card/controlled" />
+
+### Context
+
+Use `HoverCardContext` to read state inside the card tree without changing its visible part
+structure.
+
+<Example name="hover-card/context" />
+
+### Root provider
+
+Use `useHoverCard()` with `HoverCardRootProvider` when controls or other UI outside the card tree
+need to read or update its state. See [Share state outside the tree](/docs/composition-patterns#root-provider).
+
+<Example name="hover-card/root-provider" />
 
 ## Composition
 
-`HoverCard` owns the state and portals `HoverCardPositioner` by default. Set `portalled={false}`
+`HoverCard` manages the state and portals `HoverCardPositioner` by default. Set `portalled={false}`
 inside another overlay, or pass `portalRef` for a custom container. Use `HoverCardRootProvider`
 with `useHoverCard()` when state belongs outside the card tree; React reads the store as an object,
 while Solid reads it through its accessor, and Vue exposes the reactive store directly to the template.
@@ -107,68 +105,27 @@ Keep `HoverCardArrow` inside `HoverCardContent` and wrap long previews in `Hover
 For several triggers sharing one content area, give each trigger a `value` and update external
 content from `onTriggerValueChange(details)`.
 
-## Examples
+## Anatomy
 
-### Context
+Hover or focus a part to find it in the preview.
 
-Use `HoverCardContext` to read state inside the card tree without changing its visible part
-structure.
+<AnatomyInspector
+  parts={[
+    ["HoverCard", null, "Manages state, lifecycle, delays, positioning, ids, and outside interaction.", 0],
+    ["HoverCardTrigger", "hover-card-trigger", "Interactive element that opens the card on hover or focus. Use `asChild` for a link or another semantic element.", 1],
+    ["HoverCardPositioner", "hover-card-positioner", "Positions the floating layer and exposes Ark positioning variables.", 1],
+    ["HoverCardContent", "hover-card-content", "Visible card surface that closes on outside interaction.", 2],
+    ["HoverCardArrow", "hover-card-arrow", "Optional positioned arrow wrapper that renders `HoverCardArrowTip` by default.", 3],
+    ["HoverCardArrowTip", "hover-card-arrow-tip", "Arrow tip element styled through Ark arrow variables.", 4],
+    ["HoverCardBody", "hover-card-body", "Optional scrollable content region for constrained previews.", 3],
+    ["HoverCardRootProvider", null, "Connects the parts to state created with `useHoverCard()`.", 0],
+    ["HoverCardContext", null, "Exposes current state through a render prop for descendants.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
-<Example name="hover-card/context" />
-
-### Controlled
-
-Control whether the card is open with `open` and `onOpenChange(details)`.
-
-<Example name="hover-card/controlled" />
-
-### Delay
-
-Set `openDelay` and `closeDelay` on the root to adjust hover and focus timing.
-
-<Example name="hover-card/delay" />
-
-### Dialog
-
-Render a hover card inline inside a dialog when it must stay in the dialog's overlay layer. The
-dialog's initial focus can land on the Hover Card trigger and open the card after `openDelay`; set
-`initialFocusEl` to another element when the preview should remain closed until hover or focus.
-
-<Example name="hover-card/dialog" />
-
-### Disabled
-
-Set `disabled` to prevent the card from opening while keeping the trigger visible.
-
-<Example name="hover-card/disabled" />
-
-### Multiple Triggers
-
-Give each trigger a `value` and use `onTriggerValueChange(details)` to share one content area
-across several triggers.
-
-<Example name="hover-card/multiple-triggers" />
-
-### Positioning
-
-Pass Ark positioning options through the `positioning` prop.
-
-<Example name="hover-card/positioning" />
-
-### Root Provider
-
-Use `useHoverCard()` with `HoverCardRootProvider` when controls or other UI outside the card tree
-need to read or update its state.
-
-<Example name="hover-card/root-provider" />
-
-### With Arrow
-
-Add `HoverCardArrow` inside `HoverCardContent` when the popup needs a visual pointer to its
-trigger. The wrapper renders `HoverCardArrowTip` by default; keep the preview in
-`HoverCardBody` so the arrow remains part of the bordered surface while the preview can scroll.
-
-<Example name="hover-card/with-arrow" />
+`HoverCard` is the only public root value. Use it with the family-prefixed parts in application code.
 
 ## Styling
 
@@ -184,9 +141,17 @@ variables: a class on the part overrides the layered component styles. Data attr
 
 ### Styling hooks
 
-Moduix adds `data-slot="hover-card-*"` hooks to the trigger, positioner, content, arrow, arrow tip,
-and body.
-`HoverCard` and `HoverCardRootProvider` only provide state and do not render DOM elements, so they have no styling hooks. Ark adds
+| Part | `data-slot` |
+| --- | --- |
+| `HoverCardTrigger` | `hover-card-trigger` |
+| `HoverCardPositioner` | `hover-card-positioner` |
+| `HoverCardContent` | `hover-card-content` |
+| `HoverCardArrow` | `hover-card-arrow` |
+| `HoverCardArrowTip` | `hover-card-arrow-tip` |
+| `HoverCardBody` | `hover-card-body` |
+
+moduix adds `data-slot="hover-card-*"` hooks to the trigger, positioner, content, arrow, arrow tip,
+and body. `HoverCard` and `HoverCardRootProvider` only provide state and do not render DOM elements, so they have no styling hooks. Ark adds
 `data-scope="hover-card"` and `data-part` to its parts. For state-aware styling, target
 `data-state="open|closed"`, `data-placement`, `data-side`, `data-value`, `data-current`,
 `data-nested`, and `data-has-nested`.
@@ -195,3 +160,30 @@ and body.
 `--available-height`, `--x`, `--y`, `--z-index`, and `--transform-origin`. `HoverCardContent`
 exposes `--layer-index` and `--nested-layer-count`. `HoverCardArrow` exposes `--arrow-size`,
 `--arrow-size-half`, `--arrow-background`, and `--arrow-offset`.
+
+## Keyboard
+
+| Key | Action |
+| --- | --- |
+| `Tab` | Focusing the trigger opens the card after the delay. |
+| `Esc` | Closes the card. |
+
+## API reference
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `open` | `boolean` | — | Open state for controlled use. |
+| `defaultOpen` | `boolean` | `false` | Initial open state when it is not controlled. |
+| `onOpenChange` | `(details: OpenChangeDetails) => void` | — | Called when it opens or closes. |
+| `openDelay` | `number` | `600` | Hover delay before opening, in milliseconds. |
+| `closeDelay` | `number` | `300` | Delay before closing after the pointer leaves, in milliseconds. |
+| `positioning` | `PositioningOptions` | — | Placement, offset, and other popup positioning options. |
+| `disabled` | `boolean` | `false` | Disables the control. |
+| `lazyMount` | `boolean` | `true` | Mounts the content on first open. |
+| `unmountOnExit` | `boolean` | `true` | Unmounts the content after it closes. |
+| `triggerValue` | `string \| null` | — | Active trigger for controlled use when several triggers share one popup. |
+| `defaultTriggerValue` | `string \| null` | — | Initially active trigger. |
+| `onTriggerValueChange` | `(details: TriggerValueChangeDetails) => void` | — | Called when another trigger becomes active. |
+| `onPointerDownOutside` | `(event: PointerDownOutsideEvent) => void` | — | Called when the pointer is pressed outside the popup. |
+| `onFocusOutside` | `(event: FocusOutsideEvent) => void` | — | Called when focus moves outside the popup. |
+| `onInteractOutside` | `(event: InteractOutsideEvent) => void` | — | Called on any interaction outside the popup. |

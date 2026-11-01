@@ -1,12 +1,12 @@
 import { Avatar, AvatarFallback } from '@moduix/solid/avatar';
+import { Stack } from '@moduix/solid/stack';
 import { For } from 'solid-js';
-import styles from '@/components/examples/avatar/avatar-sizes-and-fallback-only.module.css';
 
 const avatarSizes = ['xs', 'sm', 'md', 'lg', 'xl'] as const;
 
 export default function AvatarSizesDemo() {
   return (
-    <div class={styles.root}>
+    <Stack direction="row" align="center" justify="center" wrap="nowrap" gap="3">
       <For each={avatarSizes}>
         {(size) => (
           <Avatar size={size}>
@@ -14,6 +14,6 @@ export default function AvatarSizesDemo() {
           </Avatar>
         )}
       </For>
-    </div>
+    </Stack>
   );
 }

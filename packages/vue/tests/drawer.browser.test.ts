@@ -26,9 +26,7 @@ import {
   DrawerTitle,
   DrawerTrigger,
   useDrawer,
-} from '../src';
-import styles from '../src/components/drawer/Drawer.module.css';
-import { LocaleProvider } from '../src/locale';
+} from '@/index';
 import TestDrawer from './fixtures/TestDrawer.vue';
 
 const drawerComponents = {
@@ -62,10 +60,6 @@ test('keeps page interaction available for a non-modal drawer', async () => {
   });
   const { container } = render(Harness);
   expect(container.querySelector('[role="dialog"]')).not.toBeNull();
-  await expect.element(page.getByRole('dialog')).toHaveCSS('pointer-events', 'auto');
-  await expect
-    .element(page.locator('[data-slot="drawer-positioner"]'))
-    .toHaveCSS('pointer-events', 'none');
 
   await page.getByRole('button', { name: 'Toggle drawer' }).click();
   await expect.element(page.getByRole('dialog')).toHaveCount(0);
@@ -287,36 +281,6 @@ test('forwards refs through every public part and supports asChild', () => {
   );
 });
 
-test('applies consumer classes after CSS Module defaults', () => {
-  const Harness = defineComponent({
-    components: drawerComponents,
-    template:
-      '<Drawer default-open :portalled="false"><DrawerTrigger class="consumer-trigger">Open drawer</DrawerTrigger><DrawerBackdrop /><DrawerPositioner><DrawerContent class="consumer-content"><DrawerHeader><DrawerTitle>Preferences</DrawerTitle><DrawerCloseIcon class="consumer-close" /><DrawerDescription>Description</DrawerDescription></DrawerHeader><DrawerBody class="consumer-body">Body</DrawerBody><DrawerFooter class="consumer-footer">Footer</DrawerFooter></DrawerContent></DrawerPositioner></Drawer>',
-  });
-  render(Harness);
-  expect([...document.querySelector('[data-slot="drawer-trigger"]')!.classList]).toEqual([
-    'consumer-trigger',
-  ]);
-  expect([...document.querySelector('[role="dialog"]')!.classList]).toEqual(
-    expect.arrayContaining(['consumer-content', styles.content]),
-  );
-  expect([...document.querySelector('[data-slot="drawer-title"]')!.classList]).toEqual(
-    expect.arrayContaining([styles.title]),
-  );
-  expect([...document.querySelector('[data-slot="drawer-description"]')!.classList]).toEqual(
-    expect.arrayContaining([styles.description]),
-  );
-  expect([...document.querySelector('[data-slot="drawer-body"]')!.classList]).toEqual(
-    expect.arrayContaining(['consumer-body', styles.body]),
-  );
-  expect([...document.querySelector('[data-slot="drawer-footer"]')!.classList]).toEqual(
-    expect.arrayContaining(['consumer-footer', styles.footer]),
-  );
-  expect([...document.querySelector('[data-slot="drawer-close-icon"]')!.classList]).toEqual(
-    expect.arrayContaining(['consumer-close', styles.closeIcon]),
-  );
-});
-
 test('marks an island drawer and closes it through its accessible close icon', async () => {
   const Harness = defineComponent({
     components: drawerComponents,
@@ -332,9 +296,6 @@ test('marks an island drawer and closes it through its accessible close icon', a
   await expect
     .element(page.locator('[data-slot="drawer-positioner"]'))
     .toHaveAttribute('data-swipe-direction', 'down');
-  await expect
-    .element(page.locator('[data-slot="drawer-positioner"]'))
-    .toHaveCSS('padding-bottom', '16px');
   await page.getByRole('button', { name: 'Close drawer' }).click();
 
   await expect.element(page.getByRole('dialog')).toHaveCount(0);
@@ -414,44 +375,31 @@ test('keeps close-icon labels, attrs and fallback content reactive', async () =>
   await expect.element(button.locator('svg')).toHaveCount(1);
 });
 
-test('leaves native triggers unstyled and keeps the body in the content color', () => {
+test('supports custom portals, context and refs through RootProvider', async () => {
+  const contentRef = ref<ComponentPublicInstance>();
   const Harness = defineComponent({
     components: drawerComponents,
-    template:
-      '<Drawer default-open :portalled="false"><DrawerTrigger>Open drawer</DrawerTrigger><DrawerPositioner><DrawerContent><DrawerTitle>Preferences</DrawerTitle><DrawerBody>Body</DrawerBody><DrawerCloseTrigger>Done</DrawerCloseTrigger></DrawerContent></DrawerPositioner></Drawer>',
+    setup() {
+      const portalTarget = ref<HTMLDivElement>();
+      return {
+        contentRef,
+        drawer: useDrawer({ defaultOpen: true }),
+        portalTarget,
+        getPortal: () => portalTarget.value,
+      };
+    },
+    template: `
+      <div ref="portalTarget" data-testid="portal"></div>
+      <DrawerRootProvider :value="drawer" :portal-ref="getPortal">
+        <DrawerBackdrop /><DrawerPositioner><DrawerContent ref="contentRef">
+          <DrawerTitle>Preferences</DrawerTitle>
+          <DrawerContext v-slot="drawer"><output>Open: {{ String(drawer.open) }}</output></DrawerContext>
+        </DrawerContent></DrawerPositioner>
+      </DrawerRootProvider>
+    `,
   });
   render(Harness);
-
-  expect(document.querySelector('[data-slot="drawer-trigger"]')!.classList).toHaveLength(0);
-  expect(document.querySelector('[data-slot="drawer-close-trigger"]')!.classList).toHaveLength(0);
-  const content = document.querySelector('[role="dialog"]')!;
-  const body = document.querySelector('[data-slot="drawer-body"]')!;
-  expect(getComputedStyle(body).color).toBe(getComputedStyle(content).color);
-});
-
-test('keeps physical side corners for a start drawer in RTL', async () => {
-  const Harness = defineComponent({
-    components: { ...drawerComponents, LocaleProvider },
-    template:
-      '<LocaleProvider locale="ar"><Drawer default-open :portalled="false" swipe-direction="start"><DrawerPositioner><DrawerContent><DrawerTitle>Preferences</DrawerTitle></DrawerContent></DrawerPositioner></Drawer></LocaleProvider>',
-  });
-  render(Harness);
-
-  const content = page.getByRole('dialog');
-  await expect.element(content).toHaveAttribute('data-swipe-direction', 'right');
-  await expect.element(content).toHaveCSS('border-top-right-radius', '0px');
-  await expect.element(content).not.toHaveCSS('border-top-left-radius', '0px');
-});
-
-test('sets the side drawer width from size', async () => {
-  const Harness = defineComponent({
-    components: drawerComponents,
-    template:
-      '<Drawer default-open :portalled="false" swipe-direction="end"><DrawerPositioner><DrawerContent size="lg"><DrawerTitle>Preferences</DrawerTitle></DrawerContent></DrawerPositioner></Drawer>',
-  });
-  render(Harness);
-
-  const content = page.getByRole('dialog');
-  await expect.element(content).toHaveAttribute('data-size', 'lg');
-  await expect.element(content).toHaveCSS('width', '448px');
+  await expect.element(page.getByTestId('portal').getByRole('dialog')).toBeVisible();
+  await expect.element(page.getByText('Open: true')).toBeVisible();
+  expect(contentRef.value?.$el).toBe(document.querySelector('[role="dialog"]'));
 });

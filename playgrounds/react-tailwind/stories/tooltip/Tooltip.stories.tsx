@@ -107,7 +107,7 @@ export const WithArrow: Story = {
   render: () => {
     return (
       <Tooltip>
-        <TooltipTrigger aria-label="Tooltip with arrow">Hover or focus</TooltipTrigger>
+        <TooltipTrigger>Hover or focus</TooltipTrigger>
         <TooltipBody>
           <TooltipArrow />
           Tooltip with arrow
@@ -163,7 +163,7 @@ export const Positioning: Story = {
         </div>
 
         <Tooltip positioning={{ placement, offset: { mainAxis: 12 } }}>
-          <TooltipTrigger asChild aria-label={`Tooltip placement: ${placement}`}>
+          <TooltipTrigger asChild>
             <Button>Hover or focus</Button>
           </TooltipTrigger>
           <TooltipBody>Placement: {placement}</TooltipBody>
@@ -278,10 +278,7 @@ export const CustomComposition: Story = {
   render: () => {
     return (
       <Tooltip>
-        <TooltipTrigger
-          aria-label="Custom styled tooltip"
-          className="border-primary bg-primary text-primary-foreground [@media(hover:hover)]:hover:bg-primary/90"
-        >
+        <TooltipTrigger className="border-primary bg-primary text-primary-foreground [@media(hover:hover)]:hover:bg-primary/90">
           Custom style
         </TooltipTrigger>
         <TooltipPositioner className="drop-shadow-[0_0.5rem_1rem_rgb(0_0_0_/_14%)]">

@@ -4,7 +4,7 @@ export const tagCssProperties = (
   [
     [
       '--moduix-tag-bg',
-      'var(--moduix-color-primary)',
+      'var(--moduix-primary)',
       'Overrides the tag background. Each `variant` sets its own default.',
     ],
     [
@@ -14,7 +14,7 @@ export const tagCssProperties = (
     ],
     [
       '--moduix-tag-color',
-      'var(--moduix-color-primary-foreground)',
+      'var(--moduix-primary-foreground)',
       'Overrides the tag text, icon, and close trigger color. Each `variant` sets its own default.',
     ],
   ] as const

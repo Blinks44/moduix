@@ -1,6 +1,6 @@
 ---
 title: Dark mode
-description: Apply Moduix dark tokens globally or to one surface across framework adapters.
+description: Apply moduix dark tokens globally or to one surface across framework adapters.
 ---
 
 import reactScopedSurface from '../../../snippets/dark-mode/react/scoped-surface.tsx?raw';
@@ -9,8 +9,8 @@ import VueScopedSurface from '../../../snippets/dark-mode/vue/scoped-surface.vue
 
 # Dark mode
 
-Moduix ships light and dark semantic tokens. Load the stylesheet for your chosen framework and styling
-track, then set `data-moduix-color-scheme` on the element that should own the color scheme. No Moduix
+moduix ships light and dark semantic tokens. Load the stylesheet for your chosen framework and styling
+track, then set `data-moduix-color-scheme` on the element that should own the color scheme. No moduix
 theme provider or runtime state is required.
 
 ## Choose the scope
@@ -31,8 +31,8 @@ Use the native document attributes as the source of truth:
 <html data-moduix-color-scheme="dark"></html>
 ```
 
-Use `dark` or `light`. Moduix does not read system preferences, persist a choice, or synchronize
-browser state. Your application owns those decisions.
+Use `dark` or `light`. moduix does not read system preferences, persist a choice, or synchronize
+browser state. Your application makes those decisions.
 
 If the application renders on the server, resolve the scheme before the first paint with the early
 theme mechanism provided by your framework. This avoids showing the light palette before hydration.
@@ -64,6 +64,28 @@ export function saveColorScheme(scheme: ColorScheme) {
 
 Use the operating-system preference only until the user makes an explicit choice. Give the control an
 accessible action label, such as `Switch to dark mode`.
+
+## Use an existing theme switcher
+
+If your application already switches themes with a `dark` class, as shadcn/ui projects, next-themes
+with `attribute="class"`, and VueUse `useDark()` do, map that class to the native color scheme.
+moduix tokens follow it the same way they follow the attribute:
+
+```css
+.dark {
+  color-scheme: dark;
+}
+```
+
+Tailwind's `dark:` variant follows the operating-system preference by default. When you switch with
+`data-moduix-color-scheme`, point the variant at the attribute so your utilities and moduix
+components change together:
+
+```css title="styles.css"
+@custom-variant dark (&:where([data-moduix-color-scheme='dark'], [data-moduix-color-scheme='dark'] *));
+```
+
+With a `dark` class, keep the variant your project already defines for that class.
 
 ## Combine color mode and presets
 
@@ -101,23 +123,27 @@ The component code differs only by the native package import:
 Portalled content renders outside a regular wrapper and cannot inherit its tokens. Move the attribute
 to the portal container, `<body>`, or `<html>` when the scoped surface opens overlays.
 
+:::warning Keep `light-dark()` native
+A scoped surface switches only when the browser runs `light-dark()` natively. Build tools that lower
+it for older browsers, such as Lightning CSS in Rsbuild with default targets, leave nested surfaces in
+the page's scheme. Set a `browserslist` that matches moduix: Chrome and Edge 123+, Firefox 120+,
+Safari 17.5+.
+:::
+
 ## Customize tokens
 
-Load application overrides after the Moduix stylesheet and override both schemes deliberately:
+Load application overrides after the moduix stylesheet. Set the light and dark values in one
+declaration with `light-dark()`:
 
 ```css
 :root {
-  --moduix-background: oklch(0.99 0.004 285);
-  --moduix-primary: oklch(0.5 0.18 260);
-}
-
-[data-moduix-color-scheme='dark'] {
-  --moduix-background: oklch(0.16 0.01 285);
-  --moduix-primary: oklch(0.76 0.13 260);
+  --moduix-background: light-dark(oklch(0.99 0.004 285), oklch(0.16 0.01 285));
+  --moduix-primary: light-dark(oklch(0.5 0.18 260), oklch(0.76 0.13 260));
 }
 ```
 
-Tokens you do not override keep their built-in values.
+`light-dark()` follows the color scheme however you switch it: with the attribute, a `dark` class,
+or on a scoped surface. Tokens you do not override keep their built-in values.
 
 ## Verify the theme
 

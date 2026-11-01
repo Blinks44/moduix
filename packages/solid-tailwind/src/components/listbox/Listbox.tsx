@@ -1,4 +1,4 @@
-import { ark, type HTMLArkProps } from '@ark-ui/solid/factory';
+import type { HTMLArkProps } from '@ark-ui/solid/factory';
 import {
   Listbox as ListboxPrimitive,
   type CollectionItem,
@@ -62,7 +62,7 @@ function ListboxInput(props: ComponentProps<typeof ListboxPrimitive.Input>) {
   return (
     <ListboxPrimitive.Input
       class={cn(
-        'm-0 min-h-control-md w-full rounded-md border border-border bg-background px-3 py-1 text-md leading-6 text-foreground outline-focus-inset outline-offset-focus-inset outline-transparent transition-[border-color,outline-color,opacity] duration-normal ease-in-out group-has-[[data-slot=listbox-filter-icon]]/listbox-filter:ps-9 group-has-[[data-slot=listbox-filter-icon]]/listbox-filter:pe-11 group-has-[+_[data-slot=listbox-content]]/listbox-filter:rounded-b-none group-has-[+_[data-slot=listbox-content]]/listbox-filter:border-b-0 group-has-[+_[data-slot=listbox-content]:focus-visible]/listbox-filter:border-ring placeholder:text-muted-foreground focus-visible:outline-ring disabled:cursor-default disabled:opacity-disabled in-[[data-slot=listbox-filter]]:focus-visible:border-ring in-[[data-slot=listbox-filter]]:focus-visible:outline-transparent [:is([data-slot=listbox-root],[data-slot=listbox-root-provider])[data-disabled]_&]:opacity-100',
+        'm-0 min-h-control-md w-full rounded-md border border-input bg-background px-3 py-1 text-md leading-6 text-foreground outline-focus-halo outline-transparent transition-[border-color,outline-color,opacity] duration-normal ease-in-out group-has-[[data-slot=listbox-filter-icon]]/listbox-filter:ps-9 group-has-[[data-slot=listbox-filter-icon]]/listbox-filter:pe-11 group-has-[+_[data-slot=listbox-content]]/listbox-filter:rounded-b-none group-has-[+_[data-slot=listbox-content]]/listbox-filter:border-b-0 group-has-[+_[data-slot=listbox-content]]/listbox-filter:[clip-path:inset(calc(var(--moduix-focus-ring-halo-width)*-1)_calc(var(--moduix-focus-ring-halo-width)*-1)_0)] group-has-[+_[data-slot=listbox-content]:focus-visible]/listbox-filter:border-ring group-has-[+_[data-slot=listbox-content]:focus-visible]/listbox-filter:outline-ring/50 placeholder:text-muted-foreground focus-visible:border-ring focus-visible:outline-ring/50 disabled:cursor-default disabled:opacity-disabled [:is([data-slot=listbox-root],[data-slot=listbox-root-provider])[data-disabled]_&]:opacity-100',
         local.class,
       )}
       {...others}
@@ -82,7 +82,7 @@ function ListboxFilter(props: ComponentProps<'div'>) {
     >
       <SearchIcon
         data-slot="listbox-filter-icon"
-        class="pointer-events-none absolute start-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground"
+        class="pointer-events-none absolute start-3 top-1/2 z-1 size-4 -translate-y-1/2 text-muted-foreground"
       />
       {local.children}
     </div>
@@ -108,7 +108,7 @@ function ListboxContent(props: ComponentProps<typeof ListboxPrimitive.Content>) 
   return (
     <ListboxPrimitive.Content
       class={cn(
-        'flex max-h-56 min-h-0 scroll-py-1 [scrollbar-gutter:stable] flex-col overflow-x-hidden overflow-y-auto rounded-md border border-border bg-background py-1 outline-focus-inset outline-offset-focus-inset outline-transparent transition-[border-color,outline-color] duration-normal ease-in-out peer-has-[[data-slot=listbox-input]:focus-visible]/listbox-filter:border-x-ring peer-has-[[data-slot=listbox-input]:focus-visible]/listbox-filter:border-b-ring peer-data-[slot=listbox-filter]/listbox-filter:-mt-3 peer-data-[slot=listbox-filter]/listbox-filter:rounded-t-none focus-visible:outline-ring peer-data-[slot=listbox-filter]/listbox-filter:focus-visible:border-x-ring peer-data-[slot=listbox-filter]/listbox-filter:focus-visible:border-b-ring peer-data-[slot=listbox-filter]/listbox-filter:focus-visible:outline-transparent data-[layout=grid]:grid data-[layout=grid]:grid-cols-[repeat(var(--column-count),minmax(0,1fr))] data-[layout=grid]:gap-1 data-[layout=grid]:p-2 data-[orientation=horizontal]:not-data-[layout=grid]:max-h-none data-[orientation=horizontal]:not-data-[layout=grid]:flex-row data-[orientation=horizontal]:not-data-[layout=grid]:gap-2 data-[orientation=horizontal]:not-data-[layout=grid]:overflow-x-auto data-[orientation=horizontal]:not-data-[layout=grid]:overflow-y-hidden data-[orientation=horizontal]:not-data-[layout=grid]:px-1',
+        'flex max-h-56 min-h-0 scroll-py-1 [scrollbar-gutter:stable] flex-col overflow-x-hidden overflow-y-auto rounded-md border border-input bg-background py-1 outline-focus-halo outline-transparent transition-[border-color,outline-color] duration-normal ease-in-out peer-has-[[data-slot=listbox-input]:focus-visible]/listbox-filter:border-x-ring peer-has-[[data-slot=listbox-input]:focus-visible]/listbox-filter:border-b-ring peer-has-[[data-slot=listbox-input]:focus-visible]/listbox-filter:outline-ring/50 peer-data-[slot=listbox-filter]/listbox-filter:-mt-3 peer-data-[slot=listbox-filter]/listbox-filter:rounded-t-none peer-data-[slot=listbox-filter]/listbox-filter:[clip-path:inset(0_calc(var(--moduix-focus-ring-halo-width)*-1)_calc(var(--moduix-focus-ring-halo-width)*-1))] focus-visible:border-ring focus-visible:outline-ring/50 peer-data-[slot=listbox-filter]/listbox-filter:focus-visible:border-t-input data-[layout=grid]:grid data-[layout=grid]:grid-cols-[repeat(var(--column-count),minmax(0,1fr))] data-[layout=grid]:gap-1 data-[layout=grid]:p-2 data-[orientation=horizontal]:not-data-[layout=grid]:max-h-none data-[orientation=horizontal]:not-data-[layout=grid]:flex-row data-[orientation=horizontal]:not-data-[layout=grid]:gap-2 data-[orientation=horizontal]:not-data-[layout=grid]:overflow-x-auto data-[orientation=horizontal]:not-data-[layout=grid]:overflow-y-hidden data-[orientation=horizontal]:not-data-[layout=grid]:px-1',
         local.class,
       )}
       {...others}
@@ -176,7 +176,10 @@ function ListboxItemText(props: ComponentProps<typeof ListboxPrimitive.ItemText>
 
   return (
     <ListboxPrimitive.ItemText
-      class={cn('min-w-0 overflow-hidden text-ellipsis whitespace-nowrap', local.class)}
+      class={cn(
+        'min-w-0 overflow-hidden text-ellipsis whitespace-nowrap [&>svg]:me-2 [&>svg]:inline-block [&>svg]:size-4 [&>svg]:align-middle',
+        local.class,
+      )}
       {...others}
       data-slot="listbox-item-text"
     />
@@ -213,42 +216,6 @@ function ListboxValueText(props: ComponentProps<typeof ListboxPrimitive.ValueTex
   );
 }
 
-function ListboxItemTextContent(props: HTMLArkProps<'span'>) {
-  const [local, others] = splitProps(props, ['class']);
-
-  return (
-    <ark.span
-      class={cn('inline-flex max-w-full min-w-0 items-center gap-2 align-top', local.class)}
-      {...others}
-      data-slot="listbox-item-text-content"
-    />
-  );
-}
-
-function ListboxItemTextIcon(props: HTMLArkProps<'span'>) {
-  const [local, others] = splitProps(props, ['class']);
-
-  return (
-    <ark.span
-      class={cn('inline-flex size-4 shrink-0 items-center justify-center', local.class)}
-      {...others}
-      data-slot="listbox-item-text-icon"
-    />
-  );
-}
-
-function ListboxItemTextLabel(props: HTMLArkProps<'span'>) {
-  const [local, others] = splitProps(props, ['class']);
-
-  return (
-    <ark.span
-      class={cn('min-w-0 overflow-hidden text-ellipsis whitespace-nowrap', local.class)}
-      {...others}
-      data-slot="listbox-item-text-label"
-    />
-  );
-}
-
 const ListboxContext = ListboxPrimitive.Context;
 const ListboxItemContext = ListboxPrimitive.ItemContext;
 
@@ -266,9 +233,6 @@ export {
   ListboxItemGroupLabel,
   ListboxItemIndicator,
   ListboxItemText,
-  ListboxItemTextContent,
-  ListboxItemTextIcon,
-  ListboxItemTextLabel,
   ListboxLabel,
   ListboxRootProvider,
   ListboxValueText,

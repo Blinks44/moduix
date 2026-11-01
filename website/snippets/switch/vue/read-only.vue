@@ -1,10 +1,10 @@
 <script setup lang="ts">
+import { Stack } from '@moduix/vue/stack';
 import { Switch, SwitchControl, SwitchHiddenInput, SwitchLabel } from '@moduix/vue/switch';
-import styles from '@/components/examples/switch/switch-read-only.module.css';
 </script>
 
 <template>
-  <div :class="styles.column">
+  <Stack align="flex-start" gap="3">
     <Switch read-only>
       <SwitchControl />
       <SwitchLabel>Managed by policy</SwitchLabel>
@@ -15,5 +15,5 @@ import styles from '@/components/examples/switch/switch-read-only.module.css';
       <SwitchLabel>Always on</SwitchLabel>
       <SwitchHiddenInput />
     </Switch>
-  </div>
+  </Stack>
 </template>

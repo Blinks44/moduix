@@ -5,7 +5,7 @@
     max-width: 100%;
     min-width: 0;
     flex-direction: column;
-    color: var(--moduix-color-foreground);
+    color: var(--moduix-foreground);
 
     &[data-orientation='horizontal'] {
       width: auto;
@@ -20,7 +20,7 @@
 
     &[data-orientation='vertical']:not(:last-child) {
       border-bottom: var(--moduix-border-width-sm) solid
-        var(--moduix-accordion-item-border-color, var(--moduix-color-border));
+        var(--moduix-accordion-item-border-color, var(--moduix-border));
     }
 
     &[data-orientation='horizontal'] {
@@ -28,7 +28,7 @@
 
       &:not(:last-child) {
         border-inline-end: var(--moduix-border-width-sm) solid
-          var(--moduix-accordion-item-border-color, var(--moduix-color-border));
+          var(--moduix-accordion-item-border-color, var(--moduix-border));
       }
     }
   }
@@ -59,19 +59,19 @@
     &:not(:disabled) {
       @media (hover: hover) {
         &:hover {
-          background-color: var(--moduix-accordion-trigger-bg-hover, var(--moduix-color-muted));
+          background-color: var(--moduix-accordion-trigger-bg-hover, var(--moduix-muted));
         }
       }
 
       &:active {
-        background-color: var(--moduix-accordion-trigger-bg-hover, var(--moduix-color-muted));
+        background-color: var(--moduix-accordion-trigger-bg-hover, var(--moduix-muted));
       }
     }
 
     &:focus-visible {
       position: relative;
       z-index: 1;
-      outline: var(--moduix-focus-ring-width) solid var(--moduix-color-ring);
+      outline: var(--moduix-focus-ring-width) solid var(--moduix-ring);
       outline-offset: var(--moduix-focus-ring-inset-offset);
     }
 
@@ -102,14 +102,27 @@
       height: 100%;
     }
 
-    &[data-state='open'] {
+    &[data-orientation='vertical'][data-state='open'] {
       transform: rotate(180deg);
+    }
+
+    &[data-orientation='horizontal'] {
+      transform: rotate(-90deg);
+
+      &[data-state='open'],
+      &[dir='rtl'] {
+        transform: rotate(90deg);
+      }
+
+      &[dir='rtl'][data-state='open'] {
+        transform: rotate(-90deg);
+      }
     }
   }
 
   .itemContent {
     overflow: hidden;
-    color: var(--moduix-accordion-item-content-color, var(--moduix-color-muted-foreground));
+    color: var(--moduix-accordion-item-content-color, var(--moduix-muted-foreground));
     font-size: var(--moduix-accordion-item-content-font-size, var(--moduix-text-md));
     line-height: var(--moduix-line-height-text-md);
 

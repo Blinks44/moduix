@@ -1,14 +1,27 @@
 ---
 title: Editable
 component: editable
-description: Build accessible inline editors in React, Solid, and Vue with package and shadcn installation options.
+description: Edit a short text in place and save or cancel the change.
+ark: https://ark-ui.com/docs/components/editable
 ---
 
+import AnatomyScene from '@/components/examples/editable/basic';
 import * as EditableDocs from '@/components/examples/editable/css-properties';
 
-## API Reference
+<Example name="editable/basic" />
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/editable" />
+## Installation
+
+<ComponentInstall />
+
+## Usage
+
+<Usage />
+
+Use `Editable` as the root and compose it from `EditableLabel`, `EditableArea`, `EditableInput`,
+and `EditablePreview`. Add `EditableControls` for the standard edit, submit, and cancel flow.
+moduix adds styles, `data-slot` hooks, and default trigger icons. By default, users enter edit mode
+with a double-click, which helps prevent accidental changes.
 
 ## Choosing the right component
 
@@ -17,100 +30,23 @@ import * as EditableDocs from '@/components/examples/editable/css-properties';
 - Wrap **`Editable`** in **`Field`** when helper text, error text, or shared form state should appear
   outside the component.
 
-## Basic
-
-
-Use `Editable` as the root and compose it from `EditableLabel`, `EditableArea`, `EditableInput`,
-and `EditablePreview`. Add `EditableControls` for the standard edit, submit, and cancel flow.
-moduix adds styles, `data-slot` hooks, and default trigger icons. By default, users enter edit mode
-with a double-click, which helps prevent accidental changes.
-
-<Example name="editable/basic" />
-
-## Install with shadcn
-
-See [Quick Start](/docs/quick-start) for full package setup, registry configuration, and styling guidance.
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/editable' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/editable' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/editable' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/editable' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/editable' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/editable' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Anatomy
-
-```text
-Editable
-├─ EditableLabel
-├─ EditableArea
-│  ├─ EditableInput
-│  └─ EditablePreview
-├─ EditableControl or EditableControls
-│  ├─ EditableEditTrigger
-│  ├─ EditableSubmitTrigger
-│  └─ EditableCancelTrigger
-
-EditableRootProvider
-└─ same part tree connected to Ark `useEditable()` state
-```
-
-| Part                         | Role                                                   |
-| ---------------------------- | ------------------------------------------------------ |
-| `Editable`                 | Component state, callbacks, form props, and accessibility wiring. |
-| `EditableRootProvider`      | Root connected to a `useEditable()` instance.          |
-| `EditableLabel`             | Visible label for the input and preview.               |
-| `EditableArea`              | Shared container for the input and preview.            |
-| `EditableInput`             | Text input shown while editing.                        |
-| `EditablePreview`           | Read-only value or placeholder shown outside edit mode. |
-| `EditableControl`           | Optional container for edit, submit, and cancel buttons. |
-| `EditableControls`          | Convenience wrapper for the standard trigger flow.   |
-| `EditableEditTrigger`       | Button that enters edit mode.                          |
-| `EditableSubmitTrigger`     | Button that commits the current value.                 |
-| `EditableCancelTrigger`     | Button that reverts the current value.                 |
-
-## Composition
-
-Keep `EditableInput` and `EditablePreview` as siblings inside `EditableArea`, then place
-`EditableControls` after the area for the standard edit, submit, and cancel flow. Use
-`EditableRootProvider` instead of `Editable` when state created by `useEditable()` must be
-shared with controls outside the rendered tree. Use `EditableContext` or `useEditableContext()` for
-custom content that depends on the current edit state. In Solid, the store exposed by `useEditable()`
-and context is an accessor, so read state as `editable().editing`.
-
 ## Examples
 
-### Controlled
+### Textarea
 
-Use `value` and `onValueChange` when application state should be the source of truth for the value.
+Use `EditableInput asChild` with a native `<textarea>` for multiline content. The textarea gets a
+minimum height, the preview keeps line breaks, and the controls stay at the top. Press Cmd/Ctrl +
+Enter to save; Enter inserts a new line.
 
-<Example name="editable/controlled" />
+<Example name="editable/textarea" />
+
+### Custom triggers
+
+Render your own `Button` in each trigger with `asChild`. `EditableContext` switches between the edit
+trigger and the submit and cancel triggers, and `translations` keeps the accessible names in line with
+the visible text.
+
+<Example name="editable/custom-triggers" />
 
 ### Disabled and read-only
 
@@ -131,7 +67,7 @@ Pass `name` to include the current value in a native form submission.
 
 <Example name="editable/form" />
 
-### Click to Edit
+### Click to edit
 
 The root accepts common Ark options such as activation mode, auto-resize, maximum length,
 mode-specific placeholders, and localized control labels. This example sets `activationMode` to
@@ -139,31 +75,59 @@ mode-specific placeholders, and localized control labels. This example sets `act
 
 <Example name="editable/guides" />
 
-### Root Provider
+### Controlled
+
+Use `value` and `onValueChange` when application state should be the source of truth for the value. See [Control state from the application](/docs/composition-patterns#controlled-state).
+
+<Example name="editable/controlled" />
+
+### Root provider
 
 Use moduix `useEditable()` and `EditableRootProvider` when controls outside the component tree
 need access to `Editable` state and methods. Pass `activationMode: 'dblclick'` to the hook to match
 the root component's default activation behavior. The provider replaces `Editable` for this
-state instance.
+state instance. See [Share state outside the tree](/docs/composition-patterns#root-provider).
 
 <Example name="editable/root-provider" />
 
-### Textarea
+### Build from parts
 
-Use `EditableInput asChild` with a native `<textarea>` for multiline content. The textarea gets a
-minimum height, the preview keeps line breaks, and the controls stay at the top. Press Cmd/Ctrl +
-Enter to save; Enter inserts a new line.
+The same field as Basic, without `EditableControls`: `EditableContext` switches between
+`EditableEditTrigger` and the submit and cancel triggers inside `EditableControl`, and each trigger
+receives an explicit icon. Start here when a design changes the controls or their icons.
 
-<Example name="editable/textarea" />
+<Example name="editable/build-from-parts" />
 
-### Advanced Customization
+## Composition
 
-This example builds what `EditableControls` does from low-level parts: `EditableContext` switches
-between `EditableEditTrigger` and the submit and cancel triggers inside `EditableControl`. With
-`asChild`, each trigger renders your own `Button` and keeps its styles; `translations` keeps the
-accessible names in line with the visible text.
+Keep `EditableInput` and `EditablePreview` as siblings inside `EditableArea`, then place
+`EditableControls` after the area for the standard edit, submit, and cancel flow. Use
+`EditableRootProvider` instead of `Editable` when state created by `useEditable()` must be
+shared with controls outside the rendered tree. Use `EditableContext` or `useEditableContext()` for
+custom content that depends on the current edit state. In Solid, the store exposed by `useEditable()`
+and context is an accessor, so read state as `editable().editing`.
 
-<Example name="editable/advanced-customization" />
+## Anatomy
+
+Hover or focus a part to find it in the preview.
+
+<AnatomyInspector
+  parts={[
+    ["Editable", "editable-root", "Component state, callbacks, form props, and accessibility wiring.", 0],
+    ["EditableLabel", "editable-label", "Visible label for the input and preview.", 1],
+    ["EditableArea", "editable-area", "Shared container for the input and preview.", 1],
+    ["EditableInput", "editable-input", "Text input shown while editing.", 2],
+    ["EditablePreview", "editable-preview", "Read-only value or placeholder shown outside edit mode.", 2],
+    ["EditableControl", "editable-control", "Optional container for edit, submit, and cancel buttons.", 1],
+    ["EditableEditTrigger", "editable-edit-trigger", "Button that enters edit mode.", 2],
+    ["EditableSubmitTrigger", "editable-submit-trigger", "Button that commits the current value.", 2],
+    ["EditableCancelTrigger", "editable-cancel-trigger", "Button that reverts the current value.", 2],
+    ["EditableControls", "", "Convenience wrapper for the standard trigger flow.", 2],
+    ["EditableRootProvider", "editable-root-provider", "Root connected to a `useEditable()` instance.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styling
 
@@ -176,17 +140,68 @@ The root fills the width of its container, so switching between preview and inpu
 layout. With `autoResize`, the root follows the text width instead. To limit the width, set
 `max-width` on the root with a class.
 
-### CSS Properties
+### CSS variables
 
-<CssPropertiesSection properties={EditableDocs.editableOverrideCssProperties} />
+Hover or focus a variable to see it in the preview.
+
+<CssPropertiesSection properties={EditableDocs.editableOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Styling hooks
 
-- Stable `data-slot` selectors: `editable-root`, `editable-root-provider`, `editable-label`,
-  `editable-area`, `editable-input`, `editable-preview`, `editable-control`,
-  `editable-edit-trigger`, `editable-submit-trigger`, and `editable-cancel-trigger`.
+| Part | `data-slot` |
+| --- | --- |
+| `Editable` | `editable-root` |
+| `EditableRootProvider` | `editable-root-provider` |
+| `EditableLabel` | `editable-label` |
+| `EditableArea` | `editable-area` |
+| `EditableInput` | `editable-input` |
+| `EditablePreview` | `editable-preview` |
+| `EditableControl` | `editable-control` |
+| `EditableEditTrigger` | `editable-edit-trigger` |
+| `EditableSubmitTrigger` | `editable-submit-trigger` |
+| `EditableCancelTrigger` | `editable-cancel-trigger` |
+
 - Ark part selectors: `data-scope="editable"` and
   `data-part="root|area|label|preview|input|edit-trigger|submit-trigger|cancel-trigger|control"`.
 - Ark state selectors: `data-disabled`, `data-focus`, `data-invalid`, `data-readonly`,
   `data-required`, `data-placeholder-shown`, and `data-autoresize`.
 - `EditableControls` shares the `editable-control` slot with `EditableControl`.
+
+## Keyboard
+
+| Key | Action |
+| --- | --- |
+| `Enter` | Saves the value when submitMode allows it. |
+| `Esc` | Cancels the edit and restores the previous value. |
+
+## API reference
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `value` | `string` | — | Value for controlled use. |
+| `defaultValue` | `string` | — | Initial value when it is not controlled. |
+| `onValueChange` | `(details: ValueChangeDetails) => void` | — | Called when the value changes. |
+| `onValueCommit` | `(details: ValueChangeDetails) => void` | — | Called when the edit is saved. |
+| `onValueRevert` | `(details: ValueChangeDetails) => void` | — | Called when the edit is canceled. |
+| `activationMode` | `'focus' \| 'dblclick' \| 'click' \| 'none'` | `'dblclick'` | What starts editing: `focus`, `click`, `dblclick`, or `none`. |
+| `submitMode` | `'enter' \| 'blur' \| 'both' \| 'none'` | `'both'` | What saves the edit: `enter`, `blur`, `both`, or `none`. |
+| `selectOnFocus` | `boolean` | `true` | Selects the text when editing starts. |
+| `edit` | `boolean` | — | Edit mode for controlled use. |
+| `onEditChange` | `(details: EditChangeDetails) => void` | — | Called when edit mode starts or ends. |
+| `placeholder` | `string \| { edit: string; preview: string }` | — | Placeholder text, or separate texts for edit and preview. |
+| `maxLength` | `number` | — | Maximum number of characters. |
+| `autoResize` | `boolean` | `false` | Grows the input with its content. |
+| `name` | `string` | — | Form field name of the underlying input. |
+| `disabled` | `boolean` | `false` | Disables the control. |
+| `readOnly` | `boolean` | `false` | Shows the value but prevents changes. |
+| `invalid` | `boolean` | `false` | Marks the control as invalid. |
+| `required` | `boolean` | `false` | Requires a value before form submission. |
+| `form` | `string` | — | Id of the form the underlying input belongs to. |
+| `defaultEdit` | `boolean` | — | Starts in edit mode. |
+| `translations` | `IntlTranslations` | — | Localized strings for accessibility labels. |
+| `finalFocusEl` | `() => HTMLElement \| null` | — | Element to focus when editing ends. |
+| `onPointerDownOutside` | `(event: PointerDownOutsideEvent) => void` | — | Called when the pointer is pressed outside the popup. |
+| `onFocusOutside` | `(event: FocusOutsideEvent) => void` | — | Called when focus moves outside the popup. |
+| `onInteractOutside` | `(event: InteractOutsideEvent) => void` | — | Called on any interaction outside the popup. |

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { NumberInput, NumberInputField, NumberInputLabel } from '../src/components/number-input';
+import { NumberInput, NumberInputField, NumberInputLabel } from '@/components/number-input';
 </script>
 
 <template>

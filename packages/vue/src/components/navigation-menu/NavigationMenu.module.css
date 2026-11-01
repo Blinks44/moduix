@@ -5,7 +5,7 @@
     inline-size: fit-content;
     max-inline-size: 100%;
     min-inline-size: 0;
-    color: var(--moduix-color-foreground);
+    color: var(--moduix-foreground);
   }
 
   .list {
@@ -72,7 +72,7 @@
     }
 
     &:focus-visible {
-      outline: var(--moduix-focus-ring-inset-width) solid var(--moduix-color-ring);
+      outline: var(--moduix-focus-ring-inset-width) solid var(--moduix-ring);
     }
 
     &:is([data-disabled], :disabled) {
@@ -83,7 +83,7 @@
 
     @media (hover: hover) {
       &:hover:not([data-disabled], :disabled) {
-        background-color: var(--moduix-color-muted);
+        background-color: var(--moduix-muted);
       }
     }
   }
@@ -94,7 +94,7 @@
     }
 
     &[data-state='open'] {
-      background-color: var(--moduix-color-muted);
+      background-color: var(--moduix-muted);
 
       & > svg {
         rotate: 180deg;
@@ -103,7 +103,7 @@
   }
 
   .link[data-current] {
-    color: var(--moduix-color-primary);
+    color: var(--moduix-primary);
   }
 
   .content {
@@ -129,9 +129,9 @@
     overflow: auto;
     border-radius: var(--moduix-radius-md);
     padding-block: var(--moduix-popup-list-padding-y, var(--moduix-spacing-1));
-    background-color: var(--moduix-color-popover);
-    color: var(--moduix-color-popover-foreground);
-    outline: var(--moduix-border-width-sm) solid var(--moduix-color-border);
+    background-color: var(--moduix-popover);
+    color: var(--moduix-popover-foreground);
+    outline: var(--moduix-border-width-sm) solid var(--moduix-border);
     box-shadow: var(--moduix-shadow-lg);
     transform-origin: top left;
     overscroll-behavior: contain;
@@ -191,9 +191,9 @@
     inset-block-start: var(--moduix-spacing-1);
     inline-size: var(--moduix-spacing-2-5);
     block-size: var(--moduix-spacing-2-5);
-    border-block-start: var(--moduix-border-width-sm) solid var(--moduix-color-border);
-    border-inline-start: var(--moduix-border-width-sm) solid var(--moduix-color-border);
-    background-color: var(--moduix-color-popover);
+    border-block-start: var(--moduix-border-width-sm) solid var(--moduix-border);
+    border-inline-start: var(--moduix-border-width-sm) solid var(--moduix-border);
+    background-color: var(--moduix-popover);
     rotate: 45deg;
   }
 
@@ -239,9 +239,9 @@
     margin-block-start: var(--moduix-spacing-2-5);
     overflow: hidden;
     border-radius: var(--moduix-radius-md);
-    background-color: var(--moduix-color-popover);
-    color: var(--moduix-color-popover-foreground);
-    outline: var(--moduix-border-width-sm) solid var(--moduix-color-border);
+    background-color: var(--moduix-popover);
+    color: var(--moduix-popover-foreground);
+    outline: var(--moduix-border-width-sm) solid var(--moduix-border);
     box-shadow: var(--moduix-shadow-lg);
     transform-origin: top center;
     transition:

@@ -1,104 +1,121 @@
 ---
 title: Popover
 component: popover
-description: An accessible popover for compact interactive content, anchored to a trigger or another reference element.
+description: Show interactive content in a panel anchored to a trigger.
+ark: https://ark-ui.com/docs/components/popover
 ---
 
-## API Reference
+import AnatomyScene from '@/components/examples/popover/anatomy';
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/popover" />
+<Example name="popover/basic" />
+
+## Installation
+
+<ComponentInstall />
+
+## Usage
+
+<Usage />
+
+Use `Popover` as the root and import each additional part directly, such as `PopoverTrigger` and
+`PopoverContent`. The same flat names work with npm packages and shadcn registry source. Set
+positioning on the root and use `asChild` when your own button should render the trigger.
 
 ## Choosing the right component
 
 Use `Popover` for compact interactive content that opens from a trigger. Use `Tooltip` for short,
 non-interactive hints. Use `Dialog` for larger workflows that need the user's full attention.
 
-## Basic
+## Examples
 
-Use `Popover` as the root and import each additional part directly, such as `PopoverTrigger` and
-`PopoverContent`. The same flat names work with npm packages and shadcn registry source. Set
-positioning on the root and use `asChild` when your own button should render the trigger.
+### Placement
 
-<Example name="popover/basic" />
+Pass Ark positioning options through the root's `positioning` prop.
 
-## Install with shadcn
+<Example name="popover/placement" />
 
-See [Quick Start](/docs/quick-start) for full package setup, registry configuration, and styling guidance.
+### With arrow
 
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
+Add `PopoverArrow` when the popover needs a visual pointer to its reference element. The wrapper
+renders the default moduix-styled `PopoverArrowTip`.
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/popover' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/popover' },
-  ]}
-/>
+<Example name="popover/with-arrow" />
 
-  </Tab>
-  <Tab label="Solid" value="solid">
+### Same width
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/popover' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/popover' },
-  ]}
-/>
+Set `positioning.sameWidth` when the content should match its trigger width.
 
-  </Tab>
-  <Tab label="Vue" value="vue">
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/popover' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/popover' },
-  ]}
-/>
-  </Tab>
-</Tabs>
+<Example name="popover/same-width" />
 
-## Anatomy
+### Anchor
 
-```text
-Popover
-├─ PopoverAnchor (optional)
-├─ PopoverTrigger
-│  └─ PopoverIndicator (optional)
-└─ Overlay subtree (automatically rendered in a portal)
-   └─ PopoverPositioner
-      └─ PopoverContent
-         ├─ PopoverArrow
-         │  └─ PopoverArrowTip
-         ├─ PopoverHeader
-         │  ├─ PopoverTitle
-         │  └─ PopoverDescription
-         ├─ PopoverBody
-         ├─ PopoverFooter
-         └─ PopoverCloseTrigger / PopoverCloseIcon
+Use `PopoverAnchor` when a different element should provide the positioning reference.
 
-PopoverRootProvider
-└─ the same part tree connected to state from moduix usePopover()
+<Example name="popover/anchor" />
 
-PopoverContext
-└─ a render prop with the current popover state
-```
+### Close behavior
 
-| Part                         | Role                                                                  |
-| ---------------------------- | --------------------------------------------------------------------- |
-| `Popover`   | Owns state, opening and closing, focus, dismissal, and positioning.    |
-| `PopoverRootProvider`       | Connects the parts to state created with `usePopover()`.              |
-| `PopoverContext`            | Exposes current state through a render prop for descendants.          |
-| `PopoverAnchor`             | Optional reference element used for positioning.                      |
-| `PopoverTrigger`            | Button that toggles the popover and can have a trigger `value`.       |
-| `PopoverIndicator`           | Optional indicator for the trigger's state.                            |
-| `PopoverPositioner`         | Floating layer that exposes Ark positioning CSS variables.             |
-| `PopoverContent`             | Visible interactive popover surface.                                   |
-| `PopoverArrow` / `PopoverArrowTip` | Optional positioned arrow and its visible tip.                        |
-| `PopoverTitle`               | Accessible title associated with the content.                          |
-| `PopoverDescription`         | Accessible description associated with the content.                    |
-| `PopoverCloseTrigger`        | Low-level trigger that closes the popover.                             |
-| `PopoverCloseIcon`            | Moduix helper that combines Ark's close trigger with an icon button.   |
-| `PopoverHeader` / `PopoverBody`      | Moduix layout helpers with stable slots.                               |
-| `PopoverFooter`               | Moduix action-row helper with a stable slot.                            |
+Disable dismissal on outside interaction or Escape only when the workflow provides an explicit
+close action.
+
+<Example name="popover/close-behavior" />
+
+### Modal
+
+Use modal mode when the interaction should keep the user inside the popover. It traps focus and
+hides outside content from assistive technology. Use `initialFocusEl` to choose the first focus
+target.
+
+<Example name="popover/modal" />
+
+### Nested
+
+Nested popovers keep independent state. Render the nested popover with `portalled={false}` so it
+stays inside the parent overlay and participates in its layer structure.
+
+<Example name="popover/nested" />
+
+### Multiple triggers
+
+Share one content area across several triggers by giving each trigger a `value` and reacting to
+the active value.
+
+<Example name="popover/multiple-triggers" />
+
+### Controlled
+
+Keep `open` in framework state and read `details.open` from `onOpenChange` to synchronize the
+popover with the rest of the application. See [Control state from the application](/docs/composition-patterns#controlled-state).
+
+<Example name="popover/controlled" />
+
+### Lazy mount
+
+Use `lazyMount` and `unmountOnExit` when the content should be mounted only while the popover is
+in use.
+
+<Example name="popover/lazy-mount" />
+
+### Context
+
+Use `usePopoverContext()` inside a descendant that needs the current popover state. Use
+`PopoverContext` when a render prop makes the composition clearer.
+
+<Example name="popover/context" />
+
+### Root provider
+
+Use `usePopover()` with `PopoverRootProvider` when controls outside the popover tree need to read
+or update its state. See [Share state outside the tree](/docs/composition-patterns#root-provider).
+
+<Example name="popover/root-provider" />
+
+### Build from parts
+
+The same popover as Basic, without `PopoverHeader` and `PopoverFooter`: plain layout elements
+around the title, description, and close trigger. Start here when a design changes the popup layout.
+
+<Example name="popover/build-from-parts" />
 
 ## Composition
 
@@ -114,97 +131,31 @@ set `portalled={false}` on the nested root so it stays inside the parent overlay
 triggers share one popover, give each trigger a `value` and update the surrounding content from
 `onTriggerValueChange(details)`.
 
-## Examples
+## Anatomy
 
-### Anchor
+Hover or focus a part to find it in the preview.
 
-Use `PopoverAnchor` when a different element should provide the positioning reference.
-
-<Example name="popover/anchor" />
-
-### Close Behavior
-
-Disable dismissal on outside interaction or Escape only when the workflow provides an explicit
-close action.
-
-<Example name="popover/close-behavior" />
-
-### Context
-
-Use `usePopoverContext()` inside a descendant that needs the current popover state. Use
-`PopoverContext` when a render prop makes the composition clearer.
-
-<Example name="popover/context" />
-
-### Controlled
-
-Keep `open` in framework state and read `details.open` from `onOpenChange` to synchronize the
-popover with the rest of the application.
-
-<Example name="popover/controlled" />
-
-### Lazy Mount
-
-Use `lazyMount` and `unmountOnExit` when the content should be mounted only while the popover is
-in use.
-
-<Example name="popover/lazy-mount" />
-
-### Modal
-
-Use modal mode when the interaction should keep the user inside the popover. It traps focus and
-hides outside content from assistive technology. Use `initialFocusEl` to choose the first focus
-target.
-
-<Example name="popover/modal" />
-
-### Multiple Triggers
-
-Share one content area across several triggers by giving each trigger a `value` and reacting to
-the active value.
-
-<Example name="popover/multiple-triggers" />
-
-### Nested
-
-Nested popovers keep independent state. Render the nested popover with `portalled={false}` so it
-stays inside the parent overlay and participates in its layer structure.
-
-<Example name="popover/nested" />
-
-### Placement
-
-Pass Ark positioning options through the root's `positioning` prop.
-
-<Example name="popover/placement" />
-
-### Root Provider
-
-Use `usePopover()` with `PopoverRootProvider` when controls outside the popover tree need to read
-or update its state.
-
-<Example name="popover/root-provider" />
-
-### Same Width
-
-Set `positioning.sameWidth` when the content should match its trigger width.
-
-<Example name="popover/same-width" />
-
-### With Arrow
-
-Add `PopoverArrow` when the popover needs a visual pointer to its reference element. The wrapper
-renders the default moduix-styled `PopoverArrowTip`.
-
-<Example name="popover/with-arrow" />
-
-### Advanced Customization
-
-Build the popup from the low-level parts when the moduix helpers do not fit the layout. This
-example places `PopoverTitle` and a `PopoverCloseTrigger` with `asChild` around `CloseButton` in a
-custom header, and renders `PopoverArrowTip` inside `PopoverArrow` explicitly.
-
-<Example name="popover/advanced-customization" />
+<AnatomyInspector
+  parts={[
+    ["Popover", null, "Manages state, opening and closing, focus, dismissal, and positioning.", 0],
+    ["PopoverAnchor", "popover-anchor", "Optional reference element used for positioning.", 1],
+    ["PopoverTrigger", "popover-trigger", "Button that toggles the popover and can have a trigger `value`.", 2],
+    ["PopoverIndicator", "popover-indicator", "Optional indicator for the trigger's state.", 3],
+    ["PopoverPositioner", "popover-positioner", "Floating layer that exposes Ark positioning CSS variables.", 1],
+    ["PopoverContent", "popover-content", "Visible interactive popover surface.", 2],
+    ["PopoverArrow / PopoverArrowTip", "popover-arrow", "Optional positioned arrow and its visible tip.", 3],
+    ["PopoverHeader / PopoverBody", "popover-header", "moduix layout helpers with stable slots.", 3],
+    ["PopoverTitle", "popover-title", "Accessible title associated with the content.", 4],
+    ["PopoverCloseIcon", "popover-close-icon", "moduix helper that combines Ark's close trigger with an icon button.", 4],
+    ["PopoverDescription", "popover-description", "Accessible description associated with the content.", 4],
+    ["PopoverFooter", "popover-footer", "moduix action-row helper with a stable slot.", 3],
+    ["PopoverCloseTrigger", "popover-close-trigger", "Low-level trigger that closes the popover.", 4],
+    ["PopoverRootProvider", null, "Connects the parts to state created with `usePopover()`.", 0],
+    ["PopoverContext", null, "Exposes current state through a render prop for descendants.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styling
 
@@ -221,6 +172,23 @@ variables: a class on the part overrides the layered component styles. Data attr
 
 ### Styling hooks
 
+| Part | `data-slot` |
+| --- | --- |
+| `PopoverAnchor` | `popover-anchor` |
+| `PopoverTrigger` | `popover-trigger` |
+| `PopoverIndicator` | `popover-indicator` |
+| `PopoverPositioner` | `popover-positioner` |
+| `PopoverContent` | `popover-content` |
+| `PopoverArrow` | `popover-arrow` |
+| `PopoverArrowTip` | `popover-arrow-tip` |
+| `PopoverTitle` | `popover-title` |
+| `PopoverDescription` | `popover-description` |
+| `PopoverCloseTrigger` | `popover-close-trigger` |
+| `PopoverCloseIcon` | `popover-close-icon` |
+| `PopoverHeader` | `popover-header` |
+| `PopoverBody` | `popover-body` |
+| `PopoverFooter` | `popover-footer` |
+
 Every rendered part accepts `className` or `class`. Ark parts retain `data-scope="popover"` and
 their `data-part` values, while moduix adds `data-slot="popover-*"` to rendered wrappers. `Popover`
 and `PopoverRootProvider` provide state but do not render DOM elements. For state-aware styling,
@@ -230,5 +198,35 @@ popover.
 
 `PopoverPositioner` exposes `--reference-width`, `--reference-height`, `--available-width`,
 `--available-height`, `--x`, `--y`, `--z-index`, and `--transform-origin`. `PopoverContent` exposes
-`--layer-index` and `--nested-layer-count`. `PopoverArrow` exposes Ark's arrow measurement variables.
-Content wraps long unbroken strings and disables its motion when the user prefers reduced motion.
+`--layer-index` and `--nested-layer-count`. `PopoverArrow` exposes Ark's arrow measurement variables. Content wraps long unbroken strings and disables its motion when the user prefers reduced motion.
+
+## Keyboard
+
+| Key | Action |
+| --- | --- |
+| `Enter` / `Space` | Opens or closes the popover from the trigger. |
+| `Tab` / `Shift+Tab` | Moves through the content; leaving it closes a non-modal popover. |
+| `Esc` | Closes it and returns focus to the trigger. |
+
+## API reference
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `open` | `boolean` | — | Open state for controlled use. |
+| `defaultOpen` | `boolean` | `false` | Initial open state when it is not controlled. |
+| `onOpenChange` | `(details: OpenChangeDetails) => void` | — | Called when it opens or closes. |
+| `positioning` | `PositioningOptions` | — | Placement, offset, and other popup positioning options. |
+| `modal` | `boolean` | `false` | Traps focus, blocks outside interaction, and locks page scroll. |
+| `autoFocus` | `boolean` | `true` | Moves focus to the first focusable element on open. |
+| `closeOnEscape` | `boolean` | `true` | Closes on Escape. |
+| `closeOnInteractOutside` | `boolean` | `true` | Closes on a click outside. |
+| `initialFocusEl` | `() => HTMLElement \| null \| false` | — | Returns the element to focus on open. |
+| `portalled` | `boolean` | `true` | Renders the popup in a portal at the end of `body`. |
+| `lazyMount` | `boolean` | `true` | Mounts the content on first open. |
+| `unmountOnExit` | `boolean` | `true` | Unmounts the content after it closes. |
+| `translations` | `IntlTranslations` | — | Localized strings for accessibility labels. |
+| `finalFocusEl` | `() => MaybeElement` | — | Returns the element to focus on close. |
+| `restoreFocus` | `boolean` | `true` | Returns focus to the previously focused element on close. |
+| `triggerValue` | `string \| null` | — | Active trigger for controlled use when several triggers share one popup. |
+| `defaultTriggerValue` | `string \| null` | — | Initially active trigger. |
+| `onTriggerValueChange` | `(details: TriggerValueChangeDetails) => void` | — | Called when another trigger becomes active. |

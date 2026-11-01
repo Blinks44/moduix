@@ -2,38 +2,34 @@
   {
     "type": "file",
     "name": "index",
-    "label": "Parcourir les blocs",
-    "tag": "clipboard-list"
+    "label": "Parcourir les blocs"
   },
   {
     "type": "section-header",
     "label": "Application"
   },
-  { "type": "file", "name": "app-header", "label": "En-tête", "tag": "panel-top" },
+  { "type": "file", "name": "app-header", "label": "En-tête" },
   {
     "type": "file",
     "name": "sidebar-dashboard",
-    "label": "Tableau latéral",
-    "tag": "panel-left"
+    "label": "Tableau latéral"
   },
   {
     "type": "section-header",
     "label": "Accès"
   },
-  { "type": "file", "name": "login-simple", "label": "Connexion", "tag": "log-in" },
-  { "type": "file", "name": "sign-up", "label": "Inscription", "tag": "list-checks" },
-  { "type": "file", "name": "forgot-password", "label": "Mot de passe oublié", "tag": "key-round" },
+  { "type": "file", "name": "login-simple", "label": "Connexion" },
+  { "type": "file", "name": "sign-up", "label": "Inscription" },
+  { "type": "file", "name": "forgot-password", "label": "Mot de passe oublié" },
   {
     "type": "file",
     "name": "reset-password",
-    "label": "Réinitialisation du mot de passe",
-    "tag": "refresh-cw"
+    "label": "Réinitialisation du mot de passe"
   },
   {
     "type": "file",
     "name": "verification-code",
-    "label": "Code de vérification",
-    "tag": "badge-check"
+    "label": "Code de vérification"
   },
   {
     "type": "section-header",
@@ -42,14 +38,12 @@
   {
     "type": "file",
     "name": "data-table",
-    "label": "Tableau de données",
-    "tag": "table-properties"
+    "label": "Tableau de données"
   },
   {
     "type": "file",
     "name": "file-upload-manager",
-    "label": "Téléversement de fichiers",
-    "tag": "file-text"
+    "label": "Téléversement de fichiers"
   },
   {
     "type": "section-header",
@@ -58,8 +52,7 @@
   {
     "type": "file",
     "name": "expandable-avatar-group",
-    "label": "Groupe d’avatars extensible",
-    "tag": "users-round"
+    "label": "Groupe d’avatars extensible"
   },
   {
     "type": "section-header",
@@ -68,8 +61,7 @@
   {
     "type": "file",
     "name": "autoplay-gallery",
-    "label": "Galerie à lecture automatique",
-    "tag": "paintbrush"
+    "label": "Galerie à lecture automatique"
   },
-  { "type": "file", "name": "parallax-card", "label": "Carte parallaxe", "tag": "orbit" }
+  { "type": "file", "name": "parallax-card", "label": "Carte parallaxe" }
 ]

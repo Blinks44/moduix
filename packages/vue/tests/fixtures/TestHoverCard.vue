@@ -6,7 +6,7 @@ import {
   HoverCardPositioner,
   HoverCardContent,
   HoverCardBody,
-} from '../../src';
+} from '@/index';
 
 const open = ref(true);
 </script>

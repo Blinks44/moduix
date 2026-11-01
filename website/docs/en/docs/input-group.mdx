@@ -1,17 +1,25 @@
 ---
 title: Input Group
 component: input-group
-description: Build inputs with prefixes, suffixes, and inline actions in React, Solid, or Vue with package and shadcn installation options.
+description: Add prefixes, suffixes, and inline buttons around an input.
+ark: https://ark-ui.com/docs/guides/composition
 ---
 
+import AnatomyScene from '@/components/examples/input-group/basic';
 import * as InputGroupDocs from '@/components/examples/input-group/css-properties';
 
-## API Reference
+<Example name="input-group/basic" />
 
-`InputGroup` is a moduix composition, not an Ark UI primitive. It combines Ark factory elements
-with the Ark-backed moduix `Input` and `Button` components. The composition follows Ark's guidance
-on [composition](https://ark-ui.com/docs/guides/composition), [styling](https://ark-ui.com/docs/guides/styling),
-and [refs](https://ark-ui.com/docs/guides/ref).
+## Installation
+
+<ComponentInstall />
+
+## Usage
+
+<Usage />
+
+Use `InputGroup` as the root and compose exactly one `InputGroupInput` with any needed `InputGroupAddon`,
+`InputGroupText`, or `InputGroupButton` parts.
 
 ## Choosing the right component
 
@@ -22,75 +30,75 @@ and [refs](https://ark-ui.com/docs/guides/ref).
 - Use **`Textarea`** for multi-line content.
 - Use **`Editable`** when text should appear as a value first and switch into edit mode on demand.
 
-## Basic
+## Examples
 
+### Prefix and suffix
 
-Use `InputGroup` as the root and compose exactly one `InputGroupInput` with any needed `InputGroupAddon`,
-`InputGroupText`, or `InputGroupButton` parts.
+Use `InputGroupAddon` for a filled prefix or suffix and `InputGroupText` for inline text without a fill.
 
-<Example name="input-group/basic" />
+<Example name="input-group/prefix-and-suffix" />
 
-## Install with shadcn
+### With action
 
-See [Quick Start](/docs/quick-start) for full package setup, registry configuration, and styling guidance.
+Use `InputGroupButton` for an action tied to the input value. This example keeps the input
+controlled and enables `Send` only after a value is entered.
 
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
+<Example name="input-group/with-action" />
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/input-group' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/input-group' },
-  ]}
-/>
+### Clear trigger
 
-  </Tab>
-  <Tab label="Solid" value="solid">
+Use `InputGroupClearTrigger` for a clear action with a default close icon and accessible label.
+It inherits the group size and defaults to `type="button"`. Handle value clearing and focus in
+`onClick` (Vue: `@click`); render it only when the value is non-empty. It does not clear or hide
+automatically. Disable it explicitly for disabled or read-only fields. Override `aria-label`
+for your language, or use `aria-labelledby`; children replace the default icon.
+The compact hover surface matches the clear buttons in Select and Combobox.
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/input-group' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/input-group' },
-  ]}
-/>
+<Example name="input-group/clear-trigger" />
 
-  </Tab>
-  <Tab label="Vue" value="vue">
+### Sizes
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/input-group' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/input-group' },
-  ]}
-/>
+Set `size` once on the root to keep the input, addon, text, and button aligned.
 
-  </Tab>
-</Tabs>
+<Example name="input-group/sizes" />
 
-## Anatomy
+### Textarea
 
-```text
-InputGroup
-├─ InputGroupAddon (optional)
-├─ InputGroupInput or InputGroupTextarea
-├─ InputGroupText (optional)
-├─ InputGroupButton (optional)
-└─ InputGroupClearTrigger (optional)
-```
+Use `InputGroupTextarea` for multi-line input, such as a message composer. It renders the moduix
+`Textarea` without its border, inherits the group size unless it gets its own `size`, and keeps
+Ark Field state and `autoresize`. Add a toolbar with `InputGroupAddon align="block"` and a regular `Button`.
 
-| Part                             | Role                                                        |
-| -------------------------------- | ----------------------------------------------------------- |
-| `InputGroup`                    | Passive layout wrapper with shared styling and size context. |
-| `InputGroupInput`               | Native `<input>` that owns the form value and field state.  |
-| `InputGroupTextarea`            | Native `<textarea>` for multi-line values; use it instead of `InputGroupInput`. |
-| `InputGroupAddon`               | Filled prefix or suffix.                                   |
-| `InputGroupText`                | Inline text without a fill.                                |
-| `InputGroupButton`              | Action button associated with the input.                   |
-| `InputGroupClearTrigger` | Clear action with a default close icon; clearing is handled by the application. |
+<Example name="input-group/textarea" />
+
+### Disabled
+
+Set `disabled` on the native input. Disable related buttons separately when they should be
+unavailable too.
+
+<Example name="input-group/disabled" />
+
+### Field state
+
+Set `invalid` on `Field` when validation fails. Ark passes the state and required ARIA attributes to
+`InputGroupInput`, and the group reflects the input state.
+
+<Example name="input-group/field-state" />
+
+### Custom element
+
+Use `asChild` when the root must render a custom container instead of the default `div`. The group
+keeps its styling and size context, and the child must remain a semantic layout container.
+
+<Example name="input-group/custom-element" />
 
 ## Composition
 
-Keep exactly one `InputGroupInput` in each group. The nested input owns the value, form behavior,
+`InputGroup` is a moduix composition, not an Ark UI primitive. It combines Ark factory elements
+with the Ark-backed moduix `Input` and `Button` components. The composition follows Ark's guidance
+on [composition](https://ark-ui.com/docs/guides/composition), [styling](https://ark-ui.com/docs/guides/styling),
+and [refs](https://ark-ui.com/docs/guides/ref).
+
+Keep exactly one `InputGroupInput` in each group. The nested input holds the value, form behavior,
 validation state, and input ref, so controlled or uncontrolled props belong there, while labels and
 validation messages belong on `Field`. The root `size` is inherited by `InputGroupInput` and
 `InputGroupButton`; grouped buttons default to `type="button"` and do not inherit `disabled` from
@@ -107,66 +115,23 @@ a block addon holds one control and only block addons, so put inline content ins
 addon. Use a regular `Button` there: `InputGroupButton` stretches to the full group height and is
 meant for actions beside the control.
 
-## Examples
+## Anatomy
 
-### Disabled
+Hover or focus a part to find it in the preview.
 
-Set `disabled` on the native input. Disable related buttons separately when they should be
-unavailable too.
-
-<Example name="input-group/disabled" />
-
-### Field State
-
-Set `invalid` on `Field` when validation fails. Ark passes the state and required ARIA attributes to
-`InputGroupInput`, and the group reflects the input state.
-
-<Example name="input-group/field-state" />
-
-### Prefix and Suffix
-
-Use `InputGroupAddon` for a filled prefix or suffix and `InputGroupText` for inline text without a fill.
-
-<Example name="input-group/prefix-and-suffix" />
-
-### Sizes
-
-Set `size` once on the root to keep the input, addon, text, and button aligned.
-
-<Example name="input-group/sizes" />
-
-### With Action
-
-Use `InputGroupButton` for an action tied to the input value. This example keeps the input
-controlled and enables `Send` only after a value is entered.
-
-<Example name="input-group/with-action" />
-
-### Textarea
-
-Use `InputGroupTextarea` for multi-line input, such as a message composer. It renders the moduix
-`Textarea` without its border, inherits the group size unless it gets its own `size`, and keeps
-Ark Field state and `autoresize`. Add a toolbar with `InputGroupAddon align="block"` and a regular `Button`.
-
-<Example name="input-group/textarea" />
-
-### Clear Trigger
-
-Use `InputGroupClearTrigger` for a clear action with a default close icon and accessible label.
-It inherits the group size and defaults to `type="button"`. Handle value clearing and focus in
-`onClick` (Vue: `@click`); render it only when the value is non-empty. It does not clear or hide
-automatically. Disable it explicitly for disabled or read-only fields. Override `aria-label`
-for your language, or use `aria-labelledby`; children replace the default icon.
-The compact hover surface matches the clear buttons in Select and Combobox.
-
-<Example name="input-group/clear-trigger" />
-
-### Advanced Customization
-
-Use `asChild` when the root must render a custom container instead of the default `div`. The group
-keeps its styling and size context, and the child must remain a semantic layout container.
-
-<Example name="input-group/as-child" />
+<AnatomyInspector
+  parts={[
+    ["InputGroup", "input-group-root", "Passive layout wrapper with shared styling and size context.", 0],
+    ["InputGroupAddon", "input-group-addon", "Filled prefix or suffix.", 1],
+    ["InputGroupInput", "", "Native `<input>` that holds the form value and field state.", 1],
+    ["InputGroupText", "input-group-text", "Inline text without a fill.", 1],
+    ["InputGroupTextarea", "", "Native `<textarea>` for multi-line values; use it instead of `InputGroupInput`.", 2],
+    ["InputGroupButton", "input-group-button", "Action button associated with the input.", 1],
+    ["InputGroupClearTrigger", "input-group-clear-trigger", "Clear action with a default close icon; clearing is handled by the application.", 1],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styling
 
@@ -177,23 +142,40 @@ classes. CSS Modules variants build on foundation tokens and expose only the thr
 override colors, padding, and typography with a plain class on the part, which wins over the layered
 component styles. Data attributes and `data-slot` hooks are shared by both styling tracks.
 
-### CSS Properties
+### CSS variables
 
-<CssPropertiesSection properties={InputGroupDocs.inputGroupOverrideCssProperties} />
+Hover or focus a variable to see it in the preview.
+
+<CssPropertiesSection properties={InputGroupDocs.inputGroupOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Styling hooks
+
+| Part | `data-slot` |
+| --- | --- |
+| `InputGroup` | `input-group-root` |
+| `InputGroupAddon` | `input-group-addon` |
+| `InputGroupText` | `input-group-text` |
+| `InputGroupButton` | `input-group-button` |
+| `InputGroupClearTrigger` | `input-group-clear-trigger` |
 
 - `data-slot="input-group-root"` and `data-size="xs" | "sm" | "md" | "lg" | "xl"` on the root
 - `data-scope="input-group"` and `data-part="root" | "addon" | "text"` on the Ark factory parts
 - `data-slot="input-root"` plus Ark Field input state attributes
-- `data-slot="input-group-addon"`
-- `data-slot="input-group-clear-trigger"`
-- `data-slot="input-group-text"`
 - `data-align="inline" | "block"` on `InputGroupAddon` and `InputGroupText`
 - `data-slot="textarea-root"` plus Ark Field textarea state attributes on `InputGroupTextarea`
-- `data-slot="input-group-button"` on the grouped action button
 - Nested `data-invalid`, `aria-invalid="true"`, and `data-disabled`/`:disabled` states are reflected through `:has(...)` on the root
 
-Component-owned `data-slot`, `data-scope`, `data-part`, and root `data-size` hooks stay stable when
+Component-defined `data-slot`, `data-scope`, `data-part`, and root `data-size` hooks stay stable when
 consumer props are supplied. `className` in React and `class` in Solid and Vue merge with the component
 styles.
+
+## API reference
+
+Props of `InputGroup`. `InputGroupAddon` takes `align` (`'inline' | 'block'`, default `'inline'`).
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'` | `'md'` | Size of the group and its input: `xs`, `sm`, `md`, `lg`, or `xl`. |
+| `asChild` | `boolean` | `false` | Renders the root as its single child element. |

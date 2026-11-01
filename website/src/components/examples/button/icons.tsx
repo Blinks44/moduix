@@ -1,6 +1,6 @@
 import { Button } from '@moduix/react/button';
+import { Stack } from '@moduix/react/stack';
 import { ArrowUpRight as ArrowUpRightIcon, Plus as PlusIcon, Star as StarIcon } from 'lucide-react';
-import styles from '@/components/examples/button/button-icons.module.css';
 
 const labels = {
   create: 'Create Item',
@@ -10,7 +10,7 @@ const labels = {
 
 export default function ButtonIconsDemo() {
   return (
-    <div className={styles.root}>
+    <Stack direction="row" align="center" wrap="wrap" gap="3">
       <Button>
         <PlusIcon />
         {labels.create}
@@ -22,6 +22,6 @@ export default function ButtonIconsDemo() {
         {labels.docs}
         <ArrowUpRightIcon />
       </Button>
-    </div>
+    </Stack>
   );
 }

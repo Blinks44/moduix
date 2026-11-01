@@ -1,9 +1,5 @@
 <script setup lang="ts">
-import {
-  SignaturePad,
-  SignaturePadLabel,
-  SignaturePadCanvas,
-} from '../../src/components/signature-pad';
+import { SignaturePad, SignaturePadLabel, SignaturePadCanvas } from '@/components/signature-pad';
 </script>
 <template>
   <SignaturePad

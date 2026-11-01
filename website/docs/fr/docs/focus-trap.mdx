@@ -1,17 +1,12 @@
 ---
 title: Focus Trap
 description: Maintenez le focus clavier dans une interface interactive personnalisée avec Ark UI FocusTrap.
+ark: https://ark-ui.com/docs/utilities/focus-trap
 ---
-
-import FocusTrapBasic from '@/components/examples/focus-trap/basic.tsx';
-import focusTrapSolidCssModules from '../../../snippets/focus-trap/solid/css-modules.tsx?raw';
-import focusTrapVueCssModules from '../../../snippets/focus-trap/vue/css-modules.vue?raw';
 
 `FocusTrap` maintient le focus clavier dans une interface interactive personnalisée jusqu’à la fin du parcours.
 
-## Référence de l’API
-
-<PrimitiveReference href="https://ark-ui.com/docs/utilities/focus-trap" />
+## Importation
 
 Importez l’utilitaire depuis le paquet Ark UI correspondant à votre framework :
 
@@ -57,45 +52,7 @@ le focus sur **Review details**, `isReviewing` reste synchronisé grâce à `onD
 **Start review** lorsque `FocusTrap` est désactivé. L’aperçu indique dans `PreviewMeta` si le piège est actif. Les onglets
 de code présentent le même comportement avec des exemples natifs en React et en Solid.
 
-<ExampleFrame variant="component">
-  <PreviewFrame maxWidth="sm">
-    <FocusTrapBasic />
-  </PreviewFrame>
-</ExampleFrame>
-
-<ExampleCode>
-<Tabs
-  groupId="framework"
-  values={[
-    { label: 'React', value: 'react' },
-    { label: 'Solid', value: 'solid' },
-    { label: 'Vue', value: 'vue' },
-  ]}
-  className="docs-tabs"
->
-  <Tab value="react">
-
-```tsx pure file="../../../snippets/focus-trap/css-modules/react.tsx"
-```
-
-  </Tab>
-  <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={focusTrapSolidCssModules} />
-
-  </Tab>
-  <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={focusTrapVueCssModules} />
-
-  </Tab>
-</Tabs>
-
-**Styles**
-
-```css file="../../../snippets/focus-trap/css-modules/focus-trap-basic.module.css"
-```
-</ExampleCode>
+<Example name="focus-trap/basic" />
 
 ## Cycle de vie du focus
 

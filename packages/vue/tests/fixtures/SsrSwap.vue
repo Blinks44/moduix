@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Swap, SwapIndicator } from '../../src/components/swap';
+import { Swap, SwapIndicator } from '@/components/swap';
 </script>
 
 <template>

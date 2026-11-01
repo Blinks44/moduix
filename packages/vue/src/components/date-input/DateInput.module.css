@@ -23,7 +23,7 @@
   }
 
   .label {
-    color: var(--moduix-color-foreground);
+    color: var(--moduix-foreground);
     font-size: var(--moduix-text-sm);
     font-weight: var(--moduix-weight-medium);
     line-height: var(--moduix-line-height-text-sm);
@@ -35,28 +35,28 @@
     gap: var(--moduix-spacing-1);
     width: 100%;
     min-height: var(--moduix-date-input-control-height, var(--moduix-size-md));
-    border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
+    border: var(--moduix-border-width-sm) solid var(--moduix-input);
     border-radius: var(--moduix-date-input-radius, var(--moduix-radius-md));
     padding: var(--moduix-spacing-1) var(--moduix-spacing-3);
-    background-color: var(--moduix-color-background);
-    color: var(--moduix-color-foreground);
+    background-color: var(--moduix-background);
+    color: var(--moduix-foreground);
     font-size: var(--moduix-text-md);
     line-height: var(--moduix-line-height-text-md);
-    outline: var(--moduix-focus-ring-inset-width) solid transparent;
-    outline-offset: var(--moduix-focus-ring-inset-offset);
+    outline: var(--moduix-focus-ring-halo-width) solid transparent;
     transition:
       border-color var(--moduix-transition-default),
       outline-color var(--moduix-transition-default);
 
     &[data-focus] {
-      outline-color: var(--moduix-color-ring);
+      border-color: var(--moduix-ring);
+      outline-color: color-mix(in oklab, var(--moduix-ring) 50%, transparent);
     }
 
     &[data-invalid] {
-      border-color: var(--moduix-color-destructive);
+      border-color: var(--moduix-destructive);
 
       &[data-focus] {
-        outline-color: var(--moduix-color-destructive);
+        outline-color: color-mix(in oklab, var(--moduix-destructive) 20%, transparent);
       }
     }
 
@@ -88,23 +88,23 @@
     }
 
     &[data-placeholder-shown] {
-      color: var(--moduix-color-muted-foreground);
+      color: var(--moduix-muted-foreground);
     }
 
     &:focus-visible {
-      background-color: color-mix(in oklab, var(--moduix-color-ring) 18%, transparent);
-      color: var(--moduix-color-foreground);
+      background-color: color-mix(in oklab, var(--moduix-ring) 18%, transparent);
+      color: var(--moduix-foreground);
     }
 
     &[data-type='literal'] {
       min-width: auto;
       padding-inline: 0;
-      color: var(--moduix-color-muted-foreground);
+      color: var(--moduix-muted-foreground);
     }
   }
 
   .separator {
-    color: var(--moduix-color-muted-foreground);
+    color: var(--moduix-muted-foreground);
     user-select: none;
   }
 }

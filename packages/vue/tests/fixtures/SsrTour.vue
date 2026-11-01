@@ -8,7 +8,7 @@ import {
   TourTitle,
   TourDescription,
   useTour,
-} from '../../src/components/tour';
+} from '@/components/tour';
 const steps = [
   {
     id: 'welcome',

@@ -9,7 +9,7 @@ import {
   TreeViewBranchIndentGuide,
   TreeViewItem,
   TreeViewItemText,
-} from '../../src/components/tree-view';
+} from '@/components/tree-view';
 interface FileNode {
   children?: FileNode[];
   childrenCount?: number;

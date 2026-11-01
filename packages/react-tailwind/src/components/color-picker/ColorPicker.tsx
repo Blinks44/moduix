@@ -105,7 +105,7 @@ const ColorPickerTrigger = forwardRef<
     <ColorPickerPrimitive.Trigger
       ref={ref}
       className={cn(
-        'grid size-control-md shrink-0 cursor-pointer place-items-center overflow-hidden rounded-md border border-border bg-background p-1 text-sm outline-focus-inset outline-offset-focus-inset outline-transparent transition-[border-color,outline-color,background-color] duration-normal ease-in-out select-none focus-visible:border-ring focus-visible:outline-ring disabled:cursor-default data-invalid:border-destructive data-invalid:outline-destructive data-readonly:cursor-default data-[fit-content]:inline-flex data-[fit-content]:w-auto data-[fit-content]:min-w-control-md data-[fit-content]:gap-2 data-[fit-content]:px-3 data-[state=open]:border-ring data-[state=open]:outline-ring [&>[data-slot=color-picker-value-swatch]]:size-full [&>[data-slot=color-picker-value-swatch]]:rounded-[inherit] [&>[data-slot=color-picker-value-swatch]]:[grid-area:1/1/2/2] data-[fit-content]:[&>[data-slot=color-picker-value-swatch]]:size-4 data-[fit-content]:[&>[data-slot=color-picker-value-swatch]]:rounded-sm',
+        'grid size-control-md shrink-0 cursor-pointer place-items-center overflow-hidden rounded-md border border-input bg-background p-1 text-sm outline-focus-halo outline-transparent transition-[border-color,outline-color,background-color] duration-normal ease-in-out select-none focus-visible:border-ring focus-visible:outline-ring/50 disabled:cursor-default data-invalid:border-destructive data-invalid:focus-visible:outline-destructive/20 data-readonly:cursor-default data-[fit-content]:inline-flex data-[fit-content]:w-auto data-[fit-content]:min-w-control-md data-[fit-content]:gap-2 data-[fit-content]:px-3 data-[state=open]:border-ring data-[state=open]:outline-ring/50 data-invalid:data-[state=open]:outline-destructive/20 [&>[data-slot=color-picker-value-swatch]]:size-full [&>[data-slot=color-picker-value-swatch]]:rounded-[inherit] [&>[data-slot=color-picker-value-swatch]]:[grid-area:1/1/2/2] data-[fit-content]:[&>[data-slot=color-picker-value-swatch]]:size-4 data-[fit-content]:[&>[data-slot=color-picker-value-swatch]]:rounded-sm',
         className,
       )}
       {...props}
@@ -316,7 +316,7 @@ const ColorPickerChannelInput = forwardRef<
     <ColorPickerPrimitive.ChannelInput
       ref={ref}
       className={cn(
-        'h-control-md w-full min-w-0 flex-1 rounded-md border border-border bg-background px-3 text-sm text-foreground outline-focus-inset outline-offset-focus-inset outline-transparent transition-[border-color,outline-color] duration-normal ease-in-out focus:border-ring focus:outline-ring disabled:cursor-default data-invalid:border-destructive data-invalid:outline-destructive data-readonly:cursor-default data-[channel=alpha]:w-16 data-[channel=alpha]:flex-none [&::-webkit-inner-spin-button]:m-0 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:m-0 [&::-webkit-outer-spin-button]:appearance-none',
+        'h-control-md w-full min-w-0 flex-1 rounded-md border border-input bg-background px-3 text-sm text-foreground outline-focus-halo outline-transparent transition-[border-color,outline-color] duration-normal ease-in-out focus:border-ring focus:outline-ring/50 disabled:cursor-default data-invalid:border-destructive data-invalid:focus:outline-destructive/20 data-readonly:cursor-default data-[channel=alpha]:w-16 data-[channel=alpha]:flex-none [&::-webkit-inner-spin-button]:m-0 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:m-0 [&::-webkit-outer-spin-button]:appearance-none',
         className,
       )}
       {...props}
@@ -333,7 +333,7 @@ const ColorPickerEyeDropperTrigger = forwardRef<
     <ColorPickerPrimitive.EyeDropperTrigger
       ref={ref}
       className={cn(
-        'inline-flex h-control-md min-w-control-md shrink-0 cursor-pointer items-center justify-center gap-2 rounded-md border border-border bg-transparent px-2 text-sm text-muted-foreground outline-focus-inset outline-offset-focus-inset outline-transparent transition-[border-color,outline-color,background-color,color] duration-normal ease-in-out focus-visible:border-ring focus-visible:outline-ring disabled:cursor-default data-readonly:cursor-default [&>svg]:size-4 [&>svg]:shrink-0 [@media(hover:hover)]:[&:not(:disabled):not([data-readonly]):hover]:bg-muted [@media(hover:hover)]:[&:not(:disabled):not([data-readonly]):hover]:text-foreground',
+        'inline-flex h-control-md min-w-control-md shrink-0 cursor-pointer items-center justify-center gap-2 rounded-md border border-input bg-transparent px-2 text-sm text-muted-foreground outline-focus-halo outline-transparent transition-[border-color,outline-color,background-color,color] duration-normal ease-in-out focus-visible:border-ring focus-visible:outline-ring/50 disabled:cursor-default data-readonly:cursor-default [&>svg]:size-4 [&>svg]:shrink-0 [@media(hover:hover)]:[&:not(:disabled):not([data-readonly]):hover]:bg-muted [@media(hover:hover)]:[&:not(:disabled):not([data-readonly]):hover]:text-foreground',
         className,
       )}
       {...props}
@@ -353,7 +353,7 @@ const ColorPickerFormatSelect = forwardRef<
       <ColorPickerPrimitive.FormatSelect
         ref={ref}
         className={cn(
-          'peer/format-select h-control-md w-auto min-w-0 cursor-pointer appearance-none rounded-md border border-border bg-background px-3 pe-8 text-sm text-foreground uppercase outline-focus-inset outline-offset-focus-inset outline-transparent transition-[border-color,outline-color] duration-normal ease-in-out focus:border-ring focus:outline-ring disabled:cursor-default data-invalid:border-destructive data-invalid:outline-destructive forced-colors:appearance-auto forced-colors:pe-3',
+          'peer/format-select h-control-md w-auto min-w-0 cursor-pointer appearance-none rounded-md border border-input bg-background px-3 pe-8 text-sm text-foreground uppercase outline-focus-halo outline-transparent transition-[border-color,outline-color] duration-normal ease-in-out focus:border-ring focus:outline-ring/50 disabled:cursor-default data-invalid:border-destructive data-invalid:focus:outline-destructive/20 forced-colors:appearance-auto forced-colors:pe-3',
           className,
         )}
         {...props}
@@ -377,7 +377,7 @@ const ColorPickerFormatTrigger = forwardRef<
     <ColorPickerPrimitive.FormatTrigger
       ref={ref}
       className={cn(
-        'inline-flex h-control-md min-w-control-md shrink-0 cursor-pointer items-center justify-center gap-2 rounded-md border border-border bg-transparent px-2 text-sm text-muted-foreground outline-focus-inset outline-offset-focus-inset outline-transparent transition-[border-color,outline-color,background-color,color] duration-normal ease-in-out focus-visible:border-ring focus-visible:outline-ring disabled:cursor-default data-readonly:cursor-default [&>svg]:size-4 [&>svg]:shrink-0 [@media(hover:hover)]:[&:not(:disabled):not([data-readonly]):hover]:bg-muted [@media(hover:hover)]:[&:not(:disabled):not([data-readonly]):hover]:text-foreground',
+        'inline-flex h-control-md min-w-control-md shrink-0 cursor-pointer items-center justify-center gap-2 rounded-md border border-input bg-transparent px-2 text-sm text-muted-foreground outline-focus-halo outline-transparent transition-[border-color,outline-color,background-color,color] duration-normal ease-in-out focus-visible:border-ring focus-visible:outline-ring/50 disabled:cursor-default data-readonly:cursor-default [&>svg]:size-4 [&>svg]:shrink-0 [@media(hover:hover)]:[&:not(:disabled):not([data-readonly]):hover]:bg-muted [@media(hover:hover)]:[&:not(:disabled):not([data-readonly]):hover]:text-foreground',
         className,
       )}
       {...props}

@@ -2,7 +2,7 @@ import { page } from '@rstest/browser';
 import { expect, test } from '@rstest/core';
 import { render, screen } from '@testing-library/react';
 import { createRef, useState } from 'react';
-import { Swap, SwapIndicator, SwapRootProvider, useSwap, useSwapContext } from '../src';
+import { Swap, SwapIndicator, SwapRootProvider, useSwap, useSwapContext } from '@/index';
 
 function ProviderSwapValue() {
   const { swap } = useSwapContext();

@@ -1,17 +1,26 @@
 ---
 title: Badge
 component: badge
-description: A compact label for brief metadata such as status, category, version, or count.
+description: Label a status, category, version, or count in a small chip.
+ark: https://ark-ui.com/docs/guides/composition#the-ark-factory
 ---
 
+import AnatomyScene from '@/components/examples/badge/basic';
 import * as BadgeDocs from '@/components/examples/badge/css-properties';
 
-## API Reference
+<Example name="badge/basic" />
 
-Ark UI does not provide a dedicated `Badge` primitive. moduix builds `Badge` with the official
-[Ark factory](https://ark-ui.com/docs/guides/composition#the-ark-factory) and follows Ark's guidance for
-[composition](https://ark-ui.com/docs/guides/composition), [styling](https://ark-ui.com/docs/guides/styling), and
-[refs](https://ark-ui.com/docs/guides/ref).
+## Installation
+
+<ComponentInstall />
+
+## Usage
+
+<Usage />
+
+Start with a plain `<Badge>`. The component renders a presentational `span` by default. Set `variant`
+to choose `default`, `secondary`, `destructive`, `outline`, `ghost`, or `link`, set `size` to `sm`,
+`md`, or `lg`, and add `BadgeDot` only when the status benefits from a visual indicator.
 
 ## Choosing the right component
 
@@ -23,72 +32,58 @@ for a control that lets the user select or edit a value.
 
 The Vue exports are available from `@moduix/vue/badge` for CSS Modules and `@moduix/vue-tailwind/badge` for Tailwind CSS.
 
-## Basic
+## Examples
 
+### Variants
 
-Start with a plain `<Badge>`. The component renders a presentational `span` by default. Set `variant`
-to choose `default`, `secondary`, `destructive`, `outline`, `ghost`, or `link`, set `size` to `sm`,
-`md`, or `lg`, and add `BadgeDot` only when the status benefits from a visual indicator.
+Use the built-in variants for common styles.
 
-<Example name="badge/basic" />
+<Example name="badge/variants" />
 
-## Install with shadcn
+### Sizes
 
-See [Quick Start](/docs/quick-start) for full package setup, registry configuration, and styling guidance.
+Set `size` to `sm`, `md`, or `lg`. The default is `md`.
 
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
+<Example name="badge/sizes" />
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/badge' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/badge' },
-  ]}
-/>
+### With icon
 
-  </Tab>
-  <Tab label="Solid" value="solid">
+Place a direct child SVG icon next to the label when the metadata needs another visual cue.
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/badge' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/badge' },
-  ]}
-/>
+<Example name="badge/with-icon" />
 
-  </Tab>
-  <Tab label="Vue" value="vue">
+### With dot
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/badge' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/badge' },
-  ]}
-/>
+Add `BadgeDot` when the label needs a status indicator that stays visually connected to it. Keep the
+status meaning in the visible text because the dot is decorative.
 
-  </Tab>
-</Tabs>
+<Example name="badge/with-dot" />
 
-## Anatomy
+### Link
 
-`Badge` is the root component. It keeps the public API small and exposes only the parts you can see.
+Use `variant="link"` with `asChild` when a badge needs to be a link in a metadata row. The child
+element remains a real link and keeps its native semantics.
 
-```text
-Badge
-├─ BadgeLabel (optional; use explicitly for truncation)
-├─ BadgeDot (optional)
-└─ svg icon (optional)
-```
+<Example name="badge/link" />
 
-| Part         | Role                                                                                 |
-| ------------ | ------------------------------------------------------------------------------------ |
-| `Badge`      | Root part. Applies the variant, border, and spacing.                                |
-| `BadgeLabel` | Explicit text part. Keeps a composed label truncatable.                              |
-| `BadgeDot`   | Optional decorative part. Renders a circular marker that inherits the text color.    |
+### Long labels
+
+Wrap a long value in `BadgeLabel` to truncate it inside a constrained badge. Add `title` to expose
+the full label on pointer hover. On touch-first interfaces, choose a label that fits the available
+space.
+
+<Example name="badge/long-labels" />
+
+### Custom styling
+
+Use a class or inline CSS variables when a built-in variant is close to what you need but still needs
+a small adjustment.
+
+<Example name="badge/custom-styling" />
 
 ## Composition
 
-`Badge` is presentational and owns no state. Direct text remains unchanged; use `BadgeLabel`
+`Badge` is presentational and has no state. Direct text remains unchanged; use `BadgeLabel`
 explicitly when a constrained label must truncate or when combining text with `BadgeDot` or an
 icon. For a semantic link or button, use `asChild` with exactly one child in React. In Solid, pass
 a render function to `asChild`; the rendered child keeps its native semantics.
@@ -98,54 +93,21 @@ itself is not forwarded through that composition path.
 
 In Vue, place exactly one child in the default slot when using `as-child`; the child keeps its native semantics.
 
-## Examples
+## Anatomy
 
-### Custom Styling
+`Badge` is the root component. It keeps the public API small and exposes only the parts you can see.
 
-Use a class or inline CSS variables when a built-in variant is close to what you need but still needs
-a small adjustment.
+Hover or focus a part to find it in the preview.
 
-<Example name="badge/custom-styling" />
-
-### Link
-
-Use `variant="link"` with `asChild` when a badge needs to be a link in a metadata row. The child
-element remains a real link and keeps its native semantics.
-
-<Example name="badge/link" />
-
-### Long Labels
-
-Wrap a long value in `BadgeLabel` to truncate it inside a constrained badge. Add `title` to expose
-the full label on pointer hover. On touch-first interfaces, choose a label that fits the available
-space.
-
-<Example name="badge/long-labels" />
-
-### Sizes
-
-Set `size` to `sm`, `md`, or `lg`. The default is `md`.
-
-<Example name="badge/sizes" />
-
-### Variants
-
-Use the built-in variants for common styles.
-
-<Example name="badge/variants" />
-
-### With Dot
-
-Add `BadgeDot` when the label needs a status indicator that stays visually connected to it. Keep the
-status meaning in the visible text because the dot is decorative.
-
-<Example name="badge/with-dot" />
-
-### With Icon
-
-Place a direct child SVG icon next to the label when the metadata needs another visual cue.
-
-<Example name="badge/with-icon" />
+<AnatomyInspector
+  parts={[
+    ["Badge", "badge-root", "Root part. Applies the variant, border, and spacing.", 0],
+    ["BadgeLabel", "badge-label", "Explicit text part. Keeps a composed label truncatable.", 1],
+    ["BadgeDot", "badge-dot", "Optional decorative part. Renders a circular marker that inherits the text color.", 1],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styling
 
@@ -158,15 +120,36 @@ CSS Modules packages; Tailwind packages use native utilities and consumer classe
 Use `className` in React or `class` in Solid and Vue on exported parts. The stable `data-slot` hooks and
 Ark data attributes are shared by all styling tracks.
 
-### CSS Properties
+### CSS variables
 
-<CssPropertiesSection properties={BadgeDocs.badgeCssProperties} />
+Hover or focus a variable to see it in the preview. Move the controls to try values and copy the resulting CSS.
+
+<CssPropertiesSection
+  properties={BadgeDocs.badgeCssProperties}
+  controls={BadgeDocs.badgeControls}
+>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Styling hooks
 
-- `data-slot="badge-root"`, `data-slot="badge-label"`, and `data-slot="badge-dot"` are stable selectors for styling the exported parts.
+| Part | `data-slot` |
+| --- | --- |
+| `Badge` | `badge-root` |
+| `BadgeLabel` | `badge-label` |
+| `BadgeDot` | `badge-dot` |
+
 - `Badge` also exposes `data-scope="badge"` and `data-part="root"`. `BadgeLabel` and `BadgeDot` expose `data-part="label"` and `data-part="dot"`.
 - `Badge` writes the selected variant to `data-variant` and the selected size to `data-size`.
-- Focusable hosts rendered through `Badge asChild` receive the root focus-visible styling. Anchor roots also receive the variant hover and pointer-cursor styles; button-specific interaction styles remain application-owned.
+- Focusable hosts rendered through `Badge asChild` receive the root focus-visible styling. Anchor roots also receive the variant hover and pointer-cursor styles; button-specific interaction styles remain up to the application.
 - Direct child `svg` icons inherit `currentColor`, do not receive pointer events, and are 12px unless a class on the icon sets another size.
 - Badge has no dedicated Ark primitive or behavior machine, so it does not expose Ark-managed states or runtime CSS variables.
+
+## API reference
+
+Also accepts the native props of its element and `asChild`.
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `variant` | `'default' \| 'secondary' \| 'destructive' \| 'outline' \| 'ghost' \| 'link'` | `'default'` | Visual style: `default`, `secondary`, `destructive`, `outline`, `ghost`, or `link`. |
+| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` | Badge size: `sm`, `md`, or `lg`. |

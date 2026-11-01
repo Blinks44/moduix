@@ -1,13 +1,24 @@
 ---
 title: Sidebar dashboard
 description: A copy-ready dashboard layout with a collapsible, resizable sidebar, nested navigation, and a workspace menu.
+block: sidebar-dashboard
 ---
 
 import { SidebarDashboard } from '@/components/blocks/sidebar-dashboard';
 import sidebarDashboardSolid from '../../../snippets/blocks/solid/sidebar-dashboard.tsx?raw';
 import sidebarDashboardVue from '../../../snippets/blocks/vue/sidebar-dashboard.vue?raw';
+import sidebarDashboardReact from '../../../src/components/blocks/sidebar-dashboard.tsx?raw';
+import sidebarDashboardCss from '../../../src/components/blocks/sidebar-dashboard.module.css?raw';
 
 # Sidebar dashboard
+
+<ExamplePanel
+  clientOnly
+  sources={{ react: sidebarDashboardReact, solid: sidebarDashboardSolid, vue: sidebarDashboardVue }}
+  files={[{ name: 'sidebar-dashboard.module.css', code: sidebarDashboardCss }]}
+>
+  <SidebarDashboard />
+</ExamplePanel>
 
 Use this block as a starting point for a desktop application shell. It combines `Sidebar`,
 `Collapsible`, and `Menu` to provide resizable navigation, an expandable Projects group, and a
@@ -21,53 +32,6 @@ sidebar is reduced to its icon rail.
 This is a copy-ready composition, not a `SidebarDashboard` component exported by moduix.
 Install the block, then replace the example links, labels, and dashboard data.
 
-The preview runs React. The source tabs contain React, Solid, and Vue implementations with a shared stylesheet.
-
-
-
-<ExampleFrame variant="block" clientOnly>
-  <SidebarDashboard />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/blocks/sidebar-dashboard.tsx"
-
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={sidebarDashboardSolid} />
-
-    </Tab>
-  <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={sidebarDashboardVue} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/blocks/sidebar-dashboard.module.css"
-
-```
-</div>
-
-</ExampleCode>
-
 ## Install
 
 <BlockInstall name="sidebar-dashboard" />
@@ -76,7 +40,7 @@ The preview runs React. The source tabs contain React, Solid, and Vue implementa
 
 Replace the `#overview`, `#website`, and other example anchors with routes from your application. If
 your router provides a link component, use it with `SidebarNavigationButton` or
-`SidebarNavigationSubButton` and the `asChild` prop so the router owns navigation. Mark the active
+`SidebarNavigationSubButton` and the `asChild` prop so the router handles navigation. Mark the active
 destination with `aria-current="page"`. The `Sidebar` parts are covered in the
 [Sidebar docs](/docs/sidebar).
 

@@ -1,18 +1,18 @@
 .customPopup {
   --moduix-menu-popup-min-width: 13rem;
 
-  outline-color: var(--moduix-color-primary);
-  background-color: var(--moduix-color-background);
+  outline-color: var(--moduix-primary);
+  background-color: var(--moduix-background);
 
   & [data-part='item'][data-highlighted] {
-    color: var(--moduix-color-primary-foreground);
+    color: var(--moduix-primary-foreground);
   }
 
   & [data-part='item'][data-highlighted]::before {
-    background-color: var(--moduix-color-primary);
+    background-color: var(--moduix-primary);
   }
 
   & [data-part='separator'] {
-    background-color: var(--moduix-color-primary);
+    background-color: var(--moduix-primary);
   }
 }

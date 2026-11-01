@@ -9,15 +9,16 @@ import {
   ColorPickerView,
   ColorPickerSliders,
 } from '@moduix/vue/color-picker';
+import { Stack } from '@moduix/vue/stack';
 import styles from '@/components/examples/color-picker/color-picker-inline.module.css';
 </script>
 
 <template>
   <ColorPicker inline :default-value="parseColor('#2563eb')">
-    <div :class="styles.valueRow">
+    <Stack direction="row" align="center" justify="space-between" gap="3">
       <ColorPickerLabel>Inline color</ColorPickerLabel>
       <ColorPickerValueText format="hex" />
-    </div>
+    </Stack>
     <ColorPickerArea />
     <ColorPickerSliders />
     <ColorPickerView format="rgba">

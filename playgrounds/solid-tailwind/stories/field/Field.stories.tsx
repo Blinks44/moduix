@@ -16,7 +16,7 @@ import {
   FieldLabel,
   FieldRequiredIndicator,
   FieldRootProvider,
-} from '@/components/field/Field';
+} from '@/components/field';
 import { Input } from '@/components/input';
 import { NativeSelect } from '@/components/native-select';
 import {
@@ -114,7 +114,7 @@ export const Invalid: Story = {
   render: () => (
     <Field invalid required>
       <FieldLabel>Email</FieldLabel>
-      <Input value="not-an-email" type="email" />
+      <Input type="email" placeholder="name@example.com" />
       <FieldHelperText>Use your work email.</FieldHelperText>
       <FieldErrorText>Enter a valid email address.</FieldErrorText>
     </Field>
@@ -124,11 +124,16 @@ export const Invalid: Story = {
 export const ControlledInvalid: Story = {
   render: () => {
     const [value, setValue] = createSignal('');
+    const invalid = () => value().length > 0 && value().length < 3;
 
     return (
-      <Field invalid={value().length > 0 && value().length < 3}>
+      <Field invalid={invalid()}>
         <FieldLabel>Username</FieldLabel>
-        <Input value={value()} onInput={(event) => setValue(event.currentTarget.value)} />
+        <Input
+          value={value()}
+          onInput={(event) => setValue(event.currentTarget.value)}
+          placeholder="e.g. vinny"
+        />
         <FieldHelperText>Use at least 3 characters.</FieldHelperText>
         <FieldErrorText>Username must be at least 3 characters.</FieldErrorText>
       </Field>
@@ -140,7 +145,8 @@ export const WithTextarea: Story = {
   render: () => (
     <Field>
       <FieldLabel>Summary</FieldLabel>
-      <Textarea autoresize placeholder="Describe the request" />
+      <Textarea placeholder="Describe the request" autoresize />
+      <FieldHelperText>The textarea can autoresize as the user types.</FieldHelperText>
     </Field>
   ),
 };
@@ -150,12 +156,14 @@ export const Select: Story = {
     <Field required>
       <FieldLabel>Priority</FieldLabel>
       <NativeSelect>
-        <option value="" disabled selected>
+        <option value="" disabled>
           Select priority
         </option>
         <option value="low">Low</option>
         <option value="normal">Normal</option>
+        <option value="high">High</option>
       </NativeSelect>
+      <FieldHelperText>Used for triage queues.</FieldHelperText>
     </Field>
   ),
 };
@@ -165,6 +173,7 @@ export const Disabled: Story = {
     <Field disabled>
       <FieldLabel>Organization</FieldLabel>
       <Input placeholder="Acme Inc." />
+      <FieldHelperText>This field is currently managed by your workspace.</FieldHelperText>
     </Field>
   ),
 };
@@ -174,6 +183,7 @@ export const ReadOnly: Story = {
     <Field readOnly>
       <FieldLabel>Workspace key</FieldLabel>
       <Input value="MAPS" />
+      <FieldHelperText>Read-only state is propagated to the input.</FieldHelperText>
     </Field>
   ),
 };
@@ -188,6 +198,7 @@ export const WithCheckbox: Story = {
         <CheckboxLabel>Accept support access</CheckboxLabel>
         <CheckboxHiddenInput />
       </Checkbox>
+      <FieldHelperText>Required before the team can inspect workspace data.</FieldHelperText>
       <FieldErrorText>Support access must be enabled.</FieldErrorText>
     </Field>
   ),
@@ -209,6 +220,7 @@ export const WithRadioGroup: Story = {
           <RadioGroupItemHiddenInput />
         </RadioGroupItem>
       </RadioGroup>
+      <FieldHelperText>Choose the default account context for new projects.</FieldHelperText>
     </Field>
   ),
 };
@@ -240,27 +252,26 @@ export const ItemTarget: Story = {
             USD
           </option>
           <option value="EUR">EUR</option>
+          <option value="GBP">GBP</option>
         </NativeSelect>
       </FieldItem>
       <FieldItem value="amount">
-        <Input inputmode="decimal" placeholder="0.00" />
+        <Input inputMode="decimal" placeholder="0.00" />
       </FieldItem>
+      <FieldHelperText>The root label targets the amount input.</FieldHelperText>
     </Field>
   ),
 };
 
 export const RootProvider: Story = {
   render: () => {
-    const field = useField({ id: 'provider-email', invalid: true, required: true });
+    const field = useField({ id: 'root-provider-field', required: true });
 
     return (
       <FieldRootProvider value={field}>
-        <FieldLabel>
-          External state
-          <FieldRequiredIndicator />
-        </FieldLabel>
-        <Input placeholder="Controlled by useField" />
-        <FieldErrorText>Enter a valid email address.</FieldErrorText>
+        <FieldLabel>Project key</FieldLabel>
+        <Input placeholder="MAPS" />
+        <FieldHelperText>The field state is created outside the rendered tree.</FieldHelperText>
       </FieldRootProvider>
     );
   },

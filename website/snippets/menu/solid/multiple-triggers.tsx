@@ -7,8 +7,8 @@ import {
   MenuViewport,
   MenuItem,
 } from '@moduix/solid/menu';
+import { Stack } from '@moduix/solid/stack';
 import { Map as MapIcon } from 'lucide-solid';
-import styles from '@/components/examples/menu/menu-multiple-triggers.module.css';
 
 const messages = [
   { id: '1', sender: 'Alice Johnson', preview: 'Hey, can you review the latest PR?' },
@@ -19,7 +19,7 @@ const messages = [
 export default function MultipleTriggersMenuDemo() {
   return (
     <Menu>
-      <div class={styles.triggers}>
+      <Stack direction="row" gap="0.5rem">
         {messages.map((message) => (
           <MenuTrigger
             value={message.id}
@@ -35,7 +35,7 @@ export default function MultipleTriggersMenuDemo() {
             <MapIcon />
           </MenuTrigger>
         ))}
-      </div>
+      </Stack>
       <MenuPositioner>
         <MenuContent>
           <MenuViewport>

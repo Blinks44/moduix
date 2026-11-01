@@ -1,10 +1,11 @@
 import { Highlight } from '@moduix/solid/highlight';
+import { Stack } from '@moduix/solid/stack';
 import { Text } from '@moduix/solid/text';
 import styles from '@/components/examples/highlight/highlight-match-all.module.css';
 
 export default function HighlightMatchAllDemo() {
   return (
-    <div class={styles.comparison}>
+    <Stack gap="4">
       <div>
         <div class={styles.label}>Match all</div>
         <Text>
@@ -25,6 +26,6 @@ export default function HighlightMatchAllDemo() {
           />
         </Text>
       </div>
-    </div>
+    </Stack>
   );
 }

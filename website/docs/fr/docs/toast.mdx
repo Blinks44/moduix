@@ -1,87 +1,106 @@
 ---
 title: Toast
 component: toast
-description: Notifications temporaires pour les actions, les changements d’état et les retours contextuels.
+description: Afficher de brèves notifications empilées qui se ferment seules.
+ark: https://ark-ui.com/docs/components/toast
 ---
 
+import AnatomyScene from '@/components/examples/toast/anatomy';
 import * as ToastDocs from '@/components/examples/toast/css-properties';
 
-## Référence de l’API
+<Example name="toast/basic" />
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/toast" />
+## Installation
 
-Moduix exporte `Toast`, `ToastToaster`, `createToaster` et `useToastContext` depuis
-`@moduix/react/toast`, `@moduix/solid/toast` et `@moduix/vue/toast`. La référence Ark décrit l’API
-complète du store et de ses parties.
+<ComponentInstall />
 
-## Exemple de base
+## Utilisation
 
+<Usage />
 
 Créez une instance de toaster avec `createToaster()`, utilisez ses méthodes pour ajouter des
 notifications, puis affichez-la avec `ToastToaster`.
 
-<Example name="toast/basic" />
+## Exemples
 
-## Installation avec shadcn
+### Types
 
-Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration complète du paquet, du registre et des styles.
+Utilisez les helpers typés du toaster pour les variantes liées au statut. moduix applique les styles
+`info`, `success`, `warning` et `error` via `data-type`.
 
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
+<Example name="toast/types" />
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/toast' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/toast' },
-  ]}
-/>
+### Action
 
-  </Tab>
-  <Tab label="Solid" value="solid">
+Ajoutez `action: { label, onClick }` lorsque la notification doit proposer une action directe.
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/toast' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/toast' },
-  ]}
-/>
+<Example name="toast/action" />
 
-  </Tab>
-  <Tab label="Vue" value="vue">
+### Promise
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/toast' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/toast' },
-  ]}
-/>
+Utilisez `toaster.promise()` pour faire passer une même notification du chargement au succès ou à
+l’erreur lorsque l’opération asynchrone se termine. Tant que le toast a le type `loading`, le rendu par
+défaut affiche un `Spinner` décoratif avant le titre.
 
-  </Tab>
-</Tabs>
+<Example name="toast/promise-toast" />
 
-## Anatomie
+### Mise à jour
 
-```text
-createToaster()
-└─ ToastToaster (portalled to document.body by default)
-   └─ Toast
-      ├─ ToastTitle
-      ├─ ToastDescription
-      ├─ ToastActionTrigger
-      └─ ToastCloseTrigger
-```
+Conservez l’identifiant renvoyé lors de la création d’une notification et transmettez-le à
+`toaster.update()` lorsque la notification existante doit être modifiée sur place.
 
-| Partie                         | Rôle                                                                                 |
-| ------------------------------ | ------------------------------------------------------------------------------------ |
-| `Toast`               | Racine d’une notification visible.                                      |
-| `ToastToaster`        | Rend le store du toaster et gère le groupe de notifications.            |
-| `ToastTitle`          | Partie du titre. Utilise le `title` de la notification courante sans enfant. |
-| `ToastDescription`    | Partie de la description. Utilise la `description` courante sans enfant. |
-| `ToastActionTrigger`  | Bouton d’action lié à `toast.action.onClick`.                           |
-| `ToastCloseTrigger`   | Bouton de fermeture. Utilise `CloseButton` par défaut.                  |
-| `ToastContext`        | Partie de contexte pour une composition personnalisée et l’accès direct à l’état. |
+<Example name="toast/update" />
+
+### Durée
+
+Définissez `duration` en millisecondes lorsqu’une notification doit disparaître plus tôt, rester
+visible plus longtemps ou rester affichée jusqu’à sa fermeture manuelle avec `Infinity`.
+
+<Example name="toast/duration" />
+
+### Placement
+
+Choisissez l’un des six placements d’Ark lorsque le groupe de notifications doit apparaître près d’un
+bord précis de la fenêtre.
+
+<Example name="toast/placement" />
+
+### Nombre maximal visible
+
+Définissez `max` sur le toaster lorsque des rafales de notifications doivent être mises en file au
+lieu de remplir l’écran.
+
+<Example name="toast/max-toasts" />
+
+### Pile sans chevauchement
+
+Définissez `overlap: false` pour que chaque notification reste entièrement visible. Il s’agit d’un
+réglage du toaster, pas d’un mode distinct du composant.
+
+<Example name="toast/always-expanded" />
+
+### Composition personnalisée
+
+Utilisez la render prop pour remplacer le rendu standard de `ToastToaster`, ajouter une icône, remplacer
+l’icône de fermeture et appliquer des variables CSS propres au composant.
+
+<Example name="toast/custom-composition" />
+
+### Assembler à partir des parties
+
+Le même toast que Basic avec le rendu par défaut écrit explicitement : la fonction de `ToastToaster`
+renvoie `Toast` avec `ToastTitle`, `ToastDescription` et `ToastCloseTrigger` avec une icône explicite.
+Le rendu intégré ajoute aussi un spinner aux titres de chargement et un `ToastActionTrigger` quand un
+toast a une action. Partez de cet exemple quand les toasts ont besoin d’icônes ou d’une autre mise en
+page.
+
+<Example name="toast/build-from-parts" />
 
 ## Composition
+
+moduix exporte `Toast`, `ToastToaster`, `createToaster` et `useToastContext` depuis
+`@moduix/react/toast`, `@moduix/solid/toast` et `@moduix/vue/toast`. La référence Ark décrit l’API
+complète du store et de ses parties.
 
 Créez le toaster une seule fois, puis passez la même instance à `ToastToaster`. En Vue, créez-le dans
 `<script setup>` pour que chaque instance du composant possède son propre store ; un store partagé
@@ -103,70 +122,23 @@ interne auxiliaire, et `ToastToaster` ignore `asChild`. Conservez leurs élémen
 la correction de ces compositions en amont. La composition avec `asChild` reste disponible pour
 le titre, la description et les boutons d’action et de fermeture.
 
-## Exemples
+## Anatomie
 
-### Action
+Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
 
-Ajoutez `action: { label, onClick }` lorsque la notification doit proposer une action directe.
-
-<Example name="toast/action" />
-
-### Durée
-
-Définissez `duration` en millisecondes lorsqu’une notification doit disparaître plus tôt, rester
-visible plus longtemps ou rester affichée jusqu’à sa fermeture manuelle avec `Infinity`.
-
-<Example name="toast/duration" />
-
-### Nombre maximal visible
-
-Définissez `max` sur le toaster lorsque des rafales de notifications doivent être mises en file au
-lieu de remplir l’écran.
-
-<Example name="toast/max-toasts" />
-
-### Pile sans chevauchement
-
-Définissez `overlap: false` pour que chaque notification reste entièrement visible. Il s’agit d’un
-réglage du toaster, pas d’un mode distinct du composant.
-
-<Example name="toast/always-expanded" />
-
-### Placement
-
-Choisissez l’un des six placements d’Ark lorsque le groupe de notifications doit apparaître près d’un
-bord précis de la fenêtre.
-
-<Example name="toast/placement" />
-
-### Promise
-
-Utilisez `toaster.promise()` pour faire passer une même notification du chargement au succès ou à
-l’erreur lorsque l’opération asynchrone se termine. Tant que le toast a le type `loading`, le rendu par
-défaut affiche un `Spinner` décoratif avant le titre.
-
-<Example name="toast/promise-toast" />
-
-### Types
-
-Utilisez les helpers typés du toaster pour les variantes liées au statut. Moduix applique les styles
-`info`, `success`, `warning` et `error` via `data-type`.
-
-<Example name="toast/types" />
-
-### Mise à jour
-
-Conservez l’identifiant renvoyé lors de la création d’une notification et transmettez-le à
-`toaster.update()` lorsque la notification existante doit être modifiée sur place.
-
-<Example name="toast/update" />
-
-### Personnalisation avancée
-
-Utilisez la render prop pour remplacer le rendu standard de `ToastToaster`, ajouter une icône, remplacer
-l’icône de fermeture et appliquer des variables CSS propres au composant.
-
-<Example name="toast/custom-composition" />
+<AnatomyInspector
+  parts={[
+    ["ToastToaster", "toast-toaster", "Rend le store du toaster et gère le groupe de notifications.", 0],
+    ["Toast", "toast-root", "Racine d’une notification visible.", 1],
+    ["ToastTitle", "toast-title", "Partie du titre. Utilise le `title` de la notification courante sans enfant.", 2],
+    ["ToastDescription", "toast-description", "Partie de la description. Utilise la `description` courante sans enfant.", 2],
+    ["ToastActionTrigger", "toast-action-trigger", "Bouton d’action lié à `toast.action.onClick`.", 2],
+    ["ToastCloseTrigger", "toast-close-trigger", "Bouton de fermeture. Utilise `CloseButton` par défaut.", 2],
+    ["ToastContext", null, "Partie de contexte pour une composition personnalisée et l’accès direct à l’état.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styles
 
@@ -178,12 +150,26 @@ variantes Tailwind utilisent les utilitaires natifs et les classes de l’applic
 
 ### Variables CSS
 
-<CssPropertiesSection properties={ToastDocs.toastCssProperties} />
+Survolez ou sélectionnez une variable pour la voir dans l’aperçu.
+
+<CssPropertiesSection properties={ToastDocs.toastCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Points d’accroche CSS
 
-Utilisez la racine de `Toast` pour la surface, la bordure, les animations et les variantes par type.
-Utilisez `ToastTitle`, `ToastDescription`, `ToastActionTrigger` et `ToastCloseTrigger` pour la
+| Partie | `data-slot` |
+| --- | --- |
+| `ToastToaster` | `toast-toaster` |
+| `Toast` | `toast-root` |
+| `ToastTitle` | `toast-title` |
+| `ToastDescription` | `toast-description` |
+| `ToastActionTrigger` | `toast-action-trigger` |
+| `ToastCloseTrigger` | `toast-close-trigger` |
+
+- Sélecteurs d'état Ark : `data-type`, `data-state="open|closed"`, `data-placement`, `data-paused`, `data-first` et `data-overlap` sur `Toast`.
+
+Utilisez la racine de `Toast` pour la surface, la bordure, les animations et les variantes par type. Utilisez `ToastTitle`, `ToastDescription`, `ToastActionTrigger` et `ToastCloseTrigger` pour la
 typographie et les contrôles internes.
 
 Sélecteurs Ark utiles :
@@ -196,10 +182,29 @@ Sélecteurs Ark utiles :
 - `[data-scope='toast'][data-part='close-trigger']` sur `ToastCloseTrigger`
 - `--x`, `--y`, `--scale`, `--z-index`, `--height`, `--opacity` et `--gap` sur `Toast`
 
-Moduix ajoute également des points d’accroche stables : `data-slot="toast-toaster"`,
-`data-slot="toast-root"`, `data-slot="toast-title"`, `data-slot="toast-description"`,
-`data-slot="toast-action-trigger"` et `data-slot="toast-close-trigger"`.
-
 Jusqu’à une largeur de fenêtre de `40rem`, chaque placement est centré horizontalement. Les toasts
 gardent leur largeur de `20rem` et se rétrécissent entre les `offsets` d’Ark et les zones de sécurité
 horizontales de l’écran.
+
+## Clavier
+
+| Touche | Action |
+| --- | --- |
+| `Alt+T` | Déplace le focus vers la zone des toasts. Modifiable avec l’option hotkey. |
+| `Esc` | Ferme le toast ayant le focus. |
+
+## Référence de l’API
+
+Options de `createToaster()`. Chaque appel à `toaster.create()` accepte aussi `title`, `description`, `type`, `duration`, `action` et `closable`.
+
+| Prop | Type | Défaut | Description |
+| --- | --- | --- | --- |
+| `placement` | `'top-start' \| 'top' \| 'top-end' \| 'bottom-start' \| 'bottom' \| 'bottom-end'` | `'bottom'` | Bord de l’écran où apparaissent les toasts. |
+| `max` | `number` | `24` | Nombre maximal de toasts visibles. |
+| `overlap` | `boolean` | `false` | Empile les toasts jusqu’au survol. |
+| `duration` | `number` | — | Durée d’affichage par défaut en millisecondes. |
+| `gap` | `number` | `16` | Espace entre les toasts en pixels. |
+| `offsets` | `string \| Record<Side, string>` | — | Distance par rapport aux bords de la fenêtre. |
+| `hotkey` | `string[]` | `['altKey', 'KeyT']` | Touches qui déplacent le focus vers la zone des toasts. |
+| `removeDelay` | `number` | `200` | Délai avant la suppression d’un toast fermé, pour son animation de sortie. |
+| `pauseOnPageIdle` | `boolean` | `true` | Met les minuteurs en pause quand la page est masquée. |

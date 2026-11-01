@@ -1,100 +1,26 @@
 ---
 title: Kbd
 component: kbd
-description: Un composant compact pour afficher des raccourcis clavier, des commandes et des libellés de touches dans l’interface.
+description: Afficher une touche ou un raccourci dans le texte.
+ark: https://ark-ui.com/docs/guides/composition#the-ark-factory
 ---
 
+import AnatomyScene from '@/components/examples/kbd/basic';
 import * as KbdDocs from '@/components/examples/kbd/css-properties';
-
-## Référence de l’API
-
-Ark UI ne fournit pas de primitive dédiée à l’affichage des touches. `Kbd` est construit avec la [fabrique Ark](https://ark-ui.com/docs/guides/composition#the-ark-factory) officielle. Il suit ainsi les recommandations d’Ark pour la [composition](https://ark-ui.com/docs/guides/composition), les [styles](https://ark-ui.com/docs/guides/styling) et la [transmission des refs](https://ark-ui.com/docs/guides/ref).
-
-## Exemple de base
-
-
-Utilisez `Kbd` pour afficher une touche. Pour un raccourci composé de plusieurs touches, placez les touches et leurs séparateurs textuels dans `KbdGroup`.
 
 <Example name="kbd/basic" />
 
-## Installation avec shadcn
+## Installation
 
-Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration complète du paquet, du registre et des styles.
+<ComponentInstall />
 
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
+## Utilisation
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/kbd' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/kbd' },
-  ]}
-/>
+<Usage />
 
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/kbd' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/kbd' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/kbd' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/kbd' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Anatomie
-
-La structure d’un raccourci est simple. Le signe `+` est ici du texte ordinaire, pas une partie du composant.
-
-```text
-KbdGroup
-├─ Kbd
-├─ +
-└─ Kbd
-```
-
-| Partie              | Rôle                                                                      |
-| ------------------- | ------------------------------------------------------------------------- |
-| `Kbd`              | Élément racine, rendu sous forme de `<kbd>` par défaut.                   |
-| `KbdGroup`         | Conteneur en ligne pour les touches liées ; utilise le rôle `group` par défaut. |
-
-## Composition
-
-Utilisez `Kbd` pour afficher une touche et `KbdGroup` pour regrouper les touches liées. Gardez les séparateurs comme `+` sous forme de texte ordinaire dans le groupe et ajoutez un `aria-label` lorsque les symboles ou abréviations visuels ont besoin d’un nom accessible plus explicite.
-
-Kbd est statique et ne gère ni état ni interaction clavier. Utilisez `asChild` uniquement lorsqu’un autre composant doit rendre l’élément sémantique `<kbd>` et fournissez exactement un enfant.
+Utilisez `Kbd` pour afficher une touche. Pour un raccourci composé de plusieurs touches, placez les touches et leurs séparateurs textuels dans `KbdGroup`.
 
 ## Exemples
-
-### Format compact
-
-Utilisez des variables CSS locales lorsque vous souhaitez réduire les touches dans une zone précise de l’interface, sans ajouter de props au composant.
-
-<Example name="kbd/compact-density" />
-
-### Élément personnalisé
-
-Utilisez `asChild` lorsqu’un autre composant rend déjà l’élément sémantique `<kbd>` et que vous souhaitez lui appliquer les styles de Kbd.
-
-<Example name="kbd/custom-element" />
-
-### Liste de raccourcis
-
-Associez `KbdGroup` à un texte explicatif pour présenter plusieurs raccourcis disponibles.
-
-<Example name="kbd/shortcut-list" />
 
 ### Touche unique
 
@@ -108,17 +34,71 @@ Placez une icône directement dans `Kbd` ; elle prend la taille du texte de la t
 
 <Example name="kbd/with-icon" />
 
+### Liste de raccourcis
+
+Associez `KbdGroup` à un texte explicatif pour présenter plusieurs raccourcis disponibles.
+
+<Example name="kbd/shortcut-list" />
+
+### Format compact
+
+Utilisez des variables CSS locales lorsque vous souhaitez réduire les touches dans une zone précise de l’interface, sans ajouter de props au composant.
+
+<Example name="kbd/compact-density" />
+
+### Élément personnalisé
+
+Utilisez `asChild` lorsqu’un autre composant rend déjà l’élément sémantique `<kbd>` et que vous souhaitez lui appliquer les styles de Kbd.
+
+<Example name="kbd/custom-element" />
+
+## Composition
+
+Utilisez `Kbd` pour afficher une touche et `KbdGroup` pour regrouper les touches liées. Gardez les séparateurs comme `+` sous forme de texte ordinaire dans le groupe et ajoutez un `aria-label` lorsque les symboles ou abréviations visuels ont besoin d’un nom accessible plus explicite.
+
+Kbd est statique et ne gère ni état ni interaction clavier. Utilisez `asChild` uniquement lorsqu’un autre composant doit rendre l’élément sémantique `<kbd>` et fournissez exactement un enfant.
+
+## Anatomie
+
+Un raccourci est un `KbdGroup` de touches `Kbd`. Le signe `+` entre les touches est du texte ordinaire, pas une partie du composant.
+
+Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
+
+<AnatomyInspector
+  parts={[
+    ["KbdGroup", "kbd-group", "Conteneur en ligne pour les touches liées ; utilise le rôle `group` par défaut.", 0],
+    ["Kbd", "kbd-root", "Élément racine, rendu sous forme de `<kbd>` par défaut.", 1],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
+
 ## Styles
 
 Personnalisez `Kbd` et `KbdGroup` avec `className` en React ou `class` en Solid et Vue, les attributs d’anatomie Ark, les points d’accroche `data-slot` stables et les variables CSS publiques `--moduix-kbd-*` listées ci-dessous. Les variantes Tailwind utilisent des classes utilitaires natives ; les variantes CSS Modules utilisent les variables du composant et le CSS de l’application.
 
-### Propriétés CSS
+### Variables CSS
 
-<CssPropertiesSection properties={KbdDocs.kbdOverrideCssProperties} />
+Survolez ou sélectionnez une variable pour la voir dans l’aperçu.
+
+<CssPropertiesSection properties={KbdDocs.kbdOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Points d’accroche CSS
 
-- `data-slot="kbd-root"` cible chaque touche affichée
-- `data-slot="kbd-group"` cible le conteneur en ligne des raccourcis regroupés
+| Partie | `data-slot` |
+| --- | --- |
+| `Kbd` | `kbd-root` |
+| `KbdGroup` | `kbd-group` |
+
 - `[data-scope="kbd"][data-part="root"]` et `[data-part="group"]` fournissent des sélecteurs d’anatomie dans le style d’Ark
 - Les séparateurs de `KbdGroup` héritent de la couleur du texte du groupe. Pour la changer, définissez `color` sur `KbdGroup` avec votre propre classe
+
+## Référence de l’API
+
+`Kbd` rend un élément `kbd` et `KbdGroup` un `span`. Les deux acceptent leurs props natives et `asChild`.
+
+| Prop | Type | Défaut | Description |
+| --- | --- | --- | --- |
+| `asChild` | `boolean` | `false` | Applique les styles de touche à son unique enfant. |

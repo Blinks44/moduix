@@ -10,6 +10,7 @@ import {
   CheckboxRootProvider,
   useCheckbox,
 } from '@/components/checkbox/Checkbox';
+import { Fieldset, FieldsetLegend } from '@/components/fieldset';
 
 const meta = {
   title: 'Components/Checkbox',
@@ -251,8 +252,8 @@ export const GroupControlled: Story = {
 
 export const GroupWithFieldset: Story = {
   render: () => (
-    <fieldset className={wrapperClass}>
-      <legend className={groupHeadingClass}>Frameworks</legend>
+    <Fieldset>
+      <FieldsetLegend>Frameworks</FieldsetLegend>
       <CheckboxGroup defaultValue={['react']} name="frameworks">
         {frameworkOptions.map((option) => (
           <CheckboxItem key={option.value} value={option.value}>
@@ -260,7 +261,7 @@ export const GroupWithFieldset: Story = {
           </CheckboxItem>
         ))}
       </CheckboxGroup>
-    </fieldset>
+    </Fieldset>
   ),
 };
 

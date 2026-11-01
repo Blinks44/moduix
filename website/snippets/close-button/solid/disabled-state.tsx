@@ -1,17 +1,17 @@
 import { CloseButton } from '@moduix/solid/close-button';
-import styles from '@/components/examples/close-button/close-button-disabled-state.module.css';
+import { Stack } from '@moduix/solid/stack';
 
 export default function CloseButtonDisabledDemo() {
   return (
-    <div class={styles.root}>
-      <div class={styles.row}>
+    <Stack gap="2">
+      <Stack direction="row" align="center" gap="2">
         <CloseButton disabled aria-label="Close unavailable message" />
         <span>Native disabled</span>
-      </div>
-      <div class={styles.row}>
+      </Stack>
+      <Stack direction="row" align="center" gap="2">
         <CloseButton aria-disabled="true" aria-label="Close unavailable notification" />
         <span>ARIA disabled</span>
-      </div>
-    </div>
+      </Stack>
+    </Stack>
   );
 }

@@ -1,131 +1,34 @@
 ---
 title: Progress Circular
 component: progress-circular
-description: A circular progress indicator for determinate or indeterminate tasks.
+description: Show task progress in a compact ring, with a known or unknown end.
+ark: https://ark-ui.com/docs/components/progress-circular
 ---
 
+import AnatomyScene from '@/components/examples/progress-circular/basic';
 import * as ProgressCircularDocs from '@/components/examples/progress-circular/css-properties';
 
-## API Reference
+<Example name="progress-circular/basic" />
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/progress-circular" />
+## Installation
 
-## Choosing the right component
+<ComponentInstall />
 
-Use `ProgressCircular` for compact progress feedback in inline content, cards, toolbar badges, and
-small dashboards. Use `ProgressLinear` when progress is easier to compare on a horizontal track.
+## Usage
 
-## Basic
-
+<Usage />
 
 Use `ProgressCircularRing` to render the standard circle with its track and range. Add
 `ProgressCircularValueText` to show the current value. The example wraps the circle and value text
 so the value appears in the center. Give `ProgressCircularRing` an `aria-label` that names the task and matches the
 visible label.
 
-<Example name="progress-circular/basic" />
+## Choosing the right component
 
-## Install with shadcn
-
-See [Quick Start](/docs/quick-start) for full package setup, registry configuration, and styling guidance.
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/progress-circular' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/progress-circular' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/progress-circular' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/progress-circular' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/progress-circular' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/progress-circular' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Anatomy
-
-```text
-ProgressCircular
-├─ ProgressCircularLabel
-├─ ProgressCircularCircle
-│  ├─ ProgressCircularCircleTrack
-│  └─ ProgressCircularCircleRange
-├─ ProgressCircularRing
-│  └─ fixed ProgressCircularCircle, ProgressCircularCircleTrack, and ProgressCircularCircleRange subtree
-├─ ProgressCircularValueText
-└─ ProgressCircularView
-
-ProgressCircularRootProvider
-└─ same part tree connected to useProgress()
-```
-
-| Part                                         | Role                                                                                       |
-| -------------------------------------------- | ------------------------------------------------------------------------------------------ |
-| `ProgressCircular` | Owns progress state, formatting, and generated ids.                                        |
-| `ProgressCircularRootProvider`              | Connects parts to state created with `useProgress()`.                     |
-| `ProgressCircularContext`                   | Exposes the current progress state through a render prop.                                  |
-| `ProgressCircularLabel`                     | Provides visible context for the progress indicator.                                       |
-| `ProgressCircularRing`                      | Convenience part that renders the default circle, track, and range.                       |
-| `ProgressCircularCircle`                    | SVG progressbar element with Ark's role and ARIA value attributes.                        |
-| `ProgressCircularCircleTrack`               | Background circle.                                                                         |
-| `ProgressCircularCircleRange`               | Foreground circle that reflects the current progress or indeterminate state.               |
-| `ProgressCircularValueText`                 | Displays the formatted value and announces updates.                                       |
-| `ProgressCircularView`                      | Renders content for `indeterminate`, `loading`, or `complete`.                             |
-
-## Composition
-
-Use `ProgressCircularRing` when the
-standard circle is enough: it combines `ProgressCircularCircle`, `ProgressCircularCircleTrack`, and `ProgressCircularCircleRange`, but it does not
-render or center `ProgressCircularValueText`. Keep the label, circle, and value text composition explicit when the
-value should appear in the center.
-
-Use `defaultValue` when the component owns progress state. Use `value` with
-`onValueChange(details)` when the application owns it. Set `defaultValue={null}` or `value={null}`
-for indeterminate progress. When state must be created outside the rendered tree, create it with
-`useProgress()` and pass the store to `ProgressCircularRootProvider` instead of
-rendering another root for the same store.
+Use `ProgressCircular` for compact progress feedback in inline content, cards, toolbar badges, and
+small dashboards. Use `ProgressLinear` when progress is easier to compare on a horizontal track.
 
 ## Examples
-
-### Controlled
-
-Keep `value` in application state when progress needs to stay synchronized with another control or
-an external task.
-
-<Example name="progress-circular/controlled" />
-
-### Indeterminate
-
-Set `defaultValue={null}` or `value={null}` when the task is running but its progress cannot be
-measured yet.
-
-<Example name="progress-circular/indeterminate" />
-
-### Min and max
-
-Use `min` and `max` to map values to a range other than the default `0` to `100`.
-
-<Example name="progress-circular/min-max" />
 
 ### Value text
 
@@ -135,26 +38,80 @@ value string.
 
 <Example name="progress-circular/value-text" />
 
-### Advanced customization
+### Min and max
 
-`ProgressCircularRing` is the quick path. Compose `ProgressCircularCircle`, `ProgressCircularCircleTrack`, and `ProgressCircularCircleRange`
-directly when the SVG tree or state ownership needs to be customized. Only direct composition can
-give `ProgressCircularCircleTrack` and `ProgressCircularCircleRange` their own classes, as in this example.
+Use `min` and `max` to map values to a range other than the default `0` to `100`.
 
-<Example name="progress-circular/circle-parts" />
+<Example name="progress-circular/min-max" />
 
-### Root Provider
+### Indeterminate
 
-Create the store with `useProgress()` and pass it to `ProgressCircularRootProvider` when another
-component needs to read or update progress outside the rendered tree.
+Set `defaultValue={null}` or `value={null}` when the task is running but its progress cannot be
+measured yet.
 
-<Example name="progress-circular/root-provider" />
+<Example name="progress-circular/indeterminate" />
 
 ### State views
 
 Use `ProgressCircularView` when supporting text or UI should change with the Ark progress state.
 
 <Example name="progress-circular/state-views" />
+
+### Controlled
+
+Keep `value` in application state when progress needs to stay synchronized with another control or
+an external task. See [Control state from the application](/docs/composition-patterns#controlled-state).
+
+<Example name="progress-circular/controlled" />
+
+### Root provider
+
+Create the store with `useProgress()` and pass it to `ProgressCircularRootProvider` when another
+component needs to read or update progress outside the rendered tree. See [Share state outside the tree](/docs/composition-patterns#root-provider).
+
+<Example name="progress-circular/root-provider" />
+
+### Build from parts
+
+The same progress as Basic, without `ProgressCircularRing`: `ProgressCircularCircle` holds
+`ProgressCircularCircleTrack` and `ProgressCircularCircleRange`. Start here when the track and range
+need their own classes or the SVG tree needs extra children.
+
+<Example name="progress-circular/build-from-parts" />
+
+## Composition
+
+Use `ProgressCircularRing` when the
+standard circle is enough: it combines `ProgressCircularCircle`, `ProgressCircularCircleTrack`, and `ProgressCircularCircleRange`, but it does not
+render or center `ProgressCircularValueText`. Keep the label, circle, and value text composition explicit when the
+value should appear in the center.
+
+Use `defaultValue` when the component manages progress state. Use `value` with
+`onValueChange(details)` when the application controls it. Set `defaultValue={null}` or `value={null}`
+for indeterminate progress. When state must be created outside the rendered tree, create it with
+`useProgress()` and pass the store to `ProgressCircularRootProvider` instead of
+rendering another root for the same store.
+
+## Anatomy
+
+Hover or focus a part to find it in the preview.
+
+<AnatomyInspector
+  parts={[
+    ["ProgressCircular", "progress-circular-root", "Manages progress state, formatting, and generated ids.", 0],
+    ["ProgressCircularLabel", "progress-circular-label", "Provides visible context for the progress indicator.", 1],
+    ["ProgressCircularCircle", "progress-circular-circle", "SVG progressbar element with Ark's role and ARIA value attributes.", 1],
+    ["ProgressCircularCircleTrack", "progress-circular-circle-track", "Background circle.", 2],
+    ["ProgressCircularCircleRange", "progress-circular-circle-range", "Foreground circle that reflects the current progress or indeterminate state.", 2],
+    ["ProgressCircularRing", "", "Convenience part that renders the default circle, track, and range.", 1],
+    ["ProgressCircularValueText", "progress-circular-value-text", "Displays the formatted value and announces updates.", 1],
+    ["ProgressCircularView", "progress-circular-view", "Renders content for `indeterminate`, `loading`, or `complete`.", 1],
+    ["ProgressCircularRootProvider", "progress-circular-root-provider", "Connects parts to state created with `useProgress()`.", 0],
+    ["ProgressCircularContext", null, "Exposes the current progress state through a render prop.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styling
 
@@ -167,19 +124,43 @@ Indeterminate progress spins a quarter-circle arc. When reduced motion is prefer
 does not transition and the arc stays still. To give indeterminate progress its own color, style
 `ProgressCircularCircleRange` with `[data-state='indeterminate']`.
 
-### CSS Properties
+### CSS variables
 
-<CssPropertiesSection properties={ProgressCircularDocs.progressCircularCssProperties} />
+Hover or focus a variable to see it in the preview.
+
+<CssPropertiesSection properties={ProgressCircularDocs.progressCircularCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Styling hooks
 
-- `data-slot="progress-circular-root"`, `data-slot="progress-circular-root-provider"`,
-  `data-slot="progress-circular-label"`, `data-slot="progress-circular-circle"`,
-  `data-slot="progress-circular-circle-track"`, `data-slot="progress-circular-circle-range"`,
-  `data-slot="progress-circular-value-text"`, and `data-slot="progress-circular-view"`.
+| Part | `data-slot` |
+| --- | --- |
+| `ProgressCircular` | `progress-circular-root` |
+| `ProgressCircularRootProvider` | `progress-circular-root-provider` |
+| `ProgressCircularLabel` | `progress-circular-label` |
+| `ProgressCircularValueText` | `progress-circular-value-text` |
+| `ProgressCircularCircle` | `progress-circular-circle` |
+| `ProgressCircularCircleTrack` | `progress-circular-circle-track` |
+| `ProgressCircularCircleRange` | `progress-circular-circle-range` |
+| `ProgressCircularView` | `progress-circular-view` |
+
 - `ProgressCircularRing` shares `ProgressCircularCircle`'s `data-slot`, `className`/`class`, ref, and
   `--moduix-progress-circular-*` size and thickness variables.
 - Ark hooks: `data-scope="progress"`, `data-part`, `data-state="indeterminate|loading|complete"`,
   `data-orientation`, `data-value`, and `data-max`.
 - Ark circle variables: `--size`, `--thickness`, `--radius`, `--circumference`, `--percent`, and
   `--offset`.
+
+## API reference
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `value` | `number \| null` | — | Progress value for controlled use; `null` shows an indeterminate state. |
+| `defaultValue` | `number \| null` | `50` | Initial value when it is not controlled; `null` is indeterminate. |
+| `onValueChange` | `(details: ValueChangeDetails) => void` | — | Called when the value changes. |
+| `min` | `number` | `0` | Minimum value. |
+| `max` | `number` | `100` | Maximum value. |
+| `formatOptions` | `Intl.NumberFormatOptions` | `{ style: 'percent' }` | `Intl.NumberFormat` options for the value text. |
+| `locale` | `string` | — | Locale for number formatting; defaults to the nearest `LocaleProvider`. |
+| `translations` | `IntlTranslations` | — | Localized strings for accessibility labels. |

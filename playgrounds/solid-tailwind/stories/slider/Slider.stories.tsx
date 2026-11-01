@@ -337,7 +337,7 @@ export const RootProvider: Story = {
 export const AsChild: Story = {
   render: () => (
     <Slider asChild={(props) => <section {...props()} />} defaultValue={[40]}>
-      <div>
+      <>
         <div class={headerClass}>
           <SliderLabel>Volume</SliderLabel>
           <SliderValueText />
@@ -350,7 +350,7 @@ export const AsChild: Story = {
             <SliderHiddenInput />
           </SliderThumb>
         </SliderControl>
-      </div>
+      </>
     </Slider>
   ),
 };

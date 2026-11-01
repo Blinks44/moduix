@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Menu, MenuContent, MenuItem, MenuPositioner, MenuTrigger, MenuViewport } from '../../src';
+import { Menu, MenuContent, MenuItem, MenuPositioner, MenuTrigger, MenuViewport } from '@/index';
 </script>
 
 <template>

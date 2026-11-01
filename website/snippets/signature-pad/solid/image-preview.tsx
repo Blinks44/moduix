@@ -1,4 +1,5 @@
 import { SignaturePad, SignaturePadCanvas, SignaturePadLabel } from '@moduix/solid/signature-pad';
+import { Stack } from '@moduix/solid/stack';
 import { createSignal } from 'solid-js';
 import styles from '@/components/examples/signature-pad/signature-pad-image-preview.module.css';
 
@@ -8,7 +9,7 @@ export default function ImagePreviewSignaturePadDemo() {
   const [imageUrl, setImageUrl] = createSignal('');
 
   return (
-    <div class={styles.root}>
+    <Stack align="center" gap="3">
       <SignaturePad
         onDrawEnd={(details) => {
           void details.getDataUrl(imageType).then(setImageUrl);
@@ -22,6 +23,6 @@ export default function ImagePreviewSignaturePadDemo() {
       ) : (
         <div class={styles.placeholder}>Preview appears after signing</div>
       )}
-    </div>
+    </Stack>
   );
 }

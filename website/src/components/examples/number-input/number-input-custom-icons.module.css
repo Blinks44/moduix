@@ -1,0 +1,18 @@
+.button {
+  background-color: var(--moduix-muted);
+
+  & > svg {
+    width: 1rem;
+    height: 1rem;
+  }
+
+  &:hover {
+    background-color: var(--moduix-accent);
+  }
+}
+
+.input {
+  --moduix-number-input-input-width: 7rem;
+
+  font-size: var(--moduix-text-lg);
+}

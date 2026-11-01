@@ -1,102 +1,40 @@
 ---
 title: Skeleton
 component: skeleton
-description: Un espace réservé pour le chargement de textes, cartes, médias et sections personnalisées en React, Solid et Vue.
+description: Réserver la place du texte, des cartes et des médias pendant le chargement.
+ark: https://ark-ui.com/docs/guides/composition#the-ark-factory
 ---
 
+import AnatomyScene from '@/components/examples/skeleton/basic';
 import * as SkeletonDocs from '@/components/examples/skeleton/css-properties';
 
-## Référence de l’API
+<Example name="skeleton/basic" />
 
-Ark UI ne fournit pas de primitive `Skeleton` dédiée. moduix construit `Skeleton` à partir de la
-[fabrique Ark](https://ark-ui.com/docs/guides/composition#the-ark-factory) officielle et suit les recommandations
-d’Ark pour la [composition](https://ark-ui.com/docs/guides/composition), les
-[styles](https://ark-ui.com/docs/guides/styling) et les [refs](https://ark-ui.com/docs/guides/ref).
+## Installation
 
-## Exemple de base
+<ComponentInstall />
 
+## Utilisation
+
+<Usage />
 
 Utilisez `Skeleton` pour les lignes de texte, les cartes, les avatars et les espaces réservés aux médias. La
 mise en page environnante gère les espacements et la composition responsive. Consultez le [guide de démarrage](/docs/quick-start)
 pour l’installation des packages, la configuration du registre et le choix du mode de style.
 
-<Example name="skeleton/basic" />
-
-## Installation avec shadcn
-
-Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration complète du paquet, du registre et des styles.
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/skeleton' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/skeleton' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/skeleton' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/skeleton' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/skeleton' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/skeleton' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Anatomie
-
-`Skeleton` ne comporte qu’une seule partie visuelle. La mise en page se fait dans le balisage qui l’entoure.
-
-```text
-Skeleton
-└─ children (facultatifs, affichés lorsque loading={false})
-```
-
-| Partie                        | Rôle                                                                                                                  |
-| ----------------------------- | --------------------------------------------------------------------------------------------------------------------- |
-| `Skeleton` | Bloc d’attente. Rend par défaut un élément de la fabrique Ark ; avec `asChild`, un autre élément sémantique peut devenir la racine. |
-
-## Composition
-
-`Skeleton` ne gère pas l’état de chargement. La zone de données ou de page qui porte la requête transmet `loading`
-et doit porter `aria-busy` ; l’espace réservé est décoratif. Définissez `loading={false}` (`:loading="false"` en Vue) pour afficher les enfants
-dans le même élément racine.
-
-`Skeleton` ne comporte qu’une seule partie visuelle : composez les cartes, les objets média et les mises en page
-responsives dans un conteneur de votre choix. `Stack` est disponible dans les deux variantes de style ;
-avec Tailwind, vous pouvez aussi utiliser les utilitaires flex et grid natifs. Utilisez `asChild` uniquement
-lorsqu’un autre élément sémantique doit devenir la racine. En Solid, `asChild` reçoit une fonction de rendu ;
-en Vue, utilisez `as-child` avec un seul élément sémantique dans le slot par défaut.
-
 ## Exemples
+
+### Variantes
+
+Utilisez `variant` pour choisir un espace réservé animé par pulsation ou statique.
+
+<Example name="skeleton/variants" />
 
 ### Carte
 
 Utilisez un grand bloc et des lignes de texte plus courtes pour préserver la mise en page d’une carte pendant le chargement.
 
 <Example name="skeleton/card" />
-
-### Contenu chargé
-
-Utilisez `loading` pour conserver le même élément racine lors du remplacement de l’espace réservé par le contenu réel.
-
-<Example name="skeleton/loaded-content" />
 
 ### Objet média
 
@@ -110,17 +48,43 @@ Laissez la logique de mise en page responsive dans le conteneur et utilisez chaq
 
 <Example name="skeleton/responsive-layout" />
 
-### Variantes
+### Contenu chargé
 
-Utilisez `variant` pour choisir un espace réservé animé par pulsation ou statique.
+Utilisez `loading` pour conserver le même élément racine lors du remplacement de l’espace réservé par le contenu réel.
 
-<Example name="skeleton/variants" />
+<Example name="skeleton/loaded-content" />
 
-### Personnalisation avancée
+### Élément personnalisé
 
 Utilisez `asChild` pour qu’un élément sémantique tel que `section` devienne la racine DOM à la place du `div` par défaut.
 
-<Example name="skeleton/custom-host" />
+<Example name="skeleton/custom-element" />
+
+## Composition
+
+`Skeleton` ne gère pas l’état de chargement. La zone de données ou de page qui porte la requête transmet `loading`
+et doit porter `aria-busy` ; l’espace réservé est décoratif. Définissez `loading={false}` (`:loading="false"` en Vue) pour afficher les enfants
+dans le même élément racine.
+
+`Skeleton` ne comporte qu’une seule partie visuelle : composez les cartes, les objets média et les mises en page
+responsives dans un conteneur de votre choix. `Stack` est disponible dans les deux variantes de style ;
+avec Tailwind, vous pouvez aussi utiliser les utilitaires flex et grid natifs. Utilisez `asChild` uniquement
+lorsqu’un autre élément sémantique doit devenir la racine. En Solid, `asChild` reçoit une fonction de rendu ;
+en Vue, utilisez `as-child` avec un seul élément sémantique dans le slot par défaut.
+
+## Anatomie
+
+`Skeleton` ne comporte qu’une seule partie visuelle. La mise en page se fait dans le balisage qui l’entoure.
+
+Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
+
+<AnatomyInspector
+  parts={[
+    ["Skeleton", "skeleton-root", "Bloc d’attente. Rend par défaut un élément de la fabrique Ark ; avec `asChild`, un autre élément sémantique peut devenir la racine.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styles
 
@@ -131,12 +95,31 @@ modes de style.
 
 ### Variables CSS
 
-<CssPropertiesSection properties={SkeletonDocs.skeletonOverrideCssProperties} />
+Survolez ou sélectionnez une variable pour la voir dans l’aperçu.
 
-### Sélecteurs et attributs de style
+<CssPropertiesSection properties={SkeletonDocs.skeletonOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
+
+### Points d’accroche CSS
+
+| Partie | `data-slot` |
+| --- | --- |
+| `Skeleton` | `skeleton-root` |
 
 - `[data-scope="skeleton"][data-part="root"]` cible l’élément racine exporté.
-- `data-slot="skeleton-root"` est le sélecteur stable de moduix pour cet élément.
 - `data-state="loading"` et `data-state="loaded"` reflètent la propriété `loading`.
 - `data-variant="pulse"` et `data-variant="none"` reflètent la variante choisie.
 - `data-loading` n’est présent que lorsque les styles d’attente sont actifs.
+
+## Référence de l’API
+
+| Prop | Type | Défaut | Description |
+| --- | --- | --- | --- |
+| `loading` | `boolean` | `true` | Affiche le substitut ; `false` révèle les enfants. |
+| `variant` | `'pulse' \| 'none'` | `'pulse'` | Animation : `pulse` ou `none`. |
+| `width` | `number \| string` | — | Largeur du substitut ; les nombres sont en pixels. |
+| `height` | `number \| string` | — | Hauteur du substitut ; les nombres sont en pixels. |
+| `boxSize` | `number \| string` | — | Définit la largeur et la hauteur ensemble. |
+| `borderRadius` | `number \| string` | — | Rayon des coins, par exemple pour un avatar rond. |
+| `asChild` | `boolean` | `false` | Rend le substitut avec son unique élément enfant. |

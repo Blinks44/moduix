@@ -1,3 +1,4 @@
+import { Stack } from '@moduix/react/stack';
 import {
   Steps,
   StepsCompletedContent,
@@ -58,10 +59,10 @@ export default function StepsVerticalDemo() {
 
         <StepsCompletedContent>Steps complete. The workspace is ready.</StepsCompletedContent>
 
-        <div className={styles.actions}>
+        <Stack direction="row" justify="flex-end" gap="2">
           <StepsPrevTrigger>Back</StepsPrevTrigger>
           <StepsNextTrigger>Next</StepsNextTrigger>
-        </div>
+        </Stack>
       </div>
     </Steps>
   );

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Alert, AlertContent, AlertDescription, AlertTitle } from '../../src';
+import { Alert, AlertContent, AlertDescription, AlertTitle } from '@/index';
 </script>
 
 <template>

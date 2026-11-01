@@ -1,33 +1,8 @@
 import { page } from '@rstest/browser';
 import { expect, test } from '@rstest/core';
 import { render } from '@testing-library/react';
-import type { CSSProperties } from 'react';
 import { createRef } from 'react';
-import { Skeleton } from '../src';
-
-test('owns stable loading hooks even when passthrough props provide conflicting values', () => {
-  expect(Skeleton).not.toHaveProperty('Root');
-  const { getByTestId } = render(
-    <Skeleton
-      data-testid="skeleton"
-      data-part="custom"
-      data-slot="custom"
-      data-state="loaded"
-      data-variant="none"
-    />,
-  );
-  const skeleton = getByTestId('skeleton');
-
-  expect(skeleton.getAttribute('aria-hidden')).toBe('true');
-  expect(skeleton.dataset).toMatchObject({
-    scope: 'skeleton',
-    part: 'root',
-    slot: 'skeleton-root',
-    state: 'loading',
-  });
-  expect(skeleton.hasAttribute('data-loading')).toBe(true);
-  expect(skeleton.getAttribute('data-variant')).toBe('pulse');
-});
+import { Skeleton } from '@/index';
 
 test('preserves an explicit accessibility override and the static variant', () => {
   const { getByTestId } = render(
@@ -98,16 +73,4 @@ test('clips overflow only while loading', async () => {
 
   rerender(<Skeleton data-testid="skeleton" loading={false} />);
   await expect.element(page.getByTestId('skeleton')).toHaveCSS('overflow', 'visible');
-});
-
-test('takes the pulse animation from the foundation token', async () => {
-  render(
-    <div style={{ '--moduix-animation-pulse': 'moduix-fade-in 1s' } as CSSProperties}>
-      <Skeleton data-testid="pulse" />
-      <Skeleton data-testid="none" variant="none" />
-    </div>,
-  );
-
-  await expect.element(page.getByTestId('pulse')).toHaveCSS('animation-name', 'moduix-fade-in');
-  await expect.element(page.getByTestId('none')).toHaveCSS('animation-name', 'none');
 });

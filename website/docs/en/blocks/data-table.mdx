@@ -1,6 +1,7 @@
 ---
 title: Data Table
 description: Build sortable, filterable, and paginated tables with moduix Table and TanStack Table v9.
+block: data-table
 ---
 
 import { DataTable } from '@/components/blocks/data-table';
@@ -12,16 +13,30 @@ import dataTableVue from '../../../snippets/blocks/vue/data-table.vue?raw';
 import dataTableControlsVue from '../../../snippets/blocks/vue/data-table-controls.vue?raw';
 import dataTableBasicSolid from '../../../snippets/blocks/solid/data-table-basic.tsx?raw';
 import dataTableBasicVue from '../../../snippets/blocks/vue/data-table-basic.vue?raw';
+import dataTableCatalogReact from '../../../src/components/blocks/data-table.tsx?raw';
+import dataTableCatalogCss from '../../../src/components/blocks/data-table.module.css?raw';
+import dataTableBasicReact from '../../../src/components/blocks/data-table/basic.tsx?raw';
+import dataTableBasicCss from '../../../src/components/blocks/data-table/payment-table.module.css?raw';
+import dataTableReact from '../../../src/components/blocks/data-table/sorting-filtering-and-pagination.tsx?raw';
+import dataTableCss from '../../../src/components/blocks/data-table/payment-table.module.css?raw';
 
 # Data Table
 
+<ExamplePanel
+  clientOnly
+  sources={{ react: dataTableCatalogReact, solid: dataTableCatalogSolid, vue: dataTableVue }}
+  files={[{ name: 'data-table.module.css', code: dataTableCatalogCss }]}
+>
+  <DataTable />
+</ExamplePanel>
+
 `Data Table` is a composition pattern, not a component exported by moduix. Use the semantic and
 styled `Table` parts for markup, then use TanStack Table v9 for table state and data-grid behavior.
-Keep records and table state in the screen or product feature that owns them, especially when that
+Keep records and table state in the screen or product feature that uses them, especially when that
 state drives a route or server query. Columns, filters, row actions, and server contracts vary by
 product, so keep that logic close to the feature that needs it.
 
-The full block below is the interactive table shown on the home page. It demonstrates search,
+The block above is the interactive table shown on the home page. It demonstrates search,
 sorting, column visibility, row selection, actions, and pagination. Copy the source and replace the
 example records and actions with your product data.
 
@@ -39,58 +54,13 @@ when users cannot use that capability.
 
 The live previews use the React package. The source tabs show native React, Solid, and Vue implementations for TanStack Table v9.
 
-
-
-<ExampleFrame variant="block" clientOnly>
-  <DataTable />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/blocks/data-table.tsx"
-
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={dataTableCatalogSolid} />
-
-    </Tab>
-  <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={dataTableVue} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/blocks/data-table.module.css"
-
-```
-</div>
-
-</ExampleCode>
-
 ## Install
 
 <BlockInstall name="data-table" />
 
 ## Setup
 
-Install TanStack Table in the application or feature that owns the data-grid behavior:
+Install TanStack Table in the application or feature that implements the data-grid behavior:
 
 <Tabs groupId="framework">
   <Tab label="React" value="react">
@@ -123,50 +93,14 @@ uses `createTable` and `table.FlexRender`; Vue uses `useTable` and the `FlexRend
 The snippet renders visible columns and cells, so it registers `columnVisibilityFeature`. Add other
 features only when the table needs them.
 
-<ExampleFrame variant="block">
+<ExamplePanel
+  sources={{ react: dataTableBasicReact, solid: dataTableBasicSolid, vue: dataTableBasicVue }}
+  files={[{ name: 'payment-table.module.css', code: dataTableBasicCss }]}
+>
   <PreviewFrame maxWidth="lg">
     <DataTableBasic />
   </PreviewFrame>
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/blocks/data-table/basic.tsx"
-
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={dataTableBasicSolid} />
-
-    </Tab>
-  <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={dataTableBasicVue} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/blocks/data-table/payment-table.module.css"
-
-```
-</div>
-
-</ExampleCode>
+</ExamplePanel>
 
 Keep the columns alongside the feature's data type. This is the natural place for formatting, numeric
 alignment, row actions, and business-specific filter definitions.
@@ -197,48 +131,12 @@ Import the individual built-in filter and sort functions that a table uses and r
 `tableFeatures()`. This keeps unused functions out of the bundle. The block registers
 `includesString`, `alphanumeric`, and `text` instead of a full registry.
 
-<ExampleFrame variant="block">
+<ExamplePanel
+  sources={{ react: dataTableReact, solid: dataTableSolid, vue: dataTableControlsVue }}
+  files={[{ name: 'payment-table.module.css', code: dataTableCss }]}
+>
   <InteractiveDataTable />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/blocks/data-table/sorting-filtering-and-pagination.tsx"
-
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={dataTableSolid} />
-
-    </Tab>
-  <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={dataTableControlsVue} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/blocks/data-table/payment-table.module.css"
-
-```
-</div>
-
-</ExampleCode>
+</ExamplePanel>
 
 For a sortable header, render a real button inside `TableColumnHeader`. The example uses Lucide
 icons with a consistent size and sets `aria-sort="none" | "ascending" | "descending"` on sortable
@@ -344,7 +242,7 @@ const table = useTable({
   </Tab>
 </Tabs>
 
-For server-owned behavior, do not add the matching `filteredRowModel`, `sortedRowModel`, or
+When the server filters, sorts, or paginates, do not add the matching `filteredRowModel`, `sortedRowModel`, or
 `paginatedRowModel` to `features`: TanStack assumes that `response.rows` already reflects the query.
 Pass `pageCount` instead of `rowCount` when that is what the API provides. `manualPagination` also
 turns off the usual page reset, so reset `pagination.pageIndex` to `0` whenever a remote filter or
@@ -373,7 +271,7 @@ every grid feature on by default.
 | Row actions       | Render a `Menu` in an actions column; keep action handlers in the product feature.                                                                                                                             |
 | Row selection     | Control `rowSelection`, configure `getRowId` with a durable record ID, and render moduix `Checkbox` controls in a selection column.                                                                           |
 | Column visibility | Control `columnVisibility` and expose `column.toggleVisibility()` through a `Menu`.                                                                                                                           |
-| Server data       | Keep query state in the route or data layer. Use `manualFiltering`, `manualSorting`, and `manualPagination` only for transforms owned by the API, then pass response rows with `rowCount` or `pageCount`. |
+| Server data       | Keep query state in the route or data layer. Use `manualFiltering`, `manualSorting`, and `manualPagination` only for transforms the API performs, then pass response rows with `rowCount` or `pageCount`. |
 | Large datasets    | Add virtualization to the table body only after measuring; keep the native `table`, `thead`, `tbody`, `tr`, `th`, and `td` semantics intact.                                                                     |
 
 The TanStack Table [row models guide](https://tanstack.com/table/latest/docs/guide/row-models) lists

@@ -1,138 +1,57 @@
 ---
 title: Color Picker
 component: color-picker
-description: Компонент выбора цвета на базе Ark UI для выбора цвета, изменения его каналов и работы с готовыми цветами в React, Solid и Vue.
+description: Выбор цвета через область, слайдеры каналов, поля и образцы.
+ark: https://ark-ui.com/docs/components/color-picker
 ---
 
+import AnatomyScene from '@/components/examples/color-picker/anatomy';
 import * as ColorPickerDocs from '@/components/examples/color-picker/css-properties';
 
-## Справочник API
+<Example name="color-picker/basic" />
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/color-picker" />
+## Установка
 
-## Выбор подходящего компонента
+<ComponentInstall />
 
-Выбирайте `ColorPicker`, когда пользователю нужно выбрать цвет или точно его настроить. Если достаточно ввести заранее
-известное значение без редактирования самого цвета, используйте `Input`.
+## Использование
 
-## Базовый пример
+<Usage />
 
 Начните с компактного поля: добавьте корневой компонент, поле одного канала, стандартный цветовой образец в кнопке
 открытия и явное содержимое всплывающего окна. Внутренние части селектора можно оставить без дочерних элементов,
 тогда компонент подставит их встроенную разметку. Явно добавьте `ColorPickerHiddenInput` и передайте
 `name`, если цвет нужно отправлять вместе с формой.
 
-<Example name="color-picker/basic" />
+## Выбор подходящего компонента
 
-## Установка через shadcn
-
-Полную настройку пакета, реестра и стилей см. в разделе [Быстрый старт](/docs/quick-start).
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/color-picker' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/color-picker' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/color-picker' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/color-picker' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/color-picker' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/color-picker' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Анатомия
-
-```text
-ColorPicker
-├─ ColorPickerLabel
-├─ ColorPickerControl
-│  ├─ ColorPickerChannelInput[channel]
-│  └─ ColorPickerTrigger
-│     └─ ColorPickerValueSwatch
-├─ Ветка всплывающего окна (по умолчанию выводится через портал)
-│  └─ ColorPickerPositioner
-│     └─ ColorPickerContent
-│        ├─ ColorPickerArea
-│        │  ├─ ColorPickerAreaBackground
-│        │  └─ ColorPickerAreaThumb
-│        ├─ ColorPickerEyeDropperTrigger
-│        ├─ ColorPickerChannelSlider[channel]
-│        │  ├─ ColorPickerTransparencyGrid
-│        │  ├─ ColorPickerChannelSliderTrack
-│        │  └─ ColorPickerChannelSliderThumb
-│        ├─ ColorPickerSwatchGroup
-│        │  └─ ColorPickerSwatchTrigger[value]
-│        │     └─ ColorPickerSwatch[value]
-│        │        └─ ColorPickerSwatchIndicator
-│        └─ ColorPickerView[format]
-│           └─ ColorPickerChannelInput[channel]
-└─ ColorPickerHiddenInput (явно)
-```
-
-| Часть | Назначение |
-| --- | --- |
-| `ColorPicker` | Хранит выбранный цвет и его формат, управляет открытием всплывающего окна и связывает компонент с формой. |
-| `ColorPickerHiddenInput` | Нативное поле Ark; правила явной композиции описаны ниже. |
-| `ColorPickerLabel` | Доступная подпись видимых элементов управления. |
-| `ColorPickerControl` | Объединяет видимые поля ввода и кнопку открытия. |
-| `ColorPickerTrigger` | Кнопка, которая открывает всплывающее окно и по умолчанию показывает образец текущего цвета. |
-| `ColorPickerPositioner` | Плавающий слой, который позиционирует всплывающее окно и предоставляет CSS-переменные позиционирования Ark. |
-| `ColorPickerContent` | Содержимое всплывающего окна на базе Ark. |
-| `ColorPickerArea` | Двумерная область для выбора цвета. |
-| `ColorPickerAreaBackground` | Фоновый слой, который обрабатывает ввод указателя в области выбора цвета. |
-| `ColorPickerEyeDropperTrigger` | Пипетка для снятия цвета с экрана; отображается только там, где браузер поддерживает EyeDropper API. |
-| `ColorPickerChannelSlider` | Одномерный регулятор для оттенка, альфа-канала или другого канала. |
-| `ColorPickerTransparencyGrid` | Шахматный фон, который делает альфа-канал видимым за дорожкой слайдера канала. Свотчи рисуют шахматку сами. |
-| `ColorPickerSliders` | Готовая пара слайдеров для оттенка и альфа-канала. |
-| `ColorPickerChannelInput` | Текстовое или числовое поле для отдельного канала цвета. |
-| `ColorPickerSwatchTrigger` | Кнопка выбора готового цвета. |
-| `ColorPickerSwatch` | Цветная поверхность внутри кнопки-образца или образца текущего значения. |
-| `ColorPickerSwatchIndicator` | Необязательный маркер внутри образца, например галочка у выбранного готового цвета. |
-| `ColorPickerValueSwatch` | Показывает образец текущего цвета. |
-| `ColorPickerValueText` | Текст только для чтения с форматированным значением. |
-
-`ColorPickerRootProvider`, `parseColor`, `useColorPicker` и `useColorPickerContext` подходят для типичных расширенных
-сценариев управления состоянием.
-
-## Композиция
-
-Используйте `defaultValue` для локального состояния. Если выбранный цвет или состояние открытия должны храниться в состоянии приложения, передайте `value` с `onValueChange(details)` или `open` с `onOpenChange(details)`. Во Vue то же состояние привязывается нативно через `v-model`, `v-model:open` и `v-model:format`. Если состояние создаётся вне дерева рендера, передайте результат `useColorPicker()` в `ColorPickerRootProvider`; для одного хранилища не рендерьте одновременно `ColorPicker` и `ColorPickerRootProvider`.
-
-`ColorPickerPositioner` по умолчанию рендерится через портал. Укажите `portalled={false}`, если оверлей должен находиться в другом контексте наложения. Чтобы отправить цвет в нативной форме, задайте `name` у корня и явно добавьте `ColorPickerHiddenInput`. `ColorPickerArea`, `ColorPickerChannelSlider` и `ColorPickerSwatchTrigger` сами добавляют стандартные визуальные части; передавайте дочерние элементы только при изменении их структуры.
-
-В Solid назначьте ref элементу, созданному внутри функции рендера `asChild`: ref на самой части
-ColorPicker через этот путь композиции не пробрасывается. Во Vue используйте обычный шаблонный
-`ref` на части и читайте отрендеренный элемент через `$el`.
+Выбирайте `ColorPicker`, когда пользователю нужно выбрать цвет или точно его настроить. Если достаточно ввести заранее
+известное значение без редактирования самого цвета, используйте `Input`.
 
 ## Примеры
 
-### Область и слайдеры
+### Встроенный режим
 
-Используйте эту компактную композицию, если пользователям нужны область выбора цвета и слайдеры каналов, но не нужны
-поля для ввода каналов с клавиатуры.
+Используйте `inline` в панелях настроек, если инструменты работы с цветом должны оставаться видимыми без кнопки открытия
+всплывающего окна.
 
-<Example name="color-picker/slider-only" />
+<Example name="color-picker/inline" />
+
+### Готовые цвета
+
+Добавьте образцы во всплывающее окно, если селектор должен предлагать готовую палитру вместе со свободным редактированием.
+`closeOnSelect` сохраняет поведение Ark и закрывает окно после выбора образца.
+
+<Example name="color-picker/swatches" />
+
+### Представления формата
+
+Используйте `format`, `onFormatChange`, `ColorPickerFormatSelect` и `ColorPickerView`, если пользователям нужно переключаться между группами
+полей каналов без изменения структуры селектора. `ColorPickerFormatSelect` сохраняет нативный селектор формата Ark, а его
+свёрнутый вид оформлен в стиле поля `Select` из moduix и единообразно показывает варианты RGBA, HSLA и HSBA. Список
+вариантов открывает браузер.
+
+<Example name="color-picker/format-views" />
 
 ### Компактная кнопка открытия
 
@@ -141,11 +60,32 @@ ColorPicker через этот путь композиции не пробра�
 
 <Example name="color-picker/compact-trigger" />
 
-### Управляемое значение
+### Только ввод
 
-Используйте управляемое значение, когда выбранный цвет должен оставаться синхронизированным с состоянием приложения.
+Используйте поля каналов с пассивным образцом, если важен ввод цвета с клавиатуры, а всплывающее окно только усложнит
+интерфейс.
 
-<Example name="color-picker/controlled" />
+<Example name="color-picker/input-only" />
+
+### Область и слайдеры
+
+Используйте эту компактную композицию, если пользователям нужны область выбора цвета и слайдеры каналов, но не нужны
+поля для ввода каналов с клавиатуры.
+
+<Example name="color-picker/slider-only" />
+
+### Только цветовые образцы
+
+Используйте композицию только с образцами, если достаточно готовой палитры и не нужны область, слайдеры и поля ввода.
+
+<Example name="color-picker/swatch-only" />
+
+### Текущее значение
+
+Используйте `ColorPickerValueSwatch` и `ColorPickerValueText`, если соседнему интерфейсу нужно показать выбранный цвет без открытия полного
+селектора.
+
+<Example name="color-picker/value-swatch" />
 
 ### Отключённый компонент
 
@@ -167,28 +107,18 @@ ColorPicker через этот путь композиции не пробра�
 
 <Example name="color-picker/form-usage" />
 
-### Представления формата
+### Управляемое значение
 
-Используйте `format`, `onFormatChange`, `ColorPickerFormatSelect` и `ColorPickerView`, если пользователям нужно переключаться между группами
-полей каналов без изменения структуры селектора. `ColorPickerFormatSelect` сохраняет нативный селектор формата Ark, а его
-свёрнутый вид оформлен в стиле поля `Select` из moduix и единообразно показывает варианты RGBA, HSLA и HSBA. Список
-вариантов открывает браузер.
+Используйте управляемое значение, когда выбранный цвет должен оставаться синхронизированным с состоянием приложения. Подробнее в разделе [Управляйте состоянием из приложения](/docs/composition-patterns#controlled-state).
 
-<Example name="color-picker/format-views" />
+<Example name="color-picker/controlled" />
 
-### Встроенный режим
+### Управляемое открытие
 
-Используйте `inline` в панелях настроек, если инструменты работы с цветом должны оставаться видимыми без кнопки открытия
-всплывающего окна.
+Используйте управляемое состояние `open`, если другой элемент управления или сценарий отвечает за видимость
+всплывающего окна. Подробнее в разделе [Управляйте состоянием из приложения](/docs/composition-patterns#controlled-state).
 
-<Example name="color-picker/inline" />
-
-### Только ввод
-
-Используйте поля каналов с пассивным образцом, если важен ввод цвета с клавиатуры, а всплывающее окно только усложнит
-интерфейс.
-
-<Example name="color-picker/input-only" />
+<Example name="color-picker/open-controlled" />
 
 ### Внутри Dialog
 
@@ -197,54 +127,108 @@ ColorPicker через этот путь композиции не пробра�
 
 <Example name="color-picker/inside-dialog" />
 
-### Управляемое открытие
-
-Используйте управляемое состояние `open`, если другой элемент управления или сценарий отвечает за видимость
-всплывающего окна.
-
-<Example name="color-picker/open-controlled" />
-
 ### Root Provider
 
 Используйте `useColorPicker` из moduix вместе с `ColorPickerRootProvider`, если состояние селектора нужно создать вне дерева
-компонентов и разделить с соседними элементами управления.
+компонентов и разделить с соседними элементами управления. Подробнее в разделе [Выносите состояние за пределы дерева](/docs/composition-patterns#root-provider).
 
 <Example name="color-picker/root-provider" />
 
-### Только цветовые образцы
+### Сборка из частей
 
-Используйте композицию только с образцами, если достаточно готовой палитры и не нужны область, слайдеры и поля ввода.
+Тот же выбор цвета, что в Basic, но со всеми дочерними частями по умолчанию: `ColorPickerValueSwatch` в
+триггере, фон и бегунок области, по одному `ColorPickerChannelSlider` на канал вместо
+`ColorPickerSliders` и образцы с `ColorPickerSwatchIndicator`. Пипетка и индикатор образца получают
+явные иконки. Начинайте с него, если дизайн перестраивает всплывающее окно.
 
-<Example name="color-picker/swatch-only" />
+<Example name="color-picker/build-from-parts" />
 
-### Готовые цвета
+## Композиция
 
-Добавьте образцы во всплывающее окно, если селектор должен предлагать готовую палитру вместе со свободным редактированием.
-`closeOnSelect` сохраняет поведение Ark и закрывает окно после выбора образца.
+Используйте `defaultValue` для локального состояния. Если выбранный цвет или состояние открытия должны храниться в состоянии приложения, передайте `value` с `onValueChange(details)` или `open` с `onOpenChange(details)`. Во Vue то же состояние привязывается нативно через `v-model`, `v-model:open` и `v-model:format`. Если состояние создаётся вне дерева рендера, передайте результат `useColorPicker()` в `ColorPickerRootProvider`; для одного хранилища не рендерьте одновременно `ColorPicker` и `ColorPickerRootProvider`.
 
-<Example name="color-picker/swatches" />
+`ColorPickerPositioner` по умолчанию рендерится через портал. Укажите `portalled={false}`, если оверлей должен находиться в другом контексте наложения. Чтобы отправить цвет в нативной форме, задайте `name` у корня и явно добавьте `ColorPickerHiddenInput`. `ColorPickerArea`, `ColorPickerChannelSlider` и `ColorPickerSwatchTrigger` сами добавляют стандартные визуальные части; передавайте дочерние элементы только при изменении их структуры.
 
-### Текущее значение
+В Solid назначьте ref элементу, созданному внутри функции рендера `asChild`: ref на самой части
+ColorPicker через этот путь композиции не пробрасывается. Во Vue используйте обычный шаблонный
+`ref` на части и читайте отрендеренный элемент через `$el`.
 
-Используйте `ColorPickerValueSwatch` и `ColorPickerValueText`, если соседнему интерфейсу нужно показать выбранный цвет без открытия полного
-селектора.
+## Анатомия
 
-<Example name="color-picker/value-swatch" />
+Наведите на часть или выберите её, чтобы найти её в превью.
 
-### Расширенная настройка
+<AnatomyInspector
+  parts={[
+    ["ColorPicker", "color-picker-root", "Хранит выбранный цвет и его формат, управляет открытием всплывающего окна и связывает компонент с формой.", 0],
+    ["ColorPickerLabel", "color-picker-label", "Доступная подпись видимых элементов управления.", 1],
+    ["ColorPickerControl", "color-picker-control", "Объединяет видимые поля ввода и кнопку открытия.", 1],
+    ["ColorPickerChannelInput", "color-picker-channel-input", "Текстовое или числовое поле для отдельного канала цвета.", 2],
+    ["ColorPickerTrigger", "color-picker-trigger", "Кнопка, которая открывает всплывающее окно и по умолчанию показывает образец текущего цвета.", 2],
+    ["ColorPickerValueSwatch", "color-picker-value-swatch", "Показывает образец текущего цвета.", 3],
+    ["ColorPickerPositioner", "color-picker-positioner", "Плавающий слой, который позиционирует всплывающее окно и предоставляет CSS-переменные позиционирования Ark.", 1],
+    ["ColorPickerContent", "color-picker-content", "Содержимое всплывающего окна на базе Ark.", 2],
+    ["ColorPickerArea", "color-picker-area", "Двумерная область для выбора цвета.", 3],
+    ["ColorPickerAreaBackground", "color-picker-area-background", "Фоновый слой, который обрабатывает ввод указателя в области выбора цвета.", 4],
+    ["ColorPickerEyeDropperTrigger", "color-picker-eye-dropper-trigger", "Пипетка для снятия цвета с экрана; отображается только там, где браузер поддерживает EyeDropper API.", 3],
+    ["ColorPickerChannelSlider", "color-picker-channel-slider", "Одномерный регулятор для оттенка, альфа-канала или другого канала.", 3],
+    ["ColorPickerTransparencyGrid", "color-picker-transparency-grid", "Шахматный фон, который делает альфа-канал видимым за дорожкой слайдера канала. Свотчи рисуют шахматку сами.", 4],
+    ["ColorPickerSwatchTrigger", "color-picker-swatch-trigger", "Кнопка выбора готового цвета.", 3],
+    ["ColorPickerSwatch", "color-picker-swatch", "Цветная поверхность внутри кнопки-образца или образца текущего значения.", 4],
+    ["ColorPickerSwatchIndicator", "color-picker-swatch-indicator", "Необязательный маркер внутри образца, например галочка у выбранного готового цвета.", 5],
+    ["ColorPickerHiddenInput", "", "Нативное поле Ark; правила явной композиции описаны ниже.", 1],
+    ["ColorPickerSliders", "color-picker-sliders", "Готовая пара слайдеров для оттенка и альфа-канала.", 1],
+    ["ColorPickerValueText", "color-picker-value-text", "Текст только для чтения с форматированным значением.", 1],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
-Используйте явные части и дочерние элементы, если встроенной композиции недостаточно и нужна другая визуальная структура.
-
-<Example name="color-picker/advanced-customization" />
+`ColorPickerRootProvider`, `parseColor`, `useColorPicker` и `useColorPickerContext` подходят для типичных расширенных
+сценариев управления состоянием.
 
 ## Стилизация
 
 Используйте `className` в React и `class` в Solid и Vue для экспортируемых частей. Варианты Tailwind используют классы-утилиты и классы приложения, а варианты CSS Modules дают короткий список переменных `--moduix-color-picker-*` для размеров, общих для нескольких частей или дочерних элементов по умолчанию; цвета, отступы и типографика берутся из токенов foundation, их меняют классом на нужной части. Обе стилистические версии предоставляют стабильные хуки `data-slot="color-picker-*"` и атрибуты Ark `data-scope` / `data-part`.
-### CSS-свойства
+### CSS-переменные
 
-<CssPropertiesSection properties={ColorPickerDocs.colorPickerOverrideCssProperties} />
+Наведите на переменную или выберите её, чтобы увидеть её в превью.
 
-### Точки стилизации
+<CssPropertiesSection properties={ColorPickerDocs.colorPickerOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
+
+### Хуки стилизации
+
+| Часть | `data-slot` |
+| --- | --- |
+| `ColorPicker` | `color-picker-root` |
+| `ColorPickerRootProvider` | `color-picker-root-provider` |
+| `ColorPickerLabel` | `color-picker-label` |
+| `ColorPickerControl` | `color-picker-control` |
+| `ColorPickerTrigger` | `color-picker-trigger` |
+| `ColorPickerPositioner` | `color-picker-positioner` |
+| `ColorPickerContent` | `color-picker-content` |
+| `ColorPickerArea` | `color-picker-area` |
+| `ColorPickerAreaBackground` | `color-picker-area-background` |
+| `ColorPickerAreaThumb` | `color-picker-area-thumb` |
+| `ColorPickerChannelSlider` | `color-picker-channel-slider` |
+| `ColorPickerSliders` | `color-picker-sliders` |
+| `ColorPickerChannelSliderTrack` | `color-picker-channel-slider-track` |
+| `ColorPickerChannelSliderThumb` | `color-picker-channel-slider-thumb` |
+| `ColorPickerChannelSliderLabel` | `color-picker-channel-slider-label` |
+| `ColorPickerChannelSliderValueText` | `color-picker-channel-slider-value-text` |
+| `ColorPickerChannelInput` | `color-picker-channel-input` |
+| `ColorPickerEyeDropperTrigger` | `color-picker-eye-dropper-trigger` |
+| `ColorPickerFormatSelect` | `color-picker-format-select` |
+| `ColorPickerFormatTrigger` | `color-picker-format-trigger` |
+| `ColorPickerSwatchGroup` | `color-picker-swatch-group` |
+| `ColorPickerSwatchTrigger` | `color-picker-swatch-trigger` |
+| `ColorPickerSwatch` | `color-picker-swatch` |
+| `ColorPickerSwatchIndicator` | `color-picker-swatch-indicator` |
+| `ColorPickerTransparencyGrid` | `color-picker-transparency-grid` |
+| `ColorPickerValueSwatch` | `color-picker-value-swatch` |
+| `ColorPickerValueText` | `color-picker-value-text` |
+| `ColorPickerView` | `color-picker-view` |
 
 Используйте часть, которая отвечает за нужный визуальный аспект:
 
@@ -266,3 +250,41 @@ ColorPicker через этот путь композиции не пробра�
 
 При включённом `prefers-reduced-motion` анимации появления и закрытия всплывающего окна отключаются; Ark
 по-прежнему завершает жизненный цикл закрытия.
+
+## Клавиатура
+
+| Клавиша | Действие |
+| --- | --- |
+| `Enter` / `Space` | Открывает палитру с кнопки. |
+| `ArrowUp` / `ArrowDown` / `ArrowLeft` / `ArrowRight` | Двигает ползунок области или слайдера в фокусе. |
+| `Esc` | Закрывает палитру. |
+
+## Справочник API
+
+| Проп | Тип | По умолчанию | Описание |
+| --- | --- | --- | --- |
+| `value` | `Color` | — | Цвет в управляемом режиме; создайте его через `parseColor()`. |
+| `defaultValue` | `Color` | `#000000` | Начальный цвет, если он не управляется извне. |
+| `onValueChange` | `(details: ValueChangeDetails) => void` | — | Вызывается при изменении цвета, в том числе во время перетаскивания. |
+| `onValueChangeEnd` | `(details: ValueChangeDetails) => void` | — | Вызывается, когда пользователь отпускает ползунок. |
+| `format` | `'rgba' \| 'hsla' \| 'hsba'` | — | Формат цвета в управляемом режиме: `rgba`, `hsla` или `hsba`. |
+| `defaultFormat` | `'rgba' \| 'hsla' \| 'hsba'` | `'rgba'` | Начальный формат цвета. |
+| `open` | `boolean` | — | Состояние открытия в управляемом режиме. |
+| `defaultOpen` | `boolean` | `false` | Начальное состояние открытия, если оно не управляется извне. |
+| `onOpenChange` | `(details: OpenChangeDetails) => void` | — | Вызывается при открытии и закрытии. |
+| `inline` | `boolean` | `false` | Показывает палитру на месте, без всплывающего окна. |
+| `closeOnSelect` | `boolean` | `false` | Закрывает окно при выборе образца. |
+| `positioning` | `PositioningOptions` | — | Расположение, отступ и другие настройки позиции всплывающего окна. |
+| `name` | `string` | — | Имя поля формы у внутреннего input. |
+| `disabled` | `boolean` | `false` | Отключает элемент управления. |
+| `readOnly` | `boolean` | `false` | Показывает значение, но не даёт его менять. |
+| `invalid` | `boolean` | `false` | Помечает поле как невалидное. |
+| `required` | `boolean` | `false` | Требует значение перед отправкой формы. |
+| `lazyMount` | `boolean` | `true` | Монтирует содержимое при первом открытии. |
+| `unmountOnExit` | `boolean` | `true` | Удаляет содержимое после закрытия. |
+| `initialFocusEl` | `() => HTMLElement \| null \| false` | — | Элемент, который получает фокус при открытии. |
+| `onFormatChange` | `(details: FormatChangeDetails) => void` | — | Вызывается при смене формата цвета. |
+| `openAutoFocus` | `boolean` | `true` | Переводит фокус в окно при открытии. |
+| `onPointerDownOutside` | `(event: PointerDownOutsideEvent) => void` | — | Вызывается при нажатии указателя вне всплывающего окна. |
+| `onFocusOutside` | `(event: FocusOutsideEvent) => void` | — | Вызывается, когда фокус уходит из всплывающего окна. |
+| `onInteractOutside` | `(event: InteractOutsideEvent) => void` | — | Вызывается при любом взаимодействии вне всплывающего окна. |

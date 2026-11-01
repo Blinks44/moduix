@@ -1,16 +1,23 @@
-import { BrowserOnly, useI18n } from '@rspress/core/runtime';
+import { BrowserOnly } from '@rspress/core/runtime';
 import * as React from 'react';
-import styles from './Reference.module.css';
+import styles from './reference.module.css';
 
 type CssProperty = {
   name: `--${string}`;
   description?: React.ReactNode;
   defaultValue: string;
+  /** `data-slot` of the part that uses the variable; the inspector outlines the first part by default. */
+  part?: string;
 };
 
 type CssPropertyInput =
   | CssProperty
-  | readonly [name: `--${string}`, defaultValue: string, description?: React.ReactNode];
+  | readonly [
+      name: `--${string}`,
+      defaultValue: string,
+      description?: React.ReactNode,
+      part?: string,
+    ];
 
 const previewMaxWidths = {
   xs: '220px',
@@ -129,6 +136,7 @@ function normalizeCssProperty(property: CssPropertyInput): CssProperty {
     name: property[0],
     defaultValue: property[1],
     description: property[2],
+    part: property[3],
   };
 }
 
@@ -138,45 +146,5 @@ function renderInlineCode(text: string) {
     .map((chunk, index) => (index % 2 ? <code key={index}>{chunk}</code> : chunk));
 }
 
-function CSSPropertiesReferenceTable({ properties }: { properties: CssProperty[] }) {
-  const t = useI18n<typeof import('i18n')>();
-
-  return (
-    <div className={styles.tableScroll}>
-      <table className={styles.table}>
-        <thead>
-          <tr>
-            <th>{t('cssProperty')}</th>
-            <th>{t('cssDefault')}</th>
-          </tr>
-        </thead>
-        <tbody>
-          {properties.map((property) => (
-            <tr key={property.name}>
-              <td>
-                <code className={styles.propertyName}>{property.name}</code>
-                {property.description ? (
-                  <p className={styles.propertyDescription}>
-                    {typeof property.description === 'string'
-                      ? renderInlineCode(property.description)
-                      : property.description}
-                  </p>
-                ) : null}
-              </td>
-              <td className={styles.propertyDefault}>
-                {property.defaultValue.includes('`') ? (
-                  renderInlineCode(property.defaultValue)
-                ) : (
-                  <code>{property.defaultValue}</code>
-                )}
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
-  );
-}
-
-export { CSSPropertiesReferenceTable, ExampleFrame, PreviewFrame, normalizeCssProperties };
+export { ExampleFrame, PreviewFrame, normalizeCssProperties, renderInlineCode };
 export type { CssProperty, CssPropertyInput };

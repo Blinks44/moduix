@@ -1,0 +1,141 @@
+/* Theme builder page from "Docs · Guide · Theme builder" in Moduix.sketch. */
+.layout {
+  display: grid;
+  grid-template-columns: 280px minmax(0, 1fr);
+  gap: 24px;
+  align-items: start;
+  margin-block: 32px 48px;
+}
+
+.controls {
+  display: grid;
+  gap: 16px;
+  border: 1px solid var(--rp-c-divider);
+  border-radius: 12px;
+  padding: 20px;
+  background: var(--rp-c-bg);
+
+  > * {
+    min-width: 0;
+  }
+}
+
+/* Selects fill the control column. */
+.select {
+  --moduix-select-width: 100%;
+
+  width: 100%;
+}
+
+.group {
+  display: grid;
+  gap: 8px;
+}
+
+.label {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+/* The preview mode segments share the column width. */
+.segments {
+  display: flex;
+  width: 100%;
+
+  [data-slot='segment-group-item'] {
+    flex: 1;
+    justify-content: center;
+  }
+}
+
+.import {
+  width: 100%;
+}
+
+.cssHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+
+  h2 {
+    margin: 0;
+  }
+}
+
+/* The preview paints with moduix tokens so every control shows up in it. */
+.preview {
+  display: flex;
+  min-height: 100%;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  border: 1px solid var(--rp-c-divider);
+  border-radius: 12px;
+  padding: 24px;
+  background: var(--moduix-background);
+  color: var(--moduix-foreground);
+  font-family: var(--rp-font-family-base);
+}
+
+.card {
+  display: grid;
+  width: min(100%, 300px);
+  gap: var(--moduix-spacing-4);
+  border: 1px solid var(--moduix-border);
+  border-radius: var(--moduix-radius-lg);
+  padding: var(--moduix-spacing-5);
+  background: var(--moduix-card);
+  color: var(--moduix-card-foreground);
+  box-shadow: var(--moduix-shadow-sm);
+}
+
+.title {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.text {
+  margin: 2px 0 0;
+  color: var(--moduix-muted-foreground);
+  font-size: 12px;
+}
+
+.switch {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.quietHours {
+  border-top: 1px solid var(--moduix-border);
+  padding-top: var(--moduix-spacing-4);
+}
+
+.sliderHeader {
+  display: flex;
+  justify-content: space-between;
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.dialog {
+  --moduix-dialog-width: 560px;
+}
+
+.source {
+  font-family: var(--rp-font-family-mono);
+  font-size: 12px;
+}
+
+@media (width <= 960px) {
+  .layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

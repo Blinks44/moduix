@@ -1,23 +1,22 @@
 ---
 title: Accordion
 component: accordion
-description: Создание доступных аккордеонов в React, Solid и Vue с установкой из пакета или через shadcn CLI.
+description: Секции, которые раскрываются и сворачиваются, показывая связанный контент.
+ark: https://ark-ui.com/docs/components/accordion
 ---
 
+import AnatomyScene from '@/components/examples/accordion/basic';
 import * as AccordionDocs from '@/components/examples/accordion/css-properties';
 
-## Справочник API
+<Example name="accordion/basic" />
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/accordion" />
+## Установка
 
-## Какой компонент выбрать
+<ComponentInstall />
 
-`Accordion` подходит, когда несколько связанных разделов должны использовать общую навигацию с
-клавиатуры и общее состояние. Для одного независимого раскрывающегося блока используйте
-`Collapsible`.
+## Использование
 
-## Базовый пример
-
+<Usage />
 
 Используйте `Accordion` как корневой компонент и задайте каждому элементу стабильное значение
 `value`. Поместите интерактивный заголовок в триггер элемента, панель в часть содержимого, а её
@@ -25,102 +24,25 @@ import * as AccordionDocs from '@/components/examples/accordion/css-properties';
 шеврон, который поворачивается при открытии. Оборачивайте каждый триггер в заголовок (в примерах
 `h3`), чтобы пользователи скринридеров могли переходить между разделами.
 
-React, Solid и Vue используют одинаковые плоские имена. Импортируйте `Accordion` как корневой
-компонент, а каждую дополнительную часть отдельно, например `AccordionItem` и
-`AccordionItemTrigger`. Одинаковые имена работают с npm-пакетами и исходниками из shadcn registry.
+## Какой компонент выбрать
 
-<Example name="accordion/basic" />
-
-## Установка через shadcn
-
-Полную настройку пакета, реестра и стилей см. в разделе [Быстрый старт](/docs/quick-start).
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/accordion' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/accordion' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/accordion' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/accordion' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/accordion' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/accordion' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Анатомия
-
-```text
-Accordion
-└─ AccordionItem[value]
- ├─ h3 (рекомендуемый заголовок)
- │  └─ AccordionItemTrigger
- │     ├─ label
- │     └─ AccordionItemIndicator (необязательно)
- └─ AccordionItemContent
-    └─ AccordionItemBody
-       └─ content
-
-AccordionRootProvider
-└─ то же дерево элементов, подключённое к состоянию из useAccordion()
-```
-
-| Часть                    | Назначение                                                                         |
-| ------------------------ | ---------------------------------------------------------------------------------- |
-| `Accordion`              | Корневая часть, управляющая состоянием и навигацией с клавиатуры.                  |
-| `AccordionRootProvider`  | Подключает части к состоянию, созданному с помощью `useAccordion()`.                |
-| `AccordionItem`          | Сворачиваемый элемент с обязательным стабильным значением `value`.                 |
-| `AccordionItemTrigger`   | Кнопка, открывающая и закрывающая элемент.                                          |
-| `AccordionItemIndicator` | Необязательный индикатор. Без содержимого moduix показывает шеврон.           |
-| `AccordionItemContent`   | Раскрывающаяся панель с анимацией на основе измерений размера Ark.                  |
-| `AccordionItemBody`      | Внутренняя обёртка moduix с отступами панели по умолчанию.                          |
-
-## Композиция
-
-Используйте `defaultValue` для неконтролируемого аккордеона. Если состояние хранится в другой части
-приложения, передайте `value` и обработчик `onValueChange(details)`. Оба свойства используют тип
-`string[]`, даже если открыть можно только один элемент.
-
-Используйте `AccordionRootProvider` вместе с `useAccordion()` из пакета выбранного фреймворка, если
-состояние аккордеона нужно создать вне дерева. Не добавляйте `Accordion` для того же состояния. В
-React состояние читается как обычный объект, в Solid - через реактивную функцию доступа, а Vue
-передаёт реактивное хранилище прямо в шаблон.
+`Accordion` подходит, когда несколько связанных разделов должны использовать общую навигацию с
+клавиатуры и общее состояние. Для одного независимого раскрывающегося блока используйте
+`Collapsible`.
 
 ## Примеры
+
+### Несколько открытых элементов
+
+Установите `multiple`, если одновременно должны оставаться открытыми несколько разделов.
+
+<Example name="accordion/multiple" />
 
 ### Сворачиваемый режим
 
 Включите `collapsible`, чтобы открытый элемент можно было закрыть, не открывая другой.
 
 <Example name="accordion/collapsible" />
-
-### Управляемое состояние
-
-Управляйте `value` через `useState` в React, `createSignal` в Solid или `ref` и `v-model` во Vue, если
-открытые элементы должны синхронизироваться с маршрутизацией, фильтрами или другими частями
-интерфейса.
-
-<Example name="accordion/controlled" />
 
 ### Отключённый элемент
 
@@ -135,6 +57,13 @@ React состояние читается как обычный объект, в
 
 <Example name="accordion/horizontal" />
 
+### Управляемое состояние
+
+Передайте `value` и `onValueChange` (`v-model` во Vue), если открытые элементы зависят от маршрута,
+фильтров или соседнего интерфейса. `value` всегда массив значений элементов, даже без `multiple`. Подробнее в разделе [Управляйте состоянием из приложения](/docs/composition-patterns#controlled-state).
+
+<Example name="accordion/controlled" />
+
 ### Ленивое монтирование
 
 Сочетайте `lazyMount` и `unmountOnExit`, если скрытое содержимое панели дорого рендерить и его нужно
@@ -143,26 +72,58 @@ React состояние читается как обычный объект, в
 
 <Example name="accordion/lazy-mount" />
 
-### Несколько открытых элементов
-
-Установите `multiple`, если одновременно должны оставаться открытыми несколько разделов.
-
-<Example name="accordion/multiple" />
-
-### Root Provider
-
-Используйте `useAccordion()` из пакета выбранного фреймворка вместе с `AccordionRootProvider`, если
-состояние нужно создать вне дерева аккордеона. Не добавляйте `Accordion` для того же состояния.
-
-<Example name="accordion/root-provider" />
-
-### Расширенная настройка
+### Со слайдером
 
 В содержимое аккордеона можно поместить другой составной виджет на базе Ark, например `Slider`.
 Оставляйте структуру частей каждого примитива явной, чтобы нужный компонент сам обрабатывал клавиатуру
 и управлял скрытыми полями формы.
 
 <Example name="accordion/with-slider" />
+
+### Root Provider
+
+Используйте `useAccordion()` из пакета выбранного фреймворка вместе с `AccordionRootProvider`, если
+состояние нужно создать вне дерева аккордеона. Не добавляйте `Accordion` для того же состояния. Подробнее в разделе [Выносите состояние за пределы дерева](/docs/composition-patterns#root-provider).
+
+<Example name="accordion/root-provider" />
+
+### Сборка из частей
+
+Тот же аккордеон, что в Basic, но без `AccordionItemBody` и с явной иконкой индикатора:
+`AccordionItemIndicator` рисует шеврон по умолчанию, только когда у него нет дочерних элементов, а
+тело стало обычным элементом внутри `AccordionItemContent`. Начинайте с него, если дизайн меняет иконку
+или отступы содержимого.
+
+<Example name="accordion/build-from-parts" />
+
+## Композиция
+
+Используйте `defaultValue` для неконтролируемого аккордеона. Если состояние хранится в другой части
+приложения, передайте `value` и обработчик `onValueChange(details)`. Оба свойства используют тип
+`string[]`, даже если открыть можно только один элемент.
+
+Используйте `AccordionRootProvider` вместе с `useAccordion()` из пакета выбранного фреймворка, если
+состояние аккордеона нужно создать вне дерева. Не добавляйте `Accordion` для того же состояния. В
+React состояние читается как обычный объект, в Solid - через реактивную функцию доступа, а Vue
+передаёт реактивное хранилище прямо в шаблон.
+
+## Анатомия
+
+Наведите на часть или выберите её, чтобы найти её в превью.
+
+<AnatomyInspector
+  parts={[
+    ["Accordion", "accordion-root", "Корневая часть, управляющая состоянием и навигацией с клавиатуры.", 0],
+    ["AccordionItem", "accordion-item", "Сворачиваемый элемент с обязательным стабильным значением `value`.", 1],
+    ["AccordionItemTrigger", "accordion-item-trigger", "Кнопка, открывающая и закрывающая элемент.", 2],
+    ["AccordionItemIndicator", "accordion-item-indicator", "Необязательный индикатор. Без содержимого moduix показывает шеврон.", 3],
+    ["AccordionItemContent", "accordion-item-content", "Раскрывающаяся панель с анимацией на основе измерений размера Ark.", 2],
+    ["AccordionItemBody", "accordion-item-body", "Внутренняя обёртка moduix с отступами панели по умолчанию.", 3],
+    ["AccordionRootProvider", "accordion-root-provider", "Подключает части к состоянию, созданному с помощью `useAccordion()`.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Стилизация
 
@@ -175,18 +136,52 @@ React состояние читается как обычный объект, в
 Задавайте отступы панели на `AccordionItemBody`, а не на `AccordionItemContent`, чтобы Ark мог
 правильно измерять и анимировать панель.
 
-### CSS-свойства
+### CSS-переменные
 
-<CssPropertiesSection properties={AccordionDocs.accordionOverrideCssProperties} />
+Наведите на переменную или выберите её, чтобы увидеть её в превью.
+
+<CssPropertiesSection properties={AccordionDocs.accordionOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Хуки стилизации
 
-- Стабильные селекторы `data-slot`: `accordion-root`, `accordion-root-provider`, `accordion-item`,
-  `accordion-item-trigger`, `accordion-item-indicator`, `accordion-item-content` и
-  `accordion-item-body`.
+| Часть | `data-slot` |
+| --- | --- |
+| `Accordion` | `accordion-root` |
+| `AccordionRootProvider` | `accordion-root-provider` |
+| `AccordionItem` | `accordion-item` |
+| `AccordionItemTrigger` | `accordion-item-trigger` |
+| `AccordionItemIndicator` | `accordion-item-indicator` |
+| `AccordionItemContent` | `accordion-item-content` |
+| `AccordionItemBody` | `accordion-item-body` |
+
 - Селекторы частей Ark: `data-scope="accordion"` и
   `data-part="root|item|item-trigger|item-indicator|item-content"`.
 - Дополнительный селектор moduix: `data-part="item-body"` на части тела элемента.
 - Селекторы состояния Ark: `data-state="open|closed"`, `data-disabled`, `data-focus`, `data-controls`
   и `data-orientation="horizontal|vertical"`.
 - Переменные содержимого Ark: `--height` для вертикальной анимации и `--width` для горизонтальной анимации.
+
+## Клавиатура
+
+| Клавиша | Действие |
+| --- | --- |
+| `Enter` / `Space` | Открывает или закрывает пункт в фокусе. |
+| `ArrowDown` / `ArrowUp` | Переводит фокус на следующий или предыдущий заголовок. |
+| `Home` / `End` | Переводит фокус на первый или последний заголовок. |
+
+## Справочник API
+
+| Проп | Тип | По умолчанию | Описание |
+| --- | --- | --- | --- |
+| `value` | `string[]` | — | Раскрытые элементы в управляемом режиме. |
+| `defaultValue` | `string[]` | — | Изначально раскрытые элементы. |
+| `onValueChange` | `(details: ValueChangeDetails) => void` | — | Вызывается при раскрытии и сворачивании элементов. |
+| `multiple` | `boolean` | `false` | Разрешает держать открытыми несколько элементов. |
+| `collapsible` | `boolean` | `false` | Разрешает закрыть открытый элемент в одиночном режиме. |
+| `disabled` | `boolean` | `false` | Отключает элемент управления. |
+| `orientation` | `'horizontal' \| 'vertical'` | `'vertical'` | Направление стрелок: `vertical` или `horizontal`. |
+| `lazyMount` | `boolean` | `false` | Монтирует содержимое при первом открытии. |
+| `unmountOnExit` | `boolean` | `false` | Удаляет содержимое после закрытия. |
+| `onFocusChange` | `(details: FocusChangeDetails) => void` | — | Вызывается, когда фокус переходит на другой триггер. |

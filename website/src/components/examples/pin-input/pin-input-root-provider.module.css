@@ -1,5 +1,0 @@
-.root {
-  display: grid;
-  justify-items: center;
-  gap: var(--moduix-spacing-4);
-}

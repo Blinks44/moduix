@@ -1,123 +1,29 @@
 ---
 title: Signature Pad
 component: signature-pad
-description: Un composant qui permet de capturer une signature manuscrite au pointeur ou au toucher.
+description: Capturer une signature manuscrite à la souris, au stylet ou au doigt.
+ark: https://ark-ui.com/docs/components/signature-pad
 ---
 
+import AnatomyScene from '@/components/examples/signature-pad/basic';
 import * as SignaturePadDocs from '@/components/examples/signature-pad/css-properties';
 
-## Référence de l’API
+<Example name="signature-pad/basic" />
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/signature-pad" />
+## Installation
 
-## Exemple de base
+<ComponentInstall />
 
+## Utilisation
+
+<Usage />
 
 Pour la plupart des cas, commencez avec `SignaturePadCanvas`. Il fournit la surface de dessin
 standard avec les parties Ark `SignaturePadControl`, `SignaturePadSegment`, `SignaturePadClearTrigger`
 et `SignaturePadGuide`, ainsi que l’icône
 d’effacement par défaut de moduix.
 
-<Example name="signature-pad/basic" />
-
-## Installation avec shadcn
-
-Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration complète du paquet, du registre et des styles.
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/signature-pad' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/signature-pad' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/signature-pad' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/signature-pad' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/signature-pad' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/signature-pad' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Anatomie
-
-```text
-SignaturePad
-├─ SignaturePadLabel
-├─ SignaturePadCanvas (composition prête à l’emploi de moduix)
-│  └─ SignaturePadControl
-│     ├─ SignaturePadSegment
-│     ├─ SignaturePadClearTrigger
-│     └─ SignaturePadGuide
-└─ SignaturePadHiddenInput value={serializedPaths} (explicite)
-
-SignaturePadRootProvider
-└─ même arbre de parties connecté à l’état de useSignaturePad()
-```
-
-| Partie                               | Rôle                                                                    |
-| ------------------------------------ | ----------------------------------------------------------------------- |
-| `SignaturePad`             | Gère les tracés, les options de dessin, le nom du champ, les identifiants et les rappels. |
-| `SignaturePadHiddenInput`  | Champ natif d’Ark à composer explicitement.                             |
-| `SignaturePadRootProvider` | Rend le même arbre de parties à partir de l’état créé avec `useSignaturePad()`. |
-| `SignaturePadLabel`        | Associe le libellé visible à la zone de dessin et au champ masqué.      |
-| `SignaturePadCanvas`       | Surface prête à l’emploi qui rend les parties standard et transmet les propriétés de `SignaturePadControl`. |
-| `SignaturePadControl`      | Zone de dessin au pointeur et au toucher, pouvant recevoir le focus.     |
-| `SignaturePadSegment`      | Calque SVG pour les traits enregistrés et le trait en cours.            |
-| `SignaturePadClearTrigger` | Bouton natif qui efface les tracés.                                     |
-| `SignaturePadGuide`        | Ligne repère non interactive dans la zone de dessin.                    |
-
-## Composition
-
-Pour la composition standard, utilisez `SignaturePadLabel` et `SignaturePadCanvas`.
-`SignaturePadCanvas` utilise une arborescence d’enfants fixe ; utilisez donc `SignaturePadControl`,
-`SignaturePadSegment`, `SignaturePadClearTrigger` et `SignaturePadGuide` si la structure de
-la zone de dessin ou le bouton d’effacement doit changer.
-
-`SignaturePadHiddenInput` n’est pas rendu automatiquement. Ajoutez-le explicitement et transmettez
-une valeur sérialisée, généralement lue avec `SignaturePadContext` ou
-`useSignaturePadContext()`, lorsque la signature doit être envoyée par un formulaire natif.
-
-Utilisez `defaultPaths` pour un état local non contrôlé. Utilisez `paths` avec
-`onDraw(details)` lorsque l’application possède les données de la signature. Utilisez
-`SignaturePadRootProvider` avec `useSignaturePad()` lorsque l’état doit être créé en dehors de l’arborescence
-rendue ou que des contrôles externes doivent accéder à `paths`, `clear()` ou `getDataUrl()`.
-Dans Vue, contrôlez les tracés avec `v-model:paths` et utilisez `@draw` ou `@draw-end`
-pour recevoir les détails du dessin.
-
-Avec Ark Vue 5.39.3, `drawEnd.paths` peut contenir la valeur précédente en mode contrôlé.
-`v-model:paths` reçoit les tracés terminés.
-
-Contrairement à Ark, moduix masque `SignaturePadClearTrigger` lorsque `readOnly` provient de la racine, d’un
-`Field` englobant ou de `useSignaturePad()`, ce qui empêche un effacement irréversible tandis que
-le `clear()` programmatique reste disponible.
-
 ## Exemples
-
-### État contrôlé
-
-Utilisez `paths` en mode contrôlé pour conserver la signature dans l’état de l’application et la
-coordonner avec des contrôles de réinitialisation ou une logique d’enregistrement automatique.
-
-<Example name="signature-pad/controlled" />
 
 ### Dessin
 
@@ -127,6 +33,12 @@ doivent différer des valeurs par défaut. La valeur par défaut à l’exécuti
 `simulatePressure: true`), la simulation de pression est donc à activer explicitement.
 
 <Example name="signature-pad/drawing" />
+
+### Aperçu de l’image
+
+Utilisez `onDrawEnd` pour exporter la signature et l’afficher avant son enregistrement.
+
+<Example name="signature-pad/image-preview" />
 
 ### Champ de formulaire
 
@@ -142,34 +54,95 @@ attend un autre format. Cet exemple envoie un tableau JSON.
 
 <Example name="signature-pad/form-serialization" />
 
-### Aperçu de l’image
+### État contrôlé
 
-Utilisez `onDrawEnd` pour exporter la signature et l’afficher avant son enregistrement.
+Utilisez `paths` en mode contrôlé pour conserver la signature dans l’état de l’application et la
+coordonner avec des contrôles de réinitialisation ou une logique d’enregistrement automatique. Voir [Contrôler l’état depuis l’application](/docs/composition-patterns#controlled-state).
 
-<Example name="signature-pad/image-preview" />
+<Example name="signature-pad/controlled" />
 
 ### Root Provider
 
 Créez l’état avec `useSignaturePad()` et transmettez-le à `SignaturePadRootProvider` lorsque des contrôles
 situés en dehors de l’arborescence rendue doivent accéder directement à `paths`, `clear()` ou
-`getDataUrl()`.
+`getDataUrl()`. Voir [Partager l’état hors de l’arbre](/docs/composition-patterns#root-provider).
 
 <Example name="signature-pad/root-provider" />
 
-### Personnalisation avancée
+### Assembler à partir des parties
 
-Utilisez les parties explicites à la place de `SignaturePadCanvas` lorsque vous devez contrôler l’arborescence
-des parties de dessin ou fournir votre propre bouton d’effacement.
+Le même pavé que Basic, sans `SignaturePadCanvas` : `SignaturePadControl` contient
+`SignaturePadSegment`, `SignaturePadClearTrigger` avec une icône explicite et `SignaturePadGuide`.
+Partez de cet exemple quand le design modifie le bouton d’effacement ou retire le guide.
 
-<Example name="signature-pad/advanced-customization" />
+<Example name="signature-pad/build-from-parts" />
+
+## Composition
+
+Pour la composition standard, utilisez `SignaturePadLabel` et `SignaturePadCanvas`.
+`SignaturePadCanvas` utilise une arborescence d’enfants fixe ; utilisez donc `SignaturePadControl`,
+`SignaturePadSegment`, `SignaturePadClearTrigger` et `SignaturePadGuide` si la structure de
+la zone de dessin ou le bouton d’effacement doit changer.
+
+`SignaturePadHiddenInput` n’est pas rendu automatiquement. Ajoutez-le explicitement et transmettez
+une valeur sérialisée, généralement lue avec `SignaturePadContext` ou
+`useSignaturePadContext()`, lorsque la signature doit être envoyée par un formulaire natif.
+
+Utilisez `defaultPaths` pour un état local non contrôlé. Utilisez `paths` avec
+`onDraw(details)` lorsque l’application contrôle les données de la signature. Utilisez
+`SignaturePadRootProvider` avec `useSignaturePad()` lorsque l’état doit être créé en dehors de l’arborescence
+rendue ou que des contrôles externes doivent accéder à `paths`, `clear()` ou `getDataUrl()`.
+Dans Vue, contrôlez les tracés avec `v-model:paths` et utilisez `@draw` ou `@draw-end`
+pour recevoir les détails du dessin.
+
+Avec Ark Vue 5.39.3, `drawEnd.paths` peut contenir la valeur précédente en mode contrôlé.
+`v-model:paths` reçoit les tracés terminés.
+
+Contrairement à Ark, moduix masque `SignaturePadClearTrigger` lorsque `readOnly` provient de la racine, d’un
+`Field` englobant ou de `useSignaturePad()`, ce qui empêche un effacement irréversible tandis que
+le `clear()` programmatique reste disponible.
+
+## Anatomie
+
+Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
+
+<AnatomyInspector
+  parts={[
+    ["SignaturePad", "signature-pad-root", "Gère les tracés, les options de dessin, le nom du champ, les identifiants et les rappels.", 0],
+    ["SignaturePadLabel", "signature-pad-label", "Associe le libellé visible à la zone de dessin et au champ masqué.", 1],
+    ["SignaturePadCanvas", "", "Surface prête à l’emploi qui rend les parties standard et transmet les propriétés de `SignaturePadControl`.", 1],
+    ["SignaturePadControl", "signature-pad-control", "Zone de dessin au pointeur et au toucher, pouvant recevoir le focus.", 2],
+    ["SignaturePadSegment", "signature-pad-segment", "Calque SVG pour les traits enregistrés et le trait en cours.", 3],
+    ["SignaturePadClearTrigger", "signature-pad-clear-trigger", "Bouton natif qui efface les tracés.", 3],
+    ["SignaturePadGuide", "signature-pad-guide", "Ligne repère non interactive dans la zone de dessin.", 3],
+    ["SignaturePadHiddenInput", "", "Champ natif d’Ark à composer explicitement.", 1],
+    ["SignaturePadRootProvider", "signature-pad-root-provider", "Rend le même arbre de parties à partir de l’état créé avec `useSignaturePad()`.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styles
 
-### Propriétés CSS
+### Variables CSS
 
-<CssPropertiesSection properties={SignaturePadDocs.signaturePadCssProperties} />
+Survolez ou sélectionnez une variable pour la voir dans l’aperçu.
+
+<CssPropertiesSection properties={SignaturePadDocs.signaturePadCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Points d’accroche CSS
+
+| Partie | `data-slot` |
+| --- | --- |
+| `SignaturePad` | `signature-pad-root` |
+| `SignaturePadRootProvider` | `signature-pad-root-provider` |
+| `SignaturePadLabel` | `signature-pad-label` |
+| `SignaturePadControl` | `signature-pad-control` |
+| `SignaturePadSegment` | `signature-pad-segment` |
+| `SignaturePadGuide` | `signature-pad-guide` |
+| `SignaturePadClearTrigger` | `signature-pad-clear-trigger` |
 
 Utilisez `className` dans React ou `class` dans Solid et Vue sur toute partie exportée pour appliquer des
 styles locaux. moduix ajoute également des attributs `data-slot` stables :
@@ -189,3 +162,18 @@ Les attributs Ark restent disponibles pour cibler les styles. `SignaturePad`, `S
 tracés internes du segment fournissent `data-scope="signature-pad"`
 et `data-part` ; `data-disabled` apparaît sur la racine, le libellé, la zone de dessin et la ligne
 repère, tandis que `data-required` apparaît sur le libellé.
+
+## Référence de l’API
+
+| Prop | Type | Défaut | Description |
+| --- | --- | --- | --- |
+| `paths` | `string[]` | — | Tracés SVG de la signature en mode contrôlé. |
+| `defaultPaths` | `string[]` | — | Tracés SVG initiaux. |
+| `onDraw` | `(details: DrawDetails) => void` | — | Appelé pendant le tracé et lorsque les tracés changent. |
+| `onDrawEnd` | `(details: DrawEndDetails) => void` | — | Appelé à la fin d’un trait ; obtenez l’image avec `getDataUrl`. |
+| `drawing` | `DrawingOptions` | `{ size: 2, simulatePressure: true }` | Options du trait : épaisseur, couleur et simulation de pression. |
+| `name` | `string` | — | Nom du champ de formulaire de l’input sous-jacent. |
+| `disabled` | `boolean` | `false` | Désactive le contrôle. |
+| `readOnly` | `boolean` | `false` | Affiche la valeur sans permettre de la modifier. |
+| `required` | `boolean` | `false` | Exige une valeur avant l’envoi du formulaire. |
+| `translations` | `IntlTranslations` | — | Textes localisés des libellés d’accessibilité. |

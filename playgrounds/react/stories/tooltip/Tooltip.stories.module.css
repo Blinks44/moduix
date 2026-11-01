@@ -16,9 +16,9 @@
   align-items: center;
   gap: var(--moduix-border-width-sm);
   padding: var(--moduix-spacing-1);
-  border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
+  border: var(--moduix-border-width-sm) solid var(--moduix-border);
   border-radius: var(--moduix-radius-lg);
-  background: var(--moduix-color-muted);
+  background: var(--moduix-muted);
 }
 
 .sideButtons {
@@ -27,19 +27,19 @@
   flex-wrap: wrap;
   gap: var(--moduix-spacing-1);
   padding: var(--moduix-spacing-1);
-  border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
+  border: var(--moduix-border-width-sm) solid var(--moduix-border);
   border-radius: var(--moduix-radius-md);
-  background: var(--moduix-color-muted);
+  background: var(--moduix-muted);
 }
 
 .sideButton {
   min-width: 4.75rem;
   min-height: 2rem;
   padding: 0 var(--moduix-spacing-3);
-  border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
+  border: var(--moduix-border-width-sm) solid var(--moduix-border);
   border-radius: var(--moduix-radius-sm);
-  background: var(--moduix-color-background);
-  color: var(--moduix-color-foreground);
+  background: var(--moduix-background);
+  color: var(--moduix-foreground);
   font-size: var(--moduix-text-sm);
   line-height: var(--moduix-line-height-text-sm);
   font-weight: var(--moduix-weight-medium);
@@ -50,8 +50,8 @@
     color var(--moduix-transition-default);
 
   &[data-active] {
-    background: var(--moduix-color-primary);
-    color: var(--moduix-color-primary-foreground);
+    background: var(--moduix-primary);
+    color: var(--moduix-primary-foreground);
   }
 }
 
@@ -61,14 +61,11 @@
 }
 
 .customContent {
-  --moduix-tooltip-bg: var(--moduix-color-primary);
-  --moduix-tooltip-color: var(--moduix-color-primary-foreground);
-  --moduix-tooltip-border-color: color-mix(in oklab, var(--moduix-color-primary), black 18%);
-  --moduix-tooltip-arrow-background: var(--moduix-tooltip-bg);
-  --moduix-tooltip-arrow-stroke-color: var(--moduix-tooltip-border-color);
-  --moduix-tooltip-padding-x: var(--moduix-spacing-3);
-  --moduix-tooltip-padding-y: var(--moduix-spacing-2);
   min-width: 10rem;
+  padding: var(--moduix-spacing-2) var(--moduix-spacing-3);
+  border-color: var(--moduix-primary);
+  background-color: var(--moduix-primary);
+  color: var(--moduix-primary-foreground);
   text-align: left;
 }
 
@@ -77,25 +74,25 @@
 }
 
 .customTrigger {
-  --moduix-tooltip-trigger-bg: var(--moduix-color-primary);
-  --moduix-tooltip-trigger-bg-hover: color-mix(in oklab, var(--moduix-color-primary), white 10%);
-  --moduix-tooltip-trigger-bg-active: color-mix(in oklab, var(--moduix-color-primary), black 12%);
-  --moduix-tooltip-trigger-border-color: color-mix(
-    in oklab,
-    var(--moduix-color-primary),
-    black 18%
-  );
-  --moduix-tooltip-trigger-color: var(--moduix-color-primary-foreground);
+  border-color: var(--moduix-primary);
+  background-color: var(--moduix-primary);
+  color: var(--moduix-primary-foreground);
+
+  @media (hover: hover) {
+    &:hover {
+      background-color: color-mix(in oklab, var(--moduix-primary) 90%, transparent);
+    }
+  }
 }
 
 .shortcut {
-  color: var(--moduix-color-muted-foreground);
+  color: var(--moduix-muted-foreground);
   font-size: var(--moduix-text-xs);
   line-height: var(--moduix-line-height-text-xs);
 }
 
 .output {
-  color: var(--moduix-color-muted-foreground);
+  color: var(--moduix-muted-foreground);
   font-size: var(--moduix-text-sm);
   line-height: var(--moduix-line-height-text-sm);
 }
@@ -108,7 +105,7 @@
   place-items: center;
   min-width: 16rem;
   min-height: 8rem;
-  border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
+  border: var(--moduix-border-width-sm) solid var(--moduix-border);
   border-radius: var(--moduix-radius-lg);
-  background: var(--moduix-color-muted);
+  background: var(--moduix-muted);
 }

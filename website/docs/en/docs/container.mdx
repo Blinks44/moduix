@@ -1,79 +1,52 @@
 ---
 title: Container
 component: container
-description: A responsive layout primitive for readable content widths and fluid horizontal padding.
+description: Center page content at a readable width with responsive side padding.
+ark: https://ark-ui.com/docs/guides/composition#the-ark-factory
 ---
 
+import AnatomyScene from '@/components/examples/container/basic';
 import * as ContainerDocs from '@/components/examples/container/css-properties';
 
-## API Reference
+<Example name="container/basic" />
 
-Ark UI does not provide a dedicated `container` primitive. moduix implements `Container` with Ark's official
-[factory](https://ark-ui.com/docs/guides/composition#the-ark-factory), so it follows Ark's guidance for
-[composition](https://ark-ui.com/docs/guides/composition), [styling](https://ark-ui.com/docs/guides/styling), and
-[ref forwarding](https://ark-ui.com/docs/guides/ref).
+## Installation
 
-## Basic
+<ComponentInstall />
 
+## Usage
 
-Import `Container` from the matching package: `@moduix/react/container`, `@moduix/solid/container`, or
-`@moduix/vue/container` for CSS Modules, and `@moduix/react-tailwind/container`,
-`@moduix/solid-tailwind/container`, or `@moduix/vue-tailwind/container` for Tailwind CSS.
+<Usage />
+
 
 Use `Container` for a centered content column with a readable width. It adds responsive horizontal gutters and leaves
 vertical spacing to the surrounding layout.
 
-<Example name="container/basic" />
+## Examples
 
-## Install with shadcn
+### Gutters
 
-See [Quick Start](/docs/quick-start) for full package setup, registry configuration, and styling guidance.
+Use `gutter` to choose the amount of responsive horizontal padding.
 
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
+<Example name="container/gutters" />
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/container' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/container' },
-  ]}
-/>
+### Full width
 
-  </Tab>
-  <Tab label="Solid" value="solid">
+Use `size="full"` for a wide section that should use its parent width while keeping a responsive edge gutter.
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/container' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/container' },
-  ]}
-/>
+<Example name="container/full-width" />
 
-  </Tab>
-  <Tab label="Vue" value="vue">
+### With Bleed
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/container' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/container' },
-  ]}
-/>
+Keep the text column constrained and let only the wider child extend beyond it.
 
-  </Tab>
-</Tabs>
+<Example name="container/with-bleed" />
 
-## Anatomy
+### Semantic element
 
-`Container` renders one root element and does not add an extra wrapper.
+Use `asChild` when the layout wrapper should also describe document structure.
 
-```text
-Container
-└─ children
-```
-
-| Part        | Role                                                     |
-| ----------- | -------------------------------------------------------- |
-| `Container` | Root layout element. Centers content and controls its width and horizontal padding. |
+<Example name="container/semantic-element" />
 
 ## Composition
 
@@ -87,31 +60,19 @@ function, because a ref on `Container` itself is not forwarded through `asChild`
 from the component ref's `$el`. Use `Bleed` inside `Container` when only one child needs to extend beyond the
 constrained text column.
 
-## Examples
+## Anatomy
 
-### Full Width
+`Container` renders one root element and does not add an extra wrapper.
 
-Use `size="full"` for a wide section that should use its parent width while keeping a responsive edge gutter.
+Hover or focus a part to find it in the preview.
 
-<Example name="container/full-width" />
-
-### Gutters
-
-Use `gutter` to choose the amount of responsive horizontal padding.
-
-<Example name="container/gutters" />
-
-### Semantic Element
-
-Use `asChild` when the layout wrapper should also describe document structure.
-
-<Example name="container/semantic-element" />
-
-### With Bleed
-
-Keep the text column constrained and let only the wider child extend beyond it.
-
-<Example name="container/with-bleed" />
+<AnatomyInspector
+  parts={[
+    ["Container", "container-root", "Root layout element. Centers content and controls its width and horizontal padding.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styling
 
@@ -120,18 +81,34 @@ values. Tailwind packages use utility classes and consumer class overrides inste
 `className` in React, `class` in Solid, or `class` in Vue for local block styles such as padding, borders, or
 backgrounds.
 
-### CSS Properties
+### CSS variables
 
-<CssPropertiesSection properties={ContainerDocs.containerOverrideCssProperties} />
+Hover or focus a variable to see it in the preview.
+
+<CssPropertiesSection properties={ContainerDocs.containerOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 These variables apply to the CSS Modules packages. Tailwind packages expose the same `size` and `gutter` choices
 through utilities.
 
 ### Styling hooks
 
-- `Container` exposes `data-slot="container-root"` on the root.
+| Part | `data-slot` |
+| --- | --- |
+| `Container` | `container-root` |
+
 - `data-scope="container"` and `data-part="root"` follow Ark's styling conventions.
 - `data-size` selects the width preset: `xs`, `sm`, `md`, `lg`, `xl`, `full`.
 - `data-gutter` selects the gutter preset: `none`, `sm`, `md`, `lg`.
 - `--moduix-container-*` variables control horizontal gutters and max-width math for CSS Modules. Vertical spacing and
   child layout remain the responsibility of the surrounding CSS.
+
+## API reference
+
+Also accepts the native props of its element and `asChild`.
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl' \| 'full'` | `'lg'` | Maximum width: `xs` to `xl`, or `full`. |
+| `gutter` | `'none' \| 'sm' \| 'md' \| 'lg'` | `'md'` | Inline padding: `none`, `sm`, `md`, or `lg`. |

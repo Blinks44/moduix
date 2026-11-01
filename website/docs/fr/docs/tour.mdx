@@ -1,92 +1,60 @@
 ---
 title: Tour
 component: tour
-description: Créez des parcours guidés pour faire découvrir votre produit avec l’état Tour d’Ark UI, une couche superposée accessible et des actions prêtes à l’emploi.
+description: Guider l’utilisateur dans le produit avec des étapes ancrées aux éléments.
+ark: https://ark-ui.com/docs/components/tour
 ---
 
+import AnatomyScene from '@/components/examples/tour/basic';
 
-## Référence de l’API
+<Example name="tour/basic" />
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/tour" />
+## Installation
 
-## Exemple de base
+<ComponentInstall />
 
+## Utilisation
+
+<Usage />
 
 Créez l’état du tour avec `useTour`, définissez les étapes, puis transmettez l’objet renvoyé à `Tour`. L’exemple
 commence par une boîte de dialogue, passe à une infobulle ancrée à un contrôle de la page, puis se termine par une
 étape flottante. Gardez les parties explicites pour pouvoir adapter la composition si nécessaire. `TourBody` permet à
 un texte long de défiler dans le panneau.
 
-<Example name="tour/basic" />
+## Exemples
 
-## Installation avec shadcn
+### Avec une flèche
 
-Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration complète du paquet, du registre et des styles.
+Ajoutez `TourArrow` à une étape de type infobulle lorsqu’elle doit pointer visuellement vers sa cible, puis activez
+l’option `arrow` de l’étape pour qu’Ark positionne la flèche.
 
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
+<Example name="tour/with-arrow" />
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/tour' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/tour' },
-  ]}
-/>
+### Attendre une saisie
 
-  </Tab>
-  <Tab label="Solid" value="solid">
+Appelez `tour.next()` depuis le gestionnaire du champ lorsque la valeur contient deux caractères. Pour des étapes qui
+dépendent d’une condition asynchrone, `waitForElement`, `waitForElementValue`, `waitForEvent` et `waitForPromise` sont
+aussi exportés depuis `@moduix/react/tour`, `@moduix/solid/tour` et `@moduix/vue/tour`.
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/tour' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/tour' },
-  ]}
-/>
+<Example name="tour/wait-for-input" />
 
-  </Tab>
-  <Tab label="Vue" value="vue">
+### Événements
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/tour' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/tour' },
-  ]}
-/>
+Utilisez les objets transmis aux fonctions de rappel d’Ark pour mettre à jour une autre partie de l’interface ou
+enregistrer des données d’analyse. Lancez le tour, cliquez sur Next puis sur Done. La sortie affiche le dernier
+événement de changement d’étape ou de statut.
 
-  </Tab>
-</Tabs>
+<Example name="tour/events" />
 
-## Anatomie
+### Assembler à partir des parties
 
-```text
-Tour
-└─ Éléments superposés (rendus dans un portail par défaut)
-   ├─ TourBackdrop
-   ├─ TourSpotlight
-   └─ TourPositioner
-      └─ TourContent
-         ├─ TourArrow
-         ├─ TourCloseIcon / TourCloseTrigger
-         ├─ TourBody
-         │  ├─ TourTitle
-         │  ├─ TourDescription
-         │  └─ TourProgressText
-         └─ TourControl
-            ├─ TourActionList
-            └─ TourActions
-               └─ TourActionTrigger[action]
-```
+La même visite que Basic, sans `TourCloseIcon`, `TourBody` ni `TourActionList` : `TourCloseTrigger`
+entoure `CloseButton` avec une icône explicite, le texte est dans un simple élément et `TourActions`
+affiche un `TourActionTrigger` par action de l’étape. Chaque déclencheur reçoit l’objet d’action Ark :
+la navigation et la fermeture fonctionnent encore si vous remplacez son contenu par vos propres boutons.
 
-| Partie | Rôle |
-| --- | --- |
-| `Tour` | Composant racine associé à l’objet renvoyé par `useTour`. |
-| `TourBackdrop` / `TourSpotlight` | Voile d’arrière-plan facultatif et mise en évidence de la cible active. |
-| `TourPositioner` / `TourContent` | Positionnent et affichent la boîte de dialogue `alertdialog` d’Ark. |
-| `TourArrow` | Affiche par défaut `TourArrowTip` de moduix pour les étapes de type infobulle. |
-| `TourCloseIcon` / `TourCloseTrigger` | Contrôle de fermeture accessible par défaut ou balisage personnalisé. |
-| `TourBody` | Conteneur moduix défilant pour le titre, la description et le texte de progression. |
-| `TourControl` / `TourActionList` | Rangée d’actions recommandée et actions de l’étape en cours. |
-| `TourActions` / `TourActionTrigger` | Interface d’actions personnalisée qui conserve chaque objet d’action Ark. |
+<Example name="tour/build-from-parts" />
 
 ## Composition
 
@@ -103,39 +71,24 @@ Avec Vue, configurez les callbacks d’état, comme `onStepChange` et `onStatusC
 l’événement `@exit-complete` sur `Tour` signale la fin de l’animation de sortie. Ark Vue déclare actuellement
 d’autres événements sur la racine, mais ne les émet pas pour un objet d’état créé en dehors de celle-ci.
 
-## Exemples
+## Anatomie
 
-### Événements
+Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
 
-Utilisez les objets transmis aux fonctions de rappel d’Ark pour mettre à jour une autre partie de l’interface ou
-enregistrer des données d’analyse. Lancez le tour, cliquez sur Next puis sur Done. La sortie affiche le dernier
-événement de changement d’étape ou de statut.
-
-<Example name="tour/events" />
-
-### Attendre une saisie
-
-Appelez `tour.next()` depuis le gestionnaire du champ lorsque la valeur contient deux caractères. Pour des étapes qui
-dépendent d’une condition asynchrone, `waitForElement`, `waitForElementValue`, `waitForEvent` et `waitForPromise` sont
-aussi exportés depuis `@moduix/react/tour`, `@moduix/solid/tour` et `@moduix/vue/tour`.
-
-<Example name="tour/wait-for-input" />
-
-### Avec une flèche
-
-Ajoutez `TourArrow` à une étape de type infobulle lorsqu’elle doit pointer visuellement vers sa cible, puis activez
-l’option `arrow` de l’étape pour qu’Ark positionne la flèche.
-
-<Example name="tour/with-arrow" />
-
-### Personnalisation avancée
-
-Remplacez `TourActionList` lorsque chaque action demande son propre balisage. L’exemple utilise des enfants
-`Button` personnalisés pour Continue, Back et Skip tour. Chaque `TourActionTrigger` reçoit toujours l’objet d’action
-Ark d’origine : la navigation, la fermeture et l’état désactivé restent donc actifs. L’exemple se passe aussi des assistants `TourCloseIcon` et `TourBody` :
-le titre, la description et la progression sont placés directement dans `TourContent`.
-
-<Example name="tour/advanced-customization" />
+<AnatomyInspector
+  parts={[
+    ["Tour", null, "Composant racine associé à l’objet renvoyé par `useTour`.", 0],
+    ["TourBackdrop / TourSpotlight", "tour-backdrop", "Voile d’arrière-plan facultatif et mise en évidence de la cible active.", 1],
+    ["TourPositioner / TourContent", "tour-positioner", "Positionnent et affichent la boîte de dialogue `alertdialog` d’Ark.", 1],
+    ["TourArrow", "tour-arrow", "Affiche par défaut `TourArrowTip` de moduix pour les étapes de type infobulle.", 2],
+    ["TourCloseIcon / TourCloseTrigger", "tour-close-icon", "Contrôle de fermeture accessible par défaut ou balisage personnalisé.", 2],
+    ["TourBody", "tour-body", "Conteneur moduix défilant pour le titre, la description et le texte de progression.", 2],
+    ["TourControl / TourActionList", "tour-control", "Rangée d’actions recommandée et actions de l’étape en cours.", 2],
+    ["TourActions / TourActionTrigger", "", "Interface d’actions personnalisée qui conserve chaque objet d’action Ark.", 3],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styles
 
@@ -156,11 +109,55 @@ jetons de foundation et n’ont pas de variables de composant : une classe sur l
 du composant placés dans une couche. Passez `className` (ou `class`) à `TourActionList` pour styliser
 chaque déclencheur généré.
 
-### Hooks de style
+### Points d’accroche CSS
 
-Les principaux hooks publics sont `data-slot="tour-backdrop"`, `tour-spotlight`, `tour-positioner`,
-`tour-content`, `tour-arrow`, `tour-arrow-tip`, `tour-title`, `tour-description`, `tour-progress-text`,
-`tour-body`, `tour-close-trigger`, `tour-close-icon`, `tour-control` et `tour-action-trigger`. Ark ajoute
+| Partie | `data-slot` |
+| --- | --- |
+| `TourBackdrop` | `tour-backdrop` |
+| `TourSpotlight` | `tour-spotlight` |
+| `TourPositioner` | `tour-positioner` |
+| `TourContent` | `tour-content` |
+| `TourArrow` | `tour-arrow` |
+| `TourArrowTip` | `tour-arrow-tip` |
+| `TourTitle` | `tour-title` |
+| `TourDescription` | `tour-description` |
+| `TourProgressText` | `tour-progress-text` |
+| `TourBody` | `tour-body` |
+| `TourCloseTrigger` | `tour-close-trigger` |
+| `TourCloseIcon` | `tour-close-icon` |
+| `TourControl` | `tour-control` |
+| `TourActionTrigger` | `tour-action-trigger` |
+
+Ark ajoute
 aussi `data-scope="tour"`, `data-part`, `data-state`, `data-type`, `data-placement`, `data-side`,
 `data-step` et `data-disabled`, ainsi que des variables d’exécution comme `--tour-layer`,
 `--available-width`, `--available-height`, `--transform-origin` et les variables de la flèche.
+
+## Clavier
+
+| Touche | Action |
+| --- | --- |
+| `ArrowRight` / `ArrowLeft` | Passe à l’étape suivante ou précédente si keyboardNavigation est actif. |
+| `Esc` | Termine la visite. |
+
+## Référence de l’API
+
+Options de `useTour()`. Passez l’objet renvoyé à `Tour` via `tour`.
+
+| Prop | Type | Défaut | Description |
+| --- | --- | --- | --- |
+| `steps` | `TourStepDetails[]` | — | Étapes de la visite : cible, titre et actions. |
+| `stepId` | `string \| null` | — | Id de l’étape courante en mode contrôlé. |
+| `onStepChange` | `(details: StepChangeDetails) => void` | — | Appelé lorsque l’étape change. |
+| `onStatusChange` | `(details: StatusChangeDetails) => void` | — | Appelé au démarrage, à l’arrêt et à la fin de la visite. |
+| `keyboardNavigation` | `boolean` | `true` | Les flèches gauche et droite changent d’étape. |
+| `closeOnEscape` | `boolean` | `true` | Se ferme avec Échap. |
+| `closeOnInteractOutside` | `boolean` | `true` | Se ferme au clic à l’extérieur. |
+| `preventInteraction` | `boolean` | `false` | Bloque la page pendant la visite. |
+| `spotlightOffset` | `{ x: number; y: number }` | `{ x: 10, y: 10 }` | Marge autour de l’élément mis en évidence, en pixels. |
+| `spotlightRadius` | `number` | `4` | Rayon des coins de la mise en évidence, en pixels. |
+| `onStepsChange` | `(details: StepsChangeDetails) => void` | — | Appelé lorsque des étapes sont ajoutées ou supprimées. |
+| `translations` | `IntlTranslations` | — | Textes localisés des libellés d’accessibilité. |
+| `onPointerDownOutside` | `(event: PointerDownOutsideEvent) => void` | — | Appelé lors d’un appui du pointeur en dehors de la fenêtre. |
+| `onFocusOutside` | `(event: FocusOutsideEvent) => void` | — | Appelé lorsque le focus quitte la fenêtre. |
+| `onInteractOutside` | `(event: InteractOutsideEvent) => void` | — | Appelé lors de toute interaction en dehors de la fenêtre. |

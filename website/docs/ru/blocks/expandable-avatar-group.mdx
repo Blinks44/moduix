@@ -1,13 +1,26 @@
 ---
 title: Раскрывающаяся группа аватаров
 description: Компактная группа перекрывающихся аватаров, которая раздвигается при наведении или фокусе с клавиатуры и показывает подсказку для каждого участника.
+block: expandable-avatar-group
 ---
 
 import { ExpandableAvatarGroup } from '@/components/blocks/expandable-avatar-group';
 import expandableAvatarGroupSolid from '../../../snippets/blocks/solid/expandable-avatar-group.tsx?raw';
 import expandableAvatarGroupVue from '../../../snippets/blocks/vue/expandable-avatar-group.vue?raw';
+import expandableAvatarGroupReact from '../../../src/components/blocks/expandable-avatar-group.tsx?raw';
+import expandableAvatarGroupCss from '../../../src/components/blocks/expandable-avatar-group.module.css?raw';
 
 # Раскрывающаяся группа аватаров
+
+<ExamplePanel
+  clientOnly
+  sources={{ react: expandableAvatarGroupReact, solid: expandableAvatarGroupSolid, vue: expandableAvatarGroupVue }}
+  files={[{ name: 'expandable-avatar-group.module.css', code: expandableAvatarGroupCss }]}
+>
+  <PreviewFrame maxWidth="sm">
+    <ExpandableAvatarGroup />
+  </PreviewFrame>
+</ExamplePanel>
 
 Используйте этот блок для небольшой команды, когда место ограничено, но пользователям всё равно
 нужно легко различать участников. Наведите указатель на аватар или переведите на него фокус, чтобы
@@ -16,55 +29,6 @@ import expandableAvatarGroupVue from '../../../snippets/blocks/vue/expandable-av
 Этот блок можно скопировать в приложение. Это не компонент `ExpandableAvatarGroup`, экспортируемый
 moduix, а композиция на основе `Avatar` и `Tooltip`. Установите блок вместе с зависимостями,
 затем замените демонстрационных участников данными из приложения.
-
-Превью работает на React. Во вкладках приведён код для React, Solid и Vue с общей таблицей стилей.
-
-
-
-<ExampleFrame variant="block" clientOnly>
-  <PreviewFrame maxWidth="sm">
-  <ExpandableAvatarGroup />
-  </PreviewFrame>
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/blocks/expandable-avatar-group.tsx"
-
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={expandableAvatarGroupSolid} />
-
-    </Tab>
-  <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={expandableAvatarGroupVue} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/blocks/expandable-avatar-group.module.css"
-
-```
-</div>
-
-</ExampleCode>
 
 ## Установка
 

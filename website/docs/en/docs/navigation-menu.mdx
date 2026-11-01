@@ -1,14 +1,27 @@
 ---
 title: Navigation Menu
 component: navigation-menu
-description: A composable navigation bar for direct links and disclosure panels, with an optional shared NavigationMenuViewport for animated transitions.
+description: Build a site header where items link directly or open panels of links.
+ark: https://ark-ui.com/docs/components/navigation-menu
 ---
 
+import AnatomyScene from '@/components/examples/navigation-menu/anatomy';
 import * as NavigationMenuDocs from '@/components/examples/navigation-menu/css-properties';
 
-## API Reference
+<Example name="navigation-menu/basic" />
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/navigation-menu" />
+## Installation
+
+<ComponentInstall />
+
+## Usage
+
+<Usage />
+
+Use `NavigationMenu` with `NavigationMenuList` and `NavigationMenuItem`. Give every item a unique
+`value`. For a group of links, place `NavigationMenuTrigger` and `NavigationMenuContent` inside
+the same item. Use `NavigationMenuLink` for direct top-level destinations and for links inside a
+panel.
 
 ## Choosing the right component
 
@@ -19,99 +32,33 @@ related destinations.
 - Choose **`Menu`** for contextual actions rather than navigation.
 - Choose **`Tabs`** when each selected control switches the content shown in one area of the current page.
 
-## Basic
+## Examples
 
+### Shared viewport
 
-Import it from the matching package subpath: `@moduix/react/navigation-menu`,
-`@moduix/solid/navigation-menu`, `@moduix/vue/navigation-menu`,
-`@moduix/react-tailwind/navigation-menu`, `@moduix/solid-tailwind/navigation-menu`, or
-`@moduix/vue-tailwind/navigation-menu`.
+Use a shared `NavigationMenuViewport` when panels have different sizes but should animate inside one surface. This
+example uses a two-column panel and panels with different widths, so switching triggers visibly
+animates the viewport's measured width and height.
 
-Use `NavigationMenu` with `NavigationMenuList` and `NavigationMenuItem`. Give every item a unique
-`value`. For a group of links, place `NavigationMenuTrigger` and `NavigationMenuContent` inside
-the same item. Use `NavigationMenuLink` for direct top-level destinations and for links inside a
-panel.
+<Example name="navigation-menu/viewport" />
 
-<Example name="navigation-menu/basic" />
+### Click to open
 
-## Install with shadcn
+Set `disableHoverTrigger` when panels should open only on click or keyboard, not on hover. This suits
+touch-first layouts and dense headers where hover would open panels by accident.
 
-See [Quick Start](/docs/quick-start) for full package setup, registry configuration, and styling guidance.
+<Example name="navigation-menu/click-to-open" />
 
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
+### Controlled value
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/navigation-menu' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/navigation-menu' },
-  ]}
-/>
+Pass `value` and `onValueChange` (`v-model:value` in Vue) when the open panel also drives nearby UI.
+The output below shows the value of the open item. See [Control state from the application](/docs/composition-patterns#controlled-state).
 
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/navigation-menu' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/navigation-menu' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/navigation-menu' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/navigation-menu' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Anatomy
-
-```text
-NavigationMenu
-├─ NavigationMenuList
-│  ├─ NavigationMenuItem[value]
-│  │  └─ NavigationMenuLink
-│  └─ NavigationMenuItem[value]
-│     ├─ NavigationMenuTrigger
-│     ├─ NavigationMenuItemIndicator (optional)
-│     └─ NavigationMenuContent
-│        └─ NavigationMenuLink
-│  └─ NavigationMenuIndicator > NavigationMenuArrow (optional)
-└─ NavigationMenuViewportPositioner (optional)
-   └─ NavigationMenuViewport
-
-NavigationMenuRootProvider
-└─ same part tree connected to a useNavigationMenu() store
-
-NavigationMenuContext
-└─ advanced render-prop access to the current navigation state
-```
-
-| Part | Role |
-| --- | --- |
-| `NavigationMenu` | Root `nav` element that owns the open value, delays, focus behavior, and orientation. |
-| `NavigationMenuRootProvider` | Connects the parts to a store created with `useNavigationMenu()`. |
-| `NavigationMenuContext` | Exposes the current navigation state through a render prop. |
-| `NavigationMenuList` | Groups top-level navigation items. |
-| `NavigationMenuItem` | Requires a unique `value` and connects an item's trigger, content, and links. |
-| `NavigationMenuTrigger` | Button that opens or closes the item's disclosure panel. |
-| `NavigationMenuContent` | Disclosure panel for an item. It can render beside the item or inside a shared `NavigationMenuViewport`. |
-| `NavigationMenuLink` | Anchor for a direct destination or a link inside a disclosure panel. |
-| `NavigationMenuItemIndicator` | Optional visual marker for the current item. |
-| `NavigationMenuIndicator` | Optional marker for the active trigger; render it inside `NavigationMenuList`. Use `NavigationMenuArrow` with a shared `NavigationMenuViewport`. |
-| `NavigationMenuViewportPositioner` | Positions a shared `NavigationMenuViewport`. |
-| `NavigationMenuViewport` | Shared animated surface for the currently open content. |
+<Example name="navigation-menu/controlled-value" />
 
 ## Composition
 
-Use `defaultValue` for an uncontrolled menu. When another part of the application owns the open
+Use `defaultValue` for an uncontrolled menu. When another part of the application controls the open
 item, pass `value` with `onValueChange(details)` or use Vue's `v-model:value`; `details.value` is the
 open item's value or an empty string when all panels are closed. Create the store with
 `useNavigationMenu()` and pass it to `NavigationMenuRootProvider` when it must live outside the
@@ -126,22 +73,28 @@ animated surface; the positioner's `align` prop (`"start" | "center" | "end"`, d
 aligns the viewport against the value positioner. Use `asChild` for router links or custom
 triggers only when the child remains one interactive, focusable element.
 
-## Examples
+## Anatomy
 
-### Controlled Value
+Hover or focus a part to find it in the preview.
 
-Control the open value from React state, Solid signals, or a Vue ref when the active panel also needs
-to drive nearby application UI. The output below shows the value of the currently open item.
-
-<Example name="navigation-menu/controlled-value" />
-
-### Shared viewport
-
-Use a shared `NavigationMenuViewport` when panels have different sizes but should animate inside one surface. This
-example uses a two-column panel and panels with different widths, so switching triggers visibly
-animates the viewport's measured width and height.
-
-<Example name="navigation-menu/viewport" />
+<AnatomyInspector
+  parts={[
+    ["NavigationMenu", "navigation-menu-root", "Root `nav` element that manages the open value, delays, focus behavior, and orientation.", 0],
+    ["NavigationMenuList", "navigation-menu-list", "Groups top-level navigation items.", 1],
+    ["NavigationMenuItem", "navigation-menu-item", "Requires a unique `value` and connects an item's trigger, content, and links.", 2],
+    ["NavigationMenuLink", "navigation-menu-link", "Anchor for a direct destination or a link inside a disclosure panel.", 3],
+    ["NavigationMenuTrigger", "navigation-menu-trigger", "Button that opens or closes the item's disclosure panel.", 2],
+    ["NavigationMenuItemIndicator", "navigation-menu-item-indicator", "Optional visual marker for the current item.", 2],
+    ["NavigationMenuContent", "navigation-menu-content", "Disclosure panel for an item. It can render beside the item or inside a shared `NavigationMenuViewport`.", 2],
+    ["NavigationMenuIndicator", "navigation-menu-indicator", "Optional marker for the active trigger; render it inside `NavigationMenuList`. Use `NavigationMenuArrow` with a shared `NavigationMenuViewport`.", 2],
+    ["NavigationMenuViewportPositioner", "navigation-menu-viewport-positioner", "Positions a shared `NavigationMenuViewport`.", 1],
+    ["NavigationMenuViewport", "navigation-menu-viewport", "Shared animated surface for the currently open content.", 2],
+    ["NavigationMenuRootProvider", "navigation-menu-root-provider", "Connects the parts to a store created with `useNavigationMenu()`.", 0],
+    ["NavigationMenuContext", null, "Exposes the current navigation state through a render prop.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styling
 
@@ -153,13 +106,32 @@ only the panel and viewport size limits as CSS variables; override other styles 
 part. Panel and viewport motion follow the shared `--moduix-popup-motion-*` variables. Data
 attributes and `data-slot` hooks are shared by both styling tracks.
 
-### CSS Properties
+### CSS variables
 
-<CssPropertiesSection properties={NavigationMenuDocs.navigationMenuOverrideCssProperties} />
+Hover or focus a variable to see it in the preview.
+
+<CssPropertiesSection properties={NavigationMenuDocs.navigationMenuOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Styling hooks
 
-Target the part that owns the visual concern:
+| Part | `data-slot` |
+| --- | --- |
+| `NavigationMenu` | `navigation-menu-root` |
+| `NavigationMenuRootProvider` | `navigation-menu-root-provider` |
+| `NavigationMenuList` | `navigation-menu-list` |
+| `NavigationMenuItem` | `navigation-menu-item` |
+| `NavigationMenuTrigger` | `navigation-menu-trigger` |
+| `NavigationMenuContent` | `navigation-menu-content` |
+| `NavigationMenuLink` | `navigation-menu-link` |
+| `NavigationMenuIndicator` | `navigation-menu-indicator` |
+| `NavigationMenuItemIndicator` | `navigation-menu-item-indicator` |
+| `NavigationMenuArrow` | `navigation-menu-arrow` |
+| `NavigationMenuViewportPositioner` | `navigation-menu-viewport-positioner` |
+| `NavigationMenuViewport` | `navigation-menu-viewport` |
+
+Target the part that renders the element you want to style:
 
 - `NavigationMenu` for root width, text color, and layout position.
 - `NavigationMenuList` for top-level spacing and orientation.
@@ -168,15 +140,32 @@ Target the part that owns the visual concern:
 - `NavigationMenuIndicator` and `NavigationMenuItemIndicator` for optional active-state decoration; use `NavigationMenuArrow` with a shared `NavigationMenuViewport`.
 - `NavigationMenuViewportPositioner` and `NavigationMenuViewport` for a shared animated panel surface.
 
-The main public hooks are `data-slot="navigation-menu-root"`,
-`data-slot="navigation-menu-root-provider"`, `data-slot="navigation-menu-list"`,
-`data-slot="navigation-menu-item"`, `data-slot="navigation-menu-trigger"`,
-`data-slot="navigation-menu-content"`, `data-slot="navigation-menu-link"`,
-`data-slot="navigation-menu-indicator"`, `data-slot="navigation-menu-item-indicator"`,
-`data-slot="navigation-menu-arrow"`, `data-slot="navigation-menu-viewport-positioner"`, and
-`data-slot="navigation-menu-viewport"`.
-
 Useful Ark hooks include `data-scope="navigation-menu"`, `data-part`, `data-state`, `data-current`,
 `data-disabled`, `data-orientation`, and `data-motion`. At runtime, Ark writes `--trigger-x`,
 `--trigger-y`, `--trigger-width`, `--trigger-height`, `--viewport-x`, `--viewport-y`,
 `--viewport-width`, and `--viewport-height`.
+
+## Keyboard
+
+| Key | Action |
+| --- | --- |
+| `Tab` / `Shift+Tab` | Moves between top-level triggers and links. |
+| `Enter` / `Space` | Opens or closes the panel of the focused trigger. |
+| `ArrowLeft` / `ArrowRight` | Moves to the previous or next trigger, or between links in an open panel; ArrowUp and ArrowDown when vertical. |
+| `Home` / `End` | Moves to the first or last trigger or link. |
+| `Esc` | Closes the open panel and returns focus to its trigger. |
+
+## API reference
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `value` | `string` | — | Open item for controlled use. |
+| `defaultValue` | `string` | — | Initially open item. |
+| `onValueChange` | `(details: ValueChangeDetails) => void` | — | Called when another item opens or the menu closes. |
+| `openDelay` | `number` | `200` | Hover delay before opening, in milliseconds. |
+| `closeDelay` | `number` | `300` | Delay before closing after the pointer leaves, in milliseconds. |
+| `disableClickTrigger` | `boolean` | `false` | Turns off opening by click. |
+| `disableHoverTrigger` | `boolean` | `false` | Turns off opening on hover. |
+| `disablePointerLeaveClose` | `boolean` | `false` | Keeps the menu open when the pointer leaves. |
+| `translations` | `IntlTranslations` | — | Localized strings for accessibility labels. |
+| `orientation` | `'horizontal' \| 'vertical'` | `'horizontal'` | Layout and arrow-key direction: `horizontal` or `vertical`. |

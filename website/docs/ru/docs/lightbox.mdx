@@ -1,23 +1,26 @@
 ---
 title: Lightbox
 component: lightbox
-description: Модальный просмотрщик изображений с навигацией по галерее и управляемым состоянием в React, Solid и Vue.
+description: Просмотр изображений в модальном окне, по одному или галереей.
+ark: https://ark-ui.com/docs/components/dialog
 ---
 
+import AnatomyScene from '@/components/examples/lightbox/anatomy';
 import * as LightboxDocs from '@/components/examples/lightbox/css-properties';
-import LightboxRootProviderAndContext from '@/components/examples/lightbox/root-provider-and-context.tsx';
-import lightboxSolidRootProviderAndContext from '../../../snippets/lightbox/solid/root-provider-and-context.tsx?raw';
-import lightboxVueRootProviderAndContext from '../../../snippets/lightbox/vue/root-provider-and-context.vue?raw';
-import lightboxVueRootProviderAndContextPart from '../../../snippets/lightbox/vue/LightboxStatus.vue?raw';
 
-## Справочник API
+<Example name="lightbox/basic" />
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/dialog" />
+## Установка
 
-В Ark UI нет отдельного примитива `lightbox`. В moduix этот компонент построен на основе `Dialog`,
-следует рекомендациям Ark по [композиции](https://ark-ui.com/docs/guides/composition),
-[стилизации](https://ark-ui.com/docs/guides/styling) и работе с
-[ref](https://ark-ui.com/docs/guides/ref), а поведение определяется контрактом `Dialog`.
+<ComponentInstall />
+
+## Использование
+
+<Usage />
+
+Явно соберите структуру диалога Ark UI из `Lightbox`, `LightboxTrigger`,
+`LightboxBackdrop`, `LightboxPositioner` и `LightboxContent`. С помощью `asChild` передайте
+один семантический элемент, который открывает окно просмотра.
 
 ## Выбор подходящего компонента
 
@@ -27,145 +30,7 @@ import lightboxVueRootProviderAndContextPart from '../../../snippets/lightbox/vu
 - Выбирайте **`Dialog`** для обычного интерфейса приложения, например форм, действий или смешанного содержимого.
 - Поместите **`Carousel` внутрь `LightboxGallery`**, если для просмотра нужны слайды и стрелки навигации.
 
-## Базовый пример
-
-Явно соберите структуру диалога Ark UI из `Lightbox`, `LightboxTrigger`,
-`LightboxBackdrop`, `LightboxPositioner` и `LightboxContent`. С помощью `asChild` передайте
-один семантический элемент, который открывает окно просмотра.
-
-<Example name="lightbox/basic" />
-
-## Установка через shadcn
-
-Полную настройку пакета, реестра и стилей см. в разделе [Быстрый старт](/docs/quick-start).
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/lightbox' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/lightbox' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/lightbox' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/lightbox' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/lightbox' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/lightbox' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Анатомия
-
-```text
-Lightbox
-├─ LightboxTrigger
-├─ LightboxBind
-└─ Поддерево модального окна (автоматически выводится через портал)
-   ├─ LightboxBackdrop
-   └─ LightboxPositioner
-      ├─ LightboxCloseTrigger или LightboxCloseIcon
-      └─ LightboxContent
-         ├─ LightboxHeader (необязательно)
-         │  ├─ LightboxTitle
-         │  └─ LightboxDescription
-         ├─ LightboxBody
-         │  └─ LightboxImage
-         └─ LightboxFooter (необязательно)
-
-LightboxRootProvider
-└─ то же дерево частей, связанное с useLightbox()
-```
-
-| Часть | Назначение |
-| ---------------------------- | ------------------------------------------------------------------------------------ |
-| `Lightbox` | Корневой компонент Dialog из Ark UI. Он управляет состоянием открытия, фокусом, закрытием и доступностью. |
-| `LightboxRootProvider` | Провайдер состояния, созданного с помощью `useLightbox()`. |
-| `LightboxTrigger` | Триггер Ark. С `asChild` можно передать семантическую кнопку или ссылку. |
-| `LightboxBackdrop` | Модальная подложка с атрибутом Ark `data-state` и переменными слоя. |
-| `LightboxPositioner` | Фиксированный контейнер, центрирующий содержимое модального окна. |
-| `LightboxContent` | Узел с содержимым диалога Ark UI. |
-| `LightboxTitle` | Необязательный доступный заголовок. |
-| `LightboxDescription` | Необязательное доступное описание. |
-| `LightboxCloseTrigger` | Низкоуровневый триггер закрытия Ark UI. |
-| `LightboxCloseIcon` | Упрощённый вариант, объединяющий `CloseButton` с триггером закрытия Ark UI. |
-| `LightboxHeader` / `LightboxBody` | Необязательные компоненты для размещения текста и медиа. |
-| `LightboxFooter` | Необязательный компонент для действий или статуса под медиа. |
-| `LightboxImage` | Стилизованный `<img>`, передающий ref нативного элемента `HTMLImageElement`. |
-| `LightboxGallery` | Контейнер для компоновки и стилизации `Carousel`. |
-| `LightboxBind` | Компонент без собственного DOM, связывающий внешнюю разметку с корнем. |
-
-## Композиция
-
-`Lightbox` управляет состоянием `Dialog`, а `LightboxBackdrop`, `LightboxPositioner` и `LightboxContent` остаются явными.
-По умолчанию части окна выводятся через портал. Используйте `portalled={false}`, чтобы оставить их
-на месте, или `portalRef`, чтобы выбрать контейнер. Размещайте `LightboxCloseIcon` внутри `LightboxContent`,
-но вне `LightboxBody`, чтобы кнопка была доступна скринридерам и входила в область удержания фокуса.
-Content плавно появляется и исчезает, а Body меняет масштаб и положение; кнопка остаётся в углу окна.
-Без Body содержимое анимируется только изменением прозрачности.
-Для `asChild` передавайте один семантический элемент. В Solid это render-функция, получающая его props,
-а в Vue передавайте булево свойство `as-child` и элемент в слоте.
-
-В галереях храните выбранное изображение и страницу `Carousel` в состоянии приложения. Передавайте
-ключ изображения в `LightboxTrigger value` и обновляйте состояние из `onTriggerValueChange(details)`
-или callback страницы `Carousel`. Используйте `LightboxRootProvider` с `useLightbox()`, если состояние или
-кнопка открытия находятся за пределами корня, а в дочерних компонентах читайте его через
-`useLightboxContext()`. `LightboxBind` не выводит разметку и только выбирает изображение во внешнем DOM, поэтому
-остальные части Lightbox нужно собрать явно. `LightboxImage closeOnClick` закрывает окно после клика по изображению.
-
 ## Примеры
-
-### Привязка содержимого из CMS
-
-Используйте `LightboxBind`, если изображения приходят из CMS или сторонней разметки, которую нельзя
-вывести напрямую через `LightboxTrigger`. Укажите контейнер через `rootRef` или `rootSelector`,
-задайте `selector` и обработайте `{ src, alt, element }` в `onImageSelect`. `LightboxBind` открывает родительский
-Lightbox, но не создаёт его подложку, содержимое и элементы закрытия. Источник читается из
-`data-lightbox-src`, затем `currentSrc` и `src`, а найденное изображение заранее загружается при
-наведении указателя или фокусе с клавиатуры. В `selector` указывайте семантическую кнопку или ссылку,
-чтобы открытие работало с клавиатуры. Для структурированного массива изображений используйте
-композицию `LightboxGallery + Carousel`.
-
-<Example name="lightbox/bind-cms-content" />
-
-### Закрытие по клику на изображение
-
-Используйте `LightboxImage closeOnClick`, если клик по изображению должен закрывать окно просмотра.
-Иконка закрытия остаётся доступной и сохраняет стандартную семантику Ark UI.
-
-<Example name="lightbox/click-to-close-image" />
-
-### Управляемое состояние
-
-Используйте callback `onOpenChange(details)` из Ark UI, если состояние Lightbox нужно синхронизировать
-с состоянием приложения на React или Solid. Во Vue используйте `v-model:open`.
-
-<Example name="lightbox/controlled" />
-
-### Фокус и идентификаторы
-
-Используйте `initialFocusEl`, `finalFocusEl` и `ids`, если нужны явные цели фокуса или стабильные
-идентификаторы для внешних связей доступности. После закрытия целевая кнопка подсвечивается, поэтому
-возврат фокуса легко заметить.
-
-<Example name="lightbox/focus-and-ids" />
 
 ### Галерея
 
@@ -183,6 +48,13 @@ Lightbox, но не создаёт его подложку, содержимое
 
 <Example name="lightbox/multiple-triggers" />
 
+### Закрытие по клику на изображение
+
+Используйте `LightboxImage closeOnClick`, если клик по изображению должен закрывать окно просмотра.
+Иконка закрытия остаётся доступной и сохраняет стандартную семантику Ark UI.
+
+<Example name="lightbox/click-to-close-image" />
+
 ### Немодальный режим
 
 Задайте `modal={false}`, если страница должна оставаться интерактивной во время просмотра. В этом
@@ -191,74 +63,134 @@ Lightbox, но не создаёт его подложку, содержимое
 
 <Example name="lightbox/non-modal" />
 
+### Привязка содержимого из CMS
+
+Используйте `LightboxBind`, если изображения приходят из CMS или сторонней разметки, которую нельзя
+вывести напрямую через `LightboxTrigger`. Укажите контейнер через `rootRef` или `rootSelector`,
+задайте `selector` и обработайте `{ src, alt, element }` в `onImageSelect`. `LightboxBind` открывает родительский
+Lightbox, но не создаёт его подложку, содержимое и элементы закрытия. Источник читается из
+`data-lightbox-src`, затем `currentSrc` и `src`, а найденное изображение заранее загружается при
+наведении указателя или фокусе с клавиатуры. В `selector` указывайте семантическую кнопку или ссылку,
+чтобы открытие работало с клавиатуры. Для структурированного массива изображений используйте
+композицию `LightboxGallery + Carousel`.
+
+<Example name="lightbox/bind-cms-content" />
+
+### Пользовательская стилизация
+
+Передайте классы фону, содержимому и кнопке закрытия и переопределите их токены, если медиаконтенту
+нужен собственный вид.
+
+<Example name="lightbox/custom-styling" />
+
+### Управляемое состояние
+
+Используйте callback `onOpenChange(details)` из Ark UI, если состояние Lightbox нужно синхронизировать
+с состоянием приложения на React или Solid. Во Vue используйте `v-model:open`. Подробнее в разделе [Управляйте состоянием из приложения](/docs/composition-patterns#controlled-state).
+
+<Example name="lightbox/controlled" />
+
+### Фокус и идентификаторы
+
+Используйте `initialFocusEl`, `finalFocusEl` и `ids`, если нужны явные цели фокуса или стабильные
+идентификаторы для внешних связей доступности. После закрытия целевая кнопка подсвечивается, поэтому
+возврат фокуса легко заметить.
+
+<Example name="lightbox/focus-and-ids" />
+
 ### Root Provider
 
 Создайте состояние через `useLightbox()`, если кнопка открытия находится за пределами корневого
 компонента. В дочернем компоненте читайте состояние через `useLightboxContext()`. Внешняя кнопка
-остаётся обычным компонентом `Button` из moduix.
+остаётся обычным компонентом `Button` из moduix. Подробнее в разделе [Выносите состояние за пределы дерева](/docs/composition-patterns#root-provider).
 
-<ExampleFrame variant="component">
-  <LightboxRootProviderAndContext />
-</ExampleFrame>
+<Example name="lightbox/root-provider-and-context" />
 
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
+### Сборка из частей
 
-```tsx pure file="../../../src/components/examples/lightbox/root-provider-and-context.tsx"
-```
+Тот же Lightbox, что в Basic, но без `LightboxCloseIcon`: `LightboxCloseTrigger` оборачивает
+`CloseButton` с явной иконкой и классом, который закрепляет кнопку в углу. `LightboxBody` остаётся,
+потому что задаёт анимацию открытия и закрытия изображения.
 
-    </Tab>
-    <Tab value="solid">
+<Example name="lightbox/build-from-parts" />
 
-<CodeBlockRuntime lang="tsx" code={lightboxSolidRootProviderAndContext} />
+## Композиция
 
-    </Tab>
-    <Tab value="vue">
+В Ark UI нет отдельного примитива `lightbox`. В moduix этот компонент построен на основе `Dialog`,
+следует рекомендациям Ark по [композиции](https://ark-ui.com/docs/guides/composition),
+[стилизации](https://ark-ui.com/docs/guides/styling) и работе с
+[ref](https://ark-ui.com/docs/guides/ref), а поведение определяется контрактом `Dialog`.
 
-<CodeBlockRuntime lang="vue" code={lightboxVueRootProviderAndContext} />
+`Lightbox` управляет состоянием `Dialog`, а `LightboxBackdrop`, `LightboxPositioner` и `LightboxContent` остаются явными.
+По умолчанию части окна выводятся через портал. Используйте `portalled={false}`, чтобы оставить их
+на месте, или `portalRef`, чтобы выбрать контейнер. Размещайте `LightboxCloseIcon` внутри `LightboxContent`,
+но вне `LightboxBody`, чтобы кнопка была доступна скринридерам и входила в область удержания фокуса.
+Content плавно появляется и исчезает, а Body меняет масштаб и положение; кнопка остаётся в углу окна.
+Без Body содержимое анимируется только изменением прозрачности.
+Для `asChild` передавайте один семантический элемент. В Solid это render-функция, получающая его props,
+а в Vue передавайте булево свойство `as-child` и элемент в слоте.
 
-<CodeBlockRuntime lang="vue" code={lightboxVueRootProviderAndContextPart} title="LightboxStatus.vue" />
+В галереях храните выбранное изображение и страницу `Carousel` в состоянии приложения. Передавайте
+ключ изображения в `LightboxTrigger value` и обновляйте состояние из `onTriggerValueChange(details)`
+или callback страницы `Carousel`. Используйте `LightboxRootProvider` с `useLightbox()`, если состояние или
+кнопка открытия находятся за пределами корня, а в дочерних компонентах читайте его через
+`useLightboxContext()`. `LightboxBind` не выводит разметку и только выбирает изображение во внешнем DOM, поэтому
+остальные части Lightbox нужно собрать явно. `LightboxImage closeOnClick` закрывает окно после клика по изображению.
 
-    </Tab>
-  </Tabs>
+## Анатомия
 
-**Стили**
+Наведите на часть или выберите её, чтобы найти её в превью.
 
-```css file="../../../src/components/examples/lightbox/lightbox-root-provider-and-context.module.css"
-```
-</div>
-
-</ExampleCode>
-
-### Расширенная настройка
-
-Не используйте необязательные компоненты компоновки, если для медиаконтента нужны собственные классы
-слотов и переопределения токенов. `LightboxBackdrop`, `LightboxPositioner` и `LightboxContent` остаются явными.
-
-<Example name="lightbox/advanced-customization" />
+<AnatomyInspector
+  parts={[
+    ["Lightbox", null, "Корневой компонент Dialog из Ark UI. Он управляет состоянием открытия, фокусом, закрытием и доступностью.", 0],
+    ["LightboxTrigger", "lightbox-trigger", "Триггер Ark. С `asChild` можно передать семантическую кнопку или ссылку.", 1],
+    ["LightboxBind", "", "Компонент без собственного DOM, связывающий внешнюю разметку с корнем.", 1],
+    ["LightboxBackdrop", "lightbox-backdrop", "Модальная подложка с атрибутом Ark `data-state` и переменными слоя.", 1],
+    ["LightboxPositioner", "lightbox-positioner", "Фиксированный контейнер, центрирующий содержимое модального окна.", 1],
+    ["LightboxContent", "lightbox-content", "Узел с содержимым диалога Ark UI.", 2],
+    ["LightboxCloseTrigger", "lightbox-close-trigger", "Низкоуровневый триггер закрытия Ark UI.", 3],
+    ["LightboxHeader / LightboxBody", "lightbox-header", "Необязательные компоненты для размещения текста и медиа.", 3],
+    ["LightboxTitle", "lightbox-title", "Необязательный доступный заголовок.", 4],
+    ["LightboxDescription", "lightbox-description", "Необязательное доступное описание.", 4],
+    ["LightboxImage", "lightbox-image", "Стилизованный `<img>`, передающий ref нативного элемента `HTMLImageElement`.", 3],
+    ["LightboxFooter", "lightbox-footer", "Необязательный компонент для действий или статуса под медиа.", 3],
+    ["LightboxCloseIcon", "lightbox-close-icon", "Упрощённый вариант, объединяющий `CloseButton` с триггером закрытия Ark UI.", 1],
+    ["LightboxGallery", "lightbox-gallery", "Контейнер для компоновки и стилизации `Carousel`.", 1],
+    ["LightboxRootProvider", null, "Провайдер состояния, созданного с помощью `useLightbox()`.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Стилизация
 
-### CSS-свойства
+### CSS-переменные
 
-<CssPropertiesSection properties={LightboxDocs.lightboxOverrideCssProperties} />
+Наведите на переменную или выберите её, чтобы увидеть её в превью.
+
+<CssPropertiesSection properties={LightboxDocs.lightboxOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Хуки стилизации
 
-- Слоты moduix: `lightbox-trigger`, `lightbox-backdrop`, `lightbox-positioner`,
-  `lightbox-content`, `lightbox-title`, `lightbox-description`, `lightbox-close-trigger`,
-  `lightbox-close-icon`, `lightbox-header`, `lightbox-body`, `lightbox-footer`, `lightbox-image`
-  и `lightbox-gallery`.
+| Часть | `data-slot` |
+| --- | --- |
+| `LightboxTrigger` | `lightbox-trigger` |
+| `LightboxBackdrop` | `lightbox-backdrop` |
+| `LightboxPositioner` | `lightbox-positioner` |
+| `LightboxContent` | `lightbox-content` |
+| `LightboxTitle` | `lightbox-title` |
+| `LightboxDescription` | `lightbox-description` |
+| `LightboxCloseTrigger` | `lightbox-close-trigger` |
+| `LightboxCloseIcon` | `lightbox-close-icon` |
+| `LightboxImage` | `lightbox-image` |
+| `LightboxGallery` | `lightbox-gallery` |
+| `LightboxHeader` | `lightbox-header` |
+| `LightboxBody` | `lightbox-body` |
+| `LightboxFooter` | `lightbox-footer` |
+
 - Атрибуты состояния и анатомии Ark: `data-scope="dialog"`, `data-part`, `data-state="open|closed"`,
   `data-nested`, `data-has-nested`, `--layer-index` и `--nested-layer-count`.
 - Локальные точки настройки: `LightboxImage` добавляет `data-slot="lightbox-image"` и, если
@@ -272,3 +204,32 @@ Lightbox, но не создаёт его подложку, содержимое
   лайтбокса, добавьте класс на нужную часть. Подложка читает общие `--moduix-backdrop-bg` и
   `--moduix-backdrop-filter`, анимация содержимого — `--moduix-popup-motion-*` на `LightboxContent`,
   а `LightboxCloseIcon` — переменные `--moduix-close-button-*`.
+
+## Клавиатура
+
+| Клавиша | Действие |
+| --- | --- |
+| `Enter` / `Space` | Открывает с кнопки в фокусе. |
+| `Tab` / `Shift+Tab` | Перемещает фокус между элементами; пока открыто, фокус не выходит наружу. |
+| `Esc` | Закрывает и возвращает фокус на кнопку. |
+
+## Справочник API
+
+`Lightbox` принимает те же пропсы, что и `Dialog`. `LightboxImage` добавляет `closeOnClick` (`boolean`, по умолчанию `false`).
+
+| Проп | Тип | По умолчанию | Описание |
+| --- | --- | --- | --- |
+| `open` | `boolean` | — | Состояние открытия в управляемом режиме. |
+| `defaultOpen` | `boolean` | `false` | Начальное состояние открытия, если оно не управляется извне. |
+| `onOpenChange` | `(details: OpenChangeDetails) => void` | — | Вызывается при открытии и закрытии. |
+| `modal` | `boolean` | `true` | Блокирует взаимодействие снаружи и скрывает остальную страницу от вспомогательных технологий. |
+| `role` | `'dialog' \| 'alertdialog'` | `'dialog'` | `dialog` или `alertdialog` для срочных подтверждений. |
+| `closeOnEscape` | `boolean` | `true` | Закрывается по Escape. |
+| `closeOnInteractOutside` | `boolean` | `true` | Закрывается по клику снаружи. |
+| `trapFocus` | `boolean` | `true` | Удерживает фокус внутри, пока открыто. |
+| `preventScroll` | `boolean` | `true` | Блокирует прокрутку страницы, пока открыто. |
+| `initialFocusEl` | `() => HTMLElement \| null \| false` | — | Возвращает элемент, который получает фокус при открытии. |
+| `finalFocusEl` | `() => HTMLElement \| null` | — | Возвращает элемент, который получает фокус при закрытии. |
+| `lazyMount` | `boolean` | `true` | Монтирует содержимое при первом открытии. |
+| `unmountOnExit` | `boolean` | `true` | Удаляет содержимое после закрытия. |
+| `portalled` | `boolean` | `true` | Отрисовывает окно в портале в конце `body`. |

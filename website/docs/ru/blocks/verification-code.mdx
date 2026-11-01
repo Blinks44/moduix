@@ -1,13 +1,26 @@
 ---
 title: Код подтверждения
 description: Форма подтверждения адреса электронной почты шестизначным кодом на компонентах moduix.
+block: verification-code
 ---
 
 import { VerificationCode } from '@/components/blocks/verification-code/verification-code';
 import verificationCodeSolid from '../../../snippets/blocks/solid/verification-code.tsx?raw';
 import verificationCodeVue from '../../../snippets/blocks/vue/verification-code.vue?raw';
+import verificationCodeReact from '../../../src/components/blocks/verification-code/verification-code.tsx?raw';
+import verificationCodeCss from '../../../src/components/blocks/verification-code/verification-code-form.module.css?raw';
 
 # Код подтверждения
+
+<ExamplePanel
+  clientOnly
+  sources={{ react: verificationCodeReact, solid: verificationCodeSolid, vue: verificationCodeVue }}
+  files={[{ name: 'verification-code-form.module.css', code: verificationCodeCss }]}
+>
+  <PreviewFrame maxWidth="sm">
+    <VerificationCode onSubmit={(event) => event.preventDefault()} />
+  </PreviewFrame>
+</ExamplePanel>
 
 Используйте этот блок, когда приложение отправляет пользователю одноразовый код на электронную почту.
 В нём `Card`, `Field`, `Button` и `PinInput` собраны в готовую форму. `PinInput` сохраняет код в скрытом
@@ -15,55 +28,6 @@ import verificationCodeVue from '../../../snippets/blocks/vue/verification-code.
 одноразового кода на мобильных устройствах. Отправьте форму, не заполнив все шесть цифр, чтобы увидеть
 встроенную ошибку поля. Эта проверка подтверждает только наличие всех шести цифр. Проверяйте сам код на
 сервере.
-
-Превью работает на React. Во вкладках приведён код для React, Solid и Vue с общей таблицей стилей.
-
-
-
-<ExampleFrame variant="block" clientOnly>
-  <PreviewFrame maxWidth="sm">
-  <VerificationCode onSubmit={(event) => event.preventDefault()} />
-  </PreviewFrame>
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/blocks/verification-code/verification-code.tsx"
-
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={verificationCodeSolid} />
-
-    </Tab>
-  <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={verificationCodeVue} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/blocks/verification-code/verification-code-form.module.css"
-
-```
-</div>
-
-</ExampleCode>
 
 ## Установка
 

@@ -2,7 +2,7 @@
 
 ## Upstream reference
 
-Ark UI has no dedicated AspectRatio primitive. Moduix uses the
+Ark UI has no dedicated AspectRatio primitive. moduix uses the
 [Ark factory](https://ark-ui.com/docs/guides/composition#the-ark-factory) and follows its
 [composition](https://ark-ui.com/docs/guides/composition) and
 [styling](https://ark-ui.com/docs/guides/styling) guides.
@@ -39,5 +39,5 @@ radius, and overflow. In particular, the root must not style arbitrary `img`, `v
 
 ## Differences from upstream
 
-Moduix renders one element with native CSS `aspect-ratio` instead of Radix's padding wrapper, and
+moduix renders one element with native CSS `aspect-ratio` instead of Radix's padding wrapper, and
 adds stable data hooks around the Ark factory model.

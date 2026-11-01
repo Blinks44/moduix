@@ -1,16 +1,25 @@
 ---
 title: Textarea
 component: textarea
-description: A native multiline text input with Field integration and moduix styling.
+description: Collect several lines of text, with optional auto-resize.
+ark: https://ark-ui.com/docs/components/field
 ---
 
+import AnatomyScene from '@/components/examples/textarea/basic';
 import * as TextareaDocs from '@/components/examples/textarea/css-properties';
 
-## API Reference
+<Example name="textarea/basic" />
 
-Ark UI does not ship a dedicated `Textarea` primitive. moduix builds this component on
-[Ark's `FieldTextarea`](https://ark-ui.com/docs/components/field), preserving the native
-`textarea` API, `autoresize`, ref forwarding, `asChild`, and Field state inheritance.
+## Installation
+
+<ComponentInstall />
+
+## Usage
+
+<Usage />
+
+Place `Textarea` inside `Field` when the control needs an accessible label or supporting text. This
+is the recommended setup for comments, notes, issue descriptions, and similar content.
 
 ## Choosing the right component
 
@@ -23,91 +32,7 @@ Use `Textarea` for plain text that can span multiple lines and should behave lik
 - Choose **`Field` + `Textarea`** when the control needs a declarative label, description, required
   state, or validation.
 
-## Basic
-
-Place `Textarea` inside `Field` when the control needs an accessible label or supporting text. This
-is the recommended setup for comments, notes, issue descriptions, and similar content.
-
-<Example name="textarea/basic" />
-
-## Install with shadcn
-
-See [Quick Start](/docs/quick-start) for full package setup, registry configuration, and styling guidance.
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/textarea' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/textarea' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/textarea' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/textarea' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/textarea' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/textarea' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Anatomy
-
-The public structure has one component part:
-
-```text
-Field (optional wrapper)
-└─ Textarea
-```
-
-| Part       | Role                                                  |
-| ---------- | ----------------------------------------------------- |
-| `Textarea` | Native `textarea` with moduix styles and Field state. |
-
-`Textarea` does not export an additional wrapper, compound subcomponents, provider or context hooks,
-hidden inputs, or a label or character-counter API.
-
-## Composition
-
-Use `defaultValue` for an uncontrolled textarea. Use `value` with native `onChange` in React and
-Solid, or `v-model` in Vue, when the application owns the content, using the matching framework's
-state primitive.
-
-In Vue, bind the native DOM property as `:defaultValue="initialValue"`, not `default-value`.
-With `v-model`, reset the bound state in the form's reset handler: native reset does not emit an input event.
-
-Wrap `Textarea` with `Field`, `FieldLabel`, `FieldHelperText`, and `FieldErrorText` when the
-control needs a label, supporting text, or validation. Outside `Field`, provide an accessible name
-with a native `<label>` or `aria-label`.
-
-Set `autoresize` only when the control should grow with its content. Ark disables manual resizing in
-that mode. With `asChild`, provide one semantic textarea host that can receive the merged props and
-ref.
-
 ## Examples
-
-### Auto-resize
-
-Set `autoresize` when the textarea should grow as the user types. Ark disables manual resizing while
-this option is enabled.
-
-<Example name="textarea/auto-resize" />
 
 ### Sizes
 
@@ -117,11 +42,12 @@ attribute, so it scales with the font size.
 
 <Example name="textarea/sizes" />
 
-### Controlled value
+### Auto-resize
 
-Use `value` and native `onChange` when application state should control the content.
+Set `autoresize` when the textarea should grow as the user types. Ark disables manual resizing while
+this option is enabled.
 
-<Example name="textarea/controlled" />
+<Example name="textarea/auto-resize" />
 
 ### Disabled and read-only
 
@@ -144,6 +70,50 @@ example also submits the form and reads the current value from `FormData`.
 
 <Example name="textarea/native-attributes" />
 
+### Controlled value
+
+Use `value` and native `onChange` when application state should control the content.
+
+<Example name="textarea/controlled" />
+
+## Composition
+
+Ark UI does not ship a dedicated `Textarea` primitive. moduix builds this component on
+[Ark's `FieldTextarea`](https://ark-ui.com/docs/components/field), preserving the native
+`textarea` API, `autoresize`, ref forwarding, `asChild`, and Field state inheritance.
+
+Use `defaultValue` for an uncontrolled textarea. Use `value` with native `onChange` in React and
+Solid, or `v-model` in Vue, when the application controls the content, using the matching framework's
+state primitive.
+
+In Vue, bind the native DOM property as `:defaultValue="initialValue"`, not `default-value`.
+With `v-model`, reset the bound state in the form's reset handler: native reset does not emit an input event.
+
+Wrap `Textarea` with `Field`, `FieldLabel`, `FieldHelperText`, and `FieldErrorText` when the
+control needs a label, supporting text, or validation. Outside `Field`, provide an accessible name
+with a native `<label>` or `aria-label`.
+
+Set `autoresize` only when the control should grow with its content. Ark disables manual resizing in
+that mode. With `asChild`, provide one semantic textarea host that can receive the merged props and
+ref.
+
+## Anatomy
+
+The public structure has one component part:
+
+Hover or focus a part to find it in the preview.
+
+<AnatomyInspector
+  parts={[
+    ["Textarea", "textarea-root", "Native `textarea` with moduix styles and Field state.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
+
+`Textarea` does not export an additional wrapper, compound subcomponents, provider or context hooks,
+hidden inputs, or a label or character-counter API.
+
 ## Styling
 
 Inside a disabled moduix `Field`, `FieldRootProvider`, or `Fieldset`, the root applies the disabled
@@ -154,14 +124,31 @@ utilities and consumer classes. CSS Modules variants build on foundation tokens 
 two variables below; override colors, padding, typography, height, and `resize` with a plain class, which
 wins over the layered component styles.
 
-### CSS Properties
+### CSS variables
 
-<CssPropertiesSection properties={TextareaDocs.textareaCssProperties} />
+Hover or focus a variable to see it in the preview.
+
+<CssPropertiesSection properties={TextareaDocs.textareaCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Styling hooks
 
-- `data-slot="textarea-root"`
+| Part | `data-slot` |
+| --- | --- |
+| `Textarea` | `textarea-root` |
+
 - `data-size="xs" | "sm" | "md" | "lg" | "xl"`
 - `data-scope="field"` and `data-part="textarea"`
 - Ark `data-invalid`, `data-required`, `data-disabled`, and `data-readonly` inside `Field`
 - native `:disabled`, `:read-only`, `:focus-visible`, and `[aria-invalid="true"]`
+
+## API reference
+
+Also accepts the native `textarea` props.
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'` | `'md'` | Control size: `xs`, `sm`, `md`, `lg`, or `xl`. |
+| `autoresize` | `boolean` | `false` | Grows the height with the content. |
+| `asChild` | `boolean` | `false` | Applies the textarea styles to its single child. |

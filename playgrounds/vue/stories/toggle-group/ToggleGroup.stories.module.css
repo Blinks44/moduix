@@ -13,7 +13,7 @@
   }
 
   .hint {
-    color: var(--moduix-color-muted-foreground);
+    color: var(--moduix-muted-foreground);
     font-size: var(--moduix-text-xs);
     line-height: var(--moduix-line-height-text-xs);
   }
@@ -23,14 +23,14 @@
   }
 
   .customGroup {
-    --moduix-toggle-group-bg: color-mix(in oklab, var(--moduix-color-primary) 8%, transparent);
+    --moduix-toggle-group-bg: color-mix(in oklab, var(--moduix-primary) 8%, transparent);
     --moduix-toggle-group-border-color: color-mix(
       in oklab,
-      var(--moduix-color-primary) 38%,
-      var(--moduix-color-border)
+      var(--moduix-primary) 38%,
+      var(--moduix-border)
     );
-    --moduix-toggle-bg-pressed: var(--moduix-color-primary);
-    --moduix-toggle-color-pressed: var(--moduix-color-primary-foreground);
+    --moduix-toggle-bg-pressed: var(--moduix-primary);
+    --moduix-toggle-color-pressed: var(--moduix-primary-foreground);
 
     gap: var(--moduix-spacing-1);
     padding: var(--moduix-spacing-1);

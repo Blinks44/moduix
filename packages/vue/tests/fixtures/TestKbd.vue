@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Kbd, KbdGroup } from '../../src';
+import { Kbd, KbdGroup } from '@/index';
 </script>
 
 <template>

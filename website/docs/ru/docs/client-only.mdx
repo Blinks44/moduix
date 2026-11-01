@@ -1,18 +1,13 @@
 ---
 title: Client Only
 description: Отображайте зависящий от браузера интерфейс после гидратации с помощью ClientOnly из Ark UI и fallback, сохраняющего место в разметке.
+ark: https://ark-ui.com/docs/utilities/client-only
 ---
-
-import ClientOnlyBasic from '@/components/examples/client-only/basic.tsx';
-import clientOnlySolidBasic from '../../../snippets/client-only/solid/basic.tsx?raw';
-import clientOnlyVueBasic from '../../../snippets/client-only/vue/basic.vue?raw';
 
 Используйте `ClientOnly`, когда зависящая от браузера часть интерфейса не должна участвовать в серверном рендеринге,
 а `fallback` должен сохранить её место в разметке.
 
-## Справочник API
-
-<PrimitiveReference href="https://ark-ui.com/docs/utilities/client-only" />
+## Импорт
 
 Импортируйте утилиту из пакета Ark UI для используемого фреймворка:
 
@@ -60,42 +55,7 @@ import { ClientOnly } from '@ark-ui/vue/client-only';
 В интерактивном примере используется пакет React с CSS Modules, а во вкладках исходного кода показаны нативные
 примеры React, Solid и Vue с одинаковым поведением.
 
-<ExampleFrame clientOnly variant="component">
-  <PreviewFrame maxWidth="sm">
-    <ClientOnlyBasic />
-  </PreviewFrame>
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/client-only/basic.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={clientOnlySolidBasic} />
-
-    </Tab>
-  <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={clientOnlyVueBasic} />
-
-    </Tab>
-  </Tabs>
-</div>
-</ExampleCode>
+<Example name="client-only/basic" clientOnly />
 
 ## Оставляйте обращения к API браузера внутри границы
 

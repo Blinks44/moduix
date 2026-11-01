@@ -10,14 +10,14 @@ import {
   PopoverTitle,
   PopoverTrigger,
 } from '@moduix/react/popover';
+import { Stack } from '@moduix/react/stack';
 import { useState } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';
-import styles from '@/components/examples/popover/popover-controlled.module.css';
 
 export default function ControlledPopoverDemo() {
   const [open, setOpen] = useState(false);
   return (
-    <div className={styles.root}>
+    <Stack align="center" gap="3">
       <Popover open={open} onOpenChange={(details) => setOpen(details.open)}>
         <PopoverTrigger asChild>
           <Button>Open controlled popover</Button>
@@ -39,6 +39,6 @@ export default function ControlledPopoverDemo() {
       <PreviewMeta>
         <output>Open: {open ? 'yes' : 'no'}</output>
       </PreviewMeta>
-    </div>
+    </Stack>
   );
 }

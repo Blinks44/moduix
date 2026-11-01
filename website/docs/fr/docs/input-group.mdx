@@ -1,17 +1,25 @@
 ---
 title: Input Group
 component: input-group
-description: Créez des champs de saisie avec préfixes, suffixes et actions en ligne en React, Solid ou Vue, installés par paquet ou avec la CLI shadcn.
+description: Ajouter préfixes, suffixes et boutons autour d’un champ.
+ark: https://ark-ui.com/docs/guides/composition
 ---
 
+import AnatomyScene from '@/components/examples/input-group/basic';
 import * as InputGroupDocs from '@/components/examples/input-group/css-properties';
 
-## Référence de l’API
+<Example name="input-group/basic" />
 
-`InputGroup` est une composition propre à moduix, et non une primitive Ark UI. Il associe des
-éléments de la fabrique Ark aux composants moduix `Input` et `Button`, fondés sur Ark. La composition
-suit les recommandations d’Ark pour la [composition](https://ark-ui.com/docs/guides/composition), les
-[styles](https://ark-ui.com/docs/guides/styling) et la [transmission des refs](https://ark-ui.com/docs/guides/ref).
+## Installation
+
+<ComponentInstall />
+
+## Utilisation
+
+<Usage />
+
+Utilisez `InputGroup` comme racine et composez un seul `InputGroupInput` avec les parties
+`InputGroupAddon`, `InputGroupText` ou `InputGroupButton` nécessaires.
 
 ## Choisir le bon composant
 
@@ -22,75 +30,79 @@ suit les recommandations d’Ark pour la [composition](https://ark-ui.com/docs/g
 - Utilisez **`Textarea`** pour du contenu sur plusieurs lignes.
 - Utilisez **`Editable`** lorsqu’un texte doit d’abord être affiché comme une valeur, puis devenir modifiable à la demande.
 
-## Exemple de base
+## Exemples
 
+### Préfixe et suffixe
 
-Utilisez `InputGroup` comme racine et composez un seul `InputGroupInput` avec les parties
-`InputGroupAddon`, `InputGroupText` ou `InputGroupButton` nécessaires.
+Utilisez `InputGroupAddon` pour un préfixe ou un suffixe avec fond et `InputGroupText` pour un texte intégré sans fond.
 
-<Example name="input-group/basic" />
+<Example name="input-group/prefix-and-suffix" />
 
-## Installation avec shadcn
+### Avec une action
 
-Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration complète du paquet, du registre et des styles.
+Utilisez `InputGroupButton` pour une action liée à la valeur du champ. Dans cet exemple, le champ
+est contrôlé et `Send` ne devient disponible qu’après la saisie d’une valeur.
 
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
+<Example name="input-group/with-action" />
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/input-group' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/input-group' },
-  ]}
-/>
+### Bouton d’effacement
 
-  </Tab>
-  <Tab label="Solid" value="solid">
+Utilisez `InputGroupClearTrigger` pour afficher un bouton d’effacement avec une icône de croix
+et un libellé accessible par défaut. Il hérite de la taille du groupe et utilise `type="button"`
+par défaut. Gérez l’effacement et le retour du focus dans `onClick` (`@click` en Vue), et affichez
+le bouton uniquement lorsque le champ contient une valeur. L’effacement et le masquage ne sont pas
+automatiques. Désactivez le bouton pour un champ désactivé ou en lecture seule. Fournissez
+un `aria-label` dans la langue souhaitée ou `aria-labelledby` ; le contenu enfant remplace l’icône.
+La petite zone de survol reprend le style des boutons d’effacement de Select et Combobox.
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/input-group' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/input-group' },
-  ]}
-/>
+<Example name="input-group/clear-trigger" />
 
-  </Tab>
-  <Tab label="Vue" value="vue">
+### Tailles
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/input-group' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/input-group' },
-  ]}
-/>
+Définissez `size` une seule fois sur la racine pour que le champ, l’addon, le texte et le bouton
+restent alignés.
 
-  </Tab>
-</Tabs>
+<Example name="input-group/sizes" />
 
-## Anatomie
+### Zone de texte
 
-```text
-InputGroup
-├─ InputGroupAddon (facultatif)
-├─ InputGroupInput ou InputGroupTextarea
-├─ InputGroupText (facultatif)
-├─ InputGroupButton (facultatif)
-└─ InputGroupClearTrigger (facultatif)
-```
+Utilisez `InputGroupTextarea` pour une saisie sur plusieurs lignes, par exemple un champ de message.
+Il affiche le `Textarea` de moduix sans sa bordure, hérite de la taille du groupe sauf si une `size`
+locale est fournie, et conserve l’état Ark Field et `autoresize`. Ajoutez une barre d’actions avec
+`InputGroupAddon align="block"` et un `Button` classique.
 
-| Partie                            | Rôle                                                       |
-| --------------------------------- | ---------------------------------------------------------- |
-| `InputGroup`                    | Conteneur passif avec styles et contexte de taille partagés. |
-| `InputGroupInput`               | Élément `<input>` natif qui possède la valeur et l’état du champ. |
-| `InputGroupTextarea`            | Élément `<textarea>` natif pour une valeur sur plusieurs lignes ; remplace `InputGroupInput`. |
-| `InputGroupAddon`               | Préfixe ou suffixe avec un fond.                           |
-| `InputGroupText`                | Texte intégré sans fond.                                  |
-| `InputGroupButton`              | Bouton d’action associé au champ.                         |
-| `InputGroupClearTrigger` | Bouton avec une icône de croix ; l’application gère l’effacement. |
+<Example name="input-group/textarea" />
+
+### État désactivé
+
+Placez `disabled` sur le champ natif. Désactivez aussi les boutons associés s’ils doivent être
+indisponibles.
+
+<Example name="input-group/disabled" />
+
+### État du champ
+
+Définissez `invalid` sur `Field` lorsque la validation échoue. Ark transmet l’état et les attributs
+ARIA nécessaires à `InputGroupInput`, puis le groupe reflète cet état.
+
+<Example name="input-group/field-state" />
+
+### Élément personnalisé
+
+Utilisez `asChild` lorsque la racine doit rendre un conteneur personnalisé à la place du `div` par
+défaut. Le groupe conserve ses styles et son contexte de taille, tandis que l’enfant doit rester un
+conteneur de mise en page sémantique.
+
+<Example name="input-group/custom-element" />
 
 ## Composition
 
-Conservez un seul `InputGroupInput` dans chaque groupe. Le champ imbriqué possède la valeur, le
+`InputGroup` est une composition propre à moduix, et non une primitive Ark UI. Il associe des
+éléments de la fabrique Ark aux composants moduix `Input` et `Button`, fondés sur Ark. La composition
+suit les recommandations d’Ark pour la [composition](https://ark-ui.com/docs/guides/composition), les
+[styles](https://ark-ui.com/docs/guides/styling) et la [transmission des refs](https://ark-ui.com/docs/guides/ref).
+
+Conservez un seul `InputGroupInput` dans chaque groupe. Le champ imbriqué contient la valeur, le
 comportement du formulaire, l’état de validation et la `ref` ; les props contrôlées ou non contrôlées
 se placent donc sur ce champ, tandis que le libellé et les messages de validation vont dans `Field`.
 La taille de la racine est héritée par `InputGroupInput` et `InputGroupButton` ; les boutons ont
@@ -107,70 +119,23 @@ DOM. Un groupe avec un addon en bloc contient un seul contrôle et uniquement de
 placez le contenu latéral dans l’addon en bloc. Utilisez-y un `Button` classique : `InputGroupButton`
 s’étire sur toute la hauteur du groupe et sert aux actions placées à côté du contrôle.
 
-## Exemples
+## Anatomie
 
-### État désactivé
+Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
 
-Placez `disabled` sur le champ natif. Désactivez aussi les boutons associés s’ils doivent être
-indisponibles.
-
-<Example name="input-group/disabled" />
-
-### État du champ
-
-Définissez `invalid` sur `Field` lorsque la validation échoue. Ark transmet l’état et les attributs
-ARIA nécessaires à `InputGroupInput`, puis le groupe reflète cet état.
-
-<Example name="input-group/field-state" />
-
-### Préfixe et suffixe
-
-Utilisez `InputGroupAddon` pour un préfixe ou un suffixe avec fond et `InputGroupText` pour un texte intégré sans fond.
-
-<Example name="input-group/prefix-and-suffix" />
-
-### Tailles
-
-Définissez `size` une seule fois sur la racine pour que le champ, l’addon, le texte et le bouton
-restent alignés.
-
-<Example name="input-group/sizes" />
-
-### Avec une action
-
-Utilisez `InputGroupButton` pour une action liée à la valeur du champ. Dans cet exemple, le champ
-est contrôlé et `Send` ne devient disponible qu’après la saisie d’une valeur.
-
-<Example name="input-group/with-action" />
-
-### Zone de texte
-
-Utilisez `InputGroupTextarea` pour une saisie sur plusieurs lignes, par exemple un champ de message.
-Il affiche le `Textarea` de moduix sans sa bordure, hérite de la taille du groupe sauf si une `size`
-locale est fournie, et conserve l’état Ark Field et `autoresize`. Ajoutez une barre d’actions avec
-`InputGroupAddon align="block"` et un `Button` classique.
-
-<Example name="input-group/textarea" />
-
-### Bouton d’effacement
-
-Utilisez `InputGroupClearTrigger` pour afficher un bouton d’effacement avec une icône de croix
-et un libellé accessible par défaut. Il hérite de la taille du groupe et utilise `type="button"`
-par défaut. Gérez l’effacement et le retour du focus dans `onClick` (`@click` en Vue), et affichez
-le bouton uniquement lorsque le champ contient une valeur. L’effacement et le masquage ne sont pas
-automatiques. Désactivez le bouton pour un champ désactivé ou en lecture seule. Fournissez
-un `aria-label` dans la langue souhaitée ou `aria-labelledby` ; le contenu enfant remplace l’icône.
-La petite zone de survol reprend le style des boutons d’effacement de Select et Combobox.
-
-<Example name="input-group/clear-trigger" />
-
-### Personnalisation avancée
-
-Utilisez `asChild` lorsque la racine doit rendre un conteneur personnalisé à la place du `div` par
-défaut. Le groupe conserve ses styles et son contexte de taille, tandis que l’enfant doit rester un
-conteneur de mise en page sémantique.
-
-<Example name="input-group/as-child" />
+<AnatomyInspector
+  parts={[
+    ["InputGroup", "input-group-root", "Conteneur passif avec styles et contexte de taille partagés.", 0],
+    ["InputGroupAddon", "input-group-addon", "Préfixe ou suffixe avec un fond.", 1],
+    ["InputGroupInput", "", "Élément `<input>` natif qui contient la valeur et l’état du champ.", 1],
+    ["InputGroupText", "input-group-text", "Texte intégré sans fond.", 1],
+    ["InputGroupTextarea", "", "Élément `<textarea>` natif pour une valeur sur plusieurs lignes ; remplace `InputGroupInput`.", 2],
+    ["InputGroupButton", "input-group-button", "Bouton d’action associé au champ.", 1],
+    ["InputGroupClearTrigger", "input-group-clear-trigger", "Bouton avec une icône de croix ; l’application gère l’effacement.", 1],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styles
 
@@ -183,23 +148,40 @@ ci-dessous ; modifiez les couleurs, les espacements et la typographie avec une s
 partie, qui l’emporte sur les styles en couches du composant. Les attributs de données et les
 sélecteurs `data-slot` sont communs aux deux approches.
 
-### Propriétés CSS
+### Variables CSS
 
-<CssPropertiesSection properties={InputGroupDocs.inputGroupOverrideCssProperties} />
+Survolez ou sélectionnez une variable pour la voir dans l’aperçu.
+
+<CssPropertiesSection properties={InputGroupDocs.inputGroupOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Points d’accroche CSS
+
+| Partie | `data-slot` |
+| --- | --- |
+| `InputGroup` | `input-group-root` |
+| `InputGroupAddon` | `input-group-addon` |
+| `InputGroupText` | `input-group-text` |
+| `InputGroupButton` | `input-group-button` |
+| `InputGroupClearTrigger` | `input-group-clear-trigger` |
 
 - `data-slot="input-group-root"` et `data-size="xs" | "sm" | "md" | "lg" | "xl"` sur la racine
 - `data-scope="input-group"` et `data-part="root" | "addon" | "text"` sur les parties de la fabrique Ark
 - `data-slot="input-root"` et les attributs d’état du champ Ark
-- `data-slot="input-group-addon"`
-- `data-slot="input-group-clear-trigger"`
-- `data-slot="input-group-text"`
 - `data-align="inline" | "block"` sur `InputGroupAddon` et `InputGroupText`
 - `data-slot="textarea-root"` et les attributs d’état Ark Field du textarea sur `InputGroupTextarea`
-- `data-slot="input-group-button"` sur le bouton d’action du groupe
 - les états imbriqués `data-invalid`, `aria-invalid="true"` et `data-disabled`/`:disabled` sont reflétés sur la racine via `:has(...)`
 
 Les hooks `data-slot`, `data-scope`, `data-part` et `data-size` gérés par le composant restent
 stables même si vous fournissez vos propres propriétés. `className` en React et `class` en Solid et Vue
 s’ajoutent toujours aux styles du composant.
+
+## Référence de l’API
+
+Props de `InputGroup`. `InputGroupAddon` accepte `align` (`'inline' | 'block'`, par défaut `'inline'`).
+
+| Prop | Type | Défaut | Description |
+| --- | --- | --- | --- |
+| `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'` | `'md'` | Taille du groupe et du champ : `xs`, `sm`, `md`, `lg` ou `xl`. |
+| `asChild` | `boolean` | `false` | Rend la racine avec son unique élément enfant. |

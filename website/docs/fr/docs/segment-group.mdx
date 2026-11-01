@@ -1,15 +1,28 @@
 ---
 title: Segment Group
 component: segment-group
-description: Un contrôle segmenté compact basé sur Ark UI pour choisir une valeur parmi un petit ensemble visible.
+description: Basculer entre quelques options dans un contrôle segmenté compact.
+ark: https://ark-ui.com/docs/components/segment-group
 ---
 
+import AnatomyScene from '@/components/examples/segment-group/basic';
 import * as SegmentGroupDocs from '@/components/examples/segment-group/css-properties';
 import { CssPropertiesSection } from '@/components/mdx/Components';
 
-## Référence de l’API
+<Example name="segment-group/basic" />
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/segment-group" />
+## Installation
+
+<ComponentInstall />
+
+## Utilisation
+
+<Usage />
+
+Utilisez `SegmentGroup` comme racine, placez `SegmentGroupIndicator` avant les éléments et utilisez
+`SegmentGroupItems` lorsque chaque segment n'a besoin que d'un libellé textuel. `SegmentGroupItems` crée pour chaque
+entrée les parties item et text, ainsi qu'un champ de formulaire natif. Passez des chaînes lorsque la valeur et le
+libellé sont identiques, ou des objets `{ value, label, disabled }`.
 
 ## Choisir le bon composant
 
@@ -21,112 +34,28 @@ même temps.
 - Choisissez **`RadioGroup`** lorsque le contrôle doit conserver l’apparence familière des boutons radio.
 - Choisissez **`SegmentGroup`** lorsque l’interaction ressemble à celle d’un groupe de boutons radio, mais que l’interface doit rester compacte et segmentée.
 
-## Exemple de base
-
-
-Utilisez `SegmentGroup` comme racine, placez `SegmentGroupIndicator` avant les éléments et utilisez
-`SegmentGroupItems` lorsque chaque segment n'a besoin que d'un libellé textuel. `SegmentGroupItems` crée pour chaque
-entrée les parties item et text, ainsi qu'un champ de formulaire natif. Passez des chaînes lorsque la valeur et le
-libellé sont identiques, ou des objets `{ value, label, disabled }`.
-
-<Example name="segment-group/basic" />
-
-## Installation avec shadcn
-
-Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration complète du paquet, du registre et des styles.
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/segment-group' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/segment-group' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/segment-group' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/segment-group' },
-  ]}
-/>
-
-  </Tab>
-
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/segment-group' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/segment-group' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Anatomie
-
-```text
-SegmentGroup
-├─ SegmentGroupLabel (facultatif)
-├─ SegmentGroupIndicator
-└─ SegmentGroupItem[value]
-   ├─ SegmentGroupItemText
-   └─ champ de formulaire natif
-
-SegmentGroupRootProvider
-└─ même arborescence d’éléments reliée à un store moduix useSegmentGroup()
-
-SegmentGroupContext / SegmentGroupItemContext
-└─ accès avancé à l’état Ark via render prop
-```
-
-| Partie                                | Rôle                                                                  |
-| ------------------------------------- | --------------------------------------------------------------------- |
-| `SegmentGroup`  | Gère la valeur sélectionnée, la navigation au clavier et les formulaires. |
-| `SegmentGroupItemHiddenInput` | Champ natif d’Ark ; composition explicite décrite ci-dessous. |
-| `SegmentGroupRootProvider`            | Relie les parties à l’état créé avec `useSegmentGroup()` de moduix.   |
-| `SegmentGroupContext`                 | Donne un accès avancé à l’état racine via render prop.                |
-| `SegmentGroupItemContext`             | Donne un accès avancé à l’état de l’élément courant via render prop.  |
-| `SegmentGroupLabel`                   | Libellé accessible facultatif du groupe.                              |
-| `SegmentGroupIndicator`               | Positionne la mise en évidence de l’élément actif avec les variables CSS d’Ark. |
-| `SegmentGroupItems`                   | Méthode recommandée pour afficher des segments textuels standard.     |
-| `SegmentGroupItem`                    | Segment sélectionnable ; rend un `label` par défaut.                  |
-| `SegmentGroupItemText`                | Libellé visible du segment.                                           |
-
-## Composition
-
-Pour la composition courante, utilisez `SegmentGroup` avec `SegmentGroupIndicator` avant
-`SegmentGroupItems`. `SegmentGroupItems` inclut `SegmentGroupItemText` et
-exactement un `SegmentGroupItemHiddenInput` pour chaque élément. Si vous rendez `SegmentGroupItem`
-directement, composez ces parties vous-même et conservez exactement un
-`SegmentGroupItemHiddenInput` dans chaque élément. L'enfant direct de
-`asChild` doit rester un seul `label` sémantique.
-
-Utilisez `SegmentGroupRootProvider` avec `useSegmentGroup()` lorsque l'état doit être créé en dehors
-de l'arbre rendu ou contrôlé par une autre partie de l'application. React et Vue exposent le store comme un
-objet, tandis que Solid lit son état réactif à travers la fonction d'accès renvoyée.
-
 ## Exemples
 
-### Montage conditionnel
+### Tailles
 
-Les groupes de segments peuvent être montés conditionnellement. Lorsqu’il apparaît, Ark recalcule la
-géométrie des éléments utilisée par l’indicateur.
+Définissez `size` sur `SegmentGroup` ou `SegmentGroupRootProvider` : `sm`, `md` (par défaut) ou `lg`.
+Le groupe entier prend alors la hauteur d'un `Button` ou d'un `Input` de même taille.
 
-<Example name="segment-group/conditional-mount" />
+<Example name="segment-group/sizes" />
 
-### État contrôlé
+### Orientation verticale
 
-Conservez la valeur sélectionnée dans l’état React et mettez-la à jour avec `details.value` dans
-`onValueChange`.
+Définissez `orientation="vertical"` lorsque le groupe doit utiliser une disposition verticale et
+une navigation verticale avec les touches fléchées.
 
-<Example name="segment-group/controlled" />
+<Example name="segment-group/vertical-orientation" />
+
+### Disposition personnalisée des éléments
+
+Utilisez `SegmentGroupItem asChild` à la place de `SegmentGroupItems` lorsque la disposition
+personnalisée du libellé doit posséder le nœud DOM de l’élément.
+
+<Example name="segment-group/custom-item-layout" />
 
 ### Élément et groupe désactivés
 
@@ -135,6 +64,13 @@ la racine pour désactiver tout le groupe. Le style désactivé de la racine ré
 l’opacité du groupe, sans la cumuler avec celle de chaque élément.
 
 <Example name="segment-group/disabled" />
+
+### État invalide
+
+Définissez `invalid` sur la racine lorsque la validation échoue. Associez-le à `required` et `name`
+lorsque le groupe participe à la validation native du formulaire.
+
+<Example name="segment-group/invalid" />
 
 ### Field
 
@@ -151,40 +87,68 @@ natif. `SegmentGroupItems` ajoute un champ de formulaire natif à chaque éléme
 
 <Example name="segment-group/form-submission" />
 
-### État invalide
+### État contrôlé
 
-Définissez `invalid` sur la racine lorsque la validation échoue. Associez-le à `required` et `name`
-lorsque le groupe participe à la validation native du formulaire.
+Conservez la valeur sélectionnée dans l’état React et mettez-la à jour avec `details.value` dans
+`onValueChange`. Voir [Contrôler l’état depuis l’application](/docs/composition-patterns#controlled-state).
 
-<Example name="segment-group/invalid" />
+<Example name="segment-group/controlled" />
+
+### Montage conditionnel
+
+Les groupes de segments peuvent être montés conditionnellement. Lorsqu’il apparaît, Ark recalcule la
+géométrie des éléments utilisée par l’indicateur.
+
+<Example name="segment-group/conditional-mount" />
 
 ### Root Provider
 
 Utilisez `useSegmentGroup()` avec `SegmentGroupRootProvider` lorsque des contrôles situés en dehors de
-l’arborescence des segments doivent accéder au même état.
+l’arborescence des segments doivent accéder au même état. Voir [Partager l’état hors de l’arbre](/docs/composition-patterns#root-provider).
 
 <Example name="segment-group/root-provider" />
 
-### Tailles
+### Assembler à partir des parties
 
-Définissez `size` sur `SegmentGroup` ou `SegmentGroupRootProvider` : `sm`, `md` (par défaut) ou `lg`.
-Le groupe entier prend alors la hauteur d'un `Button` ou d'un `Input` de même taille.
+Le même groupe que Basic, sans `SegmentGroupItems` : chaque `SegmentGroupItem` contient
+`SegmentGroupItemText` et `SegmentGroupItemHiddenInput`. Partez de cet exemple quand les options ont
+besoin d’un contenu ou de props différents.
 
-<Example name="segment-group/sizes" />
+<Example name="segment-group/build-from-parts" />
 
-### Orientation verticale
+## Composition
 
-Définissez `orientation="vertical"` lorsque le groupe doit utiliser une disposition verticale et
-une navigation verticale avec les touches fléchées.
+Pour la composition courante, utilisez `SegmentGroup` avec `SegmentGroupIndicator` avant
+`SegmentGroupItems`. `SegmentGroupItems` inclut `SegmentGroupItemText` et
+exactement un `SegmentGroupItemHiddenInput` pour chaque élément. Si vous rendez `SegmentGroupItem`
+directement, composez ces parties vous-même et conservez exactement un
+`SegmentGroupItemHiddenInput` dans chaque élément. L'enfant direct de
+`asChild` doit rester un seul `label` sémantique.
 
-<Example name="segment-group/vertical-orientation" />
+Utilisez `SegmentGroupRootProvider` avec `useSegmentGroup()` lorsque l'état doit être créé en dehors
+de l'arbre rendu ou contrôlé par une autre partie de l'application. React et Vue exposent le store comme un
+objet, tandis que Solid lit son état réactif à travers la fonction d'accès renvoyée.
 
-### Personnalisation avancée
+## Anatomie
 
-Utilisez `SegmentGroupItem asChild` à la place de `SegmentGroupItems` lorsque la disposition
-personnalisée du libellé doit posséder le nœud DOM de l’élément.
+Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
 
-<Example name="segment-group/aschild" />
+<AnatomyInspector
+  parts={[
+    ["SegmentGroup", "segment-group-root", "Gère la valeur sélectionnée, la navigation au clavier et les formulaires.", 0],
+    ["SegmentGroupLabel", "segment-group-label", "Libellé accessible facultatif du groupe.", 1],
+    ["SegmentGroupIndicator", "segment-group-indicator", "Positionne la mise en évidence de l’élément actif avec les variables CSS d’Ark.", 1],
+    ["SegmentGroupItem", "segment-group-item", "Segment sélectionnable ; rend un `label` par défaut.", 1],
+    ["SegmentGroupItemText", "segment-group-item-text", "Libellé visible du segment.", 2],
+    ["SegmentGroupItemHiddenInput", "", "Champ natif d’Ark ; composition explicite décrite ci-dessous.", 2],
+    ["SegmentGroupItems", "", "Méthode recommandée pour afficher des segments textuels standard.", 2],
+    ["SegmentGroupRootProvider", "segment-group-root-provider", "Relie les parties à l’état créé avec `useSegmentGroup()` de moduix.", 0],
+    ["SegmentGroupContext", null, "Donne un accès avancé à l’état racine via render prop.", 0],
+    ["SegmentGroupItemContext", null, "Donne un accès avancé à l’état de l’élément courant via render prop.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styles
 
@@ -195,15 +159,25 @@ Tailwind utilisent des utilitaires natifs et les classes du consommateur ; les v
 personnalisent les variantes CSS Modules. Les attributs d'état et les hooks data-slot sont partagés
 par les deux modes de style.
 
-### Propriétés CSS
+### Variables CSS
 
-<CssPropertiesSection properties={SegmentGroupDocs.segmentGroupOverrideCssProperties} />
+Survolez ou sélectionnez une variable pour la voir dans l’aperçu.
 
-### Hooks de style
+<CssPropertiesSection properties={SegmentGroupDocs.segmentGroupOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
-- Sélecteurs `data-slot` stables : `segment-group-root`, `segment-group-root-provider`,
-  `segment-group-label`, `segment-group-indicator`, `segment-group-item`
-  et `segment-group-item-text`.
+### Points d’accroche CSS
+
+| Partie | `data-slot` |
+| --- | --- |
+| `SegmentGroup` | `segment-group-root` |
+| `SegmentGroupRootProvider` | `segment-group-root-provider` |
+| `SegmentGroupLabel` | `segment-group-label` |
+| `SegmentGroupItem` | `segment-group-item` |
+| `SegmentGroupItemText` | `segment-group-item-text` |
+| `SegmentGroupIndicator` | `segment-group-indicator` |
+
 - Sélecteurs des parties Ark : `data-scope="segment-group"` et `data-part` sur la racine, le libellé,
   l'indicateur, l'élément, le texte de l'élément et le champ masqué.
 - Sélecteurs d'état Ark : `data-state="checked|unchecked"`, `data-orientation`, `data-disabled`,
@@ -214,3 +188,25 @@ par les deux modes de style.
   `--moduix-ease-in-out`. Définissez-les avec une classe sur `SegmentGroupIndicator` (en Tailwind,
   `[--transition-duration:300ms]`) ; les utilitaires `duration-*` perdent face à la transition inline
   écrite par Ark.
+
+## Clavier
+
+| Touche | Action |
+| --- | --- |
+| `ArrowDown` / `ArrowUp` / `ArrowLeft` / `ArrowRight` | Passe à l’option suivante ou précédente et la sélectionne. |
+| `Tab` | Entre dans le groupe et en sort. |
+
+## Référence de l’API
+
+| Prop | Type | Défaut | Description |
+| --- | --- | --- | --- |
+| `value` | `string \| null` | — | Segment sélectionné en mode contrôlé. |
+| `defaultValue` | `string \| null` | — | Segment sélectionné au départ. |
+| `onValueChange` | `(details: ValueChangeDetails) => void` | — | Appelé lorsqu’un autre segment est sélectionné. |
+| `orientation` | `'horizontal' \| 'vertical'` | `'horizontal'` | Disposition et sens des flèches : `horizontal` ou `vertical`. |
+| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` | Taille : `sm`, `md` ou `lg`. |
+| `name` | `string` | — | Nom du champ de formulaire de l’input sous-jacent. |
+| `disabled` | `boolean` | `false` | Désactive le contrôle. |
+| `readOnly` | `boolean` | `false` | Affiche la valeur sans permettre de la modifier. |
+| `invalid` | `boolean` | `false` | Marque le champ comme invalide. |
+| `required` | `boolean` | `false` | Exige une valeur avant l’envoi du formulaire. |

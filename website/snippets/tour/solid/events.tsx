@@ -1,5 +1,6 @@
 import type { TourStepDetails } from '@ark-ui/solid/tour';
 import { Button } from '@moduix/solid/button';
+import { Stack } from '@moduix/solid/stack';
 import {
   Tour,
   TourBackdrop,
@@ -14,7 +15,6 @@ import {
   useTour,
 } from '@moduix/solid/tour';
 import { createSignal } from 'solid-js';
-import styles from '@/components/examples/tour/tour-events.module.css';
 
 const steps = [
   {
@@ -48,7 +48,7 @@ export default function TourEventsDemo() {
   });
 
   return (
-    <div class={styles.root}>
+    <Stack align="center" gap="3">
       <Tour tour={tour}>
         <TourBackdrop />
         <TourPositioner>
@@ -67,6 +67,6 @@ export default function TourEventsDemo() {
 
       <output>{result()}</output>
       <Button onClick={() => tour().start()}>Start event tour</Button>
-    </div>
+    </Stack>
   );
 }

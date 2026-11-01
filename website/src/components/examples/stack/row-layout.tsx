@@ -7,7 +7,7 @@ export default function StackRowDemo() {
       direction="row"
       align="center"
       justify="space-between"
-      gap={12}
+      gap="3"
       style={{ inlineSize: '100%' }}
     >
       <Text weight="semibold">Status</Text>

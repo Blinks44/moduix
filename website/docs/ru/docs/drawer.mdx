@@ -1,14 +1,26 @@
 ---
 title: Drawer
 component: drawer
-description: Доступная панель от края экрана для навигации, форм, нижних панелей, точек привязки и сценариев со свайпами в React, Solid и Vue.
+description: Панель, которая выезжает с края экрана, со свайпом и точками остановки.
+ark: https://ark-ui.com/docs/components/drawer
 ---
 
+import AnatomyScene from '@/components/examples/drawer/anatomy';
 import * as DrawerDocs from '@/components/examples/drawer/css-properties';
 
-## Справочник API
+<Example name="drawer/basic" />
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/drawer" />
+## Установка
+
+<ComponentInstall />
+
+## Использование
+
+<Usage />
+
+Соберите панель из структурных частей Ark. В этом примере она открывается на компактной точке
+привязки, а затем её можно перетащить на полную высоту. `DrawerContent` отвечает за интерактивную
+поверхность, `DrawerPositioner` размещает её, а `DrawerBackdrop` добавляет модальный фон.
 
 ## Как выбрать компонент
 
@@ -17,93 +29,108 @@ import * as DrawerDocs from '@/components/examples/drawer/css-properties';
 точками привязки. Выбирайте `Dialog`, если поверхность должна оставаться по центру и её не нужно
 перетаскивать.
 
-## Базовый пример
+## Примеры
 
+### Направление свайпа
 
-Соберите панель из структурных частей Ark. В этом примере она открывается на компактной точке
-привязки, а затем её можно перетащить на полную высоту. `DrawerContent` отвечает за интерактивную
-поверхность, `DrawerPositioner` размещает её, а `DrawerBackdrop` добавляет модальный фон.
+Используйте логические значения `start` и `end` для боковых панелей, чтобы один и тот же код
+работал в LTR и RTL. Для верхней панели используйте `up`, для нижней - `down`.
 
-<Example name="drawer/basic" />
+<Example name="drawer/swipe-direction" />
 
-## Установка через shadcn
+### Размеры
 
-Полную настройку пакета, реестра и стилей см. в разделе [Быстрый старт](/docs/quick-start).
+Задайте `size` на `DrawerContent`: `sm`, `md` (по умолчанию), `lg` или `xl`, чтобы выбрать ширину
+боковой панели `start` или `end`: 18rem, 22rem, 28rem или 36rem. На узком экране панель всё равно
+оставляет зазор у противоположного края. Верхняя и нижняя панели занимают всю ширину, а их высоту
+задают точки привязки.
 
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
+<Example name="drawer/sizes" />
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/drawer' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/drawer' },
-  ]}
-/>
+### Точки привязки
 
-  </Tab>
-  <Tab label="Solid" value="solid">
+Задайте промежуточные позиции в корневом компоненте и выберите начальную позицию через
+`defaultSnapPoint`.
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/drawer' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/drawer' },
-  ]}
-/>
+<Example name="drawer/snap-points" />
 
-  </Tab>
-  <Tab label="Vue" value="vue">
+### Прокручиваемое содержимое
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/drawer' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/drawer' },
-  ]}
-/>
+Поместите длинный контент в `DrawerBody`. Используйте `ScrollArea`, если панели нужен отдельный
+контейнер прокрутки, а ручка и заголовок должны оставаться на месте.
 
-  </Tab>
-</Tabs>
+<Example name="drawer/scrollable" />
 
-## Анатомия
+### Плавающая ручка
 
-```text
-Drawer
-├─ DrawerTrigger
-├─ DrawerSwipeArea (необязательно)
-├─ DrawerBackdrop
-└─ DrawerPositioner
-   └─ DrawerContent
-      ├─ DrawerGrabber
-      │  └─ DrawerGrabberIndicator
-      ├─ DrawerHeader (необязательный помощник для компоновки)
-      │  ├─ DrawerTitle
-      │  ├─ DrawerDescription
-      │  └─ DrawerCloseIcon (необязательный помощник)
-      ├─ DrawerBody (необязательный помощник для компоновки)
-      └─ DrawerFooter (необязательный помощник для компоновки)
+Разместите `DrawerGrabber` над поверхностью, если ручка должна выглядеть отдельным элементом.
+В этом примере между ручкой и краем панели оставлено 10px.
 
-DrawerRootProvider
-└─ то же дерево частей, подключённое к хранилищу useDrawer()
-```
+<Example name="drawer/floating-grabber" />
 
-| Часть | Назначение |
-| --- | --- |
-| `Drawer` | Корневая часть, которая хранит состояние открытия, точки привязки и поведение свайпа. |
-| `DrawerRootProvider` | Подключает части к состоянию, созданному через `useDrawer()`. |
-| `DrawerTrigger` | Открывает панель. |
-| `DrawerSwipeArea` | Необязательная область у края экрана, открывающая панель свайпом. |
-| `DrawerBackdrop` | Модальный фон. |
-| `DrawerPositioner` | Размещает содержимое панели. |
-| `DrawerContent` | Интерактивная поверхность панели. |
-| `DrawerGrabber` | Контейнер ручки для перетаскивания. |
-| `DrawerGrabberIndicator` | Визуальный индикатор внутри ручки. |
-| `DrawerTitle` | Доступное имя панели. |
-| `DrawerDescription` | Доступное описание панели. |
-| `DrawerCloseTrigger` | Закрывает панель. |
-| `DrawerCloseIcon` | Кнопка закрытия moduix, собранная из `DrawerCloseTrigger`. |
-| `DrawerStack` | Координирует вложенные панели и поверхности с отступом. |
-| `DrawerIndent` | Поверхность, которая отодвигается при открытии панели из стека. |
-| `DrawerIndentBackground` | Фон за поверхностью с отступом. |
-| `DrawerHeader`, `DrawerBody`, `DrawerFooter` | Необязательные помощники для компоновки без собственного состояния. |
+### Управление перетаскиванием
+
+Добавьте `data-no-drag` на интерактивные области, которые не должны запускать перетаскивание.
+Укажите `draggable={false}` на `DrawerContent`, если панель должна двигаться только за ручку.
+
+<Example name="drawer/drag-controls" />
+
+### Фон с отступом
+
+`DrawerStack` использует состояние стека и прогресс свайпа Ark, чтобы перемещать
+`DrawerIndentBackground` и `DrawerIndent` вместе.
+
+<Example name="drawer/indent-background" />
+
+### Островная панель
+
+Укажите `variant="island"` на `DrawerContent`, если компактная панель должна располагаться с
+отступом внутри окна, а не визуально выходить за край, откуда она открывается.
+
+<Example name="drawer/island" />
+
+### Немодальная панель
+
+Укажите `modal={false}`, если страница должна оставаться доступной для взаимодействия, пока панель
+открыта. В этом примере ручка отвечает за перетаскивание, а `ScrollArea` содержит длинный контент.
+
+<Example name="drawer/non-modal" />
+
+### Вложенные панели
+
+Используйте отдельные экземпляры Ark `useDrawer` и отдельные деревья moduix
+`DrawerRootProvider` для вложенных панелей. Тогда каждая панель сохраняет собственное состояние
+открытия и жизненный цикл фокуса.
+
+<Example name="drawer/nested" />
+
+### Несколько триггеров
+
+Задайте каждому триггеру `value`, чтобы использовать одну панель для списка. Callback сообщает,
+какой триггер активен.
+
+<Example name="drawer/multiple-triggers" />
+
+### Управляемый режим
+
+Читайте `details.open` в callback Ark. Callback получает объект деталей, а не логическое значение напрямую. Подробнее в разделе [Управляйте состоянием из приложения](/docs/composition-patterns#controlled-state).
+
+<Example name="drawer/controlled" />
+
+### Root Provider
+
+Используйте экспорт moduix `useDrawer`, если кнопки за пределами дерева панели должны открывать её
+или менять её точки привязки. Подробнее в разделе [Выносите состояние за пределы дерева](/docs/composition-patterns#root-provider).
+
+<Example name="drawer/root-provider" />
+
+### Сборка из частей
+
+Тот же Drawer, что в Basic, но без `DrawerHeader`, `DrawerBody`, `DrawerFooter` и
+`DrawerCloseIcon`: обычные элементы раскладки и `DrawerCloseTrigger` вокруг `CloseButton` с явной
+иконкой. Начинайте с него, если дизайн меняет раскладку или кнопку закрытия.
+
+<Example name="drawer/build-from-parts" />
 
 ## Композиция
 
@@ -123,107 +150,33 @@ DrawerRootProvider
 дочерним элементом. Обработчики Ark получают объект деталей, например
 `details.open`, `details.snapPoint` и `details.value`.
 
-## Примеры
+## Анатомия
 
-### Управляемый режим
+Наведите на часть или выберите её, чтобы найти её в превью.
 
-Читайте `details.open` в callback Ark. Callback получает объект деталей, а не логическое значение напрямую.
-
-<Example name="drawer/controlled" />
-
-### Управление перетаскиванием
-
-Добавьте `data-no-drag` на интерактивные области, которые не должны запускать перетаскивание.
-Укажите `draggable={false}` на `DrawerContent`, если панель должна двигаться только за ручку.
-
-<Example name="drawer/drag-controls" />
-
-### Плавающая ручка
-
-Разместите `DrawerGrabber` над поверхностью, если ручка должна выглядеть отдельным элементом.
-В этом примере между ручкой и краем панели оставлено 10px.
-
-<Example name="drawer/floating-grabber" />
-
-### Фон с отступом
-
-`DrawerStack` использует состояние стека и прогресс свайпа Ark, чтобы перемещать
-`DrawerIndentBackground` и `DrawerIndent` вместе.
-
-<Example name="drawer/indent-background" />
-
-### Островная панель
-
-Укажите `variant="island"` на `DrawerContent`, если компактная панель должна располагаться с
-отступом внутри окна, а не визуально выходить за край, откуда она открывается.
-
-<Example name="drawer/island" />
-
-### Несколько триггеров
-
-Задайте каждому триггеру `value`, чтобы использовать одну панель для списка. Callback сообщает,
-какой триггер активен.
-
-<Example name="drawer/multiple-triggers" />
-
-### Вложенные панели
-
-Используйте отдельные экземпляры Ark `useDrawer` и отдельные деревья moduix
-`DrawerRootProvider` для вложенных панелей. Тогда каждая панель сохраняет собственное состояние
-открытия и жизненный цикл фокуса.
-
-<Example name="drawer/nested" />
-
-### Немодальная панель
-
-Укажите `modal={false}`, если страница должна оставаться доступной для взаимодействия, пока панель
-открыта. В этом примере ручка отвечает за перетаскивание, а `ScrollArea` содержит длинный контент.
-
-<Example name="drawer/non-modal" />
-
-### Root Provider
-
-Используйте экспорт moduix `useDrawer`, если кнопки за пределами дерева панели должны открывать её
-или менять её точки привязки.
-
-<Example name="drawer/root-provider" />
-
-### Прокручиваемое содержимое
-
-Поместите длинный контент в `DrawerBody`. Используйте `ScrollArea`, если панели нужен отдельный
-контейнер прокрутки, а ручка и заголовок должны оставаться на месте.
-
-<Example name="drawer/scrollable" />
-
-### Размеры
-
-Задайте `size` на `DrawerContent`: `sm`, `md` (по умолчанию), `lg` или `xl`, чтобы выбрать ширину
-боковой панели `start` или `end`: 18rem, 22rem, 28rem или 36rem. На узком экране панель всё равно
-оставляет зазор у противоположного края. Верхняя и нижняя панели занимают всю ширину, а их высоту
-задают точки привязки.
-
-<Example name="drawer/sizes" />
-
-### Точки привязки
-
-Задайте промежуточные позиции в корневом компоненте и выберите начальную позицию через
-`defaultSnapPoint`.
-
-<Example name="drawer/snap-points" />
-
-### Направление свайпа
-
-Используйте логические значения `start` и `end` для боковых панелей, чтобы один и тот же код
-работал в LTR и RTL. Для верхней панели используйте `up`, для нижней - `down`.
-
-<Example name="drawer/swipe-direction" />
-
-### Расширенная настройка
-
-Не используйте необязательные помощники `DrawerHeader`, `DrawerBody`, `DrawerFooter` и `DrawerCloseIcon`, если собственной
-разметке нужен полный низкоуровневый набор частей Drawer.
-
-<Example name="drawer/advanced-customization" />
+<AnatomyInspector
+  parts={[
+    ["Drawer", null, "Корневая часть, которая хранит состояние открытия, точки привязки и поведение свайпа.", 0],
+    ["DrawerTrigger", "drawer-trigger", "Открывает панель.", 1],
+    ["DrawerSwipeArea", "drawer-swipe-area", "Необязательная область у края экрана, открывающая панель свайпом.", 1],
+    ["DrawerBackdrop", "drawer-backdrop", "Модальный фон.", 1],
+    ["DrawerPositioner", "drawer-positioner", "Размещает содержимое панели.", 1],
+    ["DrawerContent", "drawer-content", "Интерактивная поверхность панели.", 2],
+    ["DrawerGrabber", "drawer-grabber", "Контейнер ручки для перетаскивания.", 3],
+    ["DrawerGrabberIndicator", "drawer-grabber-indicator", "Визуальный индикатор внутри ручки.", 4],
+    ["DrawerHeader, DrawerBody, DrawerFooter", "drawer-header", "Необязательные помощники для компоновки без собственного состояния.", 3],
+    ["DrawerTitle", "drawer-title", "Доступное имя панели.", 4],
+    ["DrawerCloseIcon", "drawer-close-icon", "Кнопка закрытия moduix, собранная из `DrawerCloseTrigger`.", 4],
+    ["DrawerDescription", "drawer-description", "Доступное описание панели.", 4],
+    ["DrawerCloseTrigger", "drawer-close-trigger", "Закрывает панель.", 3],
+    ["DrawerStack", "", "Координирует вложенные панели и поверхности с отступом.", 0],
+    ["DrawerIndent", "drawer-indent", "Поверхность, которая отодвигается при открытии панели из стека.", 0],
+    ["DrawerIndentBackground", "drawer-indent-background", "Фон за поверхностью с отступом.", 1],
+    ["DrawerRootProvider", null, "Подключает части к состоянию, созданному через `useDrawer()`.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Стилизация
 
@@ -233,16 +186,35 @@ DrawerRootProvider
 используют нативные utility-классы и классы потребителя, а приведённые ниже переменные настраивают
 варианты CSS Modules. Атрибуты данных и хуки `data-slot` общие для обоих вариантов стилизации.
 
-### CSS-свойства
+### CSS-переменные
 
-<CssPropertiesSection properties={DrawerDocs.drawerOverrideCssProperties} />
+Наведите на переменную или выберите её, чтобы увидеть её в превью.
+
+<CssPropertiesSection properties={DrawerDocs.drawerOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Хуки стилизации
 
-- значения moduix `data-slot`: `drawer-trigger`, `drawer-backdrop`, `drawer-positioner`, `drawer-content`,
-  `drawer-grabber`, `drawer-grabber-indicator`, `drawer-title`, `drawer-description`,
-  `drawer-close-trigger`, `drawer-close-icon`, `drawer-swipe-area`, `drawer-indent`,
-  `drawer-indent-background`, `drawer-header`, `drawer-body` и `drawer-footer`.
+| Часть | `data-slot` |
+| --- | --- |
+| `DrawerTrigger` | `drawer-trigger` |
+| `DrawerBackdrop` | `drawer-backdrop` |
+| `DrawerPositioner` | `drawer-positioner` |
+| `DrawerContent` | `drawer-content` |
+| `DrawerGrabber` | `drawer-grabber` |
+| `DrawerGrabberIndicator` | `drawer-grabber-indicator` |
+| `DrawerTitle` | `drawer-title` |
+| `DrawerDescription` | `drawer-description` |
+| `DrawerCloseTrigger` | `drawer-close-trigger` |
+| `DrawerCloseIcon` | `drawer-close-icon` |
+| `DrawerSwipeArea` | `drawer-swipe-area` |
+| `DrawerIndent` | `drawer-indent` |
+| `DrawerIndentBackground` | `drawer-indent-background` |
+| `DrawerHeader` | `drawer-header` |
+| `DrawerBody` | `drawer-body` |
+| `DrawerFooter` | `drawer-footer` |
+
 - `DrawerContent` записывает `data-size` (по умолчанию `md`) и `data-variant="island"`, когда
   включено островное представление.
 - хуки частей Ark: `data-scope="drawer"` вместе с `data-part`.
@@ -261,3 +233,45 @@ DrawerRootProvider
   `--moduix-backdrop-filter`.
 - Высота верхнего и нижнего drawer ограничена `max-height: 80dvh`; другое значение задайте классом
   на `DrawerContent`.
+
+## Клавиатура
+
+| Клавиша | Действие |
+| --- | --- |
+| `Enter` / `Space` | Открывает с кнопки в фокусе. |
+| `Tab` / `Shift+Tab` | Перемещает фокус между элементами; пока открыто, фокус не выходит наружу. |
+| `Esc` | Закрывает и возвращает фокус на кнопку. |
+
+## Справочник API
+
+Пропсы `Drawer`. `size` (`'sm' | 'md' | 'lg' | 'xl'`, по умолчанию `'md'`) и `variant` (`'island'`) задаются на `DrawerContent`.
+
+| Проп | Тип | По умолчанию | Описание |
+| --- | --- | --- | --- |
+| `open` | `boolean` | — | Состояние открытия в управляемом режиме. |
+| `defaultOpen` | `boolean` | `false` | Начальное состояние открытия, если оно не управляется извне. |
+| `onOpenChange` | `(details: OpenChangeDetails) => void` | — | Вызывается при открытии и закрытии. |
+| `swipeDirection` | `'up' \| 'down' \| 'start' \| 'end'` | `'down'` | Направление свайпа для закрытия: `up`, `down`, `start` или `end`. |
+| `snapPoints` | `(number \| string)[]` | `[1]` | Высоты, на которых может остановиться панель: доли или CSS-длины. |
+| `snapPoint` | `number \| string \| null` | — | Активная точка в управляемом режиме. |
+| `defaultSnapPoint` | `number \| string \| null` | `1` | Начальная точка остановки. |
+| `onSnapPointChange` | `(details: SnapPointChangeDetails) => void` | — | Вызывается, когда панель встаёт на другую точку. |
+| `snapToSequentialPoints` | `boolean` | `false` | Переходит на соседнюю точку, не перескакивая при быстром свайпе. |
+| `closeThreshold` | `number` | `0.25` | Какую долю высоты нужно протянуть, чтобы закрыть. |
+| `modal` | `boolean` | `true` | Блокирует взаимодействие снаружи и скрывает остальную страницу от вспомогательных технологий. |
+| `closeOnEscape` | `boolean` | `true` | Закрывается по Escape. |
+| `closeOnInteractOutside` | `boolean` | `true` | Закрывается по клику снаружи. |
+| `lazyMount` | `boolean` | `true` | Монтирует содержимое при первом открытии. |
+| `unmountOnExit` | `boolean` | `true` | Удаляет содержимое после закрытия. |
+| `trapFocus` | `boolean` | `true` | Удерживает фокус внутри, пока открыто. |
+| `preventScroll` | `boolean` | `true` | Блокирует прокрутку страницы, пока открыто. |
+| `initialFocusEl` | `() => MaybeElement \| false` | — | Возвращает элемент, который получает фокус при открытии. |
+| `finalFocusEl` | `() => MaybeElement` | — | Возвращает элемент, который получает фокус при закрытии. |
+| `restoreFocus` | `boolean` | `true` | Возвращает фокус на прежний элемент при закрытии. |
+| `role` | `'dialog' \| 'alertdialog'` | `'dialog'` | `dialog` или `alertdialog` для срочных подтверждений. |
+| `triggerValue` | `string \| null` | — | Активный триггер в управляемом режиме, если у окна несколько триггеров. |
+| `defaultTriggerValue` | `string \| null` | — | Изначально активный триггер. |
+| `onTriggerValueChange` | `(details: TriggerValueChangeDetails) => void` | — | Вызывается, когда активным становится другой триггер. |
+| `swipeVelocityThreshold` | `number` | `700` | Скорость свайпа для закрытия, в пикселях в секунду. |
+| `preventDragOnScroll` | `boolean` | `true` | Прокручивает внутреннее содержимое вместо перетаскивания панели. |
+| `stack` | `DrawerStack` | — | Общее хранилище для оформления стопки панелей. |

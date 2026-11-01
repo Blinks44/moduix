@@ -1,12 +1,13 @@
 <script setup lang="ts">
 import { RadioGroup, RadioGroupIndicator, RadioGroupOption } from '@moduix/vue/radio-group';
+import { Stack } from '@moduix/vue/stack';
 import styles from '@/components/examples/radio-group/radio-group-indicator.module.css';
 
 const frameworks = ['React', 'Solid', 'Vue'];
 </script>
 
 <template>
-  <div :class="styles.stack">
+  <Stack gap="2">
     <div>Framework</div>
     <RadioGroup aria-label="Framework" default-value="React" :class="styles.root">
       <RadioGroupIndicator />
@@ -14,5 +15,5 @@ const frameworks = ['React', 'Solid', 'Vue'];
         {{ framework }}
       </RadioGroupOption>
     </RadioGroup>
-  </div>
+  </Stack>
 </template>

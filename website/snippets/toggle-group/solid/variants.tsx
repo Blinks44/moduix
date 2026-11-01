@@ -1,5 +1,5 @@
+import { Stack } from '@moduix/solid/stack';
 import { ToggleGroup, ToggleGroupItem } from '@moduix/solid/toggle-group';
-import styles from '@/components/examples/toggle-group/toggle-group-variants.module.css';
 
 const items = [
   {
@@ -18,7 +18,7 @@ const items = [
 
 export default function ToggleGroupVariantsDemo() {
   return (
-    <div class={styles.stack}>
+    <Stack align="center" gap="3">
       <ToggleGroup defaultValue={['one']} aria-label="Default variant">
         {items.map((item) => (
           <ToggleGroupItem value={item.value}>{item.label}</ToggleGroupItem>
@@ -34,6 +34,6 @@ export default function ToggleGroupVariantsDemo() {
           <ToggleGroupItem value={item.value}>{item.label}</ToggleGroupItem>
         ))}
       </ToggleGroup>
-    </div>
+    </Stack>
   );
 }

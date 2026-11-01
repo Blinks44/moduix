@@ -1,16 +1,13 @@
 ---
 title: Formulaires
-description: Créez des formulaires accessibles avec les composants Moduix, le comportement natif et une bibliothèque d’état adaptée au framework.
+description: Créez des formulaires accessibles avec les composants moduix, le comportement natif et une bibliothèque d’état adaptée au framework.
 ---
 
 import { Card, Cards } from '@/components/mdx/Components';
-import NativeForm from '@/components/examples/forms/native-form.tsx';
-import nativeFormSolid from '../../../snippets/forms/solid/native-form.tsx?raw';
-import nativeFormVue from '../../../snippets/forms/vue/native-form.vue?raw';
 
 # Formulaires
 
-Moduix fournit des champs accessibles, des contrôles et la participation aux formulaires natifs.
+moduix fournit des champs accessibles, des contrôles et la participation aux formulaires natifs.
 Commencez par `<form>` et ajoutez une bibliothèque d’état uniquement si la validation, les champs
 répétés ou le cycle de soumission l’exigent.
 
@@ -40,7 +37,7 @@ formulaire natif, Formisch ou TanStack Form plutôt qu’une couche de compatibi
 1. Entourez un contrôle de `Field` lorsqu’il lui faut un libellé, une aide, une erreur ou un état partagé.
 2. Utilisez `Fieldset` pour un groupe lié avec une légende visible.
 3. Gardez les libellés visibles et donnez un `name` à chaque contrôle envoyé.
-4. Transmettez `invalid`, `required`, `disabled` et `readOnly` au champ ou à la racine Moduix.
+4. Transmettez `invalid`, `required`, `disabled` et `readOnly` au champ ou à la racine moduix.
 5. Ajoutez chaque élément natif requis exactement une fois.
 
 | Composant       | Élément natif du formulaire                                      |
@@ -60,42 +57,10 @@ formulaire sur sa racine et ne demande aucun élément masqué supplémentaire.
 ## Formulaire natif
 
 L’exemple combine des champs natifs avec `Select`, `Combobox` et `Checkbox`. Le navigateur gère la
-validation et `FormData`, tandis que Moduix fournit les contrôles et leurs éléments natifs. L’aperçu
+validation et `FormData`, tandis que moduix fournit les contrôles et leurs éléments natifs. L’aperçu
 interactif utilise React, car le site de documentation fonctionne avec React.
 
-<ExampleFrame variant="component">
-  <PreviewFrame maxWidth="sm">
-    <NativeForm />
-  </PreviewFrame>
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/forms/native-form.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={nativeFormSolid} />
-
-    </Tab>
-  <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={nativeFormVue} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/forms/forms-native-form.module.css"
-```
-</div>
-</ExampleCode>
+<Example name="forms/native-form" />
 
 ## Validation et réinitialisation
 
@@ -104,7 +69,7 @@ le navigateur gère la validation. Si une bibliothèque affiche les erreurs, ajo
 transmettez son résultat à `Field invalid` et rendez un `FieldErrorText` clair après le cycle choisi.
 
 `type="reset"` et `form.reset()` restaurent les contrôles non contrôlés. Pour les champs contrôlés,
-utilisez l’API de réinitialisation de la bibliothèque afin de synchroniser son état et les valeurs Moduix.
+utilisez l’API de réinitialisation de la bibliothèque afin de synchroniser son état et les valeurs moduix.
 
 Déplacez le focus vers le véritable élément interactif lors d’une soumission invalide : `Input`,
 `Textarea`, `SelectTrigger` ou `ComboboxInput`.

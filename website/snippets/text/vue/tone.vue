@@ -1,13 +1,13 @@
 <script setup lang="ts">
+import { Stack } from '@moduix/vue/stack';
 import { Text } from '@moduix/vue/text';
-import styles from '@/components/examples/text/text-tone.module.css';
 </script>
 
 <template>
-  <div :class="styles.stack">
+  <Stack gap="3">
     <Text tone="default">Default tone</Text>
     <Text tone="muted">Muted tone</Text>
     <Text tone="primary">Primary tone</Text>
     <Text tone="destructive">Destructive tone</Text>
-  </div>
+  </Stack>
 </template>

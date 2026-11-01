@@ -1,9 +1,9 @@
 import { RatingGroup, RatingGroupControl, RatingGroupItems } from '@moduix/react/rating-group';
-import styles from '@/components/examples/rating-group/component-sizes.module.css';
+import { Stack } from '@moduix/react/stack';
 
 export default function RatingGroupSizesDemo() {
   return (
-    <div className={styles.stack}>
+    <Stack align="center" gap="3">
       <RatingGroup size="xs" defaultValue={3} aria-label="Extra-small rating">
         <RatingGroupControl>
           <RatingGroupItems />
@@ -29,6 +29,6 @@ export default function RatingGroupSizesDemo() {
           <RatingGroupItems />
         </RatingGroupControl>
       </RatingGroup>
-    </div>
+    </Stack>
   );
 }

@@ -13,11 +13,12 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from '@moduix/vue/drawer';
+import { Stack } from '@moduix/vue/stack';
 import styles from '@/components/examples/drawer/drawer-swipe-direction.module.css';
 </script>
 
 <template>
-  <div :class="styles.root">
+  <Stack direction="row" wrap="wrap" gap="2">
     <Drawer swipe-direction="end"
       ><DrawerTrigger as-child><Button>Open right drawer</Button></DrawerTrigger
       ><DrawerBackdrop /><DrawerPositioner
@@ -49,5 +50,5 @@ import styles from '@/components/examples/drawer/drawer-swipe-direction.module.c
         ></DrawerPositioner
       ></Drawer
     >
-  </div>
+  </Stack>
 </template>

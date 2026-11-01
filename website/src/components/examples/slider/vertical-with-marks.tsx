@@ -7,9 +7,9 @@ import {
   SliderThumbs,
   SliderTrack,
 } from '@moduix/react/slider';
+import { Stack } from '@moduix/react/stack';
 import { useState } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';
-import styles from '@/components/examples/slider/slider-vertical-with-marks.module.css';
 
 const marks = [0, 25, 50, 75, 100];
 
@@ -17,7 +17,7 @@ export default function VerticalMarksSliderDemo() {
   const [value, setValue] = useState([50]);
 
   return (
-    <div className={styles.stack}>
+    <Stack align="center" gap="3">
       <Slider
         aria-label={['Output']}
         orientation="vertical"
@@ -41,6 +41,6 @@ export default function VerticalMarksSliderDemo() {
       <PreviewMeta>
         <output>Output: {value.join(', ')}</output>
       </PreviewMeta>
-    </div>
+    </Stack>
   );
 }

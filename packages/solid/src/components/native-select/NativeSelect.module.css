@@ -16,16 +16,15 @@
     min-width: 0;
     height: var(--moduix-select-control-height, var(--moduix-size-md));
     margin: 0;
-    border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
+    border: var(--moduix-border-width-sm) solid var(--moduix-input);
     border-radius: var(--moduix-select-radius, var(--moduix-radius-md));
     padding-inline: var(--moduix-spacing-3-5)
       calc(var(--_select-action-offset) + var(--_select-action-size) + var(--moduix-spacing-3-5));
     appearance: none;
-    background-color: var(--moduix-color-background);
-    color: var(--moduix-color-foreground);
+    background-color: var(--moduix-background);
+    color: var(--moduix-foreground);
     font: inherit;
-    outline: var(--moduix-focus-ring-inset-width) solid transparent;
-    outline-offset: var(--moduix-focus-ring-inset-offset);
+    outline: var(--moduix-focus-ring-halo-width) solid transparent;
     cursor: pointer;
     transition:
       border-color var(--moduix-transition-default),
@@ -33,13 +32,16 @@
       opacity var(--moduix-transition-default);
 
     &:focus-visible {
-      border-color: var(--moduix-color-ring);
-      outline-color: var(--moduix-color-ring);
+      border-color: var(--moduix-ring);
+      outline-color: color-mix(in oklab, var(--moduix-ring) 50%, transparent);
     }
 
     &:is([data-invalid], [aria-invalid='true']) {
-      border-color: var(--moduix-color-destructive);
-      outline-color: var(--moduix-color-destructive);
+      border-color: var(--moduix-destructive);
+
+      &:focus-visible {
+        outline-color: color-mix(in oklab, var(--moduix-destructive) 20%, transparent);
+      }
     }
 
     &:is([data-disabled], :disabled) {
@@ -70,7 +72,7 @@
     align-items: center;
     justify-content: center;
     border-radius: var(--moduix-radius-sm);
-    color: var(--moduix-color-muted-foreground);
+    color: var(--moduix-muted-foreground);
     pointer-events: none;
     transform: translateY(-50%);
     transition:
@@ -94,8 +96,8 @@
 
   .root:hover + .indicator {
     @media (hover: hover) {
-      background-color: var(--moduix-color-muted);
-      color: var(--moduix-color-foreground);
+      background-color: var(--moduix-muted);
+      color: var(--moduix-foreground);
     }
   }
 

@@ -9,9 +9,6 @@ import {
   MenuCheckboxItem,
   MenuItemIndicator,
   MenuItemText,
-  MenuItemTextContent,
-  MenuItemTextIcon,
-  MenuItemTextLabel,
 } from '@moduix/react/menu';
 import {
   Grid3X3 as Grid3X3Icon,
@@ -44,12 +41,8 @@ export default function IndicatorRightMenuDemo() {
               indicator="end"
             >
               <MenuItemText>
-                <MenuItemTextContent>
-                  <MenuItemTextIcon>
-                    <MapIcon />
-                  </MenuItemTextIcon>
-                  <MenuItemTextLabel>Search</MenuItemTextLabel>
-                </MenuItemTextContent>
+                <MapIcon />
+                Search
               </MenuItemText>
               <MenuItemIndicator />
             </MenuCheckboxItem>
@@ -60,12 +53,8 @@ export default function IndicatorRightMenuDemo() {
               indicator="end"
             >
               <MenuItemText>
-                <MenuItemTextContent>
-                  <MenuItemTextIcon>
-                    <Grid3X3Icon />
-                  </MenuItemTextIcon>
-                  <MenuItemTextLabel>Grid</MenuItemTextLabel>
-                </MenuItemTextContent>
+                <Grid3X3Icon />
+                Grid
               </MenuItemText>
               <MenuItemIndicator />
             </MenuCheckboxItem>
@@ -76,12 +65,8 @@ export default function IndicatorRightMenuDemo() {
               indicator="end"
             >
               <MenuItemText>
-                <MenuItemTextContent>
-                  <MenuItemTextIcon>
-                    <MapPinIcon />
-                  </MenuItemTextIcon>
-                  <MenuItemTextLabel>Place Labels</MenuItemTextLabel>
-                </MenuItemTextContent>
+                <MapPinIcon />
+                Place Labels
               </MenuItemText>
               <MenuItemIndicator />
             </MenuCheckboxItem>
@@ -92,12 +77,8 @@ export default function IndicatorRightMenuDemo() {
               indicator="end"
             >
               <MenuItemText>
-                <MenuItemTextContent>
-                  <MenuItemTextIcon>
-                    <TrafficConeIcon />
-                  </MenuItemTextIcon>
-                  <MenuItemTextLabel>Traffic</MenuItemTextLabel>
-                </MenuItemTextContent>
+                <TrafficConeIcon />
+                Traffic
               </MenuItemText>
               <MenuItemIndicator />
             </MenuCheckboxItem>

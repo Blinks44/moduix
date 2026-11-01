@@ -2,7 +2,7 @@
 
 ## Upstream reference
 
-Ark UI has no dedicated Bleed primitive. Moduix uses the
+Ark UI has no dedicated Bleed primitive. moduix uses the
 [Ark factory](https://ark-ui.com/docs/guides/composition#the-ark-factory) and follows its
 [composition](https://ark-ui.com/docs/guides/composition) and
 [styling](https://ark-ui.com/docs/guides/styling) guides. The axis model comes from
@@ -46,7 +46,7 @@ Reading and focus order follow the source order.
 
 ## Differences from upstream
 
-Chakra accepts any spacing value and per-side props (`inlineStart`, `blockEnd`, ...). Moduix keeps a
+Chakra accepts any spacing value and per-side props (`inlineStart`, `blockEnd`, ...). moduix keeps a
 fixed token scale per axis, adds `inline="full"`, and defaults to it.
 
 ## Local changelog

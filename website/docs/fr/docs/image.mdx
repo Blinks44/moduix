@@ -1,19 +1,22 @@
 ---
 title: Image
 component: image
-description: "Images responsives avec détection automatique des CDN. Unpic génère les attributs srcset et sizes."
+description: Servir des images adaptatives avec srcset généré pour les CDN courants.
+ark: https://ark-ui.com/docs/guides/composition
 ---
 
+import AnatomyScene from '@/components/examples/image/basic';
 import * as ImageDocs from '@/components/examples/image/css-properties';
 
-## Référence de l’API
+<Example name="image/basic" />
 
-`Image` est un composant moduix léger qui s’appuie sur l’élément `<img>` natif et l’API [Unpic](https://unpic.pics/img/).
-Ark UI ne propose pas de primitive dédiée aux images. `Image` utilise donc la composition native de `<img>` et de
-`<picture>` plutôt qu’une partie Ark. Consultez le [guide de composition d’Ark](https://ark-ui.com/docs/guides/composition)
-pour en savoir plus sur son modèle fondé sur les éléments natifs.
+## Installation
 
-## Exemple de base
+<ComponentInstall />
+
+## Utilisation
+
+<Usage />
 
 Utilisez `Image` avec l’URL d’une image provenant d’un CDN pris en charge ou avec une URL d’image classique.
 Dans le mode `layout="constrained"`, indiquez `width` et `height`. Unpic génère un `srcset` et un attribut
@@ -26,80 +29,7 @@ locaux et les URL sans CDN pris en charge. Utilisez `priority` pour l’image pr
 au chargement de la page : cette prop définit `loading="eager"` et `fetchpriority="high"` sans
 fixer `decoding`. Les attributs natifs définis explicitement remplacent ces valeurs par défaut.
 
-<Example name="image/basic" />
-
-## Installation avec shadcn
-
-Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration complète du paquet, du registre et des styles.
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/image' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/image' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/image' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/image' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/image' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/image' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Anatomie
-
-```text
-Image
-└─ img
-
-picture (native)
-├─ ImageSource
-└─ Image
-```
-
-| Partie                 | Rôle                                                                      |
-| ---------------------- | ------------------------------------------------------------------------- |
-| `Image`                | Élément `<img>` natif et adaptatif ; Unpic génère `srcset`, `sizes` et les styles. |
-| `ImageSource`          | Élément `<source>` adaptatif utilisé dans un élément natif `<picture>`.          |
-
-## Composition
-
-`Image` est la racine et peut être rendu directement. Utilisez `ImageSource` uniquement comme enfant
-d’un élément natif `<picture>` et placez `Image` en dernier afin qu’il reste l’image de secours si
-aucune source n’est sélectionnée. Pour choisir un format, placez une source avec `type` avant une
-source équivalente sans `type` ; le navigateur retient le premier format qu’il prend en charge.
-`ImageSource` génère un `srcset` uniquement pour un CDN pris en charge ou un fournisseur `fallback` ; pour des
-fichiers locaux, utilisez un `<source srcset>` natif.
-
 ## Exemples
-
-### Cadrage selon l’écran
-
-Utilisez `ImageSource` pour afficher une vue plus large d’un bureau sur les grands écrans et une image
-au format portrait sur les petits écrans. La première source destinée aux grands écrans demande le format
-AVIF. La suivante sert de solution de remplacement aux navigateurs qui ne prennent pas l’AVIF en charge.
-`ImageSource` doit rester dans un élément natif `<picture>`.
-
-<Example name="image/art-direction" />
 
 ### Taille fixe
 
@@ -116,6 +46,42 @@ la largeur de son conteneur. Indiquez `height` si la hauteur du cadrage doit res
 
 <Example name="image/full-width" />
 
+### Cadrage selon l’écran
+
+Utilisez `ImageSource` pour afficher une vue plus large d’un bureau sur les grands écrans et une image
+au format portrait sur les petits écrans. La première source destinée aux grands écrans demande le format
+AVIF. La suivante sert de solution de remplacement aux navigateurs qui ne prennent pas l’AVIF en charge.
+`ImageSource` doit rester dans un élément natif `<picture>`.
+
+<Example name="image/art-direction" />
+
+## Composition
+
+`Image` est un composant moduix léger qui s’appuie sur l’élément `<img>` natif et l’API [Unpic](https://unpic.pics/img/).
+Ark UI ne propose pas de primitive dédiée aux images. `Image` utilise donc la composition native de `<img>` et de
+`<picture>` plutôt qu’une partie Ark. Consultez le [guide de composition d’Ark](https://ark-ui.com/docs/guides/composition)
+pour en savoir plus sur son modèle fondé sur les éléments natifs.
+
+`Image` est la racine et peut être rendu directement. Utilisez `ImageSource` uniquement comme enfant
+d’un élément natif `<picture>` et placez `Image` en dernier afin qu’il reste l’image de secours si
+aucune source n’est sélectionnée. Pour choisir un format, placez une source avec `type` avant une
+source équivalente sans `type` ; le navigateur retient le premier format qu’il prend en charge.
+`ImageSource` génère un `srcset` uniquement pour un CDN pris en charge ou un fournisseur `fallback` ; pour des
+fichiers locaux, utilisez un `<source srcset>` natif.
+
+## Anatomie
+
+Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
+
+<AnatomyInspector
+  parts={[
+    ["Image", "image-root", "Élément `<img>` natif et adaptatif ; Unpic génère `srcset`, `sizes` et les styles.", 0],
+    ["ImageSource", "image-source", "Élément `<source>` adaptatif utilisé dans un élément natif `<picture>`.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
+
 ## Styles
 
 Utilisez `className` en React ou `class` en Solid et Vue sur `Image` et `ImageSource` pour les styles locaux.
@@ -123,12 +89,36 @@ Les variantes Tailwind utilisent des utilitaires natifs et les classes du consom
 `--moduix-image-radius` personnalise les variantes CSS Modules, tandis que les hooks `data-slot` sont
 partagés par les deux modes de style.
 
-### Propriétés CSS
+### Variables CSS
 
-<CssPropertiesSection properties={ImageDocs.imageCssProperties} />
+Survolez ou sélectionnez une variable pour la voir dans l’aperçu.
+
+<CssPropertiesSection properties={ImageDocs.imageCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Points d’accroche CSS
+
+| Partie | `data-slot` |
+| --- | --- |
+| `Image` | `image-root` |
+| `ImageSource` | `image-source` |
 
 - `data-slot="image-root"` permet de sélectionner l’élément `<img>` affiché en CSS.
 - `data-slot="image-source"` permet de sélectionner le nœud `<source>` dans un élément natif `<picture>`.
 - `className` en React et `class` en Solid et Vue sont les méthodes recommandées pour appliquer des styles locaux.
+
+## Référence de l’API
+
+`Image` accepte les props d’image Unpic et les props natives de `img`.
+
+| Prop | Type | Défaut | Description |
+| --- | --- | --- | --- |
+| `src` | `string` | — | URL de l’image ; les URL de CDN reçoivent un `srcset` adaptatif. |
+| `alt` | `string` | — | Texte alternatif ; chaîne vide pour une image décorative. |
+| `layout` | `'constrained' \| 'fixed' \| 'fullWidth'` | `'constrained'` | Mode de dimensionnement : `constrained`, `fixed` ou `fullWidth`. |
+| `width` | `number` | — | Largeur intrinsèque en pixels ; réserve l’espace avant le chargement. |
+| `height` | `number` | — | Hauteur intrinsèque en pixels ; réserve l’espace avant le chargement. |
+| `aspectRatio` | `number` | — | Rapport largeur/hauteur lorsqu’une seule dimension est connue. |
+| `priority` | `boolean` | `false` | Charge immédiatement en priorité, pour les images visibles dès l’ouverture. |
+| `background` | `string` | — | Arrière-plan de substitution affiché pendant le chargement. |

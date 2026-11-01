@@ -57,7 +57,7 @@ the same state instance. Wrap right-to-left content in `LocaleProvider` with an 
   `--marquee-duration`, `--marquee-delay`, `--marquee-loop-count`, and `--marquee-translate`.
   `data-paused` on the root pauses it; `prefers-reduced-motion: reduce` turns it off in both
   orientations.
-- Edges draw a gradient from `--moduix-marquee-edge-color` (default `--moduix-color-background`)
+- Edges draw a gradient from `--moduix-marquee-edge-color` (default `--moduix-background`)
   over `--moduix-marquee-edge-size` (default `20%`), mirrored for `dir="rtl"`, with `z-index: 1`.
 - Ark sets root `position`, `overflow`, and flex layout, the viewport main-axis size, content
   layout, and edge position and `pointer-events` inline. The CSS does not repeat them.

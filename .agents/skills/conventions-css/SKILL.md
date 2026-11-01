@@ -26,10 +26,13 @@ Use this skill for CSS, CSS Modules, and styling work in this repo.
 - Prefer Ark `data-*` hooks and local class names over deep or structure-dependent selector chains.
 - If a selector is difficult to explain in one sentence, simplify it.
 - In CSS Modules, use design tokens and public CSS variables instead of hardcoded one-off values when a token already exists.
+- Do not write `light-dark()` in component CSS: Rslib lowers it to a polyfill built on `--lightningcss-*`
+  variables that the package never defines, so the value becomes invalid. Theme colors already resolve
+  `light-dark()` in the foundation tokens; components read those tokens.
 - Keep component CSS and demo CSS separate. Library styling belongs in its package; demo-only layout belongs in stories or docs examples.
 - When a component exists in several variants, preserve the same visual and state contract. Keep
-  CSS Modules equivalent across framework adapters, and translate that result into native Tailwind
-  utilities for every shipped Tailwind counterpart.
+  CSS Modules byte-identical across framework adapters (`pnpm run check:css-modules` enforces it in
+  CI), and translate that result into native Tailwind utilities for every shipped Tailwind counterpart.
 - Do not import CSS Modules across packages or add them to a Tailwind component.
 
 ## Style ownership and cross-track parity
@@ -48,15 +51,18 @@ Use this skill for CSS, CSS Modules, and styling work in this repo.
   explicit arbitrary properties such as `[border-width:var(--runtime-width)]` when shorthand could
   compile to a different property.
 - For material styling changes, verify empty decorative parts and `asChild` replacement hosts in a
-  browser. A class token in the DOM does not prove visible size, paint, radius, or animation.
+  playground story. A class token in the DOM does not prove visible size, paint, radius, or
+  animation; this is a manual or story-comparison check, not a reason to add a style unit test.
 
 ## CSS Variable References
 
-- `packages/foundation/src/styles/variables-moduix.css` and `packages/foundation/src/styles/variables-ark.css` are internal
-  reference sources for the public moduix and Ark runtime custom-property contracts. Never import either file at
-  runtime, publish it in the npm build, or ship it through the shadcn registry.
-- When adding, renaming, or removing a public custom property, update the relevant reference source and the
-  component documentation in the same change. Do not add IDE metadata or a generator solely for CSS completion.
+- The component CSS Module is the source of a component's public `--moduix-*` variables; the docs list them in
+  `website/src/components/examples/<component>/css-properties.tsx`. Do not repeat the list in component-local
+  markdown.
+- `packages/foundation/src/styles/variables-ark.css` is an internal reference for Ark runtime custom properties.
+  Never import it at runtime, publish it in the npm build, or ship it through the shadcn registry.
+- When adding, renaming, or removing a public custom property, update `css-properties.tsx` in the same change.
+  Do not add IDE metadata or a generator solely for CSS completion.
 
 ## Ark Styling
 

@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type { TourStepDetails } from '@ark-ui/vue/tour';
 import { Button } from '@moduix/vue/button';
+import { Stack } from '@moduix/vue/stack';
 import {
   Tour,
   TourActionList,
@@ -17,7 +18,6 @@ import {
   useTour,
 } from '@moduix/vue/tour';
 import { ref } from 'vue';
-import styles from '@/components/examples/tour/tour-basic.module.css';
 
 const steps = [
   {
@@ -60,7 +60,7 @@ const tour = useTour({
 </script>
 
 <template>
-  <div :class="styles.root">
+  <Stack align="center" gap="3">
     <Button id="tour-basic-upload" variant="outline">Upload files</Button>
 
     <Tour :tour="tour">
@@ -83,5 +83,5 @@ const tour = useTour({
 
     <output>Tour: {{ status }}</output>
     <Button @click="tour.start()">Start tour</Button>
-  </div>
+  </Stack>
 </template>

@@ -9,8 +9,8 @@ import {
   ListboxRootProvider,
   useListbox,
 } from '@moduix/solid/listbox';
+import { Stack } from '@moduix/solid/stack';
 import { For } from 'solid-js';
-import styles from '@/components/examples/listbox/listbox-root-provider.module.css';
 
 const priorities = createListCollection({
   items: [
@@ -25,7 +25,7 @@ export default function RootProviderListboxDemo() {
   const listbox = useListbox({ collection: priorities });
 
   return (
-    <div class={styles.stack}>
+    <Stack gap="3">
       <ListboxRootProvider value={listbox}>
         <ListboxLabel>Select priority</ListboxLabel>
         <ListboxContent>
@@ -43,6 +43,6 @@ export default function RootProviderListboxDemo() {
         <output>Selected: {listbox().value[0] ?? 'none'}</output>
         <Button onClick={() => listbox().setValue(['high'])}>Set to high</Button>
       </div>
-    </div>
+    </Stack>
   );
 }

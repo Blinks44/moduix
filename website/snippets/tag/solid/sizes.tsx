@@ -1,5 +1,5 @@
+import { Stack } from '@moduix/solid/stack';
 import { Tag, TagLabel } from '@moduix/solid/tag';
-import styles from '@/components/examples/tag/tag-sizes.module.css';
 
 const sizes = [
   {
@@ -18,12 +18,12 @@ const sizes = [
 
 export default function TagSizesDemo() {
   return (
-    <div class={styles.row}>
+    <Stack direction="row" align="center" wrap="wrap" gap="3">
       {sizes.map((tag) => (
         <Tag size={tag.size}>
           <TagLabel>{tag.label}</TagLabel>
         </Tag>
       ))}
-    </div>
+    </Stack>
   );
 }

@@ -1,20 +1,9 @@
-import { useI18n } from '@rspress/core/runtime';
 import { ChangelogHero } from './hero';
 import styles from './hero.module.css';
 
 export function NavigationMenuHero() {
-  const t = useI18n<typeof import('i18n')>();
-
   return (
-    <ChangelogHero
-      id="v240--august-25-2026"
-      category={t('changelogNewComponent')}
-      date={t('navigationMenuHeroDate')}
-      dateTime="2026-08-25"
-      title="Navigation Menu"
-      summary={t('navigationMenuHeroSummary')}
-      tone="blue"
-    >
+    <ChangelogHero>
       <div className={`${styles.previewSurface} ${styles.navigationPreview}`}>
         <div className={styles.browserBar}>
           <span />

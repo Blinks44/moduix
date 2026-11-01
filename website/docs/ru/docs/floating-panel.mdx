@@ -1,21 +1,21 @@
 ---
 title: Floating Panel
 component: floating-panel
-description: Немодальное окно Ark UI для содержимого, которое можно перемещать, изменять в размере, сворачивать и разворачивать.
+description: Окно, которое можно перетаскивать, менять размер, сворачивать и разворачивать.
+ark: https://ark-ui.com/docs/components/floating-panel
 ---
 
-## Справочник API
+import AnatomyScene from '@/components/examples/floating-panel/anatomy';
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/floating-panel" />
+<Example name="floating-panel/basic" />
 
-## Выбор подходящего компонента
+## Установка
 
-Используйте `FloatingPanel` для плавающего немодального рабочего окна, например инспектора, панели
-свойств или служебного окна. Для компактного содержимого, привязанного к триггеру, используйте
-`Popover`, для модальных задач `Dialog`, а для панели у края окна с жестами или точками привязки `Drawer`.
+<ComponentInstall />
 
-## Базовый пример
+## Использование
 
+<Usage />
 
 Явно соберите части Ark UI. `FloatingPanelPositioner` применяет рассчитанные Ark значения позиции
 и размера, а `FloatingPanelContent` представляет видимую поверхность окна. Заголовок становится
@@ -24,99 +24,11 @@ description: Немодальное окно Ark UI для содержимог�
 React, Solid и Vue используют одинаковые плоские имена компонентов. В Vue части компонента
 соединяются через слоты, а для управляемых состояний открытия, позиции или размера используется `v-model`.
 
-<Example name="floating-panel/basic" />
+## Выбор подходящего компонента
 
-## Установка через shadcn
-
-Полную настройку пакета, реестра и стилей см. в разделе [Быстрый старт](/docs/quick-start).
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/floating-panel' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/floating-panel' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/floating-panel' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/floating-panel' },
-  ]}
-/>
-
-  </Tab>
-
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/floating-panel' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/floating-panel' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-```text
-FloatingPanel
-├─ FloatingPanelTrigger
-└─ Дерево оверлея (автоматически помещается в портал)
-   └─ FloatingPanelPositioner
-      └─ FloatingPanelContent
-         ├─ FloatingPanelDragTrigger
-         │  └─ FloatingPanelHeader
-         │     ├─ FloatingPanelTitle
-         │     │  └─ FloatingPanelDragIndicator (необязательно)
-         │     └─ FloatingPanelControl
-         │        ├─ FloatingPanelStageTrigger
-         │        └─ FloatingPanelCloseTrigger / FloatingPanelCloseIcon
-         ├─ FloatingPanelBody
-         ├─ FloatingPanelFooter
-         └─ FloatingPanelResizeTrigger / FloatingPanelResizeTriggerGroup
-```
-
-| Часть                                      | Назначение                                                               |
-| ------------------------------------------ | ------------------------------------------------------------------------ |
-| `FloatingPanel`                           | Управляет состоянием открытия, позицией, размером, перетаскиванием и режимом окна. |
-| `FloatingPanelTrigger`                    | Открывает панель или переключает её состояние.                           |
-| `FloatingPanelPositioner`                 | Применяет рассчитанные Ark значения позиции, размера, трансформации и z-index. |
-| `FloatingPanelContent`                    | Видимая поверхность плавающего окна.                                    |
-| `FloatingPanelDragTrigger`                | Задаёт область, за которую можно перетаскивать панель, обычно заголовок.   |
-| `FloatingPanelHeader`                     | Часть Ark для заголовка и обёртка области перетаскивания.                 |
-| `FloatingPanelTitle`                      | Задаёт доступное имя панели.                                             |
-| `FloatingPanelControl`                    | Группирует кнопки смены режима и закрытия.                               |
-| `FloatingPanelStageTrigger`               | Переключает режимы `default`, `minimized` и `maximized`.                  |
-| `FloatingPanelCloseTrigger` / `FloatingPanelCloseIcon` | Закрывает панель.                                             |
-| `FloatingPanelBody`                       | Основная область содержимого с прокруткой.                               |
-| `FloatingPanelFooter`                     | Необязательная нижняя область для действий или статуса.                  |
-| `FloatingPanelResizeTrigger`              | Ручка изменения размера для одной оси Ark.                              |
-| `FloatingPanelResizeTriggerGroup`         | Выводит все или выбранные ручки изменения размера.                       |
-| `FloatingPanelRootProvider`               | Подключает части к состоянию из `useFloatingPanel()`.       |
-
-`FloatingPanelDragIndicator`, `FloatingPanelCloseIcon`, `FloatingPanelFooter` и
-`FloatingPanelResizeTriggerGroup` являются вспомогательными частями moduix. Они дополняют
-структурные части Ark UI, но не заменяют их.
-
-## Композиция
-
-Используйте `FloatingPanel` для локального состояния. Оставьте `FloatingPanelPositioner` и `FloatingPanelContent` явными,
-оберните заголовок в `FloatingPanelDragTrigger` и добавьте `FloatingPanelTitle` для доступного имени. `FloatingPanelPositioner` по умолчанию
-выводится через портал. Установите `portalled={false}` или передайте `portalRef`, если панель должна
-находиться в другом контейнере.
-
-Если состояние должно находиться за пределами дерева панели, создайте его через
-`useFloatingPanel()` и передайте в `FloatingPanelRootProvider`. Не используйте `FloatingPanel` и
-`FloatingPanelRootProvider` для одного экземпляра состояния. `position` и `size` управляются независимо. Используйте
-`FloatingPanelResizeTriggerGroup axes` или отдельные `FloatingPanelResizeTrigger`, только если стандартный набор ручек не подходит.
-Для `asChild` передавайте один семантически подходящий дочерний элемент. В Vue поместите дочерний элемент
-в слот, а в Solid передайте функцию рендера.
+Используйте `FloatingPanel` для плавающего немодального рабочего окна, например инспектора, панели
+свойств или служебного окна. Для компактного содержимого, привязанного к триггеру, используйте
+`Popover`, для модальных задач `Dialog`, а для панели у края окна с жестами или точками привязки `Drawer`.
 
 ## Примеры
 
@@ -133,38 +45,30 @@ FloatingPanel
 
 <Example name="floating-panel/boundary" />
 
-### Контекст
-
-Используйте `FloatingPanelContext` или `useFloatingPanelContext`, чтобы читать состояние и методы
-панели внутри дерева компонентов. Vue получает значение контекста через scoped slot, а Solid
-предоставляет его как accessor-функцию.
-
-<Example name="floating-panel/context" />
-
-### Управляемое открытие
-
-Используйте `open` вместе с `onOpenChange`, если состояние приложения должно управлять видимостью панели.
-
-<Example name="floating-panel/controlled-open" />
-
-### Управляемая позиция
-
-Управляйте `position`, если другой части приложения нужны текущие координаты панели.
-
-<Example name="floating-panel/controlled-position" />
-
-### Управляемый размер
-
-Управляйте `size`, если интерфейсу нужно сохранять или показывать текущие размеры панели.
-
-<Example name="floating-panel/controlled-size" />
-
 ### Закрытие по Escape
 
 `closeOnEscape` включён по умолчанию. Добавьте `autoFocus` к `FloatingPanelContent`, чтобы Escape работал сразу
 после открытия немодальной панели.
 
 <Example name="floating-panel/escape-dismiss" />
+
+### Управляемое открытие
+
+Используйте `open` вместе с `onOpenChange`, если состояние приложения должно управлять видимостью панели. Подробнее в разделе [Управляйте состоянием из приложения](/docs/composition-patterns#controlled-state).
+
+<Example name="floating-panel/controlled-open" />
+
+### Управляемая позиция
+
+Управляйте `position`, если другой части приложения нужны текущие координаты панели. Подробнее в разделе [Управляйте состоянием из приложения](/docs/composition-patterns#controlled-state).
+
+<Example name="floating-panel/controlled-position" />
+
+### Управляемый размер
+
+Управляйте `size`, если интерфейсу нужно сохранять или показывать текущие размеры панели. Подробнее в разделе [Управляйте состоянием из приложения](/docs/composition-patterns#controlled-state).
+
+<Example name="floating-panel/controlled-size" />
 
 ### Ленивое монтирование
 
@@ -173,20 +77,75 @@ FloatingPanel
 
 <Example name="floating-panel/lazy-mount" />
 
-### FloatingPanelRootProvider
+### Контекст
+
+Используйте `FloatingPanelContext` или `useFloatingPanelContext`, чтобы читать состояние и методы
+панели внутри дерева компонентов. Vue получает значение контекста через scoped slot, а Solid
+предоставляет его как accessor-функцию.
+
+<Example name="floating-panel/context" />
+
+### Root Provider
 
 Используйте `useFloatingPanel` вместе с `FloatingPanelRootProvider`, если элементам управления за
 пределами дерева панели нужны методы `minimize`, `maximize` и `setOpen`. В Solid состояние хранилища
-читается через accessor-функцию.
+читается через accessor-функцию. Подробнее в разделе [Выносите состояние за пределы дерева](/docs/composition-patterns#root-provider).
 
 <Example name="floating-panel/root-provider" />
 
-### Расширенная настройка
+### Сборка из частей
 
-Используйте отдельные части `FloatingPanelResizeTrigger`, если каждой оси изменения размера нужны свои положение
-или стили.
+Та же панель, что в Basic, но без `FloatingPanelCloseIcon`, `FloatingPanelDragIndicator`,
+`FloatingPanelFooter` и `FloatingPanelResizeTriggerGroup`: кнопки режима и закрытия получают явные
+иконки, подвал стал обычным элементом, а каждая ось изменения размера стала отдельным
+`FloatingPanelResizeTrigger`. Начинайте с него, если дизайн меняет кнопки в шапке или оставляет только
+часть ручек.
 
-<Example name="floating-panel/advanced-customization" />
+<Example name="floating-panel/build-from-parts" />
+
+## Композиция
+
+Используйте `FloatingPanel` для локального состояния. Оставьте `FloatingPanelPositioner` и `FloatingPanelContent` явными,
+оберните заголовок в `FloatingPanelDragTrigger` и добавьте `FloatingPanelTitle` для доступного имени. `FloatingPanelPositioner` по умолчанию
+выводится через портал. Установите `portalled={false}` или передайте `portalRef`, если панель должна
+находиться в другом контейнере.
+
+Если состояние должно находиться за пределами дерева панели, создайте его через
+`useFloatingPanel()` и передайте в `FloatingPanelRootProvider`. Не используйте `FloatingPanel` и
+`FloatingPanelRootProvider` для одного экземпляра состояния. `position` и `size` управляются независимо. Используйте
+`FloatingPanelResizeTriggerGroup axes` или отдельные `FloatingPanelResizeTrigger`, только если стандартный набор ручек не подходит.
+Для `asChild` передавайте один семантически подходящий дочерний элемент. В Vue поместите дочерний элемент
+в слот, а в Solid передайте функцию рендера.
+
+## Анатомия
+
+Наведите на часть или выберите её, чтобы найти её в превью.
+
+<AnatomyInspector
+  parts={[
+    ["FloatingPanel", null, "Управляет состоянием открытия, позицией, размером, перетаскиванием и режимом окна.", 0],
+    ["FloatingPanelTrigger", "floating-panel-trigger", "Открывает панель или переключает её состояние.", 1],
+    ["FloatingPanelPositioner", "floating-panel-positioner", "Применяет рассчитанные Ark значения позиции, размера, трансформации и z-index.", 1],
+    ["FloatingPanelContent", "floating-panel-content", "Видимая поверхность плавающего окна.", 2],
+    ["FloatingPanelDragTrigger", "floating-panel-drag-trigger", "Задаёт область, за которую можно перетаскивать панель, обычно заголовок.", 3],
+    ["FloatingPanelHeader", "floating-panel-header", "Часть Ark для заголовка и обёртка области перетаскивания.", 4],
+    ["FloatingPanelTitle", "floating-panel-title", "Задаёт доступное имя панели.", 5],
+    ["FloatingPanelControl", "floating-panel-control", "Группирует кнопки смены режима и закрытия.", 5],
+    ["FloatingPanelStageTrigger", "floating-panel-stage-trigger", "Переключает режимы `default`, `minimized` и `maximized`.", 6],
+    ["FloatingPanelCloseTrigger / FloatingPanelCloseIcon", "floating-panel-close-trigger", "Закрывает панель.", 6],
+    ["FloatingPanelBody", "floating-panel-body", "Основная область содержимого с прокруткой.", 3],
+    ["FloatingPanelFooter", "floating-panel-footer", "Необязательная нижняя область для действий или статуса.", 3],
+    ["FloatingPanelResizeTrigger", "floating-panel-resize-trigger", "Ручка изменения размера для одной оси Ark.", 3],
+    ["FloatingPanelResizeTriggerGroup", "", "Выводит все или выбранные ручки изменения размера.", 4],
+    ["FloatingPanelRootProvider", null, "Подключает части к состоянию из `useFloatingPanel()`.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
+
+`FloatingPanelDragIndicator`, `FloatingPanelCloseIcon`, `FloatingPanelFooter` и
+`FloatingPanelResizeTriggerGroup` являются вспомогательными частями moduix. Они дополняют
+структурные части Ark UI, но не заменяют их.
 
 ## Стилизация
 
@@ -198,12 +157,71 @@ FloatingPanel
 используют нативные утилиты и классы потребителя. Варианты на CSS Modules построены на токенах foundation
 и не имеют переменных компонента: класс на части перекрывает стили компонента из слоя.
 
-### Точки стилизации
+### Хуки стилизации
+
+| Часть | `data-slot` |
+| --- | --- |
+| `FloatingPanelTrigger` | `floating-panel-trigger` |
+| `FloatingPanelPositioner` | `floating-panel-positioner` |
+| `FloatingPanelContent` | `floating-panel-content` |
+| `FloatingPanelDragTrigger` | `floating-panel-drag-trigger` |
+| `FloatingPanelHeader` | `floating-panel-header` |
+| `FloatingPanelTitle` | `floating-panel-title` |
+| `FloatingPanelControl` | `floating-panel-control` |
+| `FloatingPanelStageTrigger` | `floating-panel-stage-trigger` |
+| `FloatingPanelCloseTrigger` | `floating-panel-close-trigger` |
+| `FloatingPanelCloseIcon` | `floating-panel-close-icon` |
+| `FloatingPanelBody` | `floating-panel-body` |
+| `FloatingPanelFooter` | `floating-panel-footer` |
+| `FloatingPanelResizeTrigger` | `floating-panel-resize-trigger` |
+| `FloatingPanelDragIndicator` | `floating-panel-drag-indicator` |
 
 Части Ark UI сохраняют `data-scope="floating-panel"` и значения `data-part`. moduix добавляет
 `data-slot="floating-panel-*"` к отрисованным обёрткам. Используйте `data-state="open|closed"`,
 `data-dragging`, `data-disabled`, `data-stage`, `data-topmost`, `data-behind`, `data-minimized`,
-`data-maximized`, `data-staged` и `data-axis` для стилизации состояния соответствующих частей.
-`FloatingPanelFooter` повторяет `data-minimized` содержимого.
+`data-maximized`, `data-staged` и `data-axis` для стилизации состояния соответствующих частей. `FloatingPanelFooter` повторяет `data-minimized` содержимого.
 
 `FloatingPanelPositioner` предоставляет переменные Ark `--width`, `--height`, `--x`, `--y` и `--z-index`.
+
+## Клавиатура
+
+| Клавиша | Действие |
+| --- | --- |
+| `Enter` / `Space` | Открывает с кнопки в фокусе. |
+| `Esc` | Закрывает панель. |
+
+## Справочник API
+
+| Проп | Тип | По умолчанию | Описание |
+| --- | --- | --- | --- |
+| `open` | `boolean` | — | Состояние открытия в управляемом режиме. |
+| `defaultOpen` | `boolean` | `false` | Начальное состояние открытия, если оно не управляется извне. |
+| `onOpenChange` | `(details: OpenChangeDetails) => void` | — | Вызывается при открытии и закрытии. |
+| `size` | `{ width: number; height: number }` | — | Размер панели в управляемом режиме. |
+| `defaultSize` | `{ width: number; height: number }` | — | Начальный размер панели. |
+| `minSize` | `{ width: number; height: number }` | — | Минимальный размер при изменении. |
+| `maxSize` | `{ width: number; height: number }` | — | Максимальный размер при изменении. |
+| `position` | `{ x: number; y: number }` | — | Положение панели в управляемом режиме. |
+| `defaultPosition` | `{ x: number; y: number }` | — | Начальное положение панели. |
+| `getAnchorPosition` | `(details: AnchorPositionDetails) => Point` | — | Возвращает, где открывается панель, например рядом с триггером. |
+| `draggable` | `boolean` | `true` | Разрешает перемещать панель. |
+| `resizable` | `boolean` | `true` | Разрешает менять размер панели. |
+| `lockAspectRatio` | `boolean` | `false` | Сохраняет пропорции при изменении размера. |
+| `getBoundaryEl` | `() => HTMLElement \| null` | — | Возвращает элемент, за пределы которого панель не выходит. |
+| `closeOnEscape` | `boolean` | `true` | Закрывается по Escape. |
+| `persistRect` | `boolean` | `true` | Сохраняет размер и положение после закрытия. |
+| `gridSize` | `number` | `1` | Шаг сетки в пикселях при перемещении и изменении размера. |
+| `lazyMount` | `boolean` | `true` | Монтирует содержимое при первом открытии. |
+| `unmountOnExit` | `boolean` | `true` | Удаляет содержимое после закрытия. |
+| `translations` | `IntlTranslations` | — | Переведённые строки для подписей доступности. |
+| `strategy` | `'absolute' \| 'fixed'` | `'fixed'` | CSS-позиционирование: `fixed` или `absolute`. |
+| `allowOverflow` | `boolean` | `true` | Разрешает частично вытаскивать панель за границу. |
+| `initialFocusEl` | `() => HTMLElement \| null \| false` | — | Возвращает элемент, который получает фокус при открытии. |
+| `finalFocusEl` | `() => HTMLElement \| null` | — | Возвращает элемент, который получает фокус при закрытии. |
+| `restoreFocus` | `boolean` | `true` | Возвращает фокус на прежний элемент при закрытии. |
+| `disabled` | `boolean` | — | Отключает элемент управления. |
+| `onPositionChange` | `(details: PositionChangeDetails) => void` | — | Вызывается во время перетаскивания. |
+| `onPositionChangeEnd` | `(details: PositionChangeDetails) => void` | — | Вызывается в конце перетаскивания. |
+| `onSizeChange` | `(details: SizeChangeDetails) => void` | — | Вызывается во время изменения размера. |
+| `onSizeChangeEnd` | `(details: SizeChangeDetails) => void` | — | Вызывается в конце изменения размера. |
+| `onStageChange` | `(details: StageChangeDetails) => void` | — | Вызывается при сворачивании, разворачивании и восстановлении. |

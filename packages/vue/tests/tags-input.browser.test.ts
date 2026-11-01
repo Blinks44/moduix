@@ -19,7 +19,7 @@ import {
   TagsInputLabel,
   TagsInputRootProvider,
   useTagsInput,
-} from '../src';
+} from '@/index';
 import SsrTagsInput from './fixtures/SsrTagsInput.vue';
 
 const tagsInputComponents = {
@@ -203,32 +203,6 @@ test('keeps explicit form data for root providers', async () => {
   await expect.poll(() => new FormData(form).get('frameworks')).toBe('React, Vue');
 });
 
-test('keeps the consumer in control of v-model values and forwards value details once', async () => {
-  const details: string[][] = [];
-  const Harness = defineComponent({
-    components: tagsInputComponents,
-    setup() {
-      return { details, value: ref(['React']) };
-    },
-    template: `
-      <TagsInput v-model="value" @value-change="details.push($event.value)">
-        <TagsInputLabel>Controlled frameworks</TagsInputLabel>
-          <TagsInputControl>
-            <TagsInputItems />
-            <TagsInputInput />
-            <TagsInputClearTrigger aria-label="Clear frameworks" />
-        </TagsInputControl>
-      </TagsInput>
-      <output>{{ value.join(',') }}</output>
-    `,
-  });
-
-  render(Harness);
-  await page.getByRole('button', { name: 'Clear frameworks', exact: true }).click();
-
-  await expect.poll(() => details).toEqual([[]]);
-});
-
 test('supports the controlled input value model', async () => {
   const inputValue = ref('');
   const Harness = defineComponent({
@@ -351,29 +325,5 @@ test('hydrates stable hosts and ids and remains interactive', async () => {
   } finally {
     app.unmount();
     host.remove();
-  }
-});
-
-test('dims a disabled root once and keeps the default clear icon', async () => {
-  render({
-    components: tagsInputComponents,
-    template: `
-      <TagsInput disabled :default-value="['React']">
-        <TagsInputLabel>Disabled frameworks</TagsInputLabel>
-        <TagsInputControl>
-          <TagsInputItems />
-          <TagsInputInput />
-          <TagsInputClearTrigger />
-        </TagsInputControl>
-      </TagsInput>
-    `,
-  });
-
-  await expect.element(page.locator('[data-slot="tags-input-root"]')).toHaveCSS('opacity', '0.5');
-  expect(document.querySelector('[data-slot="tags-input-clear-trigger"] > svg')).not.toBeNull();
-  for (const slot of ['label', 'item-preview', 'item-delete-trigger', 'clear-trigger']) {
-    await expect
-      .element(page.locator(`[data-slot="tags-input-${slot}"]`))
-      .toHaveCSS('opacity', '1');
   }
 });

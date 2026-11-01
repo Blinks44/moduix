@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { TableScrollArea, Table } from '../../src';
+import { TableScrollArea, Table } from '@/index';
 </script>
 
 <template>

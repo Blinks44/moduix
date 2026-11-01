@@ -1,14 +1,27 @@
 ---
 title: Navigation Menu
 component: navigation-menu
-description: Навигационная панель для прямых ссылок и раскрывающихся панелей с возможностью использовать общую область `NavigationMenuViewport` для анимированных переходов.
+description: Шапка сайта, где пункты ведут по ссылке или открывают панели ссылок.
+ark: https://ark-ui.com/docs/components/navigation-menu
 ---
 
+import AnatomyScene from '@/components/examples/navigation-menu/anatomy';
 import * as NavigationMenuDocs from '@/components/examples/navigation-menu/css-properties';
 
-## Справочник API
+<Example name="navigation-menu/basic" />
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/navigation-menu" />
+## Установка
+
+<ComponentInstall />
+
+## Использование
+
+<Usage />
+
+Используйте `NavigationMenu` вместе с `NavigationMenuList` и `NavigationMenuItem`. У каждого элемента
+должно быть уникальное значение `value`. Для группы ссылок поместите `NavigationMenuTrigger` и
+`NavigationMenuContent` в один элемент. `NavigationMenuLink` используйте для прямых переходов из
+верхнего уровня и для ссылок внутри панели.
 
 ## Какой компонент выбрать
 
@@ -19,95 +32,30 @@ import * as NavigationMenuDocs from '@/components/examples/navigation-menu/css-p
 - Выбирайте **`Menu`** для контекстных действий, а не для навигации.
 - Выбирайте **`Tabs`**, если каждый выбранный элемент переключает содержимое в одной области текущей страницы.
 
-## Базовый пример
+## Примеры
 
+### Общая область Viewport
 
-Импортируйте компонент из подпути подходящего пакета: `@moduix/react/navigation-menu`,
-`@moduix/solid/navigation-menu`, `@moduix/vue/navigation-menu`,
-`@moduix/react-tailwind/navigation-menu`, `@moduix/solid-tailwind/navigation-menu` или
-`@moduix/vue-tailwind/navigation-menu`.
+Используйте общую область `NavigationMenuViewport`, если панели имеют разный размер, но должны анимироваться в одной
+области. В примере одна панель содержит две колонки, а у разных панелей разная ширина, поэтому при
+переключении триггеров заметно анимируются ширина и высота `NavigationMenuViewport`.
 
-Используйте `NavigationMenu` вместе с `NavigationMenuList` и `NavigationMenuItem`. У каждого элемента
-должно быть уникальное значение `value`. Для группы ссылок поместите `NavigationMenuTrigger` и
-`NavigationMenuContent` в один элемент. `NavigationMenuLink` используйте для прямых переходов из
-верхнего уровня и для ссылок внутри панели.
+<Example name="navigation-menu/viewport" />
 
-<Example name="navigation-menu/basic" />
+### Открытие по клику
 
-## Установка через shadcn
+Задайте `disableHoverTrigger`, если панели должны открываться только по клику или с клавиатуры, а не
+при наведении. Это подходит для интерфейсов под касание и плотных шапок, где наведение открывало бы
+панели случайно.
 
-Полную настройку пакета, реестра и стилей см. в разделе [Быстрый старт](/docs/quick-start).
+<Example name="navigation-menu/click-to-open" />
 
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
+### Управляемое значение
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/navigation-menu' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/navigation-menu' },
-  ]}
-/>
+Передайте `value` и `onValueChange` (`v-model:value` во Vue), если открытая панель управляет соседним
+интерфейсом. Под примером показано значение открытого элемента. Подробнее в разделе [Управляйте состоянием из приложения](/docs/composition-patterns#controlled-state).
 
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/navigation-menu' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/navigation-menu' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/navigation-menu' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/navigation-menu' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Анатомия
-
-```text
-NavigationMenu
-├─ NavigationMenuList
-│  ├─ NavigationMenuItem[value]
-│  │  └─ NavigationMenuLink
-│  └─ NavigationMenuItem[value]
-│     ├─ NavigationMenuTrigger
-│     ├─ NavigationMenuItemIndicator (необязательно)
-│     └─ NavigationMenuContent
-│        └─ NavigationMenuLink
-│  └─ NavigationMenuIndicator > NavigationMenuArrow (необязательно)
-└─ NavigationMenuViewportPositioner (необязательно)
-   └─ NavigationMenuViewport
-
-NavigationMenuRootProvider
-└─ то же дерево частей, подключённое к хранилищу из useNavigationMenu()
-
-NavigationMenuContext
-└─ расширенный доступ к текущему состоянию навигации через функцию рендера (`render prop`)
-```
-
-| Часть | Назначение |
-| --- | --- |
-| `NavigationMenu` | Корневой элемент `nav`, который управляет открытым элементом, задержками, фокусом и ориентацией. |
-| `NavigationMenuRootProvider` | Подключает части к хранилищу, созданному через `useNavigationMenu()`. |
-| `NavigationMenuContext` | Передаёт текущее состояние навигации через функцию рендера (`render prop`). |
-| `NavigationMenuList` | Объединяет элементы навигации верхнего уровня. |
-| `NavigationMenuItem` | Требует уникальное значение `value` и связывает триггер, содержимое и ссылки элемента. |
-| `NavigationMenuTrigger` | Кнопка, открывающая и закрывающая раскрывающуюся панель элемента. |
-| `NavigationMenuContent` | Раскрывающаяся панель элемента. Может отображаться рядом с элементом или внутри общей области `NavigationMenuViewport`. |
-| `NavigationMenuLink` | Ссылка на прямую страницу или ссылка внутри раскрывающейся панели. |
-| `NavigationMenuItemIndicator` | Необязательный визуальный маркер активного элемента. |
-| `NavigationMenuIndicator` | Необязательный маркер активного триггера; размещайте его внутри `NavigationMenuList`. Используйте `NavigationMenuArrow` с общей областью `NavigationMenuViewport`. |
-| `NavigationMenuViewportPositioner` | Размещает общую область `NavigationMenuViewport`. |
-| `NavigationMenuViewport` | Общая анимированная область для открытого содержимого. |
+<Example name="navigation-menu/controlled-value" />
 
 ## Композиция
 
@@ -127,22 +75,28 @@ NavigationMenuContext
 активного элемента. Используйте `asChild` для ссылок маршрутизатора или собственных триггеров только
 тогда, когда дочерний элемент остаётся одним интерактивным элементом, способным получать фокус.
 
-## Примеры
+## Анатомия
 
-### Управляемое значение
+Наведите на часть или выберите её, чтобы найти её в превью.
 
-Управляйте открытым значением через состояние React, сигналы Solid или ref во Vue, если активная
-панель должна менять соседнюю часть интерфейса. Под примером показано значение текущего открытого элемента.
-
-<Example name="navigation-menu/controlled-value" />
-
-### Общая область Viewport
-
-Используйте общую область `NavigationMenuViewport`, если панели имеют разный размер, но должны анимироваться в одной
-области. В примере одна панель содержит две колонки, а у разных панелей разная ширина, поэтому при
-переключении триггеров заметно анимируются ширина и высота `NavigationMenuViewport`.
-
-<Example name="navigation-menu/viewport" />
+<AnatomyInspector
+  parts={[
+    ["NavigationMenu", "navigation-menu-root", "Корневой элемент `nav`, который управляет открытым элементом, задержками, фокусом и ориентацией.", 0],
+    ["NavigationMenuList", "navigation-menu-list", "Объединяет элементы навигации верхнего уровня.", 1],
+    ["NavigationMenuItem", "navigation-menu-item", "Требует уникальное значение `value` и связывает триггер, содержимое и ссылки элемента.", 2],
+    ["NavigationMenuLink", "navigation-menu-link", "Ссылка на прямую страницу или ссылка внутри раскрывающейся панели.", 3],
+    ["NavigationMenuTrigger", "navigation-menu-trigger", "Кнопка, открывающая и закрывающая раскрывающуюся панель элемента.", 2],
+    ["NavigationMenuItemIndicator", "navigation-menu-item-indicator", "Необязательный визуальный маркер активного элемента.", 2],
+    ["NavigationMenuContent", "navigation-menu-content", "Раскрывающаяся панель элемента. Может отображаться рядом с элементом или внутри общей области `NavigationMenuViewport`.", 2],
+    ["NavigationMenuIndicator", "navigation-menu-indicator", "Необязательный маркер активного триггера; размещайте его внутри `NavigationMenuList`. Используйте `NavigationMenuArrow` с общей областью `NavigationMenuViewport`.", 2],
+    ["NavigationMenuViewportPositioner", "navigation-menu-viewport-positioner", "Размещает общую область `NavigationMenuViewport`.", 1],
+    ["NavigationMenuViewport", "navigation-menu-viewport", "Общая анимированная область для открытого содержимого.", 2],
+    ["NavigationMenuRootProvider", "navigation-menu-root-provider", "Подключает части к хранилищу, созданному через `useNavigationMenu()`.", 0],
+    ["NavigationMenuContext", null, "Передаёт текущее состояние навигации через функцию рендера (`render prop`).", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Стилизация
 
@@ -154,11 +108,30 @@ foundation и выносят в CSS-переменные только огран
 переопределяйте классом на части. Анимация панели и viewport следует общим переменным
 `--moduix-popup-motion-*`. Атрибуты данных и хуки `data-slot` общие для обоих вариантов стилизации.
 
-### CSS-свойства
+### CSS-переменные
 
-<CssPropertiesSection properties={NavigationMenuDocs.navigationMenuOverrideCssProperties} />
+Наведите на переменную или выберите её, чтобы увидеть её в превью.
+
+<CssPropertiesSection properties={NavigationMenuDocs.navigationMenuOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Хуки стилизации
+
+| Часть | `data-slot` |
+| --- | --- |
+| `NavigationMenu` | `navigation-menu-root` |
+| `NavigationMenuRootProvider` | `navigation-menu-root-provider` |
+| `NavigationMenuList` | `navigation-menu-list` |
+| `NavigationMenuItem` | `navigation-menu-item` |
+| `NavigationMenuTrigger` | `navigation-menu-trigger` |
+| `NavigationMenuContent` | `navigation-menu-content` |
+| `NavigationMenuLink` | `navigation-menu-link` |
+| `NavigationMenuIndicator` | `navigation-menu-indicator` |
+| `NavigationMenuItemIndicator` | `navigation-menu-item-indicator` |
+| `NavigationMenuArrow` | `navigation-menu-arrow` |
+| `NavigationMenuViewportPositioner` | `navigation-menu-viewport-positioner` |
+| `NavigationMenuViewport` | `navigation-menu-viewport` |
 
 Настраивайте ту часть, которая отвечает за нужный визуальный элемент:
 
@@ -169,15 +142,32 @@ foundation и выносят в CSS-переменные только огран
 - `NavigationMenuIndicator` и `NavigationMenuItemIndicator` отвечают за необязательные элементы оформления активного состояния; используйте `NavigationMenuArrow` с общей областью `NavigationMenuViewport`.
 - `NavigationMenuViewportPositioner` и `NavigationMenuViewport` отвечают за общую анимированную область панели.
 
-Основные публичные точки подключения: `data-slot="navigation-menu-root"`,
-`data-slot="navigation-menu-root-provider"`, `data-slot="navigation-menu-list"`,
-`data-slot="navigation-menu-item"`, `data-slot="navigation-menu-trigger"`,
-`data-slot="navigation-menu-content"`, `data-slot="navigation-menu-link"`,
-`data-slot="navigation-menu-indicator"`, `data-slot="navigation-menu-item-indicator"`,
-`data-slot="navigation-menu-arrow"`, `data-slot="navigation-menu-viewport-positioner"` и
-`data-slot="navigation-menu-viewport"`.
-
 Полезные атрибуты Ark: `data-scope="navigation-menu"`, `data-part`, `data-state`, `data-current`,
 `data-disabled`, `data-orientation` и `data-motion`. Во время работы Ark записывает переменные
 `--trigger-x`, `--trigger-y`, `--trigger-width`, `--trigger-height`, `--viewport-x`, `--viewport-y`,
 `--viewport-width` и `--viewport-height`.
+
+## Клавиатура
+
+| Клавиша | Действие |
+| --- | --- |
+| `Tab` / `Shift+Tab` | Перемещает между кнопками и ссылками верхнего уровня. |
+| `Enter` / `Space` | Открывает или закрывает панель кнопки в фокусе. |
+| `ArrowLeft` / `ArrowRight` | Переводит фокус на предыдущую или следующую кнопку либо между ссылками открытой панели; при вертикальной ориентации ArrowUp и ArrowDown. |
+| `Home` / `End` | Переводит фокус на первую или последнюю кнопку либо ссылку. |
+| `Esc` | Закрывает открытую панель и возвращает фокус на её кнопку. |
+
+## Справочник API
+
+| Проп | Тип | По умолчанию | Описание |
+| --- | --- | --- | --- |
+| `value` | `string` | — | Открытый пункт в управляемом режиме. |
+| `defaultValue` | `string` | — | Изначально открытый пункт. |
+| `onValueChange` | `(details: ValueChangeDetails) => void` | — | Вызывается, когда открывается другой пункт или меню закрывается. |
+| `openDelay` | `number` | `200` | Задержка перед открытием по наведению, в миллисекундах. |
+| `closeDelay` | `number` | `300` | Задержка перед закрытием после ухода указателя, в миллисекундах. |
+| `disableClickTrigger` | `boolean` | `false` | Отключает открытие по клику. |
+| `disableHoverTrigger` | `boolean` | `false` | Отключает открытие по наведению. |
+| `disablePointerLeaveClose` | `boolean` | `false` | Не закрывает меню, когда указатель уходит. |
+| `translations` | `IntlTranslations` | — | Переведённые строки для подписей доступности. |
+| `orientation` | `'horizontal' \| 'vertical'` | `'horizontal'` | Раскладка и направление стрелок: `horizontal` или `vertical`. |

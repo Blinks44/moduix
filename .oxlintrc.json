@@ -23,6 +23,37 @@
       "rules": {
         "jsx-a11y/prefer-tag-over-role": "off"
       }
+    },
+    {
+      "files": ["website/src/components/examples/**"],
+      "plugins": ["typescript", "unicorn", "oxc", "react", "jsx-a11y"],
+      "rules": {
+        "jsx-a11y/prefer-tag-over-role": "off",
+        "jsx-a11y/anchor-has-content": "off",
+        "jsx-a11y/anchor-is-valid": "off",
+        "jsx-a11y/heading-has-content": "off",
+        "jsx-a11y/label-has-associated-control": "off",
+        "jsx-a11y/no-autofocus": "off",
+        "jsx-a11y/no-noninteractive-tabindex": "off",
+        "react/incompatible-library": "off",
+        "react/set-state-in-effect": "off"
+      }
+    },
+    {
+      "files": ["website/snippets/**/solid/**"],
+      "plugins": ["typescript", "unicorn", "oxc", "react", "jsx-a11y"],
+      "rules": {
+        "jsx-a11y/prefer-tag-over-role": "off",
+        "jsx-a11y/anchor-has-content": "off",
+        "jsx-a11y/anchor-is-valid": "off",
+        "jsx-a11y/heading-has-content": "off",
+        "jsx-a11y/label-has-associated-control": "off",
+        "jsx-a11y/no-autofocus": "off",
+        "jsx-a11y/no-noninteractive-tabindex": "off",
+        "react/immutability": "off",
+        "react/jsx-key": "off",
+        "react/purity": "off"
+      }
     }
   ]
 }

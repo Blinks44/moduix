@@ -1,10 +1,10 @@
+import { Stack } from '@moduix/react/stack';
 import {
   ToggleGroupItem,
   ToggleGroupRootProvider,
   useToggleGroup,
 } from '@moduix/react/toggle-group';
 import { PreviewMeta } from '@/components/mdx/Components';
-import styles from '@/components/examples/toggle-group/toggle-group-controlled.module.css';
 
 const alignmentItems = [
   {
@@ -26,7 +26,7 @@ export default function RootProviderToggleGroupDemo() {
     defaultValue: ['left'],
   });
   return (
-    <div className={styles.stack}>
+    <Stack align="center" gap="3">
       <ToggleGroupRootProvider value={toggleGroup} aria-label="Text alignment">
         {alignmentItems.map((item) => (
           <ToggleGroupItem key={item.value} value={item.value}>
@@ -37,6 +37,6 @@ export default function RootProviderToggleGroupDemo() {
       <PreviewMeta>
         <output>Selected: {toggleGroup.value.join(', ') || 'empty'}</output>
       </PreviewMeta>
-    </div>
+    </Stack>
   );
 }

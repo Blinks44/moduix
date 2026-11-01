@@ -1,19 +1,11 @@
 ---
 title: Image Cropper
 component: image-cropper
-description: Composant permettant de recadrer et de transformer des images, avec prise en charge du zoom, de la rotation et du rapport d’aspect.
+description: Recadrer, zoomer, pivoter et retourner une image avant l’envoi.
+ark: https://ark-ui.com/docs/components/image-cropper
 ---
 
-## Référence de l’API
-
-<PrimitiveReference href="https://ark-ui.com/docs/components/image-cropper" />
-
-## Exemple de base
-
-Utilisez `ImageCropper` avec `ImageCropperViewport`, `ImageCropperImage` et
-`ImageCropperCropArea`. Passez l’URL de l’image à `ImageCropperImage`.
-`ImageCropperCropArea` ajoute la zone de sélection, les lignes de la grille et les poignées de
-redimensionnement.
+import AnatomyScene from '@/components/examples/image-cropper/basic';
 
 <Example name="image-cropper/basic" />
 
@@ -21,79 +13,18 @@ Si vous appelez `getCroppedImage()` pour une image provenant d’une autre origi
 l’image doit autoriser CORS et `ImageCropperImage` doit recevoir `crossOrigin="anonymous"`. Les
 exemples utilisent cette configuration pour l’image Unsplash.
 
-## Installation avec shadcn
+## Installation
 
-Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration complète du paquet, du registre et des styles.
+<ComponentInstall />
 
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
+## Utilisation
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/image-cropper' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/image-cropper' },
-  ]}
-/>
+<Usage />
 
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/image-cropper' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/image-cropper' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/image-cropper' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/image-cropper' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Anatomie
-
-```tsx
-<ImageCropper>
-  <ImageCropperViewport>
-    <ImageCropperImage />
-    <ImageCropperCropArea />
-  </ImageCropperViewport>
-</ImageCropper>
-```
-
-| Partie                                | Rôle                                                                                           |
-| ------------------------------------- | ---------------------------------------------------------------------------------------------- |
-| `ImageCropper`                     | Composant racine qui gère l’état du recadrage et des transformations, les attributs ARIA et les variables CSS mises à jour pendant l’utilisation. |
-| `ImageCropperRootProvider`          | Racine liée à une instance `useImageCropper` créée en dehors de l’arbre de composants.          |
-| `ImageCropperViewport`              | Zone d’affichage qui masque ce qui dépasse et permet de déplacer l’image.                      |
-| `ImageCropperImage`                 | Élément d’image auquel Ark applique les transformations.                                       |
-| `ImageCropperSelection`             | Zone de recadrage focalisable et cible des interactions au clavier. Avec `fixedCropArea`, elle reste focalisable et les flèches déplacent l’image. |
-| `ImageCropperGrid`                  | Ligne de guidage horizontale ou verticale, non interactive. `axis` est obligatoire.            |
-| `ImageCropperHandle`                | Poignée de redimensionnement pour une position de `ImageCropperHandles`. `position` est obligatoire. |
-| `ImageCropperCropArea`              | Zone prête à l’emploi avec les deux grilles et toutes les poignées. Elle n’accepte ni `children` ni `asChild`. |
-
-## Composition
-
-Utilisez `ImageCropperCropArea` pour la zone de recadrage standard. Elle crée les deux grilles et
-toutes les poignées de redimensionnement, et n’accepte donc ni `children` ni `asChild`. Utilisez
-`className`, `gridClassName` et `handleClassName` pour styliser la sélection et ses parties générées.
-
-Utilisez `ImageCropperContext` pour les contrôles placés dans la racine. Créez `useImageCropper()`
-et transmettez-le à `ImageCropperRootProvider` lorsqu’une barre d’outils, un aperçu ou la logique
-d’un formulaire doit accéder à l’instance en dehors de l’arbre de composants. Pour une même instance
-d’état, rendez `ImageCropper` ou `ImageCropperRootProvider`, jamais les deux.
-
-Utilisez `zoom`, `rotation` ou `flip` en mode contrôlé avec le rappel correspondant lorsque l’état est
-géré ailleurs dans l’application. Ark transmet la nouvelle valeur dans l’objet `details`.
-`fixedCropArea` fixe la sélection et fait de la zone d’affichage la surface de déplacement de l’image.
+Utilisez `ImageCropper` avec `ImageCropperViewport`, `ImageCropperImage` et
+`ImageCropperCropArea`. Passez l’URL de l’image à `ImageCropperImage`.
+`ImageCropperCropArea` ajoute la zone de sélection, les lignes de la grille et les poignées de
+redimensionnement.
 
 ## Exemples
 
@@ -110,13 +41,33 @@ Utilisez `cropShape="circle"` avec `aspectRatio={1}` pour les avatars et les ima
 
 <Example name="image-cropper/circle-crop" />
 
-### Zoom contrôlé
+### Recadrage initial
 
-Utilisez `zoom` en mode contrôlé avec `onZoomChange` lorsque des boutons ou une autre partie de
-l’interface doivent modifier ou afficher le niveau de zoom. Limitez la plage avec `minZoom` et
-`maxZoom`.
+Définissez `initialCrop` pour ouvrir le composant avec un rectangle de recadrage prédéfini, exprimé
+en coordonnées de la zone d’affichage et en pixels.
 
-<Example name="image-cropper/controlled-zoom" />
+<Example name="image-cropper/initial-crop" />
+
+### Zone de recadrage fixe
+
+Activez `fixedCropArea` lorsque la zone doit conserver la même taille et la même position pendant que
+l’utilisateur déplace l’image derrière elle.
+
+<Example name="image-cropper/fixed-crop-area" />
+
+### Taille minimale et maximale
+
+Limitez la taille de la zone avec `minWidth`, `minHeight`, `maxWidth` et `maxHeight`.
+
+<Example name="image-cropper/min-and-max-size" />
+
+### Rotation, retournement et réinitialisation
+
+Utilisez `ImageCropperContext` pour relier une barre d’outils aux actions de zoom, de rotation, de
+retournement et de réinitialisation. Dans cet exemple, la rotation et le retournement sont contrôlés
+depuis l’état React, Solid ou Vue.
+
+<Example name="image-cropper/rotation-flip-and-reset" />
 
 ### Aperçu du recadrage
 
@@ -127,6 +78,14 @@ et des données de transformation.
 
 <Example name="image-cropper/crop-preview" />
 
+### Zoom contrôlé
+
+Utilisez `zoom` en mode contrôlé avec `onZoomChange` lorsque des boutons ou une autre partie de
+l’interface doivent modifier ou afficher le niveau de zoom. Limitez la plage avec `minZoom` et
+`maxZoom`. Voir [Contrôler l’état depuis l’application](/docs/composition-patterns#controlled-state).
+
+<Example name="image-cropper/controlled-zoom" />
+
 ### Événements
 
 Abonnez-vous à `onCropChange` et `onZoomChange` pour afficher les données actuelles du recadrage ou
@@ -134,48 +93,64 @@ les synchroniser avec d’autres éléments de l’interface.
 
 <Example name="image-cropper/events" />
 
-### Zone de recadrage fixe
-
-Activez `fixedCropArea` lorsque la zone doit conserver la même taille et la même position pendant que
-l’utilisateur déplace l’image derrière elle.
-
-<Example name="image-cropper/fixed-crop-area" />
-
-### Recadrage initial
-
-Définissez `initialCrop` pour ouvrir le composant avec un rectangle de recadrage prédéfini, exprimé
-en coordonnées de la zone d’affichage et en pixels.
-
-<Example name="image-cropper/initial-crop" />
-
-### Taille minimale et maximale
-
-Limitez la taille de la zone avec `minWidth`, `minHeight`, `maxWidth` et `maxHeight`.
-
-<Example name="image-cropper/min-and-max-size" />
-
 ### Root Provider
 
 Utilisez `ImageCropperRootProvider` avec une instance de `useImageCropper` lorsqu’une barre d’outils
-ou un autre élément de l’interface doit piloter le recadrage en dehors de son arbre de composants.
+ou un autre élément de l’interface doit piloter le recadrage en dehors de son arbre de composants. Voir [Partager l’état hors de l’arbre](/docs/composition-patterns#root-provider).
 
 <Example name="image-cropper/root-provider" />
 
-### Rotation, retournement et réinitialisation
+### Assembler à partir des parties
 
-Utilisez `ImageCropperContext` pour relier une barre d’outils aux actions de zoom, de rotation, de
-retournement et de réinitialisation. Dans cet exemple, la rotation et le retournement sont contrôlés
-depuis l’état React, Solid ou Vue.
+Le même recadreur que Basic, sans `ImageCropperCropArea` : `ImageCropperSelection` contient deux
+lignes `ImageCropperGrid` avec un `axis` et un `ImageCropperHandle` par `position` de
+`ImageCropperHandles`. Partez de cet exemple quand la zone de recadrage a besoin de moins de poignées
+ou d’enfants personnalisés.
 
-<Example name="image-cropper/rotation-flip-and-reset" />
+<Example name="image-cropper/build-from-parts" />
 
-### Personnalisation avancée
+## Composition
 
-Remplacez `ImageCropperCropArea` par les parties explicites `ImageCropperSelection`,
-`ImageCropperGrid` et `ImageCropperHandle` lorsque la zone nécessite une structure différente ou des
-enfants personnalisés. `ImageCropperGrid` requiert `axis` et `ImageCropperHandle` requiert `position`.
+Utilisez `ImageCropperCropArea` pour la zone de recadrage standard. Elle crée les deux grilles et
+toutes les poignées de redimensionnement, et n’accepte donc ni `children` ni `asChild`. Utilisez
+`className`, `gridClassName` et `handleClassName` pour styliser la sélection et ses parties générées.
 
-<Example name="image-cropper/advanced-customization" />
+Utilisez `ImageCropperContext` pour les contrôles placés dans la racine. Créez `useImageCropper()`
+et transmettez-le à `ImageCropperRootProvider` lorsqu’une barre d’outils, un aperçu ou la logique
+d’un formulaire doit accéder à l’instance en dehors de l’arbre de composants. Pour une même instance
+d’état, rendez `ImageCropper` ou `ImageCropperRootProvider`, jamais les deux.
+
+Utilisez `zoom`, `rotation` ou `flip` en mode contrôlé avec le rappel correspondant lorsque l’état est
+géré ailleurs dans l’application. Ark transmet la nouvelle valeur dans l’objet `details`.
+`fixedCropArea` fixe la sélection et fait de la zone d’affichage la surface de déplacement de l’image.
+
+## Anatomie
+
+```tsx
+<ImageCropper>
+  <ImageCropperViewport>
+    <ImageCropperImage />
+    <ImageCropperCropArea />
+  </ImageCropperViewport>
+</ImageCropper>
+```
+
+Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
+
+<AnatomyInspector
+  parts={[
+    ["ImageCropper", "image-cropper-root", "Composant racine qui gère l’état du recadrage et des transformations, les attributs ARIA et les variables CSS mises à jour pendant l’utilisation.", 0],
+    ["ImageCropperViewport", "image-cropper-viewport", "Zone d’affichage qui masque ce qui dépasse et permet de déplacer l’image.", 1],
+    ["ImageCropperImage", "image-cropper-image", "Élément d’image auquel Ark applique les transformations.", 1],
+    ["ImageCropperSelection", "image-cropper-selection", "Zone de recadrage focalisable et cible des interactions au clavier. Avec `fixedCropArea`, elle reste focalisable et les flèches déplacent l’image.", 1],
+    ["ImageCropperGrid", "image-cropper-grid", "Ligne de guidage horizontale ou verticale, non interactive. `axis` est obligatoire.", 1],
+    ["ImageCropperHandle", "image-cropper-handle", "Poignée de redimensionnement pour une position de `ImageCropperHandles`. `position` est obligatoire.", 1],
+    ["ImageCropperCropArea", "", "Zone prête à l’emploi avec les deux grilles et toutes les poignées. Elle n’accepte ni `children` ni `asChild`.", 1],
+    ["ImageCropperRootProvider", "image-cropper-root-provider", "Racine liée à une instance `useImageCropper` créée en dehors de l’arbre de composants.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styles
 
@@ -191,11 +166,21 @@ partie remplace les styles du composant placés dans une couche, par exemple un 
 une autre `height` de la zone d’affichage. Les attributs de données et les hooks `data-slot` sont
 communs aux deux approches.
 
-### Sélecteurs de style
+### Points d’accroche CSS
 
-Utilisez les valeurs stables de `data-slot` `image-cropper-root`, `image-cropper-root-provider`,
-`image-cropper-viewport`, `image-cropper-image`, `image-cropper-selection`, `image-cropper-grid` et
-`image-cropper-handle` pour les styles locaux. Ark expose également `data-scope="image-cropper"`,
+| Partie | `data-slot` |
+| --- | --- |
+| `ImageCropper` | `image-cropper-root` |
+| `ImageCropperRootProvider` | `image-cropper-root-provider` |
+| `ImageCropperViewport` | `image-cropper-viewport` |
+| `ImageCropperImage` | `image-cropper-image` |
+| `ImageCropperSelection` | `image-cropper-selection` |
+| `ImageCropperGrid` | `image-cropper-grid` |
+| `ImageCropperHandle` | `image-cropper-handle` |
+
+- Sélecteurs d'état Ark : `data-flip-horizontal` et `data-flip-vertical` sur `ImageCropperImage`.
+
+Ark expose également `data-scope="image-cropper"`,
 `data-part` et des attributs d’état tels que `data-fixed`, `data-shape`, `data-pinch`, `data-ready`,
 `data-disabled`, `data-measured`, `data-dragging`, `data-panning`, `data-axis` et `data-position`
 sur les parties concernées.
@@ -204,3 +189,42 @@ Ark écrit `--crop-width`, `--crop-height`, `--crop-x`, `--crop-y`, `--image-zoo
 `--image-rotation`, `--image-offset-x` et `--image-offset-y` sur la racine. Ces variables en lecture
 seule reflètent l’état courant et peuvent servir à synchroniser une interface personnalisée. Ne les
 redéfinissez pas.
+
+## Clavier
+
+| Touche | Action |
+| --- | --- |
+| `ArrowUp` / `ArrowDown` / `ArrowLeft` / `ArrowRight` | Déplace la zone ; Shift et Ctrl font de plus grands pas. |
+| `Alt` + flèches | Redimensionne la zone de recadrage. |
+| `+` / `-` | Zoome ou dézoome. |
+
+## Référence de l’API
+
+| Prop | Type | Défaut | Description |
+| --- | --- | --- | --- |
+| `aspectRatio` | `number` | — | Verrouille le rapport largeur/hauteur du recadrage. |
+| `cropShape` | `'rectangle' \| 'circle'` | `'rectangle'` | Forme de la zone : `rectangle` ou `circle`. |
+| `initialCrop` | `Rect` | — | Rectangle de recadrage initial. |
+| `fixedCropArea` | `boolean` | `false` | Fige la zone de recadrage ; l’image se déplace et zoome dessous. |
+| `minWidth` | `number` | `40` | Largeur minimale du recadrage en pixels. |
+| `minHeight` | `number` | `40` | Hauteur minimale du recadrage en pixels. |
+| `maxWidth` | `number` | `Infinity` | Largeur maximale du recadrage en pixels. |
+| `maxHeight` | `number` | `Infinity` | Hauteur maximale du recadrage en pixels. |
+| `zoom` | `number` | — | Niveau de zoom en mode contrôlé. |
+| `defaultZoom` | `number` | `1` | Zoom initial lorsqu’il n’est pas contrôlé. |
+| `minZoom` | `number` | `1` | Zoom minimal autorisé. |
+| `maxZoom` | `number` | `5` | Zoom maximal autorisé. |
+| `zoomStep` | `number` | `0.1` | Variation du zoom par cran de molette. |
+| `rotation` | `number` | — | Rotation en degrés en mode contrôlé. |
+| `defaultRotation` | `number` | `0` | Rotation initiale en degrés. |
+| `flip` | `{ horizontal: boolean; vertical: boolean }` | — | Retournement horizontal et vertical en mode contrôlé. |
+| `onCropChange` | `(details: CropChangeDetails) => void` | — | Appelé avec le rectangle de recadrage à chaque changement. |
+| `onZoomChange` | `(details: ZoomChangeDetails) => void` | — | Appelé lorsque le zoom change. |
+| `onRotationChange` | `(details: RotationChangeDetails) => void` | — | Appelé lorsque la rotation change. |
+| `translations` | `IntlTranslations` | — | Textes localisés des libellés d’accessibilité. |
+| `defaultFlip` | `FlipState` | `{ horizontal: false, vertical: false }` | Retournement initial. |
+| `zoomSensitivity` | `number` | `2` | Sensibilité du zoom au pincement. |
+| `nudgeStep` | `number` | `1` | Pas de déplacement aux flèches, en pixels. |
+| `nudgeStepShift` | `number` | `10` | Pas aux flèches avec Maj, en pixels. |
+| `nudgeStepCtrl` | `number` | `50` | Pas aux flèches avec Ctrl ou Cmd, en pixels. |
+| `onFlipChange` | `(details: FlipChangeDetails) => void` | — | Appelé lorsque le retournement change. |

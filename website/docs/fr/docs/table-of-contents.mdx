@@ -1,93 +1,56 @@
 ---
 title: Table of Contents
 component: toc
-description: Synchronisez un sommaire accessible avec la section consultée.
+description: Mettre en évidence la section lue dans une liste « Sur cette page ».
+ark: https://ark-ui.com/docs/components/toc
 ---
 
-## Référence de l’API
+import AnatomyScene from '@/components/examples/table-of-contents/basic';
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/toc" />
+<Example name="table-of-contents/basic" />
 
-## Exemple de base
+## Installation
+
+<ComponentInstall />
+
+## Utilisation
+
+<Usage />
 
 `Toc` est le composant racine de l’API plate. Passez-lui un tableau `items` contenant les titres à
 suivre. Chaque élément doit avoir une `value` correspondant à l’attribut `id` d’un titre et un
 `depth` correspondant à son niveau sémantique, par exemple `2` pour `<h2>`. Utilisez le même objet
 pour rendre `TocItem`, puis construisez le fragment de `TocLink` à partir de sa `value`.
 
-
 Sur une page classique, omettez `scrollEl` et le composant observe la fenêtre. L’aperçu ci-dessous
 utilise sa propre zone de défilement. Passez cet élément à `scrollEl` pour que le suivi et la
 navigation par lien restent dans l’aperçu.
 
-<Example name="table-of-contents/basic" />
+## Exemples
 
-## Installation avec shadcn
+### Rail
 
-Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration complète du paquet, du registre et des styles.
+Placez `TocRail` dans chaque lien pour tracer un connecteur SVG entre les niveaux de titres voisins.
+Transmettez les profondeurs courante, précédente et suivante depuis le même tableau `items` ordonné.
+Le rail du lien actif reprend la couleur de l’indicateur. N’ajoutez pas `TocIndicator` dans cette
+même liste.
 
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
+<Example name="table-of-contents/rail" />
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/toc' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/toc' },
-  ]}
-/>
+### Avec une navigation repliable
 
-  </Tab>
-  <Tab label="Solid" value="solid">
+Placez la liste de navigation dans `Collapsible` lorsque le lecteur doit pouvoir masquer le sommaire
+complet. `TocContext` fournit le titre de l’élément actif au bouton et à l’anneau de progression,
+tandis que les liens ciblent toujours la même zone de lecture.
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/toc' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/toc' },
-  ]}
-/>
+<Example name="table-of-contents/with-collapsible" />
 
-  </Tab>
-  <Tab label="Vue" value="vue">
+### Root Provider
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/toc' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/toc' },
-  ]}
-/>
+Utilisez `useToc()` lorsqu’un autre contrôle doit lire les titres actifs ou faire défiler la zone de
+lecture. Voir [Partager l’état hors de l’arbre](/docs/composition-patterns#root-provider).
 
-  </Tab>
-</Tabs>
-
-## Anatomie
-
-```text
-Toc
-├─ TocContent
-└─ TocNav
-   ├─ TocTitle
-   └─ TocList
-      ├─ TocIndicator (facultatif)
-      └─ TocItem[item]
-         └─ TocLink
-            └─ TocRail (facultatif)
-
-TocRootProvider
-└─ même arbre de parties connecté à useToc()
-```
-
-| Partie              | Rôle                                                                    |
-| ------------------- | ----------------------------------------------------------------------- |
-| `Toc`              | Partie racine qui gère l’état de suivi à partir de la liste d’éléments. |
-| `TocContent`       | Article contenant les titres dont les ID correspondent aux valeurs.     |
-| `TocNav`           | Zone de navigation liée au titre du sommaire.                           |
-| `TocTitle`         | Nom accessible et titre visible de la navigation.                       |
-| `TocList`          | Liste des liens vers les titres et de l’indicateur facultatif.          |
-| `TocItem`          | Élément associé à un titre, avec son niveau et son état actif.          |
-| `TocLink`          | Lien vers une section de la même page.                                  |
-| `TocIndicator`     | Repère discret qui suit la plage active dans la liste.                  |
-| `TocRootProvider`  | Relie les parties à un état de suivi créé en dehors de l’arbre.          |
-| `TocRail`          | Branche SVG facultative qui relie les niveaux de titres voisins.         |
+<Example name="table-of-contents/root-provider" />
 
 ## Composition
 
@@ -117,31 +80,26 @@ sont rendues, ce qui crée des ID dupliqués. Cette limite est suivie dans
 [Ark #4187](https://github.com/chakra-ui/ark/issues/4187).
 :::
 
-## Exemples
+## Anatomie
 
-### Root Provider
+Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
 
-Utilisez `useToc()` lorsqu’un autre contrôle doit lire les titres actifs ou faire défiler la zone de
-lecture.
-
-<Example name="table-of-contents/root-provider" />
-
-### Rail
-
-Placez `TocRail` dans chaque lien pour tracer un connecteur SVG entre les niveaux de titres voisins.
-Transmettez les profondeurs courante, précédente et suivante depuis le même tableau `items` ordonné.
-Le rail du lien actif reprend la couleur de l’indicateur. N’ajoutez pas `TocIndicator` dans cette
-même liste.
-
-<Example name="table-of-contents/rail" />
-
-### Avec une navigation repliable
-
-Placez la liste de navigation dans `Collapsible` lorsque le lecteur doit pouvoir masquer le sommaire
-complet. `TocContext` fournit le titre de l’élément actif au bouton et à l’anneau de progression,
-tandis que les liens ciblent toujours la même zone de lecture.
-
-<Example name="table-of-contents/with-collapsible" />
+<AnatomyInspector
+  parts={[
+    ["Toc", "toc-root", "Partie racine qui gère l’état de suivi à partir de la liste d’éléments.", 0],
+    ["TocContent", "toc-content", "Article contenant les titres dont les ID correspondent aux valeurs.", 1],
+    ["TocNav", "toc-nav", "Zone de navigation liée au titre du sommaire.", 1],
+    ["TocTitle", "toc-title", "Nom accessible et titre visible de la navigation.", 2],
+    ["TocList", "toc-list", "Liste des liens vers les titres et de l’indicateur facultatif.", 2],
+    ["TocIndicator", "toc-indicator", "Repère discret qui suit la plage active dans la liste.", 3],
+    ["TocItem", "toc-item", "Élément associé à un titre, avec son niveau et son état actif.", 3],
+    ["TocLink", "toc-link", "Lien vers une section de la même page.", 4],
+    ["TocRail", "toc-rail", "Branche SVG facultative qui relie les niveaux de titres voisins.", 5],
+    ["TocRootProvider", "toc-root-provider", "Relie les parties à un état de suivi créé en dehors de l’arbre.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styles
 
@@ -153,9 +111,34 @@ remplace les styles du composant placés dans une couche. Pour modifier la colon
 
 ### Points d’accroche CSS
 
-- `data-slot="toc-root"`, `toc-root-provider`, `toc-content`, `toc-nav`, `toc-title`, `toc-list`,
-  `toc-item`, `toc-link`, `toc-indicator` et `toc-rail`
+| Partie | `data-slot` |
+| --- | --- |
+| `Toc` | `toc-root` |
+| `TocRootProvider` | `toc-root-provider` |
+| `TocContent` | `toc-content` |
+| `TocNav` | `toc-nav` |
+| `TocTitle` | `toc-title` |
+| `TocList` | `toc-list` |
+| `TocItem` | `toc-item` |
+| `TocLink` | `toc-link` |
+| `TocIndicator` | `toc-indicator` |
+| `TocRail` | `toc-rail` |
+
 - Les attributs Ark `data-scope="toc"` et `data-part` sur les parties primitives
 - Les attributs et variables de `TocItem` : `data-value`, `data-depth`, `data-active`, `data-first`,
   `data-last` et `--depth` ; `TocLink` expose `data-value`, `data-active` et `aria-current`
 - Les variables d’exécution Ark `--top`, `--left`, `--width` et `--height` sur la racine
+
+## Référence de l’API
+
+| Prop | Type | Défaut | Description |
+| --- | --- | --- | --- |
+| `items` | `TocItem[]` | — | Titres suivis, chacun avec `value` (id du titre) et `depth`. |
+| `scrollEl` | `() => HTMLElement \| null` | — | Renvoie le conteneur de défilement ; la page par défaut. |
+| `rootMargin` | `string` | `'-20px 0px -40% 0px'` | Marge de l’IntersectionObserver qui décide quand un titre est actif. |
+| `threshold` | `number \| number[]` | `0` | Seuil de l’IntersectionObserver. |
+| `autoScroll` | `boolean` | `false` | Fait défiler la liste pour garder l’élément actif visible. |
+| `scrollBehavior` | `ScrollBehavior` | `'smooth'` | Comportement de défilement pour `autoScroll`. |
+| `activeIds` | `string[]` | — | Id des titres actifs en mode contrôlé. |
+| `defaultActiveIds` | `string[]` | — | Titres actifs au départ. |
+| `onActiveChange` | `(details: ActiveChangeDetails) => void` | — | Appelé lorsque les titres visibles changent. |

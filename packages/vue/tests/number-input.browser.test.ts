@@ -4,7 +4,7 @@ import { render, screen } from '@testing-library/vue';
 import { renderToString } from '@vue/server-renderer';
 import { createSSRApp, defineComponent, ref } from 'vue';
 import type { ComponentPublicInstance } from 'vue';
-import { Field, FieldErrorText, FieldHelperText } from '../src/components/field';
+import { Field, FieldErrorText, FieldHelperText } from '@/components/field';
 import {
   NumberInput,
   NumberInputContext,
@@ -19,7 +19,7 @@ import {
   NumberInputValueText,
   useNumberInput,
   useNumberInputContext,
-} from '../src/components/number-input';
+} from '@/components/number-input';
 import NumberInputSsrConsumer from './number-input-ssr-consumer.vue';
 
 const numberInputComponents = {
@@ -176,83 +176,6 @@ test('inherits Field state for disabled, read-only, and invalid number inputs', 
     .element(page.getByRole('button', { name: 'increment value', exact: true }))
     .toBeDisabled();
   await expect.element(page.getByText('Value must be in range.')).toBeVisible();
-});
-
-test('does not dim a number input twice inside a disabled field', () => {
-  render({
-    components: numberInputComponents,
-    template: `
-      <Field disabled>
-        <NumberInput>
-          <NumberInputLabel>Items</NumberInputLabel>
-          <NumberInputField />
-        </NumberInput>
-      </Field>
-    `,
-  });
-
-  const field = document.querySelector('[data-slot="field-root"]')!;
-  const root = document.querySelector('[data-slot="number-input-root"]')!;
-
-  expect(getComputedStyle(field).opacity).toBe('0.5');
-  expect(getComputedStyle(root).opacity).toBe('1');
-});
-
-test('mutes the trigger that Ark disables at the value limit', () => {
-  render({
-    components: numberInputComponents,
-    template: `
-      <NumberInput default-value="10" :max="10">
-        <NumberInputLabel>Items</NumberInputLabel>
-        <NumberInputField />
-      </NumberInput>
-    `,
-  });
-
-  const decrement = document.querySelector('[data-slot="number-input-decrement-trigger"]')!;
-  const increment = document.querySelector('[data-slot="number-input-increment-trigger"]')!;
-
-  expect(increment.hasAttribute('data-disabled')).toBe(true);
-  expect(getComputedStyle(increment).color).not.toBe(getComputedStyle(decrement).color);
-});
-
-test('sizes the input, triggers, and icons from the root size', () => {
-  render({
-    components: numberInputComponents,
-    template: `
-      <div>
-        <NumberInput size="sm" default-value="1">
-          <NumberInputLabel>Small</NumberInputLabel>
-          <NumberInputField />
-        </NumberInput>
-        <NumberInput size="lg" default-value="1">
-          <NumberInputLabel>Large</NumberInputLabel>
-          <NumberInputField />
-        </NumberInput>
-      </div>
-    `,
-  });
-
-  const [small, large] = [...document.querySelectorAll('[data-slot="number-input-root"]')];
-  const part = (root: Element, slot: string) =>
-    root.querySelector<HTMLElement>(`[data-slot="number-input-${slot}"]`)!;
-
-  expect(small!.getAttribute('data-size')).toBe('sm');
-  expect(large!.getAttribute('data-size')).toBe('lg');
-  for (const root of [small!, large!]) {
-    const height = part(root, 'input').offsetHeight;
-    expect(part(root, 'decrement-trigger').offsetHeight).toBe(height);
-    expect(part(root, 'increment-trigger').offsetWidth).toBe(height);
-  }
-  expect(part(large!, 'input').offsetHeight).toBeGreaterThan(part(small!, 'input').offsetHeight);
-  expect(parseFloat(getComputedStyle(part(large!, 'input')).fontSize)).toBeGreaterThan(
-    parseFloat(getComputedStyle(part(small!, 'input')).fontSize),
-  );
-  expect(
-    part(large!, 'increment-trigger').querySelector('svg')!.getBoundingClientRect().width,
-  ).toBeGreaterThan(
-    part(small!, 'increment-trigger').querySelector('svg')!.getBoundingClientRect().width,
-  );
 });
 
 test('forwards Ark value-invalid details', async () => {

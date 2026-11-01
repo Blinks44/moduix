@@ -1,14 +1,26 @@
 ---
 title: Pin Input
 component: pin-input
-description: Компонент для ввода коротких PIN-кодов и кодов подтверждения по отдельным ячейкам, с автоматическим переводом фокуса и поддержкой OTP.
+description: Ввод короткого PIN или одноразового кода, по символу в ячейке.
+ark: https://ark-ui.com/docs/components/pin-input
 ---
 
+import AnatomyScene from '@/components/examples/pin-input/basic';
 import * as PinInputDocs from '@/components/examples/pin-input/css-properties';
 
-## Справочник API
+<Example name="pin-input/basic" />
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/pin-input" />
+## Установка
+
+<ComponentInstall />
+
+## Использование
+
+<Usage />
+
+Используйте `PinInput` как корневой компонент и явно задайте `count`. Добавьте `PinInputLabel` для доступного имени,
+поместите `PinInputInputs` внутрь `PinInputControl` и явно добавьте `PinInputHiddenInput`, если значение должно участвовать в работе
+нативной формы.
 
 ## Выбор подходящего компонента
 
@@ -18,79 +30,67 @@ import * as PinInputDocs from '@/components/examples/pin-input/css-properties';
 - Выбирайте **`Input`**, когда достаточно одного обычного текстового поля.
 - Выбирайте **`PasswordInput`**, когда значение представляет собой одну секретную строку с переключателем видимости.
 
-## Базовый пример
+## Примеры
 
-Используйте `PinInput` как корневой компонент и явно задайте `count`. Добавьте `PinInputLabel` для доступного имени,
-поместите `PinInputInputs` внутрь `PinInputControl` и явно добавьте `PinInputHiddenInput`, если значение должно участвовать в работе
-нативной формы.
+### Размеры
 
-<Example name="pin-input/basic" />
+Проп `size` на корне подгоняет размер ячеек под высоту контролов `Input` и `Button`. По умолчанию `md`;
+текст в ячейках масштабируется вместе с ним.
 
-## Установка через shadcn
+<Example name="pin-input/sizes" />
 
-Полную настройку пакета, реестра и стилей см. в разделе [Быстрый старт](/docs/quick-start).
+### Режим OTP
 
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
+Включите `otp`, чтобы добавить видимым полям `autocomplete="one-time-code"` и включить подсказки одноразовых
+кодов в поддерживаемых мобильных браузерах.
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/pin-input' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/pin-input' },
-  ]}
-/>
+<Example name="pin-input/otp-mode" />
 
-  </Tab>
-  <Tab label="Solid" value="solid">
+### Маскирование
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/pin-input' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/pin-input' },
-  ]}
-/>
+Включите `mask`, если введённый код нельзя показывать открыто.
 
-  </Tab>
-  <Tab label="Vue" value="vue">
+<Example name="pin-input/masking" />
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/pin-input' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/pin-input' },
-  ]}
-/>
+### Символ-заполнитель
 
-  </Tab>
-</Tabs>
+Передайте `placeholder`, чтобы показывать символ в каждой пустой ячейке. По умолчанию moduix оставляет заполнитель
+пустым.
 
-## Анатомия
+<Example name="pin-input/placeholder" />
 
-```text
-PinInput
-├─ PinInputLabel
-├─ PinInputControl
-│  ├─ PinInputInput[index=0]
-│  ├─ PinInputInput[index=1]
-│  └─ PinInputInput[index=2]
-└─ PinInputHiddenInput (явно)
+### Сгруппированная раскладка
 
-PinInputRootProvider
-└─ то же дерево частей, связанное с состоянием usePinInput()
-```
+Используйте явные части `PinInputInput` с `PinInputSeparator`, если разделитель должен разделить код на группы. Индексы должны
+идти непрерывно во всей композиции.
 
-| Часть | Назначение |
-| --- | --- |
-| `PinInput` | Управляет количеством ячеек, состоянием значения, проверкой и параметрами формы. |
-| `PinInputHiddenInput` | Нативное поле Ark, которое нужно добавлять явно. |
-| `PinInputRootProvider` | Подключает части к состоянию, созданному через `usePinInput()`. |
-| `PinInputContext` | Передаёт текущее состояние корневого компонента потомкам через render prop. |
-| `PinInputLabel` | Задаёт подпись для группы PIN-кода или кода подтверждения. |
-| `PinInputControl` | Контейнер видимых ячеек с индексами. |
-| `PinInputInput` | Одна видимая ячейка для символа. Передайте индекс, начиная с нуля. |
-| `PinInputInputs` | Создаёт по одному `PinInputInput` с индексом для каждой ячейки контекста Ark. |
-| `PinInputSeparator` | Декоративный вспомогательный компонент moduix для группировки, а не часть примитива Ark. |
-| `usePinInput` | Создаёт состояние для `PinInputRootProvider`. |
-| `usePinInputContext` | Читает текущее состояние Pin Input внутри дерева компонента. |
+<Example name="pin-input/grouped-layout" />
+
+### Снять фокус после завершения ввода
+
+Укажите `blurOnComplete`, если после заполнения всех ячеек фокус должен покинуть последнее поле.
+
+<Example name="pin-input/blur-on-complete" />
+
+### Field
+
+Поместите `PinInput` внутрь `Field`, если подпись, вспомогательный текст, сообщение об ошибке и состояние поля
+должны быть связаны с видимыми ячейками механизмами доступности Ark для форм.
+
+<Example name="pin-input/field" />
+
+### События изменения
+
+Храните массив значений в состоянии и читайте `details.value` или `details.valueAsString` из колбэков Ark.
+
+<Example name="pin-input/change-events" />
+
+### Root Provider
+
+Используйте `usePinInput` с `PinInputRootProvider`, когда состоянием и императивными методами нужно управлять за пределами
+дерева компонентов. В этом примере `PinInputInputs` заменён явными частями `PinInputInput` с индексами. Подробнее в разделе [Выносите состояние за пределы дерева](/docs/composition-patterns#root-provider).
+
+<Example name="pin-input/root-provider" />
 
 ## Композиция
 
@@ -109,73 +109,37 @@ Ark управляет переводом фокуса, распределени
 `PinInputSeparator` по умолчанию декоративный и получает `aria-hidden`, поэтому
 содержательный текст размещайте вне него.
 
-## Примеры
+## Анатомия
 
-### Снять фокус после завершения ввода
+Наведите на часть или выберите её, чтобы найти её в превью.
 
-Укажите `blurOnComplete`, если после заполнения всех ячеек фокус должен покинуть последнее поле.
-
-<Example name="pin-input/blur-on-complete" />
-
-### События изменения
-
-Храните массив значений в состоянии и читайте `details.value` или `details.valueAsString` из колбэков Ark.
-
-<Example name="pin-input/change-events" />
-
-### Field
-
-Поместите `PinInput` внутрь `Field`, если подпись, вспомогательный текст, сообщение об ошибке и состояние поля
-должны быть связаны с видимыми ячейками механизмами доступности Ark для форм.
-
-<Example name="pin-input/field" />
-
-### Сгруппированная раскладка
-
-Используйте явные части `PinInputInput` с `PinInputSeparator`, если разделитель должен разделить код на группы. Индексы должны
-идти непрерывно во всей композиции.
-
-<Example name="pin-input/grouped-layout" />
-
-### Маскирование
-
-Включите `mask`, если введённый код нельзя показывать открыто.
-
-<Example name="pin-input/masking" />
-
-### Режим OTP
-
-Включите `otp`, чтобы добавить видимым полям `autocomplete="one-time-code"` и включить подсказки одноразовых
-кодов в поддерживаемых мобильных браузерах.
-
-<Example name="pin-input/otp-mode" />
-
-### Символ-заполнитель
-
-Передайте `placeholder`, чтобы показывать символ в каждой пустой ячейке. По умолчанию moduix оставляет заполнитель
-пустым.
-
-<Example name="pin-input/placeholder" />
-
-### Root Provider
-
-Используйте `usePinInput` с `PinInputRootProvider`, когда состоянием и императивными методами нужно управлять за пределами
-дерева компонентов. В этом примере `PinInputInputs` заменён явными частями `PinInputInput` с индексами.
-
-<Example name="pin-input/root-provider" />
-
-### Размеры
-
-Проп `size` на корне подгоняет размер ячеек под высоту контролов `Input` и `Button`. По умолчанию `md`;
-текст в ячейках масштабируется вместе с ним.
-
-<Example name="pin-input/sizes" />
+<AnatomyInspector
+  parts={[
+    ["PinInput", "pin-input-root", "Управляет количеством ячеек, состоянием значения, проверкой и параметрами формы.", 0],
+    ["PinInputLabel", "pin-input-label", "Задаёт подпись для группы PIN-кода или кода подтверждения.", 1],
+    ["PinInputControl", "pin-input-control", "Контейнер видимых ячеек с индексами.", 1],
+    ["PinInputInput", "pin-input-input", "Одна видимая ячейка для символа. Передайте индекс, начиная с нуля.", 2],
+    ["PinInputInputs", "", "Создаёт по одному `PinInputInput` с индексом для каждой ячейки контекста Ark.", 3],
+    ["PinInputHiddenInput", "", "Нативное поле Ark, которое нужно добавлять явно.", 1],
+    ["PinInputSeparator", "pin-input-separator", "Декоративный вспомогательный компонент moduix для группировки, а не часть примитива Ark.", 1],
+    ["PinInputRootProvider", "pin-input-root-provider", "Подключает части к состоянию, созданному через `usePinInput()`.", 0],
+    ["PinInputContext", null, "Передаёт текущее состояние корневого компонента потомкам через render prop.", 0],
+    ["usePinInput", null, "Создаёт состояние для `PinInputRootProvider`.", 0],
+    ["usePinInputContext", null, "Читает текущее состояние Pin Input внутри дерева компонента.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Стилизация
 
-### CSS-свойства
+### CSS-переменные
 
-<CssPropertiesSection properties={PinInputDocs.pinInputOverrideCssProperties} />
+Наведите на переменную или выберите её, чтобы увидеть её в превью.
+
+<CssPropertiesSection properties={PinInputDocs.pinInputOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 Пакеты с CSS Modules предоставляют три переменные: `--moduix-pin-input-input-size` (действует для всех
 размеров), `--moduix-pin-input-gap` и `--moduix-pin-input-radius`. Цвета, рамки, типографика и focus ring
@@ -184,13 +148,58 @@ Ark управляет переводом фокуса, распределени
 
 ### Хуки стилизации
 
-- Корневой элемент и `PinInputRootProvider` имеют `data-slot="pin-input-root"` и `data-slot="pin-input-root-provider"`.
-- `PinInputLabel`, `PinInputControl` и `PinInputInput` имеют `data-slot="pin-input-label"`, `data-slot="pin-input-control"` и
-  `data-slot="pin-input-input"`.
+| Часть | `data-slot` |
+| --- | --- |
+| `PinInput` | `pin-input-root` |
+| `PinInputRootProvider` | `pin-input-root-provider` |
+| `PinInputLabel` | `pin-input-label` |
+| `PinInputControl` | `pin-input-control` |
+| `PinInputInput` | `pin-input-input` |
+| `PinInputSeparator` | `pin-input-separator` |
+
+- Селекторы состояния Ark: `data-required` на подписи.
+
 - Части Ark используют `data-scope="pin-input"` и `data-part="root" | "label" | "control" | "input"`.
 - Для стилей состояния корня используются `data-disabled`, `data-invalid`, `data-complete` и `data-readonly`.
 - Для стилей состояния ячейки используются `data-disabled`, `data-invalid`, `data-complete`, `data-filled` и
   `data-index`.
-- `PinInputSeparator` имеет `data-slot="pin-input-separator"` и по умолчанию является декоративным.
 - Корень дублирует `size` в `data-size`. Отключённый `PinInput` внутри отключённого `Field` или `Fieldset` не
   затемняется второй раз.
+
+## Клавиатура
+
+| Клавиша | Действие |
+| --- | --- |
+| Символы | Заполняют ячейку и переходят к следующей. |
+| `Backspace` | Очищает ячейку и переходит к предыдущей. |
+| `ArrowLeft` / `ArrowRight` | Перемещает между ячейками. |
+| `Ctrl+V` | Вставляет весь код по ячейкам. |
+
+## Справочник API
+
+| Проп | Тип | По умолчанию | Описание |
+| --- | --- | --- | --- |
+| `count` | `number` | — | Число полей; задайте для правильной ARIA при серверном рендеринге. |
+| `value` | `string[]` | — | Значения полей в управляемом режиме. |
+| `defaultValue` | `string[]` | — | Начальные значения полей. |
+| `onValueChange` | `(details: ValueChangeDetails) => void` | — | Вызывается при изменении любого поля. |
+| `onValueComplete` | `(details: ValueChangeDetails) => void` | — | Вызывается, когда заполнены все поля. |
+| `type` | `'numeric' \| 'alphanumeric' \| 'alphabetic'` | `'numeric'` | Допустимые символы: `numeric`, `alphanumeric` или `alphabetic`. |
+| `otp` | `boolean` | `false` | Включает автозаполнение одноразового кода. |
+| `mask` | `boolean` | `false` | Скрывает символы, как в пароле. |
+| `placeholder` | `string` | `''` | Подсказка в каждом пустом поле. |
+| `blurOnComplete` | `boolean` | `false` | Убирает фокус, когда код введён. |
+| `autoFocus` | `boolean` | `false` | Ставит фокус в первое поле при монтировании. |
+| `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'` | `'md'` | Размер: `xs`, `sm`, `md`, `lg` или `xl`. |
+| `name` | `string` | — | Имя поля формы у внутреннего input. |
+| `disabled` | `boolean` | `false` | Отключает элемент управления. |
+| `readOnly` | `boolean` | `false` | Показывает значение, но не даёт его менять. |
+| `invalid` | `boolean` | `false` | Помечает поле как невалидное. |
+| `required` | `boolean` | `false` | Требует значение перед отправкой формы. |
+| `form` | `string` | — | Id формы, к которой относится внутренний input. |
+| `pattern` | `string` | — | Регулярное выражение для каждого символа. |
+| `onValueInvalid` | `(details: ValueInvalidDetails) => void` | — | Вызывается, если символ не подходит под `type` или `pattern`. |
+| `autoSubmit` | `boolean` | — | Отправляет форму, когда заполнены все поля. |
+| `selectOnFocus` | `boolean` | — | Выделяет символ при фокусе на поле. |
+| `sanitizeValue` | `(value: string) => string` | — | Очищает вставленный текст перед проверкой. |
+| `translations` | `IntlTranslations` | — | Переведённые строки для подписей доступности. |

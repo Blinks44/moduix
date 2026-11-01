@@ -8,8 +8,8 @@ import {
   SelectContent,
   SelectOption,
 } from '@moduix/react/select';
+import { Stack } from '@moduix/react/stack';
 import { useState } from 'react';
-import styles from '@/components/examples/select/select-dynamic-items.module.css';
 
 const fruits = createListCollection({
   items: [
@@ -63,7 +63,7 @@ export default function SelectDynamicItemsDemo() {
   });
 
   return (
-    <div className={styles.root}>
+    <Stack gap="3">
       <Input
         aria-label="Filter fruits"
         value={query}
@@ -83,6 +83,6 @@ export default function SelectDynamicItemsDemo() {
           </SelectContent>
         </SelectPositioner>
       </Select>
-    </div>
+    </Stack>
   );
 }

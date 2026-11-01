@@ -11,8 +11,8 @@ import {
   PopoverTrigger,
   usePopover,
 } from '@moduix/react/popover';
+import { Stack } from '@moduix/react/stack';
 import { PreviewMeta } from '@/components/mdx/Components';
-import styles from '@/components/examples/popover/popover-root-provider.module.css';
 
 export default function RootProviderDemo() {
   const popover = usePopover({
@@ -22,7 +22,7 @@ export default function RootProviderDemo() {
     },
   });
   return (
-    <div className={styles.root}>
+    <Stack align="center" gap="3">
       <PopoverRootProvider value={popover}>
         <PopoverTrigger asChild>
           <Button>Open from trigger</Button>
@@ -45,6 +45,6 @@ export default function RootProviderDemo() {
           Toggle externally
         </Button>
       </PreviewMeta>
-    </div>
+    </Stack>
   );
 }

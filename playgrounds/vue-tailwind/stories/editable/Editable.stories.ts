@@ -127,7 +127,7 @@ export const WithField: Story = {
         <EditableArea><EditableInput /><EditablePreview /></EditableArea>
         <EditableControls />
       </Editable>
-      <FieldErrorText :class="hintClass">Bio is required.</FieldErrorText>
+      <FieldErrorText>Bio is required.</FieldErrorText>
     </Field>
   `),
 };

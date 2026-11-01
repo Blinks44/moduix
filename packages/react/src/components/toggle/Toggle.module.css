@@ -1,10 +1,10 @@
 @layer moduix.components {
   .root {
-    --_toggle-bg: var(--moduix-color-secondary);
-    --_toggle-border-color: var(--moduix-color-secondary);
-    --_toggle-color: var(--moduix-color-secondary-foreground);
-    --_toggle-bg-pressed: var(--moduix-color-primary);
-    --_toggle-color-pressed: var(--moduix-color-primary-foreground);
+    --_toggle-bg: var(--moduix-secondary);
+    --_toggle-border-color: var(--moduix-secondary);
+    --_toggle-color: var(--moduix-secondary-foreground);
+    --_toggle-bg-pressed: var(--moduix-primary);
+    --_toggle-color-pressed: var(--moduix-primary-foreground);
     --_toggle-height: var(--moduix-size-md);
 
     display: inline-flex;
@@ -34,7 +34,7 @@
       opacity var(--moduix-transition-default);
 
     &:focus-visible {
-      outline: var(--moduix-focus-ring-width) solid var(--moduix-color-ring);
+      outline: var(--moduix-focus-ring-width) solid var(--moduix-ring);
       outline-offset: var(--moduix-focus-ring-inset-offset);
     }
 
@@ -45,12 +45,12 @@
 
     @media (hover: hover) {
       &[data-state='off']:hover {
-        background-color: var(--moduix-toggle-bg-hover, var(--moduix-color-accent));
+        background-color: var(--moduix-toggle-bg-hover, var(--moduix-accent));
       }
     }
 
     &[data-state='off']:active {
-      background-color: var(--moduix-toggle-bg-hover, var(--moduix-color-accent));
+      background-color: var(--moduix-toggle-bg-hover, var(--moduix-accent));
     }
 
     &[data-state='on'] {
@@ -60,17 +60,17 @@
     }
 
     &[data-variant='outline'] {
-      --_toggle-bg: var(--moduix-color-background);
-      --_toggle-border-color: var(--moduix-color-border);
-      --_toggle-color: var(--moduix-color-foreground);
+      --_toggle-bg: var(--moduix-background);
+      --_toggle-border-color: var(--moduix-border);
+      --_toggle-color: var(--moduix-foreground);
     }
 
     &[data-variant='ghost'] {
       --_toggle-bg: transparent;
       --_toggle-border-color: transparent;
-      --_toggle-color: var(--moduix-color-foreground);
-      --_toggle-bg-pressed: var(--moduix-color-accent);
-      --_toggle-color-pressed: var(--moduix-color-foreground);
+      --_toggle-color: var(--moduix-foreground);
+      --_toggle-bg-pressed: var(--moduix-accent);
+      --_toggle-color-pressed: var(--moduix-foreground);
     }
 
     &[data-size='xs'] {

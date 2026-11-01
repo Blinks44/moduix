@@ -1,16 +1,22 @@
 ---
 title: Steps
 component: steps
-description: Guidez les utilisateurs dans un processus en plusieurs étapes avec un état et une navigation accessibles grâce à Ark UI.
+description: Guider l’utilisateur dans une tâche en plusieurs étapes avec validation.
+ark: https://ark-ui.com/docs/components/steps
 ---
 
+import AnatomyScene from '@/components/examples/steps/basic';
 import * as StepsDocs from '@/components/examples/steps/css-properties';
 
-## Référence de l’API
+<Example name="steps/basic" />
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/steps" />
+## Installation
 
-## Exemple de base
+<ComponentInstall />
+
+## Utilisation
+
+<Usage />
 
 Utilisez `Steps` avec `count`, une `StepsList` contenant un `StepsItem` par étape, les panneaux
 `StepsContent` correspondants et les boutons intégrés pour avancer ou reculer. Les index des étapes
@@ -24,103 +30,14 @@ React, Solid et Vue utilisent les mêmes noms de valeurs plats. En Vue, liez l�
 `v-model:step` et transmettez un store `useSteps()` à `StepsRootProvider` lorsqu’il est créé en
 dehors de l’arbre rendu.
 
-<Example name="steps/basic" />
-
-## Installation avec shadcn
-
-Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration complète du paquet, du registre et des styles.
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/steps' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/steps' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/steps' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/steps' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/steps' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/steps' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Anatomie
-
-```text
-Steps
-├─ StepsProgress (optional)
-├─ StepsList
-│  └─ StepsItem[index]
-│     ├─ StepsTrigger
-│     │  └─ StepsIndicator
-│     └─ StepsSeparator
-├─ StepsContent[index]
-├─ StepsCompletedContent
-├─ StepsPrevTrigger
-└─ StepsNextTrigger
-
-StepsRootProvider
-└─ same part tree connected to a useSteps() store
-```
-
-| Partie                            | Rôle                                                                                |
-| --------------------------------- | ----------------------------------------------------------------------------------- |
-| `Steps`                            | Machine d’état racine pour les étapes, l’orientation, la navigation, la validation et les identifiants. |
-| `StepsRootProvider`               | Relie les parties à l’état créé avec `useSteps()`.                                  |
-| `StepsProgress`                   | Barre de progression visuelle facultative, pilotée par la variable Ark `--percent`. |
-| `StepsList`                       | Liste d’onglets contenant les déclencheurs des étapes.                              |
-| `StepsItem`                       | Étape avec un `index` obligatoire commençant à zéro.                                |
-| `StepsTrigger`                    | Déclencheur d’onglet ; prend en charge `asChild` pour les éléments sémantiques.     |
-| `StepsIndicator`                  | Marqueur d’étape avec un nombre ou une icône de validation par défaut.               |
-| `StepsSeparator`                  | Connecteur décoratif entre les étapes.                                              |
-| `StepsContent`                    | Panneau de contenu d’une étape, associé à son `index`.                              |
-| `StepsCompletedContent`           | Panneau affiché lorsque la valeur de l’étape courante vaut `count`.                 |
-| `StepsPrevTrigger` / `StepsNextTrigger` | Boutons reliés aux actions Ark précédente et suivante.                       |
-
-## Composition
-
-Utilisez `Steps` comme propriétaire de l’état. Chaque `StepsItem` et le
-`StepsContent` correspondant doivent partager le même `index` commençant à zéro ; `count` définit
-le nombre total d’étapes et sa valeur représente la fin du parcours. Utilisez `StepsRootProvider`
-uniquement avec un store créé par `useSteps()` lorsque l’état doit être créé en dehors de
-l’arbre des parties. Ne rendez pas la racine et le provider pour un même store.
-
-Pour lire l’état de plus bas niveau, utilisez `useStepsContext` et `useStepsItemContext`, ou les
-valeurs de contexte plates `StepsContext` et `StepsItemContext`.
-
-`StepsTrigger`, `StepsPrevTrigger` et `StepsNextTrigger` acceptent `asChild`. Passez un seul
-enfant sémantique lorsqu’un contrôle doit être rendu comme une ancre, un lien de routeur ou un bouton
-de votre système de design. Sans enfant, `StepsIndicator` affiche le numéro de l’étape ou l’icône
-de validation partagée lorsque l’étape est terminée ; fournissez un contenu pour personnaliser le
-marqueur.
-
 ## Exemples
 
-### État contrôlé
+### Orientation verticale
 
-Contrôlez `step` depuis l’état de votre framework lorsque l’étape active doit rester synchronisée
-avec le routage, la validation ou une autre partie de l’interface.
+Définissez `orientation="vertical"` lorsque la liste des étapes doit se trouver à côté du panneau
+actif sur les écrans larges, puis au-dessus sur les écrans étroits.
 
-<Example name="steps/controlled" />
+<Example name="steps/vertical" />
 
 ### Validation
 
@@ -137,27 +54,66 @@ pourcentage courant ; donnez-lui un `aria-label` qui nomme le parcours.
 
 <Example name="steps/progress" />
 
-### RootProvider
-
-Créez l’état avec `useSteps()` en dehors de l’arbre des parties rendues, puis transmettez-le à
-`StepsRootProvider` lorsque des contrôles externes doivent utiliser ce même état.
-
-<Example name="steps/root-provider" />
-
-### Orientation verticale
-
-Définissez `orientation="vertical"` lorsque la liste des étapes doit se trouver à côté du panneau
-actif sur les écrans larges, puis au-dessus sur les écrans étroits.
-
-<Example name="steps/vertical" />
-
-### Personnalisation avancée
+### Déclencheurs-liens
 
 Utilisez `asChild` lorsqu’un déclencheur doit être rendu comme une ancre ou un lien de routeur plutôt
 que comme un bouton par défaut. Gardez un seul enfant sémantique afin qu’il reçoive le comportement
 ARIA, le clavier et le focus gérés par Ark.
 
-<Example name="steps/custom-composition" />
+<Example name="steps/link-triggers" />
+
+### État contrôlé
+
+Contrôlez `step` depuis l’état de votre framework lorsque l’étape active doit rester synchronisée
+avec le routage, la validation ou une autre partie de l’interface. Voir [Contrôler l’état depuis l’application](/docs/composition-patterns#controlled-state).
+
+<Example name="steps/controlled" />
+
+### Root Provider
+
+Créez l’état avec `useSteps()` en dehors de l’arbre des parties rendues, puis transmettez-le à
+`StepsRootProvider` lorsque des contrôles externes doivent utiliser ce même état. Voir [Partager l’état hors de l’arbre](/docs/composition-patterns#root-provider).
+
+<Example name="steps/root-provider" />
+
+## Composition
+
+Laissez `Steps` gérer l’état. Chaque `StepsItem` et le
+`StepsContent` correspondant doivent partager le même `index` commençant à zéro ; `count` définit
+le nombre total d’étapes et sa valeur représente la fin du parcours. Utilisez `StepsRootProvider`
+uniquement avec un store créé par `useSteps()` lorsque l’état doit être créé en dehors de
+l’arbre des parties. Ne rendez pas la racine et le provider pour un même store.
+
+Pour lire l’état de plus bas niveau, utilisez `useStepsContext` et `useStepsItemContext`, ou les
+valeurs de contexte plates `StepsContext` et `StepsItemContext`.
+
+`StepsTrigger`, `StepsPrevTrigger` et `StepsNextTrigger` acceptent `asChild`. Passez un seul
+enfant sémantique lorsqu’un contrôle doit être rendu comme une ancre, un lien de routeur ou un bouton
+de votre système de design. Sans enfant, `StepsIndicator` affiche le numéro de l’étape ou l’icône
+de validation partagée lorsque l’étape est terminée ; fournissez un contenu pour personnaliser le
+marqueur.
+
+## Anatomie
+
+Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
+
+<AnatomyInspector
+  parts={[
+    ["Steps", "steps-root", "Machine d’état racine pour les étapes, l’orientation, la navigation, la validation et les identifiants.", 0],
+    ["StepsProgress", "steps-progress", "Barre de progression visuelle facultative, pilotée par la variable Ark `--percent`.", 1],
+    ["StepsList", "steps-list", "Liste d’onglets contenant les déclencheurs des étapes.", 1],
+    ["StepsItem", "steps-item", "Étape avec un `index` obligatoire commençant à zéro.", 2],
+    ["StepsTrigger", "steps-trigger", "Déclencheur d’onglet ; prend en charge `asChild` pour les éléments sémantiques.", 3],
+    ["StepsIndicator", "steps-indicator", "Marqueur d’étape avec un nombre ou une icône de validation par défaut.", 4],
+    ["StepsSeparator", "steps-separator", "Connecteur décoratif entre les étapes.", 3],
+    ["StepsContent", "steps-content", "Panneau de contenu d’une étape, associé à son `index`.", 1],
+    ["StepsCompletedContent", "steps-completed-content", "Panneau affiché lorsque la valeur de l’étape courante vaut `count`.", 1],
+    ["StepsPrevTrigger / StepsNextTrigger", "steps-prev-trigger", "Boutons reliés aux actions Ark précédente et suivante.", 1],
+    ["StepsRootProvider", "steps-root-provider", "Relie les parties à l’état créé avec `useSteps()`.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styles
 
@@ -173,14 +129,32 @@ couleurs, la typographie et les surfaces avec une classe sur la partie.
 
 ### Variables CSS
 
-<CssPropertiesSection properties={StepsDocs.stepsCssProperties} />
+Survolez ou sélectionnez une variable pour la voir dans l’aperçu.
 
-### Hooks de style
+<CssPropertiesSection properties={StepsDocs.stepsCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
+
+### Points d’accroche CSS
+
+| Partie | `data-slot` |
+| --- | --- |
+| `Steps` | `steps-root` |
+| `StepsRootProvider` | `steps-root-provider` |
+| `StepsList` | `steps-list` |
+| `StepsItem` | `steps-item` |
+| `StepsTrigger` | `steps-trigger` |
+| `StepsIndicator` | `steps-indicator` |
+| `StepsSeparator` | `steps-separator` |
+| `StepsContent` | `steps-content` |
+| `StepsCompletedContent` | `steps-completed-content` |
+| `StepsPrevTrigger` | `steps-prev-trigger` |
+| `StepsNextTrigger` | `steps-next-trigger` |
+| `StepsProgress` | `steps-progress` |
 
 Les hooks publics utiles sont les suivants :
 
 - `className` dans React ou `class` dans Solid et Vue sur `Steps`, `StepsRootProvider`, `StepsList`, `StepsItem`, `StepsTrigger`, `StepsIndicator`, `StepsSeparator`, `StepsContent`, `StepsCompletedContent`, `StepsPrevTrigger`, `StepsNextTrigger` et `StepsProgress`
-- `data-slot="steps-root"`, `steps-root-provider`, `steps-list`, `steps-item`, `steps-trigger`, `steps-indicator`, `steps-separator`, `steps-content`, `steps-completed-content`, `steps-prev-trigger`, `steps-next-trigger` et `steps-progress`
 - Les valeurs Ark `data-scope="steps"` et `data-part` pour chaque partie primitive
 - `data-orientation="horizontal" | "vertical"` sur la racine, la liste, l’étape, le déclencheur, le contenu et le séparateur
 - `data-current`, `data-complete` et `data-incomplete` sur les surfaces d’état de l’indicateur, du séparateur et du déclencheur
@@ -188,3 +162,24 @@ Les hooks publics utiles sont les suivants :
 - `data-state="open" | "closed"` sur les déclencheurs et les panneaux de contenu
 - `data-complete` sur `StepsProgress`
 - La variable Ark `--percent` sur la racine, consommée par `StepsProgress`
+
+## Clavier
+
+| Touche | Action |
+| --- | --- |
+| `Enter` / `Space` | Ouvre l’étape ayant le focus ou active Back et Next. |
+
+## Référence de l’API
+
+| Prop | Type | Défaut | Description |
+| --- | --- | --- | --- |
+| `count` | `number` | — | Nombre total d’étapes. |
+| `step` | `number` | — | Index de l’étape courante en mode contrôlé. |
+| `defaultStep` | `number` | `0` | Étape initiale. |
+| `onStepChange` | `(details: StepChangeDetails) => void` | — | Appelé lorsque l’étape change. |
+| `onStepComplete` | `() => void` | — | Appelé lorsque la dernière étape est terminée. |
+| `linear` | `boolean` | `false` | Impose de terminer les étapes dans l’ordre. |
+| `orientation` | `'horizontal' \| 'vertical'` | `'horizontal'` | Disposition : `horizontal` ou `vertical`. |
+| `isStepValid` | `(index: number) => boolean` | `() => true` | Renvoie `false` pour bloquer le passage à l’étape suivante. |
+| `isStepSkippable` | `(index: number) => boolean` | `() => false` | Renvoie `true` pour les étapes facultatives. |
+| `onStepInvalid` | `(details: StepInvalidDetails) => void` | — | Appelé lorsque `isStepValid` bloque la navigation. |

@@ -235,13 +235,21 @@ export const CustomStyling: Story = {
   render: () => (
     <PinInput count={PIN_COUNT}>
       <PinInputLabel>Styled code</PinInputLabel>
-      <PinInputControl>
+      <PinInputControl className="gap-3">
         {[0, 1, 2].map((index) => (
-          <PinInputInput key={index} index={index} className="size-12 bg-muted text-xl" />
+          <PinInputInput
+            key={index}
+            index={index}
+            className="size-12 rounded-lg bg-muted text-xl"
+          />
         ))}
-        <PinInputSeparator className="size-6 text-primary" />
+        <PinInputSeparator className="text-primary" />
         {[3, 4, 5].map((index) => (
-          <PinInputInput key={index} index={index} className="size-12 bg-muted text-xl" />
+          <PinInputInput
+            key={index}
+            index={index}
+            className="size-12 rounded-lg bg-muted text-xl"
+          />
         ))}
       </PinInputControl>
     </PinInput>

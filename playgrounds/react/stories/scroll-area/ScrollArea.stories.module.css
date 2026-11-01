@@ -4,7 +4,7 @@
     width: 24rem;
     max-width: calc(100vw - 2rem);
     height: 13rem;
-    border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
+    border: var(--moduix-border-width-sm) solid var(--moduix-border);
     border-radius: var(--moduix-radius-lg);
   }
 
@@ -22,7 +22,7 @@
   .paragraph,
   .wideParagraph {
     margin: 0;
-    color: var(--moduix-color-foreground);
+    color: var(--moduix-foreground);
     font-size: var(--moduix-text-sm);
     line-height: var(--moduix-line-height-text-sm);
   }
@@ -46,8 +46,8 @@
     display: grid;
     place-items: center;
     border-radius: var(--moduix-radius-sm);
-    background-color: var(--moduix-color-muted);
-    color: var(--moduix-color-foreground);
+    background-color: var(--moduix-muted);
+    color: var(--moduix-foreground);
     font-size: var(--moduix-text-sm);
     font-weight: var(--moduix-weight-medium);
   }

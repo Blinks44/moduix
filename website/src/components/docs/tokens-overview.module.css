@@ -295,33 +295,21 @@
 }
 
 .themeCard {
-  --theme-bg: oklch(0.985 0.002 260);
-  --theme-fg: oklch(0.188 0.008 260);
-  --theme-card: oklch(0.998 0.001 260);
-  --theme-muted: oklch(0.959 0.004 255);
-  --theme-muted-fg: oklch(0.5 0.013 255);
-  --theme-primary: oklch(0.252 0.014 262);
-  --theme-primary-fg: oklch(0.985 0.002 260);
-  --theme-border: oklch(0.91 0.006 255);
-  --theme-overlay: oklch(0.188 0.012 260 / 0.18);
+  --theme-bg: var(--moduix-background);
+  --theme-fg: var(--moduix-foreground);
+  --theme-card: var(--moduix-card);
+  --theme-muted: var(--moduix-muted);
+  --theme-muted-fg: var(--moduix-muted-foreground);
+  --theme-primary: var(--moduix-primary);
+  --theme-primary-fg: var(--moduix-primary-foreground);
+  --theme-border: var(--moduix-border);
+  --theme-overlay: var(--moduix-overlay);
 
   display: grid;
   min-width: 0;
   overflow: hidden;
   background: var(--theme-bg);
   color: var(--theme-fg);
-}
-
-.themeCard[data-theme='dark'] {
-  --theme-bg: oklch(0.164 0.006 260);
-  --theme-fg: oklch(0.972 0.002 255);
-  --theme-card: oklch(0.214 0.009 260);
-  --theme-muted: oklch(0.268 0.009 260);
-  --theme-muted-fg: oklch(0.72 0.014 255);
-  --theme-primary: oklch(0.924 0.005 255);
-  --theme-primary-fg: oklch(0.214 0.009 260);
-  --theme-border: oklch(1 0.002 255 / 12%);
-  --theme-overlay: oklch(0.112 0.01 260 / 0.72);
 }
 
 .themeTopbar {
@@ -455,12 +443,8 @@
   border-radius: 999px;
 }
 
-.legendLight {
-  background: oklch(0.985 0.002 260);
-}
-
-.legendDark {
-  background: oklch(0.164 0.006 260);
+.colorLegend i {
+  background: var(--moduix-background);
 }
 
 .colorGrid {
@@ -489,9 +473,7 @@
   min-width: 0;
 }
 
-.swatchBlock > span,
-.chartLight,
-.chartDark {
+.swatchBlock > span {
   display: block;
   min-height: 3rem;
   border: 1px solid color-mix(in oklab, var(--rp-c-divider-light) 72%, transparent);
@@ -587,65 +569,29 @@
 
 .scaleShape {
   display: block;
-  width: calc(0.5rem + var(--step, 0) * 0.28rem);
+  width: calc(var(--token) * 1.5);
   min-width: 0.35rem;
   height: 0.8rem;
   border-radius: 999px;
   background: linear-gradient(90deg, var(--tokens-green), var(--tokens-blue));
 }
 
-.scaleRow[data-index='0'] {
-  --step: 0;
-}
-
-.scaleRow[data-index='1'] {
-  --step: 1;
-}
-
-.scaleRow[data-index='2'] {
-  --step: 2;
-}
-
-.scaleRow[data-index='3'] {
-  --step: 3;
-}
-
-.scaleRow[data-index='4'] {
-  --step: 4;
-}
-
-.scaleRow[data-index='5'] {
-  --step: 5;
-}
-
-.scaleRow[data-index='6'] {
-  --step: 6;
-}
-
-.scaleRow[data-index='7'] {
-  --step: 8;
-}
-
-.scaleRow[data-index='8'] {
-  --step: 10;
-}
-
 .scaleCard[data-variant='blocks'] .scaleShape {
-  width: calc(1.5rem + var(--step, 0) * 0.38rem);
-  height: calc(1.5rem + var(--step, 0) * 0.38rem);
+  width: var(--token);
+  height: var(--token);
   border-radius: 0.35rem;
 }
 
 .scaleCard[data-variant='lines'] .scaleShape {
   width: 3.2rem;
-  height: calc(1px + var(--step, 0) * 1.5px);
+  height: var(--token);
   border-radius: 0;
 }
 
 .scaleCard[data-variant='opacity'] .scaleShape {
   width: 3.2rem;
   height: 1.35rem;
-  opacity: calc(0.45 + var(--step, 0) * 0.2);
+  opacity: var(--token);
 }
 
 .radiusGrid {
@@ -664,40 +610,8 @@
   display: block;
   height: 3.2rem;
   border: 1px solid color-mix(in oklab, var(--tokens-blue) 34%, var(--rp-c-divider-light));
-  border-radius: calc(var(--radius-step, 0) * 0.12rem);
+  border-radius: var(--token);
   background: color-mix(in oklab, var(--tokens-blue) 10%, var(--rp-c-bg));
-}
-
-.radiusToken[data-index='0'] {
-  --radius-step: 5;
-}
-
-.radiusToken[data-index='1'] {
-  --radius-step: 0;
-}
-
-.radiusToken[data-index='2'] {
-  --radius-step: 2;
-}
-
-.radiusToken[data-index='3'] {
-  --radius-step: 3;
-}
-
-.radiusToken[data-index='4'] {
-  --radius-step: 4;
-}
-
-.radiusToken[data-index='5'] {
-  --radius-step: 5;
-}
-
-.radiusToken[data-index='6'] {
-  --radius-step: 7;
-}
-
-.radiusToken[data-index='7'] {
-  --radius-step: 18;
 }
 
 .typeGrid {
@@ -725,7 +639,6 @@
   border-radius: 0.45rem;
   background: color-mix(in oklab, var(--tokens-amber) 16%, var(--rp-c-bg));
   color: color-mix(in oklab, var(--tokens-amber) 64%, var(--rp-c-text-1));
-  font-size: 1.35rem;
   font-weight: 700;
 }
 
@@ -797,16 +710,8 @@
   background: var(--rp-c-bg);
 }
 
-.shadowCard[data-depth='1'] {
-  box-shadow: var(--moduix-shadow-sm, 0 2px 4px 0 #0000001a);
-}
-
-.shadowCard[data-depth='2'] {
-  box-shadow: var(--moduix-shadow-md, 0 4px 6px -1px #0000001a);
-}
-
-.shadowCard[data-depth='3'] {
-  box-shadow: var(--moduix-shadow-lg, 0 10px 15px -3px #0000001a);
+.shadowCard {
+  box-shadow: var(--token);
 }
 
 .backdropPreview {
@@ -906,4 +811,10 @@
   .swatches {
     grid-template-columns: 1fr;
   }
+}
+/* Reads a token through a real CSS property without taking up space. */
+.probe {
+  position: absolute;
+  visibility: hidden;
+  pointer-events: none;
 }

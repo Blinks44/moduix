@@ -1,17 +1,26 @@
 ---
 title: List
 component: list
-description: A semantic list with configurable spacing, typography, tones, and native markers.
+description: Render bulleted or numbered lists with consistent spacing and markers.
+ark: https://ark-ui.com/docs/guides/composition#the-ark-factory
 ---
 
+import AnatomyScene from '@/components/examples/list/basic';
 
-## API Reference
+<Example name="list/basic" />
 
-Ark UI does not provide a dedicated list primitive. moduix uses the official
-[Ark factory](https://ark-ui.com/docs/guides/composition#the-ark-factory) to compose native `ul`, `ol`, and
-`li` elements. See Ark's guides to [composition](https://ark-ui.com/docs/guides/composition),
-[styling](https://ark-ui.com/docs/guides/styling), and [refs](https://ark-ui.com/docs/guides/ref) for the
-underlying model.
+## Installation
+
+<ComponentInstall />
+
+## Usage
+
+<Usage />
+
+`List` renders a semantic `<ul>` by default. Use `ListItem` when you need the stable item part and its
+styling hooks, or use native `<li>` children when you do not need the wrapper. The root controls spacing,
+typography, tone, and markers. By default, `ul` gets `disc` markers and `ol` gets `decimal`;
+set `marker` to `disc`, `decimal`, or `none` to choose explicitly. With `asChild`, pass `marker` to match the child.
 
 ## Choosing the right component
 
@@ -21,98 +30,7 @@ semantics while adding controls for spacing, typography, tone, and markers.
 If users need to navigate with the keyboard and select one or more options, use [Listbox](/docs/listbox).
 `Listbox` manages focus, the collection, and selection.
 
-## Basic
-
-
-`List` renders a semantic `<ul>` by default. Use `ListItem` when you need the stable item part and its
-styling hooks, or use native `<li>` children when you do not need the wrapper. The root controls spacing,
-typography, tone, and markers. By default, `ul` gets `disc` markers and `ol` gets `decimal`;
-set `marker` to `disc`, `decimal`, or `none` to choose explicitly. With `asChild`, pass `marker` to match the child.
-
-<Example name="list/basic" />
-
-## Install with shadcn
-
-See [Quick Start](/docs/quick-start) for full package setup, registry configuration, and styling guidance.
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/list' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/list' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/list' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/list' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/list' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/list' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Anatomy
-
-```text
-List
-└─ ListItem | li
-   └─ ListIndicator
-```
-
-| Part                 | Role                                                                                              |
-| -------------------- | ------------------------------------------------------------------------------------------------- |
-| `List`     | Semantic list root that renders `ul` or `ol` and controls markers, spacing, size, and tone.      |
-| `ListItem` | Optional item part that renders `li`, forwards native attributes and refs, and supports `asChild`. |
-| `ListIndicator` | Optional `span` placed first in an item for an icon instead of a native marker. |
-
-## Composition
-
-Use `List` for the root. Its direct children should be `ListItem` or native `li` elements,
-because root spacing and marker styling target direct list items. Use `ListItem` when you need its stable
-slot, `className`/`class`, or `asChild`; native `li` is enough otherwise. Use `asChild` only when an application
-component owns one semantic `ul`, `ol`, or `li` and forwards the received props and ref. In Solid, pass the
-render function form of `asChild`; in Vue, pass the semantic element as the component slot. `List` has no state
-machine or callbacks, so keyboard selection belongs to `Listbox`.
-
 ## Examples
-
-### Custom Root
-
-Use `List asChild` when a component from your application must render the semantic list element. It must
-forward the received props and ref to one `<ul>` or `<ol>` in React, use the render-function form in Solid, or pass
-one semantic child in Vue.
-
-<Example name="list/root-as-child" />
-
-### Markerless
-
-Use `marker="none"` when you need list semantics without visible markers. `List` adds `role="list"` by default
-in this mode unless you provide another `role`.
-
-<Example name="list/markerless" />
-
-### Native Items
-
-Use native `li` elements when you do not need the exported `ListItem` part.
-
-<Example name="list/native-items" />
 
 ### Ordered
 
@@ -121,6 +39,21 @@ as `start` and `reversed` are forwarded to the ordered-list root. Markers come f
 attribute does not change them; set `list-style-type` with a class for letters or roman numerals.
 
 <Example name="list/ordered" />
+
+### Markerless
+
+Use `marker="none"` when you need list semantics without visible markers. `List` adds `role="list"` by default
+in this mode unless you provide another `role`.
+
+<Example name="list/markerless" />
+
+### With indicator
+
+Use `ListIndicator` to show an icon instead of a native marker, and set `marker="none"` on the root. An item
+with an indicator becomes a flex row: the icon is sized to `1em`, aligned with the first line, and long text wraps
+next to it instead of under it.
+
+<Example name="list/with-indicator" />
 
 ### Tone
 
@@ -135,20 +68,49 @@ Put a nested `List` inside a `ListItem`. The nested list starts one `gap` below 
 
 <Example name="list/nested" />
 
-### With Indicator
+### Native items
 
-Use `ListIndicator` to show an icon instead of a native marker, and set `marker="none"` on the root. An item
-with an indicator becomes a flex row: the icon is sized to `1em`, aligned with the first line, and long text wraps
-next to it instead of under it.
+Use native `li` elements when you do not need the exported `ListItem` part.
 
-<Example name="list/with-indicator" />
+<Example name="list/native-items" />
 
-### Advanced Customization
+### Custom element
 
 Use `ListItem asChild` when a custom component must render the `<li>` itself. It must forward the received
 props and ref and preserve the semantic `<li>` element. In other cases, use `ListItem className` or `class` directly.
 
-<Example name="list/custom-composition" />
+<Example name="list/custom-element" />
+
+### Custom root
+
+Use `List asChild` when a component from your application must render the semantic list element. It must
+forward the received props and ref to one `<ul>` or `<ol>` in React, use the render-function form in Solid, or pass
+one semantic child in Vue.
+
+<Example name="list/root-as-child" />
+
+## Composition
+
+Use `List` for the root. Its direct children should be `ListItem` or native `li` elements,
+because root spacing and marker styling target direct list items. Use `ListItem` when you need its stable
+slot, `className`/`class`, or `asChild`; native `li` is enough otherwise. Use `asChild` only when an application
+component renders one semantic `ul`, `ol`, or `li` and forwards the received props and ref. In Solid, pass the
+render function form of `asChild`; in Vue, pass the semantic element as the component slot. `List` has no state
+machine or callbacks, so keyboard selection belongs to `Listbox`.
+
+## Anatomy
+
+Hover or focus a part to find it in the preview.
+
+<AnatomyInspector
+  parts={[
+    ["List", "list-root", "Semantic list root that renders `ul` or `ol` and controls markers, spacing, size, and tone.", 0],
+    ["ListItem", "list-item", "Optional item part that renders `li`, forwards native attributes and refs, and supports `asChild`.", 1],
+    ["ListIndicator", "list-indicator", "Optional `span` placed first in an item for an icon instead of a native marker.", 2],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styling
 
@@ -156,7 +118,13 @@ Style `List` with the framework's class prop (`className` in React and `class` i
 `data-*` attributes, and native `li::marker`. CSS Modules variants build on foundation tokens and have no component
 variables: a class on the root overrides the layered component styles.
 
-### Styling Hooks
+### Styling hooks
+
+| Part | `data-slot` |
+| --- | --- |
+| `List` | `list-root` |
+| `ListItem` | `list-item` |
+| `ListIndicator` | `list-indicator` |
 
 `List` exposes these public styling hooks:
 
@@ -168,3 +136,15 @@ variables: a class on the root overrides the layered component styles.
 - `data-size="xs" | "sm" | "md" | "lg" | "xl"` for typography size styles
 - `data-tone="default" | "muted" | "primary" | "destructive"` for semantic colors
 - native `li::marker` for overriding marker color or weight
+
+## API reference
+
+Also accepts the native props of its element and `asChild`.
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `as` | `'ul' \| 'ol'` | `'ul'` | List element: `ul` or `ol`. |
+| `marker` | `'disc' \| 'decimal' \| 'none'` | by `as` | Item marker: `disc`, `decimal`, or `none`; follows `as` by default. |
+| `gap` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl' \| '2xl'` | `'sm'` | Space between items, `xs` to `2xl`. |
+| `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'` | `'md'` | Text size, `xs` to `xl`. |
+| `tone` | `'default' \| 'muted' \| 'primary' \| 'destructive'` | `'default'` | Text color: `default`, `muted`, `primary`, or `destructive`. |

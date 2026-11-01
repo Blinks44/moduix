@@ -32,8 +32,8 @@
   width: var(--moduix-size-sm);
   height: var(--moduix-size-sm);
   border-radius: var(--moduix-radius-sm);
-  background: var(--moduix-color-primary);
-  color: var(--moduix-color-primary-foreground);
+  background: var(--moduix-primary);
+  color: var(--moduix-primary-foreground);
   font-size: var(--moduix-text-xs);
 }
 
@@ -59,7 +59,7 @@
   gap: var(--moduix-spacing-3);
   min-height: 3.5rem;
   padding-inline: var(--moduix-spacing-6);
-  border-block-end: var(--moduix-border-width-sm) solid var(--moduix-color-border);
+  border-block-end: var(--moduix-border-width-sm) solid var(--moduix-border);
 }
 
 .main {
@@ -75,9 +75,9 @@
 
 .placeholder {
   min-height: 18rem;
-  border: var(--moduix-border-width-sm) dashed var(--moduix-color-border);
+  border: var(--moduix-border-width-sm) dashed var(--moduix-border);
   border-radius: var(--moduix-radius-lg);
-  background: color-mix(in oklab, var(--moduix-color-muted) 55%, transparent);
+  background: color-mix(in oklab, var(--moduix-muted) 55%, transparent);
 }
 
 .accountButton {
@@ -91,8 +91,8 @@
   width: var(--moduix-size-sm);
   height: var(--moduix-size-sm);
   border-radius: var(--moduix-radius-sm);
-  background-color: var(--moduix-color-accent);
-  color: var(--moduix-color-accent-foreground);
+  background-color: var(--moduix-accent);
+  color: var(--moduix-accent-foreground);
   font-size: var(--moduix-text-xs);
   font-weight: var(--moduix-weight-semibold);
 }
@@ -123,20 +123,12 @@
   }
 
   & > span {
-    color: var(--moduix-color-muted-foreground);
+    color: var(--moduix-muted-foreground);
     font-size: var(--moduix-text-xs);
   }
 }
 
 .custom {
-  --moduix-color-sidebar: color-mix(
-    in oklab,
-    var(--moduix-color-primary) 5%,
-    var(--moduix-color-card)
-  );
-  --moduix-color-sidebar-accent: color-mix(
-    in oklab,
-    var(--moduix-color-primary) 14%,
-    var(--moduix-color-accent)
-  );
+  --moduix-sidebar: color-mix(in oklab, var(--moduix-primary) 5%, var(--moduix-card));
+  --moduix-sidebar-accent: color-mix(in oklab, var(--moduix-primary) 14%, var(--moduix-accent));
 }

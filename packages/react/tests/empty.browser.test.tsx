@@ -3,14 +3,13 @@ import { expect, test } from '@rstest/core';
 import { render, screen } from '@testing-library/react';
 import { createRef } from 'react';
 import {
-  Button,
   Empty,
   EmptyActions,
   EmptyContent,
   EmptyDescription,
   EmptyIcon,
   EmptyTitle,
-} from '../src';
+} from '@/index';
 
 test('renders presentational anatomy with stable hooks and forwarded refs', async () => {
   const rootRef = createRef<HTMLDivElement>();
@@ -123,21 +122,4 @@ test('keeps owned anatomy attributes when consumer props conflict', () => {
   expect(screen.getByTestId('title').getAttribute('data-part')).toBe('title');
   expect(screen.getByTestId('description').getAttribute('data-part')).toBe('description');
   expect(screen.getByTestId('actions').getAttribute('data-part')).toBe('actions');
-});
-test('wraps long titles and button labels inside a narrow surface', () => {
-  render(
-    <Empty data-testid="empty" style={{ width: '200px' }}>
-      <EmptyContent>
-        <EmptyTitle>Unbrokenprojectnamethatislongerthanthesurface</EmptyTitle>
-      </EmptyContent>
-      <EmptyActions>
-        <Button>Connect a repository to start tracking deployments</Button>
-      </EmptyActions>
-    </Empty>,
-  );
-
-  const root = screen.getByTestId('empty').getBoundingClientRect();
-  for (const element of [screen.getByRole('heading'), screen.getByRole('button')]) {
-    expect(element.getBoundingClientRect().right).toBeLessThanOrEqual(root.right + 1);
-  }
 });

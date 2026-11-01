@@ -1,102 +1,40 @@
 ---
 title: Skeleton
 component: skeleton
-description: Заполнитель для текста, карточек, медиа и разделов страницы во время загрузки в React, Solid и Vue.
+description: Заглушка для текста, карточек и медиа, пока загружается контент.
+ark: https://ark-ui.com/docs/guides/composition#the-ark-factory
 ---
 
+import AnatomyScene from '@/components/examples/skeleton/basic';
 import * as SkeletonDocs from '@/components/examples/skeleton/css-properties';
 
-## Справочник API
+<Example name="skeleton/basic" />
 
-В Ark UI нет отдельного примитива `Skeleton`. moduix создаёт `Skeleton` на основе официальной
-[фабрики Ark](https://ark-ui.com/docs/guides/composition#the-ark-factory) и следует рекомендациям Ark по
-[композиции](https://ark-ui.com/docs/guides/composition), [стилизации](https://ark-ui.com/docs/guides/styling) и
-[работе с ref](https://ark-ui.com/docs/guides/ref).
+## Установка
 
-## Базовый пример
+<ComponentInstall />
 
+## Использование
+
+<Usage />
 
 Используйте `Skeleton` для строк текста, карточек, аватаров и медиа-заполнителей. Окружающая разметка отвечает
 за отступы и адаптивную компоновку. Инструкции по установке пакетов, настройке реестра и выбору способа
 стилизации находятся в разделе [Быстрый старт](/docs/quick-start).
 
-<Example name="skeleton/basic" />
-
-## Установка через shadcn
-
-Полную настройку пакета, реестра и стилей см. в разделе [Быстрый старт](/docs/quick-start).
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/skeleton' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/skeleton' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/skeleton' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/skeleton' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/skeleton' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/skeleton' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Анатомия
-
-`Skeleton` состоит из одной визуальной части. Компоновку задаёт окружающая разметка.
-
-```text
-Skeleton
-└─ children (необязательно, отображаются при loading={false})
-```
-
-| Часть                        | Назначение                                                                                  |
-| ---------------------------- | ------------------------------------------------------------------------------------------- |
-| `Skeleton` | Блок-заполнитель. По умолчанию рендерит элемент фабрики Ark; с `asChild` корневым можно сделать другой семантический элемент. |
-
-## Композиция
-
-`Skeleton` не управляет состоянием загрузки. Область данных или страницы, которая владеет запросом, передаёт
-`loading` и должна получать `aria-busy`; сам заполнитель служит только для оформления. Установите
-`loading={false}` (в Vue используйте `:loading="false"`), чтобы показать дочерние элементы в том же корневом элементе.
-
-`Skeleton` состоит из одной визуальной части, поэтому карточки, медиаобъекты и адаптивные раскладки следует
-собирать в своей обёртке. `Stack` доступен в обоих вариантах стилизации; в Tailwind также можно использовать
-нативные классы-утилиты flex и grid. Используйте `asChild`, только если нужен другой семантический корневой
-элемент. В Solid в `asChild` передаётся функция рендера, а во Vue используется `as-child`
-с одним семантическим элементом в слоте по умолчанию.
-
 ## Примеры
+
+### Варианты
+
+Используйте `variant`, чтобы выбрать пульсирующее или статичное отображение заполнителя.
+
+<Example name="skeleton/variants" />
 
 ### Карточка
 
 Используйте крупный блок и более короткие строки текста, чтобы сохранить компоновку карточки во время загрузки.
 
 <Example name="skeleton/card" />
-
-### Загруженное содержимое
-
-Используйте `loading`, чтобы сохранить один и тот же корневой элемент при замене заполнителя реальным содержимым.
-
-<Example name="skeleton/loaded-content" />
 
 ### Медиаобъект
 
@@ -110,17 +48,43 @@ Skeleton
 
 <Example name="skeleton/responsive-layout" />
 
-### Варианты
+### Загруженное содержимое
 
-Используйте `variant`, чтобы выбрать пульсирующее или статичное отображение заполнителя.
+Используйте `loading`, чтобы сохранить один и тот же корневой элемент при замене заполнителя реальным содержимым.
 
-<Example name="skeleton/variants" />
+<Example name="skeleton/loaded-content" />
 
-### Расширенная настройка
+### Пользовательский элемент
 
 Используйте `asChild`, когда корневым элементом должен стать семантический `section`, а не стандартный `div`.
 
-<Example name="skeleton/custom-host" />
+<Example name="skeleton/custom-element" />
+
+## Композиция
+
+`Skeleton` не управляет состоянием загрузки. Область данных или страницы, которая выполняет запрос, передаёт
+`loading` и должна получать `aria-busy`; сам заполнитель служит только для оформления. Установите
+`loading={false}` (в Vue используйте `:loading="false"`), чтобы показать дочерние элементы в том же корневом элементе.
+
+`Skeleton` состоит из одной визуальной части, поэтому карточки, медиаобъекты и адаптивные раскладки следует
+собирать в своей обёртке. `Stack` доступен в обоих вариантах стилизации; в Tailwind также можно использовать
+нативные классы-утилиты flex и grid. Используйте `asChild`, только если нужен другой семантический корневой
+элемент. В Solid в `asChild` передаётся функция рендера, а во Vue используется `as-child`
+с одним семантическим элементом в слоте по умолчанию.
+
+## Анатомия
+
+`Skeleton` состоит из одной визуальной части. Компоновку задаёт окружающая разметка.
+
+Наведите на часть или выберите её, чтобы найти её в превью.
+
+<AnatomyInspector
+  parts={[
+    ["Skeleton", "skeleton-root", "Блок-заполнитель. По умолчанию рендерит элемент фабрики Ark; с `asChild` корневым можно сделать другой семантический элемент.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Стилизация
 
@@ -130,12 +94,31 @@ Skeleton
 
 ### CSS-переменные
 
-<CssPropertiesSection properties={SkeletonDocs.skeletonOverrideCssProperties} />
+Наведите на переменную или выберите её, чтобы увидеть её в превью.
 
-### Селекторы и атрибуты для стилизации
+<CssPropertiesSection properties={SkeletonDocs.skeletonOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
+
+### Хуки стилизации
+
+| Часть | `data-slot` |
+| --- | --- |
+| `Skeleton` | `skeleton-root` |
 
 - `[data-scope="skeleton"][data-part="root"]` выбирает экспортируемый корневой элемент.
-- `data-slot="skeleton-root"` - стабильный селектор moduix для корневого элемента.
 - `data-state="loading"` и `data-state="loaded"` соответствуют свойству `loading`.
 - `data-variant="pulse"` и `data-variant="none"` соответствуют выбранному варианту.
 - `data-loading` присутствует только тогда, когда активны стили заполнителя.
+
+## Справочник API
+
+| Проп | Тип | По умолчанию | Описание |
+| --- | --- | --- | --- |
+| `loading` | `boolean` | `true` | Показывает заглушку; при `false` видны дочерние элементы. |
+| `variant` | `'pulse' \| 'none'` | `'pulse'` | Анимация: `pulse` или `none`. |
+| `width` | `number \| string` | — | Ширина заглушки; числа в пикселях. |
+| `height` | `number \| string` | — | Высота заглушки; числа в пикселях. |
+| `boxSize` | `number \| string` | — | Задаёт ширину и высоту сразу. |
+| `borderRadius` | `number \| string` | — | Радиус углов, например для круглой заглушки аватара. |
+| `asChild` | `boolean` | `false` | Отрисовывает заглушку через единственный дочерний элемент. |

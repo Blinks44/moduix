@@ -1,51 +1,26 @@
 ---
 title: Tabs
 component: tabs
-description: Basculez entre des panneaux liés avec une navigation clavier accessible, un état contrôlé, un montage différé, des liens et une orientation verticale.
+description: Basculer entre des panneaux liés dans une zone de la page.
+ark: https://ark-ui.com/docs/components/tabs
 ---
 
+import AnatomyScene from '@/components/examples/tabs/basic';
 import * as TabsDocs from '@/components/examples/tabs/css-properties';
-import TabsBasic from '@/components/examples/tabs/basic.tsx';
-import TabsControlledValue from '@/components/examples/tabs/controlled-value.tsx';
-import TabsCustomIcons from '@/components/examples/tabs/custom-icons.tsx';
-import TabsDisabledTab from '@/components/examples/tabs/disabled-tab.tsx';
-import TabsFitted from '@/components/examples/tabs/fitted.tsx';
-import TabsLazyMount from '@/components/examples/tabs/lazy-mount.tsx';
-import TabsLine from '@/components/examples/tabs/line.tsx';
-import TabsLinks from '@/components/examples/tabs/links.tsx';
-import TabsManualActivation from '@/components/examples/tabs/manual-activation.tsx';
-import TabsRootProvider from '@/components/examples/tabs/root-provider.tsx';
-import TabsSizes from '@/components/examples/tabs/sizes.tsx';
-import TabsVertical from '@/components/examples/tabs/vertical.tsx';
-import tabsPreviewStyles from '@/components/examples/tabs/tabs-preview.module.css';
-import tabsSolidBasic from '../../../snippets/tabs/solid/basic.tsx?raw';
-import tabsSolidControlledValue from '../../../snippets/tabs/solid/controlled-value.tsx?raw';
-import tabsSolidCustomIcons from '../../../snippets/tabs/solid/custom-icons.tsx?raw';
-import tabsSolidDisabledTab from '../../../snippets/tabs/solid/disabled-tab.tsx?raw';
-import tabsSolidFitted from '../../../snippets/tabs/solid/fitted.tsx?raw';
-import tabsSolidLazyMount from '../../../snippets/tabs/solid/lazy-mount.tsx?raw';
-import tabsSolidLine from '../../../snippets/tabs/solid/line.tsx?raw';
-import tabsSolidLinks from '../../../snippets/tabs/solid/links.tsx?raw';
-import tabsSolidManualActivation from '../../../snippets/tabs/solid/manual-activation.tsx?raw';
-import tabsSolidRootProvider from '../../../snippets/tabs/solid/root-provider.tsx?raw';
-import tabsSolidSizes from '../../../snippets/tabs/solid/sizes.tsx?raw';
-import tabsSolidVertical from '../../../snippets/tabs/solid/vertical.tsx?raw';
-import tabsVueBasic from '../../../snippets/tabs/vue/basic.vue?raw';
-import tabsVueControlledValue from '../../../snippets/tabs/vue/controlled-value.vue?raw';
-import tabsVueCustomIcons from '../../../snippets/tabs/vue/custom-icons.vue?raw';
-import tabsVueDisabledTab from '../../../snippets/tabs/vue/disabled-tab.vue?raw';
-import tabsVueFitted from '../../../snippets/tabs/vue/fitted.vue?raw';
-import tabsVueLazyMount from '../../../snippets/tabs/vue/lazy-mount.vue?raw';
-import tabsVueLine from '../../../snippets/tabs/vue/line.vue?raw';
-import tabsVueLinks from '../../../snippets/tabs/vue/links.vue?raw';
-import tabsVueManualActivation from '../../../snippets/tabs/vue/manual-activation.vue?raw';
-import tabsVueRootProvider from '../../../snippets/tabs/vue/root-provider.vue?raw';
-import tabsVueSizes from '../../../snippets/tabs/vue/sizes.vue?raw';
-import tabsVueVertical from '../../../snippets/tabs/vue/vertical.vue?raw';
 
-## Référence de l’API
+<Example name="tabs/basic" width="lg" />
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/tabs" />
+## Installation
+
+<ComponentInstall />
+
+## Utilisation
+
+<Usage />
+
+Commencez avec `Tabs` et donnez la même valeur `value` à chaque paire `TabsTrigger` et
+`TabsContent`. Rendez `TabsIndicator` explicitement lorsque l’onglet sélectionné doit avoir un
+marqueur visuel.
 
 ## Choisir le bon composant
 
@@ -56,114 +31,85 @@ onglet affiche le panneau correspondant et masque les autres panneaux.
 - Choisissez **`Accordion`** lorsque les sections doivent rester empilées et s’ouvrir indépendamment.
 - Choisissez **`ToggleGroup`** lorsque le contrôle modifie un état ou un mode sans gérer le contenu d’un panneau.
 
-## Exemple de base
+## Exemples
 
+### Variante ligne
 
-Commencez avec `Tabs` et donnez la même valeur `value` à chaque paire `TabsTrigger` et
-`TabsContent`. Rendez `TabsIndicator` explicitement lorsque l’onglet sélectionné doit avoir un
-marqueur visuel.
+Utilisez `variant="line"` lorsque l’indicateur doit se placer sur le bord actif au lieu de remplir
+l’onglet sélectionné. Les onglets horizontaux tracent la ligne sous la liste, les onglets verticaux
+sur le bord de la liste côté panneau.
 
-<ExampleFrame variant="component">
-  <div className={tabsPreviewStyles.root}>
-    <TabsBasic />
-  </div>
-</ExampleFrame>
+<Example name="tabs/line" width="lg" />
 
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
+### Tailles
 
-```tsx pure file="../../../src/components/examples/tabs/basic.tsx"
-```
+Définissez `size` sur `Tabs` ou `TabsRootProvider` : `sm`, `md` (par défaut) ou `lg`. La liste
+d’onglets a alors la hauteur d’un `Button` ou d’un `Input` de même taille, comme `SegmentGroup`.
 
-    </Tab>
-    <Tab value="solid">
+<Example name="tabs/sizes" width="lg" />
 
-<CodeBlockRuntime lang="tsx" code={tabsSolidBasic} />
+### Onglets étirés
 
-    </Tab>
-    <Tab value="vue">
+Ajoutez `fitted` à `Tabs` ou `TabsRootProvider` pour étirer une liste d’onglets horizontale sur toute
+la largeur de la racine et la répartir également entre les déclencheurs. Les onglets verticaux
+l’ignorent.
 
-<CodeBlockRuntime lang="vue" code={tabsVueBasic} />
+<Example name="tabs/fitted" width="lg" />
 
-    </Tab>
-  </Tabs>
-</div>
+### Vertical
 
-</ExampleCode>
+Utilisez `orientation="vertical"` lorsque la liste des onglets doit se trouver à côté du panneau
+actif. La liste occupe jusqu’à `12rem`, et au plus 40 % de la largeur de la racine dans un conteneur
+étroit.
 
-## Installation avec shadcn
+<Example name="tabs/vertical" width="lg" />
 
-Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration complète du paquet, du registre et des styles.
+### Icônes personnalisées
 
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
+Placez directement les icônes et les libellés dans `TabsTrigger`.
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/tabs' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/tabs' },
-  ]}
-/>
+<Example name="tabs/custom-icons" width="lg" />
 
-  </Tab>
-  <Tab label="Solid" value="solid">
+### Onglet désactivé
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/tabs' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/tabs' },
-  ]}
-/>
+Désactivez un onglet qui doit rester visible, mais qui n’est pas encore disponible.
 
-  </Tab>
-  <Tab label="Vue" value="vue">
+<Example name="tabs/disabled-tab" width="lg" />
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/tabs' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/tabs' },
-  ]}
-/>
+### Liens
 
-  </Tab>
-</Tabs>
+Utilisez `asChild` lorsque les déclencheurs doivent être rendus comme des liens gérés par votre
+routeur.
 
-## Anatomie
+<Example name="tabs/links" width="lg" />
 
-```text
-Tabs
-├─ TabsList
-│  ├─ TabsTrigger[value]
-│  ├─ TabsTrigger[value]
-│  └─ TabsIndicator
-└─ TabsContent[value]
+### Activation manuelle
 
-TabsRootProvider
-└─ mêmes parties reliées à un store useTabs()
+Définissez `activationMode="manual"` lorsque les flèches doivent déplacer le focus sans changer
+l’onglet sélectionné. Activez-le avec un clic, Entrée ou Espace.
 
-TabsContext
-└─ render prop / scoped slot
-```
+<Example name="tabs/manual-activation" width="lg" />
 
-| Partie                | Rôle                                                               |
-| --------------------- | ------------------------------------------------------------------ |
-| `Tabs`                | Racine qui gère la valeur sélectionnée, le focus, l’orientation et le mode. |
-| `TabsRootProvider`   | Relie les parties à l’état créé avec `useTabs()` de moduix.        |
-| `TabsContext`        | Expose l’état courant des onglets via une render prop ou un scoped slot en Vue. |
-| `TabsList`           | Regroupe les déclencheurs et gère les déplacements du focus.       |
-| `TabsTrigger`        | Bouton d’onglet interactif, ou hôte `asChild`, avec une valeur obligatoire. |
-| `TabsIndicator`      | Indicateur facultatif de l’onglet sélectionné.                     |
-| `TabsContent`        | Panneau associé au déclencheur qui possède la même valeur.        |
+### Montage différé
+
+Utilisez `lazyMount` lorsque les panneaux inactifs ne doivent être montés qu’après leur sélection.
+Ajoutez `unmountOnExit` pour les retirer à nouveau du DOM lorsque l’utilisateur les quitte.
+
+<Example name="tabs/lazy-mount" width="lg" />
+
+### Valeur contrôlée
+
+Contrôlez l’onglet sélectionné avec l’état de l’application lorsque le panneau actif doit se synchroniser avec
+d’autres éléments de l’interface.
+
+<Example name="tabs/controlled-value" width="lg" />
+
+### Root Provider
+
+Créez l’état des onglets avec `useTabs()` lorsqu’il doit exister avant le rendu de l’arbre de parties
+ou lorsque l’interface voisine doit lire la valeur sélectionnée.
+
+<Example name="tabs/root-provider" width="lg" />
 
 ## Composition
 
@@ -180,492 +126,23 @@ une autre racine `Tabs` pour ce même état. Utilisez `asChild` sur `TabsTrigger
 composant de routeur, et rendez `TabsIndicator` explicitement, car `TabsList` ne l’ajoute pas
 automatiquement.
 
-## Exemples
-
-### Valeur contrôlée
-
-Contrôlez l’onglet sélectionné avec l’état de l’application lorsque le panneau actif doit se synchroniser avec
-d’autres éléments de l’interface.
-
-<ExampleFrame variant="component">
-  <div className={tabsPreviewStyles.root}>
-    <TabsControlledValue />
-  </div>
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/tabs/controlled-value.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={tabsSolidControlledValue} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={tabsVueControlledValue} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
-
-### Icônes personnalisées
-
-Placez directement les icônes et les libellés dans `TabsTrigger`.
-
-<ExampleFrame variant="component">
-  <div className={tabsPreviewStyles.root}>
-    <TabsCustomIcons />
-  </div>
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/tabs/custom-icons.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={tabsSolidCustomIcons} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={tabsVueCustomIcons} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
-
-### Onglet désactivé
-
-Désactivez un onglet qui doit rester visible, mais qui n’est pas encore disponible.
-
-<ExampleFrame variant="component">
-  <div className={tabsPreviewStyles.root}>
-    <TabsDisabledTab />
-  </div>
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/tabs/disabled-tab.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={tabsSolidDisabledTab} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={tabsVueDisabledTab} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
-
-### Onglets étirés
-
-Ajoutez `fitted` à `Tabs` ou `TabsRootProvider` pour étirer une liste d’onglets horizontale sur toute
-la largeur de la racine et la répartir également entre les déclencheurs. Les onglets verticaux
-l’ignorent.
-
-<ExampleFrame variant="component">
-  <div className={tabsPreviewStyles.root}>
-    <TabsFitted />
-  </div>
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/tabs/fitted.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={tabsSolidFitted} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={tabsVueFitted} />
-
-    </Tab>
-  </Tabs>
-
-</div>
-
-</ExampleCode>
-
-### Montage différé
-
-Utilisez `lazyMount` lorsque les panneaux inactifs ne doivent être montés qu’après leur sélection.
-Ajoutez `unmountOnExit` pour les retirer à nouveau du DOM lorsque l’utilisateur les quitte.
-
-<ExampleFrame variant="component">
-  <div className={tabsPreviewStyles.root}>
-    <TabsLazyMount />
-  </div>
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/tabs/lazy-mount.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={tabsSolidLazyMount} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={tabsVueLazyMount} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
-
-### Variante ligne
-
-Utilisez `variant="line"` lorsque l’indicateur doit se placer sur le bord actif au lieu de remplir
-l’onglet sélectionné. Les onglets horizontaux tracent la ligne sous la liste, les onglets verticaux
-sur le bord de la liste côté panneau.
-
-<ExampleFrame variant="component">
-  <div className={tabsPreviewStyles.root}>
-    <TabsLine />
-  </div>
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/tabs/line.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={tabsSolidLine} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={tabsVueLine} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
-
-### Liens
-
-Utilisez `asChild` lorsque les déclencheurs doivent être rendus comme des liens gérés par votre
-routeur.
-
-<ExampleFrame variant="component">
-  <div className={tabsPreviewStyles.root}>
-    <TabsLinks />
-  </div>
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/tabs/links.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={tabsSolidLinks} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={tabsVueLinks} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
-
-### Activation manuelle
-
-Définissez `activationMode="manual"` lorsque les flèches doivent déplacer le focus sans changer
-l’onglet sélectionné. Activez-le avec un clic, Entrée ou Espace.
-
-<ExampleFrame variant="component">
-  <div className={tabsPreviewStyles.root}>
-    <TabsManualActivation />
-  </div>
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/tabs/manual-activation.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={tabsSolidManualActivation} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={tabsVueManualActivation} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
-
-### Tailles
-
-Définissez `size` sur `Tabs` ou `TabsRootProvider` : `sm`, `md` (par défaut) ou `lg`. La liste
-d’onglets a alors la hauteur d’un `Button` ou d’un `Input` de même taille, comme `SegmentGroup`.
-
-<ExampleFrame variant="component">
-  <div className={tabsPreviewStyles.root}>
-    <TabsSizes />
-  </div>
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/tabs/sizes.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={tabsSolidSizes} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={tabsVueSizes} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/tabs/tabs-sizes.module.css"
-```
-</div>
-
-</ExampleCode>
-
-### Vertical
-
-Utilisez `orientation="vertical"` lorsque la liste des onglets doit se trouver à côté du panneau
-actif. La liste occupe jusqu’à `12rem`, et au plus 40 % de la largeur de la racine dans un conteneur
-étroit.
-
-<ExampleFrame variant="component">
-  <div className={tabsPreviewStyles.root}>
-    <TabsVertical />
-  </div>
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/tabs/vertical.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={tabsSolidVertical} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={tabsVueVertical} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
-
-### Personnalisation avancée
-
-Créez l’état des onglets avec `useTabs()` lorsqu’il doit exister avant le rendu de l’arbre de parties
-ou lorsque l’interface voisine doit lire la valeur sélectionnée.
-
-<ExampleFrame variant="component">
-  <div className={tabsPreviewStyles.root}>
-    <TabsRootProvider />
-  </div>
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/tabs/root-provider.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={tabsSolidRootProvider} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={tabsVueRootProvider} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/tabs/tabs-root-provider.module.css"
-```
-</div>
-
-</ExampleCode>
+## Anatomie
+
+Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
+
+<AnatomyInspector
+  parts={[
+    ["Tabs", "tabs-root", "Racine qui gère la valeur sélectionnée, le focus, l’orientation et le mode.", 0],
+    ["TabsList", "tabs-list", "Regroupe les déclencheurs et gère les déplacements du focus.", 1],
+    ["TabsTrigger", "tabs-trigger", "Bouton d’onglet interactif, ou hôte `asChild`, avec une valeur obligatoire.", 2],
+    ["TabsIndicator", "tabs-indicator", "Indicateur facultatif de l’onglet sélectionné.", 2],
+    ["TabsContent", "tabs-content", "Panneau associé au déclencheur qui possède la même valeur.", 1],
+    ["TabsRootProvider", "tabs-root-provider", "Relie les parties à l’état créé avec `useTabs()` de moduix.", 0],
+    ["TabsContext", null, "Expose l’état courant des onglets via une render prop ou un scoped slot en Vue.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styles
 
@@ -675,11 +152,27 @@ structure. Pour les styles liés à l’état, préférez les attributs de donn�
 Les variantes Tailwind utilisent les utilitaires natifs et les classes du consommateur ; les
 variables ci-dessous personnalisent les variantes CSS Modules.
 
-### Propriétés CSS
+### Variables CSS
 
-<CssPropertiesSection properties={TabsDocs.tabsOverrideCssProperties} />
+Survolez ou sélectionnez une variable pour la voir dans l’aperçu. Essayez des valeurs avec les contrôles et copiez le CSS obtenu.
+
+<CssPropertiesSection
+  properties={TabsDocs.tabsOverrideCssProperties}
+  controls={TabsDocs.tabsControls}
+>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Points d’accroche CSS
+
+| Partie | `data-slot` |
+| --- | --- |
+| `Tabs` | `tabs-root` |
+| `TabsRootProvider` | `tabs-root-provider` |
+| `TabsList` | `tabs-list` |
+| `TabsTrigger` | `tabs-trigger` |
+| `TabsIndicator` | `tabs-indicator` |
+| `TabsContent` | `tabs-content` |
 
 Ciblez la partie qui porte la responsabilité visuelle concernée :
 
@@ -690,10 +183,36 @@ Ciblez la partie qui porte la responsabilité visuelle concernée :
   variables Ark `--transition-duration` et `--transition-timing-function` pour modifier le mouvement
 - `TabsContent` pour la surface, les marges internes et le focus du panneau
 
-Les principaux points d’accroche publics sont `data-slot="tabs-root"`,
-`data-slot="tabs-root-provider"`, `data-slot="tabs-list"`, `data-slot="tabs-trigger"`,
-`data-slot="tabs-indicator"` et `data-slot="tabs-content"`.
-
 Les points d’accroche Ark utiles sont `data-scope="tabs"`, `data-part`, `data-orientation`,
 `data-selected`, `data-disabled`, `data-focus`, ainsi que les variables de l’indicateur `--left`,
 `--top`, `--width`, `--height` et `--transition-property`.
+
+## Clavier
+
+| Touche | Action |
+| --- | --- |
+| `ArrowLeft` / `ArrowRight` | Passe à l’onglet précédent ou suivant ; ArrowUp et ArrowDown en vertical. |
+| `Home` / `End` | Va au premier ou au dernier onglet. |
+| `Enter` / `Space` | Sélectionne l’onglet ayant le focus si activationMode vaut manual. |
+| `Tab` | Déplace le focus de la liste vers le panneau actif. |
+
+## Référence de l’API
+
+| Prop | Type | Défaut | Description |
+| --- | --- | --- | --- |
+| `value` | `string \| null` | — | Onglet sélectionné en mode contrôlé. |
+| `defaultValue` | `string \| null` | — | Onglet sélectionné au départ. |
+| `onValueChange` | `(details: ValueChangeDetails) => void` | — | Appelé lorsqu’un autre onglet est sélectionné. |
+| `variant` | `'default' \| 'line'` | `'default'` | Style visuel : `default` ou `line`. |
+| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` | Taille : `sm`, `md` ou `lg`. |
+| `fitted` | `boolean` | `false` | Étire les déclencheurs pour occuper toute la largeur. |
+| `orientation` | `'horizontal' \| 'vertical'` | `'horizontal'` | Disposition et sens des flèches : `horizontal` ou `vertical`. |
+| `activationMode` | `'automatic' \| 'manual'` | `'automatic'` | `automatic` sélectionne au focus, `manual` attend Entrée ou Espace. |
+| `loopFocus` | `boolean` | `true` | La navigation au clavier revient du dernier élément au premier. |
+| `deselectable` | `boolean` | `false` | Un clic sur l’onglet actif le désélectionne. |
+| `lazyMount` | `boolean` | `false` | Monte le contenu à la première ouverture. |
+| `unmountOnExit` | `boolean` | `false` | Démonte le contenu après la fermeture. |
+| `translations` | `IntlTranslations` | — | Textes localisés des libellés d’accessibilité. |
+| `onFocusChange` | `(details: FocusChangeDetails) => void` | — | Appelé lorsque le focus passe à un autre déclencheur. |
+| `composite` | `boolean` | — | Passez `false` à l’intérieur d’un autre widget composite, comme des onglets. |
+| `navigate` | `((details: NavigateDetails) => void) \| null` | — | Navigue vers un déclencheur lien choisi au clavier. |

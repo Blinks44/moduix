@@ -5,11 +5,11 @@ import {
   RatingGroupItems,
   RatingGroupLabel,
 } from '@moduix/vue/rating-group';
-import styles from '@/components/examples/rating-group/component-disabled-and-readonly.module.css';
+import { Stack } from '@moduix/vue/stack';
 </script>
 
 <template>
-  <div :class="styles.stack">
+  <Stack align="center" gap="3">
     <RatingGroup :default-value="4" disabled>
       <RatingGroupLabel>Disabled rating</RatingGroupLabel>
       <RatingGroupControl>
@@ -22,5 +22,5 @@ import styles from '@/components/examples/rating-group/component-disabled-and-re
         <RatingGroupItems />
       </RatingGroupControl>
     </RatingGroup>
-  </div>
+  </Stack>
 </template>

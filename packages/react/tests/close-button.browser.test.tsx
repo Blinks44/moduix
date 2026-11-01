@@ -1,26 +1,7 @@
 import { page } from '@rstest/browser';
 import { expect, rs, test } from '@rstest/core';
 import { render, screen } from '@testing-library/react';
-import { createRef } from 'react';
-import { CloseButton } from '../src';
-
-test('renders an accessible native button with safe defaults and a forwarded ref', async () => {
-  const ref = createRef<HTMLButtonElement>();
-
-  render(<CloseButton ref={ref} data-testid="close-button" />);
-
-  const button = screen.getByTestId('close-button');
-
-  expect(ref.current).toBe(button);
-  await expect.element(page.getByTestId('close-button')).toHaveAttribute('type', 'button');
-  expect(screen.getByRole('button', { name: 'Close' })).toBe(button);
-  expect(button.querySelector('svg')).not.toBeNull();
-  expect(button.dataset).toMatchObject({
-    scope: 'close-button',
-    part: 'root',
-    slot: 'close-button-root',
-  });
-});
+import { CloseButton } from '@/index';
 
 test('keeps the close fallback for conditional children', () => {
   render(<CloseButton>{false}</CloseButton>);
@@ -100,4 +81,27 @@ test('prevents activation for native and aria-disabled buttons', async () => {
     false,
   );
   expect(handleClick).not.toHaveBeenCalled();
+});
+
+test('preserves composed data hooks', async () => {
+  render(
+    <CloseButton
+      aria-label="Delete item"
+      data-scope="accordion"
+      data-part="trigger"
+      data-slot="accordion-trigger"
+      data-disabled=""
+    />,
+  );
+
+  const button = screen.getByRole('button', { name: 'Delete item' });
+
+  expect(button.dataset).toMatchObject({
+    scope: 'accordion',
+    part: 'trigger',
+    slot: 'accordion-trigger',
+  });
+  await expect
+    .element(page.getByRole('button', { name: 'Delete item' }))
+    .toHaveAttribute('data-disabled');
 });

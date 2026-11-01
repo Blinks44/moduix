@@ -6,14 +6,14 @@ import {
   CheckboxRootProvider,
   useCheckbox,
 } from '@moduix/react/checkbox';
+import { Stack } from '@moduix/react/stack';
 import { PreviewMeta } from '@/components/mdx/Components';
-import styles from '@/components/examples/checkbox/checkbox-root-provider.module.css';
 
 export default function RootProviderCheckboxDemo() {
   const checkbox = useCheckbox({ defaultChecked: true });
 
   return (
-    <div className={styles.root}>
+    <Stack align="center" gap="4">
       <CheckboxRootProvider value={checkbox}>
         <CheckboxControl />
         <CheckboxLabel>Managed outside the tree</CheckboxLabel>
@@ -29,6 +29,6 @@ export default function RootProviderCheckboxDemo() {
           {checkbox.checked ? 'Uncheck' : 'Check'}
         </Button>
       </PreviewMeta>
-    </div>
+    </Stack>
   );
 }

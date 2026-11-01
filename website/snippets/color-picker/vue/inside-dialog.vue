@@ -20,7 +20,7 @@ import {
   ColorPickerArea,
   ColorPickerChannelInput,
 } from '@moduix/vue/color-picker';
-import styles from '@/components/examples/color-picker/color-picker-inside-dialog.module.css';
+import { Stack } from '@moduix/vue/stack';
 </script>
 
 <template>
@@ -33,7 +33,7 @@ import styles from '@/components/examples/color-picker/color-picker-inside-dialo
         <DialogDescription>
           The color picker stays inside the dialog stacking context.
         </DialogDescription>
-        <div :class="styles.dialogBody">
+        <Stack gap="1rem">
           <ColorPicker :portalled="false" :default-value="parseColor('#eb5e41')">
             <ColorPickerLabel>Color</ColorPickerLabel>
             <ColorPickerControl>
@@ -46,7 +46,7 @@ import styles from '@/components/examples/color-picker/color-picker-inside-dialo
               </ColorPickerContent>
             </ColorPickerPositioner>
           </ColorPicker>
-        </div>
+        </Stack>
       </DialogContent>
     </DialogPositioner>
   </DialogRoot>

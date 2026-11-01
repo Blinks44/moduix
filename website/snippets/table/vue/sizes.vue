@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { Stack } from '@moduix/vue/stack';
 import {
   Table,
   TableBody,
@@ -9,7 +10,6 @@ import {
   TableRow,
   TableScrollArea,
 } from '@moduix/vue/table';
-import styles from '@/components/examples/table/table-sizes.module.css';
 
 const projects = [
   { name: 'Docs redesign', owner: 'Product Design' },
@@ -19,7 +19,7 @@ const sizes = ['sm', 'md', 'lg'] as const;
 </script>
 
 <template>
-  <div :class="styles.root">
+  <Stack gap="4">
     <TableScrollArea v-for="size in sizes" :key="size">
       <Table :size="size">
         <TableCaption side="top">{{ size.toUpperCase() }} project summary</TableCaption>
@@ -39,5 +39,5 @@ const sizes = ['sm', 'md', 'lg'] as const;
         </TableBody>
       </Table>
     </TableScrollArea>
-  </div>
+  </Stack>
 </template>

@@ -1,20 +1,13 @@
 ---
 title: Format Relative Time
 description: Форматируйте даты относительно текущего момента в Ark UI для React, Solid и Vue с учетом локали и компактных вариантов отображения.
+ark: https://ark-ui.com/docs/utilities/format-relative-time
 ---
 
-import FormatRelativeTimeBasic from '@/components/examples/format-relative-time/basic.tsx';
-import FormatRelativeTimeShort from '@/components/examples/format-relative-time/short.tsx';
-import formatRelativeTimeSolidBasic from '../../../snippets/format-relative-time/solid/basic.tsx?raw';
-import formatRelativeTimeVueBasic from '../../../snippets/format-relative-time/vue/basic.vue?raw';
 import formatRelativeTimeSolidLocale from '../../../snippets/format-relative-time/solid/locale.tsx?raw';
 import formatRelativeTimeVueLocale from '../../../snippets/format-relative-time/vue/locale.vue?raw';
-import formatRelativeTimeSolidShort from '../../../snippets/format-relative-time/solid/short.tsx?raw';
-import formatRelativeTimeVueShort from '../../../snippets/format-relative-time/vue/short.vue?raw';
 
-## Справочник API
-
-<PrimitiveReference href="https://ark-ui.com/docs/utilities/format-relative-time" />
+## Импорт
 
 Импортируйте утилиту из пакета Ark UI для используемого фреймворка:
 
@@ -66,42 +59,7 @@ import { Format } from '@ark-ui/vue';
 Укажите `numeric="auto"`, когда близкие к текущей дате значения лучше описывать словами вроде «завтра» или «вчера».
 Предпросмотр в документации работает на React, а вкладки Solid и Vue содержат нативные эквиваленты той же композиции.
 
-<ExampleFrame variant="component">
-  <PreviewFrame maxWidth="sm">
-    <FormatRelativeTimeBasic />
-  </PreviewFrame>
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/format-relative-time/basic.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={formatRelativeTimeSolidBasic} />
-
-    </Tab>
-  <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={formatRelativeTimeVueBasic} />
-
-    </Tab>
-  </Tabs>
-</div>
-</ExampleCode>
+<Example name="format-relative-time/basic" />
 
 ## Краткий формат
 
@@ -109,42 +67,7 @@ import { Format } from '@ark-ui/vue';
 короткий вариант, если окружающая интерфейсная разметка уже объясняет смысл. Оставляйте точную отметку времени в
 `dateTime`, если человеку может понадобиться ее проверить.
 
-<ExampleFrame variant="component">
-  <PreviewFrame maxWidth="sm">
-    <FormatRelativeTimeShort />
-  </PreviewFrame>
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/format-relative-time/short.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={formatRelativeTimeSolidShort} />
-
-    </Tab>
-  <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={formatRelativeTimeVueShort} />
-
-    </Tab>
-  </Tabs>
-</div>
-</ExampleCode>
+<Example name="format-relative-time/short" />
 
 `Format.RelativeTime` принимает все стандартные параметры `Intl.RelativeTimeFormatOptions` в дополнение к `value`:
 

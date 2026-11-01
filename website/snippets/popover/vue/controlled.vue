@@ -11,14 +11,14 @@ import {
   PopoverTitle,
   PopoverTrigger,
 } from '@moduix/vue/popover';
+import { Stack } from '@moduix/vue/stack';
 import { ref } from 'vue';
-import styles from '@/components/examples/popover/popover-controlled.module.css';
 
 const open = ref(false);
 </script>
 
 <template>
-  <div :class="styles.root">
+  <Stack align="center" gap="3">
     <Popover v-model:open="open">
       <PopoverTrigger as-child><Button>Open controlled popover</Button></PopoverTrigger>
       <PopoverPositioner>
@@ -34,5 +34,5 @@ const open = ref(false);
       </PopoverPositioner>
     </Popover>
     <output>Open: {{ open ? 'yes' : 'no' }}</output>
-  </div>
+  </Stack>
 </template>

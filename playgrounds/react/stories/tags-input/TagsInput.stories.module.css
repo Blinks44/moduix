@@ -13,7 +13,7 @@
 
   .hint {
     margin: 0;
-    color: var(--moduix-color-muted-foreground);
+    color: var(--moduix-muted-foreground);
     font-size: var(--moduix-text-xs);
     line-height: var(--moduix-line-height-text-xs);
   }
@@ -25,11 +25,11 @@
 
   .clearButton {
     width: max-content;
-    border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
+    border: var(--moduix-border-width-sm) solid var(--moduix-border);
     border-radius: var(--moduix-radius-md);
     padding: 0.375rem 0.75rem;
-    background: var(--moduix-color-background);
-    color: var(--moduix-color-foreground);
+    background: var(--moduix-background);
+    color: var(--moduix-foreground);
     font: inherit;
     font-size: var(--moduix-text-sm);
     line-height: var(--moduix-line-height-text-sm);

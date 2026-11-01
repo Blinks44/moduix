@@ -63,7 +63,7 @@ const BasicMarquee = defineComponent({
     return { styles };
   },
   template: `
-    <Marquee v-bind="$attrs" aria-label="Partner logos" :class="styles.root">
+    <Marquee aria-label="Partner logos" v-bind="$attrs" :class="styles.root">
       <MarqueeViewport>
         <MarqueeContent><MarqueeItems /></MarqueeContent>
       </MarqueeViewport>
@@ -176,8 +176,8 @@ export const Vertical: Story = {
 export const Speed: Story = {
   render: renderStory(`
     <div :class="styles.providerStack">
-      <BasicMarquee :speed="25" />
-      <BasicMarquee :speed="100" />
+      <BasicMarquee aria-label="Slow partner logos" :speed="25" />
+      <BasicMarquee aria-label="Fast partner logos" :speed="100" />
     </div>
   `),
 };

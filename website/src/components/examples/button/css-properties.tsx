@@ -1,9 +1,10 @@
+import type { CssControls } from '../../mdx/customize';
 import type { CssPropertyInput } from '../../mdx/reference';
 
 export const buttonCssProperties: CssPropertyInput[] = [
   [
     '--moduix-button-bg',
-    'var(--moduix-color-primary)',
+    'var(--moduix-primary)',
     'Overrides button background color. Each `variant` sets its own default.',
   ],
   [
@@ -23,7 +24,7 @@ export const buttonCssProperties: CssPropertyInput[] = [
   ],
   [
     '--moduix-button-color',
-    'var(--moduix-color-primary-foreground)',
+    'var(--moduix-primary-foreground)',
     'Overrides button text and icon color. Each `variant` sets its own default.',
   ],
   [
@@ -60,3 +61,11 @@ export const buttonCssProperties: CssPropertyInput[] = [
   ],
   ['--moduix-button-radius', 'var(--moduix-radius-md)', 'Controls button border radius.'],
 ];
+export const buttonControls: CssControls = {
+  '--moduix-button-bg': 'color',
+  '--moduix-button-color': 'color',
+  '--moduix-button-radius': [0, 24, 1, 'px'],
+  '--moduix-button-height': [24, 56, 1, 'px'],
+  '--moduix-button-padding-x': [4, 32, 1, 'px'],
+  '--moduix-button-font-weight': [400, 700, 100, ''],
+};

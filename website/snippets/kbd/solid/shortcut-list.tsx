@@ -1,4 +1,5 @@
 import { Kbd, KbdGroup } from '@moduix/solid/kbd';
+import { Stack } from '@moduix/solid/stack';
 import { For } from 'solid-js';
 import styles from '@/components/examples/kbd/kbd-shortcut-list.module.css';
 
@@ -22,7 +23,7 @@ const shortcuts = [
 
 export default function KbdShortcutListDemo() {
   return (
-    <div class={styles.root}>
+    <Stack gap="3">
       <For each={shortcuts}>
         {(shortcut) => (
           <div class={styles.row}>
@@ -40,6 +41,6 @@ export default function KbdShortcutListDemo() {
           </div>
         )}
       </For>
-    </div>
+    </Stack>
   );
 }

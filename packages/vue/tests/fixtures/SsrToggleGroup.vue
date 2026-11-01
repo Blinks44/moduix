@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ToggleGroup, ToggleGroupItem } from '../../src/components/toggle-group';
+import { ToggleGroup, ToggleGroupItem } from '@/components/toggle-group';
 </script>
 
 <template>

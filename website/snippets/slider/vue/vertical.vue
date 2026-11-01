@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import { Slider, SliderControl, SliderRange, SliderThumbs, SliderTrack } from '@moduix/vue/slider';
+import { Stack } from '@moduix/vue/stack';
 import { ref } from 'vue';
-import styles from '@/components/examples/slider/slider-vertical.module.css';
 
 const value = ref([60]);
 </script>
 
 <template>
-  <div :class="styles.stack">
+  <Stack align="center" gap="3">
     <Slider v-model="value" :aria-label="['Output']" orientation="vertical">
       <SliderControl>
         <SliderTrack>
@@ -17,5 +17,5 @@ const value = ref([60]);
       </SliderControl>
     </Slider>
     <output>Output: {{ value.join(', ') }}</output>
-  </div>
+  </Stack>
 </template>

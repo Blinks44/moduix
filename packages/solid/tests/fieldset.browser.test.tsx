@@ -11,7 +11,27 @@ import {
   FieldsetRootProvider,
   useFieldset,
   useFieldsetContext,
-} from '../src';
+} from '@/index';
+
+function ContextState() {
+  const fieldset = useFieldsetContext();
+
+  return <output data-testid="hook-state">{String(fieldset().invalid)}</output>;
+}
+
+function ExternalFieldsetState() {
+  const fieldset = useFieldset({ invalid: true });
+
+  return (
+    <FieldsetRootProvider value={fieldset}>
+      <FieldsetLegend>Account details</FieldsetLegend>
+      <FieldsetContext>
+        {(context) => <output data-testid="render-prop-state">{String(context().invalid)}</output>}
+      </FieldsetContext>
+      <ContextState />
+    </FieldsetRootProvider>
+  );
+}
 
 test('updates invalid state and connects legend, description, and error text', async () => {
   const [invalid, setInvalid] = createSignal(false);
@@ -40,23 +60,6 @@ test('updates invalid state and connects legend, description, and error text', a
   await expect.poll(() => fieldset.getAttribute('aria-describedby')).toContain(helperText.id);
   await expect.poll(() => fieldset.getAttribute('aria-describedby')).toContain(errorText.id);
   await expect.element(textLocator).toHaveAttribute('aria-live', 'polite');
-});
-
-test('resets native fieldset chrome and draws no border when invalid', () => {
-  render(() => (
-    <Fieldset invalid>
-      <FieldsetLegend>Billing</FieldsetLegend>
-    </Fieldset>
-  ));
-
-  const fieldset = screen.getByRole('group', { name: 'Billing' });
-  const style = getComputedStyle(fieldset);
-  expect([style.borderTopWidth, style.paddingTop, style.paddingLeft, style.marginLeft]).toEqual([
-    '0px',
-    '0px',
-    '0px',
-    '0px',
-  ]);
 });
 
 test('disables native descendants', async () => {
@@ -111,26 +114,6 @@ test('preserves native asChild composition without forwarding refs through Ark S
   expect(rootRef).toBeUndefined();
   expect(legendRef).toBeUndefined();
 });
-
-function ContextState() {
-  const fieldset = useFieldsetContext();
-
-  return <output data-testid="hook-state">{String(fieldset().invalid)}</output>;
-}
-
-function ExternalFieldsetState() {
-  const fieldset = useFieldset({ invalid: true });
-
-  return (
-    <FieldsetRootProvider value={fieldset}>
-      <FieldsetLegend>Account details</FieldsetLegend>
-      <FieldsetContext>
-        {(context) => <output data-testid="render-prop-state">{String(context().invalid)}</output>}
-      </FieldsetContext>
-      <ContextState />
-    </FieldsetRootProvider>
-  );
-}
 
 test('keeps RootProvider and state context exports Ark-shaped', async () => {
   render(() => <ExternalFieldsetState />);

@@ -1,91 +1,171 @@
 ---
 title: Carousel
 component: carousel
-description: Un carrousel paginé fondé sur Ark UI, avec lecture automatique, état géré par l’application et diapositives de largeur variable.
+description: Faire défiler des diapositives par boutons, indicateurs, balayage ou lecture auto.
+ark: https://ark-ui.com/docs/components/carousel
 ---
 
+import AnatomyScene from '@/components/examples/carousel/basic';
 import * as CarouselDocs from '@/components/examples/carousel/css-properties';
 
+<Example name="carousel/basic" />
 
-## Référence de l’API
+## Installation
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/carousel" />
+<ComponentInstall />
 
+## Utilisation
 
-Les mêmes exports sont disponibles depuis `@moduix/solid/carousel` pour Solid.
-## Exemple de base
+<Usage />
 
 Commencez par `Carousel` comme composant racine. Ajoutez `CarouselItemGroup` pour la piste des diapositives,
 placez les boutons précédent et suivant dans `CarouselControl`, puis utilisez `CarouselIndicators` et
 `CarouselProgressText` pour la pagination par défaut.
 
+## Exemples
 
-<Example name="carousel/basic" />
+### Diapositives par page
 
-## Installation avec shadcn
+Augmentez `slidesPerPage` pour afficher plusieurs éléments à la fois au lieu d’un seul panneau pleine largeur.
 
-Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration complète du paquet, du registre et des styles.
+<Example name="carousel/slides-per-page" />
 
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
+### Espacement
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/carousel' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/carousel' },
-  ]}
-/>
+Augmentez `spacing` pour ajouter de l’espace entre les diapositives voisines dans des mises en page éditoriales,
+des galeries de produits ou des interfaces personnalisées.
 
-  </Tab>
-  <Tab label="Solid" value="solid">
+<Example name="carousel/spacing" />
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/carousel' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/carousel' },
-  ]}
-/>
+### Orientation verticale
 
-  </Tab>
-  <Tab label="Vue" value="vue">
+Passez à l’orientation verticale lorsque le carrousel et ses contrôles doivent fonctionner sur l’axe vertical.
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/carousel' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/carousel' },
-  ]}
-/>
+<Example name="carousel/vertical" />
 
-  </Tab>
-</Tabs>
+### Boucle
+
+Définissez `loop` pour que le carrousel revienne à la première diapositive après la dernière.
+
+<Example name="carousel/loop" />
+
+### Lecture automatique
+
+Utilisez la lecture automatique pour les galeries dont les diapositives doivent avancer seules, tout en gardant
+des contrôles visibles. Dans cet exemple, elle s’interrompt lorsque le pointeur entre dans le carrousel ou
+qu’un élément reçoit le focus. L’utilisateur peut la relancer avec `CarouselAutoplayTrigger`.
+
+<Example name="carousel/autoplay" />
+
+Pour voir une galerie complète avec navigation latérale, texte sur les diapositives et indicateurs de progression
+qui se remplissent au fil du défilement, consultez le [bloc de galerie en lecture automatique](/blocks/autoplay-gallery).
+
+### Pause au survol
+
+Utilisez ce modèle lorsque la lecture automatique doit s’arrêter tant que le pointeur se trouve au-dessus du
+carrousel. L’exemple utilise `CarouselContext` avec `api.pause()` et `api.play()`. Il met également la lecture
+en pause lorsque le carrousel reçoit le focus.
+
+<Example name="carousel/pause-on-hover" />
+
+### Glissement à la souris
+
+Activez le glissement à la souris pour permettre aux utilisateurs sur ordinateur de parcourir les diapositives
+avec le même geste que sur un écran tactile.
+
+<Example name="carousel/mouse-drag" />
+
+### Indicateurs sous forme de miniatures
+
+Affichez un contenu personnalisé dans les indicateurs lorsque la pagination doit montrer un aperçu des diapositives
+sous forme de miniatures plutôt que de simples points.
+
+<Example name="carousel/thumbnail-indicators" />
+
+### Cartes
+
+Les éléments du carrousel peuvent contenir n’importe quel contenu. Si une carte doit être plus étroite que la
+diapositive, utilisez vos propres styles et centrez-la.
+
+<Example name="carousel/cards" />
+
+### Tailles variables
+
+Activez `autoSize` lorsque la largeur des diapositives doit suivre leur contenu plutôt qu’une grille de page fixe.
+
+<Example name="carousel/variable-sizes" />
+
+### Mise à jour dynamique
+
+Si le nombre de diapositives change après le rendu initial, mettez `slideCount` à jour en même temps que la
+liste des éléments affichés.
+
+<Example name="carousel/dynamic" />
+
+### État contrôlé
+
+Utilisez un état contrôlé lorsque la page actuelle doit rester synchronisée avec une navigation externe, des
+filtres ou des données analytiques. Voir [Contrôler l’état depuis l’application](/docs/composition-patterns#controlled-state).
+
+<Example name="carousel/controlled" />
+
+### Accéder directement à une diapositive
+
+Utilisez l’API du carrousel via le contexte lorsqu’un autre contrôle doit accéder directement à une diapositive.
+
+<Example name="carousel/scroll-to-slide" />
+
+### Root Provider
+
+Utilisez `CarouselRootProvider` lorsque l’état du carrousel doit être créé en dehors du sous-arbre rendu et
+partagé entre plusieurs parties de la composition. Voir [Partager l’état hors de l’arbre](/docs/composition-patterns#root-provider).
+
+<Example name="carousel/root-provider" />
+
+### Assembler à partir des parties
+
+Le même carrousel que Basic, sans `CarouselIndicators` : `CarouselContext` fournit `pageSnapPoints`,
+et `CarouselIndicatorGroup` affiche un `CarouselIndicator` par page. Les déclencheurs précédent et
+suivant reçoivent des icônes explicites. Partez de cet exemple quand la pagination se place à côté
+d’autres contrôles ou a besoin d’un contenu personnalisé.
+
+<Example name="carousel/build-from-parts" />
+
+## Composition
+
+Les mêmes exports sont disponibles depuis `@moduix/solid/carousel` pour Solid.
+
+`Carousel` gère son état à l’intérieur de la racine. Utilisez `defaultPage` pour un carrousel non contrôlé ; utilisez `page` avec `onPageChange(details)` lorsque la page courante est gérée par le routage, des filtres ou une autre partie de l’application. `slideCount` est obligatoire et doit rester synchronisé avec les éléments rendus lorsque la collection change.
+
+Utilisez `CarouselRootProvider` avec `useCarousel()` lorsque le store doit être créé en dehors de l’arbre rendu ou partagé entre plusieurs limites de composition. Passez ce store à `CarouselRootProvider` et ne rendez pas une seconde racine `Carousel` pour le même store.
+
+`CarouselIndicators` lit `pageSnapPoints` dans le contexte et crée les indicateurs standard. Pour personnaliser leur contenu, rendez `CarouselIndicatorGroup` et `CarouselIndicator` dans `CarouselContext`, puis utilisez `pageSnapPoints` de l’API du contexte lorsque le nombre d’indicateurs doit suivre le nombre de pages calculées.
+
+En Solid, assignez la ref à l’élément créé dans la fonction de rendu `asChild` ; une ref posée sur une partie Carousel elle-même n’est pas transmise par ce chemin de composition.
+
+En Vue, une ref de template sur une partie pointe vers son hôte rendu via `$el`, y compris l’hôte de substitution créé par `asChild`.
 
 ## Anatomie
 
-```text
-Carousel
-├─ CarouselItemGroup
-│  └─ CarouselItem[index]
-├─ CarouselControl
-│  ├─ CarouselPrevTrigger
-│  └─ CarouselNextTrigger
-├─ CarouselIndicatorGroup
-│  └─ CarouselIndicator[index]
-└─ CarouselProgressText
-```
+Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
 
-| Élément                   | Rôle                                                                       |
-| ------------------------- | -------------------------------------------------------------------------- |
-| `Carousel`                | Crée le carrousel et gère son état, sa navigation et sa liste de diapositives. |
-| `CarouselRootProvider`    | Relie les éléments à l’état créé avec `useCarousel()`.                    |
-| `CarouselControl`            | Conteneur des boutons de navigation et des autres contrôles.              |
-| `CarouselItemGroup`          | Piste contenant les éléments `CarouselItem`.                             |
-| `CarouselItem`               | Diapositive individuelle avec un `index` stable.                           |
-| `CarouselPrevTrigger`        | Bouton qui passe à la page précédente.                                     |
-| `CarouselNextTrigger`        | Bouton qui passe à la page suivante.                                       |
-| `CarouselIndicators`         | Composant pratique moduix qui génère les indicateurs de page par défaut.   |
-| `CarouselIndicatorGroup`     | Conteneur pour les indicateurs de page personnalisés.                     |
-| `CarouselIndicator`          | Bouton qui mène à la page correspondant à l’index indiqué.                 |
-| `CarouselProgressText`       | Texte affichant la page actuelle et le nombre total de pages.              |
+<AnatomyInspector
+  parts={[
+    ["Carousel", "carousel-root", "Crée le carrousel et gère son état, sa navigation et sa liste de diapositives.", 0],
+    ["CarouselItemGroup", "carousel-item-group", "Piste contenant les éléments `CarouselItem`.", 1],
+    ["CarouselItem", "carousel-item", "Diapositive individuelle avec un `index` stable.", 2],
+    ["CarouselControl", "carousel-control", "Conteneur des boutons de navigation et des autres contrôles.", 1],
+    ["CarouselPrevTrigger", "carousel-prev-trigger", "Bouton qui passe à la page précédente.", 2],
+    ["CarouselNextTrigger", "carousel-next-trigger", "Bouton qui passe à la page suivante.", 2],
+    ["CarouselIndicatorGroup", "carousel-indicator-group", "Conteneur pour les indicateurs de page personnalisés.", 1],
+    ["CarouselIndicator", "carousel-indicator", "Bouton qui mène à la page correspondant à l’index indiqué.", 2],
+    ["CarouselIndicators", "", "Composant pratique moduix qui génère les indicateurs de page par défaut.", 3],
+    ["CarouselProgressText", "carousel-progress-text", "Texte affichant la page actuelle et le nombre total de pages.", 1],
+    ["CarouselRootProvider", "carousel-root-provider", "Relie les éléments à l’état créé avec `useCarousel()`.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 `CarouselIndicators` lit `pageSnapPoints` dans le contexte et génère un `CarouselIndicator` par page.
 Utilisez-le à la place de `CarouselIndicatorGroup` lorsque les indicateurs par défaut suffisent.
@@ -101,142 +181,70 @@ Pour les compositions avancées, ces parties sont également disponibles :
 `Carousel`, `useCarousel` et `useCarouselContext` sont disponibles depuis `@moduix/react`. Vous pouvez
 aussi importer le composant depuis `@moduix/react/carousel`.
 
-## Composition
-
-`Carousel` gère son état à l’intérieur de la racine. Utilisez `defaultPage` pour un carrousel non contrôlé ; utilisez `page` avec `onPageChange(details)` lorsque la page courante est gérée par le routage, des filtres ou une autre partie de l’application. `slideCount` est obligatoire et doit rester synchronisé avec les éléments rendus lorsque la collection change.
-
-Utilisez `CarouselRootProvider` avec `useCarousel()` lorsque le store doit être créé en dehors de l’arbre rendu ou partagé entre plusieurs limites de composition. Passez ce store à `CarouselRootProvider` et ne rendez pas une seconde racine `Carousel` pour le même store.
-
-`CarouselIndicators` lit `pageSnapPoints` dans le contexte et crée les indicateurs standard. Pour personnaliser leur contenu, rendez `CarouselIndicatorGroup` et `CarouselIndicator` dans `CarouselContext`, puis utilisez `pageSnapPoints` de l’API du contexte lorsque le nombre d’indicateurs doit suivre le nombre de pages calculées.
-
-En Solid, assignez la ref à l’élément créé dans la fonction de rendu `asChild` ; une ref posée sur une partie Carousel elle-même n’est pas transmise par ce chemin de composition.
-
-En Vue, une ref de template sur une partie pointe vers son hôte rendu via `$el`, y compris l’hôte de substitution créé par `asChild`.
-## Exemples
-
-### Lecture automatique
-
-Utilisez la lecture automatique pour les galeries dont les diapositives doivent avancer seules, tout en gardant
-des contrôles visibles. Dans cet exemple, elle s’interrompt lorsque le pointeur entre dans le carrousel ou
-qu’un élément reçoit le focus. L’utilisateur peut la relancer avec `CarouselAutoplayTrigger`.
-
-<Example name="carousel/autoplay" />
-
-Pour voir une galerie complète avec navigation latérale, texte sur les diapositives et indicateurs de progression
-qui se remplissent au fil du défilement, consultez le [bloc de galerie en lecture automatique](/blocks/autoplay-gallery).
-
-### Cartes
-
-Les éléments du carrousel peuvent contenir n’importe quel contenu. Si une carte doit être plus étroite que la
-diapositive, utilisez vos propres styles et centrez-la.
-
-<Example name="carousel/cards" />
-
-### État contrôlé
-
-Utilisez un état contrôlé lorsque la page actuelle doit rester synchronisée avec une navigation externe, des
-filtres ou des données analytiques.
-
-<Example name="carousel/controlled" />
-
-### Mise à jour dynamique
-
-Si le nombre de diapositives change après le rendu initial, mettez `slideCount` à jour en même temps que la
-liste des éléments affichés.
-
-<Example name="carousel/dynamic" />
-
-### Boucle
-
-Définissez `loop` pour que le carrousel revienne à la première diapositive après la dernière.
-
-<Example name="carousel/loop" />
-
-### Glissement à la souris
-
-Activez le glissement à la souris pour permettre aux utilisateurs sur ordinateur de parcourir les diapositives
-avec le même geste que sur un écran tactile.
-
-<Example name="carousel/mouse-drag" />
-
-### Pause au survol
-
-Utilisez ce modèle lorsque la lecture automatique doit s’arrêter tant que le pointeur se trouve au-dessus du
-carrousel. L’exemple utilise `CarouselContext` avec `api.pause()` et `api.play()`. Il met également la lecture
-en pause lorsque le carrousel reçoit le focus.
-
-<Example name="carousel/pause-on-hover" />
-
-### Utiliser `CarouselRootProvider`
-
-Utilisez `CarouselRootProvider` lorsque l’état du carrousel doit être créé en dehors du sous-arbre rendu et
-partagé entre plusieurs parties de la composition.
-
-<Example name="carousel/root-provider" />
-
-### Accéder directement à une diapositive
-
-Utilisez l’API du carrousel via le contexte lorsqu’un autre contrôle doit accéder directement à une diapositive.
-
-<Example name="carousel/scroll-to-slide" />
-
-### Diapositives par page
-
-Augmentez `slidesPerPage` pour afficher plusieurs éléments à la fois au lieu d’un seul panneau pleine largeur.
-
-<Example name="carousel/slides-per-page" />
-
-### Espacement
-
-Augmentez `spacing` pour ajouter de l’espace entre les diapositives voisines dans des mises en page éditoriales,
-des galeries de produits ou des interfaces personnalisées.
-
-<Example name="carousel/spacing" />
-
-### Indicateurs sous forme de miniatures
-
-Affichez un contenu personnalisé dans les indicateurs lorsque la pagination doit montrer un aperçu des diapositives
-sous forme de miniatures plutôt que de simples points.
-
-<Example name="carousel/thumbnail-indicators" />
-
-### Tailles variables
-
-Activez `autoSize` lorsque la largeur des diapositives doit suivre leur contenu plutôt qu’une grille de page fixe.
-
-<Example name="carousel/variable-sizes" />
-
-### Orientation verticale
-
-Passez à l’orientation verticale lorsque le carrousel et ses contrôles doivent fonctionner sur l’axe vertical.
-
-<Example name="carousel/vertical" />
-
-### Personnalisation avancée
-
-N’utilisez pas `CarouselIndicators` lorsque vous devez afficher vous-même `pageSnapPoints` ou placer la pagination
-à côté d’autres contrôles pilotés par le contexte.
-
-<Example name="carousel/advanced-customization" />
-
 ## Styles
 
 Utilisez `className` en React ou `class` en Solid et Vue sur les parties exportées pour appliquer les styles
 structurels. Pour les styles liés à l’état, privilégiez les attributs de données Ark (`data-part`,
 `data-orientation`, `data-current`, `data-dragging`) et les points d’accroche `data-slot` de moduix.
 
-### Propriétés CSS
+### Variables CSS
 
-<CssPropertiesSection properties={CarouselDocs.carouselOverrideCssProperties} />
+Survolez ou sélectionnez une variable pour la voir dans l’aperçu.
+
+<CssPropertiesSection properties={CarouselDocs.carouselOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Points d’accroche CSS
 
-- `data-slot="carousel-root"`, `carousel-root-provider`, `carousel-control`, `carousel-item-group`,
-  `carousel-item`, `carousel-prev-trigger`, `carousel-next-trigger`, `carousel-indicator-group`,
-  `carousel-indicator`, `carousel-autoplay-trigger`, `carousel-autoplay-indicator` et
-  `carousel-progress-text` sont des sélecteurs stables pour les parties exportées.
+| Partie | `data-slot` |
+| --- | --- |
+| `Carousel` | `carousel-root` |
+| `CarouselRootProvider` | `carousel-root-provider` |
+| `CarouselControl` | `carousel-control` |
+| `CarouselItemGroup` | `carousel-item-group` |
+| `CarouselItem` | `carousel-item` |
+| `CarouselPrevTrigger` | `carousel-prev-trigger` |
+| `CarouselNextTrigger` | `carousel-next-trigger` |
+| `CarouselIndicatorGroup` | `carousel-indicator-group` |
+| `CarouselIndicator` | `carousel-indicator` |
+| `CarouselAutoplayTrigger` | `carousel-autoplay-trigger` |
+| `CarouselAutoplayIndicator` | `carousel-autoplay-indicator` |
+| `CarouselProgressText` | `carousel-progress-text` |
+
 - Ark ajoute également `data-scope="carousel"` et les noms `data-part` aux nœuds rendus.
 - `data-orientation="horizontal" | "vertical"` est disponible sur la racine et les parties structurelles.
 - `CarouselItemGroup` fournit `data-dragging` pendant une interaction de glissement.
 - `CarouselIndicator` fournit `data-current`, tandis que `CarouselItem` fournit `data-index` et `data-inview`.
 - `CarouselIndicator` fournit `data-readonly`, tandis que `CarouselAutoplayTrigger` fournit `data-pressed`.
+
+## Clavier
+
+| Touche | Action |
+| --- | --- |
+| `ArrowLeft` / `ArrowRight` | Passe d’un indicateur à l’autre ; ArrowUp et ArrowDown en vertical. |
+| `Home` / `End` | Va à la première ou dernière page depuis les indicateurs. |
+| `Enter` / `Space` | Active le bouton précédent, suivant ou lecture ayant le focus. |
+
+## Référence de l’API
+
+| Prop | Type | Défaut | Description |
+| --- | --- | --- | --- |
+| `slideCount` | `number` | — | Nombre total de diapositives. Obligatoire. |
+| `page` | `number` | — | Page courante en mode contrôlé. |
+| `defaultPage` | `number` | `0` | Page initiale lorsque la page n’est pas contrôlée. |
+| `onPageChange` | `(details: PageChangeDetails) => void` | — | Appelé lorsque la page change. |
+| `slidesPerPage` | `number` | `1` | Nombre de diapositives visibles à la fois. |
+| `slidesPerMove` | `number \| 'auto'` | `'auto'` | Nombre de diapositives par défilement, ou `auto`. |
+| `spacing` | `string` | `'0px'` | Espace entre les diapositives, en longueur CSS. |
+| `padding` | `string` | — | Espace autour de la zone de défilement qui laisse voir les diapositives voisines. |
+| `loop` | `boolean` | `false` | Revient de la dernière diapositive à la première. |
+| `autoplay` | `boolean \| { delay: number }` | `false` | Défile automatiquement ; passez `{ delay }` en millisecondes pour l’intervalle. |
+| `allowMouseDrag` | `boolean` | `false` | Permet de faire glisser les diapositives à la souris. |
+| `autoSize` | `boolean` | `false` | Autorise des diapositives de largeurs différentes. |
+| `orientation` | `'horizontal' \| 'vertical'` | `'horizontal'` | Direction de défilement : `horizontal` ou `vertical`. |
+| `snapType` | `'proximity' \| 'mandatory'` | `'mandatory'` | Accrochage CSS au défilement : `mandatory` ou `proximity`. |
+| `translations` | `IntlTranslations` | — | Textes localisés des libellés d’accessibilité. |
+| `inViewThreshold` | `number \| number[]` | `0.6` | Part visible d’une diapositive à partir de laquelle elle est considérée affichée. |
+| `onDragStatusChange` | `(details: DragStatusDetails) => void` | — | Appelé au début et à la fin du glissement. |
+| `onAutoplayStatusChange` | `(details: AutoplayStatusDetails) => void` | — | Appelé lorsque la lecture automatique démarre, se met en pause ou s’arrête. |

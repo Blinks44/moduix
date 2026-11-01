@@ -1,12 +1,26 @@
 ---
 title: Popover
 component: popover
-description: Une fenêtre contextuelle accessible pour un contenu interactif compact, ancrée à un déclencheur ou à un autre élément de référence.
+description: Afficher du contenu interactif dans un panneau ancré à un déclencheur.
+ark: https://ark-ui.com/docs/components/popover
 ---
 
-## Référence de l’API
+import AnatomyScene from '@/components/examples/popover/anatomy';
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/popover" />
+<Example name="popover/basic" />
+
+## Installation
+
+<ComponentInstall />
+
+## Utilisation
+
+<Usage />
+
+Utilisez `Popover` comme racine et importez directement chaque partie supplémentaire, par exemple
+`PopoverTrigger` et `PopoverContent`. Ces noms plats sont identiques dans les paquets npm et les
+sources du registre shadcn. Configurez le positionnement sur la racine et utilisez `asChild` lorsque
+votre propre bouton doit servir de déclencheur.
 
 ## Choisir le bon composant
 
@@ -14,92 +28,98 @@ Utilisez `Popover` pour un contenu interactif compact ouvert par un déclencheur
 pour une indication courte et non interactive, et `Dialog` pour les parcours plus importants qui
 requièrent toute l’attention de l’utilisateur.
 
-## Exemple de base
+## Exemples
 
-Utilisez `Popover` comme racine et importez directement chaque partie supplémentaire, par exemple
-`PopoverTrigger` et `PopoverContent`. Ces noms plats sont identiques dans les paquets npm et les
-sources du registre shadcn. Configurez le positionnement sur la racine et utilisez `asChild` lorsque
-votre propre bouton doit servir de déclencheur.
+### Positionnement
 
-<Example name="popover/basic" />
+Transmettez les options de positionnement d’Ark via la propriété `positioning` de la racine.
 
-## Installation avec shadcn
+<Example name="popover/placement" />
 
-Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration complète du paquet, du registre et des styles.
+### Avec une flèche
 
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/popover' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/popover' },
-  ]}
-/>
-  </Tab>
-  <Tab label="Solid" value="solid">
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/popover' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/popover' },
-  ]}
-/>
-  </Tab>
-  <Tab label="Vue" value="vue">
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/popover' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/popover' },
-  ]}
-/>
-  </Tab>
-</Tabs>
+Ajoutez `PopoverArrow` lorsque la fenêtre doit pointer visuellement vers son élément de référence.
+L’enveloppe rend par défaut l’élément `PopoverArrowTip` stylisé par moduix.
 
-## Anatomie
+<Example name="popover/with-arrow" />
 
-```text
-Popover
-├─ PopoverAnchor (facultatif)
-├─ PopoverTrigger
-│  └─ PopoverIndicator (facultatif)
-└─ Sous-arbre de superposition (rendu automatiquement dans un portail)
-   └─ PopoverPositioner
-      └─ PopoverContent
-         ├─ PopoverArrow
-         │  └─ PopoverArrowTip
-         ├─ PopoverHeader
-         │  ├─ PopoverTitle
-         │  └─ PopoverDescription
-         ├─ PopoverBody
-         ├─ PopoverFooter
-         └─ PopoverCloseTrigger / PopoverCloseIcon
+### Même largeur
 
-PopoverRootProvider
-└─ même arborescence reliée à l’état moduix créé avec usePopover()
+Définissez `positioning.sameWidth` lorsque le contenu doit avoir la même largeur que son déclencheur.
 
-PopoverContext
-└─ fonction de rendu avec l’état courant de la fenêtre contextuelle
-```
+<Example name="popover/same-width" />
 
-| Partie                       | Rôle                                                                  |
-| --------------------------- | --------------------------------------------------------------------- |
-| `Popover`  | Gère l’état, l’ouverture et la fermeture, le focus, la fermeture extérieure et le positionnement. |
-| `PopoverRootProvider`      | Relie les parties à l’état créé avec `usePopover()`.                 |
-| `PopoverContext`            | Expose l’état courant aux descendants via une fonction de rendu.      |
-| `PopoverAnchor`             | Élément de référence facultatif utilisé pour le positionnement.       |
-| `PopoverTrigger`            | Bouton qui ouvre ou ferme la fenêtre et peut recevoir une `value`.     |
-| `PopoverIndicator`          | Indicateur facultatif de l’état du déclencheur.                       |
-| `PopoverPositioner`         | Calque flottant qui expose les variables CSS de positionnement d’Ark. |
-| `PopoverContent`             | Surface interactive visible de la fenêtre contextuelle.              |
-| `PopoverArrow` / `PopoverArrowTip` | Flèche positionnée facultative et sa pointe visible.                  |
-| `PopoverTitle`               | Titre accessible associé au contenu.                                  |
-| `PopoverDescription`         | Description accessible associée au contenu.                           |
-| `PopoverCloseTrigger`        | Déclencheur bas niveau qui ferme la fenêtre.                           |
-| `PopoverCloseIcon`            | Aide moduix qui associe le déclencheur de fermeture Ark à un bouton avec icône. |
-| `PopoverHeader` / `PopoverBody`      | Aides de mise en page moduix avec des slots stables.                  |
-| `PopoverFooter`               | Aide moduix pour la rangée d’actions avec un slot stable.              |
+### Ancre
 
-Dans le code de l’application, utilisez `Popover` comme racine. Importez directement les autres
-parties depuis le paquet afin de garder une composition explicite et lisible.
+Utilisez `PopoverAnchor` lorsqu’un autre élément doit fournir la référence de positionnement.
+
+<Example name="popover/anchor" />
+
+### Comportement de fermeture
+
+Désactivez la fermeture lors d’une interaction extérieure ou avec Échap uniquement lorsque le
+parcours prévoit une action de fermeture explicite.
+
+<Example name="popover/close-behavior" />
+
+### Mode modal
+
+Utilisez le mode modal lorsque l’interaction doit garder l’utilisateur dans la fenêtre. Il piège le
+focus et masque le contenu extérieur aux technologies d’assistance. Utilisez `initialFocusEl` pour
+choisir la première cible du focus.
+
+<Example name="popover/modal" />
+
+### Popover imbriqué
+
+Les Popover imbriqués ont chacun leur propre état. Rendez le Popover imbriqué avec
+`portalled={false}` afin qu’il reste dans la superposition parente et participe à sa structure de
+calques.
+
+<Example name="popover/nested" />
+
+### Plusieurs déclencheurs
+
+Partagez une même zone de contenu entre plusieurs déclencheurs en attribuant une `value` à chacun
+et en réagissant à la valeur active.
+
+<Example name="popover/multiple-triggers" />
+
+### État contrôlé
+
+Conservez `open` dans l’état du framework et lisez `details.open` dans `onOpenChange` pour
+synchroniser la fenêtre avec le reste de l’application. Voir [Contrôler l’état depuis l’application](/docs/composition-patterns#controlled-state).
+
+<Example name="popover/controlled" />
+
+### Montage différé
+
+Utilisez `lazyMount` et `unmountOnExit` lorsque le contenu ne doit être monté que pendant
+l’utilisation de la fenêtre.
+
+<Example name="popover/lazy-mount" />
+
+### Contexte
+
+Utilisez `usePopoverContext()` dans un descendant qui a besoin de l’état courant de la fenêtre.
+Utilisez `PopoverContext` lorsqu’une fonction de rendu rend la composition plus claire.
+
+<Example name="popover/context" />
+
+### Root Provider
+
+Utilisez `usePopover()` avec `PopoverRootProvider` lorsque des contrôles situés en dehors de
+l’arborescence du Popover doivent lire ou modifier son état. Voir [Partager l’état hors de l’arbre](/docs/composition-patterns#root-provider).
+
+<Example name="popover/root-provider" />
+
+### Assembler à partir des parties
+
+Le même popover que Basic, sans `PopoverHeader` ni `PopoverFooter` : des éléments de mise en page
+simples autour du titre, de la description et du déclencheur de fermeture. Partez de cet exemple quand
+le design modifie la mise en page de la fenêtre.
+
+<Example name="popover/build-from-parts" />
 
 ## Composition
 
@@ -117,99 +137,34 @@ imbriquée afin qu’elle reste dans la superposition parente. Lorsque plusieurs
 une même fenêtre, attribuez une `value` à chacun et mettez à jour le contenu via
 `onTriggerValueChange(details)`.
 
-## Exemples
+## Anatomie
 
-### Ancre
+Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
 
-Utilisez `PopoverAnchor` lorsqu’un autre élément doit fournir la référence de positionnement.
+<AnatomyInspector
+  parts={[
+    ["Popover", null, "Gère l’état, l’ouverture et la fermeture, le focus, la fermeture extérieure et le positionnement.", 0],
+    ["PopoverAnchor", "popover-anchor", "Élément de référence facultatif utilisé pour le positionnement.", 1],
+    ["PopoverTrigger", "popover-trigger", "Bouton qui ouvre ou ferme la fenêtre et peut recevoir une `value`.", 2],
+    ["PopoverIndicator", "popover-indicator", "Indicateur facultatif de l’état du déclencheur.", 3],
+    ["PopoverPositioner", "popover-positioner", "Calque flottant qui expose les variables CSS de positionnement d’Ark.", 1],
+    ["PopoverContent", "popover-content", "Surface interactive visible de la fenêtre contextuelle.", 2],
+    ["PopoverArrow / PopoverArrowTip", "popover-arrow", "Flèche positionnée facultative et sa pointe visible.", 3],
+    ["PopoverHeader / PopoverBody", "popover-header", "Aides de mise en page moduix avec des slots stables.", 3],
+    ["PopoverTitle", "popover-title", "Titre accessible associé au contenu.", 4],
+    ["PopoverCloseIcon", "popover-close-icon", "Aide moduix qui associe le déclencheur de fermeture Ark à un bouton avec icône.", 4],
+    ["PopoverDescription", "popover-description", "Description accessible associée au contenu.", 4],
+    ["PopoverFooter", "popover-footer", "Aide moduix pour la rangée d’actions avec un slot stable.", 3],
+    ["PopoverCloseTrigger", "popover-close-trigger", "Déclencheur bas niveau qui ferme la fenêtre.", 4],
+    ["PopoverRootProvider", null, "Relie les parties à l’état créé avec `usePopover()`.", 0],
+    ["PopoverContext", null, "Expose l’état courant aux descendants via une fonction de rendu.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
-<Example name="popover/anchor" />
-
-### Comportement de fermeture
-
-Désactivez la fermeture lors d’une interaction extérieure ou avec Échap uniquement lorsque le
-parcours prévoit une action de fermeture explicite.
-
-<Example name="popover/close-behavior" />
-
-### Contexte
-
-Utilisez `usePopoverContext()` dans un descendant qui a besoin de l’état courant de la fenêtre.
-Utilisez `PopoverContext` lorsqu’une fonction de rendu rend la composition plus claire.
-
-<Example name="popover/context" />
-
-### État contrôlé
-
-Conservez `open` dans l’état du framework et lisez `details.open` dans `onOpenChange` pour
-synchroniser la fenêtre avec le reste de l’application.
-
-<Example name="popover/controlled" />
-
-### Montage différé
-
-Utilisez `lazyMount` et `unmountOnExit` lorsque le contenu ne doit être monté que pendant
-l’utilisation de la fenêtre.
-
-<Example name="popover/lazy-mount" />
-
-### Mode modal
-
-Utilisez le mode modal lorsque l’interaction doit garder l’utilisateur dans la fenêtre. Il piège le
-focus et masque le contenu extérieur aux technologies d’assistance. Utilisez `initialFocusEl` pour
-choisir la première cible du focus.
-
-<Example name="popover/modal" />
-
-### Plusieurs déclencheurs
-
-Partagez une même zone de contenu entre plusieurs déclencheurs en attribuant une `value` à chacun
-et en réagissant à la valeur active.
-
-<Example name="popover/multiple-triggers" />
-
-### Popover imbriqué
-
-Les Popover imbriqués ont chacun leur propre état. Rendez le Popover imbriqué avec
-`portalled={false}` afin qu’il reste dans la superposition parente et participe à sa structure de
-calques.
-
-<Example name="popover/nested" />
-
-### Positionnement
-
-Transmettez les options de positionnement d’Ark via la propriété `positioning` de la racine.
-
-<Example name="popover/placement" />
-
-### Root Provider
-
-Utilisez `usePopover()` avec `PopoverRootProvider` lorsque des contrôles situés en dehors de
-l’arborescence du Popover doivent lire ou modifier son état.
-
-<Example name="popover/root-provider" />
-
-### Même largeur
-
-Définissez `positioning.sameWidth` lorsque le contenu doit avoir la même largeur que son déclencheur.
-
-<Example name="popover/same-width" />
-
-### Avec une flèche
-
-Ajoutez `PopoverArrow` lorsque la fenêtre doit pointer visuellement vers son élément de référence.
-L’enveloppe rend par défaut l’élément `PopoverArrowTip` stylisé par moduix.
-
-<Example name="popover/with-arrow" />
-
-### Personnalisation avancée
-
-Construisez la fenêtre à partir des parties de bas niveau lorsque les aides moduix ne conviennent
-pas à la mise en page. Cet exemple place `PopoverTitle` et un `PopoverCloseTrigger` avec `asChild`
-autour de `CloseButton` dans un en-tête personnalisé, et rend `PopoverArrowTip` explicitement dans
-`PopoverArrow`.
-
-<Example name="popover/advanced-customization" />
+Dans le code de l’application, utilisez `Popover` comme racine. Importez directement les autres
+parties depuis le paquet afin de garder une composition explicite et lisible.
 
 ## Styles
 
@@ -225,17 +180,63 @@ reposent sur les jetons de foundation et n’ont pas de variables de composant :
 remplace les styles du composant en couche. Les attributs d’état et les hooks `data-slot` sont communs
 aux deux modes de style.
 
-### Ciblage des styles
+### Points d’accroche CSS
+
+| Partie | `data-slot` |
+| --- | --- |
+| `PopoverAnchor` | `popover-anchor` |
+| `PopoverTrigger` | `popover-trigger` |
+| `PopoverIndicator` | `popover-indicator` |
+| `PopoverPositioner` | `popover-positioner` |
+| `PopoverContent` | `popover-content` |
+| `PopoverArrow` | `popover-arrow` |
+| `PopoverArrowTip` | `popover-arrow-tip` |
+| `PopoverTitle` | `popover-title` |
+| `PopoverDescription` | `popover-description` |
+| `PopoverCloseTrigger` | `popover-close-trigger` |
+| `PopoverCloseIcon` | `popover-close-icon` |
+| `PopoverHeader` | `popover-header` |
+| `PopoverBody` | `popover-body` |
+| `PopoverFooter` | `popover-footer` |
 
 Chaque partie rendue accepte `className` ou `class`. Les parties Ark conservent `data-scope="popover"`
-et leurs valeurs `data-part`, tandis que moduix ajoute `data-slot="popover-*"` aux conteneurs rendus.
-`Popover` et `PopoverRootProvider` fournissent l’état, mais ne rendent pas d’éléments DOM. Pour les
+et leurs valeurs `data-part`, tandis que moduix ajoute `data-slot="popover-*"` aux conteneurs rendus. `Popover` et `PopoverRootProvider` fournissent l’état, mais ne rendent pas d’éléments DOM. Pour les
 styles liés à l’état, ciblez `data-state="open|closed"`, `data-placement`, `data-side`, `data-value`,
 `data-nested`, `data-has-nested`, `data-expanded` et `data-current` lorsque plusieurs déclencheurs
 avec une `value` partagent une même fenêtre.
 
 `PopoverPositioner` expose `--reference-width`, `--reference-height`, `--available-width`,
 `--available-height`, `--x`, `--y`, `--z-index` et `--transform-origin`. `PopoverContent` expose
-`--layer-index` et `--nested-layer-count`. `PopoverArrow` expose les variables de mesure de la flèche Ark.
-Le contenu renvoie les longues chaînes sans séparateur à la ligne et désactive ses animations lorsque
+`--layer-index` et `--nested-layer-count`. `PopoverArrow` expose les variables de mesure de la flèche Ark. Le contenu renvoie les longues chaînes sans séparateur à la ligne et désactive ses animations lorsque
 l’utilisateur préfère réduire les animations.
+
+## Clavier
+
+| Touche | Action |
+| --- | --- |
+| `Enter` / `Space` | Ouvre ou ferme le popover depuis le déclencheur. |
+| `Tab` / `Shift+Tab` | Parcourt le contenu ; en sortir ferme un popover non modal. |
+| `Esc` | Ferme et rend le focus au déclencheur. |
+
+## Référence de l’API
+
+| Prop | Type | Défaut | Description |
+| --- | --- | --- | --- |
+| `open` | `boolean` | — | État d’ouverture en mode contrôlé. |
+| `defaultOpen` | `boolean` | `false` | État d’ouverture initial lorsqu’il n’est pas contrôlé. |
+| `onOpenChange` | `(details: OpenChangeDetails) => void` | — | Appelé à l’ouverture et à la fermeture. |
+| `positioning` | `PositioningOptions` | — | Placement, décalage et autres options de positionnement de la fenêtre. |
+| `modal` | `boolean` | `false` | Retient le focus, bloque l’extérieur et le défilement de la page. |
+| `autoFocus` | `boolean` | `true` | Place le focus sur le premier élément focusable à l’ouverture. |
+| `closeOnEscape` | `boolean` | `true` | Se ferme avec Échap. |
+| `closeOnInteractOutside` | `boolean` | `true` | Se ferme au clic à l’extérieur. |
+| `initialFocusEl` | `() => HTMLElement \| null \| false` | — | Renvoie l’élément qui reçoit le focus à l’ouverture. |
+| `portalled` | `boolean` | `true` | Rend la fenêtre dans un portail à la fin de `body`. |
+| `lazyMount` | `boolean` | `true` | Monte le contenu à la première ouverture. |
+| `unmountOnExit` | `boolean` | `true` | Démonte le contenu après la fermeture. |
+| `translations` | `IntlTranslations` | — | Textes localisés des libellés d’accessibilité. |
+| `finalFocusEl` | `() => MaybeElement` | — | Renvoie l’élément qui reçoit le focus à la fermeture. |
+| `restoreFocus` | `boolean` | `true` | Rend le focus à l’élément précédent à la fermeture. |
+| `triggerValue` | `string \| null` | — | Déclencheur actif en mode contrôlé lorsque plusieurs déclencheurs partagent la fenêtre. |
+| `defaultTriggerValue` | `string \| null` | — | Déclencheur actif au départ. |
+| `onTriggerValueChange` | `(details: TriggerValueChangeDetails) => void` | — | Appelé lorsqu’un autre déclencheur devient actif. |

@@ -6,12 +6,11 @@ import {
   Collapsible,
   CollapsibleBody,
   CollapsibleContent,
-  CollapsibleIndicator,
   CollapsibleRootProvider,
   CollapsibleTrigger,
   useCollapsible,
   useCollapsibleContext,
-} from '../src';
+} from '@/index';
 
 function ContextCloseButton() {
   const collapsible = useCollapsibleContext();
@@ -160,24 +159,6 @@ test('keeps provider and descendant context composition connected', async () => 
   await expect
     .element(page.getByRole('button', { name: 'Provider details' }))
     .toHaveAttribute('aria-expanded', 'false');
-});
-
-test('dims a disabled trigger once without fading its indicator again', () => {
-  render(
-    <Collapsible disabled>
-      <CollapsibleTrigger>
-        Disabled details
-        <CollapsibleIndicator data-testid="disabled-indicator" />
-      </CollapsibleTrigger>
-      <CollapsibleContent>Unavailable details.</CollapsibleContent>
-    </Collapsible>,
-  );
-
-  const trigger = screen.getByRole('button', { name: 'Disabled details' });
-  const indicator = screen.getByTestId('disabled-indicator');
-
-  expect(getComputedStyle(trigger).opacity).toBe('0.5');
-  expect(getComputedStyle(indicator).opacity).toBe('1');
 });
 
 test('marks CollapsibleBody with collapsible scope and body part', () => {

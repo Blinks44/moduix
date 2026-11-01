@@ -302,42 +302,6 @@ function MenuItemText(props: ComponentProps<typeof MenuPrimitive.ItemText>) {
   );
 }
 
-function MenuItemTextContent(props: HTMLArkProps<'span'>) {
-  const [local, others] = splitProps(props, ['class']);
-
-  return (
-    <ark.span
-      class={clsx(styles.itemTextContent, local.class)}
-      {...others}
-      data-slot="menu-item-text-content"
-    />
-  );
-}
-
-function MenuItemTextIcon(props: HTMLArkProps<'span'>) {
-  const [local, others] = splitProps(props, ['class']);
-
-  return (
-    <ark.span
-      class={clsx(styles.itemTextIcon, local.class)}
-      {...others}
-      data-slot="menu-item-text-icon"
-    />
-  );
-}
-
-function MenuItemTextLabel(props: HTMLArkProps<'span'>) {
-  const [local, others] = splitProps(props, ['class']);
-
-  return (
-    <ark.span
-      class={clsx(styles.itemTextLabel, local.class)}
-      {...others}
-      data-slot="menu-item-text-label"
-    />
-  );
-}
-
 function MenuItemShortcut(props: HTMLArkProps<'span'>) {
   const [local, others] = splitProps(props, ['class']);
 
@@ -369,9 +333,6 @@ export {
   MenuItemIndicator,
   MenuItemShortcut,
   MenuItemText,
-  MenuItemTextContent,
-  MenuItemTextIcon,
-  MenuItemTextLabel,
   MenuPositioner,
   MenuRadioItem,
   MenuRadioItemGroup,

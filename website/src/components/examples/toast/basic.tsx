@@ -1,8 +1,8 @@
 import { Button } from '@moduix/react/button';
+import { Stack } from '@moduix/react/stack';
 import { ToastToaster, createToaster } from '@moduix/react/toast';
 import { useState } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';
-import styles from '@/components/examples/toast/toast-basic.module.css';
 
 const toaster = createToaster({ placement: 'bottom-end', overlap: true, gap: 24 });
 
@@ -10,7 +10,7 @@ export default function App() {
   const [event, setEvent] = useState('No toast created');
 
   return (
-    <div className={styles.root}>
+    <Stack align="center" gap="3">
       <ToastToaster toaster={toaster} />
       <PreviewMeta>
         <output>Last event: {event}</output>
@@ -27,6 +27,6 @@ export default function App() {
           Schedule meeting
         </Button>
       </PreviewMeta>
-    </div>
+    </Stack>
   );
 }

@@ -6,7 +6,7 @@ import {
   CollapsibleContent,
   CollapsibleIndicator,
   CollapsibleTrigger,
-} from '../src/components/collapsible';
+} from '@/components/collapsible';
 
 const open = ref(false);
 </script>

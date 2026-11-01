@@ -1,17 +1,24 @@
 ---
 title: Toggle
 component: toggle
-description: A two-state button for compact actions such as favorites, formatting controls, and toolbar actions.
+description: Press a button to turn an option on and press again to turn it off.
+ark: https://ark-ui.com/docs/components/toggle
 ---
 
+import AnatomyScene from '@/components/examples/toggle/basic';
 import * as ToggleDocs from '@/components/examples/toggle/css-properties';
 
-## API Reference
+<Example name="toggle/basic" />
 
-`Toggle` wraps Ark UI's Toggle primitive and adds moduix visual props for variants and sizes.
-Import it from `@moduix/react/toggle`, `@moduix/solid/toggle`, or `@moduix/vue/toggle`.
+## Installation
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/toggle" />
+<ComponentInstall />
+
+## Usage
+
+<Usage />
+
+Use `Toggle` for the common case. It preserves Ark's pressed-state behavior.
 
 ## Choosing the right component
 
@@ -22,78 +29,50 @@ Use `Toggle` when the control should behave like a button and expose whether it 
 - Choose **`Checkbox`** for selections that are submitted with a list or form.
 - Choose **`ToggleGroup`** when several toggles should share one selection model.
 
-## Basic
-
-
-Use `Toggle` for the common case. It preserves Ark's pressed-state behavior.
-
-<Example name="toggle/basic" />
-
-## Install with shadcn
-
-See [Quick Start](/docs/quick-start) for full package setup, registry configuration, and styling guidance.
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/toggle' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/toggle' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/toggle' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/toggle' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/toggle' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/toggle' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Anatomy
-
-```text
-Toggle
-└─ ToggleIndicator (optional)
-
-ToggleContext (state reader, not a DOM part)
-```
-
-| Part | Role |
-| ---- | ---- |
-| `Toggle` | Root part that owns pressed state, focus, disabled state, and `asChild` composition. |
-| `ToggleIndicator` | Optional part that renders pressed content and its `fallback` when the toggle is off. |
-| `ToggleContext` | Reads the nearest toggle state for custom descendants; it does not render a DOM part. |
-
-## Composition
-
-Use `defaultPressed` for an uncontrolled toggle, or pass `pressed` with `onPressedChange` when
-application state owns the value. Use `ToggleIndicator` when
-the button content changes with its pressed state. For custom descendants that need the state, use
-`ToggleContext` or `useToggleContext()` from the matching package. Use `asChild` when another button
-should host the toggle behavior. In Solid, `asChild` takes a render function; in React, it takes one
-button-like child; in Vue, it uses one button-like child in the default slot. In Vue, use
-`v-model:pressed` for the controlled value, the named `fallback` slot with `ToggleIndicator`, and the
-`ToggleContext` slot when a custom descendant needs the current state. Listen to `@pressed-change`
-when you need the emitted Boolean value without binding it with `v-model:pressed`.
-
 ## Examples
+
+### Variants
+
+Set `variant` to `default`, `outline`, or `ghost` to match the surrounding surface.
+
+<Example name="toggle/variants" />
+
+### Sizes
+
+Use text sizes for labeled toggles and icon-only sizes for denser action rows.
+
+<Example name="toggle/sizes" />
+
+### Icons
+
+Pass icons as regular children. Icon-only toggles need an accessible name such as `aria-label`.
+
+<Example name="toggle/icons" />
+
+### Pressed state
+
+Use the context hook or scoped slot when a custom descendant needs the pressed state instead of changing the
+button content with `ToggleIndicator`.
+
+<Example name="toggle/pressed-state" />
+
+### Indicator
+
+Use `ToggleIndicator` when pressed and unpressed states need different inline content.
+
+<Example name="toggle/indicator" />
+
+### Disabled
+
+Set `disabled` to prevent interaction while preserving the current pressed state.
+
+<Example name="toggle/disabled" />
+
+### Controlled
+
+Control `pressed` when the toggle is part of application state, analytics, or another interaction. See [Control state from the application](/docs/composition-patterns#controlled-state).
+
+<Example name="toggle/controlled" />
 
 ### asChild
 
@@ -102,48 +81,34 @@ can merge its interaction props and accessibility state into that element.
 
 <Example name="toggle/aschild" />
 
-### Controlled
+## Composition
 
-Control `pressed` when the toggle is part of application state, analytics, or another interaction.
+`Toggle` wraps Ark UI's Toggle primitive and adds moduix visual props for variants and sizes.
+Import it from `@moduix/react/toggle`, `@moduix/solid/toggle`, or `@moduix/vue/toggle`.
 
-<Example name="toggle/controlled" />
+Use `defaultPressed` for an uncontrolled toggle, or pass `pressed` with `onPressedChange` when
+application state controls the value. Use `ToggleIndicator` when
+the button content changes with its pressed state. For custom descendants that need the state, use
+`ToggleContext` or `useToggleContext()` from the matching package. Use `asChild` when another button
+should host the toggle behavior. In Solid, `asChild` takes a render function; in React, it takes one
+button-like child; in Vue, it uses one button-like child in the default slot. In Vue, use
+`v-model:pressed` for the controlled value, the named `fallback` slot with `ToggleIndicator`, and the
+`ToggleContext` slot when a custom descendant needs the current state. Listen to `@pressed-change`
+when you need the emitted Boolean value without binding it with `v-model:pressed`.
 
-### Disabled
+## Anatomy
 
-Set `disabled` to prevent interaction while preserving the current pressed state.
+Hover or focus a part to find it in the preview.
 
-<Example name="toggle/disabled" />
-
-### Icons
-
-Pass icons as regular children. Icon-only toggles need an accessible name such as `aria-label`.
-
-<Example name="toggle/icons" />
-
-### Indicator
-
-Use `ToggleIndicator` when pressed and unpressed states need different inline content.
-
-<Example name="toggle/indicator" />
-
-### Sizes
-
-Use text sizes for labeled toggles and icon-only sizes for denser action rows.
-
-<Example name="toggle/sizes" />
-
-### Variants
-
-Set `variant` to `default`, `outline`, or `ghost` to match the surrounding surface.
-
-<Example name="toggle/variants" />
-
-### Advanced Customization
-
-Use the context hook or scoped slot when a custom descendant needs the pressed state instead of changing the
-button content with `ToggleIndicator`.
-
-<Example name="toggle/advanced-customization" />
+<AnatomyInspector
+  parts={[
+    ["Toggle", "toggle-root", "Root part that manages pressed state, focus, disabled state, and `asChild` composition.", 0],
+    ["ToggleIndicator", "toggle-indicator", "Optional part that renders pressed content and its `fallback` when the toggle is off.", 1],
+    ["ToggleContext", null, "Reads the nearest toggle state for custom descendants; it does not render a DOM part.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styling
 
@@ -152,15 +117,41 @@ Use `className` in React or `class` in Solid and Vue on exported parts. In the C
 variant, or on a container such as `ToggleGroup`. Size, spacing, radius, and typography come from foundation tokens;
 change them with a class. Tailwind packages use native utilities and consumer classes instead.
 
-### CSS Properties
+### CSS variables
 
-<CssPropertiesSection properties={ToggleDocs.toggleOverrideCssProperties} />
+Hover or focus a variable to see it in the preview.
+
+<CssPropertiesSection properties={ToggleDocs.toggleOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Styling hooks
 
-- Stable `data-slot` selectors: `toggle-root` and `toggle-indicator`.
+| Part | `data-slot` |
+| --- | --- |
+| `Toggle` | `toggle-root` |
+| `ToggleIndicator` | `toggle-indicator` |
+
 - Ark part selectors: `data-scope="toggle"` and `data-part="root" | "indicator"`.
 - Ark state selectors: `data-state="on" | "off"`, `data-pressed`, and `data-disabled`.
 - moduix selectors: `data-variant` and `data-size`, including `icon-sm`, `icon-md`, and `icon-lg`.
 - Direct icon children and icons inside `ToggleIndicator` are 16px by default. A class on the icon, such as
   `size-5` in Tailwind, overrides it.
+
+## Keyboard
+
+| Key | Action |
+| --- | --- |
+| `Enter` / `Space` | Toggles the pressed state. |
+
+## API reference
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `pressed` | `boolean` | — | Pressed state for controlled use. |
+| `defaultPressed` | `boolean` | `false` | Initial pressed state. |
+| `onPressedChange` | `(pressed: boolean) => void` | — | Called with the new pressed state. |
+| `variant` | `'default' \| 'outline' \| 'ghost'` | `'default'` | Visual style: `default`, `outline`, or `ghost`. |
+| `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'icon-sm' \| 'icon-md' \| 'icon-lg'` | `'md'` | `xs`, `sm`, `md`, `lg`, or a square `icon-sm`, `icon-md`, `icon-lg`. |
+| `disabled` | `boolean` | `false` | Disables the toggle. |
+| `asChild` | `boolean` | `false` | Applies the toggle styles and behavior to its single child. |

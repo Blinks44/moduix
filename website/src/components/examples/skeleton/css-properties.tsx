@@ -8,7 +8,7 @@ const skeletonCssProperties: CssPropertyInput[] = [
   ],
   [
     '--moduix-skeleton-bg',
-    'color-mix(in oklab, var(--moduix-color-muted-foreground) 18%, var(--moduix-color-background))',
+    'color-mix(in oklab, var(--moduix-muted-foreground) 18%, var(--moduix-background))',
     'Controls skeleton background color.',
   ],
   ['--moduix-skeleton-height', 'var(--moduix-spacing-4)', 'Controls default loading height.'],

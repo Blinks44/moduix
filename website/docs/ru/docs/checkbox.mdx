@@ -1,14 +1,26 @@
 ---
 title: Checkbox
 component: checkbox
-description: Компонент флажка для отдельных вариантов и групп с множественным выбором.
+description: Включает или выключает опцию, отдельно или в группе.
+ark: https://ark-ui.com/docs/components/checkbox
 ---
 
+import AnatomyScene from '@/components/examples/checkbox/basic';
 import * as CheckboxDocs from '@/components/examples/checkbox/css-properties';
 
-## Справочник API
+<Example name="checkbox/basic" />
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/checkbox" />
+## Установка
+
+<ComponentInstall />
+
+## Использование
+
+<Usage />
+
+Соберите флажок из частей Ark. Оставьте `CheckboxControl` пустым, чтобы использовать встроенные
+иконки выбранного и неопределённого состояния от moduix. Добавьте `CheckboxLabel` для видимой
+подписи и `CheckboxHiddenInput` для нативного взаимодействия и работы с формой.
 
 ## Выбор подходящего компонента
 
@@ -16,117 +28,13 @@ import * as CheckboxDocs from '@/components/examples/checkbox/css-properties';
 в форме, настройках или списке фильтров. Если нужно выбрать только один вариант, используйте
 `RadioGroup`. Если настройка должна применяться сразу, используйте `Switch`.
 
-## Базовый пример
-
-
-Соберите флажок из частей Ark. Оставьте `CheckboxControl` пустым, чтобы использовать встроенные
-иконки выбранного и неопределённого состояния от moduix. Добавьте `CheckboxLabel` для видимой
-подписи и `CheckboxHiddenInput` для нативного взаимодействия и работы с формой.
-
-<Example name="checkbox/basic" />
-
-## Установка через shadcn
-
-Полную настройку пакета, реестра и стилей см. в разделе [Быстрый старт](/docs/quick-start).
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/checkbox' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/checkbox' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/checkbox' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/checkbox' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/checkbox' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/checkbox' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Анатомия
-
-```text
-Checkbox
-├─ CheckboxControl
-│  ├─ CheckboxIndicator
-│  └─ CheckboxIndicator[indeterminate] (необязательно)
-├─ CheckboxLabel
-└─ CheckboxHiddenInput (явно)
-
-CheckboxRootProvider
-└─ то же дерево частей, подключённое к состоянию из useCheckbox()
-
-CheckboxGroup
-└─ Checkbox[value]
-   ├─ CheckboxControl
-   ├─ CheckboxLabel
-   └─ CheckboxHiddenInput
-```
-
-| Часть                        | Назначение                                                                                 |
-| ---------------------------- | ------------------------------------------------------------------------------------------ |
-| `Checkbox`                   | Хранит состояние одного флажка и отрисовывает содержащий его `label`.                      |
-| `CheckboxHiddenInput`        | Нативное поле Ark; добавляйте его явно внутрь корневого компонента.                        |
-| `CheckboxRootProvider`       | Связывает части с состоянием Ark, созданным вне дерева компонентов.                        |
-| `CheckboxControl`            | Видимая часть флажка; если оставить пустой, отображает встроенные иконки состояния.        |
-| `CheckboxIndicator`          | Необязательный слот для собственной иконки. Для этого состояния передайте `indeterminate`. |
-| `CheckboxLabel`              | Видимая подпись флажка.                                                                    |
-| `CheckboxGroup`              | Управляет выбранными значениями нескольких флажков.                                        |
-
-## Композиция
-
-`CheckboxHiddenInput` - нативное поле Ark. Добавляйте его явно внутрь `Checkbox` или
-`CheckboxRootProvider`, даже вне формы: оно отвечает за нативный фокус, работу с клавиатурой,
-доступность и участие в форме. Для отдельного поля задайте `name` и `value` на корневом компоненте;
-для группы задайте `name` на `CheckboxGroup`, а `value` - на каждом `Checkbox`.
-
-`CheckboxGroup` хранит массив выбранных значений, а каждый дочерний элемент является
-`Checkbox` со своим `value`. Оставьте `CheckboxControl` пустым, чтобы использовать встроенные
-иконки moduix. Добавляйте `CheckboxIndicator` внутрь `CheckboxControl` только для собственной
-иконки.
-
-Если состояние нужно создать вне дерева компонентов, создайте его с помощью `useCheckbox()` и
-передайте хранилище в `CheckboxRootProvider`. Не используйте для того же состояния `Checkbox` или
-`CheckboxRootProvider`.
-
 ## Примеры
 
-### Управляемое состояние
+### Размеры
 
-Используйте управляемый флажок, если его значение хранится в другой части интерфейса.
+Используйте `size`, чтобы согласовать плотность флажка с окружающей формой или экраном настроек.
 
-<Example name="checkbox/controlled" />
-
-### Управляемая группа
-
-Используйте управляемую группу, если выбранные варианты влияют на фильтры, сводки или действия.
-
-<Example name="checkbox/controlled-group" />
-
-### Пользовательский индикатор
-
-Замените встроенную галочку собственной иконкой, сохранив поведение Checkbox и доступность Ark.
-
-<Example name="checkbox/custom-indicator" />
+<Example name="checkbox/sizes" />
 
 ### Выбрано по умолчанию
 
@@ -135,11 +43,38 @@ CheckboxGroup
 
 <Example name="checkbox/default-checked" />
 
+### Неопределённое состояние
+
+Используйте `checked="indeterminate"`, когда флажок обозначает частичный выбор. Это часто нужно
+для управления «Выбрать все».
+
+<Example name="checkbox/indeterminate" />
+
 ### Отключённый вариант
 
 Используйте `disabled`, когда вариант недоступен и не должен реагировать на взаимодействие.
 
 <Example name="checkbox/disabled" />
+
+### Только для чтения
+
+Используйте `readOnly`, чтобы показать значение без возможности его изменить.
+
+<Example name="checkbox/read-only" />
+
+### С Field
+
+Используйте `Field`, когда флажку нужны вспомогательный текст, сообщения проверки или общее
+состояние поля.
+
+<Example name="checkbox/with-field" />
+
+### С формой
+
+Передайте `name` и `value` в `Checkbox` и отрисуйте `CheckboxHiddenInput`, чтобы включить
+флажок в `FormData`.
+
+<Example name="checkbox/with-form" />
 
 ### Группа
 
@@ -160,37 +95,23 @@ CheckboxGroup
 
 <Example name="checkbox/group-with-form" />
 
-### Неопределённое состояние
-
-Используйте `checked="indeterminate"`, когда флажок обозначает частичный выбор. Это часто нужно
-для управления «Выбрать все».
-
-<Example name="checkbox/indeterminate" />
-
 ### Некорректная группа
 
 Задайте `invalid` на группе, если проверка относится ко всему выбору.
 
 <Example name="checkbox/invalid-group" />
 
-### Ограничение выбора
+### Управляемое состояние
 
-Используйте `maxSelectedValues`, чтобы ограничить количество одновременно выбранных вариантов.
+Используйте управляемый флажок, если его значение хранится в другой части интерфейса. Подробнее в разделе [Управляйте состоянием из приложения](/docs/composition-patterns#controlled-state).
 
-<Example name="checkbox/max-selected" />
+<Example name="checkbox/controlled" />
 
-### Только для чтения
+### Управляемая группа
 
-Используйте `readOnly`, чтобы показать значение без возможности его изменить.
+Используйте управляемую группу, если выбранные варианты влияют на фильтры, сводки или действия. Подробнее в разделе [Управляйте состоянием из приложения](/docs/composition-patterns#controlled-state).
 
-<Example name="checkbox/read-only" />
-
-### Root Provider
-
-Используйте `CheckboxRootProvider`, когда состояние флажка нужно хранить вне дерева компонентов.
-Импортируйте `useCheckbox` из пакета выбранного фреймворка.
-
-<Example name="checkbox/root-provider" />
+<Example name="checkbox/controlled-group" />
 
 ### Выбрать все
 
@@ -199,25 +120,66 @@ CheckboxGroup
 
 <Example name="checkbox/select-all" />
 
-### Размеры
+### Ограничение выбора
 
-Используйте `size`, чтобы согласовать плотность флажка с окружающей формой или экраном настроек.
+Используйте `maxSelectedValues`, чтобы ограничить количество одновременно выбранных вариантов.
 
-<Example name="checkbox/sizes" />
+<Example name="checkbox/max-selected" />
 
-### С Field
+### Пользовательский индикатор
 
-Используйте `Field`, когда флажку нужны вспомогательный текст, сообщения проверки или общее
-состояние поля.
+Замените встроенную галочку собственной иконкой, сохранив поведение Checkbox и доступность Ark.
 
-<Example name="checkbox/with-field" />
+<Example name="checkbox/custom-indicator" />
 
-### С формой
+### Root Provider
 
-Передайте `name` и `value` в `Checkbox` и отрисуйте `CheckboxHiddenInput`, чтобы включить
-флажок в `FormData`.
+Используйте `CheckboxRootProvider`, когда состояние флажка нужно хранить вне дерева компонентов.
+Импортируйте `useCheckbox` из пакета выбранного фреймворка. Подробнее в разделе [Выносите состояние за пределы дерева](/docs/composition-patterns#root-provider).
 
-<Example name="checkbox/with-form" />
+<Example name="checkbox/root-provider" />
+
+### Сборка из частей
+
+Тот же чекбокс, что в Basic, но с явными индикаторами: `CheckboxControl` добавляет галочку и
+`CheckboxIndicator` для неопределённого состояния, только когда у него нет дочерних элементов.
+Начинайте с него, если дизайн меняет квадрат или его иконки.
+
+<Example name="checkbox/build-from-parts" />
+
+## Композиция
+
+`CheckboxHiddenInput` - нативное поле Ark. Добавляйте его явно внутрь `Checkbox` или
+`CheckboxRootProvider`, даже вне формы: оно отвечает за нативный фокус, работу с клавиатурой,
+доступность и участие в форме. Для отдельного поля задайте `name` и `value` на корневом компоненте;
+для группы задайте `name` на `CheckboxGroup`, а `value` - на каждом `Checkbox`.
+
+`CheckboxGroup` хранит массив выбранных значений, а каждый дочерний элемент является
+`Checkbox` со своим `value`. Оставьте `CheckboxControl` пустым, чтобы использовать встроенные
+иконки moduix. Добавляйте `CheckboxIndicator` внутрь `CheckboxControl` только для собственной
+иконки.
+
+Если состояние нужно создать вне дерева компонентов, создайте его с помощью `useCheckbox()` и
+передайте хранилище в `CheckboxRootProvider`. Не используйте для того же состояния `Checkbox` или
+`CheckboxRootProvider`.
+
+## Анатомия
+
+Наведите на часть или выберите её, чтобы найти её в превью.
+
+<AnatomyInspector
+  parts={[
+    ["Checkbox", "checkbox-root", "Хранит состояние одного флажка и отрисовывает содержащий его `label`.", 0],
+    ["CheckboxControl", "checkbox-control", "Видимая часть флажка; если оставить пустой, отображает встроенные иконки состояния.", 1],
+    ["CheckboxIndicator", "checkbox-indicator", "Необязательный слот для собственной иконки. Для этого состояния передайте `indeterminate`.", 2],
+    ["CheckboxLabel", "checkbox-label", "Видимая подпись флажка.", 1],
+    ["CheckboxHiddenInput", "", "Нативное поле Ark; добавляйте его явно внутрь корневого компонента.", 1],
+    ["CheckboxRootProvider", "checkbox-root-provider", "Связывает части с состоянием Ark, созданным вне дерева компонентов.", 0],
+    ["CheckboxGroup", "checkbox-group", "Управляет выбранными значениями нескольких флажков.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Стилизация
 
@@ -227,15 +189,46 @@ CheckboxGroup
 утилиты и классы потребителя; переменные ниже настраивают варианты с CSS Modules. Атрибуты данных и
 хуки `data-slot` общие для обоих вариантов стилизации.
 
-### CSS-свойства
+### CSS-переменные
 
-<CssPropertiesSection properties={CheckboxDocs.checkboxOverrideCssProperties} />
+Наведите на переменную или выберите её, чтобы увидеть её в превью.
+
+<CssPropertiesSection properties={CheckboxDocs.checkboxOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Хуки стилизации
 
+| Часть | `data-slot` |
+| --- | --- |
+| `Checkbox` | `checkbox-root` |
+| `CheckboxRootProvider` | `checkbox-root-provider` |
+| `CheckboxIndicator` | `checkbox-indicator` |
+| `CheckboxControl` | `checkbox-control` |
+| `CheckboxLabel` | `checkbox-label` |
+| `CheckboxGroup` | `checkbox-group` |
+
 - `Checkbox` предоставляет `data-slot="checkbox-root"`, `data-size` и атрибуты состояния Ark, включая `data-state`, `data-active`, `data-disabled`, `data-readonly`, `data-invalid`, `data-required`, `data-hover`, `data-focus` и `data-focus-visible`.
-- `CheckboxRootProvider` предоставляет `data-slot="checkbox-root-provider"` и тот же контракт стилизации корневого компонента.
 - `CheckboxControl` предоставляет `data-slot="checkbox-control"` и атрибуты состояния Ark, включая `data-state="checked" | "indeterminate" | "unchecked"` и `data-active`.
-- `CheckboxIndicator` предоставляет `data-slot="checkbox-indicator"` и наследует атрибуты состояния Checkbox Ark.
-- `CheckboxLabel` предоставляет `data-slot="checkbox-label"` и атрибуты состояния Checkbox Ark.
-- `CheckboxGroup` предоставляет `data-slot="checkbox-group"`.
+
+## Клавиатура
+
+| Клавиша | Действие |
+| --- | --- |
+| `Space` | Переключает чекбокс в фокусе. |
+
+## Справочник API
+
+| Проп | Тип | По умолчанию | Описание |
+| --- | --- | --- | --- |
+| `checked` | `boolean \| 'indeterminate'` | — | Состояние отметки в управляемом режиме; `indeterminate` показывает прочерк. |
+| `defaultChecked` | `boolean \| 'indeterminate'` | `false` | Начальное состояние отметки, если оно не управляется извне. |
+| `onCheckedChange` | `(details: CheckedChangeDetails) => void` | — | Вызывается при изменении отметки. |
+| `value` | `string` | `'on'` | Значение, которое отправляется с формой, если флажок отмечен. |
+| `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'` | `'md'` | Размер флажка: `xs`, `sm`, `md`, `lg` или `xl`. |
+| `name` | `string` | — | Имя поля формы у внутреннего input. |
+| `disabled` | `boolean` | `false` | Отключает элемент управления. |
+| `readOnly` | `boolean` | `false` | Показывает значение, но не даёт его менять. |
+| `invalid` | `boolean` | `false` | Помечает поле как невалидное. |
+| `required` | `boolean` | `false` | Требует значение перед отправкой формы. |
+| `form` | `string` | — | Id формы, к которой относится внутренний input. |

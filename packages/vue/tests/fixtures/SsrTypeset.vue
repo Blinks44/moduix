@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Typeset, TypesetScroll } from '../../src';
+import { Typeset, TypesetScroll } from '@/index';
 </script>
 
 <template>

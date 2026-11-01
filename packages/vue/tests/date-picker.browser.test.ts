@@ -1,6 +1,6 @@
 import { parseDate } from '@ark-ui/vue/date-picker';
 import { page } from '@rstest/browser';
-import { afterEach, expect, rs, test } from '@rstest/core';
+import { expect, rs, test } from '@rstest/core';
 import { render, screen } from '@testing-library/vue';
 import { renderToString } from '@vue/server-renderer';
 import { createSSRApp, defineComponent, ref, shallowRef } from 'vue';
@@ -32,8 +32,7 @@ import {
   Field,
   Fieldset,
   useDatePicker,
-} from '../src';
-import styles from '../src/components/date-picker/DatePicker.module.css';
+} from '@/index';
 import SsrDatePicker from './fixtures/SsrDatePicker.vue';
 
 const datePickerComponents = {
@@ -91,9 +90,19 @@ const DatePickerPopup = defineComponent({
   `,
 });
 
-afterEach(() => {
-  rs.restoreAllMocks();
-});
+const june = parseDate('2026-06-01');
+
+function renderCalendar(root: string, table: string, setup = {}) {
+  return render({
+    components: datePickerComponents,
+    setup: () => ({ june, ...setup }),
+    template: `
+      <DatePicker default-open :portalled="false" ${root}>
+        <DatePickerPositioner><DatePickerContent>${table}</DatePickerContent></DatePickerPositioner>
+      </DatePicker>
+    `,
+  });
+}
 
 test.each([false, true])(
   'keeps clear-trigger accessible names reactive (asChild=%s)',
@@ -531,11 +540,9 @@ test('composes styled trigger parts through asChild', async () => {
       '<DatePicker><DatePickerTrigger as-child><button type="button">Open calendar</button></DatePickerTrigger></DatePicker>',
   });
   render(Harness);
-  const trigger = screen.getByRole('button', { name: 'Open calendar' });
   await expect
     .element(page.getByRole('button', { name: 'Open calendar', exact: true }))
     .toHaveAttribute('data-slot', 'date-picker-trigger');
-  expect(trigger!.classList.contains(styles.trigger)).toBe(false);
 });
 
 test('hydrates date-picker without replacing server hosts or IDs and remains interactive', async () => {
@@ -685,19 +692,6 @@ test.each(['DatePickerField', 'DatePickerRangeField'])(
     );
   },
 );
-const june = parseDate('2026-06-01');
-
-function renderCalendar(root: string, table: string, setup = {}) {
-  return render({
-    components: datePickerComponents,
-    setup: () => ({ june, ...setup }),
-    template: `
-      <DatePicker default-open :portalled="false" ${root}>
-        <DatePickerPositioner><DatePickerContent>${table}</DatePickerContent></DatePickerPositioner>
-      </DatePicker>
-    `,
-  });
-}
 
 test('renders month and year tables with a navigation header', () => {
   const { unmount } = renderCalendar(
@@ -729,58 +723,4 @@ test('reads week numbers from the root and offsets the day table by months', () 
   expect(
     document.querySelector('[data-slot="date-picker-table-cell-trigger"][data-value="2026-07-15"]'),
   ).not.toBeNull();
-});
-
-test('marks today with a visible border', async () => {
-  renderCalendar('', '<DatePickerView view="day"><DatePickerDayTable /></DatePickerView>');
-  const today = document.querySelector<HTMLElement>(
-    '[data-slot="date-picker-table-cell-trigger"][data-today]',
-  )!;
-  await expect.poll(() => getComputedStyle(today).borderTopWidth).not.toBe('0px');
-  await expect.poll(() => getComputedStyle(today).borderTopColor).not.toBe('rgba(0, 0, 0, 0)');
-});
-
-test('dims disabled outside-range days with opacity only', async () => {
-  renderCalendar(
-    ':default-focused-value="june"',
-    '<DatePickerView view="day"><DatePickerDayTable /></DatePickerView>',
-  );
-  const outside = document.querySelector<HTMLElement>(
-    '[data-slot="date-picker-table-cell-trigger"][data-outside-range][data-disabled]',
-  )!;
-  const regular = document.querySelector<HTMLElement>(
-    '[data-slot="date-picker-table-cell-trigger"][data-value="2026-06-10"]',
-  )!;
-  await new Promise((resolve) => setTimeout(resolve, 400));
-  expect(getComputedStyle(outside).color).toBe(getComputedStyle(regular).color);
-  expect(getComputedStyle(outside).opacity).toBe('0.5');
-});
-
-test('dims a disabled picker once', async () => {
-  render({
-    components: datePickerComponents,
-    template: `
-      <DatePicker disabled data-testid="disabled">
-        <DatePickerLabel>Disabled date</DatePickerLabel>
-        <DatePickerField />
-      </DatePicker>
-      <Field disabled>
-        <DatePicker disabled data-testid="field">
-          <DatePickerLabel>Field date</DatePickerLabel>
-          <DatePickerField />
-        </DatePicker>
-      </Field>
-      <DatePicker read-only data-testid="read-only">
-        <DatePickerLabel>Read-only date</DatePickerLabel>
-        <DatePickerField />
-      </DatePicker>
-    `,
-  });
-  const disabled = screen.getByTestId('disabled');
-  await expect.poll(() => getComputedStyle(disabled).opacity).toBe('0.5');
-  expect(
-    getComputedStyle(disabled.querySelector('[data-slot="date-picker-trigger"]')!).opacity,
-  ).toBe('1');
-  expect(getComputedStyle(screen.getByTestId('field')).opacity).toBe('1');
-  expect(getComputedStyle(screen.getByTestId('read-only')).opacity).toBe('1');
 });

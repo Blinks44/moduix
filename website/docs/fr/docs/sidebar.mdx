@@ -1,19 +1,27 @@
 ---
 title: Sidebar
 component: sidebar
-description: Navigation d’application redimensionnable et repliable, basée sur le Splitter d’Ark UI.
+description: Créer une navigation d’app redimensionnable et réductible en icônes.
+ark: https://ark-ui.com/docs/components/splitter
 ---
 
+import AnatomyScene from '@/components/examples/sidebar/basic';
 import { sidebarOverrideCssProperties } from '@/components/examples/sidebar/css-properties';
 
-## Référence de l’API
+<Example name="sidebar/basic" />
 
-`Sidebar` est la mise en page moduix dédiée à la navigation d’une application. Elle associe des
-parties de navigation au composant [Ark UI Splitter](https://ark-ui.com/docs/components/splitter),
-qui fournit le redimensionnement, l’état replié, les interactions au clavier et l’accessibilité.
-L’état et les callbacks exposés suivent le contrat de `Splitter`.
+## Installation
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/splitter" />
+<ComponentInstall />
+
+## Utilisation
+
+<Usage />
+
+Composez le panneau de navigation, la poignée de redimensionnement et la zone de contenu principale
+comme enfants directs de la racine. Les identifiants et contraintes par défaut conviennent à la mise
+en page classique avec une barre latérale à gauche. Enveloppez les boutons de navigation réduits à
+une icône dans `SidebarTooltip` pour conserver leurs libellés après le repli.
 
 ## Choisir le bon composant
 
@@ -22,105 +30,70 @@ L’état et les callbacks exposés suivent le contrat de `Splitter`.
 - Choisissez **`Splitter`** lorsque vous avez besoin de panneaux redimensionnables génériques, plutôt
   que d’un panneau de navigation et d’une zone de contenu principale.
 
-## Exemple de base
+## Exemples
 
+### Navigation imbriquée
 
-Composez le panneau de navigation, la poignée de redimensionnement et la zone de contenu principale
-comme enfants directs de la racine. Les identifiants et contraintes par défaut conviennent à la mise
-en page classique avec une barre latérale à gauche. Enveloppez les boutons de navigation réduits à
-une icône dans `SidebarTooltip` pour conserver leurs libellés après le repli.
+Utilisez `SidebarExpandedContent` pour les liens imbriqués affichés dans le panneau et `SidebarCollapsedContent`
+pour les mêmes liens dans un menu contextuel. Les deux branches restent composées par l’application.
 
-<Example name="sidebar/basic" />
+<Example name="sidebar/nested-navigation" />
 
-## Installation avec shadcn
+### Sélection d’un espace de travail
 
-Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration complète du paquet, du registre et des styles.
+Utilisez `SelectTrigger asChild` avec `SidebarNavigationButton`. Placez la valeur sélectionnée
+dans `SidebarLabel`, gardez `SelectIndicator` comme enfant direct du trigger et marquez l’ancre
+visuelle compacte avec `data-sidebar-icon`.
 
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
+<Example name="sidebar/workspace-select" />
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/sidebar' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/sidebar' },
-  ]}
-/>
+### Structure complète de l’application
 
-  </Tab>
-  <Tab label="Solid" value="solid">
+Combinez la recherche, les actions de groupe, les badges, la navigation imbriquée, le menu de la
+barre repliée et le menu du compte dans une même structure. Chaque primitive imbriquée conserve son
+propre état et sa gestion du focus.
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/sidebar' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/sidebar' },
-  ]}
-/>
+<Example name="sidebar/nested-navigation-and-account-menu" />
 
-  </Tab>
-  <Tab label="Vue" value="vue">
+### Barre latérale à droite
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/sidebar' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/sidebar' },
-  ]}
-/>
+Passez `side="right"` et rendez `SidebarInset`, `SidebarTrigger`, `SidebarResizeTrigger` et `SidebarPanel` dans cet ordre.
+Sidebar ajuste automatiquement la configuration des panneaux, les identifiants, le placement et la
+direction du chevron.
 
-  </Tab>
-</Tabs>
+<Example name="sidebar/right-sidebar" />
 
-## Anatomie
+### Tailles personnalisées
 
-```text
-Sidebar
-├─ SidebarPanel[id="sidebar"]
-│  ├─ SidebarHeader
-│  │  ├─ SidebarLabel
-│  │  └─ SidebarInput
-│  ├─ SidebarContent
-│  │  └─ SidebarGroup
-│  │     ├─ SidebarGroupHeader
-│  │     │  ├─ SidebarGroupLabel
-│  │     │  └─ SidebarGroupAction
-│  │     └─ SidebarNavigationList
-│  │        └─ SidebarNavigationItem
-│  │           ├─ SidebarNavigationButton
-│  │           ├─ SidebarNavigationBadge (facultatif)
-│  │           ├─ SidebarExpandedContent
-│  │           ├─ SidebarCollapsedContent
-│  │           └─ SidebarNavigationSubList
-│  │              └─ SidebarNavigationSubItem
-│  │                 ├─ SidebarNavigationSubButton
-│  │                 └─ SidebarNavigationBadge (facultatif)
-│  └─ SidebarFooter
-│     └─ SidebarSeparator
-├─ SidebarResizeTrigger
-├─ SidebarTrigger
-└─ SidebarInset[id="content"]
-```
+Définissez une taille initiale explicite et composez d’autres primitives dans la structure lorsque
+la largeur initiale par défaut ne convient pas.
 
-| Partie | Rôle |
-| --- | --- |
-| `Sidebar` | Racine Ark Splitter avec les réglages d’une barre à deux panneaux. |
-| `SidebarPanel` | Panneau de navigation repliable, avec l’identifiant `"sidebar"` par défaut. |
-| `SidebarInset` | Panneau de contenu principal, avec l’identifiant `"content"` par défaut. |
-| `SidebarResizeTrigger` | Ligne de poignée accessible pour le redimensionnement à la souris ou au clavier ; elle rend par défaut le `SplitterResizeTriggerIndicator` partagé, et des enfants personnalisés le remplacent. |
-| `SidebarTrigger` | Contrôle latéral pour replier ou déplier le panneau. |
-| `SidebarHeader` | Zone supérieure qui ne défile pas. |
-| `SidebarContent` | Zone centrale défilante. |
-| `SidebarFooter` | Zone inférieure qui ne défile pas. |
-| `SidebarGroup` | Section de navigation sémantique. |
-| `SidebarNavigationButton` | Bouton ou lien `asChild` avec les états active et size. |
-| `SidebarNavigationBadge` | Compteur facultatif placé à côté d’un bouton de navigation simple ou imbriqué. |
-| `SidebarExpandedContent` | Contenu affiché lorsque le panneau est déplié. |
-| `SidebarCollapsedContent` | Contenu affiché lorsque le panneau est replié. |
-| `SidebarTooltip` | Aide de libellé repliée avec positionnement adapté au côté. |
-| `SidebarNavigationSubList` | Liste de navigation imbriquée. |
+<Example name="sidebar/custom-sizes" />
+
+### Mise en page persistante sur ordinateur
+
+Conservez la largeur de la barre latérale dans l’état de l’application ou dans le stockage. Contrôlez
+`size` pendant le redimensionnement et enregistrez la valeur finale dans `onResizeEnd(details)`.
+
+<Example name="sidebar/persisted-layout" />
+
+### Zone de défilement personnalisée
+
+Le défilement natif est utilisé par défaut. Placez `ScrollArea` dans `SidebarContent` pour ajouter
+une barre de défilement stylisée ou un fondu sur le bord, et faites de son viewport le seul conteneur
+de défilement.
+
+<Example name="sidebar/custom-scroll-area" />
 
 ## Composition
 
-`Sidebar` possède l’état de mise en page du Splitter, tandis que `Collapsible`, `Menu` et
-`SidebarTooltip` possèdent chacun leur propre état. Gardez `SidebarPanel`, `SidebarResizeTrigger`, `SidebarTrigger` et
+`Sidebar` est la mise en page moduix dédiée à la navigation d’une application. Elle associe des
+parties de navigation au composant [Ark UI Splitter](https://ark-ui.com/docs/components/splitter),
+qui fournit le redimensionnement, l’état replié, les interactions au clavier et l’accessibilité.
+L’état et les callbacks exposés suivent le contrat de `Splitter`.
+
+`Sidebar` gère l’état de mise en page du Splitter, tandis que `Collapsible`, `Menu` et
+`SidebarTooltip` gèrent chacun leur propre état. Gardez `SidebarPanel`, `SidebarResizeTrigger`, `SidebarTrigger` et
 `SidebarInset` comme enfants directs, dans l’ordre visuel: `SidebarPanel` en premier à gauche, `SidebarInset` en premier
 à droite. `SidebarExpandedContent` et `SidebarCollapsedContent` ne font que changer la branche visible. Ils servent
 à associer des liens `Collapsible` dans la vue étendue et un `Menu` dans la barre repliée, sans
@@ -142,60 +115,31 @@ Dans Vue, les valeurs d’état sont des refs : lisez `collapsed.value`, `side.v
 Avec Ark Vue 5.39.3 / Zag 1.45.0, le premier repli en mode contrôlé peut mettre à jour `size`
 sans émettre `@collapse`. Le modèle et `useSidebar().collapsed` reflètent toutefois le nouvel état.
 
-## Exemples
+## Anatomie
 
-### Navigation imbriquée
+Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
 
-Utilisez `SidebarExpandedContent` pour les liens imbriqués affichés dans le panneau et `SidebarCollapsedContent`
-pour les mêmes liens dans un menu contextuel. Les deux branches restent composées par l’application.
-
-<Example name="sidebar/nested-navigation" />
-
-### Zone de défilement personnalisée
-
-Le défilement natif est utilisé par défaut. Placez `ScrollArea` dans `SidebarContent` pour ajouter
-une barre de défilement stylisée ou un fondu sur le bord, et faites de son viewport le seul conteneur
-de défilement.
-
-<Example name="sidebar/custom-scroll-area" />
-
-### Mise en page persistante sur ordinateur
-
-Conservez la largeur de la barre latérale dans l’état de l’application ou dans le stockage. Contrôlez
-`size` pendant le redimensionnement et enregistrez la valeur finale dans `onResizeEnd(details)`.
-
-<Example name="sidebar/persisted-layout" />
-
-### Structure complète de l’application
-
-Combinez la recherche, les actions de groupe, les badges, la navigation imbriquée, le menu de la
-barre repliée et le menu du compte dans une même structure. Chaque primitive imbriquée conserve son
-propre état et sa gestion du focus.
-
-<Example name="sidebar/nested-navigation-and-account-menu" />
-
-### Barre latérale à droite
-
-Passez `side="right"` et rendez `SidebarInset`, `SidebarTrigger`, `SidebarResizeTrigger` et `SidebarPanel` dans cet ordre.
-Sidebar ajuste automatiquement la configuration des panneaux, les identifiants, le placement et la
-direction du chevron.
-
-<Example name="sidebar/right-sidebar" />
-
-### Sélection d’un espace de travail
-
-Utilisez `SelectTrigger asChild` avec `SidebarNavigationButton`. Placez la valeur sélectionnée
-dans `SidebarLabel`, gardez `SelectIndicator` comme enfant direct du trigger et marquez l’ancre
-visuelle compacte avec `data-sidebar-icon`.
-
-<Example name="sidebar/workspace-select" />
-
-### Personnalisation avancée
-
-Définissez une taille initiale explicite et composez d’autres primitives dans la structure lorsque
-la largeur initiale par défaut ne convient pas.
-
-<Example name="sidebar/custom-sizes" />
+<AnatomyInspector
+  parts={[
+    ["Sidebar", "sidebar-root", "Racine Ark Splitter avec les réglages d’une barre à deux panneaux.", 0],
+    ["SidebarPanel", "sidebar-panel", "Panneau de navigation repliable, avec l’identifiant `\"sidebar\"` par défaut.", 1],
+    ["SidebarHeader", "sidebar-header", "Zone supérieure qui ne défile pas.", 2],
+    ["SidebarContent", "sidebar-content", "Zone centrale défilante.", 2],
+    ["SidebarGroup", "sidebar-group", "Section de navigation sémantique.", 3],
+    ["SidebarNavigationButton", "sidebar-navigation-button", "Bouton ou lien `asChild` avec les états active et size.", 4],
+    ["SidebarNavigationBadge", "sidebar-navigation-badge", "Compteur facultatif placé à côté d’un bouton de navigation simple ou imbriqué.", 4],
+    ["SidebarExpandedContent", "sidebar-expanded-content", "Contenu affiché lorsque le panneau est déplié.", 4],
+    ["SidebarCollapsedContent", "sidebar-collapsed-content", "Contenu affiché lorsque le panneau est replié.", 4],
+    ["SidebarNavigationSubList", "sidebar-navigation-sub-list", "Liste de navigation imbriquée.", 4],
+    ["SidebarFooter", "sidebar-footer", "Zone inférieure qui ne défile pas.", 2],
+    ["SidebarResizeTrigger", "sidebar-resize-trigger", "Ligne de poignée accessible pour le redimensionnement à la souris ou au clavier ; elle rend par défaut le `SplitterResizeTriggerIndicator` partagé, et des enfants personnalisés le remplacent.", 1],
+    ["SidebarTrigger", "sidebar-trigger", "Contrôle latéral pour replier ou déplier le panneau.", 1],
+    ["SidebarInset", "sidebar-inset", "Panneau de contenu principal, avec l’identifiant `\"content\"` par défaut.", 1],
+    ["SidebarTooltip", "", "Aide de libellé repliée avec positionnement adapté au côté.", 1],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styles
 
@@ -211,9 +155,9 @@ visuelles non-SVG, comme `Avatar` ou une marque, avec `data-sidebar-icon`.
 
 La largeur des panneaux appartient à l’état d’Ark, pas au CSS visuel. Remplacez `defaultSize` ou
 contrôlez `size` pour définir la largeur courante. Les couleurs viennent des tokens sidebar de la
-fondation (`--moduix-color-sidebar`, `--moduix-color-sidebar-foreground`,
-`--moduix-color-sidebar-accent`, `--moduix-color-sidebar-accent-foreground`,
-`--moduix-color-sidebar-border` et `--moduix-color-sidebar-ring`) : thèmes et presets restylent
+fondation (`--moduix-sidebar`, `--moduix-sidebar-foreground`,
+`--moduix-sidebar-accent`, `--moduix-sidebar-accent-foreground`,
+`--moduix-sidebar-border` et `--moduix-sidebar-ring`) : thèmes et presets restylent
 toutes les barres latérales à la fois. La racine conserve `--moduix-sidebar-width`,
 `--moduix-sidebar-height` et `--moduix-sidebar-trigger-offset-y` ; modifiez les espacements, le
 rayon, l’ombre ou la taille des éléments avec une classe sur la partie.
@@ -221,13 +165,65 @@ rayon, l’ombre ou la taille des éléments avec une classe sur la partie.
 Placez le texte de navigation dans `SidebarLabel`, y compris dans `SidebarNavigationSubButton`, pour
 que les libellés longs soient tronqués et quittent la barre repliée.
 
-### Propriétés CSS
+### Variables CSS
 
-<CssPropertiesSection properties={sidebarOverrideCssProperties} />
+Survolez ou sélectionnez une variable pour la voir dans l’aperçu.
+
+<CssPropertiesSection properties={sidebarOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Points d’accroche CSS
+
+| Partie | `data-slot` |
+| --- | --- |
+| `Sidebar` | `sidebar-root` |
+| `SidebarPanel` | `sidebar-panel` |
+| `SidebarInset` | `sidebar-inset` |
+| `SidebarResizeTrigger` | `sidebar-resize-trigger` |
+| `SidebarTrigger` | `sidebar-trigger` |
+| `SidebarLabel` | `sidebar-label` |
+| `SidebarHeader` | `sidebar-header` |
+| `SidebarContent` | `sidebar-content` |
+| `SidebarExpandedContent` | `sidebar-expanded-content` |
+| `SidebarCollapsedContent` | `sidebar-collapsed-content` |
+| `SidebarFooter` | `sidebar-footer` |
+| `SidebarGroup` | `sidebar-group` |
+| `SidebarGroupLabel` | `sidebar-group-label` |
+| `SidebarGroupHeader` | `sidebar-group-header` |
+| `SidebarGroupAction` | `sidebar-group-action` |
+| `SidebarNavigationList` | `sidebar-navigation-list` |
+| `SidebarNavigationItem` | `sidebar-navigation-item` |
+| `SidebarNavigationButton` | `sidebar-navigation-button` |
+| `SidebarNavigationBadge` | `sidebar-navigation-badge` |
+| `SidebarNavigationSubList` | `sidebar-navigation-sub-list` |
+| `SidebarNavigationSubItem` | `sidebar-navigation-sub-item` |
+| `SidebarNavigationSubButton` | `sidebar-navigation-sub-button` |
 
 Les parties de la coque Sidebar exposent aussi `data-scope="sidebar"` et `data-part`. `SidebarInput`
 et `SidebarSeparator` conservent les scopes de leurs primitives, tandis que les parties basées sur
 Ark conservent les attributs d’état du Splitter, notamment `data-focus`, `data-dragging`,
 `data-disabled` et `data-orientation`.
+
+## Clavier
+
+| Touche | Action |
+| --- | --- |
+| `ArrowLeft` / `ArrowRight` | Redimensionne les panneaux depuis la poignée ; ArrowUp et ArrowDown en vertical. |
+| `Home` / `End` | Amène la poignée à son minimum ou maximum. |
+| `Enter` | Réduit ou développe un panneau repliable. |
+| `F6` | Passe à la poignée suivante. |
+
+## Référence de l’API
+
+`Sidebar` accepte aussi les props de `Splitter` sauf `orientation` et `panels` ; le panneau va de 3rem à 18rem et se réduit à 3rem.
+
+| Prop | Type | Défaut | Description |
+| --- | --- | --- | --- |
+| `side` | `'left' \| 'right'` | `'left'` | Côté du panneau : `left` ou `right`. |
+| `panelId` | `string` | `'sidebar'` | Id du panneau latéral dans le Splitter. |
+| `defaultSize` | `PanelSize[]` | `['16rem']` | Tailles initiales des panneaux. |
+| `size` | `PanelSize[]` | — | Tailles des panneaux en mode contrôlé. |
+| `onResize` | `(details: ResizeDetails) => void` | — | Appelé pendant le redimensionnement. |
+| `onCollapse` | `(details: ExpandCollapseDetails) => void` | — | Appelé lorsque la barre latérale se replie. |
+| `onExpand` | `(details: ExpandCollapseDetails) => void` | — | Appelé lorsque la barre latérale se déplie. |

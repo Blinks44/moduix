@@ -2,6 +2,8 @@ import { defineConfig } from '@rspress/core';
 import { pluginPreview } from '@rspress/plugin-preview';
 import { pluginSitemap } from '@rspress/plugin-sitemap';
 import { fileURLToPath } from 'node:url';
+import { pluginLastUpdatedDate } from './plugins/last-updated-date';
+import { moduixShikiTheme } from './theme/shiki-theme';
 
 const siteOrigin = 'https://moduix.dev';
 const brandName = 'moduix';
@@ -41,9 +43,15 @@ export default defineConfig({
   locales,
   icon: '/favicon/favicon.svg',
   llms: true,
+  search: {
+    searchHooks: fileURLToPath(new URL('./theme/search-hooks.ts', import.meta.url)),
+  },
   mediumZoom: false,
   route: {
     cleanUrls: true,
+    // In dev, hover prefetch triggers lazy compilation of the hovered page, and the HMR update of
+    // the route list remounts the current page. Production builds keep prefetching.
+    prefetchLink: process.env.NODE_ENV !== 'development',
   },
   head: [
     ['meta', { name: 'apple-mobile-web-app-title', content: brandName }],
@@ -77,6 +85,7 @@ export default defineConfig({
     (route) => ['link', { rel: 'canonical', href: new URL(route.routePath, siteOrigin).href }],
   ],
   markdown: {
+    shiki: { theme: moduixShikiTheme },
     defaultCodeOverflow: {
       height: 520,
       behavior: 'scroll',
@@ -108,24 +117,17 @@ export default defineConfig({
       },
     },
   },
-  plugins: [pluginPreview(), pluginSitemap()],
+  plugins: [pluginPreview(), pluginSitemap(), pluginLastUpdatedDate()],
   themeConfig: {
     locales,
     llmsUI: false,
     search: true,
-    lastUpdated: true,
+    socialLinks: [{ icon: 'github', mode: 'link', content: 'https://github.com/Blinks44/moduix' }],
     editLink: {
       docRepoBaseUrl: 'https://github.com/Blinks44/moduix/tree/main/website/docs',
     },
     footer: {
       message: 'Built with Rspress, Ark UI, and moduix.',
     },
-    socialLinks: [
-      {
-        icon: 'github',
-        mode: 'link',
-        content: 'https://github.com/Blinks44/moduix',
-      },
-    ],
   },
 });

@@ -1,93 +1,56 @@
 ---
 title: Table of Contents
 component: toc
-description: Синхронизируйте доступное оглавление с разделом, который читает пользователь.
+description: Подсвечивает раздел, который читают, в списке «На этой странице».
+ark: https://ark-ui.com/docs/components/toc
 ---
 
-## Справочник API
+import AnatomyScene from '@/components/examples/table-of-contents/basic';
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/toc" />
+<Example name="table-of-contents/basic" />
 
-## Базовый пример
+## Установка
+
+<ComponentInstall />
+
+## Использование
+
+<Usage />
 
 `Toc` является корневым компонентом плоского API. Передайте в него массив `items` с заголовками,
 которые нужно отслеживать. Для каждого элемента укажите `value`, совпадающее с `id` заголовка, и
 `depth`, соответствующий его семантическому уровню, например `2` для `<h2>`. Используйте тот же
 объект в `TocItem`, а для `TocLink` укажите фрагмент с тем же `value`.
 
-
 На обычной странице документа `scrollEl` можно не указывать: компонент будет наблюдать за областью
 просмотра страницы. В примере ниже используется вложенный контейнер с прокруткой. Он передаётся в
 `scrollEl`, поэтому отслеживание и переходы по ссылкам остаются внутри предпросмотра.
 
-<Example name="table-of-contents/basic" />
+## Примеры
 
-## Установка через shadcn
+### Rail
 
-Полную настройку пакета, реестра и стилей см. в разделе [Быстрый старт](/docs/quick-start).
+Поместите `TocRail` внутрь каждой ссылки, чтобы нарисовать SVG-соединитель между соседними
+уровнями заголовков. Передавайте текущую, предыдущую и следующую глубину из одного упорядоченного
+массива `items`. Для активной ссылки Rail использует цвет индикатора. Не добавляйте
+`TocIndicator` в тот же список.
 
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
+<Example name="table-of-contents/rail" />
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/toc' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/toc' },
-  ]}
-/>
+### С раскрываемой навигацией
 
-  </Tab>
-  <Tab label="Solid" value="solid">
+Поместите список навигации внутрь `Collapsible`, если читателю нужно скрывать полное оглавление.
+`TocContext` передаёт активный элемент в текст кнопки и кольцо прогресса, а ссылки по-прежнему
+ведут в ту же область чтения.
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/toc' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/toc' },
-  ]}
-/>
+<Example name="table-of-contents/with-collapsible" />
 
-  </Tab>
-  <Tab label="Vue" value="vue">
+### Root Provider
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/toc' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/toc' },
-  ]}
-/>
+Используйте `useToc()`, если другому элементу интерфейса нужно читать активные заголовки или
+прокручивать область чтения. Подробнее в разделе [Выносите состояние за пределы дерева](/docs/composition-patterns#root-provider).
 
-  </Tab>
-</Tabs>
-
-## Анатомия
-
-```text
-Toc
-├─ TocContent
-└─ TocNav
-   ├─ TocTitle
-   └─ TocList
-      ├─ TocIndicator (необязательно)
-      └─ TocItem[item]
-         └─ TocLink
-            └─ TocRail (необязательно)
-
-TocRootProvider
-└─ то же дерево частей, подключённое к useToc()
-```
-
-| Часть              | Назначение                                                                 |
-| ------------------ | -------------------------------------------------------------------------- |
-| `Toc`             | Корневая часть, создающая состояние отслеживания по списку элементов.      |
-| `TocContent`      | Статья с заголовками, чьи ID совпадают со значениями элементов.             |
-| `TocNav`          | Область навигации, связанная с заголовком оглавления.                       |
-| `TocTitle`        | Доступное имя и видимый заголовок навигации.                                |
-| `TocList`         | Список ссылок на заголовки и необязательного индикатора.                    |
-| `TocItem`         | Пункт списка, связанный с заголовком, его уровнем и активным состоянием.    |
-| `TocLink`         | Якорная ссылка на соответствующий заголовок на этой же странице.            |
-| `TocIndicator`    | Ненавязчивый маркер, который следует за активным диапазоном списка.         |
-| `TocRootProvider` | Подключает части к состоянию отслеживания, созданному вне дерева.           |
-| `TocRail`         | Необязательная SVG-ветка между соседними уровнями заголовков.              |
+<Example name="table-of-contents/root-provider" />
 
 ## Композиция
 
@@ -114,31 +77,26 @@ TocRootProvider
 частей ID дублируются. Это ограничение описано в [Ark #4187](https://github.com/chakra-ui/ark/issues/4187).
 :::
 
-## Примеры
+## Анатомия
 
-### Root Provider
+Наведите на часть или выберите её, чтобы найти её в превью.
 
-Используйте `useToc()`, если другому элементу интерфейса нужно читать активные заголовки или
-прокручивать область чтения.
-
-<Example name="table-of-contents/root-provider" />
-
-### Rail
-
-Поместите `TocRail` внутрь каждой ссылки, чтобы нарисовать SVG-соединитель между соседними
-уровнями заголовков. Передавайте текущую, предыдущую и следующую глубину из одного упорядоченного
-массива `items`. Для активной ссылки Rail использует цвет индикатора. Не добавляйте
-`TocIndicator` в тот же список.
-
-<Example name="table-of-contents/rail" />
-
-### С раскрываемой навигацией
-
-Поместите список навигации внутрь `Collapsible`, если читателю нужно скрывать полное оглавление.
-`TocContext` передаёт активный элемент в текст кнопки и кольцо прогресса, а ссылки по-прежнему
-ведут в ту же область чтения.
-
-<Example name="table-of-contents/with-collapsible" />
+<AnatomyInspector
+  parts={[
+    ["Toc", "toc-root", "Корневая часть, создающая состояние отслеживания по списку элементов.", 0],
+    ["TocContent", "toc-content", "Статья с заголовками, чьи ID совпадают со значениями элементов.", 1],
+    ["TocNav", "toc-nav", "Область навигации, связанная с заголовком оглавления.", 1],
+    ["TocTitle", "toc-title", "Доступное имя и видимый заголовок навигации.", 2],
+    ["TocList", "toc-list", "Список ссылок на заголовки и необязательного индикатора.", 2],
+    ["TocIndicator", "toc-indicator", "Ненавязчивый маркер, который следует за активным диапазоном списка.", 3],
+    ["TocItem", "toc-item", "Пункт списка, связанный с заголовком, его уровнем и активным состоянием.", 3],
+    ["TocLink", "toc-link", "Якорная ссылка на соответствующий заголовок на этой же странице.", 4],
+    ["TocRail", "toc-rail", "Необязательная SVG-ветка между соседними уровнями заголовков.", 5],
+    ["TocRootProvider", "toc-root-provider", "Подключает части к состоянию отслеживания, созданному вне дерева.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Стилизация
 
@@ -149,9 +107,34 @@ TocRootProvider
 
 ### Хуки стилизации
 
-- `data-slot="toc-root"`, `toc-root-provider`, `toc-content`, `toc-nav`, `toc-title`, `toc-list`,
-  `toc-item`, `toc-link`, `toc-indicator` и `toc-rail`
+| Часть | `data-slot` |
+| --- | --- |
+| `Toc` | `toc-root` |
+| `TocRootProvider` | `toc-root-provider` |
+| `TocContent` | `toc-content` |
+| `TocNav` | `toc-nav` |
+| `TocTitle` | `toc-title` |
+| `TocList` | `toc-list` |
+| `TocItem` | `toc-item` |
+| `TocLink` | `toc-link` |
+| `TocIndicator` | `toc-indicator` |
+| `TocRail` | `toc-rail` |
+
 - Атрибуты Ark `data-scope="toc"` и `data-part` на частях примитива
 - Атрибуты и переменные `TocItem`: `data-value`, `data-depth`, `data-active`, `data-first`,
   `data-last` и `--depth`; `TocLink` получает `data-value`, `data-active` и `aria-current`
 - Переменные времени выполнения Ark `--top`, `--left`, `--width` и `--height` на корневом элементе
+
+## Справочник API
+
+| Проп | Тип | По умолчанию | Описание |
+| --- | --- | --- | --- |
+| `items` | `TocItem[]` | — | Отслеживаемые заголовки, у каждого `value` (id заголовка) и `depth`. |
+| `scrollEl` | `() => HTMLElement \| null` | — | Возвращает контейнер прокрутки; по умолчанию страница. |
+| `rootMargin` | `string` | `'-20px 0px -40% 0px'` | Отступ IntersectionObserver, определяющий, когда заголовок активен. |
+| `threshold` | `number \| number[]` | `0` | Порог IntersectionObserver. |
+| `autoScroll` | `boolean` | `false` | Прокручивает список, чтобы активный пункт оставался видимым. |
+| `scrollBehavior` | `ScrollBehavior` | `'smooth'` | Поведение прокрутки для `autoScroll`. |
+| `activeIds` | `string[]` | — | Id активных заголовков в управляемом режиме. |
+| `defaultActiveIds` | `string[]` | — | Изначально активные заголовки. |
+| `onActiveChange` | `(details: ActiveChangeDetails) => void` | — | Вызывается при смене видимых заголовков. |

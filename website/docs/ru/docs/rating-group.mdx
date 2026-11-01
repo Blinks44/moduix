@@ -1,118 +1,45 @@
 ---
 title: Rating Group
 component: rating-group
-description: Компонент для выбора оценки в виде набора звёзд на основе примитива rating-group из Ark UI для React, Solid и Vue.
+description: Оценка по шкале из звёзд, в том числе с шагом в половину звезды.
+ark: https://ark-ui.com/docs/components/rating-group
 ---
 
+import AnatomyScene from '@/components/examples/rating-group/basic';
 import * as RatingGroupDocs from '@/components/examples/rating-group/css-properties';
 
-## Справочник API
+<Example name="rating-group/basic" />
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/rating-group" />
+## Установка
 
-## Выбор подходящего компонента
+<ComponentInstall />
 
-Используйте `RatingGroup`, когда пользователю нужно выбрать числовую оценку в ряду звёзд или других повторяющихся значков.
+## Использование
 
-## Базовый пример
-
+<Usage />
 
 Используйте `RatingGroup` как корневой компонент и добавьте `RatingGroupLabel`,
 `RatingGroupControl` и `RatingGroupItems` для стандартного рейтинга со звёздами. Если значение
 должно отправляться нативной формой, явно добавьте `RatingGroupHiddenInput`.
 
-<Example name="rating-group/basic" />
+## Выбор подходящего компонента
 
-## Установка через shadcn
-
-Полную настройку пакета, реестра и стилей см. в разделе [Быстрый старт](/docs/quick-start).
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/rating-group' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/rating-group' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/rating-group' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/rating-group' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/rating-group' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/rating-group' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Анатомия
-
-```text
-RatingGroup
-├─ RatingGroupLabel
-└─ RatingGroupControl
-   ├─ RatingGroupItems
-   │  └─ RatingGroupItem[index]
-   │     └─ RatingGroupItemIndicator
-   ├─ RatingGroupContext
-   │  └─ RatingGroupItem[index]
-   │     └─ RatingGroupItemIndicator
-   └─ RatingGroupHiddenInput (явно)
-
-RatingGroupRootProvider
-└─ то же дерево частей, подключённое к состоянию moduix из useRatingGroup()
-```
-
-| Часть                               | Назначение                                                        |
-| ---------------------------------- | ----------------------------------------------------------------- |
-| `RatingGroup`                    | Хранит состояние оценки, управляет клавиатурной навигацией, фокусом и интеграцией с формами. |
-| `RatingGroupHiddenInput`          | Нативное поле Ark, которое нужно добавить явно.                  |
-| `RatingGroupRootProvider`          | Подключает части к состоянию, созданному с помощью `useRatingGroup()`. |
-| `RatingGroupContext`               | Даёт доступ к текущему состоянию корня через render prop.        |
-| `RatingGroupItemContext`           | Даёт доступ к текущему состоянию элемента через render prop.     |
-| `RatingGroupLabel`                 | Доступная подпись группы рейтинга.                                |
-| `RatingGroupControl`               | Объединяет интерактивные элементы рейтинга.                       |
-| `RatingGroupItems`                 | Создаёт элемент для каждого значения и добавляет звезду по умолчанию. |
-| `RatingGroupItem`                  | Один выбираемый элемент рейтинга, которому нужен числовой `index`. |
-| `RatingGroupItemIndicator`         | Стандартный визуальный индикатор moduix для элемента.             |
-
-## Композиция
-
-Используйте `RatingGroupItems` для стандартного дерева элементов, создаваемого автоматически. Чтобы
-заменить повторяющийся значок, передайте свой `RatingGroupItemIndicator` дочерним элементом. После
-`Items` компонент не добавляет `RatingGroupHiddenInput` автоматически, поэтому разместите его явно
-внутри корневого компонента или `RatingGroupRootProvider`; задайте `name` на корне, если значение
-должно отправляться нативной формой.
-
-Для собственного дерева элементов используйте `RatingGroupContext` вместе с `RatingGroupItem`.
-Если хранилище нужно создать вне дерева, используйте `RatingGroupRootProvider` и
-`useRatingGroup()`. В React состояние доступно как объект. В Solid вызывайте возвращаемую функцию, а в Vue читайте
-реактивное состояние непосредственно в шаблоне.
+Используйте `RatingGroup`, когда пользователю нужно выбрать числовую оценку в ряду звёзд или других повторяющихся значков.
 
 ## Примеры
 
-### Управляемое состояние
+### Размеры
 
-Используйте `value` вместе с `useState` в React, `createSignal` в Solid или `ref` и `v-model` в Vue,
-когда оценка зависит от другого состояния, влияет на соседний интерфейс или должна сбрасываться
-родителем.
+Используйте свойство `size` moduix, если рейтинг должен сохранять поведение Ark при другой
+визуальной плотности.
 
-<Example name="rating-group/controlled" />
+<Example name="rating-group/sizes" />
+
+### Оценка с половинами
+
+Установите `allowHalf`, чтобы включить выбор с шагом в половину и отображение половины звезды.
+
+<Example name="rating-group/half-rating" />
 
 ### Пользовательский значок
 
@@ -144,26 +71,61 @@ RatingGroupRootProvider
 
 <Example name="rating-group/forms" />
 
-### Оценка с половинами
+### Управляемое состояние
 
-Установите `allowHalf`, чтобы включить выбор с шагом в половину и отображение половины звезды.
+Передайте `value` и `onValueChange` (`v-model` во Vue), если оценка зависит от другого состояния или
+сбрасывается родителем. Подробнее в разделе [Управляйте состоянием из приложения](/docs/composition-patterns#controlled-state).
 
-<Example name="rating-group/half-rating" />
+<Example name="rating-group/controlled" />
 
-### Размеры
+### Root Provider
 
-Используйте свойство `size` moduix, если рейтинг должен сохранять поведение Ark при другой
-визуальной плотности.
+Используйте `RatingGroupRootProvider` с `useRatingGroup()`, если состояние рейтинга нужно создать вне
+отрисованного дерева, например чтобы задавать значение отдельной кнопкой. Подробнее в разделе [Выносите состояние за пределы дерева](/docs/composition-patterns#root-provider).
 
-<Example name="rating-group/sizes" />
+<Example name="rating-group/root-provider" />
 
-### Расширенная композиция
+### Сборка из частей
 
-Используйте `RatingGroupRootProvider` вместе с `useRatingGroup()`, если состояние рейтинга нужно
-создать вне дерева. Используйте `RatingGroupContext`, когда `RatingGroupItems` недостаточно и
-нужно вывести каждый элемент самостоятельно.
+Тот же рейтинг, что в Basic, но без `RatingGroupItems`: `RatingGroupContext` отдаёт индексы пунктов,
+а каждый `RatingGroupItem` рисует `RatingGroupItemIndicator`. Начинайте с него, если пунктам нужна своя
+разметка; чтобы заменить только звезду, передайте иконку, как в примере «Пользовательский значок».
 
-<Example name="rating-group/advanced-customization" />
+<Example name="rating-group/build-from-parts" />
+
+## Композиция
+
+Используйте `RatingGroupItems` для стандартного дерева элементов, создаваемого автоматически. Чтобы
+заменить повторяющийся значок, передайте свой `RatingGroupItemIndicator` дочерним элементом. После
+`Items` компонент не добавляет `RatingGroupHiddenInput` автоматически, поэтому разместите его явно
+внутри корневого компонента или `RatingGroupRootProvider`; задайте `name` на корне, если значение
+должно отправляться нативной формой.
+
+Для собственного дерева элементов используйте `RatingGroupContext` вместе с `RatingGroupItem`.
+Если хранилище нужно создать вне дерева, используйте `RatingGroupRootProvider` и
+`useRatingGroup()`. В React состояние доступно как объект. В Solid вызывайте возвращаемую функцию, а в Vue читайте
+реактивное состояние непосредственно в шаблоне.
+
+## Анатомия
+
+Наведите на часть или выберите её, чтобы найти её в превью.
+
+<AnatomyInspector
+  parts={[
+    ["RatingGroup", "rating-group-root", "Хранит состояние оценки, управляет клавиатурной навигацией, фокусом и интеграцией с формами.", 0],
+    ["RatingGroupLabel", "rating-group-label", "Доступная подпись группы рейтинга.", 1],
+    ["RatingGroupControl", "rating-group-control", "Объединяет интерактивные элементы рейтинга.", 1],
+    ["RatingGroupItems", "", "Создаёт элемент для каждого значения и добавляет звезду по умолчанию.", 2],
+    ["RatingGroupItem", "rating-group-item", "Один выбираемый элемент рейтинга, которому нужен числовой `index`.", 3],
+    ["RatingGroupItemIndicator", "rating-group-item-indicator-fg", "Стандартный визуальный индикатор moduix для элемента.", 4],
+    ["RatingGroupContext", null, "Даёт доступ к текущему состоянию корня через render prop.", 2],
+    ["RatingGroupHiddenInput", "", "Нативное поле Ark, которое нужно добавить явно.", 2],
+    ["RatingGroupRootProvider", "rating-group-root-provider", "Подключает части к состоянию, созданному с помощью `useRatingGroup()`.", 0],
+    ["RatingGroupItemContext", null, "Даёт доступ к текущему состоянию элемента через render prop.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Стилизация
 
@@ -173,19 +135,55 @@ RatingGroupRootProvider
 Варианты Tailwind используют нативные utility-классы и классы потребителя, а варианты CSS Modules
 также предоставляют зарегистрированные переменные `--moduix-rating-group-*`.
 
-### CSS-свойства
+### CSS-переменные
 
-<CssPropertiesSection properties={RatingGroupDocs.ratingGroupOverrideCssProperties} />
+Наведите на переменную или выберите её, чтобы увидеть её в превью.
+
+<CssPropertiesSection properties={RatingGroupDocs.ratingGroupOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Хуки стилизации
 
-- `data-slot="rating-group-root"` и `data-slot="rating-group-root-provider"`
-- `data-slot="rating-group-label"`
-- `data-slot="rating-group-control"`
-- `data-slot="rating-group-item"`
-- `data-slot="rating-group-item-indicator"`
-- `data-slot="rating-group-item-indicator-bg"` и `data-slot="rating-group-item-indicator-fg"`
+| Часть | `data-slot` |
+| --- | --- |
+| `RatingGroup` | `rating-group-root` |
+| `RatingGroupRootProvider` | `rating-group-root-provider` |
+| `RatingGroupLabel` | `rating-group-label` |
+| `RatingGroupControl` | `rating-group-control` |
+| `RatingGroupItem` | `rating-group-item` |
+| `RatingGroupItemIndicator` | `rating-group-item-indicator` |
+| `RatingGroupItemIndicator`, внутренний элемент | `rating-group-item-indicator-bg` |
+| `RatingGroupItemIndicator`, внутренний элемент | `rating-group-item-indicator-fg` |
+
 - `data-size="xs" | "sm" | "md" | "lg" | "xl"` на корневом компоненте или root provider
 - Атрибуты label Ark: `data-disabled` и `data-required`
 - Атрибуты control Ark: `data-disabled` и `data-readonly`
 - Атрибуты item Ark: `data-checked`, `data-highlighted`, `data-half`, `data-disabled` и `data-readonly`
+
+## Клавиатура
+
+| Клавиша | Действие |
+| --- | --- |
+| `ArrowRight` / `ArrowLeft` | Повышает или понижает оценку. |
+| `Home` / `End` | Ставит минимальную или максимальную оценку. |
+
+## Справочник API
+
+| Проп | Тип | По умолчанию | Описание |
+| --- | --- | --- | --- |
+| `value` | `number` | — | Оценка в управляемом режиме. |
+| `defaultValue` | `number` | — | Начальная оценка. |
+| `onValueChange` | `(details: ValueChangeDetails) => void` | — | Вызывается при изменении оценки. |
+| `onHoverChange` | `(details: HoverChangeDetails) => void` | — | Вызывается с оценкой под указателем. |
+| `count` | `number` | `5` | Количество элементов. |
+| `allowHalf` | `boolean` | `false` | Разрешает половинные оценки. |
+| `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'` | `'md'` | Размер: `xs`, `sm`, `md`, `lg` или `xl`. |
+| `name` | `string` | — | Имя поля формы у внутреннего input. |
+| `disabled` | `boolean` | `false` | Отключает элемент управления. |
+| `readOnly` | `boolean` | `false` | Показывает значение, но не даёт его менять. |
+| `invalid` | `boolean` | `false` | Помечает поле как невалидное. |
+| `required` | `boolean` | `false` | Требует значение перед отправкой формы. |
+| `translations` | `IntlTranslations` | — | Переведённые строки для подписей доступности. |
+| `form` | `string` | — | Id формы, к которой относится внутренний input. |
+| `autoFocus` | `boolean` | — | Ставит фокус на оценку при монтировании. |

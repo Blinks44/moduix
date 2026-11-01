@@ -1,0 +1,37 @@
+.header {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: start;
+  gap: var(--moduix-spacing-1);
+}
+
+.description {
+  grid-column: 1 / -1;
+}
+
+.closeButton {
+  --moduix-close-button-radius: var(--moduix-radius-md);
+  --moduix-close-button-color-hover: var(--moduix-popover-foreground);
+  --moduix-close-button-bg-hover: var(--moduix-accent);
+}
+
+.body {
+  display: flex;
+  flex: 1;
+  min-height: 0;
+  margin-block-start: var(--moduix-spacing-4);
+  overflow-y: auto;
+}
+
+.card {
+  flex: 1;
+  background-color: var(--moduix-muted);
+}
+
+.footer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: var(--moduix-spacing-2);
+  margin-block-start: var(--moduix-spacing-6);
+}

@@ -12,17 +12,17 @@ import {
   ColorPickerChannelInput,
   ColorPickerValueText,
 } from '@moduix/vue/color-picker';
-import styles from '@/components/examples/color-picker/color-picker-root-provider.module.css';
+import { Stack } from '@moduix/vue/stack';
 
 const colorPicker = useColorPicker({ defaultValue: parseColor('#9333ea') });
 </script>
 
 <template>
   <ColorPickerRootProvider :value="colorPicker">
-    <div :class="styles.valueRow">
+    <Stack direction="row" align="center" justify="space-between" gap="3">
       <ColorPickerLabel>Provider color</ColorPickerLabel>
       <ColorPickerValueText format="hex" />
-    </div>
+    </Stack>
     <ColorPickerControl>
       <ColorPickerChannelInput channel="hex" />
       <ColorPickerTrigger aria-label="Open color picker" />

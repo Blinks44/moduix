@@ -8,9 +8,6 @@ import {
   MenuIndicator,
   MenuItemIndicator,
   MenuItemText,
-  MenuItemTextContent,
-  MenuItemTextIcon,
-  MenuItemTextLabel,
   MenuPositioner,
   MenuTrigger,
   MenuViewport,
@@ -32,39 +29,19 @@ const showTraffic = ref(false);
       <MenuContent>
         <MenuViewport>
           <MenuCheckboxItem v-model:checked="showSearch" value="search" indicator="end">
-            <MenuItemText>
-              <MenuItemTextContent
-                ><MenuItemTextIcon><Map /></MenuItemTextIcon
-                ><MenuItemTextLabel>Search</MenuItemTextLabel></MenuItemTextContent
-              >
-            </MenuItemText>
+            <MenuItemText><Map />Search</MenuItemText>
             <MenuItemIndicator />
           </MenuCheckboxItem>
           <MenuCheckboxItem v-model:checked="showGrid" value="grid" indicator="end">
-            <MenuItemText>
-              <MenuItemTextContent
-                ><MenuItemTextIcon><Grid3X3 /></MenuItemTextIcon
-                ><MenuItemTextLabel>Grid</MenuItemTextLabel></MenuItemTextContent
-              >
-            </MenuItemText>
+            <MenuItemText><Grid3X3 />Grid</MenuItemText>
             <MenuItemIndicator />
           </MenuCheckboxItem>
           <MenuCheckboxItem v-model:checked="showLabels" value="labels" indicator="end">
-            <MenuItemText>
-              <MenuItemTextContent
-                ><MenuItemTextIcon><MapPin /></MenuItemTextIcon
-                ><MenuItemTextLabel>Place Labels</MenuItemTextLabel></MenuItemTextContent
-              >
-            </MenuItemText>
+            <MenuItemText><MapPin />Place Labels</MenuItemText>
             <MenuItemIndicator />
           </MenuCheckboxItem>
           <MenuCheckboxItem v-model:checked="showTraffic" value="traffic" indicator="end">
-            <MenuItemText>
-              <MenuItemTextContent
-                ><MenuItemTextIcon><TrafficCone /></MenuItemTextIcon
-                ><MenuItemTextLabel>Traffic</MenuItemTextLabel></MenuItemTextContent
-              >
-            </MenuItemText>
+            <MenuItemText><TrafficCone />Traffic</MenuItemText>
             <MenuItemIndicator />
           </MenuCheckboxItem>
         </MenuViewport>

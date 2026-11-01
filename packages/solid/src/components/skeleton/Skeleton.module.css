@@ -9,11 +9,7 @@
       overflow: hidden;
       background: var(
         --moduix-skeleton-bg,
-        color-mix(
-          in oklab,
-          var(--moduix-color-muted-foreground) 18%,
-          var(--moduix-color-background)
-        )
+        color-mix(in oklab, var(--moduix-muted-foreground) 18%, var(--moduix-background))
       );
       color: transparent;
       pointer-events: none;

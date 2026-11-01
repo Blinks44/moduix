@@ -1,14 +1,26 @@
 ---
 title: Progress Linear
 component: progress-linear
-description: Indicateur de progression linéaire pour suivre l’avancement d’une tâche, qu’il soit connu ou non.
+description: Afficher la progression sur une barre, connue ou indéterminée.
+ark: https://ark-ui.com/docs/components/progress-linear
 ---
 
+import AnatomyScene from '@/components/examples/progress-linear/basic';
 import * as ProgressLinearDocs from '@/components/examples/progress-linear/css-properties';
 
-## Référence de l’API
+<Example name="progress-linear/basic" width="sm" />
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/progress-linear" />
+## Installation
+
+<ComponentInstall />
+
+## Utilisation
+
+<Usage />
+
+Composez la barre de progression avec les parties explicites `ProgressLinearLabel`, `ProgressLinearValueText`, `ProgressLinearTrack` et
+`ProgressLinearRange`. Donnez à `ProgressLinearTrack` un nom accessible qui décrit la tâche.
+React, Solid et Vue exposent les mêmes noms de parties plats ; Vue utilise `class`, les slots et `v-model` lorsque le contrat le prévoit.
 
 ## Choisir le bon composant
 
@@ -16,76 +28,63 @@ Utilisez `ProgressLinear` lorsque l’utilisateur doit suivre l’avancement sur
 `ProgressCircular` pour un indicateur d’état compact dans une carte, une barre d’outils ou tout autre
 espace limité.
 
-## Exemple de base
+## Exemples
 
+### Valeur initiale
 
-Composez la barre de progression avec les parties explicites `ProgressLinearLabel`, `ProgressLinearValueText`, `ProgressLinearTrack` et
-`ProgressLinearRange`. Donnez à `ProgressLinearTrack` un nom accessible qui décrit la tâche.
-React, Solid et Vue exposent les mêmes noms de parties plats ; Vue utilise `class`, les slots et `v-model` lorsque le contrat le prévoit.
+Utilisez `defaultValue` pour définir la valeur initiale d’une progression non contrôlée.
 
-<Example name="progress-linear/basic" width="sm" />
+<Example name="progress-linear/initial-value" width="sm" />
 
-## Installation avec shadcn
+### Texte de la valeur
 
-Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration complète du paquet, du registre et des styles.
+Utilisez `ProgressLinearContext` avec `translations.value(details)` lorsque le texte visible de la
+valeur doit être formulé pour une tâche précise.
 
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
+<Example name="progress-linear/value-text" width="sm" />
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/progress-linear' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/progress-linear' },
-  ]}
-/>
+### Minimum et maximum
 
-  </Tab>
-  <Tab label="Solid" value="solid">
+Utilisez `min` et `max` lorsque la plage de progression diffère de la plage par défaut, de `0` à
+`100`.
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/progress-linear' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/progress-linear' },
-  ]}
-/>
+<Example name="progress-linear/min-max" width="sm" />
 
-  </Tab>
-  <Tab label="Vue" value="vue">
+### Progression indéterminée
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/progress-linear' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/progress-linear' },
-  ]}
-/>
+Définissez `defaultValue={null}` ou `value={null}` lorsque la tâche est en cours mais que son
+achèvement ne peut pas encore être mesuré.
 
-  </Tab>
-</Tabs>
+<Example name="progress-linear/indeterminate" width="sm" />
 
-## Anatomie
+### Orientation verticale
 
-```text
-ProgressLinear
-├─ ProgressLinearLabel
-├─ ProgressLinearValueText
-├─ ProgressLinearTrack
-│  └─ ProgressLinearRange
-└─ ProgressLinearView
+Définissez `orientation="vertical"` lorsque la partie remplie doit progresser du bas vers le haut.
+En mode vertical, la hauteur par défaut est de `12rem`. Si votre mise en page nécessite une autre
+hauteur, définissez `height` sur la racine.
 
-ProgressLinearRootProvider
-└─ le même arbre de parties relié à useProgress()
-```
+<Example name="progress-linear/vertical" />
 
-| Partie                                    | Rôle                                                                            |
-| ----------------------------------------- | ------------------------------------------------------------------------------- |
-| `ProgressLinear`  | Gère l’état de progression et transmet à Ark le formatage, les identifiants et les autres propriétés. |
-| `ProgressLinearRootProvider`             | Relie les parties à l’état renvoyé par `useProgress()`.          |
-| `ProgressLinearContext`                  | Transmet l’état courant à une fonction de rendu.                                |
-| `ProgressLinearLabel`                    | Libellé visible de la tâche. Il ne devient pas automatiquement le nom accessible de `ProgressLinearTrack`. |
-| `ProgressLinearValueText`                | Affiche le pourcentage formaté et annonce les changements. Utilisez `ProgressLinearContext` pour un texte personnalisé. |
-| `ProgressLinearTrack`                    | Piste de progression. Ark lui ajoute le rôle et les attributs ARIA de valeur.  |
-| `ProgressLinearRange`                    | Partie remplie qui représente l’avancement actuel.                             |
-| `ProgressLinearView`                     | Affiche son contenu uniquement lorsque son `state` correspond à l’état courant. |
+### Vues d’état
+
+Utilisez `ProgressLinearView` lorsque le texte ou l’interface d’accompagnement doit changer avec
+l’état de progression Ark.
+
+<Example name="progress-linear/state-views" width="sm" />
+
+### État contrôlé
+
+Conservez `value` dans l’état lorsque la progression doit rester synchronisée avec un autre contrôle
+ou une tâche externe.
+
+<Example name="progress-linear/controlled" width="sm" />
+
+### Root Provider
+
+Créez l’état de progression avec `useProgress()` dans un composant parent, puis
+reliez-le aux parties rendues avec `ProgressLinearRootProvider`.
+
+<Example name="progress-linear/root-provider" width="sm" />
 
 ## Composition
 
@@ -97,63 +96,24 @@ Utilisez `defaultValue` pour une progression non contrôlée. Pour une progressi
 l’état et `ProgressLinearContext` lorsque votre texte personnalisé doit accéder à l’état courant.
 Dans Vue, utilisez `v-model` pour la même valeur contrôlée.
 
-## Exemples
+## Anatomie
 
-### État contrôlé
+Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
 
-Conservez `value` dans l’état lorsque la progression doit rester synchronisée avec un autre contrôle
-ou une tâche externe.
-
-<Example name="progress-linear/controlled" width="sm" />
-
-### Progression indéterminée
-
-Définissez `defaultValue={null}` ou `value={null}` lorsque la tâche est en cours mais que son
-achèvement ne peut pas encore être mesuré.
-
-<Example name="progress-linear/indeterminate" width="sm" />
-
-### Valeur initiale
-
-Utilisez `defaultValue` pour définir la valeur initiale d’une progression non contrôlée.
-
-<Example name="progress-linear/initial-value" width="sm" />
-
-### Minimum et maximum
-
-Utilisez `min` et `max` lorsque la plage de progression diffère de la plage par défaut, de `0` à
-`100`.
-
-<Example name="progress-linear/min-max" width="sm" />
-
-### Vues d’état
-
-Utilisez `ProgressLinearView` lorsque le texte ou l’interface d’accompagnement doit changer avec
-l’état de progression Ark.
-
-<Example name="progress-linear/state-views" width="sm" />
-
-### Texte de la valeur
-
-Utilisez `ProgressLinearContext` avec `translations.value(details)` lorsque le texte visible de la
-valeur doit être formulé pour une tâche précise.
-
-<Example name="progress-linear/value-text" width="sm" />
-
-### Orientation verticale
-
-Définissez `orientation="vertical"` lorsque la partie remplie doit progresser du bas vers le haut.
-En mode vertical, la hauteur par défaut est de `12rem`. Si votre mise en page nécessite une autre
-hauteur, définissez `height` sur la racine.
-
-<Example name="progress-linear/vertical" />
-
-### Personnalisation avancée
-
-Créez l’état de progression avec `useProgress()` dans un composant parent, puis
-reliez-le aux parties rendues avec `ProgressLinearRootProvider`.
-
-<Example name="progress-linear/root-provider" width="sm" />
+<AnatomyInspector
+  parts={[
+    ["ProgressLinear", "progress-linear-root", "Gère l’état de progression et transmet à Ark le formatage, les identifiants et les autres propriétés.", 0],
+    ["ProgressLinearLabel", "progress-linear-label", "Libellé visible de la tâche. Il ne devient pas automatiquement le nom accessible de `ProgressLinearTrack`.", 1],
+    ["ProgressLinearValueText", "progress-linear-value-text", "Affiche le pourcentage formaté et annonce les changements. Utilisez `ProgressLinearContext` pour un texte personnalisé.", 1],
+    ["ProgressLinearTrack", "progress-linear-track", "Piste de progression. Ark lui ajoute le rôle et les attributs ARIA de valeur.", 1],
+    ["ProgressLinearRange", "progress-linear-range", "Partie remplie qui représente l’avancement actuel.", 2],
+    ["ProgressLinearView", "progress-linear-view", "Affiche son contenu uniquement lorsque son `state` correspond à l’état courant.", 1],
+    ["ProgressLinearRootProvider", "progress-linear-root-provider", "Relie les parties à l’état renvoyé par `useProgress()`.", 0],
+    ["ProgressLinearContext", null, "Transmet l’état courant à une fonction de rendu.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styles
 
@@ -170,14 +130,39 @@ progression indéterminée fait défiler une plage de 35 % du bord de début ver
 à gauche en RTL) ; lorsque les animations réduites sont préférées, la plage reste immobile au bord de
 début.
 
-### Propriétés CSS
+### Variables CSS
 
-<CssPropertiesSection properties={ProgressLinearDocs.progressLinearCssProperties} />
+Survolez ou sélectionnez une variable pour la voir dans l’aperçu.
+
+<CssPropertiesSection properties={ProgressLinearDocs.progressLinearCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Points d’accroche CSS
 
-- `data-slot="progress-linear-root"`, `progress-linear-root-provider`, `progress-linear-label`,
-  `progress-linear-value-text`, `progress-linear-track`, `progress-linear-range` et
-  `progress-linear-view`.
+| Partie | `data-slot` |
+| --- | --- |
+| `ProgressLinear` | `progress-linear-root` |
+| `ProgressLinearRootProvider` | `progress-linear-root-provider` |
+| `ProgressLinearLabel` | `progress-linear-label` |
+| `ProgressLinearValueText` | `progress-linear-value-text` |
+| `ProgressLinearTrack` | `progress-linear-track` |
+| `ProgressLinearRange` | `progress-linear-range` |
+| `ProgressLinearView` | `progress-linear-view` |
+
 - Attributs Ark : `data-scope="progress"`, `data-part`, `data-state="indeterminate|loading|complete"`,
   `data-orientation="horizontal|vertical"`, `data-value` et `data-max`.
+
+## Référence de l’API
+
+| Prop | Type | Défaut | Description |
+| --- | --- | --- | --- |
+| `value` | `number \| null` | — | Valeur de progression en mode contrôlé ; `null` affiche un état indéterminé. |
+| `defaultValue` | `number \| null` | `50` | Valeur initiale lorsqu’elle n’est pas contrôlée ; `null` est indéterminé. |
+| `onValueChange` | `(details: ValueChangeDetails) => void` | — | Appelé lorsque la valeur change. |
+| `min` | `number` | `0` | Valeur minimale. |
+| `max` | `number` | `100` | Valeur maximale. |
+| `formatOptions` | `Intl.NumberFormatOptions` | `{ style: 'percent' }` | Options `Intl.NumberFormat` pour le texte de la valeur. |
+| `locale` | `string` | — | Locale du formatage ; par défaut celle du `LocaleProvider` le plus proche. |
+| `translations` | `IntlTranslations` | — | Textes localisés des libellés d’accessibilité. |
+| `orientation` | `'horizontal' \| 'vertical'` | `'horizontal'` | Orientation de la barre : `horizontal` ou `vertical`. |

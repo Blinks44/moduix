@@ -6,6 +6,7 @@ import {
   PaginationNextTrigger,
   PaginationPrevTrigger,
 } from '@moduix/solid/pagination';
+import { Stack } from '@moduix/solid/stack';
 import { For } from 'solid-js';
 import styles from '@/components/examples/pagination/pagination-data-slicing.module.css';
 
@@ -29,7 +30,7 @@ export default function PaginationDataSlicingDemo() {
     <Pagination count={users.length} pageSize={4}>
       <PaginationContext>
         {(pagination) => (
-          <div class={styles.stack}>
+          <Stack align="flex-start" gap="3">
             <div class={styles.users}>
               <For each={pagination().slice(users)}>
                 {(user) => (
@@ -40,7 +41,7 @@ export default function PaginationDataSlicingDemo() {
                 )}
               </For>
             </div>
-            <div class={styles.row}>
+            <Stack direction="row" align="center" wrap="wrap" gap="3">
               <PaginationPrevTrigger />
               <For each={pagination().pages}>
                 {(page, index) =>
@@ -52,8 +53,8 @@ export default function PaginationDataSlicingDemo() {
                 }
               </For>
               <PaginationNextTrigger />
-            </div>
-          </div>
+            </Stack>
+          </Stack>
         )}
       </PaginationContext>
     </Pagination>

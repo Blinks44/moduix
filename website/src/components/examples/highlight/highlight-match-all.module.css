@@ -1,10 +1,5 @@
-.comparison {
-  display: grid;
-  gap: var(--moduix-spacing-4);
-}
-
 .label {
-  color: var(--moduix-color-muted-foreground);
+  color: var(--moduix-muted-foreground);
   font-size: var(--moduix-text-xs);
   font-weight: var(--moduix-weight-medium);
   line-height: var(--moduix-line-height-text-xs);

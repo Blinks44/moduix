@@ -4,7 +4,7 @@ import {
   ImageCropperViewport,
   ImageCropperImage,
   ImageCropperCropArea,
-} from '../../src/components/image-cropper';
+} from '@/components/image-cropper';
 import landscape from './landscape.svg';
 </script>
 <template>

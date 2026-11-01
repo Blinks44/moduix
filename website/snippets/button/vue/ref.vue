@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { Button } from '@moduix/vue/button';
+import { Stack } from '@moduix/vue/stack';
 import { useTemplateRef } from 'vue';
 import type { ComponentPublicInstance } from 'vue';
-import styles from '@/components/examples/button/button-ref.module.css';
 
 const labels = {
   target: 'Focus target',
@@ -17,8 +17,8 @@ const focusButton = () => {
 </script>
 
 <template>
-  <div :class="styles.root">
+  <Stack align="center" gap="3">
     <Button ref="button" aria-label="Focus target">{{ labels.target }}</Button>
     <Button size="sm" variant="outline" @click="focusButton">{{ labels.trigger }}</Button>
-  </div>
+  </Stack>
 </template>

@@ -6,7 +6,7 @@
     display: flex;
     flex-direction: column;
     gap: var(--moduix-spacing-2);
-    color: var(--moduix-color-foreground);
+    color: var(--moduix-foreground);
 
     &[data-size='xs'] {
       --_radio-size: var(--moduix-spacing-3-5);
@@ -61,10 +61,10 @@
     width: var(--moduix-radio-size, var(--_radio-size));
     height: var(--moduix-radio-size, var(--_radio-size));
     border: var(--moduix-border-width-sm) solid
-      var(--moduix-radio-border-color, var(--moduix-color-border));
+      var(--moduix-radio-border-color, var(--moduix-input));
     border-radius: var(--moduix-radius-full);
-    background-color: var(--moduix-radio-bg, var(--moduix-color-background));
-    color: var(--moduix-radio-indicator-color, var(--moduix-color-primary-foreground));
+    background-color: var(--moduix-radio-bg, var(--moduix-background));
+    color: var(--moduix-radio-indicator-color, var(--moduix-primary-foreground));
     user-select: none;
     transition:
       background-color var(--moduix-transition-default),
@@ -84,8 +84,8 @@
     }
 
     &[data-state='checked'] {
-      border-color: var(--moduix-radio-bg-checked, var(--moduix-color-primary));
-      background-color: var(--moduix-radio-bg-checked, var(--moduix-color-primary));
+      border-color: var(--moduix-radio-bg-checked, var(--moduix-primary));
+      background-color: var(--moduix-radio-bg-checked, var(--moduix-primary));
 
       &::before {
         opacity: 1;
@@ -94,18 +94,18 @@
     }
 
     &[data-focus-visible] {
-      outline: var(--moduix-focus-ring-inset-width) solid var(--moduix-color-ring);
+      outline: var(--moduix-focus-ring-inset-width) solid var(--moduix-ring);
       outline-offset: var(--moduix-border-width-sm);
     }
 
     &[data-invalid] {
-      border-color: var(--moduix-color-destructive);
-      outline-color: var(--moduix-color-destructive);
+      border-color: var(--moduix-destructive);
+      outline-color: var(--moduix-destructive);
     }
 
     @media (hover: hover) {
       &[data-state='unchecked'][data-hover]:not([data-readonly], [data-disabled]) {
-        background-color: var(--moduix-color-accent);
+        background-color: var(--moduix-accent);
       }
     }
   }
@@ -125,7 +125,7 @@
     width: var(--width);
     height: var(--height);
     border-radius: var(--moduix-radius-md);
-    background-color: var(--moduix-color-primary);
+    background-color: var(--moduix-primary);
     opacity: 0.12;
     pointer-events: none;
   }

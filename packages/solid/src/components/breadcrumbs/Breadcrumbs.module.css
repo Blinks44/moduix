@@ -1,7 +1,7 @@
 @layer moduix.components {
   .root {
     max-width: 100%;
-    color: var(--moduix-breadcrumbs-color, var(--moduix-color-muted-foreground));
+    color: var(--moduix-breadcrumbs-color, var(--moduix-muted-foreground));
     font-size: var(--moduix-breadcrumbs-font-size, var(--moduix-text-sm));
     line-height: var(--moduix-breadcrumbs-line-height, var(--moduix-line-height-text-sm));
   }
@@ -48,17 +48,17 @@
 
     @media (hover: hover) {
       &:hover {
-        color: var(--moduix-breadcrumbs-link-color-hover, var(--moduix-color-foreground));
+        color: var(--moduix-breadcrumbs-link-color-hover, var(--moduix-foreground));
       }
     }
 
     &:focus-visible {
-      box-shadow: 0 0 0 var(--moduix-focus-ring-inset-width) var(--moduix-color-ring);
+      box-shadow: 0 0 0 var(--moduix-focus-ring-inset-width) var(--moduix-ring);
     }
   }
 
   .page {
-    color: var(--moduix-breadcrumbs-page-color, var(--moduix-color-foreground));
+    color: var(--moduix-breadcrumbs-page-color, var(--moduix-foreground));
     font-weight: var(--moduix-breadcrumbs-page-font-weight, var(--moduix-weight-medium));
   }
 
@@ -99,6 +99,8 @@
 
   /* A native button that wraps the ellipsis, such as a collapsed-path MenuTrigger. */
   button:has(> .ellipsis) {
+    display: inline-flex;
+    align-items: center;
     padding: 0;
     border: 0;
     background: none;
@@ -110,11 +112,11 @@
 
   @media (hover: hover) {
     button:hover > .ellipsis {
-      color: var(--moduix-breadcrumbs-link-color-hover, var(--moduix-color-foreground));
+      color: var(--moduix-breadcrumbs-link-color-hover, var(--moduix-foreground));
     }
   }
 
   button:focus-visible > .ellipsis {
-    box-shadow: 0 0 0 var(--moduix-focus-ring-inset-width) var(--moduix-color-ring);
+    box-shadow: 0 0 0 var(--moduix-focus-ring-inset-width) var(--moduix-ring);
   }
 }

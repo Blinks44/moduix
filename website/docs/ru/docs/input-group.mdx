@@ -1,17 +1,27 @@
 ---
 title: Input Group
 component: input-group
-description: Создавайте поля ввода с префиксами, суффиксами и действиями внутри поля в React, Solid или Vue с установкой из пакета или через shadcn CLI.
+description: Префиксы, суффиксы и встроенные кнопки вокруг поля ввода текста.
+ark: https://ark-ui.com/docs/guides/composition
 ---
 
+import AnatomyScene from '@/components/examples/input-group/basic';
 import * as InputGroupDocs from '@/components/examples/input-group/css-properties';
 
-## Справочник API
+<Example name="input-group/basic" />
 
-`InputGroup` является композицией moduix, а не отдельным примитивом Ark UI. Он объединяет элементы
-фабрики Ark с компонентами moduix `Input` и `Button`, построенными на Ark. Композиция
-соответствует рекомендациям Ark по [композиции](https://ark-ui.com/docs/guides/composition),
-[стилизации](https://ark-ui.com/docs/guides/styling) и [работе с ref](https://ark-ui.com/docs/guides/ref).
+## Установка
+
+<ComponentInstall />
+
+## Использование
+
+<Usage />
+
+Интерактивное
+
+Используйте `InputGroup` как корневой компонент и добавляйте к единственному
+`InputGroupInput` только необходимые части `InputGroupAddon`, `InputGroupText` или `InputGroupButton`.
 
 ## Какой компонент выбрать
 
@@ -22,74 +32,75 @@ import * as InputGroupDocs from '@/components/examples/input-group/css-propertie
 - Используйте **`Textarea`** для многострочного текста.
 - Используйте **`Editable`**, если текст сначала должен отображаться как значение, а затем переходить в режим редактирования.
 
-## Базовый пример
+## Примеры
 
-Интерактивное
+### Префикс и суффикс
 
-Используйте `InputGroup` как корневой компонент и добавляйте к единственному
-`InputGroupInput` только необходимые части `InputGroupAddon`, `InputGroupText` или `InputGroupButton`.
+Используйте `InputGroupAddon` для префикса или суффикса с заливкой, а `InputGroupText` - для встроенного текста без заливки.
 
-<Example name="input-group/basic" />
+<Example name="input-group/prefix-and-suffix" />
 
-## Установка через shadcn
+### С действием
 
-Полную настройку пакета, реестра и стилей см. в разделе [Быстрый старт](/docs/quick-start).
+Используйте `InputGroupButton` для действия, связанного со значением поля. В этом примере поле
+управляемое, а кнопка `Send` становится доступной только после ввода значения.
 
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
+<Example name="input-group/with-action" />
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/input-group' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/input-group' },
-  ]}
-/>
+### Кнопка очистки
 
-  </Tab>
-  <Tab label="Solid" value="solid">
+Используйте `InputGroupClearTrigger` для очистки поля: у кнопки уже есть крестик и доступная подпись.
+Она наследует размер группы и по умолчанию использует `type="button"`. Очистку значения и возврат
+фокуса задайте в `onClick` (в Vue используйте `@click`), а кнопку показывайте только при непустом значении.
+Автоматической очистки и скрытия нет. Для отключённого поля или поля только для чтения отключайте
+кнопку отдельно. Передайте `aria-label` на нужном языке или `aria-labelledby`; дочернее содержимое
+заменяет стандартную иконку.
+Компактная область наведения оформлена так же, как кнопки очистки в Select и Combobox.
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/input-group' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/input-group' },
-  ]}
-/>
+<Example name="input-group/clear-trigger" />
 
-  </Tab>
-  <Tab label="Vue" value="vue">
+### Размеры
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/input-group' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/input-group' },
-  ]}
-/>
+Задайте `size` один раз у корневого элемента, чтобы поле, дополнение, текст и кнопка оставались выровнены.
 
-  </Tab>
-</Tabs>
+<Example name="input-group/sizes" />
 
-## Анатомия
+### Многострочное поле
 
-```text
-InputGroup
-├─ InputGroupAddon (необязательно)
-├─ InputGroupInput или InputGroupTextarea
-├─ InputGroupText (необязательно)
-├─ InputGroupButton (необязательно)
-└─ InputGroupClearTrigger (необязательно)
-```
+Используйте `InputGroupTextarea` для многострочного ввода, например в форме сообщения. Он рендерит
+`Textarea` moduix без собственной рамки, наследует размер группы, если не задан свой `size`, и
+сохраняет состояние Ark Field и `autoresize`. Панель действий добавляется через `InputGroupAddon align="block"`
+с обычным `Button`.
 
-| Часть                            | Назначение                                                  |
-| -------------------------------- | ----------------------------------------------------------- |
-| `InputGroup`                    | Пассивный контейнер с общей стилизацией и контекстом размера. |
-| `InputGroupInput`               | Нативный `<input>`, который содержит значение формы и состояние поля. |
-| `InputGroupTextarea`            | Нативный `<textarea>` для многострочного значения; используется вместо `InputGroupInput`. |
-| `InputGroupAddon`               | Префикс или суффикс с заливкой.                             |
-| `InputGroupText`                | Встроенный текст без заливки.                               |
-| `InputGroupButton`              | Кнопка действия, связанного с полем.                       |
-| `InputGroupClearTrigger` | Кнопка с крестиком; очисткой значения управляет приложение. |
+<Example name="input-group/textarea" />
+
+### Отключённое состояние
+
+Передайте `disabled` нативному полю. Связанные кнопки отключайте отдельно, если они тоже должны
+быть недоступны.
+
+<Example name="input-group/disabled" />
+
+### Состояние поля
+
+Задайте `invalid` у `Field`, если проверка не пройдена. Ark передаст это состояние и нужные
+ARIA-атрибуты в `InputGroupInput`, а группа отразит состояние поля.
+
+<Example name="input-group/field-state" />
+
+### Пользовательский элемент
+
+Используйте `asChild`, если вместо стандартного `div` нужен собственный контейнер. Группа сохранит
+оформление и контекст размера, а дочерний элемент должен остаться семантическим контейнером для разметки.
+
+<Example name="input-group/custom-element" />
 
 ## Композиция
+
+`InputGroup` является композицией moduix, а не отдельным примитивом Ark UI. Он объединяет элементы
+фабрики Ark с компонентами moduix `Input` и `Button`, построенными на Ark. Композиция
+соответствует рекомендациям Ark по [композиции](https://ark-ui.com/docs/guides/composition),
+[стилизации](https://ark-ui.com/docs/guides/styling) и [работе с ref](https://ark-ui.com/docs/guides/ref).
 
 В каждой группе оставляйте ровно один `InputGroupInput`. Вложенное поле отвечает за значение,
 поведение формы, состояние валидации и `ref`, поэтому управляемые и неуправляемые свойства
@@ -109,68 +120,23 @@ InputGroup
 кладите внутрь block-аддона. Используйте там обычный `Button`: `InputGroupButton` растягивается на
 всю высоту группы и предназначен для действий рядом с контролом.
 
-## Примеры
+## Анатомия
 
-### Отключённое состояние
+Наведите на часть или выберите её, чтобы найти её в превью.
 
-Передайте `disabled` нативному полю. Связанные кнопки отключайте отдельно, если они тоже должны
-быть недоступны.
-
-<Example name="input-group/disabled" />
-
-### Состояние поля
-
-Задайте `invalid` у `Field`, если проверка не пройдена. Ark передаст это состояние и нужные
-ARIA-атрибуты в `InputGroupInput`, а группа отразит состояние поля.
-
-<Example name="input-group/field-state" />
-
-### Префикс и суффикс
-
-Используйте `InputGroupAddon` для префикса или суффикса с заливкой, а `InputGroupText` - для встроенного текста без заливки.
-
-<Example name="input-group/prefix-and-suffix" />
-
-### Размеры
-
-Задайте `size` один раз у корневого элемента, чтобы поле, дополнение, текст и кнопка оставались выровнены.
-
-<Example name="input-group/sizes" />
-
-### С действием
-
-Используйте `InputGroupButton` для действия, связанного со значением поля. В этом примере поле
-управляемое, а кнопка `Send` становится доступной только после ввода значения.
-
-<Example name="input-group/with-action" />
-
-### Многострочное поле
-
-Используйте `InputGroupTextarea` для многострочного ввода, например в форме сообщения. Он рендерит
-`Textarea` moduix без собственной рамки, наследует размер группы, если не задан свой `size`, и
-сохраняет состояние Ark Field и `autoresize`. Панель действий добавляется через `InputGroupAddon align="block"`
-с обычным `Button`.
-
-<Example name="input-group/textarea" />
-
-### Кнопка очистки
-
-Используйте `InputGroupClearTrigger` для очистки поля: у кнопки уже есть крестик и доступная подпись.
-Она наследует размер группы и по умолчанию использует `type="button"`. Очистку значения и возврат
-фокуса задайте в `onClick` (в Vue используйте `@click`), а кнопку показывайте только при непустом значении.
-Автоматической очистки и скрытия нет. Для отключённого поля или поля только для чтения отключайте
-кнопку отдельно. Передайте `aria-label` на нужном языке или `aria-labelledby`; дочернее содержимое
-заменяет стандартную иконку.
-Компактная область наведения оформлена так же, как кнопки очистки в Select и Combobox.
-
-<Example name="input-group/clear-trigger" />
-
-### Расширенная настройка
-
-Используйте `asChild`, если вместо стандартного `div` нужен собственный контейнер. Группа сохранит
-оформление и контекст размера, а дочерний элемент должен остаться семантическим контейнером для разметки.
-
-<Example name="input-group/as-child" />
+<AnatomyInspector
+  parts={[
+    ["InputGroup", "input-group-root", "Пассивный контейнер с общей стилизацией и контекстом размера.", 0],
+    ["InputGroupAddon", "input-group-addon", "Префикс или суффикс с заливкой.", 1],
+    ["InputGroupInput", "", "Нативный `<input>`, который содержит значение формы и состояние поля.", 1],
+    ["InputGroupText", "input-group-text", "Встроенный текст без заливки.", 1],
+    ["InputGroupTextarea", "", "Нативный `<textarea>` для многострочного значения; используется вместо `InputGroupInput`.", 2],
+    ["InputGroupButton", "input-group-button", "Кнопка действия, связанного с полем.", 1],
+    ["InputGroupClearTrigger", "input-group-clear-trigger", "Кнопка с крестиком; очисткой значения управляет приложение.", 1],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Стилизация
 
@@ -182,23 +148,40 @@ foundation и открывают только три переменные ниж
 классом на части — он сильнее слоёв стилей компонента. Атрибуты данных и селекторы `data-slot`
 общие для обоих подходов.
 
-### CSS-свойства
+### CSS-переменные
 
-<CssPropertiesSection properties={InputGroupDocs.inputGroupOverrideCssProperties} />
+Наведите на переменную или выберите её, чтобы увидеть её в превью.
+
+<CssPropertiesSection properties={InputGroupDocs.inputGroupOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Хуки стилизации
+
+| Часть | `data-slot` |
+| --- | --- |
+| `InputGroup` | `input-group-root` |
+| `InputGroupAddon` | `input-group-addon` |
+| `InputGroupText` | `input-group-text` |
+| `InputGroupButton` | `input-group-button` |
+| `InputGroupClearTrigger` | `input-group-clear-trigger` |
 
 - `data-slot="input-group-root"` и `data-size="xs" | "sm" | "md" | "lg" | "xl"` на корне
 - `data-scope="input-group"` и `data-part="root" | "addon" | "text"` на частях фабрики Ark
 - `data-slot="input-root"` вместе с атрибутами состояния поля Ark
-- `data-slot="input-group-addon"`
-- `data-slot="input-group-clear-trigger"`
-- `data-slot="input-group-text"`
 - `data-align="inline" | "block"` у `InputGroupAddon` и `InputGroupText`
 - `data-slot="textarea-root"` и атрибуты состояния Ark Field textarea у `InputGroupTextarea`
-- `data-slot="input-group-button"` у кнопки действия в группе
 - вложенные состояния `data-invalid`, `aria-invalid="true"` и `data-disabled`/`:disabled` отражаются на корне через `:has(...)`
 
 Слоты и атрибуты `data-slot`, `data-scope`, `data-part` и `data-size`, которыми управляет
 компонент, остаются неизменными, даже если вы передаёте собственные свойства. `className` в React
 и `class` в Solid и Vue объединяются со стилями компонента.
+
+## Справочник API
+
+Пропсы `InputGroup`. `InputGroupAddon` принимает `align` (`'inline' | 'block'`, по умолчанию `'inline'`).
+
+| Проп | Тип | По умолчанию | Описание |
+| --- | --- | --- | --- |
+| `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'` | `'md'` | Размер группы и поля: `xs`, `sm`, `md`, `lg` или `xl`. |
+| `asChild` | `boolean` | `false` | Отрисовывает корень через единственный дочерний элемент. |

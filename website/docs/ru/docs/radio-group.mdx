@@ -1,18 +1,25 @@
 ---
 title: Radio Group
 component: radio-group
-description: Группа радиокнопок для выбора одного варианта из видимого списка.
+description: Выбор ровно одной опции из короткого видимого списка.
+ark: https://ark-ui.com/docs/components/radio-group
 ---
 
+import AnatomyScene from '@/components/examples/radio-group/basic';
 import * as RadioGroupDocs from '@/components/examples/radio-group/css-properties';
 
-## Справочник API
+<Example name="radio-group/basic" />
 
-`RadioGroup` следует примитиву radio-group из Ark UI и добавляет стили moduix, стабильные атрибуты
-`data-slot` и вспомогательный компонент `RadioGroupOption`. Компонент экспортируется из
-`@moduix/react/radio-group`, `@moduix/solid/radio-group` и `@moduix/vue/radio-group`.
+## Установка
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/radio-group" />
+<ComponentInstall />
+
+## Использование
+
+<Usage />
+
+Используйте `RadioGroup` как корневой компонент и задайте `value` для каждого варианта.
+`RadioGroupOption` выводит элемент с подписью, управлением, текстом и нативным полем.
 
 ## Какой компонент выбрать
 
@@ -20,82 +27,108 @@ import * as RadioGroupDocs from '@/components/examples/radio-group/css-propertie
 например фреймворк, тариф или тип аккаунта. Для независимых вариантов используйте `Checkbox`, а для
 настройки, которая применяется сразу, `Switch`.
 
-## Базовый пример
+## Примеры
 
+### Размеры
 
-Используйте `RadioGroup` как корневой компонент и задайте `value` для каждого варианта.
-`RadioGroupOption` выводит элемент с подписью, управлением, текстом и нативным полем.
+Передайте свойство `size` из moduix в `RadioGroup` или `RadioGroupRootProvider`, чтобы изменить диаметр всех
+радиокнопок группы. Поддерживаются значения `xs`, `sm`, `md` (по умолчанию), `lg` и `xl`.
 
-<Example name="radio-group/basic" />
+<Example name="radio-group/sizes" />
 
-## Установка через shadcn
+### Ориентация
 
-Полную настройку пакета, реестра и стилей см. в разделе [Быстрый старт](/docs/quick-start).
+Задайте `orientation="horizontal"`, если клавиши со стрелками должны перемещаться по горизонтальной
+группе. Для горизонтальной визуальной раскладки разместите варианты в строчном контейнере.
 
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
+<Example name="radio-group/orientation" />
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/radio-group' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/radio-group' },
-  ]}
-/>
+### Начальное значение
 
-  </Tab>
-  <Tab label="Solid" value="solid">
+Задайте `defaultValue`, если выбранный при инициализации вариант известен, а дальше группа должна
+управлять изменениями самостоятельно.
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/radio-group' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/radio-group' },
-  ]}
-/>
+<Example name="radio-group/initial-value" />
 
-  </Tab>
-  <Tab label="Vue" value="vue">
+### Индикатор
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/radio-group' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/radio-group' },
-  ]}
-/>
+Используйте `RadioGroupIndicator`, если для активного варианта нужен дополнительный измеряемый
+фон. Держите индикатор и радиокнопки в одном контексте позиционирования, чтобы индикатор следовал
+геометрии вариантов.
 
-  </Tab>
-</Tabs>
+<Example name="radio-group/indicator" />
 
-## Анатомия
+### Отключённая группа
 
-```text
-RadioGroup
-├─ RadioGroupLabel
-├─ RadioGroupIndicator (необязательно)
-└─ RadioGroupItem[value]
-   ├─ RadioGroupItemControl
-   ├─ RadioGroupItemText
-   └─ RadioGroupItemHiddenInput (явно)
+Задайте `disabled` на корневом компоненте, чтобы сделать все варианты недоступными и сохранить
+видимым выбранное значение.
 
-RadioGroupRootProvider
-└─ то же дерево частей, подключённое к useRadioGroup()
+<Example name="radio-group/disabled" />
 
-RadioGroupOption
-└─ RadioGroupItem + RadioGroupItemControl + RadioGroupItemText + RadioGroupItemHiddenInput (фиксированная композиция)
-```
+### Отключённый элемент
 
-| Часть                         | Назначение                                                        |
-| ---------------------------- | ----------------------------------------------------------------- |
-| `RadioGroup`       | Хранит значение, управляет клавиатурной навигацией, ориентацией и формами. |
-| `RadioGroupRootProvider`    | Подключает части к состоянию, созданному через `useRadioGroup()`. |
-| `RadioGroupLabel`            | Доступная подпись группы.                                         |
-| `RadioGroupItem`             | Один вариант выбора; по умолчанию выводит `label`.                |
-| `RadioGroupOption`           | Упрощённый элемент с управлением, текстом и скрытым полем.         |
-| `RadioGroupItemControl`      | Визуальная радиокнопка; размер задаёт `size` на корне.            |
-| `RadioGroupItemText`         | Видимый текст варианта.                                           |
-| `RadioGroupItemHiddenInput`  | Нативное поле формы для явной композиции `RadioGroupItem`.                  |
-| `RadioGroupIndicator`        | Необязательный индикатор активного элемента с переменными Ark.    |
+Задайте `disabled` на отдельном `RadioGroupItem` или `RadioGroupOption`, если недоступным должен быть только один
+вариант.
+
+<Example name="radio-group/item-disabled" />
+
+### С Field
+
+Используйте `Field`, если группе нужны собственные подпись, вспомогательный текст или сообщение
+об ошибке. Передайте `invalid` также в `RadioGroup`, потому что `Field` не меняет состояние
+валидации группы.
+
+<Example name="radio-group/with-field" />
+
+### С Fieldset
+
+Оберните группу в `Fieldset`, если несколько вариантов используют одну легенду и относятся к одному
+разделу формы. `Fieldset` также может передать вложенной группе состояния `disabled` и `invalid`.
+
+<Example name="radio-group/with-fieldset" />
+
+### Форма
+
+Передайте `name` корневому компоненту, если выбранное значение нужно отправлять в форму.
+`RadioGroupOption` уже содержит поле ввода, а в каждом пользовательском `RadioGroupItem` нужно добавить
+`RadioGroupItemHiddenInput`.
+
+<Example name="radio-group/form" />
+
+### Управляемое состояние
+
+Передайте `value` и `onValueChange` (`v-model` во Vue), если выбранное значение зависит от маршрута,
+фильтров или соседнего интерфейса. Подробнее в разделе [Управляйте состоянием из приложения](/docs/composition-patterns#controlled-state).
+
+<Example name="radio-group/controlled" />
+
+### asChild
+
+Используйте `RadioGroupItem asChild`, когда карточка или пользовательская разметка подписи должны
+стать DOM-узлом варианта. Прямым дочерним элементом оставляйте семантический `label`.
+
+<Example name="radio-group/aschild" />
+
+### Root Provider
+
+Используйте `RadioGroupRootProvider`, когда хранилище `useRadioGroup()` нужно разделить с элементами за
+пределами дерева группы. Пример также показывает, как изменить выбранное значение извне. Подробнее в разделе [Выносите состояние за пределы дерева](/docs/composition-patterns#root-provider).
+
+<Example name="radio-group/root-provider" />
+
+### Сборка из частей
+
+Та же группа, что в Basic, но без `RadioGroupOption`: каждый `RadioGroupItem` содержит
+`RadioGroupItemControl`, `RadioGroupItemText` и `RadioGroupItemHiddenInput`. Начинайте с него, если
+дизайн меняет раскладку пункта или добавляет содержимое рядом с подписью.
+
+<Example name="radio-group/build-from-parts" />
 
 ## Композиция
+
+`RadioGroup` следует примитиву radio-group из Ark UI и добавляет стили moduix, стабильные атрибуты
+`data-slot` и вспомогательный компонент `RadioGroupOption`. Компонент экспортируется из
+`@moduix/react/radio-group`, `@moduix/solid/radio-group` и `@moduix/vue/radio-group`.
 
 Используйте `defaultValue` для неконтролируемой группы. Если выбранное значение хранит другая часть
 приложения, используйте `value` и `onValueChange(details)`. Когда состояние нужно создать вне дерева
@@ -114,101 +147,25 @@ RadioGroupOption
 передаёт своё состояние в `RadioGroup`. Передавайте `disabled`, `invalid`, `readOnly` и `required`
 самой группе. `Fieldset` передаёт вложенным группам состояние Ark `disabled` и `invalid`.
 
-## Примеры
+## Анатомия
 
-### asChild
+Наведите на часть или выберите её, чтобы найти её в превью.
 
-Используйте `RadioGroupItem asChild`, когда карточка или пользовательская разметка подписи должны
-владеть DOM-узлом варианта. Прямым дочерним элементом оставляйте семантический `label`.
-
-<Example name="radio-group/aschild" />
-
-### Управляемое состояние
-
-Управляйте `value` через `useState` в React, `createSignal` в Solid или `ref` и `v-model` в Vue, когда выбранное значение
-должно синхронизироваться с маршрутизацией, фильтрами или другими частями интерфейса.
-
-<Example name="radio-group/controlled" />
-
-### Отключённая группа
-
-Задайте `disabled` на корневом компоненте, чтобы сделать все варианты недоступными и сохранить
-видимым выбранное значение.
-
-<Example name="radio-group/disabled" />
-
-### Отключённый элемент
-
-Задайте `disabled` на отдельном `RadioGroupItem` или `RadioGroupOption`, если недоступным должен быть только один
-вариант.
-
-<Example name="radio-group/item-disabled" />
-
-### Форма
-
-Передайте `name` корневому компоненту, если выбранное значение нужно отправлять в форму.
-`RadioGroupOption` уже содержит поле ввода, а в каждом пользовательском `RadioGroupItem` нужно добавить
-`RadioGroupItemHiddenInput`.
-
-<Example name="radio-group/form" />
-
-### Индикатор
-
-Используйте `RadioGroupIndicator`, если для активного варианта нужен дополнительный измеряемый
-фон. Держите индикатор и радиокнопки в одном контексте позиционирования, чтобы индикатор следовал
-геометрии вариантов.
-
-<Example name="radio-group/indicator" />
-
-### Начальное значение
-
-Задайте `defaultValue`, если выбранный при инициализации вариант известен, а дальше группа должна
-управлять изменениями самостоятельно.
-
-<Example name="radio-group/initial-value" />
-
-### Ориентация
-
-Задайте `orientation="horizontal"`, если клавиши со стрелками должны перемещаться по горизонтальной
-группе. Для горизонтальной визуальной раскладки разместите варианты в строчном контейнере.
-
-<Example name="radio-group/orientation" />
-
-### Root Provider
-
-Используйте `RadioGroupRootProvider`, когда хранилище `useRadioGroup()` нужно разделить с элементами за
-пределами дерева группы. Пример также показывает, как изменить выбранное значение извне.
-
-<Example name="radio-group/root-provider" />
-
-### Размеры
-
-Передайте свойство `size` из moduix в `RadioGroup` или `RadioGroupRootProvider`, чтобы изменить диаметр всех
-радиокнопок группы. Поддерживаются значения `xs`, `sm`, `md` (по умолчанию), `lg` и `xl`.
-
-<Example name="radio-group/sizes" />
-
-### С Field
-
-Используйте `Field`, если группе нужны собственные подпись, вспомогательный текст или сообщение
-об ошибке. Передайте `invalid` также в `RadioGroup`, потому что `Field` не меняет состояние
-валидации группы.
-
-<Example name="radio-group/with-field" />
-
-### С Fieldset
-
-Оберните группу в `Fieldset`, если несколько вариантов используют одну легенду и относятся к одному
-разделу формы. `Fieldset` также может передать вложенной группе состояния `disabled` и `invalid`.
-
-<Example name="radio-group/with-fieldset" />
-
-### Расширенная настройка
-
-Откажитесь от `RadioGroupOption` и используйте полное дерево `RadioGroupItem`, если каждой вложенной части нужны своё
-размещение, свойства или стили.
-
-<Example name="radio-group/advanced-customization" />
+<AnatomyInspector
+  parts={[
+    ["RadioGroup", "radio-group-root", "Хранит значение, управляет клавиатурной навигацией, ориентацией и формами.", 0],
+    ["RadioGroupLabel", "radio-group-label", "Доступная подпись группы.", 1],
+    ["RadioGroupIndicator", "radio-group-indicator", "Необязательный индикатор активного элемента с переменными Ark.", 1],
+    ["RadioGroupItem", "radio-group-item", "Один вариант выбора; по умолчанию выводит `label`.", 1],
+    ["RadioGroupItemControl", "radio-group-item-control", "Визуальная радиокнопка; размер задаёт `size` на корне.", 2],
+    ["RadioGroupItemText", "radio-group-item-text", "Видимый текст варианта.", 2],
+    ["RadioGroupItemHiddenInput", "", "Нативное поле формы для явной композиции `RadioGroupItem`.", 2],
+    ["RadioGroupRootProvider", "radio-group-root-provider", "Подключает части к состоянию, созданному через `useRadioGroup()`.", 0],
+    ["RadioGroupOption", "", "Упрощённый элемент с управлением, текстом и скрытым полем.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Стилизация
 
@@ -218,11 +175,25 @@ RadioGroupOption
 утилиты и классы потребителя, а переменные ниже настраивают варианты CSS Modules. Атрибуты данных и
 хуки `data-slot` общие для обоих способов стилизации.
 
-### CSS-свойства
+### CSS-переменные
 
-<CssPropertiesSection properties={RadioGroupDocs.radioGroupOverrideCssProperties} />
+Наведите на переменную или выберите её, чтобы увидеть её в превью.
+
+<CssPropertiesSection properties={RadioGroupDocs.radioGroupOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Хуки стилизации
+
+| Часть | `data-slot` |
+| --- | --- |
+| `RadioGroup` | `radio-group-root` |
+| `RadioGroupRootProvider` | `radio-group-root-provider` |
+| `RadioGroupLabel` | `radio-group-label` |
+| `RadioGroupItem` | `radio-group-item` |
+| `RadioGroupItemControl` | `radio-group-item-control` |
+| `RadioGroupItemText` | `radio-group-item-text` |
+| `RadioGroupIndicator` | `radio-group-indicator` |
 
 - Анатомия Ark: `data-scope="radio-group"` и `data-part` на корне, подписи, варианте,
   управлении, тексте, скрытом поле и индикаторе.
@@ -230,6 +201,27 @@ RadioGroupOption
   `data-invalid`, `data-required`, `data-focus`, `data-focus-visible`, `data-hover`,
   `data-active` и `data-orientation`.
 - Переменные индикатора Ark: `--transition-property`, `--left`, `--top`, `--width` и `--height`.
-- Хуки moduix: `data-slot="radio-group-root"`, `radio-group-root-provider`,
-  `radio-group-label`, `radio-group-item`, `radio-group-item-control`, `radio-group-item-text` и
-  `radio-group-indicator`, а также `data-size` на корне и `RadioGroupRootProvider`.
+
+## Клавиатура
+
+| Клавиша | Действие |
+| --- | --- |
+| `Tab` | Переводит фокус в группу, на выбранную опцию. |
+| `ArrowDown` / `ArrowUp` / `ArrowLeft` / `ArrowRight` | Переходит к следующей или предыдущей опции и выбирает её. |
+| `Space` | Выбирает опцию в фокусе. |
+
+## Справочник API
+
+| Проп | Тип | По умолчанию | Описание |
+| --- | --- | --- | --- |
+| `value` | `string \| null` | — | Выбранное значение в управляемом режиме. |
+| `defaultValue` | `string \| null` | — | Изначально выбранное значение. |
+| `onValueChange` | `(details: ValueChangeDetails) => void` | — | Вызывается при выборе другого варианта. |
+| `orientation` | `'horizontal' \| 'vertical'` | `'vertical'` | Раскладка и направление стрелок: `horizontal` или `vertical`. |
+| `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'` | `'md'` | Размер: `xs`, `sm`, `md`, `lg` или `xl`. |
+| `name` | `string` | — | Общее имя поля формы для всех радиокнопок. |
+| `disabled` | `boolean` | `false` | Отключает элемент управления. |
+| `readOnly` | `boolean` | `false` | Показывает значение, но не даёт его менять. |
+| `invalid` | `boolean` | `false` | Помечает поле как невалидное. |
+| `required` | `boolean` | `false` | Требует значение перед отправкой формы. |
+| `form` | `string` | — | Id формы, к которой относится внутренний input. |

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { InputGroup, InputGroupInput } from '../../src';
+import { InputGroup, InputGroupInput } from '@/index';
 </script>
 
 <template>

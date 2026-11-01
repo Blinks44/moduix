@@ -1,14 +1,24 @@
 ---
 title: Select
 component: select
-description: Composition Select basée sur Ark UI pour choisir une ou plusieurs valeurs dans une liste contextuelle.
+description: Choisir une ou plusieurs valeurs dans une liste déroulante.
+ark: https://ark-ui.com/docs/components/select
 ---
 
+import AnatomyScene from '@/components/examples/select/anatomy';
 import * as SelectDocs from '@/components/examples/select/css-properties';
 
-## Référence de l’API
+<Example name="select/basic" />
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/select" />
+## Installation
+
+<ComponentInstall />
+
+## Utilisation
+
+<Usage />
+
+Passez une collection à `Select`, utilisez `SelectField` pour le contrôle visible standard et gardez la structure de la fenêtre contextuelle explicite. `clearLabel` ajoute une action d’effacement accessible. Ajoutez explicitement `SelectHiddenSelect` lorsque la soumission, le remplissage automatique, la validation et la réinitialisation natives sont nécessaires.
 
 ## Choisir le bon composant
 
@@ -16,131 +26,21 @@ Utilisez `Select` lorsque l’utilisateur choisit une valeur dans une collection
 de texte dans le déclencheur. Préférez `Combobox` lorsqu’une saisie permet de rechercher ou de
 créer une valeur.
 
-## Exemple de base
-
-Passez une collection à `Select`, utilisez `SelectField` pour le contrôle visible standard et gardez la structure de la fenêtre contextuelle explicite. `clearLabel` ajoute une action d’effacement accessible. Ajoutez explicitement `SelectHiddenSelect` lorsque la soumission, le remplissage automatique, la validation et la réinitialisation natives sont nécessaires.
-
-<Example name="select/basic" />
-
-## Installation avec shadcn
-
-Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration complète du paquet, du registre et des styles.
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/select' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/select' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-  <ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/select' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/select' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/select' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/select' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Anatomie
-
-```text
-Select
-├─ SelectLabel
-├─ SelectControl / SelectField
-│  ├─ SelectTrigger
-│  │  ├─ SelectValueText
-│  ├─ SelectClearTrigger
-│  └─ SelectIndicator
-├─ Sous-arbre de l’overlay (portail automatique)
-│  └─ SelectPositioner
-│     └─ SelectContent
-│        ├─ SelectList
-│        └─ SelectItemGroup
-│           ├─ SelectItemGroupLabel
-│           ├─ SelectOption[item]
-│           └─ SelectItem[item]
-│              ├─ SelectItemText
-│              │  └─ SelectItemTextContent
-│              │     ├─ SelectItemTextIcon
-│              │     └─ SelectItemTextLabel
-│              └─ SelectItemIndicator
-└─ SelectHiddenSelect (explicite)
-```
-
-| Partie                    | Rôle                                                                                             |
-| ------------------------- | ------------------------------------------------------------------------------------------------ |
-| `Select`                  | État racine, collection, sélection, cycle de vie de la fenêtre contextuelle et données du formulaire. |
-| `SelectHiddenSelect`      | Champ natif d’Ark ; composition explicite décrite ci-dessous.                                  |
-| `SelectRootProvider`      | Affiche l’arborescence Select à partir de l’état renvoyé par `useSelect`.                       |
-| `SelectContext`           | Contexte racine pour lire l’état avancé.                                                        |
-| `SelectItemContext`       | Contexte d’un élément pour lire l’état avancé.                                                  |
-| `SelectLabel`            | Libellé accessible associé au déclencheur et au contrôle de formulaire natif.                   |
-| `SelectControl`          | Enveloppe du champ visible qui reflète les états de focus, d’erreur et d’ouverture.              |
-| `SelectField`            | Composant utilitaire moduix pour le champ, le déclencheur et les actions standard.               |
-| `SelectTrigger`          | Bouton qui ouvre la fenêtre contextuelle et gère la saisie au clavier.                          |
-| `SelectValueText`        | Placeholder ou libellés des éléments sélectionnés.                                               |
-| `SelectClearTrigger`     | Bouton qui efface la valeur actuelle.                                                            |
-| `SelectIndicator`        | Indicateur du déclencheur avec l’icône de flèche moduix par défaut.                              |
-| `SelectPositioner`       | Calque flottant qui expose les variables CSS Ark pour le positionnement.                        |
-| `SelectContent`          | Contenu de la fenêtre contextuelle et conteneur de la listbox.                                   |
-| `SelectList`             | Enveloppe de liste facultative pour la virtualisation et les mises en page personnalisées.      |
-| `SelectItemGroup`        | Enveloppe d’un groupe d’éléments associés de la collection.                                     |
-| `SelectItemGroupLabel`   | Libellé d’un groupe de la collection.                                                            |
-| `SelectItem`             | Ligne sélectionnable. Passez l’élément de collection avec `item`.                               |
-| `SelectOption` | Ligne prête à l’emploi pour les options simples avec texte et indicateur. |
-| `SelectItemText`         | Texte utilisé pour l’affichage et l’accessibilité.                                               |
-| `SelectItemTextContent`  | Composant de mise en page pour du texte d’élément enrichi.                                       |
-| `SelectItemTextIcon`     | Conteneur d’icône pour du texte d’élément enrichi.                                               |
-| `SelectItemTextLabel`    | Conteneur de libellé pour du texte d’élément enrichi.                                            |
-| `SelectItemIndicator`    | Indicateur de sélection avec l’icône de coche moduix par défaut.                                 |
-
-## Composition
-
-`SelectField` est le raccourci pour `SelectControl`, `SelectTrigger`, `SelectValueText` et l’`SelectIndicator` par défaut. Ajoutez `clearLabel` pour une action d’effacement libellée, ou utilisez les parties explicites lorsque la mise en page du déclencheur doit être stylisée indépendamment. Gardez `SelectPositioner`, `SelectContent` et les éléments de la collection dans la même arborescence Select. Utilisez `SelectOption` pour les lignes ordinaires : il affiche `SelectItem` avec `SelectItemText` et `SelectItemIndicator`. Passez `indicator={false}` pour masquer la coche ou une icône pour la remplacer, et utilisez `SelectItem` lorsqu’une ligne a besoin d’une structure personnalisée.
-
-Ajoutez explicitement `SelectHiddenSelect` dans `Select` ou `SelectRootProvider` lorsque la sélection doit participer à la soumission native, à la validation, au remplissage automatique ou à la réinitialisation du formulaire. La racine ne l’affiche pas automatiquement. `Positioner` est rendu dans un portail par défaut ; utilisez `portalled={false}` pour le rendre dans le flux normal ou `portalRef` pour un conteneur personnalisé.
-
-Utilisez `useSelect` avec `SelectRootProvider` lorsque l’état doit être partagé avec des contrôles situés en dehors de l’arborescence Select. Le store renvoyé est un objet en React, un accessor en Solid et une ref en Vue.
-
 ## Exemples
 
-### État contrôlé
+### Sélection multiple
 
-Contrôlez le tableau de chaînes sélectionnées avec l’état React, un signal Solid ou une ref Vue, puis mettez-le à jour avec `details.value`.
+Définissez `multiple` pour autoriser plusieurs valeurs sélectionnées. `ValueText` affiche les
+libellés des éléments sélectionnés à partir de la collection.
 
-<Example name="select/controlled" />
+<Example name="select/multiple" />
 
-### Disposition personnalisée des éléments
+### Regroupement
 
-Utilisez `SelectItemTextContent`, `SelectItemTextIcon` et `SelectItemTextLabel` dans `ItemText`
-lorsqu’un élément doit afficher une icône stable et un libellé tronqué.
+Définissez `groupBy` dans la collection et affichez `collection.group()` avec `ItemGroup` et
+`ItemGroupLabel`.
 
-<Example name="select/custom-item-layout" />
-
-### Éléments dynamiques
-
-Mettez à jour la collection lorsque les éléments disponibles changent. La composition Select reste
-identique.
-
-<Example name="select/dynamic-items" />
+<Example name="select/grouping" />
 
 ### Champ de formulaire
 
@@ -156,19 +56,12 @@ valeurs envoyées depuis `FormData`.
 
 <Example name="select/form-usage" />
 
-### Regroupement
+### État contrôlé
 
-Définissez `groupBy` dans la collection et affichez `collection.group()` avec `ItemGroup` et
-`ItemGroupLabel`.
+Passez `value` et `onValueChange` (`v-model` en Vue). La valeur est toujours un tableau de chaînes,
+même sans `multiple`. Voir [Contrôler l’état depuis l’application](/docs/composition-patterns#controlled-state).
 
-<Example name="select/grouping" />
-
-### Montage différé
-
-Utilisez `lazyMount` et `unmountOnExit` lorsque le contenu de la fenêtre contextuelle ne doit être
-monté que pendant l’utilisation de Select.
-
-<Example name="select/lazy-mount" />
+<Example name="select/controlled" />
 
 ### Nombre maximal d’éléments sélectionnés
 
@@ -177,26 +70,26 @@ Limitez le nombre d’éléments sélectionnés en rejetant les tableaux trop lo
 
 <Example name="select/max-selection" />
 
-### Sélection multiple
+### Tout sélectionner
 
-Définissez `multiple` pour autoriser plusieurs valeurs sélectionnées. `ValueText` affiche les
-libellés des éléments sélectionnés à partir de la collection.
+Placez les actions groupées en dehors de la listbox. `useSelect` permet d’utiliser l’action et
+Select avec la même instance d’état Ark.
 
-<Example name="select/multiple" />
+<Example name="select/select-all" />
 
-### Débordement
+### Éléments dynamiques
 
-Pour les longues listes, utilisez `positioning.fitViewport`. Le contenu limite déjà sa hauteur avec
-la variable Ark `--available-height` et reste défilable.
+Mettez à jour la collection lorsque les éléments disponibles changent. La composition Select reste
+identique.
 
-<Example name="select/overflow" />
+<Example name="select/dynamic-items" />
 
-### Root Provider
+### Disposition personnalisée des éléments
 
-Utilisez `useSelect` avec `SelectRootProvider` lorsque l’état doit être lu ou contrôlé en
-dehors de l’arborescence Select rendue.
+Placez l’icône directement dans `SelectItemText`, avant le libellé. L’icône reçoit une taille fixe
+et un espacement, et un libellé long est tronqué avec des points de suspension.
 
-<Example name="select/root-provider" />
+<Example name="select/custom-item-layout" />
 
 ### Recherche dans la fenêtre contextuelle
 
@@ -205,12 +98,19 @@ la requête et la collection filtrée dans votre composant, sans étendre l’AP
 
 <Example name="select/search-in-popup" />
 
-### Tout sélectionner
+### Débordement
 
-Placez les actions groupées en dehors de la listbox. `useSelect` permet d’utiliser l’action et
-Select avec la même instance d’état Ark.
+Pour les longues listes, utilisez `positioning.fitViewport`. Le contenu limite déjà sa hauteur avec
+la variable Ark `--available-height` et reste défilable.
 
-<Example name="select/select-all" />
+<Example name="select/overflow" />
+
+### Montage différé
+
+Utilisez `lazyMount` et `unmountOnExit` lorsque le contenu de la fenêtre contextuelle ne doit être
+monté que pendant l’utilisation de Select.
+
+<Example name="select/lazy-mount" />
 
 ### Sélection lors du déplacement dans la liste
 
@@ -219,33 +119,148 @@ immédiatement à jour la sélection.
 
 <Example name="select/select-on-highlight" />
 
-### Personnalisation avancée
+### Root Provider
 
-N’utilisez pas `SelectField` ni `SelectOption` lorsque le déclencheur, le texte de la valeur ou l’indicateur doivent
-être composés et stylisés indépendamment.
+Créez l’état avec `useSelect` et passez-le à `SelectRootProvider`. Voir
+[Partager l’état hors de l’arbre](/docs/composition-patterns#root-provider).
 
-<Example name="select/advanced-customization" />
+<Example name="select/root-provider" />
+
+### Assembler à partir des parties
+
+Le même select que Basic, sans `SelectField` ni `SelectOption` : chaque partie du champ et des
+options est explicite, et le bouton d’effacement, le chevron et la coche reçoivent leurs icônes
+directement. Partez de cet exemple quand le design modifie le déclencheur ou la mise en page des
+options.
+
+<Example name="select/build-from-parts" />
+
+## Composition
+
+`SelectField` est le raccourci pour `SelectControl`, `SelectTrigger`, `SelectValueText` et l’`SelectIndicator` par défaut. Ajoutez `clearLabel` pour une action d’effacement libellée, ou utilisez les parties explicites lorsque la mise en page du déclencheur doit être stylisée indépendamment. Gardez `SelectPositioner`, `SelectContent` et les éléments de la collection dans la même arborescence Select. Utilisez `SelectOption` pour les lignes ordinaires : il affiche `SelectItem` avec `SelectItemText` et `SelectItemIndicator`. Passez `indicator={false}` pour masquer la coche ou une icône pour la remplacer, et utilisez `SelectItem` lorsqu’une ligne a besoin d’une structure personnalisée.
+
+Ajoutez explicitement `SelectHiddenSelect` dans `Select` ou `SelectRootProvider` lorsque la sélection doit participer à la soumission native, à la validation, au remplissage automatique ou à la réinitialisation du formulaire. La racine ne l’affiche pas automatiquement. `Positioner` est rendu dans un portail par défaut ; utilisez `portalled={false}` pour le rendre dans le flux normal ou `portalRef` pour un conteneur personnalisé.
+
+Utilisez `useSelect` avec `SelectRootProvider` lorsque l’état doit être partagé avec des contrôles situés en dehors de l’arborescence Select. Le store renvoyé est un objet en React, un accessor en Solid et une ref en Vue.
+
+## Anatomie
+
+Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
+
+<AnatomyInspector
+  parts={[
+    ["Select", "select-root", "État racine, collection, sélection, cycle de vie de la fenêtre contextuelle et données du formulaire.", 0],
+    ["SelectLabel", "select-label", "Libellé accessible associé au déclencheur et au contrôle de formulaire natif.", 1],
+    ["SelectControl", "select-control", "Enveloppe du champ visible qui reflète les états de focus, d’erreur et d’ouverture.", 1],
+    ["SelectTrigger", "select-trigger", "Bouton qui ouvre la fenêtre contextuelle et gère la saisie au clavier.", 2],
+    ["SelectValueText", "select-value-text", "Placeholder ou libellés des éléments sélectionnés.", 3],
+    ["SelectClearTrigger", "select-clear-trigger", "Bouton qui efface la valeur actuelle.", 2],
+    ["SelectIndicator", "select-indicator", "Indicateur du déclencheur avec l’icône de flèche moduix par défaut.", 2],
+    ["SelectPositioner", "select-positioner", "Calque flottant qui expose les variables CSS Ark pour le positionnement.", 1],
+    ["SelectContent", "select-content", "Contenu de la fenêtre contextuelle et conteneur de la listbox.", 2],
+    ["SelectList", "select-list", "Enveloppe de liste facultative pour la virtualisation et les mises en page personnalisées.", 3],
+    ["SelectItemGroup", "select-item-group", "Enveloppe d’un groupe d’éléments associés de la collection.", 3],
+    ["SelectItemGroupLabel", "select-item-group-label", "Libellé d’un groupe de la collection.", 4],
+    ["SelectOption", "", "Ligne prête à l’emploi pour les options simples avec texte et indicateur.", 4],
+    ["SelectItem", "select-item", "Ligne sélectionnable. Passez l’élément de collection avec `item`.", 4],
+    ["SelectItemText", "select-item-text", "Texte utilisé pour l’affichage et l’accessibilité.", 5],
+    ["SelectItemIndicator", "select-item-indicator", "Indicateur de sélection avec l’icône de coche moduix par défaut.", 5],
+    ["SelectHiddenSelect", "", "Champ natif d’Ark ; composition explicite décrite ci-dessous.", 1],
+    ["SelectField", "", "Composant utilitaire moduix pour le champ, le déclencheur et les actions standard.", 1],
+    ["SelectRootProvider", "select-root-provider", "Affiche l’arborescence Select à partir de l’état renvoyé par `useSelect`.", 0],
+    ["SelectContext", null, "Contexte racine pour lire l’état avancé.", 0],
+    ["SelectItemContext", null, "Contexte d’un élément pour lire l’état avancé.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styles
 
 Stylisez Select avec `className` en React, `class` en Solid et Vue, les hooks stables `data-slot="select-*"` et les attributs Ark. Les variantes Tailwind utilisent des classes utilitaires natives et les classes du consommateur. Les variantes CSS Modules conservent cinq variables de dimensions, listées ci-dessous ; les couleurs, les bordures, l’anneau de focus, l’espacement des options et l’animation proviennent des tokens de foundation et des variables partagées `--moduix-popup-*`, donc remplacez-les avec une classe sur la partie concernée.
 
-### Propriétés CSS
+### Variables CSS
 
-<CssPropertiesSection properties={SelectDocs.selectOverrideCssProperties} />
+Survolez ou sélectionnez une variable pour la voir dans l’aperçu.
+
+<CssPropertiesSection properties={SelectDocs.selectOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Points d’accroche CSS
 
-`SelectField` affiche les slots existants `select-control`, `select-trigger`, `select-value-text`,
-`select-indicator` et le slot facultatif `select-clear-trigger`. Sa propriété `indicator` fournit
-l’enfant du slot d’indicateur existant. Les composants de texte enrichi exposent les slots
-`select-item-text-content`, `select-item-text-icon` et `select-item-text-label`. `SelectOption` réutilise les slots de l’élément
+| Partie | `data-slot` |
+| --- | --- |
+| `Select` | `select-root` |
+| `SelectRootProvider` | `select-root-provider` |
+| `SelectLabel` | `select-label` |
+| `SelectControl` | `select-control` |
+| `SelectTrigger` | `select-trigger` |
+| `SelectValueText` | `select-value-text` |
+| `SelectClearTrigger` | `select-clear-trigger` |
+| `SelectIndicator` | `select-indicator` |
+| `SelectPositioner` | `select-positioner` |
+| `SelectContent` | `select-content` |
+| `SelectList` | `select-list` |
+| `SelectItemGroup` | `select-item-group` |
+| `SelectItemGroupLabel` | `select-item-group-label` |
+| `SelectItem` | `select-item` |
+| `SelectItemText` | `select-item-text` |
+| `SelectItemIndicator` | `select-item-indicator` |
+
+Sa propriété `indicator` fournit
+l’enfant du slot d’indicateur existant. `SelectOption` réutilise les slots de l’élément
 sans ajouter son propre hook de style.
 
-- Les racines fournissent `data-slot="select-root"` et `data-slot="select-root-provider"`.
 - L’anatomie Ark utilise `data-scope="select"` et `data-part`.
 - Le style des états utilise `data-state="open" | "closed"`, `data-focus`, `data-invalid`,
   `data-disabled`, `data-readonly`, `data-required`, `data-placeholder-shown`,
   `data-highlighted` et, pour les éléments, `data-state="checked" | "unchecked"`.
 - `SelectPositioner` fournit `--reference-width`, `--reference-height`, `--available-width`,
   `--available-height`, `--x`, `--y`, `--z-index` et `--transform-origin`.
+
+## Clavier
+
+| Touche | Action |
+| --- | --- |
+| `Enter` / `Space` / `ArrowDown` | Ouvre la liste depuis le déclencheur. |
+| `ArrowDown` / `ArrowUp` | Met en surbrillance l’option suivante ou précédente. |
+| `Enter` | Sélectionne l’option en surbrillance. |
+| `Esc` | Ferme la liste. |
+| Lettres | Met en surbrillance l’option qui commence par le texte saisi. |
+
+## Référence de l’API
+
+| Prop | Type | Défaut | Description |
+| --- | --- | --- | --- |
+| `collection` | `ListCollection<T>` | — | Éléments créés avec `createListCollection()`. |
+| `value` | `string[]` | — | Valeurs sélectionnées en mode contrôlé. |
+| `defaultValue` | `string[]` | — | Valeurs initiales lorsque la sélection n’est pas contrôlée. |
+| `onValueChange` | `(details: ValueChangeDetails) => void` | — | Appelé lorsque les valeurs sélectionnées changent. |
+| `multiple` | `boolean` | `false` | Permet de choisir plusieurs valeurs. |
+| `closeOnSelect` | `boolean` | `true` | Ferme la liste après la sélection d’un élément. |
+| `deselectable` | `boolean` | `false` | Un clic sur l’élément sélectionné le désélectionne. Sélection simple uniquement. |
+| `loopFocus` | `boolean` | `false` | La navigation au clavier revient du dernier élément au premier. |
+| `positioning` | `PositioningOptions` | — | Placement, décalage et autres options de positionnement de la liste. |
+| `open` | `boolean` | — | État d’ouverture de la liste en mode contrôlé. |
+| `onOpenChange` | `(details: OpenChangeDetails) => void` | — | Appelé à l’ouverture et à la fermeture de la liste. |
+| `lazyMount` | `boolean` | `true` | Monte le contenu de la liste à la première ouverture. |
+| `unmountOnExit` | `boolean` | `true` | Démonte le contenu de la liste après sa fermeture. |
+| `name` | `string` | — | Nom du champ de formulaire du select natif masqué. |
+| `disabled` | `boolean` | `false` | Désactive la sélection. |
+| `readOnly` | `boolean` | `false` | Affiche la valeur sans permettre de la modifier. |
+| `invalid` | `boolean` | `false` | Marque le champ comme invalide. |
+| `required` | `boolean` | `false` | Exige une valeur avant l’envoi du formulaire. |
+| `translations` | `IntlTranslations` | — | Textes localisés des libellés d’accessibilité. |
+| `form` | `string` | — | Id du formulaire auquel le select masqué est rattaché. |
+| `autoComplete` | `string` | — | Indication d’auto-remplissage du navigateur pour le select masqué. |
+| `onSelect` | `(details: SelectionDetails) => void` | — | Appelé lorsqu’un élément est sélectionné. |
+| `onHighlightChange` | `(details: HighlightChangeDetails<T>) => void` | — | Appelé lorsque l’élément mis en évidence change. |
+| `highlightedValue` | `string \| null` | — | Élément mis en évidence en mode contrôlé. |
+| `defaultHighlightedValue` | `string \| null` | — | Élément mis en évidence à l’ouverture de la liste. |
+| `defaultOpen` | `boolean` | — | État d’ouverture initial lorsqu’il n’est pas contrôlé. |
+| `scrollToIndexFn` | `(details: ScrollToIndexDetails) => void` | — | Fait défiler une liste virtualisée jusqu’à un index. |
+| `composite` | `boolean` | `true` | Passez `false` lorsque le select se trouve dans un autre widget composite, comme des onglets. |
+| `onPointerDownOutside` | `(event: PointerDownOutsideEvent) => void` | — | Appelé lors d’un appui du pointeur en dehors de la liste. |
+| `onFocusOutside` | `(event: FocusOutsideEvent) => void` | — | Appelé lorsque le focus quitte la liste. |
+| `onInteractOutside` | `(event: InteractOutsideEvent) => void` | — | Appelé lors de toute interaction en dehors de la liste. |

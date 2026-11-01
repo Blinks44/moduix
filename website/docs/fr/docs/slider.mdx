@@ -1,18 +1,25 @@
 ---
 title: Slider
 component: slider
-description: Un slider accessible pour React, Solid ou Vue permettant de sélectionner une valeur unique ou une plage dans un intervalle défini.
+description: Choisir une valeur ou une plage en glissant sur une piste.
+ark: https://ark-ui.com/docs/components/slider
 ---
 
+import AnatomyScene from '@/components/examples/slider/basic';
 import * as SliderDocs from '@/components/examples/slider/css-properties';
-import SliderContext from '@/components/examples/slider/context.tsx';
-import sliderSolidContext from '../../../snippets/slider/solid/context.tsx?raw';
-import sliderVueContext from '../../../snippets/slider/vue/context.vue?raw';
-import sliderVueContextPart from '../../../snippets/slider/vue/SliderStatus.vue?raw';
 
-## Référence de l’API
+<Example name="slider/basic" width="sm" />
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/slider" />
+## Installation
+
+<ComponentInstall />
+
+## Utilisation
+
+<Usage />
+
+`SliderThumbs` crée une poignée avec un champ natif par valeur. Pour personnaliser le contenu,
+composez chaque `SliderThumb` explicitement et placez `SliderHiddenInput` à l’intérieur.
 
 ## Choisir le bon composant
 
@@ -22,201 +29,7 @@ Utilisez `Slider` lorsque l’utilisateur doit ajuster une valeur numérique dan
 - Choisissez **`Input`** ou **`NumberInput`** lorsque l’utilisateur doit saisir une valeur exacte plutôt que la choisir en faisant glisser le curseur.
 - Choisissez **`ProgressLinear`** ou **`ProgressCircular`** lorsque la valeur sert uniquement à l’affichage.
 
-## Exemple de base
-
-
-`SliderThumbs` crée une poignée avec un champ natif par valeur. Pour personnaliser le contenu,
-composez chaque `SliderThumb` explicitement et placez `SliderHiddenInput` à l’intérieur.
-
-<Example name="slider/basic" width="sm" />
-
-## Installation avec shadcn
-
-Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration complète du paquet, du registre et des styles.
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/slider' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/slider' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/slider' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/slider' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/slider' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/slider' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Anatomie
-
-```text
-Slider
-├─ SliderLabel
-├─ SliderValueText
-├─ SliderControl
-│  ├─ SliderTrack
-│  │  └─ SliderRange
-│  └─ SliderThumb[index]
-│     ├─ SliderDraggingIndicator
-│     └─ SliderHiddenInput
-└─ SliderMarkerGroup
-   └─ SliderMarker[value]
-```
-
-| Partie                                  | Rôle                                                                    |
-| --------------------------------------- | ----------------------------------------------------------------------- |
-| `Slider`               | Racine Ark stylisée pour un état contrôlé ou non contrôlé.              |
-| `SliderHiddenInput` | Champ natif d’Ark ; composition explicite décrite ci-dessous. |
-| `SliderRootProvider`                  | Racine connectée à un état `useSlider` créé à l’extérieur.             |
-| `SliderLabel`                         | Libellé visible du groupe.                                              |
-| `SliderValueText`                     | Texte de la valeur actuelle généré par Ark.                             |
-| `SliderControl`                       | Zone d’interaction au pointeur.                                         |
-| `SliderTrack`                         | Piste visuelle complète.                                                |
-| `SliderRange`                         | Partie remplie entre l’origine configurée et la valeur.                 |
-| `SliderThumb`                         | Poignée du slider qui peut recevoir le focus.                           |
-| `SliderThumbs`                        | Utilitaire moduix qui génère une poignée par valeur.                    |
-| `SliderMarkerGroup` / `SliderMarker` | Groupe facultatif de repères et repère individuel.                      |
-| `SliderDraggingIndicator`             | Bulle de valeur facultative affichée pendant le glissement.             |
-
-## Composition
-
-Utilisez `SliderThumbs` pour la composition standard avec une poignée par valeur : le composant
-ajoute aussi un `SliderHiddenInput` par poignée. Lorsqu’une poignée doit contenir des enfants
-personnalisés, porter un nom accessible ou suivre un ordre précis, composez explicitement
-`SliderThumb` et placez-y un `SliderHiddenInput`. Définissez `name` sur la racine pour la
-soumission du formulaire.
-
-Pour un état contrôlé, stockez `details.value` fourni par `onValueChange` ou
-`onValueChangeEnd` ; dans Vue, liez `v-model` à une ref pour le même contrat contrôlé. Utilisez
-`useSliderContext` dans les descendants pour lire l’état. Si l’état doit être créé en dehors de
-l’arbre rendu, créez-le avec `useSlider` et transmettez-le à `SliderRootProvider` ; ne rendez pas
-une autre racine pour le même store. React lit le store comme un objet, Solid via l’accessor
-retourné, et Vue expose directement le store réactif dans le template.
-
 ## Exemples
-
-### Centre comme origine
-
-Définissez `origin="center"` lorsque la valeur représente un décalage positif ou négatif, par exemple un équilibre autour de zéro.
-
-<Example name="slider/center-origin" width="sm" />
-
-### Événements de modification
-
-Utilisez `onValueChange` (ou l’événement Vue `value-change`) pour mettre à jour l’interface pendant
-l’interaction et `onValueChangeEnd` (ou `value-change-end`) lorsque le glissement ou l’interaction
-au clavier est terminé.
-
-<Example name="slider/change-events" width="sm" />
-
-### Contexte
-
-Utilisez `useSliderContext` de moduix dans un composant enfant lorsque celui-ci doit lire l’état du slider, par exemple
-`value`, `dragging` ou l’état du focus.
-
-<ExampleFrame variant="component" width="sm">
-  <SliderContext />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/slider/context.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={sliderSolidContext} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={sliderVueContext} />
-
-<CodeBlockRuntime lang="vue" code={sliderVueContextPart} title="SliderStatus.vue" />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
-
-### État contrôlé
-
-Contrôlez le slider depuis l’état du framework en conservant le tableau fourni par `details.value` ;
-dans Vue, liez `v-model` à une ref pour le même contrat contrôlé.
-
-<Example name="slider/controlled" width="sm" />
-
-### Désactivé
-
-Utilisez `disabled` pour garder la valeur visible tout en désactivant les interactions.
-
-<Example name="slider/disabled" width="sm" />
-
-### Indicateur de glissement
-
-Placez `SliderDraggingIndicator` dans une poignée pour afficher sa valeur active pendant le glissement.
-
-<Example name="slider/dragging-indicator" width="sm" />
-
-
-### Formulaire
-
-Définissez `name` et placez `SliderHiddenInput` dans chaque poignée explicite pour envoyer la valeur actuelle.
-
-<Example name="slider/form" width="sm" />
-
-### Valeur non valide
-
-Utilisez `invalid` lorsque la valeur sélectionnée ne passe pas la validation. La piste, la plage et la poignée exposent
-l’état invalide tout en restant interactives.
-
-<Example name="slider/invalid" width="sm" />
-
-### Repères
-
-Utilisez `SliderMarkerGroup` et `SliderMarker` pour afficher des repères. Les repères Ark exposent
-`data-state="under-value | at-value | over-value"`, que vous pouvez utiliser pour les styles.
-
-<Example name="slider/marks" width="sm" />
-
-### Minimum et maximum
-
-Utilisez `min` et `max` lorsque l’intervalle du slider ne commence pas à `0` ou ne se termine pas à `100`.
-
-<Example name="slider/min-and-max" width="sm" />
 
 ### Plage
 
@@ -225,6 +38,49 @@ champs natifs.
 
 <Example name="slider/range" width="sm" />
 
+### Repères
+
+Utilisez `SliderMarkerGroup` et `SliderMarker` pour afficher des repères. Les repères Ark exposent
+`data-state="under-value | at-value | over-value"`, que vous pouvez utiliser pour les styles.
+
+<Example name="slider/marks" width="sm" />
+
+### Incrément
+
+Utilisez `step` pour des incréments fractionnaires ou plus fins.
+
+<Example name="slider/step" width="sm" />
+
+### Minimum et maximum
+
+Utilisez `min` et `max` lorsque l’intervalle du slider ne commence pas à `0` ou ne se termine pas à `100`.
+
+<Example name="slider/min-and-max" width="sm" />
+
+### Orientation verticale
+
+Définissez `orientation="vertical"` et donnez une hauteur explicite à la racine.
+
+<Example name="slider/vertical" />
+
+### Orientation verticale avec repères
+
+En orientation verticale, les repères restent alignés sur la piste et exposent les mêmes attributs d’état.
+
+<Example name="slider/vertical-with-marks" />
+
+### Centre comme origine
+
+Définissez `origin="center"` lorsque la valeur représente un décalage positif ou négatif, par exemple un équilibre autour de zéro.
+
+<Example name="slider/center-origin" width="sm" />
+
+### Désactivé
+
+Utilisez `disabled` pour garder la valeur visible tout en désactivant les interactions.
+
+<Example name="slider/disabled" width="sm" />
+
 ### Lecture seule
 
 Utilisez `readOnly` lorsque la valeur doit rester visible et pouvoir recevoir le focus sans être modifiée. moduix utilise le
@@ -232,18 +88,18 @@ curseur système par défaut dans cet état afin que le slider ne paraisse pas i
 
 <Example name="slider/read-only" width="sm" />
 
-### Root Provider
+### Valeur non valide
 
-Utilisez `useSlider` de moduix avec `SliderRootProvider` lorsque l’état doit être créé en dehors de l’arbre qui affiche
-les parties du slider. Placez ces parties dans `SliderRootProvider` et n’utilisez pas une seconde racine pour le même état.
+Utilisez `invalid` lorsque la valeur sélectionnée ne passe pas la validation. La piste, la plage et la poignée exposent
+l’état invalide tout en restant interactives.
 
-<Example name="slider/root-provider" width="sm" />
+<Example name="slider/invalid" width="sm" />
 
-### Incrément
+### Formulaire
 
-Utilisez `step` pour des incréments fractionnaires ou plus fins.
+Définissez `name` et placez `SliderHiddenInput` dans chaque poignée explicite pour envoyer la valeur actuelle.
 
-<Example name="slider/step" width="sm" />
+<Example name="slider/form" width="sm" />
 
 ### Alignement de la poignée
 
@@ -265,40 +121,109 @@ Utilisez `minStepsBetweenThumbs` pour imposer un écart minimal entre les poign�
 
 <Example name="slider/thumb-overlap" width="sm" />
 
-### Orientation verticale
+### Indicateur de glissement
 
-Définissez `orientation="vertical"` et donnez une hauteur explicite à la racine.
+Placez `SliderDraggingIndicator` dans une poignée pour afficher sa valeur active pendant le glissement.
 
-<Example name="slider/vertical" />
+<Example name="slider/dragging-indicator" width="sm" />
 
-### Orientation verticale avec repères
+### Événements de modification
 
-En orientation verticale, les repères restent alignés sur la piste et exposent les mêmes attributs d’état.
+Utilisez `onValueChange` (ou l’événement Vue `value-change`) pour mettre à jour l’interface pendant
+l’interaction et `onValueChangeEnd` (ou `value-change-end`) lorsque le glissement ou l’interaction
+au clavier est terminé.
 
-<Example name="slider/vertical-with-marks" />
+<Example name="slider/change-events" width="sm" />
 
-### Personnalisation avancée
+### État contrôlé
 
-Utilisez des `SliderThumb` explicites plutôt que `SliderThumbs` lorsque chaque poignée nécessite des enfants
-personnalisés, un nom accessible ou un ordre particulier.
+Contrôlez le slider depuis l’état du framework en conservant le tableau fourni par `details.value` ;
+dans Vue, liez `v-model` à une ref pour le même contrat contrôlé.
 
-<Example name="slider/advanced-customization" width="sm" />
+<Example name="slider/controlled" width="sm" />
+
+### Contexte
+
+Utilisez `useSliderContext` de moduix dans un composant enfant lorsque celui-ci doit lire l’état du slider, par exemple
+`value`, `dragging` ou l’état du focus.
+
+<Example name="slider/context" width="sm" />
+
+### Root Provider
+
+Utilisez `useSlider` de moduix avec `SliderRootProvider` lorsque l’état doit être créé en dehors de l’arbre qui affiche
+les parties du slider. Placez ces parties dans `SliderRootProvider` et n’utilisez pas une seconde racine pour le même état.
+
+<Example name="slider/root-provider" width="sm" />
+
+## Composition
+
+Utilisez `SliderThumbs` pour la composition standard avec une poignée par valeur : le composant
+ajoute aussi un `SliderHiddenInput` par poignée. Lorsqu’une poignée doit contenir des enfants
+personnalisés, porter un nom accessible ou suivre un ordre précis, composez explicitement
+`SliderThumb` et placez-y un `SliderHiddenInput`. Définissez `name` sur la racine pour la
+soumission du formulaire.
+
+Pour un état contrôlé, stockez `details.value` fourni par `onValueChange` ou
+`onValueChangeEnd` ; dans Vue, liez `v-model` à une ref pour le même contrat contrôlé. Utilisez
+`useSliderContext` dans les descendants pour lire l’état. Si l’état doit être créé en dehors de
+l’arbre rendu, créez-le avec `useSlider` et transmettez-le à `SliderRootProvider` ; ne rendez pas
+une autre racine pour le même store. React lit le store comme un objet, Solid via l’accessor
+retourné, et Vue expose directement le store réactif dans le template.
+
+## Anatomie
+
+Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
+
+<AnatomyInspector
+  parts={[
+    ["Slider", "slider-root", "Racine Ark stylisée pour un état contrôlé ou non contrôlé.", 0],
+    ["SliderLabel", "slider-label", "Libellé visible du groupe.", 1],
+    ["SliderValueText", "slider-value-text", "Texte de la valeur actuelle généré par Ark.", 1],
+    ["SliderControl", "slider-control", "Zone d’interaction au pointeur.", 1],
+    ["SliderTrack", "slider-track", "Piste visuelle complète.", 2],
+    ["SliderRange", "slider-range", "Partie remplie entre l’origine configurée et la valeur.", 3],
+    ["SliderThumb", "slider-thumb", "Poignée du slider qui peut recevoir le focus.", 2],
+    ["SliderDraggingIndicator", "slider-dragging-indicator", "Bulle de valeur facultative affichée pendant le glissement.", 3],
+    ["SliderHiddenInput", "", "Champ natif d’Ark ; composition explicite décrite ci-dessous.", 3],
+    ["SliderThumbs", "", "Utilitaire moduix qui génère une poignée par valeur.", 3],
+    ["SliderMarkerGroup / SliderMarker", "slider-marker-group", "Groupe facultatif de repères et repère individuel.", 1],
+    ["SliderRootProvider", "slider-root-provider", "Racine connectée à un état `useSlider` créé à l’extérieur.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styles
 
 Personnalisez l’apparence de `Slider` avec `className` (ou `class` dans Vue), les attributs Ark, les points d’accroche stables
 `data-slot="slider-*"`, les variables CSS d’Ark et les variables CSS publiques de moduix ci-dessous.
 
-### Propriétés CSS
+### Variables CSS
 
-<CssPropertiesSection properties={SliderDocs.sliderCssProperties} />
+Survolez ou sélectionnez une variable pour la voir dans l’aperçu.
+
+<CssPropertiesSection properties={SliderDocs.sliderCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Points d’accroche CSS
 
-Ark ajoute `data-scope="slider"` et `data-part` à toutes les parties affichées. moduix ajoute également les valeurs
-`data-slot` suivantes : `slider-root`, `slider-root-provider`, `slider-label`, `slider-value-text`, `slider-control`,
-`slider-track`, `slider-range`, `slider-thumb`, `slider-marker-group`, `slider-marker` et
-`slider-dragging-indicator`.
+| Partie | `data-slot` |
+| --- | --- |
+| `Slider` | `slider-root` |
+| `SliderRootProvider` | `slider-root-provider` |
+| `SliderLabel` | `slider-label` |
+| `SliderValueText` | `slider-value-text` |
+| `SliderControl` | `slider-control` |
+| `SliderTrack` | `slider-track` |
+| `SliderRange` | `slider-range` |
+| `SliderThumb` | `slider-thumb` |
+| `SliderMarkerGroup` | `slider-marker-group` |
+| `SliderMarker` | `slider-marker` |
+| `SliderDraggingIndicator` | `slider-dragging-indicator` |
+
+Ark ajoute `data-scope="slider"` et `data-part` à toutes les parties affichées.
 
 Les principaux attributs d’état d’Ark sont `data-orientation`, `data-disabled`, `data-invalid`, `data-focus`,
 `data-dragging`, le `data-state` du repère et le `data-state="open | closed"` de l’indicateur de glissement. Les
@@ -314,3 +239,41 @@ la racine pour changer sa taille.
 
 L’anneau de focus par défaut de la poignée utilise `:focus-visible` pour le focus clavier et `data-dragging` d’Ark
 pendant le glissement. Il disparaît lorsque le pointeur est relâché.
+
+## Clavier
+
+| Touche | Action |
+| --- | --- |
+| `ArrowRight` / `ArrowUp` | Augmente la valeur d’un pas. |
+| `ArrowLeft` / `ArrowDown` | Diminue la valeur d’un pas. |
+| `PageUp` / `PageDown`, `Shift` + flèches | Change la valeur d’un grand pas. |
+| `Home` / `End` | Règle le minimum ou le maximum. |
+
+## Référence de l’API
+
+| Prop | Type | Défaut | Description |
+| --- | --- | --- | --- |
+| `value` | `number[]` | — | Valeurs des curseurs en mode contrôlé, une par curseur. |
+| `defaultValue` | `number[]` | — | Valeurs initiales des curseurs. |
+| `onValueChange` | `(details: ValueChangeDetails) => void` | — | Appelé pendant que la valeur change. |
+| `onValueChangeEnd` | `(details: ValueChangeDetails) => void` | — | Appelé lorsque l’utilisateur a fini de modifier la valeur. |
+| `min` | `number` | `0` | Valeur minimale. |
+| `max` | `number` | `100` | Valeur maximale. |
+| `step` | `number` | `1` | Pas entre les valeurs. |
+| `largeStep` | `number` | `10 * step` | Pas avec Maj + flèches et Page précédente ou suivante. |
+| `minStepsBetweenThumbs` | `number` | `0` | Distance minimale entre les curseurs, en pas. |
+| `orientation` | `'horizontal' \| 'vertical'` | `'horizontal'` | Orientation : `horizontal` ou `vertical`. |
+| `origin` | `'start' \| 'center' \| 'end'` | `'start'` | Point de départ de la plage remplie : `start`, `center` ou `end`. |
+| `thumbCollisionBehavior` | `'none' \| 'push' \| 'swap'` | `'none'` | Comportement des curseurs qui se rencontrent : `none`, `push` ou `swap`. |
+| `getAriaValueText` | `(details: ValueTextDetails) => string` | — | Renvoie un texte lisible de la valeur pour les lecteurs d’écran. |
+| `name` | `string` | — | Nom de champ des curseurs. |
+| `disabled` | `boolean` | `false` | Désactive le contrôle. |
+| `readOnly` | `boolean` | `false` | Affiche la valeur sans permettre de la modifier. |
+| `invalid` | `boolean` | `false` | Marque le champ comme invalide. |
+| `required` | `boolean` | `false` | Exige une valeur avant l’envoi du formulaire. |
+| `aria-label` | `string[]` | — | Nom accessible de chaque curseur. |
+| `aria-labelledby` | `string[]` | — | Id des éléments qui servent de libellé à chaque curseur. |
+| `form` | `string` | — | Id du formulaire auquel l’input sous-jacent est rattaché. |
+| `onFocusChange` | `(details: FocusChangeDetails) => void` | — | Appelé lorsqu’un autre curseur reçoit le focus. |
+| `thumbAlignment` | `'contain' \| 'center'` | `'contain'` | Garde les curseurs dans la piste (`contain`) ou centrés sur la valeur (`center`). |
+| `thumbSize` | `{ width: number; height: number }` | — | Taille du curseur, nécessaire à l’alignement `contain` au rendu serveur. |

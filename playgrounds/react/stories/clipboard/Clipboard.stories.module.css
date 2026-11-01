@@ -14,24 +14,24 @@
     justify-content: center;
     min-height: var(--moduix-size-lg);
     padding-inline: 1rem;
-    border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
+    border: var(--moduix-border-width-sm) solid var(--moduix-border);
     border-radius: var(--moduix-radius-md);
-    background-color: var(--moduix-color-background);
-    color: var(--moduix-color-foreground);
+    background-color: var(--moduix-background);
+    color: var(--moduix-foreground);
     font: inherit;
     font-size: var(--moduix-text-sm);
     line-height: var(--moduix-line-height-text-sm);
     cursor: pointer;
 
     &:focus-visible {
-      outline: var(--moduix-border-width-md) solid var(--moduix-color-ring);
+      outline: var(--moduix-border-width-md) solid var(--moduix-ring);
       outline-offset: calc(var(--moduix-border-width-sm) * -1);
     }
   }
 
   .status {
     margin: 0;
-    color: var(--moduix-color-muted-foreground);
+    color: var(--moduix-muted-foreground);
     font-size: var(--moduix-text-sm);
     line-height: var(--moduix-line-height-text-sm);
   }
@@ -41,24 +41,20 @@
   }
 
   .customInput[data-copied] {
-    border-color: color-mix(in srgb, var(--moduix-color-primary) 22%, var(--moduix-color-border));
+    border-color: color-mix(in srgb, var(--moduix-primary) 22%, var(--moduix-border));
 
     &:focus-visible {
-      outline-color: var(--moduix-color-primary);
+      outline-color: var(--moduix-primary);
     }
   }
 
   .customTrigger[data-copied] {
-    border-color: color-mix(in srgb, var(--moduix-color-primary) 22%, var(--moduix-color-border));
-    background-color: color-mix(
-      in srgb,
-      var(--moduix-color-primary) 4%,
-      var(--moduix-color-background)
-    );
-    color: color-mix(in srgb, var(--moduix-color-primary) 70%, var(--moduix-color-foreground));
+    border-color: color-mix(in srgb, var(--moduix-primary) 22%, var(--moduix-border));
+    background-color: color-mix(in srgb, var(--moduix-primary) 4%, var(--moduix-background));
+    color: color-mix(in srgb, var(--moduix-primary) 70%, var(--moduix-foreground));
 
     &:focus-visible {
-      outline-color: var(--moduix-color-primary);
+      outline-color: var(--moduix-primary);
     }
   }
 }

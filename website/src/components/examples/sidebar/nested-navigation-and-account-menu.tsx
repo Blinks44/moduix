@@ -15,9 +15,6 @@ import {
   MenuItem,
   MenuSeparator,
   MenuItemText,
-  MenuItemTextContent,
-  MenuItemTextIcon,
-  MenuItemTextLabel,
 } from '@moduix/react/menu';
 import {
   Sidebar,
@@ -45,6 +42,7 @@ import {
   SidebarNavigationSubItem,
   SidebarNavigationSubButton,
 } from '@moduix/react/sidebar';
+import { Stack } from '@moduix/react/stack';
 import {
   ChevronsUpDown,
   FileText,
@@ -63,15 +61,15 @@ export default function AppSidebar() {
     <Sidebar className={styles.root}>
       <SidebarPanel>
         <SidebarHeader>
-          <div className={styles.headerContent}>
+          <Stack gap="0.75rem">
             <div className={styles.brand}>
               <strong data-sidebar-icon className={styles.brandMark}>
                 M
               </strong>
-              <SidebarLabel>Moduix</SidebarLabel>
+              <SidebarLabel>moduix</SidebarLabel>
             </div>
             <SidebarInput aria-label="Search workspace" placeholder="Search" size="sm" />
-          </div>
+          </Stack>
         </SidebarHeader>
         <SidebarContent>
           <SidebarGroup>
@@ -173,7 +171,6 @@ export default function AppSidebar() {
                 <MenuTrigger asChild>
                   <SidebarNavigationButton
                     size="lg"
-                    aria-label="Open account menu"
                     className={styles.accountButton}
                     title="Account"
                   >
@@ -194,33 +191,21 @@ export default function AppSidebar() {
                     <MenuViewport>
                       <MenuItem value="profile">
                         <MenuItemText>
-                          <MenuItemTextContent>
-                            <MenuItemTextIcon>
-                              <Pencil />
-                            </MenuItemTextIcon>
-                            <MenuItemTextLabel>Profile</MenuItemTextLabel>
-                          </MenuItemTextContent>
+                          <Pencil />
+                          Profile
                         </MenuItemText>
                       </MenuItem>
                       <MenuItem value="settings">
                         <MenuItemText>
-                          <MenuItemTextContent>
-                            <MenuItemTextIcon>
-                              <RotateCcw />
-                            </MenuItemTextIcon>
-                            <MenuItemTextLabel>Settings</MenuItemTextLabel>
-                          </MenuItemTextContent>
+                          <RotateCcw />
+                          Settings
                         </MenuItemText>
                       </MenuItem>
                       <MenuSeparator />
                       <MenuItem value="sign-out" tone="destructive">
                         <MenuItemText>
-                          <MenuItemTextContent>
-                            <MenuItemTextIcon>
-                              <LogOut />
-                            </MenuItemTextIcon>
-                            <MenuItemTextLabel>Sign out</MenuItemTextLabel>
-                          </MenuItemTextContent>
+                          <LogOut />
+                          Sign out
                         </MenuItemText>
                       </MenuItem>
                     </MenuViewport>

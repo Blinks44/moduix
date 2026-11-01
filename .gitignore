@@ -22,6 +22,15 @@ blob-report/
 # Cloudflare Wrangler
 .wrangler/
 
+# Local environment and secrets
+.env
+.env.*
+!.env.example
+.dev.vars*
+
+# Personal Claude Code settings
+.claude/settings.local.json
+
 # Logs
 *.log
 npm-debug.log*
@@ -38,5 +47,4 @@ pnpm-debug.log*
 .vscode/*
 !.vscode/extensions.json
 .idea/
-audits/
-plans/
+.local/

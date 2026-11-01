@@ -14,7 +14,7 @@
   justify-content: space-between;
   min-height: 3.5rem;
   padding-inline: 1.5rem;
-  border-block-end: 1px solid var(--moduix-color-border);
+  border-block-end: 1px solid var(--moduix-border);
 }
 
 .content {
@@ -25,6 +25,6 @@
 
 .card {
   padding: 1rem;
-  border: 1px solid var(--moduix-color-border);
+  border: 1px solid var(--moduix-border);
   border-radius: var(--moduix-radius-md);
 }

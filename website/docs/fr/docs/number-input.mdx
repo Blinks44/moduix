@@ -1,14 +1,25 @@
 ---
 title: Number Input
 component: number-input
-description: Champ de saisie numérique basé sur Ark UI, avec boutons d’incrémentation et de décrémentation, formatage, validation et glissement facultatif.
+description: Saisir un nombre avec boutons de pas, limites et format local.
+ark: https://ark-ui.com/docs/components/number-input
 ---
 
+import AnatomyScene from '@/components/examples/number-input/basic';
 import * as NumberInputDocs from '@/components/examples/number-input/css-properties';
 
-## Référence de l’API
+<Example name="number-input/basic" />
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/number-input" />
+## Installation
+
+<ComponentInstall />
+
+## Utilisation
+
+<Usage />
+
+Utilisez `NumberInput` comme racine et `NumberInputField` pour le champ standard avec ses boutons d’incrémentation et
+de décrémentation. Donnez au champ un nom accessible avec `NumberInputLabel`, `aria-label` ou `aria-labelledby`.
 
 ## Choisir le bon composant
 
@@ -16,105 +27,53 @@ Utilisez `NumberInput` lorsque l’utilisateur saisit des valeurs numériques qu
 incrémentées, bornées et formatées. Utilisez `Input` pour du texte libre, et `Slider` lorsque
 l’objectif est de choisir un point dans une plage visuelle.
 
-## Exemple de base
-
-Importez-le depuis `@moduix/react/number-input`, `@moduix/solid/number-input` ou
-`@moduix/vue/number-input` pour CSS Modules. Pour Tailwind CSS, utilisez le chemin correspondant
-`@moduix/react-tailwind/number-input`, `@moduix/solid-tailwind/number-input` ou
-`@moduix/vue-tailwind/number-input`.
-
-Utilisez `NumberInput` comme racine et `NumberInputField` pour le champ standard avec ses boutons d’incrémentation et
-de décrémentation. Donnez au champ un nom accessible avec `NumberInputLabel`, `aria-label` ou `aria-labelledby`.
-
-<Example name="number-input/basic" />
-
-## Installation avec shadcn
-
-Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration complète du paquet, du registre et des styles.
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/number-input' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/number-input' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/number-input' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/number-input' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/number-input' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/number-input' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Anatomie
-
-```text
-NumberInput
-├─ NumberInputLabel
-├─ NumberInputScrubber (facultatif)
-├─ NumberInputField (raccourci recommandé)
-│  └─ affiche NumberInputControl
-│     ├─ NumberInputDecrementTrigger
-│     ├─ NumberInputInput
-│     └─ NumberInputIncrementTrigger
-└─ NumberInputValueText (facultatif)
-
-NumberInputRootProvider
-└─ même arborescence reliée à l’état créé avec `useNumberInput()`
-```
-
-| Partie | Rôle |
-| --- | --- |
-| `NumberInput` | Gère l’état du champ numérique, l’interprétation de la saisie, le formatage et le comportement au clavier. |
-| `NumberInputRootProvider` | Relie les parties à l’état créé avec `useNumberInput()`. |
-| `NumberInputContext` | Expose les valeurs formatée et numérique, ainsi que les méthodes impératives de gestion de l’état. |
-| `NumberInputLabel` | Libellé accessible associé au champ géré. |
-| `NumberInputScrubber` | Zone de glissement facultative qui modifie la valeur selon le déplacement du pointeur. |
-| `NumberInputControl` | Regroupe le champ et les boutons d’incrémentation et de décrémentation. |
-| `NumberInputField` | Partie pratique qui affiche le contrôle standard et le groupe de boutons. |
-| `NumberInputDecrementTrigger` | Bouton qui diminue la valeur actuelle. Il affiche par défaut l’icône moins de moduix. |
-| `NumberInputInput` | Champ de texte numérique modifiable géré par Ark UI. |
-| `NumberInputIncrementTrigger` | Bouton qui augmente la valeur actuelle. Il affiche par défaut l’icône plus de moduix. |
-| `NumberInputValueText` | Texte en lecture seule qui affiche la valeur formatée. |
-
-## Composition
-
-Utilisez `NumberInputField` pour le contrôle standard en trois parties. Conservez `value` et `defaultValue` sous forme
-de chaînes et utilisez `details.value` de `onValueChange` lorsque le champ est contrôlé. Lorsque l’état doit être créé
-en dehors de l’arbre des parties rendues, appelez `useNumberInput()` et transmettez le store correspondant à
-`NumberInputRootProvider`. Ne rendez pas `NumberInput` ou `NumberInputRootProvider` pour ce même store. React lit directement les propriétés du store, Solid les lit via l’accesseur renvoyé, et Vue expose directement le store réactif au template.
-
-Utilisez `NumberInputControl` avec les parties individuelles lorsque l’ordre des boutons, les icônes ou le style du
-champ doit changer. Ajoutez `NumberInputScrubber` à côté du champ pour permettre la modification par glissement.
-Utilisez `NumberInputContext` uniquement lorsqu’un autre élément, par exemple un champ masqué de formulaire, a besoin
-de la valeur formatée ou de `valueAsNumber`.
-
 ## Exemples
 
-### État contrôlé
+### Tailles
 
-Conservez l’état contrôlé sous forme de chaîne et utilisez `details.value` dans `onValueChange`.
+La prop `size` de la racine règle la hauteur et la taille du texte, comme pour `Input`. La valeur par défaut est `md`.
 
-<Example name="number-input/controlled" />
+<Example name="number-input/sizes" />
+
+### Minimum et maximum
+
+Utilisez `min`, `max` et `step` pour définir la plage et le pas des changements effectués au clavier, avec les boutons
+ou par glissement. La valeur est ramenée dans la plage à la perte du focus par défaut. Définissez
+`clampValueOnBlur={false}` si une valeur saisie hors plage doit rester visible après la perte du focus.
+
+<Example name="number-input/min-and-max" />
+
+### Formatage
+
+Transmettez `formatOptions` pour formater la valeur visible avec `Intl.NumberFormat`.
+
+<Example name="number-input/formatting" />
+
+### Précision
+
+Utilisez `formatOptions` avec `Intl.NumberFormatOptions` lorsque la valeur affichée doit comporter un nombre fixe de
+chiffres après la virgule.
+
+<Example name="number-input/precision" />
+
+### Icônes personnalisées
+
+Passez vos propres icônes à `NumberInputDecrementTrigger` et `NumberInputIncrementTrigger`. Passez
+`translations` lorsque le contenu des déclencheurs a besoin de libellés accessibles localisés.
+
+<Example name="number-input/custom-icons" />
+
+### Modification par glissement
+
+Faites glisser `NumberInputScrubber` vers la gauche ou la droite pour modifier la valeur.
+
+<Example name="number-input/scrubbing" />
+
+### Molette de la souris
+
+Activez `allowMouseWheel` lorsque la molette doit modifier la valeur dans votre scénario.
+
+<Example name="number-input/mouse-wheel" />
 
 ### État désactivé et lecture seule
 
@@ -130,26 +89,6 @@ doivent être partagés.
 
 <Example name="number-input/field" />
 
-### Formatage
-
-Transmettez `formatOptions` pour formater la valeur visible avec `Intl.NumberFormat`.
-
-<Example name="number-input/formatting" />
-
-### Minimum et maximum
-
-Utilisez `min`, `max` et `step` pour définir la plage et le pas des changements effectués au clavier, avec les boutons
-ou par glissement. La valeur est ramenée dans la plage à la perte du focus par défaut. Définissez
-`clampValueOnBlur={false}` si une valeur saisie hors plage doit rester visible après la perte du focus.
-
-<Example name="number-input/min-and-max" />
-
-### Molette de la souris
-
-Activez `allowMouseWheel` lorsque la molette doit modifier la valeur dans votre scénario.
-
-<Example name="number-input/mouse-wheel" />
-
 ### Soumission native du formulaire
 
 Définissez `name` pour inclure le spinbutton textuel visible dans la soumission d’un formulaire natif. `NumberInput`
@@ -158,45 +97,66 @@ lorsque le formulaire attend la représentation numérique.
 
 <Example name="number-input/form-submission" />
 
-### Précision
-
-Utilisez `formatOptions` avec `Intl.NumberFormatOptions` lorsque la valeur affichée doit comporter un nombre fixe de
-chiffres après la virgule.
-
-<Example name="number-input/precision" />
-
-### Root Provider
-
-Utilisez `useNumberInput()` avec `NumberInputRootProvider` lorsque l’état doit être créé en dehors de l’arbre des
-parties rendues.
-
-<Example name="number-input/root-provider" />
-
-### Modification par glissement
-
-Faites glisser `NumberInputScrubber` vers la gauche ou la droite pour modifier la valeur.
-
-<Example name="number-input/scrubbing" />
-
-### Tailles
-
-La prop `size` de la racine règle la hauteur et la taille du texte, comme pour `Input`. La valeur par défaut est `md`.
-
-<Example name="number-input/sizes" />
-
 ### Texte de la valeur
 
 Utilisez `NumberInputValueText` lorsque la valeur formatée doit également apparaître à l’extérieur du champ modifiable.
 
 <Example name="number-input/value-text" />
 
-### Personnalisation avancée
+### État contrôlé
 
-Assemblez directement les parties de bas niveau au lieu d’utiliser `NumberInputField` lorsque les icônes des boutons
-ou le style du champ doivent être personnalisés. Transmettez `translations` lorsque le contenu personnalisé des boutons
-nécessite des libellés localisés pour les technologies d’assistance.
+Conservez l’état contrôlé sous forme de chaîne et utilisez `details.value` dans `onValueChange`. Voir [Contrôler l’état depuis l’application](/docs/composition-patterns#controlled-state).
 
-<Example name="number-input/custom-icons" />
+<Example name="number-input/controlled" />
+
+### Root Provider
+
+Utilisez `useNumberInput()` avec `NumberInputRootProvider` lorsque l’état doit être créé en dehors de l’arbre des
+parties rendues. Voir [Partager l’état hors de l’arbre](/docs/composition-patterns#root-provider).
+
+<Example name="number-input/root-provider" />
+
+### Assembler à partir des parties
+
+Le même champ que Basic, sans `NumberInputField` : `NumberInputControl` contient le déclencheur de
+décrément, `NumberInputInput` et le déclencheur d’incrément, chacun avec une icône explicite. Partez de
+cet exemple quand le design déplace les déclencheurs ou modifie la mise en page du champ.
+
+<Example name="number-input/build-from-parts" />
+
+## Composition
+
+Utilisez `NumberInputField` pour le contrôle standard en trois parties. Conservez `value` et `defaultValue` sous forme
+de chaînes et utilisez `details.value` de `onValueChange` lorsque le champ est contrôlé. Lorsque l’état doit être créé
+en dehors de l’arbre des parties rendues, appelez `useNumberInput()` et transmettez le store correspondant à
+`NumberInputRootProvider`. Ne rendez pas `NumberInput` ou `NumberInputRootProvider` pour ce même store. React lit directement les propriétés du store, Solid les lit via l’accesseur renvoyé, et Vue expose directement le store réactif au template.
+
+Utilisez `NumberInputControl` avec les parties individuelles lorsque l’ordre des boutons, les icônes ou le style du
+champ doit changer. Ajoutez `NumberInputScrubber` à côté du champ pour permettre la modification par glissement.
+Utilisez `NumberInputContext` uniquement lorsqu’un autre élément, par exemple un champ masqué de formulaire, a besoin
+de la valeur formatée ou de `valueAsNumber`.
+
+## Anatomie
+
+Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
+
+<AnatomyInspector
+  parts={[
+    ["NumberInput", "number-input-root", "Gère l’état du champ numérique, l’interprétation de la saisie, le formatage et le comportement au clavier.", 0],
+    ["NumberInputLabel", "number-input-label", "Libellé accessible associé au champ géré.", 1],
+    ["NumberInputScrubber", "number-input-scrubber", "Zone de glissement facultative qui modifie la valeur selon le déplacement du pointeur.", 1],
+    ["NumberInputField", "", "Partie pratique qui affiche le contrôle standard et le groupe de boutons.", 1],
+    ["NumberInputDecrementTrigger", "number-input-decrement-trigger", "Bouton qui diminue la valeur actuelle. Il affiche par défaut l’icône moins de moduix.", 2],
+    ["NumberInputInput", "number-input-input", "Champ de texte numérique modifiable géré par Ark UI.", 2],
+    ["NumberInputIncrementTrigger", "number-input-increment-trigger", "Bouton qui augmente la valeur actuelle. Il affiche par défaut l’icône plus de moduix.", 2],
+    ["NumberInputValueText", "number-input-value-text", "Texte en lecture seule qui affiche la valeur formatée.", 1],
+    ["NumberInputControl", "number-input-control", "Regroupe le champ et les boutons d’incrémentation et de décrémentation.", 1],
+    ["NumberInputRootProvider", "number-input-root-provider", "Relie les parties à l’état créé avec `useNumberInput()`.", 0],
+    ["NumberInputContext", null, "Expose les valeurs formatée et numérique, ainsi que les méthodes impératives de gestion de l’état.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styles
 
@@ -204,14 +164,72 @@ Utilisez `className` dans React ou `class` dans Solid et Vue pour les styles str
 Tailwind utilisent des utilitaires natifs et les classes du consommateur ; les variables CSS ci-dessous personnalisent
 les variantes CSS Modules. Les attributs de données et les hooks `data-slot` sont partagés par les deux modes de style.
 
-### Propriétés CSS
+### Variables CSS
 
-<CssPropertiesSection properties={NumberInputDocs.numberInputOverrideCssProperties} />
+Survolez ou sélectionnez une variable pour la voir dans l’aperçu.
+
+<CssPropertiesSection properties={NumberInputDocs.numberInputOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Points d’accroche CSS
 
-- Sélecteurs `data-slot` stables : `number-input-root`, `number-input-root-provider`, `number-input-label`,
-  `number-input-scrubber`, `number-input-control`, `number-input-decrement-trigger`, `number-input-input`,
-  `number-input-increment-trigger` et `number-input-value-text`.
+| Partie | `data-slot` |
+| --- | --- |
+| `NumberInput` | `number-input-root` |
+| `NumberInputRootProvider` | `number-input-root-provider` |
+| `NumberInputLabel` | `number-input-label` |
+| `NumberInputScrubber` | `number-input-scrubber` |
+| `NumberInputControl` | `number-input-control` |
+| `NumberInputDecrementTrigger` | `number-input-decrement-trigger` |
+| `NumberInputInput` | `number-input-input` |
+| `NumberInputIncrementTrigger` | `number-input-increment-trigger` |
+| `NumberInputValueText` | `number-input-value-text` |
+
+- Sélecteurs d'état Ark : `data-required` sur le libellé.
+
 - Attributs d’état Ark : `data-disabled`, `data-invalid`, `data-focus` et `data-scrubbing`.
 - Attributs des parties Ark : `data-scope="number-input"` et valeurs de `data-part` correspondant à l’anatomie Ark.
+
+## Clavier
+
+| Touche | Action |
+| --- | --- |
+| `ArrowUp` / `ArrowDown` | Augmente ou diminue d’un pas. |
+| `Shift` + flèches | Change d’un grand pas, 10 pas par défaut. |
+| `Alt` + flèches | Change d’un petit pas, 0,1 par défaut. |
+| `Home` / `End` | Règle le minimum ou le maximum. |
+| `Enter` | Valide la valeur saisie. |
+
+## Référence de l’API
+
+| Prop | Type | Défaut | Description |
+| --- | --- | --- | --- |
+| `value` | `string` | — | Valeur sous forme de chaîne, en mode contrôlé. |
+| `defaultValue` | `string` | — | Valeur initiale sous forme de chaîne. |
+| `onValueChange` | `(details: ValueChangeDetails) => void` | — | Appelé avec `value` et `valueAsNumber` à chaque changement. |
+| `onValueCommit` | `(details: ValueChangeDetails) => void` | — | Appelé à la perte du focus ou sur Entrée. |
+| `min` | `number` | `Number.MIN_SAFE_INTEGER` | Valeur minimale. |
+| `max` | `number` | `Number.MAX_SAFE_INTEGER` | Valeur maximale. |
+| `step` | `number` | `1` | Pas des boutons et des flèches. |
+| `largeStep` | `number` | `10 * step` | Pas avec Maj enfoncée. |
+| `formatOptions` | `Intl.NumberFormatOptions` | — | Options `Intl.NumberFormat`, par exemple devise ou pourcentage. |
+| `locale` | `string` | `'en-US'` | Locale du formatage ; par défaut celle du `LocaleProvider` le plus proche. |
+| `allowMouseWheel` | `boolean` | `false` | Modifie la valeur à la molette quand le champ a le focus. |
+| `clampValueOnBlur` | `boolean` | `true` | Ramène la valeur entre `min` et `max` à la perte du focus. |
+| `spinOnPress` | `boolean` | `true` | Continue de modifier la valeur tant qu’un bouton est maintenu. |
+| `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'` | `'md'` | Taille : `xs`, `sm`, `md`, `lg` ou `xl`. |
+| `name` | `string` | — | Nom du champ de formulaire de l’input sous-jacent. |
+| `disabled` | `boolean` | `false` | Désactive le contrôle. |
+| `readOnly` | `boolean` | `false` | Affiche la valeur sans permettre de la modifier. |
+| `invalid` | `boolean` | `false` | Marque le champ comme invalide. |
+| `required` | `boolean` | `false` | Exige une valeur avant l’envoi du formulaire. |
+| `form` | `string` | — | Id du formulaire auquel l’input sous-jacent est rattaché. |
+| `pattern` | `string` | `'-?[0-9]*(.[0-9]+)?'` | Motif que la saisie doit respecter. |
+| `smallStep` | `number` | `step / 10` | Pas avec Alt enfoncée. |
+| `allowOverflow` | `boolean` | `true` | Autorise la saisie hors de `min` et `max`. |
+| `focusInputOnChange` | `boolean` | `true` | Place le focus dans le champ lorsqu’un bouton change la valeur. |
+| `translations` | `IntlTranslations` | — | Textes localisés des libellés d’accessibilité. |
+| `inputMode` | `InputMode` | `'decimal'` | Indication pour le clavier virtuel. |
+| `onValueInvalid` | `(details: ValueInvalidDetails) => void` | — | Appelé lorsque la valeur sort de `min` ou `max`. |
+| `onFocusChange` | `(details: FocusChangeDetails) => void` | — | Appelé lorsque le champ prend ou perd le focus. |

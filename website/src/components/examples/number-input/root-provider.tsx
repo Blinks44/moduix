@@ -5,8 +5,8 @@ import {
   NumberInputRootProvider,
   useNumberInput,
 } from '@moduix/react/number-input';
+import { Stack } from '@moduix/react/stack';
 import { PreviewMeta } from '@/components/mdx/Components';
-import styles from '@/components/examples/number-input/number-input-root-provider.module.css';
 
 export default function RootProviderNumberInputDemo() {
   const numberInput = useNumberInput({
@@ -15,7 +15,7 @@ export default function RootProviderNumberInputDemo() {
     max: 10,
   });
   return (
-    <div className={styles.root}>
+    <Stack align="center">
       <NumberInputRootProvider value={numberInput}>
         <NumberInputLabel>Guests</NumberInputLabel>
         <NumberInputField />
@@ -29,6 +29,6 @@ export default function RootProviderNumberInputDemo() {
           Max
         </Button>
       </PreviewMeta>
-    </div>
+    </Stack>
   );
 }

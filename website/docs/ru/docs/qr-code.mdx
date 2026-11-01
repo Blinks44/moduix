@@ -1,113 +1,43 @@
 ---
 title: QR Code
 component: qr-code
-description: Компонент QR-кода на базе Ark UI, который выводит SVG, поддерживает наложение содержимого и скачивание изображения.
+description: Превращает ссылку или текст в QR-код, который можно отсканировать или скачать.
+ark: https://ark-ui.com/docs/components/qr-code
 ---
 
-import RootProviderQrCode from '@/components/examples/qr-code/root-provider.tsx';
+import AnatomyScene from '@/components/examples/qr-code/basic';
 import * as QrCodeDocs from '@/components/examples/qr-code/css-properties';
-import qrCodeSolidRootProvider from '../../../snippets/qr-code/solid/root-provider.tsx?raw';
-import qrCodeVueRootProvider from '../../../snippets/qr-code/vue/root-provider.vue?raw';
 
-## Справочник API
+<Example name="qr-code/basic" />
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/qr-code" />
+## Установка
 
-## Базовый пример
+<ComponentInstall />
 
+## Использование
+
+<Usage />
 
 Используйте `QrCode` в обычном сценарии. Передайте содержимое для кодирования через `defaultValue`,
 затем явно отрисуйте `QrCodeFrame` и `QrCodePattern`, чтобы показать созданный SVG. Если QR-код
 передаёт информацию, задайте для `QrCodeFrame` доступное имя.
 
-<Example name="qr-code/basic" />
-
-## Установка через shadcn
-
-Полную настройку пакета, реестра и стилей см. в разделе [Быстрый старт](/docs/quick-start).
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/qr-code' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/qr-code' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/qr-code' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/qr-code' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/qr-code' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/qr-code' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Анатомия
-
-```text
-QrCode
-├─ QrCodeFrame
-│  └─ QrCodePattern
-├─ QrCodeOverlay
-└─ QrCodeDownloadTrigger
-
-QrCodeRootProvider
-└─ то же дерево частей, подключённое к хранилищу useQrCode()
-```
-
-| Part                     | Назначение                                                            |
-| ------------------------ | --------------------------------------------------------------------- |
-| `QrCode`                | Хранит кодируемое значение и параметры генерации, предоставляет состояние QR-кода. |
-| `QrCodeRootProvider`    | Подключает части к состоянию, созданному через `useQrCode()`.          |
-| `QrCodeFrame`           | SVG-элемент, содержащий созданный QR-код.                              |
-| `QrCodePattern`         | SVG-путь, который рисует модули QR-кода.                               |
-| `QrCodeOverlay`         | Содержимое, отображаемое по центру QR-кода.                            |
-| `QrCodeDownloadTrigger` | Кнопка для скачивания текущего QR-кода как изображения.                |
-
-## Композиция
-
-Используйте `defaultValue` для неконтролируемого QR-кода. Если значение хранится в состоянии
-приложения, передайте `value` и `onValueChange(details)`, а новое значение читайте из
-`details.value`. Создайте состояние через `useQrCode()` из соответствующего фреймворку пакета и
-передайте его в `QrCodeRootProvider`, если состояние должно использоваться за пределами дерева
-QR-кода. Не создавайте для одного хранилища одновременно `QrCode` и `QrCodeRootProvider`.
-
-Используйте `QrCodeContext` или `useQrCodeContext()`, когда потомку нужен текущий API QR-кода.
-Добавляйте `QrCodeOverlay` только при достаточном уровне коррекции ошибок для закрытой области и
-проверяйте итоговый код сканерами, которыми пользуются ваши пользователи.
-
 ## Примеры
 
-### Управляемое значение
+### Заливка
 
-Управляйте `value`, если QR-код должен следовать выбранному адресу или другой части состояния
-приложения.
+По умолчанию модули QR-кода используют `currentColor`. Измените заливку SVG через `style` или класс
+на `QrCodeFrame` либо задайте цвет текста родителю.
 
-<Example name="qr-code/controlled" />
+<Example name="qr-code/fill" />
 
-### Скачивание
+### Наложение
 
-Добавьте `QrCodeDownloadTrigger`, если пользователям нужно сохранить QR-код как изображение.
-Укажите в триггере и `fileName`, и `mimeType`.
+Используйте `QrCodeOverlay` для компактного логотипа или текстовой отметки. Задайте высокий
+уровень коррекции ошибок и оставьте наложение достаточно маленьким, чтобы сканеры продолжали
+распознавать код.
 
-<Example name="qr-code/download" />
+<Example name="qr-code/overlay" />
 
 ### Коррекция ошибок
 
@@ -122,12 +52,12 @@ QR-кода. Не создавайте для одного хранилища о
 
 <Example name="qr-code/error-correction" />
 
-### Заливка
+### Скачивание
 
-По умолчанию модули QR-кода используют `currentColor`. Измените заливку SVG через `style` или класс
-на `QrCodeFrame` либо задайте цвет текста родителю.
+Добавьте `QrCodeDownloadTrigger`, если пользователям нужно сохранить QR-код как изображение.
+Укажите в триггере и `fileName`, и `mimeType`.
 
-<Example name="qr-code/fill" />
+<Example name="qr-code/download" />
 
 ### Поле ввода
 
@@ -136,54 +66,48 @@ QR-кода. Не создавайте для одного хранилища о
 
 <Example name="qr-code/input" />
 
-### Наложение
+### Управляемое значение
 
-Используйте `QrCodeOverlay` для компактного логотипа или текстовой отметки. Задайте высокий
-уровень коррекции ошибок и оставьте наложение достаточно маленьким, чтобы сканеры продолжали
-распознавать код.
+Управляйте `value`, если QR-код должен следовать выбранному адресу или другой части состояния
+приложения. Подробнее в разделе [Управляйте состоянием из приложения](/docs/composition-patterns#controlled-state).
 
-<Example name="qr-code/overlay" />
+<Example name="qr-code/controlled" />
 
 ### Root Provider
 
 Создайте состояние QR-кода через `useQrCode()`, если его нужно разделить с контролами за пределами
-дерева QR-кода, затем передайте состояние в `QrCodeRootProvider`.
+дерева QR-кода, затем передайте состояние в `QrCodeRootProvider`. Подробнее в разделе [Выносите состояние за пределы дерева](/docs/composition-patterns#root-provider).
 
-<ExampleFrame variant="component">
-  <RootProviderQrCode />
-</ExampleFrame>
+<Example name="qr-code/root-provider" />
 
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
+## Композиция
 
-```tsx pure file="../../../src/components/examples/qr-code/root-provider.tsx"
-```
+Используйте `defaultValue` для неконтролируемого QR-кода. Если значение хранится в состоянии
+приложения, передайте `value` и `onValueChange(details)`, а новое значение читайте из
+`details.value`. Создайте состояние через `useQrCode()` из соответствующего фреймворку пакета и
+передайте его в `QrCodeRootProvider`, если состояние должно использоваться за пределами дерева
+QR-кода. Не создавайте для одного хранилища одновременно `QrCode` и `QrCodeRootProvider`.
 
-    </Tab>
-    <Tab value="solid">
+Используйте `QrCodeContext` или `useQrCodeContext()`, когда потомку нужен текущий API QR-кода.
+Добавляйте `QrCodeOverlay` только при достаточном уровне коррекции ошибок для закрытой области и
+проверяйте итоговый код сканерами, которыми пользуются ваши пользователи.
 
-<CodeBlockRuntime lang="tsx" code={qrCodeSolidRootProvider} />
+## Анатомия
 
-    </Tab>
-    <Tab value="vue">
+Наведите на часть или выберите её, чтобы найти её в превью.
 
-<CodeBlockRuntime lang="vue" code={qrCodeVueRootProvider} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<AnatomyInspector
+  parts={[
+    ["QrCode", "qr-code-root", "Хранит кодируемое значение и параметры генерации, предоставляет состояние QR-кода.", 0],
+    ["QrCodeFrame", "qr-code-frame", "SVG-элемент, содержащий созданный QR-код.", 1],
+    ["QrCodePattern", "qr-code-pattern", "SVG-путь, который рисует модули QR-кода.", 2],
+    ["QrCodeOverlay", "qr-code-overlay", "Содержимое, отображаемое по центру QR-кода.", 1],
+    ["QrCodeDownloadTrigger", "qr-code-download-trigger", "Кнопка для скачивания текущего QR-кода как изображения.", 1],
+    ["QrCodeRootProvider", "qr-code-root-provider", "Подключает части к состоянию, созданному через `useQrCode()`.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Стилизация
 
@@ -195,13 +119,34 @@ QR-кода. Не создавайте для одного хранилища о
 Панель CSS Variables содержит полный набор публичных переменных. Ark также задаёт на корневом
 элементе во время работы `--qrcode-pixel-size`, `--qrcode-width` и `--qrcode-height`.
 
-### CSS-свойства
+### CSS-переменные
 
-<CssPropertiesSection properties={QrCodeDocs.qrCodeOverrideCssProperties} />
+Наведите на переменную или выберите её, чтобы увидеть её в превью.
 
-### Атрибуты для стилизации
+<CssPropertiesSection properties={QrCodeDocs.qrCodeOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
-- Стабильные селекторы `data-slot`: `qr-code-root`, `qr-code-root-provider`, `qr-code-frame`,
-  `qr-code-pattern`, `qr-code-overlay` и `qr-code-download-trigger`.
+### Хуки стилизации
+
+| Часть | `data-slot` |
+| --- | --- |
+| `QrCode` | `qr-code-root` |
+| `QrCodeRootProvider` | `qr-code-root-provider` |
+| `QrCodeFrame` | `qr-code-frame` |
+| `QrCodePattern` | `qr-code-pattern` |
+| `QrCodeOverlay` | `qr-code-overlay` |
+| `QrCodeDownloadTrigger` | `qr-code-download-trigger` |
+
 - Селекторы частей Ark: `data-scope="qr-code"` и
   `data-part="root|frame|pattern|overlay|download-trigger"`.
+
+## Справочник API
+
+| Проп | Тип | По умолчанию | Описание |
+| --- | --- | --- | --- |
+| `value` | `string` | — | Кодируемое значение в управляемом режиме. |
+| `defaultValue` | `string` | — | Начальное значение, если оно не управляется извне. |
+| `onValueChange` | `(details: ValueChangeDetails) => void` | — | Вызывается при изменении значения. |
+| `encoding` | `QrCodeGenerateOptions` | — | Параметры кодирования, например уровень коррекции ошибок. |
+| `pixelSize` | `number` | — | Размер одного модуля QR в пикселях. |

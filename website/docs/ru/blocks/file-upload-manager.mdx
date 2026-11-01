@@ -1,13 +1,24 @@
 ---
 title: Загрузка файлов
 description: Интерфейс для добавления вложений с перетаскиванием, проверкой, превью и удалением файлов.
+block: file-upload-manager
 ---
 
 import { FileUploadManager } from '@/components/blocks/file-upload-manager';
 import fileUploadManagerSolid from '../../../snippets/blocks/solid/file-upload-manager.tsx?raw';
 import fileUploadManagerVue from '../../../snippets/blocks/vue/file-upload-manager.vue?raw';
+import fileUploadManagerReact from '../../../src/components/blocks/file-upload-manager.tsx?raw';
+import fileUploadManagerCss from '../../../src/components/blocks/file-upload-manager.module.css?raw';
 
 # Загрузка файлов
+
+<ExamplePanel
+  clientOnly
+  sources={{ react: fileUploadManagerReact, solid: fileUploadManagerSolid, vue: fileUploadManagerVue }}
+  files={[{ name: 'file-upload-manager.module.css', code: fileUploadManagerCss }]}
+>
+  <FileUploadManager />
+</ExamplePanel>
 
 Используйте этот блок в форме или рабочем сценарии, где пользователю нужно добавлять и проверять вложения.
 Пример принимает файлы PDF, DOC, DOCX, PNG и JPG размером до 10 МБ, показывает до пяти принятых файлов и
@@ -17,53 +28,6 @@ import fileUploadManagerVue from '../../../snippets/blocks/vue/file-upload-manag
 Блок отвечает только за выбор файлов и локальное состояние списка. Он не отправляет файлы на сервер и не
 отслеживает прогресс загрузки. Подключите `onFileChange` к форме или запросу на загрузку в той части приложения,
 которой принадлежат эти данные.
-
-Превью работает на React. Во вкладках приведён код для React, Solid и Vue с общей таблицей стилей.
-
-
-
-<ExampleFrame variant="block" clientOnly>
-  <FileUploadManager />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/blocks/file-upload-manager.tsx"
-
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={fileUploadManagerSolid} />
-
-    </Tab>
-  <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={fileUploadManagerVue} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/blocks/file-upload-manager.module.css"
-
-```
-</div>
-
-</ExampleCode>
 
 ## Установка
 

@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useState } from 'react';
+import { Button } from '@/components/button';
 import {
   Clipboard,
   ClipboardContext,
@@ -12,6 +13,7 @@ import {
   ClipboardValueText,
   useClipboard,
 } from '@/components/clipboard/Clipboard';
+import { Input } from '@/components/input';
 
 const meta = {
   title: 'Components/Clipboard',
@@ -179,18 +181,15 @@ export const Disabled: Story = {
 export const AsChildBridge: Story = {
   render: () => (
     <Clipboard className={demoClassName} defaultValue="https://moduix.dev/docs/clipboard">
-      <ClipboardLabel>Native elements through asChild</ClipboardLabel>
+      <ClipboardLabel>Use moduix Input and Button</ClipboardLabel>
       <ClipboardControl>
         <ClipboardInput asChild>
-          <input
-            className="min-h-control-md min-w-0 flex-1 rounded-md border border-border bg-background px-3.5 py-1 text-md text-foreground"
-            readOnly
-          />
+          <Input readOnly />
         </ClipboardInput>
         <ClipboardTrigger asChild>
-          <button className={actionClassName} type="button">
+          <Button variant="outline">
             <ClipboardIndicator />
-          </button>
+          </Button>
         </ClipboardTrigger>
       </ClipboardControl>
     </Clipboard>

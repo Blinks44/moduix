@@ -1,444 +1,267 @@
 import { useI18n } from '@rspress/core/runtime';
-import type { ReactNode } from 'react';
+import { useEffect, useRef, useState, useSyncExternalStore } from 'react';
+import type { CSSProperties, ReactNode } from 'react';
 import styles from './tokens-overview.module.css';
 
 type ColorToken = {
   name: string;
-  alias: string;
   labelKey: keyof typeof import('i18n');
-  light: string;
-  dark: string;
 };
 
 const colorTokens = [
   {
     name: '--moduix-background',
-    alias: '--moduix-color-background',
     labelKey: 'tokensOverviewColorCanvas',
-    light: 'oklch(0.982 0.003 285)',
-    dark: 'oklch(0.155 0.008 285)',
   },
   {
     name: '--moduix-foreground',
-    alias: '--moduix-color-foreground',
     labelKey: 'tokensOverviewColorCanvasText',
-    light: 'oklch(0.175 0.01 285)',
-    dark: 'oklch(0.968 0.003 285)',
   },
   {
     name: '--moduix-card',
-    alias: '--moduix-color-card',
     labelKey: 'tokensOverviewColorRaisedSurface',
-    light: 'oklch(0.995 0.002 285)',
-    dark: 'oklch(0.2 0.011 285)',
   },
   {
     name: '--moduix-card-foreground',
-    alias: '--moduix-color-card-foreground',
     labelKey: 'tokensOverviewColorRaisedText',
-    light: 'oklch(0.175 0.01 285)',
-    dark: 'oklch(0.968 0.003 285)',
   },
   {
     name: '--moduix-popover',
-    alias: '--moduix-color-popover',
     labelKey: 'tokensOverviewColorLayerSurface',
-    light: 'oklch(0.995 0.002 285)',
-    dark: 'oklch(0.2 0.011 285)',
   },
   {
     name: '--moduix-popover-foreground',
-    alias: '--moduix-color-popover-foreground',
     labelKey: 'tokensOverviewColorLayerText',
-    light: 'oklch(0.175 0.01 285)',
-    dark: 'oklch(0.968 0.003 285)',
   },
   {
     name: '--moduix-primary',
-    alias: '--moduix-color-primary',
     labelKey: 'tokensOverviewColorPrimaryAction',
-    light: 'oklch(0.235 0.016 285)',
-    dark: 'oklch(0.918 0.007 285)',
   },
   {
     name: '--moduix-primary-foreground',
-    alias: '--moduix-color-primary-foreground',
     labelKey: 'tokensOverviewColorPrimaryText',
-    light: 'oklch(0.982 0.003 285)',
-    dark: 'oklch(0.2 0.011 285)',
   },
   {
     name: '--moduix-secondary',
-    alias: '--moduix-color-secondary',
     labelKey: 'tokensOverviewColorSecondaryFill',
-    light: 'oklch(0.96 0.006 285)',
-    dark: 'oklch(0.255 0.012 285)',
   },
   {
     name: '--moduix-secondary-foreground',
-    alias: '--moduix-color-secondary-foreground',
     labelKey: 'tokensOverviewColorSecondaryText',
-    light: 'oklch(0.235 0.016 285)',
-    dark: 'oklch(0.968 0.003 285)',
   },
   {
     name: '--moduix-muted',
-    alias: '--moduix-color-muted',
     labelKey: 'tokensOverviewColorSubtleFill',
-    light: 'oklch(0.955 0.006 285)',
-    dark: 'oklch(0.255 0.012 285)',
   },
   {
     name: '--moduix-muted-foreground',
-    alias: '--moduix-color-muted-foreground',
     labelKey: 'tokensOverviewColorSubtleText',
-    light: 'oklch(0.485 0.015 285)',
-    dark: 'oklch(0.705 0.016 285)',
   },
   {
     name: '--moduix-accent',
-    alias: '--moduix-color-accent',
     labelKey: 'tokensOverviewColorHoverFill',
-    light: 'oklch(0.95 0.01 285)',
-    dark: 'oklch(0.29 0.015 285)',
   },
   {
     name: '--moduix-accent-foreground',
-    alias: '--moduix-color-accent-foreground',
     labelKey: 'tokensOverviewColorHoverText',
-    light: 'oklch(0.235 0.016 285)',
-    dark: 'oklch(0.968 0.003 285)',
   },
   {
     name: '--moduix-destructive',
-    alias: '--moduix-color-destructive',
     labelKey: 'tokensOverviewColorDanger',
-    light: 'oklch(0.565 0.235 22)',
-    dark: 'oklch(0.69 0.185 18)',
   },
   {
     name: '--moduix-destructive-foreground',
-    alias: '--moduix-color-destructive-foreground',
     labelKey: 'tokensOverviewColorDangerText',
-    light: 'oklch(0.982 0.003 285)',
-    dark: 'oklch(0.2 0.011 285)',
   },
   {
     name: '--moduix-success',
-    alias: '--moduix-color-success',
     labelKey: 'tokensOverviewColorSuccess',
-    light: 'oklch(0.627 0.194 149.214)',
-    dark: 'oklch(0.627 0.194 149.214)',
   },
   {
     name: '--moduix-warning',
-    alias: '--moduix-color-warning',
     labelKey: 'tokensOverviewColorWarning',
-    light: 'oklch(0.795 0.184 86.047)',
-    dark: 'oklch(0.795 0.184 86.047)',
   },
   {
     name: '--moduix-border',
-    alias: '--moduix-color-border',
     labelKey: 'tokensOverviewColorBorders',
-    light: 'oklch(0.905 0.008 285)',
-    dark: 'oklch(1 0.004 285 / 13%)',
   },
   {
     name: '--moduix-input',
-    alias: '--moduix-color-input',
     labelKey: 'tokensOverviewColorInputBorder',
-    light: 'oklch(0.905 0.008 285)',
-    dark: 'oklch(1 0.004 285 / 17%)',
   },
   {
     name: '--moduix-ring',
-    alias: '--moduix-color-ring',
     labelKey: 'tokensOverviewColorFocusRing',
-    light: 'oklch(0.62 0.035 285)',
-    dark: 'oklch(0.585 0.038 285)',
   },
   {
     name: '--moduix-overlay',
-    alias: '--moduix-color-overlay',
     labelKey: 'tokensOverviewColorBackdropBase',
-    light: 'oklch(0.175 0.014 285 / 0.2)',
-    dark: 'oklch(0.105 0.012 285 / 0.74)',
-  },
-  {
-    name: '--moduix-overlay-foreground',
-    alias: '--moduix-color-overlay-foreground',
-    labelKey: 'tokensOverviewColorSoftOverlay',
-    light: 'oklch(0.175 0.014 285 / 0.07)',
-    dark: 'oklch(0.968 0.003 285 / 0.09)',
   },
 ] satisfies ColorToken[];
 
 const chartTokens = [
   {
     name: '--moduix-chart-1',
-    alias: '--moduix-color-chart-1',
     labelKey: 'tokensOverviewColorChart1',
-    light: 'oklch(0.65 0.18 295)',
-    dark: 'oklch(0.72 0.17 295)',
   },
   {
     name: '--moduix-chart-2',
-    alias: '--moduix-color-chart-2',
     labelKey: 'tokensOverviewColorChart2',
-    light: 'oklch(0.7 0.14 175)',
-    dark: 'oklch(0.76 0.13 175)',
   },
   {
     name: '--moduix-chart-3',
-    alias: '--moduix-color-chart-3',
     labelKey: 'tokensOverviewColorChart3',
-    light: 'oklch(0.72 0.16 55)',
-    dark: 'oklch(0.78 0.15 55)',
   },
   {
     name: '--moduix-chart-4',
-    alias: '--moduix-color-chart-4',
     labelKey: 'tokensOverviewColorChart4',
-    light: 'oklch(0.6 0.2 350)',
-    dark: 'oklch(0.67 0.19 350)',
   },
   {
     name: '--moduix-chart-5',
-    alias: '--moduix-color-chart-5',
     labelKey: 'tokensOverviewColorChart5',
-    light: 'oklch(0.68 0.13 130)',
-    dark: 'oklch(0.74 0.12 130)',
   },
 ] satisfies ColorToken[];
 
 const sidebarTokens = [
   {
     name: '--moduix-sidebar',
-    alias: '--moduix-color-sidebar',
     labelKey: 'tokensOverviewColorSidebarSurface',
-    light: 'oklch(0.975 0.005 285)',
-    dark: 'oklch(0.2 0.011 285)',
   },
   {
     name: '--moduix-sidebar-foreground',
-    alias: '--moduix-color-sidebar-foreground',
     labelKey: 'tokensOverviewColorSidebarText',
-    light: 'oklch(0.175 0.01 285)',
-    dark: 'oklch(0.968 0.003 285)',
-  },
-  {
-    name: '--moduix-sidebar-primary',
-    alias: '--moduix-color-sidebar-primary',
-    labelKey: 'tokensOverviewColorSidebarPrimary',
-    light: 'oklch(0.235 0.016 285)',
-    dark: 'oklch(0.72 0.17 295)',
-  },
-  {
-    name: '--moduix-sidebar-primary-foreground',
-    alias: '--moduix-color-sidebar-primary-foreground',
-    labelKey: 'tokensOverviewColorSidebarPrimaryText',
-    light: 'oklch(0.982 0.003 285)',
-    dark: 'oklch(0.155 0.008 285)',
   },
   {
     name: '--moduix-sidebar-accent',
-    alias: '--moduix-color-sidebar-accent',
     labelKey: 'tokensOverviewColorSidebarAccent',
-    light: 'oklch(0.95 0.01 285)',
-    dark: 'oklch(0.29 0.015 285)',
   },
   {
     name: '--moduix-sidebar-accent-foreground',
-    alias: '--moduix-color-sidebar-accent-foreground',
     labelKey: 'tokensOverviewColorSidebarAccentText',
-    light: 'oklch(0.235 0.016 285)',
-    dark: 'oklch(0.968 0.003 285)',
   },
   {
     name: '--moduix-sidebar-border',
-    alias: '--moduix-color-sidebar-border',
     labelKey: 'tokensOverviewColorSidebarBorder',
-    light: 'oklch(0.905 0.008 285)',
-    dark: 'oklch(1 0.004 285 / 13%)',
   },
   {
     name: '--moduix-sidebar-ring',
-    alias: '--moduix-color-sidebar-ring',
     labelKey: 'tokensOverviewColorSidebarFocusRing',
-    light: 'oklch(0.62 0.035 285)',
-    dark: 'oklch(0.585 0.038 285)',
   },
 ] satisfies ColorToken[];
 
 const colorTokenCount = colorTokens.length + chartTokens.length + sidebarTokens.length;
 
 const spacingTokens = [
-  ['--moduix-spacing-0', '0px'],
-  ['--moduix-spacing-0-5', 'calc((var(--moduix-spacing-0) + var(--moduix-spacing-1)) / 2)'],
-  ['--moduix-spacing-1', '4px'],
-  ['--moduix-spacing-1-5', 'calc((var(--moduix-spacing-1) + var(--moduix-spacing-2)) / 2)'],
-  ['--moduix-spacing-2', '8px'],
-  ['--moduix-spacing-2-5', 'calc((var(--moduix-spacing-2) + var(--moduix-spacing-3)) / 2)'],
-  ['--moduix-spacing-3', '12px'],
-  ['--moduix-spacing-3-5', 'calc((var(--moduix-spacing-3) + var(--moduix-spacing-4)) / 2)'],
-  ['--moduix-spacing-4', '16px'],
-  ['--moduix-spacing-4-5', 'calc((var(--moduix-spacing-4) + var(--moduix-spacing-5)) / 2)'],
-  ['--moduix-spacing-5', '20px'],
-  ['--moduix-spacing-6', '24px'],
-  ['--moduix-spacing-7', 'calc((var(--moduix-spacing-6) + var(--moduix-spacing-8)) / 2)'],
-  ['--moduix-spacing-8', '32px'],
-  ['--moduix-spacing-10', '40px'],
-];
-
-const semanticSpacingTokens = [
-  ['--moduix-spacing-xs', 'var(--moduix-spacing-1)', '4px'],
-  ['--moduix-spacing-sm', 'var(--moduix-spacing-2)', '8px'],
-  ['--moduix-spacing-md', 'var(--moduix-spacing-3)', '12px'],
-  ['--moduix-spacing-lg', 'var(--moduix-spacing-4)', '16px'],
-  ['--moduix-spacing-xl', 'var(--moduix-spacing-5)', '20px'],
-  ['--moduix-spacing-2xl', 'var(--moduix-spacing-6)', '24px'],
+  '--moduix-spacing-0',
+  '--moduix-spacing-0-5',
+  '--moduix-spacing-1',
+  '--moduix-spacing-1-5',
+  '--moduix-spacing-2',
+  '--moduix-spacing-2-5',
+  '--moduix-spacing-3',
+  '--moduix-spacing-3-5',
+  '--moduix-spacing-4',
+  '--moduix-spacing-4-5',
+  '--moduix-spacing-5',
+  '--moduix-spacing-6',
+  '--moduix-spacing-7',
+  '--moduix-spacing-8',
+  '--moduix-spacing-10',
 ];
 
 const sizeTokens = [
-  ['--moduix-size-xs', '24px'],
-  ['--moduix-size-sm', '32px'],
-  ['--moduix-size-md', '36px'],
-  ['--moduix-size-lg', '40px'],
-  ['--moduix-size-xl', '48px'],
+  '--moduix-size-xs',
+  '--moduix-size-sm',
+  '--moduix-size-md',
+  '--moduix-size-lg',
+  '--moduix-size-xl',
 ];
 
 const radiusTokens = [
-  ['--moduix-radius', '0.625rem'],
-  ['--moduix-radius-none', '0'],
-  ['--moduix-radius-xs', 'calc(var(--moduix-radius) * 0.4)'],
-  ['--moduix-radius-sm', 'calc(var(--moduix-radius) * 0.6)'],
-  ['--moduix-radius-md', 'calc(var(--moduix-radius) * 0.8)'],
-  ['--moduix-radius-lg', 'var(--moduix-radius)'],
-  ['--moduix-radius-xl', 'calc(var(--moduix-radius) * 1.2)'],
-  ['--moduix-radius-full', '9999px'],
+  '--moduix-radius',
+  '--moduix-radius-none',
+  '--moduix-radius-xs',
+  '--moduix-radius-sm',
+  '--moduix-radius-md',
+  '--moduix-radius-lg',
+  '--moduix-radius-xl',
+  '--moduix-radius-full',
 ];
 
 const typographyTokens = [
-  ['--moduix-text-xs', '12px', '--moduix-line-height-text-xs', '16px'],
-  ['--moduix-text-sm', '14px', '--moduix-line-height-text-sm', '20px'],
-  ['--moduix-text-md', '16px', '--moduix-line-height-text-md', '24px'],
-  ['--moduix-text-lg', '18px', '--moduix-line-height-text-lg', '28px'],
-  ['--moduix-text-xl', '20px', '--moduix-line-height-text-xl', '28px'],
-  ['--moduix-text-2xl', '24px', '--moduix-line-height-text-2xl', '32px'],
-  ['--moduix-text-3xl', '30px', '--moduix-line-height-text-3xl', '36px'],
+  ['--moduix-text-xs', '--moduix-line-height-text-xs'],
+  ['--moduix-text-sm', '--moduix-line-height-text-sm'],
+  ['--moduix-text-md', '--moduix-line-height-text-md'],
+  ['--moduix-text-lg', '--moduix-line-height-text-lg'],
+  ['--moduix-text-xl', '--moduix-line-height-text-xl'],
+  ['--moduix-text-2xl', '--moduix-line-height-text-2xl'],
+  ['--moduix-text-3xl', '--moduix-line-height-text-3xl'],
 ];
 
 const weightTokens = [
-  ['--moduix-weight-regular', '400'],
-  ['--moduix-weight-medium', '500'],
-  ['--moduix-weight-semibold', '600'],
-  ['--moduix-weight-bold', '700'],
+  '--moduix-weight-regular',
+  '--moduix-weight-medium',
+  '--moduix-weight-semibold',
+  '--moduix-weight-bold',
 ];
 
-const fontFamilyTokens = [
-  [
-    '--moduix-font-sans',
-    "'Noto Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji'",
-  ],
-  [
-    '--moduix-font-mono',
-    "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
-  ],
-];
-
-const trackingTokens = [
-  ['--moduix-tracking-text-sm', '-0.01em'],
-  ['--moduix-tracking-text-xs', '-0.016em'],
-];
+const fontFamilyTokens = ['--moduix-font-sans', '--moduix-font-mono'];
 
 const borderTokens = [
-  ['--moduix-border-width-sm', '1px'],
-  ['--moduix-border-width-md', '2px'],
-  ['--moduix-border-width-lg', '4px'],
-  ['--moduix-focus-ring-width', 'var(--moduix-border-width-md)'],
-  ['--moduix-focus-ring-inset-width', 'var(--moduix-border-width-sm)'],
-  ['--moduix-focus-ring-offset', 'var(--moduix-spacing-0-5)'],
-  ['--moduix-focus-ring-inset-offset', 'calc(var(--moduix-border-width-sm) * -1)'],
+  '--moduix-border-width-sm',
+  '--moduix-border-width-md',
+  '--moduix-border-width-lg',
+  '--moduix-focus-ring-width',
+  '--moduix-focus-ring-inset-width',
+  '--moduix-focus-ring-offset',
+  '--moduix-focus-ring-inset-offset',
+  '--moduix-focus-ring-halo-width',
 ];
 
-const opacityTokens = [
-  ['--moduix-opacity-disabled', '0.5'],
-  ['--moduix-opacity-loading', '0.85'],
-  ['--moduix-opacity-hover', '0.9'],
-];
+const opacityTokens = ['--moduix-opacity-disabled', '--moduix-opacity-hover'];
 
 const motionTokens = [
-  ['--moduix-duration-fast', '150ms'],
-  ['--moduix-duration-normal', '200ms'],
-  ['--moduix-duration-slow', '350ms'],
-  ['--moduix-duration-slower', '450ms'],
-  ['--moduix-ease-in', 'cubic-bezier(0.4, 0, 1, 1)'],
-  ['--moduix-ease-out', 'cubic-bezier(0, 0, 0.2, 1)'],
-  ['--moduix-ease-in-out', 'cubic-bezier(0.4, 0, 0.2, 1)'],
-  ['--moduix-ease-spring', 'cubic-bezier(0.32, 0.72, 0, 1)'],
-  ['--moduix-ease-standard', 'ease'],
-  ['--moduix-ease-emphasized', 'cubic-bezier(0.22, 1, 0.36, 1)'],
-  ['--moduix-transition-default', 'var(--moduix-duration-normal) var(--moduix-ease-in-out)'],
-  ['--moduix-transition-fast', 'var(--moduix-duration-fast) var(--moduix-ease-in-out)'],
-  ['--moduix-transition-slow', 'var(--moduix-duration-slow) var(--moduix-ease-in-out)'],
-  ['--moduix-transition-slower', 'var(--moduix-duration-slower) var(--moduix-ease-in-out)'],
-  ['--moduix-transition-spring', 'var(--moduix-duration-slower) var(--moduix-ease-spring)'],
-  ['--moduix-transition-emphasized', 'var(--moduix-duration-slower) var(--moduix-ease-emphasized)'],
+  '--moduix-duration-fast',
+  '--moduix-duration-normal',
+  '--moduix-duration-slow',
+  '--moduix-duration-slower',
+  '--moduix-ease-in',
+  '--moduix-ease-out',
+  '--moduix-ease-in-out',
+  '--moduix-ease-spring',
+  '--moduix-transition-default',
+  '--moduix-transition-fast',
+  '--moduix-transition-slow',
+  '--moduix-transition-slower',
+  '--moduix-transition-spring',
 ];
 
 const animationTokens = [
-  ['--moduix-animation-pulse', 'moduix-pulse 2.5s ease-in-out infinite'],
-  [
-    '--moduix-animation-fade-in',
-    'moduix-fade-in var(--moduix-duration-normal) var(--moduix-ease-out)',
-  ],
-  [
-    '--moduix-animation-fade-out',
-    'moduix-fade-out var(--moduix-duration-normal) var(--moduix-ease-in)',
-  ],
-  [
-    '--moduix-animation-slide-up',
-    'moduix-slide-up var(--moduix-duration-normal) var(--moduix-ease-out)',
-  ],
-  [
-    '--moduix-animation-slide-down',
-    'moduix-slide-down var(--moduix-duration-normal) var(--moduix-ease-out)',
-  ],
-  ['--moduix-animation-spin', 'moduix-spin 0.75s linear infinite'],
+  '--moduix-animation-pulse',
+  '--moduix-animation-fade-in',
+  '--moduix-animation-fade-out',
+  '--moduix-animation-slide-up',
+  '--moduix-animation-slide-down',
+  '--moduix-animation-spin',
 ];
 
-const shadowTokens = [
-  ['--moduix-shadow-sm', '0 2px 4px 0 #0000001a, 0 1px 2px -1px #0000001a'],
-  ['--moduix-shadow-md', '0 4px 6px -1px #0000001a, 0 2px 4px -2px #0000001a'],
-  ['--moduix-shadow-lg', '0 10px 15px -3px #0000001a, 0 4px 6px -4px #0000001a'],
-];
+const shadowTokens = ['--moduix-shadow-sm', '--moduix-shadow-md', '--moduix-shadow-lg'];
 
 const transformTokens = [
-  ['--moduix-scale-popup', '0.9', 'tokensOverviewPopupScaleConsumers'],
-  ['--moduix-scale-dropdown', '0.95', 'tokensOverviewDropdownScaleConsumers'],
+  ['--moduix-scale-popup', '', 'tokensOverviewPopupScaleConsumers'],
+  ['--moduix-scale-dropdown', '', 'tokensOverviewDropdownScaleConsumers'],
 ];
 
 const zIndexTokens = [
-  ['--moduix-z-default', '1'],
-  ['--moduix-z-xs', '5'],
-  ['--moduix-z-sm', '10'],
-  ['--moduix-z-md', '20'],
-  ['--moduix-z-lg', '30'],
-  ['--moduix-z-xl', '40'],
-  ['--moduix-z-backdrop', '40'],
-  ['--moduix-z-modal', '50'],
-  ['--moduix-z-popup', '60'],
-  ['--moduix-z-tour', '65'],
-  ['--moduix-z-toast', '70'],
+  '--moduix-z-backdrop',
+  '--moduix-z-modal',
+  '--moduix-z-popup',
+  '--moduix-z-tour',
+  '--moduix-z-toast',
 ];
 
 const sharedBackdropTokens = [
-  [
-    '--moduix-backdrop-bg',
-    'var(--moduix-color-overlay)',
-    'tokensOverviewGlobalBackdropColorFallback',
-  ],
+  ['--moduix-backdrop-bg', 'var(--moduix-overlay)', 'tokensOverviewGlobalBackdropColorFallback'],
   ['--moduix-backdrop-filter', 'blur(4px)', 'tokensOverviewGlobalBackdropFilterFallback'],
 ];
 
@@ -538,8 +361,8 @@ export function TokensOverview() {
             </div>
             <div className={styles.mapNode} data-active="true">
               <span>02</span>
-              <strong>{t('tokensOverviewSemanticAliases')}</strong>
-              <code>--moduix-color-primary</code>
+              <strong>{t('tokensOverviewSharedFallbacks')}</strong>
+              <code>--moduix-popup-item-min-height</code>
             </div>
             <div className={styles.mapNode}>
               <span>03</span>
@@ -553,7 +376,7 @@ export function TokensOverview() {
               {t('tokensOverviewColorTokens')}
             </span>
             <span>
-              <strong>{spacingTokens.length + semanticSpacingTokens.length}</strong>
+              <strong>{spacingTokens.length}</strong>
               {t('tokensOverviewSpacingSteps')}
             </span>
             <span>
@@ -567,11 +390,6 @@ export function TokensOverview() {
           </div>
         </div>
         <div className={styles.stackPanel}>
-          <TokenCallout
-            title={t('tokensOverviewSemanticAliases')}
-            code="--moduix-color-primary: var(--moduix-primary)"
-            body={t('tokensOverviewSemanticVariables')}
-          />
           <TokenCallout
             title={t('tokensOverviewSharedFallbacks')}
             code="Dialog, Drawer, Tour -> --moduix-backdrop-bg / --moduix-backdrop-filter"
@@ -592,10 +410,10 @@ export function TokensOverview() {
         </div>
         <div className={styles.colorLegend} aria-hidden="true">
           <span>
-            <i className={styles.legendLight} /> {t('themePreviewLight')}
+            <i data-moduix-color-scheme="light" /> {t('themePreviewLight')}
           </span>
           <span>
-            <i className={styles.legendDark} /> {t('themePreviewDark')}
+            <i data-moduix-color-scheme="dark" /> {t('themePreviewDark')}
           </span>
         </div>
         <div className={styles.colorGrid}>
@@ -604,29 +422,9 @@ export function TokensOverview() {
           ))}
         </div>
         <div className={styles.chartStrip}>
-          {chartTokens.map((token) => {
-            return (
-              <article className={styles.chartToken} key={token.name}>
-                <div className={styles.tokenMeta}>
-                  <strong>{t(token.labelKey)}</strong>
-                  <code>{token.name}</code>
-                  <small>{token.alias}</small>
-                </div>
-                <div className={styles.swatches}>
-                  <div className={styles.swatchBlock}>
-                    <span className={styles.chartLight} style={{ background: token.light }} />
-                    <small>{t('themePreviewLight')}</small>
-                    <code>{token.light}</code>
-                  </div>
-                  <div className={styles.swatchBlock}>
-                    <span className={styles.chartDark} style={{ background: token.dark }} />
-                    <small>{t('themePreviewDark')}</small>
-                    <code>{token.dark}</code>
-                  </div>
-                </div>
-              </article>
-            );
-          })}
+          {chartTokens.map((token) => (
+            <ColorCard key={token.name} token={token} className={styles.chartToken} />
+          ))}
         </div>
         <div className={styles.colorGrid}>
           {sidebarTokens.map((token) => (
@@ -641,11 +439,6 @@ export function TokensOverview() {
             title={t('tokensOverviewPrimitiveSpacing')}
             tokens={spacingTokens}
             variant="bars"
-          />
-          <TokenScale
-            title={t('tokensOverviewSemanticSpacing')}
-            tokens={semanticSpacingTokens}
-            variant="semantic"
           />
           <TokenScale title={t('tokensOverviewControlSize')} tokens={sizeTokens} variant="blocks" />
         </div>
@@ -665,13 +458,19 @@ export function TokensOverview() {
 
       <Section title={t('tokensOverviewTypography')} note={t('tokensOverviewTypographyNote')}>
         <div className={styles.typeGrid}>
-          {typographyTokens.map(([textName, textValue, lineName, lineValue]) => (
+          {typographyTokens.map(([textName, lineName]) => (
             <div className={styles.typeRow} key={textName}>
-              <span className={styles.typeSample}>Aa</span>
+              <span
+                className={styles.typeSample}
+                style={{ fontSize: `var(${textName})`, lineHeight: `var(${lineName})` }}
+              >
+                Aa
+              </span>
               <div>
                 <code>{textName}</code>
                 <small>
-                  {textValue} / {lineValue}
+                  <TokenValue name={textName} property="font-size" /> /{' '}
+                  <TokenValue name={lineName} property="line-height" />
                 </small>
               </div>
               <code>{lineName}</code>
@@ -679,41 +478,51 @@ export function TokensOverview() {
           ))}
         </div>
         <div className={styles.pillGrid}>
-          {weightTokens.map(([name, value]) => (
+          {weightTokens.map((name) => (
             <span className={styles.tokenPill} key={name}>
               <code>{name}</code>
-              <strong>{value}</strong>
-            </span>
-          ))}
-          {trackingTokens.map(([name, value]) => (
-            <span className={styles.tokenPill} key={name}>
-              <code>{name}</code>
-              <strong>{value}</strong>
+              <strong style={{ fontWeight: `var(${name})` }}>
+                <TokenValue name={name} property="font-weight" />
+              </strong>
             </span>
           ))}
         </div>
-        <TokenList title={t('tokensOverviewFontFamilies')} tokens={fontFamilyTokens} />
+        <TokenList
+          title={t('tokensOverviewFontFamilies')}
+          tokens={fontFamilyTokens.map((name) => [name])}
+        />
       </Section>
 
       <Section title={t('tokensOverviewMotion')} note={t('tokensOverviewMotionNote')}>
         <div className={styles.motionGrid}>
-          <TokenList title={t('tokensOverviewTimingAndTransitionTokens')} tokens={motionTokens} />
-          <TokenList title={t('tokensOverviewAnimationTokens')} tokens={animationTokens} />
+          <TokenList
+            title={t('tokensOverviewTimingAndTransitionTokens')}
+            tokens={motionTokens.map((name) => [name])}
+          />
+          <TokenList
+            title={t('tokensOverviewAnimationTokens')}
+            tokens={animationTokens.map((name) => [name])}
+          />
         </div>
       </Section>
 
       <Section title={t('tokensOverviewElevationLayers')} note={t('tokensOverviewElevation')}>
         <div className={styles.layerGrid}>
-          {shadowTokens.map(([name, value], index) => (
-            <div className={styles.shadowCard} data-depth={index + 1} key={name}>
+          {shadowTokens.map((name) => (
+            <div className={styles.shadowCard} style={tokenStyle(name)} key={name}>
               <code>{name}</code>
-              <small>{value}</small>
+              <small>
+                <TokenValue name={name} />
+              </small>
             </div>
           ))}
         </div>
         <div className={styles.motionGrid}>
           <TokenList title={t('tokensOverviewTransforms')} tokens={transformTokens} />
-          <TokenList title={t('tokensOverviewZIndex')} tokens={zIndexTokens} />
+          <TokenList
+            title={t('tokensOverviewZIndex')}
+            tokens={zIndexTokens.map((name) => [name])}
+          />
         </div>
       </Section>
 
@@ -749,7 +558,7 @@ function ThemePreview({ theme }: { theme: 'light' | 'dark' }) {
   const title = t(theme === 'light' ? 'tokensOverviewLightTheme' : 'tokensOverviewDarkTheme');
 
   return (
-    <article className={styles.themeCard} data-theme={theme}>
+    <article className={styles.themeCard} data-moduix-color-scheme={theme}>
       <div className={styles.themeTopbar}>
         <span>{title}</span>
         <code>{theme === 'light' ? ':root' : "[data-moduix-color-scheme='dark']"}</code>
@@ -791,30 +600,38 @@ function TokenCallout({ title, code, body }: { title: string; code: string; body
   );
 }
 
-function ColorCard({ token }: { token: ColorToken }) {
+function ColorCard({
+  token,
+  className = styles.colorCard,
+}: {
+  token: ColorToken;
+  className?: string;
+}) {
   const t = useI18n<typeof import('i18n')>();
 
   return (
-    <article className={styles.colorCard}>
+    <article className={className}>
       <div className={styles.tokenMeta}>
         <strong>{t(token.labelKey)}</strong>
         <code>{token.name}</code>
-        <small>{token.alias}</small>
       </div>
       <div className={styles.swatches}>
-        <div className={styles.swatchBlock}>
-          <span style={{ background: token.light }} />
-          <small>{t('themePreviewLight')}</small>
-          <code>{token.light}</code>
-        </div>
-        <div className={styles.swatchBlock}>
-          <span style={{ background: token.dark }} />
-          <small>{t('themePreviewDark')}</small>
-          <code>{token.dark}</code>
-        </div>
+        {(['light', 'dark'] as const).map((scheme) => (
+          <div className={styles.swatchBlock} data-moduix-color-scheme={scheme} key={scheme}>
+            <span style={{ background: `var(${token.name})` }} />
+            <small>{t(scheme === 'light' ? 'themePreviewLight' : 'themePreviewDark')}</small>
+            <code>
+              <TokenValue name={token.name} property="color" />
+            </code>
+          </div>
+        ))}
       </div>
     </article>
   );
+}
+
+function tokenStyle(name: string) {
+  return { '--token': `var(${name})` } as CSSProperties;
 }
 
 function TokenScale({
@@ -823,18 +640,23 @@ function TokenScale({
   variant,
 }: {
   title: string;
-  tokens: string[][];
-  variant: 'bars' | 'semantic' | 'blocks' | 'lines' | 'opacity';
+  tokens: string[];
+  variant: 'bars' | 'blocks' | 'lines' | 'opacity';
 }) {
   return (
     <div className={styles.scaleCard} data-variant={variant}>
       <h3>{title}</h3>
       <div className={styles.scaleList}>
-        {tokens.map(([name, value, resolved], index) => (
-          <div className={styles.scaleRow} data-index={index} key={name}>
+        {tokens.map((name) => (
+          <div className={styles.scaleRow} style={tokenStyle(name)} key={name}>
             <span className={styles.scaleShape} />
             <code>{name}</code>
-            <small>{resolved ? `${value} / ${resolved}` : value}</small>
+            <small>
+              <TokenValue
+                name={name}
+                property={variant === 'opacity' ? 'opacity' : 'margin-left'}
+              />
+            </small>
           </div>
         ))}
       </div>
@@ -849,11 +671,13 @@ function RadiusScale() {
     <div className={styles.scaleCard}>
       <h3>{t('tokensOverviewRadius')}</h3>
       <div className={styles.radiusGrid}>
-        {radiusTokens.map(([name, value], index) => (
-          <div className={styles.radiusToken} data-index={index} key={name}>
+        {radiusTokens.map((name) => (
+          <div className={styles.radiusToken} style={tokenStyle(name)} key={name}>
             <span />
             <code>{name}</code>
-            <small>{value}</small>
+            <small>
+              <TokenValue name={name} property="border-top-left-radius" />
+            </small>
           </div>
         ))}
       </div>
@@ -861,6 +685,8 @@ function RadiusScale() {
   );
 }
 
+// An entry without a value reads it from the rendered CSS; shared component defaults pass the
+// documented fallback because their tokens are `initial` until a consumer sets them.
 function TokenList({ title, tokens }: { title: string; tokens: string[][] }) {
   const t = useI18n<typeof import('i18n')>();
   const localize = (value: string) =>
@@ -872,10 +698,48 @@ function TokenList({ title, tokens }: { title: string; tokens: string[][] }) {
       {tokens.map(([name, value, note]) => (
         <div className={styles.tokenLine} key={name}>
           <code>{name}</code>
-          <span>{localize(value)}</span>
+          <span>{value ? localize(value) : <TokenValue name={name} />}</span>
           {note ? <small>{localize(note)}</small> : null}
         </div>
       ))}
     </div>
+  );
+}
+
+function subscribeToTheme(onChange: () => void) {
+  const observer = new MutationObserver(onChange);
+  observer.observe(document.documentElement, {
+    attributes: true,
+    attributeFilter: ['data-moduix-theme', 'data-moduix-color-scheme'],
+  });
+  return () => observer.disconnect();
+}
+
+function getThemeKey() {
+  const { moduixTheme, moduixColorScheme } = document.documentElement.dataset;
+  return `${moduixTheme}/${moduixColorScheme}`;
+}
+
+// Shows what a token resolves to on this page, so the values follow the foundation CSS, the active
+// preset, and the surrounding color scheme. `property` resolves it through a real CSS property
+// (lengths to pixels, colors for the scheme); without it the custom property value is shown.
+function TokenValue({ name, property }: { name: string; property?: string }) {
+  const probe = useRef<HTMLSpanElement>(null);
+  const themeKey = useSyncExternalStore(subscribeToTheme, getThemeKey, () => '');
+  const [value, setValue] = useState('');
+
+  useEffect(() => {
+    const element = probe.current;
+    if (!element) return;
+    if (property) element.style.setProperty(property, `var(${name})`);
+    const style = getComputedStyle(element);
+    setValue(style.getPropertyValue(property ?? name).trim());
+  }, [name, property, themeKey]);
+
+  return (
+    <>
+      {value}
+      <span ref={probe} className={styles.probe} aria-hidden="true" />
+    </>
   );
 }

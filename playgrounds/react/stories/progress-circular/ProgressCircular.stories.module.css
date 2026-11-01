@@ -25,20 +25,18 @@
 .customProgress {
   --moduix-progress-circular-size: 4rem;
   --moduix-progress-circular-thickness: 0.4rem;
-  --moduix-progress-circular-track-bg: var(--moduix-color-accent);
-  --moduix-progress-circular-range-bg: var(--moduix-color-chart-2);
+  --moduix-progress-circular-track-bg: var(--moduix-accent);
+  --moduix-progress-circular-range-bg: var(--moduix-chart-2);
 }
 
 .indeterminateProgress {
-  --moduix-progress-circular-range-bg: var(--moduix-color-chart-4);
+  --moduix-progress-circular-range-bg: var(--moduix-chart-4);
 }
 
 .customProgress [data-slot='progress-circular-circle-track'] {
-  stroke: color-mix(in oklab, var(--moduix-color-primary), transparent 75%);
+  stroke: color-mix(in oklab, var(--moduix-primary), transparent 75%);
 }
 
 .customProgress [data-slot='progress-circular-circle-range'] {
-  filter: drop-shadow(
-    0 0 0.25rem color-mix(in oklab, var(--moduix-color-chart-2), transparent 45%)
-  );
+  filter: drop-shadow(0 0 0.25rem color-mix(in oklab, var(--moduix-chart-2), transparent 45%));
 }

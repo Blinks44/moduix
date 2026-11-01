@@ -9,11 +9,11 @@
   flex-wrap: wrap;
   align-items: center;
   gap: var(--moduix-spacing-1);
-  border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
+  border: var(--moduix-border-width-sm) solid var(--moduix-border);
   border-radius: var(--moduix-radius-md);
   padding-block: var(--moduix-spacing-1);
   padding-inline: var(--moduix-spacing-3-5) 4.25rem;
-  background: var(--moduix-color-background);
+  background: var(--moduix-background);
 }
 
 .selectedDate,
@@ -29,12 +29,12 @@
 
 .selectedDate {
   padding: 0.125rem 0.375rem;
-  background: var(--moduix-color-muted);
-  color: var(--moduix-color-foreground);
+  background: var(--moduix-muted);
+  color: var(--moduix-foreground);
 }
 
 .placeholder {
-  color: var(--moduix-color-muted-foreground);
+  color: var(--moduix-muted-foreground);
 }
 
 .remove {
@@ -47,11 +47,11 @@
   border-radius: var(--moduix-radius-sm);
   padding: 0;
   background: transparent;
-  color: var(--moduix-color-muted-foreground);
+  color: var(--moduix-muted-foreground);
   cursor: pointer;
 }
 
 .remove:hover {
-  background: var(--moduix-color-accent);
-  color: var(--moduix-color-accent-foreground);
+  background: var(--moduix-accent);
+  color: var(--moduix-accent-foreground);
 }

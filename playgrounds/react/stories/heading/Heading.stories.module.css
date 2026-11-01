@@ -6,7 +6,7 @@
 }
 
 .customHeading {
-  color: var(--moduix-color-primary);
+  color: var(--moduix-primary);
   font-size: var(--moduix-text-3xl);
   font-weight: var(--moduix-weight-bold);
   line-height: var(--moduix-line-height-text-3xl);

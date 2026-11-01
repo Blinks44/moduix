@@ -7,6 +7,7 @@ import {
   PaginationNextTrigger,
   PaginationPrevTrigger,
 } from '@moduix/vue/pagination';
+import { Stack } from '@moduix/vue/stack';
 import styles from '@/components/examples/pagination/pagination-data-slicing.module.css';
 
 const users = [
@@ -28,14 +29,14 @@ const users = [
 <template>
   <Pagination :count="users.length" :page-size="4">
     <PaginationContext v-slot="pagination">
-      <div :class="styles.stack">
+      <Stack align="flex-start" gap="3">
         <div :class="styles.users">
           <div v-for="user in pagination.slice(users)" :key="user.id" :class="styles.user">
             <strong>{{ user.name }}</strong>
             <span :class="styles.muted">{{ user.email }}</span>
           </div>
         </div>
-        <div :class="styles.row">
+        <Stack direction="row" align="center" wrap="wrap" gap="3">
           <PaginationPrevTrigger />
           <template v-for="(page, index) in pagination.pages" :key="index">
             <PaginationItem v-if="page.type === 'page'" :type="page.type" :value="page.value">
@@ -44,8 +45,8 @@ const users = [
             <PaginationEllipsis v-else :index="index" />
           </template>
           <PaginationNextTrigger />
-        </div>
-      </div>
+        </Stack>
+      </Stack>
     </PaginationContext>
   </Pagination>
 </template>

@@ -14,7 +14,7 @@
 }
 
 .label {
-  color: var(--moduix-color-muted-foreground);
+  color: var(--moduix-muted-foreground);
   font-size: var(--moduix-text-xs);
   font-weight: var(--moduix-weight-medium);
   line-height: var(--moduix-line-height-text-xs);
@@ -23,7 +23,7 @@
 }
 
 .custom {
-  --moduix-highlight-bg: color-mix(in oklab, var(--moduix-color-primary) 18%, transparent);
-  --moduix-highlight-color: var(--moduix-color-primary);
+  --moduix-highlight-bg: color-mix(in oklab, var(--moduix-primary) 18%, transparent);
+  --moduix-highlight-color: var(--moduix-primary);
   --moduix-highlight-font-weight: var(--moduix-weight-semibold);
 }

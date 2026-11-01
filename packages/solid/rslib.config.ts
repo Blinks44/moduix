@@ -63,7 +63,7 @@ export default defineConfig({
       {
         from: '../foundation/src/styles',
         globOptions: {
-          ignore: ['**/variables-ark.css', '**/variables-moduix.css'],
+          ignore: ['**/variables-ark.css'],
         },
         to: 'styles',
       },

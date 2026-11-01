@@ -1,15 +1,21 @@
 ---
 title: Timer
 component: timer
-description: Un composant pour suivre le temps écoulé ou restant, avec des contrôles explicites en React, Solid ou Vue.
+description: Compter le temps écoulé ou restant avec démarrer, pause et remise à zéro.
+ark: https://ark-ui.com/docs/components/timer
 ---
 
-## Référence de l’API
+import AnatomyScene from '@/components/examples/timer/basic';
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/timer" />
+<Example name="timer/basic" />
 
-## Exemple de base
+## Installation
 
+<ComponentInstall />
+
+## Utilisation
+
+<Usage />
 
 `TimerSegments` est la façon la plus simple d’afficher le temps au format courant, avec des deux-points comme
 séparateurs. Par défaut, il affiche les heures, les minutes et les secondes. Passez `types` pour choisir un autre
@@ -20,72 +26,48 @@ séparateurs personnalisés ou d’une mise en forme différente pour chaque val
 la zone. Comme il crée lui-même les éléments et les séparateurs, utilisez `TimerArea` si vous devez remplacer
 l’élément hôte ou fournir vos propres enfants.
 
-<Example name="timer/basic" />
+## Exemples
 
-## Installation avec shadcn
+### Compte à rebours
 
-Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration complète du paquet, du registre et des styles.
+Définissez `countdown` et `startMs` si l’affichage doit décompter jusqu’à zéro.
 
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
+<Example name="timer/countdown" />
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/timer' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/timer' },
-  ]}
-/>
+### Intervalle
 
-  </Tab>
-  <Tab label="Solid" value="solid">
+Utilisez une valeur plus petite pour `interval` avec un élément `milliseconds` si l’interface doit être actualisée
+plusieurs fois par seconde.
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/timer' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/timer' },
-  ]}
-/>
+<Example name="timer/interval" />
 
-  </Tab>
-  <Tab label="Vue" value="vue">
+### Pomodoro
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/timer' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/timer' },
-  ]}
-/>
+Utilisez `onComplete` (`@complete` en Vue) pour passer du travail à la pause et inversement lorsque le minuteur doit enchaîner les cycles.
 
-  </Tab>
-</Tabs>
+<Example name="timer/pomodoro" />
 
-## Anatomie
+### Événements
 
-```text
-Timer
-├─ TimerArea
-│  ├─ TimerItem
-│  └─ TimerSeparator
-└─ TimerControl
-   └─ TimerActionTrigger
+Utilisez `onTick` et `onComplete` pour les effets de bord liés au cycle de vie du minuteur. En Vue, écoutez les
+événements avec `@tick` et `@complete`.
 
-TimerRootProvider
-└─ même arbre de composition relié à l’état créé par `useTimer()`
+<Example name="timer/events" />
 
-TimerSegments
-└─ TimerArea avec les éléments TimerItem et TimerSeparator
-```
+### Root Provider
 
-| Élément | Rôle |
-| ----------------------- | ------------------------------------------------------------------------ |
-| `Timer` | Gère l’état du minuteur Ark, ses identifiants, l’intervalle et les fonctions de rappel. |
-| `TimerRootProvider` | Relie les éléments à l’état créé par `useTimer()`. |
-| `TimerSegments` | Construit les unités de temps standard et leurs séparateurs. |
-| `TimerArea` | Regroupe les valeurs de temps visibles. |
-| `TimerItem` | Affiche une unité de temps formatée, comme `hours`, `minutes` ou `seconds`. |
-| `TimerSeparator` | Affiche un séparateur entre les unités de temps. |
-| `TimerControl` | Regroupe les déclencheurs d’action. |
-| `TimerActionTrigger` | Déclenche l’action `start`, `pause`, `resume`, `reset` ou `restart`. |
+Utilisez `useTimer()` avec `TimerRootProvider` lorsque l’état et les méthodes du minuteur doivent aussi
+être disponibles en dehors de l’arbre de parties rendu. Voir [Partager l’état hors de l’arbre](/docs/composition-patterns#root-provider).
+
+<Example name="timer/root-provider" />
+
+### Assembler à partir des parties
+
+Le même minuteur que Basic, sans `TimerSegments` : `TimerArea` contient un `TimerItem` par unité avec
+un `TimerSeparator` entre eux. Partez de cet exemple quand les unités ont besoin de libellés ou d’une
+mise en page personnalisée.
+
+<Example name="timer/build-from-parts" />
 
 ## Composition
 
@@ -103,41 +85,24 @@ Dans la version installée d’Ark UI, `TimerItem` remplace son contenu enfant p
 `asChild`. L’élément fourni est donc perdu en Vue et en React. Utilisez l’élément par défaut de `TimerItem` en attendant
 la correction dans Ark ; les exemples ci-dessus utilisent cette composition prise en charge.
 
-## Exemples
+## Anatomie
 
-### Compte à rebours
+Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
 
-Définissez `countdown` et `startMs` si l’affichage doit décompter jusqu’à zéro.
-
-<Example name="timer/countdown" />
-
-### Événements
-
-Utilisez `onTick` et `onComplete` pour les effets de bord liés au cycle de vie du minuteur. En Vue, écoutez les
-événements avec `@tick` et `@complete`.
-
-<Example name="timer/events" />
-
-### Intervalle
-
-Utilisez une valeur plus petite pour `interval` avec un élément `milliseconds` si l’interface doit être actualisée
-plusieurs fois par seconde.
-
-<Example name="timer/interval" />
-
-### Pomodoro
-
-Utilisez `onComplete` (`@complete` en Vue) pour passer du travail à la pause et inversement lorsque le minuteur doit enchaîner les cycles.
-
-<Example name="timer/pomodoro" />
-
-### Personnalisation avancée
-
-Utilisez `useTimer()` lorsque l’état et les méthodes du minuteur doivent aussi être disponibles en dehors de l’arbre
-de composition rendu. C’est également la bonne approche pour ajouter des libellés d’unité ou composer des éléments
-personnalisés.
-
-<Example name="timer/root-provider" />
+<AnatomyInspector
+  parts={[
+    ["Timer", "timer-root", "Gère l’état du minuteur Ark, ses identifiants, l’intervalle et les fonctions de rappel.", 0],
+    ["TimerArea", "timer-area", "Regroupe les valeurs de temps visibles.", 1],
+    ["TimerItem", "timer-item", "Affiche une unité de temps formatée, comme `hours`, `minutes` ou `seconds`.", 2],
+    ["TimerSeparator", "timer-separator", "Affiche un séparateur entre les unités de temps.", 2],
+    ["TimerControl", "timer-control", "Regroupe les déclencheurs d’action.", 1],
+    ["TimerActionTrigger", "timer-action-trigger", "Déclenche l’action `start`, `pause`, `resume`, `reset` ou `restart`.", 2],
+    ["TimerRootProvider", "timer-root-provider", "Relie les éléments à l’état créé par `useTimer()`.", 0],
+    ["TimerSegments", "", "Construit les unités de temps standard et leurs séparateurs.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styles
 
@@ -146,11 +111,32 @@ Tailwind utilisent des classes utilitaires et vos propres classes. Les variantes
 jetons de foundation et n’ont pas de variables propres : une classe sur un élément, ou un sélecteur `data-slot`,
 remplace les styles du composant placés dans une couche.
 
-### Sélecteurs et attributs de style
+### Points d’accroche CSS
 
-- Sélecteurs `data-slot="timer-root"`, `timer-root-provider`, `timer-area`, `timer-item`,
-  `timer-separator`, `timer-control` et `timer-action-trigger`.
+| Partie | `data-slot` |
+| --- | --- |
+| `Timer` | `timer-root` |
+| `TimerRootProvider` | `timer-root-provider` |
+| `TimerArea` | `timer-area` |
+| `TimerItem` | `timer-item` |
+| `TimerSeparator` | `timer-separator` |
+| `TimerControl` | `timer-control` |
+| `TimerActionTrigger` | `timer-action-trigger` |
+
 - Attributs de structure Ark : `data-scope="timer"` et
   `data-part="root|area|item|separator|control|action-trigger"`.
 - `TimerItem` expose `data-type` et la variable CSS `--value` mise à jour par Ark.
 - Ark ajoute l’attribut `hidden` aux déclencheurs d’action indisponibles dans l’état courant du minuteur.
+
+## Référence de l’API
+
+| Prop | Type | Défaut | Description |
+| --- | --- | --- | --- |
+| `countdown` | `boolean` | `false` | Compte à rebours au lieu de compter. |
+| `startMs` | `number` | — | Temps de départ en millisecondes. |
+| `targetMs` | `number` | — | Temps auquel le minuteur se termine, en millisecondes. |
+| `autoStart` | `boolean` | `false` | Démarre le minuteur au montage. |
+| `interval` | `number` | `1000` | Intervalle de mise à jour en millisecondes. |
+| `onTick` | `(details: TickDetails) => void` | — | Appelé à chaque mise à jour. |
+| `onComplete` | `() => void` | — | Appelé lorsque le minuteur atteint `targetMs`. |
+| `translations` | `IntlTranslations` | — | Textes localisés des libellés d’accessibilité. |

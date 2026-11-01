@@ -4,7 +4,7 @@ import {
   FloatingPanelPositioner,
   FloatingPanelContent,
   FloatingPanelTitle,
-} from '../../src/components/floating-panel';
+} from '@/components/floating-panel';
 </script>
 <template>
   <FloatingPanel default-open :portalled="false">

@@ -117,7 +117,7 @@ child then brings its own styles.
   line up in `ClipboardControl`.
 - `className` is supported on every exported visual part.
 - `ClipboardIndicator` defaults to `CopyIcon` and `CheckIcon`; text content is passed directly (`copied="Copied"`, children `Copy`).
-- Public component variables in `packages/foundation/src/styles/variables-moduix.css`: `gap`,
+- Public component variables in `website/src/components/examples/clipboard/css-properties.tsx`: `gap`,
   `control-gap`, `height`, `radius`, `border-color`, `input-bg`, `trigger-bg`, `trigger-bg-hover`,
   and `icon-size` under `--moduix-clipboard-*`. Typography, focus ring, transition, and disabled
   opacity come from foundation tokens.

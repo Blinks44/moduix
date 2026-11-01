@@ -43,7 +43,7 @@ event handlers and render functions belong in a client composition.
 
 ## Upstream comparison
 
-| Source    | Relevant difference                                                                          | Moduix decision                                                                                                         |
+| Source    | Relevant difference                                                                          | moduix decision                                                                                                         |
 | --------- | -------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- |
 | Ark UI    | No dedicated close-button primitive; the factory supplies composition, refs, and data hooks. | **Required correctness:** preserve the factory root, one semantic child for `asChild`, and ref/data-attribute behavior. |
 | Chakra UI | Provides a dedicated close-button recipe.                                                    | **Intentional difference:** retain a root-only API and CSS-variable theming instead of recipe variants.                 |
@@ -106,21 +106,7 @@ icon content because the single child is the composed root:
 | `asChild`   | `false`     | Ark factory composition                    |
 | `className` | -           | Applied to the root                        |
 
-Public CSS variables:
-
-| CSS variable                              | Default                                |
-| ----------------------------------------- | -------------------------------------- |
-| `--moduix-close-button-bg`                | `transparent`                          |
-| `--moduix-close-button-bg-hover`          | `var(--moduix-color-muted)`            |
-| `--moduix-close-button-color`             | `var(--moduix-color-muted-foreground)` |
-| `--moduix-close-button-color-hover`       | `var(--moduix-color-foreground)`       |
-| `--moduix-close-button-disabled-opacity`  | `var(--moduix-opacity-disabled)`       |
-| `--moduix-close-button-focus-ring-color`  | `var(--moduix-color-ring)`             |
-| `--moduix-close-button-focus-ring-offset` | `var(--moduix-focus-ring-offset)`      |
-| `--moduix-close-button-focus-ring-width`  | `var(--moduix-focus-ring-width)`       |
-| `--moduix-close-button-icon-size`         | `var(--moduix-spacing-4)`              |
-| `--moduix-close-button-radius`            | `var(--moduix-radius-sm)`              |
-| `--moduix-close-button-size`              | `var(--moduix-spacing-7)`              |
+Public CSS variables (CSS Modules packages) are listed in `website/src/components/examples/close-button/css-properties.tsx`.
 
 ## Agent notes
 

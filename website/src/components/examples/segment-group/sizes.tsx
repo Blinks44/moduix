@@ -3,20 +3,20 @@ import {
   SegmentGroupIndicator,
   SegmentGroupItems,
 } from '@moduix/react/segment-group';
-import styles from '@/components/examples/segment-group/segment-group-sizes.module.css';
+import { Stack } from '@moduix/react/stack';
 
 const sizes = ['sm', 'md', 'lg'] as const;
 const frameworks = ['React', 'Solid', 'Vue'];
 
 export default function SegmentGroupSizesDemo() {
   return (
-    <div className={styles.root}>
+    <Stack align="center" gap="3">
       {sizes.map((size) => (
         <SegmentGroup key={size} size={size} aria-label={`Framework, ${size}`} defaultValue="React">
           <SegmentGroupIndicator />
           <SegmentGroupItems items={frameworks} />
         </SegmentGroup>
       ))}
-    </div>
+    </Stack>
   );
 }

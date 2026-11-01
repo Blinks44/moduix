@@ -6,6 +6,7 @@ import {
   SplitterRootProvider,
   useSplitter,
 } from '@moduix/vue/splitter';
+import { Stack } from '@moduix/vue/stack';
 import styles from '@/components/examples/splitter/splitter-root-provider.module.css';
 
 const panels = [
@@ -23,9 +24,9 @@ const splitter = useSplitter({ panels, defaultSize: [50, 50] });
       <SplitterPanel id="b" :class="styles.panel">B</SplitterPanel>
     </SplitterRootProvider>
     <output :class="styles.status">Sizes: {{ splitter.getSizes().join(' / ') }}</output>
-    <div :class="styles.toolbar">
+    <Stack align="center" gap="2">
       <Button @click="splitter.resetSizes">Reset</Button>
       <Button @click="splitter.resizePanel('a', 25)">Set A to 25%</Button>
-    </div>
+    </Stack>
   </div>
 </template>

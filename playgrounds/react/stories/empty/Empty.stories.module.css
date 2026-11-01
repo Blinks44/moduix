@@ -4,24 +4,16 @@
 }
 
 .customEmpty {
-  --moduix-empty-bg: color-mix(in oklab, var(--moduix-color-primary) 8%, var(--moduix-color-card));
-  --moduix-empty-border-color: color-mix(
-    in oklab,
-    var(--moduix-color-primary) 28%,
-    var(--moduix-color-border)
-  );
+  --moduix-empty-bg: color-mix(in oklab, var(--moduix-primary) 8%, var(--moduix-card));
+  --moduix-empty-border-color: color-mix(in oklab, var(--moduix-primary) 28%, var(--moduix-border));
 
   box-shadow: var(--moduix-shadow-md);
 }
 
 .customIcon {
   border-radius: var(--moduix-radius-lg);
-  background-color: color-mix(
-    in oklab,
-    var(--moduix-color-primary) 14%,
-    var(--moduix-color-background)
-  );
-  color: var(--moduix-color-primary);
+  background-color: color-mix(in oklab, var(--moduix-primary) 14%, var(--moduix-background));
+  color: var(--moduix-primary);
 
   & svg {
     width: 1.75rem;

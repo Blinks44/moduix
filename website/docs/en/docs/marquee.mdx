@@ -1,100 +1,51 @@
 ---
 title: Marquee
 component: marquee
-description: A continuous scroller for logos, announcements, and other repeated content, built on Ark UI.
+description: Scroll logos or announcements in a continuous loop.
+ark: https://ark-ui.com/docs/components/marquee
 ---
 
+import AnatomyScene from '@/components/examples/marquee/basic';
 import * as MarqueeDocs from '@/components/examples/marquee/css-properties';
 
-## API Reference
+<Example name="marquee/basic" />
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/marquee" />
+## Installation
 
-## Basic
+<ComponentInstall />
 
+## Usage
+
+<Usage />
 
 Use the short `Marquee` root and compose `MarqueeViewport`, `MarqueeContent`, and `MarqueeItem` inside it. Add
 `aria-label` or `translations.root` when the moving content conveys information. `Marquee`
 provides the behavior and required animation styles, but it does not style individual items or add a
 frame. The example styles its items and limits the root width separately.
 
-<Example name="marquee/basic" />
-
-## Install with shadcn
-
-See [Quick Start](/docs/quick-start) for full package setup, registry configuration, and styling guidance.
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/marquee' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/marquee' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/marquee' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/marquee' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/marquee' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/marquee' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Anatomy
-
-```text
-Marquee
-├─ MarqueeEdge (optional)
-├─ MarqueeViewport
-│  └─ MarqueeContent
-│     └─ MarqueeItem
-└─ MarqueeEdge (optional)
-
-MarqueeRootProvider
-└─ same part tree connected to moduix useMarquee()
-```
-
-| Part                       | Role                                                                  |
-| -------------------------- | --------------------------------------------------------------------- |
-| `Marquee` | Root state, labels, ids, orientation, pause state, and CSS variables. |
-| `MarqueeRootProvider`     | Renders a marquee tree from state returned by `useMarquee`.           |
-| `MarqueeViewport`         | Clipping viewport for the scrolling content.                          |
-| `MarqueeContent`          | Animated content wrapper. Ark clones it when needed.                  |
-| `MarqueeItem`             | Individual repeated item inside the content.                          |
-| `MarqueeEdge`             | Optional fade overlay. Pass `side` to choose the edge.                |
-| `MarqueeContext`          | Advanced access to the context of the enclosing marquee.              |
-
-## Composition
-
-Use `Marquee` with its explicit `MarqueeViewport`, `MarqueeContent`, and `MarqueeItem` parts. Add `MarqueeEdge` inside the
-same root when the content should fade into the page background; each edge needs a `side`.
-
-Use `defaultPaused` for an uncontrolled initial state. If another part of the application owns playback,
-use `paused` with `onPauseChange(details)`. For controls outside the marquee tree, create state with
-`useMarquee()` and pass it to `MarqueeRootProvider`; do not render `Marquee` and `MarqueeRootProvider` for the
-same state. Controls inside the tree can read the current API from `MarqueeContext` or
-`useMarqueeContext()`.
-
 ## Examples
 
-### Auto Fill
+### Speed
+
+Control motion with `speed`, measured in pixels per second. Lower values are easier to read.
+
+<Example name="marquee/speed" />
+
+### Reverse
+
+Use `reverse` when the content should move opposite the configured side without changing
+orientation.
+
+<Example name="marquee/reverse" />
+
+### Vertical
+
+Set `side="top"` or `side="bottom"` for vertical marquees. A vertical root is `15rem` tall by
+default so the viewport has a stable block size; set `height` with a class to change it.
+
+<Example name="marquee/vertical" />
+
+### Auto fill
 
 Use `autoFill` when the available content is shorter than the viewport. `spacing` controls the gap
 between duplicated content instances.
@@ -108,14 +59,7 @@ decorative and does not receive pointer events.
 
 <Example name="marquee/edges" />
 
-### Finite Loops
-
-Set `loopCount` for finite playback. `onLoopComplete` fires after each loop and `onComplete` fires
-after the final loop.
-
-<Example name="marquee/finite-loops" />
-
-### Pause on Interaction
+### Pause on interaction
 
 Use `pauseOnInteraction` to pause while the user hovers the marquee or focuses content inside it.
 
@@ -126,19 +70,12 @@ and resume controls), and never put critical information only inside a marquee.
 
 <Example name="marquee/pause-on-interaction" />
 
-### Root Provider
+### Finite loops
 
-Use moduix `useMarquee()` with `MarqueeRootProvider` when external controls need to pause, resume,
-or restart playback.
+Set `loopCount` for finite playback. `onLoopComplete` fires after each loop and `onComplete` fires
+after the final loop.
 
-<Example name="marquee/programmatic-control" />
-
-### Reverse
-
-Use `reverse` when the content should move opposite the configured side without changing
-orientation.
-
-<Example name="marquee/reverse" />
+<Example name="marquee/finite-loops" />
 
 ### Right to left
 
@@ -147,18 +84,41 @@ the configured direction.
 
 <Example name="marquee/rtl" />
 
-### Speed
+### Root provider
 
-Control motion with `speed`, measured in pixels per second. Lower values are easier to read.
+Use moduix `useMarquee()` with `MarqueeRootProvider` when external controls need to pause, resume,
+or restart playback.
 
-<Example name="marquee/speed" />
+<Example name="marquee/programmatic-control" />
 
-### Vertical
+## Composition
 
-Set `side="top"` or `side="bottom"` for vertical marquees. A vertical root is `15rem` tall by
-default so the viewport has a stable block size; set `height` with a class to change it.
+Use `Marquee` with its explicit `MarqueeViewport`, `MarqueeContent`, and `MarqueeItem` parts. Add `MarqueeEdge` inside the
+same root when the content should fade into the page background; each edge needs a `side`.
 
-<Example name="marquee/vertical" />
+Use `defaultPaused` for an uncontrolled initial state. If another part of the application controls playback,
+use `paused` with `onPauseChange(details)`. For controls outside the marquee tree, create state with
+`useMarquee()` and pass it to `MarqueeRootProvider`; do not render `Marquee` and `MarqueeRootProvider` for the
+same state. Controls inside the tree can read the current API from `MarqueeContext` or
+`useMarqueeContext()`.
+
+## Anatomy
+
+Hover or focus a part to find it in the preview.
+
+<AnatomyInspector
+  parts={[
+    ["Marquee", "marquee-root", "Root state, labels, ids, orientation, pause state, and CSS variables.", 0],
+    ["MarqueeEdge", "marquee-edge", "Optional fade overlay. Pass `side` to choose the edge.", 1],
+    ["MarqueeViewport", "marquee-viewport", "Clipping viewport for the scrolling content.", 1],
+    ["MarqueeContent", "marquee-content", "Animated content wrapper. Ark clones it when needed.", 2],
+    ["MarqueeItem", "marquee-item", "Individual repeated item inside the content.", 3],
+    ["MarqueeRootProvider", "marquee-root-provider", "Renders a marquee tree from state returned by `useMarquee`.", 0],
+    ["MarqueeContext", null, "Advanced access to the context of the enclosing marquee.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styling
 
@@ -173,16 +133,46 @@ behavioral styles and pick the customization model of your registry variant:
 `Marquee` is transparent by default, inherits the text color, and adds no border, background, padding, or radius. Add a framed
 surface in your own CSS when you need one.
 
-### CSS Properties
+### CSS variables
 
-<CssPropertiesSection properties={MarqueeDocs.marqueeCssProperties} />
+Hover or focus a variable to see it in the preview.
+
+<CssPropertiesSection properties={MarqueeDocs.marqueeCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Styling hooks
 
-- `data-slot="marquee-root"`, `marquee-root-provider`, `marquee-viewport`, `marquee-content`,
-  `marquee-item`, and `marquee-edge`.
+| Part | `data-slot` |
+| --- | --- |
+| `Marquee` | `marquee-root` |
+| `MarqueeRootProvider` | `marquee-root-provider` |
+| `MarqueeViewport` | `marquee-viewport` |
+| `MarqueeContent` | `marquee-content` |
+| `MarqueeItem` | `marquee-item` |
+| `MarqueeEdge` | `marquee-edge` |
+
 - Ark hooks: `data-scope="marquee"`, `data-part="root|viewport|content|item|edge"`,
   `data-state="paused|idle"`, `data-orientation`, `data-side`, `data-index`, `data-paused`,
   `data-reverse`, and `data-clone`.
 - Ark CSS variables: `--marquee-duration`, `--marquee-spacing`, `--marquee-delay`,
   `--marquee-loop-count`, and `--marquee-translate`.
+
+## API reference
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `speed` | `number` | `50` | Scroll speed in pixels per second. |
+| `side` | `'start' \| 'end' \| 'top' \| 'bottom'` | `'start'` | Direction the content moves towards: `start`, `end`, `top`, or `bottom`. |
+| `spacing` | `string` | `'1rem'` | Gap between repeated items, as a CSS length. |
+| `autoFill` | `boolean` | `false` | Duplicates the content until it fills the container. |
+| `reverse` | `boolean` | `false` | Reverses the animation direction. |
+| `pauseOnInteraction` | `boolean` | `false` | Pauses on hover and focus. |
+| `paused` | `boolean` | — | Paused state for controlled use. |
+| `defaultPaused` | `boolean` | `false` | Initial paused state when it is not controlled. |
+| `delay` | `number` | `0` | Delay before the animation starts, in seconds. |
+| `loopCount` | `number` | `0` | Number of loops; `0` repeats forever. |
+| `onPauseChange` | `(details: PauseStatusDetails) => void` | — | Called when the marquee pauses or resumes. |
+| `onComplete` | `() => void` | — | Called after the last loop when `loopCount` is set. |
+| `translations` | `IntlTranslations` | — | Localized strings for accessibility labels. |
+| `onLoopComplete` | `() => void` | — | Called after each loop. |

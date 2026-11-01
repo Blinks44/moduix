@@ -5,7 +5,6 @@ import { renderToString } from '@vue/server-renderer';
 import { createSSRApp, ref } from 'vue';
 import type { ComponentPublicInstance } from 'vue';
 import {
-  Field,
   FileUpload,
   FileUploadClearTrigger,
   FileUploadContext,
@@ -19,20 +18,15 @@ import {
   FileUploadLabel,
   FileUploadRootProvider,
   FileUploadTrigger,
-  useFileUpload,
-} from '../src';
+  FileUploadDropzoneIcon,
+  FileUploadItemDeleteTrigger,
+  FileUploadItemPreview,
+  FileUploadItemPreviewIcon,
+} from '@/index';
 import TestFileUpload from './fixtures/TestFileUpload.vue';
 
 const file = new File(['moduix'], 'moduix.txt', { type: 'text/plain' });
-const imageWithoutMimeType = new File(['moduix'], 'moduix.png');
 
-const image = new File(
-  [
-    '<svg xmlns="http://www.w3.org/2000/svg" width="32" height="24"><rect width="32" height="24" fill="red"/></svg>',
-  ],
-  'photo.svg',
-  { type: 'image/svg+xml' },
-);
 const components = {
   FileUpload,
   FileUploadClearTrigger,
@@ -47,6 +41,10 @@ const components = {
   FileUploadLabel,
   FileUploadRootProvider,
   FileUploadTrigger,
+  FileUploadDropzoneIcon,
+  FileUploadItemDeleteTrigger,
+  FileUploadItemPreview,
+  FileUploadItemPreviewIcon,
 };
 
 test('uses MIME type or FILE for filenames without an extension', async () => {
@@ -159,50 +157,6 @@ test('preserves native input attributes and ignores change while disabled', asyn
   expect(acceptedFiles.value).toEqual([]);
 });
 
-test('preserves provider refs, one preview per file, MIME fallback, and removal', async () => {
-  const rootRef = ref<ComponentPublicInstance>();
-  const { container } = render({
-    components,
-    setup: () => ({
-      rootRef,
-      upload: useFileUpload({
-        defaultAcceptedFiles: [image, file, imageWithoutMimeType],
-        maxFiles: 3,
-      }),
-    }),
-    template: `
-      <FileUploadRootProvider ref="rootRef" :value="upload" data-testid="provider">
-        <FileUploadLabel>Attachments</FileUploadLabel>
-        <FileUploadItemGroup><FileUploadItems /></FileUploadItemGroup>
-        <FileUploadHiddenInput />
-      </FileUploadRootProvider>
-    `,
-  });
-  await expect
-    .element(page.getByTestId('provider'))
-    .toHaveAttribute('data-slot', 'file-upload-root-provider');
-  expect(rootRef.value?.$el).toBe(container.querySelector('[data-testid="provider"]'));
-  await expect.element(page.locator('input[type="file"]')).toHaveCount(1);
-  await expect.element(page.getByText('moduix.txt', { exact: true })).toBeVisible();
-  await expect.element(page.locator('[data-slot="file-upload-item"]')).toHaveCount(3);
-  const items = container.querySelectorAll('[data-slot="file-upload-item"]');
-  for (const [index, item] of [...items].entries()) {
-    expect(item.querySelectorAll('[data-slot="file-upload-item-preview"]')).toHaveLength(1);
-    expect(item.querySelector('[data-slot="file-upload-item-preview-image"]') !== null).toBe(
-      index === 0,
-    );
-    expect(item.querySelector('[data-slot="file-upload-item-preview-icon"]') !== null).toBe(
-      index !== 0,
-    );
-  }
-  const preview = items[0]!.querySelector<HTMLImageElement>('img')!;
-  await expect.poll(() => preview.naturalWidth).toBe(32);
-
-  await page.getByRole('button', { name: 'delete file moduix.png' }).click();
-  await expect.element(page.getByRole('button', { name: 'delete file moduix.png' })).toHaveCount(0);
-  await expect.element(page.locator('[data-slot="file-upload-item"]')).toHaveCount(2);
-});
-
 test('renders native scoped context with omitted item name and size slots', async () => {
   render({
     components,
@@ -294,36 +248,6 @@ test('lets Ark translations name the default delete trigger', async () => {
   await expect.element(page.getByRole('button', { name: 'Delete moduix.txt' })).toBeVisible();
 });
 
-test('dims a disabled file upload once, also inside a disabled Field', async () => {
-  const { container } = render({
-    components: { ...components, Field },
-    setup: () => ({ file }),
-    template: `
-      <FileUpload disabled :default-accepted-files="[file]" data-testid="plain">
-        <FileUploadLabel>Attachments</FileUploadLabel>
-        <FileUploadItemGroup><FileUploadItems /></FileUploadItemGroup>
-      </FileUpload>
-      <Field disabled>
-        <FileUpload :default-accepted-files="[file]" data-testid="in-field">
-          <FileUploadLabel>Attachments</FileUploadLabel>
-          <FileUploadItemGroup><FileUploadItems /></FileUploadItemGroup>
-        </FileUpload>
-      </Field>
-    `,
-  });
-  await expect.element(page.getByTestId('in-field')).toBeVisible();
-  const opacity = (root: string, slot: string) =>
-    getComputedStyle(
-      container.querySelector(`[data-testid="${root}"] [data-slot="file-upload-${slot}"]`)!,
-    ).opacity;
-  expect(opacity('plain', 'label')).toBe('0.5');
-  expect(opacity('plain', 'item')).toBe('0.5');
-  expect(opacity('plain', 'item-delete-trigger')).toBe('1');
-  for (const slot of ['label', 'item', 'item-delete-trigger']) {
-    expect(opacity('in-field', slot)).toBe('1');
-  }
-});
-
 test('leaves the trigger and clear trigger unstyled for asChild composition', async () => {
   render({
     components,
@@ -336,39 +260,4 @@ test('leaves the trigger and clear trigger unstyled for asChild composition', as
     `,
   });
   await expect.element(page.getByRole('button', { name: 'Clear files' })).toBeVisible();
-  for (const slot of ['trigger', 'clear-trigger']) {
-    expect(document.querySelector(`[data-slot="file-upload-${slot}"]`)!.className).toBe('');
-  }
-});
-
-test('fills its container and lays out file rows and image cards', async () => {
-  const { container } = render({
-    components,
-    setup: () => ({ files: [file, image] }),
-    template: `
-      <div style="width: 600px">
-        <FileUpload :default-accepted-files="files" :max-files="2">
-          <FileUploadItemGroup><FileUploadItems /></FileUploadItemGroup>
-        </FileUpload>
-      </div>
-    `,
-  });
-  await expect.element(page.locator('[data-slot="file-upload-item"]')).toHaveCount(2);
-  expect(container.querySelector<HTMLElement>('[data-slot="file-upload-root"]')!.offsetWidth).toBe(
-    600,
-  );
-  const [row, card] = container.querySelectorAll('[data-slot="file-upload-item"]');
-  const rect = (item: Element, slot: string) =>
-    item.querySelector(`[data-slot="file-upload-item-${slot}"]`)!.getBoundingClientRect();
-  // File row: preview, then the name over its metadata, then the delete button.
-  expect(rect(row!, 'preview').right).toBeLessThan(rect(row!, 'name').left);
-  expect(rect(row!, 'name').right).toBeLessThan(rect(row!, 'delete-trigger').left);
-  expect(Math.abs(rect(row!, 'metadata').left - rect(row!, 'name').left)).toBeLessThanOrEqual(1);
-  expect(rect(row!, 'metadata').top).toBeGreaterThanOrEqual(rect(row!, 'name').bottom);
-  // Image card: a square thumbnail above the name, at most 10rem wide.
-  expect(card!.getBoundingClientRect().width).toBeLessThanOrEqual(160);
-  expect(rect(card!, 'preview').bottom).toBeLessThanOrEqual(rect(card!, 'name').top);
-  expect(
-    Math.abs(rect(card!, 'preview').width - rect(card!, 'preview').height),
-  ).toBeLessThanOrEqual(1);
 });

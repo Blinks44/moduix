@@ -5,7 +5,7 @@
     gap: var(--moduix-switch-gap, var(--moduix-spacing-2));
     width: fit-content;
     vertical-align: middle;
-    color: var(--moduix-color-foreground);
+    color: var(--moduix-foreground);
     cursor: pointer;
 
     &[data-disabled],
@@ -23,33 +23,35 @@
     flex: none;
     width: 2.75rem;
     height: var(--moduix-size-xs);
-    border: var(--moduix-border-width-sm) solid
-      var(--moduix-switch-border-color, var(--moduix-color-border));
+    border: var(--moduix-border-width-sm) solid var(--moduix-switch-border-color, transparent);
     border-radius: var(--moduix-radius-full);
-    background-color: var(--moduix-switch-bg, var(--moduix-color-muted));
+    background-color: var(
+      --moduix-switch-bg,
+      color-mix(in oklab, var(--moduix-input) 40%, var(--moduix-background))
+    );
     user-select: none;
     transition:
       background-color var(--moduix-transition-default),
       border-color var(--moduix-transition-default);
 
     &[data-state='checked'] {
-      border-color: var(--moduix-switch-bg-checked, var(--moduix-color-primary));
-      background-color: var(--moduix-switch-bg-checked, var(--moduix-color-primary));
+      border-color: var(--moduix-switch-bg-checked, var(--moduix-primary));
+      background-color: var(--moduix-switch-bg-checked, var(--moduix-primary));
     }
 
     &[data-focus-visible] {
-      outline: var(--moduix-focus-ring-inset-width) solid var(--moduix-color-ring);
+      outline: var(--moduix-focus-ring-inset-width) solid var(--moduix-ring);
       outline-offset: var(--moduix-border-width-sm);
     }
 
     &[data-invalid] {
-      border-color: var(--moduix-color-destructive);
-      outline-color: var(--moduix-color-destructive);
+      border-color: var(--moduix-destructive);
+      outline-color: var(--moduix-destructive);
     }
 
     @media (hover: hover) {
       &[data-state='unchecked'][data-hover]:not([data-readonly], [data-disabled]) {
-        background-color: var(--moduix-color-accent);
+        background-color: color-mix(in oklab, var(--moduix-input) 55%, var(--moduix-background));
       }
     }
   }
@@ -85,8 +87,8 @@
     height: calc(100% - var(--moduix-spacing-0-5) * 2);
     aspect-ratio: 1;
     border-radius: var(--moduix-radius-full);
-    background-color: var(--moduix-switch-thumb-bg, var(--moduix-color-background));
-    color: var(--moduix-color-muted);
+    background-color: var(--moduix-switch-thumb-bg, white);
+    color: var(--moduix-muted-foreground);
     box-shadow: var(--moduix-shadow-sm);
     translate: 0 -50%;
     transition:
@@ -97,8 +99,8 @@
 
     &[data-state='checked'] {
       inset-inline-start: calc(100% - var(--moduix-spacing-0-5));
-      background-color: var(--moduix-switch-thumb-bg, var(--moduix-color-primary-foreground));
-      color: var(--moduix-color-primary);
+      background-color: var(--moduix-switch-thumb-bg, var(--moduix-primary-foreground));
+      color: var(--moduix-primary);
       translate: -100% -50%;
 
       &[dir='rtl'] {

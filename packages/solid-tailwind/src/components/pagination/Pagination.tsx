@@ -98,7 +98,7 @@ function PaginationPrevTrigger(props: ComponentProps<typeof PaginationPrimitive.
         'cursor-pointer gap-2 border border-border bg-background px-3 whitespace-nowrap text-foreground no-underline select-none',
         'focus-visible:outline-focus focus-visible:outline-offset-focus-inset focus-visible:outline-ring disabled:pointer-events-none disabled:opacity-disabled data-disabled:pointer-events-none data-disabled:opacity-disabled',
         '[&_svg]:size-4 [&_svg]:shrink-0 [@media(hover:hover)]:hover:bg-accent',
-        resolvedChildren() == null && 'px-0 [&:dir(rtl)]:[&_svg]:-scale-x-100',
+        resolvedChildren() == null && !local.asChild && 'px-0 [&:dir(rtl)]:[&_svg]:-scale-x-100',
         local.class,
       )}
       {...others}
@@ -121,7 +121,7 @@ function PaginationNextTrigger(props: ComponentProps<typeof PaginationPrimitive.
         'cursor-pointer gap-2 border border-border bg-background px-3 whitespace-nowrap text-foreground no-underline select-none',
         'focus-visible:outline-focus focus-visible:outline-offset-focus-inset focus-visible:outline-ring disabled:pointer-events-none disabled:opacity-disabled data-disabled:pointer-events-none data-disabled:opacity-disabled',
         '[&_svg]:size-4 [&_svg]:shrink-0 [@media(hover:hover)]:hover:bg-accent',
-        resolvedChildren() == null && 'px-0 [&:dir(rtl)]:[&_svg]:-scale-x-100',
+        resolvedChildren() == null && !local.asChild && 'px-0 [&:dir(rtl)]:[&_svg]:-scale-x-100',
         local.class,
       )}
       {...others}
@@ -144,7 +144,7 @@ function PaginationFirstTrigger(props: ComponentProps<typeof PaginationPrimitive
         'cursor-pointer gap-2 border border-border bg-background px-3 whitespace-nowrap text-foreground no-underline select-none',
         'focus-visible:outline-focus focus-visible:outline-offset-focus-inset focus-visible:outline-ring disabled:pointer-events-none disabled:opacity-disabled data-disabled:pointer-events-none data-disabled:opacity-disabled',
         '[&_svg]:size-4 [&_svg]:shrink-0 [@media(hover:hover)]:hover:bg-accent',
-        resolvedChildren() == null && 'px-0 [&:dir(rtl)]:[&_svg]:-scale-x-100',
+        resolvedChildren() == null && !local.asChild && 'px-0 [&:dir(rtl)]:[&_svg]:-scale-x-100',
         local.class,
       )}
       {...others}
@@ -167,7 +167,7 @@ function PaginationLastTrigger(props: ComponentProps<typeof PaginationPrimitive.
         'cursor-pointer gap-2 border border-border bg-background px-3 whitespace-nowrap text-foreground no-underline select-none',
         'focus-visible:outline-focus focus-visible:outline-offset-focus-inset focus-visible:outline-ring disabled:pointer-events-none disabled:opacity-disabled data-disabled:pointer-events-none data-disabled:opacity-disabled',
         '[&_svg]:size-4 [&_svg]:shrink-0 [@media(hover:hover)]:hover:bg-accent',
-        resolvedChildren() == null && 'px-0 [&:dir(rtl)]:[&_svg]:-scale-x-100',
+        resolvedChildren() == null && !local.asChild && 'px-0 [&:dir(rtl)]:[&_svg]:-scale-x-100',
         local.class,
       )}
       {...others}

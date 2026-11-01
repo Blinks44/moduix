@@ -1,96 +1,46 @@
 ---
 title: Aspect Ratio
 component: aspect-ratio
-description: Keeps media and embedded content inside a responsive frame with a fixed aspect ratio.
+description: Keep images, video, and embeds at a fixed width-to-height ratio.
+ark: https://ark-ui.com/docs/guides/composition#the-ark-factory
 ---
 
+import AnatomyScene from '@/components/examples/aspect-ratio/basic';
 
+<Example name="aspect-ratio/basic" />
 
-## API Reference
+## Installation
 
-Ark UI does not ship a dedicated `aspect-ratio` primitive. moduix builds this component with the official
-[Ark factory](https://ark-ui.com/docs/guides/composition#the-ark-factory) and follows Ark's guidance for
-[composition](https://ark-ui.com/docs/guides/composition), [styling](https://ark-ui.com/docs/guides/styling), and
-[refs](https://ark-ui.com/docs/guides/ref).
+<ComponentInstall />
 
-Import `AspectRatio` from the matching runtime and styling package: `@moduix/react/aspect-ratio`,
-`@moduix/solid/aspect-ratio`, or `@moduix/vue/aspect-ratio` for CSS Modules, and the corresponding
-`@moduix/react-tailwind/aspect-ratio`, `@moduix/solid-tailwind/aspect-ratio`, or
-`@moduix/vue-tailwind/aspect-ratio` subpath for Tailwind.
+## Usage
 
-## Basic
-
+<Usage />
 
 Use `AspectRatio` as the root for a responsive frame. It fills the width of its containing block by default.
 Add `width` or `max-width` to the root when the frame needs a different size, then pass the width-to-height
 ratio to `ratio`. It defaults to `1`; a missing or invalid value (zero, negative, `NaN`, `Infinity`) falls back to `1`.
 
-`AspectRatio` owns only the ratio layout. Size and style its children explicitly-for example, apply full width,
+`AspectRatio` handles only the ratio layout. Size and style its children explicitly-for example, apply full width,
 full height, and `object-fit` to an image. Put clipping and border radius on the root when the composition needs
 them.
 
-<Example name="aspect-ratio/basic" />
-
-## Install with shadcn
-
-See [Quick Start](/docs/quick-start) for full package setup, registry configuration, and styling guidance.
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/aspect-ratio' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/aspect-ratio' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/aspect-ratio' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/aspect-ratio' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/aspect-ratio' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/aspect-ratio' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Anatomy
-
-```text
-AspectRatio
-└─ media | iframe | canvas | svg | custom content
-```
-
-| Part         | Role                        |
-| ------------ | --------------------------- |
-| `AspectRatio` | Responsive ratio container. |
-
-## Composition
-
-`AspectRatio` is presentational and owns no state. The component has one root part and
-no child parts to combine. Use `asChild` only when another semantic element must own the rendered root, and provide
-exactly one child in React or the Solid render-function form shown in Advanced customization. Vue uses the
-`as-child` attribute with a single child element. Child sizing,
-fitting, borders, radius, and clipping remain owned by the application.
-
-In Solid, assign a ref to the element created inside the `asChild` render function. A ref on
-`AspectRatio` itself is not forwarded through that composition path.
-
 ## Examples
+
+### Common ratios
+
+Pass the width divided by height to `ratio`: `1` for a square avatar or thumbnail, `4 / 3` for photos,
+and `16 / 9` for video.
+
+<Example name="aspect-ratio/common-ratios" />
+
+### Responsive ratio
+
+Set the ratio for small screens with `ratio`, then override `aspect-ratio` in your own class inside a
+media query. The class wins over the component style, so this frame is square on phones and 21:9 from
+40rem.
+
+<Example name="aspect-ratio/responsive-ratio" />
 
 ### Card layouts
 
@@ -105,6 +55,13 @@ Wrap a video or another embed in `AspectRatio` to keep the frame stable while ex
 
 <Example name="aspect-ratio/embedded-content" />
 
+### Custom element
+
+Use `asChild` when another semantic element, such as `figure`, should be the rendered root. Ark merges the
+component props into its only child element.
+
+<Example name="aspect-ratio/custom-element" />
+
 ### Migrating from shadcn
 
 If you are migrating from shadcn, put width, clipping, and radius classes on `AspectRatio`, and size the media
@@ -112,21 +69,53 @@ inside it explicitly. The same root setup also works with Next.js `Image` using 
 
 <Example name="aspect-ratio/migrating-from-shadcn" />
 
-### Advanced customization
+## Composition
 
-Use `asChild` when another semantic element, such as `figure`, should be the rendered root. Ark merges the
-component props into its only child element.
+Import `AspectRatio` from the matching runtime and styling package: `@moduix/react/aspect-ratio`,
+`@moduix/solid/aspect-ratio`, or `@moduix/vue/aspect-ratio` for CSS Modules, and the corresponding
+`@moduix/react-tailwind/aspect-ratio`, `@moduix/solid-tailwind/aspect-ratio`, or
+`@moduix/vue-tailwind/aspect-ratio` subpath for Tailwind.
 
-<Example name="aspect-ratio/advanced-customization" />
+`AspectRatio` is presentational and has no state. The component has one root part and
+no child parts to combine. Use `asChild` only when another semantic element must own the rendered root, and provide
+exactly one child in React or the Solid render-function form shown in Custom Element. Vue uses the
+`as-child` attribute with a single child element. Child sizing,
+fitting, borders, radius, and clipping remain up to the application.
+
+In Solid, assign a ref to the element created inside the `asChild` render function. A ref on
+`AspectRatio` itself is not forwarded through that composition path.
+
+## Anatomy
+
+Hover or focus a part to find it in the preview.
+
+<AnatomyInspector
+  parts={[
+    ["AspectRatio", "aspect-ratio-root", "Responsive ratio container.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styling
 
 ### Styling hooks
 
+| Part | `data-slot` |
+| --- | --- |
+| `AspectRatio` | `aspect-ratio-root` |
+
 - `data-scope="aspect-ratio"` and `data-part="root"` are Ark-aligned hooks on the root.
-- `data-slot="aspect-ratio-root"` is the stable moduix root hook.
 - Put width, max-width, and layout styles on the root. Override `aspect-ratio` in your own CSS when the frame
   needs a different ratio at a particular breakpoint.
 - The component does not style its children. Apply media sizing and `object-fit` directly to the child.
 - Content taller than the frame does not stretch it; it overflows. Add `overflow: hidden` and a border radius to
   the root when the composition needs clipping.
+
+## API reference
+
+Also accepts the native props of its element and `asChild`.
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `ratio` | `number` | `1` | Width divided by height, for example `16 / 9`. |

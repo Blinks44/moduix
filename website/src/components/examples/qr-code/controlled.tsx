@@ -1,15 +1,15 @@
 import { Button } from '@moduix/react/button';
 import { QrCode, QrCodeFrame, QrCodePattern } from '@moduix/react/qr-code';
+import { Stack } from '@moduix/react/stack';
 import { useState } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';
-import styles from '@/components/examples/qr-code/component-controlled.module.css';
 
 const destinations = ['https://ark-ui.com', 'https://moduix.dev'];
 
 export default function ControlledQrCodeDemo() {
   const [value, setValue] = useState('https://ark-ui.com');
   return (
-    <div className={styles.stack}>
+    <Stack align="center" gap="3">
       <QrCode value={value} onValueChange={(details) => setValue(details.value)}>
         <QrCodeFrame>
           <QrCodePattern />
@@ -28,6 +28,6 @@ export default function ControlledQrCodeDemo() {
           </Button>
         ))}
       </PreviewMeta>
-    </div>
+    </Stack>
   );
 }

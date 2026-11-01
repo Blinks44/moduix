@@ -16,7 +16,7 @@ defineSlots<{ default?: () => unknown }>();
 
 const attrs = useAttrs();
 const controlClass =
-  'group flex min-h-control-md w-full flex-wrap items-center gap-1 rounded-md border border-border bg-background px-2 py-[0.3125rem] outline-focus-inset outline-offset-focus-inset outline-transparent transition-[border-color,outline-color] duration-normal ease-in-out data-disabled:pointer-events-none data-focus:outline-ring data-invalid:border-destructive data-invalid:data-focus:outline-destructive';
+  'group flex min-h-control-md w-full flex-wrap items-center gap-1 rounded-md border border-input bg-background px-2 py-[0.3125rem] outline-focus-halo outline-transparent transition-[border-color,outline-color] duration-normal ease-in-out data-disabled:pointer-events-none data-focus:outline-ring/50 data-focus:border-ring data-invalid:border-destructive data-invalid:data-focus:outline-destructive/20';
 </script>
 
 <template>

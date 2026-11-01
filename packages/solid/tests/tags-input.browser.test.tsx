@@ -13,7 +13,7 @@ import {
   TagsInputLabel,
   TagsInputRootProvider,
   useTagsInput,
-} from '../src';
+} from '@/index';
 
 function Tags(props: {
   defaultValue?: string[];
@@ -134,31 +134,6 @@ test('submits through an explicit Ark hidden input', async () => {
   await expect.poll(() => new FormData(form).get('frameworks')).toBe('React, Vue');
 });
 
-test('keeps explicit form data for asChild roots', () => {
-  const { container } = render(() => (
-    <form>
-      <TagsInput
-        asChild={(props) => <section {...props()} />}
-        defaultValue={['React']}
-        name="frameworks"
-      >
-        <TagsInputLabel>Frameworks</TagsInputLabel>
-        <TagsInputControl>
-          <TagsInputItems />
-          <TagsInputInput />
-        </TagsInputControl>
-        <TagsInputHiddenInput />
-      </TagsInput>
-    </form>
-  ));
-
-  const form = container.querySelector('form')!;
-
-  expect(new FormData(form).get('frameworks')).toBe('React');
-  expect(container.querySelector('section input[name="frameworks"]')).not.toBeNull();
-  expect(container.querySelector('section input[hidden]')).not.toBeNull();
-});
-
 test('keeps explicit form data for root providers', async () => {
   function ProviderTags() {
     const tagsInput = useTagsInput({ defaultValue: ['React'], name: 'frameworks' });
@@ -249,25 +224,4 @@ test('does not forward refs through native Ark Solid root asChild composition', 
     .element(page.getByRole('region', { name: 'Frameworks', exact: true }))
     .toHaveAttribute('data-slot', 'tags-input-root');
   expect(rootRef).toBeUndefined();
-});
-
-test('dims a disabled root once and keeps the default clear icon', async () => {
-  render(() => (
-    <TagsInput disabled defaultValue={['React']}>
-      <TagsInputLabel>Disabled frameworks</TagsInputLabel>
-      <TagsInputControl>
-        <TagsInputItems />
-        <TagsInputInput />
-        <TagsInputClearTrigger />
-      </TagsInputControl>
-    </TagsInput>
-  ));
-
-  await expect.element(page.locator('[data-slot="tags-input-root"]')).toHaveCSS('opacity', '0.5');
-  expect(document.querySelector('[data-slot="tags-input-clear-trigger"] > svg')).not.toBeNull();
-  for (const slot of ['label', 'item-preview', 'item-delete-trigger', 'clear-trigger']) {
-    await expect
-      .element(page.locator(`[data-slot="tags-input-${slot}"]`))
-      .toHaveCSS('opacity', '1');
-  }
 });

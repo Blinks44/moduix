@@ -1,6 +1,6 @@
 ---
 title: Patrons de composition
-description: Composez les parties Moduix dans tous les frameworks sans masquer le comportement d’Ark ni les choix du produit.
+description: Composez les parties moduix dans tous les frameworks sans masquer le comportement d’Ark ni les choix du produit.
 ---
 
 import reactAsChild from '../../../snippets/composition-patterns/react/as-child.tsx?raw';
@@ -15,7 +15,7 @@ import VueProductDialogHelper from '../../../snippets/composition-patterns/vue/p
 
 # Patrons de composition
 
-Moduix conserve le modèle explicite des parties d’Ark. Commencez par les parties fournies,
+moduix conserve le modèle explicite des parties d’Ark. Commencez par les parties fournies,
 réexportez-les pour stabiliser les imports du produit et n’ajoutez un wrapper que pour une décision
 répétée du produit.
 
@@ -26,7 +26,7 @@ ci-dessous ne séparent que les mécanismes propres au framework.
 
 | Besoin | Point de départ |
 | --- | --- |
-| Comportement standard | Parties Moduix fournies |
+| Comportement standard | Parties moduix fournies |
 | Imports locaux du produit | Réexportations directes |
 | Règle visuelle ou structurelle répétée | Wrapper ciblé autour de la partie responsable |
 | État hors de l’arbre rendu | `use<Component>()` avec `<Family>RootProvider` |
@@ -158,7 +158,23 @@ Préservez les propriétés d’origine, la référence, la classe du consommate
 Un data-attribut du produit convient à une règle locale ; copier les styles internes du composant ne
 convient pas.
 
-## Déplacer l’état avec sa responsabilité
+## Contrôler l’état depuis l’application {#controlled-state}
+
+Les composants avec état gèrent cet état eux-mêmes par défaut. Passez la prop d’état et son callback
+lorsque l’application doit lire ou définir cet état, par exemple depuis des filtres, le routage ou un
+autre composant.
+
+| Framework | Méthode |
+| --- | --- |
+| React | Gardez l’état dans `useState`, passez `value={value}` et `onValueChange={(details) => setValue(details.value)}`. |
+| Solid | Gardez l’état dans `createSignal`, passez `value={value()}` et `onValueChange={(details) => setValue(details.value)}`. |
+| Vue | Liez `v-model` pour `value`, ou `v-model:open`, `v-model:checked` et similaires pour les autres props d’état. |
+
+Le nom du callback suit la prop : `value` et `onValueChange`, `open` et `onOpenChange`, `checked` et
+`onCheckedChange`. Lisez le nouvel état dans l’objet details (`details.value`, `details.open`).
+La référence API de chaque page de composant liste ses props d’état.
+
+## Partager l’état hors de l’arbre {#root-provider}
 
 Utilisez `DialogContext` pour une lecture ponctuelle dans l’arbre et `useDialogContext()` dans un descendant
 réutilisable. Créez l’état avec `useDialog()` et reliez-le à `DialogRootProvider` uniquement lorsque

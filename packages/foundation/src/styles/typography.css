@@ -1,8 +1,8 @@
 :root {
   /* Font-family */
   --moduix-font-sans:
-    'Noto Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
-    'Segoe UI Symbol', 'Noto Color Emoji';
+    ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol',
+    'Noto Color Emoji';
   --moduix-font-mono:
     ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New',
     monospace;
@@ -30,8 +30,4 @@
   --moduix-line-height-text-xl: 28px;
   --moduix-line-height-text-2xl: 32px;
   --moduix-line-height-text-3xl: 36px;
-
-  /* Letter-spacing */
-  --moduix-tracking-text-sm: -0.01em; /* -1% */
-  --moduix-tracking-text-xs: -0.016em; /* -1.6% */
 }

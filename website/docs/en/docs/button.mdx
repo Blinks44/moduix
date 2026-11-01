@@ -1,93 +1,36 @@
 ---
 title: Button
 component: button
-description: A styled single-part action control for React, Solid, and Vue, with CSS Modules and Tailwind packages.
+description: Trigger an action or follow a link with accessible button styles.
+ark: https://ark-ui.com/docs/guides/composition
 ---
 
+import { Button } from '@moduix/react/button';
 import * as ButtonDocs from '@/components/examples/button/css-properties';
-
-## API Reference
-
-Ark UI does not provide a dedicated `button` primitive. moduix builds this component with the official
-[Ark factory](https://ark-ui.com/docs/guides/composition#the-ark-factory) and follows Ark's guidance for
-[composition](https://ark-ui.com/docs/guides/composition), [styling](https://ark-ui.com/docs/guides/styling), and
-[refs](https://ark-ui.com/docs/guides/ref).
-
-## Basic
-
-For most actions, use `<Button>...</Button>`.
 
 <Example name="button/basic" />
 
-## Install with shadcn
+## Installation
 
-See [Quick Start](/docs/quick-start) for full package setup, registry configuration, and styling guidance.
+<ComponentInstall />
 
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
+## Usage
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/button' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/button' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/button' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/button' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/button' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/button' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Anatomy
-
-`Button` has a single part.
-
-```text
-Button
-└─ root[data-scope="button"][data-part="root"][data-slot="button-root"]
-   └─ children
-```
-
-| Part     | Role                                                |
-| -------- | --------------------------------------------------- |
-| `Button` | Single interactive root element with moduix styles. |
-
-## Composition
-
-`Button` is a single-part root. Use `asChild` when another semantic element should own the rendered DOM node:
-React passes exactly one child, Solid uses an `asChild` render function, and Vue supplies its semantic element as
-the default slot child. When an Ark part composes Button, the parent keeps ownership of `data-scope` and `data-part`;
-Button keeps its recipe classes and stable `data-slot`.
-
-The `loading` prop owns only busy and disabled state (`data-loading`, `aria-busy`, and `data-disabled`); your
-application owns the spinner, label, and async lifecycle. Native roots default to `type="button"`, while
-`asChild` targets do not receive that default.
+<Usage />
 
 ## Examples
 
-### Disabled
+### Variants
 
-Use `disabled` with native buttons and elements used with `asChild`.
+Use variants to communicate an action's priority and intent.
 
-<Example name="button/disabled" />
+<Example name="button/variants" />
+
+### Sizes
+
+Text and icon-only buttons use the same root API.
+
+<Example name="button/sizes" />
 
 ### Icons
 
@@ -95,18 +38,24 @@ Icons can appear before or after the label. Their order in JSX and the Button ro
 
 <Example name="button/icons" />
 
-### Link with `asChild`
+### Disabled
 
-Use `asChild` for navigation so the anchor keeps its link semantics while using button styles.
+Use `disabled` with native buttons and elements used with `asChild`.
 
-<Example name="button/as-child-link" />
+<Example name="button/disabled" />
 
-### Loading State
+### Loading state
 
 Use `loading` to expose the busy state while keeping the label, spinner, and async lifecycle explicit in your
 application code. It also prevents click activation on elements used with `asChild`.
 
 <Example name="button/pending-state" />
+
+### Link with `asChild`
+
+Use `asChild` for navigation so the anchor keeps its link semantics while using button styles.
+
+<Example name="button/as-child-link" />
 
 ### Ref
 
@@ -117,17 +66,24 @@ rendered root, which is the semantic child when using `asChild`.
 
 <Example name="button/ref" />
 
-### Sizes
+## Composition
 
-Text and icon-only buttons use the same root API.
+`Button` is a single-part root built with the [Ark factory](https://ark-ui.com/docs/guides/composition#the-ark-factory).
+Use `asChild` when another semantic element should own the rendered DOM node: React passes exactly one child,
+Solid uses an `asChild` render function, and Vue supplies its semantic element as the default slot child. When an
+Ark part composes Button, the parent keeps its own `data-scope` and `data-part`; Button keeps its recipe
+classes and stable `data-slot`.
 
-<Example name="button/sizes" />
+The `loading` prop sets only busy and disabled state; your application controls the spinner, label, and async
+lifecycle. Native roots default to `type="button"`, while `asChild` targets do not receive that default.
 
-### Variants
+## Anatomy
 
-Use variants to communicate an action's priority and intent.
+`Button` has a single part. Hover or focus a part to find it in the preview.
 
-<Example name="button/variants" />
+<AnatomyInspector parts={[['Button', 'button-root', 'Single interactive root element with moduix styles.']]}>
+  <Button>Button</Button>
+</AnatomyInspector>
 
 ## Styling
 
@@ -136,22 +92,46 @@ variables on the button through a class or inline style. To theme one variant ac
 set the same variables on `[data-slot='button-root'][data-variant='<variant>']`. These CSS variables
 apply to the CSS Modules packages; Tailwind packages use native utilities and consumer classes instead.
 
-Use `className` in React or `class` in Solid and Vue on the root. State attributes and `data-slot` hooks are
-shared by both styling tracks.
+### CSS variables
 
-### CSS Properties
+Grouped by what they change. Hover or focus a variable to see it on the button. Move the controls to try
+values and copy the resulting CSS.
 
-<CssPropertiesSection properties={ButtonDocs.buttonCssProperties} />
+<CssPropertiesSection
+  properties={ButtonDocs.buttonCssProperties}
+  controls={ButtonDocs.buttonControls}
+>
+  <Button>Button</Button>
+</CssPropertiesSection>
 
 ### Styling hooks
 
-- `data-slot="button-root"` is the stable moduix selector.
-- Standalone roots default to `data-scope="button"` and `data-part="root"`. A composing Ark parent may replace
-  them with its own anatomy values.
-- `data-variant` and `data-size` reflect the active visual recipe.
-- `data-disabled` is present for native `disabled`, `aria-disabled="true"`, and `loading`.
-- `data-loading` is present when `loading={true}`.
-- `[data-disabled]` drives disabled visuals for native `disabled`, `aria-disabled="true"`, and `loading`.
-- Standalone Button roots move down by 1px when pressed. Link variants, popup triggers with `aria-haspopup`,
-  composed parts with another `data-slot`, and reduced-motion preferences omit this movement.
-  InputGroupButton and SplitButton stay stationary; hover, focus, and opacity feedback remain available.
+Use `className` in React or `class` in Solid and Vue on the root. These attributes are shared by both
+styling tracks.
+
+| Attribute                 | Present when                                                   |
+| ------------------------- | -------------------------------------------------------------- |
+| `data-slot="button-root"` | Always. The stable moduix selector.                            |
+| `data-scope`, `data-part` | `button` and `root` on a standalone root; a composing Ark parent replaces them. |
+| `data-variant`            | Always. Reflects the `variant` prop.                           |
+| `data-size`               | Always. Reflects the `size` prop.                              |
+| `data-loading`            | `loading` is `true`.                                           |
+| `data-disabled`           | `disabled`, `aria-disabled="true"`, or `loading`.              |
+
+A standalone Button moves down by 1px when pressed. Link variants, popup triggers with `aria-haspopup`,
+composed parts with another `data-slot`, and reduced-motion preferences omit this movement.
+
+## Keyboard
+
+Native buttons keep browser keyboard behavior, and an `asChild` link keeps the behavior of the
+rendered element. Give icon-only buttons an accessible name.
+
+## API reference
+
+| Prop       | Type            | Default     | Description |
+| ---------- | --------------- | ----------- | --- |
+| `variant`  | `ButtonVariant` | `'default'` | Visual style: `default`, `outline`, `secondary`, `destructive`, `destructive-outline`, `ghost`, or `link`. |
+| `size`     | `ButtonSize`    | `'md'`      | `xs`, `sm`, `md`, `lg`, `xl`, or a square `icon-sm`, `icon-md`, `icon-lg` for icon-only buttons. |
+| `loading`  | `boolean`       | `false`     | Sets `aria-busy` and blocks activation. Render your own `Spinner` inside. |
+| `asChild`  | `boolean`       | `false`     | Applies Button styles and props to its single child, for example a link. |
+| `disabled` | `boolean`       | `false`     | Disables the button. |

@@ -1,7 +1,7 @@
 import { expect, test } from '@rstest/core';
 import { render, screen } from '@solidjs/testing-library';
 import { createSignal } from 'solid-js';
-import { Highlight } from '../src';
+import { Highlight } from '@/index';
 
 test('renders matched text as styled marks without a wrapper', () => {
   const { container } = render(() => (

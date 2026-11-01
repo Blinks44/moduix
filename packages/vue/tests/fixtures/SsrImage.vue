@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Image, ImageSource } from '../../src/components/image';
+import { Image, ImageSource } from '@/components/image';
 
 const imageUrl = 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4';
 </script>

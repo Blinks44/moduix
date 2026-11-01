@@ -1,12 +1,24 @@
 ---
 title: Field
 component: field
-description: Доступный контекст поля формы для React, Solid и Vue с вариантами пакетов CSS Modules и Tailwind.
+description: Связывает подпись, подсказку и ошибку с одним полем формы.
+ark: https://ark-ui.com/docs/components/field
 ---
 
-## Справочник API
+import AnatomyScene from '@/components/examples/field/basic';
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/field" />
+<Example name="field/basic" />
+
+## Установка
+
+<ComponentInstall />
+
+## Использование
+
+<Usage />
+
+Используйте `Field` как оболочку для одного элемента управления формы. Разместите `FieldLabel` перед
+ним, а затем при необходимости добавьте `FieldHelperText` или `FieldErrorText`.
 
 ## Какой компонент выбрать
 
@@ -17,79 +29,83 @@ description: Доступный контекст поля формы для Reac
 - Выбирайте **`Fieldset`**, когда нескольким связанным элементам управления нужен общий заголовок группы.
 - Используйте элемент управления отдельно, если связи ARIA на уровне поля и общее состояние не нужны.
 
-## Базовый пример
+## Примеры
 
+### Невалидное состояние
 
-Используйте `Field` как оболочку для одного элемента управления формы. Разместите `FieldLabel` перед
-ним, а затем при необходимости добавьте `FieldHelperText` или `FieldErrorText`.
+Устанавливайте `invalid` у корня, когда валидацией управляет состояние приложения или библиотека форм.
+Если составной дочерний компонент сам управляет валидацией, передайте свойство и ему.
 
-<Example name="field/basic" />
+<Example name="field/invalid" />
 
-## Установка через shadcn
+### Отключённое состояние
 
-Полную настройку пакета, реестра и стилей см. в разделе [Быстрый старт](/docs/quick-start).
+Установите `disabled` у корня, чтобы передать это состояние поддерживаемым частям поля Ark.
 
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
+<Example name="field/disabled" />
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/field' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/field' },
-  ]}
-/>
+### Только для чтения
 
-  </Tab>
-  <Tab label="Solid" value="solid">
+Установите `readOnly` у корня, если пользователь может скопировать значение, но не может его изменить.
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/field' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/field' },
-  ]}
-/>
+<Example name="field/read-only" />
 
-  </Tab>
-  <Tab label="Vue" value="vue">
+### Textarea
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/field' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/field' },
-  ]}
-/>
+Используйте `Textarea` для многострочного ввода, сохраняя связи поля с меткой, описанием и состоянием.
 
-  </Tab>
-</Tabs>
+<Example name="field/textarea" />
 
-## Анатомия
+### Select
 
-Публичный API `Field` использует плоские имена с префиксом семейства. `Field` не рисует собственный
-элемент ввода: поместите внутрь `Input`, `Textarea`, `NativeSelect` или другой элемент формы moduix, и он
-прочитает контекст поля.
+Используйте составной `Select`, когда нативного select недостаточно и нужен собственный список вариантов
+или интерфейс выбора. Поскольку `Select` управляет своим состоянием, передавайте `required`, `invalid`,
+`disabled` или `readOnly` в `Select`, когда состояние принадлежит ему.
 
-```text
-Field
-├─ FieldLabel
-├─ Input | Textarea | NativeSelect | another form control
-├─ FieldHelperText
-├─ FieldErrorText
-└─ FieldRequiredIndicator
+<Example name="field/select" />
 
-FieldRootProvider
-└─ то же дерево частей, подключённое к состоянию из useField()
-```
+### Нативный Select
 
-| Часть                     | Назначение                                                                                       |
-| ------------------------ | ------------------------------------------------------------------------------------------------- |
-| `Field`                  | Корневой контекст. По умолчанию рендерит `<div role="group">`.                                   |
-| `FieldRootProvider`     | Корень, использующий состояние `useField()`, созданное вне дерева компонентов.                  |
-| `FieldContext`          | Даёт доступ к текущему состоянию поля, не добавляя элемент в DOM.                                |
-| `FieldLabel`            | Доступная метка, связанная с текущим элементом управления.                                       |
-| `FieldHelperText`       | Поясняющий текст, связанный с элементом через `aria-describedby`.                                |
-| `FieldErrorText`        | Текст ошибки, который рендерится при состоянии корня `invalid`.                                  |
-| `FieldRequiredIndicator` | Визуальный маркер обязательного поля. С помощью `fallback` можно заменить маркер по умолчанию.  |
-| `FieldItem`             | Вложенный контекст для группового элемента с `value`; ref указывает на локальную обёртку строки. |
+Используйте `NativeSelect` для нативного select браузера. `Field` связывает его с меткой поля,
+состоянием и описанием.
+
+<Example name="field/native-select" />
+
+### Checkbox
+
+Используйте `Field` вокруг флажка, если ему нужны поясняющий текст или сообщение об ошибке на уровне
+поля. Передавайте в `Checkbox` его собственные свойства состояния и формы.
+
+<Example name="field/checkbox" />
+
+### RadioGroup
+
+Используйте `Field` с `RadioGroup`, когда одна метка поля, поясняющий текст или сообщение об ошибке
+должны описывать весь набор вариантов, а не отдельные radio. Передавайте в `RadioGroup` его собственные
+свойства состояния.
+
+<Example name="field/radiogroup" />
+
+### Управляемое состояние `invalid`
+
+Вычисляйте `invalid` из локального состояния, если валидация должна обновляться во время ввода. Текст
+ошибки появляется только пока поле находится в невалидном состоянии.
+
+<Example name="field/controlled-invalid" />
+
+### Целевой элемент
+
+Используйте `FieldItem` вместе с пропом `target` у корня, когда одна метка должна указывать на элемент
+управления внутри группы.
+
+<Example name="field/item-target" />
+
+### Root Provider
+
+Используйте `useField` вместе с `FieldRootProvider`, когда состояние поля нужно создать вне дерева
+рендера.
+
+<Example name="field/root-provider" />
 
 ## Композиция
 
@@ -105,83 +121,28 @@ FieldRootProvider
 в обработчике сброса формы. У Vue-компонентов `Input` и `NativeSelect` нет React-подобного свойства `defaultValue`.
 Сейчас Ark очищает нативные начальные значения этих элементов без модели; до исправления используйте `v-model`.
 
-## Примеры
+## Анатомия
 
-### Checkbox
+Публичный API `Field` использует плоские имена с префиксом семейства. `Field` не рисует собственный
+элемент ввода: поместите внутрь `Input`, `Textarea`, `NativeSelect` или другой элемент формы moduix, и он
+прочитает контекст поля.
 
-Используйте `Field` вокруг флажка, если ему нужны поясняющий текст или сообщение об ошибке на уровне
-поля. Передавайте в `Checkbox` его собственные свойства состояния и формы.
+Наведите на часть или выберите её, чтобы найти её в превью.
 
-<Example name="field/checkbox" />
-
-### Управляемое состояние `invalid`
-
-Вычисляйте `invalid` из локального состояния, если валидация должна обновляться во время ввода. Текст
-ошибки появляется только пока поле находится в невалидном состоянии.
-
-<Example name="field/controlled-invalid" />
-
-### Отключённое состояние
-
-Установите `disabled` у корня, чтобы передать это состояние поддерживаемым частям поля Ark.
-
-<Example name="field/disabled" />
-
-### Невалидное состояние
-
-Устанавливайте `invalid` у корня, когда валидацией управляет состояние приложения или библиотека форм.
-Если составной дочерний компонент сам управляет валидацией, передайте свойство и ему.
-
-<Example name="field/invalid" />
-
-### Целевой элемент
-
-Используйте `FieldItem` вместе с пропом `target` у корня, когда одна метка должна указывать на элемент
-управления внутри группы.
-
-<Example name="field/item-target" />
-
-### Нативный Select
-
-Используйте `NativeSelect` для нативного select браузера. `Field` связывает его с меткой поля,
-состоянием и описанием.
-
-<Example name="field/native-select" />
-
-### RadioGroup
-
-Используйте `Field` с `RadioGroup`, когда одна метка поля, поясняющий текст или сообщение об ошибке
-должны описывать весь набор вариантов, а не отдельные radio. Передавайте в `RadioGroup` его собственные
-свойства состояния.
-
-<Example name="field/radiogroup" />
-
-### Только для чтения
-
-Установите `readOnly` у корня, если пользователь может скопировать значение, но не может его изменить.
-
-<Example name="field/read-only" />
-
-### Root Provider
-
-Используйте `useField` вместе с `FieldRootProvider`, когда состояние поля нужно создать вне дерева
-рендера.
-
-<Example name="field/root-provider" />
-
-### Select
-
-Используйте составной `Select`, когда нативного select недостаточно и нужен собственный список вариантов
-или интерфейс выбора. Поскольку `Select` управляет своим состоянием, передавайте `required`, `invalid`,
-`disabled` или `readOnly` в `Select`, когда состояние принадлежит ему.
-
-<Example name="field/select" />
-
-### Textarea
-
-Используйте `Textarea` для многострочного ввода, сохраняя связи поля с меткой, описанием и состоянием.
-
-<Example name="field/textarea" />
+<AnatomyInspector
+  parts={[
+    ["Field", "field-root", "Корневой контекст. По умолчанию рендерит `<div role=\"group\">`.", 0],
+    ["FieldLabel", "field-label", "Доступная метка, связанная с текущим элементом управления.", 1],
+    ["FieldHelperText", "field-helper-text", "Поясняющий текст, связанный с элементом через `aria-describedby`.", 1],
+    ["FieldErrorText", "field-error-text", "Текст ошибки, который рендерится при состоянии корня `invalid`.", 1],
+    ["FieldRequiredIndicator", "field-required-indicator", "Визуальный маркер обязательного поля. С помощью `fallback` можно заменить маркер по умолчанию.", 1],
+    ["FieldItem", "field-item", "Вложенный контекст для группового элемента с `value`; ref указывает на локальную обёртку строки.", 1],
+    ["FieldRootProvider", "field-root-provider", "Корень, использующий состояние `useField()`, созданное вне дерева компонентов.", 0],
+    ["FieldContext", null, "Даёт доступ к текущему состоянию поля, не добавляя элемент в DOM.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Стилизация
 
@@ -197,8 +158,27 @@ FieldRootProvider
 
 ### Хуки стилизации
 
+| Часть | `data-slot` |
+| --- | --- |
+| `Field` | `field-root` |
+| `FieldRootProvider` | `field-root-provider` |
+| `FieldItem` | `field-item` |
+| `FieldLabel` | `field-label` |
+| `FieldHelperText` | `field-helper-text` |
+| `FieldErrorText` | `field-error-text` |
+| `FieldRequiredIndicator` | `field-required-indicator` |
+
 Ark добавляет `data-disabled`, `data-invalid`, `data-readonly` и `data-required` к соответствующим
-частям. `FieldErrorText` существует только пока текущий контекст поля находится в состоянии `invalid`.
-Идентификаторы поясняющего текста и активного сообщения об ошибке входят в `aria-describedby`
+частям. `FieldErrorText` существует только пока текущий контекст поля находится в состоянии `invalid`. Идентификаторы поясняющего текста и активного сообщения об ошибке входят в `aria-describedby`
 элемента управления. У каждой DOM-части также есть стабильный хук
 `data-slot="field-*"`.
+
+## Справочник API
+
+| Проп | Тип | По умолчанию | Описание |
+| --- | --- | --- | --- |
+| `disabled` | `boolean` | `false` | Отключает вложенный элемент управления и приглушает подпись. |
+| `readOnly` | `boolean` | `false` | Делает вложенный элемент только для чтения. |
+| `invalid` | `boolean` | `false` | Помечает поле невалидным и показывает `FieldErrorText`. |
+| `required` | `boolean` | `false` | Делает вложенный элемент обязательным и показывает индикатор. |
+| `asChild` | `boolean` | `false` | Отрисовывает корень через единственный дочерний элемент. |

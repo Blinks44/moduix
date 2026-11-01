@@ -13,6 +13,7 @@ import {
   CardMedia,
   CardTitle,
 } from '@/components/card/Card';
+import { Input } from '@/components/input';
 
 const cardClass = 'w-[min(24rem,calc(100vw-var(--spacing-8)))]';
 const gridClass = 'grid w-[min(28rem,calc(100vw-var(--spacing-8)))] gap-4';
@@ -175,17 +176,11 @@ export const WithinForm: Story = {
           <div className="grid gap-3">
             <label className="grid gap-1 font-medium text-foreground">
               First name
-              <input
-                className="min-w-0 rounded-md border border-input bg-transparent px-3 py-2"
-                name="firstName"
-              />
+              <Input name="firstName" />
             </label>
             <label className="grid gap-1 font-medium text-foreground">
               Last name
-              <input
-                className="min-w-0 rounded-md border border-input bg-transparent px-3 py-2"
-                name="lastName"
-              />
+              <Input name="lastName" />
             </label>
           </div>
         </CardBody>
@@ -373,18 +368,18 @@ export const CustomComposition: Story = {
 
 export const CustomSpacing: Story = {
   render: () => (
-    <Card className={cardClass}>
-      <CardHeader className="px-4 pt-4">
+    <Card className={`${cardClass} [--card-spacing:var(--moduix-spacing-4)]`}>
+      <CardHeader>
         <CardTitle>Scheduled reports</CardTitle>
         <CardDescription>Weekly snapshots with denser card spacing.</CardDescription>
       </CardHeader>
-      <CardBody className="px-4 pt-4 pb-4">
+      <CardBody>
         <div className="grid gap-1">
           <span className="text-2xl font-semibold text-foreground">24</span>
           <span className={statLabelClass}>active report schedules</span>
         </div>
       </CardBody>
-      <CardFooter className="px-4 pb-4">
+      <CardFooter>
         <Button variant="outline">See details</Button>
         <Button>Set up report</Button>
       </CardFooter>

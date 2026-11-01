@@ -1,124 +1,33 @@
 ---
 title: Collapsible
 component: collapsible
-description: Un composant accessible pour déplier ou replier une seule zone de contenu avec React, Solid ou Vue.
+description: Afficher et masquer une zone de contenu avec un déclencheur.
+ark: https://ark-ui.com/docs/components/collapsible
 ---
 
+import AnatomyScene from '@/components/examples/collapsible/anatomy';
 import * as CollapsibleDocs from '@/components/examples/collapsible/css-properties';
 
-## Référence de l’API
+<Example name="collapsible/basic" />
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/collapsible" />
+## Installation
+
+<ComponentInstall />
+
+## Utilisation
+
+<Usage />
+
+Utilisez `Collapsible` avec `CollapsibleTrigger`, `CollapsibleContent` et, si besoin, `CollapsibleIndicator` pour déplier ou replier une
+seule zone de contenu. Placez le contenu dans `CollapsibleBody` lorsque vous avez besoin du conteneur
+interne recommandé pour les espacements et la mise en page.
 
 ## Choisir le bon composant
 
 Utilisez `Collapsible` pour une seule section indépendante. Préférez `Accordion` lorsque plusieurs
 sections liées doivent partager la navigation au clavier ou un état coordonné.
 
-## Exemple de base
-
-
-Utilisez `Collapsible` avec `CollapsibleTrigger`, `CollapsibleContent` et, si besoin, `CollapsibleIndicator` pour déplier ou replier une
-seule zone de contenu. Placez le contenu dans `CollapsibleBody` lorsque vous avez besoin du conteneur
-interne recommandé pour les espacements et la mise en page.
-
-<Example name="collapsible/basic" />
-
-## Installation avec shadcn
-
-Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration complète du paquet, du registre et des styles.
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/collapsible' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/collapsible' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/collapsible' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/collapsible' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/collapsible' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/collapsible' },
-  ]}
-/>
-
-  </Tab>
-  </Tabs>
-
-## Anatomie
-
-```text
-Collapsible
-├─ CollapsibleTrigger
-│  ├─ libellé
-│  └─ CollapsibleIndicator (facultatif)
-└─ CollapsibleContent
-   └─ CollapsibleBody
-       └─ contenu
-
-CollapsibleRootProvider
-└─ même arbre de parties relié à un store useCollapsible()
-```
-
-| Partie                    | Rôle                                                                    |
-| ------------------------- | ----------------------------------------------------------------------- |
-| `Collapsible`             | Gère l’état d’une seule section repliable.                              |
-| `CollapsibleRootProvider` | Relie les parties à l’état créé avec `useCollapsible`.                  |
-| `CollapsibleTrigger`      | Bouton accessible qui déplie ou replie le contenu.                       |
-| `CollapsibleIndicator`    | Indicateur facultatif qui affiche par défaut un chevron moduix.         |
-| `CollapsibleContent`      | Zone animée dont Ark mesure les dimensions.                             |
-| `CollapsibleBody`         | Conteneur interne pour les espacements et la mise en page du contenu.    |
-
-## Composition
-
-`Collapsible` conserve son état dans la racine. Utilisez `defaultOpen` pour une zone non contrôlée, ou
-`open` avec `onOpenChange(details)` lorsqu’une autre partie de l’application gère l’état. En Vue,
-utilisez `v-model:open` pour ce même contrat contrôlé. Le callback conserve l’objet `details` d’Ark :
-l’état contrôlé se lit donc avec `details.open`.
-
-Utilisez `CollapsibleRootProvider` avec `useCollapsible()` du paquet correspondant au framework lorsque
-le store doit être créé en dehors de l’arbre rendu ou partagé entre plusieurs limites de composition.
-Transmettez ce store à `CollapsibleRootProvider` et ne rendez pas une seconde racine `Collapsible` pour le même état.
-
-Placez les espacements et les styles de surface sur `CollapsibleBody`, et non sur
-`CollapsibleContent`, afin qu’Ark puisse mesurer correctement la partie animée. `CollapsibleIndicator`
-est facultatif et affiche par défaut le chevron moduix.
-
-Utilisez `asChild` uniquement lorsqu’un élément sémantique appartenant à l’application doit recevoir le
-comportement du déclencheur ; il doit rester un bouton accessible au clavier. Avec Solid, transmettez une
-fonction de rendu, par exemple `asChild={(props) => <button {...props()} />}`.
-
 ## Exemples
-
-### Contexte
-
-Utilisez `useCollapsibleContext()` dans un composant descendant lorsqu’il doit lire l’état ou fermer
-la zone par programmation.
-
-<Example name="collapsible/context" />
-
-### État contrôlé
-
-Utilisez `open` avec le callback Ark `onOpenChange(details)` lorsqu’une autre partie de l’interface
-gère l’état.
-
-<Example name="collapsible/controlled" />
 
 ### Ouvert par défaut
 
@@ -132,12 +41,13 @@ Ajoutez `disabled` à la racine pour empêcher l’utilisateur d’ouvrir ou de 
 
 <Example name="collapsible/disabled" />
 
-### Montage différé
+### Déclencheur personnalisé
 
-Activez `lazyMount` pour ne monter le contenu qu’à sa première ouverture. Ajoutez `unmountOnExit` pour
-le retirer du DOM après sa fermeture.
+Utilisez `asChild` pour appliquer le comportement du déclencheur à un bouton défini par votre application.
+Les styles par défaut de `CollapsibleTrigger` ne sont alors pas appliqués, mais le comportement Ark et
+les attributs d’état sont conservés.
 
-<Example name="collapsible/lazy-mount" />
+<Example name="collapsible/custom-trigger" />
 
 ### Imbriqué
 
@@ -159,20 +69,78 @@ Utilisez `collapsedWidth` lorsqu’un aperçu horizontal est plus utile qu’un 
 
 <Example name="collapsible/partial-collapse-width" />
 
+### État contrôlé
+
+Utilisez `open` avec le callback Ark `onOpenChange(details)` lorsqu’une autre partie de l’interface
+gère l’état. Voir [Contrôler l’état depuis l’application](/docs/composition-patterns#controlled-state).
+
+<Example name="collapsible/controlled" />
+
+### Montage différé
+
+Activez `lazyMount` pour ne monter le contenu qu’à sa première ouverture. Ajoutez `unmountOnExit` pour
+le retirer du DOM après sa fermeture.
+
+<Example name="collapsible/lazy-mount" />
+
+### Contexte
+
+Utilisez `useCollapsibleContext()` dans un composant descendant lorsqu’il doit lire l’état ou fermer
+la zone par programmation.
+
+<Example name="collapsible/context" />
+
 ### Root Provider
 
 Créez l’état avec `useCollapsible()` et transmettez-le à `CollapsibleRootProvider` lorsque du code
-extérieur à l’arborescence rendue doit y accéder.
+extérieur à l’arborescence rendue doit y accéder. Voir [Partager l’état hors de l’arbre](/docs/composition-patterns#root-provider).
 
 <Example name="collapsible/root-provider" />
 
-### Personnalisation avancée
+### Assembler à partir des parties
 
-Utilisez `asChild` pour appliquer le comportement du déclencheur à un bouton défini par votre application.
-Les styles par défaut de `CollapsibleTrigger` ne sont alors pas appliqués, mais le comportement Ark et
-les attributs d’état sont conservés.
+Le même bloc repliable que Basic, sans `CollapsibleBody` et avec l’icône de l’indicateur écrite
+explicitement : `CollapsibleIndicator` n’affiche un chevron par défaut que s’il n’a pas d’enfants, et le
+corps est un simple élément dans `CollapsibleContent`. Partez de cet exemple quand le design modifie
+l’icône ou l’espacement du contenu.
 
-<Example name="collapsible/custom-composition" />
+<Example name="collapsible/build-from-parts" />
+
+## Composition
+
+`Collapsible` conserve son état dans la racine. Utilisez `defaultOpen` pour une zone non contrôlée, ou
+`open` avec `onOpenChange(details)` lorsqu’une autre partie de l’application gère l’état. En Vue,
+utilisez `v-model:open` pour ce même contrat contrôlé. Le callback conserve l’objet `details` d’Ark :
+l’état contrôlé se lit donc avec `details.open`.
+
+Utilisez `CollapsibleRootProvider` avec `useCollapsible()` du paquet correspondant au framework lorsque
+le store doit être créé en dehors de l’arbre rendu ou partagé entre plusieurs limites de composition.
+Transmettez ce store à `CollapsibleRootProvider` et ne rendez pas une seconde racine `Collapsible` pour le même état.
+
+Placez les espacements et les styles de surface sur `CollapsibleBody`, et non sur
+`CollapsibleContent`, afin qu’Ark puisse mesurer correctement la partie animée. `CollapsibleIndicator`
+est facultatif et affiche par défaut le chevron moduix.
+
+Utilisez `asChild` uniquement lorsqu’un élément sémantique appartenant à l’application doit recevoir le
+comportement du déclencheur ; il doit rester un bouton accessible au clavier. Avec Solid, transmettez une
+fonction de rendu, par exemple `asChild={(props) => <button {...props()} />}`.
+
+## Anatomie
+
+Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
+
+<AnatomyInspector
+  parts={[
+    ["Collapsible", "collapsible-root", "Gère l’état d’une seule section repliable.", 0],
+    ["CollapsibleTrigger", "collapsible-trigger", "Bouton accessible qui déplie ou replie le contenu.", 1],
+    ["CollapsibleIndicator", "collapsible-indicator", "Indicateur facultatif qui affiche par défaut un chevron moduix.", 2],
+    ["CollapsibleContent", "collapsible-content", "Zone animée dont Ark mesure les dimensions.", 1],
+    ["CollapsibleBody", "collapsible-body", "Conteneur interne pour les espacements et la mise en page du contenu.", 2],
+    ["CollapsibleRootProvider", "collapsible-root-provider", "Relie les parties à l’état créé avec `useCollapsible`.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styles
 
@@ -186,14 +154,25 @@ communs aux deux modes de style.
 Placez les espacements sur `CollapsibleBody`, et non sur `CollapsibleContent`, afin qu’Ark puisse
 mesurer et animer correctement le contenu.
 
-### Propriétés CSS
+### Variables CSS
 
-<CssPropertiesSection properties={CollapsibleDocs.collapsibleOverrideCssProperties} />
+Survolez ou sélectionnez une variable pour la voir dans l’aperçu.
+
+<CssPropertiesSection properties={CollapsibleDocs.collapsibleOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Points d’accroche CSS
 
-- Les parties DOM exposent `data-slot="collapsible-root"`, `collapsible-root-provider`,
-  `collapsible-trigger`, `collapsible-indicator`, `collapsible-content` et `collapsible-body`.
+| Partie | `data-slot` |
+| --- | --- |
+| `Collapsible` | `collapsible-root` |
+| `CollapsibleRootProvider` | `collapsible-root-provider` |
+| `CollapsibleTrigger` | `collapsible-trigger` |
+| `CollapsibleIndicator` | `collapsible-indicator` |
+| `CollapsibleContent` | `collapsible-content` |
+| `CollapsibleBody` | `collapsible-body` |
+
 - Les parties Ark exposent `data-scope="collapsible"` et les valeurs `data-part` de la racine, du
   déclencheur, de l’indicateur et du contenu.
 - Ark ajoute `data-state="open" | "closed"` à la racine, au déclencheur, à l’indicateur et au contenu.
@@ -201,3 +180,23 @@ mesurer et animer correctement le contenu.
 - `data-disabled` marque les parties déclencheur, indicateur et contenu lorsqu’elles sont désactivées.
 - `data-has-collapsed-size` marque le contenu configuré avec `collapsedHeight` ou `collapsedWidth`.
 - L’animation du contenu utilise les variables Ark `--height`, `--width`, `--collapsed-height` et `--collapsed-width`.
+
+## Clavier
+
+| Touche | Action |
+| --- | --- |
+| `Enter` / `Space` | Ouvre ou ferme le contenu depuis le déclencheur. |
+
+## Référence de l’API
+
+| Prop | Type | Défaut | Description |
+| --- | --- | --- | --- |
+| `open` | `boolean` | — | État déplié en mode contrôlé. |
+| `defaultOpen` | `boolean` | `false` | Déplié au départ. |
+| `onOpenChange` | `(details: OpenChangeDetails) => void` | — | Appelé au dépliage et au repliage. |
+| `onExitComplete` | `() => void` | — | Appelé à la fin de l’animation de fermeture. |
+| `disabled` | `boolean` | `false` | Désactive le contrôle. |
+| `collapsedHeight` | `number \| string` | — | Hauteur visible une fois replié, pour un aperçu. |
+| `collapsedWidth` | `number \| string` | — | Largeur visible une fois replié. |
+| `lazyMount` | `boolean` | `false` | Monte le contenu à la première ouverture. |
+| `unmountOnExit` | `boolean` | `false` | Démonte le contenu après la fermeture. |

@@ -52,7 +52,7 @@ const definition = defineChart({
   },
   color: {
     domain: ['Revenue', 'Target'],
-    range: ['var(--moduix-color-chart-1)', 'var(--moduix-color-chart-2)'],
+    range: ['var(--moduix-chart-1)', 'var(--moduix-chart-2)'],
   },
   focus: 'group-x',
   tooltip,
@@ -67,8 +67,8 @@ const definition = defineChart({
     </ChartHeader>
     <ChartPlot :definition="definition" :height="320" ariaLabel="Monthly revenue and target" />
     <ChartLegend aria-label="Revenue series">
-      <ChartLegendItem color="var(--moduix-color-chart-1)">Revenue</ChartLegendItem>
-      <ChartLegendItem color="var(--moduix-color-chart-2)">Target</ChartLegendItem>
+      <ChartLegendItem color="var(--moduix-chart-1)">Revenue</ChartLegendItem>
+      <ChartLegendItem color="var(--moduix-chart-2)">Target</ChartLegendItem>
     </ChartLegend>
   </Chart>
 </template>

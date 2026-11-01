@@ -1,6 +1,6 @@
 ---
 title: Migrate from shadcn
-description: Move an existing shadcn app to moduix one component at a time, with guidance for source ownership, imports, styles, and Ark state.
+description: Move an existing shadcn app to moduix one component at a time, with guidance for copied source, imports, styles, and Ark state.
 ---
 
 # Migrate from shadcn
@@ -57,7 +57,7 @@ import { Dialog } from '@moduix/vue/dialog';
   </Tab>
 </Tabs>
 
-For the copy-owned workflow, finish the [shadcn CLI setup](/docs/quick-start#install-with-the-shadcn-cli),
+For the copied-source workflow, finish the [shadcn CLI setup](/docs/quick-start#install-with-the-shadcn-cli),
 then add one registry item at a time:
 
 <Tabs groupId="framework">
@@ -158,7 +158,7 @@ Vue uses native SFCs with `script setup`, template props, and `v-model` for cont
 
 <CodeBlockRuntime lang="vue" code={vueAccordion} />
 
-For a copy-owned install, keep the composition and change only the import source:
+For a copied-source install, keep the composition and change only the import source:
 
 ```tsx
 import { Accordion, AccordionItem, AccordionItemContent, AccordionItemTrigger } from '@/components/ui/accordion';
@@ -204,14 +204,32 @@ With a CSS Modules registry:
 import '@/lib/moduix/styles/style.css';
 ```
 
-Customize semantic tokens in your own CSS:
+moduix color tokens use the shadcn/ui names with a `--moduix-` prefix. Point them at your existing
+values so both libraries share one palette while you migrate:
 
 ```css title="app.css"
 :root {
-  --moduix-color-accent: oklch(58% 0.18 260deg);
-  --moduix-radius-md: 0.625rem;
+  --moduix-background: var(--background);
+  --moduix-foreground: var(--foreground);
+  --moduix-primary: var(--primary);
+  --moduix-primary-foreground: var(--primary-foreground);
+  --moduix-muted: var(--muted);
+  --moduix-muted-foreground: var(--muted-foreground);
+  --moduix-accent: var(--accent);
+  --moduix-accent-foreground: var(--accent-foreground);
+  --moduix-destructive: var(--destructive);
+  --moduix-border: var(--border);
+  --moduix-ring: var(--ring);
+  --moduix-radius: var(--radius);
+}
+
+.dark {
+  color-scheme: dark;
 }
 ```
+
+Mapped tokens switch with your `.dark` rules. The `color-scheme` rule switches every token you did
+not map; see [Dark mode](/docs/dark-mode#use-an-existing-theme-switcher).
 
 Tailwind can stay in the application for layout and one-off utility classes while you migrate to the
 CSS Modules packages. If you want component styling to remain in Tailwind, use the separate React, Solid, or

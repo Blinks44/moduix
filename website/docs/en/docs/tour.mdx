@@ -1,91 +1,58 @@
 ---
 title: Tour
 component: tour
-description: Build guided product walkthroughs with Ark UI tour state, accessible overlay parts, and ready-made actions.
+description: Walk users through a product with steps anchored to page elements.
+ark: https://ark-ui.com/docs/components/tour
 ---
 
+import AnatomyScene from '@/components/examples/tour/basic';
 
-## API Reference
+<Example name="tour/basic" />
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/tour" />
+## Installation
 
-## Basic
+<ComponentInstall />
 
+## Usage
+
+<Usage />
 
 Create tour state with `useTour`, define its steps, and pass the returned object to `Tour`. The example starts with a
 dialog, moves to a tooltip anchored to a page control, and finishes with a floating step. Keep the parts explicit so
 you can adjust the composition when needed. `TourBody` keeps long copy scrollable inside the panel.
 
-<Example name="tour/basic" />
+## Examples
 
-## Install with shadcn
+### With arrow
 
-See [Quick Start](/docs/quick-start) for full package setup, registry configuration, and styling guidance.
+Add `TourArrow` to a tooltip step when it needs a visual connection to its target, and enable the step's `arrow`
+option so Ark can position it.
 
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
+<Example name="tour/with-arrow" />
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/tour' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/tour' },
-  ]}
-/>
+### Wait for input
 
-  </Tab>
-  <Tab label="Solid" value="solid">
+Call `tour.next()` from an input handler after the value reaches two characters. For steps that depend on an
+asynchronous condition, `waitForElement`, `waitForElementValue`, `waitForEvent`, and `waitForPromise` are also
+exported from `@moduix/react/tour`, `@moduix/solid/tour`, and `@moduix/vue/tour`.
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/tour' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/tour' },
-  ]}
-/>
+<Example name="tour/wait-for-input" />
 
-  </Tab>
-  <Tab label="Vue" value="vue">
+### Events
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/tour' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/tour' },
-  ]}
-/>
+Use the detail objects from Ark callbacks to update surrounding UI or record analytics. Start the tour, choose Next,
+then Done. The status output shows the latest step or final status event.
 
-  </Tab>
-</Tabs>
+<Example name="tour/events" />
 
-## Anatomy
+### Build from parts
 
-```text
-Tour
-└─ Overlay subtree (portalled by default)
-   ├─ TourBackdrop
-   ├─ TourSpotlight
-   └─ TourPositioner
-      └─ TourContent
-         ├─ TourArrow
-         ├─ TourCloseIcon / TourCloseTrigger
-         ├─ TourBody
-         │  ├─ TourTitle
-         │  ├─ TourDescription
-         │  └─ TourProgressText
-         └─ TourControl
-            ├─ TourActionList
-            └─ TourActions
-               └─ TourActionTrigger[action]
-```
+The same tour as Basic, without `TourCloseIcon`, `TourBody`, and `TourActionList`: `TourCloseTrigger`
+wraps `CloseButton` with an explicit icon, the text sits in a plain element, and `TourActions` renders
+one `TourActionTrigger` per step action. Each trigger keeps the Ark action object, so navigation and
+dismissal still work when you replace its children with your own buttons.
 
-| Part | Role |
-| --- | --- |
-| `Tour` | Root bound to the object returned by `useTour`. |
-| `TourBackdrop` / `TourSpotlight` | Optional page overlay and highlight for the current target. |
-| `TourPositioner` / `TourContent` | Position and render Ark's `alertdialog` surface. |
-| `TourArrow` | Renders moduix's `TourArrowTip` by default for tooltip steps. |
-| `TourCloseIcon` / `TourCloseTrigger` | Default accessible dismiss control or a custom close control. |
-| `TourBody` | Scrollable moduix wrapper for the title, description, and progress text. |
-| `TourControl` / `TourActionList` | Recommended action row and the actions from the current step. |
-| `TourActions` / `TourActionTrigger` | Custom action UI while preserving each Ark action object. |
+<Example name="tour/build-from-parts" />
 
 ## Composition
 
@@ -101,38 +68,24 @@ In Vue, configure machine callbacks such as `onStepChange` and `onStatusChange` 
 `@exit-complete` on `Tour` reports the end of the presence exit animation. Ark Vue currently declares
 other root events but does not emit them from a tour object created outside the root.
 
-## Examples
+## Anatomy
 
-### Events
+Hover or focus a part to find it in the preview.
 
-Use the detail objects from Ark callbacks to update surrounding UI or record analytics. Start the tour, choose Next,
-then Done. The status output shows the latest step or final status event.
-
-<Example name="tour/events" />
-
-### Wait for input
-
-Call `tour.next()` from an input handler after the value reaches two characters. For steps that depend on an
-asynchronous condition, `waitForElement`, `waitForElementValue`, `waitForEvent`, and `waitForPromise` are also
-exported from `@moduix/react/tour`, `@moduix/solid/tour`, and `@moduix/vue/tour`.
-
-<Example name="tour/wait-for-input" />
-
-### With Arrow
-
-Add `TourArrow` to a tooltip step when it needs a visual connection to its target, and enable the step's `arrow`
-option so Ark can position it.
-
-<Example name="tour/with-arrow" />
-
-### Advanced customization
-
-Replace `TourActionList` when each action needs its own markup. The example uses custom `Button` children for
-Continue, Back, and Skip tour. Each `TourActionTrigger` still receives the original Ark action object, so navigation,
-dismissal, and disabled state continue to work. The example also skips the `TourCloseIcon` and `TourBody`
-helpers and places the title, description, and progress text directly in `TourContent`.
-
-<Example name="tour/advanced-customization" />
+<AnatomyInspector
+  parts={[
+    ["Tour", null, "Root bound to the object returned by `useTour`.", 0],
+    ["TourBackdrop / TourSpotlight", "tour-backdrop", "Optional page overlay and highlight for the current target.", 1],
+    ["TourPositioner / TourContent", "tour-positioner", "Position and render Ark's `alertdialog` surface.", 1],
+    ["TourArrow", "tour-arrow", "Renders moduix's `TourArrowTip` by default for tooltip steps.", 2],
+    ["TourCloseIcon / TourCloseTrigger", "tour-close-icon", "Default accessible dismiss control or a custom close control.", 2],
+    ["TourBody", "tour-body", "Scrollable moduix wrapper for the title, description, and progress text.", 2],
+    ["TourControl / TourActionList", "tour-control", "Recommended action row and the actions from the current step.", 2],
+    ["TourActions / TourActionTrigger", "", "Custom action UI while preserving each Ark action object.", 3],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styling
 
@@ -152,10 +105,53 @@ to `TourActionList` to style every generated trigger.
 
 ### Styling hooks
 
-The main public hooks are `data-slot="tour-backdrop"`, `tour-spotlight`, `tour-positioner`,
-`tour-content`, `tour-arrow`, `tour-arrow-tip`, `tour-title`, `tour-description`,
-`tour-progress-text`, `tour-body`, `tour-close-trigger`, `tour-close-icon`, `tour-control`, and
-`tour-action-trigger`. Ark also adds `data-scope="tour"`, `data-part`, `data-state`, `data-type`,
+| Part | `data-slot` |
+| --- | --- |
+| `TourBackdrop` | `tour-backdrop` |
+| `TourSpotlight` | `tour-spotlight` |
+| `TourPositioner` | `tour-positioner` |
+| `TourContent` | `tour-content` |
+| `TourArrow` | `tour-arrow` |
+| `TourArrowTip` | `tour-arrow-tip` |
+| `TourTitle` | `tour-title` |
+| `TourDescription` | `tour-description` |
+| `TourProgressText` | `tour-progress-text` |
+| `TourBody` | `tour-body` |
+| `TourCloseTrigger` | `tour-close-trigger` |
+| `TourCloseIcon` | `tour-close-icon` |
+| `TourControl` | `tour-control` |
+| `TourActionTrigger` | `tour-action-trigger` |
+
+Ark also adds `data-scope="tour"`, `data-part`, `data-state`, `data-type`,
 `data-placement`, `data-side`, `data-step`, and `data-disabled`, plus runtime variables including
 `--tour-layer`, `--available-width`, `--available-height`, `--transform-origin`, and the arrow
 variables.
+
+## Keyboard
+
+| Key | Action |
+| --- | --- |
+| `ArrowRight` / `ArrowLeft` | Goes to the next or previous step when keyboardNavigation is on. |
+| `Esc` | Ends the tour. |
+
+## API reference
+
+Options of `useTour()`. Pass the returned object to `Tour` as `tour`.
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `steps` | `TourStepDetails[]` | — | Tour steps with target, title, and actions. |
+| `stepId` | `string \| null` | — | Current step id for controlled use. |
+| `onStepChange` | `(details: StepChangeDetails) => void` | — | Called when the current step changes. |
+| `onStatusChange` | `(details: StatusChangeDetails) => void` | — | Called when the tour starts, stops, or completes. |
+| `keyboardNavigation` | `boolean` | `true` | Left and right arrows move between steps. |
+| `closeOnEscape` | `boolean` | `true` | Closes on Escape. |
+| `closeOnInteractOutside` | `boolean` | `true` | Closes on a click outside. |
+| `preventInteraction` | `boolean` | `false` | Blocks interaction with the page while the tour is open. |
+| `spotlightOffset` | `{ x: number; y: number }` | `{ x: 10, y: 10 }` | Padding around the highlighted element, in pixels. |
+| `spotlightRadius` | `number` | `4` | Corner radius of the highlight, in pixels. |
+| `onStepsChange` | `(details: StepsChangeDetails) => void` | — | Called when steps are added or removed. |
+| `translations` | `IntlTranslations` | — | Localized strings for accessibility labels. |
+| `onPointerDownOutside` | `(event: PointerDownOutsideEvent) => void` | — | Called when the pointer is pressed outside the popup. |
+| `onFocusOutside` | `(event: FocusOutsideEvent) => void` | — | Called when focus moves outside the popup. |
+| `onInteractOutside` | `(event: InteractOutsideEvent) => void` | — | Called on any interaction outside the popup. |

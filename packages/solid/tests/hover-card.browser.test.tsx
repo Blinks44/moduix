@@ -13,7 +13,7 @@ import {
   HoverCardTrigger,
   useHoverCard,
   useHoverCardContext,
-} from '../src';
+} from '@/index';
 
 function HoverCardSurface() {
   return (

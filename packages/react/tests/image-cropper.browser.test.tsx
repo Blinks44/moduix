@@ -10,12 +10,25 @@ import {
   ImageCropperRootProvider,
   ImageCropperViewport,
   useImageCropper,
-} from '../src';
+} from '@/index';
 import landscape from './fixtures/landscape.svg';
 
 const portrait = `data:image/svg+xml,${encodeURIComponent(
   '<svg xmlns="http://www.w3.org/2000/svg" width="200" height="400"></svg>',
 )}`;
+
+function ProviderImageCropper() {
+  const imageCropper = useImageCropper({ aspectRatio: 16 / 9 });
+
+  return (
+    <ImageCropperRootProvider value={imageCropper} data-testid="image-cropper-provider">
+      <ImageCropperViewport>
+        <ImageCropperImage src={landscape} />
+        <ImageCropperCropArea />
+      </ImageCropperViewport>
+    </ImageCropperRootProvider>
+  );
+}
 
 test('renders the recommended CropArea anatomy with moduix hooks', async () => {
   const rootRef = createRef<HTMLDivElement>();
@@ -89,19 +102,6 @@ test('preserves fixed crop area semantics', async () => {
     container.querySelectorAll('[data-slot="image-cropper-handle"][data-disabled]'),
   ).toHaveLength(ImageCropperHandles.length);
 });
-
-function ProviderImageCropper() {
-  const imageCropper = useImageCropper({ aspectRatio: 16 / 9 });
-
-  return (
-    <ImageCropperRootProvider value={imageCropper} data-testid="image-cropper-provider">
-      <ImageCropperViewport>
-        <ImageCropperImage src={landscape} />
-        <ImageCropperCropArea />
-      </ImageCropperViewport>
-    </ImageCropperRootProvider>
-  );
-}
 
 test('supports RootProvider with the recommended CropArea anatomy', async () => {
   const { getByTestId } = render(<ProviderImageCropper />);

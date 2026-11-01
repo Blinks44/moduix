@@ -95,7 +95,7 @@ export const WithArrow: Story = {
   render: () => {
     return (
       <Tooltip>
-        <TooltipTrigger aria-label="Tooltip with arrow">Hover or focus</TooltipTrigger>
+        <TooltipTrigger>Hover or focus</TooltipTrigger>
         <TooltipBody>
           <TooltipArrow />
           Tooltip with arrow
@@ -151,7 +151,7 @@ export const Positioning: Story = {
         </div>
 
         <Tooltip positioning={{ placement, offset: { mainAxis: 12 } }}>
-          <TooltipTrigger asChild aria-label={`Tooltip placement: ${placement}`}>
+          <TooltipTrigger asChild>
             <Button>Hover or focus</Button>
           </TooltipTrigger>
           <TooltipBody>Placement: {placement}</TooltipBody>
@@ -263,9 +263,7 @@ export const CustomComposition: Story = {
   render: () => {
     return (
       <Tooltip>
-        <TooltipTrigger aria-label="Custom styled tooltip" className={storyStyles.customTrigger}>
-          Custom style
-        </TooltipTrigger>
+        <TooltipTrigger className={storyStyles.customTrigger}>Custom style</TooltipTrigger>
         <TooltipPositioner className={storyStyles.customPositioner}>
           <TooltipContent className={storyStyles.customContent}>
             Styled through explicit Ark parts

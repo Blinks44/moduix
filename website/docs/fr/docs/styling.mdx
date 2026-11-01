@@ -1,6 +1,6 @@
 ---
 title: Styles
-description: Choisissez la bonne couche de style pour les composants Moduix dans chaque framework pris en charge.
+description: Choisissez la bonne couche de style pour les composants moduix dans chaque framework pris en charge.
 ---
 
 import { ProjectChecklist } from '@/components/examples/styling/project-checklist';
@@ -11,7 +11,7 @@ import vueBrandButton from '../../../snippets/styling/vue/brand-button.vue?raw';
 
 # Styles
 
-Moduix publie des packages CSS Modules et Tailwind distincts pour chaque framework actuel. Choisissez
+moduix publie des packages CSS Modules et Tailwind distincts pour chaque framework actuel. Choisissez
 la méthode déjà utilisée par l’application, puis placez chaque modification au niveau le plus élevé
 qui porte la décision.
 
@@ -45,7 +45,7 @@ liste, moins de composants sont touchés et plus il faut de code.
 
 ## Pourquoi vos styles l’emportent
 
-Les styles Moduix sont placés dans des couches de cascade CSS, déclarées dans cet ordre :
+Les styles moduix sont placés dans des couches de cascade CSS, déclarées dans cet ordre :
 
 ```css
 @layer theme, base, moduix.reset, moduix.tokens, moduix.base, components, moduix.components, utilities;
@@ -62,7 +62,7 @@ Il en découle deux règles :
 
 ## Personnaliser un composant
 
-La page de chaque composant CSS Modules liste ses variables publiques dans **Propriétés CSS**. Ces
+La page de chaque composant CSS Modules liste ses variables publiques dans **Variables CSS**. Ces
 variables sont volontairement génériques : Button expose `--moduix-button-bg`,
 `--moduix-button-height` et `--moduix-button-padding-x`, et non une variable par variante et par
 taille. Les valeurs par défaut des variantes et des tailles restent privées, et une variable publique
@@ -74,7 +74,7 @@ Définissez les variables dans une classe, ou en ligne lorsque la valeur est dyn
 
 ```css
 .save {
-  --moduix-button-bg: var(--moduix-color-success);
+  --moduix-button-bg: var(--moduix-success);
   --moduix-button-radius: var(--moduix-radius-full);
 }
 ```
@@ -88,8 +88,8 @@ Ciblez le `data-slot` stable avec l’attribut de variante. Chargez cette feuill
 
 ```css
 [data-slot='button-root'][data-variant='outline'] {
-  --moduix-button-border-color: var(--moduix-color-primary);
-  --moduix-button-bg-hover: color-mix(in oklab, var(--moduix-color-primary) 12%, transparent);
+  --moduix-button-border-color: var(--moduix-primary);
+  --moduix-button-bg-hover: color-mix(in oklab, var(--moduix-primary) 12%, transparent);
 }
 ```
 
@@ -206,7 +206,7 @@ stable comme solution de secours :
     padding-inline: var(--moduix-spacing-4);
 
     &[data-state='open'] {
-      color: var(--moduix-color-primary);
+      color: var(--moduix-primary);
     }
   }
 }
@@ -218,7 +218,7 @@ sur les parties rendues dans un portail ou sur leur conteneur de portail.
 ## Styliser avec Panda CSS
 
 Panda CSS peut générer des classes du consommateur pour chaque framework pris en charge. Ses noms de tokens
-appartiennent au thème Panda, pas à Moduix. Transmettez la chaîne générée avec `className` en React ou
+appartiennent au thème Panda, pas à moduix. Transmettez la chaîne générée avec `className` en React ou
 `class` en Solid.
 
 ```ts
@@ -300,7 +300,7 @@ Conservez l’entrée `@source` du package choisi afin que Tailwind génère ses
 
 | Symptôme | Vérification |
 | --- | --- |
-| Une variable n’a aucun effet | Vérifiez qu’elle figure dans les Propriétés CSS du composant et qu’elle est définie sur le composant ou sur un ancêtre. |
+| Une variable n’a aucun effet | Vérifiez qu’elle figure dans les Variables CSS du composant et qu’elle est définie sur le composant ou sur un ancêtre. |
 | Une classe perd face aux styles du composant | Vérifiez que votre feuille de styles n’est pas placée dans un `@layer` antérieur : le CSS hors couche l’emporte toujours. |
 | Un popup ignore la valeur d’un conteneur | Placez-la sur la partie rendue dans un portail, la racine ou le conteneur de portail. |
 | Un sélecteur d’état ne correspond jamais | Inspectez l’attribut Ark exact sur cette partie. |

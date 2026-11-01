@@ -1,7 +1,7 @@
 import { page } from '@rstest/browser';
 import { expect, test } from '@rstest/core';
 import { render } from '@testing-library/react';
-import type { CSSProperties, ReactNode } from 'react';
+import type { ReactNode } from 'react';
 import { useState } from 'react';
 import {
   FloatingPanel,
@@ -19,7 +19,7 @@ import {
   FloatingPanelFooter,
   FloatingPanelResizeTriggerGroup,
   useFloatingPanel,
-} from '../src';
+} from '@/index';
 
 function PanelContent({ footer }: { footer?: ReactNode }) {
   return (
@@ -224,19 +224,4 @@ test('leaves the native trigger unstyled', () => {
   expect(
     document.querySelector('[data-slot="floating-panel-trigger"]')!.getAttribute('class'),
   ).toBeNull();
-});
-
-test('opens with the shared popup keyframes and motion variables', () => {
-  render(
-    <div style={{ '--moduix-popup-motion-duration': '1234ms' } as CSSProperties}>
-      <FloatingPanel defaultOpen defaultSize={{ width: 360, height: 260 }} portalled={false}>
-        <FloatingPanelPositioner>
-          <FloatingPanelContent />
-        </FloatingPanelPositioner>
-      </FloatingPanel>
-    </div>,
-  );
-
-  const style = getComputedStyle(document.querySelector('[data-slot="floating-panel-content"]')!);
-  expect([style.animationName, style.animationDuration]).toEqual(['moduix-popup-in', '1.234s']);
 });

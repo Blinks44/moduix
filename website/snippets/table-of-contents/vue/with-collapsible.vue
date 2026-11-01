@@ -113,6 +113,7 @@ const getProgress = (activeItems: Array<{ value: string }>) => {
     <TocContent>
       <div
         ref="scrollRef"
+        role="region"
         aria-label="Scrollable document preview"
         :class="styles.scrollArea"
         tabindex="0"

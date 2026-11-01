@@ -1,64 +1,28 @@
 ---
 title: Галерея с автопрокруткой
 description: Блок галереи с автопрокруткой на Carousel, текстом поверх слайдов, стрелками навигации и индикаторами прогресса.
+block: autoplay-gallery
 ---
 
 import { AutoplayGallery } from '@/components/blocks/autoplay-gallery';
 import autoplayGallerySolid from '../../../snippets/blocks/solid/autoplay-gallery.tsx?raw';
 import autoplayGalleryVue from '../../../snippets/blocks/vue/autoplay-gallery.vue?raw';
+import autoplayGalleryReact from '../../../src/components/blocks/autoplay-gallery.tsx?raw';
+import autoplayGalleryCss from '../../../src/components/blocks/autoplay-gallery.module.css?raw';
 
 # Галерея с автопрокруткой
+
+<ExamplePanel
+  clientOnly
+  sources={{ react: autoplayGalleryReact, solid: autoplayGallerySolid, vue: autoplayGalleryVue }}
+  files={[{ name: 'autoplay-gallery.module.css', code: autoplayGalleryCss }]}
+>
+  <AutoplayGallery />
+</ExamplePanel>
 
 Используйте этот блок для основного контента, который должен переключаться автоматически, но при этом оставаться
 под управлением пользователя. В нём `Carousel` показывает соседние слайды частично, выводит текст поверх изображения,
 добавляет стрелки навигации и заполняющийся индикатор для каждого интервала автопрокрутки.
-
-Превью работает на React. Во вкладках приведён код для React, Solid и Vue с общей таблицей стилей.
-
-
-
-<ExampleFrame variant="block" clientOnly>
-  <AutoplayGallery />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/blocks/autoplay-gallery.tsx"
-
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={autoplayGallerySolid} />
-
-    </Tab>
-  <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={autoplayGalleryVue} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/blocks/autoplay-gallery.module.css"
-
-```
-</div>
-
-</ExampleCode>
 
 ## Установка
 

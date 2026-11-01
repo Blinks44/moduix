@@ -1,16 +1,22 @@
 ---
 title: Steps
 component: steps
-description: Помогает пользователю пройти многошаговый процесс с доступным управлением состоянием и навигацией Ark UI.
+description: Проводит пользователя через задачу из нескольких шагов с проверкой.
+ark: https://ark-ui.com/docs/components/steps
 ---
 
+import AnatomyScene from '@/components/examples/steps/basic';
 import * as StepsDocs from '@/components/examples/steps/css-properties';
 
-## Справочник API
+<Example name="steps/basic" />
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/steps" />
+## Установка
 
-## Базовый пример
+<ComponentInstall />
+
+## Использование
+
+<Usage />
 
 Используйте `Steps` с параметром `count`, списком `StepsList`, содержащим по одному
 `StepsItem` для каждого шага, соответствующими панелями `StepsContent` и встроенными кнопками
@@ -25,102 +31,14 @@ React, Solid и Vue используют одинаковые плоские и�
 состояние через `v-model:step`, а хранилище `useSteps()` передавайте в `StepsRootProvider`, если
 оно создаётся вне дерева отрисованных частей.
 
-<Example name="steps/basic" />
-
-## Установка через shadcn
-
-Полную настройку пакета, реестра и стилей см. в разделе [Быстрый старт](/docs/quick-start).
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/steps' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/steps' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/steps' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/steps' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/steps' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/steps' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Анатомия
-
-```text
-Steps
-├─ StepsProgress (optional)
-├─ StepsList
-│  └─ StepsItem[index]
-│     ├─ StepsTrigger
-│     │  └─ StepsIndicator
-│     └─ StepsSeparator
-├─ StepsContent[index]
-├─ StepsCompletedContent
-├─ StepsPrevTrigger
-└─ StepsNextTrigger
-
-StepsRootProvider
-└─ same part tree connected to a useSteps() store
-```
-
-| Часть                              | Назначение                                                                         |
-| ---------------------------------- | ---------------------------------------------------------------------------------- |
-| `Steps`                            | Корневая машина состояния шагов, ориентации, навигации, валидации и идентификаторов. |
-| `StepsRootProvider`                | Подключает части к состоянию, созданному через `useSteps()`.                       |
-| `StepsProgress`                    | Необязательная полоса прогресса на основе корневой переменной Ark `--percent`.     |
-| `StepsList`                        | Список вкладок с триггерами шагов.                                                  |
-| `StepsItem`                        | Шаг с обязательным индексом `index`, отсчитываемым от нуля.                        |
-| `StepsTrigger`                     | Триггер вкладки; поддерживает `asChild` для семантических элементов.               |
-| `StepsIndicator`                   | Маркер шага, по умолчанию с номером или иконкой галочки.                            |
-| `StepsSeparator`                   | Декоративный соединитель между шагами.                                              |
-| `StepsContent`                     | Панель содержимого шага, связанная с `index`.                                       |
-| `StepsCompletedContent`            | Панель, показываемая, когда текущее значение шага равно `count`.                    |
-| `StepsPrevTrigger` / `StepsNextTrigger` | Кнопки, связанные с действиями Ark для перехода назад и вперёд.               |
-
-## Композиция
-
-Используйте `Steps` как владельца состояния. У каждого `StepsItem` и
-соответствующего `StepsContent` должен быть одинаковый индекс `index`, отсчитываемый от нуля;
-`count` задаёт общее количество шагов, а его значение обозначает завершение. Используйте
-`StepsRootProvider` только с хранилищем от `useSteps()`, когда состояние нужно создать вне
-дерева частей. Не используйте корневой компонент и provider для одного и того же хранилища.
-
-Для низкоуровневого чтения состояния используйте `useStepsContext` и `useStepsItemContext` или
-плоские значения контекста `StepsContext` и `StepsItemContext`.
-
-`StepsTrigger`, `StepsPrevTrigger` и `StepsNextTrigger` поддерживают `asChild`. Передайте один
-семантический дочерний элемент, если контрол должен отображаться как ссылка, роутерная ссылка или
-кнопка дизайн-системы. Если у `StepsIndicator` нет дочерних элементов, он выводит номер шага или
-общую иконку галочки для завершённого шага; передайте содержимое, чтобы управлять маркером вручную.
-
 ## Примеры
 
-### Управляемое состояние
+### Вертикальная ориентация
 
-Управляйте `step` через состояние фреймворка, если активный шаг должен быть синхронизирован с
-маршрутизацией, валидацией или другой частью интерфейса.
+Установите `orientation="vertical"`, если на широком экране список шагов должен находиться рядом
+с активной панелью, а на узком экране переходить над ней.
 
-<Example name="steps/controlled" />
+<Example name="steps/vertical" />
 
 ### Валидация
 
@@ -136,27 +54,65 @@ StepsRootProvider
 
 <Example name="steps/progress" />
 
-### RootProvider
-
-Создайте состояние через `useSteps()` вне дерева отрисованных частей и передайте его в
-`StepsRootProvider`, если внешние контролы должны работать с тем же состоянием.
-
-<Example name="steps/root-provider" />
-
-### Вертикальная ориентация
-
-Установите `orientation="vertical"`, если на широком экране список шагов должен находиться рядом
-с активной панелью, а на узком экране переходить над ней.
-
-<Example name="steps/vertical" />
-
-### Расширенная настройка
+### Триггеры-ссылки
 
 Используйте `asChild`, если триггер должен отображаться как ссылка или роутерная ссылка вместо
 обычной кнопки. Оставьте один семантический дочерний элемент, чтобы Ark мог передать ему ARIA,
 клавиатурное управление и фокус.
 
-<Example name="steps/custom-composition" />
+<Example name="steps/link-triggers" />
+
+### Управляемое состояние
+
+Управляйте `step` через состояние фреймворка, если активный шаг должен быть синхронизирован с
+маршрутизацией, валидацией или другой частью интерфейса. Подробнее в разделе [Управляйте состоянием из приложения](/docs/composition-patterns#controlled-state).
+
+<Example name="steps/controlled" />
+
+### Root Provider
+
+Создайте состояние через `useSteps()` вне дерева отрисованных частей и передайте его в
+`StepsRootProvider`, если внешние контролы должны работать с тем же состоянием. Подробнее в разделе [Выносите состояние за пределы дерева](/docs/composition-patterns#root-provider).
+
+<Example name="steps/root-provider" />
+
+## Композиция
+
+Состоянием управляет `Steps`. У каждого `StepsItem` и
+соответствующего `StepsContent` должен быть одинаковый индекс `index`, отсчитываемый от нуля;
+`count` задаёт общее количество шагов, а его значение обозначает завершение. Используйте
+`StepsRootProvider` только с хранилищем от `useSteps()`, когда состояние нужно создать вне
+дерева частей. Не используйте корневой компонент и provider для одного и того же хранилища.
+
+Для низкоуровневого чтения состояния используйте `useStepsContext` и `useStepsItemContext` или
+плоские значения контекста `StepsContext` и `StepsItemContext`.
+
+`StepsTrigger`, `StepsPrevTrigger` и `StepsNextTrigger` поддерживают `asChild`. Передайте один
+семантический дочерний элемент, если контрол должен отображаться как ссылка, роутерная ссылка или
+кнопка дизайн-системы. Если у `StepsIndicator` нет дочерних элементов, он выводит номер шага или
+общую иконку галочки для завершённого шага; передайте содержимое, чтобы управлять маркером вручную.
+
+## Анатомия
+
+Наведите на часть или выберите её, чтобы найти её в превью.
+
+<AnatomyInspector
+  parts={[
+    ["Steps", "steps-root", "Корневая машина состояния шагов, ориентации, навигации, валидации и идентификаторов.", 0],
+    ["StepsProgress", "steps-progress", "Необязательная полоса прогресса на основе корневой переменной Ark `--percent`.", 1],
+    ["StepsList", "steps-list", "Список вкладок с триггерами шагов.", 1],
+    ["StepsItem", "steps-item", "Шаг с обязательным индексом `index`, отсчитываемым от нуля.", 2],
+    ["StepsTrigger", "steps-trigger", "Триггер вкладки; поддерживает `asChild` для семантических элементов.", 3],
+    ["StepsIndicator", "steps-indicator", "Маркер шага, по умолчанию с номером или иконкой галочки.", 4],
+    ["StepsSeparator", "steps-separator", "Декоративный соединитель между шагами.", 3],
+    ["StepsContent", "steps-content", "Панель содержимого шага, связанная с `index`.", 1],
+    ["StepsCompletedContent", "steps-completed-content", "Панель, показываемая, когда текущее значение шага равно `count`.", 1],
+    ["StepsPrevTrigger / StepsNextTrigger", "steps-prev-trigger", "Кнопки, связанные с действиями Ark для перехода назад и вперёд.", 1],
+    ["StepsRootProvider", "steps-root-provider", "Подключает части к состоянию, созданному через `useSteps()`.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Стилизация
 
@@ -171,14 +127,32 @@ Modules дают две переменные, потому что от них с
 
 ### CSS-переменные
 
-<CssPropertiesSection properties={StepsDocs.stepsCssProperties} />
+Наведите на переменную или выберите её, чтобы увидеть её в превью.
+
+<CssPropertiesSection properties={StepsDocs.stepsCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Хуки стилизации
+
+| Часть | `data-slot` |
+| --- | --- |
+| `Steps` | `steps-root` |
+| `StepsRootProvider` | `steps-root-provider` |
+| `StepsList` | `steps-list` |
+| `StepsItem` | `steps-item` |
+| `StepsTrigger` | `steps-trigger` |
+| `StepsIndicator` | `steps-indicator` |
+| `StepsSeparator` | `steps-separator` |
+| `StepsContent` | `steps-content` |
+| `StepsCompletedContent` | `steps-completed-content` |
+| `StepsPrevTrigger` | `steps-prev-trigger` |
+| `StepsNextTrigger` | `steps-next-trigger` |
+| `StepsProgress` | `steps-progress` |
 
 Доступные публичные хуки:
 
 - `className` в React или `class` в Solid и Vue у `Steps`, `StepsRootProvider`, `StepsList`, `StepsItem`, `StepsTrigger`, `StepsIndicator`, `StepsSeparator`, `StepsContent`, `StepsCompletedContent`, `StepsPrevTrigger`, `StepsNextTrigger` и `StepsProgress`
-- `data-slot="steps-root"`, `steps-root-provider`, `steps-list`, `steps-item`, `steps-trigger`, `steps-indicator`, `steps-separator`, `steps-content`, `steps-completed-content`, `steps-prev-trigger`, `steps-next-trigger` и `steps-progress`
 - Значения `data-scope="steps"` и `data-part` от Ark для каждой примитивной части
 - `data-orientation="horizontal" | "vertical"` у корня, списка, шага, триггера, содержимого и разделителя
 - `data-current`, `data-complete` и `data-incomplete` на поверхностях состояния индикатора, разделителя и триггера
@@ -186,3 +160,24 @@ Modules дают две переменные, потому что от них с
 - `data-state="open" | "closed"` у триггеров и панелей содержимого
 - `data-complete` у `StepsProgress`
 - Переменная Ark `--percent` у корня, используемая `StepsProgress`
+
+## Клавиатура
+
+| Клавиша | Действие |
+| --- | --- |
+| `Enter` / `Space` | Открывает шаг в фокусе или нажимает Back и Next. |
+
+## Справочник API
+
+| Проп | Тип | По умолчанию | Описание |
+| --- | --- | --- | --- |
+| `count` | `number` | — | Общее число шагов. |
+| `step` | `number` | — | Индекс текущего шага в управляемом режиме. |
+| `defaultStep` | `number` | `0` | Начальный шаг. |
+| `onStepChange` | `(details: StepChangeDetails) => void` | — | Вызывается при смене шага. |
+| `onStepComplete` | `() => void` | — | Вызывается после завершения последнего шага. |
+| `linear` | `boolean` | `false` | Требует проходить шаги по порядку. |
+| `orientation` | `'horizontal' \| 'vertical'` | `'horizontal'` | Раскладка: `horizontal` или `vertical`. |
+| `isStepValid` | `(index: number) => boolean` | `() => true` | Возвращает `false`, чтобы не пускать дальше шага. |
+| `isStepSkippable` | `(index: number) => boolean` | `() => false` | Возвращает `true` для шагов, которые можно пропустить. |
+| `onStepInvalid` | `(details: StepInvalidDetails) => void` | — | Вызывается, когда `isStepValid` блокирует переход. |

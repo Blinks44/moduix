@@ -13,7 +13,8 @@ import {
   FieldsetRootProvider,
   useFieldset,
   useFieldsetContext,
-} from '../src';
+} from '@/index';
+import SsrFieldset from './fixtures/SsrFieldset.vue';
 
 const fieldsetComponents = {
   Fieldset,
@@ -51,22 +52,6 @@ test('updates invalid state and connects legend, description, and error text', a
   await expect.poll(() => fieldset.getAttribute('aria-describedby')).toContain(helperText.id);
   await expect.poll(() => fieldset.getAttribute('aria-describedby')).toContain(errorText.id);
   await expect.element(textLocator).toHaveAttribute('aria-live', 'polite');
-});
-
-test('resets native fieldset chrome and draws no border when invalid', () => {
-  render({
-    components: fieldsetComponents,
-    template: `<Fieldset invalid><FieldsetLegend>Billing</FieldsetLegend></Fieldset>`,
-  });
-
-  const fieldset = screen.getByRole('group', { name: 'Billing' });
-  const style = getComputedStyle(fieldset);
-  expect([style.borderTopWidth, style.paddingTop, style.paddingLeft, style.marginLeft]).toEqual([
-    '0px',
-    '0px',
-    '0px',
-    '0px',
-  ]);
 });
 
 test('disables native descendants', async () => {
@@ -166,4 +151,3 @@ test('hydrates without replacing hosts or generated ids', async () => {
     error.mockRestore();
   }
 });
-import SsrFieldset from './fixtures/SsrFieldset.vue';

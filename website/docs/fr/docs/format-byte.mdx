@@ -1,23 +1,16 @@
 ---
 title: Format Byte
 description: Formatez des tailles en React, Solid et Vue avec Ark UI, en choisissant un système décimal ou binaire et un affichage localisé.
+ark: https://ark-ui.com/docs/utilities/format-byte
 ---
 
-import FormatByteBasic from '@/components/examples/format-byte/basic.tsx';
-import FormatByteUnitSystem from '@/components/examples/format-byte/unit-system.tsx';
-import formatByteSolidBasic from '../../../snippets/format-byte/solid/basic.tsx?raw';
-import formatByteVueBasic from '../../../snippets/format-byte/vue/basic.vue?raw';
-import formatByteSolidUnitSystem from '../../../snippets/format-byte/solid/unit-system.tsx?raw';
-import formatByteVueUnitSystem from '../../../snippets/format-byte/vue/unit-system.vue?raw';
 import formatByteSolidLocale from '../../../snippets/format-byte/solid/locale.tsx?raw';
 import formatByteVueLocale from '../../../snippets/format-byte/vue/locale.vue?raw';
 
 `Format.Byte` transforme un nombre d’octets en texte lisible. Importez-le depuis le package Ark correspondant à votre
 framework.
 
-## Référence de l’API
-
-<PrimitiveReference href="https://ark-ui.com/docs/utilities/format-byte" />
+## Importation
 
 Importez `Format` depuis le package Ark UI correspondant :
 
@@ -62,42 +55,7 @@ définitions lorsque plusieurs valeurs partagent le même contexte.
 L’aperçu utilise React, car l’application de documentation est basée sur React. Les onglets Solid et
 Vue contiennent le code natif pour le même résultat et la même API.
 
-<ExampleFrame variant="component">
-  <PreviewFrame maxWidth="sm">
-    <FormatByteBasic />
-  </PreviewFrame>
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/format-byte/basic.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={formatByteSolidBasic} />
-
-    </Tab>
-  <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={formatByteVueBasic} />
-
-    </Tab>
-  </Tabs>
-</div>
-</ExampleCode>
+<Example name="format-byte/basic" />
 
 ## Systèmes décimal et binaire
 
@@ -105,42 +63,7 @@ Utilisez `unitSystem="decimal"` pour des multiples de 1000 et `unitSystem="binar
 Choisissez le système explicitement lorsque le produit distingue la capacité annoncée d’un disque de ses valeurs
 techniques de stockage.
 
-<ExampleFrame variant="component">
-  <PreviewFrame maxWidth="sm">
-    <FormatByteUnitSystem />
-  </PreviewFrame>
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/format-byte/unit-system.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={formatByteSolidUnitSystem} />
-
-    </Tab>
-  <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={formatByteVueUnitSystem} />
-
-    </Tab>
-  </Tabs>
-</div>
-</ExampleCode>
+<Example name="format-byte/unit-system" />
 
 ## Locale
 

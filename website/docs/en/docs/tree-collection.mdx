@@ -1,16 +1,13 @@
 ---
 title: Tree Collection
 description: Create, query, traverse, filter, and update hierarchical data for Tree View and custom tree interfaces.
+ark: https://ark-ui.com/docs/collections/tree-collection
 ---
 
-import TreeCollectionBasic from '@/components/examples/tree-collection/basic.tsx';
 import treeCollectionSolidCustomNodes from '../../../snippets/tree-collection/solid/custom-nodes.tsx?raw';
 import treeCollectionVueCustomNodes from '../../../snippets/tree-collection/vue/custom-nodes.ts?raw';
 import treeCollectionSolidFilePaths from '../../../snippets/tree-collection/solid/file-paths.tsx?raw';
 import treeCollectionVueFilePaths from '../../../snippets/tree-collection/vue/file-paths.ts?raw';
-import treeCollectionSolidBasic from '../../../snippets/tree-collection/solid/basic.tsx?raw';
-import treeCollectionVueBasic from '../../../snippets/tree-collection/vue/basic.vue?raw';
-import treeCollectionVueBasicHelper from '../../../snippets/tree-collection/vue/FileTreeNode.vue?raw';
 
 # Tree Collection
 
@@ -18,9 +15,7 @@ A tree collection stores hierarchical data for `TreeView` and custom tree interf
 selection, focus, or keyboard behavior. Use it to create a typed hierarchy, query relationships,
 traverse and filter nodes, and produce immutable updates.
 
-## API Reference
-
-<PrimitiveReference href="https://ark-ui.com/docs/collections/tree-collection" />
+## Import
 
 Import the collection helpers from the Ark UI entry point for your framework:
 
@@ -56,7 +51,7 @@ import { createFileTreeCollection, createTreeCollection } from '@ark-ui/vue/coll
   </Tab>
 </Tabs>
 
-Moduix also re-exports both helpers from each `tree-view` entry point. The component-based examples
+moduix also re-exports both helpers from each `tree-view` entry point. The component-based examples
 below use that path so `TreeView` and its collection helpers come from the same package.
 
 ## Basic
@@ -68,45 +63,7 @@ below use that path so `TreeView` and its collection helpers come from the same 
 Use the collection as the data source for `TreeView`. Render `collection.rootNode.children` and pass
 each node's numeric position as its `indexPath`.
 
-<ExampleFrame variant="component">
-  <PreviewFrame maxWidth="sm">
-    <TreeCollectionBasic />
-  </PreviewFrame>
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/tree-collection/basic.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={treeCollectionSolidBasic} />
-
-    </Tab>
-  <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={treeCollectionVueBasic} title="basic.vue" />
-
-<CodeBlockRuntime lang="vue" code={treeCollectionVueBasicHelper} title="FileTreeNode.vue" />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="tree-collection/basic" />
 
 `TreeViewLabel` gives the tree an accessible name, while `TreeView` provides focus management,
 keyboard navigation, expansion, and selection. For the complete component anatomy and behavior, see
@@ -291,7 +248,7 @@ come from dynamic data before using them.
 | `filter(predicate)`         | Return a filtered tree.                      |
 
 When the collection is rendered by `TreeView`, store the collection returned by an update in the
-state that owns the tree and render its new `rootNode`.
+state that holds the tree and render its new `rootNode`.
 
 ## File paths
 

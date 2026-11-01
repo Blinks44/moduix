@@ -86,9 +86,9 @@ Every part except `SidebarTooltip`, `SidebarInput`, and `SidebarSeparator` has a
 
 ## Styling
 
-- Colors come from the foundation sidebar tokens: `--moduix-color-sidebar`, `-sidebar-foreground`,
+- Colors come from the foundation sidebar tokens: `--moduix-sidebar`, `-sidebar-foreground`,
   `-sidebar-accent`, `-sidebar-accent-foreground`, `-sidebar-border`, `-sidebar-ring`. The inset uses
-  the page background; badges use `--moduix-color-primary`.
+  the page background; badges use `--moduix-primary`.
 - Public variables: `--moduix-sidebar-width` and `--moduix-sidebar-height` (Ark sets inline
   `width/height`, so a class cannot change them) and `--moduix-sidebar-trigger-offset-y`. Everything
   else is a class on the part.

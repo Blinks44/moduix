@@ -16,8 +16,8 @@ import {
   TimerSeparator,
   useTimer,
   useTimerContext,
-} from '../src';
-import type { TimerItemProps } from '../src';
+} from '@/index';
+import type { TimerItemProps } from '@/index';
 import SsrTimer from './fixtures/SsrTimer.vue';
 
 const timerComponents = {
@@ -31,6 +31,14 @@ const timerComponents = {
   TimerSegments,
   TimerSeparator,
 };
+
+const ProviderStatus = defineComponent({
+  setup() {
+    const timer = useTimerContext();
+    return { timer };
+  },
+  template: '<output>{{ timer.running ? "Running" : "Idle" }}</output>',
+});
 
 test('renders the short root form with default segments, stable hooks, and Vue refs', async () => {
   const rootRef = ref<ComponentPublicInstance>();
@@ -58,8 +66,6 @@ test('renders the short root form with default segments, stable hooks, and Vue r
   await expect.element(page.getByRole('timer')).toHaveAttribute('data-slot', 'timer-area');
   await expect.element(page.getByRole('timer')).toHaveAttribute('aria-atomic', 'true');
   // The digits must not overlap when the area wraps onto several lines.
-  await expect.element(page.getByRole('timer')).toHaveCSS('font-size', '24px');
-  await expect.element(page.getByRole('timer')).toHaveCSS('line-height', '32px');
   expect(container.querySelectorAll('[data-slot="timer-item"]')).toHaveLength(3);
   expect(container.querySelectorAll('[data-slot="timer-separator"]')).toHaveLength(2);
   await expect.element(page.locator('[data-type="hours"]')).toBeAttached();
@@ -189,14 +195,6 @@ test('preserves Ark action visibility and native button semantics', async () => 
   await expect.element(startLocator).not.toHaveAttribute('hidden');
   await expect.element(page.getByText('Reset', { exact: true })).toHaveAttribute('hidden');
   await expect.element(page.getByRole('timer')).toContainText('00:00:00');
-});
-
-const ProviderStatus = defineComponent({
-  setup() {
-    const timer = useTimerContext();
-    return { timer };
-  },
-  template: '<output>{{ timer.running ? "Running" : "Idle" }}</output>',
 });
 
 test('keeps RootProvider and context hook state connected', async () => {

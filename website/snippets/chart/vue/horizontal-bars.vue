@@ -34,7 +34,7 @@ const definition = defineChart({
     x: { scale: scaleLinear, nice: true, grid: true, axis: { label: 'Active users (k)' } },
     y: { scale: scaleBand, axis: { label: 'Product' } },
   },
-  color: { domain: ['Active users'], range: ['var(--moduix-color-chart-1)'] },
+  color: { domain: ['Active users'], range: ['var(--moduix-chart-1)'] },
   tooltip,
 });
 </script>
@@ -47,7 +47,7 @@ const definition = defineChart({
     </ChartHeader>
     <ChartPlot :definition="definition" :height="320" ariaLabel="Monthly active users by product" />
     <ChartLegend aria-label="Product metric">
-      <ChartLegendItem color="var(--moduix-color-chart-1)">Active users</ChartLegendItem>
+      <ChartLegendItem color="var(--moduix-chart-1)">Active users</ChartLegendItem>
     </ChartLegend>
   </Chart>
 </template>

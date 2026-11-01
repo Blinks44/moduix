@@ -1,14 +1,27 @@
 ---
 title: Menu
 component: menu
-description: Un menu ouvert par un déclencheur pour les actions, les liens, les options sélectionnables, les commandes imbriquées et les menus contextuels.
+description: Ouvrir une liste d’actions ou d’options depuis un bouton ou un clic droit.
+ark: https://ark-ui.com/docs/components/menu
 ---
 
+import AnatomyScene from '@/components/examples/menu/anatomy';
 import * as MenuDocs from '@/components/examples/menu/css-properties';
 
-## Référence de l’API
+<Example name="menu/basic" />
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/menu" />
+## Installation
+
+<ComponentInstall />
+
+## Utilisation
+
+<Usage />
+
+Utilisez la composition standard pour un menu ouvert par un bouton, un déclencheur personnalisé ou un déclencheur contextuel. Le composant racine gère la navigation au clavier, la recherche par saisie, le focus et la fermeture. Attribuez une valeur `value` stable à chaque élément afin de préserver la sélection et la recherche par saisie lorsque la liste change.
+
+Ne définissez pas d’`id` personnalisé sur `MenuItem` : Ark identifie les éléments par `value`, et un `id`
+supplémentaire casse la recherche d’éléments, la navigation par saisie et la gestion du focus.
 
 ## Choisir le bon composant
 
@@ -16,129 +29,7 @@ Utilisez `Menu` pour des actions contextuelles dans une fenêtre contextuelle te
 commandes, des liens ou un menu contextuel. Utilisez `NavigationMenu` pour une navigation de site ou
 de produit persistante, et `Dialog` pour les flux qui exigent toute l’attention de l’utilisateur.
 
-## Exemple de base
-
-Utilisez la composition standard pour un menu ouvert par un bouton, un déclencheur personnalisé ou un déclencheur contextuel. Le composant racine gère la navigation au clavier, la recherche par saisie, le focus et la fermeture. Attribuez une valeur `value` stable à chaque élément afin de préserver la sélection et la recherche par saisie lorsque la liste change.
-
-Ne définissez pas d’`id` personnalisé sur `MenuItem` : Ark identifie les éléments par `value`, et un `id`
-supplémentaire casse la recherche d’éléments, la navigation par saisie et la gestion du focus.
-
-
-<Example name="menu/basic" />
-
-## Installation avec shadcn
-
-Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration complète du paquet, du registre et des styles.
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/menu' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/menu' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/menu' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/menu' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/menu' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/menu' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Anatomie
-
-```text
-Menu
-├─ MenuTrigger
-│  └─ MenuIndicator
-├─ MenuContextTrigger
-└─ Sous-arbre du calque (placé automatiquement dans un portail)
-   └─ MenuPositioner
-      └─ MenuContent
-         ├─ MenuArrow
-         │  └─ MenuArrowTip
-         └─ MenuViewport
-            ├─ MenuItem
-            │  ├─ MenuItemText
-            │  │  ├─ MenuItemTextIcon
-            │  │  └─ MenuItemTextLabel
-            │  └─ MenuItemShortcut
-            ├─ MenuCheckboxItem
-            │  └─ MenuItemIndicator
-            ├─ MenuRadioItemGroup
-            │  └─ MenuRadioItem
-            ├─ MenuItemGroup
-            │  └─ MenuItemGroupLabel
-            ├─ MenuSeparator
-            └─ Menu
-               └─ MenuTriggerItem
-                  └─ MenuTriggerItemIcon
-```
-
-| Partie | Rôle |
-| --- | --- |
-| `Menu` | Composant racine qui gère l’ouverture, le positionnement, la recherche par saisie, le focus et la fermeture. |
-| `MenuRootProvider` | Relie le menu à une instance d’état créée avec `useMenu`. |
-| `MenuTrigger` | Bouton qui ouvre le menu. Il n’a pas de styles propres ; utilisez `asChild` avec `Button` ou un autre élément sémantique. |
-| `MenuIndicator` | Indicateur du déclencheur qui reflète son état, généralement affiché comme un chevron. |
-| `MenuContextTrigger` | Zone sans styles qui ouvre le menu par clic droit ou appui prolongé. |
-| `MenuPositioner` | Positionne le calque flottant du menu. |
-| `MenuContent` | Surface de la fenêtre contextuelle avec le rôle `menu` et sa collection d’éléments. |
-| `MenuViewport` | Conteneur de défilement explicite autour de la collection d’éléments. |
-| `MenuArrow` / `MenuArrowTip` | Flèche facultative qui relie visuellement la fenêtre contextuelle à son déclencheur. |
-| `MenuItem` | Élément de commande standard. |
-| `MenuCheckboxItem` | Élément doté d’un état booléen indépendant. |
-| `MenuRadioItemGroup` / `MenuRadioItem` | Groupe et éléments permettant de choisir une seule valeur. |
-| `MenuItemIndicator` | Indicateur de sélection des éléments avec case à cocher et des options radio. |
-| `MenuItemText` et composants utilitaires de texte | Composants utilitaires pour composer le texte d’un élément avec une icône et un libellé. |
-| `MenuItemShortcut` | Conteneur pour un raccourci clavier ou une autre indication placée à droite. |
-| `MenuItemGroup` / `MenuItemGroupLabel` | Groupe et libellé pour des éléments associés. |
-| `MenuSeparator` | Séparateur entre des groupes d’éléments. |
-| `MenuTriggerItem` / `MenuTriggerItemIcon` | Élément et icône pour ouvrir un menu imbriqué. |
-| `MenuItemContext` | Fournit l’état de l’élément à son contenu. |
-
-## Composition
-
-Utilisez `defaultOpen` pour un menu non contrôlé. Lorsque l’ouverture ou l’élément mis en surbrillance est géré par une autre partie de l’application, passez `open` ou `highlightedValue` avec la fonction de rappel correspondante. Utilisez `useMenu()` avec `MenuRootProvider` lorsque le store doit être créé en dehors de l’arbre rendu ; ne rendez pas une seconde racine `Menu` pour le même store.
-
-`MenuPositioner`, `MenuContent` et `MenuViewport` sont des parties distinctes, mais le positionneur est automatiquement rendu dans un portail. Définissez `portalled={false}` dans une boîte de dialogue ou un conteneur défilant, et utilisez `positioning={{ strategy: 'fixed', hideWhenDetached: true }}` lorsque ce conteneur peut défiler. Utilisez `asChild` avec exactement un enfant sémantique lorsqu’un déclencheur, un élément ou l’hôte du contenu doit porter le nœud DOM. En Solid, assignez la ref à l’élément créé dans la fonction de rendu `asChild`, car une ref posée sur une partie `Menu` elle-même n’est pas transmise par ce chemin de composition. Dans `MenuContent`, entourez les éléments défilants avec `MenuViewport`. Conservez l’éventuel `MenuArrow` comme enfant direct de `MenuContent`, à côté du viewport, afin qu’il ne soit pas rogné pendant le défilement. Un menu imbriqué est une autre racine `Menu` dans le contenu parent, avec ses propres parties `TriggerItem`, `Positioner` et `Content`.
 ## Exemples
-
-### Options avec case à cocher
-
-Utilisez ces éléments pour des options indépendantes qui peuvent être activées ou désactivées. Définissez `closeOnSelect={false}` si l’utilisateur doit modifier plusieurs options avant de fermer le menu.
-
-<Example name="menu/checkbox-items" />
-
-### Menu contextuel
-
-Utilisez `MenuContextTrigger` lorsque les actions doivent apparaître après un clic droit. Sur les appareils tactiles et avec un stylet, un appui prolongé ouvre également le menu.
-
-<Example name="menu/context-menu" />
-
-### État contrôlé
-
-Contrôlez `open` avec l’état React lorsqu’un autre contrôle doit ouvrir ou fermer le menu.
-
-<Example name="menu/controlled" />
 
 ### Regroupement
 
@@ -146,11 +37,71 @@ Utilisez `MenuItemGroup` et `MenuItemGroupLabel` pour organiser les éléments a
 
 <Example name="menu/grouping" />
 
+### Options avec case à cocher
+
+Utilisez ces éléments pour des options indépendantes qui peuvent être activées ou désactivées. Définissez `closeOnSelect={false}` si l’utilisateur doit modifier plusieurs options avant de fermer le menu.
+
+<Example name="menu/checkbox-items" />
+
+### Options à choix unique
+
+Utilisez `MenuRadioItemGroup` lorsque l’utilisateur doit choisir une seule valeur parmi plusieurs options. Définissez `closeOnSelect={false}` si le menu doit rester ouvert pendant la sélection.
+
+<Example name="menu/radio-items" />
+
 ### Placement des indicateurs
 
 Définissez `indicator="start"`, `"end"` ou `"none"` sur les éléments avec case à cocher et les options radio pour choisir la position de l’indicateur.
 
 <Example name="menu/indicator-placement" />
+
+### Liens
+
+Utilisez `MenuItem asChild` et faites de l’ancre l’élément de menu lui-même. Elle recevra ainsi les attributs ARIA, le comportement clavier et la gestion du focus de l’élément de menu.
+
+<Example name="menu/links" />
+
+### Menu imbriqué
+
+Rendez un `Menu` enfant dans le contenu du menu parent et ouvrez-le avec `MenuTriggerItem`.
+
+<Example name="menu/nested" />
+
+### Avec flèche
+
+Ajoutez `MenuArrow` et `MenuArrowTip` directement dans `MenuContent` lorsque la fenêtre contextuelle doit être visuellement reliée à son déclencheur.
+
+<Example name="menu/with-arrow" />
+
+### Menu contextuel
+
+Utilisez `MenuContextTrigger` lorsque les actions doivent apparaître après un clic droit. Sur les appareils tactiles et avec un stylet, un appui prolongé ouvre également le menu.
+
+<Example name="menu/context-menu" />
+
+### Plusieurs déclencheurs
+
+Partagez un même menu entre plusieurs déclencheurs en attribuant une valeur `value` distincte à chaque `MenuTrigger`. Le menu se repositionne par rapport au déclencheur qui l’a ouvert.
+
+<Example name="menu/multiple-triggers" />
+
+### Menu dans une boîte de dialogue
+
+Définissez `portalled={false}` pour garder la fenêtre contextuelle dans une boîte de dialogue ou un conteneur défilant. Si le conteneur peut défiler, utilisez un positionnement fixe avec `hideWhenDetached` afin de masquer le menu lorsqu’il sort de la zone visible.
+
+<Example name="menu/menu-in-dialog" />
+
+### Événement de sélection
+
+Utilisez `onSelect(details)` sur la racine lorsqu’un seul gestionnaire doit réagir à chaque sélection. Lisez la valeur sélectionnée dans `details.value`.
+
+<Example name="menu/select-event" />
+
+### État contrôlé
+
+Contrôlez `open` avec l’état React lorsqu’un autre contrôle doit ouvrir ou fermer le menu. Voir [Contrôler l’état depuis l’application](/docs/composition-patterns#controlled-state).
+
+<Example name="menu/controlled" />
 
 ### Contexte de l’élément
 
@@ -164,59 +115,55 @@ Par défaut, le contenu du menu contextuel est monté à la première ouverture 
 
 <Example name="menu/lazy-mounted-context-menu" />
 
-### Liens
+### Root Provider
 
-Utilisez `MenuItem asChild` et faites de l’ancre l’élément de menu lui-même. Elle recevra ainsi les attributs ARIA, le comportement clavier et la gestion du focus de l’élément de menu.
-
-<Example name="menu/links" />
-
-### Menu dans une boîte de dialogue
-
-Définissez `portalled={false}` pour garder la fenêtre contextuelle dans une boîte de dialogue ou un conteneur défilant. Si le conteneur peut défiler, utilisez un positionnement fixe avec `hideWhenDetached` afin de masquer le menu lorsqu’il sort de la zone visible.
-
-<Example name="menu/menu-in-dialog" />
-
-### Plusieurs déclencheurs
-
-Partagez un même menu entre plusieurs déclencheurs en attribuant une valeur `value` distincte à chaque `MenuTrigger`. Le menu se repositionne par rapport au déclencheur qui l’a ouvert.
-
-<Example name="menu/multiple-triggers" />
-
-### Menu imbriqué
-
-Rendez un `Menu` enfant dans le contenu du menu parent et ouvrez-le avec `MenuTriggerItem`.
-
-<Example name="menu/nested" />
-
-### Options à choix unique
-
-Utilisez `MenuRadioItemGroup` lorsque l’utilisateur doit choisir une seule valeur parmi plusieurs options. Définissez `closeOnSelect={false}` si le menu doit rester ouvert pendant la sélection.
-
-<Example name="menu/radio-items" />
-
-### Utiliser `RootProvider`
-
-Utilisez `useMenu` et `MenuRootProvider` lorsque du code situé en dehors de l’arbre rendu doit lire ou modifier l’état du menu.
+Utilisez `useMenu` et `MenuRootProvider` lorsque du code situé en dehors de l’arbre rendu doit lire ou modifier l’état du menu. Voir [Partager l’état hors de l’arbre](/docs/composition-patterns#root-provider).
 
 <Example name="menu/root-provider" />
 
-### Événement de sélection
+### Assembler à partir des parties
 
-Utilisez `onSelect(details)` sur la racine lorsqu’un seul gestionnaire doit réagir à chaque sélection. Lisez la valeur sélectionnée dans `details.value`.
+Le même menu que Basic avec le chevron du déclencheur écrit explicitement : `MenuIndicator` n’affiche
+une icône par défaut que s’il n’a pas d’enfants. `MenuItemIndicator` et `MenuTriggerItemIcon` acceptent
+une icône de la même façon. Partez de cet exemple quand le design remplace les icônes du menu.
 
-<Example name="menu/select-event" />
+<Example name="menu/build-from-parts" />
 
-### Avec flèche
+## Composition
 
-Ajoutez `MenuArrow` et `MenuArrowTip` directement dans `MenuContent` lorsque la fenêtre contextuelle doit être visuellement reliée à son déclencheur.
+Utilisez `defaultOpen` pour un menu non contrôlé. Lorsque l’ouverture ou l’élément mis en surbrillance est géré par une autre partie de l’application, passez `open` ou `highlightedValue` avec la fonction de rappel correspondante. Utilisez `useMenu()` avec `MenuRootProvider` lorsque le store doit être créé en dehors de l’arbre rendu ; ne rendez pas une seconde racine `Menu` pour le même store.
 
-<Example name="menu/with-arrow" />
+`MenuPositioner`, `MenuContent` et `MenuViewport` sont des parties distinctes, mais le positionneur est automatiquement rendu dans un portail. Définissez `portalled={false}` dans une boîte de dialogue ou un conteneur défilant, et utilisez `positioning={{ strategy: 'fixed', hideWhenDetached: true }}` lorsque ce conteneur peut défiler. Utilisez `asChild` avec exactement un enfant sémantique lorsqu’un déclencheur, un élément ou l’hôte du contenu doit porter le nœud DOM. En Solid, assignez la ref à l’élément créé dans la fonction de rendu `asChild`, car une ref posée sur une partie `Menu` elle-même n’est pas transmise par ce chemin de composition. Dans `MenuContent`, entourez les éléments défilants avec `MenuViewport`. Conservez l’éventuel `MenuArrow` comme enfant direct de `MenuContent`, à côté du viewport, afin qu’il ne soit pas rogné pendant le défilement. Un menu imbriqué est une autre racine `Menu` dans le contenu parent, avec ses propres parties `TriggerItem`, `Positioner` et `Content`.
 
-### Personnalisation avancée
+## Anatomie
 
-Utilisez les composants utilitaires pour les mises en page courantes, puis composez directement les parties Ark lorsqu’un élément ou un lien nécessite une structure personnalisée.
+Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
 
-<Example name="menu/advanced-customization" />
+<AnatomyInspector
+  parts={[
+    ["Menu", null, "Composant racine qui gère l’ouverture, le positionnement, la recherche par saisie, le focus et la fermeture.", 0],
+    ["MenuTrigger", "menu-trigger", "Bouton qui ouvre le menu. Il n’a pas de styles propres ; utilisez `asChild` avec `Button` ou un autre élément sémantique.", 1],
+    ["MenuIndicator", "menu-indicator", "Indicateur du déclencheur qui reflète son état, généralement affiché comme un chevron.", 2],
+    ["MenuContextTrigger", "menu-context-trigger", "Zone sans styles qui ouvre le menu par clic droit ou appui prolongé.", 1],
+    ["MenuPositioner", "menu-positioner", "Positionne le calque flottant du menu.", 1],
+    ["MenuContent", "menu-content", "Surface de la fenêtre contextuelle avec le rôle `menu` et sa collection d’éléments.", 2],
+    ["MenuArrow / MenuArrowTip", "menu-arrow", "Flèche facultative qui relie visuellement la fenêtre contextuelle à son déclencheur.", 3],
+    ["MenuViewport", "menu-viewport", "Conteneur de défilement explicite autour de la collection d’éléments.", 3],
+    ["MenuItemGroup / MenuItemGroupLabel", "menu-item-group", "Groupe et libellé pour des éléments associés.", 4],
+    ["MenuItem", "menu-item", "Élément de commande standard.", 5],
+    ["MenuItemText et composants utilitaires de texte", "menu-item-text", "Composants utilitaires pour composer le texte d’un élément avec une icône et un libellé.", 6],
+    ["MenuItemShortcut", "menu-item-shortcut", "Conteneur pour un raccourci clavier ou une autre indication placée à droite.", 6],
+    ["MenuCheckboxItem", "menu-checkbox-item", "Élément doté d’un état booléen indépendant.", 5],
+    ["MenuItemIndicator", "menu-item-indicator", "Indicateur de sélection des éléments avec case à cocher et des options radio.", 6],
+    ["MenuSeparator", "menu-separator", "Séparateur entre des groupes d’éléments.", 4],
+    ["MenuRadioItemGroup / MenuRadioItem", "menu-radio-item-group", "Groupe et éléments permettant de choisir une seule valeur.", 4],
+    ["MenuTriggerItem / MenuTriggerItemIcon", "menu-trigger-item", "Élément et icône pour ouvrir un menu imbriqué.", 4],
+    ["MenuRootProvider", null, "Relie le menu à une instance d’état créée avec `useMenu`.", 0],
+    ["MenuItemContext", null, "Fournit l’état de l’élément à son contenu.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styles
 
@@ -230,14 +177,78 @@ séparateurs, la marge de la liste et l’animation du popup suivent aussi les v
 déclencheur avec `asChild` et `Button`, et stylisez vous-même la zone du menu contextuel. Les
 attributs de données et les sélecteurs `data-slot` sont communs aux deux modes de style.
 
-### Propriétés CSS
+### Variables CSS
 
-<CssPropertiesSection properties={MenuDocs.menuOverrideCssProperties} />
+Survolez ou sélectionnez une variable pour la voir dans l’aperçu.
+
+<CssPropertiesSection properties={MenuDocs.menuOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Points d’accroche CSS
+
+| Partie | `data-slot` |
+| --- | --- |
+| `MenuTrigger` | `menu-trigger` |
+| `MenuIndicator` | `menu-indicator` |
+| `MenuContextTrigger` | `menu-context-trigger` |
+| `MenuPositioner` | `menu-positioner` |
+| `MenuContent` | `menu-content` |
+| `MenuViewport` | `menu-viewport` |
+| `MenuArrow` | `menu-arrow` |
+| `MenuArrowTip` | `menu-arrow-tip` |
+| `MenuItem` | `menu-item` |
+| `MenuTriggerItem` | `menu-trigger-item` |
+| `MenuTriggerItemIcon` | `menu-trigger-item-icon` |
+| `MenuSeparator` | `menu-separator` |
+| `MenuItemGroup` | `menu-item-group` |
+| `MenuItemGroupLabel` | `menu-item-group-label` |
+| `MenuRadioItemGroup` | `menu-radio-item-group` |
+| `MenuRadioItem` | `menu-radio-item` |
+| `MenuCheckboxItem` | `menu-checkbox-item` |
+| `MenuItemIndicator` | `menu-item-indicator` |
+| `MenuItemText` | `menu-item-text` |
+| `MenuItemShortcut` | `menu-item-shortcut` |
 
 Utilisez les attributs d’état d’Ark pour styliser le menu et ses éléments :
 
 - Attributs Ark : `[data-scope='menu']`, `[data-part='trigger']`, `[data-part='indicator']`, `[data-part='content']`, `[data-part='viewport']`, `[data-part='item']`, `[data-type='checkbox' | 'radio']`, `[data-state='open' | 'closed' | 'checked' | 'unchecked']`, `[data-current]`, `[data-highlighted]`, `[data-disabled]`, `[data-placement]` et `[data-side]`.
-- Attributs moduix : `[data-slot='menu-trigger']`, `[data-slot='menu-indicator']`, `[data-slot='menu-context-trigger']`, `[data-slot='menu-positioner']`, `[data-slot='menu-content']`, `[data-slot='menu-viewport']`, `[data-slot='menu-arrow']`, `[data-slot='menu-arrow-tip']`, `[data-slot='menu-item']`, `[data-slot='menu-trigger-item']`, `[data-slot='menu-trigger-item-icon']`, `[data-slot='menu-separator']`, `[data-slot='menu-item-group']`, `[data-slot='menu-item-group-label']`, `[data-slot='menu-radio-item-group']`, `[data-slot='menu-radio-item']`, `[data-slot='menu-checkbox-item']`, `[data-slot='menu-item-indicator']`, `[data-slot='menu-item-text']`, `[data-slot='menu-item-text-content']`, `[data-slot='menu-item-text-icon']`, `[data-slot='menu-item-text-label']`, `[data-slot='menu-item-shortcut']` et `[data-indicator-position='start' | 'end' | 'none']`.
+- `MenuCheckboxItem` et `MenuRadioItem` portent `[data-indicator-position='start' | 'end' | 'none']`.
 - Variables de positionnement : `--reference-width`, `--available-width`, `--available-height`, `--transform-origin`, `--layer-index`, `--arrow-size` et `--arrow-background`.
+
+## Clavier
+
+| Touche | Action |
+| --- | --- |
+| `Enter` / `Space` | Ouvre le menu depuis le déclencheur ou sélectionne l’élément en surbrillance. |
+| `ArrowDown` / `ArrowUp` | Déplace la surbrillance vers l’élément suivant ou précédent. |
+| `ArrowRight` / `ArrowLeft` | Ouvre ou ferme un sous-menu. |
+| `Home` / `End` | Met en surbrillance le premier ou le dernier élément. |
+| `Esc` | Ferme le menu et rend le focus au déclencheur. |
+| Lettres | Met en surbrillance l’élément qui commence par le texte saisi. |
+
+## Référence de l’API
+
+| Prop | Type | Défaut | Description |
+| --- | --- | --- | --- |
+| `open` | `boolean` | — | État d’ouverture en mode contrôlé. |
+| `defaultOpen` | `boolean` | `false` | État d’ouverture initial lorsqu’il n’est pas contrôlé. |
+| `onOpenChange` | `(details: OpenChangeDetails) => void` | — | Appelé à l’ouverture et à la fermeture. |
+| `onSelect` | `(details: SelectionDetails) => void` | — | Appelé avec la `value` de l’élément choisi. |
+| `closeOnSelect` | `boolean` | `true` | Ferme le menu après la sélection d’un élément. |
+| `positioning` | `PositioningOptions` | — | Placement, décalage et autres options de positionnement de la fenêtre. |
+| `loopFocus` | `boolean` | `false` | La navigation au clavier revient du dernier élément au premier. |
+| `typeahead` | `boolean` | `true` | La saisie de lettres met en évidence un élément correspondant. |
+| `highlightedValue` | `string \| null` | — | Élément mis en évidence en mode contrôlé. |
+| `onHighlightChange` | `(details: HighlightChangeDetails) => void` | — | Appelé lorsque l’élément mis en évidence change. |
+| `lazyMount` | `boolean` | `true` | Monte le contenu à la première ouverture. |
+| `unmountOnExit` | `boolean` | `true` | Démonte le contenu après la fermeture. |
+| `portalled` | `boolean` | `true` | Rend le menu dans un portail à la fin de `body`. |
+| `defaultHighlightedValue` | `string \| null` | — | Élément mis en évidence au départ. |
+| `anchorPoint` | `Point \| null` | — | Ouvre le menu à un point précis, pour un menu contextuel. |
+| `aria-label` | `string` | — | Nom accessible du menu. |
+| `composite` | `boolean` | `true` | Passez `false` à l’intérieur d’un autre widget composite, comme des onglets. |
+| `navigate` | `((details: NavigateDetails) => void) \| null` | — | Navigue vers un élément lien choisi au clavier. |
+| `triggerValue` | `string \| null` | — | Déclencheur actif en mode contrôlé lorsque plusieurs déclencheurs partagent un menu. |
+| `defaultTriggerValue` | `string \| null` | — | Déclencheur actif au départ. |
+| `onTriggerValueChange` | `(details: TriggerValueChangeDetails) => void` | — | Appelé lorsqu’un autre déclencheur ouvre le menu. |

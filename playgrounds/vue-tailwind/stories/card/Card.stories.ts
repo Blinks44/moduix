@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/vue3-vite';
 import { defineComponent } from 'vue';
+import type { Component } from 'vue';
 import { Badge } from '@/components/badge';
 import { Button } from '@/components/button';
 import {
@@ -14,6 +15,7 @@ import {
   CardMedia,
   CardTitle,
 } from '@/components/card';
+import { Input } from '@/components/input';
 
 const meta = {
   title: 'Components/Card',
@@ -46,7 +48,8 @@ const storyComponents = {
   CardLink,
   CardMedia,
   CardTitle,
-};
+  Input,
+} as unknown as Record<string, Component>;
 
 function renderStory(template: string) {
   return () =>
@@ -150,8 +153,8 @@ export const WithinForm: Story = {
         <CardHeader><CardTitle>Create account</CardTitle><CardDescription>Enter the contact details for the new member.</CardDescription></CardHeader>
         <CardBody>
           <div class="grid gap-3">
-            <label class="grid gap-1 font-medium text-foreground">First name<input name="firstName" class="min-w-0 rounded-md border border-input bg-transparent px-3 py-2" /></label>
-            <label class="grid gap-1 font-medium text-foreground">Last name<input name="lastName" class="min-w-0 rounded-md border border-input bg-transparent px-3 py-2" /></label>
+            <label class="grid gap-1 font-medium text-foreground">First name<Input name="firstName" /></label>
+            <label class="grid gap-1 font-medium text-foreground">Last name<Input name="lastName" /></label>
           </div>
         </CardBody>
         <CardFooter><Button type="reset" variant="outline">Cancel</Button><Button type="submit">Create account</Button></CardFooter>
@@ -259,10 +262,10 @@ export const CustomComposition: Story = {
 
 export const CustomSpacing: Story = {
   render: renderStory(`
-    <Card :class="cardClass">
-      <CardHeader class="px-4 pt-4"><CardTitle>Scheduled reports</CardTitle><CardDescription>Weekly snapshots with denser card spacing.</CardDescription></CardHeader>
-      <CardBody class="px-4 pt-4 pb-4"><div class="grid gap-1"><span class="text-2xl font-semibold text-foreground">24</span><span class="text-sm text-muted-foreground">active report schedules</span></div></CardBody>
-      <CardFooter class="px-4 pb-4"><Button variant="outline">See details</Button><Button>Set up report</Button></CardFooter>
+    <Card :class="[cardClass, '[--card-spacing:var(--moduix-spacing-4)]']">
+      <CardHeader><CardTitle>Scheduled reports</CardTitle><CardDescription>Weekly snapshots with denser card spacing.</CardDescription></CardHeader>
+      <CardBody><div class="grid gap-1"><span class="text-2xl font-semibold text-foreground">24</span><span class="text-sm text-muted-foreground">active report schedules</span></div></CardBody>
+      <CardFooter><Button variant="outline">See details</Button><Button>Set up report</Button></CardFooter>
     </Card>
   `),
 };

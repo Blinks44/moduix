@@ -6,8 +6,8 @@ import {
   PopoverTitle,
   PopoverTrigger,
 } from '@moduix/react/popover';
+import { Stack } from '@moduix/react/stack';
 import { useState } from 'react';
-import styles from '@/components/examples/popover/popover-multiple-triggers.module.css';
 
 const actions = [
   {
@@ -35,13 +35,13 @@ export default function MultipleTriggersDemo() {
         setActiveItem(actions.find((item) => item.id === details.value) ?? null);
       }}
     >
-      <div className={styles.root}>
+      <Stack direction="row" justify="center" wrap="wrap" gap="2">
         {actions.map((item) => (
           <PopoverTrigger key={item.id} value={item.id}>
             {item.label}
           </PopoverTrigger>
         ))}
-      </div>
+      </Stack>
       <PopoverPositioner>
         <PopoverContent>
           <PopoverTitle>{activeItem?.label ?? 'Select an action'}</PopoverTitle>

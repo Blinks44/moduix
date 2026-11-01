@@ -1,0 +1,510 @@
+/* Home · Components tiles in Moduix.sketch, drawn at their real size. */
+:is(.combobox, .tour, .toastStack, .colorPicker, .calendar, .signature, .upload, .tags),
+:is(.combobox, .tour, .toastStack, .colorPicker, .calendar, .signature, .upload, .tags) * {
+  box-sizing: border-box;
+  white-space: nowrap;
+}
+
+.combobox {
+  display: grid;
+  width: 170px;
+  gap: 6px;
+  font-size: 11px;
+}
+
+.label {
+  color: var(--rp-c-text-1);
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.input {
+  display: flex;
+  height: 28px;
+  align-items: center;
+  justify-content: space-between;
+  border: 2px solid var(--rp-c-brand);
+  border-radius: 8px;
+  padding: 0 10px;
+  background: var(--rp-c-bg);
+  color: var(--rp-c-text-0);
+
+  svg {
+    width: 14px;
+    color: var(--rp-c-text-3);
+  }
+}
+
+.list {
+  display: grid;
+  margin: 0;
+  border: 1px solid var(--rp-c-divider);
+  border-radius: 8px;
+  padding: 4px;
+  background: var(--rp-c-bg);
+  box-shadow: 0 8px 24px rgb(0 0 0 / 8%);
+  list-style: none;
+
+  li {
+    display: flex;
+    height: 26px;
+    align-items: center;
+    gap: 8px;
+    margin: 0;
+    border-radius: 6px;
+    padding: 0 8px;
+    color: var(--rp-c-text-1);
+  }
+
+  li[data-selected] {
+    background: var(--rp-c-bg-mute);
+  }
+
+  svg {
+    width: 14px;
+    margin-left: auto;
+    color: var(--rp-c-brand);
+  }
+}
+
+.avatar {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+}
+
+.tour {
+  position: relative;
+  display: grid;
+  width: 230px;
+  height: 142px;
+  align-content: start;
+  gap: 10px;
+  border-radius: 8px;
+  padding: 44px 18px 0;
+  background: color-mix(in oklab, var(--rp-c-text-1) 18%, var(--rp-c-bg));
+}
+
+.tourTarget {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  border: 2px solid var(--rp-c-brand);
+  border-radius: 6px;
+  padding: 1px 12px;
+  background: var(--rp-c-bg);
+  color: var(--rp-c-text-1);
+  font-size: 11px;
+}
+
+.tourLine {
+  width: 60%;
+  height: 8px;
+  border-radius: 4px;
+  background: color-mix(in oklab, var(--rp-c-text-1) 10%, var(--rp-c-bg));
+}
+
+.tourStep {
+  position: absolute;
+  top: 34px;
+  right: 10px;
+  display: grid;
+  width: 148px;
+  gap: 2px;
+  border-radius: 8px;
+  padding: 8px 10px;
+  background: var(--rp-c-bg);
+  box-shadow: 0 8px 24px rgb(0 0 0 / 14%);
+  font-size: 11px;
+
+  strong {
+    color: var(--rp-c-text-0);
+    font-size: 11px;
+    font-weight: 500;
+  }
+}
+
+.tourProgress {
+  color: var(--rp-c-brand);
+  font-size: 10px;
+}
+
+.tourActions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 6px;
+  color: var(--rp-c-text-3);
+  font-size: 10px;
+}
+
+.tourNext {
+  border-radius: 5px;
+  padding: 3px 10px;
+  background: var(--rp-c-text-0);
+  color: var(--rp-c-bg);
+}
+
+.toast {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  border: 1px solid var(--rp-c-divider);
+  border-radius: 10px;
+  padding: 12px;
+  background: var(--rp-c-bg);
+  box-shadow: 0 8px 24px rgb(0 0 0 / 8%);
+  color: var(--rp-c-text-2);
+  font-size: 10px;
+  line-height: 15px;
+
+  span {
+    display: grid;
+    flex: 1;
+  }
+
+  strong {
+    color: var(--rp-c-text-0);
+    font-size: 12px;
+    font-weight: 500;
+  }
+
+  svg {
+    width: 16px;
+    flex: none;
+    color: var(--moduix-doc-success, #16a34a);
+  }
+
+  svg:last-child {
+    width: 14px;
+    color: var(--rp-c-text-3);
+  }
+}
+.toastStack {
+  position: relative;
+  display: grid;
+  width: 210px;
+  padding-top: 12px;
+}
+
+.toastBehind {
+  position: absolute;
+  top: 0;
+  inset-inline: 14px;
+  height: 40px;
+  border: 1px solid var(--rp-c-divider);
+  border-radius: 10px;
+  background: var(--rp-c-bg);
+}
+
+.toast {
+  position: relative;
+}
+
+.colorPicker,
+.calendar,
+.signature {
+  border: 1px solid var(--rp-c-divider);
+  border-radius: 10px;
+  background: var(--rp-c-bg);
+  box-shadow: 0 8px 24px rgb(0 0 0 / 8%);
+}
+
+.colorPicker {
+  display: grid;
+  width: 158px;
+  gap: 10px;
+  padding: 8px;
+}
+
+.colorArea {
+  position: relative;
+  height: 72px;
+  border-radius: 6px;
+  background: linear-gradient(to top, #000, transparent), linear-gradient(to right, #fff, #2f50f5);
+}
+
+.colorThumb {
+  position: absolute;
+  top: 12px;
+  right: 30px;
+  width: 12px;
+  height: 12px;
+  border: 2px solid #fff;
+  border-radius: 50%;
+  box-shadow: 0 0 0 1px rgb(0 0 0 / 30%);
+}
+
+.hue {
+  position: relative;
+  height: 8px;
+  border-radius: 4px;
+  background: linear-gradient(90deg, red, #ff0, lime, cyan, blue, #f0f, red);
+}
+
+.hueThumb {
+  position: absolute;
+  top: -3px;
+  left: 66%;
+  width: 14px;
+  height: 14px;
+  border: 2px solid #fff;
+  border-radius: 50%;
+  background: #3d63f5;
+  box-shadow: 0 0 0 1px rgb(0 0 0 / 25%);
+}
+
+.colorRow {
+  display: flex;
+  gap: 8px;
+}
+
+.swatch {
+  width: 26px;
+  height: 26px;
+  flex: none;
+  border-radius: 6px;
+  background: #3d63f5;
+}
+
+.field {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  border: 1px solid var(--rp-c-divider);
+  border-radius: 6px;
+  padding: 0 8px;
+  color: var(--rp-c-text-0);
+  font-family: var(--rp-font-family-mono);
+  font-size: 11px;
+}
+
+.calendar {
+  display: grid;
+  width: 178px;
+  gap: 6px;
+  padding: 10px;
+  color: var(--rp-c-text-1);
+  font-size: 10px;
+}
+
+.calendarHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: var(--rp-c-text-0);
+  font-size: 12px;
+  font-weight: 500;
+
+  span {
+    display: flex;
+    gap: 2px;
+  }
+
+  svg {
+    width: 12px;
+    color: var(--rp-c-text-2);
+  }
+}
+
+.calendarGrid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  row-gap: 3px;
+  text-align: center;
+
+  > span {
+    display: grid;
+    height: 20px;
+    place-items: center;
+  }
+
+  [data-state='range'] {
+    background: color-mix(in oklab, var(--rp-c-brand) 14%, var(--rp-c-bg));
+  }
+
+  [data-state='selected'] {
+    border-radius: 5px;
+    background: var(--rp-c-brand);
+    color: #fff;
+  }
+}
+
+.weekday {
+  color: var(--rp-c-text-3);
+}
+
+.signature {
+  position: relative;
+  width: 220px;
+  height: 130px;
+  box-shadow: none;
+
+  > svg {
+    position: absolute;
+    top: 22px;
+    left: 34px;
+    width: 140px;
+    fill: none;
+    stroke: var(--rp-c-text-0);
+    stroke-linecap: round;
+    stroke-width: 2.5;
+  }
+}
+
+.signatureLine {
+  position: absolute;
+  right: 24px;
+  bottom: 32px;
+  left: 24px;
+  border-bottom: 1px dashed var(--rp-c-divider);
+}
+
+/* Clear trigger in the top-right corner, as in SignaturePadCanvas. */
+.signatureClear {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  color: var(--rp-c-text-2);
+
+  svg {
+    width: 14px;
+  }
+}
+
+.upload {
+  display: grid;
+  width: 210px;
+  gap: 8px;
+}
+
+.dropzone {
+  display: grid;
+  justify-items: center;
+  gap: 2px;
+  border: 1.5px dashed var(--rp-c-divider);
+  border-radius: 8px;
+  padding: 10px;
+  background: var(--rp-c-bg);
+  color: var(--rp-c-text-1);
+  font-size: 11px;
+
+  svg {
+    width: 14px;
+    color: var(--rp-c-brand);
+  }
+
+  em {
+    color: var(--rp-c-brand);
+    font-style: normal;
+  }
+
+  small {
+    color: var(--rp-c-text-3);
+    font-size: 9px;
+  }
+}
+
+.file {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border: 1px solid var(--rp-c-divider);
+  border-radius: 8px;
+  padding: 8px 10px;
+  background: var(--rp-c-bg);
+}
+
+.fileBadge {
+  display: grid;
+  width: 24px;
+  height: 28px;
+  flex: none;
+  place-items: center;
+  border-radius: 4px;
+  background: #fde8e8;
+  color: #dc2626;
+  font-size: 7px;
+  font-weight: 600;
+}
+
+.fileInfo {
+  display: grid;
+  flex: 1;
+  gap: 2px;
+
+  strong {
+    color: var(--rp-c-text-0);
+    font-size: 11px;
+    font-weight: 500;
+  }
+
+  small {
+    color: var(--rp-c-text-3);
+    font-size: 9px;
+  }
+}
+
+.progress {
+  height: 3px;
+  border-radius: 2px;
+  background: var(--rp-c-divider);
+
+  span {
+    display: block;
+    width: 68%;
+    height: 100%;
+    border-radius: inherit;
+    background: var(--rp-c-brand);
+  }
+}
+
+.tags {
+  display: grid;
+  width: 210px;
+  gap: 6px;
+
+  small {
+    color: var(--rp-c-text-3);
+    font-size: 9px;
+  }
+}
+
+.tagsBox {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px;
+  border: 1px solid var(--rp-c-divider);
+  border-radius: 8px;
+  padding: 7px;
+  background: var(--rp-c-bg);
+}
+
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  border: 1px solid var(--rp-c-divider);
+  border-radius: 5px;
+  padding: 1px 5px;
+  background: var(--rp-c-bg-soft);
+  color: var(--rp-c-text-1);
+  font-size: 11px;
+
+  svg {
+    width: 10px;
+    color: var(--rp-c-text-3);
+  }
+}
+
+.tagsPlaceholder {
+  padding: 1px 3px;
+  color: var(--rp-c-text-3);
+  font-size: 11px;
+}

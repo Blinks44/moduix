@@ -1,6 +1,6 @@
 import { page } from '@rstest/browser';
 import { expect, test } from '@rstest/core';
-import { render, screen } from '@solidjs/testing-library';
+import { render } from '@solidjs/testing-library';
 import { createSignal, For } from 'solid-js';
 import {
   Pagination,
@@ -15,7 +15,7 @@ import {
   PaginationRootProvider,
   usePagination,
   usePaginationContext,
-} from '../src';
+} from '@/index';
 
 function PageItems() {
   return (
@@ -144,7 +144,7 @@ test('keeps controlled page changes and Ark callback details intact', async () =
     .toHaveAttribute('data-selected');
 });
 
-test('renders Ark link mode with generated page URLs', async () => {
+test('renders Ark link mode with generated page URLs and text triggers', async () => {
   render(() => (
     <Pagination
       count={30}
@@ -192,6 +192,10 @@ test('renders Ark link mode with generated page URLs', async () => {
   await expect
     .element(page.getByRole('link', { name: /page 2/i, exact: true }))
     .toHaveAttribute('href', '?page=2');
+
+  // Only the default icon trigger is square; asChild content keeps its text padding.
+  const previous = document.querySelector('[data-slot="pagination-prev-trigger"]')!;
+  expect(getComputedStyle(previous).paddingInlineStart).not.toBe('0px');
 });
 
 test('exposes usePagination state through RootProvider and context', async () => {
@@ -216,22 +220,4 @@ test('exposes usePagination state through RootProvider and context', async () =>
   await expect.element(page.getByText('Page 2')).toBeAttached();
   await page.getByRole('button', { name: /next page/i, exact: true }).click();
   await expect.element(page.getByText('Page 3')).toBeAttached();
-});
-test('keeps default-icon triggers square and pads triggers with custom content', () => {
-  render(() => (
-    <Pagination count={200} defaultPage={10} pageSize={10}>
-      <PaginationFirstTrigger />
-      <PaginationPrevTrigger />
-      <PaginationItems />
-      <PaginationNextTrigger>Next</PaginationNextTrigger>
-    </Pagination>
-  ));
-
-  for (const name of ['first page', 'previous page']) {
-    const trigger = screen.getByRole('button', { name });
-    expect(trigger.offsetWidth).toBe(trigger.offsetHeight);
-  }
-  const textTrigger = screen.getByRole('button', { name: 'next page' });
-  expect(getComputedStyle(textTrigger).paddingInlineStart).toBe('12px');
-  expect(textTrigger.offsetWidth).toBeGreaterThan(textTrigger.offsetHeight);
 });

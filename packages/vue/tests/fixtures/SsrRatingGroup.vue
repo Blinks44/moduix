@@ -5,7 +5,7 @@ import {
   RatingGroupControl,
   RatingGroupItems,
   RatingGroupHiddenInput,
-} from '../../src';
+} from '@/index';
 </script>
 
 <template>

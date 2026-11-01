@@ -6,6 +6,7 @@ import {
   MarqueeViewport,
   useMarquee,
 } from '@moduix/react/marquee';
+import { Stack } from '@moduix/react/stack';
 import { useState } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';
 import styles from '@/components/examples/marquee/marquee-programmatic-control.module.css';
@@ -61,7 +62,7 @@ export default function ProgrammaticMarqueeDemo() {
   };
 
   return (
-    <div className={styles.stack}>
+    <Stack align="center" gap="3">
       <MarqueeRootProvider value={marquee} className={styles.root}>
         <MarqueeViewport>
           <MarqueeContent>
@@ -86,6 +87,6 @@ export default function ProgrammaticMarqueeDemo() {
           Restart
         </Button>
       </PreviewMeta>
-    </div>
+    </Stack>
   );
 }

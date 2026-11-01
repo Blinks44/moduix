@@ -1,14 +1,25 @@
 ---
 title: Switch
 component: switch
-description: Un switch Ark UI composable pour activer ou désactiver un réglage booléen immédiatement.
+description: Activer ou désactiver un réglage avec effet immédiat.
+ark: https://ark-ui.com/docs/components/switch
 ---
 
+import AnatomyScene from '@/components/examples/switch/basic';
 import * as SwitchDocs from '@/components/examples/switch/css-properties';
 
-## Référence de l’API
+<Example name="switch/basic" />
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/switch" />
+## Installation
+
+<ComponentInstall />
+
+## Utilisation
+
+<Usage />
+
+Un switch de base comprend une racine, un contrôle visuel, un libellé et `SwitchHiddenInput` explicitement rendu pour les interactions
+natives et les formulaires. Le contrôle reçoit un thumb par défaut lorsqu’il n’a pas d’enfants.
 
 ## Choisir le bon composant
 
@@ -20,74 +31,71 @@ valeur booléenne.
   plutôt qu’un réglage appliqué immédiatement.
 - Choisissez **`RadioGroup`** lorsque l’utilisateur doit sélectionner une option parmi plusieurs valeurs mutuellement exclusives.
 
-## Exemple de base
+## Exemples
 
+### Tailles
 
-Un switch de base comprend une racine, un contrôle visuel, un libellé et `SwitchHiddenInput` explicitement rendu pour les interactions
-natives et les formulaires. Le contrôle reçoit un thumb par défaut lorsqu’il n’a pas d’enfants.
+Utilisez `size` de moduix pour adapter la densité du formulaire sans modifier l’arbre des parties Ark.
 
-<Example name="switch/basic" />
+<Example name="switch/sizes" />
 
-## Installation avec shadcn
+### État initial activé
 
-Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration complète du paquet, du registre et des styles.
+Utilisez `defaultChecked` lorsque le switch doit être activé au premier rendu, puis gérer lui-même son état.
 
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
+<Example name="switch/initial-checked" />
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/switch' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/switch' },
-  ]}
-/>
+### Désactivé
 
-  </Tab>
-  <Tab label="Solid" value="solid">
+Utilisez `disabled` pour empêcher les interactions tout en conservant l’état visuel actuel.
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/switch' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/switch' },
-  ]}
-/>
+<Example name="switch/disabled" />
 
-  </Tab>
-  <Tab label="Vue" value="vue">
+### Lecture seule
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/switch' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/switch' },
-  ]}
-/>
+Utilisez `readOnly` lorsque l’état actuel doit rester visible sans que l’utilisateur puisse le modifier.
 
-  </Tab>
-</Tabs>
+<Example name="switch/read-only" />
 
-## Anatomie
+### Intégration au formulaire
 
-```text
-Switch
-├─ SwitchControl
-│  └─ SwitchThumb
-├─ SwitchLabel
-└─ SwitchHiddenInput (explicit)
-```
+Utilisez `Field` lorsque le switch doit gérer son libellé, sa validation ou son envoi dans un formulaire. Cet exemple affiche une
+erreur après l’envoi du formulaire si le switch est toujours désactivé.
 
-| Partie                        | Rôle                                                                    |
-| ----------------------------- | ----------------------------------------------------------------------- |
-| `Switch`                 | Élément `label` racine. Gère l’état, les identifiants, les props de formulaire et `size`. |
-| `SwitchHiddenInput`          | Contrôle de formulaire natif d’Ark ; composez-le explicitement comme indiqué ci-dessous. |
-| `SwitchRootProvider`         | Élément `label` racine piloté par l’état créé avec `useSwitch()`.     |
-| `SwitchControl`              | Piste visuelle et cible de l’anneau de focus. Ajoute `SwitchThumb` par défaut. |
-| `SwitchThumb`                | Thumb mobile pour l’apparence par défaut ou un contenu personnalisé.  |
-| `SwitchLabel`                | Texte du libellé relié à Ark.                                         |
+<Example name="switch/form-integration" />
 
-`Switch` est le composant racine. `SwitchContext`, `useSwitchContext` et `useSwitch` sont exportés
-depuis `@moduix/react` avec le composant. Les exports Vue sont disponibles depuis
-`@moduix/vue` et `@moduix/vue/switch`.
-Les exports Solid correspondants sont disponibles depuis `@moduix/solid` et `@moduix/solid/switch`.
+### Thumb personnalisé
+
+Passez des enfants à `SwitchThumb` lorsque le thumb a besoin d’une icône ou d’un autre contenu.
+
+<Example name="switch/custom-thumb" />
+
+### État contrôlé
+
+Utilisez le mode contrôlé lorsque le switch doit rester synchronisé avec une autre partie de l’interface ou avec l’état de l’application. Voir [Contrôler l’état depuis l’application](/docs/composition-patterns#controlled-state).
+
+<Example name="switch/controlled" />
+
+### Contexte
+
+Utilisez `useSwitchContext` depuis le paquet du framework utilisé lorsque l’interface voisine doit
+lire l’état actuel du switch.
+
+<Example name="switch/context" />
+
+### Root Provider
+
+Importez `useSwitch` depuis le paquet du framework utilisé et associez-le à
+`SwitchRootProvider` lorsque l’état doit être créé et contrôlé en dehors de l’arbre rendu du switch. Voir [Partager l’état hors de l’arbre](/docs/composition-patterns#root-provider).
+
+<Example name="switch/root-provider" />
+
+### Assembler à partir des parties
+
+Le même switch que Basic avec `SwitchThumb` écrit explicitement : `SwitchControl` ne l’ajoute que
+s’il n’a pas d’enfants. Partez de cet exemple quand le design stylise séparément la piste et le thumb.
+
+<Example name="switch/build-from-parts" />
 
 ## Composition
 
@@ -105,64 +113,27 @@ Ne rendez pas `Switch` et `SwitchRootProvider` pour la même instance d’état.
 Avec `asChild`, fournissez un seul élément sémantique compatible avec `label` afin qu’Ark conserve l’accessibilité
 du switch.
 
-## Exemples
+## Anatomie
 
-### Contexte
+Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
 
-Utilisez `useSwitchContext` depuis le paquet du framework utilisé lorsque l’interface voisine doit
-lire l’état actuel du switch.
+<AnatomyInspector
+  parts={[
+    ["Switch", "switch-root", "Élément `label` racine. Gère l’état, les identifiants, les props de formulaire et `size`.", 0],
+    ["SwitchControl", "switch-control", "Piste visuelle et cible de l’anneau de focus. Ajoute `SwitchThumb` par défaut.", 1],
+    ["SwitchThumb", "switch-thumb", "Thumb mobile pour l’apparence par défaut ou un contenu personnalisé.", 2],
+    ["SwitchLabel", "switch-label", "Texte du libellé relié à Ark.", 1],
+    ["SwitchHiddenInput", "", "Contrôle de formulaire natif d’Ark ; composez-le explicitement comme indiqué ci-dessous.", 1],
+    ["SwitchRootProvider", "switch-root-provider", "Élément `label` racine piloté par l’état créé avec `useSwitch()`.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
-<Example name="switch/context" />
-
-### État contrôlé
-
-Utilisez le mode contrôlé lorsque le switch doit rester synchronisé avec une autre partie de l’interface ou avec l’état de l’application.
-
-<Example name="switch/controlled" />
-
-### Désactivé
-
-Utilisez `disabled` pour empêcher les interactions tout en conservant l’état visuel actuel.
-
-<Example name="switch/disabled" />
-
-### Intégration au formulaire
-
-Utilisez `Field` lorsque le switch doit gérer son libellé, sa validation ou son envoi dans un formulaire. Cet exemple affiche une
-erreur après l’envoi du formulaire si le switch est toujours désactivé.
-
-<Example name="switch/form-integration" />
-
-### État initial activé
-
-Utilisez `defaultChecked` lorsque le switch doit être activé au premier rendu, puis gérer lui-même son état.
-
-<Example name="switch/initial-checked" />
-
-### Lecture seule
-
-Utilisez `readOnly` lorsque l’état actuel doit rester visible sans que l’utilisateur puisse le modifier.
-
-<Example name="switch/read-only" />
-
-### Root Provider
-
-Importez `useSwitch` depuis le paquet du framework utilisé et associez-le à
-`SwitchRootProvider` lorsque l’état doit être créé et contrôlé en dehors de l’arbre rendu du switch.
-
-<Example name="switch/root-provider" />
-
-### Tailles
-
-Utilisez `size` de moduix pour adapter la densité du formulaire sans modifier l’arbre des parties Ark.
-
-<Example name="switch/sizes" />
-
-### Personnalisation avancée
-
-Ajoutez `SwitchThumb` explicitement lorsque le thumb a besoin d’un contenu ou de styles personnalisés.
-
-<Example name="switch/advanced-customization" />
+`Switch` est le composant racine. `SwitchContext`, `useSwitchContext` et `useSwitch` sont exportés
+depuis `@moduix/react` avec le composant. Les exports Vue sont disponibles depuis
+`@moduix/vue` et `@moduix/vue/switch`.
+Les exports Solid correspondants sont disponibles depuis `@moduix/solid` et `@moduix/solid/switch`.
 
 ## Styles
 
@@ -176,17 +147,49 @@ Le thumb tire sa taille et sa position de la boîte du contrôle : un remplaceme
 garde carré et aligné sur les deux bords. La direction de droite à gauche vient d’Ark : dans un
 [`LocaleProvider`](/docs/rtl) RTL, Ark écrit `dir` sur chaque partie et le thumb coché se place en fin de ligne.
 
-### Propriétés CSS
+### Variables CSS
 
-<CssPropertiesSection properties={SwitchDocs.switchOverrideCssProperties} />
+Survolez ou sélectionnez une variable pour la voir dans l’aperçu.
+
+<CssPropertiesSection properties={SwitchDocs.switchOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Points d’accroche CSS
+
+| Partie | `data-slot` |
+| --- | --- |
+| `Switch` | `switch-root` |
+| `SwitchRootProvider` | `switch-root-provider` |
+| `SwitchControl` | `switch-control` |
+| `SwitchThumb` | `switch-thumb` |
+| `SwitchLabel` | `switch-label` |
 
 - `Switch` et `SwitchRootProvider` exposent `data-slot="switch-root"` /
   `data-slot="switch-root-provider"` et définissent l’attribut `data-size` de moduix.
 - `SwitchControl` expose `data-slot="switch-control"` et reçoit les attributs d’état Ark comme
-  `data-state`, `data-focus-visible`, `data-hover`, `data-active`, `data-disabled`, `data-readonly`,
+  `data-state`, `data-focus`, `data-focus-visible`, `data-hover`, `data-active`, `data-disabled`, `data-readonly`,
   `data-invalid` et `data-required`.
-- `SwitchThumb` expose `data-slot="switch-thumb"` et reçoit les mêmes attributs d’état Ark pour
-  le déplacement du thumb et le style de son contenu personnalisé.
-- `SwitchLabel` expose `data-slot="switch-label"` pour personnaliser la typographie.
+
+## Clavier
+
+| Touche | Action |
+| --- | --- |
+| `Space` | Bascule l’interrupteur ayant le focus. |
+
+## Référence de l’API
+
+| Prop | Type | Défaut | Description |
+| --- | --- | --- | --- |
+| `checked` | `boolean` | — | État activé en mode contrôlé. |
+| `defaultChecked` | `boolean` | `false` | État initial. |
+| `onCheckedChange` | `(details: CheckedChangeDetails) => void` | — | Appelé lorsque l’interrupteur bascule. |
+| `value` | `string \| number` | `'on'` | Valeur envoyée avec le formulaire lorsqu’il est activé. |
+| `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'` | `'md'` | Taille : `xs`, `sm`, `md`, `lg` ou `xl`. |
+| `name` | `string` | — | Nom du champ de formulaire de l’input sous-jacent. |
+| `disabled` | `boolean` | `false` | Désactive le contrôle. |
+| `readOnly` | `boolean` | `false` | Affiche la valeur sans permettre de la modifier. |
+| `invalid` | `boolean` | `false` | Marque le champ comme invalide. |
+| `required` | `boolean` | `false` | Exige une valeur avant l’envoi du formulaire. |
+| `label` | `string` | — | Nom accessible en l’absence de libellé visible. |
+| `form` | `string` | — | Id du formulaire auquel l’input sous-jacent est rattaché. |

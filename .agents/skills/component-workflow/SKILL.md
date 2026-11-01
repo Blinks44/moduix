@@ -84,9 +84,11 @@ The configured playgrounds are a comparison matrix, not independent catalogs. Fo
 exists in multiple variants, keep story names, scenario data, states, and demo styling aligned;
 adapt only framework syntax and the styling mechanism.
 
-Port tests assertion-for-assertion by behavior. Do not weaken one established adapter's assertion
-to make another adapter pass, or omit a Tailwind override test because the CSS Modules version does
-not need it. Add variant-specific coverage only for a real variant-specific contract.
+Write a behavior test once per framework in the CSS Modules package; the Tailwind package runs it
+too (see `conventions-tests`). Port tests between frameworks assertion-for-assertion by behavior. Do
+not weaken an established assertion to make another adapter pass, or omit a Tailwind override test
+in `tests/styles/` because the CSS Modules version does not need it. Add variant-specific coverage
+only for a real variant-specific contract.
 
 ## Completion
 

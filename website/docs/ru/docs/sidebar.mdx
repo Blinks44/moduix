@@ -1,19 +1,27 @@
 ---
 title: Sidebar
 component: sidebar
-description: Изменяемая по ширине и сворачиваемая навигация приложения на базе Ark UI Splitter.
+description: Навигация приложения, которая меняет ширину и сворачивается до иконок.
+ark: https://ark-ui.com/docs/components/splitter
 ---
 
+import AnatomyScene from '@/components/examples/sidebar/basic';
 import { sidebarOverrideCssProperties } from '@/components/examples/sidebar/css-properties';
 
-## Справочник API
+<Example name="sidebar/basic" />
 
-`Sidebar` - компонент moduix для компоновки навигации приложения. Он объединяет навигационные
-части с [Ark UI Splitter](https://ark-ui.com/docs/components/splitter), который отвечает за
-изменение размера, сворачивание, работу с клавиатурой и доступность. Состояние и колбэки
-соответствуют контракту `Splitter`.
+## Установка
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/splitter" />
+<ComponentInstall />
+
+## Использование
+
+<Usage />
+
+Соберите панель навигации, ручку изменения размера и основную область содержимого как прямых
+потомков корня. Стандартных id и ограничений достаточно для обычного макета с левой боковой
+панелью. Оборачивайте кнопки навигации только с иконками в `SidebarTooltip`, чтобы подписи
+оставались доступны после сворачивания.
 
 ## Выбор подходящего компонента
 
@@ -22,104 +30,68 @@ import { sidebarOverrideCssProperties } from '@/components/examples/sidebar/css-
 - Выбирайте **`Splitter`**, если нужны обычные изменяемые по размеру панели, а не панель навигации
   и основная область содержимого.
 
-## Базовый пример
+## Примеры
 
+### Вложенная навигация
 
-Соберите панель навигации, ручку изменения размера и основную область содержимого как прямых
-потомков корня. Стандартных id и ограничений достаточно для обычного макета с левой боковой
-панелью. Оборачивайте кнопки навигации только с иконками в `SidebarTooltip`, чтобы подписи
-оставались доступны после сворачивания.
+Используйте `SidebarExpandedContent` для обычных вложенных ссылок, а `SidebarCollapsedContent` - для тех же
+ссылок во всплывающем меню. Обе ветки остаются композицией приложения.
 
-<Example name="sidebar/basic" />
+<Example name="sidebar/nested-navigation" />
 
-## Установка через shadcn
+### Выбор рабочего пространства
 
-Полную настройку пакета, реестра и стилей см. в разделе [Быстрый старт](/docs/quick-start).
+Используйте `SelectTrigger asChild` вместе с `SidebarNavigationButton`. Поместите выбранное
+значение в `SidebarLabel`, оставьте `SelectIndicator` прямым потомком триггера и отметьте
+компактный визуальный якорь атрибутом `data-sidebar-icon`.
 
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
+<Example name="sidebar/workspace-select" />
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/sidebar' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/sidebar' },
-  ]}
-/>
+### Полная оболочка приложения
 
-  </Tab>
-  <Tab label="Solid" value="solid">
+Объедините поиск, действия групп, бейджи, вложенную навигацию, меню в свернутом режиме и меню
+аккаунта в одной оболочке приложения. Каждая вложенная примитива сохраняет собственное состояние и
+управление фокусом.
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/sidebar' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/sidebar' },
-  ]}
-/>
+<Example name="sidebar/nested-navigation-and-account-menu" />
 
-  </Tab>
-  <Tab label="Vue" value="vue">
+### Боковая панель справа
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/sidebar' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/sidebar' },
-  ]}
-/>
+Передайте `side="right"` и расположите `SidebarInset`, `SidebarTrigger`, `SidebarResizeTrigger` и `SidebarPanel` в таком
+порядке. Sidebar автоматически настроит панели, id триггеров, положение и направление шеврона.
 
-  </Tab>
-</Tabs>
+<Example name="sidebar/right-sidebar" />
 
-## Анатомия
+### Свои размеры
 
-```text
-Sidebar
-├─ SidebarPanel[id="sidebar"]
-│  ├─ SidebarHeader
-│  │  ├─ SidebarLabel
-│  │  └─ SidebarInput
-│  ├─ SidebarContent
-│  │  └─ SidebarGroup
-│  │     ├─ SidebarGroupHeader
-│  │     │  ├─ SidebarGroupLabel
-│  │     │  └─ SidebarGroupAction
-│  │     └─ SidebarNavigationList
-│  │        └─ SidebarNavigationItem
-│  │           ├─ SidebarNavigationButton
-│  │           ├─ SidebarNavigationBadge (необязательно)
-│  │           ├─ SidebarExpandedContent
-│  │           ├─ SidebarCollapsedContent
-│  │           └─ SidebarNavigationSubList
-│  │              └─ SidebarNavigationSubItem
-│  │                 ├─ SidebarNavigationSubButton
-│  │                 └─ SidebarNavigationBadge (необязательно)
-│  └─ SidebarFooter
-│     └─ SidebarSeparator
-├─ SidebarResizeTrigger
-├─ SidebarTrigger
-└─ SidebarInset[id="content"]
-```
+Задайте начальный размер явно и добавьте другие примитивы в оболочку, если стандартной начальной
+ширины недостаточно.
 
-| Часть | Назначение |
-| --- | --- |
-| `Sidebar` | Корень Ark Splitter с настройками для двух панелей. |
-| `SidebarPanel` | Сворачиваемая панель навигации с id `"sidebar"` по умолчанию. |
-| `SidebarInset` | Основная область содержимого с id `"content"` по умолчанию. |
-| `SidebarResizeTrigger` | Доступная линия-ручка для изменения размера мышью и клавиатурой; по умолчанию она рендерит общий `SplitterResizeTriggerIndicator`, а собственные children заменяют его. |
-| `SidebarTrigger` | Управление сворачиванием и разворачиванием панели. |
-| `SidebarHeader` | Непрокручиваемая верхняя область. |
-| `SidebarContent` | Прокручиваемая центральная область. |
-| `SidebarFooter` | Непрокручиваемая нижняя область. |
-| `SidebarGroup` | Семантическая секция навигации. |
-| `SidebarNavigationButton` | Кнопка или ссылка через `asChild` с состояниями active и size. |
-| `SidebarNavigationBadge` | Необязательный счётчик рядом с обычной кнопкой навигации или вложенной кнопкой. |
-| `SidebarExpandedContent` | Содержимое при развернутой панели. |
-| `SidebarCollapsedContent` | Содержимое при свернутой панели. |
-| `SidebarTooltip` | Подпись для свернутого режима с учетом стороны панели. |
-| `SidebarNavigationSubList` | Вложенный список навигации. |
+<Example name="sidebar/custom-sizes" />
+
+### Сохраняемый макет для десктопа
+
+Храните ширину десктопной панели в состоянии приложения или в storage. Управляйте `size` во время
+изменения размера и сохраняйте итоговое значение из `onResizeEnd(details)`.
+
+<Example name="sidebar/persisted-layout" />
+
+### Собственная область прокрутки
+
+Нативная прокрутка используется по умолчанию. Поместите `ScrollArea` внутрь `SidebarContent`, если
+нужны стилизованный скроллбар или затухание у края, и оставьте его viewport единственным контейнером
+прокрутки.
+
+<Example name="sidebar/custom-scroll-area" />
 
 ## Композиция
 
-`Sidebar` владеет состоянием раскладки Splitter, а вложенные `Collapsible`, всплывающие `Menu` и
+`Sidebar` - компонент moduix для компоновки навигации приложения. Он объединяет навигационные
+части с [Ark UI Splitter](https://ark-ui.com/docs/components/splitter), который отвечает за
+изменение размера, сворачивание, работу с клавиатурой и доступность. Состояние и колбэки
+соответствуют контракту `Splitter`.
+
+`Sidebar` управляет состоянием раскладки Splitter, а вложенные `Collapsible`, всплывающие `Menu` и
 `SidebarTooltip` управляют каждый своим состоянием. Оставляйте `SidebarPanel`, `SidebarResizeTrigger`, `SidebarTrigger`
 и `SidebarInset` прямыми потомками и располагайте их визуально: для левой панели сначала `SidebarPanel`, для
 правой сначала `SidebarInset`. `SidebarExpandedContent` и `SidebarCollapsedContent` только переключают видимые ветки,
@@ -142,59 +114,31 @@ Sidebar
 В Ark Vue 5.39.3 / Zag 1.45.0 первое сворачивание в управляемом режиме может обновить `size`
 без события `@collapse`. Модель и `useSidebar().collapsed` при этом отражают новое состояние.
 
-## Примеры
+## Анатомия
 
-### Вложенная навигация
+Наведите на часть или выберите её, чтобы найти её в превью.
 
-Используйте `SidebarExpandedContent` для обычных вложенных ссылок, а `SidebarCollapsedContent` - для тех же
-ссылок во всплывающем меню. Обе ветки остаются композицией приложения.
-
-<Example name="sidebar/nested-navigation" />
-
-### Собственная область прокрутки
-
-Нативная прокрутка используется по умолчанию. Поместите `ScrollArea` внутрь `SidebarContent`, если
-нужны стилизованный скроллбар или затухание у края, и оставьте его viewport единственным контейнером
-прокрутки.
-
-<Example name="sidebar/custom-scroll-area" />
-
-### Сохраняемый макет для десктопа
-
-Храните ширину десктопной панели в состоянии приложения или в storage. Управляйте `size` во время
-изменения размера и сохраняйте итоговое значение из `onResizeEnd(details)`.
-
-<Example name="sidebar/persisted-layout" />
-
-### Полная оболочка приложения
-
-Объедините поиск, действия групп, бейджи, вложенную навигацию, меню в свернутом режиме и меню
-аккаунта в одной оболочке приложения. Каждая вложенная примитива сохраняет собственное состояние и
-управление фокусом.
-
-<Example name="sidebar/nested-navigation-and-account-menu" />
-
-### Боковая панель справа
-
-Передайте `side="right"` и расположите `SidebarInset`, `SidebarTrigger`, `SidebarResizeTrigger` и `SidebarPanel` в таком
-порядке. Sidebar автоматически настроит панели, id триггеров, положение и направление шеврона.
-
-<Example name="sidebar/right-sidebar" />
-
-### Выбор рабочего пространства
-
-Используйте `SelectTrigger asChild` вместе с `SidebarNavigationButton`. Поместите выбранное
-значение в `SidebarLabel`, оставьте `SelectIndicator` прямым потомком триггера и отметьте
-компактный визуальный якорь атрибутом `data-sidebar-icon`.
-
-<Example name="sidebar/workspace-select" />
-
-### Расширенная настройка
-
-Задайте начальный размер явно и добавьте другие примитивы в оболочку, если стандартной начальной
-ширины недостаточно.
-
-<Example name="sidebar/custom-sizes" />
+<AnatomyInspector
+  parts={[
+    ["Sidebar", "sidebar-root", "Корень Ark Splitter с настройками для двух панелей.", 0],
+    ["SidebarPanel", "sidebar-panel", "Сворачиваемая панель навигации с id `\"sidebar\"` по умолчанию.", 1],
+    ["SidebarHeader", "sidebar-header", "Непрокручиваемая верхняя область.", 2],
+    ["SidebarContent", "sidebar-content", "Прокручиваемая центральная область.", 2],
+    ["SidebarGroup", "sidebar-group", "Семантическая секция навигации.", 3],
+    ["SidebarNavigationButton", "sidebar-navigation-button", "Кнопка или ссылка через `asChild` с состояниями active и size.", 4],
+    ["SidebarNavigationBadge", "sidebar-navigation-badge", "Необязательный счётчик рядом с обычной кнопкой навигации или вложенной кнопкой.", 4],
+    ["SidebarExpandedContent", "sidebar-expanded-content", "Содержимое при развернутой панели.", 4],
+    ["SidebarCollapsedContent", "sidebar-collapsed-content", "Содержимое при свернутой панели.", 4],
+    ["SidebarNavigationSubList", "sidebar-navigation-sub-list", "Вложенный список навигации.", 4],
+    ["SidebarFooter", "sidebar-footer", "Непрокручиваемая нижняя область.", 2],
+    ["SidebarResizeTrigger", "sidebar-resize-trigger", "Доступная линия-ручка для изменения размера мышью и клавиатурой; по умолчанию она рендерит общий `SplitterResizeTriggerIndicator`, а собственные children заменяют его.", 1],
+    ["SidebarTrigger", "sidebar-trigger", "Управление сворачиванием и разворачиванием панели.", 1],
+    ["SidebarInset", "sidebar-inset", "Основная область содержимого с id `\"content\"` по умолчанию.", 1],
+    ["SidebarTooltip", "", "Подпись для свернутого режима с учетом стороны панели.", 1],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Стилизация
 
@@ -210,21 +154,73 @@ Sidebar
 
 Ширина панелей является состоянием Ark, а не визуальным CSS. Переопределяйте `defaultSize` или
 управляемый `size` для текущей ширины. Цвета берутся из foundation-токенов сайдбара
-(`--moduix-color-sidebar`, `--moduix-color-sidebar-foreground`, `--moduix-color-sidebar-accent`,
-`--moduix-color-sidebar-accent-foreground`, `--moduix-color-sidebar-border` и
-`--moduix-color-sidebar-ring`), поэтому темы и пресеты меняют все сайдбары сразу. У корня остаются
+(`--moduix-sidebar`, `--moduix-sidebar-foreground`, `--moduix-sidebar-accent`,
+`--moduix-sidebar-accent-foreground`, `--moduix-sidebar-border` и
+`--moduix-sidebar-ring`), поэтому темы и пресеты меняют все сайдбары сразу. У корня остаются
 `--moduix-sidebar-width`, `--moduix-sidebar-height` и `--moduix-sidebar-trigger-offset-y`; отступы,
 скругление, тень и размеры пунктов меняйте классом на нужной части.
 
 Оборачивайте текст навигации в `SidebarLabel`, в том числе внутри `SidebarNavigationSubButton`, чтобы
 длинные подписи обрезались и скрывались в свернутом режиме.
 
-### CSS-свойства
+### CSS-переменные
 
-<CssPropertiesSection properties={sidebarOverrideCssProperties} />
+Наведите на переменную или выберите её, чтобы увидеть её в превью.
+
+<CssPropertiesSection properties={sidebarOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Хуки стилизации
+
+| Часть | `data-slot` |
+| --- | --- |
+| `Sidebar` | `sidebar-root` |
+| `SidebarPanel` | `sidebar-panel` |
+| `SidebarInset` | `sidebar-inset` |
+| `SidebarResizeTrigger` | `sidebar-resize-trigger` |
+| `SidebarTrigger` | `sidebar-trigger` |
+| `SidebarLabel` | `sidebar-label` |
+| `SidebarHeader` | `sidebar-header` |
+| `SidebarContent` | `sidebar-content` |
+| `SidebarExpandedContent` | `sidebar-expanded-content` |
+| `SidebarCollapsedContent` | `sidebar-collapsed-content` |
+| `SidebarFooter` | `sidebar-footer` |
+| `SidebarGroup` | `sidebar-group` |
+| `SidebarGroupLabel` | `sidebar-group-label` |
+| `SidebarGroupHeader` | `sidebar-group-header` |
+| `SidebarGroupAction` | `sidebar-group-action` |
+| `SidebarNavigationList` | `sidebar-navigation-list` |
+| `SidebarNavigationItem` | `sidebar-navigation-item` |
+| `SidebarNavigationButton` | `sidebar-navigation-button` |
+| `SidebarNavigationBadge` | `sidebar-navigation-badge` |
+| `SidebarNavigationSubList` | `sidebar-navigation-sub-list` |
+| `SidebarNavigationSubItem` | `sidebar-navigation-sub-item` |
+| `SidebarNavigationSubButton` | `sidebar-navigation-sub-button` |
 
 Части оболочки Sidebar также предоставляют `data-scope="sidebar"` и `data-part`. `SidebarInput` и
 `SidebarSeparator` сохраняют scope базовых примитивов, а части на базе Ark сохраняют атрибуты
 состояния Splitter, включая `data-focus`, `data-dragging`, `data-disabled` и `data-orientation`.
+
+## Клавиатура
+
+| Клавиша | Действие |
+| --- | --- |
+| `ArrowLeft` / `ArrowRight` | Меняет размер панелей с ручки в фокусе; ArrowUp и ArrowDown в вертикальном режиме. |
+| `Home` / `End` | Сдвигает ручку к минимуму или максимуму. |
+| `Enter` | Сворачивает или разворачивает сворачиваемую панель. |
+| `F6` | Переводит фокус на следующую ручку. |
+
+## Справочник API
+
+`Sidebar` также принимает пропсы `Splitter`, кроме `orientation` и `panels`; панель сайдбара от 3rem до 18rem и сворачивается до 3rem.
+
+| Проп | Тип | По умолчанию | Описание |
+| --- | --- | --- | --- |
+| `side` | `'left' \| 'right'` | `'left'` | Сторона панели: `left` или `right`. |
+| `panelId` | `string` | `'sidebar'` | Id панели боковой колонки в Splitter. |
+| `defaultSize` | `PanelSize[]` | `['16rem']` | Начальные размеры панелей. |
+| `size` | `PanelSize[]` | — | Размеры панелей в управляемом режиме. |
+| `onResize` | `(details: ResizeDetails) => void` | — | Вызывается при изменении размеров панелей. |
+| `onCollapse` | `(details: ExpandCollapseDetails) => void` | — | Вызывается при сворачивании боковой колонки. |
+| `onExpand` | `(details: ExpandCollapseDetails) => void` | — | Вызывается при разворачивании боковой колонки. |

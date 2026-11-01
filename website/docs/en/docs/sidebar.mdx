@@ -1,19 +1,26 @@
 ---
 title: Sidebar
 component: sidebar
-description: Resizable and collapsible application navigation built on the Ark UI Splitter.
+description: Build app navigation that resizes and collapses to icons.
+ark: https://ark-ui.com/docs/components/splitter
 ---
 
+import AnatomyScene from '@/components/examples/sidebar/basic';
 import { sidebarOverrideCssProperties } from '@/components/examples/sidebar/css-properties';
 
-## API Reference
+<Example name="sidebar/basic" />
 
-`Sidebar` is moduix's layout for application navigation. It combines navigation parts with
-[Ark UI Splitter](https://ark-ui.com/docs/components/splitter), which provides resizing, collapse
-state, keyboard interaction, and accessibility. The exposed state and callbacks follow the Splitter
-contract.
+## Installation
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/splitter" />
+<ComponentInstall />
+
+## Usage
+
+<Usage />
+
+Compose the navigation panel, resize handle, and main content panel as direct children of the root.
+The default ids and constraints cover the usual left-sidebar layout. Wrap icon-only navigation
+buttons in `SidebarTooltip` so their labels remain available after collapse.
 
 ## Choosing the right component
 
@@ -22,103 +29,66 @@ contract.
 - Choose **`Splitter`** when you need generic resizable panels rather than a navigation panel and a
   main content inset.
 
-## Basic
+## Examples
 
+### Nested navigation
 
-Compose the navigation panel, resize handle, and main content panel as direct children of the root.
-The default ids and constraints cover the usual left-sidebar layout. Wrap icon-only navigation
-buttons in `SidebarTooltip` so their labels remain available after collapse.
+Use `SidebarExpandedContent` for inline nested links and `SidebarCollapsedContent` for the same links in a popup
+menu. Both branches remain compositions in your application.
 
-<Example name="sidebar/basic" />
+<Example name="sidebar/nested-navigation" />
 
-## Install with shadcn
+### Workspace select
 
-See [Quick Start](/docs/quick-start) for full package setup, registry configuration, and styling guidance.
+Use `SelectTrigger asChild` with `SidebarNavigationButton`. Keep the selected value in
+`SidebarLabel`, keep `SelectIndicator` as a direct child of the trigger, and mark a compact
+visual anchor with `data-sidebar-icon`.
 
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
+<Example name="sidebar/workspace-select" />
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/sidebar' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/sidebar' },
-  ]}
-/>
+### Complete app shell
 
-  </Tab>
-  <Tab label="Solid" value="solid">
+Combine search, group actions, badges, nested navigation, a collapsed popup, and an account menu
+inside one application shell. Each nested primitive keeps its own state and focus behavior.
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/sidebar' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/sidebar' },
-  ]}
-/>
+<Example name="sidebar/nested-navigation-and-account-menu" />
 
-  </Tab>
-  <Tab label="Vue" value="vue">
+### Right sidebar
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/sidebar' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/sidebar' },
-  ]}
-/>
+Pass `side="right"` and render `SidebarInset`, `SidebarTrigger`, `SidebarResizeTrigger`, and `SidebarPanel` in that order.
+Sidebar adjusts panel setup, trigger ids, placement, and chevron direction automatically.
 
-  </Tab>
-</Tabs>
+<Example name="sidebar/right-sidebar" />
 
-## Anatomy
+### Custom sizes
 
-```text
-Sidebar
-├─ SidebarPanel[id="sidebar"]
-│  ├─ SidebarHeader
-│  │  ├─ SidebarLabel
-│  │  └─ SidebarInput
-│  ├─ SidebarContent
-│  │  └─ SidebarGroup
-│  │     ├─ SidebarGroupHeader
-│  │     │  ├─ SidebarGroupLabel
-│  │     │  └─ SidebarGroupAction
-│  │     └─ SidebarNavigationList
-│  │        └─ SidebarNavigationItem
-│  │           ├─ SidebarNavigationButton
-│  │           ├─ SidebarNavigationBadge (optional)
-│  │           ├─ SidebarExpandedContent
-│  │           ├─ SidebarCollapsedContent
-│  │           └─ SidebarNavigationSubList
-│  │              └─ SidebarNavigationSubItem
-│  │                 ├─ SidebarNavigationSubButton
-│  │                 └─ SidebarNavigationBadge (optional)
-│  └─ SidebarFooter
-│     └─ SidebarSeparator
-├─ SidebarResizeTrigger
-├─ SidebarTrigger
-└─ SidebarInset[id="content"]
-```
+Set an explicit initial size and compose other primitives in the shell when the default layout needs
+a different starting point.
 
-| Part | Role |
-| --- | --- |
-| `Sidebar` | Ark Splitter root with defaults for a two-panel sidebar. |
-| `SidebarPanel` | Collapsible navigation panel; its default id is `"sidebar"`. |
-| `SidebarInset` | Main content panel; its default id is `"content"`. |
-| `SidebarResizeTrigger` | Accessible handle line for pointer and keyboard resizing; it renders the shared `SplitterResizeTriggerIndicator` by default, and custom children replace it. |
-| `SidebarTrigger` | Side-aware control for collapsing and expanding the panel. |
-| `SidebarHeader` | Non-scrolling top region. |
-| `SidebarContent` | Scrolling middle region. |
-| `SidebarFooter` | Non-scrolling bottom region. |
-| `SidebarGroup` | Semantic navigation section. |
-| `SidebarNavigationButton` | Button or `asChild` link with active and size states. |
-| `SidebarNavigationBadge` | Optional counter beside a simple navigation button or sub-button. |
-| `SidebarExpandedContent` | Content shown while the panel is expanded. |
-| `SidebarCollapsedContent` | Content shown while the panel is collapsed. |
-| `SidebarTooltip` | Collapsed-only label helper with side-aware placement. |
-| `SidebarNavigationSubList` | Nested navigation list. |
+<Example name="sidebar/custom-sizes" />
+
+### Persisted desktop layout
+
+Keep the desktop width in application state or storage. Control `size` while resizing and persist
+the final value from `onResizeEnd(details)`.
+
+<Example name="sidebar/persisted-layout" />
+
+### Custom scroll area
+
+Native scrolling is the default. Put `ScrollArea` inside `SidebarContent` when the sidebar needs a
+styled scrollbar or edge fade, and make its viewport the only scroll container.
+
+<Example name="sidebar/custom-scroll-area" />
 
 ## Composition
 
-`Sidebar` owns the Splitter layout state, while nested `Collapsible`, popup `Menu`, and
+`Sidebar` is moduix's layout for application navigation. It combines navigation parts with
+[Ark UI Splitter](https://ark-ui.com/docs/components/splitter), which provides resizing, collapse
+state, keyboard interaction, and accessibility. The exposed state and callbacks follow the Splitter
+contract.
+
+`Sidebar` manages the Splitter layout state, while nested `Collapsible`, popup `Menu`, and
 `SidebarTooltip` instances own their own state. Keep `SidebarPanel`, `SidebarResizeTrigger`, `SidebarTrigger`, and
 `SidebarInset` as direct children in visual order: `SidebarPanel` first for a left sidebar, and `SidebarInset` first for
 a right sidebar. `SidebarExpandedContent` and `SidebarCollapsedContent` only switch which composition is visible;
@@ -140,57 +110,31 @@ in script; templates unwrap them automatically.
 With Ark Vue 5.39.3 / Zag 1.45.0, the first controlled collapse can update `size` without
 emitting `@collapse`. The model and `useSidebar().collapsed` still reflect the new state.
 
-## Examples
+## Anatomy
 
-### Nested Navigation
+Hover or focus a part to find it in the preview.
 
-Use `SidebarExpandedContent` for inline nested links and `SidebarCollapsedContent` for the same links in a popup
-menu. Both branches remain application-owned compositions.
-
-<Example name="sidebar/nested-navigation" />
-
-### Custom Scroll Area
-
-Native scrolling is the default. Put `ScrollArea` inside `SidebarContent` when the sidebar needs a
-styled scrollbar or edge fade, and make its viewport the only scroll container.
-
-<Example name="sidebar/custom-scroll-area" />
-
-### Persisted Desktop Layout
-
-Keep the desktop width in application state or storage. Control `size` while resizing and persist
-the final value from `onResizeEnd(details)`.
-
-<Example name="sidebar/persisted-layout" />
-
-### Complete App Shell
-
-Combine search, group actions, badges, nested navigation, a collapsed popup, and an account menu
-inside one application shell. Each nested primitive keeps its own state and focus behavior.
-
-<Example name="sidebar/nested-navigation-and-account-menu" />
-
-### Right Sidebar
-
-Pass `side="right"` and render `SidebarInset`, `SidebarTrigger`, `SidebarResizeTrigger`, and `SidebarPanel` in that order.
-Sidebar adjusts panel setup, trigger ids, placement, and chevron direction automatically.
-
-<Example name="sidebar/right-sidebar" />
-
-### Workspace Select
-
-Use `SelectTrigger asChild` with `SidebarNavigationButton`. Keep the selected value in
-`SidebarLabel`, keep `SelectIndicator` as a direct child of the trigger, and mark a compact
-visual anchor with `data-sidebar-icon`.
-
-<Example name="sidebar/workspace-select" />
-
-### Advanced Customization
-
-Set an explicit initial size and compose other primitives in the shell when the default layout needs
-a different starting point.
-
-<Example name="sidebar/custom-sizes" />
+<AnatomyInspector
+  parts={[
+    ["Sidebar", "sidebar-root", "Ark Splitter root with defaults for a two-panel sidebar.", 0],
+    ["SidebarPanel", "sidebar-panel", "Collapsible navigation panel; its default id is `\"sidebar\"`.", 1],
+    ["SidebarHeader", "sidebar-header", "Non-scrolling top region.", 2],
+    ["SidebarContent", "sidebar-content", "Scrolling middle region.", 2],
+    ["SidebarGroup", "sidebar-group", "Semantic navigation section.", 3],
+    ["SidebarNavigationButton", "sidebar-navigation-button", "Button or `asChild` link with active and size states.", 4],
+    ["SidebarNavigationBadge", "sidebar-navigation-badge", "Optional counter beside a simple navigation button or sub-button.", 4],
+    ["SidebarExpandedContent", "sidebar-expanded-content", "Content shown while the panel is expanded.", 4],
+    ["SidebarCollapsedContent", "sidebar-collapsed-content", "Content shown while the panel is collapsed.", 4],
+    ["SidebarNavigationSubList", "sidebar-navigation-sub-list", "Nested navigation list.", 4],
+    ["SidebarFooter", "sidebar-footer", "Non-scrolling bottom region.", 2],
+    ["SidebarResizeTrigger", "sidebar-resize-trigger", "Accessible handle line for pointer and keyboard resizing; it renders the shared `SplitterResizeTriggerIndicator` by default, and custom children replace it.", 1],
+    ["SidebarTrigger", "sidebar-trigger", "Side-aware control for collapsing and expanding the panel.", 1],
+    ["SidebarInset", "sidebar-inset", "Main content panel; its default id is `\"content\"`.", 1],
+    ["SidebarTooltip", "", "Collapsed-only label helper with side-aware placement.", 1],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styling
 
@@ -205,23 +149,75 @@ icon rail compact. Mark non-SVG visual anchors such as `Avatar` or a brand mark 
 `data-sidebar-icon`.
 
 Panel widths are Ark state rather than visual CSS. Override `defaultSize` or controlled `size` for
-the current width. Colors come from the foundation sidebar tokens (`--moduix-color-sidebar`,
-`--moduix-color-sidebar-foreground`, `--moduix-color-sidebar-accent`,
-`--moduix-color-sidebar-accent-foreground`, `--moduix-color-sidebar-border`, and
-`--moduix-color-sidebar-ring`), so themes and presets restyle every sidebar at once. The root keeps
+the current width. Colors come from the foundation sidebar tokens (`--moduix-sidebar`,
+`--moduix-sidebar-foreground`, `--moduix-sidebar-accent`,
+`--moduix-sidebar-accent-foreground`, `--moduix-sidebar-border`, and
+`--moduix-sidebar-ring`), so themes and presets restyle every sidebar at once. The root keeps
 `--moduix-sidebar-width`, `--moduix-sidebar-height`, and `--moduix-sidebar-trigger-offset-y`; change
 spacing, radius, shadow, or item sizes with a class on the part.
 
 Wrap navigation text in `SidebarLabel`, including inside `SidebarNavigationSubButton`, so long labels
 truncate and leave the collapsed rail.
 
-### CSS Properties
+### CSS variables
 
-<CssPropertiesSection properties={sidebarOverrideCssProperties} />
+Hover or focus a variable to see it in the preview.
+
+<CssPropertiesSection properties={sidebarOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Styling hooks
+
+| Part | `data-slot` |
+| --- | --- |
+| `Sidebar` | `sidebar-root` |
+| `SidebarPanel` | `sidebar-panel` |
+| `SidebarInset` | `sidebar-inset` |
+| `SidebarResizeTrigger` | `sidebar-resize-trigger` |
+| `SidebarTrigger` | `sidebar-trigger` |
+| `SidebarLabel` | `sidebar-label` |
+| `SidebarHeader` | `sidebar-header` |
+| `SidebarContent` | `sidebar-content` |
+| `SidebarExpandedContent` | `sidebar-expanded-content` |
+| `SidebarCollapsedContent` | `sidebar-collapsed-content` |
+| `SidebarFooter` | `sidebar-footer` |
+| `SidebarGroup` | `sidebar-group` |
+| `SidebarGroupLabel` | `sidebar-group-label` |
+| `SidebarGroupHeader` | `sidebar-group-header` |
+| `SidebarGroupAction` | `sidebar-group-action` |
+| `SidebarNavigationList` | `sidebar-navigation-list` |
+| `SidebarNavigationItem` | `sidebar-navigation-item` |
+| `SidebarNavigationButton` | `sidebar-navigation-button` |
+| `SidebarNavigationBadge` | `sidebar-navigation-badge` |
+| `SidebarNavigationSubList` | `sidebar-navigation-sub-list` |
+| `SidebarNavigationSubItem` | `sidebar-navigation-sub-item` |
+| `SidebarNavigationSubButton` | `sidebar-navigation-sub-button` |
 
 Sidebar shell parts also expose `data-scope="sidebar"` and `data-part`. `SidebarInput` and
 `SidebarSeparator` retain the scopes of their underlying primitives, while Ark-backed layout parts
 retain Splitter state attributes such as `data-focus`, `data-dragging`, `data-disabled`, and
 `data-orientation`.
+
+## Keyboard
+
+| Key | Action |
+| --- | --- |
+| `ArrowLeft` / `ArrowRight` | Resizes the panels from the focused handle; ArrowUp and ArrowDown when vertical. |
+| `Home` / `End` | Moves the handle to its minimum or maximum. |
+| `Enter` | Collapses or expands a collapsible panel. |
+| `F6` | Moves focus to the next resize handle. |
+
+## API reference
+
+`Sidebar` also takes the `Splitter` props except `orientation` and `panels`; the sidebar panel is 3rem to 18rem and collapses to 3rem.
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `side` | `'left' \| 'right'` | `'left'` | Side of the sidebar panel: `left` or `right`. |
+| `panelId` | `string` | `'sidebar'` | Id of the sidebar panel in the Splitter. |
+| `defaultSize` | `PanelSize[]` | `['16rem']` | Initial panel sizes. |
+| `size` | `PanelSize[]` | — | Panel sizes for controlled use. |
+| `onResize` | `(details: ResizeDetails) => void` | — | Called while the panels resize. |
+| `onCollapse` | `(details: ExpandCollapseDetails) => void` | — | Called when the sidebar collapses. |
+| `onExpand` | `(details: ExpandCollapseDetails) => void` | — | Called when the sidebar expands. |

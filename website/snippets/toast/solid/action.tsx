@@ -1,12 +1,12 @@
 import { Button } from '@moduix/solid/button';
+import { Stack } from '@moduix/solid/stack';
 import { ToastToaster, createToaster } from '@moduix/solid/toast';
-import styles from '@/components/examples/toast/toast-action.module.css';
 
 const toaster = createToaster({ placement: 'bottom-end', gap: 24 });
 
 export default function ToastAction() {
   return (
-    <div class={styles.root}>
+    <Stack align="center" gap="3">
       <ToastToaster toaster={toaster} />
       <Button
         onClick={() =>
@@ -23,6 +23,6 @@ export default function ToastAction() {
       >
         Create event
       </Button>
-    </div>
+    </Stack>
   );
 }

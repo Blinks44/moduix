@@ -1,64 +1,28 @@
 ---
 title: Autoplay gallery
 description: An autoplay gallery block built with Carousel, overlaid slide copy, arrow navigation, and progress indicators.
+block: autoplay-gallery
 ---
 
 import { AutoplayGallery } from '@/components/blocks/autoplay-gallery';
 import autoplayGallerySolid from '../../../snippets/blocks/solid/autoplay-gallery.tsx?raw';
 import autoplayGalleryVue from '../../../snippets/blocks/vue/autoplay-gallery.vue?raw';
+import autoplayGalleryReact from '../../../src/components/blocks/autoplay-gallery.tsx?raw';
+import autoplayGalleryCss from '../../../src/components/blocks/autoplay-gallery.module.css?raw';
 
 # Autoplay gallery
+
+<ExamplePanel
+  clientOnly
+  sources={{ react: autoplayGalleryReact, solid: autoplayGallerySolid, vue: autoplayGalleryVue }}
+  files={[{ name: 'autoplay-gallery.module.css', code: autoplayGalleryCss }]}
+>
+  <AutoplayGallery />
+</ExamplePanel>
 
 Use this block for featured content that advances automatically while keeping navigation within reach. It combines
 `Carousel` with partially visible neighbouring slides, overlaid copy, arrow controls, and indicators that fill during
 each autoplay interval.
-
-The preview runs React. The source tabs contain React, Solid, and Vue implementations with a shared stylesheet.
-
-
-
-<ExampleFrame variant="block" clientOnly>
-  <AutoplayGallery />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/blocks/autoplay-gallery.tsx"
-
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={autoplayGallerySolid} />
-
-    </Tab>
-  <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={autoplayGalleryVue} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/blocks/autoplay-gallery.module.css"
-
-```
-</div>
-
-</ExampleCode>
 
 ## Install
 

@@ -1,0 +1,38 @@
+/* Customize panel between the CSS variables scene and the table. */
+.panel {
+  /* Keep code highlighting and controls below the sticky preview. */
+  isolation: isolate;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  border-bottom: 1px solid var(--rp-c-divider);
+  padding: 16px 20px;
+}
+
+.controls {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 16px 24px;
+  align-items: end;
+}
+
+.color {
+  inline-size: fit-content;
+
+  /* Every hex has the same width, so the trigger and its popup stay put while dragging. */
+  [data-slot='color-picker-value-text'] {
+    font-family: var(--rp-font-family-mono);
+  }
+}
+
+.output {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+
+  :global(.rp-codeblock) {
+    align-self: stretch;
+    margin: 0;
+  }
+}

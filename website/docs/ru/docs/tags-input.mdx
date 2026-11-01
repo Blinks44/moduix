@@ -1,17 +1,26 @@
 ---
 title: Tags Input
 component: tags-input
-description: Редактируемое поле для списка строковых тегов с проверкой, отправкой формы и необязательными подсказками.
+description: Список коротких значений в виде меток, которые можно править и удалять.
+ark: https://ark-ui.com/docs/components/tags-input
 ---
 
+import AnatomyScene from '@/components/examples/tags-input/basic';
 import * as TagsInputDocs from '@/components/examples/tags-input/css-properties';
-import TagsInputWithCombobox from '@/components/examples/tags-input/with-combobox.tsx';
-import tagsInputSolidWithCombobox from '../../../snippets/combobox/solid/with-tags-input.tsx?raw';
-import tagsInputVueWithCombobox from '../../../snippets/combobox/vue/with-tags-input.vue?raw';
 
-## Справочник API
+<Example name="tags-input/basic" />
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/tags-input" />
+## Установка
+
+<ComponentInstall />
+
+## Использование
+
+<Usage />
+
+Начните с `TagsInput`, `TagsInputLabel`, `TagsInputControl`, `TagsInputItems`,
+`TagsInputInput` и `TagsInputClearTrigger`. Добавьте `TagsInputHiddenInput`, если теги нужно
+отправлять вместе с формой.
 
 ## Как выбрать компонент
 
@@ -22,126 +31,7 @@ import tagsInputVueWithCombobox from '../../../snippets/combobox/vue/with-tags-i
 - Выбирайте **`Tag`**, когда интерфейс только показывает существующий токен и может предложить отдельное действие удаления.
 - Выбирайте **`Combobox`**, когда пользователь выбирает значение из известного списка, а основное взаимодействие связано с фильтрацией.
 
-## Базовый пример
-
-
-Начните с `TagsInput`, `TagsInputLabel`, `TagsInputControl`, `TagsInputItems`,
-`TagsInputInput` и `TagsInputClearTrigger`. Добавьте `TagsInputHiddenInput`, если теги нужно
-отправлять вместе с формой.
-
-<Example name="tags-input/basic" />
-
-## Установка через shadcn
-
-Полную настройку пакета, реестра и стилей см. в разделе [Быстрый старт](/docs/quick-start).
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/tags-input' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/tags-input' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/tags-input' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/tags-input' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/tags-input' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/tags-input' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Анатомия
-
-```text
-TagsInput
-├─ TagsInputLabel
-├─ TagsInputControl
-│  ├─ TagsInputItems
-│  └─ TagsInputItem[index, value]
-│     ├─ TagsInputItemPreview
-│     │  ├─ TagsInputItemText
-│     │  └─ TagsInputItemDeleteTrigger
-│     └─ TagsInputItemInput
-│  ├─ TagsInputInput
-│  └─ TagsInputClearTrigger
-└─ TagsInputHiddenInput (explicit)
-
-TagsInputRootProvider
-└─ same part tree connected to a useTagsInput() store
-```
-
-| Часть | Назначение |
-| --- | --- |
-| `TagsInput` | Корень, который управляет состоянием, значениями тегов, вводом, проверкой и формой. |
-| `TagsInputRootProvider` | Подключает части к состоянию, которое вернул `useTagsInput()`. |
-| `TagsInputLabel` | Доступная подпись поля тегов. |
-| `TagsInputControl` | Видимая область с тегами, полем ввода и кнопкой очистки. |
-| `TagsInputItems` | Стандартно отображает редактируемые теги из текущего состояния. |
-| `TagsInputItem` | Один тег. Передайте `index` и `value` для собственных элементов. |
-| `TagsInputItemContext` | Доступ через render prop к состоянию текущего элемента внутри дерева компонентов. |
-| `TagsInputItemPreview` | Отображает тег вне режима редактирования. |
-| `TagsInputItemText` | Видимый текст тега. |
-| `TagsInputItemDeleteTrigger` | Удаляет один тег и по умолчанию показывает компактный значок закрытия. |
-| `TagsInputItemInput` | Поле для редактирования тега на месте. |
-| `TagsInputInput` | Поле ввода новых тегов. |
-| `TagsInputClearTrigger` | Удаляет все теги и по умолчанию использует оформление общей кнопки закрытия. |
-| `TagsInputHiddenInput` | Явно добавляемое нативное поле для отправки формы. |
-| `TagsInputContext` | Render prop с доступом к состоянию корня внутри дерева компонента. |
-
-## Композиция
-
-Используйте короткую форму `<TagsInput>` для стандартной композиции. Оставьте `TagsInputItems`,
-`TagsInputInput` и `TagsInputClearTrigger` внутри `TagsInputControl`. Добавьте
-`TagsInputHiddenInput` явно и передайте корню `name`, если теги нужно отправлять с формой. Если
-связанная форма находится вне дерева компонента, задайте `form`.
-
-Для собственного содержимого или действий тегов используйте `TagsInputContext` и свяжите его
-значения с `TagsInputItem`, передав `index` и `value`. Оставьте `TagsInputItemInput` внутри каждого
-элемента, если нужно сохранить редактирование на месте. Используйте `TagsInputRootProvider` с
-`useTagsInput()` только тогда, когда состояние или методы вроде `addValue`, `clearValue` и `focus`
-нужны за пределами дерева компонента. В Solid store является accessor: читайте `tagsInput().value`
-и вызывайте `tagsInput().addValue()`. При объединении с `Combobox` используйте общие идентификаторы
-поля и элемента управления и объединяйте поля через `asChild`.
-
 ## Примеры
-
-### Разрешить дубликаты
-
-Включите `allowDuplicates`, если одна и та же строка может появляться несколько раз.
-
-<Example name="tags-input/allow-duplicates" />
-
-### Управляемое состояние
-
-Храните массив тегов в состоянии компонента, если от него зависит другая часть экрана или его нужно
-сбрасывать программно.
-
-<Example name="tags-input/controlled" />
-
-### Управляемое значение поля ввода
-
-Управляйте `inputValue` отдельно, если другой элемент интерфейса должен заранее заполнить или
-очистить поле ввода.
-
-<Example name="tags-input/controlled-input-value" />
 
 ### Разделитель и вставка
 
@@ -149,6 +39,34 @@ TagsInputRootProvider
 тегов. В этом примере разделителями служат запятая, точка с запятой и пробел.
 
 <Example name="tags-input/delimiter-and-paste" />
+
+### Проверка и максимум
+
+Используйте `validate`, `max` и `onValueInvalid`, чтобы отклонять недопустимые значения и понимать
+причину отказа. Добавьте `maxLength`, если поле не должно принимать слишком длинные значения до
+запуска проверки.
+
+<Example name="tags-input/validation-and-max" />
+
+### Максимум с превышением
+
+Используйте `allowOverflow` вместе с `max`, если пользователь может временно превысить лимит, а поле
+должно сообщить о невалидном состоянии.
+
+<Example name="tags-input/max-with-overflow" />
+
+### Разрешить дубликаты
+
+Включите `allowDuplicates`, если одна и та же строка может появляться несколько раз.
+
+<Example name="tags-input/allow-duplicates" />
+
+### Нормализация и потеря фокуса
+
+Используйте `sanitizeValue`, чтобы нормализовать вводимые теги, а `blurBehavior="add"`, чтобы добавить
+текущее значение при потере фокуса.
+
+<Example name="tags-input/sanitize-and-blur" />
 
 ### Запретить редактирование
 
@@ -176,34 +94,19 @@ TagsInputRootProvider
 
 <Example name="tags-input/form" />
 
-### Максимум с превышением
+### Управляемое состояние
 
-Используйте `allowOverflow` вместе с `max`, если пользователь может временно превысить лимит, а поле
-должно сообщить о невалидном состоянии.
+Храните массив тегов в состоянии компонента, если от него зависит другая часть экрана или его нужно
+сбрасывать программно. Подробнее в разделе [Управляйте состоянием из приложения](/docs/composition-patterns#controlled-state).
 
-<Example name="tags-input/max-with-overflow" />
+<Example name="tags-input/controlled" />
 
-### TagsInputRootProvider
+### Управляемое значение поля ввода
 
-Используйте `useTagsInput` с `TagsInputRootProvider`, когда состояние и императивные методы нужны за пределами
-дерева отрисованного поля.
+Управляйте `inputValue` отдельно, если другой элемент интерфейса должен заранее заполнить или
+очистить поле ввода. Подробнее в разделе [Управляйте состоянием из приложения](/docs/composition-patterns#controlled-state).
 
-<Example name="tags-input/root-provider" />
-
-### Нормализация и потеря фокуса
-
-Используйте `sanitizeValue`, чтобы нормализовать вводимые теги, а `blurBehavior="add"`, чтобы добавить
-текущее значение при потере фокуса.
-
-<Example name="tags-input/sanitize-and-blur" />
-
-### Проверка и максимум
-
-Используйте `validate`, `max` и `onValueInvalid`, чтобы отклонять недопустимые значения и понимать
-причину отказа. Добавьте `maxLength`, если поле не должно принимать слишком длинные значения до
-запуска проверки.
-
-<Example name="tags-input/validation-and-max" />
+<Example name="tags-input/controlled-input-value" />
 
 ### Вместе с Combobox
 
@@ -211,47 +114,91 @@ TagsInputRootProvider
 одновременно разрешать пользовательские теги. Используйте общие идентификаторы поля и элемента
 управления и объединяйте поля через `asChild`.
 
-<ExampleFrame variant="component">
-  <TagsInputWithCombobox />
-</ExampleFrame>
+<Example name="combobox/with-tags-input" />
 
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
+### Root Provider
 
-```tsx pure file="../../../src/components/examples/tags-input/with-combobox.tsx"
-```
+Используйте `useTagsInput` с `TagsInputRootProvider`, когда состояние и императивные методы нужны за пределами
+дерева отрисованного поля. Подробнее в разделе [Выносите состояние за пределы дерева](/docs/composition-patterns#root-provider).
 
-    </Tab>
-    <Tab value="solid"><CodeBlockRuntime lang="tsx" code={tagsInputSolidWithCombobox} /></Tab>
-    <Tab value="vue"><CodeBlockRuntime lang="vue" code={tagsInputVueWithCombobox} /></Tab>
-  </Tabs>
+<Example name="tags-input/root-provider" />
 
-**Стили**
+### Сборка из частей
 
-```css file="../../../src/components/examples/tags-input/tags-input-with-combobox.module.css"
-```
-</div>
-</ExampleCode>
+То же поле, что в Basic, но без `TagsInputItems`: `TagsInputContext` отдаёт значения, а каждый
+`TagsInputItem` содержит превью с текстом и кнопкой удаления и `TagsInputItemInput` для редактирования
+на месте. Кнопки удаления и очистки получают явные иконки. Начинайте с него, если тегам нужно своё
+содержимое или действия.
 
-### Расширенная настройка
+<Example name="tags-input/build-from-parts" />
 
-Не используйте `TagsInputItems`, если каждому тегу нужны собственное содержимое или действия. Свяжите значения
-корня с полной структурой частей и оставьте `TagsInputItemInput` внутри каждого тега, если редактирование на
-месте всё ещё нужно.
+## Композиция
 
-<Example name="tags-input/advanced-customization" />
+Используйте короткую форму `<TagsInput>` для стандартной композиции. Оставьте `TagsInputItems`,
+`TagsInputInput` и `TagsInputClearTrigger` внутри `TagsInputControl`. Добавьте
+`TagsInputHiddenInput` явно и передайте корню `name`, если теги нужно отправлять с формой. Если
+связанная форма находится вне дерева компонента, задайте `form`.
+
+Для собственного содержимого или действий тегов используйте `TagsInputContext` и свяжите его
+значения с `TagsInputItem`, передав `index` и `value`. Оставьте `TagsInputItemInput` внутри каждого
+элемента, если нужно сохранить редактирование на месте. Используйте `TagsInputRootProvider` с
+`useTagsInput()` только тогда, когда состояние или методы вроде `addValue`, `clearValue` и `focus`
+нужны за пределами дерева компонента. В Solid store является accessor: читайте `tagsInput().value`
+и вызывайте `tagsInput().addValue()`. При объединении с `Combobox` используйте общие идентификаторы
+поля и элемента управления и объединяйте поля через `asChild`.
+
+## Анатомия
+
+Наведите на часть или выберите её, чтобы найти её в превью.
+
+<AnatomyInspector
+  parts={[
+    ["TagsInput", "tags-input-root", "Корень, который управляет состоянием, значениями тегов, вводом, проверкой и формой.", 0],
+    ["TagsInputLabel", "tags-input-label", "Доступная подпись поля тегов.", 1],
+    ["TagsInputControl", "tags-input-control", "Видимая область с тегами, полем ввода и кнопкой очистки.", 1],
+    ["TagsInputItems", "", "Стандартно отображает редактируемые теги из текущего состояния.", 2],
+    ["TagsInputItem", "tags-input-item", "Один тег. Передайте `index` и `value` для собственных элементов.", 2],
+    ["TagsInputItemPreview", "tags-input-item-preview", "Отображает тег вне режима редактирования.", 3],
+    ["TagsInputItemText", "tags-input-item-text", "Видимый текст тега.", 4],
+    ["TagsInputItemDeleteTrigger", "tags-input-item-delete-trigger", "Удаляет один тег и по умолчанию показывает компактный значок закрытия.", 4],
+    ["TagsInputItemInput", "tags-input-item-input", "Поле для редактирования тега на месте.", 3],
+    ["TagsInputInput", "tags-input-input", "Поле ввода новых тегов.", 2],
+    ["TagsInputClearTrigger", "tags-input-clear-trigger", "Удаляет все теги и по умолчанию использует оформление общей кнопки закрытия.", 2],
+    ["TagsInputHiddenInput", "", "Явно добавляемое нативное поле для отправки формы.", 1],
+    ["TagsInputRootProvider", "tags-input-root-provider", "Подключает части к состоянию, которое вернул `useTagsInput()`.", 0],
+    ["TagsInputItemContext", null, "Доступ через render prop к состоянию текущего элемента внутри дерева компонентов.", 0],
+    ["TagsInputContext", null, "Render prop с доступом к состоянию корня внутри дерева компонента.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Стилизация
 
-### CSS-свойства
+### CSS-переменные
 
-<CssPropertiesSection properties={TagsInputDocs.tagsInputCssProperties} />
+Наведите на переменную или выберите её, чтобы увидеть её в превью.
+
+<CssPropertiesSection properties={TagsInputDocs.tagsInputCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Хуки стилизации
 
-- `TagsInput` и `TagsInputRootProvider` предоставляют `data-slot="tags-input-root"` и `data-slot="tags-input-root-provider"`.
+| Часть | `data-slot` |
+| --- | --- |
+| `TagsInput` | `tags-input-root` |
+| `TagsInputRootProvider` | `tags-input-root-provider` |
+| `TagsInputLabel` | `tags-input-label` |
+| `TagsInputControl` | `tags-input-control` |
+| `TagsInputItem` | `tags-input-item` |
+| `TagsInputItemPreview` | `tags-input-item-preview` |
+| `TagsInputItemText` | `tags-input-item-text` |
+| `TagsInputItemDeleteTrigger` | `tags-input-item-delete-trigger` |
+| `TagsInputItemInput` | `tags-input-item-input` |
+| `TagsInputInput` | `tags-input-input` |
+| `TagsInputClearTrigger` | `tags-input-clear-trigger` |
+
 - Части Ark сохраняют `data-scope="tags-input"` и значения `data-part` из анатомии.
 - Состояния можно стилизовать через `data-disabled`, `data-readonly`, `data-invalid`, `data-focus`, `data-empty`, `data-required`, `data-value` и `data-highlighted`, если Ark добавляет их к части.
 - Кнопки удаления и очистки имеют стабильные `data-slot`. Для отдельного тега используется компактный значок закрытия, а очистка всех тегов использует оформление общей кнопки закрытия.
@@ -271,3 +218,48 @@ Ark связывает подпись с полем, управляет выде
 - Когда поле ввода пусто или курсор стоит в его начале, `ArrowLeft` и `ArrowRight` перемещают визуальный фокус между тегами.
 - `Backspace` и `Delete` удаляют выделенный тег. `Backspace` также удаляет последний тег, если поле ввода пусто.
 - При включённом `addOnPaste` сочетание `Control+V` добавляет вставленные значения после разделения их по `delimiter`.
+
+## Клавиатура
+
+| Клавиша | Действие |
+| --- | --- |
+| `Enter` | Добавляет введённый текст как метку. |
+| `ArrowLeft` / `ArrowRight` | Перемещает между метками, когда поле пустое. |
+| `Backspace` / `Delete` | Подсвечивает, затем удаляет метку. |
+| `Enter` на метке | Редактирует подсвеченную метку, если включён editable. |
+| `Ctrl+V` | Добавляет вставленные значения как метки, если включён addOnPaste. |
+
+## Справочник API
+
+| Проп | Тип | По умолчанию | Описание |
+| --- | --- | --- | --- |
+| `value` | `string[]` | — | Теги в управляемом режиме. |
+| `defaultValue` | `string[]` | — | Начальные теги. |
+| `onValueChange` | `(details: ValueChangeDetails) => void` | — | Вызывается при добавлении, изменении и удалении тегов. |
+| `inputValue` | `string` | — | Текст поля в управляемом режиме. |
+| `onInputValueChange` | `(details: InputValueChangeDetails) => void` | — | Вызывается при изменении текста поля. |
+| `max` | `number` | `Infinity` | Максимальное число тегов. |
+| `maxLength` | `number` | — | Максимальная длина тега. |
+| `delimiter` | `string \| RegExp` | `','` | Символ или шаблон, который добавляет тег при вводе. |
+| `validate` | `(details: ValidateArgs) => boolean` | — | Возвращает `false`, чтобы отклонить тег. |
+| `onValueInvalid` | `(details: ValidityChangeDetails) => void` | — | Вызывается при достижении `max` или отказе `validate`. |
+| `allowDuplicates` | `boolean` | `false` | Разрешает повторяющиеся теги. |
+| `addOnPaste` | `boolean` | `false` | Разбивает вставленный текст на теги. |
+| `editable` | `boolean` | `true` | Разрешает править тег по Enter или двойному клику. |
+| `blurBehavior` | `'clear' \| 'add'` | — | Что делать с текстом при потере фокуса: `add` (добавить тег) или `clear`. |
+| `placeholder` | `string` | — | Подсказка в пустом поле. |
+| `name` | `string` | — | Имя поля формы у внутреннего input. |
+| `disabled` | `boolean` | `false` | Отключает элемент управления. |
+| `readOnly` | `boolean` | `false` | Показывает значение, но не даёт его менять. |
+| `invalid` | `boolean` | `false` | Помечает поле как невалидное. |
+| `required` | `boolean` | `false` | Требует значение перед отправкой формы. |
+| `translations` | `IntlTranslations` | — | Переведённые строки для подписей доступности. |
+| `autoFocus` | `boolean` | — | Ставит фокус в поле при монтировании. |
+| `defaultInputValue` | `string` | — | Начальный текст поля. |
+| `onHighlightChange` | `(details: HighlightChangeDetails) => void` | — | Вызывается при подсветке тега. |
+| `allowOverflow` | `boolean` | — | Разрешает тегов больше `max` и помечает поле невалидным. |
+| `sanitizeValue` | `(value: string) => string` | `(value) => value.trim()` | Очищает тег перед добавлением. |
+| `form` | `string` | — | Id формы, к которой относится внутренний input. |
+| `onPointerDownOutside` | `(event: PointerDownOutsideEvent) => void` | — | Вызывается при нажатии указателя вне всплывающего окна. |
+| `onFocusOutside` | `(event: FocusOutsideEvent) => void` | — | Вызывается, когда фокус уходит из всплывающего окна. |
+| `onInteractOutside` | `(event: InteractOutsideEvent) => void` | — | Вызывается при любом взаимодействии вне всплывающего окна. |

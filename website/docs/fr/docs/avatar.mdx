@@ -1,17 +1,22 @@
 ---
 title: Avatar
 component: avatar
-description: Une représentation compacte d’un utilisateur ou d’une entité. Ark UI gère le chargement de l’image et l’affichage du contenu de remplacement.
+description: Afficher la photo d’un utilisateur, avec ses initiales en attendant.
+ark: https://ark-ui.com/docs/components/avatar
 ---
 
+import AnatomyScene from '@/components/examples/avatar/basic';
 import * as AvatarDocs from '@/components/examples/avatar/css-properties';
 
-## Référence de l’API
+<Example name="avatar/basic" />
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/avatar" />
+## Installation
 
+<ComponentInstall />
 
-## Exemple de base
+## Utilisation
+
+<Usage />
 
 Utilisez `Avatar`, `AvatarFallback` et `AvatarImage` ensemble. Gardez `AvatarFallback` dans l’arbre
 pour qu’Ark UI puisse basculer entre le contenu de remplacement et l’image lorsque l’état de chargement change.
@@ -20,74 +25,15 @@ React, Solid et Vue partagent les mêmes noms de valeurs à plat. Importez `Avat
 partie supplémentaire directement, par exemple `AvatarImage` et `AvatarFallback`. Ces mêmes noms
 fonctionnent avec les paquets npm et les sources du registre shadcn.
 
-<Example name="avatar/basic" />
-
-## Installation avec shadcn
-
-Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration complète du paquet, du registre et des styles.
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/avatar' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/avatar' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/avatar' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/avatar' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/avatar' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/avatar' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Anatomie
-
-```text
-Avatar
-├─ AvatarFallback
-└─ AvatarImage
-
-AvatarRootProvider
-└─ les mêmes parties connectées à un store useAvatar()
-
-AvatarGroup
-└─ Avatar, Avatar, ...
-```
-
-| Composant           | Rôle |
-| ------------------- | ----------------------------------------------------------------- |
-| `Avatar`            | Crée l’élément racine et gère l’état de l’avatar Ark UI. |
-| `AvatarRootProvider` | Relie l’avatar à un état Ark UI créé en dehors de son arbre. |
-| `AvatarFallback`    | Affiche le contenu fourni par le consommateur jusqu’au chargement de l’image. |
-| `AvatarImage`       | Affiche l’image après un chargement réussi. |
-| `AvatarGroup`       | Empile les avatars avec un chevauchement et un anneau de la couleur du fond. |
-
-## Composition
-
-Gardez `AvatarFallback` et `AvatarImage` sous la même racine afin qu’Ark UI puisse gérer leur visibilité. Lorsqu’une autre partie de l’application possède l’état, créez-le avec `useAvatar()` du framework concerné et transmettez-le directement à `AvatarRootProvider` ; ne rendez pas une seconde racine pour le même store. React reçoit le store comme un objet, tandis que Solid fournit un accesseur réactif. En Vue, transmettez directement le résultat de `useAvatar()` à `AvatarRootProvider`. React et Solid peuvent utiliser `useAvatarContext()` pour un rendu d’image personnalisé et conserver les états masqué et visible de `getImageProps()`. En Vue, le slot de `AvatarContext` expose le même état. Utilisez `asChild` avec un seul enfant sémantique lorsqu’un autre élément doit porter le nœud DOM racine.
-
-En Solid, attribuez la ref à l’élément créé dans la fonction de rendu `asChild` : une ref posée sur `Avatar` lui-même n’est pas transmise par cette composition. En Vue, les refs pointent vers l’instance du composant ; utilisez `$el` pour accéder à l’élément rendu.
-
 ## Exemples
+
+### Tailles et avatar sans image
+
+La propriété `size` de moduix permet de choisir l’une des tailles courantes des tokens de design pour l’un ou
+l’autre composant racine. Un avatar avec uniquement un contenu de remplacement convient lorsqu’aucune source
+d’image n’est disponible.
+
+<Example name="avatar/sizes-and-fallback-only" />
 
 ### Contenu de remplacement personnalisé
 
@@ -104,26 +50,13 @@ moteur de rendu personnalisé doit s’intégrer au cycle de chargement géré p
 
 <Example name="avatar/custom-image" />
 
-### Événements
+### Indicateur de statut
 
-Utilisez `onStatusChange(details)` lorsque l’interface voisine doit réagir au résultat du chargement de l’image.
+La racine de l’avatar ne rogne pas ses enfants : un élément positionné en absolu dans `Avatar` peut
+signaler une présence ou un badge. Donnez-lui un nom accessible si le statut n’est pas indiqué dans le
+texte voisin.
 
-<Example name="avatar/events" />
-
-### Utiliser `RootProvider`
-
-Créez l’état avec `useAvatar` depuis moduix lorsque des contrôles situés en dehors de l’avatar doivent
-interagir avec lui. Transmettez-le à `AvatarRootProvider` à la place de `Avatar`.
-
-<Example name="avatar/root-provider" />
-
-### Tailles et avatar sans image
-
-La propriété `size` de moduix permet de choisir l’une des tailles courantes des tokens de design pour l’un ou
-l’autre composant racine. Un avatar avec uniquement un contenu de remplacement convient lorsqu’aucune source
-d’image n’est disponible.
-
-<Example name="avatar/sizes-and-fallback-only" />
+<Example name="avatar/status" />
 
 ### Groupe
 
@@ -133,38 +66,83 @@ page. Rendez vous-même l’avatar `+N` lorsque la liste est tronquée.
 
 <Example name="avatar/group" />
 
-### Indicateur de statut
-
-La racine de l’avatar ne rogne pas ses enfants : un élément positionné en absolu dans `Avatar` peut
-signaler une présence ou un badge. Donnez-lui un nom accessible si le statut n’est pas indiqué dans le
-texte voisin.
-
-<Example name="avatar/status" />
-
-### Personnalisation avancée
+### Avatar interactif
 
 Utilisez `asChild` lorsque l’avatar est lui-même un élément interactif, par exemple un lien. Le composant
 n’ajoute alors pas son nœud DOM racine par défaut, tout en conservant l’état Ark, le comportement du contenu
 de remplacement et la composition explicite des parties.
 
-<Example name="avatar/custom-composition" />
+<Example name="avatar/interactive" />
+
+### Événements
+
+Utilisez `onStatusChange(details)` lorsque l’interface voisine doit réagir au résultat du chargement de l’image.
+
+<Example name="avatar/events" />
+
+### Root Provider
+
+Créez l’état avec `useAvatar` depuis moduix lorsque des contrôles situés en dehors de l’avatar doivent
+interagir avec lui. Transmettez-le à `AvatarRootProvider` à la place de `Avatar`. Voir [Partager l’état hors de l’arbre](/docs/composition-patterns#root-provider).
+
+<Example name="avatar/root-provider" />
+
+## Composition
+
+Gardez `AvatarFallback` et `AvatarImage` sous la même racine afin qu’Ark UI puisse gérer leur visibilité. Lorsqu’une autre partie de l’application contrôle l’état, créez-le avec `useAvatar()` du framework concerné et transmettez-le directement à `AvatarRootProvider` ; ne rendez pas une seconde racine pour le même store. React reçoit le store comme un objet, tandis que Solid fournit un accesseur réactif. En Vue, transmettez directement le résultat de `useAvatar()` à `AvatarRootProvider`. React et Solid peuvent utiliser `useAvatarContext()` pour un rendu d’image personnalisé et conserver les états masqué et visible de `getImageProps()`. En Vue, le slot de `AvatarContext` expose le même état. Utilisez `asChild` avec un seul enfant sémantique lorsqu’un autre élément doit porter le nœud DOM racine.
+
+En Solid, attribuez la ref à l’élément créé dans la fonction de rendu `asChild` : une ref posée sur `Avatar` lui-même n’est pas transmise par cette composition. En Vue, les refs pointent vers l’instance du composant ; utilisez `$el` pour accéder à l’élément rendu.
+
+## Anatomie
+
+Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
+
+<AnatomyInspector
+  parts={[
+    ["Avatar", "avatar-root", "Crée l’élément racine et gère l’état de l’avatar Ark UI.", 0],
+    ["AvatarFallback", "avatar-fallback", "Affiche le contenu fourni par le consommateur jusqu’au chargement de l’image.", 1],
+    ["AvatarImage", "avatar-image", "Affiche l’image après un chargement réussi.", 1],
+    ["AvatarRootProvider", "avatar-root-provider", "Relie l’avatar à un état Ark UI créé en dehors de son arbre.", 0],
+    ["AvatarGroup", "avatar-group", "Empile les avatars avec un chevauchement et un anneau de la couleur du fond.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styles
 
 Utilisez `className` dans React ou `class` dans Solid et Vue, ainsi que les variables CSS de moduix, pour modifier l’apparence. Utilisez les attributs de
 données fournis par Ark lorsque le style dépend de l’état de l’image.
 
-### Propriétés CSS
+### Variables CSS
 
-<CssPropertiesSection properties={AvatarDocs.avatarCssProperties} />
+Survolez ou sélectionnez une variable pour la voir dans l’aperçu.
+
+<CssPropertiesSection properties={AvatarDocs.avatarCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Points d’accroche CSS
 
-- `data-slot="avatar-root"`, `avatar-root-provider`, `avatar-image`, `avatar-fallback` et
-  `avatar-group`.
+| Partie | `data-slot` |
+| --- | --- |
+| `Avatar` | `avatar-root` |
+| `AvatarRootProvider` | `avatar-root-provider` |
+| `AvatarImage` | `avatar-image` |
+| `AvatarFallback` | `avatar-fallback` |
+| `AvatarGroup` | `avatar-group` |
+
 - Attributs d’anatomie Ark : `data-scope="avatar"` et
   `data-part="root" | "image" | "fallback"`.
 - État de l’image géré par Ark : `data-state="visible" | "hidden"` sur `AvatarImage` et
   `AvatarFallback`.
 - Attribut de taille de moduix : `data-size="xs" | "sm" | "md" | "lg" | "xl"` sur
   `Avatar` et `AvatarRootProvider`, `md` par défaut.
+
+## Référence de l’API
+
+| Prop | Type | Défaut | Description |
+| --- | --- | --- | --- |
+| `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'` | `'md'` | Taille de l’avatar : `xs`, `sm`, `md`, `lg` ou `xl`. |
+| `onStatusChange` | `(details: StatusChangeDetails) => void` | — | Appelé lorsque l’image passe à `loading`, `loaded` ou `error`. |
+| `asChild` | `boolean` | `false` | Rend la racine avec son unique élément enfant. |

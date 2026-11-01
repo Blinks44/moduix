@@ -1,10 +1,5 @@
 <script setup lang="ts">
-import {
-  Pagination,
-  PaginationPrevTrigger,
-  PaginationItems,
-  PaginationNextTrigger,
-} from '../../src';
+import { Pagination, PaginationPrevTrigger, PaginationItems, PaginationNextTrigger } from '@/index';
 </script>
 
 <template>

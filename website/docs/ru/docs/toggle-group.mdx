@@ -1,25 +1,28 @@
 ---
 title: Toggle Group
 component: toggle-group
-description: Группа кнопок-переключателей с навигацией с клавиатуры для одиночного и множественного выбора в React, Solid и Vue.
+description: Группа кнопок-переключателей для одного или нескольких выборов.
+ark: https://ark-ui.com/docs/components/toggle-group
 ---
 
+import AnatomyScene from '@/components/examples/toggle-group/basic';
 import * as ToggleGroupDocs from '@/components/examples/toggle-group/css-properties';
 import { CssPropertiesSection } from '@/components/mdx/Components';
-import ToggleGroupContext from '@/components/examples/toggle-group/context.tsx';
-import toggleGroupSolidContext from '../../../snippets/toggle-group/solid/context.tsx?raw';
-import toggleGroupVueContext from '../../../snippets/toggle-group/vue/context.vue?raw';
-import toggleGroupVueContextPart from '../../../snippets/toggle-group/vue/AlignmentItem.vue?raw';
 
-## Справочник API
+<Example name="toggle-group/basic" />
 
-`ToggleGroup` оборачивает примитив Toggle Group из Ark UI и добавляет визуальные свойства moduix для
-вариантов и размеров. Импортируйте его из пакета нужного фреймворка: `@moduix/react/toggle-group`,
-`@moduix/solid/toggle-group`, `@moduix/react-tailwind/toggle-group` или
-`@moduix/solid-tailwind/toggle-group`. Vue-пакеты: `@moduix/vue/toggle-group` и
-`@moduix/vue-tailwind/toggle-group`.
+## Установка
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/toggle-group" />
+<ComponentInstall />
+
+## Использование
+
+<Usage />
+
+Интерактивный
+
+Используйте `ToggleGroup` как корневой компонент и добавьте по одному `ToggleGroupItem` на каждый
+вариант. Задайте группе доступное имя через `aria-label` или `aria-labelledby`.
 
 ## Выбор подходящего компонента
 
@@ -31,71 +34,81 @@ import toggleGroupVueContextPart from '../../../snippets/toggle-group/vue/Alignm
 - Выберите **`Tabs`**, если выбор должен также показывать связанную панель содержимого.
 - Выберите **`RadioGroup`**, если варианты являются полями формы и должны участвовать в её нативной отправке.
 
-## Базовый пример
+## Примеры
 
-Интерактивный
+### Варианты
 
-Используйте `ToggleGroup` как корневой компонент и добавьте по одному `ToggleGroupItem` на каждый
-вариант. Задайте группе доступное имя через `aria-label` или `aria-labelledby`.
+Установите `variant` на группе, если все элементы должны использовать одинаковое оформление.
 
-<Example name="toggle-group/basic" />
+<Example name="toggle-group/variants" />
 
-## Установка через shadcn
+### Размеры
 
-Полную настройку пакета, реестра и стилей см. в разделе [Быстрый старт](/docs/quick-start).
+Задайте `size` у `ToggleGroup`: `xs`, `sm`, `md` или `lg`. Все пункты группы получают один размер.
 
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
+<Example name="toggle-group/sizes" />
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/toggle-group' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/toggle-group' },
-  ]}
-/>
+### Иконки
 
-  </Tab>
-  <Tab label="Solid" value="solid">
+Передавайте иконки как обычные дочерние элементы. Элементам только с иконками всегда нужно доступное имя.
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/toggle-group' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/toggle-group' },
-  ]}
-/>
+<Example name="toggle-group/icons" />
 
-  </Tab>
-  <Tab label="Vue" value="vue">
+### Множественный выбор
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/toggle-group' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/toggle-group' },
-  ]}
-/>
+Используйте `multiple`, если несколько вариантов могут оставаться выбранными одновременно.
 
-  </Tab>
-</Tabs>
+<Example name="toggle-group/multiple-selection" />
 
-## Анатомия
+### Вертикальная ориентация
 
-```text
-ToggleGroup
-├─ ToggleGroupContext (необязательно)
-└─ ToggleGroupItem[value]
+Установите `orientation="vertical"`, если варианты должны располагаться столбцом.
 
-ToggleGroupRootProvider
-└─ ToggleGroupItem[value]
-```
+<Example name="toggle-group/vertical" />
 
-| Часть                     | Назначение                                                                            |
-| ------------------------ | ------------------------------------------------------------------------------------- |
-| `ToggleGroup`            | Корневая часть, управляющая выбранными значениями, фокусом, ориентацией и отключённым состоянием. |
-| `ToggleGroupItem`        | Интерактивный элемент с обязательным `value` и состоянием выбора, которым управляет Ark. |
-| `ToggleGroupRootProvider` | Подключает дерево элементов к состоянию, созданному с помощью `useToggleGroup()`.     |
-| `ToggleGroupContext`     | Передаёт текущее состояние группы через функцию рендера или scoped slot во Vue.       |
+### Отключённая группа и элемент
+
+Используйте `disabled` на группе или отдельном элементе, чтобы запретить взаимодействие.
+
+<Example name="toggle-group/disabled" />
+
+### Управляемое состояние
+
+Управляйте `value` в React и Solid или используйте `v-model` во Vue, если выбранные элементы должны
+оставаться синхронизированными с состоянием остального приложения. Подробнее в разделе [Управляйте состоянием из приложения](/docs/composition-patterns#controlled-state).
+
+<Example name="toggle-group/controlled" />
+
+### asChild
+
+Используйте `asChild` на элементе, если отрисовываемым элементом должна управлять пользовательская
+кнопка. Передавайте ровно одного потомка, который ведёт себя как кнопка, чтобы Ark мог объединить с ним
+семантику группы и клавиатурное поведение.
+
+<Example name="toggle-group/as-child" />
+
+### Контекст
+
+Используйте `useToggleGroupContext()` в пользовательском элементе, если его содержимому нужно текущее
+состояние группы. `ToggleGroupContext` предоставляет то же состояние через функцию рендера в React и
+Solid или scoped slot во Vue.
+
+<Example name="toggle-group/context" />
+
+### Root Provider
+
+Используйте `ToggleGroupRootProvider` с `useToggleGroup()`, если экземпляр состояния нужно создать
+вне дерева отрисованной группы. Подробнее в разделе [Выносите состояние за пределы дерева](/docs/composition-patterns#root-provider).
+
+<Example name="toggle-group/root-provider" />
 
 ## Композиция
+
+`ToggleGroup` оборачивает примитив Toggle Group из Ark UI и добавляет визуальные свойства moduix для
+вариантов и размеров. Импортируйте его из пакета нужного фреймворка: `@moduix/react/toggle-group`,
+`@moduix/solid/toggle-group`, `@moduix/react-tailwind/toggle-group` или
+`@moduix/solid-tailwind/toggle-group`. Vue-пакеты: `@moduix/vue/toggle-group` и
+`@moduix/vue-tailwind/toggle-group`.
 
 Используйте `defaultValue` для неконтролируемой группы, а `value` вместе с `onValueChange(details)`,
 если состояние выбора хранится в другой части приложения на React или Solid. Во Vue используйте
@@ -112,102 +125,20 @@ ToggleGroupRootProvider
 элемент-потомок. Не используйте
 `ToggleGroup` и `ToggleGroupRootProvider` одновременно для одного экземпляра состояния.
 
-## Примеры
+## Анатомия
 
-### asChild
+Наведите на часть или выберите её, чтобы найти её в превью.
 
-Используйте `asChild` на элементе, если отрисовываемым элементом должна управлять пользовательская
-кнопка. Передавайте ровно одного потомка, который ведёт себя как кнопка, чтобы Ark мог объединить с ним
-семантику группы и клавиатурное поведение.
-
-<Example name="toggle-group/as-child" />
-
-### Контекст
-
-Используйте `useToggleGroupContext()` в пользовательском элементе, если его содержимому нужно текущее
-состояние группы. `ToggleGroupContext` предоставляет то же состояние через функцию рендера в React и
-Solid или scoped slot во Vue.
-
-<ExampleFrame variant="component">
-  <ToggleGroupContext />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/toggle-group/context.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={toggleGroupSolidContext} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={toggleGroupVueContext} />
-
-<CodeBlockRuntime lang="vue" code={toggleGroupVueContextPart} title="AlignmentItem.vue" />
-
-    </Tab>
-  </Tabs>
-</div>
-</ExampleCode>
-
-### Управляемое состояние
-
-Управляйте `value` в React и Solid или используйте `v-model` во Vue, если выбранные элементы должны
-оставаться синхронизированными с состоянием остального приложения.
-
-<Example name="toggle-group/controlled" />
-
-### Отключённая группа и элемент
-
-Используйте `disabled` на группе или отдельном элементе, чтобы запретить взаимодействие.
-
-<Example name="toggle-group/disabled" />
-
-### Иконки
-
-Передавайте иконки как обычные дочерние элементы. Элементам только с иконками всегда нужно доступное имя.
-
-<Example name="toggle-group/icons" />
-
-### Множественный выбор
-
-Используйте `multiple`, если несколько вариантов могут оставаться выбранными одновременно.
-
-<Example name="toggle-group/multiple-selection" />
-
-### Варианты
-
-Установите `variant` на группе, если все элементы должны использовать одинаковое оформление.
-
-<Example name="toggle-group/variants" />
-
-### Вертикальная ориентация
-
-Установите `orientation="vertical"`, если варианты должны располагаться столбцом.
-
-<Example name="toggle-group/vertical" />
-
-### Расширенная настройка
-
-Используйте `ToggleGroupRootProvider` с `useToggleGroup()`, если экземпляр состояния нужно создать
-вне дерева отрисованной группы.
-
-<Example name="toggle-group/root-provider" />
+<AnatomyInspector
+  parts={[
+    ["ToggleGroup", "toggle-group-root", "Корневая часть, управляющая выбранными значениями, фокусом, ориентацией и отключённым состоянием.", 0],
+    ["ToggleGroupContext", null, "Передаёт текущее состояние группы через функцию рендера или scoped slot во Vue.", 1],
+    ["ToggleGroupItem", "toggle-group-item", "Интерактивный элемент с обязательным `value` и состоянием выбора, которым управляет Ark.", 1],
+    ["ToggleGroupRootProvider", "toggle-group-root-provider", "Подключает дерево элементов к состоянию, созданному с помощью `useToggleGroup()`.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Стилизация
 
@@ -216,19 +147,52 @@ Solid или scoped slot во Vue.
 предоставляют токены `--moduix-toggle-group-*`. Элементы наследуют `variant` и `size` от корневой
 части и могут переопределить любое из этих свойств для отдельного оформления.
 
-### Свойства CSS
+### CSS-переменные
 
-<CssPropertiesSection properties={ToggleGroupDocs.toggleGroupOverrideCssProperties} />
+Наведите на переменную или выберите её, чтобы увидеть её в превью.
+
+<CssPropertiesSection properties={ToggleGroupDocs.toggleGroupOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 В таблице перечислены свойства уровня группы. Каждый `ToggleGroupItem` также поддерживает [CSS-свойства
-Toggle](/docs/toggle#css-свойства) для цветов и состояний взаимодействия. Задайте свойство
+Toggle](/docs/toggle#css-переменные) для цветов и состояний взаимодействия. Задайте свойство
 `--moduix-toggle-*` на корневом компоненте, чтобы оформить все элементы, или на элементе, чтобы изменить
 оформление только одного элемента.
 
 ### Хуки стилизации
 
-- Стабильные селекторы `data-slot`: `toggle-group-root`, `toggle-group-root-provider` и `toggle-group-item`.
+| Часть | `data-slot` |
+| --- | --- |
+| `ToggleGroup` | `toggle-group-root` |
+| `ToggleGroupRootProvider` | `toggle-group-root-provider` |
+| `ToggleGroupItem` | `toggle-group-item` |
+
 - Селекторы частей Ark: `data-scope="toggle-group"` и `data-part="root" | "item"`.
 - Селекторы состояния Ark: `data-state="on" | "off"`, `data-disabled`, `data-focus` и
   `data-orientation="horizontal" | "vertical"`.
 - Селекторы moduix: `data-variant` и `data-size`.
+
+## Клавиатура
+
+| Клавиша | Действие |
+| --- | --- |
+| `ArrowLeft` / `ArrowRight` | Перемещает фокус между пунктами; ArrowUp и ArrowDown в вертикальном режиме. |
+| `Home` / `End` | Переводит фокус на первый или последний пункт. |
+| `Enter` / `Space` | Нажимает или отжимает пункт в фокусе. |
+
+## Справочник API
+
+| Проп | Тип | По умолчанию | Описание |
+| --- | --- | --- | --- |
+| `value` | `string[]` | — | Нажатые элементы в управляемом режиме. |
+| `defaultValue` | `string[]` | — | Изначально нажатые элементы. |
+| `onValueChange` | `(details: ValueChangeDetails) => void` | — | Вызывается при изменении нажатых элементов. |
+| `multiple` | `boolean` | `false` | Разрешает нажать несколько элементов сразу. |
+| `deselectable` | `boolean` | `true` | Разрешает отжать последний нажатый элемент. |
+| `orientation` | `'horizontal' \| 'vertical'` | `'horizontal'` | Раскладка и направление стрелок: `horizontal` или `vertical`. |
+| `loopFocus` | `boolean` | `true` | Навигация с клавиатуры переходит с последнего элемента на первый. |
+| `rovingFocus` | `boolean` | `true` | Стрелки переводят фокус между элементами, Tab выводит из группы. |
+| `variant` | `'default' \| 'outline' \| 'ghost'` | `'default'` | Вид всех элементов: `default`, `outline` или `ghost`. |
+| `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'icon-sm' \| 'icon-md' \| 'icon-lg'` | `'md'` | `xs`, `sm`, `md`, `lg` или квадратные `icon-sm`, `icon-md`, `icon-lg`. |
+| `disabled` | `boolean` | `false` | Отключает все элементы. |

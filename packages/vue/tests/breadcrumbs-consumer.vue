@@ -8,7 +8,7 @@ import {
   BreadcrumbsPage,
   BreadcrumbsPath,
   BreadcrumbsSeparator,
-} from '../src/components/breadcrumbs';
+} from '@/components/breadcrumbs';
 
 const links = [
   { href: '/', label: h('strong', 'Home') },

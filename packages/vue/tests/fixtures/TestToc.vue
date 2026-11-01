@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Toc, TocContent, TocNav, TocTitle, TocList, TocItem, TocLink, TocRail } from '../../src';
+import { Toc, TocContent, TocNav, TocTitle, TocList, TocItem, TocLink, TocRail } from '@/index';
 
 const items = [
   { value: 'introduction', depth: 2 },

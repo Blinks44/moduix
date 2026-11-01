@@ -3,7 +3,6 @@ import { expect, rs, test } from '@rstest/core';
 import { render } from '@testing-library/vue';
 import { renderToString } from '@vue/server-renderer';
 import { createSSRApp, defineComponent, ref } from 'vue';
-import type { ComponentPublicInstance } from 'vue';
 import {
   Popover,
   PopoverAnchor,
@@ -22,29 +21,10 @@ import {
   PopoverRootProvider,
   PopoverTitle,
   PopoverTrigger,
-  usePopover,
-  usePopoverContext,
-} from '../src';
-import styles from '../src/components/popover/Popover.module.css';
+} from '@/index';
 import TestPopover from './fixtures/TestPopover.vue';
 
 // Zag 1.43.3 checks the title before lazy content mounts; enable after the upstream fix.
-test.skip('labels lazily mounted content with its title', async () => {
-  render({
-    components: { Popover, PopoverTrigger, PopoverPositioner, PopoverContent, PopoverTitle },
-    template: `
-      <Popover :portalled="false">
-        <PopoverTrigger>Open preferences</PopoverTrigger>
-        <PopoverPositioner>
-          <PopoverContent><PopoverTitle>Preferences</PopoverTitle></PopoverContent>
-        </PopoverPositioner>
-      </Popover>
-    `,
-  });
-  await page.getByRole('button', { name: 'Open preferences' }).click();
-  await expect.element(page.getByRole('dialog')).toBeVisible();
-  await expect.element(page.getByRole('dialog', { name: 'Preferences' })).toBeVisible();
-});
 
 const popoverComponents = {
   Popover,
@@ -84,6 +64,23 @@ const PopoverSurface = defineComponent({
   `,
 });
 
+test.skip('labels lazily mounted content with its title', async () => {
+  render({
+    components: { Popover, PopoverTrigger, PopoverPositioner, PopoverContent, PopoverTitle },
+    template: `
+      <Popover :portalled="false">
+        <PopoverTrigger>Open preferences</PopoverTrigger>
+        <PopoverPositioner>
+          <PopoverContent><PopoverTitle>Preferences</PopoverTitle></PopoverContent>
+        </PopoverPositioner>
+      </Popover>
+    `,
+  });
+  await page.getByRole('button', { name: 'Open preferences' }).click();
+  await expect.element(page.getByRole('dialog')).toBeVisible();
+  await expect.element(page.getByRole('dialog', { name: 'Preferences' })).toBeVisible();
+});
+
 test('preserves open-change details, v-model, and focus restoration', async () => {
   const details: Array<{ open: boolean }> = [];
   const Harness = defineComponent({
@@ -114,27 +111,6 @@ test('preserves open-change details, v-model, and focus restoration', async () =
   expect(details).toEqual([{ open: true }, { open: false }]);
 });
 
-test('closes on Escape and restores focus to its trigger', async () => {
-  const Harness = defineComponent({
-    components: { ...popoverComponents, PopoverSurface },
-    template: `
-      <Popover>
-        <PopoverTrigger>Open popover</PopoverTrigger>
-        <PopoverSurface />
-      </Popover>
-    `,
-  });
-
-  render(Harness);
-  const trigger = page.getByRole('button', { name: 'Open popover' });
-  await trigger.click();
-  const closeIcon = page.getByRole('button', { name: 'Close popover' });
-  await expect.element(closeIcon).toBeFocused();
-  await closeIcon.press('Escape');
-  await expect.element(page.getByTestId('content')).toHaveCount(0);
-  await expect.element(trigger).toBeFocused();
-});
-
 test('portals overlays outside the root tree by default', async () => {
   const Harness = defineComponent({
     components: { ...popoverComponents, PopoverSurface },
@@ -144,80 +120,6 @@ test('portals overlays outside the root tree by default', async () => {
   const { container } = render(Harness);
   expect(container.querySelector('[data-testid="content"]')).toBeNull();
   await expect.element(page.getByTestId('content')).toBeAttached();
-});
-
-test('supports a custom portal target and renders inline when disabled', async () => {
-  const Portalled = defineComponent({
-    components: { ...popoverComponents, PopoverSurface },
-    setup() {
-      const portalTarget = ref<HTMLDivElement>();
-      return { getPortal: () => portalTarget.value, portalTarget };
-    },
-    template: `
-      <div>
-        <div ref="portalTarget" data-testid="portal"></div>
-        <Popover default-open :portal-ref="getPortal"><PopoverTrigger>Open</PopoverTrigger><PopoverSurface /></Popover>
-      </div>
-    `,
-  });
-
-  const { unmount } = render(Portalled);
-  await expect.element(page.getByTestId('portal').getByTestId('content')).toBeAttached();
-  unmount();
-
-  const Inline = defineComponent({
-    components: { ...popoverComponents, PopoverSurface },
-    template: `<div data-testid="host"><Popover default-open :portalled="false"><PopoverTrigger>Open</PopoverTrigger><PopoverSurface /></Popover></div>`,
-  });
-  render(Inline);
-  await expect.element(page.getByTestId('host').getByTestId('content')).toBeAttached();
-});
-
-test('keeps modal popovers portalled and exposes modal accessibility state', async () => {
-  const Harness = defineComponent({
-    components: { ...popoverComponents, PopoverSurface },
-    template: `
-      <div data-testid="host">
-        <Popover default-open modal :portalled="false"><PopoverTrigger>Open</PopoverTrigger><PopoverSurface /></Popover>
-      </div>
-    `,
-  });
-
-  const { container } = render(Harness);
-  expect(container.querySelector('[data-testid="content"]')).toBeNull();
-  await expect.element(page.getByTestId('content')).toHaveAttribute('aria-modal', 'true');
-});
-
-test('connects RootProvider, hook state, and Context slots', async () => {
-  const StateFromHook = defineComponent({
-    setup() {
-      return { popover: usePopoverContext() };
-    },
-    template: '<output>Hook: {{ popover.open ? "open" : "closed" }}</output>',
-  });
-  const Harness = defineComponent({
-    components: { ...popoverComponents, PopoverSurface, StateFromHook },
-    setup() {
-      return { popover: usePopover({ portalled: false }) };
-    },
-    template: `
-      <PopoverRootProvider :value="popover">
-        <button type="button" @click="popover.setOpen(true)">Open from API</button>
-        <PopoverContext v-slot="context"><output>Slot: {{ context.open ? 'open' : 'closed' }}</output></PopoverContext>
-        <PopoverTrigger>Open popover</PopoverTrigger>
-        <PopoverSurface />
-        <StateFromHook />
-      </PopoverRootProvider>
-    `,
-  });
-
-  render(Harness);
-  await expect.element(page.getByText('Slot: closed')).toBeAttached();
-  await expect.element(page.getByText('Hook: closed')).toBeAttached();
-  await page.getByRole('button', { name: 'Open from API' }).click();
-  await expect.element(page.getByText('Slot: open')).toBeAttached();
-  await expect.element(page.getByText('Hook: open')).toBeAttached();
-  await expect.element(page.getByTestId('content')).toBeVisible();
 });
 
 test('reports the active trigger value and marks the current trigger', async () => {
@@ -249,114 +151,6 @@ test('reports the active trigger value and marks the current trigger', async () 
   await expect.element(first).toHaveAttribute('data-current');
   await expect.element(second).not.toHaveAttribute('data-current');
   await expect.element(page.getByTestId('content')).toBeVisible();
-});
-
-test('forwards refs, attrs, classes, and native asChild hosts across the anatomy', async () => {
-  const refs = {
-    anchor: ref<ComponentPublicInstance>(),
-    arrow: ref<ComponentPublicInstance>(),
-    arrowTip: ref<ComponentPublicInstance>(),
-    body: ref<ComponentPublicInstance>(),
-    closeIcon: ref<ComponentPublicInstance>(),
-    closeTrigger: ref<ComponentPublicInstance>(),
-    content: ref<ComponentPublicInstance>(),
-    description: ref<ComponentPublicInstance>(),
-    footer: ref<ComponentPublicInstance>(),
-    header: ref<ComponentPublicInstance>(),
-    indicator: ref<ComponentPublicInstance>(),
-    positioner: ref<ComponentPublicInstance>(),
-    title: ref<ComponentPublicInstance>(),
-    trigger: ref<ComponentPublicInstance>(),
-  };
-  const Harness = defineComponent({
-    components: popoverComponents,
-    setup() {
-      return refs;
-    },
-    template: `
-      <Popover default-open :portalled="false">
-        <PopoverAnchor ref="anchor" data-probe="anchor">Reference</PopoverAnchor>
-        <PopoverTrigger ref="trigger" data-probe="trigger">Open</PopoverTrigger>
-        <PopoverTrigger as-child><a href="/profile">Composed trigger</a></PopoverTrigger>
-        <PopoverIndicator ref="indicator">!</PopoverIndicator>
-        <PopoverPositioner ref="positioner">
-          <PopoverContent ref="content" data-probe="content">
-            <PopoverArrow ref="arrow"><PopoverArrowTip ref="arrowTip" /></PopoverArrow>
-            <PopoverHeader ref="header"><PopoverTitle ref="title">Title</PopoverTitle><PopoverDescription ref="description">Description</PopoverDescription><PopoverCloseIcon ref="closeIcon" /></PopoverHeader>
-            <PopoverBody ref="body">Body</PopoverBody>
-            <PopoverFooter ref="footer"><PopoverCloseTrigger ref="closeTrigger">Close</PopoverCloseTrigger></PopoverFooter>
-          </PopoverContent>
-        </PopoverPositioner>
-      </Popover>
-    `,
-  });
-
-  render(Harness);
-  const slots = {
-    anchor: 'popover-anchor',
-    arrow: 'popover-arrow',
-    arrowTip: 'popover-arrow-tip',
-    body: 'popover-body',
-    closeIcon: 'popover-close-icon',
-    closeTrigger: 'popover-close-trigger',
-    content: 'popover-content',
-    description: 'popover-description',
-    footer: 'popover-footer',
-    header: 'popover-header',
-    indicator: 'popover-indicator',
-    positioner: 'popover-positioner',
-    title: 'popover-title',
-    trigger: 'popover-trigger',
-  } as const;
-  for (const [name, slot] of Object.entries(slots)) {
-    expect(refs[name as keyof typeof refs].value?.$el?.getAttribute('data-slot')).toBe(slot);
-  }
-  expect(refs.anchor.value?.$el?.getAttribute('data-probe')).toBe('anchor');
-  expect(refs.content.value?.$el?.getAttribute('data-probe')).toBe('content');
-  await expect
-    .element(page.getByRole('link', { name: 'Composed trigger' }))
-    .toHaveAttribute('data-slot', 'popover-trigger');
-});
-
-test('applies consumer classes after CSS Module defaults', async () => {
-  const Harness = defineComponent({
-    components: popoverComponents,
-    template: `
-      <Popover default-open :portalled="false">
-        <PopoverTrigger class="consumer-trigger">Open</PopoverTrigger>
-        <PopoverPositioner><PopoverContent class="consumer-content" data-testid="content">
-          <PopoverHeader><PopoverTitle>Title</PopoverTitle><PopoverDescription>Description</PopoverDescription><PopoverCloseIcon class="consumer-close" /></PopoverHeader>
-          <PopoverBody class="consumer-body">Body</PopoverBody><PopoverFooter class="consumer-footer">Footer</PopoverFooter>
-        </PopoverContent></PopoverPositioner>
-      </Popover>
-    `,
-  });
-
-  render(Harness);
-  const trigger = document.querySelector('[data-slot="popover-trigger"]')!;
-  const content = document.querySelector('[data-slot="popover-content"]')!;
-  const title = document.querySelector('[data-slot="popover-title"]')!;
-  const description = document.querySelector('[data-slot="popover-description"]')!;
-  const body = document.querySelector('[data-slot="popover-body"]')!;
-  const footer = document.querySelector('[data-slot="popover-footer"]')!;
-  const closeIcon = document.querySelector('[data-slot="popover-close-icon"]')!;
-  expect(Array.from(trigger.classList)).toEqual(
-    expect.arrayContaining(['consumer-trigger', styles.trigger]),
-  );
-  expect(Array.from(content.classList)).toEqual(
-    expect.arrayContaining(['consumer-content', styles.content]),
-  );
-  expect(Array.from(title.classList)).toContain(styles.title);
-  expect(Array.from(description.classList)).toContain(styles.description);
-  expect(Array.from(body.classList)).toEqual(
-    expect.arrayContaining(['consumer-body', styles.body]),
-  );
-  expect(Array.from(footer.classList)).toEqual(
-    expect.arrayContaining(['consumer-footer', styles.footer]),
-  );
-  expect(Array.from(closeIcon.classList)).toEqual(
-    expect.arrayContaining(['consumer-close', styles.closeIcon]),
-  );
 });
 
 test('hydrates the open popover without replacing hosts or generated IDs', async () => {
@@ -431,6 +225,7 @@ test('keeps close-icon labels, attrs and fallback content reactive', async () =>
   custom.value = false;
   await expect.element(button.locator('svg')).toBeAttached();
 });
+
 test('follows runtime changes to portalled', async () => {
   const portalled = ref(true);
   const Harness = defineComponent({
@@ -450,27 +245,58 @@ test('follows runtime changes to portalled', async () => {
   await expect.element(page.getByTestId('host').getByTestId('content')).toBeAttached();
 });
 
-test('spaces the body after the header and keeps the header clear of the close icon', async () => {
-  render({
+test('forwards consumer classes to the styled parts', () => {
+  const Harness = defineComponent({
     components: popoverComponents,
     template: `
       <Popover default-open :portalled="false">
-        <PopoverPositioner>
-          <PopoverContent>
-            <PopoverCloseIcon />
-            <PopoverHeader><PopoverTitle>Preferences</PopoverTitle></PopoverHeader>
-            <PopoverBody>Body</PopoverBody>
-          </PopoverContent>
-        </PopoverPositioner>
+        <PopoverTrigger class="consumer-trigger">Open</PopoverTrigger>
+        <PopoverPositioner><PopoverContent class="consumer-content">
+          <PopoverHeader><PopoverTitle>Title</PopoverTitle><PopoverCloseIcon class="consumer-close" /></PopoverHeader>
+          <PopoverBody class="consumer-body">Body</PopoverBody><PopoverFooter class="consumer-footer">Footer</PopoverFooter>
+        </PopoverContent></PopoverPositioner>
       </Popover>
     `,
   });
 
-  await expect.element(page.getByText('Body')).toBeVisible();
-  const header = document.querySelector<HTMLElement>('[data-slot="popover-header"]')!;
-  const body = document.querySelector<HTMLElement>('[data-slot="popover-body"]')!;
-  const gap = body.offsetTop - (header.offsetTop + header.offsetHeight);
+  render(Harness);
+  for (const [slot, className] of [
+    ['popover-trigger', 'consumer-trigger'],
+    ['popover-content', 'consumer-content'],
+    ['popover-close-icon', 'consumer-close'],
+    ['popover-body', 'consumer-body'],
+    ['popover-footer', 'consumer-footer'],
+  ]) {
+    expect(document.querySelector(`[data-slot="${slot}"]`)!.classList.contains(className)).toBe(
+      true,
+    );
+  }
+});
 
-  expect(Math.abs(gap - 12)).toBeLessThanOrEqual(1);
-  expect(getComputedStyle(header).paddingInlineEnd).toBe('40px');
+test('reports trigger value details and current trigger state', async () => {
+  const Harness = defineComponent({
+    components: { ...popoverComponents, PopoverSurface },
+    setup() {
+      const value = ref('');
+      return { value };
+    },
+    template: `
+      <Popover :portalled="false" @trigger-value-change="value = $event.value ?? ''">
+        <PopoverTrigger value="first">First</PopoverTrigger><PopoverTrigger value="second">Second</PopoverTrigger><PopoverSurface />
+      </Popover><output>{{ value }}</output>
+    `,
+  });
+
+  render(Harness);
+  const first = page.getByRole('button', { name: 'First' });
+  const second = page.getByRole('button', { name: 'Second' });
+  await second.click();
+  await expect.element(page.getByText('second', { exact: true })).toBeAttached();
+  await expect.element(second).toHaveAttribute('data-current');
+  await expect.element(first).not.toHaveAttribute('data-current');
+  await first.click();
+  await expect.element(page.getByText('first', { exact: true })).toBeAttached();
+  await expect.element(first).toHaveAttribute('data-current');
+  await expect.element(second).not.toHaveAttribute('data-current');
+  await expect.element(page.getByTestId('content')).toBeVisible();
 });

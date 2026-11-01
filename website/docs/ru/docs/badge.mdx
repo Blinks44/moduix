@@ -1,17 +1,26 @@
 ---
 title: Badge
 component: badge
-description: "Компактная метка для краткой информации: статуса, категории, версии или количества."
+description: Небольшая метка для статуса, категории, версии или счётчика.
+ark: https://ark-ui.com/docs/guides/composition#the-ark-factory
 ---
 
+import AnatomyScene from '@/components/examples/badge/basic';
 import * as BadgeDocs from '@/components/examples/badge/css-properties';
 
-## Справочник API
+<Example name="badge/basic" />
 
-В Ark UI нет отдельного примитива `Badge`. В moduix компонент построен с помощью официальной
-[фабрики Ark](https://ark-ui.com/docs/guides/composition#the-ark-factory) и следует рекомендациям Ark по
-[композиции](https://ark-ui.com/docs/guides/composition), [стилизации](https://ark-ui.com/docs/guides/styling) и работе с
-[ref](https://ark-ui.com/docs/guides/ref).
+## Установка
+
+<ComponentInstall />
+
+## Использование
+
+<Usage />
+
+Начните с обычного `<Badge>`. По умолчанию компонент отображается как `span` и не добавляет интерактивного
+поведения. Укажите `variant`, чтобы выбрать `default`, `secondary`, `destructive`, `outline`, `ghost` или `link`,
+`size`, чтобы выбрать `sm`, `md` или `lg`, и добавляйте `BadgeDot`, только если статусу нужен визуальный индикатор.
 
 ## Какой компонент выбрать
 
@@ -23,88 +32,32 @@ import * as BadgeDocs from '@/components/examples/badge/css-properties';
 
 Экспорты Vue доступны из `@moduix/vue/badge` для CSS Modules и `@moduix/vue-tailwind/badge` для Tailwind CSS.
 
-## Базовый пример
-
-
-Начните с обычного `<Badge>`. По умолчанию компонент отображается как `span` и не добавляет интерактивного
-поведения. Укажите `variant`, чтобы выбрать `default`, `secondary`, `destructive`, `outline`, `ghost` или `link`,
-`size`, чтобы выбрать `sm`, `md` или `lg`, и добавляйте `BadgeDot`, только если статусу нужен визуальный индикатор.
-
-<Example name="badge/basic" />
-
-## Установка через shadcn
-
-Полную настройку пакета, реестра и стилей см. в разделе [Быстрый старт](/docs/quick-start).
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/badge' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/badge' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/badge' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/badge' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/badge' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/badge' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Анатомия
-
-`Badge` - корневой компонент семейства. Публичный API небольшой и включает только
-видимые части.
-
-```text
-Badge
-├─ BadgeLabel (необязательно; используйте явно для усечения)
-├─ BadgeDot (необязательно)
-└─ svg-иконка (необязательно)
-```
-
-| Часть      | Назначение                                                                              |
-| ---------- | --------------------------------------------------------------------------------------- |
-| `Badge`    | Корневая часть. Отвечает за вариант, границу и отступы.                                |
-| `BadgeLabel` | Явная часть с текстом. Позволяет обрезать составную подпись.                           |
-| `BadgeDot` | Декоративная часть. Рисует круглый индикатор, который наследует цвет текста.             |
-
-## Композиция
-
-`Badge` отображает данные и не владеет состоянием. Обычный дочерний текст остаётся без изменений;
-используйте `BadgeLabel` явно, если подпись нужно усечь в ограниченном пространстве или объединить с
-`BadgeDot` либо иконкой. Для семантической ссылки или кнопки в React передайте в `asChild` ровно один
-дочерний элемент. В Solid передайте в `asChild` функцию рендера - созданный элемент сохранит нативную
-семантику.
-
-В Vue поместите ровно один дочерний элемент в слот по умолчанию при использовании `as-child`; он сохранит нативную семантику.
-
 ## Примеры
 
-### Пользовательская стилизация
+### Варианты
 
-Если готовый вариант почти подходит, но требует небольшой правки, настройте бейдж с помощью класса или
-встроенных CSS-переменных.
+Используйте готовые варианты оформления для распространённых случаев.
 
-<Example name="badge/custom-styling" />
+<Example name="badge/variants" />
+
+### Размеры
+
+Задайте `size`: `sm`, `md` или `lg`. По умолчанию `md`.
+
+<Example name="badge/sizes" />
+
+### С иконкой
+
+Размещайте дочернюю SVG-иконку рядом с подписью, когда метаданным нужна дополнительная визуальная подсказка.
+
+<Example name="badge/with-icon" />
+
+### С точкой
+
+Добавляйте `BadgeDot`, когда рядом с подписью нужен визуально связанный индикатор статуса. Смысл статуса должен
+оставаться в видимом тексте, потому что точка декоративна.
+
+<Example name="badge/with-dot" />
 
 ### Ссылка
 
@@ -121,30 +74,39 @@ Badge
 
 <Example name="badge/long-labels" />
 
-### Размеры
+### Пользовательская стилизация
 
-Задайте `size`: `sm`, `md` или `lg`. По умолчанию `md`.
+Если готовый вариант почти подходит, но требует небольшой правки, настройте бейдж с помощью класса или
+встроенных CSS-переменных.
 
-<Example name="badge/sizes" />
+<Example name="badge/custom-styling" />
 
-### Варианты
+## Композиция
 
-Используйте готовые варианты оформления для распространённых случаев.
+`Badge` отображает данные и не хранит состояние. Обычный дочерний текст остаётся без изменений;
+используйте `BadgeLabel` явно, если подпись нужно усечь в ограниченном пространстве или объединить с
+`BadgeDot` либо иконкой. Для семантической ссылки или кнопки в React передайте в `asChild` ровно один
+дочерний элемент. В Solid передайте в `asChild` функцию рендера - созданный элемент сохранит нативную
+семантику.
 
-<Example name="badge/variants" />
+В Vue поместите ровно один дочерний элемент в слот по умолчанию при использовании `as-child`; он сохранит нативную семантику.
 
-### С точкой
+## Анатомия
 
-Добавляйте `BadgeDot`, когда рядом с подписью нужен визуально связанный индикатор статуса. Смысл статуса должен
-оставаться в видимом тексте, потому что точка декоративна.
+`Badge` - корневой компонент семейства. Публичный API небольшой и включает только
+видимые части.
 
-<Example name="badge/with-dot" />
+Наведите на часть или выберите её, чтобы найти её в превью.
 
-### С иконкой
-
-Размещайте дочернюю SVG-иконку рядом с подписью, когда метаданным нужна дополнительная визуальная подсказка.
-
-<Example name="badge/with-icon" />
+<AnatomyInspector
+  parts={[
+    ["Badge", "badge-root", "Корневая часть. Отвечает за вариант, границу и отступы.", 0],
+    ["BadgeLabel", "badge-label", "Явная часть с текстом. Позволяет обрезать составную подпись.", 1],
+    ["BadgeDot", "badge-dot", "Декоративная часть. Рисует круглый индикатор, который наследует цвет текста.", 1],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Стилизация
 
@@ -158,15 +120,36 @@ CSS-переменных относится к пакетам с CSS Modules; в
 Для структурных стилей передавайте экспортируемым частям `className` в React или `class` в Solid и Vue. Стабильные
 хуки `data-slot` и атрибуты данных Ark общие для всех подходов.
 
-### CSS-свойства
+### CSS-переменные
 
-<CssPropertiesSection properties={BadgeDocs.badgeCssProperties} />
+Наведите на переменную или выберите её, чтобы увидеть её в превью. Меняйте значения контролами и копируйте готовый CSS.
+
+<CssPropertiesSection
+  properties={BadgeDocs.badgeCssProperties}
+  controls={BadgeDocs.badgeControls}
+>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Хуки стилизации
 
-- `data-slot="badge-root"`, `data-slot="badge-label"` и `data-slot="badge-dot"` - стабильные селекторы экспортируемых частей.
+| Часть | `data-slot` |
+| --- | --- |
+| `Badge` | `badge-root` |
+| `BadgeLabel` | `badge-label` |
+| `BadgeDot` | `badge-dot` |
+
 - `Badge` также предоставляет `data-scope="badge"` и `data-part="root"`. `BadgeLabel` и `BadgeDot` предоставляют `data-part="label"` и `data-part="dot"`.
 - `Badge` записывает выбранный вариант в `data-variant`, а размер в `data-size`.
 - Фокусируемые элементы, созданные через `Badge asChild`, получают стандартное кольцо фокуса. Корневые ссылки также получают стили наведения и курсор-указатель; оформление взаимодействия кнопок остаётся ответственностью приложения.
 - Дочерние `svg`-иконки наследуют `currentColor`, не получают события указателя и имеют размер 12px, если класс на иконке не задаёт другой.
 - У Badge нет отдельного примитива или машины поведения Ark, поэтому он не предоставляет управляемые Ark-состояния и runtime CSS-переменные.
+
+## Справочник API
+
+Также принимает нативные пропсы своего элемента и `asChild`.
+
+| Проп | Тип | По умолчанию | Описание |
+| --- | --- | --- | --- |
+| `variant` | `'default' \| 'secondary' \| 'destructive' \| 'outline' \| 'ghost' \| 'link'` | `'default'` | Вид бейджа: `default`, `secondary`, `destructive`, `outline`, `ghost` или `link`. |
+| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` | Размер бейджа: `sm`, `md` или `lg`. |

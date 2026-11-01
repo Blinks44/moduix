@@ -1,13 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import type { ComponentPublicInstance } from 'vue';
-import {
-  Sidebar,
-  SidebarPanel,
-  SidebarResizeTrigger,
-  SidebarTrigger,
-  SidebarInset,
-} from '../../src';
+import { Sidebar, SidebarPanel, SidebarResizeTrigger, SidebarTrigger, SidebarInset } from '@/index';
 
 const rootRef = ref<ComponentPublicInstance>();
 defineExpose({ rootRef });

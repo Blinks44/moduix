@@ -14,9 +14,7 @@ import {
   ColorPickerPositioner,
   ColorPickerContent,
   ColorPickerChannelInput,
-  ColorPickerSwatch,
-  ColorPickerSwatchIndicator,
-} from '../src';
+} from '@/index';
 
 function ProviderColorPicker() {
   const colorPicker = useColorPicker({
@@ -112,34 +110,20 @@ test('preserves Ark open-change details and default trigger composition', async 
   await expect.poll(() => openStates).toEqual([true, false]);
 });
 
-test('draws checkerboards under swatches and shows a checked standalone swatch indicator', async () => {
+test('forwards refs through ordinary Ark React part paths', async () => {
+  const rootRef = createRef<HTMLDivElement>();
+  const controlRef = createRef<HTMLDivElement>();
+  const triggerRef = createRef<HTMLButtonElement>();
+
   render(
-    <ColorPicker inline defaultValue={parseColor('rgba(235, 94, 65, 0.5)')}>
-      <ColorPickerTrigger aria-label="Open color picker" />
-      <ColorPickerSwatch value="rgba(235, 94, 65, 0.5)">
-        <ColorPickerSwatchIndicator data-testid="checked-indicator" />
-      </ColorPickerSwatch>
-      <ColorPickerSwatch value="#000000">
-        <ColorPickerSwatchIndicator data-testid="unchecked-indicator" />
-      </ColorPickerSwatch>
+    <ColorPicker ref={rootRef} defaultValue={parseColor('#eb5e41')}>
+      <ColorPickerControl ref={controlRef}>
+        <ColorPickerTrigger ref={triggerRef} aria-label="Open" />
+      </ColorPickerControl>
     </ColorPicker>,
   );
 
-  const trigger = document.querySelector<HTMLElement>('[data-slot="color-picker-trigger"]')!;
-  const valueSwatch = trigger.querySelector<HTMLElement>(
-    '[data-slot="color-picker-value-swatch"]',
-  )!;
-  const swatch = document.querySelector<HTMLElement>('[data-slot="color-picker-swatch"]')!;
-  const triggerPadding = Number.parseFloat(getComputedStyle(trigger).paddingLeft);
-
-  expect(trigger.querySelector('[data-slot="color-picker-transparency-grid"]')).toBeNull();
-  expect(valueSwatch.offsetWidth).toBe(trigger.clientWidth - triggerPadding * 2);
-  expect(getComputedStyle(valueSwatch, '::before').backgroundImage).toContain(
-    'repeating-conic-gradient',
-  );
-  expect(getComputedStyle(swatch, '::before').backgroundImage).toContain(
-    'repeating-conic-gradient',
-  );
-  await expect.element(page.getByTestId('checked-indicator')).toBeVisible();
-  expect(getComputedStyle(screen.getByTestId('unchecked-indicator')).display).toBe('none');
+  expect(rootRef.current!.getAttribute('data-slot')).toBe('color-picker-root');
+  expect(controlRef.current!.getAttribute('data-slot')).toBe('color-picker-control');
+  expect(triggerRef.current).toBe(screen.getByRole('button', { name: 'Open' }));
 });

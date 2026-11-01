@@ -1,115 +1,133 @@
 ---
 title: Select
 component: select
-description: Ark UI select composition for choosing one or more values from a popup list.
+description: Pick one or more values from a popup list of options.
+ark: https://ark-ui.com/docs/components/select
 ---
 
+import AnatomyScene from '@/components/examples/select/anatomy';
 import * as SelectDocs from '@/components/examples/select/css-properties';
 
-## API Reference
+<Example name="select/basic" />
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/select" />
+## Installation
+
+<ComponentInstall />
+
+## Usage
+
+<Usage />
+
+Pass a collection to `Select`, use `SelectField` for the standard visible control, and keep the popup structure explicit. `clearLabel` adds an accessible clear action. Add `SelectHiddenSelect` explicitly when native submission, autofill, validation, and reset are needed.
 
 ## Choosing the right component
 
 Use `Select` when users choose from a fixed collection and the trigger stays read-only. Use
 `Combobox` when typing helps find or create a value.
 
-## Basic
+## Examples
 
-Pass a collection to `Select`, use `SelectField` for the standard visible control, and keep the popup structure explicit. `clearLabel` adds an accessible clear action. Add `SelectHiddenSelect` explicitly when native submission, autofill, validation, and reset are needed.
+### Multiple
 
-<Example name="select/basic" />
+Set `multiple` to allow several selected values. `ValueText` renders selected labels from the
+collection.
 
-## Install with shadcn
+<Example name="select/multiple" />
 
-See [Quick Start](/docs/quick-start) for full package setup, registry configuration, and styling guidance.
+### Grouping
 
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
+Use `groupBy` on the collection and render `collection.group()` with `ItemGroup` and
+`ItemGroupLabel`.
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/select' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/select' },
-  ]}
-/>
+<Example name="select/grouping" />
 
-  </Tab>
-  <Tab label="Solid" value="solid">
+### Field
 
-  <ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/select' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/select' },
-  ]}
-/>
+Wrap Select in `Field` when label, helper text, invalid, required, or disabled state belongs
+to a form field.
 
-  </Tab>
-  <Tab label="Vue" value="vue">
+<Example name="select/field" />
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/select' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/select' },
-  ]}
-/>
+### Form usage
 
-  </Tab>
-</Tabs>
+The explicitly composed `SelectHiddenSelect` keeps native form submission working. Read submitted values from
+`FormData`.
 
-## Anatomy
+<Example name="select/form-usage" />
 
-```text
-Select
-├─ SelectLabel
-├─ SelectControl / SelectField
-│  ├─ SelectTrigger
-│  │  ├─ SelectValueText
-│  ├─ SelectClearTrigger
-│  └─ SelectIndicator
-├─ Overlay subtree (automatically portalled)
-│  └─ SelectPositioner
-│     └─ SelectContent
-│        ├─ SelectList
-│        └─ SelectItemGroup
-│           ├─ SelectItemGroupLabel
-│           ├─ SelectOption[item]
-│           └─ SelectItem[item]
-│              ├─ SelectItemText
-│              │  └─ SelectItemTextContent
-│              │     ├─ SelectItemTextIcon
-│              │     └─ SelectItemTextLabel
-│              └─ SelectItemIndicator
-└─ SelectHiddenSelect (explicit)
-```
+### Controlled
 
-| Part                     | Role                                                                   |
-| ------------------------ | ---------------------------------------------------------------------- |
-| `Select`                  | Root state, collection, selection, popup lifecycle, and form data.     |
-| `SelectHiddenSelect`      | Native Ark form control; compose explicitly as described below.       |
-| `SelectRootProvider`      | Renders a select tree from state returned by `useSelect`.              |
-| `SelectContext`           | Root context for advanced state reads.                                 |
-| `SelectItemContext`       | Item context for advanced state reads.                                 |
-| `SelectLabel`           | Accessible label inherited by the trigger and native form control.     |
-| `SelectControl`         | Visual field wrapper that receives focus, invalid, and open state.     |
-| `SelectField`           | moduix helper that renders the standard control, trigger, and actions. |
-| `SelectTrigger`         | Button that opens the popup and owns keyboard entry.                   |
-| `SelectValueText`       | Placeholder or selected item labels.                                   |
-| `SelectClearTrigger`    | Button that clears the current value.                                  |
-| `SelectIndicator`       | Trigger indicator with the moduix default chevron icon.                |
-| `SelectPositioner`      | Floating layer that exposes Ark positioning CSS variables.             |
-| `SelectContent`         | Popup surface and listbox container.                                   |
-| `SelectList`            | Optional list wrapper for virtualized or custom list layouts.          |
-| `SelectItemGroup`       | Group wrapper for related collection items.                            |
-| `SelectItemGroupLabel`  | Label for a collection group.                                          |
-| `SelectItem`            | Selectable row. Pass the collection item through `item`.               |
-| `SelectOption` | Convenience row for simple options with text and an indicator. |
-| `SelectItemText`        | Text used for display and accessibility.                               |
-| `SelectItemTextContent` | Layout helper for rich item text.                                     |
-| `SelectItemTextIcon`    | Icon wrapper for rich item text.                                      |
-| `SelectItemTextLabel`   | Label wrapper for rich item text.                                    |
-| `SelectItemIndicator`   | Selected-state indicator with the moduix default check icon.           |
+Pass `value` and `onValueChange` (`v-model` in Vue). The value is always a string array, also
+without `multiple`. See [Control state from the application](/docs/composition-patterns#controlled-state).
+
+<Example name="select/controlled" />
+
+### Max selection
+
+Limit multiple selection by rejecting oversized value arrays and disabling the remaining items.
+
+<Example name="select/max-selection" />
+
+### Select all
+
+Keep bulk actions outside the listbox. `useSelect` keeps the action and the Select backed by
+the same Ark state instance.
+
+<Example name="select/select-all" />
+
+### Dynamic items
+
+Update the collection when available items change; the existing Select composition stays the same.
+
+<Example name="select/dynamic-items" />
+
+### Custom item layout
+
+Put an icon directly inside `SelectItemText`, before the label. The icon gets a fixed size and
+a gap, and a long label is truncated with an ellipsis.
+
+<Example name="select/custom-item-layout" />
+
+### Search in popup
+
+Place a filter control beside the listbox inside the popup. Keep the query state and filtered
+collection in your component rather than extending the Select API.
+
+<Example name="select/search-in-popup" />
+
+### Overflow
+
+Use `positioning.fitViewport` for long lists. The content already limits its height with Ark's
+`--available-height` variable and remains scrollable.
+
+<Example name="select/overflow" />
+
+### Lazy mount
+
+Use `lazyMount` and `unmountOnExit` when popup content should exist only while the Select is used.
+
+<Example name="select/lazy-mount" />
+
+### Select on highlight
+
+Use `onHighlightChange(details)` when moving through options should immediately update selection.
+
+<Example name="select/select-on-highlight" />
+
+### Root provider
+
+Create the state with `useSelect` and pass it to `SelectRootProvider`. See
+[Share state outside the tree](/docs/composition-patterns#root-provider).
+
+<Example name="select/root-provider" />
+
+### Build from parts
+
+The same select as Basic, without `SelectField` and `SelectOption`: every control and item part is
+explicit, and the clear button, chevron, and check receive their icons directly. Start here when a
+design changes the trigger or the item layout.
+
+<Example name="select/build-from-parts" />
 
 ## Composition
 
@@ -119,128 +137,124 @@ Add `SelectHiddenSelect` explicitly inside `Select` or `SelectRootProvider` when
 
 Use `useSelect` with `SelectRootProvider` when state must be shared with controls outside the Select tree. The returned store is an object in React, an accessor in Solid, and a ref in Vue.
 
-## Examples
+## Anatomy
 
-### Controlled
+Hover or focus a part to find it in the preview.
 
-Control the selected string array from React state, a Solid signal, or a Vue ref and update it from `details.value`.
-
-<Example name="select/controlled" />
-
-### Custom Item Layout
-
-Use `SelectItemTextContent`, `SelectItemTextIcon`, and `SelectItemTextLabel` inside `ItemText`
-when an item needs a stable icon and an ellipsized label.
-
-<Example name="select/custom-item-layout" />
-
-### Dynamic Items
-
-Update the collection when available items change; the existing Select composition stays the same.
-
-<Example name="select/dynamic-items" />
-
-### Field
-
-Wrap Select in `Field` when label, helper text, invalid, required, or disabled state belongs
-to a form field.
-
-<Example name="select/field" />
-
-### Form Usage
-
-The explicitly composed `SelectHiddenSelect` keeps native form submission working. Read submitted values from
-`FormData`.
-
-<Example name="select/form-usage" />
-
-### Grouping
-
-Use `groupBy` on the collection and render `collection.group()` with `ItemGroup` and
-`ItemGroupLabel`.
-
-<Example name="select/grouping" />
-
-### Lazy Mount
-
-Use `lazyMount` and `unmountOnExit` when popup content should exist only while the Select is used.
-
-<Example name="select/lazy-mount" />
-
-### Max Selection
-
-Limit multiple selection by rejecting oversized value arrays and disabling the remaining items.
-
-<Example name="select/max-selection" />
-
-### Multiple
-
-Set `multiple` to allow several selected values. `ValueText` renders selected labels from the
-collection.
-
-<Example name="select/multiple" />
-
-### Overflow
-
-Use `positioning.fitViewport` for long lists. The content already limits its height with Ark's
-`--available-height` variable and remains scrollable.
-
-<Example name="select/overflow" />
-
-### Root Provider
-
-Use `useSelect` with `SelectRootProvider` when state is read or controlled outside the
-rendered Select tree.
-
-<Example name="select/root-provider" />
-
-### Search in Popup
-
-Place a filter control beside the listbox inside the popup. Keep the query state and filtered
-collection in your component rather than extending the Select API.
-
-<Example name="select/search-in-popup" />
-
-### Select All
-
-Keep bulk actions outside the listbox. `useSelect` keeps the action and the Select backed by
-the same Ark state instance.
-
-<Example name="select/select-all" />
-
-### Select On Highlight
-
-Use `onHighlightChange(details)` when moving through options should immediately update selection.
-
-<Example name="select/select-on-highlight" />
-
-### Advanced Customization
-
-Bypass `SelectField` and `SelectOption` when the trigger, value text, or indicator needs independent composition and
-styling.
-
-<Example name="select/advanced-customization" />
+<AnatomyInspector
+  parts={[
+    ["Select", "select-root", "Root state, collection, selection, popup lifecycle, and form data.", 0],
+    ["SelectLabel", "select-label", "Accessible label inherited by the trigger and native form control.", 1],
+    ["SelectControl", "select-control", "Visual field wrapper that receives focus, invalid, and open state.", 1],
+    ["SelectTrigger", "select-trigger", "Button that opens the popup and handles keyboard entry.", 2],
+    ["SelectValueText", "select-value-text", "Placeholder or selected item labels.", 3],
+    ["SelectClearTrigger", "select-clear-trigger", "Button that clears the current value.", 2],
+    ["SelectIndicator", "select-indicator", "Trigger indicator with the moduix default chevron icon.", 2],
+    ["SelectPositioner", "select-positioner", "Floating layer that exposes Ark positioning CSS variables.", 1],
+    ["SelectContent", "select-content", "Popup surface and listbox container.", 2],
+    ["SelectList", "select-list", "Optional list wrapper for virtualized or custom list layouts.", 3],
+    ["SelectItemGroup", "select-item-group", "Group wrapper for related collection items.", 3],
+    ["SelectItemGroupLabel", "select-item-group-label", "Label for a collection group.", 4],
+    ["SelectOption", "", "Convenience row for simple options with text and an indicator.", 4],
+    ["SelectItem", "select-item", "Selectable row. Pass the collection item through `item`.", 4],
+    ["SelectItemText", "select-item-text", "Text used for display and accessibility.", 5],
+    ["SelectItemIndicator", "select-item-indicator", "Selected-state indicator with the moduix default check icon.", 5],
+    ["SelectHiddenSelect", "", "Native Ark form control; compose explicitly as described below.", 1],
+    ["SelectField", "", "moduix helper that renders the standard control, trigger, and actions.", 1],
+    ["SelectRootProvider", "select-root-provider", "Renders a select tree from state returned by `useSelect`.", 0],
+    ["SelectContext", null, "Root context for advanced state reads.", 0],
+    ["SelectItemContext", null, "Item context for advanced state reads.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styling
 
 Style Select with `className` in React, `class` in Solid and Vue, stable `data-slot="select-*"` hooks, and Ark attributes. Tailwind variants use native utility classes and consumer classes. CSS Modules variants keep five size variables, listed below; colors, borders, focus rings, item spacing, and motion come from foundation tokens and the shared `--moduix-popup-*` variables, so override them with a class on the part.
 
-### CSS Properties
+### CSS variables
 
-<CssPropertiesSection properties={SelectDocs.selectOverrideCssProperties} />
+Hover or focus a variable to see it in the preview.
+
+<CssPropertiesSection properties={SelectDocs.selectOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Styling hooks
 
-`SelectField` renders the existing `select-control`, `select-trigger`, `select-value-text`,
-`select-indicator`, and optional `select-clear-trigger` slots. Its `indicator` prop supplies the
-child of the existing indicator slot. Rich item text helpers expose `select-item-text-content`,
-`select-item-text-icon`, and `select-item-text-label` slots. `SelectOption` reuses the item slots
+| Part | `data-slot` |
+| --- | --- |
+| `Select` | `select-root` |
+| `SelectRootProvider` | `select-root-provider` |
+| `SelectLabel` | `select-label` |
+| `SelectControl` | `select-control` |
+| `SelectTrigger` | `select-trigger` |
+| `SelectValueText` | `select-value-text` |
+| `SelectClearTrigger` | `select-clear-trigger` |
+| `SelectIndicator` | `select-indicator` |
+| `SelectPositioner` | `select-positioner` |
+| `SelectContent` | `select-content` |
+| `SelectList` | `select-list` |
+| `SelectItemGroup` | `select-item-group` |
+| `SelectItemGroupLabel` | `select-item-group-label` |
+| `SelectItem` | `select-item` |
+| `SelectItemText` | `select-item-text` |
+| `SelectItemIndicator` | `select-item-indicator` |
+
+Its `indicator` prop supplies the
+child of the existing indicator slot. `SelectOption` reuses the item slots
 instead of adding its own styling hook.
 
-- Roots expose `data-slot="select-root"` and `data-slot="select-root-provider"`.
 - Ark anatomy uses `data-scope="select"` and `data-part`.
 - State styling uses `data-state="open" | "closed"`, `data-focus`, `data-invalid`,
   `data-disabled`, `data-readonly`, `data-required`, `data-placeholder-shown`, `data-highlighted`,
   and item `data-state="checked" | "unchecked"`.
 - `SelectPositioner` exposes `--reference-width`, `--reference-height`, `--available-width`,
   `--available-height`, `--x`, `--y`, `--z-index`, and `--transform-origin`.
+
+## Keyboard
+
+| Key | Action |
+| --- | --- |
+| `Enter` / `Space` / `ArrowDown` | Opens the list from the trigger. |
+| `ArrowDown` / `ArrowUp` | Highlights the next or previous option. |
+| `Enter` | Selects the highlighted option. |
+| `Esc` | Closes the list. |
+| Letters | Highlights the next option that starts with the typed text. |
+
+## API reference
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `collection` | `ListCollection<T>` | — | Items from `createListCollection()`. |
+| `value` | `string[]` | — | Selected values for controlled use. |
+| `defaultValue` | `string[]` | — | Initial selected values when the value is not controlled. |
+| `onValueChange` | `(details: ValueChangeDetails) => void` | — | Called when the selected values change. |
+| `multiple` | `boolean` | `false` | Lets the user pick several values. |
+| `closeOnSelect` | `boolean` | `true` | Closes the popup after an item is selected. |
+| `deselectable` | `boolean` | `false` | Clicking the selected item clears it. Single selection only. |
+| `loopFocus` | `boolean` | `false` | Keyboard navigation wraps from the last item to the first. |
+| `positioning` | `PositioningOptions` | — | Placement, offset, and other popup positioning options. |
+| `open` | `boolean` | — | Popup open state for controlled use. |
+| `onOpenChange` | `(details: OpenChangeDetails) => void` | — | Called when the popup opens or closes. |
+| `lazyMount` | `boolean` | `true` | Mounts the popup content on first open. |
+| `unmountOnExit` | `boolean` | `true` | Unmounts the popup content after it closes. |
+| `name` | `string` | — | Form field name of the hidden native select. |
+| `disabled` | `boolean` | `false` | Disables the select. |
+| `readOnly` | `boolean` | `false` | Shows the value but prevents changes. |
+| `invalid` | `boolean` | `false` | Marks the select as invalid. |
+| `required` | `boolean` | `false` | Requires a value before form submission. |
+| `translations` | `IntlTranslations` | — | Localized strings for accessibility labels. |
+| `form` | `string` | — | Id of the form the hidden select belongs to. |
+| `autoComplete` | `string` | — | Browser autofill hint for the hidden select. |
+| `onSelect` | `(details: SelectionDetails) => void` | — | Called when an item is selected. |
+| `onHighlightChange` | `(details: HighlightChangeDetails<T>) => void` | — | Called when the highlighted item changes. |
+| `highlightedValue` | `string \| null` | — | Highlighted item for controlled use. |
+| `defaultHighlightedValue` | `string \| null` | — | Item highlighted when the popup opens. |
+| `defaultOpen` | `boolean` | — | Initial open state when it is not controlled. |
+| `scrollToIndexFn` | `(details: ScrollToIndexDetails) => void` | — | Scrolls a virtualized list to an item index. |
+| `composite` | `boolean` | `true` | Set to `false` when the select sits inside another composite widget, such as tabs. |
+| `onPointerDownOutside` | `(event: PointerDownOutsideEvent) => void` | — | Called when the pointer is pressed outside the popup. |
+| `onFocusOutside` | `(event: FocusOutsideEvent) => void` | — | Called when focus moves outside the popup. |
+| `onInteractOutside` | `(event: InteractOutsideEvent) => void` | — | Called on any interaction outside the popup. |

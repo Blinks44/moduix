@@ -3,7 +3,7 @@ import type { CssPropertyInput } from '../../mdx/reference';
 export const splitterOverrideCssProperties: CssPropertyInput[] = [
   [
     '--moduix-splitter-resize-trigger-line-color',
-    'var(--moduix-color-border)',
+    'var(--moduix-border)',
     'Controls the idle divider line color.',
   ],
   [

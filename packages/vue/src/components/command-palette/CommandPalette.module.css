@@ -3,7 +3,7 @@
     position: fixed;
     z-index: calc(var(--z-index, var(--moduix-z-popup)) - 1);
     inset: 0;
-    background-color: var(--moduix-backdrop-bg, var(--moduix-color-overlay));
+    background-color: var(--moduix-backdrop-bg, var(--moduix-overlay));
     backdrop-filter: var(--moduix-backdrop-filter, blur(4px));
 
     &[data-state='open'] {
@@ -36,10 +36,10 @@
     max-height: min(var(--moduix-command-palette-max-height, 34rem), calc(100dvh - 5rem));
     flex-direction: column;
     overflow: hidden;
-    border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
+    border: var(--moduix-border-width-sm) solid var(--moduix-border);
     border-radius: var(--moduix-radius-lg);
-    background-color: var(--moduix-color-popover);
-    color: var(--moduix-color-popover-foreground);
+    background-color: var(--moduix-popover);
+    color: var(--moduix-popover-foreground);
     box-shadow: var(--moduix-shadow-lg);
     outline: 0;
     transform-origin: top center;
@@ -72,7 +72,7 @@
 
   .description {
     margin: 0;
-    color: var(--moduix-color-muted-foreground);
+    color: var(--moduix-muted-foreground);
     font-size: var(--moduix-text-sm);
     line-height: var(--moduix-line-height-text-sm);
   }
@@ -92,15 +92,15 @@
     gap: var(--moduix-spacing-2);
     min-height: var(--moduix-size-md);
     margin: var(--moduix-spacing-3) var(--moduix-spacing-3) 0;
-    border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
+    border: var(--moduix-border-width-sm) solid var(--moduix-input);
     border-radius: var(--moduix-radius-md);
     padding: var(--moduix-spacing-1) var(--moduix-spacing-3);
-    background-color: var(--moduix-color-background);
-    color: var(--moduix-color-foreground);
+    background-color: var(--moduix-background);
+    color: var(--moduix-foreground);
     transition: border-color var(--moduix-transition-default);
 
     &[data-invalid] {
-      border-color: var(--moduix-color-destructive);
+      border-color: var(--moduix-destructive);
     }
   }
 
@@ -108,7 +108,7 @@
     flex: none;
     width: var(--moduix-spacing-4);
     height: var(--moduix-spacing-4);
-    color: var(--moduix-color-muted-foreground);
+    color: var(--moduix-muted-foreground);
     pointer-events: none;
   }
 
@@ -126,7 +126,7 @@
     outline: 0;
 
     &::placeholder {
-      color: var(--moduix-color-muted-foreground);
+      color: var(--moduix-muted-foreground);
     }
   }
 
@@ -165,7 +165,7 @@
   /* The list already pads the result area; this adds the remaining inline inset. */
   .empty {
     padding-inline: var(--moduix-spacing-1);
-    color: var(--moduix-color-muted-foreground);
+    color: var(--moduix-muted-foreground);
     font-size: var(--moduix-text-sm);
     line-height: var(--moduix-line-height-text-sm);
   }
@@ -185,8 +185,8 @@
     z-index: 1;
     padding: var(--moduix-popup-group-label-padding-y, var(--moduix-spacing-1))
       var(--moduix-spacing-3);
-    background-color: var(--moduix-color-popover);
-    color: var(--moduix-popup-group-label-color, var(--moduix-color-muted-foreground));
+    background-color: var(--moduix-popover);
+    color: var(--moduix-popup-group-label-color, var(--moduix-muted-foreground));
     font-size: var(--moduix-popup-group-label-font-size, var(--moduix-text-xs));
     font-weight: var(--moduix-popup-group-label-font-weight, var(--moduix-weight-regular));
     line-height: var(--moduix-popup-group-label-line-height, var(--moduix-line-height-text-xs));
@@ -207,8 +207,8 @@
     user-select: none;
 
     &[data-highlighted] {
-      background-color: var(--moduix-color-accent);
-      color: var(--moduix-color-accent-foreground);
+      background-color: var(--moduix-accent);
+      color: var(--moduix-accent-foreground);
     }
 
     &[data-disabled] {
@@ -224,10 +224,10 @@
     height: var(--moduix-spacing-8);
     align-items: center;
     justify-content: center;
-    border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
+    border: var(--moduix-border-width-sm) solid var(--moduix-border);
     border-radius: var(--moduix-radius-md);
-    background-color: var(--moduix-color-muted);
-    color: var(--moduix-color-muted-foreground);
+    background-color: var(--moduix-muted);
+    color: var(--moduix-muted-foreground);
   }
 
   .itemText {
@@ -249,7 +249,7 @@
   }
 
   .itemDescription {
-    color: var(--moduix-color-muted-foreground);
+    color: var(--moduix-muted-foreground);
     font-size: var(--moduix-text-xs);
     line-height: var(--moduix-line-height-text-xs);
   }
@@ -258,7 +258,7 @@
   .itemIndicator {
     flex: none;
     margin-inline-start: auto;
-    color: var(--moduix-color-muted-foreground);
+    color: var(--moduix-muted-foreground);
   }
 
   .itemMeta {
@@ -280,7 +280,7 @@
   .separator {
     height: var(--moduix-border-width-sm);
     margin: var(--moduix-spacing-2);
-    background-color: var(--moduix-color-border);
+    background-color: var(--moduix-border);
   }
 
   .footer {
@@ -290,8 +290,8 @@
     justify-content: space-between;
     gap: var(--moduix-spacing-3);
     padding: var(--moduix-spacing-2) var(--moduix-spacing-4);
-    border-top: var(--moduix-border-width-sm) solid var(--moduix-color-border);
-    color: var(--moduix-color-muted-foreground);
+    border-top: var(--moduix-border-width-sm) solid var(--moduix-border);
+    color: var(--moduix-muted-foreground);
     font-size: var(--moduix-text-xs);
     line-height: var(--moduix-line-height-text-xs);
   }
@@ -299,7 +299,7 @@
   .kbd {
     --moduix-kbd-height: var(--moduix-spacing-5);
     --moduix-kbd-padding-x: var(--moduix-spacing-1);
-    --moduix-kbd-color: var(--moduix-color-muted-foreground);
+    --moduix-kbd-color: var(--moduix-muted-foreground);
   }
 
   @media (prefers-reduced-motion: reduce) {

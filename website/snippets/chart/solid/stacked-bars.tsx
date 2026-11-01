@@ -39,7 +39,7 @@ const definition = defineChart({
   },
   color: {
     domain: ['Product', 'Services'],
-    range: ['var(--moduix-color-chart-1)', 'var(--moduix-color-chart-2)'],
+    range: ['var(--moduix-chart-1)', 'var(--moduix-chart-2)'],
   },
   focus: 'group-x',
   tooltip,
@@ -54,8 +54,8 @@ export default function StackedBarsChartDemo() {
       </ChartHeader>
       <ChartPlot definition={definition} height={320} ariaLabel="Quarterly revenue by segment" />
       <ChartLegend aria-label="Revenue segments">
-        <ChartLegendItem color="var(--moduix-color-chart-1)">Product</ChartLegendItem>
-        <ChartLegendItem color="var(--moduix-color-chart-2)">Services</ChartLegendItem>
+        <ChartLegendItem color="var(--moduix-chart-1)">Product</ChartLegendItem>
+        <ChartLegendItem color="var(--moduix-chart-2)">Services</ChartLegendItem>
       </ChartLegend>
     </Chart>
   );

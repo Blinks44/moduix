@@ -11,14 +11,14 @@ import {
   ColorPickerArea,
   ColorPickerChannelInput,
 } from '@moduix/vue/color-picker';
+import { Stack } from '@moduix/vue/stack';
 import { ref } from 'vue';
-import styles from '@/components/examples/color-picker/color-picker-open-controlled.module.css';
 
 const open = ref(false);
 </script>
 
 <template>
-  <div :class="styles.root">
+  <Stack align="center" gap="2">
     <ColorPicker :default-value="parseColor('#14b8a6')" v-model:open="open">
       <ColorPickerLabel>Open controlled</ColorPickerLabel>
       <ColorPickerControl>
@@ -35,5 +35,5 @@ const open = ref(false);
     <Button type="button" size="sm" @click="open = !open">
       {{ open ? 'Close' : 'Open' }}
     </Button>
-  </div>
+  </Stack>
 </template>

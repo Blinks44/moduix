@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ArrowUpRight as ArrowUpRightIcon, Plus as PlusIcon, Star as StarIcon } from '@lucide/vue';
 import { Button } from '@moduix/vue/button';
-import styles from '@/components/examples/button/button-icons.module.css';
+import { Stack } from '@moduix/vue/stack';
 
 const labels = {
   create: 'Create Item',
@@ -11,7 +11,7 @@ const labels = {
 </script>
 
 <template>
-  <div :class="styles.root">
+  <Stack direction="row" align="center" wrap="wrap" gap="3">
     <Button>
       <PlusIcon />
       {{ labels.create }}
@@ -23,5 +23,5 @@ const labels = {
       {{ labels.docs }}
       <ArrowUpRightIcon />
     </Button>
-  </div>
+  </Stack>
 </template>

@@ -1,84 +1,25 @@
 ---
 title: Heading
 component: heading
-description: Семантический компонент для заголовков с композицией на основе фабрики Ark и типографическими токенами moduix для React, Solid и Vue.
+description: Заголовок страницы или раздела с нужным уровнем и размером.
+ark: https://ark-ui.com/docs/guides/composition#the-ark-factory
 ---
 
+import AnatomyScene from '@/components/examples/heading/basic';
 
-## Справочник API
+<Example name="heading/basic" />
 
-В Ark UI нет отдельного примитива для заголовков. `Heading` в moduix построен на официальной
-[фабрике Ark](https://ark-ui.com/docs/guides/composition#the-ark-factory) и следует рекомендациям Ark по
-[композиции](https://ark-ui.com/docs/guides/composition), [стилизации](https://ark-ui.com/docs/guides/styling) и
-[передаче ref](https://ark-ui.com/docs/guides/ref).
+## Установка
 
-## Базовый пример
+<ComponentInstall />
 
+## Использование
+
+<Usage />
 
 По умолчанию `Heading` создаёт `h1`. Используйте его для заголовков документа и выбирайте значение
 `as` в соответствии с местом заголовка в структуре документа. Если визуальный акцент должен
 отличаться от семантического уровня, задайте `size` отдельно.
-
-<Example name="heading/basic" />
-
-## Установка через shadcn
-
-Полную настройку пакета, реестра и стилей см. в разделе [Быстрый старт](/docs/quick-start).
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/heading' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/heading' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/heading' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/heading' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/heading' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/heading' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Анатомия
-
-`Heading` выводит один нативный элемент заголовка.
-
-```text
-Heading
-└─ текст или встроенное содержимое
-```
-
-| Часть                      | Назначение                                                  |
-| -------------------------- | ----------------------------------------------------------- |
-| `Heading` | Нативный семантический заголовок со стилями типографики moduix. |
-
-## Композиция
-
-`Heading` состоит только из корневого элемента и не управляет состоянием, поэтому ему не нужны провайдер
-или связанные части. Используйте `<Heading>`, передавайте `as` для семантического уровня от `h1` до
-`h6`, а `size` задавайте отдельно, если визуальный акцент должен
-отличаться. Если `size` не задан, `as` выбирает визуальный размер от `2xl` для `h1` до `xs` для `h6`,
-а значение `weight` по умолчанию равно `semibold`. Используйте `asChild` только в случае, когда другой
-семантический элемент заголовка должен стать итоговым DOM-узлом.
 
 ## Примеры
 
@@ -89,6 +30,12 @@ Heading
 
 <Example name="heading/heading-levels" />
 
+### Визуальные размеры
+
+Используйте `size`, если нескольким заголовкам нужен один семантический уровень, но разные визуальные акценты.
+
+<Example name="heading/visual-sizes" />
+
 ### Семантический уровень и визуальный размер
 
 Разделяйте структуру документа и визуальную иерархию. Выберите семантический уровень с помощью `as`,
@@ -96,25 +43,42 @@ Heading
 
 <Example name="heading/semantic-level-and-visual-size" />
 
-### Визуальные размеры
-
-Используйте `size`, если нескольким заголовкам нужен один семантический уровень, но разные визуальные акценты.
-
-<Example name="heading/visual-sizes" />
-
 ### Насыщенность
 
 Используйте `weight`, чтобы выбрать один из встроенных вариантов насыщенности шрифта.
 
 <Example name="heading/weights" />
 
-### Расширенная настройка
+### Пользовательский элемент
 
 Используйте `asChild`, если другой семантический элемент заголовка должен стать DOM-узлом. Для обычных
 случаев с `h1`-`h6` используйте `as`. Размер по умолчанию следует за `as`, а не за дочерним элементом,
 поэтому задайте `size` под дочерний элемент.
 
-<Example name="heading/custom-host" />
+<Example name="heading/custom-element" />
+
+## Композиция
+
+`Heading` состоит только из корневого элемента и не управляет состоянием, поэтому ему не нужны провайдер
+или связанные части. Используйте `<Heading>`, передавайте `as` для семантического уровня от `h1` до
+`h6`, а `size` задавайте отдельно, если визуальный акцент должен
+отличаться. Если `size` не задан, `as` выбирает визуальный размер от `2xl` для `h1` до `xs` для `h6`,
+а значение `weight` по умолчанию равно `semibold`. Используйте `asChild` только в случае, когда другой
+семантический элемент заголовка должен стать итоговым DOM-узлом.
+
+## Анатомия
+
+`Heading` выводит один нативный элемент заголовка.
+
+Наведите на часть или выберите её, чтобы найти её в превью.
+
+<AnatomyInspector
+  parts={[
+    ["Heading", "heading-root", "Нативный семантический заголовок со стилями типографики moduix.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Стилизация
 
@@ -122,12 +86,24 @@ Heading
 нативные утилиты и классы потребителя. Варианты на CSS Modules построены на типографических токенах
 foundation и не имеют переменных компонента: класс на корне перекрывает стили компонента из слоя.
 
-
 ### Хуки стилизации
 
+| Часть | `data-slot` |
+| --- | --- |
+| `Heading` | `heading-root` |
+
 - `data-scope="heading"` и `data-part="root"` обозначают корневой элемент в соглашении Ark.
-- `data-slot="heading-root"` - стабильный селектор moduix.
 - `data-size` содержит итоговый размер: явный `size` или размер по умолчанию для `as`.
 - `data-weight` содержит выбранное значение: `regular`, `medium`, `semibold` или `bold`.
 - `Heading` сам задаёт эти атрибуты. Одноимённые свойства `data-*` не могут заменить контракт стилизации компонента.
 - Используйте `className` или `class` для utility-классов потребителя и локальных переопределений стилей.
+
+## Справочник API
+
+Также принимает нативные пропсы своего элемента и `asChild`.
+
+| Проп | Тип | По умолчанию | Описание |
+| --- | --- | --- | --- |
+| `as` | `'h1' \| 'h2' \| 'h3' \| 'h4' \| 'h5' \| 'h6'` | `'h1'` | Семантический уровень заголовка, от `h1` до `h6`. |
+| `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl' \| '2xl'` | — | Визуальный размер от `xs` до `2xl`, не зависит от уровня. |
+| `weight` | `'regular' \| 'medium' \| 'semibold' \| 'bold'` | `'semibold'` | Начертание: `regular`, `medium`, `semibold` или `bold`. |

@@ -1,18 +1,13 @@
 ---
 title: Client Only
 description: Render browser-dependent UI after hydration with Ark UI ClientOnly and a layout-stable fallback.
+ark: https://ark-ui.com/docs/utilities/client-only
 ---
-
-import ClientOnlyBasic from '@/components/examples/client-only/basic.tsx';
-import clientOnlySolidBasic from '../../../snippets/client-only/solid/basic.tsx?raw';
-import clientOnlyVueBasic from '../../../snippets/client-only/vue/basic.vue?raw';
 
 Use `ClientOnly` when a browser-dependent subtree should stay out of server rendering while a fallback keeps its
 place in the layout.
 
-## API Reference
-
-<PrimitiveReference href="https://ark-ui.com/docs/utilities/client-only" />
+## Import
 
 Import the utility from the matching Ark UI package:
 
@@ -59,42 +54,7 @@ browser-only library.
 This recipe shows a browser-dependent `Card` with a `Skeleton` fallback that reserves the same structure. The preview
 uses the React CSS Modules package; the source tabs contain native React, Solid, and Vue code for the same behavior.
 
-<ExampleFrame clientOnly variant="component">
-  <PreviewFrame maxWidth="sm">
-    <ClientOnlyBasic />
-  </PreviewFrame>
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/client-only/basic.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={clientOnlySolidBasic} />
-
-    </Tab>
-  <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={clientOnlyVueBasic} />
-
-    </Tab>
-  </Tabs>
-</div>
-</ExampleCode>
+<Example name="client-only/basic" clientOnly />
 
 ## Keep browser APIs inside the boundary
 

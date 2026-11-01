@@ -15,7 +15,7 @@ The flat API is `Accordion`, `AccordionRootProvider`, `AccordionItem`, `Accordio
 ## Preservation notes
 
 - Keep Ark lazy mounting, item state, and `--height` / `--width` content measurements intact.
-- `AccordionItemIndicator` defaults to `ChevronDownIcon` and turns it 180deg while open; `AccordionItemBody` owns inner spacing.
+- `AccordionItemIndicator` defaults to `ChevronDownIcon` and turns it 180deg while open (horizontal: points to the inline end while closed, back while open); `AccordionItemBody` owns inner spacing.
 - Preserve Solid accessors, native children, and the `class` prop.
 
 ## Styling and accessibility

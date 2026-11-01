@@ -31,7 +31,7 @@ export default function SizedSidebar() {
       <SidebarPanel>
         <SidebarHeader>
           <strong data-sidebar-icon>M</strong>
-          <SidebarLabel>Moduix</SidebarLabel>
+          <SidebarLabel>moduix</SidebarLabel>
         </SidebarHeader>
         <SidebarContent>
           <SidebarGroup>

@@ -1,90 +1,83 @@
 ---
 title: Split Button
 component: split-button
-description: A grouped primary action with a menu of related actions, built from moduix Button and Menu parts.
+description: Run a primary action or pick a related one from an attached menu.
+ark: https://ark-ui.com/docs/guides/composition#the-ark-factory
 ---
 
+import AnatomyScene from '@/components/examples/split-button/anatomy';
 import * as SplitButtonDocs from '@/components/examples/split-button/css-properties';
 
+<Example name="split-button/basic" />
 
-## API Reference
+## Installation
 
-Ark UI does not provide a dedicated split-button primitive. moduix composes this component from the
-[Ark factory](https://ark-ui.com/docs/guides/composition#the-ark-factory) and preserves the behavior of
-[Ark Menu](https://ark-ui.com/docs/components/menu).
+<ComponentInstall />
+
+## Usage
+
+<Usage />
+
+Use `<SplitButton>` as the root and keep the menu structure explicit
+with `SplitButtonAction`, `SplitButtonTrigger`, `SplitButtonPositioner`, and `SplitButtonContent`.
+The primary action follows the same `onClick` contract as `Button`.
 
 ## Choosing the right component
 
 Use `SplitButton` when one action should stay immediately available and related alternatives belong in a menu.
 Use `Button` for a single action. Use `Menu` when the available actions are peers and none of them should be primary.
 
-## Basic
+## Examples
 
+### Variants
 
-Use `<SplitButton>` as the root and keep the menu structure explicit
-with `SplitButtonAction`, `SplitButtonTrigger`, `SplitButtonPositioner`, and `SplitButtonContent`.
-The primary action follows the same `onClick` contract as `Button`.
+Use the root `variant` when both buttons should share the same visual style.
 
-<Example name="split-button/basic" />
+<Example name="split-button/variants" />
 
-## Install with shadcn
+### Sizes
 
-See [Quick Start](/docs/quick-start) for full package setup, registry configuration, and styling guidance.
+Use the root `size` when both sides should scale together.
 
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
+<Example name="split-button/sizes" />
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/split-button' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/split-button' },
-  ]}
-/>
+### With icons
 
-  </Tab>
-  <Tab label="Solid" value="solid">
+Add an icon to the primary action when it clarifies the default action without replacing the text label.
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/split-button' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/split-button' },
-  ]}
-/>
+<Example name="split-button/with-icons" />
 
-  </Tab>
-  <Tab label="Vue" value="vue">
+### Disabled action
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/split-button' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/split-button' },
-  ]}
-/>
+Disable the primary action while keeping the alternate-actions menu available when it still offers a useful path.
 
-  </Tab>
-</Tabs>
+<Example name="split-button/disabled-action" />
 
-## Anatomy
+### Link action
 
-```text
-SplitButton
-├─ SplitButtonAction
-├─ SplitButtonTrigger
-└─ Popup subtree (automatically portalled)
-   └─ SplitButtonPositioner
-      └─ SplitButtonContent
-         ├─ MenuItem
-         ├─ MenuSeparator
-         └─ other shared Menu parts
-```
+Use `asChild` on `SplitButtonAction` when the primary action should render as a link.
 
-| Part                               | Role                                                                  |
-| ---------------------------------- | --------------------------------------------------------------------- |
-| `SplitButton`                     | Root that owns menu state and the semantic group around both buttons. |
-| `SplitButtonAction`               | Primary Button action.                                                |
-| `SplitButtonTrigger`              | Ark Menu trigger rendered as a moduix Button with a chevron by default. |
-| `SplitButtonPositioner`           | Positions the Ark Menu popup.                                         |
-| `SplitButtonContent`              | Ark Menu content surface for shared `MenuItem` and `MenuItemGroup` parts. |
+<Example name="split-button/link-action" />
+
+### Menu composition
+
+Use `MenuItemGroup`, `MenuItemGroupLabel`, `MenuItem`, and `MenuSeparator` inside `SplitButtonContent` when alternate actions need groups, separators, or grouped
+rows.
+
+<Example name="split-button/menu-composition" />
+
+### Positioning
+
+Configure popup placement with the Ark `positioning` root prop while keeping the popup parts explicit.
+
+<Example name="split-button/positioning" />
+
+### Controlled menu state
+
+Use the same controlled open-state contract as Ark Menu when the dropdown state should be managed outside the
+component. See [Control state from the application](/docs/composition-patterns#controlled-state).
+
+<Example name="split-button/controlled-menu-state" />
 
 ## Composition
 
@@ -95,7 +88,7 @@ provide the defaults for both button parts. The root renders a semantic `role="g
 `aria-labelledby` when the surrounding context does not already identify the group.
 
 Menu state is internal by default. Pass `open` with `onOpenChange(details)` when another part of the application
-owns the open state. For advanced state access, use the shared `Menu` API instead of adding a split-button-specific
+controls the open state. For advanced state access, use the shared `Menu` API instead of adding a split-button-specific
 state wrapper. Use `SplitButtonAction asChild` for a link; custom trigger content goes through `SplitButtonTrigger` `children` so Ark's
 menu trigger and the moduix Button remain on one element.
 
@@ -103,57 +96,21 @@ In Vue, listen with `@click` on the action, use `@open-change` or `v-model:open`
 
 `SplitButtonPositioner` wraps a portal, so its Vue component ref's `$el` points to the portal anchor. The positioned element carries `data-slot="split-button-positioner"`.
 
-## Examples
+## Anatomy
 
-### Controlled Menu State
+Hover or focus a part to find it in the preview.
 
-Use the same controlled open-state contract as Ark Menu when the dropdown state should be managed outside the
-component.
-
-<Example name="split-button/controlled-menu-state" />
-
-### Disabled Action
-
-Disable the primary action while keeping the alternate-actions menu available when it still offers a useful path.
-
-<Example name="split-button/disabled-action" />
-
-### Link Action
-
-Use `asChild` on `SplitButtonAction` when the primary action should render as a link.
-
-<Example name="split-button/link-action" />
-
-### Positioning
-
-Configure popup placement with the Ark `positioning` root prop while keeping the popup parts explicit.
-
-<Example name="split-button/positioning" />
-
-### Sizes
-
-Use the root `size` when both sides should scale together.
-
-<Example name="split-button/sizes" />
-
-### Variants
-
-Use the root `variant` when both buttons should share the same visual style.
-
-<Example name="split-button/variants" />
-
-### With Icons
-
-Add an icon to the primary action when it clarifies the default action without replacing the text label.
-
-<Example name="split-button/with-icons" />
-
-### Advanced Customization
-
-Use `MenuItemGroup`, `MenuItemGroupLabel`, `MenuItem`, and `MenuSeparator` inside `SplitButtonContent` when alternate actions need groups, separators, or grouped
-rows.
-
-<Example name="split-button/menu-composition" />
+<AnatomyInspector
+  parts={[
+    ["SplitButton", "split-button-root", "Root that manages menu state and the semantic group around both buttons.", 0],
+    ["SplitButtonAction", "split-button-action", "Primary Button action.", 1],
+    ["SplitButtonTrigger", "split-button-trigger", "Ark Menu trigger rendered as a moduix Button with a chevron by default.", 1],
+    ["SplitButtonPositioner", "split-button-positioner", "Positions the Ark Menu popup.", 1],
+    ["SplitButtonContent", "split-button-content", "Ark Menu content surface for shared `MenuItem` and `MenuItemGroup` parts.", 2],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styling
 
@@ -166,18 +123,42 @@ separator on the trigger's `::before`; outline variants share the border instead
 `--moduix-split-button-separator-color` to recolor the separator, and change the trigger padding with a class on
 `SplitButtonTrigger`.
 
-### CSS Properties
+### CSS variables
 
-<CssPropertiesSection properties={SplitButtonDocs.splitButtonCssProperties} />
+Hover or focus a variable to see it in the preview.
+
+<CssPropertiesSection properties={SplitButtonDocs.splitButtonCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Styling hooks
 
+| Part | `data-slot` |
+| --- | --- |
+| `SplitButton` | `split-button-root` |
+| `SplitButtonAction` | `split-button-action` |
+| `SplitButtonTrigger` | `split-button-trigger` |
+| `SplitButtonPositioner` | `split-button-positioner` |
+| `SplitButtonContent` | `split-button-content` |
+
 - `data-scope="split-button"` and `data-part="root"` target the semantic group.
-- `data-slot="split-button-root"` targets the group wrapper.
-- `data-slot="split-button-action"` targets the primary action.
-- `data-slot="split-button-trigger"` targets the menu trigger.
-- `data-slot="split-button-positioner"` targets the Ark Menu positioner.
-- `data-slot="split-button-content"` targets the Ark Menu content surface.
 - `SplitButtonTrigger` carries Ark Menu state attributes such as `aria-expanded`, `aria-controls`, and `data-state`.
 - `SplitButtonContent` carries Ark Menu attributes such as `data-state`, `data-side`, `data-placement`, `data-nested`,
   and `data-has-nested`.
+
+## Keyboard
+
+| Key | Action |
+| --- | --- |
+| `Enter` / `Space` | Runs the action, or opens the menu from the trigger. |
+| `ArrowDown` / `ArrowUp` | Opens the menu from the trigger and moves between items. |
+| `Escape` | Closes the menu and returns focus to the trigger. |
+
+## API reference
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `variant` | `SplitButtonVariant` | `'default'` | Shared style of both buttons: `default`, `outline`, `secondary`, `destructive`, `destructive-outline`, or `ghost`. |
+| `size` | `SplitButtonSize` | `'md'` | Shared size of both buttons: `xs`, `sm`, `md`, `lg`, or `xl`. |
+| `aria-label` | `string` | — | Accessible name of the group around both buttons. |
+| `open` / `onOpenChange` | `MenuRootProps` | — | Controlled menu state, passed to the underlying `Menu`. |

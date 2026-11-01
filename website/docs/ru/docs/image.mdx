@@ -1,18 +1,22 @@
 ---
 title: Image
 component: image
-description: "Адаптивные изображения с автоматическим определением CDN. Unpic генерирует атрибуты srcset и sizes."
+description: Адаптивные изображения с srcset для популярных CDN.
+ark: https://ark-ui.com/docs/guides/composition
 ---
 
+import AnatomyScene from '@/components/examples/image/basic';
 import * as ImageDocs from '@/components/examples/image/css-properties';
 
-## Справочник API
+<Example name="image/basic" />
 
-Компонент `Image` в moduix представляет собой лёгкую обёртку над нативным `<img>` и API [Unpic](https://unpic.pics/img/).
-В Ark UI нет отдельного примитива для изображений. Поэтому `Image` использует нативную композицию `<img>` и `<picture>`
-вместо части Ark UI. Подробнее о модели нативных элементов рассказывает [руководство Ark по композиции](https://ark-ui.com/docs/guides/composition).
+## Установка
 
-## Базовый пример
+<ComponentInstall />
+
+## Использование
+
+<Usage />
 
 Пример на этой странице
 выпущенного адаптера с тем же публичным контрактом.
@@ -28,80 +32,7 @@ import * as ImageDocs from '@/components/examples/image/css-properties';
 укажите `priority`: он задаёт `loading="eager"` и `fetchpriority="high"`, не устанавливая
 `decoding`. Явно заданные нативные атрибуты имеют преимущество перед этими значениями.
 
-<Example name="image/basic" />
-
-## Установка через shadcn
-
-Полную настройку пакета, реестра и стилей см. в разделе [Быстрый старт](/docs/quick-start).
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/image' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/image' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/image' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/image' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/image' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/image' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Анатомия
-
-```text
-Image
-└─ img
-
-picture (native)
-├─ ImageSource
-└─ Image
-```
-
-| Часть                  | Роль                                                                   |
-| ---------------------- | ---------------------------------------------------------------------- |
-| `Image`                | Адаптивный нативный элемент `<img>`; Unpic генерирует `srcset`, `sizes` и стили. |
-| `ImageSource`          | Адаптивный `<source>` для нативного элемента `<picture>`.                       |
-
-## Композиция
-
-`Image` является корневым компонентом и может использоваться напрямую. Используйте `ImageSource`
-только внутри нативного `<picture>` и оставляйте `Image` последним, чтобы он оставался запасным
-изображением, если браузер не выбрал источник. Для выбора формата поставьте источник с `type`
-перед эквивалентным источником без `type`: браузер выберет первый поддерживаемый формат.
-`ImageSource` генерирует `srcset` только для поддерживаемого CDN или провайдера `fallback`; для локальных
-файлов используйте нативный `<source srcset>`.
-
 ## Примеры
-
-### Адаптивное кадрирование
-
-Используйте `ImageSource`, чтобы на больших экранах показывать широкий план офиса, а на маленьких
-экранах использовать изображение в портретной ориентации. Первый источник для больших экранов
-запрашивает AVIF, а следующий служит запасным вариантом для браузеров без поддержки AVIF.
-`ImageSource` должен находиться внутри нативного `<picture>`.
-
-<Example name="image/art-direction" />
 
 ### Фиксированный размер
 
@@ -118,6 +49,41 @@ picture (native)
 
 <Example name="image/full-width" />
 
+### Адаптивное кадрирование
+
+Используйте `ImageSource`, чтобы на больших экранах показывать широкий план офиса, а на маленьких
+экранах использовать изображение в портретной ориентации. Первый источник для больших экранов
+запрашивает AVIF, а следующий служит запасным вариантом для браузеров без поддержки AVIF.
+`ImageSource` должен находиться внутри нативного `<picture>`.
+
+<Example name="image/art-direction" />
+
+## Композиция
+
+Компонент `Image` в moduix представляет собой лёгкую обёртку над нативным `<img>` и API [Unpic](https://unpic.pics/img/).
+В Ark UI нет отдельного примитива для изображений. Поэтому `Image` использует нативную композицию `<img>` и `<picture>`
+вместо части Ark UI. Подробнее о модели нативных элементов рассказывает [руководство Ark по композиции](https://ark-ui.com/docs/guides/composition).
+
+`Image` является корневым компонентом и может использоваться напрямую. Используйте `ImageSource`
+только внутри нативного `<picture>` и оставляйте `Image` последним, чтобы он оставался запасным
+изображением, если браузер не выбрал источник. Для выбора формата поставьте источник с `type`
+перед эквивалентным источником без `type`: браузер выберет первый поддерживаемый формат.
+`ImageSource` генерирует `srcset` только для поддерживаемого CDN или провайдера `fallback`; для локальных
+файлов используйте нативный `<source srcset>`.
+
+## Анатомия
+
+Наведите на часть или выберите её, чтобы найти её в превью.
+
+<AnatomyInspector
+  parts={[
+    ["Image", "image-root", "Адаптивный нативный элемент `<img>`; Unpic генерирует `srcset`, `sizes` и стили.", 0],
+    ["ImageSource", "image-source", "Адаптивный `<source>` для нативного элемента `<picture>`.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
+
 ## Стилизация
 
 Используйте `className` в React или `class` в Solid и Vue на `Image` и `ImageSource` для локальной
@@ -125,12 +91,36 @@ picture (native)
 `--moduix-image-radius` настраивает варианты с CSS Modules, а хуки `data-slot` общие для обоих
 вариантов стилизации.
 
-### CSS-свойства
+### CSS-переменные
 
-<CssPropertiesSection properties={ImageDocs.imageCssProperties} />
+Наведите на переменную или выберите её, чтобы увидеть её в превью.
+
+<CssPropertiesSection properties={ImageDocs.imageCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Хуки стилизации
+
+| Часть | `data-slot` |
+| --- | --- |
+| `Image` | `image-root` |
+| `ImageSource` | `image-source` |
 
 - `data-slot="image-root"` позволяет выбрать отрисованный `<img>` в CSS.
 - `data-slot="image-source"` позволяет выбрать узел `<source>` внутри нативного `<picture>`.
 - `className` в React и `class` в Solid и Vue являются рекомендуемым способом локальной стилизации.
+
+## Справочник API
+
+`Image` принимает пропсы изображения Unpic и нативные пропсы `img`.
+
+| Проп | Тип | По умолчанию | Описание |
+| --- | --- | --- | --- |
+| `src` | `string` | — | URL изображения; для CDN адресов `srcset` строится автоматически. |
+| `alt` | `string` | — | Текстовая альтернатива; для декоративных изображений пустая строка. |
+| `layout` | `'constrained' \| 'fixed' \| 'fullWidth'` | `'constrained'` | Режим размеров: `constrained`, `fixed` или `fullWidth`. |
+| `width` | `number` | — | Собственная ширина в пикселях; резервирует место до загрузки. |
+| `height` | `number` | — | Собственная высота в пикселях; резервирует место до загрузки. |
+| `aspectRatio` | `number` | — | Соотношение ширины к высоте, если известна только одна сторона. |
+| `priority` | `boolean` | `false` | Загружает сразу и с высоким приоритетом, для изображений на первом экране. |
+| `background` | `string` | — | Фон-заглушка, пока изображение загружается. |

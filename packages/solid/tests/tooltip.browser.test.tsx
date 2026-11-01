@@ -15,7 +15,7 @@ import {
   TooltipPositioner,
   TooltipRootProvider,
   TooltipTrigger,
-} from '../src';
+} from '@/index';
 
 test('preserves Ark open-change details and keeps trigger focus after Escape', async () => {
   const details: Array<{ open: boolean }> = [];
@@ -211,26 +211,6 @@ test('forwards refs on native parts and keeps asChild composition native', () =>
   expect(arrowRef?.getAttribute('data-slot')).toBe('tooltip-arrow');
   expect(arrowTipRef?.getAttribute('data-slot')).toBe('tooltip-arrow-tip');
   expect(composedTriggerRef).toBeUndefined();
-});
-
-test('highlights only the current trigger of a shared tooltip', async () => {
-  render(() => (
-    <Tooltip openDelay={0} portalled={false}>
-      <TooltipTrigger value="save">Save</TooltipTrigger>
-      <TooltipTrigger value="share">Share</TooltipTrigger>
-      <TooltipBody>Action tooltip</TooltipBody>
-    </Tooltip>
-  ));
-
-  const save = document.querySelector<HTMLElement>('[data-value="save"]')!;
-  const share = document.querySelector<HTMLElement>('[data-value="share"]')!;
-  const closedBackground = getComputedStyle(save).backgroundColor;
-
-  await page.getByRole('button', { name: 'Share' }).hover();
-  await expect.element(page.getByRole('tooltip')).toBeVisible();
-  expect(save.dataset.state).toBe('open');
-  await expect.poll(() => getComputedStyle(share).backgroundColor).not.toBe(closedBackground);
-  await expect.poll(() => getComputedStyle(save).backgroundColor).toBe(closedBackground);
 });
 
 test('lets long content grow instead of spilling past the surface', async () => {

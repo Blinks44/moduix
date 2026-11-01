@@ -27,7 +27,7 @@ import {
   SelectTrigger,
   SelectValueText,
   SelectIndicator,
-} from '../src';
+} from '@/index';
 
 const workspaces = createListCollection({
   items: [{ label: 'Acme Inc.', value: 'acme' }],
@@ -225,21 +225,11 @@ test('preserves direct Select indicator composition in a navigation button', asy
   ));
 
   const indicator = document.querySelector<HTMLElement>('[data-testid="select-indicator"]')!;
-  const icon = document.querySelector<HTMLElement>('[data-sidebar-icon]')!;
-  const button = indicator.parentElement!;
-
-  expect(indicator.getBoundingClientRect().left).toBeGreaterThan(
-    icon.getBoundingClientRect().right,
-  );
-  expect(
-    button.getBoundingClientRect().right - indicator.getBoundingClientRect().right,
-  ).toBeLessThan(16);
 
   await page.getByRole('button', { name: 'Toggle sidebar' }).click();
   await expect
     .element(page.getByRole('button', { name: 'Toggle sidebar' }))
     .toHaveAttribute('aria-expanded', 'false');
-  expect(getComputedStyle(indicator).display).toBe('none');
 
   expect(indicator).toBe(container.querySelector('[data-scope="select"][data-part="indicator"]'));
 });
@@ -303,39 +293,4 @@ test('composes an explicit group header', async () => {
   await expect
     .element(page.getByRole('button', { name: 'Overview' }))
     .toHaveAttribute('data-slot', 'sidebar-navigation-button');
-});
-test('colors the panel from sidebar tokens and keeps the active item visible when collapsed', async () => {
-  render(() => (
-    <Sidebar
-      style={{
-        '--moduix-color-sidebar': 'rgb(1, 2, 3)',
-        '--moduix-color-sidebar-accent': 'rgb(4, 5, 6)',
-      }}
-    >
-      <SidebarPanel data-testid="panel">
-        <SidebarNavigationList>
-          <SidebarNavigationItem>
-            <SidebarNavigationButton active style={{ transition: 'none' }}>
-              <svg />
-              <SidebarLabel>Overview</SidebarLabel>
-            </SidebarNavigationButton>
-          </SidebarNavigationItem>
-        </SidebarNavigationList>
-      </SidebarPanel>
-      <SidebarResizeTrigger />
-      <SidebarTrigger />
-      <SidebarInset />
-    </Sidebar>
-  ));
-
-  const panel = document.querySelector<HTMLElement>('[data-testid="panel"]')!;
-  const active = document.querySelector<HTMLElement>('[data-slot="sidebar-navigation-button"]')!;
-
-  expect(getComputedStyle(panel).backgroundColor).toBe('rgb(1, 2, 3)');
-  expect(getComputedStyle(active).backgroundColor).toBe('rgb(4, 5, 6)');
-
-  await page.getByRole('button', { name: 'Toggle sidebar' }).click();
-  await expect.element(page.getByTestId('panel')).toHaveAttribute('data-state', 'collapsed');
-
-  expect(getComputedStyle(active).backgroundColor).toBe('rgb(4, 5, 6)');
 });

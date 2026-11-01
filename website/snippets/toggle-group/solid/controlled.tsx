@@ -1,6 +1,6 @@
+import { Stack } from '@moduix/solid/stack';
 import { ToggleGroup, ToggleGroupItem } from '@moduix/solid/toggle-group';
 import { createSignal } from 'solid-js';
-import styles from '@/components/examples/toggle-group/toggle-group-controlled.module.css';
 
 const alignmentItems = [
   {
@@ -21,7 +21,7 @@ export default function ControlledToggleGroupDemo() {
   const [value, setValue] = createSignal<string[]>(['left']);
 
   return (
-    <div class={styles.stack}>
+    <Stack align="center" gap="3">
       <ToggleGroup
         value={value()}
         onValueChange={(details) => setValue(details.value)}
@@ -34,6 +34,6 @@ export default function ControlledToggleGroupDemo() {
       <div data-preview-meta>
         <output>Selected: {value().join(', ') || 'empty'}</output>
       </div>
-    </div>
+    </Stack>
   );
 }

@@ -7,6 +7,7 @@ import {
   ColorPickerFormatSelect,
   ColorPickerView,
 } from '@moduix/solid/color-picker';
+import { Stack } from '@moduix/solid/stack';
 import { createSignal } from 'solid-js';
 import styles from '@/components/examples/color-picker/color-picker-format-views.module.css';
 
@@ -20,10 +21,10 @@ export default function FormatColorPickerDemo() {
       format={format()}
       onFormatChange={(details) => setFormat(details.format)}
     >
-      <div class={styles.valueRow}>
+      <Stack direction="row" align="center" justify="space-between" gap="3">
         <ColorPickerLabel>Format</ColorPickerLabel>
         <ColorPickerFormatSelect aria-label="Color format" />
-      </div>
+      </Stack>
       <ColorPickerArea />
       <ColorPickerView format="rgba">
         <div class={styles.inputRow}>

@@ -1,17 +1,22 @@
 ---
 title: Scroll Area
 component: scroll-area
-description: Создавайте контейнеры прокрутки со стилизованными полосами прокрутки в React, Solid и Vue с установкой пакетом или через shadcn.
+description: Прокрутка с оформленными полосами, которые совпадают с темой.
+ark: https://ark-ui.com/docs/components/scroll-area
 ---
 
+import AnatomyScene from '@/components/examples/scroll-area/basic';
 import * as ScrollAreaDocs from '@/components/examples/scroll-area/css-properties';
 
-## Справочник API
+<Example name="scroll-area/basic" />
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/scroll-area" />
+## Установка
 
-## Базовый пример
+<ComponentInstall />
 
+## Использование
+
+<Usage />
 
 Используйте `ScrollArea` как корневой элемент. Разместите `ScrollAreaViewport` вокруг
 `ScrollAreaContent`, добавьте по одному `ScrollAreaScrollbar` и `ScrollAreaThumb` для каждой оси
@@ -19,69 +24,48 @@ import * as ScrollAreaDocs from '@/components/examples/scroll-area/css-propertie
 `ScrollAreaCorner`. Задайте корневому элементу ограниченную высоту или размер по блочной оси, чтобы
 содержимое можно было прокручивать.
 
-<Example name="scroll-area/basic" />
+## Примеры
 
-## Установка через shadcn
+### Горизонтальная прокрутка
 
-Полную настройку пакета, реестра и стилей см. в разделе [Быстрый старт](/docs/quick-start).
+Используйте горизонтальную полосу, если содержимое намеренно шире области просмотра.
 
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
+<Example name="scroll-area/horizontal" />
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/scroll-area' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/scroll-area' },
-  ]}
-/>
+### Обе оси
 
-  </Tab>
-  <Tab label="Solid" value="solid">
+Выведите вертикальную и горизонтальную полосы прокрутки, если содержимое может переполняться по
+обеим осям.
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/scroll-area' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/scroll-area' },
-  ]}
-/>
+<Example name="scroll-area/both-directions" />
 
-  </Tab>
-  <Tab label="Vue" value="vue">
+### Всегда видимая полоса
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/scroll-area' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/scroll-area' },
-  ]}
-/>
+Установите `variant="always"`, если переполняющаяся полоса должна оставаться видимой и
+интерактивной в состоянии покоя.
 
-  </Tab>
-</Tabs>
+<Example name="scroll-area/always-visible" />
 
-## Анатомия
+### Затухание
 
-```text
-ScrollArea
-├─ ScrollAreaViewport
-│  └─ ScrollAreaContent
-│     └─ children
-├─ ScrollAreaScrollbar
-│  └─ ScrollAreaThumb
-└─ ScrollAreaCorner
+Установите `fade`, чтобы показать, что длинное вертикальное содержимое продолжается выше и ниже
+текущей области просмотра.
 
-ScrollAreaRootProvider
-└─ то же дерево, подключённое к состоянию useScrollArea()
-```
+<Example name="scroll-area/fade" />
 
-| Часть                             | Назначение                                                       |
-| -------------------------------- | ---------------------------------------------------------------- |
-| `ScrollArea`                     | Управляет состоянием прокрутки и позиционированием.              |
-| `ScrollAreaRootProvider`        | Подключает части к состоянию из `useScrollArea()`.               |
-| `ScrollAreaViewport`            | Нативный контейнер прокрутки и элемент, принимающий фокус.      |
-| `ScrollAreaContent`             | Внутренняя оболочка содержимого, которую измеряет Ark UI.       |
-| `ScrollAreaScrollbar`           | Стилизованная полоса прокрутки для одной оси.                   |
-| `ScrollAreaThumb`               | Перетаскиваемый бегунок внутри полосы прокрутки.                 |
-| `ScrollAreaCorner`              | Заполняет область пересечения при переполнении по обеим осям.  |
+### Вложенные области
+
+Сохраняйте полное дерево root, viewport, content и scrollbar для каждой вложенной области, чтобы
+Ark мог измерять их независимо.
+
+<Example name="scroll-area/nested" />
+
+### Root Provider
+
+Используйте `useScrollArea()` вместе с `ScrollAreaRootProvider`, если внешним элементам
+управления нужен доступ к API прокрутки. Подробнее в разделе [Выносите состояние за пределы дерева](/docs/composition-patterns#root-provider).
+
+<Example name="scroll-area/root-provider" />
 
 ## Композиция
 
@@ -95,48 +79,23 @@ ScrollAreaRootProvider
 используйте `ScrollArea` и `ScrollAreaRootProvider` для одного состояния. В Solid читайте состояние и вызывайте
 его методы через аксессор, возвращённый `useScrollArea()`.
 
-## Примеры
+## Анатомия
 
-### Всегда видимая полоса
+Наведите на часть или выберите её, чтобы найти её в превью.
 
-Установите `variant="always"`, если переполняющаяся полоса должна оставаться видимой и
-интерактивной в состоянии покоя.
-
-<Example name="scroll-area/always-visible" />
-
-### Обе оси
-
-Выведите вертикальную и горизонтальную полосы прокрутки, если содержимое может переполняться по
-обеим осям.
-
-<Example name="scroll-area/both-directions" />
-
-### Затухание
-
-Установите `fade`, чтобы показать, что длинное вертикальное содержимое продолжается выше и ниже
-текущей области просмотра.
-
-<Example name="scroll-area/fade" />
-
-### Горизонтальная прокрутка
-
-Используйте горизонтальную полосу, если содержимое намеренно шире области просмотра.
-
-<Example name="scroll-area/horizontal" />
-
-### Вложенные области
-
-Сохраняйте полное дерево root, viewport, content и scrollbar для каждой вложенной области, чтобы
-Ark мог измерять их независимо.
-
-<Example name="scroll-area/nested" />
-
-### Root Provider
-
-Используйте `useScrollArea()` вместе с `ScrollAreaRootProvider`, если внешним элементам
-управления нужен доступ к API прокрутки.
-
-<Example name="scroll-area/root-provider" />
+<AnatomyInspector
+  parts={[
+    ["ScrollArea", "scroll-area-root", "Управляет состоянием прокрутки и позиционированием.", 0],
+    ["ScrollAreaViewport", "scroll-area-viewport", "Нативный контейнер прокрутки и элемент, принимающий фокус.", 1],
+    ["ScrollAreaContent", "scroll-area-content", "Внутренняя оболочка содержимого, которую измеряет Ark UI.", 2],
+    ["ScrollAreaScrollbar", "scroll-area-scrollbar", "Стилизованная полоса прокрутки для одной оси.", 1],
+    ["ScrollAreaThumb", "scroll-area-thumb", "Перетаскиваемый бегунок внутри полосы прокрутки.", 2],
+    ["ScrollAreaCorner", "scroll-area-corner", "Заполняет область пересечения при переполнении по обеим осям.", 1],
+    ["ScrollAreaRootProvider", "scroll-area-root-provider", "Подключает части к состоянию из `useScrollArea()`.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Стилизация
 
@@ -145,15 +104,26 @@ Ark мог измерять их независимо.
 меняют толщину полосы, цвет ползунка и глубину затухания. Viewport наследует `border-radius` корня,
 поэтому скруглённый корень скругляет и обрезанный контент, и кольцо фокуса.
 
-### CSS-свойства
+### CSS-переменные
 
-<CssPropertiesSection properties={ScrollAreaDocs.scrollAreaOverrideCssProperties} />
+Наведите на переменную или выберите её, чтобы увидеть её в превью.
+
+<CssPropertiesSection properties={ScrollAreaDocs.scrollAreaOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Хуки стилизации
 
-- moduix добавляет стабильные хуки `data-slot` со значениями `scroll-area-root`,
-  `scroll-area-root-provider`, `scroll-area-viewport`, `scroll-area-content`,
-  `scroll-area-scrollbar`, `scroll-area-thumb` и `scroll-area-corner`.
+| Часть | `data-slot` |
+| --- | --- |
+| `ScrollArea` | `scroll-area-root` |
+| `ScrollAreaRootProvider` | `scroll-area-root-provider` |
+| `ScrollAreaViewport` | `scroll-area-viewport` |
+| `ScrollAreaContent` | `scroll-area-content` |
+| `ScrollAreaScrollbar` | `scroll-area-scrollbar` |
+| `ScrollAreaThumb` | `scroll-area-thumb` |
+| `ScrollAreaCorner` | `scroll-area-corner` |
+
 - Свойство `fade` добавляет `data-fade`, а свойство `variant` добавляет
   `data-variant="hover" | "always"` на `ScrollArea` и `ScrollAreaRootProvider`.
 - Ark добавляет `data-scope="scroll-area"` и `data-part` для каждой части.
@@ -168,3 +138,11 @@ Ark мог измерять их независимо.
   управляют смещением угла и размерами бегунка. Переменные `ScrollAreaViewport`
   `--scroll-area-overflow-x-start`, `--scroll-area-overflow-x-end`,
   `--scroll-area-overflow-y-start` и `--scroll-area-overflow-y-end` показывают расстояние до краёв.
+
+## Справочник API
+
+| Проп | Тип | По умолчанию | Описание |
+| --- | --- | --- | --- |
+| `variant` | `'hover' \| 'always'` | `'hover'` | Видимость полос прокрутки: при наведении (`hover`) или всегда (`always`). |
+| `fade` | `boolean` | `false` | Затемняет края, за которыми есть скрытое содержимое. |
+| `asChild` | `boolean` | `false` | Отрисовывает корень через единственный дочерний элемент. |

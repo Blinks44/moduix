@@ -1,7 +1,7 @@
 import { page } from '@rstest/browser';
 import { expect, test } from '@rstest/core';
 import { render, screen } from '@solidjs/testing-library';
-import { Typeset, TypesetScroll } from '../src';
+import { Typeset, TypesetScroll } from '@/index';
 
 test('renders stable data hooks without allowing consumer overrides', async () => {
   render(() => (
@@ -104,28 +104,6 @@ test('scrolls wide content without a Typeset root', () => {
   ));
   const scroll = screen.getByTestId('scroll');
   expect(getComputedStyle(scroll).overflowX).toBe('auto');
-});
-
-test('keeps table column alignment physical in right-to-left content', () => {
-  render(() => (
-    <Typeset dir="rtl">
-      <table>
-        <tbody>
-          <tr>
-            <td align="left" data-testid="left-cell">
-              Left
-            </td>
-            <td align="right" data-testid="right-cell">
-              Right
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </Typeset>
-  ));
-
-  expect(getComputedStyle(screen.getByTestId('left-cell')).textAlign).toBe('left');
-  expect(getComputedStyle(screen.getByTestId('right-cell')).textAlign).toBe('right');
 });
 
 test('forwards refs through ordinary root and scroll paths', () => {

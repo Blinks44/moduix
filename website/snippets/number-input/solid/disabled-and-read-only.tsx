@@ -1,9 +1,9 @@
 import { NumberInput, NumberInputField, NumberInputLabel } from '@moduix/solid/number-input';
-import styles from '@/components/examples/number-input/number-input-disabled-and-read-only.module.css';
+import { Stack } from '@moduix/solid/stack';
 
 export default function DisabledAndReadOnlyNumberInputDemo() {
   return (
-    <div class={styles.root}>
+    <Stack align="flex-start" gap="0.75rem">
       <NumberInput defaultValue="4" disabled>
         <NumberInputLabel>Disabled quantity</NumberInputLabel>
         <NumberInputField />
@@ -12,6 +12,6 @@ export default function DisabledAndReadOnlyNumberInputDemo() {
         <NumberInputLabel>Read-only quantity</NumberInputLabel>
         <NumberInputField />
       </NumberInput>
-    </div>
+    </Stack>
   );
 }

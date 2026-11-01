@@ -1,4 +1,3 @@
-import { clsx } from 'clsx';
 import { createSignal } from 'solid-js';
 import type { Meta, StoryObj } from 'storybook-solidjs-vite';
 import {
@@ -143,11 +142,8 @@ export const AsChild: Story = {
       ].map(([item, description]) => (
         <SegmentGroupItem
           value={item}
-          asChild={(props) => {
-            const itemProps = props();
-
-            return <label {...itemProps} class={clsx(itemProps.class, cardItemClass)} />;
-          }}
+          class={cardItemClass}
+          asChild={(props) => <label {...props()} />}
         >
           <>
             <SegmentGroupItemText class="font-semibold">{item}</SegmentGroupItemText>

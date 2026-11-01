@@ -3,12 +3,12 @@
   "tasks": {
     "build": {
       "dependsOn": ["^build"],
-      "inputs": ["$TURBO_DEFAULT$", ".env*"],
+      "inputs": ["$TURBO_DEFAULT$", ".env*", "$TURBO_ROOT$/packages/foundation/src/**"],
       "outputs": ["dist/**", "doc_build/**", ".wrangler/deploy/**"]
     },
     "build:dev": {
       "dependsOn": ["^build:dev"],
-      "inputs": ["$TURBO_DEFAULT$", ".env*"],
+      "inputs": ["$TURBO_DEFAULT$", ".env*", "$TURBO_ROOT$/packages/foundation/src/**"],
       "outputs": ["dist/**"]
     },
     "dev": {
@@ -46,6 +46,30 @@
       "inputs": ["$TURBO_DEFAULT$", "$TURBO_ROOT$/packages/foundation/src/**"],
       "outputs": []
     },
+    "@moduix/react-tailwind#test": {
+      "inputs": [
+        "$TURBO_DEFAULT$",
+        "$TURBO_ROOT$/packages/foundation/src/**",
+        "$TURBO_ROOT$/packages/react/tests/**"
+      ],
+      "outputs": []
+    },
+    "@moduix/solid-tailwind#test": {
+      "inputs": [
+        "$TURBO_DEFAULT$",
+        "$TURBO_ROOT$/packages/foundation/src/**",
+        "$TURBO_ROOT$/packages/solid/tests/**"
+      ],
+      "outputs": []
+    },
+    "@moduix/vue-tailwind#test": {
+      "inputs": [
+        "$TURBO_DEFAULT$",
+        "$TURBO_ROOT$/packages/foundation/src/**",
+        "$TURBO_ROOT$/packages/vue/tests/**"
+      ],
+      "outputs": []
+    },
     "tsc:check": {
       "dependsOn": ["^tsc:check"],
       "outputs": []
@@ -54,19 +78,22 @@
       "dependsOn": ["^tsc:check", "build:dev"]
     },
     "@moduix/react-tailwind#tsc:check": {
-      "dependsOn": ["^tsc:check", "build:dev"]
+      "dependsOn": ["^tsc:check", "build:dev"],
+      "inputs": ["$TURBO_DEFAULT$", "$TURBO_ROOT$/packages/react/tests/**"]
     },
     "@moduix/solid#tsc:check": {
       "dependsOn": ["^tsc:check", "build:dev"]
     },
     "@moduix/solid-tailwind#tsc:check": {
-      "dependsOn": ["^tsc:check", "build:dev"]
+      "dependsOn": ["^tsc:check", "build:dev"],
+      "inputs": ["$TURBO_DEFAULT$", "$TURBO_ROOT$/packages/solid/tests/**"]
     },
     "@moduix/vue#tsc:check": {
       "dependsOn": ["^tsc:check", "build:dev"]
     },
     "@moduix/vue-tailwind#tsc:check": {
-      "dependsOn": ["^tsc:check", "build:dev"]
+      "dependsOn": ["^tsc:check", "build:dev"],
+      "inputs": ["$TURBO_DEFAULT$", "$TURBO_ROOT$/packages/vue/tests/**"]
     },
     "moduix-docs#tsc:check": {
       "dependsOn": ["^tsc:check", "^build:dev"],

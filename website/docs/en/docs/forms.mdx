@@ -1,16 +1,13 @@
 ---
 title: Forms
-description: Build accessible forms with Moduix controls, native form behavior, and framework-appropriate state libraries.
+description: Build accessible forms with moduix controls, native form behavior, and framework-appropriate state libraries.
 ---
 
 import { Card, Cards } from '@/components/mdx/Components';
-import NativeForm from '@/components/examples/forms/native-form.tsx';
-import nativeFormSolid from '../../../snippets/forms/solid/native-form.tsx?raw';
-import nativeFormVue from '../../../snippets/forms/vue/native-form.vue?raw';
 
 # Forms
 
-Moduix provides accessible fields, controls, and native form participation. Start with a native
+moduix provides accessible fields, controls, and native form participation. Start with a native
 `<form>` and add a state library only when validation, repeated fields, or submission state requires
 one.
 
@@ -42,7 +39,7 @@ one.
 ## Framework support
 
 Choose a library that ships a native adapter for your framework. The documentation currently covers
-the Moduix adapters that are available today:
+the moduix adapters that are available today:
 
 | Approach        | React | Solid | Vue | Best fit                                      |
 | --------------- | ----- | ----- | ----- | --------------------------------------------- |
@@ -59,7 +56,7 @@ form, Formisch, or TanStack Form instead of adapting a React hook through a comp
 1. Wrap one control in `Field` when it needs a label, helper text, error text, or shared state.
 2. Use `Fieldset` for a related group with one visible legend.
 3. Keep labels visible and give every submitted control a `name`.
-4. Pass `invalid`, `required`, `disabled`, and `readOnly` through the Moduix field or control root.
+4. Pass `invalid`, `required`, `disabled`, and `readOnly` through the moduix field or control root.
 5. Render each required native form part exactly once.
 
 | Component      | Native form part                                                   |
@@ -79,64 +76,24 @@ on the root and does not need an additional hidden part.
 ## Native form
 
 The example combines native inputs with Ark-backed `Select`, `Combobox`, and `Checkbox` controls.
-The browser owns validation and `FormData`; Moduix owns the visible controls and their native form
+The browser handles validation and `FormData`; moduix renders the visible controls and their native form
 parts. The live preview uses React because the documentation application runs React.
 
-<ExampleFrame variant="component">
-  <PreviewFrame maxWidth="sm">
-    <NativeForm />
-  </PreviewFrame>
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/forms/native-form.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={nativeFormSolid} />
-
-    </Tab>
-  <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={nativeFormVue} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/forms/forms-native-form.module.css"
-```
-</div>
-</ExampleCode>
+<Example name="forms/native-form" />
 
 ## Validation and reset
 
 Keep native constraints such as `required`, `minLength`, `pattern`, `min`, and `max` when browser
-validation owns the flow. When a library owns visible errors, add `noValidate`, pass its result to
+validation controls the flow. When a library renders visible errors, add `noValidate`, pass its result to
 `Field invalid`, and render a clear `FieldErrorText` only after the chosen validation lifecycle has
 found a problem.
 
 Native `type="reset"` and `form.reset()` restore uncontrolled controls. For library-controlled
-fields, use the library's reset API so its state and the Moduix values stay synchronized.
+fields, use the library's reset API so its state and the moduix values stay synchronized.
 
 Move invalid-submit focus to the real focusable element: `Input`, `Textarea`, `SelectTrigger`, or
-`ComboboxInput`. The integration guide for each library describes whether focus is automatic or
-application-owned.
+`ComboboxInput`. The integration guide for each library describes whether focus moves automatically or
+your application must move it.
 
 ## Submission and server errors
 

@@ -19,29 +19,75 @@ extra source files, or a missing framework.
 
 ## Section order
 
-1. `API Reference`
-2. `Choosing the right component` - only for close alternatives
-3. `Basic`
-4. `Install with shadcn` - when applicable
-5. `Anatomy`
-6. `Composition` - only when the component has a meaningful choice not already clear from Basic or examples
-7. `Examples`
-8. `Styling` - when the public styling contract is meaningful
+The docs redesign (`Moduix.sketch`, Button page) defines the target order below. `button.mdx` is
+the reference page in every locale. Pages not yet migrated keep the legacy order (`API Reference`,
+`Choosing the right component`, `Basic`, `Install with shadcn`, `Anatomy`, `Composition`,
+`Examples`, `Styling`). Never mix the two orders on one page.
 
-`Basic` is the recommended happy path and must not be repeated without a clear structural reason. Every example heading has a short lead-in. Order feature examples alphabetically; put `Advanced Customization` last when it intentionally bypasses convenience composition.
+Page header, rendered by the theme from frontmatter rather than MDX headings: breadcrumb with the
+gallery category, title, description, links to Source and npm for the selected framework and
+styling, the upstream Ark page from the `ark` frontmatter field (the dedicated component page, or
+the precise Ark guide when no primitive exists), Report issue, and the Copy page menu.
+
+1. Basic preview - `<Example name="<component>/basic" />` right under the header, without a heading
+2. `Installation` - `<ComponentInstall />`; it builds the Package and shadcn CLI tabs from
+   frontmatter and the selected framework and styling
+3. `Usage` - `<Usage />`; the example loader renders the Basic source for the selected framework and
+   styling, so keep Basic minimal and free of demo-only constants. Prop details belong in API reference
+4. `Choosing the right component` - only for close alternatives
+5. `Examples`
+6. `Composition` - only when the component has a meaningful choice not already clear from Basic or examples
+7. `Anatomy` - `<AnatomyInspector parts={[...]}>` with a live scene (the ASCII tree and the separate
+   `Part | Role` table are legacy; `button.mdx` is the reference); it comes before Styling because the
+   styling hooks refer to these parts
+8. `Styling` - `CSS variables` table, then `Styling hooks`: a `Part | data-slot` table that matches
+   the React source (internal elements marked as such), followed by short prose for state attributes
+   and runtime variables. A single-part component may use `Attribute | Present when` instead
+9. `Keyboard` - a `Key | Action` table when the component has keyboard interaction. Skip rows that only
+   repeat browser behavior (`Tab` between controls, `Enter`/`Space` on a native button); a component that
+   renders a native element gets one sentence instead of a table
+10. `API reference` - a `Prop | Type | Default | Description` table; one short sentence per prop, with
+    the accepted values when the type is a named union such as `ButtonVariant`
+
+`Basic` is the recommended happy path and must not be repeated without a clear structural reason. Every example heading has a short lead-in in sentence case (`Form usage`, not `Form Usage`). Order
+feature examples by task, not alphabetically: appearance first (variants, sizes), then common scenarios
+and states (disabled, invalid, field, form), then controlled state and narrower cases, and last
+`Context`, `Root provider`, and `Build from parts`. A `Controlled` or `Root provider` lead-in names only
+what is specific to the component and links the shared guide:
+`/docs/composition-patterns#controlled-state` or `/docs/composition-patterns#root-provider`.
+
+When moduix helpers hide Ark parts (composite helpers such as `SelectField` and `SelectOption`,
+`*CloseIcon`, layout wrappers such as `DialogHeader`, or default indicator icons), end Examples with
+`Build from parts` (`Сборка из частей`, `Assembler à partir des parties`) in
+`<component>/build-from-parts`. It renders the same result as Basic from the explicit parts: composite
+helpers expanded, default icons passed as explicit lucide children with the stroke width moduix uses (`strokeWidth={3}`
+for X, Check, chevrons, Plus, and Minus; 2.5 for Calendar and Pipette), layout wrappers replaced by plain
+elements with classes from the example CSS module. Keep a wrapper whose behavior a plain element
+would lose (the `LightboxBody` animation) and say so in the lead-in. The lead-in names the skipped
+helpers. Components without such helpers have no `Build from parts` section; Dialog and Select are the
+reference. Other examples get headings by what they show (`Custom element` for `asChild` hosts,
+`Root provider`), never `Advanced customization`.
 
 ## Section intent
 
-- **API Reference:** a compact upstream reference. Link the dedicated Ark page when it exists. Otherwise state that no dedicated Ark primitive exists and link the precise guide or factory model; link Chakra only when it materially informs the contract.
+- **Upstream link (header; `API Reference` section in the legacy order):** a compact upstream reference. Link the dedicated Ark page when it exists. Otherwise state that no dedicated Ark primitive exists and link the precise guide or factory model; link Chakra only when it materially informs the contract.
 - **Basic:** render one shared preview, then show native source for every shipped or explicitly staged framework in
   `groupId="framework"` tabs. Keep shared example CSS outside the framework tabs. The framework tabs
   make runtime support visible without prose about the implementation of the documentation preview.
 - **Install with shadcn:** put runtime choices in `groupId="framework"` tabs and list only the CSS
   Modules and Tailwind registry commands that currently ship for that runtime. Keep package-manager
   variants inside `PackageManagerTabs`; link to Quick Start for full registry configuration.
-- **Anatomy:** an ASCII tree plus a `Part | Role` table. Use only flat public value names. The first
-  row is the family-named root, followed by family-prefixed parts such as `AccordionItem` and
-  `AccordionItemTrigger`.
+- **Anatomy:** `<AnatomyInspector parts={[[name, slot, role, depth], ...]}>` with the rendered
+  component as children. Each row is `[name, data-slot or null, role, depth]`; the tree branches are
+  drawn from `depth` (0 for the root), `null` marks a part that renders no element, and an optional
+  `note` names parts left to API reference. Hovering, focusing, or tapping a row outlines its
+  `data-slot` element in the scene. The scene is `import AnatomyScene from
+  '@/components/examples/<component>/basic'`, or a scene-only `anatomy.tsx` next to it when the basic
+  example hides parts: overlays render `open`, `portalled={false}` and `modal={false}` inside a
+  `min-height` wrapper (Dialog is the reference). The scene is `inert`, so it never takes focus. Pass
+  the same `<AnatomyScene />` to `CssPropertiesSection`. Use only flat public value names. The first row is the
+  family-named root, followed by family-prefixed parts such as `AccordionItem` and
+  `AccordionItemTrigger`. Lead in with one sentence that ends with how to use the inspector.
 - **Composition:** add this section only for non-obvious state ownership or part combinations. Write
   it as one concise section by default. Do not add the fixed `Recommended composition`, `When to go
   custom`, `Default props`, or `Behavioral notes` template. When migrating a page that still uses
@@ -88,7 +134,12 @@ Popup-like components teach the explicit part tree. Do not add `Portal` to examp
 ## CSS properties
 
 Render `<CssPropertiesSection properties={...} />` with the array exported from the component's
-`css-properties.tsx`; do not add per-component panels or wrap the table in tabs. The table covers the
+`css-properties.tsx`; do not add per-component panels or wrap the table in tabs. Pass the rendered
+component as children to add the inspector scene: a hovered variable outlines the part that uses it
+(the first `data-slot` element, or the optional fourth tuple field `part`) and measures paddings,
+widths, and heights. The table groups variables by name (Color, Size and spacing, Typography, Shape),
+resolves token values in the scene, and reads `per variant` / `per size` from descriptions that say
+"Each `variant`" or "Each `size`" sets its own default. The table covers the
 complete public variable contract rather than an abbreviated prose list. Every entry has a
 description, and the default is a real value: when variants or sizes set their own value, list the
 default recipe's value and say so in the description.

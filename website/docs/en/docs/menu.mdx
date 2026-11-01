@@ -1,23 +1,22 @@
 ---
 title: Menu
 component: menu
-description: A trigger-based menu for actions, links, selectable options, nested commands, and context menus.
+description: Open a list of actions or options from a button or a right click.
+ark: https://ark-ui.com/docs/components/menu
 ---
 
+import AnatomyScene from '@/components/examples/menu/anatomy';
 import * as MenuDocs from '@/components/examples/menu/css-properties';
 
-## API Reference
+<Example name="menu/basic" />
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/menu" />
+## Installation
 
-## Choosing the right component
+<ComponentInstall />
 
-Use `Menu` for contextual actions in a transient popup, such as commands, links, or a context
-menu. Use `NavigationMenu` for persistent site or product navigation, and `Dialog` for workflows
-that need the user's full attention.
+## Usage
 
-## Basic
-
+<Usage />
 
 Use `Menu` as the root and give every `MenuItem` a stable `value`. Keep `MenuPositioner` and
 `MenuContent` explicit, then place items, groups, separators, or nested menus inside the content.
@@ -26,100 +25,129 @@ Use `Menu` as the root and give every `MenuItem` a stable `value`. Keep `MenuPos
 Do not set a custom `id` on `MenuItem`: Ark identifies items by `value`, and an extra `id` breaks
 its item lookup, typeahead, and focus management.
 
-<Example name="menu/basic" />
+## Choosing the right component
 
-## Install with shadcn
+Use `Menu` for contextual actions in a transient popup, such as commands, links, or a context
+menu. Use `NavigationMenu` for persistent site or product navigation, and `Dialog` for workflows
+that need the user's full attention.
 
-See [Quick Start](/docs/quick-start) for full package setup, registry configuration, and styling guidance.
+## Examples
 
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
+### Grouping
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/menu' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/menu' },
-  ]}
-/>
+Use `MenuItemGroup` and `MenuItemGroupLabel` to organize related items, and `MenuSeparator` to
+separate groups.
 
-  </Tab>
-  <Tab label="Solid" value="solid">
+<Example name="menu/grouping" />
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/menu' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/menu' },
-  ]}
-/>
+### Checkbox items
 
-  </Tab>
-  <Tab label="Vue" value="vue">
+Use checkbox items for independent boolean options. Set `closeOnSelect={false}` when users should
+change several options before closing the menu.
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/menu' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/menu' },
-  ]}
-/>
+<Example name="menu/checkbox-items" />
 
-  </Tab>
-</Tabs>
+### Radio items
 
-## Anatomy
+Use `MenuRadioItemGroup` when users must choose one value from a set of options. Set
+`closeOnSelect={false}` if the menu should stay open while they change the selection.
 
-```text
-Menu
-├─ MenuTrigger
-│  └─ MenuIndicator
-├─ MenuContextTrigger
-└─ Overlay subtree (automatically portalled)
-   └─ MenuPositioner
-      └─ MenuContent
-         ├─ MenuArrow
-         │  └─ MenuArrowTip
-         └─ MenuViewport
-            ├─ MenuItem
-            │  ├─ MenuItemText
-            │  │  ├─ MenuItemTextIcon
-            │  │  └─ MenuItemTextLabel
-            │  └─ MenuItemShortcut
-            ├─ MenuCheckboxItem
-            │  └─ MenuItemIndicator
-            ├─ MenuRadioItemGroup
-            │  └─ MenuRadioItem
-            ├─ MenuItemGroup
-            │  └─ MenuItemGroupLabel
-            ├─ MenuSeparator
-            └─ Menu
-               └─ MenuTriggerItem
-                  └─ MenuTriggerItemIcon
-```
+<Example name="menu/radio-items" />
 
-| Part | Role |
-| --- | --- |
-| `Menu` | Root that manages open state, positioning, typeahead, focus, and dismissal. |
-| `MenuRootProvider` | Connects a menu to a state instance created with `useMenu`. |
-| `MenuTrigger` | Button that opens the menu. It has no styles of its own; use `asChild` with `Button` or another semantic element. |
-| `MenuIndicator` | State-aware trigger indicator, usually rendered as a chevron. |
-| `MenuContextTrigger` | Unstyled area that opens the menu on right-click and long press. |
-| `MenuPositioner` | Positions the floating menu layer. |
-| `MenuContent` | Popup surface with the menu role and its item collection. |
-| `MenuViewport` | Explicit scroll container around the item collection. |
-| `MenuArrow` / `MenuArrowTip` | Optional visual anchor for the popup. |
-| `MenuItem` | Standard command item. |
-| `MenuCheckboxItem` | Item with an independent boolean state. |
-| `MenuRadioItemGroup` / `MenuRadioItem` | Group and items for choosing one value. |
-| `MenuItemIndicator` | Selection indicator for checkbox and radio items. |
-| `MenuItemText` and text helpers | Helpers for composing item text with icons and labels. |
-| `MenuItemShortcut` | Wrapper for a keyboard shortcut or other trailing hint. |
-| `MenuItemGroup` / `MenuItemGroupLabel` | Group and label for related items. |
-| `MenuSeparator` | Divider between groups of items. |
-| `MenuTriggerItem` / `MenuTriggerItemIcon` | Item and icon for opening a nested menu. |
-| `MenuItemContext` | Provides item state to content rendered inside an item. |
+### Indicator placement
+
+Set `indicator="start"`, `"end"`, or `"none"` on checkbox and radio items to choose the indicator
+position.
+
+<Example name="menu/indicator-placement" />
+
+### Links
+
+Use `MenuItem asChild` and make the anchor the item itself. This lets the link receive the menu
+item's ARIA attributes, keyboard behavior, and focus handling.
+
+<Example name="menu/links" />
+
+### Nested
+
+Render a child `Menu` inside the parent content and open it with `MenuTriggerItem`.
+
+<Example name="menu/nested" />
+
+### With arrow
+
+Add `MenuArrow` and `MenuArrowTip` directly inside `MenuContent` when the popup needs a visual
+connection to its trigger.
+
+<Example name="menu/with-arrow" />
+
+### Context menu
+
+Use `MenuContextTrigger` when actions should appear after a right-click. On touch and pen input, a
+long press opens the menu as well.
+
+<Example name="menu/context-menu" />
+
+### Multiple triggers
+
+Share one menu across several triggers by giving each `MenuTrigger` a distinct `value`. The menu
+repositions itself relative to the trigger that opened it.
+
+<Example name="menu/multiple-triggers" />
+
+### Menu in Dialog
+
+Set `portalled={false}` to keep the popup inside a dialog or scroll container. When the container can
+scroll, use fixed positioning with `hideWhenDetached` so the menu is hidden after it leaves the
+visible area.
+
+<Example name="menu/menu-in-dialog" />
+
+### Select event
+
+Use `onSelect(details)` on the root when one handler should respond to every item selection. Read the
+selected item's `value` from `details.value`.
+
+<Example name="menu/select-event" />
+
+### Controlled
+
+Control `open` with framework state when another control needs to open or close the menu. See [Control state from the application](/docs/composition-patterns#controlled-state).
+
+<Example name="menu/controlled" />
+
+### Item context
+
+Use `MenuItemContext` when the content of an item needs to react to its state, such as whether it is
+highlighted.
+
+<Example name="menu/item-context" />
+
+### Lazy mounted context menu
+
+By default, context-menu content mounts on first open and unmounts after the exit animation. Set
+`unmountOnExit={false}` when the subtree must remain mounted after the menu closes.
+
+<Example name="menu/lazy-mounted-context-menu" />
+
+### Root provider
+
+Use `useMenu` and `MenuRootProvider` when code outside the rendered tree needs to read or update
+the menu state. See [Share state outside the tree](/docs/composition-patterns#root-provider).
+
+<Example name="menu/root-provider" />
+
+### Build from parts
+
+The same menu as Basic with the trigger chevron written out: `MenuIndicator` renders a default icon
+only when it has no children. `MenuItemIndicator` and `MenuTriggerItemIcon` take an icon the same way.
+Start here when a design replaces the menu icons.
+
+<Example name="menu/build-from-parts" />
 
 ## Composition
 
-Use `defaultOpen` for an uncontrolled menu. When another part of the application owns the open or
+Use `defaultOpen` for an uncontrolled menu. When another part of the application controls the open or
 highlighted state, pass `open` or `highlightedValue` with the matching change handler. Use
 `useMenu()` with `MenuRootProvider` when the state store must be created outside the rendered tree;
 do not render a second `Menu` root for the same store.
@@ -135,118 +163,35 @@ A `MenuContent` must contain `MenuViewport` around its scrollable items. Keep an
 A nested menu is another `Menu` root inside the parent content, paired with its own `TriggerItem`,
 `Positioner`, and `Content`.
 
-## Examples
+## Anatomy
 
-### Checkbox Items
+Hover or focus a part to find it in the preview.
 
-Use checkbox items for independent boolean options. Set `closeOnSelect={false}` when users should
-change several options before closing the menu.
-
-<Example name="menu/checkbox-items" />
-
-### Context Menu
-
-Use `MenuContextTrigger` when actions should appear after a right-click. On touch and pen input, a
-long press opens the menu as well.
-
-<Example name="menu/context-menu" />
-
-### Controlled
-
-Control `open` with framework state when another control needs to open or close the menu.
-
-<Example name="menu/controlled" />
-
-### Grouping
-
-Use `MenuItemGroup` and `MenuItemGroupLabel` to organize related items, and `MenuSeparator` to
-separate groups.
-
-<Example name="menu/grouping" />
-
-### Indicator Placement
-
-Set `indicator="start"`, `"end"`, or `"none"` on checkbox and radio items to choose the indicator
-position.
-
-<Example name="menu/indicator-placement" />
-
-### Item Context
-
-Use `MenuItemContext` when the content of an item needs to react to its state, such as whether it is
-highlighted.
-
-<Example name="menu/item-context" />
-
-### Lazy Mounted Context Menu
-
-By default, context-menu content mounts on first open and unmounts after the exit animation. Set
-`unmountOnExit={false}` when the subtree must remain mounted after the menu closes.
-
-<Example name="menu/lazy-mounted-context-menu" />
-
-### Links
-
-Use `MenuItem asChild` and make the anchor the item itself. This lets the link receive the menu
-item's ARIA attributes, keyboard behavior, and focus handling.
-
-<Example name="menu/links" />
-
-### Menu in Dialog
-
-Set `portalled={false}` to keep the popup inside a dialog or scroll container. When the container can
-scroll, use fixed positioning with `hideWhenDetached` so the menu is hidden after it leaves the
-visible area.
-
-<Example name="menu/menu-in-dialog" />
-
-### Multiple Triggers
-
-Share one menu across several triggers by giving each `MenuTrigger` a distinct `value`. The menu
-repositions itself relative to the trigger that opened it.
-
-<Example name="menu/multiple-triggers" />
-
-### Nested
-
-Render a child `Menu` inside the parent content and open it with `MenuTriggerItem`.
-
-<Example name="menu/nested" />
-
-### Radio Items
-
-Use `MenuRadioItemGroup` when users must choose one value from a set of options. Set
-`closeOnSelect={false}` if the menu should stay open while they change the selection.
-
-<Example name="menu/radio-items" />
-
-### Root Provider
-
-Use `useMenu` and `MenuRootProvider` when code outside the rendered tree needs to read or update
-the menu state.
-
-<Example name="menu/root-provider" />
-
-### Select Event
-
-Use `onSelect(details)` on the root when one handler should respond to every item selection. Read the
-selected item's `value` from `details.value`.
-
-<Example name="menu/select-event" />
-
-### With Arrow
-
-Add `MenuArrow` and `MenuArrowTip` directly inside `MenuContent` when the popup needs a visual
-connection to its trigger.
-
-<Example name="menu/with-arrow" />
-
-### Advanced Customization
-
-Use the helper components for common item layouts, then compose the Ark parts directly when an item
-or link needs a custom structure.
-
-<Example name="menu/advanced-customization" />
+<AnatomyInspector
+  parts={[
+    ["Menu", null, "Root that manages open state, positioning, typeahead, focus, and dismissal.", 0],
+    ["MenuTrigger", "menu-trigger", "Button that opens the menu. It has no styles of its own; use `asChild` with `Button` or another semantic element.", 1],
+    ["MenuIndicator", "menu-indicator", "State-aware trigger indicator, usually rendered as a chevron.", 2],
+    ["MenuContextTrigger", "menu-context-trigger", "Unstyled area that opens the menu on right-click and long press.", 1],
+    ["MenuPositioner", "menu-positioner", "Positions the floating menu layer.", 1],
+    ["MenuContent", "menu-content", "Popup surface with the menu role and its item collection.", 2],
+    ["MenuArrow / MenuArrowTip", "menu-arrow", "Optional visual anchor for the popup.", 3],
+    ["MenuViewport", "menu-viewport", "Explicit scroll container around the item collection.", 3],
+    ["MenuItemGroup / MenuItemGroupLabel", "menu-item-group", "Group and label for related items.", 4],
+    ["MenuItem", "menu-item", "Standard command item.", 5],
+    ["MenuItemText and text helpers", "menu-item-text", "Helpers for composing item text with icons and labels.", 6],
+    ["MenuItemShortcut", "menu-item-shortcut", "Wrapper for a keyboard shortcut or other trailing hint.", 6],
+    ["MenuCheckboxItem", "menu-checkbox-item", "Item with an independent boolean state.", 5],
+    ["MenuItemIndicator", "menu-item-indicator", "Selection indicator for checkbox and radio items.", 6],
+    ["MenuSeparator", "menu-separator", "Divider between groups of items.", 4],
+    ["MenuRadioItemGroup / MenuRadioItem", "menu-radio-item-group", "Group and items for choosing one value.", 4],
+    ["MenuTriggerItem / MenuTriggerItemIcon", "menu-trigger-item", "Item and icon for opening a nested menu.", 4],
+    ["MenuRootProvider", null, "Connects a menu to a state instance created with `useMenu`.", 0],
+    ["MenuItemContext", null, "Provides item state to content rendered inside an item.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styling
 
@@ -259,23 +204,80 @@ variables. `MenuTrigger` and `MenuContextTrigger` are unstyled, so compose the t
 `asChild` and `Button`, or style the context area yourself. Data attributes and `data-slot` hooks
 are shared by both styling tracks.
 
-### CSS Properties
+### CSS variables
 
-<CssPropertiesSection properties={MenuDocs.menuOverrideCssProperties} />
+Hover or focus a variable to see it in the preview.
+
+<CssPropertiesSection properties={MenuDocs.menuOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Styling hooks
+
+| Part | `data-slot` |
+| --- | --- |
+| `MenuTrigger` | `menu-trigger` |
+| `MenuIndicator` | `menu-indicator` |
+| `MenuContextTrigger` | `menu-context-trigger` |
+| `MenuPositioner` | `menu-positioner` |
+| `MenuContent` | `menu-content` |
+| `MenuViewport` | `menu-viewport` |
+| `MenuArrow` | `menu-arrow` |
+| `MenuArrowTip` | `menu-arrow-tip` |
+| `MenuItem` | `menu-item` |
+| `MenuTriggerItem` | `menu-trigger-item` |
+| `MenuTriggerItemIcon` | `menu-trigger-item-icon` |
+| `MenuSeparator` | `menu-separator` |
+| `MenuItemGroup` | `menu-item-group` |
+| `MenuItemGroupLabel` | `menu-item-group-label` |
+| `MenuRadioItemGroup` | `menu-radio-item-group` |
+| `MenuRadioItem` | `menu-radio-item` |
+| `MenuCheckboxItem` | `menu-checkbox-item` |
+| `MenuItemIndicator` | `menu-item-indicator` |
+| `MenuItemText` | `menu-item-text` |
+| `MenuItemShortcut` | `menu-item-shortcut` |
 
 - Ark attributes: `[data-scope='menu']`, `[data-part='trigger']`, `[data-part='indicator']`,
   `[data-part='content']`, `[data-part='viewport']`, `[data-part='item']`, `[data-type='checkbox' | 'radio']`,
   `[data-state='open' | 'closed' | 'checked' | 'unchecked']`, `[data-current]`, `[data-highlighted]`,
   `[data-disabled]`, `[data-placement]`, and `[data-side]`.
-- Moduix attributes: `[data-slot='menu-trigger']`, `[data-slot='menu-indicator']`, `[data-slot='menu-context-trigger']`, `[data-slot='menu-positioner']`,
-  `[data-slot='menu-content']`, `[data-slot='menu-viewport']`, `[data-slot='menu-arrow']`, `[data-slot='menu-arrow-tip']`,
-  `[data-slot='menu-item']`, `[data-slot='menu-trigger-item']`, `[data-slot='menu-trigger-item-icon']`,
-  `[data-slot='menu-separator']`, `[data-slot='menu-item-group']`, `[data-slot='menu-item-group-label']`,
-  `[data-slot='menu-radio-item-group']`, `[data-slot='menu-radio-item']`, `[data-slot='menu-checkbox-item']`,
-  `[data-slot='menu-item-indicator']`, `[data-slot='menu-item-text']`, `[data-slot='menu-item-text-content']`,
-  `[data-slot='menu-item-text-icon']`, `[data-slot='menu-item-text-label']`, `[data-slot='menu-item-shortcut']`,
-  and `[data-indicator-position='start' | 'end' | 'none']`.
+- `MenuCheckboxItem` and `MenuRadioItem` carry `[data-indicator-position='start' | 'end' | 'none']`.
 - Positioning variables: `--reference-width`, `--available-width`, `--available-height`,
   `--transform-origin`, `--layer-index`, `--arrow-size`, and `--arrow-background`.
+
+## Keyboard
+
+| Key | Action |
+| --- | --- |
+| `Enter` / `Space` | Opens the menu from the trigger or selects the highlighted item. |
+| `ArrowDown` / `ArrowUp` | Moves the highlight to the next or previous item. |
+| `ArrowRight` / `ArrowLeft` | Opens or closes a nested menu. |
+| `Home` / `End` | Highlights the first or last item. |
+| `Esc` | Closes the menu and returns focus to the trigger. |
+| Letters | Highlights the next item that starts with the typed text. |
+
+## API reference
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `open` | `boolean` | — | Open state for controlled use. |
+| `defaultOpen` | `boolean` | `false` | Initial open state when it is not controlled. |
+| `onOpenChange` | `(details: OpenChangeDetails) => void` | — | Called when it opens or closes. |
+| `onSelect` | `(details: SelectionDetails) => void` | — | Called with the `value` of the selected item. |
+| `closeOnSelect` | `boolean` | `true` | Closes the menu after an item is selected. |
+| `positioning` | `PositioningOptions` | — | Placement, offset, and other popup positioning options. |
+| `loopFocus` | `boolean` | `false` | Keyboard navigation wraps from the last item to the first. |
+| `typeahead` | `boolean` | `true` | Typing letters highlights a matching item. |
+| `highlightedValue` | `string \| null` | — | Highlighted item for controlled use. |
+| `onHighlightChange` | `(details: HighlightChangeDetails) => void` | — | Called when the highlighted item changes. |
+| `lazyMount` | `boolean` | `true` | Mounts the content on first open. |
+| `unmountOnExit` | `boolean` | `true` | Unmounts the content after it closes. |
+| `portalled` | `boolean` | `true` | Renders the popup in a portal at the end of `body`. |
+| `defaultHighlightedValue` | `string \| null` | — | Item highlighted initially. |
+| `anchorPoint` | `Point \| null` | — | Opens the menu at a point, for context menus. |
+| `aria-label` | `string` | — | Accessible name of the menu. |
+| `composite` | `boolean` | `true` | Set to `false` when it sits inside another composite widget, such as tabs. |
+| `navigate` | `((details: NavigateDetails) => void) \| null` | — | Navigates to a link item selected with the keyboard. |
+| `triggerValue` | `string \| null` | — | Active trigger for controlled use when several triggers share one menu. |
+| `defaultTriggerValue` | `string \| null` | — | Initially active trigger. |
+| `onTriggerValueChange` | `(details: TriggerValueChangeDetails) => void` | — | Called when another trigger opens the menu. |

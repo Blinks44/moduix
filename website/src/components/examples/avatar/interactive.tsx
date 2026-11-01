@@ -1,0 +1,16 @@
+import { Avatar, AvatarFallback, AvatarImage } from '@moduix/react/avatar';
+import styles from '@/components/examples/avatar/avatar-interactive.module.css';
+
+const avatarImage =
+  'https://images.unsplash.com/photo-1543610892-0b1f7e6d8ac1?w=128&h=128&dpr=2&q=80';
+
+export default function InteractiveAvatarDemo() {
+  return (
+    <Avatar asChild size="xl" className={styles.root}>
+      <a href="mailto:alex@example.com" aria-label="Email Alex T.">
+        <AvatarFallback className={styles.fallback}>AT</AvatarFallback>
+        <AvatarImage className={styles.image} src={avatarImage} alt="" />
+      </a>
+    </Avatar>
+  );
+}

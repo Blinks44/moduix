@@ -7,7 +7,7 @@ import { scaleBand } from '@tanstack/charts/scales/band';
 import { scaleLinear } from '@tanstack/charts/scales/linear';
 import { render } from '@testing-library/react';
 import { useMemo, useState } from 'react';
-import { ChartPlot } from '../src';
+import { ChartPlot } from '@/index';
 
 const rows = [
   { month: 'Jan', series: 'Revenue', value: 42 },

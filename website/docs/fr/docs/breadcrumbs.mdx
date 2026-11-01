@@ -1,22 +1,22 @@
 ---
 title: Breadcrumbs
 component: breadcrumbs
-description: Navigation sémantique en fil d’Ariane pour React, Solid et Vue, avec une composition explicite et une API compacte pour les chemins courts.
+description: Montrer la place d’une page dans le site avec des liens vers le haut.
+ark: https://ark-ui.com/docs/guides/composition#the-ark-factory
 ---
 
+import AnatomyScene from '@/components/examples/breadcrumbs/basic';
 import * as BreadcrumbsDocs from '@/components/examples/breadcrumbs/css-properties';
 
+<Example name="breadcrumbs/basic" />
 
-## Référence de l’API
+## Installation
 
-Ark UI ne fournit pas de primitive dédiée au fil d’Ariane. moduix s’appuie sur la
-[Ark factory](https://ark-ui.com/docs/guides/composition#the-ark-factory) officielle et suit les recommandations d’Ark
-en matière de [composition](https://ark-ui.com/docs/guides/composition), de [styles](https://ark-ui.com/docs/guides/styling)
-et de gestion des [ref](https://ark-ui.com/docs/guides/ref).
+<ComponentInstall />
 
+## Utilisation
 
-Les mêmes exports sont disponibles depuis `@moduix/solid/breadcrumbs` pour Solid et `@moduix/vue/breadcrumbs` pour Vue.
-## Exemple de base
+<Usage />
 
 Utilisez `BreadcrumbsPath` lorsque vous disposez déjà des segments du chemin à afficher. Le composant génère la liste
 ordonnée, les éléments, les liens, la page actuelle et les séparateurs à partir des props requises `links` et `page`.
@@ -25,87 +25,7 @@ React, Solid et Vue utilisent les mêmes noms de valeurs à plat. Importez `Brea
 partie additionnelle directement, comme `BreadcrumbsPath` et `BreadcrumbsLink`. Les mêmes noms fonctionnent avec les
 paquets npm et la source du registre shadcn.
 
-
-<Example name="breadcrumbs/basic" />
-
-## Installation avec shadcn
-
-Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration complète du paquet, du registre et des styles.
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/breadcrumbs' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/breadcrumbs' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/breadcrumbs' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/breadcrumbs' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/breadcrumbs' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/breadcrumbs' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Anatomie
-
-```text
-Breadcrumbs
-└─ BreadcrumbsList
-   ├─ BreadcrumbsItem
-   │  └─ BreadcrumbsLink
-   ├─ BreadcrumbsSeparator
-   └─ BreadcrumbsItem
-      └─ BreadcrumbsPage
-```
-
-| Partie                | Rôle                                                               |
-| --------------------- | ------------------------------------------------------------------ |
-| `Breadcrumbs`         | Zone de navigation avec un `aria-label` par défaut.               |
-| `BreadcrumbsList`     | Liste ordonnée des segments du fil d’Ariane.                       |
-| `BreadcrumbsItem`     | Élément de liste qui contient un segment.                          |
-| `BreadcrumbsLink`     | Ancre stylisée pour les segments navigables ; prend en charge `asChild`. |
-| `BreadcrumbsPage`     | Texte de la page actuelle avec `aria-current="page"`.             |
-| `BreadcrumbsSeparator`| Séparateur visuel, sans rôle sémantique, masqué pour les technologies d’assistance. |
-| `BreadcrumbsEllipsis` | Marqueur compact pour un déclencheur de menu qui révèle les segments masqués. |
-
-`BreadcrumbsPath` est un raccourci fourni par moduix. Il génère `BreadcrumbsList`, `BreadcrumbsItem`, `BreadcrumbsLink`,
-`BreadcrumbsPage` et `BreadcrumbsSeparator` à partir des props `links` et `page`.
-
-## Composition
-
-`Breadcrumbs` ne gère aucun état interactif ni état de formulaire : il n’a donc ni propriétés contrôlées, ni callbacks, ni hooks de contexte, ni `RootProvider`. L’état d’un chemin condensé appartient au `Menu` composé, tandis que la navigation du routeur reste gérée par le composant de lien de l’application.
-
-Utilisez `BreadcrumbsPath` pour un chemin fondé sur des ancres. Il génère les éléments de liste, rend chaque entrée de `links` sous forme d’ancre, rend `page` comme page courante et n’accepte ni `children` ni `asChild`. Utilisez les parties explicites lorsqu’un chemin doit intégrer des liens du routeur, masquer des segments intermédiaires ou produire un balisage différent. Pour un lien de routeur, passez un seul enfant sémantique à `BreadcrumbsLink asChild` afin de conserver le `href`, le focus et le comportement clavier attendus.
-
-Pour un chemin condensé, placez `BreadcrumbsEllipsis` dans `MenuTrigger`, puis laissez explicites les parties `Positioner`, `Content` et `Item asChild` du menu. `BreadcrumbsEllipsis` est purement visuel ; le trigger porte le libellé accessible et l’interaction. Un `button` natif qui enveloppe directement `BreadcrumbsEllipsis` reçoit les styles de déclencheur (réinitialisation, curseur pointeur, couleur au survol et anneau de focus) et n’a donc pas besoin de styles propres.
 ## Exemples
-
-### Fil d’Ariane condensé
-
-Utilisez les parties explicites de Breadcrumbs avec `Menu` lorsque des segments intermédiaires doivent être masqués puis
-révélés à la demande. Le déclencheur et le contenu du menu gèrent l’interaction ; cet exemple utilise donc les parties
-explicites plutôt que `BreadcrumbsPath`.
-
-<Example name="breadcrumbs/collapsed-path" />
 
 ### Séparateur personnalisé
 
@@ -120,6 +40,14 @@ Utilisez `asChild` d’Ark pour intégrer un lien fourni par le routeur du frame
 
 <Example name="breadcrumbs/framework-link" />
 
+### Fil d’Ariane condensé
+
+Utilisez les parties explicites de Breadcrumbs avec `Menu` lorsque des segments intermédiaires doivent être masqués puis
+révélés à la demande. Le déclencheur et le contenu du menu gèrent l’interaction ; cet exemple utilise donc les parties
+explicites plutôt que `BreadcrumbsPath`.
+
+<Example name="breadcrumbs/collapsed-path" />
+
 ### Libellé long de la page actuelle
 
 Passez un nœud via la prop `page` lorsque la page actuelle nécessite des attributs supplémentaires, par exemple
@@ -128,26 +56,71 @@ risquent donc moins de faire déborder le fil d’Ariane.
 
 <Example name="breadcrumbs/long-current-label" />
 
-### Personnalisation avancée
+### Assembler à partir des parties
 
-Utilisez les parties explicites plutôt que `BreadcrumbsPath` lorsqu’un même fil combine des liens fournis par le routeur du
-framework, un séparateur personnalisé et un libellé de page actuelle enrichi par du balisage.
+Le même fil que Basic, sans `BreadcrumbsPath` : `BreadcrumbsList` contient un `BreadcrumbsItem` par
+lien, un `BreadcrumbsSeparator` avec une icône explicite entre eux et `BreadcrumbsPage` pour la page
+actuelle. Partez de cet exemple quand les éléments ont besoin de liens de routeur, de balisage
+supplémentaire ou de séparateurs différents.
 
-<Example name="breadcrumbs/advanced-customization" />
+<Example name="breadcrumbs/build-from-parts" />
+
+## Composition
+
+Les mêmes exports sont disponibles depuis `@moduix/solid/breadcrumbs` pour Solid et `@moduix/vue/breadcrumbs` pour Vue.
+
+`Breadcrumbs` ne gère aucun état interactif ni état de formulaire : il n’a donc ni propriétés contrôlées, ni callbacks, ni hooks de contexte, ni `RootProvider`. L’état d’un chemin condensé appartient au `Menu` composé, tandis que la navigation du routeur reste gérée par le composant de lien de l’application.
+
+Utilisez `BreadcrumbsPath` pour un chemin fondé sur des ancres. Il génère les éléments de liste, rend chaque entrée de `links` sous forme d’ancre, rend `page` comme page courante et n’accepte ni `children` ni `asChild`. Utilisez les parties explicites lorsqu’un chemin doit intégrer des liens du routeur, masquer des segments intermédiaires ou produire un balisage différent. Pour un lien de routeur, passez un seul enfant sémantique à `BreadcrumbsLink asChild` afin de conserver le `href`, le focus et le comportement clavier attendus.
+
+Pour un chemin condensé, placez `BreadcrumbsEllipsis` dans `MenuTrigger`, puis laissez explicites les parties `Positioner`, `Content` et `Item asChild` du menu. `BreadcrumbsEllipsis` est purement visuel ; le trigger porte le libellé accessible et l’interaction. Un `button` natif qui enveloppe directement `BreadcrumbsEllipsis` reçoit les styles de déclencheur (réinitialisation, curseur pointeur, couleur au survol et anneau de focus) et n’a donc pas besoin de styles propres.
+
+## Anatomie
+
+Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
+
+<AnatomyInspector
+  parts={[
+    ["Breadcrumbs", "breadcrumbs-root", "Zone de navigation avec un `aria-label` par défaut.", 0],
+    ["BreadcrumbsList", "breadcrumbs-list", "Liste ordonnée des segments du fil d’Ariane.", 1],
+    ["BreadcrumbsItem", "breadcrumbs-item", "Élément de liste qui contient un segment.", 2],
+    ["BreadcrumbsLink", "breadcrumbs-link", "Ancre stylisée pour les segments navigables ; prend en charge `asChild`.", 3],
+    ["BreadcrumbsSeparator", "breadcrumbs-separator", "Séparateur visuel, sans rôle sémantique, masqué pour les technologies d’assistance.", 2],
+    ["BreadcrumbsPage", "breadcrumbs-page", "Texte de la page actuelle avec `aria-current=\"page\"`.", 2],
+    ["BreadcrumbsEllipsis", "breadcrumbs-ellipsis", "Marqueur compact pour un déclencheur de menu qui révèle les segments masqués.", 1],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
+
+`BreadcrumbsPath` est un raccourci fourni par moduix. Il génère `BreadcrumbsList`, `BreadcrumbsItem`, `BreadcrumbsLink`,
+`BreadcrumbsPage` et `BreadcrumbsSeparator` à partir des props `links` et `page`.
 
 ## Styles
 
 Chaque partie exportée expose un sélecteur `data-slot` stable de moduix. Les variables publiques `--moduix-breadcrumbs-*` contrôlent la mise en page, la typographie,
 l’anneau de focus, les séparateurs et la taille des points de suspension.
 
-### Propriétés CSS
+### Variables CSS
 
-<CssPropertiesSection properties={BreadcrumbsDocs.breadcrumbsCssProperties} />
+Survolez ou sélectionnez une variable pour la voir dans l’aperçu.
 
-### Sélecteurs de style
+<CssPropertiesSection properties={BreadcrumbsDocs.breadcrumbsCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
-- Les valeurs `data-slot="breadcrumbs-root"`, `breadcrumbs-list`, `breadcrumbs-item`, `breadcrumbs-link`, `breadcrumbs-page`,
-  `breadcrumbs-separator` et `breadcrumbs-ellipsis` constituent des sélecteurs moduix stables.
+### Points d’accroche CSS
+
+| Partie | `data-slot` |
+| --- | --- |
+| `Breadcrumbs` | `breadcrumbs-root` |
+| `BreadcrumbsList` | `breadcrumbs-list` |
+| `BreadcrumbsItem` | `breadcrumbs-item` |
+| `BreadcrumbsLink` | `breadcrumbs-link` |
+| `BreadcrumbsPage` | `breadcrumbs-page` |
+| `BreadcrumbsSeparator` | `breadcrumbs-separator` |
+| `BreadcrumbsEllipsis` | `breadcrumbs-ellipsis` |
+
 - `BreadcrumbsLink`, `BreadcrumbsPage` et `BreadcrumbsEllipsis` partagent l’espacement intérieur horizontal défini par
   `--moduix-breadcrumbs-item-padding-x`.
 - Les éléments visibles de `BreadcrumbsItem` peuvent rétrécir pour que le fil d’Ariane tienne sur une ligne. Le dernier
@@ -155,3 +128,13 @@ l’anneau de focus, les séparateurs et la taille des points de suspension.
 - Les liens, les séparateurs et l’ellipse héritent de la couleur du texte de la racine. Définissez `color` sur
   `Breadcrumbs` (ou `--moduix-breadcrumbs-color` dans les variantes CSS Modules) pour recolorer tout le fil d’Ariane ;
   la page courante conserve sa propre couleur.
+
+## Référence de l’API
+
+Props de `BreadcrumbsPath`. Les parties explicites acceptent les props natives de leurs éléments.
+
+| Prop | Type | Défaut | Description |
+| --- | --- | --- | --- |
+| `links` | `readonly { href: string; label: ReactNode }[]` | — | Pages parentes pour `BreadcrumbsPath`, chacune avec `href` et `label`. |
+| `page` | `ReactNode` | — | Libellé de la page courante, affiché en dernier. |
+| `separator` | `ReactNode` | chevron | Contenu entre les éléments. |

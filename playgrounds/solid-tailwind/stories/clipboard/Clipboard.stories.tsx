@@ -1,5 +1,6 @@
 import { createSignal } from 'solid-js';
 import type { Meta, StoryObj } from 'storybook-solidjs-vite';
+import { Button } from '@/components/button';
 import {
   Clipboard,
   ClipboardContext,
@@ -12,7 +13,7 @@ import {
   ClipboardValueText,
   useClipboard,
 } from '@/components/clipboard/Clipboard';
-import { cn } from '@/lib/moduix/cn';
+import { Input } from '@/components/input';
 
 const meta = {
   title: 'Components/Clipboard',
@@ -179,35 +180,16 @@ export const Disabled: Story = {
 export const AsChildBridge: Story = {
   render: () => (
     <Clipboard class={demoClass} defaultValue="https://moduix.dev/docs/clipboard">
-      <ClipboardLabel>Native elements through asChild</ClipboardLabel>
+      <ClipboardLabel>Use moduix Input and Button</ClipboardLabel>
       <ClipboardControl>
-        <ClipboardInput
-          asChild={(props) => {
-            const childProps = props();
-
-            return (
-              <input
-                {...childProps}
-                class={cn(
-                  childProps.class,
-                  'min-h-control-md min-w-0 flex-1 rounded-md border border-border bg-background px-3.5 py-1 text-md text-foreground',
-                )}
-                readOnly
-              />
-            );
-          }}
-        />
+        <ClipboardInput asChild={(props) => <Input {...props()} readOnly />} />
         <ClipboardTrigger
-          asChild={(props) => {
-            const childProps = props();
-
-            return (
-              <button {...childProps} class={cn(childProps.class, actionClass)} type="button" />
-            );
-          }}
-        >
-          <ClipboardIndicator />
-        </ClipboardTrigger>
+          asChild={(props) => (
+            <Button {...props()} variant="outline">
+              <ClipboardIndicator />
+            </Button>
+          )}
+        />
       </ClipboardControl>
     </Clipboard>
   ),

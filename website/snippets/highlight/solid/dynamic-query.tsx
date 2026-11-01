@@ -1,14 +1,14 @@
 import { Highlight } from '@moduix/solid/highlight';
 import { Input } from '@moduix/solid/input';
+import { Stack } from '@moduix/solid/stack';
 import { Text } from '@moduix/solid/text';
 import { createSignal } from 'solid-js';
-import styles from '@/components/examples/highlight/highlight-dynamic-query.module.css';
 
 export default function HighlightDynamicQueryDemo() {
   const [query, setQuery] = createSignal('component');
 
   return (
-    <div class={styles.stack}>
+    <Stack gap="4">
       <Input
         aria-label="Search text"
         value={query()}
@@ -21,6 +21,6 @@ export default function HighlightDynamicQueryDemo() {
           text="Choose a component from the list. Open its documentation to see examples, props, and keyboard controls."
         />
       </Text>
-    </div>
+    </Stack>
   );
 }

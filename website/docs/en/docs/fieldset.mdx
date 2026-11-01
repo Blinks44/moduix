@@ -1,12 +1,24 @@
 ---
 title: Fieldset
 component: fieldset
-description: Group related form controls under one legend while preserving native fieldset semantics and shared state. Helper text and error messages are connected to the group so assistive technologies can announce them.
+description: Group related form controls under one legend with shared state.
+ark: https://ark-ui.com/docs/components/fieldset
 ---
 
-## API Reference
+import AnatomyScene from '@/components/examples/fieldset/basic';
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/fieldset" />
+<Example name="fieldset/basic" />
+
+## Installation
+
+<ComponentInstall />
+
+## Usage
+
+<Usage />
+
+Build a group with `Fieldset`, `FieldsetLegend`, the related controls, and optional helper or error
+text. `Fieldset` is the root component for the group.
 
 ## Choosing the right component
 
@@ -14,73 +26,49 @@ Use `Fieldset` when several related controls belong to one group and need a shar
 contact details or notification preferences. Use `Field` when one control needs its own label, helper
 text, and validation message.
 
-## Basic
+## Examples
 
+### Field
 
-Import `Fieldset` from `@moduix/react/fieldset`, `@moduix/solid/fieldset`, or `@moduix/vue/fieldset`
-for CSS Modules, and from `@moduix/react-tailwind/fieldset`, `@moduix/solid-tailwind/fieldset`, or
-`@moduix/vue-tailwind/fieldset` for Tailwind CSS.
+Nest `Field` components when each control needs its own label, helper text, or error message in addition
+to the shared legend.
 
-Build a group with `Fieldset`, `FieldsetLegend`, the related controls, and optional helper or error
-text. `Fieldset` is the root component for the group.
+<Example name="fieldset/field" />
 
-<Example name="fieldset/basic" />
+### Checkbox
 
-## Install with shadcn
+Use the legend to name a group of related checkbox controls. Add `CheckboxHiddenInput` to each
+checkbox that needs native focus, form submission, and form reset behavior.
 
-See [Quick Start](/docs/quick-start) for full package setup, registry configuration, and styling guidance.
+<Example name="fieldset/checkbox" />
 
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
+### Input with Select
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/fieldset' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/fieldset' },
-  ]}
-/>
+Combine a country-code `Select` and a phone-number `Input` under one legend when together they make up
+one phone number.
 
-  </Tab>
-  <Tab label="Solid" value="solid">
+<Example name="fieldset/input-with-select" />
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/fieldset' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/fieldset' },
-  ]}
-/>
+### Disabled
 
-  </Tab>
-  <Tab label="Vue" value="vue">
+Set `disabled` on the root. The browser disables native controls, and Ark-aware controls read the same
+state from the fieldset context.
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/fieldset' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/fieldset' },
-  ]}
-/>
+<Example name="fieldset/disabled" />
 
-  </Tab>
-</Tabs>
+### Invalid
 
-## Anatomy
+Set `invalid` on `Fieldset` to mark the group as invalid and show its group-level error. Set `invalid`
+on nested `Field` components as well when individual controls need their own invalid styling and ARIA state.
 
-```text
-Fieldset | FieldsetRootProvider
-├─ FieldsetLegend
-├─ grouped controls
-├─ FieldsetHelperText (optional)
-└─ FieldsetErrorText (optional)
-```
+<Example name="fieldset/invalid" />
 
-| Part                         | Role                                                                  |
-| ---------------------------- | --------------------------------------------------------------------- |
-| `Fieldset`                   | Creates state and renders a native `fieldset`.                                                 |
-| `FieldsetRootProvider`       | Renders a native `fieldset` with state created by `useFieldset`.                               |
-| `FieldsetContext`            | Exposes the current fieldset state to descendants without rendering an extra DOM element.      |
-| `FieldsetLegend`             | Native `legend` that provides the accessible name for the group.                               |
-| `FieldsetHelperText`         | Description linked to the root through `aria-describedby`.                                     |
-| `FieldsetErrorText`          | Validation message announced through `aria-live="polite"` and rendered only when `invalid` is `true`. |
+### Root provider
+
+Use `useFieldset` with `FieldsetRootProvider` to create fieldset state outside the JSX tree and share
+it with sibling controls or reusable descendants. See [Share state outside the tree](/docs/composition-patterns#root-provider).
+
+<Example name="fieldset/root-provider" />
 
 ## Composition
 
@@ -94,49 +82,22 @@ shared with sibling controls. Use `FieldsetContext` or `useFieldsetContext()` to
 descendant, and do not render `Fieldset` together with `FieldsetRootProvider` for the same store.
 Use `asChild` with one semantic child when replacing a part's rendered element.
 
-## Examples
+## Anatomy
 
-### Checkbox
+Hover or focus a part to find it in the preview.
 
-Use the legend to name a group of related checkbox controls. Add `CheckboxHiddenInput` to each
-checkbox that needs native focus, form submission, and form reset behavior.
-
-<Example name="fieldset/checkbox" />
-
-### Disabled
-
-Set `disabled` on the root. The browser disables native controls, and Ark-aware controls read the same
-state from the fieldset context.
-
-<Example name="fieldset/disabled" />
-
-### Field
-
-Nest `Field` components when each control needs its own label, helper text, or error message in addition
-to the shared legend.
-
-<Example name="fieldset/field" />
-
-### Input with Select
-
-Combine a country-code `Select` and a phone-number `Input` under one legend when together they make up
-one phone number.
-
-<Example name="fieldset/input-with-select" />
-
-### Invalid
-
-Set `invalid` on `Fieldset` to mark the group as invalid and show its group-level error. Set `invalid`
-on nested `Field` components as well when individual controls need their own invalid styling and ARIA state.
-
-<Example name="fieldset/invalid" />
-
-### Advanced Customization
-
-Use `useFieldset` with `FieldsetRootProvider` to create fieldset state outside the JSX tree and share
-it with sibling controls or reusable descendants.
-
-<Example name="fieldset/root-provider" />
+<AnatomyInspector
+  parts={[
+    ["Fieldset", "fieldset-root", "Creates state and renders a native `fieldset`.", 0],
+    ["FieldsetLegend", "fieldset-legend", "Native `legend` that provides the accessible name for the group.", 1],
+    ["FieldsetHelperText", "fieldset-helper-text", "Description linked to the root through `aria-describedby`.", 1],
+    ["FieldsetErrorText", "fieldset-error-text", "Validation message announced through `aria-live=\"polite\"` and rendered only when `invalid` is `true`.", 1],
+    ["FieldsetRootProvider", "fieldset-root-provider", "Renders a native `fieldset` with state created by `useFieldset`.", 0],
+    ["FieldsetContext", null, "Exposes the current fieldset state to descendants without rendering an extra DOM element.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styling
 
@@ -151,5 +112,21 @@ variables: a class on the part overrides the layered component styles.
 
 ### Styling hooks
 
+| Part | `data-slot` |
+| --- | --- |
+| `Fieldset` | `fieldset-root` |
+| `FieldsetRootProvider` | `fieldset-root-provider` |
+| `FieldsetLegend` | `fieldset-legend` |
+| `FieldsetHelperText` | `fieldset-helper-text` |
+| `FieldsetErrorText` | `fieldset-error-text` |
+
 Every DOM part has Ark's `data-scope="fieldset"` and a `data-part` that matches the anatomy. The root
 and legend expose `data-disabled` and `data-invalid`; moduix also adds `data-slot="fieldset-*"` hooks.
+
+## API reference
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `invalid` | `boolean` | `false` | Marks the group invalid and shows `FieldsetErrorText`. |
+| `disabled` | `boolean` | `false` | Disables every control in the group. |
+| `asChild` | `boolean` | `false` | Renders the root as its single child element. |

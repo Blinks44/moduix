@@ -77,6 +77,6 @@ state to the group.
 ## Agent notes
 
 - Keep `size` on the root. Do not add per-control or per-option `size` back.
-- Keep `RadioGroupOption` as the only sugar; the "Advanced customization" docs example builds the
+- Keep `RadioGroupOption` as the only sugar; the "Build from parts" docs example builds the
   item from low-level parts.
 - Do not add legacy `Radio`, `RadioField`, `RadioLabel`, or `RadioGroupList` aliases.

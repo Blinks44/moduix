@@ -1,19 +1,22 @@
 ---
 title: Image
 component: image
-description: Responsive images with automatic CDN detection and Unpic-generated srcset and sizes attributes.
+description: Serve responsive images with srcset generated for common CDNs.
+ark: https://ark-ui.com/docs/guides/composition
 ---
 
+import AnatomyScene from '@/components/examples/image/basic';
 import * as ImageDocs from '@/components/examples/image/css-properties';
 
-## API Reference
+<Example name="image/basic" />
 
-`Image` provides a thin moduix wrapper around the [Unpic image API](https://unpic.pics/img/).
-Ark UI does not provide a dedicated image primitive, so `Image` uses native `<img>` and `<picture>`
-composition instead of an Ark part. See Ark's [Composition guide](https://ark-ui.com/docs/guides/composition)
-for more on its native-element model.
+## Installation
 
-## Basic
+<ComponentInstall />
+
+## Usage
+
+<Usage />
 
 Use `Image` with a URL from a supported image CDN or any regular image URL. For the default
 `layout="constrained"`, provide `width` and `height`. When Unpic recognizes the provider, it
@@ -26,79 +29,7 @@ without a supported CDN. Set `priority` for the main image in the initial viewpo
 to `loading="eager"` and `fetchpriority="high"` without setting `decoding`. Explicit native
 attributes override these defaults.
 
-<Example name="image/basic" />
-
-## Install with shadcn
-
-See [Quick Start](/docs/quick-start) for full package setup, registry configuration, and styling guidance.
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/image' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/image' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/image' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/image' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/image' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/image' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Anatomy
-
-```text
-Image
-└─ img
-
-picture (native)
-├─ ImageSource
-└─ Image
-```
-
-| Part                   | Role                                                                       |
-| ---------------------- | -------------------------------------------------------------------------- |
-| `Image`                | Responsive native `<img>` element; Unpic creates `srcset`, `sizes`, and styles. |
-| `ImageSource`          | Responsive `<source>` for a native `<picture>` element.                       |
-
-## Composition
-
-`Image` is the root and can be rendered directly. Use `ImageSource` only as a child of a native
-`<picture>`, and keep `Image` last so it remains the fallback when no source is selected. For
-format selection, place a typed source before an equivalent source without `type`; the browser
-chooses the first format it supports.
-`ImageSource` generates `srcset` only for a supported CDN or a `fallback` provider; for local files,
-use a native `<source srcset>` instead.
-
 ## Examples
-
-### Art Direction
-
-Use `ImageSource` to show a wider office view on larger screens and a portrait fallback on smaller
-screens. The first large-screen source requests AVIF; the next source provides a fallback for
-browsers that do not support AVIF. `ImageSource` must stay inside a native `<picture>` element.
-
-<Example name="image/art-direction" />
 
 ### Fixed
 
@@ -107,12 +38,47 @@ has enough room, since fixed images do not shrink to fit a narrower container.
 
 <Example name="image/fixed" />
 
-### Full Width
+### Full width
 
 Use `layout="fullWidth"` for a hero image or media strip that should fill its container's width.
 Supply `height` when the crop height must remain fixed.
 
 <Example name="image/full-width" />
+
+### Art direction
+
+Use `ImageSource` to show a wider office view on larger screens and a portrait fallback on smaller
+screens. The first large-screen source requests AVIF; the next source provides a fallback for
+browsers that do not support AVIF. `ImageSource` must stay inside a native `<picture>` element.
+
+<Example name="image/art-direction" />
+
+## Composition
+
+`Image` provides a thin moduix wrapper around the [Unpic image API](https://unpic.pics/img/).
+Ark UI does not provide a dedicated image primitive, so `Image` uses native `<img>` and `<picture>`
+composition instead of an Ark part. See Ark's [Composition guide](https://ark-ui.com/docs/guides/composition)
+for more on its native-element model.
+
+`Image` is the root and can be rendered directly. Use `ImageSource` only as a child of a native
+`<picture>`, and keep `Image` last so it remains the fallback when no source is selected. For
+format selection, place a typed source before an equivalent source without `type`; the browser
+chooses the first format it supports.
+`ImageSource` generates `srcset` only for a supported CDN or a `fallback` provider; for local files,
+use a native `<source srcset>` instead.
+
+## Anatomy
+
+Hover or focus a part to find it in the preview.
+
+<AnatomyInspector
+  parts={[
+    ["Image", "image-root", "Responsive native `<img>` element; Unpic creates `srcset`, `sizes`, and styles.", 0],
+    ["ImageSource", "image-source", "Responsive `<source>` for a native `<picture>` element.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styling
 
@@ -121,12 +87,36 @@ configures `srcset`, `media`, and `type`; style the fallback `Image` rather than
 Tailwind variants use native utilities and consumer classes. The `--moduix-image-radius` variable
 customizes the CSS Modules variants, while `data-slot` hooks are shared by both styling tracks.
 
-### CSS Properties
+### CSS variables
 
-<CssPropertiesSection properties={ImageDocs.imageCssProperties} />
+Hover or focus a variable to see it in the preview.
+
+<CssPropertiesSection properties={ImageDocs.imageCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Styling hooks
+
+| Part | `data-slot` |
+| --- | --- |
+| `Image` | `image-root` |
+| `ImageSource` | `image-source` |
 
 - `data-slot="image-root"` targets the rendered `<img>` for styling.
 - `data-slot="image-source"` targets the source node inside a native `<picture>`.
 - `className` in React and `class` in Solid and Vue are the recommended ways to apply local styles.
+
+## API reference
+
+`Image` takes the Unpic image props and the native `img` props.
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `src` | `string` | — | Image URL; CDN URLs get responsive `srcset` automatically. |
+| `alt` | `string` | — | Text alternative; use an empty string for decorative images. |
+| `layout` | `'constrained' \| 'fixed' \| 'fullWidth'` | `'constrained'` | Sizing mode: `constrained`, `fixed`, or `fullWidth`. |
+| `width` | `number` | — | Intrinsic width in pixels; reserves space before load. |
+| `height` | `number` | — | Intrinsic height in pixels; reserves space before load. |
+| `aspectRatio` | `number` | — | Width-to-height ratio used when only one dimension is known. |
+| `priority` | `boolean` | `false` | Loads eagerly with high priority, for images above the fold. |
+| `background` | `string` | — | Placeholder background shown while the image loads. |

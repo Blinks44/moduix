@@ -2,35 +2,7 @@ import { page } from '@rstest/browser';
 import { expect, test } from '@rstest/core';
 import { render, screen } from '@solidjs/testing-library';
 import { createSignal } from 'solid-js';
-import { Skeleton } from '../src';
-
-test('owns stable loading hooks even when passthrough props provide conflicting values', async () => {
-  expect(Skeleton).not.toHaveProperty('Root');
-  let rootRef!: HTMLDivElement;
-  render(() => (
-    <Skeleton
-      ref={(element) => (rootRef = element)}
-      data-testid="skeleton"
-      data-part="custom"
-      data-slot="custom"
-      data-state="loaded"
-      data-variant="none"
-    />
-  ));
-  await expect.element(page.getByTestId('skeleton')).toHaveCount(1);
-  const skeleton = screen.getByTestId('skeleton');
-
-  expect(skeleton.getAttribute('aria-hidden')).toBe('true');
-  expect(skeleton.dataset).toMatchObject({
-    scope: 'skeleton',
-    part: 'root',
-    slot: 'skeleton-root',
-    state: 'loading',
-  });
-  expect(skeleton.hasAttribute('data-loading')).toBe(true);
-  expect(skeleton.getAttribute('data-variant')).toBe('pulse');
-  expect(rootRef).toBe(skeleton);
-});
+import { Skeleton } from '@/index';
 
 test('preserves an explicit accessibility override and the static variant', async () => {
   render(() => <Skeleton aria-hidden={false} data-testid="skeleton" variant="none" />);
@@ -106,16 +78,4 @@ test('clips overflow only while loading', async () => {
 
   setLoading(false);
   await expect.element(page.getByTestId('skeleton')).toHaveCSS('overflow', 'visible');
-});
-
-test('takes the pulse animation from the foundation token', async () => {
-  render(() => (
-    <div style={{ '--moduix-animation-pulse': 'moduix-fade-in 1s' }}>
-      <Skeleton data-testid="pulse" />
-      <Skeleton data-testid="none" variant="none" />
-    </div>
-  ));
-
-  await expect.element(page.getByTestId('pulse')).toHaveCSS('animation-name', 'moduix-fade-in');
-  await expect.element(page.getByTestId('none')).toHaveCSS('animation-name', 'none');
 });

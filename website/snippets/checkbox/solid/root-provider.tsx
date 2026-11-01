@@ -6,13 +6,13 @@ import {
   CheckboxRootProvider,
   useCheckbox,
 } from '@moduix/solid/checkbox';
-import styles from '@/components/examples/checkbox/checkbox-root-provider.module.css';
+import { Stack } from '@moduix/solid/stack';
 
 export default function RootProviderCheckboxDemo() {
   const checkbox = useCheckbox({ defaultChecked: true });
 
   return (
-    <div class={styles.root}>
+    <Stack align="center" gap="4">
       <CheckboxRootProvider value={checkbox}>
         <CheckboxControl />
         <CheckboxLabel>Managed outside the tree</CheckboxLabel>
@@ -29,6 +29,6 @@ export default function RootProviderCheckboxDemo() {
           {checkbox().checked ? 'Uncheck' : 'Check'}
         </Button>
       </div>
-    </div>
+    </Stack>
   );
 }

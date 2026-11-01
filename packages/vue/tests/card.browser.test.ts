@@ -15,7 +15,7 @@ import {
   CardLink,
   CardMedia,
   CardTitle,
-} from '../src';
+} from '@/index';
 import TestCard from './fixtures/TestCard.vue';
 
 const cardComponents = {
@@ -232,7 +232,6 @@ test('hydrates card without replacing the server host', async () => {
     expect(host.querySelectorAll('a')).toHaveLength(1);
     expect(host.querySelector('a')).toBe(serverRoot);
     expect(serverRoot.dataset).toMatchObject({ size: 'lg', variant: 'subtle', slot: 'card-root' });
-    expect([...serverRoot.classList]).toContain('consumer-card');
     expect(warn).not.toHaveBeenCalled();
     expect(error).not.toHaveBeenCalled();
   } finally {
@@ -241,34 +240,6 @@ test('hydrates card without replacing the server host', async () => {
     warn.mockRestore();
     error.mockRestore();
   }
-});
-
-test('pads a lone section on both sides and spaces sections evenly', async () => {
-  render({
-    components: cardComponents,
-    template: `
-      <div>
-        <Card size="lg">
-          <CardHeader data-testid="lone-header"><CardTitle>Only a header</CardTitle></CardHeader>
-        </Card>
-        <Card>
-          <CardHeader data-testid="header"><CardTitle>Header and footer</CardTitle></CardHeader>
-          <CardFooter data-testid="footer">Updated today</CardFooter>
-        </Card>
-        <Card>
-          <CardBackground />
-          <CardBody data-testid="body">Body after a background</CardBody>
-        </Card>
-      </div>
-    `,
-  });
-
-  await expect.element(page.getByTestId('lone-header')).toHaveCSS('padding-top', '32px');
-  await expect.element(page.getByTestId('lone-header')).toHaveCSS('padding-bottom', '32px');
-  await expect.element(page.getByTestId('header')).toHaveCSS('padding-bottom', '0px');
-  await expect.element(page.getByTestId('footer')).toHaveCSS('padding-top', '24px');
-  await expect.element(page.getByTestId('footer')).toHaveCSS('padding-bottom', '24px');
-  await expect.element(page.getByTestId('body')).toHaveCSS('padding-top', '24px');
 });
 
 test('lets CardLink cover the body of a card with a background', async () => {

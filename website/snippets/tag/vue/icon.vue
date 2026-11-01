@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { Check as CheckIcon } from '@lucide/vue';
+import { Stack } from '@moduix/vue/stack';
 import { Tag, TagCloseTrigger, TagEndElement, TagLabel, TagStartElement } from '@moduix/vue/tag';
-import styles from '@/components/examples/tag/tag-icon.module.css';
 
 const tags = [
   { label: 'Selected', variant: 'default', removable: false },
@@ -10,7 +10,7 @@ const tags = [
 </script>
 
 <template>
-  <div :class="styles.row">
+  <Stack direction="row" align="center" wrap="wrap" gap="3">
     <Tag v-for="tag in tags" :key="tag.label" :variant="tag.variant">
       <TagStartElement><CheckIcon /></TagStartElement>
       <TagLabel>{{ tag.label }}</TagLabel>
@@ -18,5 +18,5 @@ const tags = [
         <TagCloseTrigger :aria-label="`Remove ${tag.label} tag`" />
       </TagEndElement>
     </Tag>
-  </div>
+  </Stack>
 </template>

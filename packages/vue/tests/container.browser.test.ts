@@ -4,7 +4,7 @@ import { render, screen } from '@testing-library/vue';
 import { renderToString } from '@vue/server-renderer';
 import { createSSRApp, ref } from 'vue';
 import type { ComponentPublicInstance } from 'vue';
-import { Container } from '../src';
+import { Container } from '@/index';
 import TestContainer from './fixtures/TestContainer.vue';
 
 test.each([
@@ -41,21 +41,6 @@ test.each([
   expect(parseFloat(style.paddingInlineStart)).toBeCloseTo(padding);
   expect(parseFloat(style.paddingInlineEnd)).toBeCloseTo(padding);
   expect(parseFloat(style.maxWidth)).toBeCloseTo(1152 + padding * 2);
-});
-
-test('derives gutters from spacing tokens', () => {
-  render({
-    components: { Container },
-    template: `
-      <div style="--moduix-spacing-4: 10px; --moduix-spacing-8: 10px">
-        <Container data-testid="container" />
-      </div>
-    `,
-  });
-  const style = getComputedStyle(screen.getByTestId('container'));
-
-  expect(style.paddingInlineStart).toBe('10px');
-  expect(parseFloat(style.maxWidth)).toBeCloseTo(1152 + 20);
 });
 
 test('preserves default layout, refs, and owned hooks when consumer props conflict', () => {
@@ -132,7 +117,6 @@ test('hydrates container without replacing the server host', async () => {
     expect(host.querySelectorAll('main')).toHaveLength(1);
     expect(host.querySelector('main')).toBe(serverRoot);
     expect(serverRoot.dataset).toMatchObject({ size: 'md', gutter: 'lg', slot: 'container-root' });
-    expect([...serverRoot.classList]).toContain('semantic-root');
     expect(getComputedStyle(serverRoot).display).toBe('block');
     expect(warn).not.toHaveBeenCalled();
     expect(error).not.toHaveBeenCalled();

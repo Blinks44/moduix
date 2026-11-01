@@ -1,13 +1,26 @@
 ---
 title: Code de vérification
 description: Un formulaire de vérification d’adresse e-mail avec un code à usage unique de six chiffres, construit avec les composants moduix.
+block: verification-code
 ---
 
 import { VerificationCode } from '@/components/blocks/verification-code/verification-code';
 import verificationCodeSolid from '../../../snippets/blocks/solid/verification-code.tsx?raw';
 import verificationCodeVue from '../../../snippets/blocks/vue/verification-code.vue?raw';
+import verificationCodeReact from '../../../src/components/blocks/verification-code/verification-code.tsx?raw';
+import verificationCodeCss from '../../../src/components/blocks/verification-code/verification-code-form.module.css?raw';
 
 # Code de vérification
+
+<ExamplePanel
+  clientOnly
+  sources={{ react: verificationCodeReact, solid: verificationCodeSolid, vue: verificationCodeVue }}
+  files={[{ name: 'verification-code-form.module.css', code: verificationCodeCss }]}
+>
+  <PreviewFrame maxWidth="sm">
+    <VerificationCode onSubmit={(event) => event.preventDefault()} />
+  </PreviewFrame>
+</ExamplePanel>
 
 Utilisez cette composition lorsque votre application envoie un code à usage unique à l’adresse e-mail de
 l’utilisateur. Elle réunit `Card`, `Field`, `Button` et `PinInput` pour former un formulaire complet.
@@ -15,55 +28,6 @@ l’utilisateur. Elle réunit `Card`, `Field`, `Button` et `PinInput` pour forme
 le collage, et active le remplissage automatique du code à usage unique sur mobile. Envoyez le formulaire
 avec moins de six chiffres pour afficher l’erreur intégrée au champ. Cette vérification confirme uniquement
 que les six chiffres ont été saisis. Votre application doit toujours vérifier le code sur le serveur.
-
-L’aperçu utilise React. Les onglets présentent le code React, Solid et Vue avec une feuille de style commune.
-
-
-
-<ExampleFrame variant="block" clientOnly>
-  <PreviewFrame maxWidth="sm">
-  <VerificationCode onSubmit={(event) => event.preventDefault()} />
-  </PreviewFrame>
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/blocks/verification-code/verification-code.tsx"
-
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={verificationCodeSolid} />
-
-    </Tab>
-  <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={verificationCodeVue} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/blocks/verification-code/verification-code-form.module.css"
-
-```
-</div>
-
-</ExampleCode>
 
 ## Installation
 

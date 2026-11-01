@@ -1,6 +1,6 @@
 <script setup lang="ts">
+import { Stack } from '@moduix/vue/stack';
 import { Switch, SwitchControl, SwitchHiddenInput, SwitchLabel } from '@moduix/vue/switch';
-import styles from '@/components/examples/switch/switch-sizes.module.css';
 
 const switchSizeOptions = [
   { label: 'Extra-small', value: 'xs' },
@@ -12,7 +12,7 @@ const switchSizeOptions = [
 </script>
 
 <template>
-  <div :class="styles.column">
+  <Stack align="flex-start" gap="3">
     <Switch
       v-for="item in switchSizeOptions"
       :key="item.value"
@@ -23,5 +23,5 @@ const switchSizeOptions = [
       <SwitchLabel>{{ item.label }}</SwitchLabel>
       <SwitchHiddenInput />
     </Switch>
-  </div>
+  </Stack>
 </template>

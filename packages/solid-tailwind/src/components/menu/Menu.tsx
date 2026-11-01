@@ -319,46 +319,16 @@ function MenuItemText(props: ComponentProps<typeof MenuPrimitive.ItemText>) {
   const [local, others] = splitProps(props, ['class']);
   return (
     <MenuPrimitive.ItemText
-      class={cn('min-w-0 overflow-hidden', local.class)}
+      class={cn(
+        'min-w-0 overflow-hidden text-ellipsis whitespace-nowrap [&>svg]:me-2 [&>svg]:inline-block [&>svg]:size-4 [&>svg]:align-middle',
+        local.class,
+      )}
       {...others}
       data-slot="menu-item-text"
     />
   );
 }
 
-function MenuItemTextContent(props: HTMLArkProps<'span'>) {
-  const [local, others] = splitProps(props, ['class']);
-  return (
-    <ark.span
-      class={cn('inline-flex max-w-full min-w-0 items-center gap-2 align-top', local.class)}
-      {...others}
-      data-slot="menu-item-text-content"
-    />
-  );
-}
-function MenuItemTextIcon(props: HTMLArkProps<'span'>) {
-  const [local, others] = splitProps(props, ['class']);
-  return (
-    <ark.span
-      class={cn(
-        'inline-flex size-4 shrink-0 items-center justify-center [&_svg]:size-full',
-        local.class,
-      )}
-      {...others}
-      data-slot="menu-item-text-icon"
-    />
-  );
-}
-function MenuItemTextLabel(props: HTMLArkProps<'span'>) {
-  const [local, others] = splitProps(props, ['class']);
-  return (
-    <ark.span
-      class={cn('min-w-0 overflow-hidden text-ellipsis whitespace-nowrap', local.class)}
-      {...others}
-      data-slot="menu-item-text-label"
-    />
-  );
-}
 function MenuItemShortcut(props: HTMLArkProps<'span'>) {
   const [local, others] = splitProps(props, ['class']);
   return (
@@ -389,9 +359,6 @@ export {
   MenuItemIndicator,
   MenuItemShortcut,
   MenuItemText,
-  MenuItemTextContent,
-  MenuItemTextIcon,
-  MenuItemTextLabel,
   MenuPositioner,
   MenuRadioItem,
   MenuRadioItemGroup,

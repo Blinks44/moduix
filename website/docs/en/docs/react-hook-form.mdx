@@ -1,6 +1,6 @@
 ---
 title: React Hook Form
-description: Connect React Moduix controls to React Hook Form for validation, reset, arrays, and server errors.
+description: Connect React moduix controls to React Hook Form for validation, reset, arrays, and server errors.
 ---
 
 import ProjectForm from '@/components/examples/react-hook-form/complete-form.tsx';
@@ -8,13 +8,13 @@ import ProjectForm from '@/components/examples/react-hook-form/complete-form.tsx
 # React Hook Form
 
 [React Hook Form](https://react-hook-form.com/get-started) is a React-only form library. This guide
-connects it to the React Moduix adapter without implying support for Solid, Vue, or Svelte.
+connects it to moduix React components.
 
 ## Framework support
 
 <PackageManagerTabs command="install react-hook-form" />
 
-Use this integration only with `@moduix/react` or `@moduix/react-tailwind`. For Solid, use a native
+Use this integration only with `@moduix/react` or `@moduix/react-tailwind`. For Solid and Vue, use a native
 form, [Formisch](/docs/formisch), or [TanStack Form](/docs/tanstack-form).
 
 ## Connect controls
@@ -22,14 +22,14 @@ form, [Formisch](/docs/formisch), or [TanStack Form](/docs/tanstack-form).
 Use `register` for native inputs and `Controller` for compound controls whose value is exposed through
 props and callback detail objects.
 
-| Moduix control                          | React Hook Form mapping                                  |
+| moduix control                          | React Hook Form mapping                                  |
 | --------------------------------------- | -------------------------------------------------------- |
 | `Input`, `Textarea`, native selects     | Spread `register(name, rules)` onto the control.         |
 | `Select`, `Combobox`                    | Use `Controller` and map the scalar value to `string[]`. |
 | `Checkbox`                              | Map `details.checked === true` to a boolean.             |
 | Other controlled compound controls      | Use `Controller` and map their public value contract.    |
 
-Give every controlled field a value in `defaultValues`. Keep each Moduix native form part in the
+Give every controlled field a value in `defaultValues`. Keep each moduix native form part in the
 composition and do not register a second hidden input for the same value.
 
 ## Validation and reset
@@ -37,8 +37,8 @@ composition and do not register a second hidden input for the same value.
 Use `rules` for local field validation and a resolver for schema or cross-field rules. Pass
 `fieldState.invalid` to `Field`, and render `fieldState.error?.message` with `FieldErrorText`.
 
-Add `noValidate` only when React Hook Form owns the visible error flow. Call its `reset()` API for
-controlled fields so the library state and Moduix values reset together.
+Add `noValidate` only when React Hook Form renders the visible errors. Call its `reset()` API for
+controlled fields so the library state and moduix values reset together.
 
 ## Complete form
 

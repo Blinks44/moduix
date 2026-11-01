@@ -1,23 +1,22 @@
 ---
 title: Date Picker
 component: date-picker
-description: Sélecteur de date basé sur Ark UI, avec calendriers contextuel et intégré, sélection de plages et de plusieurs dates.
+description: Choisir une date, une plage ou plusieurs dates dans un calendrier.
+ark: https://ark-ui.com/docs/components/date-picker
 ---
 
+import AnatomyScene from '@/components/examples/date-picker/anatomy';
 import * as DatePickerDocs from '@/components/examples/date-picker/css-properties';
 
-## Référence de l’API
+<Example name="date-picker/basic" />
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/date-picker" />
+## Installation
 
-## Choisir le bon composant
+<ComponentInstall />
 
-- Choisissez **`Input`** pour saisir une date sous forme de texte, sans comportement de calendrier.
-- Choisissez **`DateInput`** lorsque les utilisateurs doivent modifier des segments de date au clavier.
-- Choisissez **`DatePicker`** lorsqu’ils ont besoin d’un champ de date modifiable avec un calendrier contextuel ou intégré.
+## Utilisation
 
-## Exemple de base
-
+<Usage />
 
 Utilisez `DatePicker` comme racine, `DatePickerField` pour un champ standard et
 `DatePickerDayTable`, `DatePickerMonthTable` et `DatePickerYearTable` pour les vues du calendrier.
@@ -25,110 +24,147 @@ Chaque table affiche son propre en-tête, ce qui permet de passer d’une vue à
 explicitement `DatePickerPositioner` et `DatePickerContent` lorsque le calendrier doit s’afficher en
 fenêtre contextuelle.
 
-<Example name="date-picker/basic" />
+## Choisir le bon composant
 
-## Installation avec shadcn
+- Choisissez **`Input`** pour saisir une date sous forme de texte, sans comportement de calendrier.
+- Choisissez **`DateInput`** lorsque les utilisateurs doivent modifier des segments de date au clavier.
+- Choisissez **`DatePicker`** lorsqu’ils ont besoin d’un champ de date modifiable avec un calendrier contextuel ou intégré.
 
-Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration complète du paquet, du registre et des styles.
+## Exemples
 
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
+### Plage
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/date-picker' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/date-picker' },
-  ]}
-/>
+Utilisez `selectionMode="range"` avec deux valeurs. Ark gère le survol, le début et la fin de la
+plage ainsi que le format de saisie. Une plage utilise deux saisies indexées.
 
-  </Tab>
-  <Tab label="Solid" value="solid">
+<Example name="date-picker/range" />
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/date-picker' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/date-picker' },
-  ]}
-/>
+### Plusieurs dates
 
-  </Tab>
-  <Tab label="Vue" value="vue">
+Utilisez `selectionMode="multiple"` et limitez si nécessaire le nombre de sélections avec
+`maxSelectedDates`. Affichez les dates sélectionnées via `DatePickerContext` et appelez
+`datePicker.setValue()` lorsqu’une date est supprimée.
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/date-picker' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/date-picker' },
-  ]}
-/>
+<Example name="date-picker/multiple" />
 
-  </Tab>
-</Tabs>
+### Préréglages
 
-## Anatomie
+`DatePickerPresetTrigger` accepte des noms de plages intégrés tels que `last7Days`, ou un
+`DateValue[]` personnalisé. Utilisez le mode plage avec deux saisies indexées pour afficher les
+deux dates du préréglage.
 
-```text
-DatePicker
-├─ DatePickerLabel
-├─ DatePickerControl
-│  ├─ DatePickerInput
-│  ├─ DatePickerClearTrigger
-│  └─ DatePickerTrigger
-├─ DatePickerField / DatePickerRangeField (parties pratiques)
-├─ Sous-arbre du calendrier contextuel (mis dans un portail automatiquement)
-│  └─ DatePickerPositioner
-│     └─ DatePickerContent
-│        ├─ DatePickerView[view="day" | "month" | "year"]
-│        │  ├─ DatePickerViewControl
-│        │  │  ├─ DatePickerPrevTrigger
-│        │  │  ├─ DatePickerViewTrigger / DatePickerRangeText
-│        │  │  └─ DatePickerNextTrigger
-│        │  ├─ DatePickerDayTable / MonthTable / YearTable (tables pratiques)
-│        │  └─ DatePickerTable
-│        │     ├─ DatePickerTableHead / TableBody / TableRow
-│        │     ├─ DatePickerTableHeader
-│        │     ├─ DatePickerTableCell
-│        │     ├─ DatePickerTableCellTrigger
-│        │     ├─ DatePickerWeekNumberHeaderCell
-│        │     └─ DatePickerWeekNumberCell
-│        ├─ DatePickerMonthSelect / DatePickerYearSelect
-│        └─ DatePickerPresetTrigger
-├─ DatePickerValueText (résumé facultatif des valeurs sélectionnées)
-└─ DatePickerContext
+<Example name="date-picker/presets" />
 
-DatePickerRootProvider
-└─ même arborescence reliée à un store useDatePicker()
-```
+### Date et heure
 
-| Partie                            | Rôle                                                               |
-| --------------------------------- | ------------------------------------------------------------------ |
-| `DatePicker`  | Racine qui gère la valeur, la vue, l’ouverture, la locale, la validation et le formulaire. |
-| `DatePickerRootProvider`         | Affiche les parties avec l’état renvoyé par `useDatePicker()`.     |
-| `DatePickerLabel`                | Libellé accessible du champ de date.                               |
-| `DatePickerControl`              | Conteneur du champ pour une disposition personnalisée.             |
-| `DatePickerField`                | Champ pratique avec saisie, effacement et ouverture du calendrier. |
-| `DatePickerRangeField`           | Champ de plage avec saisies de début et de fin indexées.           |
-| `DatePickerInput`                | Saisie de date modifiable, incluse dans l’envoi natif du formulaire. |
-| `DatePickerTrigger`              | Ouvre le calendrier.                                                |
-| `DatePickerClearTrigger`         | Efface la valeur courante.                                          |
-| `DatePickerPositioner`           | Positionne le calendrier contextuel.                                |
-| `DatePickerContent`              | Conteneur du calendrier contextuel ou intégré.                      |
-| `DatePickerView`                 | Vue du jour, du mois ou de l’année.                                 |
-| `DatePickerViewControl`          | En-tête contenant les commandes de navigation.                      |
-| `DatePickerPrevTrigger`          | Passe au mois, à l’année ou à la décennie précédente.               |
-| `DatePickerNextTrigger`          | Passe au mois, à l’année ou à la décennie suivante.                 |
-| `DatePickerViewTrigger`          | Change de vue du calendrier.                                        |
-| `DatePickerRangeText`            | Affiche la plage visible dans l’en-tête.                            |
-| `DatePickerValueText`            | Affiche les valeurs sélectionnées.                                  |
-| `DatePickerDayTable`             | Table standard des jours avec son en-tête.                          |
-| `DatePickerMonthTable`           | Table standard des mois avec son en-tête.                           |
-| `DatePickerYearTable`            | Table standard des années avec son en-tête.                         |
-| `DatePickerTable*`               | Parties pour composer une grille personnalisée.                     |
-| `DatePickerWeekNumberHeaderCell` | En-tête de la colonne des numéros de semaine.                       |
-| `DatePickerWeekNumberCell`       | Cellule contenant un numéro de semaine.                             |
-| `DatePickerMonthSelect`          | Sélecteur de mois natif lié à la date ciblée.                        |
-| `DatePickerYearSelect`           | Sélecteur d’année natif lié à la date ciblée.                       |
-| `DatePickerPresetTrigger`        | Bouton d’une plage prédéfinie.                                      |
-| `DatePickerContext`              | Accès sans rendu à l’état du calendrier.                            |
+Conservez l’heure dans la valeur sélectionnée en stockant des objets `CalendarDateTime`. Associez
+le calendrier à un `DateInput` configuré pour saisir les minutes afin que les deux contrôles
+modifient la même valeur.
+
+<Example name="date-picker/with-time" />
+
+### Sélectionner aujourd’hui
+
+Utilisez `DatePickerContext` lorsqu’un contrôle voisin doit appeler une fonction telle que
+`selectToday()`.
+
+<Example name="date-picker/select-today" />
+
+### Sélecteurs de mois et d’année
+
+Utilisez `DatePickerMonthSelect` et `DatePickerYearSelect` pour des sélecteurs natifs liés à la
+date ciblée. Utilisez `DatePickerContext` uniquement pour composer un autre en-tête ou une autre
+mise en page de calendrier personnalisée.
+
+<Example name="date-picker/month-year-select" />
+
+### Sélecteur de mois
+
+Définissez `defaultView="month"` et `minView="month"` pour permettre la sélection d’un mois
+uniquement. Utilisez `format` et `parse` si la saisie doit accepter une chaîne mois-année.
+
+<Example name="date-picker/month-picker" />
+
+### Sélecteur d’année
+
+Définissez `defaultView="year"`, `minView="year"` et `maxView="year"` pour permettre la sélection
+d’une année uniquement. Utilisez `DatePickerRangeText` dans l’en-tête, car la vue de l’année n’a pas de vue
+supérieure vers laquelle basculer.
+
+<Example name="date-picker/year-picker" />
+
+### Plusieurs mois
+
+Définissez `numOfMonths` lorsque les utilisateurs doivent voir plusieurs mois pendant la sélection.
+Affichez un `DatePickerDayTable` par mois et passez `offset={1}` au second.
+
+<Example name="date-picker/multiple-months" />
+
+### Calendrier intégré et numéros de semaine
+
+Définissez `inline` pour conserver le calendrier dans le flux du document. Un calendrier intégré
+rend `DatePickerContent` directement, sans `DatePickerPositioner`. Définissez `showWeekNumbers` sur
+la racine : `DatePickerDayTable` le lit et ajoute la colonne des numéros de semaine.
+
+<Example name="date-picker/inline-and-week-numbers" />
+
+### Vue initiale et semaines fixes
+
+Utilisez `defaultView` pour ouvrir une autre vue. Ajoutez `fixedWeeks` pour conserver une hauteur
+de six lignes dans la vue des jours pendant la navigation entre les mois.
+
+<Example name="date-picker/default-view-and-fixed-weeks" />
+
+### Locale et format
+
+`locale`, `startOfWeek`, `format` et `parse` sont transmis à Ark.
+
+<Example name="date-picker/locale-and-format" />
+
+### Dates minimale, maximale et indisponibles
+
+Utilisez `min`, `max` et `isDateUnavailable` pour des règles de validation qui doivent s’appliquer
+à la saisie comme aux cellules du calendrier.
+
+<Example name="date-picker/min-max-and-unavailable" />
+
+### État du champ
+
+`DatePicker` récupère l’état du champ depuis Ark. Si le composant n’est pas composé avec `Field`,
+définissez `invalid`, `disabled`, `readOnly` et `required` sur la racine.
+
+<Example name="date-picker/field-state" />
+
+### Formulaire
+
+Passez `name` pour inclure la date sélectionnée dans l’envoi natif du formulaire. `DatePickerField`
+fournit le modèle de saisie localisé et les libellés d’action traduits si vous ne les remplacez pas.
+
+<Example name="date-picker/form" />
+
+### État contrôlé
+
+Contrôlez le `DateValue[]` sélectionné en le mettant à jour avec `details.value`. En Vue, utilisez
+`v-model` pour la valeur contrôlée. Voir [Contrôler l’état depuis l’application](/docs/composition-patterns#controlled-state).
+
+<Example name="date-picker/controlled" />
+
+### Root Provider
+
+Utilisez `useDatePicker()` depuis le paquet correspondant au framework avec `DatePickerRootProvider`
+lorsque l’état du calendrier doit être partagé avec des contrôles hors de l’arbre racine. Voir [Partager l’état hors de l’arbre](/docs/composition-patterns#root-provider).
+
+<Example name="date-picker/root-provider" />
+
+### Assembler à partir des parties
+
+Le même sélecteur que Basic, sans `DatePickerField` ni les aides de tableau : le contrôle contient la
+saisie, le déclencheur d’effacement et le déclencheur, et chaque vue affiche son en-tête et sa grille à
+partir de `DatePickerContext`. Les déclencheurs reçoivent des icônes explicites. Partez de cet exemple
+quand le champ ou les cellules du calendrier ont besoin d’un rendu personnalisé, comme une classe ou du
+contenu supplémentaire sur certains jours.
+
+<Example name="date-picker/build-from-parts" />
 
 ## Composition
 
@@ -148,141 +184,44 @@ La racine place automatiquement le calendrier contextuel dans un portail. Utilis
 `portalled={false}` pour le conserver dans le sous-arbre DOM actuel, `portalRef` pour un conteneur
 personnalisé ou `inline` pour garder `DatePickerContent` dans le flux normal du document.
 
-## Exemples
+## Anatomie
 
-### État contrôlé
+Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
 
-Contrôlez le `DateValue[]` sélectionné en le mettant à jour avec `details.value`. En Vue, utilisez
-`v-model` pour la valeur contrôlée.
-
-<Example name="date-picker/controlled" />
-
-### Vue initiale et semaines fixes
-
-Utilisez `defaultView` pour ouvrir une autre vue. Ajoutez `fixedWeeks` pour conserver une hauteur
-de six lignes dans la vue des jours pendant la navigation entre les mois.
-
-<Example name="date-picker/default-view-and-fixed-weeks" />
-
-### État du champ
-
-`DatePicker` récupère l’état du champ depuis Ark. Si le composant n’est pas composé avec `Field`,
-définissez `invalid`, `disabled`, `readOnly` et `required` sur la racine.
-
-<Example name="date-picker/field-state" />
-
-### Formulaire
-
-Passez `name` pour inclure la date sélectionnée dans l’envoi natif du formulaire. `DatePickerField`
-fournit le modèle de saisie localisé et les libellés d’action traduits si vous ne les remplacez pas.
-
-<Example name="date-picker/form" />
-
-### Calendrier intégré et numéros de semaine
-
-Définissez `inline` pour conserver le calendrier dans le flux du document. Un calendrier intégré
-rend `DatePickerContent` directement, sans `DatePickerPositioner`. Définissez `showWeekNumbers` sur
-la racine : `DatePickerDayTable` le lit et ajoute la colonne des numéros de semaine.
-
-<Example name="date-picker/inline-and-week-numbers" />
-
-### Locale et format
-
-`locale`, `startOfWeek`, `format` et `parse` sont transmis à Ark.
-
-<Example name="date-picker/locale-and-format" />
-
-### Dates minimale, maximale et indisponibles
-
-Utilisez `min`, `max` et `isDateUnavailable` pour des règles de validation qui doivent s’appliquer
-à la saisie comme aux cellules du calendrier.
-
-<Example name="date-picker/min-max-and-unavailable" />
-
-### Sélecteurs de mois et d’année
-
-Utilisez `DatePickerMonthSelect` et `DatePickerYearSelect` pour des sélecteurs natifs liés à la
-date ciblée. Utilisez `DatePickerContext` uniquement pour composer un autre en-tête ou une autre
-mise en page de calendrier personnalisée.
-
-<Example name="date-picker/month-year-select" />
-
-### Sélecteur de mois
-
-Définissez `defaultView="month"` et `minView="month"` pour permettre la sélection d’un mois
-uniquement. Utilisez `format` et `parse` si la saisie doit accepter une chaîne mois-année.
-
-<Example name="date-picker/month-picker" />
-
-### Plusieurs dates
-
-Utilisez `selectionMode="multiple"` et limitez si nécessaire le nombre de sélections avec
-`maxSelectedDates`. Affichez les dates sélectionnées via `DatePickerContext` et appelez
-`datePicker.setValue()` lorsqu’une date est supprimée.
-
-<Example name="date-picker/multiple" />
-
-### Plusieurs mois
-
-Définissez `numOfMonths` lorsque les utilisateurs doivent voir plusieurs mois pendant la sélection.
-Affichez un `DatePickerDayTable` par mois et passez `offset={1}` au second.
-
-<Example name="date-picker/multiple-months" />
-
-### Préréglages
-
-`DatePickerPresetTrigger` accepte des noms de plages intégrés tels que `last7Days`, ou un
-`DateValue[]` personnalisé. Utilisez le mode plage avec deux saisies indexées pour afficher les
-deux dates du préréglage.
-
-<Example name="date-picker/presets" />
-
-### Plage
-
-Utilisez `selectionMode="range"` avec deux valeurs. Ark gère le survol, le début et la fin de la
-plage ainsi que le format de saisie. Une plage utilise deux saisies indexées.
-
-<Example name="date-picker/range" />
-
-### Root Provider
-
-Utilisez `useDatePicker()` depuis le paquet correspondant au framework avec `DatePickerRootProvider`
-lorsque l’état du calendrier doit être partagé avec des contrôles hors de l’arbre racine.
-
-<Example name="date-picker/root-provider" />
-
-### Sélectionner aujourd’hui
-
-Utilisez `DatePickerContext` lorsqu’un contrôle voisin doit appeler une fonction telle que
-`selectToday()`.
-
-<Example name="date-picker/select-today" />
-
-### Date et heure
-
-Conservez l’heure dans la valeur sélectionnée en stockant des objets `CalendarDateTime`. Associez
-le calendrier à un `DateInput` configuré pour saisir les minutes afin que les deux contrôles
-modifient la même valeur.
-
-<Example name="date-picker/with-time" />
-
-### Sélecteur d’année
-
-Définissez `defaultView="year"`, `minView="year"` et `maxView="year"` pour permettre la sélection
-d’une année uniquement. Utilisez `DatePickerRangeText` dans l’en-tête, car la vue de l’année n’a pas de vue
-supérieure vers laquelle basculer.
-
-<Example name="date-picker/year-picker" />
-
-### Personnalisation avancée
-
-Utilisez la composition Ark complète lorsque le champ ou les grilles du calendrier nécessitent un
-rendu personnalisé, par exemple une classe ou un contenu supplémentaire sur certaines cellules. Cet
-exemple construit le contrôle et les trois vues à partir des parties de bas niveau au lieu de
-`DatePickerField` et des tables prêtes à l'emploi, tout en conservant le même état Ark et les
-parties stylisées.
-
-<Example name="date-picker/advanced-customization" />
+<AnatomyInspector
+  parts={[
+    ["DatePicker", "date-picker-root", "Racine qui gère la valeur, la vue, l’ouverture, la locale, la validation et le formulaire.", 0],
+    ["DatePickerLabel", "date-picker-label", "Libellé accessible du champ de date.", 1],
+    ["DatePickerControl", "date-picker-control", "Conteneur du champ pour une disposition personnalisée.", 1],
+    ["DatePickerInput", "date-picker-input", "Saisie de date modifiable, incluse dans l’envoi natif du formulaire.", 2],
+    ["DatePickerClearTrigger", "date-picker-clear-trigger", "Efface la valeur courante.", 2],
+    ["DatePickerTrigger", "date-picker-trigger", "Ouvre le calendrier.", 2],
+    ["DatePickerField", "", "Champ pratique avec saisie, effacement et ouverture du calendrier.", 1],
+    ["DatePickerPositioner", "date-picker-positioner", "Positionne le calendrier contextuel.", 1],
+    ["DatePickerContent", "date-picker-content", "Conteneur du calendrier contextuel ou intégré.", 2],
+    ["DatePickerView", "date-picker-view", "Vue du jour, du mois ou de l’année.", 3],
+    ["DatePickerViewControl", "date-picker-view-control", "En-tête contenant les commandes de navigation.", 4],
+    ["DatePickerPrevTrigger", "date-picker-prev-trigger", "Passe au mois, à l’année ou à la décennie précédente.", 5],
+    ["DatePickerViewTrigger", "date-picker-view-trigger", "Change de vue du calendrier.", 5],
+    ["DatePickerNextTrigger", "date-picker-next-trigger", "Passe au mois, à l’année ou à la décennie suivante.", 5],
+    ["DatePickerDayTable", "", "Table standard des jours avec son en-tête.", 4],
+    ["DatePickerTable*", "date-picker-table", "Parties pour composer une grille personnalisée.", 4],
+    ["DatePickerWeekNumberHeaderCell", "date-picker-week-number-header-cell", "En-tête de la colonne des numéros de semaine.", 5],
+    ["DatePickerWeekNumberCell", "date-picker-week-number-cell", "Cellule contenant un numéro de semaine.", 5],
+    ["DatePickerMonthSelect", "date-picker-month-select-indicator", "Sélecteur de mois natif lié à la date ciblée.", 3],
+    ["DatePickerPresetTrigger", "date-picker-preset-trigger", "Bouton d’une plage prédéfinie.", 3],
+    ["DatePickerValueText", "date-picker-value-text", "Affiche les valeurs sélectionnées.", 1],
+    ["DatePickerContext", null, "Accès sans rendu à l’état du calendrier.", 1],
+    ["DatePickerRangeField", "", "Champ de plage avec saisies de début et de fin indexées.", 1],
+    ["DatePickerRangeText", "date-picker-range-text", "Affiche la plage visible dans l’en-tête.", 1],
+    ["DatePickerMonthTable", "", "Table standard des mois avec son en-tête.", 1],
+    ["DatePickerYearTable", "", "Table standard des années avec son en-tête.", 1],
+    ["DatePickerYearSelect", "date-picker-year-select-indicator", "Sélecteur d’année natif lié à la date ciblée.", 1],
+    ["DatePickerRootProvider", "date-picker-root-provider", "Affiche les parties avec l’état renvoyé par `useDatePicker()`.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styles
 
@@ -291,22 +230,112 @@ structurels. Les variantes Tailwind utilisent les utilitaires natifs et les clas
 les variantes CSS Modules exposent les variables ci-dessous. Les deux approches partagent les
 attributs d’état Ark et les hooks `data-slot` de moduix.
 
-### Propriétés CSS
+### Variables CSS
 
-<CssPropertiesSection properties={DatePickerDocs.datePickerOverrideCssProperties} />
+Survolez ou sélectionnez une variable pour la voir dans l’aperçu.
+
+<CssPropertiesSection properties={DatePickerDocs.datePickerOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Points d’accroche CSS
 
-Utilisez ces hooks `data-slot` pour cibler les différentes parties :
+| Partie | `data-slot` |
+| --- | --- |
+| `DatePicker` | `date-picker-root` |
+| `DatePickerRootProvider` | `date-picker-root-provider` |
+| `DatePickerLabel` | `date-picker-label` |
+| `DatePickerControl` | `date-picker-control` |
+| `DatePickerInput` | `date-picker-input` |
+| `DatePickerTrigger` | `date-picker-trigger` |
+| `DatePickerClearTrigger` | `date-picker-clear-trigger` |
+| `DatePickerPositioner` | `date-picker-positioner` |
+| `DatePickerContent` | `date-picker-content` |
+| `DatePickerView` | `date-picker-view` |
+| `DatePickerViewControl` | `date-picker-view-control` |
+| `DatePickerPrevTrigger` | `date-picker-prev-trigger` |
+| `DatePickerNextTrigger` | `date-picker-next-trigger` |
+| `DatePickerRangeText` | `date-picker-range-text` |
+| `DatePickerViewTrigger` | `date-picker-view-trigger` |
+| `DatePickerTable` | `date-picker-table` |
+| `DatePickerTableHead` | `date-picker-table-head` |
+| `DatePickerTableBody` | `date-picker-table-body` |
+| `DatePickerTableRow` | `date-picker-table-row` |
+| `DatePickerTableHeader` | `date-picker-table-header` |
+| `DatePickerWeekNumberHeaderCell` | `date-picker-week-number-header-cell` |
+| `DatePickerWeekNumberCell` | `date-picker-week-number-cell` |
+| `DatePickerTableCell` | `date-picker-table-cell` |
+| `DatePickerTableCellTrigger` | `date-picker-table-cell-trigger` |
+| `DatePickerMonthSelect`, élément interne | `date-picker-month-select-control` |
+| `DatePickerMonthSelect` | `date-picker-month-select` |
+| `DatePickerMonthSelect`, élément interne | `date-picker-month-select-indicator` |
+| `DatePickerYearSelect`, élément interne | `date-picker-year-select-control` |
+| `DatePickerYearSelect` | `date-picker-year-select` |
+| `DatePickerYearSelect`, élément interne | `date-picker-year-select-indicator` |
+| `DatePickerPresetTrigger` | `date-picker-preset-trigger` |
+| `DatePickerValueText` | `date-picker-value-text` |
 
-- `date-picker-root`, `date-picker-root-provider`, `date-picker-label`, `date-picker-control` et `date-picker-input`.
-- `date-picker-trigger`, `date-picker-clear-trigger` et `date-picker-value-text`.
-- `date-picker-positioner`, `date-picker-content`, `date-picker-view` et `date-picker-view-control`.
-- `date-picker-view-trigger`, `date-picker-prev-trigger`, `date-picker-next-trigger` et `date-picker-range-text`.
-- `date-picker-table-*`, `date-picker-table-cell-trigger`, `date-picker-week-number-header-cell` et `date-picker-week-number-cell`.
-- `date-picker-month-select`, `date-picker-year-select` et `date-picker-preset-trigger`.
+- Sélecteurs d'état Ark : `data-weekend` sur les déclencheurs de jour et `data-placeholder-shown` sur les champs.
 
 Les attributs d’état Ark comprennent `data-state`, `data-disabled`, `data-readonly`, `data-invalid`,
 `data-focus`, `data-selected`, `data-today`, `data-unavailable`, `data-outside-range`,
 `data-in-range`, `data-range-start`, `data-range-end`, `data-in-hover-range`,
 `data-hover-range-start`, `data-hover-range-end` et `data-view`.
+
+## Clavier
+
+| Touche | Action |
+| --- | --- |
+| `ArrowLeft` / `ArrowRight` / `ArrowUp` / `ArrowDown` | Déplace le focus d’un jour ou d’une semaine. |
+| `PageUp` / `PageDown` | Passe au mois précédent ou suivant ; avec Shift, à l’année. |
+| `Home` / `End` | Va au début ou à la fin de la semaine. |
+| `Enter` / `Space` | Sélectionne la date ayant le focus. |
+| `Esc` | Ferme le calendrier. |
+
+## Référence de l’API
+
+| Prop | Type | Défaut | Description |
+| --- | --- | --- | --- |
+| `value` | `DateValue[]` | — | Dates sélectionnées en mode contrôlé. |
+| `defaultValue` | `DateValue[]` | — | Dates sélectionnées initiales. |
+| `onValueChange` | `(details: ValueChangeDetails) => void` | — | Appelé lorsque les dates sélectionnées changent. |
+| `selectionMode` | `'single' \| 'range' \| 'multiple'` | `'single'` | Date unique (`single`), plage (`range`) ou plusieurs dates (`multiple`). |
+| `min` | `DateValue` | — | Date la plus ancienne sélectionnable. |
+| `max` | `DateValue` | — | Date la plus récente sélectionnable. |
+| `isDateUnavailable` | `(date: DateValue, locale: string) => boolean` | — | Renvoie `true` pour les dates indisponibles. |
+| `locale` | `string` | `'en-US'` | Locale du formatage ; par défaut celle du `LocaleProvider` le plus proche. |
+| `timeZone` | `string` | `'UTC'` | Fuseau horaire des dates. |
+| `startOfWeek` | `number` | — | Premier jour de la semaine, `0` pour dimanche. |
+| `numOfMonths` | `number` | — | Nombre de mois affichés côte à côte. |
+| `fixedWeeks` | `boolean` | `false` | Affiche toujours six semaines pour garder la même hauteur. |
+| `showWeekNumbers` | `boolean` | `false` | Ajoute une colonne des numéros de semaine. |
+| `closeOnSelect` | `boolean` | `true` | Ferme le calendrier une fois la sélection terminée. |
+| `inline` | `boolean` | `false` | Affiche le calendrier sur place, sans fenêtre. |
+| `defaultView` | `'day' \| 'month' \| 'year'` | `'day'` | Vue initiale : `day`, `month` ou `year`. |
+| `open` | `boolean` | — | État d’ouverture en mode contrôlé. |
+| `onOpenChange` | `(details: OpenChangeDetails) => void` | — | Appelé à l’ouverture et à la fermeture. |
+| `positioning` | `PositioningOptions` | — | Placement, décalage et autres options de positionnement de la fenêtre. |
+| `name` | `string` | — | Nom du champ de formulaire de l’input sous-jacent. |
+| `disabled` | `boolean` | `false` | Désactive le contrôle. |
+| `readOnly` | `boolean` | `false` | Affiche la valeur sans permettre de la modifier. |
+| `invalid` | `boolean` | `false` | Marque le champ comme invalide. |
+| `required` | `boolean` | `false` | Exige une valeur avant l’envoi du formulaire. |
+| `lazyMount` | `boolean` | `true` | Monte le contenu à la première ouverture. |
+| `unmountOnExit` | `boolean` | `true` | Démonte le contenu après la fermeture. |
+| `createCalendar` | `(identifier: CalendarIdentifier) => Calendar` | — | Crée un système de calendrier non grégorien. |
+| `translations` | `IntlTranslations` | — | Textes localisés des libellés d’accessibilité. |
+| `outsideDaySelectable` | `boolean` | `false` | Permet de choisir des jours des mois voisins. |
+| `openOnClick` | `boolean` | `false` | Ouvre le calendrier au clic sur le champ. |
+| `focusedValue` | `DateValue` | — | Date ciblée en mode contrôlé. |
+| `defaultFocusedValue` | `DateValue` | — | Date ciblée au départ ; fixe le mois affiché. |
+| `onFocusChange` | `(details: FocusChangeDetails) => void` | — | Appelé lorsque la date ciblée change. |
+| `onViewChange` | `(details: ViewChangeDetails) => void` | — | Appelé lorsque la vue change. |
+| `onVisibleRangeChange` | `(details: VisibleRangeChangeDetails) => void` | — | Appelé lorsque la période affichée change. |
+| `maxSelectedDates` | `number` | — | Limite pour la sélection `multiple`. |
+| `format` | `(date: DateValue, details: LocaleDetails) => string` | — | Formate une date pour le champ. |
+| `parse` | `(value: string, details: LocaleDetails) => DateValue \| undefined` | — | Convertit le texte saisi en date. |
+| `placeholder` | `string` | — | Texte indicatif du champ. |
+| `view` | `DateView` | — | Vue courante en mode contrôlé. |
+| `minView` | `DateView` | `'day'` | Vue la plus détaillée accessible. |
+| `maxView` | `DateView` | `'year'` | Vue la plus large accessible. |
+| `defaultOpen` | `boolean` | — | État d’ouverture initial lorsqu’il n’est pas contrôlé. |

@@ -1,14 +1,27 @@
 ---
 title: Date Picker
 component: date-picker
-description: A date picker built on Ark UI with popup and inline calendars, range selection, and multiple-date selection.
+description: Pick a date, range, or several dates from a calendar.
+ark: https://ark-ui.com/docs/components/date-picker
 ---
 
+import AnatomyScene from '@/components/examples/date-picker/anatomy';
 import * as DatePickerDocs from '@/components/examples/date-picker/css-properties';
 
-## API Reference
+<Example name="date-picker/basic" />
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/date-picker" />
+## Installation
+
+<ComponentInstall />
+
+## Usage
+
+<Usage />
+
+Use `DatePicker` as the root, `DatePickerField` for a standard field, and
+`DatePickerDayTable`, `DatePickerMonthTable`, and `DatePickerYearTable` for the calendar views. Each table
+renders its own header, so the view trigger can switch between them. Render `DatePickerPositioner` and
+`DatePickerContent` explicitly when the calendar should float.
 
 ## Choosing the right component
 
@@ -16,118 +29,135 @@ import * as DatePickerDocs from '@/components/examples/date-picker/css-propertie
 - Choose **`DateInput`** for keyboard-first segmented date entry.
 - Choose **`DatePicker`** when users need an editable date field with a popup or inline calendar.
 
-## Basic
+## Examples
 
+### Range
 
-Use `DatePicker` as the root, `DatePickerField` for a standard field, and
-`DatePickerDayTable`, `DatePickerMonthTable`, and `DatePickerYearTable` for the calendar views. Each table
-renders its own header, so the view trigger can switch between them. Render `DatePickerPositioner` and
-`DatePickerContent` explicitly when the calendar should float.
+Use `selectionMode="range"` with two values. Ark manages range hover, the first and last day in
+the range, and input formatting. A range uses two indexed inputs, one for each date.
 
-<Example name="date-picker/basic" />
+<Example name="date-picker/range" />
 
-## Install with shadcn
+### Multiple dates
 
-See [Quick Start](/docs/quick-start) for full package setup, registry configuration, and styling guidance.
+Use `selectionMode="multiple"` and optionally cap the number of selections with
+`maxSelectedDates`. Render selected-date chips through `DatePickerContext` and call
+`datePicker.setValue()` when a chip is removed.
 
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
+<Example name="date-picker/multiple" />
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/date-picker' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/date-picker' },
-  ]}
-/>
+### Presets
 
-  </Tab>
-  <Tab label="Solid" value="solid">
+`DatePickerPresetTrigger` accepts built-in range preset names such as `last7Days`, or a custom
+`DateValue[]`. Use range mode with two indexed inputs so the selected preset displays both dates.
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/date-picker' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/date-picker' },
-  ]}
-/>
+<Example name="date-picker/presets" />
 
-  </Tab>
-  <Tab label="Vue" value="vue">
+### Date and time
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/date-picker' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/date-picker' },
-  ]}
-/>
+Keep the time in the selected value by storing `CalendarDateTime` objects. Pair the calendar with
+a `DateInput` configured for minute input so both controls edit the same value.
 
-  </Tab>
-</Tabs>
+<Example name="date-picker/with-time" />
 
-## Anatomy
+### Select today
 
-```text
-DatePicker
-├─ DatePickerLabel
-├─ DatePickerControl
-│  ├─ DatePickerInput
-│  ├─ DatePickerClearTrigger
-│  └─ DatePickerTrigger
-├─ DatePickerField / DatePickerRangeField (convenience controls)
-├─ Overlay subtree (portalled automatically)
-│  └─ DatePickerPositioner
-│     └─ DatePickerContent
-│        ├─ DatePickerView[view="day" | "month" | "year"]
-│        │  ├─ DatePickerViewControl
-│        │  │  ├─ DatePickerPrevTrigger
-│        │  │  ├─ DatePickerViewTrigger / DatePickerRangeText
-│        │  │  └─ DatePickerNextTrigger
-│        │  ├─ DatePickerDayTable / MonthTable / YearTable (convenience tables)
-│        │  └─ DatePickerTable
-│        │     ├─ DatePickerTableHead / TableBody / TableRow
-│        │     ├─ DatePickerTableHeader
-│        │     ├─ DatePickerTableCell
-│        │     ├─ DatePickerTableCellTrigger
-│        │     ├─ DatePickerWeekNumberHeaderCell
-│        │     └─ DatePickerWeekNumberCell
-│        ├─ DatePickerMonthSelect / DatePickerYearSelect
-│        └─ DatePickerPresetTrigger
-├─ DatePickerValueText (optional selected-value summary)
-└─ DatePickerContext
+Use `DatePickerContext` when a nearby control needs to call helpers such as `selectToday()`.
 
-DatePickerRootProvider
-└─ same part tree connected to a useDatePicker() store
-```
+<Example name="date-picker/select-today" />
 
-| Part                              | Role                                                               |
-| --------------------------------- | ------------------------------------------------------------------ |
-| `DatePicker`                    | Root that manages value, view, open state, locale, validation, and form context. |
-| `DatePickerRootProvider`         | Renders parts using state returned by `useDatePicker()`.           |
-| `DatePickerLabel`                | Accessible label for the date field.                              |
-| `DatePickerControl`              | Field wrapper for custom input layouts.                           |
-| `DatePickerField`                | Convenience control with an input, clear trigger, and open trigger. |
-| `DatePickerRangeField`           | Convenience range control with indexed start and end inputs.      |
-| `DatePickerInput`                | Editable date input that participates in native form submission.   |
-| `DatePickerTrigger`              | Opens the calendar.                                                |
-| `DatePickerClearTrigger`         | Clears the current value.                                          |
-| `DatePickerPositioner`           | Positions the popup.                                               |
-| `DatePickerContent`              | Calendar container for popup or inline mode.                       |
-| `DatePickerView`                 | Day, month, or year panel.                                          |
-| `DatePickerViewControl`          | Header containing calendar navigation controls.                    |
-| `DatePickerPrevTrigger`          | Moves to the previous month, year, or decade.                      |
-| `DatePickerNextTrigger`          | Moves to the next month, year, or decade.                          |
-| `DatePickerViewTrigger`          | Switches between calendar views.                                   |
-| `DatePickerRangeText`            | Displays the visible date range in the calendar header.            |
-| `DatePickerValueText`            | Displays selected values.                                          |
-| `DatePickerDayTable`             | Standard day-view table with its header.                           |
-| `DatePickerMonthTable`           | Standard month-view table with its header.                         |
-| `DatePickerYearTable`            | Standard year-view table with its header.                          |
-| `DatePickerTable*`               | Parts for a custom calendar grid.                                  |
-| `DatePickerWeekNumberHeaderCell` | Header cell for the week-number column.                            |
-| `DatePickerWeekNumberCell`       | Body cell for a week number.                                       |
-| `DatePickerMonthSelect`          | Native month select linked to the focused date.                    |
-| `DatePickerYearSelect`           | Native year select linked to the focused date.                     |
-| `DatePickerPresetTrigger`        | Button for a predefined range.                                     |
-| `DatePickerContext`              | Renderless access to calendar state.                               |
+### Month and year selects
+
+Use `DatePickerMonthSelect` and `DatePickerYearSelect` for native selects linked to the focused
+date. Use `DatePickerContext` only when composing a different custom header or calendar layout.
+
+<Example name="date-picker/month-year-select" />
+
+### Month picker
+
+Set `defaultView="month"` and `minView="month"` to let users select a month only. Use `format`
+and `parse` when the input should accept a month and year string.
+
+<Example name="date-picker/month-picker" />
+
+### Year picker
+
+Set `defaultView="year"`, `minView="year"`, and `maxView="year"` to let users select a year only.
+Use `DatePickerRangeText` in the header because the year view has no higher view to switch to.
+
+<Example name="date-picker/year-picker" />
+
+### Multiple months
+
+Set `numOfMonths` when users need to see more than one month while choosing dates. Render one
+`DatePickerDayTable` per month and pass `offset={1}` to the second one.
+
+<Example name="date-picker/multiple-months" />
+
+### Inline calendar and week numbers
+
+Set `inline` when the calendar should stay in the document flow. An inline calendar renders
+`DatePickerContent` directly, without `DatePickerPositioner`. Set `showWeekNumbers` on the root;
+`DatePickerDayTable` reads it and adds the week-number column.
+
+<Example name="date-picker/inline-and-week-numbers" />
+
+### Default view and fixed weeks
+
+Use `defaultView` to open a different panel. Add `fixedWeeks` to keep the day view at a stable
+six-row height while users navigate between months.
+
+<Example name="date-picker/default-view-and-fixed-weeks" />
+
+### Locale and format
+
+`locale`, `startOfWeek`, `format`, and `parse` are passed through to Ark.
+
+<Example name="date-picker/locale-and-format" />
+
+### Minimum, maximum, and unavailable dates
+
+Use `min`, `max`, and `isDateUnavailable` for validation rules that should affect both the input
+and calendar cells.
+
+<Example name="date-picker/min-max-and-unavailable" />
+
+### Field state
+
+`DatePicker` reads field state from Ark. Set `invalid`, `disabled`, `readOnly`, and `required` on
+the root when you are not composing it through `Field`.
+
+<Example name="date-picker/field-state" />
+
+### Form
+
+Pass `name` to include the selected date in native form submission. `DatePickerField` provides
+the locale-aware placeholder and translated action labels unless you override them.
+
+<Example name="date-picker/form" />
+
+### Controlled
+
+Control the selected `DateValue[]` by updating it with `details.value`. In Vue, use `v-model` for
+the controlled value. See [Control state from the application](/docs/composition-patterns#controlled-state).
+
+<Example name="date-picker/controlled" />
+
+### Root provider
+
+Use `useDatePicker()` from the matching framework package with `DatePickerRootProvider` when
+calendar state must be shared with controls outside the root tree. See [Share state outside the tree](/docs/composition-patterns#root-provider).
+
+<Example name="date-picker/root-provider" />
+
+### Build from parts
+
+The same picker as Basic, without `DatePickerField` and the table helpers: the control holds the
+input, clear trigger, and trigger, and each view renders its own header and grid from
+`DatePickerContext`. Triggers receive explicit icons. Start here when the field or the calendar cells
+need custom rendering, such as a class or extra content on individual days.
+
+<Example name="date-picker/build-from-parts" />
 
 ## Composition
 
@@ -145,135 +175,44 @@ represent the full list, and call `setValue()` when a value is removed.
 The root portals the popup automatically. Use `portalled={false}` for the current DOM subtree,
 `portalRef` for a custom container, or `inline` when `DatePickerContent` should stay in normal document flow.
 
-## Examples
+## Anatomy
 
-### Controlled
+Hover or focus a part to find it in the preview.
 
-Control the selected `DateValue[]` by updating it with `details.value`. In Vue, use `v-model` for
-the controlled value.
-
-<Example name="date-picker/controlled" />
-
-### Default view and fixed weeks
-
-Use `defaultView` to open a different panel. Add `fixedWeeks` to keep the day view at a stable
-six-row height while users navigate between months.
-
-<Example name="date-picker/default-view-and-fixed-weeks" />
-
-### Field state
-
-`DatePicker` reads field state from Ark. Set `invalid`, `disabled`, `readOnly`, and `required` on
-the root when you are not composing it through `Field`.
-
-<Example name="date-picker/field-state" />
-
-### Form
-
-Pass `name` to include the selected date in native form submission. `DatePickerField` provides
-the locale-aware placeholder and translated action labels unless you override them.
-
-<Example name="date-picker/form" />
-
-### Inline calendar and week numbers
-
-Set `inline` when the calendar should stay in the document flow. An inline calendar renders
-`DatePickerContent` directly, without `DatePickerPositioner`. Set `showWeekNumbers` on the root;
-`DatePickerDayTable` reads it and adds the week-number column.
-
-<Example name="date-picker/inline-and-week-numbers" />
-
-### Locale and format
-
-`locale`, `startOfWeek`, `format`, and `parse` are passed through to Ark.
-
-<Example name="date-picker/locale-and-format" />
-
-### Minimum, maximum, and unavailable dates
-
-Use `min`, `max`, and `isDateUnavailable` for validation rules that should affect both the input
-and calendar cells.
-
-<Example name="date-picker/min-max-and-unavailable" />
-
-### Month and year selects
-
-Use `DatePickerMonthSelect` and `DatePickerYearSelect` for native selects linked to the focused
-date. Use `DatePickerContext` only when composing a different custom header or calendar layout.
-
-<Example name="date-picker/month-year-select" />
-
-### Month picker
-
-Set `defaultView="month"` and `minView="month"` to let users select a month only. Use `format`
-and `parse` when the input should accept a month and year string.
-
-<Example name="date-picker/month-picker" />
-
-### Multiple dates
-
-Use `selectionMode="multiple"` and optionally cap the number of selections with
-`maxSelectedDates`. Render selected-date chips through `DatePickerContext` and call
-`datePicker.setValue()` when a chip is removed.
-
-<Example name="date-picker/multiple" />
-
-### Multiple months
-
-Set `numOfMonths` when users need to see more than one month while choosing dates. Render one
-`DatePickerDayTable` per month and pass `offset={1}` to the second one.
-
-<Example name="date-picker/multiple-months" />
-
-### Presets
-
-`DatePickerPresetTrigger` accepts built-in range preset names such as `last7Days`, or a custom
-`DateValue[]`. Use range mode with two indexed inputs so the selected preset displays both dates.
-
-<Example name="date-picker/presets" />
-
-### Range
-
-Use `selectionMode="range"` with two values. Ark manages range hover, the first and last day in
-the range, and input formatting. A range uses two indexed inputs, one for each date.
-
-<Example name="date-picker/range" />
-
-### Root Provider
-
-Use `useDatePicker()` from the matching framework package with `DatePickerRootProvider` when
-calendar state must be shared with controls outside the root tree.
-
-<Example name="date-picker/root-provider" />
-
-### Select today
-
-Use `DatePickerContext` when a nearby control needs to call helpers such as `selectToday()`.
-
-<Example name="date-picker/select-today" />
-
-### Date and time
-
-Keep the time in the selected value by storing `CalendarDateTime` objects. Pair the calendar with
-a `DateInput` configured for minute input so both controls edit the same value.
-
-<Example name="date-picker/with-time" />
-
-### Year picker
-
-Set `defaultView="year"`, `minView="year"`, and `maxView="year"` to let users select a year only.
-Use `DatePickerRangeText` in the header because the year view has no higher view to switch to.
-
-<Example name="date-picker/year-picker" />
-
-### Advanced customization
-
-Use the full Ark composition when the field or calendar grids need custom rendering, such as a
-class or extra content on individual cells. This example builds the control and all three views
-from the low-level parts instead of `DatePickerField` and the table sugar, while keeping the same
-Ark state and styled parts.
-
-<Example name="date-picker/advanced-customization" />
+<AnatomyInspector
+  parts={[
+    ["DatePicker", "date-picker-root", "Root that manages value, view, open state, locale, validation, and form context.", 0],
+    ["DatePickerLabel", "date-picker-label", "Accessible label for the date field.", 1],
+    ["DatePickerControl", "date-picker-control", "Field wrapper for custom input layouts.", 1],
+    ["DatePickerInput", "date-picker-input", "Editable date input that participates in native form submission.", 2],
+    ["DatePickerClearTrigger", "date-picker-clear-trigger", "Clears the current value.", 2],
+    ["DatePickerTrigger", "date-picker-trigger", "Opens the calendar.", 2],
+    ["DatePickerField", "", "Convenience control with an input, clear trigger, and open trigger.", 1],
+    ["DatePickerPositioner", "date-picker-positioner", "Positions the popup.", 1],
+    ["DatePickerContent", "date-picker-content", "Calendar container for popup or inline mode.", 2],
+    ["DatePickerView", "date-picker-view", "Day, month, or year panel.", 3],
+    ["DatePickerViewControl", "date-picker-view-control", "Header containing calendar navigation controls.", 4],
+    ["DatePickerPrevTrigger", "date-picker-prev-trigger", "Moves to the previous month, year, or decade.", 5],
+    ["DatePickerViewTrigger", "date-picker-view-trigger", "Switches between calendar views.", 5],
+    ["DatePickerNextTrigger", "date-picker-next-trigger", "Moves to the next month, year, or decade.", 5],
+    ["DatePickerDayTable", "", "Standard day-view table with its header.", 4],
+    ["DatePickerTable*", "date-picker-table", "Parts for a custom calendar grid.", 4],
+    ["DatePickerWeekNumberHeaderCell", "date-picker-week-number-header-cell", "Header cell for the week-number column.", 5],
+    ["DatePickerWeekNumberCell", "date-picker-week-number-cell", "Body cell for a week number.", 5],
+    ["DatePickerMonthSelect", "date-picker-month-select-indicator", "Native month select linked to the focused date.", 3],
+    ["DatePickerPresetTrigger", "date-picker-preset-trigger", "Button for a predefined range.", 3],
+    ["DatePickerValueText", "date-picker-value-text", "Displays selected values.", 1],
+    ["DatePickerContext", null, "Renderless access to calendar state.", 1],
+    ["DatePickerRangeField", "", "Convenience range control with indexed start and end inputs.", 1],
+    ["DatePickerRangeText", "date-picker-range-text", "Displays the visible date range in the calendar header.", 1],
+    ["DatePickerMonthTable", "", "Standard month-view table with its header.", 1],
+    ["DatePickerYearTable", "", "Standard year-view table with its header.", 1],
+    ["DatePickerYearSelect", "date-picker-year-select-indicator", "Native year select linked to the focused date.", 1],
+    ["DatePickerRootProvider", "date-picker-root-provider", "Renders parts using state returned by `useDatePicker()`.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styling
 
@@ -281,22 +220,112 @@ Use `className` in React, `class` in Solid, or `class` in Vue on exported parts 
 variants use native utilities and consumer classes; CSS Modules variants expose the variables
 below. Both styling tracks share Ark state attributes and moduix `data-slot` hooks.
 
-### CSS Properties
+### CSS variables
 
-<CssPropertiesSection properties={DatePickerDocs.datePickerOverrideCssProperties} />
+Hover or focus a variable to see it in the preview.
+
+<CssPropertiesSection properties={DatePickerDocs.datePickerOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Styling hooks
 
-Use these `data-slot` hooks to target individual parts:
+| Part | `data-slot` |
+| --- | --- |
+| `DatePicker` | `date-picker-root` |
+| `DatePickerRootProvider` | `date-picker-root-provider` |
+| `DatePickerLabel` | `date-picker-label` |
+| `DatePickerControl` | `date-picker-control` |
+| `DatePickerInput` | `date-picker-input` |
+| `DatePickerTrigger` | `date-picker-trigger` |
+| `DatePickerClearTrigger` | `date-picker-clear-trigger` |
+| `DatePickerPositioner` | `date-picker-positioner` |
+| `DatePickerContent` | `date-picker-content` |
+| `DatePickerView` | `date-picker-view` |
+| `DatePickerViewControl` | `date-picker-view-control` |
+| `DatePickerPrevTrigger` | `date-picker-prev-trigger` |
+| `DatePickerNextTrigger` | `date-picker-next-trigger` |
+| `DatePickerRangeText` | `date-picker-range-text` |
+| `DatePickerViewTrigger` | `date-picker-view-trigger` |
+| `DatePickerTable` | `date-picker-table` |
+| `DatePickerTableHead` | `date-picker-table-head` |
+| `DatePickerTableBody` | `date-picker-table-body` |
+| `DatePickerTableRow` | `date-picker-table-row` |
+| `DatePickerTableHeader` | `date-picker-table-header` |
+| `DatePickerWeekNumberHeaderCell` | `date-picker-week-number-header-cell` |
+| `DatePickerWeekNumberCell` | `date-picker-week-number-cell` |
+| `DatePickerTableCell` | `date-picker-table-cell` |
+| `DatePickerTableCellTrigger` | `date-picker-table-cell-trigger` |
+| `DatePickerMonthSelect`, inner element | `date-picker-month-select-control` |
+| `DatePickerMonthSelect` | `date-picker-month-select` |
+| `DatePickerMonthSelect`, inner element | `date-picker-month-select-indicator` |
+| `DatePickerYearSelect`, inner element | `date-picker-year-select-control` |
+| `DatePickerYearSelect` | `date-picker-year-select` |
+| `DatePickerYearSelect`, inner element | `date-picker-year-select-indicator` |
+| `DatePickerPresetTrigger` | `date-picker-preset-trigger` |
+| `DatePickerValueText` | `date-picker-value-text` |
 
-- `date-picker-root`, `date-picker-root-provider`, `date-picker-label`, `date-picker-control`, and `date-picker-input`.
-- `date-picker-trigger`, `date-picker-clear-trigger`, and `date-picker-value-text`.
-- `date-picker-positioner`, `date-picker-content`, `date-picker-view`, and `date-picker-view-control`.
-- `date-picker-view-trigger`, `date-picker-prev-trigger`, `date-picker-next-trigger`, and `date-picker-range-text`.
-- `date-picker-table-*`, `date-picker-table-cell-trigger`, `date-picker-week-number-header-cell`, and `date-picker-week-number-cell`.
-- `date-picker-month-select`, `date-picker-year-select`, and `date-picker-preset-trigger`.
+- Ark state selectors: `data-weekend` on day cell triggers and `data-placeholder-shown` on inputs.
 
 Ark state attributes include `data-state`, `data-disabled`, `data-readonly`, `data-invalid`,
 `data-focus`, `data-selected`, `data-today`, `data-unavailable`, `data-outside-range`,
 `data-in-range`, `data-range-start`, `data-range-end`, `data-in-hover-range`,
 `data-hover-range-start`, `data-hover-range-end`, and `data-view`.
+
+## Keyboard
+
+| Key | Action |
+| --- | --- |
+| `ArrowLeft` / `ArrowRight` / `ArrowUp` / `ArrowDown` | Moves focus by a day or a week in the calendar. |
+| `PageUp` / `PageDown` | Goes to the previous or next month; with Shift, the year. |
+| `Home` / `End` | Moves to the start or end of the week. |
+| `Enter` / `Space` | Selects the focused date. |
+| `Esc` | Closes the calendar. |
+
+## API reference
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `value` | `DateValue[]` | — | Selected dates for controlled use. |
+| `defaultValue` | `DateValue[]` | — | Initial selected dates. |
+| `onValueChange` | `(details: ValueChangeDetails) => void` | — | Called when the selected dates change. |
+| `selectionMode` | `'single' \| 'range' \| 'multiple'` | `'single'` | `single` date, a `range`, or `multiple` dates. |
+| `min` | `DateValue` | — | Earliest selectable date. |
+| `max` | `DateValue` | — | Latest selectable date. |
+| `isDateUnavailable` | `(date: DateValue, locale: string) => boolean` | — | Returns `true` for dates that cannot be picked. |
+| `locale` | `string` | `'en-US'` | Locale for formatting; defaults to the nearest `LocaleProvider`. |
+| `timeZone` | `string` | `'UTC'` | Time zone used for dates. |
+| `startOfWeek` | `number` | — | First day of the week, `0` for Sunday. |
+| `numOfMonths` | `number` | — | Number of months shown side by side. |
+| `fixedWeeks` | `boolean` | `false` | Always shows six weeks so the height stays the same. |
+| `showWeekNumbers` | `boolean` | `false` | Adds a week number column. |
+| `closeOnSelect` | `boolean` | `true` | Closes the popup once the selection is complete. |
+| `inline` | `boolean` | `false` | Renders the calendar in place instead of in a popup. |
+| `defaultView` | `'day' \| 'month' \| 'year'` | `'day'` | Initial view: `day`, `month`, or `year`. |
+| `open` | `boolean` | — | Open state for controlled use. |
+| `onOpenChange` | `(details: OpenChangeDetails) => void` | — | Called when it opens or closes. |
+| `positioning` | `PositioningOptions` | — | Placement, offset, and other popup positioning options. |
+| `name` | `string` | — | Form field name of the underlying input. |
+| `disabled` | `boolean` | `false` | Disables the control. |
+| `readOnly` | `boolean` | `false` | Shows the value but prevents changes. |
+| `invalid` | `boolean` | `false` | Marks the control as invalid. |
+| `required` | `boolean` | `false` | Requires a value before form submission. |
+| `lazyMount` | `boolean` | `true` | Mounts the content on first open. |
+| `unmountOnExit` | `boolean` | `true` | Unmounts the content after it closes. |
+| `createCalendar` | `(identifier: CalendarIdentifier) => Calendar` | — | Creates a non-Gregorian calendar system. |
+| `translations` | `IntlTranslations` | — | Localized strings for accessibility labels. |
+| `outsideDaySelectable` | `boolean` | `false` | Allows picking days from adjacent months. |
+| `openOnClick` | `boolean` | `false` | Opens the calendar when the input is clicked. |
+| `focusedValue` | `DateValue` | — | Focused date for controlled use. |
+| `defaultFocusedValue` | `DateValue` | — | Date focused initially; sets the visible month. |
+| `onFocusChange` | `(details: FocusChangeDetails) => void` | — | Called when the focused date changes. |
+| `onViewChange` | `(details: ViewChangeDetails) => void` | — | Called when the view changes. |
+| `onVisibleRangeChange` | `(details: VisibleRangeChangeDetails) => void` | — | Called when the visible dates change. |
+| `maxSelectedDates` | `number` | — | Limit for `multiple` selection. |
+| `format` | `(date: DateValue, details: LocaleDetails) => string` | — | Formats a date for the input. |
+| `parse` | `(value: string, details: LocaleDetails) => DateValue \| undefined` | — | Parses typed text back into a date. |
+| `placeholder` | `string` | — | Placeholder text of the input. |
+| `view` | `DateView` | — | Current view for controlled use. |
+| `minView` | `DateView` | `'day'` | Most detailed view the user can reach. |
+| `maxView` | `DateView` | `'year'` | Broadest view the user can reach. |
+| `defaultOpen` | `boolean` | — | Initial open state when it is not controlled. |

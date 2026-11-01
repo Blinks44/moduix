@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { Stack } from '@moduix/vue/stack';
 import {
   TreeView,
   TreeViewItem,
@@ -9,7 +10,6 @@ import {
   createTreeCollection,
 } from '@moduix/vue/tree-view';
 import { ref } from 'vue';
-import styles from '@/components/examples/tree-view/tree-view-controlled-selection.module.css';
 
 type FileNode = { children?: FileNode[]; id: string; name: string };
 
@@ -34,7 +34,7 @@ const selectedValue = ref<string[]>(['package.json']);
 </script>
 
 <template>
-  <div :class="styles.root">
+  <Stack align="center" gap="3">
     <TreeView
       v-model:selected-value="selectedValue"
       :collection="collection"
@@ -56,5 +56,5 @@ const selectedValue = ref<string[]>(['package.json']);
       </TreeViewTree>
     </TreeView>
     <output aria-live="polite">Selected: {{ selectedValue.join(', ') || 'none' }}</output>
-  </div>
+  </Stack>
 </template>

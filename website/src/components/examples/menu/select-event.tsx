@@ -8,15 +8,15 @@ import {
   MenuViewport,
   MenuItem,
 } from '@moduix/react/menu';
+import { Stack } from '@moduix/react/stack';
 import { useState } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';
-import styles from '@/components/examples/menu/menu-select-event.module.css';
 
 export default function SelectEventMenuDemo() {
   const [selected, setSelected] = useState('Nothing selected');
   return (
     <div>
-      <div className={styles.triggerRow}>
+      <Stack direction="row" justify="center">
         <Menu onSelect={(details) => setSelected(details.value)}>
           <MenuTrigger asChild>
             <Button>
@@ -37,7 +37,7 @@ export default function SelectEventMenuDemo() {
             </MenuContent>
           </MenuPositioner>
         </Menu>
-      </div>
+      </Stack>
       <PreviewMeta>
         <output>Selected: {selected}</output>
       </PreviewMeta>

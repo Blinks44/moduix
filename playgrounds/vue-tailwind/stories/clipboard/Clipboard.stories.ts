@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/vue3-vite';
 import { defineComponent, ref, type Component } from 'vue';
+import { Button } from '@/components/button';
 import {
   Clipboard,
   ClipboardContext,
@@ -12,6 +13,7 @@ import {
   ClipboardValueText,
   useClipboard,
 } from '@/components/clipboard';
+import { Input } from '@/components/input';
 
 const meta = {
   title: 'Components/Clipboard',
@@ -37,6 +39,7 @@ const copiedTriggerClassName =
   'data-copied:border-primary/22 data-copied:bg-primary/5 data-copied:text-primary data-copied:focus-visible:outline-primary';
 
 const clipboardComponents = {
+  Button,
   Clipboard,
   ClipboardContext,
   ClipboardControl,
@@ -46,6 +49,7 @@ const clipboardComponents = {
   ClipboardRootProvider,
   ClipboardTrigger,
   ClipboardValueText,
+  Input,
 } as Record<string, Component>;
 
 function renderStory(template: string, setup?: () => Record<string, unknown>) {
@@ -199,18 +203,15 @@ export const Disabled: Story = {
 export const AsChildBridge: Story = {
   render: renderStory(`
     <Clipboard class="${demoClassName}" default-value="https://moduix.dev/docs/clipboard">
-      <ClipboardLabel>Native elements through asChild</ClipboardLabel>
+      <ClipboardLabel>Use moduix Input and Button</ClipboardLabel>
       <ClipboardControl>
         <ClipboardInput as-child>
-          <input
-            class="min-h-control-md min-w-0 flex-1 rounded-md border border-border bg-background px-3.5 py-1 text-md text-foreground"
-            readonly
-          />
+          <Input readonly />
         </ClipboardInput>
         <ClipboardTrigger as-child>
-          <button class="${actionClassName}" type="button">
+          <Button variant="outline">
             <ClipboardIndicator />
-          </button>
+          </Button>
         </ClipboardTrigger>
       </ClipboardControl>
     </Clipboard>

@@ -1,22 +1,22 @@
 ---
 title: Combobox
 component: combobox
-description: A searchable input for selecting one or more values from an Ark UI collection in React, Solid, or Vue.
+description: Type to filter a list and pick one or more values.
+ark: https://ark-ui.com/docs/components/combobox
 ---
 
+import AnatomyScene from '@/components/examples/combobox/anatomy';
 import * as ComboboxDocs from '@/components/examples/combobox/css-properties';
 
-## API Reference
+<Example name="combobox/basic" />
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/combobox" />
+## Installation
 
-## Choosing the right component
+<ComponentInstall />
 
-Use `Combobox` when users select from known values and typing helps filter the available options.
-Use `Select` when the same predefined choice does not need an editable input.
+## Usage
 
-## Basic
-
+<Usage />
 
 Create an Ark collection with `useListCollection`, pass it to `Combobox`, and keep the popup structure
 explicit. Use `ComboboxOption` for ordinary rows; use `ComboboxItem` when a row needs custom structure.
@@ -24,163 +24,12 @@ explicit. Use `ComboboxOption` for ordinary rows; use `ComboboxItem` when a row 
 The Vue examples use native SFC syntax with `script setup`, refs, slots, and `v-model` where the
 component contract exposes a Vue model.
 
-<Example name="combobox/basic" />
+## Choosing the right component
 
-## Install with shadcn
-
-See [Quick Start](/docs/quick-start) for full package setup, registry configuration, and styling guidance.
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/combobox' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/combobox' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/combobox' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/combobox' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/combobox' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/combobox' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Anatomy
-
-```text
-Combobox[collection]
-├─ ComboboxLabel
-├─ ComboboxControl
-│  ├─ ComboboxInput
-│  ├─ ComboboxClearTrigger
-│  └─ ComboboxTrigger
-└─ Overlay subtree (automatically portalled)
- └─ ComboboxPositioner
-    └─ ComboboxContent
-       ├─ ComboboxEmpty
-       ├─ ComboboxStatus
-       ├─ ComboboxList
-       │  ├─ ComboboxOption[item]
-       │  └─ ComboboxItem[item]
-       │     ├─ ComboboxItemText
-       │     └─ ComboboxItemIndicator
-       └─ ComboboxItemGroup
-          ├─ ComboboxItemGroupLabel
-          └─ ComboboxItem
-```
-
-| Part                         | Role                                                               |
-| ---------------------------- | ------------------------------------------------------------------ |
-| `Combobox` | Owns combobox state, filtering, highlighting, and selected values. |
-| `ComboboxControl`           | Wrapper for input and trigger controls.                            |
-| `ComboboxInput`             | Text input that drives search and selection.                       |
-| `ComboboxTrigger`           | Opens and closes the popup list.                                   |
-| `ComboboxClearTrigger`      | Clears current value and/or input.                                 |
-| `ComboboxPositioner`        | Floating positioner for popup content.                             |
-| `ComboboxContent`           | Popup content container.                                           |
-| `ComboboxStatus`            | Styled consumer-owned loading, error, or guidance message.         |
-| `ComboboxList`              | Option list wrapper.                                               |
-| `ComboboxOption`            | Convenience row for simple options with text and an indicator.     |
-| `ComboboxItem`              | Selectable option row.                                             |
-| `ComboboxItemText`          | Text label slot inside an item.                                    |
-| `ComboboxItemIndicator`     | Selected/highlight indicator slot for an item.                     |
-| `ComboboxContext`           | Renderless access to the current combobox state.                   |
-| `ComboboxItemContext`       | Renderless access to the current item state.                       |
-
-`ComboboxRootProvider` renders the same styled root for state created with moduix's `useCombobox`.
-Read combobox state inside the tree with `ComboboxContext` or `useComboboxContext`; use
-`ComboboxItemContext` or `useComboboxItemContext` for item state.
-
-## Composition
-
-Use `createListCollection` for static items and `useListCollection` when filtering or other updates
-change the collection. For object items, provide `itemToString` and `itemToValue`.
-
-`Combobox` portals `ComboboxPositioner` automatically, but `ComboboxPositioner` and `ComboboxContent` stay explicit in the
-composition. Set `portalled={false}` to keep the popup in the current tree, or pass `portalRef` for
-a specific container. Use `ComboboxOption` for simple rows and `ComboboxItem` with `asChild` for
-custom rows.
-
-Keep selection in `value` when other UI needs it. When state is created outside the rendered tree,
-pass `useCombobox` to `ComboboxRootProvider`. In multiple mode, tags and other value summaries are
-application-owned; compose with `TagsInput` when they should share one field. `ComboboxStatus` is
-also an application-owned message container and does not manage loading or error state.
+Use `Combobox` when users select from known values and typing helps filter the available options.
+Use `Select` when the same predefined choice does not need an editable input.
 
 ## Examples
-
-### Async Search
-
-Replace collection items with async results and render `ComboboxStatus` while a request is pending.
-Use `details.reason` to distinguish typed input from machine-driven updates. When the query is empty,
-show a `Start typing to search…` status so the popup remains informative.
-
-<Example name="combobox/async-search" />
-
-### Auto Highlight
-
-Set `inputBehavior="autohighlight"` to highlight the first matching item while the user types, so
-Enter can select it without an extra arrow-key press.
-
-<Example name="combobox/auto-highlight" />
-
-### Controlled
-
-Control the selected string array and read the next value from `details.value`.
-
-<Example name="combobox/controlled" />
-
-### Creatable
-
-Combine `allowCustomValue` with collection mutation to expose a temporary “Create” item, then
-replace that sentinel value with the user-entered value after selection.
-
-<Example name="combobox/creatable" />
-
-### Custom Objects and Grouping
-
-Map object labels and values on the collection, then render Ark item groups from
-`collection.group()`. Group labels stick to the top edge of the popup while its results scroll.
-
-<Example name="combobox/custom-objects-and-grouping" />
-
-### Dynamic
-
-Build the collection from the current input when suggestions do not exist until the user starts
-typing. Check `details.reason` to avoid rebuilding it after selection-driven input changes.
-
-<Example name="combobox/dynamic" />
-
-### Inline Autocomplete
-
-Set `inputBehavior="autocomplete"` and filter with `startsWith` to complete the input from the
-first matching item while preserving Ark keyboard navigation.
-
-<Example name="combobox/inline-autocomplete" />
-
-### Limit Results
-
-Set `limit` on `useListCollection` when the full matching set is unnecessary or would make the
-popup harder to scan. Filtering still runs against the complete initial collection.
-
-<Example name="combobox/limit-results" />
 
 ### Multiple
 
@@ -189,13 +38,62 @@ when they must live inside the same field shell, compose `Combobox` with `TagsIn
 
 <Example name="combobox/multiple" />
 
-### Root Provider
+### Custom objects and grouping
 
-Create the state with moduix's `useCombobox` when external controls need imperative methods or shared
-state before the root renders. `ComboboxRootProvider` preserves the moduix root styling and portal
-configuration.
+Map object labels and values on the collection, then render Ark item groups from
+`collection.group()`. Group labels stick to the top edge of the popup while its results scroll.
 
-<Example name="combobox/root-provider" />
+<Example name="combobox/custom-objects-and-grouping" />
+
+### Links
+
+Render each result as a link with `ComboboxItem asChild` when choosing an item should navigate.
+`selectionBehavior="preserve"` keeps the typed text after a choice.
+
+<Example name="combobox/links" />
+
+### Auto highlight
+
+Set `inputBehavior="autohighlight"` to highlight the first matching item while the user types, so
+Enter can select it without an extra arrow-key press.
+
+<Example name="combobox/auto-highlight" />
+
+### Inline autocomplete
+
+Set `inputBehavior="autocomplete"` and filter with `startsWith` to complete the input from the
+first matching item while preserving Ark keyboard navigation.
+
+<Example name="combobox/inline-autocomplete" />
+
+### Limit results
+
+Set `limit` on `useListCollection` when the full matching set is unnecessary or would make the
+popup harder to scan. Filtering still runs against the complete initial collection.
+
+<Example name="combobox/limit-results" />
+
+### Creatable
+
+Combine `allowCustomValue` with collection mutation to expose a temporary “Create” item, then
+replace that sentinel value with the user-entered value after selection.
+
+<Example name="combobox/creatable" />
+
+### Async search
+
+Replace collection items with async results and render `ComboboxStatus` while a request is pending.
+Use `details.reason` to distinguish typed input from machine-driven updates. When the query is empty,
+show a `Start typing to search…` status so the popup remains informative.
+
+<Example name="combobox/async-search" />
+
+### Dynamic
+
+Build the collection from the current input when suggestions do not exist until the user starts
+typing. Check `details.reason` to avoid rebuilding it after selection-driven input changes.
+
+<Example name="combobox/dynamic" />
 
 ### Virtualized
 
@@ -213,12 +111,72 @@ live inside one editable chip field.
 
 <Example name="combobox/with-tags-input" />
 
-### Advanced Customization
+### Controlled
 
-Use the full item composition when a row needs a custom semantic element or layout. This example
-renders each result as a link with `ComboboxItem asChild`.
+Control the selected string array and read the next value from `details.value`. See [Control state from the application](/docs/composition-patterns#controlled-state).
 
-<Example name="combobox/advanced-customization" />
+<Example name="combobox/controlled" />
+
+### Root provider
+
+Create the state with moduix's `useCombobox` when external controls need imperative methods or shared
+state before the root renders. `ComboboxRootProvider` preserves the moduix root styling and portal
+configuration. See [Share state outside the tree](/docs/composition-patterns#root-provider).
+
+<Example name="combobox/root-provider" />
+
+### Build from parts
+
+The same combobox as Basic, without `ComboboxOption`: each `ComboboxItem` holds `ComboboxItemText`
+and `ComboboxItemIndicator`, and the clear button, chevron, and check receive their icons directly.
+Start here when a design changes the control or the item layout.
+
+<Example name="combobox/build-from-parts" />
+
+## Composition
+
+Use `createListCollection` for static items and `useListCollection` when filtering or other updates
+change the collection. For object items, provide `itemToString` and `itemToValue`.
+
+`Combobox` portals `ComboboxPositioner` automatically, but `ComboboxPositioner` and `ComboboxContent` stay explicit in the
+composition. Set `portalled={false}` to keep the popup in the current tree, or pass `portalRef` for
+a specific container. Use `ComboboxOption` for simple rows and `ComboboxItem` with `asChild` for
+custom rows.
+
+Keep selection in `value` when other UI needs it. When state is created outside the rendered tree,
+pass `useCombobox` to `ComboboxRootProvider`. In multiple mode, tags and other value summaries are
+up to the application; compose with `TagsInput` when they should share one field. `ComboboxStatus` is
+also a message container filled by the application and does not manage loading or error state.
+
+## Anatomy
+
+Hover or focus a part to find it in the preview.
+
+<AnatomyInspector
+  parts={[
+    ["Combobox", "combobox-root", "Manages combobox state, filtering, highlighting, and selected values.", 0],
+    ["ComboboxControl", "combobox-control", "Wrapper for input and trigger controls.", 1],
+    ["ComboboxInput", "combobox-input", "Text input that drives search and selection.", 2],
+    ["ComboboxClearTrigger", "combobox-clear-trigger", "Clears current value and/or input.", 2],
+    ["ComboboxTrigger", "combobox-trigger", "Opens and closes the popup list.", 2],
+    ["ComboboxPositioner", "combobox-positioner", "Floating positioner for popup content.", 1],
+    ["ComboboxContent", "combobox-content", "Popup content container.", 2],
+    ["ComboboxStatus", "combobox-status", "Styled container for your loading, error, or guidance message.", 3],
+    ["ComboboxList", "combobox-list", "Option list wrapper.", 3],
+    ["ComboboxOption", "", "Convenience row for simple options with text and an indicator.", 4],
+    ["ComboboxItem", "combobox-item", "Selectable option row.", 4],
+    ["ComboboxItemText", "combobox-item-text", "Text label slot inside an item.", 5],
+    ["ComboboxItemIndicator", "combobox-item-indicator", "Selected/highlight indicator slot for an item.", 5],
+    ["ComboboxContext", null, "Renderless access to the current combobox state.", 0],
+    ["ComboboxItemContext", null, "Renderless access to the current item state.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
+
+`ComboboxRootProvider` renders the same styled root for state created with moduix's `useCombobox`.
+Read combobox state inside the tree with `ComboboxContext` or `useComboboxContext`; use
+`ComboboxItemContext` or `useComboboxItemContext` for item state.
 
 ## Styling
 
@@ -226,22 +184,101 @@ Use `className` in React or `class` in Solid and Vue on exported parts for struc
 variants use native utilities and consumer classes; the CSS variables below customize CSS Modules
 variants. Data attributes and `data-slot` hooks are shared by both styling tracks.
 
-### CSS Properties
+### CSS variables
 
-<CssPropertiesSection properties={ComboboxDocs.comboboxOverrideCssProperties} />
+Hover or focus a variable to see it in the preview.
+
+<CssPropertiesSection properties={ComboboxDocs.comboboxOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Styling hooks
 
+| Part | `data-slot` |
+| --- | --- |
+| `Combobox` | `combobox-root` |
+| `ComboboxRootProvider` | `combobox-root-provider` |
+| `ComboboxLabel` | `combobox-label` |
+| `ComboboxControl` | `combobox-control` |
+| `ComboboxInput` | `combobox-input` |
+| `ComboboxClearTrigger` | `combobox-clear-trigger` |
+| `ComboboxTrigger` | `combobox-trigger` |
+| `ComboboxPositioner` | `combobox-positioner` |
+| `ComboboxContent` | `combobox-content` |
+| `ComboboxEmpty` | `combobox-empty` |
+| `ComboboxStatus` | `combobox-status` |
+| `ComboboxList` | `combobox-list` |
+| `ComboboxItemGroup` | `combobox-item-group` |
+| `ComboboxItemGroupLabel` | `combobox-item-group-label` |
+| `ComboboxItem` | `combobox-item` |
+| `ComboboxItemText` | `combobox-item-text` |
+| `ComboboxItemIndicator` | `combobox-item-indicator` |
+
+- Ark state selectors: `data-readonly` on the root, label, and trigger; `data-required` on the label.
+
 - Ark parts keep `data-scope="combobox"` and their `data-part` values. moduix adds stable `data-slot`
   hooks to the styled parts.
-- Stable slots include `combobox-root`, `combobox-root-provider`, `combobox-label`, `combobox-control`,
-  `combobox-input`, `combobox-clear-trigger`, `combobox-trigger`, `combobox-positioner`,
-  `combobox-content`, `combobox-empty`, `combobox-status`, `combobox-list`, `combobox-item-group`,
-  `combobox-item-group-label`, `combobox-item`, `combobox-item-text`, and `combobox-item-indicator`.
-  `ComboboxOption` reuses the item slots instead of adding its own styling hook.
+- `ComboboxOption` reuses the item slots instead of adding its own styling hook.
 - Ark state hooks include `data-state="open|closed"`, `data-focus`, `data-invalid`,
   `data-disabled`, `data-highlighted`, `data-empty`, `data-placement`, and `data-side`.
 - Ark positioning variables include `--reference-width`, `--available-width`,
   `--available-height`, `--transform-origin`, `--z-index`, and `--layer-index`. The shared theme
   registers neutral initial values for tooling and unpositioned content; Ark replaces them with
   measured values on `Positioner`.
+
+## Keyboard
+
+| Key | Action |
+| --- | --- |
+| `ArrowDown` / `ArrowUp` | Opens the list and highlights the next or previous option. |
+| `Home` / `End` | Highlights the first or last option. |
+| `Enter` | Selects the highlighted option. |
+| `Esc` | Closes the list. |
+
+## API reference
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `collection` | `ListCollection<T>` | — | Items from `createListCollection()`. |
+| `value` | `string[]` | — | Selected values for controlled use. |
+| `defaultValue` | `string[]` | `[]` | Initial selected values. |
+| `onValueChange` | `(details: ValueChangeDetails) => void` | — | Called when the selection changes. |
+| `inputValue` | `string` | — | Input text for controlled use. |
+| `onInputValueChange` | `(details: InputValueChangeDetails) => void` | — | Called when the input text changes; filter the collection here. |
+| `multiple` | `boolean` | `false` | Lets the user pick several values. |
+| `inputBehavior` | `'autohighlight' \| 'autocomplete' \| 'none'` | `'none'` | Typing aid: `autohighlight`, `autocomplete`, or `none`. |
+| `selectionBehavior` | `'clear' \| 'replace' \| 'preserve'` | `'replace'` | Input text after a selection: `replace` with the label, `clear`, or `preserve`. |
+| `openOnClick` | `boolean` | `false` | Opens the popup when the input is clicked. |
+| `allowCustomValue` | `boolean` | `false` | Keeps typed text that matches no item. |
+| `closeOnSelect` | `boolean` | — | Closes the popup after a selection. |
+| `positioning` | `PositioningOptions` | `{ placement: 'bottom-start' }` | Placement, offset, and other popup positioning options. |
+| `open` | `boolean` | — | Open state for controlled use. |
+| `onOpenChange` | `(details: OpenChangeDetails) => void` | — | Called when it opens or closes. |
+| `placeholder` | `string` | — | Placeholder text of the input. |
+| `name` | `string` | — | Form field name of the underlying input. |
+| `disabled` | `boolean` | `false` | Disables the control. |
+| `readOnly` | `boolean` | `false` | Shows the value but prevents changes. |
+| `invalid` | `boolean` | `false` | Marks the control as invalid. |
+| `required` | `boolean` | `false` | Requires a value before form submission. |
+| `lazyMount` | `boolean` | `true` | Mounts the content on first open. |
+| `unmountOnExit` | `boolean` | `true` | Unmounts the content after it closes. |
+| `defaultOpen` | `boolean` | — | Initial open state when it is not controlled. |
+| `defaultInputValue` | `string` | `''` | Initial input text. |
+| `form` | `string` | — | Id of the form the underlying input belongs to. |
+| `defaultHighlightedValue` | `string \| null` | — | Item highlighted initially. |
+| `highlightedValue` | `string \| null` | — | Highlighted item for controlled use. |
+| `autoFocus` | `boolean` | — | Focuses the input on mount. |
+| `openOnChange` | `boolean \| ((details: InputValueChangeDetails) => boolean)` | `true` | Opens the popup when the input text changes. |
+| `alwaysSubmitOnEnter` | `boolean` | `false` | Lets Enter submit the form even while the popup is open. |
+| `loopFocus` | `boolean` | `true` | Keyboard navigation wraps from the last item to the first. |
+| `onHighlightChange` | `(details: HighlightChangeDetails<T>) => void` | — | Called when the highlighted item changes. |
+| `onSelect` | `(details: SelectionDetails) => void` | — | Called when an item is selected. |
+| `translations` | `IntlTranslations` | — | Localized strings for accessibility labels. |
+| `openOnKeyPress` | `boolean` | `true` | Opens the popup on arrow keys. |
+| `scrollToIndexFn` | `(details: ScrollToIndexDetails) => void` | — | Scrolls a virtualized list to an item index. |
+| `composite` | `boolean` | `true` | Set to `false` when it sits inside another composite widget, such as tabs. |
+| `disableLayer` | `boolean` | — | Opts out of the dismissable layer stack. |
+| `navigate` | `((details: NavigateDetails) => void) \| null` | — | Navigates to a link item on selection. |
+| `onPointerDownOutside` | `(event: PointerDownOutsideEvent) => void` | — | Called when the pointer is pressed outside the popup. |
+| `onFocusOutside` | `(event: FocusOutsideEvent) => void` | — | Called when focus moves outside the popup. |
+| `onInteractOutside` | `(event: InteractOutsideEvent) => void` | — | Called on any interaction outside the popup. |

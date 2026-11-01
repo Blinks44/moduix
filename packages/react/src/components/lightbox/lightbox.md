@@ -11,7 +11,7 @@ Upstream docs:
 
 ## Purpose
 
-`Lightbox` is an image-first dialog recipe with Moduix media sizing, backdrop, motion, and close
+`Lightbox` is an image-first dialog recipe with moduix media sizing, backdrop, motion, and close
 control defaults.
 
 ## Upstream model to preserve
@@ -186,7 +186,7 @@ Dismissible overlays share the `--moduix-z-popup` base. Content adds Ark's `--la
 Ark mirrors its computed `--z-index` onto positioners and backdrops. Backdrops sit one level below
 content. Customize stacking on content rather than independently raising its surrounding parts.
 
-Moduix styles a zoom cursor and focus ring on the trigger, a blurred backdrop, a centered
+moduix styles a zoom cursor and focus ring on the trigger, a blurred backdrop, a centered
 positioner, transparent content, constrained image/video media, state-driven motion, and a fixed
 close icon anchored to the viewport corner.
 
@@ -209,7 +209,7 @@ presence sees `animation: none` and completes the exit at once.
 ## Intentional sugar and differences from upstream
 
 - `LightboxImage` is a styled native `<img>` that accepts native image props.
-- `LightboxImage closeOnClick` is narrow Moduix sugar for image-preview workflows.
+- `LightboxImage closeOnClick` is narrow moduix sugar for image-preview workflows.
 - `LightboxGallery` is a styled composition boundary for a nested `Carousel`; it adds no state,
   image registry, render callbacks, or translated Carousel API.
 - `LightboxBind` is narrow zero-render sugar for binding image selection to CMS or external DOM.

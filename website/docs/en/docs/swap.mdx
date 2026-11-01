@@ -1,90 +1,26 @@
 ---
 title: Swap
 component: swap
-description: Animate the transition between two visual states with moduix presets built on Ark UI.
+description: Animate between two icons or labels when a control changes state.
+ark: https://ark-ui.com/docs/utilities/swap
 ---
 
+import AnatomyScene from '@/components/examples/swap/basic';
 import * as SwapDocs from '@/components/examples/swap/css-properties';
 
-## API Reference
+<Example name="swap/basic" />
 
-<PrimitiveReference href="https://ark-ui.com/docs/utilities/swap" />
+## Installation
 
-## Basic
+<ComponentInstall />
 
+## Usage
+
+<Usage />
 
 Use `Swap` when one piece of UI needs to switch between two visual states, such as an icon that
 changes after an action. Pass the current boolean to `swap`: `false` shows the `off` indicator and
 `true` shows the `on` indicator.
-
-<Example name="swap/basic" />
-
-## Install with shadcn
-
-See [Quick Start](/docs/quick-start) for full package setup, registry configuration, and styling guidance.
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/swap' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/swap' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/swap' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/swap' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/swap' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/swap' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Anatomy
-
-```text
-Swap
-├─ SwapIndicator type="off"
-└─ SwapIndicator type="on"
-
-SwapRootProvider
-└─ same indicator tree connected to a useSwap() store
-```
-
-| Part                 | Role                                                               |
-| -------------------- | ------------------------------------------------------------------ |
-| `Swap` | Supplies the `swap` state and stacks both visual states.           |
-| `SwapRootProvider`  | Connects the parts to state created with `useSwap()`.         |
-| `SwapIndicator`     | Renders the `on` or `off` state selected by its `type` prop.        |
-
-## Composition
-
-`Swap` is presentational. Keep state, interaction, focus, and the accessible name on the surrounding
-semantic control. For icon-only indicators, set `aria-hidden="true"`. Render both indicators as
-direct children so they share one grid cell and the built-in recipes stay scoped to that `Swap`
-instance.
-
-`Swap` uses the `scale` animation by default. Pass `fade`, `scale`, `rotate`, or `flip` to `animation`,
-or pass a custom name and define its CSS with the root's `data-animation` and the indicators' Ark
-`data-state` attributes. When state must be created outside the rendered tree, pass
-`useSwap()` to `SwapRootProvider` and do not render another root for the same store. With
-`asChild`, provide exactly one semantic child.
 
 ## Examples
 
@@ -103,13 +39,40 @@ exit animations and include a reduced-motion fallback.
 
 <Example name="swap/custom-animation" />
 
-### Root Provider
+### Root provider
 
 Create the Swap state separately with `useSwap()`, then pass it to `SwapRootProvider` through
 the `value` prop. This example also uses `asChild`, so the semantic button becomes the rendered Swap
-root.
+root. See [Share state outside the tree](/docs/composition-patterns#root-provider).
 
 <Example name="swap/root-provider" />
+
+## Composition
+
+`Swap` is presentational. Keep state, interaction, focus, and the accessible name on the surrounding
+semantic control. For icon-only indicators, set `aria-hidden="true"`. Render both indicators as
+direct children so they share one grid cell and the built-in recipes stay scoped to that `Swap`
+instance.
+
+`Swap` uses the `scale` animation by default. Pass `fade`, `scale`, `rotate`, or `flip` to `animation`,
+or pass a custom name and define its CSS with the root's `data-animation` and the indicators' Ark
+`data-state` attributes. When state must be created outside the rendered tree, pass
+`useSwap()` to `SwapRootProvider` and do not render another root for the same store. With
+`asChild`, provide exactly one semantic child.
+
+## Anatomy
+
+Hover or focus a part to find it in the preview.
+
+<AnatomyInspector
+  parts={[
+    ["Swap", "swap-root", "Supplies the `swap` state and stacks both visual states.", 0],
+    ["SwapIndicator", "swap-indicator", "Renders the `on` or `off` state selected by its `type` prop.", 1],
+    ["SwapRootProvider", "swap-root-provider", "Connects the parts to state created with `useSwap()`.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styling
 
@@ -127,18 +90,35 @@ In the Tailwind variants the flip recipe applies `data-[animation=flip]:[perspec
 root, which out-specifies a plain consumer `perspective` utility, so repeat that documented variant
 (for example `data-[animation=flip]:[perspective:32rem]`) to override it.
 
-### CSS Properties
+### CSS variables
 
-<CssPropertiesSection properties={SwapDocs.swapOverrideCssProperties} />
+Hover or focus a variable to see it in the preview.
+
+<CssPropertiesSection properties={SwapDocs.swapOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Styling hooks
 
-- `Swap` uses `data-slot="swap-root"`.
-- `SwapRootProvider` uses `data-slot="swap-root-provider"`.
-- `SwapIndicator` uses `data-slot="swap-indicator"`.
+| Part | `data-slot` |
+| --- | --- |
+| `Swap` | `swap-root` |
+| `SwapRootProvider` | `swap-root-provider` |
+| `SwapIndicator` | `swap-indicator` |
+
 - `animation` is exposed as `data-animation` on `Swap` and `SwapRootProvider`.
 - In CSS Modules, built-in recipes target only direct `SwapIndicator` children of their root. Tailwind
   recipes read the nearest `group/swap` ancestor, so do not nest one `Swap` inside another.
 - Ark adds `data-scope="swap"` and `data-part="root" | "indicator"`.
 - Ark adds `data-state="open" | "closed"` to indicators. moduix uses those attributes for its
   built-in animations and for custom recipes.
+
+## API reference
+
+`Swap` does not handle input; the surrounding control handles keyboard and click behavior.
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `swap` | `boolean` | `false` | Shows the `on` indicator when `true` and the `off` indicator otherwise. |
+| `animation` | `SwapAnimation` | `'scale'` | Transition between indicators: `fade`, `scale`, `rotate`, or `flip`. |
+| `type` (SwapIndicator) | `'on'` / `'off'` | — | Which indicator this is: `on` or `off`. |

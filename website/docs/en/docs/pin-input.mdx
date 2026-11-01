@@ -1,14 +1,25 @@
 ---
 title: Pin Input
 component: pin-input
-description: A segmented input for short PINs and verification codes, with automatic focus management and OTP support.
+description: Enter a short PIN or one-time code, one character per box.
+ark: https://ark-ui.com/docs/components/pin-input
 ---
 
+import AnatomyScene from '@/components/examples/pin-input/basic';
 import * as PinInputDocs from '@/components/examples/pin-input/css-properties';
 
-## API Reference
+<Example name="pin-input/basic" />
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/pin-input" />
+## Installation
+
+<ComponentInstall />
+
+## Usage
+
+<Usage />
+
+Use `PinInput` as the root and set `count` explicitly. Add `PinInputLabel` for an accessible name, put `PinInputInputs` inside
+`PinInputControl`, and compose `PinInputHiddenInput` when the value must participate in native form behavior.
 
 ## Choosing the right component
 
@@ -18,78 +29,66 @@ Use `PinInput` when a short, fixed-length code should be entered one character a
 - Choose **`Input`** when one plain text field is enough.
 - Choose **`PasswordInput`** when the value is a single secret string with a visibility toggle.
 
-## Basic
+## Examples
 
-Use `PinInput` as the root and set `count` explicitly. Add `PinInputLabel` for an accessible name, put `PinInputInputs` inside
-`PinInputControl`, and compose `PinInputHiddenInput` when the value must participate in native form behavior.
+### Sizes
 
-<Example name="pin-input/basic" />
+Use the `size` prop on the root to match the cell size to the control heights of `Input` and
+`Button`. The default is `md`; the cell text scales with it.
 
-## Install with shadcn
+<Example name="pin-input/sizes" />
 
-See [Quick Start](/docs/quick-start) for full package setup, registry configuration, and styling guidance.
+### OTP mode
 
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
+Set `otp` to add `autocomplete="one-time-code"` to the visible inputs and enable one-time-code suggestions on
+supported mobile browsers.
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/pin-input' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/pin-input' },
-  ]}
-/>
+<Example name="pin-input/otp-mode" />
 
-  </Tab>
-  <Tab label="Solid" value="solid">
+### Masking
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/pin-input' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/pin-input' },
-  ]}
-/>
+Set `mask` when the entered code is sensitive and should not be shown in plain text.
 
-  </Tab>
-  <Tab label="Vue" value="vue">
+<Example name="pin-input/masking" />
 
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/pin-input' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/pin-input' },
-  ]}
-/>
+### Placeholder
 
-  </Tab>
-</Tabs>
+Pass `placeholder` to show a character in each empty cell. moduix leaves the placeholder empty by default.
 
-## Anatomy
+<Example name="pin-input/placeholder" />
 
-```text
-PinInput
-├─ PinInputLabel
-├─ PinInputControl
-│  ├─ PinInputInput[index=0]
-│  ├─ PinInputInput[index=1]
-│  └─ PinInputInput[index=2]
-└─ PinInputHiddenInput (explicit)
+### Grouped layout
 
-PinInputRootProvider
-└─ same part tree connected to a usePinInput() store
-```
+Use explicit indexed `PinInputInput` parts and `PinInputSeparator` when a divider should split the code into groups. Keep indexes
+continuous across the entire composition.
 
-| Part | Role |
-| --- | --- |
-| `PinInput` | Owns input count, value state, validation, and form options. |
-| `PinInputHiddenInput` | Native Ark form control that must be composed explicitly. |
-| `PinInputRootProvider` | Connects the parts to state created with `usePinInput()`. |
-| `PinInputContext` | Exposes the current root state to descendants through a render prop. |
-| `PinInputLabel` | Labels the PIN or code input group. |
-| `PinInputControl` | Container for the visible indexed inputs. |
-| `PinInputInput` | One visible character input. Pass a zero-based `index`. |
-| `PinInputInputs` | Generates one indexed `PinInputInput` for each item in the Ark context. |
-| `PinInputSeparator` | Decorative moduix helper for grouping. It is not an Ark primitive part. |
-| `usePinInput` | Creates state for use with `PinInputRootProvider`. |
-| `usePinInputContext` | Reads the current Pin Input state inside the component tree. |
+<Example name="pin-input/grouped-layout" />
+
+### Blur on complete
+
+Set `blurOnComplete` when focus should leave the final input after all cells are filled.
+
+<Example name="pin-input/blur-on-complete" />
+
+### Field
+
+Wrap `PinInput` in `Field` when the label, helper text, error text, and field state should be connected to the
+visible inputs through Ark's form accessibility behavior.
+
+<Example name="pin-input/field" />
+
+### Change events
+
+Keep the value array in state and read `details.value` or `details.valueAsString` from the Ark callbacks.
+
+<Example name="pin-input/change-events" />
+
+### Root provider
+
+Use `usePinInput` with `PinInputRootProvider` when state and imperative methods must be managed outside the rendered tree.
+This example replaces `PinInputInputs` with explicit indexed `PinInputInput` parts. See [Share state outside the tree](/docs/composition-patterns#root-provider).
+
+<Example name="pin-input/root-provider" />
 
 ## Composition
 
@@ -99,79 +98,44 @@ outside the component tree.
 
 `PinInputInputs` renders one indexed input for every item in the Ark context. Use explicit `PinInputInput` parts with
 continuous zero-based indexes and `PinInputSeparator` when the code needs groups. Values are string arrays. Use
-`PinInputRootProvider` with `usePinInput` when state or imperative methods must be owned outside the rendered tree; React
+`PinInputRootProvider` with `usePinInput` when state or imperative methods must live outside the rendered tree; React
 receives a store object, Solid receives an accessor, and Vue exposes the reactive store directly to the template.
 
 Ark manages focus transfer, paste distribution, keyboard editing, and one-time-code autocomplete; add
 `PinInputLabel` so the group has an accessible name. `PinInputSeparator` is decorative and renders with
 `aria-hidden`, so keep meaningful text outside it.
 
-## Examples
+## Anatomy
 
-### Blur on Complete
+Hover or focus a part to find it in the preview.
 
-Set `blurOnComplete` when focus should leave the final input after all cells are filled.
-
-<Example name="pin-input/blur-on-complete" />
-
-### Change Events
-
-Keep the value array in state and read `details.value` or `details.valueAsString` from the Ark callbacks.
-
-<Example name="pin-input/change-events" />
-
-### Field
-
-Wrap `PinInput` in `Field` when the label, helper text, error text, and field state should be connected to the
-visible inputs through Ark's form accessibility behavior.
-
-<Example name="pin-input/field" />
-
-### Grouped Layout
-
-Use explicit indexed `PinInputInput` parts and `PinInputSeparator` when a divider should split the code into groups. Keep indexes
-continuous across the entire composition.
-
-<Example name="pin-input/grouped-layout" />
-
-### Masking
-
-Set `mask` when the entered code is sensitive and should not be shown in plain text.
-
-<Example name="pin-input/masking" />
-
-### OTP Mode
-
-Set `otp` to add `autocomplete="one-time-code"` to the visible inputs and enable one-time-code suggestions on
-supported mobile browsers.
-
-<Example name="pin-input/otp-mode" />
-
-### Placeholder
-
-Pass `placeholder` to show a character in each empty cell. moduix leaves the placeholder empty by default.
-
-<Example name="pin-input/placeholder" />
-
-### Root Provider
-
-Use `usePinInput` with `PinInputRootProvider` when state and imperative methods must be managed outside the rendered tree.
-This example replaces `PinInputInputs` with explicit indexed `PinInputInput` parts.
-
-<Example name="pin-input/root-provider" />
-
-### Sizes
-
-Use the `size` prop on the root to match the cell size to the control heights of `Input` and
-`Button`. The default is `md`; the cell text scales with it.
-
-<Example name="pin-input/sizes" />
+<AnatomyInspector
+  parts={[
+    ["PinInput", "pin-input-root", "Manages input count, value state, validation, and form options.", 0],
+    ["PinInputLabel", "pin-input-label", "Labels the PIN or code input group.", 1],
+    ["PinInputControl", "pin-input-control", "Container for the visible indexed inputs.", 1],
+    ["PinInputInput", "pin-input-input", "One visible character input. Pass a zero-based `index`.", 2],
+    ["PinInputInputs", "", "Generates one indexed `PinInputInput` for each item in the Ark context.", 3],
+    ["PinInputHiddenInput", "", "Native Ark form control that must be composed explicitly.", 1],
+    ["PinInputSeparator", "pin-input-separator", "Decorative moduix helper for grouping. It is not an Ark primitive part.", 1],
+    ["PinInputRootProvider", "pin-input-root-provider", "Connects the parts to state created with `usePinInput()`.", 0],
+    ["PinInputContext", null, "Exposes the current root state to descendants through a render prop.", 0],
+    ["usePinInput", null, "Creates state for use with `PinInputRootProvider`.", 0],
+    ["usePinInputContext", null, "Reads the current Pin Input state inside the component tree.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styling
 
-### CSS Properties
+### CSS variables
 
-<CssPropertiesSection properties={PinInputDocs.pinInputOverrideCssProperties} />
+Hover or focus a variable to see it in the preview.
+
+<CssPropertiesSection properties={PinInputDocs.pinInputOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 CSS Modules packages expose three variables: `--moduix-pin-input-input-size` (applies to every size),
 `--moduix-pin-input-gap`, and `--moduix-pin-input-radius`. Colors, borders, typography, and the focus ring
@@ -180,12 +144,57 @@ and consumer `className` or `class` overrides.
 
 ### Styling hooks
 
-- The root and `PinInputRootProvider` expose `data-slot="pin-input-root"` and `data-slot="pin-input-root-provider"`.
-- `PinInputLabel`, `PinInputControl`, and `PinInputInput` expose `data-slot="pin-input-label"`,
-  `data-slot="pin-input-control"`, and `data-slot="pin-input-input"`.
+| Part | `data-slot` |
+| --- | --- |
+| `PinInput` | `pin-input-root` |
+| `PinInputRootProvider` | `pin-input-root-provider` |
+| `PinInputLabel` | `pin-input-label` |
+| `PinInputControl` | `pin-input-control` |
+| `PinInputInput` | `pin-input-input` |
+| `PinInputSeparator` | `pin-input-separator` |
+
+- Ark state selectors: `data-required` on the label.
+
 - Ark parts use `data-scope="pin-input"` and `data-part="root" | "label" | "control" | "input"`.
 - Root state styling uses `data-disabled`, `data-invalid`, `data-complete`, and `data-readonly`.
 - Input state styling uses `data-disabled`, `data-invalid`, `data-complete`, `data-filled`, and `data-index`.
-- `PinInputSeparator` exposes `data-slot="pin-input-separator"` and is decorative by default.
 - The root mirrors `size` as `data-size`. A disabled `PinInput` inside a disabled `Field` or `Fieldset` is not
   dimmed a second time.
+
+## Keyboard
+
+| Key | Action |
+| --- | --- |
+| Characters | Fill the box and move to the next one. |
+| `Backspace` | Clears the box and moves to the previous one. |
+| `ArrowLeft` / `ArrowRight` | Moves between boxes. |
+| `Ctrl+V` | Pastes a whole code across the boxes. |
+
+## API reference
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `count` | `number` | — | Number of inputs; set it for correct server-rendered ARIA. |
+| `value` | `string[]` | — | Values of each input, for controlled use. |
+| `defaultValue` | `string[]` | — | Initial values of each input. |
+| `onValueChange` | `(details: ValueChangeDetails) => void` | — | Called when any input changes. |
+| `onValueComplete` | `(details: ValueChangeDetails) => void` | — | Called when every input is filled. |
+| `type` | `'numeric' \| 'alphanumeric' \| 'alphabetic'` | `'numeric'` | Allowed characters: `numeric`, `alphanumeric`, or `alphabetic`. |
+| `otp` | `boolean` | `false` | Marks the inputs for one-time code autofill. |
+| `mask` | `boolean` | `false` | Hides the characters like a password. |
+| `placeholder` | `string` | `''` | Placeholder of each input. |
+| `blurOnComplete` | `boolean` | `false` | Removes focus once the code is complete. |
+| `autoFocus` | `boolean` | `false` | Focuses the first input on mount. |
+| `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'` | `'md'` | Control size: `xs`, `sm`, `md`, `lg`, or `xl`. |
+| `name` | `string` | — | Form field name of the underlying input. |
+| `disabled` | `boolean` | `false` | Disables the control. |
+| `readOnly` | `boolean` | `false` | Shows the value but prevents changes. |
+| `invalid` | `boolean` | `false` | Marks the control as invalid. |
+| `required` | `boolean` | `false` | Requires a value before form submission. |
+| `form` | `string` | — | Id of the form the underlying input belongs to. |
+| `pattern` | `string` | — | Regular expression each character must match. |
+| `onValueInvalid` | `(details: ValueInvalidDetails) => void` | — | Called when a character does not match `type` or `pattern`. |
+| `autoSubmit` | `boolean` | — | Submits the form when every input is filled. |
+| `selectOnFocus` | `boolean` | — | Selects the character when an input is focused. |
+| `sanitizeValue` | `(value: string) => string` | — | Cleans pasted text before validation. |
+| `translations` | `IntlTranslations` | — | Localized strings for accessibility labels. |

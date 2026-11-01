@@ -19,21 +19,21 @@
   width: 100%;
   height: var(--moduix-spacing-1);
   border-radius: var(--moduix-radius-full);
-  background: var(--moduix-color-muted);
+  background: var(--moduix-muted);
 }
 
 .range {
   position: absolute;
   height: 100%;
   border-radius: inherit;
-  background: var(--moduix-color-primary);
+  background: var(--moduix-primary);
 }
 
 .thumb {
   width: var(--moduix-spacing-4);
   height: var(--moduix-spacing-4);
-  border: var(--moduix-border-width-md) solid var(--moduix-color-primary);
+  border: var(--moduix-border-width-md) solid var(--moduix-primary);
   border-radius: var(--moduix-radius-full);
-  background: var(--moduix-color-background);
+  background: var(--moduix-background);
   outline: none;
 }

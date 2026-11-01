@@ -1,14 +1,28 @@
 ---
 title: Editable
 component: editable
-description: Modifiez du texte directement avec React, Solid ou Vue, avec une installation par paquet ou via la CLI shadcn.
+description: Modifier un court texte sur place et valider ou annuler.
+ark: https://ark-ui.com/docs/components/editable
 ---
 
+import AnatomyScene from '@/components/examples/editable/basic';
 import * as EditableDocs from '@/components/examples/editable/css-properties';
 
-## Référence de l’API
+<Example name="editable/basic" />
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/editable" />
+## Installation
+
+<ComponentInstall />
+
+## Utilisation
+
+<Usage />
+
+Utilisez `Editable` comme racine, puis composez-le avec `EditableLabel`, `EditableArea`,
+`EditableInput` et `EditablePreview`. Ajoutez `EditableControls` pour le parcours standard de
+modification, de validation et d’annulation. moduix ajoute les styles, les attributs `data-slot` et
+les icônes par défaut des boutons de commande. Par défaut, un double-clic active le mode de
+modification, ce qui limite les changements accidentels.
 
 ## Choisir le bon composant
 
@@ -17,102 +31,23 @@ import * as EditableDocs from '@/components/examples/editable/css-properties';
 - Utilisez **`Editable`** dans **`Field`** lorsque le texte d’aide, le message d’erreur ou l’état partagé du formulaire doivent s’afficher
   en dehors du composant.
 
-## Exemple de base
-
-
-Utilisez `Editable` comme racine, puis composez-le avec `EditableLabel`, `EditableArea`,
-`EditableInput` et `EditablePreview`. Ajoutez `EditableControls` pour le parcours standard de
-modification, de validation et d’annulation. moduix ajoute les styles, les attributs `data-slot` et
-les icônes par défaut des boutons de commande. Par défaut, un double-clic active le mode de
-modification, ce qui limite les changements accidentels.
-
-<Example name="editable/basic" />
-
-## Installation avec shadcn
-
-Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration complète du paquet, du registre et des styles.
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/editable' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/editable' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/editable' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/editable' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/editable' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/editable' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Anatomie
-
-```text
-Editable
-├─ EditableLabel
-├─ EditableArea
-│  ├─ EditableInput
-│  └─ EditablePreview
-├─ EditableControl ou EditableControls
-│  ├─ EditableEditTrigger
-│  ├─ EditableSubmitTrigger
-│  └─ EditableCancelTrigger
-
-EditableRootProvider
-└─ même arbre de parties relié à l’état Ark fourni par `useEditable()`
-```
-
-| Partie                       | Rôle                                                   |
-| --------------------------- | ------------------------------------------------------ |
-| `Editable`                 | Racine qui gère l’état, les callbacks, les propriétés du formulaire et l’accessibilité. |
-| `EditableRootProvider`      | Racine reliée à une instance de `useEditable()`.       |
-| `EditableLabel`             | Libellé visible du champ et de la valeur affichée.     |
-| `EditableArea`              | Conteneur commun du champ de saisie et de l’aperçu.    |
-| `EditableInput`             | Champ de saisie affiché pendant la modification.      |
-| `EditablePreview`           | Valeur ou espace réservé affiché hors modification.    |
-| `EditableControl`           | Conteneur facultatif des boutons de modification, validation et annulation. |
-| `EditableControls`          | Groupe pratique pour le parcours standard.            |
-| `EditableEditTrigger`       | Bouton qui active le mode de modification.            |
-| `EditableSubmitTrigger`     | Bouton qui valide la valeur actuelle.                  |
-| `EditableCancelTrigger`     | Bouton qui annule les modifications en cours.          |
-
-## Composition
-
-Gardez `EditableInput` et `EditablePreview` comme éléments frères dans `EditableArea`, puis placez
-`EditableControls` après cette zone pour utiliser le parcours standard de modification, validation et
-annulation. Utilisez `EditableRootProvider` à la place de `Editable` lorsque l’état créé par
-`useEditable()` doit être partagé avec des commandes situées en dehors de l’arbre rendu. Utilisez
-`EditableContext` ou `useEditableContext()` pour un contenu personnalisé qui dépend du mode actuel.
-Dans Solid, l’état exposé par `useEditable()` et le contexte est accessible via un accesseur : il se
-lit avec `editable().editing`.
-
 ## Exemples
 
-### Valeur contrôlée
+### Textarea
 
-Utilisez `value` et `onValueChange` lorsque l’état de l’application doit piloter la valeur.
+Utilisez `EditableInput asChild` avec un élément natif `<textarea>` pour le contenu multiligne. La
+textarea a une hauteur minimale, l’aperçu conserve les retours à la ligne et les commandes restent en
+haut. Cmd/Ctrl + Entrée enregistre ; Entrée insère une nouvelle ligne.
 
-<Example name="editable/controlled" />
+<Example name="editable/textarea" />
+
+### Déclencheurs personnalisés
+
+Affichez votre propre `Button` dans chaque déclencheur avec `asChild`. `EditableContext` alterne entre
+le déclencheur d’édition et les déclencheurs de validation et d’annulation, et `translations` aligne les
+noms accessibles sur le texte visible.
+
+<Example name="editable/custom-triggers" />
 
 ### Désactivé et en lecture seule
 
@@ -143,31 +78,60 @@ utilisé par défaut dans moduix.
 
 <Example name="editable/guides" />
 
+### Valeur contrôlée
+
+Utilisez `value` et `onValueChange` lorsque l’état de l’application doit piloter la valeur. Voir [Contrôler l’état depuis l’application](/docs/composition-patterns#controlled-state).
+
+<Example name="editable/controlled" />
+
 ### Root Provider
 
 Utilisez `useEditable()` de moduix et `EditableRootProvider` lorsque des commandes placées en dehors
 de l’arbre du composant doivent accéder à l’état et aux méthodes d’`Editable`. Passez
 `activationMode: 'dblclick'` au hook pour conserver le comportement par défaut de la racine moduix.
-Pour cette instance d’état, le provider remplace `Editable`.
+Pour cette instance d’état, le provider remplace `Editable`. Voir [Partager l’état hors de l’arbre](/docs/composition-patterns#root-provider).
 
 <Example name="editable/root-provider" />
 
-### Textarea
+### Assembler à partir des parties
 
-Utilisez `EditableInput asChild` avec un élément natif `<textarea>` pour le contenu multiligne. La
-textarea a une hauteur minimale, l’aperçu conserve les retours à la ligne et les commandes restent en
-haut. Cmd/Ctrl + Entrée enregistre ; Entrée insère une nouvelle ligne.
+Le même champ que Basic, sans `EditableControls` : dans `EditableControl`, `EditableContext` alterne
+entre `EditableEditTrigger` et les déclencheurs de validation et d’annulation, chacun avec une icône
+explicite. Partez de cet exemple quand le design modifie les contrôles ou leurs icônes.
 
-<Example name="editable/textarea" />
+<Example name="editable/build-from-parts" />
 
-### Personnalisation avancée
+## Composition
 
-Cet exemple reconstruit `EditableControls` à partir des parties de bas niveau : `EditableContext`
-alterne entre `EditableEditTrigger` et les déclencheurs de validation et d’annulation dans
-`EditableControl`. Avec `asChild`, chaque déclencheur rend votre propre `Button` et conserve ses
-styles ; `translations` aligne les noms accessibles sur le texte visible.
+Gardez `EditableInput` et `EditablePreview` comme éléments frères dans `EditableArea`, puis placez
+`EditableControls` après cette zone pour utiliser le parcours standard de modification, validation et
+annulation. Utilisez `EditableRootProvider` à la place de `Editable` lorsque l’état créé par
+`useEditable()` doit être partagé avec des commandes situées en dehors de l’arbre rendu. Utilisez
+`EditableContext` ou `useEditableContext()` pour un contenu personnalisé qui dépend du mode actuel.
+Dans Solid, l’état exposé par `useEditable()` et le contexte est accessible via un accesseur : il se
+lit avec `editable().editing`.
 
-<Example name="editable/advanced-customization" />
+## Anatomie
+
+Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
+
+<AnatomyInspector
+  parts={[
+    ["Editable", "editable-root", "Racine qui gère l’état, les callbacks, les propriétés du formulaire et l’accessibilité.", 0],
+    ["EditableLabel", "editable-label", "Libellé visible du champ et de la valeur affichée.", 1],
+    ["EditableArea", "editable-area", "Conteneur commun du champ de saisie et de l’aperçu.", 1],
+    ["EditableInput", "editable-input", "Champ de saisie affiché pendant la modification.", 2],
+    ["EditablePreview", "editable-preview", "Valeur ou espace réservé affiché hors modification.", 2],
+    ["EditableControl", "editable-control", "Conteneur facultatif des boutons de modification, validation et annulation.", 1],
+    ["EditableEditTrigger", "editable-edit-trigger", "Bouton qui active le mode de modification.", 2],
+    ["EditableSubmitTrigger", "editable-submit-trigger", "Bouton qui valide la valeur actuelle.", 2],
+    ["EditableCancelTrigger", "editable-cancel-trigger", "Bouton qui annule les modifications en cours.", 2],
+    ["EditableControls", "", "Groupe pratique pour le parcours standard.", 2],
+    ["EditableRootProvider", "editable-root-provider", "Racine reliée à une instance de `useEditable()`.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styles
 
@@ -181,17 +145,68 @@ La racine occupe la largeur de son conteneur, si bien que le passage entre l’a
 décale pas la mise en page. Avec `autoResize`, la racine suit la largeur du texte. Pour limiter la
 largeur, appliquez `max-width` à la racine avec une classe.
 
-### Propriétés CSS
+### Variables CSS
 
-<CssPropertiesSection properties={EditableDocs.editableOverrideCssProperties} />
+Survolez ou sélectionnez une variable pour la voir dans l’aperçu.
+
+<CssPropertiesSection properties={EditableDocs.editableOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Points d’accroche CSS
 
-- Sélecteurs `data-slot` stables : `editable-root`, `editable-root-provider`, `editable-label`,
-  `editable-area`, `editable-input`, `editable-preview`, `editable-control`,
-  `editable-edit-trigger`, `editable-submit-trigger` et `editable-cancel-trigger`.
+| Partie | `data-slot` |
+| --- | --- |
+| `Editable` | `editable-root` |
+| `EditableRootProvider` | `editable-root-provider` |
+| `EditableLabel` | `editable-label` |
+| `EditableArea` | `editable-area` |
+| `EditableInput` | `editable-input` |
+| `EditablePreview` | `editable-preview` |
+| `EditableControl` | `editable-control` |
+| `EditableEditTrigger` | `editable-edit-trigger` |
+| `EditableSubmitTrigger` | `editable-submit-trigger` |
+| `EditableCancelTrigger` | `editable-cancel-trigger` |
+
 - Sélecteurs des parties Ark : `data-scope="editable"` et
   `data-part="root|area|label|preview|input|edit-trigger|submit-trigger|cancel-trigger|control"`.
 - Sélecteurs d’état Ark : `data-disabled`, `data-focus`, `data-invalid`, `data-readonly`,
   `data-required`, `data-placeholder-shown` et `data-autoresize`.
 - `EditableControls` partage le slot `editable-control` avec `EditableControl`.
+
+## Clavier
+
+| Touche | Action |
+| --- | --- |
+| `Enter` | Valide la valeur si submitMode le permet. |
+| `Esc` | Annule et rétablit la valeur précédente. |
+
+## Référence de l’API
+
+| Prop | Type | Défaut | Description |
+| --- | --- | --- | --- |
+| `value` | `string` | — | Valeur en mode contrôlé. |
+| `defaultValue` | `string` | — | Valeur initiale lorsqu’elle n’est pas contrôlée. |
+| `onValueChange` | `(details: ValueChangeDetails) => void` | — | Appelé lorsque la valeur change. |
+| `onValueCommit` | `(details: ValueChangeDetails) => void` | — | Appelé lorsque la modification est enregistrée. |
+| `onValueRevert` | `(details: ValueChangeDetails) => void` | — | Appelé lorsque la modification est annulée. |
+| `activationMode` | `'focus' \| 'dblclick' \| 'click' \| 'none'` | `'dblclick'` | Ce qui lance l’édition : `focus`, `click`, `dblclick` ou `none`. |
+| `submitMode` | `'enter' \| 'blur' \| 'both' \| 'none'` | `'both'` | Ce qui enregistre : `enter`, `blur`, `both` ou `none`. |
+| `selectOnFocus` | `boolean` | `true` | Sélectionne le texte au début de l’édition. |
+| `edit` | `boolean` | — | Mode édition en mode contrôlé. |
+| `onEditChange` | `(details: EditChangeDetails) => void` | — | Appelé à l’entrée et à la sortie du mode édition. |
+| `placeholder` | `string \| { edit: string; preview: string }` | — | Texte indicatif, commun ou distinct pour l’édition et l’aperçu. |
+| `maxLength` | `number` | — | Nombre maximal de caractères. |
+| `autoResize` | `boolean` | `false` | Agrandit le champ selon son contenu. |
+| `name` | `string` | — | Nom du champ de formulaire de l’input sous-jacent. |
+| `disabled` | `boolean` | `false` | Désactive le contrôle. |
+| `readOnly` | `boolean` | `false` | Affiche la valeur sans permettre de la modifier. |
+| `invalid` | `boolean` | `false` | Marque le champ comme invalide. |
+| `required` | `boolean` | `false` | Exige une valeur avant l’envoi du formulaire. |
+| `form` | `string` | — | Id du formulaire auquel l’input sous-jacent est rattaché. |
+| `defaultEdit` | `boolean` | — | Démarre en mode édition. |
+| `translations` | `IntlTranslations` | — | Textes localisés des libellés d’accessibilité. |
+| `finalFocusEl` | `() => HTMLElement \| null` | — | Élément qui reçoit le focus à la fin de l’édition. |
+| `onPointerDownOutside` | `(event: PointerDownOutsideEvent) => void` | — | Appelé lors d’un appui du pointeur en dehors de la fenêtre. |
+| `onFocusOutside` | `(event: FocusOutsideEvent) => void` | — | Appelé lorsque le focus quitte la fenêtre. |
+| `onInteractOutside` | `(event: InteractOutsideEvent) => void` | — | Appelé lors de toute interaction en dehors de la fenêtre. |

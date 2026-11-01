@@ -34,7 +34,7 @@
   }
 
   .edge {
-    --_edge-color: var(--moduix-marquee-edge-color, var(--moduix-color-background));
+    --_edge-color: var(--moduix-marquee-edge-color, var(--moduix-background));
     --_edge-size: var(--moduix-marquee-edge-size, 20%);
     z-index: 1;
 

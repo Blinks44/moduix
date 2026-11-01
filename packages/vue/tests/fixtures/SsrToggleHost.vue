@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import { Toggle, ToggleIndicator } from '../../src/components/toggle';
+import { Toggle, ToggleIndicator } from '@/components/toggle';
 
 const pressed = ref(false);
 </script>

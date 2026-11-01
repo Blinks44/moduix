@@ -6,6 +6,7 @@ import {
   MarqueeViewport,
   useMarquee,
 } from '@moduix/solid/marquee';
+import { Stack } from '@moduix/solid/stack';
 import { createSignal } from 'solid-js';
 import styles from '@/components/examples/marquee/marquee-programmatic-control.module.css';
 
@@ -42,7 +43,7 @@ export default function ProgrammaticMarqueeDemo() {
   };
 
   return (
-    <div class={styles.stack}>
+    <Stack align="center" gap="3">
       <MarqueeRootProvider value={marquee} class={styles.root}>
         <MarqueeViewport>
           <MarqueeContent>
@@ -67,6 +68,6 @@ export default function ProgrammaticMarqueeDemo() {
           Restart
         </Button>
       </div>
-    </div>
+    </Stack>
   );
 }

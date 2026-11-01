@@ -1,121 +1,79 @@
 ---
 title: Number Input
 component: number-input
-description: A numeric input built on Ark UI with increment and decrement controls, formatting, validation, and optional drag-to-change interaction.
+description: Enter a number with step buttons, limits, and locale formatting.
+ark: https://ark-ui.com/docs/components/number-input
 ---
 
+import AnatomyScene from '@/components/examples/number-input/basic';
 import * as NumberInputDocs from '@/components/examples/number-input/css-properties';
 
-## API Reference
+<Example name="number-input/basic" />
 
-<PrimitiveReference href="https://ark-ui.com/docs/components/number-input" />
+## Installation
+
+<ComponentInstall />
+
+## Usage
+
+<Usage />
+
+Use `NumberInput` as the root and `NumberInputField` for the standard input with increment and
+decrement controls. Give the input an accessible name with `NumberInputLabel`, `aria-label`, or
+`aria-labelledby`.
 
 ## Choosing the right component
 
 Use `NumberInput` when users enter numeric values that need stepping, clamping, and formatting. Use
 `Input` for free text, and `Slider` when choosing a point in a visual range is the goal.
 
-## Basic
-
-Import it from `@moduix/react/number-input`, `@moduix/solid/number-input`, or
-`@moduix/vue/number-input` for CSS Modules. For Tailwind CSS, use the matching
-`@moduix/react-tailwind/number-input`, `@moduix/solid-tailwind/number-input`, or
-`@moduix/vue-tailwind/number-input` path.
-
-Use `NumberInput` as the root and `NumberInputField` for the standard input with increment and
-decrement controls. Give the input an accessible name with `NumberInputLabel`, `aria-label`, or
-`aria-labelledby`.
-
-<Example name="number-input/basic" />
-
-## Install with shadcn
-
-See [Quick Start](/docs/quick-start) for full package setup, registry configuration, and styling guidance.
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/number-input' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/number-input' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/number-input' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/number-input' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/number-input' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/number-input' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Anatomy
-
-```text
-NumberInput
-├─ NumberInputLabel
-├─ NumberInputScrubber (optional)
-├─ NumberInputField (recommended shortcut)
-│  └─ renders NumberInputControl
-│     ├─ NumberInputDecrementTrigger
-│     ├─ NumberInputInput
-│     └─ NumberInputIncrementTrigger
-└─ NumberInputValueText (optional)
-
-NumberInputRootProvider
-└─ same part tree connected to state created by `useNumberInput()`
-```
-
-| Part | Role |
-| --- | --- |
-| `NumberInput` | Owns number input state, parsing, formatting, and keyboard behavior. |
-| `NumberInputRootProvider` | Connects parts to state created with `useNumberInput()`. |
-| `NumberInputContext` | Exposes formatted and numeric values plus imperative state methods. |
-| `NumberInputLabel` | Accessible label for the managed input. |
-| `NumberInputScrubber` | Optional drag target that changes the value as the pointer moves. |
-| `NumberInputControl` | Groups the input and increment and decrement triggers. |
-| `NumberInputField` | Convenience part that renders the standard control and trigger group. |
-| `NumberInputDecrementTrigger` | Button that decreases the current value. It renders the moduix minus icon by default. |
-| `NumberInputInput` | Editable numeric text input managed by Ark UI. |
-| `NumberInputIncrementTrigger` | Button that increases the current value. It renders the moduix plus icon by default. |
-| `NumberInputValueText` | Read-only text element for the formatted value. |
-
-## Composition
-
-Use `NumberInputField` for the standard three-part control. Keep `value` and `defaultValue` as
-strings, and read `details.value` from `onValueChange` when the input is controlled. When state must
-be created outside the rendered part tree, call `useNumberInput()` and pass the matching store to
-`NumberInputRootProvider`; do not render `NumberInput` or `NumberInputRootProvider` for the same store.
-React reads store properties directly, Solid reads them through the returned accessor, and Vue exposes the reactive store directly to the template.
-
-Use `NumberInputControl` with individual parts when the trigger order, icons, or input styling must
-differ. Add `NumberInputScrubber` alongside the field for drag-to-change behavior. Use
-`NumberInputContext` only when another part, such as a hidden form control, needs the formatted value
-or `valueAsNumber`.
-
 ## Examples
 
-### Controlled
+### Sizes
 
-Keep controlled state as a string and use `details.value` in `onValueChange`.
+Use the `size` prop on the root to match the height and text size of `Input`. The default is `md`.
 
-<Example name="number-input/controlled" />
+<Example name="number-input/sizes" />
+
+### Min and max
+
+Use `min`, `max`, and `step` to define the range and increment for keyboard, trigger, and scrubber
+changes. The value is clamped on blur by default. Set `clampValueOnBlur={false}` when an out-of-range
+typed value should remain visible after the input loses focus.
+
+<Example name="number-input/min-and-max" />
+
+### Formatting
+
+Pass `formatOptions` to format the visible value with `Intl.NumberFormat`.
+
+<Example name="number-input/formatting" />
+
+### Precision
+
+Use `formatOptions` with `Intl.NumberFormatOptions` when the visible value needs a fixed number of
+fraction digits.
+
+<Example name="number-input/precision" />
+
+### Custom icons
+
+Pass your own icons to `NumberInputDecrementTrigger` and `NumberInputIncrementTrigger`. Pass
+`translations` when custom trigger content needs localized accessible labels.
+
+<Example name="number-input/custom-icons" />
+
+### Scrubbing
+
+Drag `NumberInputScrubber` left or right to change the value.
+
+<Example name="number-input/scrubbing" />
+
+### Mouse wheel
+
+Set `allowMouseWheel` when changing the value with the mouse wheel is intentional for the workflow.
+
+<Example name="number-input/mouse-wheel" />
 
 ### Disabled and read-only
 
@@ -130,26 +88,6 @@ Use `Field` when form state, helper text, error text, and accessibility metadata
 
 <Example name="number-input/field" />
 
-### Formatting
-
-Pass `formatOptions` to format the visible value with `Intl.NumberFormat`.
-
-<Example name="number-input/formatting" />
-
-### Min and Max
-
-Use `min`, `max`, and `step` to define the range and increment for keyboard, trigger, and scrubber
-changes. The value is clamped on blur by default. Set `clampValueOnBlur={false}` when an out-of-range
-typed value should remain visible after the input loses focus.
-
-<Example name="number-input/min-and-max" />
-
-### Mouse Wheel
-
-Set `allowMouseWheel` when changing the value with the mouse wheel is intentional for the workflow.
-
-<Example name="number-input/mouse-wheel" />
-
 ### Native form submission
 
 Set `name` to submit the visible text spinbutton through a native form. `NumberInput` submits its
@@ -158,32 +96,6 @@ the parsed numeric representation.
 
 <Example name="number-input/form-submission" />
 
-### Precision
-
-Use `formatOptions` with `Intl.NumberFormatOptions` when the visible value needs a fixed number of
-fraction digits.
-
-<Example name="number-input/precision" />
-
-### Root Provider
-
-Use `useNumberInput()` with `NumberInputRootProvider` when state must be created outside the rendered
-part tree.
-
-<Example name="number-input/root-provider" />
-
-### Scrubbing
-
-Drag `NumberInputScrubber` left or right to change the value.
-
-<Example name="number-input/scrubbing" />
-
-### Sizes
-
-Use the `size` prop on the root to match the height and text size of `Input`. The default is `md`.
-
-<Example name="number-input/sizes" />
-
 ### Value text
 
 Use `NumberInputValueText` when the formatted value should also be visible outside the editable
@@ -191,12 +103,61 @@ input.
 
 <Example name="number-input/value-text" />
 
-### Advanced Customization
+### Controlled
 
-Compose the low-level parts instead of `NumberInputField` when the trigger icons or input styling
-must be customized. Pass `translations` when custom trigger content needs localized accessible labels.
+Keep controlled state as a string and use `details.value` in `onValueChange`. See [Control state from the application](/docs/composition-patterns#controlled-state).
 
-<Example name="number-input/custom-icons" />
+<Example name="number-input/controlled" />
+
+### Root provider
+
+Use `useNumberInput()` with `NumberInputRootProvider` when state must be created outside the rendered
+part tree. See [Share state outside the tree](/docs/composition-patterns#root-provider).
+
+<Example name="number-input/root-provider" />
+
+### Build from parts
+
+The same input as Basic, without `NumberInputField`: `NumberInputControl` holds the decrement trigger,
+`NumberInputInput`, and the increment trigger, each trigger with an explicit icon. Start here when a
+design moves the triggers or changes the control layout.
+
+<Example name="number-input/build-from-parts" />
+
+## Composition
+
+Use `NumberInputField` for the standard three-part control. Keep `value` and `defaultValue` as
+strings, and read `details.value` from `onValueChange` when the input is controlled. When state must
+be created outside the rendered part tree, call `useNumberInput()` and pass the matching store to
+`NumberInputRootProvider`; do not render `NumberInput` or `NumberInputRootProvider` for the same store.
+React reads store properties directly, Solid reads them through the returned accessor, and Vue exposes the reactive store directly to the template.
+
+Use `NumberInputControl` with individual parts when the trigger order, icons, or input styling must
+differ. Add `NumberInputScrubber` alongside the field for drag-to-change behavior. Use
+`NumberInputContext` only when another part, such as a hidden form control, needs the formatted value
+or `valueAsNumber`.
+
+## Anatomy
+
+Hover or focus a part to find it in the preview.
+
+<AnatomyInspector
+  parts={[
+    ["NumberInput", "number-input-root", "Manages number input state, parsing, formatting, and keyboard behavior.", 0],
+    ["NumberInputLabel", "number-input-label", "Accessible label for the managed input.", 1],
+    ["NumberInputScrubber", "number-input-scrubber", "Optional drag target that changes the value as the pointer moves.", 1],
+    ["NumberInputField", "", "Convenience part that renders the standard control and trigger group.", 1],
+    ["NumberInputDecrementTrigger", "number-input-decrement-trigger", "Button that decreases the current value. It renders the moduix minus icon by default.", 2],
+    ["NumberInputInput", "number-input-input", "Editable numeric text input managed by Ark UI.", 2],
+    ["NumberInputIncrementTrigger", "number-input-increment-trigger", "Button that increases the current value. It renders the moduix plus icon by default.", 2],
+    ["NumberInputValueText", "number-input-value-text", "Read-only text element for the formatted value.", 1],
+    ["NumberInputControl", "number-input-control", "Groups the input and increment and decrement triggers.", 1],
+    ["NumberInputRootProvider", "number-input-root-provider", "Connects parts to state created with `useNumberInput()`.", 0],
+    ["NumberInputContext", null, "Exposes formatted and numeric values plus imperative state methods.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
 
 ## Styling
 
@@ -204,14 +165,72 @@ Use `className` in React or `class` in Solid and Vue on exported parts for struc
 use native utilities and consumer classes; the CSS variables below customize the CSS Modules variants.
 Data attributes and `data-slot` hooks are shared by both styling tracks.
 
-### CSS Properties
+### CSS variables
 
-<CssPropertiesSection properties={NumberInputDocs.numberInputOverrideCssProperties} />
+Hover or focus a variable to see it in the preview.
+
+<CssPropertiesSection properties={NumberInputDocs.numberInputOverrideCssProperties}>
+  <AnatomyScene />
+</CssPropertiesSection>
 
 ### Styling hooks
 
-- Stable `data-slot` selectors: `number-input-root`, `number-input-root-provider`, `number-input-label`,
-  `number-input-scrubber`, `number-input-control`, `number-input-decrement-trigger`,
-  `number-input-input`, `number-input-increment-trigger`, and `number-input-value-text`.
+| Part | `data-slot` |
+| --- | --- |
+| `NumberInput` | `number-input-root` |
+| `NumberInputRootProvider` | `number-input-root-provider` |
+| `NumberInputLabel` | `number-input-label` |
+| `NumberInputScrubber` | `number-input-scrubber` |
+| `NumberInputControl` | `number-input-control` |
+| `NumberInputDecrementTrigger` | `number-input-decrement-trigger` |
+| `NumberInputInput` | `number-input-input` |
+| `NumberInputIncrementTrigger` | `number-input-increment-trigger` |
+| `NumberInputValueText` | `number-input-value-text` |
+
+- Ark state selectors: `data-required` on the label.
+
 - Ark state hooks: `data-disabled`, `data-invalid`, `data-focus`, and `data-scrubbing`.
 - Ark part hooks: `data-scope="number-input"` and `data-part` values matching the Ark anatomy.
+
+## Keyboard
+
+| Key | Action |
+| --- | --- |
+| `ArrowUp` / `ArrowDown` | Increases or decreases by one step. |
+| `Shift` + arrows | Changes by a large step, 10 steps by default. |
+| `Alt` + arrows | Changes by a small step, 0.1 by default. |
+| `Home` / `End` | Sets the minimum or maximum. |
+| `Enter` | Commits the typed value. |
+
+## API reference
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `value` | `string` | — | Value as a string, for controlled use. |
+| `defaultValue` | `string` | — | Initial value as a string. |
+| `onValueChange` | `(details: ValueChangeDetails) => void` | — | Called with `value` and `valueAsNumber` on every change. |
+| `onValueCommit` | `(details: ValueChangeDetails) => void` | — | Called on blur or Enter. |
+| `min` | `number` | `Number.MIN_SAFE_INTEGER` | Minimum value. |
+| `max` | `number` | `Number.MAX_SAFE_INTEGER` | Maximum value. |
+| `step` | `number` | `1` | Step for buttons and arrow keys. |
+| `largeStep` | `number` | `10 * step` | Step with Shift held. |
+| `formatOptions` | `Intl.NumberFormatOptions` | — | `Intl.NumberFormat` options, for example currency or percent. |
+| `locale` | `string` | `'en-US'` | Locale for formatting; defaults to the nearest `LocaleProvider`. |
+| `allowMouseWheel` | `boolean` | `false` | Changes the value with the mouse wheel while focused. |
+| `clampValueOnBlur` | `boolean` | `true` | Clamps the value to `min` and `max` on blur. |
+| `spinOnPress` | `boolean` | `true` | Keeps changing the value while a button is held. |
+| `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'` | `'md'` | Control size: `xs`, `sm`, `md`, `lg`, or `xl`. |
+| `name` | `string` | — | Form field name of the underlying input. |
+| `disabled` | `boolean` | `false` | Disables the control. |
+| `readOnly` | `boolean` | `false` | Shows the value but prevents changes. |
+| `invalid` | `boolean` | `false` | Marks the control as invalid. |
+| `required` | `boolean` | `false` | Requires a value before form submission. |
+| `form` | `string` | — | Id of the form the underlying input belongs to. |
+| `pattern` | `string` | `'-?[0-9]*(.[0-9]+)?'` | Pattern the typed value must match. |
+| `smallStep` | `number` | `step / 10` | Step with Alt held. |
+| `allowOverflow` | `boolean` | `true` | Allows typed values outside `min` and `max`. |
+| `focusInputOnChange` | `boolean` | `true` | Focuses the input when a button changes the value. |
+| `translations` | `IntlTranslations` | — | Localized strings for accessibility labels. |
+| `inputMode` | `InputMode` | `'decimal'` | Virtual keyboard hint. |
+| `onValueInvalid` | `(details: ValueInvalidDetails) => void` | — | Called when the value goes outside `min` or `max`. |
+| `onFocusChange` | `(details: FocusChangeDetails) => void` | — | Called when the input gains or loses focus. |

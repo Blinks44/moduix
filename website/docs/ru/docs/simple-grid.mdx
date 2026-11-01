@@ -1,21 +1,21 @@
 ---
 title: Simple Grid
 component: simple-grid
-description: Адаптивная сетка с равными колонками для React, Solid и Vue с установкой через пакет или shadcn.
+description: Карточки и плитки в равных колонках, которые подстраиваются под ширину.
+ark: https://ark-ui.com/docs/guides/composition
 ---
 
+import AnatomyScene from '@/components/examples/simple-grid/basic';
 
-## Справочник API
+<Example name="simple-grid/basic" />
 
-`SimpleGrid` не является примитивом Ark UI. moduix предоставляет небольшой компонент раскладки,
-построенный с помощью фабрики Ark. Он следует рекомендациям Ark по
-[композиции](https://ark-ui.com/docs/guides/composition), [стилизации](https://ark-ui.com/docs/guides/styling)
-и [ссылкам на элементы](https://ark-ui.com/docs/guides/ref). Его свойства `columns` и
-`minChildWidth` заимствуют модель раскладки у [SimpleGrid](https://chakra-ui.com/docs/components/simple-grid)
-из Chakra UI, но адаптивные свойства Chakra UI для стилизации здесь не поддерживаются.
+## Установка
 
-## Базовый пример
+<ComponentInstall />
 
+## Использование
+
+<Usage />
 
 Используйте `minChildWidth`, если число равных колонок должно меняться вместе с доступной шириной.
 Компонент использует `auto-fit` и `minmax()` из CSS Grid: числовые значения считаются пикселями,
@@ -24,73 +24,6 @@ description: Адаптивная сетка с равными колонкам�
 Число колонок меняется вместе с шириной корневого элемента, а дочерние элементы остаются его
 непосредственными элементами сетки. Если внутри дочернего элемента есть непереносимый контент,
 добавьте для него `min-width: 0` или подходящее правило переполнения.
-
-<Example name="simple-grid/basic" />
-
-## Установка через shadcn
-
-Полную настройку пакета, реестра и стилей см. в разделе [Быстрый старт](/docs/quick-start).
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/simple-grid' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/simple-grid' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/simple-grid' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/simple-grid' },
-  ]}
-/>
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<ShadcnInstallOptions
-  options={[
-    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/simple-grid' },
-    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/simple-grid' },
-  ]}
-/>
-
-  </Tab>
-</Tabs>
-
-## Анатомия
-
-`SimpleGrid` рендерит один корневой элемент CSS Grid и не добавляет обёртки вокруг дочерних элементов.
-
-```text
-SimpleGrid
-└─ root[data-scope="simple-grid"][data-part="root"][data-slot="simple-grid-root"]
-   └─ children
-```
-
-| Часть        | Назначение                                           |
-| ------------ | ---------------------------------------------------- |
-| `SimpleGrid` | Корневой элемент, создающий равные колонки CSS Grid. |
-
-## Композиция
-
-Используйте `<SimpleGrid>` как корневой элемент. Выберите `minChildWidth` для автоматического
-числа колонок или `columns` для фиксированного числа. Если передать оба свойства, `minChildWidth`
-имеет приоритет.
-
-Используйте `asChild`, когда корневым элементом сетки должен быть семантический тег, например `ul`,
-`section` или `nav`. Он требует ровно одного дочернего элемента, который становится отрендеренным
-корнем. В React передавайте `asChild` как логическое значение, в Vue используйте `as-child` с одним
-элементом в слоте по умолчанию, а в Solid передайте функцию, возвращающую этот элемент.
-Для именованных областей, колонок разной ширины или элементов,
-занимающих несколько колонок, не передавайте свойства раскладки и задайте шаблон сетки в своём
-классе, в том числе адаптивный, через media queries.
 
 ## Примеры
 
@@ -108,6 +41,41 @@ SimpleGrid
 
 <Example name="simple-grid/media-gallery" />
 
+## Композиция
+
+`SimpleGrid` не является примитивом Ark UI. moduix предоставляет небольшой компонент раскладки,
+построенный с помощью фабрики Ark. Он следует рекомендациям Ark по
+[композиции](https://ark-ui.com/docs/guides/composition), [стилизации](https://ark-ui.com/docs/guides/styling)
+и [ссылкам на элементы](https://ark-ui.com/docs/guides/ref). Его свойства `columns` и
+`minChildWidth` заимствуют модель раскладки у [SimpleGrid](https://chakra-ui.com/docs/components/simple-grid)
+из Chakra UI, но адаптивные свойства Chakra UI для стилизации здесь не поддерживаются.
+
+Используйте `<SimpleGrid>` как корневой элемент. Выберите `minChildWidth` для автоматического
+числа колонок или `columns` для фиксированного числа. Если передать оба свойства, `minChildWidth`
+имеет приоритет.
+
+Используйте `asChild`, когда корневым элементом сетки должен быть семантический тег, например `ul`,
+`section` или `nav`. Он требует ровно одного дочернего элемента, который становится отрендеренным
+корнем. В React передавайте `asChild` как логическое значение, в Vue используйте `as-child` с одним
+элементом в слоте по умолчанию, а в Solid передайте функцию, возвращающую этот элемент.
+Для именованных областей, колонок разной ширины или элементов,
+занимающих несколько колонок, не передавайте свойства раскладки и задайте шаблон сетки в своём
+классе, в том числе адаптивный, через media queries.
+
+## Анатомия
+
+`SimpleGrid` рендерит один корневой элемент CSS Grid и не добавляет обёртки вокруг дочерних элементов.
+
+Наведите на часть или выберите её, чтобы найти её в превью.
+
+<AnatomyInspector
+  parts={[
+    ["SimpleGrid", "simple-grid-root", "Корневой элемент, создающий равные колонки CSS Grid.", 0],
+  ]}
+>
+  <AnatomyScene />
+</AnatomyInspector>
+
 ## Стилизация
 
 `SimpleGrid` не определяет собственных CSS-переменных. `display: grid` и шаблон из одной колонки по
@@ -121,11 +89,26 @@ SimpleGrid
 
 ### Хуки стилизации
 
+| Часть | `data-slot` |
+| --- | --- |
+| `SimpleGrid` | `simple-grid-root` |
+
 - `className` или `class` стилизует отрендеренный корневой элемент, включая `display` и адаптивный
   `grid-template-columns`, если свойства раскладки не переданы.
 - `data-scope="simple-grid"` и `data-part="root"` соответствуют соглашениям Ark о стилизации.
-- `data-slot="simple-grid-root"` - стабильный селектор moduix для локального CSS.
 - `columns`, `minChildWidth`, `gap`, `rowGap` и `columnGap` записывают inline-стили и имеют приоритет
   над объявлениями из классов приложения.
 - `style` объединяется после этих свойств и является последним переопределением для экземпляра.
 - Компонент не предоставляет хуков стилизации для состояния или анимации.
+
+## Справочник API
+
+Также принимает нативные пропсы своего элемента и `asChild`.
+
+| Проп | Тип | По умолчанию | Описание |
+| --- | --- | --- | --- |
+| `minChildWidth` | `number \| string` | — | Минимальная ширина колонки; колонки подстраиваются под место. |
+| `columns` | `number` | — | Фиксированное число колонок. |
+| `gap` | `number \| string` | — | Расстояние между ячейками; числа в пикселях. |
+| `rowGap` | `number \| string` | — | Расстояние между строками. |
+| `columnGap` | `number \| string` | — | Расстояние между колонками. |

@@ -58,28 +58,25 @@ or Tailwind setup from Quick Start unless a framework requires a different value
 
 ## Component pages
 
-Read [the component-page contract](component-pages.md) for the full structure. Its canonical order is:
+Read [the component-page contract](component-pages.md) for the section order. It records both the
+legacy order used by current pages and the target order from the docs redesign, with the condition
+for switching a page.
 
-1. `API Reference`
-2. `Choosing the right component`, only when close alternatives exist
-3. `Basic`
-4. `Install with shadcn`, when applicable
-5. `Anatomy`
-6. `Composition`, only for a meaningful choice
-7. `Examples`
-8. `Styling`, when the public styling contract is meaningful
-
-Accordion is the current structural reference. It is not the source of truth for public value
-naming, which is flat, or for which frameworks and styling variants ship.
+Accordion is the structural reference for the legacy order; the Button frame in `Moduix.sketch` is
+the reference for the target order. Neither is the source of truth for public value naming, which
+is flat, or for which frameworks and styling variants ship.
 
 ## Utility pages
 
 Use this structure for Ark utilities that are not moduix components:
 
-1. `API Reference` with the exact upstream Ark UI page and a compact import example for every shipped framework;
-2. a recommended basic use case with one live preview when rendering or interaction helps understanding;
-3. native framework source tabs for each applicable preview;
-4. additional usage sections only for distinct behavior, configuration, lifecycle, accessibility, or integration concerns.
+1. frontmatter `ark` with the exact upstream Ark UI page; the theme shows it as the Ark UI link in the
+   page header next to Report issue, without the Source and npm links of component pages;
+2. `Import` (`Импорт`, `Importation`) with a compact import example for every shipped framework in
+   `groupId="framework"` tabs;
+3. a recommended basic use case with one live preview when rendering or interaction helps understanding;
+4. native framework source tabs for each applicable preview;
+5. additional usage sections only for distinct behavior, configuration, lifecycle, accessibility, or integration concerns.
 
 Keep utility pages concise. Do not reproduce the upstream prop table or every example. Explain the local happy path, important constraints, and the boundary between Ark behavior and application-owned behavior.
 
@@ -89,14 +86,14 @@ Use `ExampleFrame variant="component"` for a displayed example. Wrap its content
 
 Use this structure for Ark collection APIs that manage data without owning the complete interface:
 
-1. `API Reference` with the exact upstream Ark UI page and a compact import example for every shipped framework;
+1. frontmatter `ark` and an `Import` section, as on utility pages;
 2. a recommended basic use case with one live preview when rendering helps explain the data contract;
 3. native framework source tabs for each applicable preview;
 4. focused usage sections for distinct concerns such as item mapping, asynchronous loading, selection, querying, traversal, filtering, or immutable updates;
 5. `API essentials` only when a compact configuration, state, or action summary helps readers choose the right API;
 6. integration and accessibility guidance that clearly separates collection-owned data behavior from application-owned or component-owned interaction.
 
-Prefer the Ark UI collection entry point when documenting an API that consumers use directly. If Moduix re-exports a helper as part of a component contract, explain that relationship and let component-based examples use the matching Moduix entry point.
+Prefer the Ark UI collection entry point when documenting an API that consumers use directly. If moduix re-exports a helper as part of a component contract, explain that relationship and let component-based examples use the matching moduix entry point.
 
 Do not reproduce every upstream method or example. Teach the basic data model, the operations needed for common integration, and the state or lifecycle constraints that are easy to misuse. Keep framework differences next to the code or API shape they affect.
 
@@ -119,14 +116,14 @@ The Forms overview uses this order:
 A form-library integration guide uses this order:
 
 1. framework availability and installation through `PackageManagerTabs`;
-2. the smallest complete mapping between library field state and Moduix controls;
+2. the smallest complete mapping between library field state and moduix controls;
 3. validation and reset behavior;
-4. one complete form with native source for every framework supported by both the library and Moduix;
+4. one complete form with native source for every framework supported by both the library and moduix;
 5. concise guidance for repeated fields, server errors, focus, and behavioral constraints.
 
 Keep framework support truthful. A framework-specific library page must state that constraint near the beginning and must not show empty or fictional tabs for other adapters. Link readers to a real alternative when another shipped framework needs the same capability.
 
-Keep responsibilities explicit: the form library owns application state, validation timing, and submission lifecycle; Moduix owns the visible controls, field semantics, and required native form parts. Do not register or render a second hidden input for a value already supplied by a Moduix component.
+Keep responsibilities explicit: the form library owns application state, validation timing, and submission lifecycle; moduix owns the visible controls, field semantics, and required native form parts. Do not register or render a second hidden input for a value already supplied by a moduix component.
 
 Use `groupId="framework"` for framework installation and source tabs. Put shared prose and shared styles outside those tabs. The documentation preview may render the React source, but say so and provide native source for every other supported shipped framework.
 
@@ -160,19 +157,26 @@ Animations is the reference for a system styling guide, Composition Patterns for
 
 Blocks are application-owned compositions installed through the shadcn registry. They demonstrate a complete product pattern, but they are not new components exported by moduix.
 
-Use this structure:
+Use this structure (Sign in is the reference, after the "Docs · Block · Sign in" frame):
 
-1. state the product outcome, when the block fits, and the boundary between the installed composition and application-owned logic;
-2. show one complete live preview before the source;
-3. provide native source for every shipped framework that supports the block in `groupId="framework"` tabs, followed by shared styles outside those tabs;
-4. provide complete block installation through `BlockInstall`; its manifest includes the source, stylesheet, UI registry dependencies, and any additional packages;
-5. explain the smallest integration step for routes, data, authentication, uploads, or other product logic owned by the application;
-6. finish with only the customization, responsive, accessibility, motion, and production-state guidance that is specific to the block.
+1. frontmatter `block: <name>` adds the "Blocks / <section>" breadcrumb from the sidebar and the
+   Source and Report issue links; the description states the product outcome, so the page has no
+   separate intro;
+2. one `ExamplePanel` with the live preview, the native source of every supported framework in
+   `sources`, and the shared stylesheet in `files`;
+3. `## Install` with `BlockInstall`: one shadcn command for the framework and styling chosen in the
+   panel, and the UI components it adds, read from `website/registry.json`;
+4. the smallest integration step for routes, data, authentication, uploads, or other product logic
+   owned by the application, with its route source in `FrameworkCode` (titled, follows the panel
+   selects, no framework tabs);
+5. only the customization, responsive, accessibility, motion, and production-state guidance that is
+   specific to the block, as short tables or lists.
 
-Label the documentation runtime honestly: `ExampleFrame` currently renders the React source, while the source tabs contain native implementations for the other supported shipped frameworks. Keep one framework-neutral stylesheet when the visual contract is shared. Do not place styles, fixtures, or conceptual prose inside framework tabs.
-
-Use `ExampleFrame variant="block"` for the preview. A block may use the full documentation canvas when its layout, spatial relationships, or responsive shell are part of the lesson. Wrap narrow flows such as authentication forms in `<PreviewFrame maxWidth="sm">`; keep that width consistent across locales.
+The panel renders the React source and labels other selections honestly. Keep one framework-neutral
+stylesheet when the visual contract is shared. A block may use the full documentation canvas when its
+layout, spatial relationships, or responsive shell are part of the lesson. Wrap narrow flows such as
+authentication forms in `<PreviewFrame maxWidth="sm">`; keep that width consistent across locales.
 
 Keep framework availability truthful. When an essential third-party dependency supports only one shipped framework, state the limitation near the beginning, show only the real implementation, and point other frameworks to the closest shipped or framework-neutral path. Do not create fictional parity by transliterating framework-specific hooks or types.
 
-Blocks is the overview reference. App Header and Sign in are the current references for a full-width application composition and a narrow product flow. Data Table is the reference for a multi-framework third-party integration with framework-specific packages and runtime APIs.
+Blocks is the overview reference. Sign in is the reference for the block page structure and a narrow product flow, App Header for a full-width application composition. Data Table is the reference for a multi-framework third-party integration with framework-specific packages and runtime APIs.

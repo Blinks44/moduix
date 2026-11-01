@@ -10,32 +10,31 @@
     min-width: 0;
     min-height: var(--moduix-input-height, var(--_input-height));
     margin: 0;
-    border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
+    border: var(--moduix-border-width-sm) solid var(--moduix-input);
     border-radius: var(--moduix-input-radius, var(--moduix-radius-md));
     padding: var(--_input-padding-y) var(--_input-padding-x);
-    background-color: var(--moduix-color-background);
-    color: var(--moduix-color-foreground);
+    background-color: var(--moduix-background);
+    color: var(--moduix-foreground);
     font: inherit;
     font-size: var(--_input-font-size);
     line-height: var(--_input-line-height);
-    outline: var(--moduix-focus-ring-inset-width) solid transparent;
-    outline-offset: var(--moduix-focus-ring-inset-offset);
+    outline: var(--moduix-focus-ring-halo-width) solid transparent;
     transition:
       border-color var(--moduix-transition-default),
       outline-color var(--moduix-transition-default),
       opacity var(--moduix-transition-default);
 
     &::placeholder {
-      color: var(--moduix-color-muted-foreground);
+      color: var(--moduix-muted-foreground);
     }
 
     &::file-selector-button {
       margin-inline-end: var(--moduix-spacing-3);
-      border: var(--moduix-border-width-sm) solid var(--moduix-color-primary);
+      border: var(--moduix-border-width-sm) solid var(--moduix-primary);
       border-radius: var(--moduix-radius-md);
       padding: var(--moduix-spacing-0-5) var(--moduix-spacing-2);
-      background-color: var(--moduix-color-primary);
-      color: var(--moduix-color-primary-foreground);
+      background-color: var(--moduix-primary);
+      color: var(--moduix-primary-foreground);
       font: inherit;
       font-weight: var(--moduix-weight-medium);
       line-height: inherit;
@@ -44,7 +43,7 @@
 
       @media (hover: hover) {
         &:hover {
-          background-color: var(--moduix-color-foreground);
+          background-color: var(--moduix-foreground);
         }
       }
     }
@@ -55,14 +54,15 @@
     }
 
     &:focus-visible {
-      outline-color: var(--moduix-color-ring);
+      border-color: var(--moduix-ring);
+      outline-color: color-mix(in oklab, var(--moduix-ring) 50%, transparent);
     }
 
     &:is([data-invalid], [aria-invalid='true']) {
-      border-color: var(--moduix-color-destructive);
+      border-color: var(--moduix-destructive);
 
       &:focus-visible {
-        outline-color: var(--moduix-color-destructive);
+        outline-color: color-mix(in oklab, var(--moduix-destructive) 20%, transparent);
       }
     }
 
