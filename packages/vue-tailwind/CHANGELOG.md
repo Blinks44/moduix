@@ -1,5 +1,47 @@
 # @moduix/vue-tailwind
 
+## 3.2.0
+
+### Minor Changes
+
+- f0e33bf: **Breaking.** Components and Tailwind utilities read `--moduix-<color>` tokens directly, and the `--moduix-color-*` alias layer is removed. Rename overrides such as `--moduix-color-primary` to `--moduix-primary`. Color overrides now work on any element, and `--moduix-destructive-foreground` is a regular token.
+  Removed unused tokens and utilities: `overlay-foreground`, `sidebar-primary` and `sidebar-primary-foreground`, the `z-xs`…`z-xl` scale, `opacity-loading`, `ease-standard`, `ease-emphasized`, `transition-emphasized`, `tracking-text-*`, `spacing-xs`…`spacing-2xl`, and the `*-space-*` utilities.
+  Field borders use `--moduix-input`, with at least 3:1 contrast against background, card, and popover in every preset and color scheme. This covers the form controls, Listbox, the AngleSlider thumb, the TreeView checkbox, and the CommandPalette search field.
+- f0e33bf: Focused fields tint their border with `--moduix-ring` and show a 3px outer halo at half the ring color, so focus stays visible next to the darker field border. Select, Combobox, and the ColorPicker trigger keep the halo while open, NumberInput shows one halo around the stepper group, and slider thumbs use the same halo.
+  Invalid fields keep a destructive border and show a destructive halo only while focused.
+  New `--moduix-focus-ring-halo-width` token and `outline-focus-halo` Tailwind utility.
+- f0e33bf: **Breaking.** Select, Listbox, and Menu no longer export the `ItemTextContent`, `ItemTextIcon`, and `ItemTextLabel` parts.
+  Put the icon directly inside `ItemText` before the label (`<SelectItemText><Icon />{label}</SelectItemText>`). A direct SVG child gets a 16px size and a gap before the text, and the text truncates with an ellipsis.
+  `MenuItemText` now keeps one line with an ellipsis instead of wrapping, like Select and Listbox.
+
+### Stack
+
+- f0e33bf: Accept a spacing step in `gap`, such as `gap="2"` or `gap="1.5"`, which reads the matching `--moduix-spacing-*` token and follows the active preset.
+  Numbers remain pixels and other strings remain CSS lengths.
+
+### Patch Changes
+
+### Accordion
+
+- f0e33bf: In horizontal orientation the item indicator points toward the content.
+
+### Alert
+
+- f0e33bf: Success and warning icons mix their token with `--moduix-foreground`, raising light-theme contrast to 5.0:1 and 3.4:1.
+
+### Switch
+
+- f0e33bf: The unchecked track has no border and a gray fill from `--moduix-input`, and the thumb stays white at the same size in both states, so the off state stays visible in dark themes.
+- f0e33bf: Use the system font stack for `--moduix-font-sans` by default. Noto Sans was listed first without being loaded, so components looked different on systems that ship it.
+
+### Image
+
+- f0e33bf: Bare `unstyled` and `priority` attributes (`<Image unstyled />`) now enable the option instead of being read as false.
+
+### NativeSelect
+
+- f0e33bf: An uncontrolled select keeps options marked `selected` instead of clearing them.
+
 ## 3.1.0
 
 ### Minor Changes
