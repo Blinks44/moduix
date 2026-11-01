@@ -100,8 +100,8 @@ export const Fill: Story = {
 export const ResponsiveDirection: Story = {
   render: renderStory(`
     <Stack :direction="{ mobile: 'column', desktop: 'row' }" :gap="12" :class="rowClass">
-      <p class="font-semibold">Adaptive layout</p>
-      <p :class="mutedClass">Column on mobile, row from desktop width.</p>
+      <p class="wrap-anywhere font-semibold">Adaptive layout</p>
+      <p class="wrap-anywhere text-muted-foreground">Column on mobile, row from desktop width.</p>
     </Stack>
   `),
 };
