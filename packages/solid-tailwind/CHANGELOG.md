@@ -1,5 +1,11 @@
 # @moduix/solid-tailwind
 
+## 3.2.1
+
+### Patch Changes
+
+- 10ec24f: Fix missing Lucide icons in Solid JSX builds, including the default CloseButton icon.
+
 ## 3.2.0
 
 ### Minor Changes
