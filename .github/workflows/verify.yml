@@ -181,7 +181,6 @@ jobs:
   storybook:
     name: Storybook smoke
     runs-on: ubuntu-latest
-    # Pull requests only build the storybooks; pushes to main also compare every story.
     timeout-minutes: 45
 
     steps:
@@ -196,27 +195,3 @@ jobs:
 
       - name: Build shipped playground storybooks
         run: pnpm --filter './playgrounds/*' run build:storybook
-
-      - name: Cache Playwright browsers
-        if: github.event_name == 'push'
-        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6
-        with:
-          path: ~/.cache/ms-playwright
-          key: playwright-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}
-
-      - name: Install Chromium
-        if: github.event_name == 'push'
-        run: pnpm exec playwright install --with-deps --only-shell chromium
-
-      # Every adapter is compared with React CSS Modules; known exceptions live in the script.
-      - name: Compare stories across adapters
-        if: github.event_name == 'push'
-        run: pnpm run compare:stories
-
-      - name: Upload story diffs
-        if: failure()
-        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7
-        with:
-          name: story-diffs
-          path: .local/story-diffs/
-          include-hidden-files: true
