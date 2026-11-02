@@ -28,6 +28,7 @@
     "rstest.config.ts",
     "rstest.browser.setup.ts",
     "tests",
-    "../solid/tests/*.browser.test.tsx"
+    "../solid/tests/*.browser.test.tsx",
+    "package-tests"
   ]
 }
