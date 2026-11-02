@@ -6,7 +6,7 @@ import {
 } from '@moduix/react/collapsible';
 import { useI18n } from '@rspress/core/runtime';
 import { Link, PackageManagerTabs } from '@rspress/core/theme';
-import { Code2 } from 'lucide-react';
+import { ArrowRight, Code2 } from 'lucide-react';
 import type { ComponentProps, ReactNode } from 'react';
 import { useLocalizedPath } from '@/utils/localized-path';
 import styles from './Components.module.css';
@@ -146,17 +146,24 @@ function Card({
   href,
   icon,
   preview,
+  compact = false,
 }: {
   title: string;
   description: string;
   href: string;
   icon?: ReactNode;
   preview?: ReactNode;
+  compact?: boolean;
 }) {
   const localizedHref = useLocalizedPath(href);
 
   return (
-    <Link className={styles.card} data-preview={preview ? '' : undefined} href={localizedHref}>
+    <Link
+      className={`${styles.card} ${compact ? styles.compactCard : ''}`}
+      data-preview={preview ? '' : undefined}
+      href={localizedHref}
+    >
+      {compact ? <ArrowRight className={styles.cardArrow} aria-hidden="true" /> : null}
       {preview ? (
         <div className={styles.cardPreview} aria-hidden="true">
           {preview}

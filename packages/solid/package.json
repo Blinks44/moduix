@@ -63,7 +63,7 @@
   "scripts": {
     "build": "rslib",
     "build:dev": "rslib --no-clean",
-    "check:package": "publint && attw --pack . --profile esm-only --exclude-entrypoints ./style.css ./reset.css \"./presets/*\" \"./*\" --include-entrypoints $(cd src/components && printf \"./%s \" *)",
+    "check:package": "publint && attw --pack . --profile esm-only --exclude-entrypoints ./style.css ./reset.css \"./presets/*\" \"./*\" --include-entrypoints $(cd src/components && printf \"./%s \" *) && rstest run --project node --include \"package-tests/**/*.test.tsx\"",
     "dev": "rslib --watch --no-clean",
     "test": "rstest run",
     "test:watch": "rstest --watch",

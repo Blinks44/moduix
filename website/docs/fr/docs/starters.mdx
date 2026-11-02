@@ -1,0 +1,79 @@
+---
+title: Projets de départ
+description: Applications Vite avec un tableau de bord Projects construit avec moduix. Ouvrez un projet en ligne ou copiez-le dans un nouveau dossier.
+---
+
+import { Steps } from '@rspress/core/theme';
+import { StarterCards, StarterContents, StarterInstall } from '@/components/docs/starters';
+import { Card, Cards } from '@/components/mdx/Components';
+
+import styles from '@/components/docs/starters.module.css';
+
+# Projets de départ
+
+<div className={styles.page}>
+
+<p className={styles.intro}>Chaque projet installe les paquets publiés sur npm, utilise le thème Calm, suit le mode clair ou sombre du système et contient des exemples de données dans src/data.ts.</p>
+
+## Choisir un projet
+
+<StarterCards />
+
+## Créer un projet en local
+
+Vous préférez votre éditeur ? giget copie le dossier d’un projet sans cloner le monorepo ni son historique.
+
+<Steps>
+
+### Copier un projet
+
+Choisissez un framework. La commande crée le dossier `my-app` avec les mêmes fichiers que dans StackBlitz.
+
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+<PackageManagerTabs command="giget@latest gh:Blinks44/moduix/starters/react-vite my-app" dlx />
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<PackageManagerTabs command="giget@latest gh:Blinks44/moduix/starters/solid-vite my-app" dlx />
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+<PackageManagerTabs command="giget@latest gh:Blinks44/moduix/starters/vue-vite my-app" dlx />
+
+  </Tab>
+</Tabs>
+
+### Installer et lancer
+
+Les projets utilisent les paquets publiés : vous pouvez choisir votre gestionnaire de paquets.
+
+<StarterInstall />
+
+### Personnaliser le projet
+
+Remplacez les exemples de données de `src/data.ts` par votre API, puis supprimez les pages inutiles.
+
+</Steps>
+
+## Contenu du projet
+
+Une petite application par framework. Vous pouvez modifier ou supprimer chaque fichier source.
+
+<StarterContents />
+
+:::info Vous utilisez Tailwind ?
+Les projets utilisent CSS Modules. Choisissez le paquet `-tailwind` correspondant, puis configurez Tailwind CSS v4 et sa feuille de styles en suivant le [guide Vite](/docs/installation/vite).
+:::
+
+## Étapes suivantes
+
+<Cards>
+  <Card compact title="Configuration du framework" description="Ajoutez moduix à une application React, Solid ou Vue existante, avec CSS Modules ou Tailwind." href="/docs/installation/vite" />
+  <Card compact title="Parcourir les composants" description="Découvrez les composants, leurs exemples interactifs et leurs références API." href="/docs/components" />
+</Cards>
+
+</div>

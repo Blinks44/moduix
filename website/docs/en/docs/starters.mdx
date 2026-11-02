@@ -1,0 +1,79 @@
+---
+title: Starters
+description: Ready-to-run Vite apps with a small Projects dashboard built from moduix components. Open one in the browser or copy it into a new folder.
+---
+
+import { Steps } from '@rspress/core/theme';
+import { StarterCards, StarterContents, StarterInstall } from '@/components/docs/starters';
+import { Card, Cards } from '@/components/mdx/Components';
+
+import styles from '@/components/docs/starters.module.css';
+
+# Starters
+
+<div className={styles.page}>
+
+<p className={styles.intro}>Each starter installs published npm packages, uses the Calm theme, follows the system color scheme and keeps sample data in src/data.ts.</p>
+
+## Pick a starter
+
+<StarterCards />
+
+## Create locally
+
+Prefer your own editor? giget copies one starter folder without cloning the monorepo or its history.
+
+<Steps>
+
+### Copy a starter
+
+Pick a framework. The command creates `my-app` with the same files you see in StackBlitz.
+
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+<PackageManagerTabs command="giget@latest gh:Blinks44/moduix/starters/react-vite my-app" dlx />
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<PackageManagerTabs command="giget@latest gh:Blinks44/moduix/starters/solid-vite my-app" dlx />
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+<PackageManagerTabs command="giget@latest gh:Blinks44/moduix/starters/vue-vite my-app" dlx />
+
+  </Tab>
+</Tabs>
+
+### Install and run
+
+Starters use published packages, so any package manager works.
+
+<StarterInstall />
+
+### Make it yours
+
+Replace the sample rows in `src/data.ts` with your API, then remove the pages you do not need.
+
+</Steps>
+
+## What’s inside
+
+One small app per framework. Every file is plain source you can edit or delete.
+
+<StarterContents />
+
+:::info Using Tailwind?
+Starters ship with CSS Modules. Choose the matching `-tailwind` package and follow [Framework setup](/docs/installation/vite) to configure Tailwind CSS v4 and its stylesheet.
+:::
+
+## Next steps
+
+<Cards>
+  <Card compact title="Framework setup" description="Add moduix to an existing React, Solid or Vue app, with CSS Modules or Tailwind." href="/docs/installation/vite" />
+  <Card compact title="Browse components" description="Explore components with live examples and API references." href="/docs/components" />
+</Cards>
+
+</div>

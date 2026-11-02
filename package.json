@@ -33,7 +33,8 @@
     "size": "size-limit",
     "registry:validate": "for p in packages/*; do [ -f \"$p/registry.json\" ] || continue; (cd \"$p\" && shadcn registry validate registry.json) || exit 1; done && (cd website && shadcn registry validate registry.json)",
     "test": "turbo run test",
-    "tsc:check": "turbo run tsc:check"
+    "tsc:check": "turbo run tsc:check",
+    "check:starters": "node scripts/check-starters.mjs"
   },
   "devDependencies": {
     "@arethetypeswrong/cli": "^0.18.5",

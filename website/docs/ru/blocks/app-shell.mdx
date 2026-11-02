@@ -1,0 +1,70 @@
+---
+title: Каркас приложения
+description: Каркас приложения с навигацией, шапкой, переключением цветовой схемы и выдвижным меню на телефоне.
+block: app-shell
+pageType: doc-wide
+outline: false
+---
+
+import { AppShellExample } from '@/components/blocks/app-shell/app-shell-example';
+import shellReact from '../../../src/components/blocks/app-shell/app-shell.tsx?raw';
+import shellSolid from '../../../snippets/blocks/solid/app-shell.tsx?raw';
+import shellVue from '../../../snippets/blocks/vue/app-shell.vue?raw';
+import shellCss from '../../../src/components/blocks/app-shell/app-shell.module.css?raw';
+import routeReact from '../../../snippets/blocks/react/app-shell-route.tsx?raw';
+import routeSolid from '../../../snippets/blocks/solid/app-shell-route.tsx?raw';
+import routeVue from '../../../snippets/blocks/vue/app-shell-route.vue?raw';
+
+# Каркас приложения
+
+<ExamplePanel
+  clientOnly
+  sources={{ react: shellReact, solid: shellSolid, vue: shellVue }}
+  files={[{ name: 'app-shell.module.css', code: shellCss }]}
+>
+  <AppShellExample />
+</ExamplePanel>
+
+## Установка
+
+<BlockInstall name="app-shell" />
+
+## Добавьте содержимое
+
+Импортируйте скопированный `AppShell` в компонент страницы рядом с `app-shell.tsx` (или
+`app-shell.vue`). Содержимое выводится внутри `<main>`. Вместе с блоком устанавливаются общая
+таблица стилей и каталог `icons`.
+
+<FrameworkCode
+  name="app-shell-route"
+  sources={{ react: routeReact, solid: routeSolid, vue: routeVue }}
+/>
+
+В примере используется локальное состояние. В приложении определяйте `page` по текущему маршруту
+и замените кнопки навигации ссылками вашего маршрутизатора. Сохраните `aria-current="page"` у
+активной ссылки. Замените название рабочего пространства, ссылки на ресурсы и данные пользователя
+в скопированной навигации. `AppShell` — композиция, которую можно менять, а не экспорт пакета moduix.
+
+## Навигация во Vue
+
+Vue-блок включает `app-shell-navigation.vue`: один компонент навигации используется в сайдбаре и
+мобильном меню. CLI устанавливает его рядом с `app-shell.vue`.
+
+```vue pure file="../../../snippets/blocks/vue/app-shell-navigation.vue"
+```
+
+## Адаптивное поведение
+
+| Область | Поведение |
+| --- | --- |
+| Большой экран | Сайдбар шириной 240 px, шапка высотой 56 px и область содержимого с отступами 32 px. |
+| Ширина меньше 48rem | Сайдбар сменяется кнопкой меню, открывающей `Drawer`. Переключение зависит от ширины контейнера каркаса. |
+| Мобильная навигация | Выбор страницы закрывает меню. Escape, кнопка закрытия и нажатие на подложку тоже закрывают его; фокус возвращается к кнопке открытия. |
+| Цветовая схема | Переключатель меняет схему каркаса и его выдвижного меню. До первого переключения наследуется схема окружения. |
+
+Меню выводится через портал внутрь каркаса, чтобы сохранить его тему. Не помещайте каркас внутрь
+предков с трансформацией или обрезкой содержимого. Для общей схемы всего приложения перенесите
+состояние в провайдер темы и используйте его контейнер портала, как описано в
+[быстром старте](/docs/quick-start).
+
+Готовое приложение с управлением проектами есть в [Vite-стартерах](/docs/starters).

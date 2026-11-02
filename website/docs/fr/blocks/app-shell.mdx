@@ -1,0 +1,71 @@
+---
+title: Structure d’application
+description: Une structure d’application avec navigation, en-tête, changement de thème et menu latéral sur mobile.
+block: app-shell
+pageType: doc-wide
+outline: false
+---
+
+import { AppShellExample } from '@/components/blocks/app-shell/app-shell-example';
+import shellReact from '../../../src/components/blocks/app-shell/app-shell.tsx?raw';
+import shellSolid from '../../../snippets/blocks/solid/app-shell.tsx?raw';
+import shellVue from '../../../snippets/blocks/vue/app-shell.vue?raw';
+import shellCss from '../../../src/components/blocks/app-shell/app-shell.module.css?raw';
+import routeReact from '../../../snippets/blocks/react/app-shell-route.tsx?raw';
+import routeSolid from '../../../snippets/blocks/solid/app-shell-route.tsx?raw';
+import routeVue from '../../../snippets/blocks/vue/app-shell-route.vue?raw';
+
+# Structure d’application
+
+<ExamplePanel
+  clientOnly
+  sources={{ react: shellReact, solid: shellSolid, vue: shellVue }}
+  files={[{ name: 'app-shell.module.css', code: shellCss }]}
+>
+  <AppShellExample />
+</ExamplePanel>
+
+## Installation
+
+<BlockInstall name="app-shell" />
+
+## Ajoutez votre contenu
+
+Importez le composant copié `AppShell` dans une page placée à côté de `app-shell.tsx` (ou
+`app-shell.vue`). Le contenu est rendu dans `<main>`. Le bloc inclut sa feuille de style commune
+et le dossier `icons`.
+
+<FrameworkCode
+  name="app-shell-route"
+  sources={{ react: routeReact, solid: routeSolid, vue: routeVue }}
+/>
+
+L’exemple utilise un état local. Dans votre application, déduisez `page` de la route active et
+remplacez les boutons de navigation par les liens de votre routeur. Conservez `aria-current="page"`
+sur le lien actif. Remplacez le nom de l’espace de travail, les liens et les informations du profil
+dans le code copié. `AppShell` est une composition que vous pouvez modifier, pas un composant
+exporté par le paquet moduix.
+
+## Navigation Vue
+
+Le bloc Vue inclut `app-shell-navigation.vue` pour partager la navigation entre la barre latérale
+et le menu mobile. La CLI l’installe à côté de `app-shell.vue`.
+
+```vue pure file="../../../snippets/blocks/vue/app-shell-navigation.vue"
+```
+
+## Comportement adaptatif
+
+| Zone | Comportement |
+| --- | --- |
+| Grand écran | Barre latérale de 240 px, en-tête de 56 px et zone de contenu avec des marges intérieures de 32 px. |
+| Largeur inférieure à 48rem | La barre latérale laisse place à un bouton qui ouvre `Drawer`. Le seuil dépend de la largeur du conteneur de l’application. |
+| Navigation mobile | Le choix d’une page ferme le menu. Échap, le bouton de fermeture et un clic sur le fond le ferment aussi ; le focus revient au bouton d’ouverture. |
+| Thème | Le bouton change le thème de cette structure et de son menu mobile. Le thème environnant est hérité jusqu’au premier changement. |
+
+Le menu utilise un portail placé dans la structure pour conserver son thème. Évitez les ancêtres
+qui appliquent une transformation ou rognent le contenu. Pour gérer le thème de toute l’application,
+déplacez cet état dans votre fournisseur de thème et utilisez son conteneur de portail, comme indiqué
+dans le [démarrage rapide](/docs/quick-start).
+
+Pour une application complète de gestion de projets, utilisez un [projet de démarrage Vite](/docs/starters).

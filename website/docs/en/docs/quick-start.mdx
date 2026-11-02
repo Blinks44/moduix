@@ -3,6 +3,7 @@ title: Quick start
 description: Choose React, Solid, or Vue, CSS Modules or Tailwind, then install moduix as a package or copy its source with the shadcn CLI.
 ---
 
+import { StarterEntry } from '@/components/docs/starters';
 import { Steps } from '@rspress/core/theme';
 import { Card, Cards } from '@/components/mdx/Components';
 import componentsCssModules from '../../../snippets/quick-start/components-css-modules.json?raw';
@@ -16,24 +17,32 @@ import VueCssModules from '../../../snippets/quick-start/vue-css-modules.vue?raw
 import solidTailwind from '../../../snippets/quick-start/solid-tailwind.tsx?raw';
 import VueTailwind from '../../../snippets/quick-start/vue-tailwind.vue?raw';
 
+import styles from '@/components/docs/starters.module.css';
+
 # Quick start
 
-Both workflows use the same framework-native components, Ark UI contracts and tokens. Pick by where the source should live and how you plan to update it.
+<div className={`${styles.page} ${styles.quickStart}`}>
+
+<p className={styles.intro}>Both workflows use the same framework-native components, Ark UI contracts and tokens. Pick by where the source should live and how you plan to update it.</p>
 
 ## Choose where the source lives
 
 <Cards>
   <Card
+    compact
     title="Install as a package"
     description="Keep moduix in node_modules and receive updates through your package manager."
     href="#install-as-a-package"
   />
   <Card
+    compact
     title="Install with the shadcn CLI"
     description="Copy component source and styles into your app to edit and customize it directly."
     href="#install-with-the-shadcn-cli"
   />
 </Cards>
+
+<StarterEntry />
 
 :::info Before you start
 Start from an existing React 18 or 19, Solid 1.9+ or Vue 3.5+ app. Tailwind packages and registries need Tailwind CSS v4 already configured.
@@ -397,3 +406,5 @@ values.
 ## Next steps
 
 [Browse components →](/docs/components)  [Themes →](/docs/themes)  [Framework setup →](/docs/installation/vite)
+
+</div>

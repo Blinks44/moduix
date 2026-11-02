@@ -3,6 +3,7 @@ title: Быстрый старт
 description: Выберите React, Solid или Vue, CSS Modules или Tailwind, затем установите moduix как пакет или добавьте исходный код через shadcn CLI.
 ---
 
+import { StarterEntry } from '@/components/docs/starters';
 import { Steps } from '@rspress/core/theme';
 import { Card, Cards } from '@/components/mdx/Components';
 import componentsCssModules from '../../../snippets/quick-start/components-css-modules.json?raw';
@@ -16,24 +17,32 @@ import VueCssModules from '../../../snippets/quick-start/vue-css-modules.vue?raw
 import solidTailwind from '../../../snippets/quick-start/solid-tailwind.tsx?raw';
 import VueTailwind from '../../../snippets/quick-start/vue-tailwind.vue?raw';
 
+import styles from '@/components/docs/starters.module.css';
+
 # Быстрый старт
 
-Оба способа используют одни и те же нативные компоненты, контракты Ark UI и токены. Выбирайте по тому, где должен жить исходный код и как вы будете его обновлять.
+<div className={`${styles.page} ${styles.quickStart}`}>
+
+<p className={styles.intro}>Оба способа используют одни и те же нативные компоненты, контракты Ark UI и токены. Выбирайте по тому, где должен жить исходный код и как вы будете его обновлять.</p>
 
 ## Выберите, где будет храниться исходный код
 
 <Cards>
   <Card
+    compact
     title="Установить как пакет"
     description="moduix остаётся в node_modules и обновляется через менеджер пакетов."
     href="#установить-как-пакет"
   />
   <Card
+    compact
     title="Установить через shadcn CLI"
     description="Исходный код и стили компонентов копируются в приложение, их можно менять напрямую."
     href="#установить-через-shadcn-cli"
   />
 </Cards>
+
+<StarterEntry />
 
 :::info Перед началом
 Нужно готовое приложение на React 18 или 19, Solid 1.9+ или Vue 3.5+. Для пакетов и реестров Tailwind уже должен быть настроен Tailwind CSS v4.
@@ -396,3 +405,5 @@ import '@/lib/moduix/styles/style.css';
 ## Что дальше
 
 [Все компоненты →](/docs/components)  [Темы →](/docs/themes)  [Настройка фреймворка →](/docs/installation/vite)
+
+</div>

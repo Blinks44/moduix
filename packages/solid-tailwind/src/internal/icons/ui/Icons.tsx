@@ -1,14 +1,17 @@
 /** Portions of this file are derived from Lucide Icons. See THIRD_PARTY_NOTICES.md. */
-import LucideCheckIcon from 'lucide-solid/icons/check';
-import LucideChevronDownIcon from 'lucide-solid/icons/chevron-down';
-import LucideChevronLeftIcon from 'lucide-solid/icons/chevron-left';
-import LucideChevronRightIcon from 'lucide-solid/icons/chevron-right';
-import LucideChevronUpIcon from 'lucide-solid/icons/chevron-up';
-import LucideChevronUpDownIcon from 'lucide-solid/icons/chevrons-up-down';
-import LucideCopyIcon from 'lucide-solid/icons/copy';
-import LucideMinusIcon from 'lucide-solid/icons/minus';
-import LucidePlusIcon from 'lucide-solid/icons/plus';
-import LucideCloseIcon from 'lucide-solid/icons/x';
+// Named exports retain component names in Rslib's preserved JSX output.
+import {
+  Check as LucideCheckIcon,
+  ChevronDown as LucideChevronDownIcon,
+  ChevronLeft as LucideChevronLeftIcon,
+  ChevronRight as LucideChevronRightIcon,
+  ChevronUp as LucideChevronUpIcon,
+  ChevronsUpDown as LucideChevronUpDownIcon,
+  Copy as LucideCopyIcon,
+  Minus as LucideMinusIcon,
+  Plus as LucidePlusIcon,
+  X as LucideCloseIcon,
+} from 'lucide-solid';
 import type { JSX } from 'solid-js';
 
 type IconProps = JSX.SvgSVGAttributes<SVGSVGElement>;

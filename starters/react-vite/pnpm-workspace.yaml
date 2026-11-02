@@ -1,0 +1,5 @@
+packages:
+  - '.'
+
+minimumReleaseAgeExclude:
+  - '@moduix/react@3.2.0'

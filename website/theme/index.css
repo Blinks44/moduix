@@ -248,6 +248,8 @@
    the page without becoming a scroll container; wide tables and examples scroll on their own. */
 /* html raises specificity over the Rspress rule, which loads after the theme in some builds. */
 html .rp-doc-layout__doc {
+  /* Let the article shrink beside the sidebar when its content has a wider intrinsic size. */
+  min-width: 0;
   overflow-x: clip;
 }
 

@@ -1,8 +1,10 @@
 import { useI18n } from '@rspress/core/runtime';
 import { CodeBlockRuntime, useStorageValue } from '@rspress/core/theme';
-import { Check, ChevronDown, Copy, RotateCw } from 'lucide-react';
+import sdk from '@stackblitz/sdk';
+import { ArrowUpRight, Check, ChevronDown, Copy, RotateCw } from 'lucide-react';
 import { useState, type ComponentProps, type ReactNode } from 'react';
 import styles from './example-panel.module.css';
+import { createExampleProject, type ExampleProject } from './example-project';
 import { ExampleFrame } from './reference';
 
 // Index order matches the `groupId="framework"` and `groupId="styling"` tabs, so the panel
@@ -77,11 +79,13 @@ function ExamplePanel({
   children,
   sources,
   files = [],
+  project,
   ...frameProps
 }: {
   children: ReactNode;
   sources: Record<Framework, string>;
   files?: { name: string; code: string }[];
+  project?: ExampleProject;
 } & Omit<ComponentProps<typeof ExampleFrame>, 'children' | 'variant'>) {
   const t = useI18n<typeof import('i18n')>();
   const { framework, styling, selectFramework, selectStyling } = useExampleSelection();
@@ -139,6 +143,22 @@ function ExamplePanel({
             value={styling.value}
             onChange={selectStyling}
           />
+          {project && framework.value === 'react' ? (
+            <button
+              type="button"
+              className={styles.iconButton}
+              aria-label={t('exampleOpenStackBlitz')}
+              title={t('exampleOpenStackBlitz')}
+              onClick={() =>
+                sdk.openProject(createExampleProject(project, styling.value), {
+                  openFile: project.entry,
+                  newWindow: true,
+                })
+              }
+            >
+              <ArrowUpRight aria-hidden="true" />
+            </button>
+          ) : null}
           {tab === 'preview' ? (
             <button
               type="button"

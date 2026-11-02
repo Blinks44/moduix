@@ -19,6 +19,7 @@
     "@mdx-js/react": "^3.1.1",
     "@moduix/react": "workspace:*",
     "@rspress/core": "^2.0.23",
+    "@stackblitz/sdk": "^1.11.1",
     "@tanstack/charts": "catalog:",
     "@tanstack/react-form": "^1.33.5",
     "@tanstack/react-table": "^9.3.1",

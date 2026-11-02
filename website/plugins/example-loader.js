@@ -1,6 +1,7 @@
 import { existsSync, readFileSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { exampleProject } from './example-project.js';
 
 // Expands `<Example name="button/basic" />` in MDX into an `ExamplePanel` with the live React
 // preview and the raw React, Solid, Vue, and CSS sources, and `<Usage />` into the raw sources of the
@@ -66,7 +67,8 @@ export default function exampleLoader(source) {
         return `{ name: '${path.basename(file)}', code: ${identifier}Css${index} }`;
       });
 
-      return `<ExamplePanel${attributes} sources=${sources(identifier)} files={[${files.join(', ')}]}>
+      const project = exampleProject(reactFile, (file) => this.addDependency(file));
+      return `<ExamplePanel${attributes} project={${JSON.stringify(project)}} sources=${sources(identifier)} files={[${files.join(', ')}]}>
   <${identifier} />
 </ExamplePanel>`;
     });

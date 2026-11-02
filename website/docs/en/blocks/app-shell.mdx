@@ -1,0 +1,68 @@
+---
+title: App shell
+description: An application shell with workspace navigation, a header, a color scheme toggle, and a mobile drawer.
+block: app-shell
+pageType: doc-wide
+outline: false
+---
+
+import { AppShellExample } from '@/components/blocks/app-shell/app-shell-example';
+import shellReact from '../../../src/components/blocks/app-shell/app-shell.tsx?raw';
+import shellSolid from '../../../snippets/blocks/solid/app-shell.tsx?raw';
+import shellVue from '../../../snippets/blocks/vue/app-shell.vue?raw';
+import shellCss from '../../../src/components/blocks/app-shell/app-shell.module.css?raw';
+import routeReact from '../../../snippets/blocks/react/app-shell-route.tsx?raw';
+import routeSolid from '../../../snippets/blocks/solid/app-shell-route.tsx?raw';
+import routeVue from '../../../snippets/blocks/vue/app-shell-route.vue?raw';
+
+# App shell
+
+<ExamplePanel
+  clientOnly
+  sources={{ react: shellReact, solid: shellSolid, vue: shellVue }}
+  files={[{ name: 'app-shell.module.css', code: shellCss }]}
+>
+  <AppShellExample />
+</ExamplePanel>
+
+## Install
+
+<BlockInstall name="app-shell" />
+
+## Add your content
+
+Import the copied `AppShell` into a route next to `app-shell.tsx` (or `app-shell.vue`). It renders
+its content inside `<main>`. The block includes its shared stylesheet and the `icons` directory.
+
+<FrameworkCode
+  name="app-shell-route"
+  sources={{ react: routeReact, solid: routeSolid, vue: routeVue }}
+/>
+
+The example uses local state. In your application, derive `page` from your router and replace the
+navigation buttons with your router’s links. Keep `aria-current="page"` on the active link.
+Replace the workspace name, resource links, and user details in the copied navigation.
+`AppShell` is a composition you can edit, rather than an export from the moduix package.
+
+## Vue navigation
+
+The Vue block includes `app-shell-navigation.vue` so the desktop sidebar and mobile drawer share
+one navigation component. The CLI installs it beside `app-shell.vue`.
+
+```vue pure file="../../../snippets/blocks/vue/app-shell-navigation.vue"
+```
+
+## Responsive behavior
+
+| Area | Behavior |
+| --- | --- |
+| Desktop | A 240 px sidebar, a 56 px header, and a content area with 32 px padding. |
+| Below 48rem | The sidebar becomes a menu button that opens `Drawer`. The breakpoint follows the shell’s container width. |
+| Mobile navigation | Choosing a page closes the drawer. Escape, the close button, and clicking the backdrop also close it; focus returns to the trigger. |
+| Color scheme | The toggle changes this shell and its drawer. It inherits the surrounding scheme until the first toggle. |
+
+The drawer portals into the shell so it keeps the same theme. Keep the shell outside transformed
+or clipped application ancestors. For an app-wide scheme, move the scheme state to your application’s
+theme provider and use its portal container as described in [Quick start](/docs/quick-start).
+
+For a complete working application with project management, use a [Vite starter](/docs/starters).
