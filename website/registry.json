@@ -55,6 +55,43 @@
       ]
     },
     {
+      "name": "react-tailwind-app-shell",
+      "type": "registry:block",
+      "title": "App shell",
+      "description": "Application shell with workspace navigation, a header, and a mobile drawer.",
+      "registryDependencies": [
+        "https://moduix.dev/r/react-tailwind/button.json",
+        "https://moduix.dev/r/react-tailwind/drawer.json"
+      ],
+      "files": [
+        {
+          "path": "src/components/blocks/app-shell/app-shell.tsx",
+          "type": "registry:component",
+          "target": "@components/blocks/app-shell/app-shell.tsx"
+        },
+        {
+          "path": "src/components/blocks/app-shell/app-shell.module.css",
+          "type": "registry:file",
+          "target": "@components/blocks/app-shell/app-shell.module.css"
+        },
+        {
+          "path": "src/components/blocks/app-shell/icons/menu.svg",
+          "type": "registry:file",
+          "target": "@components/blocks/app-shell/icons/menu.svg"
+        },
+        {
+          "path": "src/components/blocks/app-shell/icons/sun.svg",
+          "type": "registry:file",
+          "target": "@components/blocks/app-shell/icons/sun.svg"
+        },
+        {
+          "path": "src/components/blocks/app-shell/icons/github.svg",
+          "type": "registry:file",
+          "target": "@components/blocks/app-shell/icons/github.svg"
+        }
+      ]
+    },
+    {
       "name": "react-tailwind-file-upload-manager",
       "type": "registry:block",
       "title": "File upload",
@@ -333,6 +370,43 @@
           "path": "src/components/blocks/sidebar-dashboard.module.css",
           "type": "registry:file",
           "target": "@components/blocks/sidebar-dashboard/sidebar-dashboard.module.css"
+        }
+      ]
+    },
+    {
+      "name": "react-app-shell",
+      "type": "registry:block",
+      "title": "App shell",
+      "description": "Application shell with workspace navigation, a header, and a mobile drawer.",
+      "registryDependencies": [
+        "https://moduix.dev/r/react/button.json",
+        "https://moduix.dev/r/react/drawer.json"
+      ],
+      "files": [
+        {
+          "path": "src/components/blocks/app-shell/app-shell.tsx",
+          "type": "registry:component",
+          "target": "@components/blocks/app-shell/app-shell.tsx"
+        },
+        {
+          "path": "src/components/blocks/app-shell/app-shell.module.css",
+          "type": "registry:file",
+          "target": "@components/blocks/app-shell/app-shell.module.css"
+        },
+        {
+          "path": "src/components/blocks/app-shell/icons/menu.svg",
+          "type": "registry:file",
+          "target": "@components/blocks/app-shell/icons/menu.svg"
+        },
+        {
+          "path": "src/components/blocks/app-shell/icons/sun.svg",
+          "type": "registry:file",
+          "target": "@components/blocks/app-shell/icons/sun.svg"
+        },
+        {
+          "path": "src/components/blocks/app-shell/icons/github.svg",
+          "type": "registry:file",
+          "target": "@components/blocks/app-shell/icons/github.svg"
         }
       ]
     },
@@ -619,6 +693,43 @@
       ]
     },
     {
+      "name": "solid-tailwind-app-shell",
+      "type": "registry:block",
+      "title": "App shell",
+      "description": "Application shell with workspace navigation, a header, and a mobile drawer.",
+      "registryDependencies": [
+        "https://moduix.dev/r/solid-tailwind/button.json",
+        "https://moduix.dev/r/solid-tailwind/drawer.json"
+      ],
+      "files": [
+        {
+          "path": "snippets/blocks/solid/app-shell.tsx",
+          "type": "registry:component",
+          "target": "@components/blocks/app-shell/app-shell.tsx"
+        },
+        {
+          "path": "src/components/blocks/app-shell/app-shell.module.css",
+          "type": "registry:file",
+          "target": "@components/blocks/app-shell/app-shell.module.css"
+        },
+        {
+          "path": "src/components/blocks/app-shell/icons/menu.svg",
+          "type": "registry:file",
+          "target": "@components/blocks/app-shell/icons/menu.svg"
+        },
+        {
+          "path": "src/components/blocks/app-shell/icons/sun.svg",
+          "type": "registry:file",
+          "target": "@components/blocks/app-shell/icons/sun.svg"
+        },
+        {
+          "path": "src/components/blocks/app-shell/icons/github.svg",
+          "type": "registry:file",
+          "target": "@components/blocks/app-shell/icons/github.svg"
+        }
+      ]
+    },
+    {
       "name": "solid-tailwind-file-upload-manager",
       "type": "registry:block",
       "title": "File upload",
@@ -897,6 +1008,43 @@
           "path": "src/components/blocks/sidebar-dashboard.module.css",
           "type": "registry:file",
           "target": "@components/blocks/sidebar-dashboard/sidebar-dashboard.module.css"
+        }
+      ]
+    },
+    {
+      "name": "solid-app-shell",
+      "type": "registry:block",
+      "title": "App shell",
+      "description": "Application shell with workspace navigation, a header, and a mobile drawer.",
+      "registryDependencies": [
+        "https://moduix.dev/r/solid/button.json",
+        "https://moduix.dev/r/solid/drawer.json"
+      ],
+      "files": [
+        {
+          "path": "snippets/blocks/solid/app-shell.tsx",
+          "type": "registry:component",
+          "target": "@components/blocks/app-shell/app-shell.tsx"
+        },
+        {
+          "path": "src/components/blocks/app-shell/app-shell.module.css",
+          "type": "registry:file",
+          "target": "@components/blocks/app-shell/app-shell.module.css"
+        },
+        {
+          "path": "src/components/blocks/app-shell/icons/menu.svg",
+          "type": "registry:file",
+          "target": "@components/blocks/app-shell/icons/menu.svg"
+        },
+        {
+          "path": "src/components/blocks/app-shell/icons/sun.svg",
+          "type": "registry:file",
+          "target": "@components/blocks/app-shell/icons/sun.svg"
+        },
+        {
+          "path": "src/components/blocks/app-shell/icons/github.svg",
+          "type": "registry:file",
+          "target": "@components/blocks/app-shell/icons/github.svg"
         }
       ]
     },
@@ -1183,6 +1331,48 @@
       ]
     },
     {
+      "name": "vue-tailwind-app-shell",
+      "type": "registry:block",
+      "title": "App shell",
+      "description": "Application shell with workspace navigation, a header, and a mobile drawer.",
+      "registryDependencies": [
+        "https://moduix.dev/r/vue-tailwind/button.json",
+        "https://moduix.dev/r/vue-tailwind/drawer.json"
+      ],
+      "files": [
+        {
+          "path": "snippets/blocks/vue/app-shell.vue",
+          "type": "registry:component",
+          "target": "@components/blocks/app-shell/app-shell.vue"
+        },
+        {
+          "path": "snippets/blocks/vue/app-shell-navigation.vue",
+          "type": "registry:component",
+          "target": "@components/blocks/app-shell/app-shell-navigation.vue"
+        },
+        {
+          "path": "src/components/blocks/app-shell/app-shell.module.css",
+          "type": "registry:file",
+          "target": "@components/blocks/app-shell/app-shell.module.css"
+        },
+        {
+          "path": "src/components/blocks/app-shell/icons/menu.svg",
+          "type": "registry:file",
+          "target": "@components/blocks/app-shell/icons/menu.svg"
+        },
+        {
+          "path": "src/components/blocks/app-shell/icons/sun.svg",
+          "type": "registry:file",
+          "target": "@components/blocks/app-shell/icons/sun.svg"
+        },
+        {
+          "path": "src/components/blocks/app-shell/icons/github.svg",
+          "type": "registry:file",
+          "target": "@components/blocks/app-shell/icons/github.svg"
+        }
+      ]
+    },
+    {
       "name": "vue-tailwind-file-upload-manager",
       "type": "registry:block",
       "title": "File upload",
@@ -1461,6 +1651,48 @@
           "path": "src/components/blocks/sidebar-dashboard.module.css",
           "type": "registry:file",
           "target": "@components/blocks/sidebar-dashboard/sidebar-dashboard.module.css"
+        }
+      ]
+    },
+    {
+      "name": "vue-app-shell",
+      "type": "registry:block",
+      "title": "App shell",
+      "description": "Application shell with workspace navigation, a header, and a mobile drawer.",
+      "registryDependencies": [
+        "https://moduix.dev/r/vue/button.json",
+        "https://moduix.dev/r/vue/drawer.json"
+      ],
+      "files": [
+        {
+          "path": "snippets/blocks/vue/app-shell.vue",
+          "type": "registry:component",
+          "target": "@components/blocks/app-shell/app-shell.vue"
+        },
+        {
+          "path": "snippets/blocks/vue/app-shell-navigation.vue",
+          "type": "registry:component",
+          "target": "@components/blocks/app-shell/app-shell-navigation.vue"
+        },
+        {
+          "path": "src/components/blocks/app-shell/app-shell.module.css",
+          "type": "registry:file",
+          "target": "@components/blocks/app-shell/app-shell.module.css"
+        },
+        {
+          "path": "src/components/blocks/app-shell/icons/menu.svg",
+          "type": "registry:file",
+          "target": "@components/blocks/app-shell/icons/menu.svg"
+        },
+        {
+          "path": "src/components/blocks/app-shell/icons/sun.svg",
+          "type": "registry:file",
+          "target": "@components/blocks/app-shell/icons/sun.svg"
+        },
+        {
+          "path": "src/components/blocks/app-shell/icons/github.svg",
+          "type": "registry:file",
+          "target": "@components/blocks/app-shell/icons/github.svg"
         }
       ]
     },

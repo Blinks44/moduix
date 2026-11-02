@@ -1,0 +1,17 @@
+.preview {
+  width: 100%;
+  contain: layout;
+
+  > div {
+    min-height: 38rem;
+  }
+  h1 {
+    margin: 0;
+    font-size: var(--moduix-text-2xl);
+    font-weight: var(--moduix-weight-semibold);
+  }
+  p {
+    margin-block: var(--moduix-spacing-1) 0;
+    color: var(--moduix-muted-foreground);
+  }
+}
