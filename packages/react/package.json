@@ -92,8 +92,8 @@
     "typescript": "~7.0.2"
   },
   "peerDependencies": {
-    "@ark-ui/react": "^5.39.3",
-    "@tanstack/charts": "^1.0.0",
+    "@ark-ui/react": "^5.40.0",
+    "@tanstack/charts": "^1.1.0",
     "react": "^18 || ^19",
     "react-dom": "^18 || ^19"
   },

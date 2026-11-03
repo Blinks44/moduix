@@ -204,7 +204,7 @@ test('closes with CloseIcon and restores focus to its trigger', async () => {
   await expect.element(trigger).toBeFocused();
 });
 
-test.skip('labels lazily mounted content with its title', async () => {
+test('labels lazily mounted content with its title', async () => {
   render(() => (
     <Popover portalled={false}>
       <PopoverTrigger>Open preferences</PopoverTrigger>

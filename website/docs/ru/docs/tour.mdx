@@ -59,7 +59,7 @@ import AnatomyScene from '@/components/examples/tour/basic';
 Создайте состояние через `useTour` и передайте его в `Tour`. В Solid результат является accessor, поэтому для вызова
 методов вроде `start()` и `next()` используйте `tour()`. В Vue результат является ref: в шаблоне он раскрывается
 автоматически, а в коде скрипта методы вызываются через `tour.value`. Оставляйте структурные части явными и добавляйте `TourTitle` и
-`TourDescription`, чтобы у `alertdialog` были доступные имя и описание. `TourBackdrop`, `TourSpotlight` и `TourPositioner` по
+`TourDescription`, чтобы у `dialog` были доступные имя и описание. `TourBackdrop`, `TourSpotlight` и `TourPositioner` по
 умолчанию выводятся в портал; используйте `portalled={false}` или `portalRef`, только если оверлей должен остаться в
 разметке или попасть в определённый контейнер. Используйте `TourActionList` для действий из `steps`, а для собственной
 разметки заменяйте его на `TourActions` с `TourActionTrigger asChild`. По умолчанию `lazyMount` и `unmountOnExit` равны `true`;
@@ -76,7 +76,7 @@ import AnatomyScene from '@/components/examples/tour/basic';
   parts={[
     ["Tour", null, "Корневой компонент, связанный с объектом, который возвращает `useTour`.", 0],
     ["TourBackdrop / TourSpotlight", "tour-backdrop", "Необязательный фон и подсветка текущего целевого элемента.", 1],
-    ["TourPositioner / TourContent", "tour-positioner", "Позиционируют и отображают элемент `alertdialog` из Ark.", 1],
+    ["TourPositioner / TourContent", "tour-positioner", "Позиционируют и отображают элемент `dialog` из Ark.", 1],
     ["TourArrow", "tour-arrow", "По умолчанию выводит `TourArrowTip` из moduix для шагов с подсказкой.", 2],
     ["TourCloseIcon / TourCloseTrigger", "tour-close-icon", "Доступное закрытие по умолчанию или собственная кнопка закрытия.", 2],
     ["TourBody", "tour-body", "Прокручиваемая обёртка moduix для заголовка, описания и текста прогресса.", 2],

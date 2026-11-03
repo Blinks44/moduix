@@ -111,11 +111,11 @@
 
 .heroTitle {
   margin: 30px 0 0;
-  white-space: pre-line;
+  text-wrap: balance;
   color: var(--rp-c-text-0);
-  font-size: 56px;
+  font-size: 52px;
   font-weight: 600;
-  line-height: 64px;
+  line-height: 60px;
   letter-spacing: -1.5px;
 }
 

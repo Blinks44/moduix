@@ -203,7 +203,8 @@ test('hydrates stable hosts and ids and remains interactive', async () => {
   host.innerHTML = html;
   document.body.append(host);
   const root = host.querySelector('[data-slot="combobox-root"]');
-  const serverNodes = [...host.querySelectorAll('*')];
+  // Ark adds live announcers on the client; the server-rendered hosts must keep their identity.
+  const serverNodes = [...host.querySelectorAll(':not([data-live-announcer])')];
   const serverIds = [...host.querySelectorAll('[id]')].map((element) => element.id);
   expect(root).not.toBeNull();
   expect(serverIds.length).toBeGreaterThan(0);
@@ -213,7 +214,7 @@ test('hydrates stable hosts and ids and remains interactive', async () => {
     app.mount(host);
     await nextTick();
     expect(host.querySelector('[data-slot="combobox-root"]')).toBe(root);
-    expect([...host.querySelectorAll('*')]).toEqual(serverNodes);
+    expect([...host.querySelectorAll(':not([data-live-announcer])')]).toEqual(serverNodes);
     expect([...host.querySelectorAll('[id]')].map((element) => element.id)).toEqual(serverIds);
     await page.getByRole('option', { name: 'Apple', exact: true }).click();
     await expect

@@ -92,8 +92,8 @@
     "typescript": "~7.0.2"
   },
   "peerDependencies": {
-    "@ark-ui/solid": "^5.39.3",
-    "@tanstack/charts": "^1.0.0",
+    "@ark-ui/solid": "^5.40.0",
+    "@tanstack/charts": "^1.1.0",
     "solid-js": "^1.9.0"
   },
   "peerDependenciesMeta": {

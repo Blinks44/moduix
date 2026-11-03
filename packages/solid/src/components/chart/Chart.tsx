@@ -151,7 +151,13 @@ function ChartTooltipBody<TDatum, TXValue extends ChartValue, TYValue extends Ch
     },
   };
 
-  return <Portal mount={props.target().element}>{props.render(context)}</Portal>;
+  return (
+    <Portal mount={props.target().element}>
+      <div data-slot="chart-tooltip-surface" class={styles.tooltipSurface}>
+        {props.render(context)}
+      </div>
+    </Portal>
+  );
 }
 
 function ChartPlot<

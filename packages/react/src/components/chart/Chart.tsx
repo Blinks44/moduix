@@ -108,7 +108,11 @@ const ChartPlot = function ChartPlot<
       renderer={renderer ?? (motion ? defaultChartRenderer : svgChartRenderer)}
       renderTooltipBody={(context) => {
         const defaultBody = renderDefaultTooltipBody(context.content);
-        return renderTooltipBody ? renderTooltipBody({ ...context, defaultBody }) : defaultBody;
+        return (
+          <div data-slot="chart-tooltip-surface" className={styles.tooltipSurface}>
+            {renderTooltipBody ? renderTooltipBody({ ...context, defaultBody }) : defaultBody}
+          </div>
+        );
       }}
       className={clsx(styles.plot, className)}
     />

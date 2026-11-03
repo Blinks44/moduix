@@ -159,7 +159,16 @@ function ChartTooltipBody<TDatum, TXValue extends ChartValue, TYValue extends Ch
     },
   };
 
-  return <Portal mount={props.target().element}>{props.render(context)}</Portal>;
+  return (
+    <Portal mount={props.target().element}>
+      <div
+        data-slot="chart-tooltip-surface"
+        class="block max-w-[var(--ts-chart-tooltip-max-width,24rem)] rounded-[var(--ts-chart-tooltip-border-radius)] bg-[var(--ts-chart-tooltip-background)] p-[var(--ts-chart-tooltip-padding)] text-[var(--ts-chart-tooltip-color)] shadow-[var(--ts-chart-tooltip-shadow)] [border:var(--ts-chart-tooltip-border)] [font:var(--ts-chart-tooltip-font)] empty:hidden"
+      >
+        {props.render(context)}
+      </div>
+    </Portal>
+  );
 }
 
 function ChartPlot<

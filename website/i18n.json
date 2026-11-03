@@ -927,9 +927,9 @@
     "fr": "basé sur Ark UI {version}"
   },
   "homeHeroTitle": {
-    "en": "Accessible components\nfor every framework",
-    "ru": "Доступные компоненты\nдля любого фреймворка",
-    "fr": "Des composants accessibles\npour chaque framework"
+    "en": "Accessible components for every framework",
+    "ru": "Доступные компоненты для любого фреймворка",
+    "fr": "Composants accessibles pour chaque framework"
   },
   "homeHeroText": {
     "en": "{count} components and blocks built on Ark UI. One API for React, Solid and Vue, styled with CSS Modules or Tailwind CSS. Install from npm or own the source with shadcn.",

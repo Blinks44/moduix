@@ -22,7 +22,7 @@ Nested overlays keep their own portal configuration.
 Keep reactive VNode content and scoped slots, consumer classes, callbacks, announcements,
 queue behavior and inline SSR/hydration. No secondary overlay provider is needed solely
 to render the toaster. Other overlay families retain their shared context helper.
-Existing skipped direct-Ark Toast/Toaster asChild regressions remain upstream limitations.
+Ark Vue 5.40 fixes root `asChild` composition. The skipped direct-Ark Toaster `asChild` regression remains an upstream limitation.
 
 ## Styling and accessibility
 

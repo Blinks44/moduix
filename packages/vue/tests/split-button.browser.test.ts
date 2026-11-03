@@ -88,7 +88,10 @@ test('forwards persistent menu options and emits item selection once without clo
 
   await page.getByRole('menuitem', { name: 'Save as Draft' }).click();
   await expect.poll(() => select).toHaveBeenCalledTimes(1);
-  expect(select).toHaveBeenCalledWith({ value: 'save-draft' });
+  expect(select).toHaveBeenCalledWith({
+    value: 'save-draft',
+    modifiers: { altKey: false, ctrlKey: false, metaKey: false, shiftKey: false },
+  });
   expect(screen.getByRole('menu')).toBe(content);
   await expect.element(trigger).toHaveAttribute('aria-expanded', 'true');
   await expect.element(menu).toBeFocused();

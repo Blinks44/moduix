@@ -14,6 +14,9 @@ The flat API includes `Toc`, `TocRootProvider`, `TocContent`, `TocNav`, `TocTitl
 
 ## Preservation notes
 
+Every item must resolve to an existing heading by `value`/`id`. The active IDs track
+the matching DOM headings; missing headings can clear the active state.
+
 - Preserve controlled and uncontrolled `activeIds`, `onActiveChange(details)`, scroll container, threshold, root margin, and IDs.
 - `useToc` creates state for `TocRootProvider`; `autoScroll` defaults to `false` on the root and hook.
 - Keep Solid reactive item rendering and native `class` semantics.

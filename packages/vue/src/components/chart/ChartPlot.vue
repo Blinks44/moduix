@@ -201,6 +201,8 @@ const renderTooltipContent = () => {
     />
   </div>
   <Teleport v-if="tooltipTarget" :to="tooltipTarget.element">
-    <component :is="renderTooltipContent" />
+    <div data-slot="chart-tooltip-surface" :class="styles.tooltipSurface">
+      <component :is="renderTooltipContent" />
+    </div>
   </Teleport>
 </template>

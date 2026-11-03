@@ -168,9 +168,9 @@ describe('Tour', () => {
 
     await page.getByRole('button', { name: 'Start tour', exact: true }).click();
 
-    const content = screen.getByRole('alertdialog', { name: 'Welcome' });
+    const content = screen.getByRole('dialog', { name: 'Welcome' });
     await expect
-      .element(page.getByRole('alertdialog', { name: 'Welcome', exact: true }))
+      .element(page.getByRole('dialog', { name: 'Welcome', exact: true }))
       .toHaveAttribute('data-slot', 'tour-content');
     expect(Boolean(content.querySelector('[data-slot="tour-body"]')?.isConnected)).toBe(true);
     expect(
@@ -192,7 +192,7 @@ describe('Tour', () => {
 
     await page.getByRole('button', { name: 'Start tour', exact: true }).click();
 
-    const content = screen.getByRole('alertdialog', { name: 'Welcome' });
+    const content = screen.getByRole('dialog', { name: 'Welcome' });
     expect(screen.getByTestId('tour-host').contains(content)).not.toBe(true);
   });
 
@@ -222,7 +222,7 @@ describe('Tour', () => {
     render(() => <TooltipTourExample />);
 
     await page.getByRole('button', { name: 'Start tooltip tour', exact: true }).click();
-    await expect.element(page.getByRole('alertdialog', { name: 'Tooltip' })).toBeVisible();
+    await expect.element(page.getByRole('dialog', { name: 'Tooltip' })).toBeVisible();
 
     const zIndex = (slot: string) =>
       Number(getComputedStyle(document.querySelector(`[data-slot="tour-${slot}"]`)!).zIndex);

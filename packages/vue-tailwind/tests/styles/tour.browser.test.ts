@@ -156,9 +156,9 @@ test('renders the inline anatomy, fallback content, refs, and Tailwind classes',
   render(App);
   await page.getByRole('button', { name: 'Start tour', exact: true }).click();
 
-  const content = screen.getByRole('alertdialog', { name: 'Welcome' });
+  const content = screen.getByRole('dialog', { name: 'Welcome' });
   await expect
-    .element(page.getByRole('alertdialog', { name: 'Welcome', exact: true }))
+    .element(page.getByRole('dialog', { name: 'Welcome', exact: true }))
     .toHaveAttribute('data-slot', 'tour-content');
   expect([...content!.classList]).toEqual(expect.arrayContaining(['consumer-content']));
   await expect.element(page.locator('[data-slot="tour-backdrop"]')).toBeAttached();

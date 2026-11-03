@@ -123,9 +123,9 @@ test('renders the inline anatomy, fallback content, refs, and consumer classes',
   render(App);
   await page.getByRole('button', { name: 'Start tour', exact: true }).click();
 
-  const content = screen.getByRole('alertdialog', { name: 'Welcome' });
+  const content = screen.getByRole('dialog', { name: 'Welcome' });
   await expect
-    .element(page.getByRole('alertdialog', { name: 'Welcome', exact: true }))
+    .element(page.getByRole('dialog', { name: 'Welcome', exact: true }))
     .toHaveAttribute('data-slot', 'tour-content');
   expect([...content!.classList]).toEqual(expect.arrayContaining(['consumer-content']));
   expect(Boolean(content.querySelector('[data-slot="tour-body"]')?.isConnected)).toBe(true);
@@ -150,7 +150,7 @@ test('portals overlay parts by default and supports duplicate action labels', as
 
   await page.getByRole('button', { name: 'Start tour', exact: true }).click();
 
-  const content = screen.getByRole('alertdialog', { name: 'Welcome' });
+  const content = screen.getByRole('dialog', { name: 'Welcome' });
   expect(container!.contains(content)).not.toBe(true);
 
   const actions = screen.getAllByText('Continue');
@@ -234,7 +234,7 @@ test('switches optional content slots without changing native fallback semantics
 
   render(App);
   await page.getByRole('button', { name: 'Start slot tour', exact: true }).click();
-  screen.getByRole('alertdialog', { name: 'Welcome' });
+  screen.getByRole('dialog', { name: 'Welcome' });
   const hosts = ['title', 'description', 'progress', 'arrow'].map((id) => screen.getByTestId(id));
   await expect.element(page.getByTestId('description')).toContainText('Start the tour.');
   const progress = screen.getByTestId('progress').textContent;
@@ -312,7 +312,7 @@ test('preserves close-icon fallback, reactive labels, native refs, and a single 
   });
 
   render(App);
-  await expect.element(page.getByRole('alertdialog')).toHaveCount(0);
+  await expect.element(page.getByRole('dialog')).toHaveCount(0);
   await page.getByRole('button', { name: 'Start dismiss tour', exact: true }).click();
   const close = screen.getByRole('button', { name: 'Close tour' });
   expect(Boolean(close.querySelector('svg')?.isConnected)).toBe(true);
@@ -351,7 +351,7 @@ test('preserves close-icon fallback, reactive labels, native refs, and a single 
   await expect.poll(() => Boolean(close.querySelector('svg')?.isConnected)).toBe(true);
   expect(closeRef.value?.$el).toBe(close);
   await page.getByRole('button', { name: 'Close tour', exact: true }).click();
-  await expect.element(page.getByRole('alertdialog')).toHaveCount(0);
+  await expect.element(page.getByRole('dialog')).toHaveCount(0);
   expect(click).toHaveBeenCalledTimes(1);
   expect(exitComplete).toHaveBeenCalledTimes(1);
 });
@@ -409,12 +409,12 @@ test('keeps controlled hook state, scoped context, slots, and asChild refs react
 
   render(App);
   await page.getByRole('button', { name: 'Start controlled tour', exact: true }).click();
-  screen.getByRole('alertdialog', { name: 'Welcome' });
+  screen.getByRole('dialog', { name: 'Welcome' });
   await expect.element(page.getByText('Custom progress')).toBeAttached();
   expect(actionRef.value?.[0]?.$el).toBe(screen.getByTestId('custom-action'));
   await expect.element(page.getByTestId('current-step')).toContainText('welcome');
-  await page.getByRole('button', { name: 'next step', exact: true }).click();
-  screen.getByRole('alertdialog', { name: 'Complete' });
+  await page.getByRole('button', { name: 'Next', exact: true }).click();
+  screen.getByRole('dialog', { name: 'Complete' });
   expect(stepId.value).toBe('finish');
   await expect.element(page.getByTestId('current-step')).toContainText('finish');
   await expect
@@ -454,7 +454,7 @@ test('renders and hydrates inline and portalled Tour anatomy without replacing s
     expect(hydratedParts.map((element) => element.id)).toEqual(serverIds);
     hydratedParts.forEach((element, index) => expect(element).toBe(serverParts[index]));
     await page.getByRole('button', { name: 'Start hydrated tour', exact: true }).click();
-    screen.getByRole('alertdialog', { name: 'Welcome' });
+    screen.getByRole('dialog', { name: 'Welcome' });
     const openedParts = [...document.querySelectorAll('[data-scope="tour"]')];
     openedParts.forEach((element, index) => expect(element).toBe(serverParts[index]));
     expect(warn).not.toHaveBeenCalled();
@@ -504,7 +504,7 @@ test('stacks a tooltip step above its spotlight and backdrop', async () => {
 
   render(App);
   await page.getByRole('button', { name: 'Start tooltip tour', exact: true }).click();
-  await expect.element(page.getByRole('alertdialog', { name: 'Tooltip' })).toBeVisible();
+  await expect.element(page.getByRole('dialog', { name: 'Tooltip' })).toBeVisible();
 
   const zIndex = (slot: string) =>
     Number(getComputedStyle(document.querySelector(`[data-slot="tour-${slot}"]`)!).zIndex);
@@ -541,7 +541,7 @@ test('shows a tour started from an open dialog above that dialog', async () => {
 
   render(App);
   await page.getByRole('button', { name: 'Start dialog tour', exact: true }).click();
-  await expect.element(page.getByRole('alertdialog', { name: 'Welcome' })).toBeVisible();
+  await expect.element(page.getByRole('dialog', { name: 'Welcome' })).toBeVisible();
 
   const content = document.querySelector('[data-slot="tour-content"]')!;
   const rect = content.getBoundingClientRect();
@@ -568,7 +568,7 @@ test('portals overlay parts by default and keeps duplicate actions distinct', as
 
   const { container } = render(App);
   await page.getByRole('button', { name: 'Start tour', exact: true }).click();
-  const content = screen.getByRole('alertdialog', { name: 'Welcome' });
+  const content = screen.getByRole('dialog', { name: 'Welcome' });
   expect(container!.contains(content)).not.toBe(true);
   const actions = screen.getAllByText('Continue');
   expect(actions).toHaveLength(2);

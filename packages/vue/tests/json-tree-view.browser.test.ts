@@ -183,10 +183,7 @@ test('forwards indent guides and scoped value slots without replacing generated 
   await expect.element(page.getByRole('tree')).toHaveAttribute('data-scope', 'json-tree-view');
 });
 
-// Ark supplies an empty indentGuide slot even when omitted, suppressing the
-// node's built-in indentGuide fallback. A custom named slot works.
-
-test.skip.each([
+test.each([
   ['Ark', ArkJsonTreeView, ArkJsonTreeViewTree],
   ['moduix', JsonTreeView, JsonTreeViewTree],
 ])('%s renders built-in indentation guides when requested', (_name, Root, Tree) => {

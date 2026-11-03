@@ -6,6 +6,7 @@ import { controlledSignal } from '@tanstack/charts/interaction/signal';
 import { interactiveColorLegend } from '@tanstack/charts/legend';
 import { scaleBand } from '@tanstack/charts/scales/band';
 import { scaleLinear } from '@tanstack/charts/scales/linear';
+import { tooltip } from '@tanstack/charts/tooltip';
 import { createMemo, createSignal } from 'solid-js';
 import { ChartPlot } from '@/index';
 
@@ -55,4 +56,30 @@ test('updates a real motion chart through its controlled legend and preserves ke
   await target.press('Space');
   await expect.element(target).toHaveAttribute('aria-pressed', 'true');
   await expect.poll(visibleBars).toBe(2);
+});
+
+test('applies host tooltip CSS variables to the framework-rendered card', async () => {
+  const definition = defineChart({
+    marks: [barY([{ month: 'Jan', value: 42 }], { x: 'month', y: 'value' })],
+    scales: { x: { scale: scaleBand }, y: { scale: scaleLinear } },
+    tooltip,
+  });
+  render(() => (
+    <ChartPlot
+      definition={definition}
+      ariaLabel="Tooltip chart"
+      motion={false}
+      width={640}
+      height={320}
+      style={{ '--ts-chart-tooltip-padding': '19px' }}
+    />
+  ));
+  const chart = page.getByRole('img', { name: 'Tooltip chart' });
+  await expect.element(chart).toBeVisible();
+  await chart.press('ArrowRight');
+  await expect
+    .poll(() => document.querySelector('[data-slot="chart-tooltip-surface"]'))
+    .not.toBeNull();
+  const surface = document.querySelector('[data-slot="chart-tooltip-surface"]')!;
+  expect(getComputedStyle(surface).padding).toBe('19px');
 });

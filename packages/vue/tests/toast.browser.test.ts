@@ -207,9 +207,7 @@ test('keeps queue limits, toast status details, dismissal, and replacement conte
   expect(handleStatus).toHaveBeenCalledWith({ status: 'unmounted' });
 });
 
-// Ark Vue 5.39.2 applies root attrs to its leading ghost DIV instead of the provided child.
-
-test.skip('preserves the native Ark root asChild host', async () => {
+test('preserves the native Ark root asChild host', async () => {
   const toaster = createToaster({ placement: 'bottom', duration: Infinity });
   render(
     defineComponent({
