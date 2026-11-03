@@ -22,10 +22,11 @@ import {
   SliderValueText,
 } from '@moduix/react/slider';
 import { Switch, SwitchControl, SwitchHiddenInput, SwitchLabel } from '@moduix/react/switch';
-import { useI18n } from '@rspress/core/runtime';
+import { useI18n, useLang } from '@rspress/core/runtime';
 import { CodeBlockRuntime, Link } from '@rspress/core/theme';
 import { ArrowRight, Check, Code, Copy } from 'lucide-react';
 import { useState, type UIEvent } from 'react';
+import { getLocalizedPath } from '@/utils/localized-path';
 import reactPackage from '../../../../packages/react/package.json';
 import { getComponentCategories } from '../docs/component-gallery';
 import { usePreset } from '../docs/nav-menus';
@@ -326,6 +327,7 @@ function NotificationsDemo({ t }: { t: T }) {
 }
 
 function Hero({ t, count }: { t: T; count: number }) {
+  const lang = useLang();
   const [framework, setFramework] = useState<Framework>('react');
   // Phones have no room for the overlapping code card, so the demo toolbar switches to the code.
   const [showCode, setShowCode] = useState(false);
@@ -341,13 +343,15 @@ function Hero({ t, count }: { t: T; count: number }) {
         <p className={styles.heroText}>{t('homeHeroText').replace('{count}', String(count))}</p>
         <div className={styles.heroActions}>
           <Button asChild size="lg">
-            <Link href="/docs/quick-start">
+            <Link href={getLocalizedPath('/docs/quick-start', lang)}>
               {t('homeGetStarted')}
               <ArrowRight aria-hidden="true" />
             </Link>
           </Button>
           <Button asChild size="lg" variant="outline">
-            <Link href="/docs/components">{t('homeBrowseComponents')}</Link>
+            <Link href={getLocalizedPath('/docs/components', lang)}>
+              {t('homeBrowseComponents')}
+            </Link>
           </Button>
         </div>
         <CopyCommand command="pnpm add @moduix/react @ark-ui/react" />
@@ -530,6 +534,7 @@ function Components({
   count: number;
   categories: ReturnType<typeof getComponentCategories>;
 }) {
+  const lang = useLang();
   // Phones show the tiles as a carousel; the dots follow the scroll position, two tiles per dot.
   const [page, setPage] = useState(0);
   const tilePages = Math.ceil(featured.length / 2);
@@ -547,21 +552,25 @@ function Components({
       <div className={styles.componentsBar}>
         <ul className={styles.chips}>
           <li>
-            <Link className={styles.chip} href="/docs/components" aria-current="true">
+            <Link
+              className={styles.chip}
+              href={getLocalizedPath('/docs/components', lang)}
+              aria-current="true"
+            >
               {t('catalogAll')}
               <span>{count}</span>
             </Link>
           </li>
           {categories.map((category) => (
             <li key={category.id}>
-              <Link className={styles.chip} href="/docs/components">
+              <Link className={styles.chip} href={getLocalizedPath('/docs/components', lang)}>
                 {t(category.labelKey)}
                 <span>{category.count}</span>
               </Link>
             </li>
           ))}
         </ul>
-        <Link className={styles.more} href="/docs/components">
+        <Link className={styles.more} href={getLocalizedPath('/docs/components', lang)}>
           {t('homeBrowseAll')}
           <ArrowRight aria-hidden="true" />
         </Link>
@@ -569,7 +578,7 @@ function Components({
       <ul className={styles.tiles} onScroll={handleTilesScroll}>
         {featured.map((item) => (
           <li key={item.href}>
-            <Link className={styles.tile} href={item.href}>
+            <Link className={styles.tile} href={getLocalizedPath(item.href, lang)}>
               <ScaledPreview className={styles.tilePreview} width={item.width}>
                 {item.preview}
               </ScaledPreview>
@@ -584,7 +593,10 @@ function Components({
           <span key={index} data-active={index === page ? '' : undefined} />
         ))}
       </div>
-      <Link className={`${styles.more} ${styles.moreMobile}`} href="/docs/components">
+      <Link
+        className={`${styles.more} ${styles.moreMobile}`}
+        href={getLocalizedPath('/docs/components', lang)}
+      >
         {t('homeBrowseAll')}
         <ArrowRight aria-hidden="true" />
       </Link>
@@ -646,6 +658,7 @@ function Themes({ t }: { t: T }) {
 }
 
 function Start({ t }: { t: T }) {
+  const lang = useLang();
   return (
     <>
       <section className={styles.start}>
@@ -654,11 +667,17 @@ function Start({ t }: { t: T }) {
           <h2>{t('homeStartTitle')}</h2>
           <p>{t('homeStartText')}</p>
           <div className={styles.startActions}>
-            <Link className={styles.startPrimary} href="/docs/quick-start">
+            <Link
+              className={styles.startPrimary}
+              href={getLocalizedPath('/docs/quick-start', lang)}
+            >
               {t('homeQuickStart')}
               <ArrowRight aria-hidden="true" />
             </Link>
-            <Link className={styles.startGhost} href="/docs/migrate-from-shadcn">
+            <Link
+              className={styles.startGhost}
+              href={getLocalizedPath('/docs/migrate-from-shadcn', lang)}
+            >
               {t('homeMigrate')}
             </Link>
           </div>
@@ -666,7 +685,7 @@ function Start({ t }: { t: T }) {
         <ul className={styles.setups}>
           {setups.map((item) => (
             <li key={item.name} data-phone={phoneSetups.includes(item.name) ? '' : undefined}>
-              <Link href={item.href}>
+              <Link href={getLocalizedPath(item.href, lang)}>
                 <strong>{item.name}</strong>
                 <span>{'supportKey' in item ? t(item.supportKey) : item.support}</span>
                 <ArrowRight aria-hidden="true" />
@@ -675,7 +694,10 @@ function Start({ t }: { t: T }) {
           ))}
         </ul>
       </section>
-      <Link className={`${styles.more} ${styles.moreMobile}`} href="/docs/installation/vite">
+      <Link
+        className={`${styles.more} ${styles.moreMobile}`}
+        href={getLocalizedPath('/docs/installation/vite', lang)}
+      >
         {t('homeAllSetups').replace('{count}', String(setups.length))}
         <ArrowRight aria-hidden="true" />
       </Link>
@@ -684,24 +706,25 @@ function Start({ t }: { t: T }) {
 }
 
 function Footer({ t }: { t: T }) {
+  const lang = useLang();
   const columns = [
     {
       title: 'Docs',
       links: [
-        [t('homeFooterIntroduction'), '/docs/'],
-        [t('homeFooterQuickStart'), '/docs/quick-start'],
-        [t('homeFooterThemes'), '/docs/themes'],
-        [t('homeFooterTokens'), '/docs/tokens'],
-        [t('homeFooterChangelog'), '/docs/changelog'],
+        [t('homeFooterIntroduction'), getLocalizedPath('/docs/', lang)],
+        [t('homeFooterQuickStart'), getLocalizedPath('/docs/quick-start', lang)],
+        [t('homeFooterThemes'), getLocalizedPath('/docs/themes', lang)],
+        [t('homeFooterTokens'), getLocalizedPath('/docs/tokens', lang)],
+        [t('homeFooterChangelog'), getLocalizedPath('/docs/changelog', lang)],
       ],
     },
     {
       title: t('homeFooterLibrary'),
       links: [
-        [t('homeFooterComponents'), '/docs/components'],
-        [t('homeFooterBlocks'), '/blocks/'],
-        [t('homeFooterShadcn'), '/docs/migrate-from-shadcn'],
-        [t('homeFooterCompare'), '/docs/comparison'],
+        [t('homeFooterComponents'), getLocalizedPath('/docs/components', lang)],
+        [t('homeFooterBlocks'), getLocalizedPath('/blocks/', lang)],
+        [t('homeFooterShadcn'), getLocalizedPath('/docs/migrate-from-shadcn', lang)],
+        [t('homeFooterCompare'), getLocalizedPath('/docs/comparison', lang)],
       ],
     },
     {
@@ -716,9 +739,9 @@ function Footer({ t }: { t: T }) {
   ];
 
   const phoneLinks = [
-    ['Docs', '/docs/'],
-    [t('homeFooterComponents'), '/docs/components'],
-    [t('homeFooterBlocks'), '/blocks/'],
+    ['Docs', getLocalizedPath('/docs/', lang)],
+    [t('homeFooterComponents'), getLocalizedPath('/docs/components', lang)],
+    [t('homeFooterBlocks'), getLocalizedPath('/blocks/', lang)],
     ['GitHub', 'https://github.com/Blinks44/moduix'],
   ];
 
