@@ -100,5 +100,6 @@ Before handoff:
 4. Run registry generation when registry sources changed.
 5. Run the repository validation required by `AGENTS.md`.
 
-For consumer-facing changes, create one multi-package changeset only when explicitly requested; use
-`changeset-workflow` to list exactly the affected public packages.
+For consumer-facing component changes, include one multi-package changeset before handoff or commit.
+Use `changeset-workflow` to choose patch or minor and list exactly the affected public packages;
+major requires an explicit user decision.

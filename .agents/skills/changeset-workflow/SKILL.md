@@ -1,11 +1,12 @@
 ---
 name: changeset-workflow
-description: Use when the user explicitly asks to create or update a changeset entry in .changeset/.
+description: Create or update changesets for consumer-facing component changes and explicitly requested release notes; choose patch or minor automatically, with major reserved for an explicit user decision.
 ---
 
 # Skill: changeset-workflow
 
-Use this skill only when the user explicitly asks to create or update a changeset.
+Use this skill whenever component work changes published behavior, API, styles, types, or distribution,
+or when the user explicitly requests release-note work.
 
 ## Scope
 
@@ -15,9 +16,11 @@ Use this skill only when the user explicitly asks to create or update a changese
 
 ## Rules
 
-- Do not create or update a changeset unless the user asked for it or the task explicitly includes release-note work.
+- Include a changeset with consumer-facing component changes without waiting for a separate request.
+  Documentation-only, test-only, and tooling-only changes that do not affect published packages need no release entry.
 - Reuse an existing pending `.changeset/*.md` file when the task is clearly updating the same unreleased change; otherwise create a new one.
-- Match the requested or implied bump level exactly. If the bump level is unclear, ask instead of guessing.
+- Follow an explicit user choice of bump level. Otherwise choose `patch` for fixes and `minor` for
+  new components or public capabilities; routine choices do not need confirmation.
 - Before adding a bump, compare package versions, existing changelog entries, and published npm versions.
   If the requested version is already prepared but unpublished, update its release notes instead of
   creating another bump. An empty changeset queue does not block publishing already-versioned packages.
@@ -28,9 +31,12 @@ Use this skill only when the user explicitly asks to create or update a changese
   styles, types, or distribution changed. Do not create one file per package for the same change.
 - `packages/foundation` is not published directly. When a foundation change reaches npm output,
   list each public package that receives that output.
-- Use `patch` for compatible fixes, `minor` for new components or public capabilities, and `major`
-  for breaking stable-package changes. A Tailwind package may remain on `0.x` while its component set
-  is incomplete.
+- Major releases are exceptional and require an explicit user decision; never select `major`
+  automatically. If a stable public contract would break, explain the incompatibility and agree on
+  the change and release level instead of hiding it in a patch or minor release.
+- Before handoff or commit, run `pnpm exec changeset status` and confirm every affected public
+  package has the intended release level. Creating a changeset does not run versioning or publish.
+- A Tailwind package may remain on `0.x` while its component set is incomplete.
 
 ## Summary format
 
