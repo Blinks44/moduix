@@ -6,6 +6,7 @@ import { interactiveColorLegend } from '@tanstack/charts/legend';
 import { scaleBand } from '@tanstack/charts/scales/band';
 import { scaleLinear } from '@tanstack/charts/scales/linear';
 import { svgChartRenderer } from '@tanstack/charts/svg/renderer';
+import { tooltip } from '@tanstack/charts/tooltip';
 import { render, screen } from '@testing-library/vue';
 import { renderToString } from '@vue/server-renderer';
 import { createSSRApp, computed, ref } from 'vue';
@@ -150,4 +151,26 @@ test('hydrates a real chart as one surface and keeps its public hosts interactiv
     app.unmount();
     host.remove();
   }
+});
+
+test('applies host tooltip CSS variables to the framework-rendered card', async () => {
+  const definition = defineChart({
+    marks: [barY([{ month: 'Jan', value: 42 }], { x: 'month', y: 'value' })],
+    scales: { x: { scale: scaleBand }, y: { scale: scaleLinear } },
+    tooltip,
+  });
+  render({
+    components: { ChartPlot },
+    setup: () => ({ definition }),
+    template: `<ChartPlot :definition="definition" aria-label="Tooltip chart" :motion="false"
+      :width="640" :height="320" style="--ts-chart-tooltip-padding: 19px" />`,
+  });
+  const chart = page.getByRole('img', { name: 'Tooltip chart' });
+  await expect.element(chart).toBeVisible();
+  await chart.press('ArrowRight');
+  await expect
+    .poll(() => document.querySelector('[data-slot="chart-tooltip-surface"]'))
+    .not.toBeNull();
+  const surface = document.querySelector('[data-slot="chart-tooltip-surface"]')!;
+  expect(getComputedStyle(surface).padding).toBe('19px');
 });

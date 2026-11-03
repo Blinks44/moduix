@@ -211,6 +211,11 @@ const renderTooltipContent = () => {
     />
   </div>
   <Teleport v-if="tooltipTarget" :to="tooltipTarget.element">
-    <component :is="renderTooltipContent" />
+    <div
+      data-slot="chart-tooltip-surface"
+      class="block max-w-[var(--ts-chart-tooltip-max-width,24rem)] rounded-[var(--ts-chart-tooltip-border-radius)] bg-[var(--ts-chart-tooltip-background)] p-[var(--ts-chart-tooltip-padding)] text-[var(--ts-chart-tooltip-color)] shadow-[var(--ts-chart-tooltip-shadow)] [border:var(--ts-chart-tooltip-border)] [font:var(--ts-chart-tooltip-font)] empty:hidden"
+    >
+      <component :is="renderTooltipContent" />
+    </div>
   </Teleport>
 </template>

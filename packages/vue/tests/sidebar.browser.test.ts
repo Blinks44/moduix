@@ -530,6 +530,7 @@ test('controls CSS-length sizes, emits resize details once, and enables collapse
   await expect.element(page.getByTestId('collapsed')).not.toHaveAttribute('hidden');
   expect(size.value).toEqual([6, 94]);
   expect(resized).toEqual([[6, 94]]);
+  expect(collapsed).toEqual(['sidebar']);
 
   await page.getByRole('button', { name: 'Overview' }).hover();
   await expect.element(page.getByRole('tooltip')).toContainText('Overview');
@@ -543,7 +544,7 @@ test('controls CSS-length sizes, emits resize details once, and enables collapse
   await toggle.click();
   await expect.element(toggle).toHaveAttribute('aria-expanded', 'true');
   await toggle.click();
-  expect(collapsed).toEqual(['sidebar']);
+  expect(collapsed).toEqual(['sidebar', 'sidebar']);
   await toggle.click();
   await expect.element(toggle).toHaveAttribute('aria-expanded', 'true');
 });
@@ -585,10 +586,7 @@ test.each([false, true])(
   },
 );
 
-// Zag Splitter omits the first programmatic collapse notification (chakra-ui/zag#3371).
-// Keep the direct Ark reproduction until the upstream size-notification map is initialized correctly.
-
-test.skip('emits collapse on the first controlled transition in direct Ark', async () => {
+test('emits collapse on the first controlled transition in direct Ark', async () => {
   const NativeToggle = defineComponent({
     setup() {
       const splitter = useSplitterContext();

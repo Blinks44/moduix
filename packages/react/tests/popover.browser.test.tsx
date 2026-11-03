@@ -180,7 +180,7 @@ test('keeps modal popovers portalled when portalled is false', async () => {
   await expect.element(content).toHaveAttribute('aria-modal', 'true');
 });
 
-test.skip('labels lazily mounted content with its title', async () => {
+test('labels lazily mounted content with its title', async () => {
   render(
     <Popover portalled={false}>
       <PopoverTrigger>Open preferences</PopoverTrigger>

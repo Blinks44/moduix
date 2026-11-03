@@ -10,8 +10,8 @@
   (accessed 2026-09-25)
 - TanStack Charts themes and styling: https://tanstack.com/charts/latest/docs/guides/themes-and-styling
   (accessed 2026-09-25)
-- TanStack Charts 1.0.0 published types and release-source docs:
-  https://github.com/TanStack/charts/tree/v1.0.0/docs (accessed 2026-10-06)
+- TanStack Charts 1.2.0 published types and release-source docs:
+  https://github.com/TanStack/charts/tree/v1.2.0/docs (accessed 2026-11-03)
 
 ## Purpose
 
@@ -40,6 +40,14 @@ convention.
 
 ## Preservation notes
 
+- TanStack Charts 1.1+ removes native card styling for framework-rendered tooltip bodies.
+  The moduix surface restores the existing card presentation and consumes TanStack's CSS variables.
+  Require at least 1.1 to avoid a second native card around the moduix surface.
+- Charts 1.2 adds `motionLite()` from `@tanstack/charts/motion/lite`. Consumers can pass it through
+  the existing `renderer` prop for fade entrances and keyed SVG tweens.
+  This does not shrink the moduix bundle: `ChartPlot` still imports the default full motion renderer.
+  Keep `motion()` as the default: lite omits springs, specialized entrances, and tooltip motion.
+
 - Create `areaY`, `barX`, `barY`, `cell`, `dot`, `lineY`, `pie`, `polar`, `radialArc`, scales, axes,
   layouts, focus behavior, and interactions with `@tanstack/charts`; moduix does not mirror the mark
   API or add a second definition DSL.
@@ -66,9 +74,12 @@ convention.
 - The internal focusable SVG keeps TanStack keyboard navigation and receives the moduix focus ring
   through arbitrary variants on the host. Do not disable `focusRing` unless the definition provides
   replacement focus geometry.
-- `@tanstack/charts` is an optional peer dependency. The current moduix peer range is `^1.0.0`.
+- `@tanstack/charts` is an optional peer dependency. The current moduix peer range is `^1.1.0`.
 
 ## Styling and accessibility
+
+moduix renders a `chart-tooltip-surface` around both default and custom tooltip bodies.
+It reads the host's `--ts-chart-tooltip-*` variables for card styling.
 
 The root and presentational parts expose stable `data-scope="chart"`, `data-part`, and `data-slot`
 hooks. `class` and `style` on `ChartPlot` apply to the outer TanStack host. The compact default body

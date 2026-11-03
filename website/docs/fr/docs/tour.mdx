@@ -61,7 +61,7 @@ la navigation et la fermeture fonctionnent encore si vous remplacez son contenu 
 Créez l’état avec `useTour` et transmettez-le à `Tour`. En Solid, la valeur renvoyée est un accessor : appelez donc
 `tour()` pour utiliser des méthodes comme `start()` et `next()`. Avec Vue, la valeur renvoyée est une référence (`ref`) : sa valeur est
 directement accessible dans les templates, tandis que le script appelle les méthodes via `tour.value`. Gardez les parties structurelles explicites et
-incluez `TourTitle` et `TourDescription` pour donner un nom et une description accessibles à `alertdialog`. `TourBackdrop`,
+incluez `TourTitle` et `TourDescription` pour donner un nom et une description accessibles à `dialog`. `TourBackdrop`,
 `TourSpotlight` et `TourPositioner` sont rendus dans un portail par défaut ; utilisez `portalled={false}` ou `portalRef` seulement
 si la couche doit rester dans le balisage ou rejoindre un conteneur précis. Utilisez `TourActionList` pour les actions
 déclarées dans `steps`, ou remplacez-le par `TourActions` et `TourActionTrigger asChild` lorsque chaque action demande son
@@ -79,7 +79,7 @@ Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
   parts={[
     ["Tour", null, "Composant racine associé à l’objet renvoyé par `useTour`.", 0],
     ["TourBackdrop / TourSpotlight", "tour-backdrop", "Voile d’arrière-plan facultatif et mise en évidence de la cible active.", 1],
-    ["TourPositioner / TourContent", "tour-positioner", "Positionnent et affichent la boîte de dialogue `alertdialog` d’Ark.", 1],
+    ["TourPositioner / TourContent", "tour-positioner", "Positionnent et affichent la boîte de dialogue `dialog` d’Ark.", 1],
     ["TourArrow", "tour-arrow", "Affiche par défaut `TourArrowTip` de moduix pour les étapes de type infobulle.", 2],
     ["TourCloseIcon / TourCloseTrigger", "tour-close-icon", "Contrôle de fermeture accessible par défaut ou balisage personnalisé.", 2],
     ["TourBody", "tour-body", "Conteneur moduix défilant pour le titre, la description et le texte de progression.", 2],

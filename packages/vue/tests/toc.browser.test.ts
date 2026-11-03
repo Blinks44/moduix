@@ -87,6 +87,7 @@ test('preserves reactive hook props and its native emit callback', async () => {
     `
     <button @click="toc.setActiveIds(['configuration'])">Activate configuration</button>
     <TocRootProvider :value="toc">
+      <TocContent style="padding-top: 2000px"><h2 id="introduction">Introduction</h2><h3 id="configuration">Configuration</h3></TocContent>
       <TocContext v-slot="context"><output role="status">{{ context.activeIds.join(', ') }}</output></TocContext>
     </TocRootProvider>
   `,
@@ -173,7 +174,8 @@ test('controlled active-change reports the requested ids', async () => {
       setup: () => ({ items, activeIds, change }),
       template: `
     <Toc :items="items" :active-ids="activeIds" @active-change="change">
-      <TocContent>
+      <TocContent style="padding-top: 2000px">
+      <h2 id="introduction">Introduction</h2><h3 id="configuration">Configuration</h3>
       <TocContext v-slot="context">
         <button @click="context.setActiveIds(['configuration'])">Activate configuration</button>
       </TocContext>
@@ -204,9 +206,7 @@ test('controlled active-change reports the requested ids', async () => {
     .toHaveAttribute('data-slot', 'toc-link');
 });
 
-// Ark 5.39.2 TocNav uses getRootProps(), duplicating the root id in native Ark.
-
-test.skip('direct Ark root and navigation have distinct ids', async () => {
+test('direct Ark root and navigation have distinct ids', async () => {
   const { container } = render(
     defineComponent({
       components: { ArkTocRoot, ArkTocNav },

@@ -71,7 +71,9 @@ Use project skills from [`.agents/skills/`](.agents/skills/README.md). Apply onl
   `sketch-design-from-reference` when changing the design; both need the Sketch MCP server.
 - **Tests:** `conventions-tests` and `rstest-best-practices`.
 - **Rslib configuration or library build issues:** `rslib-best-practices`.
-- **Changesets:** `changeset-workflow`, only when the user explicitly requests one.
+- **Changesets:** `changeset-workflow` for consumer-facing component changes and explicit release-note
+  requests. Include a patch or minor changeset before handoff or commit; major requires an explicit
+  user decision.
 
 For work that changes packages and `website`, apply component skills first and documentation skills second. Do not duplicate framework mechanics: `component-workflow` coordinates parity, convention skills own native implementation details, and temporary plans own only finite rollout work.
 

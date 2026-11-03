@@ -23,7 +23,7 @@ Skills are intentionally narrow and composable:
 ## Skills
 
 - `engineering-principles`: baseline behavior for all coding work.
-- `changeset-workflow`: an explicitly requested `.changeset` entry.
+- `changeset-workflow`: patch/minor changesets for consumer-facing component changes and explicit release-note requests; major only by explicit user decision.
 - `component-workflow`: coordinates component contracts across every shipped framework and styling adapter.
 - `conventions-css`: CSS, CSS Modules, Tailwind, selectors, and public CSS-variable contracts.
 - `conventions-react`: React and TypeScript implementation conventions.

@@ -134,7 +134,7 @@ test('preserves RootProvider and root asChild composition', async () => {
           <PinInputControl>
             <PinInputInputs />
           </PinInputControl>
-          <PinInputHiddenInput />
+          <PinInputHiddenInput data-testid="provider-code" />
         </PinInputRootProvider>
       </>
     );
@@ -156,7 +156,7 @@ test('preserves RootProvider and root asChild composition', async () => {
   await expect.element(page.locator('section')).toHaveAttribute('data-slot', 'pin-input-root');
   expect(container.querySelector('section input[aria-hidden="true"]')).not.toBeNull();
   await page.getByRole('button', { name: 'Clear code', exact: true }).click();
-  await expect.element(page.getByLabel('Provider code')).toHaveValue('');
+  await expect.element(page.getByTestId('provider-code')).toHaveValue('');
 });
 
 test('forwards refs through ordinary Ark Solid part paths', () => {

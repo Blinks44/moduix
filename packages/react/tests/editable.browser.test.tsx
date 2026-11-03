@@ -48,7 +48,7 @@ test('commits with Enter and reverts with Escape', async () => {
   await expect.element(page.getByRole('button', { name: 'cancel', exact: true })).toBeVisible();
   await expect.element(editTrigger).toHaveCount(0);
 
-  const input = page.getByRole('textbox', { name: 'editable input', exact: true });
+  const input = page.getByRole('textbox', { name: 'Name', exact: true });
   await input.fill('Draft name');
   await input.press('Escape');
 
@@ -69,9 +69,7 @@ test('activates the preview with the moduix double-click default', async () => {
 
   await page.getByText('Layer name').dblclick();
 
-  await expect
-    .element(page.getByRole('textbox', { name: 'editable input', exact: true }))
-    .toBeVisible();
+  await expect.element(page.getByRole('textbox', { name: 'Name', exact: true })).toBeVisible();
 });
 
 test('forwards the controls ref and exposes context state', async () => {
@@ -178,8 +176,8 @@ test('submits the committed value through an external form owner', async () => {
 
   await page.getByRole('button', { name: 'edit', exact: true }).click();
 
-  await page.getByRole('textbox', { name: 'editable input', exact: true }).fill('Published name');
-  await page.getByRole('textbox', { name: 'editable input', exact: true }).press('Enter');
+  await page.getByRole('textbox', { name: 'Name', exact: true }).fill('Published name');
+  await page.getByRole('textbox', { name: 'Name', exact: true }).press('Enter');
 
   await expect.element(page.getByText('Published name')).toBeVisible();
   const form = document.getElementById('editable-form');
@@ -208,10 +206,10 @@ test('commits textarea values with Ctrl or Cmd + Enter', async () => {
   );
 
   await page
-    .getByRole('textbox', { name: 'editable input', exact: true })
+    .getByRole('textbox', { name: 'Description', exact: true })
     .fill('Published description');
   await page
-    .getByRole('textbox', { name: 'editable input', exact: true })
+    .getByRole('textbox', { name: 'Description', exact: true })
     .press('ControlOrMeta+Enter');
 
   await expect.poll(() => commits).toEqual(['Published description']);
@@ -246,7 +244,7 @@ test('forwards the controls ref and supports RootProvider state', async () => {
   expect(controlsRef.current?.getAttribute('data-slot')).toBe('editable-control');
   await page.getByRole('button', { name: 'Edit externally', exact: true }).click();
   await expect
-    .element(page.getByRole('textbox', { name: 'editable input', exact: true }))
+    .element(page.getByRole('textbox', { name: 'Provider name', exact: true }))
     .toBeVisible();
 });
 

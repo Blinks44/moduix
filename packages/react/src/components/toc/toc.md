@@ -3,7 +3,7 @@
 ## Upstream reference
 
 - Ark UI: https://ark-ui.com/docs/components/toc
-- Verified against Ark UI 5.39.0 on 2026-08-26.
+- Verified against Ark UI 5.40.0 on 2026-11-03.
 
 ## Purpose
 
@@ -18,6 +18,9 @@ The root receives an `items` array with heading `value` and `depth`. Render matc
 `useToc()` creates an external store for `TocRootProvider`. Both the root and hook default `autoScroll` to `false`; opt in only after confirming that automatically revealing an active navigation item cannot scroll an ancestor container.
 
 ## Preservation notes
+
+Every item must resolve to an existing heading by `value`/`id`. The active IDs track
+the matching DOM headings; missing headings can clear the active state.
 
 - Preserve controlled and uncontrolled `activeIds`, `onActiveChange(details)`, `scrollEl`, `rootMargin`, `threshold`, `autoScroll`, `scrollBehavior`, and `ids`.
 - Keep callback detail objects unchanged. `details.activeIds` and `details.activeItems` come directly from Ark.

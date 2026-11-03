@@ -42,7 +42,7 @@ const tour = useTour({ steps });
 
 - `Tour`: Ark root. Requires the object returned by `useTour`.
 - `TourBackdrop`, `TourSpotlight`, `TourPositioner`: overlay layers, portalled by default.
-- `TourContent`: Ark `alertdialog` surface with title and description wiring.
+- `TourContent`: Ark `dialog` surface with title and description wiring.
 - `TourArrow` / `TourArrowTip`: tooltip arrow. `TourArrow` renders a default `TourArrowTip` when empty.
 - `TourTitle`, `TourDescription`, `TourProgressText`: current step content from Ark state.
 - `TourBody`: moduix wrapper that scrolls long step copy within the content height limit.
@@ -88,7 +88,7 @@ The package exports `TourContext`, `useTour`, `useTourContext`, the wait helpers
 
 ## Accessibility and state
 
-Ark owns `role="alertdialog"`, `aria-modal`, live-region attributes, title and description IDs,
+Ark owns `role="dialog"`, `aria-modal`, live-region attributes, title and description IDs,
 dismissal, Escape handling, outside interaction, focus movement, and left/right keyboard navigation.
 `TourActionTrigger` keeps Ark `StepAction` objects and the disabled state of unavailable `prev` and
 `next` actions. Use `action: 'dismiss'` for a skip button.

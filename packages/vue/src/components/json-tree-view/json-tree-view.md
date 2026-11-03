@@ -34,10 +34,9 @@ The root forwards TreeView detail events and supports native controlled values t
 `v-model:focused-value`. Replacing `data` updates generated nodes; `useJsonTreeView` tracks
 reactive data and preview options without remounting or local callback emulation.
 
-The built-in `indentGuide` prop still renders no guides in Ark Vue 5.39.3: Tree always supplies
-an empty named slot and suppresses Node's prop-based fallback. A consumer-provided `#indentGuide`
-slot is forwarded correctly. Both behaviors have direct test coverage; do not manufacture guides
-locally to repair the upstream fallback.
+Ark Vue 5.40 renders the built-in indentation guides when `indentGuide` is enabled. A
+consumer-provided `#indentGuide` slot replaces the native guides. Preserve both paths without
+manufacturing guides locally.
 
 ## Styling and accessibility
 

@@ -64,7 +64,7 @@ const PopoverSurface = defineComponent({
   `,
 });
 
-test.skip('labels lazily mounted content with its title', async () => {
+test('labels lazily mounted content with its title', async () => {
   render({
     components: { Popover, PopoverTrigger, PopoverPositioner, PopoverContent, PopoverTitle },
     template: `

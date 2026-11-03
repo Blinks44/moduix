@@ -10,7 +10,7 @@
     "tsc:check": "tsc --noEmit"
   },
   "dependencies": {
-    "@ark-ui/react": "^5.39.3",
+    "@ark-ui/react": "^5.40.0",
     "@fontsource-variable/noto-sans": "^5.3.0",
     "@moduix/react": "^3.2.0",
     "react": "^19.3.1",

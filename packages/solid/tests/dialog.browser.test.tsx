@@ -36,9 +36,7 @@ function DialogParts(props: { children?: JSX.Element }) {
   );
 }
 
-// Ark Solid 5.39.3 also leaves the nested Portal host aria-hidden; re-enable after the upstream fix.
-
-test.skip('keeps nested dialogs accessible and restores parent focus after Escape', async () => {
+test('keeps nested dialogs accessible and restores parent focus after Escape', async () => {
   render(() => (
     <Popover portalled>
       <PopoverTrigger>Open popover</PopoverTrigger>

@@ -85,6 +85,22 @@
     }
   }
 
+  .tooltipSurface {
+    display: block;
+    max-width: var(--ts-chart-tooltip-max-width, 24rem);
+    padding: var(--ts-chart-tooltip-padding);
+    border: var(--ts-chart-tooltip-border);
+    border-radius: var(--ts-chart-tooltip-border-radius);
+    background: var(--ts-chart-tooltip-background);
+    box-shadow: var(--ts-chart-tooltip-shadow);
+    color: var(--ts-chart-tooltip-color);
+    font: var(--ts-chart-tooltip-font);
+
+    &:empty {
+      display: none;
+    }
+  }
+
   .defaultTooltipContent,
   .tooltipRows {
     display: grid;

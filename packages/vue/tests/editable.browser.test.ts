@@ -136,7 +136,7 @@ test('commits with Enter and reverts with Escape', async () => {
   await expect.element(page.getByRole('button', { name: 'cancel', exact: true })).toBeVisible();
   await expect.element(editTrigger).toHaveCount(0);
 
-  const input = page.getByRole('textbox', { name: 'editable input', exact: true });
+  const input = page.getByRole('textbox', { name: 'Name', exact: true });
   await input.fill('Draft name');
   await input.press('Escape');
 
@@ -183,9 +183,7 @@ test('activates the preview with the moduix double-click default', async () => {
 
   await page.getByText('Layer name').dblclick();
 
-  await expect
-    .element(page.getByRole('textbox', { name: 'editable input', exact: true }))
-    .toBeVisible();
+  await expect.element(page.getByRole('textbox', { name: 'Name', exact: true })).toBeVisible();
 });
 
 test('keeps disabled triggers unavailable and read-only values unchanged', async () => {
@@ -290,8 +288,8 @@ test('submits the committed value through an external form owner', async () => {
 
   await page.getByRole('button', { name: 'edit', exact: true }).click();
 
-  await page.getByRole('textbox', { name: 'editable input', exact: true }).fill('Published name');
-  await page.getByRole('textbox', { name: 'editable input', exact: true }).press('Enter');
+  await page.getByRole('textbox', { name: 'Name', exact: true }).fill('Published name');
+  await page.getByRole('textbox', { name: 'Name', exact: true }).press('Enter');
 
   await expect.element(page.getByText('Published name')).toBeVisible();
   const form = document.getElementById('editable-form');

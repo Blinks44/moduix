@@ -79,7 +79,7 @@ test('commits textarea values with Ctrl or Cmd + Enter', async () => {
       <Editable default-edit default-value="Draft description" @value-commit="commits.push($event.value)">
         <EditableLabel>Description</EditableLabel>
         <EditableArea>
-          <EditableInput as-child><textarea aria-label="editable input" /></EditableInput>
+          <EditableInput as-child><textarea /></EditableInput>
           <EditablePreview />
         </EditableArea>
         <EditableControls />
@@ -90,10 +90,10 @@ test('commits textarea values with Ctrl or Cmd + Enter', async () => {
   render(Harness);
 
   await page
-    .getByRole('textbox', { name: 'editable input', exact: true })
+    .getByRole('textbox', { name: 'Description', exact: true })
     .fill('Published description');
   await page
-    .getByRole('textbox', { name: 'editable input', exact: true })
+    .getByRole('textbox', { name: 'Description', exact: true })
     .press('ControlOrMeta+Enter');
 
   await expect.poll(() => commits).toEqual(['Published description']);
