@@ -1,0 +1,78 @@
+@layer moduix.storybook {
+  .stack {
+    display: grid;
+    gap: var(--moduix-spacing-2);
+    justify-items: start;
+  }
+
+  .hint {
+    color: var(--moduix-muted-foreground);
+    font-size: var(--moduix-text-xs);
+    line-height: var(--moduix-line-height-text-xs);
+  }
+
+  .button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 2rem;
+    border: var(--moduix-border-width-sm) solid var(--moduix-border);
+    border-radius: var(--moduix-radius-md);
+    padding-inline: var(--moduix-spacing-3);
+    background: var(--moduix-background);
+    color: var(--moduix-foreground);
+    font: inherit;
+    cursor: pointer;
+    transition:
+      background-color var(--moduix-transition-default),
+      border-color var(--moduix-transition-default);
+
+    &:hover {
+      background-color: var(--moduix-accent);
+    }
+
+    &:focus-visible {
+      outline: var(--moduix-border-width-sm) solid var(--moduix-ring);
+      outline-offset: var(--moduix-border-width-sm);
+    }
+  }
+
+  .vertical {
+    min-width: 10rem;
+  }
+
+  .customRoot {
+    --moduix-segment-group-bg: var(--moduix-background);
+    --moduix-segment-group-border-color: var(--moduix-primary);
+    --moduix-segment-group-indicator-bg: var(--moduix-primary);
+  }
+
+  .customItem {
+    --moduix-segment-group-item-color-checked: var(--moduix-primary-foreground);
+  }
+
+  .cardItem {
+    display: grid;
+    gap: 0.125rem;
+    width: 9rem;
+    min-height: 4.5rem;
+    align-content: center;
+    justify-items: start;
+    padding: var(--moduix-spacing-3);
+    white-space: normal;
+  }
+
+  .cardTitle {
+    font-weight: var(--moduix-weight-semibold);
+  }
+
+  .cardDescription {
+    color: var(--moduix-muted-foreground);
+    font-size: var(--moduix-text-xs);
+    line-height: var(--moduix-line-height-text-xs);
+
+    .cardItem[data-state='checked'] & {
+      color: var(--moduix-segment-group-item-color-checked, var(--moduix-foreground));
+    }
+  }
+}

@@ -1,0 +1,61 @@
+@layer moduix.components {
+  .root {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--moduix-spacing-1);
+    width: 100%;
+    color: var(--moduix-foreground);
+
+    &[data-disabled] {
+      opacity: var(--moduix-opacity-disabled);
+
+      :where(
+          [data-slot='field-root'][data-disabled],
+          [data-slot='field-root-provider'][data-disabled],
+          [data-slot='fieldset-root'][data-disabled],
+          [data-slot='fieldset-root-provider'][data-disabled]
+        )
+        & {
+        opacity: 1;
+      }
+    }
+  }
+
+  .item {
+    display: grid;
+    gap: var(--moduix-spacing-1);
+  }
+
+  .label {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--moduix-spacing-2);
+    overflow-wrap: anywhere;
+    color: var(--moduix-foreground);
+    font-size: var(--moduix-text-sm);
+    font-weight: var(--moduix-weight-medium);
+    line-height: var(--moduix-line-height-text-sm);
+  }
+
+  .helperText,
+  .errorText {
+    margin: 0;
+    overflow-wrap: anywhere;
+    font-size: var(--moduix-text-sm);
+    line-height: var(--moduix-line-height-text-sm);
+  }
+
+  .helperText {
+    color: var(--moduix-muted-foreground);
+  }
+
+  .errorText {
+    color: var(--moduix-destructive);
+    font-weight: var(--moduix-weight-medium);
+  }
+
+  .requiredIndicator {
+    color: var(--moduix-destructive);
+  }
+}

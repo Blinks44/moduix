@@ -1,0 +1,64 @@
+.demoRoot {
+  --moduix-angle-slider-size: 9rem;
+}
+
+.stressRoot {
+  --moduix-angle-slider-size: 9rem;
+
+  max-width: 12rem;
+}
+
+.customRoot {
+  --moduix-angle-slider-indicator-bg: var(--moduix-chart-4);
+  --moduix-angle-slider-ring-thickness: 1rem;
+  --moduix-angle-slider-size: 10rem;
+  --moduix-angle-slider-thumb-size: 1.125rem;
+  --moduix-angle-slider-track-bg: color-mix(
+    in oklab,
+    var(--moduix-chart-4) 16%,
+    var(--moduix-muted)
+  );
+
+  & [data-slot='angle-slider-thumb']::before {
+    border-color: var(--moduix-chart-4);
+  }
+}
+
+.providerLayout {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.providerButton {
+  min-height: 2.5rem;
+  padding-inline: 1rem;
+  border: var(--moduix-border-width-sm) solid var(--moduix-border);
+  border-radius: var(--moduix-radius-md);
+  background: var(--moduix-background);
+  color: var(--moduix-foreground);
+  font: inherit;
+  cursor: pointer;
+
+  &:hover {
+    background: var(--moduix-muted);
+  }
+
+  &:focus-visible {
+    outline: var(--moduix-border-width-md) solid var(--moduix-ring);
+    outline-offset: 2px;
+  }
+}
+.form {
+  display: grid;
+  gap: var(--moduix-spacing-3);
+  justify-items: center;
+}
+
+.formActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--moduix-spacing-2);
+  align-items: center;
+  justify-content: center;
+}

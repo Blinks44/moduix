@@ -1,0 +1,50 @@
+.stack {
+  display: grid;
+  gap: var(--moduix-spacing-4);
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--moduix-spacing-3);
+}
+
+.value {
+  color: var(--moduix-muted-foreground);
+  font-size: var(--moduix-text-sm);
+  line-height: var(--moduix-line-height-text-sm);
+}
+
+.verticalContainer {
+  display: flex;
+  height: 14rem;
+}
+
+.verticalSlider {
+  width: auto;
+}
+
+.customSlider {
+  width: 16rem;
+}
+
+.customControl {
+  min-height: 1.5rem;
+}
+
+.customTrack {
+  --moduix-slider-track-size: 0.625rem;
+  --moduix-slider-track-bg: color-mix(in oklab, var(--moduix-chart-4) 18%, var(--moduix-muted));
+  box-shadow: none;
+}
+
+.customRange {
+  --moduix-slider-range-bg: var(--moduix-chart-4);
+}
+
+.customThumb {
+  --moduix-slider-thumb-size: 1.25rem;
+  border-color: var(--moduix-background);
+  background-color: var(--moduix-chart-4);
+}

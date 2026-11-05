@@ -1,0 +1,86 @@
+@layer moduix.components {
+  .root {
+    --_textarea-padding-x: var(--moduix-spacing-3);
+    --_textarea-padding-y: var(--moduix-spacing-2);
+    --_textarea-font-size: var(--moduix-text-md);
+    --_textarea-line-height: var(--moduix-line-height-text-md);
+
+    width: var(--moduix-textarea-width, 100%);
+    margin: 0;
+    border: var(--moduix-border-width-sm) solid var(--moduix-input);
+    border-radius: var(--moduix-textarea-radius, var(--moduix-radius-md));
+    padding: var(--_textarea-padding-y) var(--_textarea-padding-x);
+    background-color: var(--moduix-background);
+    color: var(--moduix-foreground);
+    font: inherit;
+    font-size: var(--_textarea-font-size);
+    line-height: var(--_textarea-line-height);
+    outline: var(--moduix-focus-ring-halo-width) solid transparent;
+    resize: vertical;
+    transition:
+      border-color var(--moduix-transition-default),
+      outline-color var(--moduix-transition-default),
+      opacity var(--moduix-transition-default);
+
+    &::placeholder {
+      color: var(--moduix-muted-foreground);
+    }
+
+    &:focus-visible {
+      border-color: var(--moduix-ring);
+      outline-color: color-mix(in oklab, var(--moduix-ring) 50%, transparent);
+    }
+
+    &:is([data-invalid], [aria-invalid='true']) {
+      border-color: var(--moduix-destructive);
+
+      &:focus-visible {
+        outline-color: color-mix(in oklab, var(--moduix-destructive) 20%, transparent);
+      }
+    }
+
+    &:is([data-disabled], :disabled) {
+      pointer-events: none;
+      opacity: var(--moduix-opacity-disabled);
+
+      :where(
+          [data-slot='field-root'][data-disabled],
+          [data-slot='field-root-provider'][data-disabled],
+          [data-slot='fieldset-root'][data-disabled],
+          [data-slot='fieldset-root-provider'][data-disabled]
+        )
+        & {
+        opacity: 1;
+      }
+    }
+
+    /* Inline padding and type match `Input` of the same size, so stacked controls line up. */
+    &[data-size='xs'] {
+      --_textarea-padding-x: var(--moduix-spacing-2);
+      --_textarea-padding-y: var(--moduix-spacing-1);
+      --_textarea-font-size: var(--moduix-text-xs);
+      --_textarea-line-height: var(--moduix-line-height-text-xs);
+    }
+
+    &[data-size='sm'] {
+      --_textarea-padding-x: var(--moduix-spacing-2);
+      --_textarea-padding-y: var(--moduix-spacing-1-5);
+      --_textarea-font-size: var(--moduix-text-sm);
+      --_textarea-line-height: var(--moduix-line-height-text-sm);
+    }
+
+    &[data-size='lg'] {
+      --_textarea-padding-x: var(--moduix-spacing-4);
+      --_textarea-padding-y: var(--moduix-spacing-2-5);
+      --_textarea-font-size: var(--moduix-text-lg);
+      --_textarea-line-height: var(--moduix-line-height-text-lg);
+    }
+
+    &[data-size='xl'] {
+      --_textarea-padding-x: var(--moduix-spacing-4);
+      --_textarea-padding-y: var(--moduix-spacing-3);
+      --_textarea-font-size: var(--moduix-text-lg);
+      --_textarea-line-height: var(--moduix-line-height-text-lg);
+    }
+  }
+}

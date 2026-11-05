@@ -1,0 +1,186 @@
+@layer moduix.components {
+  .root {
+    --_number-input-height: var(--moduix-size-md);
+    --_number-input-padding-x: var(--moduix-spacing-3);
+    --_number-input-padding-y: var(--moduix-spacing-1);
+    --_number-input-font-size: var(--moduix-text-md);
+    --_number-input-line-height: var(--moduix-line-height-text-md);
+    --_number-input-icon-size: var(--moduix-spacing-3-5);
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--moduix-spacing-1);
+
+    &[data-disabled] {
+      opacity: var(--moduix-opacity-disabled);
+
+      :where(
+          [data-slot='field-root'][data-disabled],
+          [data-slot='field-root-provider'][data-disabled],
+          [data-slot='fieldset-root'][data-disabled],
+          [data-slot='fieldset-root-provider'][data-disabled]
+        )
+        & {
+        opacity: 1;
+      }
+    }
+    &[data-size='xs'] {
+      --_number-input-height: var(--moduix-size-xs);
+      --_number-input-padding-x: var(--moduix-spacing-2);
+      --_number-input-padding-y: var(--moduix-spacing-0-5);
+      --_number-input-font-size: var(--moduix-text-xs);
+      --_number-input-line-height: var(--moduix-line-height-text-xs);
+      --_number-input-icon-size: var(--moduix-spacing-3);
+    }
+
+    &[data-size='sm'] {
+      --_number-input-height: var(--moduix-size-sm);
+      --_number-input-padding-x: var(--moduix-spacing-2);
+      --_number-input-font-size: var(--moduix-text-sm);
+      --_number-input-line-height: var(--moduix-line-height-text-sm);
+      --_number-input-icon-size: var(--moduix-spacing-3);
+    }
+
+    &[data-size='lg'] {
+      --_number-input-height: var(--moduix-size-lg);
+      --_number-input-padding-x: var(--moduix-spacing-4);
+      --_number-input-font-size: var(--moduix-text-lg);
+      --_number-input-line-height: var(--moduix-line-height-text-lg);
+      --_number-input-icon-size: var(--moduix-spacing-4);
+    }
+
+    &[data-size='xl'] {
+      --_number-input-height: var(--moduix-size-xl);
+      --_number-input-padding-x: var(--moduix-spacing-4);
+      --_number-input-padding-y: var(--moduix-spacing-2);
+      --_number-input-font-size: var(--moduix-text-lg);
+      --_number-input-line-height: var(--moduix-line-height-text-lg);
+      --_number-input-icon-size: var(--moduix-spacing-4);
+    }
+  }
+
+  .label {
+    color: var(--moduix-foreground);
+    font-size: var(--moduix-text-sm);
+    font-weight: var(--moduix-weight-medium);
+    line-height: var(--moduix-line-height-text-sm);
+  }
+
+  .scrubber {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--moduix-spacing-2);
+    color: var(--moduix-foreground);
+    user-select: none;
+    cursor: ew-resize;
+
+    &[data-disabled] {
+      cursor: default;
+    }
+  }
+
+  /* Ark keeps the steppers out of the tab order, so the whole group shows the input's focus. */
+  .control {
+    display: inline-flex;
+    border-radius: var(--moduix-number-input-radius, var(--moduix-radius-md));
+    outline: var(--moduix-focus-ring-halo-width) solid transparent;
+    transition: outline-color var(--moduix-transition-default);
+
+    &:focus-within {
+      outline-color: color-mix(in oklab, var(--moduix-ring) 50%, transparent);
+    }
+
+    .root[data-invalid] &:focus-within {
+      outline-color: color-mix(in oklab, var(--moduix-destructive) 20%, transparent);
+    }
+  }
+
+  .decrementTrigger,
+  .input,
+  .incrementTrigger {
+    height: var(--moduix-number-input-control-height, var(--_number-input-height));
+    margin: 0;
+    border: var(--moduix-border-width-sm) solid var(--moduix-input);
+    background-color: var(--moduix-background);
+    color: var(--moduix-foreground);
+    outline: 0;
+
+    .control:focus-within > & {
+      border-color: var(--moduix-ring);
+    }
+
+    .root[data-invalid] & {
+      border-color: var(--moduix-destructive);
+    }
+  }
+
+  .decrementTrigger,
+  .incrementTrigger {
+    display: inline-flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    width: var(--moduix-number-input-control-height, var(--_number-input-height));
+    padding: 0;
+    user-select: none;
+    cursor: pointer;
+    transition:
+      background-color var(--moduix-transition-default),
+      border-color var(--moduix-transition-default),
+      color var(--moduix-transition-default);
+
+    @media (hover: hover) {
+      &:hover {
+        background-color: var(--moduix-accent);
+      }
+    }
+
+    &:active {
+      background-color: var(--moduix-accent);
+    }
+
+    /* Ark disables a trigger at the min or max value and in read-only mode. */
+    &[data-disabled] {
+      color: var(--moduix-muted-foreground);
+      pointer-events: none;
+    }
+
+    & > svg {
+      width: var(--_number-input-icon-size);
+      height: var(--_number-input-icon-size);
+    }
+  }
+
+  .decrementTrigger {
+    border-inline-end: 0;
+    border-start-start-radius: var(--moduix-number-input-radius, var(--moduix-radius-md));
+    border-end-start-radius: var(--moduix-number-input-radius, var(--moduix-radius-md));
+  }
+
+  .incrementTrigger {
+    border-inline-start: 0;
+    border-start-end-radius: var(--moduix-number-input-radius, var(--moduix-radius-md));
+    border-end-end-radius: var(--moduix-number-input-radius, var(--moduix-radius-md));
+  }
+
+  .input {
+    width: var(--moduix-number-input-input-width, 6rem);
+    border-inline: 0;
+    border-radius: 0;
+    padding: var(--_number-input-padding-y) var(--_number-input-padding-x);
+    font: inherit;
+    font-size: var(--_number-input-font-size);
+    line-height: var(--_number-input-line-height);
+    font-variant-numeric: tabular-nums;
+    text-align: center;
+    transition: border-color var(--moduix-transition-default);
+  }
+
+  .valueText {
+    color: var(--moduix-muted-foreground);
+    font-size: var(--moduix-text-sm);
+    line-height: var(--moduix-line-height-text-sm);
+    font-variant-numeric: tabular-nums;
+  }
+}

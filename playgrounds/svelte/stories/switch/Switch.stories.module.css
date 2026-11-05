@@ -1,0 +1,37 @@
+.stack {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--moduix-spacing-3);
+}
+
+.hint {
+  color: var(--moduix-muted-foreground);
+  font-size: var(--moduix-text-xs);
+  line-height: var(--moduix-line-height-text-xs);
+}
+
+.siblingRow {
+  display: flex;
+  align-items: center;
+  gap: var(--moduix-spacing-2);
+}
+
+.label {
+  font-size: var(--moduix-text-sm);
+  font-weight: var(--moduix-weight-medium);
+  line-height: var(--moduix-line-height-text-sm);
+}
+
+.customIconThumb {
+  color: var(--moduix-muted-foreground);
+
+  &[data-state='checked'] {
+    color: var(--moduix-primary);
+  }
+
+  & > svg {
+    width: 0.75rem;
+    height: 0.75rem;
+  }
+}

@@ -1,0 +1,115 @@
+@layer moduix.components {
+  .root {
+    --_pin-input-input-size: var(--moduix-size-md);
+    --_pin-input-font-size: var(--moduix-text-lg);
+    --_pin-input-line-height: var(--moduix-line-height-text-lg);
+
+    display: inline-flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--moduix-spacing-2);
+    color: var(--moduix-foreground);
+
+    &[data-disabled] {
+      opacity: var(--moduix-opacity-disabled);
+
+      :where(
+          [data-slot='field-root'][data-disabled],
+          [data-slot='field-root-provider'][data-disabled],
+          [data-slot='fieldset-root'][data-disabled],
+          [data-slot='fieldset-root-provider'][data-disabled]
+        )
+        & {
+        opacity: 1;
+      }
+    }
+
+    &[data-size='xs'] {
+      --_pin-input-input-size: var(--moduix-size-xs);
+      --_pin-input-font-size: var(--moduix-text-sm);
+      --_pin-input-line-height: var(--moduix-line-height-text-sm);
+    }
+
+    &[data-size='sm'] {
+      --_pin-input-input-size: var(--moduix-size-sm);
+      --_pin-input-font-size: var(--moduix-text-md);
+      --_pin-input-line-height: var(--moduix-line-height-text-md);
+    }
+
+    &[data-size='lg'] {
+      --_pin-input-input-size: var(--moduix-size-lg);
+      --_pin-input-font-size: var(--moduix-text-xl);
+      --_pin-input-line-height: var(--moduix-line-height-text-xl);
+    }
+
+    &[data-size='xl'] {
+      --_pin-input-input-size: var(--moduix-size-xl);
+      --_pin-input-font-size: var(--moduix-text-2xl);
+      --_pin-input-line-height: var(--moduix-line-height-text-2xl);
+    }
+  }
+
+  .label {
+    font-size: var(--moduix-text-sm);
+    font-weight: var(--moduix-weight-medium);
+    line-height: var(--moduix-line-height-text-sm);
+  }
+
+  .control {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--moduix-pin-input-gap, var(--moduix-spacing-2));
+  }
+
+  .input {
+    flex: none;
+    width: var(--moduix-pin-input-input-size, var(--_pin-input-input-size));
+    height: var(--moduix-pin-input-input-size, var(--_pin-input-input-size));
+    margin: 0;
+    border: var(--moduix-border-width-sm) solid var(--moduix-input);
+    border-radius: var(--moduix-pin-input-radius, var(--moduix-radius-md));
+    padding: 0;
+    background-color: var(--moduix-background);
+    color: inherit;
+    font: inherit;
+    font-size: var(--_pin-input-font-size);
+    font-weight: var(--moduix-weight-medium);
+    line-height: var(--_pin-input-line-height);
+    text-align: center;
+    font-variant-numeric: tabular-nums;
+    outline: var(--moduix-focus-ring-halo-width) solid transparent;
+    transition:
+      border-color var(--moduix-transition-default),
+      outline-color var(--moduix-transition-default);
+
+    &::placeholder {
+      color: var(--moduix-muted-foreground);
+    }
+
+    &:focus-visible {
+      border-color: var(--moduix-ring);
+      outline-color: color-mix(in oklab, var(--moduix-ring) 50%, transparent);
+    }
+
+    &[data-invalid] {
+      border-color: var(--moduix-destructive);
+
+      &:focus-visible {
+        outline-color: color-mix(in oklab, var(--moduix-destructive) 20%, transparent);
+      }
+    }
+  }
+
+  .separator {
+    display: inline-flex;
+    flex: none;
+    width: var(--moduix-spacing-4);
+    height: var(--moduix-spacing-4);
+    color: var(--moduix-muted-foreground);
+
+    & > svg {
+      width: 100%;
+      height: 100%;
+    }
+  }
+}

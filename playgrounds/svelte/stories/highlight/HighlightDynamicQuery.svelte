@@ -1,14 +1,14 @@
 <script lang="ts">
   import { Highlight } from '@/components/highlight';
+  import { Input } from '@/components/input';
   import { Text } from '@/components/text';
   import styles from './Highlight.stories.module.css';
-  import TempInput from './TempInput.svelte';
 
   let query = $state('component');
 </script>
 
 <div class={styles.stack}>
-  <TempInput
+  <Input
     bind:value={query}
     aria-label="Search text"
     class={styles.field}

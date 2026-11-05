@@ -14,7 +14,7 @@
     CardMedia,
     CardTitle,
   } from '@/components/card';
-  import Input from './TempInput.svelte';
+  import { Input } from '@/components/input';
 
   const variants = ['elevated', 'outline', 'subtle'] as const;
   const sizes = ['sm', 'md', 'lg'] as const;

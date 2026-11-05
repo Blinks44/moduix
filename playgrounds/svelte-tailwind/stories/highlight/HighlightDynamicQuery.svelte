@@ -1,13 +1,13 @@
 <script lang="ts">
   import { Highlight } from '@/components/highlight';
+  import { Input } from '@/components/input';
   import { Text } from '@/components/text';
-  import TempInput from './TempInput.svelte';
 
   let query = $state('component');
 </script>
 
 <div class="grid w-[min(34rem,calc(100vw-2rem))] gap-4">
-  <TempInput
+  <Input
     bind:value={query}
     aria-label="Search text"
     class="w-full max-w-[18rem]"

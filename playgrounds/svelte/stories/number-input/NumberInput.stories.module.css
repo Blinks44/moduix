@@ -1,0 +1,30 @@
+.stack {
+  display: grid;
+  align-items: flex-start;
+  gap: var(--moduix-spacing-3);
+}
+
+.hint {
+  color: var(--moduix-muted-foreground);
+  font-size: var(--moduix-text-xs);
+  line-height: var(--moduix-line-height-text-xs);
+}
+
+.customButton {
+  background-color: var(--moduix-muted);
+
+  & > svg {
+    width: 1rem;
+    height: 1rem;
+  }
+
+  &:hover {
+    background-color: var(--moduix-accent);
+  }
+}
+
+.customInput {
+  --moduix-number-input-input-width: 7rem;
+
+  font-size: var(--moduix-text-lg);
+}

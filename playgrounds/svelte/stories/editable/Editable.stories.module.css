@@ -1,0 +1,44 @@
+@layer moduix.storybook {
+  .stack {
+    display: grid;
+    gap: var(--moduix-spacing-3);
+  }
+
+  .hint {
+    grid-column: 1 / -1;
+    margin: 0;
+    color: var(--moduix-muted-foreground);
+    font-size: var(--moduix-text-xs);
+    line-height: var(--moduix-line-height-text-xs);
+  }
+
+  .textareaRoot {
+    max-width: 24rem;
+  }
+
+  .textareaPreview {
+    min-height: 6rem;
+  }
+
+  .customArea {
+    border-color: var(--moduix-primary);
+    border-radius: var(--moduix-radius-sm);
+
+    &[data-focus] {
+      outline-color: var(--moduix-primary);
+    }
+  }
+
+  .actions {
+    display: flex;
+    gap: var(--moduix-spacing-2);
+  }
+
+  .actions button {
+    border: var(--moduix-border-width-sm) solid var(--moduix-border);
+    border-radius: var(--moduix-radius-sm);
+    padding: var(--moduix-spacing-1) var(--moduix-spacing-2);
+    background: var(--moduix-background);
+    color: var(--moduix-foreground);
+  }
+}

@@ -976,6 +976,819 @@
           "type": "registry:component"
         }
       ]
+    },
+    {
+      "name": "field",
+      "type": "registry:item",
+      "title": "Field",
+      "description": "moduix Svelte Tailwind Field component.",
+      "dependencies": ["@ark-ui/svelte", "clsx", "tailwind-merge"],
+      "registryDependencies": ["@moduix-svelte-tailwind/foundation", "@moduix-svelte-tailwind/cn"],
+      "files": [
+        {
+          "path": "src/components/field/Field.svelte",
+          "target": "@components/ui/field/Field.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/field/Field.variants.ts",
+          "target": "@components/ui/field/Field.variants.ts",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/field/FieldRootProvider.svelte",
+          "target": "@components/ui/field/FieldRootProvider.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/field/FieldItem.svelte",
+          "target": "@components/ui/field/FieldItem.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/field/FieldLabel.svelte",
+          "target": "@components/ui/field/FieldLabel.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/field/FieldHelperText.svelte",
+          "target": "@components/ui/field/FieldHelperText.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/field/FieldErrorText.svelte",
+          "target": "@components/ui/field/FieldErrorText.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/field/FieldRequiredIndicator.svelte",
+          "target": "@components/ui/field/FieldRequiredIndicator.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/field/index.ts",
+          "target": "@components/ui/field/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "fieldset",
+      "type": "registry:item",
+      "title": "Fieldset",
+      "description": "moduix Svelte Tailwind Fieldset component.",
+      "dependencies": ["@ark-ui/svelte", "clsx", "tailwind-merge"],
+      "registryDependencies": ["@moduix-svelte-tailwind/foundation", "@moduix-svelte-tailwind/cn"],
+      "files": [
+        {
+          "path": "src/components/fieldset/Fieldset.svelte",
+          "target": "@components/ui/fieldset/Fieldset.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/fieldset/FieldsetRootProvider.svelte",
+          "target": "@components/ui/fieldset/FieldsetRootProvider.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/fieldset/FieldsetLegend.svelte",
+          "target": "@components/ui/fieldset/FieldsetLegend.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/fieldset/FieldsetHelperText.svelte",
+          "target": "@components/ui/fieldset/FieldsetHelperText.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/fieldset/FieldsetErrorText.svelte",
+          "target": "@components/ui/fieldset/FieldsetErrorText.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/fieldset/index.ts",
+          "target": "@components/ui/fieldset/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "input",
+      "type": "registry:item",
+      "title": "Input",
+      "description": "moduix Svelte Tailwind Input component.",
+      "dependencies": ["@ark-ui/svelte", "class-variance-authority", "clsx", "tailwind-merge"],
+      "registryDependencies": ["@moduix-svelte-tailwind/foundation", "@moduix-svelte-tailwind/cn"],
+      "files": [
+        {
+          "path": "src/components/input/Input.svelte",
+          "target": "@components/ui/input/Input.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/input/index.ts",
+          "target": "@components/ui/input/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "textarea",
+      "type": "registry:item",
+      "title": "Textarea",
+      "description": "moduix Svelte Tailwind Textarea component.",
+      "dependencies": ["@ark-ui/svelte", "clsx", "tailwind-merge"],
+      "registryDependencies": ["@moduix-svelte-tailwind/foundation", "@moduix-svelte-tailwind/cn"],
+      "files": [
+        {
+          "path": "src/components/textarea/Textarea.svelte",
+          "target": "@components/ui/textarea/Textarea.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/textarea/index.ts",
+          "target": "@components/ui/textarea/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "native-select",
+      "type": "registry:item",
+      "title": "Native Select",
+      "description": "moduix Svelte Tailwind Native Select component.",
+      "dependencies": ["@ark-ui/svelte", "clsx", "tailwind-merge"],
+      "registryDependencies": [
+        "@moduix-svelte-tailwind/foundation",
+        "@moduix-svelte-tailwind/cn",
+        "@moduix-svelte-tailwind/icons"
+      ],
+      "files": [
+        {
+          "path": "src/components/native-select/NativeSelect.svelte",
+          "target": "@components/ui/native-select/NativeSelect.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/native-select/index.ts",
+          "target": "@components/ui/native-select/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "password-input",
+      "type": "registry:item",
+      "title": "PasswordInput",
+      "description": "moduix Svelte Tailwind PasswordInput component.",
+      "dependencies": ["@ark-ui/svelte", "clsx", "tailwind-merge"],
+      "registryDependencies": [
+        "@moduix-svelte-tailwind/foundation",
+        "@moduix-svelte-tailwind/cn",
+        "@moduix-svelte-tailwind/icons"
+      ],
+      "files": [
+        {
+          "path": "src/components/password-input/PasswordInput.svelte",
+          "target": "@components/ui/password-input/PasswordInput.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/password-input/PasswordInputRootProvider.svelte",
+          "target": "@components/ui/password-input/PasswordInputRootProvider.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/password-input/PasswordInputLabel.svelte",
+          "target": "@components/ui/password-input/PasswordInputLabel.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/password-input/PasswordInputField.svelte",
+          "target": "@components/ui/password-input/PasswordInputField.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/password-input/PasswordInputControl.svelte",
+          "target": "@components/ui/password-input/PasswordInputControl.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/password-input/PasswordInputInput.svelte",
+          "target": "@components/ui/password-input/PasswordInputInput.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/password-input/PasswordInputVisibilityTrigger.svelte",
+          "target": "@components/ui/password-input/PasswordInputVisibilityTrigger.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/password-input/PasswordInputIndicator.svelte",
+          "target": "@components/ui/password-input/PasswordInputIndicator.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/password-input/index.ts",
+          "target": "@components/ui/password-input/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "number-input",
+      "type": "registry:item",
+      "title": "NumberInput",
+      "description": "moduix Svelte Tailwind NumberInput component.",
+      "dependencies": ["@ark-ui/svelte", "clsx", "tailwind-merge"],
+      "registryDependencies": [
+        "@moduix-svelte-tailwind/cn",
+        "@moduix-svelte-tailwind/foundation",
+        "@moduix-svelte-tailwind/icons"
+      ],
+      "files": [
+        {
+          "path": "src/components/number-input/NumberInput.svelte",
+          "target": "@components/ui/number-input/NumberInput.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/number-input/NumberInputRootProvider.svelte",
+          "target": "@components/ui/number-input/NumberInputRootProvider.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/number-input/NumberInputLabel.svelte",
+          "target": "@components/ui/number-input/NumberInputLabel.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/number-input/NumberInputScrubber.svelte",
+          "target": "@components/ui/number-input/NumberInputScrubber.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/number-input/NumberInputControl.svelte",
+          "target": "@components/ui/number-input/NumberInputControl.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/number-input/NumberInputDecrementTrigger.svelte",
+          "target": "@components/ui/number-input/NumberInputDecrementTrigger.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/number-input/NumberInputInput.svelte",
+          "target": "@components/ui/number-input/NumberInputInput.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/number-input/NumberInputIncrementTrigger.svelte",
+          "target": "@components/ui/number-input/NumberInputIncrementTrigger.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/number-input/NumberInputValueText.svelte",
+          "target": "@components/ui/number-input/NumberInputValueText.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/number-input/NumberInputField.svelte",
+          "target": "@components/ui/number-input/NumberInputField.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/number-input/index.ts",
+          "target": "@components/ui/number-input/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "pin-input",
+      "type": "registry:item",
+      "title": "PinInput",
+      "description": "moduix Svelte Tailwind PinInput component.",
+      "dependencies": ["@ark-ui/svelte", "clsx", "tailwind-merge"],
+      "registryDependencies": [
+        "@moduix-svelte-tailwind/foundation",
+        "@moduix-svelte-tailwind/cn",
+        "@moduix-svelte-tailwind/icons"
+      ],
+      "files": [
+        {
+          "path": "src/components/pin-input/PinInput.svelte",
+          "target": "@components/ui/pin-input/PinInput.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/pin-input/PinInputRootProvider.svelte",
+          "target": "@components/ui/pin-input/PinInputRootProvider.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/pin-input/PinInputLabel.svelte",
+          "target": "@components/ui/pin-input/PinInputLabel.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/pin-input/PinInputControl.svelte",
+          "target": "@components/ui/pin-input/PinInputControl.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/pin-input/PinInputInput.svelte",
+          "target": "@components/ui/pin-input/PinInputInput.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/pin-input/PinInputInputs.svelte",
+          "target": "@components/ui/pin-input/PinInputInputs.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/pin-input/PinInputSeparator.svelte",
+          "target": "@components/ui/pin-input/PinInputSeparator.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/pin-input/usePinInput.ts",
+          "target": "@components/ui/pin-input/usePinInput.ts",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/pin-input/index.ts",
+          "target": "@components/ui/pin-input/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "checkbox",
+      "type": "registry:item",
+      "title": "Checkbox",
+      "description": "moduix Svelte Tailwind Checkbox component.",
+      "dependencies": ["@ark-ui/svelte", "clsx", "tailwind-merge"],
+      "registryDependencies": [
+        "@moduix-svelte-tailwind/foundation",
+        "@moduix-svelte-tailwind/cn",
+        "@moduix-svelte-tailwind/icons"
+      ],
+      "files": [
+        {
+          "path": "src/components/checkbox/Checkbox.svelte",
+          "target": "@components/ui/checkbox/Checkbox.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/checkbox/CheckboxRootProvider.svelte",
+          "target": "@components/ui/checkbox/CheckboxRootProvider.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/checkbox/CheckboxControl.svelte",
+          "target": "@components/ui/checkbox/CheckboxControl.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/checkbox/CheckboxIndicator.svelte",
+          "target": "@components/ui/checkbox/CheckboxIndicator.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/checkbox/CheckboxLabel.svelte",
+          "target": "@components/ui/checkbox/CheckboxLabel.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/checkbox/CheckboxGroup.svelte",
+          "target": "@components/ui/checkbox/CheckboxGroup.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/checkbox/index.ts",
+          "target": "@components/ui/checkbox/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "radio-group",
+      "type": "registry:item",
+      "title": "RadioGroup",
+      "description": "moduix Svelte Tailwind RadioGroup component.",
+      "dependencies": ["@ark-ui/svelte", "clsx", "tailwind-merge"],
+      "registryDependencies": ["@moduix-svelte-tailwind/foundation", "@moduix-svelte-tailwind/cn"],
+      "files": [
+        {
+          "path": "src/components/radio-group/RadioGroup.svelte",
+          "target": "@components/ui/radio-group/RadioGroup.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/radio-group/RadioGroupRootProvider.svelte",
+          "target": "@components/ui/radio-group/RadioGroupRootProvider.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/radio-group/RadioGroupLabel.svelte",
+          "target": "@components/ui/radio-group/RadioGroupLabel.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/radio-group/RadioGroupItem.svelte",
+          "target": "@components/ui/radio-group/RadioGroupItem.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/radio-group/RadioGroupOption.svelte",
+          "target": "@components/ui/radio-group/RadioGroupOption.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/radio-group/RadioGroupItemControl.svelte",
+          "target": "@components/ui/radio-group/RadioGroupItemControl.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/radio-group/RadioGroupItemText.svelte",
+          "target": "@components/ui/radio-group/RadioGroupItemText.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/radio-group/RadioGroupIndicator.svelte",
+          "target": "@components/ui/radio-group/RadioGroupIndicator.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/radio-group/index.ts",
+          "target": "@components/ui/radio-group/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "switch",
+      "type": "registry:item",
+      "title": "Switch",
+      "description": "moduix Svelte Tailwind Switch component.",
+      "dependencies": ["@ark-ui/svelte", "clsx", "tailwind-merge"],
+      "registryDependencies": ["@moduix-svelte-tailwind/foundation", "@moduix-svelte-tailwind/cn"],
+      "files": [
+        {
+          "path": "src/components/switch/Switch.svelte",
+          "target": "@components/ui/switch/Switch.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/switch/SwitchRootProvider.svelte",
+          "target": "@components/ui/switch/SwitchRootProvider.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/switch/SwitchControl.svelte",
+          "target": "@components/ui/switch/SwitchControl.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/switch/SwitchThumb.svelte",
+          "target": "@components/ui/switch/SwitchThumb.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/switch/SwitchLabel.svelte",
+          "target": "@components/ui/switch/SwitchLabel.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/switch/index.ts",
+          "target": "@components/ui/switch/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "segment-group",
+      "type": "registry:item",
+      "title": "SegmentGroup",
+      "description": "moduix Svelte Tailwind SegmentGroup component.",
+      "dependencies": ["@ark-ui/svelte", "clsx", "tailwind-merge"],
+      "registryDependencies": ["@moduix-svelte-tailwind/foundation", "@moduix-svelte-tailwind/cn"],
+      "files": [
+        {
+          "path": "src/components/segment-group/SegmentGroup.svelte",
+          "target": "@components/ui/segment-group/SegmentGroup.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/segment-group/SegmentGroupRootProvider.svelte",
+          "target": "@components/ui/segment-group/SegmentGroupRootProvider.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/segment-group/SegmentGroupLabel.svelte",
+          "target": "@components/ui/segment-group/SegmentGroupLabel.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/segment-group/SegmentGroupItem.svelte",
+          "target": "@components/ui/segment-group/SegmentGroupItem.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/segment-group/SegmentGroupItemText.svelte",
+          "target": "@components/ui/segment-group/SegmentGroupItemText.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/segment-group/SegmentGroupIndicator.svelte",
+          "target": "@components/ui/segment-group/SegmentGroupIndicator.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/segment-group/SegmentGroupItems.svelte",
+          "target": "@components/ui/segment-group/SegmentGroupItems.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/segment-group/useSegmentGroup.ts",
+          "target": "@components/ui/segment-group/useSegmentGroup.ts",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/segment-group/index.ts",
+          "target": "@components/ui/segment-group/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "rating-group",
+      "type": "registry:item",
+      "title": "RatingGroup",
+      "description": "moduix Svelte Tailwind RatingGroup component.",
+      "dependencies": ["@ark-ui/svelte", "clsx", "tailwind-merge"],
+      "registryDependencies": [
+        "@moduix-svelte-tailwind/foundation",
+        "@moduix-svelte-tailwind/cn",
+        "@moduix-svelte-tailwind/icons"
+      ],
+      "files": [
+        {
+          "path": "src/components/rating-group/RatingGroup.svelte",
+          "target": "@components/ui/rating-group/RatingGroup.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/rating-group/RatingGroupRootProvider.svelte",
+          "target": "@components/ui/rating-group/RatingGroupRootProvider.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/rating-group/RatingGroupLabel.svelte",
+          "target": "@components/ui/rating-group/RatingGroupLabel.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/rating-group/RatingGroupControl.svelte",
+          "target": "@components/ui/rating-group/RatingGroupControl.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/rating-group/RatingGroupItem.svelte",
+          "target": "@components/ui/rating-group/RatingGroupItem.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/rating-group/RatingGroupItemIndicator.svelte",
+          "target": "@components/ui/rating-group/RatingGroupItemIndicator.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/rating-group/RatingGroupItems.svelte",
+          "target": "@components/ui/rating-group/RatingGroupItems.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/rating-group/index.ts",
+          "target": "@components/ui/rating-group/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "slider",
+      "type": "registry:item",
+      "title": "Slider",
+      "description": "moduix Svelte Tailwind Slider component.",
+      "dependencies": ["@ark-ui/svelte", "clsx", "tailwind-merge"],
+      "registryDependencies": ["@moduix-svelte-tailwind/foundation", "@moduix-svelte-tailwind/cn"],
+      "files": [
+        {
+          "path": "src/components/slider/Slider.svelte",
+          "target": "@components/ui/slider/Slider.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/slider/SliderRootProvider.svelte",
+          "target": "@components/ui/slider/SliderRootProvider.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/slider/SliderLabel.svelte",
+          "target": "@components/ui/slider/SliderLabel.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/slider/SliderValueText.svelte",
+          "target": "@components/ui/slider/SliderValueText.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/slider/SliderControl.svelte",
+          "target": "@components/ui/slider/SliderControl.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/slider/SliderTrack.svelte",
+          "target": "@components/ui/slider/SliderTrack.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/slider/SliderRange.svelte",
+          "target": "@components/ui/slider/SliderRange.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/slider/SliderThumb.svelte",
+          "target": "@components/ui/slider/SliderThumb.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/slider/SliderThumbs.svelte",
+          "target": "@components/ui/slider/SliderThumbs.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/slider/SliderMarkerGroup.svelte",
+          "target": "@components/ui/slider/SliderMarkerGroup.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/slider/SliderMarker.svelte",
+          "target": "@components/ui/slider/SliderMarker.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/slider/SliderDraggingIndicator.svelte",
+          "target": "@components/ui/slider/SliderDraggingIndicator.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/slider/index.ts",
+          "target": "@components/ui/slider/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "angle-slider",
+      "type": "registry:item",
+      "title": "AngleSlider",
+      "description": "moduix Svelte Tailwind AngleSlider component.",
+      "dependencies": ["@ark-ui/svelte", "clsx", "tailwind-merge"],
+      "registryDependencies": ["@moduix-svelte-tailwind/foundation", "@moduix-svelte-tailwind/cn"],
+      "files": [
+        {
+          "path": "src/components/angle-slider/AngleSlider.svelte",
+          "target": "@components/ui/angle-slider/AngleSlider.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/angle-slider/AngleSliderRootProvider.svelte",
+          "target": "@components/ui/angle-slider/AngleSliderRootProvider.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/angle-slider/AngleSliderLabel.svelte",
+          "target": "@components/ui/angle-slider/AngleSliderLabel.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/angle-slider/AngleSliderControl.svelte",
+          "target": "@components/ui/angle-slider/AngleSliderControl.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/angle-slider/AngleSliderDial.svelte",
+          "target": "@components/ui/angle-slider/AngleSliderDial.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/angle-slider/AngleSliderValueText.svelte",
+          "target": "@components/ui/angle-slider/AngleSliderValueText.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/angle-slider/AngleSliderThumb.svelte",
+          "target": "@components/ui/angle-slider/AngleSliderThumb.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/angle-slider/AngleSliderMarkerGroup.svelte",
+          "target": "@components/ui/angle-slider/AngleSliderMarkerGroup.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/angle-slider/AngleSliderMarker.svelte",
+          "target": "@components/ui/angle-slider/AngleSliderMarker.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/angle-slider/AngleSliderMarks.svelte",
+          "target": "@components/ui/angle-slider/AngleSliderMarks.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/angle-slider/index.ts",
+          "target": "@components/ui/angle-slider/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "editable",
+      "type": "registry:item",
+      "title": "Editable",
+      "description": "moduix Svelte Tailwind Editable component.",
+      "dependencies": ["@ark-ui/svelte", "clsx", "tailwind-merge"],
+      "registryDependencies": [
+        "@moduix-svelte-tailwind/foundation",
+        "@moduix-svelte-tailwind/cn",
+        "@moduix-svelte-tailwind/icons"
+      ],
+      "files": [
+        {
+          "path": "src/components/editable/Editable.svelte",
+          "target": "@components/ui/editable/Editable.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/editable/EditableRootProvider.svelte",
+          "target": "@components/ui/editable/EditableRootProvider.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/editable/EditableLabel.svelte",
+          "target": "@components/ui/editable/EditableLabel.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/editable/EditableArea.svelte",
+          "target": "@components/ui/editable/EditableArea.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/editable/EditableInput.svelte",
+          "target": "@components/ui/editable/EditableInput.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/editable/EditablePreview.svelte",
+          "target": "@components/ui/editable/EditablePreview.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/editable/EditableControl.svelte",
+          "target": "@components/ui/editable/EditableControl.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/editable/EditableControls.svelte",
+          "target": "@components/ui/editable/EditableControls.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/editable/EditableEditTrigger.svelte",
+          "target": "@components/ui/editable/EditableEditTrigger.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/editable/EditableSubmitTrigger.svelte",
+          "target": "@components/ui/editable/EditableSubmitTrigger.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/editable/EditableCancelTrigger.svelte",
+          "target": "@components/ui/editable/EditableCancelTrigger.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/editable/index.ts",
+          "target": "@components/ui/editable/index.ts",
+          "type": "registry:component"
+        }
+      ]
     }
   ]
 }

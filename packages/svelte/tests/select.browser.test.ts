@@ -4,6 +4,7 @@ import { render, screen } from '@testing-library/svelte';
 import { Select } from '@/components/select';
 import AsChildSelect from './select/AsChildSelect.svelte';
 import BoundFruitSelect from './select/BoundFruitSelect.svelte';
+import FieldFruitSelect from './select/FieldFruitSelect.svelte';
 import FormFruitSelect from './select/FormFruitSelect.svelte';
 import FruitSelect from './select/FruitSelect.svelte';
 import OptionSelect from './select/OptionSelect.svelte';
@@ -109,6 +110,23 @@ test('portals popup content by default and forwards root and field refs', async 
   expect(refs.field?.getAttribute('data-slot')).toBe('select-control');
   expect(container.contains(listbox)).toBe(false);
   expect(document.body.contains(listbox)).toBe(true);
+});
+
+test('inherits Field state in the trigger and explicit native form control', async () => {
+  render(FieldFruitSelect);
+
+  await expect.element(page.getByRole('combobox', { name: 'Fruit', exact: true })).toBeDisabled();
+  await expect
+    .element(page.getByRole('combobox', { name: 'Fruit', exact: true }))
+    .toHaveAttribute('aria-invalid', 'true');
+  await expect
+    .element(page.locator('[data-slot="select-control"]'))
+    .toHaveAttribute('data-disabled');
+  await expect
+    .element(page.locator('[data-slot="select-control"]'))
+    .toHaveAttribute('data-invalid');
+  await expect.element(page.locator('select')).toBeDisabled();
+  await expect.element(page.locator('select')).toHaveAttribute('required');
 });
 
 test('resets an explicit native form control to its default selection', async () => {
