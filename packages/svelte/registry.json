@@ -183,6 +183,308 @@
           "type": "registry:component"
         }
       ]
+    },
+    {
+      "name": "a11y-labels",
+      "type": "registry:item",
+      "title": "moduix a11y labels",
+      "description": "Internal accessible label defaults required only by registry components that render text fallbacks.",
+      "dependencies": [],
+      "files": [
+        {
+          "path": "src/internal/a11yLabels.ts",
+          "target": "@lib/moduix/a11yLabels.ts",
+          "type": "registry:lib"
+        }
+      ]
+    },
+    {
+      "name": "overlay-portal",
+      "type": "registry:item",
+      "title": "moduix overlay portal",
+      "description": "Internal overlay portal helper required only by overlay registry components.",
+      "files": [
+        {
+          "path": "src/internal/overlayPortal/OverlayPortal.svelte",
+          "target": "@lib/moduix/overlayPortal/OverlayPortal.svelte",
+          "type": "registry:lib"
+        },
+        {
+          "path": "src/internal/overlayPortal/OverlayPortalProvider.svelte",
+          "target": "@lib/moduix/overlayPortal/OverlayPortalProvider.svelte",
+          "type": "registry:lib"
+        },
+        {
+          "path": "src/internal/overlayPortal/context.ts",
+          "target": "@lib/moduix/overlayPortal/context.ts",
+          "type": "registry:lib"
+        },
+        {
+          "path": "src/internal/overlayPortal/index.ts",
+          "target": "@lib/moduix/overlayPortal/index.ts",
+          "type": "registry:lib"
+        }
+      ]
+    },
+    {
+      "name": "button",
+      "type": "registry:item",
+      "title": "Button",
+      "description": "moduix Svelte Button component.",
+      "dependencies": ["@ark-ui/svelte", "clsx"],
+      "registryDependencies": ["@moduix-svelte/foundation"],
+      "files": [
+        {
+          "path": "src/components/button/Button.module.css",
+          "target": "@components/ui/button/Button.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/button/Button.svelte",
+          "target": "@components/ui/button/Button.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/button/index.ts",
+          "target": "@components/ui/button/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "close-button",
+      "type": "registry:item",
+      "title": "CloseButton",
+      "description": "moduix Svelte CloseButton component.",
+      "dependencies": ["@ark-ui/svelte", "clsx"],
+      "registryDependencies": [
+        "@moduix-svelte/foundation",
+        "@moduix-svelte/icons",
+        "@moduix-svelte/a11y-labels"
+      ],
+      "files": [
+        {
+          "path": "src/components/close-button/CloseButton.module.css",
+          "target": "@components/ui/close-button/CloseButton.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/close-button/CloseButton.svelte",
+          "target": "@components/ui/close-button/CloseButton.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/close-button/index.ts",
+          "target": "@components/ui/close-button/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "dialog",
+      "type": "registry:item",
+      "title": "Dialog",
+      "description": "moduix Svelte Dialog component.",
+      "dependencies": ["@ark-ui/svelte", "clsx"],
+      "registryDependencies": [
+        "@moduix-svelte/close-button",
+        "@moduix-svelte/foundation",
+        "@moduix-svelte/overlay-portal",
+        "@moduix-svelte/a11y-labels"
+      ],
+      "files": [
+        {
+          "path": "src/components/dialog/Dialog.module.css",
+          "target": "@components/ui/dialog/Dialog.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/dialog/Dialog.svelte",
+          "target": "@components/ui/dialog/Dialog.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/dialog/DialogBackdrop.svelte",
+          "target": "@components/ui/dialog/DialogBackdrop.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/dialog/DialogBody.svelte",
+          "target": "@components/ui/dialog/DialogBody.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/dialog/DialogCloseIcon.svelte",
+          "target": "@components/ui/dialog/DialogCloseIcon.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/dialog/DialogCloseTrigger.svelte",
+          "target": "@components/ui/dialog/DialogCloseTrigger.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/dialog/DialogContent.svelte",
+          "target": "@components/ui/dialog/DialogContent.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/dialog/DialogDescription.svelte",
+          "target": "@components/ui/dialog/DialogDescription.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/dialog/DialogFooter.svelte",
+          "target": "@components/ui/dialog/DialogFooter.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/dialog/DialogHeader.svelte",
+          "target": "@components/ui/dialog/DialogHeader.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/dialog/DialogPositioner.svelte",
+          "target": "@components/ui/dialog/DialogPositioner.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/dialog/DialogRootProvider.svelte",
+          "target": "@components/ui/dialog/DialogRootProvider.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/dialog/DialogTitle.svelte",
+          "target": "@components/ui/dialog/DialogTitle.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/dialog/DialogTrigger.svelte",
+          "target": "@components/ui/dialog/DialogTrigger.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/dialog/index.ts",
+          "target": "@components/ui/dialog/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "select",
+      "type": "registry:item",
+      "title": "Select",
+      "description": "moduix Svelte Select component.",
+      "dependencies": ["@ark-ui/svelte", "clsx"],
+      "registryDependencies": [
+        "@moduix-svelte/foundation",
+        "@moduix-svelte/icons",
+        "@moduix-svelte/close-button",
+        "@moduix-svelte/overlay-portal",
+        "@moduix-svelte/a11y-labels"
+      ],
+      "files": [
+        {
+          "path": "src/components/select/Select.module.css",
+          "target": "@components/ui/select/Select.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/select/Select.svelte",
+          "target": "@components/ui/select/Select.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/select/SelectClearTrigger.svelte",
+          "target": "@components/ui/select/SelectClearTrigger.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/select/SelectContent.svelte",
+          "target": "@components/ui/select/SelectContent.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/select/SelectControl.svelte",
+          "target": "@components/ui/select/SelectControl.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/select/SelectField.svelte",
+          "target": "@components/ui/select/SelectField.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/select/SelectIndicator.svelte",
+          "target": "@components/ui/select/SelectIndicator.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/select/SelectItem.svelte",
+          "target": "@components/ui/select/SelectItem.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/select/SelectItemGroup.svelte",
+          "target": "@components/ui/select/SelectItemGroup.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/select/SelectItemGroupLabel.svelte",
+          "target": "@components/ui/select/SelectItemGroupLabel.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/select/SelectItemIndicator.svelte",
+          "target": "@components/ui/select/SelectItemIndicator.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/select/SelectItemText.svelte",
+          "target": "@components/ui/select/SelectItemText.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/select/SelectLabel.svelte",
+          "target": "@components/ui/select/SelectLabel.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/select/SelectList.svelte",
+          "target": "@components/ui/select/SelectList.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/select/SelectOption.svelte",
+          "target": "@components/ui/select/SelectOption.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/select/SelectPositioner.svelte",
+          "target": "@components/ui/select/SelectPositioner.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/select/SelectRootProvider.svelte",
+          "target": "@components/ui/select/SelectRootProvider.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/select/SelectTrigger.svelte",
+          "target": "@components/ui/select/SelectTrigger.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/select/SelectValueText.svelte",
+          "target": "@components/ui/select/SelectValueText.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/select/index.ts",
+          "target": "@components/ui/select/index.ts",
+          "type": "registry:component"
+        }
+      ]
     }
   ]
 }

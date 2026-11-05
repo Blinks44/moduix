@@ -1,0 +1,170 @@
+@layer moduix.components {
+  .root {
+    --_button-bg: var(--moduix-primary);
+    --_button-color: var(--moduix-primary-foreground);
+    --_button-border-color: var(--moduix-button-bg, var(--_button-bg));
+    --_button-bg-hover: color-mix(in srgb, var(--moduix-button-bg, var(--_button-bg)) 88%, black);
+    --_button-color-hover: var(--moduix-button-color, var(--_button-color));
+    --_button-height: var(--moduix-size-md);
+    --_button-padding-x: var(--moduix-spacing-4);
+    --_button-padding-y: var(--moduix-spacing-1);
+    --_button-font-size: var(--moduix-text-sm);
+    --_button-line-height: var(--moduix-line-height-text-sm);
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--moduix-button-content-gap, var(--moduix-spacing-2));
+    margin: 0;
+    border: var(--moduix-button-border-width, var(--moduix-border-width-sm)) solid transparent;
+    border-radius: var(--moduix-button-radius, var(--moduix-radius-md));
+    background-color: transparent;
+    appearance: none;
+    font: inherit;
+    font-weight: var(--moduix-button-font-weight, var(--moduix-weight-medium));
+    text-decoration: none;
+    user-select: none;
+    white-space: nowrap;
+    cursor: pointer;
+    transition:
+      background-color var(--moduix-transition-fast),
+      border-color var(--moduix-transition-fast),
+      color var(--moduix-transition-fast),
+      opacity var(--moduix-transition-fast),
+      transform var(--moduix-transition-fast);
+
+    &:focus-visible {
+      outline: var(--moduix-focus-ring-width) solid var(--moduix-ring);
+      outline-offset: calc(var(--moduix-button-border-width, var(--moduix-border-width-sm)) * -1);
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+      &[data-slot='button-root']:active:not([data-variant='link'], [aria-haspopup]) {
+        transform: translateY(1px);
+      }
+    }
+
+    &[data-disabled] {
+      opacity: var(--moduix-opacity-disabled);
+      pointer-events: none;
+    }
+
+    & > :where(svg) {
+      width: var(--moduix-button-icon-size, var(--moduix-spacing-4));
+      height: var(--moduix-button-icon-size, var(--moduix-spacing-4));
+      flex-shrink: 0;
+    }
+
+    &[data-variant] {
+      border-color: var(--moduix-button-border-color, var(--_button-border-color));
+      background-color: var(--moduix-button-bg, var(--_button-bg));
+      color: var(--moduix-button-color, var(--_button-color));
+
+      @media (hover: hover) {
+        &:not([data-disabled]):hover {
+          background-color: var(--moduix-button-bg-hover, var(--_button-bg-hover));
+          color: var(--_button-color-hover);
+        }
+      }
+    }
+
+    &[data-variant='outline'] {
+      --_button-bg: var(--moduix-background);
+      --_button-color: var(--moduix-foreground);
+      --_button-border-color: var(--moduix-border);
+      --_button-bg-hover: var(--moduix-accent);
+    }
+
+    &[data-variant='secondary'] {
+      --_button-bg: var(--moduix-secondary);
+      --_button-color: var(--moduix-secondary-foreground);
+      --_button-bg-hover: var(--moduix-accent);
+    }
+
+    &[data-variant='destructive'] {
+      --_button-bg: var(--moduix-destructive);
+      --_button-color: var(--moduix-destructive-foreground);
+    }
+
+    &[data-variant='destructive-outline'] {
+      --_button-bg: var(--moduix-background);
+      --_button-color: var(--moduix-destructive);
+      --_button-border-color: var(--moduix-destructive);
+      --_button-bg-hover: var(--moduix-destructive);
+      --_button-color-hover: var(--moduix-destructive-foreground);
+    }
+
+    &[data-variant='ghost'] {
+      --_button-bg: transparent;
+      --_button-color: var(--moduix-foreground);
+      --_button-border-color: transparent;
+      --_button-bg-hover: var(--moduix-accent);
+    }
+
+    &[data-variant='link'] {
+      --_button-bg: transparent;
+      --_button-color: var(--moduix-primary);
+      --_button-border-color: transparent;
+      --_button-bg-hover: transparent;
+      --_button-color-hover: var(--moduix-foreground);
+
+      text-decoration: underline;
+      text-underline-offset: 0.25em;
+    }
+
+    &[data-size='xs'] {
+      --_button-height: var(--moduix-size-xs);
+      --_button-padding-x: var(--moduix-spacing-2-5);
+      --_button-padding-y: var(--moduix-spacing-0-5);
+      --_button-font-size: var(--moduix-text-xs);
+      --_button-line-height: var(--moduix-line-height-text-xs);
+    }
+
+    &[data-size='sm'],
+    &[data-size='icon-sm'] {
+      --_button-height: var(--moduix-size-sm);
+      --_button-padding-x: var(--moduix-spacing-3);
+    }
+
+    &[data-size='icon-lg'] {
+      --_button-height: var(--moduix-size-lg);
+    }
+
+    &[data-size='lg'] {
+      --_button-height: var(--moduix-size-lg);
+      --_button-padding-x: var(--moduix-spacing-5);
+      --_button-padding-y: var(--moduix-spacing-1-5);
+      --_button-font-size: var(--moduix-text-md);
+      --_button-line-height: var(--moduix-line-height-text-md);
+    }
+
+    &[data-size='xl'] {
+      --_button-height: var(--moduix-size-xl);
+      --_button-padding-x: var(--moduix-spacing-6);
+      --_button-padding-y: var(--moduix-spacing-2);
+      --_button-font-size: var(--moduix-text-lg);
+      --_button-line-height: var(--moduix-line-height-text-lg);
+    }
+
+    &[data-size] {
+      min-height: var(--moduix-button-height, var(--_button-height));
+      padding-block: var(--moduix-button-padding-y, var(--_button-padding-y));
+      padding-inline: var(--moduix-button-padding-x, var(--_button-padding-x));
+      font-size: var(--moduix-button-font-size, var(--_button-font-size));
+      line-height: var(--moduix-button-line-height, var(--_button-line-height));
+    }
+
+    &[data-size^='icon-'] {
+      width: var(--moduix-button-height, var(--_button-height));
+      min-width: var(--moduix-button-height, var(--_button-height));
+      height: var(--moduix-button-height, var(--_button-height));
+      padding: 0;
+      gap: 0;
+    }
+
+    &[data-variant='link'] {
+      min-height: 0;
+      padding-block: 0;
+    }
+  }
+}

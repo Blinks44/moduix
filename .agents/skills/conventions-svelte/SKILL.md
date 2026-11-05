@@ -90,6 +90,16 @@ Use this skill for JS/TS Svelte work in this repo. The adapter targets Svelte 5 
 - Import flat named parts from the component subpath (`import { AccordionRoot, AccordionItem }
   from '@ark-ui/svelte/accordion'`) instead of the `Accordion` namespace. Verify the installed
   exports before writing a wrapper; use `research-upstream-libraries` when behavior is uncertain.
+- Ark Svelte does not prefix every part export: `@ark-ui/svelte/dialog` exports `Root`,
+  `RootProvider`, `Positioner`, `Title`, and `Trigger` unprefixed. Read the component's
+  `index.d.ts` and rename on import (`import { Root as DialogRoot }`).
+- Generic collection parts declare `generics="T extends CollectionItem = CollectionItem"` on the
+  instance script and pass `T` into the Ark prop type (`SelectRootProps<T>`), like Ark Svelte.
+- A Vue `VNodeChild` prop or a React node prop becomes a typed `Snippet` prop. Forward an optional
+  snippet as `children={indicator}` so the child part keeps its own default when it is undefined.
+- Overlay roots wrap Ark in `OverlayPortalProvider` from `@/lib/moduix/overlayPortal`, or call
+  `setOverlayPortalContext` when the root renders its own element; portalled parts render inside
+  `OverlayPortal`. Ark's `Portal` mounts content after a tick, so tests await portalled nodes.
 - Use `Ark` from `@ark-ui/svelte/factory` for factory elements and keep the same default semantic
   host and supported `as`/host choices as the other adapters.
 - `asChild` is a snippet that receives a props function: `{#snippet asChild(props)}<a {...props()}
@@ -97,8 +107,6 @@ Use this skill for JS/TS Svelte work in this repo. The adapter targets Svelte 5 
   rest props; do not convert it into a Boolean or a React-style element clone.
 - Preserve Ark part names, state and data attributes, callback detail objects, ids, and runtime CSS
   variables on every public composition path.
-- Use Ark's `Portal` from `@ark-ui/svelte/portal` where the other adapters use their framework
-  portal, through the package's overlay helper once it exists.
 - Ark Svelte versions differ from React/Solid/Vue; parity comes from the shared zag version. Compare
   `@zag-js/core` versions when an Ark behavior differs between adapters.
 
