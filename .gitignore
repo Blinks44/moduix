@@ -7,6 +7,7 @@ dist/
 doc_build/
 storybook-static/
 .rslib/
+.svelte-kit/
 .turbo/
 *.tsbuildinfo
 

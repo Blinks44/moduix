@@ -1,11 +1,11 @@
 # moduix-monorepo
 
-`moduix` is a multi-framework, Ark UI-backed component system distributed as CSS Modules and Tailwind packages, with shadcn-compatible registries and an Rspress documentation site. React, Solid, and Vue adapters ship today; Svelte adapters are planned. Shared workflows must be framework-neutral and discover shipped adapters instead of assuming that the current package count is permanent.
+`moduix` is a multi-framework, Ark UI-backed component system distributed as CSS Modules and Tailwind packages, with shadcn-compatible registries and an Rspress documentation site. React, Solid, and Vue adapters ship today; Svelte adapters are in development and unpublished. Shared workflows must be framework-neutral and discover shipped adapters instead of assuming that the current package count is permanent.
 
 ## Workspace map
 
-- `packages/<framework>`: public framework-native CSS Modules adapters, tests, and component-local docs. The current adapters are `react`, `solid`, and `vue`.
-- `packages/<framework>-tailwind`: public Tailwind variants kept behaviorally aligned with the CSS Modules adapter for that framework. The current variants are `react-tailwind`, `solid-tailwind`, and `vue-tailwind`.
+- `packages/<framework>`: public framework-native CSS Modules adapters, tests, and component-local docs. The current adapters are `react`, `solid`, and `vue`; `svelte` is in development.
+- `packages/<framework>-tailwind`: public Tailwind variants kept behaviorally aligned with the CSS Modules adapter for that framework. The current variants are `react-tailwind`, `solid-tailwind`, and `vue-tailwind`; `svelte-tailwind` is in development.
 - `playgrounds/<framework>` and `playgrounds/<framework>-tailwind`: private playgrounds for parity checks when that adapter ships.
 - `starters/<framework>-vite`: standalone consumer apps using published npm packages; intentionally
   outside the workspace, each with its own lockfile. Validate with `pnpm run check:starters`.
@@ -53,6 +53,7 @@ Use project skills from [`.agents/skills/`](.agents/skills/README.md). Apply onl
 - **React implementation in `packages/react` or `packages/react-tailwind`:** `conventions-react`.
 - **Solid implementation in `packages/solid` or `packages/solid-tailwind`:** `conventions-solid`; additionally use `research-upstream-libraries` when current Ark Solid behavior matters.
 - **Vue implementation in `packages/vue` or `packages/vue-tailwind`:** `conventions-vue`; additionally use `research-upstream-libraries` for current Ark Vue behavior.
+- **Svelte implementation in `packages/svelte` or `packages/svelte-tailwind`:** `conventions-svelte`; additionally use `research-upstream-libraries` for current Ark Svelte behavior.
 - **Framework-specific implementation:** use the matching native convention skill. Add a focused
   convention skill when a new adapter enters development instead of expanding another framework's
   instructions into generic pseudocode.

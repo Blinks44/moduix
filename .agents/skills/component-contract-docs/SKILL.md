@@ -6,8 +6,8 @@ description: Maintain component-local contract markdown in shipped framework pac
 # Component Contract Docs
 
 Own component-local markdown in `packages/<framework>/src/components` for shipped CSS Modules adapters.
-The current locations are `packages/react/src/components`, `packages/solid/src/components`, and
-`packages/vue/src/components`.
+The current locations are `packages/react/src/components`, `packages/solid/src/components`,
+`packages/vue/src/components`, and, for components already ported, `packages/svelte/src/components`.
 It records the shipped moduix wrapper contract for maintainers; it is not a second public
 documentation site or a copy of upstream reference material.
 

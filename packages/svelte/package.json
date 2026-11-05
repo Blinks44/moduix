@@ -1,0 +1,101 @@
+{
+  "name": "@moduix/svelte",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Accessible Svelte UI components built on Ark UI and styled with CSS Modules. 80+ components with the same API for React, Solid, and Vue.",
+  "keywords": [
+    "a11y",
+    "accessible",
+    "ark-ui",
+    "component-library",
+    "components",
+    "css-modules",
+    "design-system",
+    "headless",
+    "shadcn",
+    "svelte",
+    "svelte-components",
+    "svelte5",
+    "typescript",
+    "ui",
+    "ui-components"
+  ],
+  "homepage": "https://moduix.dev/",
+  "bugs": {
+    "url": "https://github.com/Blinks44/moduix/issues"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Blinks44/moduix.git",
+    "directory": "packages/svelte"
+  },
+  "files": [
+    "dist",
+    "!dist/index.*",
+    "LICENSE.md",
+    "THIRD_PARTY_NOTICES.md"
+  ],
+  "type": "module",
+  "sideEffects": [
+    "**/*.css"
+  ],
+  "exports": {
+    "./*": {
+      "types": "./dist/components/*/index.d.ts",
+      "svelte": "./dist/components/*/index.js",
+      "default": "./dist/components/*/index.js"
+    },
+    "./locale": {
+      "types": "./dist/locale.d.ts",
+      "svelte": "./dist/locale.js",
+      "default": "./dist/locale.js"
+    },
+    "./style.css": "./dist/styles/style.css",
+    "./reset.css": "./dist/styles/reset.css",
+    "./presets/*": "./dist/presets/*",
+    "./package.json": "./package.json"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "svelte-package --input src && node ../../scripts/copy-foundation-styles.mjs",
+    "check:package": "publint",
+    "dev": "svelte-package --input src --watch",
+    "test": "rstest run",
+    "test:watch": "rstest --watch",
+    "tsc:check": "svelte-check --tsconfig ./tsconfig.json --fail-on-warnings"
+  },
+  "dependencies": {
+    "@lucide/svelte": "catalog:",
+    "@unpic/core": "catalog:",
+    "clsx": "catalog:",
+    "unpic": "catalog:"
+  },
+  "devDependencies": {
+    "@ark-ui/svelte": "catalog:",
+    "@internationalized/date": "catalog:",
+    "@rsbuild/core": "catalog:",
+    "@rsbuild/plugin-svelte": "catalog:",
+    "@rstest/browser": "catalog:",
+    "@rstest/core": "catalog:",
+    "@sveltejs/package": "catalog:",
+    "@tanstack/charts": "catalog:",
+    "@testing-library/svelte": "catalog:",
+    "@types/node": "catalog:",
+    "svelte": "catalog:",
+    "svelte-check": "catalog:",
+    "typescript": "~6.0.3"
+  },
+  "peerDependencies": {
+    "@ark-ui/svelte": "^5.25.1",
+    "@tanstack/charts": "^1.1.0",
+    "svelte": "^5.29.0"
+  },
+  "peerDependenciesMeta": {
+    "@tanstack/charts": {
+      "optional": true
+    }
+  }
+}

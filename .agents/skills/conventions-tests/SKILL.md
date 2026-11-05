@@ -40,6 +40,8 @@ follow the matching native convention skill. `component-workflow` owns adapter p
   project, happy-dom, user-event, or jest-dom setup. Add a Node project only when the package has
   Node tests.
 - Reuse Rslib transforms through the official adapter. Do not build a separate compiler pipeline.
+  Svelte has no Rslib build; its rstest config uses `@rsbuild/plugin-svelte` directly
+  (`conventions-svelte` owns the required settings).
 - Use each framework's installed Testing Library for rendering, prop updates, and cleanup in both
   styling adapters. Register cleanup explicitly through Rstest. Do not add a second renderer,
   a cross-framework test DSL, or a local rendering abstraction.
@@ -58,7 +60,7 @@ follow the matching native convention skill. `component-workflow` owns adapter p
   styles) or a genuinely adapter-specific harness in that package's `tests/styles/`. A shared test
   must not use Tailwind utilities: the Tailwind entry does not scan the CSS Modules package.
 - Node SSR coverage lives in one `tests/ssr.test.*` per package: it loads every component without
-  browser globals and renders open overlays (React, Solid) or every Vue fixture. Do not add
+  browser globals and renders open overlays (React, Solid) or every Vue or Svelte fixture. Do not add
   per-component SSR files; add a focused Node test only for a server-specific regression.
 - For Vue SSR/hydration, reuse a small compiled SFC fixture. Node SSR must run without browser globals;
   browser hydration must preserve hosts/IDs and still support interaction. HTML rendered inside the

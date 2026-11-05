@@ -1,6 +1,6 @@
 # moduix Project Skills
 
-Local agent skills for maintaining the multi-framework `moduix` package family, registries, playgrounds, and docs. React, Solid, and Vue adapters ship today; Svelte adapters are planned. General skills discover the adapters that actually exist instead of treating the current package count as permanent.
+Local agent skills for maintaining the multi-framework `moduix` package family, registries, playgrounds, and docs. React, Solid, and Vue adapters ship today; Svelte adapters are in development. General skills discover the adapters that actually exist instead of treating the current package count as permanent.
 
 The library is Ark-backed and actively developed. Skills should preserve current behavior and the
 documented target public contract, keep package/docs/registry output aligned, and remove stale
@@ -15,7 +15,7 @@ Skills are intentionally narrow and composable:
 - Each skill owns one technical surface; it links to adjacent skills instead of copying their rules.
 - Conditional details live in `references/`, not in every task's initial context.
 - Framework-specific convention skills stay narrow. Add a native skill when a new adapter enters
-  development; keep future Svelte mechanics out of existing framework convention skills.
+  development; keep one framework's mechanics out of other framework convention skills.
 - Finite repository migrations live in the gitignored `.local/` directory, reference permanent
   skills for implementation, and are deleted after their completion condition is met. Plans are not
   repository documentation and must not be committed.
@@ -29,6 +29,7 @@ Skills are intentionally narrow and composable:
 - `conventions-react`: React and TypeScript implementation conventions.
 - `conventions-solid`: Solid and TypeScript implementation conventions.
 - `conventions-vue`: Vue and TypeScript implementation conventions.
+- `conventions-svelte`: Svelte 5 and TypeScript implementation conventions.
 - `conventions-tests`: repository test scope, environment selection, and readable fixtures.
 - `component-contract-docs`: maintainers' markdown beside a component source file.
 - `research-upstream-libraries`: current Ark UI, Chakra UI, and shadcn research.

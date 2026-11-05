@@ -1,0 +1,188 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "name": "moduix-svelte",
+  "homepage": "https://moduix.dev",
+  "items": [
+    {
+      "name": "foundation",
+      "type": "registry:item",
+      "title": "moduix Svelte core",
+      "description": "Shared runtime dependencies installed by every moduix registry component.",
+      "dependencies": ["@ark-ui/svelte", "clsx"],
+      "registryDependencies": ["https://moduix.dev/r/foundation/core.json"]
+    },
+    {
+      "name": "theme-contrast",
+      "type": "registry:theme",
+      "title": "Contrast theme",
+      "description": "High-clarity moduix tokens with stronger borders and focus states for technical interfaces.",
+      "docs": "Import '@/lib/moduix/styles/style.css' once, then import '@/lib/moduix/presets/contrast.css'. Put data-moduix-theme=\"contrast\" on the document root.",
+      "registryDependencies": ["https://moduix.dev/r/foundation/theme-contrast.json"]
+    },
+    {
+      "name": "theme-dense",
+      "type": "registry:theme",
+      "title": "Dense theme",
+      "description": "Compact moduix tokens with a structured blue palette for admin and data-heavy interfaces.",
+      "docs": "Import '@/lib/moduix/styles/style.css' once, then import '@/lib/moduix/presets/dense.css'. Put data-moduix-theme=\"dense\" on the document root.",
+      "registryDependencies": ["https://moduix.dev/r/foundation/theme-dense.json"]
+    },
+    {
+      "name": "theme-soft",
+      "type": "registry:theme",
+      "title": "Soft theme",
+      "description": "Rounded moduix tokens with a warmer violet palette for product workflows.",
+      "docs": "Import '@/lib/moduix/styles/style.css' once, then import '@/lib/moduix/presets/soft.css'. Put data-moduix-theme=\"soft\" on the document root.",
+      "registryDependencies": ["https://moduix.dev/r/foundation/theme-soft.json"]
+    },
+    {
+      "name": "icons",
+      "type": "registry:item",
+      "title": "moduix icons",
+      "description": "Internal icon components required only by registry components that render them.",
+      "dependencies": ["@lucide/svelte"],
+      "files": [
+        {
+          "path": "src/internal/icons/ui/index.ts",
+          "target": "@lib/moduix/icons/ui/index.ts",
+          "type": "registry:lib"
+        },
+        {
+          "path": "src/internal/icons/ui/CalendarIcon.svelte",
+          "target": "@lib/moduix/icons/ui/CalendarIcon.svelte",
+          "type": "registry:lib"
+        },
+        {
+          "path": "src/internal/icons/ui/CheckIcon.svelte",
+          "target": "@lib/moduix/icons/ui/CheckIcon.svelte",
+          "type": "registry:lib"
+        },
+        {
+          "path": "src/internal/icons/ui/ChevronDownIcon.svelte",
+          "target": "@lib/moduix/icons/ui/ChevronDownIcon.svelte",
+          "type": "registry:lib"
+        },
+        {
+          "path": "src/internal/icons/ui/ChevronLeftIcon.svelte",
+          "target": "@lib/moduix/icons/ui/ChevronLeftIcon.svelte",
+          "type": "registry:lib"
+        },
+        {
+          "path": "src/internal/icons/ui/ChevronRightIcon.svelte",
+          "target": "@lib/moduix/icons/ui/ChevronRightIcon.svelte",
+          "type": "registry:lib"
+        },
+        {
+          "path": "src/internal/icons/ui/ChevronUpDownIcon.svelte",
+          "target": "@lib/moduix/icons/ui/ChevronUpDownIcon.svelte",
+          "type": "registry:lib"
+        },
+        {
+          "path": "src/internal/icons/ui/ChevronUpIcon.svelte",
+          "target": "@lib/moduix/icons/ui/ChevronUpIcon.svelte",
+          "type": "registry:lib"
+        },
+        {
+          "path": "src/internal/icons/ui/CloseIcon.svelte",
+          "target": "@lib/moduix/icons/ui/CloseIcon.svelte",
+          "type": "registry:lib"
+        },
+        {
+          "path": "src/internal/icons/ui/CopyIcon.svelte",
+          "target": "@lib/moduix/icons/ui/CopyIcon.svelte",
+          "type": "registry:lib"
+        },
+        {
+          "path": "src/internal/icons/ui/IndeterminateIcon.svelte",
+          "target": "@lib/moduix/icons/ui/IndeterminateIcon.svelte",
+          "type": "registry:lib"
+        },
+        {
+          "path": "src/internal/icons/ui/MinusIcon.svelte",
+          "target": "@lib/moduix/icons/ui/MinusIcon.svelte",
+          "type": "registry:lib"
+        },
+        {
+          "path": "src/internal/icons/ui/PencilIcon.svelte",
+          "target": "@lib/moduix/icons/ui/PencilIcon.svelte",
+          "type": "registry:lib"
+        },
+        {
+          "path": "src/internal/icons/ui/PipetteIcon.svelte",
+          "target": "@lib/moduix/icons/ui/PipetteIcon.svelte",
+          "type": "registry:lib"
+        },
+        {
+          "path": "src/internal/icons/ui/PlusIcon.svelte",
+          "target": "@lib/moduix/icons/ui/PlusIcon.svelte",
+          "type": "registry:lib"
+        },
+        {
+          "path": "src/internal/icons/ui/RestoreIcon.svelte",
+          "target": "@lib/moduix/icons/ui/RestoreIcon.svelte",
+          "type": "registry:lib"
+        },
+        {
+          "path": "src/internal/icons/ui/SeparatorMarkIcon.svelte",
+          "target": "@lib/moduix/icons/ui/SeparatorMarkIcon.svelte",
+          "type": "registry:lib"
+        }
+      ]
+    },
+    {
+      "name": "accordion",
+      "type": "registry:item",
+      "title": "Accordion",
+      "description": "moduix Svelte Accordion component.",
+      "dependencies": ["@ark-ui/svelte", "clsx"],
+      "registryDependencies": ["@moduix-svelte/foundation", "@moduix-svelte/icons"],
+      "files": [
+        {
+          "path": "src/components/accordion/Accordion.svelte",
+          "target": "@components/ui/accordion/Accordion.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/accordion/AccordionRootProvider.svelte",
+          "target": "@components/ui/accordion/AccordionRootProvider.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/accordion/AccordionItem.svelte",
+          "target": "@components/ui/accordion/AccordionItem.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/accordion/AccordionItemTrigger.svelte",
+          "target": "@components/ui/accordion/AccordionItemTrigger.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/accordion/AccordionItemIndicator.svelte",
+          "target": "@components/ui/accordion/AccordionItemIndicator.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/accordion/AccordionItemContent.svelte",
+          "target": "@components/ui/accordion/AccordionItemContent.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/accordion/AccordionItemBody.svelte",
+          "target": "@components/ui/accordion/AccordionItemBody.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/accordion/Accordion.module.css",
+          "target": "@components/ui/accordion/Accordion.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/accordion/index.ts",
+          "target": "@components/ui/accordion/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    }
+  ]
+}

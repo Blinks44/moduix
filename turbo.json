@@ -70,6 +70,14 @@
       ],
       "outputs": []
     },
+    "@moduix/svelte-tailwind#test": {
+      "inputs": [
+        "$TURBO_DEFAULT$",
+        "$TURBO_ROOT$/packages/foundation/src/**",
+        "$TURBO_ROOT$/packages/svelte/tests/**"
+      ],
+      "outputs": []
+    },
     "tsc:check": {
       "dependsOn": ["^tsc:check"],
       "outputs": []
@@ -94,6 +102,10 @@
     "@moduix/vue-tailwind#tsc:check": {
       "dependsOn": ["^tsc:check", "build:dev"],
       "inputs": ["$TURBO_DEFAULT$", "$TURBO_ROOT$/packages/vue/tests/**"]
+    },
+    "@moduix/svelte-tailwind#tsc:check": {
+      "dependsOn": ["^tsc:check"],
+      "inputs": ["$TURBO_DEFAULT$", "$TURBO_ROOT$/packages/svelte/tests/**"]
     },
     "moduix-docs#tsc:check": {
       "dependsOn": ["^tsc:check", "^build:dev"],

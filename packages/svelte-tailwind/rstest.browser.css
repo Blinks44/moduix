@@ -1,0 +1,5 @@
+@import '../foundation/src/styles/style.css';
+@import 'tailwindcss' source(none);
+
+@source './src/components';
+@source './tests';
