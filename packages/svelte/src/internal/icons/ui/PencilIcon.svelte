@@ -6,4 +6,4 @@
   let props: LucideProps = $props();
 </script>
 
-<LucidePencil aria-hidden="true" focusable="false" strokeWidth={3} {...props} />
+<LucidePencil aria-hidden="true" focusable="false" {...props} />
