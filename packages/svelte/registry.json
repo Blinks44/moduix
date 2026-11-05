@@ -485,6 +485,581 @@
           "type": "registry:component"
         }
       ]
+    },
+    {
+      "name": "alert",
+      "type": "registry:item",
+      "title": "Alert",
+      "description": "moduix Svelte Alert component.",
+      "dependencies": ["@ark-ui/svelte", "clsx"],
+      "registryDependencies": ["@moduix-svelte/foundation"],
+      "files": [
+        {
+          "path": "src/components/alert/Alert.svelte",
+          "target": "@components/ui/alert/Alert.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/alert/AlertIndicator.svelte",
+          "target": "@components/ui/alert/AlertIndicator.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/alert/AlertContent.svelte",
+          "target": "@components/ui/alert/AlertContent.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/alert/AlertTitle.svelte",
+          "target": "@components/ui/alert/AlertTitle.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/alert/AlertDescription.svelte",
+          "target": "@components/ui/alert/AlertDescription.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/alert/AlertActions.svelte",
+          "target": "@components/ui/alert/AlertActions.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/alert/Alert.module.css",
+          "target": "@components/ui/alert/Alert.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/alert/index.ts",
+          "target": "@components/ui/alert/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "aspect-ratio",
+      "type": "registry:item",
+      "title": "AspectRatio",
+      "description": "moduix Svelte AspectRatio component.",
+      "dependencies": ["@ark-ui/svelte", "clsx"],
+      "registryDependencies": ["@moduix-svelte/foundation"],
+      "files": [
+        {
+          "path": "src/components/aspect-ratio/AspectRatio.svelte",
+          "target": "@components/ui/aspect-ratio/AspectRatio.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/aspect-ratio/AspectRatio.module.css",
+          "target": "@components/ui/aspect-ratio/AspectRatio.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/aspect-ratio/index.ts",
+          "target": "@components/ui/aspect-ratio/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "badge",
+      "type": "registry:item",
+      "title": "Badge",
+      "description": "moduix Svelte Badge component.",
+      "dependencies": ["@ark-ui/svelte", "clsx"],
+      "registryDependencies": ["@moduix-svelte/foundation"],
+      "files": [
+        {
+          "path": "src/components/badge/Badge.svelte",
+          "target": "@components/ui/badge/Badge.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/badge/BadgeDot.svelte",
+          "target": "@components/ui/badge/BadgeDot.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/badge/BadgeLabel.svelte",
+          "target": "@components/ui/badge/BadgeLabel.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/badge/Badge.module.css",
+          "target": "@components/ui/badge/Badge.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/badge/index.ts",
+          "target": "@components/ui/badge/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "bleed",
+      "type": "registry:item",
+      "title": "Bleed",
+      "description": "moduix Svelte Bleed component.",
+      "dependencies": ["@ark-ui/svelte", "clsx"],
+      "registryDependencies": ["@moduix-svelte/foundation"],
+      "files": [
+        {
+          "path": "src/components/bleed/Bleed.svelte",
+          "target": "@components/ui/bleed/Bleed.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/bleed/Bleed.module.css",
+          "target": "@components/ui/bleed/Bleed.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/bleed/index.ts",
+          "target": "@components/ui/bleed/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "card",
+      "type": "registry:item",
+      "title": "Card",
+      "description": "moduix Svelte Card component.",
+      "dependencies": ["@ark-ui/svelte", "clsx"],
+      "registryDependencies": ["@moduix-svelte/foundation"],
+      "files": [
+        {
+          "path": "src/components/card/Card.svelte",
+          "target": "@components/ui/card/Card.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/card/CardHeader.svelte",
+          "target": "@components/ui/card/CardHeader.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/card/CardBody.svelte",
+          "target": "@components/ui/card/CardBody.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/card/CardMedia.svelte",
+          "target": "@components/ui/card/CardMedia.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/card/CardBackground.svelte",
+          "target": "@components/ui/card/CardBackground.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/card/CardFooter.svelte",
+          "target": "@components/ui/card/CardFooter.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/card/CardTitle.svelte",
+          "target": "@components/ui/card/CardTitle.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/card/CardDescription.svelte",
+          "target": "@components/ui/card/CardDescription.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/card/CardAction.svelte",
+          "target": "@components/ui/card/CardAction.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/card/CardLink.svelte",
+          "target": "@components/ui/card/CardLink.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/card/Card.module.css",
+          "target": "@components/ui/card/Card.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/card/index.ts",
+          "target": "@components/ui/card/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "container",
+      "type": "registry:item",
+      "title": "Container",
+      "description": "moduix Svelte Container component.",
+      "dependencies": ["@ark-ui/svelte", "clsx"],
+      "registryDependencies": ["@moduix-svelte/foundation"],
+      "files": [
+        {
+          "path": "src/components/container/Container.svelte",
+          "target": "@components/ui/container/Container.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/container/Container.module.css",
+          "target": "@components/ui/container/Container.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/container/index.ts",
+          "target": "@components/ui/container/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "empty",
+      "type": "registry:item",
+      "title": "Empty",
+      "description": "Composable empty-state surface for no-results, no-data, and first-run screens.",
+      "dependencies": ["@ark-ui/svelte", "clsx"],
+      "registryDependencies": ["@moduix-svelte/foundation"],
+      "files": [
+        {
+          "path": "src/components/empty/Empty.svelte",
+          "target": "@components/ui/empty/Empty.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/empty/EmptyIcon.svelte",
+          "target": "@components/ui/empty/EmptyIcon.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/empty/EmptyContent.svelte",
+          "target": "@components/ui/empty/EmptyContent.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/empty/EmptyTitle.svelte",
+          "target": "@components/ui/empty/EmptyTitle.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/empty/EmptyDescription.svelte",
+          "target": "@components/ui/empty/EmptyDescription.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/empty/EmptyActions.svelte",
+          "target": "@components/ui/empty/EmptyActions.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/empty/Empty.module.css",
+          "target": "@components/ui/empty/Empty.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/empty/index.ts",
+          "target": "@components/ui/empty/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "heading",
+      "type": "registry:item",
+      "title": "Heading",
+      "description": "moduix Svelte Heading component.",
+      "dependencies": ["@ark-ui/svelte", "clsx"],
+      "registryDependencies": ["@moduix-svelte/foundation"],
+      "files": [
+        {
+          "path": "src/components/heading/Heading.svelte",
+          "target": "@components/ui/heading/Heading.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/heading/Heading.module.css",
+          "target": "@components/ui/heading/Heading.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/heading/index.ts",
+          "target": "@components/ui/heading/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "highlight",
+      "type": "registry:item",
+      "title": "Highlight",
+      "description": "moduix Svelte Highlight component.",
+      "dependencies": ["@ark-ui/svelte", "clsx"],
+      "registryDependencies": ["@moduix-svelte/foundation"],
+      "files": [
+        {
+          "path": "src/components/highlight/Highlight.svelte",
+          "target": "@components/ui/highlight/Highlight.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/highlight/Highlight.module.css",
+          "target": "@components/ui/highlight/Highlight.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/highlight/index.ts",
+          "target": "@components/ui/highlight/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "kbd",
+      "type": "registry:item",
+      "title": "Kbd",
+      "description": "moduix Svelte Kbd component.",
+      "dependencies": ["@ark-ui/svelte", "clsx"],
+      "registryDependencies": ["@moduix-svelte/foundation"],
+      "files": [
+        {
+          "path": "src/components/kbd/Kbd.svelte",
+          "target": "@components/ui/kbd/Kbd.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/kbd/KbdGroup.svelte",
+          "target": "@components/ui/kbd/KbdGroup.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/kbd/Kbd.module.css",
+          "target": "@components/ui/kbd/Kbd.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/kbd/index.ts",
+          "target": "@components/ui/kbd/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "list",
+      "type": "registry:item",
+      "title": "List",
+      "description": "moduix Svelte List component.",
+      "dependencies": ["@ark-ui/svelte", "clsx"],
+      "registryDependencies": ["@moduix-svelte/foundation"],
+      "files": [
+        {
+          "path": "src/components/list/List.svelte",
+          "target": "@components/ui/list/List.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/list/ListIndicator.svelte",
+          "target": "@components/ui/list/ListIndicator.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/list/ListItem.svelte",
+          "target": "@components/ui/list/ListItem.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/list/List.module.css",
+          "target": "@components/ui/list/List.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/list/index.ts",
+          "target": "@components/ui/list/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "separator",
+      "type": "registry:item",
+      "title": "Separator",
+      "description": "moduix Svelte Separator component.",
+      "dependencies": ["@ark-ui/svelte", "clsx"],
+      "registryDependencies": ["@moduix-svelte/foundation"],
+      "files": [
+        {
+          "path": "src/components/separator/Separator.svelte",
+          "target": "@components/ui/separator/Separator.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/separator/Separator.module.css",
+          "target": "@components/ui/separator/Separator.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/separator/index.ts",
+          "target": "@components/ui/separator/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "simple-grid",
+      "type": "registry:item",
+      "title": "SimpleGrid",
+      "description": "moduix Svelte SimpleGrid component.",
+      "dependencies": ["@ark-ui/svelte", "clsx"],
+      "registryDependencies": ["@moduix-svelte/foundation"],
+      "files": [
+        {
+          "path": "src/components/simple-grid/SimpleGrid.svelte",
+          "target": "@components/ui/simple-grid/SimpleGrid.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/simple-grid/SimpleGrid.module.css",
+          "target": "@components/ui/simple-grid/SimpleGrid.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/simple-grid/index.ts",
+          "target": "@components/ui/simple-grid/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "skeleton",
+      "type": "registry:item",
+      "title": "Skeleton",
+      "description": "moduix Svelte Skeleton component.",
+      "dependencies": ["@ark-ui/svelte", "clsx"],
+      "registryDependencies": ["@moduix-svelte/foundation"],
+      "files": [
+        {
+          "path": "src/components/skeleton/Skeleton.svelte",
+          "target": "@components/ui/skeleton/Skeleton.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/skeleton/Skeleton.module.css",
+          "target": "@components/ui/skeleton/Skeleton.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/skeleton/index.ts",
+          "target": "@components/ui/skeleton/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "spinner",
+      "type": "registry:item",
+      "title": "Spinner",
+      "description": "moduix Svelte Spinner component.",
+      "dependencies": ["@ark-ui/svelte", "clsx"],
+      "registryDependencies": ["@moduix-svelte/foundation", "@moduix-svelte/a11y-labels"],
+      "files": [
+        {
+          "path": "src/components/spinner/Spinner.svelte",
+          "target": "@components/ui/spinner/Spinner.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/spinner/Spinner.module.css",
+          "target": "@components/ui/spinner/Spinner.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/spinner/index.ts",
+          "target": "@components/ui/spinner/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "stack",
+      "type": "registry:item",
+      "title": "Stack",
+      "description": "moduix Svelte Stack component.",
+      "dependencies": ["@ark-ui/svelte", "clsx"],
+      "registryDependencies": ["@moduix-svelte/foundation"],
+      "files": [
+        {
+          "path": "src/components/stack/Stack.svelte",
+          "target": "@components/ui/stack/Stack.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/stack/Stack.module.css",
+          "target": "@components/ui/stack/Stack.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/stack/index.ts",
+          "target": "@components/ui/stack/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "text",
+      "type": "registry:item",
+      "title": "Text",
+      "description": "moduix Svelte Text component.",
+      "dependencies": ["@ark-ui/svelte", "clsx"],
+      "registryDependencies": ["@moduix-svelte/foundation"],
+      "files": [
+        {
+          "path": "src/components/text/Text.svelte",
+          "target": "@components/ui/text/Text.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/text/Text.module.css",
+          "target": "@components/ui/text/Text.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/text/index.ts",
+          "target": "@components/ui/text/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "typeset",
+      "type": "registry:item",
+      "title": "Typeset",
+      "description": "moduix Svelte Typeset component.",
+      "dependencies": ["@ark-ui/svelte", "clsx"],
+      "registryDependencies": ["@moduix-svelte/foundation"],
+      "files": [
+        {
+          "path": "src/components/typeset/Typeset.svelte",
+          "target": "@components/ui/typeset/Typeset.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/typeset/TypesetScroll.svelte",
+          "target": "@components/ui/typeset/TypesetScroll.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/typeset/Typeset.module.css",
+          "target": "@components/ui/typeset/Typeset.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/typeset/index.ts",
+          "target": "@components/ui/typeset/index.ts",
+          "type": "registry:component"
+        }
+      ]
     }
   ]
 }

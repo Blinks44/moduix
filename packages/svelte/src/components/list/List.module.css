@@ -1,0 +1,105 @@
+@layer moduix.components {
+  .root {
+    --_list-gap: var(--moduix-spacing-2);
+
+    display: flex;
+    flex-direction: column;
+    gap: var(--_list-gap);
+    margin: 0;
+    padding: 0;
+    padding-inline-start: var(--moduix-spacing-5);
+    color: var(--moduix-foreground);
+    font-size: var(--moduix-text-md);
+    font-weight: var(--moduix-weight-regular);
+    line-height: var(--moduix-line-height-text-md);
+    letter-spacing: 0;
+    list-style-type: disc;
+    overflow-wrap: break-word;
+
+    &[data-marker='decimal'] {
+      list-style-type: decimal;
+    }
+
+    &[data-marker='none'] {
+      padding-inline-start: 0;
+      list-style: none;
+    }
+
+    &[data-gap='xs'] {
+      --_list-gap: var(--moduix-spacing-1);
+    }
+
+    &[data-gap='md'] {
+      --_list-gap: var(--moduix-spacing-3);
+    }
+
+    &[data-gap='lg'] {
+      --_list-gap: var(--moduix-spacing-4);
+    }
+
+    &[data-gap='xl'] {
+      --_list-gap: var(--moduix-spacing-5);
+    }
+
+    &[data-gap='2xl'] {
+      --_list-gap: var(--moduix-spacing-6);
+    }
+
+    & > li > :is(ul, ol) {
+      margin-block-start: var(--_list-gap);
+    }
+
+    & > li:has(> .indicator) {
+      display: flex;
+      align-items: flex-start;
+    }
+
+    &[data-size='xs'] {
+      font-size: var(--moduix-text-xs);
+      line-height: var(--moduix-line-height-text-xs);
+    }
+
+    &[data-size='sm'] {
+      font-size: var(--moduix-text-sm);
+      line-height: var(--moduix-line-height-text-sm);
+    }
+
+    &[data-size='lg'] {
+      font-size: var(--moduix-text-lg);
+      line-height: var(--moduix-line-height-text-lg);
+    }
+
+    &[data-size='xl'] {
+      font-size: var(--moduix-text-xl);
+      line-height: var(--moduix-line-height-text-xl);
+    }
+
+    &[data-tone='muted'] {
+      color: var(--moduix-muted-foreground);
+    }
+
+    &[data-tone='primary'] {
+      color: var(--moduix-primary);
+    }
+
+    &[data-tone='destructive'] {
+      color: var(--moduix-destructive);
+    }
+  }
+
+  .indicator {
+    display: inline-flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    min-height: 1lh;
+    margin-inline-end: var(--moduix-spacing-2);
+
+    & > :where(svg) {
+      width: 1em;
+      height: 1em;
+      flex-shrink: 0;
+      pointer-events: none;
+    }
+  }
+}

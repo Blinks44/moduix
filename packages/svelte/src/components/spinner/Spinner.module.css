@@ -1,0 +1,60 @@
+@layer moduix.components {
+  .root {
+    --_spinner-size: var(--moduix-spacing-5);
+
+    display: inline-flex;
+    width: var(--moduix-spinner-size, var(--_spinner-size));
+    height: var(--moduix-spinner-size, var(--_spinner-size));
+    flex: 0 0 auto;
+    align-items: center;
+    justify-content: center;
+    vertical-align: middle;
+
+    &[data-size='xs'] {
+      --_spinner-size: var(--moduix-spacing-3);
+    }
+
+    &[data-size='sm'] {
+      --_spinner-size: var(--moduix-spacing-4);
+    }
+
+    &[data-size='lg'] {
+      --_spinner-size: var(--moduix-spacing-7);
+    }
+
+    &[data-size='xl'] {
+      --_spinner-size: var(--moduix-size-md);
+    }
+
+    &[data-size='inherit'] {
+      width: 1em;
+      height: 1em;
+    }
+  }
+
+  .indicator,
+  [data-scope='spinner'][data-part='indicator'] {
+    display: inline-flex;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    animation: var(--moduix-animation-spin);
+
+    & :where(svg) {
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  .ring,
+  [data-scope='spinner'][data-part='ring'] {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border: var(--moduix-spinner-ring-border-width, var(--moduix-border-width-md)) solid
+      var(--moduix-spinner-ring-track-color, color-mix(in oklab, currentColor 22%, transparent));
+    border-block-start-color: currentColor;
+    border-radius: var(--moduix-radius-full);
+  }
+}

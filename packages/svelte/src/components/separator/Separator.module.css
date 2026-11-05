@@ -1,0 +1,42 @@
+@layer moduix.components {
+  .root {
+    --_separator-thickness: var(--moduix-border-width-sm);
+
+    display: block;
+    flex-shrink: 0;
+    margin: 0;
+    border: 0 solid var(--moduix-separator-color, var(--moduix-border));
+
+    &[data-size='xs'] {
+      --_separator-thickness: 0.5px;
+    }
+
+    &[data-size='md'] {
+      --_separator-thickness: var(--moduix-border-width-md);
+    }
+
+    &[data-size='lg'] {
+      --_separator-thickness: 3px;
+    }
+
+    &[data-variant='dashed'] {
+      border-style: dashed;
+    }
+
+    &[data-variant='dotted'] {
+      border-style: dotted;
+    }
+
+    &[data-orientation='horizontal'] {
+      width: 100%;
+      height: 0;
+      border-block-start-width: var(--moduix-separator-thickness, var(--_separator-thickness));
+    }
+
+    &[data-orientation='vertical'] {
+      width: 0;
+      height: 1em;
+      border-inline-start-width: var(--moduix-separator-thickness, var(--_separator-thickness));
+    }
+  }
+}

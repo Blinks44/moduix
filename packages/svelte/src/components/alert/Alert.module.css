@@ -1,0 +1,103 @@
+@layer moduix.components {
+  .root {
+    --_alert-bg: var(--moduix-card);
+    --_alert-border-color: var(--moduix-border);
+    --_alert-color: var(--moduix-card-foreground);
+    --_alert-indicator-color: var(--moduix-muted-foreground);
+    display: flex;
+    align-items: start;
+    width: 100%;
+    min-width: 0;
+    gap: var(--moduix-spacing-3);
+    border: var(--moduix-border-width-sm) solid
+      var(--moduix-alert-border-color, var(--_alert-border-color));
+    border-radius: var(--moduix-radius-lg);
+    padding: var(--moduix-spacing-3);
+    background-color: var(--moduix-alert-bg, var(--_alert-bg));
+    color: var(--moduix-alert-color, var(--_alert-color));
+
+    &[data-status='success'] {
+      --_alert-bg: color-mix(in oklab, var(--moduix-success) 10%, var(--moduix-background));
+      --_alert-border-color: color-mix(in oklab, var(--moduix-success) 34%, transparent);
+      --_alert-color: var(--moduix-foreground);
+      --_alert-indicator-color: color-mix(
+        in oklab,
+        var(--moduix-success) 70%,
+        var(--moduix-foreground)
+      );
+    }
+
+    &[data-status='warning'] {
+      --_alert-bg: color-mix(in oklab, var(--moduix-warning) 13%, var(--moduix-background));
+      --_alert-border-color: color-mix(in oklab, var(--moduix-warning) 38%, transparent);
+      --_alert-color: var(--moduix-foreground);
+      --_alert-indicator-color: color-mix(
+        in oklab,
+        var(--moduix-warning) 70%,
+        var(--moduix-foreground)
+      );
+    }
+
+    &[data-status='error'] {
+      --_alert-bg: color-mix(in oklab, var(--moduix-destructive) 9%, var(--moduix-background));
+      --_alert-border-color: color-mix(in oklab, var(--moduix-destructive) 35%, transparent);
+      --_alert-color: var(--moduix-foreground);
+      --_alert-indicator-color: var(--moduix-destructive);
+    }
+  }
+
+  .indicator {
+    display: inline-flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    margin-block-start: var(--moduix-spacing-0-5);
+    color: var(--moduix-alert-indicator-color, var(--_alert-indicator-color));
+
+    & :where(svg) {
+      width: var(--moduix-spacing-4);
+      height: var(--moduix-spacing-4);
+      flex-shrink: 0;
+      pointer-events: none;
+    }
+  }
+
+  .content {
+    display: grid;
+    flex: 1;
+    min-width: 0;
+    gap: var(--moduix-spacing-1);
+  }
+
+  .title {
+    margin: 0;
+    min-width: 0;
+    font-size: var(--moduix-text-sm);
+    font-weight: var(--moduix-weight-semibold);
+    line-height: var(--moduix-line-height-text-sm);
+    overflow-wrap: anywhere;
+  }
+
+  .description {
+    min-width: 0;
+    color: var(--moduix-alert-description-color, var(--moduix-muted-foreground));
+    font-size: var(--moduix-text-sm);
+    line-height: var(--moduix-line-height-text-sm);
+    overflow-wrap: anywhere;
+
+    & > :first-child {
+      margin-block-start: 0;
+    }
+
+    & > :last-child {
+      margin-block-end: 0;
+    }
+  }
+
+  .actions {
+    display: flex;
+    flex-wrap: wrap;
+    margin-block-start: var(--moduix-spacing-2);
+    gap: var(--moduix-spacing-2);
+  }
+}
